@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-01-30 22:57:02+00:00\n"
+"POT-Creation-Date: 2019-02-20 21:19:51+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -132,7 +132,7 @@ msgid "Business Directory Plugin"
 msgstr "Plugin Katalog Firm"
 
 # @ csv import
-#: includes/admin/csv-import.php:261
+#: includes/admin/csv-import.php:287
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
 "imports to function properly. Your server is using \"%s\" but this path does "
@@ -574,49 +574,49 @@ msgid "Listing category \"%s\" does not exist"
 msgstr "Kategoria \"%s\" nie istnieje"
 
 # @ WPBDM
-#: includes/admin/csv-import.php:118
+#: includes/admin/csv-import.php:130
 msgctxt "admin csv-import"
 msgid "Business %s"
 msgstr "Firmy %s"
 
 # @ WPBDM
-#: includes/admin/csv-import.php:156
+#: includes/admin/csv-import.php:168
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Cokolwiek"
 
 # @ WPBDM
-#: includes/admin/csv-import.php:160
+#: includes/admin/csv-import.php:173
 msgctxt "admin csv-import"
 msgid "Example CSV Import File"
 msgstr "Przykład importowanego pliku CSV"
 
 # @ WPBDM
-#: includes/admin/csv-import.php:161
+#: includes/admin/csv-import.php:174
 msgctxt "admin csv-import"
 msgid "← Return to \"CSV Import\""
 msgstr "← Powrót do \"CSV Import\""
 
 # @ WPBDM
-#: includes/admin/csv-import.php:295
+#: includes/admin/csv-import.php:330
 msgctxt "admin csv-import"
 msgid "There was an error uploading the CSV file."
 msgstr "Błąd podczas przesyłania pliku CSV."
 
 # @ WPBDM
-#: includes/admin/csv-import.php:301
+#: includes/admin/csv-import.php:336
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Proszę załadować nowy lub wybrać istniejący plik CSV."
 
 # @ WPBDM
-#: includes/admin/csv-import.php:314
+#: includes/admin/csv-import.php:349
 msgctxt "admin csv-import"
 msgid "There was an error uploading the images ZIP file."
 msgstr "Wystąpił problem podczas ładowania obrazów w pliku ZIP."
 
 # @ WPBDM
-#: includes/admin/csv-import.php:335
+#: includes/admin/csv-import.php:373
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -626,7 +626,7 @@ msgstr ""
 "sprawdzić przed kontynuacją."
 
 # @ WPBDM
-#: includes/admin/csv-import.php:344
+#: includes/admin/csv-import.php:382
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -1040,18 +1040,29 @@ msgstr "Wielowartościowe?"
 
 # @ WPBDM
 #: templates/admin/csv-import.tpl.php:303
+#, fuzzy
+msgctxt "admin csv-import"
+msgid ""
+"Fee ID (integer) associated to a listing. Use this column when adding or "
+"updating listings from external sources."
+msgstr ""
+"Data zakończenia ofert sformatowano jako YYYY-MM-DD. Użyj tej kolumny "
+"podczas dodawania lub aktualizowania oferty ze źródeł zewnętrznych."
+
+# @ WPBDM
+#: templates/admin/csv-import.tpl.php:310
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr "Lista rozdzielonych średnikami obrazów oferty (z pliku ZIP)"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:310
+#: templates/admin/csv-import.tpl.php:317
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr "Autor oferty - Nazwa Użytkownika"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:317
+#: templates/admin/csv-import.tpl.php:324
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -1060,7 +1071,7 @@ msgstr ""
 "ofercie aktualizacji ze źródeł zewnętrznych."
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:324
+#: templates/admin/csv-import.tpl.php:331
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -1360,7 +1371,7 @@ msgstr ""
 "formularza\" albo niech katalog firm zrobi to dla ciebie automatycznie."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:214
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:516
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Przejdź do \"Zarządzanie polami formularza\""
@@ -3623,40 +3634,40 @@ msgid "Disabled"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/helpers/class-listing-timeline.php:93
+#: includes/admin/helpers/class-listing-timeline.php:102
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing created"
 msgstr "Obrazy"
 
 # @ WPBDM
-#: includes/admin/helpers/class-listing-timeline.php:98
+#: includes/admin/helpers/class-listing-timeline.php:107
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing expired"
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/helpers/class-listing-timeline.php:103
+#: includes/admin/helpers/class-listing-timeline.php:112
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing renewed"
 msgstr "Odnowiono ofertę."
 
-#: includes/admin/helpers/class-listing-timeline.php:118
+#: includes/admin/helpers/class-listing-timeline.php:127
 msgctxt "listing timeline"
 msgid "Paid as admin"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/helpers/class-listing-timeline.php:120
+#: includes/admin/helpers/class-listing-timeline.php:129
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing imported"
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/helpers/class-listing-timeline.php:122
+#: includes/admin/helpers/class-listing-timeline.php:131
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Initial Payment"
@@ -4095,14 +4106,14 @@ msgstr "Autor"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1148
+#: includes/functions.php:1179
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data publikacji"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1149
+#: includes/functions.php:1180
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ostatnij modyfikacji"
@@ -4548,13 +4559,13 @@ msgstr ""
 "Nie można skopiować pluginu kompatybilności AJAX  \"%s\". Tryb "
 "Kompatybilności nie został aktywowany."
 
-#: includes/functions.php:1146
+#: includes/functions.php:1177
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
 # @ WPBDM
-#: includes/functions.php:1147
+#: includes/functions.php:1178
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data zakończenia emisji oferty"
@@ -6835,7 +6846,7 @@ msgid "Submit A Listing"
 msgstr "Dodaj Firmę"
 
 # @ WPBDM
-#: includes/class-view.php:87
+#: includes/class-view.php:103
 #, fuzzy
 msgctxt "views"
 msgid "Invalid credentials."
@@ -7097,7 +7108,7 @@ msgid "(Please choose a fee plan above)"
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:504
+#: includes/views/submit_listing.php:503
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -7106,84 +7117,84 @@ msgstr ""
 "później."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:515
+#: includes/views/submit_listing.php:531
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:528
+#: includes/views/submit_listing.php:544
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
-#: includes/views/submit_listing.php:548
+#: includes/views/submit_listing.php:564
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:550
+#: includes/views/submit_listing.php:566
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:791
+#: includes/views/submit_listing.php:807
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Proszę wprowadzić Imię"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:796
+#: includes/views/submit_listing.php:812
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Proszę wprowadzić Imię"
 
-#: includes/views/submit_listing.php:801
+#: includes/views/submit_listing.php:817
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:811
+#: includes/views/submit_listing.php:827
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:816
+#: includes/views/submit_listing.php:832
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:831
+#: includes/views/submit_listing.php:847
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:838
+#: includes/views/submit_listing.php:854
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:844
+#: includes/views/submit_listing.php:860
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:853
+#: includes/views/submit_listing.php:869
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-Mail: %s"
 
-#: includes/views/submit_listing.php:862
+#: includes/views/submit_listing.php:878
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -7322,12 +7333,12 @@ msgid "Image (file upload)"
 msgstr "Obraz (plik ładowany)"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-linkedin.php:6
+#: includes/fields/class-fieldtypes-linkedin.php:16
 msgctxt "form-fields api"
 msgid "Social Site (LinkedIn profile)"
 msgstr "Strona Społeczności (LinkedIn)"
 
-#: includes/fields/class-fieldtypes-linkedin.php:21
+#: includes/fields/class-fieldtypes-linkedin.php:31
 msgctxt "form-fields api"
 msgid "You can add your Company ID or profile URL here."
 msgstr ""
@@ -7723,6 +7734,492 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Kraj jest wymagany."
 
+# @ WPBDM
+#: includes/functions.php:1257
+#, fuzzy
+msgctxt "templates"
+msgid "Return to results"
+msgstr "Powrót do Katalogu."
+
+#: includes/functions.php:1261 includes/functions.php:1266
+msgctxt "templates"
+msgid "Go back"
+msgstr ""
+
+# @ WPBDM
+#: includes/payment.php:278 templates/renew-resume.tpl.php:39
+#, fuzzy
+msgctxt "templates"
+msgid "Return to fee selection"
+msgstr "Powrót do oferty."
+
+# @ WPBDM
+#: includes/templates-ui.php:199
+msgctxt "templates"
+msgid "No listing categories found."
+msgstr "Nie znaleziono kategorii ofert."
+
+# @ WPBDM
+#: includes/templates-ui.php:333
+msgctxt "templates"
+msgid "Search Listings"
+msgstr "Szukaj Firmy"
+
+# @ WPBDM
+#: includes/templates-ui.php:338
+msgctxt "templates"
+msgid "Advanced Search"
+msgstr "Zaawansowane szukanie"
+
+# @ WPBDM
+#: includes/views/listing_contact.php:149
+msgctxt "templates"
+msgid "Contact listing owner"
+msgstr "Skontaktuj się z właścicielem oferty"
+
+# @ WPBDM
+#: includes/views/listing_contact.php:153
+msgctxt "templates"
+msgid "Send Message to listing owner"
+msgstr "Wyślij wiadomość do właściciela oferty"
+
+# @ WPBDM
+#: includes/views/main.php:9
+msgctxt "templates"
+msgid ""
+"There are no categories assigned to the business directory yet. You need to "
+"assign some categories to the business directory. Only admins can see this "
+"message. Regular users are seeing a message that there are currently no "
+"listings in the directory. Listings cannot be added until you assign "
+"categories to the business directory."
+msgstr ""
+"Nie masz jeszcze żadnej kategorii przypisanej do Katalogu Firm. Musisz "
+"przypisać pewne kategorie do Katalogu Firm. Tylko administratorzy mogą "
+"zobaczyć tę wiadomość. Zwykli użytkownicy widzą komunikat, że nie można "
+"teraz dodać swojej oferty. Oferty nie mogą zostać dodane do momentu "
+"przypisania kategorii do Katalogu Firm."
+
+# @ WPBDM
+#: includes/views/main.php:11
+msgctxt "templates"
+msgid "There are currently no listings in the directory."
+msgstr "Chwilowo brak ofert w Katalogu."
+
+# @ WPBDM
+#: includes/views/main.php:17
+msgctxt "templates"
+msgid ""
+"You have \"Hide Empty Categories\" on and some categories that don't have "
+"listings in them. That means they won't show up on the front end of your "
+"site. If you didn't want that, click <a>here</a> to change the setting."
+msgstr ""
+"Masz ustawione  \"Ukryj Puste Kategorie\" i pewne kategorie, które nie "
+"zawierają ofert. To oznacza, że te kategorie nie będą wyświetlane na "
+"stornach Katalogu. Jeśli chcesz to zmienić  kliknij  <a>tutaj</a>."
+
+#: includes/views/submit_listing.php:339
+msgctxt "templates"
+msgid ""
+"<b>View not available</b>. Do you have the \"Disable Frontend Listing "
+"Submission?\" setting checked?"
+msgstr ""
+
+#: includes/views/submit_listing.php:341
+msgctxt "templates"
+msgid ""
+"Listing submission has been disabled. Contact the administrator for details."
+msgstr ""
+
+#: includes/views/submit_listing.php:506
+msgctxt "templates"
+msgid ""
+"Listing submission is not available at the moment. Contact the administrator "
+"for details."
+msgstr ""
+
+#: includes/views/submit_listing.php:509
+msgctxt "templates"
+msgid ""
+"<b>View not available</b>, there is no \"Category\" association field. %s "
+"and create a new field with this association, or assign this association to "
+"an existing field"
+msgstr ""
+
+# @ WPBDM
+#: includes/views/submit_listing.php:916
+msgctxt "templates"
+msgid "Please agree to the Terms and Conditions."
+msgstr "Musisz zaakceptować nasze warunki i regulamin korzystania z serwisu."
+
+# @ WPBDM
+#: includes/views/submit_listing.php:924
+msgctxt "templates"
+msgid "Terms and Conditions:"
+msgstr "Warunki i regulamin:"
+
+# @ WPBDM
+#: includes/views/submit_listing.php:933
+#, fuzzy
+msgctxt "templates"
+msgid "I agree to the <a>Terms and Conditions</a>"
+msgstr "Akceptuję rwarunki i regulamin korzystania z witryny."
+
+# @ WPBDM
+#: templates/businessdirectory-listings.tpl.php:27
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
+#: templates/search.tpl.php:17
+msgctxt "templates"
+msgid "No listings found."
+msgstr "Nie znaleziono Firm"
+
+# @ WPBDM
+#: templates/businessdirectory-listings.tpl.php:38
+#: templates/listings.tpl.php:31
+msgctxt "templates"
+msgid "&laquo; Previous "
+msgstr "&laquo; Poprzednie"
+
+# @ WPBDM
+#: templates/businessdirectory-listings.tpl.php:39
+#: templates/listings.tpl.php:32
+msgctxt "templates"
+msgid "Next &raquo;"
+msgstr "Następne &raquo;"
+
+# @ WPBDM
+#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
+#: templates/manage_listings.tpl.php:8
+msgctxt "templates"
+msgid "Return to directory"
+msgstr "Powrót do Katalogu."
+
+# @ WPBDM
+#: templates/listing-contactform.tpl.php:20
+msgctxt "templates"
+msgid "Listing Title: "
+msgstr "Nazwa Firmy:"
+
+# @ WPBDM
+#: templates/listing-contactform.tpl.php:29
+msgctxt "templates"
+msgid ""
+"You are currently logged in as %s. Your message will be sent using your "
+"logged in contact email."
+msgstr ""
+"Jesteś zalogowany jako %s. Twoja wiadomość zostanie wysłana używając Twojego "
+"adresu email podanego przy logowaniu."
+
+# @ WPBDM
+#: templates/listing-contactform.tpl.php:36
+#: templates/listing-flagging-form.tpl.php:22
+msgctxt "templates"
+msgid "Your Name"
+msgstr "Nazwisko"
+
+# @ WPBDM
+#: templates/listing-contactform.tpl.php:39
+#: templates/listing-flagging-form.tpl.php:26
+msgctxt "templates"
+msgid "Your Email"
+msgstr "E-mail"
+
+# @ WPBDM
+#: templates/listing-contactform.tpl.php:44
+msgctxt "templates"
+msgid "Message"
+msgstr "Wiadomość"
+
+# @ WPBDM
+#: templates/listing-contactform.tpl.php:53
+msgctxt "templates"
+msgid "Send"
+msgstr "Wyślij"
+
+# @ WPBDM
+#: templates/listing-flagging-form.tpl.php:3
+#, fuzzy
+msgctxt "templates"
+msgid "Report Listing"
+msgstr "Import ofert"
+
+# @ WPBDM
+#: templates/listing-sticky-tag.tpl.php:12
+#: templates/listing-sticky-tag.tpl.php:13
+msgctxt "templates"
+msgid "Featured Listing"
+msgstr "Wyróżniona oferta"
+
+# @ WPBDM
+#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
+msgctxt "templates"
+msgid ""
+"You are not currently logged in. Please login or register first. When "
+"registering, you will receive an activation email. Be sure to check your "
+"spam if you don't see it in your email within 60 minutes."
+msgstr ""
+"Musisz się zalogować lub zarejestrować aby kontynuować. Po rejestracji "
+"otrzymasz link aktywacyjny na podany adres e-mail. Jeśli po upływie 60minut "
+"nadal nie widzisz wiadomości, którą do ciebie wysłaliśmy - sprawdź opcje "
+"spamu w Twojej poczcie."
+
+# @ WPBDM
+#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr "Nie jesteś jeszcze zarejestrowany?"
+
+# @ WPBDM
+#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
+msgctxt "templates"
+msgid "Lost your password?"
+msgstr "Zapomniałeś lub zgubiłeś hasło?"
+
+# @ WPBDM
+#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
+msgctxt "templates"
+msgid ""
+"Your current listings are shown below. To edit a listing click the edit "
+"button. To delete a listing click the delete button."
+msgstr ""
+"Twoje oferty są pokazane poniżej. Kliknij \"Edytuj\" aby edytować ofertę lub "
+"\"Usun\" aby usunąć ofertę."
+
+# @ WPBDM
+#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:6
+msgctxt "templates"
+msgid "You do not currently have any listings in the directory."
+msgstr "Nie masz aktualnie ofert w katalogu."
+
+# @ WPBDM
+#: templates/parts/listing-buttons.tpl.php:19
+#: templates/parts/listing-buttons.tpl.php:63
+msgctxt "templates"
+msgid "Edit"
+msgstr "Edytuj"
+
+# @ WPBDM
+#: templates/parts/listing-buttons.tpl.php:27
+#: templates/parts/listing-buttons.tpl.php:71
+#, fuzzy
+msgctxt "templates"
+msgid "Flag Listing"
+msgstr "Znajdź Firmę"
+
+# @ WPBDM
+#: templates/parts/listing-buttons.tpl.php:35
+#: templates/parts/listing-buttons.tpl.php:79
+msgctxt "templates"
+msgid "Delete"
+msgstr "Usuń"
+
+# @ WPBDM
+#: templates/parts/listing-buttons.tpl.php:36
+msgctxt "templates"
+msgid "Are you sure you wish to delete this listing?"
+msgstr "Jesteś pewien, że chcesz usunąć tą firmę?"
+
+# @ WPBDM
+#: templates/parts/listing-buttons.tpl.php:55
+msgctxt "templates"
+msgid "View"
+msgstr "Widok"
+
+# @ WPBDM
+#: templates/parts/login-required.tpl.php:17
+msgctxt "templates"
+msgid "Login"
+msgstr "Logowanie"
+
+# @ WPBDM
+#: templates/renew-listing-manage-subscription.tpl.php:2
+msgctxt "templates"
+msgid "Recurring Fee Management"
+msgstr "Zarządzanie powtarzającymi sie Abonamentami"
+
+# @ WPBDM
+#: templates/renew-listing.tpl.php:13
+msgctxt "templates"
+msgid "Renew Listing"
+msgstr "Odnowienie oferty"
+
+# @ WPBDM
+#: templates/renew-listing.tpl.php:21
+#, fuzzy
+msgctxt "templates"
+msgid "You are about to renew your listing \"%s\" publication."
+msgstr "Masz zamiar odnowić  ofertę \"%s\" w kategorii \"%s\"."
+
+# @ default
+#: templates/renew-listing.tpl.php:24
+#, fuzzy
+msgctxt "templates"
+msgid ""
+"Please select a fee option or click \"Do not renew my listing\" to remove "
+"your listing from the directory."
+msgstr ""
+"Proszę wybrać odpowiedni abonament lub kliknąć \"Nie odświeżaj mojej oferty"
+"\" aby anulować odnowienie."
+
+# @ WPBDM
+#: templates/renew-listing.tpl.php:39
+#: templates/submit-listing/extra-sections.tpl.php:6
+msgctxt "templates"
+msgid "Continue"
+msgstr "Kontynuacja"
+
+# @ WPBDM
+#: templates/renew-listing.tpl.php:44
+msgctxt "templates"
+msgid "Do not renew my listing"
+msgstr "Nie odnawiaj mojej Oferty"
+
+# @ WPBDM
+#: templates/renew-resume.tpl.php:38
+#, fuzzy
+msgctxt "templates"
+msgid "Continue to checkout"
+msgstr "Inicjacja Płatności"
+
+# @ WPBDM
+#: templates/search-form.tpl.php:3
+msgctxt "templates"
+msgid "Find a listing"
+msgstr "Znajdź Firmę"
+
+# @ WPBDM
+#: templates/search.tpl.php:26
+#, fuzzy
+msgctxt "templates"
+msgid "Return to Search"
+msgstr "Powrót do zaawansowanego wyszukiwania"
+
+# @ WPBDM
+#: templates/submit-listing/extra-sections.tpl.php:1
+msgctxt "templates"
+msgid "Additional Information"
+msgstr "Dodatkowe informacje"
+
+# @ WPBDM
+#: templates/submit-listing-done.tpl.php:1
+msgctxt "templates"
+msgid "Submission Received"
+msgstr "Formularz rejstracyjny został odebrany."
+
+# @ WPBDM
+#: templates/submit-listing-done.tpl.php:4
+msgctxt "templates"
+msgid "Your listing has been submitted."
+msgstr "Twoja Firma została zapisana."
+
+# @ WPBDM
+#: templates/submit-listing-done.tpl.php:11
+msgctxt "templates"
+msgid "Your listing changes were saved."
+msgstr "Zapisano zmiany w Twojej Ofercie."
+
+# @ WPBDM
+#: templates/submit-listing-done.tpl.php:16
+msgctxt "templates"
+msgid "Go to your listing"
+msgstr "Przejdź do Twojej oferty."
+
+#: templates/submit-listing-done.tpl.php:18
+msgctxt "templates"
+msgid ""
+"Your listing requires admin approval. You'll be notified once your listing "
+"is approved."
+msgstr ""
+
+# @ WPBDM
+#: templates/submit-listing-done.tpl.php:22
+msgctxt "templates"
+msgid "Return to directory."
+msgstr "Powrót do Katalogu."
+
+# @ WPBDM
+#: templates/submit-listing-images-single.tpl.php:24
+msgctxt "templates"
+msgid "Set this image as the listing thumbnail."
+msgstr "Ustaw jako Miniaturkę Firmy."
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:10
+msgctxt "templates"
+msgid "Upload Images"
+msgstr "Załaduj obraz"
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:15
+msgctxt "templates"
+msgid "Drop files here"
+msgstr "Przeciągnij i upuść obraz TUTAJ"
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:17
+msgctxt "templates"
+msgid "Select images from your hard drive"
+msgstr "Wybierz obraz z Twojego dysku twardego"
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:20
+msgctxt "templates"
+msgid "Uploading %s file(s)... Please wait."
+msgstr "Przesyłanie %s file(s)... Proszę czekać."
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:23
+msgctxt "templates"
+msgid ""
+"Your image slots are all full at this time.  You may click \"Continue\" if "
+"you are done, or \"Delete Image\" to upload a new image in place of a "
+"current one."
+msgstr ""
+"Wykorzystałeś(aś) dostępne miejsca na obrazy. Kliknij \"Kontynuuj\" aby "
+"zakończyć, lub \"Usuń Obraz\" aby wstawić inny obraz w to miejsce."
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:30
+msgctxt "templates"
+msgid "Image slots available:"
+msgstr "Dostępne miejsca na Obrazy:"
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:36
+msgctxt "templates"
+msgid "File size:"
+msgstr "Maksymalny rozmiar pliku"
+
+#: templates/submit-listing-images-upload-form.tpl.php:38
+#: templates/submit-listing-images-upload-form.tpl.php:45
+#: templates/submit-listing-images-upload-form.tpl.php:52
+msgctxt "templates"
+msgid "No limit"
+msgstr ""
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:43
+msgctxt "templates"
+msgid "Image width:"
+msgstr "Szerokość Obrazu (w px):"
+
+# @ WPBDM
+#: templates/submit-listing-images-upload-form.tpl.php:50
+msgctxt "templates"
+msgid "Image height:"
+msgstr "Wysokość Obrazu (w px)"
+
+# @ WPBDM
+#: templates/submit-listing-images.tpl.php:5
+msgctxt "templates"
+msgid "Current Images"
+msgstr "Aktualne obrazy"
+
+# @ WPBDM
+#: templates/submit-listing-images.tpl.php:8
+msgctxt "templates"
+msgid "There are no images currently attached to your listing."
+msgstr "Obecnie nie ma żadnych obrazków dołączonych do tej oferty."
+
 # @ authorize-net
 #: includes/gateways/class-gateway-authorize-net.php:20
 #, fuzzy
@@ -7838,42 +8335,42 @@ msgid "Report comment is required to save a report"
 msgstr ""
 
 # @ WPBDM
-#: includes/views/flag_listing.php:52
+#: includes/views/flag_listing.php:59
 #, fuzzy
 msgctxt "flag listing"
 msgid "The listing <i>%s</i> has been reported. <a>Return to directory</a>"
 msgstr "Twoja oferta została usunięta."
 
 # @ WPBDM
-#: includes/views/flag_listing.php:105
+#: includes/views/flag_listing.php:112
 #, fuzzy
 msgctxt "flag listing"
 msgid "Your current IP address already reported this listing."
 msgstr "Nie masz uprawnień do edycji tej oferty."
 
 # @ WPBDM
-#: includes/views/flag_listing.php:118
+#: includes/views/flag_listing.php:125
 #, fuzzy
 msgctxt "flag listing"
 msgid "You must select the reason to report this listing as inappropriate."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: includes/views/flag_listing.php:122
+#: includes/views/flag_listing.php:129
 #, fuzzy
 msgctxt "flag listing"
 msgid "You must enter the reason to report this listing as inappropriate."
 msgstr "Masz zamiar odnowić  ofertę \"%s\" w kategorii \"%s\"."
 
 # @ WPBDM
-#: includes/views/flag_listing.php:127
+#: includes/views/flag_listing.php:134
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter your name."
 msgstr "Proszę wprowadzić Imię"
 
 # @ WPBDM
-#: includes/views/flag_listing.php:131
+#: includes/views/flag_listing.php:138
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter your email."
@@ -8492,465 +8989,6 @@ msgid "Next"
 msgstr ""
 
 # @ WPBDM
-#: includes/payment.php:278 templates/renew-resume.tpl.php:39
-#, fuzzy
-msgctxt "templates"
-msgid "Return to fee selection"
-msgstr "Powrót do oferty."
-
-# @ WPBDM
-#: includes/templates-ui.php:199
-msgctxt "templates"
-msgid "No listing categories found."
-msgstr "Nie znaleziono kategorii ofert."
-
-# @ WPBDM
-#: includes/templates-ui.php:333
-msgctxt "templates"
-msgid "Search Listings"
-msgstr "Szukaj Firmy"
-
-# @ WPBDM
-#: includes/templates-ui.php:338
-msgctxt "templates"
-msgid "Advanced Search"
-msgstr "Zaawansowane szukanie"
-
-# @ WPBDM
-#: includes/views/listing_contact.php:149
-msgctxt "templates"
-msgid "Contact listing owner"
-msgstr "Skontaktuj się z właścicielem oferty"
-
-# @ WPBDM
-#: includes/views/listing_contact.php:153
-msgctxt "templates"
-msgid "Send Message to listing owner"
-msgstr "Wyślij wiadomość do właściciela oferty"
-
-# @ WPBDM
-#: includes/views/main.php:9
-msgctxt "templates"
-msgid ""
-"There are no categories assigned to the business directory yet. You need to "
-"assign some categories to the business directory. Only admins can see this "
-"message. Regular users are seeing a message that there are currently no "
-"listings in the directory. Listings cannot be added until you assign "
-"categories to the business directory."
-msgstr ""
-"Nie masz jeszcze żadnej kategorii przypisanej do Katalogu Firm. Musisz "
-"przypisać pewne kategorie do Katalogu Firm. Tylko administratorzy mogą "
-"zobaczyć tę wiadomość. Zwykli użytkownicy widzą komunikat, że nie można "
-"teraz dodać swojej oferty. Oferty nie mogą zostać dodane do momentu "
-"przypisania kategorii do Katalogu Firm."
-
-# @ WPBDM
-#: includes/views/main.php:11
-msgctxt "templates"
-msgid "There are currently no listings in the directory."
-msgstr "Chwilowo brak ofert w Katalogu."
-
-# @ WPBDM
-#: includes/views/main.php:17
-msgctxt "templates"
-msgid ""
-"You have \"Hide Empty Categories\" on and some categories that don't have "
-"listings in them. That means they won't show up on the front end of your "
-"site. If you didn't want that, click <a>here</a> to change the setting."
-msgstr ""
-"Masz ustawione  \"Ukryj Puste Kategorie\" i pewne kategorie, które nie "
-"zawierają ofert. To oznacza, że te kategorie nie będą wyświetlane na "
-"stornach Katalogu. Jeśli chcesz to zmienić  kliknij  <a>tutaj</a>."
-
-#: includes/views/submit_listing.php:339
-msgctxt "templates"
-msgid ""
-"<b>View not available</b>. Do you have the \"Disable Frontend Listing "
-"Submission?\" setting checked?"
-msgstr ""
-
-#: includes/views/submit_listing.php:341
-msgctxt "templates"
-msgid ""
-"Listing submission has been disabled. Contact the administrator for details."
-msgstr ""
-
-# @ WPBDM
-#: includes/views/submit_listing.php:900
-msgctxt "templates"
-msgid "Please agree to the Terms and Conditions."
-msgstr "Musisz zaakceptować nasze warunki i regulamin korzystania z serwisu."
-
-# @ WPBDM
-#: includes/views/submit_listing.php:908
-msgctxt "templates"
-msgid "Terms and Conditions:"
-msgstr "Warunki i regulamin:"
-
-# @ WPBDM
-#: includes/views/submit_listing.php:917
-#, fuzzy
-msgctxt "templates"
-msgid "I agree to the <a>Terms and Conditions</a>"
-msgstr "Akceptuję rwarunki i regulamin korzystania z witryny."
-
-# @ WPBDM
-#: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
-#: templates/search.tpl.php:17
-msgctxt "templates"
-msgid "No listings found."
-msgstr "Nie znaleziono Firm"
-
-# @ WPBDM
-#: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:31
-msgctxt "templates"
-msgid "&laquo; Previous "
-msgstr "&laquo; Poprzednie"
-
-# @ WPBDM
-#: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:32
-msgctxt "templates"
-msgid "Next &raquo;"
-msgstr "Następne &raquo;"
-
-# @ WPBDM
-#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
-#: templates/manage_listings.tpl.php:8
-msgctxt "templates"
-msgid "Return to directory"
-msgstr "Powrót do Katalogu."
-
-# @ WPBDM
-#: templates/listing-contactform.tpl.php:20
-msgctxt "templates"
-msgid "Listing Title: "
-msgstr "Nazwa Firmy:"
-
-# @ WPBDM
-#: templates/listing-contactform.tpl.php:29
-msgctxt "templates"
-msgid ""
-"You are currently logged in as %s. Your message will be sent using your "
-"logged in contact email."
-msgstr ""
-"Jesteś zalogowany jako %s. Twoja wiadomość zostanie wysłana używając Twojego "
-"adresu email podanego przy logowaniu."
-
-# @ WPBDM
-#: templates/listing-contactform.tpl.php:36
-#: templates/listing-flagging-form.tpl.php:22
-msgctxt "templates"
-msgid "Your Name"
-msgstr "Nazwisko"
-
-# @ WPBDM
-#: templates/listing-contactform.tpl.php:39
-#: templates/listing-flagging-form.tpl.php:26
-msgctxt "templates"
-msgid "Your Email"
-msgstr "E-mail"
-
-# @ WPBDM
-#: templates/listing-contactform.tpl.php:44
-msgctxt "templates"
-msgid "Message"
-msgstr "Wiadomość"
-
-# @ WPBDM
-#: templates/listing-contactform.tpl.php:53
-msgctxt "templates"
-msgid "Send"
-msgstr "Wyślij"
-
-# @ WPBDM
-#: templates/listing-flagging-form.tpl.php:3
-#, fuzzy
-msgctxt "templates"
-msgid "Report Listing"
-msgstr "Import ofert"
-
-# @ WPBDM
-#: templates/listing-sticky-tag.tpl.php:12
-#: templates/listing-sticky-tag.tpl.php:13
-msgctxt "templates"
-msgid "Featured Listing"
-msgstr "Wyróżniona oferta"
-
-# @ WPBDM
-#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
-msgctxt "templates"
-msgid ""
-"You are not currently logged in. Please login or register first. When "
-"registering, you will receive an activation email. Be sure to check your "
-"spam if you don't see it in your email within 60 minutes."
-msgstr ""
-"Musisz się zalogować lub zarejestrować aby kontynuować. Po rejestracji "
-"otrzymasz link aktywacyjny na podany adres e-mail. Jeśli po upływie 60minut "
-"nadal nie widzisz wiadomości, którą do ciebie wysłaliśmy - sprawdź opcje "
-"spamu w Twojej poczcie."
-
-# @ WPBDM
-#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr "Nie jesteś jeszcze zarejestrowany?"
-
-# @ WPBDM
-#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr "Zapomniałeś lub zgubiłeś hasło?"
-
-# @ WPBDM
-#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
-msgctxt "templates"
-msgid ""
-"Your current listings are shown below. To edit a listing click the edit "
-"button. To delete a listing click the delete button."
-msgstr ""
-"Twoje oferty są pokazane poniżej. Kliknij \"Edytuj\" aby edytować ofertę lub "
-"\"Usun\" aby usunąć ofertę."
-
-# @ WPBDM
-#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:6
-msgctxt "templates"
-msgid "You do not currently have any listings in the directory."
-msgstr "Nie masz aktualnie ofert w katalogu."
-
-# @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:19
-#: templates/parts/listing-buttons.tpl.php:63
-msgctxt "templates"
-msgid "Edit"
-msgstr "Edytuj"
-
-# @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:27
-#: templates/parts/listing-buttons.tpl.php:71
-#, fuzzy
-msgctxt "templates"
-msgid "Flag Listing"
-msgstr "Znajdź Firmę"
-
-# @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:35
-#: templates/parts/listing-buttons.tpl.php:79
-msgctxt "templates"
-msgid "Delete"
-msgstr "Usuń"
-
-# @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:36
-msgctxt "templates"
-msgid "Are you sure you wish to delete this listing?"
-msgstr "Jesteś pewien, że chcesz usunąć tą firmę?"
-
-# @ WPBDM
-#: templates/parts/listing-buttons.tpl.php:55
-msgctxt "templates"
-msgid "View"
-msgstr "Widok"
-
-# @ WPBDM
-#: templates/parts/login-required.tpl.php:17
-msgctxt "templates"
-msgid "Login"
-msgstr "Logowanie"
-
-# @ WPBDM
-#: templates/renew-listing-manage-subscription.tpl.php:2
-msgctxt "templates"
-msgid "Recurring Fee Management"
-msgstr "Zarządzanie powtarzającymi sie Abonamentami"
-
-# @ WPBDM
-#: templates/renew-listing.tpl.php:13
-msgctxt "templates"
-msgid "Renew Listing"
-msgstr "Odnowienie oferty"
-
-# @ WPBDM
-#: templates/renew-listing.tpl.php:21
-#, fuzzy
-msgctxt "templates"
-msgid "You are about to renew your listing \"%s\" publication."
-msgstr "Masz zamiar odnowić  ofertę \"%s\" w kategorii \"%s\"."
-
-# @ default
-#: templates/renew-listing.tpl.php:24
-#, fuzzy
-msgctxt "templates"
-msgid ""
-"Please select a fee option or click \"Do not renew my listing\" to remove "
-"your listing from the directory."
-msgstr ""
-"Proszę wybrać odpowiedni abonament lub kliknąć \"Nie odświeżaj mojej oferty"
-"\" aby anulować odnowienie."
-
-# @ WPBDM
-#: templates/renew-listing.tpl.php:39
-#: templates/submit-listing/extra-sections.tpl.php:6
-msgctxt "templates"
-msgid "Continue"
-msgstr "Kontynuacja"
-
-# @ WPBDM
-#: templates/renew-listing.tpl.php:44
-msgctxt "templates"
-msgid "Do not renew my listing"
-msgstr "Nie odnawiaj mojej Oferty"
-
-# @ WPBDM
-#: templates/renew-resume.tpl.php:38
-#, fuzzy
-msgctxt "templates"
-msgid "Continue to checkout"
-msgstr "Inicjacja Płatności"
-
-# @ WPBDM
-#: templates/search-form.tpl.php:3
-msgctxt "templates"
-msgid "Find a listing"
-msgstr "Znajdź Firmę"
-
-# @ WPBDM
-#: templates/search.tpl.php:26
-#, fuzzy
-msgctxt "templates"
-msgid "Return to Search"
-msgstr "Powrót do zaawansowanego wyszukiwania"
-
-# @ WPBDM
-#: templates/submit-listing/extra-sections.tpl.php:1
-msgctxt "templates"
-msgid "Additional Information"
-msgstr "Dodatkowe informacje"
-
-# @ WPBDM
-#: templates/submit-listing-done.tpl.php:1
-msgctxt "templates"
-msgid "Submission Received"
-msgstr "Formularz rejstracyjny został odebrany."
-
-# @ WPBDM
-#: templates/submit-listing-done.tpl.php:4
-msgctxt "templates"
-msgid "Your listing has been submitted."
-msgstr "Twoja Firma została zapisana."
-
-# @ WPBDM
-#: templates/submit-listing-done.tpl.php:11
-msgctxt "templates"
-msgid "Your listing changes were saved."
-msgstr "Zapisano zmiany w Twojej Ofercie."
-
-# @ WPBDM
-#: templates/submit-listing-done.tpl.php:16
-msgctxt "templates"
-msgid "Go to your listing"
-msgstr "Przejdź do Twojej oferty."
-
-#: templates/submit-listing-done.tpl.php:18
-msgctxt "templates"
-msgid ""
-"Your listing requires admin approval. You'll be notified once your listing "
-"is approved."
-msgstr ""
-
-# @ WPBDM
-#: templates/submit-listing-done.tpl.php:22
-msgctxt "templates"
-msgid "Return to directory."
-msgstr "Powrót do Katalogu."
-
-# @ WPBDM
-#: templates/submit-listing-images-single.tpl.php:24
-msgctxt "templates"
-msgid "Set this image as the listing thumbnail."
-msgstr "Ustaw jako Miniaturkę Firmy."
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:10
-msgctxt "templates"
-msgid "Upload Images"
-msgstr "Załaduj obraz"
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:15
-msgctxt "templates"
-msgid "Drop files here"
-msgstr "Przeciągnij i upuść obraz TUTAJ"
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:17
-msgctxt "templates"
-msgid "Select images from your hard drive"
-msgstr "Wybierz obraz z Twojego dysku twardego"
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:20
-msgctxt "templates"
-msgid "Uploading %s file(s)... Please wait."
-msgstr "Przesyłanie %s file(s)... Proszę czekać."
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:23
-msgctxt "templates"
-msgid ""
-"Your image slots are all full at this time.  You may click \"Continue\" if "
-"you are done, or \"Delete Image\" to upload a new image in place of a "
-"current one."
-msgstr ""
-"Wykorzystałeś(aś) dostępne miejsca na obrazy. Kliknij \"Kontynuuj\" aby "
-"zakończyć, lub \"Usuń Obraz\" aby wstawić inny obraz w to miejsce."
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:30
-msgctxt "templates"
-msgid "Image slots available:"
-msgstr "Dostępne miejsca na Obrazy:"
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:36
-msgctxt "templates"
-msgid "File size:"
-msgstr "Maksymalny rozmiar pliku"
-
-#: templates/submit-listing-images-upload-form.tpl.php:38
-#: templates/submit-listing-images-upload-form.tpl.php:45
-#: templates/submit-listing-images-upload-form.tpl.php:52
-msgctxt "templates"
-msgid "No limit"
-msgstr ""
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:43
-msgctxt "templates"
-msgid "Image width:"
-msgstr "Szerokość Obrazu (w px):"
-
-# @ WPBDM
-#: templates/submit-listing-images-upload-form.tpl.php:50
-msgctxt "templates"
-msgid "Image height:"
-msgstr "Wysokość Obrazu (w px)"
-
-# @ WPBDM
-#: templates/submit-listing-images.tpl.php:5
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Aktualne obrazy"
-
-# @ WPBDM
-#: templates/submit-listing-images.tpl.php:8
-msgctxt "templates"
-msgid "There are no images currently attached to your listing."
-msgstr "Obecnie nie ma żadnych obrazków dołączonych do tej oferty."
-
-# @ WPBDM
 #: includes/templates-ui.php:373 includes/templates-ui.php:400
 msgctxt "templates sort"
 msgid "Sort By:"
@@ -9038,7 +9076,7 @@ msgid "Error while uploading file"
 msgstr "Błąd podczas przesyłania pliku."
 
 # @ WPBDM
-#: includes/views/delete_listing.php:17
+#: includes/views/delete_listing.php:32
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Twoja oferta została usunięta."
@@ -9196,7 +9234,7 @@ msgid "Request access key?"
 msgstr ""
 
 # @ WPBDM
-#: includes/views/manage_listings.php:11
+#: includes/views/manage_listings.php:20
 #, fuzzy
 msgctxt "view:manage-listings"
 msgid "Please <a>login</a> to manage your listings."
@@ -9262,14 +9300,14 @@ msgstr ""
 "w wiadomości e-mail dotyczącej odnowienia."
 
 # @ WPBDM
-#: includes/views/renew_listing.php:51
+#: includes/views/renew_listing.php:58
 #, fuzzy
 msgctxt "renewal"
 msgid "Your listing has been removed from the directory."
 msgstr "Twoja oferta została usunięta."
 
 # @ WPBDM
-#: includes/views/renew_listing.php:53
+#: includes/views/renew_listing.php:60
 #, fuzzy
 msgctxt "renewal"
 msgid "Could not remove listing from directory."
@@ -9335,7 +9373,7 @@ msgid "In order to complete the renewal, please confirm fee selection."
 msgstr ""
 
 # @ WPBDM
-#: includes/views/renew_listing.php:126
+#: includes/views/renew_listing.php:133
 #, fuzzy
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
@@ -9408,14 +9446,14 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "To jest tylko podgląd. Oferta nie została jeszcze opublikowana."
 
-#: includes/views/submit_listing.php:659
+#: includes/views/submit_listing.php:675
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:743
+#: includes/views/submit_listing.php:759
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

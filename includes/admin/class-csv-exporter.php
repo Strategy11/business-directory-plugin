@@ -115,7 +115,7 @@ class WPBDP_CSVExporter {
                     break;
                 case 'all':
                 default:
-                    $post_status = array( 'publish', 'draft', 'pending', 'future', 'trash' );
+                    $post_status = array( 'publish', 'draft', 'pending', 'private', 'future', 'trash' );
                     break;
             }
 

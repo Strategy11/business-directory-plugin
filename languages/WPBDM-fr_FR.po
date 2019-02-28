@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-01-30 22:57:02+00:00\n"
+"POT-Creation-Date: 2019-02-20 21:19:51+00:00\n"
 "PO-Revision-Date: 2017-11-13 00:48+0100\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -108,7 +108,7 @@ msgstr "Une erreur est survenue en essayant de supprimer ce champ."
 msgid "Business Directory Plugin"
 msgstr "Plugin Business Directory"
 
-#: includes/admin/csv-import.php:261
+#: includes/admin/csv-import.php:287
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
 "imports to function properly. Your server is using \"%s\" but this path does "
@@ -493,42 +493,42 @@ msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "La catégorie d'annonce \"%s\" n'existe pas"
 
-#: includes/admin/csv-import.php:118
+#: includes/admin/csv-import.php:130
 msgctxt "admin csv-import"
 msgid "Business %s"
 msgstr "Professionnel %s"
 
-#: includes/admin/csv-import.php:156
+#: includes/admin/csv-import.php:168
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Tout ce que"
 
-#: includes/admin/csv-import.php:160
+#: includes/admin/csv-import.php:173
 msgctxt "admin csv-import"
 msgid "Example CSV Import File"
 msgstr "Exemple de fichier d'import CSV"
 
-#: includes/admin/csv-import.php:161
+#: includes/admin/csv-import.php:174
 msgctxt "admin csv-import"
 msgid "← Return to \"CSV Import\""
 msgstr "← Revenir à \"Importation CSV \""
 
-#: includes/admin/csv-import.php:295
+#: includes/admin/csv-import.php:330
 msgctxt "admin csv-import"
 msgid "There was an error uploading the CSV file."
 msgstr "Il y a eu une erreur lors de l'upload du fichier CSV."
 
-#: includes/admin/csv-import.php:301
+#: includes/admin/csv-import.php:336
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 
-#: includes/admin/csv-import.php:314
+#: includes/admin/csv-import.php:349
 msgctxt "admin csv-import"
 msgid "There was an error uploading the images ZIP file."
 msgstr "Il y a eu une erreur lor de l'upload du fichier ZIP."
 
-#: includes/admin/csv-import.php:335
+#: includes/admin/csv-import.php:373
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -537,7 +537,7 @@ msgstr ""
 "Une erreur a été décelée lors de la validation du fichier CSV pour "
 "l'importation. Merci de résoudre ce problème avant de continuer."
 
-#: includes/admin/csv-import.php:344
+#: includes/admin/csv-import.php:382
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -899,18 +899,29 @@ msgid "Multivalued?"
 msgstr "Valeurs multiples ?"
 
 #: templates/admin/csv-import.tpl.php:303
+#, fuzzy
+msgctxt "admin csv-import"
+msgid ""
+"Fee ID (integer) associated to a listing. Use this column when adding or "
+"updating listings from external sources."
+msgstr ""
+"Expiration de la date d'inscription format AAAA-MM-JJ. Utilisez cette "
+"colonne lors de l'ajout ou la mise à jour annonces provenant de sources "
+"externes."
+
+#: templates/admin/csv-import.tpl.php:310
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr ""
 "Liste séparée de la cotation des images par un point-virgule (à partir du "
 "fichier ZIP)"
 
-#: templates/admin/csv-import.tpl.php:310
+#: templates/admin/csv-import.tpl.php:317
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr "Nom d'utilisateur de l'auteur de l'annonce"
 
-#: templates/admin/csv-import.tpl.php:317
+#: templates/admin/csv-import.tpl.php:324
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -918,7 +929,7 @@ msgstr ""
 "ID interne de séquence utilisé pour permettre l'annonce des mises à jour "
 "provenant de sources externes."
 
-#: templates/admin/csv-import.tpl.php:324
+#: templates/admin/csv-import.tpl.php:331
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -1183,7 +1194,7 @@ msgstr ""
 "Vous pouvez créer ces champs personnalisés pas vous-mêmes dans \"Gestion des "
 "Champs\" ou laissez le plugin le faire pour vous automatiquement."
 
-#: includes/admin/form-fields.php:214
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:516
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Aller à \"Gestion des Champs\""
@@ -3190,33 +3201,33 @@ msgctxt "admin fees table"
 msgid "Disabled"
 msgstr "Effacer les Frais"
 
-#: includes/admin/helpers/class-listing-timeline.php:93
+#: includes/admin/helpers/class-listing-timeline.php:102
 msgctxt "listing timeline"
 msgid "Listing created"
 msgstr "Annonce créée"
 
-#: includes/admin/helpers/class-listing-timeline.php:98
+#: includes/admin/helpers/class-listing-timeline.php:107
 msgctxt "listing timeline"
 msgid "Listing expired"
 msgstr "Une annonce expire"
 
-#: includes/admin/helpers/class-listing-timeline.php:103
+#: includes/admin/helpers/class-listing-timeline.php:112
 msgctxt "listing timeline"
 msgid "Listing renewed"
 msgstr "L'annonce a été renouvelée"
 
-#: includes/admin/helpers/class-listing-timeline.php:118
+#: includes/admin/helpers/class-listing-timeline.php:127
 msgctxt "listing timeline"
 msgid "Paid as admin"
 msgstr ""
 
-#: includes/admin/helpers/class-listing-timeline.php:120
+#: includes/admin/helpers/class-listing-timeline.php:129
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing imported"
 msgstr "Une annonce expire"
 
-#: includes/admin/helpers/class-listing-timeline.php:122
+#: includes/admin/helpers/class-listing-timeline.php:131
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Initial Payment"
@@ -3581,13 +3592,13 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1148
+#: includes/functions.php:1179
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Date d'ajout"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1149
+#: includes/functions.php:1180
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Date de dernière modification"
@@ -3988,12 +3999,12 @@ msgstr ""
 "Impossible de copier le plugin de compatibilité AJAX \"% s\". Le mode de "
 "compatibilité n'a pas été activé."
 
-#: includes/functions.php:1146
+#: includes/functions.php:1177
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utilisateur"
 
-#: includes/functions.php:1147
+#: includes/functions.php:1178
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Date d'expiration de l'annonce"
@@ -5908,7 +5919,7 @@ msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Soumettre une annonce"
 
-#: includes/class-view.php:87
+#: includes/class-view.php:103
 msgctxt "views"
 msgid "Invalid credentials."
 msgstr "Informations d'identification invalides."
@@ -6133,69 +6144,69 @@ msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr "(Veuillez choisir un tarif ci-dessus)"
 
-#: includes/views/submit_listing.php:504
+#: includes/views/submit_listing.php:503
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 "Impossible de soumettre une liste en ce moment. Veuillez réessayer plus tard."
 
-#: includes/views/submit_listing.php:515
+#: includes/views/submit_listing.php:531
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Veuillez sélectionner une catégorie."
 
-#: includes/views/submit_listing.php:528
+#: includes/views/submit_listing.php:544
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Veuillez choisir une catégorie valide pour votre annonce."
 
-#: includes/views/submit_listing.php:548
+#: includes/views/submit_listing.php:564
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Veuillez choisir une catégorie valide pour votre annonce."
 
-#: includes/views/submit_listing.php:550
+#: includes/views/submit_listing.php:566
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr ""
 "S'il vous plaît choisir un plan tarifaire valable pour votre sélection de "
 "catégorie."
 
-#: includes/views/submit_listing.php:791
+#: includes/views/submit_listing.php:807
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "S'il vous plaît entrer votre nom d'utilisateur souhaité."
 
-#: includes/views/submit_listing.php:796
+#: includes/views/submit_listing.php:812
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "S'il vous plaît entrer votre e-mail pour votre nouveau compte."
 
-#: includes/views/submit_listing.php:801
+#: includes/views/submit_listing.php:817
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Veuillez entrer le mot de passe de votre nouveau compte."
 
-#: includes/views/submit_listing.php:811
+#: includes/views/submit_listing.php:827
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "Le nom d'utilisateur que vous avez choisi est déjà utilisé. Veuillez en "
 "utiliser un autre."
 
-#: includes/views/submit_listing.php:816
+#: includes/views/submit_listing.php:832
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 "L'adresse e-mail que vous avez choisie pour votre compte est déjà utilisée."
 
-#: includes/views/submit_listing.php:831
+#: includes/views/submit_listing.php:847
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Créer un compte utilisateur sur ce site"
 
-#: includes/views/submit_listing.php:838
+#: includes/views/submit_listing.php:854
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -6203,17 +6214,17 @@ msgstr ""
 "Vous devez créer un compte sur le site. Veuillez remplir le formulaire ci-"
 "dessous."
 
-#: includes/views/submit_listing.php:844
+#: includes/views/submit_listing.php:860
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Nom d'utilisateur (login) :"
 
-#: includes/views/submit_listing.php:853
+#: includes/views/submit_listing.php:869
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-Mail:"
 
-#: includes/views/submit_listing.php:862
+#: includes/views/submit_listing.php:878
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Mot de passe :"
@@ -6331,12 +6342,12 @@ msgctxt "form-fields api"
 msgid "Image (file upload)"
 msgstr "Image (fichier uploadé)"
 
-#: includes/fields/class-fieldtypes-linkedin.php:6
+#: includes/fields/class-fieldtypes-linkedin.php:16
 msgctxt "form-fields api"
 msgid "Social Site (LinkedIn profile)"
 msgstr "Réseaux sociaux (Profile LinkedIn)"
 
-#: includes/fields/class-fieldtypes-linkedin.php:21
+#: includes/fields/class-fieldtypes-linkedin.php:31
 msgctxt "form-fields api"
 msgid "You can add your Company ID or profile URL here."
 msgstr ""
@@ -6688,6 +6699,436 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Le pays est requis"
 
+#: includes/functions.php:1257
+#, fuzzy
+msgctxt "templates"
+msgid "Return to results"
+msgstr "Retourner vers l'annuaire"
+
+#: includes/functions.php:1261 includes/functions.php:1266
+#, fuzzy
+msgctxt "templates"
+msgid "Go back"
+msgstr "Non, reviens"
+
+#: includes/payment.php:278 templates/renew-resume.tpl.php:39
+#, fuzzy
+msgctxt "templates"
+msgid "Return to fee selection"
+msgstr "Retourner vers l'annonce."
+
+#: includes/templates-ui.php:199
+msgctxt "templates"
+msgid "No listing categories found."
+msgstr "Aucune catégorie d'annonce trouvée."
+
+#: includes/templates-ui.php:333
+msgctxt "templates"
+msgid "Search Listings"
+msgstr "Recherche d'annonces"
+
+#: includes/templates-ui.php:338
+msgctxt "templates"
+msgid "Advanced Search"
+msgstr "Recherche avancée"
+
+#: includes/views/listing_contact.php:149
+msgctxt "templates"
+msgid "Contact listing owner"
+msgstr "Contacter le propriétaire de l'annonce"
+
+#: includes/views/listing_contact.php:153
+msgctxt "templates"
+msgid "Send Message to listing owner"
+msgstr "Envoyer un message au propriétaire de l'annonce"
+
+#: includes/views/main.php:9
+msgctxt "templates"
+msgid ""
+"There are no categories assigned to the business directory yet. You need to "
+"assign some categories to the business directory. Only admins can see this "
+"message. Regular users are seeing a message that there are currently no "
+"listings in the directory. Listings cannot be added until you assign "
+"categories to the business directory."
+msgstr ""
+"Il n'y a pas encore de catégorie affectées à l'annuaire professionnel. Vous "
+"devez affecter quelques catégories à l'annuaire professionnel. Seuls les "
+"administrateurs peuvent voir ce message. Les utilisateurs ordinaires voient "
+"un message indiquant qu'ils ne peuvent ajouter leur annonce pour le moment. "
+"Les annonces ne peuvent pas être ajoutés tant que vous n'avez pas attribuer "
+"des catégories à l'annuaire professionnel."
+
+#: includes/views/main.php:11
+msgctxt "templates"
+msgid "There are currently no listings in the directory."
+msgstr "Il n'y a actuellement aucune annonce dans l'annuaire."
+
+#: includes/views/main.php:17
+msgctxt "templates"
+msgid ""
+"You have \"Hide Empty Categories\" on and some categories that don't have "
+"listings in them. That means they won't show up on the front end of your "
+"site. If you didn't want that, click <a>here</a> to change the setting."
+msgstr ""
+"Vous avez \"Cacher les catégories  vides \" et certaines catégories qui ne "
+"possèdent pas d'annonces. Cela signifie qu'ils ne seront pas visibles sur le "
+"frontal votre site. Si cela ne correspond pas à votre souhait, cliquez </a> "
+"ici <a> pour modifier le paramétrage."
+
+#: includes/views/submit_listing.php:339
+msgctxt "templates"
+msgid ""
+"<b>View not available</b>. Do you have the \"Disable Frontend Listing "
+"Submission?\" setting checked?"
+msgstr ""
+"<b>Aperçu non disponible</b>. Avez-vous coché le paramètre \"Désactiver la "
+"soumission de l'annonce publique ?\" ?"
+
+#: includes/views/submit_listing.php:341
+msgctxt "templates"
+msgid ""
+"Listing submission has been disabled. Contact the administrator for details."
+msgstr ""
+
+#: includes/views/submit_listing.php:506
+msgctxt "templates"
+msgid ""
+"Listing submission is not available at the moment. Contact the administrator "
+"for details."
+msgstr ""
+
+#: includes/views/submit_listing.php:509
+msgctxt "templates"
+msgid ""
+"<b>View not available</b>, there is no \"Category\" association field. %s "
+"and create a new field with this association, or assign this association to "
+"an existing field"
+msgstr ""
+
+#: includes/views/submit_listing.php:916
+msgctxt "templates"
+msgid "Please agree to the Terms and Conditions."
+msgstr "Veuillez accepter les conditions d'utilisation."
+
+#: includes/views/submit_listing.php:924
+msgctxt "templates"
+msgid "Terms and Conditions:"
+msgstr "Conditions d'utilisation:"
+
+#: includes/views/submit_listing.php:933
+msgctxt "templates"
+msgid "I agree to the <a>Terms and Conditions</a>"
+msgstr "J'accepte <a> Conditions générales </a>"
+
+#: templates/businessdirectory-listings.tpl.php:27
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
+#: templates/search.tpl.php:17
+msgctxt "templates"
+msgid "No listings found."
+msgstr "Aucune annonce trouvée."
+
+#: templates/businessdirectory-listings.tpl.php:38
+#: templates/listings.tpl.php:31
+msgctxt "templates"
+msgid "&laquo; Previous "
+msgstr "&laquo; Précedent "
+
+#: templates/businessdirectory-listings.tpl.php:39
+#: templates/listings.tpl.php:32
+msgctxt "templates"
+msgid "Next &raquo;"
+msgstr "Suivant &raquo;"
+
+#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
+#: templates/manage_listings.tpl.php:8
+msgctxt "templates"
+msgid "Return to directory"
+msgstr "Retourner vers l'annuaire"
+
+#: templates/listing-contactform.tpl.php:20
+msgctxt "templates"
+msgid "Listing Title: "
+msgstr "Titre de l'annonce "
+
+#: templates/listing-contactform.tpl.php:29
+msgctxt "templates"
+msgid ""
+"You are currently logged in as %s. Your message will be sent using your "
+"logged in contact email."
+msgstr ""
+"Vous êtes actuellement connecté en tant que %s. Votre message sera envoyé en "
+"utilisant votre compte email."
+
+#: templates/listing-contactform.tpl.php:36
+#: templates/listing-flagging-form.tpl.php:22
+msgctxt "templates"
+msgid "Your Name"
+msgstr "Votre nom"
+
+#: templates/listing-contactform.tpl.php:39
+#: templates/listing-flagging-form.tpl.php:26
+msgctxt "templates"
+msgid "Your Email"
+msgstr "Votre email"
+
+#: templates/listing-contactform.tpl.php:44
+msgctxt "templates"
+msgid "Message"
+msgstr "Message"
+
+#: templates/listing-contactform.tpl.php:53
+msgctxt "templates"
+msgid "Send"
+msgstr "Envoyer"
+
+#: templates/listing-flagging-form.tpl.php:3
+#, fuzzy
+msgctxt "templates"
+msgid "Report Listing"
+msgstr "Importation des listes"
+
+#: templates/listing-sticky-tag.tpl.php:12
+#: templates/listing-sticky-tag.tpl.php:13
+msgctxt "templates"
+msgid "Featured Listing"
+msgstr "Annonce sélectionnée"
+
+#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
+msgctxt "templates"
+msgid ""
+"You are not currently logged in. Please login or register first. When "
+"registering, you will receive an activation email. Be sure to check your "
+"spam if you don't see it in your email within 60 minutes."
+msgstr ""
+"Vous n'êtes pas connecté actuellement. Veuillez d'abord vous connecter ou "
+"vous inscrire. Lors de l'inscription, vous recevrez un e-mail d'activation. "
+"Si vous ne recevez pas de message dans votre boîte de réception, pensez à "
+"vérifier vos autres dossiers (indésirable, spam, inconnu) dans les 60 "
+"minutes qui suivent votre inscription."
+
+#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr "Pas encore inscrit ?"
+
+#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
+msgctxt "templates"
+msgid "Lost your password?"
+msgstr "Mot de passe perdu ?"
+
+#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
+msgctxt "templates"
+msgid ""
+"Your current listings are shown below. To edit a listing click the edit "
+"button. To delete a listing click the delete button."
+msgstr ""
+"Vos annonces actuelles sont présentés ci-dessous. Pour modifier une annonce, "
+"cliquez sur le bouton d'édition. Pour supprimer une annonce, cliquez sur le "
+"bouton Supprimer."
+
+#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:6
+msgctxt "templates"
+msgid "You do not currently have any listings in the directory."
+msgstr "Vous n'avez actuellement aucune annonce dans l'annuaire."
+
+#: templates/parts/listing-buttons.tpl.php:19
+#: templates/parts/listing-buttons.tpl.php:63
+msgctxt "templates"
+msgid "Edit"
+msgstr "Editer"
+
+#: templates/parts/listing-buttons.tpl.php:27
+#: templates/parts/listing-buttons.tpl.php:71
+#, fuzzy
+msgctxt "templates"
+msgid "Flag Listing"
+msgstr "Trouver une annonce"
+
+#: templates/parts/listing-buttons.tpl.php:35
+#: templates/parts/listing-buttons.tpl.php:79
+msgctxt "templates"
+msgid "Delete"
+msgstr "Effacer"
+
+#: templates/parts/listing-buttons.tpl.php:36
+msgctxt "templates"
+msgid "Are you sure you wish to delete this listing?"
+msgstr "Êtes-vous sur de vouloir effacer cette annonce?"
+
+#: templates/parts/listing-buttons.tpl.php:55
+msgctxt "templates"
+msgid "View"
+msgstr "Vue"
+
+#: templates/parts/login-required.tpl.php:17
+msgctxt "templates"
+msgid "Login"
+msgstr "Connexion"
+
+#: templates/renew-listing-manage-subscription.tpl.php:2
+msgctxt "templates"
+msgid "Recurring Fee Management"
+msgstr "Gestion des frais récurrents"
+
+#: templates/renew-listing.tpl.php:13
+msgctxt "templates"
+msgid "Renew Listing"
+msgstr "Renouveler l'annonce"
+
+#: templates/renew-listing.tpl.php:21
+msgctxt "templates"
+msgid "You are about to renew your listing \"%s\" publication."
+msgstr "Vous êtes sur le point de renouveler votre publication \"%s\"."
+
+#: templates/renew-listing.tpl.php:24
+#, fuzzy
+msgctxt "templates"
+msgid ""
+"Please select a fee option or click \"Do not renew my listing\" to remove "
+"your listing from the directory."
+msgstr ""
+"S'il vous plaît choisir une option de paiement ou cliquez sur « Ne pas "
+"renouveler mon inscription » pour supprimer votre fiche dans le répertoire."
+
+#: templates/renew-listing.tpl.php:39
+#: templates/submit-listing/extra-sections.tpl.php:6
+msgctxt "templates"
+msgid "Continue"
+msgstr "Continuer"
+
+#: templates/renew-listing.tpl.php:44
+msgctxt "templates"
+msgid "Do not renew my listing"
+msgstr "Ne pas renouveler mon annonce"
+
+#: templates/renew-resume.tpl.php:38
+#, fuzzy
+msgctxt "templates"
+msgid "Continue to checkout"
+msgstr "Continuer le paiement"
+
+#: templates/search-form.tpl.php:3
+msgctxt "templates"
+msgid "Find a listing"
+msgstr "Trouver une annonce"
+
+#: templates/search.tpl.php:26
+msgctxt "templates"
+msgid "Return to Search"
+msgstr "Retour à la recherche"
+
+#: templates/submit-listing/extra-sections.tpl.php:1
+msgctxt "templates"
+msgid "Additional Information"
+msgstr "Information complémentaire"
+
+#: templates/submit-listing-done.tpl.php:1
+msgctxt "templates"
+msgid "Submission Received"
+msgstr "Demande reçue"
+
+#: templates/submit-listing-done.tpl.php:4
+msgctxt "templates"
+msgid "Your listing has been submitted."
+msgstr "Votre annonce a été soumise."
+
+#: templates/submit-listing-done.tpl.php:11
+msgctxt "templates"
+msgid "Your listing changes were saved."
+msgstr "Les changements apportés à votre annonce ont été sauvegardés."
+
+#: templates/submit-listing-done.tpl.php:16
+msgctxt "templates"
+msgid "Go to your listing"
+msgstr "Aller vers votre annonce"
+
+#: templates/submit-listing-done.tpl.php:18
+msgctxt "templates"
+msgid ""
+"Your listing requires admin approval. You'll be notified once your listing "
+"is approved."
+msgstr ""
+"Votre fiche nécessite la validation de l'administrateur. Vous serez averti "
+"une fois votre annonce approuvée."
+
+#: templates/submit-listing-done.tpl.php:22
+msgctxt "templates"
+msgid "Return to directory."
+msgstr "Retourner vers l'annuaire."
+
+#: templates/submit-listing-images-single.tpl.php:24
+msgctxt "templates"
+msgid "Set this image as the listing thumbnail."
+msgstr "Utiliser cette image comme miniature."
+
+#: templates/submit-listing-images-upload-form.tpl.php:10
+msgctxt "templates"
+msgid "Upload Images"
+msgstr "Télécharger les images"
+
+#: templates/submit-listing-images-upload-form.tpl.php:15
+msgctxt "templates"
+msgid "Drop files here"
+msgstr "Déposer vos fichiers ici"
+
+#: templates/submit-listing-images-upload-form.tpl.php:17
+msgctxt "templates"
+msgid "Select images from your hard drive"
+msgstr "Sélectionner des images depuis votre ordinateur"
+
+#: templates/submit-listing-images-upload-form.tpl.php:20
+msgctxt "templates"
+msgid "Uploading %s file(s)... Please wait."
+msgstr "Téléchargement du/des fichier(s) à %s ... Veuillez patienter."
+
+#: templates/submit-listing-images-upload-form.tpl.php:23
+msgctxt "templates"
+msgid ""
+"Your image slots are all full at this time.  You may click \"Continue\" if "
+"you are done, or \"Delete Image\" to upload a new image in place of a "
+"current one."
+msgstr ""
+"Vos emplacements d'image sont actuellement pleins. Vous pouvez cliquer sur "
+"\"Continuer\" si vous avez fini, ou \"Remplacer l'image\" pour remplacer "
+"l'actuelle."
+
+#: templates/submit-listing-images-upload-form.tpl.php:30
+msgctxt "templates"
+msgid "Image slots available:"
+msgstr "Emplacements d'image disponibles:"
+
+#: templates/submit-listing-images-upload-form.tpl.php:36
+msgctxt "templates"
+msgid "File size:"
+msgstr "Taille maximale des fichiers:"
+
+#: templates/submit-listing-images-upload-form.tpl.php:38
+#: templates/submit-listing-images-upload-form.tpl.php:45
+#: templates/submit-listing-images-upload-form.tpl.php:52
+msgctxt "templates"
+msgid "No limit"
+msgstr "Aucune limitation"
+
+#: templates/submit-listing-images-upload-form.tpl.php:43
+msgctxt "templates"
+msgid "Image width:"
+msgstr "Largeur d'images (en pixel):"
+
+#: templates/submit-listing-images-upload-form.tpl.php:50
+msgctxt "templates"
+msgid "Image height:"
+msgstr "Hauteur d'image (en pixel):"
+
+#: templates/submit-listing-images.tpl.php:5
+msgctxt "templates"
+msgid "Current Images"
+msgstr "Images actuelles"
+
+#: templates/submit-listing-images.tpl.php:8
+msgctxt "templates"
+msgid "There are no images currently attached to your listing."
+msgstr "Il n'y a aucune image actuellement rattachée à votre annonce."
+
 #: includes/gateways/class-gateway-authorize-net.php:20
 msgctxt "authorize-net"
 msgid "Authorize.net"
@@ -6790,37 +7231,37 @@ msgctxt "flag listing"
 msgid "Report comment is required to save a report"
 msgstr ""
 
-#: includes/views/flag_listing.php:52
+#: includes/views/flag_listing.php:59
 #, fuzzy
 msgctxt "flag listing"
 msgid "The listing <i>%s</i> has been reported. <a>Return to directory</a>"
 msgstr "Votre annonce a été supprimée du répertoire."
 
-#: includes/views/flag_listing.php:105
+#: includes/views/flag_listing.php:112
 #, fuzzy
 msgctxt "flag listing"
 msgid "Your current IP address already reported this listing."
 msgstr "Vous n'êtes pas autorisé à éditer cette annonce."
 
-#: includes/views/flag_listing.php:118
+#: includes/views/flag_listing.php:125
 #, fuzzy
 msgctxt "flag listing"
 msgid "You must select the reason to report this listing as inappropriate."
 msgstr "Veuillez choisir une catégorie valide pour votre annonce."
 
-#: includes/views/flag_listing.php:122
+#: includes/views/flag_listing.php:129
 #, fuzzy
 msgctxt "flag listing"
 msgid "You must enter the reason to report this listing as inappropriate."
 msgstr "Vous êtes sur le point de renouveler votre publication \"%s\"."
 
-#: includes/views/flag_listing.php:127
+#: includes/views/flag_listing.php:134
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter your name."
 msgstr "Veuillez entrer votre nom."
 
-#: includes/views/flag_listing.php:131
+#: includes/views/flag_listing.php:138
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter your email."
@@ -7378,409 +7819,6 @@ msgctxt "checkout"
 msgid "Next"
 msgstr "Suivant"
 
-#: includes/payment.php:278 templates/renew-resume.tpl.php:39
-#, fuzzy
-msgctxt "templates"
-msgid "Return to fee selection"
-msgstr "Retourner vers l'annonce."
-
-#: includes/templates-ui.php:199
-msgctxt "templates"
-msgid "No listing categories found."
-msgstr "Aucune catégorie d'annonce trouvée."
-
-#: includes/templates-ui.php:333
-msgctxt "templates"
-msgid "Search Listings"
-msgstr "Recherche d'annonces"
-
-#: includes/templates-ui.php:338
-msgctxt "templates"
-msgid "Advanced Search"
-msgstr "Recherche avancée"
-
-#: includes/views/listing_contact.php:149
-msgctxt "templates"
-msgid "Contact listing owner"
-msgstr "Contacter le propriétaire de l'annonce"
-
-#: includes/views/listing_contact.php:153
-msgctxt "templates"
-msgid "Send Message to listing owner"
-msgstr "Envoyer un message au propriétaire de l'annonce"
-
-#: includes/views/main.php:9
-msgctxt "templates"
-msgid ""
-"There are no categories assigned to the business directory yet. You need to "
-"assign some categories to the business directory. Only admins can see this "
-"message. Regular users are seeing a message that there are currently no "
-"listings in the directory. Listings cannot be added until you assign "
-"categories to the business directory."
-msgstr ""
-"Il n'y a pas encore de catégorie affectées à l'annuaire professionnel. Vous "
-"devez affecter quelques catégories à l'annuaire professionnel. Seuls les "
-"administrateurs peuvent voir ce message. Les utilisateurs ordinaires voient "
-"un message indiquant qu'ils ne peuvent ajouter leur annonce pour le moment. "
-"Les annonces ne peuvent pas être ajoutés tant que vous n'avez pas attribuer "
-"des catégories à l'annuaire professionnel."
-
-#: includes/views/main.php:11
-msgctxt "templates"
-msgid "There are currently no listings in the directory."
-msgstr "Il n'y a actuellement aucune annonce dans l'annuaire."
-
-#: includes/views/main.php:17
-msgctxt "templates"
-msgid ""
-"You have \"Hide Empty Categories\" on and some categories that don't have "
-"listings in them. That means they won't show up on the front end of your "
-"site. If you didn't want that, click <a>here</a> to change the setting."
-msgstr ""
-"Vous avez \"Cacher les catégories  vides \" et certaines catégories qui ne "
-"possèdent pas d'annonces. Cela signifie qu'ils ne seront pas visibles sur le "
-"frontal votre site. Si cela ne correspond pas à votre souhait, cliquez </a> "
-"ici <a> pour modifier le paramétrage."
-
-#: includes/views/submit_listing.php:339
-msgctxt "templates"
-msgid ""
-"<b>View not available</b>. Do you have the \"Disable Frontend Listing "
-"Submission?\" setting checked?"
-msgstr ""
-"<b>Aperçu non disponible</b>. Avez-vous coché le paramètre \"Désactiver la "
-"soumission de l'annonce publique ?\" ?"
-
-#: includes/views/submit_listing.php:341
-msgctxt "templates"
-msgid ""
-"Listing submission has been disabled. Contact the administrator for details."
-msgstr ""
-
-#: includes/views/submit_listing.php:900
-msgctxt "templates"
-msgid "Please agree to the Terms and Conditions."
-msgstr "Veuillez accepter les conditions d'utilisation."
-
-#: includes/views/submit_listing.php:908
-msgctxt "templates"
-msgid "Terms and Conditions:"
-msgstr "Conditions d'utilisation:"
-
-#: includes/views/submit_listing.php:917
-msgctxt "templates"
-msgid "I agree to the <a>Terms and Conditions</a>"
-msgstr "J'accepte <a> Conditions générales </a>"
-
-#: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
-#: templates/search.tpl.php:17
-msgctxt "templates"
-msgid "No listings found."
-msgstr "Aucune annonce trouvée."
-
-#: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:31
-msgctxt "templates"
-msgid "&laquo; Previous "
-msgstr "&laquo; Précedent "
-
-#: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:32
-msgctxt "templates"
-msgid "Next &raquo;"
-msgstr "Suivant &raquo;"
-
-#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
-#: templates/manage_listings.tpl.php:8
-msgctxt "templates"
-msgid "Return to directory"
-msgstr "Retourner vers l'annuaire"
-
-#: templates/listing-contactform.tpl.php:20
-msgctxt "templates"
-msgid "Listing Title: "
-msgstr "Titre de l'annonce "
-
-#: templates/listing-contactform.tpl.php:29
-msgctxt "templates"
-msgid ""
-"You are currently logged in as %s. Your message will be sent using your "
-"logged in contact email."
-msgstr ""
-"Vous êtes actuellement connecté en tant que %s. Votre message sera envoyé en "
-"utilisant votre compte email."
-
-#: templates/listing-contactform.tpl.php:36
-#: templates/listing-flagging-form.tpl.php:22
-msgctxt "templates"
-msgid "Your Name"
-msgstr "Votre nom"
-
-#: templates/listing-contactform.tpl.php:39
-#: templates/listing-flagging-form.tpl.php:26
-msgctxt "templates"
-msgid "Your Email"
-msgstr "Votre email"
-
-#: templates/listing-contactform.tpl.php:44
-msgctxt "templates"
-msgid "Message"
-msgstr "Message"
-
-#: templates/listing-contactform.tpl.php:53
-msgctxt "templates"
-msgid "Send"
-msgstr "Envoyer"
-
-#: templates/listing-flagging-form.tpl.php:3
-#, fuzzy
-msgctxt "templates"
-msgid "Report Listing"
-msgstr "Importation des listes"
-
-#: templates/listing-sticky-tag.tpl.php:12
-#: templates/listing-sticky-tag.tpl.php:13
-msgctxt "templates"
-msgid "Featured Listing"
-msgstr "Annonce sélectionnée"
-
-#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
-msgctxt "templates"
-msgid ""
-"You are not currently logged in. Please login or register first. When "
-"registering, you will receive an activation email. Be sure to check your "
-"spam if you don't see it in your email within 60 minutes."
-msgstr ""
-"Vous n'êtes pas connecté actuellement. Veuillez d'abord vous connecter ou "
-"vous inscrire. Lors de l'inscription, vous recevrez un e-mail d'activation. "
-"Si vous ne recevez pas de message dans votre boîte de réception, pensez à "
-"vérifier vos autres dossiers (indésirable, spam, inconnu) dans les 60 "
-"minutes qui suivent votre inscription."
-
-#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr "Pas encore inscrit ?"
-
-#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr "Mot de passe perdu ?"
-
-#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
-msgctxt "templates"
-msgid ""
-"Your current listings are shown below. To edit a listing click the edit "
-"button. To delete a listing click the delete button."
-msgstr ""
-"Vos annonces actuelles sont présentés ci-dessous. Pour modifier une annonce, "
-"cliquez sur le bouton d'édition. Pour supprimer une annonce, cliquez sur le "
-"bouton Supprimer."
-
-#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:6
-msgctxt "templates"
-msgid "You do not currently have any listings in the directory."
-msgstr "Vous n'avez actuellement aucune annonce dans l'annuaire."
-
-#: templates/parts/listing-buttons.tpl.php:19
-#: templates/parts/listing-buttons.tpl.php:63
-msgctxt "templates"
-msgid "Edit"
-msgstr "Editer"
-
-#: templates/parts/listing-buttons.tpl.php:27
-#: templates/parts/listing-buttons.tpl.php:71
-#, fuzzy
-msgctxt "templates"
-msgid "Flag Listing"
-msgstr "Trouver une annonce"
-
-#: templates/parts/listing-buttons.tpl.php:35
-#: templates/parts/listing-buttons.tpl.php:79
-msgctxt "templates"
-msgid "Delete"
-msgstr "Effacer"
-
-#: templates/parts/listing-buttons.tpl.php:36
-msgctxt "templates"
-msgid "Are you sure you wish to delete this listing?"
-msgstr "Êtes-vous sur de vouloir effacer cette annonce?"
-
-#: templates/parts/listing-buttons.tpl.php:55
-msgctxt "templates"
-msgid "View"
-msgstr "Vue"
-
-#: templates/parts/login-required.tpl.php:17
-msgctxt "templates"
-msgid "Login"
-msgstr "Connexion"
-
-#: templates/renew-listing-manage-subscription.tpl.php:2
-msgctxt "templates"
-msgid "Recurring Fee Management"
-msgstr "Gestion des frais récurrents"
-
-#: templates/renew-listing.tpl.php:13
-msgctxt "templates"
-msgid "Renew Listing"
-msgstr "Renouveler l'annonce"
-
-#: templates/renew-listing.tpl.php:21
-msgctxt "templates"
-msgid "You are about to renew your listing \"%s\" publication."
-msgstr "Vous êtes sur le point de renouveler votre publication \"%s\"."
-
-#: templates/renew-listing.tpl.php:24
-#, fuzzy
-msgctxt "templates"
-msgid ""
-"Please select a fee option or click \"Do not renew my listing\" to remove "
-"your listing from the directory."
-msgstr ""
-"S'il vous plaît choisir une option de paiement ou cliquez sur « Ne pas "
-"renouveler mon inscription » pour supprimer votre fiche dans le répertoire."
-
-#: templates/renew-listing.tpl.php:39
-#: templates/submit-listing/extra-sections.tpl.php:6
-msgctxt "templates"
-msgid "Continue"
-msgstr "Continuer"
-
-#: templates/renew-listing.tpl.php:44
-msgctxt "templates"
-msgid "Do not renew my listing"
-msgstr "Ne pas renouveler mon annonce"
-
-#: templates/renew-resume.tpl.php:38
-#, fuzzy
-msgctxt "templates"
-msgid "Continue to checkout"
-msgstr "Continuer le paiement"
-
-#: templates/search-form.tpl.php:3
-msgctxt "templates"
-msgid "Find a listing"
-msgstr "Trouver une annonce"
-
-#: templates/search.tpl.php:26
-msgctxt "templates"
-msgid "Return to Search"
-msgstr "Retour à la recherche"
-
-#: templates/submit-listing/extra-sections.tpl.php:1
-msgctxt "templates"
-msgid "Additional Information"
-msgstr "Information complémentaire"
-
-#: templates/submit-listing-done.tpl.php:1
-msgctxt "templates"
-msgid "Submission Received"
-msgstr "Demande reçue"
-
-#: templates/submit-listing-done.tpl.php:4
-msgctxt "templates"
-msgid "Your listing has been submitted."
-msgstr "Votre annonce a été soumise."
-
-#: templates/submit-listing-done.tpl.php:11
-msgctxt "templates"
-msgid "Your listing changes were saved."
-msgstr "Les changements apportés à votre annonce ont été sauvegardés."
-
-#: templates/submit-listing-done.tpl.php:16
-msgctxt "templates"
-msgid "Go to your listing"
-msgstr "Aller vers votre annonce"
-
-#: templates/submit-listing-done.tpl.php:18
-msgctxt "templates"
-msgid ""
-"Your listing requires admin approval. You'll be notified once your listing "
-"is approved."
-msgstr ""
-"Votre fiche nécessite la validation de l'administrateur. Vous serez averti "
-"une fois votre annonce approuvée."
-
-#: templates/submit-listing-done.tpl.php:22
-msgctxt "templates"
-msgid "Return to directory."
-msgstr "Retourner vers l'annuaire."
-
-#: templates/submit-listing-images-single.tpl.php:24
-msgctxt "templates"
-msgid "Set this image as the listing thumbnail."
-msgstr "Utiliser cette image comme miniature."
-
-#: templates/submit-listing-images-upload-form.tpl.php:10
-msgctxt "templates"
-msgid "Upload Images"
-msgstr "Télécharger les images"
-
-#: templates/submit-listing-images-upload-form.tpl.php:15
-msgctxt "templates"
-msgid "Drop files here"
-msgstr "Déposer vos fichiers ici"
-
-#: templates/submit-listing-images-upload-form.tpl.php:17
-msgctxt "templates"
-msgid "Select images from your hard drive"
-msgstr "Sélectionner des images depuis votre ordinateur"
-
-#: templates/submit-listing-images-upload-form.tpl.php:20
-msgctxt "templates"
-msgid "Uploading %s file(s)... Please wait."
-msgstr "Téléchargement du/des fichier(s) à %s ... Veuillez patienter."
-
-#: templates/submit-listing-images-upload-form.tpl.php:23
-msgctxt "templates"
-msgid ""
-"Your image slots are all full at this time.  You may click \"Continue\" if "
-"you are done, or \"Delete Image\" to upload a new image in place of a "
-"current one."
-msgstr ""
-"Vos emplacements d'image sont actuellement pleins. Vous pouvez cliquer sur "
-"\"Continuer\" si vous avez fini, ou \"Remplacer l'image\" pour remplacer "
-"l'actuelle."
-
-#: templates/submit-listing-images-upload-form.tpl.php:30
-msgctxt "templates"
-msgid "Image slots available:"
-msgstr "Emplacements d'image disponibles:"
-
-#: templates/submit-listing-images-upload-form.tpl.php:36
-msgctxt "templates"
-msgid "File size:"
-msgstr "Taille maximale des fichiers:"
-
-#: templates/submit-listing-images-upload-form.tpl.php:38
-#: templates/submit-listing-images-upload-form.tpl.php:45
-#: templates/submit-listing-images-upload-form.tpl.php:52
-msgctxt "templates"
-msgid "No limit"
-msgstr "Aucune limitation"
-
-#: templates/submit-listing-images-upload-form.tpl.php:43
-msgctxt "templates"
-msgid "Image width:"
-msgstr "Largeur d'images (en pixel):"
-
-#: templates/submit-listing-images-upload-form.tpl.php:50
-msgctxt "templates"
-msgid "Image height:"
-msgstr "Hauteur d'image (en pixel):"
-
-#: templates/submit-listing-images.tpl.php:5
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Images actuelles"
-
-#: templates/submit-listing-images.tpl.php:8
-msgctxt "templates"
-msgid "There are no images currently attached to your listing."
-msgstr "Il n'y a aucune image actuellement rattachée à votre annonce."
-
 #: includes/templates-ui.php:373 includes/templates-ui.php:400
 msgctxt "templates sort"
 msgid "Sort By:"
@@ -7864,7 +7902,7 @@ msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Erreur durant l'upload du fichier"
 
-#: includes/views/delete_listing.php:17
+#: includes/views/delete_listing.php:32
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Votre annonce a été effacée."
@@ -7994,7 +8032,7 @@ msgctxt "views:login"
 msgid "Request access key?"
 msgstr "Demander une clé d'accès ?"
 
-#: includes/views/manage_listings.php:11
+#: includes/views/manage_listings.php:20
 #, fuzzy
 msgctxt "view:manage-listings"
 msgid "Please <a>login</a> to manage your listings."
@@ -8055,12 +8093,12 @@ msgstr ""
 "Votre ID de renouvellement est invalide. Veuillez utiliser l'URL que vous "
 "avez reçu dans l'e-mail de renouvellement."
 
-#: includes/views/renew_listing.php:51
+#: includes/views/renew_listing.php:58
 msgctxt "renewal"
 msgid "Your listing has been removed from the directory."
 msgstr "Votre annonce a été supprimée du répertoire."
 
-#: includes/views/renew_listing.php:53
+#: includes/views/renew_listing.php:60
 msgctxt "renewal"
 msgid "Could not remove listing from directory."
 msgstr "Impossible de supprimer le répertoire."
@@ -8116,7 +8154,7 @@ msgctxt "renewal"
 msgid "In order to complete the renewal, please confirm fee selection."
 msgstr ""
 
-#: includes/views/renew_listing.php:126
+#: includes/views/renew_listing.php:133
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
 msgstr "Renouvellement des frais \"%s\"."
@@ -8184,7 +8222,7 @@ msgstr ""
 "Il s'agit seulement d'une pré-visualisation. L'annonce n'a pas encore été "
 "publiée."
 
-#: includes/views/submit_listing.php:659
+#: includes/views/submit_listing.php:675
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -8193,7 +8231,7 @@ msgstr ""
 "Quelque chose s'est mal passé. Veuillez vérifier le formulaire, corriger les "
 "erreurs et soumettre à nouveau."
 
-#: includes/views/submit_listing.php:743
+#: includes/views/submit_listing.php:759
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

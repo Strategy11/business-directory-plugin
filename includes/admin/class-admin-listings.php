@@ -642,7 +642,7 @@ class WPBDP_Admin_Listings {
     }
 
     public function _add_tag_cloud( $tags ) {
-        if ( WPBDP_TAGS_TAX !== $_POST['tax'] ) {
+        if ( isset( $_POST['tax'] ) && WPBDP_TAGS_TAX !== $_POST['tax'] ) {
             return $tags;
         }
 

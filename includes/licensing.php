@@ -393,6 +393,16 @@ class WPBDP_Licensing {
     }
 
     private function handle_failed_license_request( $response ) {
+        if ( ! function_exists( 'curl_init' ) ) {
+            $message  = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. cURL was not found in your system", 'licensing', 'WPBDM' ) . '</strong>';
+            $message .= '<br/><br/>';
+            $message .= _x( 'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).', 'licensing', 'WPBDM' );
+            $message .= '<br/><br/>';
+            $message .= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'WPBDM' );
+            $message .= '<br/><br/>';
+            $message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necessary', 'licensing', 'WPBDM' );
+            return new WP_Error( 'request-failed', $message );
+        }
         $ch = curl_init();
 
         curl_setopt( $ch, CURLOPT_URL, 'https://businessdirectoryplugin.com' );
@@ -431,7 +441,7 @@ class WPBDP_Licensing {
             $message .= '<br/><br/>';
             $message .= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'WPBDM' );
             $message .= '<br/><br/>';
-            $message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necesary.', 'licensing', 'WPBDM' );
+            $message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necessary.', 'licensing', 'WPBDM' );
 
             // The javascript handler already adds a dot at the end.
             $message = rtrim( $message, '.' );

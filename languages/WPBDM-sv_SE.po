@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-01-30 22:57:02+00:00\n"
+"POT-Creation-Date: 2019-02-20 21:19:51+00:00\n"
 "PO-Revision-Date: 2017-12-03 21:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -106,7 +106,7 @@ msgstr "Ett fel uppstod när försök gjordes att radera detta fält."
 msgid "Business Directory Plugin"
 msgstr "Business Directory Plugin"
 
-#: includes/admin/csv-import.php:261
+#: includes/admin/csv-import.php:287
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
 "imports to function properly. Your server is using \"%s\" but this path does "
@@ -485,42 +485,42 @@ msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Annonskategorin \"%s\" existerar inte"
 
-#: includes/admin/csv-import.php:118
+#: includes/admin/csv-import.php:130
 msgctxt "admin csv-import"
 msgid "Business %s"
 msgstr "Affärs%s"
 
-#: includes/admin/csv-import.php:156
+#: includes/admin/csv-import.php:168
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Oavsett"
 
-#: includes/admin/csv-import.php:160
+#: includes/admin/csv-import.php:173
 msgctxt "admin csv-import"
 msgid "Example CSV Import File"
 msgstr "Exempel CSV-importfilen"
 
-#: includes/admin/csv-import.php:161
+#: includes/admin/csv-import.php:174
 msgctxt "admin csv-import"
 msgid "← Return to \"CSV Import\""
 msgstr "← Återvänd till \"CSV Import\""
 
-#: includes/admin/csv-import.php:295
+#: includes/admin/csv-import.php:330
 msgctxt "admin csv-import"
 msgid "There was an error uploading the CSV file."
 msgstr "Det uppstod ett fel vid överföringen av CSV-filen."
 
-#: includes/admin/csv-import.php:301
+#: includes/admin/csv-import.php:336
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Vänligen ladda upp eller välj en CSV-fil."
 
-#: includes/admin/csv-import.php:314
+#: includes/admin/csv-import.php:349
 msgctxt "admin csv-import"
 msgid "There was an error uploading the images ZIP file."
 msgstr "Det uppstod ett fel vid uppladdningen av bildernas ZIP-fil."
 
-#: includes/admin/csv-import.php:335
+#: includes/admin/csv-import.php:373
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -529,7 +529,7 @@ msgstr ""
 "Ett fel upptäcktes vid valideringen av CSV-filen för import. Vänligen "
 "åtgärda detta innan du fortsätter."
 
-#: includes/admin/csv-import.php:344
+#: includes/admin/csv-import.php:382
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr "Import är i \"testläge\". Ingenting kommer att införas i databasen."
@@ -882,16 +882,26 @@ msgid "Multivalued?"
 msgstr "Fler värden?"
 
 #: templates/admin/csv-import.tpl.php:303
+#, fuzzy
+msgctxt "admin csv-import"
+msgid ""
+"Fee ID (integer) associated to a listing. Use this column when adding or "
+"updating listings from external sources."
+msgstr ""
+"Annonsens utgångsdatum formateras som ÅÅÅÅ-MM-DD. Använd den här kolumnen "
+"när du lägger till eller uppdaterar listor från externa källor."
+
+#: templates/admin/csv-import.tpl.php:310
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr "Semikolonseparerad lista med annonsbilder (från ZIP-filen)."
 
-#: templates/admin/csv-import.tpl.php:310
+#: templates/admin/csv-import.tpl.php:317
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr "Annonsens författares användarnamn"
 
-#: templates/admin/csv-import.tpl.php:317
+#: templates/admin/csv-import.tpl.php:324
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -899,7 +909,7 @@ msgstr ""
 "Intern sekvens ID som används för att tillåta notering uppdateringar från "
 "externa källor."
 
-#: templates/admin/csv-import.tpl.php:324
+#: templates/admin/csv-import.tpl.php:331
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -1160,7 +1170,7 @@ msgstr ""
 "Du kan skapa dessa anpassade fält själv i \"Hantera formulärfält\" eller "
 "låta Business Directory göra det åt dig automatiskt."
 
-#: includes/admin/form-fields.php:214
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:516
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Gå till \"Hantera formulärfält\""
@@ -3143,33 +3153,33 @@ msgctxt "admin fees table"
 msgid "Disabled"
 msgstr "Inaktiverad"
 
-#: includes/admin/helpers/class-listing-timeline.php:93
+#: includes/admin/helpers/class-listing-timeline.php:102
 msgctxt "listing timeline"
 msgid "Listing created"
 msgstr "Annons skapad"
 
-#: includes/admin/helpers/class-listing-timeline.php:98
+#: includes/admin/helpers/class-listing-timeline.php:107
 msgctxt "listing timeline"
 msgid "Listing expired"
 msgstr "Annonsen förfallit."
 
-#: includes/admin/helpers/class-listing-timeline.php:103
+#: includes/admin/helpers/class-listing-timeline.php:112
 msgctxt "listing timeline"
 msgid "Listing renewed"
 msgstr "Annonsen har förnyats."
 
-#: includes/admin/helpers/class-listing-timeline.php:118
+#: includes/admin/helpers/class-listing-timeline.php:127
 msgctxt "listing timeline"
 msgid "Paid as admin"
 msgstr ""
 
-#: includes/admin/helpers/class-listing-timeline.php:120
+#: includes/admin/helpers/class-listing-timeline.php:129
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing imported"
 msgstr "Annonsen förfallit."
 
-#: includes/admin/helpers/class-listing-timeline.php:122
+#: includes/admin/helpers/class-listing-timeline.php:131
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Initial Payment"
@@ -3536,13 +3546,13 @@ msgid "Author"
 msgstr "Författare"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1148
+#: includes/functions.php:1179
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum inlagd"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1149
+#: includes/functions.php:1180
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Senast ändrad"
@@ -3938,12 +3948,12 @@ msgstr ""
 "Det gick inte att kopiera AJAX kompatibilitetsplugin \"%s\". "
 "Kompatibilitetsläge aktiverades inte."
 
-#: includes/functions.php:1146
+#: includes/functions.php:1177
 msgctxt "admin settings"
 msgid "User"
 msgstr "Användare"
 
-#: includes/functions.php:1147
+#: includes/functions.php:1178
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Användarens registreringsdatum"
@@ -5827,7 +5837,7 @@ msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Sätt in en annons"
 
-#: includes/class-view.php:87
+#: includes/class-view.php:103
 msgctxt "views"
 msgid "Invalid credentials."
 msgstr "Ogiltiga uppgifter."
@@ -6048,62 +6058,62 @@ msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr "(Vänligen välj en avgiftsplan ovan)"
 
-#: includes/views/submit_listing.php:504
+#: includes/views/submit_listing.php:503
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Det går inte att registrera en annons just nu. Försök igen senare."
 
-#: includes/views/submit_listing.php:515
+#: includes/views/submit_listing.php:531
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en kategori."
 
-#: includes/views/submit_listing.php:528
+#: includes/views/submit_listing.php:544
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Välj en kategori för din annons."
 
-#: includes/views/submit_listing.php:548
+#: includes/views/submit_listing.php:564
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Välj en giltig kategori för din plan."
 
-#: includes/views/submit_listing.php:550
+#: includes/views/submit_listing.php:566
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/views/submit_listing.php:791
+#: includes/views/submit_listing.php:807
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/views/submit_listing.php:796
+#: includes/views/submit_listing.php:812
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/views/submit_listing.php:801
+#: includes/views/submit_listing.php:817
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Ange lösenordet för ditt nya konto."
 
-#: includes/views/submit_listing.php:811
+#: includes/views/submit_listing.php:827
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/views/submit_listing.php:816
+#: includes/views/submit_listing.php:832
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
 
-#: includes/views/submit_listing.php:831
+#: includes/views/submit_listing.php:847
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/views/submit_listing.php:838
+#: includes/views/submit_listing.php:854
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -6111,17 +6121,17 @@ msgstr ""
 "Du måste skapa ett konto för denna webbplatsen. Vänligen fyll i formuläret "
 "nedan."
 
-#: includes/views/submit_listing.php:844
+#: includes/views/submit_listing.php:860
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Användarnamn:"
 
-#: includes/views/submit_listing.php:853
+#: includes/views/submit_listing.php:869
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-postadress:"
 
-#: includes/views/submit_listing.php:862
+#: includes/views/submit_listing.php:878
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Lösenord:"
@@ -6238,12 +6248,12 @@ msgctxt "form-fields api"
 msgid "Image (file upload)"
 msgstr "Bild (filuppladdning)"
 
-#: includes/fields/class-fieldtypes-linkedin.php:6
+#: includes/fields/class-fieldtypes-linkedin.php:16
 msgctxt "form-fields api"
 msgid "Social Site (LinkedIn profile)"
 msgstr "Social Site (Linkedin-profil)"
 
-#: includes/fields/class-fieldtypes-linkedin.php:21
+#: includes/fields/class-fieldtypes-linkedin.php:31
 msgctxt "form-fields api"
 msgid "You can add your Company ID or profile URL here."
 msgstr "Du kan lägga din företags-ID eller profil URL här."
@@ -6591,6 +6601,432 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Land krävs."
 
+#: includes/functions.php:1257
+#, fuzzy
+msgctxt "templates"
+msgid "Return to results"
+msgstr "Återgå till katalogen"
+
+#: includes/functions.php:1261 includes/functions.php:1266
+#, fuzzy
+msgctxt "templates"
+msgid "Go back"
+msgstr "Nej, gå tillbaka"
+
+#: includes/payment.php:278 templates/renew-resume.tpl.php:39
+#, fuzzy
+msgctxt "templates"
+msgid "Return to fee selection"
+msgstr "Återvänd till annons"
+
+#: includes/templates-ui.php:199
+msgctxt "templates"
+msgid "No listing categories found."
+msgstr "Inga kategorier hittades."
+
+#: includes/templates-ui.php:333
+msgctxt "templates"
+msgid "Search Listings"
+msgstr "Sök annonser"
+
+#: includes/templates-ui.php:338
+msgctxt "templates"
+msgid "Advanced Search"
+msgstr "Avancerad Sökning"
+
+#: includes/views/listing_contact.php:149
+msgctxt "templates"
+msgid "Contact listing owner"
+msgstr "Kontakta annonsägaren"
+
+#: includes/views/listing_contact.php:153
+msgctxt "templates"
+msgid "Send Message to listing owner"
+msgstr "Skicka ett meddelande till annonsören"
+
+#: includes/views/main.php:9
+msgctxt "templates"
+msgid ""
+"There are no categories assigned to the business directory yet. You need to "
+"assign some categories to the business directory. Only admins can see this "
+"message. Regular users are seeing a message that there are currently no "
+"listings in the directory. Listings cannot be added until you assign "
+"categories to the business directory."
+msgstr ""
+"Det finns inga kategorier i Business Directory ännu. Du måste skapa "
+"kategorier till företagsregistret. Endast administratörer kan se det här "
+"meddelandet. Vanliga användare ser ett meddelande om att det inte finns "
+"några annonser i registret. Annonser kan inte läggas förrän du skapar "
+"kategorier i Business Directory."
+
+#: includes/views/main.php:11
+msgctxt "templates"
+msgid "There are currently no listings in the directory."
+msgstr "Det finns inga annonser för närvarande i registret."
+
+#: includes/views/main.php:17
+msgctxt "templates"
+msgid ""
+"You have \"Hide Empty Categories\" on and some categories that don't have "
+"listings in them. That means they won't show up on the front end of your "
+"site. If you didn't want that, click <a>here</a> to change the setting."
+msgstr ""
+"Du har aktiverat \"Dölj Tomma kategorier\" och vissa kategorier har inga "
+"annonser i sig. Det betyder att de inte kommer att dyka upp på den framsidan "
+"av din webbplats. Om du inte vill det, klicka <a>här för</a> att ändra "
+"inställningen."
+
+#: includes/views/submit_listing.php:339
+msgctxt "templates"
+msgid ""
+"<b>View not available</b>. Do you have the \"Disable Frontend Listing "
+"Submission?\" setting checked?"
+msgstr ""
+"<b>Vyn inte tillgänglig.</b> Har du \"Inaktivera inlämning av annons på "
+"framsidan?\"-inställningen markerad?"
+
+#: includes/views/submit_listing.php:341
+msgctxt "templates"
+msgid ""
+"Listing submission has been disabled. Contact the administrator for details."
+msgstr ""
+
+#: includes/views/submit_listing.php:506
+msgctxt "templates"
+msgid ""
+"Listing submission is not available at the moment. Contact the administrator "
+"for details."
+msgstr ""
+
+#: includes/views/submit_listing.php:509
+msgctxt "templates"
+msgid ""
+"<b>View not available</b>, there is no \"Category\" association field. %s "
+"and create a new field with this association, or assign this association to "
+"an existing field"
+msgstr ""
+
+#: includes/views/submit_listing.php:916
+msgctxt "templates"
+msgid "Please agree to the Terms and Conditions."
+msgstr "Vänligen godkänn villkoren"
+
+#: includes/views/submit_listing.php:924
+msgctxt "templates"
+msgid "Terms and Conditions:"
+msgstr "Villkor"
+
+#: includes/views/submit_listing.php:933
+msgctxt "templates"
+msgid "I agree to the <a>Terms and Conditions</a>"
+msgstr "Jag godtar <a>villkoren</a>."
+
+#: templates/businessdirectory-listings.tpl.php:27
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
+#: templates/search.tpl.php:17
+msgctxt "templates"
+msgid "No listings found."
+msgstr "Inga annonser hittades"
+
+#: templates/businessdirectory-listings.tpl.php:38
+#: templates/listings.tpl.php:31
+msgctxt "templates"
+msgid "&laquo; Previous "
+msgstr "&laquo; Föregående"
+
+#: templates/businessdirectory-listings.tpl.php:39
+#: templates/listings.tpl.php:32
+msgctxt "templates"
+msgid "Next &raquo;"
+msgstr "Nästa &raquo;"
+
+#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
+#: templates/manage_listings.tpl.php:8
+msgctxt "templates"
+msgid "Return to directory"
+msgstr "Återgå till katalogen"
+
+#: templates/listing-contactform.tpl.php:20
+msgctxt "templates"
+msgid "Listing Title: "
+msgstr "Annonsrubrik:"
+
+#: templates/listing-contactform.tpl.php:29
+msgctxt "templates"
+msgid ""
+"You are currently logged in as %s. Your message will be sent using your "
+"logged in contact email."
+msgstr ""
+"Du är inloggad som %s. Ditt meddelande kommer att skickas med dina "
+"medlemsuppgifter."
+
+#: templates/listing-contactform.tpl.php:36
+#: templates/listing-flagging-form.tpl.php:22
+msgctxt "templates"
+msgid "Your Name"
+msgstr "Namn"
+
+#: templates/listing-contactform.tpl.php:39
+#: templates/listing-flagging-form.tpl.php:26
+msgctxt "templates"
+msgid "Your Email"
+msgstr "﻿Din E-post"
+
+#: templates/listing-contactform.tpl.php:44
+msgctxt "templates"
+msgid "Message"
+msgstr "﻿Meddelande"
+
+#: templates/listing-contactform.tpl.php:53
+msgctxt "templates"
+msgid "Send"
+msgstr "Skicka"
+
+#: templates/listing-flagging-form.tpl.php:3
+#, fuzzy
+msgctxt "templates"
+msgid "Report Listing"
+msgstr "Importera annonser"
+
+#: templates/listing-sticky-tag.tpl.php:12
+#: templates/listing-sticky-tag.tpl.php:13
+msgctxt "templates"
+msgid "Featured Listing"
+msgstr "Utvald annons"
+
+#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
+msgctxt "templates"
+msgid ""
+"You are not currently logged in. Please login or register first. When "
+"registering, you will receive an activation email. Be sure to check your "
+"spam if you don't see it in your email within 60 minutes."
+msgstr ""
+"Du är inte inloggad. Vänligen logga in eller registrera dig först. När du "
+"registrerar dig får du ett aktiveringsmejl. Vänligen kontrollera din "
+"skräppost om du inte ser mejlet inom 60 minuter."
+
+#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr "Ännu inte registrerad?"
+
+#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
+msgctxt "templates"
+msgid "Lost your password?"
+msgstr "Glömt ditt lösenord?"
+
+#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
+msgctxt "templates"
+msgid ""
+"Your current listings are shown below. To edit a listing click the edit "
+"button. To delete a listing click the delete button."
+msgstr ""
+"Dina aktuella annonser visas nedan. Om du vill redigera en annons klicka på "
+"knappen Redigera. För att ta bort en notering klicka på knappen Ta bort."
+
+#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:6
+msgctxt "templates"
+msgid "You do not currently have any listings in the directory."
+msgstr "Du har för närvarande inte har några listor i katalogen."
+
+#: templates/parts/listing-buttons.tpl.php:19
+#: templates/parts/listing-buttons.tpl.php:63
+msgctxt "templates"
+msgid "Edit"
+msgstr "Redigera"
+
+#: templates/parts/listing-buttons.tpl.php:27
+#: templates/parts/listing-buttons.tpl.php:71
+#, fuzzy
+msgctxt "templates"
+msgid "Flag Listing"
+msgstr "Hitta en annons"
+
+#: templates/parts/listing-buttons.tpl.php:35
+#: templates/parts/listing-buttons.tpl.php:79
+msgctxt "templates"
+msgid "Delete"
+msgstr "Ta bort"
+
+#: templates/parts/listing-buttons.tpl.php:36
+msgctxt "templates"
+msgid "Are you sure you wish to delete this listing?"
+msgstr "Är du säker på att du vill ta bort denna annons?"
+
+#: templates/parts/listing-buttons.tpl.php:55
+msgctxt "templates"
+msgid "View"
+msgstr "Visa"
+
+#: templates/parts/login-required.tpl.php:17
+msgctxt "templates"
+msgid "Login"
+msgstr "Inloggning"
+
+#: templates/renew-listing-manage-subscription.tpl.php:2
+msgctxt "templates"
+msgid "Recurring Fee Management"
+msgstr "Hantera återkommande avgifter"
+
+#: templates/renew-listing.tpl.php:13
+msgctxt "templates"
+msgid "Renew Listing"
+msgstr "Förnya annons"
+
+#: templates/renew-listing.tpl.php:21
+msgctxt "templates"
+msgid "You are about to renew your listing \"%s\" publication."
+msgstr "Du är på väg att förnya din annons \"%s\"."
+
+#: templates/renew-listing.tpl.php:24
+#, fuzzy
+msgctxt "templates"
+msgid ""
+"Please select a fee option or click \"Do not renew my listing\" to remove "
+"your listing from the directory."
+msgstr ""
+"Välj ett avgiftsalternativ eller klicka på \"Förnya inte min annons\" för "
+"att ta bort annonsen från katalogen."
+
+#: templates/renew-listing.tpl.php:39
+#: templates/submit-listing/extra-sections.tpl.php:6
+msgctxt "templates"
+msgid "Continue"
+msgstr "Fortsätt "
+
+#: templates/renew-listing.tpl.php:44
+msgctxt "templates"
+msgid "Do not renew my listing"
+msgstr "Förnya inte min annons"
+
+#: templates/renew-resume.tpl.php:38
+#, fuzzy
+msgctxt "templates"
+msgid "Continue to checkout"
+msgstr "Fortsätt till betalning"
+
+#: templates/search-form.tpl.php:3
+msgctxt "templates"
+msgid "Find a listing"
+msgstr "Hitta en annons"
+
+#: templates/search.tpl.php:26
+msgctxt "templates"
+msgid "Return to Search"
+msgstr "Tillbaka till sök"
+
+#: templates/submit-listing/extra-sections.tpl.php:1
+msgctxt "templates"
+msgid "Additional Information"
+msgstr "Ytterligare information"
+
+#: templates/submit-listing-done.tpl.php:1
+msgctxt "templates"
+msgid "Submission Received"
+msgstr "Mottagen"
+
+#: templates/submit-listing-done.tpl.php:4
+msgctxt "templates"
+msgid "Your listing has been submitted."
+msgstr "Din annons har skickats in."
+
+#: templates/submit-listing-done.tpl.php:11
+msgctxt "templates"
+msgid "Your listing changes were saved."
+msgstr "Dina annonsändringar har sparats."
+
+#: templates/submit-listing-done.tpl.php:16
+msgctxt "templates"
+msgid "Go to your listing"
+msgstr "Gå till din annons."
+
+#: templates/submit-listing-done.tpl.php:18
+msgctxt "templates"
+msgid ""
+"Your listing requires admin approval. You'll be notified once your listing "
+"is approved."
+msgstr ""
+"Din listning kräver godkännande från administratören. Du meddelas när din "
+"annons är godkänd."
+
+#: templates/submit-listing-done.tpl.php:22
+msgctxt "templates"
+msgid "Return to directory."
+msgstr "Återgå till katalogen"
+
+#: templates/submit-listing-images-single.tpl.php:24
+msgctxt "templates"
+msgid "Set this image as the listing thumbnail."
+msgstr "Använd denna bild som tumnagel."
+
+#: templates/submit-listing-images-upload-form.tpl.php:10
+msgctxt "templates"
+msgid "Upload Images"
+msgstr "Ladda upp bilder"
+
+#: templates/submit-listing-images-upload-form.tpl.php:15
+msgctxt "templates"
+msgid "Drop files here"
+msgstr "Släpp filer här"
+
+#: templates/submit-listing-images-upload-form.tpl.php:17
+msgctxt "templates"
+msgid "Select images from your hard drive"
+msgstr "Välj bilder från din hårddisk"
+
+#: templates/submit-listing-images-upload-form.tpl.php:20
+msgctxt "templates"
+msgid "Uploading %s file(s)... Please wait."
+msgstr "Ladda upp %s filer... Vänligen vänta."
+
+#: templates/submit-listing-images-upload-form.tpl.php:23
+msgctxt "templates"
+msgid ""
+"Your image slots are all full at this time.  You may click \"Continue\" if "
+"you are done, or \"Delete Image\" to upload a new image in place of a "
+"current one."
+msgstr ""
+"Din bild slots är alla fullt vid denna tid.  Du kan klicka på \"Fortsätt\" "
+"om du är klar, eller \"Ta bort bild\" för att ladda upp en ny bild i stället "
+"för en befintlig."
+
+#: templates/submit-listing-images-upload-form.tpl.php:30
+msgctxt "templates"
+msgid "Image slots available:"
+msgstr "Tillgängliga bildplatser:"
+
+#: templates/submit-listing-images-upload-form.tpl.php:36
+msgctxt "templates"
+msgid "File size:"
+msgstr "Filstorlek:"
+
+#: templates/submit-listing-images-upload-form.tpl.php:38
+#: templates/submit-listing-images-upload-form.tpl.php:45
+#: templates/submit-listing-images-upload-form.tpl.php:52
+msgctxt "templates"
+msgid "No limit"
+msgstr "Ingen begränsning"
+
+#: templates/submit-listing-images-upload-form.tpl.php:43
+msgctxt "templates"
+msgid "Image width:"
+msgstr "Bredd på bild:"
+
+#: templates/submit-listing-images-upload-form.tpl.php:50
+msgctxt "templates"
+msgid "Image height:"
+msgstr "Höjd på bild:"
+
+#: templates/submit-listing-images.tpl.php:5
+msgctxt "templates"
+msgid "Current Images"
+msgstr "Aktuella bilder"
+
+#: templates/submit-listing-images.tpl.php:8
+msgctxt "templates"
+msgid "There are no images currently attached to your listing."
+msgstr "Det finns för närvarande inga bilder för denna annons."
+
 #: includes/gateways/class-gateway-authorize-net.php:20
 msgctxt "authorize-net"
 msgid "Authorize.net"
@@ -6693,37 +7129,37 @@ msgctxt "flag listing"
 msgid "Report comment is required to save a report"
 msgstr ""
 
-#: includes/views/flag_listing.php:52
+#: includes/views/flag_listing.php:59
 #, fuzzy
 msgctxt "flag listing"
 msgid "The listing <i>%s</i> has been reported. <a>Return to directory</a>"
 msgstr "Din annons har tagits bort."
 
-#: includes/views/flag_listing.php:105
+#: includes/views/flag_listing.php:112
 #, fuzzy
 msgctxt "flag listing"
 msgid "Your current IP address already reported this listing."
 msgstr "Du har inte behörighet att redigera den här annonsen."
 
-#: includes/views/flag_listing.php:118
+#: includes/views/flag_listing.php:125
 #, fuzzy
 msgctxt "flag listing"
 msgid "You must select the reason to report this listing as inappropriate."
 msgstr "Välj en kategori för din annons."
 
-#: includes/views/flag_listing.php:122
+#: includes/views/flag_listing.php:129
 #, fuzzy
 msgctxt "flag listing"
 msgid "You must enter the reason to report this listing as inappropriate."
 msgstr "Du är på väg att förnya din annons \"%s\"."
 
-#: includes/views/flag_listing.php:127
+#: includes/views/flag_listing.php:134
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter your name."
 msgstr "Fyll i ditt namn"
 
-#: includes/views/flag_listing.php:131
+#: includes/views/flag_listing.php:138
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter your email."
@@ -7275,405 +7711,6 @@ msgctxt "checkout"
 msgid "Next"
 msgstr "Nästa"
 
-#: includes/payment.php:278 templates/renew-resume.tpl.php:39
-#, fuzzy
-msgctxt "templates"
-msgid "Return to fee selection"
-msgstr "Återvänd till annons"
-
-#: includes/templates-ui.php:199
-msgctxt "templates"
-msgid "No listing categories found."
-msgstr "Inga kategorier hittades."
-
-#: includes/templates-ui.php:333
-msgctxt "templates"
-msgid "Search Listings"
-msgstr "Sök annonser"
-
-#: includes/templates-ui.php:338
-msgctxt "templates"
-msgid "Advanced Search"
-msgstr "Avancerad Sökning"
-
-#: includes/views/listing_contact.php:149
-msgctxt "templates"
-msgid "Contact listing owner"
-msgstr "Kontakta annonsägaren"
-
-#: includes/views/listing_contact.php:153
-msgctxt "templates"
-msgid "Send Message to listing owner"
-msgstr "Skicka ett meddelande till annonsören"
-
-#: includes/views/main.php:9
-msgctxt "templates"
-msgid ""
-"There are no categories assigned to the business directory yet. You need to "
-"assign some categories to the business directory. Only admins can see this "
-"message. Regular users are seeing a message that there are currently no "
-"listings in the directory. Listings cannot be added until you assign "
-"categories to the business directory."
-msgstr ""
-"Det finns inga kategorier i Business Directory ännu. Du måste skapa "
-"kategorier till företagsregistret. Endast administratörer kan se det här "
-"meddelandet. Vanliga användare ser ett meddelande om att det inte finns "
-"några annonser i registret. Annonser kan inte läggas förrän du skapar "
-"kategorier i Business Directory."
-
-#: includes/views/main.php:11
-msgctxt "templates"
-msgid "There are currently no listings in the directory."
-msgstr "Det finns inga annonser för närvarande i registret."
-
-#: includes/views/main.php:17
-msgctxt "templates"
-msgid ""
-"You have \"Hide Empty Categories\" on and some categories that don't have "
-"listings in them. That means they won't show up on the front end of your "
-"site. If you didn't want that, click <a>here</a> to change the setting."
-msgstr ""
-"Du har aktiverat \"Dölj Tomma kategorier\" och vissa kategorier har inga "
-"annonser i sig. Det betyder att de inte kommer att dyka upp på den framsidan "
-"av din webbplats. Om du inte vill det, klicka <a>här för</a> att ändra "
-"inställningen."
-
-#: includes/views/submit_listing.php:339
-msgctxt "templates"
-msgid ""
-"<b>View not available</b>. Do you have the \"Disable Frontend Listing "
-"Submission?\" setting checked?"
-msgstr ""
-"<b>Vyn inte tillgänglig.</b> Har du \"Inaktivera inlämning av annons på "
-"framsidan?\"-inställningen markerad?"
-
-#: includes/views/submit_listing.php:341
-msgctxt "templates"
-msgid ""
-"Listing submission has been disabled. Contact the administrator for details."
-msgstr ""
-
-#: includes/views/submit_listing.php:900
-msgctxt "templates"
-msgid "Please agree to the Terms and Conditions."
-msgstr "Vänligen godkänn villkoren"
-
-#: includes/views/submit_listing.php:908
-msgctxt "templates"
-msgid "Terms and Conditions:"
-msgstr "Villkor"
-
-#: includes/views/submit_listing.php:917
-msgctxt "templates"
-msgid "I agree to the <a>Terms and Conditions</a>"
-msgstr "Jag godtar <a>villkoren</a>."
-
-#: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
-#: templates/search.tpl.php:17
-msgctxt "templates"
-msgid "No listings found."
-msgstr "Inga annonser hittades"
-
-#: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:31
-msgctxt "templates"
-msgid "&laquo; Previous "
-msgstr "&laquo; Föregående"
-
-#: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:32
-msgctxt "templates"
-msgid "Next &raquo;"
-msgstr "Nästa &raquo;"
-
-#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
-#: templates/manage_listings.tpl.php:8
-msgctxt "templates"
-msgid "Return to directory"
-msgstr "Återgå till katalogen"
-
-#: templates/listing-contactform.tpl.php:20
-msgctxt "templates"
-msgid "Listing Title: "
-msgstr "Annonsrubrik:"
-
-#: templates/listing-contactform.tpl.php:29
-msgctxt "templates"
-msgid ""
-"You are currently logged in as %s. Your message will be sent using your "
-"logged in contact email."
-msgstr ""
-"Du är inloggad som %s. Ditt meddelande kommer att skickas med dina "
-"medlemsuppgifter."
-
-#: templates/listing-contactform.tpl.php:36
-#: templates/listing-flagging-form.tpl.php:22
-msgctxt "templates"
-msgid "Your Name"
-msgstr "Namn"
-
-#: templates/listing-contactform.tpl.php:39
-#: templates/listing-flagging-form.tpl.php:26
-msgctxt "templates"
-msgid "Your Email"
-msgstr "﻿Din E-post"
-
-#: templates/listing-contactform.tpl.php:44
-msgctxt "templates"
-msgid "Message"
-msgstr "﻿Meddelande"
-
-#: templates/listing-contactform.tpl.php:53
-msgctxt "templates"
-msgid "Send"
-msgstr "Skicka"
-
-#: templates/listing-flagging-form.tpl.php:3
-#, fuzzy
-msgctxt "templates"
-msgid "Report Listing"
-msgstr "Importera annonser"
-
-#: templates/listing-sticky-tag.tpl.php:12
-#: templates/listing-sticky-tag.tpl.php:13
-msgctxt "templates"
-msgid "Featured Listing"
-msgstr "Utvald annons"
-
-#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
-msgctxt "templates"
-msgid ""
-"You are not currently logged in. Please login or register first. When "
-"registering, you will receive an activation email. Be sure to check your "
-"spam if you don't see it in your email within 60 minutes."
-msgstr ""
-"Du är inte inloggad. Vänligen logga in eller registrera dig först. När du "
-"registrerar dig får du ett aktiveringsmejl. Vänligen kontrollera din "
-"skräppost om du inte ser mejlet inom 60 minuter."
-
-#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr "Ännu inte registrerad?"
-
-#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr "Glömt ditt lösenord?"
-
-#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
-msgctxt "templates"
-msgid ""
-"Your current listings are shown below. To edit a listing click the edit "
-"button. To delete a listing click the delete button."
-msgstr ""
-"Dina aktuella annonser visas nedan. Om du vill redigera en annons klicka på "
-"knappen Redigera. För att ta bort en notering klicka på knappen Ta bort."
-
-#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:6
-msgctxt "templates"
-msgid "You do not currently have any listings in the directory."
-msgstr "Du har för närvarande inte har några listor i katalogen."
-
-#: templates/parts/listing-buttons.tpl.php:19
-#: templates/parts/listing-buttons.tpl.php:63
-msgctxt "templates"
-msgid "Edit"
-msgstr "Redigera"
-
-#: templates/parts/listing-buttons.tpl.php:27
-#: templates/parts/listing-buttons.tpl.php:71
-#, fuzzy
-msgctxt "templates"
-msgid "Flag Listing"
-msgstr "Hitta en annons"
-
-#: templates/parts/listing-buttons.tpl.php:35
-#: templates/parts/listing-buttons.tpl.php:79
-msgctxt "templates"
-msgid "Delete"
-msgstr "Ta bort"
-
-#: templates/parts/listing-buttons.tpl.php:36
-msgctxt "templates"
-msgid "Are you sure you wish to delete this listing?"
-msgstr "Är du säker på att du vill ta bort denna annons?"
-
-#: templates/parts/listing-buttons.tpl.php:55
-msgctxt "templates"
-msgid "View"
-msgstr "Visa"
-
-#: templates/parts/login-required.tpl.php:17
-msgctxt "templates"
-msgid "Login"
-msgstr "Inloggning"
-
-#: templates/renew-listing-manage-subscription.tpl.php:2
-msgctxt "templates"
-msgid "Recurring Fee Management"
-msgstr "Hantera återkommande avgifter"
-
-#: templates/renew-listing.tpl.php:13
-msgctxt "templates"
-msgid "Renew Listing"
-msgstr "Förnya annons"
-
-#: templates/renew-listing.tpl.php:21
-msgctxt "templates"
-msgid "You are about to renew your listing \"%s\" publication."
-msgstr "Du är på väg att förnya din annons \"%s\"."
-
-#: templates/renew-listing.tpl.php:24
-#, fuzzy
-msgctxt "templates"
-msgid ""
-"Please select a fee option or click \"Do not renew my listing\" to remove "
-"your listing from the directory."
-msgstr ""
-"Välj ett avgiftsalternativ eller klicka på \"Förnya inte min annons\" för "
-"att ta bort annonsen från katalogen."
-
-#: templates/renew-listing.tpl.php:39
-#: templates/submit-listing/extra-sections.tpl.php:6
-msgctxt "templates"
-msgid "Continue"
-msgstr "Fortsätt "
-
-#: templates/renew-listing.tpl.php:44
-msgctxt "templates"
-msgid "Do not renew my listing"
-msgstr "Förnya inte min annons"
-
-#: templates/renew-resume.tpl.php:38
-#, fuzzy
-msgctxt "templates"
-msgid "Continue to checkout"
-msgstr "Fortsätt till betalning"
-
-#: templates/search-form.tpl.php:3
-msgctxt "templates"
-msgid "Find a listing"
-msgstr "Hitta en annons"
-
-#: templates/search.tpl.php:26
-msgctxt "templates"
-msgid "Return to Search"
-msgstr "Tillbaka till sök"
-
-#: templates/submit-listing/extra-sections.tpl.php:1
-msgctxt "templates"
-msgid "Additional Information"
-msgstr "Ytterligare information"
-
-#: templates/submit-listing-done.tpl.php:1
-msgctxt "templates"
-msgid "Submission Received"
-msgstr "Mottagen"
-
-#: templates/submit-listing-done.tpl.php:4
-msgctxt "templates"
-msgid "Your listing has been submitted."
-msgstr "Din annons har skickats in."
-
-#: templates/submit-listing-done.tpl.php:11
-msgctxt "templates"
-msgid "Your listing changes were saved."
-msgstr "Dina annonsändringar har sparats."
-
-#: templates/submit-listing-done.tpl.php:16
-msgctxt "templates"
-msgid "Go to your listing"
-msgstr "Gå till din annons."
-
-#: templates/submit-listing-done.tpl.php:18
-msgctxt "templates"
-msgid ""
-"Your listing requires admin approval. You'll be notified once your listing "
-"is approved."
-msgstr ""
-"Din listning kräver godkännande från administratören. Du meddelas när din "
-"annons är godkänd."
-
-#: templates/submit-listing-done.tpl.php:22
-msgctxt "templates"
-msgid "Return to directory."
-msgstr "Återgå till katalogen"
-
-#: templates/submit-listing-images-single.tpl.php:24
-msgctxt "templates"
-msgid "Set this image as the listing thumbnail."
-msgstr "Använd denna bild som tumnagel."
-
-#: templates/submit-listing-images-upload-form.tpl.php:10
-msgctxt "templates"
-msgid "Upload Images"
-msgstr "Ladda upp bilder"
-
-#: templates/submit-listing-images-upload-form.tpl.php:15
-msgctxt "templates"
-msgid "Drop files here"
-msgstr "Släpp filer här"
-
-#: templates/submit-listing-images-upload-form.tpl.php:17
-msgctxt "templates"
-msgid "Select images from your hard drive"
-msgstr "Välj bilder från din hårddisk"
-
-#: templates/submit-listing-images-upload-form.tpl.php:20
-msgctxt "templates"
-msgid "Uploading %s file(s)... Please wait."
-msgstr "Ladda upp %s filer... Vänligen vänta."
-
-#: templates/submit-listing-images-upload-form.tpl.php:23
-msgctxt "templates"
-msgid ""
-"Your image slots are all full at this time.  You may click \"Continue\" if "
-"you are done, or \"Delete Image\" to upload a new image in place of a "
-"current one."
-msgstr ""
-"Din bild slots är alla fullt vid denna tid.  Du kan klicka på \"Fortsätt\" "
-"om du är klar, eller \"Ta bort bild\" för att ladda upp en ny bild i stället "
-"för en befintlig."
-
-#: templates/submit-listing-images-upload-form.tpl.php:30
-msgctxt "templates"
-msgid "Image slots available:"
-msgstr "Tillgängliga bildplatser:"
-
-#: templates/submit-listing-images-upload-form.tpl.php:36
-msgctxt "templates"
-msgid "File size:"
-msgstr "Filstorlek:"
-
-#: templates/submit-listing-images-upload-form.tpl.php:38
-#: templates/submit-listing-images-upload-form.tpl.php:45
-#: templates/submit-listing-images-upload-form.tpl.php:52
-msgctxt "templates"
-msgid "No limit"
-msgstr "Ingen begränsning"
-
-#: templates/submit-listing-images-upload-form.tpl.php:43
-msgctxt "templates"
-msgid "Image width:"
-msgstr "Bredd på bild:"
-
-#: templates/submit-listing-images-upload-form.tpl.php:50
-msgctxt "templates"
-msgid "Image height:"
-msgstr "Höjd på bild:"
-
-#: templates/submit-listing-images.tpl.php:5
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Aktuella bilder"
-
-#: templates/submit-listing-images.tpl.php:8
-msgctxt "templates"
-msgid "There are no images currently attached to your listing."
-msgstr "Det finns för närvarande inga bilder för denna annons."
-
 #: includes/templates-ui.php:373 includes/templates-ui.php:400
 msgctxt "templates sort"
 msgid "Sort By:"
@@ -7747,7 +7784,7 @@ msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Okänt fel uppstod när filen laddades upp."
 
-#: includes/views/delete_listing.php:17
+#: includes/views/delete_listing.php:32
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Din annons har tagits bort."
@@ -7873,7 +7910,7 @@ msgctxt "views:login"
 msgid "Request access key?"
 msgstr "Begär åtkomstnyckel?"
 
-#: includes/views/manage_listings.php:11
+#: includes/views/manage_listings.php:20
 #, fuzzy
 msgctxt "view:manage-listings"
 msgid "Please <a>login</a> to manage your listings."
@@ -7929,12 +7966,12 @@ msgstr ""
 "Förnyelse ID är ogiltigt. Använd webbadressen som du fick i e-"
 "postmeddelandet om förlängning."
 
-#: includes/views/renew_listing.php:51
+#: includes/views/renew_listing.php:58
 msgctxt "renewal"
 msgid "Your listing has been removed from the directory."
 msgstr "Din annons har tagits bort."
 
-#: includes/views/renew_listing.php:53
+#: includes/views/renew_listing.php:60
 msgctxt "renewal"
 msgid "Could not remove listing from directory."
 msgstr "Det gick inte att ta bort annonsen."
@@ -7990,7 +8027,7 @@ msgctxt "renewal"
 msgid "In order to complete the renewal, please confirm fee selection."
 msgstr ""
 
-#: includes/views/renew_listing.php:126
+#: includes/views/renew_listing.php:133
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
 msgstr "Förnyelse av avgift \"%s\"."
@@ -8056,7 +8093,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
-#: includes/views/submit_listing.php:659
+#: includes/views/submit_listing.php:675
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -8065,7 +8102,7 @@ msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/views/submit_listing.php:743
+#: includes/views/submit_listing.php:759
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

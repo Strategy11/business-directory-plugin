@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-01-30 22:57:02+00:00\n"
+"POT-Creation-Date: 2019-02-20 21:19:51+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -117,7 +117,7 @@ msgstr "Произошла ошибка при попытке удаления �
 msgid "Business Directory Plugin"
 msgstr "Справочник Услуг"
 
-#: includes/admin/csv-import.php:261
+#: includes/admin/csv-import.php:287
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
 "imports to function properly. Your server is using \"%s\" but this path does "
@@ -502,42 +502,42 @@ msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Рубрика \"%s\" не существует"
 
-#: includes/admin/csv-import.php:118
+#: includes/admin/csv-import.php:130
 msgctxt "admin csv-import"
 msgid "Business %s"
 msgstr "Запись %s"
 
-#: includes/admin/csv-import.php:156
+#: includes/admin/csv-import.php:168
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Ну ладно"
 
-#: includes/admin/csv-import.php:160
+#: includes/admin/csv-import.php:173
 msgctxt "admin csv-import"
 msgid "Example CSV Import File"
 msgstr "Образец файла импорта CSV"
 
-#: includes/admin/csv-import.php:161
+#: includes/admin/csv-import.php:174
 msgctxt "admin csv-import"
 msgid "← Return to \"CSV Import\""
 msgstr "← Вернуться к \"Импорту из CSV\""
 
-#: includes/admin/csv-import.php:295
+#: includes/admin/csv-import.php:330
 msgctxt "admin csv-import"
 msgid "There was an error uploading the CSV file."
 msgstr "Произошла ошибка при загрузке файла CSV."
 
-#: includes/admin/csv-import.php:301
+#: includes/admin/csv-import.php:336
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Пожалуйста загрузите или выберите файл CSV."
 
-#: includes/admin/csv-import.php:314
+#: includes/admin/csv-import.php:349
 msgctxt "admin csv-import"
 msgid "There was an error uploading the images ZIP file."
 msgstr "Произошла ошибка при загрузке архива ZIP с изображениями."
 
-#: includes/admin/csv-import.php:335
+#: includes/admin/csv-import.php:373
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -546,7 +546,7 @@ msgstr ""
 "Произошла ошибка при проверке импортного файла CSV. Пожалуйста исправьте "
 "ошибки перед тем, как попытаться импортировать файл ещё раз."
 
-#: includes/admin/csv-import.php:344
+#: includes/admin/csv-import.php:382
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -906,16 +906,26 @@ msgid "Multivalued?"
 msgstr "Множественные значения?"
 
 #: templates/admin/csv-import.tpl.php:303
+#, fuzzy
+msgctxt "admin csv-import"
+msgid ""
+"Fee ID (integer) associated to a listing. Use this column when adding or "
+"updating listings from external sources."
+msgstr ""
+"Дата окончания срока действия отформатирована как ГГГГ-ММ-ДД. Используйте "
+"эту колонку при добавлении или изменении записей."
+
+#: templates/admin/csv-import.tpl.php:310
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr "Знак \"точка с запятой\" разделяет список изображений (в файле ZIP)"
 
-#: templates/admin/csv-import.tpl.php:310
+#: templates/admin/csv-import.tpl.php:317
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr "Учётная запись автора записи"
 
-#: templates/admin/csv-import.tpl.php:317
+#: templates/admin/csv-import.tpl.php:324
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -923,7 +933,7 @@ msgstr ""
 "Был использован внутренний последовательный номер, чтобы позволить загрузку "
 "данных из справочника с другого сайта."
 
-#: templates/admin/csv-import.tpl.php:324
+#: templates/admin/csv-import.tpl.php:331
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -1193,7 +1203,7 @@ msgstr ""
 "Вы можете сами создать эти поля в разделе \"Управление / Форма\", или "
 "позвольте плагину сделать это автоматически."
 
-#: includes/admin/form-fields.php:214
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:516
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Перейти в раздел \"Управление / Форма\""
@@ -3199,36 +3209,36 @@ msgctxt "admin fees table"
 msgid "Disabled"
 msgstr ""
 
-#: includes/admin/helpers/class-listing-timeline.php:93
+#: includes/admin/helpers/class-listing-timeline.php:102
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing created"
 msgstr "Изображение записи"
 
-#: includes/admin/helpers/class-listing-timeline.php:98
+#: includes/admin/helpers/class-listing-timeline.php:107
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing expired"
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/helpers/class-listing-timeline.php:103
+#: includes/admin/helpers/class-listing-timeline.php:112
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing renewed"
 msgstr "Запись была продлена."
 
-#: includes/admin/helpers/class-listing-timeline.php:118
+#: includes/admin/helpers/class-listing-timeline.php:127
 msgctxt "listing timeline"
 msgid "Paid as admin"
 msgstr ""
 
-#: includes/admin/helpers/class-listing-timeline.php:120
+#: includes/admin/helpers/class-listing-timeline.php:129
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing imported"
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/helpers/class-listing-timeline.php:122
+#: includes/admin/helpers/class-listing-timeline.php:131
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Initial Payment"
@@ -3618,13 +3628,13 @@ msgid "Author"
 msgstr "По автору"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1148
+#: includes/functions.php:1179
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "По дате публикации"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1149
+#: includes/functions.php:1180
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "По дате изменения"
@@ -4021,12 +4031,12 @@ msgstr ""
 "Не удалось скопировать плагин совместимости с AJAX \"%s\". Режим "
 "совместимости не был активирован."
 
-#: includes/functions.php:1146
+#: includes/functions.php:1177
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: includes/functions.php:1147
+#: includes/functions.php:1178
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Дата окончания срока действия"
@@ -6089,7 +6099,7 @@ msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Создать запись"
 
-#: includes/class-view.php:87
+#: includes/class-view.php:103
 #, fuzzy
 msgctxt "views"
 msgid "Invalid credentials."
@@ -6323,7 +6333,7 @@ msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:504
+#: includes/views/submit_listing.php:503
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -6331,79 +6341,79 @@ msgstr ""
 "В настоящее время вы не можем провести Вашу оплату. Попробуйте позже "
 "пожалуйста."
 
-#: includes/views/submit_listing.php:515
+#: includes/views/submit_listing.php:531
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:528
+#: includes/views/submit_listing.php:544
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:548
+#: includes/views/submit_listing.php:564
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:550
+#: includes/views/submit_listing.php:566
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:791
+#: includes/views/submit_listing.php:807
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/submit_listing.php:796
+#: includes/views/submit_listing.php:812
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/submit_listing.php:801
+#: includes/views/submit_listing.php:817
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:811
+#: includes/views/submit_listing.php:827
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:816
+#: includes/views/submit_listing.php:832
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:831
+#: includes/views/submit_listing.php:847
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:838
+#: includes/views/submit_listing.php:854
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:844
+#: includes/views/submit_listing.php:860
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
-#: includes/views/submit_listing.php:853
+#: includes/views/submit_listing.php:869
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Адрес: %s"
 
-#: includes/views/submit_listing.php:862
+#: includes/views/submit_listing.php:878
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -6523,12 +6533,12 @@ msgctxt "form-fields api"
 msgid "Image (file upload)"
 msgstr "Изображение (прикреплённый файл)"
 
-#: includes/fields/class-fieldtypes-linkedin.php:6
+#: includes/fields/class-fieldtypes-linkedin.php:16
 msgctxt "form-fields api"
 msgid "Social Site (LinkedIn profile)"
 msgstr "Адрес страницы на сайте LinkedIn"
 
-#: includes/fields/class-fieldtypes-linkedin.php:21
+#: includes/fields/class-fieldtypes-linkedin.php:31
 msgctxt "form-fields api"
 msgid "You can add your Company ID or profile URL here."
 msgstr ""
@@ -6871,6 +6881,430 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Страна обязательна."
 
+#: includes/functions.php:1257
+#, fuzzy
+msgctxt "templates"
+msgid "Return to results"
+msgstr "Вернуться к справочнику"
+
+#: includes/functions.php:1261 includes/functions.php:1266
+msgctxt "templates"
+msgid "Go back"
+msgstr ""
+
+#: includes/payment.php:278 templates/renew-resume.tpl.php:39
+#, fuzzy
+msgctxt "templates"
+msgid "Return to fee selection"
+msgstr "Вернуться в справочник."
+
+#: includes/templates-ui.php:199
+msgctxt "templates"
+msgid "No listing categories found."
+msgstr "Рубрики не обнаружены."
+
+#: includes/templates-ui.php:333
+msgctxt "templates"
+msgid "Search Listings"
+msgstr "Найти"
+
+#: includes/templates-ui.php:338
+msgctxt "templates"
+msgid "Advanced Search"
+msgstr "Расширенный поиск"
+
+#: includes/views/listing_contact.php:149
+msgctxt "templates"
+msgid "Contact listing owner"
+msgstr "Свяжитесь с владельцем бизнеса"
+
+#: includes/views/listing_contact.php:153
+msgctxt "templates"
+msgid "Send Message to listing owner"
+msgstr "Послать сообщение автору записи"
+
+#: includes/views/main.php:9
+msgctxt "templates"
+msgid ""
+"There are no categories assigned to the business directory yet. You need to "
+"assign some categories to the business directory. Only admins can see this "
+"message. Regular users are seeing a message that there are currently no "
+"listings in the directory. Listings cannot be added until you assign "
+"categories to the business directory."
+msgstr ""
+"В справочнике пока нет ни одной рубрики. Вам необходимо задать несколько "
+"рубрик Вашему справочнику.<br /><br />Это сообщение показывается только "
+"администрации. Обычные пользователи видят другое сообщение: в справочнике "
+"нет ни одной записи. Записи не могут быть добавлены пока не будут созданы "
+"рубрики."
+
+#: includes/views/main.php:11
+msgctxt "templates"
+msgid "There are currently no listings in the directory."
+msgstr "В справочнике нет ни одного изображения."
+
+#: includes/views/main.php:17
+msgctxt "templates"
+msgid ""
+"You have \"Hide Empty Categories\" on and some categories that don't have "
+"listings in them. That means they won't show up on the front end of your "
+"site. If you didn't want that, click <a>here</a> to change the setting."
+msgstr ""
+"Параметр \"Скрыть пустые рубрики\" включён, и в справочнике есть рубрики, в "
+"которых нет ни одной записи. Это означает, что такие рубрики не будут "
+"показаны посетителям сайта. Если Вы хотите изменить такое поведение, "
+"перейдите в <a>Настройки</a> и отключите этот параметр."
+
+#: includes/views/submit_listing.php:339
+msgctxt "templates"
+msgid ""
+"<b>View not available</b>. Do you have the \"Disable Frontend Listing "
+"Submission?\" setting checked?"
+msgstr ""
+
+#: includes/views/submit_listing.php:341
+msgctxt "templates"
+msgid ""
+"Listing submission has been disabled. Contact the administrator for details."
+msgstr ""
+
+#: includes/views/submit_listing.php:506
+msgctxt "templates"
+msgid ""
+"Listing submission is not available at the moment. Contact the administrator "
+"for details."
+msgstr ""
+
+#: includes/views/submit_listing.php:509
+msgctxt "templates"
+msgid ""
+"<b>View not available</b>, there is no \"Category\" association field. %s "
+"and create a new field with this association, or assign this association to "
+"an existing field"
+msgstr ""
+
+#: includes/views/submit_listing.php:916
+msgctxt "templates"
+msgid "Please agree to the Terms and Conditions."
+msgstr "Пожалуйста примите наши Условия и Положения."
+
+#: includes/views/submit_listing.php:924
+msgctxt "templates"
+msgid "Terms and Conditions:"
+msgstr "Условия и Положения:"
+
+#: includes/views/submit_listing.php:933
+#, fuzzy
+msgctxt "templates"
+msgid "I agree to the <a>Terms and Conditions</a>"
+msgstr "Я согласен с Условиями и Положениями"
+
+#: templates/businessdirectory-listings.tpl.php:27
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
+#: templates/search.tpl.php:17
+msgctxt "templates"
+msgid "No listings found."
+msgstr "Записи не найдены."
+
+#: templates/businessdirectory-listings.tpl.php:38
+#: templates/listings.tpl.php:31
+msgctxt "templates"
+msgid "&laquo; Previous "
+msgstr "&laquo; Предыдущая "
+
+#: templates/businessdirectory-listings.tpl.php:39
+#: templates/listings.tpl.php:32
+msgctxt "templates"
+msgid "Next &raquo;"
+msgstr "Следующая &raquo;"
+
+#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
+#: templates/manage_listings.tpl.php:8
+msgctxt "templates"
+msgid "Return to directory"
+msgstr "Вернуться к справочнику"
+
+#: templates/listing-contactform.tpl.php:20
+msgctxt "templates"
+msgid "Listing Title: "
+msgstr "Название записи:"
+
+#: templates/listing-contactform.tpl.php:29
+msgctxt "templates"
+msgid ""
+"You are currently logged in as %s. Your message will be sent using your "
+"logged in contact email."
+msgstr ""
+"Вы вошли в сайт под учётной записью \"%s\". Ваше сообщение будет отправлено "
+"используя Ваш контактный электронный адрес в качестве адреса отправителя."
+
+#: templates/listing-contactform.tpl.php:36
+#: templates/listing-flagging-form.tpl.php:22
+msgctxt "templates"
+msgid "Your Name"
+msgstr "Ваше имя"
+
+#: templates/listing-contactform.tpl.php:39
+#: templates/listing-flagging-form.tpl.php:26
+msgctxt "templates"
+msgid "Your Email"
+msgstr "Электронный адрес"
+
+#: templates/listing-contactform.tpl.php:44
+msgctxt "templates"
+msgid "Message"
+msgstr "Сообщение"
+
+#: templates/listing-contactform.tpl.php:53
+msgctxt "templates"
+msgid "Send"
+msgstr "Отправить"
+
+#: templates/listing-flagging-form.tpl.php:3
+#, fuzzy
+msgctxt "templates"
+msgid "Report Listing"
+msgstr "Импортировать записи"
+
+#: templates/listing-sticky-tag.tpl.php:12
+#: templates/listing-sticky-tag.tpl.php:13
+msgctxt "templates"
+msgid "Featured Listing"
+msgstr "Особая запись"
+
+#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
+msgctxt "templates"
+msgid ""
+"You are not currently logged in. Please login or register first. When "
+"registering, you will receive an activation email. Be sure to check your "
+"spam if you don't see it in your email within 60 minutes."
+msgstr ""
+"Вы не вошли на сайт. Пожалуйста войдите в сайт или зарегистрируйтесь. После "
+"регистрации Вы получите электронной письмо с кодом активации. Убедитесь, что "
+"это письмо не попадёт в папку Спама в вашей почтовой системе."
+
+#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
+msgctxt "templates"
+msgid "Not yet registered?"
+msgstr "Ещё не зарегистрированы?"
+
+#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
+msgctxt "templates"
+msgid "Lost your password?"
+msgstr "Забыли пароль?"
+
+#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
+msgctxt "templates"
+msgid ""
+"Your current listings are shown below. To edit a listing click the edit "
+"button. To delete a listing click the delete button."
+msgstr ""
+"Ваши записи показаны ниже. Для изменения записи кликните на кнопку \"Изменить"
+"\". Для удаления записи кликните на  кнопку \"Удалить\"."
+
+#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:6
+msgctxt "templates"
+msgid "You do not currently have any listings in the directory."
+msgstr "У Вас нет ни одной записи в справочнике."
+
+#: templates/parts/listing-buttons.tpl.php:19
+#: templates/parts/listing-buttons.tpl.php:63
+msgctxt "templates"
+msgid "Edit"
+msgstr "Изменить"
+
+#: templates/parts/listing-buttons.tpl.php:27
+#: templates/parts/listing-buttons.tpl.php:71
+#, fuzzy
+msgctxt "templates"
+msgid "Flag Listing"
+msgstr "Найти запись"
+
+#: templates/parts/listing-buttons.tpl.php:35
+#: templates/parts/listing-buttons.tpl.php:79
+msgctxt "templates"
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/parts/listing-buttons.tpl.php:36
+msgctxt "templates"
+msgid "Are you sure you wish to delete this listing?"
+msgstr "Вы уверены, что Вы хотите удалить эту запись?"
+
+#: templates/parts/listing-buttons.tpl.php:55
+msgctxt "templates"
+msgid "View"
+msgstr "Показать"
+
+#: templates/parts/login-required.tpl.php:17
+msgctxt "templates"
+msgid "Login"
+msgstr "Войти в сайт"
+
+#: templates/renew-listing-manage-subscription.tpl.php:2
+msgctxt "templates"
+msgid "Recurring Fee Management"
+msgstr "Управление периодический оплатой"
+
+#: templates/renew-listing.tpl.php:13
+msgctxt "templates"
+msgid "Renew Listing"
+msgstr "Продлить запись"
+
+#: templates/renew-listing.tpl.php:21
+#, fuzzy
+msgctxt "templates"
+msgid "You are about to renew your listing \"%s\" publication."
+msgstr "Вы приступаете к продлению вашей записи \"%s\" в рубрике \"%s\"."
+
+#: templates/renew-listing.tpl.php:24
+#, fuzzy
+msgctxt "templates"
+msgid ""
+"Please select a fee option or click \"Do not renew my listing\" to remove "
+"your listing from the directory."
+msgstr ""
+"Пожалуйста выберите вариант оплаты. Или кликните на \"Не продлевать мою "
+"запись\" чтобы отказаться от продления записи."
+
+#: templates/renew-listing.tpl.php:39
+#: templates/submit-listing/extra-sections.tpl.php:6
+msgctxt "templates"
+msgid "Continue"
+msgstr "Далее"
+
+#: templates/renew-listing.tpl.php:44
+msgctxt "templates"
+msgid "Do not renew my listing"
+msgstr "Не продлевать мою запись"
+
+#: templates/renew-resume.tpl.php:38
+#, fuzzy
+msgctxt "templates"
+msgid "Continue to checkout"
+msgstr "Начальный платёж"
+
+#: templates/search-form.tpl.php:3
+msgctxt "templates"
+msgid "Find a listing"
+msgstr "Найти запись"
+
+#: templates/search.tpl.php:26
+#, fuzzy
+msgctxt "templates"
+msgid "Return to Search"
+msgstr "Вернуться к справочнику"
+
+#: templates/submit-listing/extra-sections.tpl.php:1
+msgctxt "templates"
+msgid "Additional Information"
+msgstr "Дополнительная информация"
+
+#: templates/submit-listing-done.tpl.php:1
+msgctxt "templates"
+msgid "Submission Received"
+msgstr "Запись принята на сервер"
+
+#: templates/submit-listing-done.tpl.php:4
+msgctxt "templates"
+msgid "Your listing has been submitted."
+msgstr "Ваша запись принята на сервер."
+
+#: templates/submit-listing-done.tpl.php:11
+msgctxt "templates"
+msgid "Your listing changes were saved."
+msgstr "Изменения в Вашей записи были сохранены."
+
+#: templates/submit-listing-done.tpl.php:16
+msgctxt "templates"
+msgid "Go to your listing"
+msgstr "Перейти к Вашей записи"
+
+#: templates/submit-listing-done.tpl.php:18
+msgctxt "templates"
+msgid ""
+"Your listing requires admin approval. You'll be notified once your listing "
+"is approved."
+msgstr ""
+
+#: templates/submit-listing-done.tpl.php:22
+msgctxt "templates"
+msgid "Return to directory."
+msgstr "Вернуться в справочник."
+
+#: templates/submit-listing-images-single.tpl.php:24
+msgctxt "templates"
+msgid "Set this image as the listing thumbnail."
+msgstr "Миниатюра"
+
+#: templates/submit-listing-images-upload-form.tpl.php:10
+msgctxt "templates"
+msgid "Upload Images"
+msgstr "Загрузить изображение"
+
+#: templates/submit-listing-images-upload-form.tpl.php:15
+msgctxt "templates"
+msgid "Drop files here"
+msgstr "Перетащите файлы сюда"
+
+#: templates/submit-listing-images-upload-form.tpl.php:17
+msgctxt "templates"
+msgid "Select images from your hard drive"
+msgstr "Выберите файл на диске Вашего компьютера"
+
+#: templates/submit-listing-images-upload-form.tpl.php:20
+msgctxt "templates"
+msgid "Uploading %s file(s)... Please wait."
+msgstr "Подождите пожалуйста, идёт загрузка %s файла(ов)..."
+
+#: templates/submit-listing-images-upload-form.tpl.php:23
+msgctxt "templates"
+msgid ""
+"Your image slots are all full at this time.  You may click \"Continue\" if "
+"you are done, or \"Delete Image\" to upload a new image in place of a "
+"current one."
+msgstr ""
+"Уже загружено максимально разрешённое количество изображений. Вы можете "
+"кликнуть по кнопке \"Далее\", если с эта часть записи уже готова, либо "
+"\"Удалить изображение\" и загрузить новый файл вместо текущего."
+
+#: templates/submit-listing-images-upload-form.tpl.php:30
+msgctxt "templates"
+msgid "Image slots available:"
+msgstr "Свободных мест для загрузки изображений:"
+
+#: templates/submit-listing-images-upload-form.tpl.php:36
+msgctxt "templates"
+msgid "File size:"
+msgstr "Минимальный размер файла:"
+
+#: templates/submit-listing-images-upload-form.tpl.php:38
+#: templates/submit-listing-images-upload-form.tpl.php:45
+#: templates/submit-listing-images-upload-form.tpl.php:52
+msgctxt "templates"
+msgid "No limit"
+msgstr ""
+
+#: templates/submit-listing-images-upload-form.tpl.php:43
+msgctxt "templates"
+msgid "Image width:"
+msgstr "Ширина изображения (пикселы):"
+
+#: templates/submit-listing-images-upload-form.tpl.php:50
+msgctxt "templates"
+msgid "Image height:"
+msgstr "Высота изображения (пикселы):"
+
+#: templates/submit-listing-images.tpl.php:5
+msgctxt "templates"
+msgid "Current Images"
+msgstr "Существующие изображения:"
+
+#: templates/submit-listing-images.tpl.php:8
+msgctxt "templates"
+msgid "There are no images currently attached to your listing."
+msgstr "К Вашей записи не прикреплено ни одного изображения."
+
 #: includes/gateways/class-gateway-authorize-net.php:20
 #, fuzzy
 msgctxt "authorize-net"
@@ -6972,37 +7406,37 @@ msgctxt "flag listing"
 msgid "Report comment is required to save a report"
 msgstr ""
 
-#: includes/views/flag_listing.php:52
+#: includes/views/flag_listing.php:59
 #, fuzzy
 msgctxt "flag listing"
 msgid "The listing <i>%s</i> has been reported. <a>Return to directory</a>"
 msgstr "Запись была удалена."
 
-#: includes/views/flag_listing.php:105
+#: includes/views/flag_listing.php:112
 #, fuzzy
 msgctxt "flag listing"
 msgid "Your current IP address already reported this listing."
 msgstr "Вам не разрешено изменять эту запись."
 
-#: includes/views/flag_listing.php:118
+#: includes/views/flag_listing.php:125
 #, fuzzy
 msgctxt "flag listing"
 msgid "You must select the reason to report this listing as inappropriate."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/flag_listing.php:122
+#: includes/views/flag_listing.php:129
 #, fuzzy
 msgctxt "flag listing"
 msgid "You must enter the reason to report this listing as inappropriate."
 msgstr "Вы приступаете к продлению вашей записи \"%s\" в рубрике \"%s\"."
 
-#: includes/views/flag_listing.php:127
+#: includes/views/flag_listing.php:134
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter your name."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/flag_listing.php:131
+#: includes/views/flag_listing.php:138
 #, fuzzy
 msgctxt "flag listing"
 msgid "Please enter your email."
@@ -7562,404 +7996,6 @@ msgctxt "checkout"
 msgid "Next"
 msgstr ""
 
-#: includes/payment.php:278 templates/renew-resume.tpl.php:39
-#, fuzzy
-msgctxt "templates"
-msgid "Return to fee selection"
-msgstr "Вернуться в справочник."
-
-#: includes/templates-ui.php:199
-msgctxt "templates"
-msgid "No listing categories found."
-msgstr "Рубрики не обнаружены."
-
-#: includes/templates-ui.php:333
-msgctxt "templates"
-msgid "Search Listings"
-msgstr "Найти"
-
-#: includes/templates-ui.php:338
-msgctxt "templates"
-msgid "Advanced Search"
-msgstr "Расширенный поиск"
-
-#: includes/views/listing_contact.php:149
-msgctxt "templates"
-msgid "Contact listing owner"
-msgstr "Свяжитесь с владельцем бизнеса"
-
-#: includes/views/listing_contact.php:153
-msgctxt "templates"
-msgid "Send Message to listing owner"
-msgstr "Послать сообщение автору записи"
-
-#: includes/views/main.php:9
-msgctxt "templates"
-msgid ""
-"There are no categories assigned to the business directory yet. You need to "
-"assign some categories to the business directory. Only admins can see this "
-"message. Regular users are seeing a message that there are currently no "
-"listings in the directory. Listings cannot be added until you assign "
-"categories to the business directory."
-msgstr ""
-"В справочнике пока нет ни одной рубрики. Вам необходимо задать несколько "
-"рубрик Вашему справочнику.<br /><br />Это сообщение показывается только "
-"администрации. Обычные пользователи видят другое сообщение: в справочнике "
-"нет ни одной записи. Записи не могут быть добавлены пока не будут созданы "
-"рубрики."
-
-#: includes/views/main.php:11
-msgctxt "templates"
-msgid "There are currently no listings in the directory."
-msgstr "В справочнике нет ни одного изображения."
-
-#: includes/views/main.php:17
-msgctxt "templates"
-msgid ""
-"You have \"Hide Empty Categories\" on and some categories that don't have "
-"listings in them. That means they won't show up on the front end of your "
-"site. If you didn't want that, click <a>here</a> to change the setting."
-msgstr ""
-"Параметр \"Скрыть пустые рубрики\" включён, и в справочнике есть рубрики, в "
-"которых нет ни одной записи. Это означает, что такие рубрики не будут "
-"показаны посетителям сайта. Если Вы хотите изменить такое поведение, "
-"перейдите в <a>Настройки</a> и отключите этот параметр."
-
-#: includes/views/submit_listing.php:339
-msgctxt "templates"
-msgid ""
-"<b>View not available</b>. Do you have the \"Disable Frontend Listing "
-"Submission?\" setting checked?"
-msgstr ""
-
-#: includes/views/submit_listing.php:341
-msgctxt "templates"
-msgid ""
-"Listing submission has been disabled. Contact the administrator for details."
-msgstr ""
-
-#: includes/views/submit_listing.php:900
-msgctxt "templates"
-msgid "Please agree to the Terms and Conditions."
-msgstr "Пожалуйста примите наши Условия и Положения."
-
-#: includes/views/submit_listing.php:908
-msgctxt "templates"
-msgid "Terms and Conditions:"
-msgstr "Условия и Положения:"
-
-#: includes/views/submit_listing.php:917
-#, fuzzy
-msgctxt "templates"
-msgid "I agree to the <a>Terms and Conditions</a>"
-msgstr "Я согласен с Условиями и Положениями"
-
-#: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
-#: templates/search.tpl.php:17
-msgctxt "templates"
-msgid "No listings found."
-msgstr "Записи не найдены."
-
-#: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:31
-msgctxt "templates"
-msgid "&laquo; Previous "
-msgstr "&laquo; Предыдущая "
-
-#: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:32
-msgctxt "templates"
-msgid "Next &raquo;"
-msgstr "Следующая &raquo;"
-
-#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
-#: templates/manage_listings.tpl.php:8
-msgctxt "templates"
-msgid "Return to directory"
-msgstr "Вернуться к справочнику"
-
-#: templates/listing-contactform.tpl.php:20
-msgctxt "templates"
-msgid "Listing Title: "
-msgstr "Название записи:"
-
-#: templates/listing-contactform.tpl.php:29
-msgctxt "templates"
-msgid ""
-"You are currently logged in as %s. Your message will be sent using your "
-"logged in contact email."
-msgstr ""
-"Вы вошли в сайт под учётной записью \"%s\". Ваше сообщение будет отправлено "
-"используя Ваш контактный электронный адрес в качестве адреса отправителя."
-
-#: templates/listing-contactform.tpl.php:36
-#: templates/listing-flagging-form.tpl.php:22
-msgctxt "templates"
-msgid "Your Name"
-msgstr "Ваше имя"
-
-#: templates/listing-contactform.tpl.php:39
-#: templates/listing-flagging-form.tpl.php:26
-msgctxt "templates"
-msgid "Your Email"
-msgstr "Электронный адрес"
-
-#: templates/listing-contactform.tpl.php:44
-msgctxt "templates"
-msgid "Message"
-msgstr "Сообщение"
-
-#: templates/listing-contactform.tpl.php:53
-msgctxt "templates"
-msgid "Send"
-msgstr "Отправить"
-
-#: templates/listing-flagging-form.tpl.php:3
-#, fuzzy
-msgctxt "templates"
-msgid "Report Listing"
-msgstr "Импортировать записи"
-
-#: templates/listing-sticky-tag.tpl.php:12
-#: templates/listing-sticky-tag.tpl.php:13
-msgctxt "templates"
-msgid "Featured Listing"
-msgstr "Особая запись"
-
-#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
-msgctxt "templates"
-msgid ""
-"You are not currently logged in. Please login or register first. When "
-"registering, you will receive an activation email. Be sure to check your "
-"spam if you don't see it in your email within 60 minutes."
-msgstr ""
-"Вы не вошли на сайт. Пожалуйста войдите в сайт или зарегистрируйтесь. После "
-"регистрации Вы получите электронной письмо с кодом активации. Убедитесь, что "
-"это письмо не попадёт в папку Спама в вашей почтовой системе."
-
-#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
-msgctxt "templates"
-msgid "Not yet registered?"
-msgstr "Ещё не зарегистрированы?"
-
-#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
-msgctxt "templates"
-msgid "Lost your password?"
-msgstr "Забыли пароль?"
-
-#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:3
-msgctxt "templates"
-msgid ""
-"Your current listings are shown below. To edit a listing click the edit "
-"button. To delete a listing click the delete button."
-msgstr ""
-"Ваши записи показаны ниже. Для изменения записи кликните на кнопку \"Изменить"
-"\". Для удаления записи кликните на  кнопку \"Удалить\"."
-
-#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:6
-msgctxt "templates"
-msgid "You do not currently have any listings in the directory."
-msgstr "У Вас нет ни одной записи в справочнике."
-
-#: templates/parts/listing-buttons.tpl.php:19
-#: templates/parts/listing-buttons.tpl.php:63
-msgctxt "templates"
-msgid "Edit"
-msgstr "Изменить"
-
-#: templates/parts/listing-buttons.tpl.php:27
-#: templates/parts/listing-buttons.tpl.php:71
-#, fuzzy
-msgctxt "templates"
-msgid "Flag Listing"
-msgstr "Найти запись"
-
-#: templates/parts/listing-buttons.tpl.php:35
-#: templates/parts/listing-buttons.tpl.php:79
-msgctxt "templates"
-msgid "Delete"
-msgstr "Удалить"
-
-#: templates/parts/listing-buttons.tpl.php:36
-msgctxt "templates"
-msgid "Are you sure you wish to delete this listing?"
-msgstr "Вы уверены, что Вы хотите удалить эту запись?"
-
-#: templates/parts/listing-buttons.tpl.php:55
-msgctxt "templates"
-msgid "View"
-msgstr "Показать"
-
-#: templates/parts/login-required.tpl.php:17
-msgctxt "templates"
-msgid "Login"
-msgstr "Войти в сайт"
-
-#: templates/renew-listing-manage-subscription.tpl.php:2
-msgctxt "templates"
-msgid "Recurring Fee Management"
-msgstr "Управление периодический оплатой"
-
-#: templates/renew-listing.tpl.php:13
-msgctxt "templates"
-msgid "Renew Listing"
-msgstr "Продлить запись"
-
-#: templates/renew-listing.tpl.php:21
-#, fuzzy
-msgctxt "templates"
-msgid "You are about to renew your listing \"%s\" publication."
-msgstr "Вы приступаете к продлению вашей записи \"%s\" в рубрике \"%s\"."
-
-#: templates/renew-listing.tpl.php:24
-#, fuzzy
-msgctxt "templates"
-msgid ""
-"Please select a fee option or click \"Do not renew my listing\" to remove "
-"your listing from the directory."
-msgstr ""
-"Пожалуйста выберите вариант оплаты. Или кликните на \"Не продлевать мою "
-"запись\" чтобы отказаться от продления записи."
-
-#: templates/renew-listing.tpl.php:39
-#: templates/submit-listing/extra-sections.tpl.php:6
-msgctxt "templates"
-msgid "Continue"
-msgstr "Далее"
-
-#: templates/renew-listing.tpl.php:44
-msgctxt "templates"
-msgid "Do not renew my listing"
-msgstr "Не продлевать мою запись"
-
-#: templates/renew-resume.tpl.php:38
-#, fuzzy
-msgctxt "templates"
-msgid "Continue to checkout"
-msgstr "Начальный платёж"
-
-#: templates/search-form.tpl.php:3
-msgctxt "templates"
-msgid "Find a listing"
-msgstr "Найти запись"
-
-#: templates/search.tpl.php:26
-#, fuzzy
-msgctxt "templates"
-msgid "Return to Search"
-msgstr "Вернуться к справочнику"
-
-#: templates/submit-listing/extra-sections.tpl.php:1
-msgctxt "templates"
-msgid "Additional Information"
-msgstr "Дополнительная информация"
-
-#: templates/submit-listing-done.tpl.php:1
-msgctxt "templates"
-msgid "Submission Received"
-msgstr "Запись принята на сервер"
-
-#: templates/submit-listing-done.tpl.php:4
-msgctxt "templates"
-msgid "Your listing has been submitted."
-msgstr "Ваша запись принята на сервер."
-
-#: templates/submit-listing-done.tpl.php:11
-msgctxt "templates"
-msgid "Your listing changes were saved."
-msgstr "Изменения в Вашей записи были сохранены."
-
-#: templates/submit-listing-done.tpl.php:16
-msgctxt "templates"
-msgid "Go to your listing"
-msgstr "Перейти к Вашей записи"
-
-#: templates/submit-listing-done.tpl.php:18
-msgctxt "templates"
-msgid ""
-"Your listing requires admin approval. You'll be notified once your listing "
-"is approved."
-msgstr ""
-
-#: templates/submit-listing-done.tpl.php:22
-msgctxt "templates"
-msgid "Return to directory."
-msgstr "Вернуться в справочник."
-
-#: templates/submit-listing-images-single.tpl.php:24
-msgctxt "templates"
-msgid "Set this image as the listing thumbnail."
-msgstr "Миниатюра"
-
-#: templates/submit-listing-images-upload-form.tpl.php:10
-msgctxt "templates"
-msgid "Upload Images"
-msgstr "Загрузить изображение"
-
-#: templates/submit-listing-images-upload-form.tpl.php:15
-msgctxt "templates"
-msgid "Drop files here"
-msgstr "Перетащите файлы сюда"
-
-#: templates/submit-listing-images-upload-form.tpl.php:17
-msgctxt "templates"
-msgid "Select images from your hard drive"
-msgstr "Выберите файл на диске Вашего компьютера"
-
-#: templates/submit-listing-images-upload-form.tpl.php:20
-msgctxt "templates"
-msgid "Uploading %s file(s)... Please wait."
-msgstr "Подождите пожалуйста, идёт загрузка %s файла(ов)..."
-
-#: templates/submit-listing-images-upload-form.tpl.php:23
-msgctxt "templates"
-msgid ""
-"Your image slots are all full at this time.  You may click \"Continue\" if "
-"you are done, or \"Delete Image\" to upload a new image in place of a "
-"current one."
-msgstr ""
-"Уже загружено максимально разрешённое количество изображений. Вы можете "
-"кликнуть по кнопке \"Далее\", если с эта часть записи уже готова, либо "
-"\"Удалить изображение\" и загрузить новый файл вместо текущего."
-
-#: templates/submit-listing-images-upload-form.tpl.php:30
-msgctxt "templates"
-msgid "Image slots available:"
-msgstr "Свободных мест для загрузки изображений:"
-
-#: templates/submit-listing-images-upload-form.tpl.php:36
-msgctxt "templates"
-msgid "File size:"
-msgstr "Минимальный размер файла:"
-
-#: templates/submit-listing-images-upload-form.tpl.php:38
-#: templates/submit-listing-images-upload-form.tpl.php:45
-#: templates/submit-listing-images-upload-form.tpl.php:52
-msgctxt "templates"
-msgid "No limit"
-msgstr ""
-
-#: templates/submit-listing-images-upload-form.tpl.php:43
-msgctxt "templates"
-msgid "Image width:"
-msgstr "Ширина изображения (пикселы):"
-
-#: templates/submit-listing-images-upload-form.tpl.php:50
-msgctxt "templates"
-msgid "Image height:"
-msgstr "Высота изображения (пикселы):"
-
-#: templates/submit-listing-images.tpl.php:5
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Существующие изображения:"
-
-#: templates/submit-listing-images.tpl.php:8
-msgctxt "templates"
-msgid "There are no images currently attached to your listing."
-msgstr "К Вашей записи не прикреплено ни одного изображения."
-
 #: includes/templates-ui.php:373 includes/templates-ui.php:400
 msgctxt "templates sort"
 msgid "Sort By:"
@@ -8037,7 +8073,7 @@ msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ошибка при загрузке файла"
 
-#: includes/views/delete_listing.php:17
+#: includes/views/delete_listing.php:32
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Запись была удалена."
@@ -8173,7 +8209,7 @@ msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
 
-#: includes/views/manage_listings.php:11
+#: includes/views/manage_listings.php:20
 #, fuzzy
 msgctxt "view:manage-listings"
 msgid "Please <a>login</a> to manage your listings."
@@ -8231,13 +8267,13 @@ msgstr ""
 "Номер Вашего продления неправилен. Пожалуйста воспользуйтесь ссылкой, "
 "которая была отправлена Вам по электронной почте."
 
-#: includes/views/renew_listing.php:51
+#: includes/views/renew_listing.php:58
 #, fuzzy
 msgctxt "renewal"
 msgid "Your listing has been removed from the directory."
 msgstr "Запись была удалена."
 
-#: includes/views/renew_listing.php:53
+#: includes/views/renew_listing.php:60
 #, fuzzy
 msgctxt "renewal"
 msgid "Could not remove listing from directory."
@@ -8294,7 +8330,7 @@ msgctxt "renewal"
 msgid "In order to complete the renewal, please confirm fee selection."
 msgstr ""
 
-#: includes/views/renew_listing.php:126
+#: includes/views/renew_listing.php:133
 #, fuzzy
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
@@ -8360,14 +8396,14 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "Это просто предварительный просмотр. Запись ещё не была опубликована."
 
-#: includes/views/submit_listing.php:659
+#: includes/views/submit_listing.php:675
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:743
+#: includes/views/submit_listing.php:759
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
