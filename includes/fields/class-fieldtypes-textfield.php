@@ -47,7 +47,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         }
 
         // @since 5.5.3
-        $value = apply_filters( 'wpbdp_fields_text_value_for_rendering', $field, $value, $raw_value, $context, $extra, $field_settings );
+        $value = apply_filters( 'wpbdp_fields_text_value_for_rendering', $value, $field, $raw_value, $context, $extra, $field_settings );
 
         $html = '';
 
