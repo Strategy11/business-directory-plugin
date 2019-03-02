@@ -1,6 +1,16 @@
 <?php
 /**
+ * Assets to be used by Business Directory Plugin
+ *
+ * @package BDP/Includes/
+ */
+
+// phpcs:disable
+/**
+ * Class WPBDP__Assets
+ * 
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Assets {
 
@@ -44,7 +54,7 @@ class WPBDP__Assets {
             true
         );
 
-        // Views
+        // Views.
         wp_register_script(
             'wpbdp-checkout',
             WPBDP_URL . 'assets/js/checkout.js',
@@ -59,16 +69,16 @@ class WPBDP__Assets {
         // Select2.
         wp_register_style(
             'wpbdp-js-select2-css',
-            WPBDP_URL . 'vendors/select2-4.0.3/css/select2.min.css',
+            WPBDP_URL . 'vendors/select2-4.0.5/css/select2.min.css',
             array(),
-            '4.0.3'
+            '4.0.5'
         );
 
         wp_register_script(
             'wpbdp-js-select2',
-            WPBDP_URL . 'vendors/select2-4.0.3/js/select2.full.min.js',
+            WPBDP_URL . 'vendors/select2-4.0.5/js/select2.full.min.js',
             array( 'jquery' ),
-            '4.0.3'
+            '4.0.5'
         );
     }
 
