@@ -8,7 +8,7 @@
 // phpcs:disable
 /**
  * Class WPBDP__Assets
- * 
+ *
  * @since 5.0
  * @SuppressWarnings(PHPMD)
  */
@@ -103,7 +103,7 @@ class WPBDP__Assets {
     }
 
     public function enqueue_scripts() {
-        $only_in_plugin_pages = true;
+        $only_in_plugin_pages       = true;
         $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
 
         wp_enqueue_style(
@@ -113,8 +113,9 @@ class WPBDP__Assets {
             WPBDP_VERSION
         );
 
-        if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles )
+        if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles ) {
             return;
+        }
 
         wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css', array( 'wpbdp-js-select2-css' ), WPBDP_VERSION );
 
@@ -133,9 +134,11 @@ class WPBDP__Assets {
             WPBDP_VERSION
         );
 
-        wp_localize_script( 'wpbdp-js', 'wpbdp_global', array(
-            'ajaxurl' => wpbdp_ajaxurl()
-        ) );
+        wp_localize_script(
+            'wpbdp-js', 'wpbdp_global', array(
+				'ajaxurl' => wpbdp_ajaxurl(),
+            )
+        );
 
         wp_enqueue_style( 'wpbdp-dnd-upload' );
         wp_enqueue_script( 'wpbdp-dnd-upload' );
@@ -164,15 +167,15 @@ class WPBDP__Assets {
      * @since 3.5.3
      */
     public function enqueue_css_override() {
-        $stylesheet_dir = trailingslashit( get_stylesheet_directory() );
+        $stylesheet_dir     = trailingslashit( get_stylesheet_directory() );
         $stylesheet_dir_uri = trailingslashit( get_stylesheet_directory_uri() );
-        $template_dir = trailingslashit( get_template_directory() );
-        $template_dir_uri = trailingslashit( get_template_directory_uri() );
+        $template_dir       = trailingslashit( get_template_directory() );
+        $template_dir_uri   = trailingslashit( get_template_directory_uri() );
 
         $folders_uris = array(
             array( trailingslashit( WP_PLUGIN_DIR ), trailingslashit( WP_PLUGIN_URL ) ),
             array( $stylesheet_dir, $stylesheet_dir_uri ),
-            array( $stylesheet_dir . 'css/', $stylesheet_dir_uri . 'css/' )
+            array( $stylesheet_dir . 'css/', $stylesheet_dir_uri . 'css/' ),
         );
 
         if ( $template_dir != $stylesheet_dir ) {
@@ -180,12 +183,14 @@ class WPBDP__Assets {
             $folders_uris[] = array( $template_dir . 'css/', $template_dir_uri . 'css/' );
         }
 
-        $filenames = array( 'wpbdp.css',
-                            'wpbusdirman.css',
-                            'wpbdp_custom_style.css',
-                            'wpbdp_custom_styles.css',
-                            'wpbdm_custom_style.css',
-                            'wpbdm_custom_styles.css' );
+        $filenames = array(
+			'wpbdp.css',
+			'wpbusdirman.css',
+			'wpbdp_custom_style.css',
+			'wpbdp_custom_styles.css',
+			'wpbdm_custom_style.css',
+			'wpbdm_custom_styles.css',
+		);
 
         $n = 0;
         foreach ( $folders_uris as $folder_uri ) {
@@ -206,11 +211,11 @@ class WPBDP__Assets {
     }
 
     public function register_image_sizes() {
-        $thumbnail_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
+        $thumbnail_width  = absint( wpbdp_get_option( 'thumbnail-width' ) );
         $thumbnail_height = absint( wpbdp_get_option( 'thumbnail-height' ) );
 
-        $max_width = absint( wpbdp_get_option('image-max-width') );
-        $max_height = absint( wpbdp_get_option('image-max-height') );
+        $max_width  = absint( wpbdp_get_option( 'image-max-width' ) );
+        $max_height = absint( wpbdp_get_option( 'image-max-height' ) );
 
         $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
 
