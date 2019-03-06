@@ -615,16 +615,17 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                 $value = $value[0];
             }
 
-            if ( function_exists( 'filter_var' ) ) {
-                if ( ! filter_var( $value, FILTER_VALIDATE_URL ) ) {
-                    return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid URL format required. Include http://', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
-                } else {
-                    return;
-                }
-            }
-
-            if ( ! preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $value ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid URL format required. Include http://', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+            if ( esc_url_raw( $value ) !== $value ) {
+                return WPBDP_ValidationError(
+                    sprintf( 
+                        _x( 
+                            '%s is badly formatted. Valid URL format required. Include http://',
+                            'form-fields-api validation',
+                            'WPBDM'
+                        ),
+                        esc_attr( $args['field-label'] ) 
+                    )
+                );
             }
         }
 
