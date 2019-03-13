@@ -1,4 +1,5 @@
-<h2><?php _ex( 'Checkout', 'checkout', 'WPBDM') ;?></h2>
+<?php //phpcs:disable ?>
+<h2><?php _ex( 'Checkout', 'checkout', 'WPBDM'); ?></h2>
 
 <div class="wpbdp-payment-invoice">
     <?php echo $invoice; ?>
@@ -16,6 +17,10 @@
             <?php foreach ( $errors as $error ): ?>
             <div class="wpbdp-msg error wpbdp-checkout-error"><?php echo $error; ?></div>
             <?php endforeach; ?>
+        <?php endif; ?>
+        
+        <?php if ( $payment->has_item_type( 'discount_code' ) && $payment->has_item_type( 'recurring_plan' ) && 0.0 == $payment->amount ) : ?>
+            <div class="wpbdp-msg notice"><?php _ex( "Recurring fee plans require a payment method to renew your listing at the end of the term.", 'checkout', 'WPBDM' ); ?></div>
         <?php endif; ?>
     </div>
 
