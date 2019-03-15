@@ -231,7 +231,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         $icon = '<span class="social-icon">';
 
-        $social_icon = $this->get_social_icon_html( $type );
+        $social_icon = sprintf( '<img src="%s" class="logo">', WPBDP_URL . 'assets/images/social/' .$type . '.svg' );
 
         if ( 'Other' === $type ) {
             $social_icon = '';
@@ -305,13 +305,4 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             wp_enqueue_style( 'wpbdp_font_awesome', 'https://use.fontawesome.com/releases/v5.6.3/css/all.css' );
         }
     }
-
-    public function get_social_icon_html( $type ) {
-        $html  = sprintf( '<object type="image/svg+xml" data="%s" class="logo">', WPBDP_URL . 'assets/images/social/' .$type . '.svg' );
-        $html .= '<i class="fab fa-' . esc_attr( strtolower( $type ) ) . '"></i>';
-        $html .= '</object>';
-
-        return $html;
-    }
-
 }
