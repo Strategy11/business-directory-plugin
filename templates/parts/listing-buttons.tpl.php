@@ -39,7 +39,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_get_option( 'show-directory-button' ) ) :
         $buttons .= sprintf(
-            '<div style="display: inline;"><input type="button" value="%1$s" onclick="window.location.href = \'%2$s\'" class="wpbdp-hide-on-mobile button back-to-dir wpbdp-button" /><input type="button" value="←" onclick="window.location.href = \'%2$s\'" class="wpbdp-show-on-mobile button back-to-dir wpbdp-button" /></div>',
+            '<div style="display: inline;" class="back-to-dir-buttons"><input type="button" value="%1$s" onclick="window.location.href = \'%2$s\'" class="wpbdp-hide-on-mobile button back-to-dir wpbdp-button" /><input type="button" value="←" onclick="window.location.href = \'%2$s\'" class="wpbdp-show-on-mobile button back-to-dir wpbdp-button" /></div>',
             __( '← Return to Directory', 'WPBDM' ),
             wpbdp_url( '/' )
         );

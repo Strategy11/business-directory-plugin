@@ -136,7 +136,7 @@ class WPBDP__CPT_Integration {
                     return $link;
                 }
             } else {
-                $link = wpbdp_url( '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name : '' ) );
+                $link = wpbdp_url( '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name . '/' : '' ) );
             }
 
             $link .= $querystring;

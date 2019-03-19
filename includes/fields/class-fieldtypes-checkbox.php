@@ -29,14 +29,17 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
     public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 
-        if ( $field->get_association() == 'tags' && ! $options ) {
+        if ( $field->get_association() == 'tags' ) {
             $tags    = get_terms(
                 WPBDP_TAGS_TAX, array(
 					'hide_empty' => false,
 					'fields'     => 'names',
                 )
             );
-            $options = array_combine( $tags, $tags );
+
+            if( $tags && ! is_wp_error( $tags ) ) {
+                $options = array_unique( array_merge( $options, $tags ) );
+            }
         } elseif ( $field->get_association() == 'category' ) {
             $html = wp_list_categories(
                 array(
