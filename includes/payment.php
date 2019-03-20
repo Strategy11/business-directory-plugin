@@ -74,7 +74,7 @@ class WPBDP_PaymentsAPI {
             <dt><?php _ex( 'Gateway:', 'payments', 'WPBDM' ); ?></dt>
             <dd><?php echo $payment->gateway; ?></dd>
             <dt><?php _ex( 'Gateway Transaction ID:', 'payments', 'WPBDM' ); ?></dt>
-            <dd><?php echo $payment->gateway_tx_id; ?></dd>
+            <dd><?php echo $payment->gateway_tx_id ? $payment->gateway_tx_id : '—'; ?></dd>
             <?php endif; ?>
             <dt><?php _ex( 'Bill To:', 'payments', 'WPBDM' ); ?></dt>
             <dd>
@@ -85,8 +85,8 @@ class WPBDP_PaymentsAPI {
 
                 $bill_to .= $payment->payer_address ? implode( '<br />', array_filter( $payment->payer_address ) ) : '';
 
-                $bill_to .= $payment->payer_email ? '<br /><br />' . $payment->payer_email : sprintf( '<%s>', $current_user->user_email );
-                echo esc_html( $bill_to );
+                $bill_to .= $payment->payer_email ? '<br />' . $payment->payer_email : sprintf( '<%s>', $current_user->user_email );
+                echo $bill_to;
                 ?>
             </dd>
         </dl>
