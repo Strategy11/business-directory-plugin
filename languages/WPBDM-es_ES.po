@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-02-20 21:19:51+00:00\n"
-"PO-Revision-Date: 2019-02-20 16:26-0500\n"
+"POT-Creation-Date: 2019-03-20 00:09:46+00:00\n"
+"PO-Revision-Date: 2019-03-19 19:12-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -2708,12 +2708,12 @@ msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Etiquetas actualizadas."
 
-#: includes/fields/class-fieldtypes-checkbox.php:92
+#: includes/fields/class-fieldtypes-checkbox.php:95
 msgctxt "form-fields admin"
 msgid "Select All"
 msgstr "Seleccionar Todos"
 
-#: includes/fields/class-fieldtypes-checkbox.php:110
+#: includes/fields/class-fieldtypes-checkbox.php:113
 #: includes/fields/class-fieldtypes-radiobutton.php:93
 #: includes/fields/class-fieldtypes-select.php:238
 msgctxt "form-fields admin"
@@ -2722,17 +2722,17 @@ msgstr ""
 "Opciones del Campo (para listas de selección, botones de radio y casillas de "
 "verificación)."
 
-#: includes/fields/class-fieldtypes-checkbox.php:122
+#: includes/fields/class-fieldtypes-checkbox.php:125
 msgctxt "form-fields admin"
 msgid "Include \"Select all\"?"
 msgstr "Incluir “Seleccionar todos”?"
 
-#: includes/fields/class-fieldtypes-checkbox.php:126
+#: includes/fields/class-fieldtypes-checkbox.php:129
 msgctxt "form-fields admin"
 msgid "Display \"Select all\" option among options above."
 msgstr "Agregar la opción “Seleccionar todos” con las demás opciones."
 
-#: includes/fields/class-fieldtypes-checkbox.php:142
+#: includes/fields/class-fieldtypes-checkbox.php:145
 #: includes/fields/class-fieldtypes-radiobutton.php:114
 #: includes/fields/class-fieldtypes-select.php:268
 msgctxt "form-fields admin"
@@ -6425,7 +6425,7 @@ msgctxt "form-fields api"
 msgid "Custom"
 msgstr "Especial"
 
-#: includes/fields/class-fieldtypes-checkbox.php:51
+#: includes/fields/class-fieldtypes-checkbox.php:54
 msgctxt "checkbox form field"
 msgid "Select all"
 msgstr "Seleccionar todos"
@@ -6601,47 +6601,47 @@ msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr "%s es requerido."
 
-#: includes/form-fields.php:620 includes/form-fields.php:627
+#: includes/form-fields.php:621
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr "%s está mal escrita. Una URL válida es requerida. Incluya http://"
 
-#: includes/form-fields.php:642
+#: includes/form-fields.php:643
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s está mal escrito. Un correo electrónico válido es requerido."
 
-#: includes/form-fields.php:649
+#: includes/form-fields.php:650
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s debe ser un número entero. Valores decimales no están permitidos."
 
-#: includes/form-fields.php:656
+#: includes/form-fields.php:657
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr "%s debe ser un número."
 
-#: includes/form-fields.php:675
+#: includes/form-fields.php:676
 msgctxt "form-fields-api validation"
 msgid "%1$s must be in the format %2$s."
 msgstr "%1$s debe estar en el formato MM/DD/YYYY."
 
-#: includes/form-fields.php:713
+#: includes/form-fields.php:714
 msgctxt "form-fields-api validation"
 msgid "%s must be a valid date."
 msgstr "%s debe ser una fecha válida."
 
-#: includes/form-fields.php:736
+#: includes/form-fields.php:737
 msgctxt "form-fields-api validation"
 msgid "%s must have less than %d words."
 msgstr "%s debe tener menos de %d palabras."
 
-#: includes/form-fields.php:755
+#: includes/form-fields.php:756
 msgctxt "form-fields-api validation"
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%1$s es inválido. El valor debe ser uno de %s."
 
-#: includes/form-fields.php:720
+#: includes/form-fields.php:721
 msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Se requiere leyenda para %s."
@@ -7304,43 +7304,16 @@ msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "La desactivación de licencia falló"
 
-#: includes/licensing.php:409
+#: includes/licensing.php:397
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
-"server. The connection failed with the following error:"
+"server. cURL was not found in your system"
 msgstr ""
-"No fue posible establecer una conexión con los servidores de Business "
-"Directory. La conexión falló con el siguiente error:"
+"No fue posible establecer una conexión con el servidor de Business "
+"Directory. cURL no se encontró en su sistema"
 
-#: includes/licensing.php:413 includes/licensing.php:465
-msgctxt "licensing"
-msgid ""
-"It looks like your server is not authorized to make requests to Business "
-"Directory servers. Please contact <support-link>Business Directory support</"
-"support-link> and ask them to add your IP address <ip-address> to the "
-"whitelist."
-msgstr ""
-"Parece que su servidor no está autorizado para conectarse con los servidores "
-"de Business Directory. Por favor contacte al <support-link>equipo de soporte "
-"de Business Directory</support-link>, indicándoles que deben agregar su "
-"dirección IP <ip-address> a la lista autorizada."
-
-#: includes/licensing.php:415 includes/licensing.php:467
-msgctxt "licensing"
-msgid "Include this error message with your report."
-msgstr "Incluya este mensaje de error en su reporte."
-
-#: includes/licensing.php:425
-msgctxt "licensing"
-msgid ""
-"It was not possible to establish a connection with Business Directory's "
-"server. A problem occurred in the SSL/TSL handshake:"
-msgstr ""
-"No fue posible establecer una conexión con los servidores de Business "
-"Directory. Ocurrió un problema en el protocolo de intercambio SSL/TSL:"
-
-#: includes/licensing.php:430
+#: includes/licensing.php:399 includes/licensing.php:440
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -7353,7 +7326,7 @@ msgstr ""
 "reciente de cURL and una versión de OpenSSL que soporte TLSv1.2 (la versión "
 "mínimo con este soporte es OpenSSL 1.0.1c)."
 
-#: includes/licensing.php:432
+#: includes/licensing.php:401 includes/licensing.php:442
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -7364,31 +7337,76 @@ msgstr ""
 "Business Directory, también lo ayudará a prepararse para interactuar con "
 "otros servicios que usen los últimos estándares de seguridad."
 
-#: includes/licensing.php:434
+#: includes/licensing.php:403
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
-"Include this message if necesary."
+"Include this message if necessary"
 msgstr ""
 "Por favor contacte a su proveedor de hospedaje y solicite que actualicen su "
-"sistema. Incluya este mensaje si es necesario."
+"sistema. Incluya este mensaje si es necesario"
 
-#: includes/licensing.php:441
+#: includes/licensing.php:419
+msgctxt "licensing"
+msgid ""
+"It was not possible to establish a connection with Business Directory's "
+"server. The connection failed with the following error:"
+msgstr ""
+"No fue posible establecer una conexión con los servidores de Business "
+"Directory. La conexión falló con el siguiente error:"
+
+#: includes/licensing.php:423 includes/licensing.php:475
+msgctxt "licensing"
+msgid ""
+"It looks like your server is not authorized to make requests to Business "
+"Directory servers. Please contact <support-link>Business Directory support</"
+"support-link> and ask them to add your IP address <ip-address> to the "
+"whitelist."
+msgstr ""
+"Parece que su servidor no está autorizado para conectarse con los servidores "
+"de Business Directory. Por favor contacte al <support-link>equipo de soporte "
+"de Business Directory</support-link>, indicándoles que deben agregar su "
+"dirección IP <ip-address> a la lista autorizada."
+
+#: includes/licensing.php:425 includes/licensing.php:477
+msgctxt "licensing"
+msgid "Include this error message with your report."
+msgstr "Incluya este mensaje de error en su reporte."
+
+#: includes/licensing.php:435
+msgctxt "licensing"
+msgid ""
+"It was not possible to establish a connection with Business Directory's "
+"server. A problem occurred in the SSL/TSL handshake:"
+msgstr ""
+"No fue posible establecer una conexión con los servidores de Business "
+"Directory. Ocurrió un problema en el protocolo de intercambio SSL/TSL:"
+
+#: includes/licensing.php:444
+msgctxt "licensing"
+msgid ""
+"Please contact your hosting provider and ask them to upgrade your system. "
+"Include this message if necessary."
+msgstr ""
+"Por favor contacte a su proveedor de hospedaje y solicite que actualicen su "
+"sistema. Incluya este mensaje si es necesario"
+
+#: includes/licensing.php:451
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "No se pudo contactar el servidor de licencias"
 
-#: includes/licensing.php:463
+#: includes/licensing.php:473
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "El servidor retornó un error 403 Forbidden."
 
-#: includes/licensing.php:531
+#: includes/licensing.php:541
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Business Directory - Por favor verifique sus licencias"
 
-#: includes/licensing.php:541
+#: includes/licensing.php:551
 msgctxt "licensing"
 msgid ""
 "The following premium modules will not work until a valid license key is "
@@ -7397,7 +7415,7 @@ msgstr ""
 "Los siguientes módulos premium no funcionarán hasta que ingrese una licencia "
 "válida: %s."
 
-#: includes/licensing.php:552
+#: includes/licensing.php:562
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
@@ -7406,17 +7424,17 @@ msgstr ""
 "Es necesario que active las licencias de los siguientes temas antes de que "
 "pueda empezar a usarlos: %s."
 
-#: includes/licensing.php:560 includes/licensing.php:616
+#: includes/licensing.php:570 includes/licensing.php:626
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Revisar mis licencias"
 
-#: includes/licensing.php:587
+#: includes/licensing.php:597
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Directorio de Negocios - Licencias expiradas"
 
-#: includes/licensing.php:597
+#: includes/licensing.php:607
 msgctxt "licensing"
 msgid ""
 "The license key for the following modules has expired: %s. The modules will "
@@ -7427,7 +7445,7 @@ msgstr ""
 "módulos continuarás funcionando pero no recibirán ninguna actualización "
 "hasta que la licencia sea renovada."
 
-#: includes/licensing.php:608
+#: includes/licensing.php:618
 msgctxt "licensing"
 msgid ""
 "The license key for the following themes has expired: %s. The themes will "
@@ -7438,33 +7456,33 @@ msgstr ""
 "continuarás funcionando pero no recibirán ninguna actualización hasta que la "
 "licencia sea renovada."
 
-#: includes/licensing.php:708
+#: includes/licensing.php:718
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Por favor ingrese una licencia."
 
-#: includes/licensing.php:717
+#: includes/licensing.php:727
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "No se pudo activar la licencia: %s."
 
-#: includes/licensing.php:719
+#: includes/licensing.php:729
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencia activada"
 
-#: includes/licensing.php:739
+#: includes/licensing.php:749
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "No se pudo desactivar la licencia: %s."
 
-#: includes/licensing.php:741
+#: includes/licensing.php:751
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencia desactivada"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:944
+#: includes/licensing.php:954
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -7731,17 +7749,26 @@ msgstr ""
 "La verificación usualmente toma unos minutos. Está página se actualizará "
 "automáticamente cuando haya un cambio en el estado del pago."
 
-#: templates/checkout.tpl.php:1
+#: templates/checkout.tpl.php:11
 msgctxt "checkout"
 msgid "Checkout"
 msgstr "Pago"
 
-#: templates/checkout.tpl.php:24
+#: templates/checkout.tpl.php:32
+msgctxt "checkout"
+msgid ""
+"Recurring fee plans require a payment method to renew your listing at the "
+"end of the term."
+msgstr ""
+"Planes recurrentes requieren un método de pago para renovar el listado al "
+"final del periodo."
+
+#: templates/checkout.tpl.php:38
 msgctxt "checkout"
 msgid "Select a Payment Method"
 msgstr "Método de pago"
 
-#: templates/checkout.tpl.php:28
+#: templates/checkout.tpl.php:42
 msgctxt "checkout"
 msgid "Next"
 msgstr "Siguiente"

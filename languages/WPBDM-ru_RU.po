@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-02-20 21:19:51+00:00\n"
+"POT-Creation-Date: 2019-03-20 00:09:46+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -2746,30 +2746,30 @@ msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Метки сохранены."
 
-#: includes/fields/class-fieldtypes-checkbox.php:92
+#: includes/fields/class-fieldtypes-checkbox.php:95
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Select All"
 msgstr "Список выбора"
 
-#: includes/fields/class-fieldtypes-checkbox.php:110
+#: includes/fields/class-fieldtypes-checkbox.php:113
 #: includes/fields/class-fieldtypes-radiobutton.php:93
 #: includes/fields/class-fieldtypes-select.php:238
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr "Параметры поля (для выбранных списков и кнопок)."
 
-#: includes/fields/class-fieldtypes-checkbox.php:122
+#: includes/fields/class-fieldtypes-checkbox.php:125
 msgctxt "form-fields admin"
 msgid "Include \"Select all\"?"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-checkbox.php:126
+#: includes/fields/class-fieldtypes-checkbox.php:129
 msgctxt "form-fields admin"
 msgid "Display \"Select all\" option among options above."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-checkbox.php:142
+#: includes/fields/class-fieldtypes-checkbox.php:145
 #: includes/fields/class-fieldtypes-radiobutton.php:114
 #: includes/fields/class-fieldtypes-select.php:268
 msgctxt "form-fields admin"
@@ -6665,7 +6665,7 @@ msgctxt "form-fields api"
 msgid "Custom"
 msgstr "Настраиваемое"
 
-#: includes/fields/class-fieldtypes-checkbox.php:51
+#: includes/fields/class-fieldtypes-checkbox.php:54
 #, fuzzy
 msgctxt "checkbox form field"
 msgid "Select all"
@@ -6831,51 +6831,51 @@ msgctxt "form-fields-api validation"
 msgid "%s is required."
 msgstr "%s - обязательно."
 
-#: includes/form-fields.php:620 includes/form-fields.php:627
+#: includes/form-fields.php:621
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr ""
 "%s - некорректно. Правильный адрес URL должен начинаться с http:// или "
 "https://"
 
-#: includes/form-fields.php:642
+#: includes/form-fields.php:643
 msgctxt "form-fields-api validation"
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s - некорректно. Требуется ввести правильный электронный адрес."
 
-#: includes/form-fields.php:649
+#: includes/form-fields.php:650
 msgctxt "form-fields-api validation"
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s должно быть целым числом."
 
-#: includes/form-fields.php:656
+#: includes/form-fields.php:657
 msgctxt "form-fields-api validation"
 msgid "%s must be a number."
 msgstr "%s должно быть числом."
 
-#: includes/form-fields.php:675
+#: includes/form-fields.php:676
 #, fuzzy
 msgctxt "form-fields-api validation"
 msgid "%1$s must be in the format %2$s."
 msgstr "%s должно быть в формате %s."
 
-#: includes/form-fields.php:713
+#: includes/form-fields.php:714
 msgctxt "form-fields-api validation"
 msgid "%s must be a valid date."
 msgstr "%s должно быть корректной датой."
 
-#: includes/form-fields.php:736
+#: includes/form-fields.php:737
 msgctxt "form-fields-api validation"
 msgid "%s must have less than %d words."
 msgstr ""
 
-#: includes/form-fields.php:755
+#: includes/form-fields.php:756
 #, fuzzy
 msgctxt "form-fields-api validation"
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%s - не корректно. Значение должно быть одним из %s."
 
-#: includes/form-fields.php:720
+#: includes/form-fields.php:721
 #, fuzzy
 msgctxt "image field"
 msgid "Caption for %s is required."
@@ -7546,35 +7546,14 @@ msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "Деактивация не удалась"
 
-#: includes/licensing.php:409
+#: includes/licensing.php:397
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
-"server. The connection failed with the following error:"
+"server. cURL was not found in your system"
 msgstr ""
 
-#: includes/licensing.php:413 includes/licensing.php:465
-msgctxt "licensing"
-msgid ""
-"It looks like your server is not authorized to make requests to Business "
-"Directory servers. Please contact <support-link>Business Directory support</"
-"support-link> and ask them to add your IP address <ip-address> to the "
-"whitelist."
-msgstr ""
-
-#: includes/licensing.php:415 includes/licensing.php:467
-msgctxt "licensing"
-msgid "Include this error message with your report."
-msgstr ""
-
-#: includes/licensing.php:425
-msgctxt "licensing"
-msgid ""
-"It was not possible to establish a connection with Business Directory's "
-"server. A problem occurred in the SSL/TSL handshake:"
-msgstr ""
-
-#: includes/licensing.php:430
+#: includes/licensing.php:399 includes/licensing.php:440
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -7583,7 +7562,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:432
+#: includes/licensing.php:401 includes/licensing.php:442
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -7591,30 +7570,65 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:434
+#: includes/licensing.php:403
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
-"Include this message if necesary."
+"Include this message if necessary"
 msgstr ""
 
-#: includes/licensing.php:441
+#: includes/licensing.php:419
+msgctxt "licensing"
+msgid ""
+"It was not possible to establish a connection with Business Directory's "
+"server. The connection failed with the following error:"
+msgstr ""
+
+#: includes/licensing.php:423 includes/licensing.php:475
+msgctxt "licensing"
+msgid ""
+"It looks like your server is not authorized to make requests to Business "
+"Directory servers. Please contact <support-link>Business Directory support</"
+"support-link> and ask them to add your IP address <ip-address> to the "
+"whitelist."
+msgstr ""
+
+#: includes/licensing.php:425 includes/licensing.php:477
+msgctxt "licensing"
+msgid "Include this error message with your report."
+msgstr ""
+
+#: includes/licensing.php:435
+msgctxt "licensing"
+msgid ""
+"It was not possible to establish a connection with Business Directory's "
+"server. A problem occurred in the SSL/TSL handshake:"
+msgstr ""
+
+#: includes/licensing.php:444
+msgctxt "licensing"
+msgid ""
+"Please contact your hosting provider and ask them to upgrade your system. "
+"Include this message if necessary."
+msgstr ""
+
+#: includes/licensing.php:451
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Не удалось связаться с сервером лицензий"
 
-#: includes/licensing.php:463
+#: includes/licensing.php:473
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
-#: includes/licensing.php:531
+#: includes/licensing.php:541
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Справочник Услуг - Новые Записи"
 
-#: includes/licensing.php:541
+#: includes/licensing.php:551
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -7625,26 +7639,26 @@ msgstr ""
 "корректный лицензионный ключ. Перейдите в раздел  <a>Управление / Лицензии</"
 "a> и введите Вашу лицензионную информацию."
 
-#: includes/licensing.php:552
+#: includes/licensing.php:562
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
 "can be used: %s."
 msgstr ""
 
-#: includes/licensing.php:560 includes/licensing.php:616
+#: includes/licensing.php:570 includes/licensing.php:626
 #, fuzzy
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Обновить лицензионный ключ"
 
-#: includes/licensing.php:587
+#: includes/licensing.php:597
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Справочник Услуг - Лицензионный Ключ Истёк"
 
-#: includes/licensing.php:597
+#: includes/licensing.php:607
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -7656,7 +7670,7 @@ msgstr ""
 "Модуль продолжить работать, но обновлений для него Вы больше не получите, "
 "пока лицензия не будет продлена."
 
-#: includes/licensing.php:608
+#: includes/licensing.php:618
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -7668,34 +7682,34 @@ msgstr ""
 "Модуль продолжить работать, но обновлений для него Вы больше не получите, "
 "пока лицензия не будет продлена."
 
-#: includes/licensing.php:708
+#: includes/licensing.php:718
 #, fuzzy
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Пожалуйста введите правильный электронный адрес."
 
-#: includes/licensing.php:717
+#: includes/licensing.php:727
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Не удалось активировать лицензию: %s."
 
-#: includes/licensing.php:719
+#: includes/licensing.php:729
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Лицензия активирована"
 
-#: includes/licensing.php:739
+#: includes/licensing.php:749
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Не удалось деактивировать лицензию: %s."
 
-#: includes/licensing.php:741
+#: includes/licensing.php:751
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Лицензия была деактивирована."
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:944
+#: includes/licensing.php:954
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -7979,19 +7993,26 @@ msgid ""
 "refresh if there's an update."
 msgstr ""
 
-#: templates/checkout.tpl.php:1
+#: templates/checkout.tpl.php:11
 #, fuzzy
 msgctxt "checkout"
 msgid "Checkout"
 msgstr "Завершение покупки"
 
-#: templates/checkout.tpl.php:24
+#: templates/checkout.tpl.php:32
+msgctxt "checkout"
+msgid ""
+"Recurring fee plans require a payment method to renew your listing at the "
+"end of the term."
+msgstr ""
+
+#: templates/checkout.tpl.php:38
 #, fuzzy
 msgctxt "checkout"
 msgid "Select a Payment Method"
 msgstr "Метод оплаты"
 
-#: templates/checkout.tpl.php:28
+#: templates/checkout.tpl.php:42
 msgctxt "checkout"
 msgid "Next"
 msgstr ""
