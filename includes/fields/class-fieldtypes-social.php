@@ -103,91 +103,114 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         );
         $html .= '</div>';
         $html .= '<div class="wpbdp-social-text">';
-        $html .= sprintf(
-            '<span class="sublabel">%s</span>',
-            _x( 'Text:', 'form-fields api', 'WPBDM' )
-        );
-        $html .= sprintf(
-            '<input type="text" name="listingfields[%s][social-text]" value="%s" placeholder="%s">',
-            $field->get_id(),
-            ! empty( $value['social-text'] ) ? $value['social-text'] : '',
-            _x( 'Text to be displayed along with icon', 'form-fields api', 'WPBDM' )
-        );
-        $html .= '</div>';
 
-        $html .= '<div class="wpbdp-social-type-field">';
-        $html .= sprintf(
-            '<span class="sublabel">%s</span>',
-            _x( 'Type:', 'form-fields api', 'WPBDM' )
+        $text_input = sprintf(
+            '<input type="hidden" name="listingfields[%s][social-text]" value="">',
+            $field->get_id()
         );
 
-        foreach ( $this->social_types as $type ) {
-            $css_classes   = array();
-            $css_classes[] = 'wpbdp-inner-social-field-option';
-            $css_classes[] = 'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) );
+        if ( 'icon_only' !== $field->data( 'display_order' ) ) {
+            $text_input = sprintf(
+                '<span class="sublabel">%s</span>',
+                _x( 'Text:', 'form-fields api', 'WPBDM' )
+            );
 
-            $html .= sprintf(
-                '<div class="%s"><label><input type="radio" name="%s" value="%s" %s /> %s</label></div>',
-                implode( ' ', $css_classes ),
-                'listingfields[' . $field->get_id() . '][type]',
-                $type,
-                ( ! empty( $value['type'] ) && $type === $value['type'] ) ? 'checked="checked"' : '',
-                'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( strtolower( $type ) ) . '"></i> ' . esc_html( $type )
+            $text_input .= sprintf(
+                '<input type="text" name="listingfields[%s][social-text]" value="%s" placeholder="%s">',
+                $field->get_id(),
+                ! empty( $value['social-text'] ) ? $value['social-text'] : '',
+                _x( 'Text to be displayed for social field', 'form-fields api', 'WPBDM' )
             );
         }
 
-        $icon = ! empty( $value['social-icon'] ) ? $value['social-icon'] : 0;
-
-        $html .= sprintf(
-            '<input type="hidden" name="listingfields[%d][social-icon]" value="%s" />',
-            $field->get_id(),
-            $icon
-        );
-
-        $html .= '<div class="preview"' . ( ! $icon ? ' style="display: none;"' : '' ) . '>';
-        if ( $icon ) {
-            $html .= wp_get_attachment_image( $icon, 'wpbdp-thumb', false );
-        }
-
-        $html .= sprintf(
-            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
-            $field->get_id(),
-            'listingfields[' . $field->get_id() . '][social-icon]',
-            _x( 'Remove', 'form-fields-api', 'WPBDM' )
-        );
-
+        $html .= $text_input;
         $html .= '</div>';
 
-        $listing_id = 0;
-        if ( 'submit' === $context ) {
-            $listing_id = $extra->get_id();
-        } elseif ( is_admin() ) {
-            global $post;
-            if ( ! empty( $post ) && WPBDP_POST_TYPE === $post->post_type ) {
-                $listing_id = $post->ID;
+        $html .= '<div class="wpbdp-social-type-field">';
+
+        $icon_input = sprintf(
+            '<input type="hidden" name="listingfields[%1$s][type]" value="">
+            <input type="hidden" name="listingfields[%1$s][social-icon]" value="">',
+            $field->get_id()
+        );
+
+        if ( 'text_only' !== $field->data( 'display_order' ) ) {
+            $icon_input = sprintf(
+                '<span class="sublabel">%s</span>',
+                _x( 'Type:', 'form-fields api', 'WPBDM' )
+            );
+
+            foreach ( $this->social_types as $type ) {
+                $css_classes   = array();
+                $css_classes[] = 'wpbdp-inner-social-field-option';
+                $css_classes[] = 'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) );
+
+                $icon_input .= sprintf(
+                    '<div class="%s"><label><input type="radio" name="%s" value="%s" %s /> %s</label></div>',
+                    implode( ' ', $css_classes ),
+                    'listingfields[' . $field->get_id() . '][type]',
+                    $type,
+                    ( ! empty( $value['type'] ) && $type === $value['type'] ) ? 'checked="checked"' : '',
+                    'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( strtolower( $type ) ) . '"></i> ' . esc_html( $type )
+                );
             }
-        }
 
-        $nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
-        $ajax_url = add_query_arg(
-            array(
-                'action'     => 'wpbdp-file-field-upload',
-                'field_id'   => $field->get_id(),
-                'element'    => 'listingfields[' . $field->get_id() . '][social-icon]',
-                'nonce'      => $nonce,
-                'listing_id' => $listing_id,
-            ),
-            admin_url( 'admin-ajax.php' )
-        );
+            $icon = ! empty( $value['social-icon'] ) ? $value['social-icon'] : 0;
 
-        $html .= '<div class="wpbdp-upload-widget">';
-        $html .= sprintf(
-            '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
-            $field->get_id(),
-            $field->get_id(),
-            $ajax_url
-        );
-        $html .= '</div>';
+            $icon_input .= sprintf(
+                '<input type="hidden" name="listingfields[%d][social-icon]" value="%s" />',
+                $field->get_id(),
+                $icon
+            );
+
+            $icon_input .= '<div class="preview"' . ( ! $icon ? ' style="display: none;"' : '' ) . '>';
+            if ( $icon ) {
+                $icon_input .= wp_get_attachment_image( $icon, 'wpbdp-thumb', false );
+            }
+
+            $icon_input .= sprintf(
+                '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
+                $field->get_id(),
+                'listingfields[' . $field->get_id() . '][social-icon]',
+                _x( 'Remove', 'form-fields-api', 'WPBDM' )
+            );
+
+            $icon_input .= '</div>';
+
+            $listing_id = 0;
+            if ( 'submit' === $context ) {
+                $listing_id = $extra->get_id();
+            } elseif ( is_admin() ) {
+                global $post;
+                if ( ! empty( $post ) && WPBDP_POST_TYPE === $post->post_type ) {
+                    $listing_id = $post->ID;
+                }
+            }
+
+            $nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
+            $ajax_url = add_query_arg(
+                array(
+                    'action'     => 'wpbdp-file-field-upload',
+                    'field_id'   => $field->get_id(),
+                    'element'    => 'listingfields[' . $field->get_id() . '][social-icon]',
+                    'nonce'      => $nonce,
+                    'listing_id' => $listing_id,
+                ),
+                admin_url( 'admin-ajax.php' )
+            );
+
+            $icon_input .= '<div class="wpbdp-upload-widget">';
+            $icon_input .= sprintf(
+                '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
+                $field->get_id(),
+                $field->get_id(),
+                $ajax_url
+            );
+            $icon_input .= '</div>';
+    }
+
+        $html .= $icon_input;
+
         $html .= '</div>';
 
         return $html;
