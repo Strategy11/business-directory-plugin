@@ -1,4 +1,17 @@
 <?php
+/**
+ * URL Field Class
+ *
+ * @package WPBDP/Views/Includes/Fields/URL
+ */
+
+// phpcs:disable
+
+/**
+ * Class WPBDP_FieldTypes_URL
+ * 
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
     public function __construct() {
@@ -51,11 +64,11 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         if ( $value === null )
             return array( '', '' );
 
-        if ( !is_array( $value ) )
-            return array( $value, $value );
+        if ( ! is_array( $value ) )
+            return array( $value, '' );
 
-        if ( !isset( $value[1] ) || empty( $value[1] ) )
-            $value[1] = $value[0];
+        if ( ! isset( $value[1] ) || empty( $value[1] ) )
+            $value[1] = '';
 
         return $value;
     }
@@ -71,8 +84,8 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
                         esc_url( $value[0] ),
                         $field->data( 'use_nofollow' ) == true ? 'nofollow': '',
                         $field->data( 'open_in_new_window' ) == true ? '"_blank" rel="noopener"' : '"_self"',
-                        esc_attr( $value[1] ),
-                        esc_attr( $value[1] ) );
+                        esc_attr( ! empty( $value[1] ) ? $value[1] : $value[0] ),
+                        esc_attr( ! empty( $value[1] ) ? $value[1] : $value[0] ) );
     }
 
     public function get_field_plain_value( &$field, $post_id ) {
@@ -86,19 +99,19 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $parts = explode( ',', $input );
 
         if ( 1 == count( $parts ) )
-            return array( $parts[0], $parts[0] );
+            return array( $parts[0], '' );
 
         return array( $parts[0], $parts[1] );
     }
 
     public function get_field_csv_value( &$field, $post_id ) {
-        $value = $field->value( $post_id );
+        $value = parent::get_field_value( $field, $post_id );
 
         if ( is_array( $value ) && count( $value ) > 1 ) {
             return sprintf( '%s,%s', $value[0], $value[1] );
         }
 
-        return is_array( $value ) ? $value[0] : '';
+        return is_array( $value ) ? $value[0] : $value ;
     }
 
     public function convert_input( &$field, $input ) {
@@ -106,7 +119,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
             return array( '', '' );
 
         $url = trim( is_array( $input ) ? $input[0] : $input );
-        $text = trim( is_array( $input ) ? $input[1] : $url );
+        $text = trim( is_array( $input ) ? $input[1] : '' );
 
         if ( $url && ! parse_url( $url, PHP_URL_SCHEME ) )
             $url = 'http://' . $url;
@@ -119,7 +132,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
-        if ( !is_array( $value ) || $value[0] == '' )
+        if ( ! is_array( $value ) || $value[0] == '' )
             $value = null;
 
         parent::store_field_value( $field, $post_id, $value );
