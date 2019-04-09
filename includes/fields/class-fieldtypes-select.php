@@ -399,4 +399,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         return $search_res;
     }
 
+    public function is_empty_value( $value ) {
+        return empty( $value ) || ( is_array( $value ) && in_array( -1, $value ) );
+    }
+
 }
