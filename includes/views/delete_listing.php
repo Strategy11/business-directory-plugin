@@ -18,6 +18,10 @@ class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
         $listing_id    = intval( $_REQUEST['listing_id'] );
         $this->listing = WPBDP_Listing::get( $listing_id );
 
+        if ( ! $this->listing || 'trash' === get_post_status( $listing_id ) ) {
+            $this->_redirect( wpbdp_url() );
+        }
+
         $this->_auth_required(
             array(
                 'wpbdp_view'          => 'delete_listing',
