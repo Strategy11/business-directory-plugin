@@ -54,7 +54,10 @@ class WPBDP_Listing {
         }
 
         if ( $result && $sorted ) {
-            uasort( $result, create_function( '$x, $y', "return \$y->weight - \$x->weight;" ) );
+            uasort( $result, function( $x, $y ) { 
+                return $y->weight - $x->weight; 
+            }
+        );
         }
 
         return $result;
