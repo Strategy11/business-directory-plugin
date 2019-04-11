@@ -175,6 +175,20 @@ class WPBDP__Query_Integration {
         if ( ! $query->get( 'order' ) ) {
             $query->set( 'order', wpbdp_get_option( 'listings-sort', 'ASC' ) );
         }
+
+        if ( $query->wpbdp_is_category || $query->wpbdp_is_tag ) {
+            $current_post_types = $query->get( 'post_type' ) ? $query->get( 'post_type' ) : array();
+
+            if ( ! is_array( $current_post_types ) ) {
+                $current_post_types = array( $current_post_types );
+            }
+            
+            if ( ! in_array( WPBDP_POST_TYPE, $current_post_types ) ) {
+                $current_post_types [] = WPBDP_POST_TYPE;
+            }
+
+            $query->set( 'post_type', $current_post_types );
+        }
     }
 
     public function posts_clauses( $pieces, $query ) {
