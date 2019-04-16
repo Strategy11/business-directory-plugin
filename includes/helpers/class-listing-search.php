@@ -84,14 +84,18 @@ class WPBDP__Listing_Search {
 			'distinct' => '',
 			'fields'   => "{$wpdb->posts}.ID",
 			'limits'   => '',
+            'posts_in' => '',
 		);
+
+        $fields_count = 0;
 
         foreach ( $this->parts as $key => $data ) {
             $field = wpbdp_get_form_field( $data[0] );
             $res   = $field->configure_search( $data[1], $this );
 
-            if ( ! empty( $res['where'] ) ) {
+            if ( ! empty( $res['where'] ) && $fields_count < 6 ) {
                 $query_pieces['where'] = str_replace( '%' . $key . '%', $res['where'], $query_pieces['where'] );
+                $fields_count += 1;
             } else {
                 // This prevents incorrect queries from being created.
                 $query_pieces['where'] = str_replace( 'AND %' . $key . '%', '', $query_pieces['where'] );
@@ -105,6 +109,11 @@ class WPBDP__Listing_Search {
 
                 $query_pieces[ $k ] .= ' ' . $v . ' ';
             }
+
+            if ( $fields_count < 6 ) {
+                unset( $this->parts[$key] );
+                $this->tree = $this->tree_remove_field( $this->tree, $field );
+            }
         }
 
         $query_pieces['where'] = str_replace( 'AND  AND', 'AND', $query_pieces['where'] );
@@ -112,21 +121,38 @@ class WPBDP__Listing_Search {
         $query_pieces['where'] = str_replace( 'AND )', ')', $query_pieces['where'] );
         $query_pieces['where'] = str_replace( 'OR )', ')', $query_pieces['where'] );
 
+        if ( $this->results ) {
+            $format                   = implode( ', ', array_fill( 0, count( $this->results ), '%d' ) );
+            $query_pieces['posts_in'] = $wpdb->prepare( "AND {$wpdb->posts}.ID  IN ( $format )", $this->results );
+        }
+
         $query_pieces = apply_filters_ref_array( 'wpbdp_search_query_pieces', array( $query_pieces, $this ) );
 
         $this->query = sprintf(
-            "SELECT %s %s FROM {$wpdb->posts} %s WHERE ({$wpdb->posts}.post_type = '%s' AND {$wpdb->posts}.post_status = '%s') AND %s GROUP BY {$wpdb->posts}.ID %s %s",
+            "SELECT %s %s FROM {$wpdb->posts} %s WHERE ({$wpdb->posts}.post_type = '%s' AND {$wpdb->posts}.post_status = '%s') AND %s %s GROUP BY {$wpdb->posts}.ID %s %s",
             $query_pieces['distinct'],
             $query_pieces['fields'],
             $query_pieces['join'],
             WPBDP_POST_TYPE,
             'publish',
             $query_pieces['where'],
+            $query_pieces['posts_in'],
             $query_pieces['orderby'],
             $query_pieces['limits']
         );
         // wpbdp_debug_e($this->query);
+        
+        if ( $fields_count > 5 ) {
+            $wpdb->query( 'SET OPTION SQL_BIG_SELECTS = 1' );
+        }
+
         $this->results = $wpdb->get_col( $this->query );
+
+        if ( $this->parts && $this->results ) {
+            $this->execute();
+        }
+
+        $this->tree = self::parse_request( $this->original_request );
     }
 
     private function _traverse_tree( $tree ) {
