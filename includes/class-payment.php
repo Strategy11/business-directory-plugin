@@ -1,5 +1,15 @@
 <?php
+/**
+ * @package WPBDP/Includes
+ */
 
+// phpcs:disable
+
+/**
+ * Class WPBDP_Payment
+ * 
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP_Payment extends WPBDP__DB__Model {
 
     static $serialized = array( 'payment_items', 'payer_data', 'data' );
@@ -153,8 +163,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     public function get_payer_address() {
         $address = array();
 
-        foreach ( array( 'line_1', 'line_2', 'city', 'state', 'zip', 'country' ) as $k ) {
-            $address[ $k ] = ! empty( $this->payer_data[ 'address_' . $k ] ) ? $this->payer_data[ 'address_' . $k ] : '';
+        foreach ( array( 'address', 'address_2', 'city', 'state', 'zip', 'country' ) as $k ) {
+            if ( ! empty( $this->payer_data[ $k ] ) ) {
+                $address[ $k ] = $this->payer_data[ $k ];
+            }
         }
 
         return $address;
