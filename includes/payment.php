@@ -82,9 +82,9 @@ class WPBDP_PaymentsAPI {
                 $bill_to  = '';
 
                 $bill_to .= ( $payment->payer_first_name || $payment->payer_last_name ) ? $payment->payer_first_name . ' ' . $payment->payer_last_name : $current_user->display_name;
+                $bill_to .= $payment->payer_data ? '<br />' . implode( '<br />', $payment->get_payer_address() ) : '';
                 $bill_to .= '<br />';
-                $bill_to .= $payment->payer_data ? implode( '<br />', $payment->get_payer_address() ) : '';
-                $bill_to .= $payment->payer_email ? '<br />' . $payment->payer_email : sprintf( '<%s>', $current_user->user_email );
+                $bill_to .= $payment->payer_email ? $payment->payer_email : sprintf( '<%s>', $current_user->user_email );
                 echo $bill_to;
                 ?>
             </dd>
