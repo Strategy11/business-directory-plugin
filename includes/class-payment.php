@@ -7,7 +7,7 @@
 
 /**
  * Class WPBDP_Payment
- * 
+ *
  * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Payment extends WPBDP__DB__Model {
@@ -18,14 +18,14 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
     protected function get_defaults() {
         return array(
-            'parent_id' => 0,
+            'parent_id'     => 0,
             'payment_items' => array(),
-            'payer_data' => array(),
-            'gateway_data' => array(),
-            'status' => 'pending',
+            'payer_data'    => array(),
+            'gateway_data'  => array(),
+            'status'        => 'pending',
             'currency_code' => wpbdp_get_option( 'currency', 'USD' ),
-            'amount' => 0.0,
-            'data' => array()
+            'amount'        => 0.0,
+            'data'          => array(),
         );
     }
 
@@ -43,36 +43,45 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     protected function before_save( $new = false ) {
-        if ( ! $this->payment_key )
+        if ( ! $this->payment_key ) {
             $this->payment_key = strtolower( sha1( $this->listing_id . date( 'Y-m-d H:i:s' ) . ( defined( 'AUTH_KEY' ) ? AUTH_KEY : '' ) . uniqid( 'wpbdp', true ) ) );
+        }
 
         $this->amount = 0.0;
 
-        foreach ( $this->payment_items as $item )
+        foreach ( $this->payment_items as $item ) {
             $this->amount += floatval( $item['amount'] );
+        }
 
-        if ( 0.0 == $this->amount && ! $this->has_item_type( 'recurring_plan' ) )
+        if ( 0.0 == $this->amount && ! $this->has_item_type( 'recurring_plan' ) ) {
             $this->status = 'completed';
+        }
     }
 
     protected function after_save( $new = false ) {
         if ( $new ) {
-            wpbdp_insert_log( array(
-                'log_type' => 'listing.payment',
-                'object_id' => $this->listing_id,
-                'rel_object_id' => $this->id
-            ) );
+            wpbdp_insert_log(
+                array(
+					'log_type'      => 'listing.payment',
+					'object_id'     => $this->listing_id,
+					'rel_object_id' => $this->id,
+                )
+            );
         }
 
-        if ( ! $this->old_status || ! $this->status )
+        if ( ! $this->old_status || ! $this->status ) {
             return;
+        }
 
         if ( $this->old_status != $this->status ) {
-            wpbdp_insert_log( array(
-                'log_type' => 'payment.status_change',
-                'actor' => is_admin() ? 'user:' . get_current_user_id() : 'system',
-                'object_id' => $this->id,
-                'message' => sprintf( _x( 'Payment status changed from "%s" to "%s".', 'payment', 'WPBDM' ), $this->old_status, $this->status ) ) );
+            wpbdp_insert_log(
+                array(
+					'log_type'  => 'payment.status_change',
+					'actor'     => is_admin() ? 'user:' . get_current_user_id() : 'system',
+					'object_id' => $this->id,
+					'message'   => sprintf( _x( 'Payment status changed from "%1$s" to "%2$s".', 'payment', 'WPBDM' ), $this->old_status, $this->status ),
+                )
+            );
             do_action_ref_array( 'WPBDP_Payment::status_change', array( &$this, $this->old_status, $this->status ) );
             do_action( "wpbdp_payment_{$this->status}", $this );
         }
@@ -82,12 +91,18 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
     protected function after_delete() {
         global $wpdb;
-        $wpdb->delete( $wpdb->prefix . 'wpbdp_logs', array( 'object_type' => 'payment', 'object_id' => $this->id ) );
+        $wpdb->delete(
+            $wpdb->prefix . 'wpbdp_logs', array(
+				'object_type' => 'payment',
+				'object_id'   => $this->id,
+            )
+        );
     }
 
     protected function set_attr( $name, $value ) {
-        if ( in_array( $name, self::$serialized, true ) )
+        if ( in_array( $name, self::$serialized, true ) ) {
             $value = is_array( $value ) ? $value : array();
+        }
 
         if ( 'status' == $name ) {
             $this->old_status = $this->status;
@@ -104,24 +119,24 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $summary = '';
 
         switch ( $this->payment_type ) {
-        case 'initial':
-            $summary = sprintf( _x( 'Initial payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
-            break;
-        case 'renewal':
-            $summary = sprintf( _x( 'Renewal payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
-            break;
-        default:
-            break;
+			case 'initial':
+				$summary = sprintf( _x( 'Initial payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
+                break;
+			case 'renewal':
+				$summary = sprintf( _x( 'Renewal payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
+                break;
+			default:
+                break;
         }
 
         if ( ! $summary ) {
             $first_item = reset( $this->payment_items );
-            $summary = $first_item['description'];
+            $summary    = $first_item['description'];
         }
 
         if ( 'admin-submit' == $this->context ) {
             $summary = sprintf( _x( '%s. Admin Posted.', 'payment summary', 'WPBDM' ), $summary );
-        } else if ( 'csv-import' == $this->context ) {
+        } elseif ( 'csv-import' == $this->context ) {
             $summary = sprintf( _x( '%s. Imported Listing.', 'payment summary', 'WPBDM' ), $summary );
         }
 
@@ -143,19 +158,20 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     public function get_payer_details() {
-        $data = array();
-        $data['email'] = $this->payer_email;
+        $data               = array();
+        $data['email']      = $this->payer_email;
         $data['first_name'] = $this->payer_first_name;
-        $data['last_name'] = $this->payer_last_name;
-        $data['country'] = '';
-        $data['state'] = '';
-        $data['city'] = '';
-        $data['address'] = '';
-        $data['address_2'] = '';
-        $data['zip'] = '';
+        $data['last_name']  = $this->payer_last_name;
+        $data['country']    = '';
+        $data['state']      = '';
+        $data['city']       = '';
+        $data['address']    = '';
+        $data['address_2']  = '';
+        $data['zip']        = '';
 
-        foreach ( (array) $this->payer_data as $k => $v )
+        foreach ( (array) $this->payer_data as $k => $v ) {
             $data[ $k ] = $v;
+        }
 
         return $data;
     }
@@ -179,8 +195,9 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
     public function find_item( $item_type ) {
         foreach ( $this->payment_items as $item ) {
-            if ( $item_type == $item['type'] )
+            if ( $item_type == $item['type'] ) {
                 return $item;
+            }
         }
 
         return null;
@@ -189,15 +206,18 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     public function process_as_admin() {
         // $this->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
         // $this->payment_items[0]['amount'] = 0.0;
-        $this->status = 'completed';
+        $this->status  = 'completed';
         $this->context = 'admin-submit';
         $this->save();
 
-        wpbdp_insert_log( array(
-            'log_type' => 'payment.note',
-            'object_id' => $this->id,
-            'actor' => is_admin() ? 'user:' . get_current_user_id() : 'system',
-            'message' => _x( 'Listing submitted by admin. Payment skipped.', 'submit listing', 'WPBDM' ) ) );
+        wpbdp_insert_log(
+            array(
+				'log_type'  => 'payment.note',
+				'object_id' => $this->id,
+				'actor'     => is_admin() ? 'user:' . get_current_user_id() : 'system',
+				'message'   => _x( 'Listing submitted by admin. Payment skipped.', 'submit listing', 'WPBDM' ),
+            )
+        );
     }
 
     public function is_completed() {
@@ -215,15 +235,16 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     public function get_checkout_url( $force_http = false ) {
         $url = wpbdp_url( 'checkout', $this->payment_key );
 
-        if ( ! $force_http && ! is_ssl() && wpbdp_get_option( 'payments-use-https' ) )
+        if ( ! $force_http && ! is_ssl() && wpbdp_get_option( 'payments-use-https' ) ) {
             $url = set_url_scheme( $url, 'https' );
+        }
 
         return $url;
     }
 
     public function get_return_url() {
         $params = array(
-            'action' => 'return',
+            'action'   => 'return',
             '_wpnonce' => wp_create_nonce( 'wpbdp-checkout-' . $this->id ),
         );
 
@@ -236,14 +257,27 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     public function get_payment_notes() {
-        if ( ! $this->id )
+        if ( ! $this->id ) {
             return array();
+        }
 
-        return wpbdp_get_logs( array( 'object_id' => $this->id, 'object_type' => 'payment' ) );
+        return wpbdp_get_logs(
+            array(
+				'object_id'   => $this->id,
+				'object_type' => 'payment',
+            )
+        );
     }
 
     public function log( $msg ) {
-        return wpbdp_insert_log( array( 'object_id' => $this->id, 'object_type' => 'payment', 'log_type' => 'payment.note', 'message' => $msg ) );
+        return wpbdp_insert_log(
+            array(
+				'object_id'   => $this->id,
+				'object_type' => 'payment',
+				'log_type'    => 'payment.note',
+				'message'     => $msg,
+            )
+        );
     }
 
     public function set_payment_method( $method ) {
@@ -271,16 +305,17 @@ class WPBDP_Payment extends WPBDP__DB__Model {
      * - Canceled: Payment was canceled either by the user or the admin.
      * - Refunded: Payment was refunded by admin.
      * - On-hold: Not really used, but might be useful for manual payment gateways in the future.
+     *
      * @return array Array of status => label items.
      */
     public static function get_stati() {
-        $stati = array();
-        $stati['pending'] = _x( 'Pending', 'payment', 'WPBDM' );
-        $stati['failed'] = _x( 'Failed', 'payment', 'WPBDM' );
+        $stati              = array();
+        $stati['pending']   = _x( 'Pending', 'payment', 'WPBDM' );
+        $stati['failed']    = _x( 'Failed', 'payment', 'WPBDM' );
         $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
-        $stati['canceled'] = _x( 'Canceled', 'payment', 'WPBDM' );
-        $stati['on-hold'] = _x( 'On Hold', 'payment', 'WPBDM' );
-        $stati['refunded'] = _x( 'Refunded', 'payment', 'WPBDM' );
+        $stati['canceled']  = _x( 'Canceled', 'payment', 'WPBDM' );
+        $stati['on-hold']   = _x( 'On Hold', 'payment', 'WPBDM' );
+        $stati['refunded']  = _x( 'Refunded', 'payment', 'WPBDM' );
 
         return $stati;
     }
