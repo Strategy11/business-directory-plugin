@@ -914,7 +914,9 @@ function wpbdp_get_fee_plans( $args = array() ) {
             if ( $categories && ! $plan->supports_category_selection( $categories ) ) {
                 continue;
             }
-
+            if ( ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'administrator' ) ) {
+                continue;
+            }
             $plans[] = $plan;
         }
     }

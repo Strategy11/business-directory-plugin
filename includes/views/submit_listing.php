@@ -239,10 +239,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->skip_plan_payment = false;
             }
 
-            if ( ! current_user_can( 'administrator' ) && ! empty( $plan->extra_data['private'] ) ) {
-                continue;
-            }
-
             $this->available_plans[] = $plan;
         }
 
