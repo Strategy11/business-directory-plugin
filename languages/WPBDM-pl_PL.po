@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-03-20 00:09:46+00:00\n"
+"POT-Creation-Date: 2019-04-23 21:12:39+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -1371,7 +1371,7 @@ msgstr ""
 "formularza\" albo niech katalog firm zrobi to dla ciebie automatycznie."
 
 # @ WPBDM
-#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:516
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:512
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Przejdź do \"Zarządzanie polami formularza\""
@@ -1383,13 +1383,13 @@ msgid "Create these required fields for me"
 msgstr "Stwórz te wymagane pola dla mnie"
 
 # @ WPBDM
-#: includes/payment.php:181
+#: includes/payment.php:180
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "Oczekujące na abonament"
 
 # @ WPBDM
-#: includes/payment.php:186
+#: includes/payment.php:185
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Porzucone"
@@ -1404,60 +1404,60 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:768
+#: includes/class-listing.php:771
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:769
+#: includes/class-listing.php:772
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
 # @ WPBDM
-#: includes/class-listing.php:770
+#: includes/class-listing.php:773
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:771
+#: includes/class-listing.php:774
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Oczekujące na abonament"
 
 # @ WPBDM
-#: includes/class-listing.php:772
+#: includes/class-listing.php:775
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:773
+#: includes/class-listing.php:776
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Oferty oczekujące na zatwierdzenie"
 
 # @ WPBDM
-#: includes/class-listing.php:774
+#: includes/class-listing.php:777
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Wygasłe"
 
 # @ WPBDM
-#: includes/class-listing.php:775
+#: includes/class-listing.php:778
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Tylko aktywne i oczekujące na odświeżenie "
 
 # @ WPBDM
-#: includes/class-listing.php:776
+#: includes/class-listing.php:779
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -2203,25 +2203,25 @@ msgid "Theme was updated successfully."
 msgstr "Import zakończony pełnym sukcesem."
 
 # @ WPBDM
-#: includes/themes.php:825
+#: includes/themes.php:829
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/themes.php:831
+#: includes/themes.php:835
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Nie można utworzyć katalogu wpbdp-csv-eksport."
 
 # @ WPBDM
-#: includes/themes.php:839
+#: includes/themes.php:843
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/themes.php:845
+#: includes/themes.php:849
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Nie masz aktualnie ofert w katalogu."
@@ -3280,13 +3280,13 @@ msgid "Automatically generate excerpt from content field?"
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-url.php:23
+#: includes/fields/class-fieldtypes-url.php:36
 msgctxt "form-fields admin"
 msgid "Open link in a new window?"
 msgstr "Otworzyć łącze w nowym oknie?"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-url.php:26
+#: includes/fields/class-fieldtypes-url.php:39
 msgctxt "form-fields admin"
 msgid "Use rel=\"nofollow\" when displaying the link?"
 msgstr "Użyj rel=\"nofollow\" kiedy wyświetlany jest link?"
@@ -4106,14 +4106,14 @@ msgstr "Autor"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1179
+#: includes/functions.php:1181
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data publikacji"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1180
+#: includes/functions.php:1182
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ostatnij modyfikacji"
@@ -4559,13 +4559,13 @@ msgstr ""
 "Nie można skopiować pluginu kompatybilności AJAX  \"%s\". Tryb "
 "Kompatybilności nie został aktywowany."
 
-#: includes/functions.php:1177
+#: includes/functions.php:1179
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
 # @ WPBDM
-#: includes/functions.php:1178
+#: includes/functions.php:1180
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data zakończenia emisji oferty"
@@ -6595,41 +6595,41 @@ msgid "Add New Listing"
 msgstr "Dodaj nową ofertę"
 
 # @ WPBDM
-#: includes/class-listing.php:302
+#: includes/class-listing.php:305
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Data zakończenia emisji oferty"
 
 # @ WPBDM
-#: includes/class-listing.php:310
+#: includes/class-listing.php:313
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Odrzucenie płatności"
 
 # @ WPBDM
-#: includes/class-listing.php:349
+#: includes/class-listing.php:352
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/class-listing.php:508
+#: includes/class-listing.php:511
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Abonament niedostępny)"
 
 # @ WPBDM
-#: includes/class-listing.php:665
+#: includes/class-listing.php:668
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(powtarzające się)"
 
-#: includes/class-listing.php:667
+#: includes/class-listing.php:670
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -6921,75 +6921,75 @@ msgstr ""
 "zmienić ustawienia. Do czasu wprowadzenia zmian, plugin będzie działał w "
 "<i>Trybie Bezpłatnym</i>."
 
-#: includes/class-payment.php:65
+#: includes/class-payment.php:82
 msgctxt "payment"
-msgid "Payment status changed from \"%s\" to \"%s\"."
+msgid "Payment status changed from \"%1$s\" to \"%2$s\"."
 msgstr ""
 
 # @ WPBDM
-#: includes/class-payment.php:98
+#: includes/class-payment.php:123
 #, fuzzy
 msgctxt "payment"
 msgid "Initial payment (\"%s\")"
 msgstr "Inicjacja Płatności"
 
 # @ WPBDM
-#: includes/class-payment.php:101
+#: includes/class-payment.php:126
 #, fuzzy
 msgctxt "payment"
 msgid "Renewal payment (\"%s\")"
 msgstr "Odrzucenie płatności"
 
 # @ WPBDM
-#: includes/class-payment.php:266
+#: includes/class-payment.php:313
 #, fuzzy
 msgctxt "payment"
 msgid "Pending"
 msgstr "Oczekujące"
 
-#: includes/class-payment.php:267
+#: includes/class-payment.php:314
 msgctxt "payment"
 msgid "Failed"
 msgstr ""
 
 # @ WPBDM
-#: includes/class-payment.php:268
+#: includes/class-payment.php:315
 #, fuzzy
 msgctxt "payment"
 msgid "Completed"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-payment.php:269
+#: includes/class-payment.php:316
 #, fuzzy
 msgctxt "payment"
 msgid "Canceled"
 msgstr "Anulowana"
 
-#: includes/class-payment.php:270
+#: includes/class-payment.php:317
 msgctxt "payment"
 msgid "On Hold"
 msgstr ""
 
-#: includes/class-payment.php:271
+#: includes/class-payment.php:318
 msgctxt "payment"
 msgid "Refunded"
 msgstr ""
 
-#: includes/class-payment.php:113
+#: includes/class-payment.php:138
 msgctxt "payment summary"
 msgid "%s. Admin Posted."
 msgstr ""
 
 # @ WPBDM
-#: includes/class-payment.php:115
+#: includes/class-payment.php:140
 #, fuzzy
 msgctxt "payment summary"
 msgid "%s. Imported Listing."
 msgstr "Import ofert"
 
 # @ WPBDM
-#: includes/class-payment.php:188
+#: includes/class-payment.php:218
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
@@ -7063,52 +7063,52 @@ msgstr ""
 "pominięte."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:392
+#: includes/views/submit_listing.php:388
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Wybór Kategorii"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:392
+#: includes/views/submit_listing.php:388
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Wybór Kategorii"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:397
+#: includes/views/submit_listing.php:393
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Informacje o firmie"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:402
+#: includes/views/submit_listing.php:398
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Obrazy"
 
-#: includes/views/submit_listing.php:410
+#: includes/views/submit_listing.php:406
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:416
+#: includes/views/submit_listing.php:412
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Warunki i regulamin korzystania z serwisu."
 
-#: includes/views/submit_listing.php:453
+#: includes/views/submit_listing.php:449
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:503
+#: includes/views/submit_listing.php:499
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -7117,84 +7117,84 @@ msgstr ""
 "później."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:531
+#: includes/views/submit_listing.php:527
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:544
+#: includes/views/submit_listing.php:540
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
-#: includes/views/submit_listing.php:564
+#: includes/views/submit_listing.php:560
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:566
+#: includes/views/submit_listing.php:562
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:807
+#: includes/views/submit_listing.php:803
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Proszę wprowadzić Imię"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:812
+#: includes/views/submit_listing.php:808
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Proszę wprowadzić Imię"
 
-#: includes/views/submit_listing.php:817
+#: includes/views/submit_listing.php:813
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:827
+#: includes/views/submit_listing.php:823
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:832
+#: includes/views/submit_listing.php:828
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:847
+#: includes/views/submit_listing.php:843
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:854
+#: includes/views/submit_listing.php:850
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:860
+#: includes/views/submit_listing.php:856
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:869
+#: includes/views/submit_listing.php:865
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-Mail: %s"
 
-#: includes/views/submit_listing.php:878
+#: includes/views/submit_listing.php:874
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -7376,25 +7376,25 @@ msgstr "Strona Społeczności (Twitter)"
 
 # @ WPBDM
 #: includes/fields/class-fieldtypes-social.php:95
-#: includes/fields/class-fieldtypes-url.php:136
+#: includes/fields/class-fieldtypes-url.php:149
 msgctxt "form-fields api"
 msgid "URL:"
 msgstr "URL:"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-social.php:108
+#: includes/fields/class-fieldtypes-social.php:115
 #, fuzzy
 msgctxt "form-fields api"
 msgid "Text:"
 msgstr "Pole tekstowe / z możliwością html"
 
-#: includes/fields/class-fieldtypes-social.php:114
+#: includes/fields/class-fieldtypes-social.php:122
 msgctxt "form-fields api"
-msgid "Text to be displayed along with icon"
+msgid "Text to be displayed for social field"
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-social.php:121
+#: includes/fields/class-fieldtypes-social.php:140
 #, fuzzy
 msgctxt "form-fields api"
 msgid "Type:"
@@ -7425,13 +7425,13 @@ msgid "Social Site (Twitter handle)"
 msgstr "Strona Społeczności (Twitter)"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-url.php:5
+#: includes/fields/class-fieldtypes-url.php:18
 msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "Pole URL"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-url.php:144
+#: includes/fields/class-fieldtypes-url.php:157
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Tekst alternatywny(opcjonalnie):"
@@ -7516,7 +7516,7 @@ msgstr "Kraj jest wymagany."
 
 # @ WPBDM
 #: includes/fields/class-fieldtypes-image.php:100
-#: includes/fields/class-fieldtypes-social.php:156
+#: includes/fields/class-fieldtypes-social.php:175
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Usuń"
@@ -7735,19 +7735,19 @@ msgid "Caption for %s is required."
 msgstr "Kraj jest wymagany."
 
 # @ WPBDM
-#: includes/functions.php:1257
+#: includes/functions.php:1259
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Powrót do Katalogu."
 
-#: includes/functions.php:1261 includes/functions.php:1266
+#: includes/functions.php:1263 includes/functions.php:1268
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
 
 # @ WPBDM
-#: includes/payment.php:278 templates/renew-resume.tpl.php:39
+#: includes/payment.php:277 templates/renew-resume.tpl.php:39
 #, fuzzy
 msgctxt "templates"
 msgid "Return to fee selection"
@@ -7817,27 +7817,27 @@ msgstr ""
 "zawierają ofert. To oznacza, że te kategorie nie będą wyświetlane na "
 "stornach Katalogu. Jeśli chcesz to zmienić  kliknij  <a>tutaj</a>."
 
-#: includes/views/submit_listing.php:339
+#: includes/views/submit_listing.php:335
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/views/submit_listing.php:341
+#: includes/views/submit_listing.php:337
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:506
+#: includes/views/submit_listing.php:502
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:509
+#: includes/views/submit_listing.php:505
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7846,19 +7846,19 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/views/submit_listing.php:916
+#: includes/views/submit_listing.php:912
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Musisz zaakceptować nasze warunki i regulamin korzystania z serwisu."
 
 # @ WPBDM
-#: includes/views/submit_listing.php:924
+#: includes/views/submit_listing.php:920
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Warunki i regulamin:"
 
 # @ WPBDM
-#: includes/views/submit_listing.php:933
+#: includes/views/submit_listing.php:929
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -8112,18 +8112,18 @@ msgid "Your listing has been submitted."
 msgstr "Twoja Firma została zapisana."
 
 # @ WPBDM
-#: templates/submit-listing-done.tpl.php:11
+#: templates/submit-listing-done.tpl.php:14
 msgctxt "templates"
 msgid "Your listing changes were saved."
 msgstr "Zapisano zmiany w Twojej Ofercie."
 
 # @ WPBDM
-#: templates/submit-listing-done.tpl.php:16
+#: templates/submit-listing-done.tpl.php:19
 msgctxt "templates"
 msgid "Go to your listing"
 msgstr "Przejdź do Twojej oferty."
 
-#: templates/submit-listing-done.tpl.php:18
+#: templates/submit-listing-done.tpl.php:21
 msgctxt "templates"
 msgid ""
 "Your listing requires admin approval. You'll be notified once your listing "
@@ -8131,7 +8131,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: templates/submit-listing-done.tpl.php:22
+#: templates/submit-listing-done.tpl.php:25
 msgctxt "templates"
 msgid "Return to directory."
 msgstr "Powrót do Katalogu."
@@ -8703,7 +8703,7 @@ msgctxt "payments"
 msgid "Bill To:"
 msgstr ""
 
-#: includes/payment.php:97
+#: includes/payment.php:96
 msgctxt "checkout"
 msgid "Print Receipt"
 msgstr ""
@@ -8976,7 +8976,7 @@ msgctxt "checkout"
 msgid "Your payment is awaiting verification by the gateway."
 msgstr ""
 
-#: templates/checkout-confirmation.tpl.php:19
+#: templates/checkout-confirmation.tpl.php:20
 msgctxt "checkout"
 msgid ""
 "Verification usually takes some minutes. This page will automatically "
@@ -9097,7 +9097,7 @@ msgid "Error while uploading file"
 msgstr "Błąd podczas przesyłania pliku."
 
 # @ WPBDM
-#: includes/views/delete_listing.php:32
+#: includes/views/delete_listing.php:38
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Twoja oferta została usunięta."
@@ -9467,14 +9467,14 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "To jest tylko podgląd. Oferta nie została jeszcze opublikowana."
 
-#: includes/views/submit_listing.php:675
+#: includes/views/submit_listing.php:671
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:759
+#: includes/views/submit_listing.php:755
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

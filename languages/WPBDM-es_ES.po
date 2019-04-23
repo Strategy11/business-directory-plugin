@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-03-20 00:09:46+00:00\n"
-"PO-Revision-Date: 2019-03-19 19:12-0500\n"
+"POT-Creation-Date: 2019-04-23 21:12:39+00:00\n"
+"PO-Revision-Date: 2019-04-23 16:16-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -1187,7 +1187,7 @@ msgstr ""
 "Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
 "o puede dejar que Business Directory haga esto por usted automáticamente."
 
-#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:516
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:512
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Ir a \"Administrar Campos de Formulario\""
@@ -1197,12 +1197,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Crear estos campos requeridos por mi"
 
-#: includes/payment.php:181
+#: includes/payment.php:180
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "Casi abandonado"
 
-#: includes/payment.php:186
+#: includes/payment.php:185
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Abandonados"
@@ -1217,47 +1217,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr "Reportado"
 
-#: includes/class-listing.php:768
+#: includes/class-listing.php:771
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: includes/class-listing.php:769
+#: includes/class-listing.php:772
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Antiguo"
 
-#: includes/class-listing.php:770
+#: includes/class-listing.php:773
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incompleto"
 
-#: includes/class-listing.php:771
+#: includes/class-listing.php:774
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Pendiente de pago"
 
-#: includes/class-listing.php:772
+#: includes/class-listing.php:775
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Completado"
 
-#: includes/class-listing.php:773
+#: includes/class-listing.php:776
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Pendiente de mejora"
 
-#: includes/class-listing.php:774
+#: includes/class-listing.php:777
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Expirado"
 
-#: includes/class-listing.php:775
+#: includes/class-listing.php:778
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Pendientes de renovación"
 
-#: includes/class-listing.php:776
+#: includes/class-listing.php:779
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abandonado"
@@ -1888,22 +1888,22 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "El tema fue actualizado correctamente."
 
-#: includes/themes.php:825
+#: includes/themes.php:829
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "El archivo ZIP no es un tema de BD válido."
 
-#: includes/themes.php:831
+#: includes/themes.php:835
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "No se pudo crear el directorio de los temas."
 
-#: includes/themes.php:839
+#: includes/themes.php:843
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "No se pudo remover el directorio anterior \"%s\"."
 
-#: includes/themes.php:845
+#: includes/themes.php:849
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "No se pudo mover el nuevo tema al directorio de temas."
@@ -2545,12 +2545,12 @@ msgstr "Eliminar"
 #: includes/admin/form-fields.php:118
 msgctxt "form-fields admin"
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: includes/admin/form-fields.php:123
 msgctxt "form-fields admin"
 msgid "Shortname"
-msgstr ""
+msgstr "Nombre corto"
 
 #: includes/admin/form-fields.php:145
 msgctxt "form-fields admin"
@@ -2870,12 +2870,12 @@ msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "¿Generar resumen automáticamente del campo de contenido?"
 
-#: includes/fields/class-fieldtypes-url.php:23
+#: includes/fields/class-fieldtypes-url.php:36
 msgctxt "form-fields admin"
 msgid "Open link in a new window?"
 msgstr "Abrir enlace en nueva ventana?"
 
-#: includes/fields/class-fieldtypes-url.php:26
+#: includes/fields/class-fieldtypes-url.php:39
 msgctxt "form-fields admin"
 msgid "Use rel=\"nofollow\" when displaying the link?"
 msgstr "Utilizar rel=\"nofollow\"  cuando se muestre este enlace?"
@@ -3562,13 +3562,13 @@ msgid "Author"
 msgstr "Autor"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1179
+#: includes/functions.php:1181
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Fecha de publicación"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1180
+#: includes/functions.php:1182
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Fecha de última modificación"
@@ -3956,12 +3956,12 @@ msgstr ""
 "No se pudo copiar el plugin de compatibilidad AJAX \"%s\". El modo de "
 "compatibilidad no fue activado."
 
-#: includes/functions.php:1177
+#: includes/functions.php:1179
 msgctxt "admin settings"
 msgid "User"
 msgstr "Usuario"
 
-#: includes/functions.php:1178
+#: includes/functions.php:1180
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Fecha de registro del usuario"
@@ -5670,32 +5670,32 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: includes/class-listing.php:302
+#: includes/class-listing.php:305
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "El listado no tiene pagos registrados"
 
-#: includes/class-listing.php:310
+#: includes/class-listing.php:313
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "No se puede eliminar el pago"
 
-#: includes/class-listing.php:349
+#: includes/class-listing.php:352
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "El listado expiró"
 
-#: includes/class-listing.php:508
+#: includes/class-listing.php:511
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Comisión no disponible)"
 
-#: includes/class-listing.php:665
+#: includes/class-listing.php:668
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "Comisión “%s” (recurrente)"
 
-#: includes/class-listing.php:667
+#: includes/class-listing.php:670
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Comisión “%s”"
@@ -5945,62 +5945,62 @@ msgstr ""
 "para cambiar las configuración. Hasta tanto, el directorio operará en "
 "<i>Modo Gratuito</i>."
 
-#: includes/class-payment.php:65
+#: includes/class-payment.php:82
 msgctxt "payment"
-msgid "Payment status changed from \"%s\" to \"%s\"."
-msgstr "El estado del pago cambió de “%s” a “%s”."
+msgid "Payment status changed from \"%1$s\" to \"%2$s\"."
+msgstr "El estado del pago cambió de “%1$s” a “%2$s”."
 
-#: includes/class-payment.php:98
+#: includes/class-payment.php:123
 msgctxt "payment"
 msgid "Initial payment (\"%s\")"
 msgstr "Pago inicial (“%s”)"
 
-#: includes/class-payment.php:101
+#: includes/class-payment.php:126
 msgctxt "payment"
 msgid "Renewal payment (\"%s\")"
 msgstr "Pago de renovación (“%s”)"
 
-#: includes/class-payment.php:266
+#: includes/class-payment.php:313
 msgctxt "payment"
 msgid "Pending"
 msgstr "Pendiente"
 
-#: includes/class-payment.php:267
+#: includes/class-payment.php:314
 msgctxt "payment"
 msgid "Failed"
 msgstr "Fallido"
 
-#: includes/class-payment.php:268
+#: includes/class-payment.php:315
 msgctxt "payment"
 msgid "Completed"
 msgstr "Completado"
 
-#: includes/class-payment.php:269
+#: includes/class-payment.php:316
 msgctxt "payment"
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: includes/class-payment.php:270
+#: includes/class-payment.php:317
 msgctxt "payment"
 msgid "On Hold"
 msgstr "En espera"
 
-#: includes/class-payment.php:271
+#: includes/class-payment.php:318
 msgctxt "payment"
 msgid "Refunded"
 msgstr "Reintegrado"
 
-#: includes/class-payment.php:113
+#: includes/class-payment.php:138
 msgctxt "payment summary"
 msgid "%s. Admin Posted."
 msgstr "%s. Publicado por el administrador."
 
-#: includes/class-payment.php:115
+#: includes/class-payment.php:140
 msgctxt "payment summary"
 msgid "%s. Imported Listing."
 msgstr "%s. Listado importado."
 
-#: includes/class-payment.php:188
+#: includes/class-payment.php:218
 msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "El listado fue publicado por el administrador. No se realizó pago."
@@ -6066,103 +6066,103 @@ msgid "You're logged in as admin, payment will be skipped."
 msgstr ""
 "Ha ingresado como administrador. Todos los pasos de pago serán saltados."
 
-#: includes/views/submit_listing.php:392
+#: includes/views/submit_listing.php:388
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Selección de categoría"
 
-#: includes/views/submit_listing.php:392
+#: includes/views/submit_listing.php:388
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Selección de categoría y comisión"
 
-#: includes/views/submit_listing.php:397
+#: includes/views/submit_listing.php:393
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Información del listado"
 
-#: includes/views/submit_listing.php:402
+#: includes/views/submit_listing.php:398
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Imágenes del listado"
 
-#: includes/views/submit_listing.php:410
+#: includes/views/submit_listing.php:406
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr "Creación de cuenta de usuario"
 
-#: includes/views/submit_listing.php:416
+#: includes/views/submit_listing.php:412
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Términos y Condiciones"
 
-#: includes/views/submit_listing.php:453
+#: includes/views/submit_listing.php:449
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr "(Por favor elija una comisión arriba)"
 
-#: includes/views/submit_listing.php:503
+#: includes/views/submit_listing.php:499
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 "No puede publicar un listado en este momento. Por favor intente más tarde."
 
-#: includes/views/submit_listing.php:531
+#: includes/views/submit_listing.php:527
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Por favor seleccione una categoría."
 
-#: includes/views/submit_listing.php:544
+#: includes/views/submit_listing.php:540
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Por favor seleccione una categoría para su listado."
 
-#: includes/views/submit_listing.php:564
+#: includes/views/submit_listing.php:560
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Por favor seleccione una categoría válida para su comisión."
 
-#: includes/views/submit_listing.php:566
+#: includes/views/submit_listing.php:562
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Por favor elija una comisión válida para la categoría seleccionada."
 
-#: includes/views/submit_listing.php:807
+#: includes/views/submit_listing.php:803
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Por favor ingrese su nombre de usuario."
 
-#: includes/views/submit_listing.php:812
+#: includes/views/submit_listing.php:808
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 "Por favor ingrese la dirección de correo electrónico para su nueva cuenta."
 
-#: includes/views/submit_listing.php:817
+#: includes/views/submit_listing.php:813
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Por favor ingrese la contraseña para su nueva cuenta."
 
-#: includes/views/submit_listing.php:827
+#: includes/views/submit_listing.php:823
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "El nombre de usuario que eligió ya está en uso. Por favor elija un nombre de "
 "usuario diferente."
 
-#: includes/views/submit_listing.php:832
+#: includes/views/submit_listing.php:828
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 "La dirección de correo electrónico que eligió para su cuenta ya está siendo "
 "utilizada."
 
-#: includes/views/submit_listing.php:847
+#: includes/views/submit_listing.php:843
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Crear una cuenta de usuario en este sitio"
 
-#: includes/views/submit_listing.php:854
+#: includes/views/submit_listing.php:850
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -6170,17 +6170,17 @@ msgstr ""
 "Debe crear una cuenta de usuario en este sitio. Por favor ingrese los datos "
 "requeridos en el formulario que está debajo."
 
-#: includes/views/submit_listing.php:860
+#: includes/views/submit_listing.php:856
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Nombre de usuario:"
 
-#: includes/views/submit_listing.php:869
+#: includes/views/submit_listing.php:865
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Correo electrónico:"
 
-#: includes/views/submit_listing.php:878
+#: includes/views/submit_listing.php:874
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Contraseña:"
@@ -6331,22 +6331,22 @@ msgid "Social Site (Other)"
 msgstr "Sitio Social (Otro)"
 
 #: includes/fields/class-fieldtypes-social.php:95
-#: includes/fields/class-fieldtypes-url.php:136
+#: includes/fields/class-fieldtypes-url.php:149
 msgctxt "form-fields api"
 msgid "URL:"
 msgstr "URL:"
 
-#: includes/fields/class-fieldtypes-social.php:108
+#: includes/fields/class-fieldtypes-social.php:115
 msgctxt "form-fields api"
 msgid "Text:"
 msgstr "Texto:"
 
-#: includes/fields/class-fieldtypes-social.php:114
+#: includes/fields/class-fieldtypes-social.php:122
 msgctxt "form-fields api"
-msgid "Text to be displayed along with icon"
-msgstr "Texto que será presentado con el ícono"
+msgid "Text to be displayed for social field"
+msgstr "Texto que será presentado para el campo social"
 
-#: includes/fields/class-fieldtypes-social.php:121
+#: includes/fields/class-fieldtypes-social.php:140
 msgctxt "form-fields api"
 msgid "Type:"
 msgstr "Tipo:"
@@ -6371,12 +6371,12 @@ msgctxt "form-fields api"
 msgid "Social Site (Twitter handle)"
 msgstr "Sitio Social (Twitter @)"
 
-#: includes/fields/class-fieldtypes-url.php:5
+#: includes/fields/class-fieldtypes-url.php:18
 msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "Campo de URL"
 
-#: includes/fields/class-fieldtypes-url.php:144
+#: includes/fields/class-fieldtypes-url.php:157
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Texto del enlace (opcional):"
@@ -6446,7 +6446,7 @@ msgid "Caption for %s is required."
 msgstr "Se requiere leyenda para %s."
 
 #: includes/fields/class-fieldtypes-image.php:100
-#: includes/fields/class-fieldtypes-social.php:156
+#: includes/fields/class-fieldtypes-social.php:175
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Eliminar"
@@ -6646,17 +6646,17 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Se requiere leyenda para %s."
 
-#: includes/functions.php:1257
+#: includes/functions.php:1259
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Regresar a resultados"
 
-#: includes/functions.php:1261 includes/functions.php:1266
+#: includes/functions.php:1263 includes/functions.php:1268
 msgctxt "templates"
 msgid "Go back"
 msgstr "Regresar"
 
-#: includes/payment.php:278 templates/renew-resume.tpl.php:39
+#: includes/payment.php:277 templates/renew-resume.tpl.php:39
 msgctxt "templates"
 msgid "Return to fee selection"
 msgstr "Regresar a la selección de tarifa"
@@ -6717,7 +6717,7 @@ msgstr ""
 "Esto significa que no aparecerán acá. Si desea mostrar las categorías "
 "vacías, haga <a>clic aquí</a> para cambiar la configuración."
 
-#: includes/views/submit_listing.php:339
+#: includes/views/submit_listing.php:335
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -6726,7 +6726,7 @@ msgstr ""
 "<b>Vista no disponible</b>. ¿Tiene \"Deshabilitar envío de listados desde el "
 "frontend\" habilitado?"
 
-#: includes/views/submit_listing.php:341
+#: includes/views/submit_listing.php:337
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
@@ -6734,7 +6734,7 @@ msgstr ""
 "Se ha deshabilitado la opción para agregar listados. Contacte al "
 "administrador para más detalles."
 
-#: includes/views/submit_listing.php:506
+#: includes/views/submit_listing.php:502
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
@@ -6743,7 +6743,7 @@ msgstr ""
 "La opción para agregar listados no está disponible en el momento. Contacte "
 "al administrador para más detalles."
 
-#: includes/views/submit_listing.php:509
+#: includes/views/submit_listing.php:505
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -6754,17 +6754,17 @@ msgstr ""
 "“Categoría”. %s y cree un nuevo campo con dicha asociación, o asigne la "
 "asociación a un campo existente."
 
-#: includes/views/submit_listing.php:916
+#: includes/views/submit_listing.php:912
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Por favor acepte los Términos y Condiciones."
 
-#: includes/views/submit_listing.php:924
+#: includes/views/submit_listing.php:920
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Términos y Condiciones:"
 
-#: includes/views/submit_listing.php:933
+#: includes/views/submit_listing.php:929
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Acepto los <a>Términos y Condiciones</a>"
@@ -6975,17 +6975,17 @@ msgctxt "templates"
 msgid "Your listing has been submitted."
 msgstr "Su listado fue enviado."
 
-#: templates/submit-listing-done.tpl.php:11
+#: templates/submit-listing-done.tpl.php:14
 msgctxt "templates"
 msgid "Your listing changes were saved."
 msgstr "Los cambios a su listado fueron guardados."
 
-#: templates/submit-listing-done.tpl.php:16
+#: templates/submit-listing-done.tpl.php:19
 msgctxt "templates"
 msgid "Go to your listing"
 msgstr "Ir a su listado"
 
-#: templates/submit-listing-done.tpl.php:18
+#: templates/submit-listing-done.tpl.php:21
 msgctxt "templates"
 msgid ""
 "Your listing requires admin approval. You'll be notified once your listing "
@@ -6994,7 +6994,7 @@ msgstr ""
 "Su listado debe ser aprobado por el administrador. Usted será notificado una "
 "vez el listado sea aprobado."
 
-#: templates/submit-listing-done.tpl.php:22
+#: templates/submit-listing-done.tpl.php:25
 msgctxt "templates"
 msgid "Return to directory."
 msgstr "Regresar al Directorio."
@@ -7511,7 +7511,7 @@ msgctxt "payments"
 msgid "Bill To:"
 msgstr "Pagar a:"
 
-#: includes/payment.php:97
+#: includes/payment.php:96
 msgctxt "checkout"
 msgid "Print Receipt"
 msgstr "Imprimir recibo"
@@ -7740,7 +7740,7 @@ msgid "Your payment is awaiting verification by the gateway."
 msgstr ""
 "Su pago está pendiente de ser verificado por parte de la pasarela de pago."
 
-#: templates/checkout-confirmation.tpl.php:19
+#: templates/checkout-confirmation.tpl.php:20
 msgctxt "checkout"
 msgid ""
 "Verification usually takes some minutes. This page will automatically "
@@ -7848,7 +7848,7 @@ msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ocurrió un error mientras se subía el archivo"
 
-#: includes/views/delete_listing.php:32
+#: includes/views/delete_listing.php:38
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Su listado ha sido eliminado."
@@ -8158,7 +8158,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Esta es tan solo una previsualización. El listado no ha sido publicado aún."
 
-#: includes/views/submit_listing.php:675
+#: includes/views/submit_listing.php:671
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -8167,7 +8167,7 @@ msgstr ""
 "Algo salió mal. Por favor verifique que el formulario no contiene errores y "
 "envíelo de nuevo."
 
-#: includes/views/submit_listing.php:759
+#: includes/views/submit_listing.php:755
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

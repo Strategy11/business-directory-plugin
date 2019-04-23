@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 5.5.3dev3\n"
+"Project-Id-Version: Business Directory Plugin 5.5.4dev5\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2019-03-20 00:09:46+00:00\n"
+"POT-Creation-Date: 2019-04-23 21:12:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1085,7 +1085,7 @@ msgid ""
 "Fields\" or let Business Directory do this for you automatically."
 msgstr ""
 
-#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:516
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:512
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr ""
@@ -1095,12 +1095,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr ""
 
-#: includes/payment.php:181
+#: includes/payment.php:180
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr ""
 
-#: includes/payment.php:186
+#: includes/payment.php:185
 msgctxt "admin"
 msgid "Abandoned"
 msgstr ""
@@ -1115,47 +1115,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:768
+#: includes/class-listing.php:771
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:769
+#: includes/class-listing.php:772
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/class-listing.php:770
+#: includes/class-listing.php:773
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr ""
 
-#: includes/class-listing.php:771
+#: includes/class-listing.php:774
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr ""
 
-#: includes/class-listing.php:772
+#: includes/class-listing.php:775
 msgctxt "listing status"
 msgid "Complete"
 msgstr ""
 
-#: includes/class-listing.php:773
+#: includes/class-listing.php:776
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr ""
 
-#: includes/class-listing.php:774
+#: includes/class-listing.php:777
 msgctxt "listing status"
 msgid "Expired"
 msgstr ""
 
-#: includes/class-listing.php:775
+#: includes/class-listing.php:778
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr ""
 
-#: includes/class-listing.php:776
+#: includes/class-listing.php:779
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr ""
@@ -1752,22 +1752,22 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr ""
 
-#: includes/themes.php:825
+#: includes/themes.php:829
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr ""
 
-#: includes/themes.php:831
+#: includes/themes.php:835
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: includes/themes.php:839
+#: includes/themes.php:843
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: includes/themes.php:845
+#: includes/themes.php:849
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""
@@ -2673,12 +2673,12 @@ msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-url.php:23
+#: includes/fields/class-fieldtypes-url.php:36
 msgctxt "form-fields admin"
 msgid "Open link in a new window?"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-url.php:26
+#: includes/fields/class-fieldtypes-url.php:39
 msgctxt "form-fields admin"
 msgid "Use rel=\"nofollow\" when displaying the link?"
 msgstr ""
@@ -3334,13 +3334,13 @@ msgid "Author"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1179
+#: includes/functions.php:1181
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1180
+#: includes/functions.php:1182
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr ""
@@ -3711,12 +3711,12 @@ msgid ""
 "not activated."
 msgstr ""
 
-#: includes/functions.php:1177
+#: includes/functions.php:1179
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: includes/functions.php:1178
+#: includes/functions.php:1180
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr ""
@@ -5273,32 +5273,32 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr ""
 
-#: includes/class-listing.php:302
+#: includes/class-listing.php:305
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr ""
 
-#: includes/class-listing.php:310
+#: includes/class-listing.php:313
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr ""
 
-#: includes/class-listing.php:349
+#: includes/class-listing.php:352
 msgctxt "listing"
 msgid "Listing expired"
 msgstr ""
 
-#: includes/class-listing.php:508
+#: includes/class-listing.php:511
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr ""
 
-#: includes/class-listing.php:665
+#: includes/class-listing.php:668
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr ""
 
-#: includes/class-listing.php:667
+#: includes/class-listing.php:670
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -5535,62 +5535,62 @@ msgid ""
 "<i>Free Mode</i>."
 msgstr ""
 
-#: includes/class-payment.php:65
+#: includes/class-payment.php:82
 msgctxt "payment"
-msgid "Payment status changed from \"%s\" to \"%s\"."
+msgid "Payment status changed from \"%1$s\" to \"%2$s\"."
 msgstr ""
 
-#: includes/class-payment.php:98
+#: includes/class-payment.php:123
 msgctxt "payment"
 msgid "Initial payment (\"%s\")"
 msgstr ""
 
-#: includes/class-payment.php:101
+#: includes/class-payment.php:126
 msgctxt "payment"
 msgid "Renewal payment (\"%s\")"
 msgstr ""
 
-#: includes/class-payment.php:266
+#: includes/class-payment.php:313
 msgctxt "payment"
 msgid "Pending"
 msgstr ""
 
-#: includes/class-payment.php:267
+#: includes/class-payment.php:314
 msgctxt "payment"
 msgid "Failed"
 msgstr ""
 
-#: includes/class-payment.php:268
+#: includes/class-payment.php:315
 msgctxt "payment"
 msgid "Completed"
 msgstr ""
 
-#: includes/class-payment.php:269
+#: includes/class-payment.php:316
 msgctxt "payment"
 msgid "Canceled"
 msgstr ""
 
-#: includes/class-payment.php:270
+#: includes/class-payment.php:317
 msgctxt "payment"
 msgid "On Hold"
 msgstr ""
 
-#: includes/class-payment.php:271
+#: includes/class-payment.php:318
 msgctxt "payment"
 msgid "Refunded"
 msgstr ""
 
-#: includes/class-payment.php:113
+#: includes/class-payment.php:138
 msgctxt "payment summary"
 msgid "%s. Admin Posted."
 msgstr ""
 
-#: includes/class-payment.php:115
+#: includes/class-payment.php:140
 msgctxt "payment summary"
 msgid "%s. Imported Listing."
 msgstr ""
 
-#: includes/class-payment.php:188
+#: includes/class-payment.php:218
 msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr ""
@@ -5650,112 +5650,112 @@ msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr ""
 
-#: includes/views/submit_listing.php:392
+#: includes/views/submit_listing.php:388
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr ""
 
-#: includes/views/submit_listing.php:392
+#: includes/views/submit_listing.php:388
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr ""
 
-#: includes/views/submit_listing.php:397
+#: includes/views/submit_listing.php:393
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr ""
 
-#: includes/views/submit_listing.php:402
+#: includes/views/submit_listing.php:398
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr ""
 
-#: includes/views/submit_listing.php:410
+#: includes/views/submit_listing.php:406
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:416
+#: includes/views/submit_listing.php:412
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr ""
 
-#: includes/views/submit_listing.php:453
+#: includes/views/submit_listing.php:449
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:503
+#: includes/views/submit_listing.php:499
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 
-#: includes/views/submit_listing.php:531
+#: includes/views/submit_listing.php:527
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr ""
 
-#: includes/views/submit_listing.php:544
+#: includes/views/submit_listing.php:540
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr ""
 
-#: includes/views/submit_listing.php:564
+#: includes/views/submit_listing.php:560
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:566
+#: includes/views/submit_listing.php:562
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr ""
 
-#: includes/views/submit_listing.php:807
+#: includes/views/submit_listing.php:803
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr ""
 
-#: includes/views/submit_listing.php:812
+#: includes/views/submit_listing.php:808
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:817
+#: includes/views/submit_listing.php:813
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:827
+#: includes/views/submit_listing.php:823
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:832
+#: includes/views/submit_listing.php:828
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:847
+#: includes/views/submit_listing.php:843
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:854
+#: includes/views/submit_listing.php:850
 msgctxt "submit listing"
 msgid "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:860
+#: includes/views/submit_listing.php:856
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
-#: includes/views/submit_listing.php:869
+#: includes/views/submit_listing.php:865
 msgctxt "submit listing"
 msgid "Email:"
 msgstr ""
 
-#: includes/views/submit_listing.php:878
+#: includes/views/submit_listing.php:874
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -5902,22 +5902,22 @@ msgid "Social Site (Other)"
 msgstr ""
 
 #: includes/fields/class-fieldtypes-social.php:95
-#: includes/fields/class-fieldtypes-url.php:136
+#: includes/fields/class-fieldtypes-url.php:149
 msgctxt "form-fields api"
 msgid "URL:"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-social.php:108
+#: includes/fields/class-fieldtypes-social.php:115
 msgctxt "form-fields api"
 msgid "Text:"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-social.php:114
+#: includes/fields/class-fieldtypes-social.php:122
 msgctxt "form-fields api"
-msgid "Text to be displayed along with icon"
+msgid "Text to be displayed for social field"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-social.php:121
+#: includes/fields/class-fieldtypes-social.php:140
 msgctxt "form-fields api"
 msgid "Type:"
 msgstr ""
@@ -5942,12 +5942,12 @@ msgctxt "form-fields api"
 msgid "Social Site (Twitter handle)"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-url.php:5
+#: includes/fields/class-fieldtypes-url.php:18
 msgctxt "form-fields api"
 msgid "URL Field"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-url.php:144
+#: includes/fields/class-fieldtypes-url.php:157
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr ""
@@ -6015,7 +6015,7 @@ msgid "Caption for %s is required."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-image.php:100
-#: includes/fields/class-fieldtypes-social.php:156
+#: includes/fields/class-fieldtypes-social.php:175
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr ""
@@ -6200,17 +6200,17 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr ""
 
-#: includes/functions.php:1257
+#: includes/functions.php:1259
 msgctxt "templates"
 msgid "Return to results"
 msgstr ""
 
-#: includes/functions.php:1261 includes/functions.php:1266
+#: includes/functions.php:1263 includes/functions.php:1268
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
 
-#: includes/payment.php:278 templates/renew-resume.tpl.php:39
+#: includes/payment.php:277 templates/renew-resume.tpl.php:39
 msgctxt "templates"
 msgid "Return to fee selection"
 msgstr ""
@@ -6263,26 +6263,26 @@ msgid ""
 "site. If you didn't want that, click <a>here</a> to change the setting."
 msgstr ""
 
-#: includes/views/submit_listing.php:339
+#: includes/views/submit_listing.php:335
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/views/submit_listing.php:341
+#: includes/views/submit_listing.php:337
 msgctxt "templates"
 msgid "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:506
+#: includes/views/submit_listing.php:502
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the "
 "administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:509
+#: includes/views/submit_listing.php:505
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -6290,17 +6290,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:916
+#: includes/views/submit_listing.php:912
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr ""
 
-#: includes/views/submit_listing.php:924
+#: includes/views/submit_listing.php:920
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr ""
 
-#: includes/views/submit_listing.php:933
+#: includes/views/submit_listing.php:929
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr ""
@@ -6501,24 +6501,24 @@ msgctxt "templates"
 msgid "Your listing has been submitted."
 msgstr ""
 
-#: templates/submit-listing-done.tpl.php:11
+#: templates/submit-listing-done.tpl.php:14
 msgctxt "templates"
 msgid "Your listing changes were saved."
 msgstr ""
 
-#: templates/submit-listing-done.tpl.php:16
+#: templates/submit-listing-done.tpl.php:19
 msgctxt "templates"
 msgid "Go to your listing"
 msgstr ""
 
-#: templates/submit-listing-done.tpl.php:18
+#: templates/submit-listing-done.tpl.php:21
 msgctxt "templates"
 msgid ""
 "Your listing requires admin approval. You'll be notified once your listing "
 "is approved."
 msgstr ""
 
-#: templates/submit-listing-done.tpl.php:22
+#: templates/submit-listing-done.tpl.php:25
 msgctxt "templates"
 msgid "Return to directory."
 msgstr ""
@@ -6981,7 +6981,7 @@ msgctxt "payments"
 msgid "Bill To:"
 msgstr ""
 
-#: includes/payment.php:97
+#: includes/payment.php:96
 msgctxt "checkout"
 msgid "Print Receipt"
 msgstr ""
@@ -7196,7 +7196,7 @@ msgctxt "checkout"
 msgid "Your payment is awaiting verification by the gateway."
 msgstr ""
 
-#: templates/checkout-confirmation.tpl.php:19
+#: templates/checkout-confirmation.tpl.php:20
 msgctxt "checkout"
 msgid ""
 "Verification usually takes some minutes. This page will automatically "
@@ -7295,7 +7295,7 @@ msgctxt "utils"
 msgid "Error while uploading file"
 msgstr ""
 
-#: includes/views/delete_listing.php:32
+#: includes/views/delete_listing.php:38
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr ""
@@ -7584,14 +7584,14 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 
-#: includes/views/submit_listing.php:675
+#: includes/views/submit_listing.php:671
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:759
+#: includes/views/submit_listing.php:755
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit "
