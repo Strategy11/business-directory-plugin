@@ -692,7 +692,7 @@ class WPBDP__Shortcodes {
     }
 
     private function maybe_paginate_frontpage( $query ) {
-        if ( ! function_exists('wp_pagenavi' ) && is_front_page() ) {
+        if ( ! function_exists('wp_pagenavi' ) && is_front_page() && isset( $query->query['paged'] ) ) {
             global $paged;
             $paged = $query->query['paged'];
         }
