@@ -122,8 +122,16 @@ class WPBDP__Listing_Search {
         $query_pieces['where'] = str_replace( 'OR )', ')', $query_pieces['where'] );
 
         if ( $this->results ) {
-            $format                   = implode( ', ', array_fill( 0, count( $this->results ), '%d' ) );
-            $query_pieces['posts_in'] = $wpdb->prepare( "AND {$wpdb->posts}.ID  IN ( $format )", $this->results );
+            $head = $this->tree[0];
+            if ( is_array( $this->tree ) && 2 == count( $this->tree ) ) {
+                $head = $this->tree[1];
+                $head = is_array( $head ) ? $head[0] : $head;
+            }
+
+            $head   = 'or' == $head ? 'OR' : 'AND';
+            $format = implode( ', ', array_fill( 0, count( $this->results ), '%d' ) );
+
+            $query_pieces['posts_in'] = $wpdb->prepare( "$head {$wpdb->posts}.ID  IN ( $format )", $this->results );
         }
 
         $query_pieces = apply_filters_ref_array( 'wpbdp_search_query_pieces', array( $query_pieces, $this ) );
@@ -141,10 +149,6 @@ class WPBDP__Listing_Search {
             $query_pieces['limits']
         );
         // wpbdp_debug_e($this->query);
-        
-        if ( $fields_count > 5 ) {
-            $wpdb->query( 'SET OPTION SQL_BIG_SELECTS = 1' );
-        }
 
         $this->results = $wpdb->get_col( $this->query );
 
