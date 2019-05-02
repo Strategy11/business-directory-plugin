@@ -399,7 +399,7 @@ class WPBDP_CSVExporter {
 									$img_path   = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
 
 									if ( ! is_readable( $img_path ) ) {
-										continue;
+										break;
 									}
 
 									$this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
