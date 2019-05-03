@@ -957,6 +957,16 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
+                'id'      => 'listing-main-image-default-size',
+                'type'    => 'select',
+                'name'    => _x( 'Default listing main image size', 'settings', 'WPBDM' ),
+                'default' => 'wpbdp-thumbnail',
+                'options' => self::get_registered_image_sizes(),
+                'group'   => 'image/listings',
+            )
+        );
+        wpbdp_register_setting(
+            array(
 				'id'      => 'show-thumbnail',
 				'type'    => 'checkbox',
 				'name'    => _x( 'Show Thumbnail on main listings page?', 'settings', 'WPBDM' ),
@@ -1509,6 +1519,52 @@ final class WPBDP__Settings__Bootstrap {
                 wpbdp_set_option( $setting['id'], 0 );
             }
         }
+    }
+
+    private static function register_image_sizes() {
+        $thumbnail_width  = absint( wpbdp_get_option( 'thumbnail-width' ) );
+        $thumbnail_height = absint( wpbdp_get_option( 'thumbnail-height' ) );
+
+        $max_width  = absint( wpbdp_get_option( 'image-max-width' ) );
+        $max_height = absint( wpbdp_get_option( 'image-max-height' ) );
+
+        $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
+
+        add_image_size( 'wpbdp-mini', 50, 50, true ); // Used for the submit process.
+        add_image_size( 'wpbdp-thumbnail', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
+        add_image_size( 'wpbdp-large', $max_width, $max_height, false ); // Large size.
+    }
+
+    private static function get_registered_image_sizes() {
+        self::register_image_sizes();
+
+        global $_wp_additional_image_sizes;
+
+        $sizes = array( 'uploaded' => 'Uploaded Image (no resize)' );
+
+        foreach ( get_intermediate_image_sizes() as $_size ) {
+            if ( in_array( $_size, array('thumbnail', 'medium', 'medium_large', 'large') ) ) {
+                $name   = 'WP ' . ucwords( str_replace( '_', ' ', $_size ) );
+                $width  = get_option( "{$_size}_size_w" );
+                $height = get_option( "{$_size}_size_h" );
+                $crop   = (bool) get_option( "{$_size}_crop" );
+            } elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+                $name   = ucwords( str_replace( 'wpbdp', 'Directory', str_replace( array( '_', '-' ), ' ', $_size ) ) );
+                $width  = $_wp_additional_image_sizes[ $_size ]['width'];
+                $height = $_wp_additional_image_sizes[ $_size ]['height'];
+                $crop   = (bool) $_wp_additional_image_sizes[ $_size ]['crop'];
+            }
+
+            $sizes[ $_size ] = sprintf(
+                '%s (%sx%s px %s) ',
+                $name,
+                $width,
+                $height,
+                $crop ? 'Cropped' : ''
+            );
+        }
+
+        return $sizes;
     }
 }
 

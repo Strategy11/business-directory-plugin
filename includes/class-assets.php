@@ -21,8 +21,6 @@ class WPBDP__Assets {
         // Scripts & styles.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_css_override' ), 9999, 0 );
-
-        $this->register_image_sizes();
     }
 
     /**
@@ -208,19 +206,5 @@ class WPBDP__Assets {
                 }
             }
         }
-    }
-
-    public function register_image_sizes() {
-        $thumbnail_width  = absint( wpbdp_get_option( 'thumbnail-width' ) );
-        $thumbnail_height = absint( wpbdp_get_option( 'thumbnail-height' ) );
-
-        $max_width  = absint( wpbdp_get_option( 'image-max-width' ) );
-        $max_height = absint( wpbdp_get_option( 'image-max-height' ) );
-
-        $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
-
-        add_image_size( 'wpbdp-mini', 50, 50, true ); // Used for the submit process.
-        add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
-        add_image_size( 'wpbdp-large', $max_width, $max_height, false ); // Large size.
     }
 }

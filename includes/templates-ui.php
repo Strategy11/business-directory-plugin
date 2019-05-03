@@ -524,9 +524,11 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
         $image_title = get_post_meta( $main_image->ID, '_wpbdp_image_caption', true );
         _wpbdp_resize_image_if_needed( $main_image->ID );
 
+        $image_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
+
         $image_img = wp_get_attachment_image(
             $main_image->ID,
-            'wpbdp-thumb',
+            'uploaded' !== $image_size ? $image_size : '',
             false,
             array(
                 'alt'   => $image_title ? $image_title : get_the_title( $listing_id ),
