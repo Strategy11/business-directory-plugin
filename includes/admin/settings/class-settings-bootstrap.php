@@ -1540,7 +1540,7 @@ final class WPBDP__Settings__Bootstrap {
 
         global $_wp_additional_image_sizes;
 
-        $sizes = array( 'uploaded' => 'Uploaded Image (no resize)' );
+        $sizes = array( 'uploaded' => _x( 'Uploaded Image (no resize)', 'admin settings', 'WPBDM' ) );
 
         foreach ( get_intermediate_image_sizes() as $_size ) {
             if ( in_array( $_size, array('thumbnail', 'medium', 'medium_large', 'large') ) ) {
