@@ -1,12 +1,12 @@
-=== Business Directory Plugin ===
+=== Business Directory Plugin - Directories for WordPress ===
 Contributors: businessdirectoryplugin
 Donate link: https://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, listings, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory, member directory, staff directory
-Requires at least: 4.5
+Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 4.9
-Last Updated: 2018-Oct-2
-Stable tag: 5.3.3
+Tested up to: 5.1
+Last Updated: 2019-May-7
+Stable tag: 5.5.5
 License: GPLv2 or later
 
 Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and much more!  Make your listings sing with Business Directory Plugin.
@@ -104,6 +104,7 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 * French
 * German
 * Russian
+* Italian
 * Polish
 * Arabic
 * Swedish
@@ -111,7 +112,7 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 And you can easily [translate it yourself](https://businessdirectoryplugin.com/knowledge-base/translating-bd-other-language/) if you need to.
 
 == Credits ==
-Copyright 2009-18, Dave Rodenbaugh 
+Copyright 2009-19, Dave Rodenbaugh 
 Original Author: A. Lewis
 
 This program is free software; you can redistribute it and/or modify
@@ -144,6 +145,90 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.5.4 =
+* New option to select listing main image size. 
+* Validate pagination query argument for front page usage.
+* Split quick search query to prevent long queries and improve search speed. 
+* Use "break" instead of "continue" when braking switch case. 
+
+= Version 5.5.4 =
+* Include Italian translations for Core Plugin. 
+* Split listing search query to prevent long queries fails and improve search speed. 
+* Fix regions CSV import parent regions association. 
+* Prevent social-text or social-icons inputs been rendered depending on social field settings. 
+* Change URL field value for empty input text. 
+* Fix empty values validation for select form fields.
+* Display directory view under listing delete notice. 
+* Filter empty address fields in payment payer address. 
+* Include "Thank you for payment message" in submit confirmation page. 
+
+= Version 5.5.3 =
+* Modify URL validator to improve URL filtering. 
+* Upgrade Select2 version to 4.0.5. 
+* Add "payment method required" notice for 100% discounted checkouts with recurring payments. 
+* Add closing slash for directory posts links. 
+* Combine fieldtype options and available Tags when displaying BD tags field. 
+* Use  tag instead of tag to render SVG social icons. 
+* Fix redirect variable name. 
+
+= Version 5.5.2 =
+* Prevent URL bugs for multi-site sites and child sites.
+* Add missing "Category" association field warning in Submit listing view.
+* Include "fee_id" in CSV headers table and import example. 
+* Fix social fields layout in default theme. 
+* Prevent infinite loop when default listing logs recreation fails. 
+* Include "Private" listings in CSV export.. 
+* Add redirect_to parameter for non logged-in users trying to access to Manage Listings View. 
+* Include "return to" button to go back to search, category and tag views. 
+* Add social networks logos SVG files to be used by social fieldtype. 
+
+= Version 5.5.1 =
+* Sanitize fee plan supported categories. 
+* Prevent "Initial Payment" record generation when editing a listing. 
+* Change user-agent parameter in license activation/deactivation and modules version check requests. 
+
+= Version 5.5 =
+* Add support for private (admin-visible only) fee plans. 
+* Add support for WP GDPR privacy hooks. 
+* Include 'author', 'created date' and 'modified date' to listing display helpers. 
+* Set listing thumbnail image when using CSV exporter/importer. 
+* Add batch-size option to CSV Import settings. 
+* Add option to include fee description in listing receipt. 
+* Add Field ID and Shortname in Manage Form Fields Table. 
+* Add option to allow/disallow Font Awesome styles enqueueing. 
+* Add support for reCAPTCHA 3.0. 
+* Fix category specific fee display in submit listing view. 
+* Remove nofollow attribute from categories links. 
+* Keep array keys when sorting images. 
+* Add missing variable name in class-admin-listings.php.
+* Fix CSV Import/Export for social fields. 
+* Sanitize textfield data before save and CSV export. 
+* Verify listing's last payment status in renewals.
+
+= Version 5.4 =
+* New Form Field Type to handle Facebook, Twitter, LinkedIn, YouTube, Pinterest, Instagram, Tumblr, reddit, Flickr Social Networks, the field can handle other social fields, allowing users to upload the social network Icon. 
+* Handle listing featured image set in dashboard. 
+* Allow private fields to be displayed to admin users only. 
+* Prevent layout break when trying to upload images no slots remaining. 
+* Fix themes thumbnails aspect in Directory Themes page. 
+* Remove extra spaces from search keywords before searching. 
+* Send listing published notification when new listings status is "publish". 
+* Update listing fee plan for free renewals. 
+* Use Image BD Caption as title and alternative text. 
+* Fix BD Default Theme styling in Twenty Nineteen Theme. 
+
+= Version 5.3.4 =
+* Auto-create new BD Tags from multi-valuated (Select lists, Checkbox and Radio Button) field options.
+* List available BD Tags in "Directory Tags" metabox. 
+* Add AED to supported currencies list. 
+* Prevent listing buttons layout break in Gutenberg. 
+* Prevent contact form layout break in Gutenberg. 
+* Reorder client IP retrieving from environment variable. 
+* Display account creation section before T&C. 
+* Update integration with WPML plugin. 
+* Update Submit listing workflow for category specific fields.
+* Add missing translations in submit-listing.js file. 
 
 = Version 5.3.3 =
 * Include a link to delete listing's payment history using AJAX.
