@@ -16,6 +16,7 @@ class WPBDP__Listing_Search {
     private $tree             = array();
     private $original_request = array();
     private $parts            = array();
+    private $original_parts   = array();
     public $aliases           = array();
     private $query_template   = '';
     private $query            = '';
@@ -25,6 +26,11 @@ class WPBDP__Listing_Search {
     public function __construct( $tree, $original_request = array() ) {
         $this->tree             = $tree;
         $this->original_request = $original_request;
+
+        if ( ! $this->original_parts ) {
+            $this->_traverse_tree( $this->tree );
+            $this->original_parts = $this->parts;
+        }
 
         // If the tree has no head, assume 'and'.
         if ( ! isset( $this->tree[0] ) || ! is_string( $this->tree[0] ) ) {
@@ -37,7 +43,7 @@ class WPBDP__Listing_Search {
 
         $result = array();
 
-        foreach ( $this->parts as $p ) {
+        foreach ( $this->original_parts as $p ) {
             if ( $field == $p[0] ) {
                 $result[] = $p[1];
             }
@@ -95,7 +101,7 @@ class WPBDP__Listing_Search {
 
             if ( ! empty( $res['where'] ) && $fields_count < 6 ) {
                 $query_pieces['where'] = str_replace( '%' . $key . '%', $res['where'], $query_pieces['where'] );
-                $fields_count += 1;
+                $fields_count += isset( $this->original_request['kw'] ) ? 0 : 1;
             } else {
                 // This prevents incorrect queries from being created.
                 $query_pieces['where'] = str_replace( 'AND %' . $key . '%', '', $query_pieces['where'] );
@@ -152,7 +158,7 @@ class WPBDP__Listing_Search {
 
         $this->results = $wpdb->get_col( $this->query );
 
-        if ( $this->parts && $this->results ) {
+        if ( $this->parts ) {
             $this->execute();
         }
 
