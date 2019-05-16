@@ -221,7 +221,7 @@ class WPBDP_Listing_Display_Helper {
                 get_post_meta( $img_id, '_wpbdp_image_caption', true ),
                 wp_get_attachment_image(
                     $image->id, 'wpbdp-thumb', false, array(
-						'class' => 'wpbdp-thumbnail size-thumbnail',
+                        'class' => 'wpbdp-thumbnail size-thumbnail',
                         'alt'   => $image_caption ? $image_caption : the_title( null, null, false ),
                         'title' => $image_caption ? $image_caption : the_title( null, null, false ),
                     )

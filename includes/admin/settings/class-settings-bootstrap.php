@@ -960,7 +960,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'listing-main-image-default-size',
                 'type'    => 'select',
                 'name'    => _x( 'Default listing main image size', 'settings', 'WPBDM' ),
-                'default' => 'wpbdp-thumbnail',
+                'default' => 'wpbdp-thumb',
                 'options' => self::get_registered_image_sizes(),
                 'group'   => 'image/listings',
             )
@@ -1531,7 +1531,7 @@ final class WPBDP__Settings__Bootstrap {
         $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
 
         add_image_size( 'wpbdp-mini', 50, 50, true ); // Used for the submit process.
-        add_image_size( 'wpbdp-thumbnail', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
+        add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
         add_image_size( 'wpbdp-large', $max_width, $max_height, false ); // Large size.
     }
 
@@ -1550,6 +1550,7 @@ final class WPBDP__Settings__Bootstrap {
                 $crop   = (bool) get_option( "{$_size}_crop" );
             } elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
                 $name   = ucwords( str_replace( 'wpbdp', 'Directory', str_replace( array( '_', '-' ), ' ', $_size ) ) );
+                $name   = str_replace( 'Directory Thumb', 'Directory Thumbnail', $name );
                 $width  = $_wp_additional_image_sizes[ $_size ]['width'];
                 $height = $_wp_additional_image_sizes[ $_size ]['height'];
                 $crop   = (bool) $_wp_additional_image_sizes[ $_size ]['crop'];
