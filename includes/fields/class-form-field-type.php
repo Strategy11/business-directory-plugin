@@ -371,7 +371,7 @@ class WPBDP_Form_Field_Type {
         $html .= '<div class="' . $css_classes . ' ' . $extra_classes . '" ' . $tag_attrs . '>';
 
         if ( $label )
-            $html .= '<label>' . esc_html( apply_filters( 'wpbdp_display_field_label', $label, $labelorfield ) ) . ':</label> ';
+            $html .= '<span class="field-label">' . esc_html( apply_filters( 'wpbdp_display_field_label', $label, $labelorfield ) ) . ':</span> ';
 
         if ( $content )
             $html .= '<span class="value">' . $content . '</span>';

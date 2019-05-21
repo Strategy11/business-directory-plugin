@@ -14,7 +14,7 @@ $action = add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-upload',
             <div class="dnd-area-inside">
                 <p class="dnd-message"><?php _ex( 'Drop files here', 'templates', 'WPBDM' ); ?></p>
                 <p><?php _ex( 'or', 'templates image upload', 'WPBDM' ); ?></p>
-                <p class="dnd-buttons"><span class="upload-button"><a><?php _ex( 'Select images from your hard drive', 'templates', 'WPBDM' ); ?></a><input type="file" name="images[]" multiple="multiple" /></span></p>
+                <p class="dnd-buttons"><label for="uploaded-images" class="upload-button"><a><?php _ex( 'Select images from your hard drive', 'templates', 'WPBDM' ); ?></a><input id="uploaded-images" type="file" name="images[]" multiple="multiple" /></label></p>
             </div>
             <div class="dnd-area-inside-working" style="display: none;">
                 <p><?php echo sprintf( _x( 'Uploading %s file(s)... Please wait.', 'templates', 'WPBDM' ), '<span>0</span>' ); ?></p>

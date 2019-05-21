@@ -20,7 +20,7 @@
     <div class="listing-details">
         <?php if ( $fields->_h_address ): ?>
         <div class="address-info">
-            <label><?php _ex( 'Address', 'themes/default', 'WPBDM' ); ?>:</label>
+            <span class="address-label"><?php _ex( 'Address', 'themes/default', 'WPBDM' ); ?>:</span>
             <?php echo $fields->_h_address; ?>
         </div>
         <?php endif; ?>

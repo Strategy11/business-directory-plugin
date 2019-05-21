@@ -76,7 +76,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             $css_classes[] = 'wpbdp-inner-checkbox-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
             $html .= sprintf(
-                '<div class="%s"><label><input type="checkbox" name="%s" value="%s" %s/> %s</label></div>',
+                '<div class="%s"><label for="wpbdp-field-%5$d-%3$s"><input id="wpbdp-field-%5$d-%3$s" type="checkbox" name="%s" value="%s" %s/> %s</label></div>',
                 implode( ' ', $css_classes ),
                 $field_name,
                 $option_key,
@@ -89,7 +89,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
         if ( '1' == $field->data( 'allow_select_all' ) ) {
             $html .= sprintf(
-                '<div class="wpbdp-inner-field-option wpbdp-inner-field-option-select_all"><label><input type="checkbox" name="%s" value="%s"/> %s</label></div>',
+                '<div class="wpbdp-inner-field-option wpbdp-inner-field-option-select_all"><label for="wpbdp-field-%2$s"><input id="wpbdp-field-%2$s" type="checkbox" name="%s" value="%s"/> %s</label></div>',
                 'checkbox_select_all[' . $field->get_id() . ']',
                 'select_all-' . $field->get_id(),
                 _x( 'Select All', 'form-fields admin', 'WPBDM' )

@@ -101,7 +101,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         );
 
         $html .= sprintf(
-            '<input type="text" name="listingfields[%s][1]" value="%s" placeholder="Image caption or description">',
+            '<label for="wpbdp-field-%1$d-caption" style="display:none;">Image Caption:</label><input id="wpbdp-field-%1$d-caption" type="text" name="listingfields[%1$d][1]" value="%2$s" placeholder="Image caption or description">',
             $field->get_id(),
             ! empty( $value[1] ) ? $value[1] : ''
         );
@@ -171,7 +171,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $html .= '<br />';
         $html .= '<div class="listing-image" style="width: ' . $thumbnail_width . 'px;">';
         $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" rel="noopener" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' ) . '>';
-        $html .= wp_get_attachment_image( $img_id, 'wpbdp-thumb', false );
+        $html .= wp_get_attachment_image( $img_id, 'wpbdp-thumb', false, array( 'alt' => $caption ? $caption : $field->get_label() ) );
         $html .= '</a>';
         $html .= $field->data( 'display_caption' ) ? '<br />' . $caption : '';
         $html .= '</div>';

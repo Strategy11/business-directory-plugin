@@ -111,12 +111,13 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         if ( 'icon_only' !== $field->data( 'display_order' ) ) {
             $text_input = sprintf(
-                '<span class="sublabel">%s</span>',
-                _x( 'Text:', 'form-fields api', 'WPBDM' )
+                '<label for="wpbdp-field-%2$d-social-text"><span class="sublabel">%s</span></label>',
+                _x( 'Text:', 'form-fields api', 'WPBDM' ),
+                $field->get_id()
             );
 
             $text_input .= sprintf(
-                '<input type="text" name="listingfields[%s][social-text]" value="%s" placeholder="%s">',
+                '<input id="wpbdp-field-%1$d-social-text" type="text" name="listingfields[%s][social-text]" value="%s" placeholder="%s">',
                 $field->get_id(),
                 ! empty( $value['social-text'] ) ? $value['social-text'] : '',
                 _x( 'Text to be displayed for social field', 'form-fields api', 'WPBDM' )
@@ -254,7 +255,11 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         $icon = '<span class="social-icon">';
 
-        $social_icon = sprintf( '<img src="%s" class="logo">', WPBDP_URL . 'assets/images/social/' .$type . '.svg' );
+        $social_icon = sprintf( 
+            '<img src="%s" class="logo" alt="%s">',
+            WPBDP_URL . 'assets/images/social/' .$type . '.svg',
+            $type
+        );
 
         if ( 'Other' === $type ) {
             $social_icon = '';
