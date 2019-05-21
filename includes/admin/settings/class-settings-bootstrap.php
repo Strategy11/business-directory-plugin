@@ -237,7 +237,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'      => 'create-account-during-submit-mode',
 				'type'    => 'radio',
 				'name'    => _x( 'Allow users to create accounts during listing submit?', 'settings', 'WPBDM' ),
-				'default' => 'disabled',
+				'default' => 'required',
 				'options' => array(
 					'disabled' => _x( 'No', 'settings', 'WPBDM' ),
 					'optional' => _x( 'Yes, and make it optional', 'settings', 'WPBDM' ),
