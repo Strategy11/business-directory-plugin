@@ -959,9 +959,10 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'listing-main-image-default-size',
                 'type'    => 'select',
-                'name'    => _x( 'Default listing main image size', 'settings', 'WPBDM' ),
+                'name'    => _x( 'Default thumbnail image size', 'settings', 'WPBDM' ),
                 'default' => 'wpbdp-thumb',
                 'options' => self::get_registered_image_sizes(),
+                'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'WPBDM' ),
                 'group'   => 'image/listings',
             )
         );
@@ -1557,10 +1558,10 @@ final class WPBDP__Settings__Bootstrap {
             }
 
             $sizes[ $_size ] = sprintf(
-                '%s (%sx%s px %s) ',
+                '%s (%s x %s px %s) ',
                 $name,
                 $width,
-                $height,
+                $height == 9999 ? '*' : $height,
                 $crop ? 'Cropped' : ''
             );
         }
