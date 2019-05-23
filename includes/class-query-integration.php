@@ -352,8 +352,8 @@ class WPBDP__Query_Integration {
                 break;
         }
 
-        if ( $qn ) {
-            return $orderby . ', ' . $qn . ' ' . $sort->order;
+        if ( $qn && $qn !== $orderby ) {
+            return $orderby . ( $orderby ? ', ' : '' ) . $qn . ' ' . $sort->order;
         } else {
 			return $orderby;
         }
