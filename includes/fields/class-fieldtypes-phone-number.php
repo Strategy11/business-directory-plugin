@@ -27,7 +27,7 @@ class WPBDP_FieldTypes_Phone_Number extends WPBDP_FieldTypes_Textfield {
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
-        $value = preg_replace( '/[^0-9\s-+\.]+/', '', $value );
+        $value = preg_replace( '/[^0-9\-\–\+\.\s]+/', '', $value );
 
         return parent::store_field_value( $field, $post_id, $value );
     }
