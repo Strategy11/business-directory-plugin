@@ -962,6 +962,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Default listing main image size', 'settings', 'WPBDM' ),
                 'default' => 'wpbdp-thumb',
                 'options' => self::get_registered_image_sizes(),
+                'desc'    => _x( 'For non-cropped sizes, image width is set and height is defined preserving proportions from original image.', 'settings', 'WPBDM' ),
                 'group'   => 'image/listings',
             )
         );
@@ -1557,10 +1558,10 @@ final class WPBDP__Settings__Bootstrap {
             }
 
             $sizes[ $_size ] = sprintf(
-                '%s (%sx%s px %s) ',
+                '%s (%s x %s px %s) ',
                 $name,
                 $width,
-                $height,
+                $height == 9999 ? '*' : $height,
                 $crop ? 'Cropped' : ''
             );
         }
