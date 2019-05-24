@@ -147,7 +147,8 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
                 $css_classes[] = 'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) );
 
                 $icon_input .= sprintf(
-                    '<div class="%s"><label><input type="radio" name="%s" value="%s" %s /> %s</label></div>',
+                    '<div class="%s"><label for="wpbdp-field-%d-%4%s"><input id="wpbdp-field-%d-%4%s" type="radio" name="%s" value="%s" %s /> %s</label></div>',
+                    $field->get_id(),
                     implode( ' ', $css_classes ),
                     'listingfields[' . $field->get_id() . '][type]',
                     $type,

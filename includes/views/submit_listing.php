@@ -923,9 +923,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $html .= '<br />';
         }
 
-        $html .= '<input id="wpbdp-terms-and-conditions" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
-
+        $html .= '<label for="wpbdp-terms-and-conditions-agreement">';
+        $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
         $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'WPBDM' );
+
         if ( $is_url )
             $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
         else
