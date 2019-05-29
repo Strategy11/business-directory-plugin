@@ -1562,7 +1562,7 @@ final class WPBDP__Settings__Bootstrap {
                 $name,
                 $width,
                 $height == 9999 ? '*' : $height,
-                $crop ? 'Cropped' : ''
+                $crop ? _x( 'Cropped', 'settings', 'WPBDM' ) : ''
             );
         }
 
