@@ -252,26 +252,30 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         $html .= '<a href="' . esc_url( $value[0] ) . '" target="_blank">';
 
-        $icon = '<span class="social-icon">';
+        $icon = '';
 
-        $social_icon = sprintf( '<img src="%s" class="logo">', WPBDP_URL . 'assets/images/social/' .$type . '.svg' );
+        if ( $type ) {
+            $icon = '<span class="social-icon">';
 
-        if ( 'Other' === $type ) {
-            $social_icon = '';
+            $social_icon = sprintf( '<img src="%s" class="logo">', WPBDP_URL . 'assets/images/social/' .$type . '.svg' );
 
-            if ( $value['social-icon'] ) {
-                $social_icon = wp_get_attachment_image( $value['social-icon'], 'wpbdp-thumb', false );
+            if ( 'Other' === $type ) {
+                $social_icon = '';
+
+                if ( $value['social-icon'] ) {
+                    $social_icon = wp_get_attachment_image( $value['social-icon'], 'wpbdp-thumb', false );
+                }
             }
-        }
 
-        $icon .= $social_icon;
-        $icon .= '</span>';
+            $icon .= $social_icon;
+            $icon .= '</span>';
+        }
 
         $text = '<span class="social-text">' . esc_html( $text ) . '</span>';
 
         switch ( $field->data( 'display_order' ) ) {
             case 'icon_only':
-                $html .= $icon;
+                $html .= $icon ? $icon : $text;
                 break;
             case 'text_only':
                 $html .= $text;
