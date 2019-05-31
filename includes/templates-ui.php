@@ -526,8 +526,12 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 
         $image_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
 
-        //Fix for #4185, remove before 5.6.
-        $image_size = 'wpbdp-thumbnail' === $image_size ? 'wpbdp-thumb' : $image_size;
+        //Fix for #4185, remove before 5.6. {
+        if ( 'wpbdp-thumbnail' === $image_size ) {
+            $image_size = 'wpbdp-thumb';
+            wpbdp_set_option( 'listing-main-image-default-size', $image_size );
+        }
+        //}.
 
         $image_img = wp_get_attachment_image(
             $main_image->ID,
