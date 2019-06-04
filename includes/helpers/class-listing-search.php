@@ -17,6 +17,7 @@ class WPBDP__Listing_Search {
     private $original_request = array();
     private $parts            = array();
     private $original_parts   = array();
+    private $is_quick_search  = true;
     public $aliases           = array();
     private $query_template   = '';
     private $query            = '';
@@ -26,6 +27,7 @@ class WPBDP__Listing_Search {
     public function __construct( $tree, $original_request = array() ) {
         $this->tree             = $tree;
         $this->original_request = $original_request;
+        $this->is_quick_search  = array_key_exists( 'kw', $original_request );
 
         if ( ! $this->original_parts ) {
             $this->_traverse_tree( $this->tree );
@@ -43,7 +45,9 @@ class WPBDP__Listing_Search {
 
         $result = array();
 
-        foreach ( $this->original_parts as $p ) {
+        $parts = $this->is_quick_search ? $this->parts : $this->original_parts;
+
+        foreach ( $parts as $p ) {
             if ( $field == $p[0] ) {
                 $result[] = $p[1];
             }
@@ -101,7 +105,7 @@ class WPBDP__Listing_Search {
 
             if ( ! empty( $res['where'] ) && $fields_count < 6 ) {
                 $query_pieces['where'] = str_replace( '%' . $key . '%', $res['where'], $query_pieces['where'] );
-                $fields_count += isset( $this->original_request['kw'] ) ? 0 : 1;
+                $fields_count += $this->is_quick_search ? 0 : 1;
             } else {
                 // This prevents incorrect queries from being created.
                 $query_pieces['where'] = str_replace( 'AND %' . $key . '%', '', $query_pieces['where'] );
@@ -116,7 +120,7 @@ class WPBDP__Listing_Search {
                 $query_pieces[ $k ] .= ' ' . $v . ' ';
             }
 
-            if ( $fields_count < 6 ) {
+            if ( ! $this->is_quick_search && $fields_count < 6 ) {
                 unset( $this->parts[$key] );
                 $this->tree = $this->tree_remove_field( $this->tree, $field );
             }
@@ -158,7 +162,7 @@ class WPBDP__Listing_Search {
 
         $this->results = $wpdb->get_col( $this->query );
 
-        if ( $this->parts ) {
+        if ( ! $this->is_quick_search && $this->parts ) {
             $this->execute();
         }
 
