@@ -68,12 +68,13 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
             $css_classes[] = 'wpbdp-inner-radio-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
             $html .= sprintf(
-                '<div class="%s"><label><input type="radio" name="%s" value="%s" %s /> %s</label></div>',
+                '<div class="%1%s"><label for="wpbdp-field-%6$d-%5$s"><input id="wpbdp-field-%6$d-%5$s" type="radio" name="%2$s" value="%3$s" %4$s /> %5$s</label></div>',
                 implode( ' ', $css_classes ),
                 'listingfields[' . $field->get_id() . ']',
                 $option,
                 $value == $option ? 'checked="checked"' : '',
-                esc_attr( $label )
+                esc_attr( $label ),
+                $field->get_id()
             );
             $i++;
         }

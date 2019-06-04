@@ -326,6 +326,7 @@ function wpbdp_search_form() {
         $html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', wpbdp_get_page_id( 'main' ) );
     }
 
+    $html .= '<label for="wpbdp-keyword-field" style="display:none;">Keywords:</label>';
     $html .= '<input type="hidden" name="dosrch" value="1" />';
     $html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
     $html .= sprintf(
@@ -396,7 +397,8 @@ function wpbdp_listing_sort_options() {
 
     $html .= '<div class="wpbdp-listings-sort-options wpbdp-show-on-mobile">';
 
-    $html .= '<select class="">';
+    $html .= '<label for="wpbdp-sort-bar" style="display:none;">Sort By:</label>';
+    $html .= '<select id="wpbdp-sort-bar" class="">';
     $html .= '<option value="0" class="header-option">' . _x( 'Sort By:', 'templates sort', 'WPBDM' ) . '</option>';
 
     foreach ( $sort_options as $id => $option ) {

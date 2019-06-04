@@ -20,7 +20,8 @@
         <div class="box-col search-fields">
             <div class="box-row cols-<?php echo $no_cols; ?>">
                 <div class="box-col main-input">
-                    <input type="text" id="wpbdp-main-box-keyword-field" class="keywords-field" name="kw" placeholder="<?php echo esc_attr( _x( 'Find listings for <keywords>', 'main box', 'WPBDM' ) ); ?>" />
+                    <label for="wpbdp-main-box-keyword-field" style="display:none;">Keywords:</label>
+                    <input type="text" id="wpbdp-main-box-keyword-field" title="Quick search keywords" class="keywords-field" name="kw" placeholder="<?php echo esc_attr( _x( 'Find listings for <keywords>', 'main box', 'WPBDM' ) ); ?>" />
                 </div>
                 <?php echo $extra_fields; ?>
             </div>

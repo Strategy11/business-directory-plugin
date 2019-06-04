@@ -38,7 +38,7 @@ $lost_password_url = add_query_arg( 'redirect_to', urlencode( $redirect_to ), wp
 
             <p class="wpbdp-login-form-extra-links">
                 <?php if ( $registration_url ) : ?>
-                <a href="<?php echo esc_url( $registration_url ); ?>"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a> |
+                <a class="register-link" href="<?php echo esc_url( $registration_url ); ?>"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a> |
                 <?php endif; ?>
                 <a href="<?php echo esc_url( $lost_password_url ); ?>"><?php _ex( 'Lost your password?', 'templates', 'WPBDM' ); ?></a>
             </p>
@@ -51,8 +51,18 @@ $lost_password_url = add_query_arg( 'redirect_to', urlencode( $redirect_to ), wp
 
                 <form action="" method="post">
                     <input type="hidden" name="method" value="access_key" />
-                    <p><input type="text" name="email" value="" placeholder="<?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>" /></p>
-                    <p><input type="text" name="access_key" value="" placeholder="<?php _ex( 'Access Key', 'views:login', 'WPBDM' ); ?>" /></p>
+                    <p>
+                        <label for="wpbdp-access-key-email">
+                            <?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>:
+                            <input id="wpbdp-access-key-email" type="text" name="email" value="" placeholder="<?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>" />
+                        </label>
+                    </p>
+                    <p>
+                        <label for="wpbdp-access-key-value">
+                            <?php _ex( 'Access Key', 'views:login', 'WPBDM' ); ?>
+                            <input id="wpbdp-access-key-value" type="text" name="access_key" value="" placeholder="<?php _ex( 'Access Key', 'views:login', 'WPBDM' ); ?>" />
+                        </label>
+                    </p>
                     <p><input type="submit" value="<?php _ex( 'Use Access Key', 'views:login', 'WPBDM' ); ?>" /></p>
                     <p><a href="<?php echo esc_url( $request_access_key_url ); ?>"><?php _ex( 'Request access key?', 'views:login', 'WPBDM' ); ?></a></p>
                 </form>

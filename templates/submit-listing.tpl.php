@@ -7,7 +7,7 @@
         <input type="hidden" name="save_listing" value="1" />
         <input type="hidden" name="reset" value="" />
 
-            <h2><?php _ex( 'Submit A Listing', 'submit listing', 'WPBDM' ); ?></h2>
+            <h3><?php _ex( 'Submit A Listing', 'submit listing', 'WPBDM' ); ?></h3>
             <?php echo $messages['general']; ?>
 
             <?php foreach ( $sections as $section ): ?>
@@ -18,7 +18,7 @@
             <?php endforeach; ?>
 
         <div class="wpbdp-submit-listing-form-actions">
-            <input type="reset" value="<?php _ex( 'Clear Form', 'submit listing', 'WPBDM' ); ?>" />
+            <input type="button" value="<?php _ex( 'Clear Form', 'submit listing', 'WPBDM' ); ?>" />
             <?php if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ): ?>
             <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
             <?php else: ?>

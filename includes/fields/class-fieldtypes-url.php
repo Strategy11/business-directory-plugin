@@ -154,7 +154,11 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $html .= '</div>';
 
         $html .= '<div class="wpbdp-url-field-col">';
-        $html .= sprintf( '<span class="sublabel">%s</span>', _x( 'Link Text (optional):', 'form-fields api', 'WPBDM' ) );
+        $html .= sprintf(
+            '<label for="%s"><span class="sublabel">%s</span></label>',
+            'wpbdp-field-' . $field->get_id() . '-title',
+            _x( 'Link Text (optional):','form-fields api', 'WPBDM' )
+        );
         $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" placeholder="" />',
                           'wpbdp-field-' . $field->get_id() . '-title',
                           'listingfields[' . $field->get_id() . '][1]',

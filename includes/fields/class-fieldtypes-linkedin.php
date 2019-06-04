@@ -61,7 +61,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
         if ( function_exists( 'filter_var' ) ) {
             if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
                 if ( strstr( parse_url( $value, PHP_URL_HOST ), 'linkedin.com' ) ) {
-                    $html .= sprintf( '<a target="_blank" rel="noopener" href="%s" > <img src="%s" ></a>', esc_url( $value ), WPBDP_URL . 'assets/images/linkedin.png' );
+                    $html .= sprintf( '<a target="_blank" rel="noopener" href="%s" > <img src="%s" alt="linkedin" ></a>', esc_url( $value ), WPBDP_URL . 'assets/images/linkedin.png' );
                 }
             }
         }

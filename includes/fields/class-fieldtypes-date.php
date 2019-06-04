@@ -85,10 +85,13 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         $format = $this->date_format( $field, true );
 
         $html = '';
-        $html .= sprintf( '<input type="text" name="%s" value="%s" data-date-format="%s" />',
-                          'listingfields[' . $field->get_id() . ']',
-                          $value ? date( $format['date_format'], strtotime( $value ) ) : '',
-                          $format['datepicker_format'] );
+        $html .= sprintf(
+            '<input id="wpbdp-field-%4$d" type="text" name="%s" value="%s" data-date-format="%s" />',
+            'listingfields[' . $field->get_id() . ']',
+            $value ? date( $format['date_format'], strtotime( $value ) ) : '',
+            $format['datepicker_format'],
+            $field->get_id()
+        );
 
         return $html;
     }

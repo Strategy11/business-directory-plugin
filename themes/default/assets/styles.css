@@ -40,7 +40,7 @@
     font-size: 28px;
 }
 
-.wpbdp-listing .address-info label {
+.wpbdp-listing .address-info .address-label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
@@ -50,7 +50,8 @@
     margin: 4px 0;
 }
 
-.wpbdp-listing .wpbdp-field-type-textarea label {
+.wpbdp-listing .wpbdp-field-type-textarea label,
+.wpbdp-listing .wpbdp-field-type-textarea .field-label {
     display: block;
 }
 
