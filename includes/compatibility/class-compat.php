@@ -53,6 +53,12 @@ class WPBDP_Compat {
             require_once WPBDP_PATH . 'includes/compatibility/class-acf-boldmove-compat.php';
             $advanced_custom_fields = new WPBDP_ACF_Compat();
         }
+
+        if ( class_exists( 'Cornerstone_Plugin' ) ) {
+            require_once WPBDP_PATH . 'includes/compatibility/class-cornerstone-compat.php';
+            $cornerstone_integration = new WPBDP_Cornerstone_Compat();
+            
+        }
     }
 
     function cpt_compat_mode() {

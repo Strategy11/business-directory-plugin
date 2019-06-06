@@ -272,7 +272,7 @@ final class WPBDP {
 
         if ( $post && ( 'page' == $post->post_type || 'post' == $post->post_type ) ) {
             foreach ( array_keys( $this->shortcodes->get_shortcodes() ) as $shortcode ) {
-                if ( wpbdp_has_shortcode( $post->post_content, $shortcode ) ) {
+                if ( apply_filters( 'wpbdp_has_shortcode', wpbdp_has_shortcode( $post->post_content, $shortcode ), $post, $shortcode ) ) {
                     return true;
                     break;
                 }
