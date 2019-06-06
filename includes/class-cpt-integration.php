@@ -90,7 +90,14 @@ class WPBDP__CPT_Integration {
             return $link;
         }
 
-        $link = wpbdp_url( sprintf( '/%s/%s/', wpbdp_get_option( 'permalinks-category-slug' ), $category->slug ) );
+        $link  = wpbdp_url(
+            sprintf(
+                '/%s/%s%s',
+                wpbdp_get_option( 'permalinks-category-slug' ),
+                $category->slug,
+                substr( $link, -1) === '/' ? '/' : ''
+            )
+        );
 
         return apply_filters( 'wpbdp_category_link', $link, $category );
     }
@@ -106,7 +113,14 @@ class WPBDP__CPT_Integration {
             return $link;
         }
 
-        $link = wpbdp_url( sprintf( '/%s/%s/', wpbdp_get_option( 'permalinks-tags-slug' ), $tag->slug ) );
+        $link  = wpbdp_url(
+            sprintf(
+                '/%s/%s%s',
+                wpbdp_get_option( 'permalinks-tags-slug' ),
+                $tag->slug,
+                substr( $link, -1) === '/' ? '/' : ''
+            )
+        );
 
         return $link;
     }
@@ -120,23 +134,25 @@ class WPBDP__CPT_Integration {
         else
             $querystring = '';
 
+        $querystring = substr( $link, -1) === '/' || $querystring ? '/' : '' . $querystring;
+
         if ( ! wpbdp_rewrite_on() ) {
             if ( wpbdp_get_option( 'disable-cpt' ) ) {
                 $link = wpbdp_url( '/' ) . '&' . '_' . wpbdp_get_option( 'permalinks-directory-slug' ) . '=' . $post->post_name;
             }
         } else {
             if ( $leavename )
-                return wpbdp_url( '/' . '%' . WPBDP_POST_TYPE . '%' . '/' . $querystring );
+                return wpbdp_url( '/' . '%' . WPBDP_POST_TYPE . '%' . $querystring );
 
             if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
                 if ( $post->post_name ) {
-                    $link = wpbdp_url( '/' . $post->post_name . '/' );
+                    $link = wpbdp_url( '/' . $post->post_name );
                 } else {
                     // Use default $link.
                     return $link;
                 }
             } else {
-                $link = wpbdp_url( '/' . $post->ID . '/' . ( $post->post_name ? $post->post_name . '/' : '' ) );
+                $link = wpbdp_url( '/' . $post->ID . '/' . $post->post_name );
             }
 
             $link .= $querystring;
