@@ -60,6 +60,23 @@ class WPBDP_PaymentsAPI {
         do_action( 'wpbdp_before_render_receipt', $payment );
 ?>
 
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .wpbdp-payment-receipt, .wpbdp-payment-receipt * {
+            visibility: visible;
+        }
+        .wpbdp-payment-receipt {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
+
 <div class="wpbdp-payment-receipt">
 
     <div class="wpbdp-payment-receipt-header">
@@ -93,8 +110,8 @@ class WPBDP_PaymentsAPI {
 
     <?php echo $this->render_invoice( $payment ); ?>
 
-    <input type="button" class="wpbdp-payment-receipt-print" value="<?php _ex( 'Print Receipt', 'checkout', 'WPBDM' ); ?>" />
 </div>
+<input type="button" class="wpbdp-payment-receipt-print" value="<?php _ex( 'Print Receipt', 'checkout', 'WPBDM' ); ?>" />
 
 <?php
         do_action( 'wpbdp_after_render_receipt', $payment );
