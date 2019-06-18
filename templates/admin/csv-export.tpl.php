@@ -74,6 +74,14 @@ echo $notice;
                        type="checkbox"
                        value="1"
                        checked="checked" /> <?php _ex('Listing expiration date', 'admin csv-export', 'WPBDM'); ?></label> <br />
+                
+                <label><input name="settings[include-created-date]"
+                type="checkbox"
+                value="1" /> <?php _ex('Listing created date', 'admin csv-export', 'WPBDM'); ?></label> <br />
+
+                <label><input name="settings[include-modified-date]"
+                type="checkbox"
+                value="1" /> <?php _ex('Listing last updated date', 'admin csv-export', 'WPBDM'); ?></label> <br />
             </td>
         </tr>
     </table>

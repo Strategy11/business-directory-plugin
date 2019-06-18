@@ -77,6 +77,14 @@ class WPBDP_CSVExporter {
             $this->columns['expires_on'] = 'expires_on';
         }
 
+        if ( $this->settings['include-created-date'] ) {
+            $this->columns['created_date'] = 'created_date';
+        }
+
+        if ( $this->settings['include-modified-date'] ) {
+            $this->columns['modified_date'] = 'modified_date';
+        }
+
         // Setup working directory.
         if ( ! $workingdir ) {
             $direrror = '';
@@ -138,7 +146,7 @@ class WPBDP_CSVExporter {
         $shortnames = wpbdp_formfields_api()->get_short_names();
 
         foreach ( $state['columns'] as $fshortname ) {
-            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id', 'fee_id' ) ) ) {
+            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id', 'fee_id', 'created_date', 'modified_date' ) ) ) {
                 $export->columns[ $fshortname ] = $fshortname;
                 continue;
             }
@@ -366,6 +374,18 @@ class WPBDP_CSVExporter {
 						$value = $plan->expiration_date;
 					}
 
+                    break;
+                case 'created_date':
+                    $value = get_the_date(
+                        get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
+                        $post_id
+                    );
+                    break;
+                case 'modified_date':
+                    $value = get_the_modified_date(
+                        get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
+                        $post_id
+                    );
                     break;
 				default:
 					if ( is_object( $column_obj ) ) {
