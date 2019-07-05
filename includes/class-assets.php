@@ -32,14 +32,14 @@ class WPBDP__Assets {
     public function register_common_scripts() {
         wp_register_script(
             'jquery-file-upload-iframe-transport',
-            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.iframe-transport.min.js',
+            WPBDP_URL . 'vendors/jQuery-File-Upload-9.32.0/js/jquery.iframe-transport.js',
             array(),
             '9.5.7'
         );
 
         wp_register_script(
             'jquery-file-upload',
-            WPBDP_URL . 'vendors/jQuery-File-Upload-9.5.7/js/jquery.fileupload.min.js',
+            WPBDP_URL . 'vendors/jQuery-File-Upload-9.32.0/js/jquery.fileupload.js',
             array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' ),
             '9.5.7'
         );
@@ -61,8 +61,18 @@ class WPBDP__Assets {
         );
 
         // Drag & Drop.
-        wp_register_style( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/css/dnd-upload.min.css', array(), WPBDP_VERSION );
-        wp_register_script( 'wpbdp-dnd-upload', WPBDP_URL . 'assets/js/dnd-upload.min.js', array( 'jquery-file-upload' ), WPBDP_VERSION );
+        wp_register_style(
+            'wpbdp-dnd-upload',
+            WPBDP_URL . 'assets/css/dnd-upload.min.css',
+            array(),
+            WPBDP_VERSION
+        );
+        wp_register_script(
+            'wpbdp-dnd-upload',
+            WPBDP_URL . 'assets/js/dnd-upload.min.js',
+            array( 'jquery-file-upload' ),
+            WPBDP_VERSION
+        );
 
         // Select2.
         wp_register_style(
