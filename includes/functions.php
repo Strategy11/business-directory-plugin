@@ -413,7 +413,7 @@ function wpbdp_user_can($action, $listing_id=null, $user_id=null) {
 /**
  * @SuppressWarnings(PHPMD)
  */
-function wpbdp_get_post_by_slug($slug, $post_type=null) {
+function wpbdp_get_post_by_slug( $slug, $post_type=null ) {
     $post_type = $post_type ? $post_type : WPBDP_POST_TYPE;
 
     $posts = get_posts(array(
@@ -424,7 +424,7 @@ function wpbdp_get_post_by_slug($slug, $post_type=null) {
         'suppress_filters' => false,
     ));
 
-    if ($posts)
+    if ( posts )
         return $posts[0];
     else
         return 0;
@@ -434,9 +434,9 @@ function wpbdp_get_post_by_slug($slug, $post_type=null) {
  * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_current_sort_option() {
-    if ($sort = trim(wpbdp_getv($_GET, 'wpbdp_sort', null))) {
-        $order = substr($sort, 0, 1) == '-' ? 'DESC' : 'ASC';
-        $sort = ltrim($sort, '-');
+    if ( $sort = trim( wpbdp_getv( $_GET, 'wpbdp_sort', null ) ) ) {
+        $order = substr( $sort, 0, 1 ) == '-' ? 'DESC' : 'ASC';
+        $sort = ltrim( $sort, '-' );
 
         $obj = new StdClass();
         $obj->option = $sort;
@@ -452,7 +452,7 @@ function wpbdp_get_current_sort_option() {
  * @since 2.1.6
  * @SuppressWarnings(PHPMD)
  */
-function _wpbdp_resize_image_if_needed($id) {
+function _wpbdp_resize_image_if_needed( $id ) {
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
     $metadata = wp_get_attachment_metadata( $id );
