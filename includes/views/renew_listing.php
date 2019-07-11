@@ -34,9 +34,9 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->_auth_required(
             array(
-                'wpbdp_view' => 'renewal_listing',
+                'wpbdp_view' => 'renew_listing',
                 'redirect_query_args' => array(
-                    'listing_id' => $renewal_id,
+                    'renewal_id' => $renewal_id,
                 ),
             )
         );
