@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-05-29 20:25:51+00:00\n"
+"POT-Creation-Date: 2019-07-23 22:59:23+00:00\n"
 "PO-Revision-Date: 2017-12-03 21:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -235,7 +235,7 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
-#: includes/class-wpbdp.php:438
+#: includes/class-wpbdp.php:446
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -243,7 +243,7 @@ msgstr ""
 "Business Directorys funktioner är för närvarande avaktiverade på grund av "
 "att pluginet behöver <a> en manuell uppgradering</a>."
 
-#: includes/class-wpbdp.php:445
+#: includes/class-wpbdp.php:453
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1170,7 +1170,7 @@ msgstr ""
 "Du kan skapa dessa anpassade fält själv i \"Hantera formulärfält\" eller "
 "låta Business Directory göra det åt dig automatiskt."
 
-#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:512
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:521
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Gå till \"Hantera formulärfält\""
@@ -1180,12 +1180,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Skapa dessa obligatoriska fält för mig"
 
-#: includes/payment.php:180
+#: includes/payment.php:197
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "Väntar på att överges"
 
-#: includes/payment.php:185
+#: includes/payment.php:202
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Övergiven"
@@ -1525,19 +1525,19 @@ msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-csv-exporter.php:92
+#: includes/admin/class-csv-exporter.php:100
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr ""
 "Det gick inte att skapa en temporär katalog för hantering av denna CSV "
 "export."
 
-#: includes/admin/class-csv-exporter.php:95
+#: includes/admin/class-csv-exporter.php:103
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr "Det gick inte att skapa wpbdp-csv-export katalog."
 
-#: includes/admin/class-csv-exporter.php:100
+#: includes/admin/class-csv-exporter.php:108
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr "Fel när du skapar en temporär katalog för CSV-export:%s"
@@ -1649,27 +1649,39 @@ msgctxt "admin csv-export"
 msgid "Listing expiration date"
 msgstr "Utgångsdatum för annons"
 
-#: templates/admin/csv-export.tpl.php:81
+#: templates/admin/csv-export.tpl.php:80
+#, fuzzy
+msgctxt "admin csv-export"
+msgid "Listing created date"
+msgstr "Annons skapad"
+
+#: templates/admin/csv-export.tpl.php:84
+#, fuzzy
+msgctxt "admin csv-export"
+msgid "Listing last updated date"
+msgstr "Utgångsdatum för annons"
+
+#: templates/admin/csv-export.tpl.php:89
 msgctxt "admin csv-export"
 msgid "CSV File Settings"
 msgstr "Inställningar för CSV-fil"
 
-#: templates/admin/csv-export.tpl.php:85
+#: templates/admin/csv-export.tpl.php:93
 msgctxt "admin csv-export"
 msgid "What operating system will you use to edit the CSV file?"
 msgstr "Vilket operativsystem använder du för att redigera CSV-filen?"
 
-#: templates/admin/csv-export.tpl.php:92
+#: templates/admin/csv-export.tpl.php:100
 msgctxt "admin csv-export"
 msgid "Windows"
 msgstr "Windows"
 
-#: templates/admin/csv-export.tpl.php:97
+#: templates/admin/csv-export.tpl.php:105
 msgctxt "admin csv-export"
 msgid "macOS"
 msgstr "MacOS"
 
-#: templates/admin/csv-export.tpl.php:99
+#: templates/admin/csv-export.tpl.php:107
 msgctxt "admin csv-export"
 msgid ""
 "Windows and macOS versions of MS Excel handle CSV files differently. To make "
@@ -1682,27 +1694,27 @@ msgstr ""
 "CSV-filen behöver vi generera olika versioner av filen för varje "
 "operativsystem."
 
-#: templates/admin/csv-export.tpl.php:104
+#: templates/admin/csv-export.tpl.php:112
 msgctxt "admin csv-export"
 msgid "Image Separator"
 msgstr "Bildavgränsare"
 
-#: templates/admin/csv-export.tpl.php:115
+#: templates/admin/csv-export.tpl.php:123
 msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr "Kategoriavgränsare"
 
-#: templates/admin/csv-export.tpl.php:127
+#: templates/admin/csv-export.tpl.php:135
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr "Exportera annonser"
 
-#: templates/admin/csv-export.tpl.php:133
+#: templates/admin/csv-export.tpl.php:141
 msgctxt "admin csv-export"
 msgid "Export in Progress..."
 msgstr "Export pågår..."
 
-#: templates/admin/csv-export.tpl.php:134
+#: templates/admin/csv-export.tpl.php:142
 msgctxt "admin csv-export"
 msgid ""
 "Your export file is being prepared. Please <u>do not leave</u> this page "
@@ -1711,39 +1723,39 @@ msgstr ""
 "Exportfilen förbereds. Vänligen <u>lämna inte denna sida</u> till dess att "
 "exporten är klar."
 
-#: templates/admin/csv-export.tpl.php:137
+#: templates/admin/csv-export.tpl.php:145
 msgctxt "admin csv-export"
 msgid "No. of listings:"
 msgstr "Antal annonser"
 
-#: templates/admin/csv-export.tpl.php:139
+#: templates/admin/csv-export.tpl.php:147
 msgctxt "admin csv-export"
 msgid "Approximate export file size:"
 msgstr "Ungefärlig filstorlek:"
 
-#: templates/admin/csv-export.tpl.php:146
+#: templates/admin/csv-export.tpl.php:154
 msgctxt "admin csv-export"
 msgid "Cancel Export"
 msgstr "Avbryt export"
 
-#: templates/admin/csv-export.tpl.php:151
+#: templates/admin/csv-export.tpl.php:159
 msgctxt "admin csv-export"
 msgid "Export Complete"
 msgstr "Export klar."
 
-#: templates/admin/csv-export.tpl.php:152
+#: templates/admin/csv-export.tpl.php:160
 msgctxt "admin csv-export"
 msgid ""
 "Your export file has been successfully created and it is now ready for "
 "download."
 msgstr "Exportfilen har skapats och det är nu klar för nedladdning."
 
-#: templates/admin/csv-export.tpl.php:155
+#: templates/admin/csv-export.tpl.php:163
 msgctxt "admin csv-export"
 msgid "Download %s (%s)"
 msgstr "Ladda ner%s (%s)"
 
-#: templates/admin/csv-export.tpl.php:161
+#: templates/admin/csv-export.tpl.php:169
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -1752,22 +1764,22 @@ msgstr ""
 "Klicka på \"Rensa\" när filen har laddats ner för att ta bort alla "
 "tillfälliga data som skapats av Busniess Directory under exportprocessen."
 
-#: templates/admin/csv-export.tpl.php:162
+#: templates/admin/csv-export.tpl.php:170
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "Rensa"
 
-#: templates/admin/csv-export.tpl.php:167
+#: templates/admin/csv-export.tpl.php:175
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "Export avbruten"
 
-#: templates/admin/csv-export.tpl.php:168
+#: templates/admin/csv-export.tpl.php:176
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "Export har avbrutits."
 
-#: templates/admin/csv-export.tpl.php:169
+#: templates/admin/csv-export.tpl.php:177
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← Tillbaka till CSV Export"
@@ -2590,7 +2602,7 @@ msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Formulärfält uppdateras."
 
-#: includes/admin/form-fields.php:364
+#: includes/admin/form-fields.php:365
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -2603,92 +2615,92 @@ msgstr ""
 "område kommer inte att visas på frontend. Om du vill att e-postadresser "
 "visas på frontend, kan du <a>aktivera offentlig visning av e-post</a> ."
 
-#: includes/admin/form-fields.php:405
+#: includes/admin/form-fields.php:407
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Fält raderas."
 
-#: includes/admin/form-fields.php:428
+#: includes/admin/form-fields.php:430
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Obligatoriska fält skapats."
 
-#: includes/admin/form-fields.php:441
+#: includes/admin/form-fields.php:443
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr "Titel"
 
-#: includes/admin/form-fields.php:442
+#: includes/admin/form-fields.php:444
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr "Kategori"
 
-#: includes/admin/form-fields.php:443
+#: includes/admin/form-fields.php:445
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr "Utdrag"
 
-#: includes/admin/form-fields.php:444
+#: includes/admin/form-fields.php:446
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr "Innehåll"
 
-#: includes/admin/form-fields.php:445
+#: includes/admin/form-fields.php:447
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr "Tagg"
 
-#: includes/admin/form-fields.php:446
+#: includes/admin/form-fields.php:448
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr "Adress"
 
-#: includes/admin/form-fields.php:447
+#: includes/admin/form-fields.php:449
 msgctxt "form-fields admin"
 msgid "City"
 msgstr "Stad/ort"
 
-#: includes/admin/form-fields.php:448
+#: includes/admin/form-fields.php:450
 msgctxt "form-fields admin"
 msgid "State"
 msgstr "Län"
 
-#: includes/admin/form-fields.php:449
+#: includes/admin/form-fields.php:451
 msgctxt "form-fields admin"
 msgid "Country"
 msgstr "Land"
 
-#: includes/admin/form-fields.php:450
+#: includes/admin/form-fields.php:452
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr "Postnummer"
 
-#: includes/admin/form-fields.php:451
+#: includes/admin/form-fields.php:453
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "faxnummer"
 
-#: includes/admin/form-fields.php:452
+#: includes/admin/form-fields.php:454
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
-#: includes/admin/form-fields.php:453
+#: includes/admin/form-fields.php:455
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Fält för omdöme"
 
-#: includes/admin/form-fields.php:454
+#: includes/admin/form-fields.php:456
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/form-fields.php:455
+#: includes/admin/form-fields.php:457
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr "Webbplats"
 
-#: includes/admin/form-fields.php:485
+#: includes/admin/form-fields.php:487
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Taggar uppdateras."
@@ -2700,7 +2712,7 @@ msgid "Select All"
 msgstr "Flervalslista"
 
 #: includes/fields/class-fieldtypes-checkbox.php:113
-#: includes/fields/class-fieldtypes-radiobutton.php:93
+#: includes/fields/class-fieldtypes-radiobutton.php:94
 #: includes/fields/class-fieldtypes-select.php:238
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
@@ -2717,7 +2729,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:145
-#: includes/fields/class-fieldtypes-radiobutton.php:114
+#: includes/fields/class-fieldtypes-radiobutton.php:115
 #: includes/fields/class-fieldtypes-select.php:268
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
@@ -5863,7 +5875,7 @@ msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Sätt in en annons"
 
-#: includes/class-view.php:103
+#: includes/class-view.php:109
 msgctxt "views"
 msgid "Invalid credentials."
 msgstr "Ogiltiga uppgifter."
@@ -6025,7 +6037,7 @@ msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "Kategorier för denna annons"
 
-#: includes/views/submit_listing.php:136
+#: includes/views/submit_listing.php:145
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -6036,7 +6048,7 @@ msgstr ""
 "avgiftsplan kopplad. Vänligen <a>Redigera annonsen</a> på backend och koppla "
 "den till en avgift plan."
 
-#: includes/views/submit_listing.php:141
+#: includes/views/submit_listing.php:150
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
@@ -6045,102 +6057,102 @@ msgstr ""
 "Denna annons kan inte redigeras just nu. Vänligen försök igen om en lite "
 "stund eller kontakta administratören om problemet kvarstår."
 
-#: includes/views/submit_listing.php:164
+#: includes/views/submit_listing.php:173
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "Du är inloggad som administratör, alla betalningssteg hoppas över."
 
-#: includes/views/submit_listing.php:388
+#: includes/views/submit_listing.php:397
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Val av kategori"
 
-#: includes/views/submit_listing.php:388
+#: includes/views/submit_listing.php:397
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Val av kategori och avgiftsplan"
 
-#: includes/views/submit_listing.php:393
+#: includes/views/submit_listing.php:402
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Information om annons"
 
-#: includes/views/submit_listing.php:398
+#: includes/views/submit_listing.php:407
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Annonsbilder"
 
-#: includes/views/submit_listing.php:406
+#: includes/views/submit_listing.php:415
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr "Konto skapas"
 
-#: includes/views/submit_listing.php:412
+#: includes/views/submit_listing.php:421
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Villkor"
 
-#: includes/views/submit_listing.php:449
+#: includes/views/submit_listing.php:458
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr "(Vänligen välj en avgiftsplan ovan)"
 
-#: includes/views/submit_listing.php:499
+#: includes/views/submit_listing.php:508
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Det går inte att registrera en annons just nu. Försök igen senare."
 
-#: includes/views/submit_listing.php:527
+#: includes/views/submit_listing.php:536
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en kategori."
 
-#: includes/views/submit_listing.php:540
+#: includes/views/submit_listing.php:549
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Välj en kategori för din annons."
 
-#: includes/views/submit_listing.php:560
+#: includes/views/submit_listing.php:569
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Välj en giltig kategori för din plan."
 
-#: includes/views/submit_listing.php:562
+#: includes/views/submit_listing.php:571
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/views/submit_listing.php:803
+#: includes/views/submit_listing.php:812
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/views/submit_listing.php:808
+#: includes/views/submit_listing.php:817
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/views/submit_listing.php:813
+#: includes/views/submit_listing.php:822
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Ange lösenordet för ditt nya konto."
 
-#: includes/views/submit_listing.php:823
+#: includes/views/submit_listing.php:832
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/views/submit_listing.php:828
+#: includes/views/submit_listing.php:837
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
 
-#: includes/views/submit_listing.php:843
+#: includes/views/submit_listing.php:852
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/views/submit_listing.php:850
+#: includes/views/submit_listing.php:859
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -6148,17 +6160,17 @@ msgstr ""
 "Du måste skapa ett konto för denna webbplatsen. Vänligen fyll i formuläret "
 "nedan."
 
-#: includes/views/submit_listing.php:856
+#: includes/views/submit_listing.php:865
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Användarnamn:"
 
-#: includes/views/submit_listing.php:865
+#: includes/views/submit_listing.php:874
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "E-postadress:"
 
-#: includes/views/submit_listing.php:874
+#: includes/views/submit_listing.php:883
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Lösenord:"
@@ -6215,12 +6227,12 @@ msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: includes/class-wpbdp.php:337
+#: includes/class-wpbdp.php:345
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Fler bilder kan inte laddas upp för denna annons."
 
-#: includes/class-wpbdp.php:341
+#: includes/class-wpbdp.php:349
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -6323,12 +6335,12 @@ msgctxt "form-fields api"
 msgid "Text:"
 msgstr "Textruta"
 
-#: includes/fields/class-fieldtypes-social.php:122
+#: includes/fields/class-fieldtypes-social.php:123
 msgctxt "form-fields api"
 msgid "Text to be displayed for social field"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-social.php:140
+#: includes/fields/class-fieldtypes-social.php:141
 #, fuzzy
 msgctxt "form-fields api"
 msgid "Type:"
@@ -6359,7 +6371,7 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "URL-fält:"
 
-#: includes/fields/class-fieldtypes-url.php:157
+#: includes/fields/class-fieldtypes-url.php:160
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Länktext (valfritt):"
@@ -6431,7 +6443,7 @@ msgid "Caption for %s is required."
 msgstr "Land krävs."
 
 #: includes/fields/class-fieldtypes-image.php:100
-#: includes/fields/class-fieldtypes-social.php:175
+#: includes/fields/class-fieldtypes-social.php:177
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Ta bort"
@@ -6640,7 +6652,7 @@ msgctxt "templates"
 msgid "Go back"
 msgstr "Nej, gå tillbaka"
 
-#: includes/payment.php:277 templates/renew-resume.tpl.php:39
+#: includes/payment.php:294 templates/renew-resume.tpl.php:39
 #, fuzzy
 msgctxt "templates"
 msgid "Return to fee selection"
@@ -6651,12 +6663,12 @@ msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Inga kategorier hittades."
 
-#: includes/templates-ui.php:333
+#: includes/templates-ui.php:334
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Sök annonser"
 
-#: includes/templates-ui.php:338
+#: includes/templates-ui.php:339
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Avancerad Sökning"
@@ -6703,7 +6715,7 @@ msgstr ""
 "av din webbplats. Om du inte vill det, klicka <a>här för</a> att ändra "
 "inställningen."
 
-#: includes/views/submit_listing.php:335
+#: includes/views/submit_listing.php:344
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -6712,20 +6724,20 @@ msgstr ""
 "<b>Vyn inte tillgänglig.</b> Har du \"Inaktivera inlämning av annons på "
 "framsidan?\"-inställningen markerad?"
 
-#: includes/views/submit_listing.php:337
+#: includes/views/submit_listing.php:346
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:502
+#: includes/views/submit_listing.php:511
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:505
+#: includes/views/submit_listing.php:514
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -6733,17 +6745,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:912
+#: includes/views/submit_listing.php:921
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/views/submit_listing.php:920
+#: includes/views/submit_listing.php:929
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Villkor"
 
-#: includes/views/submit_listing.php:929
+#: includes/views/submit_listing.php:937
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
@@ -6821,7 +6833,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Utvald annons"
 
-#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
+#: templates/login.tpl.php:33 templates/parts/login-required.tpl.php:14
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -6832,12 +6844,12 @@ msgstr ""
 "registrerar dig får du ett aktiveringsmejl. Vänligen kontrollera din "
 "skräppost om du inte ser mejlet inom 60 minuter."
 
-#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
+#: templates/login.tpl.php:44 templates/parts/login-required.tpl.php:38
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr "Ännu inte registrerad?"
 
-#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
+#: templates/login.tpl.php:46 templates/parts/login-required.tpl.php:40
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr "Glömt ditt lösenord?"
@@ -7492,27 +7504,27 @@ msgstr ""
 "\"%s\" version %s är inte kompatibel med Business Directory Plugin 5.0. "
 "Uppdatera denna modul till den senaste tillgängliga versionen."
 
-#: includes/payment.php:66
+#: includes/payment.php:83
 msgctxt "payments"
 msgid "Payment #%s"
 msgstr "Betalning #%s"
 
-#: includes/payment.php:74
+#: includes/payment.php:91
 msgctxt "payments"
 msgid "Gateway:"
 msgstr "Betalmodul:"
 
-#: includes/payment.php:76
+#: includes/payment.php:93
 msgctxt "payments"
 msgid "Gateway Transaction ID:"
 msgstr "Transaktions-ID i betalmodul:"
 
-#: includes/payment.php:79
+#: includes/payment.php:96
 msgctxt "payments"
 msgid "Bill To:"
 msgstr "Fakturera till:"
 
-#: includes/payment.php:96
+#: includes/payment.php:114
 msgctxt "checkout"
 msgid "Print Receipt"
 msgstr "Skriv ut kvitto"
@@ -7766,17 +7778,17 @@ msgctxt "checkout"
 msgid "Next"
 msgstr "Nästa"
 
-#: includes/templates-ui.php:373 includes/templates-ui.php:400
+#: includes/templates-ui.php:374 includes/templates-ui.php:406
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortering:"
 
-#: includes/templates-ui.php:393
+#: includes/templates-ui.php:397
 msgctxt "sort"
 msgid "Reset"
 msgstr "Rensa"
 
-#: includes/templates-ui.php:419
+#: includes/templates-ui.php:425
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Rensa)"
@@ -7930,37 +7942,37 @@ msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr "Vänligen ange en giltig kombination av e-postadress/åtkomstnyckel."
 
-#: templates/login.tpl.php:36
+#: templates/login.tpl.php:39
 msgctxt "views:login"
 msgid "Login"
 msgstr "Inloggning"
 
-#: templates/login.tpl.php:49
+#: templates/login.tpl.php:52
 msgctxt "views:login"
 msgid "... or use an Access Key"
 msgstr "...eller använd en åtkomstnyckel"
 
-#: templates/login.tpl.php:50
+#: templates/login.tpl.php:53
 msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr "Vänligen ange din åtkomstnyckel och e-postadress."
 
-#: templates/login.tpl.php:54
+#: templates/login.tpl.php:59 templates/login.tpl.php:60
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "E-postadress:"
 
-#: templates/login.tpl.php:55
+#: templates/login.tpl.php:65 templates/login.tpl.php:66
 msgctxt "views:login"
 msgid "Access Key"
 msgstr "Åtkomstnyckel"
 
-#: templates/login.tpl.php:56
+#: templates/login.tpl.php:69
 msgctxt "views:login"
 msgid "Use Access Key"
 msgstr "Använd åtkomstnyckel"
 
-#: templates/login.tpl.php:57
+#: templates/login.tpl.php:70
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr "Begär åtkomstnyckel?"
@@ -8148,7 +8160,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
-#: includes/views/submit_listing.php:671
+#: includes/views/submit_listing.php:680
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -8157,7 +8169,7 @@ msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/views/submit_listing.php:755
+#: includes/views/submit_listing.php:764
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8299,13 +8311,13 @@ msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Visa följande fält i formuläret."
 
-#: includes/widgets/widget-search.php:107
+#: includes/widgets/widget-search.php:108
 msgctxt "widgets"
 msgid "Search"
 msgstr "Sök"
 
-#: templates/admin/csv-export.tpl.php:85 templates/admin/csv-export.tpl.php:104
-#: templates/admin/csv-export.tpl.php:115 templates/admin/csv-import.tpl.php:50
+#: templates/admin/csv-export.tpl.php:93 templates/admin/csv-export.tpl.php:112
+#: templates/admin/csv-export.tpl.php:123 templates/admin/csv-import.tpl.php:50
 #: templates/admin/csv-import.tpl.php:116
 #: templates/admin/csv-import.tpl.php:142
 #: templates/admin/csv-import.tpl.php:153
@@ -9074,17 +9086,17 @@ msgid ""
 msgstr ""
 "En ny annons har skickats in till katalogen. Du hittar annonsdetaljer nedan."
 
-#: templates/main-box.tpl.php:23
+#: templates/main-box.tpl.php:24
 msgctxt "main box"
 msgid "Find listings for <keywords>"
 msgstr "Hitta annonser för <sökord>"
 
-#: templates/main-box.tpl.php:29
+#: templates/main-box.tpl.php:30
 msgctxt "main box"
 msgid "Find Listings"
 msgstr "Hitta annonser"
 
-#: templates/main-box.tpl.php:30
+#: templates/main-box.tpl.php:31
 msgctxt "main box"
 msgid "Advanced Search"
 msgstr "Avancerad sökning"

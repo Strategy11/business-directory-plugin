@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-05-29 20:25:51+00:00\n"
+"POT-Creation-Date: 2019-07-23 22:59:23+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -247,7 +247,7 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
-#: includes/class-wpbdp.php:438
+#: includes/class-wpbdp.php:446
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -256,7 +256,7 @@ msgstr ""
 "Функции Справочника Услуг на настоящий момент отключены, потому что "
 "необходимо произвести ручное обновление плагина."
 
-#: includes/class-wpbdp.php:445
+#: includes/class-wpbdp.php:453
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1203,7 +1203,7 @@ msgstr ""
 "Вы можете сами создать эти поля в разделе \"Управление / Форма\", или "
 "позвольте плагину сделать это автоматически."
 
-#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:512
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:521
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Перейти в раздел \"Управление / Форма\""
@@ -1213,12 +1213,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Создать эти поля автоматически"
 
-#: includes/payment.php:180
+#: includes/payment.php:197
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "Платёж был заброшен."
 
-#: includes/payment.php:185
+#: includes/payment.php:202
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Заброшено"
@@ -1589,18 +1589,18 @@ msgctxt "admin category id"
 msgid "ID"
 msgstr "№"
 
-#: includes/admin/class-csv-exporter.php:92
+#: includes/admin/class-csv-exporter.php:100
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr ""
 "Не удалось создать временную директорию для создания экспортных файлов."
 
-#: includes/admin/class-csv-exporter.php:95
+#: includes/admin/class-csv-exporter.php:103
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr "Не удалось создать директорию \"wpbdp-csv-exports\"."
 
-#: includes/admin/class-csv-exporter.php:100
+#: includes/admin/class-csv-exporter.php:108
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr "Ошибка при создании временной директории для экспорта в CSV файл: %s"
@@ -1716,27 +1716,39 @@ msgctxt "admin csv-export"
 msgid "Listing expiration date"
 msgstr "Дата окончания срока действия"
 
-#: templates/admin/csv-export.tpl.php:81
+#: templates/admin/csv-export.tpl.php:80
+#, fuzzy
+msgctxt "admin csv-export"
+msgid "Listing created date"
+msgstr "Изображение записи"
+
+#: templates/admin/csv-export.tpl.php:84
+#, fuzzy
+msgctxt "admin csv-export"
+msgid "Listing last updated date"
+msgstr "Дата окончания срока действия"
+
+#: templates/admin/csv-export.tpl.php:89
 msgctxt "admin csv-export"
 msgid "CSV File Settings"
 msgstr "Параметры файла CSV"
 
-#: templates/admin/csv-export.tpl.php:85
+#: templates/admin/csv-export.tpl.php:93
 msgctxt "admin csv-export"
 msgid "What operating system will you use to edit the CSV file?"
 msgstr ""
 
-#: templates/admin/csv-export.tpl.php:92
+#: templates/admin/csv-export.tpl.php:100
 msgctxt "admin csv-export"
 msgid "Windows"
 msgstr ""
 
-#: templates/admin/csv-export.tpl.php:97
+#: templates/admin/csv-export.tpl.php:105
 msgctxt "admin csv-export"
 msgid "macOS"
 msgstr ""
 
-#: templates/admin/csv-export.tpl.php:99
+#: templates/admin/csv-export.tpl.php:107
 msgctxt "admin csv-export"
 msgid ""
 "Windows and macOS versions of MS Excel handle CSV files differently. To make "
@@ -1745,27 +1757,27 @@ msgid ""
 "each operating system."
 msgstr ""
 
-#: templates/admin/csv-export.tpl.php:104
+#: templates/admin/csv-export.tpl.php:112
 msgctxt "admin csv-export"
 msgid "Image Separator"
 msgstr "Разделитель изображений"
 
-#: templates/admin/csv-export.tpl.php:115
+#: templates/admin/csv-export.tpl.php:123
 msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr "Разделитель рубрик"
 
-#: templates/admin/csv-export.tpl.php:127
+#: templates/admin/csv-export.tpl.php:135
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr "Экспортировать записи"
 
-#: templates/admin/csv-export.tpl.php:133
+#: templates/admin/csv-export.tpl.php:141
 msgctxt "admin csv-export"
 msgid "Export in Progress..."
 msgstr "Экспорт работает..."
 
-#: templates/admin/csv-export.tpl.php:134
+#: templates/admin/csv-export.tpl.php:142
 msgctxt "admin csv-export"
 msgid ""
 "Your export file is being prepared. Please <u>do not leave</u> this page "
@@ -1774,39 +1786,39 @@ msgstr ""
 "Ваш файл экспорта собирается. Пожалуйста <u>не закрывайте</u> эту страницу "
 "до тех пор, пока экспорт не закончится."
 
-#: templates/admin/csv-export.tpl.php:137
+#: templates/admin/csv-export.tpl.php:145
 msgctxt "admin csv-export"
 msgid "No. of listings:"
 msgstr "Количество записей:"
 
-#: templates/admin/csv-export.tpl.php:139
+#: templates/admin/csv-export.tpl.php:147
 msgctxt "admin csv-export"
 msgid "Approximate export file size:"
 msgstr "Приблизительный размер экспортного файла:"
 
-#: templates/admin/csv-export.tpl.php:146
+#: templates/admin/csv-export.tpl.php:154
 msgctxt "admin csv-export"
 msgid "Cancel Export"
 msgstr "Прекратить экспорт"
 
-#: templates/admin/csv-export.tpl.php:151
+#: templates/admin/csv-export.tpl.php:159
 msgctxt "admin csv-export"
 msgid "Export Complete"
 msgstr "Экспорт завершился"
 
-#: templates/admin/csv-export.tpl.php:152
+#: templates/admin/csv-export.tpl.php:160
 msgctxt "admin csv-export"
 msgid ""
 "Your export file has been successfully created and it is now ready for "
 "download."
 msgstr "Ваш файл экспорта был успешно создан и готов к скачиванию."
 
-#: templates/admin/csv-export.tpl.php:155
+#: templates/admin/csv-export.tpl.php:163
 msgctxt "admin csv-export"
 msgid "Download %s (%s)"
 msgstr "Скачать %s (%s)"
 
-#: templates/admin/csv-export.tpl.php:161
+#: templates/admin/csv-export.tpl.php:169
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -1815,22 +1827,22 @@ msgstr ""
 "Как только файл скачается, нажмите кнопку \"Очистить\" чтобы удалить все "
 "временные данные, созданные плагином во время подготовки экспортного файла."
 
-#: templates/admin/csv-export.tpl.php:162
+#: templates/admin/csv-export.tpl.php:170
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "Очистить"
 
-#: templates/admin/csv-export.tpl.php:167
+#: templates/admin/csv-export.tpl.php:175
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "Экспорт прерван"
 
-#: templates/admin/csv-export.tpl.php:168
+#: templates/admin/csv-export.tpl.php:176
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "Процесс экспорта был прекращён."
 
-#: templates/admin/csv-export.tpl.php:169
+#: templates/admin/csv-export.tpl.php:177
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← Вернуться к экспорту CSV"
@@ -2641,7 +2653,7 @@ msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Поля формы сохранены."
 
-#: includes/admin/form-fields.php:364
+#: includes/admin/form-fields.php:365
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -2655,93 +2667,93 @@ msgstr ""
 "показывался всем посетителям, то Вым нужно <a>разрешить соответствующую "
 "настройку</a>."
 
-#: includes/admin/form-fields.php:405
+#: includes/admin/form-fields.php:407
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Поле удалено."
 
-#: includes/admin/form-fields.php:428
+#: includes/admin/form-fields.php:430
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Обязательное поле удачно создано."
 
-#: includes/admin/form-fields.php:441
+#: includes/admin/form-fields.php:443
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr "Название"
 
-#: includes/admin/form-fields.php:442
+#: includes/admin/form-fields.php:444
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr "Рубрика"
 
-#: includes/admin/form-fields.php:443
+#: includes/admin/form-fields.php:445
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr "Цитата"
 
-#: includes/admin/form-fields.php:444
+#: includes/admin/form-fields.php:446
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr "Содержимое"
 
-#: includes/admin/form-fields.php:445
+#: includes/admin/form-fields.php:447
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr "Метки"
 
-#: includes/admin/form-fields.php:446
+#: includes/admin/form-fields.php:448
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr "Адрес"
 
-#: includes/admin/form-fields.php:447
+#: includes/admin/form-fields.php:449
 msgctxt "form-fields admin"
 msgid "City"
 msgstr "Город:"
 
-#: includes/admin/form-fields.php:448
+#: includes/admin/form-fields.php:450
 msgctxt "form-fields admin"
 msgid "State"
 msgstr "Провинция/Штат:"
 
-#: includes/admin/form-fields.php:449
+#: includes/admin/form-fields.php:451
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Country"
 msgstr "Страна:"
 
-#: includes/admin/form-fields.php:450
+#: includes/admin/form-fields.php:452
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr "Почтовый индекс"
 
-#: includes/admin/form-fields.php:451
+#: includes/admin/form-fields.php:453
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "Номер факса"
 
-#: includes/admin/form-fields.php:452
+#: includes/admin/form-fields.php:454
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "Номер телефона"
 
-#: includes/admin/form-fields.php:453
+#: includes/admin/form-fields.php:455
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "Рейтинг"
 
-#: includes/admin/form-fields.php:454
+#: includes/admin/form-fields.php:456
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/form-fields.php:455
+#: includes/admin/form-fields.php:457
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr "адрес сайта"
 
-#: includes/admin/form-fields.php:485
+#: includes/admin/form-fields.php:487
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Метки сохранены."
@@ -2753,7 +2765,7 @@ msgid "Select All"
 msgstr "Список выбора"
 
 #: includes/fields/class-fieldtypes-checkbox.php:113
-#: includes/fields/class-fieldtypes-radiobutton.php:93
+#: includes/fields/class-fieldtypes-radiobutton.php:94
 #: includes/fields/class-fieldtypes-select.php:238
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
@@ -2770,7 +2782,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:145
-#: includes/fields/class-fieldtypes-radiobutton.php:114
+#: includes/fields/class-fieldtypes-radiobutton.php:115
 #: includes/fields/class-fieldtypes-select.php:268
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
@@ -6125,7 +6137,7 @@ msgctxt "views"
 msgid "Submit A Listing"
 msgstr "Создать запись"
 
-#: includes/class-view.php:103
+#: includes/class-view.php:109
 #, fuzzy
 msgctxt "views"
 msgid "Invalid credentials."
@@ -6298,7 +6310,7 @@ msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "Рубрики этой записи"
 
-#: includes/views/submit_listing.php:136
+#: includes/views/submit_listing.php:145
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -6306,60 +6318,60 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:141
+#: includes/views/submit_listing.php:150
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:164
+#: includes/views/submit_listing.php:173
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "Вы вошли на сайт как Администратор. Все шаги оплаты будут пропущены."
 
-#: includes/views/submit_listing.php:388
+#: includes/views/submit_listing.php:397
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Выбор рубрики"
 
-#: includes/views/submit_listing.php:388
+#: includes/views/submit_listing.php:397
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Выбор рубрики"
 
-#: includes/views/submit_listing.php:393
+#: includes/views/submit_listing.php:402
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Информация о бизнесе"
 
-#: includes/views/submit_listing.php:398
+#: includes/views/submit_listing.php:407
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "Изображение записи"
 
-#: includes/views/submit_listing.php:406
+#: includes/views/submit_listing.php:415
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:412
+#: includes/views/submit_listing.php:421
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Условия и положения"
 
-#: includes/views/submit_listing.php:449
+#: includes/views/submit_listing.php:458
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:499
+#: includes/views/submit_listing.php:508
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -6367,79 +6379,79 @@ msgstr ""
 "В настоящее время вы не можем провести Вашу оплату. Попробуйте позже "
 "пожалуйста."
 
-#: includes/views/submit_listing.php:527
+#: includes/views/submit_listing.php:536
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:540
+#: includes/views/submit_listing.php:549
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:560
+#: includes/views/submit_listing.php:569
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:562
+#: includes/views/submit_listing.php:571
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/views/submit_listing.php:803
+#: includes/views/submit_listing.php:812
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/submit_listing.php:808
+#: includes/views/submit_listing.php:817
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/submit_listing.php:813
+#: includes/views/submit_listing.php:822
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:823
+#: includes/views/submit_listing.php:832
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:828
+#: includes/views/submit_listing.php:837
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:843
+#: includes/views/submit_listing.php:852
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:850
+#: includes/views/submit_listing.php:859
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:856
+#: includes/views/submit_listing.php:865
 msgctxt "submit listing"
 msgid "Username:"
 msgstr ""
 
-#: includes/views/submit_listing.php:865
+#: includes/views/submit_listing.php:874
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Адрес: %s"
 
-#: includes/views/submit_listing.php:874
+#: includes/views/submit_listing.php:883
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -6501,13 +6513,13 @@ msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/class-wpbdp.php:337
+#: includes/class-wpbdp.php:345
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Рубрики этой записи"
 
-#: includes/class-wpbdp.php:341
+#: includes/class-wpbdp.php:349
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -6607,12 +6619,12 @@ msgctxt "form-fields api"
 msgid "Text:"
 msgstr "Текстовый блок"
 
-#: includes/fields/class-fieldtypes-social.php:122
+#: includes/fields/class-fieldtypes-social.php:123
 msgctxt "form-fields api"
 msgid "Text to be displayed for social field"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-social.php:140
+#: includes/fields/class-fieldtypes-social.php:141
 #, fuzzy
 msgctxt "form-fields api"
 msgid "Type:"
@@ -6643,7 +6655,7 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "Поле адреса URL"
 
-#: includes/fields/class-fieldtypes-url.php:157
+#: includes/fields/class-fieldtypes-url.php:160
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Текст ссылки (не обязательно)"
@@ -6714,7 +6726,7 @@ msgid "Caption for %s is required."
 msgstr "Страна обязательна."
 
 #: includes/fields/class-fieldtypes-image.php:100
-#: includes/fields/class-fieldtypes-social.php:175
+#: includes/fields/class-fieldtypes-social.php:177
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Удалить"
@@ -6918,7 +6930,7 @@ msgctxt "templates"
 msgid "Go back"
 msgstr ""
 
-#: includes/payment.php:277 templates/renew-resume.tpl.php:39
+#: includes/payment.php:294 templates/renew-resume.tpl.php:39
 #, fuzzy
 msgctxt "templates"
 msgid "Return to fee selection"
@@ -6929,12 +6941,12 @@ msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Рубрики не обнаружены."
 
-#: includes/templates-ui.php:333
+#: includes/templates-ui.php:334
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Найти"
 
-#: includes/templates-ui.php:338
+#: includes/templates-ui.php:339
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Расширенный поиск"
@@ -6981,27 +6993,27 @@ msgstr ""
 "показаны посетителям сайта. Если Вы хотите изменить такое поведение, "
 "перейдите в <a>Настройки</a> и отключите этот параметр."
 
-#: includes/views/submit_listing.php:335
+#: includes/views/submit_listing.php:344
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/views/submit_listing.php:337
+#: includes/views/submit_listing.php:346
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:502
+#: includes/views/submit_listing.php:511
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:505
+#: includes/views/submit_listing.php:514
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7009,17 +7021,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:912
+#: includes/views/submit_listing.php:921
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Пожалуйста примите наши Условия и Положения."
 
-#: includes/views/submit_listing.php:920
+#: includes/views/submit_listing.php:929
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Условия и Положения:"
 
-#: includes/views/submit_listing.php:929
+#: includes/views/submit_listing.php:937
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7098,7 +7110,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "Особая запись"
 
-#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
+#: templates/login.tpl.php:33 templates/parts/login-required.tpl.php:14
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -7109,12 +7121,12 @@ msgstr ""
 "регистрации Вы получите электронной письмо с кодом активации. Убедитесь, что "
 "это письмо не попадёт в папку Спама в вашей почтовой системе."
 
-#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
+#: templates/login.tpl.php:44 templates/parts/login-required.tpl.php:38
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr "Ещё не зарегистрированы?"
 
-#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
+#: templates/login.tpl.php:46 templates/parts/login-required.tpl.php:40
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr "Забыли пароль?"
@@ -7742,30 +7754,30 @@ msgid ""
 "Please update this module to the latest available version."
 msgstr ""
 
-#: includes/payment.php:66
+#: includes/payment.php:83
 #, fuzzy
 msgctxt "payments"
 msgid "Payment #%s"
 msgstr "Платёж № %d"
 
-#: includes/payment.php:74
+#: includes/payment.php:91
 #, fuzzy
 msgctxt "payments"
 msgid "Gateway:"
 msgstr "Шлюз"
 
-#: includes/payment.php:76
+#: includes/payment.php:93
 #, fuzzy
 msgctxt "payments"
 msgid "Gateway Transaction ID:"
 msgstr "Ключ транзакции"
 
-#: includes/payment.php:79
+#: includes/payment.php:96
 msgctxt "payments"
 msgid "Bill To:"
 msgstr ""
 
-#: includes/payment.php:96
+#: includes/payment.php:114
 msgctxt "checkout"
 msgid "Print Receipt"
 msgstr ""
@@ -8043,17 +8055,17 @@ msgctxt "checkout"
 msgid "Next"
 msgstr ""
 
-#: includes/templates-ui.php:373 includes/templates-ui.php:400
+#: includes/templates-ui.php:374 includes/templates-ui.php:406
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Сортировка по:"
 
-#: includes/templates-ui.php:393
+#: includes/templates-ui.php:397
 msgctxt "sort"
 msgid "Reset"
 msgstr "Сбросить"
 
-#: includes/templates-ui.php:419
+#: includes/templates-ui.php:425
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Сбросить)"
@@ -8215,43 +8227,43 @@ msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr "Пожалуйста введите правильный электронный адрес."
 
-#: templates/login.tpl.php:36
+#: templates/login.tpl.php:39
 #, fuzzy
 msgctxt "views:login"
 msgid "Login"
 msgstr "Войти в сайт"
 
-#: templates/login.tpl.php:49
+#: templates/login.tpl.php:52
 #, fuzzy
 msgctxt "views:login"
 msgid "... or use an Access Key"
 msgstr "Поля и Изображения записи"
 
-#: templates/login.tpl.php:50
+#: templates/login.tpl.php:53
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr "Пожалуйста введите правильный электронный адрес."
 
-#: templates/login.tpl.php:54
+#: templates/login.tpl.php:59 templates/login.tpl.php:60
 #, fuzzy
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "Электронный адрес:"
 
-#: templates/login.tpl.php:55
+#: templates/login.tpl.php:65 templates/login.tpl.php:66
 #, fuzzy
 msgctxt "views:login"
 msgid "Access Key"
 msgstr "Поля и Изображения записи"
 
-#: templates/login.tpl.php:56
+#: templates/login.tpl.php:69
 #, fuzzy
 msgctxt "views:login"
 msgid "Use Access Key"
 msgstr "Поля и Изображения записи"
 
-#: templates/login.tpl.php:57
+#: templates/login.tpl.php:70
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
@@ -8443,14 +8455,14 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "Это просто предварительный просмотр. Запись ещё не была опубликована."
 
-#: includes/views/submit_listing.php:671
+#: includes/views/submit_listing.php:680
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:755
+#: includes/views/submit_listing.php:764
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8593,13 +8605,13 @@ msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Показать следующие поля в форме."
 
-#: includes/widgets/widget-search.php:107
+#: includes/widgets/widget-search.php:108
 msgctxt "widgets"
 msgid "Search"
 msgstr "Поиск"
 
-#: templates/admin/csv-export.tpl.php:85 templates/admin/csv-export.tpl.php:104
-#: templates/admin/csv-export.tpl.php:115 templates/admin/csv-import.tpl.php:50
+#: templates/admin/csv-export.tpl.php:93 templates/admin/csv-export.tpl.php:112
+#: templates/admin/csv-export.tpl.php:123 templates/admin/csv-import.tpl.php:50
 #: templates/admin/csv-import.tpl.php:116
 #: templates/admin/csv-import.tpl.php:142
 #: templates/admin/csv-import.tpl.php:153
@@ -9388,17 +9400,17 @@ msgid ""
 msgstr ""
 "В справочник добавлена новая запись. Ниже приведены детали этой записи."
 
-#: templates/main-box.tpl.php:23
+#: templates/main-box.tpl.php:24
 msgctxt "main box"
 msgid "Find listings for <keywords>"
 msgstr "показывать запись пожизненно"
 
-#: templates/main-box.tpl.php:29
+#: templates/main-box.tpl.php:30
 msgctxt "main box"
 msgid "Find Listings"
 msgstr "Найти запись"
 
-#: templates/main-box.tpl.php:30
+#: templates/main-box.tpl.php:31
 msgctxt "main box"
 msgid "Advanced Search"
 msgstr "Расширенный поиск"

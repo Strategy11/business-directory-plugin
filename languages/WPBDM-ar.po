@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-05-29 20:25:51+00:00\n"
+"POT-Creation-Date: 2019-07-23 22:59:23+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -245,7 +245,7 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
-#: includes/class-wpbdp.php:438
+#: includes/class-wpbdp.php:446
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -254,7 +254,7 @@ msgstr ""
 "تم تعطيل ميزات دليل الأعمال حاليا بسبب أن الإضافة تحتاج إلى إجراء ترقية "
 "يدوية قبل المتابعة."
 
-#: includes/class-wpbdp.php:445
+#: includes/class-wpbdp.php:453
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1199,7 +1199,7 @@ msgstr ""
 "يمكنك إنشاء هذه الحقول المخصصة بنفسك داخل \"إدارة الحقول\" أو السماح لدليل "
 "الأعمال للقيام بذلك نيابة عنك تلقائياً."
 
-#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:512
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:521
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "إنتقل إلى \"إدارة حقول\""
@@ -1209,12 +1209,12 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "إنشاء هذه الحقول المطلوبة نيابة عني"
 
-#: includes/payment.php:180
+#: includes/payment.php:197
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "في انتظار التخلي"
 
-#: includes/payment.php:185
+#: includes/payment.php:202
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "متخلى عنه"
@@ -1583,17 +1583,17 @@ msgctxt "admin category id"
 msgid "ID"
 msgstr "المعرف"
 
-#: includes/admin/class-csv-exporter.php:92
+#: includes/admin/class-csv-exporter.php:100
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr "لا يمكن إنشاء مجلد مؤقت للتعامل مع تصدير CSV."
 
-#: includes/admin/class-csv-exporter.php:95
+#: includes/admin/class-csv-exporter.php:103
 msgctxt "admin csv-export"
 msgid "Could not create wpbdp-csv-exports directory."
 msgstr "تعذر إنشاء مجلد wpbdp-csv-exports."
 
-#: includes/admin/class-csv-exporter.php:100
+#: includes/admin/class-csv-exporter.php:108
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr "حدث خطأ أثناء إنشاء مجلد مؤقت لتصدير CSV: %s"
@@ -1704,27 +1704,39 @@ msgctxt "admin csv-export"
 msgid "Listing expiration date"
 msgstr "إنتهاء صلاحية الإعلان"
 
-#: templates/admin/csv-export.tpl.php:81
+#: templates/admin/csv-export.tpl.php:80
+#, fuzzy
+msgctxt "admin csv-export"
+msgid "Listing created date"
+msgstr "صور الإعلانات"
+
+#: templates/admin/csv-export.tpl.php:84
+#, fuzzy
+msgctxt "admin csv-export"
+msgid "Listing last updated date"
+msgstr "إنتهاء صلاحية الإعلان"
+
+#: templates/admin/csv-export.tpl.php:89
 msgctxt "admin csv-export"
 msgid "CSV File Settings"
 msgstr "إعدادات ملف CSV"
 
-#: templates/admin/csv-export.tpl.php:85
+#: templates/admin/csv-export.tpl.php:93
 msgctxt "admin csv-export"
 msgid "What operating system will you use to edit the CSV file?"
 msgstr ""
 
-#: templates/admin/csv-export.tpl.php:92
+#: templates/admin/csv-export.tpl.php:100
 msgctxt "admin csv-export"
 msgid "Windows"
 msgstr ""
 
-#: templates/admin/csv-export.tpl.php:97
+#: templates/admin/csv-export.tpl.php:105
 msgctxt "admin csv-export"
 msgid "macOS"
 msgstr ""
 
-#: templates/admin/csv-export.tpl.php:99
+#: templates/admin/csv-export.tpl.php:107
 msgctxt "admin csv-export"
 msgid ""
 "Windows and macOS versions of MS Excel handle CSV files differently. To make "
@@ -1733,27 +1745,27 @@ msgid ""
 "each operating system."
 msgstr ""
 
-#: templates/admin/csv-export.tpl.php:104
+#: templates/admin/csv-export.tpl.php:112
 msgctxt "admin csv-export"
 msgid "Image Separator"
 msgstr "فاصلة الصورة "
 
-#: templates/admin/csv-export.tpl.php:115
+#: templates/admin/csv-export.tpl.php:123
 msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr "فاصلة التصنيف"
 
-#: templates/admin/csv-export.tpl.php:127
+#: templates/admin/csv-export.tpl.php:135
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr "الإعلانات المصدرة"
 
-#: templates/admin/csv-export.tpl.php:133
+#: templates/admin/csv-export.tpl.php:141
 msgctxt "admin csv-export"
 msgid "Export in Progress..."
 msgstr "جاري التصدير..."
 
-#: templates/admin/csv-export.tpl.php:134
+#: templates/admin/csv-export.tpl.php:142
 msgctxt "admin csv-export"
 msgid ""
 "Your export file is being prepared. Please <u>do not leave</u> this page "
@@ -1761,39 +1773,39 @@ msgid ""
 msgstr ""
 "جاري إعداد ملف التصدير. المرجو <u>عدم ترك</u> هذه الصفحة حتى انتهاء التصدير."
 
-#: templates/admin/csv-export.tpl.php:137
+#: templates/admin/csv-export.tpl.php:145
 msgctxt "admin csv-export"
 msgid "No. of listings:"
 msgstr "أرقام الإعلانات:"
 
-#: templates/admin/csv-export.tpl.php:139
+#: templates/admin/csv-export.tpl.php:147
 msgctxt "admin csv-export"
 msgid "Approximate export file size:"
 msgstr "الحجم التقريبي لملف التصدير:"
 
-#: templates/admin/csv-export.tpl.php:146
+#: templates/admin/csv-export.tpl.php:154
 msgctxt "admin csv-export"
 msgid "Cancel Export"
 msgstr "إلغاء التصدير"
 
-#: templates/admin/csv-export.tpl.php:151
+#: templates/admin/csv-export.tpl.php:159
 msgctxt "admin csv-export"
 msgid "Export Complete"
 msgstr "تم التصدير"
 
-#: templates/admin/csv-export.tpl.php:152
+#: templates/admin/csv-export.tpl.php:160
 msgctxt "admin csv-export"
 msgid ""
 "Your export file has been successfully created and it is now ready for "
 "download."
 msgstr "تم بنجاح إنشاء ملف التصدير، والآن جاهز للتحميل."
 
-#: templates/admin/csv-export.tpl.php:155
+#: templates/admin/csv-export.tpl.php:163
 msgctxt "admin csv-export"
 msgid "Download %s (%s)"
 msgstr "تحميل %s (%s)"
 
-#: templates/admin/csv-export.tpl.php:161
+#: templates/admin/csv-export.tpl.php:169
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -1802,22 +1814,22 @@ msgstr ""
 "إضغط على \"تنظيف\" بعد تحميل الملف بغية إزالة جميع البيانات المؤقتة التي تم "
 "إنشاؤها بواسطة \"دليل الأعمال\" أثناء عملية التصدير."
 
-#: templates/admin/csv-export.tpl.php:162
+#: templates/admin/csv-export.tpl.php:170
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "نظف"
 
-#: templates/admin/csv-export.tpl.php:167
+#: templates/admin/csv-export.tpl.php:175
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "ألغي التصدير"
 
-#: templates/admin/csv-export.tpl.php:168
+#: templates/admin/csv-export.tpl.php:176
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "تم إلغاء التصدير"
 
-#: templates/admin/csv-export.tpl.php:169
+#: templates/admin/csv-export.tpl.php:177
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← العودة إلى تصدير CSV"
@@ -2661,7 +2673,7 @@ msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "تم تحديث الاستمارة."
 
-#: includes/admin/form-fields.php:364
+#: includes/admin/form-fields.php:365
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -2674,93 +2686,93 @@ msgstr ""
 "الواجهة. إذا كنت تريد إظهار عناوين البريد الإلكتروني في الواجهة، يمكنك "
 "<a>تمكين عرض البريد الإلكتروني للعموم</a>."
 
-#: includes/admin/form-fields.php:405
+#: includes/admin/form-fields.php:407
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "تم حذف الحقل."
 
-#: includes/admin/form-fields.php:428
+#: includes/admin/form-fields.php:430
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "الحقول المطلوبة أنشئت بنجاح."
 
-#: includes/admin/form-fields.php:441
+#: includes/admin/form-fields.php:443
 msgctxt "form-fields admin"
 msgid "Title"
 msgstr "العنوان"
 
-#: includes/admin/form-fields.php:442
+#: includes/admin/form-fields.php:444
 msgctxt "form-fields admin"
 msgid "Category"
 msgstr "التصنيف"
 
-#: includes/admin/form-fields.php:443
+#: includes/admin/form-fields.php:445
 msgctxt "form-fields admin"
 msgid "Excerpt"
 msgstr "مقتطف"
 
-#: includes/admin/form-fields.php:444
+#: includes/admin/form-fields.php:446
 msgctxt "form-fields admin"
 msgid "Content"
 msgstr "المحتوى"
 
-#: includes/admin/form-fields.php:445
+#: includes/admin/form-fields.php:447
 msgctxt "form-fields admin"
 msgid "Tags"
 msgstr "الوسوم"
 
-#: includes/admin/form-fields.php:446
+#: includes/admin/form-fields.php:448
 msgctxt "form-fields admin"
 msgid "Address"
 msgstr "العنوان"
 
-#: includes/admin/form-fields.php:447
+#: includes/admin/form-fields.php:449
 msgctxt "form-fields admin"
 msgid "City"
 msgstr "المدينة"
 
-#: includes/admin/form-fields.php:448
+#: includes/admin/form-fields.php:450
 msgctxt "form-fields admin"
 msgid "State"
 msgstr "الولاية"
 
-#: includes/admin/form-fields.php:449
+#: includes/admin/form-fields.php:451
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Country"
 msgstr "الدولة:"
 
-#: includes/admin/form-fields.php:450
+#: includes/admin/form-fields.php:452
 msgctxt "form-fields admin"
 msgid "ZIP Code"
 msgstr "الرمز البريدي"
 
-#: includes/admin/form-fields.php:451
+#: includes/admin/form-fields.php:453
 msgctxt "form-fields admin"
 msgid "FAX Number"
 msgstr "رقم الفاكس"
 
-#: includes/admin/form-fields.php:452
+#: includes/admin/form-fields.php:454
 msgctxt "form-fields admin"
 msgid "Phone Number"
 msgstr "رقم الهاتف"
 
-#: includes/admin/form-fields.php:453
+#: includes/admin/form-fields.php:455
 msgctxt "form-fields admin"
 msgid "Ratings Field"
 msgstr "حقول التقييم"
 
-#: includes/admin/form-fields.php:454
+#: includes/admin/form-fields.php:456
 msgctxt "form-fields admin"
 msgid "Twitter"
 msgstr "تويتر"
 
-#: includes/admin/form-fields.php:455
+#: includes/admin/form-fields.php:457
 msgctxt "form-fields admin"
 msgid "Website"
 msgstr "موقع الأنترنيت"
 
-#: includes/admin/form-fields.php:485
+#: includes/admin/form-fields.php:487
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "تم تحديث الوسوم"
@@ -2772,7 +2784,7 @@ msgid "Select All"
 msgstr "قائمة منسدلة"
 
 #: includes/fields/class-fieldtypes-checkbox.php:113
-#: includes/fields/class-fieldtypes-radiobutton.php:93
+#: includes/fields/class-fieldtypes-radiobutton.php:94
 #: includes/fields/class-fieldtypes-select.php:238
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
@@ -2789,7 +2801,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:145
-#: includes/fields/class-fieldtypes-radiobutton.php:114
+#: includes/fields/class-fieldtypes-radiobutton.php:115
 #: includes/fields/class-fieldtypes-select.php:268
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
@@ -6140,7 +6152,7 @@ msgctxt "views"
 msgid "Submit A Listing"
 msgstr "إضافة إعلان"
 
-#: includes/class-view.php:103
+#: includes/class-view.php:109
 #, fuzzy
 msgctxt "views"
 msgid "Invalid credentials."
@@ -6312,7 +6324,7 @@ msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "التصنيفات لهذا الإعلان"
 
-#: includes/views/submit_listing.php:136
+#: includes/views/submit_listing.php:145
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -6320,60 +6332,60 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:141
+#: includes/views/submit_listing.php:150
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:164
+#: includes/views/submit_listing.php:173
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "لقد تم تسجيل دخولك كمدير. سيتم تخطي أي خطوات للدفع."
 
-#: includes/views/submit_listing.php:388
+#: includes/views/submit_listing.php:397
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:388
+#: includes/views/submit_listing.php:397
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:393
+#: includes/views/submit_listing.php:402
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "معلومات حول الإعلان"
 
-#: includes/views/submit_listing.php:398
+#: includes/views/submit_listing.php:407
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "صور الإعلانات"
 
-#: includes/views/submit_listing.php:406
+#: includes/views/submit_listing.php:415
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:412
+#: includes/views/submit_listing.php:421
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "شروط وأحكام"
 
-#: includes/views/submit_listing.php:449
+#: includes/views/submit_listing.php:458
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:499
+#: includes/views/submit_listing.php:508
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -6381,80 +6393,80 @@ msgstr ""
 "لا يمكن أن نقوم بمعالجة الدفع الخاص بك في هذه اللحظة. المرجو المحاولة مرة "
 "أخرى لاحقاً."
 
-#: includes/views/submit_listing.php:527
+#: includes/views/submit_listing.php:536
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:540
+#: includes/views/submit_listing.php:549
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:560
+#: includes/views/submit_listing.php:569
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:562
+#: includes/views/submit_listing.php:571
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:803
+#: includes/views/submit_listing.php:812
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:808
+#: includes/views/submit_listing.php:817
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:813
+#: includes/views/submit_listing.php:822
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:823
+#: includes/views/submit_listing.php:832
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:828
+#: includes/views/submit_listing.php:837
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:843
+#: includes/views/submit_listing.php:852
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:850
+#: includes/views/submit_listing.php:859
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:856
+#: includes/views/submit_listing.php:865
 #, fuzzy
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "عضو"
 
-#: includes/views/submit_listing.php:865
+#: includes/views/submit_listing.php:874
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "البريد الإلكتروني:  %s"
 
-#: includes/views/submit_listing.php:874
+#: includes/views/submit_listing.php:883
 msgctxt "submit listing"
 msgid "Password:"
 msgstr ""
@@ -6516,13 +6528,13 @@ msgctxt "admin plugins"
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: includes/class-wpbdp.php:337
+#: includes/class-wpbdp.php:345
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "التصنيفات لهذا الإعلان"
 
-#: includes/class-wpbdp.php:341
+#: includes/class-wpbdp.php:349
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -6625,12 +6637,12 @@ msgctxt "form-fields api"
 msgid "Text:"
 msgstr "مربع النص"
 
-#: includes/fields/class-fieldtypes-social.php:122
+#: includes/fields/class-fieldtypes-social.php:123
 msgctxt "form-fields api"
 msgid "Text to be displayed for social field"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-social.php:140
+#: includes/fields/class-fieldtypes-social.php:141
 #, fuzzy
 msgctxt "form-fields api"
 msgid "Type:"
@@ -6661,7 +6673,7 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "حقل الرابط"
 
-#: includes/fields/class-fieldtypes-url.php:157
+#: includes/fields/class-fieldtypes-url.php:160
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "رابط نصي (اختياري):"
@@ -6731,7 +6743,7 @@ msgid "Caption for %s is required."
 msgstr "البلد المطلوب."
 
 #: includes/fields/class-fieldtypes-image.php:100
-#: includes/fields/class-fieldtypes-social.php:175
+#: includes/fields/class-fieldtypes-social.php:177
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "إزالة"
@@ -6935,7 +6947,7 @@ msgctxt "templates"
 msgid "Go back"
 msgstr ""
 
-#: includes/payment.php:277 templates/renew-resume.tpl.php:39
+#: includes/payment.php:294 templates/renew-resume.tpl.php:39
 #, fuzzy
 msgctxt "templates"
 msgid "Return to fee selection"
@@ -6946,12 +6958,12 @@ msgctxt "templates"
 msgid "No listing categories found."
 msgstr "لم يتم العثور على تصنيفات الإعلانات."
 
-#: includes/templates-ui.php:333
+#: includes/templates-ui.php:334
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "البحث في الإعلانات"
 
-#: includes/templates-ui.php:338
+#: includes/templates-ui.php:339
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "بحث متقدم"
@@ -6996,7 +7008,7 @@ msgstr ""
 "إعلانات بداخلها. هذا يعني أنها لن تظهر على الواجهة الأمامية للموقع الخاص بك. "
 "إذا كنت لا تريد ذلك، إضغط <a>هنا</a> لتغيير الإعداد."
 
-#: includes/views/submit_listing.php:335
+#: includes/views/submit_listing.php:344
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -7005,20 +7017,20 @@ msgstr ""
 "<b>المشاهدة غير متوفرة</b>. هل لديك \"تعطيل إضافة إعلان من واجهة الموقع؟\" "
 "محددة في الإعدادات؟"
 
-#: includes/views/submit_listing.php:337
+#: includes/views/submit_listing.php:346
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:502
+#: includes/views/submit_listing.php:511
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:505
+#: includes/views/submit_listing.php:514
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7026,17 +7038,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:912
+#: includes/views/submit_listing.php:921
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "يرجى الموافقة على الشروط والأحكام."
 
-#: includes/views/submit_listing.php:920
+#: includes/views/submit_listing.php:929
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "شروط وأحكام:"
 
-#: includes/views/submit_listing.php:929
+#: includes/views/submit_listing.php:937
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7115,7 +7127,7 @@ msgctxt "templates"
 msgid "Featured Listing"
 msgstr "إعلان مميز"
 
-#: templates/login.tpl.php:30 templates/parts/login-required.tpl.php:14
+#: templates/login.tpl.php:33 templates/parts/login-required.tpl.php:14
 msgctxt "templates"
 msgid ""
 "You are not currently logged in. Please login or register first. When "
@@ -7126,12 +7138,12 @@ msgstr ""
 "تتلقى رسالة بريد إلكتروني للتفعيل. يجب التأكد من مراجعة البريد المزعج الخاص "
 "بك إذا لم تراه في بريدك الإلكتروني خلال 60 دقيقة."
 
-#: templates/login.tpl.php:41 templates/parts/login-required.tpl.php:38
+#: templates/login.tpl.php:44 templates/parts/login-required.tpl.php:38
 msgctxt "templates"
 msgid "Not yet registered?"
 msgstr "لم تتسجل بعد؟"
 
-#: templates/login.tpl.php:43 templates/parts/login-required.tpl.php:40
+#: templates/login.tpl.php:46 templates/parts/login-required.tpl.php:40
 msgctxt "templates"
 msgid "Lost your password?"
 msgstr "فقدت كلمة المرور؟"
@@ -7760,30 +7772,30 @@ msgid ""
 "Please update this module to the latest available version."
 msgstr ""
 
-#: includes/payment.php:66
+#: includes/payment.php:83
 #, fuzzy
 msgctxt "payments"
 msgid "Payment #%s"
 msgstr "الدفع #%d"
 
-#: includes/payment.php:74
+#: includes/payment.php:91
 #, fuzzy
 msgctxt "payments"
 msgid "Gateway:"
 msgstr "بوابة"
 
-#: includes/payment.php:76
+#: includes/payment.php:93
 #, fuzzy
 msgctxt "payments"
 msgid "Gateway Transaction ID:"
 msgstr "transaction"
 
-#: includes/payment.php:79
+#: includes/payment.php:96
 msgctxt "payments"
 msgid "Bill To:"
 msgstr ""
 
-#: includes/payment.php:96
+#: includes/payment.php:114
 msgctxt "checkout"
 msgid "Print Receipt"
 msgstr ""
@@ -8061,17 +8073,17 @@ msgctxt "checkout"
 msgid "Next"
 msgstr ""
 
-#: includes/templates-ui.php:373 includes/templates-ui.php:400
+#: includes/templates-ui.php:374 includes/templates-ui.php:406
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "ترتيب حسب:"
 
-#: includes/templates-ui.php:393
+#: includes/templates-ui.php:397
 msgctxt "sort"
 msgid "Reset"
 msgstr "إعادة تعيين"
 
-#: includes/templates-ui.php:419
+#: includes/templates-ui.php:425
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(إعادة تعيين)"
@@ -8226,43 +8238,43 @@ msgctxt "views:login"
 msgid "Please enter a valid e-mail/access key combination."
 msgstr "المرجو إدخال بريد إلكتروني صحيح."
 
-#: templates/login.tpl.php:36
+#: templates/login.tpl.php:39
 #, fuzzy
 msgctxt "views:login"
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: templates/login.tpl.php:49
+#: templates/login.tpl.php:52
 #, fuzzy
 msgctxt "views:login"
 msgid "... or use an Access Key"
 msgstr "مفاتيح وصول الإعلان"
 
-#: templates/login.tpl.php:50
+#: templates/login.tpl.php:53
 #, fuzzy
 msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr "المرجو إدخال بريد إلكتروني صحيح."
 
-#: templates/login.tpl.php:54
+#: templates/login.tpl.php:59 templates/login.tpl.php:60
 #, fuzzy
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "عنوان البريد الإلكتروني:"
 
-#: templates/login.tpl.php:55
+#: templates/login.tpl.php:65 templates/login.tpl.php:66
 #, fuzzy
 msgctxt "views:login"
 msgid "Access Key"
 msgstr "مفتاح الوصول"
 
-#: templates/login.tpl.php:56
+#: templates/login.tpl.php:69
 #, fuzzy
 msgctxt "views:login"
 msgid "Use Access Key"
 msgstr "مفتاح الوصول"
 
-#: templates/login.tpl.php:57
+#: templates/login.tpl.php:70
 msgctxt "views:login"
 msgid "Request access key?"
 msgstr ""
@@ -8455,14 +8467,14 @@ msgstr ""
 "Il s'agit seulement d'une pré-visualisation. L'annonce n'a pas encore été "
 "publiée."
 
-#: includes/views/submit_listing.php:671
+#: includes/views/submit_listing.php:680
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:755
+#: includes/views/submit_listing.php:764
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8605,13 +8617,13 @@ msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "عرض الحقول التالية في النموذج."
 
-#: includes/widgets/widget-search.php:107
+#: includes/widgets/widget-search.php:108
 msgctxt "widgets"
 msgid "Search"
 msgstr "بحث"
 
-#: templates/admin/csv-export.tpl.php:85 templates/admin/csv-export.tpl.php:104
-#: templates/admin/csv-export.tpl.php:115 templates/admin/csv-import.tpl.php:50
+#: templates/admin/csv-export.tpl.php:93 templates/admin/csv-export.tpl.php:112
+#: templates/admin/csv-export.tpl.php:123 templates/admin/csv-import.tpl.php:50
 #: templates/admin/csv-import.tpl.php:116
 #: templates/admin/csv-import.tpl.php:142
 #: templates/admin/csv-import.tpl.php:153
@@ -9384,17 +9396,17 @@ msgid ""
 "below."
 msgstr "تم إضافة إعلان جديد إلى الدليل. يمكن الاطلاع على تفاصيل الإعلان أدناه."
 
-#: templates/main-box.tpl.php:23
+#: templates/main-box.tpl.php:24
 msgctxt "main box"
 msgid "Find listings for <keywords>"
 msgstr "العثور على الإعلانات <كلمات مفتاحية>"
 
-#: templates/main-box.tpl.php:29
+#: templates/main-box.tpl.php:30
 msgctxt "main box"
 msgid "Find Listings"
 msgstr "إيجاد الإعلانات"
 
-#: templates/main-box.tpl.php:30
+#: templates/main-box.tpl.php:31
 msgctxt "main box"
 msgid "Advanced Search"
 msgstr "بحث متقدم"
