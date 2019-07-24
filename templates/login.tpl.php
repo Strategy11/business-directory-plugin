@@ -23,7 +23,7 @@ if ( ! $registration_url && get_option( 'users_can_register' ) ) {
 $registration_url  = $registration_url ? add_query_arg( array( 'redirect_to' => urlencode( $redirect_to ) ), $registration_url ) : '';
 $lost_password_url = add_query_arg( 'redirect_to', urlencode( $redirect_to ), wp_lostpassword_url() );
 
-$login_args             = $login_args ? $login_args : array();
+$login_args             = isset( $login_args ) ? $login_args : array();
 $login_args['redirect'] = $redirect_to;
 ?>
 
