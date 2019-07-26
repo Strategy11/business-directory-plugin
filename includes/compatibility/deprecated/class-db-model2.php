@@ -253,7 +253,12 @@ class WPBDP_DB_Model2 {
                 return null;
         }
 
-        return array_map( create_function( '$x', 'return new ' . $classname . '( $x );' ), $wpdb->get_results( $query, ARRAY_A ) );
+        return array_map( 
+            function( $x ) use ( $classname ) {
+                return new $classname( $x ); 
+            },
+            $wpdb->get_results( $query, ARRAY_A ) 
+        );
     }
 
 
