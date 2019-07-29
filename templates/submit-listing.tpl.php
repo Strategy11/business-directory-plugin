@@ -18,7 +18,7 @@
             <?php endforeach; ?>
 
         <div class="wpbdp-submit-listing-form-actions">
-            <input type="button" value="<?php _ex( 'Clear Form', 'submit listing', 'WPBDM' ); ?>" />
+            <input type="reset" value="<?php _ex( 'Clear Form', 'submit listing', 'WPBDM' ); ?>" />
             <?php if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ): ?>
             <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
             <?php else: ?>
