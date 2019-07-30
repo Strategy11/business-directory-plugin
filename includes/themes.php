@@ -1,14 +1,23 @@
 <?php
 /**
+ * BD Premium Themes setup
+ * @since 4.0
+ */
+
+/**
+ * Class WPBDP_Themes
+ * 
  * @since 4.0
  */
 class WPBDP_Themes {
 
-    private $themes = array();
+    private $themes        = array();
     private $template_dirs = array();
-    private $cache = array( 'templates' => array(),
-                            'rendered' => array(),
-                            'template_vars_stack' => array() );
+    private $cache         = array(
+		'templates'           => array(),
+		'rendered'            => array(),
+		'template_vars_stack' => array(),
+	);
 
 
     function __construct() {
@@ -17,11 +26,12 @@ class WPBDP_Themes {
         // Overrides dir is priority 0.
         $this->template_dirs[] = trailingslashit( get_stylesheet_directory() ) . 'business-directory/';
 
-        if ( get_stylesheet_directory() != get_template_directory() )
+        if ( get_stylesheet_directory() != get_template_directory() ) {
             $this->template_dirs[] = trailingslashit( get_template_directory() ) . 'business-directory/';
+        }
 
         // Theme template dir is priority 1.
-        $theme = $this->get_active_theme_data();
+        $theme                 = $this->get_active_theme_data();
         $this->template_dirs[] = $theme->path . 'templates/';
 
         // Core templates are last priority.
@@ -46,7 +56,7 @@ class WPBDP_Themes {
         add_action( 'wp_footer', array( $this, 'fee_specific_coloring' ), 999 );
 
         if ( is_admin() ) {
-            require_once( WPBDP_PATH . 'includes/admin/class-themes-admin.php' );
+            require_once WPBDP_PATH . 'includes/admin/class-themes-admin.php';
             $this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
         }
     }
@@ -55,17 +65,21 @@ class WPBDP_Themes {
         $theme = $this->get_active_theme_data();
 
         // If no function name is provided, just load the file.
-        if ( ! $fname && file_exists( $theme->path . 'theme.php' ) )
-            include_once( $theme->path . 'theme.php' );
+        if ( ! $fname && file_exists( $theme->path . 'theme.php' ) ) {
+            include_once $theme->path . 'theme.php';
+        }
 
-        if ( ! $fname )
+        if ( ! $fname ) {
             return;
+        }
 
         $theme_name = str_replace( array( '-' ), array( '_' ), $theme->id );
 
-        $alternatives = array( 'wpbdp_themes__' . $theme_name . '_' . $fname,
-                               'wpbdp_' . $theme_name . '_' . $fname,
-                               $theme_name . '_' . $fname );
+        $alternatives = array(
+			'wpbdp_themes__' . $theme_name . '_' . $fname,
+			'wpbdp_' . $theme_name . '_' . $fname,
+			$theme_name . '_' . $fname,
+		);
 
         foreach ( $alternatives as $alt ) {
             if ( function_exists( $alt ) ) {
@@ -76,7 +90,7 @@ class WPBDP_Themes {
     }
 
     function load_theme_translation() {
-        $theme = $this->get_active_theme_data();
+        $theme  = $this->get_active_theme_data();
         $locale = get_locale();
 
         $mofile = WP_CONTENT_DIR . "/languages/plugins/wpbdp-{$theme->id}-{$locale}.mo";
@@ -85,16 +99,17 @@ class WPBDP_Themes {
             $mofile = untrailingslashit( $theme->path ) . "/languages/wpbdp-{$theme->id}-{$locale}.mo";
         }
 
-        if ( ! file_exists( $mofile ) )
+        if ( ! file_exists( $mofile ) ) {
             return;
+        }
 
         return load_textdomain( 'wpbdp-' . $theme->id, $mofile );
     }
 
     function enqueue_theme_scripts() {
         $theme = $this->get_active_theme_data();
-        $css = array_filter( (array) $theme->assets->css );
-        $js = array_filter( (array) $theme->assets->js );
+        $css   = array_filter( (array) $theme->assets->css );
+        $js    = array_filter( (array) $theme->assets->js );
 
         foreach ( $css as $c ) {
             wp_enqueue_style(
@@ -118,11 +133,11 @@ class WPBDP_Themes {
             if ( is_object( $j ) ) {
                 $handle = $theme->id . '-' . $this->_normalize_asset_name( $j->handle );
                 $source = $theme->url . 'assets/' . $j->handle;
-                $deps = $j->deps;
+                $deps   = $j->deps;
             } else {
                 $handle = $theme->id . '-' . $this->_normalize_asset_name( $j );
                 $source = $theme->url . 'assets/' . $j;
-                $deps = array();
+                $deps   = array();
             }
 
             wp_enqueue_script( $handle, $source, $deps, $theme->version );
@@ -138,8 +153,9 @@ class WPBDP_Themes {
             $options[] = $prefix . 'field-' . $field->get_id();
             $options[] = $prefix . 'field-' . $field->get_short_name();
 
-            if ( $field->get_tag() )
+            if ( $field->get_tag() ) {
                 $options[] = $prefix . 'field-' . $field->get_tag();
+            }
 
             $options[] = $prefix . 'field-type-' . $field->get_field_type_id();
             $options[] = $prefix . 'field';
@@ -147,30 +163,40 @@ class WPBDP_Themes {
 
         $path = '';
         foreach ( $options as $o ) {
-            if ( $path = $this->locate_template( $o ) )
+            if ( $path = $this->locate_template( $o ) ) {
                 break;
+            }
         }
 
-        if ( ! $path )
+        if ( ! $path ) {
             return $html;
+        }
 
-        $vars = array( 'field' => $field,
-                       'context' => $context,
-                       'listing_id' => $listing_id,
-                       'value' => $field->html_value( $listing_id ),
-                       'raw' => $field->value( $listing_id ) );
+        $vars = array(
+			'field'      => $field,
+			'context'    => $context,
+			'listing_id' => $listing_id,
+			'value'      => $field->html_value( $listing_id ),
+			'raw'        => $field->value( $listing_id ),
+		);
 
         return $this->render_template_file( $path, $path, $vars );
     }
 
     function fee_specific_coloring() {
-        $plans = wpbdp_get_fee_plans( array( 'include_free' => true, 'tag' => '' ) );
+        $plans = wpbdp_get_fee_plans(
+            array(
+				'include_free' => true,
+				'tag'          => '',
+            )
+        );
 
         echo '<style type="text/css">';
 
         foreach ( $plans as $plan ) {
-            if ( empty( $plan->extra_data['bgcolor'] ) )
+            if ( empty( $plan->extra_data['bgcolor'] ) ) {
                 continue;
+            }
 
             $color = $plan->extra_data['bgcolor'];
             echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . $plan->id . '{';
@@ -196,11 +222,13 @@ class WPBDP_Themes {
     function get_themes_directories() {
         $res = array();
 
-        $res[ WPBDP_PATH . 'themes/' ] = WPBDP_URL . 'themes/';
+        $res[ WPBDP_PATH . 'themes/' ]                        = WPBDP_URL . 'themes/';
         $res[ WP_CONTENT_DIR . '/businessdirectory-themes/' ] = WP_CONTENT_URL . '/businessdirectory-themes/';
 
-        $res = array_combine( array_map( 'wp_normalize_path', array_keys( $res ) ),
-                              array_values( $res ) );
+        $res = array_combine(
+            array_map( 'wp_normalize_path', array_keys( $res ) ),
+            array_values( $res )
+        );
 
         return $res;
     }
@@ -208,34 +236,39 @@ class WPBDP_Themes {
     /**
      * Scans all theme directories to find themes and returns information about them.
      * Subsequent calls to this function use an internal cache to avoid unnecessary I/O.
+     *
      * @return array An array of theme objects.
      */
     function get_installed_themes() {
         // Use cached info if available.
-        if ( ! empty( $this->themes ) )
+        if ( ! empty( $this->themes ) ) {
             return $this->themes;
+        }
 
         $this->find_themes();
         return $this->themes;
     }
 
     function find_themes( $reload = false ) {
-        if ( ! empty( $this->themes ) && ! $reload )
+        if ( ! empty( $this->themes ) && ! $reload ) {
             return;
+        }
 
         $this->themes = array();
 
         foreach ( $this->get_themes_directories() as $path => $url ) {
             $dirs = WPBDP_FS::ls( $path, 'filter=dir' );
 
-            if ( ! $dirs )
+            if ( ! $dirs ) {
                 continue;
+            }
 
             foreach ( $dirs as $d ) {
                 $info = $this->_get_theme_info( $d );
 
-                if ( ! $info )
+                if ( ! $info ) {
                     continue;
+                }
 
                 $this->themes[ $info->id ] = $info;
             }
@@ -244,19 +277,23 @@ class WPBDP_Themes {
 
     /**
      * Changes the active theme.
+     *
      * @param string $theme_id
      * @return boolean True if theme was changed successfully, False otherwise.
      */
     function set_active_theme( $theme_id = '' ) {
-        if ( ! $theme_id )
+        if ( ! $theme_id ) {
             return false;
+        }
 
         $themes = $this->get_installed_themes();
-        if ( ! isset( $themes[ $theme_id ] ) )
+        if ( ! isset( $themes[ $theme_id ] ) ) {
             return false;
+        }
 
-        if ( $theme_id == $this->get_active_theme() )
+        if ( $theme_id == $this->get_active_theme() ) {
             return true;
+        }
 
         $ok = update_option( 'wpbdp-active-theme', $theme_id );
 
@@ -270,36 +307,41 @@ class WPBDP_Themes {
 
     /**
      * Retrieves the ID for the current active theme.
+     *
      * @return string
      */
-    function get_active_theme() { 
+    function get_active_theme() {
         $active = get_option( 'wpbdp-active-theme', 'default' );
         $themes = $this->get_installed_themes();
 
-        if ( ! isset( $themes[ $active ] ) )
+        if ( ! isset( $themes[ $active ] ) ) {
             return 'default';
+        }
 
         return $active;
     }
 
     /**
      * Retrieves theme information for the current active theme.
+     *
      * @return object
      */
     function get_active_theme_data( $key = null ) {
         $active = $this->get_active_theme();
-        $data = $this->themes[ $active ];
+        $data   = $this->themes[ $active ];
 
-        if ( ! is_null( $key ) )
+        if ( ! is_null( $key ) ) {
             return isset( $data->{$key} ) ? $data->{$key} : false;
+        }
 
         return $data;
     }
 
     public function get_theme( $theme_id ) {
-        if ( isset( $this->themes[ $theme_id ] ) )
+        if ( isset( $this->themes[ $theme_id ] ) ) {
             return $this->themes[ $theme_id ];
-        
+        }
+
         return false;
     }
 
@@ -312,8 +354,8 @@ class WPBDP_Themes {
 
         $key = ( ! $key ) ? 'tag' : $key;
 
-        $missing = array();
-        $suggested_fields = array_filter( (array) $this->get_active_theme_data( 'suggested_fields' ) );
+        $missing             = array();
+        $suggested_fields    = array_filter( (array) $this->get_active_theme_data( 'suggested_fields' ) );
         $current_fields_tags = $wpdb->get_col( "SELECT tag FROM {$wpdb->prefix}wpbdp_form_fields" );
 
         $missing_tags = array_diff( $suggested_fields, $current_fields_tags );
@@ -321,8 +363,9 @@ class WPBDP_Themes {
         foreach ( $missing_tags as $mt ) {
             $info = $wpbdp->formfields->get_default_fields( $mt );
 
-            if ( ! $info )
+            if ( ! $info ) {
                 continue;
+            }
 
             $missing[] = $info[ $key ];
         }
@@ -340,8 +383,9 @@ class WPBDP_Themes {
         }
 
         $manifest = (array) json_decode( file_get_contents( $manifest_file ) );
-        if ( ! $manifest )
+        if ( ! $manifest ) {
             return false;
+        }
 
         $theme_keys = array(
             array( 'id', 'string', basename( $d ) ),
@@ -353,11 +397,20 @@ class WPBDP_Themes {
             array( 'author_email', 'email', '' ),
             array( 'author_url', 'url', '' ),
             array( 'requires', 'string', '4.0dev' ),
-            array( 'assets', 'array', array( 'css' => null, 'js' => null ), array( 'allow_other_keys' => false ) ),
+            array(
+				'assets',
+				'array',
+				array(
+					'css' => null,
+					'js'  => null,
+				),
+				array( 'allow_other_keys' => false ),
+			),
             array( 'template_variables', 'array', array() ),
             array( 'suggested_fields', 'array', array() ),
-            array( 'thumbnails', 'array', array() )
-/*            array( 'assets/css', 'array/string', array() ),
+            array( 'thumbnails', 'array', array() ),
+		/*
+		            array( 'assets/css', 'array/string', array() ),
             array( 'assets/js', 'array/string', array() )*/
         );
 
@@ -365,7 +418,7 @@ class WPBDP_Themes {
 
         foreach ( $theme_keys as $i ) {
             list( $k, $type, $default ) = $i;
-            $value = isset( $manifest[ $k ] ) ? $manifest[ $k ] : $default;
+            $value                      = isset( $manifest[ $k ] ) ? $manifest[ $k ] : $default;
 
             switch ( $type ) {
                 case 'string':
@@ -386,23 +439,25 @@ class WPBDP_Themes {
                     break;
             }
 
-            if ( is_null( $value ) )
+            if ( is_null( $value ) ) {
                 continue;
+            }
 
             $info->{$k} = $value;
         }
 
         $info->path = $d;
 
-        if ( ! $this->_guess_theme_path_info( $info ) )
+        if ( ! $this->_guess_theme_path_info( $info ) ) {
             return false;
+        }
 
         return $info;
     }
 
     public function sync_settings() {
         return;
-        $themes_data = get_option( 'wpbdp-themes-licenses', array() );
+        $themes_data    = get_option( 'wpbdp-themes-licenses', array() );
         $wpbdp_settings = get_option( 'wpbdp_settings', array() );
 
         if ( $themes_data ) {
@@ -427,12 +482,14 @@ class WPBDP_Themes {
             $t->is_core_theme = $this->_is_core_theme( $t );
 
             if ( ! $t->is_core_theme ) {
-                wpbdp()->licensing->add_item( array(
-                    'item_type' => 'theme',
-                    'id'        => $t->id,
-                    'name'      => $t->name,
-                    'version'   => $t->version,
-                ) );
+                wpbdp()->licensing->add_item(
+                    array(
+						'item_type' => 'theme',
+						'id'        => $t->id,
+						'name'      => $t->name,
+						'version'   => $t->version,
+                    )
+                );
                 // $t->license_key = wpbdp_get_option( 'license-key-theme-' . $t->id );
                 // $t->license_status = get_option( 'wpbdp-license-status-theme-' . $t->id );
             }
@@ -476,13 +533,18 @@ class WPBDP_Themes {
         }
 
         $params = array(
-            'tag' => 'theme',
+            'tag'    => 'theme',
             'number' => 10,
         );
 
         $url = add_query_arg( $params, 'http://businessdirectoryplugin.com/edd-api/v2/products/' );
 
-        $response = wp_remote_get( $url, array( 'timeout' => 15, 'sslverify' => false ) );
+        $response = wp_remote_get(
+            $url, array(
+				'timeout'   => 15,
+				'sslverify' => false,
+            )
+        );
 
         if ( is_wp_error( $response ) ) {
             set_transient( 'wpbdp-official-themes', array(), HOUR_IN_SECONDS );
@@ -529,15 +591,17 @@ class WPBDP_Themes {
     }
 
     function add_template_dir( $dir_or_file ) {
-        if ( ! is_dir( $dir_or_file ) )
+        if ( ! is_dir( $dir_or_file ) ) {
             return false;
+        }
 
         $path = trailingslashit( wp_normalize_path( $dir_or_file ) );
 
-        if ( in_array( $path, $this->template_dirs, true ) )
+        if ( in_array( $path, $this->template_dirs, true ) ) {
             return true;
+        }
 
-        $last = array_pop( $this->template_dirs );
+        $last                  = array_pop( $this->template_dirs );
         $this->template_dirs[] = $path;
         $this->template_dirs[] = $last;
 
@@ -549,10 +613,11 @@ class WPBDP_Themes {
     }
 
     private function render_template_file( $template_id, $path, $vars = array() ) {
-        if ( ! $path )
+        if ( ! $path ) {
             throw new Exception( 'Invalid template path for template: "' . $template_id . '"' );
+        }
 
-        $in_wrapper = isset( $vars['_child'] );
+        $in_wrapper    = isset( $vars['_child'] );
         $template_meta = $this->get_template_meta( $path );
 
         if ( ! $in_wrapper ) {
@@ -570,7 +635,7 @@ class WPBDP_Themes {
         extract( $vars );
 
         ob_start();
-        include( $path );
+        include $path;
         $html = ob_get_contents();
         ob_end_clean();
 
@@ -583,28 +648,30 @@ class WPBDP_Themes {
         // Add before/after to the HTML directly.
         if ( $is_part || in_array( 'before', $template_meta['blocks'], true ) ) {
             // leave html unmodified
-        } else if ( ! empty( $vars['blocks']['before'] ) ) {
+        } elseif ( ! empty( $vars['blocks']['before'] ) ) {
             $html = $vars['blocks']['before'] . $html;
         }
 
         if ( $is_part || in_array( 'after', $template_meta['blocks'], true ) ) {
             // leave html unmodified
-        } else if ( ! empty( $vars['blocks']['after'] ) ) {
+        } elseif ( ! empty( $vars['blocks']['after'] ) ) {
             $html = $html . $vars['blocks']['after'];
         }
 
         if ( ! $in_wrapper && $vars['_wrapper_path'] ) {
             $in_wrapper = true;
 
-            $vars2 = array( '_template' => $vars['_wrapper'],
-                            '_path' => $vars['_wrapper_path'],
-                            '_class' => $vars['_class'],
-                            '_child' => (object) $vars,
-                            'content' => $html );
-            $wrapper_html = $this->render_template_file( $vars['_wrapper_path'],  $vars['_wrapper_path'], $vars2 );
+            $vars2        = array(
+				'_template' => $vars['_wrapper'],
+				'_path'     => $vars['_wrapper_path'],
+				'_class'    => $vars['_class'],
+				'_child'    => (object) $vars,
+				'content'   => $html,
+			);
+            $wrapper_html = $this->render_template_file( $vars['_wrapper_path'], $vars['_wrapper_path'], $vars2 );
 
             $in_wrapper = false;
-            $html = $wrapper_html;
+            $html       = $wrapper_html;
         }
 
         array_pop( $this->cache['template_vars_stack'] );
@@ -626,8 +693,11 @@ class WPBDP_Themes {
      * @return Array of meta information in `variable => array()` format.
      */
     private function get_template_meta( $template_path ) {
-        $default_headers = array( 'blocks' => 'Template Blocks', 'variables' => 'Template Variables' );
-        $template_meta = get_file_data( $template_path, $default_headers, 'business_directory_template' );
+        $default_headers = array(
+			'blocks'    => 'Template Blocks',
+			'variables' => 'Template Variables',
+		);
+        $template_meta   = get_file_data( $template_path, $default_headers, 'business_directory_template' );
 
         foreach ( array_keys( $default_headers ) as $variable ) {
             if ( ! $template_meta[ $variable ] ) {
@@ -646,32 +716,36 @@ class WPBDP_Themes {
 
         $last = count( $this->cache['template_vars_stack'] ) - 1;
 
-        if ( $last >= 0 )
+        if ( $last >= 0 ) {
             $vars = $this->cache['template_vars_stack'][ $last ];
-        else
-            $vars = array();
+        } else {
+			$vars = array();
+        }
 
-        $vars['_part'] = true;
-        $vars['_wrapper'] = '';
+        $vars['_part']         = true;
+        $vars['_wrapper']      = '';
         $vars['_wrapper_path'] = '';
 
         $output = $this->render( $template_id, array_merge( $additional_vars, $vars ) );
         return $output;
     }
 
-    function _configure_template_vars ( $template_id, $path, &$vars ) {
+    function _configure_template_vars( $template_id, $path, &$vars ) {
         $defaults = array(
-            '_id' => str_replace( array( '.tpl.php', ' ' ),
-                                  array( '', '-' ),
-                                  $template_id ),
-            '_template' => $template_id,
-            '_path' => $path,
-            '_wrapper' => '',
+            '_id'           => str_replace(
+                array( '.tpl.php', ' ' ),
+                array( '', '-' ),
+                $template_id
+            ),
+            '_template'     => $template_id,
+            '_path'         => $path,
+            '_wrapper'      => '',
             '_wrapper_path' => '',
-            '_parent' => '',
-/*            '_bar' => false,
-'_bar_items' => array( 'links', 'search' ),*/
-            '_class' => ''
+            '_parent'       => '',
+			/*
+		            '_bar' => false,
+			'_bar_items' => array( 'links', 'search' ),*/
+				'_class'    => '',
         );
 
         $vars = array_merge( $defaults, $vars );
@@ -679,31 +753,34 @@ class WPBDP_Themes {
         if ( $vars['_wrapper'] ) {
             $vars['_wrapper_path'] = $this->locate_template( $vars['_wrapper'] );
 
-            if ( ! $vars['_wrapper_path'] )
+            if ( ! $vars['_wrapper_path'] ) {
                 $vars['_wrapper'] = '';
+            }
         }
 
         if ( $this->cache['template_vars_stack'] ) {
-            $cnt = count( $this->cache['template_vars_stack'] );
+            $cnt  = count( $this->cache['template_vars_stack'] );
             $last = $this->cache['template_vars_stack'][ $cnt - 1 ];
 
-            if ( ! empty( $last['_template'] ) )
+            if ( ! empty( $last['_template'] ) ) {
                 $vars['_parent'] = $last['_template'];
+            }
         }
 
         $vars = apply_filters( 'wpbdp_template_variables', $vars, $template_id );
         $vars = apply_filters( 'wpbdp_template_variables__' . $template_id, $vars, $path );
 
         // Add info about current theme.
-        $theme = $this->get_active_theme_data();
+        $theme              = $this->get_active_theme_data();
         $vars['THEME_PATH'] = $theme->path;
-        $vars['THEME_URL'] = $theme->url;
+        $vars['THEME_URL']  = $theme->url;
     }
 
     function _process_template_vars( &$vars ) {
         foreach ( $vars as $k => $v ) {
-            if ( '#' != $k[0] )
+            if ( '#' != $k[0] ) {
                 continue;
+            }
 
             $k_ = substr( $k, 1 );
 
@@ -714,11 +791,12 @@ class WPBDP_Themes {
 
             $vars[ $k ]['weight'] = isset( $v['weight'] ) ? intval( $v['weight'] ) : 10;
 
-            if ( array_key_exists( 'value', $v ) )
+            if ( array_key_exists( 'value', $v ) ) {
                 continue;
+            }
 
             if ( array_key_exists( 'callback', $v ) ) {
-                $vars[ $k ]['value'] = call_user_func_array( $v['callback'], array( $vars, $vars['_template'] ) ); // TODO: support 'echo'ed output too. 
+                $vars[ $k ]['value'] = call_user_func_array( $v['callback'], array( $vars, $vars['_template'] ) ); // TODO: support 'echo'ed output too.
                 unset( $vars[ $k ]['callback'] );
             }
         }
@@ -727,13 +805,20 @@ class WPBDP_Themes {
     private function _configure_template_blocks( &$vars, $template_variables = array() ) {
         $template_id = $vars['_template'];
 
-        $blocks = array( 'after' => array(), 'before' => array() );
+        $blocks = array(
+			'after'  => array(),
+			'before' => array(),
+		);
         // Merge blocks from parent.
         // TODO: how do we handle cases where the parent says it is going to handle a block and a "part" should do that?
         // Maybe we should not process blocks for "parts" and just use whatever the calling template had?
         if ( isset( $vars['blocks'] ) && $vars['blocks'] ) {
             foreach ( $vars['blocks'] as $pos => $bl ) {
-                $vars['#inherited_' . $pos] = array( 'position' => $pos, 'value' => $bl, 'weight' => 0 );
+                $vars[ '#inherited_' . $pos ] = array(
+					'position' => $pos,
+					'value'    => $bl,
+					'weight'   => 0,
+				);
             }
         }
         $vars['blocks'] = array();
@@ -748,18 +833,20 @@ class WPBDP_Themes {
         }
 
         foreach ( $vars as $var => $content ) {
-            if ( '#' != $var[0] )
+            if ( '#' != $var[0] ) {
                 continue;
+            }
 
-            $new_key = substr( $var, 1 );
+            $new_key      = substr( $var, 1 );
             $var_position = $content['position'];
-            $var_value = $content['value'];
-            $var_weight = $content['weight'];
+            $var_value    = $content['value'];
+            $var_weight   = $content['weight'];
 
             if ( ! in_array( $new_key, $theme_vars, true ) ) {
                 if ( isset( $blocks[ $var_position ] ) ) {
-                    if ( ! isset( $blocks[ $var_position ][ $var_weight ] ) )
+                    if ( ! isset( $blocks[ $var_position ][ $var_weight ] ) ) {
                         $blocks[ $var_position ][ $var_weight ] = array();
+                    }
 
                     $blocks[ $var_position ][ $var_weight ][ $new_key ] = $var_value;
                 } else {
@@ -776,24 +863,27 @@ class WPBDP_Themes {
         foreach ( $blocks as $block_id => &$block_content ) {
             $vars['blocks'][ $block_id ] = '';
 
-            if ( ! $block_content )
+            if ( ! $block_content ) {
                 continue;
+            }
 
             ksort( $block_content, SORT_NUMERIC );
 
-            foreach ( $block_content as $prio => $c )
+            foreach ( $block_content as $prio => $c ) {
                 $vars['blocks'][ $block_id ] .= implode( '', $c );
+            }
         }
     }
 
     function locate_template( $id ) {
         $id = str_replace( '.tpl.php', '', $id );
 
-        if ( isset( $this->cache['templates'][ $id ] ) )
+        if ( isset( $this->cache['templates'][ $id ] ) ) {
             return $this->cache['templates'][ $id ];
+        }
 
         $filename = str_replace( ' ', '-', $id ) . '.tpl.php';
-        $path = false;
+        $path     = false;
 
         // Find the template.
         foreach ( $this->template_dirs as $p ) {
@@ -803,16 +893,17 @@ class WPBDP_Themes {
             }
         }
 
-        if ( $path )
+        if ( $path ) {
             $this->cache['templates'][ $id ] = $path;
+        }
 
         return $path;
     }
 
     function install_theme( $file ) {
-        $themes_dir = wp_normalize_path( WP_CONTENT_DIR . '/businessdirectory-themes/' ); // TODO: do not hardcode this directory.
+        $themes_dir                       = wp_normalize_path( WP_CONTENT_DIR . '/businessdirectory-themes/' ); // TODO: do not hardcode this directory.
         list( $temp_dir, $unzipped_dir, ) = WPBDP_FS::unzip_to_temp_dir( $file );
-        $package_dir = $unzipped_dir;
+        $package_dir                      = $unzipped_dir;
 
         // Search for a dir containing 'theme.json'.
         $files = WPBDP_FS::ls( $unzipped_dir, 'recursive=1' );
@@ -825,23 +916,31 @@ class WPBDP_Themes {
 
         if ( ! file_exists( WPBDP_FS::join( $package_dir, 'theme.json' ) ) ) {
             WPBDP_FS::rmdir( $temp_dir );
-            return new WP_Error( 'no-theme-file',
-                                 _x( 'ZIP file is not a valid BD theme file.', 'themes', 'WPBDM' ) );
+            return new WP_Error(
+                'no-theme-file',
+                _x( 'ZIP file is not a valid BD theme file.', 'themes', 'WPBDM' )
+            );
         }
 
         if ( ! WPBDP_FS::mkdir( $themes_dir ) ) {
             WPBDP_FS::rmdir( $temp_dir );
-            return new WP_Error( 'no-themes-directory',
-                                 _x( 'Could not create themes directory.', 'themes', 'WPBDM' ) );
+            return new WP_Error(
+                'no-themes-directory',
+                _x( 'Could not create themes directory.', 'themes', 'WPBDM' )
+            );
         }
 
         $dest_dir = $themes_dir . basename( $package_dir );
 
         if ( ! WPBDP_FS::rmdir( $dest_dir ) ) {
             WPBDP_FS::rmdir( $temp_dir );
-            return new WP_Error( 'old-theme-not-removed',
-                                 sprintf( _x( 'Could not remove previous theme directory "%s".', 'themes', 'WPBDM' ), 
-                                          $dest_dir ) );
+            return new WP_Error(
+                'old-theme-not-removed',
+                sprintf(
+                    _x( 'Could not remove previous theme directory "%s".', 'themes', 'WPBDM' ),
+                    $dest_dir
+                )
+            );
         }
 
         if ( ! WPBDP_FS::movedir( $package_dir, $themes_dir ) ) {
@@ -859,8 +958,9 @@ class WPBDP_Themes {
 function wpbdp_x_render( $template_id, $vars = array(), $wrapper = '' ) {
     global $wpbdp;
 
-    if ( $wrapper && ! isset( $vars['_wrapper'] ) )
+    if ( $wrapper && ! isset( $vars['_wrapper'] ) ) {
         $vars['_wrapper'] = $wrapper;
+    }
 
     return $wpbdp->themes->render( $template_id, $vars );
 }
