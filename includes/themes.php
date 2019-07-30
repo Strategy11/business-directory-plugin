@@ -79,7 +79,11 @@ class WPBDP_Themes {
         $theme = $this->get_active_theme_data();
         $locale = get_locale();
 
-        $mofile = untrailingslashit( $theme->path ) . "/languages/wpbdp-{$theme->id}-{$locale}.mo";
+        $mofile = WP_CONTENT_DIR . "/languages/plugins/wpbdp-{$theme->id}-{$locale}.mo";
+
+        if ( ! file_exists( $mofile ) ) {
+            $mofile = untrailingslashit( $theme->path ) . "/languages/wpbdp-{$theme->id}-{$locale}.mo";
+        }
 
         if ( ! file_exists( $mofile ) )
             return;
