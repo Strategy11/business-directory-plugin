@@ -1,6 +1,8 @@
 <?php
 /**
  * Compatibility code for Beaver Themer.
+ *
+ * @package BDP/Compatibility
  */
 
 /**
@@ -8,12 +10,16 @@
  */
 class WPBDP_Beaver_Themer_Compat {
 
-    function __construct() {
-        add_filter( 'wpbdp_has_shortcode', array( &$this, 'cornerstone_wpbdp_has_shortcode' ), 10, 3 );
+    public function __construct() {
+        add_filter( 'wpbdp_has_shortcode', array( &$this, 'themer_wpbdp_has_shortcode' ), 10, 3 );
     }
 
-    function cornerstone_wpbdp_has_shortcode( $has_shortcode, $post, $shortcode ) {
+    public function themer_wpbdp_has_shortcode( $has_shortcode, $post, $shortcode ) {
         if ( $has_shortcode ) {
+            return $has_shortcode;
+        }
+
+        if ( ! class_exists( 'FLBuilder' ) || ! class_exists( 'FLThemeBuilderLayoutData' ) || ! class_exists( 'FLBuilderModel' ) ) {
             return $has_shortcode;
         }
 
@@ -23,7 +29,7 @@ class WPBDP_Beaver_Themer_Compat {
             return $has_shortcode;
         }
 
-        if ( 'fl-theme-layout' == get_post_type() && count( $ids ) > 1 ) {
+        if ( 'fl-theme-layout' === get_post_type() && count( $ids ) > 1 ) {
             $post_id = FLBuilderModel::get_post_id();
         } else {
             $post_id = $ids[0];
