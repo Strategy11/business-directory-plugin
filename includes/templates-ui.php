@@ -56,10 +56,20 @@ function _wpbdp_padded_count( &$term, $return = false ) {
         $tree_ids = array_merge( array( $term->term_id ), get_term_children( $term->term_id, WPBDP_CATEGORY_TAX ) );
 
         if ( $tree_ids ) {
-            $tt_ids = $wpdb->get_col( $wpdb->prepare( "SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id IN (" . implode( ',', $tree_ids ) . ') AND taxonomy = %s', WPBDP_CATEGORY_TAX ) );
+            $format = implode( ', ', array_fill( 0, count( $tree_ids ), '%d' ) );
+            $tt_ids = $wpdb->get_col(
+                $wpdb->prepare(
+                    "SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id IN ( $format ) AND taxonomy = %s",
+                    array_merge( (array)$tree_ids, array( WPBDP_CATEGORY_TAX ) )
+                    )
+                );
 
             if ( $tt_ids ) {
-                $query = $wpdb->prepare( "SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN (" . implode( ',', $tt_ids ) . ')', 'publish', WPBDP_POST_TYPE );
+                $format = implode( ', ', array_fill( 0, count( $tt_ids ), '%d' ) );
+                $query = $wpdb->prepare(
+                    "SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN ( $format )",
+                    array_merge( array( 'publish', WPBDP_POST_TYPE ), (array)$tt_ids )
+                );
 
                 $count = intval( $wpdb->get_var( $query ) );
             }
@@ -531,15 +541,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
         _wpbdp_resize_image_if_needed( $main_image->ID );
 
         $image_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
-
-        //Fix for #4185, remove before 5.6. {
-        if ( 'wpbdp-thumbnail' === $image_size ) {
-            $image_size = 'wpbdp-thumb';
-            wpbdp_set_option( 'listing-main-image-default-size', $image_size );
-        }
-        //}.
-
-        $image_img = wp_get_attachment_image(
+        $image_img  = wp_get_attachment_image(
             $main_image->ID,
             'uploaded' !== $image_size ? $image_size : '',
             false,
