@@ -474,11 +474,18 @@ function _wpbdp_resize_image_if_needed( $id ) {
 
     if ( $thumb_info ) {
         $thumb_width = absint( $thumb_info['width'] );
-        $def_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
+        $thumb_height = absint( $thumb_info['height'] );
+        $def_width   = absint( wpbdp_get_option( 'thumbnail-width' ) );
+        $def_height  = absint( wpbdp_get_option( 'thumbnail-height' ) );
 
         // 10px of tolerance.
-        if ( abs( $thumb_width - $def_width ) < 10 )
+        if ( abs( $thumb_width - $def_width ) < 10 ) {
             return;
+        }
+
+        if ( wpbdp_get_option( 'thumbnail-crop' ) && abs( $thumb_height - $def_height ) < 10  ) {
+            return;
+        }
     }
 
     $filename = get_attached_file( $id, true );
