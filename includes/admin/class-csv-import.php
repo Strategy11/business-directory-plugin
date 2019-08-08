@@ -495,7 +495,6 @@ class WPBDP_CSV_Import {
                 $c['term_id'] = $t['term_id'];
             } else {
                 $t = wp_insert_term( str_replace( '&amp;', '&', $c['name'] ), WPBDP_CATEGORY_TAX );
-                $a = $t['term_id'];
 
                 if ( is_array( $t ) && isset( $t['term_id'] ) ) {
                     $c['term_id'] = $t['term_id'];
@@ -572,7 +571,7 @@ class WPBDP_CSV_Import {
         $listing_data['append_images'] = $this->settings['append-images'];
         $listing_data['post_status']   = $listing_id ? wpbdp_get_option( 'edit-post-status' ) : $this->settings['post-status'];
 
-        if ( $data['plan_id'] ) {
+        if ( ! empty( $data['plan_id'] ) ) {
             $listing_data['plan_id'] = $data['plan_id'];
         }
 
