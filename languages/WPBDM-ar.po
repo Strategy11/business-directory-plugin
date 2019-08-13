@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-07-23 22:59:23+00:00\n"
+"POT-Creation-Date: 2019-08-13 23:12:17+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -60,7 +60,7 @@ msgstr "حذف إضافة دليل الأعمال"
 msgid "Uninstall"
 msgstr "حذف"
 
-#: includes/admin/class-csv-import.php:625
+#: includes/admin/class-csv-import.php:624
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Poster annonce(paiement initial)"
@@ -308,7 +308,7 @@ msgstr "العنوان"
 msgid "ZIP Code"
 msgstr "الرمز البريدي"
 
-#: includes/functions.php:531
+#: includes/functions.php:541
 msgid "Free"
 msgstr "مجاني"
 
@@ -333,15 +333,15 @@ msgstr ""
 msgid "The payment gateway \"<payment-gateway>\" is not available."
 msgstr ""
 
-#: includes/templates-ui.php:277
+#: includes/templates-ui.php:287
 msgid "Directory"
 msgstr "الدليل"
 
-#: includes/templates-ui.php:286
+#: includes/templates-ui.php:296
 msgid "View All Listings"
 msgstr "مشاهدة جميع الإعلانات"
 
-#: includes/templates-ui.php:295
+#: includes/templates-ui.php:305
 msgid "Create A Listing"
 msgstr "إنشاء إعلان"
 
@@ -462,39 +462,39 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr "المساعدة"
 
-#: includes/admin/class-csv-import.php:503
+#: includes/admin/class-csv-import.php:502
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
 "with the following error: <error-message>."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:509
+#: includes/admin/class-csv-import.php:508
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "لا يمكن إنشاء تصنيف الإعلان \"%s\""
 
-#: includes/admin/class-csv-import.php:676
+#: includes/admin/class-csv-import.php:675
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "إسم المستخدم \"%s\" غير موجود"
 
-#: includes/admin/class-csv-import.php:702
+#: includes/admin/class-csv-import.php:701
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:724
+#: includes/admin/class-csv-import.php:723
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:747
+#: includes/admin/class-csv-import.php:746
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "حقل مطلوب مفقود: %s"
 
-#: includes/admin/class-csv-import.php:772
+#: includes/admin/class-csv-import.php:771
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "تصنيف الإعلان \"%s\" غير موجود"
@@ -1935,22 +1935,22 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "تم تحديث القالب بنجاح."
 
-#: includes/themes.php:825
+#: includes/themes.php:921
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "ملف الضغط ZIP ليس ملف قالب دليل الأعمال صالح."
 
-#: includes/themes.php:831
+#: includes/themes.php:929
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "تعذر إنشاء مجلد القوالب."
 
-#: includes/themes.php:839
+#: includes/themes.php:940
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "تعذر إزالة مجلد القالب السابق \"%s\"."
 
-#: includes/themes.php:845
+#: includes/themes.php:948
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "تعذر نقل القالب الجديد الى مجلد القالب."
@@ -3651,13 +3651,13 @@ msgid "Author"
 msgstr "الكاتب"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1181
+#: includes/functions.php:1191
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "تاريخ النشر"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1182
+#: includes/functions.php:1192
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "تاريخ آخر تعديل"
@@ -4053,12 +4053,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "رفع الصور"
 
-#: includes/functions.php:1179
+#: includes/functions.php:1189
 msgctxt "admin settings"
 msgid "User"
 msgstr "عضو"
 
-#: includes/functions.php:1180
+#: includes/functions.php:1190
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "تاريخ تسجيل العضو"
@@ -6936,13 +6936,13 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "البلد المطلوب."
 
-#: includes/functions.php:1259
+#: includes/functions.php:1269
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "العودة إلى الدليل."
 
-#: includes/functions.php:1263 includes/functions.php:1268
+#: includes/functions.php:1273 includes/functions.php:1278
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
@@ -6953,17 +6953,17 @@ msgctxt "templates"
 msgid "Return to fee selection"
 msgstr "الرجوع إلى الإعلان."
 
-#: includes/templates-ui.php:199
+#: includes/templates-ui.php:209
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "لم يتم العثور على تصنيفات الإعلانات."
 
-#: includes/templates-ui.php:334
+#: includes/templates-ui.php:344
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "البحث في الإعلانات"
 
-#: includes/templates-ui.php:339
+#: includes/templates-ui.php:349
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "بحث متقدم"
@@ -8073,17 +8073,17 @@ msgctxt "checkout"
 msgid "Next"
 msgstr ""
 
-#: includes/templates-ui.php:374 includes/templates-ui.php:406
+#: includes/templates-ui.php:384 includes/templates-ui.php:416
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "ترتيب حسب:"
 
-#: includes/templates-ui.php:397
+#: includes/templates-ui.php:407
 msgctxt "sort"
 msgid "Reset"
 msgstr "إعادة تعيين"
 
-#: includes/templates-ui.php:425
+#: includes/templates-ui.php:435
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(إعادة تعيين)"

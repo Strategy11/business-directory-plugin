@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-07-23 22:59:23+00:00\n"
+"POT-Creation-Date: 2019-08-13 23:12:17+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Uninstall"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:625
+#: includes/admin/class-csv-import.php:624
 msgid "Listing imported by admin. Payment skipped."
 msgstr ""
 
@@ -275,7 +275,7 @@ msgstr ""
 msgid "ZIP Code"
 msgstr ""
 
-#: includes/functions.php:531
+#: includes/functions.php:541
 msgid "Free"
 msgstr ""
 
@@ -299,15 +299,15 @@ msgstr ""
 msgid "The payment gateway \"<payment-gateway>\" is not available."
 msgstr ""
 
-#: includes/templates-ui.php:277
+#: includes/templates-ui.php:287
 msgid "Directory"
 msgstr ""
 
-#: includes/templates-ui.php:286
+#: includes/templates-ui.php:296
 msgid "View All Listings"
 msgstr ""
 
-#: includes/templates-ui.php:295
+#: includes/templates-ui.php:305
 msgid "Create A Listing"
 msgstr ""
 
@@ -417,39 +417,39 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:503
+#: includes/admin/class-csv-import.php:502
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
 "with the following error: <error-message>."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:509
+#: includes/admin/class-csv-import.php:508
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr ""
 
-#: includes/admin/class-csv-import.php:676
+#: includes/admin/class-csv-import.php:675
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:702
+#: includes/admin/class-csv-import.php:701
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:724
+#: includes/admin/class-csv-import.php:723
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:747
+#: includes/admin/class-csv-import.php:746
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:772
+#: includes/admin/class-csv-import.php:771
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr ""
@@ -1765,22 +1765,22 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr ""
 
-#: includes/themes.php:825
+#: includes/themes.php:921
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr ""
 
-#: includes/themes.php:831
+#: includes/themes.php:929
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: includes/themes.php:839
+#: includes/themes.php:940
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: includes/themes.php:845
+#: includes/themes.php:948
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""
@@ -3349,13 +3349,13 @@ msgid "Author"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1181
+#: includes/functions.php:1191
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1182
+#: includes/functions.php:1192
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr ""
@@ -3731,12 +3731,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr ""
 
-#: includes/functions.php:1179
+#: includes/functions.php:1189
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: includes/functions.php:1180
+#: includes/functions.php:1190
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr ""
@@ -6242,12 +6242,12 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr ""
 
-#: includes/functions.php:1259
+#: includes/functions.php:1269
 msgctxt "templates"
 msgid "Return to results"
 msgstr ""
 
-#: includes/functions.php:1263 includes/functions.php:1268
+#: includes/functions.php:1273 includes/functions.php:1278
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
@@ -6257,17 +6257,17 @@ msgctxt "templates"
 msgid "Return to fee selection"
 msgstr ""
 
-#: includes/templates-ui.php:199
+#: includes/templates-ui.php:209
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr ""
 
-#: includes/templates-ui.php:334
+#: includes/templates-ui.php:344
 msgctxt "templates"
 msgid "Search Listings"
 msgstr ""
 
-#: includes/templates-ui.php:339
+#: includes/templates-ui.php:349
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr ""
@@ -7270,17 +7270,17 @@ msgctxt "checkout"
 msgid "Next"
 msgstr ""
 
-#: includes/templates-ui.php:374 includes/templates-ui.php:406
+#: includes/templates-ui.php:384 includes/templates-ui.php:416
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr ""
 
-#: includes/templates-ui.php:397
+#: includes/templates-ui.php:407
 msgctxt "sort"
 msgid "Reset"
 msgstr ""
 
-#: includes/templates-ui.php:425
+#: includes/templates-ui.php:435
 msgctxt "sort"
 msgid "(Reset)"
 msgstr ""

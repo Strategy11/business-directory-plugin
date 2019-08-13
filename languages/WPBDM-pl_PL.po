@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-07-23 22:59:23+00:00\n"
+"POT-Creation-Date: 2019-08-13 23:12:17+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -68,7 +68,7 @@ msgid "Uninstall"
 msgstr "Odinstaluj "
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:625
+#: includes/admin/class-csv-import.php:624
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Prześlij ofertę"
@@ -358,7 +358,7 @@ msgid "ZIP Code"
 msgstr ""
 
 # @ WPBDM
-#: includes/functions.php:531
+#: includes/functions.php:541
 msgid "Free"
 msgstr "Tryb Bezpłatny"
 
@@ -387,17 +387,17 @@ msgid "The payment gateway \"<payment-gateway>\" is not available."
 msgstr ""
 
 # @ WPBDM
-#: includes/templates-ui.php:277
+#: includes/templates-ui.php:287
 msgid "Directory"
 msgstr "Katalog"
 
 # @ WPBDM
-#: includes/templates-ui.php:286
+#: includes/templates-ui.php:296
 msgid "View All Listings"
 msgstr "Zobacz wszystkie Firmy"
 
 # @ WPBDM
-#: includes/templates-ui.php:295
+#: includes/templates-ui.php:305
 msgid "Create A Listing"
 msgstr "Oferta Bezpłatna"
 
@@ -532,7 +532,7 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr "Pomoc"
 
-#: includes/admin/class-csv-import.php:503
+#: includes/admin/class-csv-import.php:502
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -540,35 +540,35 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:509
+#: includes/admin/class-csv-import.php:508
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:676
+#: includes/admin/class-csv-import.php:675
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Użytkownik  \"%s\" nie istnieje"
 
-#: includes/admin/class-csv-import.php:702
+#: includes/admin/class-csv-import.php:701
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:724
+#: includes/admin/class-csv-import.php:723
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:747
+#: includes/admin/class-csv-import.php:746
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Brak wymaganego pola: %s"
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:772
+#: includes/admin/class-csv-import.php:771
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Kategoria \"%s\" nie istnieje"
@@ -2217,25 +2217,25 @@ msgid "Theme was updated successfully."
 msgstr "Import zakończony pełnym sukcesem."
 
 # @ WPBDM
-#: includes/themes.php:825
+#: includes/themes.php:921
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/themes.php:831
+#: includes/themes.php:929
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Nie można utworzyć katalogu wpbdp-csv-eksport."
 
 # @ WPBDM
-#: includes/themes.php:839
+#: includes/themes.php:940
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/themes.php:845
+#: includes/themes.php:948
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Nie masz aktualnie ofert w katalogu."
@@ -4120,14 +4120,14 @@ msgstr "Autor"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1181
+#: includes/functions.php:1191
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data publikacji"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1182
+#: includes/functions.php:1192
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ostatnij modyfikacji"
@@ -4580,13 +4580,13 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Załaduj obraz"
 
-#: includes/functions.php:1179
+#: includes/functions.php:1189
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
 # @ WPBDM
-#: includes/functions.php:1180
+#: includes/functions.php:1190
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data zakończenia emisji oferty"
@@ -7777,13 +7777,13 @@ msgid "Caption for %s is required."
 msgstr "Kraj jest wymagany."
 
 # @ WPBDM
-#: includes/functions.php:1259
+#: includes/functions.php:1269
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Powrót do Katalogu."
 
-#: includes/functions.php:1263 includes/functions.php:1268
+#: includes/functions.php:1273 includes/functions.php:1278
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
@@ -7796,19 +7796,19 @@ msgid "Return to fee selection"
 msgstr "Powrót do oferty."
 
 # @ WPBDM
-#: includes/templates-ui.php:199
+#: includes/templates-ui.php:209
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Nie znaleziono kategorii ofert."
 
 # @ WPBDM
-#: includes/templates-ui.php:334
+#: includes/templates-ui.php:344
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Szukaj Firmy"
 
 # @ WPBDM
-#: includes/templates-ui.php:339
+#: includes/templates-ui.php:349
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Zaawansowane szukanie"
@@ -9052,19 +9052,19 @@ msgid "Next"
 msgstr ""
 
 # @ WPBDM
-#: includes/templates-ui.php:374 includes/templates-ui.php:406
+#: includes/templates-ui.php:384 includes/templates-ui.php:416
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortuj według: "
 
 # @ WPBDM
-#: includes/templates-ui.php:397
+#: includes/templates-ui.php:407
 msgctxt "sort"
 msgid "Reset"
 msgstr "Resetuj"
 
 # @ WPBDM
-#: includes/templates-ui.php:425
+#: includes/templates-ui.php:435
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Resetuj)"

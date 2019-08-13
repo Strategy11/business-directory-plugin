@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-07-23 22:59:23+00:00\n"
+"POT-Creation-Date: 2019-08-13 23:12:17+00:00\n"
 "PO-Revision-Date: 2019-06-25 13:45-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -60,7 +60,7 @@ msgstr "Disinstallare Business Directory Plugin"
 msgid "Uninstall"
 msgstr "Disinstalla"
 
-#: includes/admin/class-csv-import.php:625
+#: includes/admin/class-csv-import.php:624
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Elenco importato da admin. Pagamento saltato."
 
@@ -312,7 +312,7 @@ msgstr "Indirizzo lavoro"
 msgid "ZIP Code"
 msgstr "Codice Postale"
 
-#: includes/functions.php:531
+#: includes/functions.php:541
 msgid "Free"
 msgstr "Gratis"
 
@@ -337,15 +337,15 @@ msgstr ""
 msgid "The payment gateway \"<payment-gateway>\" is not available."
 msgstr "Il gateway di pagamento \"<payment-gateway>\" non è disponibile."
 
-#: includes/templates-ui.php:277
+#: includes/templates-ui.php:287
 msgid "Directory"
 msgstr "Directory"
 
-#: includes/templates-ui.php:286
+#: includes/templates-ui.php:296
 msgid "View All Listings"
 msgstr "Visualizza tutti gli annunci"
 
-#: includes/templates-ui.php:295
+#: includes/templates-ui.php:305
 msgid "Create A Listing"
 msgstr "Inserisci Annuncio"
 
@@ -461,7 +461,7 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr "Aiuto"
 
-#: includes/admin/class-csv-import.php:503
+#: includes/admin/class-csv-import.php:502
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -470,32 +470,32 @@ msgstr ""
 "Impossibile creare la categoria di Annunci \"<category-name>\". L'operazione "
 "non è riuscita per il seguente errore: <error-message>."
 
-#: includes/admin/class-csv-import.php:509
+#: includes/admin/class-csv-import.php:508
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Impossibile creare la categoria \"%s\""
 
-#: includes/admin/class-csv-import.php:676
+#: includes/admin/class-csv-import.php:675
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Nome Utente \"%s\" non esiste"
 
-#: includes/admin/class-csv-import.php:702
+#: includes/admin/class-csv-import.php:701
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "La stringa <string>non poteva essere convertita in una data valida."
 
-#: includes/admin/class-csv-import.php:724
+#: includes/admin/class-csv-import.php:723
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr "Non esiste un piano tariffario con ID = <fee-id>"
 
-#: includes/admin/class-csv-import.php:747
+#: includes/admin/class-csv-import.php:746
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Campo obbligatorio mancante: %s"
 
-#: includes/admin/class-csv-import.php:772
+#: includes/admin/class-csv-import.php:771
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "La categoria \"%s\" non esiste"
@@ -1907,22 +1907,22 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Il tema è stato aggiornato con successo."
 
-#: includes/themes.php:825
+#: includes/themes.php:921
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Il file ZIP non è un file tema BD valido."
 
-#: includes/themes.php:831
+#: includes/themes.php:929
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossibile creare una directory dei temi."
 
-#: includes/themes.php:839
+#: includes/themes.php:940
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossibile rimuovere la directory al tema precedente \"%s\"."
 
-#: includes/themes.php:845
+#: includes/themes.php:948
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Non è stato possibile spostare un nuovo tema nella directory dei temi."
@@ -3591,13 +3591,13 @@ msgid "Author"
 msgstr "Autore"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1181
+#: includes/functions.php:1191
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data di pubblicazione"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1182
+#: includes/functions.php:1192
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ultima modifica"
@@ -3996,12 +3996,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Carica Immagini"
 
-#: includes/functions.php:1179
+#: includes/functions.php:1189
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utente"
 
-#: includes/functions.php:1180
+#: includes/functions.php:1190
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data di registrazione"
@@ -6710,12 +6710,12 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "La didascalia per %s è necessaria."
 
-#: includes/functions.php:1259
+#: includes/functions.php:1269
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Ritorno ai risultati"
 
-#: includes/functions.php:1263 includes/functions.php:1268
+#: includes/functions.php:1273 includes/functions.php:1278
 msgctxt "templates"
 msgid "Go back"
 msgstr "Va indietro"
@@ -6725,17 +6725,17 @@ msgctxt "templates"
 msgid "Return to fee selection"
 msgstr "Ritorno alla selezione del piano tariffario"
 
-#: includes/templates-ui.php:199
+#: includes/templates-ui.php:209
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Nessuna categoria di annunci trovata."
 
-#: includes/templates-ui.php:334
+#: includes/templates-ui.php:344
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Cerca Annunci"
 
-#: includes/templates-ui.php:339
+#: includes/templates-ui.php:349
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Ricerca Avanzata"
@@ -7848,17 +7848,17 @@ msgctxt "checkout"
 msgid "Next"
 msgstr "Successivo"
 
-#: includes/templates-ui.php:374 includes/templates-ui.php:406
+#: includes/templates-ui.php:384 includes/templates-ui.php:416
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Ordina per:"
 
-#: includes/templates-ui.php:397
+#: includes/templates-ui.php:407
 msgctxt "sort"
 msgid "Reset"
 msgstr "Reset"
 
-#: includes/templates-ui.php:425
+#: includes/templates-ui.php:435
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Reset)"

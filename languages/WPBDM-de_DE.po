@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-07-23 22:59:23+00:00\n"
+"POT-Creation-Date: 2019-08-13 23:12:17+00:00\n"
 "PO-Revision-Date: 2019-07-16 15:05-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -60,7 +60,7 @@ msgstr "Branchenverzeichnis deinstallieren"
 msgid "Uninstall"
 msgstr "Deinstallieren"
 
-#: includes/admin/class-csv-import.php:625
+#: includes/admin/class-csv-import.php:624
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Eintrag zusenden (Initialbezahlung)"
@@ -307,7 +307,7 @@ msgstr "Adresse"
 msgid "ZIP Code"
 msgstr "Postleitzahl"
 
-#: includes/functions.php:531
+#: includes/functions.php:541
 msgid "Free"
 msgstr "Kostenlos"
 
@@ -332,15 +332,15 @@ msgstr ""
 msgid "The payment gateway \"<payment-gateway>\" is not available."
 msgstr ""
 
-#: includes/templates-ui.php:277
+#: includes/templates-ui.php:287
 msgid "Directory"
 msgstr "Verzeichnis"
 
-#: includes/templates-ui.php:286
+#: includes/templates-ui.php:296
 msgid "View All Listings"
 msgstr "Alle Einträge anschauen"
 
-#: includes/templates-ui.php:295
+#: includes/templates-ui.php:305
 msgid "Create A Listing"
 msgstr "Eintrag erstellen"
 
@@ -461,7 +461,7 @@ msgctxt "admin csv-import"
 msgid "Help"
 msgstr "Hilfe "
 
-#: includes/admin/class-csv-import.php:503
+#: includes/admin/class-csv-import.php:502
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -470,32 +470,32 @@ msgstr ""
 "Die Kategorieauflistung \"<category-name>\" konnte nicht erstellt werden. "
 "Der Vorgang ist mit dem folgenden Fehler fehlgeschlagen: <error-message>."
 
-#: includes/admin/class-csv-import.php:509
+#: includes/admin/class-csv-import.php:508
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: includes/admin/class-csv-import.php:676
+#: includes/admin/class-csv-import.php:675
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Benutzername \"%s\" existiert nicht"
 
-#: includes/admin/class-csv-import.php:702
+#: includes/admin/class-csv-import.php:701
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:724
+#: includes/admin/class-csv-import.php:723
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:747
+#: includes/admin/class-csv-import.php:746
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Benötigtes nicht vorhandenes Feld: %s"
 
-#: includes/admin/class-csv-import.php:772
+#: includes/admin/class-csv-import.php:771
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Eintragskategorie \"%s\" existiert nicht"
@@ -1960,22 +1960,22 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Der Import wurde erfolgreich abgeschlossen."
 
-#: includes/themes.php:825
+#: includes/themes.php:921
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: includes/themes.php:831
+#: includes/themes.php:929
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
-#: includes/themes.php:839
+#: includes/themes.php:940
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: includes/themes.php:845
+#: includes/themes.php:948
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Momentan sind keine Einträge im Verzeichnis vorhanden."
@@ -3688,13 +3688,13 @@ msgid "Author"
 msgstr "Author"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1181
+#: includes/functions.php:1191
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum gepostet"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1182
+#: includes/functions.php:1192
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Datum zuletzt verändert"
@@ -4089,12 +4089,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Dateien hochladen"
 
-#: includes/functions.php:1179
+#: includes/functions.php:1189
 msgctxt "admin settings"
 msgid "User"
 msgstr "Benutzer"
 
-#: includes/functions.php:1180
+#: includes/functions.php:1190
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Eintrag Enddatum"
@@ -6913,12 +6913,12 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "%s ist ein Pflichtfeld."
 
-#: includes/functions.php:1259
+#: includes/functions.php:1269
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Zurück zu den Ergebnissen"
 
-#: includes/functions.php:1263 includes/functions.php:1268
+#: includes/functions.php:1273 includes/functions.php:1278
 msgctxt "templates"
 msgid "Go back"
 msgstr "Geh zurück"
@@ -6929,17 +6929,17 @@ msgctxt "templates"
 msgid "Return to fee selection"
 msgstr "Zurück zum Eintrag."
 
-#: includes/templates-ui.php:199
+#: includes/templates-ui.php:209
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Keine Eintragskategorie gefunden."
 
-#: includes/templates-ui.php:334
+#: includes/templates-ui.php:344
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Eintrag suchen"
 
-#: includes/templates-ui.php:339
+#: includes/templates-ui.php:349
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Erweiterte Suche"
@@ -8056,17 +8056,17 @@ msgctxt "checkout"
 msgid "Next"
 msgstr ""
 
-#: includes/templates-ui.php:374 includes/templates-ui.php:406
+#: includes/templates-ui.php:384 includes/templates-ui.php:416
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortieren nach"
 
-#: includes/templates-ui.php:397
+#: includes/templates-ui.php:407
 msgctxt "sort"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: includes/templates-ui.php:425
+#: includes/templates-ui.php:435
 msgctxt "sort"
 msgid "(Reset)"
 msgstr "Zurücksetzen"
