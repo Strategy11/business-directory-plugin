@@ -2,14 +2,14 @@
 Contributors: businessdirectoryplugin
 Donate link: https://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, listings, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory, member directory, staff directory
-Requires at least: 4.6
+Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 5.1
-Last Updated: 2019-May-7
-Stable tag: 5.5.5
+Tested up to: 5.2
+Last Updated: 2019-Aug-14
+Stable tag: 5.5.9
 License: GPLv2 or later
 
-Build any kind of local directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and much more!  Make your listings sing with Business Directory Plugin.
+Build any kind of local listings directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and much more!  Make your listings sing with Business Directory Plugin.
 
 == Description ==
 
@@ -146,11 +146,46 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 == Changelog ==
 
-= Version 5.5.4 =
+= Version 5.5.9 =
+* Validate Beaver Builder Classes existence before setting compatibility code.
+* Set height tolerance for listing thumbnails. 
+* Prevent workflow on WP_Error results. 
+
+= Version 5.5.8 =
+* Make BD ADA compliant. 
+* Include "Created Date" and "Modified Date" support for Listings CSV Export. 
+* Hide required symbol and field description inside widgets
+* Fix quick search integration with BD modules. 
+* Add compatibility with Cornerstone Page Builder Plugin. 
+* Preserve WP permalink structure for Directory URLs. 
+* Style receipt printing in checkout pages. 
+* Validate field existence before calling method. 
+* Update Italian translations. 
+* ADD Compatibility for Beaver Themer. 
+* Add "wpbdp_supported_post_types" filter to maybe include CPTs as supported post types for shortcodes. 
+* Upgrade jQuery-File-Upload library version to 9.32.0. 
+* Fix access key login redirection. 
+* Fix renewals login authentication parameters.
+* Update German translations. 
+* Sanitize URL attribute on listings sort links preventing XSS attacks. 
+
+= Version 5.5.7 =
+* Validate image size before setting listing thumbnail image.
+
+= Version 5.5.6 =
+* Fix quick search for multiple keywords. 
+* Restore BD thumbnail image size name.
+* Fix order_by for sortbar queries.
+* Validate order_by content to prevent SQL errors. 
+* Improve phone number field value validation. 
+* Reword listing thumbnail size setting and include a description. 
+* Fix behavior for social fieldtype with empty social_type value when icon display only setting is selected. 
+
+= Version 5.5.5 =
 * New option to select listing main image size. 
 * Validate pagination query argument for front page usage.
 * Split quick search query to prevent long queries and improve search speed. 
-* Use "break" instead of "continue" when braking switch case. 
+* Use "break" instead of "continue" when breaking switch case. 
 
 = Version 5.5.4 =
 * Include Italian translations for Core Plugin. 
