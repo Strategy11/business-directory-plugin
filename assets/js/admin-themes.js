@@ -74,7 +74,7 @@ jQuery(function($) {
                     return;
                 }
 
-                var $html = $( res.data.html );
+                var $html = $( res.html );
                 $( '.wpbdp-theme-details-wrapper', $theme ).replaceWith( $( '.wpbdp-theme-details-wrapper', $html ) );
                 $info.removeClass( 'update-available' ).addClass( 'theme-updated' );
                 $msg.html( $info.attr( 'data-l10n-updated' ) );
