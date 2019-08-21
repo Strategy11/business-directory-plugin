@@ -42,7 +42,7 @@ class WPBDP_Themes_Admin {
 
         add_submenu_page( $slug,
                           _x( 'Directory Themes', 'themes', 'WPBDM' ),
-                          sprintf( _x( 'Directory Themes %s', 'themes', 'WPBDM' ), $count_html ),
+                          $count_html ? sprintf( _x( 'Dir. Themes %s', 'themes', 'WPBDM' ), $count_html ) : _x( 'Directory Themes', 'themes', 'WPBDM' ),
                           'administrator',
                           'wpbdp-themes',
                           array( &$this, 'dispatch' ) );
