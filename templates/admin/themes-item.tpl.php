@@ -19,6 +19,22 @@
             <?php endif; ?>
         </div>
 
+        <?php if ( $theme->can_be_activated && $is_outdated ) :
+            printf( '<div class="wpbdp-theme-update-info update-available" data-l10n-updating="%s" data-l10n-updated="%s">',
+                    _x( 'Updating theme...', 'themes', 'WPBDM' ),
+                    _x( 'Theme updated.', 'themes', 'WPBDM' ) );
+            ?>
+                <div class="update-message">
+                    <?php 
+                    $msg = _x( 'New version available. <a>Update now.</a>', 'themes', 'WPBDM' );
+                    $msg = str_replace( '<a>', '<a href="#" data-theme-id="' . $theme->id . '" data-nonce="' . wp_create_nonce( 'update theme ' . $theme->id ) . '" class="update-link">', $msg );
+                    echo $msg;
+                    ?>
+                </div>
+
+            </div>
+        <?php endif; ?>
+
         <div class="wpbdp-theme-details-wrapper">
             <?php if ( $theme->thumbnail ): ?>
                 <a href="<?php echo $theme->thumbnail; ?>" title="<?php esc_attr_e( $theme->name ); ?>" class="thickbox" rel="wpbdp-theme-<?php echo $theme->id; ?>-gallery"><img src="<?php echo $theme->thumbnail; ?>" class="wpbdp-theme-thumbnail" /></a>
@@ -45,4 +61,5 @@
         </div>
 
         <?php do_action( 'wpbdp-admin-themes-extra', $theme ); ?>
+        
     </div>

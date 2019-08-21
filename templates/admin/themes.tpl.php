@@ -18,7 +18,7 @@ echo str_replace( '<a>',
 
 <div id="wpbdp-theme-selection" class="wpbdp-theme-selection cf">
 <?php foreach ( $themes as &$t ): ?>
-    <?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-item.tpl.php', array( 'theme' => $t ) ); ?>
+    <?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-item.tpl.php', array( 'theme' => $t, 'is_outdated' => in_array( $t->id, $outdated_themes ) ) ); ?>
 <?php endforeach; ?>
 </div>
 
