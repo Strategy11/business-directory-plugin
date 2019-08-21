@@ -6,15 +6,13 @@ class WPBDP_Themes_Admin {
 
     private $api;
     private $licensing;
-
+    private $outdated_themes = array();
 
     function __construct( &$api, $licensing ) {
         $this->api = $api;
         $this->licensing = $licensing;
+        $this->outdated_themes = $this->find_outdated_themes();
 
-        // return;
-        // require_once( WPBDP_PATH . 'includes/admin/upgrades/class-themes-updater.php' );
-        // $this->updater = new WPBDP_Themes_Updater( $this->api );
 
         // add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
@@ -29,12 +27,13 @@ class WPBDP_Themes_Admin {
         add_action( 'wpbdp_action_upload-theme', array( &$this, 'upload_theme' ) );
         add_action( 'wpbdp_action_create-theme-suggested-fields', array( &$this, 'create_suggested_fields' ) );
 
+        add_action( 'wp_ajax_wpbdp-themes-update', array( &$this, '_update_theme' ) );
+
         // add_action( 'wpbdp-admin-themes-extra', array( &$this, 'enter_license_key_row' ) );
     }
 
     function admin_menu( $slug ) {
-        // $count = $this->updater->get_updates_count();
-        $count = 0;
+        $count = count( $this->outdated_themes );
 
         if ( $count )
             $count_html = '<span class="update-plugins"><span class="plugin-count">' . number_format_i18n( $count ) . '</span></span>';
@@ -50,7 +49,7 @@ class WPBDP_Themes_Admin {
     }
 
     function admin_menu_badge_count( $cnt = 0 ) {
-        return ( (int) $cnt ) + $this->updater->get_updates_count();
+        return ( (int) $cnt ) + count( $this->outdated_themes );
     }
 
     function admin_menu_move_themes_up( $menu ) {
@@ -134,9 +133,6 @@ class WPBDP_Themes_Admin {
         if ( ! $this->api->set_active_theme( $theme_id ) )
             wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'WPBDM' ), $theme_id ) );
 
-//        $this->api->try_active_theme();
-//        wpbdp_debug_e( $theme_id );
-
         wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
         exit;
     }
@@ -218,9 +214,14 @@ class WPBDP_Themes_Admin {
         unset( $themes[ $active_theme ] );
         array_unshift( $themes, $current );
 
-        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes.tpl.php',
-                                array( 'themes' => $themes,
-                                       'active_theme' => $active_theme ) );
+        echo wpbdp_render_page(
+            WPBDP_PATH . 'templates/admin/themes.tpl.php',
+            array(
+                'themes'         => $themes,
+                'active_theme'   => $active_theme,
+                'outdated_themes' => $this->outdated_themes
+            )
+        );
     }
 
     private function get_installed_themes() {
@@ -233,11 +234,7 @@ class WPBDP_Themes_Admin {
                 $license_status = $this->licensing->get_license_status( null, $theme->id, 'theme' );
             }
 
-            if ( 'valid' === $license_status ) {
-                $theme->can_be_activated = true;
-            } else {
-                $theme->can_be_activated = false;
-            }
+            $theme->can_be_activated = 'valid' === $license_status;
         }
 
         return $themes;
@@ -334,6 +331,124 @@ class WPBDP_Themes_Admin {
         echo '<div class="wpbdp-theme-license-required-row">';
         echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) .  '">', _x( 'Activate your <a>license key</a> to use this theme.', 'themes', 'WPBDM' ) );
         echo '</div>';
+    }
+
+    public function find_outdated_themes() {
+        $version  = $this->licensing->get_version_information();
+        $themes   = $this->get_installed_themes();
+        $outdated = array();
+
+        foreach ( $themes as $theme_id => $theme_data ) {
+            if ( ! $theme_data->can_be_activated ) {
+                continue;
+            }
+
+            if ( ! array_key_exists( 'theme-' . $theme_id, $version ) ) {
+                continue;
+            }
+
+            if ( ! version_compare( $theme_data->version, $version['theme-' . $theme_id]->new_version, '<' ) ) {
+                continue;
+            }
+
+            $outdated[] = $theme_id;
+        }
+
+        return $outdated;
+    }
+
+    // Theme update process. {{
+
+    public function _update_theme() {
+        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'update theme ' . $_REQUEST['theme'] ) ) {
+            die();
+        }
+
+        $response = array( 'success' => false );
+
+        $theme_id = $_REQUEST['theme'];
+        $theme = $this->api->get_theme( $theme_id );
+
+        if ( ! $theme ) {
+            $response['error'] = _x( 'Invalid theme ID', 'themes', 'WPBDM');
+            return wp_send_json( $response );
+        }
+
+        $result = $this->run_update( $theme_id );
+        if ( is_wp_error( $result ) ) {
+            $response['error'] = sprintf( _x( 'Could not update theme: %s', 'themes', 'WPBDM' ), $result->get_error_message() );
+            return wp_send_json( $response );
+        }
+
+        $this->api->find_themes( true );
+        unset( $this->outdated_themes[$theme_id] );
+
+        $response['html'] = wpbdp_render_page(
+            WPBDP_PATH . 'templates/admin/themes-item.tpl.php',
+            array(
+                'theme' => $this->api->get_theme( $theme_id ),
+            ) 
+        );
+        $response['success'] = true;
+
+        return wp_send_json( $response );
+    }
+
+    private function run_update( $theme_id ) {
+        $version  = $this->licensing->get_version_information();
+
+        if ( ! $version ) {
+            return new WP_Error( 'no_server_contact', 'Couldn\'t contact updates server.' );
+        }
+
+        if ( ! array_key_exists( 'theme-' . $theme_id, $version ) ) {
+            return new WP_Error( 'no_package_information', 'No theme package information available.' );
+        }
+
+        // Download package.
+        $url = $version['theme-' . $theme_id]->download_link;
+
+        if ( ! $url )
+            return new WP_Error( 'invalid_package_url', 'No package URL provided.' );
+
+        $download_file = download_url( $url );
+        if ( is_wp_error( $download_file ) )
+            return new WP_Error( 'download_failed', 'Could not download theme package.', $download_file->get_error_message() );
+
+        // Unpack package.
+        $upgrade_folder = $this->api->get_themes_dir() . 'upgrade/';
+        if ( ! is_dir( $upgrade_folder ) ) {
+            if ( ! WPBDP_FS::mkdir( $upgrade_folder ) )
+                return new WP_Error( 'no_upgrade_folder', sprintf( 'Could not create temporary upgrade folder: %s.', $upgrade_folder ) );
+        }
+
+        $working_dir = $upgrade_folder . basename( basename( $download_file, '.tmp' ), '.zip' );
+        if ( is_dir( $working_dir) && ! WPBDP_FS::rmdir( $working_dir ) )
+            return new WP_Error( 'no_upgrade_folder', sprintf( 'Temporary upgrade folder already exists: %s.', $working_dir ) );
+
+        if ( ! WPBDP_FS::mkdir( $working_dir ) )
+            return new WP_Error( 'no_upgrade_folder', sprintf( 'Could not create upgrade folder: %s.', $working_dir ) );
+
+        $result = WPBDP_FS::unzip( $download_file, $working_dir );
+        if ( is_wp_error( $result ) )
+            return new WP_Error( 'unpackaging_failed', 'Could not unpackage theme file.' );
+
+        $contents_folder = $result[0];
+        $orig_theme_folder = $this->api->get_themes_dir() . $theme_id;
+        $theme_folder = $contents_folder . $theme_id;
+        if ( ! is_dir( $theme_folder ) || ! file_exists( trailingslashit( $theme_folder ) . 'theme.json' ) )
+            return new WP_Error( 'no_valid_theme', 'Package is not a valid theme file.' );
+
+        if ( ! WPBDP_FS::rmdir( $orig_theme_folder ) )
+            return new WP_Error( 'dest_not_writable', 'Could not cleanup destination directory.' );
+
+        if ( ! WPBDP_FS::movedir( $theme_folder, $this->api->get_themes_dir() ) )
+            return new WP_Error( 'theme_not_moved', 'Could not move theme to destination directory.' );
+
+        WPBDP_FS::rmdir( $working_dir );
+        WPBDP_FS::rmdir( $upgrade_folder );
+
+        return true;
     }
 
 }
