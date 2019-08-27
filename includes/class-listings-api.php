@@ -14,33 +14,25 @@ class WPBDP_Listings_API {
     public function update_listing_after_payment( $payment ) {
         $listing = $payment->get_listing();
 
-        if ( ! $listing )
+        if ( ! $listing ) {
             return;
-
-        $is_renewal = 'renewal' == $payment->payment_type;
+        }
 
         foreach ( $payment->payment_items as $item ) {
             switch ( $item['type'] ) {
-            case 'recurring_plan':
-            case 'plan':
-            case 'plan_renewal': // Do we really use/need this?
-                $listing->update_plan( $item );
+                case 'recurring_plan':
+                case 'plan':
+                    $listing->update_plan( $item, array( 'recalculate' => $item['is_renewal'] ? 0 : 1 ) );
 
-                if ( 'plan_renewal' == $item['type'] ) {
-                    $is_renewal = true;
-                }
-                break;
+                    if ( $item['is_renewal'] ) {
+                        $listing->renew();
+                        wpbdp_insert_log( array( 'log_type' => 'listing.renewal', 'object_id' => $payment->listing_id, 'message' => _x( 'Listing renewed', 'listings api', 'WPBDM' ) ) );
+                    }
+                    break;
             }
         }
 
         $listing->set_status( 'complete' );
-
-        if ( $is_renewal) {
-            wpbdp_insert_log( array( 'log_type' => 'listing.renewal', 'object_id' => $payment->listing_id, 'message' => _x( 'Listing renewed', 'listings api', 'WPBDM' ) ) );
-            $listing->set_post_status( 'publish' );
-
-            do_action( 'wpbdp_listing_renewed', $listing, $payment );
-        }
     }
 
 

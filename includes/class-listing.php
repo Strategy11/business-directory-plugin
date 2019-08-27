@@ -408,7 +408,6 @@ class WPBDP_Listing {
         if ( ! $plan )
             return false;
 
-
         global $wpdb;
 
         $row = array();

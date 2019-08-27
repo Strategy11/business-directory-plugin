@@ -139,7 +139,6 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
                 );
 
                 if ( $payment->save() ) {
-                    $this->listing->set_status( 'pending_renewal' );
                     if ( 0.0 === $payment->amount ) {
                         $this->listing->update_plan( $fee, array( 'recalculate' => 0 ) );
                         $this->listing->renew();
