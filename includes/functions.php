@@ -1191,7 +1191,7 @@ function wpbdp_sortbar_get_field_options() {
     $options['date'] = _x( 'Date posted', 'admin settings', 'WPBDM' );
     $options['modified'] = _x( 'Date last modified', 'admin settings', 'WPBDM' );
 
-    return $options;
+    return apply_filters( 'wpbdp_sortbar_get_field_options', $options );
 }
 
 /**
