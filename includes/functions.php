@@ -1186,12 +1186,14 @@ function wpbdp_sortbar_get_field_options() {
         $options[ $field->get_id() ] = apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field );
     }
 
+    $options = apply_filters( 'wpbdp_sortbar_get_field_options', $options );
+
     $options['user_login'] = _x( 'User', 'admin settings', 'WPBDM' );
     $options['user_registered'] = _x( 'User registration date', 'admin settings', 'WPBDM' );
     $options['date'] = _x( 'Date posted', 'admin settings', 'WPBDM' );
     $options['modified'] = _x( 'Date last modified', 'admin settings', 'WPBDM' );
 
-    return apply_filters( 'wpbdp_sortbar_get_field_options', $options );
+    return $options;
 }
 
 /**
