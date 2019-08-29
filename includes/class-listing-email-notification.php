@@ -186,6 +186,7 @@ class WPBDP__Listing_Email_Notification {
                     'listing'      => sprintf( '<a href="%s">%s</a>', $listing->get_permalink(), esc_attr( $listing->get_title() ) ),
                     'expiration'   => $expiration_date,
                     'link'         => sprintf( '<a href="%1$s">%1$s</a>', $listing->get_renewal_url() ),
+                    'link-raw'     => $listing->get_renewal_url(),
                     'category'     => get_the_term_list( $listing->get_id(), WPBDP_CATEGORY_TAX, '', ', ' ),
                     'date'         => $expiration_date,
                     'payment_date' => $payment_date,
