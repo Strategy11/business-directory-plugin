@@ -29,7 +29,6 @@ class WPBDP__Query_Integration {
     }
 
     public function add_query_vars( $vars ) {
-        array_push( $vars, 'id' );
         array_push( $vars, 'listing' );
         array_push( $vars, 'category_id' ); // TODO: are we really using this var?
         array_push( $vars, 'category' );
