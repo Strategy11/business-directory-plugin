@@ -61,12 +61,36 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 
         $html  = '';
         $html .= '<div class="social-field twitter">';
-        $html .= sprintf('<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="false" data-lang="%s">Follow @%s</a>',
-                         $value, substr( get_bloginfo( 'language' ), 0, 2 ), $value);
+        $html .= sprintf(
+            '<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="%s" data-lang="%s">Follow @%s</a>',
+            $value,
+            ! empty( $field->data( 'show_count' ) ) ? 'true' : 'false',
+            substr( get_bloginfo( 'language' ), 0, 2 ),
+            $value
+        );
         $html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
         $html .= '</div>';
 
         return $html;
+    }
+
+    /**
+     * @since 5.5.10
+     */
+    public function render_field_settings( &$field=null, $association=null ) {
+        $settings = array();
+
+        $settings['show_count'][] = _x( 'Show followers count?', 'form-fields admin', 'WPBDM' );
+        $settings['show_count'][] = '<input type="checkbox" value="1" name="field[show_count]" ' . ( $field && $field->data( 'show_count' ) ? ' checked="checked"' : '' ) . ' />';
+
+        return self::render_admin_settings( $settings );
+    }
+
+    /**
+     * @since 5.5.10
+     */
+    public function process_field_settings( &$field ) {
+        $field->set_data( 'show_count', isset( $_POST['field']['show_count'] ) ? (bool) intval( $_POST['field']['show_count'] ) : false );
     }
 
 }
