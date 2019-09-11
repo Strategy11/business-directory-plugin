@@ -753,7 +753,7 @@ class WPBDP_Licensing {
         }
     }
 
-    public function get_version_information() {
+    public function get_version_information( $force_refresh = false ) {
         if ( ! $this->items ) {
             return array();
         }
@@ -767,7 +767,7 @@ class WPBDP_Licensing {
         }
 
         $updates       = get_transient( 'wpbdp_updates' );
-        $needs_refresh = false;
+        $needs_refresh = false || $force_refresh;
 
         foreach ( $this->items as $item ) {
             if ( ! isset( $updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
