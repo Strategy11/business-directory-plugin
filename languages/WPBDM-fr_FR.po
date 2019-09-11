@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-08-13 23:12:17+00:00\n"
+"POT-Creation-Date: 2019-09-11 22:04:30+00:00\n"
 "PO-Revision-Date: 2017-11-13 00:48+0100\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1225,47 +1225,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:771
+#: includes/class-listing.php:770
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: includes/class-listing.php:772
+#: includes/class-listing.php:771
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Don"
 
-#: includes/class-listing.php:773
+#: includes/class-listing.php:772
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incomplet"
 
-#: includes/class-listing.php:774
+#: includes/class-listing.php:773
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Paiement en attente"
 
-#: includes/class-listing.php:775
+#: includes/class-listing.php:774
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Complet"
 
-#: includes/class-listing.php:776
+#: includes/class-listing.php:775
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "En attente de mise à niveau"
 
-#: includes/class-listing.php:777
+#: includes/class-listing.php:776
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Expiré"
 
-#: includes/class-listing.php:778
+#: includes/class-listing.php:777
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Actives + En attente de renouvellement"
 
-#: includes/class-listing.php:779
+#: includes/class-listing.php:778
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abandonné"
@@ -1821,27 +1821,29 @@ msgctxt "listings view"
 msgid "No Fee Plan"
 msgstr "Plan tarifaire"
 
+#: includes/admin/class-themes-admin.php:44
 #: includes/admin/class-themes-admin.php:45
 msgctxt "themes"
 msgid "Directory Themes"
 msgstr "Catégories de l'annuaire"
 
-#: includes/admin/class-themes-admin.php:46
+#: includes/admin/class-themes-admin.php:45
+#, fuzzy
 msgctxt "themes"
-msgid "Directory Themes %s"
+msgid "Dir. Themes %s"
 msgstr "Catégories de l'annuaire"
 
-#: includes/admin/class-themes-admin.php:135
+#: includes/admin/class-themes-admin.php:134
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "Vous ne pouvez pas changer le thème actif pour \"%s\"."
 
-#: includes/admin/class-themes-admin.php:179
+#: includes/admin/class-themes-admin.php:175
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr "Thème actuel modifié vers \"%s\"."
 
-#: includes/admin/class-themes-admin.php:182
+#: includes/admin/class-themes-admin.php:178
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
@@ -1851,52 +1853,66 @@ msgstr ""
 "correspondre les emplacements et mettre vos données sur le thème. Voici les "
 "champs qui nous manquent."
 
-#: includes/admin/class-themes-admin.php:191
+#: includes/admin/class-themes-admin.php:187
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Gestion des champs"
 
-#: includes/admin/class-themes-admin.php:198
+#: includes/admin/class-themes-admin.php:194
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Champs créés avec succès."
 
-#: includes/admin/class-themes-admin.php:201
+#: includes/admin/class-themes-admin.php:197
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Thème installé avec succès."
 
-#: includes/admin/class-themes-admin.php:204
+#: includes/admin/class-themes-admin.php:200
 msgctxt "themes"
 msgid "Theme was deleted successfully."
 msgstr "Le thème a été supprimé."
 
-#: includes/admin/class-themes-admin.php:207
+#: includes/admin/class-themes-admin.php:203
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr "Impossible de supprimer le dossier du thème. Vérifier les permissions."
 
-#: includes/admin/class-themes-admin.php:253
+#: includes/admin/class-themes-admin.php:250
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Veuillez télécharger un fichier de thème valide."
 
-#: includes/admin/class-themes-admin.php:260
+#: includes/admin/class-themes-admin.php:257
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "Impossible de déplacer \"%s\" vers un dossier temporaire."
 
-#: includes/admin/class-themes-admin.php:335
+#: includes/admin/class-themes-admin.php:332
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr "Activer votre <a>numéro de licence</a> pour utiliser ce thème."
 
+#: includes/admin/class-themes-admin.php:373
+#, fuzzy
+msgctxt "themes"
+msgid "Invalid theme ID"
+msgstr "ID d'élément non valide"
+
+#: includes/admin/class-themes-admin.php:379
+#: includes/admin/upgrades/class-themes-updater.php:159
+msgctxt "themes"
+msgid "Could not update theme: %s"
+msgstr "Impossible de mettre à jour le thème: %s"
+
 #: includes/admin/upgrades/class-themes-updater.php:128
+#: templates/admin/themes-item.tpl.php:24
 msgctxt "themes"
 msgid "Updating theme..."
 msgstr "Mise à jour du thème..."
 
 #: includes/admin/upgrades/class-themes-updater.php:129
+#: templates/admin/themes-item.tpl.php:25
 msgctxt "themes"
 msgid "Theme updated."
 msgstr "Thème mis à jour."
@@ -1906,11 +1922,6 @@ msgctxt "themes"
 msgid "New version available (<b>%s</b>). <a>Update now.</a>"
 msgstr ""
 "Nouvelle version disponible (<b>%s</b>). <a>Mettre à jour maintenant.</a>"
-
-#: includes/admin/upgrades/class-themes-updater.php:159
-msgctxt "themes"
-msgid "Could not update theme: %s"
-msgstr "Impossible de mettre à jour le thème: %s"
 
 #: includes/admin/upgrades/class-themes-updater.php:165
 msgctxt "themes"
@@ -1967,12 +1978,19 @@ msgctxt "themes"
 msgid "Activate"
 msgstr "Activer"
 
-#: templates/admin/themes-item.tpl.php:35
+#: templates/admin/themes-item.tpl.php:29
+#, fuzzy
+msgctxt "themes"
+msgid "New version available. <a>Update now.</a>"
+msgstr ""
+"Nouvelle version disponible (<b>%s</b>). <a>Mettre à jour maintenant.</a>"
+
+#: templates/admin/themes-item.tpl.php:51
 msgctxt "themes"
 msgid "Version:"
 msgstr "Version:"
 
-#: templates/admin/themes-item.tpl.php:38
+#: templates/admin/themes-item.tpl.php:54
 msgctxt "themes"
 msgid "Author:"
 msgstr "Auteur:"
@@ -2005,7 +2023,7 @@ msgstr ""
 "ils ne sont <strong>pas</strong> un remplacement des thèmes WP non plus. Ils "
 "vont seulement changer l'apparence de Business directory."
 
-#: includes/admin/class-themes-admin.php:92
+#: includes/admin/class-themes-admin.php:91
 msgctxt "admin themes"
 msgid ""
 "Business Directory Plugin - Your template overrides need to be reviewed!"
@@ -2013,7 +2031,7 @@ msgstr ""
 "Business Directory Plugin - Vos remplacements de templates doivent être "
 "revus !"
 
-#: includes/admin/class-themes-admin.php:94
+#: includes/admin/class-themes-admin.php:93
 msgctxt "admin themes"
 msgid ""
 "Starting with version 4.0, Business Directory is using a new theming system "
@@ -2023,7 +2041,7 @@ msgstr ""
 "thèmes qui n'est pas compatible avec les modèles utilisés dans les versions "
 "précédentes."
 
-#: includes/admin/class-themes-admin.php:96
+#: includes/admin/class-themes-admin.php:95
 msgctxt "admin themes"
 msgid ""
 "Because of this, your template overrides below have been disabled. You "
@@ -2904,6 +2922,12 @@ msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "Générer automatiquement un extrait d'un champ du contenu ?"
 
+#: includes/fields/class-fieldtypes-twitter.php:83
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Show followers count?"
+msgstr "Montrer les catégories par messages postés ?"
+
 #: includes/fields/class-fieldtypes-url.php:36
 msgctxt "form-fields admin"
 msgid "Open link in a new window?"
@@ -3604,13 +3628,13 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1191
+#: includes/functions.php:1193
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Date d'ajout"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1192
+#: includes/functions.php:1194
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Date de dernière modification"
@@ -4017,12 +4041,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Télécharger les images"
 
-#: includes/functions.php:1189
+#: includes/functions.php:1191
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utilisateur"
 
-#: includes/functions.php:1190
+#: includes/functions.php:1192
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Date d'expiration de l'annonce"
@@ -4047,46 +4071,46 @@ msgctxt "expiration notices"
 msgid "Delete"
 msgstr "Effacer"
 
-#: includes/admin/settings/class-settings-admin.php:494
+#: includes/admin/settings/class-settings-admin.php:495
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr "permanent ou temporaire"
 
-#: includes/admin/settings/class-settings-admin.php:496
+#: includes/admin/settings/class-settings-admin.php:497
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "récurrente uniquement"
 
-#: includes/admin/settings/class-settings-admin.php:498
+#: includes/admin/settings/class-settings-admin.php:499
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "non récurrente seulement"
 
-#: includes/admin/settings/class-settings-admin.php:502
+#: includes/admin/settings/class-settings-admin.php:503
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Envoyé lorsque vous renouvelez une liste (% s)."
 
-#: includes/admin/settings/class-settings-admin.php:507
+#: includes/admin/settings/class-settings-admin.php:508
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Envoyé lorsqu'une annonce (% s) est expirée."
 
-#: includes/admin/settings/class-settings-admin.php:515
+#: includes/admin/settings/class-settings-admin.php:516
 msgctxt "expiration notices"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d jour"
 msgstr[1] "%d jours"
 
-#: includes/admin/settings/class-settings-admin.php:518
+#: includes/admin/settings/class-settings-admin.php:519
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
 msgstr[0] "%d semaine"
 msgstr[1] "%d semaines"
 
-#: includes/admin/settings/class-settings-admin.php:521
+#: includes/admin/settings/class-settings-admin.php:522
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -4095,91 +4119,91 @@ msgstr[1] "%d mois"
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:527
+#: includes/admin/settings/class-settings-admin.php:528
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr "Envoyé %1$s avant l'expiration d'une liste (%2$s)."
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:530
+#: includes/admin/settings/class-settings-admin.php:531
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Envoyé %1$s après une liste (%2$s) expire."
 
-#: includes/admin/settings/class-settings-admin.php:547
+#: includes/admin/settings/class-settings-admin.php:548
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr "Au moment de l'expiration"
 
-#: includes/admin/settings/class-settings-admin.php:548
+#: includes/admin/settings/class-settings-admin.php:549
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Renouvellement réussi"
 
-#: includes/admin/settings/class-settings-admin.php:559
+#: includes/admin/settings/class-settings-admin.php:560
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
 msgstr[0] "%d jour avant expiration"
 msgstr[1] "%d jours avant expiration"
 
-#: includes/admin/settings/class-settings-admin.php:559
+#: includes/admin/settings/class-settings-admin.php:560
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
 msgstr[0] "%d jour après expiration"
 msgstr[1] "%d jours après expiration"
 
-#: includes/admin/settings/class-settings-admin.php:562
+#: includes/admin/settings/class-settings-admin.php:563
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
 msgstr[0] "%d semaine avant expiration"
 msgstr[1] "%d semaines avant expiration"
 
-#: includes/admin/settings/class-settings-admin.php:562
+#: includes/admin/settings/class-settings-admin.php:563
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
 msgstr[0] "%d semaine après expiration"
 msgstr[1] "%d semaines après expiration"
 
-#: includes/admin/settings/class-settings-admin.php:565
+#: includes/admin/settings/class-settings-admin.php:566
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
 msgstr[0] "%d mois avant expiration"
 msgstr[1] "%d mois avant expiration"
 
-#: includes/admin/settings/class-settings-admin.php:565
+#: includes/admin/settings/class-settings-admin.php:566
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
 msgstr[0] "%d mois après expiration"
 msgstr[1] "%d mois après expiration"
 
-#: includes/admin/settings/class-settings-admin.php:592
+#: includes/admin/settings/class-settings-admin.php:593
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Appliqué à"
 
-#: includes/admin/settings/class-settings-admin.php:595
+#: includes/admin/settings/class-settings-admin.php:596
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr "Annonces temporaires"
 
-#: includes/admin/settings/class-settings-admin.php:596
+#: includes/admin/settings/class-settings-admin.php:597
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Retourner à l'annonce"
 
-#: includes/admin/settings/class-settings-admin.php:597
+#: includes/admin/settings/class-settings-admin.php:598
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr "Annonces permanentes et temporaires"
 
-#: includes/admin/settings/class-settings-admin.php:602
+#: includes/admin/settings/class-settings-admin.php:603
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr "Quand envoyer ?"
@@ -4212,30 +4236,34 @@ msgid "Listing's expiration date"
 msgstr "Date d'expiration de l'annonce"
 
 #: includes/admin/settings/class-settings-admin.php:474
-#, fuzzy
 msgctxt "settings"
-msgid "Listing's renewal link"
-msgstr "Renouvellement des annonces"
+msgid "Listing's renewal link, formatted with an anchor tag"
+msgstr ""
 
 #: includes/admin/settings/class-settings-admin.php:475
+msgctxt "settings"
+msgid "Listing's renewal URL, unformatted by any tags"
+msgstr ""
+
+#: includes/admin/settings/class-settings-admin.php:476
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's categories"
 msgstr "Titre de l'annonce"
 
-#: includes/admin/settings/class-settings-admin.php:476
+#: includes/admin/settings/class-settings-admin.php:477
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's last payment date"
 msgstr "Date d'expiration de l'annonce"
 
-#: includes/admin/settings/class-settings-admin.php:477
+#: includes/admin/settings/class-settings-admin.php:478
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's access key"
 msgstr "Liste des clés d'accès"
 
-#: includes/admin/settings/class-settings-admin.php:634
+#: includes/admin/settings/class-settings-admin.php:635
 #, fuzzy
 msgctxt "settings"
 msgid "Settings reset to default."
@@ -5757,18 +5785,18 @@ msgctxt "listing"
 msgid "Listing expired"
 msgstr "Une annonce expire"
 
-#: includes/class-listing.php:511
+#: includes/class-listing.php:510
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Plan indisponible disponible)"
 
-#: includes/class-listing.php:668
+#: includes/class-listing.php:667
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(récurrent)"
 
-#: includes/class-listing.php:670
+#: includes/class-listing.php:669
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Statut \"%s\""
@@ -5823,19 +5851,19 @@ msgid "Free Listing"
 msgstr "Annonce gratuite"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:234
+#: includes/class-listing-email-notification.php:235
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Nouvelle notification d'annonce"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:285
+#: includes/class-listing-email-notification.php:286
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notification d'édition d'annonce"
 
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:357
+#: includes/class-listing-email-notification.php:358
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
@@ -5942,7 +5970,7 @@ msgctxt "notify email"
 msgid "Report additional info"
 msgstr ""
 
-#: includes/class-listings-api.php:39
+#: includes/class-listings-api.php:33
 msgctxt "listings api"
 msgid "Listing renewed"
 msgstr "Annonce renouvelée"
@@ -6738,13 +6766,13 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Le pays est requis"
 
-#: includes/functions.php:1269
+#: includes/functions.php:1271
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Retourner vers l'annuaire"
 
-#: includes/functions.php:1273 includes/functions.php:1278
+#: includes/functions.php:1275 includes/functions.php:1280
 #, fuzzy
 msgctxt "templates"
 msgid "Go back"
@@ -9374,6 +9402,11 @@ msgstr "Merci de choisir un tarif pour votre annonce:"
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Adresse"
+
+#, fuzzy
+#~ msgctxt "settings"
+#~ msgid "Listing's renewal link"
+#~ msgstr "Renouvellement des annonces"
 
 #, fuzzy
 #~ msgctxt "flag listing"

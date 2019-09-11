@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-08-13 23:12:17+00:00\n"
+"POT-Creation-Date: 2019-09-11 22:04:30+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1233,53 +1233,53 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:771
+#: includes/class-listing.php:770
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:772
+#: includes/class-listing.php:771
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/class-listing.php:773
+#: includes/class-listing.php:772
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Завершено"
 
-#: includes/class-listing.php:774
+#: includes/class-listing.php:773
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Платёж был заброшен."
 
-#: includes/class-listing.php:775
+#: includes/class-listing.php:774
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Завершено"
 
-#: includes/class-listing.php:776
+#: includes/class-listing.php:775
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Ожидается подтверждение"
 
-#: includes/class-listing.php:777
+#: includes/class-listing.php:776
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Истекло"
 
-#: includes/class-listing.php:778
+#: includes/class-listing.php:777
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Активные + ожидающие продление"
 
-#: includes/class-listing.php:779
+#: includes/class-listing.php:778
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -1852,80 +1852,96 @@ msgctxt "listings view"
 msgid "No Fee Plan"
 msgstr ""
 
+#: includes/admin/class-themes-admin.php:44
 #: includes/admin/class-themes-admin.php:45
 msgctxt "themes"
 msgid "Directory Themes"
 msgstr "Темы справочника"
 
-#: includes/admin/class-themes-admin.php:46
+#: includes/admin/class-themes-admin.php:45
+#, fuzzy
 msgctxt "themes"
-msgid "Directory Themes %s"
+msgid "Dir. Themes %s"
 msgstr "Темы справочника %s"
 
-#: includes/admin/class-themes-admin.php:135
+#: includes/admin/class-themes-admin.php:134
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "Не удалось сменить активную тему на \"%s\"."
 
-#: includes/admin/class-themes-admin.php:179
+#: includes/admin/class-themes-admin.php:175
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr "Активная тема была сменена на \"%s\"."
 
-#: includes/admin/class-themes-admin.php:182
+#: includes/admin/class-themes-admin.php:178
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
 "to put your data on the theme. Below are fields we think are missing."
 msgstr ""
 
-#: includes/admin/class-themes-admin.php:191
+#: includes/admin/class-themes-admin.php:187
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Форма"
 
-#: includes/admin/class-themes-admin.php:198
+#: includes/admin/class-themes-admin.php:194
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Рекомендуемые поля успешно созданы."
 
-#: includes/admin/class-themes-admin.php:201
+#: includes/admin/class-themes-admin.php:197
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Тема успешно установлена."
 
-#: includes/admin/class-themes-admin.php:204
+#: includes/admin/class-themes-admin.php:200
 #, fuzzy
 msgctxt "themes"
 msgid "Theme was deleted successfully."
 msgstr "Тема успешно удалена."
 
-#: includes/admin/class-themes-admin.php:207
+#: includes/admin/class-themes-admin.php:203
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr "Не удалось удалить директорию темы - проверьте права доступа к файлам."
 
-#: includes/admin/class-themes-admin.php:253
+#: includes/admin/class-themes-admin.php:250
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Пожалуйста загрузите корректный файл темы."
 
-#: includes/admin/class-themes-admin.php:260
+#: includes/admin/class-themes-admin.php:257
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "Не удалось перемести \"%s\" во временную директорию."
 
-#: includes/admin/class-themes-admin.php:335
+#: includes/admin/class-themes-admin.php:332
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr ""
 
+#: includes/admin/class-themes-admin.php:373
+#, fuzzy
+msgctxt "themes"
+msgid "Invalid theme ID"
+msgstr "Некорректный номер поля"
+
+#: includes/admin/class-themes-admin.php:379
+#: includes/admin/upgrades/class-themes-updater.php:159
+msgctxt "themes"
+msgid "Could not update theme: %s"
+msgstr "Не удалось обновить тему: %s"
+
 #: includes/admin/upgrades/class-themes-updater.php:128
+#: templates/admin/themes-item.tpl.php:24
 msgctxt "themes"
 msgid "Updating theme..."
 msgstr "Тема обновляется..."
 
 #: includes/admin/upgrades/class-themes-updater.php:129
+#: templates/admin/themes-item.tpl.php:25
 msgctxt "themes"
 msgid "Theme updated."
 msgstr "Тема обновлена."
@@ -1934,11 +1950,6 @@ msgstr "Тема обновлена."
 msgctxt "themes"
 msgid "New version available (<b>%s</b>). <a>Update now.</a>"
 msgstr "Доступна новая версия - <b>%s</b>. <a>Обновите сейчас</a>."
-
-#: includes/admin/upgrades/class-themes-updater.php:159
-msgctxt "themes"
-msgid "Could not update theme: %s"
-msgstr "Не удалось обновить тему: %s"
 
 #: includes/admin/upgrades/class-themes-updater.php:165
 #, fuzzy
@@ -1996,12 +2007,18 @@ msgctxt "themes"
 msgid "Activate"
 msgstr "Активировать"
 
-#: templates/admin/themes-item.tpl.php:35
+#: templates/admin/themes-item.tpl.php:29
+#, fuzzy
+msgctxt "themes"
+msgid "New version available. <a>Update now.</a>"
+msgstr "Доступна новая версия - <b>%s</b>. <a>Обновите сейчас</a>."
+
+#: templates/admin/themes-item.tpl.php:51
 msgctxt "themes"
 msgid "Version:"
 msgstr "Версия:"
 
-#: templates/admin/themes-item.tpl.php:38
+#: templates/admin/themes-item.tpl.php:54
 msgctxt "themes"
 msgid "Author:"
 msgstr "Автор:"
@@ -2027,20 +2044,20 @@ msgid ""
 "change the look and feel of your business directory only."
 msgstr ""
 
-#: includes/admin/class-themes-admin.php:92
+#: includes/admin/class-themes-admin.php:91
 msgctxt "admin themes"
 msgid ""
 "Business Directory Plugin - Your template overrides need to be reviewed!"
 msgstr ""
 
-#: includes/admin/class-themes-admin.php:94
+#: includes/admin/class-themes-admin.php:93
 msgctxt "admin themes"
 msgid ""
 "Starting with version 4.0, Business Directory is using a new theming system "
 "that is not compatible with the templates used in previous versions."
 msgstr ""
 
-#: includes/admin/class-themes-admin.php:96
+#: includes/admin/class-themes-admin.php:95
 msgctxt "admin themes"
 msgid ""
 "Because of this, your template overrides below have been disabled. You "
@@ -2912,6 +2929,12 @@ msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr ""
 
+#: includes/fields/class-fieldtypes-twitter.php:83
+#, fuzzy
+msgctxt "form-fields admin"
+msgid "Show followers count?"
+msgstr "Показать количества записей для каждой рубрики?"
+
 #: includes/fields/class-fieldtypes-url.php:36
 msgctxt "form-fields admin"
 msgid "Open link in a new window?"
@@ -3640,13 +3663,13 @@ msgid "Author"
 msgstr "По автору"
 
 #: includes/admin/settings/class-settings-bootstrap.php:682
-#: includes/functions.php:1191
+#: includes/functions.php:1193
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "По дате публикации"
 
 #: includes/admin/settings/class-settings-bootstrap.php:683
-#: includes/functions.php:1192
+#: includes/functions.php:1194
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "По дате изменения"
@@ -4049,12 +4072,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Загрузить изображение"
 
-#: includes/functions.php:1189
+#: includes/functions.php:1191
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: includes/functions.php:1190
+#: includes/functions.php:1192
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Дата окончания срока действия"
@@ -4082,36 +4105,36 @@ msgctxt "expiration notices"
 msgid "Delete"
 msgstr "Удалить"
 
-#: includes/admin/settings/class-settings-admin.php:494
+#: includes/admin/settings/class-settings-admin.php:495
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:496
+#: includes/admin/settings/class-settings-admin.php:497
 #, fuzzy
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "(периодически)"
 
-#: includes/admin/settings/class-settings-admin.php:498
+#: includes/admin/settings/class-settings-admin.php:499
 #, fuzzy
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "(периодически)"
 
-#: includes/admin/settings/class-settings-admin.php:502
+#: includes/admin/settings/class-settings-admin.php:503
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Посылается как только новая запись была помещена в базу данных."
 
-#: includes/admin/settings/class-settings-admin.php:507
+#: includes/admin/settings/class-settings-admin.php:508
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/settings/class-settings-admin.php:515
+#: includes/admin/settings/class-settings-admin.php:516
 #, fuzzy
 msgctxt "expiration notices"
 msgid "%d day"
@@ -4120,7 +4143,7 @@ msgstr[0] "%d день"
 msgstr[1] "%d дней"
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:518
+#: includes/admin/settings/class-settings-admin.php:519
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -4128,7 +4151,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:521
+#: includes/admin/settings/class-settings-admin.php:522
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -4138,31 +4161,31 @@ msgstr[2] ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:527
+#: includes/admin/settings/class-settings-admin.php:528
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/settings/class-settings-admin.php:530
+#: includes/admin/settings/class-settings-admin.php:531
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Посылается как только новая запись была помещена в базу данных."
 
-#: includes/admin/settings/class-settings-admin.php:547
+#: includes/admin/settings/class-settings-admin.php:548
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:548
+#: includes/admin/settings/class-settings-admin.php:549
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Тариф был успешно назначен."
 
-#: includes/admin/settings/class-settings-admin.php:559
+#: includes/admin/settings/class-settings-admin.php:560
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
@@ -4170,7 +4193,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:559
+#: includes/admin/settings/class-settings-admin.php:560
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
@@ -4178,7 +4201,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:562
+#: includes/admin/settings/class-settings-admin.php:563
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
@@ -4186,7 +4209,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:562
+#: includes/admin/settings/class-settings-admin.php:563
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
@@ -4194,7 +4217,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:565
+#: includes/admin/settings/class-settings-admin.php:566
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
@@ -4202,7 +4225,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:565
+#: includes/admin/settings/class-settings-admin.php:566
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
@@ -4210,29 +4233,29 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/settings/class-settings-admin.php:592
+#: includes/admin/settings/class-settings-admin.php:593
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Применимо к..."
 
-#: includes/admin/settings/class-settings-admin.php:595
+#: includes/admin/settings/class-settings-admin.php:596
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:596
+#: includes/admin/settings/class-settings-admin.php:597
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Вернуться к записям."
 
-#: includes/admin/settings/class-settings-admin.php:597
+#: includes/admin/settings/class-settings-admin.php:598
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr ""
 
-#: includes/admin/settings/class-settings-admin.php:602
+#: includes/admin/settings/class-settings-admin.php:603
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr ""
@@ -4266,30 +4289,34 @@ msgid "Listing's expiration date"
 msgstr "Дата окончания срока действия"
 
 #: includes/admin/settings/class-settings-admin.php:474
-#, fuzzy
 msgctxt "settings"
-msgid "Listing's renewal link"
-msgstr "Продление срока действия"
+msgid "Listing's renewal link, formatted with an anchor tag"
+msgstr ""
 
 #: includes/admin/settings/class-settings-admin.php:475
+msgctxt "settings"
+msgid "Listing's renewal URL, unformatted by any tags"
+msgstr ""
+
+#: includes/admin/settings/class-settings-admin.php:476
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's categories"
 msgstr "Название записи"
 
-#: includes/admin/settings/class-settings-admin.php:476
+#: includes/admin/settings/class-settings-admin.php:477
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's last payment date"
 msgstr "Дата окончания срока действия"
 
-#: includes/admin/settings/class-settings-admin.php:477
+#: includes/admin/settings/class-settings-admin.php:478
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's access key"
 msgstr "Поля и Изображения записи"
 
-#: includes/admin/settings/class-settings-admin.php:634
+#: includes/admin/settings/class-settings-admin.php:635
 #, fuzzy
 msgctxt "settings"
 msgid "Settings reset to default."
@@ -5934,19 +5961,19 @@ msgctxt "listing"
 msgid "Listing expired"
 msgstr "Срок действия записи истёк"
 
-#: includes/class-listing.php:511
+#: includes/class-listing.php:510
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Тариф недоступен)"
 
-#: includes/class-listing.php:668
+#: includes/class-listing.php:667
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(периодически)"
 
-#: includes/class-listing.php:670
+#: includes/class-listing.php:669
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -6002,19 +6029,19 @@ msgid "Free Listing"
 msgstr "Бесплатные записи"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:234
+#: includes/class-listing-email-notification.php:235
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Оповещение о новой записи"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:285
+#: includes/class-listing-email-notification.php:286
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Оповещение об изменении записи"
 
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:357
+#: includes/class-listing-email-notification.php:358
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
@@ -6121,7 +6148,7 @@ msgctxt "notify email"
 msgid "Report additional info"
 msgstr ""
 
-#: includes/class-listings-api.php:39
+#: includes/class-listings-api.php:33
 #, fuzzy
 msgctxt "listings api"
 msgid "Listing renewed"
@@ -6919,13 +6946,13 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Страна обязательна."
 
-#: includes/functions.php:1269
+#: includes/functions.php:1271
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Вернуться к справочнику"
 
-#: includes/functions.php:1273 includes/functions.php:1278
+#: includes/functions.php:1275 includes/functions.php:1280
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
@@ -9534,6 +9561,11 @@ msgstr ""
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Адрес"
+
+#, fuzzy
+#~ msgctxt "settings"
+#~ msgid "Listing's renewal link"
+#~ msgstr "Продление срока действия"
 
 #, fuzzy
 #~ msgctxt "flag listing"
