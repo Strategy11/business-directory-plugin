@@ -408,8 +408,15 @@ class WPBDP_Themes_Admin {
         // Download package.
         $url = $version['theme-' . $theme_id]->download_link;
 
-        if ( ! $url )
-            return new WP_Error( 'invalid_package_url', 'No package URL provided.' );
+        if ( ! $url ) {
+            $version = $this->licensing->get_version_information( true );
+
+            $url = $version['theme-' . $theme_id]->download_link;
+
+            if ( ! $url ) {
+                return new WP_Error( 'invalid_package_url', 'No package URL provided.' );
+            }
+        }
 
         $download_file = download_url( $url );
         if ( is_wp_error( $download_file ) )
