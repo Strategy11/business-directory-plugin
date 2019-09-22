@@ -583,6 +583,14 @@ class WPBDP_Form_Field {
             return new WP_Error( 'wpbdp-save-error', _x( 'Field label is required.', 'form-fields-api', 'WPBDM' ) );
         }
 
+        if ( strlen( $this->label ) > 255 ) {
+            return new WP_Error( 'wpbdp-save-error', _x( 'Field label max length is 255 characters.', 'form-fields-api', 'WPBDM' ) );
+        }
+
+        if ( strlen( $this->description ) > 255 ) {
+            return new WP_Error( 'wpbdp-save-error', _x( 'Field description max length is 255 characters.', 'form-fields-api', 'WPBDM' ) );
+        }
+
         // If performing a field conversion, make sure the types are compatible.
         if ( $this->id ) {
             $orig_type = $wpdb->get_var( $wpdb->prepare( "SELECT field_type FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $this->id ) );
