@@ -25,11 +25,16 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             $_POST = stripslashes_deep( $_POST );
         }
 
+        $this->name    = wp_strip_all_tags( isset( $_POST['commentauthorname'] ) ? trim( $_POST['commentauthorname'] ) : '' );
+        $this->email   = sanitize_email( isset( $_POST['commentauthoremail'] ) ? trim( $_POST['commentauthoremail'] ) : '' );
+        $this->message = isset( $_POST['commentauthormessage'] ) ? trim( wp_kses( $_POST['commentauthormessage'], array() ) ) : '';
+
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
-        $this->name    = wp_strip_all_tags( $current_user ? $current_user->data->user_login : ( isset( $_POST['commentauthorname'] ) ? trim( $_POST['commentauthorname'] ) : '' ) );
-        $this->email   = sanitize_email( $current_user ? $current_user->data->user_email : ( isset( $_POST['commentauthoremail'] ) ? trim( $_POST['commentauthoremail'] ) : '' ) );
-        $this->message = isset( $_POST['commentauthormessage'] ) ? trim( wp_kses( $_POST['commentauthormessage'], array() ) ) : '';
+        if ( $current_user->exists() ) {
+            $this->name  = $current_user->user_firstname ? $current_user->user_firstname . ( $current_user->user_lastname ? ' ' . $current_user->user_lastname : '' ) : $current_user->data->user_login;
+            $this->email = $current_user->data->user_email;
+        }
     }
 
     private function validate() {

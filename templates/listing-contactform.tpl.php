@@ -27,7 +27,7 @@ if ( $validation_errors ) :
             <?php
             echo sprintf(
                 _x( 'You are currently logged in as %s. Your message will be sent using your logged in contact email.', 'templates', 'WPBDM' ),
-                $current_user->user_login
+                $current_user->first_name ? $current_user->first_name . ( $current_user->last_name ? ' ' . $current_user->last_name : '' ) : $current_user->user_login
             );
 			?>
         </p>
