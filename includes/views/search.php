@@ -20,6 +20,10 @@ class WPBDP__Views__Search extends WPBDP__View {
         $searching = apply_filters( 'wpbdp_searching_request', $searching );
         $search    = null;
 
+        if( ! $searching ) {
+            $this->_redirect( wpbdp_url( 'all_listings' ) );
+        }
+
         $form_fields = wpbdp_get_form_fields(
             array(
 				'display_flags' => 'search',
