@@ -29,14 +29,14 @@ class WPBDP__Listing_Search {
         $this->original_request = $original_request;
         $this->is_quick_search  = array_key_exists( 'kw', $original_request );
 
-        if ( ! $this->original_parts ) {
-            $this->_traverse_tree( $this->tree );
-            $this->original_parts = $this->parts;
-        }
-
         // If the tree has no head, assume 'and'.
         if ( ! isset( $this->tree[0] ) || ! is_string( $this->tree[0] ) ) {
             array_unshift( $this->tree, 'and' );
+        }
+
+        if ( ! $this->original_parts ) {
+            $this->_traverse_tree( $this->tree );
+            $this->original_parts = $this->parts;
         }
     }
 
