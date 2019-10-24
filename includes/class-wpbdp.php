@@ -19,7 +19,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-    define( 'WPBDP_VERSION', '5.5.11dev4' );
+    define( 'WPBDP_VERSION', '5.5.11dev5' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -61,7 +61,6 @@ final class WPBDP {
 
         require_once( WPBDP_INC . 'compatibility/class-compat.php' );
         require_once( WPBDP_INC . 'class-rewrite.php' );
-
 
         require_once( WPBDP_INC . 'class-assets.php' );
         require_once( WPBDP_INC . 'class-meta.php' );
