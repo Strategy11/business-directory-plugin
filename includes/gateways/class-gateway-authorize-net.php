@@ -323,4 +323,35 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         }
     }
 
+    /**
+     * @since 5.5.11
+     */
+    public function cancel_subscription( $listing, $subscription ) {
+        $susc_id = $subscription->get_subscription_id();
+        if ( ! $susc_id ) {
+            return;
+        }
+
+        $arb = get_authnet_ARB();
+        $arb->setSandbox( $this->in_test_mode() );
+
+        $response = $arb->getSubscriptionStatus( $susc_id );
+        $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
+
+        if ( ! in_array( $status, array( 'canceled', 'terminated' ) ) ) {
+            $arb = get_authnet_ARB();
+            $response = $arb->cancelSubscription( $susc_id );
+
+            if ( ! $response->isOk() ) {
+                if ( 'pre_delete_post' === current_filter() ) {
+                    throw new Exception( __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'wpbdp-stripe' ) );
+                }
+
+                return;
+            }
+        }
+
+        $subscription->cancel();
+    }
+
 }
