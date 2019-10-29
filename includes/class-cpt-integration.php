@@ -73,6 +73,8 @@ class WPBDP__CPT_Integration {
 
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 
+        add_filter( 'pre_trash_post', array( &$this, 'pre_listing_delete' ), 10, 2 );
+        add_filter( 'pre_delete_post', array( &$this, 'pre_listing_delete' ), 10, 2 );
         add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
         add_action( 'delete_term', array( &$this, 'handle_delete_term' ), 10, 3 );
 
@@ -214,6 +216,51 @@ class WPBDP__CPT_Integration {
         }
 
         return $open;
+    }
+
+    /**
+     * 
+     * @since 5.5.11
+     */
+    public function pre_listing_delete( $check, $post ) {
+        if( WPBDP_POST_TYPE !== $post->post_type ) {
+            return $check;
+        }
+
+        $listing = wpbdp_get_listing( $post->ID );
+
+        if( ! $listing->has_subscription() ) {
+            return $check;
+        }
+        
+        $subscription = $listing->get_subscription();
+
+        if ( ! $subscription ) {
+            global $wpdb;
+            $subscription_id = $wpdb->get_var( $wpdb->prepare( "SELECT subscription_id FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND is_recurring = %d", $this->id, 1 ) );
+        
+            if ( ! $subscription_id ) {
+                return $check;
+            }
+
+            try {
+                $subscription = new WPBDP__Listing_Subscription( 0, $subscription_id );
+            } catch ( Exception $e ) {
+                return $check;
+            }
+        }
+
+        global $wpbdp;
+
+        try {
+            // TODO: Implement cancel_subscription in gateways, otherwise listing won't be removed.
+            $wpbdp->payments->cancel_subscription( $listing, $subscription );
+        } catch ( Exception $e ) {
+            return false;
+        }
+
+        return $check;
+
     }
 
     /**
