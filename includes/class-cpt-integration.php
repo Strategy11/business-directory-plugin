@@ -255,8 +255,12 @@ class WPBDP__CPT_Integration {
         try {
             // TODO: Implement cancel_subscription in gateways, otherwise listing won't be removed.
             $wpbdp->payments->cancel_subscription( $listing, $subscription );
+            delete_post_meta( $listing->get_id(), '_gateway_suscription_cancel_status' );
         } catch ( Exception $e ) {
-            return false;
+            update_post_meta( $listing->get_id(), '_gateway_suscription_cancel_status', 'not_canceled' );
+            if ( 'pre_delete_post' === current_filter() ) {
+                wp_die( $e->getMessage() );
+            }
         }
 
         return $check;
