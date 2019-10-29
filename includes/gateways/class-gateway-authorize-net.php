@@ -40,6 +40,17 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         );
     }
 
+    /**
+     * @since 5.5.11
+     */
+    private function get_authnet_ARB() {
+        if ( ! class_exists( 'AuthorizeNetARB' ) ) {
+            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
+        }
+
+        return new AuthorizeNetARB( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+    }
+
     public function validate_settings() {
         $login_id = trim( $this->get_option( 'login-id' ) );
         $trans_key = trim( $this->get_option( 'transaction-key' ) );
@@ -144,10 +155,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             ) );
         }
 
-        if ( ! class_exists( 'AuthorizeNetARB' ) )
-            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
-
-        $arb = new AuthorizeNetARB( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+        $arb = get_authnet_ARB();
         $arb->setSandbox( $this->in_test_mode() );
 
         $subscription = new AuthorizeNet_Subscription();
@@ -191,10 +199,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     private function aim_request( $args = array() ) {
-        if ( ! class_exists( 'AuthorizeNetAIM' ) )
-            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
-
-        $aim = new AuthorizeNetAIM( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+        $aim = get_authnet_ARB();
         $aim->setSandbox( $this->in_test_mode() );
 
         // Basic order info.
@@ -246,10 +251,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         if ( ! $susc_id )
             return;
 
-        if ( ! class_exists( 'AuthorizeNetARB' ) )
-            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
-
-        $arb = new AuthorizeNetARB( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+        $arb = $this->get_authnet_ARB();
         $arb->setSandbox( $this->in_test_mode() );
 
         $response = $arb->getSubscriptionStatus( $susc_id );
