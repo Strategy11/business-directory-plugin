@@ -155,7 +155,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             ) );
         }
 
-        $arb = get_authnet_ARB();
+        $arb = $this->get_authnet_ARB();
         $arb->setSandbox( $this->in_test_mode() );
 
         $subscription = new AuthorizeNet_Subscription();
@@ -332,22 +332,27 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             return;
         }
 
-        $arb = get_authnet_ARB();
+        $arb = $this->get_authnet_ARB();
         $arb->setSandbox( $this->in_test_mode() );
 
         $response = $arb->getSubscriptionStatus( $susc_id );
         $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
 
         if ( ! in_array( $status, array( 'canceled', 'terminated' ) ) ) {
-            $arb = get_authnet_ARB();
+            $arb = $this->get_authnet_ARB();
             $response = $arb->cancelSubscription( $susc_id );
 
             if ( ! $response->isOk() ) {
-                if ( 'pre_delete_post' === current_filter() ) {
-                    throw new Exception( __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'wpbdp-stripe' ) );
+                $msg = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'wpbdp-stripe' );
+
+                if ( current_user_can( 'administrator' ) ) {
+                    $msg = sprintf(
+                        __( 'An error occurred while trying to cancel Authorize.net subscription with ID %s. You can try again later or cancel subscription from gateway dashboard.', 'wpbdp-stripe' ),
+                        $susc_id
+                    );
                 }
 
-                return;
+                throw new Exception( $msg );
             }
         }
 
