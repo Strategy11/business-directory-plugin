@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-09-11 22:04:30+00:00\n"
+"POT-Creation-Date: 2019-10-30 22:21:32+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -247,7 +247,7 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
-#: includes/class-wpbdp.php:446
+#: includes/class-wpbdp.php:445
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -256,7 +256,7 @@ msgstr ""
 "Функции Справочника Услуг на настоящий момент отключены, потому что "
 "необходимо произвести ручное обновление плагина."
 
-#: includes/class-wpbdp.php:453
+#: includes/class-wpbdp.php:452
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -322,6 +322,18 @@ msgstr "Имя пользователя"
 msgid "Transaction Key"
 msgstr "Ключ транзакции"
 
+#: includes/gateways/class-gateway-authorize-net.php:346
+msgid ""
+"An error occurred while trying to cancel your subscription. Please try again "
+"later or contact the site administrator."
+msgstr ""
+
+#: includes/gateways/class-gateway-authorize-net.php:350
+msgid ""
+"An error occurred while trying to cancel Authorize.net subscription with ID "
+"%s. You can try again later or cancel subscription from gateway dashboard."
+msgstr ""
+
 #: includes/licensing.php:95 includes/licensing.php:97
 #, fuzzy
 msgid "Licenses"
@@ -352,7 +364,7 @@ msgid ""
 "There was an error trying to process your request. No gateway is selected."
 msgstr ""
 
-#: includes/views/listing_contact.php:207
+#: includes/views/listing_contact.php:212
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l j F Y, \\a\\t H:i"
 
@@ -1158,19 +1170,19 @@ msgstr ""
 "WordPress] и включите режим \"Любой может зарегистрироваться\", чтобы "
 "позволить нашему плагину правильно работать."
 
-#: includes/admin/class-listing-fields-metabox.php:15
+#: includes/admin/class-listing-fields-metabox.php:28
 #, fuzzy
 msgctxt "admin"
 msgid "Fields"
 msgstr "Поле"
 
-#: includes/admin/class-listing-fields-metabox.php:17
+#: includes/admin/class-listing-fields-metabox.php:30
 #, fuzzy
 msgctxt "admin"
 msgid "Images (%s)"
 msgstr "Изображений"
 
-#: includes/admin/class-listing-fields-metabox.php:18
+#: includes/admin/class-listing-fields-metabox.php:31
 #, fuzzy
 msgctxt "admin"
 msgid "Images"
@@ -2799,7 +2811,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:145
-#: includes/fields/class-fieldtypes-radiobutton.php:115
+#: includes/fields/class-fieldtypes-radiobutton.php:116
 #: includes/fields/class-fieldtypes-select.php:268
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
@@ -6535,18 +6547,18 @@ msgctxt "recaptcha"
 msgid "reCAPTCHA"
 msgstr "Настройки reCAPTCHA"
 
-#: includes/class-wpbdp.php:254
+#: includes/class-wpbdp.php:253
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/class-wpbdp.php:345
+#: includes/class-wpbdp.php:344
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Рубрики этой записи"
 
-#: includes/class-wpbdp.php:349
+#: includes/class-wpbdp.php:348
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -6667,7 +6679,7 @@ msgctxt "form-fields api"
 msgid "Textfield"
 msgstr "Текстовое поле"
 
-#: includes/fields/class-fieldtypes-textfield.php:50
+#: includes/fields/class-fieldtypes-textfield.php:53
 msgctxt "form-fields api"
 msgid "Format 01/31/1969"
 msgstr "Формат ММ/ДД/ГГГГ"
@@ -6687,7 +6699,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Текст ссылки (не обязательно)"
 
-#: includes/fields/class-form-field.php:696
+#: includes/fields/class-form-field.php:707
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -6763,12 +6775,22 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Неверный тип поля формы"
 
-#: includes/fields/class-form-field.php:583
+#: includes/fields/class-form-field.php:586
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Метка поля обязательна."
 
+#: includes/fields/class-form-field.php:590
+msgctxt "form-fields-api"
+msgid "Field label max length is 255 characters."
+msgstr ""
+
 #: includes/fields/class-form-field.php:594
+msgctxt "form-fields-api"
+msgid "Field description max length is 255 characters."
+msgstr ""
+
+#: includes/fields/class-form-field.php:605
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -6776,14 +6798,14 @@ msgid ""
 "delete this current field and create a NEW field of type %1$s instead."
 msgstr ""
 
-#: includes/fields/class-form-field.php:597
+#: includes/fields/class-form-field.php:608
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
 "existing listings will be deleted as well."
 msgstr ""
 
-#: includes/fields/class-form-field.php:631
+#: includes/fields/class-form-field.php:642
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -6792,17 +6814,17 @@ msgstr ""
 "Ассоциация с полем \"%s\" может быть только одна. Пожалуйста, выберите "
 "другую ассоциацию."
 
-#: includes/fields/class-form-field.php:641
+#: includes/fields/class-form-field.php:652
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "Поле \"%s\" не является корректной ассоциацией для этого поля."
 
-#: includes/fields/class-form-field.php:686
+#: includes/fields/class-form-field.php:697
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Некорректный номер поля"
 
-#: includes/fields/class-form-field.php:709
+#: includes/fields/class-form-field.php:720
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Произошла ошибка при попытке удаления этого поля."
@@ -6978,12 +7000,12 @@ msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Расширенный поиск"
 
-#: includes/views/listing_contact.php:149
+#: includes/views/listing_contact.php:154
 msgctxt "templates"
 msgid "Contact listing owner"
 msgstr "Свяжитесь с владельцем бизнеса"
 
-#: includes/views/listing_contact.php:153
+#: includes/views/listing_contact.php:158
 msgctxt "templates"
 msgid "Send Message to listing owner"
 msgstr "Послать сообщение автору записи"
@@ -7376,17 +7398,17 @@ msgctxt "authorize-net"
 msgid "Authorize.net"
 msgstr "Активировать шлюз  Authorize.net?"
 
-#: includes/gateways/class-gateway-authorize-net.php:50
+#: includes/gateways/class-gateway-authorize-net.php:61
 msgctxt "authorize-net"
 msgid "Login ID is missing."
 msgstr "Имя пользователя не указано."
 
-#: includes/gateways/class-gateway-authorize-net.php:53
+#: includes/gateways/class-gateway-authorize-net.php:64
 msgctxt "authorize-net"
 msgid "Transaction Key is missing."
 msgstr "Ключ транзакции не указан."
 
-#: includes/gateways/class-gateway-authorize-net.php:82
+#: includes/gateways/class-gateway-authorize-net.php:93
 #, fuzzy
 msgctxt "authorize-net"
 msgid ""
@@ -7394,7 +7416,7 @@ msgid ""
 "reason was given: \"%s\"."
 msgstr "Ваш платёж проходит рассмотрение в платёжном шлюзе по причине: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:91
+#: includes/gateways/class-gateway-authorize-net.php:102
 #, fuzzy
 msgctxt "authorize-net"
 msgid ""
@@ -7404,17 +7426,17 @@ msgstr ""
 "Платёжный шлюз отверг Вашу кредитную карту или платёжную информацию по "
 "причине: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:100
+#: includes/gateways/class-gateway-authorize-net.php:111
 msgctxt "authorize-net"
 msgid "Payment was rejected. The following reason was given: \"%s\"."
 msgstr "Платёж был отвергнут по причине: \"%s\""
 
-#: includes/gateways/class-gateway-authorize-net.php:161
+#: includes/gateways/class-gateway-authorize-net.php:169
 msgctxt "authorize-net"
 msgid "Payment failed. Reason: %s"
 msgstr ""
 
-#: includes/gateways/class-gateway-authorize-net.php:186
+#: includes/gateways/class-gateway-authorize-net.php:194
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Listing #%d"
@@ -8204,44 +8226,44 @@ msgctxt "delete listing"
 msgid "Yes. Delete my listing."
 msgstr "Да... Удалить мою запись."
 
-#: includes/views/listing_contact.php:50
+#: includes/views/listing_contact.php:55
 msgctxt "contact-message"
 msgid "Please enter your name."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/views/listing_contact.php:54
+#: includes/views/listing_contact.php:59
 msgctxt "contact-message"
 msgid "Please enter a valid email."
 msgstr "Пожалуйста введите правильный электронный адрес."
 
-#: includes/views/listing_contact.php:58
+#: includes/views/listing_contact.php:63
 msgctxt "contact-message"
 msgid "You did not enter a message."
 msgstr "Вы не ввели текст в поле сообщения."
 
-#: includes/views/listing_contact.php:219
+#: includes/views/listing_contact.php:224
 msgctxt "contact-message"
 msgid "Your message has been sent."
 msgstr "Запись была удалена."
 
-#: includes/views/listing_contact.php:241
+#: includes/views/listing_contact.php:246
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr "Произошла ошибка, в результате чего Ваше сообщение не было послано"
 
-#: includes/views/listing_contact.php:244
+#: includes/views/listing_contact.php:249
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Вернуться к записям."
 
-#: includes/views/listing_contact.php:77
+#: includes/views/listing_contact.php:82
 msgctxt "contact form"
 msgid "Please <a>log in</a> to be able to send messages to the listing owner."
 msgstr ""
 "Пожалуйста <a>войдите в сайт</a> чтобы получить возможность отправить "
 "сообщение владельцу бизнеса."
 
-#: includes/views/listing_contact.php:103
+#: includes/views/listing_contact.php:108
 msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr ""
@@ -8455,7 +8477,7 @@ msgctxt "request_access_keys"
 msgid "URL:"
 msgstr "Ссылка:"
 
-#: includes/views/search.php:41
+#: includes/views/search.php:45
 #, fuzzy
 msgctxt "search"
 msgid "\"%s\" is required."

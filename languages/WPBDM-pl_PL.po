@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-09-11 22:04:30+00:00\n"
+"POT-Creation-Date: 2019-10-30 22:21:32+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -283,7 +283,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/class-wpbdp.php:446
+#: includes/class-wpbdp.php:445
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -292,7 +292,7 @@ msgstr ""
 "Funkcje pluginu KATALOG FIRM są chwilowo wyłączone, ponieważ plugin oczekuje "
 "na ręczną aktualizację, przed kontynuacją."
 
-#: includes/class-wpbdp.php:453
+#: includes/class-wpbdp.php:452
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -372,6 +372,18 @@ msgstr "ID Loginu"
 msgid "Transaction Key"
 msgstr "Klucz Transakcji"
 
+#: includes/gateways/class-gateway-authorize-net.php:346
+msgid ""
+"An error occurred while trying to cancel your subscription. Please try again "
+"later or contact the site administrator."
+msgstr ""
+
+#: includes/gateways/class-gateway-authorize-net.php:350
+msgid ""
+"An error occurred while trying to cancel Authorize.net subscription with ID "
+"%s. You can try again later or cancel subscription from gateway dashboard."
+msgstr ""
+
 # @ WPBDM
 #: includes/licensing.php:95 includes/licensing.php:97
 #, fuzzy
@@ -407,7 +419,7 @@ msgid ""
 msgstr ""
 
 # @ default
-#: includes/views/listing_contact.php:207
+#: includes/views/listing_contact.php:212
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \\a\\t g:i a"
 
@@ -1321,21 +1333,21 @@ msgstr ""
 "katalog firm będzie działał poprawnie."
 
 # @ WPBDM
-#: includes/admin/class-listing-fields-metabox.php:15
+#: includes/admin/class-listing-fields-metabox.php:28
 #, fuzzy
 msgctxt "admin"
 msgid "Fields"
 msgstr "Pole"
 
 # @ WPBDM
-#: includes/admin/class-listing-fields-metabox.php:17
+#: includes/admin/class-listing-fields-metabox.php:30
 #, fuzzy
 msgctxt "admin"
 msgid "Images (%s)"
 msgstr "Obrazy"
 
 # @ WPBDM
-#: includes/admin/class-listing-fields-metabox.php:18
+#: includes/admin/class-listing-fields-metabox.php:31
 #, fuzzy
 msgctxt "admin"
 msgid "Images"
@@ -3173,7 +3185,7 @@ msgstr ""
 
 # @ WPBDM
 #: includes/fields/class-fieldtypes-checkbox.php:145
-#: includes/fields/class-fieldtypes-radiobutton.php:115
+#: includes/fields/class-fieldtypes-radiobutton.php:116
 #: includes/fields/class-fieldtypes-select.php:268
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
@@ -7329,19 +7341,19 @@ msgid "reCAPTCHA"
 msgstr "Ustawienia reCAPTCHA"
 
 # @ WPBDM
-#: includes/class-wpbdp.php:254
+#: includes/class-wpbdp.php:253
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Ustawienia"
 
 # @ WPBDM
-#: includes/class-wpbdp.php:345
+#: includes/class-wpbdp.php:344
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Kategorie dla tej oferty"
 
-#: includes/class-wpbdp.php:349
+#: includes/class-wpbdp.php:348
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -7482,7 +7494,7 @@ msgid "Textfield"
 msgstr "Pole tekstowe"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-textfield.php:50
+#: includes/fields/class-fieldtypes-textfield.php:53
 msgctxt "form-fields api"
 msgid "Format 01/31/1969"
 msgstr "Format 01/31/1969"
@@ -7506,7 +7518,7 @@ msgid "Link Text (optional):"
 msgstr "Tekst alternatywny(opcjonalnie):"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:696
+#: includes/fields/class-form-field.php:707
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -7597,12 +7609,22 @@ msgid "Invalid form field type"
 msgstr "Niewłaściwy typ Pola"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:583
+#: includes/fields/class-form-field.php:586
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Etykieta pola jest wymagana."
 
+#: includes/fields/class-form-field.php:590
+msgctxt "form-fields-api"
+msgid "Field label max length is 255 characters."
+msgstr ""
+
 #: includes/fields/class-form-field.php:594
+msgctxt "form-fields-api"
+msgid "Field description max length is 255 characters."
+msgstr ""
+
+#: includes/fields/class-form-field.php:605
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -7610,7 +7632,7 @@ msgid ""
 "delete this current field and create a NEW field of type %1$s instead."
 msgstr ""
 
-#: includes/fields/class-form-field.php:597
+#: includes/fields/class-form-field.php:608
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
@@ -7618,7 +7640,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:631
+#: includes/fields/class-form-field.php:642
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -7628,19 +7650,19 @@ msgstr ""
 "przypisanie."
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:641
+#: includes/fields/class-form-field.php:652
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" jest niewłaściwym typem pola do tego przypisania"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:686
+#: includes/fields/class-form-field.php:697
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Niewłaściwe ID Pola"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:709
+#: includes/fields/class-form-field.php:720
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Wykryto błąd w trakcie próby usunięcia tego pola."
@@ -7841,13 +7863,13 @@ msgid "Advanced Search"
 msgstr "Zaawansowane szukanie"
 
 # @ WPBDM
-#: includes/views/listing_contact.php:149
+#: includes/views/listing_contact.php:154
 msgctxt "templates"
 msgid "Contact listing owner"
 msgstr "Skontaktuj się z właścicielem oferty"
 
 # @ WPBDM
-#: includes/views/listing_contact.php:153
+#: includes/views/listing_contact.php:158
 msgctxt "templates"
 msgid "Send Message to listing owner"
 msgstr "Wyślij wiadomość do właściciela oferty"
@@ -8297,19 +8319,19 @@ msgid "Authorize.net"
 msgstr "Aktywować Authorize.net?"
 
 # @ WPBDM
-#: includes/gateways/class-gateway-authorize-net.php:50
+#: includes/gateways/class-gateway-authorize-net.php:61
 msgctxt "authorize-net"
 msgid "Login ID is missing."
 msgstr "Nie znaleziono ID Loginu"
 
 # @ WPBDM
-#: includes/gateways/class-gateway-authorize-net.php:53
+#: includes/gateways/class-gateway-authorize-net.php:64
 msgctxt "authorize-net"
 msgid "Transaction Key is missing."
 msgstr "Nie znaleziono klucza transakcji."
 
 # @ WPBDM
-#: includes/gateways/class-gateway-authorize-net.php:82
+#: includes/gateways/class-gateway-authorize-net.php:93
 #, fuzzy
 msgctxt "authorize-net"
 msgid ""
@@ -8320,7 +8342,7 @@ msgstr ""
 "\"%s\"."
 
 # @ WPBDM
-#: includes/gateways/class-gateway-authorize-net.php:91
+#: includes/gateways/class-gateway-authorize-net.php:102
 #, fuzzy
 msgctxt "authorize-net"
 msgid ""
@@ -8331,18 +8353,18 @@ msgstr ""
 "bilingowych. Powodem może być: \"%s\"."
 
 # @ WPBDM
-#: includes/gateways/class-gateway-authorize-net.php:100
+#: includes/gateways/class-gateway-authorize-net.php:111
 msgctxt "authorize-net"
 msgid "Payment was rejected. The following reason was given: \"%s\"."
 msgstr "Płatność została odrzucona. Powodem może być: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:161
+#: includes/gateways/class-gateway-authorize-net.php:169
 msgctxt "authorize-net"
 msgid "Payment failed. Reason: %s"
 msgstr ""
 
 # @ WPBDM
-#: includes/gateways/class-gateway-authorize-net.php:186
+#: includes/gateways/class-gateway-authorize-net.php:194
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Listing #%d"
@@ -9219,43 +9241,43 @@ msgid "Yes. Delete my listing."
 msgstr "TAK. Usuń Firmę."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:50
+#: includes/views/listing_contact.php:55
 msgctxt "contact-message"
 msgid "Please enter your name."
 msgstr "Proszę wprowadzić Imię"
 
 # @ WPBDM
-#: includes/views/listing_contact.php:54
+#: includes/views/listing_contact.php:59
 msgctxt "contact-message"
 msgid "Please enter a valid email."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:58
+#: includes/views/listing_contact.php:63
 msgctxt "contact-message"
 msgid "You did not enter a message."
 msgstr "Nie wpisałeś wiadomości."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:219
+#: includes/views/listing_contact.php:224
 msgctxt "contact-message"
 msgid "Your message has been sent."
 msgstr "Twoja oferta została usunięta."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:241
+#: includes/views/listing_contact.php:246
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr "Wystąpił problem. Twoja wiadomość nie została wysłana"
 
 # @ WPBDM
-#: includes/views/listing_contact.php:244
+#: includes/views/listing_contact.php:249
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Powrót do oferty."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:77
+#: includes/views/listing_contact.php:82
 msgctxt "contact form"
 msgid "Please <a>log in</a> to be able to send messages to the listing owner."
 msgstr ""
@@ -9263,7 +9285,7 @@ msgstr ""
 "za kontakt z klientem."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:103
+#: includes/views/listing_contact.php:108
 msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr ""
@@ -9505,7 +9527,7 @@ msgid "URL:"
 msgstr "URL:"
 
 # @ WPBDM
-#: includes/views/search.php:41
+#: includes/views/search.php:45
 #, fuzzy
 msgctxt "search"
 msgid "\"%s\" is required."

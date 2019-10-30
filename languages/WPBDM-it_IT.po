@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-09-11 22:04:30+00:00\n"
+"POT-Creation-Date: 2019-10-30 22:21:32+00:00\n"
 "PO-Revision-Date: 2019-06-25 13:45-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -247,7 +247,7 @@ msgstr ""
 "menzionando questo problema. L'amministratore dovrebbe essere in grado di "
 "annullare l'abbonamento."
 
-#: includes/class-wpbdp.php:446
+#: includes/class-wpbdp.php:445
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -255,7 +255,7 @@ msgstr ""
 "Le funzioni della directory sono disattivate in questo momento perché è in "
 "attesa di un <a>aggiornamento manuale</a>."
 
-#: includes/class-wpbdp.php:453
+#: includes/class-wpbdp.php:452
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -324,6 +324,18 @@ msgstr "Login ID"
 msgid "Transaction Key"
 msgstr "Codice transazione"
 
+#: includes/gateways/class-gateway-authorize-net.php:346
+msgid ""
+"An error occurred while trying to cancel your subscription. Please try again "
+"later or contact the site administrator."
+msgstr ""
+
+#: includes/gateways/class-gateway-authorize-net.php:350
+msgid ""
+"An error occurred while trying to cancel Authorize.net subscription with ID "
+"%s. You can try again later or cancel subscription from gateway dashboard."
+msgstr ""
+
 #: includes/licensing.php:95 includes/licensing.php:97
 msgid "Licenses"
 msgstr "Licenze"
@@ -356,7 +368,7 @@ msgstr ""
 "C'è stato un errore nel tentativo di elaborare la vostra richiesta. Non è "
 "stato selezionato alcun gateway."
 
-#: includes/views/listing_contact.php:207
+#: includes/views/listing_contact.php:212
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \a\\t g:i a"
 
@@ -1150,17 +1162,17 @@ msgstr ""
 "è attualmente disabilitata. Vai [qui] e controlla \"Chiunque può registrarsi"
 "\" per assicurarti che BD funzioni correttamente."
 
-#: includes/admin/class-listing-fields-metabox.php:15
+#: includes/admin/class-listing-fields-metabox.php:28
 msgctxt "admin"
 msgid "Fields"
 msgstr "Campi"
 
-#: includes/admin/class-listing-fields-metabox.php:17
+#: includes/admin/class-listing-fields-metabox.php:30
 msgctxt "admin"
 msgid "Images (%s)"
 msgstr "Immagini (%s)"
 
-#: includes/admin/class-listing-fields-metabox.php:18
+#: includes/admin/class-listing-fields-metabox.php:31
 msgctxt "admin"
 msgid "Images"
 msgstr "Immagini"
@@ -2777,7 +2789,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr "Visualizza l'opzione \"Seleziona tutto\" tra le opzioni di cui sopra."
 
 #: includes/fields/class-fieldtypes-checkbox.php:145
-#: includes/fields/class-fieldtypes-radiobutton.php:115
+#: includes/fields/class-fieldtypes-radiobutton.php:116
 #: includes/fields/class-fieldtypes-select.php:268
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
@@ -6318,17 +6330,17 @@ msgctxt "recaptcha"
 msgid "reCAPTCHA"
 msgstr "reCAPTCHA"
 
-#: includes/class-wpbdp.php:254
+#: includes/class-wpbdp.php:253
 msgctxt "admin plugins"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: includes/class-wpbdp.php:345
+#: includes/class-wpbdp.php:344
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Non è possibile caricare altre immagini per questo annuncio."
 
-#: includes/class-wpbdp.php:349
+#: includes/class-wpbdp.php:348
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -6450,7 +6462,7 @@ msgctxt "form-fields api"
 msgid "Textfield"
 msgstr "Campo di testo"
 
-#: includes/fields/class-fieldtypes-textfield.php:50
+#: includes/fields/class-fieldtypes-textfield.php:53
 msgctxt "form-fields api"
 msgid "Format 01/31/1969"
 msgstr "Formato 01/31/1969"
@@ -6470,7 +6482,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Link Text (opzionale):"
 
-#: includes/fields/class-form-field.php:696
+#: includes/fields/class-form-field.php:707
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -6545,12 +6557,22 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Tipo di campo modulo non valido"
 
-#: includes/fields/class-form-field.php:583
+#: includes/fields/class-form-field.php:586
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "È richiesta l'etichetta del campo."
 
+#: includes/fields/class-form-field.php:590
+msgctxt "form-fields-api"
+msgid "Field label max length is 255 characters."
+msgstr ""
+
 #: includes/fields/class-form-field.php:594
+msgctxt "form-fields-api"
+msgid "Field description max length is 255 characters."
+msgstr ""
+
+#: includes/fields/class-form-field.php:605
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -6562,7 +6584,7 @@ msgstr ""
 "tipo %1$s, cancellare questo campo corrente e creare invece un nuovo campo "
 "di tipo %1$s."
 
-#: includes/fields/class-form-field.php:597
+#: includes/fields/class-form-field.php:608
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
@@ -6571,7 +6593,7 @@ msgstr ""
 "<strong>ATTENZIONE</strong>: Se si elimina questo campo, anche i dati "
 "contenuti negli annunci esistenti verranno cancellati."
 
-#: includes/fields/class-form-field.php:631
+#: includes/fields/class-form-field.php:642
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -6580,17 +6602,17 @@ msgstr ""
 "Ci può essere un solo campo con l'associazione \"%s\". Selezionare un'altra "
 "associazione."
 
-#: includes/fields/class-form-field.php:641
+#: includes/fields/class-form-field.php:652
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" è un tipo di campo non valido per questa associazione."
 
-#: includes/fields/class-form-field.php:686
+#: includes/fields/class-form-field.php:697
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "ID campo non valido"
 
-#: includes/fields/class-form-field.php:709
+#: includes/fields/class-form-field.php:720
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr ""
@@ -6768,12 +6790,12 @@ msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Ricerca Avanzata"
 
-#: includes/views/listing_contact.php:149
+#: includes/views/listing_contact.php:154
 msgctxt "templates"
 msgid "Contact listing owner"
 msgstr "Contatta il proprietario"
 
-#: includes/views/listing_contact.php:153
+#: includes/views/listing_contact.php:158
 msgctxt "templates"
 msgid "Send Message to listing owner"
 msgstr "Invia messaggio al proprietario dell'elenco"
@@ -7174,17 +7196,17 @@ msgctxt "authorize-net"
 msgid "Authorize.net"
 msgstr "Carta di Credito"
 
-#: includes/gateways/class-gateway-authorize-net.php:50
+#: includes/gateways/class-gateway-authorize-net.php:61
 msgctxt "authorize-net"
 msgid "Login ID is missing."
 msgstr "L'ID di accesso è mancante."
 
-#: includes/gateways/class-gateway-authorize-net.php:53
+#: includes/gateways/class-gateway-authorize-net.php:64
 msgctxt "authorize-net"
 msgid "Transaction Key is missing."
 msgstr "Il codice transazione è mancante."
 
-#: includes/gateways/class-gateway-authorize-net.php:82
+#: includes/gateways/class-gateway-authorize-net.php:93
 msgctxt "authorize-net"
 msgid ""
 "Payment is being held for review by the payment gateway. The following "
@@ -7193,7 +7215,7 @@ msgstr ""
 "Il pagamento è in corso di revisione da parte del gateway di pagamento. È "
 "stata fornita la seguente motivazione: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:91
+#: includes/gateways/class-gateway-authorize-net.php:102
 msgctxt "authorize-net"
 msgid ""
 "The payment gateway didn't accept the credit card or billing information. "
@@ -7202,19 +7224,19 @@ msgstr ""
 "Il gateway di pagamento non ha accettato i dati della carta di credito o di "
 "fatturazione. È stata fornita la seguente motivazione: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:100
+#: includes/gateways/class-gateway-authorize-net.php:111
 msgctxt "authorize-net"
 msgid "Payment was rejected. The following reason was given: \"%s\"."
 msgstr ""
 "Il pagamento è stato rifiutato. È stata fornita la seguente motivazione: \"%s"
 "\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:161
+#: includes/gateways/class-gateway-authorize-net.php:169
 msgctxt "authorize-net"
 msgid "Payment failed. Reason: %s"
 msgstr "Pagamento fallito. Motivo: %s"
 
-#: includes/gateways/class-gateway-authorize-net.php:186
+#: includes/gateways/class-gateway-authorize-net.php:194
 msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "Elenco #%d"
@@ -8004,44 +8026,44 @@ msgctxt "delete listing"
 msgid "Yes. Delete my listing."
 msgstr "Si'. Cancellare il mio annuncio."
 
-#: includes/views/listing_contact.php:50
+#: includes/views/listing_contact.php:55
 msgctxt "contact-message"
 msgid "Please enter your name."
 msgstr "Inserisci il tuo nome."
 
-#: includes/views/listing_contact.php:54
+#: includes/views/listing_contact.php:59
 msgctxt "contact-message"
 msgid "Please enter a valid email."
 msgstr "Inserisci un indirizzo email valido."
 
-#: includes/views/listing_contact.php:58
+#: includes/views/listing_contact.php:63
 msgctxt "contact-message"
 msgid "You did not enter a message."
 msgstr "Non hai inserito un messaggio."
 
-#: includes/views/listing_contact.php:219
+#: includes/views/listing_contact.php:224
 msgctxt "contact-message"
 msgid "Your message has been sent."
 msgstr "Il tuo messaggio è stato spedito."
 
-#: includes/views/listing_contact.php:241
+#: includes/views/listing_contact.php:246
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr "C'è stato un problema. Il tuo messaggio non è stato inviato"
 
-#: includes/views/listing_contact.php:244
+#: includes/views/listing_contact.php:249
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Torna all'annuncio."
 
-#: includes/views/listing_contact.php:77
+#: includes/views/listing_contact.php:82
 msgctxt "contact form"
 msgid "Please <a>log in</a> to be able to send messages to the listing owner."
 msgstr ""
 "Devi aver effettuato <a>l'accesso</a> per poter inviare messaggi al "
 "proprietario."
 
-#: includes/views/listing_contact.php:103
+#: includes/views/listing_contact.php:108
 msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr ""
@@ -8244,7 +8266,7 @@ msgctxt "request_access_keys"
 msgid "URL:"
 msgstr "URL:"
 
-#: includes/views/search.php:41
+#: includes/views/search.php:45
 msgctxt "search"
 msgid "\"%s\" is required."
 msgstr "%s è richiesto."
