@@ -73,6 +73,8 @@ class WPBDP__CPT_Integration {
 
         add_filter('comments_open', array($this, '_allow_comments'), 10, 2);
 
+        add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_post_updated_messages' ), 10, 2 );
+
         add_filter( 'pre_trash_post', array( &$this, 'pre_listing_delete' ), 10, 2 );
         add_filter( 'pre_delete_post', array( &$this, 'pre_listing_delete' ), 10, 2 );
         add_action( 'before_delete_post', array( &$this, 'after_listing_delete' ) );
@@ -219,6 +221,32 @@ class WPBDP__CPT_Integration {
     }
 
     /**
+	 * Specify custom bulk actions messages for WPBDP post type.
+	 *
+	 * @param  array $bulk_messages Array of messages.
+	 * @param  array $bulk_counts Array of how many objects were updated.
+	 * @return array
+     * 
+     * @since 5.5.11
+     */
+    public function bulk_post_updated_messages( $bulk_messages, $bulk_counts ) {
+        $bulk_messages[WPBDP_POST_TYPE] = array(
+			/* translators: %s: listing count */
+			'updated'   => _n( '%s listing updated.', '%s listings updated.', $bulk_counts['updated'], 'wpbdp' ),
+			/* translators: %s: listing count */
+			'locked'    => _n( '%s listing not updated, somebody is editing it.', '%s listings not updated, somebody is editing them.', $bulk_counts['locked'], 'wpbdp' ),
+			/* translators: %s: listing count */
+			'deleted'   => _n( '%s listing permanently deleted.', '%s listings permanently deleted.', $bulk_counts['deleted'], 'wpbdp' ),
+			/* translators: %s: listing count */
+			'trashed'   => _n( '%s listing moved to the Trash.', '%s listings moved to the Trash.', $bulk_counts['trashed'], 'wpbdp' ),
+			/* translators: %s: listing count */
+			'untrashed' => _n( '%s listing restored from the Trash.', '%s listings restored from the Trash.', $bulk_counts['untrashed'], 'wpbdp' ),
+        );
+        
+        return $bulk_messages;
+    }
+
+    /**
      * 
      * @since 5.5.11
      */
@@ -250,6 +278,10 @@ class WPBDP__CPT_Integration {
             }
         }
 
+        if ( ! $subscription->get_parent_payment() ) {
+            return $check;
+        }
+
         global $wpbdp;
 
         try {
@@ -260,6 +292,7 @@ class WPBDP__CPT_Integration {
             update_post_meta( $listing->get_id(), '_gateway_suscription_cancel_status', 'not_canceled' );
             if ( 'pre_delete_post' === current_filter() ) {
                 wp_die( $e->getMessage() );
+                return false;
             }
         }
 
