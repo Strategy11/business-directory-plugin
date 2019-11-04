@@ -19,8 +19,9 @@ class WPBDP__Views__Search extends WPBDP__View {
         $searching = ( ! empty( $_GET ) && ( ! empty( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
         $searching = apply_filters( 'wpbdp_searching_request', $searching );
         $search    = null;
+        $redirect  = ! $searching && isset( $_GET['kw'] ) && 'none' === wpbdp_get_option( 'search-form-in-results' );
 
-        if( ! $searching && 'none' === wpbdp_get_option( 'search-form-in-results' ) ) {
+        if( $redirect ) {
             $this->_redirect( wpbdp_url( 'all_listings' ) );
         }
 
