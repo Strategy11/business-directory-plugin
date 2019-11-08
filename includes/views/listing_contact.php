@@ -31,7 +31,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
-        if ( $current_user->exists() ) {
+        if ( $current_user && $current_user->exists() ) {
             $this->name  = $current_user->user_firstname ? $current_user->user_firstname . ( $current_user->user_lastname ? ' ' . $current_user->user_lastname : '' ) : $current_user->data->user_login;
             $this->email = $current_user->data->user_email;
         }
