@@ -32,7 +32,6 @@ class WPBDP__Query_Integration {
         array_push( $vars, 'listing' );
         array_push( $vars, 'category_id' ); // TODO: are we really using this var?
         array_push( $vars, 'category' );
-        array_push( $vars, 'action' ); // TODO: are we really using this var?
         array_push( $vars, 'wpbdpx' );
         array_push( $vars, 'wpbdp-listener' );
         array_push( $vars, 'region' );
