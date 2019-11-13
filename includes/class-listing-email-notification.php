@@ -143,16 +143,17 @@ class WPBDP__Listing_Email_Notification {
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function send_notices( $event, $relative_time, $listing, $force_resend = false ) {
+        $sent    = false;
         $listing = is_object( $listing ) ? $listing : wpbdp_get_listing( absint( $listing ) );
 
         if ( ! $listing ) {
-            return;
+            return $sent;
         }
 
         $post_status = get_post_status( $listing->get_id() );
 
         if ( ! $post_status || in_array( $post_status, array( 'trash', 'auto-draft' ), true ) ) {
-            return;
+            return $sent;
         }
 
         $all_notices = wpbdp_get_option( 'expiration-notices' );
@@ -212,9 +213,12 @@ class WPBDP__Listing_Email_Notification {
                 // TODO: Why was the line below commented out?
                 // See: https://github.com/drodenbaugh/BusinessDirectoryPlugin/commit/0420174dd3f93089e8088b942f3ca08d82c13d62
                 // update_post_meta( $listing->get_id(), '_wpbdp_notice_sent_' . $notice_key, current_time( 'timestamp' ) );
+                $sent = true;
             }
             // phpcs:enable
         }
+
+        return $sent;
     }
 
     /**

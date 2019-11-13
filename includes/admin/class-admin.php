@@ -750,8 +750,12 @@ to how WordPress stores the data.", 'WPBDM' )
                 if ( ! $listing )
                     break;
 
-                wpbdp()->listing_email_notification->send_notices( 'expiration', '0 days', $listing_id, true );
-                $this->messages[] = _x( 'Renewal email sent.', 'admin', 'WPBDM' );
+                if ( wpbdp()->listing_email_notification->send_notices( 'expiration', '0 days', $listing_id, true ) ) {
+                    $this->messages[] = _x( 'Renewal email sent.', 'admin', 'WPBDM' );
+                    break;
+                }
+
+                $this->messages[] = array ( _x( 'Could not send renewal email, notice template at listing expiration not found.', 'admin', 'WPBDM' ), 'error' );
 
                 break;
 
