@@ -504,8 +504,23 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $plans = $this->available_plans;
 
-        if ( ! $plans && ! $this->editing ) {
-            wp_die( _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' ) );
+        // if ( ! $plans && ! $this->editing ) {
+        if ( true ) {
+            $msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' );
+            if ( current_user_can( 'administrator' ) ) {
+                $msg .= '<br><br>';
+                $msg .= _x( '<b>There are no Fee Plans available</b>, without a fee plan site users can\'t submit a listing. %s to create a fee plan', 'templates', 'WPBDM' );
+
+                $msg = sprintf(
+                    $msg,
+                    sprintf(
+                        '<a href="%s">%s</a>',
+                        admin_url( 'admin.php?page=wpbdp-admin-fees' ),
+                        _x( 'Go to "Manage Fees"', 'admin', 'WPBDM' )
+                    )
+                );
+            }
+            wp_die( $msg );
         }
 
         $msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'WPBDM' );
