@@ -504,8 +504,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $plans = $this->available_plans;
 
-        // if ( ! $plans && ! $this->editing ) {
-        if ( true ) {
+        if ( ! $plans && ! $this->editing ) {
             $msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' );
             if ( current_user_can( 'administrator' ) ) {
                 $msg .= '<br><br>';
