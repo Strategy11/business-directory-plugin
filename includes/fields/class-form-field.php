@@ -478,6 +478,9 @@ class WPBDP_Form_Field {
             return true;
         }
 
+        // @since 5.5.12
+        $value = apply_filters_ref_array( 'wpbdp_fields_text_value_for_rendering', array( $value, null, $this ) );
+
         foreach ( $this->validators as $validator ) {
             if ( 'required-in-search' == $validator ) {
                 continue;
