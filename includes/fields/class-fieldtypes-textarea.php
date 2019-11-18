@@ -30,13 +30,16 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
         }
 
+        // @since 5.5.12
+        $value = apply_filters_ref_array( 'wpbdp_fields_text_value_for_rendering', array( $value, null,  $field ) );
+
         if ( $this->should_show_wysiwyg_editor( $field ) && $this->can_show_wysiwyg_editor() ) {
             $html = $this->render_wysiwyg_editor( $field, $value );
         } else {
             $html = sprintf(
                 '<textarea id="%s" name="%s">%s</textarea>',
                 'wpbdp-field-' . $field->get_id(),
-                'listingfields[' . $field->get_id() . ']',
+                apply_filters( 'wpbdp_fields_text_input_name', 'listingfields[' . $field->get_id() . ']', $field, $context, $extra, $field_settings ),
                 $value ? esc_attr( $value ) : ''
             );
         }
