@@ -19,7 +19,8 @@ class WPBDP_RandomListingsWidget extends WPBDP_Listings_Widget {
             array(
                 'post_type' => WPBDP_POST_TYPE,
                 'post_status' => 'publish',
-                'suppress_filters' => false
+                'suppress_filters' => false,
+                'posts_per_page'   => -1
             )
         );
 
