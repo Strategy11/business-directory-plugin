@@ -27,6 +27,10 @@ class WPBDP_RandomListingsWidget extends WPBDP_Listings_Widget {
         $posts       = $posts->posts;
         $posts_count = count( $posts );
 
+        if ( ! $posts_count ) {
+            return;
+        }
+
         $keys = (array)array_rand( $posts, $instance['number_of_listings'] < $posts_count ? $instance['number_of_listings'] : $posts_count );
         $rand = array();
 
