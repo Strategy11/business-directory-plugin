@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-10-30 22:21:32+00:00\n"
+"POT-Creation-Date: 2019-11-19 21:50:15+00:00\n"
 "PO-Revision-Date: 2019-06-25 13:45-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -234,6 +234,45 @@ msgstr "Tags directory"
 #: includes/class-cpt-integration.php:54
 msgid "Directory Tag"
 msgstr "Tag della directory"
+
+#. translators: %s: listing count
+#: includes/class-cpt-integration.php:235
+#, fuzzy
+msgid "%s listing updated."
+msgid_plural "%s listings updated."
+msgstr[0] "Un annuncio viene modificato."
+msgstr[1] "Un annuncio viene modificato."
+
+#. translators: %s: listing count
+#: includes/class-cpt-integration.php:237
+msgid "%s listing not updated, somebody is editing it."
+msgid_plural "%s listings not updated, somebody is editing them."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: listing count
+#: includes/class-cpt-integration.php:239
+#, fuzzy
+msgid "%s listing permanently deleted."
+msgid_plural "%s listings permanently deleted."
+msgstr[0] "La segnalazione per l'Annuncio è stata cancellata."
+msgstr[1] "Le segnalazioni per gli Annunci sono state cancellate."
+
+#. translators: %s: listing count
+#: includes/class-cpt-integration.php:241
+#, fuzzy
+msgid "%s listing moved to the Trash."
+msgid_plural "%s listings moved to the Trash."
+msgstr[0] "Nessun annuncio trovato in rifiuti"
+msgstr[1] "Nessun annuncio trovato in rifiuti"
+
+#. translators: %s: listing count
+#: includes/class-cpt-integration.php:243
+#, fuzzy
+msgid "%s listing restored from the Trash."
+msgid_plural "%s listings restored from the Trash."
+msgstr[0] "Il tuo annuncio è stato rimosso dall'elenco."
+msgstr[1] "Il tuo annuncio è stato rimosso dall'elenco."
 
 #: includes/class-payment-gateway.php:142
 msgid ""
@@ -1093,29 +1132,36 @@ msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "E-mail di rinnovo inviata."
 
-#: includes/admin/class-admin.php:761
+#: includes/admin/class-admin.php:758
+msgctxt "admin"
+msgid ""
+"Could not send renewal email, notice template at listing expiration not "
+"found."
+msgstr ""
+
+#: includes/admin/class-admin.php:765
 msgctxt "admin"
 msgid "Listing report deleted."
 msgid_plural "Listing reports deleted."
 msgstr[0] "La segnalazione per l'Annuncio è stata cancellata."
 msgstr[1] "Le segnalazioni per gli Annunci sono state cancellate."
 
-#: includes/admin/class-admin.php:809
+#: includes/admin/class-admin.php:813
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Dati  di accesso inviati."
 
-#: includes/admin/class-admin.php:811
+#: includes/admin/class-admin.php:815
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr "Non è stato possibile inviare i dati di accesso."
 
-#: includes/admin/class-admin.php:869 includes/admin/class-admin.php:875
+#: includes/admin/class-admin.php:873 includes/admin/class-admin.php:879
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Elenco luoghi"
 
-#: includes/admin/class-admin.php:937
+#: includes/admin/class-admin.php:941
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1124,7 +1170,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> richiede una pagina con il codice di scelta "
 "rapida <tt>[businessdirectory]</tt> per funzionare correttamente."
 
-#: includes/admin/class-admin.php:939
+#: includes/admin/class-admin.php:943
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1133,12 +1179,12 @@ msgstr ""
 "È possibile creare la pagina da soli o lasciare che Business Directory "
 "faccia questo per voi automaticamente."
 
-#: includes/admin/class-admin.php:943
+#: includes/admin/class-admin.php:947
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crea le pagine richieste per me"
 
-#: includes/admin/class-admin.php:976
+#: includes/admin/class-admin.php:980
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1150,7 +1196,7 @@ msgstr ""
 "strong>. Chiedete al vostro fornitore di aggiornare per evitare problemi con "
 "il plugin."
 
-#: includes/admin/class-admin.php:999
+#: includes/admin/class-admin.php:1003
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1205,7 +1251,7 @@ msgstr ""
 "\"Gestire i campi del modulo\" o lasciare che Business Directory lo faccia "
 "automaticamente."
 
-#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:521
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:535
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "Vai a \"Gestire i campi dei moduli\"."
@@ -1224,6 +1270,12 @@ msgstr "In attesa di abbandono"
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Abbandonato"
+
+#: includes/views/submit_listing.php:518
+#, fuzzy
+msgctxt "admin"
+msgid "Go to \"Manage Fees\""
+msgstr "Vai a \"Gestire i campi dei moduli\"."
 
 #: includes/admin/class-admin-listings.php:304
 msgctxt "listing attribute"
@@ -1550,7 +1602,7 @@ msgctxt "admin menu"
 msgid "Manage Options"
 msgstr "Gestire le opzioni"
 
-#: includes/admin/class-admin.php:867
+#: includes/admin/class-admin.php:871
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
@@ -2815,37 +2867,37 @@ msgctxt "form-fields admin"
 msgid "Field Display Order"
 msgstr "Ordine di visualizzazione sul campo"
 
-#: includes/fields/class-fieldtypes-textarea.php:194
+#: includes/fields/class-fieldtypes-textarea.php:197
 msgctxt "form-fields admin"
 msgid "Allow HTML input for this field?"
 msgstr "Consentire l'input HTML per questo campo?"
 
-#: includes/fields/class-fieldtypes-textarea.php:197
+#: includes/fields/class-fieldtypes-textarea.php:200
 msgctxt "form-fields admin"
 msgid "Allow IFRAME tags in content?"
 msgstr "Consentire tag IFRAME nel contenuto?"
 
-#: includes/fields/class-fieldtypes-textarea.php:201
+#: includes/fields/class-fieldtypes-textarea.php:204
 msgctxt "form-fields admin"
 msgid "No"
 msgstr "No"
 
-#: includes/fields/class-fieldtypes-textarea.php:202
+#: includes/fields/class-fieldtypes-textarea.php:205
 msgctxt "form-fields admin"
 msgid "Yes"
 msgstr "Si"
 
-#: includes/fields/class-fieldtypes-textarea.php:207
+#: includes/fields/class-fieldtypes-textarea.php:210
 msgctxt "form-fields admin"
 msgid "Allow WordPress shortcodes in this field?"
 msgstr "Consentire le scorciatoie di WordPress in questo campo?"
 
-#: includes/fields/class-fieldtypes-textarea.php:212
+#: includes/fields/class-fieldtypes-textarea.php:215
 msgctxt "form-fields admin"
 msgid "Display a WYSIWYG editor on the frontend?"
 msgstr "Visualizzare un editor WYSIWYG sul frontend?"
 
-#: includes/fields/class-fieldtypes-textarea.php:215
+#: includes/fields/class-fieldtypes-textarea.php:218
 msgctxt "form-fields admin"
 msgid ""
 "<b>Warning:</b> Users can use this feature to get around your image limits "
@@ -2854,12 +2906,12 @@ msgstr ""
 "<b>Attenzione:</b> Gli utenti possono utilizzare questa funzione per "
 "aggirare i limiti dell'immagine nei piani tariffari."
 
-#: includes/fields/class-fieldtypes-textarea.php:216
+#: includes/fields/class-fieldtypes-textarea.php:219
 msgctxt "form-fields admin"
 msgid "Allow images in WYSIWYG editor?"
 msgstr "Consentire immagini nell'editor WYSIWYG?"
 
-#: includes/fields/class-fieldtypes-textarea.php:219
+#: includes/fields/class-fieldtypes-textarea.php:222
 msgctxt "form-fields admin"
 msgid ""
 "<b>Advanced users only!</b> Unless you've been told to change this, don't "
@@ -2868,18 +2920,18 @@ msgstr ""
 "<b>Solo utenti avanzati!</b> A meno che non ti sia stato detto di cambiare, "
 "non cambiarlo a meno che tu non sappia cosa stai facendo."
 
-#: includes/fields/class-fieldtypes-textarea.php:220
+#: includes/fields/class-fieldtypes-textarea.php:223
 msgctxt "form-fields admin"
 msgid "Apply \"the_content\" filter before displaying this field?"
 msgstr ""
 "Applicare il filtro \"the_content\" prima di visualizzare questo campo?"
 
-#: includes/fields/class-fieldtypes-textarea.php:223
+#: includes/fields/class-fieldtypes-textarea.php:226
 msgctxt "form-fields admin"
 msgid "Use shortened version of Description field as excerpt"
 msgstr "Utilizzare la versione ridotta del campo Descrizione come estratto"
 
-#: includes/fields/class-fieldtypes-textarea.php:224
+#: includes/fields/class-fieldtypes-textarea.php:227
 msgctxt "form-fields admin"
 msgid ""
 "Enable always (override the Short Description given with a shortened Long "
@@ -2888,7 +2940,7 @@ msgstr ""
 "Abilita sempre (sovrascrivere la breve descrizione fornita con una lunga "
 "descrizione abbreviata)"
 
-#: includes/fields/class-fieldtypes-textarea.php:225
+#: includes/fields/class-fieldtypes-textarea.php:228
 msgctxt "form-fields admin"
 msgid ""
 "Enable conditionally (override ONLY when Short Description is empty with a "
@@ -2897,12 +2949,12 @@ msgstr ""
 "Abilitazione condizionata (annullare solo quando la descrizione breve è "
 "vuota con una descrizione lunga abbreviata)"
 
-#: includes/fields/class-fieldtypes-textarea.php:226
+#: includes/fields/class-fieldtypes-textarea.php:229
 msgctxt "form-fields admin"
 msgid "Disable (use the Short Description all the time, empty or not)"
 msgstr "Disattivare (utilizzare sempre la breve descrizione, vuota o meno)"
 
-#: includes/fields/class-fieldtypes-textarea.php:228
+#: includes/fields/class-fieldtypes-textarea.php:231
 msgctxt "form-fields admin"
 msgid ""
 "Truncates the description field to the value set here. To display all of the "
@@ -2911,7 +2963,7 @@ msgstr ""
 "Tronca il campo descrizione al valore qui impostato. Per visualizzare tutta "
 "la descrizione, impostare su 0."
 
-#: includes/fields/class-fieldtypes-textarea.php:229
+#: includes/fields/class-fieldtypes-textarea.php:232
 msgctxt "form-fields admin"
 msgid ""
 "Number of Characters from Short Description/Excerpt to Display in List View "
@@ -2920,7 +2972,7 @@ msgstr ""
 "Numero di caratteri dalla breve Descrizione/Estratto alla visualizzazione "
 "nella vista elenco (solo)"
 
-#: includes/fields/class-fieldtypes-textarea.php:234
+#: includes/fields/class-fieldtypes-textarea.php:237
 msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "Generare automaticamente un estratto dal campo contenuto?"
@@ -5856,19 +5908,19 @@ msgid "Free Listing"
 msgstr "Listing gratuito"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:235
+#: includes/class-listing-email-notification.php:239
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notifica nuovo Annuncio"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:286
+#: includes/class-listing-email-notification.php:290
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notifica modifica Annuncio"
 
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:358
+#: includes/class-listing-email-notification.php:362
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
 msgstr "[%s] Notifica segnalazione annuncio"
@@ -6210,59 +6262,59 @@ msgstr ""
 "Non è possibile inviare un annuncio in questo momento. Per favore, riprova "
 "più tardi."
 
-#: includes/views/submit_listing.php:536
+#: includes/views/submit_listing.php:550
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Per favore seleziona una categoria."
 
-#: includes/views/submit_listing.php:549
+#: includes/views/submit_listing.php:563
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "Seleziona una categoria per il tuo annuncio."
 
-#: includes/views/submit_listing.php:569
+#: includes/views/submit_listing.php:583
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Scegli una categoria valida per il tuo piano."
 
-#: includes/views/submit_listing.php:571
+#: includes/views/submit_listing.php:585
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr ""
 "Si prega di scegliere un piano tariffario valido per la selezione della "
 "categoria."
 
-#: includes/views/submit_listing.php:812
+#: includes/views/submit_listing.php:826
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Inserisci il nome utente desiderato."
 
-#: includes/views/submit_listing.php:817
+#: includes/views/submit_listing.php:831
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Inserisci l'e-mail per il tuo nuovo account."
 
-#: includes/views/submit_listing.php:822
+#: includes/views/submit_listing.php:836
 msgctxt "submit listing"
 msgid "Please enter the password for your new account."
 msgstr "Inserisci la password per il tuo nuovo account."
 
-#: includes/views/submit_listing.php:832
+#: includes/views/submit_listing.php:846
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Il nome utente scelto è già in uso. Per favore, usane un'altra."
 
-#: includes/views/submit_listing.php:837
+#: includes/views/submit_listing.php:851
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "L'indirizzo e-mail scelto per il tuo account è già in uso."
 
-#: includes/views/submit_listing.php:852
+#: includes/views/submit_listing.php:866
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr "Creare un account utente su questo sito"
 
-#: includes/views/submit_listing.php:859
+#: includes/views/submit_listing.php:873
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
@@ -6270,17 +6322,17 @@ msgstr ""
 "È necessario creare un account sul sito. Si prega di compilare il modulo "
 "sottostante."
 
-#: includes/views/submit_listing.php:865
+#: includes/views/submit_listing.php:879
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "Nome utente:"
 
-#: includes/views/submit_listing.php:874
+#: includes/views/submit_listing.php:888
 msgctxt "submit listing"
 msgid "Email:"
 msgstr "Email:"
 
-#: includes/views/submit_listing.php:883
+#: includes/views/submit_listing.php:897
 msgctxt "submit listing"
 msgid "Password:"
 msgstr "Password:"
@@ -6482,7 +6534,7 @@ msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Link Text (opzionale):"
 
-#: includes/fields/class-form-field.php:707
+#: includes/fields/class-form-field.php:710
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -6557,22 +6609,22 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Tipo di campo modulo non valido"
 
-#: includes/fields/class-form-field.php:586
+#: includes/fields/class-form-field.php:589
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "È richiesta l'etichetta del campo."
 
-#: includes/fields/class-form-field.php:590
+#: includes/fields/class-form-field.php:593
 msgctxt "form-fields-api"
 msgid "Field label max length is 255 characters."
 msgstr ""
 
-#: includes/fields/class-form-field.php:594
+#: includes/fields/class-form-field.php:597
 msgctxt "form-fields-api"
 msgid "Field description max length is 255 characters."
 msgstr ""
 
-#: includes/fields/class-form-field.php:605
+#: includes/fields/class-form-field.php:608
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -6584,7 +6636,7 @@ msgstr ""
 "tipo %1$s, cancellare questo campo corrente e creare invece un nuovo campo "
 "di tipo %1$s."
 
-#: includes/fields/class-form-field.php:608
+#: includes/fields/class-form-field.php:611
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
@@ -6593,7 +6645,7 @@ msgstr ""
 "<strong>ATTENZIONE</strong>: Se si elimina questo campo, anche i dati "
 "contenuti negli annunci esistenti verranno cancellati."
 
-#: includes/fields/class-form-field.php:642
+#: includes/fields/class-form-field.php:645
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -6602,17 +6654,17 @@ msgstr ""
 "Ci può essere un solo campo con l'associazione \"%s\". Selezionare un'altra "
 "associazione."
 
-#: includes/fields/class-form-field.php:652
+#: includes/fields/class-form-field.php:655
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" è un tipo di campo non valido per questa associazione."
 
-#: includes/fields/class-form-field.php:697
+#: includes/fields/class-form-field.php:700
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "ID campo non valido"
 
-#: includes/fields/class-form-field.php:720
+#: includes/fields/class-form-field.php:723
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr ""
@@ -6688,7 +6740,7 @@ msgctxt "form-fields-api select"
 msgid "— None —"
 msgstr "- Nessuno -"
 
-#: includes/fields/class-fieldtypes-textarea.php:200
+#: includes/fields/class-fieldtypes-textarea.php:203
 msgctxt "admin form-fields"
 msgid ""
 "Enabling iframe support in your listings can allow users to execute "
@@ -6853,13 +6905,20 @@ msgstr ""
 #: includes/views/submit_listing.php:511
 msgctxt "templates"
 msgid ""
+"<b>There are no Fee Plans available</b>, without a fee plan site users can't "
+"submit a listing. %s to create a fee plan"
+msgstr ""
+
+#: includes/views/submit_listing.php:525
+msgctxt "templates"
+msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 "Al momento non è disponibile l'invio di annunci. Contattare l'amministratore "
 "per i dettagli."
 
-#: includes/views/submit_listing.php:514
+#: includes/views/submit_listing.php:528
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -6870,17 +6929,17 @@ msgstr ""
 "%s e crea un nuovo campo con questa associazione, o assegna questa "
 "associazione ad un campo esistente."
 
-#: includes/views/submit_listing.php:921
+#: includes/views/submit_listing.php:935
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Per favore è necessario accettare le condizioni d'uso."
 
-#: includes/views/submit_listing.php:929
+#: includes/views/submit_listing.php:943
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Termini e Condizioni:"
 
-#: includes/views/submit_listing.php:937
+#: includes/views/submit_listing.php:951
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Accetto i <a>termini e le condizioni</a> d'uso"
@@ -8266,7 +8325,7 @@ msgctxt "request_access_keys"
 msgid "URL:"
 msgstr "URL:"
 
-#: includes/views/search.php:45
+#: includes/views/search.php:46
 msgctxt "search"
 msgid "\"%s\" is required."
 msgstr "%s è richiesto."
@@ -8292,7 +8351,7 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "Questa è solo un'anteprima. L'Annuncio non è ancora stato pubblicato."
 
-#: includes/views/submit_listing.php:680
+#: includes/views/submit_listing.php:694
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
@@ -8301,7 +8360,7 @@ msgstr ""
 "Qualcosa è andato storto. Si prega di controllare il modulo per eventuali "
 "errori, correggerli e ripresentarli di nuovo."
 
-#: includes/views/submit_listing.php:764
+#: includes/views/submit_listing.php:778
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
