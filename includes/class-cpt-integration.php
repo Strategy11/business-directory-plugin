@@ -290,7 +290,7 @@ class WPBDP__CPT_Integration {
             delete_post_meta( $listing->get_id(), '_gateway_suscription_cancel_status' );
         } catch ( Exception $e ) {
             update_post_meta( $listing->get_id(), '_gateway_suscription_cancel_status', 'not_canceled' );
-            if ( 'pre_delete_post' === current_filter() ) {
+            if ( 'pre_delete_post' === current_filter() && ( ! isset( $_REQUEST['page'] ) || 'wpbdp_uninstall' !== $_REQUEST['page'] ) ) {
                 wp_die( $e->getMessage() );
                 return false;
             }
