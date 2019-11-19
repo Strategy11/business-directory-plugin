@@ -22,9 +22,9 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
                 switch ( $item['type'] ) {
                     case 'recurring_plan':
                     case 'plan':
-                        $listing->update_plan( $item, array( 'recalculate' => $item['is_renewal'] ? 0 : 1 ) );
+                        $listing->update_plan( $item, array( 'recalculate' => ! empty( $item['is_renewal'] ) ? 0 : 1 ) );
 
-                        if ( $item['is_renewal'] ) {
+                        if ( ! empty( $item['is_renewal'] ) ) {
                             $listing->renew();
                             wpbdp_insert_log(
                                 array(
