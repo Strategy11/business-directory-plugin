@@ -283,7 +283,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
     }
 
     public function get_field_html_value( &$field, $post_id ) {
-        $value = $field->value( $post_id );
+        $value = apply_filters( 'wpbdp_form_field_html_value', $field->value( $post_id ), $post_id, $field );
         $allowed_tags = array();
 
         if ( $field->data( 'allow_html' ) ) {
@@ -354,8 +354,6 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                 $value = nl2br( $value );
             }
         }
-
-
 
         return $value;
     }
