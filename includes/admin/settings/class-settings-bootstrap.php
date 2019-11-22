@@ -133,9 +133,17 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
+				'id'    => 'recaptcha-for-edits',
+				'type'  => 'checkbox',
+				'name'  => _x( 'Use reCAPTCHA for edit listings', 'settings', 'WPBDM' ),
+				'group' => 'recaptcha',
+            )
+        );
+        wpbdp_register_setting(
+            array(
 				'id'    => 'recaptcha-for-flagging',
 				'type'  => 'checkbox',
-				'name'  => _x( 'Use reCAPTCHA for report listings?', 'settings', 'WPBDM' ),
+				'name'  => _x( 'Use reCAPTCHA for report listings', 'settings', 'WPBDM' ),
 				'group' => 'recaptcha',
             )
         );
