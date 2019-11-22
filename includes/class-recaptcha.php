@@ -43,7 +43,7 @@ class WPBDP_reCAPTCHA {
             add_action( 'comment_post_redirect', array( &$this, '_comment_relative_redirect' ), 0, 2 );
         }
 
-        if ( wpbdp_get_option( 'recaptcha-for-submits' ) ) {
+        if ( wpbdp_get_option( 'recaptcha-for-submits' ) || wpbdp_get_option( 'recaptcha-for-edits' ) ) {
             add_filter( 'wpbdp_submit_prepare_sections', array( $this, 'maybe_hide_recaptcha_section'), 10, 2 );
             add_filter( 'wpbdp_submit_sections', array( $this, 'add_recaptcha_to_submit' ), 20, 2 );
             add_filter( 'wpbdp_submit_section_recaptcha', array( $this, 'submit_recaptcha_html' ), 10, 2 );
@@ -244,7 +244,16 @@ JS;
      * @since 5.1.1
      */
     public function add_recaptcha_to_submit( $submit_sections, $submit ) {
+        if ( 'submit_listing' === wpbdp_current_view() && ! wpbdp_get_option( 'recaptcha-for-submits' )  ) {
+            return $submit_sections;
+        } 
+         
+        if ( 'edit_listing' === wpbdp_current_view() && ! wpbdp_get_option( 'recaptcha-for-edits' ) ) {
+            return $submit_sections;
+        }
+
         $submit_sections['recaptcha'] = array( 'title' => _x( 'reCAPTCHA', 'recaptcha', 'WPBDM' ) );
+
         return $submit_sections;
     }
 
