@@ -198,6 +198,11 @@ final class WPBDP {
         }
 
         if ( wpbdp_is_request( 'admin' ) ) {
+            // Make sure WPBDP_Admin class file was loaded before instantiate. See #4346.
+            if ( ! class_exists( 'WPBDP_Admin' ) ) {
+                require_once( WPBDP_INC . 'admin/class-admin.php' );
+            }
+
             $this->admin   = new WPBDP_Admin();
             $this->privacy = new WPBDP_Personal_Data_Privacy();
         }
