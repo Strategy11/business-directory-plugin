@@ -43,12 +43,22 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     /**
      * @since 5.5.11
      */
-    private function get_authnet_ARB() {
-        if ( ! class_exists( 'AuthorizeNetARB' ) ) {
+    private function get_authnet( $class = NULL ) {
+        if ( ! class_exists( 'AuthorizeNet' . $class ) ) {
             require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
         }
 
-        return new AuthorizeNetARB( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+        if ( ! $class ) {
+            throw new AuthorizeNetException;
+        }
+
+        if ( 'ARB' == $class ) {
+            return new AuthorizeNetARB( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+        }
+
+        if ( 'AIM' == $class ) {
+            return new AuthorizeNetAIM( $this->get_option( 'login-id' ), $this->get_option( 'transaction-key' ) );
+        }
     }
 
     public function validate_settings() {
@@ -155,7 +165,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             ) );
         }
 
-        $arb = $this->get_authnet_ARB();
+        $arb = $this->get_authnet( 'ARB' );
         $arb->setSandbox( $this->in_test_mode() );
 
         $subscription = new AuthorizeNet_Subscription();
@@ -199,7 +209,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     private function aim_request( $args = array() ) {
-        $aim = get_authnet_ARB();
+        $aim = $this->get_authnet( 'AIM' );
         $aim->setSandbox( $this->in_test_mode() );
 
         // Basic order info.
@@ -251,7 +261,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         if ( ! $susc_id )
             return;
 
-        $arb = $this->get_authnet_ARB();
+        $arb = $this->get_authnet( 'ARB' );
         $arb->setSandbox( $this->in_test_mode() );
 
         $response = $arb->getSubscriptionStatus( $susc_id );
@@ -332,14 +342,14 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             return;
         }
 
-        $arb = $this->get_authnet_ARB();
+        $arb = $this->get_authnet( 'ARB' );
         $arb->setSandbox( $this->in_test_mode() );
 
         $response = $arb->getSubscriptionStatus( $susc_id );
         $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
 
         if ( ! in_array( $status, array( 'canceled', 'terminated' ) ) ) {
-            $arb = $this->get_authnet_ARB();
+            $arb = $this->get_authnet( 'ARB' );
             $response = $arb->cancelSubscription( $susc_id );
 
             if ( ! $response->isOk() ) {
