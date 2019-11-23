@@ -816,8 +816,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $form_create = empty( $_POST['create-account'] ) ? false : ( $_POST['create-account'] == 'create-account' );
         $form_username = ! empty( $_POST['user_username'] ) ? trim( $_POST['user_username'] ) : '';
         $form_email = ! empty( $_POST['user_email'] ) ? trim( $_POST['user_email'] ) : '';
-        $form_password = ! empty( $_POST['user_password'] ) ? $_POST['user_password'] : '';
-        // $form_password_retype = ! empty( $_POST['user_password_retype'] ) ? $_POST['user_password_retype'] : '';
 
         if ( ( $this->saving() && 'required' == $mode ) || $form_create ) {
             $error = false;
@@ -831,16 +829,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->messages( _x( 'Please enter the e-mail for your new account.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
                 $error = true;
             }
-
-            if ( ! $error && ! $form_password ) {
-                $this->messages( _x( 'Please enter the password for your new account.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
-                $error = true;
-            }
-
-            // if ( ! $error && ( ! $form_password_retype  || ( $form_password != $form_password_retype ) ) ) {
-            //     $this->messages( _x( 'Passwords entered do not match.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
-            //     $error = true;
-            // }
 
             if ( ! $error && $form_username && username_exists( $form_username ) ) {
                 $this->messages( _x( 'The username you chose is already in use. Please use a different one.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
@@ -891,33 +879,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $html .= '<input id="wpbdp-submit-listing-user_email" type="text" name="user_email" value="' . esc_attr( $form_email ) . '" />';
         $html .= '</div>';
         $html .= '</div>';
-
-        $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-password">';
-        $html .= '<div class="wpbdp-form-field-label">';
-        $html .= '<label for="wpbdp-submit-listing-user_password">' . _x( 'Password:', 'submit listing', 'WPBDM' ) . '</label>';
-        $html .= '</div>';
-        $html .= '<div class="wpbdp-form-field-inner">';
-        $html .= '<input id="wpbdp-submit-listing-user_password" type="password" name="user_password" value="" />';
-        $html .= '<span class="wpbdp-password-strength-meter"></span>';
-        $html .= '</div>';
-        $html .= '</div>';
-
-        // $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-password">';
-        // $html .= '<div class="wpbdp-form-field-label">';
-        // $html .= '<label for="wpbdp-submit-listing-user_password_retype">' . _x( 'Password (type again):', 'submit listing', 'WPBDM' ) . '</label>';
-        // $html .= '</div>';
-        // $html .= '<div class="wpbdp-form-field-inner">';
-        // $html .= '<input id="wpbdp-submit-listing-user_password_retype" type="password" name="user_password_retype" value="" />';
-        // $html .= '</div>';
-        // $html .= '</div>';
-
-        // $user_id = username_exists( $user_name );
-        // if ( !$user_id and email_exists($user_email) == false ) {
-        // 	$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
-        // 	$user_id = wp_create_user( $user_name, $random_password, $user_email );
-        // } else {
-        // 	$random_password = __('User already exists.  Password inherited.');
-        // }
 
         return $html;
     }
