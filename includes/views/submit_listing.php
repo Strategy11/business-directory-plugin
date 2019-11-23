@@ -843,7 +843,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( $error ) {
                 $this->prevent_save = true;
             } else {
-                $this->data['account_details'] = array( 'username' => $form_username, 'email' => $form_email, 'password' => $form_password );
+                $this->data['account_details'] = array( 'username' => $form_username, 'email' => $form_email );
             }
         }
 
@@ -927,7 +927,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->listing->set_status( 'incomplete' );
 
             if ( ! empty( $this->data['account_details'] ) ) {
-                $user_id = wp_create_user( $this->data['account_details']['username'], $this->data['account_details']['password'], $this->data['account_details']['email'] );
+                $user_id = register_new_user( $this->data['account_details']['username'], $this->data['account_details']['email'] );
 
                 if ( is_wp_error( $user_id ) )
                     return $user_id;
