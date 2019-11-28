@@ -98,7 +98,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                 'taxonomy'         => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
                 'show_option_none' => null,
                 'orderby'          => wpbdp_get_option( 'categories-order-by' ),
-                'selected'         => ( $this->is_multiple() ? null : ( $value ? $value[0] : null ) ),
+                'selected'         => ( $this->is_multiple() ? null : ( $value ? end( $value ) : null ) ),
                 'order'            => wpbdp_get_option( 'categories-sort' ),
                 'hide_empty'       => $context == 'search' && wpbdp_get_option( 'hide-empty-categories' ) ? 1 : 0,
                 'hierarchical'     => 1,
