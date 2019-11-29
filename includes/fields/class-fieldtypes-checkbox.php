@@ -40,6 +40,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             if( $tags && ! is_wp_error( $tags ) ) {
                 $options = array_unique( array_merge( $options, $tags ) );
             }
+            $options = array_combine( $options, $options );
         } elseif ( $field->get_association() == 'category' ) {
             $html = wp_list_categories(
                 array(
