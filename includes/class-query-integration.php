@@ -64,6 +64,7 @@ class WPBDP__Query_Integration {
         $query->wpbdp_is_category  = false;
         $query->wpbdp_is_tag       = false;
         $query->wpbdp_our_query    = false;
+        $query->wpbdp_is_shortcode = false;
 
         // Is this a listing query?
         // FIXME: this results in false positives frequently.

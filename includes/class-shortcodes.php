@@ -16,6 +16,7 @@ class WPBDP__Shortcodes {
 
     public function __construct() {
         add_action( 'wpbdp_loaded', array( $this, 'register' ) );
+        add_action( 'wpbdp_query_flags', array( $this, 'maybe_set_shortcode_query_flags' ), 10, 1 );
     }
 
     /**
@@ -699,6 +700,18 @@ class WPBDP__Shortcodes {
         if ( ! function_exists('wp_pagenavi' ) && is_front_page() && isset( $query->query['paged'] ) ) {
             global $paged;
             $paged = $query->query['paged'];
+        }
+    }
+
+    public function maybe_set_shortcode_query_flags( $query ) {
+        if ( $query->wpbdp_is_main_page || ! $query->is_page ) {
+            return;
+        }
+
+        foreach ( array_keys( $this->get_shortcodes() ) as $shortcode ) {
+            if ( wpbdp_has_shortcode( $query->queried_object->post_content, $shortcode ) ) {
+                $query->wpbdp_is_shortcode = true;
+            }
         }
     }
 }
