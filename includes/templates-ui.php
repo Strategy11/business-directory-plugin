@@ -366,15 +366,15 @@ function wpbdp_the_listing_excerpt() {
 /**
  * @SuppressWarnings(PHPMD)
  */
-function wpbdp_listing_sort_options() {
+function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_options', 'wpbdp_listing_sort_options_html' ) ) {
     if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
-        $sort_options = apply_filters( 'wpbdp_listing_sort_options', array() );
+        $sort_options =  in_array( 'wpbdp_listing_sort_options', $filters ) ? apply_filters( 'wpbdp_listing_sort_options', array() ) : array();
     } else {
         $sort_options = array();
     }
 
     if ( ! $sort_options ) {
-        return apply_filters( 'wpbdp_listing_sort_options_html', '' );
+        return in_array( 'wpbdp_listing_sort_options_html', $filters ) ? apply_filters( 'wpbdp_listing_sort_options_html', '' ) : $sort_options;
     }
 
     $current_sort = wpbdp_get_current_sort_option();
@@ -439,7 +439,7 @@ function wpbdp_listing_sort_options() {
     $html .= '</select>';
     $html .= '</div>';
 
-    return apply_filters( 'wpbdp_listing_sort_options_html', $html );
+    return in_array( 'wpbdp_listing_sort_options_html', $filters ) ? apply_filters( 'wpbdp_listing_sort_options_html', $html ) : $html;
 }
 
 function wpbdp_the_listing_sort_options() {
