@@ -27,6 +27,8 @@ jQuery(function($) {
 
                 self.load_gateway( gateway );
             });
+
+            this.$form.find( 'input[name="gateway"]' ).trigger( 'change' );
         },
 
         load_gateway: function( gateway_id ) {
