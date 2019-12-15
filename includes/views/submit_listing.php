@@ -97,13 +97,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $this->listing = $this->find_or_create_listing();
+        $listing_id    = $this->listing->get_id();
 
         $auth_parameters = array( 'wpbdp_view' => 'submit_listing' );
 
         if ( $this->editing ) {
             $auth_parameters = array(
                 'wpbdp_view'          => 'edit_listing',
-                'redirect_query_args' => array( 'listing_id' => $this->listing->get_id() )
+                'redirect_query_args' => array( 'listing_id' => $listing_id )
             );
         }
 
@@ -113,17 +114,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         // Handle "Clear Form" request.
         if ( ! empty( $_POST ) && ! empty( $_POST['reset'] ) && 'reset' === $_POST['reset'] ) {
             if ( ! $this->editing ) {
-                wp_delete_post( $this->listing->get_id(), true );
+                wp_delete_post( $listing_id, true );
                 return $this->_redirect( wpbdp_url( 'submit_listing' ) );
             }
 
-            return $this->_redirect( wpbdp_url( 'edit_listing', $this->listing->get_id() ) );
+            return $this->_redirect( wpbdp_url( 'edit_listing', $listing_id ) );
         }
 
-        if ( ! $this->editing && 'auto-draft' !== get_post_status( $this->listing->get_id() ) ) {
+        if ( ! $this->editing && 'auto-draft' !== get_post_status( $listing_id ) ) {
             $possible_payment = WPBDP_Payment::objects()->filter(
                 array(
-					'listing_id'   => $this->listing->get_id(),
+					'listing_id'   => $listing_id,
 					'payment_type' => 'initial',
 					'status'       => 'pending',
                 )
@@ -155,7 +156,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $this->sections = $this->submit_sections();
         $this->prepare_sections();
 
-        if ( ! empty( $_POST['save_listing'] ) && '1' === $_POST['save_listing'] && ! $this->prevent_save ) {
+        if ( ( ! empty( $_POST['save_listing'] ) && '1' === $_POST['save_listing'] && ! $this->prevent_save ) || ( isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], "wpbdp_checkout_{$listing_id}_completed" ) ) ) {
             $res = $this->save_listing();
 
             if ( is_wp_error( $res ) ) {
@@ -923,7 +924,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function save_listing() {
-        if ( ! $this->editing ) {
+        $payment = $this->listing->generate_or_retrieve_payment();
+
+        if ( ! $this->editing && 'initial' === $payment->payment_type && 'pending' === $payment->status ) {
             $this->listing->set_status( 'incomplete' );
 
             if ( ! empty( $this->data['account_details'] ) ) {
@@ -940,7 +943,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             // return $this->render( 'extra-sections', array( 'output' => $extra ) );
             // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
             $this->listing->set_status( 'pending_payment' );
-            $payment = $this->listing->generate_or_retrieve_payment();
 
             if ( ! $payment )
                 die();
@@ -953,8 +955,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
-        $listing_status = get_post_status( $this->listing->get_id() );
-        $this->listing->set_post_status( $this->editing ? ( 'publish' !== $listing_status ? $listing_status : wpbdp_get_option( 'edit-post-status' ) ) : wpbdp_get_option( 'new-post-status' ) );
+        $listing_status     = get_post_status( $this->listing->get_id() );
+        $listing_new_status = '';
+
+        if ( $this->editing ) {
+            $listing_new_status = 'publish' !== $listing_status ? $listing_status : wpbdp_get_option( 'edit-post-status' );
+        }
+
+        if ( ! $this->editing && ( 0 === $payment->amount || 'completed' === $payment->status ) ) {
+            $listing_new_status = wpbdp_get_option( 'new-post-status' );
+        }
+
+        if ( $listing_new_status ) {
+            $this->listing->set_post_status( $listing_new_status );
+        }
+
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
 
         if ( ! $this->editing && 'completed' != $payment->status ) {
