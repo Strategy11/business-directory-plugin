@@ -52,6 +52,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         if ( $this->is_successful_initial_payment() ) {
             $args = array(
                 'listing_id' => $this->payment->listing_id,
+                '_wpnonce'   => wp_create_nonce( "wpbdp_checkout_{$this->payment->listing_id}_completed" ),
             );
 
             $this->_redirect( add_query_arg( $args, wpbdp_url( 'submit_listing' ) ) );
