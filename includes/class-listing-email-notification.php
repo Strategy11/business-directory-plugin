@@ -43,7 +43,7 @@ class WPBDP__Listing_Email_Notification {
             return;
         }
 
-        if ( $new_status === $old_status || 'publish' !== $new_status || ( 'pending' !== $old_status && 'draft' !== $old_status ) ) {
+        if ( $new_status === $old_status || 'publish' !== $new_status || ! in_array( $old_status, array( 'pending', 'draft', 'auto-draft' ), true ) ) {
             return;
         }
 
