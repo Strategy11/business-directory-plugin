@@ -1286,4 +1286,23 @@ function wpbdp_get_return_link() {
 
 }
 
+// Temporary zipcodesearch version fix Remove before 5.5.14.
+
+if( is_admin() && ! get_option( '_wpbpd_update_zip_module_version', false ) ) {
+
+    $file = plugin_dir_path( __DIR__ ) . '../business-directory-zipcodesearch/business-directory-zipcodesearch.php';
+
+    if ( ! file_exists( $file ) ) {
+        return;
+    }
+
+    $content = file_get_contents( $file );
+
+    if ( strpos( $content, '* Version: 5.1.1' ) ) {
+        if( file_put_contents( $file, str_replace('* Version: 5.1.1','* Version: 5.0.11', $content ) ) !== false ) {
+            update_option( '_wpbpd_update_zip_module_version', true );
+        } 
+    }
+}
+
 // phpcs:enable
