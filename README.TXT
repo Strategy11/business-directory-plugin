@@ -4,9 +4,9 @@ Donate link: https://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, listings, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 5.2
-Last Updated: 2019-Aug-14
-Stable tag: 5.5.9
+Tested up to: 5.3
+Last Updated: 2019-Dec-20
+Stable tag: 5.5.13.1
 License: GPLv2 or later
 
 Build any kind of local listings directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and much more!  Make your listings sing with Business Directory Plugin.
@@ -112,7 +112,7 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 And you can easily [translate it yourself](https://businessdirectoryplugin.com/knowledge-base/translating-bd-other-language/) if you need to.
 
 == Credits ==
-Copyright 2009-19, Dave Rodenbaugh 
+Copyright 2009-20, Dave Rodenbaugh 
 Original Author: A. Lewis
 
 This program is free software; you can redistribute it and/or modify
@@ -145,6 +145,46 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.5.13.1 =
+* Validate queried object exists and is valid before setting BD query var. (#4385)
+
+= Version 5.5.13 =
+* Allow Plugin uninstall even if there are active subscriptions.
+* Allow Zip Code Search field catch a filter to change textarea value. 
+* Make sure WPBDP_Admin class file was loaded before instantiate. 
+* Fix Auth.net postback processing warning.
+* Remove password fields for account creation during listing submits (WP confirmation email is used instead). 
+* Format checkbox fieldtype options before rendering in submit/edit view. 
+* Style Plugin layout for Twenty Twenty WP theme. 
+* Prevent unpaid listings to go published. 
+* Create setting to allow reCAPTCHA validation when editing listings. 
+
+= Version 5.5.12 =
+* Allow access to search shortcode. 
+* Remove not used query var to prevent compatibility issues. 
+* Cast listing keys array to prevent invalid foreach argument in random listings Widget.
+* Verify renewal reminder email was sent after clicking the button on listing WP dashboard. 
+* Add notice for admins when submit listing is restricted due to no fee plans available. 
+* Apply filters to textarea input to support zip code search. 
+
+= Version 5.5.11 =
+* Run iframe resize script after using document.ready JS action. (#4273)
+* Modify Random widget query to prevent using RAND() SQL function. (#4283)
+* Validate Field Label and Description max Length while adding/editing a listing. (#4286)
+* Keep Radio button field options if there are validation errors on save process.
+* Use user's first and last name (when available) to fill listing contact email template [name] placeholder. (#4289)
+* Redirect empty quick searches to "all listings" view. (#4303)
+* Fix featured listings shortcode to prevent displaying listings twice in different pages. (#4308)
+
+= Version 5.5.10 =
+* Display BD themes updates notifications and handle upgrades through Core Plugin. 
+* Include [link-raw] placeholder for listing expiration notices. 
+* Add setting for twitter field to enable follower count display. 
+* Sanitize field label before applying wpbdp_display_field_label filter. 
+* Allow listing owners editing listings with private fees. 
+* Fix expiration date after listing renewal payment. 
+* Remove non-used query var that could cause compatibility issues. 
 
 = Version 5.5.9 =
 * Validate Beaver Builder Classes existence before setting compatibility code.
