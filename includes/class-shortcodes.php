@@ -704,7 +704,7 @@ class WPBDP__Shortcodes {
     }
 
     public function maybe_set_shortcode_query_flags( $query ) {
-        if ( $query->wpbdp_is_main_page || ! $query->is_page ) {
+        if ( $query->wpbdp_is_main_page || ! $query->is_page || ! $query->queried_object || empty( $query->queried_object->post_content ) ) {
             return;
         }
 
