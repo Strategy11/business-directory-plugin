@@ -50,21 +50,21 @@ $login_args['redirect'] = $redirect_to;
         <?php if ( $access_key_enabled ) : ?>
             <div id="wpbdp-login-access-key-form" class="wpbdp-login-option">
                 <h4><?php _ex( '... or use an Access Key', 'views:login', 'WPBDM' ); ?></h4>
-                <p><?php _ex( 'Please enter your access key and e-mail address.', 'views:login', 'WPBDM' ); ?></p>
+                <p class="access-key-message"><?php _ex( 'Please enter your access key and e-mail address.', 'views:login', 'WPBDM' ); ?></p>
 
                 <form action="" method="post">
                     <input type="hidden" name="method" value="access_key" />
                     <p>
                         <label for="wpbdp-access-key-email">
-                            <?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>:
-                            <input id="wpbdp-access-key-email" type="text" name="email" value="" placeholder="<?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>" />
+                            <?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>
                         </label>
+                        <input id="wpbdp-access-key-email" type="text" name="email" value="" placeholder="<?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>" />
                     </p>
                     <p>
                         <label for="wpbdp-access-key-value">
                             <?php _ex( 'Access Key', 'views:login', 'WPBDM' ); ?>
-                            <input id="wpbdp-access-key-value" type="text" name="access_key" value="" placeholder="<?php _ex( 'Access Key', 'views:login', 'WPBDM' ); ?>" />
                         </label>
+                        <input id="wpbdp-access-key-value" type="text" name="access_key" value="" placeholder="<?php _ex( 'Access Key', 'views:login', 'WPBDM' ); ?>" />
                     </p>
                     <p><input type="submit" value="<?php _ex( 'Use Access Key', 'views:login', 'WPBDM' ); ?>" /></p>
                     <p><a href="<?php echo esc_url( $request_access_key_url ); ?>"><?php _ex( 'Request access key?', 'views:login', 'WPBDM' ); ?></a></p>
