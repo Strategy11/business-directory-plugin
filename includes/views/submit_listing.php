@@ -924,29 +924,27 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function save_listing() {
-        $payment = $this->listing->generate_or_retrieve_payment();
-
-        if ( ! $this->editing && 'initial' === $payment->payment_type && 'pending' === $payment->status ) {
-            $this->listing->set_status( 'incomplete' );
-
+        if ( ! $this->editing ) {
+            $payment = $this->listing->generate_or_retrieve_payment();
+            
+            if ( 0 === (int)$payment->amount || ( 'initial' === $payment->payment_type && 'pending' === $payment->status ) ) {
+                $this->listing->set_status( 'incomplete' );
+            }
             if ( ! empty( $this->data['account_details'] ) ) {
                 $user_id = register_new_user( $this->data['account_details']['username'], $this->data['account_details']['email'] );
-
                 if ( is_wp_error( $user_id ) )
                     return $user_id;
-
                 wp_update_post( array( 'ID' => $this->listing->get_id(), 'post_author' => $user_id ) );
             }
-
             // XXX: what to do with this?
             // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) );
             // return $this->render( 'extra-sections', array( 'output' => $extra ) );
             // do_action_ref_array( 'wpbdp_listing_form_extra_sections_save', array( &$this->state ) );
-            $this->listing->set_status( 'pending_payment' );
-
+            if ( 0 === (int)$payment->amount || ( 'initial' === $payment->payment_type && 'pending' === $payment->status ) ) {
+                $this->listing->set_status( 'pending_payment' );
+            }
             if ( ! $payment )
                 die();
-
             $payment->context = is_admin() ? 'admin-submit' : 'submit';
             $payment->save();
             if ( current_user_can( 'administrator' ) ) {
@@ -954,7 +952,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->listing->set_flag( 'admin-posted' );
             }
         }
-
         $listing_status     = get_post_status( $this->listing->get_id() );
         $listing_new_status = '';
 
@@ -971,14 +968,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
-
         if ( ! $this->editing && 'completed' != $payment->status ) {
             $checkout_url = $payment->get_checkout_url();
             return $this->_redirect( $checkout_url );
         }
-
         delete_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields' );
-
         return $this->done();
     }
 
