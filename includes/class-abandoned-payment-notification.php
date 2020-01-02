@@ -44,6 +44,10 @@ class WPBDP__Abandoned_Payment_Notification {
             $payment = WPBDP_Payment::objects()->get( $data->id );
             $listing = $payment->get_listing();
 
+            if( ! $listing ) {
+                continue;
+            }
+
             // Send e-mail.
             $replacements = array(
                 'listing' => $listing->get_title(),
