@@ -53,7 +53,7 @@ class WPBDP_reCAPTCHA {
     function _enqueue_js_api() {
         global $wpbdp;
 
-        if ( ! $wpbdp->is_plugin_page() ) {
+        if ( ! $wpbdp->is_plugin_page() || ! $this->should_enqueue_scripts() ) {
             return;
         }
 
@@ -278,12 +278,25 @@ JS;
         return $section;
     }
 
-    function maybe_hide_recaptcha_section ( $submit_sections, $submit ) {
+    public function maybe_hide_recaptcha_section ( $submit_sections, $submit ) {
         if ( 'v3' === $this->version && in_array( 'recaptcha', array_keys( $submit_sections ) ) ) {
             $submit_sections['recaptcha']['flags'][] = 'hidden';
         }
 
         return $submit_sections;
+    }
+
+    private function should_enqueue_scripts() {
+        if ( is_user_logged_in() && wpbdp_get_option( 'hide-recaptcha-loggedin' ) ) {
+            return false;
+        }
+
+        if( ! ( wpbdp_get_option( 'recaptcha-on' ) || wpbdp_get_option( 'recaptcha-for-submits' ) || wpbdp_get_option( 'recaptcha-for-edits' ) || wpbdp_get_option( 'recaptcha-for-flagging' ) || wpbdp_get_option( 'recaptcha-for-comments' ) ) ) {
+            return false;
+        }
+
+        return true;
+
     }
 
 }
