@@ -112,7 +112,7 @@ class WPBDP_CSV_Import {
 
         $n = 0;
         while ( $n < (int)$this->settings['batch-size'] ) {
-            if ( $file->eof() ) {
+            if ( $file->eof() && empty( $file->current() ) ) {
                 $this->done = true;
                 break;
             }
@@ -217,7 +217,7 @@ class WPBDP_CSV_Import {
     }
 
     public function get_import_rows_count() {
-        return max( 0, $this->total_lines - 1 );
+        return max( 0, $this->total_lines );
     }
 
     public function get_imported_rows_count() {
