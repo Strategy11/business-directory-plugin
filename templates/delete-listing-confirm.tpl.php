@@ -8,7 +8,7 @@
            'delete listing',
            'WPBDM' ); ?><br />
 <b><?php echo str_replace( '<a>',
-                        '<a href="' . esc_url( add_query_arg( 'action', 'manage-recurring', wpbdp_get_page_link( 'main' ) ) ) . '">',
+                        '<a href="' . esc_url( add_query_arg( 'wpbdp_view', 'manage_recurring', wpbdp_get_page_link( 'main' ) ) ) . '">',
                         _x( 'Please visit <a>Manage recurring payments</a> to review your current recurring payments.', 'delete listing', 'WPBDM' ) ); ?></b>
 </div>
 <?php endif; ?>
