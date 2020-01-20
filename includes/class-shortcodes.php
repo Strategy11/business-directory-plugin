@@ -655,7 +655,8 @@ class WPBDP__Shortcodes {
         }
 
         $box_args = array(
-            'buttons' => $buttons
+            'buttons' => $buttons,
+            'in_shortcode' => true,
         );
 
         return wpbdp_main_box( $box_args );

@@ -694,6 +694,7 @@ function wpbdp_the_main_box( $args = array() ) {
 function wpbdp_main_box( $args = null ) {
     $defaults = array(
         'buttons' => null,
+        'in_shortcode' => false,
     );
     $args     = wp_parse_args( $args, $defaults );
 
