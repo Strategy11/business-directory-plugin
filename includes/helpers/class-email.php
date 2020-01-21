@@ -20,7 +20,7 @@ class WPBDP_Email {
     public $from         = '';
     public $reply_to     = '';
     public $to           = array();
-    public $cc           = array();
+    public $cc           = '';
     public $bcc          = array();
     public $body         = '';
     public $html         = '';
@@ -72,7 +72,7 @@ class WPBDP_Email {
 
         $headers[] = 'From: ' . $this->from;
 
-        foreach ( (array) $this->cc as $address ) {
+        foreach ( explode( ',', str_replace( ';', ',', $this->cc ) ) as $address ) {
             $headers[] = 'Cc: ' . $address;
         }
 
