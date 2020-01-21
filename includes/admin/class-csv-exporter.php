@@ -77,11 +77,11 @@ class WPBDP_CSVExporter {
             $this->columns['expires_on'] = 'expires_on';
         }
 
-        if ( $this->settings['include-created-date'] ) {
+        if ( ! empty( $this->settings['include-created-date'] ) ) {
             $this->columns['created_date'] = 'created_date';
         }
 
-        if ( $this->settings['include-modified-date'] ) {
+        if ( ! empty( $this->settings['include-modified-date'] ) ) {
             $this->columns['modified_date'] = 'modified_date';
         }
 
