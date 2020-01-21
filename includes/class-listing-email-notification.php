@@ -202,7 +202,7 @@ class WPBDP__Listing_Email_Notification {
                 $email->cc[] = get_option( 'admin_email' );
 
                 if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
-                    $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+                    $email->cc = wpbdp_get_option( 'admin-notifications-cc' );
                 }
             }
 
@@ -240,7 +240,7 @@ class WPBDP__Listing_Email_Notification {
             $admin_email->to[]    = get_bloginfo( 'admin_email' );
 
             if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
-                $admin_email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+                $admin_email->cc = wpbdp_get_option( 'admin-notifications-cc' );
             }
 
             $admin_email->body = wpbdp_render( 'email/listing-added', array( 'listing' => $listing ), false );
@@ -291,7 +291,7 @@ class WPBDP__Listing_Email_Notification {
         $email->to[]    = get_bloginfo( 'admin_email' );
 
         if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
-            $email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+            $email->cc = wpbdp_get_option( 'admin-notifications-cc' );
         }
 
         $email->body = wpbdp_render( 'email/listing-edited', array( 'listing' => $listing ), false );
@@ -363,7 +363,7 @@ class WPBDP__Listing_Email_Notification {
             $admin_email->to[]    = get_bloginfo( 'admin_email' );
 
             if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
-                $admin_email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+                $admin_email->cc = wpbdp_get_option( 'admin-notifications-cc' );
             }
 
             if ( empty( $report['email'] ) && 0 !== $report['user_id'] ) {

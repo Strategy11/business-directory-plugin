@@ -236,7 +236,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
                 $admin_email->to      = get_bloginfo( 'admin_email' );
 
                 if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
-                    $admin_email->cc[] = wpbdp_get_option( 'admin-notifications-cc' );
+                    $admin_email->cc = wpbdp_get_option( 'admin-notifications-cc' );
                 }
 
                 $admin_email->template = 'businessdirectory-email';
