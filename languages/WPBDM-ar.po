@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2019-12-18 21:33:22+00:00\n"
+"POT-Creation-Date: 2020-01-22 20:18:10+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -416,7 +416,7 @@ msgstr "مشاهدة جميع الإعلانات"
 msgid "Create A Listing"
 msgstr "إنشاء إعلان"
 
-#: includes/views/checkout.php:267
+#: includes/views/checkout.php:266
 msgid ""
 "There was an error trying to process your request. No gateway is selected."
 msgstr ""
@@ -1277,7 +1277,7 @@ msgstr ""
 "يمكنك إنشاء هذه الحقول المخصصة بنفسك داخل \"إدارة الحقول\" أو السماح لدليل "
 "الأعمال للقيام بذلك نيابة عنك تلقائياً."
 
-#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:536
+#: includes/admin/form-fields.php:214 includes/views/submit_listing.php:535
 msgctxt "admin"
 msgid "Go to \"Manage Form Fields\""
 msgstr "إنتقل إلى \"إدارة حقول\""
@@ -1297,7 +1297,7 @@ msgctxt "admin"
 msgid "Abandoned"
 msgstr "متخلى عنه"
 
-#: includes/views/submit_listing.php:519
+#: includes/views/submit_listing.php:518
 #, fuzzy
 msgctxt "admin"
 msgid "Go to \"Manage Fees\""
@@ -3626,7 +3626,7 @@ msgstr "العناصر النائبة صالحة: %s"
 msgctxt "admin settings"
 msgid ""
 "<strong>IMPORTANT:</strong> subpages of the main directory page cannot be "
-"accesed while this settings is checked."
+"accesed while this setting is checked."
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:287
@@ -6441,7 +6441,7 @@ msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "التصنيفات لهذا الإعلان"
 
-#: includes/views/submit_listing.php:146
+#: includes/views/submit_listing.php:145
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -6449,60 +6449,60 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:151
+#: includes/views/submit_listing.php:150
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:174
+#: includes/views/submit_listing.php:173
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "لقد تم تسجيل دخولك كمدير. سيتم تخطي أي خطوات للدفع."
 
-#: includes/views/submit_listing.php:398
+#: includes/views/submit_listing.php:397
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:398
+#: includes/views/submit_listing.php:397
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:403
+#: includes/views/submit_listing.php:402
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "معلومات حول الإعلان"
 
-#: includes/views/submit_listing.php:408
+#: includes/views/submit_listing.php:407
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Images"
 msgstr "صور الإعلانات"
 
-#: includes/views/submit_listing.php:416
+#: includes/views/submit_listing.php:415
 msgctxt "submit listing"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:422
+#: includes/views/submit_listing.php:421
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "شروط وأحكام"
 
-#: includes/views/submit_listing.php:459
+#: includes/views/submit_listing.php:458
 msgctxt "submit listing"
 msgid "(Please choose a fee plan above)"
 msgstr ""
 
-#: includes/views/submit_listing.php:509
+#: includes/views/submit_listing.php:508
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -6510,69 +6510,69 @@ msgstr ""
 "لا يمكن أن نقوم بمعالجة الدفع الخاص بك في هذه اللحظة. المرجو المحاولة مرة "
 "أخرى لاحقاً."
 
-#: includes/views/submit_listing.php:551
+#: includes/views/submit_listing.php:550
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:564
+#: includes/views/submit_listing.php:563
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category for your listing."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:584
+#: includes/views/submit_listing.php:583
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:586
+#: includes/views/submit_listing.php:585
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:825
+#: includes/views/submit_listing.php:824
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:830
+#: includes/views/submit_listing.php:829
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:835
+#: includes/views/submit_listing.php:834
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:840
+#: includes/views/submit_listing.php:839
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 
-#: includes/views/submit_listing.php:855
+#: includes/views/submit_listing.php:854
 msgctxt "submit listing"
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:862
+#: includes/views/submit_listing.php:861
 msgctxt "submit listing"
 msgid ""
 "You need to create an account on the site. Please fill out the form below."
 msgstr ""
 
-#: includes/views/submit_listing.php:868
+#: includes/views/submit_listing.php:867
 #, fuzzy
 msgctxt "submit listing"
 msgid "Username:"
 msgstr "عضو"
 
-#: includes/views/submit_listing.php:877
+#: includes/views/submit_listing.php:876
 #, fuzzy
 msgctxt "submit listing"
 msgid "Email:"
@@ -6765,7 +6765,7 @@ msgctxt "form-fields api"
 msgid "Textfield"
 msgstr "حقل النص"
 
-#: includes/fields/class-fieldtypes-textfield.php:53
+#: includes/fields/class-fieldtypes-textfield.php:57
 msgctxt "form-fields api"
 msgid "Format 01/31/1969"
 msgstr "تنسيق 31/01/1969"
@@ -7125,7 +7125,7 @@ msgstr ""
 "إعلانات بداخلها. هذا يعني أنها لن تظهر على الواجهة الأمامية للموقع الخاص بك. "
 "إذا كنت لا تريد ذلك، إضغط <a>هنا</a> لتغيير الإعداد."
 
-#: includes/views/submit_listing.php:345
+#: includes/views/submit_listing.php:344
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -7134,27 +7134,27 @@ msgstr ""
 "<b>المشاهدة غير متوفرة</b>. هل لديك \"تعطيل إضافة إعلان من واجهة الموقع؟\" "
 "محددة في الإعدادات؟"
 
-#: includes/views/submit_listing.php:347
+#: includes/views/submit_listing.php:346
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:512
+#: includes/views/submit_listing.php:511
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:526
+#: includes/views/submit_listing.php:525
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:529
+#: includes/views/submit_listing.php:528
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7162,17 +7162,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:897
+#: includes/views/submit_listing.php:896
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "يرجى الموافقة على الشروط والأحكام."
 
-#: includes/views/submit_listing.php:905
+#: includes/views/submit_listing.php:904
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "شروط وأحكام:"
 
-#: includes/views/submit_listing.php:913
+#: includes/views/submit_listing.php:912
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7924,7 +7924,7 @@ msgctxt "checkout"
 msgid "Print Receipt"
 msgstr ""
 
-#: includes/views/checkout.php:132
+#: includes/views/checkout.php:131
 #, fuzzy
 msgctxt "checkout"
 msgid "Can not process a payment at this time. Please try again later."
@@ -7932,29 +7932,29 @@ msgstr ""
 "لا يمكن أن نقوم بمعالجة الدفع الخاص بك في هذه اللحظة. المرجو المحاولة مرة "
 "أخرى لاحقاً."
 
-#: includes/views/checkout.php:169
+#: includes/views/checkout.php:168
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid nonce received."
 msgstr "جواب غير صالح من الخادم"
 
-#: includes/views/checkout.php:186
+#: includes/views/checkout.php:185
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid gateway selected."
 msgstr "حالة التجديد غير صالحة."
 
-#: includes/views/checkout.php:191
+#: includes/views/checkout.php:190
 msgctxt "checkout"
 msgid "Selected gateway does not support payment's currency."
 msgstr ""
 
-#: includes/views/checkout.php:200
+#: includes/views/checkout.php:199
 msgctxt "checkout"
 msgid "Pay Now"
 msgstr ""
 
-#: includes/views/checkout.php:247
+#: includes/views/checkout.php:246
 msgctxt "checkout"
 msgid "Unknown gateway error."
 msgstr ""
@@ -8380,13 +8380,13 @@ msgctxt "views:login"
 msgid "Please enter your access key and e-mail address."
 msgstr "المرجو إدخال بريد إلكتروني صحيح."
 
-#: templates/login.tpl.php:59 templates/login.tpl.php:60
+#: templates/login.tpl.php:59 templates/login.tpl.php:61
 #, fuzzy
 msgctxt "views:login"
 msgid "E-Mail Address"
 msgstr "عنوان البريد الإلكتروني:"
 
-#: templates/login.tpl.php:65 templates/login.tpl.php:66
+#: templates/login.tpl.php:65 templates/login.tpl.php:67
 #, fuzzy
 msgctxt "views:login"
 msgid "Access Key"
@@ -8591,14 +8591,14 @@ msgstr ""
 "Il s'agit seulement d'une pré-visualisation. L'annonce n'a pas encore été "
 "publiée."
 
-#: includes/views/submit_listing.php:695
+#: includes/views/submit_listing.php:694
 msgctxt "listing submit"
 msgid ""
 "Something went wrong. Please check the form for errors, correct them and "
 "submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:779
+#: includes/views/submit_listing.php:778
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
