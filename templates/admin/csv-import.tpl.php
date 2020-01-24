@@ -165,12 +165,31 @@ echo str_replace(
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Post status of imported listings', 'admin csv-import', 'WPBDM'); ?></label>
+                    <label> <?php _ex('Post status of new imported listings', 'admin csv-import', 'WPBDM'); ?></label>
                 </th>
                 <td>
                     <select name="settings[post-status]">
                         <?php foreach ( get_post_statuses() as $post_status => $post_status_label ): ?>
-                        <option value="<?php echo $post_status; ?>" <?php echo _defaults_or( $defaults, 'post-status', 'publish' ) == $post_status ? 'selected="selected"' : ''; ?>><?php echo $post_status_label; ?></option>
+                            <?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
+                                <?php continue; ?>
+                            <?php endif; ?>
+                            <option value="<?php echo $post_status; ?>" <?php echo _defaults_or( $defaults, 'post-status', 'publish' ) == $post_status ? 'selected="selected"' : ''; ?>><?php echo $post_status_label; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+            <tr class="form-required">
+                <th scope="row">
+                    <label> <?php _ex('Post status of existing imported listings', 'admin csv-import', 'WPBDM'); ?></label>
+                </th>
+                <td>
+                    <select name="settings[existing-post-status]">
+                            <option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'WPBDM' ); ?></option>
+                        <?php foreach ( get_post_statuses() as $post_status => $post_status_label ): ?>
+                            <?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
+                                <?php continue; ?>
+                            <?php endif; ?>
+                            <option value="<?php echo $post_status; ?>" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == $post_status ? 'selected="selected"' : ''; ?>><?php echo $post_status_label; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </td>
