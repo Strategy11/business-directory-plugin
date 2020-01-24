@@ -56,6 +56,7 @@ class WPBDP_CSV_Import {
             'assign-listings-to-user'     => true,
             'default-user'                => '0',
             'post-status'                 => 'publish',
+            'existing-post-status'        => 'preserve_status',
             'disable-email-notifications' => true,
             'append-images'               => true,
 
@@ -569,7 +570,15 @@ class WPBDP_CSV_Import {
         $listing_data                  = (array) $state;
         $listing_data['listing_id']    = $listing_id;
         $listing_data['append_images'] = $this->settings['append-images'];
-        $listing_data['post_status']   = $listing_id ? wpbdp_get_option( 'edit-post-status' ) : $this->settings['post-status'];
+        $listing_data['post_status']   = $this->settings['post-status'];
+
+        if ( $listing_id ) {
+            $listing_data['post_status'] = $this->settings['existing-post-status'];
+
+            if ( 'preserve_status' === $this->settings['existing-post-status'] ) {
+                $listing_data['post_status'] = get_post_status( $listing_id );
+            }
+        }
 
         if ( ! empty( $data['plan_id'] ) ) {
             $listing_data['plan_id'] = $data['plan_id'];
@@ -788,7 +797,7 @@ class WPBDP_CSV_Import {
                         $fields[ $field->get_id() ] = $tags;
                     }*/ else {
                         $fields[ $field->get_id() ] = $field->convert_csv_input( $value, $this->settings );
-}
+                    }
 
                     break;
             }
