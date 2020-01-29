@@ -266,7 +266,7 @@ class WPBDP_Listing_Display_Helper {
             }
         }
 
-        $schema = apply_filters( 'wpbdp_listing_schema_org', $schema );
+        $schema = apply_filters( 'wpbdp_listing_schema_org', $schema, $vars['listing_id'] );
 
         return $schema;
     }
