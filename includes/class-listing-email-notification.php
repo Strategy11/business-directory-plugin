@@ -199,7 +199,7 @@ class WPBDP__Listing_Email_Notification {
             $email->to[]     = wpbusdirman_get_the_business_email( $listing->get_id() );
 
             if ( 'expiration' === $event && in_array( 'renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
-                $email->cc[] = get_option( 'admin_email' );
+                $email->cc = get_option( 'admin_email' );
 
                 if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
                     $email->cc = wpbdp_get_option( 'admin-notifications-cc' );
