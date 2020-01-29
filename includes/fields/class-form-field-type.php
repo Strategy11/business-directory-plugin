@@ -293,7 +293,7 @@ class WPBDP_Form_Field_Type {
             break;
         }
 
-        return $schema;
+        return apply_filters( 'wpbdp_field_schema_org', $schema, $field, $post_id );
     }
 
     /**
