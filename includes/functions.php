@@ -1292,4 +1292,38 @@ if( get_option( '_wpbpd_update_zip_module_version', false ) ) {
     delete_option( '_wpbpd_update_zip_module_version' );
 }
 
+// Temporary zipcodesearch version fix Remove before 5.5.14.
+// Remove option created to fix zipcodesearch version, delete before 5.5.15.
+
+if( is_admin() && ! get_option( '_wpbpd_update_claim_module_version', false ) ) {
+
+    $file = plugin_dir_path( __DIR__ ) . '../business-directory-claim-listings/business-directory-claim-listings.php';
+
+    if ( ! file_exists( $file ) ) {
+        return;
+    }
+
+    $content = file_get_contents( $file );
+
+    if ( strpos( $content, '* Version: 5.3' ) ) {
+        if( file_put_contents( $file, str_replace('* Version: 5.3','* Version: 5.2', $content ) ) !== false ) {
+            update_option( '_wpbpd_update_zip_module_version', true );
+        } 
+    }
+
+    if ( strpos( $content, '* Version: 5.3.1' ) ) {
+        if( file_put_contents( $file, str_replace('* Version: 5.3.1','* Version: 5.2', $content ) ) !== false ) {
+            update_option( '_wpbpd_update_zip_module_version', true );
+        } 
+    }
+
+
+
+    if ( strpos( $content, '* Version: 5.3.2' ) ) {
+        if( file_put_contents( $file, str_replace('* Version: 5.3.2','* Version: 5.2', $content ) ) !== false ) {
+            update_option( '_wpbpd_update_zip_module_version', true );
+        } 
+    }
+}
+
 // phpcs:enable
