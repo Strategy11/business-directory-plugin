@@ -69,9 +69,9 @@ class WPBDP__Rewrite {
                     }
                 } else {
                     if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-                        $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?p=$matches[2]&post_type=' . WPBDP_POST_TYPE; // FIXME: post_type shouldn't be required. Fix Query_Integration too.
+                        $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?p=$matches[2]&listing_slug=$matches[3]&post_type=' . WPBDP_POST_TYPE; // FIXME: post_type shouldn't be required. Fix Query_Integration too.
                     } else {
-                        $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]';
+                        $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]&listing_slug=$matches[3]';
                     }
                 }
             }

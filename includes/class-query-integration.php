@@ -36,6 +36,7 @@ class WPBDP__Query_Integration {
         array_push( $vars, 'wpbdp-listener' );
         array_push( $vars, 'region' );
         array_push( $vars, 'wpbdp_view' );
+        array_push( $vars, 'listing_slug' );
 
         if ( wpbdp_get_option( 'disable-cpt' ) ) {
             array_push( $vars, '_' . wpbdp_get_option( 'permalinks-directory-slug' ) );
