@@ -363,6 +363,12 @@ class WPBDP_Listing {
         if ( ! $this->id )
             return;
 
+        $post_name = get_post_meta( $this->id, '_wpbdp[name]', true );
+
+        if ( ! $post_name ) {
+            update_post_meta( $this->id, '_wpbdp[name]', get_post_field( 'post_name', $this->id ) );
+        }
+
         wp_update_post( array( 'post_status' => $status, 'ID' => $this->id ) );
     }
 
