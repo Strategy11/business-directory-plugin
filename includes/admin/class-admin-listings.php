@@ -32,6 +32,8 @@ class WPBDP_Admin_Listings {
         add_action( 'wpbdp_save_listing', array( $this, 'maybe_restore_listing_slug' ) );
         add_action( 'wpbdp_save_listing', array( $this, 'maybe_update_plan' ) );
 
+        add_filter( 'get_sample_permalink_html', array( $this, 'maybe_hide_permalinks' ), 10, 5);
+
         // Filter by category.
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
         add_action( 'parse_query', array( &$this, '_apply_category_filter' ) );
@@ -525,6 +527,18 @@ class WPBDP_Admin_Listings {
         }
 
         wp_update_post( array( 'post_name' => $post_name, 'ID' => $post_id ) );
+    }
+
+    function maybe_hide_permalinks( $return, $post_id, $new_title, $new_slug, $post ) {
+        if( WPBDP_POST_TYPE === $post->post_type ) {
+            // $return .= sprintf(
+            //     '<div class="wpbdp_allow_slug_edit hidden"><label for="wpbdp_allow_slug_edit_input"><input id="wpbdp_allow_slug_edit_input" type="checkbox" name="edit_listing_slug" value="1" /> %s</label></div>', 
+            //     __( 'Allow listing slug edition', 'WPBDM' )
+            // );
+            return '';
+        }
+
+        return $return;
     }
 
     /**
