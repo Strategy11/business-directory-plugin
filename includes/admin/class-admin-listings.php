@@ -29,6 +29,7 @@ class WPBDP_Admin_Listings {
         add_action( 'admin_footer', array( $this, '_fix_new_links' ) );
 
         add_action( 'wpbdp_save_listing', array( $this, 'maybe_save_fields' ) );
+        add_action( 'wpbdp_save_listing', array( $this, 'maybe_restore_listing_slug' ) );
         add_action( 'wpbdp_save_listing', array( $this, 'maybe_update_plan' ) );
 
         // Filter by category.
@@ -514,6 +515,16 @@ class WPBDP_Admin_Listings {
                 update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta['caption'] ) );
             }
         }
+    }
+
+    public function maybe_restore_listing_slug( $post_id ) {
+        $post_name = $post_name = get_post_meta( $post_id, '_wpbdp[name]', true );
+        
+        if ( ! $post_name || $post_name === get_post_field( 'post_name', $post_id ) ) {
+            return;
+        }
+
+        wp_update_post( array( 'post_name' => $post_name, 'ID' => $post_id ) );
     }
 
     /**
