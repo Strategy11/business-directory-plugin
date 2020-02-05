@@ -109,6 +109,17 @@ class WPBDP_Email {
         return $this->html;
     }
 
+    private function get_recipients() {
+        $recipients = array();
+        foreach ( $this->to as $emails ) {
+            foreach ( explode( ',', str_replace( ';', ',', $emails ) ) as $email ) {
+                $recipients[] = $email;
+            }
+        }
+
+        return $recipients;
+    }
+
     /**
      * Sends the email.
      *
@@ -136,7 +147,7 @@ class WPBDP_Email {
         }
 
         add_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
-        $result = wp_mail( $this->to, $this->subject, $this->get_message(), $this->get_headers() );
+        $result = wp_mail( $this->get_recipients(), $this->subject, $this->get_message(), $this->get_headers() );
         remove_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
 
         return $result;
