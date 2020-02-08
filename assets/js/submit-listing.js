@@ -35,7 +35,7 @@ jQuery(function($) {
                 // Workaround for https://github.com/select2/select2/issues/3992.
                 var self = this;
                 setTimeout(function() {
-                    self.field.select2({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
+                    self.field.selectWoo({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
                 } );
             }
 
@@ -66,8 +66,6 @@ jQuery(function($) {
             this.field.change( $.proxy( this.categories_changed, this ) );
             this.maybe_limit_category_options();
             this.field.first().trigger('change');
-
-            // this.field.select2();
         },
 
         categories_changed: function() {
@@ -314,20 +312,6 @@ jQuery(function($) {
             var $options = $( this ).parent().find( 'input[type="checkbox"]' );
             $options.prop( 'checked', $( this ).find( 'input' ).is(':checked') );
         } );
-
-        // $submit.on( 'change', '.wpbdp-form-field-association-category .select2-selection ul', function ( e ) {
-        //     if ( self.skip_plan_selection ) {
-        //         var data = self.$form.serialize();
-        //         data += '&action=wpbdp_ajax&handler=submit_listing__sections';
-        //
-        //         self.ajax( data, function( res ) {
-        //             self.refresh( res );
-        //             $( 'html, body' ).delay(100).animate({
-        //                 scrollTop: self.$form.find('.wpbdp-submit-listing-section-plan_selection').offset().top
-        //             }, 500);
-        //         } );
-        //     }
-        // } );
 
         $( window ).trigger( 'wpbdp_submit_init' );
     };

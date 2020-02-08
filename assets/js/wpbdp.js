@@ -12,7 +12,7 @@ jQuery(function( $ ) {
 
 jQuery(document).ready(function($){
     if ( $( '.wpbdp-js-select2' ).length > 0 ) {
-        $( '.wpbdp-js-select2' ).select2();
+        $( '.wpbdp-js-select2' ).selectWoo();
     }
 
 

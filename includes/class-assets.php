@@ -74,17 +74,17 @@ class WPBDP__Assets {
             WPBDP_VERSION
         );
 
-        // Select2.
+        // Use Select2 styles and scripts from selectWoo https://woocommerce.wordpress.com/2017/08/08/selectwoo-an-accessible-replacement-for-select2/.
         wp_register_style(
             'wpbdp-js-select2-css',
-            WPBDP_URL . 'vendors/select2-4.0.5/css/select2.min.css',
+            WPBDP_URL . 'vendors/selectWoo/css/selectWoo.min.css',
             array(),
             '4.0.5'
         );
 
         wp_register_script(
             'wpbdp-js-select2',
-            WPBDP_URL . 'vendors/select2-4.0.5/js/select2.full.min.js',
+            WPBDP_URL . 'vendors/selectWoo/js/selectWoo.full.min.js',
             array( 'jquery' ),
             '4.0.5'
         );

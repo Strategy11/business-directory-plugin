@@ -84,7 +84,7 @@ jQuery(function($) {
        '#limit-categories-list select'
     ).change( update_form_ui );
 
-    $( '#limit-categories-list select' ).select2({
+    $( '#limit-categories-list select' ).selectWoo({
         placeholder: $( '#limit-categories-list select' ).attr( 'placeholder' )
     });
 
