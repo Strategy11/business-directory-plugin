@@ -713,21 +713,3 @@ function wpbdp_main_box( $args = null ) {
     $html = wpbdp_x_render( apply_filters( 'wpbdp_main_box_template_name', 'main-box' ), $template_vars );
     return $html;
 }
-
-/**
- * @since 5.3.2
- *
- * This function should be removed in 5.3.4
- *
- * @param $use_default
- * @return array
- */
-function wpbdp_use_default_picture( $use_default ) {
-    if ( ! is_array( $use_default ) ) {
-        $use_default = $use_default ? array( 'excerpt' ) : array();
-        wpbdp_set_option( 'use-default-picture', $use_default );
-    }
-
-    return $use_default;
-}
-add_filter( 'wpbdp_get_option_use-default-picture', 'wpbdp_use_default_picture' );

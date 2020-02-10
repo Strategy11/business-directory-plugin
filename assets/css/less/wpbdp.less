@@ -287,11 +287,6 @@ form#wpbdmsearchform a.advanced-search-link {
             iframe {
                 margin-bottom: 0;
             }
-
-            &.twitter-handle {
-                vertical-align: text-top;
-                padding-top: 5px;
-            }
         }
 
         &.facebook {
@@ -1161,8 +1156,19 @@ body.business-directory #TB_secondLine {
 }
 
 
-.wpbdp-wp-theme-twentyseventeen .single-featured-image-header {
-    display: none;
+.wpbdp-wp-theme-twentyseventeen {
+
+    .single-featured-image-header {
+        display: none;
+    }
+
+    .wpbdp-listing {
+        
+        .social-fields .twitter.twitter-handle {
+            vertical-align: text-top;
+            padding-top: 1px;
+        }
+    }
 }
 
 .wpbdp-wp-theme-twentytwenty {
@@ -1174,5 +1180,13 @@ body.business-directory #TB_secondLine {
 
     .wpbdp-listing-excerpt {
         font-size: 1.8rem;
+    }
+    
+    .wpbdp-listing .social-fields {
+        
+        &.twitter.twitter-handle {
+            padding-top: 5px;
+            vertical-align: text-top;
+        }
     }
 }
