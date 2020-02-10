@@ -11,6 +11,7 @@ class WPBDP__WordPress_Template_Integration {
 
     public function __construct() {
         add_action( 'body_class', array( $this, 'add_basic_body_classes' ) );
+        add_filter( 'body_class', array( &$this, 'add_advanced_body_classes' ), 10 );
 
         if ( wpbdp_get_option( 'disable-cpt' ) ) {
             add_filter('comments_template', array( &$this, '_comments_template'));
@@ -23,7 +24,6 @@ class WPBDP__WordPress_Template_Integration {
         add_filter( 'template_include', array( $this, 'template_include' ), 20 );
         add_action( 'wp_head', array( $this, 'maybe_spoof_post' ), 100 );
         add_action( 'wp_head', array( $this, 'wp_head_done' ), 999 );
-        add_filter( 'body_class', array( &$this, 'add_advanced_body_classes' ), 10 );
         add_filter( 'post_class', array( $this, 'post_class' ), 10, 3 );
     }
 
