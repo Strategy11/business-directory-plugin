@@ -60,7 +60,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
             return '';
 
         $html  = '';
-        $html .= '<div class="social-field twitter">';
+        $html .= '<div class="social-field twitter twitter-handle">';
         $html .= sprintf(
             '<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="%s" data-lang="%s">Follow @%s</a>',
             $value,
