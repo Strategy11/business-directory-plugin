@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-01-22 20:18:10+00:00\n"
+"POT-Creation-Date: 2020-02-11 22:14:55+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -21,30 +21,30 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:181
+#: includes/admin/class-admin-listings.php:184
 msgid "Listing Information"
 msgstr "Informacje o firmie"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:189
+#: includes/admin/class-admin-listings.php:192
 #, fuzzy
 msgid "Listing Timeline"
 msgstr "Nazwa Firmy:"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:207
+#: includes/admin/class-admin-listings.php:210
 #, fuzzy
 msgid "Listing Reports"
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:248
+#: includes/admin/class-admin-listings.php:251
 #, fuzzy
 msgid "Expires on"
 msgstr "Upłynął okres ważności "
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:256
+#: includes/admin/class-admin-listings.php:259
 #, fuzzy
 msgid "Attributes"
 msgstr "Atrybuty pola"
@@ -68,7 +68,7 @@ msgid "Uninstall"
 msgstr "Odinstaluj "
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:624
+#: includes/admin/class-csv-import.php:633
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Prześlij ofertę"
@@ -587,12 +587,12 @@ msgid "See an example CSV import file"
 msgstr "Zobacz przykład importowanego pliku CSV"
 
 # @ WPBDM
-#: includes/admin/class-admin-csv.php:39 templates/admin/csv-import.tpl.php:268
+#: includes/admin/class-admin-csv.php:39 templates/admin/csv-import.tpl.php:287
 msgctxt "admin csv-import"
 msgid "Help"
 msgstr "Pomoc"
 
-#: includes/admin/class-csv-import.php:502
+#: includes/admin/class-csv-import.php:503
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -600,35 +600,35 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:508
+#: includes/admin/class-csv-import.php:509
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:675
+#: includes/admin/class-csv-import.php:684
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Użytkownik  \"%s\" nie istnieje"
 
-#: includes/admin/class-csv-import.php:701
+#: includes/admin/class-csv-import.php:710
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:723
+#: includes/admin/class-csv-import.php:732
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:746
+#: includes/admin/class-csv-import.php:755
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Brak wymaganego pola: %s"
 
 # @ WPBDM
-#: includes/admin/class-csv-import.php:771
+#: includes/admin/class-csv-import.php:780
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Kategoria \"%s\" nie istnieje"
@@ -933,64 +933,79 @@ msgstr "Ustawienia importu"
 
 # @ WPBDM
 #: templates/admin/csv-import.tpl.php:168
+#, fuzzy
 msgctxt "admin csv-import"
-msgid "Post status of imported listings"
+msgid "Post status of new imported listings"
 msgstr "Status dla zaimportowanych plików"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:180
+#: templates/admin/csv-import.tpl.php:183
+#, fuzzy
+msgctxt "admin csv-import"
+msgid "Post status of existing imported listings"
+msgstr "Status dla zaimportowanych plików"
+
+# @ WPBDM
+#: templates/admin/csv-import.tpl.php:187
+#, fuzzy
+msgctxt "admin csv-import"
+msgid "Preserve existing status"
+msgstr "Oferty"
+
+# @ WPBDM
+#: templates/admin/csv-import.tpl.php:199
 msgctxt "admin csv-import"
 msgid "Missing categories handling"
 msgstr "Brakująca obsługa kategorii "
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:185
+#: templates/admin/csv-import.tpl.php:204
 msgctxt "admin csv-import"
 msgid "Auto-create categories"
 msgstr "Automatyczne tworzenie kategorii"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:188
+#: templates/admin/csv-import.tpl.php:207
 msgctxt "admin csv-import"
 msgid "Generate errors when a category is not found"
 msgstr "Generować błędy gdy kategorii nie znaleziono"
 
-#: templates/admin/csv-import.tpl.php:193
+#: templates/admin/csv-import.tpl.php:212
 msgctxt "admin csv-import"
 msgid "Keep existing listing images?"
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:198
+#: templates/admin/csv-import.tpl.php:217
 msgctxt "admin csv-import"
 msgid "Keep existing images."
 msgstr "Obrazy"
 
-#: templates/admin/csv-import.tpl.php:199
+#: templates/admin/csv-import.tpl.php:218
 msgctxt "admin csv-import"
 msgid "Appends new images while keeping current ones."
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:204
+#: templates/admin/csv-import.tpl.php:223
 msgctxt "admin csv-import"
 msgid "Assign listings to a user?"
 msgstr "Przypisać oferty do użytkownika?"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:210
+#: templates/admin/csv-import.tpl.php:229
 msgctxt "admin csv-import"
 msgid "Assign listings to a user."
 msgstr "Przypisz oferty do użytkownika."
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:215
+#: templates/admin/csv-import.tpl.php:234
 msgctxt "admin csv-import"
 msgid "Use a default user for listings?"
 msgstr "Użyj domyślnego obrazu dla ofert, które nie posiadają żadnych obrazów?"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:221
+#: templates/admin/csv-import.tpl.php:240
 msgctxt "admin csv-import"
 msgid ""
 "Select a default user to be used if the username column is not present in "
@@ -1000,13 +1015,13 @@ msgstr ""
 "obecny w pliku CSV."
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:226
+#: templates/admin/csv-import.tpl.php:245
 msgctxt "admin csv-import"
 msgid "Default listing user"
 msgstr "Domyślny użytkownik oferty"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:232
+#: templates/admin/csv-import.tpl.php:251
 msgctxt "admin csv-import"
 msgid ""
 "This user will be used if the username column is not present in the CSV file."
@@ -1015,13 +1030,13 @@ msgstr ""
 "obecny w pliku CSV."
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:237
+#: templates/admin/csv-import.tpl.php:256
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Number of listings imported on every cycle"
 msgstr "Liczba wyświetlanych ofert"
 
-#: templates/admin/csv-import.tpl.php:245
+#: templates/admin/csv-import.tpl.php:264
 msgctxt "admin csv-import"
 msgid ""
 "If you are having trouble importing listings due to memory problems, try "
@@ -1031,31 +1046,31 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:250
+#: templates/admin/csv-import.tpl.php:269
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications during import?"
 msgstr "Wyłączyć powiadomienia e-mail podczas importu?"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:255
+#: templates/admin/csv-import.tpl.php:274
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications."
 msgstr "Wyłącz powiadomienia e-mail."
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:261
+#: templates/admin/csv-import.tpl.php:280
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr "Test importu"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:262
+#: templates/admin/csv-import.tpl.php:281
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr "Import ofert"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:270
+#: templates/admin/csv-import.tpl.php:289
 msgctxt "admin csv-import"
 msgid ""
 "The following are the valid header names to be used in the CSV file. "
@@ -1069,37 +1084,37 @@ msgstr ""
 "\"</a> aby zobaczyć, jak powinien wyglądać plik importu."
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:277
+#: templates/admin/csv-import.tpl.php:296
 msgctxt "admin csv-import"
 msgid "Header name/label"
 msgstr "Nagłówek/Etykieta"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:278
+#: templates/admin/csv-import.tpl.php:297
 msgctxt "admin csv-import"
 msgid "Field"
 msgstr "Pole"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:279
+#: templates/admin/csv-import.tpl.php:298
 msgctxt "admin csv-import"
 msgid "Type"
 msgstr "Rodzaj"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:280
+#: templates/admin/csv-import.tpl.php:299
 msgctxt "admin csv-import"
 msgid "Required?"
 msgstr "Wymagane?"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:281
+#: templates/admin/csv-import.tpl.php:300
 msgctxt "admin csv-import"
 msgid "Multivalued?"
 msgstr "Wielowartościowe?"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:303
+#: templates/admin/csv-import.tpl.php:322
 #, fuzzy
 msgctxt "admin csv-import"
 msgid ""
@@ -1110,19 +1125,19 @@ msgstr ""
 "podczas dodawania lub aktualizowania oferty ze źródeł zewnętrznych."
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:310
+#: templates/admin/csv-import.tpl.php:329
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr "Lista rozdzielonych średnikami obrazów oferty (z pliku ZIP)"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:317
+#: templates/admin/csv-import.tpl.php:336
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr "Autor oferty - Nazwa Użytkownika"
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:324
+#: templates/admin/csv-import.tpl.php:343
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -1131,7 +1146,7 @@ msgstr ""
 "ofercie aktualizacji ze źródeł zewnętrznych."
 
 # @ WPBDM
-#: templates/admin/csv-import.tpl.php:331
+#: templates/admin/csv-import.tpl.php:350
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -1155,12 +1170,12 @@ msgid "Export"
 msgstr "CSV Export"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:59
+#: includes/admin/class-admin-listings.php:62
 msgctxt "admin category filter"
 msgid "All categories"
 msgstr "Wszystkie Kategorie"
 
-#: includes/admin/class-admin-listings.php:174
+#: includes/admin/class-admin-listings.php:177
 msgctxt "admin listings"
 msgid ""
 "This listing doesn't have a fee plan assigned. This is required in order to "
@@ -1169,46 +1184,46 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:293
+#: includes/admin/class-admin-listings.php:296
 #, fuzzy
 msgctxt "admin listings"
 msgid "Never"
 msgstr "nigdy"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:319
+#: includes/admin/class-admin-listings.php:322
 #, fuzzy
 msgctxt "admin listings"
 msgid "Featured"
 msgstr "Status wyróżnienia (naklejka)"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:323
+#: includes/admin/class-admin-listings.php:326
 #, fuzzy
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(powtarzające się)"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:327
+#: includes/admin/class-admin-listings.php:330
 #, fuzzy
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Tryb Bezpłatny"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:329
+#: includes/admin/class-admin-listings.php:332
 #, fuzzy
 msgctxt "admin listings"
 msgid "Paid"
 msgstr "Zapłacone"
 
-#: includes/admin/class-admin-listings.php:334
+#: includes/admin/class-admin-listings.php:337
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:641
+#: includes/admin/class-admin-listings.php:666
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -1240,14 +1255,14 @@ msgid "Clear listing reports."
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:197
+#: includes/admin/class-admin-listings.php:200
 #, fuzzy
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "Pola/Obrazy"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:247
+#: includes/admin/class-admin-listings.php:250
 msgctxt "admin"
 msgid "Categories"
 msgstr "Kategorie"
@@ -1468,136 +1483,136 @@ msgctxt "admin"
 msgid "Go to \"Manage Fees\""
 msgstr "Przejdź do \"Zarządzanie polami formularza\""
 
-#: includes/admin/class-admin-listings.php:304
+#: includes/admin/class-admin-listings.php:307
 msgctxt "listing attribute"
 msgid "No Fee Plan"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:394
+#: includes/admin/class-admin-listings.php:397
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:770
+#: includes/class-listing.php:776
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:771
+#: includes/class-listing.php:777
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
 # @ WPBDM
-#: includes/class-listing.php:772
+#: includes/class-listing.php:778
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:773
+#: includes/class-listing.php:779
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Oczekujące na abonament"
 
 # @ WPBDM
-#: includes/class-listing.php:774
+#: includes/class-listing.php:780
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:775
+#: includes/class-listing.php:781
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Oferty oczekujące na zatwierdzenie"
 
 # @ WPBDM
-#: includes/class-listing.php:776
+#: includes/class-listing.php:782
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Wygasłe"
 
 # @ WPBDM
-#: includes/class-listing.php:777
+#: includes/class-listing.php:783
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Tylko aktywne i oczekujące na odświeżenie "
 
 # @ WPBDM
-#: includes/class-listing.php:778
+#: includes/class-listing.php:784
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Porzucone"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:443
+#: includes/admin/class-admin-listings.php:446
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Edytuj Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:448
+#: includes/admin/class-admin-listings.php:451
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Usuń Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:459
+#: includes/admin/class-admin-listings.php:462
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Płatność"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:464
+#: includes/admin/class-admin-listings.php:467
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Płatność"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:580
+#: includes/admin/class-admin-listings.php:605
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publikuj Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:581
+#: includes/admin/class-admin-listings.php:606
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Oczekujące"
 
-#: includes/admin/class-admin-listings.php:582
+#: includes/admin/class-admin-listings.php:607
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:584
+#: includes/admin/class-admin-listings.php:609
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Odnów Ofertę"
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:585
+#: includes/admin/class-admin-listings.php:610
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/class-admin-listings.php:592
+#: includes/admin/class-admin-listings.php:617
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -6766,20 +6781,20 @@ msgid "Listing expired"
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/class-listing.php:510
+#: includes/class-listing.php:516
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Abonament niedostępny)"
 
 # @ WPBDM
-#: includes/class-listing.php:667
+#: includes/class-listing.php:673
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(powtarzające się)"
 
-#: includes/class-listing.php:669
+#: includes/class-listing.php:675
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -9814,7 +9829,7 @@ msgstr "Szukaj..."
 #: templates/admin/csv-import.tpl.php:116
 #: templates/admin/csv-import.tpl.php:142
 #: templates/admin/csv-import.tpl.php:153
-#: templates/admin/csv-import.tpl.php:180
+#: templates/admin/csv-import.tpl.php:199
 msgctxt "admin forms"
 msgid "required"
 msgstr "Wymagane"

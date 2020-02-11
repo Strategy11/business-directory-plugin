@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-01-22 20:18:10+00:00\n"
+"POT-Creation-Date: 2020-02-11 22:14:55+00:00\n"
 "PO-Revision-Date: 2017-07-04 12:37+0000\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -14,26 +14,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 "X-Generator: Loco - https://localise.biz/\n"
 
-#: includes/admin/class-admin-listings.php:181
+#: includes/admin/class-admin-listings.php:184
 msgid "Listing Information"
 msgstr "Registratie informatie"
 
-#: includes/admin/class-admin-listings.php:189
+#: includes/admin/class-admin-listings.php:192
 #, fuzzy
 msgid "Listing Timeline"
 msgstr "Registratie titel:"
 
-#: includes/admin/class-admin-listings.php:207
+#: includes/admin/class-admin-listings.php:210
 #, fuzzy
 msgid "Listing Reports"
 msgstr "Een registratie verloopt."
 
-#: includes/admin/class-admin-listings.php:248
+#: includes/admin/class-admin-listings.php:251
 #, fuzzy
 msgid "Expires on"
 msgstr "Verlopen"
 
-#: includes/admin/class-admin-listings.php:256
+#: includes/admin/class-admin-listings.php:259
 #, fuzzy
 msgid "Attributes"
 msgstr "Veld attributen"
@@ -53,7 +53,7 @@ msgstr "Business Directory instellingen"
 msgid "Uninstall"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:624
+#: includes/admin/class-csv-import.php:633
 msgid "Listing imported by admin. Payment skipped."
 msgstr ""
 
@@ -476,44 +476,44 @@ msgctxt "admin csv-import"
 msgid "See an example CSV import file"
 msgstr ""
 
-#: includes/admin/class-admin-csv.php:39 templates/admin/csv-import.tpl.php:268
+#: includes/admin/class-admin-csv.php:39 templates/admin/csv-import.tpl.php:287
 msgctxt "admin csv-import"
 msgid "Help"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:502
+#: includes/admin/class-csv-import.php:503
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
 "with the following error: <error-message>."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:508
+#: includes/admin/class-csv-import.php:509
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr ""
 
-#: includes/admin/class-csv-import.php:675
+#: includes/admin/class-csv-import.php:684
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:701
+#: includes/admin/class-csv-import.php:710
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:723
+#: includes/admin/class-csv-import.php:732
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:746
+#: includes/admin/class-csv-import.php:755
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Mist vereist veld: %s"
 
-#: includes/admin/class-csv-import.php:771
+#: includes/admin/class-csv-import.php:780
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr ""
@@ -762,80 +762,93 @@ msgid "Import settings"
 msgstr ""
 
 #: templates/admin/csv-import.tpl.php:168
+#, fuzzy
 msgctxt "admin csv-import"
-msgid "Post status of imported listings"
-msgstr ""
+msgid "Post status of new imported listings"
+msgstr "Status van verwijderde registraties"
 
-#: templates/admin/csv-import.tpl.php:180
+#: templates/admin/csv-import.tpl.php:183
+#, fuzzy
+msgctxt "admin csv-import"
+msgid "Post status of existing imported listings"
+msgstr "Status van verwijderde registraties"
+
+#: templates/admin/csv-import.tpl.php:187
+#, fuzzy
+msgctxt "admin csv-import"
+msgid "Preserve existing status"
+msgstr "Registraties"
+
+#: templates/admin/csv-import.tpl.php:199
 msgctxt "admin csv-import"
 msgid "Missing categories handling"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:185
+#: templates/admin/csv-import.tpl.php:204
 msgctxt "admin csv-import"
 msgid "Auto-create categories"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:188
+#: templates/admin/csv-import.tpl.php:207
 msgctxt "admin csv-import"
 msgid "Generate errors when a category is not found"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:193
+#: templates/admin/csv-import.tpl.php:212
 msgctxt "admin csv-import"
 msgid "Keep existing listing images?"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:198
+#: templates/admin/csv-import.tpl.php:217
 msgctxt "admin csv-import"
 msgid "Keep existing images."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:199
+#: templates/admin/csv-import.tpl.php:218
 msgctxt "admin csv-import"
 msgid "Appends new images while keeping current ones."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:204
+#: templates/admin/csv-import.tpl.php:223
 msgctxt "admin csv-import"
 msgid "Assign listings to a user?"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:210
+#: templates/admin/csv-import.tpl.php:229
 msgctxt "admin csv-import"
 msgid "Assign listings to a user."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:215
+#: templates/admin/csv-import.tpl.php:234
 msgctxt "admin csv-import"
 msgid "Use a default user for listings?"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:221
+#: templates/admin/csv-import.tpl.php:240
 msgctxt "admin csv-import"
 msgid ""
 "Select a default user to be used if the username column is not present in "
 "the CSV file."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:226
+#: templates/admin/csv-import.tpl.php:245
 msgctxt "admin csv-import"
 msgid "Default listing user"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:232
+#: templates/admin/csv-import.tpl.php:251
 msgctxt "admin csv-import"
 msgid ""
 "This user will be used if the username column is not present in the CSV file."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:237
+#: templates/admin/csv-import.tpl.php:256
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Number of listings imported on every cycle"
 msgstr "Aantal registraties tonen:"
 
-#: templates/admin/csv-import.tpl.php:245
+#: templates/admin/csv-import.tpl.php:264
 msgctxt "admin csv-import"
 msgid ""
 "If you are having trouble importing listings due to memory problems, try "
@@ -844,27 +857,27 @@ msgid ""
 "success on shared hosting platforms and other resource-constrained servers."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:250
+#: templates/admin/csv-import.tpl.php:269
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications during import?"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:255
+#: templates/admin/csv-import.tpl.php:274
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:261
+#: templates/admin/csv-import.tpl.php:280
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:262
+#: templates/admin/csv-import.tpl.php:281
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:270
+#: templates/admin/csv-import.tpl.php:289
 msgctxt "admin csv-import"
 msgid ""
 "The following are the valid header names to be used in the CSV file. "
@@ -873,55 +886,55 @@ msgid ""
 "how an import file should look like."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:277
+#: templates/admin/csv-import.tpl.php:296
 msgctxt "admin csv-import"
 msgid "Header name/label"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:278
+#: templates/admin/csv-import.tpl.php:297
 msgctxt "admin csv-import"
 msgid "Field"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:279
+#: templates/admin/csv-import.tpl.php:298
 msgctxt "admin csv-import"
 msgid "Type"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:280
+#: templates/admin/csv-import.tpl.php:299
 msgctxt "admin csv-import"
 msgid "Required?"
 msgstr "Vereist?"
 
-#: templates/admin/csv-import.tpl.php:281
+#: templates/admin/csv-import.tpl.php:300
 msgctxt "admin csv-import"
 msgid "Multivalued?"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:303
+#: templates/admin/csv-import.tpl.php:322
 msgctxt "admin csv-import"
 msgid ""
 "Fee ID (integer) associated to a listing. Use this column when adding or "
 "updating listings from external sources."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:310
+#: templates/admin/csv-import.tpl.php:329
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:317
+#: templates/admin/csv-import.tpl.php:336
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:324
+#: templates/admin/csv-import.tpl.php:343
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:331
+#: templates/admin/csv-import.tpl.php:350
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -938,12 +951,12 @@ msgctxt "admin csv"
 msgid "Export"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:59
+#: includes/admin/class-admin-listings.php:62
 msgctxt "admin category filter"
 msgid "All categories"
 msgstr "Alle Categorieën"
 
-#: includes/admin/class-admin-listings.php:174
+#: includes/admin/class-admin-listings.php:177
 msgctxt "admin listings"
 msgid ""
 "This listing doesn't have a fee plan assigned. This is required in order to "
@@ -951,41 +964,41 @@ msgid ""
 "renewals."
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:293
+#: includes/admin/class-admin-listings.php:296
 #, fuzzy
 msgctxt "admin listings"
 msgid "Never"
 msgstr "nooit"
 
-#: includes/admin/class-admin-listings.php:319
+#: includes/admin/class-admin-listings.php:322
 #, fuzzy
 msgctxt "admin listings"
 msgid "Featured"
 msgstr "Aanbieding/sticky"
 
-#: includes/admin/class-admin-listings.php:323
+#: includes/admin/class-admin-listings.php:326
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:327
+#: includes/admin/class-admin-listings.php:330
 #, fuzzy
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Gratis"
 
-#: includes/admin/class-admin-listings.php:329
+#: includes/admin/class-admin-listings.php:332
 #, fuzzy
 msgctxt "admin listings"
 msgid "Paid"
 msgstr "Betaald"
 
-#: includes/admin/class-admin-listings.php:334
+#: includes/admin/class-admin-listings.php:337
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:641
+#: includes/admin/class-admin-listings.php:666
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -1013,13 +1026,13 @@ msgctxt "admin listings"
 msgid "Clear listing reports."
 msgstr "Een registratie verloopt."
 
-#: includes/admin/class-admin-listings.php:197
+#: includes/admin/class-admin-listings.php:200
 #, fuzzy
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "Registratie velden / images"
 
-#: includes/admin/class-admin-listings.php:247
+#: includes/admin/class-admin-listings.php:250
 msgctxt "admin"
 msgid "Categories"
 msgstr "categorieën"
@@ -1199,119 +1212,119 @@ msgctxt "admin"
 msgid "Go to \"Manage Fees\""
 msgstr "Ga naar \"instellen formulier velden\""
 
-#: includes/admin/class-admin-listings.php:304
+#: includes/admin/class-admin-listings.php:307
 msgctxt "listing attribute"
 msgid "No Fee Plan"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:394
+#: includes/admin/class-admin-listings.php:397
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:770
+#: includes/class-listing.php:776
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:771
+#: includes/class-listing.php:777
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/class-listing.php:772
+#: includes/class-listing.php:778
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Afgerond"
 
-#: includes/class-listing.php:773
+#: includes/class-listing.php:779
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Wachtend op upgrade"
 
-#: includes/class-listing.php:774
+#: includes/class-listing.php:780
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Afgerond"
 
-#: includes/class-listing.php:775
+#: includes/class-listing.php:781
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Wachtend op upgrade"
 
-#: includes/class-listing.php:776
+#: includes/class-listing.php:782
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Verlopen"
 
-#: includes/class-listing.php:777
+#: includes/class-listing.php:783
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Registratie vernieuwing"
 
-#: includes/class-listing.php:778
+#: includes/class-listing.php:784
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:443
+#: includes/admin/class-admin-listings.php:446
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "Registratie bewerken"
 
-#: includes/admin/class-admin-listings.php:448
+#: includes/admin/class-admin-listings.php:451
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Registratie verwijderen"
 
-#: includes/admin/class-admin-listings.php:459
+#: includes/admin/class-admin-listings.php:462
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Betaling"
 
-#: includes/admin/class-admin-listings.php:464
+#: includes/admin/class-admin-listings.php:467
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Betaling"
 
-#: includes/admin/class-admin-listings.php:580
+#: includes/admin/class-admin-listings.php:605
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Registratie publiceren"
 
-#: includes/admin/class-admin-listings.php:581
+#: includes/admin/class-admin-listings.php:606
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "In Afwachting"
 
-#: includes/admin/class-admin-listings.php:582
+#: includes/admin/class-admin-listings.php:607
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:584
+#: includes/admin/class-admin-listings.php:609
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Vernieuw registratie"
 
-#: includes/admin/class-admin-listings.php:585
+#: includes/admin/class-admin-listings.php:610
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Een registratie verloopt."
 
-#: includes/admin/class-admin-listings.php:592
+#: includes/admin/class-admin-listings.php:617
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr ""
@@ -5757,17 +5770,17 @@ msgctxt "listing"
 msgid "Listing expired"
 msgstr "Een registratie verloopt."
 
-#: includes/class-listing.php:510
+#: includes/class-listing.php:516
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr ""
 
-#: includes/class-listing.php:667
+#: includes/class-listing.php:673
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr ""
 
-#: includes/class-listing.php:669
+#: includes/class-listing.php:675
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -8319,7 +8332,7 @@ msgstr "Zoek"
 #: templates/admin/csv-import.tpl.php:116
 #: templates/admin/csv-import.tpl.php:142
 #: templates/admin/csv-import.tpl.php:153
-#: templates/admin/csv-import.tpl.php:180
+#: templates/admin/csv-import.tpl.php:199
 msgctxt "admin forms"
 msgid "required"
 msgstr "vereist"

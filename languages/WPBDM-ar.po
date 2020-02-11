@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-01-22 20:18:10+00:00\n"
+"POT-Creation-Date: 2020-02-11 22:14:55+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -18,26 +18,26 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: includes/admin/class-admin-listings.php:181
+#: includes/admin/class-admin-listings.php:184
 msgid "Listing Information"
 msgstr "معلومات حول الإعلان"
 
-#: includes/admin/class-admin-listings.php:189
+#: includes/admin/class-admin-listings.php:192
 #, fuzzy
 msgid "Listing Timeline"
 msgstr "عنوان الإعلان: "
 
-#: includes/admin/class-admin-listings.php:207
+#: includes/admin/class-admin-listings.php:210
 #, fuzzy
 msgid "Listing Reports"
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/class-admin-listings.php:248
+#: includes/admin/class-admin-listings.php:251
 #, fuzzy
 msgid "Expires on"
 msgstr "ستنتهي الصلاحية في"
 
-#: includes/admin/class-admin-listings.php:256
+#: includes/admin/class-admin-listings.php:259
 #, fuzzy
 msgid "Attributes"
 msgstr "سمات الحقل"
@@ -60,7 +60,7 @@ msgstr "حذف إضافة دليل الأعمال"
 msgid "Uninstall"
 msgstr "حذف"
 
-#: includes/admin/class-csv-import.php:624
+#: includes/admin/class-csv-import.php:633
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Poster annonce(paiement initial)"
@@ -528,44 +528,44 @@ msgctxt "admin csv-import"
 msgid "See an example CSV import file"
 msgstr "مشاهدة مثال لملف استيراد CSV"
 
-#: includes/admin/class-admin-csv.php:39 templates/admin/csv-import.tpl.php:268
+#: includes/admin/class-admin-csv.php:39 templates/admin/csv-import.tpl.php:287
 msgctxt "admin csv-import"
 msgid "Help"
 msgstr "المساعدة"
 
-#: includes/admin/class-csv-import.php:502
+#: includes/admin/class-csv-import.php:503
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
 "with the following error: <error-message>."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:508
+#: includes/admin/class-csv-import.php:509
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "لا يمكن إنشاء تصنيف الإعلان \"%s\""
 
-#: includes/admin/class-csv-import.php:675
+#: includes/admin/class-csv-import.php:684
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "إسم المستخدم \"%s\" غير موجود"
 
-#: includes/admin/class-csv-import.php:701
+#: includes/admin/class-csv-import.php:710
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
 
-#: includes/admin/class-csv-import.php:723
+#: includes/admin/class-csv-import.php:732
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:746
+#: includes/admin/class-csv-import.php:755
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "حقل مطلوب مفقود: %s"
 
-#: includes/admin/class-csv-import.php:771
+#: includes/admin/class-csv-import.php:780
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "تصنيف الإعلان \"%s\" غير موجود"
@@ -822,56 +822,69 @@ msgid "Import settings"
 msgstr "إعدادات الاستيراد"
 
 #: templates/admin/csv-import.tpl.php:168
+#, fuzzy
 msgctxt "admin csv-import"
-msgid "Post status of imported listings"
+msgid "Post status of new imported listings"
 msgstr "حالة مقالة الإعلانات المستوردة"
 
-#: templates/admin/csv-import.tpl.php:180
+#: templates/admin/csv-import.tpl.php:183
+#, fuzzy
+msgctxt "admin csv-import"
+msgid "Post status of existing imported listings"
+msgstr "حالة مقالة الإعلانات المستوردة"
+
+#: templates/admin/csv-import.tpl.php:187
+#, fuzzy
+msgctxt "admin csv-import"
+msgid "Preserve existing status"
+msgstr "الإعلانات"
+
+#: templates/admin/csv-import.tpl.php:199
 msgctxt "admin csv-import"
 msgid "Missing categories handling"
 msgstr "معالجة التصنيفات المفقودة"
 
-#: templates/admin/csv-import.tpl.php:185
+#: templates/admin/csv-import.tpl.php:204
 msgctxt "admin csv-import"
 msgid "Auto-create categories"
 msgstr "الإنشاء التلقائي للتصنيفات"
 
-#: templates/admin/csv-import.tpl.php:188
+#: templates/admin/csv-import.tpl.php:207
 msgctxt "admin csv-import"
 msgid "Generate errors when a category is not found"
 msgstr "إنشاء أخطاء عند عدم العثور على تصنيف"
 
-#: templates/admin/csv-import.tpl.php:193
+#: templates/admin/csv-import.tpl.php:212
 msgctxt "admin csv-import"
 msgid "Keep existing listing images?"
 msgstr "الاحتفاظ بصور الإعلانات الموجودة؟"
 
-#: templates/admin/csv-import.tpl.php:198
+#: templates/admin/csv-import.tpl.php:217
 msgctxt "admin csv-import"
 msgid "Keep existing images."
 msgstr "الاحتفاظ بالصور الموجودة."
 
-#: templates/admin/csv-import.tpl.php:199
+#: templates/admin/csv-import.tpl.php:218
 msgctxt "admin csv-import"
 msgid "Appends new images while keeping current ones."
 msgstr "إلحاق الصور الجديدة مع الاحتفاظ بالموجودة حاليا."
 
-#: templates/admin/csv-import.tpl.php:204
+#: templates/admin/csv-import.tpl.php:223
 msgctxt "admin csv-import"
 msgid "Assign listings to a user?"
 msgstr "تعيين إعلانات للعضو؟"
 
-#: templates/admin/csv-import.tpl.php:210
+#: templates/admin/csv-import.tpl.php:229
 msgctxt "admin csv-import"
 msgid "Assign listings to a user."
 msgstr "تعيين إعلانات للعضو."
 
-#: templates/admin/csv-import.tpl.php:215
+#: templates/admin/csv-import.tpl.php:234
 msgctxt "admin csv-import"
 msgid "Use a default user for listings?"
 msgstr "استخدام العضو الافتراضي للإعلانات؟"
 
-#: templates/admin/csv-import.tpl.php:221
+#: templates/admin/csv-import.tpl.php:240
 msgctxt "admin csv-import"
 msgid ""
 "Select a default user to be used if the username column is not present in "
@@ -880,24 +893,24 @@ msgstr ""
 "حدد العضو الافتراضي لاستخدامه إذا كان العمود إسم المستخدم غير موجود في ملف "
 "CSV."
 
-#: templates/admin/csv-import.tpl.php:226
+#: templates/admin/csv-import.tpl.php:245
 msgctxt "admin csv-import"
 msgid "Default listing user"
 msgstr "إعلان العضو الافتراضي"
 
-#: templates/admin/csv-import.tpl.php:232
+#: templates/admin/csv-import.tpl.php:251
 msgctxt "admin csv-import"
 msgid ""
 "This user will be used if the username column is not present in the CSV file."
 msgstr "سيتم استخدام هذا العضو إذا كان عمود إسم المستخدم غير موجود في ملف CSV."
 
-#: templates/admin/csv-import.tpl.php:237
+#: templates/admin/csv-import.tpl.php:256
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Number of listings imported on every cycle"
 msgstr "عدد الإعلانات للعرض"
 
-#: templates/admin/csv-import.tpl.php:245
+#: templates/admin/csv-import.tpl.php:264
 msgctxt "admin csv-import"
 msgid ""
 "If you are having trouble importing listings due to memory problems, try "
@@ -906,27 +919,27 @@ msgid ""
 "success on shared hosting platforms and other resource-constrained servers."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:250
+#: templates/admin/csv-import.tpl.php:269
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications during import?"
 msgstr "تعطيل تنبيهات البريد الإلكتروني أثناء عملية الاستيراد؟"
 
-#: templates/admin/csv-import.tpl.php:255
+#: templates/admin/csv-import.tpl.php:274
 msgctxt "admin csv-import"
 msgid "Disable e-mail notifications."
 msgstr "تعطيل التنبيهات."
 
-#: templates/admin/csv-import.tpl.php:261
+#: templates/admin/csv-import.tpl.php:280
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr "اختبار الاستيراد"
 
-#: templates/admin/csv-import.tpl.php:262
+#: templates/admin/csv-import.tpl.php:281
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr "استيراد الإعلانات"
 
-#: templates/admin/csv-import.tpl.php:270
+#: templates/admin/csv-import.tpl.php:289
 msgctxt "admin csv-import"
 msgid ""
 "The following are the valid header names to be used in the CSV file. "
@@ -938,32 +951,32 @@ msgstr ""
 "القيم (مثل تصنيف أو وسوم) عدة مرات في الملف. إضغط فوق <a href=\"%s\">\"انظر "
 "مثال لملف استيراد CSV\"</a> لمعرفة كيف يجب أن يبدو ملف الاستيراد."
 
-#: templates/admin/csv-import.tpl.php:277
+#: templates/admin/csv-import.tpl.php:296
 msgctxt "admin csv-import"
 msgid "Header name/label"
 msgstr "إسم رأس/التسمية"
 
-#: templates/admin/csv-import.tpl.php:278
+#: templates/admin/csv-import.tpl.php:297
 msgctxt "admin csv-import"
 msgid "Field"
 msgstr "حقل"
 
-#: templates/admin/csv-import.tpl.php:279
+#: templates/admin/csv-import.tpl.php:298
 msgctxt "admin csv-import"
 msgid "Type"
 msgstr "نوع"
 
-#: templates/admin/csv-import.tpl.php:280
+#: templates/admin/csv-import.tpl.php:299
 msgctxt "admin csv-import"
 msgid "Required?"
 msgstr "مطلوب؟"
 
-#: templates/admin/csv-import.tpl.php:281
+#: templates/admin/csv-import.tpl.php:300
 msgctxt "admin csv-import"
 msgid "Multivalued?"
 msgstr "متعدد القيم؟"
 
-#: templates/admin/csv-import.tpl.php:303
+#: templates/admin/csv-import.tpl.php:322
 #, fuzzy
 msgctxt "admin csv-import"
 msgid ""
@@ -973,24 +986,24 @@ msgstr ""
 "تاريخ انتهاء صلاحية الإعلان بهذا التنسيق YYYY-MM-dd. \"استخدام\" هذا العمود "
 "عند إضافة أو تحديث الإعلانات من مصادر خارجية."
 
-#: templates/admin/csv-import.tpl.php:310
+#: templates/admin/csv-import.tpl.php:329
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr "لائحة مفصولة بفاصلة منقوطة لصور الإعلانات (من ملف مضغوط)"
 
-#: templates/admin/csv-import.tpl.php:317
+#: templates/admin/csv-import.tpl.php:336
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr "إسم مستخدم كاتب الإعلان"
 
-#: templates/admin/csv-import.tpl.php:324
+#: templates/admin/csv-import.tpl.php:343
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
 msgstr ""
 "معرف (ID) تسلسل داخلي يستخدم للسماح للإعلان بالتحديثات من مصادر خارجية."
 
-#: templates/admin/csv-import.tpl.php:331
+#: templates/admin/csv-import.tpl.php:350
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -1011,12 +1024,12 @@ msgctxt "admin csv"
 msgid "Export"
 msgstr "تصدير CSV"
 
-#: includes/admin/class-admin-listings.php:59
+#: includes/admin/class-admin-listings.php:62
 msgctxt "admin category filter"
 msgid "All categories"
 msgstr "جميع التصنيفات"
 
-#: includes/admin/class-admin-listings.php:174
+#: includes/admin/class-admin-listings.php:177
 #, fuzzy
 msgctxt "admin listings"
 msgid ""
@@ -1028,42 +1041,42 @@ msgstr ""
 "به) مطلوب من أجل تحديد الميزات المتوفرة لهذا الإعلان، زائد التعامل مع تجديد "
 "الاشتراك."
 
-#: includes/admin/class-admin-listings.php:293
+#: includes/admin/class-admin-listings.php:296
 #, fuzzy
 msgctxt "admin listings"
 msgid "Never"
 msgstr "أبداً"
 
-#: includes/admin/class-admin-listings.php:319
+#: includes/admin/class-admin-listings.php:322
 #, fuzzy
 msgctxt "admin listings"
 msgid "Featured"
 msgstr "حالة مميزة (مثبت)"
 
-#: includes/admin/class-admin-listings.php:323
+#: includes/admin/class-admin-listings.php:326
 #, fuzzy
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(متكرر)"
 
-#: includes/admin/class-admin-listings.php:327
+#: includes/admin/class-admin-listings.php:330
 #, fuzzy
 msgctxt "admin listings"
 msgid "Free"
 msgstr "مجاني"
 
-#: includes/admin/class-admin-listings.php:329
+#: includes/admin/class-admin-listings.php:332
 #, fuzzy
 msgctxt "admin listings"
 msgid "Paid"
 msgstr "تم الدفع"
 
-#: includes/admin/class-admin-listings.php:334
+#: includes/admin/class-admin-listings.php:337
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:641
+#: includes/admin/class-admin-listings.php:666
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -1091,13 +1104,13 @@ msgctxt "admin listings"
 msgid "Clear listing reports."
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/class-admin-listings.php:197
+#: includes/admin/class-admin-listings.php:200
 #, fuzzy
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "حقول / صور الإعلان"
 
-#: includes/admin/class-admin-listings.php:247
+#: includes/admin/class-admin-listings.php:250
 msgctxt "admin"
 msgid "Categories"
 msgstr "التصنيفات"
@@ -1303,120 +1316,120 @@ msgctxt "admin"
 msgid "Go to \"Manage Fees\""
 msgstr "إنتقل إلى \"إدارة حقول\""
 
-#: includes/admin/class-admin-listings.php:304
+#: includes/admin/class-admin-listings.php:307
 msgctxt "listing attribute"
 msgid "No Fee Plan"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:394
+#: includes/admin/class-admin-listings.php:397
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:770
+#: includes/class-listing.php:776
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:771
+#: includes/class-listing.php:777
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/class-listing.php:772
+#: includes/class-listing.php:778
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "إكتمل"
 
-#: includes/class-listing.php:773
+#: includes/class-listing.php:779
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "في انتظار التخلي"
 
-#: includes/class-listing.php:774
+#: includes/class-listing.php:780
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "إكتمل"
 
-#: includes/class-listing.php:775
+#: includes/class-listing.php:781
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr " في انتظار الترقية"
 
-#: includes/class-listing.php:776
+#: includes/class-listing.php:782
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "منتهي الصلاحية"
 
-#: includes/class-listing.php:777
+#: includes/class-listing.php:783
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "مفعل + ريثما يتم التجديد"
 
-#: includes/class-listing.php:778
+#: includes/class-listing.php:784
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "متخلى عنه"
 
-#: includes/admin/class-admin-listings.php:443
+#: includes/admin/class-admin-listings.php:446
 msgctxt "admin actions"
 msgid "Edit Listing"
 msgstr "تحرير الإعلان"
 
-#: includes/admin/class-admin-listings.php:448
+#: includes/admin/class-admin-listings.php:451
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "حذف الإعلان"
 
-#: includes/admin/class-admin-listings.php:459
+#: includes/admin/class-admin-listings.php:462
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "الدفع"
 
-#: includes/admin/class-admin-listings.php:464
+#: includes/admin/class-admin-listings.php:467
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "الدفع"
 
-#: includes/admin/class-admin-listings.php:580
+#: includes/admin/class-admin-listings.php:605
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "نشر إعلان"
 
-#: includes/admin/class-admin-listings.php:581
+#: includes/admin/class-admin-listings.php:606
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr " في الانتظار"
 
-#: includes/admin/class-admin-listings.php:582
+#: includes/admin/class-admin-listings.php:607
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:584
+#: includes/admin/class-admin-listings.php:609
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "تجديد الإعلان"
 
-#: includes/admin/class-admin-listings.php:585
+#: includes/admin/class-admin-listings.php:610
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/class-admin-listings.php:592
+#: includes/admin/class-admin-listings.php:617
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -6059,19 +6072,19 @@ msgctxt "listing"
 msgid "Listing expired"
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/class-listing.php:510
+#: includes/class-listing.php:516
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(رسم غير متوفر)"
 
-#: includes/class-listing.php:667
+#: includes/class-listing.php:673
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(متكرر)"
 
-#: includes/class-listing.php:669
+#: includes/class-listing.php:675
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -8751,7 +8764,7 @@ msgstr "بحث"
 #: templates/admin/csv-import.tpl.php:116
 #: templates/admin/csv-import.tpl.php:142
 #: templates/admin/csv-import.tpl.php:153
-#: templates/admin/csv-import.tpl.php:180
+#: templates/admin/csv-import.tpl.php:199
 msgctxt "admin forms"
 msgid "required"
 msgstr "مطلوب"
