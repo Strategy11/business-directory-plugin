@@ -405,6 +405,10 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     private static function settings_listings() {
+        wpbdp_register_settings_group( 'listings/post_category', _x( 'Post/Category Settings', 'settings', 'WPBDM' ), 'listings' );
+        wpbdp_register_settings_group( 'listings/contact', _x( 'Contact Form', 'settings', 'WPBDM' ), 'listings' );
+        wpbdp_register_settings_group( 'listings/report', _x( 'Report Listings', 'settings', 'WPBDM' ), 'listings' );
+        wpbdp_register_settings_group( 'listings/sorting', _x( 'Listings Sorting', 'settings', 'WPBDM' ), 'listings' );
         wpbdp_register_setting(
             array(
 				'id'      => 'listings-per-page',
@@ -449,7 +453,6 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_settings_group( 'listings/report', _x( 'Report Listings', 'settings', 'WPBDM' ), 'listings' );
         wpbdp_register_setting(
             array(
 				'id'      => 'enable-listing-flagging',
@@ -481,7 +484,6 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_settings_group( 'listings/contact', _x( 'Contact Form', 'settings', 'WPBDM' ), 'listings' );
         wpbdp_register_setting(
             array(
 				'id'      => 'show-contact-form',
@@ -590,7 +592,6 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_settings_group( 'listings/post_category', _x( 'Post/Category Settings', 'settings', 'WPBDM' ), 'listings' );
         wpbdp_register_setting(
             array(
 				'id'      => 'new-post-status',
@@ -671,8 +672,6 @@ final class WPBDP__Settings__Bootstrap {
 				'group'   => 'listings/post_category',
             )
         );
-
-        wpbdp_register_settings_group( 'listings/sorting', _x( 'Listings Sorting', 'settings', 'WPBDM' ), 'listings' );
 
         $msg = _x( 'Fee Plan Custom Order can be changed under <a>Manage Fees</a>', 'admin settings', 'WPBDM' );
         $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
