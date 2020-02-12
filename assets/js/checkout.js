@@ -57,7 +57,28 @@ jQuery(function($) {
     // Payment receipt print.
     $( '.wpbdp-payment-receipt-print' ).click(function(e) {
         e.preventDefault();
-        window.print();
+        PrintElem( $( '.wpbdp-payment-receipt' ) );
     });
+
+    function PrintElem(elem)
+    {
+        var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+        mywindow.document.write('<html>');
+        mywindow.document.write( $( 'head' ).html() );
+        mywindow.document.write('</html><body >');
+        mywindow.document.write( $( elem ).wrap('<p/>').parent().html() );
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.onload = function() {
+            mywindow.print();
+            mywindow.close();
+        }
+
+        return true;
+    }
 });
 

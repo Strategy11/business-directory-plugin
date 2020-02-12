@@ -60,24 +60,7 @@ class WPBDP_PaymentsAPI {
         do_action( 'wpbdp_before_render_receipt', $payment );
 ?>
 
-<style>
-    @media print {
-        body * {
-            visibility: hidden;
-        }
-        .wpbdp-payment-receipt, .wpbdp-payment-receipt * {
-            visibility: visible;
-        }
-        .wpbdp-payment-receipt {
-            width: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-    }
-</style>
-
-<div class="wpbdp-payment-receipt">
+<div id="wpbdp-payment-receipt" class="wpbdp-payment-receipt">
 
     <div class="wpbdp-payment-receipt-header">
         <h4><?php printf( _x( 'Payment #%s', 'payments', 'WPBDM' ), $payment->id ); ?></h4>
