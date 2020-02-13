@@ -1,6 +1,7 @@
 <?php
 $field_name = ! isset( $field_name ) ? 'listing_plan' : $field_name;
 $categories = ! isset( $categories ) ? array() : $categories;
+$selected   = ! empty( $selected ) ? $selected : 0;
 
 // if ( ! isset( $selected ) ) {
 //     $plans_ids = wp_list_pluck( $plans, 'id' );
