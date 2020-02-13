@@ -111,7 +111,8 @@ class WPBDP_Email {
 
     private function get_recipients() {
         $recipients = array();
-        foreach ( $this->to as $emails ) {
+        $to = is_array( $this->to ) ? $this->to : array( $this->to );
+        foreach ( $to as $emails ) {
             foreach ( explode( ',', str_replace( ';', ',', $emails ) ) as $email ) {
                 $recipients[] = $email;
             }
