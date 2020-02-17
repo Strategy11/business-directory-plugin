@@ -879,7 +879,8 @@ function wpbdp_get_fee_plans( $args = array() ) {
         'tag'             => wpbdp_payments_possible() ? '' : 'free',
         'orderby'         => 'label',
         'order'           => 'ASC',
-        'categories'      => array()
+        'categories'      => array(),
+        'include_private' => false,
     );
     if ( $order = wpbdp_get_option( 'fee-order' ) ) {
         $defaults['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
@@ -924,7 +925,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
             if ( $categories && ! $plan->supports_category_selection( $categories ) ) {
                 continue;
             }
-            if ( ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'administrator' ) ) {
+            if ( ! $args[ 'include_private' ] && ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'administrator' ) ) {
                 continue;
             }
             $plans[] = $plan;
