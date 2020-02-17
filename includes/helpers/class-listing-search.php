@@ -40,6 +40,15 @@ class WPBDP__Listing_Search {
         }
     }
 
+    /**
+     * Returns current search quick_search status.
+     *
+     * @since 5.6.1
+     */
+    public function is_quick_search() {
+        return $this->is_quick_search;
+    }
+
     public function terms_for_field( $field ) {
         $field = is_object( $field ) ? $field->get_id() : absint( $field );
 
@@ -268,7 +277,6 @@ class WPBDP__Listing_Search {
         }
 
         $res = apply_filters( 'wpbdp_listing_search_parse_request', $res, $request );
-        // wpbdp_debug_e($res);
         return $res;
     }
 
