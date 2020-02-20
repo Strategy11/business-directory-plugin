@@ -58,7 +58,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_user_can( 'edit', $listing_id ) ) :
         $buttons .= sprintf(
-            '<a class="wpbdp-button button edit-listing" href="%s">%s</a>',
+            '<a class="wpbdp-button button edit-listing" href="%s" rel="nofollow">%s</a>',
             wpbdp_url( 'edit_listing', $listing_id ),
             _x( 'Edit', 'templates', 'WPBDM' )
         );
@@ -66,7 +66,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_get_option( 'enable-listing-flagging' ) && wpbdp_user_can( 'flagging', $listing_id ) ) :
         $buttons .= sprintf(
-            '<a class="wpbdp-button button report-listing" href="%s">%s</a>',
+            '<a class="wpbdp-button button report-listing" href="%s" rel="nofollow">%s</a>',
             esc_url( wpbdp_url( 'flag_listing', $listing_id ) ),
             apply_filters( 'wpbdp_listing_flagging_button_text', _x( 'Flag Listing', 'templates', 'WPBDM' ) )
         );
@@ -74,7 +74,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_user_can( 'delete', $listing_id ) ) :
         $buttons .= sprintf(
-            '<a class="wpbdp-button button delete-listing" href="%s">%s</a>',
+            '<a class="wpbdp-button button delete-listing" href="%s" rel="nofollow">%s</a>',
             wpbdp_url( 'delete_listing', $listing_id ),
             _x( 'Delete', 'templates', 'WPBDM' )
         );
