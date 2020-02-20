@@ -241,7 +241,9 @@ class WPBDP_Listing_Display_Helper {
         $schema['@type']      = 'LocalBusiness';
         $schema['name']       = $vars['title'];
         $schema['url']        = get_permalink( $vars['listing_id'] );
-        $schema['image']      = ! empty( $vars['images']->main ) ? $vars['images']->main->url : '';
+        if ( ! empty( $vars['images']->main ) ) {
+            $schema['image'] = $vars['images']->main->url;
+        }
         $schema['priceRange'] = '$$';
 
         $fields = $vars['fields'];
