@@ -387,7 +387,7 @@ function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_optio
         $default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
 
         $html .= sprintf(
-            '<span class="%s %s"><a href="%s" title="%s">%s</a> %s</span>',
+            '<span class="%s %s"><a href="%s" title="%s" rel="nofollow">%s</a> %s</span>',
             $id,
             ( $current_sort && $current_sort->option == $id ) ? 'current' : '',
             esc_attr( ( $current_sort && $current_sort->option == $id ) ? add_query_arg( 'wpbdp_sort', ( $current_sort->order == 'ASC' ? '-' : '' ) . $id ) : add_query_arg( 'wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' ) . $id ) ),
@@ -402,7 +402,7 @@ function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_optio
 
     if ( $current_sort ) {
         $html .= sprintf(
-            '(<a href="%s" class="reset">%s</a>)',
+            '(<a href="%s" class="reset" rel="nofollow">%s</a>)',
             esc_attr( remove_query_arg( 'wpbdp_sort' ) ),
             _x( 'Reset', 'sort', 'WPBDM' )
         );
