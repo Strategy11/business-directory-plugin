@@ -41,9 +41,9 @@ $login_args['redirect'] = $redirect_to;
 
             <p class="wpbdp-login-form-extra-links">
                 <?php if ( $registration_url ) : ?>
-                <a class="register-link" href="<?php echo esc_url( $registration_url ); ?>"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a> |
+                <a class="register-link" href="<?php echo esc_url( $registration_url ); ?>" rel="nofollow"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a> |
                 <?php endif; ?>
-                <a href="<?php echo esc_url( $lost_password_url ); ?>"><?php _ex( 'Lost your password?', 'templates', 'WPBDM' ); ?></a>
+                <a href="<?php echo esc_url( $lost_password_url ); ?>" rel="nofollow"><?php _ex( 'Lost your password?', 'templates', 'WPBDM' ); ?></a>
             </p>
         </div>
 
