@@ -713,6 +713,8 @@ class WPBDP_Form_Field {
 
         global $wpdb;
 
+        do_action_ref_array( 'wpbdp_form_field_before_delete', array( &$this ) );
+
         if ( $wpdb->query( $wpdb->prepare( "DELETE FROM  {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $this->id ) ) !== false ) {
             $this->type->cleanup( $this );
 
