@@ -198,7 +198,7 @@ class WPBDP_Listing_Display_Helper {
         $vars['images']->main = $main_image;
 
         // Other images.
-        $listing_images = $listing->get_images( 'ids' );
+        $listing_images = $listing->get_images( 'ids', true );
 
         foreach ( $listing_images as $img_id ) {
             // Correct size of thumbnail if needed.

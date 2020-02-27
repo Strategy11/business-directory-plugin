@@ -47,17 +47,24 @@ class WPBDP_Listing {
             if ( ! wp_attachment_is_image( $attachment->ID ) )
                 continue;
 
-            if ( 'id' == $fields || 'ids' == $fields )
+            if ( ! $sorted && ( 'id' == $fields || 'ids' == $fields ) ) {
                 $result[] = $attachment->ID;
-            else
+            }
+            else {
                 $result[] = WPBDP_Listing_Image::get( $attachment->ID );
+            }
         }
 
         if ( $result && $sorted ) {
             uasort( $result, function( $x, $y ) { 
                 return $y->weight - $x->weight; 
+                }
+            );
+            if ( 'id' == $fields || 'ids' == $fields ) {
+                foreach ( $result as $i => $img ) {
+                    $result[$i] = $img->id;
+                }
             }
-        );
         }
 
         return $result;
