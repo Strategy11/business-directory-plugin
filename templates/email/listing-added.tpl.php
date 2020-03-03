@@ -10,7 +10,7 @@
 <?php _ex('Title', 'notify email', 'WPBDM'); ?>: <?php echo $listing->get_title(); ?>
 
 
-<?php _ex('URL', 'notify email', 'WPBDM'); ?>: <?php echo $listing->is_published() ? $listing->get_permalink() : _x( '(not published yet)', 'notify email', 'WPBDM' ); ?>
+<?php _ex('URL', 'notify email', 'WPBDM'); ?>: <?php echo $listing->is_published() ? $listing->get_permalink() : get_preview_post_link( $listing->get_id() ); ?>
 
 <?php _ex( 'Admin URL', 'notify email', 'WPBDM' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>
 

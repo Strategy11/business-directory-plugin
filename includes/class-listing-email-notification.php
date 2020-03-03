@@ -74,6 +74,10 @@ class WPBDP__Listing_Email_Notification {
             return;
         }
 
+        if ( 'publish' !== get_post_status( $post_id ) ) {
+            return;
+        }
+
         $email = wpbdp_email_from_template(
             'email-templates-listing-published',
             array(
@@ -111,7 +115,7 @@ class WPBDP__Listing_Email_Notification {
         }
 
         // When a listing is submitted.
-        if ( 'incomplete' === $old_status && ( 'complete' === $new_status || 'pending_payment' === $new_status ) ) {
+        if ( ( 'incomplete' === $old_status || 'pending_payment' === $old_status ) && 'complete' === $new_status ) {
             $this->send_new_listing_email( $listing );
         }
     }
