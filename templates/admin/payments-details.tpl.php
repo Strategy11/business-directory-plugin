@@ -1,17 +1,22 @@
 <?php
 echo wpbdp_admin_header(
-    str_replace( '<id>',
-                 isset( $payment->id ) ? '#' . $payment->id : 'Not Found',
-                 _x( 'Payment <id>', 'admin payments', 'WPBDM' ) ),
+    str_replace(
+        '<id>',
+        $payment->id ? '#' . $payment->id : 'Not Found',
+        _x( 'Payment <id>', 'admin payments', 'WPBDM' ) 
+    ),
     'payments-details',
     array(
-        array( _x( '← Return to "Payment History"', 'payments admin', 'WPBDM' ), esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ) )
+        array(
+            _x( '← Return to "Payment History"', 'payments admin', 'WPBDM' ),
+            esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ) 
+        )
     )
 );
 ?>
 <?php wpbdp_admin_notices(); ?>
 
-<?php if ( isset( $payment->id ) ) : ?>
+<?php if ( $payment->id ) : ?>
 <form action="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_update' ) ); ?>" method="post">
     <input type="hidden" name="payment[id]" value="<?php echo $payment->id; ?>" />
 
