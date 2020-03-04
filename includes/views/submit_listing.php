@@ -864,7 +864,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
         $html .= '<div class="wpbdp-form-field-label">';
-        $html .= '<label for="user_username">' . _x( 'Username:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '<label for="wpbdp-submit-listing-user_username">' . _x( 'Username:', 'submit listing', 'WPBDM' ) . '</label>';
         $html .= '</div>';
         $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_username" type="text" name="user_username" value="' . esc_attr( $form_username ) .'" />';
@@ -873,7 +873,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
         $html .= '<div class="wpbdp-form-field-label">';
-        $html .= '<label for="user_email">' . _x( 'Email:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '<label for="wpbdp-submit-listing-user_email">' . _x( 'Email:', 'submit listing', 'WPBDM' ) . '</label>';
         $html .= '</div>';
         $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_email" type="text" name="user_email" value="' . esc_attr( $form_email ) . '" />';
