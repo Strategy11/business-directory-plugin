@@ -1306,24 +1306,44 @@ if( is_admin() && ! get_option( '_wpbpd_update_claim_module_version', false ) ) 
 
     $content = file_get_contents( $file );
 
-    if ( strpos( $content, '* Version: 5.3' ) ) {
-        if( file_put_contents( $file, str_replace('* Version: 5.3','* Version: 5.2', $content ) ) !== false ) {
-            update_option( '_wpbpd_update_zip_module_version', true );
-        } 
-    }
-
     if ( strpos( $content, '* Version: 5.3.1' ) ) {
         if( file_put_contents( $file, str_replace('* Version: 5.3.1','* Version: 5.2', $content ) ) !== false ) {
             update_option( '_wpbpd_update_zip_module_version', true );
         } 
+
+        if ( strpos( $content, '$this->version             = \'5.3.1\'' ) ) {
+            if( file_put_contents( $file, str_replace('$this->version             = \'5.3.1\'','$this->version = \'5.2\'', $content ) ) !== false ) {
+                
+                update_option( '_wpbpd_update_zip_module_version', true );
+            }
+        }
     }
-
-
 
     if ( strpos( $content, '* Version: 5.3.2' ) ) {
         if( file_put_contents( $file, str_replace('* Version: 5.3.2','* Version: 5.2', $content ) ) !== false ) {
             update_option( '_wpbpd_update_zip_module_version', true );
         } 
+
+
+        if ( strpos( $content, '$this->version             = \'5.3.2\'' ) ) {
+            if( file_put_contents( $file, str_replace('$this->version             = \'5.3.2\'','$this->version = \'5.2\'', $content ) ) !== false ) {
+                
+                update_option( '_wpbpd_update_zip_module_version', true );
+            }
+        }
+    }
+
+    if ( strpos( $content, '* Version: 5.3' ) ) {
+        if( file_put_contents( $file, str_replace('* Version: 5.3','* Version: 5.2', $content ) ) !== false ) {
+            update_option( '_wpbpd_update_zip_module_version', true );
+        } 
+
+        if ( strpos( $content, '$this->version             = \'5.3\'' ) ) {
+            if( file_put_contents( $file, str_replace('$this->version             = \'5.3\'','$this->version = \'5.2\'', $content ) ) !== false ) {
+                
+                update_option( '_wpbpd_update_zip_module_version', true );
+            }
+        }
     }
 }
 
