@@ -84,14 +84,87 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             return false;
         }
 
-        $daily_limit = max( 0, intval( wpbdp_get_option( 'contact-form-daily-limit' ) ) );
+        if ( ! $this->listing_can_submit( $listing_id, $error_msg ) ) {
+            return false;
+        }
+
+        if ( wpbdp_get_option( 'contact-form-require-login' ) && ! $this->user_can_submit( $listing_id, $error_msg ) ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function update_contacts( $listing_id ) {
+        $today = date( 'Ymd', current_time( 'timestamp' ) );
+        if ( max( 0, intval( wpbdp_get_option( 'contact-form-daily-limit' ) ) ) ) {
+            $data  = get_post_meta( $listing_id, '_wpbdp_contact_limit', true );
+
+            if ( ! $data || ! is_array( $data ) ) {
+                $data = array(
+                    'last_date' => $today,
+                    'count'     => 0,
+                );
+            }
+
+            if ( $today != $data['last_date'] ) {
+                $data['count'] = 0;
+            }
+
+            $data['count']     = $data['count'] + 1;
+            $data['last_date'] = $today;
+
+            update_post_meta( $listing_id, '_wpbdp_contact_limit', $data );
+        }
+
+        if ( max( 0, intval( wpbdp_get_option( 'contact-form-registered-users-limit' ) ) ) ) {
+            $user_id = get_current_user_id();
+            $data    = get_user_meta( $user_id, '_wpbdp_contact_limit', true );
+
+            if ( ! $data || ! is_array( $data ) ) {
+                $data = array(
+                    'last_date' => $today,
+                    'count'     => 0,
+                );
+            }
+
+            if ( $today != $data['last_date'] ) {
+                $data['count'] = 0;
+            }
+
+            $data['count']     = $data['count'] + 1;
+            $data['last_date'] = $today;
+
+            update_user_meta( $user_id, '_wpbdp_contact_limit', $data );
+        }
+    }
+
+    private function listing_can_submit( $listing_id = 0, &$error_msg = '' ) {
+        $daily_limit = max( 0, intval( wpbdp_get_option( 'contact-form-registered-users-limit' ) ) );
 
         if ( ! $daily_limit ) {
             return true;
         }
 
-        $today = date( 'Ymd', current_time( 'timestamp' ) );
         $data  = get_post_meta( $listing_id, '_wpbdp_contact_limit', true );
+
+        return $this->validate_submit_status( $data, $daily_limit, $error_msg );
+    }
+
+    private function user_can_submit( $listing_id = 0, &$error_msg = '' ) {
+        $daily_limit = max( 0, intval( wpbdp_get_option( 'contact-form-registered-users-limit' ) ) );
+
+        if ( ! $daily_limit ) {
+            return true;
+        }
+
+        $data = get_user_meta( get_current_user_id(), '_wpbdp_contact_limit', true );
+
+        return $this->validate_submit_status( $data, $daily_limit, $error_msg );
+    }
+
+    private function validate_submit_status( $data, $daily_limit, &$error_msg ) {
+        $today = date( 'Ymd', current_time( 'timestamp' ) );
 
         if ( ! $data || ! is_array( $data ) ) {
             $data = array(
@@ -110,33 +183,6 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         }
 
         return true;
-    }
-
-    private function update_contacts( $listing_id ) {
-        $daily_limit = max( 0, intval( wpbdp_get_option( 'contact-form-daily-limit' ) ) );
-
-        if ( ! $daily_limit ) {
-            return;
-        }
-
-        $today = date( 'Ymd', current_time( 'timestamp' ) );
-        $data  = get_post_meta( $listing_id, '_wpbdp_contact_limit', true );
-
-        if ( ! $data || ! is_array( $data ) ) {
-            $data = array(
-				'last_date' => $today,
-				'count'     => 0,
-			);
-        }
-
-        if ( $today != $data['last_date'] ) {
-            $data['count'] = 0;
-        }
-
-        $data['count']     = $data['count'] + 1;
-        $data['last_date'] = $today;
-
-        update_post_meta( $listing_id, '_wpbdp_contact_limit', $data );
     }
 
     public function render_form( $listing_id = 0, $validation_errors = array() ) {
