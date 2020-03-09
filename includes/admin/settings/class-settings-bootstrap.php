@@ -520,8 +520,8 @@ final class WPBDP__Settings__Bootstrap {
             array(
 				'id'           => 'contact-form-daily-limit',
 				'type'         => 'number',
-				'name'         => _x( 'Maximum number of contact form submits per day', 'settings', 'WPBDM' ),
-				'desc'         => _x( 'Use this to prevent spamming of listing owners. 0 means unlimited submits per day.', 'settings', 'WPBDM' ),
+				'name'         => _x( 'Maximum number of contact form submits for each listing per day', 'settings', 'WPBDM' ),
+				'desc'         => _x( 'Use this to set contact submits limit for each listing in the directory. 0 means unlimited submits per day.', 'settings', 'WPBDM' ),
 				'default'      => '0',
 				'group'        => 'listings/contact',
 				'requirements' => array( 'show-contact-form' ),
