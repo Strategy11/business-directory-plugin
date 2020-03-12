@@ -70,7 +70,11 @@ class WPBDP_Email {
             $headers[] = 'MIME-Version: 1.0';
         }
 
-        $headers[] = 'From: ' . $this->from;
+        $from = apply_filters( 'wpbdp_email_from', $this->from );
+
+        if ( $from ) {
+            $headers[] = 'From: ' . $from;
+        }
 
         foreach ( explode( ',', str_replace( ';', ',', $this->cc ) ) as $address ) {
             $headers[] = 'Cc: ' . $address;
@@ -148,7 +152,7 @@ class WPBDP_Email {
         }
 
         add_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
-        $result = wp_mail( $this->get_recipients(), $this->subject, $this->get_message(), $this->get_headers() );
+        $result = wp_mail( $this->get_recipients(), wp_specialchars_decode( $this->subject ), $this->get_message(), $this->get_headers() );
         remove_action( 'phpmailer_init', array( $this, 'wpbdp_email_config' ), 10 );
 
         return $result;
