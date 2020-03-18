@@ -1339,6 +1339,42 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting(
             array(
+				'id'           => 'email-templates-payment-completed',
+				'type'         => 'email_template',
+				'name'         => _x( 'Payment completed message', 'settings', 'WPBDM' ),
+				'desc'         => _x( 'Sent after a Listing\'s payment is verified by Gateway or admins.', 'settings', 'WPBDM' ),
+				'default'      => array(
+					'subject' => '[[site-title]] Payment completed for "[listing]"',
+                    'body'    => '
+        Dear Customer,
+        
+        We have verified with [gateway] your payment for the listing "[listing]".
+
+        Details:
+        
+        [payment_details]
+
+        If you have any issues, please contact us directly by hitting reply to this
+        email!
+
+        Thanks,
+        - The Administrator of [site-title]',
+				),
+				'placeholders' => array(
+					'listing'         => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ),
+                    'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'WPBDM' ),
+                    'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'WPBDM' ),
+                    'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'WPBDM' ),
+                    'payment_details' => _x( 'Payment items details.', 'admin settings', 'WPBDM' ),
+                    'receipt_url'     => _x( 'URL where user can review and print payment receipt.', 'admin settings', 'WPBDM' ),
+                    'gateway'         => _x( 'Gateway used to process listing\'s payment.', 'admin settings', 'WPBDM' ),
+				),
+				'group'        => 'email_templates',
+            )
+        );
+
+        wpbdp_register_setting(
+            array(
 				'id'           => 'email-templates-payment-abandoned',
 				'type'         => 'email_template',
 				'name'         => _x( 'Payment abandoned reminder message', 'settings', 'WPBDM' ),
