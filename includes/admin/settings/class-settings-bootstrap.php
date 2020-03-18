@@ -1268,6 +1268,7 @@ final class WPBDP__Settings__Bootstrap {
             'options' => array(
                 'new-listing'       => _x( 'Their listing is submitted.', 'admin settings', 'WPBDM' ),
                 'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'WPBDM' ),
+                'payment-completed' => _x( 'A payment for their listing is completed.', 'admin settings', 'WPBDM' ),
                 'listing-expires'   => _x( 'Their listing expired or is about to expire.', 'admin settings', 'WPBDM' ),
             ),
             'group' => 'email_notifications'
@@ -1285,7 +1286,11 @@ final class WPBDP__Settings__Bootstrap {
 					'body'    => 'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
 				),
 				'placeholders' => array(
-					'listing' => array( _x( 'Listing\'s title', 'admin settings', 'WPBDM' ) ),
+					'listing'         => _x( 'Listing\'s title', 'admin settings', 'WPBDM' ),
+                    'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'WPBDM' ),
+                    'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'WPBDM' ),
+                    'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'WPBDM' ),
+                    'gateway'         => _x( 'Payment gateway used to process listing\'s payment.', 'admin settings', 'WPBDM' ),
 				),
 				'group'        => 'email_templates',
             )
