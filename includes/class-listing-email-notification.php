@@ -24,6 +24,8 @@ class WPBDP__Listing_Email_Notification {
         add_action( 'wpbdp_listing_maybe_send_notices', array( $this, 'send_notices' ), 10, 3 );
 
         add_action( 'wpbdp_listing_maybe_flagging_notice', array( $this, 'reported_listing_email' ), 10, 2 );
+
+        add_action( 'WPBDP_Payment::status_change', array( $this, 'payment_completed_email' ), 10, 3 );
     }
 
     /**
@@ -115,7 +117,7 @@ class WPBDP__Listing_Email_Notification {
         }
 
         // When a listing is submitted.
-        if ( ( 'incomplete' === $old_status || 'pending_payment' === $old_status ) && 'complete' === $new_status ) {
+        if ( 'incomplete' === $old_status && in_array( $new_status, array( 'complete', 'pending_payment' ) ) ) {
             $this->send_new_listing_email( $listing );
         }
     }
@@ -254,7 +256,7 @@ class WPBDP__Listing_Email_Notification {
         // Notify the submitter.
         if ( in_array( 'new-listing', wpbdp_get_option( 'user-notifications' ), true ) ) {
             if ( 'publish' === wpbdp_get_option( 'new-post-status' ) ) {
-                add_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
+                // add_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
                 add_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), PHP_INT_MAX );
                 return;
             }
@@ -388,6 +390,78 @@ class WPBDP__Listing_Email_Notification {
         }
     }
 
+    public function payment_completed_email( $payment, $old_status, $new_status ) {
+        $listing = wpbdp_get_listing( $payment->listing_id );
+
+        if( ! $listing || $old_status === $new_status ) {
+            return;
+        }
+
+        if ( 1 === count( $payment->payment_items ) && 0.0 === $payment->amount ) {
+            return;
+        }
+
+        $plan = $listing->get_fee_plan();
+
+        if( ! $plan ) {
+            return;
+        }
+
+        // Notify the admin.
+        if ( in_array( 'payment-completed', wpbdp_get_option( 'admin-notifications' ), true ) ) {
+            $admin_email = new WPBDP_Email();
+
+            // translators: [%s] is the name of the blog.
+            $admin_email->subject = sprintf( _x( '[%s] New payment notification', 'notify email', 'WPBDM' ), get_bloginfo( 'name' ) );
+            $admin_email->to[]    = get_bloginfo( 'admin_email' );
+
+            if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
+                $admin_email->cc = wpbdp_get_option( 'admin-notifications-cc' );
+            }
+
+            $admin_email->body = wpbdp_render(
+                'email/listing-payment-completed',
+                array(
+                    'payment'         => $payment,
+                    'listing'         => $listing,
+                    'plan'            => $plan,
+                    'payment_datails' => preg_replace( "/\r|\n/", "", wpbdp()->payments->render_invoice( $payment ) ),
+                ), 
+                false 
+            );
+            $admin_email->send();
+        }
+
+        // Notify the submitter.
+        if ( in_array( 'payment-completed', wpbdp_get_option( 'user-notifications' ), true ) ) {
+            $plan_features = '';
+                
+            foreach ( $plan->fee->get_feature_list() as $feature ) {
+                $plan_features .= '<li>' . $feature . '</li>';
+            }
+
+            if ( $plan_features ) {
+                $plan_features = sprintf( '<ul class="wpbdp-plan-feature-list">%s</ul>', $plan_features );
+            }
+
+            $email           = wpbdp_email_from_template(
+                'email-templates-payment-completed',
+                array(
+                    'listing'         => $listing->get_title(),
+                    'fee_name'        => $plan->fee_label,
+                    'fee_description' => $plan->fee->description,
+                    'fee_details'     => $plan_features,
+                    'payment_details' => preg_replace( "/\r|\n/", "", wpbdp()->payments->render_invoice( $payment ) ),
+                    'receipt_url'     => $payment->get_checkout_url(),
+                    'gateway'         => $payment->gateway,
+                )
+            );
+            $email->to[]     = wpbusdirman_get_the_business_email( $listing->get_id() );
+            $email->template = 'businessdirectory-email';
+
+            $email->send();
+        }
+    }
 }
 
 // phpcs:enable
