@@ -504,12 +504,24 @@ final class WPBDP__Settings__Bootstrap {
 				'requirements' => array( 'show-contact-form' ),
             )
         );
+
+        wpbdp_register_setting(
+            array(
+				'id'           => 'contact-form-registered-users-limit',
+				'type'         => 'number',
+				'name'         => _x( 'Maximum number of daily contact form submits from registered users', 'settings', 'WPBDM' ),
+				'desc'         => _x( 'Use this to prevent spamming of listing owners from logged in users. 0 means unlimited submits per day.', 'settings', 'WPBDM' ),
+				'default'      => '0',
+				'group'        => 'listings/contact',
+				'requirements' => array( 'show-contact-form', 'contact-form-require-login' ),
+            )
+        );
         wpbdp_register_setting(
             array(
 				'id'           => 'contact-form-daily-limit',
 				'type'         => 'number',
-				'name'         => _x( 'Maximum number of contact form submits per day', 'settings', 'WPBDM' ),
-				'desc'         => _x( 'Use this to prevent spamming of listing owners. 0 means unlimited submits per day.', 'settings', 'WPBDM' ),
+				'name'         => _x( 'Maximum number of contact form submits for each listing per day', 'settings', 'WPBDM' ),
+				'desc'         => _x( 'Use this to set contact submits limit for each listing in the directory. 0 means unlimited submits per day.', 'settings', 'WPBDM' ),
 				'default'      => '0',
 				'group'        => 'listings/contact',
 				'requirements' => array( 'show-contact-form' ),
