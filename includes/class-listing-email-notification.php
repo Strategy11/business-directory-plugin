@@ -261,9 +261,26 @@ class WPBDP__Listing_Email_Notification {
                 return;
             }
 
+            $plan = $listing->get_fee_plan();
+
+            $plan_features = '';
+                
+            foreach ( $plan->fee->get_feature_list() as $feature ) {
+                $plan_features .= '<li>' . $feature . '</li>';
+            }
+
+            if ( $plan_features ) {
+                $plan_features = sprintf( '<ul class="wpbdp-plan-feature-list">%s</ul>', $plan_features );
+            }
+
             $email           = wpbdp_email_from_template(
                 'email-confirmation-message',
-                array( 'listing' => $listing->get_title() )
+                array(
+                    'listing'         => $listing->get_title(),
+                    'fee_name'        => $plan->fee_label,
+                    'fee_description' => $plan->fee->description,
+                    'fee_details'     => $plan_features,
+                )
             );
             $email->to[]     = wpbusdirman_get_the_business_email( $listing->get_id() );
             $email->template = 'businessdirectory-email';

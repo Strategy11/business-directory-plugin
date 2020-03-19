@@ -1302,7 +1302,6 @@ final class WPBDP__Settings__Bootstrap {
                     'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'WPBDM' ),
                     'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'WPBDM' ),
                     'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'WPBDM' ),
-                    'gateway'         => _x( 'Payment gateway used to process listing\'s payment.', 'admin settings', 'WPBDM' ),
 				),
 				'group'        => 'email_templates',
             )
