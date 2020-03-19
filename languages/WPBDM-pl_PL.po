@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-02-13 19:50:29+00:00\n"
+"POT-Creation-Date: 2020-03-19 22:11:53+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:49-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -147,7 +147,7 @@ msgstr ""
 msgid "Missing tables: %s"
 msgstr "Oferty otagowane: %s"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1073
+#: includes/admin/settings/class-settings-bootstrap.php:1085
 msgid ""
 "If you are using this gateway, we recommend you disable it if you wish to "
 "collect payments in this currency."
@@ -438,11 +438,11 @@ msgstr ""
 msgid "Licenses"
 msgstr "Licencje"
 
-#: includes/payment.php:37
+#: includes/payment.php:38
 msgid "We couldn't find a payment associated with the given subscription."
 msgstr ""
 
-#: includes/payment.php:44
+#: includes/payment.php:45
 msgid "The payment gateway \"<payment-gateway>\" is not available."
 msgstr ""
 
@@ -467,7 +467,7 @@ msgid ""
 msgstr ""
 
 # @ default
-#: includes/views/listing_contact.php:212
+#: includes/views/listing_contact.php:258
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \\a\\t g:i a"
 
@@ -1465,13 +1465,13 @@ msgid "Create these required fields for me"
 msgstr "Stwórz te wymagane pola dla mnie"
 
 # @ WPBDM
-#: includes/payment.php:180
+#: includes/payment.php:181
 msgctxt "admin"
 msgid "Pending Abandonment"
 msgstr "Oczekujące na abonament"
 
 # @ WPBDM
-#: includes/payment.php:185
+#: includes/payment.php:186
 msgctxt "admin"
 msgid "Abandoned"
 msgstr "Porzucone"
@@ -1493,60 +1493,60 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:776
+#: includes/class-listing.php:785
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:777
+#: includes/class-listing.php:786
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
 # @ WPBDM
-#: includes/class-listing.php:778
+#: includes/class-listing.php:787
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:779
+#: includes/class-listing.php:788
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Oczekujące na abonament"
 
 # @ WPBDM
-#: includes/class-listing.php:780
+#: includes/class-listing.php:789
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:781
+#: includes/class-listing.php:790
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Oferty oczekujące na zatwierdzenie"
 
 # @ WPBDM
-#: includes/class-listing.php:782
+#: includes/class-listing.php:791
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Wygasłe"
 
 # @ WPBDM
-#: includes/class-listing.php:783
+#: includes/class-listing.php:792
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Tylko aktywne i oczekujące na odświeżenie "
 
 # @ WPBDM
-#: includes/class-listing.php:784
+#: includes/class-listing.php:793
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -2318,25 +2318,25 @@ msgid "Theme was updated successfully."
 msgstr "Import zakończony pełnym sukcesem."
 
 # @ WPBDM
-#: includes/themes.php:921
+#: includes/themes.php:922
 msgctxt "themes"
 msgid "ZIP file is not a valid BD theme file."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/themes.php:929
+#: includes/themes.php:930
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Nie można utworzyć katalogu wpbdp-csv-eksport."
 
 # @ WPBDM
-#: includes/themes.php:940
+#: includes/themes.php:941
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/themes.php:948
+#: includes/themes.php:949
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Nie masz aktualnie ofert w katalogu."
@@ -3857,7 +3857,8 @@ msgid "Payment details updated."
 msgstr "Szczegóły płatności"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:8
+#: templates/admin/payments-details.tpl.php:11
+#: templates/admin/payments-details.tpl.php:197
 #, fuzzy
 msgctxt "payments admin"
 msgid "← Return to \"Payment History\""
@@ -3865,135 +3866,135 @@ msgstr "← Powrót do Twojej oferty."
 
 # @ WPBDM
 #. translators: Gateway: (Not yet set)
-#: templates/admin/payments-details.tpl.php:58
+#: templates/admin/payments-details.tpl.php:63
 #, fuzzy
 msgctxt "payments admin"
 msgid "(Not yet set)"
 msgstr "Nie jesteś jeszcze zarejestrowany?"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:64
+#: templates/admin/payments-details.tpl.php:69
 #, fuzzy
 msgctxt "payments admin"
 msgid "Delete Payment"
 msgstr "Odrzucenie płatności"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:66
+#: templates/admin/payments-details.tpl.php:71
 #, fuzzy
 msgctxt "payments admin"
 msgid "Save Payment"
 msgstr "Płatność"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:80
+#: templates/admin/payments-details.tpl.php:85
 #, fuzzy
 msgctxt "payments admin"
 msgid "Details"
 msgstr "+ Szczegóły"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:84
+#: templates/admin/payments-details.tpl.php:89
 #, fuzzy
 msgctxt "payments admin"
 msgid "Item Type"
 msgstr "Rodzaj pola"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:85
+#: templates/admin/payments-details.tpl.php:90
 #, fuzzy
 msgctxt "payments admin"
 msgid "Description"
 msgstr "Opis pola"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:86
+#: templates/admin/payments-details.tpl.php:91
 #, fuzzy
 msgctxt "payments admin"
 msgid "Amount"
 msgstr "Kwota"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:97
+#: templates/admin/payments-details.tpl.php:102
 #, fuzzy
 msgctxt "payments admin"
 msgid "Total:"
 msgstr "Całkowity koszt"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:109
+#: templates/admin/payments-details.tpl.php:114
 #, fuzzy
 msgctxt "payments admin"
 msgid "Customer Details"
 msgstr "Aktualne Szczegóły Abonamentu"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:114
+#: templates/admin/payments-details.tpl.php:119
 #, fuzzy
 msgctxt "payments admin"
 msgid "E-Mail:"
 msgstr "E-mail"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:119
+#: templates/admin/payments-details.tpl.php:124
 #, fuzzy
 msgctxt "payments admin"
 msgid "First Name:"
 msgstr "Nazwisko:"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:124
+#: templates/admin/payments-details.tpl.php:129
 #, fuzzy
 msgctxt "payments admin"
 msgid "Last Name:"
 msgstr "Imię:"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:130
+#: templates/admin/payments-details.tpl.php:135
 #, fuzzy
 msgctxt "payments admin"
 msgid "Country:"
 msgstr "Kraj:"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:134
+#: templates/admin/payments-details.tpl.php:139
 #, fuzzy
 msgctxt "payments admin"
 msgid "State:"
 msgstr "Województwo:"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:138
+#: templates/admin/payments-details.tpl.php:143
 #, fuzzy
 msgctxt "payments admin"
 msgid "City:"
 msgstr "Miasto:"
 
-#: templates/admin/payments-details.tpl.php:142
+#: templates/admin/payments-details.tpl.php:147
 msgctxt "payments admin"
 msgid "ZIP Code:"
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:146
+#: templates/admin/payments-details.tpl.php:151
 #, fuzzy
 msgctxt "payments admin"
 msgid "Address Line 1:"
 msgstr "Adres - linia1:"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:150
+#: templates/admin/payments-details.tpl.php:155
 #, fuzzy
 msgctxt "payments admin"
 msgid "Address Line 2:"
 msgstr "Adres - linia2:"
 
-#: templates/admin/payments-details.tpl.php:160
+#: templates/admin/payments-details.tpl.php:165
 msgctxt "payments admin"
 msgid "Notes & Log"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:164
+#: templates/admin/payments-details.tpl.php:169
 msgctxt "payments admin"
 msgid "No notes."
 msgstr ""
@@ -4138,156 +4139,156 @@ msgstr ""
 "Plików CSV."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:526
+#: includes/admin/settings/class-settings-bootstrap.php:538
 msgctxt "admin settings"
 msgid "Do not include comments in listings"
 msgstr "Pozwolić na komentarze na stronie oferty?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:527
+#: includes/admin/settings/class-settings-bootstrap.php:539
 msgctxt "admin settings"
 msgid "Include comment form, theme invoked (standard option)"
 msgstr "Pozwolić na komentarze na stronie oferty?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:528
+#: includes/admin/settings/class-settings-bootstrap.php:540
 msgctxt "admin settings"
 msgid "Include comment form, BD invoked (use only if 2nd option doesn't work)"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:550
+#: includes/admin/settings/class-settings-bootstrap.php:562
 #, fuzzy
 msgctxt "admin settings"
 msgid "Directory view."
 msgstr "Katalog"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:551
+#: includes/admin/settings/class-settings-bootstrap.php:563
 #, fuzzy
 msgctxt "admin settings"
 msgid "All Listings view."
 msgstr "Zobacz wszystkie Firmy"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:552
+#: includes/admin/settings/class-settings-bootstrap.php:564
 #, fuzzy
 msgctxt "admin settings"
 msgid "Category view."
 msgstr "Kategorie"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:553
+#: includes/admin/settings/class-settings-bootstrap.php:565
 #, fuzzy
 msgctxt "admin settings"
 msgid "Search view."
 msgstr "Szukaj"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:628
+#: includes/admin/settings/class-settings-bootstrap.php:640
 msgctxt "admin settings"
 msgid "Name"
 msgstr "Nazwa"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:629
+#: includes/admin/settings/class-settings-bootstrap.php:641
 msgctxt "admin settings"
 msgid "Slug"
 msgstr "Slug"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:630
+#: includes/admin/settings/class-settings-bootstrap.php:642
 msgctxt "admin settings"
 msgid "Listing Count"
 msgstr "Licznik ofert"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:642
-#: includes/admin/settings/class-settings-bootstrap.php:709
+#: includes/admin/settings/class-settings-bootstrap.php:654
+#: includes/admin/settings/class-settings-bootstrap.php:721
 msgctxt "admin settings"
 msgid "Ascending"
 msgstr "Rosnąco"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:643
-#: includes/admin/settings/class-settings-bootstrap.php:710
+#: includes/admin/settings/class-settings-bootstrap.php:655
+#: includes/admin/settings/class-settings-bootstrap.php:722
 msgctxt "admin settings"
 msgid "Descending"
 msgstr "Malejąco"
 
-#: includes/admin/settings/class-settings-bootstrap.php:676
+#: includes/admin/settings/class-settings-bootstrap.php:688
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order can be changed under <a>Manage Fees</a>"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:687
+#: includes/admin/settings/class-settings-bootstrap.php:699
 msgctxt "admin settings"
 msgid "Title"
 msgstr "Tytuł"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:688
+#: includes/admin/settings/class-settings-bootstrap.php:700
 msgctxt "admin settings"
 msgid "Author"
 msgstr "Autor"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:689
-#: includes/functions.php:1193
+#: includes/admin/settings/class-settings-bootstrap.php:701
+#: includes/functions.php:1194
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data publikacji"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:690
-#: includes/functions.php:1194
+#: includes/admin/settings/class-settings-bootstrap.php:702
+#: includes/functions.php:1195
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ostatnij modyfikacji"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:691
+#: includes/admin/settings/class-settings-bootstrap.php:703
 msgctxt "admin settings"
 msgid "Random"
 msgstr "Losowo"
 
-#: includes/admin/settings/class-settings-bootstrap.php:692
+#: includes/admin/settings/class-settings-bootstrap.php:704
 msgctxt "admin settings"
 msgid "Paid first then free. Inside each group by date."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:693
+#: includes/admin/settings/class-settings-bootstrap.php:705
 msgctxt "admin settings"
 msgid "Paid first then free. Inside each group by title."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:694
+#: includes/admin/settings/class-settings-bootstrap.php:706
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order, then Date"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:695
+#: includes/admin/settings/class-settings-bootstrap.php:707
 msgctxt "admin settings"
 msgid "Fee Plan Custom Order, then Title"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:780
+#: includes/admin/settings/class-settings-bootstrap.php:792
 msgctxt "admin settings"
 msgid "You can manage your themes on <a>Directory Themes</a>."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:789
+#: includes/admin/settings/class-settings-bootstrap.php:801
 msgctxt "admin settings"
 msgid "Use the BD theme style for BD buttons"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:790
+#: includes/admin/settings/class-settings-bootstrap.php:802
 msgctxt "admin settings"
 msgid "Use the WP theme style for BD buttons"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:948
+#: includes/admin/settings/class-settings-bootstrap.php:960
 msgctxt "admin settings"
 msgid ""
 "For paid listing images, configure that by adding or editing a <a>Fee Plan</"
@@ -4297,198 +4298,198 @@ msgstr ""
 "zamiast używać ustawień, które są ignorowane przez oferty płatne."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:959
-#: includes/admin/settings/class-settings-bootstrap.php:1013
+#: includes/admin/settings/class-settings-bootstrap.php:971
+#: includes/admin/settings/class-settings-bootstrap.php:1025
 #, fuzzy
 msgctxt "admin settings"
 msgid "Excerpt view."
 msgstr "W wyciągu z oferty"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:960
-#: includes/admin/settings/class-settings-bootstrap.php:1014
+#: includes/admin/settings/class-settings-bootstrap.php:972
+#: includes/admin/settings/class-settings-bootstrap.php:1026
 #, fuzzy
 msgctxt "admin settings"
 msgid "Detail view."
 msgstr "Katalog"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1071
+#: includes/admin/settings/class-settings-bootstrap.php:1083
 msgctxt "admin settings"
 msgid "AED currency is not supported by %s. %s"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1084
+#: includes/admin/settings/class-settings-bootstrap.php:1096
 msgctxt "admin settings"
 msgid "Australian Dollar (AUD)"
 msgstr "Dolar Australijski (AUD)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1085
+#: includes/admin/settings/class-settings-bootstrap.php:1097
 msgctxt "admin settings"
 msgid "Brazilian Real (BRL)"
 msgstr "Real Brazylijski (BRL)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1086
+#: includes/admin/settings/class-settings-bootstrap.php:1098
 msgctxt "admin settings"
 msgid "Canadian Dollar (CAD)"
 msgstr "Dolar Kanadyjski (CAD)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1087
+#: includes/admin/settings/class-settings-bootstrap.php:1099
 msgctxt "admin settings"
 msgid "Czech Koruna (CZK)"
 msgstr "Korona Czeska (CZK)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1088
+#: includes/admin/settings/class-settings-bootstrap.php:1100
 msgctxt "admin settings"
 msgid "Danish Krone (DKK)"
 msgstr "Korona Duńska (DKK)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1089
+#: includes/admin/settings/class-settings-bootstrap.php:1101
 msgctxt "admin settings"
 msgid "United Arab Emirates Dirham (AED)"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1090
+#: includes/admin/settings/class-settings-bootstrap.php:1102
 msgctxt "admin settings"
 msgid "Euro (EUR)"
 msgstr "Euro (EUR)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1091
+#: includes/admin/settings/class-settings-bootstrap.php:1103
 msgctxt "admin settings"
 msgid "Hong Kong Dollar (HKD)"
 msgstr "Dolar Hong Kong (HKD)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1092
+#: includes/admin/settings/class-settings-bootstrap.php:1104
 msgctxt "admin settings"
 msgid "Hungarian Forint (HUF)"
 msgstr "Forint Węgierski (HUF)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1093
+#: includes/admin/settings/class-settings-bootstrap.php:1105
 msgctxt "admin settings"
 msgid "Israeli New Shequel (ILS)"
 msgstr "Nowy Shequel Izraelski (ILS)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1094
+#: includes/admin/settings/class-settings-bootstrap.php:1106
 msgctxt "admin settings"
 msgid "Japanese Yen (JPY)"
 msgstr "Jen Japoński (JPY)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1095
+#: includes/admin/settings/class-settings-bootstrap.php:1107
 msgctxt "admin settings"
 msgid "Moroccan Dirham (MAD)"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1096
+#: includes/admin/settings/class-settings-bootstrap.php:1108
 msgctxt "admin settings"
 msgid "Malasian Ringgit (MYR)"
 msgstr "Ringgit Malezyjski (MYR)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1097
+#: includes/admin/settings/class-settings-bootstrap.php:1109
 msgctxt "admin settings"
 msgid "Mexican Peso (MXN)"
 msgstr "Peso Meksykańskie (MXN)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1098
+#: includes/admin/settings/class-settings-bootstrap.php:1110
 msgctxt "admin settings"
 msgid "Norwegian Krone (NOK)"
 msgstr "Korona Norweska (NOK)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1099
+#: includes/admin/settings/class-settings-bootstrap.php:1111
 msgctxt "admin settings"
 msgid "New Zealand Dollar (NZD)"
 msgstr "Dolar Nowo Zelandzki (NZD)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1100
+#: includes/admin/settings/class-settings-bootstrap.php:1112
 msgctxt "admin settings"
 msgid "Philippine Peso (PHP)"
 msgstr "Peso Filipińskie (PHP)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1101
+#: includes/admin/settings/class-settings-bootstrap.php:1113
 msgctxt "admin settings"
 msgid "Polish Zloty (PLN)"
 msgstr "Złoty Polski (PLN)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1102
+#: includes/admin/settings/class-settings-bootstrap.php:1114
 msgctxt "admin settings"
 msgid "Pound Sterling (GBP)"
 msgstr "Funt Brytyjski (GBP)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1103
+#: includes/admin/settings/class-settings-bootstrap.php:1115
 msgctxt "admin settings"
 msgid "Singapore Dollar (SGD)"
 msgstr "Dolar Singapórski (SGD)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1104
+#: includes/admin/settings/class-settings-bootstrap.php:1116
 msgctxt "admin settings"
 msgid "Swedish Krona (SEK)"
 msgstr "Korona Szwedzka (SEK)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1105
+#: includes/admin/settings/class-settings-bootstrap.php:1117
 msgctxt "admin settings"
 msgid "Swiss Franc (CHF)"
 msgstr "Frank Szwajcarski (CHF)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1106
+#: includes/admin/settings/class-settings-bootstrap.php:1118
 msgctxt "admin settings"
 msgid "Taiwan Dollar (TWD)"
 msgstr "Dolar Taiwandzki (TWD)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1107
+#: includes/admin/settings/class-settings-bootstrap.php:1119
 msgctxt "admin settings"
 msgid "Thai Baht (THB)"
 msgstr "Baht Tajski (THB)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1108
+#: includes/admin/settings/class-settings-bootstrap.php:1120
 msgctxt "admin settings"
 msgid "Turkish Lira (TRY)"
 msgstr "Lir Turecki (TRY)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1109
+#: includes/admin/settings/class-settings-bootstrap.php:1121
 msgctxt "admin settings"
 msgid "U.S. Dollar (USD)"
 msgstr "Dolar Amerykański"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1133
+#: includes/admin/settings/class-settings-bootstrap.php:1145
 msgctxt "admin settings"
 msgid "Show currency symbol on the left"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1134
+#: includes/admin/settings/class-settings-bootstrap.php:1146
 msgctxt "admin settings"
 msgid "Show currency symbol on the right"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1135
+#: includes/admin/settings/class-settings-bootstrap.php:1147
 msgctxt "admin settings"
 msgid "Do not show currency symbol"
 msgstr "Symbol Waluty"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1156
+#: includes/admin/settings/class-settings-bootstrap.php:1168
 msgctxt "admin settings"
 msgid ""
 "Thank you for your payment. Your payment is being verified and your listing "
@@ -4498,7 +4499,7 @@ msgstr ""
 "płatnosci i publikacja oferty mogą potrwać do 48 godzin."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1177
+#: includes/admin/settings/class-settings-bootstrap.php:1189
 msgctxt "admin settings"
 msgid ""
 "Listings with pending payments are marked as abandoned after this time. You "
@@ -4508,99 +4509,138 @@ msgstr ""
 "tego czasu. Możesz także <a>wprowadzić zmiany w szablonie wiadomości e-mail</"
 "a> dostarczanym do użytkowników."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1207
+#: includes/admin/settings/class-settings-bootstrap.php:1219
 msgctxt "admin settings"
 msgid "Try listing's email field first, then author's email."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1208
+#: includes/admin/settings/class-settings-bootstrap.php:1220
 msgctxt "admin settings"
 msgid "Try author's email first and then listing's email field."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1221
+#: includes/admin/settings/class-settings-bootstrap.php:1233
 msgctxt "admin settings"
 msgid "Plain (text/plain)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1222
+#: includes/admin/settings/class-settings-bootstrap.php:1234
 msgctxt "admin settings"
 msgid "HTML (text/html)"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1223
+#: includes/admin/settings/class-settings-bootstrap.php:1235
 msgctxt "admin settings"
 msgid "Both (multipart/alternative)"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1237
+#: includes/admin/settings/class-settings-bootstrap.php:1249
 msgctxt "admin settings"
 msgid "A new listing is submitted."
 msgstr "Dodano nową ofertę."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1238
+#: includes/admin/settings/class-settings-bootstrap.php:1250
 msgctxt "admin settings"
 msgid "A listing is edited."
 msgstr "Edytowano ofertę."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1239
+#: includes/admin/settings/class-settings-bootstrap.php:1251
 msgctxt "admin settings"
 msgid "A listing expires."
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1240
+#: includes/admin/settings/class-settings-bootstrap.php:1252
 #, fuzzy
 msgctxt "admin settings"
 msgid "A listing is renewed."
 msgstr "Edytowano ofertę."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1241
+#: includes/admin/settings/class-settings-bootstrap.php:1253
+#, fuzzy
+msgctxt "admin settings"
+msgid "A listing payment is completed."
+msgstr "Edytowano ofertę."
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1254
 #, fuzzy
 msgctxt "admin settings"
 msgid "A listing has been reported as inappropriate."
 msgstr "Podniesiono status oferty."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1242
+#: includes/admin/settings/class-settings-bootstrap.php:1255
 msgctxt "admin settings"
 msgid "A contact message is sent to a listing's owner."
 msgstr "Została wysłana wiadomość kontaktowa do właściciela oferty."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1268
+#: includes/admin/settings/class-settings-bootstrap.php:1281
 msgctxt "admin settings"
 msgid "Their listing is submitted."
 msgstr "Twoja oferta została przesłana."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1269
+#: includes/admin/settings/class-settings-bootstrap.php:1282
 msgctxt "admin settings"
 msgid "Their listing is approved/published."
 msgstr "Twoja oferta została zatwierdzona i opublikowana."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1270
+#: includes/admin/settings/class-settings-bootstrap.php:1283
+#, fuzzy
+msgctxt "admin settings"
+msgid "A payment for their listing is completed."
+msgstr "Twoja oferta została przesłana."
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1284
 #, fuzzy
 msgctxt "admin settings"
 msgid "Their listing expired or is about to expire."
 msgstr "Twoja oferta została przesłana."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1287
-#: includes/admin/settings/class-settings-bootstrap.php:1303
-#: includes/admin/settings/class-settings-bootstrap.php:1328
-#: includes/admin/settings/class-settings-bootstrap.php:1363
+#: includes/admin/settings/class-settings-bootstrap.php:1301
+#: includes/admin/settings/class-settings-bootstrap.php:1320
+#: includes/admin/settings/class-settings-bootstrap.php:1345
+#: includes/admin/settings/class-settings-bootstrap.php:1380
+#: includes/admin/settings/class-settings-bootstrap.php:1416
 msgctxt "admin settings"
 msgid "Listing's title"
 msgstr "Tytuł oferty"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1300
+#: includes/admin/settings/class-settings-bootstrap.php:1302
+#: includes/admin/settings/class-settings-bootstrap.php:1381
+#, fuzzy
+msgctxt "admin settings"
+msgid "Listing's fee plan name"
+msgstr "Data zakończenia emisji oferty"
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1303
+#: includes/admin/settings/class-settings-bootstrap.php:1382
+#, fuzzy
+msgctxt "admin settings"
+msgid "Listing's fee plan description"
+msgstr "Wybór Abonamentu"
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1304
+#: includes/admin/settings/class-settings-bootstrap.php:1383
+#, fuzzy
+msgctxt "admin settings"
+msgid "Listing's fee plan details"
+msgstr "Data zakończenia emisji oferty"
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1317
 msgctxt "admin settings"
 msgid ""
 "Your listing \"[listing]\" is now available at [listing-url] and can be "
@@ -4610,54 +4650,73 @@ msgstr ""
 "status oferty publicznej."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1304
-#: includes/admin/settings/class-settings-bootstrap.php:1327
+#: includes/admin/settings/class-settings-bootstrap.php:1321
+#: includes/admin/settings/class-settings-bootstrap.php:1344
 msgctxt "admin settings"
 msgid "Listing's URL"
 msgstr "URL oferty"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1305
-#: includes/admin/settings/class-settings-bootstrap.php:1333
+#: includes/admin/settings/class-settings-bootstrap.php:1322
+#: includes/admin/settings/class-settings-bootstrap.php:1350
 #, fuzzy
 msgctxt "admin settings"
 msgid "Listing's Access Key"
 msgstr "Pola/Obrazy"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1329
+#: includes/admin/settings/class-settings-bootstrap.php:1346
 #, fuzzy
 msgctxt "admin settings"
 msgid "Sender's name"
 msgstr "Nazwisko Autora"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1330
+#: includes/admin/settings/class-settings-bootstrap.php:1347
 #, fuzzy
 msgctxt "admin settings"
 msgid "Sender's e-mail address"
 msgstr "Nieprawidłowy adres e-mail"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1331
+#: includes/admin/settings/class-settings-bootstrap.php:1348
 #, fuzzy
 msgctxt "admin settings"
 msgid "Contact message"
 msgstr "Wiadomość do osoby kontaktowej z Oferty"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1332
+#: includes/admin/settings/class-settings-bootstrap.php:1349
 msgctxt "admin settings"
 msgid "Date and time the message was sent"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1364
+#: includes/admin/settings/class-settings-bootstrap.php:1384
+#, fuzzy
+msgctxt "admin settings"
+msgid "Payment items details."
+msgstr "Szczegóły płatności"
+
+#: includes/admin/settings/class-settings-bootstrap.php:1385
+msgctxt "admin settings"
+msgid "URL where user can review and print payment receipt."
+msgstr ""
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1386
+#, fuzzy
+msgctxt "admin settings"
+msgid "Gateway used to process listing's payment."
+msgstr "Nie można kontynuować płatności."
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1417
 msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "Sprawdzanie link URL"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1500
+#: includes/admin/settings/class-settings-bootstrap.php:1553
 msgctxt "admin settings"
 msgid ""
 "Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
@@ -4667,7 +4726,7 @@ msgstr ""
 "ręcznie usunąć plik \"%s\" lub de-aktywować plugin."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1516
+#: includes/admin/settings/class-settings-bootstrap.php:1569
 msgctxt "admin settings"
 msgid ""
 "Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
@@ -4677,7 +4736,7 @@ msgstr ""
 "\"%s\"."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1521
+#: includes/admin/settings/class-settings-bootstrap.php:1574
 msgctxt "admin settings"
 msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
@@ -4687,19 +4746,19 @@ msgstr ""
 "Kompatybilności nie został aktywowany."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1551
+#: includes/admin/settings/class-settings-bootstrap.php:1604
 #, fuzzy
 msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Załaduj obraz"
 
-#: includes/functions.php:1191
+#: includes/functions.php:1192
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
 # @ WPBDM
-#: includes/functions.php:1192
+#: includes/functions.php:1193
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data zakończenia emisji oferty"
@@ -4974,7 +5033,7 @@ msgstr "Główne"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:27
-#: includes/admin/settings/class-settings-bootstrap.php:930
+#: includes/admin/settings/class-settings-bootstrap.php:942
 #, fuzzy
 msgctxt "settings"
 msgid "Listings"
@@ -4986,7 +5045,7 @@ msgstr "Oferty"
 #: includes/admin/settings/class-settings-bootstrap.php:34
 #: includes/admin/settings/class-settings-bootstrap.php:37
 #: includes/admin/settings/class-settings-bootstrap.php:52
-#: includes/admin/settings/class-settings-bootstrap.php:1188
+#: includes/admin/settings/class-settings-bootstrap.php:1200
 #: includes/admin/settings/class-settings.php:354
 #, fuzzy
 msgctxt "settings"
@@ -5565,29 +5624,45 @@ msgid "Require login for using the contact form?"
 msgstr "Wymagać logowania, aby używać formularza kontaktu?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:511
-#, fuzzy
-msgctxt "settings"
-msgid "Maximum number of contact form submits per day"
-msgstr "Maksymalna liczba wiadomości wysłanych do właściciela w ciągu doby"
-
-# @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:512
 #, fuzzy
 msgctxt "settings"
+msgid "Maximum number of daily contact form submits from registered users"
+msgstr "Maksymalna liczba wiadomości wysłanych do właściciela w ciągu doby"
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:513
+#, fuzzy
+msgctxt "settings"
 msgid ""
-"Use this to prevent spamming of listing owners. 0 means unlimited submits "
-"per day."
+"Use this to prevent spamming of listing owners from logged in users. 0 means "
+"unlimited submits per day."
 msgstr "Użyj aby ograniczyć spam do właściciela oferty. 0 oznacza brak limitu."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:522
+#: includes/admin/settings/class-settings-bootstrap.php:523
+#, fuzzy
+msgctxt "settings"
+msgid "Maximum number of contact form submits for each listing per day"
+msgstr "Maksymalna liczba wiadomości wysłanych do właściciela w ciągu doby"
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:524
+#, fuzzy
+msgctxt "settings"
+msgid ""
+"Use this to set contact submits limit for each listing in the directory. 0 "
+"means unlimited submits per day."
+msgstr "Użyj aby ograniczyć spam do właściciela oferty. 0 oznacza brak limitu."
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:534
 #, fuzzy
 msgctxt "settings"
 msgid "Include comment form on listing pages?"
 msgstr "Pozwolić na komentarze na stronie oferty?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:523
+#: includes/admin/settings/class-settings-bootstrap.php:535
 msgctxt "settings"
 msgid ""
 "BD uses the standard comment inclusion from WordPress, but most themes only "
@@ -5598,47 +5673,47 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:537
+#: includes/admin/settings/class-settings-bootstrap.php:549
 #, fuzzy
 msgctxt "settings"
 msgid "Show listings under categories on main page?"
 msgstr "Wyświetlać oferty pod kategoriami na stronie głównej?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:546
+#: includes/admin/settings/class-settings-bootstrap.php:558
 #, fuzzy
 msgctxt "settings"
 msgid "Prevent featured (sticky) status on BD pages?"
 msgstr "Status wyróżnienia (naklejka)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:547
+#: includes/admin/settings/class-settings-bootstrap.php:559
 msgctxt "settings"
 msgid ""
 "Prevents featured listings from floating to the top of the selected page."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:562
+#: includes/admin/settings/class-settings-bootstrap.php:574
 #, fuzzy
 msgctxt "settings"
 msgid "Status of listings upon uninstalling plugin"
 msgstr "Status dla ofert, gdy odinstalowujesz plugin"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:575
+#: includes/admin/settings/class-settings-bootstrap.php:587
 #, fuzzy
 msgctxt "settings"
 msgid "Status of deleted listings"
 msgstr "Status dla ofert usuniętych"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:588
+#: includes/admin/settings/class-settings-bootstrap.php:600
 #, fuzzy
 msgctxt "settings"
 msgid "Submit Listing instructions message"
 msgstr "Wiadomość do osoby kontaktowej z Oferty"
 
-#: includes/admin/settings/class-settings-bootstrap.php:589
+#: includes/admin/settings/class-settings-bootstrap.php:601
 msgctxt "settings"
 msgid ""
 "This text is displayed at the first page of the Submit Listing process for "
@@ -5647,104 +5722,104 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:599
+#: includes/admin/settings/class-settings-bootstrap.php:611
 #, fuzzy
 msgctxt "settings"
 msgid "Default new post status"
 msgstr "Domyślny Status Nowego Postu"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:612
+#: includes/admin/settings/class-settings-bootstrap.php:624
 #, fuzzy
 msgctxt "settings"
 msgid "Edit post status"
 msgstr "Status Postu po Edycji "
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:625
+#: includes/admin/settings/class-settings-bootstrap.php:637
 #, fuzzy
 msgctxt "settings"
 msgid "Order categories list by"
 msgstr "Sortuj Kategorie według "
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:639
+#: includes/admin/settings/class-settings-bootstrap.php:651
 #, fuzzy
 msgctxt "settings"
 msgid "Sort order for categories"
 msgstr "Porządek wyświatlania dla kategorii"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:652
+#: includes/admin/settings/class-settings-bootstrap.php:664
 #, fuzzy
 msgctxt "settings"
 msgid "Show category post count?"
 msgstr "Pokazywać liczbę ofert w kategorii?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:661
+#: includes/admin/settings/class-settings-bootstrap.php:673
 #, fuzzy
 msgctxt "settings"
 msgid "Hide empty categories?"
 msgstr "Ukryć puste kategorie?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:670
+#: includes/admin/settings/class-settings-bootstrap.php:682
 #, fuzzy
 msgctxt "settings"
 msgid "Show only parent categories in category list?"
 msgstr "Pokazywać tylko Nadrzędne kategorie na liście kategorii?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:682
+#: includes/admin/settings/class-settings-bootstrap.php:694
 #, fuzzy
 msgctxt "settings"
 msgid "Order directory listings by"
 msgstr "Porządkuj listę według"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:705
+#: includes/admin/settings/class-settings-bootstrap.php:717
 #, fuzzy
 msgctxt "settings"
 msgid "Sort directory listings by"
 msgstr "Porządkuj oferty "
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:706
+#: includes/admin/settings/class-settings-bootstrap.php:718
 #, fuzzy
 msgctxt "settings"
 msgid "Ascending for ascending order A-Z, Descending for descending order Z-A"
 msgstr "Rosnąco (od A do Z). Malejąco (od Z do A)."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:719
+#: includes/admin/settings/class-settings-bootstrap.php:731
 #, fuzzy
 msgctxt "settings"
 msgid "Enable sort bar?"
 msgstr "Włączyć pasek sortowania?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:728
+#: includes/admin/settings/class-settings-bootstrap.php:740
 #, fuzzy
 msgctxt "settings"
 msgid "Sortbar Fields"
 msgstr "Pola paska sortowania"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:739
+#: includes/admin/settings/class-settings-bootstrap.php:751
 #, fuzzy
 msgctxt "settings"
 msgid "Directory Display Options"
 msgstr "Opcje wyświetlania Katalogu"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:744
+#: includes/admin/settings/class-settings-bootstrap.php:756
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"Submit listing\" button."
 msgstr "Wyświetl przycisk \"Dodaj Firmę\" ."
 
-#: includes/admin/settings/class-settings-bootstrap.php:745
+#: includes/admin/settings/class-settings-bootstrap.php:757
 msgctxt "settings"
 msgid ""
 "Hides the button used by the main UI to allow listing submission, but does "
@@ -5753,116 +5828,116 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:755
+#: includes/admin/settings/class-settings-bootstrap.php:767
 #, fuzzy
 msgctxt "settings"
 msgid "Show \"Search listings\"."
 msgstr "Wyświetl \"Szukaj Firmy\"."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:764
+#: includes/admin/settings/class-settings-bootstrap.php:776
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"View Listings\" button."
 msgstr "Wyświetl przycisk \"Pokaż Firmy\" ."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:773
+#: includes/admin/settings/class-settings-bootstrap.php:785
 #, fuzzy
 msgctxt "settings"
 msgid "Show the \"Directory\" button."
 msgstr "Wyświetl przycisk \"Katalog\" ."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:780
+#: includes/admin/settings/class-settings-bootstrap.php:792
 #, fuzzy
 msgctxt "settings"
 msgid "Theme Settings"
 msgstr "Ustawienia Obrazu"
 
-#: includes/admin/settings/class-settings-bootstrap.php:786
+#: includes/admin/settings/class-settings-bootstrap.php:798
 msgctxt "settings"
 msgid "Theme button style"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:799
+#: includes/admin/settings/class-settings-bootstrap.php:811
 msgctxt "settings"
 msgid ""
 "Include CSS rules to give their own style to View, Edit and Delete buttons?"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:806
+#: includes/admin/settings/class-settings-bootstrap.php:818
 #, fuzzy
 msgctxt "settings"
 msgid "Image"
 msgstr "Obraz"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:807
+#: includes/admin/settings/class-settings-bootstrap.php:819
 #, fuzzy
 msgctxt "settings"
 msgid "Image Settings"
 msgstr "Ustawienia Obrazu"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:812
+#: includes/admin/settings/class-settings-bootstrap.php:824
 #, fuzzy
 msgctxt "settings"
 msgid "Allow images?"
 msgstr "Pozwolić na Obrazy?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:823
+#: includes/admin/settings/class-settings-bootstrap.php:835
 #, fuzzy
 msgctxt "settings"
 msgid "Min Image File Size (KB)"
 msgstr "Minimalny rozmiar obrazu (KB)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:834
+#: includes/admin/settings/class-settings-bootstrap.php:846
 #, fuzzy
 msgctxt "settings"
 msgid "Max Image File Size (KB)"
 msgstr "Maksymalny rozmiar pliku Obrazu (KB)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:845
+#: includes/admin/settings/class-settings-bootstrap.php:857
 #, fuzzy
 msgctxt "settings"
 msgid "Min image width (px)"
 msgstr "Minimalna szerokość obrazu (px)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:854
+#: includes/admin/settings/class-settings-bootstrap.php:866
 #, fuzzy
 msgctxt "settings"
 msgid "Min image height (px)"
 msgstr "Minimalna wysokość obrazu (px)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:867
+#: includes/admin/settings/class-settings-bootstrap.php:879
 #, fuzzy
 msgctxt "settings"
 msgid "Max image width (px)"
 msgstr "Maksymalna szerokość obrazu (px)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:878
+#: includes/admin/settings/class-settings-bootstrap.php:890
 #, fuzzy
 msgctxt "settings"
 msgid "Max image height (px)"
 msgstr "Maksymalna wysokość obrazu (px)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:889
+#: includes/admin/settings/class-settings-bootstrap.php:901
 #, fuzzy
 msgctxt "settings"
 msgid "Turn on thickbox/lightbox?"
 msgstr "Włączyć thickbox/lightbox?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:890
+#: includes/admin/settings/class-settings-bootstrap.php:902
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -5872,35 +5947,35 @@ msgstr ""
 "Twojej stronie"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:896
+#: includes/admin/settings/class-settings-bootstrap.php:908
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnails"
 msgstr "Miniatury"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:903
+#: includes/admin/settings/class-settings-bootstrap.php:915
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnail width (px)"
 msgstr "Szerokość miniatury (px)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:914
+#: includes/admin/settings/class-settings-bootstrap.php:926
 #, fuzzy
 msgctxt "settings"
 msgid "Thumbnail height (px)"
 msgstr "Wysokość miniatury (px)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:923
+#: includes/admin/settings/class-settings-bootstrap.php:935
 #, fuzzy
 msgctxt "settings"
 msgid "Crop thumbnails to exact dimensions?"
 msgstr "Przyciąć miniaturę do dokładnych wymiarów?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:924
+#: includes/admin/settings/class-settings-bootstrap.php:936
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -5915,31 +5990,31 @@ msgstr ""
 "wysokość będzie dopasowana proporcjonalnie. Każdy z dodanych obrazów przy "
 "tej opcji, może mieć inną wysokość."
 
-#: includes/admin/settings/class-settings-bootstrap.php:935
+#: includes/admin/settings/class-settings-bootstrap.php:947
 msgctxt "settings"
 msgid "Enforce image upload on submit/edit?"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:944
+#: includes/admin/settings/class-settings-bootstrap.php:956
 #, fuzzy
 msgctxt "settings"
 msgid "Number of free images"
 msgstr "Liczba obrazów, za które nie trzeba płacić"
 
-#: includes/admin/settings/class-settings-bootstrap.php:956
+#: includes/admin/settings/class-settings-bootstrap.php:968
 msgctxt "settings"
 msgid "Use \"Coming Soon\" photo for listings without any (primary) images?"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:969
+#: includes/admin/settings/class-settings-bootstrap.php:981
 #, fuzzy
 msgctxt "settings"
 msgid "Default thumbnail image size"
 msgstr "Domyślny użytkownik oferty"
 
-#: includes/admin/settings/class-settings-bootstrap.php:972
+#: includes/admin/settings/class-settings-bootstrap.php:984
 msgctxt "settings"
 msgid ""
 "This indicates the size of the thumbnail to be used both in excerpt and "
@@ -5949,66 +6024,66 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:980
+#: includes/admin/settings/class-settings-bootstrap.php:992
 #, fuzzy
 msgctxt "settings"
 msgid "Show Thumbnail on main listings page?"
 msgstr "Pokazywać miniaturkę na stronie głównej oferty?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:989
+#: includes/admin/settings/class-settings-bootstrap.php:1001
 #, fuzzy
 msgctxt "settings"
 msgid "Featured Badge image"
 msgstr "Moduł poziomów wyróżnień"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:998
+#: includes/admin/settings/class-settings-bootstrap.php:1010
 #, fuzzy
 msgctxt "settings"
 msgid "Featured Badge URL"
 msgstr "Moduł poziomów wyróżnień"
 
-#: includes/admin/settings/class-settings-bootstrap.php:999
+#: includes/admin/settings/class-settings-bootstrap.php:1011
 msgctxt "settings"
 msgid "Use this to set Featured Badge image as a link to a defined URL."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1000
+#: includes/admin/settings/class-settings-bootstrap.php:1012
 #, fuzzy
 msgctxt "settings"
 msgid "URL"
 msgstr "URL"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1009
+#: includes/admin/settings/class-settings-bootstrap.php:1021
 msgctxt "settings"
 msgid "Display featured (sticky) badge on listing:"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1026
+#: includes/admin/settings/class-settings-bootstrap.php:1038
 #, fuzzy
 msgctxt "settings"
 msgid "Fee Order"
 msgstr "Sortowanie"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1039
+#: includes/admin/settings/class-settings-bootstrap.php:1051
 #, fuzzy
 msgctxt "settings"
 msgid "Turn On payments?"
 msgstr "Włączyć Płatność?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1048
+#: includes/admin/settings/class-settings-bootstrap.php:1060
 #, fuzzy
 msgctxt "settings"
 msgid "Put payment gateways in test mode?"
 msgstr "Włączyć tryb testu dla bramki płatności?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1058
+#: includes/admin/settings/class-settings-bootstrap.php:1070
 #, fuzzy
 msgctxt "settings"
 msgid "Perform checkouts on the secure (HTTPS) version of your site?"
@@ -6016,7 +6091,7 @@ msgstr ""
 "Proferować przełączenie koszyka do bezpiecznej wersji strony (https://)?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1059
+#: includes/admin/settings/class-settings-bootstrap.php:1071
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6028,47 +6103,47 @@ msgstr ""
 "certyfikatach SSL</a>."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1081
+#: includes/admin/settings/class-settings-bootstrap.php:1093
 #, fuzzy
 msgctxt "settings"
 msgid "Currency Code"
 msgstr "Kod Waluty"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1120
+#: includes/admin/settings/class-settings-bootstrap.php:1132
 #, fuzzy
 msgctxt "settings"
 msgid "Currency Symbol"
 msgstr "Symbol Waluty"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1130
+#: includes/admin/settings/class-settings-bootstrap.php:1142
 #, fuzzy
 msgctxt "settings"
 msgid "Currency symbol display"
 msgstr "Symbol Waluty"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1145
+#: includes/admin/settings/class-settings-bootstrap.php:1157
 msgctxt "settings"
 msgid "Include fee description in receipt?"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1155
+#: includes/admin/settings/class-settings-bootstrap.php:1167
 #, fuzzy
 msgctxt "settings"
 msgid "Thank you for payment message"
 msgstr "Wiadomość - Dziękujemy za płatność."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1165
+#: includes/admin/settings/class-settings-bootstrap.php:1177
 #, fuzzy
 msgctxt "settings"
 msgid "Ask users to come back for abandoned payments?"
 msgstr "Pytać użytkowników o powrót do porzuconych płatności?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1166
+#: includes/admin/settings/class-settings-bootstrap.php:1178
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6085,21 +6160,21 @@ msgstr ""
 "powrotu i dokończenia transakcji."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1176
+#: includes/admin/settings/class-settings-bootstrap.php:1188
 #, fuzzy
 msgctxt "settings"
 msgid "Listing abandonment threshold (hours)"
 msgstr "Maksymalny Czas dla porzuconych płątności (godzin)"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1193
+#: includes/admin/settings/class-settings-bootstrap.php:1205
 #, fuzzy
 msgctxt "settings"
 msgid "Display email address fields publicly?"
 msgstr "Wyświetlać publicznie pole \"adres e-mail\"?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1194
+#: includes/admin/settings/class-settings-bootstrap.php:1206
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6112,14 +6187,14 @@ msgstr ""
 "właściciela (spam)."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1203
+#: includes/admin/settings/class-settings-bootstrap.php:1215
 #, fuzzy
 msgctxt "settings"
 msgid "How to determine the listing's email address?"
 msgstr "Jak określić listę adresów e-mail?"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1204
+#: includes/admin/settings/class-settings-bootstrap.php:1216
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6129,12 +6204,12 @@ msgstr ""
 "Wpływa to na e-maile wysyłane do właścicieli ofert za pośrednictwem "
 "formularzy kontaktowych lub gdy ich oferta wygasa."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1217
+#: includes/admin/settings/class-settings-bootstrap.php:1229
 msgctxt "settings"
 msgid "Email Content-Type header"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1218
+#: includes/admin/settings/class-settings-bootstrap.php:1230
 msgctxt "settings"
 msgid ""
 "Use this setting to control the format of the emails explicitly. Some "
@@ -6144,28 +6219,28 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1229
+#: includes/admin/settings/class-settings-bootstrap.php:1241
 #, fuzzy
 msgctxt "settings"
 msgid "E-Mail Notifications"
 msgstr "Powiadomienia E-mail"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1234
+#: includes/admin/settings/class-settings-bootstrap.php:1246
 #, fuzzy
 msgctxt "settings"
 msgid "Notify admin via e-mail when..."
 msgstr "Powiadom Administratora przez e-mail, kiedy..."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1251
+#: includes/admin/settings/class-settings-bootstrap.php:1264
 #, fuzzy
 msgctxt "settings"
 msgid "CC this e-mail address too"
 msgstr "Prześlij także na ten adres e-mail"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1257
+#: includes/admin/settings/class-settings-bootstrap.php:1270
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6174,42 +6249,42 @@ msgid ""
 msgstr "Możesz edytować szablony tekstowe dla poniższych wiadomości e-mail."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1264
+#: includes/admin/settings/class-settings-bootstrap.php:1277
 #, fuzzy
 msgctxt "settings"
 msgid "Notify users via e-mail when..."
 msgstr "Poinformuj użytkownika mailem gdy..."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1275
+#: includes/admin/settings/class-settings-bootstrap.php:1289
 #, fuzzy
 msgctxt "settings"
 msgid "Templates"
 msgstr "Szablony wiadomości e-Mail"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1280
+#: includes/admin/settings/class-settings-bootstrap.php:1294
 #, fuzzy
 msgctxt "settings"
 msgid "Email confirmation message"
 msgstr "Wiadomość e-mail z potwierdzeniem odbioru"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1281
+#: includes/admin/settings/class-settings-bootstrap.php:1295
 #, fuzzy
 msgctxt "settings"
 msgid "Sent after a listing has been submitted."
 msgstr "Wysłane po zapisaniu oferty."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1296
+#: includes/admin/settings/class-settings-bootstrap.php:1313
 #, fuzzy
 msgctxt "settings"
 msgid "Listing published message"
 msgstr "Wiadomość o opublikowaniu oferty"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1297
+#: includes/admin/settings/class-settings-bootstrap.php:1314
 #, fuzzy
 msgctxt "settings"
 msgid "Sent when the listing has been published or approved by an admin."
@@ -6217,14 +6292,14 @@ msgstr ""
 "Wyślij gdy oferta została zatwierdzona lub opublikowana przez administratora."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1314
+#: includes/admin/settings/class-settings-bootstrap.php:1331
 #, fuzzy
 msgctxt "settings"
 msgid "Listing Contact Message"
 msgstr "Wiadomość do osoby kontaktowej z Oferty"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1315
+#: includes/admin/settings/class-settings-bootstrap.php:1332
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6235,14 +6310,30 @@ msgstr ""
 "jego oferty."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1343
+#: includes/admin/settings/class-settings-bootstrap.php:1360
+#, fuzzy
+msgctxt "settings"
+msgid "Payment completed message"
+msgstr "Wiadomość przypomnienia o porzuconej płatności "
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1361
+#, fuzzy
+msgctxt "settings"
+msgid "Sent after a Listing's payment is verified by Gateway or admins."
+msgstr ""
+"Wysyłany do użytkowników, po pewnym czasie od zmiany statusu na \"porzucone"
+"\"."
+
+# @ WPBDM
+#: includes/admin/settings/class-settings-bootstrap.php:1396
 #, fuzzy
 msgctxt "settings"
 msgid "Payment abandoned reminder message"
 msgstr "Wiadomość przypomnienia o porzuconej płatności "
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1344
+#: includes/admin/settings/class-settings-bootstrap.php:1397
 #, fuzzy
 msgctxt "settings"
 msgid "Sent some time after a pending payment is abandoned by users."
@@ -6251,13 +6342,13 @@ msgstr ""
 "\"."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1381
+#: includes/admin/settings/class-settings-bootstrap.php:1434
 #, fuzzy
 msgctxt "settings"
 msgid "E-Mail Notices"
 msgstr "Powiadomienia E-mail"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1572
+#: includes/admin/settings/class-settings-bootstrap.php:1625
 msgctxt "settings"
 msgid "Cropped"
 msgstr ""
@@ -6323,57 +6414,57 @@ msgctxt "settings"
 msgid "← Return to \"Manage Options\""
 msgstr "← wróć do \"Zarządzanie polami formularza\""
 
-#: includes/admin/settings/class-settings-bootstrap.php:565
-#: includes/admin/settings/class-settings-bootstrap.php:578
+#: includes/admin/settings/class-settings-bootstrap.php:577
+#: includes/admin/settings/class-settings-bootstrap.php:590
 msgctxt "post status"
 msgid "Draft"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:566
-#: includes/admin/settings/class-settings-bootstrap.php:579
+#: includes/admin/settings/class-settings-bootstrap.php:578
+#: includes/admin/settings/class-settings-bootstrap.php:591
 msgctxt "post status"
 msgid "Trash"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:602
-#: includes/admin/settings/class-settings-bootstrap.php:615
+#: includes/admin/settings/class-settings-bootstrap.php:614
+#: includes/admin/settings/class-settings-bootstrap.php:627
 msgctxt "post status"
 msgid "Published"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:603
-#: includes/admin/settings/class-settings-bootstrap.php:616
+#: includes/admin/settings/class-settings-bootstrap.php:615
+#: includes/admin/settings/class-settings-bootstrap.php:628
 msgctxt "post status"
 msgid "Pending"
 msgstr "Oczekujące"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1319
+#: includes/admin/settings/class-settings-bootstrap.php:1336
 msgctxt "contact email"
 msgid "You have received a reply from your listing at %s."
 msgstr "Otrzymano wiadomość dotyczącą oferty %s."
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1320
+#: includes/admin/settings/class-settings-bootstrap.php:1337
 msgctxt "contact email"
 msgid "Name: %s"
 msgstr "Nazwa: %s"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1321
+#: includes/admin/settings/class-settings-bootstrap.php:1338
 msgctxt "contact email"
 msgid "E-Mail: %s"
 msgstr "E-Mail: %s"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1322
+#: includes/admin/settings/class-settings-bootstrap.php:1339
 msgctxt "contact email"
 msgid "Message:"
 msgstr "Wiadomość:"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1324
+#: includes/admin/settings/class-settings-bootstrap.php:1341
 msgctxt "contact email"
 msgid "Time: %s"
 msgstr "Czas: %s"
@@ -6760,41 +6851,41 @@ msgid "Add New Listing"
 msgstr "Dodaj nową ofertę"
 
 # @ WPBDM
-#: includes/class-listing.php:305
+#: includes/class-listing.php:312
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Data zakończenia emisji oferty"
 
 # @ WPBDM
-#: includes/class-listing.php:313
+#: includes/class-listing.php:320
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Odrzucenie płatności"
 
 # @ WPBDM
-#: includes/class-listing.php:352
+#: includes/class-listing.php:359
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/class-listing.php:516
+#: includes/class-listing.php:525
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Abonament niedostępny)"
 
 # @ WPBDM
-#: includes/class-listing.php:673
+#: includes/class-listing.php:682
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(powtarzające się)"
 
-#: includes/class-listing.php:675
+#: includes/class-listing.php:684
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -6859,24 +6950,32 @@ msgstr "Oferta Bezpłatna"
 
 # @ WPBDM
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:239
+#: includes/class-listing-email-notification.php:245
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Powiadomienie o Nowej ofercie"
 
 # @ WPBDM
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:290
+#: includes/class-listing-email-notification.php:313
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Powiadomienie o Edycji oferty"
 
 # @ WPBDM
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:362
+#: includes/class-listing-email-notification.php:385
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
+msgstr "[%s] Powiadomienie o Nowej ofercie"
+
+# @ WPBDM
+#. translators: [%s] is the name of the blog.
+#: includes/class-listing-email-notification.php:432
+#, fuzzy
+msgctxt "notify email"
+msgid "[%s] New payment notification"
 msgstr "[%s] Powiadomienie o Nowej ofercie"
 
 # @ WPBDM
@@ -6902,14 +7001,6 @@ msgstr "Nazwa"
 msgctxt "notify email"
 msgid "URL"
 msgstr "URL"
-
-# @ WPBDM
-#: templates/email/listing-added.tpl.php:13
-#: templates/email/listing-edited.tpl.php:19
-#: templates/email/listing-reported.tpl.php:13
-msgctxt "notify email"
-msgid "(not published yet)"
-msgstr "(jeszcze nie opublikowana)"
 
 #: templates/email/listing-added.tpl.php:15
 #: templates/email/listing-edited.tpl.php:21
@@ -6941,6 +7032,53 @@ msgstr "Napisany przez"
 msgctxt "notify email"
 msgid "Annonymous User"
 msgstr ""
+
+# @ WPBDM
+#: templates/email/listing-edited.tpl.php:19
+#: templates/email/listing-reported.tpl.php:13
+msgctxt "notify email"
+msgid "(not published yet)"
+msgstr "(jeszcze nie opublikowana)"
+
+# @ WPBDM
+#: templates/email/listing-payment-completed.tpl.php:7
+#, fuzzy
+msgctxt "notify email"
+msgid "Payment ID"
+msgstr "Płatność"
+
+# @ WPBDM
+#: templates/email/listing-payment-completed.tpl.php:24
+#, fuzzy
+msgctxt "notify email"
+msgid "Payment Details"
+msgstr "Szczegóły płatności"
+
+# @ WPBDM
+#: templates/email/listing-payment-completed.tpl.php:27
+#, fuzzy
+msgctxt "notify email"
+msgid "Amount"
+msgstr "Kwota"
+
+#: templates/email/listing-payment-completed.tpl.php:31
+msgctxt "notify email"
+msgid "Plan"
+msgstr ""
+
+# @ WPBDM
+#: templates/email/listing-payment-completed.tpl.php:47
+#, fuzzy
+msgctxt "notify email"
+msgid "Listing URL"
+msgstr "URL oferty"
+
+# @ WPBDM
+#: templates/email/listing-payment-completed.tpl.php:49
+#, fuzzy
+msgctxt "notify email"
+msgid "Listing admin URL"
+msgstr "URL oferty"
 
 # @ WPBDM
 #: templates/email/listing-reported.tpl.php:7
@@ -7592,7 +7730,7 @@ msgid "Link Text (optional):"
 msgstr "Tekst alternatywny(opcjonalnie):"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:710
+#: includes/fields/class-form-field.php:714
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -7683,22 +7821,22 @@ msgid "Invalid form field type"
 msgstr "Niewłaściwy typ Pola"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:589
+#: includes/fields/class-form-field.php:593
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Etykieta pola jest wymagana."
 
-#: includes/fields/class-form-field.php:593
+#: includes/fields/class-form-field.php:597
 msgctxt "form-fields-api"
 msgid "Field label max length is 255 characters."
 msgstr ""
 
-#: includes/fields/class-form-field.php:597
+#: includes/fields/class-form-field.php:601
 msgctxt "form-fields-api"
 msgid "Field description max length is 255 characters."
 msgstr ""
 
-#: includes/fields/class-form-field.php:608
+#: includes/fields/class-form-field.php:612
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -7706,7 +7844,7 @@ msgid ""
 "delete this current field and create a NEW field of type %1$s instead."
 msgstr ""
 
-#: includes/fields/class-form-field.php:611
+#: includes/fields/class-form-field.php:615
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
@@ -7714,7 +7852,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:645
+#: includes/fields/class-form-field.php:649
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -7724,19 +7862,19 @@ msgstr ""
 "przypisanie."
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:655
+#: includes/fields/class-form-field.php:659
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" jest niewłaściwym typem pola do tego przypisania"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:700
+#: includes/fields/class-form-field.php:704
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Niewłaściwe ID Pola"
 
 # @ WPBDM
-#: includes/fields/class-form-field.php:723
+#: includes/fields/class-form-field.php:729
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Wykryto błąd w trakcie próby usunięcia tego pola."
@@ -7900,19 +8038,19 @@ msgid "Caption for %s is required."
 msgstr "Kraj jest wymagany."
 
 # @ WPBDM
-#: includes/functions.php:1271
+#: includes/functions.php:1272
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Powrót do Katalogu."
 
-#: includes/functions.php:1275 includes/functions.php:1280
+#: includes/functions.php:1276 includes/functions.php:1281
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
 
 # @ WPBDM
-#: includes/payment.php:277 templates/renew-resume.tpl.php:39
+#: includes/payment.php:278 templates/renew-resume.tpl.php:39
 #, fuzzy
 msgctxt "templates"
 msgid "Return to fee selection"
@@ -7937,13 +8075,13 @@ msgid "Advanced Search"
 msgstr "Zaawansowane szukanie"
 
 # @ WPBDM
-#: includes/views/listing_contact.php:154
+#: includes/views/listing_contact.php:200
 msgctxt "templates"
 msgid "Contact listing owner"
 msgstr "Skontaktuj się z właścicielem oferty"
 
 # @ WPBDM
-#: includes/views/listing_contact.php:158
+#: includes/views/listing_contact.php:204
 msgctxt "templates"
 msgid "Send Message to listing owner"
 msgstr "Wyślij wiadomość do właściciela oferty"
@@ -8850,32 +8988,32 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/payment.php:66
+#: includes/payment.php:67
 #, fuzzy
 msgctxt "payments"
 msgid "Payment #%s"
 msgstr "Płatność #%d"
 
 # @ WPBDM
-#: includes/payment.php:74
+#: includes/payment.php:75
 #, fuzzy
 msgctxt "payments"
 msgid "Gateway:"
 msgstr "Bramka"
 
 # @ WPBDM
-#: includes/payment.php:76
+#: includes/payment.php:77
 #, fuzzy
 msgctxt "payments"
 msgid "Gateway Transaction ID:"
 msgstr "transakcja"
 
-#: includes/payment.php:79
+#: includes/payment.php:80
 msgctxt "payments"
 msgid "Bill To:"
 msgstr ""
 
-#: includes/payment.php:97
+#: includes/payment.php:98
 msgctxt "checkout"
 msgid "Print Receipt"
 msgstr ""
@@ -9340,19 +9478,19 @@ msgid "You did not enter a message."
 msgstr "Nie wpisałeś wiadomości."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:224
+#: includes/views/listing_contact.php:270
 msgctxt "contact-message"
 msgid "Your message has been sent."
 msgstr "Twoja oferta została usunięta."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:246
+#: includes/views/listing_contact.php:292
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr "Wystąpił problem. Twoja wiadomość nie została wysłana"
 
 # @ WPBDM
-#: includes/views/listing_contact.php:249
+#: includes/views/listing_contact.php:295
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Powrót do oferty."
@@ -9366,7 +9504,7 @@ msgstr ""
 "za kontakt z klientem."
 
 # @ WPBDM
-#: includes/views/listing_contact.php:108
+#: includes/views/listing_contact.php:181
 msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr ""
@@ -10171,58 +10309,65 @@ msgid "Renew listing"
 msgstr "Odnów Ofertę"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:5
+#: templates/admin/payments-details.tpl.php:6
 #, fuzzy
 msgctxt "admin payments"
-msgid "Payment #<id>"
+msgid "Payment <id>"
 msgstr "Płatność #%d"
 
-#: templates/admin/payments-details.tpl.php:26
+#: templates/admin/payments-details.tpl.php:31
 msgctxt "admin payments"
 msgid "Overview"
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:30
+#: templates/admin/payments-details.tpl.php:35
 #, fuzzy
 msgctxt "admin payments"
 msgid "Payment ID:"
 msgstr "Płatność"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:34
+#: templates/admin/payments-details.tpl.php:39
 #, fuzzy
 msgctxt "admin payments"
 msgid "Listing:"
 msgstr "Oferta"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:38
+#: templates/admin/payments-details.tpl.php:43
 #, fuzzy
 msgctxt "admin payments"
 msgid "Status:"
 msgstr "Status"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:47
+#: templates/admin/payments-details.tpl.php:52
 #, fuzzy
 msgctxt "admin payments"
 msgid "Date:"
 msgstr "Data"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:51
+#: templates/admin/payments-details.tpl.php:56
 #, fuzzy
 msgctxt "admin payments"
 msgid "Time:"
 msgstr "Czas: %s"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:56
+#: templates/admin/payments-details.tpl.php:61
 #, fuzzy
 msgctxt "admin payments"
 msgid "Gateway:"
 msgstr "Bramka"
+
+# @ WPBDM
+#: templates/admin/payments-details.tpl.php:195
+#, fuzzy
+msgctxt "admin payments"
+msgid "Payment not found"
+msgstr "Informacje o abonamencie"
 
 # @ WPBDM
 #: templates/admin/payments-index.tpl.php:9
@@ -10239,7 +10384,7 @@ msgid "Search"
 msgstr "Szukaj"
 
 # @ WPBDM
-#: templates/admin/payments-details.tpl.php:173
+#: templates/admin/payments-details.tpl.php:178
 #, fuzzy
 msgctxt "payment admins"
 msgid "Add Note"
@@ -10704,6 +10849,16 @@ msgstr ""
 "znaleźć poniżej."
 
 # @ WPBDM
+#: templates/email/listing-payment-completed.tpl.php:2
+#, fuzzy
+msgctxt "emails"
+msgid ""
+"A new listing payment has been completed. Payment details can be found below."
+msgstr ""
+"Nowa ofert została przesłana do katalogu. Szczegóły oferty możesz znaleźć "
+"poniżej."
+
+# @ WPBDM
 #: templates/email/listing-reported.tpl.php:2
 #, fuzzy
 msgctxt "emails"
@@ -11135,11 +11290,6 @@ msgstr "Adres e-mail:"
 #~ msgctxt "admin infometabox"
 #~ msgid "Gateway"
 #~ msgstr "Bramka"
-
-# @ WPBDM
-#~ msgctxt "admin payments"
-#~ msgid "Payment Details"
-#~ msgstr "Szczegóły płatności"
 
 # @ WPBDM
 #~ msgctxt "admin payments"
@@ -11950,11 +12100,6 @@ msgstr "Adres e-mail:"
 #~ "być: \"%s\"."
 
 # @ WPBDM
-#~ msgctxt "authorize-net"
-#~ msgid "Could not process payment."
-#~ msgstr "Nie można kontynuować płatności."
-
-# @ WPBDM
 #~ msgctxt "dummy gateway"
 #~ msgid "Completed"
 #~ msgstr "Zakończona"
@@ -12528,11 +12673,6 @@ msgstr "Adres e-mail:"
 # @ WPBDM
 #~ msgid "Featured Listings Pending Upgrade"
 #~ msgstr "Wyróżniona oferta oczekuje na zmianę statusu"
-
-# @ WPBDM
-#~ msgctxt "admin listing fee"
-#~ msgid "Listing Fee Selection"
-#~ msgstr "Wybór Abonamentu"
 
 # @ WPBDM
 #~ msgctxt "admin listing fee"
