@@ -529,7 +529,11 @@ class WPBDP_Admin_Listings {
         wp_update_post( array( 'post_name' => $post_name, 'ID' => $post_id ) );
     }
 
-    function maybe_hide_permalinks( $return, $post_id, $new_title, $new_slug, $post ) {
+    function maybe_hide_permalinks( $return, $post_id, $new_title, $new_slug, $post = null ) {
+        if ( ! $post ) {
+            return $return;
+        }
+
         if( WPBDP_POST_TYPE === $post->post_type ) {
             // $return .= sprintf(
             //     '<div class="wpbdp_allow_slug_edit hidden"><label for="wpbdp_allow_slug_edit_input"><input id="wpbdp_allow_slug_edit_input" type="checkbox" name="edit_listing_slug" value="1" /> %s</label></div>', 
