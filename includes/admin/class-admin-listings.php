@@ -520,9 +520,18 @@ class WPBDP_Admin_Listings {
     }
 
     public function maybe_restore_listing_slug( $post_id ) {
-        $post_name = $post_name = get_post_meta( $post_id, '_wpbdp[name]', true );
+        $post_name = get_post_meta( $post_id, '_wpbdp[name]', true );
+
+        if ( $post_name === get_post_field( 'post_name', $post_id ) ) {
+            return;
+        }
         
-        if ( ! $post_name || $post_name === get_post_field( 'post_name', $post_id ) ) {
+        if (
+            ! $post_name || 
+            ( isset( $_POST['edit_listing_slug'] ) && (bool)$_POST['edit_listing_slug'] ) ||
+            ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] && 'edit-wpbdp_listing' === $_POST['screen'] )
+        ) {
+            update_post_meta( $post_id, '_wpbdp[name]', get_post_field( 'post_name', $post_id ) );
             return;
         }
 
@@ -535,11 +544,15 @@ class WPBDP_Admin_Listings {
         }
 
         if( WPBDP_POST_TYPE === $post->post_type ) {
-            // $return .= sprintf(
-            //     '<div class="wpbdp_allow_slug_edit hidden"><label for="wpbdp_allow_slug_edit_input"><input id="wpbdp_allow_slug_edit_input" type="checkbox" name="edit_listing_slug" value="1" /> %s</label></div>', 
-            //     __( 'Allow listing slug edition', 'WPBDM' )
-            // );
-            return '';
+            $return = sprintf(
+                '<div class="wpbdp_allow_slug_edit"><label for="wpbdp_allow_slug_edit_input"><input id="wpbdp_allow_slug_edit_input" type="checkbox" name="edit_listing_slug" value="1" checked="%s" /> %s</label></div>',
+                ( ! empty( $_POST['action'] ) && 'sample-permalink' == $_POST['action'] ) ? 'checked' : '',
+                __( 'Edit listing permalink', 'WPBDM' )
+            ) . sprintf( 
+                '<div class="wpbdp_listing_slug_edit %s">%s</div>',
+                ( ! empty( $_POST['action'] ) && 'sample-permalink' == $_POST['action'] ) ? '' : 'hidden',
+                $return
+            );
         }
 
         return $return;

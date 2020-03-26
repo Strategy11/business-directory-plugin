@@ -2,6 +2,17 @@
     // Disable Preview button until the first draft is saved
     $( document ).ready( function() {
 
+        $("#wpbdp_allow_slug_edit_input").attr('checked', false);
+        
+        $( '#titlediv' ).on( 'click', '#wpbdp_allow_slug_edit_input', function() {
+            if ( $( '#wpbdp_allow_slug_edit_input' ).is(':checked') ) {
+                $( '#edit-slug-buttons .cancel').click();
+                $( '.wpbdp_listing_slug_edit' ).removeClass('hidden');
+            } else {
+                $( '.wpbdp_listing_slug_edit' ).addClass('hidden');
+            } 
+        });
+
         var $form = $( 'body.post-type-wpbdp_listing form#post' ),
             post_status = $form.find( '#original_post_status' );
 
