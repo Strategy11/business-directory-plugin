@@ -1,8 +1,9 @@
 <?php
+error_log( print_r( array( $payment->id, empty( $payment->id ) ), true) );
 echo wpbdp_admin_header(
     str_replace(
         '<id>',
-        ! empty( $payment->id ) ? '#' . $payment->id : 'Not Found',
+        ! $payment->id ? '#' . $payment->id : 'Not Found',
         _x( 'Payment <id>', 'admin payments', 'WPBDM' ) 
     ),
     'payments-details',
@@ -16,7 +17,7 @@ echo wpbdp_admin_header(
 ?>
 <?php wpbdp_admin_notices(); ?>
 
-<?php if ( ! empty( $payment->id ) ) : ?>
+<?php if ( $payment->id ) : ?>
 <form action="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_update' ) ); ?>" method="post">
     <input type="hidden" name="payment[id]" value="<?php echo $payment->id; ?>" />
 
