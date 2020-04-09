@@ -636,8 +636,6 @@ class WPBDP__Shortcodes {
             'businessdirectory-search'
         );
 
-        error_log( print_r( $atts, true ) );
-
         if ( 'auto' == $atts['return_url'] ) {
             $atts['return_url'] = home_url( $_SERVER['REQUEST_URI'] );
         }

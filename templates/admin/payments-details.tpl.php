@@ -1,5 +1,4 @@
 <?php
-error_log( print_r( array( $payment->id, empty( $payment->id ) ), true) );
 echo wpbdp_admin_header(
     str_replace(
         '<id>',
