@@ -73,6 +73,11 @@ class WPBDP__Views__Search extends WPBDP__View {
             $fields .= $field->render( $field->convert_input( $field_value ), 'search' );
         }
 
+        // Allow [businessdirectory-search] shortcode to render form only filling current search fields.
+        if ( ! empty( $this->in_shortcode ) ) {
+            $searching = $searching && empty( $this->form_only );
+        }
+
         if ( $searching ) {
             $args = array(
                 'post_type'        => WPBDP_POST_TYPE,
