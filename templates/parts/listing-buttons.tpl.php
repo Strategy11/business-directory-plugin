@@ -22,7 +22,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_get_option( 'enable-listing-flagging' ) && wpbdp_user_can( 'flagging', $listing_id ) ) :
         $buttons .= sprintf(
-            ' <form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button report-listing" /></form>',
+            ' <form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button report-listing" rel="nofollow"/></form>',
             wpbdp_url( 'flag_listing', $listing_id ),
             apply_filters( 'wpbdp_listing_flagging_button_text', _x( 'Flag Listing', 'templates', 'WPBDM' ) )
         );
@@ -30,7 +30,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_user_can( 'delete', $listing_id ) ) :
         $buttons .= sprintf(
-            '<form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button delete-listing" data-confirmation-message="%s" /></form>',
+            '<form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button delete-listing" data-confirmation-message="%s" rel="nofollow"/></form>',
             wpbdp_url( 'delete_listing', $listing_id ),
             _x( 'Delete', 'templates', 'WPBDM' ),
             _x( 'Are you sure you wish to delete this listing?', 'templates', 'WPBDM' )
