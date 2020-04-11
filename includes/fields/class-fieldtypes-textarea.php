@@ -174,8 +174,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                 $options .= $key . ':' . $val . ',';
                 continue;
             } elseif ( ! empty( $value ) && is_string( $value ) && (
-                ( '{' == $value{0} && '}' == $value{strlen( $value ) - 1} ) ||
-                ( '[' == $value{0} && ']' == $value{strlen( $value ) - 1} ) ||
+                ( '{' == $value[0] && '}' == $value[strlen( $value ) - 1] ) ||
+                ( '[' == $value[0] && ']' == $value[strlen( $value ) - 1] ) ||
                 preg_match( '/^\(?function ?\(/', $value ) ) ) {
 
                 $options .= $key . ':' . $value . ',';
