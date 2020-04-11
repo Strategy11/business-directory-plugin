@@ -2,7 +2,7 @@
 echo wpbdp_admin_header(
     str_replace(
         '<id>',
-        ! $payment->id ? '#' . $payment->id : 'Not Found',
+        $payment->id ? '#' . $payment->id : 'Not Found',
         _x( 'Payment <id>', 'admin payments', 'WPBDM' ) 
     ),
     'payments-details',
