@@ -2,13 +2,35 @@
 $admin = isset( $admin ) ? $admin : false;
 $listing_id = isset( $listing_id ) ? $listing_id : 0;
 
-$action = add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-upload',
-                                'listing_id' => $listing_id ),
-                         admin_url( 'admin-ajax.php' ) );
+$action = add_query_arg(
+    array(
+        'action' => 'wpbdp-listing-submit-image-upload',
+        'listing_id' => $listing_id
+    ),
+    admin_url( 'admin-ajax.php' )
+);
+
+$media_action = add_query_arg(
+    array(
+        'action' => 'wpbdp-listing-media-image',
+        'listing_id' => $listing_id
+    ),
+    admin_url( 'admin-ajax.php' )
+);
 ?>
+
+
 <div class="image-upload-wrapper">
     <h4><?php _ex( 'Upload Images', 'templates', 'WPBDM' ); ?></h4>
 
+    <?php if ( is_admin() ): ?>
+        <div class="media-area-and-conditions cf">
+            <div class="wpbdp_media_images_wrapper">
+                <input type='button' class="button" value="<?php esc_attr_e( 'Select from Media', 'mytextdomain' ); ?>" id="wpbdp_media_manager" data-action="<?php echo esc_url( wp_nonce_url( $media_action, 'listing-' . $listing_id . '-image-from-media') ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>"/>
+            </div>
+            <p><?php _ex( 'or', 'templates image upload', 'WPBDM' ); ?></p>
+        </div>
+    <?php endif; ?>
     <div class="area-and-conditions cf">
     <div id="image-upload-dnd-area" class="wpbdp-dnd-area <?php echo $admin ? 'no-conditions' : ''; ?>" data-action="<?php echo esc_url( wp_nonce_url( $action, 'listing-' . $listing_id . '-image-upload') ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>" >
             <div class="dnd-area-inside">

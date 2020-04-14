@@ -214,7 +214,7 @@ WPBDP.fileUpload = {
 
             $( '#wpbdp-submit-listing' ).on( 'click', '.wpbdp-inner-social-field-option input', function( e ) {
                 var $icon_element = $( this ).parents( '.wpbdp-inner-social-field-option' ).siblings( '.wpbdp-upload-widget' );
-                console.log( $icon_element );
+                // console.log( $icon_element );
 
                 if ( 'Other' !== $( this ).val() ) {
                     $icon_element.hide();
@@ -369,6 +369,65 @@ WPBDP.fileUpload = {
                     }
                 }
             } );
+
+            $( 'input#wpbdp_media_manager' ).click( function( e ) {
+
+                e.preventDefault();
+                var image_frame;
+                var url = $( this ).attr( 'data-action' );
+
+                if( image_frame ){
+                    image_frame.open();
+                }
+                // Define image_frame as wp.media object
+                image_frame = wp.media(
+                    {
+                        title: 'Select Media',
+                        multiple : false,
+                        library : {
+                            type : 'image',
+                        }
+                    }
+                );
+   
+                image_frame.on( 'close', function() {
+                    // On close, get selections and save to the hidden input
+                    // plus other AJAX stuff to refresh the image preview
+                    var selection =  image_frame.state().get( 'selection' );
+                    var gallery_ids = new Array();
+                    var i = 0;
+                    selection.each( function( attachment ) {
+                        gallery_ids[i] = attachment['id'];
+                        i++;
+                    });
+                    var ids = gallery_ids.join(",");
+
+                    if ( ! ids ) {
+                        return;
+                    }
+
+                    $.post( url, { image_ids: ids }, function( res ) {
+                        if ( ! res.success ) {
+                            errors = [ res.data.errors ];
+                        } else {
+                            errors = ( 'undefined' !== typeof res.data.errors ) ? res.data.errors : false;
+                        }
+    
+                        if ( errors ) {
+                            var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( errors );
+                            $( '.media-area-and-conditions' ).prepend( errorMsg );
+                            return;
+                        }
+
+                        $( '.media-area-and-conditions .wpbdp-msg.error' ).remove();
+    
+                        $( '#no-images-message' ).hide();
+                        $( '#wpbdp-uploaded-images' ).append( res.data.html );
+                    });
+                });
+
+                image_frame.open();
+            });
 
             $( '#wpbdp-uploaded-images' ).sortable({
                 axis: 'y',

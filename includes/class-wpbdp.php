@@ -111,6 +111,8 @@ final class WPBDP {
         add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-upload', array( &$this, 'ajax_listing_submit_image_upload' ) );
         add_action( 'wp_ajax_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
         add_action( 'wp_ajax_nopriv_wpbdp-listing-submit-image-delete', array( &$this, 'ajax_listing_submit_image_delete' ) );
+        add_action( 'wp_ajax_wpbdp-listing-media-image', array( &$this, 'ajax_listing_media_image' ) );
+
 
         add_action( 'plugins_loaded', array( $this, 'register_cache_groups' ) );
         add_action( 'switch_blog', array( $this, 'register_cache_groups' ) );
@@ -437,6 +439,39 @@ final class WPBDP {
 
         $res->add( 'imageId', $image_id );
         $res->send();
+    }
+
+    public function ajax_listing_media_image() {
+        $data = stripslashes_deep( $_REQUEST );
+        $listing_id = intval( $data['listing_id'] );
+
+        if ( ! $listing_id ) {
+            return wp_send_json_error( array( 'errors' => _x( 'Could not find listing ID', 'admin listings', 'WPBDM' ) ) );
+        }
+
+        $image_ids = isset( $data['image_ids'] ) ? $data['image_ids'] : array();
+
+        if( ! $image_ids ) {
+            return wp_send_json_error( array( 'errors' => _x( 'Could not find image ID', 'admin listings', 'WPBDM' ) ) );
+        }
+
+        $image_ids = is_array( $image_ids ) ? $image_ids : array( $image_ids );
+
+        $html = '';
+        foreach( $image_ids as $id ) {
+            $html .= wpbdp_render(
+                'submit-listing-images-single',
+                array(
+                    'image_id' => $id,
+                    'listing_id' => $listing_id
+                ),
+                false
+            );
+        }
+
+        wp_send_json_success( array( 'html' => $html ) );
+        
+
     }
 
     public function frontend_manual_upgrade_msg() {
