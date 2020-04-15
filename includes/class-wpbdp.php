@@ -469,8 +469,14 @@ final class WPBDP {
             );
         }
 
-        wp_send_json_success( array( 'html' => $html ) );
-        
+        wp_send_json_success(
+            array(
+                'html'           => $html,
+                'errorElement'   => '.media-area-and-conditions',
+                'previewElement' => '#wpbdp-uploaded-images',
+                'source'         => 'listing_images'
+            ) 
+        );
 
     }
 

@@ -190,7 +190,7 @@ WPBDP.fileUpload = {
         $preview.find('input').val('');
 
         $preview.hide();
-        $iframe.show();
+        $preview.siblings().show();
 
         return false;
     }
@@ -415,14 +415,33 @@ WPBDP.fileUpload = {
     
                         if ( errors ) {
                             var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( errors );
-                            $( '.media-area-and-conditions' ).prepend( errorMsg );
+                            $( res.data.errorElement ).prepend( errorMsg );
                             return;
                         }
 
-                        $( '.media-area-and-conditions .wpbdp-msg.error' ).remove();
+                        $( res.data.errorElement + ' .wpbdp-msg.error' ).remove();
+
+                        if ( 'listing_field' === res.data.source ) {
+
+                            if ( ! res.data.inputElement ) {
+                                return;
+                                
+                            }
+
+                            var $input = $('input[name="' + res.data.inputElement + '"]');
+                            $input.val( res.data.media_id );
+
+                            var $preview = $input.siblings('.preview');
+                            $preview.find('img').remove();
+                            $preview.prepend( res.data.html );
+                            
+                            $preview.siblings().hide();
+                            $preview.show();
+                            return;
+                        }
     
                         $( '#no-images-message' ).hide();
-                        $( '#wpbdp-uploaded-images' ).append( res.data.html );
+                        $( res.data.previewElement ).append( res.data.html );
                     });
                 });
 

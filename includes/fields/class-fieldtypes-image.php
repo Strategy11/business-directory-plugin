@@ -15,6 +15,8 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         // TODO(fes-revamp): maybe this should go somewhere else?
         add_action( 'wp_ajax_wpbdp-file-field-upload', array( $this, '_ajax_file_field_upload' ) );
         add_action( 'wp_ajax_nopriv_wpbdp-file-field-upload', array( $this, '_ajax_file_field_upload' ) );
+
+        add_action( 'wp_ajax_wpbdp-media-field-select', array( $this, '_ajax_media_field_select' ) );
     }
 
     public function get_id() {
@@ -121,6 +123,31 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         if ( ! $listing_id ) {
             return wpbdp_render_msg( _x( 'Field unavailable at the moment.', 'form fields', 'WPBDM' ), 'error' );
+        }
+
+        if ( is_admin() ) {
+            $nonce    = wp_create_nonce( 'wpbdp-media-field-select-' . $field->get_id() . '-listing_id-' . $listing_id );
+            $ajax_url = add_query_arg(
+                array(
+                    'action'     => 'wpbdp-media-field-select',
+                    'field_id'   => $field->get_id(),
+                    'element'    => 'listingfields[' . $field->get_id() . '][0]',
+                    'nonce'      => $nonce,
+                    'listing_id' => $listing_id,
+                ),
+                admin_url( 'admin-ajax.php' )
+            );
+
+            $html .= '<div class="wpbdp-media-widget">';
+            $html .= '<div class="wpbdp_media_images_wrapper">';
+            $html .= sprintf( 
+                '<input type="button" class="button" value="%s" id="wpbdp_media_manager" data-action="%s"/>',
+                __( 'Select from Media', 'mytextdomain' ),
+                $ajax_url
+            );
+            $html .= '</div>';
+            $html .= _x( 'or', 'templates image upload', 'WPBDM' );
+            $html .= '</div>';
         }
 
         $nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
@@ -260,6 +287,44 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         echo sprintf( '<script type="text/javascript">document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>', $field_id );
 
         exit;
+    }
+
+    public function _ajax_media_field_select() {
+        $data = stripslashes_deep( $_REQUEST );
+        $field_id   = ! empty( $data['field_id'] ) ? absint( $data['field_id'] ) : 0;
+        $nonce      = ! empty( $data['nonce'] ) ? $data['nonce'] : '';
+        $listing_id = ! empty( $data['listing_id'] ) ? absint( $data['listing_id'] ) : 0;
+
+        if ( ! $field_id || ! $nonce || ! $listing_id ) {
+            die;
+        }
+
+        $image_id = isset( $data['image_ids'] ) ? $data['image_ids'] : 0;
+
+        if( ! $image_id ) {
+            return wp_send_json_error( array( 'errors' => _x( 'Could not find image ID', 'admin listings', 'WPBDM' ) ) );
+        }
+
+        $element = ! empty( $_REQUEST['element'] ) ? $_REQUEST['element'] : 'listingfields[' . $field_id . '][0]';
+
+        if ( ! wp_verify_nonce( $nonce, 'wpbdp-media-field-select-' . $field_id . '-' . 'listing_id-' . $listing_id ) ) {
+            die;
+        }
+
+        $media_id = is_array( $image_id ) ? $image_id[0] : $image_id;
+
+        $html = wp_get_attachment_image( $media_id, 'thumb', false );
+
+        wp_send_json_success(
+            array(
+                'html'           => $html,
+                'errorElement'   => '.wpbdp-media-widget',
+                'previewElement' => '.preview',
+                'inputElement'   => $element,
+                'media_id'       => $media_id,
+                'source'         => 'listing_field'
+            ) 
+        );
     }
 
     public function is_empty_value( $value ) {
