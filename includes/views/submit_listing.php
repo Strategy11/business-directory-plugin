@@ -76,6 +76,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return ( ! empty( $_POST['save_listing'] ) && '1' == $_POST['save_listing'] );
     }
 
+    public function editing() {
+        return $this->editing;
+    }
+
     public function dispatch() {
         $msg = '';
         if ( ! $this->can_submit( $msg ) ) {
