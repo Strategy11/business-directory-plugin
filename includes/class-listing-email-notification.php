@@ -25,7 +25,9 @@ class WPBDP__Listing_Email_Notification {
 
         add_action( 'wpbdp_listing_maybe_flagging_notice', array( $this, 'reported_listing_email' ), 10, 2 );
 
-        add_action( 'WPBDP_Payment::status_change', array( $this, 'payment_completed_email' ), 10, 3 );
+        if ( ! is_admin() ) {
+            add_action( 'WPBDP_Payment::status_change', array( $this, 'payment_completed_email' ), 10, 3 );
+        }
     }
 
     /**

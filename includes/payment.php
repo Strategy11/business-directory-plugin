@@ -25,7 +25,7 @@ class WPBDP_PaymentsAPI {
         add_filter( 'WPBDP_Listing::get_payment_status', array( &$this, 'abandonment_status' ), 10, 2 );
         add_filter( 'wpbdp_admin_directory_views', array( &$this, 'abandonment_admin_views' ), 10, 2 );
         add_filter( 'wpbdp_admin_directory_filter', array( &$this, 'abandonment_admin_filter' ), 10, 2 );
-        add_filter( 'wpbdp_listing_post_status', array( &$this, 'listing_post_status_filter' ), 10, 2 );
+        add_filter( 'wpbdp_listing_post_status', array( &$this, 'check_listing_payment_status' ), 10, 2 );
 
         add_action( 'wpbdp_checkout_form_top', array( $this, '_return_fee_list_button' ), -2, 1 );
         add_action( 'wpbdp_checkout_before_action', array( $this, 'maybe_fee_select_redirect' ) );
@@ -300,8 +300,8 @@ class WPBDP_PaymentsAPI {
         wp_redirect( $url );
     }
 
-    public function listing_post_status_filter( $status, $listing ) {
-        if ( 'publish' !== $status ) {
+    public function check_listing_payment_status( $status, $listing ) {
+        if ( 'publish' !== $status || is_admin() ) {
             return $status;
         }
 
