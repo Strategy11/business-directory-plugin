@@ -40,10 +40,15 @@ class WPBDP_Listing {
     }
 
     public function get_images( $fields = 'all', $sorted = false ) {
-        $q = array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id );
+        $q = array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id, 'fields' => 'ids' );
         $result = array();
 
-        foreach ( get_posts( $q ) as $attachment ) {
+        $images = get_post_meta( $this->id, '_wpbdp[images]', true );
+
+        $images = array_merge( is_array( $images ) ? $images : array( $images ), get_posts( $q ) );
+
+        foreach ( array_unique( $images ) as $attachment_id ) {
+            $attachment = get_post( $attachment_id );
             if ( ! wp_attachment_is_image( $attachment->ID ) )
                 continue;
 

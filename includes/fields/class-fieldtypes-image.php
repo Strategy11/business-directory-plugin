@@ -142,7 +142,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             $html .= '<div class="wpbdp_media_images_wrapper">';
             $html .= sprintf( 
                 '<input type="button" class="button" value="%s" id="wpbdp_media_manager" data-action="%s"/>',
-                __( 'Select from Media', 'mytextdomain' ),
+                __( 'Select from Media', 'WPBDM' ),
                 $ajax_url
             );
             $html .= '</div>';

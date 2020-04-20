@@ -512,6 +512,10 @@ class WPBDP_Admin_Listings {
         if ( ! empty( $_POST['images_meta'] ) ) {
             $meta = $_POST['images_meta'];
 
+            $images = array_keys( $meta );
+
+            update_post_meta( $post_id, '_wpbdp[images]', $images );
+
             foreach ( $meta as $img_id => $img_meta ) {
                 update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta['order'] ) );
                 update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta['caption'] ) );
