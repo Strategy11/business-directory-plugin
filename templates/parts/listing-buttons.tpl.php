@@ -14,7 +14,7 @@ $buttons = '';
 if ( 'single' === $view ) :
     if ( wpbdp_user_can( 'edit', $listing_id ) ) :
 		$buttons .= sprintf(
-            '<form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button edit-listing" /></form>',
+            '<form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button edit-listing" rel="nofollow" /></form>',
             wpbdp_url( 'edit_listing', $listing_id ),
             _x( 'Edit', 'templates', 'WPBDM' )
 		);
