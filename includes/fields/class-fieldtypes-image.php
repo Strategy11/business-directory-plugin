@@ -194,6 +194,10 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         _wpbdp_resize_image_if_needed( $img_id );
         $img = wp_get_attachment_image_src( $img_id, 'large' );
 
+        if ( ! $img ) {
+            return '';
+        }
+
         $html  = '';
         $html .= '<br />';
         $html .= '<div class="listing-image" style="width: ' . $thumbnail_width . 'px;">';
