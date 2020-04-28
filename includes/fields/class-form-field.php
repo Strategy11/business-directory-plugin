@@ -862,16 +862,18 @@ class WPBDP_Form_Field {
                     if ( is_numeric( $term_ ) ) {
                         $term = get_term( intval( $term_ ), $tax );
 
-                        if ( ! $term ) {
+                        if ( $term ) {
+                            $t_ids  = array_merge( array( $term->term_id ), get_term_children( $term->term_id, $tax ) );
+                            $tt_ids = array_merge(
+                                $tt_ids,
+                                $wpdb->get_col( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy = '{$tax}' AND tt.term_id IN (" . implode( ',', $t_ids ) . ')' )
+                            );
                             continue;
                         }
 
-                        $t_ids  = array_merge( array( $term->term_id ), get_term_children( $term->term_id, $tax ) );
-                        $tt_ids = array_merge(
-                            $tt_ids,
-                            $wpdb->get_col( "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt WHERE tt.taxonomy = '{$tax}' AND tt.term_id IN (" . implode( ',', $t_ids ) . ')' )
-                        );
-                    } elseif ( is_string( $term_ ) ) {
+                    }
+                    
+                    if ( is_string( $term_ ) ) {
                         $tt_ids = $wpdb->get_col(
                             $wpdb->prepare(
                                 "SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
