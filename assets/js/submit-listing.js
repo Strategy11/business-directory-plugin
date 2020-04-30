@@ -393,6 +393,7 @@ jQuery(function($) {
             var messages = data.messages;
 
             var current_sections = this.$form.find( '.wpbdp-submit-listing-section' );
+            current_sections.hide();
             var new_sections = sections;
 
             var self = this;
@@ -421,6 +422,7 @@ jQuery(function($) {
                     } );
 
                     $( window ).trigger( 'wpbdp_submit_refresh', [self, section_id, $section] );
+                    $section.show();
                 } );
             } );
         },
