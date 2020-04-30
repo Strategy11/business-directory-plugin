@@ -49,7 +49,7 @@ class WPBDP_Listing {
 
         foreach ( array_unique( $images ) as $attachment_id ) {
             $attachment = get_post( $attachment_id );
-            if ( ! wp_attachment_is_image( $attachment->ID ) )
+            if ( ! $attachment || ! wp_attachment_is_image( $attachment->ID ) )
                 continue;
 
             if ( ! $sorted && ( 'id' == $fields || 'ids' == $fields ) ) {
