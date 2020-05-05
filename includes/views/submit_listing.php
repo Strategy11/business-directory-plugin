@@ -363,9 +363,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $listing_id = absint( $_REQUEST['listing_id'] );
             $listing    = wpbdp_get_listing( $listing_id );
         } else {
-            $listing_id = wp_insert_post(
+            $post_author = get_current_user_id();
+            $post_author = $post_author ? $post_author : wpbdp_get_option( 'default-listing-author' );
+            $listing_id  = wp_insert_post(
                 array(
-                    'post_author' => get_current_user_id(),
+                    'post_author' => $post_author,
                     'post_type'   => WPBDP_POST_TYPE,
                     'post_status' => 'auto-draft',
                     'post_title'  => '(no title)',
