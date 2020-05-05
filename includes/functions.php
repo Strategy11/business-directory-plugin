@@ -450,7 +450,8 @@ function wpbdp_get_current_sort_option() {
 
 /*
  * @since 2.1.6
- * @SuppressWarnings(PHPMD)
+ * 
+ * @SuppressWarnings("CyclomaticComplexity")
  */
 function _wpbdp_resize_image_if_needed( $id ) {
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -1287,31 +1288,18 @@ function wpbdp_get_return_link() {
 
 }
 
-// Temporary claim listings version fix Remove before 5.6.2.
+/**
+ * @since 5.6.3
+ */
+function wpbdp_users_dropdown() {
+    $users = get_users( array( 'fields' => array( 'ID', 'user_login' ) ) );
+    $res   = array();
 
-if( is_admin() && ! get_option( '_wpbpd_update_claim_module_version', false ) ) {
-
-    $file = plugin_dir_path( __DIR__ ) . '../business-directory-claim-listings/business-directory-claim-listings.php';
-
-    if ( ! file_exists( $file ) ) {
-        return;
+    foreach ( $users as $u ) {
+        $res[ $u->ID ] = $u->user_login;
     }
 
-    $content = file_get_contents( $file );
-
-    if ( strpos( $content, '* Version: 5.3' ) ) {
-        if( ! file_put_contents( $file, str_replace('* Version: 5.3','* Version: 5.2', $content ) ) !== false ) {
-            return;
-        }
-    } 
-
-    if ( strpos( $content, '$this->version             = \'5.3' ) ) {
-        if( ! file_put_contents( $file, str_replace('$this->version             = \'5.3','$this->version             = \'5.2', $content ) ) !== false ) {
-            return;
-        }
-    }
-
-    update_option( '_wpbpd_update_claim_module_version', true );
+    return $res;
 }
 
 // phpcs:enable
