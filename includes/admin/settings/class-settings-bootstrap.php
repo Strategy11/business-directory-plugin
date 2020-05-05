@@ -571,6 +571,25 @@ final class WPBDP__Settings__Bootstrap {
 				'group'   => 'listings/main',
             )
         );
+        $admin = get_user_by( 'email', get_option( 'new_admin_email' ) );
+        if ( ! $admin ) {
+            $admin_users = get_users( array( 'fields' => array( 'ID' ), 'role' => 'administrator' ) );
+            
+            if ( $admin_users ) {
+                $admin = $admin_users[0];
+            }
+        }
+        wpbdp_register_setting(
+            array(
+                'id'      => 'default-listing-author',
+                'name'    => _x( 'Default owner of \'Anonymous Submitted Listings\'', 'settings', 'WPBDM' ),
+                'type'    => 'select',
+                'default' => $admin ? $admin->ID : '1',
+                'desc'    => _x( 'New listings must have an author, If login is not required to submit listings, this user will own them, typically the administrator of the site or some other user that will never actually be managing a listing.', 'settings', 'WPBDM' ),
+                'options' => wpbdp_users_dropdown(),
+                'group'   => 'listings/main',
+            )
+        );
         wpbdp_register_setting(
             array(
 				'id'      => 'status-on-uninstall',

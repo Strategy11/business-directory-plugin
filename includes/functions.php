@@ -450,8 +450,7 @@ function wpbdp_get_current_sort_option() {
 
 /*
  * @since 2.1.6
- * 
- * @SuppressWarnings("CyclomaticComplexity")
+ * @SuppressWarnings(PHPMD)
  */
 function _wpbdp_resize_image_if_needed( $id ) {
     require_once( ABSPATH . 'wp-admin/includes/image.php' );
