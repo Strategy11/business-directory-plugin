@@ -1180,7 +1180,7 @@ function wpbdp_sortbar_get_field_options() {
     $options = array();
 
     foreach( wpbdp_get_form_fields() as $field ) {
-        if ( in_array( $field->get_field_type_id(), array( 'textarea', 'select', 'checkbox', 'url' ) ) || in_array( $field->get_association(), array( 'category', 'tags' ) ) ) {
+        if ( in_array( $field->get_field_type_id(), array( 'image', 'social-network', 'multiselect', 'checkbox', 'url' ) ) || in_array( $field->get_association(), array( 'category', 'tags', 'regions' ) ) ) {
             continue;
         }
 
