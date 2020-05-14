@@ -329,7 +329,18 @@ class WPBDP_Admin_Listings {
             if ( 0.0 == $plan->fee_price ) {
                 $attributes['free'] = '<span class="wpbdp-tag wpbdp-listing-attr-free">' . _x( 'Free', 'admin listings', 'WPBDM' ) . '</span>';
             } elseif ( 'pending_payment' != $listing->get_status() ) {
-                $attributes['paid'] = '<span class="wpbdp-tag wpbdp-listing-attr-paid">' . _x( 'Paid', 'admin listings', 'WPBDM' ) . '</span>';
+                $latest_payment = $listing->get_latest_payment();
+
+                $attributes['payment'] = '<span class="wpbdp-tag wpbdp-listing-attr-payment-not-found">' . _x( 'Payment Not Found', 'admin listings', 'WPBDM' ) . '</span>';
+                if ( $latest_payment && $latest_payment->status ) {
+                    $attributes['payment']  = '<span class="wpbdp-tag wpbdp-listing-attr-payment-' . $latest_payment->status . '">';
+                    $attributes['payment'] .= sprintf(
+                        _x( 'Payment %s', 'admin listings', 'WPBDM' ),
+                        $latest_payment->get_status_label( $latest_payment->status )
+                    );
+                    $attributes['payment'] .= '</span>';
+                }
+                
             }
         }
 
