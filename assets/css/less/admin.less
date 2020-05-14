@@ -654,11 +654,18 @@ span.tag {
 }
 
 .wpbdp-tag, span.tag {
-    &.wpbdp-listing-attr-paid {
+    &.wpbdp-listing-attr-payment-completed {
         background: green;
     }
 
-    &.wpbdp-listing-attr-admin-posted {
+    &.wpbdp-listing-attr-payment-canceled,
+    &.wpbdp-listing-attr-payment-failed {
+        background: red;
+    }
+
+    &.wpbdp-listing-attr-admin-posted,
+    &.wpbdp-listing-attr-payment-on-hold,
+    &.wpbdp-listing-attr-payment-refunded {
         background: orange;
     }
 
