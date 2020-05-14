@@ -389,6 +389,9 @@ class WPBDP__Shortcodes {
 
         $this->validate_attributes( $sc_atts, $atts );
 
+        // Remove sortbar from latests listings shortcode.
+        add_filter( 'wpbdp_get_option_listings-sortbar-enabled', '__return_false', 9999 );
+
         return $this->display_listings(
             array(
                 'orderby' => 'date',
