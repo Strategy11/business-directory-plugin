@@ -345,7 +345,7 @@ class WPBDP__Listing_Email_Notification {
             $cc = wpbdp_get_option( 'admin-notifications-cc' );
 
             if ( $cc ) {
-                $email->cc[] = $cc;
+                $email->cc = $cc;
             }
 
             $owner = wpbusdirman_get_the_business_email( $listing->get_id() );
