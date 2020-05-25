@@ -526,7 +526,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
                 'title' => $caption ? $caption : get_the_title( $listing_id ),
             )
         );
-    } elseif ( ! $main_image && in_array( $display, wpbdp_get_option( 'use-default-picture' ) ) ) {
+    } elseif ( ! $main_image && ! empty( wpbdp_get_option( 'use-default-picture' ) ) && in_array( $display, (array)wpbdp_get_option( 'use-default-picture', array() ) ) ) {
         $image_img  = sprintf(
             '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
             WPBDP_URL . 'assets/images/default-image-big.gif',
