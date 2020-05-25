@@ -198,7 +198,6 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
 function wpbdp_list_categories( $args = array() ) {
     $args = wp_parse_args(
         $args, array(
-            'parent'       => null,
             'echo'         => false,
             'orderby'      => wpbdp_get_option( 'categories-order-by' ),
             'order'        => wpbdp_get_option( 'categories-sort' ),
@@ -212,7 +211,9 @@ function wpbdp_list_categories( $args = array() ) {
 
     $html = '';
 
-    if ( $categories = _wpbdp_list_categories_walk( 0, 0, $args ) ) {
+    $categories = _wpbdp_list_categories_walk( 0, 0, $args );
+
+    if ( $categories ) {
         $attributes = apply_filters(
             'wpbdp_categories_list_attributes', array(
                 'class'                         => 'wpbdp-categories cf ' . apply_filters( 'wpbdp_categories_list_css', '' ),
