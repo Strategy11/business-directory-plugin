@@ -46,6 +46,8 @@ class WPBDP_Admin_Listings {
         add_action( 'wp_ajax_wpbdp-clear-payment-history', array( &$this, 'ajax_clear_payment_history' ) );
 
         add_filter( 'tag_cloud_sort', array( $this, '_add_tag_cloud') );
+
+        $listing_owner = new WPBDP__Admin__Listing_Owner();
     }
 
     // Category filter. {{
@@ -179,6 +181,9 @@ class WPBDP_Admin_Listings {
     }
 
     function add_metaboxes() {
+
+        remove_meta_box( 'authordiv', WPBDP_POST_TYPE, 'normal' );
+
         add_meta_box(
             'wpbdp-listing-plan',
             __( 'Listing Information', 'WPBDM' ),
@@ -214,6 +219,15 @@ class WPBDP_Admin_Listings {
                 'core'
             );
         }
+
+        add_meta_box(
+            'wpbdp-listing-owner',
+            __( 'Listing Owner', 'WPBDM' ),
+            array( $this, '_metabox_listing_owner' ),
+            WPBDP_POST_TYPE,
+            'normal',
+            'core'
+        );
     }
 
     public function _metabox_listing_info( $post ) {
@@ -227,6 +241,11 @@ class WPBDP_Admin_Listings {
         $timeline = new WPBDP__Listing_Timeline( $post->ID );
 
         echo $timeline->render();
+    }
+
+    public function _metabox_listing_owner( $post ) {
+        $owner_metabox = new WPBDP__Admin__Listing_Owner( $post->ID );
+        echo $owner_metabox->render_metabox();
     }
 
     public function _metabox_listing_flagging( $post ) {
