@@ -130,6 +130,13 @@ class WPBDP_Admin {
             WPBDP_VERSION
         );
 
+        wp_enqueue_script(
+            'wpbdp-user-selector-js',
+            WPBDP_URL . 'assets/js/user-selector.min.js',
+            array( 'jquery', 'wpbdp-js-select2' ),
+            WPBDP_VERSION
+        );
+
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wpbdp_enqueue_jquery_ui_style();
 
