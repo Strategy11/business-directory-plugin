@@ -8,14 +8,15 @@
 
 // phpcs:disable
 
-require_once( WPBDP_PATH . 'includes/admin/admin-pages.php' );
-require_once( WPBDP_PATH . 'includes/admin/class-admin-listings.php' );
-require_once( WPBDP_PATH . 'includes/admin/form-fields.php' );
-require_once( WPBDP_PATH . 'includes/admin/csv-import.php' );
-require_once( WPBDP_PATH . 'includes/admin/csv-export.php' );
-require_once( WPBDP_PATH . 'includes/admin/class-listing-fields-metabox.php' );
-require_once( WPBDP_PATH . 'includes/admin/page-debug.php' );
-require_once( WPBDP_PATH . 'includes/admin/class-admin-controller.php' );
+require_once WPBDP_PATH . 'includes/admin/admin-pages.php';
+require_once WPBDP_PATH . 'includes/admin/class-admin-listings.php';
+require_once WPBDP_PATH . 'includes/admin/form-fields.php';
+require_once WPBDP_PATH . 'includes/admin/csv-import.php';
+require_once WPBDP_PATH . 'includes/admin/csv-export.php';
+require_once WPBDP_PATH . 'includes/admin/class-listing-owner.php';
+require_once WPBDP_PATH . 'includes/admin/class-listing-fields-metabox.php';
+require_once WPBDP_PATH . 'includes/admin/page-debug.php';
+require_once WPBDP_PATH . 'includes/admin/class-admin-controller.php';
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -52,8 +53,6 @@ class WPBDP_Admin {
 
         // Puts the "Directory" and "Directory Admin" next to each other.
         add_filter( 'menu_order', array( &$this, 'admin_menu_reorder' ) );
-
-        add_filter( 'wp_dropdown_users_args', array( $this, '_dropdown_users_args' ), 10, 2 );
 
         add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
         add_filter( 'manage_edit-' . WPBDP_TAGS_TAX . '_columns', array( &$this, 'tag_taxonomy_columns' ) );
@@ -825,6 +824,10 @@ to how WordPress stores the data.", 'WPBDM' )
         return new WPBDP__Access_Keys_Sender();
     }
 
+    /**
+     * @deprecated since 5.6.3
+     * @see WPBDP__Admin__Listing_Owner::_dropdown_users_args
+     */
     public function _dropdown_users_args( $query_args, $r ) {
         global $post;
 
@@ -840,6 +843,10 @@ to how WordPress stores the data.", 'WPBDM' )
         return $query_args;
     }
 
+    /**
+     * @deprecated since 5.6.3
+     * @see WPBDP__Admin__Listing_Owner::_dropdown_users
+     */
     public function _dropdown_users( $output ) {
         global $post;
 
