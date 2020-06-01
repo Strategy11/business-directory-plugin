@@ -1,0 +1,155 @@
+jQuery( function($) {
+    var id = 0;
+    var UserSelector = function( select, options ) {
+        var self = this;
+
+        self.$select = $( select );
+        self.options = options;
+
+        if (typeof self.options === 'undefined') {
+            return false;
+        }
+
+        if ( self.options.mode === 'ajax' ) {
+            return self.configureAjaxBehavior();
+        }
+
+        return self.configureInlineBehavior();
+    };
+
+    $.extend( UserSelector.prototype, {
+
+        configure: function() {
+            if (typeof this.options === 'undefined') {
+                return;
+            }
+    
+            if ( this.options.mode === 'ajax' ) {
+                this.configureAjaxBehavior();
+                return;
+            }
+
+            this.configureInlineBehavior();
+        },
+
+        configureAjaxBehavior: function() {
+            var self = this;
+            var options = $.extend( true, {}, self.options.select2, {
+                ajax: {
+                    processResults: function( data ) {
+                        var items = $.map( data.items, function( item ) {
+                            return {
+                                id: item.ID,
+                                text: item.user_login
+                            };
+                        } );
+
+                        return { results: items };
+                    }
+                }
+            } );
+
+            self.$select.selectWoo( options );
+
+            if ( self.options.selected.id ) {
+                var option = new Option( self.options.selected.text, self.options.selected.id, true, true );
+                self.$select.append( option ).trigger( 'change' );
+            }
+
+            self.setupEventHandlers();
+        },
+
+        setupEventHandlers: function() {
+            var self = this;
+
+            self.$select.on( 'change.select2', function() {
+                self.onChange();
+            } );
+        },
+
+        configureInlineBehavior: function() {
+            var self = this;
+
+            self.$select.selectWoo( self.options.select2 );
+
+            self.setupEventHandlers();
+        },
+
+        onChange: function() {
+            var self = this;
+
+            if ( $.isFunction( self.options.onChange ) ) {
+                self.options.onChange( self.getSelectedUser() );
+            }
+        },
+
+        getSelectedUser: function() {
+            var self  = this;
+            var users = self.$select.selectWoo( 'data' );
+
+            if ( users && users.length ) {
+                return { id: users[0].id, name: users[0].text };
+            }
+
+            return { id: 0, name: '' };
+        },
+
+        clearSelectedUser: function() {
+            var self = this;
+
+            self.$select.val( null ).trigger( 'change' );
+        }
+    } );
+
+    // Edit listing screen
+    $userSelect = $('#wpbdp-listing-owner').find( '.wpbdp-user-selector' );
+
+    if ( $userSelect.length > 0 ) {
+        $userSelector = new UserSelector( $userSelect, $userSelect.data( 'configuration' ) );
+    }
+
+    // Quick Edit screen
+    // $quickUserSelect = $('#inline-edit').find( '.wpbdp-user-selector' );
+
+    // if ( $quickUserSelect.length > 0 ) {
+    //     $quickUserSelector = new UserSelector( $quickUserSelect, $quickUserSelect.data( 'configuration' ) );
+    // }
+
+    $( document ).ready(function() {
+        var $quickUserSelect = null;
+        var target = document.querySelector('#the-list' );
+            
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+            //addedNodes contains all detected new controls
+                if ( mutation && mutation.addedNodes ) {
+                    //only apply select2 to select elements
+                    if ( $( mutation.addedNodes ).attr( 'id' ) === 'edit-' + id) {
+                        $quickUserSelect = $( '#edit-' + id ).find( '#wpbdp-user-select .wpbdp-user-selector' );
+
+                        if ( $quickUserSelect.length > 0 ) {
+                            $quickUserSelect.select2();
+                        }
+                    }
+                }
+            });
+            // setTimeout( function () {
+            //     $quickUserSelect = $( '#edit-' + id ).find( '#wpbdp-user-select .wpbdp-user-selector' );
+
+            //     if ( $quickUserSelect.length > 0 ) {
+            //         $quickUserSelector = new UserSelector( $quickUserSelect, $quickUserSelect.data( 'configuration' ) );
+            //     }
+
+            // }, 250 );
+        } );
+
+        observer.observe( target, {characterData: true, childList: true});
+
+        $( '#the-list' ).on( 'click', '.editinline', function() {
+            var row   = $(this).closest('tr').attr('id'),
+                parts = row.split('-');
+
+            id = parts[parts.length - 1];
+        });
+    });
+} );
