@@ -23,7 +23,7 @@
     <?php if ( ! empty( $selected_categories ) ) : ?>
         <?php echo $category_field->render( (array) $selected_categories, 'submit' ); ?>
     <?php else : ?>
-        <?php if ( ! $editing ) : ?>
+        <?php if ( ! $editing && ! $_submit->skip_plan_selection ) : ?>
         <div class="wpbdp-msg tip"><?php _ex( 'You need to pick the categories first and then you\'ll be shown the available fee plans for your listing.', 'submit', 'WPBDM' ); ?></div>
         <?php endif; ?>
         <?php echo $category_field->render(); ?>
