@@ -33,6 +33,8 @@ class WPBDP_WPML_Compat {
             add_filter( 'wpbdp_render_field_description', array( &$this, 'translate_form_field_description' ), 10, 2 );
             add_filter( 'wpbdp_display_field_label', array( &$this, 'translate_form_field_label' ), 10, 2 );
 
+            add_filter( 'wpbdp_form_field_data', array( &$this, 'translate_form_field_option_data' ), 10, 3 );
+
             add_filter( 'wpbdp_category_fee_selection_label', array( &$this, 'translate_fee_label' ), 10, 2 );
             add_filter( 'wpbdp_plan_description_for_display', array( $this, 'translate_fee_description' ), 10, 2 );
 
@@ -348,6 +350,16 @@ class WPBDP_WPML_Compat {
                     $f->get_description()
                 );
             }
+
+            if ( in_array( $f->get_association(), array( 'meta', 'tags' ) ) && in_array( $f->get_field_type_id(), array( 'select', 'multiselect', 'checkbox', 'radio' ) ) ) {
+                if ( $f->data( 'options' ) ) {
+                    icl_register_string(
+                        'Business Directory Plugin',
+                        sprintf( 'Field #%d - options', $f->get_id() ),
+                        implode( "\n", $f->data( 'options' ) )
+                    );
+                }
+            }
         }
     }
 
@@ -373,6 +385,24 @@ class WPBDP_WPML_Compat {
             sprintf( 'Field #%d - description', $field->get_id() ),
             $field->get_description()
         );
+    }
+
+    function translate_form_field_option_data( $value, $key, $field ) {
+        if ( ! is_object( $field ) || empty( $value ) || 'options' !== $key || ! function_exists( 'icl_t' ) ) {
+            return $value;
+        }
+
+        if ( ! in_array( $field->get_association(), array( 'meta', 'tags' ) ) || ! in_array( $field->get_field_type_id(), array( 'select', 'multiselect', 'checkbox', 'radio' ) ) ) {
+            return $value;
+        }
+
+        $options = icl_t(
+            'Business Directory Plugin',
+            sprintf( 'Field #%d - options', $field->get_id() ),
+            implode( "\n", $value )
+        );
+
+        return $options ? array_map( 'trim', explode( "\n", $options ) ) : $value;
     }
 
     // }}}
