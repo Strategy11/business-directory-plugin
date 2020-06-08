@@ -30,8 +30,8 @@ class WPBDP_Installer {
     private $installed_version = null;
 
 
-    public function __construct() {
-        $this->installed_version = get_option( 'wpbdp-db-version', get_option( 'wpbusdirman_db_version', null ) );
+    public function __construct( $_db_version ) {
+        $this->installed_version = $_db_version;
 
         add_action( 'split_shared_term', array( &$this, 'handle_term_split' ), 10, 4 );
     }

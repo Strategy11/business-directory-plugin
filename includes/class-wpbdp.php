@@ -10,6 +10,7 @@
 final class WPBDP {
 
     public $_query_stack = array();
+    private $_db_version = null;
 
 
     public function __construct() {
@@ -29,6 +30,8 @@ final class WPBDP {
         define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
         define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
         define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
+
+        $this->_db_version = get_option( 'wpbdp-db-version', get_option( 'wpbusdirman_db_version', null ) );
     }
 
     private function includes() {
@@ -135,7 +138,7 @@ final class WPBDP {
 
         $this->themes = new WPBDP_Themes();
 
-        $this->installer = new WPBDP_Installer();
+        $this->installer = new WPBDP_Installer( $this->_db_version );
         try {
             $this->installer->install();
         } catch ( Exception $e ) {
@@ -497,6 +500,10 @@ final class WPBDP {
             __( 'The directory is not available at this time. Please try again in a few minutes or contact the administrator if the problem persists.', 'WPBDM' ),
             'error'
         );
+    }
+
+    public function get_db_version() {
+        return $this->_db_version;
     }
 
 }
