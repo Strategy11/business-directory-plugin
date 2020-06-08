@@ -22,7 +22,7 @@
 
 <!-- <screen: import status> !-->
 <div id="wpbdp-csv-import-state" data-import-id="<?php echo $import->get_import_id(); ?>">
-    <h3><?php _e( 'Import Progress', 'admin csv-import', 'WPBDM' ); ?></h3>
+    <h3><?php _x( 'Import Progress', 'admin csv-import', 'WPBDM' ); ?></h3>
 
     <dl class="import-status">
         <dt><?php _ex( 'Files', 'admin csv-import', 'WPBDM' ); ?></dt>

@@ -26,7 +26,7 @@ $media_action = add_query_arg(
     <?php if ( is_admin() && ! wpbdp_is_request( 'ajax' ) ): ?>
         <div class="media-area-and-conditions cf">
             <div class="wpbdp_media_images_wrapper">
-                <input type='button' class="button" value="<?php esc_attr_e( 'Select from Media', 'mytextdomain' ); ?>" id="wpbdp_media_manager" data-action="<?php echo esc_url( wp_nonce_url( $media_action, 'listing-' . $listing_id . '-image-from-media') ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>"/>
+                <input type='button' class="button" value="<?php esc_attr_e( 'Select from Media', 'WPBDM' ); ?>" id="wpbdp_media_manager" data-action="<?php echo esc_url( wp_nonce_url( $media_action, 'listing-' . $listing_id . '-image-from-media') ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>"/>
             </div>
             <p><?php _ex( 'or', 'templates image upload', 'WPBDM' ); ?></p>
         </div>

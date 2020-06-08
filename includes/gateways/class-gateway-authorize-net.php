@@ -35,8 +35,8 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
     public function get_settings() {
         return array(
-            array( 'id' => 'login-id', 'name' => __( 'Login ID', 'authorize-net', 'WPBDM' ), 'type' => 'text' ),
-            array( 'id' => 'transaction-key', 'name' => __( 'Transaction Key', 'authorize-net', 'WPBDM' ), 'type' => 'text' )
+            array( 'id' => 'login-id', 'name' => _x( 'Login ID', 'authorize-net', 'WPBDM' ), 'type' => 'text' ),
+            array( 'id' => 'transaction-key', 'name' => _x( 'Transaction Key', 'authorize-net', 'WPBDM' ), 'type' => 'text' )
         );
     }
 
@@ -353,11 +353,11 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             $response = $arb->cancelSubscription( $susc_id );
 
             if ( ! $response->isOk() ) {
-                $msg = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'wpbdp-stripe' );
+                $msg = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'WPBDM' );
 
                 if ( current_user_can( 'administrator' ) ) {
                     $msg = sprintf(
-                        __( 'An error occurred while trying to cancel Authorize.net subscription with ID %s. You can try again later or cancel subscription from gateway dashboard.', 'wpbdp-stripe' ),
+                        __( 'An error occurred while trying to cancel Authorize.net subscription with ID %s. You can try again later or cancel subscription from gateway dashboard.', 'WPBDM' ),
                         $susc_id
                     );
                 }

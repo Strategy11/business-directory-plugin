@@ -53,8 +53,8 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
      */
     public function export_objects( $payment_transactions ) {
         $items        = array(
-            'ID'          => __( 'Payment Transaction', 'business-directory-plugin' ),
-            'payer_email' => __( 'Payer Email', 'business-directory-plugin' ),
+            'ID'          => __( 'Payment Transaction', 'WPBDM' ),
+            'payer_email' => __( 'Payer Email', 'WPBDM' ),
         );
         $export_items = array();
 
@@ -63,7 +63,7 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
             $data           = $this->data_formatter->format_data( $items, $this->get_payment_transaction_properties( $payment_transaction ) );
             $export_items[] = array(
                 'group_id'    => 'wpbdp-payments',
-                'group_label' => __( 'Listing Payments Information', 'business-directory-plugin' ),
+                'group_label' => __( 'Listing Payments Information', 'WPBDM' ),
                 'item_id'     => "wpbdp -payment-transaction-{$payment_transaction->id}",
                 'data'        => $data,
             );
@@ -96,7 +96,7 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
                 continue;
             }
             $items_retained = true;
-            $message        = __( 'An unknown error occurred while trying to delete listing payment information for transaction {transaction_id}.', 'business-directory-plugin' );
+            $message        = __( 'An unknown error occurred while trying to delete listing payment information for transaction {transaction_id}.', 'WPBDM' );
             $message        = str_replace( '{transaction_id}', $payment_transaction->id, $message );
             $messages[]     = $message;
         }

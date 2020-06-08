@@ -314,7 +314,7 @@ class WPBDP_Listing {
         $payments = $this->get_latest_payments();
 
         if ( ! $payments ) {
-            return new WP_Error( 'No listing payments', _x( "Listing has no registered payments", 'listing', 'WPBDP' ) );
+            return new WP_Error( 'No listing payments', _x( "Listing has no registered payments", 'listing', 'WPBDM' ) );
         }
 
         foreach ( $payments as $payment ) {
@@ -322,7 +322,7 @@ class WPBDP_Listing {
                 return new WP_Error(
                     'payment delete error',
                     sprintf( "%s: %s",
-                        _x( "Can't delete payment", 'listing', 'WPBDP' ),
+                        _x( "Can't delete payment", 'listing', 'WPBDM' ),
                         $payment->id
                     )
                 );

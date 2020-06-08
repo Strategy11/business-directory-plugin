@@ -59,7 +59,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
     private function get_privacy_fields_items() {
         $default_tags = WPBDP_Form_Field::$default_tags;
 
-        $items = array( 'ID' => __( 'Listing ID', 'business-directory-plugin' ) );
+        $items = array( 'ID' => __( 'Listing ID', 'WPBDM' ) );
 
         foreach ( $default_tags as $tag ) {
             $items[ $tag ] = WPBDP_Form_Field::find_by_tag( $tag )->get_label();
@@ -110,7 +110,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
         $items = $this->get_privacy_fields_items();
 
         $media_items = array(
-            'URL' => __( 'Image URL', 'business-directory-plugin' ),
+            'URL' => __( 'Image URL', 'WPBDM' ),
         );
 
         $export_items = array();
@@ -124,7 +124,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
 
             $export_items[] = array(
                 'group_id'    => 'wpbdp-listings',
-                'group_label' => __( 'Business Directory Listings', 'business-directory-plugin' ),
+                'group_label' => __( 'Business Directory Listings', 'WPBDM' ),
                 'item_id'     => "wpbdp-listing-{$listing_id}",
                 'data'        => apply_filters( 'wpbdp_export_listing_objects', $data, $listing_id, $this->data_formatter )
             );
@@ -158,7 +158,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
                 continue;
             }
             $items_retained = true;
-            $message = __( 'An unknown error occurred while trying to delete information for listing {listing_id}.', 'business-directory-plugin' );
+            $message = __( 'An unknown error occurred while trying to delete information for listing {listing_id}.', 'WPBDM' );
             $message = str_replace( '{listing_id}', $listing, $message );
             $messages[] = $message;
         }

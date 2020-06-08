@@ -263,7 +263,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
     private function handle_return_request() {
         if ( ! $this->gateway ) {
-            wp_die( __( 'There was an error trying to process your request. No gateway is selected.', 'checkout', 'WPBDM' ) );
+            wp_die( _x( 'There was an error trying to process your request. No gateway is selected.', 'checkout', 'WPBDM' ) );
         }
 
         $this->payment->gateway = $this->gateway->get_id();

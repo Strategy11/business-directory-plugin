@@ -35,8 +35,8 @@
     <div class="inner">
         <form action="" method="post">
             <?php wp_nonce_field( 'cancel renewal fee ' . $payment->id ); ?>
-            <input type="submit" name="proceed-to-checkout" value="<?php echo esc_html_x( 'Continue to checkout', 'templates', 'wpbdp-claim-listings' ); ?>" />
-            <input type="submit" name="return-to-fee-select" value="<?php echo esc_html_x( 'Return to fee selection', 'templates', 'wpbdp-claim-listings' ); ?>" />
+            <input type="submit" name="proceed-to-checkout" value="<?php echo esc_html_x( 'Continue to checkout', 'templates', 'WPBDM' ); ?>" />
+            <input type="submit" name="return-to-fee-select" value="<?php echo esc_html_x( 'Return to fee selection', 'templates', 'WPBDM' ); ?>" />
         </form>
     </div>
 </div>

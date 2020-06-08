@@ -92,7 +92,7 @@ class WPBDP_Themes_Admin {
         $msg .= '<br />';
         $msg .= _x( 'Starting with version 4.0, Business Directory is using a new theming system that is not compatible with the templates used in previous versions.', 'admin themes', 'WPBDM' );
         $msg .= '<br />';
-        $msg .= _x( 'Because of this, your template overrides below have been disabled. You should <a>review our documentation on customization</a> in order adjust your templates.', 'admin themes', 'WBPDM' );
+        $msg .= _x( 'Because of this, your template overrides below have been disabled. You should <a>review our documentation on customization</a> in order adjust your templates.', 'admin themes', 'WPBDM' );
         $msg .= '<br /><br />';
 
         foreach ( $overridden as $t => $relpath ) {

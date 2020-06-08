@@ -156,7 +156,7 @@ echo $notice;
 </div>
 
 <div class="step-3">
-    <h2><?php _ex( 'Export Complete', 'admin csv-export' )?></h2>
+    <h2><?php _ex( 'Export Complete', 'admin csv-export', 'WPBDM' )?></h2>
     <p><?php _ex( 'Your export file has been successfully created and it is now ready for download.', 'admin csv-export', 'WPBDM' ); ?></p>
     <div class="download-link">
         <a href="" class="button button-primary">
@@ -172,7 +172,7 @@ echo $notice;
 </div>
 
 <div class="canceled-export">
-    <h2><?php _ex( 'Export Canceled', 'admin csv-export' )?></h2>
+    <h2><?php _ex( 'Export Canceled', 'admin csv-export', 'WPBDM' )?></h2>
     <p><?php _ex( 'The export has been canceled.', 'admin csv-export', 'WPBDM' ); ?></p>
     <p><a href="" class="button"><?php _ex( '← Return to CSV Export', 'admin csv-export', 'WPBDM' ); ?></a></p>
 </div>

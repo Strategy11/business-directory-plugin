@@ -597,8 +597,8 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => _x( 'Status of listings upon uninstalling plugin', 'settings', 'WPBDM' ),
 				'default' => 'trash',
 				'options' => array(
-					'draft' => _x( 'Draft', 'post status' ),
-					'trash' => _x( 'Trash', 'post status' ),
+					'draft' => _x( 'Draft', 'post status', 'WPBDM' ),
+					'trash' => _x( 'Trash', 'post status', 'WPBDM' ),
 				),
 				'group'   => 'listings/main',
             )
@@ -610,8 +610,8 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => _x( 'Status of deleted listings', 'settings', 'WPBDM' ),
 				'default' => 'trash',
 				'options' => array(
-					'draft' => _x( 'Draft', 'post status' ),
-					'trash' => _x( 'Trash', 'post status' ),
+					'draft' => _x( 'Draft', 'post status', 'WPBDM' ),
+					'trash' => _x( 'Trash', 'post status', 'WPBDM' ),
 				),
 				'group'   => 'listings/main',
             )
@@ -634,8 +634,8 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => _x( 'Default new post status', 'settings', 'WPBDM' ),
 				'default' => 'pending',
 				'options' => array(
-					'publish' => _x( 'Published', 'post status' ),
-					'pending' => _x( 'Pending', 'post status' ),
+					'publish' => _x( 'Published', 'post status', 'WPBDM' ),
+					'pending' => _x( 'Pending', 'post status', 'WPBDM' ),
 				),
 				'group'   => 'listings/post_category',
             )
@@ -647,8 +647,8 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => _x( 'Edit post status', 'settings', 'WPBDM' ),
 				'default' => 'publish',
 				'options' => array(
-					'publish' => _x( 'Published', 'post status' ),
-					'pending' => _x( 'Pending', 'post status' ),
+					'publish' => _x( 'Published', 'post status', 'WPBDM' ),
+					'pending' => _x( 'Pending', 'post status', 'WPBDM' ),
 				),
 				'group'   => 'listings/post_category',
             )
@@ -1105,7 +1105,12 @@ final class WPBDP__Settings__Bootstrap {
             $desc = sprintf(
                 _x( 'AED currency is not supported by %s. %s', 'admin settings', 'WPBDM' ),
                 '<b>' . implode( ' or ', $aed_usupported_gateways ) . '</b>',
-                _n( 'If you are using this gateway, we recommend you disable it if you wish to collect payments in this currency.', 'If you are using these gateways, we recommend you disable them if you wish to collect payments in this currency.', count( $aed_usupported_gateways ) )
+                _n(
+                    'If you are using this gateway, we recommend you disable it if you wish to collect payments in this currency.',
+                    'If you are using these gateways, we recommend you disable them if you wish to collect payments in this currency.',
+                    count( $aed_usupported_gateways ),
+                    'WPBDM' 
+                )
             );
         }
 

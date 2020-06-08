@@ -16,7 +16,7 @@ endif;
         <div class="row-actions">
             <span class="trash">
                 <a href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'delete-flagging', 'listing_id' => $listing->get_id(), 'meta_pos' => $key ) ) ); ?>" class="delete">
-                    <?php echo _x( 'Delete', 'flag listing', 'WPBDP' ); ?>
+                    <?php echo _x( 'Delete', 'flag listing', 'WPBDM' ); ?>
                 </a>
             </span>
         </div>

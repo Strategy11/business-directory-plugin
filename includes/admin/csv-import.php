@@ -284,7 +284,7 @@ class WPBDP_CSVImportAdmin {
         if ( ! $import_dir || ! is_dir( $import_dir ) || ! is_writable( $import_dir ) ) {
             wpbdp_admin_message(
                 sprintf(
-                    __(
+                    _x(
                         'A valid temporary directory with write permissions is required for CSV imports to function properly. Your server is using "%s" but this path does not seem to be writable. Please consult with your host.',
                         'csv import',
                         'WPBDM'

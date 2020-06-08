@@ -232,15 +232,15 @@ class WPBDP__CPT_Integration {
     public function bulk_post_updated_messages( $bulk_messages, $bulk_counts ) {
         $bulk_messages[WPBDP_POST_TYPE] = array(
 			/* translators: %s: listing count */
-			'updated'   => _n( '%s listing updated.', '%s listings updated.', $bulk_counts['updated'], 'wpbdp' ),
+			'updated'   => _n( '%s listing updated.', '%s listings updated.', $bulk_counts['updated'], 'WPBDM' ),
 			/* translators: %s: listing count */
-			'locked'    => _n( '%s listing not updated, somebody is editing it.', '%s listings not updated, somebody is editing them.', $bulk_counts['locked'], 'wpbdp' ),
+			'locked'    => _n( '%s listing not updated, somebody is editing it.', '%s listings not updated, somebody is editing them.', $bulk_counts['locked'], 'WPBDM' ),
 			/* translators: %s: listing count */
-			'deleted'   => _n( '%s listing permanently deleted.', '%s listings permanently deleted.', $bulk_counts['deleted'], 'wpbdp' ),
+			'deleted'   => _n( '%s listing permanently deleted.', '%s listings permanently deleted.', $bulk_counts['deleted'], 'WPBDM' ),
 			/* translators: %s: listing count */
-			'trashed'   => _n( '%s listing moved to the Trash.', '%s listings moved to the Trash.', $bulk_counts['trashed'], 'wpbdp' ),
+			'trashed'   => _n( '%s listing moved to the Trash.', '%s listings moved to the Trash.', $bulk_counts['trashed'], 'WPBDM' ),
 			/* translators: %s: listing count */
-			'untrashed' => _n( '%s listing restored from the Trash.', '%s listings restored from the Trash.', $bulk_counts['untrashed'], 'wpbdp' ),
+			'untrashed' => _n( '%s listing restored from the Trash.', '%s listings restored from the Trash.', $bulk_counts['untrashed'], 'WPBDM' ),
         );
         
         return $bulk_messages;
