@@ -412,9 +412,18 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             return $fields;
         }
 
-        $content_field    = wpbdp_get_form_fields( array( 'association' => 'content') );
-        $content_field    = empty( $content_field ) ? array() : $content_field[0];
-        $excerpt_override = empty( $content_field ) ? 0 : $content_field->data( 'excerpt_override' );
+        $content_field = array_filter( $fields, function( $f ) {
+            return 'content' == $f->get_association();
+        } );
+
+        $content_field = ! empty( $content_field ) ? $content_field : wpbdp_get_form_fields( array( 'association' => 'content') );
+
+        if ( empty( $content_field ) ) {
+            return $fields;
+        }
+
+        $content_field    = is_array( $content_field ) ? array_shift( $content_field ) : $content_field;
+        $excerpt_override = $content_field->data( 'excerpt_override' );
 
         if ( ! in_array( $excerpt_override , array( 1, 2 ) ) ) {
             return $fields;
