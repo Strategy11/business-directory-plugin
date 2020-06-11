@@ -14,6 +14,7 @@ final class WPBDP {
 
 
     public function __construct() {
+        $this->_db_version = get_option( 'wpbdp-db-version', get_option( 'wpbusdirman_db_version', null ) );
         $this->setup_constants();
         $this->includes();
         $this->hooks();
@@ -24,14 +25,11 @@ final class WPBDP {
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
-        define( 'WPBDP_URL', trailingslashit( plugins_url( '/', WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_TEMPLATES_PATH', WPBDP_PATH . 'templates' );
 
         define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
         define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
         define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
-
-        $this->_db_version = get_option( 'wpbdp-db-version', get_option( 'wpbusdirman_db_version', null ) );
     }
 
     private function includes() {
@@ -123,6 +121,9 @@ final class WPBDP {
     // phpcs:disable
 
     public function init() {
+        // Define constant that will be used to enqueue scripts and styles.
+        define( 'WPBDP_URL', trailingslashit( plugins_url( '/', WPBDP_PLUGIN_FILE ) ) );
+
         $this->load_textdomain();
 
         $this->form_fields = WPBDP_FormFields::instance();
