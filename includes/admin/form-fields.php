@@ -440,21 +440,22 @@ class WPBDP_FormFieldsAdmin {
         $wpbdp->formfields->maybe_correct_tags();
 
         $special_tags = array(
-            'title'    => _x( 'Title', 'form-fields admin', 'WPBDM' ),
-            'category' => _x( 'Category', 'form-fields admin', 'WPBDM' ),
-            'excerpt'  => _x( 'Excerpt', 'form-fields admin', 'WPBDM' ),
-            'content'  => _x( 'Content', 'form-fields admin', 'WPBDM' ),
-            'tags'     => _x( 'Tags', 'form-fields admin', 'WPBDM' ),
-            'address'  => _x( 'Address', 'form-fields admin', 'WPBDM' ),
-            'city'     => _x( 'City', 'form-fields admin', 'WPBDM' ),
-            'state'    => _x( 'State', 'form-fields admin', 'WPBDM' ),
-            'country'  => _x( 'Country', 'form-fields admin', 'WPBDM' ),
-            'zip'      => _x( 'ZIP Code', 'form-fields admin', 'WPBDM' ),
-            'fax'      => _x( 'FAX Number', 'form-fields admin', 'WPBDM' ),
-            'phone'    => _x( 'Phone Number', 'form-fields admin', 'WPBDM' ),
-            'ratings'  => _x( 'Ratings Field', 'form-fields admin', 'WPBDM' ),
-            'twitter'  => _x( 'Twitter', 'form-fields admin', 'WPBDM' ),
-            'website'  => _x( 'Website', 'form-fields admin', 'WPBDM' ),
+            'title'     => _x( 'Title', 'form-fields admin', 'WPBDM' ),
+            'category'  => _x( 'Category', 'form-fields admin', 'WPBDM' ),
+            'excerpt'   => _x( 'Excerpt', 'form-fields admin', 'WPBDM' ),
+            'content'   => _x( 'Content', 'form-fields admin', 'WPBDM' ),
+            'tags'      => _x( 'Tags', 'form-fields admin', 'WPBDM' ),
+            'address'   => _x( 'Address', 'form-fields admin', 'WPBDM' ),
+            'address2'  => _x( 'Address 2', 'form-fields admin', 'WPBDM' ),
+            'city'      => _x( 'City', 'form-fields admin', 'WPBDM' ),
+            'state'     => _x( 'State', 'form-fields admin', 'WPBDM' ),
+            'country'   => _x( 'Country', 'form-fields admin', 'WPBDM' ),
+            'zip'       => _x( 'ZIP Code', 'form-fields admin', 'WPBDM' ),
+            'fax'       => _x( 'FAX Number', 'form-fields admin', 'WPBDM' ),
+            'phone'     => _x( 'Phone Number', 'form-fields admin', 'WPBDM' ),
+            'ratings'   => _x( 'Ratings Field', 'form-fields admin', 'WPBDM' ),
+            'twitter'   => _x( 'Twitter', 'form-fields admin', 'WPBDM' ),
+            'website'   => _x( 'Website', 'form-fields admin', 'WPBDM' ),
         );
         $fixed_tags   = array( 'title', 'category', 'excerpt', 'content', 'tags', 'ratings' );
         $field_tags   = array();

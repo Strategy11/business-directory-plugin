@@ -190,19 +190,30 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
     //
 
     public function helper__address() {
-        $address = trim( $this->t_address->value );
-        $city = trim( $this->t_city->value );
-        $state = trim( $this->t_state->value );
-        $country = trim( $this->t_country->value );
-        $zip = trim( is_array ( $this->t_zip->value ) ? $this->t_zip->value['zip'] : $this->t_zip->value );
+        $address  = trim( $this->t_address->value );
+        $address2 = trim( $this->t_address2->value );
+        $city     = trim( $this->t_city->value );
+        $state    = trim( $this->t_state->value );
+        $country  = trim( $this->t_country->value );
+        $zip      = trim( is_array ( $this->t_zip->value ) ? $this->t_zip->value['zip'] : $this->t_zip->value );
 
         $first_line = $address;
 
-        $second_line = $city;
-        $second_line.= ( $city && $state ) ? ', ' . $state : $state;
-        $second_line.= $zip ? ' ' . $zip : '';
+        $second_line = $address2;
 
-        return implode( '<br />', array_filter( array( $first_line, $second_line, $country ) ) );
+        $third_line = $city;
+        $thid_line.= ( $city && $state ) ? ', ' . $state : $state;
+        $third_line.= $zip ? ' ' . $zip : '';
+
+        return implode(
+            '<br />',
+            array_filter(
+                array( $first_line, $second_line, $third_line, $country ),
+                function( $line ) {
+                    return ! empty( $line );
+                } 
+            )
+        );
     }
 
     public function helper__address_nobr() {
