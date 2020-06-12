@@ -305,9 +305,9 @@ class WPBDP_PaymentsAPI {
             return $status;
         }
 
-        $payment = $listing->generate_or_retrieve_payment();
+        $payment = $listing->get_latest_payment();
 
-        if ( ! $payment || 'completed' === $payment->status ) {
+        if ( ! $payment || 'initial' !== $payment->payment_type || 'completed' === $payment->status ) {
             return $status;
         }
 
