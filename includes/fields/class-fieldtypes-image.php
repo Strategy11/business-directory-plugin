@@ -202,7 +202,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $html .= '<br />';
         $html .= '<div class="listing-image" style="width: ' . $thumbnail_width . 'px;">';
         $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" rel="noopener" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' ) . '>';
-        $html .= wp_get_attachment_image( $img_id, 'wpbdp-thumb', false, array( 'alt' => $caption ? $caption : $field->get_label() ) );
+        $html .= wp_get_attachment_image( $img_id, 'wpbdp-thumb', false, array( 'alt' => $caption ? $caption : esc_attr( $field->get_label() ) ) );
         $html .= '</a>';
         $html .= $field->data( 'display_caption' ) ? '<br />' . $caption : '';
         $html .= '</div>';
