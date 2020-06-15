@@ -202,7 +202,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         $second_line = $address2;
 
         $third_line = $city;
-        $thid_line.= ( $city && $state ) ? ', ' . $state : $state;
+        $third_line.= ( $city && $state ) ? ', ' . $state : $state;
         $third_line.= $zip ? ' ' . $zip : '';
 
         return implode(
