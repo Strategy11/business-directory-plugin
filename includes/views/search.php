@@ -79,11 +79,12 @@ class WPBDP__Views__Search extends WPBDP__View {
         }
 
         if ( $searching ) {
+            $results = $search->get_results();
             $args = array(
                 'post_type'        => WPBDP_POST_TYPE,
                 'posts_per_page'   => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
                 'paged'            => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
-                'post__in'         => $search->get_results() ? $search->get_results() : array( 0 ),
+                'post__in'         => $results ? $results : array( 0 ),
                 'orderby'          => wpbdp_get_option( 'listings-order-by', 'date' ),
                 'order'            => wpbdp_get_option( 'listings-sort', 'ASC' ),
                 'wpbdp_main_query' => true,

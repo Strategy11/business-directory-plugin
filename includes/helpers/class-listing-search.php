@@ -172,7 +172,10 @@ class WPBDP__Listing_Search {
         $this->results = $wpdb->get_col( $this->query );
 
         if ( ! $this->is_quick_search && $this->parts ) {
-            $this->execute();
+            // If there are no results for advanced search, stop searching.
+            if ( $this->results ) {
+                $this->execute();
+            }
         }
 
         $this->tree = self::parse_request( $this->original_request );
@@ -275,7 +278,7 @@ class WPBDP__Listing_Search {
                 $search_terms = array_filter(
                     explode( ' ', trim( $term ) ),
                     function ( $t ) {
-                        return strlen( $t ) > 2;
+                        return strlen( $t ) >= 2;
                     }
                 );
 
