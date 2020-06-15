@@ -272,7 +272,32 @@ class WPBDP__Listing_Search {
                     continue;
                 }
 
-                $res[] = array( $field_id, $term );
+                $search_terms = array_filter(
+                    explode( ' ', trim( $term ) ),
+                    function ( $t ) {
+                        return strlen( $t ) > 2;
+                    }
+                );
+
+                if ( count( $search_terms ) < 2 ) {
+                    $res[] = array( $field_id, $term );
+                    continue;
+                }
+
+                $subq   = array( 'or' );
+                $termsq = array( 'and' );
+
+                foreach ( $search_terms as $k ) {
+                    $termsq[] = array( $field_id, $k );
+                }
+
+                if ( $termsq ) {
+                    $subq[] = $termsq;
+                }
+
+                $subq[] = array( $field_id, $term );
+
+                $res[] = $subq;
             }
         }
 
