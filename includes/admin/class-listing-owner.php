@@ -84,7 +84,7 @@ class WPBDP__Admin__Listing_Owner {
 
         $params = array(
             'selected'    => (int) $post->post_author,
-            'label'       => __( 'Ad Owner', 'WPBDM' ),
+            'label'       => __( 'Listing Owner', 'WPBDM' ),
             'label_class' => 'screen-reader-text',
             'default'     => __( 'Please select a user', 'WPBDM' ),
             'id'          => 'post_author_override',
