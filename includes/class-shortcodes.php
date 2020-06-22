@@ -419,7 +419,7 @@ class WPBDP__Shortcodes {
             array(
                 'orderby' => 'rand'
             ),
-            $atts
+            $sc_atts
         );
     }
 
