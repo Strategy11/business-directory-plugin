@@ -275,12 +275,16 @@ class WPBDP__Listing_Search {
                     continue;
                 }
 
-                $search_terms = array_filter(
-                    explode( ' ', trim( $term ) ),
-                    function ( $t ) {
-                        return strlen( $t ) >= 2;
-                    }
-                );
+                $search_terms = array();
+
+                if ( is_string( $term ) ) {
+                    $search_terms = array_filter(
+                        explode( ' ', trim( $term ) ),
+                        function ( $t ) {
+                            return strlen( $t ) >= 2;
+                        }
+                    );
+                }
 
                 if ( count( $search_terms ) < 2 ) {
                     $res[] = array( $field_id, $term );
