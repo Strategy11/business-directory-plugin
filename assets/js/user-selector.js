@@ -107,49 +107,5 @@ jQuery( function($) {
     if ( $userSelect.length > 0 ) {
         $userSelector = new UserSelector( $userSelect, $userSelect.data( 'configuration' ) );
     }
-
-    // Quick Edit screen
-    // $quickUserSelect = $('#inline-edit').find( '.wpbdp-user-selector' );
-
-    // if ( $quickUserSelect.length > 0 ) {
-    //     $quickUserSelector = new UserSelector( $quickUserSelect, $quickUserSelect.data( 'configuration' ) );
-    // }
-
-    $( document ).ready(function() {
-        var $quickUserSelect = null;
-        var target = document.querySelector('#the-list' );
-            
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-            //addedNodes contains all detected new controls
-                if ( mutation && mutation.addedNodes ) {
-                    //only apply select2 to select elements
-                    if ( $( mutation.addedNodes ).attr( 'id' ) === 'edit-' + id) {
-                        $quickUserSelect = $( '#edit-' + id ).find( '#wpbdp-user-select .wpbdp-user-selector' );
-
-                        if ( $quickUserSelect.length > 0 ) {
-                            $quickUserSelect.select2();
-                        }
-                    }
-                }
-            });
-            // setTimeout( function () {
-            //     $quickUserSelect = $( '#edit-' + id ).find( '#wpbdp-user-select .wpbdp-user-selector' );
-
-            //     if ( $quickUserSelect.length > 0 ) {
-            //         $quickUserSelector = new UserSelector( $quickUserSelect, $quickUserSelect.data( 'configuration' ) );
-            //     }
-
-            // }, 250 );
-        } );
-
-        observer.observe( target, {characterData: true, childList: true});
-
-        $( '#the-list' ).on( 'click', '.editinline', function() {
-            var row   = $(this).closest('tr').attr('id'),
-                parts = row.split('-');
-
-            id = parts[parts.length - 1];
-        });
-    });
+    
 } );
