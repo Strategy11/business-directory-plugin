@@ -908,7 +908,7 @@ to how WordPress stores the data.", 'WPBDM' )
         $nonce = isset( $_POST['_wpnonce'] ) ? trim( $_POST['_wpnonce'] ) : '';
 
         if ( $nonce && wp_verify_nonce( $nonce, 'uninstall bd' ) ) {
-            $installer = new WPBDP_Installer();
+            $installer = new WPBDP_Installer( 0 );
 
             // Delete listings.
             $post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT * FROM {$wpdb->posts} WHERE post_type = %s", WPBDP_POST_TYPE ) );
