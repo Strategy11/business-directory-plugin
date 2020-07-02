@@ -267,13 +267,36 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-				'id'          => 'terms-and-conditions',
-				'type'        => 'textarea',
-				'name'        => _x( 'Terms and Conditions', 'settings', 'WPBDM' ),
-				'desc'        => _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'settings', 'WPBDM' ),
-				'default'     => '',
-				'placeholder' => _x( 'Terms and Conditions text goes here.', 'settings', 'WPBDM' ),
-				'group'       => 'tos_settings',
+				'id'           => 'terms-and-conditions',
+				'type'         => 'textarea',
+				'name'         => _x( 'Terms and Conditions', 'settings', 'WPBDM' ),
+				'desc'         => _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'settings', 'WPBDM' ),
+				'default'      => '',
+				'placeholder'  => _x( 'Terms and Conditions text goes here.', 'settings', 'WPBDM' ),
+                'group'        => 'tos_settings',
+                'requirements' => array( 'display-terms-and-conditions' ),
+            )
+        );
+
+        // GDPR Terms.
+        wpbdp_register_setting(
+            array(
+				'id'    => 'display-gdpr-terms',
+				'type'  => 'checkbox',
+				'name'  => _x( 'Display and require user agreement to GDPR Terms', 'settings', 'WPBDM' ),
+				'group' => 'tos_settings',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+				'id'           => 'gdpr-terms',
+				'type'         => 'textarea',
+				'name'         => _x( 'GDPR Terms', 'settings', 'WPBDM' ),
+				'desc'         => _x( 'Enter text or a URL starting with http. If you use a URL, the GDPR Terms text will be replaced by a link to the appropiate page.', 'settings', 'WPBDM' ),
+				'default'      => '',
+				'placeholder'  => _x( 'GDPR Terms text goes here.', 'settings', 'WPBDM' ),
+                'group'        => 'tos_settings',
+                'requirements' => array( 'display-gdpr-terms' ),
             )
         );
 

@@ -422,7 +422,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             );
         }
 
-        if ( ! $this->editing && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
+        if ( ! $this->editing && ( wpbdp_get_option( 'display-terms-and-conditions' ) || wpbdp_get_option( 'display-gdpr-terms' ) ) ) {
             $sections['terms_and_conditions'] = array(
                 'title' => _x( 'Terms and Conditions', 'submit listing', 'WPBDM' ),
             );
@@ -890,40 +890,81 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function terms_and_conditions() {
-        $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
-
-        if ( ! $tos )
-            return false;
-
-        $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
-        $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
-
-        if ( $this->saving() && ! $accepted ) {
-            $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
-            $this->prevent_save = true;
-        }
-
         $html = '';
 
-        if ( ! $is_url ) {
-            $html .= '<label for="wpbdp-terms-and-conditions">';
-            $html .= _x( 'Terms and Conditions:', 'templates', 'WPBDM' );
-            $html .= '</label><br />';
-            $html .= sprintf( '<textarea id="wpbdp-terms-and-conditions" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
-            $html .= '<br />';
+        if ( wpbdp_get_option( 'display-terms-and-conditions' ) ) {
+            $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
+
+            if ( ! empty( $tos ) ) {
+                $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
+                $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
+
+                if ( $this->saving() && ! $accepted ) {
+                    $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
+                    $this->prevent_save = true;
+                }
+
+                if ( ! $is_url ) {
+                    $html .= '<label for="wpbdp-terms-and-conditions">';
+                    $html .= _x( 'Terms and Conditions:', 'templates', 'WPBDM' );
+                    $html .= '</label><br />';
+                    $html .= sprintf( '<textarea id="wpbdp-terms-and-conditions" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
+                }
+
+                $html .= '<label for="wpbdp-terms-and-conditions-agreement">';
+                $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
+                $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'WPBDM' );
+
+                if ( $is_url )
+                    $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
+                else
+                    $label = str_replace( array( '<a>', '</a>' ), '', $label );
+
+                $html .= $label;
+                $html .= '</label>';
+            }
         }
 
-        $html .= '<label for="wpbdp-terms-and-conditions-agreement">';
-        $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
-        $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'WPBDM' );
+        if ( wpbdp_get_option( 'display-gdpr-terms' ) ) {
+            $tos = trim( wpbdp_get_option( 'gdpr-terms' ) );
 
-        if ( $is_url )
-            $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
-        else
-            $label = str_replace( array( '<a>', '</a>' ), '', $label );
+            if ( ! empty( $tos ) ) {
+                $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
+                $accepted = ! empty( $_POST['gdpr-terms-agreement'] ) && 1 == $_POST['gdpr-terms-agreement'];
 
-        $html .= $label;
-        $html .= '</label>';
+                if ( $this->saving() && ! $accepted ) {
+                    $this->messages( _x( 'Please agree to the GDPR Terms.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
+                    $this->prevent_save = true;
+                }
+
+                if ( ! empty( $html ) ) {
+                    $html .= '<br/><br/>';
+                }
+
+                if ( ! $is_url ) {
+                    $html .= '<label for="wpbdp-gdpr-terms">';
+                    $html .= _x( 'GDPR Terms:', 'templates', 'WPBDM' );
+                    $html .= '</label><br />';
+                    $html .= sprintf( '<textarea id="wpbdp-gdpr-terms" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
+                }
+
+                $html .= '<label for="wpbdp-gdpr-terms-agreement">';
+                $html .= '<input id="wpbdp-gdpr-terms-agreement" type="checkbox" name="gdpr-terms-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
+                $label = _x( 'I agree to the <a>GDPR Terms</a>', 'templates', 'WPBDM' );
+
+                if ( $is_url )
+                    $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
+                else
+                    $label = str_replace( array( '<a>', '</a>' ), '', $label );
+
+                $html .= $label;
+                $html .= '</label>';
+            }
+        }
+
+        if ( ! $html ) {
+            return false;
+        }
 
         return array( true, $html );
     }
