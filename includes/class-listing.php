@@ -863,10 +863,20 @@ class WPBDP_Listing {
 
         global $wpdb;
 
-        return intval( $wpdb->get_var(
-            $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
+        $post_id = $wpdb->get_var(
+            $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
             '_wpbdp[access_key]',
             $key  )
+        );
+
+        if ( ! $post_id ) {
+            return false;
+        }
+
+        return intval( $wpdb->get_var(
+            $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_value = %s",
+            $post_id,
+            $email  )
         ) ) > 0;
     }
 
