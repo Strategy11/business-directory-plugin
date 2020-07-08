@@ -82,11 +82,55 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
         $errors = array();
 
-        if ( ! $login_id )
+        if ( ! $login_id ) {
             $errors[] = _x( 'Login ID is missing.', 'authorize-net', 'WPBDM' );
+        }
 
-        if ( ! $trans_key )
+        if ( ! $trans_key ) {
             $errors[] = _x( 'Transaction Key is missing.', 'authorize-net', 'WPBDM' );
+        }
+
+        if ( $errors ) {
+            return $errors;
+        }
+
+        $url = $this->in_test_mode() ? 'https://apitest.authorize.net/xml/v1/request.api' : 'https://api.authorize.net/xml/v1/request.api';
+
+        $request = wp_remote_post(
+            $url,
+            array(
+                'timeout' => 10,
+                'sslverify' => false,
+                'headers' => array(
+                    'Content-Type' => 'application/json'
+                ),
+                'body' => json_encode(
+                    array(
+                        'authenticateTestRequest' => array(
+                            'merchantAuthentication' => array(
+                                'name' => $login_id,
+                                'transactionKey' => $trans_key
+                            )
+                        )
+                    )
+                )
+            )
+        );
+
+        $response = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', wp_remote_retrieve_body( $request ) ) );
+
+        if ( ! $response || ! isset( $response->messages ) || ! isset( $response->messages->resultCode ) ) {
+            $errors[] = _x( 'Credentials validation failed: Could not contact AuthNet Endpoint', 'authorize-net', 'WPBDM' );
+            return $errors;
+        }
+
+        if ( 'Ok' !== $response->messages->resultCode ) {
+            $errors[] = sprintf(
+                '%s: %s',
+                _x( 'Credentials validation failed', 'authorize-net', 'WPBDM' ),
+                $response->messages->message[0]->text
+            );
+        }
 
         return $errors;
     }
