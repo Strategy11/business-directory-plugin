@@ -56,7 +56,19 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     /**
+     * @since 5.7.2
+     */
+    private function setup_merchant_authentication() {
+        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
+        $merchantAuthentication->setName( $this->get_option( 'login-id' ) );
+        $merchantAuthentication->setTransactionKey( $this->get_option( 'transaction-key' ) );
+
+        $this->merchantAuthentication = $merchantAuthentication;
+    }
+
+    /**
      * @since 5.5.11
+     * @deprecated since 5.7.2
      */
     private function get_authnet( $class = NULL ) {
         if ( ! class_exists( 'AuthorizeNet' . $class ) ) {
