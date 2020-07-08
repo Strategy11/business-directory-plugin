@@ -148,6 +148,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     public function process_payment( $payment ) {
+        $this->setup_merchant_authentication();
         // This is a recurring payment.
         if ( $payment->has_item_type( 'recurring_plan' ) ) {
             return $this->process_payment_recurring( $payment );
@@ -159,38 +160,101 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             'payment_key' => $payment->payment_key,
             'listing_id' => $payment->listing_id,
             'amount' => $payment->amount,
-            'description' => $payment->summary
+            'orderInvoiceNumber' => $payment->id,
+            'orderDescription' => $payment->summary
         );
+
         $args = array_merge( $args, $payment->get_payer_details() );
         $args = array_merge( $args, wp_array_slice_assoc( $_POST, array( 'card_number', 'exp_month', 'exp_year', 'cvc', 'card_name' ) ) );
 
-        $response = $this->aim_request( $args );
+        $refId = 'ref' . time();
 
-        if ( $response->approved || $response->held ) {
-            $payment->status = $response->approved ? 'completed' : 'on-hold';
-            $payment->gateway_tx_id = $response->transaction_id;
+        $args['card_object']        = $this->create_card( $args['card_number'], $args['exp_year'] . '-' . $args['exp_month'], $args['cvc'] );
+        $args['payment_type']       = $this->create_payment_type( $args['card_object'] );
+        $args['order']              = $this->create_order( $args );
+        $args['billing_address']    = $this->create_billing_address( $args );
+        $args['customer']           = $this->create_or_retrieve_customer( $args );
+        $args['setting_payment_id'] = $this->create_payment_id_reference( $args );
+        $args['setting_listing_id'] = $this->create_listing_id_reference( $args );
 
-            if ( $response->held ) {
-                $error_msg = sprintf( _x( 'Payment is being held for review by the payment gateway. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
-                                          '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
-                $payment->log( $error_msg );
+        $transaction_request_type = $this->create_transaction_request_type( $args );
+
+        // Assemble the complete transaction request
+        $request = new AnetAPI\CreateTransactionRequest();
+        $request->setMerchantAuthentication( $this->merchantAuthentication );
+        $request->setRefId($refId);
+        $request->setTransactionRequest($transaction_request_type);
+
+        // Create the controller and get the response
+        $controller = new AnetController\CreateTransactionController($request);
+        $response = $controller->executeWithApiResponse( $this->API_Endpoint );
+
+        if ($response != null) {
+            // Check to see if the API request was successfully received and acted upon
+            if ($response->getMessages()->getResultCode() == "Ok") {
+                // Since the API request was successful, look for a transaction response
+                // and parse it to display the results of authorizing the card
+                $tresponse = $response->getTransactionResponse();
+
+                $error = false;
+            
+                if ($tresponse != null && $tresponse->getMessages() != null) {
+                    switch( $tresponse->getResponseCode() ) {
+                        case '1':
+                            $payment->status = 'completed';
+                            $payment->gateway_tx_id = $tresponse->getTransId();
+                        break;
+                        case '2':
+                            $payment->status = 'declined';
+                            $error = true;
+                        break;
+                        case '4':
+                            $payment->status = 'on-hold';
+                            $payment->gateway_tx_id = $tresponse->getTransId();
+                            $payment->log(
+                                sprintf(
+                                    _x(
+                                        'Payment is being held for review by the payment gateway. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
+                                        '(' . $tresponse->getMessages()[0]->getCode() . ') ' . rtrim( $tresponse->getMessages()[0]->getDescription(), '.'
+                                    )
+                                )
+                            );
+                        break;
+                        case '3':
+                        default:
+                            $payment->status = 'error';
+                            $error = true;
+                        break;
+                    }
+
+                    if ( $error ) {
+                        $error_msg = sprintf(
+                            _x( 'Payment is being held for review by the payment gateway. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
+                                '(' . $tresponse->getMessages()[0]->getCode() . ') ' . rtrim( $tresponse->getMessages()[0]->getDescription(), '.'
+                            )
+                        );
+                        $payment->log( $error_msg );
+                        
+                        $payment->save();
+
+                        return array( 'result' => 'failure', 'error' => $error_msg );
+                    }
+
+                    $payment->save();
+        
+                    return array( 'result' => 'success' );
+                }
             }
+             // Payment failed for other reasons.
+            $error_msg = sprintf(
+                _x( 'Payment was rejected. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
+                    '(' . $tresponse->getErrors()[0]->getErrorCode() . ') ' . rtrim( $response->getMessages()->getMessage()[0]->getText(), '.' )
+                );
 
-            $payment->save();
-
-            return array( 'result' => 'success' );
-        } elseif ( $response->error ) {
-            $error_msg = sprintf( _x( 'The payment gateway didn\'t accept the credit card or billing information. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
-                         '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
-            $payment->log( $error_msg );
-            $payment->save();
-
-            return array( 'result' => 'failure', 'error' => $error_msg );
+        } else {
+            $error_msg = _x( "No response returned", 'authorize-net', 'WPBDM' );
         }
 
-        // Payment failed for other reasons.
-        $error_msg = sprintf( _x( 'Payment was rejected. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
-                                  '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
         $payment->status = 'failed';
         $payment->log( $error_msg );
         $payment->save();
@@ -279,6 +343,9 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         return substr( $name, 0, 50 );
     }
 
+    /**
+     * @deprecated since 5.7.2
+     */
     private function aim_request( $args = array() ) {
         $aim = $this->get_authnet( 'AIM' );
         $aim->setSandbox( $this->in_test_mode() );
@@ -346,6 +413,9 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         }
     }
 
+    /**
+     * @deprecated since 5.7.2
+     */
     private function setup_webhooks() {
         if ( $this->in_test_mode() ) {
             $authorize_net_api = 'https://apitest.authorize.net';
@@ -438,6 +508,173 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         }
 
         $subscription->cancel();
+    }
+
+    /**
+     * @since 5.7.2
+     */
+    private function create_card( $card_number, $expiration_date, $card_code ) {
+        // Create the payment data for a credit card
+        $creditCard = new AnetAPI\CreditCardType();
+        $creditCard->setCardNumber( $card_number );
+        $creditCard->setExpirationDate( $expiration_date );
+        $creditCard->setCardCode($card_code );
+
+        return $creditCard;
+    }
+
+    /**
+     * @since 5.7.2
+     */
+    private function create_payment_type( $creditCard ) {
+        // Add the payment data to a paymentType object
+        $paymentOne = new AnetAPI\PaymentType();
+        $paymentOne->setCreditCard( $creditCard );
+
+        return $paymentOne;
+    }
+
+    /**
+     * @since 5.7.2
+     */
+    private function create_order( $args ) {
+        // Create order information
+        $order = new AnetAPI\OrderType();
+        $order->setInvoiceNumber( $args['orderInvoiceNumber'] );
+        $order->setDescription( $args['orderDescription'] );
+
+        return $order;
+    }
+
+    /**
+     * @since 5.7.2
+     */
+    private function create_billing_address( $args ) {
+        // Set the customer's Bill To address
+        $customerAddress = new AnetAPI\CustomerAddressType();
+        $customerAddress->setFirstName( $args['first_name'] );
+        $customerAddress->setLastName( $args['last_name'] );
+        $customerAddress->setAddress( trim( sprintf( '%s, %s', $args['address'], $args['address_2'] ) ) );
+        $customerAddress->setCity( $args['city'] );
+        $customerAddress->setState( $args['state'] );
+        $customerAddress->setZip( $args['zip'] );
+        $customerAddress->setCountry( $args['country'] );
+
+        return $customerAddress;
+    }
+
+    /**
+     * @since 5.7.2
+     */
+    private function create_or_retrieve_customer( $args ) {
+        $customer_profile_id = get_post_meta( $args['listing_id'], '_authnet_customer_id', true );
+
+        if ( ! $customer_profile_id  ) {
+            $request = new AnetAPI\GetCustomerProfileRequest();
+            $request->setMerchantAuthentication( $this->merchantAuthentication );
+            $request->setEmail( $args['email'] );
+            $controller = new AnetController\GetCustomerProfileController($request);
+            $response = $controller->executeWithApiResponse( $this->API_Endpoint );
+
+            if ( ($response != null ) && ( $response->getMessages()->getResultCode() == "Ok" ) )
+            {
+                $profileSelected = $response->getProfile();
+                $customer_profile_id = $profileSelected->getCustomerProfileId();
+            }
+
+            if ( ! $customer_profile_id ) {
+                // Create a new Customer.
+
+                $refId = 'ref' . time();
+
+                // Create a new CustomerPaymentProfile object
+                $paymentProfile = new AnetAPI\CustomerPaymentProfileType();
+                $paymentProfile->setCustomerType('individual');
+                $paymentProfile->setBillTo($args['billing']);
+                $paymentProfile->setPayment($args['payment_type']);
+                $paymentProfiles[] = $paymentProfile;
+
+                // Create a new CustomerProfileType and add the payment profile object
+                $customerProfile = new AnetAPI\CustomerProfileType();
+                $customerProfile->setDescription( sprintf( '%s %s', _x( 'Customer', 'authorize-net', 'WPBDM' ), get_option('blogname') ) );
+                $customerProfile->setMerchantCustomerId( "M_" . time() );
+                $customerProfile->setEmail( $args['email'] );
+                $customerProfile->setpaymentProfiles( $paymentProfiles );
+
+                // Assemble the complete transaction request
+                $request = new AnetAPI\CreateCustomerProfileRequest();
+                $request->setMerchantAuthentication($this->merchantAuthentication);
+                $request->setRefId($refId);
+                $request->setProfile($customerProfile);
+
+                $controller = new AnetController\CreateCustomerProfileController($request);
+                $response = $controller->executeWithApiResponse( $this->API_Endpoint );
+
+                if ( ( $response != null ) && ( $response->getMessages()->getResultCode() == "Ok" ) ) {
+                    $customer_profile_id = $profileSelected->getCustomerProfileId();
+                }
+            }
+        }
+
+        if ( $customer_profile_id ) {
+            update_post_meta( $args['listing_id'], '_authnet_customer_id', $customer_profile_id );
+
+            $customerData = new AnetAPI\CustomerDataType();
+            $customerData->setType( 'individual' );
+            $customerData->setId( $customer_profile_id );
+            $customerData->setEmail( $args['email'] );
+
+            return $customerData;
+        }
+
+        return null;
+    }
+
+    /**
+     * @since 5.7.2
+     */
+    private function create_payment_id_reference( $args ) {
+        // Add values for transaction settings
+        $paymentIdSetting = new AnetAPI\UserFieldType();
+        $paymentIdSetting->setName( 'wpbdp_payment_id' );
+        $paymentIdSetting->setValue( $args['payment_id'] );
+
+        return $paymentIdSetting;
+    }
+
+    /**
+     * @since 5.7.2
+     */
+    private function create_listing_id_reference( $args ) {
+        // Add values for transaction settings
+        $listingIdSetting = new AnetAPI\UserFieldType();
+        $listingIdSetting->setName( 'wpbdp_listing_id' );
+        $listingIdSetting->setValue( $args['listing_id'] );
+
+        return $listingIdSetting;
+    }
+
+    /**
+     * @since 5.7.2
+     */
+    private function create_transaction_request_type( $args ) {
+        $duplicateWindowSetting = new AnetAPI\SettingType();
+        $duplicateWindowSetting->setSettingName("duplicateWindow");
+        $duplicateWindowSetting->setSettingValue("600");
+
+        // Create a TransactionRequestType object and add the previous objects to it
+        $transactionRequestType = new AnetAPI\TransactionRequestType();
+        $transactionRequestType->setTransactionType("authCaptureTransaction");
+        $transactionRequestType->setAmount( $args['amount'] );
+        $transactionRequestType->setOrder( $args['order'] );
+        $transactionRequestType->setPayment($args['payment_type']);
+        $transactionRequestType->setBillTo( $args['billing_address'] );
+        $transactionRequestType->setCustomer( $args['customer'] );
+        $transactionRequestType->addToTransactionSettings($duplicateWindowSetting);
+        $transactionRequestType->addToUserFields( $args['setting_payment_id'] );
+        $transactionRequestType->addToUserFields( $args['setting_listing_id'] );
+
+        return $transactionRequestType;
     }
 
 }
