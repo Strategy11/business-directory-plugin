@@ -2,7 +2,18 @@
 /**
  * @since 3.5.7
  */
+
+
+require_once( WPBDP_PATH . 'vendors/anet_php_sdk/autoload.php' );
+
+use net\authorize\api\contract\v1 as AnetAPI;
+use net\authorize\api\controller as AnetController;
+
+
 class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
+
+    private $API_Endpoint = \net\authorize\api\constants\ANetEnvironment::SANDBOX;
+    private $merchantAuthentication = null;
 
     public function __construct() {
         parent::__construct();
@@ -10,6 +21,10 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         // Silent Post / webhooks are not very reliable so we handle expiration a different way:
         // once the listing has actually expired, we verify the subscription status and act accordingly.
         add_action( 'wpbdp_listing_expired', array( $this, 'maybe_handle_expiration' ) );
+
+        if ( ! $this->in_test_mode() ) {
+            $this->API_Endpoint = \net\authorize\api\constants\ANetEnvironment::PRODUCTION;
+        }
     }
 
     public function get_id() {
