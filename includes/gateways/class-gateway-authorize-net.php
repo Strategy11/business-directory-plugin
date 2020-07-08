@@ -432,14 +432,11 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             return;
 
         $susc_id = $subscription->get_subscription_id();
-        if ( ! $susc_id )
+        if ( ! $susc_id ) {
             return;
+        }
 
-        $arb = $this->get_authnet( 'ARB' );
-        $arb->setSandbox( $this->in_test_mode() );
-
-        $response = $arb->getSubscriptionStatus( $susc_id );
-        $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
+        $status = $this->get_subscription_status( $susc_id );
 
         if ( 'active' == $status ) {
             $subscription->record_payment( array( 'amount' => $payment->amount ) );
