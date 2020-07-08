@@ -516,17 +516,21 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             return;
         }
 
-        $arb = $this->get_authnet( 'ARB' );
-        $arb->setSandbox( $this->in_test_mode() );
+        $status = $this->get_subscription_status( $susc_id );
 
-        $response = $arb->getSubscriptionStatus( $susc_id );
-        $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
+        if ( $status && ! in_array( $status, array( 'canceled', 'terminated' ) ) ) {
+            $refId = 'ref' . time();
 
-        if ( ! in_array( $status, array( 'canceled', 'terminated' ) ) ) {
-            $arb = $this->get_authnet( 'ARB' );
-            $response = $arb->cancelSubscription( $susc_id );
+            $request = new AnetAPI\ARBCancelSubscriptionRequest();
+            $request->setMerchantAuthentication($merchantAuthentication);
+            $request->setRefId($refId);
+            $request->setSubscriptionId($subscriptionId);
+        
+            $controller = new AnetController\ARBCancelSubscriptionController($request);
+        
+            $response = $controller->executeWithApiResponse( $this->API_Endpoint );
 
-            if ( ! $response->isOk() ) {
+            if ( ! ( $response != null && $response->getMessages()->getResultCode() == "Ok" ) ) {
                 $msg = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'WPBDM' );
 
                 if ( current_user_can( 'administrator' ) ) {
@@ -536,7 +540,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
                     );
                 }
 
-                throw new Exception( $msg );
+                throw new Exception( $msg );   
             }
         }
 
