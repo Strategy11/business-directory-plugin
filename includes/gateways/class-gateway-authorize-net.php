@@ -627,7 +627,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
                 // Create a new CustomerPaymentProfile object
                 $paymentProfile = new AnetAPI\CustomerPaymentProfileType();
                 $paymentProfile->setCustomerType('individual');
-                $paymentProfile->setBillTo($args['billing']);
+                $paymentProfile->setBillTo($args['billing_address']);
                 $paymentProfile->setPayment($args['payment_type']);
                 $paymentProfiles[] = $paymentProfile;
 
@@ -648,7 +648,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
                 $response = $controller->executeWithApiResponse( $this->API_Endpoint );
 
                 if ( ( $response != null ) && ( $response->getMessages()->getResultCode() == "Ok" ) ) {
-                    $customer_profile_id = $profileSelected->getCustomerProfileId();
+                    $customer_profile_id = $response->getCustomerProfileId();
                 }
             }
         }

@@ -54,7 +54,7 @@ $show_details_section = ! isset( $show_details_section ) ? true : false;
         <span class="wpbdp-description"><?php _ex( 'Format: MM/YY', 'checkout', 'WPBDM'); ?></span>
         <select name="exp_month">
             <?php for ( $i = 1; $i <= 12; $i++ ): ?>
-            <option value="<?php echo $i; ?>"><?php printf( '%02d', $i ); ?></option>
+            <option value="<?php printf( '%02d', $i ); ?>"><?php printf( '%02d', $i ); ?></option>
             <?php endfor; ?>
         </select>
         /
