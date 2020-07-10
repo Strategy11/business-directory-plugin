@@ -83,6 +83,18 @@ class WPBDP__Listing_Timeline {
             return false;
         }
 
+        $gdpr_acceptance = get_post_meta( $this->listing->get_id(), '_wpbdp_gdpr_acceptance_date', true );
+
+        if ( $gdpr_acceptance ) {
+            wpbdp_insert_log(
+                array(
+                    'log_type'   => 'listing.gdpr_accepted',
+                    'object_id'  => $post->ID,
+                    'created_at' => $gdpr_acceptance
+                )
+            );
+        }
+
         // Insert logs for payments.
         $payments = WPBDP_Payment::objects()->filter( array( 'listing_id' => $post->ID ) );
         foreach ( $payments as $p ) {
@@ -110,6 +122,11 @@ class WPBDP__Listing_Timeline {
 
     private function process_listing_renewal( $item ) {
         $item->html = _x( 'Listing renewed', 'listing timeline', 'WPBDM' );
+        return $item;
+    }
+
+    private function process_listing_gdpr_accepted( $item ) {
+        $item->html = _x( 'GDPR accpetance date', 'listing timeline', 'WPBDM' );
         return $item;
     }
 
