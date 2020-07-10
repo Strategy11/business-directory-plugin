@@ -936,6 +936,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     $this->messages( _x( 'Please agree to the GDPR Terms.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
                     $this->prevent_save = true;
                 }
+                
+                if ( $this->saving() && ! $this->prevent_save && $accepted ) {
+                    $this->data['gdpr_acceptance'] = date( 'Y-m-d H:i:s' );
+                }
 
                 if ( ! empty( $html ) ) {
                     $html .= '<br/><br/>';
@@ -980,6 +984,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     return $user_id;
 
                 wp_update_post( array( 'ID' => $this->listing->get_id(), 'post_author' => $user_id ) );
+            }
+
+            if ( ! empty( $this->data['gdpr_acceptance'] ) ) {
+                update_post_meta( $this->listing->get_id(), '_wpbdp_gdpr_acceptance_date', $this->data['gdpr_acceptance'] );
+                wpbdp_insert_log(
+                    array(
+                        'log_type'   => 'listing.gdpr_accepted',
+                        'object_id'  => $this->listing->get_id(),
+                        'created_at' => $this->data['gdpr_acceptance']
+                    )
+                );
             }
 
             // XXX: what to do with this?
