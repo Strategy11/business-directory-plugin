@@ -126,7 +126,7 @@ class WPBDP__Listing_Timeline {
     }
 
     private function process_listing_gdpr_accepted( $item ) {
-        $item->html = _x( 'GDPR accpetance date', 'listing timeline', 'WPBDM' );
+        $item->html = _x( 'GDPR acceptance date', 'listing timeline', 'WPBDM' );
         return $item;
     }
 
