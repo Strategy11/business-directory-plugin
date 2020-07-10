@@ -73,6 +73,10 @@ class WPBDP_CSVExporter {
 
         $this->columns['fee_id'] = 'fee_id';
 
+        if ( ! empty( $this->settings['include-gdpr-acceptance-date'] ) ) {
+            $this->columns['gdpr_acceptance_date'] = 'gdpr_acceptance_date';
+        }
+
         if ( $this->settings['include-expiration-date'] ) {
             $this->columns['expires_on'] = 'expires_on';
         }
@@ -146,7 +150,7 @@ class WPBDP_CSVExporter {
         $shortnames = wpbdp_formfields_api()->get_short_names();
 
         foreach ( $state['columns'] as $fshortname ) {
-            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id', 'fee_id', 'created_date', 'modified_date' ) ) ) {
+            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id', 'fee_id', 'created_date', 'modified_date', 'gdpr_acceptance_date' ) ) ) {
                 $export->columns[ $fshortname ] = $fshortname;
                 continue;
             }
@@ -386,6 +390,9 @@ class WPBDP_CSVExporter {
                         get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
                         $post_id
                     );
+                    break;
+                case 'gdpr_acceptance_date':
+                    $value = get_post_meta( $post_id, '_wpbdp_gdpr_acceptance_date', true );
                     break;
 				default:
 					if ( is_object( $column_obj ) ) {
