@@ -612,6 +612,19 @@ class WPBDP_CSV_Import {
             return $error;
         }
 
+        if ( ! empty( $data['gdpr_acceptance_date'] ) ) {
+            update_post_meta( $listing->get_id(), '_wpbdp_gdpr_acceptance_date', $data['gdpr_acceptance_date'] );
+            if ( empty( $meta['sequence_id'] ) ) {
+                wpbdp_insert_log(
+                    array(
+                        'log_type'   => 'listing.gdpr_accepted',
+                        'object_id'  => $listing->get_id(),
+                        'created_at' => $data['gdpr_acceptance_date']
+                    )
+                );
+            }
+        }
+
         if ( $state->images ) {
             $listing->set_thumbnail_id( $state->images[0] );
         }
@@ -690,32 +703,38 @@ class WPBDP_CSV_Import {
                     break;
 
                 case 'expires_on':
-                    $trimmed_value = trim( $value, "/ \t\n\r\0\x0B" );
+                    // $trimmed_value = trim( $value, "/ \t\n\r\0\x0B" );
 
-                    if ( empty( $trimmed_value ) ) {
-                        break;
+                    // if ( empty( $trimmed_value ) ) {
+                    //     break;
+                    // }
+
+                    // if ( preg_match( '#^(\d{1,4}/\d{1,2}/\d{1,4})(\s([0-1]?[0-9]|[2][0-3]):([0-5][0-9])(:[0-5][0-9])?)?$#', $trimmed_value ) ) {
+                    //     $date = strtotime( $trimmed_value );
+                    // } else {
+                    //     $dates = explode( '/', $trimmed_value );
+                    //     $dates = array_map( 'strtotime', $dates );
+                    //     $dates = array_filter( $dates );
+
+                    //     $date = array_shift( $dates );
+                    // }
+
+                    // if ( ! $date ) {
+                    //     $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'WPBDM' );
+                    //     $message = str_replace( '<string>', '"' . $value . '"', $message );
+
+                    //     $errors[] = $message;
+
+                    //     break;
+                    // }
+
+                    // $expires_on = date( 'Y-m-d H:i:s', $date );
+                    $expires = $this->convert_to_date( $value, $errors );
+
+                    if ( $expires ) {
+                        $expires_on = $expires;
                     }
-
-                    if ( preg_match( '#^(\d{1,4}/\d{1,2}/\d{1,4})(\s([0-1]?[0-9]|[2][0-3]):([0-5][0-9])(:[0-5][0-9])?)?$#', $trimmed_value ) ) {
-                        $date = strtotime( $trimmed_value );
-                    } else {
-                        $dates = explode( '/', $trimmed_value );
-                        $dates = array_map( 'strtotime', $dates );
-                        $dates = array_filter( $dates );
-
-                        $date = array_shift( $dates );
-                    }
-
-                    if ( ! $date ) {
-                        $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'WPBDM' );
-                        $message = str_replace( '<string>', '"' . $value . '"', $message );
-
-                        $errors[] = $message;
-
-                        break;
-                    }
-
-                    $expires_on = date( 'Y-m-d H:i:s', $date );
+                    
                     break;
 
                 case 'fee_id':
@@ -739,6 +758,15 @@ class WPBDP_CSV_Import {
 
                     $plan_id = $plan->id;
 
+                    break;
+
+                case 'gdpr_acceptance_date':
+                    $gdpr_date = $this->convert_to_date( $value, $errors );
+                    error_log( print_r( $gdpr_date, true ) );
+
+                    if ( $gdpr_date ) {
+                        $gdpr_acceptance_date = $gdpr_date;
+                    }
                     break;
 
                 case 'sequence_id':
@@ -803,7 +831,7 @@ class WPBDP_CSV_Import {
             }
         }
 
-        return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on', 'plan_id' ), $errors );
+        return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on', 'plan_id', 'gdpr_acceptance_date' ), $errors );
     }
 
     private function get_header() {
@@ -822,5 +850,33 @@ class WPBDP_CSV_Import {
         rename( $filepath . '.backup', $filepath );
 
         return $media_id;
+    }
+
+    private function convert_to_date( $value, &$errors ) {
+        $trimmed_value = trim( $value, "/ \t\n\r\0\x0B" );
+
+        if ( empty( $trimmed_value ) ) {
+            return false;
+        }
+
+        if ( preg_match( '#^(\d{1,4}/\d{1,2}/\d{1,4})(\s([0-1]?[0-9]|[2][0-3]):([0-5][0-9])(:[0-5][0-9])?)?$#', $trimmed_value ) ) {
+            $date = strtotime( $trimmed_value );
+        } else {
+            $dates = explode( '/', $trimmed_value );
+            $dates = array_map( 'strtotime', $dates );
+            $dates = array_filter( $dates );
+
+            $date = array_shift( $dates );
+        }
+
+        if ( ! $date ) {
+            $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'WPBDM' );
+            $message = str_replace( '<string>', '"' . $value . '"', $message );
+
+            $errors[] = $message;
+            return false;
+        }
+
+        return date( 'Y-m-d H:i:s', $date );
     }
 }
