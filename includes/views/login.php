@@ -29,6 +29,8 @@ class WPBDP__Views__Login extends WPBDP__View {
             return $this->_redirect( $redirect_to );
         }
 
+        $errors = array();
+
         $login_url = trim( wpbdp_get_option( 'login-url' ) );
 
         if ( $login_url ) {
@@ -52,6 +54,7 @@ class WPBDP__Views__Login extends WPBDP__View {
             'redirect_to' => $redirect_to,
             'access_key_enabled' => $key_access_enabled,
             'request_access_key_url' => add_query_arg( 'redirect_to', urlencode( $redirect_to ), wpbdp_url( 'request_access_keys' ) ),
+            'errors' => $errors
         );
 
         return $this->_render( 'login', $params );
