@@ -82,6 +82,10 @@ echo $notice;
                 <label><input name="settings[include-modified-date]"
                 type="checkbox"
                 value="1" /> <?php _ex('Listing last updated date', 'admin csv-export', 'WPBDM'); ?></label> <br />
+
+                <label><input name="settings[include-gdpr-acceptance-date]"
+                type="checkbox"
+                value="1" /> <?php _ex('Listing GDPR acceptance date', 'admin csv-export', 'WPBDM'); ?></label> <br />
             </td>
         </tr>
     </table>
