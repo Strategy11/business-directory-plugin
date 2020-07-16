@@ -725,7 +725,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         $request = new AnetAPI\ARBGetSubscriptionStatusRequest();
         $request->setMerchantAuthentication( $this->merchantAuthentication );
         $request->setRefId( $refId );
-        $request->setSubscriptionId( $susc_id );
+        $request->setSubscriptionId( $subscription_id );
     
         $controller = new AnetController\ARBGetSubscriptionStatusController($request);
     
