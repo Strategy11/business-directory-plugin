@@ -53,8 +53,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             $this->amount += floatval( $item['amount'] );
         }
 
-        if ( 0.0 == $this->amount && ! $this->has_item_type( 'recurring_plan' ) ) {
-            $this->status = 'completed';
+        if ( 0.0 == $this->amount ) {
+            if( ! $this->has_item_type( 'discount_code' ) ) {
+                $this->status = 'completed';
+            }
         }
     }
 
