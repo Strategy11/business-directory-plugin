@@ -333,10 +333,6 @@ final class WPBDP__Fee_Plan {
 
             $error_message = _x( 'To set this fee as "Recurring" you must set a price for your fee plan. To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'WPBDM' );
 
-            if ( 'flat' === $this->pricing_model && 0 == $this->amount ) {
-                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-price">', $error_message );
-            }
-
             if ( 'variable' === $this->pricing_model && 0 === array_sum( $this->pricing_details ) ) {
                 $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-category">', $error_message );
             }
