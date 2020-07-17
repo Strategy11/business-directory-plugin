@@ -37,7 +37,9 @@ class WPBDP__Listing_Expiration {
 
         foreach ( $listings as $listing_id ) {
             $l = wpbdp_get_listing( $listing_id );
-            $l->set_status( 'expired' );
+            if ( ! $this->maybe_renew_free_listing( $l ) ) {
+                $l->set_status( 'expired' );
+            }
         }
     }
 
@@ -95,6 +97,23 @@ class WPBDP__Listing_Expiration {
         // phpcs:enable
 
         return $listings;
+    }
+
+    private function maybe_renew_free_listing( $listing ) {
+        $plan = $listing->get_fee_plan();
+
+        if( ! $plan->is_recurring ) {
+            return false;
+        }
+
+        // Paid fee plans should be renewed through gateways.
+        if ( 0 < $plan->fee_price ) {
+            return false;
+        }
+
+        $listing->renew();
+
+        return true;
     }
 }
 
