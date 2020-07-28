@@ -420,7 +420,7 @@ class WPBDP_Licensing {
             $message .= '<br/><br/>';
             $message .= '<code>curl: (' . $error_number . ') ' . $error_message . '</code>';
             $message .= '<br/><br/>';
-            $message .= _x( 'It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the whitelist.', 'licensing', 'WPBDM' );
+            $message .= _x( 'It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the allow list.', 'licensing', 'WPBDM' );
             $message .= '<br/><br/>';
             $message .= _x( 'Include this error message with your report.', 'licensing', 'WPBDM' );
 
@@ -472,7 +472,7 @@ class WPBDP_Licensing {
         if ( 403 == $response_code ) {
             $message  = '<strong>' . _x( 'The server returned a 403 Forbidden error.', 'licensing', 'WPBDM' ) . '</strong>';
             $message .= '<br/><br/>';
-            $message .= _x( 'It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the whitelist.', 'licensing', 'WPBDM' );
+            $message .= _x( 'It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the allow list.', 'licensing', 'WPBDM' );
             $message .= '<br/><br/>';
             $message .= _x( 'Include this error message with your report.', 'licensing', 'WPBDM' );
 
