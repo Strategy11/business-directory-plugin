@@ -826,6 +826,15 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
+				'id'      => 'show-manage-listings',
+				'type'    => 'checkbox',
+				'name'    => _x( 'Show the "Manage Listings" button.', 'settings', 'WPBDM' ),
+				'default' => false,
+				'group'   => 'display_options',
+            )
+        );
+        wpbdp_register_setting(
+            array(
 				'id'      => 'show-directory-button',
 				'type'    => 'checkbox',
 				'name'    => _x( 'Show the "Directory" button.', 'settings', 'WPBDM' ),
