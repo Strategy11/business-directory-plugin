@@ -19,6 +19,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
         add_filter( 'wpbdp_user_can_view', array( $this, 'maybe_remove_listing_buttons'), 20, 3 );
         add_filter( 'wpbdp_user_can_edit', array( $this, 'maybe_remove_listing_buttons'), 20, 3 );
         add_filter( 'wpbdp_user_can_flagging', array( $this, 'maybe_remove_listing_buttons'), 20, 3 );
+        add_filter( 'wpbdp-listing-buttons', array( $this, 'maybe_add_renew_button' ), 10, 2 );
     }
 
     public function dispatch() {
@@ -82,5 +83,23 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
         return false;
 
+    }
+
+    public function maybe_add_renew_button( $buttons, $listing_id ) {
+        $listing = wpbdp_get_listing( $listing_id );
+        $listing_status  = $listing->get_status();
+
+        if ( 'complete' === $listing_status ) {
+            return $buttons;
+        }
+
+        $buttons = sprintf(
+            '<a class="wpbdp-button button renew-listing" href="%s" %s >%s</a>',
+            $listing->get_renewal_url(),
+            esc_html( 'target="_blank" rel="noopener"' ),
+            _x( 'Renew Listing', 'view:manage-listings', 'WPBDM' )
+        ) . $buttons;
+
+        return $buttons;
     }
 }
