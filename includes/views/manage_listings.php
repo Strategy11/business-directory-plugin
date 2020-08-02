@@ -28,7 +28,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
         $args = array(
             'post_type' => WPBDP_POST_TYPE,
-            'post_status' => 'publish',
+            'post_status' => array( 'publish', 'pending', 'draft' ),
             'paged' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
             'author' => $current_user->ID,
             'wpbdp_main_query' => true
@@ -38,7 +38,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
         $html = $this->_render_page( 'manage_listings', array( 'current_user' => $current_user,
                                                                'query' => $q,
-                                                               '_bar' => $this->show_search_bar ) );
+                                                               '_bar' => ! empty( $this->show_search_bar ) ? $this->show_search_bar : 'false' ) );
 
         wpbdp_pop_query();
 
