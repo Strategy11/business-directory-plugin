@@ -3,8 +3,9 @@
 class WPBDP__Views__Show_Listing extends WPBDP__View {
 
     public function dispatch() {
-        if ( ! wpbdp_user_can( 'view', null ) )
+        if ( ! wpbdp_user_can( 'view', null ) ) {
             $this->_http_404();
+        }
 
 
         $html = '';
