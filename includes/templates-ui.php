@@ -268,7 +268,9 @@ function wpbdp_main_links( $buttons = null ) {
             $buttons[] = 'create';
         }
 
-        $buttons[] = 'manage';
+        if ( wpbdp_get_option( 'show-manage-listings' ) && is_user_logged_in() ) {
+            $buttons[] = 'manage';
+        }
     }
 
     $buttons = array_filter( array_unique( $buttons ) );
