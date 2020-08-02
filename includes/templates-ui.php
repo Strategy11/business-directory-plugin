@@ -267,6 +267,8 @@ function wpbdp_main_links( $buttons = null ) {
         if ( wpbdp_get_option( 'show-submit-listing' ) ) {
             $buttons[] = 'create';
         }
+
+        $buttons[] = 'manage';
     }
 
     $buttons = array_filter( array_unique( $buttons ) );
@@ -296,6 +298,15 @@ function wpbdp_main_links( $buttons = null ) {
             '<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
             __( 'View All Listings', 'WPBDM' ),
             wpbdp_url( 'all_listings' )
+        );
+        $buttons_count++;
+    }
+
+    if ( in_array( 'manage', $buttons ) ) {
+        $html .= sprintf(
+            '<input id="wpbdp-bar-manage-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
+            __( 'Manage Listings', 'WPBDM' ),
+            wpbdp_url( 'manage_listings' )
         );
         $buttons_count++;
     }
