@@ -81,5 +81,5 @@ if ( 'single' === $view ) :
     endif;
     ?>
 <?php endif; ?>
-<?php echo $buttons; ?>
+<?php echo apply_filters( 'wpbdp-listing-buttons', $buttons, $listing_id ); ?>
 </div>
