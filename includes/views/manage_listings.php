@@ -16,6 +16,9 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
     public function __construct( $args = null ) {
         parent::__construct( $args );
         add_filter( 'wpbdp_form_field_html_value', array( $this, 'remove_expired_listings_title_links' ), 10, 3 );
+        add_filter( 'wpbdp_user_can_view', array( $this, 'maybe_remove_listing_buttons'), 20, 3 );
+        add_filter( 'wpbdp_user_can_edit', array( $this, 'maybe_remove_listing_buttons'), 20, 3 );
+        add_filter( 'wpbdp_user_can_flagging', array( $this, 'maybe_remove_listing_buttons'), 20, 3 );
     }
 
     public function dispatch() {
@@ -63,5 +66,21 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
         }
 
         return sprintf( '%s (%s)', $field->plain_value( $listing_id ), $listing_status );
+    }
+
+    public function maybe_remove_listing_buttons( $res, $listing_id, $user_id ) {
+        if ( current_user_can( 'administrator' ) ) {
+            return $res;
+        }
+
+        $listing         = wpbdp_get_listing( $listing_id );
+        $listing_status  = $listing->get_status();
+
+        if ( 'complete' === $listing_status ) {
+            return $res;
+        }
+
+        return false;
+
     }
 }
