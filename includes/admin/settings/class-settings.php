@@ -90,72 +90,6 @@ class WPBDP__Settings {
         $this->options = $output;
 
         return $this->options;
-
-        // function edd_settings_sanitize( $input = array() ) {
-        // 	global $edd_options;
-        // 	$doing_section = false;
-        // 	if ( ! empty( $_POST['_wp_http_referer'] ) ) {
-        // 		$doing_section = true;
-        // 	}
-        // 	$setting_types = edd_get_registered_settings_types();
-        // 	$input         = $input ? $input : array();
-        // 	if ( $doing_section ) {
-        // 		parse_str( $_POST['_wp_http_referer'], $referrer ); // Pull out the tab and section
-        // 		$tab      = isset( $referrer['tab'] ) ? $referrer['tab'] : 'general';
-        // 		$section  = isset( $referrer['section'] ) ? $referrer['section'] : 'main';
-        // 		if ( ! empty( $_POST['edd_section_override'] ) ) {
-        // 			$section = sanitize_text_field( $_POST['edd_section_override'] );
-        // 		}
-        // 		$setting_types = edd_get_registered_settings_types( $tab, $section );
-        // 		// Run a general sanitization for the tab for special fields (like taxes)
-        // 		$input = apply_filters( 'edd_settings_' . $tab . '_sanitize', $input );
-        // 		// Run a general sanitization for the section so custom tabs with sub-sections can save special data
-        // 		$input = apply_filters( 'edd_settings_' . $tab . '-' . $section . '_sanitize', $input );
-        // 	}
-        // 	// Merge our new settings with the existing
-        // 	$output = array_merge( $edd_options, $input );
-        // 	foreach ( $setting_types as $key => $type ) {
-        // 		if ( empty( $type ) ) {
-        // 			continue;
-        // 		}
-        // 		// Some setting types are not actually settings, just keep moving along here
-        // 		$non_setting_types = apply_filters( 'edd_non_setting_types', array(
-        // 			'header', 'descriptive_text', 'hook',
-        // 		) );
-        // 		if ( in_array( $type, $non_setting_types ) ) {
-        // 			continue;
-        // 		}
-        // 		if ( array_key_exists( $key, $output ) ) {
-        // 			$output[ $key ] = apply_filters( 'edd_settings_sanitize_' . $type, $output[ $key ], $key );
-        // 			$output[ $key ] = apply_filters( 'edd_settings_sanitize', $output[ $key ], $key );
-        // 		}
-        // 		if ( $doing_section ) {
-        // 			switch( $type ) {
-        // 				case 'checkbox':
-        // 				case 'gateways':
-        // 				case 'multicheck':
-        // 				case 'payment_icons':
-        // 					if ( array_key_exists( $key, $input ) && $output[ $key ] === '-1' ) {
-        // 						unset( $output[ $key ] );
-        // 					}
-        // 					break;
-        // 				default:
-        // 					if ( array_key_exists( $key, $input ) && empty( $input[ $key ] ) || ( array_key_exists( $key, $output ) && ! array_key_exists( $key, $input ) ) ) {
-        // 						unset( $output[ $key ] );
-        // 					}
-        // 					break;
-        // 			}
-        // 		} else {
-        // 			if ( empty( $input[ $key ] ) ) {
-        // 				unset( $output[ $key ] );
-        // 			}
-        // 		}
-        // 	}
-        // 	if ( $doing_section ) {
-        // 		add_settings_error( 'edd-notices', '', __( 'Settings updated.', 'easy-digital-downloads' ), 'updated' );
-        // 	}
-        // 	return $output;
-        // }
     }
 
     /**
@@ -326,7 +260,7 @@ class WPBDP__Settings {
     }
 
     public function set_option( $setting_id, $value = null ) {
-        $old = get_option( 'wpbdp_settings' );
+        $old = get_option( 'wpbdp_settings', array() );
         $old[ $setting_id ] = $value;
         update_option( 'wpbdp_settings', $old );
     }
@@ -374,53 +308,6 @@ class WPBDP__Settings {
         return;
         $args_ = func_get_args();
         wpbdp_debug_e( 'add setting called', $args_ );
-
-        // list($group, $section) = explode(':', $section_key);
-        // $args = !$args ? array() : $args;
-        //
-        // if (!$group || !$section)
-        //     return false;
-        //
-        // if ( isset($this->groups[$group]) && isset($this->groups[$group]->sections[$section]) ) {
-        //     $_default = $default;
-        //     if (is_null($_default)) {
-        //         switch ($type) {
-        //             case 'text':
-        //             case 'choice':
-        //                 $_default = '';
-        //                 break;
-        //             case 'boolean':
-        //                 $_default = false;
-        //                 break;
-        //             default:
-        //                 $_default = null;
-        //                 break;
-        //         }
-        //     }
-        //
-        //     $setting = new StdClass();
-        //     $setting->name = esc_attr( $name );
-        //     $setting->label = $label;
-        //     $setting->help_text = $help_text;
-        //     $setting->default = $_default;
-        //     $setting->type = $type;
-        //     $setting->args = $args;
-        //     $setting->validator = $validator;
-        //     $setting->callback = $callback;
-        //
-        //     $setup_cb = '_setting_' . $setting->type . '_setup';
-        //     if ( is_callable( array( $this, $setup_cb ) ) ) {
-        //         call_user_func_array( array( $this, $setup_cb ), array( &$setting ) );
-        //     }
-        //
-        //     $this->groups[$group]->sections[$section]->settings[$name] = $setting;
-        // }
-
-        // if (!isset($this->settings[$name])) {
-        //     $this->settings[$name] = $setting;
-        // }
-
-        // return $name;
     }
 
     /**
@@ -724,6 +611,10 @@ class WPBDP__Settings {
 
             delete_option('wpbusdirman_settings_config');
         }
+    }
+
+    public function set_new_install_settings() {
+        $this->set_option( 'show-manage-listings', true );
     }
 
 }
