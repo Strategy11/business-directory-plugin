@@ -388,7 +388,7 @@ class WPBDP_WPML_Compat {
     }
 
     function translate_form_field_option_data( $value, $key, $field ) {
-        if ( ! is_object( $field ) || empty( $value ) || 'options' !== $key || ! function_exists( 'icl_t' ) ) {
+        if ( ! is_object( $field ) || empty( $value ) || 'options' !== $key || ! function_exists( 'icl_t' ) || ! is_array( $value ) ) {
             return $value;
         }
 
@@ -402,7 +402,13 @@ class WPBDP_WPML_Compat {
             implode( "\n", $value )
         );
 
-        return $options ? array_map( 'trim', explode( "\n", $options ) ) : $value;
+        $options = array_map( 'trim', explode( "\n", $options ) );
+
+        if ( ! $options || count( $value ) !== count( $options ) ) {
+            return $value;
+        }
+
+        return array_combine( array_keys( $value ), $options );
     }
 
     // }}}
