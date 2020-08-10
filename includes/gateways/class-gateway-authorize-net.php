@@ -516,13 +516,17 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             return;
         }
 
+        if ( ! $this->merchantAuthentication ) {
+            $this->setup_merchant_authentication();
+        }
+
         $status = $this->get_subscription_status( $susc_id );
 
         if ( $status && ! in_array( $status, array( 'canceled', 'terminated' ) ) ) {
             $refId = 'ref' . time();
 
             $request = new AnetAPI\ARBCancelSubscriptionRequest();
-            $request->setMerchantAuthentication($merchantAuthentication);
+            $request->setMerchantAuthentication($this->merchantAuthentication);
             $request->setRefId($refId);
             $request->setSubscriptionId($subscriptionId);
         
@@ -718,6 +722,10 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
      * @since 5.7.2
      */
     private function get_subscription_status( $subscription_id ) {
+        if ( ! $this->merchantAuthentication ) {
+            $this->setup_merchant_authentication();
+        }
+
         $status = null;
 
         $refId = 'ref' . time();
