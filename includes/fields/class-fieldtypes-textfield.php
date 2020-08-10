@@ -37,7 +37,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         }
 
         if (  is_array( $value ) ) {
-            return $value[0];
+            return array_shift( $value );
         }
 
         return $value;
