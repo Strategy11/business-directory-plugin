@@ -305,21 +305,36 @@ to how WordPress stores the data.", 'WPBDM' )
         $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 0 ) );
         $count_html = $badge_number ? '<span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>' : '';
 
-        add_menu_page( _x( 'Business Directory Admin', 'admin menu', "WPBDM" ),
-                       $count_html ? _x( 'Dir. Admin', 'admin menu', 'WPBDM' ) . $count_html : _x( 'Directory Admin', 'admin menu', 'WPBDM' ),
-                       'administrator',
-                       'wpbdp_admin',
-                       array( &$this, 'main_menu' ),
-                       WPBDP_URL . 'assets/images/menuico.png' );
+        add_menu_page(
+            _x( 'Business Directory Admin', 'admin menu', "WPBDM" ),
+            $count_html ? _x( 'Dir. Admin', 'admin menu', 'WPBDM' ) . $count_html : _x( 'Directory Admin', 'admin menu', 'WPBDM' ),
+            'administrator',
+            'wpbdp_admin',
+           current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
+            WPBDP_URL . 'assets/images/menuico.png',
+            20
+        );
 
+        $menu['wpbdp-admin-directory-table'] = array(
+            'title' => __( 'Directory', 'WPBDM' ),
+            'url' => admin_url( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) ),
+            'capability' => 'manage_categories'
+        );
         $menu['wpbdp-admin-add-listing'] = array(
             'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),
-            'url' => admin_url( sprintf( 'post-new.php?post_type=%s', WPBDP_POST_TYPE ) )
+            'url' => admin_url( sprintf( 'post-new.php?post_type=%s', WPBDP_POST_TYPE ) ),
+            'capability' => 'edit_posts'
         );
-        // $menu['wpbdp_admin_settings'] = array(
-        //     'title' => _x('Manage Options', 'admin menu', 'WPBDM'),
-        //     'callback' => array( $this, 'admin_settings' )
-        // );
+        $menu['wpbdp-admin-categories'] = array(
+            'title' => __( 'Directory Categories', 'WPBDM' ),
+            'url' => admin_url( sprintf( 'edit-tags.php?taxonomy=%s&post_type=%s', WPBDP_CATEGORY_TAX, WPBDP_POST_TYPE ) ),
+            'capability' => 'manage_categories'
+        );
+        $menu['wpbdp-admin-tags'] = array(
+            'title' => __( 'Directory Tags', 'WPBDM' ),
+            'url' => admin_url( sprintf( 'edit-tags.php?taxonomy=%s&post_type=%s', WPBDP_TAGS_TAX, WPBDP_POST_TYPE ) ),
+            'capability' => 'manage_categories'
+        );
         $menu['wpbdp-admin-fees'] = array(
             'title' => _x( 'Manage Fees', 'admin menu', 'WPBDM' )
         );
@@ -337,14 +352,6 @@ to how WordPress stores the data.", 'WPBDM' )
         $menu['wpbdp_admin_csv'] = array(
             'title' => _x( 'CSV Import & Export', 'admin menu', 'WPBDM' )
         );
-        // $menu['wpbdp-csv-import'] = array(
-        //     'title' => _x( 'CSV Import', 'admin menu', 'WPBDM' ),
-        //     'callback' => array( &$this->csv_import, 'dispatch' )
-        // );
-        // $menu['wpbdp-csv-export'] = array(
-        //     'title' => _x( 'CSV Export', 'admin menu', 'WPBDM' ),
-        //     'callback' => array( &$this->csv_export, 'dispatch' )
-        // );
         $menu['wpbdp-debug-info'] = array(
             'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
             'callback' => array( &$this->debug_page, 'dispatch' )
@@ -363,15 +370,12 @@ to how WordPress stores the data.", 'WPBDM' )
             $item_data['hook'] = add_submenu_page( 'wpbdp_admin',
                                                    $item_data['title'],
                                                    $item_data['label'],
-                                                   'administrator',
+                                                   ( empty( $item_data['capability'] ) ? 'administrator' : $item_data['capability'] ),
                                                    $item_slug,
                                                    array( $this, 'menu_dispatch' ) );
         }
         // $item_data = null;
         do_action('wpbdp_admin_menu', 'wpbdp_admin');
-
-        if ( ! current_user_can( 'administrator' ) )
-            return;
 
         add_submenu_page( 'wpbdp_admin',
                           __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
