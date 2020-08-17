@@ -93,7 +93,7 @@ class WPBDP__Listing_Search {
         $this->tree = self::tree_simplify( $this->tree );
 
         // Prepare query template.
-        $this->query_template = $this->_traverse_tree( $this->tree );
+        $this->query_template = $this->get_query_template();
 
         // Build query.
         $query_pieces = array(
@@ -238,7 +238,7 @@ class WPBDP__Listing_Search {
         $res = array();
 
         // Quick search.
-        if ( ! empty( $request['kw'] ) ) {
+        if ( isset( $request['kw'] ) ) {
             if ( wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ) {
                 $request['kw'] = array( trim( $request['kw'] ) );
             } else {
@@ -375,5 +375,13 @@ class WPBDP__Listing_Search {
 
     public static function tree_simplify( $tree ) {
         return $tree;
+    }
+
+    public function get_query_template() {
+        if ( $this->is_quick_search && empty( $this->original_request['kw'] ) ) {
+            return '( 1=1 )';
+        }
+
+        return $this->_traverse_tree( $this->tree );
     }
 }
