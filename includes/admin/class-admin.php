@@ -302,23 +302,30 @@ to how WordPress stores the data.", 'WPBDM' )
     }
 
     function admin_menu() {
-        $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 1 ) );
-        $count_html = $badge_number ? '<span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>' : '';
+        if ( ! current_user_can( 'manage_categories' ) ) {
+            return;
+        }
+
+        $count_html = '';
+        if ( current_user_can( 'administrator' ) ) {
+            $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 0 ) );
+            $count_html = $badge_number ? '<span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>' : '';
+        }
 
         add_menu_page(
             _x( 'Business Directory Admin', 'admin menu', "WPBDM" ),
             __( 'Directory', 'WPBDM' ) . $count_html,
             'administrator',
             'wpbdp_admin',
-           current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
+            current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
             WPBDP_URL . 'assets/images/menuico.png',
             20
         );
 
-        $menu['wpbdp-admin-directory-table'] = array(
-            'title' => __( 'Directory', 'WPBDM' ),
+        $menu['wpbdp_admin'] = array(
+            'title' => __( 'Directory Listings', 'WPBDM' ),
             'url' => admin_url( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) ),
-            'capability' => 'manage_categories'
+            'capability' => 'edit_posts'
         );
         $menu['wpbdp-admin-add-listing'] = array(
             'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),

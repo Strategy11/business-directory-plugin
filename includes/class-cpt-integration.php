@@ -25,7 +25,7 @@ class WPBDP__CPT_Integration {
                 'not_found_in_trash' => __( 'No listings found in trash', 'WPBDM' )
             ),
             'public' => true,
-            'show_ui'=> false,
+            'show_in_menu'=> false,
             'menu_icon' => WPBDP_URL . 'assets/images/menuico.png',
             'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' ),
             'rewrite' => array(
