@@ -302,12 +302,12 @@ to how WordPress stores the data.", 'WPBDM' )
     }
 
     function admin_menu() {
-        $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 0 ) );
+        $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 1 ) );
         $count_html = $badge_number ? '<span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>' : '';
 
         add_menu_page(
             _x( 'Business Directory Admin', 'admin menu', "WPBDM" ),
-            $count_html ? _x( 'Dir. Admin', 'admin menu', 'WPBDM' ) . $count_html : _x( 'Directory Admin', 'admin menu', 'WPBDM' ),
+            __( 'Directory', 'WPBDM' ) . $count_html,
             'administrator',
             'wpbdp_admin',
            current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
