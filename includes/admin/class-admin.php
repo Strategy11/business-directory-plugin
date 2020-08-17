@@ -316,10 +316,6 @@ to how WordPress stores the data.", 'WPBDM' )
             'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),
             'url' => admin_url( sprintf( 'post-new.php?post_type=%s', WPBDP_POST_TYPE ) )
         );
-        // $menu['wpbdp_admin_settings'] = array(
-        //     'title' => _x('Manage Options', 'admin menu', 'WPBDM'),
-        //     'callback' => array( $this, 'admin_settings' )
-        // );
         $menu['wpbdp-admin-fees'] = array(
             'title' => _x( 'Manage Fees', 'admin menu', 'WPBDM' )
         );
@@ -337,23 +333,10 @@ to how WordPress stores the data.", 'WPBDM' )
         $menu['wpbdp_admin_csv'] = array(
             'title' => _x( 'CSV Import & Export', 'admin menu', 'WPBDM' )
         );
-        // $menu['wpbdp-csv-import'] = array(
-        //     'title' => _x( 'CSV Import', 'admin menu', 'WPBDM' ),
-        //     'callback' => array( &$this->csv_import, 'dispatch' )
-        // );
-        // $menu['wpbdp-csv-export'] = array(
-        //     'title' => _x( 'CSV Export', 'admin menu', 'WPBDM' ),
-        //     'callback' => array( &$this->csv_export, 'dispatch' )
-        // );
         $menu['wpbdp-debug-info'] = array(
             'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
             'callback' => array( &$this->debug_page, 'dispatch' )
         );
-
-        // FIXME: before next-release
-        // if (current_user_can('administrator')) {
-        //     $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
-        //     $submenu['wpbdp_admin'] = apply_filters( 'wpbdp_admin_menu_reorder', $submenu['wpbdp_admin'] );
 
         $this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
         $this->prepare_menu( $this->menu );
@@ -367,7 +350,7 @@ to how WordPress stores the data.", 'WPBDM' )
                                                    $item_slug,
                                                    array( $this, 'menu_dispatch' ) );
         }
-        // $item_data = null;
+
         do_action('wpbdp_admin_menu', 'wpbdp_admin');
 
         if ( ! current_user_can( 'administrator' ) )
