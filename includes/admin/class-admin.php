@@ -364,11 +364,6 @@ to how WordPress stores the data.", 'WPBDM' )
             'callback' => array( &$this->debug_page, 'dispatch' )
         );
 
-        // FIXME: before next-release
-        // if (current_user_can('administrator')) {
-        //     $submenu['wpbdp_admin'][0][0] = _x('Main Menu', 'admin menu', 'WPBDM');
-        //     $submenu['wpbdp_admin'] = apply_filters( 'wpbdp_admin_menu_reorder', $submenu['wpbdp_admin'] );
-
         $this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
         $this->prepare_menu( $this->menu );
 
@@ -381,7 +376,7 @@ to how WordPress stores the data.", 'WPBDM' )
                                                    $item_slug,
                                                    array( $this, 'menu_dispatch' ) );
         }
-        // $item_data = null;
+
         do_action('wpbdp_admin_menu', 'wpbdp_admin');
 
         add_submenu_page( 'wpbdp_admin',
