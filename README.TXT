@@ -4,9 +4,9 @@ Donate link: https://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, listings, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 5.3
-Last Updated: 2019-Dec-20
-Stable tag: 5.5.13.1
+Tested up to: 5.4
+Last Updated: 2020-Jul-1
+Stable tag: 5.7.1
 License: GPLv2 or later
 
 Build any kind of local listings directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and much more!  Make your listings sing with Business Directory Plugin.
@@ -145,6 +145,86 @@ If you are having problems please visit [support forum](http://www.businessdirec
 
 
 == Changelog ==
+
+= Version 5.7.1 =
+* Fix Random Listings shortcode attributes. (#4601)
+* Add data-breakpoints to directory container. (#4607)
+* Validate variable type is string before applying using function for string-type. (#4608)
+* Fix User selector script. (#4614)
+* Add missing parameter for installer class, required for uninstall process.
+
+= Version 5.7 =
+* New Setting allows site admins define which existing user will own Anonymous Submitted Listings. (#4545)
+* [Paid] listing status tag was replaced by [Payment {status}] for more accurate information about Listing Payment status. (#4553)
+* Add user search when Submitting/Editing listings on WP Admin panel to set as owner. (#4559)
+* Add WPML support for Select, Multiselect, Checkbox and Radio Button BD options list translation. (#4577)
+* Create 'Address 2' theme tag and integrate it to listing address helper generation. (#4588)
+* Enhance listing advanced search, by searching the whole sentence or all its parts for each field. (#4566)
+* Hide category & plan selection tip when directory is in free mode. (#4443)
+* Allow numeric values in advanced search as strings for categories and tags associations. (#4538)
+* Fix social fields alignment in 4 most recent WP default themes. (#4541)
+* Hide not available submit sections after AJAX request. (#4542)
+* Remove sortbar from [businessdirectory-latest-listings] shortcode. (#4556)
+* Fix renewal notification email CC value to prevent fatal error. (#4569)
+* Prevent PHP warning by validating that the setting is not empty. (#4572)
+* Fix textdomain on several plugin translatable texts. (#4577)
+* Optimize Plugin performance by removing unnecessary DB requests. (#4584)
+* Escape field label when is used as 'alt' attribute of image fieldtype. (#4591)
+* Move 'WPBDP_URL' definition to 'init' action. (#4592)
+* Update jQuery File Upload to 10.30.1 version. (#4599)
+
+= Version 5.6.2 =
+* Allow selecting listing images from WP media library on admin dashboard.
+* Allow admins to select images from WP Media for Image fields on dashboard. (#4517)
+* Restore ability to edit listings URL. (#4421, #4496)
+* Fix payments detailed view. (#4510, #4527)
+* Update German translation strings.(#4508)
+* Add 'form_only' parameter for [businessdirectory-search] shortcode. (#4520)
+* Add nofollow to detailed view buttons, as attribute to <form> HTML tag. (#4458)
+* Change curly braces to square brackets for access string offset. (#4526)
+* Prevent listing status not set to completed on admin dashboard submit. (#4532)
+
+= Version 5.6.1 =
+* New setting to set a limit for listing contact submits for logged in users. (#4411)
+* New placeholders to 'Email confirmation message' template to include fee information. (#4480)
+* New notification template for completed payments. (#4480)
+* Prevent fatal error when trying to access to payment details of a deleted payment. (#4455)
+* Allow Private fees CSS rules on frontend. (#4462)
+* Include to directory links to prevent been crawled by search engines. (#4458)
+* Prevent including image to structured data when is not available. (#4468)
+* Use listing images ordering weight in detailed view. (#4481)
+* Fix new listing Admin notice including listing preview URL. (#4487)
+* Prevent pending_payment listings to be published before payment is completed. (#4487)
+* Prevent Private fields to be rendered on frontend for non-admin users. (#4490)
+* Match label and input ID for username and email on submit listing view to improve accessibility. (#4492)
+
+= Version 5.6.0.1 =
+* Improve Listing Options UI using sub-tabs. (#4459)
+* Refactor print receipt script to improve layout styling. (#4437)
+* Preformat recepient data before using 'foreach' PHP function. (#4465)
+* Validate variable is defined to prevent PHP notice.
+
+= Version 5.6 =
+* Add CSV Import setting to set existing listings import status. (#4409)
+* Add listing_id as argument for wpbdp_listing_schema_org filter. (#4414)
+* Create wpbdp_listing_schema_org filter to allow customer modifying/including Schema.org items to listings. (#4414)
+* Support multiple recipients on listing email address for notifications. (#4406)
+* Upgrade jQuery File Upload to version 10.7.0. (#4426)
+* Use WooCommerce version of select2 lib scripts to enhance BD accesibility. (#4440)
+* Fix renewal notification admin CC. (#4420)
+* Generate 404 when trying to access to a listing using ID and wrong slug. (#4421)
+* Fix twitter social fields alignment on listing detail view. (#4444)
+
+= Version 5.5.14 =
+* Fix layout and style in login BD view. 
+* Fix listings email notification for free fees. 
+* Prevent fatal error on abandoned payment notification class when listing is not available.
+* Prevent reCAPTCHA scripts load when not used on BD pages. 
+* Update 'manage_recurring' URL inside recurring warning when deleting a listing. 
+* Fix CSV import row number. Allow importing 1 listing CSV file. 
+* Allow main box (quick search) renders when is called from shortcode. 
+* Modify 'CC this e-mail address too' option usage to support multiple addresses. 
+* Fix new listings status and email notification after submit issues. 
 
 = Version 5.5.13.1 =
 * Validate queried object exists and is valid before setting BD query var. (#4385)
