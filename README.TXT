@@ -15,9 +15,13 @@ Build a local listings directory, directory of business providers, a Yellow-Page
 
 Business Directory Plugin is the most popular, versatile, widely-installed, easy to use, and best-supported WordPress Business Directory plugin available. Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
-Business Directory Plugin allows you to take any listings you want and build a local directory, directory of business providers, a real estate listings site, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more. You can add any kind of directory with listings using Business Directory plugin.
+Business Directory Plugin allows you to take any listings you want and build a local directory, directory of business providers, a real estate listings site, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.
 
-Looking for a simple directory? You have are control. No need for a PHP developer.
+Not only can you build a business directory, but you can also build any other kind of listings directory. Build a member directory, team or staff directory, company directory, and any other directory with our easy listing plugin.
+
+Are you ready for a simple directory website builder? With Business Directory Plugin, you can be in control without a developer.
+
+Need a classifieds listings site? Try [Another WordPress Classifieds Plugin -AWPCP](https://wordpress.org/plugins/another-wordpress-classifieds-plugin/).
 
 == Free Directory Plugin Features ==
 All [features](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) documented on the main website.
@@ -54,7 +58,7 @@ For a complete and detailed list of features, please visit: [BusinessDirectoryPl
 * [Featured Levels Module](https://businessdirectoryplugin.com/downloads/featured-levels-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Assign features to paid or sticky listing plans to give users incentive to upgrade.
 * [ZIP Code Search Module](https://businessdirectoryplugin.com/downloads/zip-search-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - ZIP code/postal code radius and proximity searches supporting a number of countries.
 * [Regions Module](https://businessdirectoryplugin.com/downloads/regions-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Location based directory listing result filtering.
-* [Ratings Module](https://businessdirectoryplugin.com/downloads/ratings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Create a reviews site with connections to each listing. Rate businesses in your directory (with Schema.org microformat support).
+* [Ratings Module](https://businessdirectoryplugin.com/downloads/ratings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Create reviews with connections to each listing. Rate businesses in your directory (with Schema.org microformat support).
 * [Google Maps Module](https://businessdirectoryplugin.com/downloads/google-maps-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Display the geo location of the business (categories, search, details -- with custom map sizes)
 * [Discount Codes Module](https://businessdirectoryplugin.com/downloads/discount-codes-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Ability to offer discount codes based on a % or fixed amount with expirations.
 * [Claim Listings Module](https://businessdirectoryplugin.com/downloads/claim-listings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Post claimable listings in your business directory that other users can pay (or not) to claim.
@@ -676,7 +680,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Added a "Timeline" metabox on the backend to clearly see a listing's history.
 * Admins can now create any number of listing expiration/reminder notices.
 * Simplify how premium modules integrate into BD.
-* Added businessdirectory-quick-search shortcode to display the Quick Search form.
+* Added business directory-quick-search shortcode to display the Quick Search form.
 * Added warning when reaching the image limit during listing submit/edit.
 * Allow users to edit categories for their listing if the plan allows it.
 * Added option to sort listings using the configured sort for their fee plans.
