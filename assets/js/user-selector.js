@@ -19,24 +19,21 @@ jQuery( function($) {
 
     $.extend( UserSelector.prototype, {
 
-        configure: function() {
-            if (typeof this.options === 'undefined') {
-                return;
-            }
-    
-            if ( this.options.mode === 'ajax' ) {
-                this.configureAjaxBehavior();
-                return;
-            }
-
-            this.configureInlineBehavior();
-        },
-
         configureAjaxBehavior: function() {
             var self = this;
             var options = $.extend( true, {}, self.options.select2, {
                 ajax: {
+                    data: function(params) {
+                        params.security = self.options.security;
+                        params.listing_id = self.options.listing_id;
+
+                        return params;
+                    },
                     processResults: function( data ) {
+                        if ( ! data.status ) {
+                            return {results: {}};
+                        }
+
                         var items = $.map( data.items, function( item ) {
                             return {
                                 id: item.ID,
@@ -101,11 +98,13 @@ jQuery( function($) {
         }
     } );
 
-    // Edit listing screen
-    $userSelect = $('#wpbdp-listing-owner').find( '.wpbdp-user-selector' );
+    $(document).ready(function() {
+        // Edit listing screen
+        $userSelect = $('#wpbdp-listing-owner').find( '.wpbdp-user-selector' );
 
-    if ( $userSelect.length > 0 ) {
-        $userSelector = new UserSelector( $userSelect, $userSelect.data( 'configuration' ) );
-    }
+        if ( $userSelect.length > 0 ) {
+            $userSelector = new UserSelector( $userSelect, $userSelect.data( 'configuration' ) );
+        }
+    } );
     
 } );

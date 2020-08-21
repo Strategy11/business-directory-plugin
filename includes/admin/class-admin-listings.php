@@ -47,7 +47,7 @@ class WPBDP_Admin_Listings {
 
         add_filter( 'tag_cloud_sort', array( $this, '_add_tag_cloud') );
 
-        $listing_owner = new WPBDP__Admin__Listing_Owner();
+        $this->listing_owner = new WPBDP__Admin__Listing_Owner();
     }
 
     // Category filter. {{
@@ -244,8 +244,8 @@ class WPBDP_Admin_Listings {
     }
 
     public function _metabox_listing_owner( $post ) {
-        $owner_metabox = new WPBDP__Admin__Listing_Owner( $post->ID );
-        echo $owner_metabox->render_metabox();
+        $this->listing_owner->set_listing_id( $post->ID );
+        echo $this->listing_owner->render_metabox();
     }
 
     public function _metabox_listing_flagging( $post ) {
