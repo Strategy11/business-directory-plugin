@@ -137,6 +137,8 @@ class WPBDP_Admin {
             WPBDP_VERSION
         );
 
+        wp_enqueue_style( 'wpbdp-js-select2-css' );
+
         if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
             wpbdp_enqueue_jquery_ui_style();
 
