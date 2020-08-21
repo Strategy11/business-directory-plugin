@@ -18,9 +18,11 @@ class WPBDP__Admin__Listing_Owner {
         add_filter( 'wp_dropdown_users_args', array( $this, '_dropdown_users_args' ), 10, 2 );
 
         add_action( 'wp_ajax_wpbdp-autocomplete-users', array( $this, 'ajax_autocomplete_users' ) );
-        add_action( 'wp_ajax_noprinv_wpbdp-autocomplete-users', array( $this, 'ajax_autocomplete_users' ) );
     }
 
+    public function set_listing_id( $listing_id ) {
+        $this->listing_id = $listing_id; 
+    }
 
     /**
      * @param array $query_args     An array of configuration parameters.
@@ -114,14 +116,16 @@ class WPBDP__Admin__Listing_Owner {
     private function prepare_paramaters( $params ) {
         $params = wp_parse_args(
             $params,
-            [
-                'label'                         => false,
-                'label_class'                   => false,
-                'required'                      => false,
-                'selected'                      => null,
-                'mode'                          => null,
-                'users'                         => [],
-            ]
+            array(
+                'label'       => false,
+                'label_class' => false,
+                'required'    => false,
+                'selected'    => null,
+                'mode'        => null,
+                'users'       => array(),
+                'nonce'       => '',
+                'listing_id'  => '',
+            )
         );
 
         $params['mode'] = $this->get_mode( $params );
@@ -168,12 +172,15 @@ class WPBDP__Admin__Listing_Owner {
     private function get_ajax_mode_configuration( $params ) {
         $configuration = $this->get_common_configuration( $params );
 
-        $configuration['select2'] = [
-            'ajax' => [
+        $configuration['select2'] = array(
+            'ajax' => array(
                 'url'      => add_query_arg( 'action', 'wpbdp-autocomplete-users', admin_url( 'admin-ajax.php' ) ),
                 'dataType' => 'json',
-            ],
-        ];
+            ),
+        );
+
+        $configuration['security']   = wp_create_nonce( 'ajax_autocomplete_users_' . $this->listing_id );
+        $configuration['listing_id'] = $this->listing_id;
 
         return $configuration;
     }
@@ -183,10 +190,13 @@ class WPBDP__Admin__Listing_Owner {
      * @since 5.6.3
      */
     private function get_common_configuration( $params ) {
-        return [
-            'selected' => !empty ( $params['selected'] ) ? array( 'id' => $params['selected'], 'text' => self::$users[$params['selected']] ) : '',
+        return array(
+            'selected' => ! empty( $params['selected'] ) ? array(
+                'id'   => $params['selected'],
+                'text' => self::$users[ $params['selected'] ],
+            ) : '',
             'mode'     => $params['mode'],
-        ];
+        );
     }
 
     /**
@@ -196,6 +206,7 @@ class WPBDP__Admin__Listing_Owner {
     private function prepare_inline_mode_parameters( $params ) {
         $params['users']         = self::$users;
         $params['configuration'] = $this->get_iniline_mode_configuration( $params );
+        $params['listing_id']    = $this->listing_id;
 
         return $params;
     }
@@ -209,7 +220,7 @@ class WPBDP__Admin__Listing_Owner {
     private function get_iniline_mode_configuration( $params ) {
         $configuration = $this->get_common_configuration( $params );
 
-        $configuration['select2'] = [];
+        $configuration['select2'] = array();
 
         return $configuration;
     }
@@ -217,18 +228,31 @@ class WPBDP__Admin__Listing_Owner {
     public function ajax_autocomplete_users() {
         global $wpdb;
 
+        if ( ! ( isset( $_REQUEST['security'] ) && isset( $_REQUEST['listing_id'] ) && wp_verify_nonce( $_REQUEST['security'], 'ajax_autocomplete_users_' . $_REQUEST['listing_id'] ) ) ) {
+            wp_send_json(
+                array(
+                    'status' => 'fail',
+                )
+            );
+        }
+
         $request = stripslashes_deep( $_REQUEST );
 
         $users = get_users(
             array(
-                'fields' => array( 'ID', 'user_login' ),
-                'search' => ! empty( $request['term'] ) ? "*{$request['term']}*" : '',
+                'fields'         => array( 'ID', 'user_login' ),
+                'search'         => ! empty( $request['term'] ) ? "*{$request['term']}*" : '',
                 'search_columns' => array( 'user_login', 'user_nicename', 'display_name' ),
-                'number' => 100,
-                'orderby' => 'ID',
-                )
-            );
+                'number'         => 100,
+                'orderby'        => 'ID',
+            )
+        );
 
-        wp_send_json( array( 'status' => 'ok', 'items' => array_values( $users ) ) );
+        wp_send_json(
+            array(
+                'status' => 'ok',
+                'items'  => array_values( $users ),
+            )
+        );
     }
 }
