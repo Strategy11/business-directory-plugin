@@ -2,35 +2,38 @@
 
 <a name="exporterror"></a>
 <div class="error" style="display: none;"><p>
-<?php _ex( 'An unknown error occurred during the export. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.',
-           'admin csv-export',
-           'WPBDM' ); ?>
+<?php
+    esc_html_e( 'An unknown error occurred during the export. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.',
+    'business-directory-plugin' ); ?>
 </p></div>
 
 <div class="step-1">
 
 <div class="wpbdp-note"><p>
 <?php
-$notice = _x( "Please note that the export process is a resource intensive task. If your export does not succeed try disabling other plugins first and/or increasing the values of the 'memory_limit' and 'max_execution_time' directives in your server's php.ini configuration file.",
-              'admin csv-export',
-              'WPBDM' );
+$notice = _x( 'Please note that the export process is a resource intensive task. If your export does not succeed try disabling other plugins first and/or increasing the values of the \'memory_limit\' and \'max_execution_time\' directives in your server\'s php.ini configuration file.',
+    'admin csv-export',
+    'business-directory-plugin'
+);
 $notice = str_replace( array( 'memory_limit', 'max_execution_time' ),
-                       array( '<a href="http://www.php.net/manual/en/ini.core.php#ini.memory-limit" target="_blank" rel="noopener">memory_limit</a>',
-                              '<a href="http://www.php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank" rel="noopener">max_execution_time</a>' ),
-                       $notice );
+    array(
+        '<a href="http://www.php.net/manual/en/ini.core.php#ini.memory-limit" target="_blank" rel="noopener">memory_limit</a>',
+        '<a href="http://www.php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank" rel="noopener">max_execution_time</a>',
+    ),
+$notice );
 echo $notice;
 ?>
 </p>
 </div>
 
-<!--<h3><?php _ex('Export Configuration', 'admin csv-export', 'WPBDM'); ?></h3>-->
+<!--<h3><?php _ex( 'Export Configuration', 'admin csv-export', 'WPBDM' ); ?></h3>-->
 <form id="wpbdp-csv-export-form" action="" method="POST">
     
     <h2><?php _ex( 'Export settings', 'admin csv-export', 'WPBDM' ); ?></h2>
     <table class="form-table">
         <tr>
             <th scope="row">
-                <label> <?php _ex('Which listings to export?', 'admin csv-export', 'WPBDM'); ?></label>
+                <label> <?php _ex( 'Which listings to export?', 'admin csv-export', 'WPBDM' ); ?></label>
             </th>
             <td>
                 <select name="settings[listing_status]">
@@ -42,12 +45,12 @@ echo $notice;
         </tr>      
         <tr>
             <th scope="row">
-                <label> <?php _ex('Export images?', 'admin csv-export', 'WPBDM'); ?></label>
+                <label> <?php _ex( 'Export images?', 'admin csv-export', 'WPBDM' ); ?></label>
             </th>
             <td>
                 <label><input name="settings[export-images]"
                        type="checkbox"
-                       value="1" /> <?php _ex('Export images', 'admin csv-export', 'WPBDM'); ?></label> <br />
+                       value="1" /> <?php _ex( 'Export images', 'admin csv-export', 'WPBDM' ); ?></label> <br />
                 <span class="description">
                     <?php _ex( 'When checked, instead of just a CSV file a ZIP file will be generated with both a CSV file and listing images.', 'admin csv-export', 'WPBDM' ); ?>
                 </span>
@@ -55,46 +58,46 @@ echo $notice;
         </tr>
         <tr>
             <th scope="row">
-                <label> <?php _ex('Additional metadata to export:', 'admin csv-export', 'WPBDM'); ?></label>
+                <label> <?php _ex( 'Additional metadata to export:', 'admin csv-export', 'WPBDM' ); ?></label>
             </th>
             <td>
                 <label><input name="settings[generate-sequence-ids]"
                        type="checkbox"
-                       value="1" /> <?php _ex('Include unique IDs for each listing (sequence_id column).', 'admin csv-export', 'WPBDM' ); ?></label><br />
+                       value="1" /> <?php _ex( 'Include unique IDs for each listing (sequence_id column).', 'admin csv-export', 'WPBDM' ); ?></label><br />
                 <span class="description">
-                <strong><?php _ex( 'If you plan to re-import the listings into BD and don\'t want new ones created, select this option!', 'admin csv-export', 'WPBDM'); ?></strong>
+                <strong><?php _ex( 'If you plan to re-import the listings into BD and don\'t want new ones created, select this option!', 'admin csv-export', 'WPBDM' ); ?></strong>
                 </span> <br /><br />
 
                 <label><input name="settings[include-users]"
                        type="checkbox"
                        value="1"
-                       checked="checked" /> <?php _ex('Author information (username)', 'admin csv-export', 'WPBDM'); ?></label> <br />
+                       checked="checked" /> <?php _ex( 'Author information (username)', 'admin csv-export', 'WPBDM' ); ?></label> <br />
 
                 <label><input name="settings[include-expiration-date]"
                        type="checkbox"
                        value="1"
-                       checked="checked" /> <?php _ex('Listing expiration date', 'admin csv-export', 'WPBDM'); ?></label> <br />
+                       checked="checked" /> <?php _ex( 'Listing expiration date', 'admin csv-export', 'WPBDM' ); ?></label> <br />
                 
                 <label><input name="settings[include-created-date]"
                 type="checkbox"
-                value="1" /> <?php _ex('Listing created date', 'admin csv-export', 'WPBDM'); ?></label> <br />
+                value="1" /> <?php _ex( 'Listing created date', 'admin csv-export', 'WPBDM' ); ?></label> <br />
 
                 <label><input name="settings[include-modified-date]"
                 type="checkbox"
-                value="1" /> <?php _ex('Listing last updated date', 'admin csv-export', 'WPBDM'); ?></label> <br />
+                value="1" /> <?php _ex( 'Listing last updated date', 'admin csv-export', 'WPBDM' ); ?></label> <br />
 
-                <label><input name="settings[include-gdpr-acceptance-date]"
+                <label><input name="settings[include-tos-acceptance-date]"
                 type="checkbox"
-                value="1" /> <?php _ex('Listing GDPR acceptance date', 'admin csv-export', 'WPBDM'); ?></label> <br />
+                value="1" /> <?php _ex( 'Listing T&C acceptance date', 'admin csv-export', 'WPBDM' ); ?></label> <br />
             </td>
         </tr>
     </table>
 
-    <h2><?php _ex('CSV File Settings', 'admin csv-export', 'WPBDM'); ?></h2>
+    <h2><?php _ex( 'CSV File Settings', 'admin csv-export', 'WPBDM' ); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'What operating system will you use to edit the CSV file?', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
+                    <label> <?php _ex( 'What operating system will you use to edit the CSV file?', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <label><input name="settings[target-os]"
@@ -113,7 +116,7 @@ echo $notice;
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Image Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
+                    <label> <?php _ex( 'Image Separator', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[images-separator]"
@@ -124,7 +127,7 @@ echo $notice;
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Category Separator', 'admin csv-export', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
+                    <label> <?php _ex( 'Category Separator', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[category-separator]"
@@ -160,13 +163,15 @@ echo $notice;
 </div>
 
 <div class="step-3">
-    <h2><?php _ex( 'Export Complete', 'admin csv-export', 'WPBDM' )?></h2>
+    <h2><?php _ex( 'Export Complete', 'admin csv-export', 'WPBDM' ) ?></h2>
     <p><?php _ex( 'Your export file has been successfully created and it is now ready for download.', 'admin csv-export', 'WPBDM' ); ?></p>
     <div class="download-link">
         <a href="" class="button button-primary">
-            <?php echo sprintf( _x( 'Download %s (%s)', 'admin csv-export', 'WPBDM' ),
-                                '<span class="filename"></span>',
-                                '<span class="filesize"></span>' ); ?>
+            <?php
+            echo sprintf( _x( 'Download %1$s (%2$s)', 'admin csv-export', 'WPBDM' ),
+                '<span class="filename"></span>',
+            '<span class="filesize"></span>' );
+            ?>
         </a>
     </div>
     <div class="cleanup-link wpbdp-note">
@@ -176,7 +181,7 @@ echo $notice;
 </div>
 
 <div class="canceled-export">
-    <h2><?php _ex( 'Export Canceled', 'admin csv-export', 'WPBDM' )?></h2>
+    <h2><?php _ex( 'Export Canceled', 'admin csv-export', 'WPBDM' ) ?></h2>
     <p><?php _ex( 'The export has been canceled.', 'admin csv-export', 'WPBDM' ); ?></p>
     <p><a href="" class="button"><?php _ex( '← Return to CSV Export', 'admin csv-export', 'WPBDM' ); ?></a></p>
 </div>
