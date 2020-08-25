@@ -38,7 +38,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             'wpbdp-submit-listing',
             WPBDP_URL . 'assets/js/submit-listing.min.js',
             array(),
-            WPBDP_VERSION
+            WPBDP_VERSION,
+            false
         );
 
         wp_enqueue_script( 'wpbdp-checkout' );
@@ -59,7 +60,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         wp_localize_script(
-            'wpbdp-submit-listing', 'wpbdpSubmitListingL10n', array(
+            'wpbdp-submit-listing',
+            'wpbdpSubmitListingL10n',
+            array(
 				'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
 				'completeListingTxt'       => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),
 				'continueToPaymentTxt'     => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
@@ -107,7 +110,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( $this->editing ) {
             $auth_parameters = array(
                 'wpbdp_view'          => 'edit_listing',
-                'redirect_query_args' => array( 'listing_id' => $this->listing->get_id() )
+                'redirect_query_args' => array( 'listing_id' => $this->listing->get_id() ),
             );
         }
 
@@ -297,7 +300,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $sections[ $section['id'] ]         = $section;
             $sections[ $section['id'] ]['html'] = wpbdp_render(
-                'submit-listing-section', array(
+                'submit-listing-section',
+                array(
                     'section'  => $section,
                     'messages' => $messages_html,
                 )
@@ -673,7 +677,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( ! empty( $_POST['save_listing'] ) ) {
                 $field_errors = null;
                 $validate_res = apply_filters_ref_array(
-                    'wpbdp_listing_submit_validate_field', array(
+                    'wpbdp_listing_submit_validate_field',
+                    array(
                         $field->validate( $value, $field_errors ),
                         &$field_errors,
                         &$field,
