@@ -43,7 +43,7 @@ class WPBDP__Settings_Admin {
 
     public function menu_item( $menu ) {
         $menu['wpbdp_settings'] = array(
-            'title'    => _x( 'Manage Options', 'admin menu', 'WPBDM' ),
+            'title'    => _x( 'Settings', 'admin menu', 'WPBDM' ),
             'callback' => array( $this, 'settings_page' ),
             'priority' => 2,
         );
