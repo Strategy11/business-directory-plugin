@@ -83,14 +83,14 @@ class WPBDP__Listing_Timeline {
             return false;
         }
 
-        $gdpr_acceptance = get_post_meta( $this->listing->get_id(), '_wpbdp_gdpr_acceptance_date', true );
+        $tos_acceptance = get_post_meta( $this->listing->get_id(), '_wpbdp_tos_acceptance_date', true );
 
-        if ( $gdpr_acceptance ) {
+        if ( $tos_acceptance ) {
             wpbdp_insert_log(
                 array(
-                    'log_type'   => 'listing.gdpr_accepted',
+                    'log_type'   => 'listing.terms_and_conditions_accepted',
                     'object_id'  => $post->ID,
-                    'created_at' => $gdpr_acceptance
+                    'created_at' => $tos_acceptance
                 )
             );
         }
