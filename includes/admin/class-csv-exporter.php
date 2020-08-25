@@ -49,7 +49,7 @@ class WPBDP_CSVExporter {
             $this->settings['target-os'] = 'windows';
         }
 
-        if ( $this->settings['target-os'] == 'macos' ) {
+        if ( $this->settings['target-os'] === 'macos' ) {
             $this->settings['csv-file-separator'] = "\t";
         }
 
@@ -73,8 +73,8 @@ class WPBDP_CSVExporter {
 
         $this->columns['fee_id'] = 'fee_id';
 
-        if ( ! empty( $this->settings['include-gdpr-acceptance-date'] ) ) {
-            $this->columns['gdpr_acceptance_date'] = 'gdpr_acceptance_date';
+        if ( ! empty( $this->settings['include-tos-acceptance-date'] ) ) {
+            $this->columns['terms_and_conditions_acceptance_date'] = 'terms_and_conditions_acceptance_date';
         }
 
         if ( $this->settings['include-expiration-date'] ) {
@@ -150,7 +150,7 @@ class WPBDP_CSVExporter {
         $shortnames = wpbdp_formfields_api()->get_short_names();
 
         foreach ( $state['columns'] as $fshortname ) {
-            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id', 'fee_id', 'created_date', 'modified_date', 'gdpr_acceptance_date' ) ) ) {
+            if ( in_array( $fshortname, array( 'images', 'username', 'expires_on', 'sequence_id', 'fee_id', 'created_date', 'modified_date', 'terms_and_conditions_acceptance_date' ) ) ) {
                 $export->columns[ $fshortname ] = $fshortname;
                 continue;
             }
@@ -328,13 +328,15 @@ class WPBDP_CSVExporter {
 					$value = $listing->get_author_meta( 'login' );
                     break;
 				case 'images':
-					$images = array();
+                    $images = array();
+                    
+                    $image_ids = $listing->get_images( 'ids' );
 
-					if ( $image_ids = $listing->get_images( 'ids' ) ) {
+					if ( $image_ids ) {
 					    $thumnail_id   = $listing->get_thumbnail_id();
                         $has_thumbnail = array_search( $thumnail_id, $image_ids, true );
 					    if ( $has_thumbnail ) {
-					        unset( $image_ids[$has_thumbnail] );
+					        unset( $image_ids[ $has_thumbnail ] );
 					        array_unshift( $image_ids, $thumnail_id );
                         }
 
@@ -391,8 +393,8 @@ class WPBDP_CSVExporter {
                         $post_id
                     );
                     break;
-                case 'gdpr_acceptance_date':
-                    $value = get_post_meta( $post_id, '_wpbdp_gdpr_acceptance_date', true );
+                case 'terms_and_conditions_acceptance_date':
+                    $value = get_post_meta( $post_id, '_wpbdp_tos_acceptance_date', true );
                     break;
 				default:
 					if ( is_object( $column_obj ) ) {
