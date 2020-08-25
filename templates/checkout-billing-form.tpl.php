@@ -34,7 +34,7 @@ $show_details_section = ! isset( $show_details_section ) ? true : false;
     <div class="wpbdp-billing-detail-field wpbdp-required">
         <label><?php _ex( 'Card Number', 'checkout', 'WPBDM' ); ?></label>
         <span class="wpbdp-description"><?php _ex( 'The digits on the front of your credit card.', 'checkout', 'WPBDM' ); ?></span>
-        <input type="text" name="card_number" value="" placeholder="<?php _ex( 'Card Number', 'checkout', 'WPBDM' ); ?>" maxlength="16" minlength="16" />
+        <input type="text" name="card_number" value="" placeholder="<?php _ex( 'Card Number', 'checkout', 'WPBDM' ); ?>" />
     </div>
 
     <div class="wpbdp-billing-detail-field wpbdp-required">
@@ -71,7 +71,7 @@ $show_details_section = ! isset( $show_details_section ) ? true : false;
 <div class="wpbdp-checkout-billing-details wpbdp-checkout-section">
     <h3><?php _ex( 'Billing Details', 'checkout', 'WPBDM' ); ?></h3>
 
-    <div class="wpbdp-billing-detail-field wpbdp-required">
+    <div class="wpbdp-billing-detail-field">
         <label><?php _ex( 'Address', 'checkout', 'WPBDM' ); ?></label>
         <span class="wpbdp-description"><?php _ex( 'Please enter the address where you receive your billing statement.', 'checkout', 'WPBDM' ); ?></span>
         <input type="text" name="payer_address" value="<?php echo esc_attr( ! empty( $data['payer_address'] ) ? $data['payer_address'] : '' ); ?>" />
