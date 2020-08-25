@@ -217,15 +217,6 @@ class WPBDP_Licensing {
         if ( ! current_user_can( 'administrator' ) || ! $this->items ) {
             return;
         }
-
-        add_submenu_page(
-            'wpbdp_admin',
-            _x( 'Licenses', 'settings', 'WPBDM' ),
-            _x( 'Licenses', 'settings', 'WPBDM' ),
-            'administrator',
-            'wpbdp-licenses',
-            '__return_false'
-        );
         global $submenu;
 
         foreach ( $submenu as $menu_id => &$m ) {
