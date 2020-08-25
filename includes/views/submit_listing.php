@@ -422,7 +422,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             );
         }
 
-        if ( ! $this->editing && ( wpbdp_get_option( 'display-terms-and-conditions' ) || wpbdp_get_option( 'display-gdpr-terms' ) ) ) {
+        if ( ! $this->editing && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             $sections['terms_and_conditions'] = array(
                 'title' => _x( 'Terms and Conditions', 'submit listing', 'WPBDM' ),
             );
@@ -890,85 +890,46 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function terms_and_conditions() {
-        $html = '';
-
-        if ( wpbdp_get_option( 'display-terms-and-conditions' ) ) {
-            $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
-
-            if ( ! empty( $tos ) ) {
-                $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
-                $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
-
-                if ( $this->saving() && ! $accepted ) {
-                    $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
-                    $this->prevent_save = true;
-                }
-
-                if ( ! $is_url ) {
-                    $html .= '<label for="wpbdp-terms-and-conditions">';
-                    $html .= _x( 'Terms and Conditions:', 'templates', 'WPBDM' );
-                    $html .= '</label><br />';
-                    $html .= sprintf( '<textarea id="wpbdp-terms-and-conditions" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
-                }
-
-                $html .= '<label for="wpbdp-terms-and-conditions-agreement">';
-                $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
-                $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'WPBDM' );
-
-                if ( $is_url )
-                    $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
-                else
-                    $label = str_replace( array( '<a>', '</a>' ), '', $label );
-
-                $html .= $label;
-                $html .= '</label>';
-            }
-        }
-
-        if ( wpbdp_get_option( 'display-gdpr-terms' ) ) {
-            $tos = trim( wpbdp_get_option( 'gdpr-terms' ) );
-
-            if ( ! empty( $tos ) ) {
-                $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
-                $accepted = ! empty( $_POST['gdpr-terms-agreement'] ) && 1 == $_POST['gdpr-terms-agreement'];
-
-                if ( $this->saving() && ! $accepted ) {
-                    $this->messages( _x( 'Please agree to the GDPR Terms.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
-                    $this->prevent_save = true;
-                }
-                
-                if ( $this->saving() && ! $this->prevent_save && $accepted ) {
-                    $this->data['gdpr_acceptance'] = date( 'Y-m-d H:i:s' );
-                }
-
-                if ( ! empty( $html ) ) {
-                    $html .= '<br/><br/>';
-                }
-
-                if ( ! $is_url ) {
-                    $html .= '<label for="wpbdp-gdpr-terms">';
-                    $html .= _x( 'GDPR Terms:', 'templates', 'WPBDM' );
-                    $html .= '</label><br />';
-                    $html .= sprintf( '<textarea id="wpbdp-gdpr-terms" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
-                }
-
-                $html .= '<label for="wpbdp-gdpr-terms-agreement">';
-                $html .= '<input id="wpbdp-gdpr-terms-agreement" type="checkbox" name="gdpr-terms-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
-                $label = _x( 'I agree to the <a>GDPR Terms</a>', 'templates', 'WPBDM' );
-
-                if ( $is_url )
-                    $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
-                else
-                    $label = str_replace( array( '<a>', '</a>' ), '', $label );
-
-                $html .= $label;
-                $html .= '</label>';
-            }
-        }
-
-        if ( ! $html ) {
+        if ( ! wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             return false;
         }
+
+        $tos = trim( wpbdp_get_option( 'terms-and-conditions' ) );
+
+        if ( empty( $tos ) ) {
+            return false;
+        }
+
+        $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
+        $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
+
+        if ( $this->saving() && ! $accepted ) {
+            $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
+            $this->prevent_save = true;
+        }
+        
+        if ( $this->saving() && ! $this->prevent_save && $accepted ) {
+            $this->data['tos_acceptance'] = date( 'Y-m-d H:i:s' );
+        }
+
+        if ( ! $is_url ) {
+            $html .= '<label for="wpbdp-terms-and-conditions">';
+            $html .= _x( 'Terms and Conditions:', 'templates', 'WPBDM' );
+            $html .= '</label><br />';
+            $html .= sprintf( '<textarea id="wpbdp-terms-and-conditions" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
+        }
+
+        $html .= '<label for="wpbdp-terms-and-conditions-agreement">';
+        $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
+        $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'WPBDM' );
+
+        if ( $is_url )
+            $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
+        else
+            $label = str_replace( array( '<a>', '</a>' ), '', $label );
+
+        $html .= $label;
+        $html .= '</label>';
 
         return array( true, $html );
     }
@@ -986,13 +947,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 wp_update_post( array( 'ID' => $this->listing->get_id(), 'post_author' => $user_id ) );
             }
 
-            if ( ! empty( $this->data['gdpr_acceptance'] ) ) {
-                update_post_meta( $this->listing->get_id(), '_wpbdp_gdpr_acceptance_date', $this->data['gdpr_acceptance'] );
+            if ( ! empty( $this->data['tos_acceptance'] ) ) {
+                update_post_meta( $this->listing->get_id(), '_wpbdp_tos_acceptance_date', $this->data['tos_acceptance'] );
                 wpbdp_insert_log(
                     array(
-                        'log_type'   => 'listing.gdpr_accepted',
+                        'log_type'   => 'listing.terms_and_conditions_accepted',
                         'object_id'  => $this->listing->get_id(),
-                        'created_at' => $this->data['gdpr_acceptance']
+                        'created_at' => $this->data['tos_acceptance']
                     )
                 );
             }
