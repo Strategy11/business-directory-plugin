@@ -905,6 +905,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             return false;
         }
 
+        $html = '';
+
         $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
         $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
 
