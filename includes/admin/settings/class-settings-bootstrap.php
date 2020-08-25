@@ -36,7 +36,6 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'WPBDM' ) );
         wpbdp_register_settings_group( 'appearance/main', _x( 'General Settings', 'settings', 'WPBDM' ), 'appearance' );
 
-        // wpbdp_register_settings_group( 'licenses', _x( 'Licenses', 'settings', 'WPBDM' ) );
         wpbdp_register_settings_group( 'modules', _x( 'Premium Modules', 'settings', 'WPBDM' ) );
     }
 
@@ -1052,7 +1051,6 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'display-sticky-badge',
                 'type'    => 'multicheck',
                 'name'    => _x( 'Display featured (sticky) badge on listing:', 'settings', 'WPBDM' ),
-                'desc'    => _x( '', 'settings', 'WPBDM' ),
                 'default' => array( 'single' ),
                 'options' => array(
                     'excerpt' => _x( 'Excerpt view.', 'admin settings', 'WPBDM' ),
@@ -1371,12 +1369,12 @@ final class WPBDP__Settings__Bootstrap {
 				'default'      => array(
 					'subject' => '[[site-title]] Contact via "[listing]"',
 					'body'    => '' .
-								 sprintf( _x( 'You have received a reply from your listing at %s.', 'contact email', 'WPBDM' ), '[listing-url]' ) . "\n\n" .
-								 sprintf( _x( 'Name: %s', 'contact email', 'WPBDM' ), '[name]' ) . "\n" .
-								 sprintf( _x( 'E-Mail: %s', 'contact email', 'WPBDM' ), '[email]' ) . "\n" .
-								 _x( 'Message:', 'contact email', 'WPBDM' ) . "\n" .
-								 '[message]' . "\n\n" .
-								 sprintf( _x( 'Time: %s', 'contact email', 'WPBDM' ), '[date]' ),
+                                sprintf( _x( 'You have received a reply from your listing at %s.', 'contact email', 'WPBDM' ), '[listing-url]' ) . "\n\n" .
+                                sprintf( _x( 'Name: %s', 'contact email', 'WPBDM' ), '[name]' ) . "\n" .
+                                sprintf( _x( 'E-Mail: %s', 'contact email', 'WPBDM' ), '[email]' ) . "\n" .
+                                _x( 'Message:', 'contact email', 'WPBDM' ) . "\n" .
+                                '[message]' . "\n\n" .
+                                sprintf( _x( 'Time: %s', 'contact email', 'WPBDM' ), '[date]' ),
 				),
 				'placeholders' => array(
 					'listing-url' => _x( 'Listing\'s URL', 'admin settings', 'WPBDM' ),
@@ -1458,13 +1456,6 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        // wpbdp_register_setting( array(
-        // 'id'   => 'email-renewal-reminders_settings',
-        // 'type' => 'section',
-        // 'name' => _x( 'Expiration/Renewal Notices', 'settings', 'WPBDM' ),
-        // 'desc' =>  _x( 'You can configure here the text for the expiration/renewal emails and also how long before/after expiration/renewal they are sent.', 'settings', 'WPBDM' ),
-        // 'tab' => 'email'
-        // ) );
         wpbdp_register_setting(
             array(
 				'id'        => 'expiration-notices',
@@ -1488,12 +1479,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => '[[site-title]] [listing] - Your listing is about to expire',
             'body'          => 'Your listing "[listing]" is about to expire at [site]. You can renew it here: [link].',
         );
-        // array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-        // 'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-        // 'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-        // 'category' => _x( 'Category that is going to expire', 'settings', 'WPBDM' ),
-        // 'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-        // 'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
         /* listing-renewal-message, non-recurring only */
         $notices[] = array(
             'event'         => 'expiration',
@@ -1502,12 +1487,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => 'Your listing on [site-title] expired',
             'body'          => "Your listing \"[listing]\" in category [category] expired on [expiration]. To renew your listing click the link below.\n[link]",
         );
-        // array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-        // 'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-        // 'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-        // 'category' => _x( 'Category that expired', 'settings', 'WPBDM' ),
-        // 'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-        // 'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
         /* renewal-reminder-message, both recurring and non-recurring */
         $notices[] = array(
             'event'         => 'expiration',
@@ -1516,12 +1495,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => '[[site-title]] [listing] - Expiration reminder',
             'body'          => "Dear Customer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link].",
         );
-        // array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-        // 'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-        // 'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-        // 'category' => _x( 'Category that expired', 'settings', 'WPBDM' ),
-        // 'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-        // 'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
         /* listing-autorenewal-notice, recurring only, controlled by the send-autorenewal-expiration-notice setting */
         $notices[] = array(
             'event'         => 'expiration',
@@ -1530,12 +1503,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => '[[site-title]] [listing] - Renewal reminder',
             'body'          => "Hey [author],\n\nThis is just to remind you that your listing [listing] is going to be renewed on [expiration] for another period.\nIf you want to review or cancel your subscriptions please visit [link].\n\nIf you have any questions, contact us at [site].",
         );
-        // array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-        // 'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-        // 'date' => _x( 'Renewal date', 'settings', 'WPBDM' ),
-        // 'category' => _x( 'Category that is going to be renewed', 'settings', 'WPBDM' ),
-        // 'site' => _x( 'Link to your site', 'settings', 'WPBDM' ),
-        // 'link' => _x( 'Link to manage subscriptions', 'settings', 'WPBDM' ) ) )
         /* listing-autorenewal-message, after IPN notification of renewal of recurring */
         $notices[] = array(
             'event'         => 'renewal',
@@ -1544,17 +1511,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => '[[site-title]] [listing] renewed',
             'body'          => "Hey [author],\n\nThanks for your payment. We just renewed your listing [listing] on [payment_date] for another period.\n\nIf you have any questions, contact us at [site].",
         );
-        // $replacements['listing'] = sprintf( '<a href="%s">%s</a>',
-        // get_permalink( $payment->get_listing_id() ),
-        // get_the_title( $payment->get_listing_id() ) );
-        // $replacements['author'] = get_the_author_meta( 'display_name', get_post( $payment->get_listing_id() )->post_author );
-        // $replacements['category'] = wpbdp_get_term_name( $recurring_item->rel_id_1 );
-        // $replacements['date'] = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
-        // strtotime( $payment->get_processed_on() ) );
-        // $replacements['site'] = sprintf( '<a href="%s">%s</a>',
-        // get_bloginfo( 'url' ),
-        // get_bloginfo( 'name' ) );
-        //
         return $notices;
     }
 
