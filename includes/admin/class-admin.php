@@ -77,6 +77,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
+            add_filter('admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
+            add_filter('admin_head-post-new.php', array( $this, 'maybe_highlight_menu' ) );
+            add_filter('admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
+            add_filter('admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
+
             $this->listings = new WPBDP_Admin_Listings();
             $this->csv_import = new WPBDP_CSVImportAdmin();
             $this->csv_export = new WPBDP_Admin_CSVExport();
@@ -324,32 +329,23 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 20
             );
 
-            $menu['wpbdp_admin'] = array(
-                'title' => __( 'Directory Listings', 'WPBDM' ),
-                'url' => admin_url( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) ),
-                'capability' => 'edit_posts'
-            );
             $menu['wpbdp-admin-add-listing'] = array(
                 'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),
-                'url' => admin_url( sprintf( 'post-new.php?post_type=%s', WPBDP_POST_TYPE ) ),
-                'capability' => 'edit_posts'
+                'url' => sprintf( 'post-new.php?post_type=%s', WPBDP_POST_TYPE ),
+                'capability' => 'edit_posts',
             );
             $menu['wpbdp-admin-categories'] = array(
                 'title' => __( 'Directory Categories', 'WPBDM' ),
-                'url' => admin_url( sprintf( 'edit-tags.php?taxonomy=%s&post_type=%s', WPBDP_CATEGORY_TAX, WPBDP_POST_TYPE ) ),
+                'url' => sprintf( 'edit-tags.php?taxonomy=%s&post_type=%s', WPBDP_CATEGORY_TAX, WPBDP_POST_TYPE ),
                 'capability' => 'manage_categories'
             );
             $menu['wpbdp-admin-tags'] = array(
                 'title' => __( 'Directory Tags', 'WPBDM' ),
-                'url' => admin_url( sprintf( 'edit-tags.php?taxonomy=%s&post_type=%s', WPBDP_TAGS_TAX, WPBDP_POST_TYPE ) ),
+                'url' => sprintf( 'edit-tags.php?taxonomy=%s&post_type=%s', WPBDP_TAGS_TAX, WPBDP_POST_TYPE ),
                 'capability' => 'manage_categories'
             );
             $menu['wpbdp-admin-fees'] = array(
                 'title' => _x( 'Manage Fees', 'admin menu', 'WPBDM' )
-            );
-            $menu['wpbdp_all_listings'] = array(
-                'title' => _x('Listings', 'admin menu', 'WPBDM'),
-                'url' => admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE )
             );
             $menu['wpbdp_admin_formfields'] = array(
                 'title' => _x('Manage Form Fields', 'admin menu', 'WPBDM'),
@@ -359,7 +355,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 'title' => _x( 'Payment History', 'admin menu', 'WPBDM' )
             );
             $menu['wpbdp_admin_csv'] = array(
-                'title' => _x( 'CSV Import & Export', 'admin menu', 'WPBDM' )
+                'title' => _x( 'Import & Export', 'admin menu', 'WPBDM' )
             );
             $menu['wpbdp-debug-info'] = array(
                 'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
@@ -1080,6 +1076,21 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_filter( 'wpbdp_admin_directory_views', array( $view, 'filter_views' ), 10, 2 );
             add_filter( 'wpbdp_admin_directory_filter', array( $view, 'filter_query_pieces' ), 10, 2 );
         }
+
+        public function maybe_highlight_menu() {
+            global $post;
+
+            if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] != WPBDP_POST_TYPE ) {
+                return;
+            }
+
+            if ( is_object( $post ) && $post->post_type != WPBDP_POST_TYPE ) {
+                return;
+            }
+
+            echo '<script type="text/javascript">jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
+        }
+
     }
 
     function wpbdp_admin_message( $msg, $kind = '', $extra = array() ) {
