@@ -195,7 +195,7 @@ final class WPBDP__Settings__Bootstrap {
                 'min'     => 0,
                 'step'    => 0.1,
 				'max'     => 1,
-				'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'WPBDM'),
+				'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'WPBDM' ),
 				'group'   => 'recaptcha',
             )
         );
@@ -388,7 +388,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'    => 'disable-submit-listing',
 				'type'  => 'checkbox',
 				'name'  => _x( 'Disable Frontend Listing Submission?', 'settings', 'WPBDM' ),
-				'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'WPBDM'),
+				'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'WPBDM' ),
 				'group' => 'general/advanced',
             )
         );
@@ -397,7 +397,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'      => 'enqueue-fontawesome-styles',
 				'type'    => 'checkbox',
 				'name'    => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'WPBDM' ),
-				'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'WPBDM'),
+				'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'WPBDM' ),
 				'default' => true,
 				'group'   => 'general/advanced',
             )
@@ -597,7 +597,7 @@ final class WPBDP__Settings__Bootstrap {
         $admin = get_user_by( 'email', get_option( 'new_admin_email' ) );
         if ( ! $admin ) {
             $admin_users = get_users( array( 'fields' => array( 'ID' ), 'role' => 'administrator' ) );
-            
+
             if ( $admin_users ) {
                 $admin = $admin_users[0];
             }
@@ -800,7 +800,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'           => 'show-submit-listing',
 				'type'         => 'checkbox',
 				'name'         => _x( 'Show the "Submit listing" button.', 'settings', 'WPBDM' ),
-				'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'WPBDM'),
+				'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'WPBDM' ),
 				'default'      => true,
 				'group'        => 'display_options',
 				'requirements' => array( '!disable-submit-listing' ),
@@ -1051,11 +1051,11 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-                'id'           => 'listings-sticky-image',
-                'type'         => 'file',
-                'name'         => _x( 'Featured Badge image', 'settings', 'WPBDM' ),
-                'default'      => '',
-                'group'        => 'image/listings',
+                'id'      => 'listings-sticky-image',
+                'type'    => 'file',
+                'name'    => _x( 'Featured Badge image', 'settings', 'WPBDM' ),
+                'default' => '',
+                'group'   => 'image/listings',
             )
         );
         wpbdp_register_setting(
@@ -1131,17 +1131,17 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         $aed_usupported_gateways = apply_filters( 'wpbdp_aed_not_supported', wpbdp_get_option( 'authorize-net', false ) ? array( 'Authorize.net' ) : array() );
-        $desc = '';
+        $desc                    = '';
 
         if ( $aed_usupported_gateways ) {
             $desc = sprintf(
-                _x( 'AED currency is not supported by %s. %s', 'admin settings', 'WPBDM' ),
+                _x( 'AED currency is not supported by %1$s. %2$s', 'admin settings', 'WPBDM' ),
                 '<b>' . implode( ' or ', $aed_usupported_gateways ) . '</b>',
                 _n(
                     'If you are using this gateway, we recommend you disable it if you wish to collect payments in this currency.',
                     'If you are using these gateways, we recommend you disable them if you wish to collect payments in this currency.',
                     count( $aed_usupported_gateways ),
-                    'WPBDM' 
+                    'WPBDM'
                 )
             );
         }
@@ -1306,13 +1306,13 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => _x( 'Notify admin via e-mail when...', 'settings', 'WPBDM' ),
 				'default' => array(),
 				'options' => array(
-					'new-listing'      => _x( 'A new listing is submitted.', 'admin settings', 'WPBDM' ),
-					'listing-edit'     => _x( 'A listing is edited.', 'admin settings', 'WPBDM' ),
-					'renewal'          => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
-                    'after_renewal'    => _x( 'A listing is renewed.', 'admin settings', 'WPBDM' ),
-                    'payment-completed'=> _x( 'A listing payment is completed.', 'admin settings', 'WPBDM' ),
-					'flagging_listing' => _x( 'A listing has been reported as inappropriate.', 'admin settings', 'WPBDM' ),
-					'listing-contact'  => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ),
+					'new-listing'       => _x( 'A new listing is submitted.', 'admin settings', 'WPBDM' ),
+					'listing-edit'      => _x( 'A listing is edited.', 'admin settings', 'WPBDM' ),
+					'renewal'           => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
+                    'after_renewal'     => _x( 'A listing is renewed.', 'admin settings', 'WPBDM' ),
+                    'payment-completed' => _x( 'A listing payment is completed.', 'admin settings', 'WPBDM' ),
+					'flagging_listing'  => _x( 'A listing has been reported as inappropriate.', 'admin settings', 'WPBDM' ),
+					'listing-contact'   => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ),
 				),
 				'group'   => 'email_notifications',
             )
@@ -1343,7 +1343,7 @@ final class WPBDP__Settings__Bootstrap {
                 'payment-completed' => _x( 'A payment for their listing is completed.', 'admin settings', 'WPBDM' ),
                 'listing-expires'   => _x( 'Their listing expired or is about to expire.', 'admin settings', 'WPBDM' ),
             ),
-            'group' => 'email_notifications'
+            'group'   => 'email_notifications',
         ) );
 
         wpbdp_register_settings_group( 'email_templates', _x( 'Templates', 'settings', 'WPBDM' ), 'email' );
@@ -1664,7 +1664,7 @@ final class WPBDP__Settings__Bootstrap {
         $sizes = array( 'uploaded' => _x( 'Uploaded Image (no resize)', 'admin settings', 'WPBDM' ) );
 
         foreach ( get_intermediate_image_sizes() as $_size ) {
-            if ( in_array( $_size, array('thumbnail', 'medium', 'medium_large', 'large') ) ) {
+            if ( in_array( $_size, array( 'thumbnail', 'medium', 'medium_large', 'large' ) ) ) {
                 $name   = 'WP ' . ucwords( str_replace( '_', ' ', $_size ) );
                 $width  = get_option( "{$_size}_size_w" );
                 $height = get_option( "{$_size}_size_h" );
