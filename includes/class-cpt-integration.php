@@ -13,7 +13,7 @@ class WPBDP__CPT_Integration {
         // Listing type.
         $args = array(
             'labels'       => array(
-                'name'               => _x( 'Directory', 'post type general name', 'WPBDM' ),
+                'name'               => _x( 'Directory Listings', 'post type general name', 'WPBDM' ),
                 'singular_name'      => _x( 'Listing', 'post type singular name', 'WPBDM' ),
                 'add_new'            => _x( 'Add New Listing', 'listing', 'WPBDM' ),
                 'add_new_item'       => _x( 'Add New Listing', 'post type', 'WPBDM' ),
@@ -25,7 +25,8 @@ class WPBDP__CPT_Integration {
                 'not_found_in_trash' => __( 'No listings found in trash', 'WPBDM' ),
             ),
             'public'       => true,
-            'show_in_menu' => false,
+            'show_ui'      => true,
+            'show_in_menu' => 'wpbdp_admin',
             'menu_icon'    => WPBDP_URL . 'assets/images/menuico.png',
             'supports'     => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' ),
             'rewrite'      => array(
@@ -33,6 +34,10 @@ class WPBDP__CPT_Integration {
                 'with_front' => true,
                 'feeds'      => true,
             ),
+            'taxonomies' => array(
+                WPBDP_CATEGORY_TAX,
+                WPBDP_TAGS_TAX,
+            )
         );
         register_post_type( WPBDP_POST_TYPE, $args );
 
