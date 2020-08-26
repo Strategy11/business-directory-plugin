@@ -47,7 +47,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
         $html = $this->_render_page( 'manage_listings', array( 'current_user' => $current_user,
                                                                'query' => $q,
-                                                               '_bar' => ! empty( $this->show_search_bar ) ? $this->show_search_bar : 'false' ) );
+                                                               '_bar' => ! empty( $this->show_search_bar ) ? $this->show_search_bar : false ) );
 
         wpbdp_pop_query();
 

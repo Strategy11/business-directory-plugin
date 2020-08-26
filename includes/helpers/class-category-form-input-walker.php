@@ -32,7 +32,7 @@ class WPBDP_CategoryFormInputWalker extends Walker {
                 break;
             case 'radio':
             default:
-                $output .= sprintf( '<div class="wpbdm-form-field-radio-item"><label for="wpbdp-field-%6$d-%5$s"><input id="wpbdp-field-%6$d-%5$s" type="radio" name="%s" class="%s" value="%s" %s style="margin-left: %dpx;"> %s</div>',
+                $output .= sprintf( '<div class="wpbdm-form-field-radio-item"><label for="wpbdp-field-%6$d-%5$s"><input id="wpbdp-field-%6$d-%5$s" type="radio" name="%s" class="%s" value="%s" %s style="margin-left: %dpx;"> %s</label></div>',
                                     'listingfields[' . $this->field->get_id() . ']',
                                     $this->field->is_required() ? 'inradio required' : 'inradio',
                                     $category->term_id,
