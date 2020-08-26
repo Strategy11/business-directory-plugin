@@ -6,6 +6,8 @@ class WPBDP__Admin__Listing_Owner {
 
     public static $users = array();
 
+    public $listing_id = 0;
+
     private $dropdown_users_args_stack = array();
 
     public function __construct( $post_id = 0 ) {

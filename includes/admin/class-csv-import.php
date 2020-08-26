@@ -613,7 +613,7 @@ class WPBDP_CSV_Import {
         }
 
         if ( ! empty( $data['terms_and_conditions_acceptance_date'] ) ) {
-            update_post_meta( $listing->get_id(), '_wpbdp_gdpr_acceptance_date', $data['terms_and_conditions_acceptance_date'] );
+            update_post_meta( $listing->get_id(), '_wpbdp_tos_acceptance_date', $data['terms_and_conditions_acceptance_date'] );
             if ( empty( $meta['sequence_id'] ) ) {
                 wpbdp_insert_log(
                     array(
@@ -735,11 +735,10 @@ class WPBDP_CSV_Import {
                     break;
 
                 case 'terms_and_conditions_acceptance_date':
-                    $gdpr_date = $this->convert_to_date( $value, $errors );
-                    error_log( print_r( $gdpr_date, true ) );
+                    $tos_date = $this->convert_to_date( $value, $errors );
 
                     if ( $gdpr_date ) {
-                        $terms_and_conditions_acceptance_date = $gdpr_date;
+                        $terms_and_conditions_acceptance_date = $tos_date;
                     }
                     break;
 
