@@ -368,5 +368,4 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
         $subscription->cancel();
     }
-
 }

@@ -665,7 +665,7 @@ jQuery( function( $ ) {
 //
 // {{ Highlight Directory menu.
 //
-function wpbdpSelectSubnav( $current = '' ) {
+function wpbdpSelectSubnav() {
         var wpbdpMenu = jQuery( '#toplevel_page_wpbdp_admin' );
         jQuery( wpbdpMenu ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
         jQuery( '#toplevel_page_wpbdp_admin a.wp-has-submenu' ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
