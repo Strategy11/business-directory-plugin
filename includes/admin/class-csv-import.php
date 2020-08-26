@@ -737,7 +737,7 @@ class WPBDP_CSV_Import {
                 case 'terms_and_conditions_acceptance_date':
                     $tos_date = $this->convert_to_date( $value, $errors );
 
-                    if ( $gdpr_date ) {
+                    if ( $tos_date ) {
                         $terms_and_conditions_acceptance_date = $tos_date;
                     }
                     break;
