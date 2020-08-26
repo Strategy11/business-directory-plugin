@@ -368,7 +368,7 @@ class WPBDP__CPT_Integration {
         $defaults = array(
             'height' => 18,
             'width'  => 18,
-            'fill'   => '#80DD69',
+            'fill'   => '#a0a5aa',
         );
         $atts     = array_merge( $defaults, $atts );
 
