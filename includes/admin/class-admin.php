@@ -318,32 +318,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 0 ) );
                 $count_html = $badge_number ? '<span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>' : '';
             }
-
-            add_menu_page(
-                _x( 'Business Directory Admin', 'admin menu', "WPBDM" ),
-                __( 'Directory', 'WPBDM' ) . $count_html,
-                'administrator',
-                'wpbdp_admin',
-                current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
-                self::menu_icon(),
-                20
-            );
-
-            $menu['wpbdp-admin-add-listing'] = array(
-                'title' => _x('Add New Listing', 'admin menu', 'WPBDM'),
-                'url' => sprintf( 'post-new.php?post_type=%s', WPBDP_POST_TYPE ),
-                'capability' => 'edit_posts',
-            );
-            $menu['wpbdp-admin-categories'] = array(
-                'title' => __( 'Directory Categories', 'WPBDM' ),
-                'url' => sprintf( 'edit-tags.php?taxonomy=%s&post_type=%s', WPBDP_CATEGORY_TAX, WPBDP_POST_TYPE ),
-                'capability' => 'manage_categories'
-            );
-            $menu['wpbdp-admin-tags'] = array(
-                'title' => __( 'Directory Tags', 'WPBDM' ),
-                'url' => sprintf( 'edit-tags.php?taxonomy=%s&post_type=%s', WPBDP_TAGS_TAX, WPBDP_POST_TYPE ),
-                'capability' => 'manage_categories'
-            );
             $menu['wpbdp-admin-fees'] = array(
                 'title' => _x( 'Manage Fees', 'admin menu', 'WPBDM' )
             );
@@ -367,7 +341,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             // Register menu items.
             foreach ( $this->menu as $item_slug => &$item_data ) {
-                $item_data['hook'] = add_submenu_page( 'wpbdp_admin',
+                $item_data['hook'] = add_submenu_page( 'edit.php?post_type=wpbdp_listing',
                                                     $item_data['title'],
                                                     $item_data['label'],
                                                     ( empty( $item_data['capability'] ) ? 'administrator' : $item_data['capability'] ),
@@ -375,9 +349,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                                                     array( $this, 'menu_dispatch' ) );
             }
 
-            do_action('wpbdp_admin_menu', 'wpbdp_admin');
+            do_action('wpbdp_admin_menu', 'edit.php?post_type=wpbdp_listing');
 
-            add_submenu_page( 'wpbdp_admin',
+            add_submenu_page( 'edit.php?post_type=wpbdp_listing',
                             __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
                             __( 'Uninstall', 'WPBDM' ),
                             'administrator',
@@ -385,7 +359,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                             array( $this, 'uninstall_plugin' ) );
 
             // Handle some special menu items.
-            foreach ( $GLOBALS['submenu']['wpbdp_admin'] as &$menu_item ) {
+            foreach ( $GLOBALS['submenu']['edit.php?post_type=wpbdp_listing'] as &$menu_item ) {
                 if ( ! isset( $this->menu[ $menu_item[2] ] ) )
                     continue;
 
@@ -1052,22 +1026,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
         public function main_menu() {
             echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/home.tpl.php' );
-        }
-
-        public static function menu_icon( $atts = array() ) {
-            $defaults = array(
-                'height' => 18,
-                'width'  => 18,
-                'fill'   => '#80DD69',
-            );
-            $atts     = array_merge( $defaults, $atts );
-
-            $icon = '<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="address-card" class="svg-inline--fa fa-address-card fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="' . esc_attr( $atts['width'] ) . '" height="' . esc_attr( $atts['height'] ) . '" >
-                <path fill="' . $atts['fill'] . '" d="M528 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 400H48V80h480v352zM208 256c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm-89.6 128h179.2c12.4 0 22.4-8.6 22.4-19.2v-19.2c0-31.8-30.1-57.6-67.2-57.6-10.8 0-18.7 8-44.8 8-26.9 0-33.4-8-44.8-8-37.1 0-67.2 25.8-67.2 57.6v19.2c0 10.6 10 19.2 22.4 19.2zM360 320h112c4.4 0 8-3.6 8-8v-16c0-4.4-3.6-8-8-8H360c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8zm0-64h112c4.4 0 8-3.6 8-8v-16c0-4.4-3.6-8-8-8H360c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8zm0-64h112c4.4 0 8-3.6 8-8v-16c0-4.4-3.6-8-8-8H360c-4.4 0-8 3.6-8 8v16c0 4.4 3.6 8 8 8z">
-                </path>
-                </svg>';
-
-            return 'data:image/svg+xml;base64,' . base64_encode( $icon );
         }
 
         public function register_listings_views() {
