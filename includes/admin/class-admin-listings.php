@@ -3,8 +3,6 @@
  * @package WPBDP/includes/Admin/Admin listings
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_Admin_Listings
  *
@@ -12,7 +10,9 @@
  */
 class WPBDP_Admin_Listings {
 
-    function __construct() {
+    public $listing_owner = false;
+
+    public function __construct() {
         add_action( 'admin_init', array( $this, 'add_metaboxes' ) );
         add_action( 'wpbdp_admin_notices', array( $this, 'no_plan_edit_notice' ) );
 
@@ -32,7 +32,7 @@ class WPBDP_Admin_Listings {
         add_action( 'wpbdp_save_listing', array( $this, 'maybe_restore_listing_slug' ) );
         add_action( 'wpbdp_save_listing', array( $this, 'maybe_update_plan' ) );
 
-        add_filter( 'get_sample_permalink_html', array( $this, 'maybe_hide_permalinks' ), 10, 5);
+        add_filter( 'get_sample_permalink_html', array( $this, 'maybe_hide_permalinks' ), 10, 5 );
 
         // Filter by category.
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
@@ -45,9 +45,9 @@ class WPBDP_Admin_Listings {
 
         add_action( 'wp_ajax_wpbdp-clear-payment-history', array( &$this, 'ajax_clear_payment_history' ) );
 
-        add_filter( 'tag_cloud_sort', array( $this, '_add_tag_cloud') );
+        add_filter( 'tag_cloud_sort', array( $this, '_add_tag_cloud' ) );
 
-        $listing_owner = new WPBDP__Admin__Listing_Owner();
+        $this->listing_owner = new WPBDP__Admin__Listing_Owner();
     }
 
     // Category filter. {{
@@ -55,7 +55,7 @@ class WPBDP_Admin_Listings {
         global $typenow;
         global $wp_query;
 
-        if ( WPBDP_POST_TYPE != $typenow ) {
+        if ( WPBDP_POST_TYPE !== $typenow ) {
             return;
         }
 
@@ -73,7 +73,7 @@ class WPBDP_Admin_Listings {
         );
     }
 
-    function _apply_category_filter( $query ) {
+    public function _apply_category_filter( $query ) {
         if ( ! is_admin() ) {
             return;
         }
@@ -244,8 +244,8 @@ class WPBDP_Admin_Listings {
     }
 
     public function _metabox_listing_owner( $post ) {
-        $owner_metabox = new WPBDP__Admin__Listing_Owner( $post->ID );
-        echo $owner_metabox->render_metabox();
+        $this->listing_owner->set_listing_id( $post->ID );
+        echo $this->listing_owner->render_metabox();
     }
 
     public function _metabox_listing_flagging( $post ) {
@@ -359,7 +359,7 @@ class WPBDP_Admin_Listings {
                     );
                     $attributes['payment'] .= '</span>';
                 }
-                
+
             }
         }
 
@@ -530,7 +530,7 @@ class WPBDP_Admin_Listings {
 
         $listing = wpbdp_get_listing( $post_id );
 
-        $thumbnail_id = intval( $_POST['_thumbnail_id'] ) > 0 ? intval( $_POST['_thumbnail_id'] ) : ( ! empty( $_POST['thumbnail_id'] ) ?  intval( $_POST['thumbnail_id'] ) : 0 );
+        $thumbnail_id = intval( $_POST['_thumbnail_id'] ) > 0 ? intval( $_POST['_thumbnail_id'] ) : ( ! empty( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : 0 );
 
         // Update image information.
         if ( $thumbnail_id > 0 ) {
@@ -559,10 +559,10 @@ class WPBDP_Admin_Listings {
         if ( $post_name === get_post_field( 'post_name', $post_id ) ) {
             return;
         }
-        
+
         if (
-            ! $post_name || 
-            ( isset( $_POST['edit_listing_slug'] ) && (bool)$_POST['edit_listing_slug'] ) ||
+            ! $post_name ||
+            ( isset( $_POST['edit_listing_slug'] ) && (bool) $_POST['edit_listing_slug'] ) ||
             ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] && 'edit-wpbdp_listing' === $_POST['screen'] )
         ) {
             update_post_meta( $post_id, '_wpbdp[name]', get_post_field( 'post_name', $post_id ) );
@@ -577,12 +577,12 @@ class WPBDP_Admin_Listings {
             return $return;
         }
 
-        if( WPBDP_POST_TYPE === $post->post_type ) {
+        if ( WPBDP_POST_TYPE === $post->post_type ) {
             $return = sprintf(
                 '<div class="wpbdp_allow_slug_edit"><label for="wpbdp_allow_slug_edit_input"><input id="wpbdp_allow_slug_edit_input" type="checkbox" name="edit_listing_slug" value="1" checked="%s" /> %s</label></div>',
                 ( ! empty( $_POST['action'] ) && 'sample-permalink' == $_POST['action'] ) ? 'checked' : '',
                 __( 'Edit listing permalink', 'WPBDM' )
-            ) . sprintf( 
+            ) . sprintf(
                 '<div class="wpbdp_listing_slug_edit %s">%s</div>',
                 ( ! empty( $_POST['action'] ) && 'sample-permalink' == $_POST['action'] ) ? '' : 'hidden',
                 $return
@@ -676,11 +676,17 @@ class WPBDP_Admin_Listings {
                     foreach ( $bulk_actions as $action => $text ) {
                         echo sprintf(
                             'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
-                            'action', 'listing-' . $action, esc_url( add_query_arg( 'wpbdmaction', $action ) ), $text
+                            'action',
+                            'listing-' . $action,
+                            esc_url( add_query_arg( 'wpbdmaction', $action ) ),
+                            $text
                         );
                         echo sprintf(
                             'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
-                            'action2', 'listing-' . $action, esc_url( add_query_arg( 'wpbdmaction', $action ) ), $text
+                            'action2',
+                            'listing-' . $action,
+                            esc_url( add_query_arg( 'wpbdmaction', $action ) ),
+                            $text
                         );
                     }
 

@@ -1,105 +1,127 @@
-=== Business Directory Plugin - Directories for WordPress ===
+=== Business Directory Plugin - Listing Directories for WordPress ===
 Contributors: businessdirectoryplugin
-Donate link: https://businessdirectoryplugin.com/premium-modules/
 Tags: business directory, listings, directory plugin, company business directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory, member directory, staff directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 5.3
-Last Updated: 2019-Dec-20
-Stable tag: 5.5.13.1
+Tested up to: 5.5
+Stable tag: 5.7.1
 License: GPLv2 or later
 
-Build any kind of local listings directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and much more!  Make your listings sing with Business Directory Plugin.
+Build a local listings directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and more!
 
 == Description ==
 
-[Main Site](https://businessdirectoryplugin.com/) | [Support](https://businessdirectoryplugin.com/support-forum/) | [Docs](https://businessdirectoryplugin.com/knowledge-base/) | [Showcase](https://businessdirectoryplugin.com/showcase/) | [Premium Modules](https://businessdirectoryplugin.com/premium-modules/)
+[Main Site](https://businessdirectoryplugin.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) | [Docs](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-Business Directory Plugin is the most popular, versatile, widely-installed, easiest to use, and best-supported WordPress Business Directory plugin available.  Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
+Business Directory Plugin is the most popular, versatile, widely-installed, easy to use, and best-supported WordPress Business Directory plugin available. Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
 
-Business Directory Plugin allows you to take any listings you want and build a local directory, directory of business providers, a real estate listings site, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.  You can add any kind of directory with listings using Business Directory plugin.
+Business Directory Plugin allows you to take any listings you want and build a local directory, directory of business providers, a real estate listings site, a Yellow-Pages style business directory, Yelp-like review sections, create a church directory, build an address book directory and much more.
 
-= Core plugin Features =
-All [features](https://businessdirectoryplugin.com/features/) documented on the main website.
+Not only can you build a business directory, but you can also build any other kind of listings directory. Build a member directory, team or staff directory, company directory, and any other directory with our easy listing plugin.
+
+Are you ready for a simple directory website builder? With Business Directory Plugin, you can be in control without a developer.
+
+Need a classifieds listings site? Try [Another WordPress Classifieds Plugin -AWPCP](https://wordpress.org/plugins/another-wordpress-classifieds-plugin/).
+
+== Free Directory Plugin Features ==
+All [features](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) documented on the main website.
+
 * Fully customizable form fields
 * Upload images per listing, allow restricted numbers of images based on fee plan
-* Lots of image options:  drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
+* Lots of image options: drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
 * Accept payment for listings OR have free listings in your business directory
 * Accept payments using Authorize.net (requires Authorize.net account)
 * Full support for recurring payments (in most gateways: PayPal, Authorize.net, Stripe)
 * Allow for featured/sticky listings for an upgrade fee
-* Widgets for Featured, Latest and Random listings.  Search widget as well
+* Widgets for Featured, Latest and Random listings. Search widget as well
 * Create multiple fee plans, which can be assigned to categories for posting
-* Built in CSV import and export
+* Built in CSV import and export for easy directory listing creation
 * Support for reCAPTCHA to avoid spam listings
 * Sorting options for categories, listings, and front-end for users to choose sort order
-* Users who post can edit listings without access to WP dashboard
+* Users who post can edit listings without access to WP dashboard. Business Directory plugin is also a listing manager.
 * SEO Friendly using Yoast SEO
-* Configurable quick-search field and sorting bar for listings
+* Configurable quick-search field and sorting bar for listings for simple directory searches
 * Advanced search screen with ability to show/hide fields available for search
-* FULL responsive support when installed with a responsive theme 
+* Mobile-friendly, responsive support when installed with a responsive theme 
 * Multi-language support in your directory with WPML
-* Ability to re-skin the directory with a few clicks (directory themes)
 * Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
 * Images displayed with categories (using the FREE Enhanced Categories module)
 * Display Category Icons/Allow Parent-Child Category Navigation (using the FREE Enhanced Category Module)
 
-= Additional Add-on Features available from Premium Modules (paid) =
-* Rate businesses in your directory (now with Schema.org microformat support) (using the (paid) Ratings Module)
-* Display the location of the business (categories, search, details--now with custom map sizes) (using the (paid) Google Maps Module)
-* Location based directory result filtering (using the (paid) Regions Module)
-* ZIP code/postal code radius searches supporting a number of countries (using the (paid) ZIP Search Module)
-* Assign features to paid or sticky listing plans to give users incentive to upgrade (using the (paid) Featured levels module)
-* Allow users to upload PDFs (using the (paid) Attachments Module)
-* Manage attachments on directory listings (using the (paid) Attachments module, supports PDF, Text files, images)
-* Accept payments using PayPal (using the (paid) PayPal Gateway Module)
-* Accept payments using Stripe (using the (paid) Stripe Gateway Module)
-* Accept payments using PayFast (using the (paid) PayFast Gateway Module)
-* Post claimable listings in your business directory that other users can pay (or not) to claim (using the (paid) Claim Listings Module) 
-* Ability to offer discount codes based on a % or fixed amount with expirations (using the (paid) Discount Codes Module) 
-
-For a complete and detailed list of features, please visit:  https://businessdirectoryplugin.com/features/
- 
-Please report any bugs you find via https://businessdirectoryplugin.com/support-forum/  
-
-= Premium Module Links: =
+== Professional Directory Software Add-ons ==
 These are optional, paid modules that you can use to enhance Business Directory Plugin's functionality and
-support future development:
+support future development.
 
-= Premium Directory Skins (Paid) =
-* [Theme Pack](https://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?ref=wp) (best deal!)
-* NEW! [Elegant Grid Theme](https://businessdirectoryplugin.com/downloads/elegant-grid-theme/?ref=wp)
-* NEW! [Modern Business Theme](https://businessdirectoryplugin.com/downloads/modern-business-theme/?ref=wp)
-* [Business Card Theme](https://businessdirectoryplugin.com/downloads/business-card-theme/?ref=wp)
-* [Tabbed Business Theme](https://businessdirectoryplugin.com/downloads/tabbed-business-theme/?ref=wp)
-* [Elegant Business Theme](https://businessdirectoryplugin.com/downloads/elegant-business-theme/?ref=wp)
-* [Mobile Compact Theme](https://businessdirectoryplugin.com/downloads/mobile-compact-theme/?ref=wp)
-* [Restaurant Theme](https://businessdirectoryplugin.com/downloads/restaurant-theme/?ref=wp)
+For a complete and detailed list of features, please visit: [BusinessDirectoryPlugin.com](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-= Feature Add On Modules (Paid) =
-* [Combo Pack](http://businessdirectoryplugin.com/downloads/business-directory-combo-pack-module/?ref=wp) (best deal!)
-* [File Upload Module](https://businessdirectoryplugin.com/downloads/file-attachments-module/?ref=wp)
-* [Featured Levels Module](https://businessdirectoryplugin.com/downloads/featured-levels-module/?ref=wp)
-* [ZIP Code Search Module](https://businessdirectoryplugin.com/downloads/zip-search-module/?ref=wp)
-* [Regions Module](https://businessdirectoryplugin.com/downloads/regions-module/?ref=wp)
-* [Ratings Module](https://businessdirectoryplugin.com/downloads/ratings-module/?ref=wp)
-* [Google Maps Module](https://businessdirectoryplugin.com/downloads/google-maps-module/?ref=wp)
-* [Discount Codes Module](https://businessdirectoryplugin.com/downloads/discount-codes-module/?ref=wp)
-* [Claim Listings Module](https://businessdirectoryplugin.com/downloads/claim-listings-module/?ref=wp)
+* [File Upload Module](https://businessdirectoryplugin.com/downloads/file-attachments-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Allow users to upload and manage attachments on directory listings. Include PDFs, text files, and images.
+* [Featured Levels Module](https://businessdirectoryplugin.com/downloads/featured-levels-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Assign features to paid or sticky listing plans to give users incentive to upgrade.
+* [ZIP Code Search Module](https://businessdirectoryplugin.com/downloads/zip-search-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - ZIP code/postal code radius and proximity searches supporting a number of countries.
+* [Regions Module](https://businessdirectoryplugin.com/downloads/regions-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Location based directory listing result filtering.
+* [Ratings Module](https://businessdirectoryplugin.com/downloads/ratings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Create reviews with connections to each listing. Rate businesses in your directory (with Schema.org microformat support).
+* [Google Maps Module](https://businessdirectoryplugin.com/downloads/google-maps-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Display the geo location of the business (categories, search, details -- with custom map sizes)
+* [Discount Codes Module](https://businessdirectoryplugin.com/downloads/discount-codes-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Ability to offer discount codes based on a % or fixed amount with expirations.
+* [Claim Listings Module](https://businessdirectoryplugin.com/downloads/claim-listings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Post claimable listings in your business directory that other users can pay (or not) to claim.
 
-= Payment Gateway Modules (Paid) =
-* [Stripe Gateway Module](https://businessdirectoryplugin.com/downloads/stripe-payment-module/?ref=wp)
-* [PayPal Gateway Module](https://businessdirectoryplugin.com/downloads/paypal-gateway-module/?ref=wp)
-* [2Checkout Gateway Module](https://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?ref=wp)
-* [PayFast Gateway Module](https://businessdirectoryplugin.com/downloads/payfast-payment-module/?ref=wp)
+== Payment Gateway Modules (Paid) ==
 
-For more information and support please visit [https://businessdirectoryplugin.com](https://businessdirectoryplugin.com?ref=wp)
-For Business Directory plugin support please visit [https://businessdirectoryplugin.com/forums](https://businessdirectoryplugin.com/forums)
+* [Stripe Gateway](https://businessdirectoryplugin.com/downloads/stripe-payment-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept paid listings with Stripe payments.
+* [PayPal Gateway](https://businessdirectoryplugin.com/downloads/paypal-gateway-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept payments using PayPal.
+* [2Checkout Gateway](https://businessdirectoryplugin.com/downloads/2checkout-gateway-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+* [PayFast Gateway](https://businessdirectoryplugin.com/downloads/payfast-payment-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept payments using PayFast.
 
-If you love Business Directory plugin, [please consider purchasing a Premium Module](https://businessdirectoryplugin.com/premium-modules/?ref=wp)!
+== Premium Directory Skins ==
+Transform your directory the easy way. With a few clicks, our directory themes will re-skin your directory. Our directory templates are designed for more customized directories without taking over as a full WordPress theme.
 
-Business Directory fully supports [WPML](http://wpml.org) for dynamic language switching.  But if you need just one single language, we include and support these out of the box!
-= Languages Supported =
+* [Theme Pack](https://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) (best deal!)
+* [Elegant Grid Theme](https://businessdirectoryplugin.com/downloads/elegant-grid-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+* [Modern Business Theme](https://businessdirectoryplugin.com/downloads/modern-business-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+* [Business Card Theme](https://businessdirectoryplugin.com/downloads/business-card-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+* [Tabbed Business Theme](https://businessdirectoryplugin.com/downloads/tabbed-business-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+* [Elegant Business Theme](https://businessdirectoryplugin.com/downloads/elegant-business-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+* [Mobile Compact Theme](https://businessdirectoryplugin.com/downloads/mobile-compact-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+* [Restaurant Theme](https://businessdirectoryplugin.com/downloads/restaurant-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+
+For more information please visit [businessdirectoryplugin.com](https://businessdirectoryplugin.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+
+Love Business Directory plugin? [Please consider purchasing a Premium Module](https://businessdirectoryplugin.com/premium-modules/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)!
+
+== Installation ==
+Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) page for instructions on how to get going quickly with Business Directory Plugin.
+
+[Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for the plugin is also available.
+
+== Screenshots ==
+
+[Visit the main site for feature lists and screenshots](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+
+
+== Usage Doc ==
+
+For complete documentation on the plugin, please visit the [BD Documentation Site](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion). We also have a complete [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
+
+== Frequently Asked Questions ==
+
+For the definitive FAQ section, please visit the [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), or our [Getting Started](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
+
+= Can Business Directory Plugin support paid and free listings? =
+Yes it can. You can do this by creating fee plans for 0.00 and some other paid amount at the same time. For more details, read [this article](https://businessdirectoryplugin.com/knowledge-base/how-to-run-bd-in-free-mode/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
+
+= Do you have video tutorials for Business Directory Plugin? =
+Yes we do. They can be found [here](https://businessdirectoryplugin.com/video-tutorials/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
+
+= Will Business Directory Plugin work with my theme? =
+Business Directory Plugin will work with any well-written, WP compliant theme. Generally speaking, paid themes tend to be higher quality than free ones.
+
+Whatever theme you pick, we recommend using the Theme Check plugin (available for free on WordPress.org) to validate how WordPress-compliant that theme actually is. The more errors and warnings you see on the theme when you run that check, the worse the theme is. You can read more about it at https://wordpress.org/plugins/theme-check/
+
+(This plugin was developed by WP Core developers to validate their own default themes and is highly respected in the theme community)
+
+In general, we like WooThemes as a solid company with great products and support. You can check them out [here](http://woothemes.com) Or [StudioPress](http://studiopress.com​​)
+
+= Can Business Directory be translated into my language? =
+Yes it can. Business Directory Plugin comes with many user-provided translations under the /languages folder. It is already available in the following languages:
+
 * Spanish
 * French
 * German
@@ -109,42 +131,110 @@ Business Directory fully supports [WPML](http://wpml.org) for dynamic language s
 * Arabic
 * Swedish
 
-And you can easily [translate it yourself](https://businessdirectoryplugin.com/knowledge-base/translating-bd-other-language/) if you need to.
+And you can easily [translate it yourself](https://businessdirectoryplugin.com/knowledge-base/translating-bd-other-language/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) if you need to.
 
-== Credits ==
-Copyright 2009-20, Dave Rodenbaugh 
-Original Author: A. Lewis
+= Is Business Directory Plugin compatible with WordPress Multisite (WPMU)? =
+Yes it is. However, you cannot "network-activate" the plugin (as this will share the database). Activate it on only the subsites on which you need a directory. This can be done under Plugins->Add New as the Administrator user. Do not "network activate" BD as the "super admin".
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
+= What types of Directories can Business Directory Plugin help me build? =
+Our directory website builder software combined with our add-on modules is the most powerful business directory plugin on the market. The options are limitless. Here are a few types of directories you can create:
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
-
-== Installation ==
-Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/) page for instructions on how to get going quickly with Business Directory Plugin.
-
-[Full documentation](https://businessdirectoryplugin.com/knowledge-base/) for the plugin is also available.
-
-If you are having problems please visit [support forum](http://www.businessdirectoryplugin.com/support-forum/) for help or you may [contact us](http://www.businessdirectoryplugin.com/contact/).
-
-
-== Screenshots ==
-
-[Visit the main site for feature lists and screenshots](https://businessdirectoryplugin.com/features/)
-
+* Business directory
+* Company directory
+* Team directory
+* Member directory
+* Staff directory
+* Hotel directory
+* Medical directory
+* Restaurant directory
+* Church directory
+* Travel review directories
+* Software review sites
+* Professional directory
+* Local provider listings
+* A Yellow Pages directory
 
 == Changelog ==
+
+= Version 5.7.1 =
+* Fix Random Listings shortcode attributes. (#4601)
+* Add data-breakpoints to directory container. (#4607)
+* Validate variable type is string before applying using function for string-type. (#4608)
+* Fix User selector script. (#4614)
+* Add missing parameter for installer class, required for uninstall process.
+
+= Version 5.7 =
+* New Setting allows site admins define which existing user will own Anonymous Submitted Listings. (#4545)
+* [Paid] listing status tag was replaced by [Payment {status}] for more accurate information about Listing Payment status. (#4553)
+* Add user search when Submitting/Editing listings on WP Admin panel to set as owner. (#4559)
+* Add WPML support for Select, Multiselect, Checkbox and Radio Button BD options list translation. (#4577)
+* Create 'Address 2' theme tag and integrate it to listing address helper generation. (#4588)
+* Enhance listing advanced search, by searching the whole sentence or all its parts for each field. (#4566)
+* Hide category & plan selection tip when directory is in free mode. (#4443)
+* Allow numeric values in advanced search as strings for categories and tags associations. (#4538)
+* Fix social fields alignment in 4 most recent WP default themes. (#4541)
+* Hide not available submit sections after AJAX request. (#4542)
+* Remove sortbar from [businessdirectory-latest-listings] shortcode. (#4556)
+* Fix renewal notification email CC value to prevent fatal error. (#4569)
+* Prevent PHP warning by validating that the setting is not empty. (#4572)
+* Fix textdomain on several plugin translatable texts. (#4577)
+* Optimize Plugin performance by removing unnecessary DB requests. (#4584)
+* Escape field label when is used as 'alt' attribute of image fieldtype. (#4591)
+* Move 'WPBDP_URL' definition to 'init' action. (#4592)
+* Update jQuery File Upload to 10.30.1 version. (#4599)
+
+= Version 5.6.2 =
+* Allow selecting listing images from WP media library on admin dashboard.
+* Allow admins to select images from WP Media for Image fields on dashboard. (#4517)
+* Restore ability to edit listings URL. (#4421, #4496)
+* Fix payments detailed view. (#4510, #4527)
+* Update German translation strings.(#4508)
+* Add 'form_only' parameter for [businessdirectory-search] shortcode. (#4520)
+* Add nofollow to detailed view buttons, as attribute to <form> HTML tag. (#4458)
+* Change curly braces to square brackets for access string offset. (#4526)
+* Prevent listing status not set to completed on admin dashboard submit. (#4532)
+
+= Version 5.6.1 =
+* New setting to set a limit for listing contact submits for logged in users. (#4411)
+* New placeholders to 'Email confirmation message' template to include fee information. (#4480)
+* New notification template for completed payments. (#4480)
+* Prevent fatal error when trying to access to payment details of a deleted payment. (#4455)
+* Allow Private fees CSS rules on frontend. (#4462)
+* Include to directory links to prevent been crawled by search engines. (#4458)
+* Prevent including image to structured data when is not available. (#4468)
+* Use listing images ordering weight in detailed view. (#4481)
+* Fix new listing Admin notice including listing preview URL. (#4487)
+* Prevent pending_payment listings to be published before payment is completed. (#4487)
+* Prevent Private fields to be rendered on frontend for non-admin users. (#4490)
+* Match label and input ID for username and email on submit listing view to improve accessibility. (#4492)
+
+= Version 5.6.0.1 =
+* Improve Listing Options UI using sub-tabs. (#4459)
+* Refactor print receipt script to improve layout styling. (#4437)
+* Preformat recepient data before using 'foreach' PHP function. (#4465)
+* Validate variable is defined to prevent PHP notice.
+
+= Version 5.6 =
+* Add CSV Import setting to set existing listings import status. (#4409)
+* Add listing_id as argument for wpbdp_listing_schema_org filter. (#4414)
+* Create wpbdp_listing_schema_org filter to allow customer modifying/including Schema.org items to listings. (#4414)
+* Support multiple recipients on listing email address for notifications. (#4406)
+* Upgrade jQuery File Upload to version 10.7.0. (#4426)
+* Use WooCommerce version of select2 lib scripts to enhance BD accesibility. (#4440)
+* Fix renewal notification admin CC. (#4420)
+* Generate 404 when trying to access to a listing using ID and wrong slug. (#4421)
+* Fix twitter social fields alignment on listing detail view. (#4444)
+
+= Version 5.5.14 =
+* Fix layout and style in login BD view. 
+* Fix listings email notification for free fees. 
+* Prevent fatal error on abandoned payment notification class when listing is not available.
+* Prevent reCAPTCHA scripts load when not used on BD pages. 
+* Update 'manage_recurring' URL inside recurring warning when deleting a listing. 
+* Fix CSV import row number. Allow importing 1 listing CSV file. 
+* Allow main box (quick search) renders when is called from shortcode. 
+* Modify 'CC this e-mail address too' option usage to support multiple addresses. 
+* Fix new listings status and email notification after submit issues. 
 
 = Version 5.5.13.1 =
 * Validate queried object exists and is valid before setting BD query var. (#4385)
@@ -244,7 +334,7 @@ If you are having problems please visit [support forum](http://www.businessdirec
 * Add "payment method required" notice for 100% discounted checkouts with recurring payments. 
 * Add closing slash for directory posts links. 
 * Combine fieldtype options and available Tags when displaying BD tags field. 
-* Use  tag instead of tag to render SVG social icons. 
+* Use tag instead of tag to render SVG social icons. 
 * Fix redirect variable name. 
 
 = Version 5.5.2 =
@@ -311,7 +401,7 @@ If you are having problems please visit [support forum](http://www.businessdirec
 * Allow plan change in renew listing process.
 * Allow free listing renewal without payment gateway.
 * Allow validators to admin only (private) fields.
-        
+    
 = Version 5.3.2.1 =
 * Fixed issue where images showed on wrong side of listing.
 
@@ -368,7 +458,7 @@ If you are having problems please visit [support forum](http://www.businessdirec
 * Add compatibility to WPBDP_Email class with external email plugins.
 * Enhance Long Description field as excerpt in list view.
 * Add option to disable expiration emails.
-    
+  
 = Version 5.2 =
 * Add pagination to Latest, Random, Featured listings shortcodes.
 * Add [placeholders] to email notice templates.
@@ -590,7 +680,7 @@ If you are having problems please visit [support forum](http://www.businessdirec
 * Added a "Timeline" metabox on the backend to clearly see a listing's history.
 * Admins can now create any number of listing expiration/reminder notices.
 * Simplify how premium modules integrate into BD.
-* Added businessdirectory-quick-search shortcode to display the Quick Search form.
+* Added business directory-quick-search shortcode to display the Quick Search form.
 * Added warning when reaching the image limit during listing submit/edit.
 * Allow users to edit categories for their listing if the plan allows it.
 * Added option to sort listings using the configured sort for their fee plans.
@@ -603,377 +693,3 @@ If you are having problems please visit [support forum](http://www.businessdirec
 * Added a new log mechanism for better debugging.
 * Updated the premium module initialization API.
 * License and update checking has been merged to cover both themes and premium modules, reducing external requests.
-
-= Version 4.1.15 =
-* Fix 404 Not Found error for categories URLs that occurred when WPML was installed and configured to use a query parameter to define the language of the website.
-* Empty strings are not allowed as categories and tags slugs.
-* Doing a Factory Settings Reset no longer removes license keys for premium modules.
-* Prevent infinite recursion conflict with Postman.
-* Allow execution of shortcodes in excerpt fields.
-* Remove pagination links from listings shortcode.
-* Add wpbdp_get_page_ids filter.
-* Fix feed links for all listings and categories.
-* Show license-related warnings to administrators only.
-
-= Version 4.1.14.1 =
-* Update to fix uploader class
-
-= Version 4.1.14 =
-* Correct CSS classes for secondary buttons.
-* Prevent listing title from being cleared during import.
-* Always show 'number of options visible without scrolling' setting in Add/Edit form field screen.
-* Fix import error caused by ampersands in category names.
-* Fix behavior for not found URLs.
-* Fix search form behavior and region filter issues.
-* Correct CSS classes for some primary buttons.
-* Use checkboxes for Quick Search Fields setting.
-* Replace dropdowns with four or less options with a list of radio buttons.
-* Register non-persistent groups after switchgin blogs.
-* Prevent listings from being published before payment is completed.
-* We now have more descriptive error messages for license issues.
-* Fix inconsistent strings and button labels.
-* Prevent creation of multiple listings in submit-listing shortcode.
-* Fix inconsistent strings and button labels.
-* Fix compatibility issue with jQuery 3.2.1.
-
-= Version 4.1.13.2 =
-* Fix buttons in main box ignoring settings.
-* Restore missing Country part in address field.
-
-= Version 4.1.13.1 =
-* Fix theme compatibility problems introduced in 4.1.13.
-
-= Version 4.1.13 =
-* Add shortcode to output Quick Search.
-* Added shortcode for displaying the latest listings.
-* Added shortcode for displaying a random set of featured listings.
-* Added shortcode for displaying a random set listings.
-* Prevent PHP Warning in show_tag.php.
-* Prevent CSFR exploit that could allow attackers to upload images to the Media Library.
-* Do not set contenteditable to false on Firefox when handling setting dependencies.
-* Fix JavaScript error due to necessary script not loaded.
-* Improve performance of CSV Importer.
-* Update Swedish translation for BD.
-* Fix bug in code that generates search queries SQL.
-* Fix format for address field in themes.
-* Fix conflict with WPML caused by WP bug 40906.
-
-= Version 4.1.12.1 =
-* Backward compatibility fix for ZIP search--module update order problem
-
-= Version 4.1.12 =
-* Report versions of installed premium modules on debug info page.
-* Make non-required SELECT fields actually optional (no option selected by default).
-* Show a message on the frontend when the directory is not available due to a pending manual upgrade.
-* Fix conflict between BD and latest Breadcrumbs NavXT.
-* Send NEW listing's published notification to the right address.
-* Add compatibility patch for Ultimatum theme.
-
-= Version 4.1.11.1 =
-* Repaired badly botched release in SVN due to file sync issues
-
-= Version 4.1.11 =
-* Show server's IP address in Licenses settings tab.
-* Show two columns of categories by default.
-* Replace fees table with responsive list of fees.
-* Add Moroccan Dirham (MAD) currency to Payment settings.
-* Fix translation support in Billing Form.
-* Fix preview links when the no-id-in-link setting is disabled.
-
-= Version 4.1.10 =
-* Improve responsive behaviour of categories list.
-* Update PayPal module to comply with PayPal's security upgrade.
-* Fix sticky behavior for listings posted with recurring payments.
-* Update behavior of listings that are sticky in a particular fee/category.
-* Fix previews (when listing has no slug set).
-* Toggle "wpbdp-hide-on-mobile" class when clicking contact form button..
-* Fix bug that prevented bulk edit actions from working.
-* Fix PHP notices in Current Images section in Edit Listing page.
-* Restore support for shortcodes in posts.
-* A listings is now considered paid only if currently associated with a paid fee.
-* ABC filter URLs will now point to the first page.
-* Update compatibility code for Breadcrumb NavXT.
-* Fix bug that caused HTML entities to appear in e-mail subjects.
-* Update German translation.
-
-= Version 4.1.9 =
-* Add support to export listings that include Unicode characters.
-* Avoid passing $this by reference in apply_filter_ref_array() for PHP 7.1.
-* Fix French translation for Tag and Category.
-* Show error in Submit Listing view if required fields are missing.
-* Fix typo: 'sucessfully' -> 'successfully'.
-* Fix sticky behavior for listings posted with recurring payments.
-* Improve security of listing image uploading.
-    
-= Version 4.1.8 =
-* Do not generate HTML for Facebook field if the value is empty.
-* Fix a bug that caused Authorize.Net Gateway to build the Credit Card expiration date using the first two digits of the expiration year, instead of the last two.
-* Fix Fatal Error trying to render excerpt for textarea fields.
-* Allow admins to disable the CSS rules for listing action buttons.
-* Fix search problem that occurs when form field used in the Quick Search feature is deleted.
-* Update link to reCAPTCHA's website.
-* Fix Author dropdown in Bulk Edit form for Listings to include the - No Change - option again.
-* Remove fuzzy tags from all translation files, making more translations available.
-* WPML integration: fix bug that caused different versions of the same listings to show up in widgets.
-* Generate better URLs to improve compatibility with WPML.
-* Fix routine to clean metadata for Checkbox, Radio and Select fields.
-* Add "country" as a new theme tag.
-* Fix PHP warning triggered when no update information could be retrieved during an update check.
-* Update JS code to latest jQuery standards.
-* Add `wpbdp_should_enqueue_scripts_and_styles` filter to allow third parties to force inclusion of BD scripts and styles.
-* Improve appearance of Region archives.
-* Fix French translation for Tag and Category.
-* Fix typo in WPBDP_Plugin.
-
-= Version 4.1.7 =
-* Fix 'Include comment form on listing pages' setting to store the proper value.
-* Avoid PHP Warning when field value includes '%'.
-* Use an array to pass headers to wp_mail in Email class.
-* Increase importance of rules in .wpbdp-show-on-mobile CSS class.
-
-= Version 4.1.6 =
-* Fix error in migration routine affecting multivalued fields on some sites.
-* Introduce new setting for comment handling to prevent duplicate comment forms.
-* Review compatibility with WordPress 4.7.
-* Fix preview links for admins.
-* Fix a problem with URL redirection to custom login pages.
-* Accept one option per line (including commas) as part of a multivalued field options.
-* Improve Schema.org integration
-* Add Swedish translation.
-* Add CSS fix for quick search box.
-
-= Version 4.1.5 =
-* Add support for template block/variable metadata in PHP comments.
-* Fix support for template variables customization outside of themes.
-* Fix an error that resulted in the WP comment form appearing twice.
-* Fix a path resolving issue that resulted in an incorrect template being loaded under certain circumstances.
-* Support transliteration of arabic characters when normalizing field names for CSS, CSV export/import, etc.
-* Make some CSS selectors more specific to prevent conflicts. 
-* Allow users to control the size of the list in Multiselect form fields.
-* Add phone and email fields to billing information form.
-* Make Authorize.net gateway use e-mail and phone number properties from the billing form.
-* Allow Editor user to Preview listings.
-* Improve performance of search queries that involve listing metadata.
-* Fix an issue with Form Fields options that caused selected values to show up unselected for some fields.
-* Add contact form message that wasn't being marked as translatable.
-* Unify gettext contexts for "Submit A Listing" view title.
-
-= Version 4.1.4 =
-* Automatically load translation files from themes.
-* Improve performance for BD premium modules update checks on plugin page.
-* Custom themes (not developed by BD) can be used without a license.
-* Add showsearchbar parameter to business-directory-manage-listings shortcode.
-* Fix support for '&' in tag names.
-
-= Version 4.1.3 =
-* Improve appearance of search button on Advanced Search form.
-* Remove carriage-return characters from options in multivalued fields.
-* Load jQuery-UI stylesheet using a secure connection.
-* Fix Edit and Delete links on the backend for the Contributor role.
-* Improve error handling during installation.
-* Minor fix to searches involving URL fields.
-* Fix meta tag generation when CPT Advanced Integration is disabled.
-
-= Version 4.1.2 =
-* Fix meta tag generation when CPT integration is disabled.
-* Add option to display single view in a new browser tab/window
-* Fix typo in French translation.
-* Improve behavior of "Preview" button on listings backend.
-* Add some missing translatable strings.
-* Fix for search form not working when permalinks were disabled.
-* Fix shortcode execution in content fields under certain circumstances.
-* Fix fatal error trying to create a category in CSV Import.
-* Add rewrite rules for feed URLs for categories and tags
-
-= Version 4.1.1 =
-* Fix searching involving multivalued fields.
-* Re-enable user template overrides for core and theme templates
-* Fix: "Show search listings" setting wasn't being honored.
-* Fix searches involving category fields.
-* Fix searches involving meta fields.
-
-= Version 4.1 =
-* Show width/height/size constraints for images in the image upload form.
-* Allow disabling of frontend listing submission.
-* Improve handling of paths on Windows systems.
-* Allow fee plans to have a description that is shown during fee selection
-* Add option to enable auto-generation of excerpt from listing content.
-* Add backend listing URL to e-mail notifications sent to admins.
-* Fix contact form toggle not working on mobile devices.
-* Various improvements to search.
-* New design for the quick search bar that integrates with Regions and ZIP Code Search.
-	
-= Version 4.0.8 =
-* Added Arabic translation to core
-* Some query improvements when in CPT compatibility mode.
-* Work around a bug in U-Design theme.
-* Improve compatibility with fullwidth template in takeawaywp theme.
-* Translate some settings that were missing a translation.
-* Fix comments and comment form not appearing eve when enabled.
-* Fixes for mobile devices.
-* Add filtering to allow overriding security policy in `wpbdp_user_can()`.
-* Fallback implementation for `wpbdp_detect_encoding()` when `iconv` is not available.
-* Improve security inside dispatching subsystem.
-	
-= Version 4.0.7 =
-* Improve excerpt display on mobile devices. 
-* Show themes update badge inside main menu item too.
-* Improved usability for Directory Themes screen. 
-* Fix some query issues when on CPT compat mode.
-* Mark some strings as translatable.
-* Restore the routine that handled expiration of listings.
-
-= Version 4.0.6 =
-* Compatibility fixes for Canvas theme.
-* Compatibility fixes for X theme.
-* Add "City" and "State" as taggable fields in themes.
-* Improve display of addresses in themes.
-* Fix for Featured Listings widget not honoring configured number of posts setting.
-* Add "menu" attribute to listings shortcode.
-* Prevent Jetpack sharing from being displayed twice on listings.
-* Update admin sidebar.
-* Fix minor translation omission.
-
-= Version 4.0.5 =
-* Atahualpa theme compatibility fixes.
-* Use an auto-complete field instead of a dropdown for the users field on the CSV import screen to avoid performance problems.
-* Several fixes for encoding detection and handling during CSV imports.
-* Longevity theme compatibility fixes.
-* Divi theme compatibility fixes.
-* Do not show any sortbar filters when sortbar is disabled.
-* Additional fixes for the Genesis theme
-* Fix sorting and other query problems when in CPT compatibility mode.
-* Fix search query integration with sortbar.
-* Restore pre-4.0 behavior (regarding Regions and Maps) of the listings shortcode.
-* Add redirects for old submit listing URLs.
-* Restore tag functionality for the listings shortcode.
-
-= Version 4.0.4 =
-* Add compatibility mode that disables CPT integration for setups having issues or theme conflicts.
-* Try single and singular templates along with page.php for improved theme compatibility.
-* Add compatibility layer for themes.
-* Genesis theme compatibility fixes.
-* HMTPro5 theme compatibility fixes.
-* Customizr and Customizr-Pro theme compatibility fixes.
-* Prevent duplication of CSV labels for fields.
-
-= Version 4.0.3 =
-* Restore WPBUSDIRMANMANAGELISTING as a valid "Manage Listings" shortcode.
-* Prevent view classes from being loaded more than one to prevent PHP strict errors.
-* Improve compatibility with Graphene theme.
-* Restore listing count shortcode functionality.
-* Fix "Address" section appearing on default theme even when no address was available.
-* Add missing ORDER BY clause resulting in "paid first" sort order not working correctly.
-
-= Version 4.0.2 =
-* Fixes for themes showing "Untitled" on some directory pages.
-* Fixes for Avada theme.
-* Reduce themes update checking periodicity to 48 hrs.
-* Add missing argument to search form to prevent incorrect search results being returned.
-* Fix to locate a replacement for page.php template for themes that don't have it.
-* Fix random ordering in Featured Listings widget.
-* Fix title filter for modern themes.
-* Fixes for path handling on Windows environments.
-* Fix some PHP warnings resulting from JSON decoding theme files.
-* Do not show a 404 error for empty categories.
-
-= Version 4.0.1 =
-* Fix some PHP warnings and errors
-* Fix listings shortcode category support.
-* Fix search issue in Featured Listings widget.
-* Fix tag pages.
-* Make "Pre-4.0 Template" the default theme for upgrades from 3.x.
-
-= Version 4.0 =
-* NEW: Add support for theming the directory + 5 premium and 1 default themes.
-* NEW: Added listing categories shortcode `businessdirectory-categories`.
-* NEW: Better integrate with WP's main query.
-* NEW: Allow reCAPTCHA to be disabled for logged-in users.
-* NEW: Allow admins to add a message with instructions during submit.
-* Add support for LinkedIn URLs (not just company IDs).
-* Fixes for recurring payments.
-* Fixes for SEO validation with Yoast.
-* Fixes for new WPML functionality.
-* Allow registration warning to be dismissed.
-* Quick search bar fixes for mobile users.
-* Add support for recurring payments for listing claims.
-* Added support for HTML tags in ratings comments.
-* Regions fixes for PHP 7.
-
-= Version 3.7.5 =
-* Fix queries involving featured listings to include listings made sticky by plan (not level).
-* Add SSL debugging info to "Debug" page.
-* Include certificate bundle for use by gateways.
-* Fix some backend fee editing issues.
-* Fix search form not appearing on Advanced Search in some cases.
-* Compatibility test with WP 4.5
-* Rename file upload JS to avoid conflicts with Visual Form Builder Pro.
-* Add IFRAME support for textarea fields.
-
-= Version 3.7.4 =
-* Show WPML translations of form field labels in validation errors.
-* Improve handling of line breaks in textarea fields.
-* Fix handling of permalink URLs with cyrillic characters.
-* Support "author" attribute in listings shortcode.
-* Make CSV export encode line breaks in a way that is compatible with CSV import.
-* Fix PHP warning on backend.
-
-= Version 3.7.3 =
-* Make category-specific fees work again.
-* Improve the handling of deleted categories.
-
-= Version 3.7.2 =
-* Add alternative code for MIME type checking on image upload when FINFO is not available to prevent fatal errors.
-* Fix fee selection on the frontend after Fees API update.
-* Add warning to admins when the Directory is in paid mode and there are no fees active.
-* Several minor improvements to the Fees API.
-
-= Version 3.7.1 =
-* Fixed bug where users can't change the category on listings during submit
-
-= Version 3.7 =
-* NEW:  Improved Fee admin interface
-* NEW:  Allow content fields to use a WYSIWYG editor on the frontend.
-* NEW:  Allow admins to search listings by username on the backend.
-* NEW:  "Phone Number" field type.
-* NEW:  Added Russian translation.
-* Image fields now adhere to global image size restrictions.
-* Fix handling of tags in select fields, during CSV imports.
-* Improve CSS classes on checkout screens.
-* Improve handling of line breaks in content fields.
-* Improve presentation of settings pages.
-* Better handle reCAPTCHA fields outside of the main page.
-* Maintain Yoast SEO compatibility when title-tag is used by the theme.
-* Remove Google Wallet support from the plugin.
-* Use "Reply-To" header for listing contact emails.
-
-== Usage Doc ==
-
-For complete documentation on the plugin, please visit the [BD Documentation Site](https://businessdirectoryplugin.com/knowledge-base).  We also have a complete [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/) guide.
-
-== Frequently Asked Questions ==
-
-For the definitive FAQ section, please visit the [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/), or our [Getting Started](https://businessdirectoryplugin.com/article-categories/getting-started/) guide.
-
-= Can Business Directory Plugin support paid and free listings? =
-Yes it can.  You can do this by creating fee plans for 0.00 and some other paid amount at the same time.  For more details, read [this article](https://businessdirectoryplugin.com/knowledge-base/how-to-run-bd-in-free-mode/).
-
-= Do you have video tutorials for Business Directory Plugin? =
-Yes we do.  They can be found [here](https://businessdirectoryplugin.com/video-tutorials/).
-
-= Will Business Directory Plugin work with my theme? =
-Business Directory Plugin will work with any well-written, WP 4.x compliant theme.  Generally speaking, paid themes tend to be higher quality than free ones, so we don't recommend those.
-
-Whatever theme you pick, we recommend using the Theme Check plugin (available for free on WordPress.org) to validate how WordPress-compliant that theme actually is.  The more errors and warnings you see on the theme when you run that check, the worse the theme is.  You can read more about it here:  https://wordpress.org/plugins/theme-check/
-
-(This plugin was developed by WP Core developers to validate their own default themes and is highly respected in the theme community)
-
-In general, we like WooThemes as a solid company with great products and support.  You can check them out [here](http://woothemes.com)  Or [StudioPress](http://studiopress.com​​)
-
-= Can Business Directory be translated into my language? =
-Yes it can. Business Directory Plugin comes with many user-provided translations under the /languages folder. For details on how to do it, our [translation guide](https://businessdirectoryplugin.com/knowledge-base/translating-bd-other-language/) will help get you started.
-
-= Is Business Directory Plugin compatible with WordPress Multisite (WPMU)? =
-Yes it is. However, you cannot "network-activate" the plugin (as this will share the database). Activate it on only the subsites on which you need a directory.  This can be done under Plugins->Add New as the Administrator user.  Do not "network activate" BD as the "super admin".
-
-

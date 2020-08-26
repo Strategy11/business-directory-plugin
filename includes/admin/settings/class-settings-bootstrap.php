@@ -36,7 +36,6 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'WPBDM' ) );
         wpbdp_register_settings_group( 'appearance/main', _x( 'General Settings', 'settings', 'WPBDM' ), 'appearance' );
 
-        // wpbdp_register_settings_group( 'licenses', _x( 'Licenses', 'settings', 'WPBDM' ) );
         wpbdp_register_settings_group( 'modules', _x( 'Premium Modules', 'settings', 'WPBDM' ) );
     }
 
@@ -195,7 +194,7 @@ final class WPBDP__Settings__Bootstrap {
                 'min'     => 0,
                 'step'    => 0.1,
 				'max'     => 1,
-				'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'WPBDM'),
+				'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'WPBDM' ),
 				'group'   => 'recaptcha',
             )
         );
@@ -275,28 +274,6 @@ final class WPBDP__Settings__Bootstrap {
 				'placeholder'  => _x( 'Terms and Conditions text goes here.', 'settings', 'WPBDM' ),
                 'group'        => 'tos_settings',
                 'requirements' => array( 'display-terms-and-conditions' ),
-            )
-        );
-
-        // GDPR Terms.
-        wpbdp_register_setting(
-            array(
-				'id'    => 'display-gdpr-terms',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Display and require user agreement to GDPR Terms', 'settings', 'WPBDM' ),
-				'group' => 'tos_settings',
-            )
-        );
-        wpbdp_register_setting(
-            array(
-				'id'           => 'gdpr-terms',
-				'type'         => 'textarea',
-				'name'         => _x( 'GDPR Terms', 'settings', 'WPBDM' ),
-				'desc'         => _x( 'Enter text or a URL starting with http. If you use a URL, the GDPR Terms text will be replaced by a link to the appropiate page.', 'settings', 'WPBDM' ),
-				'default'      => '',
-				'placeholder'  => _x( 'GDPR Terms text goes here.', 'settings', 'WPBDM' ),
-                'group'        => 'tos_settings',
-                'requirements' => array( 'display-gdpr-terms' ),
             )
         );
 
@@ -388,7 +365,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'    => 'disable-submit-listing',
 				'type'  => 'checkbox',
 				'name'  => _x( 'Disable Frontend Listing Submission?', 'settings', 'WPBDM' ),
-				'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'WPBDM'),
+				'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'WPBDM' ),
 				'group' => 'general/advanced',
             )
         );
@@ -397,7 +374,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'      => 'enqueue-fontawesome-styles',
 				'type'    => 'checkbox',
 				'name'    => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'WPBDM' ),
-				'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'WPBDM'),
+				'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'WPBDM' ),
 				'default' => true,
 				'group'   => 'general/advanced',
             )
@@ -597,7 +574,7 @@ final class WPBDP__Settings__Bootstrap {
         $admin = get_user_by( 'email', get_option( 'new_admin_email' ) );
         if ( ! $admin ) {
             $admin_users = get_users( array( 'fields' => array( 'ID' ), 'role' => 'administrator' ) );
-            
+
             if ( $admin_users ) {
                 $admin = $admin_users[0];
             }
@@ -800,7 +777,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'           => 'show-submit-listing',
 				'type'         => 'checkbox',
 				'name'         => _x( 'Show the "Submit listing" button.', 'settings', 'WPBDM' ),
-				'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'WPBDM'),
+				'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'WPBDM' ),
 				'default'      => true,
 				'group'        => 'display_options',
 				'requirements' => array( '!disable-submit-listing' ),
@@ -1051,11 +1028,11 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-                'id'           => 'listings-sticky-image',
-                'type'         => 'file',
-                'name'         => _x( 'Featured Badge image', 'settings', 'WPBDM' ),
-                'default'      => '',
-                'group'        => 'image/listings',
+                'id'      => 'listings-sticky-image',
+                'type'    => 'file',
+                'name'    => _x( 'Featured Badge image', 'settings', 'WPBDM' ),
+                'default' => '',
+                'group'   => 'image/listings',
             )
         );
         wpbdp_register_setting(
@@ -1074,7 +1051,6 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'display-sticky-badge',
                 'type'    => 'multicheck',
                 'name'    => _x( 'Display featured (sticky) badge on listing:', 'settings', 'WPBDM' ),
-                'desc'    => _x( '', 'settings', 'WPBDM' ),
                 'default' => array( 'single' ),
                 'options' => array(
                     'excerpt' => _x( 'Excerpt view.', 'admin settings', 'WPBDM' ),
@@ -1131,17 +1107,17 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         $aed_usupported_gateways = apply_filters( 'wpbdp_aed_not_supported', wpbdp_get_option( 'authorize-net', false ) ? array( 'Authorize.net' ) : array() );
-        $desc = '';
+        $desc                    = '';
 
         if ( $aed_usupported_gateways ) {
             $desc = sprintf(
-                _x( 'AED currency is not supported by %s. %s', 'admin settings', 'WPBDM' ),
+                _x( 'AED currency is not supported by %1$s. %2$s', 'admin settings', 'WPBDM' ),
                 '<b>' . implode( ' or ', $aed_usupported_gateways ) . '</b>',
                 _n(
                     'If you are using this gateway, we recommend you disable it if you wish to collect payments in this currency.',
                     'If you are using these gateways, we recommend you disable them if you wish to collect payments in this currency.',
                     count( $aed_usupported_gateways ),
-                    'WPBDM' 
+                    'WPBDM'
                 )
             );
         }
@@ -1306,13 +1282,13 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => _x( 'Notify admin via e-mail when...', 'settings', 'WPBDM' ),
 				'default' => array(),
 				'options' => array(
-					'new-listing'      => _x( 'A new listing is submitted.', 'admin settings', 'WPBDM' ),
-					'listing-edit'     => _x( 'A listing is edited.', 'admin settings', 'WPBDM' ),
-					'renewal'          => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
-                    'after_renewal'    => _x( 'A listing is renewed.', 'admin settings', 'WPBDM' ),
-                    'payment-completed'=> _x( 'A listing payment is completed.', 'admin settings', 'WPBDM' ),
-					'flagging_listing' => _x( 'A listing has been reported as inappropriate.', 'admin settings', 'WPBDM' ),
-					'listing-contact'  => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ),
+					'new-listing'       => _x( 'A new listing is submitted.', 'admin settings', 'WPBDM' ),
+					'listing-edit'      => _x( 'A listing is edited.', 'admin settings', 'WPBDM' ),
+					'renewal'           => _x( 'A listing expires.', 'admin settings', 'WPBDM' ),
+                    'after_renewal'     => _x( 'A listing is renewed.', 'admin settings', 'WPBDM' ),
+                    'payment-completed' => _x( 'A listing payment is completed.', 'admin settings', 'WPBDM' ),
+					'flagging_listing'  => _x( 'A listing has been reported as inappropriate.', 'admin settings', 'WPBDM' ),
+					'listing-contact'   => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'WPBDM' ),
 				),
 				'group'   => 'email_notifications',
             )
@@ -1343,7 +1319,7 @@ final class WPBDP__Settings__Bootstrap {
                 'payment-completed' => _x( 'A payment for their listing is completed.', 'admin settings', 'WPBDM' ),
                 'listing-expires'   => _x( 'Their listing expired or is about to expire.', 'admin settings', 'WPBDM' ),
             ),
-            'group' => 'email_notifications'
+            'group'   => 'email_notifications',
         ) );
 
         wpbdp_register_settings_group( 'email_templates', _x( 'Templates', 'settings', 'WPBDM' ), 'email' );
@@ -1393,12 +1369,12 @@ final class WPBDP__Settings__Bootstrap {
 				'default'      => array(
 					'subject' => '[[site-title]] Contact via "[listing]"',
 					'body'    => '' .
-								 sprintf( _x( 'You have received a reply from your listing at %s.', 'contact email', 'WPBDM' ), '[listing-url]' ) . "\n\n" .
-								 sprintf( _x( 'Name: %s', 'contact email', 'WPBDM' ), '[name]' ) . "\n" .
-								 sprintf( _x( 'E-Mail: %s', 'contact email', 'WPBDM' ), '[email]' ) . "\n" .
-								 _x( 'Message:', 'contact email', 'WPBDM' ) . "\n" .
-								 '[message]' . "\n\n" .
-								 sprintf( _x( 'Time: %s', 'contact email', 'WPBDM' ), '[date]' ),
+                                sprintf( _x( 'You have received a reply from your listing at %s.', 'contact email', 'WPBDM' ), '[listing-url]' ) . "\n\n" .
+                                sprintf( _x( 'Name: %s', 'contact email', 'WPBDM' ), '[name]' ) . "\n" .
+                                sprintf( _x( 'E-Mail: %s', 'contact email', 'WPBDM' ), '[email]' ) . "\n" .
+                                _x( 'Message:', 'contact email', 'WPBDM' ) . "\n" .
+                                '[message]' . "\n\n" .
+                                sprintf( _x( 'Time: %s', 'contact email', 'WPBDM' ), '[date]' ),
 				),
 				'placeholders' => array(
 					'listing-url' => _x( 'Listing\'s URL', 'admin settings', 'WPBDM' ),
@@ -1480,13 +1456,6 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        // wpbdp_register_setting( array(
-        // 'id'   => 'email-renewal-reminders_settings',
-        // 'type' => 'section',
-        // 'name' => _x( 'Expiration/Renewal Notices', 'settings', 'WPBDM' ),
-        // 'desc' =>  _x( 'You can configure here the text for the expiration/renewal emails and also how long before/after expiration/renewal they are sent.', 'settings', 'WPBDM' ),
-        // 'tab' => 'email'
-        // ) );
         wpbdp_register_setting(
             array(
 				'id'        => 'expiration-notices',
@@ -1510,12 +1479,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => '[[site-title]] [listing] - Your listing is about to expire',
             'body'          => 'Your listing "[listing]" is about to expire at [site]. You can renew it here: [link].',
         );
-        // array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-        // 'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-        // 'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-        // 'category' => _x( 'Category that is going to expire', 'settings', 'WPBDM' ),
-        // 'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-        // 'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
         /* listing-renewal-message, non-recurring only */
         $notices[] = array(
             'event'         => 'expiration',
@@ -1524,12 +1487,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => 'Your listing on [site-title] expired',
             'body'          => "Your listing \"[listing]\" in category [category] expired on [expiration]. To renew your listing click the link below.\n[link]",
         );
-        // array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-        // 'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-        // 'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-        // 'category' => _x( 'Category that expired', 'settings', 'WPBDM' ),
-        // 'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-        // 'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
         /* renewal-reminder-message, both recurring and non-recurring */
         $notices[] = array(
             'event'         => 'expiration',
@@ -1538,12 +1495,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => '[[site-title]] [listing] - Expiration reminder',
             'body'          => "Dear Customer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link].",
         );
-        // array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-        // 'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-        // 'expiration' => _x( 'Expiration date', 'settings', 'WPBDM' ),
-        // 'category' => _x( 'Category that expired', 'settings', 'WPBDM' ),
-        // 'link' => _x( 'Link to renewal page', 'settings', 'WPBDM' ),
-        // 'site' => _x( 'Link to your site', 'settings', 'WPBDM' )  ) )
         /* listing-autorenewal-notice, recurring only, controlled by the send-autorenewal-expiration-notice setting */
         $notices[] = array(
             'event'         => 'expiration',
@@ -1552,12 +1503,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => '[[site-title]] [listing] - Renewal reminder',
             'body'          => "Hey [author],\n\nThis is just to remind you that your listing [listing] is going to be renewed on [expiration] for another period.\nIf you want to review or cancel your subscriptions please visit [link].\n\nIf you have any questions, contact us at [site].",
         );
-        // array( 'placeholders' => array( 'listing' => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-        // 'author' => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-        // 'date' => _x( 'Renewal date', 'settings', 'WPBDM' ),
-        // 'category' => _x( 'Category that is going to be renewed', 'settings', 'WPBDM' ),
-        // 'site' => _x( 'Link to your site', 'settings', 'WPBDM' ),
-        // 'link' => _x( 'Link to manage subscriptions', 'settings', 'WPBDM' ) ) )
         /* listing-autorenewal-message, after IPN notification of renewal of recurring */
         $notices[] = array(
             'event'         => 'renewal',
@@ -1566,17 +1511,6 @@ final class WPBDP__Settings__Bootstrap {
             'subject'       => '[[site-title]] [listing] renewed',
             'body'          => "Hey [author],\n\nThanks for your payment. We just renewed your listing [listing] on [payment_date] for another period.\n\nIf you have any questions, contact us at [site].",
         );
-        // $replacements['listing'] = sprintf( '<a href="%s">%s</a>',
-        // get_permalink( $payment->get_listing_id() ),
-        // get_the_title( $payment->get_listing_id() ) );
-        // $replacements['author'] = get_the_author_meta( 'display_name', get_post( $payment->get_listing_id() )->post_author );
-        // $replacements['category'] = wpbdp_get_term_name( $recurring_item->rel_id_1 );
-        // $replacements['date'] = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
-        // strtotime( $payment->get_processed_on() ) );
-        // $replacements['site'] = sprintf( '<a href="%s">%s</a>',
-        // get_bloginfo( 'url' ),
-        // get_bloginfo( 'name' ) );
-        //
         return $notices;
     }
 
@@ -1664,7 +1598,7 @@ final class WPBDP__Settings__Bootstrap {
         $sizes = array( 'uploaded' => _x( 'Uploaded Image (no resize)', 'admin settings', 'WPBDM' ) );
 
         foreach ( get_intermediate_image_sizes() as $_size ) {
-            if ( in_array( $_size, array('thumbnail', 'medium', 'medium_large', 'large') ) ) {
+            if ( in_array( $_size, array( 'thumbnail', 'medium', 'medium_large', 'large' ) ) ) {
                 $name   = 'WP ' . ucwords( str_replace( '_', ' ', $_size ) );
                 $width  = get_option( "{$_size}_size_w" );
                 $height = get_option( "{$_size}_size_h" );
