@@ -92,16 +92,16 @@ class WPBDP_Licensing {
             return;
         }
 
-        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'WPBDM' ) );
+        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ) );
         wpbdp_register_settings_group(
-            'licenses/main', __( 'Licenses', 'WPBDM' ), 'licenses', array(
+            'licenses/main', __( 'Licenses', 'business-directory-plugin' ), 'licenses', array(
 				'desc'        => $this->get_settings_section_description(),
 				'custom_form' => true,
             )
         );
 
         if ( $modules ) {
-            wpbdp_register_settings_group( 'licenses/modules', _x( 'Premium Modules', 'settings', 'WPBDM' ), 'licenses/main' );
+            wpbdp_register_settings_group( 'licenses/modules', _x( 'Premium Modules', 'settings', 'business-directory-plugin' ), 'licenses/main' );
 
             foreach ( $modules as $module ) {
                 wpbdp_register_setting(
@@ -119,7 +119,7 @@ class WPBDP_Licensing {
         }
 
         if ( $themes ) {
-            wpbdp_register_settings_group( 'licenses/themes', _x( 'Themes', 'settings', 'WPBDM' ), 'licenses/main' );
+            wpbdp_register_settings_group( 'licenses/themes', _x( 'Themes', 'settings', 'business-directory-plugin' ), 'licenses/main' );
 
             foreach ( $themes as $theme ) {
                 wpbdp_register_setting(
@@ -144,7 +144,7 @@ class WPBDP_Licensing {
             return '';
         }
 
-        $description = _x( 'The IP address of your server is <ip-address>. Please make sure to include that information if you need to contact support about problems trying to activate your licenses.', 'settings', 'WPBDM' );
+        $description = _x( 'The IP address of your server is <ip-address>. Please make sure to include that information if you need to contact support about problems trying to activate your licenses.', 'settings', 'business-directory-plugin' );
         $description = str_replace( '<ip-address>', '<strong>' . $ip_address . '</strong>', $description );
 
         return $description;
@@ -170,9 +170,9 @@ class WPBDP_Licensing {
         $html .= '<div class="wpbdp-license-key-activation-ui wpbdp-license-status-' . $license_status . '" data-licensing="' . esc_attr( $licensing_info_attr ) . '">';
         $html .= '<span class="wpbdp-license-warning-icon dashicons dashicons-warning"></span>';
         $html .= '<span class="wpbdp-license-ok-icon dashicons dashicons-yes"></span>';
-        $html .= '<input type="text" id="' . $setting['id'] . '" class="wpbdp-license-key-input" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . ' placeholder="' . _x( 'Enter License Key here', 'admin settings', 'WPBDM' ) . '"/>';
-        $html .= '<input type="button" value="' . _x( 'Activate', 'settings', 'WPBDM' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'WPBDM' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
-        $html .= '<input type="button" value="' . _x( 'Deactivate', 'settings', 'WPBDM' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'WPBDM' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
+        $html .= '<input type="text" id="' . $setting['id'] . '" class="wpbdp-license-key-input" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . ' placeholder="' . _x( 'Enter License Key here', 'admin settings', 'business-directory-plugin' ) . '"/>';
+        $html .= '<input type="button" value="' . _x( 'Activate', 'settings', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
+        $html .= '<input type="button" value="' . _x( 'Deactivate', 'settings', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
         $html .= '<div class="wpbdp-license-key-activation-status-msg wpbdp-hidden"></div>';
         $html .= '</div>';
 
@@ -285,13 +285,13 @@ class WPBDP_Licensing {
 
     private function activate_license( $item_type, $item_id ) {
         if ( ! in_array( $item_id, array_keys( $this->items ), true ) ) {
-            return new WP_Error( 'invalid-module', _x( 'Invalid item ID', 'licensing', 'WPBDM' ), $module );
+            return new WP_Error( 'invalid-module', _x( 'Invalid item ID', 'licensing', 'business-directory-plugin' ), $module );
         }
 
         $key = wpbdp_get_option( 'license-key-' . $item_type . '-' . $item_id );
 
         if ( ! $key ) {
-            return new WP_Error( 'no-license-provided', _x( 'No license key provided', 'licensing', 'WPBDM' ) );
+            return new WP_Error( 'no-license-provided', _x( 'No license key provided', 'licensing', 'business-directory-plugin' ) );
         }
 
         $request = array(
@@ -315,11 +315,11 @@ class WPBDP_Licensing {
             update_option( 'wpbdp_licenses', $this->licenses );
 
             if ( 'revoked' === $license_data->error ) {
-                $message  = '<strong>' . _x( 'The license key was revoked.', 'licensing', 'WPBDM' ) . '</strong>';
+                $message  = '<strong>' . _x( 'The license key was revoked.', 'licensing', 'business-directory-plugin' ) . '</strong>';
                 $message .= '<br/><br/>';
-                $message .= _x( 'If you think this is a mistake, please contact <support-link>Business Directory support</support-link> and let them know your license is being reported as revoked by the licensing software.', 'licensing', 'WPBDM' );
+                $message .= _x( 'If you think this is a mistake, please contact <support-link>Business Directory support</support-link> and let them know your license is being reported as revoked by the licensing software.', 'licensing', 'business-directory-plugin' );
                 $message .= '<br/><br/>';
-                $message .= _x( 'Please include the email address you used to purchase <module-name> with your report.', 'licensing', 'WPBDM' );
+                $message .= _x( 'Please include the email address you used to purchase <module-name> with your report.', 'licensing', 'business-directory-plugin' );
 
                 $message = str_replace( '<support-link>', '<a href="https://businessdirectoryplugin.com/contact">', $message );
                 $message = str_replace( '</support-link>', '</a>', $message );
@@ -330,7 +330,7 @@ class WPBDP_Licensing {
 
                 return new WP_Error( 'revoked-license', $message );
             } else {
-                $message = _x( 'License key is invalid', 'licensing', 'WPBDM' );
+                $message = _x( 'License key is invalid', 'licensing', 'business-directory-plugin' );
 
                 return new WP_Error( 'invalid-license', $message );
             }
@@ -347,7 +347,7 @@ class WPBDP_Licensing {
 
     private function deactivate_license( $item_type, $item_id ) {
         if ( ! in_array( $item_id, array_keys( $this->items ), true ) ) {
-            return new WP_Error( 'invalid-module', _x( 'Invalid module ID', 'licensing', 'WPBDM' ), $module );
+            return new WP_Error( 'invalid-module', _x( 'Invalid module ID', 'licensing', 'business-directory-plugin' ), $module );
         }
 
         // Remove licensing information.
@@ -373,11 +373,11 @@ class WPBDP_Licensing {
         $license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
         if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) ) {
-            return new WP_Error( 'invalid-license', _x( 'License key is invalid', 'licensing', 'WPBDM' ) );
+            return new WP_Error( 'invalid-license', _x( 'License key is invalid', 'licensing', 'business-directory-plugin' ) );
         }
 
         if ( 'deactivated' !== $license_data->license ) {
-            return new WP_Error( 'deactivation-failed', _x( 'Deactivation failed', 'licensing', 'WPBDM' ) );
+            return new WP_Error( 'deactivation-failed', _x( 'Deactivation failed', 'licensing', 'business-directory-plugin' ) );
         }
 
         return true;
@@ -385,13 +385,13 @@ class WPBDP_Licensing {
 
     private function handle_failed_license_request( $response ) {
         if ( ! function_exists( 'curl_init' ) ) {
-            $message  = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. cURL was not found in your system", 'licensing', 'WPBDM' ) . '</strong>';
+            $message  = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. cURL was not found in your system", 'licensing', 'business-directory-plugin' ) . '</strong>';
             $message .= '<br/><br/>';
-            $message .= _x( 'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).', 'licensing', 'WPBDM' );
+            $message .= _x( 'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).', 'licensing', 'business-directory-plugin' );
             $message .= '<br/><br/>';
-            $message .= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'WPBDM' );
+            $message .= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'business-directory-plugin' );
             $message .= '<br/><br/>';
-            $message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necessary', 'licensing', 'WPBDM' );
+            $message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necessary', 'licensing', 'business-directory-plugin' );
             return new WP_Error( 'request-failed', $message );
         }
         $ch = curl_init();
@@ -407,13 +407,13 @@ class WPBDP_Licensing {
         curl_close( $ch );
 
         if ( in_array( $error_number, array( 7 ), true ) ) {
-            $message  = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. The connection failed with the following error:", 'licensing', 'WPBDM' ) . '</strong>';
+            $message  = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. The connection failed with the following error:", 'licensing', 'business-directory-plugin' ) . '</strong>';
             $message .= '<br/><br/>';
             $message .= '<code>curl: (' . $error_number . ') ' . $error_message . '</code>';
             $message .= '<br/><br/>';
-            $message .= _x( 'It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the allow list.', 'licensing', 'WPBDM' );
+            $message .= _x( 'It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the allow list.', 'licensing', 'business-directory-plugin' );
             $message .= '<br/><br/>';
-            $message .= _x( 'Include this error message with your report.', 'licensing', 'WPBDM' );
+            $message .= _x( 'Include this error message with your report.', 'licensing', 'business-directory-plugin' );
 
             $message = str_replace( '<support-link>', '<a href="https://businessdirectoryplugin.com/contact">', $message );
             $message = str_replace( '</support-link>', '</a>', $message );
@@ -423,23 +423,23 @@ class WPBDP_Licensing {
 
             return new WP_Error( 'connection-refused', $message );
         } elseif ( in_array( $error_number, array( 35 ), true ) ) {
-            $message = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. A problem occurred in the SSL/TSL handshake:", 'licensing', 'WPBDM' ) . '</strong>';
+            $message = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. A problem occurred in the SSL/TSL handshake:", 'licensing', 'business-directory-plugin' ) . '</strong>';
 
             $message .= '<br/><br/>';
             $message .= '<code>curl: (' . $error_number . ') ' . $error_message . '</code>';
             $message .= '<br/><br/>';
-            $message .= _x( 'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).', 'licensing', 'WPBDM' );
+            $message .= _x( 'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).', 'licensing', 'business-directory-plugin' );
             $message .= '<br/><br/>';
-            $message .= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'WPBDM' );
+            $message .= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'business-directory-plugin' );
             $message .= '<br/><br/>';
-            $message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necessary.', 'licensing', 'WPBDM' );
+            $message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necessary.', 'licensing', 'business-directory-plugin' );
 
             // The javascript handler already adds a dot at the end.
             $message = rtrim( $message, '.' );
 
             return new WP_Error( 'request-failed', $message );
         } else {
-            return new WP_Error( 'request-failed', _x( 'Could not contact licensing server', 'licensing', 'WPBDM' ) );
+            return new WP_Error( 'request-failed', _x( 'Could not contact licensing server', 'licensing', 'business-directory-plugin' ) );
         }
     }
 
@@ -461,11 +461,11 @@ class WPBDP_Licensing {
         $response_message = wp_remote_retrieve_response_message( $response );
 
         if ( 403 == $response_code ) {
-            $message  = '<strong>' . _x( 'The server returned a 403 Forbidden error.', 'licensing', 'WPBDM' ) . '</strong>';
+            $message  = '<strong>' . _x( 'The server returned a 403 Forbidden error.', 'licensing', 'business-directory-plugin' ) . '</strong>';
             $message .= '<br/><br/>';
-            $message .= _x( 'It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the allow list.', 'licensing', 'WPBDM' );
+            $message .= _x( 'It looks like your server is not authorized to make requests to Business Directory servers. Please contact <support-link>Business Directory support</support-link> and ask them to add your IP address <ip-address> to the allow list.', 'licensing', 'business-directory-plugin' );
             $message .= '<br/><br/>';
-            $message .= _x( 'Include this error message with your report.', 'licensing', 'WPBDM' );
+            $message .= _x( 'Include this error message with your report.', 'licensing', 'business-directory-plugin' );
 
             $message = str_replace( '<support-link>', '<a href="https://businessdirectoryplugin.com/contact">', $message );
             $message = str_replace( '</support-link>', '</a>', $message );
@@ -529,7 +529,7 @@ class WPBDP_Licensing {
         }
 
         echo '<div id="wpbdp-licensing-issues-warning" class="error"><p>';
-        echo '<b>' . _x( 'Business Directory - Please verify your license keys', 'licensing', 'WPBDM' ) . '</b><br />';
+        echo '<b>' . _x( 'Business Directory - Please verify your license keys', 'licensing', 'business-directory-plugin' ) . '</b><br />';
 
         echo '<ul>';
         if ( $modules ) {
@@ -539,7 +539,7 @@ class WPBDP_Licensing {
             }
 
             echo '<li>';
-            printf( _x( 'The following premium modules will not work until a valid license key is provided: %s.', 'licensing', 'WPBDM' ), $modules_str );
+            printf( _x( 'The following premium modules will not work until a valid license key is provided: %s.', 'licensing', 'business-directory-plugin' ), $modules_str );
             echo '</li>';
         }
 
@@ -550,7 +550,7 @@ class WPBDP_Licensing {
             }
 
             echo '<li>';
-            printf( _x( 'You need to activate the license keys for the following themes before they can be used: %s.', 'licensing', 'WPBDM' ), $themes_str );
+            printf( _x( 'You need to activate the license keys for the following themes before they can be used: %s.', 'licensing', 'business-directory-plugin' ), $themes_str );
             echo '</li>';
         }
 
@@ -558,7 +558,7 @@ class WPBDP_Licensing {
 
         echo '<p>';
         echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
-        echo _x( 'Review my license keys', 'licensing', 'WPBDM' );
+        echo _x( 'Review my license keys', 'licensing', 'business-directory-plugin' );
         echo '</a>';
         echo '</p>';
 
@@ -585,7 +585,7 @@ class WPBDP_Licensing {
 
         echo '<div id="wpbdp-licensing-issues-warning" class="wpbdp-notice notice notice-error is-dismissible" data-dismissible-id="' . esc_attr( $notice_id ) . '" data-nonce="' . esc_attr( $nonce ) . '">';
         echo '<p>';
-        echo '<b>' . _x( 'Business Directory - License key expired', 'licensing', 'WPBDM' ) . '</b><br />';
+        echo '<b>' . _x( 'Business Directory - License key expired', 'licensing', 'business-directory-plugin' ) . '</b><br />';
 
         echo '<ul>';
         if ( $modules ) {
@@ -595,7 +595,7 @@ class WPBDP_Licensing {
             }
 
             echo '<li>';
-            printf( _x( 'The license key for the following modules has expired: %s. The modules will continue to work but you will not receive any more updates until the license is renewed.', 'licensing', 'WPBDM' ), $modules_str );
+            printf( _x( 'The license key for the following modules has expired: %s. The modules will continue to work but you will not receive any more updates until the license is renewed.', 'licensing', 'business-directory-plugin' ), $modules_str );
             echo '</li>';
         }
 
@@ -606,7 +606,7 @@ class WPBDP_Licensing {
             }
 
             echo '<li>';
-            printf( _x( 'The license key for the following themes has expired: %s. The themes will continue to work but you will not receive any more updates until the license is renewed.', 'licensing', 'WPBDM' ), $themes_str );
+            printf( _x( 'The license key for the following themes has expired: %s. The themes will continue to work but you will not receive any more updates until the license is renewed.', 'licensing', 'business-directory-plugin' ), $themes_str );
             echo '</li>';
         }
 
@@ -614,7 +614,7 @@ class WPBDP_Licensing {
 
         echo '<p>';
         echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
-        echo _x( 'Review my license keys', 'licensing', 'WPBDM' );
+        echo _x( 'Review my license keys', 'licensing', 'business-directory-plugin' );
         echo '</a>';
         echo '</p>';
 
@@ -706,7 +706,7 @@ class WPBDP_Licensing {
         }
 
         if ( ! $key ) {
-            $response->send_error( _x( 'Please enter a license key.', 'licensing', 'WPBDM' ) );
+            $response->send_error( _x( 'Please enter a license key.', 'licensing', 'business-directory-plugin' ) );
         }
 
         // Store the new license key. This clears stored information about the license.
@@ -715,9 +715,9 @@ class WPBDP_Licensing {
         $result = $this->activate_license( $item_type, $item_id );
 
         if ( is_wp_error( $result ) ) {
-             $response->send_error( sprintf( _x( 'Could not activate license: %s.', 'licensing', 'WPBDM' ), $result->get_error_message() ) );
+             $response->send_error( sprintf( _x( 'Could not activate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ) );
         } else {
-            $response->set_message( _x( 'License activated', 'licensing', 'WPBDM' ) );
+            $response->set_message( _x( 'License activated', 'licensing', 'business-directory-plugin' ) );
             $response->send();
         }
     }
@@ -737,9 +737,9 @@ class WPBDP_Licensing {
         $response = new WPBDP_Ajax_Response();
 
         if ( is_wp_error( $result ) ) {
-            $response->send_error( sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'WPBDM' ), $result->get_error_message() ) );
+            $response->send_error( sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ) );
         } else {
-            $response->set_message( _x( 'License deactivated', 'licensing', 'WPBDM' ) );
+            $response->set_message( _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) );
             $response->send();
         }
     }
@@ -942,7 +942,7 @@ function wpbdp_licensing_register_module( $name, $file_, $version ) {
 
     // TODO: Use numbered placeholders with sprintf or named placeholders with str_replace.
     /* translators: "<module-name>" version <version-number> is not... */
-    wpbdp_deprecation_warning( sprintf( _x( '"%1$s" version %2$s is not compatible with Business Directory Plugin 5.0. Please update this module to the latest available version.', 'deprecation', 'WPBDM' ), '<strong>' . esc_html( $name ) . '</strong>', '<strong>' . $version . '</strong>' ) );
+    wpbdp_deprecation_warning( sprintf( _x( '"%1$s" version %2$s is not compatible with Business Directory Plugin 5.0. Please update this module to the latest available version.', 'deprecation', 'business-directory-plugin' ), '<strong>' . esc_html( $name ) . '</strong>', '<strong>' . $version . '</strong>' ) );
     $wpbdp_compat_modules_registry[] = array( $name, $file_, $version );
 
     return false;

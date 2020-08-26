@@ -58,7 +58,7 @@ class WPBDP_Fees_API {
             $wpdb->insert( $wpdb->prefix . 'wpbdp_plans',
                            array( 'id' => 0,
                                   'tag' => 'free',
-                                  'label' => _x( 'Free Listing', 'fees-api', 'WPBDM' ),
+                                  'label' => _x( 'Free Listing', 'fees-api', 'business-directory-plugin' ),
                                   'amount' => 0.0,
                                   'images' => absint( wpbdp_get_option( 'free-images' ) ),
                                   'days' => absint( wpbdp_get_option( 'listing-duration' ) ),

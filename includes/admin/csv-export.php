@@ -46,7 +46,7 @@ class WPBDP_Admin_CSVExport {
             } else {
                 $state  = json_decode( base64_decode( $_REQUEST['state'] ), true );
                 if ( ! $state || ! is_array( $state ) || empty( $state['workingdir'] ) ) {
-                    $error = _x( 'Could not decode export state information.', 'admin csv-export', 'WPBDM' );
+                    $error = _x( 'Could not decode export state information.', 'admin csv-export', 'business-directory-plugin' );
                 }
 
                 $export = WPBDP_CSVExporter::from_state( $state );

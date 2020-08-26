@@ -3,8 +3,8 @@
         <p><?php _ex("Your current listings are shown below. To edit a listing click the edit button. To delete a listing click the delete button.", 'templates', "WPBDM"); ?></p>
         <?php echo wpbdp_x_part( 'listings' ); ?>
     <?php else: ?>
-        <p><?php _ex('You do not currently have any listings in the directory.', 'templates', 'WPBDM'); ?></p>
+        <p><?php _ex('You do not currently have any listings in the directory.', 'templates', 'business-directory-plugin' ); ?></p>
         <?php echo sprintf('<a href="%s">%s</a>.', wpbdp_get_page_link('main'),
-                           _x('Return to directory', 'templates', 'WPBDM')); ?>     
+                           _x('Return to directory', 'templates', 'business-directory-plugin' )); ?>     
     <?php endif; ?>
 </div>

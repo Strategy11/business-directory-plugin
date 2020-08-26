@@ -65,7 +65,7 @@ class WPBDP_Form_Field {
         $this->type        = is_object( $attrs['field_type'] ) ? $attrs['field_type'] : WPBDP_FormFields::instance()->get_field_type( $attrs['field_type'] );
 
         if ( ! $this->type ) {
-            throw new Exception( _x( 'Invalid form field type', 'form-fields-api', 'WPBDM' ) );
+            throw new Exception( _x( 'Invalid form field type', 'form-fields-api', 'business-directory-plugin' ) );
         }
 
 		/*
@@ -590,15 +590,15 @@ class WPBDP_Form_Field {
         $api = wpbdp_formfields_api();
 
         if ( ! $this->label || trim( $this->label ) == '' ) {
-            return new WP_Error( 'wpbdp-save-error', _x( 'Field label is required.', 'form-fields-api', 'WPBDM' ) );
+            return new WP_Error( 'wpbdp-save-error', _x( 'Field label is required.', 'form-fields-api', 'business-directory-plugin' ) );
         }
 
         if ( strlen( $this->label ) > 255 ) {
-            return new WP_Error( 'wpbdp-save-error', _x( 'Field label max length is 255 characters.', 'form-fields-api', 'WPBDM' ) );
+            return new WP_Error( 'wpbdp-save-error', _x( 'Field label max length is 255 characters.', 'form-fields-api', 'business-directory-plugin' ) );
         }
 
         if ( strlen( $this->description ) > 255 ) {
-            return new WP_Error( 'wpbdp-save-error', _x( 'Field description max length is 255 characters.', 'form-fields-api', 'WPBDM' ) );
+            return new WP_Error( 'wpbdp-save-error', _x( 'Field description max length is 255 characters.', 'form-fields-api', 'business-directory-plugin' ) );
         }
 
         // If performing a field conversion, make sure the types are compatible.
@@ -609,10 +609,10 @@ class WPBDP_Form_Field {
             if ( $orig_type != $new_type ) {
                 if ( 'url' == $new_type || 'image' == $new_type || 'url' == $orig_type || 'image' == $orig_type ) {
                     $this->type = WPBDP_FormFields::instance()->get_field_type( $orig_type );
-                    $error_msg  = _x( 'You can\'t change from %2$s field type to the one you wanted--the types are incompatible internally. If you want to switch to a field of type %1$s, delete this current field and create a NEW field of type %1$s instead.', 'form-fields-api', 'WPBDM' );
+                    $error_msg  = _x( 'You can\'t change from %2$s field type to the one you wanted--the types are incompatible internally. If you want to switch to a field of type %1$s, delete this current field and create a NEW field of type %1$s instead.', 'form-fields-api', 'business-directory-plugin' );
 
                     if ( WPBDP_Listing::count_listings() ) {
-                        $error_msg .= '<br/><br/>' . _x( '<strong>WARNING</strong>: If you delete this field, the data from it in existing listings will be deleted as well.', 'form-fields-api', 'WPBDM' );
+                        $error_msg .= '<br/><br/>' . _x( '<strong>WARNING</strong>: If you delete this field, the data from it in existing listings will be deleted as well.', 'form-fields-api', 'business-directory-plugin' );
                     }
 
                     $error_msg = sprintf( $error_msg, '<strong>' . strtoupper( $new_type ) . '</strong>', '<strong>' . strtoupper( $orig_type ) . '</strong>' );
@@ -646,7 +646,7 @@ class WPBDP_Form_Field {
         if ( in_array( 'unique', $flags ) ) {
             if ( $otherfields = wpbdp_get_form_fields( 'association=' . $this->association ) ) {
                 if ( ( count( $otherfields ) > 1 ) || ( $otherfields[0]->get_id() != $this->id ) ) {
-                    return new WP_Error( 'wpbdp-field-error', sprintf( _x( 'There can only be one field with association "%s". Please select another association.', 'form-fields-api', 'WPBDM' ), $this->association ) );
+                    return new WP_Error( 'wpbdp-field-error', sprintf( _x( 'There can only be one field with association "%s". Please select another association.', 'form-fields-api', 'business-directory-plugin' ), $this->association ) );
                 }
             }
         }
@@ -656,7 +656,7 @@ class WPBDP_Form_Field {
         }
 
 		if ( ! in_array( $this->type->get_id(), (array) $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
-            return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'WPBDM' ), $this->type->get_name() ) );
+            return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'business-directory-plugin' ), $this->type->get_name() ) );
 		}
 
         $res = $this->type->before_field_update( $this );
@@ -701,7 +701,7 @@ class WPBDP_Form_Field {
      */
     public function delete() {
         if ( ! $this->id ) {
-            return new WP_Error( 'wpbdp-delete-error', _x( 'Invalid field ID', 'form-fields-api', 'WPBDM' ) );
+            return new WP_Error( 'wpbdp-delete-error', _x( 'Invalid field ID', 'form-fields-api', 'business-directory-plugin' ) );
         }
 
         global $wpbdp;
@@ -711,7 +711,7 @@ class WPBDP_Form_Field {
             $otherfields = wpbdp_get_form_fields( array( 'association' => $this->association ) );
 
             if ( ! $otherfields || ( $otherfields[0]->get_id() == $this->id ) ) {
-				return new WP_Error( 'wpbdp-delete-error', _x( "This form field can't be deleted because it is required for the plugin to work.", 'form-fields api', 'WPBDM' ) );
+				return new WP_Error( 'wpbdp-delete-error', _x( "This form field can't be deleted because it is required for the plugin to work.", 'form-fields api', 'business-directory-plugin' ) );
             }
         }
 
@@ -726,7 +726,7 @@ class WPBDP_Form_Field {
 
             $this->id = 0;
         } else {
-            return new WP_Error( 'wpbdp-delete-error', _x( 'An error occurred while trying to delete this field.', 'form-fields-api', 'WPBDM' ) );
+            return new WP_Error( 'wpbdp-delete-error', _x( 'An error occurred while trying to delete this field.', 'form-fields-api', 'business-directory-plugin' ) );
         }
 
         return true;

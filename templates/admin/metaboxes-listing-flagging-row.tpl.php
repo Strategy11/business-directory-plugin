@@ -16,7 +16,7 @@ endif;
         <div class="row-actions">
             <span class="trash">
                 <a href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'delete-flagging', 'listing_id' => $listing->get_id(), 'meta_pos' => $key ) ) ); ?>" class="delete">
-                    <?php echo _x( 'Delete', 'flag listing', 'WPBDM' ); ?>
+                    <?php echo _x( 'Delete', 'flag listing', 'business-directory-plugin' ); ?>
                 </a>
             </span>
         </div>
@@ -26,11 +26,11 @@ endif;
             <?php echo date_i18n( get_option( 'date_format' ) . ' @ ' . get_option( 'time_format' ), $value['date'] ); ?>
         </div>
         <div class="report-reasons">
-            <?php echo _x( 'Selected Option: ', 'admin listings', 'WPBDM' ) . esc_html( $value[ 'reason' ] ); ?>
+            <?php echo _x( 'Selected Option: ', 'admin listings', 'business-directory-plugin' ) . esc_html( $value[ 'reason' ] ); ?>
             <br/>
             <?php
             if ( ! empty( $value['comments'] ) ):
-                echo _x( 'Aditional Info: ', 'admin listings', 'WPBDM' ) . esc_html( $value['comments'] );
+                echo _x( 'Aditional Info: ', 'admin listings', 'business-directory-plugin' ) . esc_html( $value['comments'] );
             endif;
             ?>
         </div>

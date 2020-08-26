@@ -39,7 +39,7 @@ class WPBDP__Listing_Flagging {
 
     public static function get_flagging_meta( $listing_id, $key = 'all' ) {
         if ( ! $listing_id ) {
-            return new WP_Error( 'missing_data', _x( 'Listing ID is required to save a report', 'flag listing', 'WPBDM' ) );
+            return new WP_Error( 'missing_data', _x( 'Listing ID is required to save a report', 'flag listing', 'business-directory-plugin' ) );
         }
 
         $flagging_data = get_post_meta( $listing_id,  '_wpbdp_flagged_data', true );
@@ -62,7 +62,7 @@ class WPBDP__Listing_Flagging {
 
     public static function add_flagging( $listing_id, $data ) {
         if ( ! $listing_id ) {
-            return new WP_Error( 'missing_data', _x( 'Listing ID is required to save a report', 'flag listing', 'WPBDM' ) );
+            return new WP_Error( 'missing_data', _x( 'Listing ID is required to save a report', 'flag listing', 'business-directory-plugin' ) );
         }
 
         $defaults = array( 'user_id' => 0, 'ip' => 0, 'reason' => '', 'comments' => '' );
@@ -70,18 +70,18 @@ class WPBDP__Listing_Flagging {
         $data = array_merge( $defaults, $data );
 
         if ( ! $data[ 'user_id' ] && ! $data[ 'ip' ] ) {
-            return new WP_Error( 'missing_data', _x( 'User ID or IP address is required to save a report', 'flag listing', 'WPBDM' ) );
+            return new WP_Error( 'missing_data', _x( 'User ID or IP address is required to save a report', 'flag listing', 'business-directory-plugin' ) );
         }
 
         $flagging_options = self::get_flagging_options();
 
         if ( ! empty( $flagging_options ) ) {
             if ( empty( $data['reason'] ) ) {
-                return new WP_Error( 'missing_data', _x( 'Report reason is required to save a report', 'flag listing', 'WPBDM' ) );
+                return new WP_Error( 'missing_data', _x( 'Report reason is required to save a report', 'flag listing', 'business-directory-plugin' ) );
             }
         } else {
             if ( empty( $data['comments'] ) ) {
-                return new WP_Error( 'missing_data', _x( 'Report comment is required to save a report', 'flag listing', 'WPBDM' ) );
+                return new WP_Error( 'missing_data', _x( 'Report comment is required to save a report', 'flag listing', 'business-directory-plugin' ) );
             }
         }
 

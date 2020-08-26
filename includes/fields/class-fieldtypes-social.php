@@ -32,7 +32,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
      * WPBDP_FieldTypes_Social constructor.
      */
     public function __construct() {
-        parent::__construct( _x( 'Social Site (Other)', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'Social Site (Other)', 'form-fields api', 'business-directory-plugin' ) );
 
         add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
@@ -73,7 +73,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         $content .= '</select>';
 
-        $settings['display_order'][] = _x( 'Field Display Order', 'form-fields admin', 'WPBDM' );
+        $settings['display_order'][] = _x( 'Field Display Order', 'form-fields admin', 'business-directory-plugin' );
         $settings['display_order'][] = $content;
 
         return self::render_admin_settings( $settings );
@@ -92,7 +92,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         $html .= '<div class="wpbdp-social-url">';
         $html .= sprintf(
             '<span class="sublabel">%s</span>',
-            _x( 'URL:', 'form-fields api', 'WPBDM' )
+            _x( 'URL:', 'form-fields api', 'business-directory-plugin' )
         );
         $html .= sprintf(
             '<input type="text" id="%s" name="%s" value="%s" %s />',
@@ -112,7 +112,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         if ( 'icon_only' !== $field->data( 'display_order' ) ) {
             $text_input = sprintf(
                 '<label for="wpbdp-field-%2$d-social-text"><span class="sublabel">%s</span></label>',
-                _x( 'Text:', 'form-fields api', 'WPBDM' ),
+                _x( 'Text:', 'form-fields api', 'business-directory-plugin' ),
                 $field->get_id()
             );
 
@@ -120,7 +120,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
                 '<input id="wpbdp-field-%1$d-social-text" type="text" name="listingfields[%s][social-text]" value="%s" placeholder="%s">',
                 $field->get_id(),
                 ! empty( $value['social-text'] ) ? $value['social-text'] : '',
-                _x( 'Text to be displayed for social field', 'form-fields api', 'WPBDM' )
+                _x( 'Text to be displayed for social field', 'form-fields api', 'business-directory-plugin' )
             );
         }
 
@@ -138,7 +138,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         if ( 'text_only' !== $field->data( 'display_order' ) ) {
             $icon_input = sprintf(
                 '<span class="sublabel">%s</span>',
-                _x( 'Type:', 'form-fields api', 'WPBDM' )
+                _x( 'Type:', 'form-fields api', 'business-directory-plugin' )
             );
 
             foreach ( $this->social_types as $type ) {
@@ -174,7 +174,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
                 '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
                 $field->get_id(),
                 'listingfields[' . $field->get_id() . '][social-icon]',
-                _x( 'Remove', 'form-fields-api', 'WPBDM' )
+                _x( 'Remove', 'form-fields-api', 'business-directory-plugin' )
             );
 
             $icon_input .= '</div>';

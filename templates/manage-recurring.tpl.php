@@ -1,9 +1,9 @@
-<h3><?php _ex( 'Manage Recurring Payments', 'manage recurring', 'WPBDM' ); ?></h3>
+<h3><?php _ex( 'Manage Recurring Payments', 'manage recurring', 'business-directory-plugin' ); ?></h3>
 
 <table id="wpbdp-manage-recurring">
     <thead>
-        <th class="listing-title"><?php _ex( 'Listing', 'manage recurring', 'WPBDM' ); ?></th>
-        <th class="subscription-details"><?php _ex( 'Subscription / Fee Plan', 'manage subscriptions', 'WPBDM' ); ?></th>
+        <th class="listing-title"><?php _ex( 'Listing', 'manage recurring', 'business-directory-plugin' ); ?></th>
+        <th class="subscription-details"><?php _ex( 'Subscription / Fee Plan', 'manage subscriptions', 'business-directory-plugin' ); ?></th>
     </thead>
     <tbody>
     <?php foreach ( $listings as $listing ): ?>
@@ -25,7 +25,7 @@
                 $subscription_days = '<i>' . $fee->fee_days . '</i>';
                 $subscription_expiration_date = '<i>' . date_i18n( get_option( 'date_format' ), strtotime( $fee->expiration_date ) ) . '</i>';
 
-                $subscription_details = _x( '%s each %s days. Next renewal is on %s.', 'manage recurring', 'WPBDM' );
+                $subscription_details = _x( '%s each %s days. Next renewal is on %s.', 'manage recurring', 'business-directory-plugin' );
                 $subscription_details = sprintf( $subscription_details, $subscription_amount, $subscription_days, $subscription_expiration_date );
 
                 $cancel_url = add_query_arg( array(
@@ -36,7 +36,7 @@
             ?>
             <b><?php echo $fee->fee_label; ?>:</b><br />
             <?php echo $subscription_details; ?><br />
-            <a href="<?php echo esc_url( $cancel_url ); ?>" class="cancel-subscription"><?php _ex( 'Cancel recurring payment', 'manage recurring', 'WPBDM' ); ?></a>
+            <a href="<?php echo esc_url( $cancel_url ); ?>" class="cancel-subscription"><?php _ex( 'Cancel recurring payment', 'manage recurring', 'business-directory-plugin' ); ?></a>
         </td>
     </tr>
     <?php endforeach; ?>

@@ -25,7 +25,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
      * WPBDP_FieldTypes_Select constructor.
      */
     public function __construct() {
-        parent::__construct( _x( 'Select List', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'Select List', 'form-fields api', 'business-directory-plugin' ) );
     }
 
     public function get_id() {
@@ -109,7 +109,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             );
 
             if ( ( 'submit' == $context || 'search' == $context ) && ! $this->is_multiple() ) {
-                $args['show_option_none'] = _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' );
+                $args['show_option_none'] = _x( '-- Choose One --', 'form-fields-api category-select', 'business-directory-plugin' );
 
                 if ( 'submit' == $context ) {
                     $args['option_none_value'] = '';
@@ -129,7 +129,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     $this->set_multiple( false );
                 }
 			} elseif ( 'search' == $context && $this->is_multiple() ) {
-                $args['show_option_none'] = _x( '-- Choose Terms --', 'form-fields-api category-select', 'WPBDM' );
+                $args['show_option_none'] = _x( '-- Choose Terms --', 'form-fields-api category-select', 'business-directory-plugin' );
             }
 
             $args = apply_filters( 'wpbdp_field_type_select_categories_args', $args, $field, $value, $context, $extra, $field_settings );
@@ -176,7 +176,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
                 $html .= sprintf(
                     '<option value="-1">%s</option>',
-                    _x( '-- Choose One --', 'form-fields-api category-select', 'WPBDM' )
+                    _x( '-- Choose One --', 'form-fields-api category-select', 'business-directory-plugin' )
                 );
             }
 
@@ -187,7 +187,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             }
 
             if ( $show_empty_option ) {
-                $default_label      = _x( '— None —', 'form-fields-api select', 'WPBDM' );
+                $default_label      = _x( '— None —', 'form-fields-api select', 'business-directory-plugin' );
                 $empty_option_label = $field->data( 'empty_option_label', $default_label );
                 $html              .= '<option value="">' . $empty_option_label . '</option>';
             }
@@ -235,7 +235,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $settings = array();
 
-        $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
+        $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'business-directory-plugin' ) . '<span class="description">(required)</span>';
 
         $content  = '<span class="description">One option per line</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
@@ -247,7 +247,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $settings['options'][] = $content;
 
-        $settings['empty_on_search'][] = _x( 'Allow empty selection on search?', 'form-fields admin', 'WPBDM' );
+        $settings['empty_on_search'][] = _x( 'Allow empty selection on search?', 'form-fields admin', 'business-directory-plugin' );
 
         $content  = '<span class="description">Empty search selection means users can make this field optional in searching. Turn it off if the field must always be searched on.</span><br />';
         $content .= '<input type="checkbox" value="1" name="field[x_empty_on_search]" ' . ( ! $field ? ' checked="checked"' : ( $field->data( 'empty_on_search' ) ? ' checked="checked"' : '' ) ) . ' />';
@@ -265,7 +265,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $options = stripslashes( trim( $_POST['field']['x_options'] ) );
 
         if ( ! $options && $field->get_association() != 'tags' ) {
-            return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
+            return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'business-directory-plugin' ) );
         }
 
         $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();

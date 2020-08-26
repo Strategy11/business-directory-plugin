@@ -41,8 +41,8 @@ class WPBDP_Themes_Admin {
             $count_html = '';
 
         add_submenu_page( $slug,
-                          _x( 'Directory Themes', 'themes', 'WPBDM' ),
-                          $count_html ? sprintf( _x( 'Dir. Themes %s', 'themes', 'WPBDM' ), $count_html ) : _x( 'Directory Themes', 'themes', 'WPBDM' ),
+                          _x( 'Directory Themes', 'themes', 'business-directory-plugin' ),
+                          $count_html ? sprintf( _x( 'Dir. Themes %s', 'themes', 'business-directory-plugin' ), $count_html ) : _x( 'Directory Themes', 'themes', 'business-directory-plugin' ),
                           'administrator',
                           'wpbdp-themes',
                           array( &$this, 'dispatch' ) );
@@ -88,11 +88,11 @@ class WPBDP_Themes_Admin {
             return;
 
         $msg  =  '';
-        $msg .= '<strong>' . _x( 'Business Directory Plugin - Your template overrides need to be reviewed!', 'admin themes', 'WPBDM' ) . '</strong>';
+        $msg .= '<strong>' . _x( 'Business Directory Plugin - Your template overrides need to be reviewed!', 'admin themes', 'business-directory-plugin' ) . '</strong>';
         $msg .= '<br />';
-        $msg .= _x( 'Starting with version 4.0, Business Directory is using a new theming system that is not compatible with the templates used in previous versions.', 'admin themes', 'WPBDM' );
+        $msg .= _x( 'Starting with version 4.0, Business Directory is using a new theming system that is not compatible with the templates used in previous versions.', 'admin themes', 'business-directory-plugin' );
         $msg .= '<br />';
-        $msg .= _x( 'Because of this, your template overrides below have been disabled. You should <a>review our documentation on customization</a> in order adjust your templates.', 'admin themes', 'WPBDM' );
+        $msg .= _x( 'Because of this, your template overrides below have been disabled. You should <a>review our documentation on customization</a> in order adjust your templates.', 'admin themes', 'business-directory-plugin' );
         $msg .= '<br /><br />';
 
         foreach ( $overridden as $t => $relpath ) {
@@ -131,7 +131,7 @@ class WPBDP_Themes_Admin {
             wp_die();
 
         if ( ! $this->api->set_active_theme( $theme_id ) )
-            wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'WPBDM' ), $theme_id ) );
+            wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'business-directory-plugin' ), $theme_id ) );
 
         wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
         exit;
@@ -172,10 +172,10 @@ class WPBDP_Themes_Admin {
 
         switch ( $msg ) {
             case 1:
-                wpbdp_admin_message( sprintf( _x( 'Active theme changed to "%s".', 'themes', 'WPBDM' ), $this->api->get_active_theme() ) );
+                wpbdp_admin_message( sprintf( _x( 'Active theme changed to "%s".', 'themes', 'business-directory-plugin' ), $this->api->get_active_theme() ) );
 
                 if ( $missing_fields = $this->api->missing_suggested_fields( 'label' ) ) {
-                    $msg  = sprintf( _x( '%s requires that you tag your existing fields to match some places we want to put your data on the theme. Below are fields we think are missing.', 'themes', 'WPBDM' ), $this->api->get_active_theme() );
+                    $msg  = sprintf( _x( '%s requires that you tag your existing fields to match some places we want to put your data on the theme. Below are fields we think are missing.', 'themes', 'business-directory-plugin' ), $this->api->get_active_theme() );
                     $msg .= '<br />';
 
                     foreach ( $missing_fields as $mf )
@@ -184,23 +184,23 @@ class WPBDP_Themes_Admin {
                     $msg .= '<br /><br />';
                     $msg .= sprintf( '<a href="%s" class="button button-primary">%s</a>',
                                      admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
-                                     _x( 'Map My Fields', 'themes', 'WPBDM' ) );
+                                     _x( 'Map My Fields', 'themes', 'business-directory-plugin' ) );
 
                     wpbdp_admin_message( $msg, 'error' );
                 }
 
                 break;
             case 2:
-                wpbdp_admin_message( _x( 'Suggested fields created successfully.', 'themes', 'WPBDM' ) );
+                wpbdp_admin_message( _x( 'Suggested fields created successfully.', 'themes', 'business-directory-plugin' ) );
                 break;
             case 3:
-                wpbdp_admin_message( _x( 'Theme installed successfully.', 'themes', 'WPBDM' ) );
+                wpbdp_admin_message( _x( 'Theme installed successfully.', 'themes', 'business-directory-plugin' ) );
                 break;
             case 4:
-                wpbdp_admin_message( _x( 'Theme was deleted successfully.', 'themes', 'WPBDM' ) );
+                wpbdp_admin_message( _x( 'Theme was deleted successfully.', 'themes', 'business-directory-plugin' ) );
                 break;
             case 5:
-                wpbdp_admin_message( _x( 'Could not delete theme directory. Check permissions.', 'themes', 'WPBDM' ), 'error' );
+                wpbdp_admin_message( _x( 'Could not delete theme directory. Check permissions.', 'themes', 'business-directory-plugin' ), 'error' );
                 break;
             default:
                 break;
@@ -247,14 +247,14 @@ class WPBDP_Themes_Admin {
         $theme_file = isset( $_FILES['themezip'] ) ? $_FILES['themezip'] : false;
 
         if ( ! $theme_file || ! is_uploaded_file( $theme_file['tmp_name'] ) || UPLOAD_ERR_OK != $_FILES['themezip']['error'] ) {
-            wpbdp_admin_message( _x( 'Please upload a valid theme file.', 'themes', 'WPBDM' ), 'error' );
+            wpbdp_admin_message( _x( 'Please upload a valid theme file.', 'themes', 'business-directory-plugin' ), 'error' );
             return;
         }
 
         $dest = wp_normalize_path( untrailingslashit( get_temp_dir() ) . DIRECTORY_SEPARATOR . $theme_file['name'] );
 
         if ( ! move_uploaded_file( $theme_file['tmp_name'], $dest ) ) {
-            wpbdp_admin_message( sprintf( _x( 'Could not move "%s" to a temporary directory.', 'themes', 'WPBDM' ),
+            wpbdp_admin_message( sprintf( _x( 'Could not move "%s" to a temporary directory.', 'themes', 'business-directory-plugin' ),
                                           $theme_file['name'] ),
                                  'error' );
             return;
@@ -329,7 +329,7 @@ class WPBDP_Themes_Admin {
             return;
 
         echo '<div class="wpbdp-theme-license-required-row">';
-        echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) .  '">', _x( 'Activate your <a>license key</a> to use this theme.', 'themes', 'WPBDM' ) );
+        echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) .  '">', _x( 'Activate your <a>license key</a> to use this theme.', 'themes', 'business-directory-plugin' ) );
         echo '</div>';
     }
 
@@ -370,13 +370,13 @@ class WPBDP_Themes_Admin {
         $theme = $this->api->get_theme( $theme_id );
 
         if ( ! $theme ) {
-            $response['error'] = _x( 'Invalid theme ID', 'themes', 'WPBDM');
+            $response['error'] = _x( 'Invalid theme ID', 'themes', 'business-directory-plugin');
             return wp_send_json( $response );
         }
 
         $result = $this->run_update( $theme_id );
         if ( is_wp_error( $result ) ) {
-            $response['error'] = sprintf( _x( 'Could not update theme: %s', 'themes', 'WPBDM' ), $result->get_error_message() );
+            $response['error'] = sprintf( _x( 'Could not update theme: %s', 'themes', 'business-directory-plugin' ), $result->get_error_message() );
             return wp_send_json( $response );
         }
 

@@ -43,7 +43,7 @@ class WPBDP__Settings_Admin {
 
     public function menu_item( $menu ) {
         $menu['wpbdp_settings'] = array(
-            'title'    => _x( 'Settings', 'admin menu', 'WPBDM' ),
+            'title'    => _x( 'Settings', 'admin menu', 'business-directory-plugin' ),
             'callback' => array( $this, 'settings_page' ),
             'priority' => 0,
         );
@@ -339,7 +339,7 @@ class WPBDP__Settings_Admin {
             $setting['id'],
             'wpbdp_settings[' . $setting['id'] . ']',
             empty( $value ) ? 'display: none;' : '',
-            _x( 'Remove', 'admin settings', 'WPBDM' )
+            _x( 'Remove', 'admin settings', 'business-directory-plugin' )
         );
 
         $html .= '</div>';
@@ -390,7 +390,7 @@ class WPBDP__Settings_Admin {
         }
 
         if ( $setting['desc'] && $placeholders_text ) {
-            $setting['desc'] = $setting['desc'] . '<br/><br/>' . sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'WPBDM' ), $placeholders_text );
+            $setting['desc'] = $setting['desc'] . '<br/><br/>' . sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'business-directory-plugin' ), $placeholders_text );
         } elseif ( $placeholders_text ) {
             $settings['desc'] = $placeholders_text;
         }
@@ -431,7 +431,7 @@ class WPBDP__Settings_Admin {
     public function setting_expiration_notices_callback( $setting, $value ) {
 ?>
 <div class="wpbdp-settings-expiration-notices">
-    <button id="wpbdp-settings-expiration-notices-add-btn" class="button"><?php _ex( 'Add notice', 'expiration notices', 'WPBDM' ); ?></button>
+    <button id="wpbdp-settings-expiration-notices-add-btn" class="button"><?php _ex( 'Add notice', 'expiration notices', 'business-directory-plugin' ); ?></button>
 
     <div id="wpbdp-settings-expiration-notices-add">
     <?php
@@ -450,7 +450,7 @@ class WPBDP__Settings_Admin {
     </div>
 
     <?php if ( ! $value ) : ?>
-    <p class="wpbdp-no-items"><?php _ex( 'No notices configured.', 'expiration notices', 'WPBDM' ); ?></p>
+    <p class="wpbdp-no-items"><?php _ex( 'No notices configured.', 'expiration notices', 'business-directory-plugin' ); ?></p>
     <?php endif; ?>
 
 <?php
@@ -464,18 +464,18 @@ foreach ( $value as $i => $notice ) {
 		'email_body'      => $notice['body'],
 		'extra_fields'    => $this->setting_expiration_notices_email_extra_fields( 'wpbdp_settings[' . $setting['id'] . '][' . $i . ']', $uid, $notice ),
 		'after_container' => $this->setting_expiration_notices_email_summary( $notice ),
-		'before_buttons'  => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'WPBDM' ) . '</a>',
+		'before_buttons'  => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'business-directory-plugin' ) . '</a>',
 		'placeholders'    =>
 			array(
-				'site'         => _x( 'Site title (with link)', 'settings', 'WPBDM' ),
-				'author'       => _x( 'Author\'s name', 'settings', 'WPBDM' ),
-				'listing'      => _x( 'Listing\'s name (with link)', 'settings', 'WPBDM' ),
-				'expiration'   => _x( 'Listing\'s expiration date', 'settings', 'WPBDM' ),
-                'link'         => _x( 'Listing\'s renewal link, formatted with an anchor tag', 'settings', 'WPBDM' ),
-                'link-raw'     => _x( 'Listing\'s renewal URL, unformatted by any tags', 'settings', 'WPBDM' ),
-				'category'     => _x( 'Listing\'s categories', 'settings', 'WPBDM' ),
-				'payment_date' => _x( 'Listing\'s last payment date', 'settings', 'WPBDM' ),
-				'access_key'   => _x( 'Listing\'s access key', 'settings', 'WPBDM' ),
+				'site'         => _x( 'Site title (with link)', 'settings', 'business-directory-plugin' ),
+				'author'       => _x( 'Author\'s name', 'settings', 'business-directory-plugin' ),
+				'listing'      => _x( 'Listing\'s name (with link)', 'settings', 'business-directory-plugin' ),
+				'expiration'   => _x( 'Listing\'s expiration date', 'settings', 'business-directory-plugin' ),
+                'link'         => _x( 'Listing\'s renewal link, formatted with an anchor tag', 'settings', 'business-directory-plugin' ),
+                'link-raw'     => _x( 'Listing\'s renewal URL, unformatted by any tags', 'settings', 'business-directory-plugin' ),
+				'category'     => _x( 'Listing\'s categories', 'settings', 'business-directory-plugin' ),
+				'payment_date' => _x( 'Listing\'s last payment date', 'settings', 'business-directory-plugin' ),
+				'access_key'   => _x( 'Listing\'s access key', 'settings', 'business-directory-plugin' ),
 			),
 	);
 
@@ -492,20 +492,20 @@ foreach ( $value as $i => $notice ) {
         $relative_time = ! empty( $notice['relative_time'] ) ? $notice['relative_time'] : '';
 
         if ( 'both' == $listings ) {
-            $recurring_modifier = _x( 'recurring and non-recurring', 'expiration notices', 'WPBDM' );
+            $recurring_modifier = _x( 'recurring and non-recurring', 'expiration notices', 'business-directory-plugin' );
         } elseif ( 'recurring' == $listings ) {
-            $recurring_modifier = _x( 'recurring only', 'expiration notices', 'WPBDM' );
+            $recurring_modifier = _x( 'recurring only', 'expiration notices', 'business-directory-plugin' );
         } else {
-            $recurring_modifier = _x( 'non-recurring only', 'expiration notices', 'WPBDM' );
+            $recurring_modifier = _x( 'non-recurring only', 'expiration notices', 'business-directory-plugin' );
         }
 
         if ( 'renewal' == $event ) {
-            $summary = sprintf( _x( 'Sent when a listing (%s) is renewed.', 'expiration notices', 'WPBDM' ), $recurring_modifier );
+            $summary = sprintf( _x( 'Sent when a listing (%s) is renewed.', 'expiration notices', 'business-directory-plugin' ), $recurring_modifier );
         }
 
         if ( 'expiration' == $event ) {
             if ( '0 days' == $relative_time ) {
-                $summary = sprintf( _x( 'Sent when a listing (%s) expires.', 'expiration notices', 'WPBDM' ), $recurring_modifier );
+                $summary = sprintf( _x( 'Sent when a listing (%s) expires.', 'expiration notices', 'business-directory-plugin' ), $recurring_modifier );
             } else {
                 $relative_time_parts  = explode( ' ', $relative_time );
                 $relative_time_number = trim( str_replace( array( '+', '-' ), '', $relative_time_parts[0] ) );
@@ -513,22 +513,22 @@ foreach ( $value as $i => $notice ) {
 
                 switch ( $relative_time_units ) {
 					case 'days':
-						$relative_time_h = sprintf( _nx( '%d day', '%d days', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+						$relative_time_h = sprintf( _nx( '%d day', '%d days', $relative_time_number, 'expiration notices', 'business-directory-plugin' ), $relative_time_number );
                         break;
 					case 'weeks':
-						$relative_time_h = sprintf( _nx( '%d week', '%d weeks', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+						$relative_time_h = sprintf( _nx( '%d week', '%d weeks', $relative_time_number, 'expiration notices', 'business-directory-plugin' ), $relative_time_number );
                         break;
 					case 'months':
-						$relative_time_h = sprintf( _nx( '%d month', '%d months', $relative_time_number, 'expiration notices', 'WPBDM' ), $relative_time_number );
+						$relative_time_h = sprintf( _nx( '%d month', '%d months', $relative_time_number, 'expiration notices', 'business-directory-plugin' ), $relative_time_number );
                         break;
                 }
 
                 if ( $relative_time[0] == '+' ) {
                     /* translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g. non-recuring only) */
-                    $summary = sprintf( _x( 'Sent %1$s before a listing (%2$s) expires.', 'expiration notices', 'WPBDM' ), $relative_time_h, $recurring_modifier );
+                    $summary = sprintf( _x( 'Sent %1$s before a listing (%2$s) expires.', 'expiration notices', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
                 } else {
                     /* translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g. non-recuring only) */
-                    $summary = sprintf( _x( 'Sent %1$s after a listing (%2$s) expires.', 'expiration notices', 'WPBDM' ), $relative_time_h, $recurring_modifier );
+                    $summary = sprintf( _x( 'Sent %1$s after a listing (%2$s) expires.', 'expiration notices', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
                 }
             }
         }
@@ -545,8 +545,8 @@ foreach ( $value as $i => $notice ) {
     private function setting_expiration_notices_schedule() {
         // Notices schedule.
         $notices_schedule = array(
-            array( 'expiration', '0 days', _x( 'At the time of expiration', 'expiration notices', 'WPBDM' ) ),
-            array( 'renewal', '0 days', _x( 'Right after a successful renewal', 'expiration notices', 'WPBDM' ) ),
+            array( 'expiration', '0 days', _x( 'At the time of expiration', 'expiration notices', 'business-directory-plugin' ) ),
+            array( 'renewal', '0 days', _x( 'Right after a successful renewal', 'expiration notices', 'business-directory-plugin' ) ),
         );
         foreach ( array(
 			'days'   => array( 1, 2, 3, 4, 5 ),
@@ -557,13 +557,13 @@ foreach ( $value as $i => $notice ) {
                 foreach ( array( '+', '-' ) as $sign ) {
                     switch ( $unit ) {
 						case 'days':
-							$label = sprintf( '+' == $sign ? _nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
+							$label = sprintf( '+' == $sign ? _nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
                             break;
 						case 'weeks':
-							$label = sprintf( '+' == $sign ? _nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
+							$label = sprintf( '+' == $sign ? _nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
                             break;
 						case 'months':
-							$label = sprintf( '+' == $sign ? _nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'WPBDM' ) : _nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'WPBDM' ), $i );
+							$label = sprintf( '+' == $sign ? _nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
                             break;
                     }
 
@@ -590,17 +590,17 @@ foreach ( $value as $i => $notice ) {
         ob_start();
 ?>
     <tr>
-        <th scope="row"><label for="<?php echo $uid; ?>-listings"><?php _ex( 'Applies to', 'expiration notices', 'WPBDM' ); ?></label></th>
+        <th scope="row"><label for="<?php echo $uid; ?>-listings"><?php _ex( 'Applies to', 'expiration notices', 'business-directory-plugin' ); ?></label></th>
         <td>
             <select id="<?php echo $uid; ?>-listings" name="<?php echo $name; ?>[listings]">
-                <option value="non-recurring" <?php selected( 'non-recurring', $notice['listings'] ); ?>><?php _ex( 'Non-recurring listings', 'expiration notices', 'WPBDM' ); ?></option>
-                <option value="recurring" <?php selected( 'recurring', $notice['listings'] ); ?>><?php _ex( 'Recurring listings', 'expiration notices', 'WPBDM' ); ?></option>
-                <option value="both" <?php selected( 'both', $notice['listings'] ); ?>><?php _ex( 'Recurring and non-recurring listings', 'expiration notices', 'WPBDM' ); ?></option>
+                <option value="non-recurring" <?php selected( 'non-recurring', $notice['listings'] ); ?>><?php _ex( 'Non-recurring listings', 'expiration notices', 'business-directory-plugin' ); ?></option>
+                <option value="recurring" <?php selected( 'recurring', $notice['listings'] ); ?>><?php _ex( 'Recurring listings', 'expiration notices', 'business-directory-plugin' ); ?></option>
+                <option value="both" <?php selected( 'both', $notice['listings'] ); ?>><?php _ex( 'Recurring and non-recurring listings', 'expiration notices', 'business-directory-plugin' ); ?></option>
             </select>
         </td>
     </tr>
     <tr>
-        <th scope="row"><label for="<?php echo $uid; ?>-relative-time-and-event"><?php _ex( 'When to send?', 'expiration notices', 'WPBDM' ); ?></label></th>
+        <th scope="row"><label for="<?php echo $uid; ?>-relative-time-and-event"><?php _ex( 'When to send?', 'expiration notices', 'business-directory-plugin' ); ?></label></th>
         <td>
             <input type="hidden" value="<?php echo $notice['event']; ?>" class="stored-notice-event" />
             <input type="hidden" value="<?php echo ! empty( $notice['relative_time'] ) ? $notice['relative_time'] : ''; ?>" class="stored-notice-relative-time" />
@@ -632,7 +632,7 @@ foreach ( $value as $i => $notice ) {
 
         if ( isset( $_REQUEST['message'] ) && $_REQUEST['message'] == 'reset' ) {
             $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'message', 'settings-updated' ) );
-            wpbdp_admin_message( _x( 'Settings reset to default.', 'settings', 'WPBDM' ) );
+            wpbdp_admin_message( _x( 'Settings reset to default.', 'settings', 'business-directory-plugin' ) );
             wpbdp()->admin->admin_notices();
         }
 

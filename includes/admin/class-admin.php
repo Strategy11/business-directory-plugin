@@ -77,11 +77,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
-            add_filter('admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
-            add_filter('admin_head-post-new.php', array( $this, 'maybe_highlight_menu' ) );
-            add_filter('admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
-            add_filter('admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
-
             $this->listings = new WPBDP_Admin_Listings();
             $this->csv_import = new WPBDP_CSVImportAdmin();
             $this->csv_export = new WPBDP_Admin_CSVExport();
@@ -179,15 +174,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
                 wp_localize_script( 'wpbdp-admin-listing-metabox', 'wpbdpListingMetaboxL10n', array(
                     'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
-                    'noExpiration' => _x( 'Never', 'listing metabox', 'WPBDM' ),
-                    'yes' => _x( 'Yes', 'listing metabox', 'WPBDM' ),
-                    'no' => _x( 'No', 'listing metabox', 'WPBDM' )
+                    'noExpiration' => _x( 'Never', 'listing metabox', 'business-directory-plugin' ),
+                    'yes' => _x( 'Yes', 'listing metabox', 'business-directory-plugin' ),
+                    'no' => _x( 'No', 'listing metabox', 'business-directory-plugin' )
                 ) );
 
                 wp_localize_script( 'wpbdp-admin-listing', 'WPBDP_admin_listings_config', array(
                     'messages' => array(
                         'preview_button_tooltip' => __( "Preview is only available after you've saved the first draft. This is due
-    to how WordPress stores the data.", 'WPBDM' )
+    to how WordPress stores the data.", 'business-directory-plugin' )
                     )
                 ) );
             }
@@ -218,19 +213,19 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                                     subscribe: "%d" } );';
 
             $content  = '';
-            $content .= _x( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course. Get a FREE premium module just for signing up.', 'drip pointer', 'WPBDM' ) . '<br /><br />';
+            $content .= _x( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course. Get a FREE premium module just for signing up.', 'drip pointer', 'business-directory-plugin' ) . '<br /><br />';
             $content .= '<label>';
-            $content .= '<b>' . _x( 'Email Address:', 'drip pointer', 'WPBDM' ) . '</b>';
+            $content .= '<b>' . _x( 'Email Address:', 'drip pointer', 'business-directory-plugin' ) . '</b>';
             $content .= '<br />';
             $content .= '<input type="text" id="wpbdp-drip-pointer-email" value="' . esc_attr( $current_user->user_email ) . '" />';
             $content .= '</label>';
 
             wpbdp_admin_pointer( '#wpadminbar',
-                                _x( 'Want to know the Secrets of Building an Awesome Business Directory?', 'drip pointer', 'WPBDM' ),
+                                _x( 'Want to know the Secrets of Building an Awesome Business Directory?', 'drip pointer', 'business-directory-plugin' ),
                                 $content,
-                                _x( 'Yes, please!', 'drip pointer', 'WPBDM' ),
+                                _x( 'Yes, please!', 'drip pointer', 'business-directory-plugin' ),
                                 sprintf( $js, 1 ),
-                                _x( 'No, thanks', 'drip pointer', 'WPBDM' ),
+                                _x( 'No, thanks', 'drip pointer', 'business-directory-plugin' ),
                                 sprintf( $js, 0 ) );
         }
 
@@ -247,7 +242,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 exit();
 
             $page = array( 'post_status' => 'publish',
-                        'post_title' => _x( 'Business Directory', 'admin', 'WPBDM' ),
+                        'post_title' => _x( 'Business Directory', 'admin', 'business-directory-plugin' ),
                         'post_type' => 'page',
                         'post_content' => '[businessdirectory]' );
             $page_id = wp_insert_post( $page );
@@ -258,7 +253,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $res = new WPBDP_Ajax_Response();
             $res->set_message( str_replace( '<a>',
                                             '<a href="' . get_permalink( $page_id ) . '" target="_blank" rel="noopener">',
-                                            _x( 'You\'re all set. Visit your new <a>Business Directory</a> page.', 'admin', 'WPBDM' ) ) );
+                                            _x( 'You\'re all set. Visit your new <a>Business Directory</a> page.', 'admin', 'business-directory-plugin' ) ) );
             $res->send();
         }
 
@@ -278,7 +273,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             if ( $subscribe ) {
                 if ( ! filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) )
-                    return $res->send_error( _x( 'Invalid e-mail address.', 'drip pointer', 'WPBDM' ) );
+                    return $res->send_error( _x( 'Invalid e-mail address.', 'drip pointer', 'business-directory-plugin' ) );
 
                 // Build fields for POSTing to Drip.
                 $data = array();
@@ -319,20 +314,20 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $count_html = $badge_number ? '<span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>' : '';
             }
             $menu['wpbdp-admin-fees'] = array(
-                'title' => _x( 'Manage Fees', 'admin menu', 'WPBDM' )
+                'title' => _x( 'Manage Fees', 'admin menu', 'business-directory-plugin' )
             );
             $menu['wpbdp_admin_formfields'] = array(
-                'title' => _x('Manage Form Fields', 'admin menu', 'WPBDM'),
+                'title' => _x('Manage Form Fields', 'admin menu', 'business-directory-plugin'),
                 'callback' => array('WPBDP_FormFieldsAdmin', 'admin_menu_cb')
             );
             $menu['wpbdp_admin_payments'] = array(
-                'title' => _x( 'Payment History', 'admin menu', 'WPBDM' )
+                'title' => _x( 'Payment History', 'admin menu', 'business-directory-plugin' )
             );
             $menu['wpbdp_admin_csv'] = array(
-                'title' => _x( 'Import & Export', 'admin menu', 'WPBDM' )
+                'title' => _x( 'Import & Export', 'admin menu', 'business-directory-plugin' )
             );
             $menu['wpbdp-debug-info'] = array(
-                'title' => _x( 'Debug', 'admin menu', 'WPBDM' ),
+                'title' => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
                 'callback' => array( &$this->debug_page, 'dispatch' )
             );
 
@@ -352,8 +347,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             do_action('wpbdp_admin_menu', 'edit.php?post_type=wpbdp_listing');
 
             add_submenu_page( 'edit.php?post_type=wpbdp_listing',
-                            __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
-                            __( 'Uninstall', 'WPBDM' ),
+                            __( 'Uninstall Business Directory Plugin', 'business-directory-plugin' ),
+                            __( 'Uninstall', 'business-directory-plugin' ),
                             'administrator',
                             'wpbdp_uninstall',
                             array( $this, 'uninstall_plugin' ) );
@@ -382,7 +377,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $item['priority'] = $n++;
 
                 if ( ! isset( $item['title'] ) )
-                    $item['title'] = _x( 'Untitled Menu', 'admin', 'WPBDM' );
+                    $item['title'] = _x( 'Untitled Menu', 'admin', 'business-directory-plugin' );
 
                 if ( ! isset( $item['label'] ) )
                     $item['label'] = $item['title'];
@@ -652,7 +647,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     printf( '<button type="button" class="notice-dismiss" data-dismissible-id="%s" data-nonce="%s"><span class="screen-reader-text">%s</span></button>',
                             $extra['dismissible-id'],
                             wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ),
-                            _x( 'Dismiss this notice.', 'admin', 'WPBDM' ) );
+                            _x( 'Dismiss this notice.', 'admin', 'business-directory-plugin' ) );
                 }
 
                 echo '</div>';
@@ -683,7 +678,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                         wp_update_post( array( 'ID' => $post_id, 'post_status' => $new_status ) );
                     }
 
-                    $this->messages[] = _nx('The listing has been updated.', 'The listings have been updated.', count($posts), 'admin', 'WPBDM');
+                    $this->messages[] = _nx('The listing has been updated.', 'The listings have been updated.', count($posts), 'admin', 'business-directory-plugin');
                     break;
 
                 case 'change-to-expired':
@@ -693,7 +688,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                         $listing->set_status( 'expired' );
                     }
 
-                    $this->messages[] = _nx('The listing has been updated.', 'The listings have been updated.', count($posts), 'admin', 'WPBDM');
+                    $this->messages[] = _nx('The listing has been updated.', 'The listings have been updated.', count($posts), 'admin', 'business-directory-plugin');
                     break;
 
                 case 'change-to-complete':
@@ -714,7 +709,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $fee_id = (int) $_GET['fee_id'];
                     $listing->set_fee_plan( $fee_id );
 
-                    $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'WPBDM');
+                    $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'business-directory-plugin');
 
                     break;
 
@@ -724,7 +719,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                         $listing->renew();
                     endforeach;
 
-                    $this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', count( $posts ), 'admin', 'WPBDM' );
+                    $this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', count( $posts ), 'admin', 'business-directory-plugin' );
                     break;
 
                 case 'send-renewal-email':
@@ -735,18 +730,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                         break;
 
                     if ( wpbdp()->listing_email_notification->send_notices( 'expiration', '0 days', $listing_id, true ) ) {
-                        $this->messages[] = _x( 'Renewal email sent.', 'admin', 'WPBDM' );
+                        $this->messages[] = _x( 'Renewal email sent.', 'admin', 'business-directory-plugin' );
                         break;
                     }
 
-                    $this->messages[] = array ( _x( 'Could not send renewal email, notice template at listing expiration not found.', 'admin', 'WPBDM' ), 'error' );
+                    $this->messages[] = array ( _x( 'Could not send renewal email, notice template at listing expiration not found.', 'admin', 'business-directory-plugin' ), 'error' );
 
                     break;
 
                 case 'delete-flagging':
                     WPBDP__Listing_Flagging::remove_flagging( $_GET['listing_id'], $_GET['meta_pos'] );
 
-                    $this->messages[] = _nx( 'Listing report deleted.', 'Listing reports deleted.', $_GET['meta_pos'] == 'all' ? 2 : 1, 'admin', 'WPBDM' );
+                    $this->messages[] = _nx( 'Listing report deleted.', 'Listing reports deleted.', $_GET['meta_pos'] == 'all' ? 2 : 1, 'admin', 'business-directory-plugin' );
                     break;
 
                 case 'send-access-keys':
@@ -794,9 +789,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             // TODO: Add more descriptive messages to indicate how many listings were
             // processed successfully, how many failed and why.
             if ( $message_sent ) {
-                $this->messages[] = _x( 'Access keys sent.', 'admin', 'WPBDM' );
+                $this->messages[] = _x( 'Access keys sent.', 'admin', 'business-directory-plugin' );
             } else {
-                $this->messages[] = _x( "The access keys couldn't be sent.", 'admin', 'WPBDM' );
+                $this->messages[] = _x( "The access keys couldn't be sent.", 'admin', 'business-directory-plugin' );
             }
 
             // TODO: Redirect and show messages on page load.
@@ -860,15 +855,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
         public function add_custom_taxonomy_columns( $cols ) {
             $newcols = array_merge( array_slice( $cols, 0, 1 ),
-                                    array( 'id' => _x( 'ID', 'admin category id', 'WPBDM' ) ),
+                                    array( 'id' => _x( 'ID', 'admin category id', 'business-directory-plugin' ) ),
                                     array_slice( $cols, 1, -1),
-                                    array( 'posts' => _x('Listing Count', 'admin', 'WPBDM') ) );
+                                    array( 'posts' => _x('Listing Count', 'admin', 'business-directory-plugin') ) );
             return $newcols;
         }
 
         public function tag_taxonomy_columns( $cols ) {
             $newcols = array_merge( array_slice( $cols, 0, -1 ),
-                                    array( 'posts' => _x('Listing Count', 'admin', 'WPBDM') ) );
+                                    array( 'posts' => _x('Listing Count', 'admin', 'business-directory-plugin') ) );
             return $newcols;
         }
 
@@ -930,13 +925,13 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         /* Required pages check. */
         public function check_for_required_pages() {
             if ( ! wpbdp_get_page_id( 'main' ) && current_user_can( 'administrator' ) ) {
-                $message = _x('<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'WPBDM');
+                $message = _x('<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin');
                 $message .= '<br />';
-                $message .= _x('You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'WPBDM');
+                $message .= _x('You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'business-directory-plugin');
                 $message .= '<p>';
                 $message .= sprintf( '<a href="#" class="button wpbdp-create-main-page-button" data-nonce="%s">%s</a>',
                                     wp_create_nonce( 'create main page' ),
-                                    _x( 'Create required pages for me', 'admin', 'WPBDM' ) );
+                                    _x( 'Create required pages for me', 'admin', 'business-directory-plugin' ) );
                 $message .= '</p>';
 
                 $this->messages[] = array($message, 'error');
@@ -969,7 +964,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $this->messages[] = array(
                 sprintf(
-                    _x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'WPBDM' ),
+                    _x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
                     $installed_version
                 ),
                 'error dismissible',
@@ -992,7 +987,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 && ! get_option( 'users_can_register')
                 && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
                     $this->messages[] = array(
-                        str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' )  . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register" to make sure BD works properly.', 'admin', 'WPBDM' ) ),
+                        str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' )  . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register" to make sure BD works properly.', 'admin', 'business-directory-plugin' ) ),
                         'error dismissible',
                         array( 'dismissible-id' => 'registration_disabled' )
                     );
@@ -1033,20 +1028,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             add_filter( 'wpbdp_admin_directory_views', array( $view, 'filter_views' ), 10, 2 );
             add_filter( 'wpbdp_admin_directory_filter', array( $view, 'filter_query_pieces' ), 10, 2 );
-        }
-
-        public function maybe_highlight_menu() {
-            global $post;
-
-            if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] != WPBDP_POST_TYPE ) {
-                return;
-            }
-
-            if ( is_object( $post ) && $post->post_type != WPBDP_POST_TYPE ) {
-                return;
-            }
-
-            echo '<script type="text/javascript">jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
         }
 
     }

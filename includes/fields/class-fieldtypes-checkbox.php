@@ -19,7 +19,7 @@ if ( ! class_exists( 'WPBDP_CategoryFormInputWalker' ) ) {
 class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x( 'Checkbox', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'Checkbox', 'form-fields api', 'business-directory-plugin' ) );
     }
 
     public function get_id() {
@@ -52,7 +52,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 					'depth'            => 0,
 					'walker'           => new WPBDP_CategoryFormInputWalker( 'checkbox', $value, $field ),
 					'show_option_none' => '',
-					'show_option_all'  => '1' == $field->data( 'allow_select_all' ) ? _x( 'Select all', 'checkbox form field', 'WPBDM' ) : '',
+					'show_option_all'  => '1' == $field->data( 'allow_select_all' ) ? _x( 'Select all', 'checkbox form field', 'business-directory-plugin' ) : '',
 					'title_li'         => '',
                 )
             );
@@ -93,7 +93,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
                 '<div class="wpbdp-inner-field-option wpbdp-inner-field-option-select_all"><label for="wpbdp-field-%2$s"><input id="wpbdp-field-%2$s" type="checkbox" name="%s" value="%s"/> %s</label></div>',
                 'checkbox_select_all[' . $field->get_id() . ']',
                 'select_all-' . $field->get_id(),
-                _x( 'Select All', 'form-fields admin', 'WPBDM' )
+                _x( 'Select All', 'form-fields admin', 'business-directory-plugin' )
             );
         }
 
@@ -111,7 +111,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
         $settings = array();
 
-        $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
+        $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'business-directory-plugin' ) . '<span class="description">(required)</span>';
 
         $content  = '<span class="description">One option per line</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
@@ -123,11 +123,11 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 
         $settings['options'][] = $content;
 
-        $settings['select_all'][] = _x( 'Include "Select all"?', 'form-fields admin', 'WPBDM' );
+        $settings['select_all'][] = _x( 'Include "Select all"?', 'form-fields admin', 'business-directory-plugin' );
 
         $content  = '<label>';
         $content .= '<input name="field[allow_select_all]" value="1" type="checkbox" ' . ( ( $field && '1' == $field->data( 'allow_select_all' ) ) ? 'checked="checked"' : '' ) . '/>';
-        $content .= _x( 'Display "Select all" option among options above.', 'form-fields admin', 'WPBDM' );
+        $content .= _x( 'Display "Select all" option among options above.', 'form-fields admin', 'business-directory-plugin' );
         $content .= '</label>';
 
         $settings['select_all'][] = $content;
@@ -143,7 +143,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         $options = stripslashes( trim( $_POST['field']['x_options'] ) );
 
         if ( ! $options && $field->get_association() != 'tags' ) {
-            return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
+            return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'business-directory-plugin' ) );
         }
 
         $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();

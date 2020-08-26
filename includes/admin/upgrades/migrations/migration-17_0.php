@@ -74,7 +74,7 @@ class WPBDP__Migrations__17_0 extends WPBDP__Migration {
 
         $records_left = $this->count_listing_meta_with_invalid_characters( array_keys( $form_fields ) );
 
-        $message = _x( 'Cleaning up stored meta data for Checkbox, Radio and Select fields... (%d records left)', 'installer', 'WPBDM' );
+        $message = _x( 'Cleaning up stored meta data for Checkbox, Radio and Select fields... (%d records left)', 'installer', 'business-directory-plugin' );
 
         return array(
             'ok' => true,

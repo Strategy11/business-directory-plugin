@@ -74,7 +74,7 @@ class WPBDP__Migrations__3_2 extends WPBDP__Migration {
         if ( class_exists( 'WPBDP_RegionsPlugin' ) && version_compare( WPBDP_RegionsPlugin::VERSION, '1.1', '<' ) ) {
             deactivate_plugins( 'business-directory-regions/business-directory-regions.php', true );
             echo sprintf( '<div class="error"><p>%s</p></div>',
-                          _x( '<b>Business Directory Plugin - Regions Module</b> was disabled because it is incompatible with the current version of Business Directory. Please update the Regions module.', 'installer', 'WPBDM' )
+                          _x( '<b>Business Directory Plugin - Regions Module</b> was disabled because it is incompatible with the current version of Business Directory. Please update the Regions module.', 'installer', 'business-directory-plugin' )
                         );
         }        
     }

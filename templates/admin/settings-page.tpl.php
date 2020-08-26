@@ -3,8 +3,8 @@ $original_uri = $_SERVER['REQUEST_URI'];
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'tab', 'subtab' ) );
 
 echo wpbdp_admin_header( array(
-    'title'   => __( 'Business Directory Settings', 'WPBDM' ),
-    'buttons' => array( _x( 'Reset Defaults', 'settings', 'WPBDM' ) => add_query_arg( 'reset_defaults', 1 ) )
+    'title'   => __( 'Business Directory Settings', 'business-directory-plugin' ),
+    'buttons' => array( _x( 'Reset Defaults', 'settings', 'business-directory-plugin' ) => add_query_arg( 'reset_defaults', 1 ) )
 ) );
 ?>
 
@@ -74,7 +74,7 @@ echo wpbdp_admin_header( array(
 <h3 class="nav-tab-wrapper">
 <?php if (isset($_REQUEST['settings-updated'])): ?>
 	<div class="updated fade">
-		<p><?php _e('Settings updated.', 'WPBDM'); ?></p>
+		<p><?php _e('Settings updated.', 'business-directory-plugin' ); ?></p>
 	</div>
 <?php endif; ?>
 </h3>

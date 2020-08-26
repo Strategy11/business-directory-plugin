@@ -5,7 +5,7 @@ $editor_only = isset( $editor_only ) ? (bool) $editor_only : false;
 
 $container_class = ! empty( $container_class ) ? $container_class : '';
 $setting_name = ! empty( $setting_name ) ? $setting_name : '';
-$email_subject = ! empty( $email_subject ) ? $email_subject : _x( 'Untitled', 'settings email', 'WPBDM' );
+$email_subject = ! empty( $email_subject ) ? $email_subject : _x( 'Untitled', 'settings email', 'business-directory-plugin' );
 $email_body = ! empty( $email_body ) ? $email_body : '';
 $email_body_display = strip_tags( $email_body );
 
@@ -24,8 +24,8 @@ $after_buttons = isset( $after_buttons ) ? $after_buttons : '';
 <div class="wpbdp-settings-email <?php echo $container_class; ?>">
     <?php if ( ! $editor_only ): ?>
     <?php echo $before_preview; ?>
-    <div class="wpbdp-settings-email-preview" title="<?php _ex( 'Click to edit e-mail', 'settings email', 'WPBDM' ); ?>">
-        <a href="#" class="wpbdp-settings-email-edit-btn wpbdp-tag"><?php _ex( 'Click to edit', 'settings email', 'WPBDM' ); ?></a>
+    <div class="wpbdp-settings-email-preview" title="<?php _ex( 'Click to edit e-mail', 'settings email', 'business-directory-plugin' ); ?>">
+        <a href="#" class="wpbdp-settings-email-edit-btn wpbdp-tag"><?php _ex( 'Click to edit', 'settings email', 'business-directory-plugin' ); ?></a>
         <h4><?php echo $email_subject; ?></h4>
         <?php if ( strlen( $email_body_display ) > 200 ): ?>
             <?php echo substr( $email_body_display, 0, 200 ); ?>...
@@ -43,19 +43,19 @@ $after_buttons = isset( $after_buttons ) ? $after_buttons : '';
         <table class="form-table">
         <tbody>
             <tr>
-                <th scope="row"><label for="<?php echo $uid; ?>-subject"><?php _ex( 'E-Mail Subject', 'settings email', 'WPBDM' ); ?></label></th>
+                <th scope="row"><label for="<?php echo $uid; ?>-subject"><?php _ex( 'E-Mail Subject', 'settings email', 'business-directory-plugin' ); ?></label></th>
                 <td>
                     <input name="<?php echo $setting_name; ?>[subject]" value="<?php echo esc_attr( $email_subject ); ?>" type="text" value="<?php echo esc_attr( $email_subject ); ?>" id="<?php echo $uid; ?>-subject" class="email-subject" />
                 </td>
             </tr>
             <tr>
-                <th scope="row"><label for="<?php echo $uid; ?>-body"><?php _ex( 'E-Mail Body', 'settings email', 'WPBDM' ); ?></label></th>
+                <th scope="row"><label for="<?php echo $uid; ?>-body"><?php _ex( 'E-Mail Body', 'settings email', 'business-directory-plugin' ); ?></label></th>
                 <td>
-                    <textarea name="<?php echo $setting_name; ?>[body]"  id="<?php echo $uid; ?>-body" class="email-body" placeholder="<?php _ex( 'E-mail body text', 'expiration notices', 'WPBDM' ); ?>"><?php echo esc_textarea( $email_body ); ?></textarea>
+                    <textarea name="<?php echo $setting_name; ?>[body]"  id="<?php echo $uid; ?>-body" class="email-body" placeholder="<?php _ex( 'E-mail body text', 'expiration notices', 'business-directory-plugin' ); ?>"><?php echo esc_textarea( $email_body ); ?></textarea>
 
                     <?php if ( $placeholders ): ?>
                     <div class="placeholders">
-                        <p><?php _ex( 'You can use the following placeholders:', 'settings email', 'WPBDM' ); ?></p>
+                        <p><?php _ex( 'You can use the following placeholders:', 'settings email', 'business-directory-plugin' ); ?></p>
 
                         <?php
                         $added_sep = false;
@@ -85,9 +85,9 @@ $after_buttons = isset( $after_buttons ) ? $after_buttons : '';
 
         <div class="buttons">
             <?php echo $before_buttons; ?>
-            <!-- <a href="#" class="button preview-email"><?php _ex( 'Preview e-mail', 'settings email', 'WPBDM' ); ?></a> -->
-            <a href="#" class="button cancel"><?php _ex( 'Cancel', 'settings email', 'WPBDM' ); ?></a> 
-            <input type="submit" class="button button-primary" value="<?php _ex( 'Save Changes', 'settings email', 'WPBDM' ); ?>" />
+            <!-- <a href="#" class="button preview-email"><?php _ex( 'Preview e-mail', 'settings email', 'business-directory-plugin' ); ?></a> -->
+            <a href="#" class="button cancel"><?php _ex( 'Cancel', 'settings email', 'business-directory-plugin' ); ?></a> 
+            <input type="submit" class="button button-primary" value="<?php _ex( 'Save Changes', 'settings email', 'business-directory-plugin' ); ?>" />
             <?php echo $after_buttons; ?>
         </div>
     </div>

@@ -35,14 +35,14 @@ class WPBDP_PaymentsAPI {
         $payment = $subscription->get_parent_payment();
 
         if ( ! $payment ) {
-            $message = __( "We couldn't find a payment associated with the given subscription.", 'WPBDM' );
+            $message = __( "We couldn't find a payment associated with the given subscription.", 'business-directory-plugin' );
             throw new Exception( $message );
         }
 
         $gateway = $GLOBALS['wpbdp']->payment_gateways->get( $payment->gateway );
 
         if ( ! $gateway ) {
-            $message = __( 'The payment gateway "<payment-gateway>" is not available.', 'WPBDM' );
+            $message = __( 'The payment gateway "<payment-gateway>" is not available.', 'business-directory-plugin' );
             $message = str_replace( '<payment-gateway>', $gateway, $message );
             throw new Exception( $message );
         }
@@ -64,7 +64,7 @@ class WPBDP_PaymentsAPI {
 <div id="wpbdp-payment-receipt" class="wpbdp-payment-receipt">
 
     <div class="wpbdp-payment-receipt-header">
-        <h4><?php printf( _x( 'Payment #%s', 'payments', 'WPBDM' ), $payment->id ); ?></h4>
+        <h4><?php printf( _x( 'Payment #%s', 'payments', 'business-directory-plugin' ), $payment->id ); ?></h4>
         <span class="wpbdp-payment-receipt-date"><?php echo date( 'Y-m-d H:i', strtotime( $payment->created_at ) ); ?></span>
 
         <span class="wpbdp-tag wpbdp-payment-status wpbdp-payment-status-<?php echo $payment->status; ?>"><?php echo WPBDP_Payment::get_status_label( $payment->status ); ?></span>
@@ -72,12 +72,12 @@ class WPBDP_PaymentsAPI {
     <div class="wpbdp-payment-receipt-details">
         <dl>
             <?php if ( $payment->gateway ): ?>
-            <dt><?php _ex( 'Gateway:', 'payments', 'WPBDM' ); ?></dt>
+            <dt><?php _ex( 'Gateway:', 'payments', 'business-directory-plugin' ); ?></dt>
             <dd><?php echo $payment->gateway; ?></dd>
-            <dt><?php _ex( 'Gateway Transaction ID:', 'payments', 'WPBDM' ); ?></dt>
+            <dt><?php _ex( 'Gateway Transaction ID:', 'payments', 'business-directory-plugin' ); ?></dt>
             <dd><?php echo $payment->gateway_tx_id ? $payment->gateway_tx_id : '—'; ?></dd>
             <?php endif; ?>
-            <dt><?php _ex( 'Bill To:', 'payments', 'WPBDM' ); ?></dt>
+            <dt><?php _ex( 'Bill To:', 'payments', 'business-directory-plugin' ); ?></dt>
             <dd>
                 <?php
                 $bill_to  = '';
@@ -95,7 +95,7 @@ class WPBDP_PaymentsAPI {
     <?php echo $this->render_invoice( $payment ); ?>
 
 </div>
-<input type="button" class="wpbdp-payment-receipt-print" value="<?php _ex( 'Print Receipt', 'checkout', 'WPBDM' ); ?>" />
+<input type="button" class="wpbdp-payment-receipt-print" value="<?php _ex( 'Print Receipt', 'checkout', 'business-directory-plugin' ); ?>" />
 
 <?php
         do_action( 'wpbdp_after_render_receipt', $payment );
@@ -178,12 +178,12 @@ class WPBDP_PaymentsAPI {
         $views['pending-abandonment'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
                                                  esc_url( add_query_arg( 'wpbdmfilter', 'pending-abandonment', remove_query_arg( 'listing_status' ) ) ),
                                                  'pending-abandonment' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
-                                                 _x( 'Pending Abandonment', 'admin', 'WPBDM' ),
+                                                 _x( 'Pending Abandonment', 'admin', 'business-directory-plugin' ),
                                                  number_format_i18n( $count_pending ) );
         $views['abandoned'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
                                         esc_url( add_query_arg( 'wpbdmfilter', 'abandoned', remove_query_arg( 'listing_status' ) ) ),
                                         'abandoned' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
-                                        _x( 'Abandoned', 'admin', 'WPBDM' ),
+                                        _x( 'Abandoned', 'admin', 'business-directory-plugin' ),
                                         number_format_i18n( $count_abandoned ) );
 
         return $views;
@@ -275,7 +275,7 @@ class WPBDP_PaymentsAPI {
             return;
         }
 
-        echo '<input type="submit" name="return-to-fee-select" value="' . _x( 'Return to fee selection', 'templates', 'WPBDM' ) . '" style="margin-bottom:  1.5em;" />';
+        echo '<input type="submit" name="return-to-fee-select" value="' . _x( 'Return to fee selection', 'templates', 'business-directory-plugin' ) . '" style="margin-bottom:  1.5em;" />';
     }
 
     function maybe_fee_select_redirect( $checkout ) {

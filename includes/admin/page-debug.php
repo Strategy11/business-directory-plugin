@@ -13,7 +13,7 @@ class WPBDP_Admin_Debug_Page {
         $debug_info = array();
 
         // basic BD setup info & tests
-        $debug_info['basic']['_title'] = _x( 'BD Info', 'debug-info', 'WPBDM' );
+        $debug_info['basic']['_title'] = _x( 'BD Info', 'debug-info', 'business-directory-plugin' );
         $debug_info['basic']['BD version'] = WPBDP_VERSION;
         $debug_info['basic']['BD database revision (current)'] = WPBDP_Installer::DB_VERSION;
         $debug_info['basic']['BD database revision (installed)'] = get_option( 'wpbdp-db-version' );
@@ -39,8 +39,8 @@ class WPBDP_Admin_Debug_Page {
                 $missing_tables[] = $t;
         }
         $debug_info['basic']['Table check'] = $missing_tables
-                                              ? sprintf( _( 'Missing tables: %s', 'debug-info', 'WPBDM' ), implode(',', $missing_tables) )
-                                              : _x( 'OK', 'debug-info', 'WPBDM' );
+                                              ? sprintf( _( 'Missing tables: %s', 'debug-info', 'business-directory-plugin' ), implode(',', $missing_tables) )
+                                              : _x( 'OK', 'debug-info', 'business-directory-plugin' );
 
         $debug_info['basic']['Main Page'] = sprintf( '%d (%s)', wpbdp_get_page_id( 'main' ), get_post_status( wpbdp_get_page_id( 'main' ) ) );
         $debug_info['basic'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['basic'], 'basic' );
@@ -48,7 +48,7 @@ class WPBDP_Admin_Debug_Page {
 
         // BD options
         $blacklisted = array( 'authorize-net-transaction-key', 'authorize-net-login-id', 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
-        $debug_info['options']['_title'] = _x( 'BD Options', 'debug-info', 'WPBDM' );
+        $debug_info['options']['_title'] = _x( 'BD Options', 'debug-info', 'business-directory-plugin' );
 
         $settings_api = wpbdp_settings_api();
         $all_settings = $settings_api->get_registered_settings();
@@ -71,7 +71,7 @@ class WPBDP_Admin_Debug_Page {
         $debug_info['options'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['options'], 'options' );
 
         // environment info
-        $debug_info['environment']['_title'] = _x( 'Environment', 'debug-info', 'WPBDM' );
+        $debug_info['environment']['_title'] = _x( 'Environment', 'debug-info', 'business-directory-plugin' );
         $debug_info['environment']['WordPress version'] = get_bloginfo( 'version', 'raw' );
         $debug_info['environment']['OS'] = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
 
@@ -93,7 +93,7 @@ class WPBDP_Admin_Debug_Page {
             $debug_info['environment']['cURL version'] = $data['version'];
             $debug_info['environment']['cURL SSL library'] = $data['ssl_version'];
             $debug_info['environment']['Test SSL setup'] = array( 'exclude' => true,
-                                                                  'html' => '<a href="#" class="test-ssl-link">' . _x( 'Test SSL setup...', 'debug info', 'WPBDM' ) . '</a>' );
+                                                                  'html' => '<a href="#" class="test-ssl-link">' . _x( 'Test SSL setup...', 'debug info', 'business-directory-plugin' ) . '</a>' );
         } else {
             $debug_info['environment']['cURL version'] = 'N/A';
             $debug_info['environment']['cURL SSL library'] = 'N/A';

@@ -6,9 +6,9 @@ class WPBDP__Views__Main extends WPBDP__View {
 
         if ( count(get_terms(WPBDP_CATEGORY_TAX, array('hide_empty' => 0))) == 0 ) {
             if (is_user_logged_in() && current_user_can('install_plugins')) {
-                $html .= wpbdp_render_msg( _x('There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory.', 'templates', 'WPBDM'), 'error' );
+                $html .= wpbdp_render_msg( _x('There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory.', 'templates', 'business-directory-plugin' ), 'error' );
             } else {
-                $html .= "<p>" . _x('There are currently no listings in the directory.', 'templates', 'WPBDM') . "</p>";
+                $html .= "<p>" . _x('There are currently no listings in the directory.', 'templates', 'business-directory-plugin' ) . "</p>";
             }
         }
 
@@ -16,7 +16,7 @@ class WPBDP__Views__Main extends WPBDP__View {
              wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=0' ) > 0 && wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=1' ) == 0 ) {
             $msg = _x( 'You have "Hide Empty Categories" on and some categories that don\'t have listings in them. That means they won\'t show up on the front end of your site. If you didn\'t want that, click <a>here</a> to change the setting.',
                        'templates',
-                       'WPBDM' );
+                       'business-directory-plugin' );
             $msg = str_replace( '<a>',
                                 '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=listings#hide-empty-categories' ) . '">',
                                 $msg );

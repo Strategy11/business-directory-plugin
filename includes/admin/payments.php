@@ -16,7 +16,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
         $_SERVER['REQUEST_URI'] = remove_query_arg( 'listing' );
 
         if ( ! empty( $_GET['message'] ) && 'payment_delete' == $_GET['message'] )
-            wpbdp_admin_message( _x( 'Payment deleted.', 'payments admin', 'WPBDM' ) );
+            wpbdp_admin_message( _x( 'Payment deleted.', 'payments admin', 'business-directory-plugin' ) );
 
 
         require_once( WPBDP_INC . 'admin/helpers/class-payments-table.php' );
@@ -31,7 +31,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
                 wpbdp_admin_message(
                     str_replace( '<a>',
                                  '<a href="' . remove_query_arg( 'listing' ) . '">',
-                                 sprintf( _x( 'You\'re seeing payments related to listing: "%s" (ID #%d). <a>Click here</a> to see all payments.', 'payments admin', 'WPBDM' ),
+                                 sprintf( _x( 'You\'re seeing payments related to listing: "%s" (ID #%d). <a>Click here</a> to see all payments.', 'payments admin', 'business-directory-plugin' ),
                                           esc_html( $listing->get_title() ),
                                           $listing->get_id() ) )
                     );
@@ -42,7 +42,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 
     function details() {
         if ( ! empty( $_GET['message'] ) && 1 == $_GET['message'] )
-            wpbdp_admin_message( _x( 'Payment details updated.', 'payments admin', 'WPBDM' ) );
+            wpbdp_admin_message( _x( 'Payment details updated.', 'payments admin', 'business-directory-plugin' ) );
 
         $payment = WPBDP_Payment::objects()->get( $_GET['payment-id'] );
         return compact( 'payment' );

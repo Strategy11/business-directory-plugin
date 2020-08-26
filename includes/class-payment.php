@@ -81,7 +81,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 					'log_type'  => 'payment.status_change',
 					'actor'     => is_admin() ? 'user:' . get_current_user_id() : 'system',
 					'object_id' => $this->id,
-					'message'   => sprintf( _x( 'Payment status changed from "%1$s" to "%2$s".', 'payment', 'WPBDM' ), $this->old_status, $this->status ),
+					'message'   => sprintf( _x( 'Payment status changed from "%1$s" to "%2$s".', 'payment', 'business-directory-plugin' ), $this->old_status, $this->status ),
                 )
             );
             do_action_ref_array( 'WPBDP_Payment::status_change', array( &$this, $this->old_status, $this->status ) );
@@ -122,10 +122,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
         switch ( $this->payment_type ) {
 			case 'initial':
-				$summary = sprintf( _x( 'Initial payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
+				$summary = sprintf( _x( 'Initial payment ("%s")', 'payment', 'business-directory-plugin' ), $this->get_listing()->get_title() );
                 break;
 			case 'renewal':
-				$summary = sprintf( _x( 'Renewal payment ("%s")', 'payment', 'WPBDM' ), $this->get_listing()->get_title() );
+				$summary = sprintf( _x( 'Renewal payment ("%s")', 'payment', 'business-directory-plugin' ), $this->get_listing()->get_title() );
                 break;
 			default:
                 break;
@@ -137,9 +137,9 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         }
 
         if ( 'admin-submit' == $this->context ) {
-            $summary = sprintf( _x( '%s. Admin Posted.', 'payment summary', 'WPBDM' ), $summary );
+            $summary = sprintf( _x( '%s. Admin Posted.', 'payment summary', 'business-directory-plugin' ), $summary );
         } elseif ( 'csv-import' == $this->context ) {
-            $summary = sprintf( _x( '%s. Imported Listing.', 'payment summary', 'WPBDM' ), $summary );
+            $summary = sprintf( _x( '%s. Imported Listing.', 'payment summary', 'business-directory-plugin' ), $summary );
         }
 
         return $summary;
@@ -206,7 +206,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     public function process_as_admin() {
-        // $this->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'WPBDM' );
+        // $this->payment_items[0]['description'] .= ' ' . _x( '(admin, no charge)', 'submit listing', 'business-directory-plugin' );
         // $this->payment_items[0]['amount'] = 0.0;
         $this->status  = 'completed';
         $this->context = 'admin-submit';
@@ -217,7 +217,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 				'log_type'  => 'payment.note',
 				'object_id' => $this->id,
 				'actor'     => is_admin() ? 'user:' . get_current_user_id() : 'system',
-				'message'   => _x( 'Listing submitted by admin. Payment skipped.', 'submit listing', 'WPBDM' ),
+				'message'   => _x( 'Listing submitted by admin. Payment skipped.', 'submit listing', 'business-directory-plugin' ),
             )
         );
     }
@@ -312,12 +312,12 @@ class WPBDP_Payment extends WPBDP__DB__Model {
      */
     public static function get_stati() {
         $stati              = array();
-        $stati['pending']   = _x( 'Pending', 'payment', 'WPBDM' );
-        $stati['failed']    = _x( 'Failed', 'payment', 'WPBDM' );
-        $stati['completed'] = _x( 'Completed', 'payment', 'WPBDM' );
-        $stati['canceled']  = _x( 'Canceled', 'payment', 'WPBDM' );
-        $stati['on-hold']   = _x( 'On Hold', 'payment', 'WPBDM' );
-        $stati['refunded']  = _x( 'Refunded', 'payment', 'WPBDM' );
+        $stati['pending']   = _x( 'Pending', 'payment', 'business-directory-plugin' );
+        $stati['failed']    = _x( 'Failed', 'payment', 'business-directory-plugin' );
+        $stati['completed'] = _x( 'Completed', 'payment', 'business-directory-plugin' );
+        $stati['canceled']  = _x( 'Canceled', 'payment', 'business-directory-plugin' );
+        $stati['on-hold']   = _x( 'On Hold', 'payment', 'business-directory-plugin' );
+        $stati['refunded']  = _x( 'Refunded', 'payment', 'business-directory-plugin' );
 
         return $stati;
     }

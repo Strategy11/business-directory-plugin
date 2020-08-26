@@ -7,7 +7,7 @@
         <input type="hidden" name="save_listing" value="1" />
         <input type="hidden" name="reset" value="" />
 
-            <h3><?php _ex( 'Submit A Listing', 'submit listing', 'WPBDM' ); ?></h3>
+            <h3><?php _ex( 'Submit A Listing', 'submit listing', 'business-directory-plugin' ); ?></h3>
             <?php echo $messages['general']; ?>
 
             <?php foreach ( $sections as $section ): ?>
@@ -18,14 +18,14 @@
             <?php endforeach; ?>
 
         <div class="wpbdp-submit-listing-form-actions">
-            <input type="reset" value="<?php _ex( 'Clear Form', 'submit listing', 'WPBDM' ); ?>" />
+            <input type="reset" value="<?php _ex( 'Clear Form', 'submit listing', 'business-directory-plugin' ); ?>" />
             <?php if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ): ?>
-            <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+            <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
             <?php else: ?>
                 <?php if ( $editing ): ?>
-                <input type="submit" value="<?php _ex( 'Save Changes', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                <input type="submit" value="<?php _ex( 'Save Changes', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
                 <?php else: ?>
-                <input type="submit" value="<?php _ex( 'Continue to Payment', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                <input type="submit" value="<?php _ex( 'Continue to Payment', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
                 <?php endif; ?>
             <?php endif; ?>
         </div>

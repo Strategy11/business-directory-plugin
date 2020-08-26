@@ -68,7 +68,7 @@ class WPBDP_Installer {
             global $wpbdp;
 
             // Create default category.
-            wp_insert_term( _x( 'General', 'default category name', 'WPBDM' ), WPBDP_CATEGORY_TAX );
+            wp_insert_term( _x( 'General', 'default category name', 'business-directory-plugin' ), WPBDP_CATEGORY_TAX );
 
             $wpbdp->formfields->create_default_fields();
             $wpbdp->settings->set_new_install_settings();
@@ -77,7 +77,7 @@ class WPBDP_Installer {
             add_option( 'wpbdp-show-tracking-pointer', 1 );
 
             // Create default paid fee.
-            $fee = new WPBDP__Fee_Plan( array( 'label' => _x( 'Default Fee', 'installer', 'WPBDM' ),
+            $fee = new WPBDP__Fee_Plan( array( 'label' => _x( 'Default Fee', 'installer', 'business-directory-plugin' ),
                                                'amount' => 1.0,
                                                'days' => 365,
                                                'images' => 1,

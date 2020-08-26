@@ -38,14 +38,14 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
         private function __construct() {
             // register core associations
-            $this->register_association( 'title', _x( 'Post Title', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
-            $this->register_association( 'content', _x( 'Post Content', 'form-fields api', 'WPBDM' ), array( 'required', 'unique', 'optional' ) );
-            $this->register_association( 'excerpt', _x( 'Post Excerpt', 'form-fields api', 'WPBDM' ), array( 'unique' ) );
-            $this->register_association( 'category', _x( 'Post Category', 'form-fields api', 'WPBDM' ), array( 'required', 'unique' ) );
-            $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'WPBDM' ), array( 'unique' ) );
-            $this->register_association( 'meta', _x( 'Post Metadata', 'form-fields api', 'WPBDM' ) );
+            $this->register_association( 'title', _x( 'Post Title', 'form-fields api', 'business-directory-plugin' ), array( 'required', 'unique' ) );
+            $this->register_association( 'content', _x( 'Post Content', 'form-fields api', 'business-directory-plugin' ), array( 'required', 'unique', 'optional' ) );
+            $this->register_association( 'excerpt', _x( 'Post Excerpt', 'form-fields api', 'business-directory-plugin' ), array( 'unique' ) );
+            $this->register_association( 'category', _x( 'Post Category', 'form-fields api', 'business-directory-plugin' ), array( 'required', 'unique' ) );
+            $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'business-directory-plugin' ), array( 'unique' ) );
+            $this->register_association( 'meta', _x( 'Post Metadata', 'form-fields api', 'business-directory-plugin' ) );
 
-            $this->register_association( 'custom', _x( 'Custom', 'form-fields api', 'WPBDM' ), array( 'private' ) );
+            $this->register_association( 'custom', _x( 'Custom', 'form-fields api', 'business-directory-plugin' ), array( 'private' ) );
 
             // register core field types
             $this->register_field_type( 'WPBDP_FieldTypes_TextField', 'textfield' );
@@ -352,7 +352,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
         public function get_default_fields( $id = '' ) {
             $default_fields = array(
                 'title'    => array(
-					'label'         => __( 'Business Name', 'WPBDM' ),
+					'label'         => __( 'Business Name', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'title',
 					'weight'        => 9,
@@ -361,7 +361,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'title',
 				),
                 'category' => array(
-					'label'         => __( 'Business Genre', 'WPBDM' ),
+					'label'         => __( 'Business Genre', 'business-directory-plugin' ),
 					'field_type'    => 'select',
 					'association'   => 'category',
 					'weight'        => 8,
@@ -370,7 +370,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'category',
 				),
                 'excerpt'  => array(
-					'label'         => __( 'Short Business Description', 'WPBDM' ),
+					'label'         => __( 'Short Business Description', 'business-directory-plugin' ),
 					'field_type'    => 'textarea',
 					'association'   => 'excerpt',
 					'weight'        => 7,
@@ -378,7 +378,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'excerpt',
 				),
                 'content'  => array(
-					'label'         => __( 'Long Business Description', 'WPBDM' ),
+					'label'         => __( 'Long Business Description', 'business-directory-plugin' ),
 					'field_type'    => 'textarea',
 					'association'   => 'content',
 					'weight'        => 6,
@@ -387,7 +387,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'content',
 				),
                 'website'  => array(
-					'label'         => __( 'Business Website Address', 'WPBDM' ),
+					'label'         => __( 'Business Website Address', 'business-directory-plugin' ),
 					'field_type'    => 'url',
 					'association'   => 'meta',
 					'weight'        => 5,
@@ -396,7 +396,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'website',
 				),
                 'phone'    => array(
-					'label'         => __( 'Business Phone Number', 'WPBDM' ),
+					'label'         => __( 'Business Phone Number', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 4,
@@ -404,7 +404,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'phone',
 				),
                 'fax'      => array(
-					'label'         => __( 'Business Fax', 'WPBDM' ),
+					'label'         => __( 'Business Fax', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 3,
@@ -412,7 +412,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'fax',
 				),
                 'email'    => array(
-					'label'         => __( 'Business Contact Email', 'WPBDM' ),
+					'label'         => __( 'Business Contact Email', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 2,
@@ -421,7 +421,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'email',
 				),
                 'tags'     => array(
-					'label'         => __( 'Business Tags', 'WPBDM' ),
+					'label'         => __( 'Business Tags', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'tags',
 					'weight'        => 1,
@@ -429,7 +429,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'tags',
 				),
                 'address'  => array(
-					'label'         => __( 'Business Address', 'WPBDM' ),
+					'label'         => __( 'Business Address', 'business-directory-plugin' ),
 					'field_type'    => 'textarea',
 					'association'   => 'meta',
 					'weight'        => 1,
@@ -437,7 +437,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'address',
 				),
                 'zip'      => array(
-					'label'         => __( 'ZIP Code', 'WPBDM' ),
+					'label'         => __( 'ZIP Code', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 1,
@@ -567,19 +567,19 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
          */
         public function get_validators() {
             $validators = array(
-                'email'          => _x( 'Email Validator', 'form-fields-api', 'WPBDM' ),
-                'url'            => _x( 'URL Validator', 'form-fields-api', 'WPBDM' ),
-                'integer_number' => _x( 'Whole Number Validator', 'form-fields-api', 'WPBDM' ),
-                'decimal_number' => _x( 'Decimal Number Validator', 'form-fields-api', 'WPBDM' ),
-                'date_'          => _x( 'Date Validator', 'form-fields-api', 'WPBDM' ),
-                'word_number'    => _x( 'Word Count Validator', 'form-fields-api', 'WPBDM' ),
+                'email'          => _x( 'Email Validator', 'form-fields-api', 'business-directory-plugin' ),
+                'url'            => _x( 'URL Validator', 'form-fields-api', 'business-directory-plugin' ),
+                'integer_number' => _x( 'Whole Number Validator', 'form-fields-api', 'business-directory-plugin' ),
+                'decimal_number' => _x( 'Decimal Number Validator', 'form-fields-api', 'business-directory-plugin' ),
+                'date_'          => _x( 'Date Validator', 'form-fields-api', 'business-directory-plugin' ),
+                'word_number'    => _x( 'Word Count Validator', 'form-fields-api', 'business-directory-plugin' ),
             );
 
             return $validators;
         }
 
         public function validate_field( $field, $value, $validator, $args = array() ) {
-            $args['field-label'] = is_object( $field ) && $field ? apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) : _x( 'Field', 'form-fields-api validation', 'WPBDM' );
+            $args['field-label'] = is_object( $field ) && $field ? apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) : _x( 'Field', 'form-fields-api validation', 'business-directory-plugin' );
             $args['field']       = $field;
 
             return call_user_func( array( $this, $validator ), $value, $args );
@@ -600,12 +600,12 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
             if ( $args['field'] && $args['field']->get_association() == 'category' ) {
                 if ( is_array( $value ) && count( $value ) == 1 && ! $value[0] ) {
-                    return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+                    return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
                 }
             }
 
             if ( ( $args['field'] && $args['field']->is_empty_value( $value ) ) || ! $value || ( is_string( $value ) && ! $args['allow_whitespace'] && ! trim( $value ) ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
             }
         }
 
@@ -621,7 +621,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                         _x( 
                             '%s is badly formatted. Valid URL format required. Include http://',
                             'form-fields-api validation',
-                            'WPBDM'
+                            'business-directory-plugin'
                         ),
                         esc_attr( $args['field-label'] ) 
                     )
@@ -640,21 +640,21 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             }
 
             if ( ! $valid ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid Email format required.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid Email format required.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
             }
         }
 
         /* IntegerNumberValidator */
         private function integer_number( $value, $args = array() ) {
             if ( ! ctype_digit( $value ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s must be a number. Decimal values are not allowed.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError( sprintf( _x( '%s must be a number. Decimal values are not allowed.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
             }
         }
 
         /* DecimalNumberValidator */
         private function decimal_number( $value, $args = array() ) {
             if ( ! is_numeric( $value ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s must be a number.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError( sprintf( _x( '%s must be a number.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
             }
         }
 
@@ -673,7 +673,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             $value_  = str_replace( array( '/', '.', '-' ), '', $value );
 
             if ( strlen( $format_ ) != strlen( $value_ ) ) {
-                return WPBDP_ValidationError( ( ! empty( $args['messages']['incorrect_format'] ) ) ? $args['messages']['incorrect_format'] : sprintf( _x( '%1$s must be in the format %2$s.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), $format ) );
+                return WPBDP_ValidationError( ( ! empty( $args['messages']['incorrect_format'] ) ) ? $args['messages']['incorrect_format'] : sprintf( _x( '%1$s must be in the format %2$s.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), $format ) );
             }
 
             $d = '0';
@@ -711,14 +711,14 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             }
 
             if ( ! ctype_digit( $m ) || ! ctype_digit( $d ) || ! ctype_digit( $y ) || ! checkdate( $m, $d, $y ) ) {
-                return WPBDP_ValidationError( ( ! empty( $args['messages']['invalid'] ) ) ? $args['messages']['invalid'] : sprintf( _x( '%s must be a valid date.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError( ( ! empty( $args['messages']['invalid'] ) ) ? $args['messages']['invalid'] : sprintf( _x( '%s must be a valid date.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
             }
         }
 
         /* Image Caption Validator */
         private function caption_( $value, $args = array() ) {
             if ( $args['caption_required'] && empty( $value[1] ) ) {
-                return WPBDP_ValidationError( ! empty( $args['messages']['caption_required'] ) ? $args['messages']['caption_required'] : sprintf( _x( 'Caption for %s is required.', 'image field', 'WPBDM' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError( ! empty( $args['messages']['caption_required'] ) ? $args['messages']['caption_required'] : sprintf( _x( 'Caption for %s is required.', 'image field', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
             }
         }
 
@@ -734,7 +734,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             $input_array  = preg_split("/[\s,]+/", $no_html_text );
 
             if( $word_count < count( $input_array ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s must have less than %d words.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), $word_count ) );
+                return WPBDP_ValidationError( sprintf( _x( '%s must have less than %d words.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), $word_count ) );
             }
 
         }
@@ -753,7 +753,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             }
 
             if ( ! in_array( $value, $values ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%1$s is invalid. Value most be one of %2$s.', 'form-fields-api validation', 'WPBDM' ), esc_attr( $args['field-label'] ), call_user_func( $formatter, $values ) ) );
+                return WPBDP_ValidationError( sprintf( _x( '%1$s is invalid. Value most be one of %2$s.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), call_user_func( $formatter, $values ) ) );
             }
         }
 

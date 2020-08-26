@@ -28,8 +28,8 @@ wpbdp_the_listing_sort_options();
             wp_pagenavi( array( 'query' => $query ) );
         else:
         ?>
-            <span class="prev"><?php previous_posts_link( _x( '&laquo; Previous ', 'templates', 'WPBDM' ) ); ?></span>
-            <span class="next"><?php next_posts_link( _x( 'Next &raquo;', 'templates', 'WPBDM' ), $query->max_num_pages ); ?></span>
+            <span class="prev"><?php previous_posts_link( _x( '&laquo; Previous ', 'templates', 'business-directory-plugin' ) ); ?></span>
+            <span class="next"><?php next_posts_link( _x( 'Next &raquo;', 'templates', 'business-directory-plugin' ), $query->max_num_pages ); ?></span>
         <?php endif; ?>
         </div>
     <?php endif; ?>

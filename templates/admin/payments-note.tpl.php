@@ -10,7 +10,7 @@ $date = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format'
 <div class="wpbdp-payment-note" data-id="<?php echo $note->id; ?>">
 
     <?php if ( $note->log_type == 'payment.note' ): ?>
-    <a href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=wpbdp_admin_ajax&handler=payments__delete_note&note=' . $note->id . '&payment_id=' . $payment_id ) ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm" data-confirm="<?php _ex( 'Are you sure you want to delete this note?', 'payments admin', 'WPBDM' ); ?>"><?php _ex( 'Delete', 'payments admin', 'WPBDM' ); ?></a>
+    <a href="<?php echo esc_url( admin_url( 'admin-ajax.php?action=wpbdp_admin_ajax&handler=payments__delete_note&note=' . $note->id . '&payment_id=' . $payment_id ) ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm" data-confirm="<?php _ex( 'Are you sure you want to delete this note?', 'payments admin', 'business-directory-plugin' ); ?>"><?php _ex( 'Delete', 'payments admin', 'business-directory-plugin' ); ?></a>
     <?php endif; ?>
     <div class="wpbdp-payment-note-meta">
         <span class="wpbdp-payment-note-meta-user"><?php echo $author; ?></span>

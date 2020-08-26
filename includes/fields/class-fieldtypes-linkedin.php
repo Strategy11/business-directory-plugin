@@ -13,7 +13,7 @@
 class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x( 'Social Site (LinkedIn profile)', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'Social Site (LinkedIn profile)', 'form-fields api', 'business-directory-plugin' ) );
     }
 
     public function get_id() {
@@ -28,7 +28,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
         // LinkedIn fields are rendered as normal textfields
         global $wpbdp;
 
-        $field_settings['placeholder'] = _x( 'You can add your Company ID or profile URL here.', 'form-fields api', 'WPBDM' );
+        $field_settings['placeholder'] = _x( 'You can add your Company ID or profile URL here.', 'form-fields api', 'business-directory-plugin' );
 
         return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
     }

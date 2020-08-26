@@ -919,7 +919,7 @@ class WPBDP_Themes {
             WPBDP_FS::rmdir( $temp_dir );
             return new WP_Error(
                 'no-theme-file',
-                _x( 'ZIP file is not a valid BD theme file.', 'themes', 'WPBDM' )
+                _x( 'ZIP file is not a valid BD theme file.', 'themes', 'business-directory-plugin' )
             );
         }
 
@@ -927,7 +927,7 @@ class WPBDP_Themes {
             WPBDP_FS::rmdir( $temp_dir );
             return new WP_Error(
                 'no-themes-directory',
-                _x( 'Could not create themes directory.', 'themes', 'WPBDM' )
+                _x( 'Could not create themes directory.', 'themes', 'business-directory-plugin' )
             );
         }
 
@@ -938,7 +938,7 @@ class WPBDP_Themes {
             return new WP_Error(
                 'old-theme-not-removed',
                 sprintf(
-                    _x( 'Could not remove previous theme directory "%s".', 'themes', 'WPBDM' ),
+                    _x( 'Could not remove previous theme directory "%s".', 'themes', 'business-directory-plugin' ),
                     $dest_dir
                 )
             );
@@ -946,7 +946,7 @@ class WPBDP_Themes {
 
         if ( ! WPBDP_FS::movedir( $package_dir, $themes_dir ) ) {
             WPBDP_FS::rmdir( $temp_dir );
-            return new WP_Error( 'theme-not-copied', _x( 'Could not move new theme into theme directory.', 'themes', 'WPBDM' ) );
+            return new WP_Error( 'theme-not-copied', _x( 'Could not move new theme into theme directory.', 'themes', 'business-directory-plugin' ) );
         }
 
         WPBDP_FS::rmdir( $temp_dir );

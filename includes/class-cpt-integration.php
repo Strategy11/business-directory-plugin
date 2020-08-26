@@ -13,16 +13,16 @@ class WPBDP__CPT_Integration {
         // Listing type.
         $args = array(
             'labels'       => array(
-                'name'               => _x( 'Directory', 'post type general name', 'WPBDM' ),
-                'singular_name'      => _x( 'Listing', 'post type singular name', 'WPBDM' ),
-                'add_new'            => _x( 'Add New Listing', 'listing', 'WPBDM' ),
-                'add_new_item'       => _x( 'Add New Listing', 'post type', 'WPBDM' ),
-                'edit_item'          => __( 'Edit Listing', 'WPBDM' ),
-                'new_item'           => __( 'New Listing', 'WPBDM' ),
-                'view_item'          => __( 'View Listing', 'WPBDM' ),
-                'search_items'       => __( 'Search Listings', 'WPBDM' ),
-                'not_found'          => __( 'No listings found', 'WPBDM' ),
-                'not_found_in_trash' => __( 'No listings found in trash', 'WPBDM' ),
+                'name'               => _x( 'Directory', 'post type general name', 'business-directory-plugin' ),
+                'singular_name'      => _x( 'Listing', 'post type singular name', 'business-directory-plugin' ),
+                'add_new'            => _x( 'Add New Listing', 'listing', 'business-directory-plugin' ),
+                'add_new_item'       => _x( 'Add New Listing', 'post type', 'business-directory-plugin' ),
+                'edit_item'          => __( 'Edit Listing', 'business-directory-plugin' ),
+                'new_item'           => __( 'New Listing', 'business-directory-plugin' ),
+                'view_item'          => __( 'View Listing', 'business-directory-plugin' ),
+                'search_items'       => __( 'Search Listings', 'business-directory-plugin' ),
+                'not_found'          => __( 'No listings found', 'business-directory-plugin' ),
+                'not_found_in_trash' => __( 'No listings found in trash', 'business-directory-plugin' ),
             ),
             'public'       => true,
             'show_ui'      => true,
@@ -43,8 +43,8 @@ class WPBDP__CPT_Integration {
         // Category tax.
         $cat_args = array(
             'labels'       => array(
-                'name'          => __( 'Directory Categories', 'WPBDM' ),
-                'singular_name' => __( 'Directory Category', 'WPBDM' ),
+                'name'          => __( 'Directory Categories', 'business-directory-plugin' ),
+                'singular_name' => __( 'Directory Category', 'business-directory-plugin' ),
             ),
             'hierarchical' => true,
             'public'       => true,
@@ -55,8 +55,8 @@ class WPBDP__CPT_Integration {
         // Tag tax.
         $tags_args = array(
             'labels'       => array(
-                'name'          => __( 'Directory Tags', 'WPBDM' ),
-                'singular_name' => __( 'Directory Tag', 'WPBDM' ),
+                'name'          => __( 'Directory Tags', 'business-directory-plugin' ),
+                'singular_name' => __( 'Directory Tag', 'business-directory-plugin' ),
             ),
             'hierarchical' => false,
             'public'       => true,
@@ -250,15 +250,15 @@ class WPBDP__CPT_Integration {
     public function bulk_post_updated_messages( $bulk_messages, $bulk_counts ) {
         $bulk_messages[ WPBDP_POST_TYPE ] = array(
 			/* translators: %s: listing count */
-			'updated'   => _n( '%s listing updated.', '%s listings updated.', $bulk_counts['updated'], 'WPBDM' ),
+			'updated'   => _n( '%s listing updated.', '%s listings updated.', $bulk_counts['updated'], 'business-directory-plugin' ),
 			/* translators: %s: listing count */
-			'locked'    => _n( '%s listing not updated, somebody is editing it.', '%s listings not updated, somebody is editing them.', $bulk_counts['locked'], 'WPBDM' ),
+			'locked'    => _n( '%s listing not updated, somebody is editing it.', '%s listings not updated, somebody is editing them.', $bulk_counts['locked'], 'business-directory-plugin' ),
 			/* translators: %s: listing count */
-			'deleted'   => _n( '%s listing permanently deleted.', '%s listings permanently deleted.', $bulk_counts['deleted'], 'WPBDM' ),
+			'deleted'   => _n( '%s listing permanently deleted.', '%s listings permanently deleted.', $bulk_counts['deleted'], 'business-directory-plugin' ),
 			/* translators: %s: listing count */
-			'trashed'   => _n( '%s listing moved to the Trash.', '%s listings moved to the Trash.', $bulk_counts['trashed'], 'WPBDM' ),
+			'trashed'   => _n( '%s listing moved to the Trash.', '%s listings moved to the Trash.', $bulk_counts['trashed'], 'business-directory-plugin' ),
 			/* translators: %s: listing count */
-			'untrashed' => _n( '%s listing restored from the Trash.', '%s listings restored from the Trash.', $bulk_counts['untrashed'], 'WPBDM' ),
+			'untrashed' => _n( '%s listing restored from the Trash.', '%s listings restored from the Trash.', $bulk_counts['untrashed'], 'business-directory-plugin' ),
         );
 
         return $bulk_messages;

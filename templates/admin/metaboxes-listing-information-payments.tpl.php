@@ -12,7 +12,7 @@
     <div id="wpbdp-listing-payment-message" style="display: none;"></div>
     <?php if ( $payments ) : ?>
         <div class="wpbdp-payment-items">
-            <?php echo _x( 'Click a transaction to see its details (and approve/reject).', 'listing metabox', 'WPBDM' ); ?>
+            <?php echo _x( 'Click a transaction to see its details (and approve/reject).', 'listing metabox', 'business-directory-plugin' ); ?>
             <?php foreach ( $payments as $payment ) : ?>
             <?php $payment_link = esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ); ?>
             <div class="wpbdp-payment-item wpbdp-payment-status-<?php echo $payment->status; ?> cf">
@@ -33,7 +33,7 @@
             </span>
         </div>
     <?php else : ?>
-        <?php echo _x( 'No payments available.', 'listing metabox', 'WPBDM' ); ?>
+        <?php echo _x( 'No payments available.', 'listing metabox', 'business-directory-plugin' ); ?>
     <?php endif; ?>
 </div>
 <!-- }} -->

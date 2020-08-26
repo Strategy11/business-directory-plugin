@@ -106,7 +106,7 @@ class WPBDP__View {
 
             return $this->_redirect( $login_url );
         } else {
-            return wpbdp_render_msg( _x( 'Invalid credentials.', 'views', 'WPBDM' ), 'error' );
+            return wpbdp_render_msg( _x( 'Invalid credentials.', 'views', 'business-directory-plugin' ), 'error' );
         }
     }
 

@@ -15,7 +15,7 @@
 class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x( 'URL Field', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'URL Field', 'form-fields api', 'business-directory-plugin' ) );
         add_filter( 'wpbdp_form_field_css_classes', array( $this, 'css_classes' ), 10, 3 );
     }
 
@@ -33,10 +33,10 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
         $settings = array();
 
-        $settings['new-window'][] = _x( 'Open link in a new window?', 'form-fields admin', 'WPBDM' );
+        $settings['new-window'][] = _x( 'Open link in a new window?', 'form-fields admin', 'business-directory-plugin' );
         $settings['new-window'][] = '<input type="checkbox" value="1" name="field[x_open_in_new_window]" ' . ( $field && $field->data( 'open_in_new_window' ) ? ' checked="checked"' : '' ) . ' />';
 
-        $settings['nofollow'][] = _x( 'Use rel="nofollow" when displaying the link?', 'form-fields admin', 'WPBDM' );
+        $settings['nofollow'][] = _x( 'Use rel="nofollow" when displaying the link?', 'form-fields admin', 'business-directory-plugin' );
         $settings['nofollow'][] = '<input type="checkbox" value="1" name="field[x_use_nofollow]" ' . ( $field && $field->data( 'use_nofollow' ) ? ' checked="checked"' : '' ) . ' />';
 
         return self::render_admin_settings( $settings );
@@ -149,7 +149,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $html .= sprintf(
             '<label for="%s"><span class="sublabel">%s</span></label>',
             'wpbdp-field-' . $field->get_id() . '-url',
-            _x( 'URL:', 'form-fields api', 'WPBDM' )
+            _x( 'URL:', 'form-fields api', 'business-directory-plugin' )
         );
         $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" />',
                           'wpbdp-field-' . $field->get_id(),
@@ -161,7 +161,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $html .= sprintf(
             '<label for="%s"><span class="sublabel">%s</span></label>',
             'wpbdp-field-' . $field->get_id() . '-title',
-            _x( 'Link Text (optional):','form-fields api', 'WPBDM' )
+            _x( 'Link Text (optional):','form-fields api', 'business-directory-plugin' )
         );
         $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" placeholder="" />',
                           'wpbdp-field-' . $field->get_id() . '-title',

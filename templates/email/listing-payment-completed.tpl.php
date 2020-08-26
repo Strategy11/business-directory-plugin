@@ -1,10 +1,10 @@
 <?php
-    _ex( 'A new listing payment has been completed. Payment details can be found below.', 'emails', 'WPBDM' );
+    _ex( 'A new listing payment has been completed. Payment details can be found below.', 'emails', 'business-directory-plugin' );
 ?>
 
 ----
 
-<?php _ex( 'Payment ID', 'notify email', 'WPBDM' ); ?>: <?php
+<?php _ex( 'Payment ID', 'notify email', 'business-directory-plugin' ); ?>: <?php
     echo sprintf( '<a href="%s">%s</a>',
         esc_url(
             add_query_arg(
@@ -21,14 +21,14 @@
 
 
 <?php if( ! empty( $payment_datails ) ) : ?>
-    <?php _ex( 'Payment Details', 'notify email', 'WPBDM' ); ?>: 
+    <?php _ex( 'Payment Details', 'notify email', 'business-directory-plugin' ); ?>: 
         <?php echo $payment_datails; ?>
 <?php else: ?>
-    <?php _ex( 'Amount', 'notify email', 'WPBDM' ); ?>: <?php echo $plan->fee_amount; ?>
+    <?php _ex( 'Amount', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $plan->fee_amount; ?>
 <?php endif; ?>
 
 
-<?php _ex('Plan', 'notify email', 'WPBDM'); ?>: <?php 
+<?php _ex('Plan', 'notify email', 'business-directory-plugin' ); ?>: <?php 
     echo sprintf( '<a href="%s">%s</a>',
         esc_url(
             add_query_arg(
@@ -44,6 +44,6 @@
     );?>
 
 
-<?php _ex( 'Listing URL', 'notify email', 'WPBDM' ); ?>: <?php echo $listing->is_published() ? $listing->get_permalink() : get_preview_post_link( $listing->get_id() ); ?>
+<?php _ex( 'Listing URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $listing->is_published() ? $listing->get_permalink() : get_preview_post_link( $listing->get_id() ); ?>
 
-<?php _ex( 'Listing admin URL', 'notify email', 'WPBDM' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>
+<?php _ex( 'Listing admin URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>

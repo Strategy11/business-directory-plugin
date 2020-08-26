@@ -22,7 +22,7 @@ $categories = wp_get_post_terms( $listing->get_id(), WPBDP_CATEGORY_TAX, array( 
 
 <div id="change-plan-link" class="wpbdp-clearfix">
     <span class="dashicons dashicons-update"></span>
-    <a href="#"><?php _ex( 'Change category/plan', 'listing submit', 'WPBDM'); ?></a>
+    <a href="#"><?php _ex( 'Change category/plan', 'listing submit', 'business-directory-plugin' ); ?></a>
 </div>
 
 <script type="text/javascript">

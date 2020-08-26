@@ -21,8 +21,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
     public function __construct() {
         parent::__construct(
             array(
-                'singular' => _x( 'form field', 'form-fields admin', 'WPBDM' ),
-                'plural'   => _x( 'form fields', 'form-fields admin', 'WPBDM' ),
+                'singular' => _x( 'form field', 'form-fields admin', 'business-directory-plugin' ),
+                'plural'   => _x( 'form fields', 'form-fields admin', 'business-directory-plugin' ),
                 'ajax'     => false,
             )
         );
@@ -30,11 +30,11 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
     public function get_columns() {
         return array(
-            'order'     => _x( 'Order', 'form-fields admin', 'WPBDM' ),
-            'label'     => _x( 'Label / Association', 'form-fields admin', 'WPBDM' ),
-            'type'      => _x( 'Type', 'form-fields admin', 'WPBDM' ),
-            'validator' => _x( 'Validator', 'form-fields admin', 'WPBDM' ),
-            'tags'      => _x( 'Field Attributes', 'form-fields admin', 'WPBDM' ),
+            'order'     => _x( 'Order', 'form-fields admin', 'business-directory-plugin' ),
+            'label'     => _x( 'Label / Association', 'form-fields admin', 'business-directory-plugin' ),
+            'type'      => _x( 'Type', 'form-fields admin', 'business-directory-plugin' ),
+            'validator' => _x( 'Validator', 'form-fields admin', 'business-directory-plugin' ),
+            'tags'      => _x( 'Field Attributes', 'form-fields admin', 'business-directory-plugin' ),
         );
     }
 
@@ -81,7 +81,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                     )
                 )
             ),
-            _x( 'Edit', 'form-fields admin', 'WPBDM' )
+            _x( 'Edit', 'form-fields admin', 'business-directory-plugin' )
         );
 
         if ( ! $field->has_behavior_flag( 'no-delete' ) ) {
@@ -95,7 +95,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                         )
                     )
                 ),
-                _x( 'Delete', 'form-fields admin', 'WPBDM' )
+                _x( 'Delete', 'form-fields admin', 'business-directory-plugin' )
             );
         }
 
@@ -115,12 +115,12 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
         );
         $html .= '<br/>';
         $html .= sprintf( '%s: %d',
-            _x( 'ID', 'form-fields admin', 'WPBDM' ),
+            _x( 'ID', 'form-fields admin', 'business-directory-plugin' ),
             $field->get_id()
             );
         $html .= '<br/>';
         $html .= sprintf( '%s: %s',
-            _x( 'Shortname', 'form-fields admin', 'WPBDM' ),
+            _x( 'Shortname', 'form-fields admin', 'business-directory-plugin' ),
             $field->get_shortname()
         );
         $html .= $this->row_actions( $actions );
@@ -142,30 +142,30 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
         $html .= sprintf(
             '<span class="tag %s">%s</span>',
             $field->is_required() ? 'required' : 'optional',
-            $field->is_required() ? _x( 'Required', 'form-fields admin', 'WPBDM' ) : _x( 'Optional', 'form-fields admin', 'WPBDM' )
+            $field->is_required() ? _x( 'Required', 'form-fields admin', 'business-directory-plugin' ) : _x( 'Optional', 'form-fields admin', 'business-directory-plugin' )
         );
 
         if ( $field->has_display_flag( 'private' ) ) {
             $html .= sprintf(
                 '<span class="tag %s">%s</span>',
                 'private',
-                _x( 'Private', 'form-fields admin', 'WPBDM' )
+                _x( 'Private', 'form-fields admin', 'business-directory-plugin' )
             );
         }
 
         if ( $field->display_in( 'excerpt' ) ) {
             $html .= sprintf(
                 '<span class="tag in-excerpt" title="%s">%s</span>',
-                _x( 'This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'WPBDM' ),
-                _x( 'In Excerpt', 'form-fields admin', 'WPBDM' )
+                _x( 'This field value is shown in the excerpt view of a listing.', 'form-fields admin', 'business-directory-plugin' ),
+                _x( 'In Excerpt', 'form-fields admin', 'business-directory-plugin' )
             );
         }
 
         if ( $field->display_in( 'listing' ) ) {
             $html .= sprintf(
                 '<span class="tag in-listing" title="%s">%s</span>',
-                _x( 'This field value is shown in the single view of a listing.', 'form-fields admin', 'WPBDM' ),
-                _x( 'In Listing', 'form-fields admin', 'WPBDM' )
+                _x( 'This field value is shown in the single view of a listing.', 'form-fields admin', 'business-directory-plugin' ),
+                _x( 'In Listing', 'form-fields admin', 'business-directory-plugin' )
             );
         }
 
@@ -200,23 +200,23 @@ class WPBDP_FormFieldsAdmin {
 
         if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
             if ( count( $missing ) > 1 ) {
-                $message = sprintf( _x( '<b>Business Directory Plugin</b> requires fields with the following associations in order to work correctly: <b>%s</b>.', 'admin', 'WPBDM' ), join( ', ', $missing ) );
+                $message = sprintf( _x( '<b>Business Directory Plugin</b> requires fields with the following associations in order to work correctly: <b>%s</b>.', 'admin', 'business-directory-plugin' ), join( ', ', $missing ) );
             } else {
-                $message = sprintf( _x( '<b>Business Directory Plugin</b> requires a field with a <b>%s</b> association in order to work correctly.', 'admin', 'WPBDM' ), array_pop( $missing ) );
+                $message = sprintf( _x( '<b>Business Directory Plugin</b> requires a field with a <b>%s</b> association in order to work correctly.', 'admin', 'business-directory-plugin' ), array_pop( $missing ) );
             }
 
             $message .= '<br />';
-            $message .= _x( 'You can create these custom fields by yourself inside "Manage Form Fields" or let Business Directory do this for you automatically.', 'admin', 'WPBDM' );
+            $message .= _x( 'You can create these custom fields by yourself inside "Manage Form Fields" or let Business Directory do this for you automatically.', 'admin', 'business-directory-plugin' );
             $message .= '<br /><br />';
             $message .= sprintf(
                 '<a href="%s">%s</a> | ',
                 admin_url( 'admin.php?page=wpbdp_admin_formfields' ),
-                _x( 'Go to "Manage Form Fields"', 'admin', 'WPBDM' )
+                _x( 'Go to "Manage Form Fields"', 'admin', 'business-directory-plugin' )
             );
             $message .= sprintf(
                 '<a href="%s">%s</a>',
                 admin_url( 'admin.php?page=wpbdp_admin_formfields&action=createrequired' ),
-                _x( 'Create these required fields for me', 'admin', 'WPBDM' )
+                _x( 'Create these required fields for me', 'admin', 'business-directory-plugin' )
             );
 
             $this->messages[] = array( $message, 'error' );
@@ -299,11 +299,11 @@ class WPBDP_FormFieldsAdmin {
 
         $html  = '';
         $html .= wpbdp_admin_header(
-            _x( 'Form Preview', 'form-fields admin', 'WPBDM' ),
+            _x( 'Form Preview', 'form-fields admin', 'business-directory-plugin' ),
             'formfields-preview',
             array(
                 array(
-                    _x( '← Return to "Manage Form Fields"', 'form-fields admin', 'WPBDM' ),
+                    _x( '← Return to "Manage Form Fields"', 'form-fields admin', 'business-directory-plugin' ),
                     esc_url( remove_query_arg( 'action' ) )
                 ),
             )
@@ -345,7 +345,7 @@ class WPBDP_FormFieldsAdmin {
             $res   = $field->save();
 
             if ( ! is_wp_error( $res ) ) {
-                $this->admin->messages[] = _x( 'Form fields updated.', 'form-fields admin', 'WPBDM' );
+                $this->admin->messages[] = _x( 'Form fields updated.', 'form-fields admin', 'business-directory-plugin' );
                 return $this->fieldsTable();
             } else {
                 $errmsg = '';
@@ -365,7 +365,7 @@ class WPBDP_FormFieldsAdmin {
                 $msg = _x(
                     '<b>Important</b>: Since the "<a>Display email address fields publicly?</a>" setting is disabled, display settings below will not be honored and this field will not be displayed on the frontend. If you want e-mail addresses to show on the frontend, you can <a>enable public display of e-mails</a>.',
                     'form-fields admin',
-                    'WPBDM'
+                    'business-directory-plugin'
                 );
                 $msg = str_replace(
                     '<a>',
@@ -404,7 +404,7 @@ class WPBDP_FormFieldsAdmin {
             if ( is_wp_error( $ret ) ) {
                 $this->admin->messages[] = array( $ret->get_error_message(), 'error' );
             } else {
-                $this->admin->messages[] = _x( 'Field deleted.', 'form-fields admin', 'WPBDM' );
+                $this->admin->messages[] = _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' );
 
                 $quick_search_fields = wpbdp_get_option( 'quick-search-fields' );
                 $quick_search_fields = array_diff( $quick_search_fields, array( $_REQUEST['id'] ) );
@@ -427,7 +427,7 @@ class WPBDP_FormFieldsAdmin {
 
         if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
             $wpbdp->formfields->create_default_fields( $missing );
-            $this->admin->messages[] = _x( 'Required fields created successfully.', 'form-fields admin', 'WPBDM' );
+            $this->admin->messages[] = _x( 'Required fields created successfully.', 'form-fields admin', 'business-directory-plugin' );
         }
 
         return $this->fieldsTable();
@@ -440,22 +440,22 @@ class WPBDP_FormFieldsAdmin {
         $wpbdp->formfields->maybe_correct_tags();
 
         $special_tags = array(
-            'title'     => _x( 'Title', 'form-fields admin', 'WPBDM' ),
-            'category'  => _x( 'Category', 'form-fields admin', 'WPBDM' ),
-            'excerpt'   => _x( 'Excerpt', 'form-fields admin', 'WPBDM' ),
-            'content'   => _x( 'Content', 'form-fields admin', 'WPBDM' ),
-            'tags'      => _x( 'Tags', 'form-fields admin', 'WPBDM' ),
-            'address'   => _x( 'Address', 'form-fields admin', 'WPBDM' ),
-            'address2'  => _x( 'Address 2', 'form-fields admin', 'WPBDM' ),
-            'city'      => _x( 'City', 'form-fields admin', 'WPBDM' ),
-            'state'     => _x( 'State', 'form-fields admin', 'WPBDM' ),
-            'country'   => _x( 'Country', 'form-fields admin', 'WPBDM' ),
-            'zip'       => _x( 'ZIP Code', 'form-fields admin', 'WPBDM' ),
-            'fax'       => _x( 'FAX Number', 'form-fields admin', 'WPBDM' ),
-            'phone'     => _x( 'Phone Number', 'form-fields admin', 'WPBDM' ),
-            'ratings'   => _x( 'Ratings Field', 'form-fields admin', 'WPBDM' ),
-            'twitter'   => _x( 'Twitter', 'form-fields admin', 'WPBDM' ),
-            'website'   => _x( 'Website', 'form-fields admin', 'WPBDM' ),
+            'title'     => _x( 'Title', 'form-fields admin', 'business-directory-plugin' ),
+            'category'  => _x( 'Category', 'form-fields admin', 'business-directory-plugin' ),
+            'excerpt'   => _x( 'Excerpt', 'form-fields admin', 'business-directory-plugin' ),
+            'content'   => _x( 'Content', 'form-fields admin', 'business-directory-plugin' ),
+            'tags'      => _x( 'Tags', 'form-fields admin', 'business-directory-plugin' ),
+            'address'   => _x( 'Address', 'form-fields admin', 'business-directory-plugin' ),
+            'address2'  => _x( 'Address 2', 'form-fields admin', 'business-directory-plugin' ),
+            'city'      => _x( 'City', 'form-fields admin', 'business-directory-plugin' ),
+            'state'     => _x( 'State', 'form-fields admin', 'business-directory-plugin' ),
+            'country'   => _x( 'Country', 'form-fields admin', 'business-directory-plugin' ),
+            'zip'       => _x( 'ZIP Code', 'form-fields admin', 'business-directory-plugin' ),
+            'fax'       => _x( 'FAX Number', 'form-fields admin', 'business-directory-plugin' ),
+            'phone'     => _x( 'Phone Number', 'form-fields admin', 'business-directory-plugin' ),
+            'ratings'   => _x( 'Ratings Field', 'form-fields admin', 'business-directory-plugin' ),
+            'twitter'   => _x( 'Twitter', 'form-fields admin', 'business-directory-plugin' ),
+            'website'   => _x( 'Website', 'form-fields admin', 'business-directory-plugin' ),
         );
         $fixed_tags   = array( 'title', 'category', 'excerpt', 'content', 'tags', 'ratings' );
         $field_tags   = array();
@@ -485,7 +485,7 @@ class WPBDP_FormFieldsAdmin {
                 );
             }
 
-            wpbdp_admin_message( _x( 'Tags updated.', 'form-fields admin', 'WPBDM' ) );
+            wpbdp_admin_message( _x( 'Tags updated.', 'form-fields admin', 'business-directory-plugin' ) );
         }
 
         $missing_fields = $wpbdp->themes->missing_suggested_fields( 'label' );

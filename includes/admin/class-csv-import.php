@@ -500,13 +500,13 @@ class WPBDP_CSV_Import {
                 if ( is_array( $t ) && isset( $t['term_id'] ) ) {
                     $c['term_id'] = $t['term_id'];
                 } elseif ( is_wp_error( $t ) ) {
-                    $message = _x( 'Could not create listing category "<category-name>". The operation failed with the following error: <error-message>.', 'admin csv-import', 'WPBDM' );
+                    $message = _x( 'Could not create listing category "<category-name>". The operation failed with the following error: <error-message>.', 'admin csv-import', 'business-directory-plugin' );
                     $message = str_replace( '<category-name>', $c['name'], $message );
                     $message = str_replace( '<error-message>', $t->get_error_message(), $message );
 
                     $errors[] = $message;
                 } else {
-                    $errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'WPBDM' ), $c['name'] );
+                    $errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'business-directory-plugin' ), $c['name'] );
                 }
             }
 
@@ -643,7 +643,7 @@ class WPBDP_CSV_Import {
 					'log_type'  => 'payment.note',
 					'object_id' => $payment->id,
 					'actor'     => is_admin() ? 'user:' . get_current_user_id() : 'system',
-					'message'   => __( 'Listing imported by admin. Payment skipped.', 'WPBDM' ),
+					'message'   => __( 'Listing imported by admin. Payment skipped.', 'business-directory-plugin' ),
                 )
             );
         }
@@ -694,7 +694,7 @@ class WPBDP_CSV_Import {
                 case 'username':
                     if ( $this->settings['assign-listings-to-user'] && $value ) {
                         if ( ! username_exists( $value ) ) {
-                            $errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'WPBDM' ), $value );
+                            $errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $value );
                         } else {
                             $meta['username'] = $value;
                         }
@@ -722,7 +722,7 @@ class WPBDP_CSV_Import {
                     $plan = wpbdp_get_fee_plan( $submitted_fee_id );
 
                     if ( ! $plan ) {
-                        $message = _x( 'There is no Fee Plan with ID = <fee-id>', 'admin csv-import', 'WPBDM' );
+                        $message = _x( 'There is no Fee Plan with ID = <fee-id>', 'admin csv-import', 'business-directory-plugin' );
                         $message = str_replace( '<fee-id>', $submitted_fee_id, $message );
 
                         $errors[] = $message;
@@ -753,7 +753,7 @@ class WPBDP_CSV_Import {
                     }
 
                     if ( $field->is_required() && $field->is_empty_value( $value ) ) {
-                        $errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'WPBDM' ), $column );
+                        $errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'business-directory-plugin' ), $column );
                         break;
                     }
 
@@ -778,7 +778,7 @@ class WPBDP_CSV_Import {
 								);
                             } else {
                                 if ( ! $this->settings['create-missing-categories'] ) {
-                                    $errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'WPBDM' ), $csv_category );
+                                    $errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $csv_category );
                                     continue;
                                 }
 
@@ -843,7 +843,7 @@ class WPBDP_CSV_Import {
         }
 
         if ( ! $date ) {
-            $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'WPBDM' );
+            $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'business-directory-plugin' );
             $message = str_replace( '<string>', '"' . $value . '"', $message );
 
             $errors[] = $message;

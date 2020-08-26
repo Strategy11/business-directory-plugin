@@ -1,4 +1,4 @@
-# Copyright (C) 2020 D. Rodenbaugh
+# Copyright (C) 2020 Business Directory Team
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""

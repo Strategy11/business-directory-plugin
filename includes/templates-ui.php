@@ -205,7 +205,7 @@ function wpbdp_list_categories( $args = array() ) {
             'hide_empty'   => false,
             'parent_only'  => false,
             'parent'       => 0,
-            'no_items_msg' => _x( 'No listing categories found.', 'templates', 'WPBDM' ),
+            'no_items_msg' => _x( 'No listing categories found.', 'templates', 'business-directory-plugin' ),
         )
     );
 
@@ -289,7 +289,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'directory', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-show-directory-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            __( 'Directory', 'WPBDM' ),
+            __( 'Directory', 'business-directory-plugin' ),
             wpbdp_url( '/' )
         );
         $buttons_count++;
@@ -298,7 +298,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'listings', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            __( 'View All Listings', 'WPBDM' ),
+            __( 'View All Listings', 'business-directory-plugin' ),
             wpbdp_url( 'all_listings' )
         );
         $buttons_count++;
@@ -307,7 +307,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'manage', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-manage-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            __( 'Manage Listings', 'WPBDM' ),
+            __( 'Manage Listings', 'business-directory-plugin' ),
             wpbdp_url( 'manage_listings' )
         );
         $buttons_count++;
@@ -316,7 +316,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'create', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            __( 'Create A Listing', 'WPBDM' ),
+            __( 'Create A Listing', 'business-directory-plugin' ),
             wpbdp_url( 'submit_listing' )
         );
         $buttons_count++;
@@ -355,12 +355,12 @@ function wpbdp_search_form() {
     $html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
     $html .= sprintf(
         '<input id="wpbdmsearchsubmit" class="submit wpbdp-button wpbdp-submit" type="submit" value="%s" />',
-        _x( 'Search Listings', 'templates', 'WPBDM' )
+        _x( 'Search Listings', 'templates', 'business-directory-plugin' )
     );
     $html .= sprintf(
         '<a href="%s" class="advanced-search-link">%s</a>',
         esc_url( wpbdp_url( 'search' ) ),
-        _x( 'Advanced Search', 'templates', 'WPBDM' )
+        _x( 'Advanced Search', 'templates', 'business-directory-plugin' )
     );
     $html .= '</form>';
 
@@ -395,7 +395,7 @@ function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_optio
 
     $html  = '';
     $html .= '<div class="wpbdp-listings-sort-options wpbdp-hide-on-mobile">';
-    $html .= _x( 'Sort By:', 'templates sort', 'WPBDM' ) . ' ';
+    $html .= _x( 'Sort By:', 'templates sort', 'business-directory-plugin' ) . ' ';
 
     foreach ( $sort_options as $id => $option ) {
         $default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
@@ -418,7 +418,7 @@ function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_optio
         $html .= sprintf(
             '(<a href="%s" class="reset" rel="nofollow">%s</a>)',
             esc_attr( remove_query_arg( 'wpbdp_sort' ) ),
-            _x( 'Reset', 'sort', 'WPBDM' )
+            _x( 'Reset', 'sort', 'business-directory-plugin' )
         );
     }
     $html .= '</div>';
@@ -427,7 +427,7 @@ function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_optio
 
     $html .= '<label for="wpbdp-sort-bar" style="display:none;">Sort By:</label>';
     $html .= '<select id="wpbdp-sort-bar" class="">';
-    $html .= '<option value="0" class="header-option">' . _x( 'Sort By:', 'templates sort', 'WPBDM' ) . '</option>';
+    $html .= '<option value="0" class="header-option">' . _x( 'Sort By:', 'templates sort', 'business-directory-plugin' ) . '</option>';
 
     foreach ( $sort_options as $id => $option ) {
         $default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
@@ -446,7 +446,7 @@ function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_optio
         $html .= sprintf(
             '<option value="%s" class="header-option">%s</option>',
             esc_attr( remove_query_arg( 'wpbdp_sort' ) ),
-            _x( '(Reset)', 'sort', 'WPBDM' )
+            _x( '(Reset)', 'sort', 'business-directory-plugin' )
         );
     }
 

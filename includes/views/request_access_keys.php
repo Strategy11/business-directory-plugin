@@ -10,7 +10,7 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
                 str_replace(
                     '<a>',
                     '<a href="' . esc_url( wpbdp_get_page_link( 'main' ) ) . '">',
-                    _x( 'Did you mean to <a>access the Directory</a>?', 'request_access_keys', 'WPBDM' )
+                    _x( 'Did you mean to <a>access the Directory</a>?', 'request_access_keys', 'business-directory-plugin' )
                 ),
                 'error'
             );
@@ -36,12 +36,12 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
 
         if ( $message_sent ) {
             $html  = '';
-            $html .= wpbdp_render_msg( _x( 'Access keys have been sent to your e-mail address.', 'request_access_keys', 'WPBDM' ) );
+            $html .= wpbdp_render_msg( _x( 'Access keys have been sent to your e-mail address.', 'request_access_keys', 'business-directory-plugin' ) );
 
             if ( ! empty( $_POST['redirect_to'] ) ) {
                 $html .= '<p>';
                 $html .= '<a href="' . esc_url( $_POST['redirect_to'] ) .'">';
-                $html .= _x( '← Return to previous page', 'request_access_keys', 'WPBDM' );
+                $html .= _x( '← Return to previous page', 'request_access_keys', 'business-directory-plugin' );
                 $html .= '</a>';
                 $html .= '<p>';
             }

@@ -26,7 +26,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
         if ( ! $current_user ) {
-            $login_msg = _x( 'Please <a>login</a> to manage your listings.', 'view:manage-listings', 'WPBDM' );
+            $login_msg = _x( 'Please <a>login</a> to manage your listings.', 'view:manage-listings', 'business-directory-plugin' );
             $login_msg = str_replace(
                 '<a>',
                 '<a href="' . esc_attr( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
@@ -97,7 +97,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
             '<a class="wpbdp-button button renew-listing" href="%s" %s >%s</a>',
             $listing->get_renewal_url(),
             esc_html( 'target="_blank" rel="noopener"' ),
-            _x( 'Renew Listing', 'view:manage-listings', 'WPBDM' )
+            _x( 'Renew Listing', 'view:manage-listings', 'business-directory-plugin' )
         ) . $buttons;
 
         return $buttons;

@@ -17,7 +17,7 @@ class WPBDP__Access_Keys_Sender {
      */
     public function send_access_keys( $email_address ) {
         if ( ! $email_address || ! is_email( $email_address ) ) {
-            $message = _x( '<email-address> is not a valid e-mail address.', 'access keys sender', 'WPBDM' );
+            $message = _x( '<email-address> is not a valid e-mail address.', 'access keys sender', 'business-directory-plugin' );
             $message = str_replace( '<email-address>', esc_html( $email_address ), $message );
 
             throw new Exception( $message );
@@ -26,7 +26,7 @@ class WPBDP__Access_Keys_Sender {
         $listings = $this->find_listings_by_email_address( $email_address );
 
         if ( empty( $listings ) ) {
-            $message = _x( 'There are no listings associated to e-mail address <email-address>.', 'access keys sender', 'WPBDM' );
+            $message = _x( 'There are no listings associated to e-mail address <email-address>.', 'access keys sender', 'business-directory-plugin' );
             $message = str_replace( '<email-address>', esc_html( $email_address ), $message );
 
             throw new Exception( $message );
@@ -43,11 +43,11 @@ class WPBDP__Access_Keys_Sender {
             )
         );
 
-        $message->subject = sprintf( '[%s] %s', get_bloginfo( 'name' ), _x( 'Listing Access Keys', 'access keys sender', 'WPBDM' ) );
+        $message->subject = sprintf( '[%s] %s', get_bloginfo( 'name' ), _x( 'Listing Access Keys', 'access keys sender', 'business-directory-plugin' ) );
         $message->to = $email_address;
 
         if ( ! $message->send() ) {
-            $message = _x( 'An error occurred while sending the access keys for e-mail address <email-address>. Please try again.', 'access keys sender', 'WPBDM' );
+            $message = _x( 'An error occurred while sending the access keys for e-mail address <email-address>. Please try again.', 'access keys sender', 'business-directory-plugin' );
             $message = str_replace( '<email-address>', esc_html( $email_address ), $message );
 
             throw new Exception( $message );

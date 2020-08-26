@@ -128,7 +128,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $this->fetch_payment();
 
         if ( ! wpbdp()->payment_gateways->can_pay() && 0 < $this->payment->amount ) {
-            wp_die( _x( 'Can not process a payment at this time. Please try again later.', 'checkout', 'WPBDM' ) );
+            wp_die( _x( 'Can not process a payment at this time. Please try again later.', 'checkout', 'business-directory-plugin' ) );
         }
 
         // We don't set gateway and validate nonce for non-pending payments or pending with already a gateway set.
@@ -165,7 +165,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $nonce = ! empty( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
 
         if ( ! wp_verify_nonce( $nonce, 'wpbdp-checkout-' . $this->payment_id ) ) {
-            wp_die( _x( 'Invalid nonce received.', 'checkout', 'WPBDM' ) );
+            wp_die( _x( 'Invalid nonce received.', 'checkout', 'business-directory-plugin' ) );
         }
     }
 
@@ -182,12 +182,12 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         }
 
         if ( ! wpbdp()->payment_gateways->can_use( $chosen_gateway ) ) {
-            wp_die( _x( 'Invalid gateway selected.', 'checkout', 'WPBDM' ) );
+            wp_die( _x( 'Invalid gateway selected.', 'checkout', 'business-directory-plugin' ) );
         }
 
         $this->gateway = wpbdp()->payment_gateways->get( $chosen_gateway );
         if ( ! $this->gateway->supports_currency( $this->payment->currency_code ) ) {
-            wp_die( _x( 'Selected gateway does not support payment\'s currency.', 'checkout', 'WPBDM' ) );
+            wp_die( _x( 'Selected gateway does not support payment\'s currency.', 'checkout', 'business-directory-plugin' ) );
         }
     }
 
@@ -196,7 +196,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         // $checkout_form .= wpbdp_capture_action( 'wpbdp_checkout_form_top', $this->payment );
         $checkout_form .= $this->gateway->render_form( $this->payment, $this->errors );
         // $checkout_form .= wpbdp_capture_action( 'wpbdp_checkout_form_bottom', $this->payment );
-        $checkout_form .= '<div class="wpbdp-checkout-submit"><input type="submit" value="' . _x( 'Pay Now', 'checkout', 'WPBDM' ) . '" /></div>';
+        $checkout_form .= '<div class="wpbdp-checkout-submit"><input type="submit" value="' . _x( 'Pay Now', 'checkout', 'business-directory-plugin' ) . '" /></div>';
 
         return $checkout_form;
     }
@@ -243,7 +243,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         if ( ! empty( $res['error'] ) ) {
             $this->errors = array_merge( $this->errors, array( $res['error'] ) );
         } else {
-            $this->errors[] = _x( 'Unknown gateway error.', 'checkout', 'WPBDM' );
+            $this->errors[] = _x( 'Unknown gateway error.', 'checkout', 'business-directory-plugin' );
         }
 
         // Forget about the card (just in case).
@@ -263,7 +263,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
     private function handle_return_request() {
         if ( ! $this->gateway ) {
-            wp_die( _x( 'There was an error trying to process your request. No gateway is selected.', 'checkout', 'WPBDM' ) );
+            wp_die( _x( 'There was an error trying to process your request. No gateway is selected.', 'checkout', 'business-directory-plugin' ) );
         }
 
         $this->payment->gateway = $this->gateway->get_id();

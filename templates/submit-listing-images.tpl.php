@@ -2,10 +2,10 @@
 $admin = isset( $admin ) ? $admin : false;
 ?>
 <?php if ( ! $admin ): ?>
-<h4><?php _ex( 'Current Images', 'templates', 'WPBDM' ); ?></h4>
+<h4><?php _ex( 'Current Images', 'templates', 'business-directory-plugin' ); ?></h4>
 <?php endif; ?>
 
-<div id="no-images-message" style="<?php echo ( $images ? 'display: none;' : '' ); ?>"><?php _ex( 'There are no images currently attached to your listing.', 'templates', 'WPBDM' ); ?></div>
+<div id="no-images-message" style="<?php echo ( $images ? 'display: none;' : '' ); ?>"><?php _ex( 'There are no images currently attached to your listing.', 'templates', 'business-directory-plugin' ); ?></div>
 <div id="wpbdp-uploaded-images" class="cf">
 
 <?php

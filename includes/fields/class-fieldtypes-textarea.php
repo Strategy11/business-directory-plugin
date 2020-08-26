@@ -13,7 +13,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
     private $quicktags_settings = array();
 
     public function __construct() {
-        parent::__construct( _x('Textarea', 'form-fields api', 'WPBDM') );
+        parent::__construct( _x('Textarea', 'form-fields api', 'business-directory-plugin' ) );
 
         add_filter( 'wpbdp_form_field_html_value', array( $this, 'maybe_shorten_output_in_excerpt' ), 10, 4 );
         add_filter( 'wpbdp_render_listing_fields', array( $this, 'maybe_hide_excerpt_field' ), 10, 3 );
@@ -194,47 +194,47 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
     public function render_field_settings( &$field=null, $association=null ) {
         $settings = array();
 
-        $settings['allow_html'][] = _x( 'Allow HTML input for this field?', 'form-fields admin', 'WPBDM' );
+        $settings['allow_html'][] = _x( 'Allow HTML input for this field?', 'form-fields admin', 'business-directory-plugin' );
         $settings['allow_html'][] = '<input type="checkbox" value="1" name="field[allow_html]" ' . ( $field && $field->data( 'allow_html' ) ? ' checked="checked"' : '' ) . ' />';
 
-        $settings['allow_iframes'][] = _x( 'Allow IFRAME tags in content?', 'form-fields admin', 'WPBDM' );
+        $settings['allow_iframes'][] = _x( 'Allow IFRAME tags in content?', 'form-fields admin', 'business-directory-plugin' );
         $settings['allow_iframes'][] =
             '<div class="iframe-confirm wpbdp-note warning">' .
-            '<p>' . _x( 'Enabling iframe support in your listings can allow users to execute arbitrary scripts on a page if they want, which can possibly infect your site with malware. We do NOT recommend using this setting UNLESS you are posting the listings yourself and have sole control over the content. Are you sure you want to enable this?', 'admin form-fields', 'WPBDM' ) . '</p>' .
-            '<a href="#" class="button no">' . _x( 'No', 'form-fields admin', 'WPBDM' ) . '</a> ' .
-            '<a href="#" class="button button-primary yes">' . _x( 'Yes', 'form-fields admin', 'WPBDM' ) . '</a>' .
+            '<p>' . _x( 'Enabling iframe support in your listings can allow users to execute arbitrary scripts on a page if they want, which can possibly infect your site with malware. We do NOT recommend using this setting UNLESS you are posting the listings yourself and have sole control over the content. Are you sure you want to enable this?', 'admin form-fields', 'business-directory-plugin' ) . '</p>' .
+            '<a href="#" class="button no">' . _x( 'No', 'form-fields admin', 'business-directory-plugin' ) . '</a> ' .
+            '<a href="#" class="button button-primary yes">' . _x( 'Yes', 'form-fields admin', 'business-directory-plugin' ) . '</a>' .
             '</div>' .
             '<input type="checkbox" value="1" name="field[allow_iframes]" ' . ( $field && $field->data( 'allow_iframes' ) ? ' checked="checked"' : '' ) . ' />';
 
         if ( ( $field && in_array( $field->get_association(), array( 'content', 'excerpt' ) ) ) || ( in_array( $association, array( 'content', 'excerpt' ) ) ) ) {
-            $settings['allow_shortcodes'][] = _x( 'Allow WordPress shortcodes in this field?', 'form-fields admin', 'WPBDM' );
+            $settings['allow_shortcodes'][] = _x( 'Allow WordPress shortcodes in this field?', 'form-fields admin', 'business-directory-plugin' );
             $settings['allow_shortcodes'][] = '<input type="checkbox" value="1" name="field[allow_shortcodes]" ' . ( $field && $field->data( 'allow_shortcodes' ) ? ' checked="checked"' : '' ) . ' />';
         }
 
         if ( ( $field && $field->get_association() == 'content' ) || ( $association == 'content' ) ) {
-            $settings['wysiwyg_editor'][] = _x( 'Display a WYSIWYG editor on the frontend?', 'form-fields admin', 'WPBDM' );
+            $settings['wysiwyg_editor'][] = _x( 'Display a WYSIWYG editor on the frontend?', 'form-fields admin', 'business-directory-plugin' );
             $settings['wysiwyg_editor'][] = '<input type="checkbox" value="1" name="field[wysiwyg_editor]" ' . ( $field && $field->data( 'wysiwyg_editor' ) ? ' checked="checked"' : '' ) . ' />';
 
-            $desc                         = _x( '<b>Warning:</b> Users can use this feature to get around your image limits in fee plans.', 'form-fields admin', 'WPBDM' );
-            $settings['wysiwyg_images'][] = _x( 'Allow images in WYSIWYG editor?', 'form-fields admin', 'WPBDM' );
+            $desc                         = _x( '<b>Warning:</b> Users can use this feature to get around your image limits in fee plans.', 'form-fields admin', 'business-directory-plugin' );
+            $settings['wysiwyg_images'][] = _x( 'Allow images in WYSIWYG editor?', 'form-fields admin', 'business-directory-plugin' );
             $settings['wysiwyg_images'][] = '<input type="checkbox" value="1" name="field[wysiwyg_images]" ' . ( $field && $field->data( 'wysiwyg_images' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
 
-            $desc                        = _x( '<b>Advanced users only!</b> Unless you\'ve been told to change this, don\'t switch it unless you know what you\'re doing.', 'form-fields admin', 'WPBDM' );
-            $settings['allow_filters'][] = _x( 'Apply "the_content" filter before displaying this field?', 'form-fields admin', 'WPBDM' );
+            $desc                        = _x( '<b>Advanced users only!</b> Unless you\'ve been told to change this, don\'t switch it unless you know what you\'re doing.', 'form-fields admin', 'business-directory-plugin' );
+            $settings['allow_filters'][] = _x( 'Apply "the_content" filter before displaying this field?', 'form-fields admin', 'business-directory-plugin' );
             $settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
 
-            $settings['excerpt_override'][] = _x( 'Use shortened version of Description field as excerpt', 'form-fields admin', 'WPBDM' );
-            $settings['excerpt_override'][] = '<input type="radio" value="1" name="field[excerpt_override]" ' . ( $field && 1 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable always (override the Short Description given with a shortened Long Description)', 'form-fields admin', 'WPBDM' ) . '<br/>
-                                               <input type="radio" value="2" name="field[excerpt_override]" ' . ( $field && 2 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable conditionally (override ONLY when Short Description is empty with a shortened Long Description)', 'form-fields admin', 'WPBDM' ) . '<br/>
-                                               <input type="radio" value="0" name="field[excerpt_override]" ' . ( $field && ! in_array( $field->data( 'excerpt_override' ), array( 1, 2 ) ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Disable (use the Short Description all the time, empty or not)', 'form-fields admin', 'WPBDM' );
+            $settings['excerpt_override'][] = _x( 'Use shortened version of Description field as excerpt', 'form-fields admin', 'business-directory-plugin' );
+            $settings['excerpt_override'][] = '<input type="radio" value="1" name="field[excerpt_override]" ' . ( $field && 1 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable always (override the Short Description given with a shortened Long Description)', 'form-fields admin', 'business-directory-plugin' ) . '<br/>
+                                               <input type="radio" value="2" name="field[excerpt_override]" ' . ( $field && 2 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable conditionally (override ONLY when Short Description is empty with a shortened Long Description)', 'form-fields admin', 'business-directory-plugin' ) . '<br/>
+                                               <input type="radio" value="0" name="field[excerpt_override]" ' . ( $field && ! in_array( $field->data( 'excerpt_override' ), array( 1, 2 ) ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Disable (use the Short Description all the time, empty or not)', 'form-fields admin', 'business-directory-plugin' );
 
-            $desc                     = _x( 'Truncates the description field to the value set here. To display all of the description, set to 0.', 'form-fields admin', 'WPBDM' );
-            $settings['max_length'][] = _x( 'Number of Characters from Short Description/Excerpt to Display in List View (only)', 'form-fields admin', 'WPBDM' );
+            $desc                     = _x( 'Truncates the description field to the value set here. To display all of the description, set to 0.', 'form-fields admin', 'business-directory-plugin' );
+            $settings['max_length'][] = _x( 'Number of Characters from Short Description/Excerpt to Display in List View (only)', 'form-fields admin', 'business-directory-plugin' );
             $settings['max_length'][] = '<input type="number" value="' . ( $field && $field->data( 'max_length' ) ? $field->data( 'max_length' ) : 0 ) . '" name="field[max_length]" /> <span class="wpbdp-setting-description">' . $desc . '</span>';
         }
 
         if ( ( $field && $field->get_association() == 'excerpt' ) || ( $association == 'excerpt' ) ) {
-            $settings['auto_excerpt'][] = _x( 'Automatically generate excerpt from content field?', 'form-fields admin', 'WPBDM' );
+            $settings['auto_excerpt'][] = _x( 'Automatically generate excerpt from content field?', 'form-fields admin', 'business-directory-plugin' );
             $settings['auto_excerpt'][] = '<input type="checkbox" value="1" name="field[auto_excerpt]" ' . ( $field && $field->data( 'auto_excerpt' ) ? ' checked="checked"' : '' ) . ' /> ';
         }
 
