@@ -106,7 +106,7 @@ class WPBDP_Themes_Admin {
         global $wpbdp;
         global $pagenow;
 
-        if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp-themes' != $_GET['page'] )
+        if ( 'edit.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp-themes' != $_GET['page'] )
             return;
 
         wp_enqueue_style(
