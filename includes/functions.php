@@ -688,6 +688,7 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case 'submit_listing':
         case 'all_listings':
         case 'view_listings':
+        case 'manage_listings':
         case 'search':
         case 'login':
         case 'request_access_keys':
