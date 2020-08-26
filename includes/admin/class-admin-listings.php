@@ -10,6 +10,8 @@
  */
 class WPBDP_Admin_Listings {
 
+    public $listing_owner = false;
+
     public function __construct() {
         add_action( 'admin_init', array( $this, 'add_metaboxes' ) );
         add_action( 'wpbdp_admin_notices', array( $this, 'no_plan_edit_notice' ) );
