@@ -2,18 +2,7 @@
 /**
  * @since 3.5.7
  */
-
-
-require_once WPBDP_PATH . 'vendors/anet_php_sdk/autoload.php';
-
-use net\authorize\api\contract\v1 as AnetAPI;
-use net\authorize\api\controller as AnetController;
-
-
 class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
-
-    private $API_Endpoint           = \net\authorize\api\constants\ANetEnvironment::SANDBOX;
-    private $merchantAuthentication = null;
 
     public function __construct() {
         parent::__construct();
@@ -21,10 +10,6 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         // Silent Post / webhooks are not very reliable so we handle expiration a different way:
         // once the listing has actually expired, we verify the subscription status and act accordingly.
         add_action( 'wpbdp_listing_expired', array( $this, 'maybe_handle_expiration' ) );
-
-        if ( ! $this->in_test_mode() ) {
-            $this->API_Endpoint = \net\authorize\api\constants\ANetEnvironment::PRODUCTION;
-        }
     }
 
     public function get_id() {
@@ -56,27 +41,15 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     /**
-     * @since 5.7.2
-     */
-    private function setup_merchant_authentication() {
-        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-        $merchantAuthentication->setName( $this->get_option( 'login-id' ) );
-        $merchantAuthentication->setTransactionKey( $this->get_option( 'transaction-key' ) );
-
-        $this->merchantAuthentication = $merchantAuthentication;
-    }
-
-    /**
      * @since 5.5.11
-     * @deprecated since 5.7.2
      */
-    private function get_authnet( $class = null ) {
+    private function get_authnet( $class = NULL ) {
         if ( ! class_exists( 'AuthorizeNet' . $class ) ) {
-            require_once WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php';
+            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
         }
 
         if ( ! $class ) {
-            throw new AuthorizeNetException();
+            throw new AuthorizeNetException;
         }
 
         if ( 'ARB' == $class ) {
@@ -89,7 +62,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     public function validate_settings() {
-        $login_id  = trim( $this->get_option( 'login-id' ) );
+        $login_id = trim( $this->get_option( 'login-id' ) );
         $trans_key = trim( $this->get_option( 'transaction-key' ) );
 
         $errors = array();
@@ -104,7 +77,6 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     public function process_payment( $payment ) {
-        $this->setup_merchant_authentication();
         // This is a recurring payment.
         if ( $payment->has_item_type( 'recurring_plan' ) ) {
             return $this->process_payment_recurring( $payment );
@@ -112,90 +84,20 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
         // This is a regular payment.
         $args = array(
-            'payment_id'         => $payment->id,
-            'payment_key'        => $payment->payment_key,
-            'listing_id'         => $payment->listing_id,
-            'amount'             => $payment->amount,
-            'orderInvoiceNumber' => $payment->id,
-            'orderDescription'   => $payment->summary,
+            'payment_id' => $payment->id,
+            'payment_key' => $payment->payment_key,
+            'listing_id' => $payment->listing_id,
+            'amount' => $payment->amount,
+            'description' => $payment->summary
         );
-
         $args = array_merge( $args, $payment->get_payer_details() );
         $args = array_merge( $args, wp_array_slice_assoc( $_POST, array( 'card_number', 'exp_month', 'exp_year', 'cvc', 'card_name' ) ) );
 
-        $refId = 'ref' . time();
+        $response = $this->aim_request( $args );
 
-        $args['card_object']        = $this->create_card( $args['card_number'], $args['exp_year'] . '-' . $args['exp_month'], $args['cvc'] );
-        $args['payment_type']       = $this->create_payment_type( $args['card_object'] );
-        $args['order']              = $this->create_order( $args );
-        $args['billing_address']    = $this->create_billing_address( $args );
-        $args['customer']           = $this->create_or_retrieve_customer( $args );
-        $args['setting_payment_id'] = $this->create_payment_id_reference( $args );
-        $args['setting_listing_id'] = $this->create_listing_id_reference( $args );
-
-        $transaction_request_type = $this->create_transaction_request_type( $args );
-
-        // Assemble the complete transaction request
-        $request = new AnetAPI\CreateTransactionRequest();
-        $request->setMerchantAuthentication( $this->merchantAuthentication );
-        $request->setRefId( $refId );
-        $request->setTransactionRequest( $transaction_request_type );
-
-        // Create the controller and get the response
-        $controller = new AnetController\CreateTransactionController( $request );
-        $response   = $controller->executeWithApiResponse( $this->API_Endpoint );
-
-        if ( $response != null ) {
-            $tresponse = $response->getTransactionResponse();
-            // Check to see if the API request was successfully received and acted upon
-            if ($response->getMessages()->getResultCode() == 'Ok') {
-                // Since the API request was successful, look for a transaction response
-                // and parse it to display the results of authorizing the card
-
-                $error = false;
-
-                if ( $tresponse != null && $tresponse->getMessages() != null ) {
-                    switch ( $tresponse->getResponseCode() ) {
-                        case '1':
-                            $payment->status        = 'completed';
-                            $payment->gateway_tx_id = $tresponse->getTransId();
-                            break;
-                        case '2':
-                            $payment->status = 'declined';
-                            $error           = true;
-                            break;
-                        case '4':
-                            $payment->status        = 'on-hold';
-                            $payment->gateway_tx_id = $tresponse->getTransId();
-                            $payment->log(
-                                sprintf(
-                                    _x(
-                                        'Payment is being held for review by the payment gateway. The following reason was given: "%s".',
-                                        'authorize-net',
-                                    'WPBDM' ),
-                                    '(' . $tresponse->getMessages()[0]->getCode() . ') ' . rtrim( $tresponse->getMessages()[0]->getDescription(),
-                                        '.'
-                                    )
-                                )
-                            );
-                            break;
-                        case '3':
-                        default:
-                            $payment->status = 'error';
-                            $error           = true;
-                            break;
-                    }
-
-                    if ( $error ) {
-                        $error_msg = sprintf(
-                            _x( 'Payment is being held for review by the payment gateway. The following reason was given: "%s".', 'authorize-net', 'WPBDM' ),
-                            '(' . $tresponse->getMessages()[0]->getCode() . ') ' . rtrim( $tresponse->getMessages()[0]->getDescription(),
-                                '.'
-                            )
-                        );
-                        $payment->log( $error_msg );
-
-                        $payment->save();
+        if ( $response->approved || $response->held ) {
+            $payment->status = $response->approved ? 'completed' : 'on-hold';
+            $payment->gateway_tx_id = $response->transaction_id;
 
             if ( $response->held ) {
                 $error_msg = sprintf( _x( 'Payment is being held for review by the payment gateway. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
@@ -203,7 +105,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
                 $payment->log( $error_msg );
             }
 
-                    $payment->save();
+            $payment->save();
 
             return array( 'result' => 'success' );
         } elseif ( $response->error ) {
@@ -212,8 +114,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             $payment->log( $error_msg );
             $payment->save();
 
-        } else {
-            $error_msg = _x( 'No response returned', 'authorize-net', 'WPBDM' );
+            return array( 'result' => 'failure', 'error' => $error_msg );
         }
 
         // Payment failed for other reasons.
@@ -227,112 +128,76 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     private function process_payment_recurring( $payment ) {
+        // First, make sure we have a webhook endpoint to handle notifications.
+        // $this->setup_webhooks();
 
         @date_default_timezone_set( 'America/Denver' );
 
-        $total          = $payment->amount;
+        $total = $payment->amount;
         $recurring_item = $payment->find_item( 'recurring_plan' );
 
-        $post = stripslashes_deep( $_POST );
-
         $subscription_args = array(
-            'name'                     => $this->generate_subscription_name( $payment ),
-            'intervalLength'           => $recurring_item['fee_days'],
-            'intervalUnit'             => 'days',
-            'totalOccurrences'         => '9999',
-            'startDate'                => date( 'Y-m-d' ),
-            'amount'                   => $recurring_item['amount'],
-            'creditCardCardNumber'     => $post['card_number'],
-            'creditCardExpirationDate' => sprintf( '%02d', $post['exp_month'] ) . '-' . substr( $post['exp_year'], 2 ),
-            'creditCardCardCode'       => $post['cvc'],
-            'first_name'               => $post['payer_first_name'],
-            'last_name'                => $post['payer_last_name'],
-            'address'                  => $post['payer_address'],
-            'address_2'                => $post['payer_address_2'],
-            'city'                     => $post['payer_city'],
-            'state'                    => $post['payer_state'],
-            'country'                  => $post['payer_country'],
-            'zip'                      => $post['payer_zip'],
-            'customerEmail'            => $post['payer_email'],
-            'orderInvoiceNumber'       => $payment->id,
-            'orderDescription'         => $payment->summary,
+            'name' => $this->generate_subscription_name( $payment ),
+            'intervalLength' => $recurring_item['fee_days'],
+            'intervalUnit' => 'days',
+            'totalOccurrences' => '9999',
+            'startDate' => date( 'Y-m-d' ),
+            'amount' => $recurring_item['amount'],
+            'creditCardCardNumber' => $_POST['card_number'],
+            'creditCardExpirationDate' => sprintf( '%02d', $_POST['exp_month'] ) . '-' . substr( $_POST['exp_year'], 2 ),
+            'creditCardCardCode' => $_POST['cvc'],
+            'billToFirstName' => $_POST['payer_first_name'],
+            'billToLastName' => $_POST['payer_last_name'],
+            'billToAddress' => $_POST['payer_address'],
+            'billToCity' => $_POST['payer_city'],
+            'billToState' => $_POST['payer_state'],
+            'billToCountry' => $_POST['payer_country'],
+            'billToZip' => $_POST['payer_zip'],
+            'customerEmail' => $_POST['payer_email'],
+            'orderInvoiceNumber' => $payment->id,
+            'orderDescription' => $payment->summary
         );
 
         if ( $recurring_item['amount'] != $total ) {
-            $subscription_args = array_merge( $subscription_args,
-                array(
-                    'trialAmount'      => $total,
-                    'trialOccurrences' => 1,
-                ) );
+            $subscription_args = array_merge( $subscription_args, array(
+                'trialAmount' => $total,
+                'trialOccurrences' => 1
+            ) );
         }
 
-        // Set the transaction's refId
-        $refId = 'ref' . time();
+        $arb = $this->get_authnet( 'ARB' );
+        $arb->setSandbox( $this->in_test_mode() );
 
-        // Subscription Type Info
-        $subscription = new AnetAPI\ARBSubscriptionType();
-        $subscription->setName( $subscription_args['name'] );
+        $subscription = new AuthorizeNet_Subscription();
+        foreach ( $subscription_args as $arg_name => $arg_val ) {
+            $subscription->{$arg_name} = $arg_val;
+        }
 
-        $interval = new AnetAPI\PaymentScheduleType\IntervalAType();
-        $interval->setLength( $subscription_args['intervalLength'] );
-        $interval->setUnit( $subscription_args['intervalUnit'] );
+        $response = $arb->createSubscription( $subscription );
 
         if ( ! $response->isOk() ) {
             $error_msg = sprintf( _x( 'Payment failed. Reason: %s', 'authorize-net', 'business-directory-plugin' ), $response->getMessageText() );
             $payment->log( $error_msg );
 
-        if ( ! empty( $subscription_args['trialOccurrences'] ) ) {
-            $paymentSchedule->setTrialOccurrences( $subscription_args['trialOccurrences'] );
+            return array( 'result' => 'failure', 'error' => $error_msg );
         }
 
-        $subscription->setPaymentSchedule( $paymentSchedule );
-        $subscription->setAmount( $subscription_args['amount'] );
-        if ( ! empty( $subscription_args['trialAmount'] ) ) {
-            $subscription->setTrialAmount( $subscription_args['trialAmount'] );
-        }
+        $subscription_id = $response->getSubscriptionId();
 
-        $creditCard  = $this->create_card( $subscription_args['creditCardCardNumber'], $subscription_args['creditCardExpirationDate'], $subscription_args['creditCardCardCode'] );
-        $paymentType = $this->create_payment_type( $creditCard );
-        $subscription->setPayment( $paymentType );
+        // Payment is OK.
+        $payment->status = 'completed';
+        $payment->save();
 
-        $order = $this->create_order( $subscription_args );
-        $subscription->setOrder( $order );
+        // Register subscription.
+        $subscription = $payment->get_listing()->get_subscription();
+        $subscription->set_subscription_id( $subscription_id );
+        $subscription->record_payment( $payment );
 
-        $billTo = $this->create_billing_address( $subscription_args );
-        $subscription->setBillTo( $billTo );
-
-        $request = new AnetAPI\ARBCreateSubscriptionRequest();
-        $request->setmerchantAuthentication( $this->merchantAuthentication );
-        $request->setRefId( $refId );
-        $request->setSubscription( $subscription );
-        $controller = new AnetController\ARBCreateSubscriptionController( $request );
-
-        $response = $controller->executeWithApiResponse( $this->API_Endpoint );
-
-        if ( $response != null && 'Ok' === $response->getMessages()->getResultCode() ) {
-            $subscription_id = $response->getSubscriptionId();
-
-            // Payment is OK.
-            $payment->status = 'completed';
-            $payment->save();
-
-            // Register subscription.
-            $subscription = $payment->get_listing()->get_subscription();
-            $subscription->set_subscription_id( $subscription_id );
-            $subscription->record_payment( $payment );
-
-            return array( 'result' => 'success' );
-        }
-
-        $errorMessages = $response->getMessages()->getMessage();
-        $error_msg     = sprintf( _x( 'Payment failed. Reason: %s', 'authorize-net', 'WPBDM' ), $errorMessages[0]->getText() );
-        $payment->log( $error_msg );
-
-        return array( 'result' => 'failure', 'error' => $error_msg );
+        return array( 'result' => 'success' );
     }
 
     private function generate_subscription_name( $payment ) {
-        $listing        = wpbdp_get_listing( $payment->listing_id );
+        $listing = wpbdp_get_listing( $payment->listing_id );
         $recurring_item = $payment->find_item( 'recurring_plan' );
 
         $name  = '';
@@ -343,37 +208,34 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         return substr( $name, 0, 50 );
     }
 
-    /**
-     * @deprecated since 5.7.2
-     */
     private function aim_request( $args = array() ) {
         $aim = $this->get_authnet( 'AIM' );
         $aim->setSandbox( $this->in_test_mode() );
 
         // Basic order info.
         $aim->setFields( array(
-            'amount'      => $args['amount'],
+            'amount' => $args['amount'],
             'description' => $args['description'],
-            'invoice_num' => $args['payment_id'],
+            'invoice_num' => $args['payment_id']
         ) );
 
         // Card info.
         $aim->setFields( array(
-            'card_num'  => $args['card_number'],
-            'exp_date'  => sprintf( '%02d', $args['exp_month'] ) . substr( $args['exp_year'], 2 ),
-            'card_code' => $args['cvc'],
+            'card_num' => $args['card_number'],
+            'exp_date' => sprintf( '%02d', $args['exp_month'] ) . substr( $args['exp_year'], 2 ),
+            'card_code' => $args['cvc']
         ) );
 
         // Billing info.
         $aim->setFields( array(
-            'email'      => ! empty( $args['email'] ) ? $args['email'] : '',
+            'email' => ! empty( $args['email'] ) ? $args['email'] : '',
             'first_name' => ! empty( $args['first_name'] ) ? $args['first_name'] : '',
-            'last_name'  => ! empty( $args['last_name'] ) ? $args['last_name'] : '',
-            'address'    => ! empty( $args['address'] ) ? $args['address'] : '',
-            'city'       => ! empty( $args['city'] ) ? $args['city'] : '',
-            'state'      => ! empty( $args['state'] ) ? $args['state'] : '',
-            'country'    => ! empty( $args['country'] ) ? $args['country'] : '',
-            'zip'        => ! empty( $args['zip'] ) ? $args['zip'] : '',
+            'last_name' => ! empty( $args['last_name'] ) ? $args['last_name'] : '',
+            'address' => ! empty( $args['address'] ) ? $args['address'] : '',
+            'city' => ! empty( $args['city'] ) ? $args['city'] : '',
+            'state' => ! empty( $args['state'] ) ? $args['state'] : '',
+            'country' => ! empty( $args['country'] ) ? $args['country'] : '',
+            'zip' => ! empty( $args['zip'] ) ? $args['zip'] : ''
         ) );
 
         $aim->setCustomField( 'payment_id', $args['payment_id'] );
@@ -386,23 +248,24 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     public function maybe_handle_expiration( $listing ) {
-        if ( ! $listing || ! $listing->has_subscription() ) {
+        if ( ! $listing || ! $listing->has_subscription() )
             return;
-        }
 
         $subscription = $listing->get_subscription();
-        $payment      = $subscription->get_parent_payment();
+        $payment = $subscription->get_parent_payment();
 
-        if ( ! $payment || 'authorize-net' != $payment->gateway ) {
+        if ( ! $payment || 'authorize-net' != $payment->gateway )
             return;
-        }
 
         $susc_id = $subscription->get_subscription_id();
-        if ( ! $susc_id ) {
+        if ( ! $susc_id )
             return;
-        }
 
-        $status = $this->get_subscription_status( $susc_id );
+        $arb = $this->get_authnet( 'ARB' );
+        $arb->setSandbox( $this->in_test_mode() );
+
+        $response = $arb->getSubscriptionStatus( $susc_id );
+        $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
 
         if ( 'active' == $status ) {
             $subscription->record_payment( array( 'amount' => $payment->amount ) );
@@ -412,9 +275,6 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         }
     }
 
-    /**
-     * @deprecated since 5.7.2
-     */
     private function setup_webhooks() {
         if ( $this->in_test_mode() ) {
             $authorize_net_api = 'https://apitest.authorize.net';
@@ -425,47 +285,47 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         $auth_header = 'Basic ' . base64_encode( $this->get_option( 'login-id' ) . ':' . $this->get_option( 'transaction-key' ) );
 
         $listener_url = $this->get_listener_url();
-        $webhook_id   = get_option( 'wpbdp-authorize-webhook-id', '' );
+        $webhook_id = get_option( 'wpbdp-authorize-webhook-id', '' );
 
         // Test the webhook.
         // if ( $webhook_id ) {
-        // $response = wp_remote_get(
-        // $authorize_net_api . '/rest/v1/webhooks/' . $webhook_id,
-        // array(
-        // 'timeout' => 10,
-        // 'sslverify' => false,
-        // 'headers' => array(
-        // 'Authorization' => $auth_header,
-        // 'Content-Type' => 'application/json'
-        // )
-        // )
-        // );
+        //     $response = wp_remote_get(
+        //         $authorize_net_api . '/rest/v1/webhooks/' . $webhook_id,
+        //         array(
+        //             'timeout' => 10,
+        //             'sslverify' => false,
+        //             'headers' => array(
+        //                 'Authorization' => $auth_header,
+        //                 'Content-Type' => 'application/json'
+        //             )
+        //         )
+        //     );
         //
-        // wpbdp_debug_e( 'test', $response );
+        //     wpbdp_debug_e( 'test', $response );
         // }
 
         // Create a webhook.
         if ( ! $webhook_id ) {
-            $request  = wp_remote_post(
+            $request = wp_remote_post(
                 $authorize_net_api . '/rest/v1/webhooks',
                 array(
-                    'timeout'   => 10,
+                    'timeout' => 10,
                     'sslverify' => false,
-                    'headers'   => array(
+                    'headers' => array(
                         'Authorization' => $auth_header,
-                        'Content-Type'  => 'application/json',
+                        'Content-Type' => 'application/json'
                     ),
-                    'body'      => json_encode(
+                    'body' => json_encode(
                         array(
-                            'url'        => $listener_url,
+                            'url' => $listener_url,
                             'eventTypes' => array(
                                 'net.authorize.customer.subscription.created',
                                 'net.authorize.customer.subscription.terminated',
                                 'net.authorize.customer.subscription.cancelled',
-                                'net.authorize.payment.authcapture.created',
-                            ),
+                                'net.authorize.payment.authcapture.created'
+                            )
                         )
-                    ),
+                    )
                 )
             );
             $response = json_decode( wp_remote_retrieve_body( $request ) );
@@ -482,17 +342,15 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             return;
         }
 
-        $status = $this->get_subscription_status( $susc_id );
+        $arb = $this->get_authnet( 'ARB' );
+        $arb->setSandbox( $this->in_test_mode() );
 
-        if ( $status && ! in_array( $status, array( 'canceled', 'terminated' ) ) ) {
-            $refId = 'ref' . time();
+        $response = $arb->getSubscriptionStatus( $susc_id );
+        $status = $response->isOk() ? $response->getSubscriptionStatus() : '';
 
-            $request = new AnetAPI\ARBCancelSubscriptionRequest();
-            $request->setMerchantAuthentication( $merchantAuthentication );
-            $request->setRefId( $refId );
-            $request->setSubscriptionId( $subscriptionId );
-
-            $controller = new AnetController\ARBCancelSubscriptionController( $request );
+        if ( ! in_array( $status, array( 'canceled', 'terminated' ) ) ) {
+            $arb = $this->get_authnet( 'ARB' );
+            $response = $arb->cancelSubscription( $susc_id );
 
             if ( ! $response->isOk() ) {
                 $msg = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'business-directory-plugin' );
@@ -511,193 +369,4 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         $subscription->cancel();
     }
 
-    /**
-     * @since 5.7.2
-     */
-    private function create_card( $card_number, $expiration_date, $card_code ) {
-        // Create the payment data for a credit card
-        $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber( $card_number );
-        $creditCard->setExpirationDate( $expiration_date );
-        $creditCard->setCardCode( $card_code );
-
-        return $creditCard;
-    }
-
-    /**
-     * @since 5.7.2
-     */
-    private function create_payment_type( $creditCard ) {
-        // Add the payment data to a paymentType object
-        $paymentOne = new AnetAPI\PaymentType();
-        $paymentOne->setCreditCard( $creditCard );
-
-        return $paymentOne;
-    }
-
-    /**
-     * @since 5.7.2
-     */
-    private function create_order( $args ) {
-        // Create order information
-        $order = new AnetAPI\OrderType();
-        $order->setInvoiceNumber( $args['orderInvoiceNumber'] );
-        $order->setDescription( $args['orderDescription'] );
-
-        return $order;
-    }
-
-    /**
-     * @since 5.7.2
-     */
-    private function create_billing_address( $args ) {
-        // Set the customer's Bill To address
-        $customerAddress = new AnetAPI\CustomerAddressType();
-        $customerAddress->setFirstName( $args['first_name'] );
-        $customerAddress->setLastName( $args['last_name'] );
-        $customerAddress->setAddress( trim( sprintf( '%s, %s', $args['address'], $args['address_2'] ) ) );
-        $customerAddress->setCity( $args['city'] );
-        $customerAddress->setState( $args['state'] );
-        $customerAddress->setZip( $args['zip'] );
-        $customerAddress->setCountry( $args['country'] );
-
-        return $customerAddress;
-    }
-
-    /**
-     * @since 5.7.2
-     */
-    private function create_or_retrieve_customer( $args ) {
-        $customer_profile_id = get_post_meta( $args['listing_id'], '_authnet_customer_id', true );
-
-        if ( ! $customer_profile_id  ) {
-            $request = new AnetAPI\GetCustomerProfileRequest();
-            $request->setMerchantAuthentication( $this->merchantAuthentication );
-            $request->setEmail( $args['email'] );
-            $controller = new AnetController\GetCustomerProfileController( $request );
-            $response   = $controller->executeWithApiResponse( $this->API_Endpoint );
-
-            if ( ( $response != null ) && ( $response->getMessages()->getResultCode() == 'Ok' ) ) {
-                $profileSelected     = $response->getProfile();
-                $customer_profile_id = $profileSelected->getCustomerProfileId();
-            }
-
-            if ( ! $customer_profile_id ) {
-                // Create a new Customer.
-
-                $refId = 'ref' . time();
-
-                // Create a new CustomerPaymentProfile object
-                $paymentProfile = new AnetAPI\CustomerPaymentProfileType();
-                $paymentProfile->setCustomerType( 'individual' );
-                $paymentProfile->setBillTo( $args['billing_address'] );
-                $paymentProfile->setPayment( $args['payment_type'] );
-                $paymentProfiles[] = $paymentProfile;
-
-                // Create a new CustomerProfileType and add the payment profile object
-                $customerProfile = new AnetAPI\CustomerProfileType();
-                $customerProfile->setDescription( sprintf( '%s %s', _x( 'Customer', 'authorize-net', 'WPBDM' ), get_option( 'blogname' ) ) );
-                $customerProfile->setMerchantCustomerId( 'M_' . time() );
-                $customerProfile->setEmail( $args['email'] );
-                $customerProfile->setpaymentProfiles( $paymentProfiles );
-
-                // Assemble the complete transaction request
-                $request = new AnetAPI\CreateCustomerProfileRequest();
-                $request->setMerchantAuthentication( $this->merchantAuthentication );
-                $request->setRefId( $refId );
-                $request->setProfile( $customerProfile );
-
-                $controller = new AnetController\CreateCustomerProfileController( $request );
-                $response   = $controller->executeWithApiResponse( $this->API_Endpoint );
-
-                if ( ( $response != null ) && ( $response->getMessages()->getResultCode() == 'Ok' ) ) {
-                    $customer_profile_id = $response->getCustomerProfileId();
-                }
-            }
-        }
-
-        if ( $customer_profile_id ) {
-            update_post_meta( $args['listing_id'], '_authnet_customer_id', $customer_profile_id );
-
-            $customerData = new AnetAPI\CustomerDataType();
-            $customerData->setType( 'individual' );
-            $customerData->setId( $customer_profile_id );
-            $customerData->setEmail( $args['email'] );
-
-            return $customerData;
-        }
-
-        return null;
-    }
-
-    /**
-     * @since 5.7.2
-     */
-    private function create_payment_id_reference( $args ) {
-        // Add values for transaction settings
-        $paymentIdSetting = new AnetAPI\UserFieldType();
-        $paymentIdSetting->setName( 'wpbdp_payment_id' );
-        $paymentIdSetting->setValue( $args['payment_id'] );
-
-        return $paymentIdSetting;
-    }
-
-    /**
-     * @since 5.7.2
-     */
-    private function create_listing_id_reference( $args ) {
-        // Add values for transaction settings
-        $listingIdSetting = new AnetAPI\UserFieldType();
-        $listingIdSetting->setName( 'wpbdp_listing_id' );
-        $listingIdSetting->setValue( $args['listing_id'] );
-
-        return $listingIdSetting;
-    }
-
-    /**
-     * @since 5.7.2
-     */
-    private function create_transaction_request_type( $args ) {
-        $duplicateWindowSetting = new AnetAPI\SettingType();
-        $duplicateWindowSetting->setSettingName( 'duplicateWindow' );
-        $duplicateWindowSetting->setSettingValue( '600' );
-
-        // Create a TransactionRequestType object and add the previous objects to it
-        $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType( 'authCaptureTransaction' );
-        $transactionRequestType->setAmount( $args['amount'] );
-        $transactionRequestType->setOrder( $args['order'] );
-        $transactionRequestType->setPayment( $args['payment_type'] );
-        $transactionRequestType->setBillTo( $args['billing_address'] );
-        $transactionRequestType->setCustomer( $args['customer'] );
-        $transactionRequestType->addToTransactionSettings( $duplicateWindowSetting );
-        $transactionRequestType->addToUserFields( $args['setting_payment_id'] );
-        $transactionRequestType->addToUserFields( $args['setting_listing_id'] );
-
-        return $transactionRequestType;
-    }
-
-    /**
-     * @since 5.7.2
-     */
-    private function get_subscription_status( $subscription_id ) {
-        $status = null;
-
-        $refId = 'ref' . time();
-
-        $request = new AnetAPI\ARBGetSubscriptionStatusRequest();
-        $request->setMerchantAuthentication( $this->merchantAuthentication );
-        $request->setRefId( $refId );
-        $request->setSubscriptionId( $subscription_id );
-
-        $controller = new AnetController\ARBGetSubscriptionStatusController( $request );
-
-        $response = $controller->executeWithApiResponse( $this->API_Endpoint );
-
-        if (( $response != null ) && ( $response->getMessages()->getResultCode() == 'Ok' )) {
-            $status = $response->getStatus();
-        }
-
-        return $status;
-    }
 }
