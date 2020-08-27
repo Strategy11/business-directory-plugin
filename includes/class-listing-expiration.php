@@ -53,7 +53,7 @@ class WPBDP__Listing_Expiration {
 
         $user_notifications = wpbdp_get_option( 'user-notifications' );
 
-        if ( ! in_array( 'listing-expires', $user_notifications, true ) ) {
+        if ( ! in_array( 'listing-expires', (array) $user_notifications, true ) ) {
             return;
         }
 
