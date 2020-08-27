@@ -71,7 +71,7 @@ $show_details_section = ! isset( $show_details_section ) ? true : false;
 <div class="wpbdp-checkout-billing-details wpbdp-checkout-section">
     <h3><?php _ex( 'Billing Details', 'checkout', 'business-directory-plugin' ); ?></h3>
 
-    <div class="wpbdp-billing-detail-field">
+    <div class="wpbdp-billing-detail-field wpbdp-required">
         <label><?php _ex( 'Address', 'checkout', 'business-directory-plugin' ); ?></label>
         <span class="wpbdp-description"><?php _ex( 'Please enter the address where you receive your billing statement.', 'checkout', 'business-directory-plugin' ); ?></span>
         <input type="text" name="payer_address" value="<?php echo esc_attr( ! empty( $data['payer_address'] ) ? $data['payer_address'] : '' ); ?>" />

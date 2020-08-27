@@ -45,7 +45,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
      */
     private function get_authnet( $class = NULL ) {
         if ( ! class_exists( 'AuthorizeNet' . $class ) ) {
-            require_once( WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php' );
+            require_once WPBDP_PATH . 'vendors/anet_php_sdk/AuthorizeNet.php';
         }
 
         if ( ! $class ) {
