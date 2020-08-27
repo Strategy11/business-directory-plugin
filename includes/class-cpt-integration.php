@@ -21,6 +21,7 @@ class WPBDP__CPT_Integration {
                 'new_item'           => __( 'New Listing', 'business-directory-plugin' ),
                 'view_item'          => __( 'View Listing', 'business-directory-plugin' ),
                 'search_items'       => __( 'Search Listings', 'business-directory-plugin' ),
+                'all_items'          => __( 'Directory Listings', 'business-directory-plugin' ),
                 'not_found'          => __( 'No listings found', 'business-directory-plugin' ),
                 'not_found_in_trash' => __( 'No listings found in trash', 'business-directory-plugin' ),
             ),

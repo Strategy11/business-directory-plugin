@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-08-26 17:45:06+00:00\n"
+"POT-Creation-Date: 2020-08-27 15:16:00+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -221,31 +221,36 @@ msgid "Search Listings"
 msgstr "Einträge durchsuchen"
 
 #: includes/class-cpt-integration.php:24
+#, fuzzy
+msgid "Directory Listings"
+msgstr "Verzeichniseintrag Entwurf"
+
+#: includes/class-cpt-integration.php:25
 msgid "No listings found"
 msgstr "Keine Einträge gefunden"
 
-#: includes/class-cpt-integration.php:25
+#: includes/class-cpt-integration.php:26
 msgid "No listings found in trash"
 msgstr "Keine Einträge im Papierkorb gefunden"
 
-#: includes/class-cpt-integration.php:46
+#: includes/class-cpt-integration.php:47
 msgid "Directory Categories"
 msgstr "Verz. Kategorien"
 
-#: includes/class-cpt-integration.php:47
+#: includes/class-cpt-integration.php:48
 msgid "Directory Category"
 msgstr "Verzeichnis Kategorie"
 
-#: includes/class-cpt-integration.php:58
+#: includes/class-cpt-integration.php:59
 msgid "Directory Tags"
 msgstr "Verz. Tags"
 
-#: includes/class-cpt-integration.php:59
+#: includes/class-cpt-integration.php:60
 msgid "Directory Tag"
 msgstr "Verzeichnis Tag"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:253
+#: includes/class-cpt-integration.php:254
 #, fuzzy
 msgid "%s listing updated."
 msgid_plural "%s listings updated."
@@ -253,14 +258,14 @@ msgstr[0] "Ein Eintrag wurde bearbeitet."
 msgstr[1] "Ein Eintrag wurde bearbeitet."
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:255
+#: includes/class-cpt-integration.php:256
 msgid "%s listing not updated, somebody is editing it."
 msgid_plural "%s listings not updated, somebody is editing them."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:257
+#: includes/class-cpt-integration.php:258
 #, fuzzy
 msgid "%s listing permanently deleted."
 msgid_plural "%s listings permanently deleted."
@@ -268,7 +273,7 @@ msgstr[0] "Eintrag Enddatum"
 msgstr[1] "Eintrag Enddatum"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:259
+#: includes/class-cpt-integration.php:260
 #, fuzzy
 msgid "%s listing moved to the Trash."
 msgid_plural "%s listings moved to the Trash."
@@ -276,7 +281,7 @@ msgstr[0] "Keine Einträge im Papierkorb gefunden"
 msgstr[1] "Keine Einträge im Papierkorb gefunden"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:261
+#: includes/class-cpt-integration.php:262
 #, fuzzy
 msgid "%s listing restored from the Trash."
 msgid_plural "%s listings restored from the Trash."
@@ -359,13 +364,13 @@ msgstr "Postleitzahl"
 msgid "Free"
 msgstr "Kostenlos"
 
-#: includes/gateways/class-gateway-authorize-net.php:356
+#: includes/gateways/class-gateway-authorize-net.php:498
 msgid ""
 "An error occurred while trying to cancel your subscription. Please try again "
 "later or contact the site administrator."
 msgstr ""
 
-#: includes/gateways/class-gateway-authorize-net.php:360
+#: includes/gateways/class-gateway-authorize-net.php:502
 msgid ""
 "An error occurred while trying to cancel Authorize.net subscription with ID "
 "%s. You can try again later or cancel subscription from gateway dashboard."
@@ -3811,13 +3816,13 @@ msgid "Author"
 msgstr "Author"
 
 #: includes/admin/settings/class-settings-bootstrap.php:724
-#: includes/functions.php:1194
+#: includes/functions.php:1195
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum gepostet"
 
 #: includes/admin/settings/class-settings-bootstrap.php:725
-#: includes/functions.php:1195
+#: includes/functions.php:1196
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Datum zuletzt verändert"
@@ -4263,12 +4268,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Dateien hochladen"
 
-#: includes/functions.php:1192
+#: includes/functions.php:1193
 msgctxt "admin settings"
 msgid "User"
 msgstr "Benutzer"
 
-#: includes/functions.php:1193
+#: includes/functions.php:1194
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Eintrag Enddatum"
@@ -7192,12 +7197,12 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "%s ist ein Pflichtfeld."
 
-#: includes/functions.php:1272
+#: includes/functions.php:1273
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Zurück zu den Ergebnissen"
 
-#: includes/functions.php:1276 includes/functions.php:1281
+#: includes/functions.php:1277 includes/functions.php:1282
 msgctxt "templates"
 msgid "Go back"
 msgstr "Geh zurück"
@@ -7624,35 +7629,37 @@ msgctxt "templates"
 msgid "There are no images currently attached to your listing."
 msgstr "Im Moment sind keine Bilder dem Eintrag angehängt."
 
-#: includes/gateways/class-gateway-authorize-net.php:20
+#: includes/gateways/class-gateway-authorize-net.php:35
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Authorize.net"
 msgstr "Aktiviere Lizenz"
 
-#: includes/gateways/class-gateway-authorize-net.php:38
+#: includes/gateways/class-gateway-authorize-net.php:53
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Login ID"
 msgstr "Login"
 
-#: includes/gateways/class-gateway-authorize-net.php:39
+#: includes/gateways/class-gateway-authorize-net.php:54
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Transaction Key"
 msgstr "Transaktionen"
 
-#: includes/gateways/class-gateway-authorize-net.php:71
+#: includes/gateways/class-gateway-authorize-net.php:98
 msgctxt "authorize-net"
 msgid "Login ID is missing."
 msgstr "Verkäufer ID nicht angegeben."
 
-#: includes/gateways/class-gateway-authorize-net.php:74
+#: includes/gateways/class-gateway-authorize-net.php:101
 msgctxt "authorize-net"
 msgid "Transaction Key is missing."
 msgstr "Transaktionen"
 
-#: includes/gateways/class-gateway-authorize-net.php:103
+#: includes/gateways/class-gateway-authorize-net.php:172
+#: includes/gateways/class-gateway-authorize-net.php:191
+#: includes/gateways/class-gateway-authorize-net.php:201
 #, fuzzy
 msgctxt "authorize-net"
 msgid ""
@@ -7662,7 +7669,7 @@ msgstr ""
 "Ihre Zahlung wartet derzeit auf eine Prüfung. Folgender Grund wurde "
 "angegeben: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:112
+#: includes/gateways/class-gateway-authorize-net.php:210
 #, fuzzy
 msgctxt "authorize-net"
 msgid ""
@@ -7672,21 +7679,33 @@ msgstr ""
 "Das Bezahlung mit Ihrer Kreditkarte ist fehlgeschlagen. Folgender Grund "
 "wurde angeben: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:121
+#: includes/gateways/class-gateway-authorize-net.php:216
+msgctxt "authorize-net"
+msgid "No response returned"
+msgstr ""
+
+#: includes/gateways/class-gateway-authorize-net.php:220
 msgctxt "authorize-net"
 msgid "Payment was rejected. The following reason was given: \"%s\"."
 msgstr "Die Zahlung wurde abgelehnt. Folgender Grund wurde angegeben: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:179
+#: includes/gateways/class-gateway-authorize-net.php:281
+#: includes/gateways/class-gateway-authorize-net.php:328
 msgctxt "authorize-net"
 msgid "Payment failed. Reason: %s"
 msgstr ""
 
-#: includes/gateways/class-gateway-authorize-net.php:204
+#: includes/gateways/class-gateway-authorize-net.php:339
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "Eintrag bearbeiten"
+
+#: includes/gateways/class-gateway-authorize-net.php:599
+#, fuzzy
+msgctxt "authorize-net"
+msgid "Customer"
+msgstr "Benutzerdefiniert"
 
 #: includes/helpers/class-access-keys-sender.php:20
 #, fuzzy
