@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-08-26 17:45:06+00:00\n"
+"POT-Creation-Date: 2020-08-27 15:16:00+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -222,31 +222,36 @@ msgid "Search Listings"
 msgstr "البحث في الإعلانات"
 
 #: includes/class-cpt-integration.php:24
+#, fuzzy
+msgid "Directory Listings"
+msgstr "رابط لطيف لإعلانات الدليل"
+
+#: includes/class-cpt-integration.php:25
 msgid "No listings found"
 msgstr "لم يتم العثور على إعلانات"
 
-#: includes/class-cpt-integration.php:25
+#: includes/class-cpt-integration.php:26
 msgid "No listings found in trash"
 msgstr "لم يتم العثور على إعلانات في سلة المهملات"
 
-#: includes/class-cpt-integration.php:46
+#: includes/class-cpt-integration.php:47
 msgid "Directory Categories"
 msgstr "تصنيفات الدليل"
 
-#: includes/class-cpt-integration.php:47
+#: includes/class-cpt-integration.php:48
 msgid "Directory Category"
 msgstr "تصنيف الدليل"
 
-#: includes/class-cpt-integration.php:58
+#: includes/class-cpt-integration.php:59
 msgid "Directory Tags"
 msgstr "وسوم الدليل"
 
-#: includes/class-cpt-integration.php:59
+#: includes/class-cpt-integration.php:60
 msgid "Directory Tag"
 msgstr "وسم الدليل"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:253
+#: includes/class-cpt-integration.php:254
 #, fuzzy
 msgid "%s listing updated."
 msgid_plural "%s listings updated."
@@ -258,7 +263,7 @@ msgstr[4] "تم تحرير الإعلان"
 msgstr[5] "تم تحرير الإعلان"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:255
+#: includes/class-cpt-integration.php:256
 msgid "%s listing not updated, somebody is editing it."
 msgid_plural "%s listings not updated, somebody is editing them."
 msgstr[0] ""
@@ -269,7 +274,7 @@ msgstr[4] ""
 msgstr[5] ""
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:257
+#: includes/class-cpt-integration.php:258
 #, fuzzy
 msgid "%s listing permanently deleted."
 msgid_plural "%s listings permanently deleted."
@@ -281,7 +286,7 @@ msgstr[4] "إنتهاء صلاحية الإعلان"
 msgstr[5] "إنتهاء صلاحية الإعلان"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:259
+#: includes/class-cpt-integration.php:260
 #, fuzzy
 msgid "%s listing moved to the Trash."
 msgid_plural "%s listings moved to the Trash."
@@ -293,7 +298,7 @@ msgstr[4] "لم يتم العثور على إعلانات في سلة المهم
 msgstr[5] "لم يتم العثور على إعلانات في سلة المهملات"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:261
+#: includes/class-cpt-integration.php:262
 #, fuzzy
 msgid "%s listing restored from the Trash."
 msgid_plural "%s listings restored from the Trash."
@@ -380,13 +385,13 @@ msgstr "الرمز البريدي"
 msgid "Free"
 msgstr "مجاني"
 
-#: includes/gateways/class-gateway-authorize-net.php:356
+#: includes/gateways/class-gateway-authorize-net.php:498
 msgid ""
 "An error occurred while trying to cancel your subscription. Please try again "
 "later or contact the site administrator."
 msgstr ""
 
-#: includes/gateways/class-gateway-authorize-net.php:360
+#: includes/gateways/class-gateway-authorize-net.php:502
 msgid ""
 "An error occurred while trying to cancel Authorize.net subscription with ID "
 "%s. You can try again later or cancel subscription from gateway dashboard."
@@ -3795,13 +3800,13 @@ msgid "Author"
 msgstr "الكاتب"
 
 #: includes/admin/settings/class-settings-bootstrap.php:724
-#: includes/functions.php:1194
+#: includes/functions.php:1195
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "تاريخ النشر"
 
 #: includes/admin/settings/class-settings-bootstrap.php:725
-#: includes/functions.php:1195
+#: includes/functions.php:1196
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "تاريخ آخر تعديل"
@@ -4248,12 +4253,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "رفع الصور"
 
-#: includes/functions.php:1192
+#: includes/functions.php:1193
 msgctxt "admin settings"
 msgid "User"
 msgstr "عضو"
 
-#: includes/functions.php:1193
+#: includes/functions.php:1194
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "تاريخ تسجيل العضو"
@@ -7237,13 +7242,13 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "البلد المطلوب."
 
-#: includes/functions.php:1272
+#: includes/functions.php:1273
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "العودة إلى الدليل."
 
-#: includes/functions.php:1276 includes/functions.php:1281
+#: includes/functions.php:1277 includes/functions.php:1282
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
@@ -7667,35 +7672,37 @@ msgctxt "templates"
 msgid "There are no images currently attached to your listing."
 msgstr "لا توجد أي صور مرفقة حاليا إلى إعلانك."
 
-#: includes/gateways/class-gateway-authorize-net.php:20
+#: includes/gateways/class-gateway-authorize-net.php:35
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Authorize.net"
 msgstr "تفعيل Authorize.net؟"
 
-#: includes/gateways/class-gateway-authorize-net.php:38
+#: includes/gateways/class-gateway-authorize-net.php:53
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Login ID"
 msgstr "معرف تسجيل الدخول"
 
-#: includes/gateways/class-gateway-authorize-net.php:39
+#: includes/gateways/class-gateway-authorize-net.php:54
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Transaction Key"
 msgstr "مفتاح المعاملة"
 
-#: includes/gateways/class-gateway-authorize-net.php:71
+#: includes/gateways/class-gateway-authorize-net.php:98
 msgctxt "authorize-net"
 msgid "Login ID is missing."
 msgstr "معرف تسجيل الدخول مفقود."
 
-#: includes/gateways/class-gateway-authorize-net.php:74
+#: includes/gateways/class-gateway-authorize-net.php:101
 msgctxt "authorize-net"
 msgid "Transaction Key is missing."
 msgstr "مفتاح المعاملة مفقود."
 
-#: includes/gateways/class-gateway-authorize-net.php:103
+#: includes/gateways/class-gateway-authorize-net.php:172
+#: includes/gateways/class-gateway-authorize-net.php:191
+#: includes/gateways/class-gateway-authorize-net.php:201
 #, fuzzy
 msgctxt "authorize-net"
 msgid ""
@@ -7704,7 +7711,7 @@ msgid ""
 msgstr ""
 "الدفع الخاص بك خاضع للمراجعة من طرف قسم الدفع. وذلك للسبب التالي: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:112
+#: includes/gateways/class-gateway-authorize-net.php:210
 #, fuzzy
 msgctxt "authorize-net"
 msgid ""
@@ -7714,21 +7721,33 @@ msgstr ""
 "لم تقبل بوابة الدفع بطاقة الائتمان أو معلومات الفوترة الخاصة بك. وذلك للسبب "
 "التالي: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:121
+#: includes/gateways/class-gateway-authorize-net.php:216
+msgctxt "authorize-net"
+msgid "No response returned"
+msgstr ""
+
+#: includes/gateways/class-gateway-authorize-net.php:220
 msgctxt "authorize-net"
 msgid "Payment was rejected. The following reason was given: \"%s\"."
 msgstr "رفض الدفع. وذلك للسبب التالي: \"%s\"."
 
-#: includes/gateways/class-gateway-authorize-net.php:179
+#: includes/gateways/class-gateway-authorize-net.php:281
+#: includes/gateways/class-gateway-authorize-net.php:328
 msgctxt "authorize-net"
 msgid "Payment failed. Reason: %s"
 msgstr ""
 
-#: includes/gateways/class-gateway-authorize-net.php:204
+#: includes/gateways/class-gateway-authorize-net.php:339
 #, fuzzy
 msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "تحرير الإعلان"
+
+#: includes/gateways/class-gateway-authorize-net.php:599
+#, fuzzy
+msgctxt "authorize-net"
+msgid "Customer"
+msgstr "تخصيص"
 
 #: includes/helpers/class-access-keys-sender.php:20
 #, fuzzy
