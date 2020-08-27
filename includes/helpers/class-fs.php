@@ -109,7 +109,7 @@ final class WPBDP_FS {
 
         if ( ! wp_is_writable( $destdir ) ) {
             return new WP_Error( 'dest-not-writable',
-                                 sprintf( _x( 'Destination dir "%s" is not writable.', 'fs helper', 'WPBDM' ), $destdir ) );
+                                 sprintf( _x( 'Destination dir "%s" is not writable.', 'fs helper', 'business-directory-plugin' ), $destdir ) );
         }
 
         $normalized = basename( basename( strtolower( $zipfile ), '.zip' ), '.tmp' );

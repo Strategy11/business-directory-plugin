@@ -8,10 +8,10 @@ require_once( WPBDP_PATH . 'includes/widgets/class-listings-widget.php' );
 class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
 
     public function __construct() {
-        parent::__construct( _x( 'Business Directory - Featured Listings', 'widgets', 'WPBDM' ),
-                             _x( 'Displays a list of the featured/sticky listings in the directory.', 'widgets', 'WPBDM' ) );
+        parent::__construct( _x( 'Business Directory - Featured Listings', 'widgets', 'business-directory-plugin' ),
+                             _x( 'Displays a list of the featured/sticky listings in the directory.', 'widgets', 'business-directory-plugin' ) );
 
-        $this->set_default_option_value( 'title', _x( 'Featured Listings', 'widgets', 'WPBDM' ) );
+        $this->set_default_option_value( 'title', _x( 'Featured Listings', 'widgets', 'business-directory-plugin' ) );
     }
 
     protected function _form( $instance ) {
@@ -20,7 +20,7 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
                 $this->get_field_name( 'random_order' ),
                 ( isset( $instance['random_order'] ) && $instance['random_order'] == 1 ) ? 'checked="checked"' : '',
                 $this->get_field_id( 'random_order' ),
-                _x( 'Display listings in random order', 'widgets', 'WPBDM' )
+                _x( 'Display listings in random order', 'widgets', 'business-directory-plugin' )
               );
     }
 

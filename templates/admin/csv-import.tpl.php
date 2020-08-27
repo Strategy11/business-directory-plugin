@@ -27,7 +27,7 @@ function _defaults_or( $defs, $key, $val ) {
 <?php
 _ex( 'Here, you can import data into your directory using the CSV format.',
      'admin csv-import',
-     'WPBDM' );
+     'business-directory-plugin' );
 ?><br />
 <?php
 echo str_replace(
@@ -35,19 +35,19 @@ echo str_replace(
     '<a href="https://businessdirectoryplugin.com/knowledge-base/csv-import-export/" target="_blank" rel="noopener">',
     _x( 'We strongly recommend reading our <a>CSV import documentation</a> first to help you do things in the right order.',
         'admin csv-import',
-        'WPBDM' ) );
+        'business-directory-plugin' ) );
 ?></p>
 </div>
 
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="do-import" />
 
-    <h2><?php _ex('Import Files', 'admin csv-import', 'WPBDM' ); ?></h2>
+    <h2><?php _ex('Import Files', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
         <tbody>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('CSV File', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex('CSV File', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="csv-file"
@@ -59,7 +59,7 @@ echo str_replace(
                         <?php
                         echo str_replace( '<a>',
                                           '<a href="#" class="toggle-selection">',
-                                          _x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'WPBDM' ) );
+                                          _x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'business-directory-plugin' ) );
                         ?>
 
                         <ul>
@@ -69,7 +69,7 @@ echo str_replace(
                             </label></li>
                             <?php endforeach; ?>
                             <li>
-                                <label><input type="radio" name="csv-file-local" value="" class="dismiss" /> <?php _ex( '(Upload new file)', 'admin csv-import', 'WPBDM' ); ?></label>
+                                <label><input type="radio" name="csv-file-local" value="" class="dismiss" /> <?php _ex( '(Upload new file)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                             </li>
                         </ul>
                     </div>
@@ -78,7 +78,7 @@ echo str_replace(
             </tr>
             <tr class="form-field">
                 <th scope="row">
-                    <label> <?php _ex('ZIP file containing images', 'admin csv-import', 'WPBDM'); ?></label>
+                    <label> <?php _ex('ZIP file containing images', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <input name="images-file"
@@ -90,7 +90,7 @@ echo str_replace(
                         <?php
                         echo str_replace( '<a>',
                                           '<a href="#" class="toggle-selection">',
-                                          _x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'WPBDM' ) );
+                                          _x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'business-directory-plugin' ) );
                         ?>
 
                         <ul>
@@ -100,7 +100,7 @@ echo str_replace(
                             </label></li>
                             <?php endforeach; ?>
                             <li>
-                                <label><input type="radio" name="images-file-local" value="" class="dismiss" /> <?php _ex( '(Upload new file)', 'admin csv-import', 'WPBDM' ); ?></label>
+                                <label><input type="radio" name="images-file-local" value="" class="dismiss" /> <?php _ex( '(Upload new file)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                             </li>
                         </ul>
                     </div>
@@ -109,11 +109,11 @@ echo str_replace(
             </tr>
     </table>
 
-    <h2><?php _ex('CSV File Settings', 'admin csv-import', 'WPBDM'); ?></h2>
+    <h2><?php _ex('CSV File Settings', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'Column Separator', 'admin csv-import', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'Column Separator', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <?php $column_separator = _defaults_or( $defaults, 'csv-file-separator', ',' ); ?>
@@ -121,25 +121,25 @@ echo str_replace(
                            type="radio"
                            aria-required="true"
                            value=","
-                           <?php echo $column_separator == ',' ? 'checked="checked"' : ''; ?>/><?php _ex( 'Comma (,)', 'admin csv-import', 'WPBDM' ); ?></label>
+                           <?php echo $column_separator == ',' ? 'checked="checked"' : ''; ?>/><?php _ex( 'Comma (,)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                     <br />
                     <label><input name="settings[csv-file-separator]"
                            type="radio"
                            aria-required="true"
                            value=";"
-                           <?php echo $column_separator == ';' ? 'checked="checked"' : ''; ?>/><?php _ex( 'Semicolon (;)', 'admin csv-import', 'WPBDM' ); ?></label>
+                           <?php echo $column_separator == ';' ? 'checked="checked"' : ''; ?>/><?php _ex( 'Semicolon (;)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                     <br />
                     <label><input name="settings[csv-file-separator]"
                            type="radio"
                            aria-required="true"
                            value="tab"
-                           <?php echo $column_separator == "tab" ? 'checked="checked"' : ''; ?>/><?php _ex( 'TAB', 'admin csv-import', 'WPBDM' ); ?></label>
+                           <?php echo $column_separator == "tab" ? 'checked="checked"' : ''; ?>/><?php _ex( 'TAB', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                     <br />
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Image Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
+                    <label> <?php _ex('Image Separator', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex('required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[images-separator]"
@@ -150,7 +150,7 @@ echo str_replace(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Category Separator', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex('required', 'admin forms', 'WPBDM'); ?>)</span></label>
+                    <label> <?php _ex('Category Separator', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex('required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[category-separator]"
@@ -161,11 +161,11 @@ echo str_replace(
             </tr>
     </table>
 
-    <h2><?php _ex('Import settings', 'admin csv-import', 'WPBDM'); ?></h2>
+    <h2><?php _ex('Import settings', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Post status of new imported listings', 'admin csv-import', 'WPBDM'); ?></label>
+                    <label> <?php _ex('Post status of new imported listings', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <select name="settings[post-status]">
@@ -180,11 +180,11 @@ echo str_replace(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Post status of existing imported listings', 'admin csv-import', 'WPBDM'); ?></label>
+                    <label> <?php _ex('Post status of existing imported listings', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <select name="settings[existing-post-status]">
-                            <option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'WPBDM' ); ?></option>
+                            <option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'business-directory-plugin' ); ?></option>
                         <?php foreach ( get_post_statuses() as $post_status => $post_status_label ): ?>
                             <?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
                                 <?php continue; ?>
@@ -196,64 +196,64 @@ echo str_replace(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Missing categories handling', 'admin csv-import', 'WPBDM'); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex('Missing categories handling', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <label><input name="settings[create-missing-categories]"
                            type="radio"
-                           value="1" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Auto-create categories', 'admin csv-import', 'WPBDM'); ?></label>
+                           value="1" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Auto-create categories', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                     <label><input name="settings[create-missing-categories]"
                            type="radio"
-                           value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Generate errors when a category is not found', 'admin csv-import', 'WPBDM'); ?></label>
+                           value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Generate errors when a category is not found', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'Keep existing listing images?', 'admin csv-import', 'WPBDM' ); ?>
+                    <label> <?php _ex( 'Keep existing listing images?', 'admin csv-import', 'business-directory-plugin' ); ?>
                 </th>
                 <td>
                     <label><input name="settings[append-images]"
                            type="checkbox"
-                           value="1" checked="checked" /> <?php _ex( 'Keep existing images.', 'admin csv-import', 'WPBDM' ); ?></label>
-                    <span class="description"><?php _ex( 'Appends new images while keeping current ones.', 'admin csv-import', 'WPBDM' ); ?></span>
+                           value="1" checked="checked" /> <?php _ex( 'Keep existing images.', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+                    <span class="description"><?php _ex( 'Appends new images while keeping current ones.', 'admin csv-import', 'business-directory-plugin' ); ?></span>
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Assign listings to a user?', 'admin csv-import', 'WPBDM'); ?>
+                    <label> <?php _ex('Assign listings to a user?', 'admin csv-import', 'business-directory-plugin' ); ?>
                 </th>
                 <td>
                     <label><input name="settings[assign-listings-to-user]"
                            type="checkbox"
                            class="assign-listings-to-user"
-                           value="1" <?php echo _defaults_or( $defaults, 'assign-listings-to-user', 1 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Assign listings to a user.', 'admin csv-import', 'WPBDM'); ?></label>
+                           value="1" <?php echo _defaults_or( $defaults, 'assign-listings-to-user', 1 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Assign listings to a user.', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </td>
             </tr>
             <tr class="form-required default-user-selection">
                 <th scope="row">
-                    <label> <?php _ex( 'Use a default user for listings?', 'admin csv-import', 'WPBDM' ); ?></label>
+                    <label> <?php _ex( 'Use a default user for listings?', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label><input
                            type="checkbox"
                            class="use-default-listing-user"
-                           value="1" <?php echo _defaults_or( $defaults, 'default-user', '' ) ? 'checked="checked"' : ''; ?> /> <?php _ex( 'Select a default user to be used if the username column is not present in the CSV file.', 'admin csv-import', 'WPBDM' ); ?></label>
+                           value="1" <?php echo _defaults_or( $defaults, 'default-user', '' ) ? 'checked="checked"' : ''; ?> /> <?php _ex( 'Select a default user to be used if the username column is not present in the CSV file.', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </td>
             </tr>
             <tr class="form-required default-user-selection">
                 <th scope="row">
-                    <label> <?php _ex('Default listing user', 'admin csv-import', 'WPBDM'); ?></label>
+                    <label> <?php _ex('Default listing user', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <?php echo wpbdp_render_user_field( array( 'class' => 'default-user', 'name' => 'settings[default-user]', 'value' => _defaults_or( $defaults, 'default-user', '' ) ) ); ?>
                     </label>
-                    <span class="description"><?php _ex('This user will be used if the username column is not present in the CSV file.', 'admin csv-import', 'WPBDM'); ?></span>
+                    <span class="description"><?php _ex('This user will be used if the username column is not present in the CSV file.', 'admin csv-import', 'business-directory-plugin' ); ?></span>
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Number of listings imported on every cycle', 'admin csv-import', 'WPBDM'); ?></label>
+                    <label> <?php _ex('Number of listings imported on every cycle', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <select name="settings[batch-size]">
@@ -261,43 +261,43 @@ echo str_replace(
                             <option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <span class="description"><?php _ex('If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'admin csv-import', 'WPBDM'); ?></span>
+                    <span class="description"><?php _ex('If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'admin csv-import', 'business-directory-plugin' ); ?></span>
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'Disable e-mail notifications during import?', 'admin csv-import', 'WPBDM' ); ?>
+                    <label> <?php _ex( 'Disable e-mail notifications during import?', 'admin csv-import', 'business-directory-plugin' ); ?>
                 </th>
                 <td>
                     <label><input name="settings[disable-email-notifications]"
                            type="checkbox"
-                           value="1" checked="checked" /> <?php _ex( 'Disable e-mail notifications.', 'admin csv-import', 'WPBDM' ); ?></label>
+                           value="1" checked="checked" /> <?php _ex( 'Disable e-mail notifications.', 'admin csv-import', 'business-directory-plugin' ); ?></label>
                 </td>
             </tr>
     </table>
 
     <p class="submit">
-        <?php echo submit_button(_x('Test Import', 'admin csv-import', 'WPBDM'), 'secondary', 'test-import', false); ?>
-        <?php echo submit_button(_x('Import Listings', 'admin csv-import', 'WPBDM'), 'primary', 'do-import', false); ?>
+        <?php echo submit_button(_x('Test Import', 'admin csv-import', 'business-directory-plugin' ), 'secondary', 'test-import', false); ?>
+        <?php echo submit_button(_x('Import Listings', 'admin csv-import', 'business-directory-plugin' ), 'primary', 'do-import', false); ?>
     </p>
 </form>
 
 <hr />
 <a name="help"></a>
-<h2><?php _ex('Help', 'admin csv-import', 'WPBDM'); ?></h2>
+<h2><?php _ex('Help', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
 <p>
-    <?php echo sprintf(_x('The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'admin csv-import', 'WPBDM'),
+    <?php echo sprintf(_x('The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'admin csv-import', 'business-directory-plugin' ),
                   esc_url(add_query_arg('action', 'example-csv'))); ?>
 </p>
 
 <table class="wpbdp-csv-import-headers">
     <thead>
         <tr>
-            <th class="header-name"><?php _ex('Header name/label', 'admin csv-import', 'WPBDM'); ?></th>
-            <th class="field-label"><?php _ex('Field', 'admin csv-import', 'WPBDM'); ?></th>
-            <th class="field-type"><?php _ex('Type', 'admin csv-import', 'WPBDM'); ?></th>
-            <th class="field-is-required"><?php _ex('Required?', 'admin csv-import', 'WPBDM'); ?></th>
-            <th class="field-is-multivalued"><?php _ex('Multivalued?', 'admin csv-import', 'WPBDM'); ?></th>
+            <th class="header-name"><?php _ex('Header name/label', 'admin csv-import', 'business-directory-plugin' ); ?></th>
+            <th class="field-label"><?php _ex('Field', 'admin csv-import', 'business-directory-plugin' ); ?></th>
+            <th class="field-type"><?php _ex('Type', 'admin csv-import', 'business-directory-plugin' ); ?></th>
+            <th class="field-is-required"><?php _ex('Required?', 'admin csv-import', 'business-directory-plugin' ); ?></th>
+            <th class="field-is-multivalued"><?php _ex('Multivalued?', 'admin csv-import', 'business-directory-plugin' ); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -319,35 +319,35 @@ echo str_replace(
     <?php $i++; endforeach; ?>
         <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">fee_id</td>
-            <td class="field-label"><?php _ex( 'Fee ID (integer) associated to a listing. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'WPBDM' ); ?></td>
+            <td class="field-label"><?php _ex( 'Fee ID (integer) associated to a listing. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
         <tr class="<?php echo ($i + 1) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">images</td>
-            <td class="field-label"><?php _ex('Semicolon separated list of listing images (from the ZIP file)', 'admin csv-import', 'WPBDM'); ?></td>
+            <td class="field-label"><?php _ex('Semicolon separated list of listing images (from the ZIP file)', 'admin csv-import', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued">X</td>
         </tr>
         <tr class="<?php echo ($i + 2) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">username</td>
-            <td class="field-label"><?php _ex('Listing author\'s username', 'admin csv-import', 'WPBDM'); ?></td>
+            <td class="field-label"><?php _ex('Listing author\'s username', 'admin csv-import', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
         <tr class="<?php echo ($i + 3) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">sequence_id</td>
-            <td class="field-label"><?php _ex( 'Internal Sequence ID used to allow listing updates from external sources.', 'admin csv-import', 'WPBDM' ); ?></td>
+            <td class="field-label"><?php _ex( 'Internal Sequence ID used to allow listing updates from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
         <tr class="<?php echo ($i + 4) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">expires_on</td>
-            <td class="field-label"><?php _ex( 'Date of listing expiration formatted as YYYY-MM-DD. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'WPBDM' ); ?></td>
+            <td class="field-label"><?php _ex( 'Date of listing expiration formatted as YYYY-MM-DD. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>

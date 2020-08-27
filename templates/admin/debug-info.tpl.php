@@ -2,11 +2,11 @@
 
 <div id="wpbdp-admin-debug-info-page">
 <p>
-	<?php _ex( 'The following information can help BD developers debug possible problems with your setup.', 'debug-info', 'WPBDM' ); ?>
-	<strong><u><?php _ex( 'The debug information does not contain personal or sensitive information such as passwords or private keys.', 'debug-info', 'WPBDM' ); ?></u></strong>
+	<?php _ex( 'The following information can help BD developers debug possible problems with your setup.', 'debug-info', 'business-directory-plugin' ); ?>
+	<strong><u><?php _ex( 'The debug information does not contain personal or sensitive information such as passwords or private keys.', 'debug-info', 'business-directory-plugin' ); ?></u></strong>
 </p>
 <p style="text-align: right;">
-    <a href="<?php echo esc_url( add_query_arg( 'download', '1' ) ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'WPBDM' ); ?></a>
+    <a href="<?php echo esc_url( add_query_arg( 'download', '1' ) ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'business-directory-plugin' ); ?></a>
 </p>
 
 <h3 class="nav-tab-wrapper">

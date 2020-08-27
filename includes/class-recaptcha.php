@@ -33,7 +33,7 @@ class WPBDP_reCAPTCHA {
 
         $this->version       = wpbdp_get_option( 'recaptcha-version', 'v2' );
         $this->threshold     = wpbdp_get_option( 'recaptcha-threshold', 0.5 );
-        $this->error_message = 'v2' === $this->version ? _x( 'The reCAPTCHA wasn\'t entered correctly.', 'recaptcha', 'WPBDM' ) : _x( 'The reCAPTCHA validation score failed.', 'recaptcha', 'WPBDM' );
+        $this->error_message = 'v2' === $this->version ? _x( 'The reCAPTCHA wasn\'t entered correctly.', 'recaptcha', 'business-directory-plugin' ) : _x( 'The reCAPTCHA validation score failed.', 'recaptcha', 'business-directory-plugin' );
 
         add_action( 'wp_enqueue_scripts', array( &$this, '_enqueue_js_api' ) );
 
@@ -252,7 +252,7 @@ JS;
             return $submit_sections;
         }
 
-        $submit_sections['recaptcha'] = array( 'title' => _x( 'reCAPTCHA', 'recaptcha', 'WPBDM' ) );
+        $submit_sections['recaptcha'] = array( 'title' => _x( 'reCAPTCHA', 'recaptcha', 'business-directory-plugin' ) );
 
         return $submit_sections;
     }

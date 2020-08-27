@@ -3,7 +3,7 @@
 class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x('Social Site (Twitter handle)', 'form-fields api', 'WPBDM') );
+        parent::__construct( _x('Social Site (Twitter handle)', 'form-fields api', 'business-directory-plugin' ) );
     }
 
     public function get_id() {
@@ -80,7 +80,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
     public function render_field_settings( &$field=null, $association=null ) {
         $settings = array();
 
-        $settings['show_count'][] = _x( 'Show followers count?', 'form-fields admin', 'WPBDM' );
+        $settings['show_count'][] = _x( 'Show followers count?', 'form-fields admin', 'business-directory-plugin' );
         $settings['show_count'][] = '<input type="checkbox" value="1" name="field[show_count]" ' . ( $field && $field->data( 'show_count' ) ? ' checked="checked"' : '' ) . ' />';
 
         return self::render_admin_settings( $settings );

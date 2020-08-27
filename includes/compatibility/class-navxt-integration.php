@@ -193,15 +193,15 @@ class WPBDP_NavXT_Integration {
     }
 
     function before_submit( $trail ) {
-        $trail->add( new bcn_breadcrumb( _x( 'Submit Listing', 'navxt', 'WPBDM' ) ) );
+        $trail->add( new bcn_breadcrumb( _x( 'Submit Listing', 'navxt', 'business-directory-plugin' ) ) );
     }
 
     function before_edit( $trail ) {
-        $trail->add( new bcn_breadcrumb( _x( 'Edit Listing', 'navxt', 'WPBDM' ) ) );
+        $trail->add( new bcn_breadcrumb( _x( 'Edit Listing', 'navxt', 'business-directory-plugin' ) ) );
     }
 
     function before_search( $trail ) {
-        $trail->add( new bcn_breadcrumb( _x( 'Search', 'navxt', 'WPBDM' ) ) );
+        $trail->add( new bcn_breadcrumb( _x( 'Search', 'navxt', 'business-directory-plugin' ) ) );
     }
 
     // }}

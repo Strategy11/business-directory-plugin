@@ -25,10 +25,10 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         echo '<div id="wpbdp-submit-listing">';
 
         echo '<ul class="wpbdp-admin-tab-nav subsubsub">';
-        echo '<li><a href="#wpbdp-listing-fields-fields">' . _x( 'Fields', 'admin', 'WPBDM' ) . '</a> | </li>';
+        echo '<li><a href="#wpbdp-listing-fields-fields">' . _x( 'Fields', 'admin', 'business-directory-plugin' ) . '</a> | </li>';
         echo '<li><a href="#wpbdp-listing-fields-images">';
-        echo '<span class="with-image-count ' . ( $image_count > 0 ? '' : ' hidden' ) . '">' . sprintf( _x( 'Images (%s)', 'admin', 'WPBDM' ), '<span>' . $image_count . '</span>' ) . '</span>';
-        echo '<span class="no-image-count' . ( $image_count > 0 ? ' hidden' : '' ) . '">' . _x( 'Images', 'admin', 'WPBDM' ) . '</span>';
+        echo '<span class="with-image-count ' . ( $image_count > 0 ? '' : ' hidden' ) . '">' . sprintf( _x( 'Images (%s)', 'admin', 'business-directory-plugin' ), '<span>' . $image_count . '</span>' ) . '</span>';
+        echo '<span class="no-image-count' . ( $image_count > 0 ? ' hidden' : '' ) . '">' . _x( 'Images', 'admin', 'business-directory-plugin' ) . '</span>';
         echo '</a></li>';
         echo '</ul>';
 

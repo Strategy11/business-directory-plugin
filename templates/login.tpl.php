@@ -30,26 +30,26 @@ $login_args['redirect'] = $redirect_to;
 <div id="wpbdp-login-view">
 
     <?php if ( $show_message ) : ?>
-    <?php echo wpbdp_render_msg( _x( "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'templates', 'WPBDM' ) ); ?>
+    <?php echo wpbdp_render_msg( _x( "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'templates', 'business-directory-plugin' ) ); ?>
     <?php endif; ?>
 
     <div class="wpbdp-login-options <?php echo $access_key_enabled ? 'options-2' : 'options-1'; ?>">
 
         <div id="wpbdp-login-form" class="wpbdp-login-option">
-            <h4><?php _ex( 'Login', 'views:login', 'WPBDM' ); ?></h4>
+            <h4><?php _ex( 'Login', 'views:login', 'business-directory-plugin' ); ?></h4>
             <?php wp_login_form( $login_args ); ?>
 
             <p class="wpbdp-login-form-extra-links">
                 <?php if ( $registration_url ) : ?>
-                <a class="register-link" href="<?php echo esc_url( $registration_url ); ?>" rel="nofollow"><?php _ex( 'Not yet registered?', 'templates', 'WPBDM' ); ?></a> |
+                <a class="register-link" href="<?php echo esc_url( $registration_url ); ?>" rel="nofollow"><?php _ex( 'Not yet registered?', 'templates', 'business-directory-plugin' ); ?></a> |
                 <?php endif; ?>
-                <a href="<?php echo esc_url( $lost_password_url ); ?>" rel="nofollow"><?php _ex( 'Lost your password?', 'templates', 'WPBDM' ); ?></a>
+                <a href="<?php echo esc_url( $lost_password_url ); ?>" rel="nofollow"><?php _ex( 'Lost your password?', 'templates', 'business-directory-plugin' ); ?></a>
             </p>
         </div>
 
         <?php if ( $access_key_enabled ) : ?>
             <div id="wpbdp-login-access-key-form" class="wpbdp-login-option">
-                <h4><?php _ex( '... or use an Access Key', 'views:login', 'WPBDM' ); ?></h4>
+                <h4><?php _ex( '... or use an Access Key', 'views:login', 'business-directory-plugin' ); ?></h4>
                 <?php if ( $errors ) : ?>
                     <div class="wpbdp-submit-listing-section-messages">
                     <?php foreach ( $errors as $error ) : ?>
@@ -57,24 +57,24 @@ $login_args['redirect'] = $redirect_to;
                     <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
-                <p class="access-key-message"><?php _ex( 'Please enter your access key and e-mail address.', 'views:login', 'WPBDM' ); ?></p>
+                <p class="access-key-message"><?php _ex( 'Please enter your access key and e-mail address.', 'views:login', 'business-directory-plugin' ); ?></p>
 
                 <form action="" method="post">
                     <input type="hidden" name="method" value="access_key" />
                     <p>
                         <label for="wpbdp-access-key-email">
-                            <?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>
+                            <?php _ex( 'E-Mail Address', 'views:login', 'business-directory-plugin' ); ?>
                         </label>
-                        <input id="wpbdp-access-key-email" type="text" name="email" value="" placeholder="<?php _ex( 'E-Mail Address', 'views:login', 'WPBDM' ); ?>" required/>
+                        <input id="wpbdp-access-key-email" type="text" name="email" value="" placeholder="<?php _ex( 'E-Mail Address', 'views:login', 'business-directory-plugin' ); ?>" required/>
                     </p>
                     <p>
                         <label for="wpbdp-access-key-value">
-                            <?php _ex( 'Access Key', 'views:login', 'WPBDM' ); ?>
+                            <?php _ex( 'Access Key', 'views:login', 'business-directory-plugin' ); ?>
                         </label>
-                        <input id="wpbdp-access-key-value" type="text" name="access_key" value="" placeholder="<?php _ex( 'Access Key', 'views:login', 'WPBDM' ); ?>" required/>
+                        <input id="wpbdp-access-key-value" type="text" name="access_key" value="" placeholder="<?php _ex( 'Access Key', 'views:login', 'business-directory-plugin' ); ?>" required/>
                     </p>
-                    <p><input type="submit" value="<?php _ex( 'Use Access Key', 'views:login', 'WPBDM' ); ?>" /></p>
-                    <p><a href="<?php echo esc_url( $request_access_key_url ); ?>"><?php _ex( 'Request access key?', 'views:login', 'WPBDM' ); ?></a></p>
+                    <p><input type="submit" value="<?php _ex( 'Use Access Key', 'views:login', 'business-directory-plugin' ); ?>" /></p>
+                    <p><a href="<?php echo esc_url( $request_access_key_url ); ?>"><?php _ex( 'Request access key?', 'views:login', 'business-directory-plugin' ); ?></a></p>
                 </form>
             </div>
         <?php endif; ?>

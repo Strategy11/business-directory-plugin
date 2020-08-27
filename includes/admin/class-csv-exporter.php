@@ -101,15 +101,15 @@ class WPBDP_CSVExporter {
                     $this->workingdir = rtrim( $csvexportsdir . DIRECTORY_SEPARATOR . uniqid(), DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR;
 
                     if ( ! mkdir( $this->workingdir, 0777 ) ) {
-                        $direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'WPBDM' );
+                        $direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'business-directory-plugin' );
                     }
                 } else {
-                    $direrror = _x( 'Could not create wpbdp-csv-exports directory.', 'admin csv-export', 'WPBDM' );
+                    $direrror = _x( 'Could not create wpbdp-csv-exports directory.', 'admin csv-export', 'business-directory-plugin' );
                 }
             }
 
             if ( $direrror ) {
-                throw new Exception( sprintf( _x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'WPBDM' ), $direrror ) );
+                throw new Exception( sprintf( _x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'business-directory-plugin' ), $direrror ) );
             }
         } else {
             $this->workingdir = $workingdir;

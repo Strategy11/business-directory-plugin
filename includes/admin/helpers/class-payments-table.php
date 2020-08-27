@@ -9,14 +9,14 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
     public function __construct() {
         parent::__construct( array(
-            'singular' => _x( 'payment', 'payments admin', 'WPBDM' ),
-            'plural' => _x( 'payments', 'payments admin', 'WPBDM' ),
+            'singular' => _x( 'payment', 'payments admin', 'business-directory-plugin' ),
+            'plural' => _x( 'payments', 'payments admin', 'business-directory-plugin' ),
             'ajax' => false
         ) );
     }
 
     public function no_items() {
-        echo _x( 'No payments found.', 'payments admin', 'WPBDM' );
+        echo _x( 'No payments found.', 'payments admin', 'business-directory-plugin' );
     }
 
     public function get_current_view() {
@@ -29,7 +29,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         $views_ = array();
 
         $count = WPBDP_Payment::objects()->count();
-        $views_['all'] = array( _x( 'All', 'payments admin', 'WPBDM' ), $count );
+        $views_['all'] = array( _x( 'All', 'payments admin', 'business-directory-plugin' ), $count );
 
         foreach ( WPBDP_Payment::get_stati() as $status => $status_label ) {
             $count = WPBDP_Payment::objects()->filter( array( 'status' => $status ) )->count();
@@ -50,12 +50,12 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
     public function get_columns() {
         $cols = array(
-            'listing' => _x( 'Listing', 'fees admin', 'WPBDM' ),
-            'payment_id' => _x( 'ID', 'fees admin', 'WPBDM' ),
-            'date' => _x( 'Date', 'fees admin', 'WPBDM' ),
-            'details' => _x( 'Payment History', 'fees admin', 'WPBDM' ),
-            'amount' => _x( 'Amount', 'fees admin', 'WPBDM' ),
-            'status' => _x( 'Status', 'fees admin', 'WPBDM' )
+            'listing' => _x( 'Listing', 'fees admin', 'business-directory-plugin' ),
+            'payment_id' => _x( 'ID', 'fees admin', 'business-directory-plugin' ),
+            'date' => _x( 'Date', 'fees admin', 'business-directory-plugin' ),
+            'details' => _x( 'Payment History', 'fees admin', 'business-directory-plugin' ),
+            'amount' => _x( 'Amount', 'fees admin', 'business-directory-plugin' ),
+            'status' => _x( 'Status', 'fees admin', 'business-directory-plugin' )
         );
 
         return $cols;
@@ -115,7 +115,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function column_details( $payment ) {
-        return '<a href="' . esc_url( add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->id ) ) ) . '">' . _x( 'View Payment History', 'payments admin', 'WPBDM' ) . '</a>';
+        return '<a href="' . esc_url( add_query_arg( array( 'wpbdp-view' => 'details', 'payment-id' => $payment->id ) ) ) . '">' . _x( 'View Payment History', 'payments admin', 'business-directory-plugin' ) . '</a>';
     }
 
     public function column_listing( $payment ) {
@@ -131,25 +131,25 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 //         $actions = array();
 //         $actions['edit'] = sprintf('<a href="%s">%s</a>',
 //                                    esc_url(add_query_arg(array('wpbdp-view' => 'edit-fee', 'id' => $fee->id))),
-//                                    _x('Edit', 'fees admin', 'WPBDM'));
+//                                    _x('Edit', 'fees admin', 'business-directory-plugin' ));
 //
 //         if ( 'free' == $fee->tag ) {
 // //            $actions['delete'] = sprintf('<a href="%s">%s</a>',
 // //                                       esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),
-// //                                       _x('Disable', 'fees admin', 'WPBDM'));
+// //                                       _x('Disable', 'fees admin', 'business-directory-plugin' ));
 //         } else {
 //             if ( $fee->enabled )
 //                 $actions['disable'] = sprintf('<a href="%s">%s</a>',
 //                                            esc_url(add_query_arg(array('wpbdp-view' => 'toggle-fee', 'id' => $fee->id))),
-//                                            _x('Disable', 'fees admin', 'WPBDM'));
+//                                            _x('Disable', 'fees admin', 'business-directory-plugin' ));
 //             else
 //                 $actions['enable'] = sprintf('<a href="%s">%s</a>',
 //                                            esc_url(add_query_arg(array('wpbdp-view' => 'toggle-fee', 'id' => $fee->id))),
-//                                            _x('Enable', 'fees admin', 'WPBDM'));
+//                                            _x('Enable', 'fees admin', 'business-directory-plugin' ));
 //
 //             $actions['delete'] = sprintf('<a href="%s">%s</a>',
 //                                        esc_url(add_query_arg(array('wpbdp-view' => 'delete-fee', 'id' => $fee->id))),
-//                                        _x('Delete', 'fees admin', 'WPBDM'));
+//                                        _x('Delete', 'fees admin', 'business-directory-plugin' ));
 //         }
 //
 //         $html = '';

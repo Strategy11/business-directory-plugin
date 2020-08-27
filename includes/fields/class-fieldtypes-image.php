@@ -10,7 +10,7 @@
 class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x( 'Image (file upload)', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'Image (file upload)', 'form-fields api', 'business-directory-plugin' ) );
 
         // TODO(fes-revamp): maybe this should go somewhere else?
         add_action( 'wp_ajax_wpbdp-file-field-upload', array( $this, '_ajax_file_field_upload' ) );
@@ -40,7 +40,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $args['caption_required'] = $field->data( 'caption_required' );
         $args['messages']         = array(
             'caption_required' => sprintf(
-                _x( 'Caption for %s is required.', 'date field', 'WPBDM' ),
+                _x( 'Caption for %s is required.', 'date field', 'business-directory-plugin' ),
                 esc_attr( $field->get_label() )
             ),
         );
@@ -54,10 +54,10 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $settings = array();
 
-        $settings['display-caption'][] = _x( 'Display caption?', 'form-fields admin', 'WPBDM' );
+        $settings['display-caption'][] = _x( 'Display caption?', 'form-fields admin', 'business-directory-plugin' );
         $settings['display-caption'][] = '<input type="checkbox" value="1" name="field[x_display_caption]" ' . ( $field && $field->data( 'display_caption' ) ? ' checked="checked"' : '' ) . ' />';
 
-        $settings['caption-required'][] = _x( 'Field Caption required?', 'form-fields admin', 'WPBDM' );
+        $settings['caption-required'][] = _x( 'Field Caption required?', 'form-fields admin', 'business-directory-plugin' );
         $settings['caption-required'][] = '<input type="checkbox" value="1" name="field[x_caption_required]" ' . ( $field && $field->data( 'caption_required' ) ? ' checked="checked"' : '' ) . ' />';
 
         return self::render_admin_settings( $settings );
@@ -99,7 +99,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
             $field->get_id(),
             'listingfields[' . $field->get_id() . '][0]',
-            _x( 'Remove', 'form-fields-api', 'WPBDM' )
+            _x( 'Remove', 'form-fields-api', 'business-directory-plugin' )
         );
 
         $html .= sprintf(
@@ -122,7 +122,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         }
 
         if ( ! $listing_id ) {
-            return wpbdp_render_msg( _x( 'Field unavailable at the moment.', 'form fields', 'WPBDM' ), 'error' );
+            return wpbdp_render_msg( _x( 'Field unavailable at the moment.', 'form fields', 'business-directory-plugin' ), 'error' );
         }
 
         if ( is_admin() ) {
@@ -142,11 +142,11 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             $html .= '<div class="wpbdp_media_images_wrapper">';
             $html .= sprintf( 
                 '<input type="button" class="button" value="%s" id="wpbdp_media_manager" data-action="%s"/>',
-                __( 'Select from Media', 'WPBDM' ),
+                __( 'Select from Media', 'business-directory-plugin' ),
                 $ajax_url
             );
             $html .= '</div>';
-            $html .= _x( 'or', 'templates image upload', 'WPBDM' );
+            $html .= _x( 'or', 'templates image upload', 'business-directory-plugin' );
             $html .= '</div>';
         }
 
@@ -306,7 +306,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $image_id = isset( $data['image_ids'] ) ? $data['image_ids'] : 0;
 
         if( ! $image_id ) {
-            return wp_send_json_error( array( 'errors' => _x( 'Could not find image ID', 'admin listings', 'WPBDM' ) ) );
+            return wp_send_json_error( array( 'errors' => _x( 'Could not find image ID', 'admin listings', 'business-directory-plugin' ) ) );
         }
 
         $element = ! empty( $_REQUEST['element'] ) ? $_REQUEST['element'] : 'listingfields[' . $field_id . '][0]';

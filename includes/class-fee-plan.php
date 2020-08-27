@@ -161,9 +161,9 @@ final class WPBDP__Fee_Plan {
 
         if ( wpbdp_get_option( 'allow-images' ) ) {
             if ( ! $this->images ) {
-                $items['images'] = _x( 'No images allowed.', 'fee plan', 'WPBDM' );
+                $items['images'] = _x( 'No images allowed.', 'fee plan', 'business-directory-plugin' );
             } else {
-				$items['images'] = sprintf( _nx( '%d image allowed.', '%d images allowed.', $this->images, 'fee plan', 'WPBDM' ), $this->images );
+				$items['images'] = sprintf( _nx( '%d image allowed.', '%d images allowed.', $this->images, 'fee plan', 'business-directory-plugin' ), $this->images );
             }
         }
 
@@ -317,21 +317,21 @@ final class WPBDP__Fee_Plan {
         $errors = array();
 
         if ( ! $this->label ) {
-            $errors['label'] = _x( 'Fee label is required.', 'fees-api', 'WPBDM' );
+            $errors['label'] = _x( 'Fee label is required.', 'fees-api', 'business-directory-plugin' );
         }
 
         // limit 'duration' because of TIMESTAMP limited range (issue #157).
         // FIXME: this is not a long-term fix. we should move to DATETIME to avoid this entirely.
         if ( $this->days > 3650 ) {
-            $errors['days'] = _x( 'Fee listing duration must be a number less than 10 years (3650 days).', 'fees-api', 'WPBDM' );
+            $errors['days'] = _x( 'Fee listing duration must be a number less than 10 years (3650 days).', 'fees-api', 'business-directory-plugin' );
         }
 
         if ( 1 == $this->recurring ) {
             if ( 0 === $this->days ) {
-                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-days">', _x( 'To set this fee as "Recurring" you must have a time for the listing to renew (e.g. 30 days). To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'WPBDM' ) );
+                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-days">', _x( 'To set this fee as "Recurring" you must have a time for the listing to renew (e.g. 30 days). To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'business-directory-plugin' ) );
             }
 
-            $error_message = _x( 'To set this fee as "Recurring" you must set a price for your fee plan. To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'WPBDM' );
+            $error_message = _x( 'To set this fee as "Recurring" you must set a price for your fee plan. To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'business-directory-plugin' );
 
             if ( 'variable' === $this->pricing_model && 0 === array_sum( $this->pricing_details ) ) {
                 $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-category">', $error_message );

@@ -10,7 +10,7 @@
 class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x( 'Textfield', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'Textfield', 'form-fields api', 'business-directory-plugin' ) );
     }
 
     public function get_id() {
@@ -54,7 +54,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         $html = '';
 
         if ( $field->has_validator( 'date' ) ) {
-            $html .= _x( 'Format 01/31/1969', 'form-fields api', 'WPBDM' );
+            $html .= _x( 'Format 01/31/1969', 'form-fields api', 'business-directory-plugin' );
         }
 
         if ( isset( $field_settings['html_before'] ) ) {

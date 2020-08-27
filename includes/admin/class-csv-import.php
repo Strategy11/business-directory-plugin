@@ -500,13 +500,13 @@ class WPBDP_CSV_Import {
                 if ( is_array( $t ) && isset( $t['term_id'] ) ) {
                     $c['term_id'] = $t['term_id'];
                 } elseif ( is_wp_error( $t ) ) {
-                    $message = _x( 'Could not create listing category "<category-name>". The operation failed with the following error: <error-message>.', 'admin csv-import', 'WPBDM' );
+                    $message = _x( 'Could not create listing category "<category-name>". The operation failed with the following error: <error-message>.', 'admin csv-import', 'business-directory-plugin' );
                     $message = str_replace( '<category-name>', $c['name'], $message );
                     $message = str_replace( '<error-message>', $t->get_error_message(), $message );
 
                     $errors[] = $message;
                 } else {
-                    $errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'WPBDM' ), $c['name'] );
+                    $errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'business-directory-plugin' ), $c['name'] );
                 }
             }
 
@@ -612,14 +612,14 @@ class WPBDP_CSV_Import {
             return $error;
         }
 
-        if ( ! empty( $data['gdpr_acceptance_date'] ) ) {
-            update_post_meta( $listing->get_id(), '_wpbdp_gdpr_acceptance_date', $data['gdpr_acceptance_date'] );
+        if ( ! empty( $data['terms_and_conditions_acceptance_date'] ) ) {
+            update_post_meta( $listing->get_id(), '_wpbdp_tos_acceptance_date', $data['terms_and_conditions_acceptance_date'] );
             if ( empty( $meta['sequence_id'] ) ) {
                 wpbdp_insert_log(
                     array(
-                        'log_type'   => 'listing.gdpr_accepted',
+                        'log_type'   => 'listing.terms_and_conditions_accepted',
                         'object_id'  => $listing->get_id(),
-                        'created_at' => $data['gdpr_acceptance_date']
+                        'created_at' => $data['terms_and_conditions_acceptance_date']
                     )
                 );
             }
@@ -643,7 +643,7 @@ class WPBDP_CSV_Import {
 					'log_type'  => 'payment.note',
 					'object_id' => $payment->id,
 					'actor'     => is_admin() ? 'user:' . get_current_user_id() : 'system',
-					'message'   => __( 'Listing imported by admin. Payment skipped.', 'WPBDM' ),
+					'message'   => __( 'Listing imported by admin. Payment skipped.', 'business-directory-plugin' ),
                 )
             );
         }
@@ -694,7 +694,7 @@ class WPBDP_CSV_Import {
                 case 'username':
                     if ( $this->settings['assign-listings-to-user'] && $value ) {
                         if ( ! username_exists( $value ) ) {
-                            $errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'WPBDM' ), $value );
+                            $errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $value );
                         } else {
                             $meta['username'] = $value;
                         }
@@ -703,32 +703,6 @@ class WPBDP_CSV_Import {
                     break;
 
                 case 'expires_on':
-                    // $trimmed_value = trim( $value, "/ \t\n\r\0\x0B" );
-
-                    // if ( empty( $trimmed_value ) ) {
-                    //     break;
-                    // }
-
-                    // if ( preg_match( '#^(\d{1,4}/\d{1,2}/\d{1,4})(\s([0-1]?[0-9]|[2][0-3]):([0-5][0-9])(:[0-5][0-9])?)?$#', $trimmed_value ) ) {
-                    //     $date = strtotime( $trimmed_value );
-                    // } else {
-                    //     $dates = explode( '/', $trimmed_value );
-                    //     $dates = array_map( 'strtotime', $dates );
-                    //     $dates = array_filter( $dates );
-
-                    //     $date = array_shift( $dates );
-                    // }
-
-                    // if ( ! $date ) {
-                    //     $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'WPBDM' );
-                    //     $message = str_replace( '<string>', '"' . $value . '"', $message );
-
-                    //     $errors[] = $message;
-
-                    //     break;
-                    // }
-
-                    // $expires_on = date( 'Y-m-d H:i:s', $date );
                     $expires = $this->convert_to_date( $value, $errors );
 
                     if ( $expires ) {
@@ -748,7 +722,7 @@ class WPBDP_CSV_Import {
                     $plan = wpbdp_get_fee_plan( $submitted_fee_id );
 
                     if ( ! $plan ) {
-                        $message = _x( 'There is no Fee Plan with ID = <fee-id>', 'admin csv-import', 'WPBDM' );
+                        $message = _x( 'There is no Fee Plan with ID = <fee-id>', 'admin csv-import', 'business-directory-plugin' );
                         $message = str_replace( '<fee-id>', $submitted_fee_id, $message );
 
                         $errors[] = $message;
@@ -760,12 +734,11 @@ class WPBDP_CSV_Import {
 
                     break;
 
-                case 'gdpr_acceptance_date':
-                    $gdpr_date = $this->convert_to_date( $value, $errors );
-                    error_log( print_r( $gdpr_date, true ) );
+                case 'terms_and_conditions_acceptance_date':
+                    $tos_date = $this->convert_to_date( $value, $errors );
 
-                    if ( $gdpr_date ) {
-                        $gdpr_acceptance_date = $gdpr_date;
+                    if ( $tos_date ) {
+                        $terms_and_conditions_acceptance_date = $tos_date;
                     }
                     break;
 
@@ -780,7 +753,7 @@ class WPBDP_CSV_Import {
                     }
 
                     if ( $field->is_required() && $field->is_empty_value( $value ) ) {
-                        $errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'WPBDM' ), $column );
+                        $errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'business-directory-plugin' ), $column );
                         break;
                     }
 
@@ -805,7 +778,7 @@ class WPBDP_CSV_Import {
 								);
                             } else {
                                 if ( ! $this->settings['create-missing-categories'] ) {
-                                    $errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'WPBDM' ), $csv_category );
+                                    $errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $csv_category );
                                     continue;
                                 }
 
@@ -831,7 +804,7 @@ class WPBDP_CSV_Import {
             }
         }
 
-        return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on', 'plan_id', 'gdpr_acceptance_date' ), $errors );
+        return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on', 'plan_id', 'terms_and_conditions_acceptance_date' ), $errors );
     }
 
     private function get_header() {
@@ -870,7 +843,7 @@ class WPBDP_CSV_Import {
         }
 
         if ( ! $date ) {
-            $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'WPBDM' );
+            $message = _x( "The string <string> couldn't be converted into a valid date.", 'admin csv-import', 'business-directory-plugin' );
             $message = str_replace( '<string>', '"' . $value . '"', $message );
 
             $errors[] = $message;

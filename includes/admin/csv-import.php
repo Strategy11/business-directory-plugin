@@ -127,7 +127,7 @@ class WPBDP_CSVImportAdmin {
 
         if ( $field ) {
             if ( $field->get_association() == 'title' ) {
-                return sprintf( _x( 'Business %s', 'admin csv-import', 'WPBDM' ), $letters[ rand( 0, strlen( $letters ) - 1 ) ] );
+                return sprintf( _x( 'Business %s', 'admin csv-import', 'business-directory-plugin' ), $letters[ rand( 0, strlen( $letters ) - 1 ) ] );
             } elseif ( $field->get_association() == 'category' ) {
                 if ( $terms = get_terms( WPBDP_CATEGORY_TAX, 'number=5&hide_empty=0' ) ) {
                     return $terms[ array_rand( $terms ) ]->name;
@@ -165,13 +165,13 @@ class WPBDP_CSVImportAdmin {
             return $users[ array_rand( $users ) ]->user_login;
         }
 
-        return _x( 'Whatever', 'admin csv-import', 'WPBDM' );
+        return _x( 'Whatever', 'admin csv-import', 'business-directory-plugin' );
     }
 
     private function example_csv() {
         echo wpbdp_admin_header(
-            _x( 'Example CSV Import File', 'admin csv-import', 'WPBDM' ), null, array(
-				array( _x( '← Return to "CSV Import"', 'admin csv-import', 'WPBDM' ), esc_url( remove_query_arg( 'action' ) ) ),
+            _x( 'Example CSV Import File', 'admin csv-import', 'business-directory-plugin' ), null, array(
+				array( _x( '← Return to "CSV Import"', 'admin csv-import', 'business-directory-plugin' ), esc_url( remove_query_arg( 'action' ) ) ),
             ), false
         );
 
@@ -184,7 +184,7 @@ class WPBDP_CSVImportAdmin {
             )
         );
 
-        // echo sprintf('<input type="button" value="%s" />', _x('Copy CSV', 'admin csv-import', 'WPBDM'));
+        // echo sprintf('<input type="button" value="%s" />', _x('Copy CSV', 'admin csv-import', 'business-directory-plugin'));
         echo '<textarea class="wpbdp-csv-import-example" rows="30">';
 
         $fields = wpbdp_get_form_fields( array( 'field_type' => '-ratings' ) );
@@ -287,7 +287,7 @@ class WPBDP_CSVImportAdmin {
                     _x(
                         'A valid temporary directory with write permissions is required for CSV imports to function properly. Your server is using "%s" but this path does not seem to be writable. Please consult with your host.',
                         'csv import',
-                        'WPBDM'
+                        'business-directory-plugin'
                     ),
                     $import_dir
                 )
@@ -327,13 +327,13 @@ class WPBDP_CSVImportAdmin {
                 $sources[] = $_FILES['csv-file']['name'];
                 $csv_file  = $_FILES['csv-file']['tmp_name'];
             } elseif ( UPLOAD_ERR_NO_FILE != $_FILES['csv-file']['error'] ) {
-                wpbdp_admin_message( _x( 'There was an error uploading the CSV file.', 'admin csv-import', 'WPBDM' ), 'error' );
+                wpbdp_admin_message( _x( 'There was an error uploading the CSV file.', 'admin csv-import', 'business-directory-plugin' ), 'error' );
                 return $this->import_settings();
             }
         }
 
         if ( ! $csv_file ) {
-            wpbdp_admin_message( _x( 'Please upload or select a CSV file.', 'admin csv-import', 'WPBDM' ), 'error' );
+            wpbdp_admin_message( _x( 'Please upload or select a CSV file.', 'admin csv-import', 'business-directory-plugin' ), 'error' );
             return $this->import_settings();
         }
 
@@ -346,7 +346,7 @@ class WPBDP_CSVImportAdmin {
         if ( ! $zip_file && ! empty( $_FILES['images-file'] ) ) {
             if ( UPLOAD_ERR_NO_FILE == $_FILES['images-file']['error'] ) {
             } elseif ( ! is_uploaded_file( $_FILES['images-file']['tmp_name'] ) ) {
-                wpbdp_admin_message( _x( 'There was an error uploading the images ZIP file.', 'admin csv-import', 'WPBDM' ), 'error' );
+                wpbdp_admin_message( _x( 'There was an error uploading the images ZIP file.', 'admin csv-import', 'business-directory-plugin' ), 'error' );
                 return $this->import_settings();
             }
 
@@ -370,7 +370,7 @@ class WPBDP_CSVImportAdmin {
                 $import->cleanup();
             }
 
-            $error  = _x( 'An error was detected while validating the CSV file for import. Please fix this before proceeding.', 'admin csv-import', 'WPBDM' );
+            $error  = _x( 'An error was detected while validating the CSV file for import. Please fix this before proceeding.', 'admin csv-import', 'business-directory-plugin' );
             $error .= '<br />';
             $error .= '<b>' . $e->getMessage() . '</b>';
 
@@ -379,7 +379,7 @@ class WPBDP_CSVImportAdmin {
         }
 
         if ( $import->in_test_mode() ) {
-            wpbdp_admin_message( _x( 'Import is in "test mode". Nothing will be inserted into the database.', 'admin csv-import', 'WPBDM' ) );
+            wpbdp_admin_message( _x( 'Import is in "test mode". Nothing will be inserted into the database.', 'admin csv-import', 'business-directory-plugin' ) );
         }
 
         echo wpbdp_render_page(

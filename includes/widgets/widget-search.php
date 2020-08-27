@@ -7,26 +7,26 @@ class WPBDP_SearchWidget extends WP_Widget {
 
     public function __construct() {
         parent::__construct(false,
-                            _x('Business Directory - Search', 'widgets', 'WPBDM'),
-                            array('description' => _x('Displays a search form to look for Business Directory listings.', 'widgets', 'WPBDM')));
+                            _x('Business Directory - Search', 'widgets', 'business-directory-plugin' ),
+                            array('description' => _x('Displays a search form to look for Business Directory listings.', 'widgets', 'business-directory-plugin' )));
     }
 
     public function form($instance) {
         if (isset($instance['title']))
             $title = $instance['title'];
         else
-            $title = _x('Search the Business Directory', 'widgets', 'WPBDM');
+            $title = _x('Search the Business Directory', 'widgets', 'business-directory-plugin' );
 
         echo sprintf('<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
                      $this->get_field_id('title'),
-                     _x('Title:', 'widgets', 'WPBDM'),
+                     _x('Title:', 'widgets', 'business-directory-plugin' ),
                      $this->get_field_id('title'),
                      $this->get_field_name('title'),
                      esc_attr($title)
                     );
         echo '<p>';
 
-        echo _x('Form Style:', 'widgets', 'WPBDM');
+        echo _x('Form Style:', 'widgets', 'business-directory-plugin' );
         echo '<br/>';
         echo sprintf('<input id="%s" name="%s" type="radio" value="%s" %s/> <label for="%s">%s</label>',
                      $this->get_field_id('use_basic_form'),
@@ -34,7 +34,7 @@ class WPBDP_SearchWidget extends WP_Widget {
                      'basic', 
                      wpbdp_getv($instance, 'form_mode', 'basic') == 'basic' ? 'checked="checked"' : '',
                      $this->get_field_id('use_basic_form'),                     
-                    _x('Basic', 'widgets', 'WPBDM') );
+                    _x('Basic', 'widgets', 'business-directory-plugin' ) );
         echo '&nbsp;&nbsp;';
         echo sprintf('<input id="%s" name="%s" type="radio" value="%s" %s/> <label for="%s">%s</label>',
                      $this->get_field_id('use_advanced_form'),
@@ -42,12 +42,12 @@ class WPBDP_SearchWidget extends WP_Widget {
                      'advanced',
                      wpbdp_getv($instance, 'form_mode', 'basic') == 'advanced' ? 'checked="checked"' : '',
                      $this->get_field_id('use_advanced_form'),
-                    _x('Advanced', 'widgets', 'WPBDM') );
+                    _x('Advanced', 'widgets', 'business-directory-plugin' ) );
         echo '</p>';
 
         echo '<p class="wpbdp-search-widget-advanced-settings">';
-        echo _x('Search Fields (advanced mode):', 'widgets', 'WPBDM') . '<br/>';
-        echo ' <span class="description">' . _x('Display the following fields in the form.', 'widgets', 'WPBDM') . '</span>';
+        echo _x('Search Fields (advanced mode):', 'widgets', 'business-directory-plugin' ) . '<br/>';
+        echo ' <span class="description">' . _x('Display the following fields in the form.', 'widgets', 'business-directory-plugin' ) . '</span>';
 
         $instance_fields = wpbdp_getv( $instance, 'search_fields', array() );
 
@@ -105,7 +105,7 @@ class WPBDP_SearchWidget extends WP_Widget {
             echo '<input id="wpbdp-keyword-field" type="text" name="kw" value="" />';
         }
 
-        echo sprintf('<p><input type="submit" value="%s" class="submit wpbdp-search-widget-submit" /></p>', _x('Search', 'widgets', 'WPBDM'));
+        echo sprintf('<p><input type="submit" value="%s" class="submit wpbdp-search-widget-submit" /></p>', _x('Search', 'widgets', 'business-directory-plugin' ));
         echo '</form>';
 
         echo $after_widget;

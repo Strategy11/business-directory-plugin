@@ -2,8 +2,8 @@
 <table class="wpbdp-payment-items-table" id="wpbdp-payment-items-<?php echo $payment->id; ?>">
     <thead>
         <tr>
-            <th><?php _ex( 'Item', 'payment_items', 'WPBDM' ); ?></th>
-            <th><?php _ex( 'Amount', 'payment_items', 'WPBDM' ); ?></th>
+            <th><?php _ex( 'Item', 'payment_items', 'business-directory-plugin' ); ?></th>
+            <th><?php _ex( 'Amount', 'payment_items', 'business-directory-plugin' ); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +21,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <th><?php _ex( 'Total', 'payment_items', 'WPBDM' ); ?></th>
+            <th><?php _ex( 'Total', 'payment_items', 'business-directory-plugin' ); ?></th>
             <td class="total"><?php echo wpbdp_currency_format( $payment->amount ); ?>
         </tr>
     </tfoot>

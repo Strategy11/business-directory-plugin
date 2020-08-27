@@ -84,7 +84,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         update_option( 'wpbdp_settings', $settings );
         update_option( 'wpbdp_licenses', $licenses );
 
-        $msg = _x( 'Migrating license information to new format...', 'installer', 'WPBDM' );
+        $msg = _x( 'Migrating license information to new format...', 'installer', 'business-directory-plugin' );
         return true;
     }
 
@@ -193,7 +193,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
         update_option( 'wpbdp-expiration-notices', $notices );
 
-        $msg = _x( 'Migrating email notices to new format...', 'installer', 'WPBDM' );
+        $msg = _x( 'Migrating email notices to new format...', 'installer', 'business-directory-plugin' );
         return true;
     }
 
@@ -204,7 +204,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
     public function _migrate_fee_plans( &$msg ) {
         global $wpdb;
 
-        $msg = _x( 'Migrating fee plans...', 'installer', 'WPBDM' );
+        $msg = _x( 'Migrating fee plans...', 'installer', 'business-directory-plugin' );
 
         if ( ! wpbdp_table_exists( $wpdb->prefix . 'wpbdp_fees' ) ) {
             return true;
@@ -248,7 +248,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
 
             if ( ! $success ) {
-                $msg = sprintf( _x( '! Could not migrate fee "%s" (%d)', 'installer', 'WPBDM' ), $fee->label, $fee->id );
+                $msg = sprintf( _x( '! Could not migrate fee "%s" (%d)', 'installer', 'business-directory-plugin' ), $fee->label, $fee->id );
                 return false;
             }
         }
@@ -321,12 +321,12 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
 
             if ( false === $wpdb->update( $wpdb->prefix . 'wpbdp_payments', array( 'payment_items' => serialize( $items ), 'payment_type' => $payment_type ), array( 'id' => $payment_id ) ) ) {
-                $msg = sprintf( _x( '! Could not migrate payment #%d', 'installer', 'WPBDM' ), $payment_id );
+                $msg = sprintf( _x( '! Could not migrate payment #%d', 'installer', 'business-directory-plugin' ), $payment_id );
                 return false;
             }
         }
 
-        $msg = sprintf( _x( 'Updating payment items format: %d items remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
+        $msg = sprintf( _x( 'Updating payment items format: %d items remaining...', 'installer', 'business-directory-plugin' ), max( $count - $batch_size, 0 ) );
         return false;
     }
 
@@ -388,7 +388,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             $l->get_status( true );
         }
 
-        $msg = sprintf( _x( 'Migrating listing information: %d items remaining...', 'installer', 'WPBDM' ), max( $count - $batch_size, 0 ) );
+        $msg = sprintf( _x( 'Migrating listing information: %d items remaining...', 'installer', 'business-directory-plugin' ), max( $count - $batch_size, 0 ) );
         return false;
     }
 

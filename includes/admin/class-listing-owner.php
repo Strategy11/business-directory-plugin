@@ -38,7 +38,7 @@ class WPBDP__Admin__Listing_Owner {
         global $post;
 
         if ( is_admin() && get_post_type( $post ) === WPBDP_POST_TYPE ) {
-            add_filter( 'wp_dropdown_users', array( $this, 'dropdown_users' ) );
+            add_filter( 'wp_dropdown_users', array( $this, '_dropdown_users' ) );
             array_push( $this->dropdown_users_args_stack, $r );
         }
 
@@ -63,7 +63,7 @@ class WPBDP__Admin__Listing_Owner {
         $args = array_pop( $this->dropdown_users_args_stack );
 
         $params = array(
-            'default'       => __( 'Please select a user', 'WPBDM' ),
+            'default'       => __( 'Please select a user', 'business-directory-plugin' ),
             'id'            => 'authors',
             'name'          => 'post_author',
             'mode'          => null,
@@ -88,9 +88,9 @@ class WPBDP__Admin__Listing_Owner {
 
         $params = array(
             'selected'    => (int) $post->post_author,
-            'label'       => __( 'Listing Owner', 'WPBDM' ),
+            'label'       => __( 'Listing Owner', 'business-directory-plugin' ),
             'label_class' => 'screen-reader-text',
-            'default'     => __( 'Please select a user', 'WPBDM' ),
+            'default'     => __( 'Please select a user', 'business-directory-plugin' ),
             'id'          => 'post_author_override',
             'name'        => 'post_author_override',
             'class'       => array( 'wpbdp-user-selector' ),

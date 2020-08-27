@@ -34,7 +34,7 @@ class WPBDP__Meta {
         $feed_links = array();
 
         if ( 'main' === $current_view || 'all_listings' === $current_view ) {
-            $feed_title = sprintf( _x( '%s Feed', 'rss feed', 'WPBDM'), $main_page_title );
+            $feed_title = sprintf( _x( '%s Feed', 'rss feed', 'business-directory-plugin' ), $main_page_title );
             $feed_url = esc_url( add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) ) );
 
             $feed_links[] = sprintf( $link_template, $feed_title, $feed_url );
@@ -152,17 +152,17 @@ class WPBDP__Meta {
 
         switch ( $current_view ) {
             case 'submit_listing':
-                $view_title =  _x( 'Submit A Listing', 'views', 'WPBDM' );
+                $view_title =  _x( 'Submit A Listing', 'views', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 
             case 'search':
-                $view_title =  _x( 'Find a Listing', 'title', 'WPBDM' );
+                $view_title =  _x( 'Find a Listing', 'title', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 
             case 'all_listings':
-                $view_title = _x( 'View All Listings', 'title', 'WPBDM' );
+                $view_title = _x( 'View All Listings', 'title', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 
@@ -191,7 +191,7 @@ class WPBDP__Meta {
                         return $wpseo_front->get_title_from_options( 'title-tax-' . $term->taxonomy, $term );
                 }
 
-                return sprintf( _x( 'Listings tagged: %s', 'title', 'WPBDM' ), $term->name ) . ' ' . $sep . ' ' . $title;
+                return sprintf( _x( 'Listings tagged: %s', 'title', 'business-directory-plugin' ), $term->name ) . ' ' . $sep . ' ' . $title;
 
                 break;
 

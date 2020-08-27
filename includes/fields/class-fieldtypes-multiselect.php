@@ -3,12 +3,12 @@
 class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
 
     public function __construct() {
-        parent::__construct( _x('Multiple select list', 'form-fields api', 'WPBDM') );
+        parent::__construct( _x('Multiple select list', 'form-fields api', 'business-directory-plugin' ) );
         $this->set_multiple( true );
     }
 
     public function get_name() {
-        return _x( 'Multiselect List', 'form-fields api', 'WPBDM' );
+        return _x( 'Multiselect List', 'form-fields api', 'business-directory-plugin' );
     }
 
     public function get_id() {
@@ -22,8 +22,8 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
     protected function get_field_settings( $field=null, $association=null ) {
         $settings = parent::get_field_settings( $field, $association );
 
-        $label = _x( 'Number of options visible without scrolling', 'form-fields-admin', 'WPBDM' );
-        $description = _x( 'The height of the list will be adjusted to accommodate the specified number of options.', 'form-fields-admin', 'WPBDM' );
+        $label = _x( 'Number of options visible without scrolling', 'form-fields-admin', 'business-directory-plugin' );
+        $description = _x( 'The height of the list will be adjusted to accommodate the specified number of options.', 'form-fields-admin', 'business-directory-plugin' );
 
         $content = '<span class="description">' . $description . '</span><br />';
         $content.= '<input name="field[x_size]" type="number" value="%d">';

@@ -12,7 +12,7 @@ require_once WPBDP_PATH . 'includes/helpers/class-listing-search.php';
 class WPBDP__Views__Search extends WPBDP__View {
 
     public function get_title() {
-        return _x( 'Find A Listing', 'views', 'WPBDM' );
+        return _x( 'Find A Listing', 'views', 'business-directory-plugin' );
     }
 
     public function dispatch() {
@@ -43,7 +43,7 @@ class WPBDP__Views__Search extends WPBDP__View {
                         $value = $field->value_from_GET();
 
                         if ( ! $value || $field->is_empty_value( $value ) ) {
-                            $validation_errors[] = sprintf( _x( '"%s" is required.', 'search', 'WPBDM' ), $field->get_label() );
+                            $validation_errors[] = sprintf( _x( '"%s" is required.', 'search', 'business-directory-plugin' ), $field->get_label() );
                         }
                     }
                 }

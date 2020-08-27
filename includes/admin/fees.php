@@ -42,11 +42,11 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         $table->prepare_items();
 
         $order_options = array();
-        foreach ( array( 'label' => _x( 'Label', 'fees order', 'WPBDM' ),
-                         'amount' => _x( 'Amount', 'fees order', 'WPBDM' ),
-                         'days' => _x( 'Duration', 'fees order', 'WPBDM' ),
-                         'images' => _x( 'Images', 'fees order', 'WPBDM' ),
-                         'custom' => _x( 'Custom Order', 'fees order', 'WPBDM' ) ) as $k => $l ) {
+        foreach ( array( 'label' => _x( 'Label', 'fees order', 'business-directory-plugin' ),
+                         'amount' => _x( 'Amount', 'fees order', 'business-directory-plugin' ),
+                         'days' => _x( 'Duration', 'fees order', 'business-directory-plugin' ),
+                         'images' => _x( 'Images', 'fees order', 'business-directory-plugin' ),
+                         'custom' => _x( 'Custom Order', 'fees order', 'business-directory-plugin' ) ) as $k => $l ) {
             $order_options[ $k ] = $l;
         }
 
@@ -96,9 +96,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
             if ( ! is_wp_error( $result ) ) {
                 if ( 'insert' == $mode ) {
-                    wpbdp_admin_message( _x( 'Fee plan added.', 'fees admin', 'WPBDM' ) );
+                    wpbdp_admin_message( _x( 'Fee plan added.', 'fees admin', 'business-directory-plugin' ) );
                 } else {
-                    wpbdp_admin_message( _x( 'Fee plan updated.', 'fees admin', 'WPBDM' ) );
+                    wpbdp_admin_message( _x( 'Fee plan updated.', 'fees admin', 'business-directory-plugin' ) );
                 }
 
                 return $this->_redirect( 'index' );
@@ -120,7 +120,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         ) );
 
         if ( $do && $fee->delete() ) {
-            wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'WPBDM' ), $fee->label ) );
+            wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
             return $this->_redirect( 'index' );
         }
 
@@ -132,7 +132,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         $fee->enabled = ! $fee->enabled;
         $fee->save();
 
-        wpbdp_admin_message( _x( 'Fee disabled.', 'fees admin', 'WPBDM' ) );
+        wpbdp_admin_message( _x( 'Fee disabled.', 'fees admin', 'business-directory-plugin' ) );
         return $this->_redirect( 'index' );
     }
 

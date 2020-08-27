@@ -98,7 +98,7 @@ abstract class WPBDP__Payment_Gateway {
             $field_value = isset( $_POST[ $req_field ] ) ? $_POST[ $req_field ] : '';
 
             if ( ! $field_value ) {
-                $errors[ $req_field ] = _x( 'This field is required (' . $req_field . ').', 'payment-gateway', 'WPBDM' );
+                $errors[ $req_field ] = _x( 'This field is required (' . $req_field . ').', 'payment-gateway', 'business-directory-plugin' );
             }
         }
 
@@ -139,7 +139,7 @@ abstract class WPBDP__Payment_Gateway {
     }
 
     public function cancel_subscription( $listing, $subscription ) {
-        $message = __( "There was an unexpected error trying to cancel your subscription. Please contact the website's administrator mentioning this problem. The administrator should be able to cancel your subscription contacting the payment processor directly.", 'WPBDM' );
+        $message = __( "There was an unexpected error trying to cancel your subscription. Please contact the website's administrator mentioning this problem. The administrator should be able to cancel your subscription contacting the payment processor directly.", 'business-directory-plugin' );
         throw new Exception( $message );
     }
 }

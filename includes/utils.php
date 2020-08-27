@@ -210,7 +210,7 @@ function wpbdp_media_upload_check_env( &$error ) {
         $posted_size = intval( $_SERVER['CONTENT_LENGTH'] );
 
         if ( $posted_size > $post_max ) {
-            $error = _x( 'POSTed data exceeds PHP config. maximum. See "post_max_size" directive.', 'utils', 'WPBDM' );
+            $error = _x( 'POSTed data exceeds PHP config. maximum. See "post_max_size" directive.', 'utils', 'business-directory-plugin' );
             return false;
         }
     }
@@ -258,7 +258,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
 
     if ($file['error'] == 0) {
         if ($constraints['max-size'] > 0 && $file['size'] > $constraints['max-size'] ) {
-            $error_msg = sprintf( _x( 'File size (%s) exceeds maximum file size of %s', 'utils', 'WPBDM' ),
+            $error_msg = sprintf( _x( 'File size (%s) exceeds maximum file size of %s', 'utils', 'business-directory-plugin' ),
                                 size_format ($file['size'], 2),
                                 size_format ($constraints['max-size'], 2)
                                 );
@@ -266,7 +266,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
         }
 
         if ( $constraints['min-size'] > 0 && $file['size'] < $constraints['min-size'] ) {
-            $error_msg = sprintf( _x( 'File size (%s) is inferior to the required minimum file size of %s', 'utils', 'WPBDM' ),
+            $error_msg = sprintf( _x( 'File size (%s) is inferior to the required minimum file size of %s', 'utils', 'business-directory-plugin' ),
                                 size_format( $file['size'], 2 ),
                                 size_format( $constraints['min-size'], 2 )
                                 );
@@ -275,21 +275,21 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
 
         if ( is_array( $constraints['mimetypes'] ) ) {
             if ( !in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
-                $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'WPBDM' ), $file['type'] );
+                $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
                 return false;
             }
         }
 
         // We do not accept TIFF format. Compatibility issues.
         if ( in_array( strtolower( $file['type'] ), array('image/tiff') ) ) {
-            $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'WPBDM' ), $file['type'] );
+            $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
             return false;
         }
 
         $upload = $sideload ? wp_handle_sideload( $file, array( 'test_form' => FALSE ) ) : wp_handle_upload( $file, array('test_form' => FALSE) );
 
         if( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
-            $error_msg = isset( $upload['error'] ) ? $upload['error'] : _x( 'Unkown error while uploading file.', 'utils', 'WPBDM' );
+            $error_msg = isset( $upload['error'] ) ? $upload['error'] : _x( 'Unkown error while uploading file.', 'utils', 'business-directory-plugin' );
             return false;
         }
 
@@ -308,7 +308,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
             if ( $check_image && ! wp_attachment_is_image( $attachment_id ) ) {
                 wp_delete_attachment( $attachment_id, true );
 
-                $error_msg = _x('Uploaded file is not an image', 'utils', 'WPBDM');
+                $error_msg = _x('Uploaded file is not an image', 'utils', 'business-directory-plugin' );
                 return false;
             }
 
@@ -317,25 +317,25 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
                 $failed = false;
 
                 if ( ! $failed && $meta && $constraints['min-width'] > 0 && $meta['width'] < $constraints['min-width'] ) {
-                    $error_msg = sprintf( _x( 'Image width (%s px) is inferior to minimum required width of %s px.', 'utils', 'WPBDM' ),
+                    $error_msg = sprintf( _x( 'Image width (%s px) is inferior to minimum required width of %s px.', 'utils', 'business-directory-plugin' ),
                                           $meta['width'],
                                           $constraints['min-width'] );
                 }
 
                 if ( ! $failed && $meta && $constraints['min-height'] > 0 && $meta['height'] < $constraints['min-height'] ) {
-                    $error_msg = sprintf( _x( 'Image height (%s px) is inferior to minimum required height of %s px.', 'utils', 'WPBDM' ),
+                    $error_msg = sprintf( _x( 'Image height (%s px) is inferior to minimum required height of %s px.', 'utils', 'business-directory-plugin' ),
                                           $meta['height'],
                                           $constraints['min-height'] );
                 }
 
                 if ( ! $failed && $meta && $constraints['max-width'] > 0 && $meta['width'] > $constraints['max-width'] ) {
-                    $error_msg = sprintf( _x( 'Image width (%s px) is greater than maximum allowed width of %s px.', 'utils', 'WPBDM' ),
+                    $error_msg = sprintf( _x( 'Image width (%s px) is greater than maximum allowed width of %s px.', 'utils', 'business-directory-plugin' ),
                                           $meta['width'],
                                           $constraints['max-width'] );
                 }
 
                 if ( ! $failed && $meta && $constraints['max-height'] > 0 && $meta['height'] > $constraints['max-height'] ) {
-                    $error_msg = sprintf( _x( 'Image height (%s px) is greater than maximum required height of %s px.', 'utils', 'WPBDM' ),
+                    $error_msg = sprintf( _x( 'Image height (%s px) is greater than maximum required height of %s px.', 'utils', 'business-directory-plugin' ),
                                           $meta['height'],
                                          $constraints['max-height'] );
                 }
@@ -349,7 +349,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
             return $attachment_id;
         }
     } else {
-        $error_msg = _x('Error while uploading file', 'utils', 'WPBDM');
+        $error_msg = _x('Error while uploading file', 'utils', 'business-directory-plugin' );
     }
 
     return false;

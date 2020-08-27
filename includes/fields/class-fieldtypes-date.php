@@ -11,7 +11,7 @@
 class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 
     public function get_name() {
-        return _x( 'Date Field', 'form-fields api', 'WPBDM' );
+        return _x( 'Date Field', 'form-fields api', 'business-directory-plugin' );
     }
 
     public function get_id() {
@@ -34,11 +34,11 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
             $select .= sprintf( '<label><input type="radio" name="field[x_date_format]" value="%s" %s />%s</label><br />',
                                 $format,
                                 checked ( $format, $current_format, false ),
-                                sprintf( _x( '%s (ex. %s)', 'form-fields api', 'WPBDM' ), strtoupper( $format ), date( $data['date_format'], $now ) ) );
+                                sprintf( _x( '%s (ex. %s)', 'form-fields api', 'business-directory-plugin' ), strtoupper( $format ), date( $data['date_format'], $now ) ) );
         }
 
         $settings = array(
-            'date_format' => array( _x( 'Date Format', 'form-fields api', 'WPBDM' ),
+            'date_format' => array( _x( 'Date Format', 'form-fields api', 'business-directory-plugin' ),
                                     $select )
         );
 
@@ -63,10 +63,10 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 
         $args = array();
         $args['format'] = 'yyyymmdd';
-        $args['messages'] = array( 'incorrect_format' => sprintf( _x( '%s must be in the format %s.', 'date field', 'WPBDM' ),
+        $args['messages'] = array( 'incorrect_format' => sprintf( _x( '%s must be in the format %s.', 'date field', 'business-directory-plugin' ),
                                                                   esc_attr( $field->get_label() ),
                                                                   $this->date_format( $field ) ),
-                                   'invalid' => sprintf( _x( '%s must be a valid date.', 'date field', 'WPBDM' ),
+                                   'invalid' => sprintf( _x( '%s must be a valid date.', 'date field', 'business-directory-plugin' ),
                                                          esc_attr( $field->get_label() ) ) );
         return $args;
     }

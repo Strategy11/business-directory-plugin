@@ -114,7 +114,7 @@ class WPBDP__Listing_Search {
 
             if ( ! empty( $res['where'] ) && $fields_count < 6 ) {
                 $query_pieces['where'] = str_replace( '%' . $key . '%', $res['where'], $query_pieces['where'] );
-                $fields_count += $this->is_quick_search ? 0 : 1;
+                $fields_count         += $this->is_quick_search ? 0 : 1;
             } else {
                 // This prevents incorrect queries from being created.
                 $query_pieces['where'] = str_replace( 'AND %' . $key . '%', '', $query_pieces['where'] );
@@ -130,7 +130,7 @@ class WPBDP__Listing_Search {
             }
 
             if ( ! $this->is_quick_search && $fields_count < 6 ) {
-                unset( $this->parts[$key] );
+                unset( $this->parts[ $key ] );
                 $this->tree = $this->tree_remove_field( $this->tree, $field );
             }
         }

@@ -46,7 +46,7 @@ class WPBDP__Views__Login extends WPBDP__View {
                 $redirect_to = add_query_arg( 'access_key_hash', $hash, $redirect_to );
                 $this->_redirect( $redirect_to );
             } else {
-                $errors = array( _x( 'Please enter a valid e-mail/access key combination.', 'views:login', 'WPBDM' ) );
+                $errors = array( _x( 'Please enter a valid e-mail/access key combination.', 'views:login', 'business-directory-plugin' ) );
             }
         }
 

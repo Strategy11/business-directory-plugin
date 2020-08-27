@@ -35,7 +35,7 @@ class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( $nonce && wp_verify_nonce( $nonce, 'delete listing ' . $this->listing->get_id() ) ) {
             $this->listing->delete();
-            $html  = wpbdp_render_msg( _x( 'Your listing has been deleted.', 'delete listing', 'WPBDM' ) );
+            $html  = wpbdp_render_msg( _x( 'Your listing has been deleted.', 'delete listing', 'business-directory-plugin' ) );
             $v     = wpbdp_load_view( 'main' );
             $html .= $v->dispatch();
             return $html;

@@ -538,7 +538,7 @@ function wpbdp_currency_format( $amount, $args = array() ) {
     extract( $args );
 
     if ( ! $force_numeric && $amount == '0' ) {
-        return __( 'Free', 'WPBDM' );
+        return __( 'Free', 'business-directory-plugin' );
     }
 
     if ( ! $symbol )
@@ -688,6 +688,7 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
         case 'submit_listing':
         case 'all_listings':
         case 'view_listings':
+        case 'manage_listings':
         case 'search':
         case 'login':
         case 'request_access_keys':
@@ -1189,10 +1190,10 @@ function wpbdp_sortbar_get_field_options() {
 
     $options = apply_filters( 'wpbdp_sortbar_get_field_options', $options );
 
-    $options['user_login'] = _x( 'User', 'admin settings', 'WPBDM' );
-    $options['user_registered'] = _x( 'User registration date', 'admin settings', 'WPBDM' );
-    $options['date'] = _x( 'Date posted', 'admin settings', 'WPBDM' );
-    $options['modified'] = _x( 'Date last modified', 'admin settings', 'WPBDM' );
+    $options['user_login'] = _x( 'User', 'admin settings', 'business-directory-plugin' );
+    $options['user_registered'] = _x( 'User registration date', 'admin settings', 'business-directory-plugin' );
+    $options['date'] = _x( 'Date posted', 'admin settings', 'business-directory-plugin' );
+    $options['modified'] = _x( 'Date last modified', 'admin settings', 'business-directory-plugin' );
 
     return $options;
 }
@@ -1269,16 +1270,16 @@ function wpbdp_get_return_link() {
 
     if ( $referer_vars && isset( $referer_vars['wpbdp_view'] ) ) {
         if ( 'search' === $referer_vars['wpbdp_view'] ) {
-            $msg = _x( 'Return to results', 'templates', 'WPBDM' );
+            $msg = _x( 'Return to results', 'templates', 'business-directory-plugin' );
         }
 
         if ( 'all_listings' === $referer_vars['wpbdp_view'] ) {
-            $msg = _x( 'Go back', 'templates', 'WPBDM' );
+            $msg = _x( 'Go back', 'templates', 'business-directory-plugin' );
         }
     }
 
     if ( strpos( $referer, wpbdp_get_option( 'permalinks-category-slug' ) ) || strpos( $referer, wpbdp_get_option( 'permalinks-tags-slug' ) ) ) {
-        $msg = _x( 'Go back', 'templates', 'WPBDM' );
+        $msg = _x( 'Go back', 'templates', 'business-directory-plugin' );
     }
 
     if ( $msg ) {

@@ -285,7 +285,7 @@ class WPBDP__Settings {
         $subtab = $group_slug . '/main';
 
         if ( ! isset( $this->groups[ $subtab ] ) ) {
-            $this->register_group( $subtab, _x( 'General Settings', 'settings', 'WPBDM' ), $tab );
+            $this->register_group( $subtab, _x( 'General Settings', 'settings', 'business-directory-plugin' ), $tab );
         }
 
         $this->register_group( "{$subtab}:{$slug}", $name, $subtab, array( 'desc' => $help_text ) );
@@ -440,7 +440,7 @@ class WPBDP__Settings {
                 }
 
                 if ( empty( $value ) ) {
-                    add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'WPBDM' ), $setting['name'] ), 'error' );
+                    add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'business-directory-plugin' ), $setting['name'] ), 'error' );
                     $has_error = true;
                 }
 
@@ -451,14 +451,14 @@ class WPBDP__Settings {
                 $value = trim( $value );
 
                 if ( empty( $value ) ) {
-                    add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'WPBDM' ), $setting['name'] ), 'error' );
+                    add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'business-directory-plugin' ), $setting['name'] ), 'error' );
                     $has_error = true;
                 }
 
                 if ( ! empty( $setting ) && ! empty( $setting['taxonomy'] ) ) {
                     foreach ( get_taxonomies( null, 'objects' ) as $taxonomy ) {
                         if ( $taxonomy->rewrite && $taxonomy->rewrite['slug'] == $value && $taxonomy->name != $setting['taxonomy'] ) {
-                            add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( 'The slug "%s" is already in use for another taxonomy.', 'settings', 'WPBDM' ), $value ), 'error' );
+                            add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( 'The slug "%s" is already in use for another taxonomy.', 'settings', 'business-directory-plugin' ), $value ), 'error' );
                             $has_error = true;
                         }
                     }

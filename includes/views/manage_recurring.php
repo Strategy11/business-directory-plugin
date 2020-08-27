@@ -33,7 +33,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
         }
 
         if ( ! $listing ) {
-            $message = _x( "The listing with id = <listing-id> doesn't exists.", 'manage subscription', 'WPBDM' );
+            $message = _x( "The listing with id = <listing-id> doesn't exists.", 'manage subscription', 'business-directory-plugin' );
             $message = str_replace( '<listing-id>', $listing_id, $message );
 
             return wpbdp_render_msg( $message, 'error' );
@@ -46,7 +46,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
         }
 
         if ( ! $cancel_subscription_nonce || wp_create_nonce( 'cancel-subscription-' . $listing->get_id() ) != $cancel_subscription_nonce ) {
-            $message = _x( 'You are not authorized to cancel this subscription. The link you followed is invalid.', 'manage subscriptions', 'WPBDM' );
+            $message = _x( 'You are not authorized to cancel this subscription. The link you followed is invalid.', 'manage subscriptions', 'business-directory-plugin' );
             return wpbdp_render_msg( $message, 'error' );
         }
 
@@ -57,7 +57,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
         }
 
         if ( ! $subscription ) {
-            return wpbdp_render_msg( _x( 'Invalid subscription.', 'manage subscriptions', 'WPBDM' ), 'error' );
+            return wpbdp_render_msg( _x( 'Invalid subscription.', 'manage subscriptions', 'business-directory-plugin' ), 'error' );
         }
 
         if ( ! empty( $_POST['return-to-subscriptions'] ) ) {
@@ -80,7 +80,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
             return wpbdp_render_msg( $e->getMessage(), 'error' );
         }
 
-        return wpbdp_render_msg( _x( 'Your subscription was canceled.', 'manage subscriptions', 'WPBDM' ) );
+        return wpbdp_render_msg( _x( 'Your subscription was canceled.', 'manage subscriptions', 'business-directory-plugin' ) );
     }
 
     public function render_cancel_subscription_page( $listing, $subscription ) {
@@ -97,7 +97,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
         $listings = $this->get_recurring_listings();
 
         if ( ! $listings ) {
-            return wpbdp_render_msg( _x( 'You are not on recurring payments for any of your listings.', 'manage listings', 'WPBDM' ) );
+            return wpbdp_render_msg( _x( 'You are not on recurring payments for any of your listings.', 'manage listings', 'business-directory-plugin' ) );
         }
 
         return wpbdp_render( 'manage-recurring', array( 'listings' => $listings ), false );

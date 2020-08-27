@@ -10,18 +10,18 @@
 ?>
 <div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">
 
-    <h2><?php echo esc_html_x( 'Renew Listing', 'templates', 'WPBDM' ); ?></h2>
+    <h2><?php echo esc_html_x( 'Renew Listing', 'templates', 'business-directory-plugin' ); ?></h2>
 
     <?php if ( isset( $payment ) && $payment ) : ?>
         <form action="<?php echo esc_url( $payment->get_checkout_url() ); ?>" method="POST">
-        <input type="submit" name="go-to-checkout" value="<?php echo esc_html_x( 'Proceed to Checkout', 'renewal', 'WPBDM' ); ?>" />
+        <input type="submit" name="go-to-checkout" value="<?php echo esc_html_x( 'Proceed to Checkout', 'renewal', 'business-directory-plugin' ); ?>" />
         </form>
     <?php else : ?>
         <p>
-            <?php printf( esc_html_x( 'You are about to renew your listing "%s" publication.', 'templates', 'WPBDM' ), esc_html( $listing->get_title() ) ); ?>
+            <?php printf( esc_html_x( 'You are about to renew your listing "%s" publication.', 'templates', 'business-directory-plugin' ), esc_html( $listing->get_title() ) ); ?>
         </p>
         <p>
-            <?php echo esc_html_x( 'Please select a fee option or click "Do not renew my listing" to remove your listing from the directory.', 'templates', 'WPBDM' ); ?>
+            <?php echo esc_html_x( 'Please select a fee option or click "Do not renew my listing" to remove your listing from the directory.', 'templates', 'business-directory-plugin' ); ?>
         </p>
 
         <form id="wpbdp-renewlisting-form" method="post" action="">
@@ -36,12 +36,12 @@
             );
             ?>
 
-            <p><input type="submit" class="submit" name="go-to-checkout" value="<?php echo esc_html_x( 'Continue', 'templates', 'WPBDM' ); ?>" /></p>
+            <p><input type="submit" class="submit" name="go-to-checkout" value="<?php echo esc_html_x( 'Continue', 'templates', 'business-directory-plugin' ); ?>" /></p>
 
             <div class="do-not-renew-listing">
-                <p><?php echo esc_html_x( 'Clicking the button below will cause your listing to be permanently removed from the directory.', 'renewal', 'WPBDM' ); ?></p>
+                <p><?php echo esc_html_x( 'Clicking the button below will cause your listing to be permanently removed from the directory.', 'renewal', 'business-directory-plugin' ); ?></p>
 
-                <input type="submit" class="submit" name="cancel-renewal" value="<?php echo esc_html_x( 'Do not renew my listing', 'templates', 'WPBDM' ); ?>" />
+                <input type="submit" class="submit" name="cancel-renewal" value="<?php echo esc_html_x( 'Do not renew my listing', 'templates', 'business-directory-plugin' ); ?>" />
             </div>
         </form>
     <?php endif; ?>

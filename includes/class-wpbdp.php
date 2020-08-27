@@ -21,7 +21,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.7.2dev3' );
+        define( 'WPBDP_VERSION', '5.7.2' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -243,7 +243,7 @@ final class WPBDP {
         //        $languages_dir = str_replace( trailingslashit( WP_PLUGIN_DIR ), '', WPBDP_PATH . 'languages' );
 
         $languages_dir = trailingslashit( basename( WPBDP_PATH ) ) . 'languages';
-        load_plugin_textdomain( 'WPBDM', false, $languages_dir );
+        load_plugin_textdomain( 'business-directory-plugin', false, $languages_dir );
     }
 
     public function plugin_activation() {
@@ -260,7 +260,7 @@ final class WPBDP {
 
     public function plugin_action_links( $links ) {
         $links = array_merge(
-            array( 'settings' => '<a href="' . admin_url( 'admin.php?page=wpbdp_settings' ) . '">' . _x( 'Settings', 'admin plugins', 'WPBDM' ) . '</a>' ),
+            array( 'settings' => '<a href="' . admin_url( 'admin.php?page=wpbdp_settings' ) . '">' . _x( 'Settings', 'admin plugins', 'business-directory-plugin' ) . '</a>' ),
             $links
         );
 
@@ -351,7 +351,7 @@ final class WPBDP {
 
         if ( ! current_user_can( 'administrator' ) ) {
             if ( 0 >= $slots_available ) {
-                return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'WPBDM' ) );
+                return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'business-directory-plugin' ) );
             } elseif ( $slots_available < count( $files ) ) {
                 return $res->send_error(
                     sprintf(
@@ -360,7 +360,7 @@ final class WPBDP {
                             'You\'re trying to upload %d images, but only have %d slots available. Please adjust your selection.',
                             $slots_available,
                             'listing image upload',
-                            'WPBDM'
+                            'business-directory-plugin'
                         ),
                         count( $files ),
                         $slots_available
@@ -449,13 +449,13 @@ final class WPBDP {
         $listing_id = intval( $data['listing_id'] );
 
         if ( ! $listing_id ) {
-            return wp_send_json_error( array( 'errors' => _x( 'Could not find listing ID', 'admin listings', 'WPBDM' ) ) );
+            return wp_send_json_error( array( 'errors' => _x( 'Could not find listing ID', 'admin listings', 'business-directory-plugin' ) ) );
         }
 
         $image_ids = isset( $data['image_ids'] ) ? $data['image_ids'] : array();
 
         if( ! $image_ids ) {
-            return wp_send_json_error( array( 'errors' => _x( 'Could not find image ID', 'admin listings', 'WPBDM' ) ) );
+            return wp_send_json_error( array( 'errors' => _x( 'Could not find image ID', 'admin listings', 'business-directory-plugin' ) ) );
         }
 
         $image_ids = is_array( $image_ids ) ? $image_ids : array( $image_ids );
@@ -491,14 +491,14 @@ final class WPBDP {
                 str_replace(
                     '<a>',
                     '<a href="' . admin_url( 'admin.php?page=wpbdp-upgrade-page' ) . '">',
-                    __( 'The directory features are disabled at this time because a <a>manual upgrade</a> is pending.', 'WPBDM' )
+                    __( 'The directory features are disabled at this time because a <a>manual upgrade</a> is pending.', 'business-directory-plugin' )
                 ),
                 'error'
             );
         }
 
         return wpbdp_render_msg(
-            __( 'The directory is not available at this time. Please try again in a few minutes or contact the administrator if the problem persists.', 'WPBDM' ),
+            __( 'The directory is not available at this time. Please try again in a few minutes or contact the administrator if the problem persists.', 'business-directory-plugin' ),
             'error'
         );
     }

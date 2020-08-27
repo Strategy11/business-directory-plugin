@@ -1,11 +1,11 @@
 <?php
-echo wpbdp_admin_header( _x( 'Upload Directory Theme', 'themes', 'WPBDM' ), 'themes-install', array() );
+echo wpbdp_admin_header( _x( 'Upload Directory Theme', 'themes', 'business-directory-plugin' ), 'themes-install', array() );
 ?>
 <?php echo wpbdp_admin_notices(); ?>
 
 <div class="wpbdp-note">
 <p><?php
-printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress theme.', 'themes', 'WPBDM' ),
+printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress theme.', 'themes', 'business-directory-plugin' ),
         '<a href="http://businessdirectoryplugin.com/premium-themes/">http://businessdirectoryplugin.com/premium-themes/</a>' );
 ?></p>
 </div>
@@ -18,7 +18,7 @@ printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress them
         <tbody>
             <tr>
                 <th>
-                    <?php _ex( 'BD Theme archive (ZIP file)', 'themes', 'WPBDM' ); ?>
+                    <?php _ex( 'BD Theme archive (ZIP file)', 'themes', 'business-directory-plugin' ); ?>
                 </th>
                 <td>
                     <input type="file" name="themezip" />
@@ -27,7 +27,7 @@ printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress them
         </tbody>
     </table>
 
-    <?php submit_button( _x( 'Begin Upload', 'themes', 'WPBDM' ), 'primary', 'begin-theme-upload' ); ?>
+    <?php submit_button( _x( 'Begin Upload', 'themes', 'business-directory-plugin' ), 'primary', 'begin-theme-upload' ); ?>
 </form>
 
 <?php

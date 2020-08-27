@@ -314,7 +314,7 @@ class WPBDP_Listing {
         $payments = $this->get_latest_payments();
 
         if ( ! $payments ) {
-            return new WP_Error( 'No listing payments', _x( "Listing has no registered payments", 'listing', 'WPBDM' ) );
+            return new WP_Error( 'No listing payments', _x( "Listing has no registered payments", 'listing', 'business-directory-plugin' ) );
         }
 
         foreach ( $payments as $payment ) {
@@ -322,7 +322,7 @@ class WPBDP_Listing {
                 return new WP_Error(
                     'payment delete error',
                     sprintf( "%s: %s",
-                        _x( "Can't delete payment", 'listing', 'WPBDM' ),
+                        _x( "Can't delete payment", 'listing', 'business-directory-plugin' ),
                         $payment->id
                     )
                 );
@@ -361,7 +361,7 @@ class WPBDP_Listing {
                 $this->set_post_status( 'draft' );
             }
 
-            wpbdp_insert_log( array( 'log_type' => 'listing.expired', 'object_id' => $this->id, 'message' => _x( 'Listing expired', 'listing', 'WPBDM' ) ) );
+            wpbdp_insert_log( array( 'log_type' => 'listing.expired', 'object_id' => $this->id, 'message' => _x( 'Listing expired', 'listing', 'business-directory-plugin' ) ) );
             do_action( 'wpbdp_listing_expired', $this );
             break;
         default:
@@ -521,7 +521,7 @@ class WPBDP_Listing {
             $fee = null;
 
         $res->fee = $fee;
-        $res->fee_label = $fee ? $fee->label : _x( '(Unavailable Plan)', 'listing', 'WPBDM' );
+        $res->fee_label = $fee ? $fee->label : _x( '(Unavailable Plan)', 'listing', 'business-directory-plugin' );
         $res->expired = $res->expiration_date ? strtotime( $res->expiration_date ) <= current_time( 'timestamp' ) : false;
 
         return $res;
@@ -678,9 +678,9 @@ class WPBDP_Listing {
         ) );
 
         if ( $plan->is_recurring ) {
-            $item_description = sprintf( _x( 'Plan "%s" (recurring)', 'listing', 'WPBDM' ), $plan->fee_label );
+            $item_description = sprintf( _x( 'Plan "%s" (recurring)', 'listing', 'business-directory-plugin' ), $plan->fee_label );
         } else {
-            $item_description = sprintf( _x( 'Plan "%s"', 'listing', 'WPBDM' ), $plan->fee_label );
+            $item_description = sprintf( _x( 'Plan "%s"', 'listing', 'business-directory-plugin' ), $plan->fee_label );
         }
 
         $payment->payment_items[] = array(
@@ -781,15 +781,15 @@ class WPBDP_Listing {
      */
     public static function get_stati() {
         $stati = array(
-            'unknown' => _x( 'Unknown', 'listing status', 'WPBDM' ),
-            'legacy' => _x( 'Legacy', 'listing status', 'WPBDM' ),
-            'incomplete' => _x( 'Incomplete', 'listing status', 'WPBDM' ),
-            'pending_payment' => _x( 'Pending Payment', 'listing status', 'WPBDM' ),
-            'complete' => _x( 'Complete', 'listing status', 'WPBDM' ),
-            'pending_upgrade' => _x( 'Pending Upgrade', 'listing status', 'WPBDM' ),
-            'expired' => _x( 'Expired', 'listing status', 'WPBDM' ),
-            'pending_renewal' => _x( 'Pending Renewal', 'listing status', 'WPBDM' ),
-            'abandoned' => _x( 'Abandoned', 'listing status', 'WPBDM' ),
+            'unknown' => _x( 'Unknown', 'listing status', 'business-directory-plugin' ),
+            'legacy' => _x( 'Legacy', 'listing status', 'business-directory-plugin' ),
+            'incomplete' => _x( 'Incomplete', 'listing status', 'business-directory-plugin' ),
+            'pending_payment' => _x( 'Pending Payment', 'listing status', 'business-directory-plugin' ),
+            'complete' => _x( 'Complete', 'listing status', 'business-directory-plugin' ),
+            'pending_upgrade' => _x( 'Pending Upgrade', 'listing status', 'business-directory-plugin' ),
+            'expired' => _x( 'Expired', 'listing status', 'business-directory-plugin' ),
+            'pending_renewal' => _x( 'Pending Renewal', 'listing status', 'business-directory-plugin' ),
+            'abandoned' => _x( 'Abandoned', 'listing status', 'business-directory-plugin' ),
         );
         $stati = apply_filters( 'wpbdp_listing_stati', $stati );
 

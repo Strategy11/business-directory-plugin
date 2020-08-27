@@ -6,9 +6,9 @@
 
 <form action="" method="get">
     <p class="search-box">
-        <label class="screen-reader-text" for="payment-search-input"><?php _ex( 'Search Payments:', 'admin payments', 'WPBDM' ); ?></label>
+        <label class="screen-reader-text" for="payment-search-input"><?php _ex( 'Search Payments:', 'admin payments', 'business-directory-plugin' ); ?></label>
         <input type="search" id="payment-search-input" name="s" value="<?php echo ! empty( $_GET['s'] ) ? esc_attr( $_GET['s'] ) : ''; ?>" />
-        <input type="submit" id="search_submit" class="button" value="<?php _ex( 'Search', 'admin payments', 'WPBDM' ); ?>" />
+        <input type="submit" id="search_submit" class="button" value="<?php _ex( 'Search', 'admin payments', 'business-directory-plugin' ); ?>" />
     </p>
 
     <input type="hidden" name="page" value="<?php echo $_GET['page']; ?>" />

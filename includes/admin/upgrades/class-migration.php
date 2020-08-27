@@ -26,7 +26,7 @@ class WPBDP__Migration {
     }
 
     public function run_manual_upgrade() {
-        $default_status = _x( 'Migrating Business Directory database to version <version>.', 'installer', 'WPBDM' );
+        $default_status = _x( 'Migrating Business Directory database to version <version>.', 'installer', 'business-directory-plugin' );
         $default_status = str_replace( '<version>', $this->version, $default_status );
 
         $default_response = array(

@@ -125,10 +125,10 @@ class WPBDP_Themes_Updater {
             return;
 
         printf( '<div class="wpbdp-theme-update-info update-available" data-l10n-updating="%s" data-l10n-updated="%s">',
-                _x( 'Updating theme...', 'themes', 'WPBDM' ),
-                _x( 'Theme updated.', 'themes', 'WPBDM' ) );
+                _x( 'Updating theme...', 'themes', 'business-directory-plugin' ),
+                _x( 'Theme updated.', 'themes', 'business-directory-plugin' ) );
         echo '<div class="update-message">';
-        $msg = _x( 'New version available (<b>%s</b>). <a>Update now.</a>', 'themes', 'WPBDM' );
+        $msg = _x( 'New version available (<b>%s</b>). <a>Update now.</a>', 'themes', 'business-directory-plugin' );
         $msg = sprintf( $msg, $update_info['latest'] );
         $msg = str_replace( '<a>', '<a href="#" data-theme-id="' . $theme->id . '" data-nonce="' . wp_create_nonce( 'update theme ' . $theme->id ) . '" class="update-link">', $msg );
         echo $msg;
@@ -156,13 +156,13 @@ class WPBDP_Themes_Updater {
 
         $result = $this->run_update( $theme_id );
         if ( is_wp_error( $result ) )
-            $response->send_error( sprintf( _x( 'Could not update theme: %s', 'themes', 'WPBDM' ), $result->get_error_message() ) );
+            $response->send_error( sprintf( _x( 'Could not update theme: %s', 'themes', 'business-directory-plugin' ), $result->get_error_message() ) );
 
         $this->themes_api->find_themes( true );
 
         $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-item.tpl.php',
                                                    array( 'theme' => $this->themes_api->get_theme( $theme_id ) ) ) );
-        $response->set_message( _x( 'Theme was updated successfully.', 'themes', 'WPBDM' ) );
+        $response->set_message( _x( 'Theme was updated successfully.', 'themes', 'business-directory-plugin' ) );
         $response->send();
     }
 

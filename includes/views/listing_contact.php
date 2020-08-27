@@ -52,15 +52,15 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         }
 
         if ( ! $this->name ) {
-            $this->errors[] = _x( 'Please enter your name.', 'contact-message', 'WPBDM' );
+            $this->errors[] = _x( 'Please enter your name.', 'contact-message', 'business-directory-plugin' );
         }
 
         if ( ! wpbdp_validate_value( $this->email, 'email' ) ) {
-            $this->errors[] = _x( 'Please enter a valid email.', 'contact-message', 'WPBDM' );
+            $this->errors[] = _x( 'Please enter a valid email.', 'contact-message', 'business-directory-plugin' );
         }
 
         if ( ! $this->message ) {
-            $this->errors[] = _x( 'You did not enter a message.', 'contact-message', 'WPBDM' );
+            $this->errors[] = _x( 'You did not enter a message.', 'contact-message', 'business-directory-plugin' );
         }
 
         $error_msg = '';
@@ -79,7 +79,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             $error_msg = str_replace(
                 '<a>',
                 '<a href="' . esc_url( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
-                _x( 'Please <a>log in</a> to be able to send messages to the listing owner.', 'contact form', 'WPBDM' )
+                _x( 'Please <a>log in</a> to be able to send messages to the listing owner.', 'contact form', 'business-directory-plugin' )
             );
             return false;
         }
@@ -178,7 +178,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         }
 
         if ( $data['count'] >= $daily_limit ) {
-            $error_msg = _x( 'This contact form is temporarily disabled. Please try again later.', 'contact form', 'WPBDM' );
+            $error_msg = _x( 'This contact form is temporarily disabled. Please try again later.', 'contact form', 'business-directory-plugin' );
             return false;
         }
 
@@ -197,11 +197,11 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         $html .= '<div class="wpbdp-listing-contact-form">';
 
         if ( ! $_POST ) {
-            $html .= '<div><input type="button" class="wpbdp-show-on-mobile send-message-button wpbdp-button" value="' . _x( 'Contact listing owner', 'templates', 'WPBDM' ) . '" /></div>';
+            $html .= '<div><input type="button" class="wpbdp-show-on-mobile send-message-button wpbdp-button" value="' . _x( 'Contact listing owner', 'templates', 'business-directory-plugin' ) . '" /></div>';
             $html .= '<div class="wpbdp-hide-on-mobile contact-form-wrapper">';
         }
 
-        $html .= '<h3>' . _x( 'Send Message to listing owner', 'templates', 'WPBDM' ) . '</h3>';
+        $html .= '<h3>' . _x( 'Send Message to listing owner', 'templates', 'business-directory-plugin' ) . '</h3>';
 
         $form = '';
 
@@ -267,12 +267,12 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
         $html = '';
 
         if ( $email->send() ) {
-            $html .= wpbdp_render_msg( _x( 'Your message has been sent.', 'contact-message', 'WPBDM' ) );
+            $html .= wpbdp_render_msg( _x( 'Your message has been sent.', 'contact-message', 'business-directory-plugin' ) );
             $this->update_contacts( $listing_id );
 
             // Notify admin.
             if ( in_array( 'listing-contact', wpbdp_get_option( 'admin-notifications' ), true ) ) {
-                // $replacements[ 'listing-url' ] = sprintf( _x( '%s (admin: %s)', 'contact-message', 'WPBDM' ),
+                // $replacements[ 'listing-url' ] = sprintf( _x( '%s (admin: %s)', 'contact-message', 'business-directory-plugin' ),
                 // $replacements['listing-url'],
                 // get_edit_post_link( $listing_id ) );
                 // $admin_email = wpbdp_email_from_template( 'email-templates-contact', $replacements );
@@ -289,10 +289,10 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
                 $admin_email->send();
             }
         } else {
-            $html .= wpbdp_render_msg( _x( 'There was a problem encountered. Your message has not been sent', 'contact-message', 'WPBDM' ), 'error' );
+            $html .= wpbdp_render_msg( _x( 'There was a problem encountered. Your message has not been sent', 'contact-message', 'business-directory-plugin' ), 'error' );
         }
 
-        $html .= sprintf( '<p><a href="%s">%s</a></p>', get_permalink( $listing_id ), _x( 'Return to listing.', 'contact-message', 'WPBDM' ) );
+        $html .= sprintf( '<p><a href="%s">%s</a></p>', get_permalink( $listing_id ), _x( 'Return to listing.', 'contact-message', 'business-directory-plugin' ) );
         return $html;
     }
 

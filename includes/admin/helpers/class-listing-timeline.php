@@ -111,22 +111,22 @@ class WPBDP__Listing_Timeline {
     }
 
     private function process_listing_created( $item ) {
-        $item->html = _x( 'Listing created', 'listing timeline', 'WPBDM' );
+        $item->html = _x( 'Listing created', 'listing timeline', 'business-directory-plugin' );
         return $item;
     }
 
     private function process_listing_expired( $item ) {
-        $item->html = _x( 'Listing expired', 'listing timeline', 'WPBDM' );
+        $item->html = _x( 'Listing expired', 'listing timeline', 'business-directory-plugin' );
         return $item;
     }
 
     private function process_listing_renewal( $item ) {
-        $item->html = _x( 'Listing renewed', 'listing timeline', 'WPBDM' );
+        $item->html = _x( 'Listing renewed', 'listing timeline', 'business-directory-plugin' );
         return $item;
     }
 
     private function process_listing_terms_and_conditions_accepted( $item ) {
-        $item->html = _x( 'T&C acceptance date', 'listing timeline', 'WPBDM' );
+        $item->html = _x( 'T&C acceptance date', 'listing timeline', 'business-directory-plugin' );
         return $item;
     }
 
@@ -141,11 +141,11 @@ class WPBDP__Listing_Timeline {
 
         if ( 'initial' === $payment->payment_type ) {
             if ( 'admin-submit' === $payment->context ) {
-                $title = _x( 'Paid as admin', 'listing timeline', 'WPBDM' );
+                $title = _x( 'Paid as admin', 'listing timeline', 'business-directory-plugin' );
             } elseif ( 'csv-import' === $payment->context ) {
-                $title = _x( 'Listing imported', 'listing timeline', 'WPBDM' );
+                $title = _x( 'Listing imported', 'listing timeline', 'business-directory-plugin' );
             } else {
-                $title = _x( 'Initial Payment', 'listing timeline', 'WPBDM' );
+                $title = _x( 'Initial Payment', 'listing timeline', 'business-directory-plugin' );
             }
         }
 

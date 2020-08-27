@@ -32,7 +32,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
     }
 
     public function get_title() {
-        return _x( 'Authorize.net', 'authorize-net', 'WPBDM' );
+        return _x( 'Authorize.net', 'authorize-net', 'business-directory-plugin' );
     }
 
     public function get_integration_method() {
@@ -50,8 +50,8 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
     public function get_settings() {
         return array(
-            array( 'id' => 'login-id', 'name' => _x( 'Login ID', 'authorize-net', 'WPBDM' ), 'type' => 'text' ),
-            array( 'id' => 'transaction-key', 'name' => _x( 'Transaction Key', 'authorize-net', 'WPBDM' ), 'type' => 'text' ),
+            array( 'id' => 'login-id', 'name' => _x( 'Login ID', 'authorize-net', 'business-directory-plugin' ), 'type' => 'text' ),
+            array( 'id' => 'transaction-key', 'name' => _x( 'Transaction Key', 'authorize-net', 'business-directory-plugin' ), 'type' => 'text' )
         );
     }
 
@@ -94,13 +94,11 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
         $errors = array();
 
-        if ( ! $login_id ) {
-            $errors[] = _x( 'Login ID is missing.', 'authorize-net', 'WPBDM' );
-        }
+        if ( ! $login_id )
+            $errors[] = _x( 'Login ID is missing.', 'authorize-net', 'business-directory-plugin' );
 
-        if ( ! $trans_key ) {
-            $errors[] = _x( 'Transaction Key is missing.', 'authorize-net', 'WPBDM' );
-        }
+        if ( ! $trans_key )
+            $errors[] = _x( 'Transaction Key is missing.', 'authorize-net', 'business-directory-plugin' );
 
         return $errors;
     }
@@ -199,32 +197,28 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
                         $payment->save();
 
-                        return array( 'result' => 'failure', 'error' => $error_msg );
-                    }
+            if ( $response->held ) {
+                $error_msg = sprintf( _x( 'Payment is being held for review by the payment gateway. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
+                                          '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
+                $payment->log( $error_msg );
+            }
 
                     $payment->save();
 
-                    return array( 'result' => 'success' );
-                }
-            }
-            $msg = _x( 'Payment was rejected. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' );
-             // Payment failed for other reasons.
-            if ( $tresponse != null && $tresponse->getErrors() != null ) {
-                $error_msg = sprintf(
-                    $msg,
-                    '(' . $tresponse->getErrors()[0]->getErrorCode() . ') ' . rtrim( $tresponse->getErrors()[0]->getErrorText(), '.' )
-                );
-            } else {
-                $error_msg = sprintf(
-                    $msg,
-                    '(' . $response->getMessages()->getMessage()[0]->getCode() . ') ' . rtrim( $response->getMessages()->getMessage()[0]->getText(), '.' )
-                );
-            }
+            return array( 'result' => 'success' );
+        } elseif ( $response->error ) {
+            $error_msg = sprintf( _x( 'The payment gateway didn\'t accept the credit card or billing information. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
+                         '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
+            $payment->log( $error_msg );
+            $payment->save();
 
         } else {
             $error_msg = _x( 'No response returned', 'authorize-net', 'WPBDM' );
         }
 
+        // Payment failed for other reasons.
+        $error_msg = sprintf( _x( 'Payment was rejected. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
+                                  '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
         $payment->status = 'failed';
         $payment->log( $error_msg );
         $payment->save();
@@ -283,10 +277,9 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         $interval->setLength( $subscription_args['intervalLength'] );
         $interval->setUnit( $subscription_args['intervalUnit'] );
 
-        $paymentSchedule = new AnetAPI\PaymentScheduleType();
-        $paymentSchedule->setInterval( $interval );
-        $paymentSchedule->setStartDate( new DateTime( $subscription_args['startDate'] ) );
-        $paymentSchedule->setTotalOccurrences( $subscription_args['totalOccurrences'] );
+        if ( ! $response->isOk() ) {
+            $error_msg = sprintf( _x( 'Payment failed. Reason: %s', 'authorize-net', 'business-directory-plugin' ), $response->getMessageText() );
+            $payment->log( $error_msg );
 
         if ( ! empty( $subscription_args['trialOccurrences'] ) ) {
             $paymentSchedule->setTrialOccurrences( $subscription_args['trialOccurrences'] );
@@ -343,7 +336,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         $recurring_item = $payment->find_item( 'recurring_plan' );
 
         $name  = '';
-        $name .= $listing->get_title() ? $listing->get_title() : sprintf( _x( 'Listing #%d', 'authorize-net', 'WPBDM' ), $listing->get_id() );
+        $name .= $listing->get_title() ? $listing->get_title() : sprintf( _x( 'Listing #%d', 'authorize-net', 'business-directory-plugin' ), $listing->get_id() );
         $name .= ' - ';
         $name .= $recurring_item['description'];
 
@@ -501,14 +494,12 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
             $controller = new AnetController\ARBCancelSubscriptionController( $request );
 
-            $response = $controller->executeWithApiResponse( $this->API_Endpoint );
-
-            if ( ! ( $response != null && $response->getMessages()->getResultCode() == 'Ok' ) ) {
-                $msg = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'WPBDM' );
+            if ( ! $response->isOk() ) {
+                $msg = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'business-directory-plugin' );
 
                 if ( current_user_can( 'administrator' ) ) {
                     $msg = sprintf(
-                        __( 'An error occurred while trying to cancel Authorize.net subscription with ID %s. You can try again later or cancel subscription from gateway dashboard.', 'WPBDM' ),
+                        __( 'An error occurred while trying to cancel Authorize.net subscription with ID %s. You can try again later or cancel subscription from gateway dashboard.', 'business-directory-plugin' ),
                         $susc_id
                     );
                 }

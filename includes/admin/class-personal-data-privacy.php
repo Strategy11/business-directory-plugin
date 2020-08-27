@@ -58,7 +58,7 @@ class WPBDP_Personal_Data_Privacy {
         $data_formatter = new WPBDP_DataFormatter();
 
         $exporters['business-directory-plugin-listings'] = array(
-            'exporter_friendly_name' => __( 'Business Directory Plugin', 'WPBDM' ),
+            'exporter_friendly_name' => __( 'Business Directory Plugin', 'business-directory-plugin' ),
             'callback'               => array(
                 new WPBDP_PersonalDataExporter(
                     new WPBDP_ListingsPersonalDataProvider(
@@ -70,7 +70,7 @@ class WPBDP_Personal_Data_Privacy {
         );
 
         $exporters['business-directory-plugin-payments'] = array(
-            'exporter_friendly_name' => __( 'Business Directory Plugin', 'WPBDM' ),
+            'exporter_friendly_name' => __( 'Business Directory Plugin', 'business-directory-plugin' ),
             'callback'               => array(
                 new WPBDP_PersonalDataExporter(
                     new WPBDP_PaymentPersonalDataProvider( $data_formatter )
@@ -89,14 +89,14 @@ class WPBDP_Personal_Data_Privacy {
      */
     public function register_personal_data_erasers( $erasers ) {
         $erasers['business-directory-plugin-listings'] = array(
-            'eraser_friendly_name' => __( 'Business Directory Plugin', 'WPBDM' ),
+            'eraser_friendly_name' => __( 'Business Directory Plugin', 'business-directory-plugin' ),
             'callback' => array(
                 new WPBDP_PersonalDataEraser( $this->get_listings_personal_data_provider() ),
                 'erase_personal_data',
             ),
         );
         $erasers['business-directory-plugin-payments'] = array(
-            'eraser_friendly_name' => __( 'Business Directory Plugin', 'WPBDM' ),
+            'eraser_friendly_name' => __( 'Business Directory Plugin', 'business-directory-plugin' ),
             'callback' => array(
                 new WPBDP_PersonalDataEraser( $this->get_payment_personal_data_provider() ),
                 'erase_personal_data',

@@ -26,97 +26,97 @@ echo $notice;
 </p>
 </div>
 
-<!--<h3><?php _ex( 'Export Configuration', 'admin csv-export', 'WPBDM' ); ?></h3>-->
+<!--<h3><?php _ex( 'Export Configuration', 'admin csv-export', 'business-directory-plugin' ); ?></h3>-->
 <form id="wpbdp-csv-export-form" action="" method="POST">
     
-    <h2><?php _ex( 'Export settings', 'admin csv-export', 'WPBDM' ); ?></h2>
+    <h2><?php _ex( 'Export settings', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
         <tr>
             <th scope="row">
-                <label> <?php _ex( 'Which listings to export?', 'admin csv-export', 'WPBDM' ); ?></label>
+                <label> <?php _ex( 'Which listings to export?', 'admin csv-export', 'business-directory-plugin' ); ?></label>
             </th>
             <td>
                 <select name="settings[listing_status]">
-                    <option value="all"><?php _ex( 'All', 'admin csv-export', 'WPBDM' ); ?></option>
-                    <option value="publish"><?php _ex( 'Active Only', 'admin csv-export', 'WPBDM' ); ?></option>
-                    <option value="publish+draft"><?php _ex( 'Active + Pending Renewal', 'admin csv-export', 'WPBDM' ); ?></option>
+                    <option value="all"><?php _ex( 'All', 'admin csv-export', 'business-directory-plugin' ); ?></option>
+                    <option value="publish"><?php _ex( 'Active Only', 'admin csv-export', 'business-directory-plugin' ); ?></option>
+                    <option value="publish+draft"><?php _ex( 'Active + Pending Renewal', 'admin csv-export', 'business-directory-plugin' ); ?></option>
                 </select>
             </td>
         </tr>      
         <tr>
             <th scope="row">
-                <label> <?php _ex( 'Export images?', 'admin csv-export', 'WPBDM' ); ?></label>
+                <label> <?php _ex( 'Export images?', 'admin csv-export', 'business-directory-plugin' ); ?></label>
             </th>
             <td>
                 <label><input name="settings[export-images]"
                        type="checkbox"
-                       value="1" /> <?php _ex( 'Export images', 'admin csv-export', 'WPBDM' ); ?></label> <br />
+                       value="1" /> <?php _ex( 'Export images', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
                 <span class="description">
-                    <?php _ex( 'When checked, instead of just a CSV file a ZIP file will be generated with both a CSV file and listing images.', 'admin csv-export', 'WPBDM' ); ?>
+                    <?php _ex( 'When checked, instead of just a CSV file a ZIP file will be generated with both a CSV file and listing images.', 'admin csv-export', 'business-directory-plugin' ); ?>
                 </span>
             </td>
         </tr>
         <tr>
             <th scope="row">
-                <label> <?php _ex( 'Additional metadata to export:', 'admin csv-export', 'WPBDM' ); ?></label>
+                <label> <?php _ex( 'Additional metadata to export:', 'admin csv-export', 'business-directory-plugin' ); ?></label>
             </th>
             <td>
                 <label><input name="settings[generate-sequence-ids]"
                        type="checkbox"
-                       value="1" /> <?php _ex( 'Include unique IDs for each listing (sequence_id column).', 'admin csv-export', 'WPBDM' ); ?></label><br />
+                       value="1" /> <?php _ex( 'Include unique IDs for each listing (sequence_id column).', 'admin csv-export', 'business-directory-plugin' ); ?></label><br />
                 <span class="description">
-                <strong><?php _ex( 'If you plan to re-import the listings into BD and don\'t want new ones created, select this option!', 'admin csv-export', 'WPBDM' ); ?></strong>
+                <strong><?php _ex( 'If you plan to re-import the listings into BD and don\'t want new ones created, select this option!', 'admin csv-export', 'business-directory-plugin' ); ?></strong>
                 </span> <br /><br />
 
                 <label><input name="settings[include-users]"
                        type="checkbox"
                        value="1"
-                       checked="checked" /> <?php _ex( 'Author information (username)', 'admin csv-export', 'WPBDM' ); ?></label> <br />
+                       checked="checked" /> <?php _ex( 'Author information (username)', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
 
                 <label><input name="settings[include-expiration-date]"
                        type="checkbox"
                        value="1"
-                       checked="checked" /> <?php _ex( 'Listing expiration date', 'admin csv-export', 'WPBDM' ); ?></label> <br />
+                       checked="checked" /> <?php _ex( 'Listing expiration date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
                 
                 <label><input name="settings[include-created-date]"
                 type="checkbox"
-                value="1" /> <?php _ex( 'Listing created date', 'admin csv-export', 'WPBDM' ); ?></label> <br />
+                value="1" /> <?php _ex( 'Listing created date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
 
                 <label><input name="settings[include-modified-date]"
                 type="checkbox"
-                value="1" /> <?php _ex( 'Listing last updated date', 'admin csv-export', 'WPBDM' ); ?></label> <br />
+                value="1" /> <?php _ex( 'Listing last updated date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
 
                 <label><input name="settings[include-tos-acceptance-date]"
                 type="checkbox"
-                value="1" /> <?php _ex( 'Listing T&C acceptance date', 'admin csv-export', 'WPBDM' ); ?></label> <br />
+                value="1" /> <?php _ex( 'Listing T&C acceptance date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
             </td>
         </tr>
     </table>
 
-    <h2><?php _ex( 'CSV File Settings', 'admin csv-export', 'WPBDM' ); ?></h2>
+    <h2><?php _ex( 'CSV File Settings', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'What operating system will you use to edit the CSV file?', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'What operating system will you use to edit the CSV file?', 'admin csv-export', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <label><input name="settings[target-os]"
                            type="radio"
                            aria-required="true"
                            value="windows"
-                           checked="checked" /><?php _ex( 'Windows', 'admin csv-export', 'WPBDM' ); ?></label>
+                           checked="checked" /><?php _ex( 'Windows', 'admin csv-export', 'business-directory-plugin' ); ?></label>
                     <br />
                     <label><input name="settings[target-os]"
                            type="radio"
                            aria-required="true"
-                           value="macos" /><?php _ex( 'macOS', 'admin csv-export', 'WPBDM' ); ?></label>
+                           value="macos" /><?php _ex( 'macOS', 'admin csv-export', 'business-directory-plugin' ); ?></label>
                     <br />
-                    <p><?php _ex( 'Windows and macOS versions of MS Excel handle CSV files differently. To make sure all your listings information is displayed properly when you view or edit the CSV file, we need to generate different versions of the file for each operating system.', 'admin csv-export', 'WPBDM' ); ?></p>
+                    <p><?php _ex( 'Windows and macOS versions of MS Excel handle CSV files differently. To make sure all your listings information is displayed properly when you view or edit the CSV file, we need to generate different versions of the file for each operating system.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'Image Separator', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'Image Separator', 'admin csv-export', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[images-separator]"
@@ -127,7 +127,7 @@ echo $notice;
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'Category Separator', 'admin csv-export', 'WPBDM' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'WPBDM' ); ?>)</span></label>
+                    <label> <?php _ex( 'Category Separator', 'admin csv-export', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <input name="settings[category-separator]"
@@ -139,51 +139,51 @@ echo $notice;
     </table>
 
     <p class="submit">
-        <?php echo submit_button( _x( 'Export Listings', 'admin csv-export', 'WPBDM' ), 'primary', 'do-export', false ); ?>
+        <?php echo submit_button( _x( 'Export Listings', 'admin csv-export', 'business-directory-plugin' ), 'primary', 'do-export', false ); ?>
     </p>
 </form>
 </div>
 
 <div class="step-2">
-    <h2><?php _ex( 'Export in Progress...', 'admin csv-export', 'WPBDM' ); ?></h2>
-    <p><?php _ex( 'Your export file is being prepared. Please <u>do not leave</u> this page until the export finishes.', 'admin csv-export', 'WPBDM' ); ?></p>
+    <h2><?php _ex( 'Export in Progress...', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
+    <p><?php _ex( 'Your export file is being prepared. Please <u>do not leave</u> this page until the export finishes.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
     
     <dl>
-        <dt><?php _ex( 'No. of listings:', 'admin csv-export', 'WPBDM' ); ?></dt>
+        <dt><?php _ex( 'No. of listings:', 'admin csv-export', 'business-directory-plugin' ); ?></dt>
         <dd class="listings">?</dd>
-        <dt><?php _ex( 'Approximate export file size:', 'admin csv-export', 'WPBDM' ); ?></dt>
+        <dt><?php _ex( 'Approximate export file size:', 'admin csv-export', 'business-directory-plugin' ); ?></dt>
         <dd class="size">?</dd> 
     </dl>
     
     <div class="export-progress"></div>
     
     <p class="submit">
-        <a href="#" class="cancel-import button"><?php _ex( 'Cancel Export', 'admin csv-export', 'WPBDM' ); ?></a>
+        <a href="#" class="cancel-import button"><?php _ex( 'Cancel Export', 'admin csv-export', 'business-directory-plugin' ); ?></a>
     </p>
 </div>
 
 <div class="step-3">
-    <h2><?php _ex( 'Export Complete', 'admin csv-export', 'WPBDM' ) ?></h2>
-    <p><?php _ex( 'Your export file has been successfully created and it is now ready for download.', 'admin csv-export', 'WPBDM' ); ?></p>
+    <h2><?php _ex( 'Export Complete', 'admin csv-export', 'business-directory-plugin' ) ?></h2>
+    <p><?php _ex( 'Your export file has been successfully created and it is now ready for download.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
     <div class="download-link">
         <a href="" class="button button-primary">
             <?php
-            echo sprintf( _x( 'Download %1$s (%2$s)', 'admin csv-export', 'WPBDM' ),
+            echo sprintf( _x( 'Download %1$s (%2$s)', 'admin csv-export', 'business-directory-plugin' ),
                 '<span class="filename"></span>',
             '<span class="filesize"></span>' );
             ?>
         </a>
     </div>
     <div class="cleanup-link wpbdp-note">
-        <p><?php _ex( 'Click "Cleanup" once the file has been downloaded in order to remove all temporary data created by Business Directory during the export process.', 'admin csv-export', 'WPBDM' ); ?><br />
-        <a href="" class="button"><?php _ex( 'Cleanup', 'admin csv-export', 'WPBDM' ); ?></a></p>
+        <p><?php _ex( 'Click "Cleanup" once the file has been downloaded in order to remove all temporary data created by Business Directory during the export process.', 'admin csv-export', 'business-directory-plugin' ); ?><br />
+        <a href="" class="button"><?php _ex( 'Cleanup', 'admin csv-export', 'business-directory-plugin' ); ?></a></p>
     </div>    
 </div>
 
 <div class="canceled-export">
-    <h2><?php _ex( 'Export Canceled', 'admin csv-export', 'WPBDM' ) ?></h2>
-    <p><?php _ex( 'The export has been canceled.', 'admin csv-export', 'WPBDM' ); ?></p>
-    <p><a href="" class="button"><?php _ex( '← Return to CSV Export', 'admin csv-export', 'WPBDM' ); ?></a></p>
+    <h2><?php _ex( 'Export Canceled', 'admin csv-export', 'business-directory-plugin' ) ?></h2>
+    <p><?php _ex( 'The export has been canceled.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
+    <p><a href="" class="button"><?php _ex( '← Return to CSV Export', 'admin csv-export', 'business-directory-plugin' ); ?></a></p>
 </div>
 
 </div>

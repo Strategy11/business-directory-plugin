@@ -30,13 +30,13 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
             <span class="wpbdp-plan-duration-amount">
                 <?php echo $plan->days; ?>
             </span>
-            <span class="wpbdp-plan-duration-period"><?php _ex( 'days', 'plan selection', 'WPBDM' ); ?></span>
+            <span class="wpbdp-plan-duration-period"><?php _ex( 'days', 'plan selection', 'business-directory-plugin' ); ?></span>
                 <?php if ( $plan->recurring ): ?>
-                <span class="wpbdp-plan-is-recurring"><?php _ex( '(Recurring)', 'plan selection', 'WPBDM' ); ?></span>
+                <span class="wpbdp-plan-is-recurring"><?php _ex( '(Recurring)', 'plan selection', 'business-directory-plugin' ); ?></span>
                 <?php endif; ?>
             <?php else: ?>
             <span class="wpbdp-plan-duration-never-expires">
-                <?php _ex( 'Never Expires', 'plan selection', 'WPBDM' ); ?>
+                <?php _ex( 'Never Expires', 'plan selection', 'business-directory-plugin' ); ?>
             </span>
             <?php endif; ?>
         </div>
@@ -69,12 +69,12 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 
         <?php if ( $disabled ): ?>
         <div class="wpbdp-msg wpbdp-plan-disabled-msg">
-            <?php _ex( 'This plan can\'t be used for admin submits. For a recurring plan to work, end users need to pay for it using a supported gateway.', 'plan selection', 'WPBDM' ); ?>
+            <?php _ex( 'This plan can\'t be used for admin submits. For a recurring plan to work, end users need to pay for it using a supported gateway.', 'plan selection', 'business-directory-plugin' ); ?>
         </div>
         <?php endif; ?>
         <?php if ( ! empty( $plan->extra_data['private'] ) ) : ?>
             <div class="wpbdp-plan-private-msg">
-                (<?php _ex( 'Private fee plan', 'plan selection', 'WPBDM' ); ?>)
+                (<?php _ex( 'Private fee plan', 'plan selection', 'business-directory-plugin' ); ?>)
             </div>
         <?php endif; ?>
 

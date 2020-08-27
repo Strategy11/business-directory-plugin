@@ -28,7 +28,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 
     public function get_title() {
-        return _x( 'Submit A Listing', 'views', 'WPBDM' );
+        return _x( 'Submit A Listing', 'views', 'business-directory-plugin' );
     }
 
     public function enqueue_resources() {
@@ -63,12 +63,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             'wpbdp-submit-listing',
             'wpbdpSubmitListingL10n',
             array(
-				'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'WPBDM' ),
-				'completeListingTxt'       => _x( 'Complete Listing', 'submit listing', 'WPBDM' ),
-				'continueToPaymentTxt'     => _x( 'Continue to Payment', 'submit listing', 'WPBDM' ),
+				'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'business-directory-plugin' ),
+				'completeListingTxt'       => _x( 'Complete Listing', 'submit listing', 'business-directory-plugin' ),
+				'continueToPaymentTxt'     => _x( 'Continue to Payment', 'submit listing', 'business-directory-plugin' ),
 				'isAdmin'                  => current_user_can( 'administrator' ),
-				'waitAMoment'              => _x( 'Please wait a moment!', 'submit listing', 'WPBDM' ),
-				'somethingWentWrong'       => _x( 'Something went wrong!', 'submit listing', 'WPBDM' ),
+				'waitAMoment'              => _x( 'Please wait a moment!', 'submit listing', 'business-directory-plugin' ),
+				'somethingWentWrong'       => _x( 'Something went wrong!', 'submit listing', 'business-directory-plugin' ),
             )
         );
 
@@ -93,9 +93,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $message = '';
 
             if ( empty( $_REQUEST['listing_id'] ) ) {
-                $message = _x( 'No listing ID was specified.', 'submit listing', 'WPBDM' );
+                $message = _x( 'No listing ID was specified.', 'submit listing', 'business-directory-plugin' );
             } elseif ( ! wpbdp_user_can( 'edit', $_GET['listing_id'] ) ) {
-                $message = _x( "You can't edit this listing.", 'submit listing', 'WPBDM' );
+                $message = _x( "You can't edit this listing.", 'submit listing', 'business-directory-plugin' );
             }
 
             if ( $message ) {
@@ -149,12 +149,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     str_replace(
                         '<a>',
                         '<a href="' . esc_url( $this->listing->get_admin_edit_link() ) . '">',
-                        _x( 'This listing can\'t be edited at this time because it has no fee plan associated. Please <a>edit the listing</a> on the backend and associate it to a fee plan.', 'submit listing', 'WPBDM' )
+                        _x( 'This listing can\'t be edited at this time because it has no fee plan associated. Please <a>edit the listing</a> on the backend and associate it to a fee plan.', 'submit listing', 'business-directory-plugin' )
                     ),
                     'error'
                 );
             } else {
-                return wpbdp_render_msg( _x( 'This listing can\'t be edited at this time. Please try again later or contact the admin if the problem persists.', 'submit listing', 'WPBDM' ), 'error' );
+                return wpbdp_render_msg( _x( 'This listing can\'t be edited at this time. Please try again later or contact the admin if the problem persists.', 'submit listing', 'business-directory-plugin' ), 'error' );
             }
         }
 
@@ -177,7 +177,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         if ( current_user_can( 'administrator' ) ) {
-            $this->messages( _x( 'You\'re logged in as admin, payment will be skipped.', 'submit listing', 'WPBDM' ), 'notice', 'general' );
+            $this->messages( _x( 'You\'re logged in as admin, payment will be skipped.', 'submit listing', 'business-directory-plugin' ), 'notice', 'general' );
         }
 
         $instructions = trim( wpbdp_get_option( 'submit-instructions' ) );
@@ -349,9 +349,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( 'submit_listing' === wpbdp_current_view() && wpbdp_get_option( 'disable-submit-listing' ) ) {
             if ( current_user_can( 'administrator' ) ) {
-                $msg = _x( '<b>View not available</b>. Do you have the "Disable Frontend Listing Submission?" setting checked?', 'templates', 'WPBDM' );
+                $msg = _x( '<b>View not available</b>. Do you have the "Disable Frontend Listing Submission?" setting checked?', 'templates', 'business-directory-plugin' );
             } else {
-                $msg = _x( 'Listing submission has been disabled. Contact the administrator for details.', 'templates', 'WPBDM' );
+                $msg = _x( 'Listing submission has been disabled. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
             }
 
             return false;
@@ -404,17 +404,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( $this->can_edit_plan_or_categories() ) {
             $sections['plan_selection'] = array(
-                'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'WPBDM' ) : _x( 'Category & plan selection', 'submit listing', 'WPBDM' ),
+                'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'business-directory-plugin' ) : _x( 'Category & plan selection', 'submit listing', 'business-directory-plugin' ),
             );
         }
 
         $sections['listing_fields'] = array(
-            'title' => _x( 'Listing Information', 'submit listing', 'WPBDM' ),
+            'title' => _x( 'Listing Information', 'submit listing', 'business-directory-plugin' ),
 		);
 
         if ( wpbdp_get_option( 'allow-images' ) ) {
             $sections['listing_images'] = array(
-                'title' => _x( 'Listing Images', 'submit listing', 'WPBDM' ),
+                'title' => _x( 'Listing Images', 'submit listing', 'business-directory-plugin' ),
             );
         }
 
@@ -422,13 +422,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( ! $this->editing && ! wpbdp_get_option( 'require-login' ) && 'disabled' !== wpbdp_get_option( 'create-account-during-submit-mode' ) && ! is_user_logged_in() ) {
             $sections['account_creation'] = array(
-                'title' => _x( 'Account Creation', 'submit listing', 'WPBDM' ),
+                'title' => _x( 'Account Creation', 'submit listing', 'business-directory-plugin' ),
             );
         }
 
         if ( ! $this->editing && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             $sections['terms_and_conditions'] = array(
-                'title' => _x( 'Terms and Conditions', 'submit listing', 'WPBDM' ),
+                'title' => _x( 'Terms and Conditions', 'submit listing', 'business-directory-plugin' ),
             );
         }
 
@@ -465,7 +465,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( ! $this->listing->has_fee_plan() && 'plan_selection' !== $section['id'] ) {
                 $section['flags'][] = 'collapsed';
                 $section['flags'][] = 'disabled';
-                $section['html']    = _x( '(Please choose a fee plan above)', 'submit listing', 'WPBDM' );
+                $section['html']    = _x( '(Please choose a fee plan above)', 'submit listing', 'business-directory-plugin' );
                 $section['state']   = 'disabled';
                 continue;
             }
@@ -515,34 +515,34 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $plans = $this->available_plans;
 
         if ( ! $plans && ! $this->editing ) {
-            $msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'WPBDM' );
+            $msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
             if ( current_user_can( 'administrator' ) ) {
                 $msg .= '<br><br>';
-                $msg .= _x( '<b>There are no Fee Plans available</b>, without a fee plan site users can\'t submit a listing. %s to create a fee plan', 'templates', 'WPBDM' );
+                $msg .= _x( '<b>There are no Fee Plans available</b>, without a fee plan site users can\'t submit a listing. %s to create a fee plan', 'templates', 'business-directory-plugin' );
 
                 $msg = sprintf(
                     $msg,
                     sprintf(
                         '<a href="%s">%s</a>',
                         admin_url( 'admin.php?page=wpbdp-admin-fees' ),
-                        _x( 'Go to "Manage Fees"', 'admin', 'WPBDM' )
+                        _x( 'Go to "Manage Fees"', 'admin', 'business-directory-plugin' )
                     )
                 );
             }
             wp_die( $msg );
         }
 
-        $msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'WPBDM' );
+        $msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
 
         if ( current_user_can( 'administrator' ) ) {
-            $msg = _x( '<b>View not available</b>, there is no "Category" association field. %s and create a new field with this association, or assign this association to an existing field', 'templates', 'WPBDM' );
+            $msg = _x( '<b>View not available</b>, there is no "Category" association field. %s and create a new field with this association, or assign this association to an existing field', 'templates', 'business-directory-plugin' );
 
             $msg = sprintf(
                 $msg,
                 sprintf(
                     '<a href="%s">%s</a>',
                     admin_url( 'admin.php?page=wpbdp_admin_formfields' ),
-                    _x( 'Go to "Manage Form Fields"', 'admin', 'WPBDM' )
+                    _x( 'Go to "Manage Form Fields"', 'admin', 'business-directory-plugin' )
                 )
             );
         }
@@ -557,7 +557,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $categories = $category_field->value_from_POST();
             if ( ! $categories && ! empty( $_POST ) ) {
                 $this->data['previous_categories'] = array();
-                $this->messages( _x( 'Please select a category.', 'submit listing', 'WPBDM' ), 'error', 'plan_selection' );
+                $this->messages( _x( 'Please select a category.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
             }
         } else {
             $categories = $category_field->value_from_POST();
@@ -570,7 +570,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 }
 
                 if ( $this->saving() && ! $categories ) {
-                    $this->messages( _x( 'Please select a category for your listing.', 'submit listing', 'WPBDM' ), 'error', 'plan_selection' );
+                    $this->messages( _x( 'Please select a category for your listing.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
                     $this->prevent_save = true;
                 }
             } else {
@@ -590,9 +590,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             if ( ! $plan || ! $plan->enabled || ! $plan->supports_category_selection( $categories ) ) {
                 if ( $this->editing ) {
-                    $this->messages( _x( 'Please choose a valid category for your plan.', 'submit listing', 'WPBDM' ), 'error', 'plan_selection' );
+                    $this->messages( _x( 'Please choose a valid category for your plan.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
                 } else {
-                    $this->messages( _x( 'Please choose a valid fee plan for your category selection.', 'submit listing', 'WPBDM' ), 'error', 'plan_selection' );
+                    $this->messages( _x( 'Please choose a valid fee plan for your category selection.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
                 }
 
                 $this->prevent_save = true;
@@ -702,7 +702,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$this->listing, $field_values ) );
 
         if ( $validation_errors ) {
-            $this->messages( _x( 'Something went wrong. Please check the form for errors, correct them and submit again.', 'listing submit', 'WPBDM' ), 'error', 'listing_fields' );
+            $this->messages( _x( 'Something went wrong. Please check the form for errors, correct them and submit again.', 'listing submit', 'business-directory-plugin' ), 'error', 'listing_fields' );
             $this->prevent_save = true;
         }
 
@@ -786,7 +786,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( ! empty( $_POST['save_listing'] ) && ! count( $images_meta ) && wpbdp_get_option( 'enforce-image-upload' ) ) {
             $this->prevent_save = true;
-            $this->messages( _x( 'Image upload is required, please provide at least one image and submit again.', 'listing submit', 'WPBDM' ), 'error', 'listing_images' );
+            $this->messages( _x( 'Image upload is required, please provide at least one image and submit again.', 'listing submit', 'business-directory-plugin' ), 'error', 'listing_images' );
         }
 
         $thumbnail_id = $this->listing->get_thumbnail_id();
@@ -832,22 +832,22 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $error = false;
 
             if ( ! $form_username ) {
-                $this->messages( _x( 'Please enter your desired username.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $this->messages( _x( 'Please enter your desired username.', 'submit listing', 'business-directory-plugin' ), 'error', 'account_creation' );
                 $error = true;
             }
 
             if ( ! $error && ! $form_email ) {
-                $this->messages( _x( 'Please enter the e-mail for your new account.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $this->messages( _x( 'Please enter the e-mail for your new account.', 'submit listing', 'business-directory-plugin' ), 'error', 'account_creation' );
                 $error = true;
             }
 
             if ( ! $error && $form_username && username_exists( $form_username ) ) {
-                $this->messages( _x( 'The username you chose is already in use. Please use a different one.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $this->messages( _x( 'The username you chose is already in use. Please use a different one.', 'submit listing', 'business-directory-plugin' ), 'error', 'account_creation' );
                 $error = true;
             }
 
             if ( ! $error && $form_email && email_exists( $form_email ) ) {
-                $this->messages( _x( 'The e-mail address you chose for your account is already in use.', 'submit listing', 'WPBDM' ), 'error', 'account_creation' );
+                $this->messages( _x( 'The e-mail address you chose for your account is already in use.', 'submit listing', 'business-directory-plugin' ), 'error', 'account_creation' );
                 $error = true;
             }
 
@@ -862,20 +862,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( 'optional' == $mode ) {
             $html .= '<input id="wpbdp-submit-listing-create_account" type="checkbox" name="create-account" value="create-account" ' . checked( true, $form_create, false ) . '/>';
-            $html .= '<label for="wpbdp-submit-listing-create_account">' . _x( 'Create a user account on this site', 'submit listing', 'WPBDM' ) . '</label>';
+            $html .= '<label for="wpbdp-submit-listing-create_account">' . _x( 'Create a user account on this site', 'submit listing', 'business-directory-plugin' ) . '</label>';
         }
 
         $html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( ( 'optional' == $mode && ! $form_create ) ? 'wpbdp-hidden' : '' ) . '">';
 
         if ( 'required' == $mode ) {
             $html .= '<p>';
-            $html .= _x( 'You need to create an account on the site. Please fill out the form below.', 'submit listing', 'WPBDM' );
+            $html .= _x( 'You need to create an account on the site. Please fill out the form below.', 'submit listing', 'business-directory-plugin' );
             $html .= '</p>';
         }
 
         $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
         $html .= '<div class="wpbdp-form-field-label">';
-        $html .= '<label for="wpbdp-submit-listing-user_username">' . _x( 'Username:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '<label for="wpbdp-submit-listing-user_username">' . _x( 'Username:', 'submit listing', 'business-directory-plugin' ) . '</label>';
         $html .= '</div>';
         $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_username" type="text" name="user_username" value="' . esc_attr( $form_username ) .'" />';
@@ -884,7 +884,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
         $html .= '<div class="wpbdp-form-field-label">';
-        $html .= '<label for="wpbdp-submit-listing-user_email">' . _x( 'Email:', 'submit listing', 'WPBDM' ) . '</label>';
+        $html .= '<label for="wpbdp-submit-listing-user_email">' . _x( 'Email:', 'submit listing', 'business-directory-plugin' ) . '</label>';
         $html .= '</div>';
         $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_email" type="text" name="user_email" value="' . esc_attr( $form_email ) . '" />';
@@ -911,7 +911,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
 
         if ( $this->saving() && ! $accepted ) {
-            $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'WPBDM' ), 'error', 'terms_and_conditions' );
+            $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'business-directory-plugin' ), 'error', 'terms_and_conditions' );
             $this->prevent_save = true;
         }
         
@@ -921,14 +921,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( ! $is_url ) {
             $html .= '<label for="wpbdp-terms-and-conditions">';
-            $html .= _x( 'Terms and Conditions:', 'templates', 'WPBDM' );
+            $html .= _x( 'Terms and Conditions:', 'templates', 'business-directory-plugin' );
             $html .= '</label><br />';
             $html .= sprintf( '<textarea id="wpbdp-terms-and-conditions" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
         }
 
         $html .= '<label for="wpbdp-terms-and-conditions-agreement">';
         $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
-        $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'WPBDM' );
+        $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'business-directory-plugin' );
 
         if ( $is_url )
             $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );

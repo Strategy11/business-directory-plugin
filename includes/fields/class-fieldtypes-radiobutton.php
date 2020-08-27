@@ -19,7 +19,7 @@ if ( ! class_exists( 'WPBDP_CategoryFormInputWalker' ) ) {
 class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x( 'Radio button', 'form-fields api', 'WPBDM' ) );
+        parent::__construct( _x( 'Radio button', 'form-fields api', 'business-directory-plugin' ) );
     }
 
     public function get_id() {
@@ -91,7 +91,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
             return '';
 		}
 
-        $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'WPBDM' ) . '<span class="description">(required)</span>';
+        $label = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'business-directory-plugin' ) . '<span class="description">(required)</span>';
 
         $content  = '<span class="description">One option per line</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
@@ -113,7 +113,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         $options = stripslashes( trim( $_POST['field']['x_options'] ) );
 
         if ( ! $options && $field->get_association() != 'tags' ) {
-            return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'WPBDM' ) );
+            return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'business-directory-plugin' ) );
         }
 
         $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();

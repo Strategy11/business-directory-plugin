@@ -81,7 +81,7 @@ class WPBDP__Payment_Gateways {
             wpbdp_register_settings_group( 'gateway_' . $gateway->get_id(), $gateway->get_title(), 'payment', array( 'desc' => $gateway->get_settings_text() ) );
             wpbdp_register_setting( array(
                 'id' => $gateway->get_id(),
-                'name' => sprintf( _x( 'Enable %s?', 'payment-gateways', 'WPBDM' ), $gateway->get_title() ),
+                'name' => sprintf( _x( 'Enable %s?', 'payment-gateways', 'business-directory-plugin' ), $gateway->get_title() ),
                 'type' => 'checkbox',
                 'default' => false,
                 'group'   => 'gateway_' . $gateway->get_id(),
@@ -112,9 +112,9 @@ class WPBDP__Payment_Gateways {
             } elseif ( $gateway->is_enabled( false ) ) {
                 $errors = rtrim( '&#149; ' . implode( ' &#149; ', $gateway->validate_settings() ), '.' );
 
-                $msg  = _x( 'The <gateway> gateway is enabled but not properly configured. The gateway won\'t be available until the following problems are fixed: <problems>.', 'payment-gateways', 'WPBDM' );
+                $msg  = _x( 'The <gateway> gateway is enabled but not properly configured. The gateway won\'t be available until the following problems are fixed: <problems>.', 'payment-gateways', 'business-directory-plugin' );
                 $msg .= '<br />';
-                $msg .= _x( 'Please check the <link>payment settings</link>.', 'payment-gateways', 'WPBDM' );
+                $msg .= _x( 'Please check the <link>payment settings</link>.', 'payment-gateways', 'business-directory-plugin' );
 
                 $msg = str_replace( '<gateway>', '<b>' . $gateway->get_title() .'</b>', $msg );
                 $msg = str_replace( '<problems>', '<b>' . $errors . '</b>', $msg );
@@ -125,7 +125,7 @@ class WPBDP__Payment_Gateways {
         }
 
         if ( ! $at_least_one_gateway ) {
-            $msg = _x( 'You have payments turned on but no gateway is active and properly configured. Go to <link>Manage Options - Payment</link> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'payment-gateways', 'WPBDM' );
+            $msg = _x( 'You have payments turned on but no gateway is active and properly configured. Go to <link>Manage Options - Payment</link> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'payment-gateways', 'business-directory-plugin' );
             $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">', '</a>' ), $msg );
             wpbdp_admin_message( $msg, 'error' );
         }

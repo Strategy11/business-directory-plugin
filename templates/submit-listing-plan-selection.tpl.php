@@ -14,7 +14,7 @@
     _ex(
         'You can\'t change the plan your listing is on but you can modify the categories it appears in, using the field below. Details about the plan are shown for completeness.',
         'submit',
-        'WPBDM'
+        'business-directory-plugin'
     );
     ?>
     </div>
@@ -24,7 +24,7 @@
         <?php echo $category_field->render( (array) $selected_categories, 'submit' ); ?>
     <?php else : ?>
         <?php if ( ! $editing && ! $_submit->skip_plan_selection ) : ?>
-        <div class="wpbdp-msg tip"><?php _ex( 'You need to pick the categories first and then you\'ll be shown the available fee plans for your listing.', 'submit', 'WPBDM' ); ?></div>
+        <div class="wpbdp-msg tip"><?php _ex( 'You need to pick the categories first and then you\'ll be shown the available fee plans for your listing.', 'submit', 'business-directory-plugin' ); ?></div>
         <?php endif; ?>
         <?php echo $category_field->render(); ?>
     <?php endif; ?>
@@ -34,7 +34,7 @@
     <input type="hidden" name="listing_plan" value="<?php echo $_submit->fixed_plan_id; ?>" />
     <input type="hidden" name="skip_plan_selection" value="1" />
 
-    <div class="wpbdp-msg tip"><?php _ex( 'Your plan\'s details:', 'submit', 'WPBDM' ); ?></div>
+    <div class="wpbdp-msg tip"><?php _ex( 'Your plan\'s details:', 'submit', 'business-directory-plugin' ); ?></div>
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
         <div class="wpbdp-plan-selection">
             <div class="wpbdp-plan-selection-list">
@@ -52,7 +52,7 @@
         </div>
         <?php if ( $_submit->category_specific_fields ) : ?>
         <div class="wpbdp_continue_to_fields_action">
-            <input type="submit" name="continue-to-fields" value="<?php _ex( 'Continue', 'submit listing', 'WPBDM' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+            <input type="submit" name="continue-to-fields" value="<?php _ex( 'Continue', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
         </div>
         <?php endif; ?>
     </div>
@@ -60,7 +60,7 @@
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
         <?php if ( ! $editing ) : ?>
             <div class="wpbdp-plan-selection wpbdp-plan-selection-with-tip">
-                <div class="wpbdp-msg tip"><?php _ex( 'Please choose a fee plan for your listing:', 'submit', 'WPBDM' ); ?></div>
+                <div class="wpbdp-msg tip"><?php _ex( 'Please choose a fee plan for your listing:', 'submit', 'business-directory-plugin' ); ?></div>
                 <?php
                 echo wpbdp_render(
                     'plan-selection',
