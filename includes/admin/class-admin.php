@@ -47,6 +47,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             // Adds admin menus.
             add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
+            add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ) );
 
             // Enables reordering of admin menus.
             add_filter( 'custom_menu_order', '__return_true' );
@@ -308,11 +309,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $count_html = '';
-            if ( current_user_can( 'administrator' ) ) {
-                $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 0 ) );
-                $count_html = $badge_number ? '<span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>' : '';
-            }
+            $menu = array();
             $menu['wpbdp-admin-fees'] = array(
                 'title' => _x( 'Manage Fees', 'admin menu', 'business-directory-plugin' )
             );
@@ -499,6 +496,31 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             if ( $callback ) {
                 call_user_func( $callback );
+            }
+        }
+
+        /**
+         * Restore BD themes available updates count on Menu title.
+         *
+         * @since 5.8
+         */
+        public function maybe_add_themes_update_count() {
+            $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 0 ) );
+
+            if( ! $badge_number ) {
+                return;
+            }
+
+            global $menu;
+
+            $menu_item = wp_list_filter(
+                $menu,
+                array( 2 => 'edit.php?post_type=' . WPBDP_POST_TYPE ) // 2 is the position of an array item which contains URL, it will always be 2!
+            );
+
+            if ( ! empty( $menu_item )  ) {
+                $menu_item_position = key( $menu_item ); // get the array key (position) of the element
+                $menu[ $menu_item_position ][0] .= ' <span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>';
             }
         }
 

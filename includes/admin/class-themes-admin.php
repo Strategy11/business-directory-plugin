@@ -14,7 +14,7 @@ class WPBDP_Themes_Admin {
         $this->outdated_themes = $this->find_outdated_themes();
 
 
-        // add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
+        add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
         add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
 
