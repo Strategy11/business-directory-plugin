@@ -129,6 +129,22 @@ class WPBDP__Payment_Gateways {
             $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">', '</a>' ), $msg );
             wpbdp_admin_message( $msg, 'error' );
         }
+
+        $at_least_one_public_fee = false;
+
+        foreach ( wpbdp_get_fee_plans() as $plan ) {
+            if ( empty( $plan->extra_data['private'] ) ) {
+                $at_least_one_public_fee = true;
+                break;
+            }
+        }
+
+        if ( ! $at_least_one_public_fee ) {
+            $msg = _x( 'You have payments turned on but there ain\'t a public fee plan. Go to <link>Manage Fees</link> to change the fees settings. Until you change this, directory users won\'t be able to submit a listing.', 'payment-gateways', 'business-directory-plugin' );
+            $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) . '">', '</a>' ), $msg );
+            wpbdp_admin_message( $msg, 'error' );
+        }
+
     }
 
 }
