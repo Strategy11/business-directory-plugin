@@ -6,8 +6,6 @@
  * @SuppressWarnings(PHPMD)
  */
 
-// phpcs:disable
-
 require_once WPBDP_PATH . 'includes/admin/admin-pages.php';
 require_once WPBDP_PATH . 'includes/admin/class-admin-listings.php';
 require_once WPBDP_PATH . 'includes/admin/form-fields.php';
@@ -25,8 +23,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
      */
     class WPBDP_Admin {
 
-        private $menu = array();
-        private $current_controller = null;
+        private $menu                      = array();
+        private $current_controller        = null;
         private $current_controller_output = '';
 
         private $dropdown_users_args_stack = array();
@@ -35,15 +33,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 
         public function __construct() {
-            add_action('admin_init', array($this, 'handle_actions'));
+            add_action( 'admin_init', array( $this, 'handle_actions' ) );
 
-            add_action('admin_init', array($this, 'check_for_required_pages'));
+            add_action( 'admin_init', array( $this, 'check_for_required_pages' ) );
 
             add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
-            add_action('admin_notices', array($this, 'admin_notices'));
-            add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
+            add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
             // Adds admin menus.
             add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -59,7 +57,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_filter( 'manage_edit-' . WPBDP_TAGS_TAX . '_columns', array( &$this, 'tag_taxonomy_columns' ) );
             add_action( 'manage_' . WPBDP_CATEGORY_TAX . '_custom_column', array( &$this, 'custom_taxonomy_columns' ), 10, 3 );
 
-            add_filter('wp_terms_checklist_args', array($this, '_checklist_args')); // fix issue #152
+            add_filter( 'wp_terms_checklist_args', array( $this, '_checklist_args' ) ); // fix issue #152
 
             add_action( 'wp_ajax_wpbdp-formfields-reorder', array( &$this, 'ajax_formfields_reorder' ) );
 
@@ -78,18 +76,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
-            $this->listings = new WPBDP_Admin_Listings();
+            $this->listings   = new WPBDP_Admin_Listings();
             $this->csv_import = new WPBDP_CSVImportAdmin();
             $this->csv_export = new WPBDP_Admin_CSVExport();
             $this->debug_page = new WPBDP_Admin_Debug_Page();
 
             // Post-install migrations.
             if ( get_option( 'wpbdp-migrate-18_0-featured-pending', false ) ) {
-                require_once( WPBDP_PATH . 'includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php' );
+                require_once WPBDP_PATH . 'includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php';
                 $this->post_install_migration = new WPBDP__Manual_Upgrade__18_0__Featured_Levels();
             }
 
-            require_once( WPBDP_INC . 'admin/settings/class-settings-admin.php' );
+            require_once WPBDP_INC . 'admin/settings/class-settings-admin.php';
             $this->settings_admin = new WPBDP__Settings_Admin();
 
             if ( wpbdp_get_option( 'tracking-on' ) ) {
@@ -173,19 +171,30 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     WPBDP_VERSION
                 );
 
-                wp_localize_script( 'wpbdp-admin-listing-metabox', 'wpbdpListingMetaboxL10n', array(
-                    'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
-                    'noExpiration' => _x( 'Never', 'listing metabox', 'business-directory-plugin' ),
-                    'yes' => _x( 'Yes', 'listing metabox', 'business-directory-plugin' ),
-                    'no' => _x( 'No', 'listing metabox', 'business-directory-plugin' )
-                ) );
-
-                wp_localize_script( 'wpbdp-admin-listing', 'WPBDP_admin_listings_config', array(
-                    'messages' => array(
-                        'preview_button_tooltip' => __( "Preview is only available after you've saved the first draft. This is due
-    to how WordPress stores the data.", 'business-directory-plugin' )
+                wp_localize_script(
+                    'wpbdp-admin-listing-metabox',
+                    'wpbdpListingMetaboxL10n',
+                    array(
+						'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
+						'noExpiration'      => _x( 'Never', 'listing metabox', 'business-directory-plugin' ),
+						'yes'               => _x( 'Yes', 'listing metabox', 'business-directory-plugin' ),
+						'no'                => _x( 'No', 'listing metabox', 'business-directory-plugin' ),
                     )
-                ) );
+                );
+
+                wp_localize_script(
+                    'wpbdp-admin-listing',
+                    'WPBDP_admin_listings_config',
+                    array(
+						'messages' => array(
+							'preview_button_tooltip' => __(
+                                "Preview is only available after you've saved the first draft. This is due
+    to how WordPress stores the data.",
+								'business-directory-plugin'
+                            ),
+						),
+                    )
+                );
             }
 
             // Ask for site tracking if needed.
@@ -210,7 +219,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $js = '$.post( ajaxurl, { action: "wpbdp-drip_subscribe",
                                     email: $( "#wpbdp-drip-pointer-email" ).val(),
-                                    nonce: "'. wp_create_nonce( 'drip pointer subscribe') .'",
+                                    nonce: "' . wp_create_nonce( 'drip pointer subscribe' ) . '",
                                     subscribe: "%d" } );';
 
             $content  = '';
@@ -221,13 +230,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $content .= '<input type="text" id="wpbdp-drip-pointer-email" value="' . esc_attr( $current_user->user_email ) . '" />';
             $content .= '</label>';
 
-            wpbdp_admin_pointer( '#wpadminbar',
-                                _x( 'Want to know the Secrets of Building an Awesome Business Directory?', 'drip pointer', 'business-directory-plugin' ),
-                                $content,
-                                _x( 'Yes, please!', 'drip pointer', 'business-directory-plugin' ),
-                                sprintf( $js, 1 ),
-                                _x( 'No, thanks', 'drip pointer', 'business-directory-plugin' ),
-                                sprintf( $js, 0 ) );
+            wpbdp_admin_pointer(
+                '#wpadminbar',
+                _x( 'Want to know the Secrets of Building an Awesome Business Directory?', 'drip pointer', 'business-directory-plugin' ),
+                $content,
+                _x( 'Yes, please!', 'drip pointer', 'business-directory-plugin' ),
+                sprintf( $js, 1 ),
+                _x( 'No, thanks', 'drip pointer', 'business-directory-plugin' ),
+                sprintf( $js, 0 )
+            );
         }
 
         /**
@@ -236,25 +247,34 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function ajax_create_main_page() {
             $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
 
-            if ( ! current_user_can( 'administrator' ) || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) )
+            if ( ! current_user_can( 'administrator' ) || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
                 exit();
+            }
 
-            if ( wpbdp_get_page_id( 'main' ) )
+            if ( wpbdp_get_page_id( 'main' ) ) {
                 exit();
+            }
 
-            $page = array( 'post_status' => 'publish',
-                        'post_title' => _x( 'Business Directory', 'admin', 'business-directory-plugin' ),
-                        'post_type' => 'page',
-                        'post_content' => '[businessdirectory]' );
+            $page    = array(
+				'post_status'  => 'publish',
+				'post_title'   => _x( 'Business Directory', 'admin', 'business-directory-plugin' ),
+				'post_type'    => 'page',
+				'post_content' => '[businessdirectory]',
+			);
             $page_id = wp_insert_post( $page );
 
-            if ( ! $page_id )
+            if ( ! $page_id ) {
                 exit();
+            }
 
             $res = new WPBDP_Ajax_Response();
-            $res->set_message( str_replace( '<a>',
-                                            '<a href="' . get_permalink( $page_id ) . '" target="_blank" rel="noopener">',
-                                            _x( 'You\'re all set. Visit your new <a>Business Directory</a> page.', 'admin', 'business-directory-plugin' ) ) );
+            $res->set_message(
+                str_replace(
+                    '<a>',
+                    '<a href="' . get_permalink( $page_id ) . '" target="_blank" rel="noopener">',
+                    _x( 'You\'re all set. Visit your new <a>Business Directory</a> page.', 'admin', 'business-directory-plugin' )
+                )
+            );
             $res->send();
         }
 
@@ -264,41 +284,48 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function ajax_drip_subscribe() {
             $current_user = wp_get_current_user();
 
-            $res = new WPBDP_Ajax_Response();
+            $res       = new WPBDP_Ajax_Response();
             $subscribe = ( '1' == $_POST['subscribe'] ) ? true : false;
 
-            if ( ! get_option( 'wpbdp-show-drip-pointer', 0 ) || ! wp_verify_nonce( $_POST['nonce'], 'drip pointer subscribe' ) )
+            if ( ! get_option( 'wpbdp-show-drip-pointer', 0 ) || ! wp_verify_nonce( $_POST['nonce'], 'drip pointer subscribe' ) ) {
                 $res->send_error();
+            }
 
             delete_option( 'wpbdp-show-drip-pointer' );
 
             if ( $subscribe ) {
-                if ( ! filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) )
+                if ( ! filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) ) {
                     return $res->send_error( _x( 'Invalid e-mail address.', 'drip pointer', 'business-directory-plugin' ) );
+                }
 
                 // Build fields for POSTing to Drip.
-                $data = array();
+                $data         = array();
                 $data['name'] = '';
 
-                foreach ( array(  'first_name', 'display_name', 'user_login', 'username' ) as $k ) {
-                    if ( empty ( $current_user->{$k} ) )
+                foreach ( array( 'first_name', 'display_name', 'user_login', 'username' ) as $k ) {
+                    if ( empty( $current_user->{$k} ) ) {
                         continue;
+                    }
 
                     $data['name'] = $current_user->{$k};
                     break;
                 }
 
-                $data['email'] = $_POST['email'];
-                $data['website'] = get_bloginfo( 'url' );
+                $data['email']      = $_POST['email'];
+                $data['website']    = get_bloginfo( 'url' );
                 $data['gmt_offset'] = get_option( 'gmt_offset' );
 
-                $response = wp_remote_post( 'https://www.getdrip.com/forms/6877690/submissions', array(
-                            'body' => array(
-                                'fields[name]' => $data['name'],
-                                'fields[email]' => $data['email'],
-                                'fields[website]' => $data['website'],
-                                'fields[gmt_offset]' => $data['gmt_offset'] )
-                ) );
+                $response = wp_remote_post(
+                    'https://www.getdrip.com/forms/6877690/submissions',
+                    array(
+						'body' => array(
+							'fields[name]'       => $data['name'],
+							'fields[email]'      => $data['email'],
+							'fields[website]'    => $data['website'],
+							'fields[gmt_offset]' => $data['gmt_offset'],
+						),
+                    )
+                );
             }
 
             $res->send();
@@ -309,23 +336,23 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $menu = array();
-            $menu['wpbdp-admin-fees'] = array(
-                'title' => _x( 'Manage Fees', 'admin menu', 'business-directory-plugin' )
+            $menu                           = array();
+            $menu['wpbdp-admin-fees']       = array(
+                'title' => _x( 'Manage Fees', 'admin menu', 'business-directory-plugin' ),
             );
             $menu['wpbdp_admin_formfields'] = array(
-                'title' => _x('Manage Form Fields', 'admin menu', 'business-directory-plugin'),
-                'callback' => array('WPBDP_FormFieldsAdmin', 'admin_menu_cb')
+                'title'    => _x( 'Manage Form Fields', 'admin menu', 'business-directory-plugin' ),
+                'callback' => array( 'WPBDP_FormFieldsAdmin', 'admin_menu_cb' ),
             );
-            $menu['wpbdp_admin_payments'] = array(
-                'title' => _x( 'Payment History', 'admin menu', 'business-directory-plugin' )
+            $menu['wpbdp_admin_payments']   = array(
+                'title' => _x( 'Payment History', 'admin menu', 'business-directory-plugin' ),
             );
-            $menu['wpbdp_admin_csv'] = array(
-                'title' => _x( 'Import & Export', 'admin menu', 'business-directory-plugin' )
+            $menu['wpbdp_admin_csv']        = array(
+                'title' => _x( 'Import & Export', 'admin menu', 'business-directory-plugin' ),
             );
-            $menu['wpbdp-debug-info'] = array(
-                'title' => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
-                'callback' => array( &$this->debug_page, 'dispatch' )
+            $menu['wpbdp-debug-info']       = array(
+                'title'    => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
+                'callback' => array( &$this->debug_page, 'dispatch' ),
             );
 
             $this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
@@ -333,32 +360,38 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             // Register menu items.
             foreach ( $this->menu as $item_slug => &$item_data ) {
-                $item_data['hook'] = add_submenu_page( 'edit.php?post_type=wpbdp_listing',
-                                                    $item_data['title'],
-                                                    $item_data['label'],
-                                                    ( empty( $item_data['capability'] ) ? 'administrator' : $item_data['capability'] ),
-                                                    $item_slug,
-                                                    array( $this, 'menu_dispatch' ) );
+                $item_data['hook'] = add_submenu_page(
+                    'edit.php?post_type=wpbdp_listing',
+                    $item_data['title'],
+                    $item_data['label'],
+                    ( empty( $item_data['capability'] ) ? 'administrator' : $item_data['capability'] ),
+                    $item_slug,
+                    array( $this, 'menu_dispatch' )
+                );
             }
 
-            do_action('wpbdp_admin_menu', 'edit.php?post_type=wpbdp_listing');
+            do_action( 'wpbdp_admin_menu', 'edit.php?post_type=wpbdp_listing' );
 
-            add_submenu_page( 'edit.php?post_type=wpbdp_listing',
-                            __( 'Uninstall Business Directory Plugin', 'business-directory-plugin' ),
-                            __( 'Uninstall', 'business-directory-plugin' ),
-                            'administrator',
-                            'wpbdp_uninstall',
-                            array( $this, 'uninstall_plugin' ) );
+            add_submenu_page(
+                'edit.php?post_type=wpbdp_listing',
+                __( 'Uninstall Business Directory Plugin', 'business-directory-plugin' ),
+                __( 'Uninstall', 'business-directory-plugin' ),
+                'administrator',
+                'wpbdp_uninstall',
+                array( $this, 'uninstall_plugin' )
+            );
 
             // Handle some special menu items.
             foreach ( $GLOBALS['submenu']['edit.php?post_type=wpbdp_listing'] as &$menu_item ) {
-                if ( ! isset( $this->menu[ $menu_item[2] ] ) )
+                if ( ! isset( $this->menu[ $menu_item[2] ] ) ) {
                     continue;
+                }
 
                 $menu_item_data = $this->menu[ $menu_item[2] ];
 
-                if ( ! empty( $menu_item_data['url'] ) )
+                if ( ! empty( $menu_item_data['url'] ) ) {
                     $menu_item[2] = $menu_item_data['url'];
+                }
             }
 
         }
@@ -370,23 +403,29 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $n = 1;
 
             foreach ( $menu as &$item ) {
-                if ( ! isset( $item['priority'] ) )
+                if ( ! isset( $item['priority'] ) ) {
                     $item['priority'] = $n++;
+                }
 
-                if ( ! isset( $item['title'] ) )
+                if ( ! isset( $item['title'] ) ) {
                     $item['title'] = _x( 'Untitled Menu', 'admin', 'business-directory-plugin' );
+                }
 
-                if ( ! isset( $item['label'] ) )
+                if ( ! isset( $item['label'] ) ) {
                     $item['label'] = $item['title'];
+                }
 
-                if ( ! isset( $item['file'] ) )
+                if ( ! isset( $item['file'] ) ) {
                     $item['file'] = '';
+                }
 
-                if ( ! isset( $item['callback'] ) )
+                if ( ! isset( $item['callback'] ) ) {
                     $item['callback'] = '';
+                }
 
-                if ( ! isset( $item['url'] ) )
+                if ( ! isset( $item['url'] ) ) {
                     $item['url'] = '';
+                }
             }
 
             WPBDP_Utils::sort_by_property( $menu, 'priority' );
@@ -398,26 +437,30 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         function admin_view_dispatch() {
             global $plugin_page;
 
-            if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) )
+            if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) ) {
                 return;
+            }
 
-            $item = $this->menu[ $plugin_page ];
-            $slug = $plugin_page;
+            $item     = $this->menu[ $plugin_page ];
+            $slug     = $plugin_page;
             $callback = $item['callback'];
 
-
             // Simple callback view are not processed here.
-            if ( $callback && is_callable( $callback ) )
+            if ( $callback && is_callable( $callback ) ) {
                 return;
+            }
 
             $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
-            $candidates = array( $item['file'],
-                                WPBDP_INC . 'admin/class-admin-' . $id . '.php',
-                                WPBDP_INC . 'admin/' . $id . '.php' );
+            $candidates = array(
+				$item['file'],
+				WPBDP_INC . 'admin/class-admin-' . $id . '.php',
+				WPBDP_INC . 'admin/' . $id . '.php',
+			);
             foreach ( $candidates as $c ) {
-                if ( $c && file_exists( $c ) )
-                    require_once( $c );
+                if ( $c && file_exists( $c ) ) {
+                    require_once $c;
+                }
             }
 
             // Maybe loading one of the candidate files made the callback available.
@@ -431,10 +474,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $classname = 'WPBDP__Admin__' . ucfirst( $id );
 
-            if ( ! class_exists( $classname ) )
+            if ( ! class_exists( $classname ) ) {
                 return;
+            }
 
-            $this->current_controller = new $classname;
+            $this->current_controller = new $classname();
 
             ob_start();
             $this->current_controller->_dispatch();
@@ -448,29 +492,34 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @since 5.0
          */
         function admin_ajax_dispatch() {
-            if ( empty( $_REQUEST['handler'] ) )
+            if ( empty( $_REQUEST['handler'] ) ) {
                 return;
+            }
 
             $handler = trim( $_REQUEST['handler'] );
             $handler = WPBDP__Utils::normalize( $handler );
 
-            $parts = explode( '__', $handler );
+            $parts         = explode( '__', $handler );
             $controller_id = $parts[0];
-            $function = isset( $parts[1] ) ? $parts[1] : '';
+            $function      = isset( $parts[1] ) ? $parts[1] : '';
 
-            $candidates = array( WPBDP_INC . 'admin/class-admin-' . $controller_id . '.php',
-                                WPBDP_INC . 'admin/' . $controller_id . '.php' );
+            $candidates = array(
+				WPBDP_INC . 'admin/class-admin-' . $controller_id . '.php',
+				WPBDP_INC . 'admin/' . $controller_id . '.php',
+			);
             foreach ( $candidates as $c ) {
-                if ( ! file_exists( $c ) )
+                if ( ! file_exists( $c ) ) {
                     continue;
+                }
 
-                require_once( $c );
+                require_once $c;
                 $classname = 'WPBDP__Admin__' . ucfirst( $controller_id );
 
-                if ( ! class_exists( $classname ) )
+                if ( ! class_exists( $classname ) ) {
                     continue;
+                }
 
-                $controller = new $classname;
+                $controller = new $classname();
                 return $controller->_ajax_dispatch();
             }
 
@@ -483,15 +532,17 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         function menu_dispatch() {
             $output = $this->current_controller_output;
 
-            if ( $output )
+            if ( $output ) {
                 return print( $output );
+            }
 
             global $plugin_page;
-            if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) )
+            if ( ! isset( $plugin_page ) || ! isset( $this->menu[ $plugin_page ] ) ) {
                 return;
+            }
 
-            $item = $this->menu[ $plugin_page ];
-            $slug = $plugin_page;
+            $item     = $this->menu[ $plugin_page ];
+            $slug     = $plugin_page;
             $callback = $item['callback'];
 
             if ( $callback ) {
@@ -500,14 +551,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         /**
-         * Restore BD themes available updates count on Menu title.
+         * Add BD themes available updates count to Menu title.
          *
          * @since 5.8
          */
         public function maybe_add_themes_update_count() {
             $badge_number = absint( apply_filters( 'wpbdp_admin_menu_badge_number', 0 ) );
 
-            if( ! $badge_number ) {
+            if ( ! $badge_number ) {
                 return;
             }
 
@@ -518,8 +569,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 array( 2 => 'edit.php?post_type=' . WPBDP_POST_TYPE ) // 2 is the position of an array item which contains URL, it will always be 2!
             );
 
-            if ( ! empty( $menu_item )  ) {
-                $menu_item_position = key( $menu_item ); // get the array key (position) of the element
+            if ( ! empty( $menu_item ) ) {
+                $menu_item_position              = key( $menu_item ); // get the array key (position) of the element
                 $menu[ $menu_item_position ][0] .= ' <span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>';
             }
         }
@@ -531,19 +582,22 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $index1 = array_search( 'wpbdp_admin', $menu_order, true );
             $index2 = array_search( 'edit.php?post_type=' . WPBDP_POST_TYPE, $menu_order, true );
 
-            if ( false === $index1 || false === $index2 )
+            if ( false === $index1 || false === $index2 ) {
                 return $menu_order;
+            }
 
             $min = min( $index1, $index2 );
             $max = max( $index1, $index2 );
 
-            return array_merge( array_slice( $menu_order, 0, $min ),
-                                array( $menu_order[ $min ], $menu_order[ $max ] ),
-                                array_slice( $menu_order, $min + 1, $max - $min - 1 ),
-                                array_slice( $menu_order, $max + 1 ) );
+            return array_merge(
+                array_slice( $menu_order, 0, $min ),
+                array( $menu_order[ $min ], $menu_order[ $max ] ),
+                array_slice( $menu_order, $min + 1, $max - $min - 1 ),
+                array_slice( $menu_order, $max + 1 )
+            );
         }
 
-        public function _checklist_args($args) {
+        public function _checklist_args( $args ) {
             $args['checked_ontop'] = false;
             return $args;
         }
@@ -551,18 +605,21 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function ajax_formfields_reorder() {
             $response = new WPBDP_Ajax_Response();
 
-            if ( ! current_user_can( 'administrator' ) )
+            if ( ! current_user_can( 'administrator' ) ) {
                 $response->send_error();
+            }
 
             $order = array_map( 'intval', isset( $_REQUEST['order'] ) ? $_REQUEST['order'] : array() );
 
-            if ( ! $order )
+            if ( ! $order ) {
                 $response->send_error();
+            }
 
             global $wpbdp;
 
-            if ( ! $wpbdp->formfields->set_fields_order( $order ) )
+            if ( ! $wpbdp->formfields->set_fields_order( $order ) ) {
                 $response->send_error();
+            }
 
             $response->send();
         }
@@ -571,8 +628,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
             $order = isset( $_POST['fee_order'] ) ? $_POST['fee_order'] : false;
 
-            if ( ! wp_verify_nonce( $nonce, 'change fees order' ) || ! $order )
+            if ( ! wp_verify_nonce( $nonce, 'change fees order' ) || ! $order ) {
                 exit();
+            }
 
             $res = new WPBDP_Ajax_Response();
             wpbdp_set_option( 'fee-order', $order );
@@ -584,18 +642,20 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $response = new WPBDP_Ajax_Response();
 
-            if ( ! current_user_can( 'administrator' ) )
+            if ( ! current_user_can( 'administrator' ) ) {
                 $response->send_error();
+            }
 
             $order = array_map( 'intval', isset( $_REQUEST['order'] ) ? $_REQUEST['order'] : array() );
 
-            if ( ! $order )
+            if ( ! $order ) {
                 $response->send_error();
+            }
 
             $wpdb->query( "UPDATE {$wpdb->prefix}wpbdp_plans SET weight = 0" );
 
             $weight = count( $order ) - 1;
-            foreach( $order as $fee_id ) {
+            foreach ( $order as $fee_id ) {
                 $wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => $fee_id ) );
                 $weight--;
             }
@@ -607,8 +667,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         * AJAX listing actions.
         */
         function ajax_dismiss_notification() {
-            $id = isset( $_POST['id'] ) ? $_POST['id'] : '';
-            $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+            $id      = isset( $_POST['id'] ) ? $_POST['id'] : '';
+            $nonce   = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
             $user_id = get_current_user_id();
 
             $res = new WPBDP_Ajax_Response();
@@ -631,11 +691,13 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * the current standard
          */
         function admin_notices() {
-            if ( ! current_user_can( 'administrator' ) )
+            if ( ! current_user_can( 'administrator' ) ) {
                 return;
+            }
 
-            if ( ! isset( $this->displayed_warnings ) )
+            if ( ! isset( $this->displayed_warnings ) ) {
                 $this->displayed_warnings = array();
+            }
 
             $this->check_server_requirements();
             $this->check_setup();
@@ -644,32 +706,35 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             do_action( 'wpbdp_admin_notices' );
 
-            foreach ($this->messages as $msg) {
+            foreach ( $this->messages as $msg ) {
                 $msg_sha1 = sha1( is_array( $msg ) ? $msg[0] : $msg );
 
-                if ( in_array( $msg_sha1, $this->displayed_warnings, true ) )
+                if ( in_array( $msg_sha1, $this->displayed_warnings, true ) ) {
                     continue;
+                }
 
                 $this->displayed_warnings[] = $msg_sha1;
 
                 if ( is_array( $msg ) ) {
                     $class = isset( $msg[1] ) ? $msg[1] : 'updated';
-                    $text = isset( $msg[0] ) ? $msg[0] : '';
+                    $text  = isset( $msg[0] ) ? $msg[0] : '';
                     $extra = isset( $msg[2] ) && is_array( $msg[2] ) ? $msg[2] : array();
                 } else {
                     $class = 'updated';
-                    $text = $msg;
+                    $text  = $msg;
                     $extra = array();
                 }
 
                 echo '<div class="wpbdp-notice ' . $class . '">';
                 echo '<p>' . $text . '</p>';
 
-                if ( ! empty ( $extra['dismissible-id'] ) ) {
-                    printf( '<button type="button" class="notice-dismiss" data-dismissible-id="%s" data-nonce="%s"><span class="screen-reader-text">%s</span></button>',
-                            $extra['dismissible-id'],
-                            wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ),
-                            _x( 'Dismiss this notice.', 'admin', 'business-directory-plugin' ) );
+                if ( ! empty( $extra['dismissible-id'] ) ) {
+                    printf(
+                        '<button type="button" class="notice-dismiss" data-dismissible-id="%s" data-nonce="%s"><span class="screen-reader-text">%s</span></button>',
+                        $extra['dismissible-id'],
+                        wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ),
+                        _x( 'Dismiss this notice.', 'admin', 'business-directory-plugin' )
+                    );
                 }
 
                 echo '</div>';
@@ -679,28 +744,35 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         function handle_actions() {
-            if (!isset($_REQUEST['wpbdmaction']) || !isset($_REQUEST['post']))
+            if ( ! isset( $_REQUEST['wpbdmaction'] ) || ! isset( $_REQUEST['post'] ) ) {
                 return;
+            }
 
             $action = $_REQUEST['wpbdmaction'];
-            $posts = is_array($_REQUEST['post']) ? $_REQUEST['post'] : array($_REQUEST['post']);
+            $posts  = is_array( $_REQUEST['post'] ) ? $_REQUEST['post'] : array( $_REQUEST['post'] );
 
             $listings_api = wpbdp_listings_api();
 
-            if (!current_user_can('administrator'))
+            if ( ! current_user_can( 'administrator' ) ) {
                 exit;
+            }
 
-            switch ($action) {
+            switch ( $action ) {
                 case 'change-to-publish':
                 case 'change-to-pending':
                 case 'change-to-draft':
                     $new_status = str_replace( 'change-to-', '', $action );
 
-                    foreach ($posts as $post_id) {
-                        wp_update_post( array( 'ID' => $post_id, 'post_status' => $new_status ) );
+                    foreach ( $posts as $post_id ) {
+                        wp_update_post(
+                            array(
+								'ID'          => $post_id,
+								'post_status' => $new_status,
+                            )
+                        );
                     }
 
-                    $this->messages[] = _nx('The listing has been updated.', 'The listings have been updated.', count($posts), 'admin', 'business-directory-plugin');
+                    $this->messages[] = _nx( 'The listing has been updated.', 'The listings have been updated.', count( $posts ), 'admin', 'business-directory-plugin' );
                     break;
 
                 case 'change-to-expired':
@@ -710,13 +782,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                         $listing->set_status( 'expired' );
                     }
 
-                    $this->messages[] = _nx('The listing has been updated.', 'The listings have been updated.', count($posts), 'admin', 'business-directory-plugin');
+                    $this->messages[] = _nx( 'The listing has been updated.', 'The listings have been updated.', count( $posts ), 'admin', 'business-directory-plugin' );
                     break;
 
                 case 'change-to-complete':
                 case 'approve-payments':
                     foreach ( $posts as $post_id ) {
-                        $pending_payments = WPBDP_Payment::objects()->filter( array( 'listing_id' => $post_id, 'status' => 'pending' ) );
+                        $pending_payments = WPBDP_Payment::objects()->filter(
+                            array(
+								'listing_id' => $post_id,
+								'status'     => 'pending',
+                            )
+                        );
 
                         foreach ( $pending_payments as $p ) {
                             $p->status = 'completed';
@@ -728,15 +805,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
                 case 'assignfee':
                     $listing = WPBDP_Listing::get( $posts[0] );
-                    $fee_id = (int) $_GET['fee_id'];
+                    $fee_id  = (int) $_GET['fee_id'];
                     $listing->set_fee_plan( $fee_id );
 
-                    $this->messages[] = _x('The fee was successfully assigned.', 'admin', 'business-directory-plugin');
+                    $this->messages[] = _x( 'The fee was successfully assigned.', 'admin', 'business-directory-plugin' );
 
                     break;
 
                 case 'renewlisting':
-                    foreach ( $posts as $post_id ):
+                    foreach ( $posts as $post_id ) :
                         $listing = WPBDP_Listing::get( $post_id );
                         $listing->renew();
                     endforeach;
@@ -746,17 +823,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
                 case 'send-renewal-email':
                     $listing_id = intval( $_GET['listing_id'] );
-                    $listing = WPBDP_Listing::get( $listing_id );
+                    $listing    = WPBDP_Listing::get( $listing_id );
 
-                    if ( ! $listing )
+                    if ( ! $listing ) {
                         break;
+                    }
 
                     if ( wpbdp()->listing_email_notification->send_notices( 'expiration', '0 days', $listing_id, true ) ) {
                         $this->messages[] = _x( 'Renewal email sent.', 'admin', 'business-directory-plugin' );
                         break;
                     }
 
-                    $this->messages[] = array ( _x( 'Could not send renewal email, notice template at listing expiration not found.', 'admin', 'business-directory-plugin' ), 'error' );
+                    $this->messages[] = array( _x( 'Could not send renewal email, notice template at listing expiration not found.', 'admin', 'business-directory-plugin' ), 'error' );
 
                     break;
 
@@ -775,7 +853,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     break;
             }
 
-            $_SERVER['REQUEST_URI'] = remove_query_arg( array('wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id', 'flagging_user' ), $_SERVER['REQUEST_URI'] );
+            $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id', 'flagging_user' ), $_SERVER['REQUEST_URI'] );
         }
 
         private function send_access_keys( $posts ) {
@@ -797,7 +875,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $listings_by_email_address[ $email_address ][] = $listing;
             }
 
-            $sender = $this->get_access_keys_sender();
+            $sender       = $this->get_access_keys_sender();
             $message_sent = false;
 
             foreach ( $listings_by_email_address as $email_address => $listings ) {
@@ -818,7 +896,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             // TODO: Redirect and show messages on page load.
             // if ( wp_redirect( remove_query_arg( array( 'action', 'post', 'wpbdmaction' ) ) ) ) {
-            //     exit();
+            // exit();
             // }
         }
 
@@ -866,32 +944,42 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $selected = ! empty( $post->ID ) ? $post->post_author : wp_get_current_user()->ID;
             }
 
-            return wp_dropdown_users( array_merge( $args, array(
-                'echo' => false,
-                'selected' => $selected,
-                'include_selected' => true,
-                'who' => 'all',
-                'wpbdp_skip_dropdown_users_args' => true,
-            ) ) );
+            return wp_dropdown_users(
+                array_merge(
+                    $args,
+                    array(
+						'echo'                           => false,
+						'selected'                       => $selected,
+						'include_selected'               => true,
+						'who'                            => 'all',
+						'wpbdp_skip_dropdown_users_args' => true,
+                    )
+                )
+            );
         }
 
         public function add_custom_taxonomy_columns( $cols ) {
-            $newcols = array_merge( array_slice( $cols, 0, 1 ),
-                                    array( 'id' => _x( 'ID', 'admin category id', 'business-directory-plugin' ) ),
-                                    array_slice( $cols, 1, -1),
-                                    array( 'posts' => _x('Listing Count', 'admin', 'business-directory-plugin') ) );
+            $newcols = array_merge(
+                array_slice( $cols, 0, 1 ),
+                array( 'id' => _x( 'ID', 'admin category id', 'business-directory-plugin' ) ),
+                array_slice( $cols, 1, -1 ),
+                array( 'posts' => _x( 'Listing Count', 'admin', 'business-directory-plugin' ) )
+            );
             return $newcols;
         }
 
         public function tag_taxonomy_columns( $cols ) {
-            $newcols = array_merge( array_slice( $cols, 0, -1 ),
-                                    array( 'posts' => _x('Listing Count', 'admin', 'business-directory-plugin') ) );
+            $newcols = array_merge(
+                array_slice( $cols, 0, -1 ),
+                array( 'posts' => _x( 'Listing Count', 'admin', 'business-directory-plugin' ) )
+            );
             return $newcols;
         }
 
         public function custom_taxonomy_columns( $value, $column_name, $id ) {
-            if ( $column_name == 'id' )
+            if ( $column_name == 'id' ) {
                 return $id;
+            }
 
             return $value;
         }
@@ -908,8 +996,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 // Delete listings.
                 $post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT * FROM {$wpdb->posts} WHERE post_type = %s", WPBDP_POST_TYPE ) );
 
-                foreach ( $post_ids as $post_id )
+                foreach ( $post_ids as $post_id ) {
                     wp_delete_post( $post_id, true );
+                }
 
                 // Drop tables.
                 $tables = array_keys( $installer->get_database_schema() );
@@ -923,8 +1012,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'wpbdp%' ) );
 
                 // Clear scheduled hooks.
-                wp_clear_scheduled_hook('wpbdp_hourly_events');
-                wp_clear_scheduled_hook('wpbdp_daily_events');
+                wp_clear_scheduled_hook( 'wpbdp_hourly_events' );
+                wp_clear_scheduled_hook( 'wpbdp_daily_events' );
 
                 $tracking = new WPBDP_SiteTracking();
                 $tracking->track_uninstall( isset( $_POST['uninstall'] ) ? $_POST['uninstall'] : null );
@@ -935,28 +1024,30 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 // the real path, which may not be the same path WP associated to
                 // the plugin. Plugin paths must be of the form:
                 // wp-content/plugins/plugin-directory/plugin-file.php
-                $fixed_path = WP_CONTENT_DIR . '/plugins/' . basename(dirname($real_path)) . '/' . basename($real_path);
-                deactivate_plugins($fixed_path, true);
+                $fixed_path = WP_CONTENT_DIR . '/plugins/' . basename( dirname( $real_path ) ) . '/' . basename( $real_path );
+                deactivate_plugins( $fixed_path, true );
 
-                echo wpbdp_render_page(WPBDP_PATH . 'templates/admin/uninstall-complete.tpl.php');
+                echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-complete.tpl.php' );
             } else {
-                echo wpbdp_render_page(WPBDP_PATH . 'templates/admin/uninstall-confirm.tpl.php');
+                echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-confirm.tpl.php' );
             }
         }
 
         /* Required pages check. */
         public function check_for_required_pages() {
             if ( ! wpbdp_get_page_id( 'main' ) && current_user_can( 'administrator' ) ) {
-                $message = _x('<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin');
+                $message  = _x( '<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin' );
                 $message .= '<br />';
-                $message .= _x('You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'business-directory-plugin');
+                $message .= _x( 'You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'business-directory-plugin' );
                 $message .= '<p>';
-                $message .= sprintf( '<a href="#" class="button wpbdp-create-main-page-button" data-nonce="%s">%s</a>',
-                                    wp_create_nonce( 'create main page' ),
-                                    _x( 'Create required pages for me', 'admin', 'business-directory-plugin' ) );
+                $message .= sprintf(
+                    '<a href="#" class="button wpbdp-create-main-page-button" data-nonce="%s">%s</a>',
+                    wp_create_nonce( 'create main page' ),
+                    _x( 'Create required pages for me', 'admin', 'business-directory-plugin' )
+                );
                 $message .= '</p>';
 
-                $this->messages[] = array($message, 'error');
+                $this->messages[] = array( $message, 'error' );
             }
         }
 
@@ -966,12 +1057,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         function process_admin_action() {
             if ( isset( $_REQUEST['wpbdp-action'] ) ) {
                 do_action( 'wpbdp_action_' . $_REQUEST['wpbdp-action'] );
-    //            do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
+				// do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
             }
         }
 
         private function check_server_requirements() {
-            $php_version = explode( '.', phpversion() );
+            $php_version       = explode( '.', phpversion() );
             $installed_version = $php_version[0] . '.' . $php_version[1];
 
             // PHP 5.6 is required.
@@ -990,7 +1081,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $installed_version
                 ),
                 'error dismissible',
-                array( 'dismissible-id' => 'server_requirements' )
+                array( 'dismissible-id' => 'server_requirements' ),
             );
         }
 
@@ -1001,17 +1092,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function check_setup() {
             global $pagenow;
 
-            if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] )
+            if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
                 return;
+            }
 
             // Registration disabled message.
-            if ( wpbdp_get_option( 'require-login')
-                && ! get_option( 'users_can_register')
+            if ( wpbdp_get_option( 'require-login' )
+                && ! get_option( 'users_can_register' )
                 && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
                     $this->messages[] = array(
-                        str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' )  . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register" to make sure BD works properly.', 'admin', 'business-directory-plugin' ) ),
+                        str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' ) . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register" to make sure BD works properly.', 'admin', 'business-directory-plugin' ) ),
                         'error dismissible',
-                        array( 'dismissible-id' => 'registration_disabled' )
+                        array( 'dismissible-id' => 'registration_disabled' ),
                     );
             }
         }
@@ -1019,13 +1111,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function check_ajax_compat_mode() {
             global $pagenow;
 
-            if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] )
+            if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
                 return;
+            }
 
             $notice = get_option( 'wpbdp-ajax-compat-mode-notice' );
 
-            if ( ! $notice )
+            if ( ! $notice ) {
                 return;
+            }
 
             $this->messages[] = $notice;
             delete_option( 'wpbdp-ajax-compat-mode-notice' );
