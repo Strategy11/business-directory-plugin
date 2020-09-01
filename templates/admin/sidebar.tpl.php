@@ -1,7 +1,7 @@
 <?php
 $modules = array(
-    array( 'discount-codes', 'discount-codes-module', _x( 'Discount Codes Module', 'admin sidebar', 'business-directory-plugin' ), 'new' ),
-    array( 'claim-listings', 'claim-listings-module', _x( 'Claim Listings Module', 'admin sidebar', 'business-directory-plugin' ), 'new' ),
+    array( 'discount-codes', 'discount-codes-module', _x( 'Discount Codes Module', 'admin sidebar', 'business-directory-plugin' ) ),
+    array( 'claim-listings', 'claim-listings-module', _x( 'Claim Listings Module', 'admin sidebar', 'business-directory-plugin' ) ),
     array( 'payfast', 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'business-directory-plugin' ) ),
     array( 'stripe', 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'business-directory-plugin' ) ),
     array( 'attachments', 'file-attachments-module', _x( 'File Upload Module', 'admin sidebar', 'business-directory-plugin' ) ),
@@ -11,15 +11,15 @@ $modules = array(
     array( 'ratings', 'ratings-module', _x( 'Ratings Module', 'admin sidebar', 'business-directory-plugin' ) ),
     array( 'googlemaps', 'google-maps-module', _x( 'Google Maps Module', 'admin sidebar', 'business-directory-plugin' ) ),
     array( 'paypal', 'paypal-gateway-module', _x( 'PayPal Gateway Module', 'admin sidebar', 'business-directory-plugin' ) ),
-    array( '2checkout', '2checkout-gateway-module', _x( '2Checkout Gateway Module', 'admin sidebar', 'business-directory-plugin' ) )
+    array( '2checkout', '2checkout-gateway-module', _x( '2Checkout Gateway Module', 'admin sidebar', 'business-directory-plugin' ) ),
 );
 
 $themes = array(
-    array( 'business-card-theme', _x( 'Business Card Theme', 'admin sidebar', 'business-directory-plugin' ), 'new' ),
-    array( 'mobile-compact-theme', _x( 'Mobile Compact Theme', 'admin sidebar', 'business-directory-plugin' ), 'new' ),
-    array( 'restaurant-theme', _x( 'Restaurant Theme', 'admin sidebar', 'business-directory-plugin' ), 'new' ),
-    array( 'tabbed-business-theme', _x( 'Tabbed Business Theme', 'admin sidebar', 'business-directory-plugin' ), 'new' ),
-    array( 'elegant-business-theme', _x( 'Elegant Business Theme', 'admin sidebar', 'business-directory-plugin' ), 'new' )
+    array( 'business-card-theme', _x( 'Business Card Theme', 'admin sidebar', 'business-directory-plugin' ) ),
+    array( 'mobile-compact-theme', _x( 'Mobile Compact Theme', 'admin sidebar', 'business-directory-plugin' ) ),
+    array( 'restaurant-theme', _x( 'Restaurant Theme', 'admin sidebar', 'business-directory-plugin' ) ),
+    array( 'tabbed-business-theme', _x( 'Tabbed Business Theme', 'admin sidebar', 'business-directory-plugin' ) ),
+    array( 'elegant-business-theme', _x( 'Elegant Business Theme', 'admin sidebar', 'business-directory-plugin' ) ),
 );
 ?>
 <div class="sidebar">
