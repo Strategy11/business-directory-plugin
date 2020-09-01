@@ -94,12 +94,12 @@ class WPBDP__Payment_Gateways {
             wpbdp_register_settings_group( 'gateway_' . $gateway->get_id(), $gateway->get_title(), 'payment', array( 'desc' => $gateway->get_settings_text() ) );
             wpbdp_register_setting(
                 array(
-					'id'           => $gateway->get_id(),
-					'name'         => sprintf( _x( 'Enable %s?', 'payment-gateways', 'business-directory-plugin' ), $gateway->get_title() ),
-					'type'         => 'checkbox',
-					'default'      => false,
-					'group'        => 'gateway_' . $gateway->get_id(),
-					'requirements' => array( 'payments-on' ),
+                    'id'           => $gateway->get_id(),
+                    'name'         => sprintf( _x( 'Enable %s?', 'payment-gateways', 'business-directory-plugin' ), $gateway->get_title() ),
+                    'type'         => 'checkbox',
+                    'default'      => false,
+                    'group'        => 'gateway_' . $gateway->get_id(),
+                    'requirements' => array( 'payments-on' ),
                 )
             );
             foreach ( $gateway->get_settings() as $setting ) {
@@ -157,7 +157,7 @@ class WPBDP__Payment_Gateways {
         }
 
         if ( ! $at_least_one_public_fee ) {
-            $msg = _x( 'You have payments turned on but there ain\'t a public fee plan. Go to <link>Manage Fees</link> to change the fees settings. Until you change this, directory users won\'t be able to submit a listing.', 'payment-gateways', 'business-directory-plugin' );
+            $msg = _x( 'You have payments turned on but do not have a public fee plan. Directory users won\'t be able to submit a listing until you add a public fee plan. Go to <link>Manage Fees</link> to to add or edit your fee plan(s).', 'payment-gateways', 'business-directory-plugin' );
             $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) . '">', '</a>' ), $msg );
             wpbdp_admin_message( $msg, 'error' );
         }
