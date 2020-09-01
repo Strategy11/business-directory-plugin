@@ -1,5 +1,11 @@
 <?php
 /**
+ * Class Payment Gateways
+ *
+ * @package BDP
+ */
+
+/**
  * @since 5.0
  */
 class WPBDP__Payment_Gateways {
@@ -25,13 +31,16 @@ class WPBDP__Payment_Gateways {
         $gateways = apply_filters( 'wpbdp_payment_gateways', $gateways );
 
         foreach ( $gateways as $gateway_ ) {
-            $gateway                              = is_string( $gateway_ ) ? new $gateway_() : $gateway_;
+            $gateway = is_string( $gateway_ ) ? new $gateway_() : $gateway_;
+
             $this->gateways[ $gateway->get_id() ] = $gateway;
         }
     }
 
     public function _execute_listener() {
-        $listener_id = ! empty( $_GET['wpbdp-listener'] ) ? $_GET['wpbdp-listener'] : '';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $get         = wp_unslash( $_GET );
+        $listener_id = ! empty( $get['wpbdp-listener'] ) ? $get['wpbdp-listener'] : '';
 
         if ( ! $listener_id ) {
             return;
@@ -85,12 +94,12 @@ class WPBDP__Payment_Gateways {
             wpbdp_register_settings_group( 'gateway_' . $gateway->get_id(), $gateway->get_title(), 'payment', array( 'desc' => $gateway->get_settings_text() ) );
             wpbdp_register_setting(
                 array(
-					'id'           => $gateway->get_id(),
-					'name'         => sprintf( _x( 'Enable %s?', 'payment-gateways', 'business-directory-plugin' ), $gateway->get_title() ),
-					'type'         => 'checkbox',
-					'default'      => false,
-					'group'        => 'gateway_' . $gateway->get_id(),
-					'requirements' => array( 'payments-on' ),
+                    'id'           => $gateway->get_id(),
+                    'name'         => sprintf( _x( 'Enable %s?', 'payment-gateways', 'business-directory-plugin' ), $gateway->get_title() ),
+                    'type'         => 'checkbox',
+                    'default'      => false,
+                    'group'        => 'gateway_' . $gateway->get_id(),
+                    'requirements' => array( 'payments-on' ),
                 )
             );
             foreach ( $gateway->get_settings() as $setting ) {
@@ -103,8 +112,8 @@ class WPBDP__Payment_Gateways {
         }
     }
 
-    // TODO: Maybe integrate all of these warnings into just one message?
     public function _admin_warnings() {
+        // TODO: Maybe integrate all of these warnings into just one message?
         if ( empty( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
             return;
         }
@@ -137,6 +146,22 @@ class WPBDP__Payment_Gateways {
             $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=payment' ) . '">', '</a>' ), $msg );
             wpbdp_admin_message( $msg, 'error' );
         }
+
+        $at_least_one_public_fee = false;
+
+        foreach ( wpbdp_get_fee_plans() as $plan ) {
+            if ( empty( $plan->extra_data['private'] ) ) {
+                $at_least_one_public_fee = true;
+                break;
+            }
+        }
+
+        if ( ! $at_least_one_public_fee ) {
+            $msg = _x( 'You have payments turned on but do not have a public fee plan. Directory users won\'t be able to submit a listing until you add a public fee plan. Go to <link>Manage Fees</link> to to add or edit your fee plan(s).', 'payment-gateways', 'business-directory-plugin' );
+            $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) . '">', '</a>' ), $msg );
+            wpbdp_admin_message( $msg, 'error' );
+        }
+
     }
 
 }
