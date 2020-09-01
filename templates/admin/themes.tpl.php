@@ -1,8 +1,8 @@
 <?php
 echo wpbdp_admin_header( null, 'themes', array(
     array( _x( 'Upload Directory Theme', 'themes', 'business-directory-plugin' ), esc_url( add_query_arg( 'action', 'theme-install' ) ) ),
-    array( _x( 'Manage Theme Tags', 'form-fields admin', 'business-directory-plugin' ), esc_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags') ),
-    array( _x( 'Settings', 'themes', 'business-directory-plugin' ), esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=appearance&subtab=themes' ) ) ),
+    array( _x( 'Manage Theme Tags', 'form-fields admin', 'business-directory-plugin' ), esc_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_formfields&action=updatetags') ),
+    array( _x( 'Settings', 'themes', 'business-directory-plugin' ), esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=appearance&subtab=themes' ) ) ),
 ), true );
 
 echo wpbdp_admin_notices();

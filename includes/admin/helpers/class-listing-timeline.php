@@ -150,7 +150,7 @@ class WPBDP__Listing_Timeline {
         }
 
         $item->html  = '';
-        $item->html .= '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">';
+        $item->html .= '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">';
         $item->html .= $title;
         $item->html .= '</a>';
 
@@ -162,7 +162,7 @@ class WPBDP__Listing_Timeline {
         $item->extra .= '<span class="payment-amount">Amount: ' . wpbdp_currency_format( $payment->amount, 'force_numeric=1' ) . '</span>';
 
         $item->actions = array(
-            'details' => '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">Go to payment</a>',
+            'details' => '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">Go to payment</a>',
         );
 
         return $item;

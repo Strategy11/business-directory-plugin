@@ -709,7 +709,7 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         $msg = _x( 'Fee Plan Custom Order can be changed under <a>Manage Fees</a>', 'admin settings', 'business-directory-plugin' );
-        $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
+        $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) ) . '">', $msg );
         wpbdp_register_setting(
             array(
 				'id'      => 'listings-order-by',
@@ -821,7 +821,7 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         // Themes.
-        wpbdp_register_settings_group( 'themes', _x( 'Theme Settings', 'settings', 'business-directory-plugin' ), 'appearance', array( 'desc' => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp-themes' ) . '">', _x( 'You can manage your themes on <a>Directory Themes</a>.', 'admin settings', 'business-directory-plugin' ) ) ) );
+        wpbdp_register_settings_group( 'themes', _x( 'Theme Settings', 'settings', 'business-directory-plugin' ), 'appearance', array( 'desc' => str_replace( '<a>', '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&' ) . '">', _x( 'You can manage your themes on <a>Directory Themes</a>.', 'admin settings', 'business-directory-plugin' ) ) ) );
 
         wpbdp_register_setting(
             array(
@@ -989,7 +989,7 @@ final class WPBDP__Settings__Bootstrap {
 				'default' => '2',
 				'min'     => 0,
 				'step'    => 1,
-				'desc'    => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees' ) . '">', _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'business-directory-plugin' ) ),
+				'desc'    => str_replace( '<a>', '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) . '">', _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'business-directory-plugin' ) ),
 				'group'   => 'image/listings',
             )
         );
@@ -1222,7 +1222,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'           => 'payment-abandonment-threshold',
 				'type'         => 'number',
 				'name'         => _x( 'Listing abandonment threshold (hours)', 'settings', 'business-directory-plugin' ),
-				'desc'         => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'business-directory-plugin' ) ),
+				'desc'         => str_replace( '<a>', '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=email' ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'business-directory-plugin' ) ),
 				'default'      => '24',
 				'min'          => 0,
 				'step'         => 1,
@@ -1302,7 +1302,7 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        $settings_url = admin_url( 'admin.php?page=wpbdp_settings&tab=email&subtab=email_templates' );
+        $settings_url = admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=email&subtab=email_templates' );
         $description  = _x( 'You can modify the text template used for most of these e-mails in the <templates-link>Templates</templates-link> tab.', 'settings', 'business-directory-plugin' );
         $description  = str_replace( '<templates-link>', '<a href="' . $settings_url . '">', $description );
         $description  = str_replace( '</templates-link>', '</a>', $description );

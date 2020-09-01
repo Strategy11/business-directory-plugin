@@ -14,7 +14,7 @@
         <div class="wpbdp-payment-items">
             <?php echo _x( 'Click a transaction to see its details (and approve/reject).', 'listing metabox', 'business-directory-plugin' ); ?>
             <?php foreach ( $payments as $payment ) : ?>
-            <?php $payment_link = esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ); ?>
+            <?php $payment_link = esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ); ?>
             <div class="wpbdp-payment-item wpbdp-payment-status-<?php echo $payment->status; ?> cf">
                 <div class="wpbdp-payment-item-row">
                     <div class="wpbdp-payment-date">

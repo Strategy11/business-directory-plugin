@@ -13,7 +13,7 @@
                     'wpbdp-view' => 'details',
                     'payment-id' => $payment->id,
                 ),
-                admin_url( 'admin.php?' )
+                admin_url( 'edit.php?post_type=wpbdp_listing' )
             )
         ),
         $payment->id
@@ -37,7 +37,7 @@
                     'wpbdp-view' => 'edit-fee',
                     'id'         => $plan->fee_id,
                 ),
-                admin_url( 'admin.php?' )
+                admin_url( 'edit.php?post_type=wpbdp_listing' )
             )
         ),
         $plan->fee_label

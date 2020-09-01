@@ -9,7 +9,7 @@ echo wpbdp_admin_header(
     array(
         array(
             _x( '← Return to "Payment History"', 'payments admin', 'business-directory-plugin' ),
-            esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ) 
+            esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments' ) ) 
         )
     )
 );
@@ -17,7 +17,7 @@ echo wpbdp_admin_header(
 <?php wpbdp_admin_notices(); ?>
 
 <?php if ( $payment->id ) : ?>
-<form action="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_update' ) ); ?>" method="post">
+<form action="<?php echo esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&wpbdp-view=payment_update' ) ); ?>" method="post">
     <input type="hidden" name="payment[id]" value="<?php echo $payment->id; ?>" />
 
     <div id="poststuff">
@@ -66,7 +66,7 @@ echo wpbdp_admin_header(
                         </div>
                         <div id="major-publishing-actions">
                             <div id="delete-action">
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_delete&payment-id=' . $payment->id ) ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm"><?php _ex( 'Delete Payment', 'payments admin', 'business-directory-plugin' ); ?></a>
+                                <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&wpbdp-view=payment_delete&payment-id=' . $payment->id ) ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm"><?php _ex( 'Delete Payment', 'payments admin', 'business-directory-plugin' ); ?></a>
                             </div>
                             <input type="submit" class="button button-primary right" value="<?php _ex( 'Save Payment', 'payments admin', 'business-directory-plugin' ); ?>" />
                             <div class="clear"></div>
@@ -193,7 +193,7 @@ echo wpbdp_admin_header(
 </form>
 <?php else : ?>
     <h1><?php echo _x( 'Payment not found', 'admin payments', 'business-directory-plugin' ); ?></h1>
-    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ); ?>">
+    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments' ) ); ?>">
         <?php echo _x( '← Return to "Payment History"', 'payments admin', 'business-directory-plugin' ); ?>
     </a>
 <?php endif; ?>

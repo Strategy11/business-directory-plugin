@@ -9,7 +9,7 @@
     <div class="wpbdp-note"><p>
     <?php _ex('Payments are currently turned off.', 'fees admin', 'business-directory-plugin' ); ?><br />
     <?php echo str_replace( '<a>',
-                            '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">',
+                            '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=payment' ) . '">',
                             _x( 'To manage fees you need to go to the <a>Manage Options - Payment</a> page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.',
                                 'fees admin',
                                 'business-directory-plugin' ) ); ?></p>

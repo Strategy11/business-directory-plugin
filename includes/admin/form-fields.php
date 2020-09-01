@@ -210,12 +210,12 @@ class WPBDP_FormFieldsAdmin {
             $message .= '<br /><br />';
             $message .= sprintf(
                 '<a href="%s">%s</a> | ',
-                admin_url( 'admin.php?page=wpbdp_admin_formfields' ),
+                admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_formfields' ),
                 _x( 'Go to "Manage Form Fields"', 'admin', 'business-directory-plugin' )
             );
             $message .= sprintf(
                 '<a href="%s">%s</a>',
-                admin_url( 'admin.php?page=wpbdp_admin_formfields&action=createrequired' ),
+                admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_formfields&action=createrequired' ),
                 _x( 'Create these required fields for me', 'admin', 'business-directory-plugin' )
             );
 
@@ -369,7 +369,7 @@ class WPBDP_FormFieldsAdmin {
                 );
                 $msg = str_replace(
                     '<a>',
-                    '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) . '">',
+                    '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=email' ) . '">',
                     $msg
                 );
                 wpbdp_admin_message( $msg, 'error' );

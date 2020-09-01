@@ -87,7 +87,7 @@ class WPBDP__Manual_Upgrade_Helper {
         print '<br />';
         _e( 'Business Directory features are currently disabled because the plugin needs to perform a manual upgrade before continuing.', 'business-directory-plugin' );
         print '<br /><br />';
-        printf( '<a class="button button-primary" href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-upgrade-page' ), __( 'Perform Manual Upgrade', 'business-directory-plugin' ) );
+        printf( '<a class="button button-primary" href="%s">%s</a>', admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-upgrade-page' ), __( 'Perform Manual Upgrade', 'business-directory-plugin' ) );
         print '</p></div>';
     }
 
@@ -98,7 +98,7 @@ class WPBDP__Manual_Upgrade_Helper {
         $menu_id = 'edit.php?post_type=' . WPBDP_POST_TYPE;
         if ( isset( $submenu[ $menu_id ] ) ) {
             foreach ( $submenu[ $menu_id ] as &$item ) {
-                $item[2] = admin_url( 'admin.php?page=wpbdp-upgrade-page' );
+                $item[2] = admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-upgrade-page' );
             }
         }
 
@@ -179,7 +179,7 @@ class WPBDP__Manual_Upgrade_Helper {
             echo '<div class="step-done" style="display: none;">';
             echo '<p>' . _x( 'The upgrade was successfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'business-directory-plugin' ) . '</p>';
             printf ( '<a href="%s" class="button button-primary">%s</a>',
-                     admin_url( 'admin.php?page=wpbdp_admin' ),
+                     admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin' ),
                      _x( 'Go to "Directory Admin"', 'manual-upgrade', 'business-directory-plugin' ) );
             echo '</div>';
         }

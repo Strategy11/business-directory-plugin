@@ -524,7 +524,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     $msg,
                     sprintf(
                         '<a href="%s">%s</a>',
-                        admin_url( 'admin.php?page=wpbdp-admin-fees' ),
+                        admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ),
                         _x( 'Go to "Manage Fees"', 'admin', 'business-directory-plugin' )
                     )
                 );
@@ -541,7 +541,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $msg,
                 sprintf(
                     '<a href="%s">%s</a>',
-                    admin_url( 'admin.php?page=wpbdp_admin_formfields' ),
+                    admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_formfields' ),
                     _x( 'Go to "Manage Form Fields"', 'admin', 'business-directory-plugin' )
                 )
             );
