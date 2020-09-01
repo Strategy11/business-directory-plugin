@@ -5,7 +5,6 @@
  * @package BDP/Includes
  */
 
-// phpcs:disable
 
 /**
  * @since 3.4.2
@@ -94,7 +93,10 @@ class WPBDP_Licensing {
 
         wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ) );
         wpbdp_register_settings_group(
-            'licenses/main', __( 'Licenses', 'business-directory-plugin' ), 'licenses', array(
+            'licenses/main',
+            __( 'Licenses', 'business-directory-plugin' ),
+            'licenses',
+            array(
 				'desc'        => $this->get_settings_section_description(),
 				'custom_form' => true,
             )
@@ -446,7 +448,8 @@ class WPBDP_Licensing {
     private function license_request( $url ) {
         // Call the licensing server.
         $response = wp_remote_get(
-            $url, array(
+            $url,
+            array(
 				'timeout'    => 15,
 				'user-agent' => $this->user_agent_header(),
 				'sslverify'  => false,
@@ -664,7 +667,8 @@ class WPBDP_Licensing {
                 'url'        => home_url(),
             );
             $response     = wp_remote_get(
-                add_query_arg( $request_args, self::STORE_URL ), array(
+                add_query_arg( $request_args, self::STORE_URL ),
+                array(
 					'timeout'    => 15,
 					'user-agent' => $this->user_agent_header(),
 					'sslverify'  => false,
@@ -784,7 +788,8 @@ class WPBDP_Licensing {
         }
 
         $request = wp_remote_get(
-            self::STORE_URL, array(
+            self::STORE_URL,
+            array(
 				'timeout'    => 15,
 				'user-agent' => $this->user_agent_header(),
 				'sslverify'  => false,

@@ -5,8 +5,6 @@
  * @package WPBDP/Views/Includes/Admin/Form Fields
  */
 
-// phpcs:disable
-
 if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
@@ -114,12 +112,14 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
             $field->get_association()
         );
         $html .= '<br/>';
-        $html .= sprintf( '%s: %d',
+        $html .= sprintf(
+            '%s: %d',
             _x( 'ID', 'form-fields admin', 'business-directory-plugin' ),
             $field->get_id()
-            );
+        );
         $html .= '<br/>';
-        $html .= sprintf( '%s: %s',
+        $html .= sprintf(
+            '%s: %s',
             _x( 'Shortname', 'form-fields admin', 'business-directory-plugin' ),
             $field->get_shortname()
         );
@@ -304,7 +304,7 @@ class WPBDP_FormFieldsAdmin {
             array(
                 array(
                     _x( '← Return to "Manage Form Fields"', 'form-fields admin', 'business-directory-plugin' ),
-                    esc_url( remove_query_arg( 'action' ) )
+                    esc_url( remove_query_arg( 'action' ) ),
                 ),
             )
         );
@@ -440,22 +440,22 @@ class WPBDP_FormFieldsAdmin {
         $wpbdp->formfields->maybe_correct_tags();
 
         $special_tags = array(
-            'title'     => _x( 'Title', 'form-fields admin', 'business-directory-plugin' ),
-            'category'  => _x( 'Category', 'form-fields admin', 'business-directory-plugin' ),
-            'excerpt'   => _x( 'Excerpt', 'form-fields admin', 'business-directory-plugin' ),
-            'content'   => _x( 'Content', 'form-fields admin', 'business-directory-plugin' ),
-            'tags'      => _x( 'Tags', 'form-fields admin', 'business-directory-plugin' ),
-            'address'   => _x( 'Address', 'form-fields admin', 'business-directory-plugin' ),
-            'address2'  => _x( 'Address 2', 'form-fields admin', 'business-directory-plugin' ),
-            'city'      => _x( 'City', 'form-fields admin', 'business-directory-plugin' ),
-            'state'     => _x( 'State', 'form-fields admin', 'business-directory-plugin' ),
-            'country'   => _x( 'Country', 'form-fields admin', 'business-directory-plugin' ),
-            'zip'       => _x( 'ZIP Code', 'form-fields admin', 'business-directory-plugin' ),
-            'fax'       => _x( 'FAX Number', 'form-fields admin', 'business-directory-plugin' ),
-            'phone'     => _x( 'Phone Number', 'form-fields admin', 'business-directory-plugin' ),
-            'ratings'   => _x( 'Ratings Field', 'form-fields admin', 'business-directory-plugin' ),
-            'twitter'   => _x( 'Twitter', 'form-fields admin', 'business-directory-plugin' ),
-            'website'   => _x( 'Website', 'form-fields admin', 'business-directory-plugin' ),
+            'title'    => _x( 'Title', 'form-fields admin', 'business-directory-plugin' ),
+            'category' => _x( 'Category', 'form-fields admin', 'business-directory-plugin' ),
+            'excerpt'  => _x( 'Excerpt', 'form-fields admin', 'business-directory-plugin' ),
+            'content'  => _x( 'Content', 'form-fields admin', 'business-directory-plugin' ),
+            'tags'     => _x( 'Tags', 'form-fields admin', 'business-directory-plugin' ),
+            'address'  => _x( 'Address', 'form-fields admin', 'business-directory-plugin' ),
+            'address2' => _x( 'Address 2', 'form-fields admin', 'business-directory-plugin' ),
+            'city'     => _x( 'City', 'form-fields admin', 'business-directory-plugin' ),
+            'state'    => _x( 'State', 'form-fields admin', 'business-directory-plugin' ),
+            'country'  => _x( 'Country', 'form-fields admin', 'business-directory-plugin' ),
+            'zip'      => _x( 'ZIP Code', 'form-fields admin', 'business-directory-plugin' ),
+            'fax'      => _x( 'FAX Number', 'form-fields admin', 'business-directory-plugin' ),
+            'phone'    => _x( 'Phone Number', 'form-fields admin', 'business-directory-plugin' ),
+            'ratings'  => _x( 'Ratings Field', 'form-fields admin', 'business-directory-plugin' ),
+            'twitter'  => _x( 'Twitter', 'form-fields admin', 'business-directory-plugin' ),
+            'website'  => _x( 'Website', 'form-fields admin', 'business-directory-plugin' ),
         );
         $fixed_tags   = array( 'title', 'category', 'excerpt', 'content', 'tags', 'ratings' );
         $field_tags   = array();
@@ -473,7 +473,8 @@ class WPBDP_FormFieldsAdmin {
                 $wpdb->query(
                     $wpdb->prepare(
                         "UPDATE {$wpdb->prefix}wpbdp_form_fields SET tag = %s WHERE tag = %s",
-                        '', $tag
+                        '',
+                        $tag
                     )
                 );
                 $wpdb->query(

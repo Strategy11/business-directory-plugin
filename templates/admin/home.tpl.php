@@ -5,8 +5,6 @@
  * @package WPBDP/Templates/Admin/Home
  */
 
-// phpcs:disable
-
 echo wpbdp_admin_header();
 ?>
 
@@ -19,31 +17,34 @@ echo wpbdp_admin_header();
         'admin home',
         'business-directory-plugin'
     );
-					?>
+    ?>
     </p>
     <ul>
         <li>
             <?php
             echo str_replace(
-                '<a>', '<a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank" rel="noopener">',
+                '<a>',
+                '<a href="https://businessdirectoryplugin.com/knowledge-base/" target="_blank" rel="noopener">',
                 _x( 'Our complete documentation is <a>here</a> which we encourage you to use while setting things up.', 'admin home', 'business-directory-plugin' )
             );
-                                    ?>
+            ?>
         <li>
             <?php
             echo str_replace(
-                '<a>', '<a href="https://businessdirectoryplugin.com/article-categories/getting-started/" target="_blank" rel="noopener">',
+                '<a>',
+                '<a href="https://businessdirectoryplugin.com/article-categories/getting-started/" target="_blank" rel="noopener">',
                 _x( 'We have some quick-start scenarios that you will find useful regarding setup and configuration <a>here</a>.', 'admin home', 'business-directory-plugin' )
             );
-                                    ?>
+            ?>
         </li>
         <li>
             <?php
             echo str_replace(
-                '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/" target="_blank" rel="noopener">',
+                '<a>',
+                '<a href="http://businessdirectoryplugin.com/support-forum/" target="_blank" rel="noopener">',
                 _x( 'If you have questions, please post a comment on <a>support forum</a> and we\'ll answer it within 24 hours most days.', 'admin home', 'business-directory-plugin' )
             );
-                                    ?>
+            ?>
         </li>
     </ul>
 </div>

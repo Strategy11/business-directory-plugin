@@ -6,7 +6,6 @@
  * @SuppressWarnings(PHPMD)
  */
 
-// phpcs:disable
 final class WPBDP {
 
     public $_query_stack = array();
@@ -34,61 +33,61 @@ final class WPBDP {
 
     private function includes() {
         // Make DBO framework available to everyone.
-        require_once( WPBDP_INC . 'db/class-db-model.php' );
+        require_once WPBDP_INC . 'db/class-db-model.php';
 
-        require_once( WPBDP_INC . 'class-view.php' );
+        require_once WPBDP_INC . 'class-view.php';
 
-        require_once( WPBDP_INC . 'class-modules.php' );
-        require_once( WPBDP_INC . 'licensing.php' );
+        require_once WPBDP_INC . 'class-modules.php';
+        require_once WPBDP_INC . 'licensing.php';
 
-        require_once( WPBDP_INC . 'form-fields.php' );
-        require_once( WPBDP_INC . 'payment.php' );
-        require_once( WPBDP_PATH . 'includes/class-payment-gateways.php' );
-        require_once( WPBDP_INC . 'installer.php' );
+        require_once WPBDP_INC . 'form-fields.php';
+        require_once WPBDP_INC . 'payment.php';
+        require_once WPBDP_PATH . 'includes/class-payment-gateways.php';
+        require_once WPBDP_INC . 'installer.php';
 
-        require_once( WPBDP_INC . 'class-cron.php' );
+        require_once WPBDP_INC . 'class-cron.php';
 
-        require_once( WPBDP_INC . 'admin/settings/class-settings.php' );
+        require_once WPBDP_INC . 'admin/settings/class-settings.php';
 
-        require_once( WPBDP_INC . 'functions.php' );
-        require_once( WPBDP_INC . 'utils.php' );
+        require_once WPBDP_INC . 'functions.php';
+        require_once WPBDP_INC . 'utils.php';
 
-        require_once( WPBDP_INC . 'helpers/listing_flagging.php' );
+        require_once WPBDP_INC . 'helpers/listing_flagging.php';
 
-        require_once( WPBDP_INC . 'class-cpt-integration.php' );
-        require_once( WPBDP_INC . 'class-listing-expiration.php' );
-        require_once( WPBDP_INC . 'class-listing-email-notification.php' );
-        require_once( WPBDP_INC . 'class-abandoned-payment-notification.php' );
+        require_once WPBDP_INC . 'class-cpt-integration.php';
+        require_once WPBDP_INC . 'class-listing-expiration.php';
+        require_once WPBDP_INC . 'class-listing-email-notification.php';
+        require_once WPBDP_INC . 'class-abandoned-payment-notification.php';
 
-        require_once( WPBDP_INC . 'compatibility/class-compat.php' );
-        require_once( WPBDP_INC . 'class-rewrite.php' );
+        require_once WPBDP_INC . 'compatibility/class-compat.php';
+        require_once WPBDP_INC . 'class-rewrite.php';
 
-        require_once( WPBDP_INC . 'class-assets.php' );
-        require_once( WPBDP_INC . 'class-meta.php' );
-        require_once( WPBDP_INC . 'widgets/class-widgets.php' );
+        require_once WPBDP_INC . 'class-assets.php';
+        require_once WPBDP_INC . 'class-meta.php';
+        require_once WPBDP_INC . 'widgets/class-widgets.php';
 
         if ( wpbdp_is_request( 'frontend' ) ) {
-            require_once( WPBDP_INC . 'templates-ui.php' );
-            require_once( WPBDP_INC . 'template-sections.php' );
-            require_once( WPBDP_INC . 'class-shortcodes.php' );
-            require_once( WPBDP_INC . 'class-recaptcha.php' );
-            require_once( WPBDP_INC . 'class-query-integration.php' );
-            require_once( WPBDP_INC . 'class-dispatcher.php' );
-            require_once( WPBDP_INC . 'class-wordpress-template-integration.php' );
-            require_once( WPBDP_INC . 'seo.php' );
+            require_once WPBDP_INC . 'templates-ui.php';
+            require_once WPBDP_INC . 'template-sections.php';
+            require_once WPBDP_INC . 'class-shortcodes.php';
+            require_once WPBDP_INC . 'class-recaptcha.php';
+            require_once WPBDP_INC . 'class-query-integration.php';
+            require_once WPBDP_INC . 'class-dispatcher.php';
+            require_once WPBDP_INC . 'class-wordpress-template-integration.php';
+            require_once WPBDP_INC . 'seo.php';
         }
 
-        require_once( WPBDP_INC . 'themes.php' );
+        require_once WPBDP_INC . 'themes.php';
 
         if ( wpbdp_is_request( 'admin' ) ) {
-            require_once( WPBDP_INC . 'admin/tracking.php' );
-            require_once( WPBDP_INC . 'admin/class-admin.php' );
-            require_once( WPBDP_INC . 'admin/class-personal-data-privacy.php' );
+            require_once WPBDP_INC . 'admin/tracking.php';
+            require_once WPBDP_INC . 'admin/class-admin.php';
+            require_once WPBDP_INC . 'admin/class-personal-data-privacy.php';
 
-            require_once( WPBDP_INC . 'admin/class-listings-with-no-fee-plan-view.php' );
+            require_once WPBDP_INC . 'admin/class-listings-with-no-fee-plan-view.php';
         }
 
-        require_once( WPBDP_INC . 'helpers/class-access-keys-sender.php' );
+        require_once WPBDP_INC . 'helpers/class-access-keys-sender.php';
     }
 
     // phpcs:enable

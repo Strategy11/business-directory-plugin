@@ -3,14 +3,14 @@ echo wpbdp_admin_header(
     str_replace(
         '<id>',
         $payment->id ? '#' . $payment->id : 'Not Found',
-        _x( 'Payment <id>', 'admin payments', 'business-directory-plugin' ) 
+        _x( 'Payment <id>', 'admin payments', 'business-directory-plugin' )
     ),
     'payments-details',
     array(
         array(
             _x( '← Return to "Payment History"', 'payments admin', 'business-directory-plugin' ),
-            esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments' ) ) 
-        )
+            esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments' ) ),
+        ),
     )
 );
 ?>
@@ -43,7 +43,7 @@ echo wpbdp_admin_header(
                                     <label><?php _ex( 'Status:', 'admin payments', 'business-directory-plugin' ); ?></label>
 
                                     <select name="payment[status]">
-                                    <?php foreach ( WPBDP_Payment::get_stati() as $status_id => $status_label ): ?>
+                                    <?php foreach ( WPBDP_Payment::get_stati() as $status_id => $status_label ) : ?>
                                         <option value="<?php echo $status_id; ?>" <?php selected( $status_id, $payment->status ); ?>><?php echo $status_label; ?></option>
                                     <?php endforeach; ?>
                                     </select>
@@ -90,7 +90,7 @@ echo wpbdp_admin_header(
                                     <span class="payment-item-description"><?php _ex( 'Description', 'payments admin', 'business-directory-plugin' ); ?></span>
                                     <span class="payment-item-amount"><?php _ex( 'Amount', 'payments admin', 'business-directory-plugin' ); ?></span>
                                 </div>
-                                <?php foreach ( $payment->payment_items as $item ): ?>
+                                <?php foreach ( $payment->payment_items as $item ) : ?>
                                 <div class="wpbdp-admin-box-row payment-item cf">
                                     <span class="payment-item-type"><?php echo $item['type']; ?></span>
                                     <span class="payment-item-description"><?php echo $item['description']; ?></span>
@@ -166,9 +166,21 @@ echo wpbdp_admin_header(
                         <div class="inside">
                             <div class="wpbdp-admin-box">
                                 <div id="wpbdp-payment-notes">
-                                    <div class="no-notes" style="<?php if ( $payment->payment_notes ): ?>display: none;<?php endif; ?>"><?php _ex( 'No notes.', 'payments admin', 'business-directory-plugin' ); ?></div>
-                                    <?php foreach ( $payment->payment_notes as $note ): ?>
-                                        <?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/payments-note.tpl.php', array( 'note' => $note, 'payment_id' => $payment->id ) ); ?>
+                                    <div class="no-notes" style="
+                                    <?php
+                                    if ( $payment->payment_notes ) :
+										?>
+                                        display: none;<?php endif; ?>"><?php _ex( 'No notes.', 'payments admin', 'business-directory-plugin' ); ?></div>
+                                    <?php foreach ( $payment->payment_notes as $note ) : ?>
+                                        <?php
+                                        echo wpbdp_render_page(
+                                            WPBDP_PATH . 'templates/admin/payments-note.tpl.php',
+                                            array(
+												'note' => $note,
+												'payment_id' => $payment->id,
+                                            )
+                                        );
+										?>
                                     <?php endforeach; ?>
                                 </div>
 

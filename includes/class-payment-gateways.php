@@ -18,14 +18,14 @@ class WPBDP__Payment_Gateways {
         $gateways = array();
 
         // Add Authorize.net by default.
-        require_once( WPBDP_PATH . 'includes/gateways/class-gateway-authorize-net.php' );
+        require_once WPBDP_PATH . 'includes/gateways/class-gateway-authorize-net.php';
         $gateways[] = new WPBDP__Gateway__Authorize_Net();
 
         // Allow modules to add gateways.
         $gateways = apply_filters( 'wpbdp_payment_gateways', $gateways );
 
         foreach ( $gateways as $gateway_ ) {
-            $gateway = is_string( $gateway_ ) ? new $gateway_() : $gateway_;
+            $gateway                              = is_string( $gateway_ ) ? new $gateway_() : $gateway_;
             $this->gateways[ $gateway->get_id() ] = $gateway;
         }
     }
@@ -33,11 +33,13 @@ class WPBDP__Payment_Gateways {
     public function _execute_listener() {
         $listener_id = ! empty( $_GET['wpbdp-listener'] ) ? $_GET['wpbdp-listener'] : '';
 
-        if ( ! $listener_id )
+        if ( ! $listener_id ) {
             return;
+        }
 
-        if ( ! $this->can_use( $listener_id ) )
+        if ( ! $this->can_use( $listener_id ) ) {
             wp_die();
+        }
 
         $gateway = $this->get( $listener_id );
         $gateway->process_postback();
@@ -50,8 +52,9 @@ class WPBDP__Payment_Gateways {
         foreach ( $this->gateways as $gateway ) {
             if ( $gateway->is_enabled() ) {
                 if ( $conditions ) {
-                    if ( isset( $conditions['currency_code'] ) && ! $gateway->supports_currency( $conditions['currency_code'] ) )
+                    if ( isset( $conditions['currency_code'] ) && ! $gateway->supports_currency( $conditions['currency_code'] ) ) {
                         continue;
+                    }
                 }
 
                 $res[ $gateway->get_id() ] = $gateway;
@@ -66,8 +69,9 @@ class WPBDP__Payment_Gateways {
     }
 
     public function get( $gateway_id ) {
-        if ( isset( $this->gateways[ $gateway_id ] ) )
+        if ( isset( $this->gateways[ $gateway_id ] ) ) {
             return $this->gateways[ $gateway_id ];
+        }
 
         return false;
     }
@@ -79,17 +83,19 @@ class WPBDP__Payment_Gateways {
     public function _add_gateway_settings( $api ) {
         foreach ( $this->gateways as $gateway ) {
             wpbdp_register_settings_group( 'gateway_' . $gateway->get_id(), $gateway->get_title(), 'payment', array( 'desc' => $gateway->get_settings_text() ) );
-            wpbdp_register_setting( array(
-                'id' => $gateway->get_id(),
-                'name' => sprintf( _x( 'Enable %s?', 'payment-gateways', 'business-directory-plugin' ), $gateway->get_title() ),
-                'type' => 'checkbox',
-                'default' => false,
-                'group'   => 'gateway_' . $gateway->get_id(),
-                'requirements' => array( 'payments-on' )
-            ) );
+            wpbdp_register_setting(
+                array(
+					'id'           => $gateway->get_id(),
+					'name'         => sprintf( _x( 'Enable %s?', 'payment-gateways', 'business-directory-plugin' ), $gateway->get_title() ),
+					'type'         => 'checkbox',
+					'default'      => false,
+					'group'        => 'gateway_' . $gateway->get_id(),
+					'requirements' => array( 'payments-on' ),
+                )
+            );
             foreach ( $gateway->get_settings() as $setting ) {
-                $setting = array_merge( $setting, array( 'group' => 'gateway_' . $gateway->get_id() ) );
-                $setting['id'] = $gateway->get_id() . '-' . $setting['id'];
+                $setting                 = array_merge( $setting, array( 'group' => 'gateway_' . $gateway->get_id() ) );
+                $setting['id']           = $gateway->get_id() . '-' . $setting['id'];
                 $setting['requirements'] = array( $gateway->get_id() );
 
                 wpbdp_register_setting( $setting );
@@ -99,11 +105,13 @@ class WPBDP__Payment_Gateways {
 
     // TODO: Maybe integrate all of these warnings into just one message?
     public function _admin_warnings() {
-        if ( empty( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] )
+        if ( empty( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
             return;
+        }
 
-        if ( ! wpbdp_get_option( 'payments-on' ) )
+        if ( ! wpbdp_get_option( 'payments-on' ) ) {
             return;
+        }
 
         $at_least_one_gateway = false;
         foreach ( $this->gateways as $gateway ) {
@@ -116,7 +124,7 @@ class WPBDP__Payment_Gateways {
                 $msg .= '<br />';
                 $msg .= _x( 'Please check the <link>payment settings</link>.', 'payment-gateways', 'business-directory-plugin' );
 
-                $msg = str_replace( '<gateway>', '<b>' . $gateway->get_title() .'</b>', $msg );
+                $msg = str_replace( '<gateway>', '<b>' . $gateway->get_title() . '</b>', $msg );
                 $msg = str_replace( '<problems>', '<b>' . $errors . '</b>', $msg );
                 $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=payment' ) . '">', '</a>' ), $msg );
 

@@ -5,7 +5,6 @@
  * @package WPBDP\Views
  */
 
-// phpcs:disable
 require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php';
 /**
  * @SuppressWarnings(PHPMD)

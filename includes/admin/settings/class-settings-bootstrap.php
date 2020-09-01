@@ -3,18 +3,6 @@
  * @package WPBDP\Admin\Settings
  */
 
-// phpcs:disable Generic.Formatting
-// phpcs:disable PEAR.NamingConventions
-// phpcs:disable PEAR.Functions
-// phpcs:disable Squiz.Commenting
-// phpcs:disable Squiz.PHP
-// phpcs:disable Squiz.WhiteSpace
-// phpcs:disable WordPress.Arrays
-// phpcs:disable WordPress.PHP
-// phpcs:disable WordPress.VIP
-// phpcs:disable WordPress.WhiteSpace
-// phpcs:disable WordPress.WP
-
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
@@ -54,46 +42,46 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'permalink_settings', _x( 'Permalink Settings', 'settings', 'business-directory-plugin' ), 'general/main' );
         wpbdp_register_setting(
             array(
-				'id'        => 'permalinks-directory-slug',
-				'type'      => 'text',
-				'name'      => _x( 'Directory Listings Slug', 'settings', 'business-directory-plugin' ),
-				'default'   => 'wpbdp_listing',
-				'group'     => 'permalink_settings',
-				'validator' => 'no-spaces,trim,required',
+                'id'        => 'permalinks-directory-slug',
+                'type'      => 'text',
+                'name'      => _x( 'Directory Listings Slug', 'settings', 'business-directory-plugin' ),
+                'default'   => 'wpbdp_listing',
+                'group'     => 'permalink_settings',
+                'validator' => 'no-spaces,trim,required',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'        => 'permalinks-category-slug',
-				'type'      => 'text',
-				'name'      => _x( 'Categories Slug', 'settings', 'business-directory-plugin' ),
-				'desc'      => _x( 'The slug can\'t be in use by another term. Avoid "category", for instance.', 'settings', 'business-directory-plugin' ),
-				'default'   => 'wpbdp_category',
-				'group'     => 'permalink_settings',
-				'taxonomy'  => WPBDP_CATEGORY_TAX,
-				'validator' => 'taxonomy_slug',
+                'id'        => 'permalinks-category-slug',
+                'type'      => 'text',
+                'name'      => _x( 'Categories Slug', 'settings', 'business-directory-plugin' ),
+                'desc'      => _x( 'The slug can\'t be in use by another term. Avoid "category", for instance.', 'settings', 'business-directory-plugin' ),
+                'default'   => 'wpbdp_category',
+                'group'     => 'permalink_settings',
+                'taxonomy'  => WPBDP_CATEGORY_TAX,
+                'validator' => 'taxonomy_slug',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'        => 'permalinks-tags-slug',
-				'type'      => 'text',
-				'name'      => _x( 'Tags Slug', 'settings', 'business-directory-plugin' ),
-				'desc'      => _x( 'The slug can\'t be in use by another term. Avoid "tag", for instance.', 'settings', 'business-directory-plugin' ),
-				'default'   => 'wpbdp_tag',
-				'group'     => 'permalink_settings',
-				'taxonomy'  => WPBDP_TAGS_TAX,
-				'validator' => 'taxonomy_slug',
+                'id'        => 'permalinks-tags-slug',
+                'type'      => 'text',
+                'name'      => _x( 'Tags Slug', 'settings', 'business-directory-plugin' ),
+                'desc'      => _x( 'The slug can\'t be in use by another term. Avoid "tag", for instance.', 'settings', 'business-directory-plugin' ),
+                'default'   => 'wpbdp_tag',
+                'group'     => 'permalink_settings',
+                'taxonomy'  => WPBDP_TAGS_TAX,
+                'validator' => 'taxonomy_slug',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'permalinks-no-id',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Remove listing ID from directory URLs?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Check this setting to remove the ID for better SEO.', 'settings', 'business-directory-plugin' ),
-				'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'business-directory-plugin' ) . _x( '<strong>IMPORTANT:</strong> subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
-				'group'   => 'permalink_settings',
+                'id'      => 'permalinks-no-id',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Remove listing ID from directory URLs?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Check this setting to remove the ID for better SEO.', 'settings', 'business-directory-plugin' ),
+                'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'business-directory-plugin' ) . _x( '<strong>IMPORTANT:</strong> subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
+                'group'   => 'permalink_settings',
             )
         );
 
@@ -108,149 +96,149 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'recaptcha-on',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Use reCAPTCHA for contact forms', 'settings', 'business-directory-plugin' ),
-				'group' => 'recaptcha',
+                'id'    => 'recaptcha-on',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Use reCAPTCHA for contact forms', 'settings', 'business-directory-plugin' ),
+                'group' => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'hide-recaptcha-loggedin',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Turn off reCAPTCHA for logged in users?', 'settings', 'business-directory-plugin' ),
-				'group' => 'recaptcha',
+                'id'    => 'hide-recaptcha-loggedin',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Turn off reCAPTCHA for logged in users?', 'settings', 'business-directory-plugin' ),
+                'group' => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'recaptcha-for-submits',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Use reCAPTCHA for listing submits', 'settings', 'business-directory-plugin' ),
-				'group' => 'recaptcha',
+                'id'    => 'recaptcha-for-submits',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Use reCAPTCHA for listing submits', 'settings', 'business-directory-plugin' ),
+                'group' => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'recaptcha-for-edits',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Use reCAPTCHA for edit listings', 'settings', 'business-directory-plugin' ),
-				'group' => 'recaptcha',
+                'id'    => 'recaptcha-for-edits',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Use reCAPTCHA for edit listings', 'settings', 'business-directory-plugin' ),
+                'group' => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'recaptcha-for-flagging',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Use reCAPTCHA for report listings', 'settings', 'business-directory-plugin' ),
-				'group' => 'recaptcha',
+                'id'    => 'recaptcha-for-flagging',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Use reCAPTCHA for report listings', 'settings', 'business-directory-plugin' ),
+                'group' => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'recaptcha-for-comments',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Use reCAPTCHA for listing comments?', 'settings', 'business-directory-plugin' ),
-				'group' => 'recaptcha',
+                'id'    => 'recaptcha-for-comments',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Use reCAPTCHA for listing comments?', 'settings', 'business-directory-plugin' ),
+                'group' => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'recaptcha-public-key',
-				'type'    => 'text',
-				'name'    => _x( 'reCAPTCHA Public Key', 'settings', 'business-directory-plugin' ),
-				'default' => '',
-				'group'   => 'recaptcha',
+                'id'      => 'recaptcha-public-key',
+                'type'    => 'text',
+                'name'    => _x( 'reCAPTCHA Public Key', 'settings', 'business-directory-plugin' ),
+                'default' => '',
+                'group'   => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'recaptcha-private-key',
-				'type'    => 'text',
-				'name'    => _x( 'reCAPTCHA Private Key', 'settings', 'business-directory-plugin' ),
-				'default' => '',
-				'group'   => 'recaptcha',
+                'id'      => 'recaptcha-private-key',
+                'type'    => 'text',
+                'name'    => _x( 'reCAPTCHA Private Key', 'settings', 'business-directory-plugin' ),
+                'default' => '',
+                'group'   => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'recaptcha-version',
-				'type'    => 'select',
-				'name'    => _x( 'reCAPTCHA version', 'settings', 'business-directory-plugin' ),
+                'id'      => 'recaptcha-version',
+                'type'    => 'select',
+                'name'    => _x( 'reCAPTCHA version', 'settings', 'business-directory-plugin' ),
                 'default' => 'v2',
                 'options' => array(
                     'v2' => 'V2',
                     'v3' => 'V3',
                 ),
-				'group'   => 'recaptcha',
+                'group'   => 'recaptcha',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'recaptcha-threshold',
-				'type'    => 'number',
-				'name'    => _x( 'reCAPTCHA V3 threshold score', 'settings', 'business-directory-plugin' ),
+                'id'      => 'recaptcha-threshold',
+                'type'    => 'number',
+                'name'    => _x( 'reCAPTCHA V3 threshold score', 'settings', 'business-directory-plugin' ),
                 'default' => 0.5,
                 'min'     => 0,
                 'step'    => 0.1,
-				'max'     => 1,
-				'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
-				'group'   => 'recaptcha',
+                'max'     => 1,
+                'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
+                'group'   => 'recaptcha',
             )
         );
 
         wpbdp_register_settings_group( 'registration', _x( 'Registration', 'settings', 'business-directory-plugin' ), 'general', array( 'desc' => _x( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.", 'settings', 'business-directory-plugin' ) ) );
         wpbdp_register_setting(
             array(
-				'id'      => 'require-login',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Require login to post listings?', 'settings', 'business-directory-plugin' ),
-				'default' => 1,
-				'group'   => 'registration',
+                'id'      => 'require-login',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Require login to post listings?', 'settings', 'business-directory-plugin' ),
+                'default' => 1,
+                'group'   => 'registration',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'enable-key-access',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Allow anonymous users to edit/manage listings with an access key?', 'settings', 'business-directory-plugin' ),
-				'group' => 'registration',
+                'id'    => 'enable-key-access',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Allow anonymous users to edit/manage listings with an access key?', 'settings', 'business-directory-plugin' ),
+                'group' => 'registration',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'          => 'login-url',
-				'type'        => 'text',
-				'name'        => _x( 'Login URL', 'settings', 'business-directory-plugin' ),
-				'desc'        => _x( 'Only enter this if using a membership plugin or custom login page.', 'settings', 'business-directory-plugin' ),
-				'placeholder' => _x( 'URL of your membership plugin\'s login page.', 'settings', 'business-directory-plugin' ),
-				'default'     => '',
-				'group'       => 'registration',
+                'id'          => 'login-url',
+                'type'        => 'text',
+                'name'        => _x( 'Login URL', 'settings', 'business-directory-plugin' ),
+                'desc'        => _x( 'Only enter this if using a membership plugin or custom login page.', 'settings', 'business-directory-plugin' ),
+                'placeholder' => _x( 'URL of your membership plugin\'s login page.', 'settings', 'business-directory-plugin' ),
+                'default'     => '',
+                'group'       => 'registration',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'          => 'registration-url',
-				'type'        => 'text',
-				'name'        => _x( 'Registration URL', 'settings', 'business-directory-plugin' ),
-				'desc'        => _x( 'Only enter this if using a membership plugin or custom registration page.', 'settings', 'business-directory-plugin' ),
-				'placeholder' => _x( 'URL of your membership plugin\'s registration page.', 'settings', 'business-directory-plugin' ),
-				'default'     => '',
-				'group'       => 'registration',
+                'id'          => 'registration-url',
+                'type'        => 'text',
+                'name'        => _x( 'Registration URL', 'settings', 'business-directory-plugin' ),
+                'desc'        => _x( 'Only enter this if using a membership plugin or custom registration page.', 'settings', 'business-directory-plugin' ),
+                'placeholder' => _x( 'URL of your membership plugin\'s registration page.', 'settings', 'business-directory-plugin' ),
+                'default'     => '',
+                'group'       => 'registration',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'create-account-during-submit-mode',
-				'type'    => 'radio',
-				'name'    => _x( 'Allow users to create accounts during listing submit?', 'settings', 'business-directory-plugin' ),
-				'default' => 'required',
-				'options' => array(
-					'disabled' => _x( 'No', 'settings', 'business-directory-plugin' ),
-					'optional' => _x( 'Yes, and make it optional', 'settings', 'business-directory-plugin' ),
-					'required' => _x( 'Yes, and make it required', 'settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'registration',
+                'id'      => 'create-account-during-submit-mode',
+                'type'    => 'radio',
+                'name'    => _x( 'Allow users to create accounts during listing submit?', 'settings', 'business-directory-plugin' ),
+                'default' => 'required',
+                'options' => array(
+                    'disabled' => _x( 'No', 'settings', 'business-directory-plugin' ),
+                    'optional' => _x( 'Yes, and make it optional', 'settings', 'business-directory-plugin' ),
+                    'required' => _x( 'Yes, and make it required', 'settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'registration',
             )
         );
 
@@ -258,20 +246,20 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'tos_settings', _x( 'Terms and Conditions', 'settings', 'business-directory-plugin' ), 'general/main' );
         wpbdp_register_setting(
             array(
-				'id'    => 'display-terms-and-conditions',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Display and require user agreement to Terms and Conditions', 'settings', 'business-directory-plugin' ),
-				'group' => 'tos_settings',
+                'id'    => 'display-terms-and-conditions',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Display and require user agreement to Terms and Conditions', 'settings', 'business-directory-plugin' ),
+                'group' => 'tos_settings',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'terms-and-conditions',
-				'type'         => 'textarea',
-				'name'         => _x( 'Terms and Conditions', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'settings', 'business-directory-plugin' ),
-				'default'      => '',
-				'placeholder'  => _x( 'Terms and Conditions text goes here.', 'settings', 'business-directory-plugin' ),
+                'id'           => 'terms-and-conditions',
+                'type'         => 'textarea',
+                'name'         => _x( 'Terms and Conditions', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'settings', 'business-directory-plugin' ),
+                'default'      => '',
+                'placeholder'  => _x( 'Terms and Conditions text goes here.', 'settings', 'business-directory-plugin' ),
                 'group'        => 'tos_settings',
                 'requirements' => array( 'display-terms-and-conditions' ),
             )
@@ -281,11 +269,11 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'tracking_settings', _x( 'Data Collection', 'settings', 'business-directory-plugin' ), 'general/main' );
         wpbdp_register_setting(
             array(
-				'id'    => 'tracking-on',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Allow BD to anonymously collect information about your installed plugins, themes and WP version?', 'settings', 'business-directory-plugin' ),
-				'desc'  => str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">', _x( '<a>Learn more</a> about what BD does and does NOT track.', 'admin settings', 'business-directory-plugin' ) ),
-				'group' => 'tracking_settings',
+                'id'    => 'tracking-on',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Allow BD to anonymously collect information about your installed plugins, themes and WP version?', 'settings', 'business-directory-plugin' ),
+                'desc'  => str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">', _x( '<a>Learn more</a> about what BD does and does NOT track.', 'admin settings', 'business-directory-plugin' ) ),
+                'group' => 'tracking_settings',
             )
         );
 
@@ -293,16 +281,16 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'search_settings', _x( 'Directory Search', 'settings', 'business-directory-plugin' ), 'general/main' );
         wpbdp_register_setting(
             array(
-				'id'      => 'search-form-in-results',
-				'type'    => 'radio',
-				'name'    => _x( 'Search form display', 'settings', 'business-directory-plugin' ),
-				'default' => 'above',
-				'options' => array(
-					'above' => _x( 'Above results', 'admin settings', 'business-directory-plugin' ),
-					'below' => _x( 'Below results', 'admin settings', 'business-directory-plugin' ),
-					'none'  => _x( 'Don\'t show with results', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'search_settings',
+                'id'      => 'search-form-in-results',
+                'type'    => 'radio',
+                'name'    => _x( 'Search form display', 'settings', 'business-directory-plugin' ),
+                'default' => 'above',
+                'options' => array(
+                    'above' => _x( 'Above results', 'admin settings', 'business-directory-plugin' ),
+                    'below' => _x( 'Below results', 'admin settings', 'business-directory-plugin' ),
+                    'none'  => _x( 'Don\'t show with results', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'search_settings',
             )
         );
 
@@ -315,26 +303,26 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting(
             array(
-				'id'       => 'quick-search-fields',
-				'type'     => 'multicheck',
-				'name'     => _x( 'Quick search fields', 'settings', 'business-directory-plugin' ),
-				'desc'     => _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'business-directory-plugin' ) . $no_fields . $too_many_fields,
-				'default'  => array(),
-				'multiple' => true,
-				'options'  => $fields,
-				'group'    => 'search_settings',
-				'attrs'    => array(
-					'data-text-fields' => wp_json_encode( $text_fields ),
-				),
+                'id'       => 'quick-search-fields',
+                'type'     => 'multicheck',
+                'name'     => _x( 'Quick search fields', 'settings', 'business-directory-plugin' ),
+                'desc'     => _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'business-directory-plugin' ) . $no_fields . $too_many_fields,
+                'default'  => array(),
+                'multiple' => true,
+                'options'  => $fields,
+                'group'    => 'search_settings',
+                'attrs'    => array(
+                    'data-text-fields' => wp_json_encode( $text_fields ),
+                ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'quick-search-enable-performance-tricks',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Enable high performance searches?', 'settings', 'business-directory-plugin' ),
-				'desc'  => _x( 'Enabling this makes BD sacrifice result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'settings', 'business-directory-plugin' ),
-				'group' => 'search_settings',
+                'id'    => 'quick-search-enable-performance-tricks',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Enable high performance searches?', 'settings', 'business-directory-plugin' ),
+                'desc'  => _x( 'Enabling this makes BD sacrifice result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'settings', 'business-directory-plugin' ),
+                'group' => 'search_settings',
             )
         );
 
@@ -343,40 +331,40 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting(
             array(
-				'id'    => 'disable-cpt',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Disable advanced CPT integration?', 'settings', 'business-directory-plugin' ),
-				'group' => 'general/advanced',
+                'id'    => 'disable-cpt',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Disable advanced CPT integration?', 'settings', 'business-directory-plugin' ),
+                'group' => 'general/advanced',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'        => 'ajax-compat-mode',
-				'type'      => 'checkbox',
-				'name'      => _x( 'Enable AJAX compatibility mode?', 'settings', 'business-directory-plugin' ),
-				'desc'      => _x( 'Check this if you are having trouble with BD, particularly when importing or exporting CSV files.', 'admin settings', 'business-directory-plugin' )
-					. ' ' . str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/faq/how-to-check-for-plugin-and-theme-conflicts-with-bd/" target="_blank" rel="noopener">', _x( 'If this compatibility mode doesn\'t solve your issue, you may be experiencing a more serious conflict. <a>Here is an article</a> about how to test for theme and plugin conflicts with Business Directory.', 'settings', 'business-directory-plugin' ) ),
-				'group'     => 'general/advanced',
-				'on_update' => array( __CLASS__, 'setup_ajax_compat_mode' ),
+                'id'        => 'ajax-compat-mode',
+                'type'      => 'checkbox',
+                'name'      => _x( 'Enable AJAX compatibility mode?', 'settings', 'business-directory-plugin' ),
+                'desc'      => _x( 'Check this if you are having trouble with BD, particularly when importing or exporting CSV files.', 'admin settings', 'business-directory-plugin' )
+                    . ' ' . str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/faq/how-to-check-for-plugin-and-theme-conflicts-with-bd/" target="_blank" rel="noopener">', _x( 'If this compatibility mode doesn\'t solve your issue, you may be experiencing a more serious conflict. <a>Here is an article</a> about how to test for theme and plugin conflicts with Business Directory.', 'settings', 'business-directory-plugin' ) ),
+                'group'     => 'general/advanced',
+                'on_update' => array( __CLASS__, 'setup_ajax_compat_mode' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'disable-submit-listing',
-				'type'  => 'checkbox',
-				'name'  => _x( 'Disable Frontend Listing Submission?', 'settings', 'business-directory-plugin' ),
-				'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'business-directory-plugin' ),
-				'group' => 'general/advanced',
+                'id'    => 'disable-submit-listing',
+                'type'  => 'checkbox',
+                'name'  => _x( 'Disable Frontend Listing Submission?', 'settings', 'business-directory-plugin' ),
+                'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'business-directory-plugin' ),
+                'group' => 'general/advanced',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'enqueue-fontawesome-styles',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'general/advanced',
+                'id'      => 'enqueue-fontawesome-styles',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'general/advanced',
             )
         );
     }
@@ -411,169 +399,174 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'listings/sorting', _x( 'Listings Sorting', 'settings', 'business-directory-plugin' ), 'listings' );
         wpbdp_register_setting(
             array(
-				'id'      => 'listings-per-page',
-				'type'    => 'number',
-				'name'    => _x( 'Listings per page', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Number of listings to show per page. Use a value of "0" to show all listings.', 'settings', 'business-directory-plugin' ),
-				'default' => '10',
-				'min'     => 0,
-				'step'    => 1,
-				'group'   => 'listings/main',
+                'id'      => 'listings-per-page',
+                'type'    => 'number',
+                'name'    => _x( 'Listings per page', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Number of listings to show per page. Use a value of "0" to show all listings.', 'settings', 'business-directory-plugin' ),
+                'default' => '10',
+                'min'     => 0,
+                'step'    => 1,
+                'group'   => 'listings/main',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'listing-duration',
-				'type'    => 'number',
-				'name'    => _x( 'Listing duration for no-fee sites (in days)', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'settings', 'business-directory-plugin' ),
-				'default' => '365',
-				'min'     => 0,
-				'step'    => 1,
-				'max'     => 3650,
-				'group'   => 'listings/main',
+                'id'      => 'listing-duration',
+                'type'    => 'number',
+                'name'    => _x( 'Listing duration for no-fee sites (in days)', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'settings', 'business-directory-plugin' ),
+                'default' => '365',
+                'min'     => 0,
+                'step'    => 1,
+                'max'     => 3650,
+                'group'   => 'listings/main',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'listing-renewal',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Turn on listing renewal option?', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'listings/main',
+                'id'      => 'listing-renewal',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Turn on listing renewal option?', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'listings/main',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'listing-link-in-new-tab',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Open detailed view of listing in new tab?', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'listings/main',
-            )
-        );
-
-        wpbdp_register_setting(
-            array(
-				'id'      => 'enable-listing-flagging',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Include button to report listings?', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'listings/report',
-            )
-        );
-        wpbdp_register_setting(
-            array(
-				'id'           => 'listing-flagging-register-users',
-				'type'         => 'checkbox',
-				'name'         => _x( 'Enable report listing for registered users only', 'settings', 'business-directory-plugin' ),
-				'default'      => true,
-				'group'        => 'listings/report',
-				'requirements' => array( 'enable-listing-flagging' ),
-            )
-        );
-        wpbdp_register_setting(
-            array(
-				'id'           => 'listing-flagging-options',
-				'type'         => 'textarea',
-				'name'         => _x( 'Report listing option list', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Form option list to report a listing as inappropriate. One option per line.', 'settings', 'business-directory-plugin' ),
-				'default'      => false,
-				'group'        => 'listings/report',
-				'requirements' => array( 'enable-listing-flagging' ),
+                'id'      => 'listing-link-in-new-tab',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Open detailed view of listing in new tab?', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/main',
             )
         );
 
         wpbdp_register_setting(
             array(
-				'id'      => 'show-contact-form',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Include listing contact form on listing pages?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'listings/contact',
+                'id'      => 'enable-listing-flagging',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Include button to report listings?', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/report',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'contact-form-require-login',
-				'type'         => 'checkbox',
-				'name'         => _x( 'Require login for using the contact form?', 'settings', 'business-directory-plugin' ),
-				'default'      => false,
-				'group'        => 'listings/contact',
-				'requirements' => array( 'show-contact-form' ),
+                'id'           => 'listing-flagging-register-users',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Enable report listing for registered users only', 'settings', 'business-directory-plugin' ),
+                'default'      => true,
+                'group'        => 'listings/report',
+                'requirements' => array( 'enable-listing-flagging' ),
+            )
+        );
+        wpbdp_register_setting(
+            array(
+                'id'           => 'listing-flagging-options',
+                'type'         => 'textarea',
+                'name'         => _x( 'Report listing option list', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Form option list to report a listing as inappropriate. One option per line.', 'settings', 'business-directory-plugin' ),
+                'default'      => false,
+                'group'        => 'listings/report',
+                'requirements' => array( 'enable-listing-flagging' ),
             )
         );
 
         wpbdp_register_setting(
             array(
-				'id'           => 'contact-form-registered-users-limit',
-				'type'         => 'number',
-				'name'         => _x( 'Maximum number of daily contact form submits from registered users', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Use this to prevent spamming of listing owners from logged in users. 0 means unlimited submits per day.', 'settings', 'business-directory-plugin' ),
+                'id'      => 'show-contact-form',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Include listing contact form on listing pages?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'listings/contact',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+                'id'           => 'contact-form-require-login',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Require login for using the contact form?', 'settings', 'business-directory-plugin' ),
+                'default'      => false,
+                'group'        => 'listings/contact',
+                'requirements' => array( 'show-contact-form' ),
+            )
+        );
+
+        wpbdp_register_setting(
+            array(
+                'id'           => 'contact-form-registered-users-limit',
+                'type'         => 'number',
+                'name'         => _x( 'Maximum number of daily contact form submits from registered users', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Use this to prevent spamming of listing owners from logged in users. 0 means unlimited submits per day.', 'settings', 'business-directory-plugin' ),
                 'default'      => '0',
                 'min'          => 0,
-				'step'         => 1,
-				'group'        => 'listings/contact',
-				'requirements' => array( 'show-contact-form', 'contact-form-require-login' ),
+                'step'         => 1,
+                'group'        => 'listings/contact',
+                'requirements' => array( 'show-contact-form', 'contact-form-require-login' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'contact-form-daily-limit',
-				'type'         => 'number',
-				'name'         => _x( 'Maximum number of contact form submits for each listing per day', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Use this to set contact submits limit for each listing in the directory. 0 means unlimited submits per day.', 'settings', 'business-directory-plugin' ),
+                'id'           => 'contact-form-daily-limit',
+                'type'         => 'number',
+                'name'         => _x( 'Maximum number of contact form submits for each listing per day', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Use this to set contact submits limit for each listing in the directory. 0 means unlimited submits per day.', 'settings', 'business-directory-plugin' ),
                 'default'      => '0',
                 'min'          => 0,
-				'step'         => 1,
-				'group'        => 'listings/contact',
-				'requirements' => array( 'show-contact-form' ),
+                'step'         => 1,
+                'group'        => 'listings/contact',
+                'requirements' => array( 'show-contact-form' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'allow-comments-in-listings',
-				'type'    => 'radio',
-				'name'    => _x( 'Include comment form on listing pages?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'BD uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. BD is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn\'t work, try the 3rd option instead.', 'settings', 'business-directory-plugin' ),
-				'default' => get_option( 'wpbdp-show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
-				'options' => array(
-					'do-not-allow-comments'              => _x( 'Do not include comments in listings', 'admin settings', 'business-directory-plugin' ),
-					'allow-comments'                     => _x( 'Include comment form, theme invoked (standard option)', 'admin settings', 'business-directory-plugin' ),
-					'allow-comments-and-insert-template' => _x( "Include comment form, BD invoked (use only if 2nd option doesn't work)", 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/main',
+                'id'      => 'allow-comments-in-listings',
+                'type'    => 'radio',
+                'name'    => _x( 'Include comment form on listing pages?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'BD uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. BD is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn\'t work, try the 3rd option instead.', 'settings', 'business-directory-plugin' ),
+                'default' => get_option( 'wpbdp-show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
+                'options' => array(
+                    'do-not-allow-comments'              => _x( 'Do not include comments in listings', 'admin settings', 'business-directory-plugin' ),
+                    'allow-comments'                     => _x( 'Include comment form, theme invoked (standard option)', 'admin settings', 'business-directory-plugin' ),
+                    'allow-comments-and-insert-template' => _x( "Include comment form, BD invoked (use only if 2nd option doesn't work)", 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/main',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'show-listings-under-categories',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Show listings under categories on main page?', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'listings/main',
+                'id'      => 'show-listings-under-categories',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Show listings under categories on main page?', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/main',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'prevent-sticky-on-directory-view',
-				'type'    => 'multicheck',
-				'name'    => _x( 'Prevent featured (sticky) status on BD pages?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Prevents featured listings from floating to the top of the selected page.', 'settings', 'business-directory-plugin' ),
-				'default' => array(),
-				'options' => array(
-					'main'          => _x( 'Directory view.', 'admin settings', 'business-directory-plugin' ),
-					'all_listings'  => _x( 'All Listings view.', 'admin settings', 'business-directory-plugin' ),
-					'show_category' => _x( 'Category view.', 'admin settings', 'business-directory-plugin' ),
-					'search'        => _x( 'Search view.', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/main',
+                'id'      => 'prevent-sticky-on-directory-view',
+                'type'    => 'multicheck',
+                'name'    => _x( 'Prevent featured (sticky) status on BD pages?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Prevents featured listings from floating to the top of the selected page.', 'settings', 'business-directory-plugin' ),
+                'default' => array(),
+                'options' => array(
+                    'main'          => _x( 'Directory view.', 'admin settings', 'business-directory-plugin' ),
+                    'all_listings'  => _x( 'All Listings view.', 'admin settings', 'business-directory-plugin' ),
+                    'show_category' => _x( 'Category view.', 'admin settings', 'business-directory-plugin' ),
+                    'search'        => _x( 'Search view.', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/main',
             )
         );
         $admin = get_user_by( 'email', get_option( 'new_admin_email' ) );
         if ( ! $admin ) {
-            $admin_users = get_users( array( 'fields' => array( 'ID' ), 'role' => 'administrator' ) );
+            $admin_users = get_users(
+                array(
+                    'fields' => array( 'ID' ),
+                    'role'   => 'administrator',
+                )
+            );
 
             if ( $admin_users ) {
                 $admin = $admin_users[0];
@@ -592,119 +585,119 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'status-on-uninstall',
-				'type'    => 'radio',
-				'name'    => _x( 'Status of listings upon uninstalling plugin', 'settings', 'business-directory-plugin' ),
-				'default' => 'trash',
-				'options' => array(
-					'draft' => _x( 'Draft', 'post status', 'business-directory-plugin' ),
-					'trash' => _x( 'Trash', 'post status', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/main',
+                'id'      => 'status-on-uninstall',
+                'type'    => 'radio',
+                'name'    => _x( 'Status of listings upon uninstalling plugin', 'settings', 'business-directory-plugin' ),
+                'default' => 'trash',
+                'options' => array(
+                    'draft' => _x( 'Draft', 'post status', 'business-directory-plugin' ),
+                    'trash' => _x( 'Trash', 'post status', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/main',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'deleted-status',
-				'type'    => 'radio',
-				'name'    => _x( 'Status of deleted listings', 'settings', 'business-directory-plugin' ),
-				'default' => 'trash',
-				'options' => array(
-					'draft' => _x( 'Draft', 'post status', 'business-directory-plugin' ),
-					'trash' => _x( 'Trash', 'post status', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/main',
+                'id'      => 'deleted-status',
+                'type'    => 'radio',
+                'name'    => _x( 'Status of deleted listings', 'settings', 'business-directory-plugin' ),
+                'default' => 'trash',
+                'options' => array(
+                    'draft' => _x( 'Draft', 'post status', 'business-directory-plugin' ),
+                    'trash' => _x( 'Trash', 'post status', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/main',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'submit-instructions',
-				'type'    => 'textarea',
-				'name'    => _x( 'Submit Listing instructions message', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'settings', 'business-directory-plugin' ),
-				'default' => '',
-				'group'   => 'listings/main',
+                'id'      => 'submit-instructions',
+                'type'    => 'textarea',
+                'name'    => _x( 'Submit Listing instructions message', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'settings', 'business-directory-plugin' ),
+                'default' => '',
+                'group'   => 'listings/main',
             )
         );
 
         wpbdp_register_setting(
             array(
-				'id'      => 'new-post-status',
-				'type'    => 'radio',
-				'name'    => _x( 'Default new post status', 'settings', 'business-directory-plugin' ),
-				'default' => 'pending',
-				'options' => array(
-					'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
-					'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/post_category',
+                'id'      => 'new-post-status',
+                'type'    => 'radio',
+                'name'    => _x( 'Default new post status', 'settings', 'business-directory-plugin' ),
+                'default' => 'pending',
+                'options' => array(
+                    'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
+                    'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/post_category',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'edit-post-status',
-				'type'    => 'radio',
-				'name'    => _x( 'Edit post status', 'settings', 'business-directory-plugin' ),
-				'default' => 'publish',
-				'options' => array(
-					'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
-					'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/post_category',
+                'id'      => 'edit-post-status',
+                'type'    => 'radio',
+                'name'    => _x( 'Edit post status', 'settings', 'business-directory-plugin' ),
+                'default' => 'publish',
+                'options' => array(
+                    'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
+                    'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/post_category',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'categories-order-by',
-				'type'    => 'radio',
-				'name'    => _x( 'Order categories list by', 'settings', 'business-directory-plugin' ),
-				'default' => 'name',
-				'options' => array(
-					'name'  => _x( 'Name', 'admin settings', 'business-directory-plugin' ),
-					'slug'  => _x( 'Slug', 'admin settings', 'business-directory-plugin' ),
-					'count' => _x( 'Listing Count', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/post_category',
+                'id'      => 'categories-order-by',
+                'type'    => 'radio',
+                'name'    => _x( 'Order categories list by', 'settings', 'business-directory-plugin' ),
+                'default' => 'name',
+                'options' => array(
+                    'name'  => _x( 'Name', 'admin settings', 'business-directory-plugin' ),
+                    'slug'  => _x( 'Slug', 'admin settings', 'business-directory-plugin' ),
+                    'count' => _x( 'Listing Count', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/post_category',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'categories-sort',
-				'type'    => 'radio',
-				'name'    => _x( 'Sort order for categories', 'settings', 'business-directory-plugin' ),
-				'default' => 'ASC',
-				'options' => array(
-					'ASC'  => _x( 'Ascending', 'admin settings', 'business-directory-plugin' ),
-					'DESC' => _x( 'Descending', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/post_category',
+                'id'      => 'categories-sort',
+                'type'    => 'radio',
+                'name'    => _x( 'Sort order for categories', 'settings', 'business-directory-plugin' ),
+                'default' => 'ASC',
+                'options' => array(
+                    'ASC'  => _x( 'Ascending', 'admin settings', 'business-directory-plugin' ),
+                    'DESC' => _x( 'Descending', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/post_category',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'show-category-post-count',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Show category post count?', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'listings/post_category',
+                'id'      => 'show-category-post-count',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Show category post count?', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'listings/post_category',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'hide-empty-categories',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Hide empty categories?', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'listings/post_category',
+                'id'      => 'hide-empty-categories',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Hide empty categories?', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/post_category',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'show-only-parent-categories',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Show only parent categories in category list?', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'listings/post_category',
+                'id'      => 'show-only-parent-categories',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Show only parent categories in category list?', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/post_category',
             )
         );
 
@@ -712,13 +705,14 @@ final class WPBDP__Settings__Bootstrap {
         $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) ) . '">', $msg );
         wpbdp_register_setting(
             array(
-				'id'      => 'listings-order-by',
-				'type'    => 'select',
-				'name'    => _x( 'Order directory listings by', 'settings', 'business-directory-plugin' ),
-				'desc'    => $msg,
-				'default' => 'title',
-				'options' => apply_filters( 'wpbdp_sort_options',
-				    array(
+                'id'      => 'listings-order-by',
+                'type'    => 'select',
+                'name'    => _x( 'Order directory listings by', 'settings', 'business-directory-plugin' ),
+                'desc'    => $msg,
+                'default' => 'title',
+                'options' => apply_filters(
+                    'wpbdp_sort_options',
+                    array(
                         'title'            => _x( 'Title', 'admin settings', 'business-directory-plugin' ),
                         'author'           => _x( 'Author', 'admin settings', 'business-directory-plugin' ),
                         'date'             => _x( 'Date posted', 'admin settings', 'business-directory-plugin' ),
@@ -729,42 +723,42 @@ final class WPBDP__Settings__Bootstrap {
                         'plan-order-date'  => _x( 'Fee Plan Custom Order, then Date', 'admin settings', 'business-directory-plugin' ),
                         'plan-order-title' => _x( 'Fee Plan Custom Order, then Title', 'admin settings', 'business-directory-plugin' ),
                     )
-				),
-				'group'   => 'listings/sorting',
+                ),
+                'group'   => 'listings/sorting',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'listings-sort',
-				'type'    => 'radio',
-				'name'    => _x( 'Sort directory listings by', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Ascending for ascending order A-Z, Descending for descending order Z-A', 'settings', 'business-directory-plugin' ),
-				'default' => 'ASC',
-				'options' => array(
-					'ASC'  => _x( 'Ascending', 'admin settings', 'business-directory-plugin' ),
-					'DESC' => _x( 'Descending', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'listings/sorting',
+                'id'      => 'listings-sort',
+                'type'    => 'radio',
+                'name'    => _x( 'Sort directory listings by', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Ascending for ascending order A-Z, Descending for descending order Z-A', 'settings', 'business-directory-plugin' ),
+                'default' => 'ASC',
+                'options' => array(
+                    'ASC'  => _x( 'Ascending', 'admin settings', 'business-directory-plugin' ),
+                    'DESC' => _x( 'Descending', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/sorting',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'listings-sortbar-enabled',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Enable sort bar?', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'listings/sorting',
+                'id'      => 'listings-sortbar-enabled',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Enable sort bar?', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/sorting',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'listings-sortbar-fields',
-				'type'         => 'multicheck',
-				'name'         => _x( 'Sortbar Fields', 'settings', 'business-directory-plugin' ),
-				'default'      => array(),
-				'options'      => wpbdp_sortbar_get_field_options(),
-				'group'        => 'listings/sorting',
-				'requirements' => array( 'listings-sortbar-enabled' ),
+                'id'           => 'listings-sortbar-fields',
+                'type'         => 'multicheck',
+                'name'         => _x( 'Sortbar Fields', 'settings', 'business-directory-plugin' ),
+                'default'      => array(),
+                'options'      => wpbdp_sortbar_get_field_options(),
+                'group'        => 'listings/sorting',
+                'requirements' => array( 'listings-sortbar-enabled' ),
             )
         );
     }
@@ -774,49 +768,49 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'display_options', _x( 'Directory Display Options', 'settings', 'business-directory-plugin' ), 'appearance/main' );
         wpbdp_register_setting(
             array(
-				'id'           => 'show-submit-listing',
-				'type'         => 'checkbox',
-				'name'         => _x( 'Show the "Submit listing" button.', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'business-directory-plugin' ),
-				'default'      => true,
-				'group'        => 'display_options',
-				'requirements' => array( '!disable-submit-listing' ),
+                'id'           => 'show-submit-listing',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Show the "Submit listing" button.', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'business-directory-plugin' ),
+                'default'      => true,
+                'group'        => 'display_options',
+                'requirements' => array( '!disable-submit-listing' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'show-search-listings',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Show "Search listings".', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'display_options',
+                'id'      => 'show-search-listings',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Show "Search listings".', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'display_options',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'show-view-listings',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Show the "View Listings" button.', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'display_options',
+                'id'      => 'show-view-listings',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Show the "View Listings" button.', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'display_options',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'show-manage-listings',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Show the "Manage Listings" button.', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'display_options',
+                'id'      => 'show-manage-listings',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Show the "Manage Listings" button.', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'display_options',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'show-directory-button',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Show the "Directory" button.', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'display_options',
+                'id'      => 'show-directory-button',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Show the "Directory" button.', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'display_options',
             )
         );
 
@@ -825,24 +819,24 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting(
             array(
-				'id'      => 'themes-button-style',
-				'type'    => 'radio',
-				'name'    => _x( 'Theme button style', 'settings', 'business-directory-plugin' ),
-				'default' => 'theme',
-				'options' => array(
-					'theme' => _x( 'Use the BD theme style for BD buttons', 'admin settings', 'business-directory-plugin' ),
-					'none'  => _x( 'Use the WP theme style for BD buttons', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'themes',
+                'id'      => 'themes-button-style',
+                'type'    => 'radio',
+                'name'    => _x( 'Theme button style', 'settings', 'business-directory-plugin' ),
+                'default' => 'theme',
+                'options' => array(
+                    'theme' => _x( 'Use the BD theme style for BD buttons', 'admin settings', 'business-directory-plugin' ),
+                    'none'  => _x( 'Use the WP theme style for BD buttons', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'themes',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'include-button-styles',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Include CSS rules to give their own style to View, Edit and Delete buttons?', 'settings', 'business-directory-plugin' ),
-				'default' => 1,
-				'group'   => 'themes',
+                'id'      => 'include-button-styles',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Include CSS rules to give their own style to View, Edit and Delete buttons?', 'settings', 'business-directory-plugin' ),
+                'default' => 1,
+                'group'   => 'themes',
             )
         );
 
@@ -851,146 +845,146 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'images/general', _x( 'Image Settings', 'settings', 'business-directory-plugin' ), 'appearance/image', array( 'desc' => 'Any changes to these settings will affect new listings only.  Existing listings will not be affected.  If you wish to change existing listings, you will need to re-upload the image(s) on that listing after changing things here.' ) );
         wpbdp_register_setting(
             array(
-				'id'      => 'allow-images',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Allow images?', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'images/general',
+                'id'      => 'allow-images',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Allow images?', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'images/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'image-min-filesize',
-				'type'    => 'number',
-				'min'     => 0,
-				'step'    => 1,
-				'name'    => _x( 'Min Image File Size (KB)', 'settings', 'business-directory-plugin' ),
-				'default' => '0',
-				'group'   => 'images/general',
+                'id'      => 'image-min-filesize',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Min Image File Size (KB)', 'settings', 'business-directory-plugin' ),
+                'default' => '0',
+                'group'   => 'images/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'image-max-filesize',
-				'type'    => 'number',
-				'min'     => 0,
-				'step'    => 1,
-				'name'    => _x( 'Max Image File Size (KB)', 'settings', 'business-directory-plugin' ),
-				'default' => '10000',
-				'group'   => 'images/general',
+                'id'      => 'image-max-filesize',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Max Image File Size (KB)', 'settings', 'business-directory-plugin' ),
+                'default' => '10000',
+                'group'   => 'images/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'image-min-width',
-				'type'    => 'number',
-				'min'     => 0,
-				'step'    => 1,
-				'name'    => _x( 'Min image width (px)', 'settings', 'business-directory-plugin' ),
-				'default' => '0',
-				'group'   => 'images/general',
+                'id'      => 'image-min-width',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Min image width (px)', 'settings', 'business-directory-plugin' ),
+                'default' => '0',
+                'group'   => 'images/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'image-min-height',
-				'type'    => 'number',
-				'name'    => _x( 'Min image height (px)', 'settings', 'business-directory-plugin' ),
-				'default' => '0',
-				'min'     => 0,
-				'step'    => 1,
-				'group'   => 'images/general',
+                'id'      => 'image-min-height',
+                'type'    => 'number',
+                'name'    => _x( 'Min image height (px)', 'settings', 'business-directory-plugin' ),
+                'default' => '0',
+                'min'     => 0,
+                'step'    => 1,
+                'group'   => 'images/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'image-max-width',
-				'type'    => 'number',
-				'min'     => 0,
-				'step'    => 1,
-				'name'    => _x( 'Max image width (px)', 'settings', 'business-directory-plugin' ),
-				'default' => '500',
-				'group'   => 'images/general',
+                'id'      => 'image-max-width',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Max image width (px)', 'settings', 'business-directory-plugin' ),
+                'default' => '500',
+                'group'   => 'images/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'image-max-height',
-				'type'    => 'number',
-				'min'     => 0,
-				'step'    => 1,
-				'name'    => _x( 'Max image height (px)', 'settings', 'business-directory-plugin' ),
-				'default' => '500',
-				'group'   => 'images/general',
+                'id'      => 'image-max-height',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Max image height (px)', 'settings', 'business-directory-plugin' ),
+                'default' => '500',
+                'group'   => 'images/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'use-thickbox',
-				'type'    => 'checkbox',
-				'min'     => 0,
-				'step'    => 1,
-				'name'    => _x( 'Turn on thickbox/lightbox?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Uncheck if it conflicts with other elements or plugins installed on your site', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'images/general',
+                'id'      => 'use-thickbox',
+                'type'    => 'checkbox',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Turn on thickbox/lightbox?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Uncheck if it conflicts with other elements or plugins installed on your site', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'images/general',
             )
         );
 
         wpbdp_register_settings_group( 'image/thumbnails', _x( 'Thumbnails', 'settings', 'business-directory-plugin' ), 'appearance/image' );
         wpbdp_register_setting(
             array(
-				'id'      => 'thumbnail-width',
-				'type'    => 'number',
-				'min'     => 0,
-				'step'    => 1,
-				'name'    => _x( 'Thumbnail width (px)', 'settings', 'business-directory-plugin' ),
-				'default' => '150',
-				'group'   => 'image/thumbnails',
+                'id'      => 'thumbnail-width',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Thumbnail width (px)', 'settings', 'business-directory-plugin' ),
+                'default' => '150',
+                'group'   => 'image/thumbnails',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'thumbnail-height',
-				'type'    => 'number',
-				'min'     => 0,
-				'step'    => 1,
-				'name'    => _x( 'Thumbnail height (px)', 'settings', 'business-directory-plugin' ),
-				'default' => '150',
-				'group'   => 'image/thumbnails',
+                'id'      => 'thumbnail-height',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Thumbnail height (px)', 'settings', 'business-directory-plugin' ),
+                'default' => '150',
+                'group'   => 'image/thumbnails',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'thumbnail-crop',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Crop thumbnails to exact dimensions?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'When enabled images will match exactly the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'image/thumbnails',
+                'id'      => 'thumbnail-crop',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Crop thumbnails to exact dimensions?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'When enabled images will match exactly the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'image/thumbnails',
             )
         );
 
         wpbdp_register_settings_group( 'image/listings', _x( 'Listings', 'settings', 'business-directory-plugin' ), 'appearance/image' );
         wpbdp_register_setting(
             array(
-				'id'      => 'enforce-image-upload',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Enforce image upload on submit/edit?', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'image/listings',
+                'id'      => 'enforce-image-upload',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Enforce image upload on submit/edit?', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'image/listings',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'free-images',
-				'type'    => 'number',
-				'name'    => _x( 'Number of free images', 'settings', 'business-directory-plugin' ),
-				'default' => '2',
-				'min'     => 0,
-				'step'    => 1,
-				'desc'    => str_replace( '<a>', '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) . '">', _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'business-directory-plugin' ) ),
-				'group'   => 'image/listings',
+                'id'      => 'free-images',
+                'type'    => 'number',
+                'name'    => _x( 'Number of free images', 'settings', 'business-directory-plugin' ),
+                'default' => '2',
+                'min'     => 0,
+                'step'    => 1,
+                'desc'    => str_replace( '<a>', '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) . '">', _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'business-directory-plugin' ) ),
+                'group'   => 'image/listings',
             )
         );
         wpbdp_register_setting(
@@ -1019,11 +1013,11 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'show-thumbnail',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Show Thumbnail on main listings page?', 'settings', 'business-directory-plugin' ),
-				'default' => true,
-				'group'   => 'image/listings',
+                'id'      => 'show-thumbnail',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Show Thumbnail on main listings page?', 'settings', 'business-directory-plugin' ),
+                'default' => true,
+                'group'   => 'image/listings',
             )
         );
         wpbdp_register_setting(
@@ -1064,45 +1058,45 @@ final class WPBDP__Settings__Bootstrap {
     private static function settings_payment() {
         wpbdp_register_setting(
             array(
-				'id'      => 'fee-order',
-				'type'    => 'silent',
-				'name'    => _x( 'Fee Order', 'settings', 'business-directory-plugin' ),
-				'default' => array(
-					'method' => 'label',
-					'order'  => 'asc',
-				),
-				'group'   => 'payment/main',
+                'id'      => 'fee-order',
+                'type'    => 'silent',
+                'name'    => _x( 'Fee Order', 'settings', 'business-directory-plugin' ),
+                'default' => array(
+                    'method' => 'label',
+                    'order'  => 'asc',
+                ),
+                'group'   => 'payment/main',
             )
         );
 
         wpbdp_register_setting(
             array(
-				'id'      => 'payments-on',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Turn On payments?', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'payment/main',
+                'id'      => 'payments-on',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Turn On payments?', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'payment/main',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'payments-test-mode',
-				'type'         => 'checkbox',
-				'name'         => _x( 'Put payment gateways in test mode?', 'settings', 'business-directory-plugin' ),
-				'default'      => true,
-				'group'        => 'payment/main',
-				'requirements' => array( 'payments-on' ),
+                'id'           => 'payments-test-mode',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Put payment gateways in test mode?', 'settings', 'business-directory-plugin' ),
+                'default'      => true,
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'payments-use-https',
-				'type'         => 'checkbox',
-				'name'         => _x( 'Perform checkouts on the secure (HTTPS) version of your site?', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Recommended for added security. For this to work you need to enable HTTPS on your server and obtain an SSL certificate.', 'settings', 'business-directory-plugin' ),
-				'default'      => false,
-				'group'        => 'payment/main',
-				'requirements' => array( 'payments-on' ),
+                'id'           => 'payments-use-https',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Perform checkouts on the secure (HTTPS) version of your site?', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Recommended for added security. For this to work you need to enable HTTPS on your server and obtain an SSL certificate.', 'settings', 'business-directory-plugin' ),
+                'default'      => false,
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
             )
         );
 
@@ -1124,66 +1118,66 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting(
             array(
-				'id'           => 'currency',
-				'type'         => 'select',
-				'name'         => _x( 'Currency Code', 'settings', 'business-directory-plugin' ),
-				'default'      => 'USD',
-				'options'      => array(
-					'AUD' => _x( 'Australian Dollar (AUD)', 'admin settings', 'business-directory-plugin' ),
-					'BRL' => _x( 'Brazilian Real (BRL)', 'admin settings', 'business-directory-plugin' ),
-					'CAD' => _x( 'Canadian Dollar (CAD)', 'admin settings', 'business-directory-plugin' ),
-					'CZK' => _x( 'Czech Koruna (CZK)', 'admin settings', 'business-directory-plugin' ),
-					'DKK' => _x( 'Danish Krone (DKK)', 'admin settings', 'business-directory-plugin' ),
-					'AED' => _x( 'United Arab Emirates Dirham (AED)', 'admin settings', 'business-directory-plugin' ),
-					'EUR' => _x( 'Euro (EUR)', 'admin settings', 'business-directory-plugin' ),
-					'HKD' => _x( 'Hong Kong Dollar (HKD)', 'admin settings', 'business-directory-plugin' ),
-					'HUF' => _x( 'Hungarian Forint (HUF)', 'admin settings', 'business-directory-plugin' ),
-					'ILS' => _x( 'Israeli New Shequel (ILS)', 'admin settings', 'business-directory-plugin' ),
-					'JPY' => _x( 'Japanese Yen (JPY)', 'admin settings', 'business-directory-plugin' ),
-					'MAD' => _x( 'Moroccan Dirham (MAD)', 'admin settings', 'business-directory-plugin' ),
-					'MYR' => _x( 'Malasian Ringgit (MYR)', 'admin settings', 'business-directory-plugin' ),
-					'MXN' => _x( 'Mexican Peso (MXN)', 'admin settings', 'business-directory-plugin' ),
-					'NOK' => _x( 'Norwegian Krone (NOK)', 'admin settings', 'business-directory-plugin' ),
-					'NZD' => _x( 'New Zealand Dollar (NZD)', 'admin settings', 'business-directory-plugin' ),
-					'PHP' => _x( 'Philippine Peso (PHP)', 'admin settings', 'business-directory-plugin' ),
-					'PLN' => _x( 'Polish Zloty (PLN)', 'admin settings', 'business-directory-plugin' ),
-					'GBP' => _x( 'Pound Sterling (GBP)', 'admin settings', 'business-directory-plugin' ),
-					'SGD' => _x( 'Singapore Dollar (SGD)', 'admin settings', 'business-directory-plugin' ),
-					'SEK' => _x( 'Swedish Krona (SEK)', 'admin settings', 'business-directory-plugin' ),
-					'CHF' => _x( 'Swiss Franc (CHF)', 'admin settings', 'business-directory-plugin' ),
-					'TWD' => _x( 'Taiwan Dollar (TWD)', 'admin settings', 'business-directory-plugin' ),
-					'THB' => _x( 'Thai Baht (THB)', 'admin settings', 'business-directory-plugin' ),
-					'TRY' => _x( 'Turkish Lira (TRY)', 'admin settings', 'business-directory-plugin' ),
-					'USD' => _x( 'U.S. Dollar (USD)', 'admin settings', 'business-directory-plugin' ),
-				),
-				'desc'         => $desc,
-				'group'        => 'payment/main',
-				'requirements' => array( 'payments-on' ),
+                'id'           => 'currency',
+                'type'         => 'select',
+                'name'         => _x( 'Currency Code', 'settings', 'business-directory-plugin' ),
+                'default'      => 'USD',
+                'options'      => array(
+                    'AUD' => _x( 'Australian Dollar (AUD)', 'admin settings', 'business-directory-plugin' ),
+                    'BRL' => _x( 'Brazilian Real (BRL)', 'admin settings', 'business-directory-plugin' ),
+                    'CAD' => _x( 'Canadian Dollar (CAD)', 'admin settings', 'business-directory-plugin' ),
+                    'CZK' => _x( 'Czech Koruna (CZK)', 'admin settings', 'business-directory-plugin' ),
+                    'DKK' => _x( 'Danish Krone (DKK)', 'admin settings', 'business-directory-plugin' ),
+                    'AED' => _x( 'United Arab Emirates Dirham (AED)', 'admin settings', 'business-directory-plugin' ),
+                    'EUR' => _x( 'Euro (EUR)', 'admin settings', 'business-directory-plugin' ),
+                    'HKD' => _x( 'Hong Kong Dollar (HKD)', 'admin settings', 'business-directory-plugin' ),
+                    'HUF' => _x( 'Hungarian Forint (HUF)', 'admin settings', 'business-directory-plugin' ),
+                    'ILS' => _x( 'Israeli New Shequel (ILS)', 'admin settings', 'business-directory-plugin' ),
+                    'JPY' => _x( 'Japanese Yen (JPY)', 'admin settings', 'business-directory-plugin' ),
+                    'MAD' => _x( 'Moroccan Dirham (MAD)', 'admin settings', 'business-directory-plugin' ),
+                    'MYR' => _x( 'Malasian Ringgit (MYR)', 'admin settings', 'business-directory-plugin' ),
+                    'MXN' => _x( 'Mexican Peso (MXN)', 'admin settings', 'business-directory-plugin' ),
+                    'NOK' => _x( 'Norwegian Krone (NOK)', 'admin settings', 'business-directory-plugin' ),
+                    'NZD' => _x( 'New Zealand Dollar (NZD)', 'admin settings', 'business-directory-plugin' ),
+                    'PHP' => _x( 'Philippine Peso (PHP)', 'admin settings', 'business-directory-plugin' ),
+                    'PLN' => _x( 'Polish Zloty (PLN)', 'admin settings', 'business-directory-plugin' ),
+                    'GBP' => _x( 'Pound Sterling (GBP)', 'admin settings', 'business-directory-plugin' ),
+                    'SGD' => _x( 'Singapore Dollar (SGD)', 'admin settings', 'business-directory-plugin' ),
+                    'SEK' => _x( 'Swedish Krona (SEK)', 'admin settings', 'business-directory-plugin' ),
+                    'CHF' => _x( 'Swiss Franc (CHF)', 'admin settings', 'business-directory-plugin' ),
+                    'TWD' => _x( 'Taiwan Dollar (TWD)', 'admin settings', 'business-directory-plugin' ),
+                    'THB' => _x( 'Thai Baht (THB)', 'admin settings', 'business-directory-plugin' ),
+                    'TRY' => _x( 'Turkish Lira (TRY)', 'admin settings', 'business-directory-plugin' ),
+                    'USD' => _x( 'U.S. Dollar (USD)', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'desc'         => $desc,
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'currency-symbol',
-				'type'         => 'text',
-				'name'         => _x( 'Currency Symbol', 'settings', 'business-directory-plugin' ),
-				'default'      => '$',
-				'group'        => 'payment/main',
-				'requirements' => array( 'payments-on' ),
+                'id'           => 'currency-symbol',
+                'type'         => 'text',
+                'name'         => _x( 'Currency Symbol', 'settings', 'business-directory-plugin' ),
+                'default'      => '$',
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'currency-symbol-position',
-				'type'         => 'radio',
-				'name'         => _x( 'Currency symbol display', 'settings', 'business-directory-plugin' ),
-				'default'      => 'left',
-				'options'      => array(
-					'left'  => _x( 'Show currency symbol on the left', 'admin settings', 'business-directory-plugin' ),
-					'right' => _x( 'Show currency symbol on the right', 'admin settings', 'business-directory-plugin' ),
-					'none'  => _x( 'Do not show currency symbol', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'        => 'payment/main',
-				'requirements' => array( 'payments-on' ),
+                'id'           => 'currency-symbol-position',
+                'type'         => 'radio',
+                'name'         => _x( 'Currency symbol display', 'settings', 'business-directory-plugin' ),
+                'default'      => 'left',
+                'options'      => array(
+                    'left'  => _x( 'Show currency symbol on the left', 'admin settings', 'business-directory-plugin' ),
+                    'right' => _x( 'Show currency symbol on the right', 'admin settings', 'business-directory-plugin' ),
+                    'none'  => _x( 'Do not show currency symbol', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
@@ -1198,36 +1192,36 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'payment-message',
-				'type'         => 'textarea',
-				'name'         => _x( 'Thank you for payment message', 'settings', 'business-directory-plugin' ),
-				'default'      => _x( 'Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'business-directory-plugin' ),
-				'group'        => 'payment/main',
-				'requirements' => array( 'payments-on' ),
+                'id'           => 'payment-message',
+                'type'         => 'textarea',
+                'name'         => _x( 'Thank you for payment message', 'settings', 'business-directory-plugin' ),
+                'default'      => _x( 'Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'business-directory-plugin' ),
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'payment-abandonment',
-				'type'         => 'checkbox',
-				'name'         => _x( 'Ask users to come back for abandoned payments?', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction.  BD can remind them to come back and continue.', 'settings', 'business-directory-plugin' ),
-				'default'      => false,
-				'group'        => 'payment/main',
-				'requirements' => array( 'payments-on' ),
+                'id'           => 'payment-abandonment',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Ask users to come back for abandoned payments?', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction.  BD can remind them to come back and continue.', 'settings', 'business-directory-plugin' ),
+                'default'      => false,
+                'group'        => 'payment/main',
+                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'payment-abandonment-threshold',
-				'type'         => 'number',
-				'name'         => _x( 'Listing abandonment threshold (hours)', 'settings', 'business-directory-plugin' ),
-				'desc'         => str_replace( '<a>', '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=email' ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'business-directory-plugin' ) ),
-				'default'      => '24',
-				'min'          => 0,
-				'step'         => 1,
-				'group'        => 'payment/main',
-				'requirements' => array( 'payment-abandonment' ),
+                'id'           => 'payment-abandonment-threshold',
+                'type'         => 'number',
+                'name'         => _x( 'Listing abandonment threshold (hours)', 'settings', 'business-directory-plugin' ),
+                'desc'         => str_replace( '<a>', '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=email' ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'business-directory-plugin' ) ),
+                'default'      => '24',
+                'min'          => 0,
+                'step'         => 1,
+                'group'        => 'payment/main',
+                'requirements' => array( 'payment-abandonment' ),
             )
         );
     }
@@ -1236,69 +1230,69 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'email/main/general', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'email/main' );
         wpbdp_register_setting(
             array(
-				'id'      => 'override-email-blocking',
-				'type'    => 'checkbox',
-				'name'    => _x( 'Display email address fields publicly?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Shows the email address of the listing owner to all web users. NOT RECOMMENDED as this increases spam to the address and allows spam bots to harvest it for future use.', 'settings', 'business-directory-plugin' ),
-				'default' => false,
-				'group'   => 'email/main/general',
+                'id'      => 'override-email-blocking',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Display email address fields publicly?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Shows the email address of the listing owner to all web users. NOT RECOMMENDED as this increases spam to the address and allows spam bots to harvest it for future use.', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'email/main/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'listing-email-mode',
-				'type'    => 'radio',
-				'name'    => _x( 'How to determine the listing\'s email address?', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'settings', 'business-directory-plugin' ),
-				'default' => 'field',
-				'options' => array(
-					'field' => _x( 'Try listing\'s email field first, then author\'s email.', 'admin settings', 'business-directory-plugin' ),
-					'user'  => _x( 'Try author\'s email first and then listing\'s email field.', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'email/main/general',
+                'id'      => 'listing-email-mode',
+                'type'    => 'radio',
+                'name'    => _x( 'How to determine the listing\'s email address?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'settings', 'business-directory-plugin' ),
+                'default' => 'field',
+                'options' => array(
+                    'field' => _x( 'Try listing\'s email field first, then author\'s email.', 'admin settings', 'business-directory-plugin' ),
+                    'user'  => _x( 'Try author\'s email first and then listing\'s email field.', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'email/main/general',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'      => 'listing-email-content-type',
-				'type'    => 'radio',
-				'name'    => _x( 'Email Content-Type header', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Use this setting to control the format of the emails explicitly. Some plugins for email do not correctly support Content Type unless explicitly set, you can do that here. If you\'re unsure, try "HTML", "Plain" and then "Both".', 'settings', 'business-directory-plugin' ),
-				'default' => 'html',
-				'options' => array(
-					'plain' => _x( 'Plain (text/plain)', 'admin settings', 'business-directory-plugin' ),
-					'html'  => _x( 'HTML (text/html)', 'admin settings', 'business-directory-plugin' ),
-					'both'  => _x( 'Both (multipart/alternative)', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'email/main/general',
+                'id'      => 'listing-email-content-type',
+                'type'    => 'radio',
+                'name'    => _x( 'Email Content-Type header', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Use this setting to control the format of the emails explicitly. Some plugins for email do not correctly support Content Type unless explicitly set, you can do that here. If you\'re unsure, try "HTML", "Plain" and then "Both".', 'settings', 'business-directory-plugin' ),
+                'default' => 'html',
+                'options' => array(
+                    'plain' => _x( 'Plain (text/plain)', 'admin settings', 'business-directory-plugin' ),
+                    'html'  => _x( 'HTML (text/html)', 'admin settings', 'business-directory-plugin' ),
+                    'both'  => _x( 'Both (multipart/alternative)', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'email/main/general',
             )
         );
 
         wpbdp_register_settings_group( 'email_notifications', _x( 'E-Mail Notifications', 'settings', 'business-directory-plugin' ), 'email/main' );
         wpbdp_register_setting(
             array(
-				'id'      => 'admin-notifications',
-				'type'    => 'multicheck',
-				'name'    => _x( 'Notify admin via e-mail when...', 'settings', 'business-directory-plugin' ),
-				'default' => array(),
-				'options' => array(
-					'new-listing'       => _x( 'A new listing is submitted.', 'admin settings', 'business-directory-plugin' ),
-					'listing-edit'      => _x( 'A listing is edited.', 'admin settings', 'business-directory-plugin' ),
-					'renewal'           => _x( 'A listing expires.', 'admin settings', 'business-directory-plugin' ),
+                'id'      => 'admin-notifications',
+                'type'    => 'multicheck',
+                'name'    => _x( 'Notify admin via e-mail when...', 'settings', 'business-directory-plugin' ),
+                'default' => array(),
+                'options' => array(
+                    'new-listing'       => _x( 'A new listing is submitted.', 'admin settings', 'business-directory-plugin' ),
+                    'listing-edit'      => _x( 'A listing is edited.', 'admin settings', 'business-directory-plugin' ),
+                    'renewal'           => _x( 'A listing expires.', 'admin settings', 'business-directory-plugin' ),
                     'after_renewal'     => _x( 'A listing is renewed.', 'admin settings', 'business-directory-plugin' ),
                     'payment-completed' => _x( 'A listing payment is completed.', 'admin settings', 'business-directory-plugin' ),
-					'flagging_listing'  => _x( 'A listing has been reported as inappropriate.', 'admin settings', 'business-directory-plugin' ),
-					'listing-contact'   => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'   => 'email_notifications',
+                    'flagging_listing'  => _x( 'A listing has been reported as inappropriate.', 'admin settings', 'business-directory-plugin' ),
+                    'listing-contact'   => _x( 'A contact message is sent to a listing\'s owner.', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'email_notifications',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'    => 'admin-notifications-cc',
-				'type'  => 'text',
-				'name'  => _x( 'CC this e-mail address too', 'settings', 'business-directory-plugin' ),
-				'group' => 'email_notifications',
+                'id'    => 'admin-notifications-cc',
+                'type'  => 'text',
+                'name'  => _x( 'CC this e-mail address too', 'settings', 'business-directory-plugin' ),
+                'group' => 'email_notifications',
             )
         );
 
@@ -1307,96 +1301,98 @@ final class WPBDP__Settings__Bootstrap {
         $description  = str_replace( '<templates-link>', '<a href="' . $settings_url . '">', $description );
         $description  = str_replace( '</templates-link>', '</a>', $description );
 
-        wpbdp_register_setting( array(
-            'id'      => 'user-notifications',
-            'type'    => 'multicheck',
-            'name'    => _x( 'Notify users via e-mail when...', 'settings', 'business-directory-plugin' ),
-            'desc'    => $description,
-            'default' => array( 'new-listing', 'listing-published', 'listing-expires' ),
-            'options' => array(
-                'new-listing'       => _x( 'Their listing is submitted.', 'admin settings', 'business-directory-plugin' ),
-                'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'business-directory-plugin' ),
-                'payment-completed' => _x( 'A payment for their listing is completed.', 'admin settings', 'business-directory-plugin' ),
-                'listing-expires'   => _x( 'Their listing expired or is about to expire.', 'admin settings', 'business-directory-plugin' ),
-            ),
-            'group'   => 'email_notifications',
-        ) );
+        wpbdp_register_setting(
+            array(
+                'id'      => 'user-notifications',
+                'type'    => 'multicheck',
+                'name'    => _x( 'Notify users via e-mail when...', 'settings', 'business-directory-plugin' ),
+                'desc'    => $description,
+                'default' => array( 'new-listing', 'listing-published', 'listing-expires' ),
+                'options' => array(
+                    'new-listing'       => _x( 'Their listing is submitted.', 'admin settings', 'business-directory-plugin' ),
+                    'listing-published' => _x( 'Their listing is approved/published.', 'admin settings', 'business-directory-plugin' ),
+                    'payment-completed' => _x( 'A payment for their listing is completed.', 'admin settings', 'business-directory-plugin' ),
+                    'listing-expires'   => _x( 'Their listing expired or is about to expire.', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'   => 'email_notifications',
+            )
+        );
 
         wpbdp_register_settings_group( 'email_templates', _x( 'Templates', 'settings', 'business-directory-plugin' ), 'email' );
         wpbdp_register_setting(
             array(
-				'id'           => 'email-confirmation-message',
-				'type'         => 'email_template',
-				'name'         => _x( 'Email confirmation message', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Sent after a listing has been submitted.', 'settings', 'business-directory-plugin' ),
-				'default'      => array(
-					'subject' => '[[site-title]] Listing "[listing]" received',
-					'body'    => 'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
-				),
-				'placeholders' => array(
-					'listing'         => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
+                'id'           => 'email-confirmation-message',
+                'type'         => 'email_template',
+                'name'         => _x( 'Email confirmation message', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Sent after a listing has been submitted.', 'settings', 'business-directory-plugin' ),
+                'default'      => array(
+                    'subject' => '[[site-title]] Listing "[listing]" received',
+                    'body'    => 'Your submission \'[listing]\' has been received and it\'s pending review. This review process could take up to 48 hours.',
+                ),
+                'placeholders' => array(
+                    'listing'         => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
                     'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'business-directory-plugin' ),
                     'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'business-directory-plugin' ),
                     'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'        => 'email_templates',
+                ),
+                'group'        => 'email_templates',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'email-templates-listing-published',
-				'type'         => 'email_template',
-				'name'         => _x( 'Listing published message', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Sent when the listing has been published or approved by an admin.', 'settings', 'business-directory-plugin' ),
-				'default'      => array(
-					'subject' => '[[site-title]] Listing "[listing]" published',
-					'body'    => _x( 'Your listing "[listing]" is now available at [listing-url] and can be viewed by the public.', 'admin settings', 'business-directory-plugin' ),
-				),
-				'placeholders' => array(
-					'listing'     => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
-					'listing-url' => _x( 'Listing\'s URL', 'admin settings', 'business-directory-plugin' ),
-					'access_key'  => _x( 'Listing\'s Access Key', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'        => 'email_templates',
+                'id'           => 'email-templates-listing-published',
+                'type'         => 'email_template',
+                'name'         => _x( 'Listing published message', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Sent when the listing has been published or approved by an admin.', 'settings', 'business-directory-plugin' ),
+                'default'      => array(
+                    'subject' => '[[site-title]] Listing "[listing]" published',
+                    'body'    => _x( 'Your listing "[listing]" is now available at [listing-url] and can be viewed by the public.', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'placeholders' => array(
+                    'listing'     => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
+                    'listing-url' => _x( 'Listing\'s URL', 'admin settings', 'business-directory-plugin' ),
+                    'access_key'  => _x( 'Listing\'s Access Key', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'        => 'email_templates',
             )
         );
         wpbdp_register_setting(
             array(
-				'id'           => 'email-templates-contact',
-				'type'         => 'email_template',
-				'name'         => _x( 'Listing Contact Message', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Sent to listing owners when someone uses the contact form on their listing pages.', 'settings', 'business-directory-plugin' ),
-				'default'      => array(
-					'subject' => '[[site-title]] Contact via "[listing]"',
-					'body'    => '' .
+                'id'           => 'email-templates-contact',
+                'type'         => 'email_template',
+                'name'         => _x( 'Listing Contact Message', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Sent to listing owners when someone uses the contact form on their listing pages.', 'settings', 'business-directory-plugin' ),
+                'default'      => array(
+                    'subject' => '[[site-title]] Contact via "[listing]"',
+                    'body'    => '' .
                                 sprintf( _x( 'You have received a reply from your listing at %s.', 'contact email', 'business-directory-plugin' ), '[listing-url]' ) . "\n\n" .
                                 sprintf( _x( 'Name: %s', 'contact email', 'business-directory-plugin' ), '[name]' ) . "\n" .
                                 sprintf( _x( 'E-Mail: %s', 'contact email', 'business-directory-plugin' ), '[email]' ) . "\n" .
                                 _x( 'Message:', 'contact email', 'business-directory-plugin' ) . "\n" .
                                 '[message]' . "\n\n" .
                                 sprintf( _x( 'Time: %s', 'contact email', 'business-directory-plugin' ), '[date]' ),
-				),
-				'placeholders' => array(
-					'listing-url' => _x( 'Listing\'s URL', 'admin settings', 'business-directory-plugin' ),
-					'listing'     => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
-					'name'        => _x( 'Sender\'s name', 'admin settings', 'business-directory-plugin' ),
-					'email'       => _x( 'Sender\'s e-mail address', 'admin settings', 'business-directory-plugin' ),
-					'message'     => _x( 'Contact message', 'admin settings', 'business-directory-plugin' ),
-					'date'        => _x( 'Date and time the message was sent', 'admin settings', 'business-directory-plugin' ),
-					'access_key'  => _x( 'Listing\'s Access Key', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'        => 'email_templates',
+                ),
+                'placeholders' => array(
+                    'listing-url' => _x( 'Listing\'s URL', 'admin settings', 'business-directory-plugin' ),
+                    'listing'     => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
+                    'name'        => _x( 'Sender\'s name', 'admin settings', 'business-directory-plugin' ),
+                    'email'       => _x( 'Sender\'s e-mail address', 'admin settings', 'business-directory-plugin' ),
+                    'message'     => _x( 'Contact message', 'admin settings', 'business-directory-plugin' ),
+                    'date'        => _x( 'Date and time the message was sent', 'admin settings', 'business-directory-plugin' ),
+                    'access_key'  => _x( 'Listing\'s Access Key', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'        => 'email_templates',
             )
         );
 
         wpbdp_register_setting(
             array(
-				'id'           => 'email-templates-payment-completed',
-				'type'         => 'email_template',
-				'name'         => _x( 'Payment completed message', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Sent after a Listing\'s payment is verified by Gateway or admins.', 'settings', 'business-directory-plugin' ),
-				'default'      => array(
-					'subject' => '[[site-title]] Payment completed for "[listing]"',
+                'id'           => 'email-templates-payment-completed',
+                'type'         => 'email_template',
+                'name'         => _x( 'Payment completed message', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Sent after a Listing\'s payment is verified by Gateway or admins.', 'settings', 'business-directory-plugin' ),
+                'default'      => array(
+                    'subject' => '[[site-title]] Payment completed for "[listing]"',
                     'body'    => '
         Dear Customer,
         
@@ -1411,29 +1407,29 @@ final class WPBDP__Settings__Bootstrap {
 
         Thanks,
         - The Administrator of [site-title]',
-				),
-				'placeholders' => array(
-					'listing'         => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'placeholders' => array(
+                    'listing'         => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
                     'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'business-directory-plugin' ),
                     'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'business-directory-plugin' ),
                     'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'business-directory-plugin' ),
                     'payment_details' => _x( 'Payment items details.', 'admin settings', 'business-directory-plugin' ),
                     'receipt_url'     => _x( 'URL where user can review and print payment receipt.', 'admin settings', 'business-directory-plugin' ),
                     'gateway'         => _x( 'Gateway used to process listing\'s payment.', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'        => 'email_templates',
+                ),
+                'group'        => 'email_templates',
             )
         );
 
         wpbdp_register_setting(
             array(
-				'id'           => 'email-templates-payment-abandoned',
-				'type'         => 'email_template',
-				'name'         => _x( 'Payment abandoned reminder message', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Sent some time after a pending payment is abandoned by users.', 'settings', 'business-directory-plugin' ),
-				'default'      => array(
-					'subject' => '[[site-title]] Pending payment for "[listing]"',
-					'body'    => '
+                'id'           => 'email-templates-payment-abandoned',
+                'type'         => 'email_template',
+                'name'         => _x( 'Payment abandoned reminder message', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Sent some time after a pending payment is abandoned by users.', 'settings', 'business-directory-plugin' ),
+                'default'      => array(
+                    'subject' => '[[site-title]] Pending payment for "[listing]"',
+                    'body'    => '
         Hi there,
 
         We noticed that you tried submitting a listing on [site-link] but didn\'t finish
@@ -1447,23 +1443,23 @@ final class WPBDP__Settings__Bootstrap {
 
         Thanks,
         - The Administrator of [site-title]',
-				),
-				'placeholders' => array(
-					'listing' => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
-					'link'    => _x( 'Checkout URL link', 'admin settings', 'business-directory-plugin' ),
-				),
-				'group'        => 'email_templates',
+                ),
+                'placeholders' => array(
+                    'listing' => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
+                    'link'    => _x( 'Checkout URL link', 'admin settings', 'business-directory-plugin' ),
+                ),
+                'group'        => 'email_templates',
             )
         );
 
         wpbdp_register_setting(
             array(
-				'id'        => 'expiration-notices',
-				'type'      => 'expiration_notices',
-				'name'      => _x( 'E-Mail Notices', 'settings', 'business-directory-plugin' ),
-				'default'   => self::get_default_expiration_notices(),
-				'group'     => 'email_templates',
-				'validator' => array( __class__, 'validate_expiration_notices' ),
+                'id'        => 'expiration-notices',
+                'type'      => 'expiration_notices',
+                'name'      => _x( 'E-Mail Notices', 'settings', 'business-directory-plugin' ),
+                'default'   => self::get_default_expiration_notices(),
+                'group'     => 'email_templates',
+                'validator' => array( __class__, 'validate_expiration_notices' ),
             )
         );
     }

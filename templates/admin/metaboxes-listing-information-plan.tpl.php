@@ -6,8 +6,6 @@
  * @package Admin Templates/listing information plan
  */
 
-// phpcs:disable
-
 echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', false, false );
 ?>
 <div id="wpbdp-listing-metabox-plan-info" class="wpbdp-listing-metabox-tab wpbdp-admin-tab-content" tabindex="1">
@@ -18,16 +16,16 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <?php
         $status = apply_filters( 'wpbdp_admin_listing_display_status', array( $listing->get_status(), $listing->get_status_label() ), $listing );
         ?>
-        <?php if ( 'incomplete' == $status[0] ): ?>
+        <?php if ( 'incomplete' == $status[0] ) : ?>
             <?php _ex( 'N/A', 'listing metabox', 'business-directory-plugin' ); ?>
-        <?php else: ?>
+        <?php else : ?>
             <span class="tag plan-status paymentstatus <?php echo $status[0]; ?>"><?php echo $status[1]; ?></span>
         <?php endif; ?>
         </dd>
         <dt><?php _ex( 'Last renew date', 'listing metabox', 'business-directory-plugin' ); ?></dt>
-        <?php if ( $renewal_date = $listing->get_renewal_date() ): ?>
+        <?php if ( $renewal_date = $listing->get_renewal_date() ) : ?>
         <dd><?php echo esc_html( $renewal_date ); ?></dd>
-        <?php else: ?>
+        <?php else : ?>
         <dd><?php _ex( 'N/A', 'listing metabox', 'business-directory-plugin' ); ?></dd>
         <?php endif; ?>
     </dl>
@@ -37,9 +35,9 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <dt><?php _ex( 'Fee Plan', 'listing metabox', 'business-directory-plugin' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-label">
-                <?php if ( $current_plan ): ?>
+                <?php if ( $current_plan ) : ?>
                     <a href="<?php echo admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees&wpbdp-view=edit-fee&id=' . $current_plan->fee_id ); ?>"><?php echo $current_plan->fee_label; ?></a>
-                <?php else: ?>
+                <?php else : ?>
                     -
                 <?php endif; ?>
             </span>
@@ -47,10 +45,19 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             <div class="value-editor">
                 <input type="hidden" name="listing_plan[fee_id]" value="<?php echo $current_plan ? $current_plan->fee_id : ''; ?>" />
                 <select name="" id="wpbdp-listing-plan-select">
-                <?php foreach ( $plans as $p ): ?>
-                <?php
-                $plan_info = array( 'id' => $p->id, 'label' => $p->label, 'amount' => $p->amount ? wpbdp_currency_format( $p->amount ) : '', 'days' => $p->days, 'images' => $p->images, 'sticky' => $p->sticky, 'recurring' => $p->recurring,  'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ) );
-                ?>
+                <?php foreach ( $plans as $p ) : ?>
+                    <?php
+                    $plan_info = array(
+                        'id'              => $p->id,
+                        'label'           => $p->label,
+                        'amount'          => $p->amount ? wpbdp_currency_format( $p->amount ) : '',
+                        'days'            => $p->days,
+                        'images'          => $p->images,
+                        'sticky'          => $p->sticky,
+                        'recurring'       => $p->recurring,
+                        'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ),
+                    );
+                    ?>
                     <option value="<?php echo $p->id; ?>" <?php selected( $p->id, $current_plan ? $current_plan->fee_id : 0 ); ?> data-plan-info="<?php echo esc_attr( json_encode( $plan_info ) ); ?>"><?php echo $p->label; ?></option>
                 <?php endforeach; ?>
                 </select>
@@ -111,11 +118,22 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
     <ul class="wpbdp-listing-metabox-renewal-actions">
         <li>
             <a href="#" class="button button-small" onclick="window.prompt('<?php _ex( 'Renewal url (copy & paste)', 'admin infometabox', 'business-directory-plugin' ); ?>', '<?php echo $listing->get_renewal_url(); ?>'); return false;"><?php _ex( 'Get renewal URL', 'admin infometabox', 'business-directory-plugin' ); ?></a>
-            <a class="button button-small" href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'send-renewal-email', 'listing_id' => $listing->get_id() ) ) ); ?>">
+            <a class="button button-small" href="
+            <?php
+            echo esc_url(
+                add_query_arg(
+                    array(
+                        'wpbdmaction' => 'send-renewal-email',
+                        'listing_id'  => $listing->get_id(),
+                    )
+                )
+            );
+            ?>
+            ">
                 <?php _ex( 'Send renewal e-mail', 'admin infometabox', 'business-directory-plugin' ); ?>
             </a>
         </li>
-        <?php if ( 'pending_renewal' == $listing->get_status() || ( $current_plan && $current_plan->expired ) ): ?>
+        <?php if ( 'pending_renewal' == $listing->get_status() || ( $current_plan && $current_plan->expired ) ) : ?>
         <li>
             <a href="<?php echo esc_url( add_query_arg( 'wpbdmaction', 'renewlisting' ) ); ?>" class="button-primary button button-small"><?php _ex( 'Renew listing', 'admin infometabox', 'business-directory-plugin' ); ?></a>
         </li>

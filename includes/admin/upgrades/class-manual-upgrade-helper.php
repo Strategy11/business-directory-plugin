@@ -51,7 +51,7 @@ class WPBDP__Manual_Upgrade_Helper {
     private function get_migration_callback( $params ) {
         if ( is_array( $params ) ) {
             $classname = $params[0];
-            $method = $params[1];
+            $method    = $params[1];
 
             $migration = $this->installer->load_migration_class( $classname );
 
@@ -76,11 +76,13 @@ class WPBDP__Manual_Upgrade_Helper {
     public function upgrade_required_notice() {
         global $pagenow;
 
-        if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'wpbdp-upgrade-page' == $_GET['page'] )
+        if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'wpbdp-upgrade-page' == $_GET['page'] ) {
             return;
+        }
 
-        if ( ! current_user_can( 'administrator' ) )
+        if ( ! current_user_can( 'administrator' ) ) {
             return;
+        }
 
         print '<div class="error"><p>';
         print '<strong>' . __( 'Business Directory - Manual Upgrade Required', 'business-directory-plugin' ) . '</strong>';
@@ -102,12 +104,14 @@ class WPBDP__Manual_Upgrade_Helper {
             }
         }
 
-        add_submenu_page( 'options.php',
-                          __( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
-                          __( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
-                          'administrator',
-                          'wpbdp-upgrade-page',
-                          array( &$this, 'upgrade_page' ) );
+        add_submenu_page(
+            'options.php',
+            __( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
+            __( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
+            'administrator',
+            'wpbdp-upgrade-page',
+            array( &$this, 'upgrade_page' )
+        );
     }
 
     public function enqueue_scripts() {
@@ -126,7 +130,7 @@ class WPBDP__Manual_Upgrade_Helper {
         );
 
         wp_enqueue_script(
-            'wpbdp-manual-upgrade' ,
+            'wpbdp-manual-upgrade',
             WPBDP_URL . 'assets/js/admin-manual-upgrade.min.js',
             array(),
             WPBDP_VERSION
@@ -134,8 +138,9 @@ class WPBDP__Manual_Upgrade_Helper {
     }
 
     private function is_configured() {
-        if ( ! $this->config_callback )
+        if ( ! $this->config_callback ) {
             return true;
+        }
 
         $latest_data = (array) get_option( 'wpbdp-manual-upgrade-pending', array() );
         return ! empty( $latest_data['configured'] );
@@ -178,9 +183,11 @@ class WPBDP__Manual_Upgrade_Helper {
 
             echo '<div class="step-done" style="display: none;">';
             echo '<p>' . _x( 'The upgrade was successfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'business-directory-plugin' ) . '</p>';
-            printf ( '<a href="%s" class="button button-primary">%s</a>',
-                     admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin' ),
-                     _x( 'Go to "Directory Admin"', 'manual-upgrade', 'business-directory-plugin' ) );
+            printf(
+                '<a href="%s" class="button button-primary">%s</a>',
+                admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin' ),
+                _x( 'Go to "Directory Admin"', 'manual-upgrade', 'business-directory-plugin' )
+            );
             echo '</div>';
         }
 
@@ -191,8 +198,9 @@ class WPBDP__Manual_Upgrade_Helper {
     /* Ajax Handlers */
 
     public function handle_ajax() {
-        if ( ! current_user_can( 'administrator' ) )
+        if ( ! current_user_can( 'administrator' ) ) {
             return;
+        }
 
         $response = call_user_func( $this->callback );
 

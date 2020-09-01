@@ -359,8 +359,7 @@ class WPBDP_Admin_Listings {
                     );
                     $attributes['payment'] .= '</span>';
                 }
-
-            }
+			}
         }
 
         if ( count( WPBDP__Listing_flagging::get_flagging_meta( $listing->get_id() ) ) ) {
@@ -569,7 +568,12 @@ class WPBDP_Admin_Listings {
             return;
         }
 
-        wp_update_post( array( 'post_name' => $post_name, 'ID' => $post_id ) );
+        wp_update_post(
+            array(
+				'post_name' => $post_name,
+				'ID'        => $post_id,
+            )
+        );
     }
 
     function maybe_hide_permalinks( $return, $post_id, $new_title, $new_slug, $post = null ) {
@@ -728,7 +732,15 @@ class WPBDP_Admin_Listings {
             return $tags;
         }
 
-        $tags = get_terms( WPBDP_TAGS_TAX, array( 'number' => 45, 'orderby' => 'count', 'order' => 'DESC', 'hide_empty' => false ) );
+        $tags = get_terms(
+            WPBDP_TAGS_TAX,
+            array(
+				'number'     => 45,
+				'orderby'    => 'count',
+				'order'      => 'DESC',
+				'hide_empty' => false,
+            )
+        );
 
         return $tags;
 

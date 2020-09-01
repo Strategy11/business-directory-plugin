@@ -4,11 +4,8 @@
  * @since 5.0
  */
 
-// phpcs:disable
 /**
  * Class WPBDP__Listing_Timeline
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Listing_Timeline {
 
@@ -90,7 +87,7 @@ class WPBDP__Listing_Timeline {
                 array(
                     'log_type'   => 'listing.terms_and_conditions_accepted',
                     'object_id'  => $post->ID,
-                    'created_at' => $tos_acceptance
+                    'created_at' => $tos_acceptance,
                 )
             );
         }

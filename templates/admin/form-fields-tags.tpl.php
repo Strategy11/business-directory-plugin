@@ -1,24 +1,29 @@
 <?php
 function _fields_dropdown( $name, $field_id, $fixed = false ) {
-?>
+	?>
     <select name="<?php echo $name; ?>" <?php echo ( $fixed ? 'disabled="disabled"' : '' ); ?> >
         <option value=""><?php _ex( '-- None --', 'form-fields admin', 'business-directory-plugin' ); ?></option>
-        <?php foreach ( wpbdp_get_form_fields() as $f ): ?>
+        <?php foreach ( wpbdp_get_form_fields() as $f ) : ?>
             <option value="<?php echo $f->get_id(); ?>" <?php selected( $field_id, $f->get_id() ); ?> ><?php echo esc_attr( $f->get_label() ); ?></option>
         <?php endforeach; ?>
     </select>
-<?php
+	<?php
 }
 ?>
 
 <?php echo wpbdp_admin_header( _x( 'Theme Tags', 'form-fields admin', 'business-directory-plugin' ) ); ?>
 <?php wpbdp_admin_notices(); ?>
 
-<?php if ( $missing_fields ): ?>
+<?php if ( $missing_fields ) : ?>
 <div class="wpbdp-note">
-<?php _ex( 'Before you create fields, make sure you\'ve mapped all of your EXISTING ones first, otherwise you\'ll appear to be "missing data" on your listings.',
-           'form-fields admin',
-           'business-directory-plugin' ); ?><br /><br />
+	<?php
+    _ex(
+        'Before you create fields, make sure you\'ve mapped all of your EXISTING ones first, otherwise you\'ll appear to be "missing data" on your listings.',
+        'form-fields admin',
+        'business-directory-plugin'
+    );
+	?>
+           <br /><br />
 <a href="<?php echo wp_nonce_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-themes&wpbdp-action=create-theme-suggested-fields' ), 'create_suggested_fields' ); ?>" class="button"><?php _ex( 'Create Missing Fields', 'form-fields admin', 'business-directory-plugin' ); ?></a>
 </div>
 <?php endif; ?>
@@ -33,7 +38,7 @@ function _fields_dropdown( $name, $field_id, $fixed = false ) {
         </thead>-->
 
         <tbody>
-            <?php foreach ( $field_tags as $ft ): ?>
+            <?php foreach ( $field_tags as $ft ) : ?>
             <tr>
                 <th scope="row">
                     <?php echo $ft['description']; ?>

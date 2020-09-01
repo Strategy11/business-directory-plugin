@@ -3,8 +3,6 @@
  * @package WPBDP/Includes
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_Payment
  *
@@ -54,7 +52,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         }
 
         if ( 0.0 == $this->amount ) {
-            if( ! $this->has_item_type( 'discount_code' ) ) {
+            if ( ! $this->has_item_type( 'discount_code' ) ) {
                 $this->status = 'completed';
             }
         }
@@ -94,7 +92,8 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     protected function after_delete() {
         global $wpdb;
         $wpdb->delete(
-            $wpdb->prefix . 'wpbdp_logs', array(
+            $wpdb->prefix . 'wpbdp_logs',
+            array(
 				'object_type' => 'payment',
 				'object_id'   => $this->id,
             )
