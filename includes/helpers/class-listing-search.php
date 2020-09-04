@@ -106,15 +106,12 @@ class WPBDP__Listing_Search {
             'posts_in' => '',
 		);
 
-        $fields_count = 0;
-
         foreach ( $this->parts as $key => $data ) {
             $field = wpbdp_get_form_field( $data[0] );
             $res   = $field->configure_search( $data[1], $this );
 
-            if ( ! empty( $res['where'] ) && $fields_count < 6 ) {
+            if ( ! empty( $res['where'] ) ) {
                 $query_pieces['where'] = str_replace( '%' . $key . '%', $res['where'], $query_pieces['where'] );
-                $fields_count         += $this->is_quick_search ? 0 : 1;
             } else {
                 // This prevents incorrect queries from being created.
                 $query_pieces['where'] = str_replace( 'AND %' . $key . '%', '', $query_pieces['where'] );
@@ -127,11 +124,6 @@ class WPBDP__Listing_Search {
                 }
 
                 $query_pieces[ $k ] .= ' ' . $v . ' ';
-            }
-
-            if ( ! $this->is_quick_search && $fields_count < 6 ) {
-                unset( $this->parts[ $key ] );
-                $this->tree = $this->tree_remove_field( $this->tree, $field );
             }
         }
 
@@ -171,14 +163,6 @@ class WPBDP__Listing_Search {
 
         $this->results = $wpdb->get_col( $this->query );
 
-        if ( ! $this->is_quick_search && $this->parts ) {
-            // If there are no results for advanced search, stop searching.
-            if ( $this->results ) {
-                $this->execute();
-            }
-        }
-
-        $this->tree = self::parse_request( $this->original_request );
     }
 
     private function _traverse_tree( $tree ) {
