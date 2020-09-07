@@ -46,6 +46,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             // Adds admin menus.
             add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
             add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ) );
+            add_action( 'admin_head', array( $this, 'hide_menu' ) );
 
             // Enables reordering of admin menus.
             add_filter( 'custom_menu_order', '__return_true' );
@@ -336,6 +337,16 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
+            add_menu_page(
+                _x( 'Business Directory Admin', 'business-directory-plugin' ),
+                _x( 'Directory', 'business-directory-plugin' ),
+                'administrator',
+                'wpbdp_admin',
+                current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
+                WPBDP__CPT_Integration::menu_icon(),
+                20
+            );
+
             $menu                           = array();
             $menu['wpbdp-admin-fees']       = array(
                 'title' => _x( 'Manage Fees', 'admin menu', 'business-directory-plugin' ),
@@ -394,6 +405,42 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 }
             }
 
+            // For bacwerds compatibility
+            // {
+            foreach ( $this->menu as $item_slug => &$item_data ) {
+                add_submenu_page(
+                    'wpbdp_admin',
+                    $item_data['title'],
+                    $item_data['label'],
+                    ( empty( $item_data['capability'] ) ? 'administrator' : $item_data['capability'] ),
+                    $item_slug,
+                    array( $this, 'menu_dispatch' )
+                );
+            }
+
+            do_action( 'wpbdp_admin_menu', 'wpbdp_admin' );
+
+            add_submenu_page(
+                'wpbdp_admin',
+                __( 'Uninstall Business Directory Plugin', 'WPBDM' ),
+                __( 'Uninstall', 'WPBDM' ),
+                'administrator',
+                'wpbdp_uninstall',
+                array( $this, 'uninstall_plugin' )
+            );
+
+            // }
+        }
+
+        /**
+         * Removed the dashboard pages from the admin menu.
+         *
+         * This means the pages are still available to us, but hidden.
+         *
+         * @since 5.7.3
+         */
+        public function hide_menu() {
+            remove_menu_page( 'wpbdp_admin' );
         }
 
         /**
@@ -1092,7 +1139,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function check_setup() {
             global $pagenow;
 
-            if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
+            if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
                 return;
             }
 
@@ -1111,7 +1158,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function check_ajax_compat_mode() {
             global $pagenow;
 
-            if ( 'admin.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
+            if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
                 return;
             }
 
