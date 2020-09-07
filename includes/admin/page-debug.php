@@ -3,7 +3,7 @@
 class WPBDP_Admin_Debug_Page {
 
     function __construct() {
-        add_action( 'admin_init', array($this, 'handle_download' ) );
+        add_action( 'admin_init', array( $this, 'handle_download' ) );
         add_action( 'wp_ajax_wpbdp-debugging-ssltest', array( &$this, 'ajax_ssl_test' ) );
     }
 
@@ -13,9 +13,9 @@ class WPBDP_Admin_Debug_Page {
         $debug_info = array();
 
         // basic BD setup info & tests
-        $debug_info['basic']['_title'] = _x( 'BD Info', 'debug-info', 'business-directory-plugin' );
-        $debug_info['basic']['BD version'] = WPBDP_VERSION;
-        $debug_info['basic']['BD database revision (current)'] = WPBDP_Installer::DB_VERSION;
+        $debug_info['basic']['_title']                           = _x( 'BD Info', 'debug-info', 'business-directory-plugin' );
+        $debug_info['basic']['BD version']                       = WPBDP_VERSION;
+        $debug_info['basic']['BD database revision (current)']   = WPBDP_Installer::DB_VERSION;
         $debug_info['basic']['BD database revision (installed)'] = get_option( 'wpbdp-db-version' );
 
         // Premium modules.
@@ -28,33 +28,34 @@ class WPBDP_Admin_Debug_Page {
         }
 
         $debug_info['basic']['Premium Modules'] = array(
-            'value' => implode( "\n" . str_repeat( " ", 36 ), $mod_versions ),
-            'html' => implode( '<br />', $mod_versions )
+            'value' => implode( "\n" . str_repeat( ' ', 36 ), $mod_versions ),
+            'html'  => implode( '<br />', $mod_versions ),
         );
 
-        $tables = apply_filters( 'wpbdp_debug_info_tables_check', array( 'wpbdp_form_fields', 'wpbdp_plans', 'wpbdp_payments', 'wpbdp_listings' ) );
+        $tables         = apply_filters( 'wpbdp_debug_info_tables_check', array( 'wpbdp_form_fields', 'wpbdp_plans', 'wpbdp_payments', 'wpbdp_listings' ) );
         $missing_tables = array();
         foreach ( $tables as &$t ) {
-            if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . $t) ) == '' )
+            if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . $t ) ) == '' ) {
                 $missing_tables[] = $t;
+            }
         }
         $debug_info['basic']['Table check'] = $missing_tables
-                                              ? sprintf( _( 'Missing tables: %s', 'debug-info', 'business-directory-plugin' ), implode(',', $missing_tables) )
+                                              ? sprintf( _( 'Missing tables: %s', 'debug-info', 'business-directory-plugin' ), implode( ',', $missing_tables ) )
                                               : _x( 'OK', 'debug-info', 'business-directory-plugin' );
 
         $debug_info['basic']['Main Page'] = sprintf( '%d (%s)', wpbdp_get_page_id( 'main' ), get_post_status( wpbdp_get_page_id( 'main' ) ) );
-        $debug_info['basic'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['basic'], 'basic' );
-
+        $debug_info['basic']              = apply_filters( 'wpbdp_debug_info_section', $debug_info['basic'], 'basic' );
 
         // BD options
-        $blacklisted = array( 'authorize-net-transaction-key', 'authorize-net-login-id', 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
+        $blacklisted                     = array( 'authorize-net-transaction-key', 'authorize-net-login-id', 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
         $debug_info['options']['_title'] = _x( 'BD Options', 'debug-info', 'business-directory-plugin' );
 
         $settings_api = wpbdp_settings_api();
         $all_settings = $settings_api->get_registered_settings();
-        foreach ( $all_settings as $s  ) {
-            if ( in_array( $s['id'], $blacklisted ) )
+        foreach ( $all_settings as $s ) {
+            if ( in_array( $s['id'], $blacklisted ) ) {
                 continue;
+            }
 
             $value = wpbdp_get_option( $s['id'] );
 
@@ -71,31 +72,34 @@ class WPBDP_Admin_Debug_Page {
         $debug_info['options'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['options'], 'options' );
 
         // environment info
-        $debug_info['environment']['_title'] = _x( 'Environment', 'debug-info', 'business-directory-plugin' );
+        $debug_info['environment']['_title']            = _x( 'Environment', 'debug-info', 'business-directory-plugin' );
         $debug_info['environment']['WordPress version'] = get_bloginfo( 'version', 'raw' );
-        $debug_info['environment']['OS'] = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
+        $debug_info['environment']['OS']                = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
 
         if ( function_exists( 'apache_get_version' ) ) {
-            $apache_version = apache_get_version();
+            $apache_version                              = apache_get_version();
             $debug_info['environment']['Apache version'] = $apache_version;
         }
 
         $debug_info['environment']['PHP version'] = phpversion();
 
         $mysql_version = $wpdb->get_var( 'SELECT @@version' );
-        if ( $sql_mode = $wpdb->get_var( 'SELECT @@sql_mode' ) )
+        if ( $sql_mode = $wpdb->get_var( 'SELECT @@sql_mode' ) ) {
             $mysql_version .= ' ( ' . $sql_mode . ' )';
+        }
         $debug_info['environment']['MySQL version'] = $mysql_version ? $mysql_version : 'N/A';
 
         if ( function_exists( 'curl_init' ) ) {
             $data = curl_version();
 
-            $debug_info['environment']['cURL version'] = $data['version'];
+            $debug_info['environment']['cURL version']     = $data['version'];
             $debug_info['environment']['cURL SSL library'] = $data['ssl_version'];
-            $debug_info['environment']['Test SSL setup'] = array( 'exclude' => true,
-                                                                  'html' => '<a href="#" class="test-ssl-link">' . _x( 'Test SSL setup...', 'debug info', 'business-directory-plugin' ) . '</a>' );
+            $debug_info['environment']['Test SSL setup']   = array(
+				'exclude' => true,
+				'html'    => '<a href="#" class="test-ssl-link">' . _x( 'Test SSL setup...', 'debug info', 'business-directory-plugin' ) . '</a>',
+			);
         } else {
-            $debug_info['environment']['cURL version'] = 'N/A';
+            $debug_info['environment']['cURL version']     = 'N/A';
             $debug_info['environment']['cURL SSL library'] = 'N/A';
         }
 
@@ -113,14 +117,16 @@ class WPBDP_Admin_Debug_Page {
                     }
 
                     if ( is_array( $v ) ) {
-                        if ( isset( $v['exclude'] ) && $v['exclude'] )
+                        if ( isset( $v['exclude'] ) && $v['exclude'] ) {
                             continue;
+                        }
 
-                        if ( ! empty( $v['html'] ) && empty( $v['value'] ) )
+                        if ( ! empty( $v['html'] ) && empty( $v['value'] ) ) {
                             continue;
+                        }
                     }
 
-                    printf( "%-33s = %s", $k, is_array( $v  ) ? $v['value'] : $v );
+                    printf( '%-33s = %s', $k, is_array( $v ) ? $v['value'] : $v );
                     print PHP_EOL;
                 }
 
@@ -136,8 +142,9 @@ class WPBDP_Admin_Debug_Page {
         global $pagenow;
 
         if ( ! current_user_can( 'administrator' ) || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
-             || ! isset( $_GET['page'] ) || 'wpbdp-debug-info' != $_GET['page'] )
+             || ! isset( $_GET['page'] ) || 'wpbdp-debug-info' != $_GET['page'] ) {
             return;
+        }
 
         if ( isset( $_GET['download'] ) && 1 == $_GET['download'] ) {
                     header( 'Content-Description: File Transfer' );
@@ -150,21 +157,24 @@ class WPBDP_Admin_Debug_Page {
     }
 
     function ajax_ssl_test() {
-        if ( ! function_exists( 'curl_init' ) )
+        if ( ! function_exists( 'curl_init' ) ) {
             die( 'cURL not available.' );
+        }
 
         $ch = curl_init( 'https://www.howsmyssl.com/a/check' );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $ch, CURLOPT_SSLVERSION, 6 );
-        $data = curl_exec($ch);
+        $data = curl_exec( $ch );
 
-        if ( 0 !== curl_errno( $ch ) )
+        if ( 0 !== curl_errno( $ch ) ) {
             die( 'cURL error: ' . curl_error( $ch ) );
+        }
 
-        curl_close($ch);
+        curl_close( $ch );
 
-        if ( ! $data )
+        if ( ! $data ) {
             die( 'No response from remote server.' );
+        }
 
         $json = json_decode( $data );
 

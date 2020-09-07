@@ -5,10 +5,10 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
     public function __construct() {
         parent::__construct();
 
-        require_once( WPBDP_INC . 'admin/csv-import.php' );
+        require_once WPBDP_INC . 'admin/csv-import.php';
         $this->csv_import = new WPBDP_CSVImportAdmin();
 
-        require_once( WPBDP_INC . 'admin/csv-export.php' );
+        require_once WPBDP_INC . 'admin/csv-export.php';
         $this->csv_export = new WPBDP_Admin_CSVExport();
     }
 
@@ -31,21 +31,45 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 
         echo wpbdp_admin_header();
         echo wpbdp_admin_notices();
-?>
+		?>
 
-        <?php if ( 'csv_import' == $current_tab ): ?>
+        <?php if ( 'csv_import' == $current_tab ) : ?>
         <div class="wpbdp-csv-import-top-buttons">
-            <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_csv&action=example-csv' ) ); ?>" class="button"><?php _ex('See an example CSV import file', 'admin csv-import', 'business-directory-plugin' ); ?></a>
-            <a href="#help" class="button"><?php _ex('Help', 'admin csv-import', 'business-directory-plugin' ); ?></a>
+            <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_csv&action=example-csv' ) ); ?>" class="button"><?php _ex( 'See an example CSV import file', 'admin csv-import', 'business-directory-plugin' ); ?></a>
+            <a href="#help" class="button"><?php _ex( 'Help', 'admin csv-import', 'business-directory-plugin' ); ?></a>
         </div>
         <?php endif; ?>
 
 
         <h2 class="nav-tab-wrapper">
-            <a class="nav-tab <?php echo 'csv_import' == $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( wbpdp_url( 'admin', array( 'page' => 'wpbdp_admin_csv', 'tab' => 'csv_import' ) ) ); ?>"><span class="dashicons dashicons-download"></span> <?php _ex( 'Import', 'admin csv', 'business-directory-plugin' ); ?></a>
-            <a class="nav-tab <?php echo 'csv_export' == $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( wbpdp_url( 'admin', array( 'page' => 'wpbdp_admin_csv', 'tab' => 'csv_export' ) ) ); ?>"><span class="dashicons dashicons-upload"></span> <?php _ex( 'Export', 'admin csv', 'business-directory-plugin' ); ?></a>
+            <a class="nav-tab <?php echo 'csv_import' == $current_tab ? 'nav-tab-active' : ''; ?>" href="
+                                         <?php
+											echo esc_url(
+                                                wbpdp_url(
+                                                    'admin',
+                                                    array(
+														'page' => 'wpbdp_admin_csv',
+														'tab'  => 'csv_import',
+                                                    )
+                                                )
+                                            );
+											?>
+                                                                                                            "><span class="dashicons dashicons-download"></span> <?php _ex( 'Import', 'admin csv', 'business-directory-plugin' ); ?></a>
+            <a class="nav-tab <?php echo 'csv_export' == $current_tab ? 'nav-tab-active' : ''; ?>" href="
+                                         <?php
+											echo esc_url(
+                                                wbpdp_url(
+                                                    'admin',
+                                                    array(
+														'page' => 'wpbdp_admin_csv',
+														'tab'  => 'csv_export',
+                                                    )
+                                                )
+                                            );
+											?>
+                                                                                                            "><span class="dashicons dashicons-upload"></span> <?php _ex( 'Export', 'admin csv', 'business-directory-plugin' ); ?></a>
         </h2>
-<?php
+		<?php
         echo $output;
         echo wpbdp_admin_footer();
     }
