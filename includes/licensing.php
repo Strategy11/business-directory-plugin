@@ -225,7 +225,7 @@ class WPBDP_Licensing {
             if ( $menu == $menu_id ) {
                 foreach ( $m as &$i ) {
                     if ( 'wpbdp-licenses' == $i[2] ) {
-                        $i[2] = admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=licenses' );
+                        $i[2] = admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' );
                         break;
                     }
                 }
@@ -560,7 +560,7 @@ class WPBDP_Licensing {
         echo '</ul>';
 
         echo '<p>';
-        echo '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
+        echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
         echo _x( 'Review my license keys', 'licensing', 'business-directory-plugin' );
         echo '</a>';
         echo '</p>';
@@ -616,7 +616,7 @@ class WPBDP_Licensing {
         echo '</ul>';
 
         echo '<p>';
-        echo '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
+        echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
         echo _x( 'Review my license keys', 'licensing', 'business-directory-plugin' );
         echo '</a>';
         echo '</p>';

@@ -16,15 +16,10 @@ function _fields_dropdown( $name, $field_id, $fixed = false ) {
 
 <?php if ( $missing_fields ) : ?>
 <div class="wpbdp-note">
-	<?php
-    _ex(
-        'Before you create fields, make sure you\'ve mapped all of your EXISTING ones first, otherwise you\'ll appear to be "missing data" on your listings.',
-        'form-fields admin',
-        'business-directory-plugin'
-    );
-	?>
-           <br /><br />
-<a href="<?php echo wp_nonce_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-themes&wpbdp-action=create-theme-suggested-fields' ), 'create_suggested_fields' ); ?>" class="button"><?php _ex( 'Create Missing Fields', 'form-fields admin', 'business-directory-plugin' ); ?></a>
+<?php _ex( 'Before you create fields, make sure you\'ve mapped all of your EXISTING ones first, otherwise you\'ll appear to be "missing data" on your listings.',
+           'form-fields admin',
+           'business-directory-plugin' ); ?><br /><br />
+<a href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=wpbdp-themes&wpbdp-action=create-theme-suggested-fields' ), 'create_suggested_fields' ); ?>" class="button"><?php _ex( 'Create Missing Fields', 'form-fields admin', 'business-directory-plugin' ); ?></a>
 </div>
 <?php endif; ?>
 

@@ -51,13 +51,13 @@ echo wpbdp_admin_header();
 
 <ul class="shortcuts">
     <li>
-        <a href="<?php echo admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings' ); ?>" class="button"><?php _e( 'Manage Options', 'business-directory-plugin' ); ?></a>
+        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_settings' ); ?>" class="button"><?php _e( 'Manage Options', 'business-directory-plugin' ); ?></a>
     </li>
     <li>
-        <a href="<?php echo admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_formfields' ); ?>" class="button"><?php _e( 'Manage Form Fields', 'business-directory-plugin' ); ?></a>
+        <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_formfields' ); ?>" class="button"><?php _e( 'Manage Form Fields', 'business-directory-plugin' ); ?></a>
     </li>
     <li>
-        <a href="<?php echo admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ); ?>" class="button"><?php _e( 'Manage Fees', 'business-directory-plugin' ); ?></a>
+        <a href="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees' ); ?>" class="button"><?php _e( 'Manage Fees', 'business-directory-plugin' ); ?></a>
     </li>
     <li class="clear"></li>
 

@@ -143,7 +143,7 @@ class WPBDP_Themes_Admin {
             wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'business-directory-plugin' ), $theme_id ) );
         }
 
-        wp_redirect( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-themes&message=1' ) );
+        wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
         exit;
     }
 
@@ -157,7 +157,7 @@ class WPBDP_Themes_Admin {
         global $wpbdp;
         $wpbdp->formfields->create_default_fields( $missing );
 
-        wp_safe_redirect( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_formfields&action=updatetags' ) );
+        wp_safe_redirect( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ) );
         exit;
     }
 
@@ -196,7 +196,7 @@ class WPBDP_Themes_Admin {
                     $msg .= '<br /><br />';
                     $msg .= sprintf(
                         '<a href="%s" class="button button-primary">%s</a>',
-                        admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_formfields&action=updatetags' ),
+                        admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
                         _x( 'Map My Fields', 'themes', 'business-directory-plugin' )
                     );
 
@@ -286,7 +286,7 @@ class WPBDP_Themes_Admin {
             return;
         }
 
-        wp_redirect( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-themes&message=3' ) );
+        wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=3' ) );
         exit;
     }
 
@@ -314,7 +314,7 @@ class WPBDP_Themes_Admin {
 
         // Cancel. Return to themes page.
         if ( empty( $_POST['delete-theme'] ) ) {
-            wp_redirect( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-themes' ) );
+            wp_redirect( admin_url( 'admin.php?page=wpbdp-themes' ) );
             exit;
         }
 
@@ -343,9 +343,9 @@ class WPBDP_Themes_Admin {
         }
 
         if ( $removed ) {
-            wp_redirect( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-themes&message=4&deleted=' . $theme_id ) );
+            wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=4&deleted=' . $theme_id ) );
         } else {
-			wp_redirect( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
+			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
         }
 
         exit;
@@ -357,7 +357,7 @@ class WPBDP_Themes_Admin {
         }
 
         echo '<div class="wpbdp-theme-license-required-row">';
-        echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-themes&v=licenses' ) ) . '">', _x( 'Activate your <a>license key</a> to use this theme.', 'themes', 'business-directory-plugin' ) );
+        echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) . '">', _x( 'Activate your <a>license key</a> to use this theme.', 'themes', 'business-directory-plugin' ) );
         echo '</div>';
     }
 

@@ -35,9 +35,9 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <dt><?php _ex( 'Fee Plan', 'listing metabox', 'business-directory-plugin' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-label">
-                <?php if ( $current_plan ) : ?>
-                    <a href="<?php echo admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees&wpbdp-view=edit-fee&id=' . $current_plan->fee_id ); ?>"><?php echo $current_plan->fee_label; ?></a>
-                <?php else : ?>
+                <?php if ( $current_plan ): ?>
+                    <a href="<?php echo wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees', 'wpbdp-view' => 'edit-fee', 'id=' . $current_plan->fee_id ) ); ?>"><?php echo $current_plan->fee_label; ?></a>
+                <?php else: ?>
                     -
                 <?php endif; ?>
             </span>

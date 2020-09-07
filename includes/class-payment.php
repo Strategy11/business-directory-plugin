@@ -230,7 +230,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     public function get_admin_url() {
-        return admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $this->id );
+        return admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $this->id );
     }
 
     public function get_checkout_url( $force_http = false ) {

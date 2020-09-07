@@ -192,7 +192,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             echo wpbdp_admin_header( __( 'Business Directory - Featured Levels Migration', 'business-directory-plugin' ), 'manual-upgrade', null, false );
             echo _x( 'Featured Levels migration is complete.', 'migrate-18', 'business-directory-plugin' );
             echo '<br /><br />';
-            echo '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings' ) ) . '" class="button button-secondary">' . _x( '← Return to Directory dashboard', 'upgrade-18', 'business-directory-plugin' ) . '</a>';
+            echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin' ) ) . '" class="button button-secondary">' . _x( '← Return to Directory dashboard', 'upgrade-18', 'business-directory-plugin' ) . '</a>';
             echo wpbdp_admin_footer();
 
             return;
@@ -341,7 +341,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
         echo '</strong><br />';
         echo str_replace(
             '<a>',
-            '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_migration_18_0_featured_levels' ) . '">',
+            '<a href="' . admin_url( 'admin.php?page=wpbdp_migration_18_0_featured_levels' ) . '">',
             _x( 'Featured levels were removed in 5.0. You need to perform your <a>Featured Levels migration here</a>.', 'migrate-18', 'business-directory-plugin' )
         );
         echo '</p></div>';

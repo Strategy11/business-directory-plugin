@@ -60,7 +60,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
         $payment->update( $data );
         $payment->save();
 
-        wp_redirect( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id . '&message=1' ) );
+        wp_redirect( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id . '&message=1' ) );
         exit;
     }
 
@@ -68,7 +68,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
         $payment = WPBDP_Payment::objects()->get( (int) $_REQUEST['payment-id'] );
         $payment->delete();
 
-        wp_redirect( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&message=payment_delete' ) );
+        wp_redirect( admin_url( 'admin.php?page=wpbdp_admin_payments&message=payment_delete' ) );
         exit;
     }
 

@@ -259,7 +259,7 @@ final class WPBDP {
 
     public function plugin_action_links( $links ) {
         $links = array_merge(
-            array( 'settings' => '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings' ) . '">' . _x( 'Settings', 'admin plugins', 'business-directory-plugin' ) . '</a>' ),
+            array( 'settings' => '<a href="' . admin_url( 'admin.php?page=wpbdp_settings' ) . '">' . _x( 'Settings', 'admin plugins', 'business-directory-plugin' ) . '</a>' ),
             $links
         );
 
@@ -489,7 +489,7 @@ final class WPBDP {
             return wpbdp_render_msg(
                 str_replace(
                     '<a>',
-                    '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-upgrade-page' ) . '">',
+                    '<a href="' . admin_url( 'admin.php?page=wpbdp-upgrade-page' ) . '">',
                     __( 'The directory features are disabled at this time because a <a>manual upgrade</a> is pending.', 'business-directory-plugin' )
                 ),
                 'error'

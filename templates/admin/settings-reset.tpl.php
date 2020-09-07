@@ -1,14 +1,9 @@
 <?php
-echo wpbdp_admin_header(
-    __( 'Business Directory - Reset Defaults', 'business-directory-plugin' ),
-    'admin-settings',
-    array(
-		array(
-			_x( '← Return to "Manage Options"', 'settings', 'business-directory-plugin' ),
-			admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_settings' ),
-		),
-    )
-);
+echo wpbdp_admin_header( __( 'Business Directory - Reset Defaults', 'business-directory-plugin' ),
+                         'admin-settings',
+                         array( array( _x( '← Return to "Manage Options"', 'settings', 'business-directory-plugin' ),
+                                       wpbdp_url( 'admin', array( 'page' => 'wpbdp_settings' ) ) )
+                              ) );
 ?>
 
 <div class="wpbdp-note warning">

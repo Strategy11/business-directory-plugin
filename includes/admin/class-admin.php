@@ -176,7 +176,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     'wpbdp-admin-listing-metabox',
                     'wpbdpListingMetaboxL10n',
                     array(
-						'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
+						'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
 						'noExpiration'      => _x( 'Never', 'listing metabox', 'business-directory-plugin' ),
 						'yes'               => _x( 'Yes', 'listing metabox', 'business-directory-plugin' ),
 						'no'                => _x( 'No', 'listing metabox', 'business-directory-plugin' ),

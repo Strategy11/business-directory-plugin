@@ -488,7 +488,7 @@ class WPBDP_Admin_Listings {
         $listing  = wpbdp_get_listing( $post->ID );
         $payments = $listing->get_payments();
         if ( $payments->count() > 1 ) {
-            $actions['view-payments'] = '<a href="' . esc_url( admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp_admin_payments&listing=' . $listing->get_id() ) ) . '">' . _x( 'View Payments', 'admin actions', 'business-directory-plugin' ) . '</a>';
+            $actions['view-payments'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&listing=' . $listing->get_id() ) ) . '">' . _x( 'View Payments', 'admin actions', 'business-directory-plugin' ) . '</a>';
         } else {
             $payment = $payments->get();
 
