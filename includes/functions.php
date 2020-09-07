@@ -679,9 +679,10 @@ function wpbdp_current_view_output() {
  * @SuppressWarnings(PHPMD)
  */
 function wpbdp_url( $pathorview = '/', $args = array() ) {
-    $base_id = wpbdp_get_page_id( 'main' );
-    $base_url = _get_page_link( $base_id );
-    $base_url = apply_filters( 'wpbdp_url_base_url', $base_url, $base_id, $pathorview, $args );
+    $base_id   = wpbdp_get_page_id( 'main' );
+    $base_url  = _get_page_link( $base_id );
+    $base_url  = apply_filters( 'wpbdp_url_base_url', $base_url, $base_id, $pathorview, $args );
+    $admin_url = admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE );
     $url = '';
 
     switch ( $pathorview ) {
@@ -711,6 +712,9 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
             $url = $base_url;
             $url = add_query_arg( array( 'wpbdp_view' => 'checkout', 'payment' => $args ), $base_url );
             break;
+        case 'admin':
+            $url = add_query_arg( $args, $admin_url );
+        break;
         default:
             if ( wpbdp_starts_with( $pathorview, '/' ) )
                 $url = rtrim( wpbdp_url( '/' ), '/' ) . '/' . substr( $pathorview, 1 );

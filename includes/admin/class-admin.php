@@ -45,7 +45,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             // Adds admin menus.
             add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
-            add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ) );
+            add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ), 20 );
             add_action( 'admin_head', array( $this, 'hide_menu' ) );
 
             // Enables reordering of admin menus.
@@ -405,7 +405,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 }
             }
 
-            // For bacwerds compatibility
+            // For bacwards compatibility
             // {
             foreach ( $this->menu as $item_slug => &$item_data ) {
                 add_submenu_page(
@@ -433,9 +433,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         /**
-         * Removed the dashboard pages from the admin menu.
+         * Removed the dashboard wpbdp_admin menu.
          *
-         * This means the pages are still available to us, but hidden.
+         * This means the menu is still available to us, but hidden.
          *
          * @since 5.7.3
          */
