@@ -707,7 +707,7 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
     $base_id   = wpbdp_get_page_id( 'main' );
     $base_url  = _get_page_link( $base_id );
     $base_url  = apply_filters( 'wpbdp_url_base_url', $base_url, $base_id, $pathorview, $args );
-    $admin_url = admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE );
+    $admin_url = admin_url( 'admin.php' );
     $url       = '';
 
     switch ( $pathorview ) {
