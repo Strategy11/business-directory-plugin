@@ -135,7 +135,7 @@ class WPBDP_Admin_Debug_Page {
     function handle_download() {
         global $pagenow;
 
-        if ( ! current_user_can( 'administrator' ) || 'admin.php' != $pagenow
+        if ( ! current_user_can( 'administrator' ) || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
              || ! isset( $_GET['page'] ) || 'wpbdp-debug-info' != $_GET['page'] )
             return;
 

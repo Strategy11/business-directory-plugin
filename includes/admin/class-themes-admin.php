@@ -113,7 +113,7 @@ class WPBDP_Themes_Admin {
         global $wpbdp;
         global $pagenow;
 
-        if ( 'edit.php' != $pagenow || ! isset( $_GET['page'] ) || 'wpbdp-themes' != $_GET['page'] ) {
+        if ( ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! isset( $_GET['page'] ) || 'wpbdp-themes' != $_GET['page'] ) {
             return;
         }
 

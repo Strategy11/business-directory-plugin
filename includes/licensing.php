@@ -490,7 +490,7 @@ class WPBDP_Licensing {
     public function admin_notices() {
         global $pagenow;
 
-        if ( 'admin.php' == $pagenow && ! empty( $_GET['page'] ) && 'wpbdp_settings' == $_GET['page'] && ! empty( $_GET['tab'] ) && 'licenses' == $_GET['tab'] ) {
+        if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) && ! empty( $_GET['page'] ) && 'wpbdp_settings' == $_GET['page'] && ! empty( $_GET['tab'] ) && 'licenses' == $_GET['tab'] ) {
             return;
         }
 

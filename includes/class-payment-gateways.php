@@ -158,7 +158,7 @@ class WPBDP__Payment_Gateways {
 
         if ( ! $at_least_one_public_fee ) {
             $msg = _x( 'You have payments turned on but do not have a public fee plan. Directory users won\'t be able to submit a listing until you add a public fee plan. Go to <link>Manage Fees</link> to to add or edit your fee plan(s).', 'payment-gateways', 'business-directory-plugin' );
-            $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) . '">', '</a>' ), $msg );
+            $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'edit.php?post_type=wpbdp_listing&page=wpbdp-admin-fees' ) . '">', '</a>' ), $msg );
             wpbdp_admin_message( $msg, 'error' );
         }
 
