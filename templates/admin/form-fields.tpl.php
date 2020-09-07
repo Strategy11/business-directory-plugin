@@ -31,7 +31,7 @@
                     'admin',
                     array(
                         'page'   => 'wpbdp_admin_formfields',
-                        'action' => 'previewform',
+                        'action' => 'updatetags',
                     )
                 )
             ),
@@ -43,7 +43,7 @@
     <?php wpbdp_admin_notices(); ?>
 
     <?php
-    _ex(
+    echo esc_html_x(
         'Here, you can create new fields for your listings, edit or delete existing ones, change the order and visibility of the fields as well as configure special options for them.',
         'form-fields admin',
         'business-directory-plugin'
