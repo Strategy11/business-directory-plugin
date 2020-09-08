@@ -15,7 +15,6 @@
     <?php echo str_replace( '<a>',
                             '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">',
                             __( 'To manage fees you need to go to the <a>Manage Options - Payment</a> page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.',
-                                'fees admin',
                                 'business-directory-plugin' ) ); ?></p>
     </div>
     <?php endif; ?>
