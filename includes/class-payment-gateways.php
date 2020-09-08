@@ -147,21 +147,28 @@ class WPBDP__Payment_Gateways {
             wpbdp_admin_message( $msg, 'error' );
         }
 
-        $at_least_one_public_fee = false;
+        $this->no_fee_warning();
+    }
 
+    /**
+     * Show a warning if payments are turned on but no fees are setup.
+     *
+     * @since 5.7.3
+     */
+    private function no_fee_warning() {
         foreach ( wpbdp_get_fee_plans() as $plan ) {
             if ( empty( $plan->extra_data['private'] ) ) {
-                $at_least_one_public_fee = true;
-                break;
+                // This plan is public, so don't continue.
+                return;
             }
         }
 
-        if ( ! $at_least_one_public_fee ) {
-            $msg = _x( 'You have payments turned on but do not have a public fee plan. Directory users won\'t be able to submit a listing until you add a public fee plan. Go to <link>Manage Fees</link> to add or edit your fee plan(s).', 'payment-gateways', 'business-directory-plugin' );
-            $msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees' ) . '">', '</a>' ), $msg );
-            wpbdp_admin_message( $msg, 'error' );
-        }
-
+        $msg = sprintf(
+            /* translators: %1$s: open link html, %2$s close link */
+            esc_html__( 'You have payments turned on but do not have a public fee plan. Directory users won\'t be able to submit a listing until you add a public fee plan. Go to %1$sManage Fees%2$s to add or edit your fee plan(s).', 'business-directory-plugin' ),
+            '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">',
+            '</a>'
+        );
+        wpbdp_admin_message( $msg, 'error' );
     }
-
 }
