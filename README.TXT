@@ -155,6 +155,13 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= Version 5.7.3 =
+* New - Add Admin notice whenever payments are enabled but there are no public fees available.
+* Fix - Restore BD themes available updates count on menu title.
+* Fix - Backwards compatibility for old directory menus.
+* Fix - Ensure BD admin links points to the right view.
+* Fix - Revert field batch query for advanced search.
+
 = Version 5.7.2 =
 * New: Switch language domain to 'business-directory-plugin' so the WP/org translating can be used. If you have custom translations, you'll need to rename to file from WPBDM-{language_code}_{Country_code} to business-directory-plugin-{language_code}_{Country_code}.
 * New: Store "Terms and Conditions" consent date and display the data in directory listing timeline.
