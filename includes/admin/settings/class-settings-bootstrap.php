@@ -271,8 +271,8 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'tracking-on',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Allow BD to anonymously collect information about your installed plugins, themes and WP version?', 'settings', 'business-directory-plugin' ),
-                'desc'  => str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">', _x( '<a>Learn more</a> about what BD does and does NOT track.', 'admin settings', 'business-directory-plugin' ) ),
+                'name'  => __( 'Allow Business Directory to anonymously collect information about your installed plugins, themes and WP version?', 'business-directory-plugin' ),
+                'desc'  => str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">', __( '<a>Learn more</a> about what Business Directory tracks.', 'business-directory-plugin' ) ),
                 'group' => 'tracking_settings',
             )
         );
@@ -321,7 +321,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'    => 'quick-search-enable-performance-tricks',
                 'type'  => 'checkbox',
                 'name'  => _x( 'Enable high performance searches?', 'settings', 'business-directory-plugin' ),
-                'desc'  => _x( 'Enabling this makes BD sacrifice result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'settings', 'business-directory-plugin' ),
+                'desc'  => __( 'Enabling this sacrifices result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'business-directory-plugin' ),
                 'group' => 'search_settings',
             )
         );
@@ -524,12 +524,12 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'allow-comments-in-listings',
                 'type'    => 'radio',
                 'name'    => _x( 'Include comment form on listing pages?', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'BD uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. BD is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn\'t work, try the 3rd option instead.', 'settings', 'business-directory-plugin' ),
+                'desc'    => __( 'Business Directory uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. Business Directory is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn\'t work, try the 3rd option instead.', 'business-directory-plugin' ),
                 'default' => get_option( 'wpbdp-show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
                 'options' => array(
                     'do-not-allow-comments'              => _x( 'Do not include comments in listings', 'admin settings', 'business-directory-plugin' ),
                     'allow-comments'                     => _x( 'Include comment form, theme invoked (standard option)', 'admin settings', 'business-directory-plugin' ),
-                    'allow-comments-and-insert-template' => _x( "Include comment form, BD invoked (use only if 2nd option doesn't work)", 'admin settings', 'business-directory-plugin' ),
+                    'allow-comments-and-insert-template' => __( "Include comment form, Business Directory invoked (use only if 2nd option doesn't work)", 'business-directory-plugin' ),
                 ),
                 'group'   => 'listings/main',
             )
@@ -547,7 +547,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'prevent-sticky-on-directory-view',
                 'type'    => 'multicheck',
-                'name'    => _x( 'Prevent featured (sticky) status on BD pages?', 'settings', 'business-directory-plugin' ),
+                'name'    => __( 'Prevent featured (sticky) status on Business Directory pages?', 'business-directory-plugin' ),
                 'desc'    => _x( 'Prevents featured listings from floating to the top of the selected page.', 'settings', 'business-directory-plugin' ),
                 'default' => array(),
                 'options' => array(
@@ -824,8 +824,8 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Theme button style', 'settings', 'business-directory-plugin' ),
                 'default' => 'theme',
                 'options' => array(
-                    'theme' => _x( 'Use the BD theme style for BD buttons', 'admin settings', 'business-directory-plugin' ),
-                    'none'  => _x( 'Use the WP theme style for BD buttons', 'admin settings', 'business-directory-plugin' ),
+                    'theme' => __( 'Use the Business Directory theme style for buttons', 'business-directory-plugin' ),
+                    'none'  => __( 'Use the WP theme style for Business Directory buttons', 'business-directory-plugin' ),
                 ),
                 'group'   => 'themes',
             )
@@ -1205,7 +1205,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'           => 'payment-abandonment',
                 'type'         => 'checkbox',
                 'name'         => _x( 'Ask users to come back for abandoned payments?', 'settings', 'business-directory-plugin' ),
-                'desc'         => _x( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction.  BD can remind them to come back and continue.', 'settings', 'business-directory-plugin' ),
+                'desc'         => __( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction.  Business Directory can remind them to come back and continue.', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',
                 'requirements' => array( 'payments-on' ),

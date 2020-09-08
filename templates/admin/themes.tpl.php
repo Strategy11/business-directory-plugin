@@ -27,10 +27,7 @@ echo str_replace(
         WPBDP_PATH . 'templates/admin/themes-item.tpl.php',
         array(
 			'theme'       => $t,
-			'is_outdated' => in_array(
-                $t->id,
-                $outdated_themes
-			),
+			'is_outdated' => in_array( $t->id, $outdated_themes ),
         )
     );
 	?>

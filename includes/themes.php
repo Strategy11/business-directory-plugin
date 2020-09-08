@@ -919,7 +919,7 @@ class WPBDP_Themes {
             WPBDP_FS::rmdir( $temp_dir );
             return new WP_Error(
                 'no-theme-file',
-                _x( 'ZIP file is not a valid BD theme file.', 'themes', 'business-directory-plugin' )
+                __( 'ZIP file is not a valid Business Directory theme file.', 'business-directory-plugin' )
             );
         }
 

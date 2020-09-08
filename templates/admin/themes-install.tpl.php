@@ -18,7 +18,7 @@ printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress them
         <tbody>
             <tr>
                 <th>
-                    <?php _ex( 'BD Theme archive (ZIP file)', 'themes', 'business-directory-plugin' ); ?>
+                    <?php esc_html_e( 'Business Directory Theme archive (ZIP file)', 'business-directory-plugin' ); ?>
                 </th>
                 <td>
                     <input type="file" name="themezip" />

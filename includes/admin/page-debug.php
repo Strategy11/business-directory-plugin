@@ -13,7 +13,7 @@ class WPBDP_Admin_Debug_Page {
         $debug_info = array();
 
         // basic BD setup info & tests
-        $debug_info['basic']['_title']                           = _x( 'BD Info', 'debug-info', 'business-directory-plugin' );
+        $debug_info['basic']['_title']                           = __( 'Business Directory Info', 'business-directory-plugin' );
         $debug_info['basic']['BD version']                       = WPBDP_VERSION;
         $debug_info['basic']['BD database revision (current)']   = WPBDP_Installer::DB_VERSION;
         $debug_info['basic']['BD database revision (installed)'] = get_option( 'wpbdp-db-version' );
@@ -48,7 +48,7 @@ class WPBDP_Admin_Debug_Page {
 
         // BD options
         $blacklisted                     = array( 'authorize-net-transaction-key', 'authorize-net-login-id', 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
-        $debug_info['options']['_title'] = _x( 'BD Options', 'debug-info', 'business-directory-plugin' );
+        $debug_info['options']['_title'] = __( 'Business Directory Options', 'business-directory-plugin' );
 
         $settings_api = wpbdp_settings_api();
         $all_settings = $settings_api->get_registered_settings();
