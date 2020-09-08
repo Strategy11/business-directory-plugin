@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-08 18:54:50+00:00\n"
-"PO-Revision-Date: 2020-09-07 21:43-0500\n"
+"POT-Creation-Date: 2020-09-08 19:55:04+00:00\n"
+"PO-Revision-Date: 2020-09-08 14:57-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -290,6 +290,18 @@ msgstr ""
 "administrador puede cancelar su subscripción contactando el procesador de "
 "pagos directamente."
 
+#. translators: %1$s: open link html, %2$s close link
+#: includes/class-payment-gateways.php:168
+msgid ""
+"You have payments turned on but do not have a public fee plan. Directory "
+"users won't be able to submit a listing until you add a public fee plan. Go "
+"to %1$sManage Fees%2$s to add or edit your fee plan(s)."
+msgstr ""
+"Tiene los pagos habilitados pero no hay una plan de pago público. Los "
+"usuarios del directorio no podrán agregar un listado hasta que agregue un "
+"plan de pago público. Diríjase a %1$sAdministrar Tarifas%2$s para agregar o "
+"editar plan(es) de tarifa(s)."
+
 #: includes/class-wpbdp.php:493
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -419,6 +431,14 @@ msgstr ""
 "tiene suficiente espacio en disco y memoria disponibles para PHP. Revise los "
 "registros de error de su servidor para más detalles."
 
+#: templates/admin/fees-index.tpl.php:17
+msgid ""
+"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"and check the box next to 'Turn On Payments' under 'Payment Settings'."
+msgstr ""
+"Para poder utilizar comisiones debe ir a la página de <a>Configuraciones - "
+"Configuración de Pagos</a> y habilitar \"Activar Pagos?\"."
+
 #: templates/admin/home.tpl.php:54
 msgid "Manage Options"
 msgstr "Configuraciones"
@@ -443,11 +463,15 @@ msgstr "Texto sugerido:"
 msgid "Business Directory Settings"
 msgstr "Configuraciones del Directorio de Negocios"
 
-#: templates/admin/settings-reset.tpl.php:2
+#: templates/admin/settings-reset.tpl.php:3
 msgid "Business Directory - Reset Defaults"
 msgstr "Business Directory - Restaurar configuración por defecto"
 
-#: templates/admin/settings-reset.tpl.php:10
+#: templates/admin/settings-reset.tpl.php:7
+msgid "← Return to \"Manage Options\""
+msgstr "← Regresar a \"Configuraciones\""
+
+#: templates/admin/settings-reset.tpl.php:15
 msgid ""
 "Use this option if you want to go back to the original factory settings for "
 "BD."
@@ -455,16 +479,16 @@ msgstr ""
 "Utilice esta opción si quiere llevar el directorio a su configuración de "
 "fábrica. Tenga en cuenta que todas sus modificaciones se perderán."
 
-#: templates/admin/settings-reset.tpl.php:11
+#: templates/admin/settings-reset.tpl.php:16
 msgid "Please note that all of your existing settings will be lost."
 msgstr ""
 "Por favor considere que todas sus configuraciones actuales se perderán."
 
-#: templates/admin/settings-reset.tpl.php:13
+#: templates/admin/settings-reset.tpl.php:18
 msgid "Your existing listings will NOT be deleted doing this."
 msgstr "Al hacer esto los listados existentes no serán eliminados."
 
-#: templates/admin/settings-reset.tpl.php:19
+#: templates/admin/settings-reset.tpl.php:24
 msgid "Reset Defaults"
 msgstr "Restaurar valores por defecto"
 
@@ -2526,15 +2550,6 @@ msgctxt "fees admin"
 msgid "Payments are currently turned off."
 msgstr "Los pagos se encuentran actualmente deshabitados."
 
-#: templates/admin/fees-index.tpl.php:17
-msgctxt "fees admin"
-msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
-"and check the box next to 'Turn On Payments' under 'Payment Settings'."
-msgstr ""
-"Para poder utilizar comisiones debe ir a la página de <a>Configuraciones - "
-"Configuración de Pagos</a> y habilitar \"Activar Pagos?\"."
-
 #: templates/admin/fees-index.tpl.php:28
 msgctxt "fees admin"
 msgid "Order fees on the frontend by:"
@@ -3250,17 +3265,17 @@ msgctxt "form-fields admin"
 msgid "Add New Form Field"
 msgstr "Agregar Nuevo Campo de Formulario"
 
-#: templates/admin/form-fields.tpl.php:16
+#: templates/admin/form-fields.tpl.php:10
 msgctxt "form-fields admin"
 msgid "Preview Form"
 msgstr "Previsualizar Formulario"
 
-#: templates/admin/form-fields.tpl.php:28 templates/admin/themes.tpl.php:4
+#: templates/admin/form-fields.tpl.php:16 templates/admin/themes.tpl.php:4
 msgctxt "form-fields admin"
 msgid "Manage Theme Tags"
 msgstr "Administrar Etiquetas del Tema"
 
-#: templates/admin/form-fields.tpl.php:46
+#: templates/admin/form-fields.tpl.php:28
 msgctxt "form-fields admin"
 msgid ""
 "Here, you can create new fields for your listings, edit or delete existing "
@@ -3271,7 +3286,7 @@ msgstr ""
 "existentes, cambiar el orden y visibilidad de los campos y hacer otras "
 "configuraciones especiales para ellos."
 
-#: templates/admin/form-fields.tpl.php:57
+#: templates/admin/form-fields.tpl.php:39
 msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
@@ -5533,11 +5548,6 @@ msgctxt "settings"
 msgid "Reset Defaults"
 msgstr "Restaurar valores por defecto"
 
-#: templates/admin/settings-reset.tpl.php:4
-msgctxt "settings"
-msgid "← Return to \"Manage Options\""
-msgstr "← Regresar a \"Configuraciones\""
-
 #: includes/admin/settings/class-settings-bootstrap.php:593
 #: includes/admin/settings/class-settings-bootstrap.php:606
 msgctxt "post status"
@@ -6093,27 +6103,27 @@ msgctxt "notify email"
 msgid "Payment ID"
 msgstr "ID del pago"
 
-#: templates/email/listing-payment-completed.tpl.php:26
+#: templates/email/listing-payment-completed.tpl.php:20
 msgctxt "notify email"
 msgid "Payment Details"
 msgstr "Detalles del Pago"
 
-#: templates/email/listing-payment-completed.tpl.php:29
+#: templates/email/listing-payment-completed.tpl.php:23
 msgctxt "notify email"
 msgid "Amount"
 msgstr "Valor"
 
-#: templates/email/listing-payment-completed.tpl.php:33
+#: templates/email/listing-payment-completed.tpl.php:27
 msgctxt "notify email"
 msgid "Plan"
 msgstr "Plan de Pago"
 
-#: templates/email/listing-payment-completed.tpl.php:49
+#: templates/email/listing-payment-completed.tpl.php:36
 msgctxt "notify email"
 msgid "Listing URL"
 msgstr "URL del listado"
 
-#: templates/email/listing-payment-completed.tpl.php:51
+#: templates/email/listing-payment-completed.tpl.php:38
 msgctxt "notify email"
 msgid "Listing admin URL"
 msgstr "URL de administración del listado"
@@ -6235,18 +6245,6 @@ msgstr ""
 "correctamente configurada. Vaya a la <link>configuración de pagos</link> "
 "para cambiar las configuración. Hasta tanto, el directorio operará en "
 "<i>Modo Gratuito</i>."
-
-#: includes/class-payment-gateways.php:160
-msgctxt "payment-gateways"
-msgid ""
-"You have payments turned on but do not have a public fee plan. Directory "
-"users won't be able to submit a listing until you add a public fee plan. Go "
-"to <link>Manage Fees</link> to add or edit your fee plan(s)."
-msgstr ""
-"Tiene los pagos habilitados pero no hay una plan de pago público. Los "
-"usuarios del directorio no podrán agregar un listado hasta que agregue un "
-"plan de pago público. Diríjase a <link>Administrar Tarifas</link> para "
-"agregar o editar su(s) plan(es) de tarifa(s)."
 
 #: includes/class-payment.php:82
 msgctxt "payment"

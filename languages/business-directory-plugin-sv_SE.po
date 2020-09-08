@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-08 18:54:50+00:00\n"
+"POT-Creation-Date: 2020-09-08 19:55:04+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -291,6 +291,14 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
+#. translators: %1$s: open link html, %2$s close link
+#: includes/class-payment-gateways.php:168
+msgid ""
+"You have payments turned on but do not have a public fee plan. Directory "
+"users won't be able to submit a listing until you add a public fee plan. Go "
+"to %1$sManage Fees%2$s to add or edit your fee plan(s)."
+msgstr ""
+
 #: includes/class-wpbdp.php:493
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -416,6 +424,16 @@ msgstr ""
 "ledigt diskutrymme och minne tillgängligt för PHP. Kontrollera felloggen för "
 "mer information."
 
+#: templates/admin/fees-index.tpl.php:17
+#, fuzzy
+msgid ""
+"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"and check the box next to 'Turn On Payments' under 'Payment Settings'."
+msgstr ""
+"För att hantera avgifter du behöver för att gå till <a>Hantera Alternativ - "
+"Betalning</a> sida och markera rutan bredvid \"Aktivera betalningar\" under "
+"\"Betalningsinställningar\"."
+
 #: templates/admin/home.tpl.php:54
 msgid "Manage Options"
 msgstr "Hantera alternativ"
@@ -440,11 +458,16 @@ msgstr ""
 msgid "Business Directory Settings"
 msgstr "Business Directory Inställningar"
 
-#: templates/admin/settings-reset.tpl.php:2
+#: templates/admin/settings-reset.tpl.php:3
 msgid "Business Directory - Reset Defaults"
 msgstr "Business Directory - Återställ standardinställningar"
 
-#: templates/admin/settings-reset.tpl.php:10
+#: templates/admin/settings-reset.tpl.php:7
+#, fuzzy
+msgid "← Return to \"Manage Options\""
+msgstr "← Återvänd till \"Hantera alternativ\""
+
+#: templates/admin/settings-reset.tpl.php:15
 msgid ""
 "Use this option if you want to go back to the original factory settings for "
 "BD."
@@ -452,15 +475,15 @@ msgstr ""
 "Använd detta alternativ om du vill gå tillbaka till de ursprungliga "
 "fabriksinställningarna för BD."
 
-#: templates/admin/settings-reset.tpl.php:11
+#: templates/admin/settings-reset.tpl.php:16
 msgid "Please note that all of your existing settings will be lost."
 msgstr "Observera att alla dina befintliga inställningar försvinner."
 
-#: templates/admin/settings-reset.tpl.php:13
+#: templates/admin/settings-reset.tpl.php:18
 msgid "Your existing listings will NOT be deleted doing this."
 msgstr ""
 
-#: templates/admin/settings-reset.tpl.php:19
+#: templates/admin/settings-reset.tpl.php:24
 msgid "Reset Defaults"
 msgstr "Återställ till standardinställningar"
 
@@ -2538,16 +2561,6 @@ msgctxt "fees admin"
 msgid "Payments are currently turned off."
 msgstr "Betalningar för närvarande avstängt."
 
-#: templates/admin/fees-index.tpl.php:17
-msgctxt "fees admin"
-msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
-"and check the box next to 'Turn On Payments' under 'Payment Settings'."
-msgstr ""
-"För att hantera avgifter du behöver för att gå till <a>Hantera Alternativ - "
-"Betalning</a> sida och markera rutan bredvid \"Aktivera betalningar\" under "
-"\"Betalningsinställningar\"."
-
 #: templates/admin/fees-index.tpl.php:28
 msgctxt "fees admin"
 msgid "Order fees on the frontend by:"
@@ -3260,17 +3273,17 @@ msgctxt "form-fields admin"
 msgid "Add New Form Field"
 msgstr "Lägg till formulärfält"
 
-#: templates/admin/form-fields.tpl.php:16
+#: templates/admin/form-fields.tpl.php:10
 msgctxt "form-fields admin"
 msgid "Preview Form"
 msgstr "Förhandsgranska formulär"
 
-#: templates/admin/form-fields.tpl.php:28 templates/admin/themes.tpl.php:4
+#: templates/admin/form-fields.tpl.php:16 templates/admin/themes.tpl.php:4
 msgctxt "form-fields admin"
 msgid "Manage Theme Tags"
 msgstr "Hantera temataggar"
 
-#: templates/admin/form-fields.tpl.php:46
+#: templates/admin/form-fields.tpl.php:28
 msgctxt "form-fields admin"
 msgid ""
 "Here, you can create new fields for your listings, edit or delete existing "
@@ -3281,7 +3294,7 @@ msgstr ""
 "ändra ordningen och synlighet på fälten samt konfigurera speciella "
 "alternativ för dem."
 
-#: templates/admin/form-fields.tpl.php:57
+#: templates/admin/form-fields.tpl.php:39
 msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr "Se <a>formulärfältsdokumentationen</a> för mer information."
@@ -5526,11 +5539,6 @@ msgctxt "settings"
 msgid "Reset Defaults"
 msgstr "Återställ standardvärden"
 
-#: templates/admin/settings-reset.tpl.php:4
-msgctxt "settings"
-msgid "← Return to \"Manage Options\""
-msgstr "← Återvänd till \"Hantera alternativ\""
-
 #: includes/admin/settings/class-settings-bootstrap.php:593
 #: includes/admin/settings/class-settings-bootstrap.php:606
 msgctxt "post status"
@@ -6081,31 +6089,31 @@ msgctxt "notify email"
 msgid "Payment ID"
 msgstr "Betalning-ID"
 
-#: templates/email/listing-payment-completed.tpl.php:26
+#: templates/email/listing-payment-completed.tpl.php:20
 #, fuzzy
 msgctxt "notify email"
 msgid "Payment Details"
 msgstr "Betalningsdetaljer"
 
-#: templates/email/listing-payment-completed.tpl.php:29
+#: templates/email/listing-payment-completed.tpl.php:23
 #, fuzzy
 msgctxt "notify email"
 msgid "Amount"
 msgstr "Belopp"
 
-#: templates/email/listing-payment-completed.tpl.php:33
+#: templates/email/listing-payment-completed.tpl.php:27
 #, fuzzy
 msgctxt "notify email"
 msgid "Plan"
 msgstr "Avgiftsplan"
 
-#: templates/email/listing-payment-completed.tpl.php:49
+#: templates/email/listing-payment-completed.tpl.php:36
 #, fuzzy
 msgctxt "notify email"
 msgid "Listing URL"
 msgstr "Annons-URL"
 
-#: templates/email/listing-payment-completed.tpl.php:51
+#: templates/email/listing-payment-completed.tpl.php:38
 #, fuzzy
 msgctxt "notify email"
 msgid "Listing admin URL"
@@ -6232,14 +6240,6 @@ msgstr ""
 "konfigurerad. Gå till <a href=\"%s\">Hantera Alternativ - Betalning</a> för "
 "att ändra betalningsinställningarna. Innan du ändrat detta kommer katalogen "
 "fungera <i>i gratisläget</i>."
-
-#: includes/class-payment-gateways.php:160
-msgctxt "payment-gateways"
-msgid ""
-"You have payments turned on but do not have a public fee plan. Directory "
-"users won't be able to submit a listing until you add a public fee plan. Go "
-"to <link>Manage Fees</link> to add or edit your fee plan(s)."
-msgstr ""
 
 #: includes/class-payment.php:82
 #, fuzzy

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-08 18:54:50+00:00\n"
+"POT-Creation-Date: 2020-09-08 19:55:04+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -349,6 +349,14 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
+#. translators: %1$s: open link html, %2$s close link
+#: includes/class-payment-gateways.php:168
+msgid ""
+"You have payments turned on but do not have a public fee plan. Directory "
+"users won't be able to submit a listing until you add a public fee plan. Go "
+"to %1$sManage Fees%2$s to add or edit your fee plan(s)."
+msgstr ""
+
 # @ WPBDM
 #: includes/class-wpbdp.php:493
 #, fuzzy
@@ -494,6 +502,16 @@ msgstr ""
 "błędów aby uzyskać szczegółowe informacje."
 
 # @ WPBDM
+#: templates/admin/fees-index.tpl.php:17
+#, fuzzy
+msgid ""
+"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"and check the box next to 'Turn On Payments' under 'Payment Settings'."
+msgstr ""
+"Aby zarządzać abonamentami musisz iść do <a> Opcje Zarządzania- Płatności </"
+"a> i zaznaczyć pole wyboru \"Włącz\" w \"Ustawienia płatności\"."
+
+# @ WPBDM
 #: templates/admin/home.tpl.php:54
 #, fuzzy
 msgid "Manage Options"
@@ -526,12 +544,18 @@ msgid "Business Directory Settings"
 msgstr "Katalog Firm Ustawienia"
 
 # @ WPBDM
-#: templates/admin/settings-reset.tpl.php:2
+#: templates/admin/settings-reset.tpl.php:3
 msgid "Business Directory - Reset Defaults"
 msgstr "Katalog Firm - Najświeższe Firmy"
 
 # @ WPBDM
-#: templates/admin/settings-reset.tpl.php:10
+#: templates/admin/settings-reset.tpl.php:7
+#, fuzzy
+msgid "← Return to \"Manage Options\""
+msgstr "← wróć do \"Zarządzanie polami formularza\""
+
+# @ WPBDM
+#: templates/admin/settings-reset.tpl.php:15
 msgid ""
 "Use this option if you want to go back to the original factory settings for "
 "BD."
@@ -539,16 +563,16 @@ msgstr ""
 "Użyj tej opcji, jeśli chcesz przywrócić Katalog Firm do ustawień fabrycznych."
 "<b>Pamiętaj - wszystkie Twoje poprzednie ustawienia zostaną utracone..</b>"
 
-#: templates/admin/settings-reset.tpl.php:11
+#: templates/admin/settings-reset.tpl.php:16
 msgid "Please note that all of your existing settings will be lost."
 msgstr ""
 
-#: templates/admin/settings-reset.tpl.php:13
+#: templates/admin/settings-reset.tpl.php:18
 msgid "Your existing listings will NOT be deleted doing this."
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/settings-reset.tpl.php:19
+#: templates/admin/settings-reset.tpl.php:24
 msgid "Reset Defaults"
 msgstr "Przywróć ustawienia fabryczne"
 
@@ -2947,16 +2971,6 @@ msgid "Payments are currently turned off."
 msgstr "Płatność jest aktualnie wyłączona."
 
 # @ WPBDM
-#: templates/admin/fees-index.tpl.php:17
-msgctxt "fees admin"
-msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
-"and check the box next to 'Turn On Payments' under 'Payment Settings'."
-msgstr ""
-"Aby zarządzać abonamentami musisz iść do <a> Opcje Zarządzania- Płatności </"
-"a> i zaznaczyć pole wyboru \"Włącz\" w \"Ustawienia płatności\"."
-
-# @ WPBDM
 #: templates/admin/fees-index.tpl.php:28
 msgctxt "fees admin"
 msgid "Order fees on the frontend by:"
@@ -3748,19 +3762,19 @@ msgid "Add New Form Field"
 msgstr "Dodaj nowe pole formularza"
 
 # @ WPBDM
-#: templates/admin/form-fields.tpl.php:16
+#: templates/admin/form-fields.tpl.php:10
 msgctxt "form-fields admin"
 msgid "Preview Form"
 msgstr "Podgląd formularza"
 
 # @ WPBDM
-#: templates/admin/form-fields.tpl.php:28 templates/admin/themes.tpl.php:4
+#: templates/admin/form-fields.tpl.php:16 templates/admin/themes.tpl.php:4
 msgctxt "form-fields admin"
 msgid "Manage Theme Tags"
 msgstr "Zarządzaj abonamentami"
 
 # @ WPBDM
-#: templates/admin/form-fields.tpl.php:46
+#: templates/admin/form-fields.tpl.php:28
 msgctxt "form-fields admin"
 msgid ""
 "Here, you can create new fields for your listings, edit or delete existing "
@@ -3772,7 +3786,7 @@ msgstr ""
 "specjalnych funkcji."
 
 # @ WPBDM
-#: templates/admin/form-fields.tpl.php:57
+#: templates/admin/form-fields.tpl.php:39
 msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
@@ -6469,12 +6483,6 @@ msgctxt "settings"
 msgid "Reset Defaults"
 msgstr "Przywróć ustawienia fabryczne"
 
-# @ WPBDM
-#: templates/admin/settings-reset.tpl.php:4
-msgctxt "settings"
-msgid "← Return to \"Manage Options\""
-msgstr "← wróć do \"Zarządzanie polami formularza\""
-
 #: includes/admin/settings/class-settings-bootstrap.php:593
 #: includes/admin/settings/class-settings-bootstrap.php:606
 msgctxt "post status"
@@ -7109,33 +7117,33 @@ msgid "Payment ID"
 msgstr "Płatność"
 
 # @ WPBDM
-#: templates/email/listing-payment-completed.tpl.php:26
+#: templates/email/listing-payment-completed.tpl.php:20
 #, fuzzy
 msgctxt "notify email"
 msgid "Payment Details"
 msgstr "Szczegóły płatności"
 
 # @ WPBDM
-#: templates/email/listing-payment-completed.tpl.php:29
+#: templates/email/listing-payment-completed.tpl.php:23
 #, fuzzy
 msgctxt "notify email"
 msgid "Amount"
 msgstr "Kwota"
 
-#: templates/email/listing-payment-completed.tpl.php:33
+#: templates/email/listing-payment-completed.tpl.php:27
 msgctxt "notify email"
 msgid "Plan"
 msgstr ""
 
 # @ WPBDM
-#: templates/email/listing-payment-completed.tpl.php:49
+#: templates/email/listing-payment-completed.tpl.php:36
 #, fuzzy
 msgctxt "notify email"
 msgid "Listing URL"
 msgstr "URL oferty"
 
 # @ WPBDM
-#: templates/email/listing-payment-completed.tpl.php:51
+#: templates/email/listing-payment-completed.tpl.php:38
 #, fuzzy
 msgctxt "notify email"
 msgid "Listing admin URL"
@@ -7284,14 +7292,6 @@ msgstr ""
 "bramki. Przejdź do <a href=\"%s\">Zarządzaj Opcjami - Płatności</a> aby "
 "zmienić ustawienia. Do czasu wprowadzenia zmian, plugin będzie działał w "
 "<i>Trybie Bezpłatnym</i>."
-
-#: includes/class-payment-gateways.php:160
-msgctxt "payment-gateways"
-msgid ""
-"You have payments turned on but do not have a public fee plan. Directory "
-"users won't be able to submit a listing until you add a public fee plan. Go "
-"to <link>Manage Fees</link> to add or edit your fee plan(s)."
-msgstr ""
 
 #: includes/class-payment.php:82
 msgctxt "payment"

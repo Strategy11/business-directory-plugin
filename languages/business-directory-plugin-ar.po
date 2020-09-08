@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-08 18:54:50+00:00\n"
+"POT-Creation-Date: 2020-09-08 19:55:04+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -321,6 +321,14 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
+#. translators: %1$s: open link html, %2$s close link
+#: includes/class-payment-gateways.php:168
+msgid ""
+"You have payments turned on but do not have a public fee plan. Directory "
+"users won't be able to submit a listing until you add a public fee plan. Go "
+"to %1$sManage Fees%2$s to add or edit your fee plan(s)."
+msgstr ""
+
 #: includes/class-wpbdp.php:493
 #, fuzzy
 msgid ""
@@ -446,6 +454,15 @@ msgstr ""
 "المساحة الفارغة على القرص والذاكرة المتاحة إلى بي إتش بي. تحقق من سجلات "
 "الخطأ الخاص بك للحصول على التفاصيل."
 
+#: templates/admin/fees-index.tpl.php:17
+#, fuzzy
+msgid ""
+"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"and check the box next to 'Turn On Payments' under 'Payment Settings'."
+msgstr ""
+"لإدارة الرسوم أنت بحاجة للذهاب إلى صفحة <a>إدارة الخيارات - الدفع</a> وحدد "
+"المربع بجوار 'تشغيل الدفعات' تحت 'إعدادات الدفع'."
+
 #: templates/admin/home.tpl.php:54
 #, fuzzy
 msgid "Manage Options"
@@ -473,11 +490,16 @@ msgstr ""
 msgid "Business Directory Settings"
 msgstr "إعدادات دليل الأعمال"
 
-#: templates/admin/settings-reset.tpl.php:2
+#: templates/admin/settings-reset.tpl.php:3
 msgid "Business Directory - Reset Defaults"
 msgstr "دليل الأعمال - إعادة تعيين الافتراضي"
 
-#: templates/admin/settings-reset.tpl.php:10
+#: templates/admin/settings-reset.tpl.php:7
+#, fuzzy
+msgid "← Return to \"Manage Options\""
+msgstr "← العودة إلى \"إدارة الخيارات\""
+
+#: templates/admin/settings-reset.tpl.php:15
 msgid ""
 "Use this option if you want to go back to the original factory settings for "
 "BD."
@@ -485,15 +507,15 @@ msgstr ""
 "استخدم هذا الخيار إذا كنت تريد العودة إلى إعدادات المصنع الأصلية لدليل "
 "الأعمال."
 
-#: templates/admin/settings-reset.tpl.php:11
+#: templates/admin/settings-reset.tpl.php:16
 msgid "Please note that all of your existing settings will be lost."
 msgstr "يرجى ملاحظة أنه سيتم فقدان كافة الإعدادات الحالية الخاصة بك."
 
-#: templates/admin/settings-reset.tpl.php:13
+#: templates/admin/settings-reset.tpl.php:18
 msgid "Your existing listings will NOT be deleted doing this."
 msgstr ""
 
-#: templates/admin/settings-reset.tpl.php:19
+#: templates/admin/settings-reset.tpl.php:24
 msgid "Reset Defaults"
 msgstr "إعادة تعيين الوضع الافتراضي"
 
@@ -2630,15 +2652,6 @@ msgctxt "fees admin"
 msgid "Payments are currently turned off."
 msgstr "نظام الدفع متوقف حاليا."
 
-#: templates/admin/fees-index.tpl.php:17
-msgctxt "fees admin"
-msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
-"and check the box next to 'Turn On Payments' under 'Payment Settings'."
-msgstr ""
-"لإدارة الرسوم أنت بحاجة للذهاب إلى صفحة <a>إدارة الخيارات - الدفع</a> وحدد "
-"المربع بجوار 'تشغيل الدفعات' تحت 'إعدادات الدفع'."
-
 #: templates/admin/fees-index.tpl.php:28
 msgctxt "fees admin"
 msgid "Order fees on the frontend by:"
@@ -3349,17 +3362,17 @@ msgctxt "form-fields admin"
 msgid "Add New Form Field"
 msgstr "إضافة حقل نموذج جديد"
 
-#: templates/admin/form-fields.tpl.php:16
+#: templates/admin/form-fields.tpl.php:10
 msgctxt "form-fields admin"
 msgid "Preview Form"
 msgstr "معاينة الاستمارة"
 
-#: templates/admin/form-fields.tpl.php:28 templates/admin/themes.tpl.php:4
+#: templates/admin/form-fields.tpl.php:16 templates/admin/themes.tpl.php:4
 msgctxt "form-fields admin"
 msgid "Manage Theme Tags"
 msgstr "إدارة وسوم القالب"
 
-#: templates/admin/form-fields.tpl.php:46
+#: templates/admin/form-fields.tpl.php:28
 msgctxt "form-fields admin"
 msgid ""
 "Here, you can create new fields for your listings, edit or delete existing "
@@ -3369,7 +3382,7 @@ msgstr ""
 "هنا، يمكنك إنشاء حقول جديدة لإعلاناتك، تحرير أو حذف الموجود منها، وتغيير "
 "ترتيب وإبراز الحقول فضلا عن إعداد خيارات خاصة لهم."
 
-#: templates/admin/form-fields.tpl.php:57
+#: templates/admin/form-fields.tpl.php:39
 msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr "المرجو مراجعة <a>وثائق حقول الاستمارة</a> للحصول على مزيد من التفاصيل."
@@ -5799,11 +5812,6 @@ msgctxt "settings"
 msgid "Reset Defaults"
 msgstr "إعادة تعيين الوضع الافتراضي"
 
-#: templates/admin/settings-reset.tpl.php:4
-msgctxt "settings"
-msgid "← Return to \"Manage Options\""
-msgstr "← العودة إلى \"إدارة الخيارات\""
-
 #: includes/admin/settings/class-settings-bootstrap.php:593
 #: includes/admin/settings/class-settings-bootstrap.php:606
 msgctxt "post status"
@@ -6371,30 +6379,30 @@ msgctxt "notify email"
 msgid "Payment ID"
 msgstr "الدفع"
 
-#: templates/email/listing-payment-completed.tpl.php:26
+#: templates/email/listing-payment-completed.tpl.php:20
 #, fuzzy
 msgctxt "notify email"
 msgid "Payment Details"
 msgstr "تفاصيل الدفع"
 
-#: templates/email/listing-payment-completed.tpl.php:29
+#: templates/email/listing-payment-completed.tpl.php:23
 #, fuzzy
 msgctxt "notify email"
 msgid "Amount"
 msgstr "القدر"
 
-#: templates/email/listing-payment-completed.tpl.php:33
+#: templates/email/listing-payment-completed.tpl.php:27
 msgctxt "notify email"
 msgid "Plan"
 msgstr ""
 
-#: templates/email/listing-payment-completed.tpl.php:49
+#: templates/email/listing-payment-completed.tpl.php:36
 #, fuzzy
 msgctxt "notify email"
 msgid "Listing URL"
 msgstr "عنوان URL الإعلان"
 
-#: templates/email/listing-payment-completed.tpl.php:51
+#: templates/email/listing-payment-completed.tpl.php:38
 #, fuzzy
 msgctxt "notify email"
 msgid "Listing admin URL"
@@ -6526,14 +6534,6 @@ msgstr ""
 "لديك مدفوعات مشغلة ولكن لا توجد بوابة مفعلة ومعدة بشكل صحيح. إذهب إلى <a "
 "href=\"%s\">إدارة الخيارات - الدفع</a> لتغيير إعدادات الدفع. حتى تقوم بتغيير "
 "ذلك، فإن الدليل سيعمل بـ <i>الوضع المجاني.</i>"
-
-#: includes/class-payment-gateways.php:160
-msgctxt "payment-gateways"
-msgid ""
-"You have payments turned on but do not have a public fee plan. Directory "
-"users won't be able to submit a listing until you add a public fee plan. Go "
-"to <link>Manage Fees</link> to add or edit your fee plan(s)."
-msgstr ""
 
 #: includes/class-payment.php:82
 msgctxt "payment"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-08 18:54:50+00:00\n"
+"POT-Creation-Date: 2020-09-08 19:55:04+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -306,6 +306,14 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
+#. translators: %1$s: open link html, %2$s close link
+#: includes/class-payment-gateways.php:168
+msgid ""
+"You have payments turned on but do not have a public fee plan. Directory "
+"users won't be able to submit a listing until you add a public fee plan. Go "
+"to %1$sManage Fees%2$s to add or edit your fee plan(s)."
+msgstr ""
+
 #: includes/class-wpbdp.php:493
 #, fuzzy
 msgid ""
@@ -431,6 +439,15 @@ msgstr ""
 "сервере имеется достаточно свободного места на диске и в памяти. Для "
 "дополнительной информации проверьте протоколы ошибок сервера."
 
+#: templates/admin/fees-index.tpl.php:17
+#, fuzzy
+msgid ""
+"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"and check the box next to 'Turn On Payments' under 'Payment Settings'."
+msgstr ""
+"Для управления тарифами Вам надо перейти в раздел <a>Настройки / Оплата</a> "
+"и включить параметр \"Включить поддержку платного режима\"."
+
 #: templates/admin/home.tpl.php:54
 #, fuzzy
 msgid "Manage Options"
@@ -458,11 +475,16 @@ msgstr ""
 msgid "Business Directory Settings"
 msgstr "Настройки Справочника Услуг"
 
-#: templates/admin/settings-reset.tpl.php:2
+#: templates/admin/settings-reset.tpl.php:3
 msgid "Business Directory - Reset Defaults"
 msgstr "Справочник Услуг - Новые Записи"
 
-#: templates/admin/settings-reset.tpl.php:10
+#: templates/admin/settings-reset.tpl.php:7
+#, fuzzy
+msgid "← Return to \"Manage Options\""
+msgstr "← Вернуться к \"Управлению Полями Формы\""
+
+#: templates/admin/settings-reset.tpl.php:15
 msgid ""
 "Use this option if you want to go back to the original factory settings for "
 "BD."
@@ -471,15 +493,15 @@ msgstr ""
 "поставляемые по-умолчанию с плагином. <b>Имейте в виду, что все Ваши "
 "настройки будут очищены!</b>"
 
-#: templates/admin/settings-reset.tpl.php:11
+#: templates/admin/settings-reset.tpl.php:16
 msgid "Please note that all of your existing settings will be lost."
 msgstr ""
 
-#: templates/admin/settings-reset.tpl.php:13
+#: templates/admin/settings-reset.tpl.php:18
 msgid "Your existing listings will NOT be deleted doing this."
 msgstr ""
 
-#: templates/admin/settings-reset.tpl.php:19
+#: templates/admin/settings-reset.tpl.php:24
 msgid "Reset Defaults"
 msgstr "Сбросить настройки"
 
@@ -2603,15 +2625,6 @@ msgctxt "fees admin"
 msgid "Payments are currently turned off."
 msgstr "Платежи на настоящее время отключены."
 
-#: templates/admin/fees-index.tpl.php:17
-msgctxt "fees admin"
-msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
-"and check the box next to 'Turn On Payments' under 'Payment Settings'."
-msgstr ""
-"Для управления тарифами Вам надо перейти в раздел <a>Настройки / Оплата</a> "
-"и включить параметр \"Включить поддержку платного режима\"."
-
 #: templates/admin/fees-index.tpl.php:28
 msgctxt "fees admin"
 msgid "Order fees on the frontend by:"
@@ -3316,17 +3329,17 @@ msgctxt "form-fields admin"
 msgid "Add New Form Field"
 msgstr "Добавить новое поле формы"
 
-#: templates/admin/form-fields.tpl.php:16
+#: templates/admin/form-fields.tpl.php:10
 msgctxt "form-fields admin"
 msgid "Preview Form"
 msgstr "Предварительный просмотр формы"
 
-#: templates/admin/form-fields.tpl.php:28 templates/admin/themes.tpl.php:4
+#: templates/admin/form-fields.tpl.php:16 templates/admin/themes.tpl.php:4
 msgctxt "form-fields admin"
 msgid "Manage Theme Tags"
 msgstr "Настроить метки темы"
 
-#: templates/admin/form-fields.tpl.php:46
+#: templates/admin/form-fields.tpl.php:28
 msgctxt "form-fields admin"
 msgid ""
 "Here, you can create new fields for your listings, edit or delete existing "
@@ -3337,7 +3350,7 @@ msgstr ""
 "(или удалить) существующие. Можно изменить порядок их следования, "
 "необходимость их отображения и другие их параметры."
 
-#: templates/admin/form-fields.tpl.php:57
+#: templates/admin/form-fields.tpl.php:39
 msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
@@ -5774,11 +5787,6 @@ msgctxt "settings"
 msgid "Reset Defaults"
 msgstr "Сбросить настройки"
 
-#: templates/admin/settings-reset.tpl.php:4
-msgctxt "settings"
-msgid "← Return to \"Manage Options\""
-msgstr "← Вернуться к \"Управлению Полями Формы\""
-
 #: includes/admin/settings/class-settings-bootstrap.php:593
 #: includes/admin/settings/class-settings-bootstrap.php:606
 msgctxt "post status"
@@ -6344,30 +6352,30 @@ msgctxt "notify email"
 msgid "Payment ID"
 msgstr "Оплата"
 
-#: templates/email/listing-payment-completed.tpl.php:26
+#: templates/email/listing-payment-completed.tpl.php:20
 #, fuzzy
 msgctxt "notify email"
 msgid "Payment Details"
 msgstr "Детали платежа"
 
-#: templates/email/listing-payment-completed.tpl.php:29
+#: templates/email/listing-payment-completed.tpl.php:23
 #, fuzzy
 msgctxt "notify email"
 msgid "Amount"
 msgstr "Стоимость"
 
-#: templates/email/listing-payment-completed.tpl.php:33
+#: templates/email/listing-payment-completed.tpl.php:27
 msgctxt "notify email"
 msgid "Plan"
 msgstr ""
 
-#: templates/email/listing-payment-completed.tpl.php:49
+#: templates/email/listing-payment-completed.tpl.php:36
 #, fuzzy
 msgctxt "notify email"
 msgid "Listing URL"
 msgstr "Адрес URL записи"
 
-#: templates/email/listing-payment-completed.tpl.php:51
+#: templates/email/listing-payment-completed.tpl.php:38
 #, fuzzy
 msgctxt "notify email"
 msgid "Listing admin URL"
@@ -6500,14 +6508,6 @@ msgstr ""
 "Справочником - Тарифы</a> и настройте параметры платежей. Пока настройки не "
 "будут правильно сделаны, этот плагин будет работать в <i>Бесплатном Режиме</"
 "i>."
-
-#: includes/class-payment-gateways.php:160
-msgctxt "payment-gateways"
-msgid ""
-"You have payments turned on but do not have a public fee plan. Directory "
-"users won't be able to submit a listing until you add a public fee plan. Go "
-"to <link>Manage Fees</link> to add or edit your fee plan(s)."
-msgstr ""
 
 #: includes/class-payment.php:82
 msgctxt "payment"
