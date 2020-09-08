@@ -701,13 +701,17 @@ function wpbdp_current_view_output() {
 
 /**
  * @since 4.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_url( $pathorview = '/', $args = array() ) {
+    if ( $pathorview === 'admin' ) {
+        // If this is an admin page, bail early to avoid extra database calls.
+        $url = add_query_arg( $args, admin_url( 'admin.php' ) );
+        return apply_filters( 'wpbdp_url', $url, $pathorview, $args );
+    }
+
     $base_id   = wpbdp_get_page_id( 'main' );
     $base_url  = _get_page_link( $base_id );
     $base_url  = apply_filters( 'wpbdp_url_base_url', $base_url, $base_id, $pathorview, $args );
-    $admin_url = admin_url( 'admin.php' );
     $url       = '';
 
     switch ( $pathorview ) {
@@ -754,9 +758,6 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
                 ),
                 $base_url
             );
-            break;
-        case 'admin':
-            $url = add_query_arg( $args, $admin_url );
             break;
         default:
             if ( wpbdp_starts_with( $pathorview, '/' ) ) {
