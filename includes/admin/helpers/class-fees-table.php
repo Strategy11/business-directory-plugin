@@ -67,6 +67,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function get_views() {
         global $wpdb;
 
+        $admin_fees_url = wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) );
+
         $views = array();
 
         $all      = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans" ) );
@@ -75,7 +77,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
         $views['all'] = sprintf(
             '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-            esc_url( add_query_arg( 'fee_status', 'all' ) ),
+            esc_url( add_query_arg( 'fee_status', 'all', $admin_fees_url ) ),
             'all' === $this->get_current_view() ? 'current' : '',
             _x( 'All', 'admin fees table', 'business-directory-plugin' ),
             number_format_i18n( $all )
@@ -89,7 +91,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
         $views['active'] = sprintf(
             '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-            esc_url( add_query_arg( 'fee_status', 'active' ) ),
+            esc_url( add_query_arg( 'fee_status', 'active', $admin_fees_url ) ),
             'active' === $this->get_current_view() ? 'current' : '',
             _x( 'Active', 'admin fees table', 'business-directory-plugin' ),
             number_format_i18n( $active )
@@ -99,7 +101,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
         $views['unavailable'] = sprintf(
             '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-            esc_url( add_query_arg( 'fee_status', 'unavailable' ) ),
+            esc_url( add_query_arg( 'fee_status', 'unavailable', $admin_fees_url ) ),
             'unavailable' === $this->get_current_view() ? 'current' : '',
             _x( 'Not Available', 'admin fees table', 'business-directory-plugin' ),
             number_format_i18n( $unavailable )
@@ -107,7 +109,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
         $views['disabled'] = sprintf(
             '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-            esc_url( add_query_arg( 'fee_status', 'disabled' ) ),
+            esc_url( add_query_arg( 'fee_status', 'disabled', $admin_fees_url ) ),
             'disabled' === $this->get_current_view() ? 'current' : '',
             _x( 'Disabled', 'admin fees table', 'business-directory-plugin' ),
             number_format_i18n( $disabled )
@@ -216,7 +218,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                     array(
 						'action' => 'feeup',
 						'id'     => $fee->id,
-                    )
+                    ),
+                    wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) )
                 )
             ),
             esc_url(
@@ -224,13 +227,15 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                     array(
 						'action' => 'feedown',
 						'id'     => $fee->id,
-                    )
+                    ),
+                    wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) )
                 )
             )
         );
     }
 
     public function column_label( $fee ) {
+        $admin_fees_url = wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) );
         $actions         = array();
         $actions['edit'] = sprintf(
             '<a href="%s">%s</a>',
@@ -239,7 +244,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                     array(
 						'wpbdp-view' => 'edit-fee',
 						'id'         => $fee->id,
-                    )
+                    ),
+                    $admin_fees_url
                 )
             ),
             _x( 'Edit', 'fees admin', 'business-directory-plugin' )
@@ -258,7 +264,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                             array(
 								'wpbdp-view' => 'toggle-fee',
 								'id'         => $fee->id,
-                            )
+                            ),
+                            $admin_fees_url
                         )
                     ),
                     _x( 'Disable', 'fees admin', 'business-directory-plugin' )
@@ -271,7 +278,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                             array(
 								'wpbdp-view' => 'toggle-fee',
 								'id'         => $fee->id,
-                            )
+                            ),
+                            $admin_fees_url
                         )
                     ),
                     _x( 'Enable', 'fees admin', 'business-directory-plugin' )
@@ -285,7 +293,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                         array(
 							'wpbdp-view' => 'delete-fee',
 							'id'         => $fee->id,
-                        )
+                        ),
+                        $admin_fees_url
                     )
                 ),
                 _x( 'Delete', 'fees admin', 'business-directory-plugin' )
@@ -308,7 +317,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                     array(
 						'wpbdp-view' => 'edit-fee',
 						'id'         => $fee->id,
-                    )
+                    ),
+                    $admin_fees_url
                 )
             ),
             esc_attr( $fee->label ),

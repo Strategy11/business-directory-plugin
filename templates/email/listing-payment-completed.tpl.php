@@ -9,13 +9,13 @@
             echo sprintf(
                 '<a href="%s">%s</a>',
                 esc_url(
-                    add_query_arg(
+                    wpbdp_url(
+                        'admin',
                         array(
                             'page'       => 'wpbdp_admin_payments',
                             'wpbdp-view' => 'details',
                             'payment-id' => $payment->id,
-                        ),
-                        admin_url( 'admin.php?' )
+                        )
                     )
             ),
         $payment->id
@@ -33,13 +33,13 @@
 <?php _ex('Plan', 'notify email', 'business-directory-plugin' ); ?>: <?php 
     echo sprintf( '<a href="%s">%s</a>',
         esc_url(
-            add_query_arg(
+            wpbdp_url(
+                'admin',
                 array(
                     'page'       => 'wpbdp-admin-fees',
                     'wpbdp-view' => 'edit-fee',
                     'id'         => $plan->fee_id,
-                ),
-                admin_url( 'admin.php?' )
+                )
             )
         ),
         $plan->fee_label

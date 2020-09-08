@@ -409,7 +409,7 @@ class WPBDP_Admin_Listings {
             $count = number_format_i18n( $count );
 
             $current_class                         = ( ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ) ? 'current' : '';
-            $views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg( array( 'post_status', 'author', 'all_posts', 'wpbdmfilter' ), add_query_arg( 'listing_status', $status_id ) ) . "' class='{$current_class}'>${status_label} <span class='count'>({$count})</span></a>";
+            $views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg( array( 'post_status', 'author', 'all_posts', 'wpbdmfilter' ), add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, 'listing_status' => $status_id ), admin_url( 'edit.php' ) ) ) . "' class='{$current_class}'>${status_label} <span class='count'>({$count})</span></a>";
         }
 
         if ( wpbdp_get_option( 'enable-listing-flagging' ) ) {
@@ -421,7 +421,7 @@ class WPBDP_Admin_Listings {
             if ( $count > 0 ) {
                 $views['reported'] = sprintf(
                     '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
-                    esc_url( add_query_arg( 'listing_status', 'reported' ) ),
+                    esc_url( add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, 'listing_status' => 'reported' ), admin_url( 'edit.php' ) ) ),
                     wpbdp_getv( $_REQUEST, 'listing_status' ) == 'reported' ? 'current' : '',
                     _x( 'Reported', 'listing status', 'business-directory-plugin' ),
                     number_format_i18n( $count )
@@ -682,14 +682,14 @@ class WPBDP_Admin_Listings {
                             'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
                             'action',
                             'listing-' . $action,
-                            esc_url( add_query_arg( 'wpbdmaction', $action ) ),
+                            esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
                             $text
                         );
                         echo sprintf(
                             'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
                             'action2',
                             'listing-' . $action,
-                            esc_url( add_query_arg( 'wpbdmaction', $action ) ),
+                            esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
                             $text
                         );
                     }

@@ -45,6 +45,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
     /* Rows */
     public function column_order( $field ) {
+        $form_fields_url = wpbdp_url( 'admin', array( 'page' => 'wpbdp_admin_formfields' ) );
         return sprintf(
             '<span class="wpbdp-drag-handle" data-field-id="%s"></span> <a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
             $field->get_id(),
@@ -53,7 +54,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                     array(
                         'action' => 'fieldup',
                         'id'     => $field->get_id(),
-                    )
+                    ),
+                    $form_fields_url
                 )
             ),
             esc_url(
@@ -61,13 +63,15 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                     array(
                         'action' => 'fielddown',
                         'id'     => $field->get_id(),
-                    )
+                    ),
+                    $form_fields_url
                 )
             )
         );
     }
 
     public function column_label( $field ) {
+        $form_fields_url = wpbdp_url( 'admin', array( 'page' => 'wpbdp_admin_formfields' ) );
         $actions         = array();
         $actions['edit'] = sprintf(
             '<a href="%s">%s</a>',
@@ -76,7 +80,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                     array(
                         'action' => 'editfield',
                         'id'     => $field->get_id(),
-                    )
+                    ),
+                    $form_fields_url
                 )
             ),
             _x( 'Edit', 'form-fields admin', 'business-directory-plugin' )
@@ -90,7 +95,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                         array(
                             'action' => 'deletefield',
                             'id'     => $field->get_id(),
-                        )
+                        ),
+                        $form_fields_url
                     )
                 ),
                 _x( 'Delete', 'form-fields admin', 'business-directory-plugin' )
@@ -105,7 +111,8 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                     array(
                         'action' => 'editfield',
                         'id'     => $field->get_id(),
-                    )
+                    ),
+                    $form_fields_url
                 )
             ),
             esc_attr( $field->get_label() ),

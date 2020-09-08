@@ -6,7 +6,7 @@
 
         <div class="wpbdp-theme-actions">
             <?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ): ?>
-            <a href="<?php echo esc_url( add_query_arg( array( 'action' => 'delete-theme', 'theme_id' => $theme->id ) ) ); ?>" class="button delete-theme-link">Delete</a>
+            <a href="<?php echo esc_url( wpbdp_url( 'admin', array( 'page' => 'wpbdp-themes', 'action' => 'delete-theme', 'theme_id' => $theme->id ) ) ); ?>" class="button delete-theme-link">Delete</a>
             <?php endif; ?>
 
             <?php if ( $theme->can_be_activated ): ?>
