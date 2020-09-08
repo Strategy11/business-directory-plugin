@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.5
-Stable tag: 5.7.2
+Stable tag: 5.7.3
 License: GPLv2 or later
 
 Build a local listings directory, directory of business providers, a Yellow-Pages business directory, Yelp-like review directory, property listings and more!
