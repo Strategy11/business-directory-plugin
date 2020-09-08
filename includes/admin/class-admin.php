@@ -184,10 +184,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     'wpbdp-admin-listing-metabox',
                     'wpbdpListingMetaboxL10n',
                     array(
-						'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
-						'noExpiration'      => _x( 'Never', 'listing metabox', 'business-directory-plugin' ),
-						'yes'               => _x( 'Yes', 'listing metabox', 'business-directory-plugin' ),
-						'no'                => _x( 'No', 'listing metabox', 'business-directory-plugin' ),
+                        'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
+                        'noExpiration'      => _x( 'Never', 'listing metabox', 'business-directory-plugin' ),
+                        'yes'               => _x( 'Yes', 'listing metabox', 'business-directory-plugin' ),
+                        'no'                => _x( 'No', 'listing metabox', 'business-directory-plugin' ),
                     )
                 );
 
@@ -195,13 +195,13 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     'wpbdp-admin-listing',
                     'WPBDP_admin_listings_config',
                     array(
-						'messages' => array(
-							'preview_button_tooltip' => __(
+                        'messages' => array(
+                            'preview_button_tooltip' => __(
                                 "Preview is only available after you've saved the first draft. This is due
     to how WordPress stores the data.",
-								'business-directory-plugin'
+                                'business-directory-plugin'
                             ),
-						),
+                        ),
                     )
                 );
             }
@@ -265,11 +265,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
             $page    = array(
-				'post_status'  => 'publish',
-				'post_title'   => _x( 'Business Directory', 'admin', 'business-directory-plugin' ),
-				'post_type'    => 'page',
-				'post_content' => '[businessdirectory]',
-			);
+                'post_status'  => 'publish',
+                'post_title'   => _x( 'Business Directory', 'admin', 'business-directory-plugin' ),
+                'post_type'    => 'page',
+                'post_content' => '[businessdirectory]',
+            );
             $page_id = wp_insert_post( $page );
 
             if ( ! $page_id ) {
@@ -327,12 +327,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $response = wp_remote_post(
                     'https://www.getdrip.com/forms/6877690/submissions',
                     array(
-						'body' => array(
-							'fields[name]'       => $data['name'],
-							'fields[email]'      => $data['email'],
-							'fields[website]'    => $data['website'],
-							'fields[gmt_offset]' => $data['gmt_offset'],
-						),
+                        'body' => array(
+                            'fields[name]'       => $data['name'],
+                            'fields[email]'      => $data['email'],
+                            'fields[website]'    => $data['website'],
+                            'fields[gmt_offset]' => $data['gmt_offset'],
+                        ),
                     )
                 );
             }
@@ -503,10 +503,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
             $candidates = array(
-				$item['file'],
-				WPBDP_INC . 'admin/class-admin-' . $id . '.php',
-				WPBDP_INC . 'admin/' . $id . '.php',
-			);
+                $item['file'],
+                WPBDP_INC . 'admin/class-admin-' . $id . '.php',
+                WPBDP_INC . 'admin/' . $id . '.php',
+            );
             foreach ( $candidates as $c ) {
                 if ( $c && file_exists( $c ) ) {
                     require_once $c;
@@ -528,7 +528,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $this->current_controller = new $classname();
+            $this->current_controller = new $classname;
 
             ob_start();
             $this->current_controller->_dispatch();
@@ -554,9 +554,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $function      = isset( $parts[1] ) ? $parts[1] : '';
 
             $candidates = array(
-				WPBDP_INC . 'admin/class-admin-' . $controller_id . '.php',
-				WPBDP_INC . 'admin/' . $controller_id . '.php',
-			);
+                WPBDP_INC . 'admin/class-admin-' . $controller_id . '.php',
+                WPBDP_INC . 'admin/' . $controller_id . '.php',
+            );
             foreach ( $candidates as $c ) {
                 if ( ! file_exists( $c ) ) {
                     continue;
@@ -816,8 +816,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     foreach ( $posts as $post_id ) {
                         wp_update_post(
                             array(
-								'ID'          => $post_id,
-								'post_status' => $new_status,
+                                'ID'          => $post_id,
+                                'post_status' => $new_status,
                             )
                         );
                     }
@@ -840,8 +840,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     foreach ( $posts as $post_id ) {
                         $pending_payments = WPBDP_Payment::objects()->filter(
                             array(
-								'listing_id' => $post_id,
-								'status'     => 'pending',
+                                'listing_id' => $post_id,
+                                'status'     => 'pending',
                             )
                         );
 
@@ -946,7 +946,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             // TODO: Redirect and show messages on page load.
             // if ( wp_redirect( remove_query_arg( array( 'action', 'post', 'wpbdmaction' ) ) ) ) {
-            // exit();
+            //     exit();
             // }
         }
 
@@ -998,11 +998,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 array_merge(
                     $args,
                     array(
-						'echo'                           => false,
-						'selected'                       => $selected,
-						'include_selected'               => true,
-						'who'                            => 'all',
-						'wpbdp_skip_dropdown_users_args' => true,
+                        'echo'                           => false,
+                        'selected'                       => $selected,
+                        'include_selected'               => true,
+                        'who'                            => 'all',
+                        'wpbdp_skip_dropdown_users_args' => true,
                     )
                 )
             );
@@ -1107,7 +1107,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         function process_admin_action() {
             if ( isset( $_REQUEST['wpbdp-action'] ) ) {
                 do_action( 'wpbdp_action_' . $_REQUEST['wpbdp-action'] );
-				// do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
+                // do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
             }
         }
 
