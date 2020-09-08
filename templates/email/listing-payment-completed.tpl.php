@@ -5,21 +5,15 @@
 ----
 
 <?php _ex( 'Payment ID', 'notify email', 'business-directory-plugin' ); ?>: 
-           <?php
-            echo sprintf(
-                '<a href="%s">%s</a>',
-                esc_url(
-                    wpbdp_url(
-                        'admin',
-                        array(
-                            'page'       => 'wpbdp_admin_payments',
-                            'wpbdp-view' => 'details',
-                            'payment-id' => $payment->id,
-                        )
-                    )
-            ),
+    <?php
+    echo sprintf(
+        '<a href="%s">%s</a>',
+        esc_url(
+            admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id )
+        ),
         $payment->id
-    );?>
+    );
+    ?>
 
 
 <?php if ( ! empty( $payment_datails ) ) : ?>
@@ -33,14 +27,7 @@
 <?php _ex('Plan', 'notify email', 'business-directory-plugin' ); ?>: <?php 
     echo sprintf( '<a href="%s">%s</a>',
         esc_url(
-            wpbdp_url(
-                'admin',
-                array(
-                    'page'       => 'wpbdp-admin-fees',
-                    'wpbdp-view' => 'edit-fee',
-                    'id'         => $plan->fee_id,
-                )
-            )
+            admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=edit-fee&id=' . $plan->fee_id)
         ),
         $plan->fee_label
     );?>

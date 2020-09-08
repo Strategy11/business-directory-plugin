@@ -39,7 +39,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         $views = array();
         foreach ( $views_ as $view_id => $view_data ) {
             $views[ $view_id ] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-                                          esc_url( wpbdp_url( 'admin', array( 'page' => 'wpbdp_admin_payments', 'status' => $view_id ) ) ),
+                                          esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&status=' . $view_id ) ),
                                           $view_id == $this->get_current_view() ? 'current': '',
                                           $view_data[0],
                                           number_format_i18n( $view_data[1] ) );
@@ -99,7 +99,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function column_payment_id( $payment ) {
-        return sprintf( '<a href="%s">%d</a>', wpbdp_url( 'admin', array( 'page' => 'wpbdp_admin_payments',  'wpbdp-view' => 'details', 'payment-id' => $payment->id ) ), $payment->id );
+        return sprintf( '<a href="%s">%d</a>', admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ), $payment->id );
     }
 
     public function column_date( $payment ) {
@@ -115,7 +115,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function column_details( $payment ) {
-        return '<a href="' . esc_url( wpbdp_url( 'admin', array( 'wpbdp-view' => 'details', 'payment-id' => $payment->id, 'page' => 'wpbdp_admin_payments' ) ) ) . '">' . _x( 'View Payment History', 'payments admin', 'business-directory-plugin' ) . '</a>';
+        return '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">' . _x( 'View Payment History', 'payments admin', 'business-directory-plugin' ) . '</a>';
     }
 
     public function column_listing( $payment ) {

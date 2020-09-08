@@ -3,7 +3,7 @@
         null,
         'admin-fees',
         array(
-			array( _x( 'Add New Listing Fee', 'fees admin', 'business-directory-plugin' ), esc_url( wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees', 'wpbdp-view' => 'add-fee' ) ) ) ),
+			array( _x( 'Add New Listing Fee', 'fees admin', 'business-directory-plugin' ), esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) ),
         )
     );
 	?>
@@ -13,8 +13,8 @@
     <div class="wpbdp-note"><p>
     <?php _ex('Payments are currently turned off.', 'fees admin', 'business-directory-plugin' ); ?><br />
     <?php echo str_replace( '<a>',
-                            '<a href="' . wpbdp_url( 'admin', array( 'page' => 'wpbdp_settings', 'tab' => 'payment' ) ) . '">',
-                            _x( 'To manage fees you need to go to the <a>Manage Options - Payment</a> page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.',
+                            '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">',
+                            __( 'To manage fees you need to go to the <a>Manage Options - Payment</a> page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.',
                                 'fees admin',
                                 'business-directory-plugin' ) ); ?></p>
     </div>
@@ -143,7 +143,7 @@
 			<?php
 			echo str_replace(
                 '<a>',
-                '<a href="' . wpbdp_url( 'admin', array( 'page' => 'wpbdp_settings', 'tab' => 'payment' ) ) . '">',
+                '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">',
                 sprintf(
                     _x( 'It does not appear you have any of the payment gateway modules enabled. Either <a>enable the default Authorize.net gateway</a> with your account info, or purchase a different payment gateway module in order to charge a fee for listings. To purchase additional payment gateways use the buttons below or visit %s.', 'admin templates', 'business-directory-plugin' ),
                     '<a href="http://businessdirectoryplugin.com/premium-modules/" target="_blank" rel="noopener">http://businessdirectoryplugin.com/premium-modules/</a>'

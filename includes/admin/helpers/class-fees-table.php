@@ -67,7 +67,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function get_views() {
         global $wpdb;
 
-        $admin_fees_url = wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) );
+        $admin_fees_url = admin_url( 'admin.php?page=wpbdp-admin-fees' );
 
         $views = array();
 
@@ -219,7 +219,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 						'action' => 'feeup',
 						'id'     => $fee->id,
                     ),
-                    wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) )
+                    admin_url( 'admin.php?page=wpbdp-admin-fees' )
                 )
             ),
             esc_url(
@@ -228,14 +228,14 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 						'action' => 'feedown',
 						'id'     => $fee->id,
                     ),
-                    wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) )
+                    admin_url( 'admin.php?page=wpbdp-admin-fees' )
                 )
             )
         );
     }
 
     public function column_label( $fee ) {
-        $admin_fees_url = wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) );
+        $admin_fees_url = admin_url( 'admin.php?page=wpbdp-admin-fees' );
         $actions         = array();
         $actions['edit'] = sprintf(
             '<a href="%s">%s</a>',

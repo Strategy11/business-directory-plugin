@@ -702,7 +702,7 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         $msg = _x( 'Fee Plan Custom Order can be changed under <a>Manage Fees</a>', 'admin settings', 'business-directory-plugin' );
-        $msg = str_replace( '<a>', '<a href="' . esc_url( wpbdp_url( 'admin', array( 'page' => 'wpbdp-admin-fees' ) ) ) . '">', $msg );
+        $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
         wpbdp_register_setting(
             array(
                 'id'      => 'listings-order-by',

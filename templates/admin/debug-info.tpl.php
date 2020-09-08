@@ -6,7 +6,7 @@
 	<strong><u><?php _ex( 'The debug information does not contain personal or sensitive information such as passwords or private keys.', 'debug-info', 'business-directory-plugin' ); ?></u></strong>
 </p>
 <p style="text-align: right;">
-    <a href="<?php echo esc_url( wpbdp_url( 'admin', array( 'page' => 'wpbdp-debug-info', 'download' => '1' ) ) ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'business-directory-plugin' ); ?></a>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ) ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'business-directory-plugin' ); ?></a>
 </p>
 
 <h3 class="nav-tab-wrapper">

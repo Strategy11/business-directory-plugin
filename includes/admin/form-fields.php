@@ -45,7 +45,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
     /* Rows */
     public function column_order( $field ) {
-        $form_fields_url = wpbdp_url( 'admin', array( 'page' => 'wpbdp_admin_formfields' ) );
+        $form_fields_url = admin_url( 'admin.php?page=wpbdp_admin_formfields' );
         return sprintf(
             '<span class="wpbdp-drag-handle" data-field-id="%s"></span> <a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
             $field->get_id(),
@@ -71,7 +71,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
     }
 
     public function column_label( $field ) {
-        $form_fields_url = wpbdp_url( 'admin', array( 'page' => 'wpbdp_admin_formfields' ) );
+        $form_fields_url = admin_url( 'admin.php?page=wpbdp_admin_formfields' );
         $actions         = array();
         $actions['edit'] = sprintf(
             '<a href="%s">%s</a>',
