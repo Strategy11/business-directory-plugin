@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-08 02:42:42+00:00\n"
+"POT-Creation-Date: 2020-09-08 18:54:50+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3389,7 +3389,7 @@ msgid "Payment details updated."
 msgstr "Betalningsdetaljer uppdaterade."
 
 #: templates/admin/payments-details.tpl.php:11
-#: templates/admin/payments-details.tpl.php:209
+#: templates/admin/payments-details.tpl.php:208
 msgctxt "payments admin"
 msgid "← Return to \"Payment History\""
 msgstr "← Tillbaka till \"Betalningshistorik\"."
@@ -3490,7 +3490,7 @@ msgctxt "payments admin"
 msgid "Notes & Log"
 msgstr "Anteckningar & Log"
 
-#: templates/admin/payments-details.tpl.php:173
+#: templates/admin/payments-details.tpl.php:172
 msgctxt "payments admin"
 msgid "No notes."
 msgstr "Inga anteckningar"
@@ -9008,7 +9008,7 @@ msgctxt "admin payments"
 msgid "Gateway:"
 msgstr "Betalmodul:"
 
-#: templates/admin/payments-details.tpl.php:207
+#: templates/admin/payments-details.tpl.php:206
 #, fuzzy
 msgctxt "admin payments"
 msgid "Payment not found"
@@ -9024,7 +9024,7 @@ msgctxt "admin payments"
 msgid "Search"
 msgstr "Sök"
 
-#: templates/admin/payments-details.tpl.php:190
+#: templates/admin/payments-details.tpl.php:189
 msgctxt "payment admins"
 msgid "Add Note"
 msgstr "Lägg till anteckning"

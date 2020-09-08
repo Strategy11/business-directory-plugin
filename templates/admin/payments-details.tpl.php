@@ -167,20 +167,19 @@ echo wpbdp_admin_header(
                             <div class="wpbdp-admin-box">
                                 <div id="wpbdp-payment-notes">
                                     <div class="no-notes" style="
-                                    <?php
-                                    if ( $payment->payment_notes ) :
-										?>
-                                        display: none;<?php endif; ?>"><?php _ex( 'No notes.', 'payments admin', 'business-directory-plugin' ); ?></div>
+                                    <?php if ( $payment->payment_notes ) : ?>
+                                        display: none;
+                                    <?php endif; ?>"><?php _ex( 'No notes.', 'payments admin', 'business-directory-plugin' ); ?></div>
                                     <?php foreach ( $payment->payment_notes as $note ) : ?>
                                         <?php
                                         echo wpbdp_render_page(
                                             WPBDP_PATH . 'templates/admin/payments-note.tpl.php',
                                             array(
-												'note' => $note,
-												'payment_id' => $payment->id,
+                                                'note' => $note,
+                                                'payment_id' => $payment->id,
                                             )
                                         );
-										?>
+                                        ?>
                                     <?php endforeach; ?>
                                 </div>
 

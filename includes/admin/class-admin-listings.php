@@ -61,14 +61,14 @@ class WPBDP_Admin_Listings {
 
         wp_dropdown_categories(
             array(
-				'show_option_all' => _x( 'All categories', 'admin category filter', 'business-directory-plugin' ),
-				'taxonomy'        => WPBDP_CATEGORY_TAX,
-				'name'            => WPBDP_CATEGORY_TAX,
-				'orderby'         => 'name',
-				'selected'        => ( ! empty( $wp_query->query[ WPBDP_CATEGORY_TAX ] ) ? $wp_query->query[ WPBDP_CATEGORY_TAX ] : 0 ),
-				'hierarchical'    => true,
-				'hide_empty'      => false,
-				'depth'           => 4,
+                'show_option_all' => _x( 'All categories', 'admin category filter', 'business-directory-plugin' ),
+                'taxonomy'        => WPBDP_CATEGORY_TAX,
+                'name'            => WPBDP_CATEGORY_TAX,
+                'orderby'         => 'name',
+                'selected'        => ( ! empty( $wp_query->query[ WPBDP_CATEGORY_TAX ] ) ? $wp_query->query[ WPBDP_CATEGORY_TAX ] : 0 ),
+                'hierarchical'    => true,
+                'hide_empty'      => false,
+                'depth'           => 4,
             )
         );
     }
@@ -312,7 +312,7 @@ class WPBDP_Admin_Listings {
         if ( $exp_date ) {
             echo date_i18n( get_option( 'date_format' ), strtotime( $exp_date ) );
         } else {
-			echo _x( 'Never', 'admin listings', 'business-directory-plugin' );
+            echo _x( 'Never', 'admin listings', 'business-directory-plugin' );
         }
     }
 
@@ -359,7 +359,7 @@ class WPBDP_Admin_Listings {
                     );
                     $attributes['payment'] .= '</span>';
                 }
-			}
+            }
         }
 
         if ( count( WPBDP__Listing_flagging::get_flagging_meta( $listing->get_id() ) ) ) {
@@ -397,8 +397,8 @@ class WPBDP_Admin_Listings {
             $count = absint(
                 WPBDP_Listing::count_listings(
                     array(
-						'status'      => $status_id,
-						'post_status' => $post_statuses_string,
+                        'status'      => $status_id,
+                        'post_status' => $post_statuses_string,
                     )
                 )
             );
@@ -570,8 +570,8 @@ class WPBDP_Admin_Listings {
 
         wp_update_post(
             array(
-				'post_name' => $post_name,
-				'ID'        => $post_id,
+                'post_name' => $post_name,
+                'ID'        => $post_id,
             )
         );
     }
@@ -656,17 +656,17 @@ class WPBDP_Admin_Listings {
             if ( $screen->id == 'edit-' . WPBDP_POST_TYPE ) {
                 if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == WPBDP_POST_TYPE ) {
                     $bulk_actions = array(
-						'sep0'              => '–',
-						'change-to-publish' => _x( 'Publish listings', 'admin actions', 'business-directory-plugin' ),
-						'change-to-pending' => _x( 'Mark as "Pending Review"', 'admin actions', 'business-directory-plugin' ),
-						'change-to-draft'   => _x( 'Hide from directory (mark as "Draft")', 'admin actions', 'business-directory-plugin' ),
-						'sep1'              => '–',
-						'renewlisting'      => _x( 'Renew listings', 'admin actions', 'business-directory-plugin' ),
-						'change-to-expired' => _x( 'Set listings as "Expired"', 'admin actions', 'business-directory-plugin' ),
+                        'sep0'              => '–',
+                        'change-to-publish' => _x( 'Publish listings', 'admin actions', 'business-directory-plugin' ),
+                        'change-to-pending' => _x( 'Mark as "Pending Review"', 'admin actions', 'business-directory-plugin' ),
+                        'change-to-draft'   => _x( 'Hide from directory (mark as "Draft")', 'admin actions', 'business-directory-plugin' ),
+                        'sep1'              => '–',
+                        'renewlisting'      => _x( 'Renew listings', 'admin actions', 'business-directory-plugin' ),
+                        'change-to-expired' => _x( 'Set listings as "Expired"', 'admin actions', 'business-directory-plugin' ),
                                           /*
                                            Disabled as per https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3279. */
                                           /*'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'business-directory-plugin' ),*/
-					);
+                    );
 
                     if ( wpbdp_get_option( 'enable-key-access' ) ) {
                         $bulk_actions['send-access-keys'] = _x( 'Send access keys', 'admin actions', 'business-directory-plugin' );
@@ -735,10 +735,10 @@ class WPBDP_Admin_Listings {
         $tags = get_terms(
             WPBDP_TAGS_TAX,
             array(
-				'number'     => 45,
-				'orderby'    => 'count',
-				'order'      => 'DESC',
-				'hide_empty' => false,
+                'number'     => 45,
+                'orderby'    => 'count',
+                'order'      => 'DESC',
+                'hide_empty' => false,
             )
         );
 

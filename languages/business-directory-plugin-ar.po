@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-08 02:42:42+00:00\n"
+"POT-Creation-Date: 2020-09-08 18:54:50+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -3484,7 +3484,7 @@ msgid "Payment details updated."
 msgstr "تفاصيل الدفع"
 
 #: templates/admin/payments-details.tpl.php:11
-#: templates/admin/payments-details.tpl.php:209
+#: templates/admin/payments-details.tpl.php:208
 #, fuzzy
 msgctxt "payments admin"
 msgid "← Return to \"Payment History\""
@@ -3604,7 +3604,7 @@ msgctxt "payments admin"
 msgid "Notes & Log"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:173
+#: templates/admin/payments-details.tpl.php:172
 msgctxt "payments admin"
 msgid "No notes."
 msgstr ""
@@ -9330,7 +9330,7 @@ msgctxt "admin payments"
 msgid "Gateway:"
 msgstr "بوابة"
 
-#: templates/admin/payments-details.tpl.php:207
+#: templates/admin/payments-details.tpl.php:206
 #, fuzzy
 msgctxt "admin payments"
 msgid "Payment not found"
@@ -9348,7 +9348,7 @@ msgctxt "admin payments"
 msgid "Search"
 msgstr "بحث"
 
-#: templates/admin/payments-details.tpl.php:190
+#: templates/admin/payments-details.tpl.php:189
 #, fuzzy
 msgctxt "payment admins"
 msgid "Add Note"
