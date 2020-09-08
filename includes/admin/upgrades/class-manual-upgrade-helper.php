@@ -183,9 +183,11 @@ class WPBDP__Manual_Upgrade_Helper {
 
             echo '<div class="step-done" style="display: none;">';
             echo '<p>' . _x( 'The upgrade was successfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'business-directory-plugin' ) . '</p>';
-            printf ( '<a href="%s" class="button button-primary">%s</a>',
-                     admin_url( 'admin', array( 'page' => 'wpbdp_admin' ) ),
-                     _x( 'Go to "Directory Admin"', 'manual-upgrade', 'business-directory-plugin' ) );
+            printf (
+                '<a href="%s" class="button button-primary">%s</a>',
+                wpbdp_url( 'admin', array( 'page' => 'wpbdp_admin' ) ),
+                _x( 'Go to "Directory Admin"', 'manual-upgrade', 'business-directory-plugin' )
+            );
             echo '</div>';
         }
 

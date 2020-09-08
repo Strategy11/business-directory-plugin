@@ -433,7 +433,7 @@ function wpbdp_get_post_by_slug( $slug, $post_type = null ) {
         )
     );
 
-    if ( posts ) {
+    if ( $posts ) {
         return $posts[0];
     } else {
         return 0;
