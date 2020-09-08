@@ -232,7 +232,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                                     subscribe: "%d" } );';
 
             $content  = '';
-            $content .= _x( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course. Get a FREE premium module just for signing up.', 'drip pointer', 'business-directory-plugin' ) . '<br /><br />';
+            $content .= __( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course.', 'business-directory-plugin' ) . '<br /><br />';
             $content .= '<label>';
             $content .= '<b>' . _x( 'Email Address:', 'drip pointer', 'business-directory-plugin' ) . '</b>';
             $content .= '<br />';
