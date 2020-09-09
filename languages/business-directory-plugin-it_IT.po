@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-08 19:55:04+00:00\n"
+"POT-Creation-Date: 2020-09-09 13:07:48+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -64,6 +64,16 @@ msgstr ""
 "L'anteprima è disponibile solo dopo aver salvato la prima bozza. Questo è "
 "dovuto\n"
 "a come WordPress memorizza i dati."
+
+#: includes/admin/class-admin.php:235
+#, fuzzy
+msgid ""
+"Find out how to create a compelling, thriving business directory from "
+"scratch in this ridiculously actionable (and FREE) 5-part email course."
+msgstr ""
+"Scopri come creare da zero un'avvincente e fiorente directory aziendale in "
+"questo ridicolmente praticabile (e GRATUITO) corso di e-mail in 5 parti. "
+"Ottieni un modulo premium GRATUITO solo per la registrazione."
 
 #: includes/admin/class-admin.php:399
 msgid "Uninstall Business Directory Plugin"
@@ -130,9 +140,84 @@ msgstr ""
 msgid "Business Directory Plugin"
 msgstr "Business Directory Plugin"
 
+#: includes/admin/page-debug.php:16
+#, fuzzy
+msgid "Business Directory Info"
+msgstr "Business Directory"
+
 #: includes/admin/page-debug.php:43
 msgid "Missing tables: %s"
 msgstr "Tabelle mancanti: %s"
+
+#: includes/admin/page-debug.php:51
+#, fuzzy
+msgid "Business Directory Options"
+msgstr "Annunci della  Directory "
+
+#: includes/admin/settings/class-settings-bootstrap.php:274
+#, fuzzy
+msgid ""
+"Allow Business Directory to anonymously collect information about your "
+"installed plugins, themes and WP version?"
+msgstr ""
+"Consenti a BD di raccogliere informazioni anonime sui plugin installati, sui "
+"temi e sulla versione WP?"
+
+#: includes/admin/settings/class-settings-bootstrap.php:275
+#, fuzzy
+msgid "<a>Learn more</a> about what Business Directory tracks."
+msgstr "<a>Per saperne di più</a> Su cosa BD fa e non traccia."
+
+#: includes/admin/settings/class-settings-bootstrap.php:324
+#, fuzzy
+msgid ""
+"Enabling this sacrifices result quality to improve speed. This is helpful if "
+"you're on shared hosting plans, where database performance is an issue."
+msgstr ""
+"Abilitare questo fa sì che la BD sacrifichi la qualità dei risultati per "
+"migliorare la velocità. Questo è utile se siete su piani di hosting "
+"condiviso, dove le prestazioni del database è un problema."
+
+#: includes/admin/settings/class-settings-bootstrap.php:527
+#, fuzzy
+msgid ""
+"Business Directory uses the standard comment inclusion from WordPress, but "
+"most themes only allow for comments on posts, not pages. Some themes handle "
+"both. Business Directory is displayed on a page, so we need a theme that can "
+"handle both to show comments. Use the 2nd option if you want to allow "
+"comments on listings first, and if that doesn't work, try the 3rd option "
+"instead."
+msgstr ""
+"BD utilizza l'inclusione di commenti standard da WordPress, ma la maggior "
+"parte dei temi consente solo commenti sui messaggi e non sulle pagine. "
+"Alcuni temi trattano entrambi. BD viene visualizzato su una pagina, quindi "
+"abbiamo bisogno di un tema in grado di gestire sia per mostrare commenti. "
+"Utilizza la seconda opzione se vuoi consentire i commenti sugli elenchi in "
+"primo luogo e se ciò non funziona, prova invece la terza opzione."
+
+#: includes/admin/settings/class-settings-bootstrap.php:532
+#, fuzzy
+msgid ""
+"Include comment form, Business Directory invoked (use only if 2nd option "
+"doesn't work)"
+msgstr ""
+"Includi il modulo di commento, BD invocato (utilizza solo se la seconda "
+"opzione non funziona)"
+
+#: includes/admin/settings/class-settings-bootstrap.php:550
+#, fuzzy
+msgid "Prevent featured (sticky) status on Business Directory pages?"
+msgstr "Impedire lo stato (appiccicoso) delle pagine BD?"
+
+#: includes/admin/settings/class-settings-bootstrap.php:827
+#, fuzzy
+msgid "Use the Business Directory theme style for buttons"
+msgstr "Utilizzare lo stile del tema BD per i pulsanti BD"
+
+#: includes/admin/settings/class-settings-bootstrap.php:828
+#, fuzzy
+msgid "Use the WP theme style for Business Directory buttons"
+msgstr "Utilizzare lo stile del tema WP per i pulsanti BD"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1110
 msgid ""
@@ -147,6 +232,21 @@ msgstr[0] ""
 msgstr[1] ""
 "Se si utilizzano questi gateway, si consiglia di disattivarli se si desidera "
 "riscuotere i pagamenti in questa valuta."
+
+#: includes/admin/settings/class-settings-bootstrap.php:1208
+#, fuzzy
+msgid ""
+"An abandoned payment is when a user attempts to place a listing and gets to "
+"the end, but fails to complete their payment for the listing. This results "
+"in listings that look like they failed, when the user simply didn't complete "
+"the transaction.  Business Directory can remind them to come back and "
+"continue."
+msgstr ""
+"Un pagamento abbandonato è quando un utente tenta di immettere un elenco e "
+"arriva alla fine, ma non completa il suo pagamento per la quotazione. Ciò "
+"provoca gli elenchi che sembrano falliti, quando l'utente non ha "
+"semplicemente completato la transazione. BD può ricordare loro di tornare e "
+"continuare."
 
 #: includes/admin/upgrades/class-installer-installation-error.php:15
 msgid "Business Directory - Installation Failed"
@@ -422,6 +522,11 @@ msgstr "Gestione delle Donazioni ricevute"
 msgid "Create A Listing"
 msgstr "Inserisci Annuncio"
 
+#: includes/themes.php:922
+#, fuzzy
+msgid "ZIP file is not a valid Business Directory theme file."
+msgstr "Il file ZIP non è un file tema BD valido."
+
 #: includes/views/listing_contact.php:258
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \a\\t g:i a"
@@ -436,6 +541,24 @@ msgstr ""
 "Un errore sconosciuto si è verificato durante l'esportazione. Assicurati di "
 "avere spazio sufficiente sul disco e la memoria disponibile per PHP. "
 "Controllare i registri degli errori per i dettagli."
+
+#: templates/admin/csv-export.tpl.php:68
+#, fuzzy
+msgid ""
+"If you plan to re-import the listings into Business Directory and don't want "
+"new ones created, select this option!"
+msgstr ""
+"Se si prevede di reimportare gli elenchi in BD e non si desidera crearne "
+"nuovi, selezionare questa opzione!"
+
+#: templates/admin/debug-info.tpl.php:5
+#, fuzzy
+msgid ""
+"The following information can help our team debug possible problems with "
+"your setup."
+msgstr ""
+"Le seguenti informazioni possono aiutare gli sviluppatori di BDB a risolvere "
+"eventuali problemi con l'installazione."
 
 #: templates/admin/fees-index.tpl.php:17
 #, fuzzy
@@ -499,6 +622,106 @@ msgstr "I tuoi annunci esistenti NON saranno cancellati in questo modo."
 #: templates/admin/settings-reset.tpl.php:24
 msgid "Reset Defaults"
 msgstr "Ripristina Defaults"
+
+#: templates/admin/sidebar.tpl.php:3
+#, fuzzy
+msgid "PayPal Payments"
+msgstr "Sottoscrizione"
+
+#: templates/admin/sidebar.tpl.php:4
+#, fuzzy
+msgid "Google Maps"
+msgstr "Modulo Google Maps"
+
+#: templates/admin/sidebar.tpl.php:5
+#, fuzzy
+msgid "Regions"
+msgstr "Modulo Regioni"
+
+#: templates/admin/sidebar.tpl.php:6
+#, fuzzy
+msgid "ZIP Code Search"
+msgstr "Modulo di ricerca dei codici di avviamento postale"
+
+#: templates/admin/sidebar.tpl.php:7
+#, fuzzy
+msgid "Ratings"
+msgstr "Campo votazione"
+
+#: templates/admin/sidebar.tpl.php:8
+#, fuzzy
+msgid "Stripe Payments"
+msgstr "Visualizza Pagamenti"
+
+#: templates/admin/sidebar.tpl.php:9
+#, fuzzy
+msgid "Featured Levels"
+msgstr "Livello in primo piano"
+
+#: templates/admin/sidebar.tpl.php:10
+#, fuzzy
+msgid "Claim Listings"
+msgstr "Modulo di richieste Claim"
+
+#: templates/admin/sidebar.tpl.php:11
+#, fuzzy
+msgid "File Upload"
+msgstr "Modulo di caricamento file"
+
+#: templates/admin/sidebar.tpl.php:12
+#, fuzzy
+msgid "Discount Codes"
+msgstr "Modulo Codici Sconto"
+
+#: templates/admin/sidebar.tpl.php:13
+#, fuzzy
+msgid "PayFast Payments"
+msgstr "Modulo di pagamento PayFast"
+
+#: templates/admin/sidebar.tpl.php:17
+#, fuzzy
+msgid "Modern Business Theme"
+msgstr "Elegante tema di business"
+
+#: templates/admin/sidebar.tpl.php:18
+#, fuzzy
+msgid "Business Card Theme"
+msgstr "Tema del biglietto da visita"
+
+#: templates/admin/sidebar.tpl.php:19
+#, fuzzy
+msgid "Mobile Compact Theme"
+msgstr "Tema compatto mobile"
+
+#: templates/admin/sidebar.tpl.php:20
+#, fuzzy
+msgid "Restaurant Theme"
+msgstr "Tema del ristorante"
+
+#: templates/admin/sidebar.tpl.php:21
+#, fuzzy
+msgid "Tabbed Business Theme"
+msgstr "Tema di business a schede"
+
+#: templates/admin/sidebar.tpl.php:22
+#, fuzzy
+msgid "Elegant Business Theme"
+msgstr "Elegante tema di business"
+
+#: templates/admin/sidebar.tpl.php:29
+#, fuzzy
+msgid "Like this plugin?"
+msgstr "Tipiace questo plugin?"
+
+#: templates/admin/sidebar.tpl.php:49 templates/admin/sidebar.tpl.php:68
+#, fuzzy
+msgid "new"
+msgstr "nuovo"
+
+#: templates/admin/themes-install.tpl.php:21
+#, fuzzy
+msgid "Business Directory Theme archive (ZIP file)"
+msgstr "Archivio temi BD (file ZIP)"
 
 #: templates/parts/listing-buttons.tpl.php:43
 msgid "← Return to Directory"
@@ -1581,17 +1804,6 @@ msgctxt "listing metabox"
 msgid "Is Recurring?"
 msgstr "È ricorrente?"
 
-#: includes/admin/class-admin.php:235
-msgctxt "drip pointer"
-msgid ""
-"Find out how to create a compelling, thriving business directory from "
-"scratch in this ridiculously actionable (and FREE) 5-part email course. Get "
-"a FREE premium module just for signing up."
-msgstr ""
-"Scopri come creare da zero un'avvincente e fiorente directory aziendale in "
-"questo ridicolmente praticabile (e GRATUITO) corso di e-mail in 5 parti. "
-"Ottieni un modulo premium GRATUITO solo per la registrazione."
-
 #: includes/admin/class-admin.php:237
 msgctxt "drip pointer"
 msgid "Email Address:"
@@ -1763,15 +1975,6 @@ msgstr "Metadati aggiuntivi da esportare:"
 msgctxt "admin csv-export"
 msgid "Include unique IDs for each listing (sequence_id column)."
 msgstr "Includi gli ID univoci per ogni lista (sequence_id column)."
-
-#: templates/admin/csv-export.tpl.php:68
-msgctxt "admin csv-export"
-msgid ""
-"If you plan to re-import the listings into BD and don't want new ones "
-"created, select this option!"
-msgstr ""
-"Se si prevede di reimportare gli elenchi in BD e non si desidera crearne "
-"nuovi, selezionare questa opzione!"
 
 #: templates/admin/csv-export.tpl.php:74
 msgctxt "admin csv-export"
@@ -2039,11 +2242,6 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Il tema è stato aggiornato con successo."
 
-#: includes/themes.php:922
-msgctxt "themes"
-msgid "ZIP file is not a valid BD theme file."
-msgstr "Il file ZIP non è un file tema BD valido."
-
 #: includes/themes.php:930
 msgctxt "themes"
 msgid "Could not create themes directory."
@@ -2068,11 +2266,6 @@ msgstr "Carica il tema della directory"
 msgctxt "themes"
 msgid "This is a theme or skin from %s and is NOT a regular WordPress theme."
 msgstr "Questo è un tema da %s e NON è un tema regolare WordPress."
-
-#: templates/admin/themes-install.tpl.php:21
-msgctxt "themes"
-msgid "BD Theme archive (ZIP file)"
-msgstr "Archivio temi BD (file ZIP)"
 
 #: templates/admin/themes-install.tpl.php:30
 msgctxt "themes"
@@ -2588,27 +2781,27 @@ msgctxt "fees admin"
 msgid "Payments are currently turned off."
 msgstr "I pagamenti sono attualmente disattivati."
 
-#: templates/admin/fees-index.tpl.php:28
+#: templates/admin/fees-index.tpl.php:27
 msgctxt "fees admin"
 msgid "Order fees on the frontend by:"
 msgstr "Ordina canoni sul frontend per:"
 
-#: templates/admin/fees-index.tpl.php:38
+#: templates/admin/fees-index.tpl.php:37
 msgctxt "fees admin"
 msgid "↑ Ascending"
 msgstr "↑ Ascendente"
 
-#: templates/admin/fees-index.tpl.php:39
+#: templates/admin/fees-index.tpl.php:38
 msgctxt "fees admin"
 msgid "↓ Descending"
 msgstr "↓ Discendente"
 
-#: templates/admin/fees-index.tpl.php:47
+#: templates/admin/fees-index.tpl.php:46
 msgctxt "fees admin"
 msgid "Drag and drop to re-order fees."
 msgstr "Trascinare e rilasciare per ordinare le Donazioni."
 
-#: templates/admin/fees-index.tpl.php:67
+#: templates/admin/fees-index.tpl.php:66
 msgctxt "fees admin"
 msgid ""
 "These are all of the fee plans displayed to the user when they place a "
@@ -2621,19 +2814,19 @@ msgstr ""
 "quello che vedi qui. Quelli del<a>Non disponibile\n"
 "</a> il filtro diventa attivo quando si modifica la modalità di pagamento."
 
-#: templates/admin/fees-index.tpl.php:73 templates/admin/fees-index.tpl.php:87
-#: templates/admin/fees-index.tpl.php:119
+#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
+#: templates/admin/fees-index.tpl.php:118
 msgctxt "fees admin"
 msgid "Paid"
 msgstr "Pagato"
 
-#: templates/admin/fees-index.tpl.php:73 templates/admin/fees-index.tpl.php:87
-#: templates/admin/fees-index.tpl.php:119
+#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
+#: templates/admin/fees-index.tpl.php:118
 msgctxt "fees admin"
 msgid "Free"
 msgstr "Gratis"
 
-#: templates/admin/fees-index.tpl.php:82
+#: templates/admin/fees-index.tpl.php:81
 msgctxt "fees admin"
 msgid ""
 "These are all of the fee plans that aren't available because you're in \"%s"
@@ -2644,7 +2837,7 @@ msgstr ""
 "modalità \"%s\". Quelli del filtro attivo diventeranno non disponibili "
 "quando si modifica la modalità di pagamento."
 
-#: templates/admin/fees-index.tpl.php:95
+#: templates/admin/fees-index.tpl.php:94
 msgctxt "fees admin"
 msgid ""
 "These fee plans were disabled by the admin and will not show to the end user "
@@ -2654,7 +2847,7 @@ msgstr ""
 "verranno mostrati all'utente finale indipendentemente dalla modalità fino a "
 "quando non vengono abilitati."
 
-#: templates/admin/fees-index.tpl.php:113
+#: templates/admin/fees-index.tpl.php:112
 msgctxt "fees admin"
 msgid ""
 "These are all of the fee plans you have configured. Not all of them are "
@@ -3553,34 +3746,15 @@ msgctxt "payments admin"
 msgid "Delete"
 msgstr "Elimina"
 
-#: includes/admin/page-debug.php:16
-msgctxt "debug-info"
-msgid "BD Info"
-msgstr "BD Info"
-
 #: includes/admin/page-debug.php:44
 msgctxt "debug-info"
 msgid "OK"
 msgstr "OK"
 
-#: includes/admin/page-debug.php:51
-msgctxt "debug-info"
-msgid "BD Options"
-msgstr "BD Opzioni"
-
 #: includes/admin/page-debug.php:75
 msgctxt "debug-info"
 msgid "Environment"
 msgstr "Ambiente"
-
-#: templates/admin/debug-info.tpl.php:5
-msgctxt "debug-info"
-msgid ""
-"The following information can help BD developers debug possible problems "
-"with your setup."
-msgstr ""
-"Le seguenti informazioni possono aiutare gli sviluppatori di BDB a risolvere "
-"eventuali problemi con l'installazione."
 
 #: templates/admin/debug-info.tpl.php:6
 msgctxt "debug-info"
@@ -3620,11 +3794,6 @@ msgid ""
 msgstr ""
 "<strong>IMPORTANTE:</strong> non è possibile accedere alle sottopagine della "
 "pagina principale della directory fino a quando la checkbox è spuntata."
-
-#: includes/admin/settings/class-settings-bootstrap.php:275
-msgctxt "admin settings"
-msgid "<a>Learn more</a> about what BD does and does NOT track."
-msgstr "<a>Per saperne di più</a> Su cosa BD fa e non traccia."
 
 #: includes/admin/settings/class-settings-bootstrap.php:289
 msgctxt "admin settings"
@@ -3679,13 +3848,6 @@ msgstr "Non includere i commenti negli elenchi"
 msgctxt "admin settings"
 msgid "Include comment form, theme invoked (standard option)"
 msgstr "Includi il modulo dei commento, il tema invocato (opzione standard)"
-
-#: includes/admin/settings/class-settings-bootstrap.php:532
-msgctxt "admin settings"
-msgid "Include comment form, BD invoked (use only if 2nd option doesn't work)"
-msgstr ""
-"Includi il modulo di commento, BD invocato (utilizza solo se la seconda "
-"opzione non funziona)"
 
 #: includes/admin/settings/class-settings-bootstrap.php:554
 msgctxt "admin settings"
@@ -3752,13 +3914,13 @@ msgid "Author"
 msgstr "Autore"
 
 #: includes/admin/settings/class-settings-bootstrap.php:718
-#: includes/functions.php:1268
+#: includes/functions.php:1269
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data di pubblicazione"
 
 #: includes/admin/settings/class-settings-bootstrap.php:719
-#: includes/functions.php:1269
+#: includes/functions.php:1270
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ultima modifica"
@@ -3792,16 +3954,6 @@ msgstr "Piano a pagamento Ordine personalizzato, poi Titolo"
 msgctxt "admin settings"
 msgid "You can manage your themes on <a>Directory Themes</a>."
 msgstr "Puoi gestire i tuoi temi su <a>Directory Themes</a>."
-
-#: includes/admin/settings/class-settings-bootstrap.php:827
-msgctxt "admin settings"
-msgid "Use the BD theme style for BD buttons"
-msgstr "Utilizzare lo stile del tema BD per i pulsanti BD"
-
-#: includes/admin/settings/class-settings-bootstrap.php:828
-msgctxt "admin settings"
-msgid "Use the WP theme style for BD buttons"
-msgstr "Utilizzare lo stile del tema WP per i pulsanti BD"
 
 #: includes/admin/settings/class-settings-bootstrap.php:986
 msgctxt "admin settings"
@@ -4208,12 +4360,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Carica Immagini"
 
-#: includes/functions.php:1266
+#: includes/functions.php:1267
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utente"
 
-#: includes/functions.php:1267
+#: includes/functions.php:1268
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data di registrazione"
@@ -4724,15 +4876,6 @@ msgctxt "settings"
 msgid "Data Collection"
 msgstr "Raccolta dati"
 
-#: includes/admin/settings/class-settings-bootstrap.php:274
-msgctxt "settings"
-msgid ""
-"Allow BD to anonymously collect information about your installed plugins, "
-"themes and WP version?"
-msgstr ""
-"Consenti a BD di raccogliere informazioni anonime sui plugin installati, sui "
-"temi e sulla versione WP?"
-
 #: includes/admin/settings/class-settings-bootstrap.php:281
 msgctxt "settings"
 msgid "Directory Search"
@@ -4761,17 +4904,6 @@ msgstr ""
 msgctxt "settings"
 msgid "Enable high performance searches?"
 msgstr "Consentire ricerche ad alte prestazioni?"
-
-#: includes/admin/settings/class-settings-bootstrap.php:324
-msgctxt "settings"
-msgid ""
-"Enabling this makes BD sacrifice result quality to improve speed. This is "
-"helpful if you're on shared hosting plans, where database performance is an "
-"issue."
-msgstr ""
-"Abilitare questo fa sì che la BD sacrifichi la qualità dei risultati per "
-"migliorare la velocità. Questo è utile se siete su piani di hosting "
-"condiviso, dove le prestazioni del database è un problema."
 
 #: includes/admin/settings/class-settings-bootstrap.php:330
 msgctxt "settings"
@@ -4970,31 +5102,10 @@ msgctxt "settings"
 msgid "Include comment form on listing pages?"
 msgstr "Inserisci modulo di commento sulle pagine di inserimento?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:527
-msgctxt "settings"
-msgid ""
-"BD uses the standard comment inclusion from WordPress, but most themes only "
-"allow for comments on posts, not pages. Some themes handle both. BD is "
-"displayed on a page, so we need a theme that can handle both to show "
-"comments. Use the 2nd option if you want to allow comments on listings "
-"first, and if that doesn't work, try the 3rd option instead."
-msgstr ""
-"BD utilizza l'inclusione di commenti standard da WordPress, ma la maggior "
-"parte dei temi consente solo commenti sui messaggi e non sulle pagine. "
-"Alcuni temi trattano entrambi. BD viene visualizzato su una pagina, quindi "
-"abbiamo bisogno di un tema in grado di gestire sia per mostrare commenti. "
-"Utilizza la seconda opzione se vuoi consentire i commenti sugli elenchi in "
-"primo luogo e se ciò non funziona, prova invece la terza opzione."
-
 #: includes/admin/settings/class-settings-bootstrap.php:541
 msgctxt "settings"
 msgid "Show listings under categories on main page?"
 msgstr "Mostra gli annunci sotto alle categorie nella pagina principale?"
-
-#: includes/admin/settings/class-settings-bootstrap.php:550
-msgctxt "settings"
-msgid "Prevent featured (sticky) status on BD pages?"
-msgstr "Impedire lo stato (appiccicoso) delle pagine BD?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:551
 msgctxt "settings"
@@ -5380,20 +5491,6 @@ msgstr "Messaggio di ringraziamento per il pagamento"
 msgctxt "settings"
 msgid "Ask users to come back for abandoned payments?"
 msgstr "Chiedere agli utenti di tornare per pagamenti abbandonati?"
-
-#: includes/admin/settings/class-settings-bootstrap.php:1208
-msgctxt "settings"
-msgid ""
-"An abandoned payment is when a user attempts to place a listing and gets to "
-"the end, but fails to complete their payment for the listing. This results "
-"in listings that look like they failed, when the user simply didn't complete "
-"the transaction.  BD can remind them to come back and continue."
-msgstr ""
-"Un pagamento abbandonato è quando un utente tenta di immettere un elenco e "
-"arriva alla fine, ma non completa il suo pagamento per la quotazione. Ciò "
-"provoca gli elenchi che sembrano falliti, quando l'utente non ha "
-"semplicemente completato la transazione. BD può ricordare loro di tornare e "
-"continuare."
 
 #: includes/admin/settings/class-settings-bootstrap.php:1218
 msgctxt "settings"
@@ -7030,12 +7127,12 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "La didascalia per %s è necessaria."
 
-#: includes/functions.php:1349
+#: includes/functions.php:1350
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Ritorno ai risultati"
 
-#: includes/functions.php:1353 includes/functions.php:1358
+#: includes/functions.php:1354 includes/functions.php:1359
 msgctxt "templates"
 msgid "Go back"
 msgstr "Va indietro"
@@ -8768,205 +8865,109 @@ msgctxt "admin forms"
 msgid "required"
 msgstr "richiesto"
 
-#: templates/admin/fees-index.tpl.php:133 templates/admin/sidebar.tpl.php:13
+#: templates/admin/fees-index.tpl.php:132
 msgctxt "admin sidebar"
 msgid "PayPal Gateway Module"
 msgstr "Modulo PayPal Gateway"
 
-#: templates/admin/fees-index.tpl.php:134 templates/admin/sidebar.tpl.php:14
+#: templates/admin/fees-index.tpl.php:133
 msgctxt "admin sidebar"
 msgid "2Checkout Gateway Module"
 msgstr "Modulo Gateway 2Checkout"
 
-#: templates/admin/fees-index.tpl.php:135 templates/admin/sidebar.tpl.php:5
+#: templates/admin/fees-index.tpl.php:134
 msgctxt "admin sidebar"
 msgid "PayFast Payment Module"
 msgstr "Modulo di pagamento PayFast"
 
-#: templates/admin/fees-index.tpl.php:136 templates/admin/sidebar.tpl.php:6
+#: templates/admin/fees-index.tpl.php:135
 msgctxt "admin sidebar"
 msgid "Stripe Payment Module"
 msgstr "Modulo di pagamento Stripe"
 
-#: templates/admin/sidebar.tpl.php:3
-msgctxt "admin sidebar"
-msgid "Discount Codes Module"
-msgstr "Modulo Codici Sconto"
-
-#: templates/admin/sidebar.tpl.php:4
-msgctxt "admin sidebar"
-msgid "Claim Listings Module"
-msgstr "Modulo di richieste Claim"
-
-#: templates/admin/sidebar.tpl.php:7
-msgctxt "admin sidebar"
-msgid "File Upload Module"
-msgstr "Modulo di caricamento file"
-
-#: templates/admin/sidebar.tpl.php:8
-msgctxt "admin sidebar"
-msgid "Featured Levels Module"
-msgstr "Modulo Livelli in primo piano"
-
-#: templates/admin/sidebar.tpl.php:9
-msgctxt "admin sidebar"
-msgid "ZIP Code Search Module"
-msgstr "Modulo di ricerca dei codici di avviamento postale"
-
-#: templates/admin/sidebar.tpl.php:10
-msgctxt "admin sidebar"
-msgid "Regions Module"
-msgstr "Modulo Regioni"
-
-#: templates/admin/sidebar.tpl.php:11
-msgctxt "admin sidebar"
-msgid "Ratings Module"
-msgstr "Modulo Valutazioni"
-
-#: templates/admin/sidebar.tpl.php:12
-msgctxt "admin sidebar"
-msgid "Google Maps Module"
-msgstr "Modulo Google Maps"
-
-#: templates/admin/sidebar.tpl.php:18
-msgctxt "admin sidebar"
-msgid "Business Card Theme"
-msgstr "Tema del biglietto da visita"
-
-#: templates/admin/sidebar.tpl.php:19
-msgctxt "admin sidebar"
-msgid "Mobile Compact Theme"
-msgstr "Tema compatto mobile"
-
-#: templates/admin/sidebar.tpl.php:20
-msgctxt "admin sidebar"
-msgid "Restaurant Theme"
-msgstr "Tema del ristorante"
-
-#: templates/admin/sidebar.tpl.php:21
-msgctxt "admin sidebar"
-msgid "Tabbed Business Theme"
-msgstr "Tema di business a schede"
-
-#: templates/admin/sidebar.tpl.php:22
-msgctxt "admin sidebar"
-msgid "Elegant Business Theme"
-msgstr "Elegante tema di business"
-
-#: templates/admin/sidebar.tpl.php:29
-msgctxt "admin sidebar"
-msgid "Like this plugin?"
-msgstr "Tipiace questo plugin?"
-
-#: templates/admin/sidebar.tpl.php:31
-msgctxt "admin sidebar"
-msgid "Why not do any or all of the following:"
-msgstr "Perché non eseguire una o tutte le operazioni seguenti:"
-
-#: templates/admin/sidebar.tpl.php:33
-msgctxt "admin sidebar"
-msgid "Give it a good rating on WordPress.org."
-msgstr "Dare un buon voto su WordPress.org."
-
-#: templates/admin/sidebar.tpl.php:34
-msgctxt "admin sidebar"
-msgid "Let other people know that it works with your WordPress setup."
-msgstr ""
-"Consenti agli altri di sapere che funziona con la configurazione di "
-"WordPress."
-
-#: templates/admin/sidebar.tpl.php:35
-msgctxt "admin sidebar"
-msgid "Buy a Premium Module"
-msgstr "Comprare un modulo Premium"
-
-#: templates/admin/sidebar.tpl.php:42
+#: templates/admin/sidebar.tpl.php:40
 msgctxt "admin sidebar"
 msgid "Get a Premium Module"
 msgstr "Ottenere un modulo Premium"
 
-#: templates/admin/sidebar.tpl.php:45 templates/admin/sidebar.tpl.php:64
+#: templates/admin/sidebar.tpl.php:43 templates/admin/sidebar.tpl.php:62
 msgctxt "admin sidebar"
 msgid "best deal"
 msgstr "miglior offerta"
 
-#: templates/admin/sidebar.tpl.php:45
+#: templates/admin/sidebar.tpl.php:43
 msgctxt "admin sidebar"
 msgid "Combo Pack"
 msgstr "Pacchetto Combo"
 
-#: templates/admin/sidebar.tpl.php:45
+#: templates/admin/sidebar.tpl.php:43
 msgctxt "admin sidebar"
 msgid "(All Modules)"
 msgstr "(Tutti i moduli)"
 
-#: templates/admin/sidebar.tpl.php:51 templates/admin/sidebar.tpl.php:70
-msgctxt "admin sidebar"
-msgid "new"
-msgstr "nuovo"
-
-#: templates/admin/sidebar.tpl.php:61
+#: templates/admin/sidebar.tpl.php:59
 msgctxt "admin sidebar"
 msgid "Get a Directory Theme"
 msgstr "Ottenere un tema della directory"
 
-#: templates/admin/sidebar.tpl.php:64
+#: templates/admin/sidebar.tpl.php:62
 msgctxt "admin sidebar"
 msgid "Theme Pack"
 msgstr "Pacchetto a tema"
 
-#: templates/admin/sidebar.tpl.php:64
+#: templates/admin/sidebar.tpl.php:62
 msgctxt "admin sidebar"
 msgid "(All Themes)"
 msgstr "(Tutti i temi)"
 
-#: templates/admin/sidebar.tpl.php:80
+#: templates/admin/sidebar.tpl.php:78
 msgctxt "admin sidebar"
 msgid "Found a bug? Need support?"
 msgstr "Trovato un bug? Hai bisogno di supporto?"
 
-#: templates/admin/sidebar.tpl.php:87
+#: templates/admin/sidebar.tpl.php:85
+#, fuzzy
 msgctxt "admin sidebar"
-msgid "If you've found a bug or need support <a>visit the forums!</a>"
+msgid "If you've found a bug or need support <a>let us know!</a>"
 msgstr ""
 "Se hai trovato un bug o hai bisogno di supporto <a>visita il forum!</a>"
 
-#: templates/admin/sidebar.tpl.php:92
+#: templates/admin/sidebar.tpl.php:90
 msgctxt "admin sidebar"
 msgid "Full plugin documentation"
 msgstr "Documentazione completa dei plugin"
 
-#: templates/admin/sidebar.tpl.php:93
+#: templates/admin/sidebar.tpl.php:91
 msgctxt "admin sidebar"
 msgid "Quick Start Guide"
 msgstr "Guida rapida"
 
-#: templates/admin/sidebar.tpl.php:94
+#: templates/admin/sidebar.tpl.php:92
 msgctxt "admin sidebar"
 msgid "Video Tutorials"
 msgstr "Video Tutorial"
 
-#: templates/admin/sidebar.tpl.php:102
+#: templates/admin/sidebar.tpl.php:100
 msgctxt "admin sidebar"
 msgid "Installed Modules"
 msgstr "Moduli installati"
 
-#: templates/admin/sidebar.tpl.php:113 templates/admin/sidebar.tpl.php:122
+#: templates/admin/sidebar.tpl.php:111 templates/admin/sidebar.tpl.php:120
 msgctxt "admin sidebar"
 msgid "Installed"
 msgstr "Installato"
 
-#: templates/admin/sidebar.tpl.php:115 templates/admin/sidebar.tpl.php:122
+#: templates/admin/sidebar.tpl.php:113 templates/admin/sidebar.tpl.php:120
 msgctxt "admin sidebar"
 msgid "Not Installed"
 msgstr "Non installato"
 
-#: templates/admin/sidebar.tpl.php:121
+#: templates/admin/sidebar.tpl.php:119
 msgctxt "admin sidebar"
 msgid "Enhanced Categories Module"
 msgstr "Modulo Categorie migliorate"
 
-#: templates/admin/fees-index.tpl.php:148
+#: templates/admin/fees-index.tpl.php:147
 msgctxt "admin templates"
 msgid ""
 "It does not appear you have any of the payment gateway modules enabled. "
@@ -8981,12 +8982,12 @@ msgstr ""
 "pagare una tassa per gli elenchi. Per acquistare gateway di pagamento "
 "aggiuntivi, utilizzare i pulsanti qui sotto o visita %s."
 
-#: templates/admin/fees-index.tpl.php:167
+#: templates/admin/fees-index.tpl.php:166
 msgctxt "admin templates"
 msgid "Already installed."
 msgstr "Già installato."
 
-#: templates/admin/fees-index.tpl.php:174
+#: templates/admin/fees-index.tpl.php:173
 #, fuzzy
 msgctxt "admin templates"
 msgid ""
@@ -9701,6 +9702,40 @@ msgstr "Scegli un piano tariffario per il tuo annuncio:"
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Indirizzo"
+
+#~ msgctxt "debug-info"
+#~ msgid "BD Info"
+#~ msgstr "BD Info"
+
+#~ msgctxt "debug-info"
+#~ msgid "BD Options"
+#~ msgstr "BD Opzioni"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Featured Levels Module"
+#~ msgstr "Modulo Livelli in primo piano"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Ratings Module"
+#~ msgstr "Modulo Valutazioni"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Why not do any or all of the following:"
+#~ msgstr "Perché non eseguire una o tutte le operazioni seguenti:"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Give it a good rating on WordPress.org."
+#~ msgstr "Dare un buon voto su WordPress.org."
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Let other people know that it works with your WordPress setup."
+#~ msgstr ""
+#~ "Consenti agli altri di sapere che funziona con la configurazione di "
+#~ "WordPress."
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Buy a Premium Module"
+#~ msgstr "Comprare un modulo Premium"
 
 #, fuzzy
 #~ msgctxt "authorize-net"
