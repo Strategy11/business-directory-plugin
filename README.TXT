@@ -1,6 +1,6 @@
 === Business Directory Plugin - Easy Listing Directories for WordPress ===
 Contributors: businessdirectoryplugin
-Tags: business directory, listings, directory plugin, staff directory, member directory, company business directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
+Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.5
@@ -13,67 +13,64 @@ Build local directory listings, a Yellow-Pages business directory, a Yelp-like r
 
 [Main Site](https://businessdirectoryplugin.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) | [Docs](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-Business Directory Plugin is the most popular, versatile, widely-installed, easy to use, and best-supported WordPress directory plugin available. Increase interaction on your website, improve customer retention and a add revenue-generating section to your site with Business Directory Plugin!
+Business Directory Plugin is the most popular, versatile, and easy to use WordPress directory plugin available. Increase interaction on your WordPress site, improve customer retention and add a generate revenue with our WordPress business directory plugin!
 
 Our easy WordPress directory plugin allows you to take any listings you want and build a local directory, simple directory of business providers, a real estate listings site, a Yellow-Pages style directory, a Yelp clone with review sections, a church directory, an address book directory, a book review site (like Goodreads), and much more.
 
-Not only can you build a business directory, but you can also build any other kind of listings directory. Build a member directory, team or staff directory, company directory, and any other directory with our easy listing plugin.
+Not only can you build a business directory, but you can also build any other kind of listings directory. Build a member directory, team or staff directory, company directory, and more with our easy listing plugin.
 
 Are you ready for a simple directory website builder for WordPress? With Business Directory Plugin, you can be in control without a developer.
 
 Need a classifieds listings site? Try [Another WordPress Classifieds Plugin - AWPCP](https://wordpress.org/plugins/another-wordpress-classifieds-plugin/).
 
 == Get Simple Listing Solutions ==
-Here are just a few things our community is doing with Business Directory Plugin for WordPress to build connections, help communities, and grow traffic:
+Here are just a few things our community is doing to build connections, help communities, and grow traffic with our directory website builder:
 
-* Start a listing service for providers (like counselors, plumbers, electricians, house cleaning, locksmiths, therapists, wedding vendors, veterinarians, consultants, photographers, artists, authors, etc.)
-* Make a Yelp-clone directory for business reviews to connect travelers to hotels, tours, local businesses, and other visitor attractions.
-* Help people find community resources for a city or small community (like sporting club listings, a church directory, local farms with produce, and Chamber of Commerce).
+* Start a listing service for providers. (Like counselors, plumbers, electricians, house cleaning, locksmiths, therapists, wedding vendors, veterinarians, consultants, photographers, artists, authors, etc.)
+* Make a Yelp-clone with reviews to connect travelers to hotels, tours, local businesses, and other visitor attractions.
+* Help people find resources for a city or small community. (Like sporting club listings, a church directory, local farms with produce, and Chamber of Commerce.)
 * Advertise businesses & sell listings to business owners.
 * Offer listings in a member directory as a membership feature.
 * Help students make connections to study groups and an academic staff directory.
 
-Creating an online directory makes you the "go to" source of your niche. Download and install Business Directory Plugin for WordPress now. It's fast, easy, and flexible.
+Create an online directory to become the “go to” source of your niche. Download and install Business Directory Plugin for WordPress now. It’s fast, easy, and flexible.
 
 == Free Listing Plugin Features ==
 See all [features](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
-* Fully customizable form fields
+* Fully customizable form fields to submit listings
 * Upload images per listing, allow restricted numbers of images based on fee plan
 * Lots of image options: drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
-* Accept paid or free listings in your directory
-* Accept payments using Authorize.net (requires Authorize.net account)
-* Full support for recurring payments (in most gateways: PayPal, Authorize.net, Stripe)
+* Accept paid or free listings in your directory with Authorize.net
+* Full support for recurring payments
 * Allow for featured/sticky listings for an upgrade fee
-* Widgets for Featured, Latest and Random listings. Search widget as well
+* Widgets for Featured, Latest and Random listings, and a Search widget.
 * Create multiple fee plans, which can be assigned to categories for posting
 * Built in CSV import and export for easy directory listing creation
-* Support for reCAPTCHA to avoid spam listings
+* Avoid spam listings with ReCaptcha
 * Sorting options for categories, listings, and front-end for users to choose sort order
-* Users who post can edit listings without access to WP dashboard. Business Directory plugin is also a listing manager.
+* Users who post can edit listings without access to WP dashboard. Our Business directory software is also a listing manager.
 * SEO Friendly using Yoast SEO
-* Configurable quick-search field and sorting bar for listings for simple directory searches
+* Quick-search and sorting bar for listings for simple directory searches
 * Advanced search screen with ability to show/hide fields available for search
 * Mobile-friendly, responsive support when installed with a responsive theme 
-* Multilingual support in your directory with WPML
-* Integrates with popular plugins like Yoast SEO, NavXT Breadcrumbs and WP-PageNavi for easy use
+* Multilingual directories with WPML
+* Integrates with popular plugins like NavXT Breadcrumbs and WP-PageNavi for easy use
 
 == Professional Directory Software Add-ons ==
-These are optional, paid modules that you can use to enhance Business Directory Plugin's functionality and
-support future development.
+Create a directory with more functionality with extra add-ons.
 
-For a complete and detailed list of business directory features, please visit: [BusinessDirectoryPlugin.com](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
+For a detailed list of business directory features, please visit: [BusinessDirectoryPlugin.com](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-* [File Upload Module](https://businessdirectoryplugin.com/downloads/file-attachments-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Allow users to upload and manage attachments on directory listings. Include PDFs, text files, and images in business listings.
-* [Featured Levels Module](https://businessdirectoryplugin.com/downloads/featured-levels-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Assign features to paid or sticky listing plans to give users incentive to upgrade.
-* [ZIP Code Search Module](https://businessdirectoryplugin.com/downloads/zip-search-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - ZIP code/postal code radius and proximity searches supporting a number of countries.
-* [Regions Module](https://businessdirectoryplugin.com/downloads/regions-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Location based directory listing result filtering.
-* [Ratings Module](https://businessdirectoryplugin.com/downloads/ratings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Create reviews with connections to each listing to rate businesses (with Schema.org microformat). It's a WordPress review plugin!
-* [Google Maps Module](https://businessdirectoryplugin.com/downloads/google-maps-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Display the geo location of the business for a geodirectory (categories, search, details -- with custom map sizes)
-* [Discount Codes Module](https://businessdirectoryplugin.com/downloads/discount-codes-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Ability to offer discount codes based on a % or fixed amount with expirations.
-* [Claim Listings Module](https://businessdirectoryplugin.com/downloads/claim-listings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Post claimable listings in your business directory that other users can pay (or not) to claim.
-* Images displayed with categories (using the Enhanced Categories module)
-* Display Category Icons with Parent-Child Category Navigation (using the Enhanced Category Module)
+* [File Upload](https://businessdirectoryplugin.com/downloads/file-attachments-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Allow users to upload and manage attachments on directory listings. Include PDFs, text files, and images in business listings.
+* [Featured Levels](https://businessdirectoryplugin.com/downloads/featured-levels-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Assign features to paid or sticky listing plans to give users incentive to upgrade.
+* [ZIP Code Search](https://businessdirectoryplugin.com/downloads/zip-search-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - ZIP code/postal code radius and proximity searches supporting a number of countries.
+* [Regions](https://businessdirectoryplugin.com/downloads/regions-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Location based directory listing result filtering.
+* [Ratings and Reviews](https://businessdirectoryplugin.com/downloads/ratings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Create reviews with connections to each listing to rate businesses (with Schema.org microformat). It's a WordPress review plugin!
+* [Google Maps](https://businessdirectoryplugin.com/downloads/google-maps-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Display the geo location of the business for a geodirectory (categories, search, details -- with custom map sizes)
+* [Discount Codes](https://businessdirectoryplugin.com/downloads/discount-codes-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Ability to offer discount codes based on a % or fixed amount with expirations.
+* [Claim Listings](https://businessdirectoryplugin.com/downloads/claim-listings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Post claimable listings in your business directory that other users can pay (or not) to claim.
+* Enhanced Categories - Display images or icons with categories, with Parent-Child Categories.
 
 == Payment Gateways for Paid Business Directory Listings (Premium) ==
 
@@ -83,7 +80,7 @@ For a complete and detailed list of business directory features, please visit: [
 * [Authorize.net Gateway](https://businessdirectoryplugin.com/knowledge-base/authorize-net-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
 == Premium Business Directory Themes ==
-Transform your directory the easy way. With a few clicks, our themes will re-skin your directory. Our directory templates are designed for more customized directories without taking over as a full WordPress theme.
+Transform your WP directory site the easy way. With a few clicks, our themes will re-skin your directory. Our business directory templates are designed not to take over as a full WordPress theme.
 
 * [Theme Pack](https://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) (best deal!)
 * [Elegant Grid Theme](https://businessdirectoryplugin.com/downloads/elegant-grid-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
@@ -96,12 +93,12 @@ Transform your directory the easy way. With a few clicks, our themes will re-ski
 
 For more information please visit [businessdirectoryplugin.com](https://businessdirectoryplugin.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-== Usage Doc ==
+== Docs ==
 
-For complete documentation on the plugin, please visit the [BD Documentation Site](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion). We also have a complete [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
+For complete documentation on the plugin, please visit our [Business Directory Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion). We also have a complete [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
 == Installation ==
-Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) page for instructions on how to get going quickly with Business Directory Plugin.
+Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) page for instructions on how to get going quickly with our business directory software.
 
 [Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for the plugin is also available.
 
@@ -122,7 +119,7 @@ Yes we do. They can be found [here](https://businessdirectoryplugin.com/video-tu
 = Will Business Directory Plugin work with my theme? =
 Our Directory plugin will work with any well-written, WP compliant theme. Generally speaking, paid themes tend to be higher quality than free ones.
 
-Whatever theme you pick, we recommend using the Theme Check plugin (available for free on WordPress.org) to validate how WordPress-compliant that theme actually is. The more errors and warnings you see on the theme when you run that check, the worse the theme is. You can read more about it at https://wordpress.org/plugins/theme-check/
+Whatever theme you pick, we recommend using the Theme Check plugin (available for free on WordPress.org) to validate a theme. The more errors and warnings you see on the theme when you run that check, the worse the theme is. You can read more about it at https://wordpress.org/plugins/theme-check/
 
 = Can Business Directory Plugin be translated into my language? =
 Yes it can. We offer many user-provided translations under the /languages folder. It is already available in the following languages:
@@ -139,7 +136,9 @@ Yes it can. We offer many user-provided translations under the /languages folder
 And you can also easily [translate it yourself](https://translate.wordpress.org/projects/wp-plugins/business-directory-plugin/).
 
 = Is this plugin compatible with WordPress Multisite (WPMU)? =
-Yes it is. However, you cannot "network-activate" the plugin (as this will share the database). Activate it on only the subsites on which you need a directory. This can be done under Plugins->Add New as the Administrator user. Do not "network activate" as the "super admin".
+Yes it is. However, you cannot "network activate" the plugin (as this will share the database). Activate it on only the sub sites on which you need a directory.
+
+This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 = What types of directories can I build? =
 Our directory website builder software combined with our add-on modules is the most powerful business directory plugin on the market. The options are limitless. Here are a few types of directories you can create:
@@ -148,7 +147,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Company directory
 * Team directory
 * Member directory
-* Staff directory
+* Staff directory / Employee directory
 * Hotel directory
 * Medical directory
 * Restaurant directory
