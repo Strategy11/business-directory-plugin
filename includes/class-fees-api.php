@@ -55,17 +55,20 @@ class WPBDP_Fees_API {
 
         if ( 0 === $count ) {
             // Add free fee to the DB.
-            $wpdb->insert( $wpdb->prefix . 'wpbdp_plans',
-                           array( 'id' => 0,
-                                  'tag' => 'free',
-                                  'label' => _x( 'Free Listing', 'fees-api', 'business-directory-plugin' ),
-                                  'amount' => 0.0,
-                                  'images' => absint( wpbdp_get_option( 'free-images' ) ),
-                                  'days' => absint( wpbdp_get_option( 'listing-duration' ) ),
-                                  'supported_categories' => 'all',
-                                  'pricing_model' => 'flat',
-                                  'sticky' => 0,
-                                  'enabled' => 1 ) );
+            $wpdb->insert(
+                $wpdb->prefix . 'wpbdp_plans',
+                array(
+                    'tag' => 'free',
+                    'label' => _x( 'Free Listing', 'fees-api', 'business-directory-plugin' ),
+                    'amount' => 0.0,
+                    'images' => absint( wpbdp_get_option( 'free-images' ) ),
+                    'days' => absint( wpbdp_get_option( 'listing-duration' ) ),
+                    'supported_categories' => 'all',
+                    'pricing_model' => 'flat',
+                    'sticky' => 0,
+                    'enabled' => 1
+                )
+            );
             $fee_id = $wpdb->insert_id;
 
             // Update all "free fee" listings to use this.
