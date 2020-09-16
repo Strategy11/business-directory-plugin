@@ -19,14 +19,14 @@ Business Directory Plugin is the most popular, versatile, and easy to use WordPr
 
 Our easy WordPress directory plugin allows you to take the listings you want and build a local directory, simple directory of business providers, a real estate listings site, a Yellow-Pages directory, a Yelp clone with review sections, a church directory, an address book directory, a book review site (like Goodreads), and much more.
 
-Not only can you create business listings, but you can also build any other kind of listings directory. Build a member directory, team or staff directory, company directory, and other web directory sites with our easy listing plugin.
+Not only can you create business listings, but you can also build any other kind of listings directory. Build a team or employee directory, company directory, and other web directory sites with our easy listing plugin.
 
 Need a classifieds listings site? Try [Another WordPress Classifieds Plugin - AWPCP](https://wordpress.org/plugins/another-wordpress-classifieds-plugin/).
 
 == Get Simple Listing Solutions ==
 Here are just a few things our community is doing to build connections, help communities, and grow traffic with our directory website builder:
 
-* Start a listing service for providers. (Like counselors, plumbers, electricians, house cleaning, locksmiths, therapists, wedding vendors, veterinarians, consultants, photographers, artists, authors, etc.)
+* Start a listing manager service for providers. (Like counselors, plumbers, electricians, house cleaning, locksmiths, therapists, wedding vendors, veterinarians, consultants, photographers, artists, authors, etc.)
 * Make a Yelp-clone with reviews to connect travelers to hotels, tours, local businesses, and other visitor attractions.
 * Help people find resources for a city or small community. (Like sporting club listings, a church directory, local farms with produce, and Chamber of Commerce.)
 * Advertise businesses & sell listings to business owners.
@@ -35,7 +35,7 @@ Here are just a few things our community is doing to build connections, help com
 
 Create an online directory to become the “go to” source of your niche. Download and install Business Directory Plugin for WordPress now. It’s fast, easy, and flexible.
 
-== Free Listing Plugin Features ==
+== Free WordPress Listing Plugin Features ==
 See all [features](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
 * Fully customizable form fields to submit listings
@@ -49,7 +49,7 @@ See all [features](https://businessdirectoryplugin.com/features/?utm_source=wpre
 * Built in CSV import and export for easy directory listing creation
 * Avoid spam listings with ReCaptcha
 * Sorting options for categories, listings, and front-end for users to choose sort order
-* Users who post can edit listings without access to WP dashboard. Our Business directory software is also a listing manager.
+* Users who post can edit listings without access to the WP dashboard. Our Business directory software is a great listing manager.
 * SEO Friendly using Yoast SEO
 * Quick-search and sorting bar for listings for simple directory searches
 * Advanced search screen with ability to show/hide fields available for search
@@ -58,7 +58,7 @@ See all [features](https://businessdirectoryplugin.com/features/?utm_source=wpre
 * Integrates with popular plugins like NavXT Breadcrumbs and WP-PageNavi for easy use
 
 == Professional Directory Software Add-ons ==
-Create a directory with more functionality with extra add-ons.
+Create an easy directory with more functionality with extra add-ons.
 
 For a detailed list of features, please visit: [BusinessDirectoryPlugin.com](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
@@ -117,7 +117,7 @@ Yes it can. You can do this by creating fee plans for 0.00 and some other paid a
 Yes we do. They can be found [here](https://businessdirectoryplugin.com/video-tutorials/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
 = Will Business Directory Plugin work with my theme? =
-Our Directory plugin will work with any well-written, WP compliant theme. Generally speaking, paid themes tend to be higher quality than free ones.
+Our WP Directory plugin will work with any well-written, WP compliant theme. Generally speaking, paid themes tend to be higher quality than free ones.
 
 Whatever theme you pick, we recommend using the Theme Check plugin (available for free on WordPress.org) to validate a theme. The more errors and warnings you see on the theme when you run that check, the worse the theme is. You can read more about it at https://wordpress.org/plugins/theme-check/
 
@@ -185,7 +185,7 @@ Our directory website builder software combined with our add-on modules is the m
 
 = Version 5.7.1 =
 * Fix Random Listings shortcode attributes. (#4601)
-* Add data-breakpoints to directory container. (#4607)
+* Add data-breakpoints to listing container. (#4607)
 * Validate variable type is string before applying using function for string-type. (#4608)
 * Fix User selector script. (#4614)
 * Add missing parameter for installer class, required for uninstall process.
