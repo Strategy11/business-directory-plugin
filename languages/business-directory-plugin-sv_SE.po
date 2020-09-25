@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-09 13:07:48+00:00\n"
+"POT-Creation-Date: 2020-09-25 21:07:19+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgstr "Annonsen förfallit."
 
 #: includes/admin/class-admin-listings.php:225
 #: includes/admin/class-listing-owner.php:91
-#: includes/helpers/class-listing-owner.php:110
+#: includes/helpers/class-listing-owner.php:91
 #, fuzzy
 msgid "Listing Owner"
 msgstr "Annonsen förfallit."
@@ -83,9 +83,8 @@ msgstr "Notering skickas in av admin. Betalning hoppas över."
 
 #: includes/admin/class-listing-owner.php:66
 #: includes/admin/class-listing-owner.php:93
-#: includes/helpers/class-listing-owner.php:31
-#: includes/helpers/class-listing-owner.php:85
-#: includes/helpers/class-listing-owner.php:112
+#: includes/helpers/class-listing-owner.php:66
+#: includes/helpers/class-listing-owner.php:93
 #, fuzzy
 msgid "Please select a user"
 msgstr "Välj en kategori."
@@ -463,7 +462,8 @@ msgstr "Företagsadress"
 msgid "ZIP Code"
 msgstr "Postnummer"
 
-#: includes/functions.php:554
+#: includes/functions.php:554 templates/admin/fees-index.tpl.php:72
+#: templates/admin/fees-index.tpl.php:85 templates/admin/fees-index.tpl.php:106
 msgid "Free"
 msgstr "Gratis"
 
@@ -546,15 +546,125 @@ msgstr ""
 "Följande information kan hjälpa BD utvecklare felsöka eventuella problem med "
 "din konfiguration."
 
-#: templates/admin/fees-index.tpl.php:17
+#: templates/admin/fees-index.tpl.php:7
+#, fuzzy
+msgid "Add New Listing Fee"
+msgstr "Lägg till ny avgift"
+
+#: templates/admin/fees-index.tpl.php:16
+#, fuzzy
+msgid "Payments are currently turned off."
+msgstr "Betalningar för närvarande avstängt."
+
+#. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:20
 #, fuzzy
 msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"To manage fees you need to go to the %1$sManage Options - Payment%2$s page "
 "and check the box next to 'Turn On Payments' under 'Payment Settings'."
 msgstr ""
 "För att hantera avgifter du behöver för att gå till <a>Hantera Alternativ - "
 "Betalning</a> sida och markera rutan bredvid \"Aktivera betalningar\" under "
 "\"Betalningsinställningar\"."
+
+#: templates/admin/fees-index.tpl.php:34
+#, fuzzy
+msgid "Order fees on the frontend by:"
+msgstr "Order avgifter på frontend efter:"
+
+#: templates/admin/fees-index.tpl.php:44
+#, fuzzy
+msgid "↑ Ascending"
+msgstr "↑ Stigande"
+
+#: templates/admin/fees-index.tpl.php:45
+#, fuzzy
+msgid "↓ Descending"
+msgstr "↓ Fallande"
+
+#: templates/admin/fees-index.tpl.php:53
+#, fuzzy
+msgid "Drag and drop to re-order fees."
+msgstr "Dra och släpp för att ändra ordning på avgifter"
+
+#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
+#. opening <a> tag, %3$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:71
+#, fuzzy
+msgid ""
+"These are all of the fee plans displayed to the user when they place a "
+"listing. Your current mode of \"%1$s\" restricts what you see here. Those on "
+"the %2$sNot Available%3$s filter will become active when you change the "
+"payment mode."
+msgstr ""
+"Dessa är alla avgiftsplanerna som visas för användaren när de placerar en "
+"annons. Din nuvarande läge av \"%s\" begränsar vad du ser här. De på <a>Inte "
+"tillgänglig</a> filtret blir aktiv när du byter betalningsläget."
+
+#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:85
+#: templates/admin/fees-index.tpl.php:106
+msgid "Paid"
+msgstr "Betald"
+
+#. translators: %s is directory payment mode (Free or Paid)
+#: templates/admin/fees-index.tpl.php:84
+#, fuzzy
+msgid ""
+"These are all of the fee plans that aren't available because you're in \"%s"
+"\" mode. Those on the Active filter will become Not Available when you "
+"change the payment mode."
+msgstr ""
+"Detta är de avgiftsplaner som inte är tillgängliga för att du är i \"%s\" -"
+"läge. De på det aktiva filtret ändrar status till inte tillgänglig när du "
+"ändra betalningsläget."
+
+#: templates/admin/fees-index.tpl.php:93
+#, fuzzy
+msgid ""
+"These fee plans were disabled by the admin and will not show to the end user "
+"regardless of mode until you enable them."
+msgstr ""
+"Dessa avgiftsplaner har inaktiverats av administratören och kommer inte att "
+"visas för slutanvändaren oavsett läge tills du aktiverar dem."
+
+#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
+#. opening <a> tag, %3$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:105
+#, fuzzy
+msgid ""
+"These are all of the fee plans you have configured. Not all of them are "
+"available for the current mode (currently set to \"%1$s\"). To see the fee "
+"plans for this mode click %2$sActive%3$s."
+msgstr ""
+"Detta är alla avgiftsplanern du har konfigurerat. Inte alla av dem är "
+"tillgängliga för det aktuella läget (för närvarande satt till \"%s\"). För "
+"att se avgiftsplanerna för detta läge klicka <a>Active</a> ."
+
+#: templates/admin/fees-index.tpl.php:135
+msgid "Set up a payment gateway to charge a fee for listings"
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:137
+msgid "Add a payment gateway to increase conversion rates"
+msgstr ""
+
+#. translators: %s: payment gateway name */
+#: templates/admin/fees-index.tpl.php:155
+msgid "Add the %s gateway as a payment option."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:161
+#, fuzzy
+msgid "Upgrade"
+msgstr "Uppgradera till %s"
+
+#: templates/admin/fees-index.tpl.php:169
+msgid "Set up Authorize.net as a payment option."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:172
+msgid "Set Up"
+msgstr ""
 
 #: templates/admin/home.tpl.php:54
 msgid "Manage Options"
@@ -611,58 +721,58 @@ msgstr "Återställ till standardinställningar"
 
 #: templates/admin/sidebar.tpl.php:3
 #, fuzzy
+msgid "Category Images"
+msgstr "Kategorier"
+
+#: templates/admin/sidebar.tpl.php:4
+#, fuzzy
 msgid "PayPal Payments"
 msgstr "Första betalning"
 
-#: templates/admin/sidebar.tpl.php:4
+#: templates/admin/sidebar.tpl.php:5
 #, fuzzy
 msgid "Google Maps"
 msgstr "Modul för Google Maps"
 
-#: templates/admin/sidebar.tpl.php:5
+#: templates/admin/sidebar.tpl.php:6
 #, fuzzy
 msgid "Regions"
 msgstr "Modul för region"
 
-#: templates/admin/sidebar.tpl.php:6
+#: templates/admin/sidebar.tpl.php:7
 #, fuzzy
 msgid "ZIP Code Search"
 msgstr "Modul för postnummersök"
 
-#: templates/admin/sidebar.tpl.php:7
+#: templates/admin/sidebar.tpl.php:8
 #, fuzzy
 msgid "Ratings"
 msgstr "Fält för omdöme"
 
-#: templates/admin/sidebar.tpl.php:8
+#: templates/admin/sidebar.tpl.php:9
 #, fuzzy
 msgid "Stripe Payments"
 msgstr "Visa betalningar"
 
-#: templates/admin/sidebar.tpl.php:9
+#: templates/admin/sidebar.tpl.php:10
 #, fuzzy
 msgid "Featured Levels"
 msgstr "Utvald nivå"
 
-#: templates/admin/sidebar.tpl.php:10
+#: templates/admin/sidebar.tpl.php:11
 #, fuzzy
 msgid "Claim Listings"
 msgstr "Modul för annonsanspråk"
 
-#: templates/admin/sidebar.tpl.php:11
+#: templates/admin/sidebar.tpl.php:12
 #, fuzzy
 msgid "File Upload"
 msgstr "Modul för filuppladdning"
 
-#: templates/admin/sidebar.tpl.php:12
+#: templates/admin/sidebar.tpl.php:13
 #, fuzzy
 msgid "Discount Codes"
 msgstr "Modul för rabattkoder"
-
-#: templates/admin/sidebar.tpl.php:13
-#, fuzzy
-msgid "PayFast Payments"
-msgstr "PayFast betalningsmodul"
 
 #: templates/admin/sidebar.tpl.php:17
 #, fuzzy
@@ -699,10 +809,19 @@ msgstr "Tema Elegant Busniess"
 msgid "Like this plugin?"
 msgstr "Gillar du detta plugin?"
 
-#: templates/admin/sidebar.tpl.php:49 templates/admin/sidebar.tpl.php:68
+#: templates/admin/sidebar.tpl.php:40
+msgid "Make better directories"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:53 templates/admin/sidebar.tpl.php:74
 #, fuzzy
 msgid "new"
 msgstr "ny"
+
+#: templates/admin/sidebar.tpl.php:59
+#, fuzzy
+msgid "Upgrade Now"
+msgstr "Uppgradera till %s"
 
 #: templates/admin/themes-install.tpl.php:21
 #, fuzzy
@@ -712,6 +831,16 @@ msgstr "BD Temaarkiv (ZIP-fil)"
 #: templates/parts/listing-buttons.tpl.php:43
 msgid "← Return to Directory"
 msgstr "Tillbaka till katalog."
+
+#: templates/submit-listing-images.tpl.php:5
+#, fuzzy
+msgid "Current Images"
+msgstr "Aktuella bilder"
+
+#: templates/submit-listing-images.tpl.php:8
+#, fuzzy
+msgid "There are no images currently attached to your listing."
+msgstr "Det finns för närvarande inga bilder för denna annons."
 
 #. Author URI of the plugin/theme
 msgid "https://businessdirectoryplugin.com"
@@ -1370,17 +1499,17 @@ msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr "Du är klar! Besök din nya <a>Business Directory</a> sida."
 
-#: includes/admin/class-admin.php:461
+#: includes/admin/class-admin.php:470
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Meny utan titel"
 
-#: includes/admin/class-admin.php:786
+#: includes/admin/class-admin.php:795
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Avvisa denna notering."
 
-#: includes/admin/class-admin.php:825 includes/admin/class-admin.php:835
+#: includes/admin/class-admin.php:834 includes/admin/class-admin.php:844
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -1388,31 +1517,31 @@ msgid_plural "The listings have been updated."
 msgstr[0] "Annonsen har uppgraderats."
 msgstr[1] "Annonserna har uppgraderats."
 
-#: includes/admin/class-admin.php:861
+#: includes/admin/class-admin.php:870
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Avgiften tilldelades med framgång."
 
-#: includes/admin/class-admin.php:871
+#: includes/admin/class-admin.php:880
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "Annonsen har förnyats."
 msgstr[1] "Annonserna har förnyats."
 
-#: includes/admin/class-admin.php:883
+#: includes/admin/class-admin.php:892
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "E-postmeddelande om förnyelse skickat."
 
-#: includes/admin/class-admin.php:887
+#: includes/admin/class-admin.php:896
 msgctxt "admin"
 msgid ""
 "Could not send renewal email, notice template at listing expiration not "
 "found."
 msgstr ""
 
-#: includes/admin/class-admin.php:894
+#: includes/admin/class-admin.php:903
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -1420,23 +1549,23 @@ msgid_plural "Listing reports deleted."
 msgstr[0] "Utgångsdatum för annons"
 msgstr[1] "Utgångsdatum för annons"
 
-#: includes/admin/class-admin.php:942
+#: includes/admin/class-admin.php:951
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Åtkomstnyckel"
 
-#: includes/admin/class-admin.php:944
+#: includes/admin/class-admin.php:953
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1016 includes/admin/class-admin.php:1024
+#: includes/admin/class-admin.php:1025 includes/admin/class-admin.php:1033
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Annonsräknare"
 
-#: includes/admin/class-admin.php:1089
+#: includes/admin/class-admin.php:1098
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1445,7 +1574,7 @@ msgstr ""
 "<b>Tillägget Business Directory</b> kräver att du lagt shortcoden "
 "<tt>[businessdirectory]</tt> på en sida för att fungera korrekt."
 
-#: includes/admin/class-admin.php:1091
+#: includes/admin/class-admin.php:1100
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1454,12 +1583,12 @@ msgstr ""
 "Du kan skapa denna sida av dig själv eller låta Business Directory göra det "
 "åt dig automatiskt."
 
-#: includes/admin/class-admin.php:1096
+#: includes/admin/class-admin.php:1105
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Skapa nödvändiga sidor åt mig."
 
-#: includes/admin/class-admin.php:1130
+#: includes/admin/class-admin.php:1139
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1470,7 +1599,7 @@ msgstr ""
 "eller senare, men servern kör version <strong>%s</strong>. Be din leverantör "
 "att uppgradera för att förhindra eventuella problem med pluginet."
 
-#: includes/admin/class-admin.php:1154
+#: includes/admin/class-admin.php:1163
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1858,7 +1987,7 @@ msgctxt "admin menu"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: includes/admin/class-admin.php:1014
+#: includes/admin/class-admin.php:1023
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
@@ -2742,91 +2871,6 @@ msgstr "Extra avgift (per kategori)"
 msgctxt "fees admin"
 msgid "Save Changes"
 msgstr "Spara ändringar"
-
-#: templates/admin/fees-index.tpl.php:6
-msgctxt "fees admin"
-msgid "Add New Listing Fee"
-msgstr "Lägg till ny avgift"
-
-#: templates/admin/fees-index.tpl.php:14
-msgctxt "fees admin"
-msgid "Payments are currently turned off."
-msgstr "Betalningar för närvarande avstängt."
-
-#: templates/admin/fees-index.tpl.php:27
-msgctxt "fees admin"
-msgid "Order fees on the frontend by:"
-msgstr "Order avgifter på frontend efter:"
-
-#: templates/admin/fees-index.tpl.php:37
-msgctxt "fees admin"
-msgid "↑ Ascending"
-msgstr "↑ Stigande"
-
-#: templates/admin/fees-index.tpl.php:38
-msgctxt "fees admin"
-msgid "↓ Descending"
-msgstr "↓ Fallande"
-
-#: templates/admin/fees-index.tpl.php:46
-msgctxt "fees admin"
-msgid "Drag and drop to re-order fees."
-msgstr "Dra och släpp för att ändra ordning på avgifter"
-
-#: templates/admin/fees-index.tpl.php:66
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%s\" restricts what you see here. Those on "
-"the <a>Not Available</a> filter will become active when you change the "
-"payment mode."
-msgstr ""
-"Dessa är alla avgiftsplanerna som visas för användaren när de placerar en "
-"annons. Din nuvarande läge av \"%s\" begränsar vad du ser här. De på <a>Inte "
-"tillgänglig</a> filtret blir aktiv när du byter betalningsläget."
-
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
-#: templates/admin/fees-index.tpl.php:118
-msgctxt "fees admin"
-msgid "Paid"
-msgstr "Betald"
-
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
-#: templates/admin/fees-index.tpl.php:118
-msgctxt "fees admin"
-msgid "Free"
-msgstr "Gratis"
-
-#: templates/admin/fees-index.tpl.php:81
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans that aren't available because you're in \"%s"
-"\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-"Detta är de avgiftsplaner som inte är tillgängliga för att du är i \"%s\" -"
-"läge. De på det aktiva filtret ändrar status till inte tillgänglig när du "
-"ändra betalningsläget."
-
-#: templates/admin/fees-index.tpl.php:94
-msgctxt "fees admin"
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end user "
-"regardless of mode until you enable them."
-msgstr ""
-"Dessa avgiftsplaner har inaktiverats av administratören och kommer inte att "
-"visas för slutanvändaren oavsett läge tills du aktiverar dem."
-
-#: templates/admin/fees-index.tpl.php:112
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%s\"). To see the fee "
-"plans for this mode click <a>Active</a>."
-msgstr ""
-"Detta är alla avgiftsplanern du har konfigurerat. Inte alla av dem är "
-"tillgängliga för det aktuella läget (för närvarande satt till \"%s\"). För "
-"att se avgiftsplanerna för detta läge klicka <a>Active</a> ."
 
 #: includes/admin/form-fields.php:22
 msgctxt "form-fields admin"
@@ -6093,7 +6137,7 @@ msgid ""
 "avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
 msgstr ""
 
-#: includes/class-fees-api.php:61
+#: includes/class-fees-api.php:62
 msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Gratis annons"
@@ -6720,7 +6764,7 @@ msgid "Social Site (Other)"
 msgstr "Social Site (Twitter)"
 
 #: includes/fields/class-fieldtypes-social.php:95
-#: includes/fields/class-fieldtypes-url.php:152
+#: includes/fields/class-fieldtypes-url.php:157
 msgctxt "form-fields api"
 msgid "URL:"
 msgstr "URL:"
@@ -6767,7 +6811,7 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "URL-fält:"
 
-#: includes/fields/class-fieldtypes-url.php:164
+#: includes/fields/class-fieldtypes-url.php:169
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Länktext (valfritt):"
@@ -7475,16 +7519,6 @@ msgstr "Bredd på bild:"
 msgctxt "templates"
 msgid "Image height:"
 msgstr "Höjd på bild:"
-
-#: templates/submit-listing-images.tpl.php:5
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Aktuella bilder"
-
-#: templates/submit-listing-images.tpl.php:8
-msgctxt "templates"
-msgid "There are no images currently attached to your listing."
-msgstr "Det finns för närvarande inga bilder för denna annons."
 
 #: includes/gateways/class-gateway-authorize-net.php:20
 msgctxt "authorize-net"
@@ -8756,7 +8790,7 @@ msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Visa följande fält i formuläret."
 
-#: includes/widgets/widget-search.php:108
+#: includes/widgets/widget-search.php:107
 msgctxt "widgets"
 msgid "Search"
 msgstr "Sök"
@@ -8771,136 +8805,6 @@ msgstr "Sök"
 msgctxt "admin forms"
 msgid "required"
 msgstr "obligatoriskt"
-
-#: templates/admin/fees-index.tpl.php:132
-msgctxt "admin sidebar"
-msgid "PayPal Gateway Module"
-msgstr "PayPal betalningsmodul"
-
-#: templates/admin/fees-index.tpl.php:133
-msgctxt "admin sidebar"
-msgid "2Checkout Gateway Module"
-msgstr "2Checkout betalningsmodul"
-
-#: templates/admin/fees-index.tpl.php:134
-msgctxt "admin sidebar"
-msgid "PayFast Payment Module"
-msgstr "PayFast betalningsmodul"
-
-#: templates/admin/fees-index.tpl.php:135
-msgctxt "admin sidebar"
-msgid "Stripe Payment Module"
-msgstr "Stripe betalningsmodul"
-
-#: templates/admin/sidebar.tpl.php:40
-msgctxt "admin sidebar"
-msgid "Get a Premium Module"
-msgstr "Skaffa en premiummodul"
-
-#: templates/admin/sidebar.tpl.php:43 templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "best deal"
-msgstr "Bästa erbjudande"
-
-#: templates/admin/sidebar.tpl.php:43
-msgctxt "admin sidebar"
-msgid "Combo Pack"
-msgstr "Combo Pack"
-
-#: templates/admin/sidebar.tpl.php:43
-msgctxt "admin sidebar"
-msgid "(All Modules)"
-msgstr "(Alla moduler)"
-
-#: templates/admin/sidebar.tpl.php:59
-msgctxt "admin sidebar"
-msgid "Get a Directory Theme"
-msgstr "Skaffa ett Directory Theme"
-
-#: templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "Theme Pack"
-msgstr "Theme Pack"
-
-#: templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "(All Themes)"
-msgstr "(Alla teman)"
-
-#: templates/admin/sidebar.tpl.php:78
-msgctxt "admin sidebar"
-msgid "Found a bug? Need support?"
-msgstr "Hittat ett programfel? Behöver du hjälp?"
-
-#: templates/admin/sidebar.tpl.php:85
-#, fuzzy
-msgctxt "admin sidebar"
-msgid "If you've found a bug or need support <a>let us know!</a>"
-msgstr "Om du har hittat en bugg eller behöver stöd <a>besök forumet!</a>"
-
-#: templates/admin/sidebar.tpl.php:90
-msgctxt "admin sidebar"
-msgid "Full plugin documentation"
-msgstr "Fullständig dokumentation för pluginet"
-
-#: templates/admin/sidebar.tpl.php:91
-msgctxt "admin sidebar"
-msgid "Quick Start Guide"
-msgstr "Snabbstartsguide"
-
-#: templates/admin/sidebar.tpl.php:92
-msgctxt "admin sidebar"
-msgid "Video Tutorials"
-msgstr "Handledningar (video)"
-
-#: templates/admin/sidebar.tpl.php:100
-msgctxt "admin sidebar"
-msgid "Installed Modules"
-msgstr "Installerade moduler"
-
-#: templates/admin/sidebar.tpl.php:111 templates/admin/sidebar.tpl.php:120
-msgctxt "admin sidebar"
-msgid "Installed"
-msgstr "Installerat"
-
-#: templates/admin/sidebar.tpl.php:113 templates/admin/sidebar.tpl.php:120
-msgctxt "admin sidebar"
-msgid "Not Installed"
-msgstr "Ej installerad"
-
-#: templates/admin/sidebar.tpl.php:119
-msgctxt "admin sidebar"
-msgid "Enhanced Categories Module"
-msgstr "Modul för förbättrade kategorier"
-
-#: templates/admin/fees-index.tpl.php:147
-msgctxt "admin templates"
-msgid ""
-"It does not appear you have any of the payment gateway modules enabled. "
-"Either <a>enable the default Authorize.net gateway</a> with your account "
-"info, or purchase a different payment gateway module in order to charge a "
-"fee for listings. To purchase additional payment gateways use the buttons "
-"below or visit %s."
-msgstr ""
-"Det verkar som om du inte har någon av betalningsmodulerna aktiverade. "
-"<a>Aktivera standard Authorize.net-modulen</a> med din kontoinformation, "
-"eller köp en annan betalningsmodu för att ta ut en avgift för annonser. För "
-"att köpa ytterligare betalningsmoduler använd knapparna nedan eller besök %s."
-
-#: templates/admin/fees-index.tpl.php:166
-msgctxt "admin templates"
-msgid "Already installed."
-msgstr "Redan installerad."
-
-#: templates/admin/fees-index.tpl.php:173
-#, fuzzy
-msgctxt "admin templates"
-msgid ""
-"You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for your "
-"users."
-msgstr ""
-"Du kan köpa <a>%s</a> för att lägga till <a>%s</a> som ett "
-"betalningsalternativ för användarna."
 
 #: templates/admin/home.tpl.php:12
 msgctxt "admin home"
@@ -9147,6 +9051,37 @@ msgstr "Avbryt"
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Spara ändringar"
+
+#: templates/admin/sidebar.tpl.php:66
+msgctxt "admin sidebar"
+msgid "Get a Directory Theme"
+msgstr "Skaffa ett Directory Theme"
+
+#: templates/admin/sidebar.tpl.php:84
+msgctxt "admin sidebar"
+msgid "Found a bug? Need support?"
+msgstr "Hittat ett programfel? Behöver du hjälp?"
+
+#: templates/admin/sidebar.tpl.php:91
+#, fuzzy
+msgctxt "admin sidebar"
+msgid "If you've found a bug or need support <a>let us know!</a>"
+msgstr "Om du har hittat en bugg eller behöver stöd <a>besök forumet!</a>"
+
+#: templates/admin/sidebar.tpl.php:96
+msgctxt "admin sidebar"
+msgid "Full plugin documentation"
+msgstr "Fullständig dokumentation för pluginet"
+
+#: templates/admin/sidebar.tpl.php:97
+msgctxt "admin sidebar"
+msgid "Quick Start Guide"
+msgstr "Snabbstartsguide"
+
+#: templates/admin/sidebar.tpl.php:98
+msgctxt "admin sidebar"
+msgid "Video Tutorials"
+msgstr "Handledningar (video)"
 
 #: templates/admin/themes-delete-confirm.tpl.php:1
 #: templates/admin/themes-delete-confirm.tpl.php:13
@@ -9585,6 +9520,101 @@ msgctxt "themes/default"
 msgid "Address"
 msgstr "Adress"
 
+#, fuzzy
+#~ msgid "PayFast Payments"
+#~ msgstr "PayFast betalningsmodul"
+
+#~ msgctxt "fees admin"
+#~ msgid "Paid"
+#~ msgstr "Betald"
+
+#~ msgctxt "fees admin"
+#~ msgid "Free"
+#~ msgstr "Gratis"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "PayPal Gateway Module"
+#~ msgstr "PayPal betalningsmodul"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "2Checkout Gateway Module"
+#~ msgstr "2Checkout betalningsmodul"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "PayFast Payment Module"
+#~ msgstr "PayFast betalningsmodul"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Stripe Payment Module"
+#~ msgstr "Stripe betalningsmodul"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Get a Premium Module"
+#~ msgstr "Skaffa en premiummodul"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "best deal"
+#~ msgstr "Bästa erbjudande"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Combo Pack"
+#~ msgstr "Combo Pack"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "(All Modules)"
+#~ msgstr "(Alla moduler)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Theme Pack"
+#~ msgstr "Theme Pack"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "(All Themes)"
+#~ msgstr "(Alla teman)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Installed Modules"
+#~ msgstr "Installerade moduler"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Installed"
+#~ msgstr "Installerat"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Not Installed"
+#~ msgstr "Ej installerad"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Enhanced Categories Module"
+#~ msgstr "Modul för förbättrade kategorier"
+
+#~ msgctxt "admin templates"
+#~ msgid ""
+#~ "It does not appear you have any of the payment gateway modules enabled. "
+#~ "Either <a>enable the default Authorize.net gateway</a> with your account "
+#~ "info, or purchase a different payment gateway module in order to charge a "
+#~ "fee for listings. To purchase additional payment gateways use the buttons "
+#~ "below or visit %s."
+#~ msgstr ""
+#~ "Det verkar som om du inte har någon av betalningsmodulerna aktiverade. "
+#~ "<a>Aktivera standard Authorize.net-modulen</a> med din kontoinformation, "
+#~ "eller köp en annan betalningsmodu för att ta ut en avgift för annonser. "
+#~ "För att köpa ytterligare betalningsmoduler använd knapparna nedan eller "
+#~ "besök %s."
+
+#~ msgctxt "admin templates"
+#~ msgid "Already installed."
+#~ msgstr "Redan installerad."
+
+#, fuzzy
+#~ msgctxt "admin templates"
+#~ msgid ""
+#~ "You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for "
+#~ "your users."
+#~ msgstr ""
+#~ "Du kan köpa <a>%s</a> för att lägga till <a>%s</a> som ett "
+#~ "betalningsalternativ för användarna."
+
 #~ msgctxt "debug-info"
 #~ msgid "BD Info"
 #~ msgstr "BD info"
@@ -9819,9 +9849,6 @@ msgstr "Adress"
 #~ msgctxt "checkout"
 #~ msgid "Your payment was received successfully."
 #~ msgstr "Vi har mottagit din betalning."
-
-#~ msgid "Paid"
-#~ msgstr "Betald"
 
 #~ msgid "Pending Upgrade"
 #~ msgstr "Väntar på uppgradering"
@@ -11010,9 +11037,6 @@ msgstr "Adress"
 
 #~ msgid "Mark as"
 #~ msgstr "Markera som"
-
-#~ msgid "Upgrade to %s"
-#~ msgstr "Uppgradera till %s"
 
 #~ msgid "Downgrade to %s"
 #~ msgstr "Nedgradera till %s"

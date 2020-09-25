@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-09 13:07:48+00:00\n"
-"PO-Revision-Date: 2020-09-09 08:26-0500\n"
+"POT-Creation-Date: 2020-09-25 21:07:19+00:00\n"
+"PO-Revision-Date: 2020-09-25 16:20-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -32,7 +32,7 @@ msgstr "Reportes"
 
 #: includes/admin/class-admin-listings.php:225
 #: includes/admin/class-listing-owner.php:91
-#: includes/helpers/class-listing-owner.php:110
+#: includes/helpers/class-listing-owner.php:91
 msgid "Listing Owner"
 msgstr "Dueño del listado"
 
@@ -79,9 +79,8 @@ msgstr "El listado fue importado por el administrador. No se realizó pago."
 
 #: includes/admin/class-listing-owner.php:66
 #: includes/admin/class-listing-owner.php:93
-#: includes/helpers/class-listing-owner.php:31
-#: includes/helpers/class-listing-owner.php:85
-#: includes/helpers/class-listing-owner.php:112
+#: includes/helpers/class-listing-owner.php:66
+#: includes/helpers/class-listing-owner.php:93
 msgid "Please select a user"
 msgstr "Por favor seleccione un usuario"
 
@@ -456,7 +455,8 @@ msgstr "Dirección del Negocio"
 msgid "ZIP Code"
 msgstr "Código Postal"
 
-#: includes/functions.php:554
+#: includes/functions.php:554 templates/admin/fees-index.tpl.php:72
+#: templates/admin/fees-index.tpl.php:85 templates/admin/fees-index.tpl.php:106
 msgid "Free"
 msgstr "Gratuito"
 
@@ -539,13 +539,115 @@ msgstr ""
 "La siguiente información puede ayudar a los desarrolladores de Business "
 "Directory a depurar posibles problemas con su instalación."
 
-#: templates/admin/fees-index.tpl.php:17
+#: templates/admin/fees-index.tpl.php:7
+msgid "Add New Listing Fee"
+msgstr "Añadir nueva tarifa de listado"
+
+#: templates/admin/fees-index.tpl.php:16
+msgid "Payments are currently turned off."
+msgstr "Los pagos están desactivados actualmente."
+
+#. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:20
 msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"To manage fees you need to go to the %1$sManage Options - Payment%2$s page "
 "and check the box next to 'Turn On Payments' under 'Payment Settings'."
 msgstr ""
-"Para poder utilizar comisiones debe ir a la página de <a>Configuraciones - "
-"Configuración de Pagos</a> y habilitar \"Activar Pagos?\"."
+"Para administrar las tarifas, debe ir a la página %1$sConfiguraciones - Pagos"
+"%2$s y marque la casilla situada junto a \"Activar pagos\" en "
+"\"Configuración de pago\"."
+
+#: templates/admin/fees-index.tpl.php:34
+msgid "Order fees on the frontend by:"
+msgstr "Ordenar tarifas del lado del usuario por:"
+
+#: templates/admin/fees-index.tpl.php:44
+msgid "↑ Ascending"
+msgstr "↑ Ascendente"
+
+#: templates/admin/fees-index.tpl.php:45
+msgid "↓ Descending"
+msgstr "↓ Descendente"
+
+#: templates/admin/fees-index.tpl.php:53
+msgid "Drag and drop to re-order fees."
+msgstr "Arrastre y suelte para reordenar las tarifas."
+
+#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
+#. opening <a> tag, %3$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:71
+msgid ""
+"These are all of the fee plans displayed to the user when they place a "
+"listing. Your current mode of \"%1$s\" restricts what you see here. Those on "
+"the %2$sNot Available%3$s filter will become active when you change the "
+"payment mode."
+msgstr ""
+"Estos son todos los planes de tarifas disponibles para el usuario al crear "
+"listado. En el modo actual “%1$s\" restringe lo que se ve aquí. Aquellos "
+"planes en el filtro %2$sNo Disponible%3$s se activarán cuando cambie el modo "
+"de pago del directorio."
+
+#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:85
+#: templates/admin/fees-index.tpl.php:106
+msgid "Paid"
+msgstr "Pago"
+
+#. translators: %s is directory payment mode (Free or Paid)
+#: templates/admin/fees-index.tpl.php:84
+msgid ""
+"These are all of the fee plans that aren't available because you're in \"%s"
+"\" mode. Those on the Active filter will become Not Available when you "
+"change the payment mode."
+msgstr ""
+"Estas son todas las tarifas que no se encuentran disponibles porque el "
+"directorio opera en modo \"%s\". Aquellas en el filtro “Activas” se "
+"convertirán en “No Disponibles” cuando cambie el modo."
+
+#: templates/admin/fees-index.tpl.php:93
+msgid ""
+"These fee plans were disabled by the admin and will not show to the end user "
+"regardless of mode until you enable them."
+msgstr ""
+"Estas tarifas fueron deshabilitadas por el administrador y no se mostrarán "
+"al usuario sin importar el modo de operación del directorio."
+
+#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
+#. opening <a> tag, %3$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:105
+msgid ""
+"These are all of the fee plans you have configured. Not all of them are "
+"available for the current mode (currently set to \"%1$s\"). To see the fee "
+"plans for this mode click %2$sActive%3$s."
+msgstr ""
+"Estos son todas las tarifas que tiene configuradas. No todas están "
+"disponibles para el estado actual (“%1$s\"). Para ver todos los planes para "
+"este estado haga click en %2$sActivas%3$s."
+
+#: templates/admin/fees-index.tpl.php:135
+msgid "Set up a payment gateway to charge a fee for listings"
+msgstr ""
+"Configurar una pasarela de pagos para cobrar una tarifa por los listados"
+
+#: templates/admin/fees-index.tpl.php:137
+msgid "Add a payment gateway to increase conversion rates"
+msgstr "Agregue una pasarela de pago para aumentar las tasas de conversión"
+
+#. translators: %s: payment gateway name */
+#: templates/admin/fees-index.tpl.php:155
+msgid "Add the %s gateway as a payment option."
+msgstr "Agregar la pasarela %s como opción de pago."
+
+#: templates/admin/fees-index.tpl.php:161
+msgid "Upgrade"
+msgstr "Mejorar"
+
+#: templates/admin/fees-index.tpl.php:169
+msgid "Set up Authorize.net as a payment option."
+msgstr "Configurar Authorize.net como opción de pago."
+
+#: templates/admin/fees-index.tpl.php:172
+msgid "Set Up"
+msgstr "Configurar"
 
 #: templates/admin/home.tpl.php:54
 msgid "Manage Options"
@@ -601,48 +703,48 @@ msgid "Reset Defaults"
 msgstr "Restaurar valores por defecto"
 
 #: templates/admin/sidebar.tpl.php:3
+msgid "Category Images"
+msgstr "Imágenes por Categoría"
+
+#: templates/admin/sidebar.tpl.php:4
 msgid "PayPal Payments"
 msgstr "Pasarela de pago PayPal"
 
-#: templates/admin/sidebar.tpl.php:4
+#: templates/admin/sidebar.tpl.php:5
 msgid "Google Maps"
 msgstr ""
 
-#: templates/admin/sidebar.tpl.php:5
-msgid "Regions"
-msgstr ""
-
 #: templates/admin/sidebar.tpl.php:6
-msgid "ZIP Code Search"
-msgstr ""
+msgid "Regions"
+msgstr "Regiones"
 
 #: templates/admin/sidebar.tpl.php:7
-msgid "Ratings"
-msgstr ""
+msgid "ZIP Code Search"
+msgstr "Búsqueda por código ZIP"
 
 #: templates/admin/sidebar.tpl.php:8
-msgid "Stripe Payments"
-msgstr ""
+msgid "Ratings"
+msgstr "Calificaciones"
 
 #: templates/admin/sidebar.tpl.php:9
+msgid "Stripe Payments"
+msgstr "Pasarela de pago Stripe"
+
+#: templates/admin/sidebar.tpl.php:10
 msgid "Featured Levels"
 msgstr "Niveles Destacados"
 
-#: templates/admin/sidebar.tpl.php:10
-msgid "Claim Listings"
-msgstr ""
-
 #: templates/admin/sidebar.tpl.php:11
-msgid "File Upload"
-msgstr ""
+msgid "Claim Listings"
+msgstr "Reclamar Listados"
 
 #: templates/admin/sidebar.tpl.php:12
-msgid "Discount Codes"
-msgstr "Códigos de Descuento"
+msgid "File Upload"
+msgstr "Carga de Archivos"
 
 #: templates/admin/sidebar.tpl.php:13
-msgid "PayFast Payments"
-msgstr ""
+msgid "Discount Codes"
+msgstr "Códigos de Descuento"
 
 #: templates/admin/sidebar.tpl.php:17
 msgid "Modern Business Theme"
@@ -672,9 +774,17 @@ msgstr ""
 msgid "Like this plugin?"
 msgstr "Le gusta este plugin?"
 
-#: templates/admin/sidebar.tpl.php:49 templates/admin/sidebar.tpl.php:68
+#: templates/admin/sidebar.tpl.php:40
+msgid "Make better directories"
+msgstr "Hacer mejores directorios"
+
+#: templates/admin/sidebar.tpl.php:53 templates/admin/sidebar.tpl.php:74
 msgid "new"
 msgstr "nuevo"
+
+#: templates/admin/sidebar.tpl.php:59
+msgid "Upgrade Now"
+msgstr "Mejorar ahora"
 
 #: templates/admin/themes-install.tpl.php:21
 msgid "Business Directory Theme archive (ZIP file)"
@@ -683,6 +793,14 @@ msgstr "archivo con tema para Business Directory (ZIP)"
 #: templates/parts/listing-buttons.tpl.php:43
 msgid "← Return to Directory"
 msgstr "← Regresar al Directorio"
+
+#: templates/submit-listing-images.tpl.php:5
+msgid "Current Images"
+msgstr "Imágenes Actuales"
+
+#: templates/submit-listing-images.tpl.php:8
+msgid "There are no images currently attached to your listing."
+msgstr "No hay actualmente imágenes asociadas a su listado."
 
 #. Author URI of the plugin/theme
 msgid "https://businessdirectoryplugin.com"
@@ -1339,41 +1457,41 @@ msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr ""
 "Está todo listo. Visite la página de su nuevo <a>Directorio de Negocios</a>."
 
-#: includes/admin/class-admin.php:461
+#: includes/admin/class-admin.php:470
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Menú sin título"
 
-#: includes/admin/class-admin.php:786
+#: includes/admin/class-admin.php:795
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Ignorar."
 
-#: includes/admin/class-admin.php:825 includes/admin/class-admin.php:835
+#: includes/admin/class-admin.php:834 includes/admin/class-admin.php:844
 msgctxt "admin"
 msgid "The listing has been updated."
 msgid_plural "The listings have been updated."
 msgstr[0] "El listado ha sido actualizado."
 msgstr[1] "Los listados han sido actualizados."
 
-#: includes/admin/class-admin.php:861
+#: includes/admin/class-admin.php:870
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "La comisión se asignó satisfactoriamente."
 
-#: includes/admin/class-admin.php:871
+#: includes/admin/class-admin.php:880
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "El listado ha sido renovado."
 msgstr[1] "Los listados fueron renovados."
 
-#: includes/admin/class-admin.php:883
+#: includes/admin/class-admin.php:892
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Mensaje de correo electrónico de renovación enviado."
 
-#: includes/admin/class-admin.php:887
+#: includes/admin/class-admin.php:896
 msgctxt "admin"
 msgid ""
 "Could not send renewal email, notice template at listing expiration not "
@@ -1382,29 +1500,29 @@ msgstr ""
 "No se pudo enviar el correo electrónico de renovación, no se encontró la "
 "plantilla de notificación al momento de expirar e listado."
 
-#: includes/admin/class-admin.php:894
+#: includes/admin/class-admin.php:903
 msgctxt "admin"
 msgid "Listing report deleted."
 msgid_plural "Listing reports deleted."
 msgstr[0] "Reporte eliminado."
 msgstr[1] "Reportes eliminados."
 
-#: includes/admin/class-admin.php:942
+#: includes/admin/class-admin.php:951
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Claves de acceso enviadas."
 
-#: includes/admin/class-admin.php:944
+#: includes/admin/class-admin.php:953
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr "No se pudo enviar las claves de acceso."
 
-#: includes/admin/class-admin.php:1016 includes/admin/class-admin.php:1024
+#: includes/admin/class-admin.php:1025 includes/admin/class-admin.php:1033
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Conteo de Listados"
 
-#: includes/admin/class-admin.php:1089
+#: includes/admin/class-admin.php:1098
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1413,7 +1531,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere una página con el shortcode "
 "<tt>[businessdirectory]</tt> para funcionar adecuadamente."
 
-#: includes/admin/class-admin.php:1091
+#: includes/admin/class-admin.php:1100
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1422,12 +1540,12 @@ msgstr ""
 "Puede crear esta página usted mismo o dejar que Business Directory lo haga "
 "por usted automáticamente."
 
-#: includes/admin/class-admin.php:1096
+#: includes/admin/class-admin.php:1105
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crear las páginas requeridas por mi"
 
-#: includes/admin/class-admin.php:1130
+#: includes/admin/class-admin.php:1139
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1439,7 +1557,7 @@ msgstr ""
 "Por favor comuníquese con su proveedor de hosting para actualizar su sistema "
 "y evitar problemas de compatibilidad."
 
-#: includes/admin/class-admin.php:1154
+#: includes/admin/class-admin.php:1163
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1817,7 +1935,7 @@ msgctxt "admin menu"
 msgid "Settings"
 msgstr "Configuración"
 
-#: includes/admin/class-admin.php:1014
+#: includes/admin/class-admin.php:1023
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
@@ -2697,92 +2815,6 @@ msgstr "Cantidad extra (por categoría)"
 msgctxt "fees admin"
 msgid "Save Changes"
 msgstr "Guardar Cambios"
-
-#: templates/admin/fees-index.tpl.php:6
-msgctxt "fees admin"
-msgid "Add New Listing Fee"
-msgstr "Agregar Nueva Comisión de Listado"
-
-#: templates/admin/fees-index.tpl.php:14
-msgctxt "fees admin"
-msgid "Payments are currently turned off."
-msgstr "Los pagos se encuentran actualmente deshabitados."
-
-#: templates/admin/fees-index.tpl.php:27
-msgctxt "fees admin"
-msgid "Order fees on the frontend by:"
-msgstr "Ordenar comisiones del lado del usuario por:"
-
-#: templates/admin/fees-index.tpl.php:37
-msgctxt "fees admin"
-msgid "↑ Ascending"
-msgstr "Ascendente"
-
-#: templates/admin/fees-index.tpl.php:38
-msgctxt "fees admin"
-msgid "↓ Descending"
-msgstr "Descendente"
-
-#: templates/admin/fees-index.tpl.php:46
-msgctxt "fees admin"
-msgid "Drag and drop to re-order fees."
-msgstr "Arrastre y suelte para reordenar las comisiones."
-
-#: templates/admin/fees-index.tpl.php:66
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%s\" restricts what you see here. Those on "
-"the <a>Not Available</a> filter will become active when you change the "
-"payment mode."
-msgstr ""
-"Estos son todos los planes de comisión disponibles para un usuario cuando "
-"envíe su listado. El modo actual de \"%s\" restringe lo que se ve aquí. "
-"Aquellos planes en el filtro <a>No Disponible</a> se volverán activos cuando "
-"cambie el modo de pago del directorio."
-
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
-#: templates/admin/fees-index.tpl.php:118
-msgctxt "fees admin"
-msgid "Paid"
-msgstr "Pagado"
-
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
-#: templates/admin/fees-index.tpl.php:118
-msgctxt "fees admin"
-msgid "Free"
-msgstr "Gratuito"
-
-#: templates/admin/fees-index.tpl.php:81
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans that aren't available because you're in \"%s"
-"\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-"Estos son todas las comisiones que no están disponibles porque el directorio "
-"opera en modo \"%s\". Aquellas en el filtro Activas se convertirán en No "
-"Disponibles cuando cambie el modo."
-
-#: templates/admin/fees-index.tpl.php:94
-msgctxt "fees admin"
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end user "
-"regardless of mode until you enable them."
-msgstr ""
-"Estas comisiones fueron deshabilitadas por el administrador y no se "
-"mostrarán al usuario sin importar el modo de operación del directorio."
-
-#: templates/admin/fees-index.tpl.php:112
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%s\"). To see the fee "
-"plans for this mode click <a>Active</a>."
-msgstr ""
-"Estos son todas las comisiones que tiene configuradas. No todas están "
-"disponibles para el modo actual (ahora \"%s\"). Para ver todos los planes "
-"para este modo haga click en <a>Activas</a>."
 
 #: includes/admin/form-fields.php:22
 msgctxt "form-fields admin"
@@ -6078,7 +6110,7 @@ msgstr ""
 "el plan de pago. Para prevenir inconvenientes con los listados, por favor "
 "edite el <a>plan de pago</a> apropiadamente."
 
-#: includes/class-fees-api.php:61
+#: includes/class-fees-api.php:62
 msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Listado Gratuito"
@@ -6690,7 +6722,7 @@ msgid "Social Site (Other)"
 msgstr "Sitio Social (Otro)"
 
 #: includes/fields/class-fieldtypes-social.php:95
-#: includes/fields/class-fieldtypes-url.php:152
+#: includes/fields/class-fieldtypes-url.php:157
 msgctxt "form-fields api"
 msgid "URL:"
 msgstr "URL:"
@@ -6735,7 +6767,7 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "Campo de URL"
 
-#: includes/fields/class-fieldtypes-url.php:164
+#: includes/fields/class-fieldtypes-url.php:169
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Texto del enlace (opcional):"
@@ -7446,16 +7478,6 @@ msgstr "Ancho de imagen:"
 msgctxt "templates"
 msgid "Image height:"
 msgstr "Alto de imagen:"
-
-#: templates/submit-listing-images.tpl.php:5
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Imágenes Actuales"
-
-#: templates/submit-listing-images.tpl.php:8
-msgctxt "templates"
-msgid "There are no images currently attached to your listing."
-msgstr "No hay actualmente imágenes asociadas a su listado."
 
 #: includes/gateways/class-gateway-authorize-net.php:20
 msgctxt "authorize-net"
@@ -8719,7 +8741,7 @@ msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Mostrar los siguientes campos en el formulario."
 
-#: includes/widgets/widget-search.php:108
+#: includes/widgets/widget-search.php:107
 msgctxt "widgets"
 msgid "Search"
 msgstr "Buscar"
@@ -8734,134 +8756,6 @@ msgstr "Buscar"
 msgctxt "admin forms"
 msgid "required"
 msgstr "requerido"
-
-#: templates/admin/fees-index.tpl.php:132
-msgctxt "admin sidebar"
-msgid "PayPal Gateway Module"
-msgstr "Módulo pasarela de pago PayPal"
-
-#: templates/admin/fees-index.tpl.php:133
-msgctxt "admin sidebar"
-msgid "2Checkout Gateway Module"
-msgstr "Módulo pasarela de pago 2Checkout"
-
-#: templates/admin/fees-index.tpl.php:134
-msgctxt "admin sidebar"
-msgid "PayFast Payment Module"
-msgstr "Módulo pasarela de pago PayFast"
-
-#: templates/admin/fees-index.tpl.php:135
-msgctxt "admin sidebar"
-msgid "Stripe Payment Module"
-msgstr "Módulo pasarela de pago Stripe"
-
-#: templates/admin/sidebar.tpl.php:40
-msgctxt "admin sidebar"
-msgid "Get a Premium Module"
-msgstr "Obtener un Módulo Premium"
-
-#: templates/admin/sidebar.tpl.php:43 templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "best deal"
-msgstr "mejor precio"
-
-#: templates/admin/sidebar.tpl.php:43
-msgctxt "admin sidebar"
-msgid "Combo Pack"
-msgstr "Paquete de plugins"
-
-#: templates/admin/sidebar.tpl.php:43
-msgctxt "admin sidebar"
-msgid "(All Modules)"
-msgstr "(Todos los módulos)"
-
-#: templates/admin/sidebar.tpl.php:59
-msgctxt "admin sidebar"
-msgid "Get a Directory Theme"
-msgstr "Obtener un tema del Directorio"
-
-#: templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "Theme Pack"
-msgstr "Paquete de temas"
-
-#: templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "(All Themes)"
-msgstr "(Todos los temas)"
-
-#: templates/admin/sidebar.tpl.php:78
-msgctxt "admin sidebar"
-msgid "Found a bug? Need support?"
-msgstr "Encontró un error? Necesita soporte?"
-
-#: templates/admin/sidebar.tpl.php:85
-msgctxt "admin sidebar"
-msgid "If you've found a bug or need support <a>let us know!</a>"
-msgstr "Si ha encontrado un error o necesita soporte <a>¡contáctenos!</a>"
-
-#: templates/admin/sidebar.tpl.php:90
-msgctxt "admin sidebar"
-msgid "Full plugin documentation"
-msgstr "Documentación completa del plugin"
-
-#: templates/admin/sidebar.tpl.php:91
-msgctxt "admin sidebar"
-msgid "Quick Start Guide"
-msgstr "Guía de Inicio Rápido"
-
-#: templates/admin/sidebar.tpl.php:92
-msgctxt "admin sidebar"
-msgid "Video Tutorials"
-msgstr "Videotutoriales"
-
-#: templates/admin/sidebar.tpl.php:100
-msgctxt "admin sidebar"
-msgid "Installed Modules"
-msgstr "Módulos Instalados"
-
-#: templates/admin/sidebar.tpl.php:111 templates/admin/sidebar.tpl.php:120
-msgctxt "admin sidebar"
-msgid "Installed"
-msgstr "Instalado"
-
-#: templates/admin/sidebar.tpl.php:113 templates/admin/sidebar.tpl.php:120
-msgctxt "admin sidebar"
-msgid "Not Installed"
-msgstr "No Instalado"
-
-#: templates/admin/sidebar.tpl.php:119
-msgctxt "admin sidebar"
-msgid "Enhanced Categories Module"
-msgstr "Enhanced Categories Module"
-
-#: templates/admin/fees-index.tpl.php:147
-msgctxt "admin templates"
-msgid ""
-"It does not appear you have any of the payment gateway modules enabled. "
-"Either <a>enable the default Authorize.net gateway</a> with your account "
-"info, or purchase a different payment gateway module in order to charge a "
-"fee for listings. To purchase additional payment gateways use the buttons "
-"below or visit %s."
-msgstr ""
-"No pareciera que tiene módulos de pago instalados. <a>Habilite la pasarela "
-"Authorize.net incluída</a> o adquiera otra pasarela de pago para poder "
-"cobrar por los listados. Para comprar pasarelas adicionales utilice los "
-"botones abajo o visite %s."
-
-#: templates/admin/fees-index.tpl.php:166
-msgctxt "admin templates"
-msgid "Already installed."
-msgstr "Ya instalado."
-
-#: templates/admin/fees-index.tpl.php:173
-msgctxt "admin templates"
-msgid ""
-"You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for your "
-"users."
-msgstr ""
-"Puede comprar la pasarela de pago de <a>%1$s</a> para agregar <a>%2%s</a> "
-"como opción de pago para sus usuarios."
 
 #: templates/admin/home.tpl.php:12
 msgctxt "admin home"
@@ -9117,6 +9011,36 @@ msgstr "Cancelar"
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Guardar Cambios"
+
+#: templates/admin/sidebar.tpl.php:66
+msgctxt "admin sidebar"
+msgid "Get a Directory Theme"
+msgstr "Obtener un tema del Directorio"
+
+#: templates/admin/sidebar.tpl.php:84
+msgctxt "admin sidebar"
+msgid "Found a bug? Need support?"
+msgstr "Encontró un error? Necesita soporte?"
+
+#: templates/admin/sidebar.tpl.php:91
+msgctxt "admin sidebar"
+msgid "If you've found a bug or need support <a>let us know!</a>"
+msgstr "Si ha encontrado un error o necesita soporte <a>¡contáctenos!</a>"
+
+#: templates/admin/sidebar.tpl.php:96
+msgctxt "admin sidebar"
+msgid "Full plugin documentation"
+msgstr "Documentación completa del plugin"
+
+#: templates/admin/sidebar.tpl.php:97
+msgctxt "admin sidebar"
+msgid "Quick Start Guide"
+msgstr "Guía de Inicio Rápido"
+
+#: templates/admin/sidebar.tpl.php:98
+msgctxt "admin sidebar"
+msgid "Video Tutorials"
+msgstr "Videotutoriales"
 
 #: templates/admin/themes-delete-confirm.tpl.php:1
 #: templates/admin/themes-delete-confirm.tpl.php:13
@@ -9557,6 +9481,95 @@ msgctxt "themes/default"
 msgid "Address"
 msgstr "Dirección"
 
+#~ msgctxt "fees admin"
+#~ msgid "Paid"
+#~ msgstr "Pagado"
+
+#~ msgctxt "fees admin"
+#~ msgid "Free"
+#~ msgstr "Gratuito"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "PayPal Gateway Module"
+#~ msgstr "Módulo pasarela de pago PayPal"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "2Checkout Gateway Module"
+#~ msgstr "Módulo pasarela de pago 2Checkout"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "PayFast Payment Module"
+#~ msgstr "Módulo pasarela de pago PayFast"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Stripe Payment Module"
+#~ msgstr "Módulo pasarela de pago Stripe"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Get a Premium Module"
+#~ msgstr "Obtener un Módulo Premium"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "best deal"
+#~ msgstr "mejor precio"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Combo Pack"
+#~ msgstr "Paquete de plugins"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "(All Modules)"
+#~ msgstr "(Todos los módulos)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Theme Pack"
+#~ msgstr "Paquete de temas"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "(All Themes)"
+#~ msgstr "(Todos los temas)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Installed Modules"
+#~ msgstr "Módulos Instalados"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Installed"
+#~ msgstr "Instalado"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Not Installed"
+#~ msgstr "No Instalado"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Enhanced Categories Module"
+#~ msgstr "Enhanced Categories Module"
+
+#~ msgctxt "admin templates"
+#~ msgid ""
+#~ "It does not appear you have any of the payment gateway modules enabled. "
+#~ "Either <a>enable the default Authorize.net gateway</a> with your account "
+#~ "info, or purchase a different payment gateway module in order to charge a "
+#~ "fee for listings. To purchase additional payment gateways use the buttons "
+#~ "below or visit %s."
+#~ msgstr ""
+#~ "No pareciera que tiene módulos de pago instalados. <a>Habilite la "
+#~ "pasarela Authorize.net incluída</a> o adquiera otra pasarela de pago para "
+#~ "poder cobrar por los listados. Para comprar pasarelas adicionales utilice "
+#~ "los botones abajo o visite %s."
+
+#~ msgctxt "admin templates"
+#~ msgid "Already installed."
+#~ msgstr "Ya instalado."
+
+#~ msgctxt "admin templates"
+#~ msgid ""
+#~ "You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for "
+#~ "your users."
+#~ msgstr ""
+#~ "Puede comprar la pasarela de pago de <a>%1$s</a> para agregar <a>%2%s</a> "
+#~ "como opción de pago para sus usuarios."
+
 #~ msgctxt "debug-info"
 #~ msgid "BD Info"
 #~ msgstr "Información de BD"
@@ -9774,9 +9787,6 @@ msgstr "Dirección"
 #~ msgctxt "renewal"
 #~ msgid "You don't have permission to access this page."
 #~ msgstr "Usted no tiene permisos para instalar plugins"
-
-#~ msgid "Paid"
-#~ msgstr "Pago"
 
 #~ msgid "Pending Upgrade"
 #~ msgstr "Pendientes de Mejora"
@@ -10971,9 +10981,6 @@ msgstr "Dirección"
 
 #~ msgid "Mark as"
 #~ msgstr "Marcar como"
-
-#~ msgid "Upgrade to %s"
-#~ msgstr "Mejorar a %s"
 
 #~ msgid "Downgrade to %s"
 #~ msgstr "Degradar a %s"

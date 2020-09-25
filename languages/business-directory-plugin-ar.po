@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-09 13:07:48+00:00\n"
+"POT-Creation-Date: 2020-09-25 21:07:19+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -34,7 +34,7 @@ msgstr "الإعلان منتهي التاريخ"
 
 #: includes/admin/class-admin-listings.php:225
 #: includes/admin/class-listing-owner.php:91
-#: includes/helpers/class-listing-owner.php:110
+#: includes/helpers/class-listing-owner.php:91
 #, fuzzy
 msgid "Listing Owner"
 msgstr "الإعلان منتهي التاريخ"
@@ -90,9 +90,8 @@ msgstr "Poster annonce(paiement initial)"
 
 #: includes/admin/class-listing-owner.php:66
 #: includes/admin/class-listing-owner.php:93
-#: includes/helpers/class-listing-owner.php:31
-#: includes/helpers/class-listing-owner.php:85
-#: includes/helpers/class-listing-owner.php:112
+#: includes/helpers/class-listing-owner.php:66
+#: includes/helpers/class-listing-owner.php:93
 #, fuzzy
 msgid "Please select a user"
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
@@ -481,7 +480,8 @@ msgstr "العنوان"
 msgid "ZIP Code"
 msgstr "الرمز البريدي"
 
-#: includes/functions.php:554
+#: includes/functions.php:554 templates/admin/fees-index.tpl.php:72
+#: templates/admin/fees-index.tpl.php:85 templates/admin/fees-index.tpl.php:106
 msgid "Free"
 msgstr "مجاني"
 
@@ -565,14 +565,122 @@ msgstr ""
 "المعلومات التالية يمكن أن تساعد مطورين \"دليل الأعمال\" لتصحيح المشاكل "
 "المحتملة مع الإعدادات الخاص بك."
 
-#: templates/admin/fees-index.tpl.php:17
+#: templates/admin/fees-index.tpl.php:7
+#, fuzzy
+msgid "Add New Listing Fee"
+msgstr "إضافة رسم إعلان جديد"
+
+#: templates/admin/fees-index.tpl.php:16
+#, fuzzy
+msgid "Payments are currently turned off."
+msgstr "نظام الدفع متوقف حاليا."
+
+#. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:20
 #, fuzzy
 msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"To manage fees you need to go to the %1$sManage Options - Payment%2$s page "
 "and check the box next to 'Turn On Payments' under 'Payment Settings'."
 msgstr ""
 "لإدارة الرسوم أنت بحاجة للذهاب إلى صفحة <a>إدارة الخيارات - الدفع</a> وحدد "
 "المربع بجوار 'تشغيل الدفعات' تحت 'إعدادات الدفع'."
+
+#: templates/admin/fees-index.tpl.php:34
+#, fuzzy
+msgid "Order fees on the frontend by:"
+msgstr "رسوم الترتيب على الواجهة بواسطة:"
+
+#: templates/admin/fees-index.tpl.php:44
+#, fuzzy
+msgid "↑ Ascending"
+msgstr "↑ تصاعدي"
+
+#: templates/admin/fees-index.tpl.php:45
+#, fuzzy
+msgid "↓ Descending"
+msgstr "↓ تنازلي"
+
+#: templates/admin/fees-index.tpl.php:53
+#, fuzzy
+msgid "Drag and drop to re-order fees."
+msgstr "سحب وإسقاط لإعادة ترتيب الرسوم."
+
+#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
+#. opening <a> tag, %3$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:71
+#, fuzzy
+msgid ""
+"These are all of the fee plans displayed to the user when they place a "
+"listing. Your current mode of \"%1$s\" restricts what you see here. Those on "
+"the %2$sNot Available%3$s filter will become active when you change the "
+"payment mode."
+msgstr ""
+"هذه جميع خطط الرسوم المعروضة للعضو عندما يضع إعلانا. الوضع الحالي الخاص بك "
+"هو \"%s\" يحصر ما تراه هنا. بالنسبة لتلك التي في عامل التصفية <a>غير متوفرة</"
+"a> سوف تصبح مفعلة عندما تقوم بتغيير وضع الدفع."
+
+#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:85
+#: templates/admin/fees-index.tpl.php:106
+msgid "Paid"
+msgstr "تم الدفع"
+
+#. translators: %s is directory payment mode (Free or Paid)
+#: templates/admin/fees-index.tpl.php:84
+#, fuzzy
+msgid ""
+"These are all of the fee plans that aren't available because you're in \"%s"
+"\" mode. Those on the Active filter will become Not Available when you "
+"change the payment mode."
+msgstr ""
+"هذه كلها من خطط الرسوم التي لم تكن متوفرة لأنك في وضع \"%s\". تلك المتعلقة "
+"بالتصفية المفعلة سوف تصبح \"غير متوفرة\" عندما تقوم بتغيير وضع الدفع."
+
+#: templates/admin/fees-index.tpl.php:93
+#, fuzzy
+msgid ""
+"These fee plans were disabled by the admin and will not show to the end user "
+"regardless of mode until you enable them."
+msgstr ""
+"خطط الرسوم هذه كانت معطلة من قبل الإدارة ولن تظهر للعضو بغض النظر عن الوضع "
+"حتى تقوم بفعيلها."
+
+#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
+#. opening <a> tag, %3$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:105
+#, fuzzy
+msgid ""
+"These are all of the fee plans you have configured. Not all of them are "
+"available for the current mode (currently set to \"%1$s\"). To see the fee "
+"plans for this mode click %2$sActive%3$s."
+msgstr ""
+"هذه كلها من خطط الرسوم التي قمت بإعدادها. ليست كلها متاحة للوضع الحالي "
+"(حاليا الوضع في \"%s\"). لمشاهدة خطط الرسوم لهذا الوضع إضغط <a>مفعل</a>."
+
+#: templates/admin/fees-index.tpl.php:135
+msgid "Set up a payment gateway to charge a fee for listings"
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:137
+msgid "Add a payment gateway to increase conversion rates"
+msgstr ""
+
+#. translators: %s: payment gateway name */
+#: templates/admin/fees-index.tpl.php:155
+msgid "Add the %s gateway as a payment option."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:161
+#, fuzzy
+msgid "Upgrade"
+msgstr "ترقية إلى %s"
+
+#: templates/admin/fees-index.tpl.php:169
+msgid "Set up Authorize.net as a payment option."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:172
+msgid "Set Up"
+msgstr ""
 
 #: templates/admin/home.tpl.php:54
 #, fuzzy
@@ -632,58 +740,58 @@ msgstr "إعادة تعيين الوضع الافتراضي"
 
 #: templates/admin/sidebar.tpl.php:3
 #, fuzzy
+msgid "Category Images"
+msgstr "التصنيفات"
+
+#: templates/admin/sidebar.tpl.php:4
+#, fuzzy
 msgid "PayPal Payments"
 msgstr "الدفعة الأولية"
 
-#: templates/admin/sidebar.tpl.php:4
+#: templates/admin/sidebar.tpl.php:5
 #, fuzzy
 msgid "Google Maps"
 msgstr "وحدة خرائط جوجل"
 
-#: templates/admin/sidebar.tpl.php:5
+#: templates/admin/sidebar.tpl.php:6
 #, fuzzy
 msgid "Regions"
 msgstr "وحدة المناطق"
 
-#: templates/admin/sidebar.tpl.php:6
+#: templates/admin/sidebar.tpl.php:7
 #, fuzzy
 msgid "ZIP Code Search"
 msgstr "وحدة البحث عن الرمز البريدي"
 
-#: templates/admin/sidebar.tpl.php:7
+#: templates/admin/sidebar.tpl.php:8
 #, fuzzy
 msgid "Ratings"
 msgstr "حقول التقييم"
 
-#: templates/admin/sidebar.tpl.php:8
+#: templates/admin/sidebar.tpl.php:9
 #, fuzzy
 msgid "Stripe Payments"
 msgstr "الدفع"
 
-#: templates/admin/sidebar.tpl.php:9
+#: templates/admin/sidebar.tpl.php:10
 #, fuzzy
 msgid "Featured Levels"
 msgstr "وحدة المستويات المميزة"
 
-#: templates/admin/sidebar.tpl.php:10
+#: templates/admin/sidebar.tpl.php:11
 #, fuzzy
 msgid "Claim Listings"
 msgstr "المطالبة بوحدة الإعلانات"
 
-#: templates/admin/sidebar.tpl.php:11
+#: templates/admin/sidebar.tpl.php:12
 #, fuzzy
 msgid "File Upload"
 msgstr "وحدة رفع الملفات"
 
-#: templates/admin/sidebar.tpl.php:12
+#: templates/admin/sidebar.tpl.php:13
 #, fuzzy
 msgid "Discount Codes"
 msgstr "كود خصم الوحدة"
-
-#: templates/admin/sidebar.tpl.php:13
-#, fuzzy
-msgid "PayFast Payments"
-msgstr "وحدة الدفع بايفاست (PayFast)"
 
 #: templates/admin/sidebar.tpl.php:17
 #, fuzzy
@@ -720,10 +828,19 @@ msgstr "قالب Elegant Business"
 msgid "Like this plugin?"
 msgstr "هل أحببت هذه الإضافة؟"
 
-#: templates/admin/sidebar.tpl.php:49 templates/admin/sidebar.tpl.php:68
+#: templates/admin/sidebar.tpl.php:40
+msgid "Make better directories"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:53 templates/admin/sidebar.tpl.php:74
 #, fuzzy
 msgid "new"
 msgstr "جديد"
+
+#: templates/admin/sidebar.tpl.php:59
+#, fuzzy
+msgid "Upgrade Now"
+msgstr "ترقية إلى %s"
 
 #: templates/admin/themes-install.tpl.php:21
 #, fuzzy
@@ -734,6 +851,16 @@ msgstr "أرشيف قالب دليل الأعمال (ملف مضغوط)"
 #, fuzzy
 msgid "← Return to Directory"
 msgstr "العودة إلى الدليل."
+
+#: templates/submit-listing-images.tpl.php:5
+#, fuzzy
+msgid "Current Images"
+msgstr "الصور الحالية"
+
+#: templates/submit-listing-images.tpl.php:8
+#, fuzzy
+msgid "There are no images currently attached to your listing."
+msgstr "لا توجد أي صور مرفقة حاليا إلى إعلانك."
 
 #. Author URI of the plugin/theme
 #, fuzzy
@@ -1395,17 +1522,17 @@ msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr "أنت مستعد. قم بزيارة صفحة <a>دليل الأعمال</a> الجديدة."
 
-#: includes/admin/class-admin.php:461
+#: includes/admin/class-admin.php:470
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:786
+#: includes/admin/class-admin.php:795
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "إخفاء هذا التنبيه."
 
-#: includes/admin/class-admin.php:825 includes/admin/class-admin.php:835
+#: includes/admin/class-admin.php:834 includes/admin/class-admin.php:844
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -1417,12 +1544,12 @@ msgstr[3] "تمت ترقية الإعلانات."
 msgstr[4] "تمت ترقية الإعلانات."
 msgstr[5] "تمت ترقية الإعلانات."
 
-#: includes/admin/class-admin.php:861
+#: includes/admin/class-admin.php:870
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "تم تعيين الرسوم بنجاح."
 
-#: includes/admin/class-admin.php:871
+#: includes/admin/class-admin.php:880
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -1433,19 +1560,19 @@ msgstr[3] "تم تجديد الإعلانات."
 msgstr[4] "تم تجديد الإعلانات."
 msgstr[5] "تم تجديد الإعلانات."
 
-#: includes/admin/class-admin.php:883
+#: includes/admin/class-admin.php:892
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "تم إرسال بريد التجديد."
 
-#: includes/admin/class-admin.php:887
+#: includes/admin/class-admin.php:896
 msgctxt "admin"
 msgid ""
 "Could not send renewal email, notice template at listing expiration not "
 "found."
 msgstr ""
 
-#: includes/admin/class-admin.php:894
+#: includes/admin/class-admin.php:903
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -1457,23 +1584,23 @@ msgstr[3] "إنتهاء صلاحية الإعلان"
 msgstr[4] "إنتهاء صلاحية الإعلان"
 msgstr[5] "إنتهاء صلاحية الإعلان"
 
-#: includes/admin/class-admin.php:942
+#: includes/admin/class-admin.php:951
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "مفتاح الوصول"
 
-#: includes/admin/class-admin.php:944
+#: includes/admin/class-admin.php:953
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1016 includes/admin/class-admin.php:1024
+#: includes/admin/class-admin.php:1025 includes/admin/class-admin.php:1033
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "عدد الإعلانات"
 
-#: includes/admin/class-admin.php:1089
+#: includes/admin/class-admin.php:1098
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1482,7 +1609,7 @@ msgstr ""
 "<b>إضافة دليل الأعمال</b> تتطلب صفحة فيها الكود القصير "
 "<tt>[businessdirectory]</tt>  لكي تعمل بشكل صحيح."
 
-#: includes/admin/class-admin.php:1091
+#: includes/admin/class-admin.php:1100
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1491,12 +1618,12 @@ msgstr ""
 "يمكنك إنشاء هذه الصفحة بنفسك أو ترك دليل الأعمال القيام بذلك نيابة عنك "
 "تلقائياً."
 
-#: includes/admin/class-admin.php:1096
+#: includes/admin/class-admin.php:1105
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "إنشاء الصفحات المطلوب نيابة عني"
 
-#: includes/admin/class-admin.php:1130
+#: includes/admin/class-admin.php:1139
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1504,7 +1631,7 @@ msgid ""
 "your provider to upgrade in order to prevent any issues with the plugin."
 msgstr ""
 
-#: includes/admin/class-admin.php:1154
+#: includes/admin/class-admin.php:1163
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1922,7 +2049,7 @@ msgctxt "admin menu"
 msgid "Settings"
 msgstr "إعدادات"
 
-#: includes/admin/class-admin.php:1014
+#: includes/admin/class-admin.php:1023
 msgctxt "admin category id"
 msgid "ID"
 msgstr "المعرف"
@@ -2822,89 +2949,6 @@ msgstr ""
 msgctxt "fees admin"
 msgid "Save Changes"
 msgstr "حفظ التعديلات"
-
-#: templates/admin/fees-index.tpl.php:6
-msgctxt "fees admin"
-msgid "Add New Listing Fee"
-msgstr "إضافة رسم إعلان جديد"
-
-#: templates/admin/fees-index.tpl.php:14
-msgctxt "fees admin"
-msgid "Payments are currently turned off."
-msgstr "نظام الدفع متوقف حاليا."
-
-#: templates/admin/fees-index.tpl.php:27
-msgctxt "fees admin"
-msgid "Order fees on the frontend by:"
-msgstr "رسوم الترتيب على الواجهة بواسطة:"
-
-#: templates/admin/fees-index.tpl.php:37
-msgctxt "fees admin"
-msgid "↑ Ascending"
-msgstr "↑ تصاعدي"
-
-#: templates/admin/fees-index.tpl.php:38
-msgctxt "fees admin"
-msgid "↓ Descending"
-msgstr "↓ تنازلي"
-
-#: templates/admin/fees-index.tpl.php:46
-msgctxt "fees admin"
-msgid "Drag and drop to re-order fees."
-msgstr "سحب وإسقاط لإعادة ترتيب الرسوم."
-
-#: templates/admin/fees-index.tpl.php:66
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%s\" restricts what you see here. Those on "
-"the <a>Not Available</a> filter will become active when you change the "
-"payment mode."
-msgstr ""
-"هذه جميع خطط الرسوم المعروضة للعضو عندما يضع إعلانا. الوضع الحالي الخاص بك "
-"هو \"%s\" يحصر ما تراه هنا. بالنسبة لتلك التي في عامل التصفية <a>غير متوفرة</"
-"a> سوف تصبح مفعلة عندما تقوم بتغيير وضع الدفع."
-
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
-#: templates/admin/fees-index.tpl.php:118
-msgctxt "fees admin"
-msgid "Paid"
-msgstr "تم الدفع"
-
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
-#: templates/admin/fees-index.tpl.php:118
-msgctxt "fees admin"
-msgid "Free"
-msgstr "مجاني"
-
-#: templates/admin/fees-index.tpl.php:81
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans that aren't available because you're in \"%s"
-"\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-"هذه كلها من خطط الرسوم التي لم تكن متوفرة لأنك في وضع \"%s\". تلك المتعلقة "
-"بالتصفية المفعلة سوف تصبح \"غير متوفرة\" عندما تقوم بتغيير وضع الدفع."
-
-#: templates/admin/fees-index.tpl.php:94
-msgctxt "fees admin"
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end user "
-"regardless of mode until you enable them."
-msgstr ""
-"خطط الرسوم هذه كانت معطلة من قبل الإدارة ولن تظهر للعضو بغض النظر عن الوضع "
-"حتى تقوم بفعيلها."
-
-#: templates/admin/fees-index.tpl.php:112
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%s\"). To see the fee "
-"plans for this mode click <a>Active</a>."
-msgstr ""
-"هذه كلها من خطط الرسوم التي قمت بإعدادها. ليست كلها متاحة للوضع الحالي "
-"(حاليا الوضع في \"%s\"). لمشاهدة خطط الرسوم لهذا الوضع إضغط <a>مفعل</a>."
 
 #: includes/admin/form-fields.php:22
 msgctxt "form-fields admin"
@@ -6375,7 +6419,7 @@ msgid ""
 "avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
 msgstr ""
 
-#: includes/class-fees-api.php:61
+#: includes/class-fees-api.php:62
 msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "إعلان مجاني"
@@ -7031,7 +7075,7 @@ msgid "Social Site (Other)"
 msgstr "الموقع الاجتماعي (التعامل مع التغريدات)"
 
 #: includes/fields/class-fieldtypes-social.php:95
-#: includes/fields/class-fieldtypes-url.php:152
+#: includes/fields/class-fieldtypes-url.php:157
 msgctxt "form-fields api"
 msgid "URL:"
 msgstr "رابط URL:"
@@ -7078,7 +7122,7 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "حقل الرابط"
 
-#: includes/fields/class-fieldtypes-url.php:164
+#: includes/fields/class-fieldtypes-url.php:169
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "رابط نصي (اختياري):"
@@ -7777,16 +7821,6 @@ msgstr "عرض الصورة:"
 msgctxt "templates"
 msgid "Image height:"
 msgstr "ارتفاع الصورة:"
-
-#: templates/submit-listing-images.tpl.php:5
-msgctxt "templates"
-msgid "Current Images"
-msgstr "الصور الحالية"
-
-#: templates/submit-listing-images.tpl.php:8
-msgctxt "templates"
-msgid "There are no images currently attached to your listing."
-msgstr "لا توجد أي صور مرفقة حاليا إلى إعلانك."
 
 #: includes/gateways/class-gateway-authorize-net.php:20
 #, fuzzy
@@ -9070,7 +9104,7 @@ msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "عرض الحقول التالية في النموذج."
 
-#: includes/widgets/widget-search.php:108
+#: includes/widgets/widget-search.php:107
 msgctxt "widgets"
 msgid "Search"
 msgstr "بحث"
@@ -9085,134 +9119,6 @@ msgstr "بحث"
 msgctxt "admin forms"
 msgid "required"
 msgstr "مطلوب"
-
-#: templates/admin/fees-index.tpl.php:132
-msgctxt "admin sidebar"
-msgid "PayPal Gateway Module"
-msgstr "وحدة البوابة باي بال (PayPal)"
-
-#: templates/admin/fees-index.tpl.php:133
-msgctxt "admin sidebar"
-msgid "2Checkout Gateway Module"
-msgstr "وحدة البوابة توتشيك أوت (2Checkout)"
-
-#: templates/admin/fees-index.tpl.php:134
-msgctxt "admin sidebar"
-msgid "PayFast Payment Module"
-msgstr "وحدة الدفع بايفاست (PayFast)"
-
-#: templates/admin/fees-index.tpl.php:135
-msgctxt "admin sidebar"
-msgid "Stripe Payment Module"
-msgstr "وحدة الدفع سترايب (Stripe)"
-
-#: templates/admin/sidebar.tpl.php:40
-msgctxt "admin sidebar"
-msgid "Get a Premium Module"
-msgstr "الحصول على وحدة ممتازة (Premium) "
-
-#: templates/admin/sidebar.tpl.php:43 templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "best deal"
-msgstr "أفضل صفقة"
-
-#: templates/admin/sidebar.tpl.php:43
-msgctxt "admin sidebar"
-msgid "Combo Pack"
-msgstr "حزمة Combo"
-
-#: templates/admin/sidebar.tpl.php:43
-msgctxt "admin sidebar"
-msgid "(All Modules)"
-msgstr "(جميع الوحدات)"
-
-#: templates/admin/sidebar.tpl.php:59
-msgctxt "admin sidebar"
-msgid "Get a Directory Theme"
-msgstr "أحصل على قالب الدليل"
-
-#: templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "Theme Pack"
-msgstr "حزمة القوالب"
-
-#: templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "(All Themes)"
-msgstr "(جميع القوالب)"
-
-#: templates/admin/sidebar.tpl.php:78
-msgctxt "admin sidebar"
-msgid "Found a bug? Need support?"
-msgstr "العثور على خطأ؟ تحتاج إلى دعم؟"
-
-#: templates/admin/sidebar.tpl.php:85
-#, fuzzy
-msgctxt "admin sidebar"
-msgid "If you've found a bug or need support <a>let us know!</a>"
-msgstr "إذا كنت قد وجدت خطأ أو بحاجة إلى دعم <a>قم بزيارة المنتديات!</a>"
-
-#: templates/admin/sidebar.tpl.php:90
-msgctxt "admin sidebar"
-msgid "Full plugin documentation"
-msgstr "الوثائق الكاملة المساعدة للإضافة"
-
-#: templates/admin/sidebar.tpl.php:91
-msgctxt "admin sidebar"
-msgid "Quick Start Guide"
-msgstr "دليل بدء التشغيل السريع"
-
-#: templates/admin/sidebar.tpl.php:92
-msgctxt "admin sidebar"
-msgid "Video Tutorials"
-msgstr "دروس الفيديو التعليمية"
-
-#: templates/admin/sidebar.tpl.php:100
-msgctxt "admin sidebar"
-msgid "Installed Modules"
-msgstr "الوحدات المثبتة"
-
-#: templates/admin/sidebar.tpl.php:111 templates/admin/sidebar.tpl.php:120
-msgctxt "admin sidebar"
-msgid "Installed"
-msgstr "تم التنصيب"
-
-#: templates/admin/sidebar.tpl.php:113 templates/admin/sidebar.tpl.php:120
-msgctxt "admin sidebar"
-msgid "Not Installed"
-msgstr "غير منصب"
-
-#: templates/admin/sidebar.tpl.php:119
-msgctxt "admin sidebar"
-msgid "Enhanced Categories Module"
-msgstr "وحدة التصنيفات المحسنة"
-
-#: templates/admin/fees-index.tpl.php:147
-msgctxt "admin templates"
-msgid ""
-"It does not appear you have any of the payment gateway modules enabled. "
-"Either <a>enable the default Authorize.net gateway</a> with your account "
-"info, or purchase a different payment gateway module in order to charge a "
-"fee for listings. To purchase additional payment gateways use the buttons "
-"below or visit %s."
-msgstr ""
-"لا يظهر لديك أي من وحدات بوابات الدفع مفعلة. إما <a>فعل بوابة Authorize.net "
-"الافتراضية</a> مع معلومات الحساب الخاص بك، أو قم بشراء وحدة بوابة دفع مختلفة "
-"من أجل فرض رسوم على إضافة الإعلانات. لشراء بوابة دفع إضافية استخدام الأزرار "
-"الموجودة أدناه، أو قم بزيارة %s."
-
-#: templates/admin/fees-index.tpl.php:166
-msgctxt "admin templates"
-msgid "Already installed."
-msgstr "مُركب مسبقا"
-
-#: templates/admin/fees-index.tpl.php:173
-#, fuzzy
-msgctxt "admin templates"
-msgid ""
-"You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for your "
-"users."
-msgstr "يمكنك شراء <a>%s</a> لإضافة <a>%s</a> كخيار دفع للأعضاء."
 
 #: templates/admin/home.tpl.php:12
 msgctxt "admin home"
@@ -9470,6 +9376,37 @@ msgstr "إلغاء"
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "حفظ التعديلات"
+
+#: templates/admin/sidebar.tpl.php:66
+msgctxt "admin sidebar"
+msgid "Get a Directory Theme"
+msgstr "أحصل على قالب الدليل"
+
+#: templates/admin/sidebar.tpl.php:84
+msgctxt "admin sidebar"
+msgid "Found a bug? Need support?"
+msgstr "العثور على خطأ؟ تحتاج إلى دعم؟"
+
+#: templates/admin/sidebar.tpl.php:91
+#, fuzzy
+msgctxt "admin sidebar"
+msgid "If you've found a bug or need support <a>let us know!</a>"
+msgstr "إذا كنت قد وجدت خطأ أو بحاجة إلى دعم <a>قم بزيارة المنتديات!</a>"
+
+#: templates/admin/sidebar.tpl.php:96
+msgctxt "admin sidebar"
+msgid "Full plugin documentation"
+msgstr "الوثائق الكاملة المساعدة للإضافة"
+
+#: templates/admin/sidebar.tpl.php:97
+msgctxt "admin sidebar"
+msgid "Quick Start Guide"
+msgstr "دليل بدء التشغيل السريع"
+
+#: templates/admin/sidebar.tpl.php:98
+msgctxt "admin sidebar"
+msgid "Video Tutorials"
+msgstr "دروس الفيديو التعليمية"
 
 #: templates/admin/themes-delete-confirm.tpl.php:1
 #: templates/admin/themes-delete-confirm.tpl.php:13
@@ -9898,6 +9835,98 @@ msgctxt "themes/default"
 msgid "Address"
 msgstr "العنوان"
 
+#, fuzzy
+#~ msgid "PayFast Payments"
+#~ msgstr "وحدة الدفع بايفاست (PayFast)"
+
+#~ msgctxt "fees admin"
+#~ msgid "Paid"
+#~ msgstr "تم الدفع"
+
+#~ msgctxt "fees admin"
+#~ msgid "Free"
+#~ msgstr "مجاني"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "PayPal Gateway Module"
+#~ msgstr "وحدة البوابة باي بال (PayPal)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "2Checkout Gateway Module"
+#~ msgstr "وحدة البوابة توتشيك أوت (2Checkout)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "PayFast Payment Module"
+#~ msgstr "وحدة الدفع بايفاست (PayFast)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Stripe Payment Module"
+#~ msgstr "وحدة الدفع سترايب (Stripe)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Get a Premium Module"
+#~ msgstr "الحصول على وحدة ممتازة (Premium) "
+
+#~ msgctxt "admin sidebar"
+#~ msgid "best deal"
+#~ msgstr "أفضل صفقة"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Combo Pack"
+#~ msgstr "حزمة Combo"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "(All Modules)"
+#~ msgstr "(جميع الوحدات)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Theme Pack"
+#~ msgstr "حزمة القوالب"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "(All Themes)"
+#~ msgstr "(جميع القوالب)"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Installed Modules"
+#~ msgstr "الوحدات المثبتة"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Installed"
+#~ msgstr "تم التنصيب"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Not Installed"
+#~ msgstr "غير منصب"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Enhanced Categories Module"
+#~ msgstr "وحدة التصنيفات المحسنة"
+
+#~ msgctxt "admin templates"
+#~ msgid ""
+#~ "It does not appear you have any of the payment gateway modules enabled. "
+#~ "Either <a>enable the default Authorize.net gateway</a> with your account "
+#~ "info, or purchase a different payment gateway module in order to charge a "
+#~ "fee for listings. To purchase additional payment gateways use the buttons "
+#~ "below or visit %s."
+#~ msgstr ""
+#~ "لا يظهر لديك أي من وحدات بوابات الدفع مفعلة. إما <a>فعل بوابة Authorize."
+#~ "net الافتراضية</a> مع معلومات الحساب الخاص بك، أو قم بشراء وحدة بوابة دفع "
+#~ "مختلفة من أجل فرض رسوم على إضافة الإعلانات. لشراء بوابة دفع إضافية "
+#~ "استخدام الأزرار الموجودة أدناه، أو قم بزيارة %s."
+
+#~ msgctxt "admin templates"
+#~ msgid "Already installed."
+#~ msgstr "مُركب مسبقا"
+
+#, fuzzy
+#~ msgctxt "admin templates"
+#~ msgid ""
+#~ "You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for "
+#~ "your users."
+#~ msgstr "يمكنك شراء <a>%s</a> لإضافة <a>%s</a> كخيار دفع للأعضاء."
+
 #~ msgctxt "debug-info"
 #~ msgid "BD Info"
 #~ msgstr "معلومات دليل الأعمال"
@@ -10102,9 +10131,6 @@ msgstr "العنوان"
 #~ msgctxt "renewal"
 #~ msgid "You don't have permission to access this page."
 #~ msgstr "لا تملك الصلاحية لتثبيت تحديثات الإضافة"
-
-#~ msgid "Paid"
-#~ msgstr "تم الدفع"
 
 #~ msgid "Pending Upgrade"
 #~ msgstr " في انتظار الترقية"
@@ -11264,9 +11290,6 @@ msgstr "العنوان"
 
 #~ msgid "Mark as"
 #~ msgstr "إجعلها"
-
-#~ msgid "Upgrade to %s"
-#~ msgstr "ترقية إلى %s"
 
 #~ msgid "Downgrade to %s"
 #~ msgstr "الرجوع إلى %s"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-09 13:07:48+00:00\n"
+"POT-Creation-Date: 2020-09-25 21:07:19+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -40,7 +40,7 @@ msgstr "Срок действия записи истёк"
 
 #: includes/admin/class-admin-listings.php:225
 #: includes/admin/class-listing-owner.php:91
-#: includes/helpers/class-listing-owner.php:110
+#: includes/helpers/class-listing-owner.php:91
 #, fuzzy
 msgid "Listing Owner"
 msgstr "Срок действия записи истёк"
@@ -93,9 +93,8 @@ msgstr ""
 
 #: includes/admin/class-listing-owner.php:66
 #: includes/admin/class-listing-owner.php:93
-#: includes/helpers/class-listing-owner.php:31
-#: includes/helpers/class-listing-owner.php:85
-#: includes/helpers/class-listing-owner.php:112
+#: includes/helpers/class-listing-owner.php:66
+#: includes/helpers/class-listing-owner.php:93
 #, fuzzy
 msgid "Please select a user"
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
@@ -471,7 +470,8 @@ msgstr "Почтовый адрес"
 msgid "ZIP Code"
 msgstr "Почтовый индекс"
 
-#: includes/functions.php:554
+#: includes/functions.php:554 templates/admin/fees-index.tpl.php:72
+#: templates/admin/fees-index.tpl.php:85 templates/admin/fees-index.tpl.php:106
 msgid "Free"
 msgstr "Бесплатно"
 
@@ -556,14 +556,109 @@ msgstr ""
 "Следующая информация может помочь разработчикам плагина отладить возможные "
 "проблемы и конфликты с Вашим сервером."
 
-#: templates/admin/fees-index.tpl.php:17
+#: templates/admin/fees-index.tpl.php:7
+#, fuzzy
+msgid "Add New Listing Fee"
+msgstr "Добавить тариф"
+
+#: templates/admin/fees-index.tpl.php:16
+#, fuzzy
+msgid "Payments are currently turned off."
+msgstr "Платежи на настоящее время отключены."
+
+#. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:20
 #, fuzzy
 msgid ""
-"To manage fees you need to go to the <a>Manage Options - Payment</a> page "
+"To manage fees you need to go to the %1$sManage Options - Payment%2$s page "
 "and check the box next to 'Turn On Payments' under 'Payment Settings'."
 msgstr ""
 "Для управления тарифами Вам надо перейти в раздел <a>Настройки / Оплата</a> "
 "и включить параметр \"Включить поддержку платного режима\"."
+
+#: templates/admin/fees-index.tpl.php:34
+#, fuzzy
+msgid "Order fees on the frontend by:"
+msgstr "Сортировать тарифы:"
+
+#: templates/admin/fees-index.tpl.php:44
+#, fuzzy
+msgid "↑ Ascending"
+msgstr "↑ По возрастанию"
+
+#: templates/admin/fees-index.tpl.php:45
+#, fuzzy
+msgid "↓ Descending"
+msgstr "↓ По убыванию"
+
+#: templates/admin/fees-index.tpl.php:53
+#, fuzzy
+msgid "Drag and drop to re-order fees."
+msgstr "Поменяйте порядок тарифов перетаскивая их здесь."
+
+#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
+#. opening <a> tag, %3$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:71
+msgid ""
+"These are all of the fee plans displayed to the user when they place a "
+"listing. Your current mode of \"%1$s\" restricts what you see here. Those on "
+"the %2$sNot Available%3$s filter will become active when you change the "
+"payment mode."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:85
+#: templates/admin/fees-index.tpl.php:106
+msgid "Paid"
+msgstr "Оплачено"
+
+#. translators: %s is directory payment mode (Free or Paid)
+#: templates/admin/fees-index.tpl.php:84
+msgid ""
+"These are all of the fee plans that aren't available because you're in \"%s"
+"\" mode. Those on the Active filter will become Not Available when you "
+"change the payment mode."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:93
+msgid ""
+"These fee plans were disabled by the admin and will not show to the end user "
+"regardless of mode until you enable them."
+msgstr ""
+
+#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
+#. opening <a> tag, %3$s is a closing </a> tag.
+#: templates/admin/fees-index.tpl.php:105
+msgid ""
+"These are all of the fee plans you have configured. Not all of them are "
+"available for the current mode (currently set to \"%1$s\"). To see the fee "
+"plans for this mode click %2$sActive%3$s."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:135
+msgid "Set up a payment gateway to charge a fee for listings"
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:137
+msgid "Add a payment gateway to increase conversion rates"
+msgstr ""
+
+#. translators: %s: payment gateway name */
+#: templates/admin/fees-index.tpl.php:155
+msgid "Add the %s gateway as a payment option."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:161
+#, fuzzy
+msgid "Upgrade"
+msgstr "Поднять статус до %s"
+
+#: templates/admin/fees-index.tpl.php:169
+msgid "Set up Authorize.net as a payment option."
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:172
+msgid "Set Up"
+msgstr ""
 
 #: templates/admin/home.tpl.php:54
 #, fuzzy
@@ -624,58 +719,58 @@ msgstr "Сбросить настройки"
 
 #: templates/admin/sidebar.tpl.php:3
 #, fuzzy
+msgid "Category Images"
+msgstr "Рубрики"
+
+#: templates/admin/sidebar.tpl.php:4
+#, fuzzy
 msgid "PayPal Payments"
 msgstr "Начальный платёж"
 
-#: templates/admin/sidebar.tpl.php:4
+#: templates/admin/sidebar.tpl.php:5
 #, fuzzy
 msgid "Google Maps"
 msgstr "Карты Google"
 
-#: templates/admin/sidebar.tpl.php:5
+#: templates/admin/sidebar.tpl.php:6
 #, fuzzy
 msgid "Regions"
 msgstr "Географический фильтр"
 
-#: templates/admin/sidebar.tpl.php:6
+#: templates/admin/sidebar.tpl.php:7
 #, fuzzy
 msgid "ZIP Code Search"
 msgstr "Поиск по почтовому индексу"
 
-#: templates/admin/sidebar.tpl.php:7
+#: templates/admin/sidebar.tpl.php:8
 #, fuzzy
 msgid "Ratings"
 msgstr "Рейтинг"
 
-#: templates/admin/sidebar.tpl.php:8
+#: templates/admin/sidebar.tpl.php:9
 #, fuzzy
 msgid "Stripe Payments"
 msgstr "Оплата"
 
-#: templates/admin/sidebar.tpl.php:9
+#: templates/admin/sidebar.tpl.php:10
 #, fuzzy
 msgid "Featured Levels"
 msgstr "Специальные платные функции"
 
-#: templates/admin/sidebar.tpl.php:10
+#: templates/admin/sidebar.tpl.php:11
 #, fuzzy
 msgid "Claim Listings"
 msgstr "Запрос авторства"
 
-#: templates/admin/sidebar.tpl.php:11
+#: templates/admin/sidebar.tpl.php:12
 #, fuzzy
 msgid "File Upload"
 msgstr "Загрузка файлов"
 
-#: templates/admin/sidebar.tpl.php:12
+#: templates/admin/sidebar.tpl.php:13
 #, fuzzy
 msgid "Discount Codes"
 msgstr "Коды для скидок"
-
-#: templates/admin/sidebar.tpl.php:13
-#, fuzzy
-msgid "PayFast Payments"
-msgstr "Платёжный шлюз PayFast"
 
 #: templates/admin/sidebar.tpl.php:17
 #, fuzzy
@@ -710,9 +805,18 @@ msgstr "Наименование"
 msgid "Like this plugin?"
 msgstr "Нравится этот плагин?"
 
-#: templates/admin/sidebar.tpl.php:49 templates/admin/sidebar.tpl.php:68
+#: templates/admin/sidebar.tpl.php:40
+msgid "Make better directories"
+msgstr ""
+
+#: templates/admin/sidebar.tpl.php:53 templates/admin/sidebar.tpl.php:74
 msgid "new"
 msgstr ""
+
+#: templates/admin/sidebar.tpl.php:59
+#, fuzzy
+msgid "Upgrade Now"
+msgstr "Поднять статус до %s"
 
 #: templates/admin/themes-install.tpl.php:21
 #, fuzzy
@@ -723,6 +827,16 @@ msgstr "Архив темы справочника (файл ZIP)"
 #, fuzzy
 msgid "← Return to Directory"
 msgstr "Вернуться в Справочник."
+
+#: templates/submit-listing-images.tpl.php:5
+#, fuzzy
+msgid "Current Images"
+msgstr "Существующие изображения:"
+
+#: templates/submit-listing-images.tpl.php:8
+#, fuzzy
+msgid "There are no images currently attached to your listing."
+msgstr "К Вашей записи не прикреплено ни одного изображения."
 
 #. Author URI of the plugin/theme
 #, fuzzy
@@ -1392,17 +1506,17 @@ msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr ""
 "Всё настроено. Откройте страницу Вашего нового <a>Справочника услуг</a> "
 
-#: includes/admin/class-admin.php:461
+#: includes/admin/class-admin.php:470
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:786
+#: includes/admin/class-admin.php:795
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Убрать это предупреждение"
 
-#: includes/admin/class-admin.php:825 includes/admin/class-admin.php:835
+#: includes/admin/class-admin.php:834 includes/admin/class-admin.php:844
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -1411,12 +1525,12 @@ msgstr[0] "Статус записи был поднят."
 msgstr[1] "Статус записей был поднят."
 msgstr[2] ""
 
-#: includes/admin/class-admin.php:861
+#: includes/admin/class-admin.php:870
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Тариф был успешно назначен."
 
-#: includes/admin/class-admin.php:871
+#: includes/admin/class-admin.php:880
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -1424,19 +1538,19 @@ msgstr[0] "Запись была продлена."
 msgstr[1] "Записи были продлены."
 msgstr[2] ""
 
-#: includes/admin/class-admin.php:883
+#: includes/admin/class-admin.php:892
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Оповещение о продлении было отправлено по электронной почте."
 
-#: includes/admin/class-admin.php:887
+#: includes/admin/class-admin.php:896
 msgctxt "admin"
 msgid ""
 "Could not send renewal email, notice template at listing expiration not "
 "found."
 msgstr ""
 
-#: includes/admin/class-admin.php:894
+#: includes/admin/class-admin.php:903
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -1445,23 +1559,23 @@ msgstr[0] "Дата окончания срока действия"
 msgstr[1] "Дата окончания срока действия"
 msgstr[2] "Дата окончания срока действия"
 
-#: includes/admin/class-admin.php:942
+#: includes/admin/class-admin.php:951
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Поля и Изображения записи"
 
-#: includes/admin/class-admin.php:944
+#: includes/admin/class-admin.php:953
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1016 includes/admin/class-admin.php:1024
+#: includes/admin/class-admin.php:1025 includes/admin/class-admin.php:1033
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Количество записей"
 
-#: includes/admin/class-admin.php:1089
+#: includes/admin/class-admin.php:1098
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1470,7 +1584,7 @@ msgstr ""
 "Плагин <b>Справочник Услуг</b> для нормальной работы требует наличия "
 "страницы, в которой есть шорткод <tt>[businessdirectory]</tt>."
 
-#: includes/admin/class-admin.php:1091
+#: includes/admin/class-admin.php:1100
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1479,12 +1593,12 @@ msgstr ""
 "Вы можете создать такую страницу сами, или позвольте плагину создать её для "
 "Вас автоматически."
 
-#: includes/admin/class-admin.php:1096
+#: includes/admin/class-admin.php:1105
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Создать необходимые страницы автоматически"
 
-#: includes/admin/class-admin.php:1130
+#: includes/admin/class-admin.php:1139
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1492,7 +1606,7 @@ msgid ""
 "your provider to upgrade in order to prevent any issues with the plugin."
 msgstr ""
 
-#: includes/admin/class-admin.php:1154
+#: includes/admin/class-admin.php:1163
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1913,7 +2027,7 @@ msgctxt "admin menu"
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/admin/class-admin.php:1014
+#: includes/admin/class-admin.php:1023
 msgctxt "admin category id"
 msgid "ID"
 msgstr "№"
@@ -2796,80 +2910,6 @@ msgstr ""
 msgctxt "fees admin"
 msgid "Save Changes"
 msgstr "Сохранить изменения"
-
-#: templates/admin/fees-index.tpl.php:6
-msgctxt "fees admin"
-msgid "Add New Listing Fee"
-msgstr "Добавить тариф"
-
-#: templates/admin/fees-index.tpl.php:14
-msgctxt "fees admin"
-msgid "Payments are currently turned off."
-msgstr "Платежи на настоящее время отключены."
-
-#: templates/admin/fees-index.tpl.php:27
-msgctxt "fees admin"
-msgid "Order fees on the frontend by:"
-msgstr "Сортировать тарифы:"
-
-#: templates/admin/fees-index.tpl.php:37
-msgctxt "fees admin"
-msgid "↑ Ascending"
-msgstr "↑ По возрастанию"
-
-#: templates/admin/fees-index.tpl.php:38
-msgctxt "fees admin"
-msgid "↓ Descending"
-msgstr "↓ По убыванию"
-
-#: templates/admin/fees-index.tpl.php:46
-msgctxt "fees admin"
-msgid "Drag and drop to re-order fees."
-msgstr "Поменяйте порядок тарифов перетаскивая их здесь."
-
-#: templates/admin/fees-index.tpl.php:66
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%s\" restricts what you see here. Those on "
-"the <a>Not Available</a> filter will become active when you change the "
-"payment mode."
-msgstr ""
-
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
-#: templates/admin/fees-index.tpl.php:118
-msgctxt "fees admin"
-msgid "Paid"
-msgstr "Оплачено"
-
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:86
-#: templates/admin/fees-index.tpl.php:118
-msgctxt "fees admin"
-msgid "Free"
-msgstr "Бесплатно"
-
-#: templates/admin/fees-index.tpl.php:81
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans that aren't available because you're in \"%s"
-"\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-
-#: templates/admin/fees-index.tpl.php:94
-msgctxt "fees admin"
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end user "
-"regardless of mode until you enable them."
-msgstr ""
-
-#: templates/admin/fees-index.tpl.php:112
-msgctxt "fees admin"
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%s\"). To see the fee "
-"plans for this mode click <a>Active</a>."
-msgstr ""
 
 #: includes/admin/form-fields.php:22
 msgctxt "form-fields admin"
@@ -6348,7 +6388,7 @@ msgid ""
 "avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
 msgstr ""
 
-#: includes/class-fees-api.php:61
+#: includes/class-fees-api.php:62
 msgctxt "fees-api"
 msgid "Free Listing"
 msgstr "Бесплатные записи"
@@ -6997,7 +7037,7 @@ msgid "Social Site (Other)"
 msgstr "Имя на сайте Twitter"
 
 #: includes/fields/class-fieldtypes-social.php:95
-#: includes/fields/class-fieldtypes-url.php:152
+#: includes/fields/class-fieldtypes-url.php:157
 msgctxt "form-fields api"
 msgid "URL:"
 msgstr "Ссылка:"
@@ -7044,7 +7084,7 @@ msgctxt "form-fields api"
 msgid "URL Field"
 msgstr "Поле адреса URL"
 
-#: includes/fields/class-fieldtypes-url.php:164
+#: includes/fields/class-fieldtypes-url.php:169
 msgctxt "form-fields api"
 msgid "Link Text (optional):"
 msgstr "Текст ссылки (не обязательно)"
@@ -7745,16 +7785,6 @@ msgstr "Ширина изображения (пикселы):"
 msgctxt "templates"
 msgid "Image height:"
 msgstr "Высота изображения (пикселы):"
-
-#: templates/submit-listing-images.tpl.php:5
-msgctxt "templates"
-msgid "Current Images"
-msgstr "Существующие изображения:"
-
-#: templates/submit-listing-images.tpl.php:8
-msgctxt "templates"
-msgid "There are no images currently attached to your listing."
-msgstr "К Вашей записи не прикреплено ни одного изображения."
 
 #: includes/gateways/class-gateway-authorize-net.php:20
 #, fuzzy
@@ -9042,7 +9072,7 @@ msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Показать следующие поля в форме."
 
-#: includes/widgets/widget-search.php:108
+#: includes/widgets/widget-search.php:107
 msgctxt "widgets"
 msgid "Search"
 msgstr "Поиск"
@@ -9057,139 +9087,6 @@ msgstr "Поиск"
 msgctxt "admin forms"
 msgid "required"
 msgstr "обязательно"
-
-#: templates/admin/fees-index.tpl.php:132
-msgctxt "admin sidebar"
-msgid "PayPal Gateway Module"
-msgstr "Платёжный шлюз PayPal"
-
-#: templates/admin/fees-index.tpl.php:133
-msgctxt "admin sidebar"
-msgid "2Checkout Gateway Module"
-msgstr "Платёжный шлюз 2Checkout"
-
-#: templates/admin/fees-index.tpl.php:134
-msgctxt "admin sidebar"
-msgid "PayFast Payment Module"
-msgstr "Платёжный шлюз PayFast"
-
-#: templates/admin/fees-index.tpl.php:135
-msgctxt "admin sidebar"
-msgid "Stripe Payment Module"
-msgstr "Платёжный шлюз Stripe"
-
-#: templates/admin/sidebar.tpl.php:40
-msgctxt "admin sidebar"
-msgid "Get a Premium Module"
-msgstr "Получите платные модули:"
-
-#: templates/admin/sidebar.tpl.php:43 templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "best deal"
-msgstr ""
-
-#: templates/admin/sidebar.tpl.php:43
-msgctxt "admin sidebar"
-msgid "Combo Pack"
-msgstr ""
-
-#: templates/admin/sidebar.tpl.php:43
-msgctxt "admin sidebar"
-msgid "(All Modules)"
-msgstr "Установленные модули:"
-
-#: templates/admin/sidebar.tpl.php:59
-msgctxt "admin sidebar"
-msgid "Get a Directory Theme"
-msgstr "Удалить тему справочника"
-
-#: templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "Theme Pack"
-msgstr "Метки темы"
-
-#: templates/admin/sidebar.tpl.php:62
-msgctxt "admin sidebar"
-msgid "(All Themes)"
-msgstr "Темы"
-
-#: templates/admin/sidebar.tpl.php:78
-msgctxt "admin sidebar"
-msgid "Found a bug? Need support?"
-msgstr "Нашли глюк? Или нужна поддержка?"
-
-#: templates/admin/sidebar.tpl.php:85
-#, fuzzy
-msgctxt "admin sidebar"
-msgid "If you've found a bug or need support <a>let us know!</a>"
-msgstr ""
-"Если Вы натолкнулись на глюк в программе, или Вам нужна техническая "
-"поддержка, посетите <a>форум поддержки!</a>"
-
-#: templates/admin/sidebar.tpl.php:90
-msgctxt "admin sidebar"
-msgid "Full plugin documentation"
-msgstr "Полная документация по плагину"
-
-#: templates/admin/sidebar.tpl.php:91
-msgctxt "admin sidebar"
-msgid "Quick Start Guide"
-msgstr "Руководство по быстрому старту"
-
-#: templates/admin/sidebar.tpl.php:92
-msgctxt "admin sidebar"
-msgid "Video Tutorials"
-msgstr "Видео-уроки"
-
-#: templates/admin/sidebar.tpl.php:100
-msgctxt "admin sidebar"
-msgid "Installed Modules"
-msgstr "Установленные модули:"
-
-#: templates/admin/sidebar.tpl.php:111 templates/admin/sidebar.tpl.php:120
-msgctxt "admin sidebar"
-msgid "Installed"
-msgstr "Установлен"
-
-#: templates/admin/sidebar.tpl.php:113 templates/admin/sidebar.tpl.php:120
-msgctxt "admin sidebar"
-msgid "Not Installed"
-msgstr "Не установлен"
-
-#: templates/admin/sidebar.tpl.php:119
-msgctxt "admin sidebar"
-msgid "Enhanced Categories Module"
-msgstr "Модуль продвинутых рубрик"
-
-#: templates/admin/fees-index.tpl.php:147
-msgctxt "admin templates"
-msgid ""
-"It does not appear you have any of the payment gateway modules enabled. "
-"Either <a>enable the default Authorize.net gateway</a> with your account "
-"info, or purchase a different payment gateway module in order to charge a "
-"fee for listings. To purchase additional payment gateways use the buttons "
-"below or visit %s."
-msgstr ""
-"Похоже, что у Вас не установлен ни один платёжный шлюз. Либо <a>включите "
-"шлюз по-умолчанию (Authorize.net)</a>, либо купите модуль другого платёжного "
-"шлюза. Пока Вы этого не сделаете, Вы не сможете создать тарифные планы.<br /"
-"><br />Чтобы купить модули платёжных шлюзов используйте следующие кнопки или "
-"посетите наш магазин по адресу %s."
-
-#: templates/admin/fees-index.tpl.php:166
-msgctxt "admin templates"
-msgid "Already installed."
-msgstr "Уже устновлен."
-
-#: templates/admin/fees-index.tpl.php:173
-#, fuzzy
-msgctxt "admin templates"
-msgid ""
-"You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for your "
-"users."
-msgstr ""
-"Вы можете купить модуль \"<a>%s</a>\" чтобы добавить систему <a>%s</a> в "
-"качестве одного из возможных способов оплаты для пользователей Вашего сайта."
 
 #: templates/admin/home.tpl.php:12
 msgctxt "admin home"
@@ -9451,6 +9348,39 @@ msgstr "Отменить"
 msgctxt "settings email"
 msgid "Save Changes"
 msgstr "Сохранить изменения"
+
+#: templates/admin/sidebar.tpl.php:66
+msgctxt "admin sidebar"
+msgid "Get a Directory Theme"
+msgstr "Удалить тему справочника"
+
+#: templates/admin/sidebar.tpl.php:84
+msgctxt "admin sidebar"
+msgid "Found a bug? Need support?"
+msgstr "Нашли глюк? Или нужна поддержка?"
+
+#: templates/admin/sidebar.tpl.php:91
+#, fuzzy
+msgctxt "admin sidebar"
+msgid "If you've found a bug or need support <a>let us know!</a>"
+msgstr ""
+"Если Вы натолкнулись на глюк в программе, или Вам нужна техническая "
+"поддержка, посетите <a>форум поддержки!</a>"
+
+#: templates/admin/sidebar.tpl.php:96
+msgctxt "admin sidebar"
+msgid "Full plugin documentation"
+msgstr "Полная документация по плагину"
+
+#: templates/admin/sidebar.tpl.php:97
+msgctxt "admin sidebar"
+msgid "Quick Start Guide"
+msgstr "Руководство по быстрому старту"
+
+#: templates/admin/sidebar.tpl.php:98
+msgctxt "admin sidebar"
+msgid "Video Tutorials"
+msgstr "Видео-уроки"
 
 #: templates/admin/themes-delete-confirm.tpl.php:1
 #: templates/admin/themes-delete-confirm.tpl.php:13
@@ -9889,6 +9819,94 @@ msgctxt "themes/default"
 msgid "Address"
 msgstr "Адрес"
 
+#, fuzzy
+#~ msgid "PayFast Payments"
+#~ msgstr "Платёжный шлюз PayFast"
+
+#~ msgctxt "fees admin"
+#~ msgid "Paid"
+#~ msgstr "Оплачено"
+
+#~ msgctxt "fees admin"
+#~ msgid "Free"
+#~ msgstr "Бесплатно"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "PayPal Gateway Module"
+#~ msgstr "Платёжный шлюз PayPal"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "2Checkout Gateway Module"
+#~ msgstr "Платёжный шлюз 2Checkout"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "PayFast Payment Module"
+#~ msgstr "Платёжный шлюз PayFast"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Stripe Payment Module"
+#~ msgstr "Платёжный шлюз Stripe"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Get a Premium Module"
+#~ msgstr "Получите платные модули:"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "(All Modules)"
+#~ msgstr "Установленные модули:"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Theme Pack"
+#~ msgstr "Метки темы"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "(All Themes)"
+#~ msgstr "Темы"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Installed Modules"
+#~ msgstr "Установленные модули:"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Installed"
+#~ msgstr "Установлен"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Not Installed"
+#~ msgstr "Не установлен"
+
+#~ msgctxt "admin sidebar"
+#~ msgid "Enhanced Categories Module"
+#~ msgstr "Модуль продвинутых рубрик"
+
+#~ msgctxt "admin templates"
+#~ msgid ""
+#~ "It does not appear you have any of the payment gateway modules enabled. "
+#~ "Either <a>enable the default Authorize.net gateway</a> with your account "
+#~ "info, or purchase a different payment gateway module in order to charge a "
+#~ "fee for listings. To purchase additional payment gateways use the buttons "
+#~ "below or visit %s."
+#~ msgstr ""
+#~ "Похоже, что у Вас не установлен ни один платёжный шлюз. Либо <a>включите "
+#~ "шлюз по-умолчанию (Authorize.net)</a>, либо купите модуль другого "
+#~ "платёжного шлюза. Пока Вы этого не сделаете, Вы не сможете создать "
+#~ "тарифные планы.<br /><br />Чтобы купить модули платёжных шлюзов "
+#~ "используйте следующие кнопки или посетите наш магазин по адресу %s."
+
+#~ msgctxt "admin templates"
+#~ msgid "Already installed."
+#~ msgstr "Уже устновлен."
+
+#, fuzzy
+#~ msgctxt "admin templates"
+#~ msgid ""
+#~ "You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for "
+#~ "your users."
+#~ msgstr ""
+#~ "Вы можете купить модуль \"<a>%s</a>\" чтобы добавить систему <a>%s</a> в "
+#~ "качестве одного из возможных способов оплаты для пользователей Вашего "
+#~ "сайта."
+
 #~ msgctxt "debug-info"
 #~ msgid "BD Info"
 #~ msgstr "Информация о плагине"
@@ -10085,9 +10103,6 @@ msgstr "Адрес"
 #~ msgctxt "renewal"
 #~ msgid "You don't have permission to access this page."
 #~ msgstr "У Вас нет полномочий для установки обновлений плагинов"
-
-#~ msgid "Paid"
-#~ msgstr "Оплачено"
 
 #~ msgid "Pending Upgrade"
 #~ msgstr "Ожидается подтверждение"
@@ -11230,9 +11245,6 @@ msgstr "Адрес"
 
 #~ msgid "Mark as"
 #~ msgstr "Помечено как"
-
-#~ msgid "Upgrade to %s"
-#~ msgstr "Поднять статус до %s"
 
 #~ msgid "Downgrade to %s"
 #~ msgstr "Опустить статус до %s"
