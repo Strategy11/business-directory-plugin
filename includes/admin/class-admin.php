@@ -350,7 +350,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_menu_page(
                 _x( 'Business Directory Admin', 'business-directory-plugin' ),
                 _x( 'Directory', 'business-directory-plugin' ),
-                'administrator',
+                'manage_categories',
                 $menu_id,
                 current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
                 WPBDP__CPT_Integration::menu_icon(),
@@ -431,6 +431,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function hide_menu() {
             if ( current_user_can( 'administrator' ) ) {
                 remove_menu_page( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) );
+            } else {
+                $this->maybe_restore_regions_submenu();
+                remove_menu_page( sprintf( 'wpbdp_admin' ) );
             }
             remove_submenu_page( 'wpbdp_admin', 'wpbdp_admin' );
         }
@@ -1214,6 +1217,35 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
             echo '<script type="text/javascript">jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
+        }
+
+        /**
+         * This function restores Manage Regions menu for Editors,
+         * it won't be necessary after fixing the editors 
+         * issue in regions module. 
+         */
+        private function maybe_restore_regions_submenu() {
+            if ( class_exists( 'WPBDP_RegionsAdmin' ) ) {
+                global $submenu;
+
+                $parent_file  = sprintf( 'wpbdp_admin', WPBDP_POST_TYPE );
+                $submenu_file = 'edit-tags.php?taxonomy=%s&amp;post_type=%s';
+                $submenu_file = sprintf( $submenu_file, wpbdp_regions_taxonomy(), WPBDP_POST_TYPE );
+
+                $directory_regions = null;
+                foreach ( wpbdp_getv( $submenu, $parent_file, array() ) as $k => $item ) {
+                    if ( strcmp( $item[2], $submenu_file ) === 0 ) {
+                        $directory_regions = $k;
+                        break;
+                    }
+                }
+
+                if ( is_null( $directory_regions ) ) {
+                    return;
+                }
+
+                array_splice( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ], count( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ] ), 0, array( $submenu[ $parent_file ][ $directory_regions ] ) );
+            }
         }
     }
 
