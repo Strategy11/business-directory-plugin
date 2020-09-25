@@ -1,7 +1,7 @@
 <?php
 $is_thumbnail = isset( $is_thumbnail ) ? $is_thumbnail : false;
 
-if ( isset( $image ) ) {
+if ( isset( $image ) && is_object( $image ) ) {
     $image_id = $image->id;
     $weight = $image->weight;
     $caption = $image->caption;
