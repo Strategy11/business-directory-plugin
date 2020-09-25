@@ -100,7 +100,6 @@ class WPBDP_SearchWidget extends WP_Widget {
                 }
             }
 
-            echo '<input id="wpbdp-keyword-field" type="hidden" name="kw" value="" />';
         } else {
             echo '<input id="wpbdp-keyword-field" type="text" name="kw" value="" />';
         }
