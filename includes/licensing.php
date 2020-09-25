@@ -894,12 +894,10 @@ class WPBDP_Licensing {
             return $data;
         }
 
-        $matches = wp_list_filter( $this->items, array( 'file' => $args->slug ) );
-        if ( ! $matches ) {
+        $item = isset( $this->items[ $args->slug ] ) ? $this->items[ $args->slug ] : false;
+        if ( ! $item ) {
             return $data;
         }
-
-        $item = array_pop( $matches );
 
         $http_args = array(
             'timeout'   => 15,
