@@ -1123,7 +1123,7 @@ function wpbdp_render( $template, $vars = array(), $allow_override = true ) {
     );
     $template_name = is_array( $template ) ? $template[0] : $template;
     $vars          = apply_filters( 'wpbdp_template_vars', $vars, $template_name );
-    return apply_filters( "wpbdp_render_{$template_name}", wpbdp_render_page( wpbdp_locate_template( $template, $allow_override ), $vars, false ) );
+    return apply_filters( "wpbdp_render_{$template_name}", wpbdp_render_page( wpbdp_locate_template( $template, $allow_override ), $vars, ! empty ( $vars['echo'] ) ) );
 }
 
 /**
