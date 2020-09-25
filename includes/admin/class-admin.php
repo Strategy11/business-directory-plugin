@@ -403,6 +403,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 array( $this, 'uninstall_plugin' )
             );
 
+			if ( empty( $GLOBALS['submenu'] ) || empty( $GLOBALS['submenu'][ $menu_id ] ) ) {
+				return;
+			}
+
             // Handle some special menu items.
             foreach ( $GLOBALS['submenu'][$menu_id] as &$menu_item ) {
                 if ( ! isset( $this->menu[ $menu_item[2] ] ) ) {
@@ -425,7 +429,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @since 5.7.3
          */
         public function hide_menu() {
-            remove_menu_page( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) );
+            if ( current_user_can( 'administrator' ) ) {
+                remove_menu_page( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) );
+            }
             remove_submenu_page( 'wpbdp_admin', 'wpbdp_admin' );
         }
 
