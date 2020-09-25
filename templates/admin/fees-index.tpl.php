@@ -1,21 +1,28 @@
 <?php
+    // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
     echo wpbdp_admin_header(
         null,
         'admin-fees',
         array(
-			array( _x( 'Add New Listing Fee', 'fees admin', 'business-directory-plugin' ), esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) ),
+			array( __( 'Add New Listing Fee', 'business-directory-plugin' ), esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) ),
         )
     );
 	?>
     <?php wpbdp_admin_notices(); ?>
 
     <?php if ( ! wpbdp_get_option( 'payments-on' ) ) : ?>
-    <div class="wpbdp-note"><p>
-    <?php _ex('Payments are currently turned off.', 'fees admin', 'business-directory-plugin' ); ?><br />
-    <?php echo str_replace( '<a>',
-                            '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">',
-                            __( 'To manage fees you need to go to the <a>Manage Options - Payment</a> page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.',
-                                'business-directory-plugin' ) ); ?></p>
+    <div class="wpbdp-note">
+    <p>
+        <?php esc_html_e('Payments are currently turned off.', 'business-directory-plugin' ); ?><br />
+        <?php
+            echo sprintf(
+                /* translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag. */
+                esc_html__( 'To manage fees you need to go to the %1$sManage Options - Payment%2$s page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.', 'business-directory-plugin' ),
+                '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">',
+                '</a>',
+            );
+        ?>
+    </p>
     </div>
     <?php endif; ?>
 
@@ -24,26 +31,26 @@
             <form>
             <input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
             <?php wp_nonce_field( 'change fees order' ); ?>
-            <b><?php _ex( 'Order fees on the frontend by:', 'fees admin', 'business-directory-plugin' ); ?></b><br />
+            <b><?php esc_html_e( 'Order fees on the frontend by:', 'business-directory-plugin' ); ?></b><br />
             <select name="fee_order[method]">
             <?php foreach ( $order_options as $k => $l ) : ?>
-            <option value="<?php echo $k; ?>" <?php echo ( $k == $current_order['method'] ) ? 'selected="selected"' : ''; ?> ><?php echo $l; ?></option>
+            <option value="<?php echo esc_attr( $k ); ?>" <?php echo $k == $current_order['method'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
             <?php endforeach; ?>
             </select>
 
             <select name="fee_order[order]" style="<?php echo ( 'custom' == $current_order['method'] ) ? 'display: none;' : ''; ?>">
             <?php
             foreach ( array(
-				'asc'  => _x( '↑ Ascending', 'fees admin', 'business-directory-plugin' ),
-				'desc' => _x( '↓ Descending', 'fees admin', 'business-directory-plugin' ),
+				'asc'  => __( '↑ Ascending', 'business-directory-plugin' ),
+				'desc' => __( '↓ Descending', 'business-directory-plugin' ),
 			) as $o => $l ) :
 				?>
-                <option value="<?php echo $o; ?>" <?php echo ( $o == $current_order['order'] ) ? 'selected="selected"' : ''; ?> ><?php echo $l; ?></option>
+                <option value="<?php echo esc_attr( $o ); ?>" <?php echo $o == $current_order['order'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
             <?php endforeach; ?>
             </select>
 
             <?php if ( 'custom' == $current_order['method'] ) : ?>
-            <span><?php _ex( 'Drag and drop to re-order fees.', 'fees admin', 'business-directory-plugin' ); ?></span>
+            <span><?php esc_html_e( 'Drag and drop to re-order fees.', 'business-directory-plugin' ); ?></span>
             <?php endif; ?>
 
             </form>
@@ -60,16 +67,11 @@
 				?>
                 <?php
                 printf(
-                    str_replace(
-                        '<a>',
-                        '<a href="' . add_query_arg( 'fee_status', 'unavailable' ) . '">',
-                        _x(
-                            'These are all of the fee plans displayed to the user when they place a listing. Your current mode of "%s" restricts what you see here. Those on the <a>Not Available</a> filter will become active when you change the payment mode.',
-                            'fees admin',
-                            'business-directory-plugin'
-                        )
-                    ),
-                    wpbdp_payments_possible() ? _x( 'Paid', 'fees admin', 'business-directory-plugin' ) : _x( 'Free', 'fees admin', 'business-directory-plugin' )
+                    /* translators: %1$s is directory payment mode (Free or Paid), %2$s is a opening <a> tag, %3$s is a closing </a> tag. */
+                    esc_html__( 'These are all of the fee plans displayed to the user when they place a listing. Your current mode of "%1$s" restricts what you see here. Those on the %2$sNot Available%3$s filter will become active when you change the payment mode.', 'business-directory-plugin' ),
+                    wpbdp_payments_possible() ? esc_html__( 'Paid', 'business-directory-plugin' ) : esc_html__( 'Free', 'business-directory-plugin' ),
+                    '<a href="' . esc_url( add_query_arg( 'fee_status', 'unavailable', admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) ) . '">',
+                    '</a>'
                 );
 				?>
             <?php break; ?>
@@ -78,12 +80,9 @@
 				?>
                 <?php
                 printf(
-                    _x(
-                        'These are all of the fee plans that aren\'t available because you\'re in "%s" mode. Those on the Active filter will become Not Available when you change the payment mode.',
-                        'fees admin',
-                        'business-directory-plugin'
-                    ),
-                    wpbdp_payments_possible() ? _x( 'Paid', 'fees admin', 'business-directory-plugin' ) : _x( 'Free', 'fees admin', 'business-directory-plugin' )
+                    /* translators: %s is directory payment mode (Free or Paid) */
+                    esc_html__( 'These are all of the fee plans that aren\'t available because you\'re in "%s" mode. Those on the Active filter will become Not Available when you change the payment mode.', 'business-directory-plugin' ),
+                    wpbdp_payments_possible() ? esc_html__( 'Paid', 'business-directory-plugin' ) : esc_html__( 'Free', 'business-directory-plugin' )
                 );
 				?>
             <?php break; ?>
@@ -91,11 +90,7 @@
             case 'disabled':
 				?>
                 <?php
-                _ex(
-                    'These fee plans were disabled by the admin and will not show to the end user regardless of mode until you enable them.',
-                    'fees admin',
-                    'business-directory-plugin'
-                );
+                esc_html_e( 'These fee plans were disabled by the admin and will not show to the end user regardless of mode until you enable them.', 'business-directory-plugin' );
 				?>
             <?php break; ?>
             <?php
@@ -105,17 +100,12 @@
 			default:
 				?>
 				<?php
-				printf(
-                    str_replace(
-                        '<a>',
-                        '<a href="' . add_query_arg( 'fee_status', 'active' ) . '">',
-                        _x(
-                            'These are all of the fee plans you have configured. Not all of them are available for the current mode (currently set to "%s"). To see the fee plans for this mode click <a>Active</a>.',
-                            'fees admin',
-                            'business-directory-plugin'
-                        )
-                    ),
-                    wpbdp_payments_possible() ? _x( 'Paid', 'fees admin', 'business-directory-plugin' ) : _x( 'Free', 'fees admin', 'business-directory-plugin' )
+				echo sprintf(
+                    /* translators: %1$s is directory payment mode (Free or Paid), %2$s is a opening <a> tag, %3$s is a closing </a> tag. */
+                    esc_html__( 'These are all of the fee plans you have configured. Not all of them are available for the current mode (currently set to "%1$s"). To see the fee plans for this mode click %2$sActive%3$s.', 'business-directory-plugin' ),
+                    esc_html( wpbdp_payments_possible() ? __( 'Paid', 'business-directory-plugin' ) : __( 'Free', 'business-directory-plugin' ) ),
+                    '<a href="' . esc_url( add_query_arg( 'fee_status', 'active', admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) ) . '">',
+                    '</a>'
                 );
 				?>
             <?php break; ?>
@@ -129,59 +119,61 @@
         <hr />
         <?php
         $modules = array(
-            array( 'stripe', 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'business-directory-plugin' ), 'Stripe' ),
-            array( 'paypal', 'paypal-gateway-module', _x( 'PayPal Gateway Module', 'admin sidebar', 'business-directory-plugin' ), 'PayPal' ),
-            array( 'payfast', 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'business-directory-plugin' ), 'PayFast' ),
+            array( 'stripe', 'stripe-payment-module', 'Stripe' ),
+            array( 'paypal', 'paypal-gateway-module', 'PayPal' ),
+            array( 'payfast', 'payfast-payment-module', 'PayFast' ),
         );
 
         global $wpbdp;
         ?>
-        <?php if ( ! wpbdp_payments_possible() ) : ?>
-        <p>
-			<?php
-			echo str_replace(
-                '<a>',
-                '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) . '">',
-                sprintf(
-                    _x( 'It does not appear you have any of the payment gateway modules enabled. Either <a>enable the default Authorize.net gateway</a> with your account info, or purchase a different payment gateway module in order to charge a fee for listings. To purchase additional payment gateways use the buttons below or visit %s.', 'admin templates', 'business-directory-plugin' ),
-                    '<a href="http://businessdirectoryplugin.com/premium-modules/" target="_blank" rel="noopener">http://businessdirectoryplugin.com/premium-modules/</a>'
-                )
-            );
-			?>
-        </p>
-        <?php endif; ?>
 
-        <div class="purchase-gateways cf">
+        <div class="purchase-gateways cf postbox">
+            <div class="inside">
+                <h2 class="aligncenter">
+                    <?php
+                    if ( ! wpbdp_payments_possible() ) {
+                        esc_html_e( 'Set up a payment gateway to charge a fee for listings', 'business-directory-plugin' );
+                    } else {
+                        esc_html_e( 'Add a payment gateway to increase conversion rates', 'business-directory-plugin' );
+                    }
+                    ?>
+                </h2>
+            </div>
         <?php
         foreach ( $modules as $mod_info ) :
+            if ( wpbdp_has_module( $mod_info[0] ) ) {
+                continue;
+            }
 			?>
-        <div class="gateway <?php echo $mod_info[0]; ?> <?php echo wpbdp_has_module( $mod_info[0] ) ? 'installed' : ''; ?>">
-            <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp" target="_blank" rel="noopener">
-                <img src="<?php echo WPBDP_URL; ?>assets/images/<?php echo $mod_info[1]; ?>.png" class="gateway-logo"><br />
-                <a href="http://">
-            </a>
-            <?php if ( wpbdp_has_module( $mod_info[0] ) ) : ?>
-                <a href="http://businessdirectoryplugin.com/downloads/<?php echo $mod_info[1]; ?>/?ref=wp"><?php echo $mod_info[2]; ?></a><br />
-                <span class="check-mark">✓</span> <?php _ex( 'Already installed.', 'admin templates', 'business-directory-plugin' ); ?>
-            <?php else : ?>
-				<?php
-				echo str_replace(
-                    '<a>',
-                    '<a href="http://businessdirectoryplugin.com/downloads/' . $mod_info[1] . '/?ref=wp" target="_blank" rel="noopener">',
-                    sprintf(
-                        _x(
-                            'You can buy the <a>%1$s</a> to add <a>%2$s</a> as a payment option for your users.',
-                            'admin templates',
-                            'business-directory-plugin'
-                        ),
-                        $mod_info[2],
-                        $mod_info[3]
-                    )
-				);
-				?>
-            <?php endif; ?>
+        <div class="gateway inside <?php echo esc_attr( $mod_info[0] ); ?> <?php echo wpbdp_has_module( $mod_info[0] ) ? 'installed' : ''; ?>">
+            <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener">
+                <img src="<?php echo esc_url( WPBDP_URL ); ?>assets/images/<?php echo esc_attr( $mod_info[1] ); ?>.png" class="gateway-logo">
+            </a><br/>
+			<?php
+			echo sprintf(
+                // translators: %s: payment gateway name */
+                esc_html__( 'Add the %s gateway as a payment option.', 'business-directory-plugin' ),
+                '<a href="https://businessdirectoryplugin.com/downloads/' . esc_attr( $mod_info[1] ) . '/?utm_campaign=liteplugin" target="_blank" rel="noopener">' . esc_html( $mod_info[2] ) . '</a>'
+            );
+			?>
+            <p>
+                <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?utm_campaign=liteplugin" target="_blank" rel="noopener" class="button-primary">
+                    <?php esc_html_e( 'Upgrade', 'business-directory-plugin' ); ?>
+                </a>
+            </p>
         </div>
         <?php endforeach; ?>
+        <?php if ( ! wpbdp_payments_possible() ) : ?>
+        <div class="gateway">
+            <h3>Authorize.net</h3>
+            <?php esc_html_e( 'Set up Authorize.net as a payment option.', 'business-directory-plugin' ); ?>
+            <p>
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ); ?>" class="button-primary">
+                    <?php esc_html_e( 'Set Up', 'business-directory-plugin' ); ?>
+                </a>
+            </p>
+        </div>
+        <?php endif; ?>
         </div>
 
-<?php echo wpbdp_admin_footer(); ?>
+<?php wpbdp_admin_footer( 'echo' ); ?>
