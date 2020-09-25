@@ -1,5 +1,6 @@
 <?php
 $modules = array(
+    array( 'categories', 'enhanced-categories', __( 'Category Images', 'business-directory-plugin' ) ),
     array( 'paypal', 'paypal-gateway-module', __( 'PayPal Payments', 'business-directory-plugin' ) ),
     array( 'googlemaps', 'google-maps-module', __( 'Google Maps', 'business-directory-plugin' ) ),
     array( 'regions', 'regions-module', __( 'Regions', 'business-directory-plugin' ) ),
@@ -10,7 +11,6 @@ $modules = array(
     array( 'claim-listings', 'claim-listings-module', __( 'Claim Listings', 'business-directory-plugin' ) ),
     array( 'attachments', 'file-attachments-module', __( 'File Upload', 'business-directory-plugin' ) ),
     array( 'discount-codes', 'discount-codes-module', __( 'Discount Codes', 'business-directory-plugin' ) ),
-    array( 'payfast', 'payfast-payment-module', __( 'PayFast Payments', 'business-directory-plugin' ) ),
 );
 
 $themes = array(
@@ -37,20 +37,27 @@ $themes = array(
 
         <!-- Premium modules -->
         <div class="postbox premium-modules">
-            <h3 class="hndle"><span><?php echo esc_html_x( 'Get a Premium Module', 'admin sidebar', 'business-directory-plugin' ); ?></span></h3>
+            <h3 class="hndle"><span><?php esc_html_e( 'Make better directories', 'business-directory-plugin' ); ?></span></h3>
             <div class="inside">
                 <ul>
-                <li class="li_link"><span class="tag best-deal"><?php echo esc_html_x( 'best deal', 'admin sidebar', 'business-directory-plugin' ); ?></span> <strong><a href="http://businessdirectoryplugin.com/premium-modules/business-directory-combo-pack/"><?php echo esc_html_x( 'Combo Pack', 'admin sidebar', 'business-directory-plugin' ); ?></a> <?php echo esc_html_x( '(All Modules)', 'admin sidebar', 'business-directory-plugin' ); ?></strong></li>
                 <?php foreach ( $modules as $mod_info ) : ?>
+                    <?php
+                    if ( wpbdp_has_module( $mod_info[0] ) ) {
+                        continue;
+                    }
+                    ?>
                     <li class="li_link">
                         <?php
                         if ( isset( $mod_info[3] ) && 'new' === $mod_info[3] ) :
 							?>
                             <span class="tag new"><?php esc_html_e( 'new', 'business-directory-plugin' ); ?></span> <?php endif; ?>
-                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener"><?php echo esc_html( $mod_info[2] ); ?></a>
+                        <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener"><?php echo esc_html( $mod_info[2] ); ?></a>
                     </li>
                 <?php endforeach; ?>
                 </ul>
+                <a href="https://businessdirectoryplugin.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=sidebar" target="_blank" rel="noopener" class="button-primary">
+                    <?php esc_html_e( 'Upgrade Now', 'business-directory-plugin' ); ?>
+                </a>
             </div>
         </div>
 
@@ -59,7 +66,6 @@ $themes = array(
             <h3 class="hndle"><span><?php echo esc_html_x( 'Get a Directory Theme', 'admin sidebar', 'business-directory-plugin' ); ?></span></h3>
             <div class="inside">
                 <ul>
-                <li class="li_link"><span class="tag best-deal"><?php echo esc_html_x( 'best deal', 'admin sidebar', 'business-directory-plugin' ); ?></span> <strong><a href="http://businessdirectoryplugin.com/downloads/business-directory-theme-pack/"><?php echo esc_html_x( 'Theme Pack', 'admin sidebar', 'business-directory-plugin' ); ?></a> <?php echo esc_html_x( '(All Themes)', 'admin sidebar', 'business-directory-plugin' ); ?></strong></li>
                 <?php foreach ( $themes as $mod_info ) : ?>
                     <li class="li_link">
                         <?php
@@ -95,32 +101,5 @@ $themes = array(
         </div>
         <!-- /support -->
 
-        <!-- Installed modules -->
-        <div class="postbox installed-modules">
-        <h3 class="hndle"><span><?php echo esc_html_x( 'Installed Modules', 'admin sidebar', 'business-directory-plugin' ); ?></span></h3>
-            <div class="inside">
-                <ul>
-                <?php
-                global $wpbdp;
-                foreach ( $modules as $mod_info ) :
-					?>
-                    <li class="li_link">
-                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener"><?php echo esc_html( $mod_info[2] ); ?></a>:<br />
-                        <?php
-                        if ( wpbdp_has_module( $mod_info[0] ) ) :
-                            echo esc_html_x( 'Installed', 'admin sidebar', 'business-directory-plugin' );
-                        else :
-                            echo esc_html_x( 'Not Installed', 'admin sidebar', 'business-directory-plugin' );
-                        endif;
-                        ?>
-                    </li>
-                <?php endforeach; ?>
-                    <li class="li_link">
-                        <a href="http://businessdirectoryplugin.com/"><?php echo esc_html_x( 'Enhanced Categories Module', 'admin sidebar', 'business-directory-plugin' ); ?></a>:<br />
-                        <?php echo wpbdp_has_module( 'categories' ) ? esc_html_x( 'Installed', 'admin sidebar', 'business-directory-plugin' ) : esc_html_x( 'Not Installed', 'admin sidebar', 'business-directory-plugin' ); ?>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
 </div>

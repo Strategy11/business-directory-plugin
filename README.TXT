@@ -82,7 +82,6 @@ For a detailed list of features, please visit: [BusinessDirectoryPlugin.com](htt
 == Premium Directory Themes ==
 Transform your WP directory site the easy way with a few clicks. Our business directory templates are designed not to take over as a full WordPress theme.
 
-* [Theme Pack](https://businessdirectoryplugin.com/downloads/business-directory-theme-pack/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) (best deal!)
 * [Elegant Grid Theme](https://businessdirectoryplugin.com/downloads/elegant-grid-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 * [Modern Business Theme](https://businessdirectoryplugin.com/downloads/modern-business-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 * [Business Card Theme](https://businessdirectoryplugin.com/downloads/business-card-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)

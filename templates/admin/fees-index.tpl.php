@@ -129,10 +129,9 @@
         <hr />
         <?php
         $modules = array(
-            array( 'paypal', 'paypal-gateway-module', _x( 'PayPal Gateway Module', 'admin sidebar', 'business-directory-plugin' ), 'PayPal' ),
-            array( '2checkout', '2checkout-gateway-module', _x( '2Checkout Gateway Module', 'admin sidebar', 'business-directory-plugin' ), '2Checkout' ),
-            array( 'payfast', 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'business-directory-plugin' ), 'PayFast' ),
             array( 'stripe', 'stripe-payment-module', _x( 'Stripe Payment Module', 'admin sidebar', 'business-directory-plugin' ), 'Stripe' ),
+            array( 'paypal', 'paypal-gateway-module', _x( 'PayPal Gateway Module', 'admin sidebar', 'business-directory-plugin' ), 'PayPal' ),
+            array( 'payfast', 'payfast-payment-module', _x( 'PayFast Payment Module', 'admin sidebar', 'business-directory-plugin' ), 'PayFast' ),
         );
 
         global $wpbdp;
