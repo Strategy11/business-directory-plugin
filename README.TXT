@@ -162,6 +162,13 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= Version 5.7.4 =
+* Fix - Do not force fee_id when re-creating free directory default fee.
+* Fix - Display modules change log on updates.
+* Fix - Remove not needed parameter for Search Widget. (#4682)
+* Fix - Restore Editors access to Directory menu. (#4678)
+* Fix - Fix listing images selection from media library. (#4687)
+
 = Version 5.7.3 =
 * New - Add Admin notice whenever payments are enabled but there are no public fees available.
 * Fix - Restore BD themes available updates count on menu title.
