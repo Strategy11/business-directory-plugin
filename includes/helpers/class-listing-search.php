@@ -93,7 +93,7 @@ class WPBDP__Listing_Search {
         $this->tree = self::tree_simplify( $this->tree );
 
         // Prepare query template.
-        $this->query_template = $this->get_query_template();
+        $this->query_template = $this->_traverse_tree( $this->tree );
 
         // Build query.
         $query_pieces = array(
@@ -131,19 +131,6 @@ class WPBDP__Listing_Search {
         $query_pieces['where'] = str_replace( 'OR  OR', 'OR', $query_pieces['where'] );
         $query_pieces['where'] = str_replace( 'AND )', ')', $query_pieces['where'] );
         $query_pieces['where'] = str_replace( 'OR )', ')', $query_pieces['where'] );
-
-        if ( $this->results ) {
-            $head = $this->tree[0];
-            if ( is_array( $this->tree ) && 2 == count( $this->tree ) ) {
-                $head = $this->tree[1];
-                $head = is_array( $head ) ? $head[0] : $head;
-            }
-
-            $head   = 'or' == $head ? 'OR' : 'AND';
-            $format = implode( ', ', array_fill( 0, count( $this->results ), '%d' ) );
-
-            $query_pieces['posts_in'] = $wpdb->prepare( "$head {$wpdb->posts}.ID  IN ( $format )", $this->results );
-        }
 
         $query_pieces = apply_filters_ref_array( 'wpbdp_search_query_pieces', array( $query_pieces, $this ) );
 
@@ -222,7 +209,7 @@ class WPBDP__Listing_Search {
         $res = array();
 
         // Quick search.
-        if ( isset( $request['kw'] ) ) {
+        if ( ! empty( $request['kw'] ) ) {
             if ( wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ) {
                 $request['kw'] = array( trim( $request['kw'] ) );
             } else {
