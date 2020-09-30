@@ -790,7 +790,7 @@ class WPBDP_Licensing {
         }
 
         $updates       = get_transient( 'wpbdp_updates' );
-        $needs_refresh = false || $force_refresh;
+        $needs_refresh = false === $updates || $force_refresh;
 
         foreach ( $this->items as $item ) {
             if ( ! isset( $updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
