@@ -209,14 +209,19 @@ class WPBDP_Licensing {
         $html .= '<div class="wpbdp_upgrade_to_pro">';
         $html .= '<h3>';
         $html .= '<span>';
-        $html .= 'Build more powerful directories with category images, filter by location, payment gateways, and more.';
+        $html .= esc_html__( 'Build more powerful directories with category images, maps, filter by location, payment gateways, and more.', 'business-directory-plugin' );
         $html .= '<br />';
         $html .= '<br />';
-        $html .= '<a href="https://businessdirectoryplugin.com/pricing/?utm_source=WordPress&utm_medium=licenses_tab&utm_campaign=liteplugin" target="_blank">Upgrade Now!</a>';
+        $html .= '<a href="https://businessdirectoryplugin.com/pricing/?utm_source=WordPress&utm_medium=licenses_tab&utm_campaign=liteplugin" target="_blank">' . esc_html__( 'Upgrade Now!', 'business-directory-plugin' ) . '</a>';
         $html .= '</span>';
-        $html .= '</h3>';
-        $html .= '<h3>Already purchased? ';
-        $html .= 'Please see our detailed <a href="https://businessdirectoryplugin.com/knowledge-base/installation-guide/">Installation guide</a>';
+        $html .= '<br /><br /><br />';
+        $html .= esc_html__( 'Already purchased?', 'business-directory-plugin' ) . ' ';
+        $html .= sprintf(
+            /* translators: %1$s: open link html, %2$s: close link html */
+            esc_html__( 'Please see our detailed %1$sInstallation guide%2$s', 'business-directory-plugin' ),
+            '<a href="https://businessdirectoryplugin.com/knowledge-base/installation-guide/">',
+            '</a>'
+        );
         $html .= '</h3>';
         $html .= '</div>';
 
