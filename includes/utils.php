@@ -3,12 +3,17 @@
  * @package WPBDP
  */
 
-require_once WPBDP_INC . 'debugging.php';
-require_once WPBDP_INC . 'helpers/class-database-helper.php';
-require_once WPBDP_INC . 'helpers/class-email.php';
-require_once WPBDP_INC . 'compatibility/class-ajax-response.php';
-require_once WPBDP_INC . 'helpers/class-fs.php';
+// phpcs:disable
 
+require_once( WPBDP_INC . 'debugging.php' );
+require_once( WPBDP_INC . 'helpers/class-database-helper.php' );
+require_once( WPBDP_INC . 'helpers/class-email.php' );
+require_once( WPBDP_INC . 'compatibility/class-ajax-response.php' );
+require_once( WPBDP_INC . 'helpers/class-fs.php' );
+
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class WPBDP__Utils {
 
     /**
@@ -39,6 +44,8 @@ class WPBDP__Utils {
         self::$property = null;
     }
 
+    // phpcs:enable
+
     /**
      * @param array $left   Entry to compare.
      * @param array $right  Entry to compare.
@@ -51,13 +58,15 @@ class WPBDP__Utils {
         return $left[ self::$property ] - $right[ self::$property ];
     }
 
+    // phpcs:disable
+
     /**
      * @since 5.0
      */
     public static function table_exists( $table ) {
         global $wpdb;
 
-        $res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
+        $res = $wpdb->get_results( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) );
         return count( $res ) > 0;
     }
 
@@ -69,7 +78,7 @@ class WPBDP__Utils {
             return false;
 
         global $wpdb;
-        $columns = wp_filter_object_list( $wpdb->get_results( $wpdb->prepare( 'DESCRIBE %s', $table ) ), null, null, 'Field' );
+        $columns = wp_filter_object_list( $wpdb->get_results( "DESCRIBE {$table}" ), null, null, 'Field' );
         return in_array( $col, $columns, true );
     }
 
@@ -125,78 +134,274 @@ function wpbdp_flatten_files_array( $files = array() ) {
  * @param array|object $dict
  * @param string $key Property name or array key.
  * @param mixed $default Optional. Defaults to `false`.
+ * @SuppressWarnings(PHPMD)
  */
-function wpbdp_getv( $dict, $key, $default = false ) {
-    $value = $default;
+function wpbdp_getv($dict, $key, $default=false) {
+    $_dict = is_object($dict) ? (array) $dict : $dict;
 
-    $_dict = is_object( $dict ) ? (array) $dict : $dict;
+    if (is_array($_dict) && isset($_dict[$key]))
+        return $_dict[$key];
 
-    if ( is_array( $_dict ) && isset( $_dict[ $key ] ) ) {
-        $value = $_dict[ $key ];
-    }
-
-    return $value;
+    return $default;
 }
 
 /**
- * Get any value from the $_SERVER
- *
- * @since 5.8
- *
- * @param string $value
- *
- * @return string
+ * @SuppressWarnings(PHPMD)
  */
-function wpbdp_get_server_value( $value ) {
-	return isset( $_SERVER[ $value ] ) ? wp_strip_all_tags( wp_unslash( $_SERVER[ $value ] ) ) : '';
-}
+function wpbdp_capture_action($hook) {
+    $output = '';
 
-/**
- * @since 5.8
- *
- * @param array $args - Includes 'param' and 'sanitize'.
- */
-function wpbdp_get_var( $args, $type = 'get' ) {
-    $defaults = array(
-        'sanitize' => 'sanitize_text_field',
-        'default'  => '',
-    );
-    $args     = wp_parse_args( $args, $defaults );
-    $value    = $args['default'];
-    if ( $type === 'get' ) {
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $value = isset( $_GET[ $args['param'] ] ) ? wp_unslash( $_GET[ $args['param'] ] ) : $value;
-    } elseif ( $type === 'post' ) {
-        // phpcs:ignore Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $value = isset( $_POST[ $args['param'] ] ) ? wp_unslash( $_POST[ $args['param'] ] ) : $value;
+    $args = func_get_args();
+    if (count($args) > 1) {
+        $args = array_slice($args,  1);
     } else {
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $value = isset( $_REQUEST[ $args['param'] ] ) ? wp_unslash( $_REQUEST[ $args['param'] ] ) : $value;
+        $args = array();
     }
 
-    wpbdp_sanitize_value( $args['sanitize'], $value );
+    ob_start();
+    do_action_ref_array($hook, $args);
+    $output = ob_get_contents();
+    ob_end_clean();
 
-    return $value;
+    return $output;
 }
 
 /**
- * @since 5.8
- *
- * @param string $sanitize
- * @param array|string $value
+ * @SuppressWarnings(PHPMD)
  */
-function wpbdp_sanitize_value( $sanitize, &$value ) {
-    if ( empty( $sanitize ) ) {
-        return;
+function wpbdp_capture_action_array($hook, $args=array()) {
+    $output = '';
+
+    ob_start();
+    do_action_ref_array($hook, $args);
+    $output = ob_get_contents();
+    ob_end_clean();
+
+    return $output;
+}
+
+/**
+ * @SuppressWarnings(PHPMD)
+ */
+function wpbdp_php_ini_size_to_bytes( $val ) {
+    $val = trim( $val );
+    $size = intval( $val );
+    $unit = strtoupper( $val[strlen($val) - 1] );
+
+    switch ( $unit ) {
+        case 'G':
+            $size *= 1024;
+        case 'M':
+            $size *= 1024;
+        case 'K':
+            $size *= 1024;
     }
-    if ( is_array( $value ) ) {
-        $temp_values = $value;
-        foreach ( $temp_values as $k => $v ) {
-            wpbdp_sanitize_value( $sanitize, $value[ $k ] );
+
+    return $size;
+}
+
+/**
+ * @SuppressWarnings(PHPMD)
+ */
+function wpbdp_media_upload_check_env( &$error ) {
+    if ( empty( $_FILES ) && empty( $_POST ) && isset( $_SERVER['REQUEST_METHOD'] ) &&
+         strtolower( $_SERVER['REQUEST_METHOD'] ) == 'post' ) {
+        $post_max = wpbdp_php_ini_size_to_bytes( ini_get( 'post_max_size' ) );
+        $posted_size = intval( $_SERVER['CONTENT_LENGTH'] );
+
+        if ( $posted_size > $post_max ) {
+            $error = _x( 'POSTed data exceeds PHP config. maximum. See "post_max_size" directive.', 'utils', 'business-directory-plugin' );
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * @since 2.1.6
+ * @SuppressWarnings(PHPMD)
+ */
+function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false, $constraints=array(), &$error_msg=null, $sideload=false) {
+    require_once(ABSPATH . 'wp-admin/includes/file.php');
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+    $sideload = ( is_string( $file_ ) && file_exists( $file_ ) ) ? true : false;
+
+    if ( $sideload ) {
+        $mime_type = wpbdp_get_mimetype( $file_ );
+
+        $file = array(
+            'name' => basename( $file_ ),
+            'tmp_name' => $file_,
+            'type' => $mime_type,
+            'error' => 0,
+            'size' => filesize( $file_ )
+        );
+    } else {
+        $file = $file_;
+    }
+
+    $constraints = array_merge( array(
+                                    'image' => false,
+                                    'min-size' => 0,
+                                    'max-size' => 0,
+                                    'min-width' => 0,
+                                    'min-height' => 0,
+                                    'max-width' => 0,
+                                    'max-height' => 0,
+                                    'mimetypes' => null
+                              ), $constraints );
+
+    foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k )
+        $constraints[ $k ] = absint( $constraints[ $k ] );
+
+    if ($file['error'] == 0) {
+        if ($constraints['max-size'] > 0 && $file['size'] > $constraints['max-size'] ) {
+            $error_msg = sprintf( _x( 'File size (%s) exceeds maximum file size of %s', 'utils', 'business-directory-plugin' ),
+                                size_format ($file['size'], 2),
+                                size_format ($constraints['max-size'], 2)
+                                );
+            return false;
+        }
+
+        if ( $constraints['min-size'] > 0 && $file['size'] < $constraints['min-size'] ) {
+            $error_msg = sprintf( _x( 'File size (%s) is inferior to the required minimum file size of %s', 'utils', 'business-directory-plugin' ),
+                                size_format( $file['size'], 2 ),
+                                size_format( $constraints['min-size'], 2 )
+                                );
+            return false;
+        }
+
+        if ( is_array( $constraints['mimetypes'] ) ) {
+            if ( !in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
+                $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
+                return false;
+            }
+        }
+
+        // We do not accept TIFF format. Compatibility issues.
+        if ( in_array( strtolower( $file['type'] ), array('image/tiff') ) ) {
+            $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
+            return false;
+        }
+
+        $upload = $sideload ? wp_handle_sideload( $file, array( 'test_form' => FALSE ) ) : wp_handle_upload( $file, array('test_form' => FALSE) );
+
+        if( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
+            $error_msg = isset( $upload['error'] ) ? $upload['error'] : _x( 'Unkown error while uploading file.', 'utils', 'business-directory-plugin' );
+            return false;
+        }
+
+        if ( !$use_media_library )
+            return $upload;
+
+        if ( $attachment_id = wp_insert_attachment(array(
+            'post_mime_type' => $upload['type'],
+            'post_title' => preg_replace('/\.[^.]+$/', '', basename($upload['file'])),
+            'post_content' => '',
+            'post_status' => 'inherit'
+        ), $upload['file']) ) {
+            $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
+            wp_update_attachment_metadata( $attachment_id, $attach_metadata );
+
+            if ( $check_image && ! wp_attachment_is_image( $attachment_id ) ) {
+                wp_delete_attachment( $attachment_id, true );
+
+                $error_msg = _x('Uploaded file is not an image', 'utils', 'business-directory-plugin' );
+                return false;
+            }
+
+            if ( wp_attachment_is_image( $attachment_id ) ) {
+                $meta = wp_get_attachment_metadata( $attachment_id );
+                $failed = false;
+
+                if ( ! $failed && $meta && $constraints['min-width'] > 0 && $meta['width'] < $constraints['min-width'] ) {
+                    $error_msg = sprintf( _x( 'Image width (%s px) is inferior to minimum required width of %s px.', 'utils', 'business-directory-plugin' ),
+                                          $meta['width'],
+                                          $constraints['min-width'] );
+                }
+
+                if ( ! $failed && $meta && $constraints['min-height'] > 0 && $meta['height'] < $constraints['min-height'] ) {
+                    $error_msg = sprintf( _x( 'Image height (%s px) is inferior to minimum required height of %s px.', 'utils', 'business-directory-plugin' ),
+                                          $meta['height'],
+                                          $constraints['min-height'] );
+                }
+
+                if ( ! $failed && $meta && $constraints['max-width'] > 0 && $meta['width'] > $constraints['max-width'] ) {
+                    $error_msg = sprintf( _x( 'Image width (%s px) is greater than maximum allowed width of %s px.', 'utils', 'business-directory-plugin' ),
+                                          $meta['width'],
+                                          $constraints['max-width'] );
+                }
+
+                if ( ! $failed && $meta && $constraints['max-height'] > 0 && $meta['height'] > $constraints['max-height'] ) {
+                    $error_msg = sprintf( _x( 'Image height (%s px) is greater than maximum required height of %s px.', 'utils', 'business-directory-plugin' ),
+                                          $meta['height'],
+                                         $constraints['max-height'] );
+                }
+
+                if ( $failed ) {
+                    wp_delete_attachment( $attachment_id, true );
+                    return false;
+                }
+            }
+
+            return $attachment_id;
         }
     } else {
-        $value = call_user_func( $sanitize, $value );
+        $error_msg = _x('Error while uploading file', 'utils', 'business-directory-plugin' );
     }
+
+    return false;
+}
+
+/**
+ * Attempts to get the mimetype of a file.
+ *
+ * @param $file string  The path to a file.
+ *
+ * @since 5.0.5
+ * @SuppressWarnings(PHPMD)
+ */
+function wpbdp_get_mimetype( $file ) {
+    $mime_type = null;
+
+    if ( function_exists( 'finfo_open' ) ) {
+        if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
+            $mime_type = explode( ';', finfo_file( $finfo, $file ) );
+            $mime_type = trim( $mime_type[0] );
+            finfo_close( $finfo );
+        }
+    }
+
+    if ( null === $mime_type ) {
+        $type_info = wp_check_filetype( $file, wp_get_mime_types() );
+        $mime_type = $type_info['type'];
+    }
+
+    return $mime_type;
+}
+
+/**
+ * Returns the domain used in the current request, optionally stripping
+ * the www part of the domain.
+ *
+ * @since 2.1.5
+ * @param $www  boolean     true to include the 'www' part,
+ *                          false to attempt to strip it.
+ * @SuppressWarnings(PHPMD)
+ */
+function wpbdp_get_current_domain($www=true, $prefix='') {
+    $domain = wpbdp_getv($_SERVER, 'HTTP_HOST', '');
+    if (empty($domain)) {
+        $domain = wpbdp_getv($_SERVER, 'SERVER_NAME', '');
+    }
+
+    if (!$www && substr($domain, 0, 4) === 'www.') {
+        $domain = $prefix . substr($domain, 4);
+    }
+
+    return $domain;
 }
 
 /**
@@ -244,295 +449,17 @@ function wpbdp_admin_upgrade_link( $args, $page = '' ) {
     return $link;
 }
 
-function wpbdp_capture_action($hook) {
-    $output = '';
-
-    $args = func_get_args();
-    if (count($args) > 1) {
-        $args = array_slice($args, 1);
-    } else {
-        $args = array();
-    }
-
-    ob_start();
-    do_action_ref_array($hook, $args);
-    $output = ob_get_contents();
-    ob_end_clean();
-
-    return $output;
-}
-
-function wpbdp_capture_action_array($hook, $args=array()) {
-    $output = '';
-
-    ob_start();
-    do_action_ref_array($hook, $args);
-    $output = ob_get_contents();
-    ob_end_clean();
-
-    return $output;
-}
-
-function wpbdp_php_ini_size_to_bytes( $val ) {
-    $val  = trim( $val );
-    $size = intval( $val );
-    $unit = strtoupper( $val[strlen($val) - 1] );
-
-    switch ( $unit ) {
-        case 'G':
-            $size *= 1024;
-            // break not needed
-        case 'M':
-            $size *= 1024;
-            // break not needed
-        case 'K':
-            $size *= 1024;
-    }
-
-    return $size;
-}
-
-function wpbdp_media_upload_check_env( &$error ) {
-    if ( empty( $_FILES ) && empty( $_POST ) && isset( $_SERVER['REQUEST_METHOD'] ) &&
-        strtolower( wpbdp_get_server_value( 'REQUEST_METHOD' ) ) === 'post' ) {
-        $post_max    = wpbdp_php_ini_size_to_bytes( ini_get( 'post_max_size' ) );
-        $posted_size = intval( wpbdp_get_server_value( 'CONTENT_LENGTH' ) );
-
-        if ( $posted_size > $post_max ) {
-            $error = __( 'POST data exceeds PHP config. maximum. See "post_max_size" directive.', 'business-directory-plugin' );
-            return false;
-        }
-    }
-
-    return true;
-}
-
-/**
- * @since 2.1.6
- */
-function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false, $constraints=array(), &$error_msg=null, $sideload=false) {
-    require_once ABSPATH . 'wp-admin/includes/file.php';
-    require_once ABSPATH . 'wp-admin/includes/image.php';
-
-    $sideload = ( is_string( $file_ ) && file_exists( $file_ ) ) ? true : false;
-
-    if ( $sideload ) {
-        $mime_type = wpbdp_get_mimetype( $file_ );
-
-        $file = array(
-            'name'     => basename( $file_ ),
-            'tmp_name' => $file_,
-            'type'     => $mime_type,
-            'error'    => 0,
-            'size'     => filesize( $file_ )
-        );
-    } else {
-        $file = $file_;
-    }
-
-    $constraints = array_merge(
-        array(
-            'image'      => false,
-            'min-size'   => 0,
-            'max-size'   => 0,
-            'min-width'  => 0,
-            'min-height' => 0,
-            'max-width'  => 0,
-            'max-height' => 0,
-            'mimetypes'  => null
-        ),
-        $constraints
-    );
-
-    foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k )
-        $constraints[ $k ] = absint( $constraints[ $k ] );
-
-    if ($file['error'] == 0) {
-        if ($constraints['max-size'] > 0 && $file['size'] > $constraints['max-size'] ) {
-            $error_msg = esc_html(
-                sprintf(
-                    /* translators: %1$s: file size, %2$s: allowed file size */
-                    __( 'File size (%1$s) exceeds maximum file size of %2$s', 'business-directory-plugin' ),
-                    size_format( $file['size'], 2 ),
-                    size_format( $constraints['max-size'], 2 )
-                )
-            );
-            return false;
-        }
-
-        if ( $constraints['min-size'] > 0 && $file['size'] < $constraints['min-size'] ) {
-            $error_msg = esc_html(
-                sprintf(
-                    /* translators: %1$s: file size, %2$s: allowed file size */
-                    __( 'File size (%1$s) is smaller than the required minimum file size of %2$s', 'business-directory-plugin' ),
-                    size_format( $file['size'], 2 ),
-                    size_format( $constraints['min-size'], 2 )
-                )
-            );
-            return false;
-        }
-
-        if ( is_array( $constraints['mimetypes'] ) ) {
-            if ( !in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
-                // translators: not allowed file type.
-                $error_msg = esc_html( sprintf( __( 'File type "%s" is not allowed', 'business-directory-plugin' ), $file['type'] ) );
-                return false;
-            }
-        }
-
-        // We do not accept TIFF format. Compatibility issues.
-        if ( in_array( strtolower( $file['type'] ), array('image/tiff') ) ) {
-            // translators: not allowed file type.
-            $error_msg = esc_html( sprintf( __( 'File type "%s" is not allowed', 'business-directory-plugin' ), $file['type'] ) );
-            return false;
-        }
-
-        $upload = $sideload ? wp_handle_sideload( $file, array( 'test_form' => false ) ) : wp_handle_upload( $file, array('test_form' => false) );
-
-        if( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
-            $error_msg = esc_html( isset( $upload['error'] ) ? $upload['error'] : __( 'Unkown error while uploading file.', 'business-directory-plugin' ) );
-            return false;
-        }
-
-        if ( !$use_media_library )
-            return $upload;
-
-        if ( $attachment_id = wp_insert_attachment(array(
-            'post_mime_type' => $upload['type'],
-            'post_title'     => preg_replace('/\.[^.]+$/', '', basename($upload['file'])),
-            'post_content'   => '',
-            'post_status'    => 'inherit'
-        ), $upload['file']) ) {
-            $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
-            wp_update_attachment_metadata( $attachment_id, $attach_metadata );
-
-            if ( $check_image && ! wp_attachment_is_image( $attachment_id ) ) {
-                wp_delete_attachment( $attachment_id, true );
-
-                $error_msg = esc_html__( 'Uploaded file is not an image', 'business-directory-plugin' );
-                return false;
-            }
-
-            if ( wp_attachment_is_image( $attachment_id ) ) {
-                $meta   = wp_get_attachment_metadata( $attachment_id );
-                $failed = false;
-
-                if ( ! $failed && $meta && $constraints['min-width'] > 0 && $meta['width'] < $constraints['min-width'] ) {
-                    $error_msg = esc_html(
-                        sprintf(
-                            /* translators: %1$s: Image width, %2$s: minimum image width */
-                            __( 'Image width (%1$s px) is smaller than the minimum width of %2$s px.', 'business-directory-plugin' ),
-                            $meta['width'],
-                            $constraints['min-width']
-                        )
-                    );
-                }
-
-                if ( ! $failed && $meta && $constraints['min-height'] > 0 && $meta['height'] < $constraints['min-height'] ) {
-                    $error_msg = esc_html(
-                        sprintf(
-                            /* translators: %1$s: Image height, %2$s: minimum image height */
-                            __( 'Image height (%1$s px) is smaller than to minimum height of %2$s px.', 'business-directory-plugin' ),
-                            $meta['height'],
-                            $constraints['min-height']
-                        )
-                    );
-                }
-
-                if ( ! $failed && $meta && $constraints['max-width'] > 0 && $meta['width'] > $constraints['max-width'] ) {
-                    $error_msg = esc_html(
-                        sprintf(
-                            /* translators: %1$s: Image width, %2$s: maximum image width */
-                            __( 'Image width (%1$s px) is greater than maximum allowed width of %2$s px.', 'business-directory-plugin' ),
-                            $meta['width'],
-                            $constraints['max-width']
-                        )
-                    );
-                }
-
-                if ( ! $failed && $meta && $constraints['max-height'] > 0 && $meta['height'] > $constraints['max-height'] ) {
-                    $error_msg = esc_html(
-                        sprintf(
-                            /* translators: %1$s: Image height, %2$s: maximum image height */
-                            __( 'Image height (%1$s px) is greater than maximum required height of %1$s px.', 'business-directory-plugin' ),
-                            $meta['height'],
-                            $constraints['max-height']
-                        )
-                    );
-                }
-
-                if ( $failed ) {
-                    wp_delete_attachment( $attachment_id, true );
-                    return false;
-                }
-            }
-
-            return $attachment_id;
-        }
-    } else {
-        $error_msg = esc_html__( 'Error while uploading file', 'business-directory-plugin' );
-    }
-
-    return false;
-}
-
-/**
- * Attempts to get the mimetype of a file.
- *
- * @param $file string  The path to a file.
- *
- * @since 5.0.5
- */
-function wpbdp_get_mimetype( $file ) {
-    $mime_type = null;
-
-    if ( function_exists( 'finfo_open' ) ) {
-        if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
-            $mime_type = explode( ';', finfo_file( $finfo, $file ) );
-            $mime_type = trim( $mime_type[0] );
-            finfo_close( $finfo );
-        }
-    }
-
-    if ( null === $mime_type ) {
-        $type_info = wp_check_filetype( $file, wp_get_mime_types() );
-        $mime_type = $type_info['type'];
-    }
-
-    return $mime_type;
-}
-
-/**
- * Returns the domain used in the current request, optionally stripping
- * the www part of the domain.
- *
- * @since 2.1.5
- * @param $www  boolean     true to include the 'www' part,
- *                          false to attempt to strip it.
- */
-function wpbdp_get_current_domain($www=true, $prefix='') {
-    $domain = wpbdp_get_server_value( 'HTTP_HOST' );
-    if (empty($domain)) {
-        $domain = wpbdp_get_server_value( 'SERVER_NAME' );
-    }
-
-    if (!$www && substr($domain, 0, 4) === 'www.') {
-        $domain = $prefix . substr($domain, 4);
-    }
-
-    return $domain;
-}
-
 /**
  * Bulds WordPress ajax URL using the same domain used in the current request.
  *
  * @since 2.1.5
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_ajaxurl($overwrite=false) {
     static $ajaxurl = false;
 
     if ($overwrite || $ajaxurl === false) {
-        $url   = admin_url('admin-ajax.php');
+        $url = admin_url('admin-ajax.php');
         $parts = parse_url($url);
 
         $domain = wpbdp_get_current_domain();
@@ -550,6 +477,7 @@ function wpbdp_ajaxurl($overwrite=false) {
 /**
  * Removes a value from an array.
  * @since 2.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_array_remove_value( &$array_, &$value_ ) {
     $key = array_search( $value_, $array_ );
@@ -567,6 +495,7 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
  * @param string $prefix the prefix to search for
  * @return TRUE if $str starts with $prefix or FALSE otherwise
  * @since 3.0.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
     if ( !$case_sensitive )
@@ -577,6 +506,7 @@ function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
 
 /**
  * @since 3.1
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_format_time( $time=null, $format='mysql', $time_is_date=false ) {
     // TODO: add more formats
@@ -596,14 +526,30 @@ function wpbdp_format_time( $time=null, $format='mysql', $time_is_date=false ) {
  * @param string $path a directory.
  * @return array list of files within the directory.
  * @since 3.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_scandir( $path, $args = array() ) {
-    if ( !is_dir( $path ) ) {
+    if ( !is_dir( $path ) )
         return array();
+/*
+    $defaults = array(
+        'filter' => false
+    );
+    $args = wp_parse_args( $args, $defaults );
+    extract( $args );
+
+    $filter = is_array( $filter ) ? $filter : ( $filter ? (array) $filter : false );*/
+    $res = array_diff( scandir( $path ), array( '.', '..' ) );
+
+/*    foreach ( $res as $i => &$r ) {
+        $r = untrailingslashit( $path ) . '/' . $r;
+
+        if ( $filter && ( ( ! in_array( 'dir', $filter ) && is_dir( $r ) ) || ( ! in_array( 'file', $filter ) && is_file( $r ) ) ) )
+            unset( $res[ $i ] );
     }
-
-    return array_diff( scandir( $path ), array( '.', '..' ) );;
-
+*/
+    return $res;
+//    return array_diff( scandir( $path ), array( '.', '..' ) );
 }
 
 /**
@@ -611,6 +557,7 @@ function wpbdp_scandir( $path, $args = array() ) {
  * @param string $path a directory.
  * @since 3.3
  * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_rrmdir( $path ) {
     return WPBDP_FS::rmdir( $path );
@@ -624,6 +571,7 @@ function wpbdp_rrmdir( $path ) {
  * @param boolean $escape Whether to escape the name before returning or not. Defaults to `True`.
  * @return string The term name (if found) or an empty string otherwise.
  * @since 3.3
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $field = 'id', $escape = true ) {
     $term = get_term_by( $field,
@@ -636,6 +584,9 @@ function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $fiel
     return $term->name;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_has_shortcode( &$content, $shortcode ) {
     $check = has_shortcode( $content, $shortcode );
 
@@ -652,6 +603,7 @@ function wpbdp_has_shortcode( &$content, $shortcode ) {
  * TODO: dodoc.
  *
  * @since 3.4.2
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
     $setting = wpbdp()->settings->get_setting( $setting_name );
@@ -678,15 +630,16 @@ function wpbdp_text_from_template( $setting_name, $replacements = array() ) {
 
 /**
  * @since 3.5.4
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $args = array() ) {
     $setting = null;
-    $file    = null;
-    $object  = null;
+    $file = null;
+    $object = null;
 
     if ( is_string( $setting_or_file ) && is_file( $setting_or_file ) && is_readable( $setting_or_file ) ) {
         $file = $setting_or_file;
-    } elseif ( is_array( $setting_or_file ) || is_object( $setting_or_file ) ) {
+    } else if ( is_array( $setting_or_file ) || is_object( $setting_or_file ) ) {
         $object = $setting_or_file;
     } else {
         $setting = wpbdp()->settings->get_setting( $setting_or_file );
@@ -696,35 +649,22 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
         return false;
 
     if ( ! class_exists( 'WPBDP_Email' ) )
-        require_once WPBDP_PATH . 'includes/helpers/class-email.php';
+        require_once( WPBDP_PATH . 'includes/helpers/class-email.php' );
 
     $placeholders = $setting ? ( isset( $setting['placeholders'] ) && is_array( $setting['placeholders'] ) ? $setting['placeholders'] : array() ) : array();
-
-    $site_url = get_bloginfo( 'url' );
 
     // Add core replacements.
     $replacements = array_merge( $replacements, array(
         'site-title'    => get_bloginfo( 'name' ),
-        'site-link'     => sprintf(
-            '<a href="%s">%s</a>',
-            esc_url( $site_url ),
-            esc_html( get_bloginfo( 'name' ) )
-        ),
-        'site-url'      => sprintf(
-            '<a href="%s">%s</a>',
-            esc_url( $site_url ),
-            esc_html( $site_url )
-        ),
-        'directory-url' => sprintf(
-            '<a href="%1$s">%1$s</a>',
-            esc_url( wpbdp_get_page_link( 'main' ) )
-        ),
+        'site-link'     => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+        'site-url'      => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'url' ) ),
+        'directory-url' => sprintf( '<a href="%1$s">%1$s</a>', wpbdp_get_page_link( 'main' ) ),
         'today'         => date_i18n( get_option( 'date_format' ) ),
         'now'           => date_i18n( get_option( 'time_format' ) )
     ) );
 
     if ( $file ) {
-        $keys   = array_keys( $replacements );
+        $keys = array_keys( $replacements );
         $values = array_values( $replacements );
 
         // Normalize keys for PHP usage.
@@ -735,7 +675,7 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     }
 
     $subject = '';
-    $body    = '';
+    $body = '';
 
     if ( $setting || $object ) {
         $value = $setting ? wpbdp_get_option( $setting['id'] ) : (array) $object;
@@ -743,10 +683,10 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
         // Support old-style settings.
         if ( ! is_array( $value ) ) {
             $subject = $setting['default']['subject'];
-            $body    = $setting['default']['body'];
+            $body = $setting['default']['body'];
         } else {
             $subject = $value['subject'];
-            $body    = $value['body'];
+            $body = $value['body'];
         }
 
         $placeholders = $replacements; // XXX: does this work ok?
@@ -755,7 +695,7 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
                 continue;
 
             $subject = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $subject );
-            $body    = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $body );
+            $body = str_replace( '[' . $placeholder . ']', $replacements[ $placeholder ], $body );
         }
     } elseif ( $file ) {
         $body = wpbdp_render_page( $file, $replacements );
@@ -771,6 +711,9 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     return $email;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_admin_pointer( $selector, $title, $content_ = '',
                               $primary_button = false, $primary_action = '',
                               $secondary_button = false, $secondary_action = '',
@@ -785,32 +728,26 @@ function wpbdp_admin_pointer( $selector, $title, $content_ = '',
 <script type="text/javascript">
 //<![CDATA[
 jQuery(function( $ ) {
-        var wpbdp_pointer = $( '<?php echo esc_js( $selector ); ?>' ).pointer({
-            'content': <?php echo wp_json_encode( $content ); ?>,
-            'position': { 'edge': '<?php echo isset( $options['edge'] ) ? esc_js( $options['edge'] ) : 'top'; ?>',
-                          'align': '<?php echo isset( $options['align'] ) ? esc_js( $options['align'] ) : 'center'; ?>' },
+        var wpbdp_pointer = $( '<?php echo $selector; ?>' ).pointer({
+            'content': <?php echo json_encode( $content ); ?>,
+            'position': { 'edge': '<?php echo isset( $options['edge'] ) ? $options['edge'] : 'top'; ?>',
+                          'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
             'buttons': function( e, t ) {
                 <?php if ( ! $secondary_button ): ?>
-                var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo esc_js( $primary_button ); ?>' + '</a>' );
+                var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
                 <?php else: ?>
-                var b = $( '<a id="wpbdp-pointer-b2" class="button" style="margin-right: 15px;">' + '<?php echo esc_js( $secondary_button ); ?>' + '</a>' );
+                var b = $( '<a id="wpbdp-pointer-b2" class="button" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
                 <?php endif; ?>
                 return b;
             }
         }).pointer('open');
 
         <?php if ( $secondary_button ): ?>
-        $( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo $primary_button;
-            ?>' + '</a>' );
+        $( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
         $( '#wpbdp-pointer-b2' ).click(function(e) {
             e.preventDefault();
             <?php if ( $secondary_action ): ?>
-                <?php
-                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $secondary_action;
-                ?>
+            <?php echo $secondary_action; ?>
             <?php endif; ?>
             wpbdp_pointer.pointer( 'close' );
         });
@@ -819,9 +756,7 @@ jQuery(function( $ ) {
         $( '#wpbdp-pointer-b1' ).click(function(e) {
             e.preventDefault();
             <?php if ( $primary_action ): ?>
-                <?php
-                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $primary_action; ?>
+            <?php echo $primary_action; ?>
             <?php endif; ?>
             wpbdp_pointer.pointer( 'close' );
         });
@@ -829,7 +764,7 @@ jQuery(function( $ ) {
 });
 //]]>
 </script>
-	<?php
+<?php
 }
 
 /**
@@ -838,6 +773,7 @@ jQuery(function( $ ) {
  * Instances of this class allow accessing any property or calling any function without side effects (errors).
  *
  * @since 3.4dev
+ * @SuppressWarnings(PHPMD)
  */
 class WPBDP_NoopObject {
 
@@ -858,6 +794,9 @@ class WPBDP_NoopObject {
 // For compat with PHP < 5.3
 if ( ! function_exists( 'str_getcsv' ) ) {
 
+    /**
+     * @SuppressWarnings(PHPMD)
+     */
     function str_getcsv( $input, $delimiter = ',', $enclosure = '"' ) {
         $file = tmpfile();
 
@@ -874,6 +813,7 @@ if ( ! function_exists( 'str_getcsv' ) ) {
 
 /**
  * @since 4.0.5dev
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_detect_encoding( $content ) {
     static $encodings = array(
@@ -899,22 +839,26 @@ function wpbdp_detect_encoding( $content ) {
 /**
  * Taken from http://php.net/manual/en/function.mb-detect-encoding.php#113983
  * @since 4.0.5dev
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_mb_detect_encoding( $content, $encodings ) {
    foreach ( $encodings as $encoding ) {
         $sample = iconv( $encoding, $encoding, $content );
         if ( md5( $sample ) == md5( $content ) ) {
             return $encoding;
-			}
+        }
     }
 
     return false;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_render_user_field( $args = array() ) {
     $args = wp_parse_args( $args, array(
         'class' => '',
-        'name'  => 'user',
+        'name' => 'user',
         'value' => null,
     ) );
 
@@ -926,31 +870,34 @@ function wpbdp_render_user_field( $args = array() ) {
         foreach ( get_users( 'orderby=display_name' ) as $user ) {
             $selected = $args['value'] == $user->ID ? ' selected="selected"' : '';
 
-            $output .= '<option value="' . esc_attr( $user->ID ) . '"' . $selected . '>';
-            $output .= esc_html( "{$user->display_name} ({$user->user_login})" );
+            $output .= '<option value="' . $user->ID . '"' . $selected . '>';
+            $output .= "{$user->display_name} ({$user->user_login})";
             $output .= '</option>';
         }
 
         $output .= '</select>';
     } else {
         if ( $args['value'] ) {
-            $user         = get_user_by( 'ID', $args['value'] );
-            $text_value   = "{$user->display_name} ({$user->user_login})";
+            $user = get_user_by( 'ID', $args['value'] );
+            $text_value = "{$user->display_name} ({$user->user_login})";
             $hidden_value = $user->ID;
         } else {
-            $text_value   = '';
+            $text_value = '';
             $hidden_value = 0;
         }
 
         $hidden_field_id = 'autocomplete-value-' . uniqid();
 
-        $output  = '<input class="wpbdp-user-autocomplete ' . esc_attr( $args['class'] ) . '" type="text" value="' . esc_attr( $text_value ) . '" data-hidden-field="' . esc_attr( $hidden_field_id ) . '" />';
-        $output .= '<input id="' . esc_attr( $hidden_field_id ) . '" name="' . esc_attr( $args['name'] ) . '" type="hidden" value="' . esc_attr( $hidden_value ) . '">';
+        $output = '<input class="wpbdp-user-autocomplete ' . esc_attr( $args['class'] ) . '" type="text" value="' . esc_attr( $text_value ) . '" data-hidden-field="' . $hidden_field_id . '" />';
+        $output.= '<input id="' . $hidden_field_id . '" name="' . esc_attr( $args['name'] ) . '" type="hidden" value="' . esc_attr( $hidden_value ) . '">';
     }
 
     return $output;
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_enqueue_jquery_ui_style() {
     global $wp_scripts;
 
@@ -968,6 +915,9 @@ function wpbdp_enqueue_jquery_ui_style() {
     );
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function wpbdp_buckwalter_arabic_transliteration( $content ) {
     $arabic_characters = array(
         'ء',
@@ -1081,44 +1031,43 @@ function wpbdp_buckwalter_arabic_transliteration( $content ) {
  * all places where the function is called, to avoid scaping values twice.
  *
  * @since 4.1.10
+ * @SuppressWarnings(PHPMD)
  */
-function wpbdp_html_attributes( $attrs, $exceptions = array(), $echo = false ) {
+function wpbdp_html_attributes( $attrs, $exceptions = array() ) {
     $html = '';
+
     foreach ( $attrs as $k => $v ) {
         if ( in_array( $k, $exceptions, true ) ) {
             continue;
         }
 
-        $html .= sprintf( '%s="%s" ', esc_attr( $k ), esc_attr( $v ) );
+        $html .= sprintf( '%s="%s" ', $k, $v );
     }
 
-    if ( ! $echo ) {
-        return $html;
-    }
-
-    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo $html;
+    return $html;
 }
 
 /**
  * @since 4.1.11
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_table_exists( $table_name ) {
     global $wpdb;
 
-    $result = $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) );
+    $result = $wpdb->get_var( "SHOW TABLES LIKE '" . $table_name . "'" );
 
     return strcasecmp( $result, $table_name ) === 0;
 }
 
 /**
  * @since 5.0.5
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_column_exists( $table_name, $column_name ) {
     global $wpdb;
 
     $display_errors = $wpdb->hide_errors();
-    $result         = $wpdb->get_col( $wpdb->prepare( 'SELECT %s FROM %s LIMIT 1', $column_name, $table_name ) );
+    $result = $wpdb->get_col( sprintf( 'SELECT %s FROM %s LIMIT 1', $column_name, $table_name ) );
     $wpdb->show_errors( $display_errors );
 
     return empty( $wpdb->last_error );
@@ -1126,25 +1075,28 @@ function wpbdp_column_exists( $table_name, $column_name ) {
 
 /**
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_is_request( $type ) {
     switch ( $type ) {
     case 'admin':
-            return is_admin();
+        return is_admin();
     case 'ajax':
-            return defined( 'DOING_AJAX' ) && DOING_AJAX;
+        return defined( 'DOING_AJAX' ) && DOING_AJAX;
     case 'cron':
-            return defined( 'DOING_CRON' ) && DOING_CRON;
+        return defined( 'DOING_CRON' ) && DOING_CRON;
     case 'frontend':
-            return ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) );
+        return ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) );
     }
 }
 
 /**
  * @since 5.0
+ * @SuppressWarnings(PHPMD)
  */
 function wpbdp_deprecation_warning( $msg = '' ) {
     global $wpbdp_deprecation_warnings;
+
 
     if ( ! isset( $wpbdp_deprecation_warnings ) ) {
         $wpbdp_deprecation_warnings = array();
@@ -1152,3 +1104,5 @@ function wpbdp_deprecation_warning( $msg = '' ) {
 
     $wpbdp_deprecation_warnings[] = $msg;
 }
+
+// phpcs:enable
