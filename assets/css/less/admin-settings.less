@@ -45,7 +45,7 @@
     }
 
     .wpbdp-license-key-activation-ui {
-        .wpbdp-license-key-activate-btn, .wpbdp-license-key-verify-btn, .wpbdp-license-key-deactivate-btn {
+        .wpbdp-license-key-activate-btn, .wpbdp-license-key-deactivate-btn {
             margin-left: 10px;
             margin-top: 2px;
             display: none;
@@ -75,26 +75,8 @@
                 display: none;
             }
 
-            .wpbdp-license-key-verify-btn {
-                display: none;
-            }
-
             .wpbdp-license-key-deactivate-btn {
                 display: inline-block;
-            }
-        }
-
-        &.wpbdp-license-status-not-verified {
-            .wpbdp-license-warning-icon {
-                color: #f56e28;
-            }
-
-            .wpbdp-license-key-activate-btn {
-                display: inline-block;
-            }
-            
-            .wpbdp-license-key-deactivate-btn {
-                display: none;
             }
         }
 
@@ -163,6 +145,11 @@
 
     tr.wpbdp-setting-disabled {
         opacity: 0.7;
+    }
+
+    .wpbdp_upgrade_to_pro {
+        text-align: center;
+        margin-top: 80px;
     }
 }
 
@@ -357,17 +344,6 @@
     .wpbdp-settings-multicheck-option {
         width: 50%;
         display: inline-block;
-    }
-}
-
-.wpbdp-module-key-not-verified {
-     p::before {
-        content: '';
-        margin-right: 0 !important;
-     }
-
-    .wpbdp-license-warning-icon::before {
-        color: #f56e28;
     }
 }
 
