@@ -1,10 +1,12 @@
 <?php
-    // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo wpbdp_admin_header(
-        null,
-        'admin-fees',
-        array(
-			array( __( 'Add New Listing Fee', 'business-directory-plugin' ), esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) ),
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    wpbdp_admin_header(
+        array( 
+            'id'      => 'admin-fees',
+            'buttons' => array(
+                __( 'Add New Listing Fee', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
+            ),
+            'echo' => true,
         )
     );
 	?>
@@ -19,7 +21,7 @@
                 /* translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag. */
                 esc_html__( 'To manage fees you need to go to the %1$sManage Options - Payment%2$s page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.', 'business-directory-plugin' ),
                 '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">',
-                '</a>',
+                '</a>'
             );
         ?>
     </p>
@@ -94,9 +96,6 @@
 				?>
             <?php break; ?>
             <?php
-            case 'all':
-				?>
-				<?php
 			default:
 				?>
 				<?php
