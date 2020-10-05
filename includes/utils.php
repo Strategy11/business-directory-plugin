@@ -199,6 +199,51 @@ function wpbdp_sanitize_value( $sanitize, &$value ) {
     }
 }
 
+/**
+ * Prepare an external link with utm parameters.
+ *
+ * @since 5.8
+ *
+ * @param array|string $args
+ * @param string $page
+ */
+function wpbdp_admin_upgrade_link( $args, $page = '' ) {
+    if ( empty( $page ) ) {
+        $page = 'https://businessdirectoryplugin.com/lite-upgrade/';
+    } else {
+        $page = str_replace( 'https://businessdirectoryplugin.com/', '', $page );
+        $page = 'https://businessdirectoryplugin.com/' . $page;
+    }
+
+    $anchor = '';
+    if ( is_array( $args ) ) {
+        $medium  = $args['medium'];
+        $content = $args['content'];
+        if ( isset( $args['anchor'] ) ) {
+            $anchor = '#' . $args['anchor'];
+        }
+    } else {
+        $medium = $args;
+    }
+
+    $query_args = array(
+        'utm_source'   => 'WordPress',
+        'utm_medium'   => $medium,
+        'utm_campaign' => 'liteplugin',
+    );
+
+    if ( isset( $content ) ) {
+        $query_args['utm_content'] = $content;
+    }
+
+    if ( is_array( $args ) && isset( $args['param'] ) ) {
+        $query_args['f'] = $args['param'];
+    }
+
+    $link = add_query_arg( $query_args, $page ) . $anchor;
+    return $link;
+}
+
 function wpbdp_capture_action($hook) {
     $output = '';
 
