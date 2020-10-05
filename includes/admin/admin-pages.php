@@ -18,7 +18,8 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
             'title'   => $args_or_title,
             'id'      => $id,
             'buttons' => $buttons,
-            'sidebar' => $sidebar
+            'sidebar' => $sidebar,
+            'echo'    => false,
         );
 
         if ( empty( $args_or_title['title'] ) ) {
@@ -58,7 +59,9 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
     $id = str_replace( array( 'wpbdp_', 'wpbdp-' ), '', $id );
     $id = str_replace( array( 'admin-', 'admin_' ), '', $id );
 
-    ob_start();
+    if ( ! $echo ) {
+        ob_start();
+    }
 ?>
 <div class="wrap wpbdp-admin wpbdp-admin-page wpbdp-admin-page-<?php echo $id; ?>" id="wpbdp-admin-page-<?php echo $id; ?>">
 	<div id="icon-edit-pages" class="icon32"></div>
@@ -73,8 +76,10 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 		<?php echo $sidebar = $sidebar ? wpbdp_admin_sidebar() : ''; ?>
 
 		<div class="wpbdp-admin-content <?php echo ! empty( $sidebar ) ? 'with-sidebar' : 'without-sidebar'; ?>">
-<?php
-    return ob_get_clean();
+    <?php
+    if ( ! $echo ) {
+        return ob_get_clean();
+    }
 }
 
 
