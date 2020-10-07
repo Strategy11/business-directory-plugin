@@ -19,7 +19,6 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
             'id'      => $id,
             'buttons' => $buttons,
             'sidebar' => $sidebar,
-            'echo'    => false,
         );
 
         if ( empty( $args_or_title['title'] ) ) {
@@ -48,7 +47,8 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
         'title'   => $default_title,
         'id'      => ! empty( $_GET['page'] ) ? $_GET['page'] : '',
         'buttons' => array(),
-        'sidebar' => true
+        'sidebar' => true,
+        'echo'    => false,
     );
 
 
