@@ -660,6 +660,9 @@ class WPBDP_CSV_Import {
         $fields     = array();
         $images     = array();
         $expires_on = '';
+        $plan_id    = 0;
+        
+        $terms_and_conditions_acceptance_date = '';
 
         $meta                = array();
         $meta['sequence_id'] = 0;
@@ -713,7 +716,6 @@ class WPBDP_CSV_Import {
 
                 case 'fee_id':
                     $submitted_fee_id = absint( $value );
-                    $plan_id          = 0;
 
                     if ( ! $submitted_fee_id ) {
                         break;
@@ -771,7 +773,9 @@ class WPBDP_CSV_Import {
                                 continue;
                             }
 
-                            if ( $term = term_exists( $csv_category, WPBDP_CATEGORY_TAX ) ) {
+                            $term = term_exists( $csv_category, WPBDP_CATEGORY_TAX );
+
+                            if ( $term ) {
                                 $categories[] = array(
 									'name'    => $csv_category,
 									'term_id' => $term['term_id'],
