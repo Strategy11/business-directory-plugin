@@ -51,7 +51,6 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
         'echo'    => false,
     );
 
-
     $args = wp_parse_args( $args_or_title, $defaults);
 
     extract( $args );
@@ -59,7 +58,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
     $id = str_replace( array( 'wpbdp_', 'wpbdp-' ), '', $id );
     $id = str_replace( array( 'admin-', 'admin_' ), '', $id );
 
-    if ( ! $echo ) {
+    if ( empty( $args['echo'] ) ) {
         ob_start();
     }
 ?>
@@ -77,7 +76,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 
 		<div class="wpbdp-admin-content <?php echo ! empty( $sidebar ) ? 'with-sidebar' : 'without-sidebar'; ?>">
     <?php
-    if ( ! $echo ) {
+    if ( empty( $args['echo'] ) ) {
         return ob_get_clean();
     }
 }
