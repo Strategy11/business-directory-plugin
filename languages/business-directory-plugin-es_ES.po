@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-25 21:07:19+00:00\n"
-"PO-Revision-Date: 2020-09-25 16:20-0500\n"
+"POT-Creation-Date: 2020-10-08 20:04:52+00:00\n"
+"PO-Revision-Date: 2020-10-07 14:57-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
 "Language: es_ES\n"
@@ -455,8 +455,8 @@ msgstr "Dirección del Negocio"
 msgid "ZIP Code"
 msgstr "Código Postal"
 
-#: includes/functions.php:554 templates/admin/fees-index.tpl.php:72
-#: templates/admin/fees-index.tpl.php:85 templates/admin/fees-index.tpl.php:106
+#: includes/functions.php:554 templates/admin/fees-index.tpl.php:74
+#: templates/admin/fees-index.tpl.php:87 templates/admin/fees-index.tpl.php:105
 msgid "Free"
 msgstr "Gratuito"
 
@@ -477,9 +477,28 @@ msgstr ""
 "Authorize.net. Puede volver a intentarlo más tarde o cancelar la suscripción "
 "desde el panel de la plataforma de pagos."
 
-#: includes/licensing.php:94 includes/licensing.php:97
+#: includes/licensing.php:91 includes/licensing.php:94
 msgid "Licenses"
 msgstr "Licencias"
+
+#: includes/licensing.php:170
+msgid "Build more powerful directories"
+msgstr "Construye directorios mas potentes"
+
+#: includes/licensing.php:171
+msgid ""
+"Add category images, maps, filter by location, payment gateways, and more."
+msgstr ""
+"Agrega imágenes en las categorías, mapas, filtro por ubicación, plataformas "
+"de pago y más."
+
+#: includes/licensing.php:172 templates/admin/sidebar.tpl.php:59
+msgid "Upgrade Now"
+msgstr "Mejorar ahora"
+
+#: includes/licensing.php:173
+msgid "Already purchased?"
+msgstr "¿Ya has comprado?"
 
 #: includes/payment.php:38
 msgid "We couldn't find a payment associated with the given subscription."
@@ -543,12 +562,12 @@ msgstr ""
 msgid "Add New Listing Fee"
 msgstr "Añadir nueva tarifa de listado"
 
-#: templates/admin/fees-index.tpl.php:16
+#: templates/admin/fees-index.tpl.php:18
 msgid "Payments are currently turned off."
 msgstr "Los pagos están desactivados actualmente."
 
 #. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:20
+#: templates/admin/fees-index.tpl.php:22
 msgid ""
 "To manage fees you need to go to the %1$sManage Options - Payment%2$s page "
 "and check the box next to 'Turn On Payments' under 'Payment Settings'."
@@ -557,25 +576,25 @@ msgstr ""
 "%2$s y marque la casilla situada junto a \"Activar pagos\" en "
 "\"Configuración de pago\"."
 
-#: templates/admin/fees-index.tpl.php:34
+#: templates/admin/fees-index.tpl.php:36
 msgid "Order fees on the frontend by:"
 msgstr "Ordenar tarifas del lado del usuario por:"
 
-#: templates/admin/fees-index.tpl.php:44
+#: templates/admin/fees-index.tpl.php:46
 msgid "↑ Ascending"
 msgstr "↑ Ascendente"
 
-#: templates/admin/fees-index.tpl.php:45
+#: templates/admin/fees-index.tpl.php:47
 msgid "↓ Descending"
 msgstr "↓ Descendente"
 
-#: templates/admin/fees-index.tpl.php:53
+#: templates/admin/fees-index.tpl.php:55
 msgid "Drag and drop to re-order fees."
 msgstr "Arrastre y suelte para reordenar las tarifas."
 
 #. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
 #. opening <a> tag, %3$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:71
+#: templates/admin/fees-index.tpl.php:73
 msgid ""
 "These are all of the fee plans displayed to the user when they place a "
 "listing. Your current mode of \"%1$s\" restricts what you see here. Those on "
@@ -587,13 +606,13 @@ msgstr ""
 "planes en el filtro %2$sNo Disponible%3$s se activarán cuando cambie el modo "
 "de pago del directorio."
 
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:85
-#: templates/admin/fees-index.tpl.php:106
+#: templates/admin/fees-index.tpl.php:74 templates/admin/fees-index.tpl.php:87
+#: templates/admin/fees-index.tpl.php:105
 msgid "Paid"
 msgstr "Pago"
 
 #. translators: %s is directory payment mode (Free or Paid)
-#: templates/admin/fees-index.tpl.php:84
+#: templates/admin/fees-index.tpl.php:86
 msgid ""
 "These are all of the fee plans that aren't available because you're in \"%s"
 "\" mode. Those on the Active filter will become Not Available when you "
@@ -603,7 +622,7 @@ msgstr ""
 "directorio opera en modo \"%s\". Aquellas en el filtro “Activas” se "
 "convertirán en “No Disponibles” cuando cambie el modo."
 
-#: templates/admin/fees-index.tpl.php:93
+#: templates/admin/fees-index.tpl.php:95
 msgid ""
 "These fee plans were disabled by the admin and will not show to the end user "
 "regardless of mode until you enable them."
@@ -613,7 +632,7 @@ msgstr ""
 
 #. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
 #. opening <a> tag, %3$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:105
+#: templates/admin/fees-index.tpl.php:104
 msgid ""
 "These are all of the fee plans you have configured. Not all of them are "
 "available for the current mode (currently set to \"%1$s\"). To see the fee "
@@ -623,29 +642,29 @@ msgstr ""
 "disponibles para el estado actual (“%1$s\"). Para ver todos los planes para "
 "este estado haga click en %2$sActivas%3$s."
 
-#: templates/admin/fees-index.tpl.php:135
+#: templates/admin/fees-index.tpl.php:134
 msgid "Set up a payment gateway to charge a fee for listings"
 msgstr ""
 "Configurar una pasarela de pagos para cobrar una tarifa por los listados"
 
-#: templates/admin/fees-index.tpl.php:137
+#: templates/admin/fees-index.tpl.php:136
 msgid "Add a payment gateway to increase conversion rates"
 msgstr "Agregue una pasarela de pago para aumentar las tasas de conversión"
 
 #. translators: %s: payment gateway name */
-#: templates/admin/fees-index.tpl.php:155
+#: templates/admin/fees-index.tpl.php:154
 msgid "Add the %s gateway as a payment option."
 msgstr "Agregar la pasarela %s como opción de pago."
 
-#: templates/admin/fees-index.tpl.php:161
+#: templates/admin/fees-index.tpl.php:160
 msgid "Upgrade"
 msgstr "Mejorar"
 
-#: templates/admin/fees-index.tpl.php:169
+#: templates/admin/fees-index.tpl.php:168
 msgid "Set up Authorize.net as a payment option."
 msgstr "Configurar Authorize.net como opción de pago."
 
-#: templates/admin/fees-index.tpl.php:172
+#: templates/admin/fees-index.tpl.php:171
 msgid "Set Up"
 msgstr "Configurar"
 
@@ -782,13 +801,9 @@ msgstr "Hacer mejores directorios"
 msgid "new"
 msgstr "nuevo"
 
-#: templates/admin/sidebar.tpl.php:59
-msgid "Upgrade Now"
-msgstr "Mejorar ahora"
-
 #: templates/admin/themes-install.tpl.php:21
 msgid "Business Directory Theme archive (ZIP file)"
-msgstr "archivo con tema para Business Directory (ZIP)"
+msgstr "Tema para Business Directory (archivo ZIP)"
 
 #: templates/parts/listing-buttons.tpl.php:43
 msgid "← Return to Directory"
@@ -857,27 +872,27 @@ msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "No se pudo crear la categoría \"%s\""
 
-#: includes/admin/class-csv-import.php:697
+#: includes/admin/class-csv-import.php:700
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "El usuario \"%s\" no existe"
 
-#: includes/admin/class-csv-import.php:725
+#: includes/admin/class-csv-import.php:727
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr "No existe una comisión con ID = <fee-id>"
 
-#: includes/admin/class-csv-import.php:756
+#: includes/admin/class-csv-import.php:758
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Falta campo requerido: %s"
 
-#: includes/admin/class-csv-import.php:781
+#: includes/admin/class-csv-import.php:785
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "La categoría \"%s\" no existe"
 
-#: includes/admin/class-csv-import.php:846
+#: includes/admin/class-csv-import.php:850
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "La cadena <string> no pudo ser interpretada como una fecha válida."
@@ -4309,7 +4324,7 @@ msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Fecha de registro del usuario"
 
-#: includes/licensing.php:175
+#: includes/licensing.php:199
 msgctxt "admin settings"
 msgid "Enter License Key here"
 msgstr "Ingrese la licencia aquí"
@@ -4560,7 +4575,7 @@ msgid "Appearance"
 msgstr "Apariencia"
 
 #: includes/admin/settings/class-settings-bootstrap.php:27
-#: includes/licensing.php:106
+#: includes/licensing.php:115
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "Módulos Premium"
@@ -5607,12 +5622,12 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "El slug “%s” ya está siendo utilizado por otra taxonomía."
 
-#: includes/licensing.php:124
+#: includes/licensing.php:133
 msgctxt "settings"
 msgid "Themes"
 msgstr "Temas"
 
-#: includes/licensing.php:149
+#: includes/licensing.php:162
 msgctxt "settings"
 msgid ""
 "The IP address of your server is <ip-address>. Please make sure to include "
@@ -5623,17 +5638,17 @@ msgstr ""
 "información si alguna vez tiene que contactar al equipo de soporte por "
 "problemas relacionados con la activación de licencias."
 
-#: includes/licensing.php:176
+#: includes/licensing.php:200
 msgctxt "settings"
 msgid "Activate"
 msgstr "Activar"
 
-#: includes/licensing.php:176 includes/licensing.php:177
+#: includes/licensing.php:200 includes/licensing.php:201
 msgctxt "settings"
 msgid "Please wait..."
 msgstr "Por favor espere…"
 
-#: includes/licensing.php:177
+#: includes/licensing.php:201
 msgctxt "settings"
 msgid "Deactivate"
 msgstr "Desactivar"
@@ -7671,22 +7686,22 @@ msgctxt "default category name"
 msgid "General"
 msgstr "General"
 
-#: includes/licensing.php:290
+#: includes/licensing.php:318
 msgctxt "licensing"
 msgid "Invalid item ID"
 msgstr "El ID del módulo es inválido"
 
-#: includes/licensing.php:296
+#: includes/licensing.php:324
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "No se ingresó una licencia"
 
-#: includes/licensing.php:320
+#: includes/licensing.php:348
 msgctxt "licensing"
 msgid "The license key was revoked."
 msgstr "La licencia fue revocada."
 
-#: includes/licensing.php:322
+#: includes/licensing.php:350
 msgctxt "licensing"
 msgid ""
 "If you think this is a mistake, please contact <support-link>Business "
@@ -7697,7 +7712,7 @@ msgstr ""
 "servicio de soporte de Business Directory</support-link> y hágales saber que "
 "el servidor de licencias revocó su licencia."
 
-#: includes/licensing.php:324
+#: includes/licensing.php:352
 msgctxt "licensing"
 msgid ""
 "Please include the email address you used to purchase <module-name> with "
@@ -7706,22 +7721,22 @@ msgstr ""
 "Por favor incluya en su reporte la dirección de correo electrónico que usó "
 "cuando compró el módulo <module-name>."
 
-#: includes/licensing.php:335 includes/licensing.php:378
+#: includes/licensing.php:363 includes/licensing.php:406
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "La licencia es inválida"
 
-#: includes/licensing.php:352
+#: includes/licensing.php:380
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "Módulo de ID inválido"
 
-#: includes/licensing.php:382
+#: includes/licensing.php:410
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "La desactivación de licencia falló"
 
-#: includes/licensing.php:390
+#: includes/licensing.php:418
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -7730,7 +7745,7 @@ msgstr ""
 "No fue posible establecer una conexión con el servidor de Business "
 "Directory. cURL no se encontró en su sistema"
 
-#: includes/licensing.php:392 includes/licensing.php:433
+#: includes/licensing.php:420 includes/licensing.php:461
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -7743,7 +7758,7 @@ msgstr ""
 "reciente de cURL and una versión de OpenSSL que soporte TLSv1.2 (la versión "
 "mínimo con este soporte es OpenSSL 1.0.1c)."
 
-#: includes/licensing.php:394 includes/licensing.php:435
+#: includes/licensing.php:422 includes/licensing.php:463
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -7754,7 +7769,7 @@ msgstr ""
 "Business Directory, también lo ayudará a prepararse para interactuar con "
 "otros servicios que usen los últimos estándares de seguridad."
 
-#: includes/licensing.php:396
+#: includes/licensing.php:424
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -7763,7 +7778,7 @@ msgstr ""
 "Por favor contacte a su proveedor de hospedaje y solicite que actualicen su "
 "sistema. Incluya este mensaje si es necesario"
 
-#: includes/licensing.php:412
+#: includes/licensing.php:440
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -7772,7 +7787,7 @@ msgstr ""
 "No fue posible establecer una conexión con los servidores de Business "
 "Directory. La conexión falló con el siguiente error:"
 
-#: includes/licensing.php:416 includes/licensing.php:469
+#: includes/licensing.php:444 includes/licensing.php:497
 msgctxt "licensing"
 msgid ""
 "It looks like your server is not authorized to make requests to Business "
@@ -7785,12 +7800,12 @@ msgstr ""
 "de Business Directory</support-link>, indicándoles que deben agregar su "
 "dirección IP <ip-address> a la lista autorizada."
 
-#: includes/licensing.php:418 includes/licensing.php:471
+#: includes/licensing.php:446 includes/licensing.php:499
 msgctxt "licensing"
 msgid "Include this error message with your report."
 msgstr "Incluya este mensaje de error en su reporte."
 
-#: includes/licensing.php:428
+#: includes/licensing.php:456
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -7799,7 +7814,7 @@ msgstr ""
 "No fue posible establecer una conexión con los servidores de Business "
 "Directory. Ocurrió un problema en el protocolo de intercambio SSL/TSL:"
 
-#: includes/licensing.php:437
+#: includes/licensing.php:465
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -7808,22 +7823,22 @@ msgstr ""
 "Por favor contacte a su proveedor de hospedaje y solicite que actualicen su "
 "sistema. Incluya este mensaje si es necesario."
 
-#: includes/licensing.php:444
+#: includes/licensing.php:472
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "No se pudo contactar el servidor de licencias"
 
-#: includes/licensing.php:467
+#: includes/licensing.php:495
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "El servidor retornó un error 403 Forbidden."
 
-#: includes/licensing.php:535
+#: includes/licensing.php:563
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "Business Directory - Por favor verifique sus licencias"
 
-#: includes/licensing.php:545
+#: includes/licensing.php:573
 msgctxt "licensing"
 msgid ""
 "The following premium modules will not work until a valid license key is "
@@ -7832,7 +7847,7 @@ msgstr ""
 "Los siguientes módulos premium no funcionarán hasta que ingrese una licencia "
 "válida: %s."
 
-#: includes/licensing.php:556
+#: includes/licensing.php:584
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
@@ -7841,17 +7856,17 @@ msgstr ""
 "Es necesario que active las licencias de los siguientes temas antes de que "
 "pueda empezar a usarlos: %s."
 
-#: includes/licensing.php:564 includes/licensing.php:620
+#: includes/licensing.php:592 includes/licensing.php:648
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "Revisar mis licencias"
 
-#: includes/licensing.php:591
+#: includes/licensing.php:619
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "Directorio de Negocios - Licencias expiradas"
 
-#: includes/licensing.php:601
+#: includes/licensing.php:629
 msgctxt "licensing"
 msgid ""
 "The license key for the following modules has expired: %s. The modules will "
@@ -7862,7 +7877,7 @@ msgstr ""
 "módulos continuarás funcionando pero no recibirán ninguna actualización "
 "hasta que la licencia sea renovada."
 
-#: includes/licensing.php:612
+#: includes/licensing.php:640
 msgctxt "licensing"
 msgid ""
 "The license key for the following themes has expired: %s. The themes will "
@@ -7873,33 +7888,33 @@ msgstr ""
 "continuarás funcionando pero no recibirán ninguna actualización hasta que la "
 "licencia sea renovada."
 
-#: includes/licensing.php:713
+#: includes/licensing.php:741
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "Por favor ingrese una licencia."
 
-#: includes/licensing.php:722
+#: includes/licensing.php:750
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "No se pudo activar la licencia: %s."
 
-#: includes/licensing.php:724
+#: includes/licensing.php:752
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencia activada"
 
-#: includes/licensing.php:744
+#: includes/licensing.php:772
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "No se pudo desactivar la licencia: %s."
 
-#: includes/licensing.php:746
+#: includes/licensing.php:774
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencia desactivada"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:950
+#: includes/licensing.php:976
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -9557,10 +9572,6 @@ msgstr "Dirección"
 #~ "pasarela Authorize.net incluída</a> o adquiera otra pasarela de pago para "
 #~ "poder cobrar por los listados. Para comprar pasarelas adicionales utilice "
 #~ "los botones abajo o visite %s."
-
-#~ msgctxt "admin templates"
-#~ msgid "Already installed."
-#~ msgstr "Ya instalado."
 
 #~ msgctxt "admin templates"
 #~ msgid ""

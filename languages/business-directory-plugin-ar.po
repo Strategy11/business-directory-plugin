@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-09-25 21:07:19+00:00\n"
+"POT-Creation-Date: 2020-10-08 20:04:52+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -480,8 +480,8 @@ msgstr "العنوان"
 msgid "ZIP Code"
 msgstr "الرمز البريدي"
 
-#: includes/functions.php:554 templates/admin/fees-index.tpl.php:72
-#: templates/admin/fees-index.tpl.php:85 templates/admin/fees-index.tpl.php:106
+#: includes/functions.php:554 templates/admin/fees-index.tpl.php:74
+#: templates/admin/fees-index.tpl.php:87 templates/admin/fees-index.tpl.php:105
 msgid "Free"
 msgstr "مجاني"
 
@@ -497,10 +497,29 @@ msgid ""
 "%s. You can try again later or cancel subscription from gateway dashboard."
 msgstr ""
 
-#: includes/licensing.php:94 includes/licensing.php:97
+#: includes/licensing.php:91 includes/licensing.php:94
 #, fuzzy
 msgid "Licenses"
 msgstr "تراخيص"
+
+#: includes/licensing.php:170
+msgid "Build more powerful directories"
+msgstr ""
+
+#: includes/licensing.php:171
+msgid ""
+"Add category images, maps, filter by location, payment gateways, and more."
+msgstr ""
+
+#: includes/licensing.php:172 templates/admin/sidebar.tpl.php:59
+#, fuzzy
+msgid "Upgrade Now"
+msgstr "ترقية إلى %s"
+
+#: includes/licensing.php:173
+#, fuzzy
+msgid "Already purchased?"
+msgstr "مُركب مسبقا"
 
 #: includes/payment.php:38
 msgid "We couldn't find a payment associated with the given subscription."
@@ -570,13 +589,13 @@ msgstr ""
 msgid "Add New Listing Fee"
 msgstr "إضافة رسم إعلان جديد"
 
-#: templates/admin/fees-index.tpl.php:16
+#: templates/admin/fees-index.tpl.php:18
 #, fuzzy
 msgid "Payments are currently turned off."
 msgstr "نظام الدفع متوقف حاليا."
 
 #. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:20
+#: templates/admin/fees-index.tpl.php:22
 #, fuzzy
 msgid ""
 "To manage fees you need to go to the %1$sManage Options - Payment%2$s page "
@@ -585,29 +604,29 @@ msgstr ""
 "لإدارة الرسوم أنت بحاجة للذهاب إلى صفحة <a>إدارة الخيارات - الدفع</a> وحدد "
 "المربع بجوار 'تشغيل الدفعات' تحت 'إعدادات الدفع'."
 
-#: templates/admin/fees-index.tpl.php:34
+#: templates/admin/fees-index.tpl.php:36
 #, fuzzy
 msgid "Order fees on the frontend by:"
 msgstr "رسوم الترتيب على الواجهة بواسطة:"
 
-#: templates/admin/fees-index.tpl.php:44
+#: templates/admin/fees-index.tpl.php:46
 #, fuzzy
 msgid "↑ Ascending"
 msgstr "↑ تصاعدي"
 
-#: templates/admin/fees-index.tpl.php:45
+#: templates/admin/fees-index.tpl.php:47
 #, fuzzy
 msgid "↓ Descending"
 msgstr "↓ تنازلي"
 
-#: templates/admin/fees-index.tpl.php:53
+#: templates/admin/fees-index.tpl.php:55
 #, fuzzy
 msgid "Drag and drop to re-order fees."
 msgstr "سحب وإسقاط لإعادة ترتيب الرسوم."
 
 #. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
 #. opening <a> tag, %3$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:71
+#: templates/admin/fees-index.tpl.php:73
 #, fuzzy
 msgid ""
 "These are all of the fee plans displayed to the user when they place a "
@@ -619,13 +638,13 @@ msgstr ""
 "هو \"%s\" يحصر ما تراه هنا. بالنسبة لتلك التي في عامل التصفية <a>غير متوفرة</"
 "a> سوف تصبح مفعلة عندما تقوم بتغيير وضع الدفع."
 
-#: templates/admin/fees-index.tpl.php:72 templates/admin/fees-index.tpl.php:85
-#: templates/admin/fees-index.tpl.php:106
+#: templates/admin/fees-index.tpl.php:74 templates/admin/fees-index.tpl.php:87
+#: templates/admin/fees-index.tpl.php:105
 msgid "Paid"
 msgstr "تم الدفع"
 
 #. translators: %s is directory payment mode (Free or Paid)
-#: templates/admin/fees-index.tpl.php:84
+#: templates/admin/fees-index.tpl.php:86
 #, fuzzy
 msgid ""
 "These are all of the fee plans that aren't available because you're in \"%s"
@@ -635,7 +654,7 @@ msgstr ""
 "هذه كلها من خطط الرسوم التي لم تكن متوفرة لأنك في وضع \"%s\". تلك المتعلقة "
 "بالتصفية المفعلة سوف تصبح \"غير متوفرة\" عندما تقوم بتغيير وضع الدفع."
 
-#: templates/admin/fees-index.tpl.php:93
+#: templates/admin/fees-index.tpl.php:95
 #, fuzzy
 msgid ""
 "These fee plans were disabled by the admin and will not show to the end user "
@@ -646,7 +665,7 @@ msgstr ""
 
 #. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
 #. opening <a> tag, %3$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:105
+#: templates/admin/fees-index.tpl.php:104
 #, fuzzy
 msgid ""
 "These are all of the fee plans you have configured. Not all of them are "
@@ -656,29 +675,29 @@ msgstr ""
 "هذه كلها من خطط الرسوم التي قمت بإعدادها. ليست كلها متاحة للوضع الحالي "
 "(حاليا الوضع في \"%s\"). لمشاهدة خطط الرسوم لهذا الوضع إضغط <a>مفعل</a>."
 
-#: templates/admin/fees-index.tpl.php:135
+#: templates/admin/fees-index.tpl.php:134
 msgid "Set up a payment gateway to charge a fee for listings"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:137
+#: templates/admin/fees-index.tpl.php:136
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #. translators: %s: payment gateway name */
-#: templates/admin/fees-index.tpl.php:155
+#: templates/admin/fees-index.tpl.php:154
 msgid "Add the %s gateway as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:161
+#: templates/admin/fees-index.tpl.php:160
 #, fuzzy
 msgid "Upgrade"
 msgstr "ترقية إلى %s"
 
-#: templates/admin/fees-index.tpl.php:169
+#: templates/admin/fees-index.tpl.php:168
 msgid "Set up Authorize.net as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:172
+#: templates/admin/fees-index.tpl.php:171
 msgid "Set Up"
 msgstr ""
 
@@ -837,11 +856,6 @@ msgstr ""
 msgid "new"
 msgstr "جديد"
 
-#: templates/admin/sidebar.tpl.php:59
-#, fuzzy
-msgid "Upgrade Now"
-msgstr "ترقية إلى %s"
-
 #: templates/admin/themes-install.tpl.php:21
 #, fuzzy
 msgid "Business Directory Theme archive (ZIP file)"
@@ -918,27 +932,27 @@ msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "لا يمكن إنشاء تصنيف الإعلان \"%s\""
 
-#: includes/admin/class-csv-import.php:697
+#: includes/admin/class-csv-import.php:700
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "إسم المستخدم \"%s\" غير موجود"
 
-#: includes/admin/class-csv-import.php:725
+#: includes/admin/class-csv-import.php:727
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:756
+#: includes/admin/class-csv-import.php:758
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "حقل مطلوب مفقود: %s"
 
-#: includes/admin/class-csv-import.php:781
+#: includes/admin/class-csv-import.php:785
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "تصنيف الإعلان \"%s\" غير موجود"
 
-#: includes/admin/class-csv-import.php:846
+#: includes/admin/class-csv-import.php:850
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
@@ -4478,7 +4492,7 @@ msgctxt "admin settings"
 msgid "User registration date"
 msgstr "تاريخ تسجيل العضو"
 
-#: includes/licensing.php:175
+#: includes/licensing.php:199
 #, fuzzy
 msgctxt "admin settings"
 msgid "Enter License Key here"
@@ -4788,7 +4802,7 @@ msgid "Appearance"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:27
-#: includes/licensing.php:106
+#: includes/licensing.php:115
 msgctxt "settings"
 msgid "Premium Modules"
 msgstr "وحدات ممتازة (Premium)"
@@ -5912,13 +5926,13 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
 
-#: includes/licensing.php:124
+#: includes/licensing.php:133
 #, fuzzy
 msgctxt "settings"
 msgid "Themes"
 msgstr "القوالب"
 
-#: includes/licensing.php:149
+#: includes/licensing.php:162
 msgctxt "settings"
 msgid ""
 "The IP address of your server is <ip-address>. Please make sure to include "
@@ -5926,18 +5940,18 @@ msgid ""
 "activate your licenses."
 msgstr ""
 
-#: includes/licensing.php:176
+#: includes/licensing.php:200
 #, fuzzy
 msgctxt "settings"
 msgid "Activate"
 msgstr "قم بالتفعيل"
 
-#: includes/licensing.php:176 includes/licensing.php:177
+#: includes/licensing.php:200 includes/licensing.php:201
 msgctxt "settings"
 msgid "Please wait..."
 msgstr ""
 
-#: includes/licensing.php:177
+#: includes/licensing.php:201
 #, fuzzy
 msgctxt "settings"
 msgid "Deactivate"
@@ -8032,24 +8046,24 @@ msgctxt "default category name"
 msgid "General"
 msgstr "عام"
 
-#: includes/licensing.php:290
+#: includes/licensing.php:318
 #, fuzzy
 msgctxt "licensing"
 msgid "Invalid item ID"
 msgstr "معرف حقل غير صالح"
 
-#: includes/licensing.php:296
+#: includes/licensing.php:324
 msgctxt "licensing"
 msgid "No license key provided"
 msgstr "لم يتم تقديم أي مفتاح الترخيص"
 
-#: includes/licensing.php:320
+#: includes/licensing.php:348
 #, fuzzy
 msgctxt "licensing"
 msgid "The license key was revoked."
 msgstr "لم يتم تقديم أي مفتاح الترخيص"
 
-#: includes/licensing.php:322
+#: includes/licensing.php:350
 msgctxt "licensing"
 msgid ""
 "If you think this is a mistake, please contact <support-link>Business "
@@ -8057,36 +8071,36 @@ msgid ""
 "reported as revoked by the licensing software."
 msgstr ""
 
-#: includes/licensing.php:324
+#: includes/licensing.php:352
 msgctxt "licensing"
 msgid ""
 "Please include the email address you used to purchase <module-name> with "
 "your report."
 msgstr ""
 
-#: includes/licensing.php:335 includes/licensing.php:378
+#: includes/licensing.php:363 includes/licensing.php:406
 msgctxt "licensing"
 msgid "License key is invalid"
 msgstr "مفتاح الترخيص غير صالح"
 
-#: includes/licensing.php:352
+#: includes/licensing.php:380
 msgctxt "licensing"
 msgid "Invalid module ID"
 msgstr "معرف وحدة غير صالح"
 
-#: includes/licensing.php:382
+#: includes/licensing.php:410
 msgctxt "licensing"
 msgid "Deactivation failed"
 msgstr "فشل التعطيل"
 
-#: includes/licensing.php:390
+#: includes/licensing.php:418
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. cURL was not found in your system"
 msgstr ""
 
-#: includes/licensing.php:392 includes/licensing.php:433
+#: includes/licensing.php:420 includes/licensing.php:461
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8095,7 +8109,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:394 includes/licensing.php:435
+#: includes/licensing.php:422 includes/licensing.php:463
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8103,21 +8117,21 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:396
+#: includes/licensing.php:424
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary"
 msgstr ""
 
-#: includes/licensing.php:412
+#: includes/licensing.php:440
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:416 includes/licensing.php:469
+#: includes/licensing.php:444 includes/licensing.php:497
 msgctxt "licensing"
 msgid ""
 "It looks like your server is not authorized to make requests to Business "
@@ -8126,42 +8140,42 @@ msgid ""
 "list."
 msgstr ""
 
-#: includes/licensing.php:418 includes/licensing.php:471
+#: includes/licensing.php:446 includes/licensing.php:499
 msgctxt "licensing"
 msgid "Include this error message with your report."
 msgstr ""
 
-#: includes/licensing.php:428
+#: includes/licensing.php:456
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:437
+#: includes/licensing.php:465
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary."
 msgstr ""
 
-#: includes/licensing.php:444
+#: includes/licensing.php:472
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "لا يمكن الاتصال بخادم الترخيص"
 
-#: includes/licensing.php:467
+#: includes/licensing.php:495
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
-#: includes/licensing.php:535
+#: includes/licensing.php:563
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - Please verify your license keys"
 msgstr "دليل الأعمال - إعادة تعيين الافتراضي"
 
-#: includes/licensing.php:545
+#: includes/licensing.php:573
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8172,26 +8186,26 @@ msgstr ""
 "المفعول. إذهب إلى <a>إدارة الخيارات - التراخيص</a> لإدخال معلومات الترخيص "
 "الخاص بك."
 
-#: includes/licensing.php:556
+#: includes/licensing.php:584
 msgctxt "licensing"
 msgid ""
 "You need to activate the license keys for the following themes before they "
 "can be used: %s."
 msgstr ""
 
-#: includes/licensing.php:564 includes/licensing.php:620
+#: includes/licensing.php:592 includes/licensing.php:648
 #, fuzzy
 msgctxt "licensing"
 msgid "Review my license keys"
 msgstr "تجديد مفتاح الترخيص"
 
-#: includes/licensing.php:591
+#: includes/licensing.php:619
 #, fuzzy
 msgctxt "licensing"
 msgid "Business Directory - License key expired"
 msgstr "دليل الأعمال - مفتاح الترخيص منتهي"
 
-#: includes/licensing.php:601
+#: includes/licensing.php:629
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8202,7 +8216,7 @@ msgstr ""
 "انتهت صلاحية مفتاح الترخيص <span class=\"module-name\">%s %s</span>. سوف "
 "يستمر عمل الوحدة ولكن لن تتلقى أي مزيد من التحديثات حتى يتم تجديد الترخيص."
 
-#: includes/licensing.php:612
+#: includes/licensing.php:640
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8213,34 +8227,34 @@ msgstr ""
 "انتهت صلاحية مفتاح الترخيص <span class=\"module-name\">%s %s</span>. سوف "
 "يستمر عمل الوحدة ولكن لن تتلقى أي مزيد من التحديثات حتى يتم تجديد الترخيص."
 
-#: includes/licensing.php:713
+#: includes/licensing.php:741
 #, fuzzy
 msgctxt "licensing"
 msgid "Please enter a license key."
 msgstr "يرجى إدخال بريد إلكتروني صحيح."
 
-#: includes/licensing.php:722
+#: includes/licensing.php:750
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "لا يمكن تفعيل الترخيص: %s."
 
-#: includes/licensing.php:724
+#: includes/licensing.php:752
 msgctxt "licensing"
 msgid "License activated"
 msgstr "تم تفعيل ترخيص"
 
-#: includes/licensing.php:744
+#: includes/licensing.php:772
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "لا يمكن إلغاء الترخيص:  %s."
 
-#: includes/licensing.php:746
+#: includes/licensing.php:774
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "تم  إلغاء تفعيل الترخيص"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:950
+#: includes/licensing.php:976
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -9915,10 +9929,6 @@ msgstr "العنوان"
 #~ "net الافتراضية</a> مع معلومات الحساب الخاص بك، أو قم بشراء وحدة بوابة دفع "
 #~ "مختلفة من أجل فرض رسوم على إضافة الإعلانات. لشراء بوابة دفع إضافية "
 #~ "استخدام الأزرار الموجودة أدناه، أو قم بزيارة %s."
-
-#~ msgctxt "admin templates"
-#~ msgid "Already installed."
-#~ msgstr "مُركب مسبقا"
 
 #, fuzzy
 #~ msgctxt "admin templates"

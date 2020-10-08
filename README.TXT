@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 5.5
-Stable tag: 5.7.4
+Tested up to: 5.5.1
+Stable tag: 5.7.5
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -161,6 +161,11 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+
+= Version 5.7.5 =
+* New - Upgrade link in licenses tab for lite version. (#4699)
+* Fix - Fees page error in some php versions. (#4702)
+* Fix - Do not build quick search query when kw parameter is empty. (#4695)
 
 = Version 5.7.4 =
 * Fix - Do not force fee_id when re-creating free directory default fee.
