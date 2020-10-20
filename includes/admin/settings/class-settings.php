@@ -198,6 +198,16 @@ class WPBDP__Settings {
         }
     }
 
+	/**
+	 * Register a setting within the Settings API.
+	 * @since 5.8
+	 */
+	public function deregister_setting( $id ) {
+		if ( isset( $this->settings[ $id ] ) ) {
+			unset( $this->settings[ $id ] );
+		}
+	}
+
     public function get_registered_groups() {
         return $this->groups;
     }
