@@ -102,6 +102,11 @@ class WPBDP__Settings {
             return false;
         }
 
+		/**
+		 * @since 5.8
+		 */
+		do_action( 'wpbdp_register_group', compact( 'slug', 'title', 'parent' ) );
+
         $parents = array();
         $parent_ = $parent;
 
