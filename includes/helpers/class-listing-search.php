@@ -107,8 +107,12 @@ class WPBDP__Listing_Search {
 		);
 
         foreach ( $this->parts as $key => $data ) {
+            $res   = null;
             $field = wpbdp_get_form_field( $data[0] );
-            $res   = $field->configure_search( $data[1], $this );
+            
+            if ( $field ) {
+                $res = $field->configure_search( $data[1], $this );
+            }
 
             if ( ! empty( $res['where'] ) ) {
                 $query_pieces['where'] = str_replace( '%' . $key . '%', $res['where'], $query_pieces['where'] );
@@ -116,6 +120,10 @@ class WPBDP__Listing_Search {
                 // This prevents incorrect queries from being created.
                 $query_pieces['where'] = str_replace( 'AND %' . $key . '%', '', $query_pieces['where'] );
                 $query_pieces['where'] = str_replace( 'OR %' . $key . '%', '', $query_pieces['where'] );
+            }
+
+            if ( ! $res ) {
+                continue;
             }
 
             foreach ( $res as $k => $v ) {
