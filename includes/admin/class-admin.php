@@ -293,17 +293,20 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function ajax_drip_subscribe() {
             $current_user = wp_get_current_user();
 
-            $res       = new WPBDP_Ajax_Response();
-            $subscribe = ( '1' == $_POST['subscribe'] ) ? true : false;
+            $res   = new WPBDP_Ajax_Response();
+            $nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
 
-            if ( ! get_option( 'wpbdp-show-drip-pointer', 0 ) || ! wp_verify_nonce( $_POST['nonce'], 'drip pointer subscribe' ) ) {
+            if ( ! get_option( 'wpbdp-show-drip-pointer', 0 ) || ! wp_verify_nonce( $nonce, 'drip pointer subscribe' ) ) {
                 $res->send_error();
             }
+
+            $subscribe = ( '1' === wpbdp_get_var( array( 'param' => 'subscribe' ), 'post' ) );
 
             delete_option( 'wpbdp-show-drip-pointer' );
 
             if ( $subscribe ) {
-                if ( ! filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) ) {
+                $email = wpbdp_get_var( array( 'param' => 'email' ), 'post' );
+                if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
                     return $res->send_error( _x( 'Invalid e-mail address.', 'drip pointer', 'business-directory-plugin' ) );
                 }
 
@@ -320,7 +323,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     break;
                 }
 
-                $data['email']      = $_POST['email'];
+                $data['email']      = $email;
                 $data['website']    = get_bloginfo( 'url' );
                 $data['gmt_offset'] = get_option( 'gmt_offset' );
 
