@@ -291,8 +291,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @since 3.4.1
          */
         public function ajax_drip_subscribe() {
-            $current_user = wp_get_current_user();
-
             $res   = new WPBDP_Ajax_Response();
             $nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
 
@@ -304,44 +302,35 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             delete_option( 'wpbdp-show-drip-pointer' );
 
-            if ( $subscribe ) {
-                $email = wpbdp_get_var( array( 'param' => 'email' ), 'post' );
-                if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-                    return $res->send_error( _x( 'Invalid e-mail address.', 'drip pointer', 'business-directory-plugin' ) );
-                }
+			if ( ! $subscribe ) {
+				$res->send();
+			}
 
-                // Build fields for POSTing to Drip.
-                $data         = array();
-                $data['name'] = '';
+			$email = wpbdp_get_var( array( 'param' => 'email' ), 'post' );
+			if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+				return $res->send_error( __( 'Invalid email address.', 'business-directory-plugin' ) );
+			}
 
-                foreach ( array( 'first_name', 'display_name', 'user_login', 'username' ) as $k ) {
-                    if ( empty( $current_user->{$k} ) ) {
-                        continue;
-                    }
+			$current_user = wp_get_current_user();
 
-                    $data['name'] = $current_user->{$k};
-                    break;
-                }
+			$response = wp_remote_post(
+				'https://strategy1137274.activehosted.com/proc.php?jsonp=true',
+				array(
+					'body' => array(
+						'firstname' => $current_user->first_name,
+						'email'     => $email,
+						'u'         => '15',
+						'f'         => '15',
+						'act'       => 'sub',
+						'c'         => 0,
+						'm'         => 0,
+						'v'         => '2',
+					),
+				)
+			);
 
-                $data['email']      = $email;
-                $data['website']    = get_bloginfo( 'url' );
-                $data['gmt_offset'] = get_option( 'gmt_offset' );
-
-                $response = wp_remote_post(
-                    'https://www.getdrip.com/forms/6877690/submissions',
-                    array(
-                        'body' => array(
-                            'fields[name]'       => $data['name'],
-                            'fields[email]'      => $data['email'],
-                            'fields[website]'    => $data['website'],
-                            'fields[gmt_offset]' => $data['gmt_offset'],
-                        ),
-                    )
-                );
-            }
-
-            $res->send();
-        }
+			$res->send();
+		}
 
         function admin_menu() {
             if ( ! current_user_can( 'manage_categories' ) ) {
