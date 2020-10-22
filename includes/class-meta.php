@@ -152,7 +152,7 @@ class WPBDP__Meta {
 
         switch ( $current_view ) {
             case 'submit_listing':
-                $view_title =  _x( 'Submit A Listing', 'views', 'business-directory-plugin' );
+                $view_title =  esc_html_x( 'Add Listing', 'views', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 

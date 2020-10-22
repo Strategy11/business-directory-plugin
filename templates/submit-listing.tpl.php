@@ -7,7 +7,7 @@
         <input type="hidden" name="save_listing" value="1" />
         <input type="hidden" name="reset" value="" />
 
-            <h3><?php _ex( 'Submit A Listing', 'submit listing', 'business-directory-plugin' ); ?></h3>
+            <h3><?php echo esc_html_x( 'Add Listing', 'view', 'business-directory-plugin' ); ?></h3>
             <?php echo $messages['general']; ?>
 
             <?php foreach ( $sections as $section ): ?>
