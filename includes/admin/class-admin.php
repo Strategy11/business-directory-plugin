@@ -300,11 +300,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $subscribe = ( '1' === wpbdp_get_var( array( 'param' => 'subscribe' ), 'post' ) );
 
-            delete_option( 'wpbdp-show-drip-pointer' );
-
 			if ( ! $subscribe ) {
 				$res->send();
 			}
+
+			delete_option( 'wpbdp-show-drip-pointer' );
 
 			$email = wpbdp_get_var( array( 'param' => 'email' ), 'post' );
 			if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
