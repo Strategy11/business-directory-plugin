@@ -103,7 +103,7 @@ class WPBDP__Settings {
         }
 
 		/**
-		 * @since 5.8
+		 * @since 5.7.6
 		 */
 		do_action( 'wpbdp_register_group', compact( 'slug', 'title', 'parent' ) );
 
@@ -205,7 +205,7 @@ class WPBDP__Settings {
 
 	/**
 	 * Register a setting within the Settings API.
-	 * @since 5.8
+	 * @since 5.7.6
 	 */
 	public function deregister_setting( $id ) {
 		if ( isset( $this->settings[ $id ] ) ) {
