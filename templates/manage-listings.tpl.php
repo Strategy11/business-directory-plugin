@@ -11,7 +11,7 @@
         echo sprintf(
             '<a href="%s">%s</a>.',
             esc_url( wpbdp_get_page_link( 'main' ) ),
-            esc_html_e( 'Return to directory', 'business-directory-plugin' )
+            esc_html__( 'Return to directory', 'business-directory-plugin' )
         );
         ?>
     <?php endif; ?>
