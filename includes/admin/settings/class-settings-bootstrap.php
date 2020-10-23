@@ -524,12 +524,12 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'allow-comments-in-listings',
                 'type'    => 'radio',
                 'name'    => _x( 'Include comment form on listing pages?', 'settings', 'business-directory-plugin' ),
-                'desc'    => __( 'Business Directory uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. Business Directory is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn\'t work, try the 3rd option instead.', 'business-directory-plugin' ),
+                'desc'    => __( 'Business Directory Plugin uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. The Directory is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn\'t work, try the 3rd option instead.', 'business-directory-plugin' ),
                 'default' => get_option( 'wpbdp-show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
                 'options' => array(
                     'do-not-allow-comments'              => _x( 'Do not include comments in listings', 'admin settings', 'business-directory-plugin' ),
                     'allow-comments'                     => _x( 'Include comment form, theme invoked (standard option)', 'admin settings', 'business-directory-plugin' ),
-                    'allow-comments-and-insert-template' => __( "Include comment form, Business Directory invoked (use only if 2nd option doesn't work)", 'business-directory-plugin' ),
+                    'allow-comments-and-insert-template' => __( "Include comment form, Business Directory Plugin invoked (use only if 2nd option doesn't work)", 'business-directory-plugin' ),
                 ),
                 'group'   => 'listings/main',
             )
@@ -547,7 +547,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'prevent-sticky-on-directory-view',
                 'type'    => 'multicheck',
-                'name'    => __( 'Prevent featured (sticky) status on Business Directory pages?', 'business-directory-plugin' ),
+                'name'    => __( 'Prevent featured (sticky) status on Directory pages?', 'business-directory-plugin' ),
                 'desc'    => _x( 'Prevents featured listings from floating to the top of the selected page.', 'settings', 'business-directory-plugin' ),
                 'default' => array(),
                 'options' => array(
@@ -614,7 +614,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'submit-instructions',
                 'type'    => 'textarea',
                 'name'    => _x( 'Submit Listing instructions message', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'This text is displayed at the first page of the Submit Listing process for Business Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'This text is displayed at the first page of the Submit Listing process for Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'settings', 'business-directory-plugin' ),
                 'default' => '',
                 'group'   => 'listings/main',
             )
@@ -824,8 +824,8 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Theme button style', 'settings', 'business-directory-plugin' ),
                 'default' => 'theme',
                 'options' => array(
-                    'theme' => __( 'Use the Business Directory theme style for buttons', 'business-directory-plugin' ),
-                    'none'  => __( 'Use the WP theme style for Business Directory buttons', 'business-directory-plugin' ),
+                    'theme' => __( 'Use the Business Directory Plugin theme style for buttons', 'business-directory-plugin' ),
+                    'none'  => __( 'Use the WP theme style for Business Directory Plugin buttons', 'business-directory-plugin' ),
                 ),
                 'group'   => 'themes',
             )
@@ -1205,7 +1205,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'           => 'payment-abandonment',
                 'type'         => 'checkbox',
                 'name'         => _x( 'Ask users to come back for abandoned payments?', 'settings', 'business-directory-plugin' ),
-                'desc'         => __( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction.  Business Directory can remind them to come back and continue.', 'business-directory-plugin' ),
+                'desc'         => __( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction. Business Directory Plugin can remind them to come back and continue.', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',
                 'requirements' => array( 'payments-on' ),

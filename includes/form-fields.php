@@ -352,7 +352,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
         public function get_default_fields( $id = '' ) {
             $default_fields = array(
                 'title'    => array(
-					'label'         => __( 'Business Name', 'business-directory-plugin' ),
+					'label'         => __( 'Name', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'title',
 					'weight'        => 9,
@@ -361,7 +361,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'title',
 				),
                 'category' => array(
-					'label'         => __( 'Business Genre', 'business-directory-plugin' ),
+					'label'         => __( 'Directory Category', 'business-directory-plugin' ),
 					'field_type'    => 'select',
 					'association'   => 'category',
 					'weight'        => 8,
@@ -370,7 +370,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'category',
 				),
                 'excerpt'  => array(
-					'label'         => __( 'Short Business Description', 'business-directory-plugin' ),
+					'label'         => __( 'Short Description', 'business-directory-plugin' ),
 					'field_type'    => 'textarea',
 					'association'   => 'excerpt',
 					'weight'        => 7,
@@ -378,7 +378,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'excerpt',
 				),
                 'content'  => array(
-					'label'         => __( 'Long Business Description', 'business-directory-plugin' ),
+					'label'         => __( 'Long Description', 'business-directory-plugin' ),
 					'field_type'    => 'textarea',
 					'association'   => 'content',
 					'weight'        => 6,
@@ -387,7 +387,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'content',
 				),
                 'website'  => array(
-					'label'         => __( 'Business Website Address', 'business-directory-plugin' ),
+					'label'         => __( 'Website', 'business-directory-plugin' ),
 					'field_type'    => 'url',
 					'association'   => 'meta',
 					'weight'        => 5,
@@ -396,7 +396,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'website',
 				),
                 'phone'    => array(
-					'label'         => __( 'Business Phone Number', 'business-directory-plugin' ),
+					'label'         => __( 'Phone', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 4,
@@ -404,7 +404,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'phone',
 				),
                 'fax'      => array(
-					'label'         => __( 'Business Fax', 'business-directory-plugin' ),
+					'label'         => __( 'Fax', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 3,
@@ -412,7 +412,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'fax',
 				),
                 'email'    => array(
-					'label'         => __( 'Business Contact Email', 'business-directory-plugin' ),
+					'label'         => __( 'Email', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'meta',
 					'weight'        => 2,
@@ -421,7 +421,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'email',
 				),
                 'tags'     => array(
-					'label'         => __( 'Business Tags', 'business-directory-plugin' ),
+					'label'         => __( 'Directory Tags', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'tags',
 					'weight'        => 1,
@@ -429,7 +429,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'tags',
 				),
                 'address'  => array(
-					'label'         => __( 'Business Address', 'business-directory-plugin' ),
+					'label'         => __( 'Address', 'business-directory-plugin' ),
 					'field_type'    => 'textarea',
 					'association'   => 'meta',
 					'weight'        => 1,

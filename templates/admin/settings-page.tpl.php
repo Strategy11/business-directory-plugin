@@ -3,7 +3,7 @@ $original_uri = $_SERVER['REQUEST_URI'];
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'tab', 'subtab' ) );
 
 echo wpbdp_admin_header( array(
-    'title'   => __( 'Business Directory Settings', 'business-directory-plugin' ),
+    'title'   => __( 'Directory Settings', 'business-directory-plugin' ),
     'buttons' => array( _x( 'Reset Defaults', 'settings', 'business-directory-plugin' ) => admin_url( 'admin.php?page=wpbdp_settings&reset_defaults=1' ) )
 ) );
 ?>
