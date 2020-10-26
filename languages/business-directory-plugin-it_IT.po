@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-10-08 20:04:52+00:00\n"
+"POT-Creation-Date: 2020-10-26 19:40:57+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -75,11 +75,16 @@ msgstr ""
 "questo ridicolmente praticabile (e GRATUITO) corso di e-mail in 5 parti. "
 "Ottieni un modulo premium GRATUITO solo per la registrazione."
 
-#: includes/admin/class-admin.php:399
+#: includes/admin/class-admin.php:311
+#, fuzzy
+msgid "Invalid email address."
+msgstr "Indirizzo e-mail non valido."
+
+#: includes/admin/class-admin.php:391
 msgid "Uninstall Business Directory Plugin"
 msgstr "Disinstallare Business Directory Plugin"
 
-#: includes/admin/class-admin.php:400
+#: includes/admin/class-admin.php:392
 msgid "Uninstall"
 msgstr "Disinstalla"
 
@@ -859,9 +864,64 @@ msgstr "nuovo"
 msgid "Business Directory Theme archive (ZIP file)"
 msgstr "Archivio temi BD (file ZIP)"
 
-#: templates/parts/listing-buttons.tpl.php:43
-msgid "← Return to Directory"
-msgstr "← Ritorna alla Directory"
+#: templates/businessdirectory-listings.tpl.php:30
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:14
+#, fuzzy
+msgid "No listings found."
+msgstr "Nessun annuncio trovato."
+
+#: templates/businessdirectory-listings.tpl.php:41
+#: templates/listings.tpl.php:30 templates/manage_listings.tpl.php:33
+#, fuzzy
+msgid "&larr; Previous "
+msgstr "&laquo; Precedente "
+
+#: templates/businessdirectory-listings.tpl.php:42
+#: templates/listings.tpl.php:31 templates/manage_listings.tpl.php:34
+#, fuzzy
+msgid "Next &rarr;"
+msgstr "Successivo &raquo;"
+
+#: templates/deprecated/search.tpl.php:6
+#, fuzzy
+msgid "Search"
+msgstr "Cerca"
+
+#: templates/deprecated/search.tpl.php:14
+#, fuzzy
+msgid "Search Results"
+msgstr "Risultati di ricerca"
+
+#: templates/deprecated/search.tpl.php:27 templates/manage-listings.tpl.php:14
+#: templates/manage_listings.tpl.php:16
+#, fuzzy
+msgid "Return to directory"
+msgstr "Torna all'elenco"
+
+#: templates/manage-listings.tpl.php:3
+#, fuzzy
+msgid ""
+"Your current listings are shown below. To edit a listing click the edit "
+"button. To delete a listing click the delete button."
+msgstr ""
+"LI tuoi attuali Annunci sono riportati di seguito. Per modificare un "
+"Annuncio, fai clic sul pulsante di modifica. Per eliminare un'Annunci fai "
+"clic sul pulsante di cancellazione."
+
+#: templates/manage-listings.tpl.php:9
+#, fuzzy
+msgid "You do not currently have any listings in the directory."
+msgstr "Al momento non ci sono annunci nell'elenco."
+
+#: templates/parts/listing-buttons.tpl.php:41
+#, fuzzy
+msgid "Return to Directory"
+msgstr "Torna all'elenco"
+
+#: templates/submit-listing-done.tpl.php:36
+#, fuzzy
+msgid "Return to directory."
+msgstr "Torna all'elenco."
 
 #: templates/submit-listing-images.tpl.php:5
 #, fuzzy
@@ -1539,70 +1599,70 @@ msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr "Sei a posto. Visita la tua nuova pagina <a>Business Directory</a>."
 
-#: includes/admin/class-admin.php:470
+#: includes/admin/class-admin.php:462
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Menu senza titolo"
 
-#: includes/admin/class-admin.php:795
+#: includes/admin/class-admin.php:787
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Rimuovi questo avviso."
 
-#: includes/admin/class-admin.php:834 includes/admin/class-admin.php:844
+#: includes/admin/class-admin.php:826 includes/admin/class-admin.php:836
 msgctxt "admin"
 msgid "The listing has been updated."
 msgid_plural "The listings have been updated."
 msgstr[0] "L'Annuncio è stato aggiornato."
 msgstr[1] "Gli annunci  sono stati aggiornati."
 
-#: includes/admin/class-admin.php:870
+#: includes/admin/class-admin.php:862
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Il canone è stata assegnato con successo."
 
-#: includes/admin/class-admin.php:880
+#: includes/admin/class-admin.php:872
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "L'Annuncio è stato rinnovato."
 msgstr[1] "Gli annunci sono stati rinnovati."
 
-#: includes/admin/class-admin.php:892
+#: includes/admin/class-admin.php:884
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "E-mail di rinnovo inviata."
 
-#: includes/admin/class-admin.php:896
+#: includes/admin/class-admin.php:888
 msgctxt "admin"
 msgid ""
 "Could not send renewal email, notice template at listing expiration not "
 "found."
 msgstr ""
 
-#: includes/admin/class-admin.php:903
+#: includes/admin/class-admin.php:895
 msgctxt "admin"
 msgid "Listing report deleted."
 msgid_plural "Listing reports deleted."
 msgstr[0] "La segnalazione per l'Annuncio è stata cancellata."
 msgstr[1] "Le segnalazioni per gli Annunci sono state cancellate."
 
-#: includes/admin/class-admin.php:951
+#: includes/admin/class-admin.php:943
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Dati  di accesso inviati."
 
-#: includes/admin/class-admin.php:953
+#: includes/admin/class-admin.php:945
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr "Non è stato possibile inviare i dati di accesso."
 
-#: includes/admin/class-admin.php:1025 includes/admin/class-admin.php:1033
+#: includes/admin/class-admin.php:1017 includes/admin/class-admin.php:1025
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Elenco luoghi"
 
-#: includes/admin/class-admin.php:1098
+#: includes/admin/class-admin.php:1090
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1611,7 +1671,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> richiede una pagina con il codice di scelta "
 "rapida <tt>[businessdirectory]</tt> per funzionare correttamente."
 
-#: includes/admin/class-admin.php:1100
+#: includes/admin/class-admin.php:1092
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1620,12 +1680,12 @@ msgstr ""
 "È possibile creare la pagina da soli o lasciare che Business Directory "
 "faccia questo per voi automaticamente."
 
-#: includes/admin/class-admin.php:1105
+#: includes/admin/class-admin.php:1097
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crea le pagine richieste per me"
 
-#: includes/admin/class-admin.php:1139
+#: includes/admin/class-admin.php:1131
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1637,7 +1697,7 @@ msgstr ""
 "strong>. Chiedete al vostro fornitore di aggiornare per evitare problemi con "
 "il plugin."
 
-#: includes/admin/class-admin.php:1163
+#: includes/admin/class-admin.php:1155
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1972,45 +2032,40 @@ msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "No, Grazie"
 
-#: includes/admin/class-admin.php:307
-msgctxt "drip pointer"
-msgid "Invalid e-mail address."
-msgstr "Indirizzo e-mail non valido."
-
-#: includes/admin/class-admin.php:351
+#: includes/admin/class-admin.php:343
 #, fuzzy
 msgctxt "business-directory-plugin"
 msgid "Business Directory Admin"
 msgstr "Business Directory Admin"
 
-#: includes/admin/class-admin.php:352
+#: includes/admin/class-admin.php:344
 #, fuzzy
 msgctxt "business-directory-plugin"
 msgid "Directory"
 msgstr "Directory"
 
-#: includes/admin/class-admin.php:363
+#: includes/admin/class-admin.php:355
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Gestisci canoni"
 
-#: includes/admin/class-admin.php:366
+#: includes/admin/class-admin.php:358
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Gestire i campi dei moduli"
 
-#: includes/admin/class-admin.php:370
+#: includes/admin/class-admin.php:362
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Cronologia pagamenti"
 
-#: includes/admin/class-admin.php:373
+#: includes/admin/class-admin.php:365
 #, fuzzy
 msgctxt "admin menu"
 msgid "Import & Export"
 msgstr "Importa/esporta CSV"
 
-#: includes/admin/class-admin.php:376
+#: includes/admin/class-admin.php:368
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Debug"
@@ -2021,7 +2076,7 @@ msgctxt "admin menu"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: includes/admin/class-admin.php:1023
+#: includes/admin/class-admin.php:1015
 msgctxt "admin category id"
 msgid "ID"
 msgstr "ID"
@@ -3972,13 +4027,13 @@ msgid "Author"
 msgstr "Autore"
 
 #: includes/admin/settings/class-settings-bootstrap.php:718
-#: includes/functions.php:1269
+#: includes/functions.php:1272
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data di pubblicazione"
 
 #: includes/admin/settings/class-settings-bootstrap.php:719
-#: includes/functions.php:1270
+#: includes/functions.php:1273
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ultima modifica"
@@ -4418,12 +4473,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Carica Immagini"
 
-#: includes/functions.php:1267
+#: includes/functions.php:1270
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utente"
 
-#: includes/functions.php:1268
+#: includes/functions.php:1271
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data di registrazione"
@@ -4657,7 +4712,7 @@ msgstr "Annunci"
 #: includes/admin/settings/class-settings-bootstrap.php:25
 #: includes/admin/settings/class-settings-bootstrap.php:39
 #: includes/admin/settings/class-settings-bootstrap.php:1230
-#: includes/admin/settings/class-settings.php:288
+#: includes/admin/settings/class-settings.php:303
 msgctxt "settings"
 msgid "General Settings"
 msgstr "Impostazioni generali"
@@ -5709,13 +5764,13 @@ msgctxt "settings"
 msgid "Cropped"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:443
-#: includes/admin/settings/class-settings.php:454
+#: includes/admin/settings/class-settings.php:458
+#: includes/admin/settings/class-settings.php:469
 msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr "\"%s\" non può essere vuoto."
 
-#: includes/admin/settings/class-settings.php:461
+#: includes/admin/settings/class-settings.php:476
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "Lo slug \"%s\" è già in uso per un'altra tassonomia."
@@ -7185,12 +7240,12 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "La didascalia per %s è necessaria."
 
-#: includes/functions.php:1350
+#: includes/functions.php:1353
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Ritorno ai risultati"
 
-#: includes/functions.php:1354 includes/functions.php:1359
+#: includes/functions.php:1357 includes/functions.php:1362
 msgctxt "templates"
 msgid "Go back"
 msgstr "Va indietro"
@@ -7317,31 +7372,6 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Accetto i <a>termini e le condizioni</a> d'uso"
 
-#: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
-#: templates/search.tpl.php:17
-msgctxt "templates"
-msgid "No listings found."
-msgstr "Nessun annuncio trovato."
-
-#: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:31 templates/manage_listings.tpl.php:33
-msgctxt "templates"
-msgid "&laquo; Previous "
-msgstr "&laquo; Precedente "
-
-#: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:32 templates/manage_listings.tpl.php:34
-msgctxt "templates"
-msgid "Next &raquo;"
-msgstr "Successivo &raquo;"
-
-#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
-#: templates/manage_listings.tpl.php:16
-msgctxt "templates"
-msgid "Return to directory"
-msgstr "Torna all'elenco"
-
 #: templates/listing-contactform.tpl.php:20
 msgctxt "templates"
 msgid "Listing Title: "
@@ -7413,7 +7443,12 @@ msgctxt "templates"
 msgid "Lost your password?"
 msgstr "Password dimenticata?"
 
-#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:20
+#: templates/manage_listings.tpl.php:11
+msgctxt "templates"
+msgid "You do not currently have any listings in the directory."
+msgstr "Al momento non ci sono annunci nell'elenco."
+
+#: templates/manage_listings.tpl.php:20
 msgctxt "templates"
 msgid ""
 "Your current listings are shown below. To edit a listing click the edit "
@@ -7423,35 +7458,30 @@ msgstr ""
 "Annuncio, fai clic sul pulsante di modifica. Per eliminare un'Annunci fai "
 "clic sul pulsante di cancellazione."
 
-#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:11
-msgctxt "templates"
-msgid "You do not currently have any listings in the directory."
-msgstr "Al momento non ci sono annunci nell'elenco."
-
-#: templates/parts/listing-buttons.tpl.php:19
-#: templates/parts/listing-buttons.tpl.php:63
+#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:61
 msgctxt "templates"
 msgid "Edit"
 msgstr "Modifica"
 
-#: templates/parts/listing-buttons.tpl.php:27
-#: templates/parts/listing-buttons.tpl.php:71
+#: templates/parts/listing-buttons.tpl.php:25
+#: templates/parts/listing-buttons.tpl.php:69
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr "Segnala Annuncio"
 
-#: templates/parts/listing-buttons.tpl.php:35
-#: templates/parts/listing-buttons.tpl.php:79
+#: templates/parts/listing-buttons.tpl.php:33
+#: templates/parts/listing-buttons.tpl.php:77
 msgctxt "templates"
 msgid "Delete"
 msgstr "Elimina"
 
-#: templates/parts/listing-buttons.tpl.php:36
+#: templates/parts/listing-buttons.tpl.php:34
 msgctxt "templates"
 msgid "Are you sure you wish to delete this listing?"
 msgstr "Sei sicuro di voler cancellare questo annuncio?"
 
-#: templates/parts/listing-buttons.tpl.php:55
+#: templates/parts/listing-buttons.tpl.php:53
 msgctxt "templates"
 msgid "View"
 msgstr "Vedi"
@@ -7506,6 +7536,11 @@ msgctxt "templates"
 msgid "Find a listing"
 msgstr "Trova un annuncio"
 
+#: templates/search.tpl.php:17
+msgctxt "templates"
+msgid "No listings found."
+msgstr "Nessun annuncio trovato."
+
 #: templates/search.tpl.php:26
 msgctxt "templates"
 msgid "Return to Search"
@@ -7526,17 +7561,17 @@ msgctxt "templates"
 msgid "Your listing has been submitted."
 msgstr "Il tuo annuncio è stato correttamente inviato."
 
-#: templates/submit-listing-done.tpl.php:22
+#: templates/submit-listing-done.tpl.php:25
 msgctxt "templates"
 msgid "Your listing changes were saved."
 msgstr "Le modifiche al tuo annuncio sono state salvate."
 
-#: templates/submit-listing-done.tpl.php:27
+#: templates/submit-listing-done.tpl.php:30
 msgctxt "templates"
 msgid "Go to your listing"
 msgstr "Vai al tuo annuncio"
 
-#: templates/submit-listing-done.tpl.php:29
+#: templates/submit-listing-done.tpl.php:32
 msgctxt "templates"
 msgid ""
 "Your listing requires admin approval. You'll be notified once your listing "
@@ -7544,11 +7579,6 @@ msgid ""
 msgstr ""
 "Il tuo annuncio richiede l'approvazione dell'amministratore. Sarai avvisato "
 "una volta che il tuo annuncio è stato approvato."
-
-#: templates/submit-listing-done.tpl.php:33
-msgctxt "templates"
-msgid "Return to directory."
-msgstr "Torna all'elenco."
 
 #: templates/submit-listing-images-single.tpl.php:24
 msgctxt "templates"
@@ -8357,7 +8387,7 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Reset)"
 
-#: includes/utils.php:213
+#: includes/utils.php:271
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8365,61 +8395,61 @@ msgstr ""
 "I dati inviati come POST superano il massimo di configurazione PHP. Si veda "
 "la direttiva \"post_max_size\"."
 
-#: includes/utils.php:261
+#: includes/utils.php:319
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr ""
 "La dimensione del file (%s) supera la dimensione massima del file di %s"
 
-#: includes/utils.php:269
+#: includes/utils.php:327
 msgctxt "utils"
 msgid "File size (%s) is inferior to the required minimum file size of %s"
 msgstr ""
 "La dimensione del file (%s) è inferiore alla dimensione minima richiesta di "
 "%s"
 
-#: includes/utils.php:278 includes/utils.php:285
+#: includes/utils.php:336 includes/utils.php:343
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Il tipo di file \"%s\" non è consentito"
 
-#: includes/utils.php:292
+#: includes/utils.php:350
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Errore durante il caricamento del file."
 
-#: includes/utils.php:311
+#: includes/utils.php:369
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "Il file caricato non è un'immagine"
 
-#: includes/utils.php:320
+#: includes/utils.php:378
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
 msgstr ""
 "La larghezza dell'immagine (%s px) è inferiore a quella richiesta di: %s px."
 
-#: includes/utils.php:326
+#: includes/utils.php:384
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
 msgstr ""
 "L'altezza dell'immagine (%s px) è inferiore a quella richiesta di: %s px."
 
-#: includes/utils.php:332
+#: includes/utils.php:390
 msgctxt "utils"
 msgid "Image width (%s px) is greater than maximum allowed width of %s px."
 msgstr ""
 "La larghezza dell'immagine (%s px) è troppo grande rispetto al massimo "
 "consentito di:  %s px."
 
-#: includes/utils.php:338
+#: includes/utils.php:396
 msgctxt "utils"
 msgid "Image height (%s px) is greater than maximum required height of %s px."
 msgstr ""
 "L'altezza dell'immagine (%s px) è troppo grande rispetto al massimo "
 "consentito che è: %s px."
 
-#: includes/utils.php:352
+#: includes/utils.php:410
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Errore durante il caricamento del file"
@@ -8721,21 +8751,20 @@ msgctxt "search"
 msgid "\"%s\" is required."
 msgstr "%s è richiesto."
 
-#: templates/deprecated/search.tpl.php:6 templates/search-form.tpl.php:28
-#: templates/search.tpl.php:3
-msgctxt "search"
-msgid "Search"
-msgstr "Cerca"
-
-#: templates/deprecated/search.tpl.php:14 templates/search.tpl.php:10
-msgctxt "search"
-msgid "Search Results"
-msgstr "Risultati di ricerca"
-
 #: templates/search-form.tpl.php:27
 msgctxt "search"
 msgid "Clear"
 msgstr "Cancella"
+
+#: templates/search-form.tpl.php:28 templates/search.tpl.php:3
+msgctxt "search"
+msgid "Search"
+msgstr "Cerca"
+
+#: templates/search.tpl.php:10
+msgctxt "search"
+msgid "Search Results"
+msgstr "Risultati di ricerca"
 
 #: includes/views/show_listing.php:13
 msgctxt "preview"
@@ -9650,6 +9679,9 @@ msgstr "Scegli un piano tariffario per il tuo annuncio:"
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Indirizzo"
+
+#~ msgid "← Return to Directory"
+#~ msgstr "← Ritorna alla Directory"
 
 #, fuzzy
 #~ msgid "PayFast Payments"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-10-08 20:04:52+00:00\n"
+"POT-Creation-Date: 2020-10-26 19:40:57+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -77,12 +77,17 @@ msgstr ""
 "по электронной почте. Если Вы подпишитесь на этот урок, то Вы получите "
 "БЕСПЛАТНО один платный модуль."
 
-#: includes/admin/class-admin.php:399
+#: includes/admin/class-admin.php:311
+#, fuzzy
+msgid "Invalid email address."
+msgstr "Некорректный электронный адрес."
+
+#: includes/admin/class-admin.php:391
 #, fuzzy
 msgid "Uninstall Business Directory Plugin"
 msgstr "Удалить плагин Справочника Услуг"
 
-#: includes/admin/class-admin.php:400
+#: includes/admin/class-admin.php:392
 #, fuzzy
 msgid "Uninstall"
 msgstr "Удалить"
@@ -837,10 +842,63 @@ msgstr ""
 msgid "Business Directory Theme archive (ZIP file)"
 msgstr "Архив темы справочника (файл ZIP)"
 
-#: templates/parts/listing-buttons.tpl.php:43
+#: templates/businessdirectory-listings.tpl.php:30
+#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:14
 #, fuzzy
-msgid "← Return to Directory"
+msgid "No listings found."
+msgstr "Записи не найдены."
+
+#: templates/businessdirectory-listings.tpl.php:41
+#: templates/listings.tpl.php:30 templates/manage_listings.tpl.php:33
+#, fuzzy
+msgid "&larr; Previous "
+msgstr "&laquo; Предыдущая "
+
+#: templates/businessdirectory-listings.tpl.php:42
+#: templates/listings.tpl.php:31 templates/manage_listings.tpl.php:34
+#, fuzzy
+msgid "Next &rarr;"
+msgstr "Следующая &raquo;"
+
+#: templates/deprecated/search.tpl.php:6
+#, fuzzy
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/deprecated/search.tpl.php:14
+#, fuzzy
+msgid "Search Results"
+msgstr "Результаты поиска"
+
+#: templates/deprecated/search.tpl.php:27 templates/manage-listings.tpl.php:14
+#: templates/manage_listings.tpl.php:16
+#, fuzzy
+msgid "Return to directory"
+msgstr "Вернуться к справочнику"
+
+#: templates/manage-listings.tpl.php:3
+#, fuzzy
+msgid ""
+"Your current listings are shown below. To edit a listing click the edit "
+"button. To delete a listing click the delete button."
+msgstr ""
+"Ваши записи показаны ниже. Для изменения записи кликните на кнопку \"Изменить"
+"\". Для удаления записи кликните на  кнопку \"Удалить\"."
+
+#: templates/manage-listings.tpl.php:9
+#, fuzzy
+msgid "You do not currently have any listings in the directory."
+msgstr "У Вас нет ни одной записи в справочнике."
+
+#: templates/parts/listing-buttons.tpl.php:41
+#, fuzzy
+msgid "Return to Directory"
 msgstr "Вернуться в Справочник."
+
+#: templates/submit-listing-done.tpl.php:36
+#, fuzzy
+msgid "Return to directory."
+msgstr "Вернуться в справочник."
 
 #: templates/submit-listing-images.tpl.php:5
 #, fuzzy
@@ -1520,17 +1578,17 @@ msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr ""
 "Всё настроено. Откройте страницу Вашего нового <a>Справочника услуг</a> "
 
-#: includes/admin/class-admin.php:470
+#: includes/admin/class-admin.php:462
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:795
+#: includes/admin/class-admin.php:787
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Убрать это предупреждение"
 
-#: includes/admin/class-admin.php:834 includes/admin/class-admin.php:844
+#: includes/admin/class-admin.php:826 includes/admin/class-admin.php:836
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -1539,12 +1597,12 @@ msgstr[0] "Статус записи был поднят."
 msgstr[1] "Статус записей был поднят."
 msgstr[2] ""
 
-#: includes/admin/class-admin.php:870
+#: includes/admin/class-admin.php:862
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "Тариф был успешно назначен."
 
-#: includes/admin/class-admin.php:880
+#: includes/admin/class-admin.php:872
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -1552,19 +1610,19 @@ msgstr[0] "Запись была продлена."
 msgstr[1] "Записи были продлены."
 msgstr[2] ""
 
-#: includes/admin/class-admin.php:892
+#: includes/admin/class-admin.php:884
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Оповещение о продлении было отправлено по электронной почте."
 
-#: includes/admin/class-admin.php:896
+#: includes/admin/class-admin.php:888
 msgctxt "admin"
 msgid ""
 "Could not send renewal email, notice template at listing expiration not "
 "found."
 msgstr ""
 
-#: includes/admin/class-admin.php:903
+#: includes/admin/class-admin.php:895
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -1573,23 +1631,23 @@ msgstr[0] "Дата окончания срока действия"
 msgstr[1] "Дата окончания срока действия"
 msgstr[2] "Дата окончания срока действия"
 
-#: includes/admin/class-admin.php:951
+#: includes/admin/class-admin.php:943
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Поля и Изображения записи"
 
-#: includes/admin/class-admin.php:953
+#: includes/admin/class-admin.php:945
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1025 includes/admin/class-admin.php:1033
+#: includes/admin/class-admin.php:1017 includes/admin/class-admin.php:1025
 msgctxt "admin"
 msgid "Listing Count"
 msgstr "Количество записей"
 
-#: includes/admin/class-admin.php:1098
+#: includes/admin/class-admin.php:1090
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -1598,7 +1656,7 @@ msgstr ""
 "Плагин <b>Справочник Услуг</b> для нормальной работы требует наличия "
 "страницы, в которой есть шорткод <tt>[businessdirectory]</tt>."
 
-#: includes/admin/class-admin.php:1100
+#: includes/admin/class-admin.php:1092
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -1607,12 +1665,12 @@ msgstr ""
 "Вы можете создать такую страницу сами, или позвольте плагину создать её для "
 "Вас автоматически."
 
-#: includes/admin/class-admin.php:1105
+#: includes/admin/class-admin.php:1097
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Создать необходимые страницы автоматически"
 
-#: includes/admin/class-admin.php:1139
+#: includes/admin/class-admin.php:1131
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -1620,7 +1678,7 @@ msgid ""
 "your provider to upgrade in order to prevent any issues with the plugin."
 msgstr ""
 
-#: includes/admin/class-admin.php:1163
+#: includes/admin/class-admin.php:1155
 msgctxt "admin"
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -1991,46 +2049,41 @@ msgctxt "drip pointer"
 msgid "No, thanks"
 msgstr "Нет, спасибо"
 
-#: includes/admin/class-admin.php:307
-msgctxt "drip pointer"
-msgid "Invalid e-mail address."
-msgstr "Некорректный электронный адрес."
-
-#: includes/admin/class-admin.php:351
+#: includes/admin/class-admin.php:343
 #, fuzzy
 msgctxt "business-directory-plugin"
 msgid "Business Directory Admin"
 msgstr "Управление справочником"
 
-#: includes/admin/class-admin.php:352
+#: includes/admin/class-admin.php:344
 #, fuzzy
 msgctxt "business-directory-plugin"
 msgid "Directory"
 msgstr "Все рубрики"
 
-#: includes/admin/class-admin.php:363
+#: includes/admin/class-admin.php:355
 msgctxt "admin menu"
 msgid "Manage Fees"
 msgstr "Тарифы"
 
-#: includes/admin/class-admin.php:366
+#: includes/admin/class-admin.php:358
 msgctxt "admin menu"
 msgid "Manage Form Fields"
 msgstr "Форма"
 
-#: includes/admin/class-admin.php:370
+#: includes/admin/class-admin.php:362
 #, fuzzy
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "История платежа"
 
-#: includes/admin/class-admin.php:373
+#: includes/admin/class-admin.php:365
 #, fuzzy
 msgctxt "admin menu"
 msgid "Import & Export"
 msgstr "Импорт из CSV"
 
-#: includes/admin/class-admin.php:376
+#: includes/admin/class-admin.php:368
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Отладка"
@@ -2041,7 +2094,7 @@ msgctxt "admin menu"
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/admin/class-admin.php:1023
+#: includes/admin/class-admin.php:1015
 msgctxt "admin category id"
 msgid "ID"
 msgstr "№"
@@ -4007,13 +4060,13 @@ msgid "Author"
 msgstr "По автору"
 
 #: includes/admin/settings/class-settings-bootstrap.php:718
-#: includes/functions.php:1269
+#: includes/functions.php:1272
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "По дате публикации"
 
 #: includes/admin/settings/class-settings-bootstrap.php:719
-#: includes/functions.php:1270
+#: includes/functions.php:1273
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "По дате изменения"
@@ -4457,12 +4510,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Загрузить изображение"
 
-#: includes/functions.php:1267
+#: includes/functions.php:1270
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: includes/functions.php:1268
+#: includes/functions.php:1271
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Дата окончания срока действия"
@@ -4726,7 +4779,7 @@ msgstr "Записи"
 #: includes/admin/settings/class-settings-bootstrap.php:25
 #: includes/admin/settings/class-settings-bootstrap.php:39
 #: includes/admin/settings/class-settings-bootstrap.php:1230
-#: includes/admin/settings/class-settings.php:288
+#: includes/admin/settings/class-settings.php:303
 #, fuzzy
 msgctxt "settings"
 msgid "General Settings"
@@ -5883,13 +5936,13 @@ msgctxt "settings"
 msgid "Cropped"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:443
-#: includes/admin/settings/class-settings.php:454
+#: includes/admin/settings/class-settings.php:458
+#: includes/admin/settings/class-settings.php:469
 msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:461
+#: includes/admin/settings/class-settings.php:476
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
@@ -7379,13 +7432,13 @@ msgctxt "image field"
 msgid "Caption for %s is required."
 msgstr "Страна обязательна."
 
-#: includes/functions.php:1350
+#: includes/functions.php:1353
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Вернуться к справочнику"
 
-#: includes/functions.php:1354 includes/functions.php:1359
+#: includes/functions.php:1357 includes/functions.php:1362
 msgctxt "templates"
 msgid "Go back"
 msgstr ""
@@ -7504,31 +7557,6 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Я согласен с Условиями и Положениями"
 
-#: templates/businessdirectory-listings.tpl.php:27
-#: templates/deprecated/search.tpl.php:21 templates/listings.tpl.php:15
-#: templates/search.tpl.php:17
-msgctxt "templates"
-msgid "No listings found."
-msgstr "Записи не найдены."
-
-#: templates/businessdirectory-listings.tpl.php:38
-#: templates/listings.tpl.php:31 templates/manage_listings.tpl.php:33
-msgctxt "templates"
-msgid "&laquo; Previous "
-msgstr "&laquo; Предыдущая "
-
-#: templates/businessdirectory-listings.tpl.php:39
-#: templates/listings.tpl.php:32 templates/manage_listings.tpl.php:34
-msgctxt "templates"
-msgid "Next &raquo;"
-msgstr "Следующая &raquo;"
-
-#: templates/deprecated/search.tpl.php:24 templates/manage-listings.tpl.php:8
-#: templates/manage_listings.tpl.php:16
-msgctxt "templates"
-msgid "Return to directory"
-msgstr "Вернуться к справочнику"
-
 #: templates/listing-contactform.tpl.php:20
 msgctxt "templates"
 msgid "Listing Title: "
@@ -7598,7 +7626,12 @@ msgctxt "templates"
 msgid "Lost your password?"
 msgstr "Забыли пароль?"
 
-#: templates/manage-listings.tpl.php:3 templates/manage_listings.tpl.php:20
+#: templates/manage_listings.tpl.php:11
+msgctxt "templates"
+msgid "You do not currently have any listings in the directory."
+msgstr "У Вас нет ни одной записи в справочнике."
+
+#: templates/manage_listings.tpl.php:20
 msgctxt "templates"
 msgid ""
 "Your current listings are shown below. To edit a listing click the edit "
@@ -7607,36 +7640,31 @@ msgstr ""
 "Ваши записи показаны ниже. Для изменения записи кликните на кнопку \"Изменить"
 "\". Для удаления записи кликните на  кнопку \"Удалить\"."
 
-#: templates/manage-listings.tpl.php:6 templates/manage_listings.tpl.php:11
-msgctxt "templates"
-msgid "You do not currently have any listings in the directory."
-msgstr "У Вас нет ни одной записи в справочнике."
-
-#: templates/parts/listing-buttons.tpl.php:19
-#: templates/parts/listing-buttons.tpl.php:63
+#: templates/parts/listing-buttons.tpl.php:17
+#: templates/parts/listing-buttons.tpl.php:61
 msgctxt "templates"
 msgid "Edit"
 msgstr "Изменить"
 
-#: templates/parts/listing-buttons.tpl.php:27
-#: templates/parts/listing-buttons.tpl.php:71
+#: templates/parts/listing-buttons.tpl.php:25
+#: templates/parts/listing-buttons.tpl.php:69
 #, fuzzy
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr "Найти запись"
 
-#: templates/parts/listing-buttons.tpl.php:35
-#: templates/parts/listing-buttons.tpl.php:79
+#: templates/parts/listing-buttons.tpl.php:33
+#: templates/parts/listing-buttons.tpl.php:77
 msgctxt "templates"
 msgid "Delete"
 msgstr "Удалить"
 
-#: templates/parts/listing-buttons.tpl.php:36
+#: templates/parts/listing-buttons.tpl.php:34
 msgctxt "templates"
 msgid "Are you sure you wish to delete this listing?"
 msgstr "Вы уверены, что Вы хотите удалить эту запись?"
 
-#: templates/parts/listing-buttons.tpl.php:55
+#: templates/parts/listing-buttons.tpl.php:53
 msgctxt "templates"
 msgid "View"
 msgstr "Показать"
@@ -7694,6 +7722,11 @@ msgctxt "templates"
 msgid "Find a listing"
 msgstr "Найти запись"
 
+#: templates/search.tpl.php:17
+msgctxt "templates"
+msgid "No listings found."
+msgstr "Записи не найдены."
+
 #: templates/search.tpl.php:26
 #, fuzzy
 msgctxt "templates"
@@ -7715,27 +7748,22 @@ msgctxt "templates"
 msgid "Your listing has been submitted."
 msgstr "Ваша запись принята на сервер."
 
-#: templates/submit-listing-done.tpl.php:22
+#: templates/submit-listing-done.tpl.php:25
 msgctxt "templates"
 msgid "Your listing changes were saved."
 msgstr "Изменения в Вашей записи были сохранены."
 
-#: templates/submit-listing-done.tpl.php:27
+#: templates/submit-listing-done.tpl.php:30
 msgctxt "templates"
 msgid "Go to your listing"
 msgstr "Перейти к Вашей записи"
 
-#: templates/submit-listing-done.tpl.php:29
+#: templates/submit-listing-done.tpl.php:32
 msgctxt "templates"
 msgid ""
 "Your listing requires admin approval. You'll be notified once your listing "
 "is approved."
 msgstr ""
-
-#: templates/submit-listing-done.tpl.php:33
-msgctxt "templates"
-msgid "Return to directory."
-msgstr "Вернуться в справочник."
 
 #: templates/submit-listing-images-single.tpl.php:24
 msgctxt "templates"
@@ -8545,7 +8573,7 @@ msgctxt "sort"
 msgid "(Reset)"
 msgstr "(Сбросить)"
 
-#: includes/utils.php:213
+#: includes/utils.php:271
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8553,56 +8581,56 @@ msgstr ""
 "Данные, переданные на сервер методом POST превышают максимальный размер для "
 "PHP. Обратите внимание на параметр \"post_max_size\" в вашем файле php.ini."
 
-#: includes/utils.php:261
+#: includes/utils.php:319
 msgctxt "utils"
 msgid "File size (%s) exceeds maximum file size of %s"
 msgstr "Размер файла (%s) превышает максимальный размер файла - %s"
 
-#: includes/utils.php:269
+#: includes/utils.php:327
 msgctxt "utils"
 msgid "File size (%s) is inferior to the required minimum file size of %s"
 msgstr "Размер файла (%s) меньше, чем минимальный разрешённый размер - %s"
 
-#: includes/utils.php:278 includes/utils.php:285
+#: includes/utils.php:336 includes/utils.php:343
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Файл типа \"%s\" не допускается к загрузке"
 
-#: includes/utils.php:292
+#: includes/utils.php:350
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Неизвестная ошибка при загрузке файла."
 
-#: includes/utils.php:311
+#: includes/utils.php:369
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "Загруженный файл не является изображением."
 
-#: includes/utils.php:320
+#: includes/utils.php:378
 msgctxt "utils"
 msgid "Image width (%s px) is inferior to minimum required width of %s px."
 msgstr "Ширина изображения меньше минимально разрешённой ширины - %s пиксел."
 
-#: includes/utils.php:326
+#: includes/utils.php:384
 msgctxt "utils"
 msgid "Image height (%s px) is inferior to minimum required height of %s px."
 msgstr "Высота изображения меньше минимально разрешённой высоты - %s пиксел."
 
-#: includes/utils.php:332
+#: includes/utils.php:390
 msgctxt "utils"
 msgid "Image width (%s px) is greater than maximum allowed width of %s px."
 msgstr ""
 "Ширина изображения (%s пиксел) больше чем разрешённая максимальная ширина - "
 "%s пиксел."
 
-#: includes/utils.php:338
+#: includes/utils.php:396
 msgctxt "utils"
 msgid "Image height (%s px) is greater than maximum required height of %s px."
 msgstr ""
 "Высота изображения (%s пиксел) больше чем разрешённая максимальная высота - "
 "%s пиксел."
 
-#: includes/utils.php:352
+#: includes/utils.php:410
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ошибка при загрузке файла"
@@ -8915,21 +8943,20 @@ msgctxt "search"
 msgid "\"%s\" is required."
 msgstr "%s - обязательно."
 
-#: templates/deprecated/search.tpl.php:6 templates/search-form.tpl.php:28
-#: templates/search.tpl.php:3
-msgctxt "search"
-msgid "Search"
-msgstr "Поиск"
-
-#: templates/deprecated/search.tpl.php:14 templates/search.tpl.php:10
-msgctxt "search"
-msgid "Search Results"
-msgstr "Результаты поиска"
-
 #: templates/search-form.tpl.php:27
 msgctxt "search"
 msgid "Clear"
 msgstr "Очистить форму"
+
+#: templates/search-form.tpl.php:28 templates/search.tpl.php:3
+msgctxt "search"
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/search.tpl.php:10
+msgctxt "search"
+msgid "Search Results"
+msgstr "Результаты поиска"
 
 #: includes/views/show_listing.php:13
 msgctxt "preview"
@@ -9832,6 +9859,10 @@ msgstr ""
 msgctxt "themes/default"
 msgid "Address"
 msgstr "Адрес"
+
+#, fuzzy
+#~ msgid "← Return to Directory"
+#~ msgstr "Вернуться в Справочник."
 
 #, fuzzy
 #~ msgid "PayFast Payments"
@@ -10975,10 +11006,6 @@ msgstr "Адрес"
 #~ msgctxt "checkout"
 #~ msgid "← Return to Directory."
 #~ msgstr "← Вернуться в справочник."
-
-#~ msgctxt "payment"
-#~ msgid "Return to Directory."
-#~ msgstr "Вернуться в Справочник."
 
 #~ msgctxt "templates"
 #~ msgid ""
