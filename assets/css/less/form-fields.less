@@ -1,5 +1,7 @@
 .wpbdp-form-field {
     margin: 12px 0;
+    text-align: left;
+    padding: 10px;
 
     &:first-child {
         margin-top: 0;
@@ -46,9 +48,11 @@
     &.wpbdp-form-field-type-social-facebook input[type="text"],
     &.wpbdp-form-field-type-social-linkedin input[type="text"],
     &.wpbdp-form-field-type-phone_number input[type="text"],
-    &.wpbdp-form-field-type-date input[type="text"] {
+    &.wpbdp-form-field-type-date input[type="text"],
+    &.wpbdp-form-field-type-url input[type="text"] {
         width: 100%;
         font-size: inherit;
+        padding: 9px 16px;
     }
 
     &.wpbdp-form-field-type-textarea textarea {
@@ -73,11 +77,6 @@
                 margin: 0;
                 display: block;
             }
-
-            input[type="text"] {
-                width: 100%;
-                font-size: inherit;
-            }
         }
     }
 
@@ -101,16 +100,27 @@
     &.wpbdp-form-field-type-social-network {
         .preview {
             margin-bottom: 20px;
-        }
 
-        a.delete {
-            color: #900000;
-            margin-right: 20px;
+            img {
+                display: inline;
+            }
+
+            a.delete {
+                color: #900000;
+                margin-left: 20px;
+                display: none;
+                vertical-align: top;
+            }
+
+            &:hover {
+                a.delete {
+                    display: inline;
+                }
+            }
         }
 
         input[type="text"] {
             width: 100%;
-            font-size: inherit;
         }
 
         .wpbdp-social-type-field {
@@ -124,6 +134,27 @@
                 float: right;
             }
         }
+    }
+
+    &.wpbdp-form-field-association-meta.wpbdp-form-field-type-textfield,
+    &.wpbdp-form-field-association-meta.wpbdp-form-field-type-date,
+    &.wpbdp-form-field-association-meta.wpbdp-form-field-type-image,
+    &.wpbdp-form-field-association-meta.wpbdp-form-field-type-social-twitter,
+    &.wpbdp-form-field-association-tags.wpbdp-form-field-type-textfield {
+        display: inline-grid;
+        width: 49.6%;
+    }
+
+    &.wpbdp-form-field-type-select {
+        width: 49.6%;
+
+        &.wpbdp-form-field-association-region {
+            width: 100%;
+        }
+    }
+
+    .wpbdp-upload-widget {
+        max-height: 50px;
     }
 }
 
@@ -168,17 +199,6 @@
 
     .wpbdp-form-field {
         margin: 0;
-    }
-
-    .wpbdp-form-field .wpbdp-form-field-label {
-    }
-
-    .wpbdp-form-field-inner {
-    }
-
-    .wpbdp-form-field-type-textfield .wpbdp-form-field-inner input,
-    .wpbdp-form-field-type-textarea .wpbdp-form-field-inner textarea {
-        // border-color: #d64226;
     }
 }
 

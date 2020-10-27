@@ -413,9 +413,6 @@ jQuery(function($) {
 
                     $( this ).replaceWith( $new_content );
 
-                    // Refresh things.
-                    Reusables.Breakpoints.scan( $new_content );
-
                     $section.find( '.wpbdp-editor-area' ).each( function() {
                         var id = $( this ).attr( 'id' );
                         wp.editor.initialize( id, WPBDPTinyMCESettings[ id ] );
@@ -423,6 +420,9 @@ jQuery(function($) {
 
                     $( window ).trigger( 'wpbdp_submit_refresh', [self, section_id, $section] );
                     $section.show();
+
+                    // Refresh things.
+                    Reusables.Breakpoints.scan( $new_content );
                 } );
             } );
         },
