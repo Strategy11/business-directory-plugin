@@ -19,7 +19,7 @@
             <?php endforeach; ?>
 
         <div class="wpbdp-submit-listing-form-actions">
-            <input type="reset" value="<?php _ex( 'Clear Form', 'submit listing', 'business-directory-plugin' ); ?>" />
+            <a class="reset" href="#"><?php echo esc_html_x( 'Clear Form', 'submit listing', 'business-directory-plugin' ); ?></a>
             <?php if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ): ?>
             <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
             <?php else: ?>
