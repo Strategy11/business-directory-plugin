@@ -48,6 +48,7 @@
     }
 
     .wpbdp-submit-listing-section-header {
+        display: none;
         background: #ccc;
         text-transform: uppercase;
         font-weight: bold;
@@ -177,33 +178,49 @@
                 float: none;
                 width: 100%;
                 box-sizing: border-box;
-                rgba(86, 154, 246, 0.08);
-            }
-
-            #image-upload-conditions {
-                float: right;
-                width: 25%;
-                color: #666;
-                font-size: 90%;
-
-                dl {
-                    margin: 0;
-
-                    dt {
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                    }
-                }
+                background-color: rgba(86, 154, 246, 0.08);
             }
         }
 
     }
 
+    #image-upload-conditions {
+        font-size: 0.6em;
+        margin-bottom: 5px;
+
+        #image-slots-available {
+            float: right;
+        }
+    }
+
     .wpbdp-form-field {
+        text-align: left;
+        padding: 10px;
+
         .wpbdp-form-field-inner {
             padding: 0;
             width: 100%;
+        }
+
+        &.wpbdp-form-field-association-meta.wpbdp-form-field-type-textfield,
+        &.wpbdp-form-field-association-meta.wpbdp-form-field-type-date,
+        &.wpbdp-form-field-association-meta.wpbdp-form-field-type-image,
+        &.wpbdp-form-field-association-meta.wpbdp-form-field-type-social-twitter,
+        &.wpbdp-form-field-association-tags.wpbdp-form-field-type-textfield {
+            display: inline-grid;
+            width: 49.6%;
+        }
+
+        &.wpbdp-form-field-type-select:not(.wpbdp-form-field-association-category) {
+            width: 49.6%;
+    
+            &.wpbdp-form-field-association-region {
+                width: 100%;
+            }
+        }
+    
+        .wpbdp-upload-widget {
+            max-height: 50px;
         }
     }
 
@@ -258,8 +275,8 @@
         }
     }
 
-    .listing_fields-tiny,
-    .listing_fields-small {
+    .wpbdp-submit-page-tiny,
+    .wpbdp-submit-page-small {
         .wpbdp-form-field {
             width: 100%;
             display: block;

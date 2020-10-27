@@ -288,7 +288,7 @@ jQuery(function($) {
         this.plan_handling();
 
         var self = this;
-        this.$form.on( 'click', ':reset', function( e ) {
+        this.$form.on( 'click', 'a.reset', function( e ) {
             e.preventDefault();
             self.$form.find('input[name="save_listing"]').val( '' );
             self.$form.find('input[name="reset"]').val( 'reset' );

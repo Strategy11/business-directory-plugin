@@ -162,7 +162,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             admin_url( 'admin-ajax.php' )
         );
 
-        $html .= '<div class="wpbdp-upload-widget">';
+        $html .= '<div class="wpbdp-upload-widget"'. ( ! empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
         $html .= sprintf(
             '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
             $field->get_id(),

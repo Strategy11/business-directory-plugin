@@ -1,7 +1,5 @@
 .wpbdp-form-field {
     margin: 12px 0;
-    text-align: left;
-    padding: 10px;
 
     &:first-child {
         margin-top: 0;
@@ -78,6 +76,12 @@
                 display: block;
             }
         }
+
+        input[type="text"] {
+            width: 100%;
+            font-size: inherit;
+        }
+
     }
 
     &.wpbdp-form-field-association-content textarea {
@@ -134,27 +138,6 @@
                 float: right;
             }
         }
-    }
-
-    &.wpbdp-form-field-association-meta.wpbdp-form-field-type-textfield,
-    &.wpbdp-form-field-association-meta.wpbdp-form-field-type-date,
-    &.wpbdp-form-field-association-meta.wpbdp-form-field-type-image,
-    &.wpbdp-form-field-association-meta.wpbdp-form-field-type-social-twitter,
-    &.wpbdp-form-field-association-tags.wpbdp-form-field-type-textfield {
-        display: inline-grid;
-        width: 49.6%;
-    }
-
-    &.wpbdp-form-field-type-select {
-        width: 49.6%;
-
-        &.wpbdp-form-field-association-region {
-            width: 100%;
-        }
-    }
-
-    .wpbdp-upload-widget {
-        max-height: 50px;
     }
 }
 

@@ -21,8 +21,15 @@ $media_action = add_query_arg(
 
 
 <div class="image-upload-wrapper">
-    <h4><?php _ex( 'Upload Images', 'templates', 'business-directory-plugin' ); ?></h4>
+    <?php _ex( 'Upload Images', 'templates', 'business-directory-plugin' ); ?>
 
+    <?php if ( ! $admin ): ?>
+        <div id="image-upload-conditions">
+            <span id="image-upload-general-conditions"><?php echo esc_html( implode( '; ', $conditions ) ); ?></span>
+            <span id="image-slots-total" class="wpbdp-hidden"><?php echo $slots; ?></span>
+            <span id="image-slots-available"><?php echo esc_html_x( 'Image slots available', 'templates', 'business-directory-plugin' ); ?>: <span id="image-slots-remaining"><?php echo $slots_available; ?></span></span>
+        </div>
+    <?php endif; ?>
     <?php if ( is_admin() && ! wpbdp_is_request( 'ajax' ) ): ?>
         <div class="media-area-and-conditions cf">
             <div class="wpbdp_media_images_wrapper">
@@ -45,38 +52,6 @@ $media_action = add_query_arg(
                 <p id="noslots-message" style="display: none;"><?php _ex( 'Your image slots are all full at this time.  You may click "Continue" if you are done, or "Delete Image" to upload a new image in place of a current one.', 'templates', 'business-directory-plugin' ); ?></p>
             </div>
         </div>
-
-        <?php if ( ! $admin ): ?>
-        <div id="image-upload-conditions">
-            <dl class="image-conditions">
-                <dt><?php _ex( 'Image slots available:', 'templates', 'business-directory-plugin' ); ?></dt>
-                <dd>
-                    <span id="image-slots-remaining"><?php echo $slots_available; ?></span> / <span id="image-slots-total"><?php echo $slots; ?></span>
-                </dd>
-
-                <?php if ( $min_file_size || $max_file_size ): ?>
-                <dt><?php _ex( 'File size:', 'templates', 'business-directory-plugin' ); ?></dt>
-                <dd>
-                    <?php echo $min_file_size; ?> - <?php echo $max_file_size ? $max_file_size : _x( 'No limit', 'templates', 'business-directory-plugin' ); ?>
-                </dd>
-                <?php endif; ?>
-
-                <?php if ( $image_min_width || $image_max_width ): ?>
-                <dt><?php _ex( 'Image width:', 'templates', 'business-directory-plugin' ); ?></dt>
-                <dd>
-                    <?php echo $image_min_width . 'px'; ?> - <?php echo $image_max_width ? $image_max_width . 'px' : _x( 'No limit', 'templates', 'business-directory-plugin' ); ?>
-                </dd>
-                <?php endif; ?>
-
-                <?php if ( $image_min_height || $image_max_height ): ?>
-                <dt><?php _ex( 'Image height:', 'templates', 'business-directory-plugin' ); ?></dt>
-                <dd>
-                    <?php echo $image_min_height . 'px'; ?> - <?php echo $image_max_height ? $image_max_height . 'px' : _x( 'No limit', 'templates', 'business-directory-plugin' ); ?>
-                </dd>
-                <?php endif; ?>
-            </dl>
-        </div>
-        <?php endif; ?>
     </div>
 </div>
 
