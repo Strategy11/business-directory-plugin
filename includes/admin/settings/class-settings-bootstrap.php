@@ -832,6 +832,15 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
+                'id'      => 'rootline-color',
+                'type'    => 'color',
+                'name'    => _x( 'Submit listing rootline and button color', 'settings', 'business-directory-plugin' ),
+                'default' => '#569AF6',
+                'group'   => 'themes',
+            )
+        );
+        wpbdp_register_setting(
+            array(
                 'id'      => 'include-button-styles',
                 'type'    => 'checkbox',
                 'name'    => _x( 'Include CSS rules to give their own style to View, Edit and Delete buttons?', 'settings', 'business-directory-plugin' ),
