@@ -5,7 +5,6 @@
  * @package BDP/Templates/Plan Selection
  */
 
-// phpcs:disable
 ?>
 <div class="wpbdp-category-selection-with-tip">
     <?php if ( $editing ) : ?>
@@ -23,8 +22,8 @@
     <?php if ( ! empty( $selected_categories ) ) : ?>
         <?php echo $category_field->render( (array) $selected_categories, 'submit' ); ?>
     <?php else : ?>
-        <?php if ( ! $editing && ! $_submit->skip_plan_selection ) : ?>
-        <div class="wpbdp-msg tip"><?php _ex( 'You need to pick the categories first and then you\'ll be shown the available fee plans for your listing.', 'submit', 'business-directory-plugin' ); ?></div>
+        <?php if ( ! $editing && ! $_submit->skip_plan_selection && $category_count > 1 ) : ?>
+            <div class="wpbdp-msg tip"><?php _ex( 'You need to pick the categories first and then you\'ll be shown the available fee plans for your listing.', 'submit', 'business-directory-plugin' ); ?></div>
         <?php endif; ?>
         <?php echo $category_field->render(); ?>
     <?php endif; ?>
@@ -60,7 +59,9 @@
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
         <?php if ( ! $editing ) : ?>
             <div class="wpbdp-plan-selection wpbdp-plan-selection-with-tip">
-                <div class="wpbdp-msg tip"><?php _ex( 'Please choose a fee plan for your listing:', 'submit', 'business-directory-plugin' ); ?></div>
+                <?php if ( count( $plans ) > 1 ) : ?>
+                    <div class="wpbdp-msg tip"><?php _ex( 'Please choose a fee plan for your listing:', 'submit', 'business-directory-plugin' ); ?></div>
+                <?php endif; ?>
                 <?php
                 echo wpbdp_render(
                     'plan-selection',
@@ -70,6 +71,11 @@
                     )
                 );
                 ?>
+                <?php if ( count( $plans ) === 1 ) : ?>
+                    <div class="wpbdp_continue_to_fields_action">
+                        <input type="submit" name="continue-to-fields" value="<?php _ex( 'Continue', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                    </div>
+                <?php endif; ?>
             </div>
         <?php else : ?>
         <div class="wpbdp-current-plan">

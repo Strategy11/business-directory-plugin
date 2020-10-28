@@ -115,7 +115,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     $args['option_none_value'] = '';
                 }
 
-                if ( 1 == wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) ) ) {
+                $terms_count = wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
+
+                if ( 1 == $terms_count ) {
                     $terms = get_terms(
                         array(
 							'taxonomy'   => WPBDP_CATEGORY_TAX,
@@ -127,6 +129,10 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     $args['selected']         = $term->term_id;
                     $args['show_option_none'] = false;
                     $this->set_multiple( false );
+                }
+
+                if ( 10 > $terms_count ) {
+                    $args['class'] = '';
                 }
 			} elseif ( 'search' == $context && $this->is_multiple() ) {
                 $args['show_option_none'] = _x( '-- Choose Terms --', 'form-fields-api category-select', 'business-directory-plugin' );

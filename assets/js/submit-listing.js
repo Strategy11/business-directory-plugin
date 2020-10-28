@@ -16,6 +16,8 @@ jQuery(function($) {
 
             if ( $( '.wpbdp-js-select2', this.field_wrapper ).length > 0 ) {
                 this.field_type = 'select2';
+            } else if ( this.field_wrapper.hasClass( 'wpbdp-form-field-type-select' ) ) {
+                this.field_type = 'select';
             } else if ( this.field_wrapper.hasClass( 'wpbdp-form-field-type-checkbox' ) ) {
                 this.field_type = 'checkbox';
             } else if ( this.field_wrapper.hasClass( 'wpbdp-form-field-type-radio' ) ) {
@@ -35,7 +37,9 @@ jQuery(function($) {
                 // Workaround for https://github.com/select2/select2/issues/3992.
                 var self = this;
                 setTimeout(function() {
-                    self.field.selectWoo({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
+                    if ( self.field.find( 'option' ).length > 10 ) {
+                        self.field.selectWoo({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
+                    }
                 } );
             }
 
@@ -71,7 +75,7 @@ jQuery(function($) {
         categories_changed: function() {
             this.selected_categories = [];
 
-            if ( 'select2' === this.field_type ) {
+            if ( 'select2' === this.field_type || 'select' === this.field_type ) {
                 this.selected_categories = this.field.val();
             } else if ( 'checkbox' === this.field_type ) {
                 this.selected_categories = this.field.filter( ':checked' ).map(function() {

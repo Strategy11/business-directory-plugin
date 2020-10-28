@@ -62,6 +62,8 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
                        value="<?php echo $plan->id; ?>"
                         <?php disabled( $disabled, true ); ?>
                        <?php echo $disabled ? '': checked( absint( $plan->id ), absint( $selected ), false ); ?> />
+                <?php elseif ( empty( $editing ) && $selected && 1 === $plans_count ) : ?>
+                    <input type="hidden" name="<?php echo $field_name; ?>" value="<?php echo $plan->id; ?>">
                 <?php endif; ?>
                 <span class="wpbdp-plan-price-amount"><?php echo wpbdp_currency_format( $plan->calculate_amount( $categories ) ); ?></span>
             </label>
