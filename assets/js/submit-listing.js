@@ -313,6 +313,38 @@ jQuery(function($) {
             $options.prop( 'checked', $( this ).find( 'input' ).is(':checked') );
         } );
 
+        $( '#wpbdp-submit-listing' ).on( 'click', 'button.submit-back-button', function( e ) {
+            e.preventDefault();
+            var prev_section_id = $( this ).attr( 'data-previous-section' );
+            var prev_section    = self.$form.find( '.wpbdp-submit-listing-section' ).filter( '[data-section-id="' + prev_section_id + '"]' );
+            if ( prev_section.length ) {
+                var current_section = $( this ).parents('.wpbdp-submit-listing-section');
+                self.$form.find('input[name="current_section"]').val(prev_section_id);
+                current_section.addClass('hidden').hide();
+                prev_section.removeClass('hidden').show();
+            }
+
+            $( 'html, body' ).delay(100).animate({
+                scrollTop: self.$form.find('.wpbdp-submit-rootline').offset().top
+            }, 500);
+        } );
+
+        $( '#wpbdp-submit-listing' ).on( 'click', 'button.submit-next-button', function( e ) {
+            e.preventDefault();
+            var next_section_id = $( this ).attr( 'data-next-section' );
+            var next_section    = self.$form.find( '.wpbdp-submit-listing-section' ).filter( '[data-section-id="' + next_section_id + '"]' );
+            if ( next_section.length ) {
+                var current_section = $( this ).parents('.wpbdp-submit-listing-section');
+                self.$form.find('input[name="current_section"]').val(next_section_id);
+                current_section.addClass('hidden').hide();
+                next_section.removeClass('hidden').show();
+            }
+
+            $( 'html, body' ).delay(100).animate({
+                scrollTop: self.$form.find('.wpbdp-submit-rootline').offset().top
+            }, 500);
+        } );
+
         $( window ).trigger( 'wpbdp_submit_init' );
     };
     $.extend( wpbdp.submit_listing.Handler.prototype, {
@@ -419,7 +451,11 @@ jQuery(function($) {
                     } );
 
                     $( window ).trigger( 'wpbdp_submit_refresh', [self, section_id, $section] );
-                    $section.show();
+
+                    if ( ! $section.hasClass('hidden') ) {
+                        self.$form.find('input[name="current_section"]').val( $section.attr( 'data-section-id' ) );
+                        $section.show();
+                    }
 
                     // Refresh things.
                     Reusables.Breakpoints.scan( $new_content );

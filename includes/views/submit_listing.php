@@ -11,8 +11,9 @@ require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php
  */
 class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
-    protected $listing  = null;
-    protected $sections = array();
+    protected $listing       = null;
+    protected $sections      = array();
+    protected $sections_keys = array();
 
     protected $prevent_save = false;
     protected $editing      = false;
@@ -24,6 +25,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     public $skip_plan_payment        = false;
     public $category_specific_fields = false;
     public $fixed_plan_id            = 0;
+    public $current_section          = '';
 
 
     public function get_title() {
@@ -159,6 +161,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->configure();
         $this->sections = $this->submit_sections();
+        $this->sections_keys = array_keys( $this->sections );
         $this->prepare_sections();
 
         if ( ! empty( $_POST['save_listing'] ) && '1' === $_POST['save_listing'] && ! $this->prevent_save ) {
@@ -268,6 +271,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->fixed_plan_id = $plan->id;
             }
         }
+
+        $this->current_section = wpbdp_get_var( array( 'param' => 'current_section', 'default' => '' ), 'post' );
     }
 
     public function ajax_sections() {
@@ -286,6 +291,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->configure();
         $this->sections = $this->submit_sections();
+        $this->sections_keys = array_keys( $this->sections );
         $this->prepare_sections();
 
         $sections = array();
@@ -301,8 +307,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $sections[ $section['id'] ]['html'] = wpbdp_render(
                 'submit-listing-section',
                 array(
+                    'listing'  => $this->listing,
                     'section'  => $section,
                     'messages' => $messages_html,
+                    'is_admin' => current_user_can( 'administrator' ),
+                    'submit'   => $this,
+                    'editing'  => $this->editing,
                 )
             );
         }
@@ -458,14 +468,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function prepare_sections() {
+        $next_section = '';
         foreach ( $this->sections as &$section ) {
             $callback = WPBDP_Utils::normalize( $section['id'] );
 
             if ( ! $this->listing->has_fee_plan() && 'plan_selection' !== $section['id'] ) {
+                $this->current_section = 'plan_selection';
                 $section['flags'][] = 'collapsed';
                 $section['flags'][] = 'disabled';
                 $section['html']    = _x( '(Please choose a fee plan above)', 'submit listing', 'business-directory-plugin' );
                 $section['state']   = 'disabled';
+                $section['prev_section'] = $this->find_prev_section( $section['id'] );
+                $section['next_section'] = $this->find_next_section( $section['id'] );
                 continue;
             }
 
@@ -494,6 +508,19 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $section = apply_filters( 'wpbdp_submit_section_' . $section['id'], $section, $this );
 
             $section['flags'][] = $section['state'];
+            $section['prev_section'] = $this->find_prev_section( $section['id'] );
+            $section['next_section'] = $this->find_next_section( $section['id'] );
+
+            if ( $section['prev_section'] !== $this->current_section ) {
+                $section['flags'][] = 'hidden';
+                continue;
+            }
+
+            $next_section = $section['id'];
+        }
+
+        if ( $next_section ) {
+            $this->current_section = $next_section;
         }
 
         $this->sections = apply_filters( 'wpbdp_submit_prepare_sections', $this->sections, $this );
@@ -938,6 +965,46 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $html .= '</label>';
 
         return array( true, $html );
+    }
+
+    public function render_rootline() {
+        $params = array(
+            'listing'  => $this->listing,
+            'editing'  => $this->editing,
+            'sections' => $this->sections,
+            'echo'     => true
+        );
+
+        return wpbdp_render( 'submit-listing-rootline', $params );
+    }
+
+    private function find_prev_section( $section_id = null ) {
+        if ( ! $section_id || empty( $this->sections_keys || ! in_array( $section_id, $this->sections_keys ) ) ) {
+            return '';
+        }
+
+        $section_pos = array_search( $section_id, $this->sections_keys, true );
+
+        if ( ! $section_pos ) {
+            return '';
+        }
+
+        return $this->sections_keys[$section_pos - 1];
+    }
+
+    private function find_next_section( $section_id = null ) {
+        if ( ! $section_id || empty( $this->sections_keys || ! in_array( $section_id, $this->sections_keys ) ) ) {
+            return '';
+        }
+
+        $sections_count = count( $this->sections_keys );
+        $section_pos    = array_search( $section_id, $this->sections_keys, true );
+
+        if ( false === $section_pos || $sections_count - 1  === $section_pos ) {
+            return '';
+        }
+
+        return $this->sections_keys[$section_pos + 1];
     }
 
     private function save_listing() {

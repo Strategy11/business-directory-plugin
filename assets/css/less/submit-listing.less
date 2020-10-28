@@ -4,6 +4,65 @@
 
 #wpbdp-submit-listing {
     max-width: 50%;
+
+    .wpbdp-submit-rootline {
+        margin: 20px auto;
+        text-align: center;
+        padding-bottom: 80px;
+        box-sizing: border-box;
+
+        .wpbdp-rootline-section {
+            display: inline-block;
+            min-width: 130px;
+            .rootline-circle {
+                display: inline-block;
+                width: 48px;
+                height: 48px;
+                background: #569AF6;
+                border: 1px solid #569AF6;
+                border-radius: 48px;
+                vertical-align:top;
+
+                .rootline-counter {
+                    display: inline-block;
+                    width: 32px;
+                    height: 32px;
+                    line-height: 32px;
+                    border-radius: 32px;
+                    margin-top: 3px;
+                    font-size: 17px;
+                }
+
+                .rootline-section-name {
+                    font-size: 0.6em;
+                    line-height: 18px;
+                    margin-left: -30px;
+                    display: block;
+                    width: 110px;
+                    margin-top: 20px;
+                }
+            }
+
+            .rootline-section-name {
+                width: 130px;
+                margin: auto;
+                text-transform: uppercase;
+                font-size: 0.5em;
+            }
+
+            .bar {
+                position: relative;
+                width: 80px;
+                height: 6px;
+                margin: 0 -5px 17px -5px;
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+                top:16px;
+                vertical-align:top
+            }
+        }
+    }
     .category_list_item() {
         font-size: 10px;
         margin: 0 5px 0 0;
@@ -89,6 +148,7 @@
     .wpbdp-plan-selection-with-tip {
         margin: 24px 0 0 0;
         display: none;
+        padding: 10px;
     }
 
     .wpbdp-submit-listing-section-plan_selection {
