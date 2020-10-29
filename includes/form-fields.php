@@ -4,20 +4,11 @@
  *
  * @package BDP/Form Fields API
  */
-
-// phpcs:disable
-
-/**
- * @SuppressWarnings(PHPMD)
- */
 if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
     require_once WPBDP_PATH . 'includes/fields/class-form-field.php';
     require_once WPBDP_PATH . 'includes/fields/form-fields-types.php';
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     class WPBDP_FormFields {
 
         private $associations            = array();
@@ -38,14 +29,14 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
         private function __construct() {
             // register core associations
-            $this->register_association( 'title', _x( 'Post Title', 'form-fields api', 'business-directory-plugin' ), array( 'required', 'unique' ) );
-            $this->register_association( 'content', _x( 'Post Content', 'form-fields api', 'business-directory-plugin' ), array( 'required', 'unique', 'optional' ) );
-            $this->register_association( 'excerpt', _x( 'Post Excerpt', 'form-fields api', 'business-directory-plugin' ), array( 'unique' ) );
-            $this->register_association( 'category', _x( 'Post Category', 'form-fields api', 'business-directory-plugin' ), array( 'required', 'unique' ) );
-            $this->register_association( 'tags', _x( 'Post Tags', 'form-fields api', 'business-directory-plugin' ), array( 'unique' ) );
-            $this->register_association( 'meta', _x( 'Post Metadata', 'form-fields api', 'business-directory-plugin' ) );
+            $this->register_association( 'title', __( 'Post Title', 'business-directory-plugin' ), array( 'required', 'unique' ) );
+            $this->register_association( 'content', __( 'Post Content', 'business-directory-plugin' ), array( 'required', 'unique', 'optional' ) );
+            $this->register_association( 'excerpt', __( 'Post Excerpt', 'business-directory-plugin' ), array( 'unique' ) );
+            $this->register_association( 'category', __( 'Post Category', 'business-directory-plugin' ), array( 'required', 'unique' ) );
+            $this->register_association( 'tags', __( 'Post Tags', 'business-directory-plugin' ), array( 'unique' ) );
+            $this->register_association( 'meta', __( 'Post Metadata', 'business-directory-plugin' ) );
 
-            $this->register_association( 'custom', _x( 'Custom', 'form-fields api', 'business-directory-plugin' ), array( 'private' ) );
+            $this->register_association( 'custom', __( 'Custom', 'business-directory-plugin' ), array( 'private' ) );
 
             // register core field types
             $this->register_field_type( 'WPBDP_FieldTypes_TextField', 'textfield' );
@@ -259,11 +250,13 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
                 }
 
                 if ( $associations_in ) {
-                    $where .= ' AND ( association IN ( \'' . implode( '\',\'', $associations_in ) . '\' ) ) ';
+                    $format = implode( ', ', array_fill( 0, count( $associations_in ), '%s' ) );
+                    $where .= $wpdb->prepare( " AND ( association IN ( $format ) ) ", $associations_in );
                 }
 
                 if ( $associations_not_in ) {
-                    $where .= ' AND ( association NOT IN ( \'' . implode( '\',\'', $associations_not_in ) . '\' ) ) ';
+                    $format = implode( ', ', array_fill( 0, count( $associations_not_in ), '%s' ) );
+                    $where .= $wpdb->prepare( " AND ( association NOT IN ( $format ) ) ", $associations_not_in );
                 }
 
                 // $where .= $wpdb->prepare( " AND ( association = %s ) ", $args['association'] );
@@ -284,27 +277,29 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
                 }
 
                 if ( $field_types_in ) {
-                    $where .= ' AND ( field_type IN ( \'' . implode( '\',\'', $field_types_in ) . '\' ) ) ';
+                    $format = implode( ', ', array_fill( 0, count( $field_types_in ), '%s' ) );
+                    $where .= $wpdb->prepare( " AND ( field_type IN ( $format ) ) ", $field_types_in );
                 }
 
                 if ( $field_types_not_in ) {
-                    $where .= ' AND ( field_type NOT IN ( \'' . implode( '\',\'', $field_types_not_in ) . '\' ) ) ';
+                    $format = implode( ', ', array_fill( 0, count( $field_types_not_in ), '%s' ) );
+                    $where .= $wpdb->prepare( " AND ( field_type NOT IN ( $format ) ) ", $field_types_not_in );
                 }
             }
 
             foreach ( $display_flags as $f ) {
                 if ( substr( $f, 0, 1 ) == '-' ) {
-                    $where .= $wpdb->prepare( " AND ( display_flags IS NULL OR display_flags NOT LIKE '%%%s%%' )", substr( $f, 1 ) );
+                    $where .= $wpdb->prepare( " AND ( display_flags IS NULL OR display_flags NOT LIKE %s )", '%%' . $wpdb->esc_like( substr( $f, 1 ) ) . '%%' );
                 } else {
-					$where .= $wpdb->prepare( " AND ( display_flags LIKE '%%%s%%' )", $f );
+					$where .= $wpdb->prepare( " AND ( display_flags LIKE %s )", '%%' . $wpdb->esc_like( $f ) . '%%' );
                 }
             }
 
             foreach ( $validators as $v ) {
                 if ( substr( $v, 0, 1 ) == '-' ) {
-                    $where .= $wpdb->prepare( " AND ( validators IS NULL OR validators NOT LIKE '%%%s%%' )", substr( $v, 1 ) );
+                    $where .= $wpdb->prepare( " AND ( validators IS NULL OR validators NOT LIKE %s )", '%%' . $wpdb->esc_like( substr( $v, 1 ) ) . '%%' );
                 } else {
-					$where .= $wpdb->prepare( " AND ( validators LIKE '%%%s%%' )", $v );
+					$where .= $wpdb->prepare( " AND ( validators LIKE %s )", '%%' . $wpdb->esc_like( $v ) . '%%'  );
                 }
             }
 
@@ -314,6 +309,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 				$sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC";
             }
 
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $ids = $wpdb->get_col( $sql );
 
             if ( 'ids' == $output ) {
@@ -352,7 +348,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
         public function get_default_fields( $id = '' ) {
             $default_fields = array(
                 'title'    => array(
-					'label'         => __( 'Name', 'business-directory-plugin' ),
+					'label'         => __( 'Listing Title', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'title',
 					'weight'        => 9,
@@ -361,11 +357,10 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'title',
 				),
                 'category' => array(
-					'label'         => __( 'Directory Category', 'business-directory-plugin' ),
+					'label'         => __( 'Listing Category', 'business-directory-plugin' ),
 					'field_type'    => 'select',
 					'association'   => 'category',
 					'weight'        => 8,
-					'validators'    => array( 'required' ),
 					'display_flags' => array( 'excerpt', 'listing', 'search' ),
 					'tag'           => 'category',
 				),
@@ -403,14 +398,6 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'display_flags' => array( 'excerpt', 'listing', 'search',  'privacy' ),
 					'tag'           => 'phone',
 				),
-                'fax'      => array(
-					'label'         => __( 'Fax', 'business-directory-plugin' ),
-					'field_type'    => 'textfield',
-					'association'   => 'meta',
-					'weight'        => 3,
-					'display_flags' => array( 'excerpt', 'listing', 'search',  'privacy' ),
-					'tag'           => 'fax',
-				),
                 'email'    => array(
 					'label'         => __( 'Email', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
@@ -421,7 +408,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'email',
 				),
                 'tags'     => array(
-					'label'         => __( 'Directory Tags', 'business-directory-plugin' ),
+					'label'         => __( 'Listing Tags', 'business-directory-plugin' ),
 					'field_type'    => 'textfield',
 					'association'   => 'tags',
 					'weight'        => 1,
@@ -541,13 +528,8 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
     }
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
+
     class WPBDP_FieldValidation {
 
         private static $instance = null;
@@ -567,19 +549,19 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
          */
         public function get_validators() {
             $validators = array(
-                'email'          => _x( 'Email Validator', 'form-fields-api', 'business-directory-plugin' ),
-                'url'            => _x( 'URL Validator', 'form-fields-api', 'business-directory-plugin' ),
-                'integer_number' => _x( 'Whole Number Validator', 'form-fields-api', 'business-directory-plugin' ),
-                'decimal_number' => _x( 'Decimal Number Validator', 'form-fields-api', 'business-directory-plugin' ),
-                'date_'          => _x( 'Date Validator', 'form-fields-api', 'business-directory-plugin' ),
-                'word_number'    => _x( 'Word Count Validator', 'form-fields-api', 'business-directory-plugin' ),
+                'email'          => __( 'Email Validator', 'business-directory-plugin' ),
+                'url'            => __( 'URL Validator', 'business-directory-plugin' ),
+                'integer_number' => __( 'Whole Number Validator', 'business-directory-plugin' ),
+                'decimal_number' => __( 'Decimal Number Validator', 'business-directory-plugin' ),
+                'date_'          => __( 'Date Validator', 'business-directory-plugin' ),
+                'word_number'    => __( 'Word Count Validator', 'business-directory-plugin' ),
             );
 
             return $validators;
         }
 
         public function validate_field( $field, $value, $validator, $args = array() ) {
-            $args['field-label'] = is_object( $field ) && $field ? apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) : _x( 'Field', 'form-fields-api validation', 'business-directory-plugin' );
+            $args['field-label'] = is_object( $field ) && $field ? apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) : __( 'Field', 'business-directory-plugin' );
             $args['field']       = $field;
 
             return call_user_func( array( $this, $validator ), $value, $args );
@@ -600,12 +582,24 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
             if ( $args['field'] && $args['field']->get_association() == 'category' ) {
                 if ( is_array( $value ) && count( $value ) == 1 && ! $value[0] ) {
-                    return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
+                    return WPBDP_ValidationError(
+                        sprintf(
+                            /* translators: %s: field label */
+                            esc_html__( '%s is required.', 'business-directory-plugin' ),
+                            esc_html( $args['field-label'] )
+                        )
+                    );
                 }
             }
 
             if ( ( $args['field'] && $args['field']->is_empty_value( $value ) ) || ! $value || ( is_string( $value ) && ! $args['allow_whitespace'] && ! trim( $value ) ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s is required.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError(
+                    sprintf(
+                        /* translators: %s: field label */
+                        esc_html__( '%s is required.', 'business-directory-plugin' ),
+                        esc_attr( $args['field-label'] )
+                    )
+                );
             }
         }
 
@@ -617,12 +611,9 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
             if ( esc_url_raw( $value ) !== $value ) {
                 return WPBDP_ValidationError(
-                    sprintf( 
-                        _x( 
-                            '%s is badly formatted. Valid URL format required. Include http://',
-                            'form-fields-api validation',
-                            'business-directory-plugin'
-                        ),
+                    sprintf(
+                        /* translators: %s: field label */
+                        esc_html__( '%s is badly formatted. Valid URL format required. Include http://', 'business-directory-plugin' ),
                         esc_attr( $args['field-label'] ) 
                     )
                 );
@@ -640,21 +631,39 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             }
 
             if ( ! $valid ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s is badly formatted. Valid Email format required.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError(
+                    sprintf(
+                        /* translators: %s: field label */
+                        __( '%s is badly formatted. Valid Email format required.', 'business-directory-plugin' ),
+                        esc_attr( $args['field-label'] )
+                    )
+                );
             }
         }
 
         /* IntegerNumberValidator */
         private function integer_number( $value, $args = array() ) {
             if ( ! ctype_digit( $value ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s must be a number. Decimal values are not allowed.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError(
+                    sprintf(
+                        /* translators: %s: field label */
+                        esc_html__( '%s must be a number. Decimal values are not allowed.', 'business-directory-plugin' ),
+                        esc_attr( $args['field-label'] )
+                    )
+                );
             }
         }
 
         /* DecimalNumberValidator */
         private function decimal_number( $value, $args = array() ) {
             if ( ! is_numeric( $value ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s must be a number.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
+                return WPBDP_ValidationError(
+                    sprintf(
+                        /* translators: %s: field label */
+                        __( '%s must be a number.', 'business-directory-plugin' ),
+                        esc_attr( $args['field-label'] )
+                    )
+                );
             }
         }
 
@@ -673,7 +682,8 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             $value_  = str_replace( array( '/', '.', '-' ), '', $value );
 
             if ( strlen( $format_ ) != strlen( $value_ ) ) {
-                return WPBDP_ValidationError( ( ! empty( $args['messages']['incorrect_format'] ) ) ? $args['messages']['incorrect_format'] : sprintf( _x( '%1$s must be in the format %2$s.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), $format ) );
+                /* translators: %1$s: field label, %2$s: format */
+                return WPBDP_ValidationError( ( ! empty( $args['messages']['incorrect_format'] ) ) ? $args['messages']['incorrect_format'] : sprintf( esc_html__( '%1$s must be in the format %2$s.', 'business-directory-plugin' ), esc_html( $args['field-label'] ), esc_html( $format ) ) );
             }
 
             $d = '0';
@@ -711,14 +721,16 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             }
 
             if ( ! ctype_digit( $m ) || ! ctype_digit( $d ) || ! ctype_digit( $y ) || ! checkdate( $m, $d, $y ) ) {
-                return WPBDP_ValidationError( ( ! empty( $args['messages']['invalid'] ) ) ? $args['messages']['invalid'] : sprintf( _x( '%s must be a valid date.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
+                /* translators: %s: field label */
+                return WPBDP_ValidationError( ( ! empty( $args['messages']['invalid'] ) ) ? $args['messages']['invalid'] : sprintf( esc_html__( '%s must be a valid date.', 'business-directory-plugin' ), esc_html( $args['field-label'] ) ) );
             }
         }
 
         /* Image Caption Validator */
         private function caption_( $value, $args = array() ) {
             if ( $args['caption_required'] && empty( $value[1] ) ) {
-                return WPBDP_ValidationError( ! empty( $args['messages']['caption_required'] ) ? $args['messages']['caption_required'] : sprintf( _x( 'Caption for %s is required.', 'image field', 'business-directory-plugin' ), esc_attr( $args['field-label'] ) ) );
+                /* translators: %s: field label */
+                return WPBDP_ValidationError( ! empty( $args['messages']['caption_required'] ) ? $args['messages']['caption_required'] : sprintf( esc_html__( 'Caption for %s is required.', 'business-directory-plugin' ), esc_html( $args['field-label'] ) ) );
             }
         }
 
@@ -734,7 +746,8 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             $input_array  = preg_split("/[\s,]+/", $no_html_text );
 
             if( $word_count < count( $input_array ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%s must have less than %d words.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), $word_count ) );
+                /* translators: %1$s: field label, %2$d: max word count */
+                return WPBDP_ValidationError( sprintf( esc_html__( '%1$s must have less than %2$d words.', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), $word_count ) );
             }
 
         }
@@ -743,7 +756,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             $args = wp_parse_args(
                 $args, array(
 					'values'    => array(),
-					'formatter' => create_function( '$x', 'return join(",", $x);' ),
+					'formatter' => function( $x ) { return join( ",", $x ); },
                 )
             );
             extract( $args, EXTR_SKIP );
@@ -753,7 +766,8 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             }
 
             if ( ! in_array( $value, $values ) ) {
-                return WPBDP_ValidationError( sprintf( _x( '%1$s is invalid. Value most be one of %2$s.', 'form-fields-api validation', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), call_user_func( $formatter, $values ) ) );
+                /* translators: %1$s: field label, %2$s allowed values */
+                return WPBDP_ValidationError( sprintf( __( '%1$s is invalid. Value most be one of %2$s.', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), esc_html( call_user_func( $formatter, $values ) ) ) );
             }
         }
 
@@ -762,11 +776,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 }
 
 
-/**
- * Validation.
- *
- * @SuppressWarnings(PHPMD)
- */
+// phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 function WPBDP_ValidationError( $msg, $stop_validation = false ) {
     if ( $stop_validation ) {
         return new WP_Error( 'wpbdp-validation-error-stop', $msg );
@@ -780,8 +790,6 @@ function WPBDP_ValidationError( $msg, $stop_validation = false ) {
 /**
  * @since 2.3
  * @see WPBDP_FormFields::find_fields()
- *
- * @SuppressWarnings(PHPMD)
  */
 function &wpbdp_get_form_fields( $args = array() ) {
     global $wpdb;
@@ -803,8 +811,6 @@ function &wpbdp_get_form_fields( $args = array() ) {
 /**
  * @since 2.3
  * @see WPBDP_FormFields::get_field()
- *
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_form_field( $id ) {
     global $wpbdp;
@@ -820,11 +826,8 @@ function wpbdp_get_form_field( $id ) {
  * @return boolean True if value validates, False otherwise.
  * @since 2.3
  * @see WPBDP_FieldValidation::validate_value()
- *
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_validate_value( $value, $validator, $args = array() ) {
     $validation = WPBDP_FieldValidation::instance();
     return $validation->validate_value( $value, $validator, $args );
 }
-
