@@ -2,11 +2,6 @@
 /**
  * @package WPBDP\Admin\Settings
  */
-
-/**
- * @SuppressWarnings(PHPMD.ExcessiveClassLength)
- * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
- */
 final class WPBDP__Settings__Bootstrap {
 
     public static function register_initial_groups() {
@@ -15,7 +10,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'listings', _x( 'Listings', 'settings', 'business-directory-plugin' ) );
         wpbdp_register_settings_group( 'listings/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'listings' );
 
-        wpbdp_register_settings_group( 'email', _x( 'E-Mail', 'settings', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'email', __( 'Email', 'business-directory-plugin' ) );
         wpbdp_register_settings_group( 'email/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'email' );
 
         wpbdp_register_settings_group( 'payment', _x( 'Payment', 'settings', 'business-directory-plugin' ) );
@@ -88,7 +83,7 @@ final class WPBDP__Settings__Bootstrap {
         // reCAPTCHA.
         wpbdp_register_settings_group(
             'recaptcha',
-            _x( 'reCAPTCHA', 'settings', 'business-directory-plugin' ),
+            'reCAPTCHA',
             'general',
             array(
                 'desc' => str_replace( '<a>', '<a href="http://www.google.com/recaptcha" target="_blank" rel="noopener">', _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'settings', 'business-directory-plugin' ) ),
@@ -524,12 +519,12 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'allow-comments-in-listings',
                 'type'    => 'radio',
                 'name'    => _x( 'Include comment form on listing pages?', 'settings', 'business-directory-plugin' ),
-                'desc'    => __( 'Business Directory Plugin uses the standard comment inclusion from WordPress, but most themes only allow for comments on posts, not pages. Some themes handle both. The Directory is displayed on a page, so we need a theme that can handle both to show comments. Use the 2nd option if you want to allow comments on listings first, and if that doesn\'t work, try the 3rd option instead.', 'business-directory-plugin' ),
+                'desc'    => __( 'Business Directory Plugin uses the standard WordPress comments. Most themes allow for comments on posts, not pages. Some themes handle both. Since the directory is displayed on a page, we need a theme that can handle both. Use the 2nd option if you want to allow comments on listings. If that doesn\'t work, try the 3rd option.', 'business-directory-plugin' ),
                 'default' => get_option( 'wpbdp-show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
                 'options' => array(
                     'do-not-allow-comments'              => _x( 'Do not include comments in listings', 'admin settings', 'business-directory-plugin' ),
-                    'allow-comments'                     => _x( 'Include comment form, theme invoked (standard option)', 'admin settings', 'business-directory-plugin' ),
-                    'allow-comments-and-insert-template' => __( "Include comment form, Business Directory Plugin invoked (use only if 2nd option doesn't work)", 'business-directory-plugin' ),
+                    'allow-comments'                     => __( 'Include theme comment form (standard option)', 'business-directory-plugin' ),
+                    'allow-comments-and-insert-template' => __( 'Include directory comment form (use only if 2nd option does not work)', 'business-directory-plugin' ),
                 ),
                 'group'   => 'listings/main',
             )
@@ -547,7 +542,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'prevent-sticky-on-directory-view',
                 'type'    => 'multicheck',
-                'name'    => __( 'Prevent featured (sticky) status on Directory pages?', 'business-directory-plugin' ),
+                'name'    => __( 'Prevent featured (sticky) status on directory pages?', 'business-directory-plugin' ),
                 'desc'    => _x( 'Prevents featured listings from floating to the top of the selected page.', 'settings', 'business-directory-plugin' ),
                 'default' => array(),
                 'options' => array(
@@ -614,7 +609,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'submit-instructions',
                 'type'    => 'textarea',
                 'name'    => _x( 'Submit Listing instructions message', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'This text is displayed at the first page of the Submit Listing process for Directory. You can use it for instructions about filling out the form or anything you want to tell users before they get started.', 'settings', 'business-directory-plugin' ),
+                'desc'    => __( 'This text is displayed on the first page of the Submit Listing process. You can use it for instructions about filling out the form or information to get started.', 'business-directory-plugin' ),
                 'default' => '',
                 'group'   => 'listings/main',
             )
@@ -701,7 +696,7 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        $msg = _x( 'Fee Plan Custom Order can be changed under <a>Manage Fees</a>', 'admin settings', 'business-directory-plugin' );
+        $msg = _x( 'Fee Plan Custom Order can be changed under <a>Fee Plans</a>', 'admin settings', 'business-directory-plugin' );
         $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
         wpbdp_register_setting(
             array(
@@ -815,7 +810,7 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         // Themes.
-        wpbdp_register_settings_group( 'themes', _x( 'Theme Settings', 'settings', 'business-directory-plugin' ), 'appearance', array( 'desc' => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp-themes' ) . '">', _x( 'You can manage your themes on <a>Directory Themes</a>.', 'admin settings', 'business-directory-plugin' ) ) ) );
+        wpbdp_register_settings_group( 'themes', _x( 'Theme Settings', 'settings', 'business-directory-plugin' ), 'appearance', array( 'desc' => str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes' ) ) . '">', _x( 'You can manage your themes on <a>Directory Themes</a>.', 'admin settings', 'business-directory-plugin' ) ) ) );
 
         wpbdp_register_setting(
             array(
@@ -824,8 +819,8 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Theme button style', 'settings', 'business-directory-plugin' ),
                 'default' => 'theme',
                 'options' => array(
-                    'theme' => __( 'Use the Business Directory Plugin theme style for buttons', 'business-directory-plugin' ),
-                    'none'  => __( 'Use the WP theme style for Business Directory Plugin buttons', 'business-directory-plugin' ),
+                    'theme' => __( 'Use the Business Directory Plugin style for buttons', 'business-directory-plugin' ),
+                    'none'  => __( 'Use the WP theme style for directory buttons', 'business-directory-plugin' ),
                 ),
                 'group'   => 'themes',
             )
@@ -983,7 +978,7 @@ final class WPBDP__Settings__Bootstrap {
 				'default' => '2',
 				'min'     => 0,
 				'step'    => 1,
-				'desc'    => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees' ) . '">', _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'business-directory-plugin' ) ),
+				'desc'    => str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'business-directory-plugin' ) ),
 				'group'   => 'image/listings',
             )
         );
@@ -1105,6 +1100,7 @@ final class WPBDP__Settings__Bootstrap {
 
         if ( $aed_usupported_gateways ) {
             $desc = sprintf(
+                /* translators: %1$s: gateway name, %2$s: explanation string */
                 _x( 'AED currency is not supported by %1$s. %2$s', 'admin settings', 'business-directory-plugin' ),
                 '<b>' . implode( ' or ', $aed_usupported_gateways ) . '</b>',
                 _n(
@@ -1200,6 +1196,8 @@ final class WPBDP__Settings__Bootstrap {
                 'requirements' => array( 'payments-on' ),
             )
         );
+
+		// Deprecated setting.
         wpbdp_register_setting(
             array(
                 'id'           => 'payment-abandonment',
@@ -1211,12 +1209,14 @@ final class WPBDP__Settings__Bootstrap {
                 'requirements' => array( 'payments-on' ),
             )
         );
+
+		// Deprecated setting.
         wpbdp_register_setting(
             array(
 				'id'           => 'payment-abandonment-threshold',
 				'type'         => 'number',
 				'name'         => _x( 'Listing abandonment threshold (hours)', 'settings', 'business-directory-plugin' ),
-				'desc'         => str_replace( '<a>', '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the e-mail</a> users receive.', 'admin settings', 'business-directory-plugin' ) ),
+				'desc'         => str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the email</a> users receive.', 'admin settings', 'business-directory-plugin' ) ),
 				'default'      => '24',
 				'min'          => 0,
 				'step'         => 1,
@@ -1268,12 +1268,12 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_settings_group( 'email_notifications', _x( 'E-Mail Notifications', 'settings', 'business-directory-plugin' ), 'email/main' );
+        wpbdp_register_settings_group( 'email_notifications', __( 'Email Notifications', 'business-directory-plugin' ), 'email/main' );
         wpbdp_register_setting(
             array(
                 'id'      => 'admin-notifications',
                 'type'    => 'multicheck',
-                'name'    => _x( 'Notify admin via e-mail when...', 'settings', 'business-directory-plugin' ),
+                'name'    => __( 'Notify admin via email when...', 'business-directory-plugin' ),
                 'default' => array(),
                 'options' => array(
                     'new-listing'       => _x( 'A new listing is submitted.', 'admin settings', 'business-directory-plugin' ),
@@ -1291,13 +1291,13 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'admin-notifications-cc',
                 'type'  => 'text',
-                'name'  => _x( 'CC this e-mail address too', 'settings', 'business-directory-plugin' ),
+                'name'  => __( 'CC this email address too', 'business-directory-plugin' ),
                 'group' => 'email_notifications',
             )
         );
 
         $settings_url = admin_url( 'admin.php?page=wpbdp_settings&tab=email&subtab=email_templates' );
-        $description  = _x( 'You can modify the text template used for most of these e-mails in the <templates-link>Templates</templates-link> tab.', 'settings', 'business-directory-plugin' );
+        $description  = __( 'You can modify the text template used for most of these emails in the <templates-link>Templates</templates-link> tab.', 'business-directory-plugin' );
         $description  = str_replace( '<templates-link>', '<a href="' . $settings_url . '">', $description );
         $description  = str_replace( '</templates-link>', '</a>', $description );
 
@@ -1305,7 +1305,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'user-notifications',
                 'type'    => 'multicheck',
-                'name'    => _x( 'Notify users via e-mail when...', 'settings', 'business-directory-plugin' ),
+                'name'    => __( 'Notify users via email when...', 'business-directory-plugin' ),
                 'desc'    => $description,
                 'default' => array( 'new-listing', 'listing-published', 'listing-expires' ),
                 'options' => array(
@@ -1365,18 +1365,25 @@ final class WPBDP__Settings__Bootstrap {
                 'default'      => array(
                     'subject' => '[[site-title]] Contact via "[listing]"',
                     'body'    => '' .
+                                /* translators: %s: url shortcode */
                                 sprintf( _x( 'You have received a reply from your listing at %s.', 'contact email', 'business-directory-plugin' ), '[listing-url]' ) . "\n\n" .
+
+                                /* translators: %s: name shortcode */
                                 sprintf( _x( 'Name: %s', 'contact email', 'business-directory-plugin' ), '[name]' ) . "\n" .
-                                sprintf( _x( 'E-Mail: %s', 'contact email', 'business-directory-plugin' ), '[email]' ) . "\n" .
+
+                                /* translators: %s: email shortcode */
+                                sprintf( __( 'Email: %s', 'business-directory-plugin' ), '[email]' ) . "\n" .
                                 _x( 'Message:', 'contact email', 'business-directory-plugin' ) . "\n" .
                                 '[message]' . "\n\n" .
+
+                                /* translators: %s: date shortcode */
                                 sprintf( _x( 'Time: %s', 'contact email', 'business-directory-plugin' ), '[date]' ),
                 ),
                 'placeholders' => array(
                     'listing-url' => _x( 'Listing\'s URL', 'admin settings', 'business-directory-plugin' ),
                     'listing'     => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
                     'name'        => _x( 'Sender\'s name', 'admin settings', 'business-directory-plugin' ),
-                    'email'       => _x( 'Sender\'s e-mail address', 'admin settings', 'business-directory-plugin' ),
+                    'email'       => __( 'Sender\'s email address', 'business-directory-plugin' ),
                     'message'     => _x( 'Contact message', 'admin settings', 'business-directory-plugin' ),
                     'date'        => _x( 'Date and time the message was sent', 'admin settings', 'business-directory-plugin' ),
                     'access_key'  => _x( 'Listing\'s Access Key', 'admin settings', 'business-directory-plugin' ),
@@ -1421,6 +1428,7 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
+		// Deprecated setting.
         wpbdp_register_setting(
             array(
                 'id'           => 'email-templates-payment-abandoned',
@@ -1456,7 +1464,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'        => 'expiration-notices',
                 'type'      => 'expiration_notices',
-                'name'      => _x( 'E-Mail Notices', 'settings', 'business-directory-plugin' ),
+                'name'      => __( 'Email Notifications', 'business-directory-plugin' ),
                 'default'   => self::get_default_expiration_notices(),
                 'group'     => 'email_templates',
                 'validator' => array( __class__, 'validate_expiration_notices' ),
@@ -1510,9 +1518,6 @@ final class WPBDP__Settings__Bootstrap {
         return $notices;
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     */
     public static function validate_expiration_notices( $value ) {
         // We remove notices with no subject and no content.
         foreach ( array_keys( $value ) as $notice_id ) {
@@ -1528,9 +1533,6 @@ final class WPBDP__Settings__Bootstrap {
         return $value;
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     */
     public static function setup_ajax_compat_mode( $setting, $value ) {
         $mu_dir = ( defined( 'WPMU_PLUGIN_DIR' ) && defined( 'WPMU_PLUGIN_URL' ) ) ? WPMU_PLUGIN_DIR : trailingslashit( WP_CONTENT_DIR ) . 'mu-plugins';
         $source = WPBDP_INC . '/compatibility/wpbdp-ajax-compat-mu.php';
@@ -1540,11 +1542,8 @@ final class WPBDP__Settings__Bootstrap {
             if ( ! unlink( $dest ) ) {
                 $message = array(
                     sprintf(
-                        _x(
-                            'Could not remove the "Business Directory Plugin - AJAX Compatibility Module". Please remove the file "%s" manually or deactivate the plugin.',
-                            'admin settings',
-                            'business-directory-plugin'
-                        ),
+                        /* translators: %s: file name */
+                        __( 'Could not remove the "Business Directory Plugin - AJAX Compatibility Module". Please remove the file "%s" manually or deactivate the plugin.', 'business-directory-plugin' ),
                         $dest
                     ),
                     'error',
@@ -1556,12 +1555,14 @@ final class WPBDP__Settings__Bootstrap {
             $success = true;
 
             if ( ! wp_mkdir_p( $mu_dir ) ) {
-                $message = array( sprintf( _x( 'Could not activate AJAX Compatibility mode: the directory "%s" could not be created.', 'admin settings', 'business-directory-plugin' ), $mu_dir ), 'error' );
+                /* translators: %s: directory name */
+                $message = array( sprintf( __( 'Could not activate AJAX Compatibility mode: the directory "%s" could not be created.', 'business-directory-plugin' ), $mu_dir ), 'error' );
                 $success = false;
             }
 
             if ( $success && ! copy( $source, $dest ) ) {
-                $message = array( sprintf( _x( 'Could not copy the AJAX compatibility plugin "%s". Compatibility mode was not activated.', 'admin settings', 'business-directory-plugin' ), $dest ), 'error' );
+                /* translators: %s: file name */
+                $message = array( sprintf( __( 'Could not copy the AJAX compatibility plugin "%s". Compatibility mode was not activated.', 'business-directory-plugin' ), $dest ), 'error' );
                 $success = false;
             }
 
@@ -1619,5 +1620,3 @@ final class WPBDP__Settings__Bootstrap {
         return $sizes;
     }
 }
-
-// phpcs:enable

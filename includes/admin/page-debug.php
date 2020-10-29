@@ -14,7 +14,7 @@ class WPBDP_Admin_Debug_Page {
 
         // basic BD setup info & tests
         $debug_info['basic']['_title']                        = __( 'Plugin Info', 'business-directory-plugin' );
-        $debug_info['basic']['Core version']                  = WPBDP_VERSION;
+        $debug_info['basic']['Version']                       = WPBDP_VERSION;
         $debug_info['basic']['Database revision (current)']   = WPBDP_Installer::DB_VERSION;
         $debug_info['basic']['Database revision (installed)'] = get_option( 'wpbdp-db-version' );
 
@@ -40,8 +40,8 @@ class WPBDP_Admin_Debug_Page {
             }
         }
         $debug_info['basic']['Table check'] = $missing_tables
-                                              ? sprintf( _( 'Missing tables: %s', 'debug-info', 'business-directory-plugin' ), implode( ',', $missing_tables ) )
-                                              : _x( 'OK', 'debug-info', 'business-directory-plugin' );
+                                              ? sprintf( __( 'Missing tables: %s', 'business-directory-plugin' ), implode( ',', $missing_tables ) )
+                                              : __( 'OK', 'business-directory-plugin' );
 
         $debug_info['basic']['Main Page'] = sprintf( '%d (%s)', wpbdp_get_page_id( 'main' ), get_post_status( wpbdp_get_page_id( 'main' ) ) );
         $debug_info['basic']              = apply_filters( 'wpbdp_debug_info_section', $debug_info['basic'], 'basic' );
@@ -72,7 +72,7 @@ class WPBDP_Admin_Debug_Page {
         $debug_info['options'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['options'], 'options' );
 
         // environment info
-        $debug_info['environment']['_title']            = _x( 'Environment', 'debug-info', 'business-directory-plugin' );
+        $debug_info['environment']['_title']            = __( 'Environment', 'business-directory-plugin' );
         $debug_info['environment']['WordPress version'] = get_bloginfo( 'version', 'raw' );
         $debug_info['environment']['OS']                = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
 
@@ -96,7 +96,7 @@ class WPBDP_Admin_Debug_Page {
             $debug_info['environment']['cURL SSL library'] = $data['ssl_version'];
             $debug_info['environment']['Test SSL setup']   = array(
 				'exclude' => true,
-				'html'    => '<a href="#" class="test-ssl-link">' . _x( 'Test SSL setup...', 'debug info', 'business-directory-plugin' ) . '</a>',
+				'html'    => '<a href="#" class="test-ssl-link">' . __( 'Test SSL setup...', 'business-directory-plugin' ) . '</a>',
 			);
         } else {
             $debug_info['environment']['cURL version']     = 'N/A';
@@ -111,7 +111,7 @@ class WPBDP_Admin_Debug_Page {
             foreach ( $debug_info as &$section ) {
                 foreach ( $section as $k => $v ) {
                     if ( $k == '_title' ) {
-                        printf( '== %s ==', $v );
+                        printf( '== %s ==', esc_html( $v ) );
                         print PHP_EOL;
                         continue;
                     }
@@ -126,30 +126,30 @@ class WPBDP_Admin_Debug_Page {
                         }
                     }
 
-                    printf( '%-33s = %s', $k, is_array( $v ) ? $v['value'] : $v );
+                    printf( '%-33s = %s', esc_html( $k ), is_array( $v ) ? esc_html(  $v['value'] ) : esc_html( $v ) );
                     print PHP_EOL;
                 }
 
-                print str_repeat( PHP_EOL, 2 );
+                print PHP_EOL . PHP_EOL;
             }
             return;
         }
 
-        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/debug-info.tpl.php', array( 'debug_info' => $debug_info ) );
+        wpbdp_render_page( WPBDP_PATH . 'templates/admin/debug-info.tpl.php', array( 'debug_info' => $debug_info ), true );
     }
 
     function handle_download() {
         global $pagenow;
 
         if ( ! current_user_can( 'administrator' ) || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
-             || ! isset( $_GET['page'] ) || 'wpbdp-debug-info' != $_GET['page'] ) {
+             || 'wpbdp-debug-info' !== wpbdp_get_var( array( 'param' => 'page' ) ) ) {
             return;
         }
 
-        if ( isset( $_GET['download'] ) && 1 == $_GET['download'] ) {
+        if ( 1 == wpbdp_get_var( array( 'param' => 'download' ) ) ) {
                     header( 'Content-Description: File Transfer' );
                     header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
-                    header( 'Content-Disposition: attachment; filename=' . 'wpbdp-debug-info.txt' );
+                    header( 'Content-Disposition: attachment; filename=wpbdp-debug-info.txt' );
                     header( 'Pragma: no-cache' );
                     $this->dispatch( true );
                     exit;
@@ -167,7 +167,7 @@ class WPBDP_Admin_Debug_Page {
         $data = curl_exec( $ch );
 
         if ( 0 !== curl_errno( $ch ) ) {
-            die( 'cURL error: ' . curl_error( $ch ) );
+            die( 'cURL error: ' . wp_kses_post( curl_error( $ch ) ) );
         }
 
         curl_close( $ch );
@@ -178,9 +178,9 @@ class WPBDP_Admin_Debug_Page {
 
         $json = json_decode( $data );
 
-        echo "Cipher Suites:\n" . implode( ',', $json->given_cipher_suites ) . "\n\n";
-        echo "TLS Version:\n" . $json->tls_version . "\n\n";
-        echo "Rating:\n" . $json->rating;
+        echo "Cipher Suites:\n" . wp_kses_post( implode( ',', $json->given_cipher_suites ) ) . "\n\n";
+        echo "TLS Version:\n" . wp_kses_post( $json->tls_version ) . "\n\n";
+        echo "Rating:\n" . wp_kses_post( $json->rating );
 
         exit();
     }
