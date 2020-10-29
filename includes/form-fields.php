@@ -361,6 +361,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'field_type'    => 'select',
 					'association'   => 'category',
 					'weight'        => 8,
+					'validators'    => array( 'required' ),
 					'display_flags' => array( 'excerpt', 'listing', 'search' ),
 					'tag'           => 'category',
 				),
