@@ -23,14 +23,11 @@
 }
 
 .wpbdp-listing .listing-title,
-.wpbdp-listing .listing-title a,
-.wpbdp-listing .listing-title h2 {
+.wpbdp-listing .listing-title a {
     text-decoration: none;
     font-weight: bold;
 }
-.wpbdp-listing .listing-title a,
-.wpbdp-listing .listing-title h2 {
-    color: #044f8d;
+.wpbdp-listing .listing-title a {
     font-size: 34px;
 }
 

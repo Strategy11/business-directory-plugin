@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.5.1
-Stable tag: 5.7.5
+Stable tag: 5.7.6
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -161,6 +161,10 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+
+= Version 5.7.6 =
+* Validate field exists before using if to configure search. (#4705)
+* Minor tweaks in styling.
 
 = Version 5.7.5 =
 * New - Upgrade link in licenses tab for lite version. (#4699)

@@ -5,8 +5,6 @@
  * @package BDP/Templates/parts/Listing Buttons
  */
 
-// phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
-// phpcs:disable WordPress.XSS.EscapeOutput.UnsafePrintingFunction
 $buttons = '';
 ?>
 <div class="listing-actions cf">
@@ -40,7 +38,7 @@ if ( 'single' === $view ) :
     if ( wpbdp_get_option( 'show-directory-button' ) ) :
         $buttons .= sprintf(
             '<div style="display: inline;" class="back-to-dir-buttons"><input type="button" value="%1$s" onclick="window.location.href = \'%2$s\'" class="wpbdp-hide-on-mobile button back-to-dir wpbdp-button" /><input type="button" value="←" onclick="window.location.href = \'%2$s\'" class="wpbdp-show-on-mobile button back-to-dir wpbdp-button" /></div>',
-            __( '← Return to Directory', 'business-directory-plugin' ),
+            __( 'Return to Directory', 'business-directory-plugin' ),
             wpbdp_url( '/' )
         );
     endif;
@@ -81,5 +79,8 @@ if ( 'single' === $view ) :
     endif;
     ?>
 <?php endif; ?>
-<?php echo apply_filters( 'wpbdp-listing-buttons', $buttons, $listing_id ); ?>
+<?php
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+echo apply_filters( 'wpbdp-listing-buttons', $buttons, $listing_id );
+?>
 </div>
