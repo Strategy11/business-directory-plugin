@@ -27,7 +27,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 
     public function get_title() {
-        return esc_html_x( 'Add Listing', 'views', 'business-directory-plugin' );
+        return __( 'Add Listing', 'business-directory-plugin' );
     }
 
     public function enqueue_resources() {

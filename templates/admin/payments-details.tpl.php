@@ -70,7 +70,7 @@ wpbdp_admin_notices();
                             <div id="delete-action">
                                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_delete&payment-id=' . $payment->id ) ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm"><?php esc_html_e( 'Delete Payment', 'business-directory-plugin' ); ?></a>
                             </div>
-                            <input type="submit" class="button button-primary right" value="<?php esc_html_e( 'Save Payment', 'business-directory-plugin' ); ?>" />
+                            <input type="submit" class="button button-primary right" value="<?php esc_attr_e( 'Save Payment', 'business-directory-plugin' ); ?>" />
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -211,4 +211,4 @@ wpbdp_admin_notices();
         <?php esc_html_e( '← Return to "Payment History"', 'business-directory-plugin' ); ?>
     </a>
 <?php endif; ?>
-<?php wpbdp_admin_footer(); ?>
+<?php wpbdp_admin_footer( 'echo' ); ?>

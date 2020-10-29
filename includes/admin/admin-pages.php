@@ -82,11 +82,14 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 }
 
 
-function wpbdp_admin_footer() {
-    ob_start();
+function wpbdp_admin_footer( $echo = false ) {
+    if ( ! $echo ) {
+        ob_start();
+    }
 ?>
 </div><br class="clear" /></div>
-<?php
-	return ob_get_clean();
+    <?php
+    if ( ! $echo ) {
+        return ob_get_clean();
+    }
 }
-
