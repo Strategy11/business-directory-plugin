@@ -66,7 +66,7 @@ $login_args['redirect'] = $redirect_to;
                     </p>
                     <p>
                         <label for="wpbdp-access-key-value">
-                            <?php esc_html__( 'Access Key', 'business-directory-plugin' ); ?>
+                            <?php esc_html_e( 'Access Key', 'business-directory-plugin' ); ?>
                         </label>
                         <input id="wpbdp-access-key-value" type="text" name="access_key" value="" placeholder="<?php esc_attr_e( 'Access Key', 'business-directory-plugin' ); ?>" required/>
                     </p>

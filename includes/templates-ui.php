@@ -316,7 +316,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'create', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            __( 'Create A Listing', 'business-directory-plugin' ),
+            __( 'Add Listing', 'business-directory-plugin' ),
             wpbdp_url( 'submit_listing' )
         );
         $buttons_count++;

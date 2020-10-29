@@ -226,7 +226,7 @@ class WPBDP__Shortcodes {
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
          *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
          * Example:
-         *  - Display a set of 10 random listings, including the directory menu with only the "Create A Listing" button:
+         *  - Display a set of 10 random listings, including the directory menu with only the "Add Listing" button:
          *
          *    `[businessdirectory-random-listings items_per_page=10 menu=1 buttons="create"]`
          * Since:
