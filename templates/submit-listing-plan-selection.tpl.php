@@ -5,6 +5,7 @@
  * @package BDP/Templates/Plan Selection
  */
 
+$single_plan = ! ( count( $plans ) > 1 );
 ?>
 <div class="wpbdp-category-selection-with-tip">
     <?php if ( $editing ) : ?>
@@ -58,8 +59,8 @@
 <?php else : ?>
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
         <?php if ( ! $editing ) : ?>
-            <div class="wpbdp-plan-selection wpbdp-plan-selection-with-tip">
-                <?php if ( count( $plans ) > 1 ) : ?>
+            <div class="wpbdp-plan-selection <?php echo ! $single_plan ? 'wpbdp-plan-selection-with-tip' : ''; ?>">
+                <?php if ( ! $single_plan ) : ?>
                     <div class="wpbdp-msg tip"><?php _ex( 'Please choose a fee plan for your listing:', 'submit', 'business-directory-plugin' ); ?></div>
                 <?php endif; ?>
                 <?php
@@ -71,7 +72,7 @@
                     )
                 );
                 ?>
-                <?php if ( count( $plans ) === 1 ) : ?>
+                <?php if ( $single_plan ) : ?>
                     <div class="wpbdp_continue_to_fields_action">
                         <input type="submit" name="continue-to-fields" value="<?php _ex( 'Continue', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
                     </div>
