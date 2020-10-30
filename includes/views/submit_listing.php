@@ -35,6 +35,16 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     public function enqueue_resources() {
         wp_enqueue_style( 'dashicons' );
 
+        $rootline_color = wpbdp_get_option( 'rootline-color' );
+
+        wp_add_inline_style(
+            'wpbdp-base-css',
+            ".rootline-circle {
+                background: {$rootline_color};
+                border: 1px solid {$rootline_color};
+            }"
+        );
+
         wp_enqueue_script(
             'wpbdp-submit-listing',
             WPBDP_URL . 'assets/js/submit-listing.min.js',
@@ -321,6 +331,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $res->add( 'messages', $this->messages );
         $res->add( 'sections', $sections );
         $res->send();
+    }
+
+    public function load_css() {
+        echo '<style type="text/css">';
+
+        
+        
+        echo '</style>';
     }
 
     public function messages( $msg, $type = 'notice', $context = 'general' ) {
