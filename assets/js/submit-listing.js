@@ -324,9 +324,11 @@ jQuery(function($) {
                 prev_section.removeClass('hidden').show();
             }
 
-            $( 'html, body' ).delay(100).animate({
+            $( 'html, body' ).animate({
                 scrollTop: self.$form.find('.wpbdp-submit-rootline').offset().top
-            }, 500);
+            }, 500, function() {
+                Reusables.Breakpoints.evaluate();
+            });
         } );
 
         // $( '#wpbdp-submit-listing' ).on( 'click', 'button.submit-next-button', function( e ) {

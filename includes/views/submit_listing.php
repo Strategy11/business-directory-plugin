@@ -878,7 +878,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $form_username = ! empty( $_POST['user_username'] ) ? trim( $_POST['user_username'] ) : '';
         $form_email = ! empty( $_POST['user_email'] ) ? trim( $_POST['user_email'] ) : '';
 
-        if ( ( $this->saving() && 'required' == $mode ) || $form_create ) {
+        if ( $this->should_validate_section( 'account_creation' ) && ( $this->saving() && 'required' == $mode ) || $form_create ) {
             $error = false;
 
             if ( ! $form_username ) {
