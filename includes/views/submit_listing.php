@@ -486,12 +486,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function prepare_sections() {
-        $next_section = '';
+        $next_section = $this->current_section ? '' : 'plan_selection';
         foreach ( $this->sections as &$section ) {
             $callback = WPBDP_Utils::normalize( $section['id'] );
 
             if ( ! $this->listing->has_fee_plan() && 'plan_selection' !== $section['id'] ) {
-                $this->current_section = 'plan_selection';
                 $section['flags'][] = 'collapsed';
                 $section['flags'][] = 'disabled';
                 $section['html']    = _x( '(Please choose a fee plan above)', 'submit listing', 'business-directory-plugin' );
@@ -529,16 +528,23 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $section['prev_section'] = $this->find_prev_section( $section['id'] );
             $section['next_section'] = $this->find_next_section( $section['id'] );
 
-            if ( $section['prev_section'] !== $this->current_section ) {
-                $section['flags'][] = 'hidden';
+            if ( ! $next_section && in_array( 'has-error', $this->sections[$section['id']]['flags'] ) ) {
+                $next_section = $section['id'];
                 continue;
             }
 
-            $next_section = $section['id'];
+            if ( $section['id'] === $this->current_section ) {
+                $next_section = $section['next_section'];
+            }
+
+            if ( ! $next_section || $next_section !== $section['id'] ) {
+                $section['flags'][] = 'hidden';
+            }
         }
 
         if ( $next_section ) {
             $this->current_section = $next_section;
+            $this->prevent_save    = true;
         }
 
         $this->sections = apply_filters( 'wpbdp_submit_prepare_sections', $this->sections, $this );
@@ -718,7 +724,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $field_values[ $field->get_id() ] = $value;
 
-            if ( ! empty( $_POST['save_listing'] ) ) {
+            if ( $this->should_validate_section( 'listing_fields' ) ) {
                 $field_errors = null;
                 $validate_res = apply_filters_ref_array(
                     'wpbdp_listing_submit_validate_field',
@@ -828,7 +834,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
-        if ( ! empty( $_POST['save_listing'] ) && ! count( $images_meta ) && wpbdp_get_option( 'enforce-image-upload' ) ) {
+        if ( $this->should_validate_section( 'listing_images' ) && ! count( $images_meta ) && wpbdp_get_option( 'enforce-image-upload' ) ) {
             $this->prevent_save = true;
             $this->messages( _x( 'Image upload is required, please provide at least one image and submit again.', 'listing submit', 'business-directory-plugin' ), 'error', 'listing_images' );
         }
@@ -954,7 +960,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $is_url = wpbdp_starts_with( $tos, 'http://', false ) || wpbdp_starts_with( $tos, 'https://', false );
         $accepted = ! empty( $_POST['terms-and-conditions-agreement'] ) && 1 == $_POST['terms-and-conditions-agreement'];
 
-        if ( $this->saving() && ! $accepted ) {
+        if ( $this->should_validate_section( 'terms_and_conditions' ) && ! $accepted ) {
             $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'business-directory-plugin' ), 'error', 'terms_and_conditions' );
             $this->prevent_save = true;
         }
@@ -1023,6 +1029,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         return $this->sections_keys[$section_pos + 1];
+    }
+
+    public function should_validate_section( $section_id ) {
+        $current_section_pos = array_search( $this->current_section, $this->sections_keys );
+        $section_pos         = array_search( $section_id, $this->sections_keys );
+
+        if ( false === $current_section_pos || false === $section_pos || $section_pos > $current_section_pos ) {
+            return false;
+        }
+
+        return true;
     }
 
     private function save_listing() {

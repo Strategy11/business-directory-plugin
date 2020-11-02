@@ -2,6 +2,7 @@
 // TODO: We might want to integrate the validation part inside the $field itself.
 ?>
 
+<a class="reset" href="#"><?php echo esc_html_x( 'Clear Form', 'submit listing', 'business-directory-plugin' ); ?></a>
 <?php foreach ( $fields as $field ): ?>
     <?php $field_output = $field->render( $field_values[ $field->get_id() ], 'submit', $listing ); ?>
     <?php $field_errors = ! empty( $validation_errors[ $field->get_id() ] ) ? $validation_errors[ $field->get_id() ] : false; ?>

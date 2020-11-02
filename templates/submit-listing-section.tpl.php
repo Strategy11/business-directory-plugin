@@ -11,7 +11,7 @@
         <div class="wpbdp-submit-listing-form-actions">
         <?php if ( ! empty( $section['prev_section'] ) ): ?>
             <?php if ( empty( $section['next_section'] ) ): ?>
-                <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section']) ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
+                <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
                 <?php if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ): ?>
                 <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
                 <?php else: ?>
@@ -22,11 +22,11 @@
                     <?php endif; ?>
                 <?php endif; ?>
             <?php else : ?>
-                <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section']) ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
-                <button class="submit-next-button" data-next-section="<?php echo esc_attr( $section['next_section']) ?>"><?php esc_html_e( 'Next', 'business-directory-plugin' ); ?></button>
+                <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
+                <button class="submit-next-button" data-next-section="<?php echo esc_attr( $section['next_section'] ); ?>"><?php esc_html_e( 'Next', 'business-directory-plugin' ); ?></button>
             <?php endif; ?>
-        <?php elseif ( 'plan_selection' === $section['id'] && ! empty( $section['next_section'] ) && $listing && $listing->get_fee_plan() ) : ?>
-            <button class="submit-next-button" data-next-section="<?php echo esc_attr( $section['next_section']) ?>"><?php esc_html_e( 'Next', 'business-directory-plugin' ); ?></button>
+        <?php else : ?>
+            <button class="submit-next-button" data-next-section="<?php echo esc_attr( $section['next_section'] ); ?>"><?php esc_html_e( 'Next', 'business-directory-plugin' ); ?></button>
         <?php endif; ?>
         </div>
     </div>
