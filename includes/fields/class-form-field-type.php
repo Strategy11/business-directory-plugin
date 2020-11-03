@@ -230,10 +230,22 @@ class WPBDP_Form_Field_Type {
 
                 $html .= sprintf( '<div class="%s" %s>', implode( ' ', $field->get_css_classes( $render_context ) ), $html_attributes );
                 $html .= '<div class="wpbdp-form-field-label">';
+
+                if ( $extra && $extra['field_errors'] ) {
+                    wpbdp_sanitize_value( 'esc_html', $extra['field_errors'] );
+                    $html .= '<div class="wpbdp-form-field-validation-error-wrapper">
+                            <div class="wpbdp-form-field-validation-errors wpbdp-clearfix">';
+                    $html .= implode( '<br />', $extra['field_errors'] );
+                    $html .= '</div>
+                        </div>
+                        <div class="dashicons dashicons&#45;warning wpbdp-error"></div>';
+                }
+                
                 $html .= sprintf( '<label for="%s">%s</label>', 'wpbdp-field-' . $field->get_id(), apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) );
 
-                if ( $field->has_validator( 'required' ) && 'widget' !== $render_context  )
+                if ( $field->has_validator( 'required' ) && 'widget' !== $render_context  ) {
                     $html .= '<span class="wpbdp-form-field-required-indicator">*</span>';
+                }
 
                 $html .= '</div>';
 

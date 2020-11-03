@@ -35,15 +35,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     public function enqueue_resources() {
         wp_enqueue_style( 'dashicons' );
 
-        $rootline_color = wpbdp_get_option( 'rootline-color' );
-
-        wp_add_inline_style(
-            'wpbdp-base-css',
-            ".rootline-circle {
-                background: {$rootline_color};
-                border: 1px solid {$rootline_color};
-            }"
-        );
+        $this->load_css();
 
         wp_enqueue_script(
             'wpbdp-submit-listing',
@@ -333,14 +325,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $res->send();
     }
 
-    public function load_css() {
-        echo '<style type="text/css">';
-
-        
-        
-        echo '</style>';
-    }
-
     public function messages( $msg, $type = 'notice', $context = 'general' ) {
         if ( ! isset( $this->messages[ $context ] ) ) {
             $this->messages[ $context ] = array();
@@ -534,6 +518,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
 
             if ( $section['id'] === $this->current_section ) {
+                // Compatibility with attachments module.
+                if ( 'attachments' === $section['id'] && ! empty( wpbdp_get_var( array( 'param' => 'attachment-upload' ), 'post' ) ) ) {
+                    continue;
+                }
                 $next_section = $section['next_section'];
             }
 
@@ -996,10 +984,32 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             'listing'  => $this->listing,
             'editing'  => $this->editing,
             'sections' => $this->sections,
+            'submit'   => $this,
             'echo'     => true
         );
 
         return wpbdp_render( 'submit-listing-rootline', $params );
+    }
+
+    public function load_css() {
+        $rootline_color = wpbdp_get_option( 'rootline-color' );
+
+        wp_add_inline_style(
+            'wpbdp-base-css',
+            ".rootline-circle {
+                border: 1px solid {$rootline_color};
+            }
+            .rootline-circle.wpbdp-submit-checked {
+                background: {$rootline_color};
+            }
+            .wpbdp-submit-checked {
+                color: #fff;
+            }
+
+            #wpbdp-submit-listing.wpbdp-submit-page .wpbdp-rootline-section .rootline-bar {
+                border-color: {$rootline_color};
+            "
+        );
     }
 
     private function find_prev_section( $section_id = null ) {

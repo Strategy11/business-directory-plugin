@@ -180,8 +180,8 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             $icon_input .= '</div>';
 
             $listing_id = 0;
-            if ( 'submit' === $context ) {
-                $listing_id = $extra->get_id();
+            if ( 'submit' === $context && ! empty( $extra['listing'] ) ) {
+                $listing_id = $extra['listing']->get_id();
             } elseif ( is_admin() ) {
                 global $post;
                 if ( ! empty( $post ) && WPBDP_POST_TYPE === $post->post_type ) {

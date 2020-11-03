@@ -318,10 +318,16 @@ jQuery(function($) {
             var prev_section_id = $( this ).attr( 'data-previous-section' );
             var prev_section    = self.$form.find( '.wpbdp-submit-listing-section' ).filter( '[data-section-id="' + prev_section_id + '"]' );
             if ( prev_section.length ) {
-                var current_section = $( this ).parents('.wpbdp-submit-listing-section');
-                // self.$form.find('input[name="current_section"]').val(prev_section_id);
+                var current_section_id = self.$form.find('input[name="current_section"]').val();
+                var current_section    = $( this ).parents('.wpbdp-submit-listing-section');
+                self.$form.find('input[name="current_section"]').val(prev_section_id);
                 current_section.addClass('hidden').hide();
                 prev_section.removeClass('hidden').show();
+
+                var rootline = $( '.wpbdp-submit-rootline' );
+                var rootline_current_section = rootline.find( '.wpbdp-submit-section-' + current_section_id );
+                rootline_current_section.find( '.wpbdp-submit-checked' ).removeClass('wpbdp-submit-checked');
+                rootline_current_section.find( '.rootline-counter').html( rootline_current_section.attr('data-section-pos') );
             }
 
             $( 'html, body' ).animate({
