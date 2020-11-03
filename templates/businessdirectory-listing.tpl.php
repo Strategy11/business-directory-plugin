@@ -1,5 +1,5 @@
 <div class="listing-title">
-    <h2><?php echo $title; ?></h2>
+    <h1><?php echo $title; ?></h1>
 </div>
 
 <?php echo $is_sticky ? $sticky_tag : ''; ?>
