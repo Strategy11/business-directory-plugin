@@ -224,67 +224,6 @@ function wpbdp_capture_action($hook) {
     return $output;
 }
 
-/**
- * Get any value from the $_SERVER
- *
- * @since 5.7.6
- *
- * @param string $value
- *
- * @return string
- */
-function wpbdp_get_server_value( $value ) {
-	return isset( $_SERVER[ $value ] ) ? wp_strip_all_tags( wp_unslash( $_SERVER[ $value ] ) ) : '';
-}
-
-/**
- * @since 5.7.6
- *
- * @param array $args - Includes 'param' and 'sanitize'.
- */
-function wpbdp_get_var( $args, $type = 'get' ) {
-    $defaults = array(
-        'sanitize' => 'sanitize_text_field',
-        'default'  => '',
-    );
-    $args     = wp_parse_args( $args, $defaults );
-    $value    = $args['default'];
-    if ( $type === 'get' ) {
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $value = isset( $_GET[ $args['param'] ] ) ? wp_unslash( $_GET[ $args['param'] ] ) : $value;
-    } elseif ( $type === 'post' ) {
-        // phpcs:ignore Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $value = isset( $_POST[ $args['param'] ] ) ? wp_unslash( $_POST[ $args['param'] ] ) : $value;
-    } else {
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $value = isset( $_REQUEST[ $args['param'] ] ) ? wp_unslash( $_REQUEST[ $args['param'] ] ) : $value;
-    }
-
-    wpbdp_sanitize_value( $args['sanitize'], $value );
-
-    return $value;
-}
-
-/**
- * @since 5.7.6
- *
- * @param string $sanitize
- * @param array|string $value
- */
-function wpbdp_sanitize_value( $sanitize, &$value ) {
-    if ( empty( $sanitize ) ) {
-        return;
-    }
-    if ( is_array( $value ) ) {
-        $temp_values = $value;
-        foreach ( $temp_values as $k => $v ) {
-            wpbdp_sanitize_value( $sanitize, $value[ $k ] );
-        }
-    } else {
-        $value = call_user_func( $sanitize, $value );
-    }
-}
-
 function wpbdp_capture_action_array($hook, $args=array()) {
     $output = '';
 
