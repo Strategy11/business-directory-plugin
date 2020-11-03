@@ -337,22 +337,6 @@ jQuery(function($) {
             });
         } );
 
-        // $( '#wpbdp-submit-listing' ).on( 'click', 'button.submit-next-button', function( e ) {
-        //     e.preventDefault();
-        //     var next_section_id = $( this ).attr( 'data-next-section' );
-        //     var next_section    = self.$form.find( '.wpbdp-submit-listing-section' ).filter( '[data-section-id="' + next_section_id + '"]' );
-        //     if ( next_section.length ) {
-        //         var current_section = $( this ).parents('.wpbdp-submit-listing-section');
-        //         self.$form.find('input[name="current_section"]').val(next_section_id);
-        //         current_section.addClass('hidden').hide();
-        //         next_section.removeClass('hidden').show();
-        //     }
-
-        //     $( 'html, body' ).delay(100).animate({
-        //         scrollTop: self.$form.find('.wpbdp-submit-rootline').offset().top
-        //     }, 500);
-        // } );
-
         $( window ).trigger( 'wpbdp_submit_init' );
     };
     $.extend( wpbdp.submit_listing.Handler.prototype, {
