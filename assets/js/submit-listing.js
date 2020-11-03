@@ -383,22 +383,6 @@ jQuery(function($) {
             }
 
             var self = this;
-            // this.$submit.on( 'change, click', 'input[name="listing_plan"], input[name="continue-to-fields"]', function( e ) {
-            //     e.preventDefault();
-            //     if ( $( this ).parents( '.wpbdp-plan' ).attr( 'data-disabled' ) == 1 ) {
-            //         return false;
-            //     }
-
-            //     var data = self.$form.serialize();
-            //     data += '&action=wpbdp_ajax&handler=submit_listing__sections';
-
-            //     self.ajax( data, function( res ) {
-            //         self.refresh( res );
-            //         $( 'html, body' ).delay(100).animate({
-            //             scrollTop: self.$form.find('.wpbdp-submit-listing-section-plan_selection').offset().top
-            //         }, 500);
-            //     } );
-            // } );
 
             this.$submit.on( 'click', '#change-plan-link a', function(e) {
                 e.preventDefault();
