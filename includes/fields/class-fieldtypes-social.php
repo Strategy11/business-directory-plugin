@@ -6,12 +6,8 @@
  * @since 5.3.5
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_FieldTypes_Social
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
@@ -73,7 +69,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         $content .= '</select>';
 
-        $settings['display_order'][] = _x( 'Field Display Order', 'form-fields admin', 'business-directory-plugin' );
+        $settings['display_order'][] = __( 'Field Display Order', 'business-directory-plugin' );
         $settings['display_order'][] = $content;
 
         return self::render_admin_settings( $settings );

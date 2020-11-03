@@ -1,13 +1,21 @@
-<div class="wpbdp-submit-listing-section wpbdp-submit-listing-section-<?php echo $section['id']; ?> <?php echo implode( ' ', $section['flags'] ); ?>" data-section-id="<?php echo $section['id']; ?>">
+<div class="wpbdp-submit-listing-section wpbdp-submit-listing-section-<?php echo esc_attr( $section['id'] ); ?> <?php echo esc_attr( implode( ' ', $section['flags'] ) ); ?>" data-section-id="<?php echo esc_attr( $section['id'] ); ?>">
     <div class="wpbdp-submit-listing-section-header">
-        <span class="collapse-indicator collapsed">►</span><span class="collapse-indicator expanded">▼</span><span class="title"><?php echo $section['title']; ?></span>
+        <span class="collapse-indicator collapsed">►</span><span class="collapse-indicator expanded">▼</span><span class="title"><?php echo esc_html( $section['title'] ); ?></span>
     </div>
     <div class="wpbdp-submit-listing-section-content">
         <?php if ( $messages ): ?>
-            <div class="wpbdp-submit-listing-section-messages"><?php echo $messages; ?></div>
+            <div class="wpbdp-submit-listing-section-messages">
+                <?php
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo $messages;
+                ?>
+            </div>
         <?php endif; ?>
 
-        <?php echo $section['html']; ?>
+        <?php
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $section['html'];
+        ?>
         <div class="wpbdp-submit-listing-form-actions">
         <?php if ( ! empty( $section['prev_section'] ) ): ?>
             <?php if ( empty( $section['next_section'] ) ): ?>
