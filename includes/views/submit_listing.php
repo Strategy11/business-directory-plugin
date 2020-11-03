@@ -960,7 +960,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( ! $is_url ) {
             $html .= '<label for="wpbdp-terms-and-conditions">';
             $html .= _x( 'Terms and Conditions:', 'templates', 'business-directory-plugin' );
-            $html .= '</label><br />';
+            $html .= '</label>';
             $html .= sprintf( '<textarea id="wpbdp-terms-and-conditions" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
         }
 
@@ -992,23 +992,33 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     public function load_css() {
-        $rootline_color = wpbdp_get_option( 'rootline-color' );
+        $rootline_color = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
+
+        if ( ! $rootline_color ) {
+            return;
+        }
 
         wp_add_inline_style(
             'wpbdp-base-css',
             ".rootline-circle {
                 border: 1px solid {$rootline_color};
             }
-            .rootline-circle.wpbdp-submit-checked {
-                background: {$rootline_color};
-            }
+
             .wpbdp-submit-checked {
                 color: #fff;
             }
 
             #wpbdp-submit-listing.wpbdp-submit-page .wpbdp-rootline-section .rootline-bar {
                 border-color: {$rootline_color};
+            }
+            
+            #wpbdp-submit-listing.wpbdp-submit-page .submit-next-button,
+            #wpbdp-submit-listing.wpbdp-submit-page #wpbdp-submit-listing-submit-btn,
+            .rootline-circle.wpbdp-submit-checked {
+                background: {$rootline_color};
+            }
             "
+            
         );
     }
 

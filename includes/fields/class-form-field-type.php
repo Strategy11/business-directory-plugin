@@ -152,7 +152,7 @@ class WPBDP_Form_Field_Type {
     }
 
     public function convert_input( &$field, $input ) {
-        wpbdp_sanitize_value( 'sanitize_text_field', $input );
+        return $input;
     }
 
     /**
