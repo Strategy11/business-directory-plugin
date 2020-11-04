@@ -5,6 +5,7 @@
 }
 
 #wpbdp-submit-listing.wpbdp-submit-page {
+    margin: auto;
 
     .wpbdp-submit-rootline {
         margin: 20px auto;
@@ -13,7 +14,6 @@
 
         .wpbdp-rootline-section {
             position: relative;
-            display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
@@ -26,21 +26,18 @@
                 border-radius: 48px;
                 vertical-align: top;
 
-                .rootline-counter {
-                    display: inline-block;
-                    width: 32px;
-                    height: 32px;
-                    line-height: 32px;
-                    border-radius: 32px;
-                    margin-top: 3px;
-                    font-size: 20px;
-                    font-weight: bold;
+                &.wpbdp-submit-checked {
+                    color: #fff;
+                }
 
-                    .rootline-checkmark {
-                        position: relative;
-                        top: calc(50% - 4px);
-                        margin: auto;
-                    }
+                .rootline-checkmark {
+                    margin: auto;
+                    margin-top: ~'calc(50% - 7px)';
+                }
+
+                .rootline-counter {
+                    font-size: 20px;
+                    height: 100%;
                 }
             }
 
@@ -48,12 +45,6 @@
                 margin: 10px auto 0;
                 text-transform: uppercase;
                 font-size: 12px;
-            }
-
-            &:first-of-type {
-                .rootline-bar.bar-left {
-                    background-image:none;
-                }
             }
 
             &:last-of-type {
@@ -65,20 +56,17 @@
     }
 
     .rootline-bar {
+        background-position: bottom;
+        background-size: 10px;
+        background-repeat: repeat-x;
         position: relative;
         height: 1px;
-        border-top: 1px dashed;
-        width: ~"calc(49% - 24px)";
+        width: ~"calc(100% - 48px)";
         z-index: -1;
-
-        &.bar-left {
-            top: 25px;
-            margin-right: ~"calc(50% + 23px)";
-        }
 
         &.bar-right {
             top: 24px;
-            margin-left: ~"calc(50% + 23px)";
+            margin-left: ~"calc(50% + 25px)";
         }
     }
 
@@ -277,19 +265,8 @@
             display: none;
         }
 
-        .wpbdp-submit-listing-section-messages,
-        a.reset {
-            display: grid;
-            grid-column: span 2 / span 2;
-
-            > * {
-                display: grid
-            }
-        }
-
         .wpbdp-submit-listing-form-actions {
             display: block;
-            grid-column: span 2 / span 2;
         }
     }
 
@@ -303,10 +280,8 @@
         }
 
         &.wpbdp-form-field-type-select:not(.wpbdp-form-field-association-category) {
-            grid-column: span 1 / span 1;
     
             &.wpbdp-form-field-association-region {
-                grid-column: span 2 / span 2;
 
                 &.wpbdp-regions-hidden {
                     display: none;
@@ -320,7 +295,6 @@
         }
 
         .wpbdp-form-field-label {
-            position: relative;
             label {
                 display: inline-block;
                 line-height: 29px
@@ -402,7 +376,7 @@
     &.wpbdp-submit-page-tiny,
     &.wpbdp-submit-page-small {
         .wpbdp-form-field {
-            grid-column: span 2 / span 2;
+            grid-column: span 6 / span 6;
         }
     }
 

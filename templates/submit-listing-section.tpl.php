@@ -4,7 +4,7 @@
     </div>
     <div class="wpbdp-submit-listing-section-content <?php echo ! empty( $section['content_css_classes'] ) ? esc_attr( $section['content_css_classes'] ) : ''; ?>">
         <?php if ( $messages ): ?>
-            <div class="wpbdp-submit-listing-section-messages">
+            <div class="wpbdp-submit-listing-section-messages wpbdp-full">
                 <?php
                 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $messages;

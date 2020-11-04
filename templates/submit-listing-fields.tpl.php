@@ -13,4 +13,4 @@ $args = array( 'listing' => $listing );
 
 <?php do_action( 'wpbdp_view_submit_listing-after_fields', $listing ); ?>
 
-<a class="reset" href="#"><?php echo esc_html_x( 'Clear Form', 'submit listing', 'business-directory-plugin' ); ?></a>
+<a class="reset wpbdp-full" href="#"><?php echo esc_html_x( 'Clear Form', 'submit listing', 'business-directory-plugin' ); ?></a>

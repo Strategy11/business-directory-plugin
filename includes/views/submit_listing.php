@@ -1005,20 +1005,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 border: 1px solid {$rootline_color};
             }
 
-            .wpbdp-submit-checked {
-                color: #fff;
-            }
-
             #wpbdp-submit-listing.wpbdp-submit-page .wpbdp-rootline-section .rootline-bar {
                 background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, {$rootline_color} 50% );
-                background-position: bottom;
-                background-size: 8px;
-                background-repeat: repeat-x;
-                border: none;
-            }
-
-            #wpbdp-submit-listing.wpbdp-submit-page .wpbdp-rootline-section .rootline-bar.bar-left {
-                background-image: linear-gradient(to left, {$rootline_color} 50%, rgba(255,255,255,0) 50% );
             }
             
             #wpbdp-submit-listing.wpbdp-submit-page .submit-next-button,

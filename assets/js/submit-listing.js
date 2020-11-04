@@ -327,7 +327,7 @@ jQuery(function($) {
                 var rootline = $( '.wpbdp-submit-rootline' );
                 var rootline_current_section = rootline.find( '.wpbdp-submit-section-' + current_section_id );
                 rootline_current_section.find( '.wpbdp-submit-checked' ).removeClass('wpbdp-submit-checked');
-                rootline_current_section.find( '.rootline-counter').html( rootline_current_section.attr('data-section-pos') );
+                rootline_current_section.find( '.rootline-circle' ).html( rootline_current_section.attr('data-section-pos') );
             }
 
             $( 'html, body' ).animate({
