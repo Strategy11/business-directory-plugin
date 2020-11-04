@@ -241,11 +241,13 @@ class WPBDP_Form_Field_Type {
                 );
                 $html .= '<div class="wpbdp-form-field-label">';
 
-                if ( $extra && $extra['field_errors'] ) {
-                    wpbdp_sanitize_value( 'esc_html', $extra['field_errors'] );
+                if ( $extra && ! empty( $extra['field_errors'] ) ) {
                     $html .= '<div class="wpbdp-form-field-validation-error-wrapper">';
                     $html .= '<div class="wpbdp-form-field-validation-errors wpbdp-clearfix">';
+
+                    wpbdp_sanitize_value( 'esc_html', $extra['field_errors'] );
                     $html .= implode( '<br />', $extra['field_errors'] );
+
                     $html .= '</div></div>';
                     $html .= '<div class="dashicons dashicons&#45;warning wpbdp-error"></div>';
                 }
@@ -279,6 +281,14 @@ class WPBDP_Form_Field_Type {
         }
 
         return $html;
+    }
+
+    public function get_css_classes( $render_context = '', $field = null ) {
+        if ( 'submit' === $render_context ) {
+            return 'wpbdp-full';
+        }
+        
+        return '';
     }
 
     /**

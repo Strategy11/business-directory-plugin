@@ -220,6 +220,14 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         return $html;
     }
 
+    public function get_css_classes( $render_context = '', $field = null ) {
+        if ( 'submit' === $render_context && in_array( $field->get_association(), array( 'category', 'region' ) ) ) {
+            return 'wpbdp-full';
+        }
+        
+        return '';
+    }
+
     public function get_supported_associations() {
         return array( 'category', 'tags', 'meta', 'region' );
     }

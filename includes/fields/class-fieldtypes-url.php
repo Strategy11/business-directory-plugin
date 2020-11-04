@@ -150,7 +150,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         }
 
         $html  = '';
-        $html .= '<div class="wpbdp-url-field-col">';
+        $html .= '<div class="wpbdp-url-field-col wpbdp-half">';
         $html .= sprintf(
             '<label for="%s"><span class="sublabel">%s</span></label>',
             'wpbdp-field-' . $field->get_id() . '-url',
@@ -162,7 +162,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
                           esc_attr( $value[0] ) );
         $html .= '</div>';
 
-        $html .= '<div class="wpbdp-url-field-col">';
+        $html .= '<div class="wpbdp-url-field-col wpbdp-half">';
         $html .= sprintf(
             '<label for="%s"><span class="sublabel">%s</span></label>',
             'wpbdp-field-' . $field->get_id() . '-title',
@@ -173,6 +173,10 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
                           'listingfields[' . $field->get_id() . '][1]',
                           esc_attr( $value[1] ) );
         $html .= '</div>';
+
+        if ( 'submit' === $context ) {
+            $html = '<div class="wpbdp-grid">' . $html . '</div>';
+        }
 
         return $html;
     }

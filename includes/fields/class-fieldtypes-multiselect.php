@@ -43,5 +43,9 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
 
         return parent::process_field_settings( $field );
     }
+
+    public function get_css_classes( $render_context = '', $field = null ) {
+        return 'wpbdp-full';
+    }
 }
 

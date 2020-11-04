@@ -1,0 +1,18 @@
+.wpbdp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: max-content;
+    grid-gap: 0 2%;
+
+    > * {
+        display: grid;
+    }
+}
+
+.wpbdp-half {
+    grid-column: span 1 / span 1;
+}
+
+.wpbdp-full {
+    grid-column: span 2 / span 2;
+}

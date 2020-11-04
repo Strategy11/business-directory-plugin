@@ -2,7 +2,7 @@
     <div class="wpbdp-submit-listing-section-header">
         <span class="collapse-indicator collapsed">►</span><span class="collapse-indicator expanded">▼</span><span class="title"><?php echo esc_html( $section['title'] ); ?></span>
     </div>
-    <div class="wpbdp-submit-listing-section-content">
+    <div class="wpbdp-submit-listing-section-content <?php echo ! empty( $section['content_css_classes'] ) ? esc_attr( $section['content_css_classes'] ) : ''; ?>">
         <?php if ( $messages ): ?>
             <div class="wpbdp-submit-listing-section-messages">
                 <?php
@@ -16,7 +16,7 @@
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $section['html'];
         ?>
-        <div class="wpbdp-submit-listing-form-actions">
+        <div class="wpbdp-submit-listing-form-actions wpbdp-full">
         <?php if ( ! empty( $section['prev_section'] ) ): ?>
             <?php if ( empty( $section['next_section'] ) ): ?>
                 <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>

@@ -96,6 +96,14 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         return $html;
     }
 
+    public function get_css_classes( $render_context = '', $field = null ) {
+        if ( 'submit' === $render_context ) {
+            return 'wpbdp-half';
+        }
+        
+        return '';
+    }
+
     public function convert_input( &$field, $input ) {
         return $this->date_to_storage_format( $field, $input );
     }

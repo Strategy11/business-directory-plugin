@@ -5,7 +5,11 @@
             <div class='rootline-bar bar-left'></div>
             <div class='rootline-bar bar-right'></div>
             <div class="rootline-circle <?php echo $checked ? 'wpbdp-submit-checked' : '' ?>">
-                <span class="rootline-counter"><?php echo $checked ? '✓' : esc_html( $id + 1 ); ?></span>
+                <?php if ( $checked ) : ?>
+                    <img src="<?php echo esc_attr( WPBDP_URL . 'assets/images/checkmark.svg' ); ?>" class="rootline-checkmark">
+                <?php else : ?>
+                    <?php echo esc_html( $id + 1 ); ?>
+                <?php endif; ?>
             </div>
             <div class="rootline-section-name"><?php echo esc_html( $sections[$section_id]['title'] );?></div>
         </div>

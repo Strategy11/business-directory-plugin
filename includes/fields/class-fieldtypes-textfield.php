@@ -72,6 +72,14 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
         return $html;
     }
 
+    public function get_css_classes( $render_context = '', $field = null ) {
+        if ( 'submit' === $render_context && 'title' !== $field->get_association() ) {
+            return 'wpbdp-half';
+        }
+        
+        return 'wpbdp-full';
+    }
+
     public function get_supported_associations() {
         return array( 'title', 'excerpt', 'tags', 'meta' );
     }

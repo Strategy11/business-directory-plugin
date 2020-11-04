@@ -1,9 +1,10 @@
+@import 'wpbdp_grid.less';
+
 .select2-results {
     font-size: 11px;
 }
 
 #wpbdp-submit-listing.wpbdp-submit-page {
-    max-width: 50%;
 
     .wpbdp-submit-rootline {
         margin: 20px auto;
@@ -32,26 +33,32 @@
                     line-height: 32px;
                     border-radius: 32px;
                     margin-top: 3px;
-                    font-size: 17px;
+                    font-size: 20px;
+                    font-weight: bold;
+
+                    .rootline-checkmark {
+                        position: relative;
+                        top: calc(50% - 4px);
+                        margin: auto;
+                    }
                 }
             }
 
             .rootline-section-name {
-                width: 65%;
                 margin: 10px auto 0;
                 text-transform: uppercase;
-                font-size: .5rem;
+                font-size: 12px;
             }
 
             &:first-of-type {
                 .rootline-bar.bar-left {
-                    border:none;
+                    background-image:none;
                 }
             }
 
             &:last-of-type {
                 .rootline-bar.bar-right {
-                    border: none;
+                    background-image: none;
                 }
             }
         }
@@ -66,12 +73,12 @@
 
         &.bar-left {
             top: 25px;
-            margin-right: ~"calc(50% + 24px)";
+            margin-right: ~"calc(50% + 23px)";
         }
 
         &.bar-right {
             top: 24px;
-            margin-left: ~"calc(50% + 24px)";
+            margin-left: ~"calc(50% + 23px)";
         }
     }
 
@@ -155,7 +162,6 @@
 
     .wpbdp-submit-listing-section-messages {
         margin: 0 0 12px 0;
-        padding: 0px 10px;
     }
 
     .wpbdp-plan-selection-with-tip {
@@ -258,7 +264,7 @@
     }
 
     #image-upload-conditions {
-        font-size: 0.6em;
+        font-size: 12px;
         margin-bottom: 5px;
 
         #image-slots-available {
@@ -269,14 +275,6 @@
     .wpbdp-submit-listing-section-listing_fields {
         .wpbdp-submit-listing-section-header {
             display: none;
-        }
-
-        .wpbdp-submit-listing-section-content {
-        display:grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-columns: 33.3%;
-        grid-auto-rows: max-content;
-        grid-gap: 0 2%;
         }
 
         .wpbdp-submit-listing-section-messages,
@@ -296,22 +294,12 @@
     }
 
     .wpbdp-form-field {
-        display: grid;
-        grid-column: span 2 / span 2;
         text-align: left;
-        padding: 10px;
+        font-size: 17px;
 
         .wpbdp-form-field-inner {
             padding: 0;
             width: 100%;
-        }
-
-        &.wpbdp-form-field-association-meta.wpbdp-form-field-type-textfield,
-        &.wpbdp-form-field-association-meta.wpbdp-form-field-type-date,
-        &.wpbdp-form-field-association-meta.wpbdp-form-field-type-image,
-        &.wpbdp-form-field-association-meta.wpbdp-form-field-type-social-twitter,
-        &.wpbdp-form-field-association-tags.wpbdp-form-field-type-textfield {
-            grid-column: span 1 / span 1;
         }
 
         &.wpbdp-form-field-type-select:not(.wpbdp-form-field-association-category) {
@@ -333,7 +321,10 @@
 
         .wpbdp-form-field-label {
             position: relative;
-            display: inline-block;
+            label {
+                display: inline-block;
+                line-height: 29px
+            }
             .wpbdp-form-field-validation-error-wrapper {
                 visibility: hidden;
                 border-radius: 6px;
@@ -355,7 +346,6 @@
     }
 
     textarea.wpbdp-submit-listing-tos {
-        grid-column: span 1 / span 1;
         min-height: 100px;
     }
 
@@ -409,11 +399,10 @@
         font-size: 0.8em;
     }
 
-    .wpbdp-submit-page-tiny,
-    .wpbdp-submit-page-small {
+    &.wpbdp-submit-page-tiny,
+    &.wpbdp-submit-page-small {
         .wpbdp-form-field {
-            grid-column: span 1 / span 1;
-            display: grid;
+            grid-column: span 2 / span 2;
         }
     }
 

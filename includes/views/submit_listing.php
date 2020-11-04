@@ -420,7 +420,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $sections['listing_fields'] = array(
-            'title' => _x( 'Listing Information', 'submit listing', 'business-directory-plugin' ),
+            'title'               => _x( 'Listing Information', 'submit listing', 'business-directory-plugin' ),
+            'content_css_classes' => 'wpbdp-grid'
 		);
 
         if ( wpbdp_get_option( 'allow-images' ) ) {
@@ -1009,7 +1010,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
 
             #wpbdp-submit-listing.wpbdp-submit-page .wpbdp-rootline-section .rootline-bar {
-                border-color: {$rootline_color};
+                background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, {$rootline_color} 50% );
+                background-position: bottom;
+                background-size: 8px;
+                background-repeat: repeat-x;
+                border: none;
+            }
+
+            #wpbdp-submit-listing.wpbdp-submit-page .wpbdp-rootline-section .rootline-bar.bar-left {
+                background-image: linear-gradient(to left, {$rootline_color} 50%, rgba(255,255,255,0) 50% );
             }
             
             #wpbdp-submit-listing.wpbdp-submit-page .submit-next-button,
