@@ -21,12 +21,12 @@
             <?php if ( empty( $section['next_section'] ) ): ?>
                 <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
                 <?php if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ): ?>
-                <input type="submit" value="<?php _ex( 'Complete Listing', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                    <button type="submit" id="wpbdp-submit-listing-submit-btn"><?php esc_html_e( 'Complete Listing', 'business-directory-plugin' ); ?></button>
                 <?php else: ?>
                     <?php if ( $editing ): ?>
-                    <input type="submit" value="<?php _ex( 'Save Changes', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                    <button type="submit" id="wpbdp-submit-listing-submit-btn"><?php esc_html_e( 'Save Changes', 'business-directory-plugin' ); ?></button>
                     <?php else: ?>
-                    <input type="submit" value="<?php _ex( 'Continue to Payment', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
+                    <button type="submit" id="wpbdp-submit-listing-submit-btn"><?php esc_html_e( 'Continue to Payment', 'business-directory-plugin' ); ?></button>
                     <?php endif; ?>
                 <?php endif; ?>
             <?php else : ?>
