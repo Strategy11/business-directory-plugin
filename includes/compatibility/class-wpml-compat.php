@@ -24,6 +24,7 @@ class WPBDP_WPML_Compat {
 
             add_filter( 'wpbdp_listing_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp_category_link', array( &$this, 'add_lang_to_link' ) );
+            add_filter( 'wpbdp_tag_link', array( &$this, 'add_lang_to_link' ) );
             add_filter( 'wpbdp_url_base_url', array( &$this, 'fix_get_page_link' ), 10, 2 );
             add_filter( 'wpbdp_url', array( &$this, 'correct_page_link' ), 10, 3 );
             add_filter( 'wpbdp_ajax_url', array( $this, 'filter_ajax_url' ) );
@@ -207,7 +208,7 @@ class WPBDP_WPML_Compat {
             return $link;
         }
 
-        if ( wpbdp_rewrite_on() ) {
+        if ( 3 !== $this->wpml->get_setting( 'language_negotiation_type' ) && wpbdp_rewrite_on() ) {
             $main_id         = wpbdp_get_page_id( 'main' );
             $main_link       = $this->fix_get_page_link( get_page_link( $main_id ), $main_id );
             $main_trans_link = apply_filters( 'wpml_permalink', $main_link, $lang );
@@ -276,6 +277,25 @@ class WPBDP_WPML_Compat {
                 }
 
                 break;
+
+            case 'show_tag':
+                $tag_id = wpbdp_current_tag_id();
+                
+                if ( ! $tag_id ) {
+                    return $languages;
+                }
+                
+                foreach ( $languages as $l_code => $l ) {
+                    $trans_id = (int) apply_filters( 'wpml_object_id', $tag_id, WPBDP_TAGS_TAX, false, $languages[ $l_code ]['language_code'] );
+                    $link = get_term_link( $trans_id, WPBDP_TAGS_TAX );
+                    
+                    if ( ! $trans_id || is_wp_error( $link ) ) {
+                        unset( $languages[ $l_code ] );
+                        continue;
+                    }
+                    
+                    $languages[ $l_code ]['url'] = $this->translate_link( $link, $languages[ $l_code ]['language_code'] );
+                }
 
             default:
                 break;
