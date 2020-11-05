@@ -18,7 +18,7 @@
             width: 100%;
             height: 100px;
 
-            .rootline-circle {
+            .wpbdp-rootline-circle {
                 display: inline-block;
                 width: 48px;
                 height: 48px;
@@ -28,7 +28,7 @@
                 &.wpbdp-submit-checked {
                     color: #fff;
 
-                    .rootline-pos {
+                    .wpbdp-rootline-pos {
                         display: none;
                     }
 
@@ -37,33 +37,27 @@
                     }
                 }
 
-                .rootline-checkmark {
-                    margin: auto;
-                    margin-top: ~'calc(50% - 7px)';
-                    display: none;
-                }
-
-                .rootline-counter {
+                .wpbdp-rootline-counter {
                     font-size: 20px;
                     line-height: 200%;
                 }
             }
 
-            .rootline-section-name {
+            .wpbdp-rootline-section-name {
                 margin: 10px auto 0;
                 text-transform: uppercase;
                 font-size: 12px;
             }
 
             &:last-of-type {
-                .rootline-bar.bar-right {
+                .wpbdp-rootline-bar {
                     background-image: none;
                 }
             }
         }
     }
 
-    .rootline-bar {
+    .wpbdp-rootline-bar {
         background-position: bottom;
         background-size: 10px;
         background-repeat: repeat-x;
@@ -71,11 +65,8 @@
         height: 1px;
         width: ~"calc(100% - 48px)";
         z-index: -1;
-
-        &.bar-right {
-            top: 24px;
-            margin-left: ~"calc(50% + 25px)";
-        }
+        top: 24px;
+        margin-left: ~"calc(50% + 25px)";
     }
 
     .category_list_item() {
@@ -396,16 +387,16 @@
         .wpbdp-submit-rootline {
             .wpbdp-rootline-section {
                 &:not(.wpbdp-submit-section-current),
-                .rootline-bar {
+                .wpbdp-rootline-bar {
                     display: none;
                 }
 
-                .rootline-circle.wpbdp-submit-checked {
-                    .rootline-checkmark {
+                .wpbdp-rootline-circle.wpbdp-submit-checked {
+                    .wpbdp-rootline-checkmark {
                         display: none;
                     }
 
-                    .rootline-pos {
+                    .wpbdp-rootline-pos {
                         display: initial;
                     }
                 }
