@@ -1,6 +1,6 @@
 <?php do_action( 'wpbdp_before_submit_listing_page', $listing ); ?>
 
-<div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-submit-page">
+<div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page" data-breakpoints='{"tiny": [0,450], "small": [450,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-submit-page">
     <form action="" method="post" data-ajax-url="<?php echo wpbdp_ajax_url(); ?>" enctype="multipart/form-data">
         <?php wp_nonce_field( 'listing submit' ); ?>
         <input type="hidden" name="listing_id" value="<?php echo esc_attr( $listing->get_id() ); ?>" />

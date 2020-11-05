@@ -33,5 +33,5 @@
     </p>
     <p>
         <?php endif; ?>
-        <a href="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>"><?php esc_html_e( 'Return to directory.', 'business-directory-plugin' ); ?></a>
+        <a href="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>"><?php esc_html_e( 'Return to directory', 'business-directory-plugin' ); ?></a>
     </p>
