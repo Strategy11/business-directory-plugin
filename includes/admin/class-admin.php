@@ -340,8 +340,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $menu_id = 'wpbdp_admin';
 
             add_menu_page(
-                _x( 'Business Directory Admin', 'business-directory-plugin' ),
-                _x( 'Directory', 'business-directory-plugin' ),
+                __( 'Business Directory Admin', 'business-directory-plugin' ),
+                __( 'Directory', 'business-directory-plugin' ),
                 'manage_categories',
                 $menu_id,
                 current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
