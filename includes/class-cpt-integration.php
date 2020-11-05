@@ -136,7 +136,7 @@ class WPBDP__CPT_Integration {
             )
         );
 
-        return $link;
+        return apply_filters( 'wpbdp_tag_link', $link, $tag );
     }
 
     public function _post_link( $link, $post = null, $leavename = false ) {
