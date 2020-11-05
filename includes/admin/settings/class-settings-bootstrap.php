@@ -829,9 +829,10 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'rootline-color',
                 'type'    => 'color',
-                'name'    => _x( 'Submit listing rootline and button color', 'settings', 'business-directory-plugin' ),
+                'name'    => __( 'Primary color', 'business-directory-plugin' ),
                 'default' => '#569AF6',
                 'group'   => 'themes',
+				'desc'    => __( 'This is used for form buttons and form rootline.', 'business-directory-plugin' ),
             )
         );
         wpbdp_register_setting(

@@ -210,12 +210,9 @@ class WPBDP_Form_Field_Type {
                 $html .= sprintf(
                     '<label for="%s">%s</label>',
                     'wpbdp-field-' . esc_attr( $field->get_id() ),
-                    esc_html( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) )
+                    esc_html( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) .
+					( $field->has_validator( 'required-in-search' ) ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
                 );
-
-                if ( $field->has_validator( 'required-in-search' ) ) {
-                    $html .= '<span class="wpbdp-form-field-required-indicator">*</span>';
-                }
 
                 $html .= '</div>';
                 $html .= '<div class="field inner">';
@@ -242,6 +239,7 @@ class WPBDP_Form_Field_Type {
                 $html .= '<div class="wpbdp-form-field-label">';
 
                 if ( $extra && ! empty( $extra['field_errors'] ) ) {
+					$html .= '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="16px" width="16px" class="wpbdp-error-icon"><path fill="currentColor" d="M504 256a248 248 0 11-496 0 248 248 0 01496 0zm-248 50a46 46 0 100 92 46 46 0 000-92zm-44-165l8 136c0 6 5 11 12 11h48c7 0 12-5 12-11l8-136c0-7-5-13-12-13h-64c-7 0-12 6-12 13z"/></svg> ';
                     $html .= '<div class="wpbdp-form-field-validation-error-wrapper">';
                     $html .= '<div class="wpbdp-form-field-validation-errors wpbdp-clearfix">';
 
@@ -249,18 +247,14 @@ class WPBDP_Form_Field_Type {
                     $html .= implode( '<br />', $extra['field_errors'] );
 
                     $html .= '</div></div>';
-                    $html .= '<div class="dashicons dashicons&#45;warning wpbdp-error"></div>';
                 }
                 
                 $html .= sprintf(
                     '<label for="%s">%s</label>',
                     'wpbdp-field-' . esc_attr( $field->get_id() ),
-                    apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field )
+                    apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) .
+					( ( $field->has_validator( 'required' ) && 'widget' !== $render_context  ) ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
                 );
-
-                if ( $field->has_validator( 'required' ) && 'widget' !== $render_context  ) {
-                    $html .= '<span class="wpbdp-form-field-required-indicator">*</span>';
-                }
 
                 $html .= '</div>';
 
