@@ -237,10 +237,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->listing->set_fee_plan( null );
         }
 
-        if ( ! empty( $_POST['listingfields'] ) ) {
-            update_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields', $_POST['listingfields'] );
-        }
-
         wp_set_post_terms( $this->listing->get_id(), array(), WPBDP_CATEGORY_TAX, false );
 
         $this->ajax_sections();
@@ -475,16 +471,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         foreach ( $this->sections as &$section ) {
             $callback = WPBDP_Utils::normalize( $section['id'] );
 
-            if ( ! $this->listing->has_fee_plan() && 'plan_selection' !== $section['id'] ) {
-                $section['flags'][] = 'collapsed';
-                $section['flags'][] = 'disabled';
-                $section['html']    = _x( '(Please choose a fee plan above)', 'submit listing', 'business-directory-plugin' );
-                $section['state']   = 'disabled';
-                $section['prev_section'] = $this->find_prev_section( $section['id'] );
-                $section['next_section'] = $this->find_next_section( $section['id'] );
-                continue;
-            }
-
             if ( method_exists( $this, $callback ) ) {
                 $res     = call_user_func( array( $this, $callback ) );
                 $html    = '';
@@ -688,8 +674,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function listing_fields( $preview = false ) {
         $form_fields         = wpbdp_get_form_fields( array( 'association' => '-category' ) );
         $form_fields         = apply_filters_ref_array( 'wpbdp_listing_submit_fields', array( &$form_fields, &$this->listing ) );
-        $saved_listingfields = get_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields', true );
-        $field_values        = ! empty( $saved_listingfields ) ? $saved_listingfields : array();
+        $field_values        = array();
 
         $validation_errors = array();
         $fields            = array();
@@ -788,6 +773,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $listing = $this->listing;
         $plan = $listing->get_fee_plan();
+
+        if ( ! $plan ) {
+            return false;
+        }
+
         $image_slots = absint( $plan->fee_images );
 
         if ( ! $image_slots ) {
