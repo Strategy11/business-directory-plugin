@@ -179,14 +179,6 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         return $html;
     }
 
-    public function get_css_classes( $render_context = '', $field = null ) {
-        if ( 'submit' === $render_context ) {
-            return 'wpbdp-half';
-        }
-        
-        return '';
-    }
-
     public function get_field_html_value( &$field, $post_id ) {
         $field_value = $field->value( $post_id );
 

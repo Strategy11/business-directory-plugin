@@ -279,14 +279,6 @@ class WPBDP_Form_Field_Type {
         return $html;
     }
 
-    public function get_css_classes( $render_context = '', $field = null ) {
-        if ( 'submit' === $render_context ) {
-            return 'wpbdp-full';
-        }
-        
-        return '';
-    }
-
     /**
      * @since 4.1.7
      */
