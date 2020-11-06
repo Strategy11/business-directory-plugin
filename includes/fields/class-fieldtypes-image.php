@@ -110,8 +110,8 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         // We use $listing_id to prevent CSFR. Related to #2848.
         $listing_id = 0;
-        if ( 'submit' == $context && ! empty( $extra['listing'] ) ) {
-            $listing_id = $extra['listing']->get_id();
+        if ( 'submit' == $context ) {
+            $listing_id = $extra->get_id();
         } elseif ( is_admin() ) {
             global $post;
             if ( ! empty( $post ) && WPBDP_POST_TYPE == $post->post_type ) {

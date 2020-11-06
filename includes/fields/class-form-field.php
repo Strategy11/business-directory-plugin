@@ -34,6 +34,8 @@ class WPBDP_Form_Field {
     public $css_classes     = array();
     public $html_attributes = array();
 
+    private $validation_errors = array();
+
     static $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
 
 
@@ -294,7 +296,6 @@ class WPBDP_Form_Field {
         $css_classes[] = 'wpbdp-form-field';
         $css_classes[] = 'wpbdp-form-field-id-' . $this->get_id();
         $css_classes[] = 'wpbdp-form-field-type-' . $this->get_field_type()->get_id();
-        $css_classes[] = $this->get_field_type()->get_css_classes( $render_context, $this );
         $css_classes[] = 'wpbdp-form-field-label-' . WPBDP_Form_Field_Type::normalize_name( $this->get_label() );
         $css_classes[] = 'wpbdp-form-field-association-' . $this->get_association();
 
@@ -501,7 +502,13 @@ class WPBDP_Form_Field {
             return true;
         }
 
+        $this->validation_errors = $errors;
+
         return false;
+    }
+
+    public function get_validation_errors() {
+        return $this->validation_errors;
     }
 
     public function validate_categories( $categories = array() ) {
