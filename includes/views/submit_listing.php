@@ -996,27 +996,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $rootline_color = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
 
         if ( ! $rootline_color ) {
-            return;
+            $rootline_color = '#569AF6';
         }
 
-        wp_add_inline_style(
-            'wpbdp-base-css',
-            ".rootline-circle {
-                border: 1px solid {$rootline_color};
-            }
-
-            #wpbdp-submit-listing.wpbdp-submit-page .wpbdp-rootline-section .rootline-bar {
-                background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, {$rootline_color} 50% );
-            }
-            
-            #wpbdp-submit-listing.wpbdp-submit-page .submit-next-button,
-            #wpbdp-submit-listing.wpbdp-submit-page #wpbdp-submit-listing-submit-btn,
-            .rootline-circle.wpbdp-submit-checked {
-                background: {$rootline_color};
-            }
-            "
-            
-        );
+        echo '<style type="text/css">';
+        echo ':root{
+            --bd-rootline-color:' . $rootline_color . ';
+            --bd-rootline-color-opacity:' . $rootline_color . '15;
+        }';
+        echo '</style>';
     }
 
     private function find_prev_section( $section_id = null ) {

@@ -1,15 +1,18 @@
 .wpbdp-dnd-area {
     margin: 0 auto;
-    border: 2px dashed #ddd;
-    width: 98%;
-    height: 252px;
-    color: #666;
+    border: 2px solid #ddd;
+    width: 100%;
+
+    p.dnd-message {
+        font-size: 24px;
+        line-height: 24px;
+    }
 }
 
  .wpbdp-dnd-area p {
-    margin-top: 13px !important;
-    margin-bottom: 13px !important;
-/*     line-height: 1.5; */
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 .wpbdp-dnd-area .upload-button {
@@ -18,6 +21,10 @@
 }
 
 .wpbdp-dnd-area .upload-button a {
+    text-decoration: none;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .wpbdp-dnd-area .upload-button input {
@@ -31,8 +38,8 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    cursor: pointer;
     border: none !important;
+    z-index: -1;
 }
 
 .wpbdp-dnd-area.dragging {
@@ -40,9 +47,8 @@
 }
 
 .wpbdp-dnd-area .dnd-area-inside {
-    margin: 76px auto 0;
+    margin: 54px auto 38px;
     text-align: center;
-    color: #aaa;
 }
 
 .wpbdp-dnd-area .dnd-area-inside-working {
@@ -56,7 +62,6 @@
 }
 
 .wpbdp-dnd-area .dnd-area-inside-error {
-    font-size: 95%;
     color: #900000;
     text-align: center;
     margin: 50px 25px;
