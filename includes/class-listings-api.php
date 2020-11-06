@@ -40,8 +40,8 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 
             $listing->set_status( 'complete' );
 
-            if ( 'initial' === $payment->payment_type ) {
-                $listing->set_post_status( wpbdp_get_option( 'new-post-status' ) );
+            if ( 'initial' === $payment->payment_type && ! ( is_admin() || ! current_user_can( 'administrator' ) ) ) {
+                $listing->set_post_status(  wpbdp_get_option( 'new-post-status' ) );
             }
         }
 
