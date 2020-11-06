@@ -989,7 +989,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             'echo'     => true
         );
 
-        return wpbdp_render( 'submit-listing-rootline', $params );
+        wpbdp_render( 'submit-listing-rootline', $params );
     }
 
     public function load_css() {
