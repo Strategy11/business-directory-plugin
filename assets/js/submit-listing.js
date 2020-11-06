@@ -385,6 +385,7 @@ jQuery(function($) {
             this.$submit.on( 'click', '#change-plan-link a', function(e) {
                 e.preventDefault();
 
+                self.$form.find('input[name="current_section"]').val('');
                 var data = self.$form.serialize();
                 data += '&action=wpbdp_ajax&handler=submit_listing__reset_plan';
 
