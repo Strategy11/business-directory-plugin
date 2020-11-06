@@ -989,12 +989,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $rootline_color = '#569AF6';
         }
 
-        echo '<style type="text/css">';
-        echo ':root{
+        wp_add_inline_style(
+            'wpbdp-base-css',
+            ':root {
             --bd-rootline-color:' . $rootline_color . ';
-            --bd-rootline-color-opacity:' . $rootline_color . '15;
-        }';
-        echo '</style>';
+            --bd-rootline-color-with-opacity:' . $rootline_color . '15;
+            }'
+        );
     }
 
     private function find_prev_section( $section_id = null ) {
