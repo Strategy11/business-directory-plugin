@@ -324,10 +324,8 @@ jQuery(function($) {
                 current_section.addClass('hidden').hide();
                 prev_section.removeClass('hidden').show();
 
-                var rootline = $( '.wpbdp-submit-rootline' );
-                var rootline_current_section = rootline.find( '.wpbdp-submit-section-' + current_section_id );
-                rootline_current_section.find( '.wpbdp-submit-checked' ).removeClass('wpbdp-submit-checked');
-                rootline_current_section.find( '.rootline-circle' ).html( rootline_current_section.attr('data-section-pos') );
+                self.$form.find('.wpbdp-submit-rootline .wpbdp-submit-section-' + current_section_id ).removeClass('wpbdp-submit-checked wpbdp-submit-section-current');
+                self.$form.find('.wpbdp-submit-rootline .wpbdp-submit-section-' + prev_section_id ).addClass('wpbdp-submit-checked wpbdp-submit-section-current');
             }
 
             $( 'html, body' ).animate({
