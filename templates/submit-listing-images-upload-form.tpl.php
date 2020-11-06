@@ -21,7 +21,9 @@ $media_action = add_query_arg(
 
 
 <div class="image-upload-wrapper">
-    <?php esc_html_e( 'Upload Images', 'business-directory-plugin' ); ?>
+    <div class="image-upload-header">
+        <?php esc_html_e( 'Upload Images', 'business-directory-plugin' ); ?>
+    </div>
 
     <?php if ( ! $admin ): ?>
         <div id="image-upload-conditions">
@@ -60,5 +62,3 @@ $media_action = add_query_arg(
         </div>
     </div>
 </div>
-
-<br />
