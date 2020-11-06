@@ -1,16 +1,19 @@
 <?php
-$original_uri = $_SERVER['REQUEST_URI'];
+$original_uri = wpbdp_get_server_value( 'REQUEST_URI' );
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'tab', 'subtab' ) );
 
-echo wpbdp_admin_header( array(
-    'title'   => __( 'Business Directory Settings', 'business-directory-plugin' ),
-    'buttons' => array( _x( 'Reset Defaults', 'settings', 'business-directory-plugin' ) => admin_url( 'admin.php?page=wpbdp_settings&reset_defaults=1' ) )
-) );
+wpbdp_admin_header(
+    array(
+        'title'   => esc_html__( 'Directory Settings', 'business-directory-plugin' ),
+        'buttons' => array( esc_html__( 'Reset Defaults', 'business-directory-plugin' ) => admin_url( 'admin.php?page=wpbdp_settings&reset_defaults=1' ) ),
+        'echo'  => true,
+    )
+);
 ?>
 
 <h2 class="nav-tab-wrapper">
     <?php foreach ( $tabs as $tab_id => $tab ): ?>
-    <a class="nav-tab <?php echo $active_tab == $tab_id ? 'nav-tab-active' : ''; ?> <?php echo apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>"><?php echo $tab['title']; ?></a>
+    <a class="nav-tab <?php echo $active_tab == $tab_id ? 'nav-tab-active' : ''; ?> <?php echo esc_attr( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>"><?php echo esc_html( $tab['title'] ); ?></a>
     <?php endforeach; ?>
 </h2>
 
@@ -27,8 +30,10 @@ echo wpbdp_admin_header( array(
         $subtab_url = add_query_arg( 'subtab', $subtab_id, $subtab_url );
         ?>
         <li>
-            <a class="<?php echo $active_subtab == $subtab_id ? 'current' : ''; ?>" href="<?php echo esc_url( $subtab_url ); ?>"><?php echo $subtab['title']; ?></a>
-            <?php if ( $n != count( $subtabs ) ): ?> | <?php endif; ?>
+            <a class="<?php echo $active_subtab == $subtab_id ? 'current' : ''; ?>" href="<?php echo esc_url( $subtab_url ); ?>"><?php echo esc_html( $subtab['title'] ); ?></a>
+            <?php if ( $n != count( $subtabs ) ): ?>
+				|
+			<?php endif; ?>
         </li>
     <?php endforeach; ?>
     </ul>
@@ -38,7 +43,7 @@ echo wpbdp_admin_header( array(
 <?php settings_errors(); ?>
 
 <?php if ( $active_subtab_description ): ?>
-<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo $active_subtab_description; ?></p>
+<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo wp_kses_post( $active_subtab_description ); ?></p>
 <?php endif; ?>
 
 <?php if ( ! $custom_form ): ?>
@@ -68,7 +73,7 @@ echo wpbdp_admin_header( array(
 <?php endif; ?>
 
 <?php
-    echo wpbdp_admin_footer();
+    wpbdp_admin_footer( 'echo' );
 
     /*
 <h3 class="nav-tab-wrapper">
@@ -81,7 +86,6 @@ echo wpbdp_admin_header( array(
 	<?php if ($group->help_text): ?>
 		<p class="description"><?php echo $group->help_text; ?></p>
 	<?php endif; ?>
-
 <?php
 	echo wpbdp_admin_footer();
 ?>

@@ -17,7 +17,7 @@ echo str_replace(
 );
 ?>
                   <br />
-<?php echo _x( 'They are <strong>different</strong> than your regular WordPress theme and they are <strong>not</strong> a replacement for WP themes either. They will change the look and feel of your business directory only.', 'themes', 'business-directory-plugin' ); ?>
+<?php esc_html_x( 'They are different than your regular WordPress theme and they are not a replacement for WP themes either. They will change the look and feel of your directory only.', 'themes', 'business-directory-plugin' ); ?>
 </div>
 
 <div id="wpbdp-theme-selection" class="wpbdp-theme-selection cf">

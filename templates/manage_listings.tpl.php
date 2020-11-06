@@ -13,7 +13,7 @@
         echo sprintf(
             '<a href="%s">%s</a>.',
             esc_attr( wpbdp_get_page_link( 'main' ) ),
-            esc_html_x( 'Return to directory', 'templates', 'business-directory-plugin' )
+            esc_html__( 'Return to directory', 'business-directory-plugin' )
         );
         ?>
     <?php else : ?>
@@ -21,7 +21,7 @@
         <?php
         while ( $query->have_posts() ) :
             $query->the_post();
-            // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo WPBDP_Listing_Display_Helper::excerpt();
         endwhile;
         ?>
@@ -30,8 +30,8 @@
         <?php if ( function_exists( 'wp_pagenavi' ) ) : ?>
             <?php wp_pagenavi( array( 'query' => $query ) ); ?>
         <?php else : ?>
-            <span class="prev"><?php previous_posts_link( _x( '&laquo; Previous ', 'templates', 'business-directory-plugin' ) ); ?></span>
-            <span class="next"><?php next_posts_link( _x( 'Next &raquo;', 'templates', 'business-directory-plugin' ), $query->max_num_pages ); ?></span>
+            <span class="prev"><?php previous_posts_link( __( '&larr; Previous ', 'business-directory-plugin' ) ); ?></span>
+            <span class="next"><?php next_posts_link( __( 'Next &rarr;', 'business-directory-plugin' ), $query->max_num_pages ); ?></span>
         <?php endif; ?>
         </div>
     <?php endif; ?>

@@ -146,27 +146,6 @@ function wpbdp_getv($dict, $key, $default=false) {
 }
 
 /**
- * @SuppressWarnings(PHPMD)
- */
-function wpbdp_capture_action($hook) {
-    $output = '';
-
-    $args = func_get_args();
-    if (count($args) > 1) {
-        $args = array_slice($args,  1);
-    } else {
-        $args = array();
-    }
-
-    ob_start();
-    do_action_ref_array($hook, $args);
-    $output = ob_get_contents();
-    ob_end_clean();
-
-    return $output;
-}
-
-/**
  * Get any value from the $_SERVER
  *
  * @since 5.7.6
@@ -225,6 +204,24 @@ function wpbdp_sanitize_value( $sanitize, &$value ) {
     } else {
         $value = call_user_func( $sanitize, $value );
     }
+}
+
+function wpbdp_capture_action($hook) {
+    $output = '';
+
+    $args = func_get_args();
+    if (count($args) > 1) {
+        $args = array_slice($args,  1);
+    } else {
+        $args = array();
+    }
+
+    ob_start();
+    do_action_ref_array($hook, $args);
+    $output = ob_get_contents();
+    ob_end_clean();
+
+    return $output;
 }
 
 function wpbdp_capture_action_array($hook, $args=array()) {
@@ -465,7 +462,7 @@ function wpbdp_get_current_domain($www=true, $prefix='') {
 /**
  * Prepare an external link with utm parameters.
  *
- * @since 5.8
+ * @since 5.7.5
  *
  * @param array|string $args
  * @param string $page

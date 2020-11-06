@@ -1048,9 +1048,6 @@ function wpbdp_get_taxonomy_link( $taxonomy, $link = '' ) {
     return wpbdp_url( sprintf( '/%s/%s/', wpbdp_get_option( 'permalinks-' . $taxonomy_type . '-slug' ), $taxonomy->slug ) );
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
     if ( $vars ) {
         extract( $vars );
@@ -1062,6 +1059,7 @@ function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
     ob_end_clean();
 
     if ( $echo_output ) {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $html;
     }
 
@@ -1107,9 +1105,6 @@ function wpbdp_locate_template( $template, $allow_override = true, $try_defaults
     return $template_file;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_render( $template, $vars = array(), $allow_override = true ) {
     $vars          = wp_parse_args(
         $vars,
@@ -1123,16 +1118,24 @@ function wpbdp_render( $template, $vars = array(), $allow_override = true ) {
     );
     $template_name = is_array( $template ) ? $template[0] : $template;
     $vars          = apply_filters( 'wpbdp_template_vars', $vars, $template_name );
-    return apply_filters( "wpbdp_render_{$template_name}", wpbdp_render_page( wpbdp_locate_template( $template, $allow_override ), $vars, ! empty ( $vars['echo'] ) ) );
+
+    $content = wpbdp_render_page( wpbdp_locate_template( $template, $allow_override ), $vars, false );
+    $content = apply_filters( "wpbdp_render_{$template_name}", $content );
+
+    if ( isset( $vars['echo'] ) ) {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $content;
+    }
+    return $content;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
-function wpbdp_render_msg( $msg, $type = 'status' ) {
-    $html  = '';
-    $html .= sprintf( '<div class="wpbdp-msg %s">%s</div>', $type, $msg );
-    return $html;
+function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
+	$msg = '<div class="wpbdp-msg ' . esc_attr( $type ) . '">' . wp_kses_post( $msg ) . '</div>';
+    if ( $echo ) {
+        echo $msg;
+    }
+
+    return $msg;
 }
 
 /**
@@ -1154,7 +1157,6 @@ require_once WPBDP_PATH . 'includes/helpers/class-listing-display-helper.php';
  * @param mixed  $listing_id listing object or listing id to display.
  * @param string $view 'single' for single view or 'excerpt' for summary view.
  * @return string HTML output.
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = false ) {
     $listing_id = $listing_id ? ( is_object( $listing_id ) ? $listing_id->ID : absint( $listing_id ) ) : get_the_ID();
@@ -1175,13 +1177,14 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
     $q->the_post();
 
     // TODO: review filters/actions before next-release (previously _wpbdp_render_excerpt() and _wpbdp_render_single().
-    if ( 'excerpt' == $view ) {
+    if ( 'excerpt' === $view ) {
         $html = WPBDP_Listing_Display_Helper::excerpt();
     } else {
         $html = WPBDP_Listing_Display_Helper::single();
     }
 
     if ( $echo ) {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $html;
     }
 
@@ -1360,7 +1363,7 @@ function wpbdp_get_return_link() {
     }
 
     if ( $msg ) {
-        echo '<p><a href="' . esc_url( $referer ) . '" >&laquo; ' . esc_html( $msg ) . '</a></p>';
+        echo '<p><a href="' . esc_url( $referer ) . '" >&larr; ' . esc_html( $msg ) . '</a></p>';
     }
 
 }

@@ -50,11 +50,6 @@ $single_plan = ! ( count( $plans ) > 1 );
 ?>
             </div>
         </div>
-        <?php if ( $_submit->category_specific_fields ) : ?>
-        <div class="wpbdp_continue_to_fields_action">
-            <input type="submit" name="continue-to-fields" value="<?php _ex( 'Continue', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
-        </div>
-        <?php endif; ?>
     </div>
 <?php else : ?>
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
@@ -72,11 +67,6 @@ $single_plan = ! ( count( $plans ) > 1 );
                     )
                 );
                 ?>
-                <?php if ( $single_plan ) : ?>
-                    <div class="wpbdp_continue_to_fields_action">
-                        <input type="submit" name="continue-to-fields" value="<?php _ex( 'Continue', 'submit listing', 'business-directory-plugin' ); ?>" id="wpbdp-submit-listing-submit-btn" />
-                    </div>
-                <?php endif; ?>
             </div>
         <?php else : ?>
         <div class="wpbdp-current-plan">

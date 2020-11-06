@@ -3,10 +3,8 @@
  * Image Field-type
  *
  * @package BDP/Form Fields/Image Field-type
- * @SuppressWarnings(PHPMD)
  */
 
-// phpcs:disable
 class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
     public function __construct() {
@@ -54,7 +52,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $settings = array();
 
-        $settings['display-caption'][] = _x( 'Display caption?', 'form-fields admin', 'business-directory-plugin' );
+        $settings['display-caption'][] = __( 'Display caption?', 'business-directory-plugin' );
         $settings['display-caption'][] = '<input type="checkbox" value="1" name="field[x_display_caption]" ' . ( $field && $field->data( 'display_caption' ) ? ' checked="checked"' : '' ) . ' />';
 
         $settings['caption-required'][] = _x( 'Field Caption required?', 'form-fields admin', 'business-directory-plugin' );
@@ -122,7 +120,14 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         }
 
         if ( ! $listing_id ) {
-            return wpbdp_render_msg( _x( 'Field unavailable at the moment.', 'form fields', 'business-directory-plugin' ), 'error' );
+            return wpbdp_render_msg( 
+                sprintf(
+                    /* translators: %s: Field label */
+                    esc_html__( '"%s" Field unavailable at the moment.', 'business-directory-plugin' ),
+                    esc_html( $field->get_label() )
+                ),
+                'error'
+            );
         }
 
         if ( is_admin() ) {
@@ -238,19 +243,19 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
     }
 
     public function _ajax_file_field_upload() {
-        $field_id   = ! empty( $_REQUEST['field_id'] ) ? absint( $_REQUEST['field_id'] ) : 0;
-        $nonce      = ! empty( $_REQUEST['nonce'] ) ? $_REQUEST['nonce'] : '';
-        $listing_id = ! empty( $_REQUEST['listing_id'] ) ? absint( $_REQUEST['listing_id'] ) : 0;
+        $field_id   = absint( wpbdp_get_var( array( 'param' => 'field_id', 'default' => 0 ), 'request' ) );
+        $nonce      = wpbdp_get_var( array( 'param' => 'nonce' ), 'request' );
+        $listing_id = absint( wpbdp_get_var( array( 'param' => 'listing_id', 'default' => 0 ), 'request' ) );
 
         if ( ! $field_id || ! $nonce || ! $listing_id ) {
             die;
         }
 
-        $element = ! empty( $_REQUEST['element'] ) ? $_REQUEST['element'] : 'listingfields[' . $field_id . '][0]';
-
-        if ( ! wp_verify_nonce( $nonce, 'wpbdp-file-field-upload-' . $field_id . '-' . 'listing_id-' . $listing_id ) ) {
+        if ( ! wp_verify_nonce( $nonce, 'wpbdp-file-field-upload-' . $field_id . '-listing_id-' . $listing_id ) ) {
             die;
         }
+
+        $element = wpbdp_get_var( array( 'param' => 'element', 'default' => "listingfields[$field_id][0]" ), 'request' );
 
         $field = wpbdp_get_form_field( $field_id );
         if ( ! $field || ! in_array(  $field->get_field_type_id(), array( 'image', 'social-network') ) ) {
@@ -261,10 +266,13 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
         echo '</form>';
 
-        if ( isset( $_FILES['file'] ) && $_FILES['file']['error'] == 0 ) {
+        if ( isset( $_FILES['file'] ) && empty( $_FILES['file']['error'] ) ) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $files = wp_unslash( $_FILES['file'] );
+            wpbdp_sanitize_value( 'sanitize_text_field', $files );
             // TODO: we support only images for now but we could use this for anything later
-            if ( $media_id = wpbdp_media_upload(
-                $_FILES['file'],
+            $media_id = wpbdp_media_upload(
+                $files,
                 true,
                 true,
                 array(
@@ -275,45 +283,45 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 					'min-height' => wpbdp_get_option( 'image-min-height' ),
                 ),
                 $errors
-            ) ) {
+            ); 
+            if ( $media_id ) {
 				echo '<div class="preview" style="display: none;">';
 				echo wp_get_attachment_image( $media_id, 'thumb', false );
 				echo '</div>';
 
 				echo '<script type="text/javascript">';
-				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");', $field_id, $media_id, $element );
+				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");', esc_js( $field_id ), esc_js( $media_id ), esc_js( $element ) );
 				echo '</script>';
             } else {
-                print $errors;
+                print wp_kses_post( $errors );
             }
         }
 
-        echo sprintf( '<script type="text/javascript">document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>', $field_id );
+        echo sprintf( '<script type="text/javascript">document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>', esc_js( $field_id ) );
 
         exit;
     }
 
     public function _ajax_media_field_select() {
-        $data = stripslashes_deep( $_REQUEST );
-        $field_id   = ! empty( $data['field_id'] ) ? absint( $data['field_id'] ) : 0;
-        $nonce      = ! empty( $data['nonce'] ) ? $data['nonce'] : '';
-        $listing_id = ! empty( $data['listing_id'] ) ? absint( $data['listing_id'] ) : 0;
+        $field_id   = absint( wpbdp_get_var( array( 'param' => 'field_id', 'default' => 0 ), 'request' ) );
+        $nonce      = wpbdp_get_var( array( 'param' => 'nonce' ), 'request' );
+        $listing_id = absint( wpbdp_get_var( array( 'param' => 'listing_id', 'default' => 0 ), 'request' ) );
 
         if ( ! $field_id || ! $nonce || ! $listing_id ) {
             die;
         }
 
-        $image_id = isset( $data['image_ids'] ) ? $data['image_ids'] : 0;
+        $image_id = wpbdp_get_var( array( 'param' => 'image_ids', 'default' => 0 ), 'request' );
 
         if( ! $image_id ) {
-            return wp_send_json_error( array( 'errors' => _x( 'Could not find image ID', 'admin listings', 'business-directory-plugin' ) ) );
+            return wp_send_json_error( array( 'errors' => __( 'Could not find image ID', 'business-directory-plugin' ) ) );
         }
 
-        $element = ! empty( $_REQUEST['element'] ) ? $_REQUEST['element'] : 'listingfields[' . $field_id . '][0]';
-
-        if ( ! wp_verify_nonce( $nonce, 'wpbdp-media-field-select-' . $field_id . '-' . 'listing_id-' . $listing_id ) ) {
+        if ( ! wp_verify_nonce( $nonce, 'wpbdp-media-field-select-' . $field_id . '-listing_id-' . $listing_id ) ) {
             die;
         }
+
+        $element = wpbdp_get_var( array( 'param' => 'element', 'default' => "listingfields[$field_id][0]" ), 'request' );
 
         $media_id = is_array( $image_id ) ? $image_id[0] : $image_id;
 
@@ -358,8 +366,8 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             return array( '', '' );
         }
 
-        $image   = trim( is_array( $input ) ? $input[0] : $input );
-        $caption = trim( is_array( $input ) ? $input[1] : '' );
+        $image   = trim( sanitize_text_field( is_array( $input ) ? $input[0] : $input ) );
+        $caption = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
 
         return array( $image, $caption );
     }

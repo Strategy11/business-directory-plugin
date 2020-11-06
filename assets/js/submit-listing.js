@@ -317,6 +317,28 @@ jQuery(function($) {
             $options.prop( 'checked', $( this ).find( 'input' ).is(':checked') );
         } );
 
+        $( '#wpbdp-submit-listing' ).on( 'click', 'button.submit-back-button', function( e ) {
+            e.preventDefault();
+            var prev_section_id = $( this ).attr( 'data-previous-section' );
+            var prev_section    = self.$form.find( '.wpbdp-submit-listing-section' ).filter( '[data-section-id="' + prev_section_id + '"]' );
+            if ( prev_section.length ) {
+                var current_section_id = self.$form.find('input[name="current_section"]').val();
+                var current_section    = $( this ).parents('.wpbdp-submit-listing-section');
+                self.$form.find('input[name="current_section"]').val(prev_section_id);
+                current_section.addClass('hidden').hide();
+                prev_section.removeClass('hidden').show();
+
+                self.$form.find('.wpbdp-submit-rootline .wpbdp-submit-section-' + current_section_id ).removeClass('wpbdp-submit-checked wpbdp-submit-section-current');
+                self.$form.find('.wpbdp-submit-rootline .wpbdp-submit-section-' + prev_section_id ).addClass('wpbdp-submit-checked wpbdp-submit-section-current');
+            }
+
+            $( 'html, body' ).animate({
+                scrollTop: self.$form.find('.wpbdp-submit-rootline').offset().top
+            }, 500, function() {
+                Reusables.Breakpoints.evaluate();
+            });
+        } );
+
         $( window ).trigger( 'wpbdp_submit_init' );
     };
     $.extend( wpbdp.submit_listing.Handler.prototype, {
@@ -363,26 +385,11 @@ jQuery(function($) {
             }
 
             var self = this;
-            this.$submit.on( 'change, click', 'input[name="listing_plan"], input[name="continue-to-fields"]', function( e ) {
-                e.preventDefault();
-                if ( $( this ).parents( '.wpbdp-plan' ).attr( 'data-disabled' ) == 1 ) {
-                    return false;
-                }
-
-                var data = self.$form.serialize();
-                data += '&action=wpbdp_ajax&handler=submit_listing__sections';
-
-                self.ajax( data, function( res ) {
-                    self.refresh( res );
-                    $( 'html, body' ).delay(100).animate({
-                        scrollTop: self.$form.find('.wpbdp-submit-listing-section-plan_selection').offset().top
-                    }, 500);
-                } );
-            } );
 
             this.$submit.on( 'click', '#change-plan-link a', function(e) {
                 e.preventDefault();
 
+                self.$form.find('input[name="current_section"]').val('');
                 var data = self.$form.serialize();
                 data += '&action=wpbdp_ajax&handler=submit_listing__reset_plan';
 
@@ -423,7 +430,11 @@ jQuery(function($) {
                     } );
 
                     $( window ).trigger( 'wpbdp_submit_refresh', [self, section_id, $section] );
-                    $section.show();
+
+                    if ( ! $section.hasClass('hidden') ) {
+                        self.$form.find('input[name="current_section"]').val( $section.attr( 'data-section-id' ) );
+                        $section.show();
+                    }
 
                     // Refresh things.
                     Reusables.Breakpoints.scan( $new_content );
