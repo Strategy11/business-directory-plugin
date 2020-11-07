@@ -309,6 +309,14 @@ class WPBDP_Form_Field {
 
         if ( $render_context ) {
             $css_classes[] = 'wpbdp-form-field-in-' . $render_context;
+
+            if ( 'submit' === $render_context ) {
+                if ( 'textarea' === $this->get_field_type()->get_id() || in_array( $this->get_association(), array( 'title', 'excerpt', 'content', 'regions' ) ) ) {
+                    $css_classes[] = 'wpbdp-full';
+                } else {
+                    $css_classes[] = 'wpbdp-half';
+                }
+            }
         }
 
         // Add own custom CSS classes.
