@@ -208,7 +208,7 @@ class WPBDP_WPML_Compat {
             return $link;
         }
 
-        if ( 3 !== $this->wpml->get_setting( 'language_negotiation_type' ) && wpbdp_rewrite_on() ) {
+        if ( 3 !== $sitepress->get_setting( 'language_negotiation_type' ) && wpbdp_rewrite_on() ) {
             $main_id         = wpbdp_get_page_id( 'main' );
             $main_link       = $this->fix_get_page_link( get_page_link( $main_id ), $main_id );
             $main_trans_link = apply_filters( 'wpml_permalink', $main_link, $lang );
@@ -307,9 +307,9 @@ class WPBDP_WPML_Compat {
     }
 
     function workaround_autoids() {
-        global $sitepress_settings;
+        global $sitepress, $sitepress_settings;
 
-        if ( ! $this->wpml->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) ) {
+        if ( ! $sitepress->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) ) {
             return;
         }
 
