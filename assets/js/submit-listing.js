@@ -37,7 +37,7 @@ jQuery(function($) {
                 // Workaround for https://github.com/select2/select2/issues/3992.
                 var self = this;
                 setTimeout(function() {
-                    if ( $( '.wpbdp-js-select2', self.field_wrapper ).length > 0 ) {
+                    if ( this.field_type === 'select2' ) {
                         self.field.selectWoo({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
                     }
                 } );
