@@ -376,7 +376,7 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_color_callback( $setting, $value ) {
-        echo '<input type="color" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '"/>';
+        echo '<input type="text" class="cpa-color-picker" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '"/>';
 
         if ( ! empty( $setting['desc'] ) ) {
             echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
