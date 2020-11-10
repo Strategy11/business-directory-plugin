@@ -817,7 +817,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'themes-button-style',
                 'type'    => 'radio',
                 'name'    => _x( 'Theme button style', 'settings', 'business-directory-plugin' ),
-                'default' => 'theme',
+                'default' => 'none',
                 'options' => array(
                     'theme' => __( 'Use the Business Directory Plugin style for buttons', 'business-directory-plugin' ),
                     'none'  => __( 'Use the WP theme style for directory buttons', 'business-directory-plugin' ),
