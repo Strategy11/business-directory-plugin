@@ -4,6 +4,7 @@ $args = array(
     'categories'  => ! isset( $categories ) ? array() : $categories,
     'selected'    => ! empty( $selected ) ? $selected : 0,
     'plans_count' => count( $plans ),
+    'echo'        => true
 );
 
 if ( 1 === $args['plans_count'] ) {
@@ -19,6 +20,6 @@ if ( 1 === $args['plans_count'] ) {
             $args['disabled'] = true;
         endif;
         ?>
-        <?php echo wpbdp_render( 'plan-selection-plan', $args ); ?>
+        <?php wpbdp_render( 'plan-selection-plan', $args ); ?>
     <?php endforeach; ?>
 </div>
