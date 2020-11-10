@@ -11,9 +11,8 @@ $single_plan = ! ( count( $plans ) > 1 );
     <?php if ( $editing ) : ?>
     <div class="wpbdp-msg tip">
     <?php
-    _ex(
+    esc_html_e(
         'You can\'t change the plan your listing is on but you can modify the categories it appears in, using the field below. Details about the plan are shown for completeness.',
-        'submit',
         'business-directory-plugin'
     );
     ?>
@@ -21,17 +20,23 @@ $single_plan = ! ( count( $plans ) > 1 );
     <?php endif; ?>
 
     <?php if ( ! empty( $selected_categories ) ) : ?>
-        <?php echo $category_field->render( (array) $selected_categories, 'submit' ); ?>
+        <?php
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $category_field->render( (array) $selected_categories, 'submit' );
+        ?>
     <?php else : ?>
         <?php if ( ! $editing && ! $_submit->skip_plan_selection && $category_count > 1 ) : ?>
-            <div class="wpbdp-msg tip"><?php _ex( 'You need to pick the categories first and then you\'ll be shown the available fee plans for your listing.', 'submit', 'business-directory-plugin' ); ?></div>
+            <div class="wpbdp-msg tip"><?php esc_html_e( 'You need to pick the categories first and then you\'ll be shown the available fee plans for your listing.', 'business-directory-plugin' ); ?></div>
         <?php endif; ?>
-        <?php echo $category_field->render(); ?>
+        <?php
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $category_field->render();
+        ?>
     <?php endif; ?>
 </div>
 
 <?php if ( $_submit->skip_plan_selection ) : ?>
-    <input type="hidden" name="listing_plan" value="<?php echo $_submit->fixed_plan_id; ?>" />
+    <input type="hidden" name="listing_plan" value="<?php echo esc_attr( $_submit->fixed_plan_id ); ?>" />
     <input type="hidden" name="skip_plan_selection" value="1" />
 
     <div class="wpbdp-msg tip"><?php _ex( 'Your plan\'s details:', 'submit', 'business-directory-plugin' ); ?></div>
@@ -54,16 +59,17 @@ $single_plan = ! ( count( $plans ) > 1 );
 <?php else : ?>
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
         <?php if ( ! $editing ) : ?>
-            <div class="wpbdp-plan-selection <?php echo ! $single_plan ? 'wpbdp-plan-selection-with-tip' : ''; ?>">
+            <div class="wpbdp-plan-selection <?php echo ! $single_plan ? esc_attr( 'wpbdp-plan-selection-with-tip' ) : '' ; ?>">
                 <?php if ( ! $single_plan ) : ?>
-                    <div class="wpbdp-msg tip"><?php _ex( 'Please choose a fee plan for your listing:', 'submit', 'business-directory-plugin' ); ?></div>
+                    <div class="wpbdp-msg tip"><?php esc_html_e( 'Please choose a fee plan for your listing:', 'business-directory-plugin' ); ?></div>
                 <?php endif; ?>
                 <?php
-                echo wpbdp_render(
+                wpbdp_render(
                     'plan-selection',
                     array(
 						'plans'    => $plans,
-						'selected' => ( ! empty( $selected_plan ) ? $selected_plan : 0 ),
+                        'selected' => ( ! empty( $selected_plan ) ? $selected_plan : 0 ),
+                        'echo'     => true,
                     )
                 );
                 ?>
@@ -71,12 +77,13 @@ $single_plan = ! ( count( $plans ) > 1 );
         <?php else : ?>
         <div class="wpbdp-current-plan">
             <?php
-            echo wpbdp_render(
+            wpbdp_render(
                 'plan-selection-plan', array(
 					'plan'         => wpbdp_get_fee_plan( $selected_plan ),
-					'categories'   => array(),
-					'display_only' => true,
-					'extra',
+                    'categories'   => $selected_categories,
+                    'display_only' => true,
+                    'echo'         => true,
+                    'extra',
                 )
             );
 ?>

@@ -117,7 +117,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
                 $terms_count = wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
 
-                if ( 1 == $terms_count ) {
+                if ( 1 === $terms_count ) {
                     $terms = get_terms(
                         array(
 							'taxonomy'   => WPBDP_CATEGORY_TAX,
