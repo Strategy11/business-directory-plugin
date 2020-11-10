@@ -60,6 +60,7 @@
             }
 
             .wpbdp-rootline-counter {
+                line-height: 40px;
                 .wpbdp-rootline-pos {
                     font-style: normal;
                     font-weight: bold;
@@ -89,8 +90,6 @@
         }
     }
 
-    .submit-next-button,
-    #wpbdp-submit-listing-submit-btn,
     .wpbdp-submit-checked .wpbdp-rootline-circle {
         background: #569AF6;
         background: var(--bd-rootline-color);
@@ -195,7 +194,6 @@
 
     .wpbdp-plan-selection-with-tip {
         margin: 24px 0 0 0;
-        display: none;
     }
 
     .wpbdp-submit-listing-section-plan_selection {
@@ -437,5 +435,21 @@
         }
     }
 
+}
+
+.wpbdp-with-button-styles {
+    .submit-next-button,
+    #wpbdp-submit-listing-submit-btn {
+        background: #569AF6;
+        background: var(--bd-rootline-color);
+    }
+
+    .submit-back-button {
+        background: rgba(0,0,0,0);
+        border: 1px solid #569AF6;
+        border: 1px solid var(--bd-rootline-color);
+        color: #569AF6;
+        color: var(--bd-rootline-color);
+    }
 }
 
