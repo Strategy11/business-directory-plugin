@@ -262,7 +262,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     }
 
     public function process_field_settings( &$field ) {
-        if ( ! array_key_exists( 'x_options', $_POST['field'] ) ) {
+        if ( ! isset( $_POST['field']['x_options'] ) ) {
             return;
         }
 
@@ -289,7 +289,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $field->set_data( 'options', $options );
 
-        if ( array_key_exists( 'x_empty_on_search', $_POST['field'] ) ) {
+        if ( isset( $_POST['field']['x_empty_on_search'] ) ) {
             $empty_on_search = (bool) intval( $_POST['field']['x_empty_on_search'] );
             $field->set_data( 'empty_on_search', $empty_on_search );
         }
