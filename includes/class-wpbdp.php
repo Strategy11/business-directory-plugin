@@ -278,7 +278,7 @@ final class WPBDP {
 
         global $post;
 
-        if ( $post && $this->is_supported_post_type( $post->post_type ) ) {
+        if ( $post && $this->is_supported_post_type( $post->post_type ) && $this->shortcodes ) {
             foreach ( array_keys( $this->shortcodes->get_shortcodes() ) as $shortcode ) {
                 if ( apply_filters( 'wpbdp_has_shortcode', wpbdp_has_shortcode( $post->post_content, $shortcode ), $post, $shortcode ) ) {
                     return true;
