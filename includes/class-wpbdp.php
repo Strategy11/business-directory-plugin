@@ -206,6 +206,9 @@ final class WPBDP {
             if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 require_once( WPBDP_INC . 'admin/class-admin.php' );
             }
+            if ( ! class_exists( 'WPBDP_Personal_Data_Privacy' ) ) {
+                require_once( WPBDP_INC . 'admin/class-personal-data-privacy.php' );
+            }
 
             $this->admin   = new WPBDP_Admin();
             $this->privacy = new WPBDP_Personal_Data_Privacy();
