@@ -663,8 +663,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $selected_plan = $plan_id;
         }
 
+        $category_count = wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
         $selected_categories = ! empty( $this->data['previous_categories'] ) ? $this->data['previous_categories'] : array();
-        return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'plans', 'selected_categories', 'selected_plan' ) );
+        return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'category_count', 'plans', 'selected_categories', 'selected_plan' ) );
     }
 
     /**
