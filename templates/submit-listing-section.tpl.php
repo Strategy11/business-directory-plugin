@@ -1,7 +1,4 @@
 <div class="wpbdp-submit-listing-section wpbdp-submit-listing-section-<?php echo esc_attr( $section['id'] ); ?> <?php echo esc_attr( implode( ' ', $section['flags'] ) ); ?>" data-section-id="<?php echo esc_attr( $section['id'] ); ?>">
-    <div class="wpbdp-submit-listing-section-header">
-        <span class="collapse-indicator collapsed">►</span><span class="collapse-indicator expanded">▼</span><span class="title"><?php echo esc_html( $section['title'] ); ?></span>
-    </div>
     <div class="wpbdp-submit-listing-section-content <?php echo ! empty( $section['content_css_classes'] ) ? esc_attr( $section['content_css_classes'] ) : ''; ?>">
         <?php if ( $messages ): ?>
             <div class="wpbdp-submit-listing-section-messages wpbdp-full">

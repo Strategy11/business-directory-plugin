@@ -288,7 +288,6 @@ jQuery(function($) {
         this.ajax_url = this.$form.attr( 'data-ajax-url' );
         this.doing_ajax = false;
 
-        this.setup_section_headers();
         this.plan_handling();
 
         var self = this;
@@ -360,13 +359,6 @@ jQuery(function($) {
                 self.doing_ajax = false;
                 callback.call( self, res.data );
             }, 'json' );
-        },
-
-        setup_section_headers: function() {
-            this.$sections.find( '.wpbdp-submit-listing-section-header' ).click(function() {
-                var $section = $( this ).parent( '.wpbdp-submit-listing-section' );
-                $section.toggleClass( 'collapsed' );
-            });
         },
 
         plan_handling: function() {
