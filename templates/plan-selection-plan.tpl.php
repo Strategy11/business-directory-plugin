@@ -52,19 +52,23 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
             </ul>
         </div>
         <div class="wpbdp-plan-price">
-            <label>
-                <?php if ( ! $display_only ): ?>
-                <input type="radio"
-                       id="wpbdp-plan-select-radio-<?php echo esc_attr( $plan->id ); ?>"
-                       name="<?php echo esc_attr( $field_name ); ?>"
-                       value="<?php echo esc_attr( $plan->id ); ?>"
-                        <?php disabled( $disabled, true ); ?>
-                       <?php echo $disabled ? '': checked( absint( $plan->id ), absint( $selected ), false ); ?> />
-				<?php elseif ( empty( $editing ) && $selected && 1 === $plans_count ) : ?>
-					<input type="hidden" name="<?php echo esc_attr( $field_name ); ?>" value="<?php echo esc_attr( $plan->id ); ?>">
-                <?php endif; ?>
-                <span class="wpbdp-plan-price-amount"><?php echo esc_html( wpbdp_currency_format( $plan->calculate_amount( $categories ) ) ); ?></span>
-            </label>
+			<span class="wpbdp-plan-price-amount"><?php echo esc_html( wpbdp_currency_format( $plan->calculate_amount( $categories ) ) ); ?></span>
+
+			<?php if ( ! $display_only ): ?>
+				<input type="radio"
+					id="wpbdp-plan-select-radio-<?php echo esc_attr( $plan->id ); ?>"
+					name="<?php echo esc_attr( $field_name ); ?>"
+					value="<?php echo esc_attr( $plan->id ); ?>"
+					<?php disabled( $disabled, true ); ?>
+					<?php echo $disabled ? '': checked( absint( $plan->id ), absint( $selected ), false ); ?> />
+				<label for="wpbdp-plan-select-radio-<?php echo esc_attr( $plan->id ); ?>">
+					<span>
+						<?php esc_html_e( 'Select', 'business-directory-plugin' ); ?>
+					</span>
+				</label>
+			<?php elseif ( empty( $editing ) && $selected && 1 === $plans_count ) : ?>
+				<input type="hidden" name="<?php echo esc_attr( $field_name ); ?>" value="<?php echo esc_attr( $plan->id ); ?>">
+			<?php endif; ?>
         </div>
 
         <?php if ( $disabled ): ?>
