@@ -17,15 +17,16 @@
         <?php if ( ! empty( $section['prev_section'] ) ): ?>
             <?php if ( empty( $section['next_section'] ) ): ?>
                 <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
-                <?php if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ): ?>
-                    <button type="submit" id="wpbdp-submit-listing-submit-btn"><?php esc_html_e( 'Complete Listing', 'business-directory-plugin' ); ?></button>
-                <?php else: ?>
-                    <?php if ( $editing ): ?>
-                    <button type="submit" id="wpbdp-submit-listing-submit-btn"><?php esc_html_e( 'Save Changes', 'business-directory-plugin' ); ?></button>
-                    <?php else: ?>
-                    <button type="submit" id="wpbdp-submit-listing-submit-btn"><?php esc_html_e( 'Continue to Payment', 'business-directory-plugin' ); ?></button>
-                    <?php endif; ?>
-                <?php endif; ?>
+				<?php
+				if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ) {
+					$label = __( 'Complete Listing', 'business-directory-plugin' );
+				} elseif ( $editing ) {
+					$label = __( 'Save Changes', 'business-directory-plugin' );
+				} else {
+					$label = __( 'Continue to Payment', 'business-directory-plugin' );
+				}
+				?>
+				<button type="submit" id="wpbdp-submit-listing-submit-btn"><?php echo esc_html( $label ); ?></button>
             <?php else : ?>
                 <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
                 <button class="submit-next-button" data-next-section="<?php echo esc_attr( $section['next_section'] ); ?>"><?php esc_html_e( 'Next', 'business-directory-plugin' ); ?></button>
