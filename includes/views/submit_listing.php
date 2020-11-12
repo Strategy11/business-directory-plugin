@@ -727,7 +727,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$this->listing, $field_values ) );
 
         if ( $validation_errors ) {
-            $this->messages( _x( 'Something went wrong. Please check the form for errors, correct them and submit again.', 'listing submit', 'business-directory-plugin' ), 'error', 'listing_fields' );
+            $this->messages( __( 'Please check the form for errors, correct them and submit again.', 'business-directory-plugin' ), 'error', 'listing_fields' );
             $this->prevent_save = true;
         }
 

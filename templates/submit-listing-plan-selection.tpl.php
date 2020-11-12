@@ -12,27 +12,22 @@ $single_plan = ! ( count( $plans ) > 1 );
     <div class="wpbdp-msg tip">
         <?php
         esc_html_e(
-            'You can\'t change the plan your listing is on but you can modify the categories it appears in, using the field below. Details about the plan are shown for completeness.',
+            'You can\'t change the plan your listing is on but you can modify the categories it appears in, using the field below.',
             'business-directory-plugin'
         );
         ?>
     </div>
     <?php endif; ?>
 
-    <?php if ( ! empty( $selected_categories ) ) : ?>
-        <?php
+    <?php
+	if ( ! empty( $selected_categories ) ) :
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $category_field->render( (array) $selected_categories, 'submit' );
-        ?>
-    <?php else : ?>
-        <?php if ( ! $editing && ! $_submit->skip_plan_selection && $category_count > 1 ) : ?>
-            <div class="wpbdp-msg tip"><?php esc_html_e( 'You need to pick the categories first and then you\'ll be shown the available fee plans for your listing.', 'business-directory-plugin' ); ?></div>
-        <?php endif; ?>
-        <?php
+	else :
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $category_field->render();
-        ?>
-    <?php endif; ?>
+	endif;
+	?>
 </div>
 
 <?php if ( $_submit->skip_plan_selection ) : ?>
@@ -61,9 +56,6 @@ $single_plan = ! ( count( $plans ) > 1 );
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
         <?php if ( ! $editing ) : ?>
             <div class="wpbdp-plan-selection <?php echo ! $single_plan ? esc_attr( 'wpbdp-plan-selection-with-tip' ) : '' ; ?>">
-                <?php if ( ! $single_plan ) : ?>
-                    <div class="wpbdp-msg tip"><?php esc_html_e( 'Please choose a fee plan for your listing:', 'business-directory-plugin' ); ?></div>
-                <?php endif; ?>
                 <?php
                 wpbdp_render(
                     'plan-selection',
