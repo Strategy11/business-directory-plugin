@@ -57,7 +57,7 @@ echo wpbdp_admin_header();
         <a href="<?php echo admin_url( 'admin.php?page=wpbdp_admin_formfields' ); ?>" class="button"><?php _e( 'Manage Form Fields', 'business-directory-plugin' ); ?></a>
     </li>
     <li>
-        <a href="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees' ); ?>" class="button"><?php _e( 'Manage Fees', 'business-directory-plugin' ); ?></a>
+        <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ); ?>" class="button"><?php esc_html_e( 'Fee Plans', 'business-directory-plugin' ); ?></a>
     </li>
     <li class="clear"></li>
 
