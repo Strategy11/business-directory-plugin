@@ -2,7 +2,7 @@
 /**
  * Fees Form Template
  *
- * @package Templates/Admin
+ * @package WPBDP/Templates/Admin
  */
 
 // phpcs:disable WordPress.XSS.EscapeOutput.UnsafePrintingFunction
@@ -15,7 +15,7 @@
         <tbody>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-label"> <?php _ex( 'Fee Label', 'fees admin', 'business-directory-plugin' ); ?> <span class="description">(required)</span></label>
+                    <label for="wpbdp-fee-form-fee-label"> <?php esc_html_e( 'Fee Label', 'business-directory-plugin' ); ?> <span class="description'">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <input
@@ -28,7 +28,7 @@
             </tr>
             <tr class="form-field">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-description"> <?php _ex( 'Fee Description', 'fees admin', 'business-directory-plugin' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-description"> <?php esc_html_e( 'Fee Description', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <textarea id="wpbdp-fee-form-fee-description" name="fee[description]" rows="5" cols="50"><?php echo esc_textarea( $fee->description ); ?></textarea>
@@ -36,10 +36,10 @@
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-days"> <?php _ex( 'How long should the listing run?', 'fees admin', 'business-directory-plugin' ); ?> <span class="description">(required)</span></label>
+                    <label for="wpbdp-fee-form-days"> <?php esc_html_e( 'How long should the listing run?', 'business-directory-plugin' ); ?> <span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
-                    <input type="radio" id="wpbdp-fee-form-days" name="_days" value="1" <?php echo absint( $fee->days ) > 0 ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days"><?php _ex( 'run listing for', 'fees admin', 'business-directory-plugin' ); ?></label>
+                    <input type="radio" id="wpbdp-fee-form-days" name="_days" value="1" <?php echo absint( $fee->days ) > 0 ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days"><?php esc_html_e( 'run listing for', 'business-directory-plugin' ); ?></label>
                     <input
                             id="wpbdp-fee-form-days-n"
                             type="text"
@@ -49,14 +49,14 @@
                             name="fee[days]"
                             <?php echo ( absint( $fee->days ) === 0 ) ? 'disabled="disabled"' : ''; ?>
                     />
-                    <?php _ex( 'days', 'fees admin', 'business-directory-plugin' ); ?>
+                    <?php esc_html_e( 'days', 'business-directory-plugin' ); ?>
                     <br />
-                    <input type="radio" id="wpbdp-fee-form-days-0" name="_days" value="0" <?php echo ( absint( $fee->days ) === 0 ) ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days-0"><?php _ex( 'run listing forever', 'fees admin', 'business-directory-plugin' ); ?></label>
+                    <input type="radio" id="wpbdp-fee-form-days-0" name="_days" value="0" <?php echo ( absint( $fee->days ) === 0 ) ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days-0"><?php esc_html_e( 'run listing forever', 'business-directory-plugin' ); ?>
                 </td>
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-images"> <?php _ex( 'Number of images allowed', 'fees admin', 'business-directory-plugin' ); ?> <span class="description">(required)</span></label>
+                    <label for="wpbdp-fee-form-fee-images"> <?php esc_html_e( 'Number of images allowed', 'business-directory-plugin' ); ?> <span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <input
@@ -71,7 +71,7 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-private"> <?php _ex( 'Private Fee Plan (visible to admins only)?', 'fees admin', 'business-directory-plugin' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-private"> <?php esc_html_e( 'Private Fee Plan (visible to admins only)?', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label>
@@ -88,7 +88,7 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-recurring"> <?php _ex( 'Is recurring?', 'fees admin', 'business-directory-plugin' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-recurring"> <?php esc_html_e( 'Is recurring?', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label>
@@ -100,13 +100,13 @@
                                 <?php echo $fee->recurring ? 'checked="checked"' : ''; ?>
                                 <?php echo ( 'free' === $fee->tag ) ? 'disabled="disabled"' : ''; ?>
                         />
-                        <span class="description"><?php _ex( 'Should the listing auto-renew at the end of the listing term?', 'fees admin', 'business-directory-plugin' ); ?></span>
+                        <span class="description"><?php esc_html_e( 'Should the listing auto-renew at the end of the listing term?', 'business-directory-plugin' ); ?></span>
                     </label>
                 </td>
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-sticky"> <?php _ex( 'Is featured listing/sticky?', 'fees admin', 'business-directory-plugin' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-sticky"> <?php esc_html_e( 'Is featured listing/sticky?', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <input
@@ -117,13 +117,13 @@
                             <?php echo $fee->sticky ? 'checked="checked"' : ''; ?>
                             <?php echo ( 'free' === $fee->tag ) ? 'disabled="disabled"' : ''; ?>
                     />
-                    <label for="wpbdp-fee-form-fee-sticky"><span class="description"><?php _ex( 'This floats the listing to the top of search results and browsing the directory when the user buys this plan.', 'fees admin', 'business-directory-plugin' ); ?></span></label>
+                    <label for="wpbdp-fee-form-fee-sticky"><span class="description"><?php esc_html_e( 'This floats the listing to the top of search results and browsing the directory when the user buys this plan.', 'business-directory-plugin' ); ?></span></label>
                 </td>
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="fee-bgcolor-value">
-						<?php _ex( 'Listing background color:', 'fees admin', 'business-directory-plugin' ); ?>
+					<label for="fee-bgcolor-value">
+						<?php esc_html_e( 'Listing background color:', 'business-directory-plugin' ); ?>
 					</label>
                 </th>
                 <td>

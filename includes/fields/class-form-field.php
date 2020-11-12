@@ -36,7 +36,7 @@ class WPBDP_Form_Field {
 
     private $validation_errors = array();
 
-    static $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
+    public static $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
 
 
     public function __construct( $attrs = array() ) {

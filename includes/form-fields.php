@@ -594,7 +594,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             }
 
             if ( ( $args['field'] && $args['field']->is_empty_value( $value ) ) || ! $value || ( is_string( $value ) && ! $args['allow_whitespace'] && ! trim( $value ) ) ) {
-                return WPBDP_ValidationError(
+				return WPBDP_ValidationError(
                     sprintf(
                         /* translators: %s: field label */
                         esc_html__( '%s is required.', 'business-directory-plugin' ),
