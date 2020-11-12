@@ -14,25 +14,25 @@
         echo $section['html'];
         ?>
         <div class="wpbdp-submit-listing-form-actions wpbdp-full">
-        <?php if ( ! empty( $section['prev_section'] ) ): ?>
-            <?php if ( empty( $section['next_section'] ) ): ?>
-                <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
-				<?php
-				if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ) {
-					$label = __( 'Complete Listing', 'business-directory-plugin' );
-				} elseif ( $editing ) {
-					$label = __( 'Save Changes', 'business-directory-plugin' );
-				} else {
-					$label = __( 'Continue to Payment', 'business-directory-plugin' );
-				}
-				?>
-				<button type="submit" id="wpbdp-submit-listing-submit-btn"><?php echo esc_html( $label ); ?></button>
-            <?php else : ?>
-                <button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
-                <button class="submit-next-button" data-next-section="<?php echo esc_attr( $section['next_section'] ); ?>"><?php esc_html_e( 'Next', 'business-directory-plugin' ); ?></button>
-            <?php endif; ?>
-        <?php else : ?>
+        <?php if ( ! empty( $section['prev_section'] ) ) : ?>
+			<button class="submit-back-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
+			<?php
+		endif;
+
+		if ( ! empty( $section['next_section'] ) ) :
+			?>
             <button class="submit-next-button" data-next-section="<?php echo esc_attr( $section['next_section'] ); ?>"><?php esc_html_e( 'Next', 'business-directory-plugin' ); ?></button>
+			<?php
+		else :
+			if ( $is_admin || ! wpbdp_payments_possible() || $submit->skip_plan_payment ) {
+				$label = __( 'Complete Listing', 'business-directory-plugin' );
+			} elseif ( $editing ) {
+				$label = __( 'Save Changes', 'business-directory-plugin' );
+			} else {
+				$label = __( 'Continue to Payment', 'business-directory-plugin' );
+			}
+			?>
+			<button type="submit" id="wpbdp-submit-listing-submit-btn"><?php echo esc_html( $label ); ?></button>
         <?php endif; ?>
         </div>
     </div>
