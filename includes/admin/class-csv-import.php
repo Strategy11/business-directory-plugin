@@ -778,7 +778,7 @@ class WPBDP_CSV_Import {
                             if ( $term ) {
                                 $categories[] = array(
 									'name'    => $csv_category,
-									'term_id' => $term['term_id'],
+									'term_id' => is_array( $term ) ? $term['term_id'] : $term,
 								);
                             } else {
                                 if ( ! $this->settings['create-missing-categories'] ) {
