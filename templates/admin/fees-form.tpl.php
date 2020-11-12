@@ -122,22 +122,14 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="fee-bgcolor-value"><?php _ex( 'Listing background color:', 'fees admin', 'business-directory-plugin' ); ?></label>
+                    <label for="fee-bgcolor-value">
+						<?php _ex( 'Listing background color:', 'fees admin', 'business-directory-plugin' ); ?>
+					</label>
                 </th>
                 <td>
-                    <div id="fee-bgcolor-picker">
-                        <input name="fee[extra_data][bgcolor]" id="fee-bgcolor-value" value="<?php echo isset( $fee->extra_data['bgcolor'] ) ? $fee->extra_data['bgcolor'] : ''; ?>" size="4" />
+                    <input type="text" class="cpa-color-picker" name="fee[extra_data][bgcolor]" id="fee-bgcolor-value" value="<?php echo isset( $fee->extra_data['bgcolor'] ) ? esc_attr( $fee->extra_data['bgcolor'] ) : ''; ?>" />
 
-                        <div class="color-selection">
-                            <div class="color-selection-btns">
-                                <a href="#" class="reset-btn"><span class="no-color-img"></span> <?php _ex( 'Reset Color', 'fees admin', 'business-directory-plugin' ); ?></a>
-                                <a href="#" class="close-btn">✖</a>
-                            </div>
-                            <div id="fee-bgcolor-picker-iris"></div>
-                        </div>
-                    </div>
-
-                    <span class="description"><?php _ex( 'Used to differentiate listings inside this plan from others.', 'fees admin', 'business-directory-plugin' ); ?></span>
+                    <span class="description"><?php esc_html_e( 'Used to differentiate listings inside this plan from others.', 'business-directory-plugin' ); ?></span>
                 </td>
             </tr>
             <tr class="form-field limit-categories">

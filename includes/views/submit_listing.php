@@ -1036,10 +1036,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         wp_add_inline_style(
             'wpbdp-base-css',
-            ':root {
-            --bd-rootline-color:' . $rootline_color . ';
-            --bd-rootline-color-with-opacity:' . $rootline_color . '15;
-            }'
+            'html{ --bd-main-color:' . $rootline_color . '; --bd-main-color-20:' . $rootline_color . '33;--bd-main-color-8:' . $rootline_color . '14;}'
         );
     }
 

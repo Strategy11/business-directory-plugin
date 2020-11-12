@@ -116,7 +116,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             );
 
             wp_enqueue_style( 'thickbox' );
-            wp_enqueue_style( 'wp-color-picker' );
 
             wp_enqueue_style(
                 'wpbdp-frontend-css',
@@ -147,7 +146,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             );
 
             wp_enqueue_style( 'wpbdp-js-select2-css' );
-            wp_enqueue_script('wp-color-picker' );
 
             if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
                 wpbdp_enqueue_jquery_ui_style();
