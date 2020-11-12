@@ -21,9 +21,9 @@ $media_action = add_query_arg(
 
 
 <div class="image-upload-wrapper">
-    <div class="image-upload-header">
+    <label class="image-upload-header" for="uploaded-images">
         <?php esc_html_e( 'Upload Images', 'business-directory-plugin' ); ?>
-    </div>
+    </label>
 
     <?php if ( ! $admin ): ?>
         <div id="image-upload-conditions">
@@ -45,7 +45,7 @@ $media_action = add_query_arg(
             <div class="dnd-area-inside">
                 <p class="dnd-message"><?php esc_html_e( 'Drop files here', 'business-directory-plugin' ); ?></p>
                 <p><?php esc_html_e( 'or', 'business-directory-plugin' ); ?></p>
-                <p class="dnd-buttons"><label for="uploaded-images" class="upload-button"><a><?php esc_html_e( 'Select images from your hard drive', 'business-directory-plugin' ); ?></a><input id="uploaded-images" type="file" name="images[]" multiple="multiple" /></label></p>
+                <p class="dnd-buttons"><label for="uploaded-images" aria-labelledby="" class="upload-button"><a><?php esc_html_e( 'Select images from your hard drive', 'business-directory-plugin' ); ?></a><input id="uploaded-images" type="file" name="images[]" multiple="multiple" /></label></p>
             </div>
             <div class="dnd-area-inside-working" style="display: none;">
                 <p>

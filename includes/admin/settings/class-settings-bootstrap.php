@@ -1592,7 +1592,6 @@ final class WPBDP__Settings__Bootstrap {
 
         $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
 
-        add_image_size( 'wpbdp-mini', 50, 50, true ); // Used for the submit process.
         add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
         add_image_size( 'wpbdp-large', $max_width, $max_height, false ); // Large size.
     }

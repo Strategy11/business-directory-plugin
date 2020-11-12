@@ -238,18 +238,7 @@ class WPBDP_Form_Field_Type {
                 );
                 $html .= '<div class="wpbdp-form-field-label">';
 
-                $field_validation_errors = $field->get_validation_errors();
-
-                if ( ! empty( $field_validation_errors ) ) {
-					$html .= '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="16px" width="16px" class="wpbdp-error-icon"><path fill="currentColor" d="M504 256a248 248 0 11-496 0 248 248 0 01496 0zm-248 50a46 46 0 100 92 46 46 0 000-92zm-44-165l8 136c0 6 5 11 12 11h48c7 0 12-5 12-11l8-136c0-7-5-13-12-13h-64c-7 0-12 6-12 13z"/></svg> ';
-                    $html .= '<div class="wpbdp-form-field-validation-error-wrapper">';
-                    $html .= '<div class="wpbdp-form-field-validation-errors wpbdp-clearfix">';
-
-                    wpbdp_sanitize_value( 'esc_html', $field_validation_errors );
-                    $html .= implode( '<br />', $field_validation_errors );
-
-                    $html .= '</div></div>';
-                }
+                $this->add_error_message( $field, $html );
                 
                 $html .= sprintf(
                     '<label for="%s">%s</label>',
@@ -278,6 +267,25 @@ class WPBDP_Form_Field_Type {
 
         return $html;
     }
+
+	/**
+	 * Include the error message and icon for validation errors.
+	 */
+	protected function add_error_message( $field, &$html ) {
+		$field_validation_errors = $field->get_validation_errors();
+		if ( empty( $field_validation_errors ) ) {
+			return;
+		}
+
+		$html .= '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="16px" width="16px" class="wpbdp-error-icon"><path fill="currentColor" d="M504 256a248 248 0 11-496 0 248 248 0 01496 0zm-248 50a46 46 0 100 92 46 46 0 000-92zm-44-165l8 136c0 6 5 11 12 11h48c7 0 12-5 12-11l8-136c0-7-5-13-12-13h-64c-7 0-12 6-12 13z"/></svg> ';
+		$html .= '<div class="wpbdp-form-field-validation-error-wrapper">';
+		$html .= '<div class="wpbdp-form-field-validation-errors wpbdp-clearfix">';
+
+		wpbdp_sanitize_value( 'esc_html', $field_validation_errors );
+		$html .= implode( '<br />', $field_validation_errors );
+
+		$html .= '</div></div>';
+	}
 
     /**
      * @since 4.1.7

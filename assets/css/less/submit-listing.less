@@ -1,8 +1,6 @@
-@import 'wpbdp_grid.less';
+@default-color: #569AF6;
 
-#wpbdp-page{
-	--bd-rootline-color: #569AF6;
-}
+@import 'wpbdp_grid.less';
 
 .select2-results {
     font-size: 11px;
@@ -41,7 +39,7 @@
 }
 
 .wpbdp-rootline-bar {
-	background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, #569AF6 50% );
+	background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, @default-color 50% );
 	background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, var(--bd-rootline-color) 50% );
 	background-position: bottom;
 	background-size: 10px;
@@ -61,7 +59,7 @@
 	width: 48px;
 	height: 48px;
 	border-radius: 48px;
-	border: 1px solid #569AF6;
+	border: 1px solid @default-color;
 	border-color: var(--bd-rootline-color);
 
 	svg {
@@ -70,7 +68,7 @@
 }
 
 .wpbdp-submit-checked .wpbdp-rootline-circle {
-	background: #569AF6;
+	background: @default-color;
 	background: var(--bd-rootline-color);
 }
 
@@ -103,7 +101,7 @@
         margin: 0 5px 0 0;
         padding: 1px 6px;
         border-radius: 3px;
-        background: #5bc0de;
+        background: @default-color;
         color: #fff;
         font-weight: 700;
         text-align: center;
@@ -222,25 +220,28 @@
             .wpbdp-image-img {
                 width: 60px;
                 float: left;
+
+				img {
+					object-fit: cover;
+					width: 50px;
+					height: 50px;
+				}
             }
 
             .wpbdp-image-extra {
                 input[type="text"] {
                     width: 60%;
-                    display: block;
                 }
             }
 
             .wpbdp-image-delete-link {
-                float: right;
-                font-size: 11px;
+                font-size: 12px;
                 text-decoration: none;
                 color: #900000;
                 display: none;
 
                 &:hover {
                     text-decoration: underline;
-                    color: #ff0000;
                 }
             }
 
@@ -415,16 +416,31 @@
 .wpbdp-with-button-styles {
     .submit-next-button,
     #wpbdp-submit-listing-submit-btn {
-        background: #569AF6;
+        background: @default-color;
         background: var(--bd-rootline-color);
+		border: 1px solid @default-color;
+		border-color: var(--bd-rootline-color);
+		color: #fff;
+
+		&:hover {
+			background: transparent;
+			color: @default-color;
+			color: var(--bd-rootline-color);
+		}
     }
 
     .submit-back-button {
-        background: rgba(0,0,0,0);
-        border: 1px solid #569AF6;
-        border: 1px solid var(--bd-rootline-color);
-        color: #569AF6;
+        background: transparent;
+        border: 1px solid @default-color;
+        border-color: var(--bd-rootline-color);
+        color: @default-color;
         color: var(--bd-rootline-color);
+
+		&:hover {
+	        background: @default-color;
+	        background: var(--bd-rootline-color);
+			color: #fff;
+		}
     }
 }
 

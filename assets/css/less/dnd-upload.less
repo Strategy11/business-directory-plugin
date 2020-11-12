@@ -9,12 +9,14 @@
     }
 }
 
- .wpbdp-dnd-area p {
+.wpbdp-dnd-area p {
     margin: 0;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: 1px;
-    color: #3F4B5B;
+}
+
+.wpbdp-dnd-area .dnd-area-inside {
+	letter-spacing: 1px;
 }
 
 .wpbdp-dnd-area .upload-button {
@@ -70,35 +72,23 @@
 
 .area-and-conditions {
     #image-upload-dnd-area {
-        float: none;
-        width: 100%;
         box-sizing: border-box;
         background-color: rgba(86, 154, 246, 0.08);
         border-color: rgba(63, 75, 91, 0.2);
         border-radius: 4px;
 
         .dnd-buttons a{
-            color: #569AF6;
             letter-spacing: initial;
         }
     }
 }
 
-.image-upload-header {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 29px;
-}
-
 #image-upload-conditions {
-    font-style: normal;
-    font-weight: normal;
     font-size: 12px;
-    line-height: 16px;
-
-    #image-slots-available {
-        float: right;
-    }
+    margin-bottom: 6px;
+	opacity: 0.8;
 }
 
+#image-slots-available {
+    float: right;
+}

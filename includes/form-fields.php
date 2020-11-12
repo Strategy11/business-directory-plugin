@@ -583,7 +583,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
             if ( $args['field'] && $args['field']->get_association() == 'category' ) {
                 if ( is_array( $value ) && count( $value ) == 1 && ! $value[0] ) {
-                    return WPBDP_ValidationError(
+					return WPBDP_ValidationError(
                         sprintf(
                             /* translators: %s: field label */
                             esc_html__( '%s is required.', 'business-directory-plugin' ),

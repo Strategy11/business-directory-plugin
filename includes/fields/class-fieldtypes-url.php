@@ -150,7 +150,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $html .= sprintf(
             '<label for="%s"><span class="sublabel">%s</span></label>',
             'wpbdp-field-' . esc_attr( $field->get_id() ) . '-url',
-            _x( 'URL:', 'form-fields api', 'business-directory-plugin' )
+            _x( 'URL', 'form-fields api', 'business-directory-plugin' )
         );
         $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" />',
                           'wpbdp-field-' . esc_attr( $field->get_id() ),
@@ -162,7 +162,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $html .= sprintf(
             '<label for="%s"><span class="sublabel">%s</span></label>',
             'wpbdp-field-' . esc_attr( $field->get_id() ) . '-title',
-            esc_html__( 'Link Text (optional)', 'business-directory-plugin' ) . ':'
+            esc_html__( 'Link Text (optional)', 'business-directory-plugin' )
         );
         $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" placeholder="" />',
                           'wpbdp-field-' . esc_attr( $field->get_id() ) . '-title',

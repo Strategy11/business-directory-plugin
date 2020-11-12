@@ -106,32 +106,32 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                 'class'            => 'wpbdp-js-select2',
             );
 
-            if ( ( 'submit' == $context || 'search' == $context ) && ! $this->is_multiple() ) {
+			if ( ( 'submit' === $context || 'search' === $context ) && ! $this->is_multiple() ) {
                 $args['show_option_none'] = esc_html__( '-- Choose One --', 'business-directory-plugin' );
+
+				$terms_count = (int) wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
 
                 if ( 'submit' == $context ) {
                     $args['option_none_value'] = '';
+
+	                if ( 1 === $terms_count ) {
+	                    $terms = get_terms(
+	                        array(
+	                            'taxonomy'   => WPBDP_CATEGORY_TAX,
+	                            'hide_empty' => false,
+	                        )
+	                    );
+	                    $term = reset( $terms );
+
+	                    $args['selected']         = $term->term_id;
+	                    $args['show_option_none'] = false;
+	                    $this->set_multiple( false );
+	                }
                 }
 
-                $terms_count = wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
-
-                if ( 1 === $terms_count ) {
-                    $terms = get_terms(
-                        array(
-                            'taxonomy'   => WPBDP_CATEGORY_TAX,
-                            'hide_empty' => false,
-                        )
-                    );
-                    $term  = reset( $terms );
-
-                    $args['selected']         = $term->term_id;
-                    $args['show_option_none'] = false;
-                    $this->set_multiple( false );
-                }
-
-                if ( 10 > $terms_count ) {
-                    $args['class'] = '';
-                }
+				if ( $terms_count < 10 ) {
+					$args['class'] = '';
+				}
             } elseif ( 'search' == $context && $this->is_multiple() ) {
                 $args['show_option_none'] = esc_html__( '-- Choose Terms --', 'business-directory-plugin' );
             }
@@ -166,7 +166,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     $html
                 );
             }
-        } else {
+			return $html;
+		}
+
             $html .= sprintf(
                 '<select id="%s" name="%s" %s class="%s %s" %s>',
                 'wpbdp-field-' . $field->get_id(),
@@ -178,10 +180,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             );
 
             if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
-                $html .= sprintf(
-                    '<option value="-1">%s</option>',
-                    esc_html__( '-- Choose One --', 'business-directory-plugin' )
-                );
+                $html .= '<option value="-1"> </option>';
             }
 
             $show_empty_option = $field->data( 'show_empty_option', null );
@@ -219,7 +218,6 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             }
 
             $html .= '</select>';
-        }
 
         return $html;
     }
