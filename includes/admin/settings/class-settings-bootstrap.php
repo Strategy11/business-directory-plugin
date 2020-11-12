@@ -825,25 +825,16 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'themes',
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'rootline-color',
-                'type'    => 'color',
-                'name'    => __( 'Primary color', 'business-directory-plugin' ),
-                'default' => '#569AF6',
-                'group'   => 'themes',
+		wpbdp_register_setting(
+			array(
+				'id'      => 'rootline-color',
+				'type'    => 'color',
+				'name'    => __( 'Primary color', 'business-directory-plugin' ),
+				'default' => '#569AF6',
+				'group'   => 'themes',
 				'desc'    => __( 'This is used for form buttons and form rootline.', 'business-directory-plugin' ),
-            )
-        );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'include-button-styles',
-                'type'    => 'checkbox',
-                'name'    => _x( 'Include CSS rules to give their own style to View, Edit and Delete buttons?', 'settings', 'business-directory-plugin' ),
-                'default' => 1,
-                'group'   => 'themes',
-            )
-        );
+			)
+		);
 
         // Image.
         wpbdp_register_settings_group( 'appearance/image', _x( 'Image', 'settings', 'business-directory-plugin' ), 'appearance' );
