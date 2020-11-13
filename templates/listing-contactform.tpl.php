@@ -5,50 +5,48 @@
  * @package BDP/Templates/Listing Contact Form
  */
 
-// phpcs:disable
 if ( $validation_errors ) :
 ?>
 <div class="wpbdp-msg wpbdp-error">
     <ul>
         <?php foreach ( $validation_errors as $error_msg ) : ?>
-            <li><?php echo $error_msg; ?></li>
+            <li>
+                <?php
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo $error_msg;
+                ?>
+            </li>
         <?php endforeach; ?>
     </ul>
 </div>
 <?php endif; ?>
 
-<p><span class="wpbdp-contact-listing-title"><?php _ex( 'Listing Title: ', 'templates', 'business-directory-plugin' ); ?></span><?php echo get_the_title( $listing_id ); ?></p>
-
-<form method="POST" action="<?php echo wpbdp_url( 'listing_contact', $listing_id ); ?>">
+<form method="POST" action="<?php echo esc_url( wpbdp_url( 'listing_contact', $listing_id ) ); ?>">
     <?php wp_nonce_field( 'contact-form-' . $listing_id ); ?>
 
-    <?php if ( $current_user ) : ?>
-        <p>
-            <?php
-            echo sprintf(
-                _x( 'You are currently logged in as %s. Your message will be sent using your logged in contact email.', 'templates', 'business-directory-plugin' ),
-                $current_user->first_name ? $current_user->first_name . ( $current_user->last_name ? ' ' . $current_user->last_name : '' ) : $current_user->user_login
-            );
-			?>
+	<div class="wpbdp-grid">
+    <?php if ( ! $current_user ) : ?>
+        <p class="wpbdp-form-field wpbdp-half">
+            <label for="wpbdp-contact-form-name"><?php esc_html_e( 'Your Name', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-name" type="text" class="intextbox" name="commentauthorname" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) ); ?>" />
         </p>
-    <?php else : ?>
-        <p>
-            <label for="wpbdp-contact-form-name"><?php _ex( 'Your Name', 'templates', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-name" type="text" class="intextbox" name="commentauthorname" value="<?php echo esc_attr( wpbdp_getv( $_POST, 'commentauthorname', '' ) ); ?>" />
-        </p>
-        <p>
-            <label for="wpbdp-contact-form-email"><?php _ex( 'Your Email', 'templates', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-email" type="text" class="intextbox" name="commentauthoremail" value="<?php echo esc_attr( wpbdp_getv( $_POST, 'commentauthoremail' ) ); ?>" />
-        </p>
+        <p class="wpbdp-form-field wpbdp-half">
+            <label for="wpbdp-contact-form-email"><?php esc_html_e( 'Your Email', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-email" type="text" class="intextbox" name="commentauthoremail" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthoremail' ), 'post' ) ); ?>" />
+		</p>
     <?php endif; ?>
 
-    <p>
-        <label for="wpbdp-contact-form-message"><?php _ex( 'Message', 'templates', 'business-directory-plugin' ); ?></label> <textarea id="wpbdp-contact-form-message" name="commentauthormessage" rows="4" class="intextarea"><?php echo esc_textarea( wpbdp_getv( $_POST, 'commentauthormessage', '' ) ); ?></textarea>
+    <p class="wpbdp-form-field">
+        <label for="wpbdp-contact-form-message"><?php esc_html_e( 'Message', 'business-directory-plugin' ); ?></label> <textarea id="wpbdp-contact-form-message" name="commentauthormessage" rows="4" class="intextarea"><?php echo esc_textarea( wpbdp_get_var( array( 'param' => 'commentauthormessage', 'sanitize' => 'sanitize_textarea_field' ), 'post' ) ); ?></textarea>
     </p>
 
     <?php do_action( 'wpbdp_contact_form_extra_fields' ); ?>
+	</div>
 
-    <?php if ( $recaptcha ) : ?>
-    <?php echo $recaptcha; ?>
-    <?php endif; ?> 
+    <?php
+	if ( $recaptcha ) {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $recaptcha;
+	}
+	?>
 
-    <input type="submit" class="wpbdp-button wpbdp-submit submit" value="<?php _ex( 'Send', 'templates', 'business-directory-plugin' ); ?>" />
+    <input type="submit" class="wpbdp-button wpbdp-submit submit" value="<?php esc_attr_e( 'Send', 'business-directory-plugin' ); ?>" />
 </form>

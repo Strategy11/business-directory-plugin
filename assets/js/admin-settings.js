@@ -35,7 +35,9 @@ jQuery(function($) {
                 self.check_requirements( setting_id );
             } );
 
-            $( '.cpa-color-picker' ).wpColorPicker();
+			if ( $.fn.wpColorPicker) {
+            	$( '.cpa-color-picker' ).wpColorPicker();
+			}
         },
 
         check_requirements: function( setting_id ) {

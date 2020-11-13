@@ -116,7 +116,7 @@ form#wpbdmsearchform a.advanced-search-link {
     background-image: -webkit-linear-gradient(top, #f4f4f4, #e6e6e6);
     background-image: -o-linear-gradient(top, #f4f4f4, #e6e6e6);
     background-image: linear-gradient(top, #f4f4f4, #e6e6e6);
-    border: 1px solid #d2d2d2;
+    border: 1px solid @gray;
     border-radius: 3px;
     box-shadow: 0 1px 2px rgba(64, 64, 64, 0.1);
     margin-right: 3px;
@@ -214,9 +214,6 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing-single .listing-title {
-    padding: 2px 8px;
-    background: #efefef;
-    border: dotted 1px #ddd;
     margin-bottom: 7px;
 }
 
@@ -374,11 +371,6 @@ form#wpbdmsearchform a.advanced-search-link {
     padding-top: 20px;
     padding-left: 10px;
 
-    label, .wpbdp-contact-listing-title {
-        display: block;
-        margin-bottom: 10px;
-    }
-
     input[type="text"] {
         width: 98%;
     }
@@ -392,12 +384,8 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-left: -10px;
 }
 
-.wpbdp-listing-contact-form h3 {
-    margin-left: -10px;
-}
-
 .wpbdp-listing-contact-form textarea {
-    width: 98% !important;
+    width: 100%;
 }
 
 /* listing comments form */
@@ -488,13 +476,13 @@ form#wpbdmsearchform a.advanced-search-link {
 
 /* error and status messages */
 .wpbdp-msg {
-    padding: 6px 12px;
+    padding: 10px 12px;
     margin: 5px 0;
     background: #FEF7D3;
     border: 1px solid rgba(63, 75, 91, 0.2);
     box-sizing: border-box;
     border-radius: 4px;
-    font-size: 17px;
+    font-size: 14px;
     color: rgba(63, 75, 91, 0.6);
 
     ul {
@@ -543,7 +531,7 @@ form#wpbdmsearchform a.advanced-search-link {
 #wpbdp-renewal-page .do-not-renew-listing {
     .wpbdp-rounded-box;
 
-    background-color: @gray;
+    background-color: var(--bd-main-color-8);
 }
 #wpbdp-renewal-page .do-not-renew-listing input[type="submit"] {
     background: @red;
@@ -600,7 +588,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 .wpbdp-cancel-subscription-form {
     .wpbdp-rounded-box;
 
-    background-color: @gray;
+    background-color: var(--bd-main-color-8);
 }
 .wpbdp-cancel-subscription-form input.button-primary[type="submit"] {
     background-color: @red;

@@ -34,7 +34,6 @@ $single_plan = ! ( count( $plans ) > 1 );
     <input type="hidden" name="listing_plan" value="<?php echo esc_attr( $_submit->fixed_plan_id ); ?>" />
     <input type="hidden" name="skip_plan_selection" value="1" />
 
-    <div class="wpbdp-msg tip"><?php esc_html_e( 'Your plan details:', 'business-directory-plugin' ); ?></div>
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
         <div class="wpbdp-plan-selection">
             <div class="wpbdp-plan-selection-list">
