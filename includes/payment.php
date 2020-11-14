@@ -5,8 +5,6 @@
  * @package BDP/Includes/Views/Checkout
  */
 
-// phpcs:disable
-
 require_once( WPBDP_PATH . 'includes/class-payment.php' );
 require_once( WPBDP_INC . 'class-payment-gateway.php' );
 require_once( WPBDP_PATH . 'includes/class-fees-api.php' );
@@ -15,8 +13,6 @@ require_once( WPBDP_PATH . 'includes/class-fees-api.php' );
 if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
     /**
      * Class WPBDP_PaymentsAPI
-     *
-     * @SuppressWarnings(PHPMD)
      */
 class WPBDP_PaymentsAPI {
 
@@ -52,8 +48,6 @@ class WPBDP_PaymentsAPI {
 
     /**
      * @since 5.0
-     *
-     * @SuppressWarnings(PHPMD)
      */
     public function render_receipt( $payment ) {
         $current_user = wp_get_current_user();
@@ -224,8 +218,6 @@ class WPBDP_PaymentsAPI {
 
     /**
      * @since 3.5.8
-     *
-     * @SuppressWarnings(PHPMD)
      */
     public function notify_abandoned_payments() {
         global $wpdb;

@@ -5,12 +5,8 @@
  * @package BDP/Includes/Views/Checkout
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP__Views__Checkout
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Checkout extends WPBDP__View {
 

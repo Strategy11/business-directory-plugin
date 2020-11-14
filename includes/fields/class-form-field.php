@@ -6,12 +6,8 @@
  * @package WPBDP/Views/Includes/Fields/Form Field
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_Form_Field
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Form_Field {
 
@@ -34,7 +30,9 @@ class WPBDP_Form_Field {
     public $css_classes     = array();
     public $html_attributes = array();
 
-    static $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
+    private $validation_errors = array();
+
+    public static $default_tags = array( 'title', 'website', 'email', 'phone', 'fax', 'address', 'zip' );
 
 
     public function __construct( $attrs = array() ) {
@@ -307,6 +305,14 @@ class WPBDP_Form_Field {
 
         if ( $render_context ) {
             $css_classes[] = 'wpbdp-form-field-in-' . $render_context;
+
+            if ( 'submit' === $render_context ) {
+                if ( in_array( $this->get_field_type()->get_id(), array( 'textarea', 'url' ) ) || in_array( $this->get_association(), array( 'title', 'excerpt', 'content', 'regions' ) ) ) {
+                    $css_classes[] = 'wpbdp-full';
+                } else {
+                    $css_classes[] = 'wpbdp-half';
+                }
+            }
         }
 
         // Add own custom CSS classes.
@@ -500,7 +506,13 @@ class WPBDP_Form_Field {
             return true;
         }
 
+        $this->validation_errors = $errors;
+
         return false;
+    }
+
+    public function get_validation_errors() {
+        return $this->validation_errors;
     }
 
     public function validate_categories( $categories = array() ) {

@@ -2,10 +2,11 @@
 $admin = isset( $admin ) ? $admin : false;
 ?>
 <?php if ( ! $admin ): ?>
-<h4><?php esc_html_e( 'Current Images', 'business-directory-plugin' ); ?></h4>
+<div id="current-images-header" style="<?php echo ( ! $images ? 'display: none;' : '' ); ?>">
+    <?php esc_html_e( 'Current Images', 'business-directory-plugin' ); ?>
+</div>
 <?php endif; ?>
 
-<div id="no-images-message" style="<?php echo ( $images ? 'display: none;' : '' ); ?>"><?php esc_html_e( 'There are no images currently attached to your listing.', 'business-directory-plugin' ); ?></div>
 <div id="wpbdp-uploaded-images" class="cf">
 
 <?php
@@ -34,18 +35,42 @@ endforeach;
 </div>
 
 <?php
-if ( $admin ):
+if ( $admin ) :
     $vars = array( 'admin' => true, 'listing_id' => $listing->get_id() );
-else:
-    $vars = array( 'slots' => $image_slots,
-                   'slots_available' => $image_slots_remaining,
-                   'min_file_size' => $image_min_file_size,
-                   'max_file_size' => $image_max_file_size,
-                   'image_min_width' => $image_min_width,
-                   'image_max_width' => $image_max_width,
-                   'image_min_height' => $image_min_height,
-                   'image_max_height' => $image_max_height,
-                   'listing_id' => $listing->get_id() );
+else :
+    $conditions = array();
+
+    if ( $image_min_file_size || $image_max_file_size ) :
+        $conditions[] = sprintf(
+            '%1$s: %2$s - %3$s',
+            esc_html_x( 'File size', 'templates', 'business-directory-plugin' ),
+            esc_html( $image_min_file_size ),
+            $image_max_file_size ? esc_html( $image_max_file_size ) : esc_html_x( 'No limit', 'templates', 'business-directory-plugin' )
+        );
+    endif;
+    if ( $image_min_width || $image_max_width ) :
+        $conditions[] = sprintf(
+            '%1$s: %2$s - %3$s',
+            esc_html_x( 'Image width', 'templates', 'business-directory-plugin' ),
+            esc_html( $image_min_width ) . 'px',
+            $image_max_width ? esc_html( $image_max_width ) . 'px' : esc_html_x( 'No limit', 'templates', 'business-directory-plugin' )
+        );
+    endif;
+    if ( $image_min_height || $image_max_height ) :
+        $conditions[] = sprintf(
+            '%1$s: %2$s - %3$s',
+            esc_html_x( 'Image height', 'templates', 'business-directory-plugin' ),
+            esc_html( $image_min_height ) . 'px',
+            $image_max_height ? esc_html( $image_max_height ) . 'px' : esc_html_x( 'No limit', 'templates', 'business-directory-plugin' )
+        );
+    endif;
+
+    $vars = array(
+        'slots_available' => $image_slots_remaining,
+        'slots'           => $image_slots,
+        'conditions'      => $conditions,
+        'listing_id'      => $listing->get_id()
+    );
 endif;
 $vars['echo'] = true;
 wpbdp_render( 'submit-listing-images-upload-form', $vars, false );

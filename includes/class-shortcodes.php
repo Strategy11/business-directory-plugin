@@ -3,11 +3,6 @@
  * @package WPBDP\FieldTypes\TextArea
  * @since 4.0
  */
-
-// phpcs:disable
-/**
- * @SuppressWarnings(PHPMD)
- */
 class WPBDP__Shortcodes {
 
     private $shortcodes = array();

@@ -5,7 +5,6 @@
  * @package BDP/Templates/Sticky Tag
  */
 
-// phpcs:disable
 ?>
 <div class="stickytag">
     <img src="<?php echo $img_src; ?>"

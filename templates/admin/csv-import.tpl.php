@@ -5,8 +5,6 @@
  * @package BDP/Templates/Admin
  */
 
-// phpcs:disable
-
 /**
  * @param $defs
  * @param $k

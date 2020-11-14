@@ -1,4 +1,4 @@
-<?php // phpcs:disable
+<?php
 /**
  * Personal Data Privacy
  *

@@ -583,7 +583,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
             if ( $args['field'] && $args['field']->get_association() == 'category' ) {
                 if ( is_array( $value ) && count( $value ) == 1 && ! $value[0] ) {
-                    return WPBDP_ValidationError(
+					return WPBDP_ValidationError(
                         sprintf(
                             /* translators: %s: field label */
                             esc_html__( '%s is required.', 'business-directory-plugin' ),
@@ -594,7 +594,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             }
 
             if ( ( $args['field'] && $args['field']->is_empty_value( $value ) ) || ! $value || ( is_string( $value ) && ! $args['allow_whitespace'] && ! trim( $value ) ) ) {
-                return WPBDP_ValidationError(
+				return WPBDP_ValidationError(
                     sprintf(
                         /* translators: %s: field label */
                         esc_html__( '%s is required.', 'business-directory-plugin' ),
@@ -623,6 +623,11 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
         /* EmailValidator */
         private function email( $value, $args = array() ) {
+			if ( '' === $value ) {
+				// Don't check formatting on an empty value.
+				return;
+			}
+
             $valid = false;
 
             if ( function_exists( 'filter_var' ) ) {

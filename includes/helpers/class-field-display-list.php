@@ -1,8 +1,6 @@
-<?php // phpcs:disable
+<?php
 /**
  * @since 4.0
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Field_Display_List implements IteratorAggregate {
 

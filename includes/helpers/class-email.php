@@ -5,12 +5,10 @@
  * @package BDP/Includes/Helpers/Class Email.
  */
 
-// phpcs:disable
 /**
  * E-mail handling class.
  *
  * @since 2.1
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Email {
 

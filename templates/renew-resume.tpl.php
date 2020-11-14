@@ -11,8 +11,6 @@
 
 <p>
     <?php
-
-    // phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment
     esc_html(
         printf(
             esc_html_x( 'You are about to renew the listing %s.', 'renewal', 'business-directory-plugin' ),
@@ -26,7 +24,6 @@
 
 <div class="wpbdp-payment-invoice">
     <?php
-    // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
     echo $invoice_resume;
     ?>
 </div>

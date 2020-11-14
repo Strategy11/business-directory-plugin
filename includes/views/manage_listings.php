@@ -5,11 +5,8 @@
  * @package BDP/Includes/Views
  */
 
-// phpcs:disable
-
 /**
  * @since 4.0
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Manage_Listings extends WPBDP__View {
 

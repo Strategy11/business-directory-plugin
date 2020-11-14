@@ -28,10 +28,10 @@
     <p>
         <?php if ( 'publish' === get_post_status( $listing->get_id() ) ) : ?>
             <a href="<?php echo esc_url( get_permalink( $listing->get_id() ) ); ?>"><?php echo esc_html_x( 'Go to your listing', 'templates', 'business-directory-plugin' ); ?></a> |
-        <?php else : ?>
+        <?php elseif ( ! current_user_can( 'administrator' ) ) : ?>
             <?php echo esc_html_x( 'Your listing requires admin approval. You\'ll be notified once your listing is approved.', 'templates', 'business-directory-plugin' ); ?>
     </p>
     <p>
         <?php endif; ?>
-        <a href="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>"><?php esc_html_e( 'Return to directory.', 'business-directory-plugin' ); ?></a>
+        <a href="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>"><?php esc_html_e( 'Return to directory', 'business-directory-plugin' ); ?></a>
     </p>

@@ -3,7 +3,6 @@
  * @package WPBDP/Views/Show Category
  */
 
-// phpcs:disable
 class WPBDP__Views__Show_Category extends WPBDP__View {
 
     public function dispatch() {

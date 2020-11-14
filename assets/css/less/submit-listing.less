@@ -1,25 +1,108 @@
-.select2-results {
-    font-size: 11px;
+@import 'wpbdp_grid.less';
+
+.wpbdp-submit-rootline {
+	margin: 30px auto;
+	text-align: center;
+	display: flex;
 }
 
-#wpbdp-submit-listing {
+.wpbdp-rootline-section {
+	align-items: center;
+	width: 100%;
+
+    &:not(.wpbdp-submit-section-current) {
+        &.wpbdp-submit-checked {
+            .wpbdp-rootline-counter span {
+            	display: none;
+            }
+        }
+    }
+
+    &:last-of-type {
+        .wpbdp-rootline-bar {
+            background-image: none;
+        }
+    }
+}
+
+.wpbdp-rootline-section-name {
+	margin: 10px auto 0;
+	font-size: 12px;
+	text-transform: uppercase;
+	opacity: 0.6;
+}
+
+.wpbdp-rootline-bar {
+	background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, @default-color 50% );
+	background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, var(--bd-main-color) 50% );
+	background-position: bottom;
+	background-size: 10px;
+	background-repeat: repeat-x;
+	position: relative;
+	height: 1px;
+	width: ~"calc(100% - 48px)";
+	top: 24px;
+	margin-left: ~"calc(50% + 25px)";
+}
+
+.wpbdp-rootline-circle {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 48px;
+	border: 1px solid @default-color;
+	border-color: var(--bd-main-color);
+	z-index: 1;
+
+	svg {
+		fill: none;
+	}
+}
+
+.wpbdp-submit-checked .wpbdp-rootline-circle {
+	background: @default-color;
+	background: var(--bd-main-color);
+}
+
+.wpbdp-rootline-counter {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+&.wpbdp-submit-checked {
+	.wpbdp-rootline-section-name {
+		opacity: 1;
+	}
+
+	&.wpbdp-submit-section-current {
+		svg {
+			display: none;
+		}
+	}
+
+	.wpbdp-rootline-circle {
+		color: #fff;
+	}
+}
+
+#wpbdp-submit-listing.wpbdp-submit-page {
+    margin: auto;
 
     .category_list_item() {
         font-size: 10px;
         margin: 0 5px 0 0;
         padding: 1px 6px;
         border-radius: 3px;
-        background: #5bc0de;
+        background: @default-color;
+		background: var(--bd-main-color);
         color: #fff;
         font-weight: 700;
         text-align: center;
         white-space: nowrap;
         vertical-align: baseline;
         border: none;
-    }
-
-    input[type="text"], textarea {
-        box-sizing: border-box;
     }
 
     .wpbdp-submit-listing-section {
@@ -47,32 +130,7 @@
         }
     }
 
-    .wpbdp-submit-listing-section-header {
-        background: #ccc;
-        text-transform: uppercase;
-        font-weight: bold;
-        color: #333;
-        padding: 2px 10px;
-        font-size: 12px;
-        cursor: pointer;
-
-        .collapse-indicator {
-            margin: 0 10px 0 0;
-            display: none;
-
-            &.expanded {
-                display: inline;
-            }
-        }
-    }
-
     .wpbdp-submit-listing-section-content {
-        padding: 10px 20px;
-        border: solid 1px #ccc;
-        border-top: none;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-
         h4 {
             margin: 0 0 10px 0;
         }
@@ -80,9 +138,10 @@
 
     .wpbdp-submit-listing-form-actions {
         margin: 10px 0;
-
-        input[type="submit"] {
-            float: right;
+        text-align: center;
+        
+        button {
+            margin: 15px;
         }
     }
 
@@ -92,7 +151,6 @@
 
     .wpbdp-plan-selection-with-tip {
         margin: 24px 0 0 0;
-        display: none;
     }
 
     .wpbdp-submit-listing-section-plan_selection {
@@ -133,25 +191,28 @@
             .wpbdp-image-img {
                 width: 60px;
                 float: left;
+
+				img {
+					object-fit: cover;
+					width: 50px;
+					height: 50px;
+				}
             }
 
             .wpbdp-image-extra {
                 input[type="text"] {
                     width: 60%;
-                    display: block;
                 }
             }
 
             .wpbdp-image-delete-link {
-                float: right;
-                font-size: 11px;
+                font-size: 12px;
                 text-decoration: none;
                 color: #900000;
                 display: none;
 
                 &:hover {
                     text-decoration: underline;
-                    color: #ff0000;
                 }
             }
 
@@ -161,24 +222,6 @@
                 }
             }
         }
-
-        // .wpbdp-image {
-        //     border-bottom: dotted 1px #efefef;
-        //     margin-right: 10px;
-        //     margin-bottom: 10px;
-        //     vertical-align: top;
-        //
-        //     img {
-        //         vertical-align: top;
-        //         text-align: center;
-        //         max-width: 150px;
-        //         height: auto;
-        //     }
-        //
-        //     .delete-image {
-        //         color: #ff0000;
-        //     }
-        // }
 
         .wpbdp-image-draggable-highlight {
             width: 160px;
@@ -195,40 +238,63 @@
             visibility: hidden;
         }
 
-        .area-and-conditions {
-            #image-upload-dnd-area {
-                float: left;
-                width: 72%;
-                box-sizing: border-box;
+    }
 
-                &.no-conditions {
-                    float: none;
-                    width: 100%;
-                }
+    .wpbdp-submit-listing-section-listing_fields {
+
+        .wpbdp-submit-listing-form-actions {
+            display: block;
+        }
+
+        &.has-error {
+            .wpbdp-form-field-label {
+                position: relative;
             }
+        }
+    }
 
-            #image-upload-conditions {
-                float: right;
-                width: 25%;
-                color: #666;
-                font-size: 90%;
+        .wpbdp-form-field-inner {
+            padding: 0;
+            width: 100%;
+        }
 
-                dl {
-                    margin: 0;
+        .wpbdp-form-field-type-select:not(.wpbdp-form-field-association-category) {
+    
+            &.wpbdp-form-field-association-region {
 
-                    dt {
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                    }
+                &.wpbdp-regions-hidden {
+                    display: none;
+                    visibility: hidden;
                 }
             }
         }
+    
+        .wpbdp-upload-widget {
+            max-height: 50px;
+        }
 
+        .wpbdp-form-field-label {
+            .wpbdp-form-field-validation-error-wrapper {
+                visibility: hidden;
+                border-radius: 6px;
+                padding: 5px 0;
+              
+                /* Position the tooltip */
+                position: absolute;
+                z-index: 1;
+                bottom: 40%;
+                left: -10px;
+            }
+
+            &:hover {
+                .wpbdp-form-field-validation-error-wrapper{ 
+                    visibility: visible;
+                }
+            }
+        }
     }
 
     textarea.wpbdp-submit-listing-tos {
-        width: 100%;
         min-height: 100px;
     }
 
@@ -278,5 +344,80 @@
         }
     }
 
+    a.reset {
+        font-size: 12px;
+    }
+
+    &.wpbdp-submit-page-tiny .wpbdp-form-field,
+    &.wpbdp-submit-page-tiny .wpbdp-form-field.wpbdp-form-field-type-url .wpbdp-url-field-col,
+    &.wpbdp-submit-page-small .wpbdp-form-field {
+        grid-column: span 12 / span 12;
+    }
+
+    &.wpbdp-submit-page-tiny {
+        .wpbdp-submit-rootline {
+            .wpbdp-rootline-section {
+                &:not(.wpbdp-submit-section-current),
+                .wpbdp-rootline-bar {
+                    display: none;
+                }
+
+                &.wpbdp-submit-checked .wpbdp-rootline-circle {
+                    .wpbdp-rootline-checkmark {
+                        display: none;
+                    }
+
+                    .wpbdp-rootline-counter span {
+                        display: initial;
+                    }
+                }
+            }
+        }
+    }
+
+// Remove this after checking existing themes.
+.wpbdp-submit-listing-section-header {
+    display: none;
+}
+
+.wpbdp-with-button-styles {
+    .submit-next-button,
+    #wpbdp-submit-listing-submit-btn {
+        background: @default-color;
+        background: var(--bd-main-color);
+		border: 1px solid @default-color;
+		border-color: var(--bd-main-color);
+		color: #fff;
+
+		&:hover {
+			background: transparent;
+			color: @default-color;
+			color: var(--bd-main-color);
+		}
+    }
+
+    .submit-back-button {
+        background: transparent;
+        border: 1px solid @default-color;
+        border-color: var(--bd-main-color);
+        color: @default-color;
+        color: var(--bd-main-color);
+
+		&:hover {
+	        background: @default-color;
+	        background: var(--bd-main-color);
+			color: #fff;
+		}
+    }
+
+	.select2-container {
+		.select2-selection {
+			border-color: @gray;
+		}
+
+		.select2-results__option--highlighted[data-selected]{
+			background-color: var(--bd-main-color);
+		}
+	}
 }
 

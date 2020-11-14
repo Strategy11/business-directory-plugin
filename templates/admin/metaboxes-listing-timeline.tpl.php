@@ -5,7 +5,6 @@
  * @package BDP/Templates/Admin/Metabox listing timeline
  */
 
-// phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 ?>
 <div id="wpbdp-listing-metabox-timeline">
     <?php foreach ( $timeline as $item ) : ?>

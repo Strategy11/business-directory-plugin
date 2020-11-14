@@ -1,17 +1,8 @@
 .wpbdp-form-field {
-    margin: 12px 0;
+    margin: 14px 0;
 
-    &:first-child {
-        margin-top: 0;
-    }
-
-    .wpbdp-form-field-label {
-        margin: 0 0 3px 0;
-
-        label {
-            display: inline-block;
-            font-weight: bold;
-        }
+	label {
+		font-weight: 500;
 
         .wpbdp-form-field-required-indicator {
             margin-left: 3px;
@@ -30,59 +21,19 @@
     }
 
     .wpbdp-form-field-description {
-        padding-left: 6px;
-        color: #666;
+        opacity: 0.8;
+		font-size: 14px;
     }
 
     .wpbdp-form-field-inner {
         padding-left: 6px;
     }
 
-    &.wpbdp-form-field-type-textarea textarea,
-    &.wpbdp-form-field-type-textfield input[type="text"],
-    &.wpbdp-form-field-type-select select,
-    &.wpbdp-form-field-type-social-network input[type="text"],
-    &.wpbdp-form-field-type-social-twitter input[type="text"],
-    &.wpbdp-form-field-type-social-facebook input[type="text"],
-    &.wpbdp-form-field-type-social-linkedin input[type="text"],
-    &.wpbdp-form-field-type-phone_number input[type="text"],
-    &.wpbdp-form-field-type-date input[type="text"] {
+    textarea,
+    input[type="text"],
+    select {
         width: 100%;
-        font-size: inherit;
-    }
-
-    &.wpbdp-form-field-type-textarea textarea {
-        min-height: 50px;
-    }
-
-    &.wpbdp-form-field-type-url {
-        .wpbdp-url-field-col {
-            box-sizing: border-box;
-            float: left;
-            width: 50%;
-
-            &:first-child {
-                padding-right: 10pt;
-            }
-
-            &:last-child {
-                padding-left: 10pt;
-            }
-
-            .sublabel {
-                margin: 0;
-                display: block;
-            }
-
-            input[type="text"] {
-                width: 100%;
-                font-size: inherit;
-            }
-        }
-    }
-
-    &.wpbdp-form-field-association-content textarea {
-        min-height: 80px;
+		box-sizing: border-box;
     }
 
     .field-description {
@@ -91,26 +42,31 @@
         float: right;
     }
 
-    .sublabel {
-        font-size: 90%;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
     &.wpbdp-form-field-type-image,
     &.wpbdp-form-field-type-social-network {
         .preview {
             margin-bottom: 20px;
-        }
 
-        a.delete {
-            color: #900000;
-            margin-right: 20px;
+            img {
+                display: inline;
+            }
+
+            a.delete {
+                color: #900000;
+                margin-left: 20px;
+                display: none;
+                vertical-align: top;
+            }
+
+            &:hover {
+                a.delete {
+                    display: inline;
+                }
+            }
         }
 
         input[type="text"] {
             width: 100%;
-            font-size: inherit;
         }
 
         .wpbdp-social-type-field {
@@ -132,10 +88,10 @@
 
     .wpbdp-form-field-validation-errors {
         font-size: 80%;
-        color: #d64226;
+        color: @red;
         position: relative;
         background: #fff;
-        border: 1px solid #d64226;
+        border: 1px solid @red;
         border-radius: 4px;
         padding: 4px 6px;
         margin: 0 12px 3px 6px;
@@ -160,7 +116,7 @@
 
         &:before {
             border-color: rgba(214, 66, 38, 0);
-            border-top-color: #d64226;
+            border-top-color: @red;
             border-width: 5px;
             margin-left: -5px;
         }
@@ -169,16 +125,9 @@
     .wpbdp-form-field {
         margin: 0;
     }
+}
 
-    .wpbdp-form-field .wpbdp-form-field-label {
-    }
-
-    .wpbdp-form-field-inner {
-    }
-
-    .wpbdp-form-field-type-textfield .wpbdp-form-field-inner input,
-    .wpbdp-form-field-type-textarea .wpbdp-form-field-inner textarea {
-        // border-color: #d64226;
-    }
+.wpbdp-form-field-validation-error-wrapper + label {
+	color: @red;
 }
 

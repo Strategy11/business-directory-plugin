@@ -266,7 +266,7 @@ WPBDP.fileUpload = {
                         }
 
                         if ( ( t._admin_nonce && 0 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length ) || ( ! t._admin_nonce && t._slotsRemaining == t._slots ) )
-                            $( '#no-images-message' ).show();
+                            $( '#current-images-header' ).show();
 
                         if ( t._admin_nonce || t._slotsRemaining > 0 ) {
                             $( '#image-upload-dnd-area .dnd-area-inside' ).show();
@@ -333,7 +333,7 @@ WPBDP.fileUpload = {
                         return;
                     }
 
-                    $( '#no-images-message' ).hide();
+                    $( '#current-images-header' ).hide();
                     $( '#wpbdp-uploaded-images' ).append( res.data.html );
 
                     if ( 1 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length ) {
@@ -440,7 +440,7 @@ WPBDP.fileUpload = {
                             return;
                         }
     
-                        $( '#no-images-message' ).hide();
+                        $( '#current-images-header' ).hide();
                         $( res.data.previewElement ).append( res.data.html );
                     });
                 });

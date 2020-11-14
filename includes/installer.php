@@ -3,21 +3,6 @@
  * @package WPBDP
  */
 
-// phpcs:disable Generic.Commenting
-// phpcs:disable Generic.ControlStructures
-// phpcs:disable Generic.Formatting
-// phpcs:disable PEAR.Functions
-// phpcs:disable PEAR.Files
-// phpcs:disable PSR2.Methods
-// phpcs:disable PSR2.ControlStructures
-// phpcs:disable Squiz.Commenting
-// phpcs:disable Squiz.PHP
-// phpcs:disable WordPress.Arrays
-// phpcs:disable WordPress.PHP
-// phpcs:disable WordPress.VIP
-// phpcs:disable WordPress.WhiteSpace
-// phpcs:disable WordPress.WP
-
 require_once ( WPBDP_PATH . 'includes/admin/upgrades/class-migration.php' );
 
 /**
@@ -36,9 +21,6 @@ class WPBDP_Installer {
         add_action( 'split_shared_term', array( &$this, 'handle_term_split' ), 10, 4 );
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function install() {
         global $wpdb;
 
@@ -296,9 +278,6 @@ class WPBDP_Installer {
         new WPBDP__Installer__Installation_Error( $exception );
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function get_pending_migrations() {
         $current_version = strval( $this->installed_version );
         $current_version = ( false === strpos( $current_version, '.' ) ) ? $current_version . '.0' : $current_version;
@@ -348,9 +327,6 @@ class WPBDP_Installer {
         }
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function handle_term_split( $old_id, $new_id, $tt_id, $tax ) {
         if ( WPBDP_CATEGORY_TAX != $tax )
             return;
@@ -360,5 +336,3 @@ class WPBDP_Installer {
         $m->process_term_split( $old_id );
     }
 }
-
-// phpcs:enable

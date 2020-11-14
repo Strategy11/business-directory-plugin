@@ -5,8 +5,6 @@
 
 /**
  * Class WPBDP_Payment
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Payment extends WPBDP__DB__Model {
 

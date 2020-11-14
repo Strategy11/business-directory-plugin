@@ -5,12 +5,8 @@
  * @package BDP/Includes/Fields/Fieldtypes Select
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_FieldTypes_Select
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
@@ -25,7 +21,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
      * WPBDP_FieldTypes_Select constructor.
      */
     public function __construct() {
-        parent::__construct( _x( 'Select List', 'form-fields api', 'business-directory-plugin' ) );
+        parent::__construct( esc_html__( 'Select List', 'business-directory-plugin' ) );
     }
 
     public function get_id() {
@@ -43,6 +39,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( is_null( $input ) || '' == $input ) {
             $input = array();
         }
+
+        wpbdp_sanitize_value( 'sanitize_text_field', $input );
 
         $res = is_array( $input ) ? $input : array( $input );
 
@@ -84,8 +82,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( $field->get_association() == 'tags' && ! $options ) {
             $tags    = get_terms(
                 WPBDP_TAGS_TAX, array(
-					'hide_empty' => false,
-					'fields'     => 'names',
+                    'hide_empty' => false,
+                    'fields'     => 'names',
                 )
             );
             $options = array_combine( $tags, $tags );
@@ -108,28 +106,34 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                 'class'            => 'wpbdp-js-select2',
             );
 
-            if ( ( 'submit' == $context || 'search' == $context ) && ! $this->is_multiple() ) {
-                $args['show_option_none'] = _x( '-- Choose One --', 'form-fields-api category-select', 'business-directory-plugin' );
+			if ( ( 'submit' === $context || 'search' === $context ) && ! $this->is_multiple() ) {
+                $args['show_option_none'] = esc_html__( '-- Choose One --', 'business-directory-plugin' );
+
+				$terms_count = (int) wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
 
                 if ( 'submit' == $context ) {
                     $args['option_none_value'] = '';
+
+	                if ( 1 === $terms_count ) {
+	                    $terms = get_terms(
+	                        array(
+	                            'taxonomy'   => WPBDP_CATEGORY_TAX,
+	                            'hide_empty' => false,
+	                        )
+	                    );
+	                    $term = reset( $terms );
+
+	                    $args['selected']         = $term->term_id;
+	                    $args['show_option_none'] = false;
+	                    $this->set_multiple( false );
+	                }
                 }
 
-                if ( 1 == wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) ) ) {
-                    $terms = get_terms(
-                        array(
-							'taxonomy'   => WPBDP_CATEGORY_TAX,
-							'hide_empty' => false,
-                        )
-                    );
-                    $term  = reset( $terms );
-
-                    $args['selected']         = $term->term_id;
-                    $args['show_option_none'] = false;
-                    $this->set_multiple( false );
-                }
-			} elseif ( 'search' == $context && $this->is_multiple() ) {
-                $args['show_option_none'] = _x( '-- Choose Terms --', 'form-fields-api category-select', 'business-directory-plugin' );
+				if ( $terms_count < 10 ) {
+					$args['class'] = '';
+				}
+            } elseif ( 'search' == $context && $this->is_multiple() ) {
+                $args['show_option_none'] = esc_html__( '-- Choose Terms --', 'business-directory-plugin' );
             }
 
             $args = apply_filters( 'wpbdp_field_type_select_categories_args', $args, $field, $value, $context, $extra, $field_settings );
@@ -162,7 +166,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                     $html
                 );
             }
-        } else {
+			return $html;
+		}
+
             $html .= sprintf(
                 '<select id="%s" name="%s" %s class="%s %s" %s>',
                 'wpbdp-field-' . $field->get_id(),
@@ -174,10 +180,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             );
 
             if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
-                $html .= sprintf(
-                    '<option value="-1">%s</option>',
-                    _x( '-- Choose One --', 'form-fields-api category-select', 'business-directory-plugin' )
-                );
+                $html .= '<option value="-1"> </option>';
             }
 
             $show_empty_option = $field->data( 'show_empty_option', null );
@@ -187,17 +190,17 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             }
 
             if ( $show_empty_option ) {
-                $default_label      = _x( '— None —', 'form-fields-api select', 'business-directory-plugin' );
+                $default_label      = __( '— None —', 'business-directory-plugin' );
                 $empty_option_label = $field->data( 'empty_option_label', $default_label );
-                $html              .= '<option value="">' . $empty_option_label . '</option>';
+                $html              .= '<option value="">' . esc_html( $empty_option_label ) . '</option>';
             }
 
             foreach ( $options as $option => $label ) {
                 $option_data = array(
-					'label'      => $label,
-					'value'      => esc_attr( $option ),
-					'attributes' => array(),
-				);
+                    'label'      => $label,
+                    'value'      => esc_attr( $option ),
+                    'attributes' => array(),
+                );
 
                 if ( in_array( $option, $value ) ) {
                     $option_data['attributes']['selected'] = 'selected';
@@ -208,14 +211,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                 $html .= sprintf(
                     '<option value="%s" class="%s" %s>%s</option>',
                     esc_attr( $option_data['value'] ),
-                    'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ),
+                    esc_attr( 'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ) ),
                     $this->html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
-                    esc_attr( $option_data['label'] )
+                    esc_html( $option_data['label'] )
                 );
             }
 
             $html .= '</select>';
-        }
 
         return $html;
     }
@@ -235,19 +237,19 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $settings = array();
 
-        $settings['options'][] = _x( 'Field Options (for select lists, radio buttons and checkboxes).', 'form-fields admin', 'business-directory-plugin' ) . '<span class="description">(required)</span>';
+        $settings['options'][] = esc_html__( 'Field Options (for select lists, radio buttons and checkboxes).', 'business-directory-plugin' ) . '<span class="description">(' . esc_html__( 'required', 'business-directory-plugin' ) . ')</span>';
 
-        $content  = '<span class="description">One option per line</span><br />';
+        $content  = '<span class="description">' . esc_html__( 'One option per line', 'business-directory-plugin' ) . '</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
         if ( $field && $field->data( 'options' ) ) {
-            $content .= implode( "\n", $field->data( 'options' ) );
+            $content .= esc_html( implode( "\n", $field->data( 'options' ) ) );
         }
         $content .= '</textarea>';
 
         $settings['options'][] = $content;
 
-        $settings['empty_on_search'][] = _x( 'Allow empty selection on search?', 'form-fields admin', 'business-directory-plugin' );
+        $settings['empty_on_search'][] = esc_html__( 'Allow empty selection on search?', 'business-directory-plugin' );
 
         $content  = '<span class="description">Empty search selection means users can make this field optional in searching. Turn it off if the field must always be searched on.</span><br />';
         $content .= '<input type="checkbox" value="1" name="field[x_empty_on_search]" ' . ( ! $field ? ' checked="checked"' : ( $field->data( 'empty_on_search' ) ? ' checked="checked"' : '' ) ) . ' />';
@@ -258,14 +260,14 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     }
 
     public function process_field_settings( &$field ) {
-        if ( ! array_key_exists( 'x_options', $_POST['field'] ) ) {
+        if ( ! isset( $_POST['field']['x_options'] ) ) {
             return;
         }
 
-        $options = stripslashes( trim( $_POST['field']['x_options'] ) );
+        $options = trim( sanitize_textarea_field( wp_unslash( $_POST['field']['x_options'] ) ) );
 
         if ( ! $options && $field->get_association() != 'tags' ) {
-            return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'business-directory-plugin' ) );
+            return new WP_Error( 'wpbdp-invalid-settings', esc_html__( 'Field list of options is required.', 'business-directory-plugin' ) );
         }
 
         $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();
@@ -273,8 +275,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         if ( 'tags' === $field->get_association() ) {
             $tags = get_terms(
                 WPBDP_TAGS_TAX, array(
-					'hide_empty' => false,
-					'fields'     => 'names',
+                    'hide_empty' => false,
+                    'fields'     => 'names',
                 )
             );
 
@@ -285,7 +287,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $field->set_data( 'options', $options );
 
-        if ( array_key_exists( 'x_empty_on_search', $_POST['field'] ) ) {
+        if ( isset( $_POST['field']['x_empty_on_search'] ) ) {
             $empty_on_search = (bool) intval( $_POST['field']['x_empty_on_search'] );
             $field->set_data( 'empty_on_search', $empty_on_search );
         }
@@ -339,10 +341,10 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         if ( $field->get_association() == 'category' ) {
             $args       = array(
-				'include'    => $value,
-				'hide_empty' => 0,
-				'fields'     => 'names',
-			);
+                'include'    => $value,
+                'hide_empty' => 0,
+                'fields'     => 'names',
+            );
             $term_names = get_terms(
                 $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
                 $args

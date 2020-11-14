@@ -4,13 +4,9 @@
  *
  * @package BDP/Includes
  */
-
-// phpcs:disable
-
 /**
  * @since 5.0
  *
- * @SuppressWarnings(PHPMD)
  */
 final class WPBDP__Fee_Plan {
 

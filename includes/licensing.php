@@ -5,10 +5,8 @@
  * @package BDP/Includes
  */
 
-
 /**
  * @since 3.4.2
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Licensing {
 

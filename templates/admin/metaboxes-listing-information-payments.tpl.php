@@ -5,7 +5,6 @@
  * @package BDP/Templates/Admin/Metabox listing payments
  */
 
-// phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 ?>
 <!-- {{ Recent payments. -->
 <div id="wpbdp-listing-metabox-payments" class="wpbdp-listing-metabox-tab wpbdp-admin-tab-content" tabindex="2">

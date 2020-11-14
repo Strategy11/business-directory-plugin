@@ -3,12 +3,8 @@
  * @package WPBDP/Views/Search
  */
 
-// phpcs:disable
 require_once WPBDP_PATH . 'includes/helpers/class-listing-search.php';
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 class WPBDP__Views__Search extends WPBDP__View {
 
     public function get_title() {

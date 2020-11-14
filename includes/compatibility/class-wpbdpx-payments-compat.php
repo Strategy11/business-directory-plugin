@@ -5,12 +5,8 @@
  * @package BDP/Includes/Compatibility
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP__WPBDPX_Payments_Compat
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__WPBDPX_Payments_Compat {
 

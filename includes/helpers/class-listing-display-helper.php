@@ -5,12 +5,9 @@
  * @package BDP/Helpers/Display
  */
 
-// phpcs:disable
 require_once WPBDP_PATH . 'includes/helpers/class-field-display-list.php';
 /**
  * @since 4.0
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Listing_Display_Helper {
 

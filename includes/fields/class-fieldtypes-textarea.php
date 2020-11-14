@@ -3,10 +3,6 @@
  * @package WPBDP\FieldTypes\TextArea
  */
 
-// phpcs:disable
-/**
- * @SuppressWarnings(PHPMD)
- */
 class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
     private $tinymce_settings = array();

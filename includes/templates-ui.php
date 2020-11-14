@@ -5,7 +5,6 @@
  * @package WPBDP/Templates User Interface
  */
 
-// phpcs:disable
 /**
  * Returns a list of directory categories using the configured directory settings.
  * The list is actually produced by {@link wpbdp_list_categories()}.
@@ -39,8 +38,6 @@ function wpbdp_the_directory_categories() {
 /**
  * @since 2.3
  * @access private
- *
- * @SuppressWarnings(PHPMD)
  */
 
 function _wpbdp_padded_count( &$term, $return = false ) {
@@ -88,8 +85,6 @@ function _wpbdp_padded_count( &$term, $return = false ) {
 /**
  * @since 2.3
  * @access private
- *
- * @SuppressWarnings(PHPMD)
  */
 function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
     $term_ids = get_terms(
@@ -239,7 +234,6 @@ function wpbdp_list_categories( $args = array() ) {
 /**
  * @param string|array $buttons buttons to be displayed in wpbdp_main_box()
  * @return string
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_main_links( $buttons = null ) {
     if ( is_string( $buttons ) ) {
@@ -377,9 +371,6 @@ function wpbdp_the_listing_excerpt() {
     echo wpbdp_render_listing( null, 'excerpt' );
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_options', 'wpbdp_listing_sort_options_html' ) ) {
     if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
         $sort_options =  in_array( 'wpbdp_listing_sort_options', $filters ) ? apply_filters( 'wpbdp_listing_sort_options', array() ) : array();
@@ -498,8 +489,6 @@ function wpbdp_the_bar( $parts = array() ) {
  * Displays the listing main image.
  *
  * @since 2.3
- *
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display = '' ) {
     if ( ! $listing_id ) {
@@ -605,9 +594,6 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
     return '';
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 class WPBDP_ListingFieldDisplayItem {
     private $listing_id = 0;
     private $display    = '';

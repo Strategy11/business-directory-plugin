@@ -3,13 +3,10 @@
  * @package WPBDP/Includes/Helpers/Search
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP__Listing_Search
  *
  * @since 5.0
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Listing_Search {
 

@@ -5,13 +5,9 @@
  * @package BDP/Includes/Views/Renew Listing
  */
 
-// phpcs:disable
-
 require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php';
 /**
  * Class WPBDP__Views__Renew_Listing
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 

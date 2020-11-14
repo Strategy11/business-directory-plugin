@@ -3,11 +3,6 @@
  * @package WPBDP\Settings
  */
 
-// phpcs:disable Squiz,PEAR,Generic,WordPress,PSR2
-
-/**
- * @SuppressWarnings(PHPMD)
- */
 class WPBDP__Settings {
 
     const PREFIX = 'wpbdp-';

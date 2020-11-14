@@ -5,7 +5,6 @@
  * @package BDP/Templates/Checkout
  */
 
-// phpcs:disable
 ?>
 
 <h2><?php _ex( 'Checkout', 'checkout', 'business-directory-plugin' ); ?></h2>

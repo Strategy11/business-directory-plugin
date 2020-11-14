@@ -180,7 +180,7 @@ class WPBDP__WordPress_Template_Integration {
     }
 
     public function add_basic_body_classes( $classes = array() ) {
-        if ( 'theme' == wpbdp_get_option( 'themes-button-style' ) ) {
+		if ( 'theme' === wpbdp_get_option( 'themes-button-style' ) ) {
             $classes[] = 'wpbdp-with-button-styles';
         }
 

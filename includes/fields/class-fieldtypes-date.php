@@ -3,11 +3,6 @@
  * @package WPBDP\FieldTypes\Date
  * @since 3.6.5
  */
-
-// phpcs:disable
-/**
- * @SuppressWarnings(PHPMD)
- */
 class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 
     public function get_name() {

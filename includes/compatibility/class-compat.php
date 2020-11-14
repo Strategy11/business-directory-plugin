@@ -3,11 +3,6 @@
  * @package WPBDP/Compatibility
  */
 
-// phpcs:disable Squiz,PEAR,Generic,WordPress,PSR2
-
-/**
- * @SuppressWarnings(PHPMD)
- */
 require_once WPBDP_PATH . 'includes/compatibility/deprecated.php';
 class WPBDP_Compat {
 

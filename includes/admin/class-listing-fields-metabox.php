@@ -5,8 +5,6 @@
  * @package BDP/Includes/Admin
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_Admin_Listing_Fields_Metabox
  *

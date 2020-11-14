@@ -810,24 +810,32 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         // Themes.
-        wpbdp_register_settings_group( 'themes', _x( 'Theme Settings', 'settings', 'business-directory-plugin' ), 'appearance', array( 'desc' => str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes' ) ) . '">', _x( 'You can manage your themes on <a>Directory Themes</a>.', 'admin settings', 'business-directory-plugin' ) ) ) );
+        wpbdp_register_settings_group( 'themes', __( 'Styling', 'business-directory-plugin' ), 'appearance' );
 
         wpbdp_register_setting(
             array(
                 'id'      => 'themes-button-style',
-                'type'    => 'radio',
-                'name'    => _x( 'Theme button style', 'settings', 'business-directory-plugin' ),
+                'type'    => 'checkbox',
+                'name'    => __( 'Button style', 'business-directory-plugin' ),
                 'default' => 'theme',
-                'options' => array(
-                    'theme' => __( 'Use the Business Directory Plugin style for buttons', 'business-directory-plugin' ),
-                    'none'  => __( 'Use the WP theme style for directory buttons', 'business-directory-plugin' ),
-                ),
+                'option'  => 'theme',
+				'desc'    => __( 'Override WP theme button styling', 'business-directory-plugin' ),
                 'group'   => 'themes',
             )
         );
+		wpbdp_register_setting(
+			array(
+				'id'      => 'rootline-color',
+				'type'    => 'color',
+				'name'    => __( 'Primary color', 'business-directory-plugin' ),
+				'default' => '#569AF6',
+				'group'   => 'themes',
+				'desc'    => __( 'This is used for form buttons and form rootline.', 'business-directory-plugin' ),
+			)
+		);
 
         // Image.
-        wpbdp_register_settings_group( 'appearance/image', _x( 'Image', 'settings', 'business-directory-plugin' ), 'appearance' );
+        wpbdp_register_settings_group( 'appearance/image', __( 'Images', 'business-directory-plugin' ), 'appearance' );
         wpbdp_register_settings_group( 'images/general', _x( 'Image Settings', 'settings', 'business-directory-plugin' ), 'appearance/image', array( 'desc' => 'Any changes to these settings will affect new listings only.  Existing listings will not be affected.  If you wish to change existing listings, you will need to re-upload the image(s) on that listing after changing things here.' ) );
         wpbdp_register_setting(
             array(
@@ -1573,7 +1581,6 @@ final class WPBDP__Settings__Bootstrap {
 
         $crop = (bool) wpbdp_get_option( 'thumbnail-crop' );
 
-        add_image_size( 'wpbdp-mini', 50, 50, true ); // Used for the submit process.
         add_image_size( 'wpbdp-thumb', $thumbnail_width, $crop ? $thumbnail_height : 9999, $crop ); // Thumbnail size.
         add_image_size( 'wpbdp-large', $max_width, $max_height, false ); // Large size.
     }
