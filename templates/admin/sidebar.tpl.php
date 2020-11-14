@@ -40,11 +40,13 @@ $themes = array(
             <h3 class="hndle"><span><?php esc_html_e( 'Make better directories', 'business-directory-plugin' ); ?></span></h3>
             <div class="inside">
                 <ul>
-                <?php foreach ( $modules as $mod_info ) : ?>
-                    <?php
+				<?php
+				$can_upgrade = false;
+				foreach ( $modules as $mod_info ) :
                     if ( wpbdp_has_module( $mod_info[0] ) ) {
                         continue;
                     }
+					$can_upgrade = true;
                     ?>
                     <li class="li_link">
                         <?php
@@ -53,7 +55,16 @@ $themes = array(
                             <span class="tag new"><?php esc_html_e( 'new', 'business-directory-plugin' ); ?></span> <?php endif; ?>
                         <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener"><?php echo esc_html( $mod_info[2] ); ?></a>
                     </li>
-                <?php endforeach; ?>
+					<?php
+				endforeach;
+
+				if ( ! $can_upgrade ) {
+					// Hide the upgrade box. This should be more accurate later.
+					?>
+					<style>.postbox.premium-modules{display:none;}</style>
+					<?php
+				}
+				?>
                 </ul>
                 <a href="https://businessdirectoryplugin.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=sidebar" target="_blank" rel="noopener" class="button-primary">
                     <?php esc_html_e( 'Upgrade Now', 'business-directory-plugin' ); ?>
