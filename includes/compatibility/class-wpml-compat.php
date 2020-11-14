@@ -163,11 +163,11 @@ class WPBDP_WPML_Compat {
     }
 
     private function maybe_add_lang_query_arg( $link, $lang ) {
-        if ( 3 !== $this->get_lang_url_type() ) {
-            return $link;
+        if ( 3 === $this->get_lang_url_type() ) {
+            $link = add_query_arg( 'lang', $lang, $link );
         }
 
-        return add_query_arg( 'lang', $lang, $link );
+        return $link;
     }
 
 	/**
