@@ -39,17 +39,22 @@ class WPBDP__Utils {
         self::$property = null;
     }
 
-    /**
-     * @param array $left   Entry to compare.
-     * @param array $right  Entry to compare.
-     * @since 5.2.1
-     */
-    public static function sort_by_property_callback( $left, $right ) {
-        $left  = (array) $left;
-        $right = (array) $right;
+	/**
+	 * @param array $left   Entry to compare.
+	 * @param array $right  Entry to compare.
+	 * @since 5.2.1
+	 */
+	public static function sort_by_property_callback( $left, $right ) {
+		self::get_sort_value( $left );
+		self::get_sort_value( $right );
 
-        return $left[ self::$property ] - $right[ self::$property ];
-    }
+		return $left - $right;
+	}
+
+	private static function get_sort_value( &$side ) {
+		$side = (array) $side;
+		$side = isset( $side[ self::$property ] ) ? $side[ self::$property ] : 0;
+	}
 
     /**
      * @since 5.0
