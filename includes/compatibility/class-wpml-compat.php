@@ -19,7 +19,7 @@ class WPBDP_WPML_Compat {
     public function __construct() {
         $this->wpml = $GLOBALS['sitepress'];
 
-        if ( ! is_admin() || wp_doing_ajax() ) {
+        if ( ! is_admin() || $this->is_doing_ajax() ) {
             add_filter( 'wpbdp_get_page_id', array( &$this, 'page_id' ), 10, 2 );
 
             add_filter( 'wpbdp_listing_link', array( &$this, 'add_lang_to_link' ) );
@@ -58,6 +58,10 @@ class WPBDP_WPML_Compat {
 
         add_action( 'wpbdp_main_box_hidden_fields', array( $this, 'search_lang_field' ) );
     }
+
+	protected function is_doing_ajax() {
+		return wp_doing_ajax();
+	}
 
     public function get_current_language() {
         return apply_filters( 'wpml_current_language', null );
@@ -228,9 +232,9 @@ class WPBDP_WPML_Compat {
     }
 
     public function workaround_autoids() {
-        global $sitepress, $sitepress_settings;
+        global $sitepress_settings;
 
-        if ( ! $sitepress->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) ) {
+        if ( ! $this->wpml->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) ) {
             return;
         }
 
