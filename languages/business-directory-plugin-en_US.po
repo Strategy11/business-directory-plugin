@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-11-14 19:21:12+00:00\n"
+"POT-Creation-Date: 2020-11-14 22:12:29+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -162,7 +162,8 @@ msgid "Test SSL setup..."
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:403 templates/admin/payments-details.tpl.php:121
+#: includes/form-fields.php:403 includes/views/submit_listing.php:953
+#: templates/admin/payments-details.tpl.php:117
 msgid "Email"
 msgstr ""
 
@@ -359,7 +360,7 @@ msgid "Fee Label"
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
-#: templates/admin/payments-details.tpl.php:93
+#: templates/admin/payments-details.tpl.php:90
 msgid "Amount"
 msgstr ""
 
@@ -611,11 +612,11 @@ msgstr ""
 msgid "Listing Tags"
 msgstr ""
 
-#: includes/form-fields.php:420
+#: includes/form-fields.php:420 templates/checkout-billing-form.tpl.php:77
 msgid "Address"
 msgstr ""
 
-#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:149
+#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:145
 msgid "ZIP Code"
 msgstr ""
 
@@ -759,28 +760,36 @@ msgstr ""
 msgid "l F j, Y \\a\\t g:i a"
 msgstr ""
 
-#: includes/views/submit_listing.php:459
+#: includes/views/submit_listing.php:457
 msgid "Listing Images"
 msgstr ""
 
-#: includes/views/submit_listing.php:474
+#: includes/views/submit_listing.php:472
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:580
+#: includes/views/submit_listing.php:578
 msgid "Go to \"Fee Plans\""
 msgstr ""
 
-#: includes/views/submit_listing.php:597
+#: includes/views/submit_listing.php:595
 msgid "Go to \"Form Fields\""
 msgstr ""
 
-#: includes/views/submit_listing.php:634
+#: includes/views/submit_listing.php:632
 msgid "Please choose a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:778
+#: includes/views/submit_listing.php:776
 msgid "Please check the form for errors, correct them and submit again."
+msgstr ""
+
+#: includes/views/submit_listing.php:937
+msgid "Create a user account on this site"
+msgstr ""
+
+#: includes/views/submit_listing.php:944
+msgid "Username"
 msgstr ""
 
 #: templates/admin/csv-export.tpl.php:6
@@ -972,112 +981,117 @@ msgid "Not Found"
 msgstr ""
 
 #: templates/admin/payments-details.tpl.php:10
-#: templates/admin/payments-details.tpl.php:211
+#: templates/admin/payments-details.tpl.php:206
 msgid "← Return to \"Payment History\""
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:31
+#: templates/admin/payments-details.tpl.php:30
 msgid "Overview"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:35
+#: templates/admin/payments-details.tpl.php:34
 msgid "Payment ID"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:39
+#: templates/admin/payments-details.tpl.php:38
 msgid "Listing"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:45
+#: templates/admin/payments-details.tpl.php:44
 msgid "Status"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:54
+#: templates/admin/payments-details.tpl.php:53
 msgid "Date"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:58
+#: templates/admin/payments-details.tpl.php:57
 msgid "Time"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:63
+#: templates/admin/payments-details.tpl.php:62
 msgid "Gateway"
 msgstr ""
 
 #. translators: Gateway: (Not yet set)
-#: templates/admin/payments-details.tpl.php:65
+#: templates/admin/payments-details.tpl.php:64
 msgid "(Not yet set)"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:71
+#: templates/admin/payments-details.tpl.php:70
 msgid "Delete Payment"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:73
+#: templates/admin/payments-details.tpl.php:72
 msgid "Save Payment"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:87
+#: templates/admin/payments-details.tpl.php:84
 msgid "Details"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:91
+#: templates/admin/payments-details.tpl.php:88
 msgid "Item Type"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:92
+#: templates/admin/payments-details.tpl.php:89
 msgid "Description"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:104
+#: templates/admin/payments-details.tpl.php:101
 msgid "Total"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:116
+#: templates/admin/payments-details.tpl.php:112
 msgid "Customer Details"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:126
+#: templates/admin/payments-details.tpl.php:122
+#: templates/checkout-billing-form.tpl.php:17
 msgid "First Name"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:131
+#: templates/admin/payments-details.tpl.php:127
+#: templates/checkout-billing-form.tpl.php:23
 msgid "Last Name"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:137
+#: templates/admin/payments-details.tpl.php:133
+#: templates/checkout-billing-form.tpl.php:104
 msgid "Country"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:141
+#: templates/admin/payments-details.tpl.php:137
 msgid "State"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:145
+#: templates/admin/payments-details.tpl.php:141
+#: templates/checkout-billing-form.tpl.php:89
 msgid "City"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:153
+#: templates/admin/payments-details.tpl.php:149
 msgid "Address Line 1"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:157
+#: templates/admin/payments-details.tpl.php:153
+#: templates/checkout-billing-form.tpl.php:83
 msgid "Address Line 2"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:167
+#: templates/admin/payments-details.tpl.php:162
 msgid "Notes & Log"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:172
+#: templates/admin/payments-details.tpl.php:167
 msgid "No notes."
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:192
+#: templates/admin/payments-details.tpl.php:187
 msgid "Add Note"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:209
+#: templates/admin/payments-details.tpl.php:204
 msgid "Payment Not Found"
 msgstr ""
 
@@ -1256,6 +1270,92 @@ msgstr ""
 msgid "Next &rarr;"
 msgstr ""
 
+#: templates/checkout-billing-form.tpl.php:8
+msgid "Personal Info"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:11 templates/login.tpl.php:63
+#: templates/login.tpl.php:65
+msgid "Email Address"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:12
+msgid "We will send a receipt to this e-mail address."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:18
+msgid "Your first name."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:24
+msgid "Your last name."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:32
+msgid "Credit Card Info"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:35
+#: templates/checkout-billing-form.tpl.php:37
+msgid "Card Number"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:36
+msgid "The digits on the front of your credit card."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:41
+msgid "CVC"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:42
+msgid ""
+"The 3 digit (back) or 4 digit (front) security code on your credit card."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:43
+msgid "Security Code"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:47
+#: templates/checkout-billing-form.tpl.php:49
+msgid "Name on the Card"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:48
+msgid "The name as it appears printed on the front of your credit card."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:53
+msgid "Expiration Date"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:54
+msgid "Format: MM/YY"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:74
+msgid "Billing Details"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:78
+msgid "Please enter the address where you receive your billing statement."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:84
+msgid ""
+"Additional details (suite, apt no, etc.) associated with your billing "
+"address."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:94
+msgid "State / Province"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:99
+msgid "Postal Code"
+msgstr ""
+
 #: templates/deprecated/search.tpl.php:6
 msgid "Search"
 msgstr ""
@@ -1311,10 +1411,6 @@ msgstr ""
 
 #: templates/login.tpl.php:57
 msgid "Please enter your access key and email address."
-msgstr ""
-
-#: templates/login.tpl.php:63 templates/login.tpl.php:65
-msgid "Email Address"
 msgstr ""
 
 #: templates/login.tpl.php:69 templates/login.tpl.php:71
@@ -6253,42 +6349,42 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr ""
 
-#: includes/views/submit_listing.php:69
+#: includes/views/submit_listing.php:67
 msgctxt "submit listing"
 msgid "Click this field to add categories"
 msgstr ""
 
-#: includes/views/submit_listing.php:70
+#: includes/views/submit_listing.php:68
 msgctxt "submit listing"
 msgid "Complete Listing"
 msgstr ""
 
-#: includes/views/submit_listing.php:71
+#: includes/views/submit_listing.php:69
 msgctxt "submit listing"
 msgid "Continue to Payment"
 msgstr ""
 
-#: includes/views/submit_listing.php:73
+#: includes/views/submit_listing.php:71
 msgctxt "submit listing"
 msgid "Please wait a moment!"
 msgstr ""
 
-#: includes/views/submit_listing.php:74
+#: includes/views/submit_listing.php:72
 msgctxt "submit listing"
 msgid "Something went wrong!"
 msgstr ""
 
-#: includes/views/submit_listing.php:99
+#: includes/views/submit_listing.php:97
 msgctxt "submit listing"
 msgid "No listing ID was specified."
 msgstr ""
 
-#: includes/views/submit_listing.php:101
+#: includes/views/submit_listing.php:99
 msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr ""
 
-#: includes/views/submit_listing.php:156
+#: includes/views/submit_listing.php:154
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -6296,97 +6392,76 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:162
+#: includes/views/submit_listing.php:160
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:186
+#: includes/views/submit_listing.php:184
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr ""
 
-#: includes/views/submit_listing.php:415
+#: includes/views/submit_listing.php:413
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr ""
 
-#: includes/views/submit_listing.php:415
+#: includes/views/submit_listing.php:413
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr ""
 
-#: includes/views/submit_listing.php:420
+#: includes/views/submit_listing.php:418
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr ""
 
-#: includes/views/submit_listing.php:432
+#: includes/views/submit_listing.php:430
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr ""
 
-#: includes/views/submit_listing.php:570
+#: includes/views/submit_listing.php:568
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 
-#: includes/views/submit_listing.php:619 includes/views/submit_listing.php:699
+#: includes/views/submit_listing.php:617 includes/views/submit_listing.php:697
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr ""
 
-#: includes/views/submit_listing.php:640
+#: includes/views/submit_listing.php:638
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:642
+#: includes/views/submit_listing.php:640
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr ""
 
-#: includes/views/submit_listing.php:909
+#: includes/views/submit_listing.php:907
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr ""
 
-#: includes/views/submit_listing.php:914
+#: includes/views/submit_listing.php:912
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:919
+#: includes/views/submit_listing.php:917
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:924
+#: includes/views/submit_listing.php:922
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
-msgstr ""
-
-#: includes/views/submit_listing.php:939
-msgctxt "submit listing"
-msgid "Create a user account on this site"
-msgstr ""
-
-#: includes/views/submit_listing.php:946
-msgctxt "submit listing"
-msgid ""
-"You need to create an account on the site. Please fill out the form below."
-msgstr ""
-
-#: includes/views/submit_listing.php:952
-msgctxt "submit listing"
-msgid "Username:"
-msgstr ""
-
-#: includes/views/submit_listing.php:961
-msgctxt "submit listing"
-msgid "Email:"
 msgstr ""
 
 #: templates/submit-listing-fields.tpl.php:13
@@ -6697,7 +6772,7 @@ msgctxt "templates"
 msgid "Go back"
 msgstr ""
 
-#: includes/payment.php:270 templates/renew-resume.tpl.php:36
+#: includes/payment.php:270 templates/renew-resume.tpl.php:34
 msgctxt "templates"
 msgid "Return to fee selection"
 msgstr ""
@@ -6750,34 +6825,34 @@ msgid ""
 "site. If you didn't want that, click <a>here</a> to change the setting."
 msgstr ""
 
-#: includes/views/submit_listing.php:361
+#: includes/views/submit_listing.php:359
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/views/submit_listing.php:363
+#: includes/views/submit_listing.php:361
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:573
+#: includes/views/submit_listing.php:571
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:587
+#: includes/views/submit_listing.php:585
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:590
+#: includes/views/submit_listing.php:588
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -6785,17 +6860,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:988
+#: includes/views/submit_listing.php:982
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr ""
 
-#: includes/views/submit_listing.php:998
+#: includes/views/submit_listing.php:992
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr ""
 
-#: includes/views/submit_listing.php:1005
+#: includes/views/submit_listing.php:999
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr ""
@@ -6917,7 +6992,7 @@ msgctxt "templates"
 msgid "Do not renew my listing"
 msgstr ""
 
-#: templates/renew-resume.tpl.php:35
+#: templates/renew-resume.tpl.php:33
 msgctxt "templates"
 msgid "Continue to checkout"
 msgstr ""
@@ -7440,165 +7515,6 @@ msgid ""
 "There was an error trying to process your request. No gateway is selected."
 msgstr ""
 
-#: templates/checkout-billing-form.tpl.php:8
-msgctxt "checkout"
-msgid "Personal Info"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:11
-msgctxt "checkout"
-msgid "Email Address"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:12
-msgctxt "checkout"
-msgid "We will send a receipt to this e-mail address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:17
-msgctxt "checkout"
-msgid "First Name"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:18
-msgctxt "checkout"
-msgid "Your first name."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:23
-msgctxt "checkout"
-msgid "Last Name"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:24
-msgctxt "checkout"
-msgid "Your last name."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:32
-msgctxt "checkout"
-msgid "Credit Card Info"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:35
-#: templates/checkout-billing-form.tpl.php:37
-msgctxt "checkout"
-msgid "Card Number"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:36
-msgctxt "checkout"
-msgid "The digits on the front of your credit card."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:41
-msgctxt "checkout"
-msgid "CVC"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:42
-msgctxt "checkout"
-msgid ""
-"The 3 digit (back) or 4 digit (front) security code on your credit card."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:43
-msgctxt "checkout"
-msgid "Security Code"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:47
-msgctxt "checkout"
-msgid "Name on the Card"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:48
-msgctxt "checkout"
-msgid "The name as it appears printed on the front of your credit card."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:49
-msgctxt "checkout"
-msgid "Name on the card"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:53
-msgctxt "checkout"
-msgid "Expiration Date"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:54
-msgctxt "checkout"
-msgid "Format: MM/YY"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:72
-msgctxt "checkout"
-msgid "Billing Details"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:75
-msgctxt "checkout"
-msgid "Address"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:76
-msgctxt "checkout"
-msgid "Please enter the address where you receive your billing statement."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:81
-msgctxt "checkout"
-msgid "Address Line 2"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:82
-msgctxt "checkout"
-msgid ""
-"Additional details (suite, apt no, etc.) associated with your billing "
-"address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:87
-msgctxt "checkout"
-msgid "City"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:88
-msgctxt "checkout"
-msgid "The city for your billing address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:93
-msgctxt "checkout"
-msgid "State / Province"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:94
-msgctxt "checkout"
-msgid "The state or province for your billing address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:99
-msgctxt "checkout"
-msgid "Postal Code"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:100
-msgctxt "checkout"
-msgid "The ZIP or postal code for your billing address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:105
-msgctxt "checkout"
-msgid "Country"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:106
-msgctxt "checkout"
-msgid "The country for your billing address."
-msgstr ""
-
 #: templates/checkout-confirmation.tpl.php:7
 msgctxt "checkout"
 msgid ""
@@ -7908,12 +7824,12 @@ msgctxt "renewal"
 msgid "Renew Fee Resume"
 msgstr ""
 
-#: templates/renew-resume.tpl.php:16
+#: templates/renew-resume.tpl.php:15
 msgctxt "renewal"
 msgid "You are about to renew the listing %s."
 msgstr ""
 
-#: templates/renew-resume.tpl.php:22
+#: templates/renew-resume.tpl.php:20
 msgctxt "renewal"
 msgid "In order to complete the renewal, please confirm fee selection."
 msgstr ""
@@ -7980,7 +7896,7 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 
-#: includes/views/submit_listing.php:863
+#: includes/views/submit_listing.php:861
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-11-14 19:21:12+00:00\n"
+"POT-Creation-Date: 2020-11-14 22:12:29+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -179,7 +179,8 @@ msgid "Test SSL setup..."
 msgstr "Test SSL instelling..."
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:403 templates/admin/payments-details.tpl.php:121
+#: includes/form-fields.php:403 includes/views/submit_listing.php:953
+#: templates/admin/payments-details.tpl.php:117
 #, fuzzy
 msgid "Email"
 msgstr "Jouw email"
@@ -407,7 +408,7 @@ msgid "Fee Label"
 msgstr "Veld label"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
-#: templates/admin/payments-details.tpl.php:93
+#: templates/admin/payments-details.tpl.php:90
 #, fuzzy
 msgid "Amount"
 msgstr "Bedrag"
@@ -685,12 +686,12 @@ msgstr ""
 msgid "Listing Tags"
 msgstr "Beelden bij de registratie"
 
-#: includes/form-fields.php:420
+#: includes/form-fields.php:420 templates/checkout-billing-form.tpl.php:77
 #, fuzzy
 msgid "Address"
 msgstr "Adres"
 
-#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:149
+#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:145
 msgid "ZIP Code"
 msgstr ""
 
@@ -842,32 +843,41 @@ msgstr ""
 msgid "l F j, Y \\a\\t g:i a"
 msgstr ""
 
-#: includes/views/submit_listing.php:459
+#: includes/views/submit_listing.php:457
 #, fuzzy
 msgid "Listing Images"
 msgstr "Beelden bij de registratie"
 
-#: includes/views/submit_listing.php:474
+#: includes/views/submit_listing.php:472
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:580
+#: includes/views/submit_listing.php:578
 #, fuzzy
 msgid "Go to \"Fee Plans\""
 msgstr "Ga naar \"instellen formulier velden\""
 
-#: includes/views/submit_listing.php:597
+#: includes/views/submit_listing.php:595
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "Ga naar \"instellen formulier velden\""
 
-#: includes/views/submit_listing.php:634
+#: includes/views/submit_listing.php:632
 msgid "Please choose a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:778
+#: includes/views/submit_listing.php:776
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
+
+#: includes/views/submit_listing.php:937
+msgid "Create a user account on this site"
+msgstr ""
+
+#: includes/views/submit_listing.php:944
+#, fuzzy
+msgid "Username"
+msgstr "Gebruiker"
 
 #: templates/admin/csv-export.tpl.php:6
 msgid ""
@@ -1073,132 +1083,137 @@ msgid "Not Found"
 msgstr "Registratie informatie"
 
 #: templates/admin/payments-details.tpl.php:10
-#: templates/admin/payments-details.tpl.php:211
+#: templates/admin/payments-details.tpl.php:206
 #, fuzzy
 msgid "← Return to \"Payment History\""
 msgstr "← Terg naar Register."
 
-#: templates/admin/payments-details.tpl.php:31
+#: templates/admin/payments-details.tpl.php:30
 msgid "Overview"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:35
+#: templates/admin/payments-details.tpl.php:34
 #, fuzzy
 msgid "Payment ID"
 msgstr "Betaling"
 
-#: templates/admin/payments-details.tpl.php:39
+#: templates/admin/payments-details.tpl.php:38
 #, fuzzy
 msgid "Listing"
 msgstr "Registratie"
 
-#: templates/admin/payments-details.tpl.php:45
+#: templates/admin/payments-details.tpl.php:44
 #, fuzzy
 msgid "Status"
 msgstr "Status"
 
-#: templates/admin/payments-details.tpl.php:54
+#: templates/admin/payments-details.tpl.php:53
 msgid "Date"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:58
+#: templates/admin/payments-details.tpl.php:57
 #, fuzzy
 msgid "Time"
 msgstr "Tijd: %s"
 
-#: templates/admin/payments-details.tpl.php:63
+#: templates/admin/payments-details.tpl.php:62
 msgid "Gateway"
 msgstr ""
 
 #. translators: Gateway: (Not yet set)
-#: templates/admin/payments-details.tpl.php:65
+#: templates/admin/payments-details.tpl.php:64
 msgid "(Not yet set)"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:71
+#: templates/admin/payments-details.tpl.php:70
 #, fuzzy
 msgid "Delete Payment"
 msgstr "Verwijder beeld"
 
-#: templates/admin/payments-details.tpl.php:73
+#: templates/admin/payments-details.tpl.php:72
 #, fuzzy
 msgid "Save Payment"
 msgstr "Betaling"
 
-#: templates/admin/payments-details.tpl.php:87
+#: templates/admin/payments-details.tpl.php:84
 #, fuzzy
 msgid "Details"
 msgstr "Details kosten"
 
-#: templates/admin/payments-details.tpl.php:91
+#: templates/admin/payments-details.tpl.php:88
 #, fuzzy
 msgid "Item Type"
 msgstr "Veld type"
 
-#: templates/admin/payments-details.tpl.php:92
+#: templates/admin/payments-details.tpl.php:89
 #, fuzzy
 msgid "Description"
 msgstr "Veld omschrijving"
 
-#: templates/admin/payments-details.tpl.php:104
+#: templates/admin/payments-details.tpl.php:101
 #, fuzzy
 msgid "Total"
 msgstr "Totaal"
 
-#: templates/admin/payments-details.tpl.php:116
+#: templates/admin/payments-details.tpl.php:112
 #, fuzzy
 msgid "Customer Details"
 msgstr "Details kosten"
 
-#: templates/admin/payments-details.tpl.php:126
+#: templates/admin/payments-details.tpl.php:122
+#: templates/checkout-billing-form.tpl.php:17
 #, fuzzy
 msgid "First Name"
 msgstr "Jouw naam"
 
-#: templates/admin/payments-details.tpl.php:131
+#: templates/admin/payments-details.tpl.php:127
+#: templates/checkout-billing-form.tpl.php:23
 #, fuzzy
 msgid "Last Name"
 msgstr "Naam"
 
-#: templates/admin/payments-details.tpl.php:137
+#: templates/admin/payments-details.tpl.php:133
+#: templates/checkout-billing-form.tpl.php:104
 #, fuzzy
 msgid "Country"
 msgstr "Land"
 
-#: templates/admin/payments-details.tpl.php:141
+#: templates/admin/payments-details.tpl.php:137
 #, fuzzy
 msgid "State"
 msgstr "Provincie"
 
-#: templates/admin/payments-details.tpl.php:145
+#: templates/admin/payments-details.tpl.php:141
+#: templates/checkout-billing-form.tpl.php:89
 #, fuzzy
 msgid "City"
 msgstr "Stad"
 
-#: templates/admin/payments-details.tpl.php:153
+#: templates/admin/payments-details.tpl.php:149
 #, fuzzy
 msgid "Address Line 1"
 msgstr "Adres"
 
-#: templates/admin/payments-details.tpl.php:157
+#: templates/admin/payments-details.tpl.php:153
+#: templates/checkout-billing-form.tpl.php:83
 #, fuzzy
 msgid "Address Line 2"
 msgstr "Adres"
 
-#: templates/admin/payments-details.tpl.php:167
+#: templates/admin/payments-details.tpl.php:162
 msgid "Notes & Log"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:172
+#: templates/admin/payments-details.tpl.php:167
 msgid "No notes."
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:192
+#: templates/admin/payments-details.tpl.php:187
 #, fuzzy
 msgid "Add Note"
 msgstr "Veld toevoegen "
 
-#: templates/admin/payments-details.tpl.php:209
+#: templates/admin/payments-details.tpl.php:204
 #, fuzzy
 msgid "Payment Not Found"
 msgstr "Registratie informatie"
@@ -1401,6 +1416,101 @@ msgstr "&laquo; Vorige "
 msgid "Next &rarr;"
 msgstr "Volgende &raquo;"
 
+#: templates/checkout-billing-form.tpl.php:8
+#, fuzzy
+msgid "Personal Info"
+msgstr "Algemene info"
+
+#: templates/checkout-billing-form.tpl.php:11 templates/login.tpl.php:63
+#: templates/login.tpl.php:65
+#, fuzzy
+msgid "Email Address"
+msgstr "Email Adres:"
+
+#: templates/checkout-billing-form.tpl.php:12
+msgid "We will send a receipt to this e-mail address."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:18
+#, fuzzy
+msgid "Your first name."
+msgstr "Jouw naam"
+
+#: templates/checkout-billing-form.tpl.php:24
+#, fuzzy
+msgid "Your last name."
+msgstr "Jouw naam"
+
+#: templates/checkout-billing-form.tpl.php:32
+msgid "Credit Card Info"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:35
+#: templates/checkout-billing-form.tpl.php:37
+#, fuzzy
+msgid "Card Number"
+msgstr "Tel nr"
+
+#: templates/checkout-billing-form.tpl.php:36
+msgid "The digits on the front of your credit card."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:41
+msgid "CVC"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:42
+msgid ""
+"The 3 digit (back) or 4 digit (front) security code on your credit card."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:43
+#, fuzzy
+msgid "Security Code"
+msgstr "Huidige datum"
+
+#: templates/checkout-billing-form.tpl.php:47
+#: templates/checkout-billing-form.tpl.php:49
+msgid "Name on the Card"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:48
+msgid "The name as it appears printed on the front of your credit card."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:53
+#, fuzzy
+msgid "Expiration Date"
+msgstr "Een registratie verloopt."
+
+#: templates/checkout-billing-form.tpl.php:54
+msgid "Format: MM/YY"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:74
+#, fuzzy
+msgid "Billing Details"
+msgstr "Details kosten"
+
+#: templates/checkout-billing-form.tpl.php:78
+msgid "Please enter the address where you receive your billing statement."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:84
+msgid ""
+"Additional details (suite, apt no, etc.) associated with your billing "
+"address."
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:94
+msgid "State / Province"
+msgstr ""
+
+#: templates/checkout-billing-form.tpl.php:99
+#, fuzzy
+msgid "Postal Code"
+msgstr "Postcode"
+
 #: templates/deprecated/search.tpl.php:6
 #, fuzzy
 msgid "Search"
@@ -1466,11 +1576,6 @@ msgstr "Beelden bij de registratie"
 #: templates/login.tpl.php:57
 msgid "Please enter your access key and email address."
 msgstr ""
-
-#: templates/login.tpl.php:63 templates/login.tpl.php:65
-#, fuzzy
-msgid "Email Address"
-msgstr "Email Adres:"
 
 #: templates/login.tpl.php:69 templates/login.tpl.php:71
 #, fuzzy
@@ -6737,45 +6842,45 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr ""
 
-#: includes/views/submit_listing.php:69
+#: includes/views/submit_listing.php:67
 msgctxt "submit listing"
 msgid "Click this field to add categories"
 msgstr ""
 
-#: includes/views/submit_listing.php:70
+#: includes/views/submit_listing.php:68
 #, fuzzy
 msgctxt "submit listing"
 msgid "Complete Listing"
 msgstr "Registratie verwijderen"
 
-#: includes/views/submit_listing.php:71
+#: includes/views/submit_listing.php:69
 msgctxt "submit listing"
 msgid "Continue to Payment"
 msgstr ""
 
-#: includes/views/submit_listing.php:73
+#: includes/views/submit_listing.php:71
 msgctxt "submit listing"
 msgid "Please wait a moment!"
 msgstr ""
 
-#: includes/views/submit_listing.php:74
+#: includes/views/submit_listing.php:72
 msgctxt "submit listing"
 msgid "Something went wrong!"
 msgstr ""
 
-#: includes/views/submit_listing.php:99
+#: includes/views/submit_listing.php:97
 #, fuzzy
 msgctxt "submit listing"
 msgid "No listing ID was specified."
 msgstr "Een registratie is gewijzigd."
 
-#: includes/views/submit_listing.php:101
+#: includes/views/submit_listing.php:99
 #, fuzzy
 msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "Categorieën voor deze registratie"
 
-#: includes/views/submit_listing.php:156
+#: includes/views/submit_listing.php:154
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no fee plan "
@@ -6783,14 +6888,14 @@ msgid ""
 "to a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:162
+#: includes/views/submit_listing.php:160
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/views/submit_listing.php:186
+#: includes/views/submit_listing.php:184
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
@@ -6798,92 +6903,69 @@ msgstr ""
 "Je bent ingelogd als een beheerder (admin). De betaalstappen worden "
 "overgeslagen."
 
-#: includes/views/submit_listing.php:415
+#: includes/views/submit_listing.php:413
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "categorie selectie"
 
-#: includes/views/submit_listing.php:415
+#: includes/views/submit_listing.php:413
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "categorie selectie"
 
-#: includes/views/submit_listing.php:420
+#: includes/views/submit_listing.php:418
 #, fuzzy
 msgctxt "submit listing"
 msgid "Listing Information"
 msgstr "Registratie informatie"
 
-#: includes/views/submit_listing.php:432
+#: includes/views/submit_listing.php:430
 #, fuzzy
 msgctxt "submit listing"
 msgid "Terms and Conditions"
 msgstr "Voorwaarden en condities"
 
-#: includes/views/submit_listing.php:570
+#: includes/views/submit_listing.php:568
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 
-#: includes/views/submit_listing.php:619 includes/views/submit_listing.php:699
+#: includes/views/submit_listing.php:617 includes/views/submit_listing.php:697
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr ""
 
-#: includes/views/submit_listing.php:640
+#: includes/views/submit_listing.php:638
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:642
+#: includes/views/submit_listing.php:640
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr ""
 
-#: includes/views/submit_listing.php:909
+#: includes/views/submit_listing.php:907
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr ""
 
-#: includes/views/submit_listing.php:914
+#: includes/views/submit_listing.php:912
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:919
+#: includes/views/submit_listing.php:917
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:924
+#: includes/views/submit_listing.php:922
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
-
-#: includes/views/submit_listing.php:939
-msgctxt "submit listing"
-msgid "Create a user account on this site"
-msgstr ""
-
-#: includes/views/submit_listing.php:946
-msgctxt "submit listing"
-msgid ""
-"You need to create an account on the site. Please fill out the form below."
-msgstr ""
-
-#: includes/views/submit_listing.php:952
-#, fuzzy
-msgctxt "submit listing"
-msgid "Username:"
-msgstr "Gebruiker"
-
-#: includes/views/submit_listing.php:961
-#, fuzzy
-msgctxt "submit listing"
-msgid "Email:"
-msgstr "Jouw email"
 
 #: templates/submit-listing-fields.tpl.php:13
 #, fuzzy
@@ -7201,7 +7283,7 @@ msgctxt "templates"
 msgid "Go back"
 msgstr ""
 
-#: includes/payment.php:270 templates/renew-resume.tpl.php:36
+#: includes/payment.php:270 templates/renew-resume.tpl.php:34
 #, fuzzy
 msgctxt "templates"
 msgid "Return to fee selection"
@@ -7255,34 +7337,34 @@ msgid ""
 "site. If you didn't want that, click <a>here</a> to change the setting."
 msgstr ""
 
-#: includes/views/submit_listing.php:361
+#: includes/views/submit_listing.php:359
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/views/submit_listing.php:363
+#: includes/views/submit_listing.php:361
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:573
+#: includes/views/submit_listing.php:571
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:587
+#: includes/views/submit_listing.php:585
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:590
+#: includes/views/submit_listing.php:588
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7290,17 +7372,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:988
+#: includes/views/submit_listing.php:982
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Ga s.v.p. akkoord met de voorwaarden"
 
-#: includes/views/submit_listing.php:998
+#: includes/views/submit_listing.php:992
 msgctxt "templates"
 msgid "Terms and Conditions:"
 msgstr "Voorwaarden"
 
-#: includes/views/submit_listing.php:1005
+#: includes/views/submit_listing.php:999
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -7425,7 +7507,7 @@ msgctxt "templates"
 msgid "Do not renew my listing"
 msgstr ""
 
-#: templates/renew-resume.tpl.php:35
+#: templates/renew-resume.tpl.php:33
 msgctxt "templates"
 msgid "Continue to checkout"
 msgstr ""
@@ -7975,178 +8057,6 @@ msgid ""
 "There was an error trying to process your request. No gateway is selected."
 msgstr ""
 
-#: templates/checkout-billing-form.tpl.php:8
-#, fuzzy
-msgctxt "checkout"
-msgid "Personal Info"
-msgstr "Algemene info"
-
-#: templates/checkout-billing-form.tpl.php:11
-#, fuzzy
-msgctxt "checkout"
-msgid "Email Address"
-msgstr "Email Adres:"
-
-#: templates/checkout-billing-form.tpl.php:12
-msgctxt "checkout"
-msgid "We will send a receipt to this e-mail address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:17
-#, fuzzy
-msgctxt "checkout"
-msgid "First Name"
-msgstr "Jouw naam"
-
-#: templates/checkout-billing-form.tpl.php:18
-#, fuzzy
-msgctxt "checkout"
-msgid "Your first name."
-msgstr "Jouw naam"
-
-#: templates/checkout-billing-form.tpl.php:23
-#, fuzzy
-msgctxt "checkout"
-msgid "Last Name"
-msgstr "Naam"
-
-#: templates/checkout-billing-form.tpl.php:24
-#, fuzzy
-msgctxt "checkout"
-msgid "Your last name."
-msgstr "Jouw naam"
-
-#: templates/checkout-billing-form.tpl.php:32
-msgctxt "checkout"
-msgid "Credit Card Info"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:35
-#: templates/checkout-billing-form.tpl.php:37
-#, fuzzy
-msgctxt "checkout"
-msgid "Card Number"
-msgstr "Tel nr"
-
-#: templates/checkout-billing-form.tpl.php:36
-msgctxt "checkout"
-msgid "The digits on the front of your credit card."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:41
-msgctxt "checkout"
-msgid "CVC"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:42
-msgctxt "checkout"
-msgid ""
-"The 3 digit (back) or 4 digit (front) security code on your credit card."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:43
-msgctxt "checkout"
-msgid "Security Code"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:47
-msgctxt "checkout"
-msgid "Name on the Card"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:48
-msgctxt "checkout"
-msgid "The name as it appears printed on the front of your credit card."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:49
-msgctxt "checkout"
-msgid "Name on the card"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:53
-msgctxt "checkout"
-msgid "Expiration Date"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:54
-msgctxt "checkout"
-msgid "Format: MM/YY"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:72
-#, fuzzy
-msgctxt "checkout"
-msgid "Billing Details"
-msgstr "Details kosten"
-
-#: templates/checkout-billing-form.tpl.php:75
-#, fuzzy
-msgctxt "checkout"
-msgid "Address"
-msgstr "Adres"
-
-#: templates/checkout-billing-form.tpl.php:76
-msgctxt "checkout"
-msgid "Please enter the address where you receive your billing statement."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:81
-#, fuzzy
-msgctxt "checkout"
-msgid "Address Line 2"
-msgstr "Adres"
-
-#: templates/checkout-billing-form.tpl.php:82
-msgctxt "checkout"
-msgid ""
-"Additional details (suite, apt no, etc.) associated with your billing "
-"address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:87
-#, fuzzy
-msgctxt "checkout"
-msgid "City"
-msgstr "Stad"
-
-#: templates/checkout-billing-form.tpl.php:88
-msgctxt "checkout"
-msgid "The city for your billing address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:93
-msgctxt "checkout"
-msgid "State / Province"
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:94
-msgctxt "checkout"
-msgid "The state or province for your billing address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:99
-#, fuzzy
-msgctxt "checkout"
-msgid "Postal Code"
-msgstr "Postcode"
-
-#: templates/checkout-billing-form.tpl.php:100
-msgctxt "checkout"
-msgid "The ZIP or postal code for your billing address."
-msgstr ""
-
-#: templates/checkout-billing-form.tpl.php:105
-#, fuzzy
-msgctxt "checkout"
-msgid "Country"
-msgstr "Land"
-
-#: templates/checkout-billing-form.tpl.php:106
-msgctxt "checkout"
-msgid "The country for your billing address."
-msgstr ""
-
 #: templates/checkout-confirmation.tpl.php:7
 msgctxt "checkout"
 msgid ""
@@ -8462,13 +8372,13 @@ msgctxt "renewal"
 msgid "Renew Fee Resume"
 msgstr ""
 
-#: templates/renew-resume.tpl.php:16
+#: templates/renew-resume.tpl.php:15
 #, fuzzy
 msgctxt "renewal"
 msgid "You are about to renew the listing %s."
 msgstr "Login vereist om Registratie te creëren?"
 
-#: templates/renew-resume.tpl.php:22
+#: templates/renew-resume.tpl.php:20
 msgctxt "renewal"
 msgid "In order to complete the renewal, please confirm fee selection."
 msgstr ""
@@ -8539,7 +8449,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Dit is alleen een voorvertoning. De registratie is nog niet gepubliceerd."
 
-#: includes/views/submit_listing.php:863
+#: includes/views/submit_listing.php:861
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -9246,6 +9156,46 @@ msgstr "Doorgaan"
 msgctxt "themes/default"
 msgid "Address"
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "submit listing"
+#~ msgid "Email:"
+#~ msgstr "Jouw email"
+
+#, fuzzy
+#~ msgctxt "checkout"
+#~ msgid "Email Address"
+#~ msgstr "Email Adres:"
+
+#, fuzzy
+#~ msgctxt "checkout"
+#~ msgid "First Name"
+#~ msgstr "Jouw naam"
+
+#, fuzzy
+#~ msgctxt "checkout"
+#~ msgid "Last Name"
+#~ msgstr "Naam"
+
+#, fuzzy
+#~ msgctxt "checkout"
+#~ msgid "Address"
+#~ msgstr "Adres"
+
+#, fuzzy
+#~ msgctxt "checkout"
+#~ msgid "Address Line 2"
+#~ msgstr "Adres"
+
+#, fuzzy
+#~ msgctxt "checkout"
+#~ msgid "City"
+#~ msgstr "Stad"
+
+#, fuzzy
+#~ msgctxt "checkout"
+#~ msgid "Country"
+#~ msgstr "Land"
 
 #, fuzzy
 #~ msgid "Business Directory Info"
