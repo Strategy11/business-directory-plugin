@@ -35,8 +35,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     public function enqueue_resources() {
         wp_enqueue_style( 'dashicons' );
 
-        $this->load_css();
-
         wp_enqueue_script(
             'wpbdp-submit-listing',
             WPBDP_URL . 'assets/js/submit-listing.min.js',
@@ -936,20 +934,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( 'optional' == $mode ) {
             $html .= '<input id="wpbdp-submit-listing-create_account" type="checkbox" name="create-account" value="create-account" ' . checked( true, $form_create, false ) . '/>';
-            $html .= '<label for="wpbdp-submit-listing-create_account">' . _x( 'Create a user account on this site', 'submit listing', 'business-directory-plugin' ) . '</label>';
+            $html .= ' <label for="wpbdp-submit-listing-create_account">' . esc_html__( 'Create a user account on this site', 'business-directory-plugin' ) . '</label>';
         }
 
         $html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( ( 'optional' == $mode && ! $form_create ) ? 'wpbdp-hidden' : '' ) . '">';
 
-        if ( 'required' == $mode ) {
-            $html .= '<p>';
-            $html .= _x( 'You need to create an account on the site. Please fill out the form below.', 'submit listing', 'business-directory-plugin' );
-            $html .= '</p>';
-        }
-
         $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
         $html .= '<div class="wpbdp-form-field-label">';
-        $html .= '<label for="wpbdp-submit-listing-user_username">' . _x( 'Username:', 'submit listing', 'business-directory-plugin' ) . '</label>';
+        $html .= '<label for="wpbdp-submit-listing-user_username">' . esc_html__( 'Username', 'business-directory-plugin' ) . '</label>';
         $html .= '</div>';
         $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_username" type="text" name="user_username" value="' . esc_attr( $form_username ) .'" />';
@@ -958,12 +950,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
         $html .= '<div class="wpbdp-form-field-label">';
-        $html .= '<label for="wpbdp-submit-listing-user_email">' . _x( 'Email:', 'submit listing', 'business-directory-plugin' ) . '</label>';
+        $html .= '<label for="wpbdp-submit-listing-user_email">' . esc_html__( 'Email', 'business-directory-plugin' ) . '</label>';
         $html .= '</div>';
         $html .= '<div class="wpbdp-form-field-inner">';
         $html .= '<input id="wpbdp-submit-listing-user_email" type="text" name="user_email" value="' . esc_attr( $form_email ) . '" />';
         $html .= '</div>';
         $html .= '</div>';
+
+		$html .= '</div>';
 
         return $html;
     }
@@ -1028,16 +1022,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     public function load_css() {
-        $rootline_color = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
 
-        if ( ! $rootline_color ) {
-            $rootline_color = '#569AF6';
-        }
-
-        wp_add_inline_style(
-            'wpbdp-base-css',
-            'html{ --bd-main-color:' . $rootline_color . '; --bd-main-color-20:' . $rootline_color . '33;--bd-main-color-8:' . $rootline_color . '14;}'
-        );
     }
 
     private function find_prev_section( $section_id = null ) {

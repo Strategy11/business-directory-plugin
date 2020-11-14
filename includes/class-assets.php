@@ -156,6 +156,8 @@ class WPBDP__Assets {
         wp_enqueue_style( 'wpbdp-base-css' );
         wp_enqueue_script( 'wpbdp-js' );
 
+		$this->load_css();
+
         do_action( 'wpbdp_enqueue_scripts' );
 
         // enable legacy css (should be removed in a future release) XXX
@@ -167,6 +169,19 @@ class WPBDP__Assets {
                 WPBDP_VERSION
             );
         }
+    }
+
+    private function load_css() {
+        $rootline_color = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
+
+        if ( ! $rootline_color ) {
+            $rootline_color = '#569AF6';
+        }
+
+        wp_add_inline_style(
+            'wpbdp-base-css',
+            'html{ --bd-main-color:' . $rootline_color . '; --bd-main-color-20:' . $rootline_color . '33;--bd-main-color-8:' . $rootline_color . '14;}'
+        );
     }
 
     /**
