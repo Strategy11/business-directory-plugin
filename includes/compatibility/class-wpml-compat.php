@@ -16,10 +16,10 @@ class WPBDP_WPML_Compat {
 
     private $wpml;
 
-    function __construct() {
+    public function __construct() {
         $this->wpml = $GLOBALS['sitepress'];
 
-        if ( ! is_admin() || $this->is_doing_ajax() ) {
+        if ( ! is_admin() || wp_doing_ajax() ) {
             add_filter( 'wpbdp_get_page_id', array( &$this, 'page_id' ), 10, 2 );
 
             add_filter( 'wpbdp_listing_link', array( &$this, 'add_lang_to_link' ) );
@@ -59,15 +59,11 @@ class WPBDP_WPML_Compat {
         add_action( 'wpbdp_main_box_hidden_fields', array( $this, 'search_lang_field' ) );
     }
 
-    protected function is_doing_ajax() {
-        return defined( 'DOING_AJAX' ) && DOING_AJAX;
+    public function get_current_language() {
+        return apply_filters( 'wpml_current_language', null );
     }
 
-    function get_current_language() {
-        return $this->wpml->get_current_language();
-    }
-
-    function fix_get_page_link( $link, $post_id ) {
+    public function fix_get_page_link( $link, $post_id ) {
         if ( ! wpbdp_rewrite_on() ) {
             return $link;
         }
@@ -81,7 +77,7 @@ class WPBDP_WPML_Compat {
         return $link;
     }
 
-    function page_id( $id, $page_name = '' ) {
+    public function page_id( $id, $page_name = '' ) {
         $lang = $this->get_current_language();
 
         if ( ! $lang ) {
@@ -96,12 +92,11 @@ class WPBDP_WPML_Compat {
         return $trans_id;
     }
 
-    function add_lang_to_link( $link ) {
-        global $sitepress;
-
+    public function add_lang_to_link( $link ) {
         $lang = '';
 
-        if ( false !== ( $index = strpos( $link, '?' ) ) ) {
+        $index = strpos( $link, '?' );
+        if ( false !== $index ) {
             // We honor the ?lang argument from the link itself (if present).
             $data = array();
             wp_parse_str( substr( $link, $index + 1 ), $data );
@@ -117,29 +112,7 @@ class WPBDP_WPML_Compat {
             return $link;
         }
 
-        $nego_type = absint( $sitepress->get_setting( 'language_negotiation_type' ) );
-        if ( 1 == $nego_type ) {
-            // The following IF statement is commented out because we can't remember
-            // its purpose and is causing problems:
-            //
-            // https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3078
-            //
-            // In #3078, the customer is using the main directory page as the front
-            // page of the website. The IF below cause listing links to use / as the
-            // base URL, while the rewrite rules use the page's URI as the base URL.
-            // As a result, every listing link returns a 404 Not Found.
-            //
-            // UPDATE: Maybe this is related to:
-            // https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3122
-            /*
-            if ( $trans_id = icl_object_id( wpbdp_get_page_id(), 'page', false, $lang ) ) {
-                $real_link = get_permalink( $trans_id );
-                $used_link = _get_page_link( $trans_id );
-
-                $link = str_replace( $used_link, $real_link, $link );
-
-                return $link;
-            }*/
+        if ( 1 === $this->get_lang_url_type() ) {
             return $link;
         }
 
@@ -164,7 +137,7 @@ class WPBDP_WPML_Compat {
         return add_query_arg( 'lang', $lang, $ajax_url );
     }
 
-    function correct_page_link( $link, $name = '', $arg0 = '' ) {
+    public function correct_page_link( $link, $name = '', $arg0 = '' ) {
         $lang = $this->get_current_language();
 
         if ( ! $lang ) {
@@ -190,119 +163,63 @@ class WPBDP_WPML_Compat {
     }
 
     private function maybe_add_lang_query_arg( $link, $lang ) {
-        $negotionation_type = intval( $this->wpml->get_setting( 'language_negotiation_type' ) );
-
-        if ( 3 !== $negotionation_type ) {
+        if ( 3 !== $this->get_lang_url_type() ) {
             return $link;
         }
 
         return add_query_arg( 'lang', $lang, $link );
     }
 
-    function translate_link( $link, $lang = null ) {
-        global $sitepress;
+	/**
+	 * The language_negotiation_type sets the URL structure for a translated page.
+	 * 3 = ?lang=en
+	 */
+	private function get_lang_url_type() {
+		return intval( $this->wpml->get_setting( 'language_negotiation_type' ) );
+	}
 
+    public function translate_link( $link, $lang = null ) {
         $lang = $lang ? $lang : $this->get_current_language();
 
         if ( ! $lang ) {
             return $link;
         }
 
-        /** language_negotiation_type WPML setting determines how translated URLs are 
-         * built. When set to 3, `lang` query arg is included in the URL so we just
-         * replace the the query arg with current language code.
-         */
-        if ( 3 !== $sitepress->get_setting( 'language_negotiation_type' ) && wpbdp_rewrite_on() ) {
+		$use_query_arg = 3 === $this->get_lang_url_type() || ! wpbdp_rewrite_on();
+
+		if ( $use_query_arg ) {
+			// Replace the the query arg with current language code.
+			$link = add_query_arg( 'lang', $lang, $link );
+		} else {
             $main_id         = wpbdp_get_page_id( 'main' );
             $main_link       = $this->fix_get_page_link( get_page_link( $main_id ), $main_id );
             $main_trans_link = apply_filters( 'wpml_permalink', $main_link, $lang );
 
             $link = str_replace( $main_link, $main_trans_link, $link );
-
             $link = $this->maybe_add_lang_query_arg( $link, $lang );
-        } else {
-            $link = add_query_arg( 'lang', $lang, $link );
-        }
+		}
 
         return $link;
     }
 
-    function language_switcher( $languages ) {
+    public function language_switcher( $languages ) {
         global $wpbdp;
 
         $action = wpbdp_current_view();
         $this->workaround_autoids();
 
         switch ( $action ) {
-            case 'show_category':
-                $category_id = wpbdp_current_category_id();
+			case 'show_category':
+				$this->add_category_languages( $languages );
+				break;
 
-                if ( ! $category_id ) {
-                    return $languages;
-                }
+			case 'show_listing':
+				$this->add_listing_languages( $languages );
+				break;
 
-                foreach ( $languages as $l_code => $l ) {
-                    $trans_id = (int) icl_object_id( $category_id, WPBDP_CATEGORY_TAX, false, $languages[ $l_code ]['language_code'] );
-                    $link     = get_term_link( $trans_id, WPBDP_CATEGORY_TAX );
-
-                    if ( ! $trans_id || is_wp_error( $link ) ) {
-                        unset( $languages[ $l_code ] );
-                        continue;
-                    }
-
-                    $languages[ $l_code ]['url'] = $this->translate_link( $link, $languages[ $l_code ]['language_code'] );
-                }
-
-                break;
-
-            case 'show_listing':
-                $listing_id = get_the_ID();
-
-                if ( ! $listing_id ) {
-                    global $wp_query;
-
-                    $listing_id = $wp_query->get_queried_object()->ID;
-                }
-
-                if ( ! $listing_id ) {
-                    break;
-                }
-
-                $trid         = apply_filters( 'wpml_element_trid', null, $listing_id, 'post_' . WPBDP_POST_TYPE );
-                $translations = apply_filters( 'wpml_get_element_translations', null, $trid, 'post_' . WPBDP_POST_TYPE );
-
-                foreach ( $languages as $l_code => $l ) {
-                    if ( ! array_key_exists( $l_code, $translations) ) {
-                        unset( $languages[ $l_code ] );
-                        continue;
-                    }
-
-                    $languages[ $l_code ]['url'] = apply_filters( 'wpml_permalink', get_permalink( $translations[$l_code]->element_id ), $l_code );
-                }
-
-                break;
-
-            case 'show_tag':
-                $tag_id = wpbdp_current_tag_id();
-                
-                if ( ! $tag_id ) {
-                    return $languages;
-                }
-                
-                foreach ( $languages as $l_code => $l ) {
-                    $trans_id = (int) apply_filters( 'wpml_object_id', $tag_id, WPBDP_TAGS_TAX, false, $languages[ $l_code ]['language_code'] );
-                    $link = get_term_link( $trans_id, WPBDP_TAGS_TAX );
-                    
-                    if ( ! $trans_id || is_wp_error( $link ) ) {
-                        unset( $languages[ $l_code ] );
-                        continue;
-                    }
-                    
-                    $languages[ $l_code ]['url'] = $this->translate_link( $link, $languages[ $l_code ]['language_code'] );
-                }
-
-            default:
-                break;
+			case 'show_tag':
+                $this->add_tag_languages( $languages );
+				break;
         }
 
         $this->workaround_autoids();
@@ -310,7 +227,7 @@ class WPBDP_WPML_Compat {
         return $languages;
     }
 
-    function workaround_autoids() {
+    public function workaround_autoids() {
         global $sitepress, $sitepress_settings;
 
         if ( ! $sitepress->get_setting( 'auto_adjust_ids' ) || ! isset( $sitepress_settings ) ) {
@@ -332,7 +249,82 @@ class WPBDP_WPML_Compat {
         }
     }
 
-    function maybe_change_query( $query ) {
+	/**
+	 * Get a link to the listing in the current language.
+	 *
+	 * @param array $languages
+	 */
+	private function add_listing_languages( &$languages ) {
+		$listing_id = get_the_ID();
+
+		if ( ! $listing_id ) {
+			global $wp_query;
+
+			$listing_id = $wp_query->get_queried_object()->ID;
+			if ( ! $listing_id ) {
+				return;
+			}
+		}
+
+		$trid         = apply_filters( 'wpml_element_trid', null, $listing_id, 'post_' . WPBDP_POST_TYPE );
+		$translations = apply_filters( 'wpml_get_element_translations', null, $trid, 'post_' . WPBDP_POST_TYPE );
+
+		foreach ( $languages as $l_code => $l ) {
+			if ( ! isset( $translations[ $l_code ] ) ) {
+				unset( $languages[ $l_code ] );
+				continue;
+			}
+
+			$languages[ $l_code ]['url'] = apply_filters( 'wpml_permalink', get_permalink( $translations[ $l_code ]->element_id ), $l_code );
+		}
+	}
+
+	/**
+	 * Check for a translated category page.
+	 *
+	 * @param array $languages
+	 */
+	private function add_category_languages( &$languages ) {
+        $category_id = wpbdp_current_category_id();
+        if ( $category_id ) {
+            $this->add_term_link( $category_id, WPBDP_CATEGORY_TAX, $languages );
+        }
+	}
+
+	/**
+	 * Check for a translated tag page.
+	 *
+	 * @param array $languages
+	 */
+	private function add_tag_languages( &$languages ) {
+		$tag_id = wpbdp_current_tag_id();
+		if ( $tag_id ) {
+			$this->add_term_link( $tag_id, WPBDP_TAGS_TAX, $languages );
+		}
+	}
+
+	/**
+	 * Get translated link for a term.
+	 *
+	 * @param int    $term_id The tag or category ID.
+	 * @param string $tax The name of the taxonomy
+	 * @param array  $languages
+	 */
+	private function add_term_link( $term_id, $tax, &$languages ) {
+		foreach ( $languages as $l_code => $l ) {
+			$trans_id = (int) apply_filters( 'wpml_object_id', $term_id, $tax, false, $l['language_code'] );
+			$link     = get_term_link( $trans_id, $tax );
+
+			if ( ! $trans_id || is_wp_error( $link ) ) {
+				unset( $languages[ $l_code ] );
+				continue;
+			}
+
+			$languages[ $l_code ]['url'] = $this->translate_link( $link, $l['language_code'] );
+		}
+	}
+
+    public function maybe_change_query( $query ) {
         if ( ! $query->wpbdp_is_main_page || empty( $query->query['page_id'] ) ) {
             return;
         }
@@ -345,15 +337,16 @@ class WPBDP_WPML_Compat {
     }
 
     public function before_ajax_dispatch( $handler ) {
-        if ( empty( $_GET['lang'] ) ) {
+        $lang = wpbdp_get_var( array( 'param' => 'lang' ) );
+        if ( empty( $lang ) ) {
             return;
         }
 
-        do_action( 'wpml_switch_language', $_GET['lang'] );
+        do_action( 'wpml_switch_language', $lang );
     }
 
     // {{{ Form Fields integration.
-    function register_form_fields_strings() {
+    public function register_form_fields_strings() {
         if ( isset( $_GET['action'] ) || ! function_exists( 'icl_register_string' ) ) {
             return;
         }
@@ -387,7 +380,7 @@ class WPBDP_WPML_Compat {
         }
     }
 
-    function translate_form_field_label( $label, $field ) {
+    public function translate_form_field_label( $label, $field ) {
         if ( ! is_object( $field ) || ! function_exists( 'icl_t' ) ) {
             return $label;
         }
@@ -399,7 +392,7 @@ class WPBDP_WPML_Compat {
         );
     }
 
-    function translate_form_field_description( $description, $field ) {
+    public function translate_form_field_description( $description, $field ) {
         if ( ! is_object( $field ) || ! function_exists( 'icl_t' ) ) {
             return $description;
         }
@@ -411,7 +404,7 @@ class WPBDP_WPML_Compat {
         );
     }
 
-    function translate_form_field_option_data( $value, $key, $field ) {
+    public function translate_form_field_option_data( $value, $key, $field ) {
         if ( ! is_object( $field ) || empty( $value ) || 'options' !== $key || ! function_exists( 'icl_t' ) || ! is_array( $value ) ) {
             return $value;
         }
@@ -436,8 +429,8 @@ class WPBDP_WPML_Compat {
     }
 
     // }}}
-    function maybe_register_some_strings() {
-        $admin_page = ! empty( $_GET['page'] ) ? $_GET['page'] : '';
+    public function maybe_register_some_strings() {
+        $admin_page = wpbdp_get_var( array( 'param' => 'page' ) );
 
         switch ( $admin_page ) {
             case 'wpbdp-admin-fees':
@@ -452,7 +445,7 @@ class WPBDP_WPML_Compat {
     }
 
     // {{{ Fees API integration.
-    function register_fees_strings() {
+    public function register_fees_strings() {
         if ( isset( $_GET['action'] ) || ! function_exists( 'icl_register_string' ) ) {
             return;
         }
@@ -479,7 +472,7 @@ class WPBDP_WPML_Compat {
         }
     }
 
-    function translate_fee_label( $label, $fee ) {
+    public function translate_fee_label( $label, $fee ) {
         if ( ! function_exists( 'icl_t' ) ) {
             return $label;
         }
@@ -491,7 +484,7 @@ class WPBDP_WPML_Compat {
         );
     }
 
-    function translate_fee_description( $desc, $fee ) {
+    public function translate_fee_description( $desc, $fee ) {
         if ( ! function_exists( 'icl_t' ) ) {
             return $desc;
         }
@@ -505,7 +498,7 @@ class WPBDP_WPML_Compat {
 
     // }}}
     // Regions. {{{
-    function use_cache_per_lang( $option ) {
+    public function use_cache_per_lang( $option ) {
         $lang = $this->get_current_language();
 
         if ( ! $lang ) {
@@ -515,7 +508,7 @@ class WPBDP_WPML_Compat {
         return $option . '-' . $lang;
     }
 
-    function clean_cache_per_lang( $opt ) {
+    public function clean_cache_per_lang( $opt ) {
         $langs = icl_get_languages( 'skip_missing=0' );
 
         if ( ! $langs ) {
@@ -529,9 +522,10 @@ class WPBDP_WPML_Compat {
         }
     }
 
-    // }}}
-    // Listing thumbnail and images. {{{
-    function get_images_listing_id( $listing_id ) {
+	/**
+	 * Listing thumbnail and images.
+	 */
+    public function get_images_listing_id( $listing_id ) {
         if ( 1 != apply_filters( 'wpml_element_translation_type', null, $listing_id, 'post_' . WPBDP_POST_TYPE ) ) {
             return $listing_id;
         }
@@ -549,8 +543,6 @@ class WPBDP_WPML_Compat {
         return $listing_id;
     }
 
-    // }}}
-
     public function search_lang_field() {
         $lang = $this->get_current_language();
 
@@ -558,6 +550,6 @@ class WPBDP_WPML_Compat {
             return;
         }
 
-        echo '<input type="hidden" name="lang" value="' . $lang . '" />';
+        echo '<input type="hidden" name="lang" value="' . esc_attr( $lang ) . '" />';
     }
 }
