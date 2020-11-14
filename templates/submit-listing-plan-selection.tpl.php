@@ -54,7 +54,7 @@ $single_plan = ! ( count( $plans ) > 1 );
 <?php else : ?>
     <div class="wpbdp-plan-selection-wrapper" data-breakpoints='{"tiny": [0,410], "small": [410,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-size">
         <?php if ( ! $editing ) : ?>
-            <div class="wpbdp-plan-selection <?php echo ! $single_plan ? esc_attr( 'wpbdp-plan-selection-with-tip' ) : '' ; ?>">
+            <div class="wpbdp-plan-selection <?php echo ! $single_plan ? esc_attr( 'wpbdp-plan-selection-with-tip' ) : ''; ?>">
                 <?php
                 wpbdp_render(
                     'plan-selection',

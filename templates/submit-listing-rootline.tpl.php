@@ -12,7 +12,7 @@
                 <span><?php echo esc_html( $id + 1 ); ?></span>
                 </div>
             </div>
-            <div class="wpbdp-rootline-section-name"><?php echo esc_html( $sections[ $section_id ]['title'] );?></div>
+            <div class="wpbdp-rootline-section-name"><?php echo esc_html( $sections[ $section_id ]['title'] ); ?></div>
         </div>
     <?php endforeach; ?>
 </div>

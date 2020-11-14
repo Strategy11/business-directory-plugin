@@ -1062,7 +1062,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $sections_count = count( $this->sections_keys );
         $section_pos    = array_search( $section_id, $this->sections_keys, true );
 
-        if ( false === $section_pos || $sections_count - 1  === $section_pos ) {
+        if ( false === $section_pos || $sections_count - 1 === $section_pos ) {
             return '';
         }
 

@@ -28,8 +28,8 @@ $media_action = add_query_arg(
     <?php if ( ! $admin ): ?>
         <div id="image-upload-conditions">
             <span id="image-upload-general-conditions"><?php echo esc_html( implode( '; ', $conditions ) ); ?></span>
-            <span id="image-slots-total" class="wpbdp-hidden"><?php echo $slots; ?></span>
-            <span id="image-slots-available"><?php echo esc_html_x( 'Image slots available', 'templates', 'business-directory-plugin' ); ?>: <span id="image-slots-remaining"><?php echo $slots_available; ?></span></span>
+            <span id="image-slots-total" class="wpbdp-hidden"><?php echo esc_html( $slots ); ?></span>
+            <span id="image-slots-available"><?php echo esc_html_x( 'Image slots available', 'templates', 'business-directory-plugin' ); ?>: <span id="image-slots-remaining"><?php echo esc_html( $slots_available ); ?></span></span>
         </div>
     <?php endif; ?>
     <?php if ( is_admin() && ! wpbdp_is_request( 'ajax' ) ): ?>
