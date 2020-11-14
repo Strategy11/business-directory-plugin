@@ -5,11 +5,8 @@
  * @package WPBDP/Includes/Views
  */
 
-// phpcs:disable
-
 /**
  * @since 5.1.6
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Flag_Listing extends WPBDP__View {
 

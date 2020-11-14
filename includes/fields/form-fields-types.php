@@ -1,4 +1,4 @@
-<?php // phpcs:disable
+<?php
 /**
  * Standard form field types.
  *

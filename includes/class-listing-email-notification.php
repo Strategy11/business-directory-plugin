@@ -3,11 +3,8 @@
  * @package WPBDP
  */
 
-// phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid
-
 /**
  * @since 5.0
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class WPBDP__Listing_Email_Notification {
 
@@ -36,7 +33,6 @@ class WPBDP__Listing_Email_Notification {
      * @param string $new_status    The new listing status.
      * @param string $old_status    The previous listing status.
      * @param object $post          An instance of WP_Post.
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function listing_published_notification( $new_status, $old_status, $post ) {
         if ( ! in_array( 'listing-published', wpbdp_get_option( 'user-notifications' ), true ) ) {
@@ -57,14 +53,11 @@ class WPBDP__Listing_Email_Notification {
             return;
         }
 
-        // phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
-        // phpcs:disable WordPress.VIP.SuperGlobalInputUsage.AccessDetected
         if ( isset( $_POST['original_post_status'] ) && 'auto-draft' === $_POST['original_post_status'] ) {
             add_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
             add_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), PHP_INT_MAX );
             return;
         }
-        // phpcs:enable
 
         $this->send_listing_published_notification( $post->ID, $post );
     }
@@ -146,9 +139,6 @@ class WPBDP__Listing_Email_Notification {
      * @param string $relative_time     Number of days before or after the event occurred.
      * @param object $listing           An instance of WPBDP_Listing.
      * @param bool   $force_resend      Whether to resend already sent notifications or not.
-     * @SuppressWarnings(PHPMD)
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function send_notices( $event, $relative_time, $listing, $force_resend = false ) {
         $sent    = false;
@@ -214,16 +204,12 @@ class WPBDP__Listing_Email_Notification {
                 }
             }
 
-            // phpcs:disable Generic.CodeAnalysis.EmptyStatement.DetectedIf
-            // phpcs:disable Squiz.Commenting.InlineComment.InvalidEndChar
-            // phpcs:disable Squiz.PHP.CommentedOutCode.Found
             if ( $email->send() ) {
                 // TODO: Why was the line below commented out?
                 // See: https://github.com/drodenbaugh/BusinessDirectoryPlugin/commit/0420174dd3f93089e8088b942f3ca08d82c13d62
                 // update_post_meta( $listing->get_id(), '_wpbdp_notice_sent_' . $notice_key, current_time( 'timestamp' ) );
                 $sent = true;
             }
-            // phpcs:enable
         }
 
         return $sent;
@@ -331,7 +317,6 @@ class WPBDP__Listing_Email_Notification {
      * @param object $payment   A payment object.
      * @param string $context   This parameter is not used.
      * @since 5.0.6
-     * @SuppressWarnings(PHPMD)
      */
     public function listing_renewal_email( $listing, $payment = false, $context = '' ) {
         // Notify admin.
@@ -482,5 +467,3 @@ class WPBDP__Listing_Email_Notification {
         }
     }
 }
-
-// phpcs:enable

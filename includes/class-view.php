@@ -6,11 +6,8 @@
  * @package BDP/Includes
  */
 
-// phpcs:disable
 /**
  * Class WPBDP__View
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__View {
 

@@ -6,8 +6,6 @@
  * @since 5.5
  */
 
-// phpcs:disable
-
 /**
  * Interface WPBDP_PersonalDataProvider Interface for Data Provider implementations.
  */

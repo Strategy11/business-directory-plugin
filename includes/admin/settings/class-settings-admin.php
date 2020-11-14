@@ -5,10 +5,6 @@
  * @package BDP/Settings Admin
  */
 
-// phpcs:disable
-/**
- * @SuppressWarnings(PHPMD)
- */
 class WPBDP__Settings_Admin {
 
     /**
@@ -149,13 +145,12 @@ class WPBDP__Settings_Admin {
             $callback_html = ob_get_clean();
         }
 
+		echo '<div id="wpbdp-settings-' . esc_attr( $setting['id'] ) . '" class="wpbdp-settings-setting wpbdp-settings-type-' . esc_attr( $setting['type'] ) . '" ';
         if ( ! empty( $setting['attrs'] ) ) {
-            $attrs = wpbdp_html_attributes( $setting['attrs'], array( 'id', 'class' ) );
-        } else {
-            $attrs = '';
+            wpbdp_html_attributes( $setting['attrs'], array( 'id', 'class' ), true );
         }
 
-        $attrs .= ' data-setting-id="' . esc_attr( $setting['id'] ) . '" ';
+        echo ' data-setting-id="' . esc_attr( $setting['id'] ) . '" ';
 
         if ( ! empty( $setting['requirements'] ) ) {
             $reqs_info = array();
@@ -164,16 +159,14 @@ class WPBDP__Settings_Admin {
                 $reqs_info[] = array( $r, (bool) wpbdp_get_option( str_replace( '!', '', $r ) ) );
             }
 
-            $attrs .= ' data-requirements="' . esc_attr( json_encode( $reqs_info ) ) . '"';
+            echo ' data-requirements="' . esc_attr( wp_json_encode( $reqs_info ) ) . '"';
         }
+		echo '>';
 
-        $html  = '';
-        $html .= '<div id="wpbdp-settings-' . $setting['id'] . '" class="wpbdp-settings-setting wpbdp-settings-type-' . $setting['type'] . '" ' . $attrs . '>';
-        $html .= apply_filters( 'wpbdp_admin_settings_render', $callback_html, $setting );
-        $html .= '<a name="' . $setting['id'] . '"></a>';
-        $html .= '</div>';
-
-        echo $html;
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo apply_filters( 'wpbdp_admin_settings_render', $callback_html, $setting );
+        echo '<a name="' . esc_attr( $setting['id'] ) . '"></a>';
+        echo '</div>';
     }
 
     public function setting_tooltip( $tooltip = '' ) {
@@ -232,19 +225,35 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_checkbox_callback( $setting, $value ) {
-        $value = (boolean) $value;
+        $save = $this->checkbox_saved_value( $setting );
+		if ( 1 === $save ) {
+			$value = (bool) $value;
+		}
 
-        echo '<input type="hidden" name="wpbdp_settings[' . $setting['id'] . ']" value="0" />';
-        echo '<input type="checkbox" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="1" ' . checked( $value, 1, false ) . ' />';
+        echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
+		echo '<label>';
+        echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
 
         if ( ! empty( $setting['desc'] ) ) {
-            echo '<label for="' . $setting['id'] . '">' . $setting['desc'] . '</label>';
+            echo wp_kses_post( $setting['desc'] );
         }
+		echo '</label>';
 
         if ( ! empty( $setting['tooltip'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['tooltip'] . '</span>';
+            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['tooltip'] ) . '</span>';
         }
     }
+
+	/**
+	 * Allow a check box to have a value other than 1.
+	 */
+	private function checkbox_saved_value( $setting ) {
+		if ( empty( $setting['option'] ) ) {
+			return 1;
+		}
+
+		return $setting['option'];
+	}
 
     public function setting_radio_callback( $setting, $value ) {
         if ( empty( $setting['options'] ) ) {

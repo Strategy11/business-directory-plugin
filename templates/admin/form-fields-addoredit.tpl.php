@@ -3,8 +3,6 @@
  * @package WPBDP/Templates/Admin/Form Fields Add or Edit.
  */
 
-// phpcs:disable
-
 echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'business-directory-plugin' ), 'field-form' ); ?>
 <?php wpbdp_admin_notices(); ?>
 

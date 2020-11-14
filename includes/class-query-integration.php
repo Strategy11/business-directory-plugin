@@ -4,12 +4,8 @@
  * @package BDP/Includes/Query Integration
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP__Query_Integration
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Query_Integration {
 

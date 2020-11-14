@@ -6,8 +6,6 @@
  * @since 5.5
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_ListingsPersonalDataProvider
  */

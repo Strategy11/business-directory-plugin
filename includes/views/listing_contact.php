@@ -6,10 +6,8 @@
  * @package WPBDP/Views/Listing contact
  */
 
-// phpcs:disable
 /**
  * Class WPBDP__Views__Listing_Contact
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Listing_Contact extends WPBDP__View {
 

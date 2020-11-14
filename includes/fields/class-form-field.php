@@ -6,12 +6,8 @@
  * @package WPBDP/Views/Includes/Fields/Form Field
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_Form_Field
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Form_Field {
 

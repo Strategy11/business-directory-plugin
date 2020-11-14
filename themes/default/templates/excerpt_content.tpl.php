@@ -5,7 +5,6 @@
  * @package BDP/Themes/Default/Templates/Excerpt Content
  */
 
-// phpcs:disable
 ?>
 
 <div class="listing-title">

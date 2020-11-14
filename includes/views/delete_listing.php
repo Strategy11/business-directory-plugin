@@ -5,12 +5,10 @@
  * @package BDP/Includes/Views
  */
 
-// phpcs:disable
 require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php';
 
 /**
  * @since 4.0
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 

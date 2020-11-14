@@ -5,8 +5,6 @@
  * @package WPBDP/Templates/Admin
  */
 
-// phpcs:disable WordPress.XSS.EscapeOutput.UnsafePrintingFunction
-// phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 ?>
 
 <form id="wpbdp-fee-form" action="" method="post">

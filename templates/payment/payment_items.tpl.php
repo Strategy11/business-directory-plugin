@@ -1,4 +1,3 @@
-<?php // phpcs:disable ?>
 <table class="wpbdp-payment-items-table" id="wpbdp-payment-items-<?php echo $payment->id; ?>">
     <thead>
         <tr>

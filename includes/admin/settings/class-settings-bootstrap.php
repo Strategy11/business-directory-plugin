@@ -810,18 +810,16 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         // Themes.
-        wpbdp_register_settings_group( 'themes', _x( 'Theme Settings', 'settings', 'business-directory-plugin' ), 'appearance', array( 'desc' => str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes' ) ) . '">', _x( 'You can manage your themes on <a>Directory Themes</a>.', 'admin settings', 'business-directory-plugin' ) ) ) );
+        wpbdp_register_settings_group( 'themes', __( 'Styling', 'business-directory-plugin' ), 'appearance' );
 
         wpbdp_register_setting(
             array(
                 'id'      => 'themes-button-style',
-                'type'    => 'radio',
-                'name'    => _x( 'Theme button style', 'settings', 'business-directory-plugin' ),
-                'default' => 'none',
-                'options' => array(
-                    'theme' => __( 'Use the Business Directory Plugin style for buttons', 'business-directory-plugin' ),
-                    'none'  => __( 'Use the WP theme style for directory buttons', 'business-directory-plugin' ),
-                ),
+                'type'    => 'checkbox',
+                'name'    => __( 'Button style', 'business-directory-plugin' ),
+                'default' => 'theme',
+                'option'  => 'theme',
+				'desc'    => __( 'Override WP theme button styling', 'business-directory-plugin' ),
                 'group'   => 'themes',
             )
         );
@@ -837,7 +835,7 @@ final class WPBDP__Settings__Bootstrap {
 		);
 
         // Image.
-        wpbdp_register_settings_group( 'appearance/image', _x( 'Image', 'settings', 'business-directory-plugin' ), 'appearance' );
+        wpbdp_register_settings_group( 'appearance/image', __( 'Images', 'business-directory-plugin' ), 'appearance' );
         wpbdp_register_settings_group( 'images/general', _x( 'Image Settings', 'settings', 'business-directory-plugin' ), 'appearance/image', array( 'desc' => 'Any changes to these settings will affect new listings only.  Existing listings will not be affected.  If you wish to change existing listings, you will need to re-upload the image(s) on that listing after changing things here.' ) );
         wpbdp_register_setting(
             array(

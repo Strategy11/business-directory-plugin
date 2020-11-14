@@ -267,12 +267,12 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             echo '<input type="hidden" name="level[' . $level_id . '][details]" />';
 
             echo '<h4>' . _x( 'New plan summary', 'migrate-18', 'business-directory-plugin' ) . '</h4>';
-            echo '<table class="new-fee-summary" data-level-id="' . $level_id . '">';
+            echo '<table class="new-fee-summary" data-level-id="' . esc_attr( $level_id ) . '">';
             echo '<thead><tr>';
-            echo '<th>' . _x( 'Fee Label', 'migrate-18', 'business-directory-plugin' ) . '</th>';
-            echo '<th>' . _x( 'Amount', 'migrate-18', 'business-directory-plugin' ) . '</th>';
-            echo '<th>' . _x( 'Duration', 'migrate-18', 'business-directory-plugin' ) . '</th>';
-            echo '<th>' . _x( 'Images', 'migrate-18', 'business-directory-plugin' ) . '</th>';
+            echo '<th>' . esc_html__( 'Fee Label', 'business-directory-plugin' ) . '</th>';
+            echo '<th>' . esc_html__( 'Amount', 'business-directory-plugin' ) . '</th>';
+            echo '<th>' . esc_html__( 'Duration', 'business-directory-plugin' ) . '</th>';
+            echo '<th>' . esc_html__( 'Images', 'business-directory-plugin' ) . '</th>';
             echo '</tr></thead>';
             echo '<tbody>';
             echo '<tr>';

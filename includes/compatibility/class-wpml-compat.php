@@ -5,12 +5,8 @@
  * @package WPBDP/Includes/Compatibility/WPML
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_WPML_Compat
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_WPML_Compat {
 

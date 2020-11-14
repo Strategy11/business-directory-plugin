@@ -5,8 +5,6 @@
  * @package Includes/Admin/CSV Exporter
  */
 
-// phpcs:disable
-
 /**
  * CSV export.
  *

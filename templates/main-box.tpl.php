@@ -5,7 +5,6 @@
  * @package BDP/Templates/Main Box
  */
 
-// phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 ?>
 <div id="wpbdp-main-box" class="wpbdp-main-box" data-breakpoints='{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-main-box">
 

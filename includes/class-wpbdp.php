@@ -3,7 +3,6 @@
  * Main Business Directory class.
  *
  * @package WPBDP
- * @SuppressWarnings(PHPMD)
  */
 
 final class WPBDP {
@@ -90,8 +89,6 @@ final class WPBDP {
         require_once WPBDP_INC . 'helpers/class-access-keys-sender.php';
     }
 
-    // phpcs:enable
-
     /**
      * @since 5.2.1 Removed usage of create_function().
      */
@@ -116,8 +113,6 @@ final class WPBDP {
         add_action( 'plugins_loaded', array( $this, 'register_cache_groups' ) );
         add_action( 'switch_blog', array( $this, 'register_cache_groups' ) );
     }
-
-    // phpcs:disable
 
     public function init() {
         // Define constant that will be used to enqueue scripts and styles.
@@ -510,5 +505,3 @@ final class WPBDP {
     }
 
 }
-
-// phpcs:enable

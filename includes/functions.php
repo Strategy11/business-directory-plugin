@@ -3,16 +3,10 @@
  * @package WPBDP
  */
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_version() {
     return WPBDP_VERSION;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     global $wpdb;
 
@@ -41,9 +35,6 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     return $query;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_page_ids( $page_id = 'main' ) {
     static $request_cached = array();
 
@@ -76,9 +67,6 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
     return apply_filters( 'wpbdp_get_page_ids', $page_ids, $page_id );
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_page_ids_from_cache( $cache, $page_id ) {
     global $wpdb;
 
@@ -100,9 +88,6 @@ function wpbdp_get_page_ids_from_cache( $cache, $page_id ) {
     return $cache[ $page_id ];
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_page_ids_with_query( $page_id ) {
     global $wpdb;
 
@@ -118,9 +103,6 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
     return $wpdb->get_col( $q );
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_page_id( $name = 'main' ) {
     $page_ids = wpbdp_get_page_ids( $name );
 
@@ -136,7 +118,6 @@ function wpbdp_get_page_id( $name = 'main' ) {
 /**
  * @deprecated since 4.0. Use `wpbdp_url()` instead.
  * @see wpbdp_url()
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_page_link( $name = 'main', $arg0 = null ) {
     $page_id = wpbdp_get_page_id( $name );
@@ -189,16 +170,10 @@ function wpbdp_get_page_link( $name = 'main', $arg0 = null ) {
 
 /* Admin API */
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_admin() {
     return wpbdp()->admin;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_admin_notices() {
     global $wpbdp;
     return $wpbdp->admin->admin_notices();
@@ -206,25 +181,16 @@ function wpbdp_admin_notices() {
 
 /* Settings API */
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_settings_api() {
     global $wpbdp;
     return $wpbdp->settings;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_option( $key, $default = false ) {
     $args_ = func_get_args();
     return call_user_func_array( array( wpbdp()->settings, 'get_option' ), $args_ );
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_set_option( $key, $value ) {
     $args_ = func_get_args();
     return call_user_func_array( array( wpbdp()->settings, 'set_option' ), $args_ );
@@ -232,7 +198,6 @@ function wpbdp_set_option( $key, $value ) {
 
 /**
  * @since 5.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_delete_option( $key ) {
     $args_ = func_get_args();
@@ -241,7 +206,6 @@ function wpbdp_delete_option( $key ) {
 
 /**
  * @since 5.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_register_settings_group( $args ) {
     $args_ = func_get_args();
@@ -250,7 +214,6 @@ function wpbdp_register_settings_group( $args ) {
 
 /**
  * @since 5.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_register_setting( $args ) {
     $args_ = func_get_args();
@@ -259,17 +222,11 @@ function wpbdp_register_setting( $args ) {
 
 /* Form Fields API */
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_formfields_api() {
     global $wpbdp;
     return $wpbdp->formfields;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_formfield( $id ) {
     if ( is_numeric( $id ) && is_string( $id ) ) {
         return wpbdp_get_formfield( intval( $id ) );
@@ -284,9 +241,6 @@ function wpbdp_get_formfield( $id ) {
 
 /* Fees/Payment API */
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_payments_possible() {
     if ( ! wpbdp_get_option( 'payments-on' ) ) {
         return false;
@@ -295,34 +249,22 @@ function wpbdp_payments_possible() {
     return wpbdp()->payment_gateways->can_pay();
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_fees_api() {
     return wpbdp()->fees;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_payments_api() {
     return wpbdp()->payments;
 }
 
 /* Listings API */
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_listings_api() {
     return wpbdp()->listings;
 }
 
 /* Misc. */
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_parent_categories( $catid ) {
     $category = get_term( intval( $catid ), WPBDP_CATEGORY_TAX );
 
@@ -333,9 +275,6 @@ function wpbdp_get_parent_categories( $catid ) {
     return array( $category );
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_parent_catids( $catid ) {
     $parent_categories = wpbdp_get_parent_categories( $catid );
     array_walk( $parent_categories, create_function( '&$x', '$x = intval($x->term_id);' ) );
@@ -348,7 +287,6 @@ function wpbdp_get_parent_catids( $catid ) {
  *
  * @return boolean
  * @since 2.1
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_rewrite_on() {
     global $wp_rewrite;
@@ -363,7 +301,6 @@ function wpbdp_rewrite_on() {
  * @param int          $user_id the user ID. if null, the current user will be used
  * @return boolean
  * @since 2.1
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
     $listing_id = $listing_id ? ( is_object( $listing_id ) ? $listing_id->ID : intval( $listing_id ) ) : get_the_ID();
@@ -417,9 +354,6 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
     return $res;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_post_by_slug( $slug, $post_type = null ) {
     $post_type = $post_type ? $post_type : WPBDP_POST_TYPE;
 
@@ -440,9 +374,6 @@ function wpbdp_get_post_by_slug( $slug, $post_type = null ) {
     }
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_current_sort_option() {
     if ( $sort = trim( wpbdp_getv( $_GET, 'wpbdp_sort', null ) ) ) {
         $order = substr( $sort, 0, 1 ) == '-' ? 'DESC' : 'ASC';
@@ -460,7 +391,6 @@ function wpbdp_get_current_sort_option() {
 
 /*
  * @since 2.1.6
- * @SuppressWarnings(PHPMD)
  */
 function _wpbdp_resize_image_if_needed( $id ) {
     require_once ABSPATH . 'wp-admin/includes/image.php';
@@ -511,7 +441,6 @@ function _wpbdp_resize_image_if_needed( $id ) {
 /*
  * @since 2.1.7
  * @deprecated since 3.6.10. See {@link wpbdp_currency_format()}.
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_format_currency( $amount, $decimals = 2, $currency = null ) {
     if ( $amount == 0.0 ) {
@@ -523,7 +452,6 @@ function wpbdp_format_currency( $amount, $decimals = 2, $currency = null ) {
 
 /**
  * @since 3.6.10
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_currency_format( $amount, $args = array() ) {
     // We don't actually allow modification of the "format" string for now, but it could be useful in the future.
@@ -576,7 +504,6 @@ function wpbdp_currency_format( $amount, $args = array() ) {
 
 /**
  * @since 5.1.9
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_date_full_format( $timestamp ) {
     return date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $timestamp );
@@ -584,7 +511,6 @@ function wpbdp_date_full_format( $timestamp ) {
 
 /**
  * @since 5.1.9
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_date( $timestamp ) {
     return date_i18n( get_option( 'date_format' ), $timestamp );
@@ -593,7 +519,6 @@ function wpbdp_date( $timestamp ) {
 
 /**
  * @since 3.5.3
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post' ) {
     if ( 'slug' == $try_first ) {
@@ -633,7 +558,6 @@ function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $
 
 /**
  * @since 3.5.8
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_push_query( &$q ) {
     global $wpbdp;
@@ -643,7 +567,6 @@ function wpbdp_push_query( &$q ) {
 
 /**
  * @since 3.5.8
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_pop_query() {
     global $wpbdp;
@@ -652,7 +575,6 @@ function wpbdp_pop_query() {
 
 /**
  * @since 3.5.8
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_current_query() {
     global $wpbdp;
@@ -668,7 +590,6 @@ function wpbdp_current_query() {
 
 /**
  * @since 3.6.10
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_experimental( $feature ) {
     static $file_overrides = false;
@@ -692,7 +613,6 @@ function wpbdp_experimental( $feature ) {
 
 /**
  * @since 4.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_current_view_output() {
     global $wpbdp;
@@ -775,7 +695,6 @@ function wpbdp_url( $pathorview = '/', $args = array() ) {
  * Generates Ajax URL and allows plugins to alter it through a filter.
  *
  * @since 5.0.3
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_ajax_url() {
     return apply_filters( 'wpbdp_ajax_url', admin_url( 'admin-ajax.php' ) );
@@ -795,8 +714,6 @@ function wpbdp_ajax_url() {
  *       If the rewrite rule for a cateagry matches, but we can't retrieve
  *       a term from the database, we should mark the query as not-found
  *       from the beginning.
- *
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_current_category_id() {
     global $wp_query;
@@ -816,7 +733,6 @@ function wpbdp_current_category_id() {
 
 /**
  * @since 4.1.12
- * @SuppressWarnings(PHPMD)
  */
 function _wpbdp_current_category_id() {
     $term = _wpbpd_current_category();
@@ -830,7 +746,6 @@ function _wpbdp_current_category_id() {
 
 /**
  * @since 4.1.12
- * @SuppressWarnings(PHPMD)
  */
 function _wpbpd_current_category() {
     global $wp_query;
@@ -860,9 +775,6 @@ function _wpbpd_current_category() {
     return $term;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_current_tag_id() {
     global $wp_query;
 
@@ -874,9 +786,6 @@ function wpbdp_current_tag_id() {
     return $term->term_id;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_current_action() {
     return wpbdp_current_view();
 }
@@ -891,7 +800,6 @@ function wpbdp_current_listing_id() {
 
 /**
  * @since 4.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_current_view() {
     global $wpbdp;
@@ -905,23 +813,18 @@ function wpbdp_current_view() {
 
 /**
  * @since 4.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_load_view( $view, $arg0 = null ) {
     global $wpbdp;
     return $wpbdp->dispatcher->load_view( $view, $arg0 );
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_get_payment( $id ) {
     return WPBDP_Payment::objects()->get( $id );
 }
 
 /**
  * @since 5.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_fee_plans( $args = array() ) {
     global $wpdb;
@@ -992,7 +895,6 @@ function wpbdp_get_fee_plans( $args = array() ) {
 
 /**
  * @since 5.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_fee_plan( $plan_id ) {
     global $wpdb;
@@ -1008,7 +910,6 @@ function wpbdp_get_fee_plan( $plan_id ) {
 
 /**
  * @since 4.1.8
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_is_taxonomy() {
     $current_view = wpbdp_current_view();
@@ -1019,7 +920,6 @@ function wpbdp_is_taxonomy() {
 
 /**
  * @since 5.5.2
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_taxonomy_link( $taxonomy, $link = '' ) {
     $taxonomy_type = '';
@@ -1066,9 +966,6 @@ function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
     return $html;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_locate_template( $template, $allow_override = true, $try_defaults = true ) {
     $template_file = '';
 
@@ -1138,9 +1035,6 @@ function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
     return $msg;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function _wpbdp_template_mode( $template ) {
     if ( wpbdp_locate_template( array( 'businessdirectory-' . $template, 'wpbusdirman-' . $template ), true, false ) ) {
         return 'template';
@@ -1193,9 +1087,6 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
     return $html;
 }
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_latest_listings( $n = 10, $before = '<ul>', $after = '</ul>', $before_item = '<li>', $after_item = '</li>' ) {
     $n = max( intval( $n ), 0 );
 
@@ -1226,7 +1117,6 @@ function wpbdp_latest_listings( $n = 10, $before = '<ul>', $after = '</ul>', $be
 
 /**
  * @since 4.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_the_listing_actions( $args = array() ) {
     echo wpbdp_listing_actions();
@@ -1234,7 +1124,6 @@ function wpbdp_the_listing_actions( $args = array() ) {
 
 /**
  * @since 4.0
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_listing_actions( $args = array() ) {
     return wpbdp_render(
@@ -1251,9 +1140,6 @@ require_once WPBDP_INC . 'logging.php';
 require_once WPBDP_PATH . 'includes/class-listings-api.php';
 require_once WPBDP_INC . 'listings.php';
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 function wpbdp_sortbar_get_field_options() {
     $options = array();
 
@@ -1281,7 +1167,6 @@ function wpbdp_sortbar_get_field_options() {
  * @param int $listing_id the listing ID
  * @return string The admin edit link for the listing (if available).
  * @since 5.1.3
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_edit_post_link( $listing_id ) {
     if ( ! $post = get_post( $listing_id ) ) {
@@ -1304,7 +1189,6 @@ function wpbdp_get_edit_post_link( $listing_id ) {
 
 /**
  * @since 5.1.6
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_client_ip_address() {
     $ip = '0.0.0.0';
@@ -1333,7 +1217,6 @@ function wpbdp_delete_page_ids_cache() {
  * Echoes a link to return to previous page.
  *
  * @since 5.5.2
- * @SuppressWarnings(PHPMD)
  */
 function wpbdp_get_return_link() {
     $server  = wp_unslash( $_SERVER );
@@ -1381,5 +1264,3 @@ function wpbdp_users_dropdown() {
 
     return $res;
 }
-
-// phpcs:enable

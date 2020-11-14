@@ -3,11 +3,6 @@
  * @package WPBDP/Compatibility/ACF-Boldmove Compat
  */
 
-// phpcs:disable Squiz,PEAR,Generic,WordPress,PSR2
-
-/**
- * @SuppressWarnings(PHPMD)
- */
 class WPBDP_ACF_Compat {
 
     public function __construct() {

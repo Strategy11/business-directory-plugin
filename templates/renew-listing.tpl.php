@@ -5,8 +5,6 @@
  * @package Templates/Renew Listing
  */
 
-// phpcs:disable WordPress.WP.I18n.MissingTranslatorsComment
-// phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 ?>
 <div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">
 

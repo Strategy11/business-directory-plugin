@@ -5,8 +5,6 @@
  * @package BDP/Includes/Fields
  */
 
-// phpcs:disable
-
 /**
  * Class WPBDP_FieldTypes_LinkedIn
  */

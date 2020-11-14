@@ -3,11 +3,6 @@
  * @package WPBDP\Listing
  * @since 3.4
  */
-
-// phpcs:disable
-/**
- * @SuppressWarnings(PHPMD)
- */
 require_once WPBDP_PATH . 'includes/class-payment.php';
 require_once WPBDP_PATH . 'includes/class-listing-subscription.php';
 require_once WPBDP_PATH . 'includes/helpers/class-listing-image.php';

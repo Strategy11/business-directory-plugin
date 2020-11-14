@@ -1,7 +1,6 @@
-<?php //phpcs:disable
+<?php
 /**
  * @since 5.0
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__CPT_Integration {
 

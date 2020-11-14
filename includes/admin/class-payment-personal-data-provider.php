@@ -6,10 +6,6 @@
  * @since 5.5
  */
 
-// phpcs:disable Squiz.Commenting.VariableComment.EmptyVar
-// phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag
-// phpcs:disable Squiz.Commenting.FunctionComment.MissingParamName
-
 /**
  * Class WPBDP_PaymentPersonalDataExporter
  */

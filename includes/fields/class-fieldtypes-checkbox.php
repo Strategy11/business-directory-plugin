@@ -9,12 +9,8 @@ if ( ! class_exists( 'WPBDP_CategoryFormInputWalker' ) ) {
     require_once WPBDP_PATH . 'includes/helpers/class-category-form-input-walker.php';
 }
 
-// phpcs:disable
-
 /**
  * Class WPBDP_FieldTypes_Checkbox
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 

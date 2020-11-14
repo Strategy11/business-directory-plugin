@@ -2,13 +2,8 @@
 /**
  * @package WPBDP/includes/Recaptcha
  */
-
-// phpcs:disable
-
 /**
  * @since 3.6.8
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_reCAPTCHA {
 

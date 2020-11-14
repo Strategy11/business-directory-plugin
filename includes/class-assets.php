@@ -5,12 +5,10 @@
  * @package BDP/Includes/
  */
 
-// phpcs:disable
 /**
  * Class WPBDP__Assets
  *
  * @since 5.0
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Assets {
 

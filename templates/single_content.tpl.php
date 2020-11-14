@@ -5,7 +5,6 @@
  * @package BDP/Templates/Single Content
  */
 
-// phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 ?>
 <?php if ( $images->main || $images->thumbnail ) : ?>
     <div class="main-image"><?php echo $images->main ? $images->main->html : $images->thumbnail->html; ?></div>

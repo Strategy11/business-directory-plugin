@@ -3,8 +3,6 @@
  * @package WPBDP\Admin\Upgrades\Migrations
  */
 
-// phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid
-
 /**
  * Migration for DB version 18.3
  */
@@ -38,5 +36,3 @@ class WPBDP__Migrations__18_3 extends WPBDP__Migration {
         return array_unique( $enabled_notifications );
     }
 }
-
-// phpcs:enable

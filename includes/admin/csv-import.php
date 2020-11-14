@@ -5,8 +5,6 @@
  * @package BDP/Includes/Admin
  */
 
-// phpcs:disable
-
 require_once WPBDP_INC . 'admin/class-csv-import.php';
 /**
  * CSV Import admin pages.

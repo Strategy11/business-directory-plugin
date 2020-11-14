@@ -5,12 +5,8 @@
  * @package WPBDP/Views/Login
  */
 
-// phpcs:disable
-
 /**
  * @since 5.0
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Views__Login extends WPBDP__View {
 

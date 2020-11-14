@@ -3,8 +3,6 @@
  * @package WPBDP
  */
 
-// phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid
-
 /**
  * @since 5.0
  */
@@ -24,7 +22,6 @@ class WPBDP__Listing_Expiration {
     public function check_for_expired_listings() {
         global $wpdb;
 
-        // phpcs:disable WordPress.VIP.DirectDatabaseQuery
         $listings = $wpdb->get_col( $wpdb->prepare(
             "SELECT p.ID FROM {$wpdb->posts} p JOIN {$wpdb->prefix}wpbdp_listings l ON l.listing_id = p.ID WHERE p.post_type = %s AND p.post_status != %s AND l.expiration_date IS NOT NULL AND l.expiration_date < %s AND l.listing_status NOT IN (%s, %s)",
             WPBDP_POST_TYPE,
@@ -33,7 +30,6 @@ class WPBDP__Listing_Expiration {
             'expired',
             'pending_renewal'
         ) );
-        // phpcs:enable
 
         foreach ( $listings as $listing_id ) {
             $l = wpbdp_get_listing( $listing_id );
@@ -86,7 +82,6 @@ class WPBDP__Listing_Expiration {
         $date_a = date( 'Y-m-d H:i:s', strtotime( $period . ' midnight' ) );
         $date_b = date( 'Y-m-d H:i:s', strtotime( $period . 'midnight' ) + DAY_IN_SECONDS );
 
-        // phpcs:disable WordPress.VIP.DirectDatabaseQuery
         $listings = $wpdb->get_col(
             $wpdb->prepare(
                 "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings WHERE expiration_date IS NOT NULL AND expiration_date >= %s AND expiration_date < %s",
@@ -94,7 +89,6 @@ class WPBDP__Listing_Expiration {
                 $date_b
             )
         );
-        // phpcs:enable
 
         return $listings;
     }
@@ -116,5 +110,3 @@ class WPBDP__Listing_Expiration {
         return true;
     }
 }
-
-// phpcs:enable

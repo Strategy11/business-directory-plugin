@@ -5,7 +5,6 @@
  * @package BDP/Templates/Single
  */
 
-// phpcs:disable
 ?>
 <div id="<?php echo $listing_css_id; ?>" class="<?php echo $listing_css_class; ?>">
     <?php wpbdp_get_return_link(); ?>
