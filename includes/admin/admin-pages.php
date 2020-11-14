@@ -84,7 +84,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 function wpbdp_admin_footer( $echo = false ) {
 	$footer = '</div><br class="clear" /></div>';
     if ( ! $echo ) {
-        return $footer
+        return $footer;
     }
 	echo $footer;
 }
