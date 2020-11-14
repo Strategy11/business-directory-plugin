@@ -81,15 +81,10 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
     }
 }
 
-
 function wpbdp_admin_footer( $echo = false ) {
+	$footer = '</div><br class="clear" /></div>';
     if ( ! $echo ) {
-        ob_start();
+        return $footer
     }
-?>
-</div><br class="clear" /></div>
-    <?php
-    if ( ! $echo ) {
-        return ob_get_clean();
-    }
+	echo $footer;
 }
