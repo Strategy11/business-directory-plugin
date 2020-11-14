@@ -623,6 +623,11 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
         /* EmailValidator */
         private function email( $value, $args = array() ) {
+			if ( '' === $value ) {
+				// Don't check formatting on an empty value.
+				return;
+			}
+
             $valid = false;
 
             if ( function_exists( 'filter_var' ) ) {
