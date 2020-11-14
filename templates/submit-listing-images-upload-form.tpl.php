@@ -57,7 +57,7 @@ $media_action = add_query_arg(
                 </p>
             </div>
             <div class="dnd-area-inside-error" style="display: none;">
-                <p id="noslots-message" style="display: none;"><?php esc_html_e( 'Your image slots are all full at this time. You may click "Continue" if you are done, or "Delete Image" to upload a new image in place of a current one.', 'business-directory-plugin' ); ?></p>
+                <p id="noslots-message" style="display: none;"><?php esc_html_e( 'Your image slots are all full. You may click "Delete Image" to upload a new image.', 'business-directory-plugin' ); ?></p>
             </div>
         </div>
     </div>
