@@ -27,7 +27,6 @@ wpbdp_admin_notices();
                 <!-- Basic details. {{ -->
                 <div class="meta-box-sortables">
                     <div id="wpbdp-admin-payment-info-box" class="postbox">
-                        <button type="button" class="handlediv button-link" aria-expanded="true"><span class="toggle-indicator" aria-hidden="true"></span></button>
                         <h2 class="hndle"><span><?php esc_html_e( 'Overview', 'business-directory-plugin' ); ?></span></h2>
                         <div class="inside">
                             <div class="wpbdp-admin-box with-separators">
@@ -81,9 +80,7 @@ wpbdp_admin_notices();
 
             <div id="postbox-container-2" class="postbox-container">
                 <div class="meta-box-sortables">
-
                     <div id="wpbdp-admin-payment-items-box" class="postbox">
-                        <button type="button" class="handlediv button-link" aria-expanded="true"><span class="toggle-indicator" aria-hidden="true"></span></button>
                         <h2 class="hndle"><span><?php esc_html_e( 'Details', 'business-directory-plugin' ); ?></span></h2>
                         <div class="inside">
                             <div class="wpbdp-admin-box">
@@ -111,8 +108,7 @@ wpbdp_admin_notices();
                 <?php
                 $customer = $payment->payer_details;
                 ?>
-                    <div id="wpbdp-admin-payment-details-box" class="postbox closed">
-                        <button type="button" class="handlediv button-link" aria-expanded="false"><span class="toggle-indicator" aria-hidden="true"></span></button>
+                    <div id="wpbdp-admin-payment-details-box" class="postbox">
                         <h2 class="hndle"><span><?php esc_html_e( 'Customer Details', 'business-directory-plugin' ); ?></span></h2>
                         <div class="inside">
                             <div class="wpbdp-admin-box with-separators">
@@ -163,7 +159,6 @@ wpbdp_admin_notices();
                     </div>
 
                     <div id="wpbdp-admin-payment-notes-box" class="postbox">
-                        <button type="button" class="handlediv button-link" aria-expanded="true"><span class="toggle-indicator" aria-hidden="true"></span></button>
                         <h2 class="hndle"><span><?php esc_html_e( 'Notes & Log', 'business-directory-plugin' ); ?></span></h2>
                         <div class="inside">
                             <div class="wpbdp-admin-box">
