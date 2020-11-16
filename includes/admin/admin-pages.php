@@ -86,5 +86,7 @@ function wpbdp_admin_footer( $echo = false ) {
     if ( ! $echo ) {
         return $footer;
     }
+
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo $footer;
 }
