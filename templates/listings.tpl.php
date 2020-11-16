@@ -8,7 +8,7 @@
 wpbdp_the_listing_sort_options();
 ?>
 
-<div id="wpbdp-listings-list" class="listings wpbdp-listings-list list">
+<div id="wpbdp-listings-list" class="listings wpbdp-listings-list list wpbdp-grid">
     <?php if ( ! $query->have_posts() ): ?>
         <span class="no-listings">
             <?php esc_html_e( 'No listings found.', 'business-directory-plugin' ); ?>

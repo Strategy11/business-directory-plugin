@@ -123,6 +123,8 @@ class WPBDP_Listing_Display_Helper {
             }
         }
 
+		self::add_column_count( $classes, $display );
+
         foreach ( WPBDP_Listing::get( $listing_id )->get_categories( 'ids' ) as $category_id ) {
                 $classes[] = 'wpbdp-listing-category-id-' . $category_id;
         }
@@ -132,6 +134,12 @@ class WPBDP_Listing_Display_Helper {
 
         return $vars;
     }
+
+	private static function add_column_count( &$classes, $display ) {
+		$columns   = (int) apply_filters( 'wpbd_column_count', 1, compact( 'display' ) );
+		$cells     = floor( 12 / $columns );
+		$classes[] = 'wpbdp' . $cells;
+	}
 
     private static function fields_vars( $listing_id, $display ) {
         $all_fields     = wpbdp_get_form_fields();
