@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.5.1
-Stable tag: 5.7.6
+Stable tag: 5.8
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -162,6 +162,23 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= Version 5.8 =
+* Updated the look of the new listing form with pagination
+* Match the contact form and checkout form to the new listing form style
+* Added a setting for color to set buttons, rootline, file uploader, and more
+* Let the WP theme handle more form styling
+* If an autocomplete dropdown has fewer than 10 options, use a normal dropdown so the theme can style it
+* Update default field labels to work for a wider range of directories
+* Added new hooks: wpbdp_tag_link to change the link to a tag page, wpbd_column_count for setting number of columns, and wpbdp_listings_class hook for adding classes on listings page
+* Added support for tags to WPML integration. Also switch to using wpml_current_language to get current language.
+* A few label changes in the settings: Rename "Manage Fees" menu to "Fee Plans", "Theme button style" to "Button style"
+* Switch "E-mail" to "Email"
+* Remove the unnecessary 50x50 image size
+* Update: Change the single listings heading from h2 to h1
+* Fix: Correctly set listings to published based on the setting
+* Fix: A conflict was causing an error when WPBDP_Personal_Data_Privacy class was missing
+* Fix: Get rid of a few php warnings
+
 = Version 5.7.6 =
 * Validate field exists before using if to configure search. (#4705)
 * Minor tweaks in styling.
@@ -197,12 +214,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: Include owner's 'pending' and 'drafted' listings on Manage Listings View.
 * Fix: Issue with translation array keys for multivalued fields options.
 * Fix: Issue with the quick search behavior when search keyword is empty.
-
-= Version 5.7.1 =
-* Fix Random Listings shortcode attributes. (#4601)
-* Add data-breakpoints to listing container. (#4607)
-* Validate variable type is string before applying using function for string-type. (#4608)
-* Fix User selector script. (#4614)
-* Add missing parameter for installer class, required for uninstall process.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
