@@ -1,4 +1,18 @@
-<?php echo wpbdp_admin_header( _x( 'Uninstall Business Directory Plugin', 'uninstall', 'business-directory-plugin' ), 'admin-uninstall' ); ?>
+<?php
+/**
+ * Uninstall confirm template
+ *
+ * @package WPBDP/Templates/Admin
+ */
+
+wpbdp_admin_header(
+    array(
+        'title' => __( 'Uninstall Business Directory Plugin', 'business-directory-plugin' ),
+        'id'    => 'admin-uninstall',
+        'echo'  => true,
+    )
+);
+?>
 
 <?php wpbdp_admin_notices(); ?>
 

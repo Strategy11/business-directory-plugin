@@ -162,7 +162,7 @@ class WPBDP__Meta {
                 break;
 
             case 'all_listings':
-                $view_title = _x( 'View All Listings', 'title', 'business-directory-plugin' );
+                $view_title = __( 'View All Listings', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 

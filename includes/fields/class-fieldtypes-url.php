@@ -150,7 +150,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $html .= sprintf(
             '<label for="%s"><span class="sublabel">%s</span></label>',
             'wpbdp-field-' . esc_attr( $field->get_id() ) . '-url',
-            _x( 'URL', 'form-fields api', 'business-directory-plugin' )
+            __( 'URL', 'business-directory-plugin' )
         );
         $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" />',
                           'wpbdp-field-' . esc_attr( $field->get_id() ),

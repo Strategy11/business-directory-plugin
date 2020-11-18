@@ -16,7 +16,7 @@
 <?php esc_html_e( 'Title', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->get_title() ); ?>
 
 
-<?php echo esc_attr_x( 'URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $listing->is_published() ? esc_attr( $listing->get_permalink() ) : esc_attr_x( '(not published yet)', 'notify email', 'business-directory-plugin' ); ?>
+<?php esc_attr_e( 'URL', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->is_published() ? $listing->get_permalink() : __( '(not published yet)', 'business-directory-plugin' ) ); ?>
 
 <?php echo esc_attr_x( 'Admin URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo esc_attr( wpbdp_get_edit_post_link( $listing->get_id() ) ); ?>
 

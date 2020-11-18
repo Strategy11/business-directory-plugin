@@ -88,7 +88,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         $html .= '<div class="wpbdp-social-url">';
         $html .= sprintf(
             '<span class="sublabel">%s</span>',
-            _x( 'URL:', 'form-fields api', 'business-directory-plugin' )
+            __( 'URL', 'business-directory-plugin' )
         );
         $html .= sprintf(
             '<input type="text" id="%s" name="%s" value="%s" %s />',

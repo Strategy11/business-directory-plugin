@@ -10,7 +10,7 @@
 <?php esc_html_e('Title', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->get_title() ); ?>
 
 
-<?php _ex('URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $listing->is_published() ? $listing->get_permalink() : get_preview_post_link( $listing->get_id() ); ?>
+<?php esc_html_e( 'URL', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->is_published() ? $listing->get_permalink() : get_preview_post_link( $listing->get_id() ) ); ?>
 
 <?php _ex( 'Admin URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>
 

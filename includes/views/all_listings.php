@@ -3,7 +3,7 @@
 class WPBDP__Views__All_Listings extends WPBDP__View {
 
     public function get_title() {
-        return _x( 'View All Listings', 'views', 'business-directory-plugin' );
+        return __( 'View All Listings', 'business-directory-plugin' );
     }
 
     public function dispatch() {

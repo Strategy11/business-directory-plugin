@@ -1029,7 +1029,7 @@ final class WPBDP__Settings__Bootstrap {
                 'type'        => 'url',
                 'name'        => _x( 'Featured Badge URL', 'settings', 'business-directory-plugin' ),
                 'desc'        => _x( 'Use this to set Featured Badge image as a link to a defined URL.', 'settings', 'business-directory-plugin' ),
-                'placeholder' => _x( 'URL', 'settings', 'business-directory-plugin' ),
+                'placeholder' => __( 'URL', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'image/listings',
             )
