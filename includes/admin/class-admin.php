@@ -239,23 +239,31 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @return mixed
 		 */
 		private function pointer_callback() {
-			$callback      = false;
-			$request_email = (int) get_option( 'wpbdp-show-drip-pointer', 0 );
-			$tries         = 3;
-
-			if ( $request_email && $request_email < $tries ) {
+			$callback = false;
+			if ( $this->should_show_pointer( 'drip' ) ) {
 				$callback = array( $this, 'drip_pointer' );
-				update_option( 'wpbdp-show-drip-pointer', $request_email + 1 );
-			} elseif ( ! wpbdp_get_option( 'tracking-on', false ) ) {
+			} elseif ( ! wpbdp_get_option( 'tracking-on', false ) && $this->should_show_pointer( 'tracking' ) ) {
 				// Ask for site tracking if needed.
-				$request_tracking = get_option( 'wpbdp-show-tracking-pointer', 0 );
-				update_option( 'wpbdp-show-tracking-pointer', $request_tracking + 1 );
-				if ( $request_tracking && $request_tracking < $tries ) {
-					$callback = 'WPBDP_SiteTracking::request_js';
-				}
+				$callback = 'WPBDP_SiteTracking::request_js';
 			}
 
 			return $callback;
+		}
+
+		/**
+		 * Limit the number of times the email/tracking requests will show.
+		 *
+		 * @return bool
+		 */
+		private function should_show_pointer( $name = 'drip' ) {
+			$tries  = 3;
+			$option = 'wpbdp-show-' . $name . '-pointer';
+			$request_it = (int) get_option( $option, 0 );
+			if ( $request_it && $request_it < $tries ) {
+				update_option( $option, $request_it + 1 );
+				return true;
+			}
+			return false;
 		}
 
         /**
