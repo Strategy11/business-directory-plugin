@@ -8,7 +8,7 @@
 ?>
 <div id="wpbdp-manage-listings-page" class="wpbdp-manage-listings-page businessdirectory-manage-listings businessdirectory wpbdp-page">
     <?php if ( ! $query->have_posts() ) : ?>
-        <p><?php echo esc_html_x( 'You do not currently have any listings in the directory.', 'templates', 'business-directory-plugin' ); ?></p>
+        <p><?php esc_html_e( 'You do not currently have any listings in the directory.', 'business-directory-plugin' ); ?></p>
         <?php
         echo sprintf(
             '<a href="%s">%s</a>.',

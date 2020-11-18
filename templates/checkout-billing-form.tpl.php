@@ -15,13 +15,11 @@ $show_details_section = ! isset( $show_details_section );
 
     <div class="wpbdp-billing-detail-field wpbdp-required wpbdp-form-field wpbdp-half">
         <label><?php esc_html_e( 'First Name', 'business-directory-plugin' ); ?></label>
-        <span class="wpbdp-description  wpbdp-form-field-description"><?php esc_html_e( 'Your first name.', 'business-directory-plugin' ); ?></span>
         <input type="text" name="payer_first_name" value="<?php echo ! empty( $data['payer_first_name'] ) ? esc_attr( $data['payer_first_name'] ) : ''; ?>" />
     </div>
 
     <div class="wpbdp-billing-detail-field wpbdp-required wpbdp-form-field wpbdp-half">
         <label><?php esc_html_e( 'Last Name', 'business-directory-plugin' ); ?></label>
-        <span class="wpbdp-description  wpbdp-form-field-description"><?php esc_html_e( 'Your last name.', 'business-directory-plugin' ); ?></span>
         <input type="text" name="payer_last_name" value="<?php echo ! empty( $data['payer_last_name'] ) ? esc_attr( $data['payer_last_name'] ) : ''; ?>" />
     </div>
 </div>

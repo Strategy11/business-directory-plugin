@@ -13,7 +13,7 @@
 <?php echo esc_attr_x( 'ID', 'notify email', 'business-directory-plugin' ); ?>: <?php echo esc_attr( $listing->get_id() ); ?>
 
 
-<?php echo esc_attr_x( 'Title', 'notify email', 'business-directory-plugin' ); ?>: <?php echo esc_attr( $listing->get_title() ); ?>
+<?php esc_html_e( 'Title', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->get_title() ); ?>
 
 
 <?php echo esc_attr_x( 'URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $listing->is_published() ? esc_attr( $listing->get_permalink() ) : esc_attr_x( '(not published yet)', 'notify email', 'business-directory-plugin' ); ?>

@@ -10,7 +10,7 @@ class WPBDP_FieldTypes_Phone_Number extends WPBDP_FieldTypes_Textfield {
     }
 
     public function get_name() {
-        return _x( 'Phone Number', 'form fields', 'business-directory-plugin' );
+        return __( 'Phone Number', 'business-directory-plugin' );
     }
 
     public function get_supported_associations() {

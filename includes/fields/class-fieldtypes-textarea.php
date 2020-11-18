@@ -197,8 +197,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $settings['allow_iframes'][] =
             '<div class="iframe-confirm wpbdp-note warning">' .
             '<p>' . _x( 'Enabling iframe support in your listings can allow users to execute arbitrary scripts on a page if they want, which can possibly infect your site with malware. We do NOT recommend using this setting UNLESS you are posting the listings yourself and have sole control over the content. Are you sure you want to enable this?', 'admin form-fields', 'business-directory-plugin' ) . '</p>' .
-            '<a href="#" class="button no">' . _x( 'No', 'form-fields admin', 'business-directory-plugin' ) . '</a> ' .
-            '<a href="#" class="button button-primary yes">' . _x( 'Yes', 'form-fields admin', 'business-directory-plugin' ) . '</a>' .
+            '<a href="#" class="button no">' . esc_html__( 'No', 'business-directory-plugin' ) . '</a> ' .
+            '<a href="#" class="button button-primary yes">' . esc_html__( 'Yes', 'business-directory-plugin' ) . '</a>' .
             '</div>' .
             '<input type="checkbox" value="1" name="field[allow_iframes]" ' . ( $field && $field->data( 'allow_iframes' ) ? ' checked="checked"' : '' ) . ' />';
 

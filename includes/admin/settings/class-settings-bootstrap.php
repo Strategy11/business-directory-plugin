@@ -229,9 +229,9 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Allow users to create accounts during listing submit?', 'settings', 'business-directory-plugin' ),
                 'default' => 'required',
                 'options' => array(
-                    'disabled' => _x( 'No', 'settings', 'business-directory-plugin' ),
-                    'optional' => _x( 'Yes, and make it optional', 'settings', 'business-directory-plugin' ),
-                    'required' => _x( 'Yes, and make it required', 'settings', 'business-directory-plugin' ),
+                    'disabled' => __( 'No', 'business-directory-plugin' ),
+                    'optional' => __( 'Yes, and make it optional', 'business-directory-plugin' ),
+                    'required' => __( 'Yes, and make it required', 'business-directory-plugin' ),
                 ),
                 'group'   => 'registration',
             )
@@ -708,7 +708,7 @@ final class WPBDP__Settings__Bootstrap {
                 'options' => apply_filters(
                     'wpbdp_sort_options',
                     array(
-                        'title'            => _x( 'Title', 'admin settings', 'business-directory-plugin' ),
+                        'title'            => __( 'Title', 'business-directory-plugin' ),
                         'author'           => _x( 'Author', 'admin settings', 'business-directory-plugin' ),
                         'date'             => _x( 'Date posted', 'admin settings', 'business-directory-plugin' ),
                         'modified'         => _x( 'Date last modified', 'admin settings', 'business-directory-plugin' ),

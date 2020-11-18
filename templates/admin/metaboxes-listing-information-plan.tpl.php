@@ -103,14 +103,14 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <dt><?php _ex( 'Is Featured?', 'listing metabox', 'business-directory-plugin' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-is_sticky">
-                <?php echo $current_plan && $current_plan->is_sticky ? _x( 'Yes', 'listing metabox', 'business-directory-plugin' ) : _x( 'No', 'listing metabox', 'business-directory-plugin' ); ?>
+                <?php echo esc_html( $current_plan && $current_plan->is_sticky ? __( 'Yes', 'business-directory-plugin' ) : __( 'No', 'business-directory-plugin' ) ); ?>
             </span>
 <!-- Removed the ability to set a listing as "Featured" in "info" metabox for 5.1.6 according to instructions on issue #3413 -->
         </dd>
         <dt><?php _ex( 'Is Recurring?', 'listing metabox', 'business-directory-plugin' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-is_recurring">
-                <?php echo $current_plan && $current_plan->is_recurring ? _x( 'Yes', 'listing metabox', 'business-directory-plugin' ) : _x( 'No', 'listing metabox', 'business-directory-plugin' ); ?>
+                <?php echo esc_html( $current_plan && $current_plan->is_recurring ? __( 'Yes', 'business-directory-plugin' ) : __( 'No', 'business-directory-plugin' ) ); ?>
             </span>
         </dd>
     </dl>

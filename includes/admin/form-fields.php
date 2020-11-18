@@ -447,22 +447,22 @@ class WPBDP_FormFieldsAdmin {
         $wpbdp->formfields->maybe_correct_tags();
 
         $special_tags = array(
-            'title'    => _x( 'Title', 'form-fields admin', 'business-directory-plugin' ),
-            'category' => _x( 'Category', 'form-fields admin', 'business-directory-plugin' ),
-            'excerpt'  => _x( 'Excerpt', 'form-fields admin', 'business-directory-plugin' ),
-            'content'  => _x( 'Content', 'form-fields admin', 'business-directory-plugin' ),
-            'tags'     => _x( 'Tags', 'form-fields admin', 'business-directory-plugin' ),
-            'address'  => _x( 'Address', 'form-fields admin', 'business-directory-plugin' ),
-            'address2' => _x( 'Address 2', 'form-fields admin', 'business-directory-plugin' ),
-            'city'     => _x( 'City', 'form-fields admin', 'business-directory-plugin' ),
-            'state'    => _x( 'State', 'form-fields admin', 'business-directory-plugin' ),
-            'country'  => _x( 'Country', 'form-fields admin', 'business-directory-plugin' ),
-            'zip'      => _x( 'ZIP Code', 'form-fields admin', 'business-directory-plugin' ),
-            'fax'      => _x( 'FAX Number', 'form-fields admin', 'business-directory-plugin' ),
-            'phone'    => _x( 'Phone Number', 'form-fields admin', 'business-directory-plugin' ),
-            'ratings'  => _x( 'Ratings Field', 'form-fields admin', 'business-directory-plugin' ),
-            'twitter'  => _x( 'Twitter', 'form-fields admin', 'business-directory-plugin' ),
-            'website'  => _x( 'Website', 'form-fields admin', 'business-directory-plugin' ),
+            'title'    => __( 'Title', 'business-directory-plugin' ),
+            'category' => __( 'Category', 'business-directory-plugin' ),
+            'excerpt'  => __( 'Excerpt', 'business-directory-plugin' ),
+            'content'  => __( 'Content', 'business-directory-plugin' ),
+            'tags'     => __( 'Tags', 'business-directory-plugin' ),
+            'address'  => __( 'Address', 'business-directory-plugin' ),
+            'address2' => __( 'Address 2', 'business-directory-plugin' ),
+            'city'     => __( 'City', 'business-directory-plugin' ),
+            'state'    => __( 'State', 'business-directory-plugin' ),
+            'country'  => __( 'Country', 'business-directory-plugin' ),
+            'zip'      => __( 'ZIP Code', 'business-directory-plugin' ),
+            'fax'      => __( 'FAX Number', 'business-directory-plugin' ),
+            'phone'    => __( 'Phone Number', 'business-directory-plugin' ),
+            'ratings'  => __( 'Ratings Field', 'business-directory-plugin' ),
+            'twitter'  => __( 'Twitter', 'business-directory-plugin' ),
+            'website'  => __( 'Website', 'business-directory-plugin' ),
         );
         $fixed_tags   = array( 'title', 'category', 'excerpt', 'content', 'tags', 'ratings' );
         $field_tags   = array();

@@ -1,10 +1,11 @@
 <?php
 $user_flagged = WPBDP__Listing_Flagging::user_has_flagged( $listing->get_id(), get_current_user_id() );
-$flagging_text = _x( 'Report Listing', 'templates', 'business-directory-plugin' );
+$flagging_text = __( 'Report Listing', 'business-directory-plugin' );
+$flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
 ?>
 
 <div id="wpbdp-listing-flagging-page">
-    <h3><?php echo $flagging_text; ?></h3>
+    <h3><?php echo esc_html( $flagging_text ); ?></h3>
 
     <form class="confirm-form" action="" method="post">
         <?php wp_nonce_field( 'flag listing report ' . $listing->get_id() ); ?>
@@ -12,24 +13,36 @@ $flagging_text = _x( 'Report Listing', 'templates', 'business-directory-plugin' 
         <?php if ( false === $user_flagged ) : ?>
             <?php if ($current_user): ?>
                 <p>
-                    <?php echo sprintf( _x( 'You are about to report the listing "<b>%s</b>" as inappropriate. ', 'flag listing', 'business-directory-plugin' ), $listing->get_title() ); ?>
+                    <?php
+                    printf(
+                        /* translators: %s: listing title */
+                        esc_html__( 'You are about to report the listing "%s" as inappropriate. ', 'business-directory-plugin' ),
+                        '<b>' . esc_html( $listing->get_title() ) . '</b>'
+                    );
+                    ?>
                 </p>
                 <p>
-                    <?php echo sprintf( _x( 'You are currently logged in as %s. Listing report will be sent using your logged in contact email.', 'flag listing', 'business-directory-plugin' ), $current_user->user_login ); ?>
+                    <?php
+                    printf(
+                        /* translators: %s: user name */
+                        esc_html__( 'You are currently logged in as %s. Listing report will be sent using your logged in contact email.', 'business-directory-plugin' ),
+                        esc_html( $current_user->user_login )
+                    );
+                    ?>
                 </p>
             <?php else: ?>
                 <p>
-                    <label><?php _ex('Your Name', 'templates', 'business-directory-plugin' ); ?></label>
-                    <input type="text" class="intextbox" name="reportauthorname" value="<?php echo esc_attr( wpbdp_getv( $_POST, 'commentauthorname', '' ) ); ?>" />
+                    <label><?php esc_html_e( 'Name', 'business-directory-plugin' ); ?></label>
+                    <input type="text" class="intextbox" name="reportauthorname" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) ); ?>" />
                 </p>
                 <p>
-                    <label><?php _ex("Your Email", 'templates', "WPBDM"); ?></label>
-                    <input type="text" class="intextbox" name="reportauthoremail" value="<?php echo esc_attr( wpbdp_getv($_POST, 'commentauthoremail' ) ); ?>" />
+                    <label><?php esc_html_e( 'Email', 'business-directory-plugin' ); ?></label>
+                    <input type="text" class="intextbox" name="reportauthoremail" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthoremail', 'sanitize' => 'sanitize_email' ), 'post' ) ); ?>" />
                 </p>
             <?php endif; ?>
 
-            <?php if ( $flagging_options = WPBDP__Listing_Flagging::get_flagging_options() ): ?>
-                <p><?php _ex( 'Please select the reason to report this listing:', 'flag listing', 'business-directory-plugin' ); ?></p>
+            <?php if ( $flagging_options ): ?>
+                <p><?php esc_html_e( 'Please select the reason to report this listing:', 'business-directory-plugin' ); ?></p>
 
                 <div class="wpbdp-listing-flagging-options">
                     <?php foreach ( $flagging_options as $option ) : ?>
@@ -37,21 +50,36 @@ $flagging_text = _x( 'Report Listing', 'templates', 'business-directory-plugin' 
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
-                <p><?php _ex( 'Please enter the reasons to report this listing:', 'flag listing', 'business-directory-plugin' ); ?></p>
+                <p><?php esc_html_e( 'Please enter the reasons to report this listing:', 'business-directory-plugin' ); ?></p>
             <?php endif; ?>
 
-            <textarea name="flagging_more_info" value="" placeholder="<?php _ex( 'Additional info.', 'flag listing', 'business-directory-plugin' ); ?>" <?php echo $flagging_options ? '' : 'required' ?>></textarea>
+            <textarea name="flagging_more_info" value="" placeholder="<?php esc_attr_e( 'Additional info.', 'business-directory-plugin' ); ?>" <?php echo esc_attr( $flagging_options ? '' : 'required' ); ?>></textarea>
             
-            <?php echo $recaptcha; ?>
+            <?php
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo $recaptcha;
+            ?>
 
             <p>
-                <input type="button" onclick="location.href = '<?php echo wpbdp_url( 'main' ); ?>'; return false;" value="<?php _ex( 'Cancel', 'flag listing', 'business-directory-plugin' ); ?>" class="wpbdp-button button" />
+                <input type="button" onclick="location.href = '<?php echo esc_url_raw( wpbdp_url( 'main' ) ); ?>'; return false;" value="<?php esc_attr_e( 'Cancel', 'business-directory-plugin' ); ?>" class="wpbdp-button button" />
                 <input class="wpbdp-submit wpbdp-button" type="submit" value="<?php echo esc_attr( $flagging_text ); ?>" />
             </p>
         <?php else: ?>
-            <?php printf( _x( 'You already reported the listing "<b>%s</b>" as inappropriate.', 'flag listing', 'business-directory-plugin' ), $listing->get_title() ); ?>
+            <?php
+            printf(
+                /* translators: %s: listing title */
+                esc_html__( 'You already reported the listing "%s" as inappropriate.', 'business-directory-plugin' ),
+                '<b>' . esc_html( $listing->get_title() ) . '</b>'
+            );
+            ?>
             <p>
-                Return to <a href="<?php echo $listing->get_permalink(); ?>">listing</a>.
+                <?php printf(
+                    /* translators: %1$s: open link html, %2$s close link html */
+                    esc_html__( 'Return to %1$slisting%2$s.', 'business-directory-plugin' ),
+                    '<a href="' . esc_url( $listing->get_permalink() ). '">',
+                    '</a>'
+                );
+                ?>
             </p>
         <?php endif; ?>
 

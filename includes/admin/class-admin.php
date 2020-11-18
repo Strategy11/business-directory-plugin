@@ -183,12 +183,16 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 wp_localize_script(
                     'wpbdp-admin-listing-metabox',
                     'wpbdpListingMetaboxL10n',
-                    array(
-                        'planDisplayFormat' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ), '{{plan_label}}' ),
-                        'noExpiration'      => _x( 'Never', 'listing metabox', 'business-directory-plugin' ),
-                        'yes'               => _x( 'Yes', 'listing metabox', 'business-directory-plugin' ),
-                        'no'                => _x( 'No', 'listing metabox', 'business-directory-plugin' ),
-                    )
+					array(
+						'planDisplayFormat' => sprintf(
+							'<a href="%s">%s</a>',
+							esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ) ),
+							'{{plan_label}}'
+						),
+						'noExpiration'      => __( 'Never', 'business-directory-plugin' ),
+						'yes'               => __( 'Yes', 'business-directory-plugin' ),
+						'no'                => __( 'No', 'business-directory-plugin' ),
+					)
                 );
 
                 wp_localize_script(
@@ -241,11 +245,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             wpbdp_admin_pointer(
                 '#wpadminbar',
-                _x( 'Want to know the Secrets of Building an Awesome Business Directory?', 'drip pointer', 'business-directory-plugin' ),
+                __( 'Want to know the Secrets of Building an Awesome Business Directory?', 'business-directory-plugin' ),
                 $content,
-                _x( 'Yes, please!', 'drip pointer', 'business-directory-plugin' ),
+                __( 'Yes, please!', 'business-directory-plugin' ),
                 sprintf( $js, 1 ),
-                _x( 'No, thanks', 'drip pointer', 'business-directory-plugin' ),
+                __( 'No, thanks', 'business-directory-plugin' ),
                 sprintf( $js, 0 )
             );
         }
