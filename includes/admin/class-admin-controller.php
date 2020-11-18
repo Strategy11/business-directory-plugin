@@ -47,8 +47,8 @@ class WPBDP__Admin__Controller {
         $callback = ( false !== strpos( $this->current_view, '-' ) ? str_replace( '-', '_', $this->current_view ) : $this->current_view );
 
         // Remove query args.
-        $orig_uri = $_SERVER['REQUEST_URI'];
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdp-view', 'id' ), $_SERVER['REQUEST_URI'] );
+        $orig_uri               = wpbdp_get_server_value( 'REQUEST_URI' );
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdp-view', 'id' ), $orig_uri );
 
         if ( method_exists( $this, $callback ) )
             $result = call_user_func( array( $this, $callback ) );

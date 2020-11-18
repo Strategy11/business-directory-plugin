@@ -2,7 +2,6 @@
 /**
  * @package WPBDP/Compatibility/ACF-Boldmove Compat
  */
-
 class WPBDP_ACF_Compat {
 
     public function __construct() {

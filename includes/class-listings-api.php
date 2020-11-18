@@ -30,7 +30,7 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
                                 array(
                                     'log_type'  => 'listing.renewal',
                                     'object_id' => $payment->listing_id,
-                                    'message'   => _x( 'Listing renewed', 'listings api', 'business-directory-plugin' ),
+                                    'message'   => __( 'Listing renewed', 'business-directory-plugin' ),
                                 )
                             );
                         }

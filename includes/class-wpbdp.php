@@ -324,12 +324,12 @@ final class WPBDP {
         if ( ! $listing_id )
             return $res->send_error();
 
-        $content_range = null;
+        $content_range = wpbdp_get_server_value( 'HTTP_CONTENT_RANGE' );
         $size = null;
 
-        if ( isset( $_SERVER['HTTP_CONTENT_RANGE'] ) ) {
-            $content_range = preg_split('/[^0-9]+/', $_SERVER['HTTP_CONTENT_RANGE']);
-            $size =  $content_range ? $content_range[3] : null;
+        if ( $content_range ) {
+            $content_range = preg_split( '/[^0-9]+/', $content_range );
+            $size          = $content_range ? $content_range[3] : null;
         }
 
         $attachments = array();

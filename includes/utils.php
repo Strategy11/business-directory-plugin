@@ -249,9 +249,9 @@ function wpbdp_php_ini_size_to_bytes( $val ) {
 
 function wpbdp_media_upload_check_env( &$error ) {
     if ( empty( $_FILES ) && empty( $_POST ) && isset( $_SERVER['REQUEST_METHOD'] ) &&
-         strtolower( $_SERVER['REQUEST_METHOD'] ) == 'post' ) {
-        $post_max = wpbdp_php_ini_size_to_bytes( ini_get( 'post_max_size' ) );
-        $posted_size = intval( $_SERVER['CONTENT_LENGTH'] );
+        strtolower( wpbdp_get_server_value( 'REQUEST_METHOD' ) ) === 'post' ) {
+        $post_max    = wpbdp_php_ini_size_to_bytes( ini_get( 'post_max_size' ) );
+        $posted_size = intval( wpbdp_get_server_value( 'CONTENT_LENGTH' ) );
 
         if ( $posted_size > $post_max ) {
             $error = _x( 'POSTed data exceeds PHP config. maximum. See "post_max_size" directive.', 'utils', 'business-directory-plugin' );
@@ -432,9 +432,9 @@ function wpbdp_get_mimetype( $file ) {
  * @param $www  boolean     true to include the 'www' part,
  */
 function wpbdp_get_current_domain($www=true, $prefix='') {
-    $domain = wpbdp_getv($_SERVER, 'HTTP_HOST', '');
+    $domain = wpbdp_get_server_value( 'HTTP_HOST' );
     if (empty($domain)) {
-        $domain = wpbdp_getv($_SERVER, 'SERVER_NAME', '');
+        $domain = wpbdp_get_server_value( 'SERVER_NAME' );
     }
 
     if (!$www && substr($domain, 0, 4) === 'www.') {

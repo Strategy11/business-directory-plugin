@@ -209,7 +209,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
                 array( $first_line, $second_line, $third_line, $country ),
                 function( $line ) {
                     return ! empty( $line );
-                } 
+                }
             )
         );
     }
@@ -240,8 +240,6 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 
 /**
  * @since 4.0
- *
- * @SuppressWarnings(PHPMD)
  */
 class _WPBDP_Lightweight_Field_Display_Item {
 

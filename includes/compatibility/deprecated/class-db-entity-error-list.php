@@ -43,10 +43,11 @@ class WPBDP_DB_Entity_Error_List {
                 if ( ! $e )
                     continue;
 
-                if ( $callback )
+                if ( $callback ) {
                     $res[] = call_user_func( $callback, $attr, $e );
-                else
+                } else {
                     $res[] = $e;
+                }
             }
         }
 

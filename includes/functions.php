@@ -1196,8 +1196,9 @@ function wpbdp_get_client_ip_address() {
     $check_vars = array( 'REMOTE_ADDR', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR' );
 
     foreach ( $check_vars as $varname ) {
-        if ( isset( $_SERVER[ $varname ] ) && ! empty( $_SERVER[ $varname ] ) ) {
-            return $_SERVER[ $varname ];
+        $value = wpbdp_get_server_value( $varname );
+        if ( $value ) {
+            return $value;
         }
     }
 
@@ -1219,8 +1220,7 @@ function wpbdp_delete_page_ids_cache() {
  * @since 5.5.2
  */
 function wpbdp_get_return_link() {
-    $server  = wp_unslash( $_SERVER );
-    $referer = ! empty( $server['HTTP_REFERER'] ) ? filter_var( $server['HTTP_REFERER'], FILTER_VALIDATE_URL ) : '';
+    $referer = ! empty( $_SERVER['HTTP_REFERER'] ) ? filter_var( wpbdp_get_server_value( 'HTTP_REFERER' ), FILTER_VALIDATE_URL ) : '';
 
     if ( ! $referer ) {
         return;

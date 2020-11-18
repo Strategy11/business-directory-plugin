@@ -8,7 +8,6 @@ class WPBDP__Shortcodes {
     private $shortcodes = array();
     private $output = array();
 
-
     public function __construct() {
         add_action( 'wpbdp_loaded', array( $this, 'register' ) );
         add_action( 'wpbdp_query_flags', array( $this, 'maybe_set_shortcode_query_flags' ), 10, 1 );
@@ -121,7 +120,6 @@ class WPBDP__Shortcodes {
          *  `[businessdirectory-featuredlistings]`
          */
         $this->add( 'businessdirectory-featuredlistings', array( $this, 'sc_featured_listings' ) );
-
 
         /*
          * WordPress Shortcode:
@@ -245,7 +243,6 @@ class WPBDP__Shortcodes {
          *  4.1.13
          */
         $this->add( 'businessdirectory-featured-listings', array( $this, 'sc_listings_featured' ) );
-
 
         do_action_ref_array( 'wpbdp_shortcodes_register', array( &$this ) );
 
@@ -629,7 +626,7 @@ class WPBDP__Shortcodes {
             array(
                 'return_url' => '',
                 'form_only'  => 0
-            ), 
+            ),
             $atts,
             'businessdirectory-search'
         );
@@ -641,7 +638,7 @@ class WPBDP__Shortcodes {
         }
 
         if ( 'auto' == $atts['return_url'] ) {
-            $atts['return_url'] = home_url( $_SERVER['REQUEST_URI'] );
+            $atts['return_url'] = home_url( wpbdp_get_server_value( 'REQUEST_URI' ) );
         }
 
         $atts['in_shortcode'] = true;
@@ -703,7 +700,7 @@ class WPBDP__Shortcodes {
         }
 
         if ( ! empty(  $sc_atts['pagination'] ) && 0 > intval( $sc_atts['items_per_page'] ) ) {
-            $sc_atts['items_per_page'] =  wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1;
+            $sc_atts['items_per_page'] = wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1;
         }
 
         if ( isset( $sc_atts['pagination'] ) && ! $sc_atts['pagination'] ) {

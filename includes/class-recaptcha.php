@@ -2,6 +2,7 @@
 /**
  * @package WPBDP/includes/Recaptcha
  */
+
 /**
  * @since 3.6.8
  */
@@ -140,8 +141,8 @@ class WPBDP_reCAPTCHA {
             array(
 				'body' => array(
 					'secret'   => $this->private_key,
-					'response' => $_REQUEST['g-recaptcha-response'],
-					'remoteip' => $_SERVER['REMOTE_ADDR'],
+					'response' => wpbdp_get_var( array( 'param' => 'g-recaptcha-response' ), 'request' ),
+					'remoteip' => wpbdp_get_server_value( 'REMOTE_ADDR' ),
 				),
             )
         );

@@ -4,11 +4,11 @@
  */
 class WPBDP_Cornerstone_Compat {
 
-    function __construct() {
+    public function __construct() {
         add_filter( 'wpbdp_has_shortcode', array( &$this, 'cornerstone_wpbdp_has_shortcode' ), 10, 3 );
     }
 
-    function cornerstone_wpbdp_has_shortcode( $has_shortcode, $post, $shortcode ) {
+    public function cornerstone_wpbdp_has_shortcode( $has_shortcode, $post, $shortcode ) {
         if( $has_shortcode ) {
             return $has_shortcode;
         }

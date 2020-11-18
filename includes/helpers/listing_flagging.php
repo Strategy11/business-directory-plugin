@@ -42,7 +42,7 @@ class WPBDP__Listing_Flagging {
             return new WP_Error( 'missing_data', _x( 'Listing ID is required to save a report', 'flag listing', 'business-directory-plugin' ) );
         }
 
-        $flagging_data = get_post_meta( $listing_id,  '_wpbdp_flagged_data', true );
+        $flagging_data = get_post_meta( $listing_id, '_wpbdp_flagged_data', true );
 
         if ( empty( $flagging_data ) ) {
             return array();
@@ -115,12 +115,12 @@ class WPBDP__Listing_Flagging {
             return;
         }
 
-        update_post_meta( $listing_id,  '_wpbdp_flagged_data', $flagging_data );
+        update_post_meta( $listing_id, '_wpbdp_flagged_data', $flagging_data );
     }
 
     public static function clear_flagging( $listing_id ) {
         delete_post_meta( $listing_id, '_wpbdp_flagged_data' );
-        update_post_meta( $listing_id,  '_wpbdp_flagged', 0 );
+        update_post_meta( $listing_id, '_wpbdp_flagged', 0 );
     }
 
 }

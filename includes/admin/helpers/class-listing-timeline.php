@@ -118,7 +118,7 @@ class WPBDP__Listing_Timeline {
     }
 
     private function process_listing_renewal( $item ) {
-        $item->html = _x( 'Listing renewed', 'listing timeline', 'business-directory-plugin' );
+        $item->html = __( 'Listing renewed', 'business-directory-plugin' );
         return $item;
     }
 

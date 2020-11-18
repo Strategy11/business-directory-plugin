@@ -370,7 +370,7 @@ class WPBDP__Meta {
             );
             $url = get_permalink( $listing_id );
         } else {
-            $url = site_url( $_SERVER['REQUEST_URI'] );
+            $url = site_url( wpbdp_get_server_value( 'REQUEST_URI' ) );
         }
 
         echo sprintf( '<link rel="canonical" href="%s" />', esc_url( user_trailingslashit( $url ) ) );

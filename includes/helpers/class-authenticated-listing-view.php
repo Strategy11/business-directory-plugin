@@ -17,7 +17,7 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 
         //if ( is_user_logged_in() && ( $this->listing->get_auth ) )
 
-        $key_hash = ! empty( $_REQUEST['access_key_hash'] ) ? $_REQUEST['access_key_hash'] : '';
+        $key_hash = wpbdp_get_var( array( 'param' => 'access_key_hash' ), 'request' );
 
         if ( wpbdp_get_option( 'enable-key-access' ) && $key_hash )
             return $this->listing->validate_access_key_hash( $key_hash );

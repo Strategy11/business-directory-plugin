@@ -23,7 +23,7 @@ class WPBDP_Listing_Display_Helper {
         $vars = array_merge( $vars, self::fields_vars( $post->ID, 'excerpt' ) );
         $vars = array_merge( $vars, self::images_vars( $post->ID, 'excerpt' ) );
         $vars = array_merge( $vars, self::css_classes( $post->ID, 'excerpt' ) );
-        
+
         $vars['listing_css_class'] .= ' ' . $vars['even_or_odd'];
 
         $vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
@@ -113,7 +113,8 @@ class WPBDP_Listing_Display_Helper {
         $classes[] = 'wpbdp-listing-' . $display;
 
         // Fee-related classes.
-        if ( $fee = WPBDP_Listing::get( $listing_id )->get_fee_plan() ) {
+		$fee = WPBDP_Listing::get( $listing_id )->get_fee_plan();
+        if ( $fee ) {
             $classes[] = 'wpbdp-listing-plan-id-' . $fee->fee_id;
             $classes[] = 'wpbdp-listing-plan-' . WPBDP_Utils::normalize( $fee->fee_label );
 

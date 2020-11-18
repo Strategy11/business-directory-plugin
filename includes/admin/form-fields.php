@@ -231,8 +231,8 @@ class WPBDP_FormFieldsAdmin {
     }
 
     public function dispatch() {
-        $action                 = wpbdp_getv( $_REQUEST, 'action' );
-        $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'action', 'id' ), $_SERVER['REQUEST_URI'] );
+        $action                 = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
+        $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'action', 'id' ), wpbdp_get_server_value( 'REQUEST_URI' ) );
 
         switch ( $action ) {
             case 'addfield':

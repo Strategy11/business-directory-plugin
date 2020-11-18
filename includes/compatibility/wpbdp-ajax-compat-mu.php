@@ -13,8 +13,9 @@ $wpbdp_ajax_compat = true;
 
 // Only activate BD plugins during BD-related AJAX requests.
 function wpbdp_ajax_compat_exclude_plugins( $plugins ) {
-    if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! isset( $_REQUEST['action'] ) || false === strpos( $_REQUEST['action'], 'wpbdp' ) )
+    if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! isset( $_REQUEST['action'] ) || false === strpos( sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ), 'wpbdp' ) ) {
         return $plugins;
+    }
 
     foreach ( $plugins as $key => $plugin ) {
         if ( false !== strpos( $plugin, 'business-directory-' ) )

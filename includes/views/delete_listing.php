@@ -13,7 +13,7 @@ require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php
 class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 
     public function dispatch() {
-        $listing_id    = intval( $_REQUEST['listing_id'] );
+        $listing_id    = intval( wpbdp_get_var( array( 'param' => 'listing_id' ), 'request' ) );
         $this->listing = WPBDP_Listing::get( $listing_id );
 
         if ( ! $this->listing || 'trash' === get_post_status( $listing_id ) ) {
@@ -29,7 +29,7 @@ class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
             )
         );
 
-        $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
+        $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 
         if ( $nonce && wp_verify_nonce( $nonce, 'delete listing ' . $this->listing->get_id() ) ) {
             $this->listing->delete();

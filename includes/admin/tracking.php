@@ -130,7 +130,7 @@ class WPBDP_SiteTracking {
             $data['environment']['os'] = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
             $data['environment']['php'] = phpversion();
             $data['environment']['mysql'] = $wpdb->get_var( 'SELECT @@version' );
-            $data['environment']['server-software'] = $_SERVER['SERVER_SOFTWARE'];
+            $data['environment']['server-software'] = wpbdp_get_server_value( 'SERVER_SOFTWARE' );
 
             wp_remote_post( self::TRACKING_URL, array(
                 'method' => 'POST',

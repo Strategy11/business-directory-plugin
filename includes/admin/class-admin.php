@@ -951,7 +951,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     break;
             }
 
-            $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id', 'flagging_user' ), $_SERVER['REQUEST_URI'] );
+            $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id', 'flagging_user' ), wpbdp_get_server_value( 'REQUEST_URI' ) );
         }
 
         private function send_access_keys( $posts ) {

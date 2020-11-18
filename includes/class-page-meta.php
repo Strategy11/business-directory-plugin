@@ -10,7 +10,7 @@ class WPBDP_Page_Meta {
         $this->action = $action;
 
         if ( 'showlisting' == $this->action ) {
-            $this->listing_id = get_query_var('listing') ? wpbdp_get_post_by_slug(get_query_var('listing'))->ID : wpbdp_getv($_GET, 'id', get_query_var('id'));
+            $this->listing_id = get_query_var( 'listing' ) ? wpbdp_get_post_by_slug( get_query_var( 'listing' ) )->ID : wpbdp_get_var( array( 'param' => 'id', 'default' => get_query_var( 'id' ) ) );
 
             add_filter( 'get_the_time', array( &$this, 'listing_page__get_the_time' ), 10, 2 );
             add_filter( 'get_the_date', array( &$this, 'listing_page__get_the_date' ), 10, 2 );

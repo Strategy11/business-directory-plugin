@@ -50,7 +50,7 @@ final class WPBDP__Module {
         }
 
         $this->required_bd_version = isset( $obj->required_bd_version ) ? $obj->required_bd_version : '';
-        $this->is_premium_module = ! in_array( $this->id, array( 'categories' ), true );
+        $this->is_premium_module = ! ( in_array( $this->id, array( 'categories' ), true ) && version_compare( $this->version, '5.0.12', 'le' ) );
     }
 
     public function __call( $name, $args ) {
