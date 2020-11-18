@@ -241,7 +241,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		private function pointer_callback() {
 			$callback      = false;
 			$request_email = (int) get_option( 'wpbdp-show-drip-pointer', 0 );
-			$tries         = 4;
+			$tries         = 3;
 
 			if ( $request_email && $request_email < $tries ) {
 				$callback = array( $this, 'drip_pointer' );
@@ -249,6 +249,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			} elseif ( ! wpbdp_get_option( 'tracking-on', false ) ) {
 				// Ask for site tracking if needed.
 				$request_tracking = get_option( 'wpbdp-show-tracking-pointer', 0 );
+				update_option( 'wpbdp-show-tracking-pointer', $request_tracking + 1 );
 				if ( $request_tracking && $request_tracking < $tries ) {
 					$callback = 'WPBDP_SiteTracking::request_js';
 				}
