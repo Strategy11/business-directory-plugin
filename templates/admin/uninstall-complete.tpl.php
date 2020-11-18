@@ -1,12 +1,19 @@
 <?php
-	echo wpbdp_admin_header(_x('Uninstall Business Directory', 'admin uninstall', 'business-directory-plugin' ));
+wpbdp_admin_header(
+    array(
+        'title' => __( 'Uninstall', 'business-directory-plugin' ),
+        'echo' => true,
+    )
+);
 ?>
 
 <?php wpbdp_admin_notices(); ?>
 
-<p><?php _ex("Uninstall completed.", 'admin uninstall', "WPBDM"); ?></p>
-<p><a href="<?php echo admin_url(); ?>"><?php _ex('Return to Dashboard.', 'admin uninstall', 'business-directory-plugin' ); ?></p>
+<p><?php esc_html_e( 'Uninstall completed.', 'business-directory-plugin' ); ?></p>
+<p>
+    <a href="<?php echo esc_url( admin_url() ); ?>">
+        <?php esc_html_e( 'Return to Dashboard.', 'business-directory-plugin' ); ?>
+    </a>
+</p>
 
-<?php
-	echo wpbdp_admin_footer();
-?>
+<?php wpbdp_admin_footer( 'echo' ); ?>
