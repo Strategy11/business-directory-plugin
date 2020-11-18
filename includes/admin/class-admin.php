@@ -15,6 +15,8 @@ require_once WPBDP_PATH . 'includes/admin/class-listing-owner.php';
 require_once WPBDP_PATH . 'includes/admin/class-listing-fields-metabox.php';
 require_once WPBDP_PATH . 'includes/admin/page-debug.php';
 require_once WPBDP_PATH . 'includes/admin/class-admin-controller.php';
+require_once WPBDP_PATH . 'includes/admin/tracking.php';
+require_once WPBDP_PATH . 'includes/admin/class-listings-with-no-fee-plan-view.php';
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -108,6 +110,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             global $wpbdp;
             global $pagenow;
 
+			$this->add_pointers();
+
             wp_enqueue_style(
                 'wpbdp-admin',
                 WPBDP_URL . 'assets/css/admin.min.css',
@@ -147,7 +151,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             wp_enqueue_style( 'wpbdp-js-select2-css' );
 
-            if ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) {
+			$is_post_page = ( 'post-new.php' == $pagenow || 'post.php' == $pagenow );
+            if ( $is_post_page ) {
                 wpbdp_enqueue_jquery_ui_style();
 
                 wp_enqueue_style(
@@ -209,20 +214,48 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     )
                 );
             }
-
-            // Ask for site tracking if needed.
-            if ( ! wpbdp_get_option( 'tracking-on', false ) && get_option( 'wpbdp-show-tracking-pointer', 0 ) && current_user_can( 'administrator' ) ) {
-                wp_enqueue_style( 'wp-pointer' );
-                wp_enqueue_script( 'wp-pointer' );
-                add_action( 'admin_print_footer_scripts', 'WPBDP_SiteTracking::request_js' );
-            }
-
-            if ( current_user_can( 'administrator' ) && get_option( 'wpbdp-show-drip-pointer', 0 ) ) {
-                wp_enqueue_style( 'wp-pointer' );
-                wp_enqueue_script( 'wp-pointer' );
-                add_action( 'admin_print_footer_scripts', array( $this, 'drip_pointer' ) );
-            }
         }
+
+		/**
+		 * Load the pointer box if it hasn't yet been dismissed.
+		 */
+		private function add_pointers() {
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
+
+			$callback = $this->pointer_callback();
+
+			if ( $callback ) {
+				wp_enqueue_style( 'wp-pointer' );
+				wp_enqueue_script( 'wp-pointer' );
+				add_action( 'admin_print_footer_scripts', $callback );
+			}
+		}
+
+		/**
+		 * Which pointer message should show?
+		 *
+		 * @return mixed
+		 */
+		private function pointer_callback() {
+			$callback      = false;
+			$request_email = (int) get_option( 'wpbdp-show-drip-pointer', 0 );
+			$tries         = 4;
+
+			if ( $request_email && $request_email < $tries ) {
+				$callback = array( $this, 'drip_pointer' );
+				update_option( 'wpbdp-show-drip-pointer', $request_email + 1 );
+			} elseif ( ! wpbdp_get_option( 'tracking-on', false ) ) {
+				// Ask for site tracking if needed.
+				$request_tracking = get_option( 'wpbdp-show-tracking-pointer', 0 );
+				if ( $request_tracking && $request_tracking < $tries ) {
+					$callback = 'WPBDP_SiteTracking::request_js';
+				}
+			}
+
+			return $callback;
+		}
 
         /**
          * @since 3.4.1
@@ -298,22 +331,23 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $res   = new WPBDP_Ajax_Response();
             $nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
 
-            if ( ! get_option( 'wpbdp-show-drip-pointer', 0 ) || ! wp_verify_nonce( $nonce, 'drip pointer subscribe' ) ) {
+            if ( ! get_option( 'wpbdp-show-drip-pointer' ) || ! wp_verify_nonce( $nonce, 'drip pointer subscribe' ) ) {
                 $res->send_error();
             }
 
             $subscribe = ( '1' === wpbdp_get_var( array( 'param' => 'subscribe' ), 'post' ) );
 
 			if ( ! $subscribe ) {
+				delete_option( 'wpbdp-show-drip-pointer' );
 				$res->send();
 			}
-
-			delete_option( 'wpbdp-show-drip-pointer' );
 
 			$email = wpbdp_get_var( array( 'param' => 'email' ), 'post' );
 			if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
 				return $res->send_error( __( 'Invalid email address.', 'business-directory-plugin' ) );
 			}
+
+			delete_option( 'wpbdp-show-drip-pointer' );
 
 			$current_user = wp_get_current_user();
 

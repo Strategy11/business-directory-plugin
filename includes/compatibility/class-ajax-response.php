@@ -40,6 +40,6 @@ class WPBDP_AJAX_Response {
         }
 
         print json_encode( $response );
-        die();
+        wp_die();
     }
 }
