@@ -1,4 +1,4 @@
-@import 'wpbdp_grid.less';
+@import 'grids.less';
 
 .wpbdp-submit-rootline {
 	margin: 30px auto;
@@ -348,32 +348,30 @@
         font-size: 12px;
     }
 
-    &.wpbdp-submit-page-tiny .wpbdp-form-field,
-    &.wpbdp-submit-page-tiny .wpbdp-form-field.wpbdp-form-field-type-url .wpbdp-url-field-col,
-    &.wpbdp-submit-page-small .wpbdp-form-field {
-        grid-column: span 12 / span 12;
-    }
+@media only screen and (max-width: 450px) {
+	.wpbdp-form-field.wpbdp-form-field-type-url .wpbdp-url-field-col {
+		grid-column: span 12 / span 12;
+	}
 
-    &.wpbdp-submit-page-tiny {
-        .wpbdp-submit-rootline {
-            .wpbdp-rootline-section {
-                &:not(.wpbdp-submit-section-current),
-                .wpbdp-rootline-bar {
-                    display: none;
-                }
+	.wpbdp-submit-rootline {
+		.wpbdp-rootline-section {
+			&:not(.wpbdp-submit-section-current),
+			.wpbdp-rootline-bar {
+				display: none;
+			}
 
-                &.wpbdp-submit-checked .wpbdp-rootline-circle {
-                    .wpbdp-rootline-checkmark {
-                        display: none;
-                    }
+			&.wpbdp-submit-checked .wpbdp-rootline-circle {
+				.wpbdp-rootline-checkmark {
+					display: none;
+				}
 
-                    .wpbdp-rootline-counter span {
-                        display: initial;
-                    }
-                }
-            }
-        }
-    }
+				.wpbdp-rootline-counter span {
+					display: initial;
+				}
+			}
+		}
+	}
+}
 
 // Remove this after checking existing themes.
 .wpbdp-submit-listing-section-header {

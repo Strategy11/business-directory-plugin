@@ -139,7 +139,9 @@ class WPBDP_Listing_Display_Helper {
 	private static function add_column_count( &$classes, $display ) {
 		$columns   = (int) apply_filters( 'wpbd_column_count', 1, compact( 'display' ) );
 		$cells     = floor( 12 / $columns );
-		$classes[] = 'wpbdp' . $cells;
+		if ( $cells < 12 ) {
+			$classes[] = 'wpbdp' . $cells;
+		}
 	}
 
     private static function fields_vars( $listing_id, $display ) {
