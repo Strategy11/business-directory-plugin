@@ -44,7 +44,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
             $field->set_data( 'open_in_new_window', $open_in_new_window );
         }
 
-        if ( array_key_exists( 'x_use_nofollow',  $_POST['field'] ) ) {
+        if ( array_key_exists( 'x_use_nofollow', $_POST['field'] ) ) {
             $use_nofollow = (bool) intval( $_POST['field']['x_use_nofollow'] );
             $field->set_data( 'use_nofollow', $use_nofollow );
         }

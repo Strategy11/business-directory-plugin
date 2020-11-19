@@ -1,11 +1,18 @@
 <?php
-echo wpbdp_admin_header( _x( 'Upload Directory Theme', 'themes', 'business-directory-plugin' ), 'themes-install', array() );
+wpbdp_admin_header(
+    array(
+        'title' => __( 'Upload Directory Theme', 'business-directory-plugin' ),
+        'id'    =>'themes-install',
+        'echo'  => true,
+    )
+);
+wpbdp_admin_notices();
 ?>
-<?php echo wpbdp_admin_notices(); ?>
 
 <div class="wpbdp-note">
 <p><?php
-printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress theme.', 'themes', 'business-directory-plugin' ),
+// translators: %s is the link for Business Directory Premium Themes.
+printf( esc_html__( 'This is a theme or skin from %s and is NOT a regular WordPress theme.', 'business-directory-plugin' ),
         '<a href="http://businessdirectoryplugin.com/premium-themes/">http://businessdirectoryplugin.com/premium-themes/</a>' );
 ?></p>
 </div>
@@ -27,10 +34,7 @@ printf( _x( 'This is a theme or skin from %s and is NOT a regular WordPress them
         </tbody>
     </table>
 
-    <?php submit_button( _x( 'Begin Upload', 'themes', 'business-directory-plugin' ), 'primary', 'begin-theme-upload' ); ?>
+    <?php submit_button( esc_html__( 'Upload', 'business-directory-plugin' ), 'primary', 'begin-theme-upload' ); ?>
 </form>
 
-<?php
-echo wpbdp_admin_footer();
-?>
-
+<?php wpbdp_admin_footer( 'echo' ); ?>

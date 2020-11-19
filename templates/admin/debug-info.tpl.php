@@ -1,33 +1,40 @@
-<?php echo wpbdp_admin_header(); ?>
+<?php wpbdp_admin_header( array( 'echo' => true ) ); ?>
 
 <div id="wpbdp-admin-debug-info-page">
 <p>
 	<?php esc_html_e( 'The following information can help our team debug possible problems with your setup.', 'business-directory-plugin' ); ?>
-	<strong><u><?php _ex( 'The debug information does not contain personal or sensitive information such as passwords or private keys.', 'debug-info', 'business-directory-plugin' ); ?></u></strong>
+	<strong><u><?php esc_html_e( 'The debug information does not contain personal or sensitive information such as passwords or private keys.', 'business-directory-plugin' ); ?></u></strong>
 </p>
 <p style="text-align: right;">
-    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ) ); ?>" class="button button-primary"><?php _ex( 'Download Debug Information', 'debug-info', 'business-directory-plugin' ); ?></a>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Download Debug Information', 'business-directory-plugin' ); ?></a>
 </p>
 
 <h3 class="nav-tab-wrapper">
 <?php foreach ( $debug_info as $section_id => &$section ): ?>
-	<a class="nav-tab" href="<?php echo $section_id; ?>"><?php echo $section['_title']; ?></a>
+	<a class="nav-tab" href="<?php echo esc_attr( $section_id ); ?>"><?php echo esc_html( $section['_title'] ); ?></a>
 <?php endforeach; ?>
 </h3>
 
 <?php foreach ( $debug_info as $section_id => &$section ): ?>
-<table class="wpbdp-debug-section" data-id="<?php echo $section_id; ?>" style="display: none;">
+<table class="wpbdp-debug-section" data-id="<?php echo esc_attr( $section_id ); ?>" style="display: none;">
 	<tbody>
-		<?php foreach ( $section as $k => $v ): ?>
-		<?php if ( wpbdp_starts_with( $k, '_') ): continue; endif; ?>
+		<?php
+        foreach ( $section as $k => $v ):
+			if ( wpbdp_starts_with( $k, '_' ) ) {
+				continue;
+			}
+            ?>
 		<tr>
 			<th scope="row"><?php echo esc_attr( $k ); ?></th>
             <td>
-                <?php if ( is_array( $v ) ): ?>
-                    <?php echo isset( $v['html'] ) ? $v['html'] : esc_attr( $v['value'] ); ?>
-                <?php else: ?>
-                    <?php echo esc_attr( $v ); ?>
-                <?php endif; ?>
+				<?php
+				if ( is_array( $v ) ) {
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo isset( $v['html'] ) ? $v['html'] : esc_attr( $v['value'] );
+				} else {
+					echo esc_attr( $v );
+				}
+				?>
             </td>
 		</tr>
 		<?php endforeach; ?>
@@ -55,4 +62,4 @@ jQuery( function( $ ) {
 } );
 </script>
 
-<?php echo wpbdp_admin_footer(); ?>
+<?php wpbdp_admin_footer( 'echo' ); ?>

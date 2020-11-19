@@ -37,10 +37,10 @@
 
         <div class="wpbdp-theme-details-wrapper">
             <?php if ( $theme->thumbnail ): ?>
-                <a href="<?php echo $theme->thumbnail; ?>" title="<?php esc_attr_e( $theme->name ); ?>" class="thickbox" rel="wpbdp-theme-<?php echo $theme->id; ?>-gallery"><img src="<?php echo $theme->thumbnail; ?>" class="wpbdp-theme-thumbnail" /></a>
+                <a href="<?php echo esc_url( $theme->thumbnail ); ?>" title="<?php echo esc_attr( $theme->name ); ?>" class="thickbox" rel="wpbdp-theme-<?php echo esc_attr( $theme->id ); ?>-gallery"><img src="<?php echo esc_url( $theme->thumbnail ); ?>" class="wpbdp-theme-thumbnail" /></a>
                 <!-- Other images -->
                 <?php foreach ( $theme->thumbnails as $imgpath => $title ): ?>
-                    <a href="<?php echo $theme->url; ?><?php echo $imgpath; ?>" class="thickbox" title="<?php esc_attr_e( $title ); ?>" class="thickbox" rel="wpbdp-theme-<?php echo $theme->id; ?>-gallery" style="display: none;"></a>
+                    <a href="<?php echo esc_url( $theme->url . $imgpath ); ?>" class="thickbox" title="<?php echo esc_attr( $title ); ?>" class="thickbox" rel="wpbdp-theme-<?php echo esc_attr( $theme->id ); ?>-gallery" style="display: none;"></a>
                 <?php endforeach; ?>
             <?php else: ?>
             <div class="wpbdp-theme-thumbnail"></div>

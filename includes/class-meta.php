@@ -35,7 +35,7 @@ class WPBDP__Meta {
 
         if ( 'main' === $current_view || 'all_listings' === $current_view ) {
             $feed_title = sprintf( _x( '%s Feed', 'rss feed', 'business-directory-plugin' ), $main_page_title );
-            $feed_url = esc_url( add_query_arg( 'post_type', WPBDP_POST_TYPE,  get_bloginfo( 'rss2_url' ) ) );
+            $feed_url = esc_url( add_query_arg( 'post_type', WPBDP_POST_TYPE, get_bloginfo( 'rss2_url' ) ) );
 
             $feed_links[] = sprintf( $link_template, $feed_title, $feed_url );
         }

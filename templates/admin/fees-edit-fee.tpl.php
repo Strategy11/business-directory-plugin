@@ -1,4 +1,10 @@
-<?php echo wpbdp_admin_header( _x( 'Edit Listing Fee', 'fees admin', 'business-directory-plugin' ) ); ?>
-<?php wpbdp_admin_notices(); ?>
-<?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/fees-form.tpl.php', array( 'fee' => $fee ) ); ?>
-<?php echo wpbdp_admin_footer(); ?>
+<?php
+wpbdp_admin_header(
+    array(
+        'title' => __( 'Edit Listing Fee', 'business-directory-plugin' ),
+        'echo'  => true,
+    )
+);
+wpbdp_admin_notices();
+wpbdp_render_page( WPBDP_PATH . 'templates/admin/fees-form.tpl.php', array( 'fee' => $fee ), true );
+wpbdp_admin_footer( 'echo' );

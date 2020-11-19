@@ -8,7 +8,7 @@
  */
 class WPBDP_Payment extends WPBDP__DB__Model {
 
-    static $serialized = array( 'payment_items', 'payer_data', 'data' );
+    public static $serialized = array( 'payment_items', 'payer_data', 'data' );
 
     private $old_status = '';
 
