@@ -678,9 +678,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$selected_plan = $this->get_selected_plan( $plan_id );
 
         $category_count = wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
-        $selected_categories = ! empty( $this->data['previous_categories'] ) ? $this->data['previous_categories'] : array();
+        $selected_categories = $this->get_selected_category( $categories );
         return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'category_count', 'plans', 'selected_categories', 'selected_plan' ) );
     }
+
+	/**
+	 * Select the category for the listing or from the POST values.
+	 */
+	private function get_selected_category( $posted_categories ) {
+		$selected_categories = ! empty( $this->data['previous_categories'] ) ? $this->data['previous_categories'] : array();
+		return $posted_categories ? $posted_categories : $selected_categories;
+	}
 
 	/**
 	 * Get the plan from the new listing form.
@@ -1080,16 +1088,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 wp_update_post( array( 'ID' => $this->listing->get_id(), 'post_author' => $user_id ) );
             }
 
-            if ( ! empty( $this->data['tos_acceptance'] ) ) {
-                update_post_meta( $this->listing->get_id(), '_wpbdp_tos_acceptance_date', $this->data['tos_acceptance'] );
-                wpbdp_insert_log(
-                    array(
-                        'log_type'   => 'listing.terms_and_conditions_accepted',
-                        'object_id'  => $this->listing->get_id(),
-                        'created_at' => $this->data['tos_acceptance']
-                    )
-                );
-            }
+			$this->accept_terms();
 
             // XXX: what to do with this?
             // $extra = wpbdp_capture_action_array( 'wpbdp_listing_form_extra_sections', array( &$this->state ) );
@@ -1122,6 +1121,24 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         return $this->done();
     }
+
+	/**
+	 * Save saved terms to the listing.
+	 */
+	private function accept_terms() {
+		if ( empty( $this->data['tos_acceptance'] ) ) {
+			return;
+		}
+
+		update_post_meta( $this->listing->get_id(), '_wpbdp_tos_acceptance_date', $this->data['tos_acceptance'] );
+		wpbdp_insert_log(
+			array(
+				'log_type'   => 'listing.terms_and_conditions_accepted',
+				'object_id'  => $this->listing->get_id(),
+				'created_at' => $this->data['tos_acceptance']
+			)
+		);
+	}
 
     private function done() {
         $params = array(

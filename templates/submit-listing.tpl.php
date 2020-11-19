@@ -10,14 +10,13 @@
         <input type="hidden" name="current_section" value="<?php echo esc_attr( $submit->current_section ); ?>" />
 
             <h3><?php esc_html_e( 'Add Listing', 'business-directory-plugin' ); ?></h3>
-            <?php $submit->render_rootline(); ?>
-            <?php
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo $messages['general'];
-            ?>
+			<?php
+			$submit->render_rootline();
 
-            <?php foreach ( $sections as $section ): ?>
-                <?php
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $messages['general'];
+
+			foreach ( $sections as $section ) {
 				wpbdp_render(
                     'submit-listing-section',
                     array(
@@ -30,8 +29,8 @@
                         'editing'  => $editing
                     )
                 );
-                ?>
-            <?php endforeach; ?>
+			}
+			?>
     </form>
 </div>
 <?php do_action( 'wpbdp_after_submit_listing_page', $listing ); ?>
