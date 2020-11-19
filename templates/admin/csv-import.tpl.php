@@ -293,7 +293,7 @@ echo str_replace(
         <tr>
             <th class="header-name"><?php _ex('Header name/label', 'admin csv-import', 'business-directory-plugin' ); ?></th>
             <th class="field-label"><?php _ex('Field', 'admin csv-import', 'business-directory-plugin' ); ?></th>
-            <th class="field-type"><?php _ex('Type', 'admin csv-import', 'business-directory-plugin' ); ?></th>
+            <th class="field-type"><?php esc_html_e( 'Type', 'business-directory-plugin' ); ?></th>
             <th class="field-is-required"><?php _ex('Required?', 'admin csv-import', 'business-directory-plugin' ); ?></th>
             <th class="field-is-multivalued"><?php _ex('Multivalued?', 'admin csv-import', 'business-directory-plugin' ); ?></th>
         </tr>

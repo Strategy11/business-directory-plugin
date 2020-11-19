@@ -30,7 +30,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
         return array(
             'order'     => _x( 'Order', 'form-fields admin', 'business-directory-plugin' ),
             'label'     => _x( 'Label / Association', 'form-fields admin', 'business-directory-plugin' ),
-            'type'      => _x( 'Type', 'form-fields admin', 'business-directory-plugin' ),
+            'type'      => __( 'Type', 'business-directory-plugin' ),
             'validator' => _x( 'Validator', 'form-fields admin', 'business-directory-plugin' ),
             'tags'      => _x( 'Field Attributes', 'form-fields admin', 'business-directory-plugin' ),
         );

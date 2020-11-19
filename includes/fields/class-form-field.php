@@ -307,7 +307,7 @@ class WPBDP_Form_Field {
             $css_classes[] = 'wpbdp-form-field-in-' . $render_context;
 
             if ( 'submit' === $render_context ) {
-                if ( in_array( $this->get_field_type()->get_id(), array( 'textarea', 'url' ) ) || in_array( $this->get_association(), array( 'title', 'excerpt', 'content', 'regions' ) ) ) {
+                if ( in_array( $this->get_field_type()->get_id(), array( 'textarea', 'url', 'social-network' ) ) || in_array( $this->get_association(), array( 'title', 'excerpt', 'content', 'regions' ) ) ) {
                     $css_classes[] = 'wpbdp-full';
                 } else {
                     $css_classes[] = 'wpbdp-half';

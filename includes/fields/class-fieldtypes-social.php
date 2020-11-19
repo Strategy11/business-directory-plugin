@@ -84,10 +84,10 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             return '';
         }
 
-        $html  = '';
-        $html .= '<div class="wpbdp-social-url">';
+        $html = '<div class="wpbdp-social-url wpbdp-half">';
         $html .= sprintf(
-            '<span class="sublabel">%s</span>',
+            '<label for="%s"><span class="sublabel">%s</span></label>',
+            'wpbdp-field-' . $field->get_id(),
             __( 'URL', 'business-directory-plugin' )
         );
         $html .= sprintf(
@@ -97,8 +97,8 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             esc_attr( ! empty( $value[0] ) ? $value[0] : '' ),
             ( isset( $field_settings['placeholder'] ) ? sprintf( 'placeholder="%s"', esc_attr( $field_settings['placeholder'] ) ) : '' )
         );
-        $html .= '</div>';
-        $html .= '<div class="wpbdp-social-text">';
+		$html .= '</div>';
+        $html .= '<div class="wpbdp-social-text wpbdp-half">';
 
         $text_input = sprintf(
             '<input type="hidden" name="listingfields[%s][social-text]" value="">',
@@ -106,9 +106,9 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         );
 
         if ( 'icon_only' !== $field->data( 'display_order' ) ) {
-            $text_input = sprintf(
+            $text_input .= sprintf(
                 '<label for="wpbdp-field-%2$d-social-text"><span class="sublabel">%s</span></label>',
-                _x( 'Text:', 'form-fields api', 'business-directory-plugin' ),
+                esc_html__( 'Text', 'business-directory-plugin' ),
                 $field->get_id()
             );
 
@@ -116,14 +116,14 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
                 '<input id="wpbdp-field-%1$d-social-text" type="text" name="listingfields[%s][social-text]" value="%s" placeholder="%s">',
                 $field->get_id(),
                 ! empty( $value['social-text'] ) ? $value['social-text'] : '',
-                _x( 'Text to be displayed for social field', 'form-fields api', 'business-directory-plugin' )
+                esc_attr__( 'Text to be displayed for social field', 'form-fields api', 'business-directory-plugin' )
             );
         }
 
         $html .= $text_input;
         $html .= '</div>';
 
-        $html .= '<div class="wpbdp-social-type-field">';
+        $html .= '<div class="wpbdp-social-type-field wpbdp-grid">';
 
         $icon_input = sprintf(
             '<input type="hidden" name="listingfields[%1$s][type]" value="">
@@ -133,17 +133,19 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         if ( 'text_only' !== $field->data( 'display_order' ) ) {
             $icon_input = sprintf(
-                '<span class="sublabel">%s</span>',
-                _x( 'Type:', 'form-fields api', 'business-directory-plugin' )
+                '<label><span class="sublabel">%s</span></label>',
+                esc_html__( 'Type', 'business-directory-plugin' )
             );
 
             foreach ( $this->social_types as $type ) {
-                $css_classes   = array();
-                $css_classes[] = 'wpbdp-inner-social-field-option';
-                $css_classes[] = 'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) );
+                $css_classes = array(
+					'wpbdp-inner-social-field-option',
+					'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) ),
+					'wpbdp-half',
+				);
 
                 $icon_input .= sprintf(
-                    '<div class="%2$s"><label for="wpbdp-field-%d-%4$s"><input id="wpbdp-field-%d-%4$s" type="radio" name="%s" value="%s" %s /> %s</label></div>',
+                    '<div class="%2$s"><label><input id="wpbdp-field-%1$s-%4$s" type="radio" name="%3$s" value="%4$s" %5$s /> %6$s</label></div>',
                     $field->get_id(),
                     implode( ' ', $css_classes ),
                     'listingfields[' . $field->get_id() . '][type]',
@@ -197,7 +199,8 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
                 admin_url( 'admin-ajax.php' )
             );
 
-            $icon_input .= '<div class="wpbdp-upload-widget">';
+			$show_it = ( ! empty( $value['type'] ) && 'Other' === $value['type'] ) ? '' : ' style="display:none"';
+            $icon_input .= '<div class="wpbdp-upload-widget" ' . $show_it . '>';
             $icon_input .= sprintf(
                 '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
                 $field->get_id(),
@@ -210,6 +213,8 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         $html .= $icon_input;
 
         $html .= '</div>';
+
+		$html = '<div class="wpbdp-grid">' . $html . '</div>';
 
         return $html;
 
