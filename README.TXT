@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.5.1
-Stable tag: 5.8
+Stable tag: 5.8.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -162,6 +162,17 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= Version 5.8.1 =
+* Better align the social fields in the listing form
+* Make the grids more responsive for column listings
+* Security fixes for getting SERVER and REQUEST values. More escaping on translatable strings.
+* Fix: The email request wasn't getting dismissed when it should have
+* Fix: Merge a few duplicate strings for translation
+* Fix: If iframes are allowed in a field, the HTML box doesn't have to be checked
+* Fix: Prevent full width listings from being forced in all themes
+* Fix: Prevent duplicate error messages from showing up when a category field is empty
+* Fix: Always save the right category when changes are made when editing
+
 = Version 5.8 =
 * Updated the look of the new listing form with pagination
 * Match the contact form and checkout form to the new listing form style
@@ -201,18 +212,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix - Backwards compatibility for old menus.
 * Fix - Ensure BD admin links points to the right view.
 * Fix - Revert field batch query for advanced search.
-
-= Version 5.7.2 =
-* New: Switch language domain to 'business-directory-plugin' so the WP/org translating can be used. If you have custom translations, you'll need to rename to file from WPBDM-{language_code}_{Country_code} to business-directory-plugin-{language_code}_{Country_code}.
-* New: Store "Terms and Conditions" consent date and display the data in listing timeline.
-* New: Allow free listings to be recurrent.
-* New: Added button in main box for accessing to Manage Listings View.
-* New: Merge admin menus together under a single menu.
-* New: Update admin menu icon to match WordPress.
-* Fix: Add labels to checkboxes and radio button to enhance accessibility.
-* Fix: Enhance Access Key Login validation.
-* Fix: Include owner's 'pending' and 'drafted' listings on Manage Listings View.
-* Fix: Issue with translation array keys for multivalued fields options.
-* Fix: Issue with the quick search behavior when search keyword is empty.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
