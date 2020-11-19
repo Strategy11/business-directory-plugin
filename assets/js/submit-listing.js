@@ -37,7 +37,7 @@ jQuery(function($) {
                 // Workaround for https://github.com/select2/select2/issues/3992.
                 var self = this;
                 setTimeout(function() {
-                    if ( this.field_type === 'select2' ) {
+                    if ( this.field_type === 'select2' && $.fn.selectWoo ) {
                         self.field.selectWoo({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
                     }
                 } );
@@ -152,7 +152,6 @@ jQuery(function($) {
                         }
                     });
                 } else {
-                    this.field.prop( 'disabled', ( 'all' === categories ) ? false : true );
 
                     if ( 'all' === categories ) {
                         this.field_wrapper.find( '.wpbdp-form-field-checkbox-item, .wpbdp-form-field-radio-item' ).removeClass( 'disabled' );
