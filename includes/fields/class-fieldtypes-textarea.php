@@ -282,7 +282,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $value = apply_filters( 'wpbdp_form_field_html_value', $field->value( $post_id ), $post_id, $field );
         $allowed_tags = array();
 
-        if ( $field->data( 'allow_html' ) ) {
+        if ( $field->data( 'allow_html' ) || $field->data( 'allow_iframes' ) ) {
             $allowed_tags = wp_kses_allowed_html( 'post' );
 
             if ( $field->data( 'allow_iframes' ) )

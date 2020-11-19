@@ -44,7 +44,7 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
 
         $template_args = array( '_id' => $show_menu ? 'all_listings' : 'listings',
                                 '_wrapper' => $show_menu ? 'page' : '',
-                                '_bar'     =>  $show_menu,
+                                '_bar'     => $show_menu,
                                 'query' => $q );
 
         if ( ! function_exists('wp_pagenavi' ) && is_front_page() ) {
