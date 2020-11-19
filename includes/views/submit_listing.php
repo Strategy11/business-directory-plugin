@@ -624,7 +624,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         if ( $should_validate && ! $category_field->validate( $categories, $errors ) ) {
             foreach ( $errors as $e ) {
-                $this->messages( $e, 'error', 'plan_selection' );
+				if ( ! isset( $this->messages['plan_selection'] ) ) {
+					$this->messages( $e, 'error', 'plan_selection' );
+				}
             }
 
             $this->prevent_save = true;
