@@ -43,7 +43,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
         $order_options = array();
         foreach ( array( 'label' => _x( 'Label', 'fees order', 'business-directory-plugin' ),
-                         'amount' => _x( 'Amount', 'fees order', 'business-directory-plugin' ),
+                         'amount' => __( 'Amount', 'business-directory-plugin' ),
                          'days' => _x( 'Duration', 'fees order', 'business-directory-plugin' ),
                          'images' => __( 'Images', 'business-directory-plugin' ),
                          'custom' => _x( 'Custom Order', 'fees order', 'business-directory-plugin' ) ) as $k => $l ) {

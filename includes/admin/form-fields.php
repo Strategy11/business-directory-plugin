@@ -121,7 +121,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
         $html .= '<br/>';
         $html .= sprintf(
             '%s: %d',
-            _x( 'ID', 'form-fields admin', 'business-directory-plugin' ),
+            __( 'ID', 'business-directory-plugin' ),
             $field->get_id()
         );
         $html .= '<br/>';

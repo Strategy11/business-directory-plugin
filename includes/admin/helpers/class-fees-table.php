@@ -121,7 +121,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function get_columns() {
         $cols = array(
             'label'      => _x( 'Label', 'fees admin', 'business-directory-plugin' ),
-            'amount'     => _x( 'Amount', 'fees admin', 'business-directory-plugin' ),
+            'amount'     => __( 'Amount', 'business-directory-plugin' ),
             'duration'   => _x( 'Duration', 'fees admin', 'business-directory-plugin' ),
             'images'     => __( 'Images', 'business-directory-plugin' ),
             'attributes' => _x( 'Attributes', 'fees admin', 'business-directory-plugin' ),

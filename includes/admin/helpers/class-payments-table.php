@@ -51,10 +51,10 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     public function get_columns() {
         $cols = array(
             'listing' => _x( 'Listing', 'fees admin', 'business-directory-plugin' ),
-            'payment_id' => _x( 'ID', 'fees admin', 'business-directory-plugin' ),
+            'payment_id' => __( 'ID', 'business-directory-plugin' ),
             'date' => _x( 'Date', 'fees admin', 'business-directory-plugin' ),
             'details' => _x( 'Payment History', 'fees admin', 'business-directory-plugin' ),
-            'amount' => _x( 'Amount', 'fees admin', 'business-directory-plugin' ),
+            'amount' => __( 'Amount', 'business-directory-plugin' ),
             'status' => _x( 'Status', 'fees admin', 'business-directory-plugin' )
         );
 

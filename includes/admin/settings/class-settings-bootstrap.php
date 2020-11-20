@@ -238,7 +238,7 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         // Terms & Conditions.
-        wpbdp_register_settings_group( 'tos_settings', _x( 'Terms and Conditions', 'settings', 'business-directory-plugin' ), 'general/main' );
+        wpbdp_register_settings_group( 'tos_settings', __( 'Terms and Conditions', 'business-directory-plugin' ), 'general/main' );
         wpbdp_register_setting(
             array(
                 'id'    => 'display-terms-and-conditions',
@@ -251,7 +251,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'           => 'terms-and-conditions',
                 'type'         => 'textarea',
-                'name'         => _x( 'Terms and Conditions', 'settings', 'business-directory-plugin' ),
+                'name'         => __( 'Terms and Conditions', 'business-directory-plugin' ),
                 'desc'         => _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'settings', 'business-directory-plugin' ),
                 'default'      => '',
                 'placeholder'  => _x( 'Terms and Conditions text goes here.', 'settings', 'business-directory-plugin' ),
