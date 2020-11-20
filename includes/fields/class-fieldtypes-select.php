@@ -140,6 +140,12 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
             $html .= wp_dropdown_categories( $args );
 
+			if ( strpos( $args['class'], 'wpbdp-js-select2' ) !== false ) {
+				// Load assets only when needed.
+				wp_enqueue_script( 'wpbdp-js-select2' );
+				wp_enqueue_style( 'wpbdp-js-select2-css' );
+			}
+
             if ( $this->is_multiple() ) {
                 $html = preg_replace(
                     "/\\<select(.*)name=('|\")(.*)('|\")(.*)\\>/uiUs",
