@@ -66,7 +66,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
                 <a href="#" class="cancel-edit button-cancel"><?php _ex( 'Cancel', 'listing metabox', 'business-directory-plugin' ); ?></a>
         </div>
         </dd>
-        <dt><?php _ex( 'Amount', 'listing metabox', 'business-directory-plugin' ); ?></dt>
+        <dt><?php esc_html_e( 'Amount', 'business-directory-plugin' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-amount">
                 <?php echo $current_plan ? wpbdp_currency_format( $current_plan->fee_price ) : '-'; ?>

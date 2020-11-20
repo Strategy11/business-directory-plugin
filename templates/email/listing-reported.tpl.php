@@ -4,9 +4,9 @@
 
 ----
 
-<?php _ex( 'Listing information', 'notify email', 'business-directory-plugin' ); ?>:
+<?php esc_html_e( 'Listing Information', 'business-directory-plugin' ); ?>:
 
-<?php _ex( 'ID', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $listing->get_id(); ?>
+<?php esc_html_e( 'ID', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->get_id() ); ?>
 
 <?php esc_html_e( 'Title', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->get_title() ); ?>
 

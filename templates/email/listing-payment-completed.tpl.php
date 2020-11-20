@@ -20,7 +20,7 @@
     <?php _ex( 'Payment Details', 'notify email', 'business-directory-plugin' ); ?>: 
         <?php echo $payment_datails; ?>
 <?php else : ?>
-    <?php _ex( 'Amount', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $plan->fee_amount; ?>
+    <?php esc_html_e( 'Amount', 'business-directory-plugin' ); ?>: <?php echo esc_html( $plan->fee_amount ); ?>
 <?php endif; ?>
 
 

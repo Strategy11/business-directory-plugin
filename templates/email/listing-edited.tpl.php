@@ -10,7 +10,7 @@
 
 ----
 
-<?php echo esc_attr_x( 'ID', 'notify email', 'business-directory-plugin' ); ?>: <?php echo esc_attr( $listing->get_id() ); ?>
+<?php esc_attr_e( 'ID', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->get_id() ); ?>
 
 
 <?php esc_html_e( 'Title', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->get_title() ); ?>
@@ -26,7 +26,7 @@ foreach ( $listing->get_categories() as $category ) :
     $categories[] = $category->name;
 endforeach;
 ?>
-<?php echo esc_attr( _nx( 'Category', 'Categories', count( $listing->get_categories() ), 'notify email', 'business-directory-plugin' ) ); ?>: <?php echo esc_attr( implode( ' / ', $categories ) ); ?>
+<?php echo esc_attr( _n( 'Category', 'Categories', count( $listing->get_categories() ), 'business-directory-plugin' ) ); ?>: <?php echo esc_attr( implode( ' / ', $categories ) ); ?>
 
 
 <?php echo esc_attr_x( 'Posted By', 'notify email', 'business-directory-plugin' ); ?>: <?php echo esc_attr( $listing->get_author_meta( 'user_login' ) ); ?> (<?php echo esc_attr( $listing->get_author_meta( 'user_email' ) ); ?>)

@@ -210,7 +210,7 @@ endif;
                 <td>
                     <table>
                         <thead>
-                        <th><?php _ex( 'Category', 'fees admin', 'business-directory-plugin' ); ?></th>
+                        <th><?php esc_html_e( 'Category', 'business-directory-plugin' ); ?></th>
                         <th><?php _ex( 'Price', 'fees admin', 'business-directory-plugin' ); ?></th>
                         </thead>
                         <tbody>
@@ -236,6 +236,6 @@ endif;
 
     <?php do_action( 'wpbdp_after_admin_fee_form', $fee ); ?>
 
-    <?php echo submit_button( $fee->id ? _x( 'Save Changes', 'fees admin', 'business-directory-plugin' ) : _x( 'Add Listing Fee', 'fees admin', 'business-directory-plugin' ) ); ?>
+    <?php submit_button( $fee->id ? esc_html__( 'Save Changes', 'business-directory-plugin' ) : esc_html__( 'Add Listing Fee', 'business-directory-plugin' ) ); ?>
 </form>
 
