@@ -1,54 +1,50 @@
-.wpbdp-listing {
-	.listing-title {
-		border: none;
-		border-bottom: 1px solid #044F8D;
-		font-size: 115%;
-		margin-bottom: 8px;
-		font-weight: bold;
+.wpbdp-listing .listing-title {
+	border: none;
+	border-bottom: 1px solid #044F8D;
+	font-size: 115%;
+	margin-bottom: 8px;
+	font-weight: bold;
+}
 
-		a {
-			text-decoration: none;
-			font-weight: bold;
-			font-size: 34px;
-		}
-	}
+.wpbdp-listing .listing-title a {
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 34px;
+}
 
-	a:not(.wpbdp-button) {
-		text-decoration: none;
-	}
+.wpbdp-listing a:not(.wpbdp-button) {
+	text-decoration: none;
+}
 
-	.wpbdp-button {
-		padding: 0.74375em 0.775em 0.68125em;
-	}
+.wpbdp-listing .wpbdp-button {
+	padding: 0.74375em 0.775em 0.68125em;
+}
 
-	.listing-thumbnail {
-		float: left;
-	}
+.wpbdp-listing .listing-thumbnail {
+	float: left;
+}
 
-	.listing-details {
-		margin-left: 160px;
-	}
+.wpbdp-listing .listing-details {
+	margin-left: 160px;
+}
 
-	.address-info .address-label {
-		font-weight: bold;
-		display: block;
-		margin-bottom: 5px;
-	}
+.wpbdp-listing .address-info .address-label {
+	font-weight: bold;
+	display: block;
+	margin-bottom: 5px;
+}
 
-	.wpbdp-field {
-		margin: 4px 0;
-	}
+.wpbdp-listing .wpbdp-field {
+	margin: 4px 0;
+}
 
-	.wpbdp-field-type-textarea {
-		label,
-		.field-label {
-			display: block;
-		}
-	}
+.wpbdp-listing .wpbdp-field-type-textarea label,
+.wpbdp-listing .wpbdp-field-type-textarea .field-label {
+	display: block;
+}
 
-	.listing-actions {
-		text-align: right;
-	}
+.wpbdp-listing .listing-actions {
+	text-align: right;
 }
 
 .wpbdp-view-show_listing h3 {
