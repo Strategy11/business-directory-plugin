@@ -215,6 +215,8 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 					false,
                 )
             );
+
+			$form = apply_filters( 'wpbdp_contact_form_output', $form, compact( 'listing_id' ) );
         }
 
         $html .= $form;
