@@ -322,6 +322,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     public function messages( $msg, $type = 'notice', $context = 'general' ) {
+		$this->get_parent_section( $context );
+
         if ( ! isset( $this->messages[ $context ] ) ) {
             $this->messages[ $context ] = array();
         }
@@ -338,6 +340,19 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
     }
+
+	private function get_parent_section( &$context ) {
+		if ( isset( $this->sections[ $context ] ) ) {
+			return;
+		}
+
+		$parent = $context;
+		foreach ( $this->sections as $id => $section ) {
+			if ( isset( $section['include'][ $context ] ) ) {
+				$context = $id;
+			}
+		}
+	}
 
     private function can_submit( &$msg = null ) {
         // TODO: Can we use get_post()?
@@ -415,8 +430,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $sections['listing_fields'] = array(
-            'title'               => _x( 'Listing Information', 'submit listing', 'business-directory-plugin' ),
-            'content_css_classes' => 'wpbdp-grid'
+            'title'               => __( 'Listing Information', 'business-directory-plugin' ),
+            'content_css_classes' => 'wpbdp-grid',
 		);
 
         $this->add_images_page( $sections );
@@ -425,11 +440,22 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$this->add_account_page( $sections );
 
-        if ( ! $this->editing && wpbdp_get_option( 'display-terms-and-conditions' ) ) {
-            $sections['terms_and_conditions'] = array(
-                'title' => _x( 'Terms and Conditions', 'submit listing', 'business-directory-plugin' ),
-            );
-        }
+		if ( ! $this->editing ) {
+			if ( wpbdp_get_option( 'display-terms-and-conditions' ) ) {
+				$sections['terms_and_conditions'] = array(
+					'title' => __( 'Terms and Conditions', 'business-directory-plugin' ),
+				);
+			}
+		}
+
+		$this->merge_sections( $sections );
+
+		if ( ! $this->editing ) {
+			// Add clear button last
+			$sections['listing_fields']['include']['clear_form'] = array(
+				'title'  => '',
+			);
+		}
 
         foreach ( $sections as $section_id => &$s ) {
             $s['id']    = $section_id;
@@ -459,6 +485,35 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 	}
 
+	private function merge_sections( &$sections ) {
+		$this->combine_image_pages( $sections );
+		$this->maybe_merge_terms( $sections );
+		$this->add_recaptcha_last( $sections );
+	}
+
+	private function combine_image_pages( &$sections ) {
+		if ( isset( $sections['listing_images'] ) && isset( $sections['attachments'] ) ) {
+			$this->add_to_section( 'listing_images', 'attachments', $sections );
+		}
+	}
+
+	/**
+	 * Move terms to listing page if no recaptcha.
+	 */
+	private function maybe_merge_terms( &$sections ) {
+		if ( isset( $sections['terms_and_conditions'] ) && ! isset( $sections['recaptcha'] ) ) {
+			$this->add_to_section( 'listing_fields', 'terms_and_conditions', $sections );
+		}
+	}
+
+	private function add_to_section( $parent, $child, &$sections ) {
+		if ( empty( $sections[ $parent ]['include'] ) ) {
+			$sections[ $parent ]['include'] = array();
+		}
+		$sections[ $parent ]['include'][ $child ] = $sections[ $child ];
+		unset( $sections[ $child ] );
+	}
+
 	/**
 	 * Add account page in listing form.
 	 */
@@ -472,6 +527,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				'title' => __( 'Account Creation', 'business-directory-plugin' ),
 			);
 		}
+	}
+
+	private function add_recaptcha_last( &$sections ) {
+		if ( ! isset( $sections['recaptcha'] ) ) {
+			return;
+		}
+
+		$last = array_key_last( $sections );
+		if ( $last === 'recaptcha' ) {
+			$last = array_slice( array_keys( $sections ), -2, 1 );
+			$last = $last[0];
+		}
+
+		$this->add_to_section( $last, 'recaptcha', $sections );
 	}
 
     private function can_edit_plan_or_categories() {
@@ -494,31 +563,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function prepare_sections() {
         $next_section = $this->current_section ? '' : 'plan_selection';
         foreach ( $this->sections as &$section ) {
-            $callback = WPBDP_Utils::normalize( $section['id'] );
-
-            if ( method_exists( $this, $callback ) ) {
-                $res     = call_user_func( array( $this, $callback ) );
-                $html    = '';
-                $enabled = false;
-
-                if ( is_array( $res ) ) {
-                    $enabled = $res[0];
-                    $html    = $res[1];
-                } elseif ( is_string( $res ) && ! empty( $res ) ) {
-                    $enabled = true;
-                    $html    = $res;
-                } elseif ( false === $res ) {
-                    $section['flags'][] = 'hidden';
-                }
-
-                $section['state'] = $enabled ? 'enabled' : 'disabled';
-                $section['html']  = $html;
-            } else {
-                $section['state'] = 'disabled';
-                $section['html']  = '';
-            }
-
-            $section = apply_filters( 'wpbdp_submit_section_' . $section['id'], $section, $this );
+            $this->add_html_to_section( $section );
 
             $section['flags'][] = $section['state'];
             $section['prev_section'] = $this->find_prev_section( $section['id'] );
@@ -549,6 +594,51 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->sections = apply_filters( 'wpbdp_submit_prepare_sections', $this->sections, $this );
     }
+
+	private function add_html_to_section( &$section, $level = 1 ) {
+		$callback = WPBDP_Utils::normalize( $section['id'] );
+
+		$section['state'] = 'disabled';
+		$section['html']  = '';
+
+		if ( ! method_exists( $this, $callback ) ) {
+			return;
+		}
+
+		$res     = call_user_func( array( $this, $callback ) );
+		$html    = '';
+		$enabled = false;
+
+		if ( is_array( $res ) ) {
+			$enabled = $res[0];
+			$html    = $res[1];
+		} elseif ( is_string( $res ) && ! empty( $res ) ) {
+			$enabled = true;
+			$html    = $res;
+		} elseif ( false === $res ) {
+			$section['flags'][] = 'hidden';
+		}
+
+		$section['state'] = $enabled ? 'enabled' : 'disabled';
+		$section['html']  .= $html;
+
+		if ( ! isset( $section['include'] ) ) {
+			return;
+		}
+
+		$section = apply_filters( 'wpbdp_submit_section_' . $section['id'], $section, $this );
+
+		++ $level;
+		foreach ( $section['include'] as $id => $sub_section ) {
+			$sub_section['id'] = $id;
+			$this->add_html_to_section( $sub_section, $level );
+			$sub_section = apply_filters( 'wpbdp_submit_section_' . $id, $sub_section, $this );
+			if ( ! empty( $sub_section['title'] ) ) {
+				$section['html'] .= '<h3>' . esc_html( $sub_section['title'] ) . '</h3>';
+			}
+			$section['html'] .= $sub_section['html'];
+		}
+	}
 
     private function section_render( $template, $vars = array(), $result = true ) {
         $vars['listing'] = $this->listing;
@@ -972,6 +1062,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return $html;
     }
 
+	private function clear_form() {
+		$html = '<a class="reset wpbdp-full" href="#">' . esc_html__( 'Clear Form', 'business-directory-plugin' ) . '</a>';
+		return array( true, $html );
+	}
+
     private function terms_and_conditions() {
         if ( ! wpbdp_get_option( 'display-terms-and-conditions' ) ) {
             return false;
@@ -998,14 +1093,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         if ( ! $is_url ) {
-            $html .= '<label for="wpbdp-terms-and-conditions">';
-            $html .= _x( 'Terms and Conditions:', 'templates', 'business-directory-plugin' );
-            $html .= '</label>';
-            $html .= sprintf( '<textarea id="wpbdp-terms-and-conditions" readonly="readonly" class="wpbdp-submit-listing-tos">%s</textarea>', esc_textarea( $tos ) );
+            $html .= sprintf( '<div id="wpbdp-terms-and-conditions" class="wpbdp-submit-listing-tos wpbdp-scroll-box">%s</div>', wp_kses_post( $tos ) );
         }
 
         $html .= '<label for="wpbdp-terms-and-conditions-agreement">';
-        $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' />';
+        $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' /> ';
         $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'business-directory-plugin' );
 
         if ( $is_url )
@@ -1065,6 +1157,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     public function should_validate_section( $section_id ) {
+		$this->get_parent_section( $section_id );
         $current_section_pos = array_search( $this->current_section, $this->sections_keys );
         $section_pos         = array_search( $section_id, $this->sections_keys );
 

@@ -240,15 +240,16 @@ JS;
      * @since 5.1.1
      */
     public function add_recaptcha_to_submit( $submit_sections, $submit ) {
-        if ( 'submit_listing' === wpbdp_current_view() && ! wpbdp_get_option( 'recaptcha-for-submits' )  ) {
+		$current = wpbdp_current_view();
+        if ( 'submit_listing' === $current && ! wpbdp_get_option( 'recaptcha-for-submits' )  ) {
             return $submit_sections;
         } 
          
-        if ( 'edit_listing' === wpbdp_current_view() && ! wpbdp_get_option( 'recaptcha-for-edits' ) ) {
+        if ( 'edit_listing' === $current && ! wpbdp_get_option( 'recaptcha-for-edits' ) ) {
             return $submit_sections;
         }
 
-        $submit_sections['recaptcha'] = array( 'title' => _x( 'reCAPTCHA', 'recaptcha', 'business-directory-plugin' ) );
+        $submit_sections['recaptcha'] = array( 'title' => '' );
 
         return $submit_sections;
     }
@@ -257,7 +258,7 @@ JS;
      * @since 5.1.1
      */
     public function submit_recaptcha_html( $section, $submit ) {
-        if ( $submit->saving() ) {
+        if ( $submit->saving() && $submit->should_validate_section( 'recaptcha' ) ) {
             if ( ! $this->verify( $error_msg ) ) {
                 $submit->messages( $error_msg, 'error', 'v2' === $this->version ? 'recaptcha' : 'general' );
                 $submit->prevent_save();

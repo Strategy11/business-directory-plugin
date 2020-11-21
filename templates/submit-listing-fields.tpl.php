@@ -7,8 +7,3 @@ foreach ( $fields as $field ) :
 endforeach;
 
 do_action( 'wpbdp_view_submit_listing-after_fields', $listing );
-
-if ( ! $editing ) :
-	?>
-<a class="reset wpbdp-full" href="#"><?php echo esc_html_x( 'Clear Form', 'submit listing', 'business-directory-plugin' ); ?></a>
-<?php endif; ?>
