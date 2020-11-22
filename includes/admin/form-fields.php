@@ -11,8 +11,6 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 
 /**
  * Class WPBDP_FormFieldsTable
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_FormFieldsTable extends WP_List_Table {
 
@@ -183,8 +181,6 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
 /**
  * Class WPBDP_FormFieldsAdmin
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_FormFieldsAdmin {
 

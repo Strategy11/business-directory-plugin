@@ -11,8 +11,6 @@
  * Replaces `WPBDP_CSVImporter` (from 2.1) and adds support for sequential imports.
  *
  * @since 3.5.8
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_CSV_Import {
 

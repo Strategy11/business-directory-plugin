@@ -7,8 +7,6 @@
 
 /**
  * Class WPBDP_Admin_Listing_Fields_Metabox
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Admin_Listing_Fields_Metabox {
     private $listing = null;

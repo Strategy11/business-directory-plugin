@@ -11,8 +11,6 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 
 /**
  * Class WPBDP__Admin__Fees_Table
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP__Admin__Fees_Table extends WP_List_Table {
 

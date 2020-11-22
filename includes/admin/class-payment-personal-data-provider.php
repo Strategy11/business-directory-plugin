@@ -36,8 +36,6 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
      * @param $email_address
      * @param $page
      * @return array|mixed
-     *
-     * @SuppressWarnings(PHPMD)
      */
     public function get_objects( $user, $email_address, $page ) {
         return WPBDP_Payment::objects()->filter( array( 'payer_email' => $email_address ) )->to_array();

@@ -31,9 +31,6 @@ class WPBDP__Settings {
         $this->options = is_array( $settings_opt ) ? $settings_opt : array();
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function bootstrap() {
         // Add initial settings.
         require_once( WPBDP_INC . 'admin/settings/class-settings-bootstrap.php' );
@@ -41,9 +38,6 @@ class WPBDP__Settings {
         WPBDP__Settings__Bootstrap::register_initial_settings();
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function sanitize_settings( $input ) {
         $on_admin = ! empty( $_POST['_wp_http_referer'] );
 
@@ -145,7 +139,6 @@ class WPBDP__Settings {
     /**
      * Register a setting within the Settings API.
      * @since 5.0
-     * @SuppressWarnings(PHPMD)
      */
     public function register_setting( $id_or_args, $name = '', $type = 'text', $group = '', $args = array() ) {
         if ( is_array( $id_or_args ) ) {
@@ -216,9 +209,6 @@ class WPBDP__Settings {
         return $this->settings;
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function get_option( $setting_id, $default = false ) {
         $default_provided = func_num_args() > 1;
 
@@ -305,7 +295,6 @@ class WPBDP__Settings {
 
     /**
      * @deprecated 5.0. Use {@link WPBDP__Settings::register_setting()}.
-     * @SuppressWarnings(PHPMD)
      */
     public function add_core_setting( $name, $default=null ) {
         return false;
@@ -387,8 +376,6 @@ class WPBDP__Settings {
 
     /**
      * Resets settings to their default values. This includes ALL premium modules too, so use with care.
-     *
-     * @SuppressWarnings(PHPMD)
      */
     public function reset_defaults() {
         $options = $this->options;
@@ -404,9 +391,6 @@ class WPBDP__Settings {
         update_option( 'wpbdp_settings', $this->options );
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function validate_setting( $value, $setting_id ) {
         $on_admin = ! empty( $_POST['_wp_http_referer'] );
         if ( ! $on_admin ) {
@@ -492,9 +476,6 @@ class WPBDP__Settings {
         return ( $has_error ? $old_value : $value );
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function validate_number_setting( $value, $setting_id ) {
         $setting = $this->get_setting( $setting_id );
 
@@ -575,9 +556,6 @@ class WPBDP__Settings {
         return $option_translations;
     }
 
-    /**
-     * @SuppressWarnings(PHPMD)
-     */
     public function upgrade_options() {
         if (!$this->settings)
             $this->_register_settings();

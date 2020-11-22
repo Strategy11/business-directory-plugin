@@ -3,7 +3,6 @@
  * Class Admin
  *
  * @package BDP/Includes/Admin/Class Admin
- * @SuppressWarnings(PHPMD)
  */
 
 require_once WPBDP_PATH . 'includes/admin/admin-pages.php';

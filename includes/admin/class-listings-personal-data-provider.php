@@ -37,8 +37,6 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
      * @param $email_address
      * @param $page
      * @return array
-     *
-     * @SuppressWarnings(PHPMD)
      */
     public function get_objects( $user, $email_address, $page ) {
         $items_per_page = $this->get_page_size();

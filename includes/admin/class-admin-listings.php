@@ -5,8 +5,6 @@
 
 /**
  * Class WPBDP_Admin_Listings
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_Admin_Listings {
 

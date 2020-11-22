@@ -10,7 +10,6 @@ require_once WPBDP_INC . 'admin/class-csv-import.php';
  * CSV Import admin pages.
  *
  * @since 2.1
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_CSVImportAdmin {
 

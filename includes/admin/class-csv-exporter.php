@@ -9,8 +9,6 @@
  * CSV export.
  *
  * @since 3.2
- *
- * @SuppressWarnings(PHPMD)
  */
 class WPBDP_CSVExporter {
 

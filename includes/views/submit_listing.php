@@ -6,9 +6,7 @@
  */
 
 require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php';
-/**
- * @SuppressWarnings(PHPMD)
- */
+
 class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     protected $listing       = null;
