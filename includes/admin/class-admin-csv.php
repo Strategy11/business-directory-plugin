@@ -15,9 +15,8 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
     public function _dispatch() {
         $tabs = array( 'csv_import', 'csv_export' );
 
-        if ( ! empty( $_GET['tab'] ) ) {
-            $current_tab = $_GET['tab'];
-        } else {
+        $current_tab = wpbdp_get_var( array( 'param' => 'tab' ) );
+        if ( empty( $current_tab ) ) {
             $current_tab = 'csv_import';
         }
 

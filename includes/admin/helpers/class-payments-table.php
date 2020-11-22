@@ -75,7 +75,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         $this->items = WPBDP_Payment::objects()->filter( $args )->order_by( '-id' );
 
         if ( ! empty( $_GET['s'] ) ) {
-            $s = trim( $_GET['s'] );
+            $s = trim( wpbdp_get_var( array( 'param' => 's' ) ) );
 
             $this->items = $this->items->filter(
                 array(

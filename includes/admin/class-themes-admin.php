@@ -133,9 +133,13 @@ class WPBDP_Themes_Admin {
     }
 
     function set_active_theme() {
-        $theme_id = isset( $_POST['theme_id'] ) ? $_POST['theme_id'] : '';
+        if ( ! current_user_can( 'administrator' ) ) {
+            wp_die();
+        }
 
-        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'activate theme ' . $theme_id ) ) {
+        $theme_id = wpbdp_get_var( array( 'param' => 'theme_id' ), 'post' );
+
+        if ( ! wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' ), 'activate theme ' . $theme_id ) ) {
             wp_die();
         }
 
@@ -148,7 +152,7 @@ class WPBDP_Themes_Admin {
     }
 
     function create_suggested_fields() {
-        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'create_suggested_fields' ) ) {
+        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ), 'get' ), 'create_suggested_fields' ) ) {
             wp_die();
         }
 
@@ -162,7 +166,7 @@ class WPBDP_Themes_Admin {
     }
 
     function dispatch() {
-        $action = isset( $_GET['action'] ) ? $_GET['action'] : ( isset( $_GET['v'] ) ? $_GET['v'] : '' );
+        $action = wpbdp_get_var( array( 'param' => 'action', 'default' => wpbdp_get_var( array( 'param' => 'v' ) ) ) );
 
         switch ( $action ) {
             case 'theme-install':
@@ -179,7 +183,7 @@ class WPBDP_Themes_Admin {
     }
 
     function theme_selection() {
-        $msg = isset( $_GET['message'] ) ? $_GET['message'] : '';
+        $msg = wpbdp_get_var( array( 'param' => 'message' ) );
 
         switch ( $msg ) {
             case 1:
