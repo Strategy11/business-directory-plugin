@@ -6,7 +6,6 @@
  */
 /**
  * @since 5.0
- *
  */
 final class WPBDP__Fee_Plan {
 

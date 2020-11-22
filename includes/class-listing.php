@@ -24,7 +24,7 @@ class WPBDP_Listing {
             $field = wpbdp_get_form_fields( array( 'association' => $id, 'unique' => true ) );
         }
 
-        return $field ? $field->html_value( $this->id )  : '';
+        return $field ? $field->html_value( $this->id ) : '';
     }
 
     public function get_modified_date() {
