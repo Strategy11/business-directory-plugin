@@ -18,7 +18,7 @@
 foreach ( $listing->get_categories() as $category ):
     $categories[] = $category->name;
 endforeach; ?>
-<?php echo esc_html( _n( 'Category', 'Categories', count( $listing->get_categories() ), 'business-directory-plugin' ) ); ?>: <?php echo esc_html( implode( ' / ', $categories ) ); ?> <?php echo implode( ' / ', $categories ); ?>
+<?php echo esc_html( _n( 'Category', 'Categories', count( $listing->get_categories() ), 'business-directory-plugin' ) ); ?>: <?php echo esc_html( implode( ' / ', $categories ) ); ?>
 
 
 <?php
