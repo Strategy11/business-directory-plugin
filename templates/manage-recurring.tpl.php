@@ -22,10 +22,11 @@
                 $fee = $listing->get_fee_plan();
 
                 $subscription_amount = wpbdp_currency_format( $fee->fee_price );
-                $subscription_days = '<i>' . $fee->fee_days . '</i>';
-                $subscription_expiration_date = '<i>' . date_i18n( get_option( 'date_format' ), strtotime( $fee->expiration_date ) ) . '</i>';
+                $subscription_days = '<i>' . esc_html( $fee->fee_days ) . '</i>';
+                $subscription_expiration_date = '<i>' . esc_html( date_i18n( get_option( 'date_format' ), strtotime( $fee->expiration_date ) ) ) . '</i>';
 
-                $subscription_details = _x( '%s each %s days. Next renewal is on %s.', 'manage recurring', 'business-directory-plugin' );
+                /* translators: %1$s: amount, %2$s: number of days, %3$s: expiration date */
+                $subscription_details = __( '%1$s each %2$s days. Next renewal is on %3$s.', 'business-directory-plugin' );
                 $subscription_details = sprintf( $subscription_details, $subscription_amount, $subscription_days, $subscription_expiration_date );
 
                 $cancel_url = add_query_arg( array(

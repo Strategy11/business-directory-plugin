@@ -1,21 +1,23 @@
-<?php echo wpbdp_admin_header(); ?>
-<?php echo wpbdp_admin_notices(); ?>
+<?php
+wpbdp_admin_header( array( 'echo' => true ) );
+wpbdp_admin_notices();
+?>
 
 
 <?php $table->views(); ?>
 
 <form action="" method="get">
     <p class="search-box">
-        <label class="screen-reader-text" for="payment-search-input"><?php _ex( 'Search Payments:', 'admin payments', 'business-directory-plugin' ); ?></label>
-        <input type="search" id="payment-search-input" name="s" value="<?php echo ! empty( $_GET['s'] ) ? esc_attr( $_GET['s'] ) : ''; ?>" />
-        <input type="submit" id="search_submit" class="button" value="<?php _ex( 'Search', 'admin payments', 'business-directory-plugin' ); ?>" />
+        <label class="screen-reader-text" for="payment-search-input"><?php esc_html_e( 'Search Payments:', 'business-directory-plugin' ); ?></label>
+        <input type="search" id="payment-search-input" name="s" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 's' ) ) ); ?>" />
+        <input type="submit" id="search_submit" class="button" value="<?php esc_attr_e( 'Search', 'business-directory-plugin' ); ?>" />
     </p>
 
-    <input type="hidden" name="page" value="<?php echo $_GET['page']; ?>" />
-    <input type="hidden" name="status" value="<?php echo ! empty( $_GET['status'] ) ? $_GET['status'] : 'all'; ?>" />
+    <input type="hidden" name="page" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'page' ) ) ); ?>" />
+    <input type="hidden" name="status" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'status', 'default' => 'all' ) ) ); ?>" />
 
 <?php $table->display(); ?>
 
 </form>
 
-<?php echo wpbdp_admin_footer(); ?>
+<?php wpbdp_admin_footer( 'echo' ); ?>

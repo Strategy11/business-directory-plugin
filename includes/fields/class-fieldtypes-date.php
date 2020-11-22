@@ -26,10 +26,17 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 
         $select = '';
         foreach ( $this->get_formats() as $format => $data ) {
-            $select .= sprintf( '<label><input type="radio" name="field[x_date_format]" value="%s" %s />%s</label><br />',
-                                $format,
-                                checked ( $format, $current_format, false ),
-                                sprintf( _x( '%s (ex. %s)', 'form-fields api', 'business-directory-plugin' ), strtoupper( $format ), date( $data['date_format'], $now ) ) );
+            $select .= sprintf(
+                '<label><input type="radio" name="field[x_date_format]" value="%s" %s />%s</label><br />',
+                $format,
+                checked ( $format, $current_format, false ),
+                sprintf(
+                    /* translators: %1$s: date format, %2$s: Date format example */
+                    esc_html__( '%1$s (ex. %2$s)', 'business-directory-plugin' ),
+                    strtoupper( $format ),
+                    date( $data['date_format'], $now )
+                )
+            );
         }
 
         $settings = array(
@@ -58,11 +65,20 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 
         $args = array();
         $args['format'] = 'yyyymmdd';
-        $args['messages'] = array( 'incorrect_format' => sprintf( _x( '%s must be in the format %s.', 'date field', 'business-directory-plugin' ),
-                                                                  esc_attr( $field->get_label() ),
-                                                                  $this->date_format( $field ) ),
-                                   'invalid' => sprintf( _x( '%s must be a valid date.', 'date field', 'business-directory-plugin' ),
-                                                         esc_attr( $field->get_label() ) ) );
+        $args['messages'] = array(
+            'incorrect_format' => sprintf(
+                /* translators: %1$s: Field label, %2$s: Accepted date format */
+                esc_html__( '%1$s must be in the format %2$s.', 'business-directory-plugin' ),
+                esc_html( $field->get_label() ),
+                esc_html( $this->date_format( $field ) )
+			),
+            'invalid' => sprintf(
+                /* translators: %s Field label */
+                esc_html__( '%s must be a valid date.', 'business-directory-plugin' ),
+                esc_attr( $field->get_label() )
+			)
+		);
+
         return $args;
     }
 
@@ -72,7 +88,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( ! $enqueued ) {
             if ( is_admin() ) {
                 wpbdp_enqueue_jquery_ui_style();
-                wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
+                wp_enqueue_script( 'jquery-ui-datepicker' );
             }
             $enqueued = true;
         }
@@ -100,7 +116,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
             return '';
         }
 
-        $value = preg_replace('/[^0-9]/','', $value); // Normalize value.
+        $value  = preg_replace( '/[^0-9]/', '', $value ); // Normalize value.
         $format = str_replace( array( '/', '.', '-' ), '', $this->date_format( $field ) );
 
         if ( strlen( $format ) != strlen( $value ) ) {

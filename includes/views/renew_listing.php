@@ -22,7 +22,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
             return wpbdp_render_msg( _x( 'Listing renewal is disabled at this moment. Please try again later.', 'renewal', 'business-directory-plugin' ), 'error' );
         }
 
-        $renewal_id = ! empty( $_GET['renewal_id'] ) ? $_GET['renewal_id'] : 0;
+        $renewal_id = wpbdp_get_var( array( 'param' => 'renewal_id', 'default' => 0 ) );
 
         if ( ! ( $this->listing = WPBDP_Listing::get( $renewal_id ) ) ) {
             return wpbdp_render_msg( _x( 'Your renewal ID is invalid. Please use the URL you were given on the renewal e-mail message.', 'renewal', 'business-directory-plugin' ), 'error' );

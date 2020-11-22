@@ -14,9 +14,14 @@
             <?php _ex( 'Cost:', 'manage recurring', 'business-directory-plugin' ); ?>
         </dt>
         <dd>
-            <?php printf( _x( '%s every %s days.', 'manage recurring', 'business-directory-plugin' ),
-                              wpbdp_currency_format( $plan->fee_price ),
-                              $plan->fee_days ); ?>
+            <?php
+            printf(
+                /* translators: %1$s: amount, %2$s: number of days */
+                esc_html__( '%1$s every %2$s days.', 'business-directory-plugin' ),
+                esc_html( wpbdp_currency_format( $plan->fee_price ) ),
+                esc_html( $plan->fee_days )
+            );
+            ?>
         </dd>
         <!--<dt>
             <?php _ex( 'Number of images:', 'manage recurring', 'business-directory-plugin' ); ?>

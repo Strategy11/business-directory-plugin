@@ -5,8 +5,8 @@ abstract class WPBDP__Payment_Gateway {
     public function __construct() {
     }
 
-    public abstract function get_id();
-    public abstract function get_title();
+    abstract public function get_id();
+    abstract public function get_title();
 
     public function get_logo() {
         return $this->get_title();
@@ -31,7 +31,7 @@ abstract class WPBDP__Payment_Gateway {
         return wpbdp_get_option( $this->get_id() . '-' . $key );
     }
 
-    public abstract function get_integration_method();
+    abstract public function get_integration_method();
 
     public function supports( $feature ) {
         return false;
@@ -95,10 +95,14 @@ abstract class WPBDP__Payment_Gateway {
         }
 
         foreach ( $required as $req_field ) {
-            $field_value = isset( $_POST[ $req_field ] ) ? $_POST[ $req_field ] : '';
+            $field_value = wpbdp_get_var( array( 'param' => $req_field ), 'post' );
 
             if ( ! $field_value ) {
-                $errors[ $req_field ] = _x( 'This field is required (' . $req_field . ').', 'payment-gateway', 'business-directory-plugin' );
+			    $errors[ $req_field ] = sprintf(
+				    /* translators: %s: field name */
+                    __( 'This field is required (%s).', 'business-directory-plugin' ),
+                    $req_field
+                );
             }
         }
 

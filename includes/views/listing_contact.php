@@ -19,13 +19,9 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
 
     private function prepare_input() {
-        if ( $_POST ) {
-            $_POST = stripslashes_deep( $_POST );
-        }
-
-        $this->name    = wp_strip_all_tags( isset( $_POST['commentauthorname'] ) ? trim( $_POST['commentauthorname'] ) : '' );
-        $this->email   = sanitize_email( isset( $_POST['commentauthoremail'] ) ? trim( $_POST['commentauthoremail'] ) : '' );
-        $this->message = isset( $_POST['commentauthormessage'] ) ? trim( wp_kses( $_POST['commentauthormessage'], array() ) ) : '';
+        $this->name    = trim( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) );
+        $this->email   = trim( wpbdp_get_var( array( 'param' => 'commentauthoremail', 'sanitize' => 'sanitize_email' ), 'post' ) );
+        $this->message = trim( wpbdp_get_var( array( 'param' => 'commentauthormessage', 'sanitize' => 'wp_kses' ), 'post' ) );
 
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
@@ -42,10 +38,11 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             die();
         }
 
+        $listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ), 'request' );
+        $nonce      = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
+
         // Verify nonce.
-        if ( ! isset( $_POST['_wpnonce'] )
-             || ! isset( $_POST['_wp_http_referer'] )
-             || ! wp_verify_nonce( $_POST['_wpnonce'], 'contact-form-' . $_REQUEST['listing_id'] ) ) {
+        if ( ! $nonce || ! isset( $_POST['_wp_http_referer'] ) || ! wp_verify_nonce( $nonce, 'contact-form-' . $listing_id ) ) {
             die();
         }
 
@@ -255,7 +252,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             'name'        => $this->name,
             'email'       => $this->email,
             'message'     => $this->message,
-            'date'        => date_i18n( __( 'l F j, Y \a\t g:i a' ), current_time( 'timestamp' ) ),
+            'date'        => date_i18n( __( 'l F j, Y \a\t g:i a', 'business-directory-plugin' ), current_time( 'timestamp' ) ),
             'access_key'  => wpbdp_get_listing( $listing_id )->get_access_key(),
         );
         $email           = wpbdp_email_from_template( 'email-templates-contact', $replacements );

@@ -11,7 +11,7 @@
 class WPBDP__Views__Login extends WPBDP__View {
 
     public function dispatch() {
-        $redirect_to = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : wp_get_referer();
+        $redirect_to = wpbdp_get_var( array( 'param' => 'redirect_to', 'default' => wp_get_referer() ), 'request' );
 
         if ( ! $redirect_to ) {
             $redirect_to = wpbdp_url( 'main' );
@@ -33,9 +33,11 @@ class WPBDP__Views__Login extends WPBDP__View {
             return $this->_redirect( add_query_arg( 'redirect_to', urlencode( $redirect_to ), $login_url ) );
         }
 
-        if ( ! empty( $_POST['method'] ) && 'access_key' == $_POST['method'] ) {
-            $email = trim( $_POST['email'] );
-            $key = trim( $_POST['access_key'] );
+        $method = wpbdp_get_var( array( 'param' => 'method' ), 'post' );
+
+        if ( 'access_key' == $method ) {
+            $email = trim( wpbdp_get_var( array( 'param' => 'email', 'sanitize' => 'sanitize_email' ), 'post' ) );
+            $key = trim( wpbdp_get_var( array( 'param' => 'access_key' ), 'post' ) );
 
             if ( WPBDP_Listing::validate_access_key( $key, $email ) ) {
                 $hash = sha1( AUTH_KEY . $key );

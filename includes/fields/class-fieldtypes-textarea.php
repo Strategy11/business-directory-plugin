@@ -52,7 +52,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             return false;
         }
 
-        $wp_editor_path = ABSPATH . WPINC . '/class-wp-editor.php' ;
+        $wp_editor_path = ABSPATH . WPINC . '/class-wp-editor.php';
 
         if ( ! file_exists( $wp_editor_path ) ) {
             return false;
@@ -400,9 +400,6 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         return $value;
     }
 
-    /**
-     *
-     */
     public function maybe_hide_excerpt_field( &$fields, $listing_id, $display ) {
         if ( 'excerpt' != $display ) {
             return $fields;
@@ -421,7 +418,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $content_field    = is_array( $content_field ) ? array_shift( $content_field ) : $content_field;
         $excerpt_override = $content_field->data( 'excerpt_override' );
 
-        if ( ! in_array( $excerpt_override , array( 1, 2 ) ) ) {
+        if ( ! in_array( $excerpt_override, array( 1, 2 ) ) ) {
             return $fields;
         }
 

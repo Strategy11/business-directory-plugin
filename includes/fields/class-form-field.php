@@ -407,7 +407,8 @@ class WPBDP_Form_Field {
             // At least obfuscate the address if we're going to show it.
             $out = '';
 
-            for ( $i = 0; $i < strlen( $value ); $i++ ) {
+            $len = strlen( $value );
+            for ( $i = 0; $i < $len; $i++ ) {
                 if ( '.' == $value[ $i ] || '@' == $value[ $i ] ) {
                     $out .= $value [ $i ];
                 } else {
@@ -761,17 +762,19 @@ class WPBDP_Form_Field {
         if ( $delta > 0 ) {
             $fields = $wpdb->get_results( $wpdb->prepare( "SELECT id, weight FROM {$wpdb->prefix}wpbdp_form_fields WHERE weight >= %d ORDER BY weight ASC", $this->weight ) );
 
-            if ( $fields[ count( $fields ) - 1 ]->id == $this->id ) {
+            $fields_count = count( $fields );
+
+            if ( $fields[ $fields_count - 1 ]->id == $this->id ) {
                 return;
             }
 
-            for ( $i = 0; $i < count( $fields ); $i++ ) {
+            for ( $i = 0; $i < $fields_count; $i++ ) {
                 $fields[ $i ]->weight = intval( $this->weight ) + $i;
 
                 if ( $fields[ $i ]->id == $this->id ) {
                     $fields[ $i ]->weight     += 1;
                     $fields[ $i + 1 ]->weight -= 1;
-                    $i                        += 1;
+                    ++$i;
                 }
             }
 

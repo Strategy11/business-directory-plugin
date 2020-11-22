@@ -14,7 +14,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
             return wpbdp_render( 'parts/login-required', array(), false );
         }
 
-        $action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : 'index';
+        $action = wpbdp_get_var( array( 'param' => 'action', 'default' => 'index' ), 'request' );
 
         if ( 'cancel-subscription' == $action ) {
             return $this->do_cancel_subscription();
@@ -40,7 +40,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
         }
 
         if ( ! empty( $_GET['nonce'] ) ) {
-            $cancel_subscription_nonce = $_GET['nonce'];
+            $cancel_subscription_nonce = wpbdp_get_var( array( 'param' => 'nonce' ) );
         } else {
             $cancel_subscription_nonce = '';
         }

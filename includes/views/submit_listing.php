@@ -45,7 +45,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         // Required for the date picker.
         wpbdp_enqueue_jquery_ui_style();
-        wp_enqueue_script( 'jquery-ui-datepicker', false, false, false, true );
+        wp_enqueue_script( 'jquery-ui-datepicker' );
 
         // Required for textareas with HTML support via the WP Editor.
         // XXX: wp_enqueue_editor was added in WordPress 4.8.0.
@@ -927,8 +927,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $validation_error = '';
 
-        if ( ! empty( $_POST['thumbnail_id'] ) ) {
-            $listing->set_thumbnail_id( $_POST['thumbnail_id'] );
+        $thumbnail_id = absint( wpbdp_get_var( array( 'param' => 'thumbnail_id', 'default' => 0 ), 'post' ) );
+
+        if ( ! empty( $thumbnail_id ) ) {
+            $listing->set_thumbnail_id( $thumbnail_id );
         }
 
         $images = $this->listing->get_images( 'ids' );
@@ -994,9 +996,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
     private function account_creation() {
         $mode = wpbdp_get_option( 'create-account-during-submit-mode' );
-        $form_create = empty( $_POST['create-account'] ) ? false : ( $_POST['create-account'] == 'create-account' );
-        $form_username = ! empty( $_POST['user_username'] ) ? trim( $_POST['user_username'] ) : '';
-        $form_email = ! empty( $_POST['user_email'] ) ? trim( $_POST['user_email'] ) : '';
+        $form_create   = 'create-account' === wpbdp_get_var( array( 'param' => 'create-account' ), 'post' );
+        $form_username = trim( wpbdp_get_var( array( 'param' => 'user_username' ), 'post' ) );
+        $form_email    = trim( wpbdp_get_var( array( 'param' => 'user_email', 'sanitize' => 'sanitize_email' ), 'post' ) );
 
         if ( $this->should_validate_section( 'account_creation' ) && ( $this->saving() && 'required' == $mode ) || $form_create ) {
             $error = false;
@@ -1242,7 +1244,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     public static function preview_form( $listing ) {
-        $view = new self;
+        $view = new self();
         $view->listing = $listing;
 
         // $view->enqueue_resources();
@@ -1261,7 +1263,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         foreach ( $form_fields as $field ) {
             $field_allowed_categories = $field->data( 'supported_categories', 'all' );
             if ( 'all' !== $field_allowed_categories ) {
-                return  true;
+                return true;
             }
         }
 

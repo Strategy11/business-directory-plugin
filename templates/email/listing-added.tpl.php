@@ -27,7 +27,7 @@ $email = $listing->get_author_meta( 'user_email' );
 $author_text = _x( 'Posted By', 'notify email', 'business-directory-plugin' ) . ': ';
 
 if ( $name && $email ):
-    echo $author_text . $name . ' ' . '&lt;' . $email . '&gt;';
+    echo $author_text . $name . ' &lt;' . $email . '&gt;';
 elseif ( $name ):
     echo $author_text . $name;
 elseif ( $email ):

@@ -116,7 +116,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
                 '<input id="wpbdp-field-%1$d-social-text" type="text" name="listingfields[%s][social-text]" value="%s" placeholder="%s">',
                 $field->get_id(),
                 ! empty( $value['social-text'] ) ? $value['social-text'] : '',
-                esc_attr__( 'Text to be displayed for social field', 'form-fields api', 'business-directory-plugin' )
+                esc_attr__( 'Text to be displayed for social field', 'business-directory-plugin' )
             );
         }
 
@@ -336,7 +336,12 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
     public function _enqueue_scripts() {
         if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
-            wp_enqueue_style( 'wpbdp_font_awesome', 'https://use.fontawesome.com/releases/v5.6.3/css/all.css' );
+            wp_enqueue_style(
+                'wpbdp_font_awesome',
+                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
+                array(),
+                '5.14.0'
+            );
         }
     }
 }

@@ -16,17 +16,17 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
             );
         }
 
-        $nonce = ! empty( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+        $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
         $errors = array();
 
         if ( $nonce && wp_verify_nonce( $nonce, 'request_access_keys' ) )
             return $this->listings_and_access_keys();
 
-        return $this->_render( 'send-access-keys', array( 'redirect_to' => ! empty( $_GET['redirect_to'] ) ? $_GET['redirect_to'] : '' ) );
+        return $this->_render( 'send-access-keys', array( 'redirect_to' => wpbdp_get_var( array( 'param' => 'redirect_to' ) ) ) );
     }
 
     public function listings_and_access_keys() {
-        $email = ! empty( $_POST['email'] ) ? trim( $_POST['email'] ) : '';
+        $email = wpbdp_get_var( array( 'param' => 'email', 'sanitize' => 'sanitize_email' ), 'post' );
 
         try {
             $message_sent = $this->get_access_keys_sender()->send_access_keys( $email );
@@ -40,7 +40,7 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
 
             if ( ! empty( $_POST['redirect_to'] ) ) {
                 $html .= '<p>';
-                $html .= '<a href="' . esc_url( $_POST['redirect_to'] ) .'">';
+                $html .= '<a href="' . esc_url( wpbdp_get_var( array( 'param' => 'redirect_to' ), 'post' ) ) .'">';
                 $html .= _x( '← Return to previous page', 'request_access_keys', 'business-directory-plugin' );
                 $html .= '</a>';
                 $html .= '<p>';

@@ -57,7 +57,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
             return $this->thank_you_message();
         }
 
-        $action = ! empty( $_REQUEST['action'] ) ? $_REQUEST['action'] : '';
+        $action = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
 
         if ( has_action( 'wpbdp_checkout_before_action' ) ) {
             // Lightweight object used to pass checkout state to modules.
@@ -138,7 +138,8 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
     private function fetch_payment() {
         if ( ! $this->payment_id && ! empty( $_REQUEST['payment'] ) ) {
-            $this->payment = WPBDP_Payment::objects()->get( array( 'payment_key' => $_REQUEST['payment'] ) );
+			$payment_id    = wpbdp_get_var( array( 'param' => 'payment' ), 'request' );
+            $this->payment = WPBDP_Payment::objects()->get( array( 'payment_key' => $payment_id ) );
         } elseif ( $this->payment_id ) {
             $this->payment = WPBDP_Payment::objects()->get( $this->payment_id );
         }
@@ -158,7 +159,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         // Return URL for PayPal and other gateways include the nonce in the query
         // string while form submissions include it as a POST parameter. We use
         // $_REQUEST to handle both cases.
-        $nonce = ! empty( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
+        $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 
         if ( ! wp_verify_nonce( $nonce, 'wpbdp-checkout-' . $this->payment_id ) ) {
             wp_die( _x( 'Invalid nonce received.', 'checkout', 'business-directory-plugin' ) );
@@ -169,7 +170,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $chosen_gateway = '';
 
         if ( ! empty( $_REQUEST['gateway'] ) ) {
-            $chosen_gateway = $_REQUEST['gateway'];
+            $chosen_gateway = wpbdp_get_var( array( 'param' => 'gateway' ), 'request' );
         } elseif ( $this->payment->gateway ) {
             $chosen_gateway = $this->payment->gateway;
         } else {
