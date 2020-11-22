@@ -1061,7 +1061,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 array_slice( $cols, 0, 1 ),
                 array( 'id' => __( 'ID', 'business-directory-plugin' ) ),
                 array_slice( $cols, 1, -1 ),
-                array( 'posts' => _x( 'Listing Count', 'admin', 'business-directory-plugin' ) )
+                array( 'posts' => __( 'Listing Count', 'business-directory-plugin' ) )
             );
             return $newcols;
         }
@@ -1069,7 +1069,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function tag_taxonomy_columns( $cols ) {
             $newcols = array_merge(
                 array_slice( $cols, 0, -1 ),
-                array( 'posts' => _x( 'Listing Count', 'admin', 'business-directory-plugin' ) )
+                array( 'posts' => __( 'Listing Count', 'business-directory-plugin' ) )
             );
             return $newcols;
         }

@@ -1,7 +1,9 @@
 <div class="wpbdp-submit-rootline">
-    <?php foreach ( array_keys( $sections ) as $id => $section_id ): ?>
-        <?php $current = $section_id === $submit->current_section; ?>
-        <?php $checked = $current || $submit->should_validate_section( $section_id ); ?>
+	<?php
+	foreach ( array_keys( $sections ) as $id => $section_id ) :
+		$current = $section_id === $submit->current_section;
+		$checked = $current || $submit->should_validate_section( $section_id );
+		?>
         <div class="wpbdp-rootline-section wpbdp-submit-section-<?php echo esc_attr( $section_id . ( $current ? ' wpbdp-submit-section-current' : '' ) . ( $checked ? ' wpbdp-submit-checked' : '' ) ); ?>" data-section-pos="<?php echo esc_attr( $id + 1 ); ?>">
             <div class="wpbdp-rootline-bar"></div>
             <div class="wpbdp-rootline-circle">

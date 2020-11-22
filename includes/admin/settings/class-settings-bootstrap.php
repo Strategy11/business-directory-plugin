@@ -648,9 +648,9 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Order categories list by', 'settings', 'business-directory-plugin' ),
                 'default' => 'name',
                 'options' => array(
-                    'name'  => _x( 'Name', 'admin settings', 'business-directory-plugin' ),
+                    'name'  => __( 'Name', 'business-directory-plugin' ),
                     'slug'  => _x( 'Slug', 'admin settings', 'business-directory-plugin' ),
-                    'count' => _x( 'Listing Count', 'admin settings', 'business-directory-plugin' ),
+                    'count' => __( 'Listing Count', 'business-directory-plugin' ),
                 ),
                 'group'   => 'listings/post_category',
             )
