@@ -105,53 +105,33 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
         }
 
-        function enqueue_scripts() {
-            global $wpbdp;
-            global $pagenow;
+		function enqueue_scripts( $force = false ) {
+			global $wpbdp;
+
+			if ( ! $force && ! $wpbdp->is_bd_page() ) {
+				return;
+			}
 
 			$this->add_pointers();
 
-            wp_enqueue_style(
-                'wpbdp-admin',
-                WPBDP_URL . 'assets/css/admin.min.css',
-                array(),
-                WPBDP_VERSION
-            );
+			$assets = WPBDP_URL . 'assets/';
+			wp_enqueue_style( 'wpbdp-admin', $assets . 'css/admin.min.css', array(), WPBDP_VERSION );
 
-            wp_enqueue_style( 'thickbox' );
+			wp_enqueue_style( 'thickbox' );
 
-            wp_enqueue_style(
-                'wpbdp-frontend-css',
-                WPBDP_URL . 'assets/css/wpbdp.min.css',
-                array(),
-                WPBDP_VERSION
-            );
+			wp_enqueue_style( 'wpbdp-frontend-css', $assets . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
 
-            wp_enqueue_script(
-                'wpbdp-frontend-js',
-                WPBDP_URL . 'assets/js/wpbdp.min.js',
-                array( 'jquery' ),
-                WPBDP_VERSION
-            );
+			wp_enqueue_script( 'wpbdp-frontend-js', $assets . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION );
 
-            wp_enqueue_script(
-                'wpbdp-admin-js',
-                WPBDP_URL . 'assets/js/admin.min.js',
-                array( 'jquery', 'thickbox', 'jquery-ui-sortable' ),
-                WPBDP_VERSION
-            );
+			wp_enqueue_script( 'wpbdp-admin-js', $assets . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION );
 
-            wp_enqueue_script(
-                'wpbdp-user-selector-js',
-                WPBDP_URL . 'assets/js/user-selector.min.js',
-                array( 'jquery', 'wpbdp-js-select2' ),
-                WPBDP_VERSION
-            );
+			wp_enqueue_script( 'wpbdp-user-selector-js', $assets . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION );
 
             wp_enqueue_style( 'wpbdp-js-select2-css' );
 
-			$is_post_page = ( 'post-new.php' == $pagenow || 'post.php' == $pagenow );
-            if ( $is_post_page ) {
+			if ( ! $wpbdp->is_bd_post_page() ) {
+				return;
+			}
                 wpbdp_enqueue_jquery_ui_style();
 
                 wp_enqueue_style(
@@ -212,8 +192,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                         ),
                     )
                 );
-            }
-        }
+		}
 
 		/**
 		 * Load the pointer box if it hasn't yet been dismissed.
@@ -1133,6 +1112,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         /* Required pages check. */
         public function check_for_required_pages() {
             if ( ! wpbdp_get_page_id( 'main' ) && current_user_can( 'administrator' ) ) {
+				$this->enqueue_scripts( true );
+
                 $message  = _x( '<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin' );
                 $message .= '<br />';
                 $message .= _x( 'You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'business-directory-plugin' );
@@ -1198,7 +1179,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 && ! get_option( 'users_can_register' )
                 && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
                     $this->messages[] = array(
-                        str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' ) . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register" to make sure BD works properly.', 'admin', 'business-directory-plugin' ) ),
+                        str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' ) . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register".', 'admin', 'business-directory-plugin' ) ),
                         'error dismissible',
                         array( 'dismissible-id' => 'registration_disabled' ),
                     );

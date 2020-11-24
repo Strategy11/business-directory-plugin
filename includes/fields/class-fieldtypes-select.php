@@ -142,8 +142,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
 			if ( strpos( $args['class'], 'wpbdp-js-select2' ) !== false ) {
 				// Load assets only when needed.
-				wp_enqueue_script( 'wpbdp-js-select2' );
-				wp_enqueue_style( 'wpbdp-js-select2-css' );
+				global $wpbdp;
+				$wpbdp->assets->enqueue_select2();
 			}
 
             if ( $this->is_multiple() ) {

@@ -76,7 +76,8 @@ class WPBDP__Manual_Upgrade_Helper {
     public function upgrade_required_notice() {
         global $pagenow;
 
-        if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) && isset( $_GET['page'] ) && 'wpbdp-upgrade-page' == $_GET['page'] ) {
+		$page = wpbdp_get_var( array( 'param' => 'page' ) );
+        if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) && 'wpbdp-upgrade-page' === $page ) {
             return;
         }
 

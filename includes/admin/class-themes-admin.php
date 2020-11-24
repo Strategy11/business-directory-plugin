@@ -110,10 +110,11 @@ class WPBDP_Themes_Admin {
     }
 
     function enqueue_scripts( $hook ) {
-        global $wpbdp;
         global $pagenow;
 
-        if ( ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! isset( $_GET['page'] ) || 'wpbdp-themes' != $_GET['page'] ) {
+		$page = wpbdp_get_var( array( 'param' => 'page' ) );
+
+        if ( ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || 'wpbdp-themes' !== $page ) {
             return;
         }
 

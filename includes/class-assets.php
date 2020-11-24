@@ -28,6 +28,7 @@ class WPBDP__Assets {
      * @since 3.4
      */
     public function register_common_scripts() {
+
         wp_register_script(
             'jquery-file-upload-iframe-transport',
             WPBDP_URL . 'vendors/jQuery-File-Upload/js/jquery.iframe-transport.js',
@@ -72,6 +73,10 @@ class WPBDP__Assets {
             WPBDP_VERSION
         );
 
+        $this->register_select2();
+    }
+
+	private function register_select2() {
         // Use Select2 styles and scripts from selectWoo https://woocommerce.wordpress.com/2017/08/08/selectwoo-an-accessible-replacement-for-select2/.
         wp_register_style(
             'wpbdp-js-select2-css',
@@ -84,9 +89,19 @@ class WPBDP__Assets {
             'wpbdp-js-select2',
             WPBDP_URL . 'vendors/selectWoo/js/selectWoo.full.min.js',
             array( 'jquery' ),
-            '4.0.5'
+            '4.0.5',
+			true
         );
-    }
+	}
+
+	/**
+	 * @since 5.8.2
+	 */
+	public function enqueue_select2() {
+		$this->register_select2();
+		wp_enqueue_script( 'wpbdp-js-select2' );
+		wp_enqueue_style( 'wpbdp-js-select2-css' );
+	}
 
     private function maybe_register_script( $handle, $src, $deps, $ver, $in_footer = false ) {
         $scripts = wp_scripts();

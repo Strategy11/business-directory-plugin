@@ -213,6 +213,44 @@ final class WPBDP {
         do_action( 'wpbdp_loaded' );
     }
 
+	/**
+	 * Is this a page we should be changing?
+	 *
+	 * @since 5.8.2
+	 *
+	 * @return bool
+	 */
+	public function is_bd_page() {
+		$is_post_page = $this->is_bd_post_page();
+		if ( $is_post_page ) {
+			return true;
+		}
+
+		$page = wpbdp_get_var( array( 'param' => 'page' ) );
+		return $page && strpos( $page, 'wpbdp' ) !== false;
+	}
+
+	/**
+	 * @since 5.8.2
+	 */
+	public function is_bd_post_page() {
+		global $pagenow;
+
+		if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' && $pagenow !== 'edit.php' ) {
+			return false;
+		}
+
+		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
+
+		if ( empty( $post_type ) ) {
+			$post_id = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
+			$post    = get_post( $post_id );
+			$post_type = $post ? $post->post_type : '';
+		}
+
+		return $post_type === WPBDP_POST_TYPE;
+	}
+
     public function setup_email_notifications() {
         global $wpdb;
 
