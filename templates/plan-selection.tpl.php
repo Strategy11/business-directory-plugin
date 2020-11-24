@@ -12,14 +12,15 @@ if ( 1 === $args['plans_count'] ) {
 }
 ?>
 <div class="wpbdp-plan-selection-list">
-    <?php foreach ( $plans as $plan ): ?>
-        <?php
-        $args['plan'] = $plan;
+	<?php
+	foreach ( $plans as $plan ) {
+		$args['plan'] = $plan;
 
-        if ( $plan->recurring && current_user_can( 'administrator' ) ):
-            $args['disabled'] = true;
-        endif;
-        ?>
-        <?php wpbdp_render( 'plan-selection-plan', $args ); ?>
-    <?php endforeach; ?>
+		if ( $plan->recurring && current_user_can( 'administrator' ) ) {
+			$args['disabled'] = true;
+		}
+
+		wpbdp_render( 'plan-selection-plan', $args );
+	}
+	?>
 </div>

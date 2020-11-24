@@ -44,6 +44,7 @@ $single_plan = ! ( count( $plans ) > 1 );
                         'categories'   => $selected_categories,
                         'display_only' => true,
                         'echo'         => true,
+						'plans_count'  => 1,
                         'extra',
                     )
                 );
@@ -75,6 +76,7 @@ $single_plan = ! ( count( $plans ) > 1 );
                     'categories'   => array(),
                     'display_only' => true,
                     'echo'         => true,
+					'plans_count'  => 1,
                     'extra',
                 )
             );
