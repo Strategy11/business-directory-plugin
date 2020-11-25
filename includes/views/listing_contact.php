@@ -21,7 +21,8 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
     private function prepare_input() {
         $this->name    = trim( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) );
         $this->email   = trim( wpbdp_get_var( array( 'param' => 'commentauthoremail', 'sanitize' => 'sanitize_email' ), 'post' ) );
-        $this->message = trim( wpbdp_get_var( array( 'param' => 'commentauthormessage', 'sanitize' => 'wp_kses' ), 'post' ) );
+		$message       = wpbdp_get_var( array( 'param' => 'commentauthormessage', 'sanitize' => 'sanitize_textarea_field' ), 'post' );
+		$this->message = trim( wp_kses( $message, array() ) );
 
         $current_user = is_user_logged_in() ? wp_get_current_user() : null;
 
