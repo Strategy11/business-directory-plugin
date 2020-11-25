@@ -163,15 +163,17 @@ class WPBDP_Form_Field_Type {
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
+		$update_post = array( 'ID' => $post_id );
+
         switch ( $field->get_association() ) {
             case 'title':
-                wp_update_post( array( 'ID' => $post_id, 'post_title' => trim( strip_tags( $value ) ) ) );
+				$update_post['post_title'] = trim( strip_tags( $value ) );
                 break;
             case 'excerpt':
-                wp_update_post( array( 'ID' => $post_id, 'post_excerpt' => $value ) );
+				$update_post['post_excerpt'] = $value;
                 break;
             case 'content':
-                wp_update_post( array( 'ID' => $post_id, 'post_content' => $value ) );
+				$update_post['post_content'] = $value;
                 break;
             case 'category':
                 wp_set_post_terms( $post_id, $value, WPBDP_CATEGORY_TAX, false );
@@ -179,11 +181,15 @@ class WPBDP_Form_Field_Type {
             case 'tags':
                 wp_set_post_terms( $post_id, $value, WPBDP_TAGS_TAX, false );
                 break;
-            case 'meta':
             default:
+				// Everything else is meta.
                 update_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']', $value );
                 break;
         }
+
+		if ( count( $update_post ) > 1 ) {
+			wp_update_post( $update_post );
+		}
     }
 
     // this function should not try to hide values depending on field, context or value itself.
