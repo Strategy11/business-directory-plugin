@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.5.3
-Stable tag: 5.8.1
+Stable tag: 5.8.2
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -162,6 +162,18 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= Version 5.8.2 =
+* New: Only load select2 assets when needed to start reducing http requests
+* New: Only load admin js/css on BD pages
+* New: Addded wpbdp_contact_form_output hook for replacing the contact form
+* Combine a few listing pages (terms + recaptcha, images + attachments)
+* Fix: Strip HTML from textareas when the options to allow WYSIWYG, HTML, and iframe settings are all off
+* Fix: Allow iframes in textarea fields when the setting is on
+* Fix: Prevent reCaptcha issues by keeping it on the last page of the form
+* Fix: Some combinations of fee/category settings were causing the category dropdown to stay disabled on new listing form
+* Fix: Error showing on some sites with only one fee plan when creating a new listing
+* Merge more duplicate strings to reduce the number of translations needed
+
 = Version 5.8.1 =
 * Better align the social fields in the listing form
 * Make the grids more responsive for column listings
@@ -205,12 +217,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix - Remove not needed parameter for Search Widget. (#4682)
 * Fix - Restore Editors access to Directory menu. (#4678)
 * Fix - Fix listing images selection from media library. (#4687)
-
-= Version 5.7.3 =
-* New - Add Admin notice whenever payments are enabled but there are no public fees available.
-* Fix - Restore BD themes available updates count on menu title.
-* Fix - Backwards compatibility for old menus.
-* Fix - Ensure BD admin links points to the right view.
-* Fix - Revert field batch query for advanced search.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
