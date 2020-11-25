@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-11-25 18:16:18+00:00\n"
+"POT-Creation-Date: 2020-11-25 19:10:37+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -117,7 +117,7 @@ msgid "Yes, please!"
 msgstr "Tak, proszę!"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:272
+#: includes/admin/class-admin.php:272 includes/admin/tracking.php:214
 #, fuzzy
 msgid "No, thanks"
 msgstr "Nie, dziękuję"
@@ -653,6 +653,12 @@ msgid ""
 msgstr ""
 "Nie można skopiować pluginu kompatybilności AJAX  \"%s\". Tryb "
 "Kompatybilności nie został aktywowany."
+
+# @ WPBDM
+#: includes/admin/tracking.php:221
+#, fuzzy
+msgid "Allow Tracking"
+msgstr "Zezwalam na śledzenie"
 
 # @ WPBDM
 #: includes/admin/upgrades/class-installer-installation-error.php:15
@@ -7490,18 +7496,6 @@ msgid "What do you track?"
 msgstr "Co śledzicie?"
 
 # @ WPBDM
-#: includes/admin/tracking.php:214
-msgctxt "tracking"
-msgid "No, Thanks."
-msgstr "Nie, dziękuję"
-
-# @ WPBDM
-#: includes/admin/tracking.php:221
-msgctxt "tracking"
-msgid "Allow Tracking"
-msgstr "Zezwalam na śledzenie"
-
-# @ WPBDM
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:164
 #, fuzzy
 msgctxt "manual-upgrade"
@@ -10480,6 +10474,11 @@ msgstr "Nieprawidłowy adres e-mail"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Kontynuacja"
+
+# @ WPBDM
+#~ msgctxt "tracking"
+#~ msgid "No, Thanks."
+#~ msgstr "Nie, dziękuję"
 
 # @ WPBDM
 #~ msgctxt "fees order"

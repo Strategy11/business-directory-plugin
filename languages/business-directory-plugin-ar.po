@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-11-25 18:16:18+00:00\n"
+"POT-Creation-Date: 2020-11-25 19:10:37+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -106,7 +106,7 @@ msgstr "هل تريد معرفة \"أسرار بناء\" \"دليل أعمال �
 msgid "Yes, please!"
 msgstr "نعم، من فضلك!"
 
-#: includes/admin/class-admin.php:272
+#: includes/admin/class-admin.php:272 includes/admin/tracking.php:214
 #, fuzzy
 msgid "No, thanks"
 msgstr "لا، شكرًا"
@@ -584,6 +584,11 @@ msgid ""
 "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
 "not activated."
 msgstr "تعذر نسخ إضافة التوافق أجاكس \"%s\". لم يتم تفعيل وضع التوافق."
+
+#: includes/admin/tracking.php:221
+#, fuzzy
+msgid "Allow Tracking"
+msgstr "السماح بالتتبع"
 
 #: includes/admin/upgrades/class-installer-installation-error.php:15
 msgid "Business Directory - Installation Failed"
@@ -6704,16 +6709,6 @@ msgctxt "tracking"
 msgid "What do you track?"
 msgstr "ما الذي تتتبع؟"
 
-#: includes/admin/tracking.php:214
-msgctxt "tracking"
-msgid "No, Thanks."
-msgstr "لا، شكرًا."
-
-#: includes/admin/tracking.php:221
-msgctxt "tracking"
-msgid "Allow Tracking"
-msgstr "السماح بالتتبع"
-
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:164
 #, fuzzy
 msgctxt "manual-upgrade"
@@ -9342,6 +9337,10 @@ msgstr "إدخال بريدك إلكتروني"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "متابعة"
+
+#~ msgctxt "tracking"
+#~ msgid "No, Thanks."
+#~ msgstr "لا، شكرًا."
 
 #~ msgctxt "fees order"
 #~ msgid "Amount"

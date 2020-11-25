@@ -211,14 +211,14 @@ class WPBDP_SiteTracking {
                 'content': <?php echo json_encode( $content ); ?>,
                 'position': { 'edge': 'top', 'align': 'center' },
                 'buttons': function(event, t) {
-                    var do_not_track = $('<a id="wpbdp-pointer-b2" class="button" style="margin-right: 5px;"><?php _ex("No, Thanks.", "tracking", "WPBDM") ?></a>');
+                    var do_not_track = $('<a id="wpbdp-pointer-b2" class="button" style="margin-right: 5px;"><?php esc_html_e( 'No, thanks', 'business-directory-plugin' ); ?></a>');
                     do_not_track.bind('click.pointer', function() { t.element.pointer('close'); });
 
                     return do_not_track;
                 }
             }).pointer('open');
 
-            $('#wpbdp-pointer-b2').before('<a id="wpbdp-pointer-b1" class="button button-primary"><?php _ex("Allow Tracking", "tracking", "WPBDM"); ?></a>');
+            $('#wpbdp-pointer-b2').before('<a id="wpbdp-pointer-b1" class="button button-primary"><?php esc_html_e( 'Allow Tracking', 'business-directory-plugin' ); ?></a>');
 
             $('#wpbdp-pointer-b1').click(function(){
                 WPBDP_SiteTracking_answer( true );

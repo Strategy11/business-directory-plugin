@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-11-25 18:16:18+00:00\n"
+"POT-Creation-Date: 2020-11-25 19:10:37+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Yes, please!"
 msgstr "Oui, s'il vous plait !"
 
-#: includes/admin/class-admin.php:272
+#: includes/admin/class-admin.php:272 includes/admin/tracking.php:214
 #, fuzzy
 msgid "No, thanks"
 msgstr "Non, merci"
@@ -598,6 +598,11 @@ msgid ""
 msgstr ""
 "Impossible de copier le plugin de compatibilité AJAX \"% s\". Le mode de "
 "compatibilité n'a pas été activé."
+
+#: includes/admin/tracking.php:221
+#, fuzzy
+msgid "Allow Tracking"
+msgstr "Autoriser l'analyse"
 
 #: includes/admin/upgrades/class-installer-installation-error.php:15
 msgid "Business Directory - Installation Failed"
@@ -6594,16 +6599,6 @@ msgctxt "tracking"
 msgid "What do you track?"
 msgstr "Qu'est-ce que vous analysez ?"
 
-#: includes/admin/tracking.php:214
-msgctxt "tracking"
-msgid "No, Thanks."
-msgstr "Non, merci."
-
-#: includes/admin/tracking.php:221
-msgctxt "tracking"
-msgid "Allow Tracking"
-msgstr "Autoriser l'analyse"
-
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:164
 msgctxt "manual-upgrade"
 msgid "Continue"
@@ -9307,6 +9302,10 @@ msgstr "Adresse e-mail non valide"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuer"
+
+#~ msgctxt "tracking"
+#~ msgid "No, Thanks."
+#~ msgstr "Non, merci."
 
 #~ msgctxt "fees order"
 #~ msgid "Amount"
