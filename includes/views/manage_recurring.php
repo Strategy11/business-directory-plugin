@@ -39,11 +39,7 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
             return wpbdp_render_msg( $message, 'error' );
         }
 
-        if ( ! empty( $_GET['nonce'] ) ) {
-            $cancel_subscription_nonce = wpbdp_get_var( array( 'param' => 'nonce' ) );
-        } else {
-            $cancel_subscription_nonce = '';
-        }
+		$cancel_subscription_nonce = wpbdp_get_var( array( 'param' => 'nonce' ) );
 
         if ( ! $cancel_subscription_nonce || wp_create_nonce( 'cancel-subscription-' . $listing->get_id() ) != $cancel_subscription_nonce ) {
             $message = _x( 'You are not authorized to cancel this subscription. The link you followed is invalid.', 'manage subscriptions', 'business-directory-plugin' );
