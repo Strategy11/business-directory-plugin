@@ -251,22 +251,58 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
-        if ( 'content' == $field->get_association() ) {
-            if ( $field->data( 'allow_html' ) && $field->data( 'wysiwyg_editor' ) && ! $field->data( 'wysiwyg_images' ) ) {
-                $tags = wp_kses_allowed_html( 'post' );
 
-                if ( isset( $tags['img'] ) )
-                    unset( $tags['img'] );
-
-                if ( $field->data( 'allow_iframes' ) )
-                    $tags['iframe'] = array( 'src' => true );
-
-                $value = wp_kses( $value, $tags );
-            }
-        }
+		$tags  = $this->allowed_html_tags( $field );
+		$value = wp_kses( $value, $tags );
 
         return parent::store_field_value( $field, $post_id, $value );
     }
+
+	/**
+	 * @return array
+	 */
+	private function allowed_html_tags( $field ) {
+
+		$allow_html = $field->data( 'allow_html' ) || $field->data( 'allow_iframes' ) || $field->data( 'wysiwyg_editor' );
+		if ( ! $allow_html ) {
+			return array();
+		}
+
+		$tags = wp_kses_allowed_html( 'post' );
+
+		if ( ! $field->data( 'wysiwyg_images' ) && isset( $tags['img'] ) ) {
+			unset( $tags['img'] );
+		}
+
+		if ( $field->data( 'allow_iframes' ) ) {
+			$tags = self::allow_iframe( $tags );
+			add_filter( 'wp_kses_allowed_html', array( $this, 'allow_iframe' ), 1 );
+		}
+
+		return $tags;
+	}
+
+	/**
+	 * @since 5.8.2
+	 */
+	public function allow_iframe( $tags ) {
+		$tags['iframe'] = array(
+			'align'        => true,
+			'width'        => true,
+			'height'       => true,
+			'frameborder'  => true,
+			'name'         => true,
+			'src'          => true,
+			'id'           => true,
+			'class'        => true,
+			'style'        => true,
+			'scrolling'    => true,
+			'marginwidth'  => true,
+			'marginheight' => true,
+		);
+
+		return $tags;
+	}
 
     public function get_field_value( &$field, $post_id ) {
         $value = parent::get_field_value( $field, $post_id );
@@ -280,14 +316,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
     public function get_field_html_value( &$field, $post_id ) {
         $value = apply_filters( 'wpbdp_form_field_html_value', $field->value( $post_id ), $post_id, $field );
-        $allowed_tags = array();
 
-        if ( $field->data( 'allow_html' ) || $field->data( 'allow_iframes' ) ) {
-            $allowed_tags = wp_kses_allowed_html( 'post' );
-
-            if ( $field->data( 'allow_iframes' ) )
-                $allowed_tags['iframe'] = array( 'src' => true );
-        }
+		$allowed_tags = self::allowed_html_tags( $field );
 
         $value = wp_kses( $value, $allowed_tags );
 
