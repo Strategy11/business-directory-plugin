@@ -532,7 +532,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			return;
 		}
 
-		$last = array_key_last( $sections );
+		$last = key( array_slice( $sections, -1, 1, true ) );
 		if ( $last === 'recaptcha' ) {
 			$last = array_slice( array_keys( $sections ), -2, 1 );
 			$last = $last[0];
