@@ -600,6 +600,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$section['html']  = '';
 
 		if ( ! method_exists( $this, $callback ) ) {
+			$section = apply_filters( 'wpbdp_submit_section_' . $section['id'], $section, $this );
 			return;
 		}
 
@@ -620,11 +621,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$section['state'] = $enabled ? 'enabled' : 'disabled';
 		$section['html']  .= $html;
 
+		$section = apply_filters( 'wpbdp_submit_section_' . $section['id'], $section, $this );
+
 		if ( ! isset( $section['include'] ) ) {
 			return;
 		}
-
-		$section = apply_filters( 'wpbdp_submit_section_' . $section['id'], $section, $this );
 
 		++ $level;
 		foreach ( $section['include'] as $id => $sub_section ) {
