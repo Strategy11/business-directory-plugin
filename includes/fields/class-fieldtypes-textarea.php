@@ -270,7 +270,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
 		$tags = wp_kses_allowed_html( 'post' );
 
-		if ( ! $field->data( 'wysiwyg_images' ) && isset( $tags['img'] ) ) {
+		if ( isset( $tags['img'] ) && 'content' === $field->get_association() && ! $field->data( 'wysiwyg_images' ) ) {
+			// Don't allow images when the setting is available.
 			unset( $tags['img'] );
 		}
 
