@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 5.8.2
+Stable tag: 5.8.3
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -162,6 +162,12 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= Version 5.8.3 =
+* Switch heading on single listing in default theme from h2 to h1
+* Update file upload script and remove a bunch of unneeded files from the package
+* Fix: Pages in the listing form for some add-ons weren't being rendered correctly
+* Fix: Only strip images from textareas fields that include the option to allow them
+
 = Version 5.8.2 =
 * New: Only load select2 assets when needed to start reducing http requests
 * New: Only load admin js/css on BD pages
@@ -205,17 +211,5 @@ Our directory website builder software combined with our add-on modules is the m
 = Version 5.7.6 =
 * Validate field exists before using if to configure search. (#4705)
 * Minor tweaks in styling.
-
-= Version 5.7.5 =
-* New - Upgrade link in licenses tab for lite version. (#4699)
-* Fix - Fees page error in some php versions. (#4702)
-* Fix - Do not build quick search query when kw parameter is empty. (#4695)
-
-= Version 5.7.4 =
-* Fix - Do not force fee_id when re-creating free directory default fee.
-* Fix - Display modules change log on updates.
-* Fix - Remove not needed parameter for Search Widget. (#4682)
-* Fix - Restore Editors access to Directory menu. (#4678)
-* Fix - Fix listing images selection from media library. (#4687)
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

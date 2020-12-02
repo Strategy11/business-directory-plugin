@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-11-25 19:10:37+00:00\n"
+"POT-Creation-Date: 2020-12-02 23:07:05+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -363,7 +363,7 @@ msgid "Test SSL setup..."
 msgstr "Testar SSL-inställning"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:403 includes/views/submit_listing.php:1053
+#: includes/form-fields.php:403 includes/views/submit_listing.php:1054
 #: templates/admin/payments-details.tpl.php:117
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -1176,39 +1176,39 @@ msgstr "Annonsbilder"
 msgid "Account Creation"
 msgstr "Konto skapas"
 
-#: includes/views/submit_listing.php:666
+#: includes/views/submit_listing.php:667
 #, fuzzy
 msgid "Go to \"Fee Plans\""
 msgstr "Avgiftsplan"
 
-#: includes/views/submit_listing.php:683
+#: includes/views/submit_listing.php:684
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "Gå till \"Hantera formulärfält\""
 
-#: includes/views/submit_listing.php:722
+#: includes/views/submit_listing.php:723
 #, fuzzy
 msgid "Please choose a fee plan."
 msgstr "(Vänligen välj en avgiftsplan ovan)"
 
-#: includes/views/submit_listing.php:874
+#: includes/views/submit_listing.php:875
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/views/submit_listing.php:1037
+#: includes/views/submit_listing.php:1038
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/views/submit_listing.php:1044
+#: includes/views/submit_listing.php:1045
 #, fuzzy
 msgid "Username"
 msgstr "Användarnamn:"
 
-#: includes/views/submit_listing.php:1066
+#: includes/views/submit_listing.php:1067
 #, fuzzy
 msgid "Clear Form"
 msgstr "Rensa"
@@ -7175,42 +7175,42 @@ msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Val av kategori och avgiftsplan"
 
-#: includes/views/submit_listing.php:656
+#: includes/views/submit_listing.php:657
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Det går inte att registrera en annons just nu. Försök igen senare."
 
-#: includes/views/submit_listing.php:705 includes/views/submit_listing.php:795
+#: includes/views/submit_listing.php:706 includes/views/submit_listing.php:796
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en kategori."
 
-#: includes/views/submit_listing.php:728
+#: includes/views/submit_listing.php:729
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Välj en giltig kategori för din plan."
 
-#: includes/views/submit_listing.php:730
+#: includes/views/submit_listing.php:731
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/views/submit_listing.php:1007
+#: includes/views/submit_listing.php:1008
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/views/submit_listing.php:1012
+#: includes/views/submit_listing.php:1013
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/views/submit_listing.php:1017
+#: includes/views/submit_listing.php:1018
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/views/submit_listing.php:1022
+#: includes/views/submit_listing.php:1023
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
@@ -7560,21 +7560,21 @@ msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:659
+#: includes/views/submit_listing.php:660
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:673
+#: includes/views/submit_listing.php:674
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:676
+#: includes/views/submit_listing.php:677
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7582,12 +7582,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:1087
+#: includes/views/submit_listing.php:1088
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/views/submit_listing.php:1101
+#: includes/views/submit_listing.php:1102
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
@@ -8574,7 +8574,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
-#: includes/views/submit_listing.php:961
+#: includes/views/submit_listing.php:962
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
