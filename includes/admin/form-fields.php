@@ -363,7 +363,10 @@ class WPBDP_FormFieldsAdmin {
             $field = isset( $_GET['id'] ) ? WPBDP_FormField::get( $_GET['id'] ) : new WPBDP_FormField( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
         }
 
-        if ( $field ) {
+		if ( ! $field ) {
+			return;
+		}
+
             if ( ! wpbdp_get_option( 'override-email-blocking' ) && $field->has_validator( 'email' ) && ( $field->display_in( 'excerpt' ) || $field->display_in( 'listing' ) ) ) {
                 $msg = _x(
                     '<b>Important</b>: Since the "<a>Display email address fields publicly?</a>" setting is disabled, display settings below will not be honored and this field will not be displayed on the frontend. If you want e-mail addresses to show on the frontend, you can <a>enable public display of e-mails</a>.',
@@ -386,11 +389,44 @@ class WPBDP_FormFieldsAdmin {
                     'field_types'             => $api->get_field_types(),
                     'validators'              => $api->get_validators(),
                     'association_field_types' => $api->get_association_field_types(),
+					'hidden_fields'           => $this->hidden_fields_for_type( $field ),
                 ),
                 true
             );
-        }
     }
+
+	/**
+	 * Get a list of field settings that should be hidden.
+	 *
+	 * @param object $field WPBDP_Form_Field
+	 *
+	 * @since 5.8.3
+	 */
+	private function hidden_fields_for_type( $field ) {
+		$mapping = $field->get_association();
+		$fields = array(
+			'limit_categories' => array( 'title', 'category' ),
+			'private_field'    => array( 'title', 'category', 'content' ),
+		);
+
+		$hidden = array();
+		foreach ( $fields as $name => $should_hide ) {
+			if ( in_array( $mapping, $should_hide, true ) ) {
+				$hidden[] = $name;
+			}
+		}
+
+		if ( ! $field->display_in( 'search' ) ) {
+			$hidden[] = 'search';
+		}
+
+		/**
+		 * @since 5.8.3
+		 */
+		$hidden = apply_filters( 'wpbdp_hidden_field_settings', $hidden, compact( 'field' ) );
+
+		return $hidden;
+	}
 
     private function deleteField() {
         global $wpdb;

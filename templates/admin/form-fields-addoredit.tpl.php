@@ -3,13 +3,21 @@
  * @package WPBDP/Templates/Admin/Form Fields Add or Edit.
  */
 
-echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'business-directory-plugin' ), 'field-form' ); ?>
-<?php wpbdp_admin_notices(); ?>
+wpbdp_admin_header(
+	array(
+        'title' => esc_html__( 'Add Form Field', 'business-directory-plugin' ),
+        'id' => 'field-form',
+        'echo' => true,
+    )
+);
+
+wpbdp_admin_notices();
+?>
 
 <form id="wpbdp-formfield-form" action="" method="post">
-    <input type="hidden" name="field[id]" value="<?php echo $field->get_id(); ?>" />
-    <input type="hidden" name="field[tag]" value="<?php echo $field->get_tag(); ?>" />
-    <input type="hidden" name="field[weight]" value="<?php echo $field->get_weight(); ?>" />
+    <input type="hidden" name="field[id]" value="<?php echo esc_attr( $field->get_id() ); ?>" />
+    <input type="hidden" name="field[tag]" value="<?php echo esc_attr( $field->get_tag() ); ?>" />
+    <input type="hidden" name="field[weight]" value="<?php echo esc_attr( $field->get_weight() ); ?>" />
 
     <table class="form-table">
         <tbody>
@@ -147,7 +155,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'business-di
     <!-- display options -->
     <h2><?php _ex( 'Field display options', 'form-fields admin', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
-            <tr class="form-field limit-categories <?php echo in_array( $field->get_association(), array( 'title', 'category' ) ) ? "hidden" : '' ?>">
+		<tr class="form-field limit-categories <?php echo in_array( 'limit_categories', $hidden_fields ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
                     <label for="wpbdp-field-category-policy"><?php _ex( 'Field Category Policy:', 'form-fields admin', 'business-directory-plugin' ); ?></label>
                 </th>
@@ -194,7 +202,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'business-di
                     </div>
                 </td>
             </tr>
-            <tr id="wpbdp_private_field" class="<?php echo in_array( $field->get_association(), array( 'title', 'content', 'category' ), true ) ? 'wpbdp-hidden' : ''; ?>">
+			<tr id="wpbdp_private_field" class="<?php echo in_array( 'private_field', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
                     <label> <?php _ex( 'Show this field to admin users only?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
                 </th>
@@ -242,7 +250,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'business-di
                     </label>
                 </td>
             </tr>
-            <tr class="if-display-in-search <?php echo ( ! $field->display_in( 'search' ) ) ? 'wpbdp-hidden' : ''; ?>">
+			<tr class="if-display-in-search <?php echo in_array( 'search', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
                     <label> <?php _ex( 'Is this field required for searching?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
                 </th>
@@ -254,7 +262,7 @@ echo wpbdp_admin_header( _x( 'Add Form Field', 'form-fields admin', 'business-di
                     </label>
                 </td>
             </tr>
-            <tr>
+			<tr class="<?php echo in_array( 'nolabel', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
                     <label> <?php _ex( 'Hide this field\'s label?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
                 </th>
