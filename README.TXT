@@ -165,6 +165,7 @@ Our directory website builder software combined with our add-on modules is the m
 = Version 5.8.3 =
 * Switch heading on single listing in default theme from h2 to h1
 * Update file upload script and remove a bunch of unneeded files from the package
+* Added wpbdp_hidden_field_settings hook to hide options in the field settings
 * Fix: Pages in the listing form for some add-ons weren't being rendered correctly
 * Fix: Only strip images from textareas fields that include the option to allow them
 

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-02 23:07:05+00:00\n"
+"POT-Creation-Date: 2020-12-03 20:18:37+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -222,7 +222,7 @@ msgstr "Beelden"
 msgid "Type"
 msgstr "Type"
 
-#: includes/admin/form-fields.php:446
+#: includes/admin/form-fields.php:482
 #: includes/admin/settings/class-settings-bootstrap.php:711
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -231,85 +231,85 @@ msgstr "Type"
 msgid "Title"
 msgstr "Titel"
 
-#: includes/admin/form-fields.php:447 templates/admin/fees-form.tpl.php:213
+#: includes/admin/form-fields.php:483 templates/admin/fees-form.tpl.php:213
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
 #, fuzzy
 msgid "Category"
 msgstr "Categorie"
 
-#: includes/admin/form-fields.php:448
+#: includes/admin/form-fields.php:484
 #, fuzzy
 msgid "Excerpt"
 msgstr "Uittreksel"
 
-#: includes/admin/form-fields.php:449
+#: includes/admin/form-fields.php:485
 #, fuzzy
 msgid "Content"
 msgstr "Inhoud"
 
-#: includes/admin/form-fields.php:450
+#: includes/admin/form-fields.php:486
 msgid "Tags"
 msgstr ""
 
-#: includes/admin/form-fields.php:451 includes/form-fields.php:420
+#: includes/admin/form-fields.php:487 includes/form-fields.php:420
 #: templates/checkout-billing-form.tpl.php:75
 #: themes/default/templates/excerpt_content.tpl.php:22
 #, fuzzy
 msgid "Address"
 msgstr "Adres"
 
-#: includes/admin/form-fields.php:452
+#: includes/admin/form-fields.php:488
 #, fuzzy
 msgid "Address 2"
 msgstr "Adres"
 
-#: includes/admin/form-fields.php:453
+#: includes/admin/form-fields.php:489
 #: templates/admin/payments-details.tpl.php:141
 #: templates/checkout-billing-form.tpl.php:87
 #, fuzzy
 msgid "City"
 msgstr "Stad"
 
-#: includes/admin/form-fields.php:454
+#: includes/admin/form-fields.php:490
 #: templates/admin/payments-details.tpl.php:137
 #, fuzzy
 msgid "State"
 msgstr "Provincie"
 
-#: includes/admin/form-fields.php:455
+#: includes/admin/form-fields.php:491
 #: templates/admin/payments-details.tpl.php:133
 #: templates/checkout-billing-form.tpl.php:102
 #, fuzzy
 msgid "Country"
 msgstr "Land"
 
-#: includes/admin/form-fields.php:456 includes/form-fields.php:428
+#: includes/admin/form-fields.php:492 includes/form-fields.php:428
 #: templates/admin/payments-details.tpl.php:145
 msgid "ZIP Code"
 msgstr ""
 
-#: includes/admin/form-fields.php:457
+#: includes/admin/form-fields.php:493
 #, fuzzy
 msgid "FAX Number"
 msgstr "Tel nr"
 
-#: includes/admin/form-fields.php:458
+#: includes/admin/form-fields.php:494
 #: includes/fields/class-fieldtypes-phone-number.php:13
 #, fuzzy
 msgid "Phone Number"
 msgstr "Tel nr"
 
-#: includes/admin/form-fields.php:459
+#: includes/admin/form-fields.php:495
 #, fuzzy
 msgid "Ratings Field"
 msgstr "Waardering veld"
 
-#: includes/admin/form-fields.php:460
+#: includes/admin/form-fields.php:496
 msgid "Twitter"
 msgstr ""
 
-#: includes/admin/form-fields.php:461 includes/form-fields.php:386
+#: includes/admin/form-fields.php:497 includes/form-fields.php:386
 msgid "Website"
 msgstr ""
 
@@ -1336,6 +1336,11 @@ msgstr ""
 #: templates/admin/fees-index.tpl.php:171
 msgid "Set Up"
 msgstr ""
+
+#: templates/admin/form-fields-addoredit.tpl.php:8
+#, fuzzy
+msgid "Add Form Field"
+msgstr "Formulier veld toevoegen"
 
 #: templates/admin/form-fields-confirm-delete.tpl.php:4
 #, fuzzy
@@ -3831,7 +3836,7 @@ msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Formulier velden ge-update"
 
-#: includes/admin/form-fields.php:368
+#: includes/admin/form-fields.php:371
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -3840,17 +3845,17 @@ msgid ""
 "show on the frontend, you can <a>enable public display of e-mails</a>."
 msgstr ""
 
-#: includes/admin/form-fields.php:410
+#: includes/admin/form-fields.php:446
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Veld verwijderd"
 
-#: includes/admin/form-fields.php:433
+#: includes/admin/form-fields.php:469
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr ""
 
-#: includes/admin/form-fields.php:492
+#: includes/admin/form-fields.php:528
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr ""
@@ -3982,194 +3987,189 @@ msgctxt "form-fields admin"
 msgid "Show followers count?"
 msgstr "Toon categorie telling?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:6
-msgctxt "form-fields admin"
-msgid "Add Form Field"
-msgstr "Formulier veld toevoegen"
-
-#: templates/admin/form-fields-addoredit.tpl.php:19
+#: templates/admin/form-fields-addoredit.tpl.php:27
 msgctxt "form-fields admin"
 msgid "Field Association"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:19
-#: templates/admin/form-fields-addoredit.tpl.php:44
-#: templates/admin/form-fields-addoredit.tpl.php:68
+#: templates/admin/form-fields-addoredit.tpl.php:27
+#: templates/admin/form-fields-addoredit.tpl.php:52
+#: templates/admin/form-fields-addoredit.tpl.php:76
 msgctxt "form-fields admin"
 msgid "required"
 msgstr "vereist"
 
-#: templates/admin/form-fields-addoredit.tpl.php:44
+#: templates/admin/form-fields-addoredit.tpl.php:52
 msgctxt "form-fields admin"
 msgid "Field Type"
 msgstr "Veld type"
 
-#: templates/admin/form-fields-addoredit.tpl.php:68
+#: templates/admin/form-fields-addoredit.tpl.php:76
 msgctxt "form-fields admin"
 msgid "Field Label"
 msgstr "Veld label"
 
-#: templates/admin/form-fields-addoredit.tpl.php:78
+#: templates/admin/form-fields-addoredit.tpl.php:86
 msgctxt "form-fields admin"
 msgid "Field description"
 msgstr "Veld omschrijving"
 
-#: templates/admin/form-fields-addoredit.tpl.php:78
+#: templates/admin/form-fields-addoredit.tpl.php:86
 msgctxt "form-fields admin"
 msgid "optional"
 msgstr "optioneel"
 
-#: templates/admin/form-fields-addoredit.tpl.php:95
+#: templates/admin/form-fields-addoredit.tpl.php:103
 msgctxt "form-fields admin"
 msgid "Field-specific settings"
 msgstr "Veld specifieke instelling"
 
-#: templates/admin/form-fields-addoredit.tpl.php:104
+#: templates/admin/form-fields-addoredit.tpl.php:112
 msgctxt "form-fields admin"
 msgid "Field validation options"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:108
+#: templates/admin/form-fields-addoredit.tpl.php:116
 msgctxt "form-fields admin"
 msgid "Field Validator"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:112
+#: templates/admin/form-fields-addoredit.tpl.php:120
 msgctxt "form-fields admin"
 msgid "No validation"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:124
+#: templates/admin/form-fields-addoredit.tpl.php:132
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Number of words"
 msgstr "Aantal gratis beelden"
 
-#: templates/admin/form-fields-addoredit.tpl.php:134
+#: templates/admin/form-fields-addoredit.tpl.php:142
 msgctxt "form-fields admin"
 msgid "Is field required?"
 msgstr "Is veld vereist?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:140
+#: templates/admin/form-fields-addoredit.tpl.php:148
 msgctxt "form-fields admin"
 msgid "This field is required."
 msgstr "Dit veld is vereist."
 
-#: templates/admin/form-fields-addoredit.tpl.php:148
+#: templates/admin/form-fields-addoredit.tpl.php:156
 msgctxt "form-fields admin"
 msgid "Field display options"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:152
+#: templates/admin/form-fields-addoredit.tpl.php:160
 msgctxt "form-fields admin"
 msgid "Field Category Policy:"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:157
+#: templates/admin/form-fields-addoredit.tpl.php:165
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field applies to all categories"
 msgstr "Verberg lege categorieën"
 
-#: templates/admin/form-fields-addoredit.tpl.php:158
+#: templates/admin/form-fields-addoredit.tpl.php:166
 msgctxt "form-fields admin"
 msgid "Field applies to only certain categories"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:162
+#: templates/admin/form-fields-addoredit.tpl.php:170
 msgctxt "form-fields admin"
 msgid "Limit field to the following categories:"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:186
+#: templates/admin/form-fields-addoredit.tpl.php:194
 msgctxt "form-fields admin"
 msgid "Click to add categories to the selection."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:199
+#: templates/admin/form-fields-addoredit.tpl.php:207
 msgctxt "form-fields admin"
 msgid "Show this field to admin users only?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:205
+#: templates/admin/form-fields-addoredit.tpl.php:213
 msgctxt "form-fields admin"
 msgid "Display this field to admin users only in the edit listing view."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:211
+#: templates/admin/form-fields-addoredit.tpl.php:219
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:217
+#: templates/admin/form-fields-addoredit.tpl.php:225
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:223
+#: templates/admin/form-fields-addoredit.tpl.php:231
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:229
+#: templates/admin/form-fields-addoredit.tpl.php:237
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:235
+#: templates/admin/form-fields-addoredit.tpl.php:243
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:241
+#: templates/admin/form-fields-addoredit.tpl.php:249
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:247
+#: templates/admin/form-fields-addoredit.tpl.php:255
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "Is veld vereist?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:253
+#: templates/admin/form-fields-addoredit.tpl.php:261
 msgctxt "form-fields admin"
 msgid ""
 "Make this fields required during searches on the Advanced Search screen."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:259
+#: templates/admin/form-fields-addoredit.tpl.php:267
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:265
+#: templates/admin/form-fields-addoredit.tpl.php:273
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:272
+#: templates/admin/form-fields-addoredit.tpl.php:280
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field privacy options"
 msgstr "Veld omschrijving"
 
-#: templates/admin/form-fields-addoredit.tpl.php:276
+#: templates/admin/form-fields-addoredit.tpl.php:284
 msgctxt "form-fields admin"
 msgid "This field contains sensitive or private information?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:284
+#: templates/admin/form-fields-addoredit.tpl.php:292
 msgctxt "form-fields admin"
 msgid "Add this field when exporting or deleting user's personal data."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:291
+#: templates/admin/form-fields-addoredit.tpl.php:299
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "Veld bijwerken"
 
-#: templates/admin/form-fields-addoredit.tpl.php:293
+#: templates/admin/form-fields-addoredit.tpl.php:301
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "Veld toevoegen "

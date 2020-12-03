@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-02 23:07:05+00:00\n"
+"POT-Creation-Date: 2020-12-03 20:18:37+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -243,7 +243,7 @@ msgstr "Изображений"
 msgid "Type"
 msgstr "Тип"
 
-#: includes/admin/form-fields.php:446
+#: includes/admin/form-fields.php:482
 #: includes/admin/settings/class-settings-bootstrap.php:711
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -252,87 +252,87 @@ msgstr "Тип"
 msgid "Title"
 msgstr "Название"
 
-#: includes/admin/form-fields.php:447 templates/admin/fees-form.tpl.php:213
+#: includes/admin/form-fields.php:483 templates/admin/fees-form.tpl.php:213
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
 #, fuzzy
 msgid "Category"
 msgstr "Рубрика"
 
-#: includes/admin/form-fields.php:448
+#: includes/admin/form-fields.php:484
 #, fuzzy
 msgid "Excerpt"
 msgstr "Цитата"
 
-#: includes/admin/form-fields.php:449
+#: includes/admin/form-fields.php:485
 #, fuzzy
 msgid "Content"
 msgstr "Содержимое"
 
-#: includes/admin/form-fields.php:450
+#: includes/admin/form-fields.php:486
 #, fuzzy
 msgid "Tags"
 msgstr "Метки"
 
-#: includes/admin/form-fields.php:451 includes/form-fields.php:420
+#: includes/admin/form-fields.php:487 includes/form-fields.php:420
 #: templates/checkout-billing-form.tpl.php:75
 #: themes/default/templates/excerpt_content.tpl.php:22
 #, fuzzy
 msgid "Address"
 msgstr "Адрес"
 
-#: includes/admin/form-fields.php:452
+#: includes/admin/form-fields.php:488
 #, fuzzy
 msgid "Address 2"
 msgstr "Адрес"
 
-#: includes/admin/form-fields.php:453
+#: includes/admin/form-fields.php:489
 #: templates/admin/payments-details.tpl.php:141
 #: templates/checkout-billing-form.tpl.php:87
 #, fuzzy
 msgid "City"
 msgstr "Город:"
 
-#: includes/admin/form-fields.php:454
+#: includes/admin/form-fields.php:490
 #: templates/admin/payments-details.tpl.php:137
 #, fuzzy
 msgid "State"
 msgstr "Провинция/Штат:"
 
-#: includes/admin/form-fields.php:455
+#: includes/admin/form-fields.php:491
 #: templates/admin/payments-details.tpl.php:133
 #: templates/checkout-billing-form.tpl.php:102
 #, fuzzy
 msgid "Country"
 msgstr "Страна:"
 
-#: includes/admin/form-fields.php:456 includes/form-fields.php:428
+#: includes/admin/form-fields.php:492 includes/form-fields.php:428
 #: templates/admin/payments-details.tpl.php:145
 msgid "ZIP Code"
 msgstr "Почтовый индекс"
 
-#: includes/admin/form-fields.php:457
+#: includes/admin/form-fields.php:493
 #, fuzzy
 msgid "FAX Number"
 msgstr "Номер факса"
 
-#: includes/admin/form-fields.php:458
+#: includes/admin/form-fields.php:494
 #: includes/fields/class-fieldtypes-phone-number.php:13
 #, fuzzy
 msgid "Phone Number"
 msgstr "Номер телефона"
 
-#: includes/admin/form-fields.php:459
+#: includes/admin/form-fields.php:495
 #, fuzzy
 msgid "Ratings Field"
 msgstr "Рейтинг"
 
-#: includes/admin/form-fields.php:460
+#: includes/admin/form-fields.php:496
 #, fuzzy
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/form-fields.php:461 includes/form-fields.php:386
+#: includes/admin/form-fields.php:497 includes/form-fields.php:386
 #, fuzzy
 msgid "Website"
 msgstr "адрес сайта"
@@ -1431,6 +1431,11 @@ msgstr ""
 #: templates/admin/fees-index.tpl.php:171
 msgid "Set Up"
 msgstr ""
+
+#: templates/admin/form-fields-addoredit.tpl.php:8
+#, fuzzy
+msgid "Add Form Field"
+msgstr "Добавить поле формы"
 
 #: templates/admin/form-fields-confirm-delete.tpl.php:4
 #, fuzzy
@@ -4059,7 +4064,7 @@ msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Поля формы сохранены."
 
-#: includes/admin/form-fields.php:368
+#: includes/admin/form-fields.php:371
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -4073,17 +4078,17 @@ msgstr ""
 "показывался всем посетителям, то Вым нужно <a>разрешить соответствующую "
 "настройку</a>."
 
-#: includes/admin/form-fields.php:410
+#: includes/admin/form-fields.php:446
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Поле удалено."
 
-#: includes/admin/form-fields.php:433
+#: includes/admin/form-fields.php:469
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Обязательное поле удачно создано."
 
-#: includes/admin/form-fields.php:492
+#: includes/admin/form-fields.php:528
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Метки сохранены."
@@ -4219,118 +4224,113 @@ msgctxt "form-fields admin"
 msgid "Show followers count?"
 msgstr "Показать количества записей для каждой рубрики?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:6
-msgctxt "form-fields admin"
-msgid "Add Form Field"
-msgstr "Добавить поле формы"
-
-#: templates/admin/form-fields-addoredit.tpl.php:19
+#: templates/admin/form-fields-addoredit.tpl.php:27
 msgctxt "form-fields admin"
 msgid "Field Association"
 msgstr "Ассоциация"
 
-#: templates/admin/form-fields-addoredit.tpl.php:19
-#: templates/admin/form-fields-addoredit.tpl.php:44
-#: templates/admin/form-fields-addoredit.tpl.php:68
+#: templates/admin/form-fields-addoredit.tpl.php:27
+#: templates/admin/form-fields-addoredit.tpl.php:52
+#: templates/admin/form-fields-addoredit.tpl.php:76
 msgctxt "form-fields admin"
 msgid "required"
 msgstr "обязательно"
 
-#: templates/admin/form-fields-addoredit.tpl.php:44
+#: templates/admin/form-fields-addoredit.tpl.php:52
 msgctxt "form-fields admin"
 msgid "Field Type"
 msgstr "Тип"
 
-#: templates/admin/form-fields-addoredit.tpl.php:68
+#: templates/admin/form-fields-addoredit.tpl.php:76
 msgctxt "form-fields admin"
 msgid "Field Label"
 msgstr "Метка"
 
-#: templates/admin/form-fields-addoredit.tpl.php:78
+#: templates/admin/form-fields-addoredit.tpl.php:86
 msgctxt "form-fields admin"
 msgid "Field description"
 msgstr "Описание"
 
-#: templates/admin/form-fields-addoredit.tpl.php:78
+#: templates/admin/form-fields-addoredit.tpl.php:86
 msgctxt "form-fields admin"
 msgid "optional"
 msgstr "Необязательное"
 
-#: templates/admin/form-fields-addoredit.tpl.php:95
+#: templates/admin/form-fields-addoredit.tpl.php:103
 msgctxt "form-fields admin"
 msgid "Field-specific settings"
 msgstr "Настройки, связанные с полем"
 
-#: templates/admin/form-fields-addoredit.tpl.php:104
+#: templates/admin/form-fields-addoredit.tpl.php:112
 msgctxt "form-fields admin"
 msgid "Field validation options"
 msgstr "Параметры проверки поля"
 
-#: templates/admin/form-fields-addoredit.tpl.php:108
+#: templates/admin/form-fields-addoredit.tpl.php:116
 msgctxt "form-fields admin"
 msgid "Field Validator"
 msgstr "Требования поля"
 
-#: templates/admin/form-fields-addoredit.tpl.php:112
+#: templates/admin/form-fields-addoredit.tpl.php:120
 msgctxt "form-fields admin"
 msgid "No validation"
 msgstr "Без проверки"
 
-#: templates/admin/form-fields-addoredit.tpl.php:124
+#: templates/admin/form-fields-addoredit.tpl.php:132
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Number of words"
 msgstr "Количество изображений:"
 
-#: templates/admin/form-fields-addoredit.tpl.php:134
+#: templates/admin/form-fields-addoredit.tpl.php:142
 msgctxt "form-fields admin"
 msgid "Is field required?"
 msgstr "Обязательное поле?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:140
+#: templates/admin/form-fields-addoredit.tpl.php:148
 msgctxt "form-fields admin"
 msgid "This field is required."
 msgstr "Включите чтобы сделать это поле обязательным для заполнения."
 
-#: templates/admin/form-fields-addoredit.tpl.php:148
+#: templates/admin/form-fields-addoredit.tpl.php:156
 msgctxt "form-fields admin"
 msgid "Field display options"
 msgstr "Параметры отображения поля"
 
-#: templates/admin/form-fields-addoredit.tpl.php:152
+#: templates/admin/form-fields-addoredit.tpl.php:160
 msgctxt "form-fields admin"
 msgid "Field Category Policy:"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:157
+#: templates/admin/form-fields-addoredit.tpl.php:165
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field applies to all categories"
 msgstr "Продлить записи во всех истекших рубриках"
 
-#: templates/admin/form-fields-addoredit.tpl.php:158
+#: templates/admin/form-fields-addoredit.tpl.php:166
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field applies to only certain categories"
 msgstr "Продлить записи во всех истекших рубриках"
 
-#: templates/admin/form-fields-addoredit.tpl.php:162
+#: templates/admin/form-fields-addoredit.tpl.php:170
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Limit field to the following categories:"
 msgstr "Вы можете использовать следующие служебные слова:"
 
-#: templates/admin/form-fields-addoredit.tpl.php:186
+#: templates/admin/form-fields-addoredit.tpl.php:194
 msgctxt "form-fields admin"
 msgid "Click to add categories to the selection."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:199
+#: templates/admin/form-fields-addoredit.tpl.php:207
 msgctxt "form-fields admin"
 msgid "Show this field to admin users only?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:205
+#: templates/admin/form-fields-addoredit.tpl.php:213
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Display this field to admin users only in the edit listing view."
@@ -4338,82 +4338,82 @@ msgstr ""
 "Включите чтобы показывать значение этого поля на странице полной информации "
 "о записи."
 
-#: templates/admin/form-fields-addoredit.tpl.php:211
+#: templates/admin/form-fields-addoredit.tpl.php:219
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr "Показать это поле в составе цитаты?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:217
+#: templates/admin/form-fields-addoredit.tpl.php:225
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr "Включите чтобы показать это поле в составе цитаты."
 
-#: templates/admin/form-fields-addoredit.tpl.php:223
+#: templates/admin/form-fields-addoredit.tpl.php:231
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr "Показать это поле в полном виде?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:229
+#: templates/admin/form-fields-addoredit.tpl.php:237
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr ""
 "Включите чтобы показывать значение этого поля на странице полной информации "
 "о записи."
 
-#: templates/admin/form-fields-addoredit.tpl.php:235
+#: templates/admin/form-fields-addoredit.tpl.php:243
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr "Включить в форму поиска?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:241
+#: templates/admin/form-fields-addoredit.tpl.php:249
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr "Включите чтобы можно было использовать это поле в форме поиска."
 
-#: templates/admin/form-fields-addoredit.tpl.php:247
+#: templates/admin/form-fields-addoredit.tpl.php:255
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "Обязательное поле?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:253
+#: templates/admin/form-fields-addoredit.tpl.php:261
 msgctxt "form-fields admin"
 msgid ""
 "Make this fields required during searches on the Advanced Search screen."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:259
+#: templates/admin/form-fields-addoredit.tpl.php:267
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr "Скрыть метку этого поля?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:265
+#: templates/admin/form-fields-addoredit.tpl.php:273
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr "Включите чтобы при отображении этого поля скрыть его метку."
 
-#: templates/admin/form-fields-addoredit.tpl.php:272
+#: templates/admin/form-fields-addoredit.tpl.php:280
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field privacy options"
 msgstr "Параметры отображения поля"
 
-#: templates/admin/form-fields-addoredit.tpl.php:276
+#: templates/admin/form-fields-addoredit.tpl.php:284
 msgctxt "form-fields admin"
 msgid "This field contains sensitive or private information?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:284
+#: templates/admin/form-fields-addoredit.tpl.php:292
 msgctxt "form-fields admin"
 msgid "Add this field when exporting or deleting user's personal data."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:291
+#: templates/admin/form-fields-addoredit.tpl.php:299
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "Сохранить поле"
 
-#: templates/admin/form-fields-addoredit.tpl.php:293
+#: templates/admin/form-fields-addoredit.tpl.php:301
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "Добавить поле"
