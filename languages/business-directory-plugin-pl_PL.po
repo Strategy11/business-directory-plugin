@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-03 20:18:37+00:00\n"
+"POT-Creation-Date: 2020-12-04 02:46:27+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -2234,6 +2234,10 @@ msgstr ""
 msgid "Postal Code"
 msgstr "Zawartość Posta"
 
+#: templates/checkout.tpl.php:41 templates/submit-listing-section.tpl.php:24
+msgid "Next"
+msgstr ""
+
 # @ WPBDM
 #: templates/deprecated/search.tpl.php:14
 #, fuzzy
@@ -2526,10 +2530,6 @@ msgstr ""
 
 #: templates/submit-listing-section.tpl.php:18
 msgid "Back"
-msgstr ""
-
-#: templates/submit-listing-section.tpl.php:24
-msgid "Next"
 msgstr ""
 
 # @ WPBDM
@@ -9398,11 +9398,6 @@ msgstr ""
 msgctxt "checkout"
 msgid "Select a Payment Method"
 msgstr "Sposób Zapłaty"
-
-#: templates/checkout.tpl.php:41
-msgctxt "checkout"
-msgid "Next"
-msgstr ""
 
 # @ WPBDM
 #: includes/templates-ui.php:389 includes/templates-ui.php:421

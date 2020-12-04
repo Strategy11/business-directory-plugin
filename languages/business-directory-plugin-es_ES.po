@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-03 20:18:37+00:00\n"
+"POT-Creation-Date: 2020-12-04 02:46:27+00:00\n"
 "PO-Revision-Date: 2020-10-07 14:57-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -2009,6 +2009,11 @@ msgstr "Estado/Provincia"
 msgid "Postal Code"
 msgstr "Código postal"
 
+#: templates/checkout.tpl.php:41 templates/submit-listing-section.tpl.php:24
+#, fuzzy
+msgid "Next"
+msgstr "Siguiente"
+
 #: templates/deprecated/search.tpl.php:14
 #, fuzzy
 msgid "Search Results"
@@ -2277,11 +2282,6 @@ msgstr ""
 #: templates/submit-listing-section.tpl.php:18
 msgid "Back"
 msgstr ""
-
-#: templates/submit-listing-section.tpl.php:24
-#, fuzzy
-msgid "Next"
-msgstr "Siguiente"
 
 #: templates/submit-listing-section.tpl.php:28
 #, fuzzy
@@ -8250,11 +8250,6 @@ msgctxt "checkout"
 msgid "Select a Payment Method"
 msgstr "Método de pago"
 
-#: templates/checkout.tpl.php:41
-msgctxt "checkout"
-msgid "Next"
-msgstr "Siguiente"
-
 #: includes/templates-ui.php:389 includes/templates-ui.php:421
 msgctxt "templates sort"
 msgid "Sort By:"
@@ -9169,6 +9164,10 @@ msgstr "Ingrese su dirección de correo-e"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuar"
+
+#~ msgctxt "checkout"
+#~ msgid "Next"
+#~ msgstr "Siguiente"
 
 #~ msgctxt "tracking"
 #~ msgid "No, Thanks."
