@@ -631,7 +631,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		foreach ( $section['include'] as $id => $sub_section ) {
 			$sub_section['id'] = $id;
 			$this->add_html_to_section( $sub_section, $level );
-			$sub_section = apply_filters( 'wpbdp_submit_section_' . $id, $sub_section, $this );
 			if ( ! empty( $sub_section['title'] ) ) {
 				$section['html'] .= '<h3>' . esc_html( $sub_section['title'] ) . '</h3>';
 			}
