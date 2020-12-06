@@ -147,8 +147,8 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             $html .= '<div class="wpbdp_media_images_wrapper">';
             $html .= sprintf( 
                 '<input type="button" class="button" value="%s" id="wpbdp_media_manager" data-action="%s"/>',
-                __( 'Select from Media', 'business-directory-plugin' ),
-                $ajax_url
+                esc_attr__( 'Select from Media', 'business-directory-plugin' ),
+                esc_url( $ajax_url )
             );
             $html .= '</div>';
             $html .= _x( 'or', 'templates image upload', 'business-directory-plugin' );
@@ -170,9 +170,9 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $html .= '<div class="wpbdp-upload-widget"'. ( ! empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
         $html .= sprintf(
             '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
-            $field->get_id(),
-            $field->get_id(),
-            $ajax_url
+            esc_attr( $field->get_id() ),
+            esc_attr( $field->get_id() ),
+            esc_url( $ajax_url )
         );
         $html .= '</div>';
 

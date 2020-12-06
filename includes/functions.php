@@ -1237,12 +1237,12 @@ function wpbdp_get_return_link() {
         }
 
         if ( 'all_listings' === $referer_vars['wpbdp_view'] ) {
-            $msg = _x( 'Go back', 'templates', 'business-directory-plugin' );
+            $msg = __( 'Go back', 'business-directory-plugin' );
         }
     }
 
     if ( strpos( $referer, wpbdp_get_option( 'permalinks-category-slug' ) ) || strpos( $referer, wpbdp_get_option( 'permalinks-tags-slug' ) ) ) {
-        $msg = _x( 'Go back', 'templates', 'business-directory-plugin' );
+        $msg = __( 'Go back', 'business-directory-plugin' );
     }
 
     if ( $msg ) {
