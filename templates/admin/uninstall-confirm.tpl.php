@@ -5,15 +5,9 @@
  * @package WPBDP/Templates/Admin
  */
 
-wpbdp_admin_header(
-    array(
-        'title' => __( 'Uninstall Business Directory Plugin', 'business-directory-plugin' ),
-        'id'    => 'admin-uninstall',
-        'echo'  => true,
-    )
-);
 ?>
 
+<div id="wpbdp-admin-page-uninstall">
 <?php wpbdp_admin_notices(); ?>
 
 <div id="wpbdp-uninstall-messages">
@@ -54,6 +48,5 @@ wpbdp_admin_header(
     </div>
 </div>
 
-<?php echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-capture-form.tpl.php' ); ?>
-
-<?php echo wpbdp_admin_footer(); ?>
+<?php wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-capture-form.tpl.php', array(), true ); ?>
+</div>

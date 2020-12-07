@@ -448,6 +448,15 @@ class WPBDP__Settings_Admin {
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $args );
     }
 
+	/**
+	 * Use for non-settings.
+	 *
+	 * @since x.x
+	 */
+	public function setting_none_callback() {
+		return;
+	}
+
     public function setting_expiration_notices_callback( $setting, $value ) {
 ?>
 <div class="wpbdp-settings-expiration-notices">
