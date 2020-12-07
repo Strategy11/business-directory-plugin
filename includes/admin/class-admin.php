@@ -1032,7 +1032,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function uninstall_plugin() {
             global $wpdb;
 
-            $nonce = isset( $_POST['_wpnonce'] ) ? trim( $_POST['_wpnonce'] ) : '';
+            $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
             if ( $nonce && wp_verify_nonce( $nonce, 'uninstall bd' ) ) {
                 $installer = new WPBDP_Installer( 0 );
@@ -1060,7 +1060,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 wp_clear_scheduled_hook( 'wpbdp_daily_events' );
 
                 $tracking = new WPBDP_SiteTracking();
-                $tracking->track_uninstall( isset( $_POST['uninstall'] ) ? $_POST['uninstall'] : null );
+                $tracking->track_uninstall( wpbdp_get_var( array( 'param' => 'uninstall', 'default' => null ), 'post' ) );
 
                 // Deactivate plugin.
                 $real_path = WPBDP_PATH . 'business-directory-plugin.php';
@@ -1071,10 +1071,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $fixed_path = WP_CONTENT_DIR . '/plugins/' . basename( dirname( $real_path ) ) . '/' . basename( $real_path );
                 deactivate_plugins( $fixed_path, true );
 
-                echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-complete.tpl.php' );
+				$template = 'complete';
             } else {
-                echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-confirm.tpl.php' );
+				$template = 'confirm';
             }
+
+			wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-' . $template . '.tpl.php', array(), true );
         }
 
         /* Required pages check. */
@@ -1102,7 +1104,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          */
         function process_admin_action() {
             if ( isset( $_REQUEST['wpbdp-action'] ) ) {
-                do_action( 'wpbdp_action_' . $_REQUEST['wpbdp-action'] );
+				do_action( 'wpbdp_action_' . wpbdp_get_var( array( 'param' => 'wpbdp-action' ), 'request' ) );
                 // do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
             }
         }

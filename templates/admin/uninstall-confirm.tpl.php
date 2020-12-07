@@ -7,7 +7,7 @@
 
 ?>
 
-<div id="wpbdp-admin-page-uninstall">
+<div id="wpbdp-admin-page-uninstall" class="wpbdp-admin-page-uninstall">
 <?php wpbdp_admin_notices(); ?>
 
 <div id="wpbdp-uninstall-messages">
