@@ -21,7 +21,7 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_settings_group( 'modules', _x( 'Premium Modules', 'settings', 'business-directory-plugin' ) );
 
-		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'wpbdp-attachments' ) );
+		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ) );
     }
 
     public static function register_initial_settings() {
