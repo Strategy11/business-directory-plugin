@@ -20,8 +20,8 @@ class WPBDP_reCAPTCHA {
 
 
     function __construct() {
-        $this->public_key  = trim( wpbdp_get_option( 'recaptcha-public-key' ) );
-        $this->private_key = trim( wpbdp_get_option( 'recaptcha-private-key' ) );
+		$this->public_key  = wpbdp_get_option( 'recaptcha-public-key' );
+		$this->private_key = wpbdp_get_option( 'recaptcha-private-key' );
 
         if ( empty( $this->public_key ) || empty( $this->private_key ) ) {
             return;

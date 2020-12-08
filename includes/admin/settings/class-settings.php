@@ -256,6 +256,11 @@ class WPBDP__Settings {
             }
         }
 
+		if ( is_string( $value ) ) {
+			// Trim the value so we don't have to do it everywhere else.
+			$value = trim( $value );
+		}
+
         return $value;
     }
 
