@@ -38,7 +38,7 @@
         <?php foreach ( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $payment->currency_code ) ) as $gateway ) : ?>
         <label><input type="radio" name="gateway" value="<?php echo $gateway->get_id(); ?>" <?php checked( $chosen_gateway->get_id(), $gateway->get_id() ); ?>/> <?php echo $gateway->get_logo(); ?></label>
         <?php endforeach; ?>
-        <div class="wpbdp-checkout-submit wpbdp-no-js"><input type="submit" value="<?php _ex( 'Next', 'checkout', 'business-directory-plugin' ); ?>" /></div>
+        <div class="wpbdp-checkout-submit wpbdp-no-js"><input type="submit" value="<?php esc_html_e( 'Next', 'business-directory-plugin' ); ?>" /></div>
     </div>
     <!-- end .wpbdp-checkout-gateway-selection -->
 
