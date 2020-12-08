@@ -58,6 +58,7 @@ wpbdp_admin_header(
     endif;
 
     do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
+	do_action( 'wpbdp_settings_subtab_' . $active_subtab );
 
     if ( ! $custom_form ):
         // Submit button shouldn't use 'submit' as name to avoid conflicts with
