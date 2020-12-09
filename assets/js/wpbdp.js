@@ -101,7 +101,7 @@ jQuery(document).ready(function($){
         $( '.wpbdp-listing-contact-form .contact-form-wrapper' ).toggle();
     });
 
-    $( '.wpbdp-listings-sort-options.wpbdp-show-on-mobile select' ).change(function(e) {
+    $( '.wpbdp-listings-sort-options select' ).change(function(e) {
         var selected = $(this).val();
         location.href = selected;
     });
