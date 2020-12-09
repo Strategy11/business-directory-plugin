@@ -246,6 +246,16 @@ class WPBDP_Form_Field {
         $this->validators = $validators;
     }
 
+	/**
+	 * Used for sorting values.
+	 *
+	 * @since x.x
+	 */
+	public function is_numeric() {
+		$is_numeric = $this->has_validator( 'integer_number' ) || $this->has_validator( 'decimal_number' );
+		return apply_filters( 'wpbdp_is_numeric_sort', $is_numeric, $this );
+	}
+
     public function is_required() {
         return in_array( 'required', $this->validators, true );
     }
