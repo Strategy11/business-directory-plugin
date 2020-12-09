@@ -350,6 +350,10 @@ class WPBDP__Query_Integration {
         }
 
         if ( $qn && $qn !== $orderby ) {
+			$is_number = apply_filters( 'wpbdp_is_numeric_sort', false, $field );
+			if ( $is_number ) {
+				$qn .= ' +0';
+			}
             return $orderby . ( $orderby ? ', ' : '' ) . $qn . ' ' . $sort->order;
         } else {
 			return $orderby;
