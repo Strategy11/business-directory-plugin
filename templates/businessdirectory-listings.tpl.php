@@ -33,15 +33,16 @@ $query = isset( $query ) ? $query : wpbdp_current_query();
                 <?php while ( $query->have_posts() ): $query->the_post(); ?>
                     <?php wpbdp_render_listing( null, 'excerpt', 'echo' ); ?>
                 <?php endwhile; ?>
-
-                <div class="wpbdp-pagination">
-                <?php if (function_exists('wp_pagenavi')) : ?>
-                        <?php wp_pagenavi( array( 'query' => $query ) ); ?>
-                <?php else: ?>
-                    <span class="prev"><?php previous_posts_link( __( '&larr; Previous ', 'business-directory-plugin' ) ); ?></span>
-                    <span class="next"><?php next_posts_link( __( 'Next &rarr;', 'business-directory-plugin' ), $query->max_num_pages ); ?></span>
-                <?php endif; ?>
-                </div>
+				<?php
+				wpbdp_render(
+					'parts/pagination',
+					array(
+						'query' => $query,
+						'echo'  => true,
+					),
+					true
+				);
+				?>
             </div>
         <?php endif; ?>
 

@@ -31,8 +31,14 @@ class WPBDP_Listing_Display_Helper {
 
         $n++;
 
+		$pre_content = '';
+		if ( $n === 1 ) {
+			// Add content before.
+			$pre_content = apply_filters( 'wpbdp_before_excerpts', '', $vars );
+		}
+
         // TODO: what do we do with 'wpbdp_excerpt_listing_fields' ?
-        return wpbdp_x_render( 'excerpt', $vars );
+        return $pre_content . wpbdp_x_render( 'excerpt', $vars );
     }
 
     public static function single() {

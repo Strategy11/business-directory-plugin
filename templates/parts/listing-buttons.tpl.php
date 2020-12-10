@@ -45,14 +45,6 @@ if ( 'single' === $view ) :
     ?>
 <?php elseif ( 'excerpt' === $view ) : ?>
     <?php
-    if ( wpbdp_user_can( 'view', $listing_id ) ) :
-        $buttons .= sprintf(
-            '<a class="wpbdp-button button view-listing" href="%s" %s >%s</a>',
-            get_permalink(),
-            wpbdp_get_option( 'listing-link-in-new-tab' ) ? esc_html( 'target="_blank" rel="noopener"' ) : null,
-            _x( 'View', 'templates', 'business-directory-plugin' )
-        );
-    endif;
 
     if ( wpbdp_user_can( 'edit', $listing_id ) ) :
         $buttons .= sprintf(

@@ -372,25 +372,23 @@ function wpbdp_the_listing_excerpt() {
 }
 
 function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_options', 'wpbdp_listing_sort_options_html' ) ) {
-	$sort_options = array();
-    if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
-        $sort_options = wpbdp_maybe_apply_filter( 'wpbdp_listing_sort_options', $filters, array() );
-    }
+	$show_sort    = wpbdp_get_option( 'listings-sortbar-enabled' );
+	$sort_options = $show_sort ? wpbdp_maybe_apply_filter( 'wpbdp_listing_sort_options', $filters, array() ) : array();
 
 	$html = '';
 
-    if ( $sort_options ) {
+	if ( $sort_options ) {
 		$sorting = wpbdp_get_listing_sort_links( $sort_options );
 
-	    $html .= '<div class="wpbdp-listings-sort-options">';
+		$html .= '<div class="wpbdp-listings-sort-options">';
 		$html .= '<label for="wpbdp-sort-bar">' . esc_html_x( 'Sort By:', 'templates sort', 'business-directory-plugin' ) . '</label>';
 		$html .= '<select id="wpbdp-sort-bar" class="">';
 		$html .= implode( ' ', $sorting );
 		$html .= '</select>';
-	    $html .= '</div>';
-    }
+		$html .= '</div>';
+	}
 
-    return wpbdp_maybe_apply_filter( 'wpbdp_listing_sort_options_html', $filters, $html );
+	return wpbdp_maybe_apply_filter( 'wpbdp_listing_sort_options_html', $filters, $html );
 }
 
 /**
@@ -401,12 +399,20 @@ function wpbdp_maybe_apply_filter( $filter, $filters, $value ) {
 }
 
 /**
+ * Get links to include in the sorting options.
+ *
  * @since x.x
  */
 function wpbdp_get_listing_sort_links( $sort_options ) {
 	$current_sort = wpbdp_get_current_sort_option();
 
 	$links = array();
+
+	$links['reset'] = sprintf(
+		'<option value="%s" class="header-option">%s</option>',
+		esc_url( remove_query_arg( 'wpbdp_sort' ) ),
+		esc_html__( 'Default', 'business-directory-plugin' )
+	);
 
 	foreach ( $sort_options as $id => $option ) {
 		$default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
@@ -426,14 +432,6 @@ function wpbdp_get_listing_sort_links( $sort_options ) {
 			esc_url( $link ),
 			esc_attr( $current ),
 			esc_html( $arrow . $option[0] )
-		);
-	}
-
-	if ( $current_sort ) {
-		$links['reset'] = sprintf(
-			'<option value="%s" class="header-option">%s</option>',
-			esc_url( remove_query_arg( 'wpbdp_sort' ) ),
-			esc_html__( 'None', 'business-directory-plugin' )
 		);
 	}
 

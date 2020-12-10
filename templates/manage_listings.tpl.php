@@ -24,15 +24,17 @@
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo WPBDP_Listing_Display_Helper::excerpt();
         endwhile;
+
+		wpbdp_render(
+			'parts/pagination',
+			array(
+				'query' => $query,
+				'echo'  => true,
+			),
+			true
+		);
         ?>
 
-        <div class="wpbdp-pagination">
-        <?php if ( function_exists( 'wp_pagenavi' ) ) : ?>
-            <?php wp_pagenavi( array( 'query' => $query ) ); ?>
-        <?php else : ?>
-            <span class="prev"><?php previous_posts_link( __( '&larr; Previous ', 'business-directory-plugin' ) ); ?></span>
-            <span class="next"><?php next_posts_link( __( 'Next &rarr;', 'business-directory-plugin' ), $query->max_num_pages ); ?></span>
-        <?php endif; ?>
         </div>
     <?php endif; ?>
 </div>
