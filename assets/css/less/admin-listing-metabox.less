@@ -3,6 +3,10 @@
  * @since 3.4
  */
 
+@import 'common.less';
+@import 'submit-listing.less';
+@import 'admin-listing-timeline.less';
+
 #BusinessDirectory_listinginfo .inside {
     margin: 0;
     padding: 0;
@@ -251,7 +255,7 @@ a dl {
 }
 
 // Hide Featured Listings Box when editing/adding a listing in WP backend.
-body.wp-admin.post-php.post-type-wpbdp_listing {
+.post-php.post-type-wpbdp_listing {
     #postimagediv {
         display: none;
     }

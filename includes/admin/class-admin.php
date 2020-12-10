@@ -141,13 +141,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     WPBDP_VERSION
                 );
 
-                wp_enqueue_style(
-                    'wpbdp-listing-admin-timeline',
-                    WPBDP_URL . 'assets/css/admin-listing-timeline.min.css',
-                    array(),
-                    WPBDP_VERSION
-                );
-
                 wp_enqueue_style( 'wpbdp-dnd-upload' );
 
                 wp_enqueue_script(
