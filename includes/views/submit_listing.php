@@ -882,17 +882,22 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     /**
      * @param array $images_  An array of images.
      * @param array $meta     An of metadata for images.
+	 * @param array $thumbnail_id  An integer containing listing featured image id.
      */
-    private function sort_images( $images_, $meta ) {
+    private function sort_images( $images_, $meta, $thumbnail_id = 0 ) {
         // Sort inside $meta first.
         WPBDP__Utils::sort_by_property( $meta, 'order' );
-        $meta = array_reverse( $meta, true );
 
         // Sort $images_ considering $meta.
         $images = array();
 
         foreach ( array_keys( $meta ) as $img_id ) {
             if ( in_array( $img_id, $images_, true ) ) {
+				if ( $thumbnail_id && $img_id === $thumbnail_id ) {
+					// insert thumbnail at the begining of the array.
+					array_unshift( $images, $img_id );
+					continue;
+				}
                 $images[] = $img_id;
             }
         }
@@ -928,7 +933,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $validation_error = '';
 
-        $thumbnail_id = absint( wpbdp_get_var( array( 'param' => 'thumbnail_id', 'default' => 0 ), 'post' ) );
+		$thumbnail_id = absint( wpbdp_get_var( array( 'param' => '_thumbnail_id', 'default' => 0 ), 'post' ) );
 
         if ( ! empty( $thumbnail_id ) ) {
             $listing->set_thumbnail_id( $thumbnail_id );
@@ -965,7 +970,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $thumbnail_id = $this->listing->get_thumbnail_id();
 
         // TODO: replace this with calls to utility functions.
-        $images = $this->sort_images( $images, $images_meta );
+        $images = $this->sort_images( $images, $images_meta, $thumbnail_id );
         $image_slots_remaining = $image_slots - count( $images );
 
         $image_min_file_size = intval( wpbdp_get_option( 'image-min-filesize' ) );

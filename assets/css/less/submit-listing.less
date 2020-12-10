@@ -205,6 +205,18 @@
                 }
             }
 
+			.wpbdp_thumbnail_indicator {
+				font-size: 0.8em;
+			}
+
+			.wpbdp_thumbnail_indicator:not( .current ) {
+				display: none;
+			}
+
+			.wpbdp_thumbnail_indicator::before {
+				content: "✓";
+			}
+			im
             .wpbdp-image-delete-link {
                 font-size: 12px;
                 text-decoration: none;
@@ -222,6 +234,14 @@
                 }
             }
         }
+
+		.wpbdp-drag-handle {
+			visibility: hidden;
+		}
+
+		&:hover .wpbdp-drag-handle {
+			visibility: visible;
+		}
 
         .wpbdp-image-draggable-highlight {
             width: 160px;

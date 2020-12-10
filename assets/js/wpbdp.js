@@ -457,7 +457,14 @@ WPBDP.fileUpload = {
                     var no_images = sorted.length;
 
                     $.each( sorted, function( i, v ) {
-                        $( 'input[name="images_meta[' + v + '][order]"]' ).val( no_images - i );
+						input = $( 'input[name="images_meta[' + v + '][order]"]' ).val( i + 1 );
+
+						if ( 0 == i ) {
+							$( '#_thumbnail_id' ).val( v );
+							input.siblings( '.wpbdp-image-extra' ).find( '.wpbdp_thumbnail_indicator' ).addClass('current');
+						} else {
+							input.siblings( '.wpbdp-image-extra' ).find( '.wpbdp_thumbnail_indicator' ).removeClass('current');
+						}
                     } );
                 }
             });

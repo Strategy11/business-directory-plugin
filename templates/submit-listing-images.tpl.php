@@ -4,7 +4,9 @@ $admin = isset( $admin ) ? $admin : false;
 <?php if ( ! $admin ): ?>
 <div id="current-images-header" style="<?php echo ( ! $images ? 'display: none;' : '' ); ?>">
     <?php esc_html_e( 'Current Images', 'business-directory-plugin' ); ?>
+	<span class="wpbdp-setting-tooltip wpbdp-tooltip dashicons dashicons-warning" title="<?php esc_attr_e( 'Drag and drop to reorder your images', 'business-directory-plugin' ); ?>"></span>
 </div>
+<input type="hidden" id="_thumbnail_id" name="_thumbnail_id" value="<?php echo esc_attr( $thumbnail_id ); ?>"/>
 <?php endif; ?>
 
 <div id="wpbdp-uploaded-images" class="cf">
@@ -21,6 +23,7 @@ foreach ( $images as $image ):
         'image'        => $image,
         'listing_id'   => $listing->get_id(),
         'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ),
+		'admin'        => $admin,
         'echo'         => true,
     );
     if ( ! $admin ):

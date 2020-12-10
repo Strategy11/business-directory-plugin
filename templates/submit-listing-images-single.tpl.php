@@ -9,6 +9,7 @@ if ( isset( $image ) && is_object( $image ) ) {
 ?>
 
 <div class="wpbdp-image" data-imageid="<?php echo $image_id; ?>">
+	<span class="wpbdp-drag-handle"></span>
     <input type="hidden" name="images_meta[<?php echo $image_id; ?>][order]" value="<?php echo ( isset( $weight ) ? $weight : 0 ); ?>" />
 
     <div class="wpbdp-image-img">
@@ -19,10 +20,7 @@ if ( isset( $image ) && is_object( $image ) ) {
         <input type="text" name="images_meta[<?php echo esc_attr( $image_id ); ?>][caption]" value="<?php echo ( isset( $caption ) ? esc_attr( $caption ) : '' ); ?>" placeholder="<?php esc_attr_e( 'Image caption or description', 'business-directory-plugin' ); ?>" />
 		<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'wpbdp-listing-submit-image-delete', 'image_id' => $image_id, 'listing_id' => $listing_id ), admin_url( 'admin-ajax.php' ) ), 'delete-listing-' . $listing_id . '-image-' . $image_id ) ); ?>" class="wpbdp-image-delete-link"><?php esc_html_e( 'Delete image', 'business-directory-plugin' ); ?></a>
 		<div style="clear:both"></div>
-        <label>
-            <input type="radio" name="thumbnail_id" value="<?php echo $image_id; ?>" <?php echo $is_thumbnail ? 'checked="checked"' : ''; ?> />
-            <?php _ex('Set this image as the listing thumbnail.', 'templates', 'business-directory-plugin' ); ?>
-        </label>
+        <span class="wpbdp_thumbnail_indicator <?php echo $is_thumbnail ? 'current' : ''; ?> " > <?php esc_html_e( 'Listing Thumbnail', 'business-directory-plugin' ); ?></span>
     </div>
 
 </div>

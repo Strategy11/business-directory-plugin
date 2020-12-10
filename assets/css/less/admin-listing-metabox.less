@@ -249,3 +249,10 @@ a dl {
         border-bottom: 1px solid #E5E5E5;
     }
 }
+
+// Hide Featured Listings Box when editing/adding a listing in WP backend.
+body.wp-admin.post-php.post-type-wpbdp_listing {
+    #postimagediv {
+        display: none;
+    }
+}

@@ -105,13 +105,14 @@ class WPBDP_Listing {
     }
 
     public function set_thumbnail_id( $image_id ) {
+		delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );
+
         if ( ! $image_id ) {
-            return delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );
+            delete_post_thumbnail( $this->id );
+			return;
         }
 
-        set_post_thumbnail( $this->id, $image_id );
-
-        return update_post_meta( $this->id, '_wpbdp[thumbnail_id]', $image_id );
+        return set_post_thumbnail( $this->id, $image_id );
     }
 
     /**
@@ -122,12 +123,16 @@ class WPBDP_Listing {
      * @return Post     An attachment of this listing.
      */
     public function get_thumbnail() {
-        $thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true );
+        $thumbnail_id = get_post_meta( $this->id, '_thumbnail_id', true );
+
+		if ( ! $thumbnail_id ) {
+			$thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true );
+		}
+
+		$thumbnail = null;
 
         if ( $thumbnail_id ) {
             $thumbnail = get_post( $thumbnail_id );
-        } else {
-            $thumbnail = null;
         }
 
         if ( $thumbnail ) {
