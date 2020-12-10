@@ -53,9 +53,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             // Enables reordering of admin menus.
             add_filter( 'custom_menu_order', '__return_true' );
 
-            // Puts the "Directory" and "Directory Admin" next to each other.
-            add_filter( 'menu_order', array( &$this, 'admin_menu_reorder' ) );
-
             add_filter( 'manage_edit-' . WPBDP_CATEGORY_TAX . '_columns', array( &$this, 'add_custom_taxonomy_columns' ) );
             add_filter( 'manage_edit-' . WPBDP_TAGS_TAX . '_columns', array( &$this, 'tag_taxonomy_columns' ) );
             add_action( 'manage_' . WPBDP_CATEGORY_TAX . '_custom_column', array( &$this, 'custom_taxonomy_columns' ), 10, 3 );
@@ -99,6 +96,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             require_once WPBDP_INC . 'admin/settings/class-settings-admin.php';
             $this->settings_admin = new WPBDP__Settings_Admin();
+
+			add_action( 'wpbdp_settings_subtab_uninstall', array( $this, 'uninstall_plugin' ) );
 
             if ( wpbdp_get_option( 'tracking-on' ) ) {
                 $this->site_tracking = new WPBDP_SiteTracking();
@@ -371,7 +370,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 'title' => __( 'Fee Plans', 'business-directory-plugin' ),
             );
             $menu['wpbdp_admin_formfields'] = array(
-                'title'    => _x( 'Manage Form Fields', 'admin menu', 'business-directory-plugin' ),
+                'title'    => __( 'Form Fields', 'business-directory-plugin' ),
                 'callback' => array( 'WPBDP_FormFieldsAdmin', 'admin_menu_cb' ),
             );
             $menu['wpbdp_admin_payments']   = array(
@@ -401,15 +400,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
             do_action( 'wpbdp_admin_menu', $menu_id );
-
-            add_submenu_page(
-                $menu_id,
-                __( 'Uninstall Business Directory Plugin', 'business-directory-plugin' ),
-                __( 'Uninstall', 'business-directory-plugin' ),
-                'administrator',
-                'wpbdp_uninstall',
-                array( $this, 'uninstall_plugin' )
-            );
 
 			if ( empty( $GLOBALS['submenu'] ) || empty( $GLOBALS['submenu'][ $menu_id ] ) ) {
 				return;
@@ -640,28 +630,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $menu_item_position              = key( $menu_item ); // get the array key (position) of the element
                 $menu[ $menu_item_position ][0] .= ' <span class="update-plugins"><span class="plugin-count">' . $badge_number . '</span></span>';
             }
-        }
-
-        /**
-         * Makes sure that both the "Directory" and "Directory Admin" menus are next to each other.
-         */
-        function admin_menu_reorder( $menu_order ) {
-            $index1 = array_search( 'wpbdp_admin', $menu_order, true );
-            $index2 = array_search( 'edit.php?post_type=' . WPBDP_POST_TYPE, $menu_order, true );
-
-            if ( false === $index1 || false === $index2 ) {
-                return $menu_order;
-            }
-
-            $min = min( $index1, $index2 );
-            $max = max( $index1, $index2 );
-
-            return array_merge(
-                array_slice( $menu_order, 0, $min ),
-                array( $menu_order[ $min ], $menu_order[ $max ] ),
-                array_slice( $menu_order, $min + 1, $max - $min - 1 ),
-                array_slice( $menu_order, $max + 1 )
-            );
         }
 
         public function _checklist_args( $args ) {
@@ -1055,7 +1023,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function uninstall_plugin() {
             global $wpdb;
 
-            $nonce = isset( $_POST['_wpnonce'] ) ? trim( $_POST['_wpnonce'] ) : '';
+            $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
             if ( $nonce && wp_verify_nonce( $nonce, 'uninstall bd' ) ) {
                 $installer = new WPBDP_Installer( 0 );
@@ -1083,7 +1051,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 wp_clear_scheduled_hook( 'wpbdp_daily_events' );
 
                 $tracking = new WPBDP_SiteTracking();
-                $tracking->track_uninstall( isset( $_POST['uninstall'] ) ? $_POST['uninstall'] : null );
+                $tracking->track_uninstall( wpbdp_get_var( array( 'param' => 'uninstall', 'default' => null ), 'post' ) );
 
                 // Deactivate plugin.
                 $real_path = WPBDP_PATH . 'business-directory-plugin.php';
@@ -1094,10 +1062,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $fixed_path = WP_CONTENT_DIR . '/plugins/' . basename( dirname( $real_path ) ) . '/' . basename( $real_path );
                 deactivate_plugins( $fixed_path, true );
 
-                echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-complete.tpl.php' );
+				$template = 'complete';
             } else {
-                echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-confirm.tpl.php' );
+				$template = 'confirm';
             }
+
+			wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-' . $template . '.tpl.php', array(), true );
         }
 
         /* Required pages check. */
@@ -1125,7 +1095,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          */
         function process_admin_action() {
             if ( isset( $_REQUEST['wpbdp-action'] ) ) {
-                do_action( 'wpbdp_action_' . $_REQUEST['wpbdp-action'] );
+				do_action( 'wpbdp_action_' . wpbdp_get_var( array( 'param' => 'wpbdp-action' ), 'request' ) );
                 // do_action( 'wpbdp_dispatch_' . $_REQUEST['wpbdp-action'] );
             }
         }

@@ -20,6 +20,8 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'appearance/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'appearance' );
 
         wpbdp_register_settings_group( 'modules', _x( 'Premium Modules', 'settings', 'business-directory-plugin' ) );
+
+		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ) );
     }
 
     public static function register_initial_settings() {
@@ -28,6 +30,7 @@ final class WPBDP__Settings__Bootstrap {
         self::settings_email();
         self::settings_payment();
         self::settings_appearance();
+		self::settings_misc();
     }
 
     private static function settings_general() {
@@ -1617,4 +1620,39 @@ final class WPBDP__Settings__Bootstrap {
 
         return $sizes;
     }
+
+	/**
+	 * @since x.x
+	 */
+	private static function settings_misc() {
+		self::uninstall_section();
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private static function uninstall_section() {
+		if ( ! current_user_can( 'administrator' ) ) {
+			return;
+		}
+
+		wpbdp_register_settings_group(
+			'uninstall',
+			__( 'Uninstall', 'business-directory-plugin' ),
+			'misc',
+            array(
+                'custom_form' => true,
+            )
+		);
+
+        wpbdp_register_setting(
+            array(
+				'id'      => 'uninstall',
+				'name'    => '',
+				'type'    => 'none',
+				'group'   => 'uninstall',
+            )
+        );
+
+	}
 }

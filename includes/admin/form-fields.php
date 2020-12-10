@@ -209,16 +209,16 @@ class WPBDP_FormFieldsAdmin {
             }
 
             $message .= '<br />';
-            $message .= _x( 'You can create these custom fields by yourself inside "Manage Form Fields" or let Business Directory do this for you automatically.', 'admin', 'business-directory-plugin' );
+            $message .= __( 'You can create these custom fields inside "Form Fields" or let Business Directory do it for you.', 'business-directory-plugin' );
             $message .= '<br /><br />';
             $message .= sprintf(
                 '<a href="%s">%s</a> | ',
-                admin_url( 'admin.php?page=wpbdp_admin_formfields' ),
-                _x( 'Go to "Manage Form Fields"', 'admin', 'business-directory-plugin' )
+                esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields' ) ),
+                __( 'Go to "Form Fields"', 'business-directory-plugin' )
             );
             $message .= sprintf(
                 '<a href="%s">%s</a>',
-                admin_url( 'admin.php?page=wpbdp_admin_formfields&action=createrequired' ),
+                esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=createrequired' ) ),
                 _x( 'Create these required fields for me', 'admin', 'business-directory-plugin' )
             );
 
@@ -306,7 +306,7 @@ class WPBDP_FormFieldsAdmin {
             'formfields-preview',
             array(
                 array(
-                    _x( '← Return to "Manage Form Fields"', 'form-fields admin', 'business-directory-plugin' ),
+                    '← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
                     esc_url( remove_query_arg( 'action' ) ),
                 ),
             )

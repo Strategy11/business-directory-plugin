@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-03 20:18:37+00:00\n"
+"POT-Creation-Date: 2020-12-04 02:46:27+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2010,6 +2010,11 @@ msgstr "Stat/landskap"
 msgid "Postal Code"
 msgstr "Postnummer"
 
+#: templates/checkout.tpl.php:41 templates/submit-listing-section.tpl.php:24
+#, fuzzy
+msgid "Next"
+msgstr "Nästa"
+
 #: templates/deprecated/search.tpl.php:14
 #, fuzzy
 msgid "Search Results"
@@ -2276,11 +2281,6 @@ msgstr ""
 #: templates/submit-listing-section.tpl.php:18
 msgid "Back"
 msgstr ""
-
-#: templates/submit-listing-section.tpl.php:24
-#, fuzzy
-msgid "Next"
-msgstr "Nästa"
 
 #: templates/submit-listing-section.tpl.php:28
 #, fuzzy
@@ -8236,11 +8236,6 @@ msgctxt "checkout"
 msgid "Select a Payment Method"
 msgstr "Välj betalningsmetod"
 
-#: templates/checkout.tpl.php:41
-msgctxt "checkout"
-msgid "Next"
-msgstr "Nästa"
-
 #: includes/templates-ui.php:389 includes/templates-ui.php:421
 msgctxt "templates sort"
 msgid "Sort By:"
@@ -9150,6 +9145,10 @@ msgstr "Skriv in din e-postadress"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Fortsätt "
+
+#~ msgctxt "checkout"
+#~ msgid "Next"
+#~ msgstr "Nästa"
 
 #~ msgctxt "tracking"
 #~ msgid "No, Thanks."

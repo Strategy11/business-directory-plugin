@@ -350,6 +350,9 @@ class WPBDP__Query_Integration {
         }
 
         if ( $qn && $qn !== $orderby ) {
+			if ( $field->is_numeric() ) {
+				$qn .= ' +0';
+			}
             return $orderby . ( $orderby ? ', ' : '' ) . $qn . ' ' . $sort->order;
         } else {
 			return $orderby;

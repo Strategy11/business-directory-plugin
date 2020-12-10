@@ -203,9 +203,9 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
             $icon_input .= '<div class="wpbdp-upload-widget" ' . $show_it . '>';
             $icon_input .= sprintf(
                 '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
-                $field->get_id(),
-                $field->get_id(),
-                $ajax_url
+                esc_attr( $field->get_id() ),
+                esc_attr( $field->get_id() ),
+                esc_url( $ajax_url )
             );
             $icon_input .= '</div>';
     }

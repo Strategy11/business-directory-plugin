@@ -258,7 +258,8 @@ wpbdp_admin_notices();
                     <label>
                         <input name="field[validators][]"
                                value="required-in-search"
-                               type="checkbox" <?php echo in_array( 'required-in-search', $field->get_validators() ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Make this fields required during searches on the Advanced Search screen.', 'form-fields admin', 'business-directory-plugin' ); ?>
+                               type="checkbox" <?php echo in_array( 'required-in-search', $field->get_validators() ) ? 'checked="checked"' : ''; ?>/>
+						<?php esc_html_e( 'Require this field on the Advanced Search screen.', 'business-directory-plugin' ); ?>
                     </label>
                 </td>
             </tr>

@@ -201,7 +201,7 @@ class WPBDP_Themes_Admin {
                     $msg .= '<br /><br />';
                     $msg .= sprintf(
                         '<a href="%s" class="button button-primary">%s</a>',
-                        admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
+                        esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ) ),
                         _x( 'Map My Fields', 'themes', 'business-directory-plugin' )
                     );
 

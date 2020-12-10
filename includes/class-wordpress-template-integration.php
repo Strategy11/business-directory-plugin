@@ -75,12 +75,18 @@ class WPBDP__WordPress_Template_Integration {
         if ( ! $query->is_main_query() )
             return;
 
+		add_filter( 'the_title', '__return_empty_string', 20 );
+
         add_action( 'the_post', array( $this, 'spoof_post' ) );
         remove_filter( 'the_content', 'wpautop' );
         // TODO: we should probably be more clever here to avoid conflicts. Run last so other hooks don't break our
         // output.
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
+
+		// Astra.
+		add_filter( 'astra_the_title_before', '__return_empty_string' );
+		add_filter( 'astra_the_title_after', '__return_empty_string' );
     }
 
     public function spoof_post() {
@@ -255,6 +261,7 @@ class WPBDP__WordPress_Template_Integration {
 
         // Restore title.
         $post->post_title = $this->original_post_title;
+		remove_filter( 'the_title', '__return_empty_string', 20 );
     }
 
     private function end_query() {

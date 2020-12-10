@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-03 20:18:37+00:00\n"
+"POT-Creation-Date: 2020-12-04 02:46:27+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -1851,6 +1851,10 @@ msgstr ""
 msgid "Postal Code"
 msgstr "Postcode"
 
+#: templates/checkout.tpl.php:41 templates/submit-listing-section.tpl.php:24
+msgid "Next"
+msgstr ""
+
 #: templates/deprecated/search.tpl.php:14
 #, fuzzy
 msgid "Search Results"
@@ -2088,10 +2092,6 @@ msgstr ""
 
 #: templates/submit-listing-section.tpl.php:18
 msgid "Back"
-msgstr ""
-
-#: templates/submit-listing-section.tpl.php:24
-msgid "Next"
 msgstr ""
 
 #: templates/submit-listing-section.tpl.php:28
@@ -7945,11 +7945,6 @@ msgstr ""
 #: templates/checkout.tpl.php:37
 msgctxt "checkout"
 msgid "Select a Payment Method"
-msgstr ""
-
-#: templates/checkout.tpl.php:41
-msgctxt "checkout"
-msgid "Next"
 msgstr ""
 
 #: includes/templates-ui.php:389 includes/templates-ui.php:421

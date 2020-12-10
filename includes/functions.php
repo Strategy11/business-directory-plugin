@@ -78,6 +78,7 @@ function wpbdp_get_page_ids_from_cache( $cache, $page_id ) {
     $query  = _wpbdp_page_lookup_query( $page_id, true );
     $query .= ' AND ID IN ( ' . implode( ',', array_map( 'intval', $cache[ $page_id ] ) ) . ' ) ';
 
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
     $count = intval( $wpdb->get_var( $query ) );
 
     if ( $count != count( $cache[ $page_id ] ) ) {
@@ -100,6 +101,7 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
 
     $q .= ' ORDER BY ID ASC ';
 
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
     return $wpdb->get_col( $q );
 }
 
@@ -277,7 +279,12 @@ function wpbdp_get_parent_categories( $catid ) {
 
 function wpbdp_get_parent_catids( $catid ) {
     $parent_categories = wpbdp_get_parent_categories( $catid );
-    array_walk( $parent_categories, create_function( '&$x', '$x = intval($x->term_id);' ) );
+	array_walk(
+		$parent_categories,
+		function( &$x ) {
+			$x = intval( $x->term_id );
+		}
+	);
 
     return $parent_categories;
 }
@@ -375,7 +382,8 @@ function wpbdp_get_post_by_slug( $slug, $post_type = null ) {
 }
 
 function wpbdp_get_current_sort_option() {
-    if ( $sort = trim( wpbdp_getv( $_GET, 'wpbdp_sort', null ) ) ) {
+	$sort = trim( wpbdp_get_var( array( 'param' => 'wpbdp_sort' ) ) );
+    if ( $sort ) {
         $order = substr( $sort, 0, 1 ) == '-' ? 'DESC' : 'ASC';
         $sort  = ltrim( $sort, '-' );
 
@@ -1070,7 +1078,6 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
 
     $q->the_post();
 
-    // TODO: review filters/actions before next-release (previously _wpbdp_render_excerpt() and _wpbdp_render_single().
     if ( 'excerpt' === $view ) {
         $html = WPBDP_Listing_Display_Helper::excerpt();
     } else {
@@ -1237,12 +1244,12 @@ function wpbdp_get_return_link() {
         }
 
         if ( 'all_listings' === $referer_vars['wpbdp_view'] ) {
-            $msg = _x( 'Go back', 'templates', 'business-directory-plugin' );
+            $msg = __( 'Go back', 'business-directory-plugin' );
         }
     }
 
     if ( strpos( $referer, wpbdp_get_option( 'permalinks-category-slug' ) ) || strpos( $referer, wpbdp_get_option( 'permalinks-tags-slug' ) ) ) {
-        $msg = _x( 'Go back', 'templates', 'business-directory-plugin' );
+        $msg = __( 'Go back', 'business-directory-plugin' );
     }
 
     if ( $msg ) {

@@ -372,79 +372,70 @@ function wpbdp_the_listing_excerpt() {
 }
 
 function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_options', 'wpbdp_listing_sort_options_html' ) ) {
-    if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
-        $sort_options =  in_array( 'wpbdp_listing_sort_options', $filters ) ? apply_filters( 'wpbdp_listing_sort_options', array() ) : array();
-    } else {
-        $sort_options = array();
-    }
+	$show_sort    = wpbdp_get_option( 'listings-sortbar-enabled' );
+	$sort_options = $show_sort ? wpbdp_maybe_apply_filter( 'wpbdp_listing_sort_options', $filters, array() ) : array();
 
-    if ( ! $sort_options ) {
-        return in_array( 'wpbdp_listing_sort_options_html', $filters ) ? apply_filters( 'wpbdp_listing_sort_options_html', '' ) : $sort_options;
-    }
+	$html = '';
 
-    $current_sort = wpbdp_get_current_sort_option();
+	if ( $sort_options ) {
+		$sorting = wpbdp_get_listing_sort_links( $sort_options );
 
-    $html  = '';
-    $html .= '<div class="wpbdp-listings-sort-options wpbdp-hide-on-mobile">';
-    $html .= _x( 'Sort By:', 'templates sort', 'business-directory-plugin' ) . ' ';
+		$html .= '<div class="wpbdp-listings-sort-options">';
+		$html .= '<label for="wpbdp-sort-bar">' . esc_html_x( 'Sort By:', 'templates sort', 'business-directory-plugin' ) . '</label>';
+		$html .= '<select id="wpbdp-sort-bar" class="">';
+		$html .= implode( ' ', $sorting );
+		$html .= '</select>';
+		$html .= '</div>';
+	}
 
-    foreach ( $sort_options as $id => $option ) {
-        $default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
+	return wpbdp_maybe_apply_filter( 'wpbdp_listing_sort_options_html', $filters, $html );
+}
 
-        $html .= sprintf(
-            '<span class="%s %s"><a href="%s" title="%s" rel="nofollow">%s</a> %s</span>',
-            $id,
-            ( $current_sort && $current_sort->option == $id ) ? 'current' : '',
-            esc_attr( ( $current_sort && $current_sort->option == $id ) ? add_query_arg( 'wpbdp_sort', ( $current_sort->order == 'ASC' ? '-' : '' ) . $id ) : add_query_arg( 'wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' ) . $id ) ),
-            isset( $option[1] ) && ! empty( $option[1] ) ? esc_attr( $option[1] ) : esc_attr( $option[0] ),
-            $option[0],
-            ( $current_sort && $current_sort->option == $id ) ? ( $current_sort->order == 'ASC' ? '↑' : '↓' ) : ( $default_order == 'DESC' ? '↓' : '↑' )
-        );
-        $html .= ' | ';
-    }
-    $html  = substr( $html, 0, -3 );
-    $html .= '<br />';
+/**
+ * @since x.x
+ */
+function wpbdp_maybe_apply_filter( $filter, $filters, $value ) {
+	return in_array( $filter, $filters ) ? apply_filters( $filter, $value ) : $value;
+}
 
-    if ( $current_sort ) {
-        $html .= sprintf(
-            '(<a href="%s" class="reset" rel="nofollow">%s</a>)',
-            esc_attr( remove_query_arg( 'wpbdp_sort' ) ),
-            _x( 'Reset', 'sort', 'business-directory-plugin' )
-        );
-    }
-    $html .= '</div>';
+/**
+ * Get links to include in the sorting options.
+ *
+ * @since x.x
+ */
+function wpbdp_get_listing_sort_links( $sort_options ) {
+	$current_sort = wpbdp_get_current_sort_option();
 
-    $html .= '<div class="wpbdp-listings-sort-options wpbdp-show-on-mobile">';
+	$links = array();
 
-    $html .= '<label for="wpbdp-sort-bar" style="display:none;">Sort By:</label>';
-    $html .= '<select id="wpbdp-sort-bar" class="">';
-    $html .= '<option value="0" class="header-option">' . _x( 'Sort By:', 'templates sort', 'business-directory-plugin' ) . '</option>';
+	$links['reset'] = sprintf(
+		'<option value="%s" class="header-option">%s</option>',
+		esc_url( remove_query_arg( 'wpbdp_sort' ) ),
+		esc_html__( 'Default', 'business-directory-plugin' )
+	);
 
-    foreach ( $sort_options as $id => $option ) {
-        $default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
+	foreach ( $sort_options as $id => $option ) {
+		$default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
 
-        $html .= sprintf(
-            '<option value="%s" %s>%s%s %s</option>',
-            esc_attr( ( $current_sort && $current_sort->option == $id ) ? add_query_arg( 'wpbdp_sort', ( $current_sort->order == 'ASC' ? '-' : '' ) . $id ) : add_query_arg( 'wpbdp_sort', ( $default_order == 'DESC' ? '-' : '' ) . $id ) ),
-            ( $current_sort && $current_sort->option == $id ) ? 'selected="selected"' : '',
-            str_repeat( '&nbsp;', 3 ),
-            $option[0],
-            ( $current_sort && $current_sort->option == $id ) ? ( $current_sort->order == 'ASC' ? '↑' : '↓' ) : ( $default_order == 'DESC' ? '↓' : '↑' )
-        );
-    }
+		if ( $current_sort && $current_sort->option == $id ) {
+			$link  = add_query_arg( 'wpbdp_sort', ( $current_sort->order === 'ASC' ? '-' : '' ) . $id );
+			$arrow = $current_sort->order === 'ASC' ? '↑ ' : '↓ ';
+		} else {
+			$link  = add_query_arg( 'wpbdp_sort', ( $default_order === 'DESC' ? '-' : '' ) . $id );
+			$arrow = '';
+		}
 
-    if ( $current_sort ) {
-        $html .= sprintf(
-            '<option value="%s" class="header-option">%s</option>',
-            esc_attr( remove_query_arg( 'wpbdp_sort' ) ),
-            _x( '(Reset)', 'sort', 'business-directory-plugin' )
-        );
-    }
+		$current = ( $current_sort && $current_sort->option == $id ) ? 'selected="selected"' : '';
 
-    $html .= '</select>';
-    $html .= '</div>';
+		$links[ $id ] = sprintf(
+			'<option value="%s" %s>%s</option>',
+			esc_url( $link ),
+			esc_attr( $current ),
+			esc_html( $arrow . $option[0] )
+		);
+	}
 
-    return in_array( 'wpbdp_listing_sort_options_html', $filters ) ? apply_filters( 'wpbdp_listing_sort_options_html', $html ) : $html;
+	return $links;
 }
 
 function wpbdp_the_listing_sort_options() {
@@ -566,32 +557,50 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
         $listing_link_in_new_tab = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '"_blank" rel="noopener"' : '"_self"';
     }
 
-    if ( $image_img ) {
-        if ( ! $image_link ) {
-            return $image_img;
-        } else {
-            $image_link = apply_filters( 'wpbdp_listing_thumbnail_link', $image_link, $listing_id, $args );
+	$args['image_img']   = $image_img;
+	$args['image_link']  = $image_link;
+	$args['listing_id']  = $listing_id;
+	$args['image_title'] = $image_title;
+	$args['listing_link_in_new_tab'] = $listing_link_in_new_tab;
 
-            if ( ! $image_link ) {
-                return sprintf(
-                    '<div class="listing-thumbnail">%s</div>',
-                    $image_img
-                );
-            }
+	$image_html = wpbdp_thumbnail_html( $args );
 
-            return sprintf(
-                '<div class="listing-thumbnail"><a href="%s" target=%s class="%s" title="%s" %s>%s</a></div>',
-                $image_link,
-                $listing_link_in_new_tab,
-                $args['link'] == 'picture' ? 'thickbox' : '',
-                $image_title,
-                $args['link'] == 'picture' ? 'data-lightbox="wpbdpgal" rel="wpbdpgal"' : '',
-                $image_img
-            );
-        }
-    }
+	/**
+	 * @since x.x
+	 */
+    return apply_filters( 'wpbdp_thumbnail_html', $image_html, $args );
+}
 
-    return '';
+function wpbdp_thumbnail_html( $args ) {
+	$image_img  = $args['image_img'];
+	$image_link = $args['image_link'];
+
+	if ( ! $image_img ) {
+		return '';
+	}
+
+	if ( ! $image_link ) {
+        return $image_img;
+	}
+
+	$image_link = apply_filters( 'wpbdp_listing_thumbnail_link', $image_link, $args['listing_id'], $args );
+
+	if ( ! $image_link ) {
+		return sprintf(
+			'<div class="listing-thumbnail">%s</div>',
+			$image_img
+		);
+	}
+
+	return sprintf(
+		'<div class="listing-thumbnail"><a href="%s" target=%s class="%s" title="%s" %s>%s</a></div>',
+		esc_url( $image_link ),
+		esc_attr( $args['listing_link_in_new_tab'] ),
+		esc_attr( $args['link'] == 'picture' ? 'thickbox' : '' ),
+		esc_attr( $args['image_title'] ),
+		$args['link'] == 'picture' ? 'data-lightbox="wpbdpgal" rel="wpbdpgal"' : '',
+		$image_img
+	);
 }
 
 class WPBDP_ListingFieldDisplayItem {
