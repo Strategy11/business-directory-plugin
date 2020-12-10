@@ -527,7 +527,9 @@ class WPBDP_Admin_Listings {
 
         $listing = wpbdp_get_listing( $post_id );
 
-        $thumbnail_id = intval( $_POST['_thumbnail_id'] ) > 0 ? intval( $_POST['_thumbnail_id'] ) : ( ! empty( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : 0 );
+		$_thumbnail_id = intval( wpbdp_get_var( array( 'param' => '_thumbnail_id' ), 'post' ) );
+		$thumbnail_id  = intval( wpbdp_get_var( array( 'param' => 'thumbnail_id' ), 'post' ) );
+		$thumbnail_id  = $_thumbnail_id > 0 ? $_thumbnail_id : $thumbnail_id;
 
         // Update image information.
         if ( $thumbnail_id > 0 ) {
@@ -536,10 +538,9 @@ class WPBDP_Admin_Listings {
         }
 
         // Images info.
-        if ( ! empty( $_POST['images_meta'] ) ) {
-            $meta = $_POST['images_meta'];
-
-            $images = array_keys( $meta );
+		$meta = wpbdp_get_var( array( 'param' => 'images_meta' ), 'post' );
+		if ( ! empty( $meta ) ) {
+			$images = array_keys( $meta );
 
             update_post_meta( $post_id, '_wpbdp[images]', $images );
 

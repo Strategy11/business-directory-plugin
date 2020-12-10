@@ -893,11 +893,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         foreach ( array_keys( $meta ) as $img_id ) {
             if ( in_array( $img_id, $images_, true ) ) {
-				if ( $thumbnail_id && $img_id === $thumbnail_id ) {
-					// insert thumbnail at the begining of the array.
-					array_unshift( $images, $img_id );
-					continue;
-				}
                 $images[] = $img_id;
             }
         }
@@ -909,6 +904,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $images[] = $img_id;
         }
+
+		// Add thumbnail as first image.
+		if ( $thumbnail_id ) {
+			array_unshift( $images, $thumbnail_id );
+			$images = array_unique( $images );
+		}
 
         return $images;
     }
@@ -940,13 +941,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $images = $this->listing->get_images( 'ids' );
-
-        // foreach ( $images as $img_id ) {
-        //     $updated_meta = ( ! empty( $_POST['images_meta'][ $img_id ] ) ) ? (array) $_POST['images_meta'][ $img_id ] : array();
-        //
-        //     update_post_meta( $img_id, '_wpbdp_image_weight', ! empty( $updated_meta['order'] ) ? intval( $updated_meta['order'] ) : 0 );
-        //     update_post_meta( $img_id, '_wpbdp_image_caption', ! empty( $updated_meta['caption'] ) ? trim( $updated_meta['caption'] ) : '' );
-        // }
 
         $images_meta = $this->listing->get_images_meta();
 

@@ -104,16 +104,16 @@ class WPBDP_Listing {
             wp_update_post( array( 'ID' => $image_id, 'post_parent' => $this->id ) );
     }
 
-    public function set_thumbnail_id( $image_id ) {
+	public function set_thumbnail_id( $image_id ) {
 		delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );
 
-        if ( ! $image_id ) {
-            delete_post_thumbnail( $this->id );
+		if ( ! $image_id ) {
+			delete_post_thumbnail( $this->id );
 			return;
-        }
+		}
 
-        return set_post_thumbnail( $this->id, $image_id );
-    }
+		set_post_thumbnail( $this->id, $image_id );
+	}
 
     /**
      * Gets the attachment object that representes this listing's thumbnail.
@@ -123,17 +123,13 @@ class WPBDP_Listing {
      * @return Post     An attachment of this listing.
      */
     public function get_thumbnail() {
-        $thumbnail_id = get_post_meta( $this->id, '_thumbnail_id', true );
+		$thumbnail_id = get_post_meta( $this->id, '_thumbnail_id', true );
 
 		if ( ! $thumbnail_id ) {
 			$thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true );
 		}
 
-		$thumbnail = null;
-
-        if ( $thumbnail_id ) {
-            $thumbnail = get_post( $thumbnail_id );
-        }
+		$thumbnail = $thumbnail_id ? get_post( $thumbnail_id ) : null;
 
         if ( $thumbnail ) {
             return $thumbnail;

@@ -18,9 +18,9 @@ $delete_link = add_query_arg(
 $delete_link = wp_nonce_url( $delete_link, 'delete-listing-' . $listing_id . '-image-' . $image_id );
 ?>
 
-<div class="wpbdp-image" data-imageid="<?php echo $image_id; ?>">
+<div class="wpbdp-image" data-imageid="<?php echo esc_attr( $image_id ); ?>">
 	<span class="wpbdp-drag-handle"></span>
-    <input type="hidden" name="images_meta[<?php echo $image_id; ?>][order]" value="<?php echo ( isset( $weight ) ? $weight : 0 ); ?>" />
+	<input type="hidden" name="images_meta[<?php echo esc_attr( $image_id ); ?>][order]" value="<?php echo esc_attr( isset( $weight ) ? $weight : 0 ); ?>" />
 
     <div class="wpbdp-image-img">
         <?php echo wp_get_attachment_image( $image_id, 'wpbdp-thumb' ); ?>
