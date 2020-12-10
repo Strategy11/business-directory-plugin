@@ -141,8 +141,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     WPBDP_VERSION
                 );
 
-                wp_enqueue_style( 'wpbdp-dnd-upload' );
-
                 wp_enqueue_script(
                     'wpbdp-admin-listing',
                     WPBDP_URL . 'assets/js/admin-listing.min.js',

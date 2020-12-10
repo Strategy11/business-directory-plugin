@@ -60,12 +60,6 @@ class WPBDP__Assets {
         );
 
         // Drag & Drop.
-        wp_register_style(
-            'wpbdp-dnd-upload',
-            WPBDP_URL . 'assets/css/dnd-upload.min.css',
-            array(),
-            WPBDP_VERSION
-        );
         wp_register_script(
             'wpbdp-dnd-upload',
             WPBDP_URL . 'assets/js/dnd-upload.min.js',
@@ -160,7 +154,6 @@ class WPBDP__Assets {
             )
         );
 
-        wp_enqueue_style( 'wpbdp-dnd-upload' );
         wp_enqueue_script( 'wpbdp-dnd-upload' );
 
         if ( wpbdp_get_option( 'use-thickbox' ) ) {
