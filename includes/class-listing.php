@@ -56,15 +56,20 @@ class WPBDP_Listing {
         }
 
         if ( $result && $sorted ) {
-            uasort( $result, function( $x, $y ) { 
-                return $y->weight - $x->weight; 
-                }
-            );
-            if ( 'id' == $fields || 'ids' == $fields ) {
-                foreach ( $result as $i => $img ) {
-                    $result[$i] = $img->id;
-                }
-            }
+			uasort(
+				$result,
+				function( $x, $y ) {
+	            	return $y->weight - $x->weight;
+	            }
+	        );
+			$result = array_reverse( $result, true );
+	        if ( 'id' === $fields || 'ids' === $fields ) {
+	            foreach ( $result as $i => $img ) {
+	                $result[$i] = $img->id;
+	            }
+	        }
+
+	        $this->prepend_thumbnail( $result, $fields );
         }
 
         return $result;
@@ -120,29 +125,23 @@ class WPBDP_Listing {
      *
      * @since 5.1.7
      *
-     * @return Post     An attachment of this listing.
+     * @return null|object Post     An attachment of this listing.
      */
     public function get_thumbnail() {
-		$thumbnail_id = get_post_meta( $this->id, '_thumbnail_id', true );
-
-		if ( ! $thumbnail_id ) {
-			$thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true );
-		}
-
-		$thumbnail = $thumbnail_id ? get_post( $thumbnail_id ) : null;
+		$thumbnail = $this->get_saved_thumbnail();
 
         if ( $thumbnail ) {
             return $thumbnail;
         }
 
+		// If no thumbnail is saved, use the first image.
         $images = $this->get_images( 'ids' );
 
-        if ( ! $images && $thumbnail_id ) {
-            $this->set_thumbnail_id( 0 );
-            return null;
-        }
-
         if ( ! $images ) {
+			if ( $thumbnail_id ) {
+				// Clear out previous value.
+				$this->set_thumbnail_id( 0 );
+			}
             return null;
         }
 
@@ -150,6 +149,52 @@ class WPBDP_Listing {
 
         return get_post( $images[0] );
     }
+
+	/**
+	 * Get saved thumbnail image.
+	 *
+	 * @since x.x
+	 */
+	private function get_saved_thumbnail() {
+		$thumbnail_id = get_post_meta( $this->id, '_thumbnail_id', true );
+
+		if ( ! $thumbnail_id ) {
+			$thumbnail_id = get_post_meta( $this->id, '_wpbdp[thumbnail_id]', true );
+		}
+
+		return $thumbnail_id ? get_post( $thumbnail_id ) : null;
+	}
+
+	/**
+	 * Add thumbnail as first image.
+	 *
+	 * @since x.x
+	 */
+	private function prepend_thumbnail( &$images, $fields = 'ids' ) {
+		$thumbnail = $this->get_saved_thumbnail();
+		if ( ! $thumbnail ) {
+			return;
+		}
+
+		if ( $fields === 'ids' || $fields === 'id' ) {
+			$thumbnail = $thumbnail->ID;
+			$find = array_search( $images, $thumbnail );
+		} else {
+			foreach ( $images as $k => $image ) {
+				if ( $image->id === $thumbnail->ID ) {
+					$thumbnail = $image;
+					$find = $k;
+					break;
+				}
+			}
+		}
+
+		if ( isset( $find ) ) {
+			unset( $images[ $find ] );
+		}
+
+		array_unshift( $images, $thumbnail );
+	}
 
     /**
      * Get the ID of the attachment that represents this listing's thumbnail.

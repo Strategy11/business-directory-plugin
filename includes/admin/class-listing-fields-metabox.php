@@ -62,8 +62,6 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         $images       = $this->listing->get_images( 'all', true );
         $thumbnail_id = $this->listing->get_thumbnail_id();
 
-		$this->fix_images_weight( $images, $thumbnail_id );
-
         echo '<div class="wpbdp-submit-listing-section-listing_images">';
         echo wpbdp_render(
             'submit-listing-images',
@@ -76,32 +74,6 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         );
         echo '</div>';
     }
-
-	/**
-	 * @since x.x
-	 */
-	private function fix_images_weight( &$images, $thumbnail_id ) {
-		if ( empty( $images ) ) {
-			return;
-		}
-
-		$weight = 1;
-		foreach( $images as $image ) {
-			if ( $image->id === $thumbnail_id ) {
-				$image->weight = 1;
-				continue;
-			}
-
-			$image->weight = ++$weight;
-		}
-
-		uasort(
-			$images,
-			function( $x, $y ) { 
-				return $x->weight - $y->weight; 
-			}
-		);
-	}
 
     public static function metabox_callback( $post ) {
         $listing = WPBDP_Listing::get( $post->ID );

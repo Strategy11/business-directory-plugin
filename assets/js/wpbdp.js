@@ -459,7 +459,7 @@ WPBDP.fileUpload = {
 						$( 'input[name="images_meta[' + v + '][order]"]' ).val( i + 1 );
 
 						if ( 0 === i ) {
-							$( '#thumbnail_id' ).val( v );
+							document.getElementById('_thumbnail_id').value = v;
 						}
                     } );
                 }

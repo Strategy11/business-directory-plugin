@@ -884,7 +884,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      * @param array $meta     An of metadata for images.
 	 * @param array $thumbnail_id  An integer containing listing featured image id.
      */
-    private function sort_images( $images_, $meta, $thumbnail_id = 0 ) {
+    public function sort_images( $images_, $meta ) {
         // Sort inside $meta first.
         WPBDP__Utils::sort_by_property( $meta, 'order' );
 
@@ -905,14 +905,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $images[] = $img_id;
         }
 
-		// Add thumbnail as first image.
-		if ( $thumbnail_id ) {
-			array_unshift( $images, $thumbnail_id );
-			$images = array_unique( $images );
-		}
-
         return $images;
-    }
+	}
 
     private function listing_images() {
         if ( ! wpbdp_get_option( 'allow-images' ) ) {
@@ -964,7 +958,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $thumbnail_id = $this->listing->get_thumbnail_id();
 
         // TODO: replace this with calls to utility functions.
-        $images = $this->sort_images( $images, $images_meta, $thumbnail_id );
+        $images = $this->sort_images( $images, $images_meta );
+
         $image_slots_remaining = $image_slots - count( $images );
 
         $image_min_file_size = intval( wpbdp_get_option( 'image-min-filesize' ) );

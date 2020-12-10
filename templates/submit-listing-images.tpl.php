@@ -3,7 +3,7 @@ $admin = isset( $admin ) ? $admin : false;
 
 if ( ! $admin ) :
 	?>
-<input type="hidden" id="thumbnail_id" name="_thumbnail_id" value="<?php echo esc_attr( $thumbnail_id ); ?>"/>
+<input type="hidden" id="_thumbnail_id" name="_thumbnail_id" value="<?php echo esc_attr( $thumbnail_id ); ?>"/>
 <?php endif; ?>
 
 <div id="current-images-header" style="<?php echo ( ! $images ? 'display: none;' : '' ); ?>">
