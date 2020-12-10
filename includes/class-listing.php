@@ -49,9 +49,11 @@ class WPBDP_Listing {
 
             if ( ! $sorted && ( 'id' == $fields || 'ids' == $fields ) ) {
                 $result[] = $attachment->ID;
-            }
-            else {
-                $result[] = WPBDP_Listing_Image::get( $attachment->ID );
+			} else {
+				$img = WPBDP_Listing_Image::get( $attachment->ID );
+				if ( $img ) {
+					$result[] = $img;
+				}
             }
         }
 
@@ -178,7 +180,7 @@ class WPBDP_Listing {
 
 		if ( $fields === 'ids' || $fields === 'id' ) {
 			$thumbnail = $thumbnail->ID;
-			$find = array_search( $images, $thumbnail );
+			$find = array_search( $thumbnail, $images, true );
 		} else {
 			foreach ( $images as $k => $image ) {
 				if ( $image->id === $thumbnail->ID ) {
