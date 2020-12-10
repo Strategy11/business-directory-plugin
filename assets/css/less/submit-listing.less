@@ -174,92 +174,6 @@
         height: 422px;
     }
 
-    .wpbdp-submit-listing-section-listing_images {
-
-        #image-upload-form {
-            margin: 15px 10px;
-        }
-
-        #wpbdp-uploaded-images {
-            margin: 0 0 20px 0;
-        }
-
-        .wpbdp-image {
-            padding: 10px 0;
-            border-bottom: dotted 1px #efefef;
-
-            .wpbdp-image-img {
-                width: 60px;
-                float: left;
-
-				img {
-					object-fit: cover;
-					width: 50px;
-					height: 50px;
-				}
-            }
-
-            .wpbdp-image-extra {
-                input[type="text"] {
-                    width: 60%;
-                }
-            }
-
-			.wpbdp_thumbnail_indicator {
-				font-size: 0.8em;
-			}
-
-			.wpbdp_thumbnail_indicator:not( .current ) {
-				display: none;
-			}
-
-			.wpbdp_thumbnail_indicator::before {
-				content: "✓";
-			}
-			im
-            .wpbdp-image-delete-link {
-                font-size: 12px;
-                text-decoration: none;
-                color: #900000;
-                display: none;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-
-            &:hover {
-                .wpbdp-image-delete-link {
-                    display: inline;
-                }
-            }
-        }
-
-		.wpbdp-drag-handle {
-			visibility: hidden;
-		}
-
-		&:hover .wpbdp-drag-handle {
-			visibility: visible;
-		}
-
-        .wpbdp-image-draggable-highlight {
-            width: 160px;
-            height: 160px;
-            margin: 0 10px;
-            background: red;
-            float: left;
-        }
-
-        #image-upload-form-no-js {
-            width: 0;
-            height: 0;
-            overflow: hidden;
-            visibility: hidden;
-        }
-
-    }
-
     .wpbdp-submit-listing-section-listing_fields {
 
         .wpbdp-submit-listing-form-actions {
@@ -391,6 +305,94 @@
 			}
 		}
 	}
+}
+
+.wpbdp-submit-listing-section-listing_images {
+
+    #image-upload-form {
+        margin: 15px 10px;
+    }
+
+    #wpbdp-uploaded-images {
+        margin: 0 0 20px 0;
+    }
+
+    .wpbdp-image {
+        padding: 10px 0;
+        border-bottom: dotted 1px #efefef;
+
+        .wpbdp-image-img {
+            margin: 0 10px;
+            float: left;
+
+			img {
+				object-fit: cover;
+				width: 50px;
+				height: 50px;
+			}
+        }
+
+		.wpbdp_thumbnail_indicator {
+			font-size: 0.8em;
+			display: none;
+		}
+
+		&:first-of-type .wpbdp_thumbnail_indicator {
+			display: inline-block;
+
+			&::before {
+				content: "✓";
+			}
+		}
+
+        .wpbdp-image-extra {
+            input[type="text"] {
+                width: 60%;
+            }
+        }
+
+        .wpbdp-image-delete-link {
+            font-size: 12px;
+            text-decoration: none;
+            color: #900000;
+            display: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &:hover {
+            .wpbdp-image-delete-link {
+                display: inline;
+            }
+        }
+    }
+
+	.wpbdp-drag-handle {
+		visibility: hidden;
+		margin-top: 20px;
+	}
+
+	&:hover .wpbdp-drag-handle {
+		visibility: visible;
+	}
+
+    .wpbdp-image-draggable-highlight {
+        width: 160px;
+        height: 160px;
+        margin: 0 10px;
+        background: red;
+        float: left;
+    }
+
+    #image-upload-form-no-js {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+    }
+
 }
 
 .wpbdp-submit-listing-section {

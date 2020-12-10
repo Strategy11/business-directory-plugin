@@ -459,11 +459,8 @@ WPBDP.fileUpload = {
                     $.each( sorted, function( i, v ) {
 						input = $( 'input[name="images_meta[' + v + '][order]"]' ).val( i + 1 );
 
-						if ( 0 == i ) {
+						if ( 0 === i ) {
 							$( '#_thumbnail_id' ).val( v );
-							input.siblings( '.wpbdp-image-extra' ).find( '.wpbdp_thumbnail_indicator' ).addClass('current');
-						} else {
-							input.siblings( '.wpbdp-image-extra' ).find( '.wpbdp_thumbnail_indicator' ).removeClass('current');
 						}
                     } );
                 }

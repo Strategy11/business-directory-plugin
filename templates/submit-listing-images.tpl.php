@@ -1,13 +1,14 @@
 <?php
 $admin = isset( $admin ) ? $admin : false;
-?>
-<?php if ( ! $admin ): ?>
-<div id="current-images-header" style="<?php echo ( ! $images ? 'display: none;' : '' ); ?>">
-    <?php esc_html_e( 'Current Images', 'business-directory-plugin' ); ?>
-	<span class="wpbdp-setting-tooltip wpbdp-tooltip dashicons dashicons-warning" title="<?php esc_attr_e( 'Drag and drop to reorder your images', 'business-directory-plugin' ); ?>"></span>
-</div>
+
+if ( ! $admin ) :
+	?>
 <input type="hidden" id="_thumbnail_id" name="_thumbnail_id" value="<?php echo esc_attr( $thumbnail_id ); ?>"/>
 <?php endif; ?>
+
+<div id="current-images-header" style="<?php echo ( ! $images ? 'display: none;' : '' ); ?>">
+    <?php esc_html_e( 'Current Images', 'business-directory-plugin' ); ?>
+</div>
 
 <div id="wpbdp-uploaded-images" class="cf">
 
@@ -28,8 +29,12 @@ foreach ( $images as $image ):
     );
     if ( ! $admin ):
         $vars['image_id'] = $image_id;
-        $vars['weight']   = $images_meta[ $image_id ]['order'];
-        $vars['caption']  = $images_meta[ $image_id ]['caption'];
+		if ( isset( $images_meta[ $image_id ]['order'] ) ) {
+			$vars['weight'] = $images_meta[ $image_id ]['order'];
+		}
+		if ( isset( $images_meta[ $image_id ]['caption'] ) ) {
+			$vars['caption']  = $images_meta[ $image_id ]['caption'];
+		}
     endif;
 
     wpbdp_render( 'submit-listing-images-single', $vars, false );
