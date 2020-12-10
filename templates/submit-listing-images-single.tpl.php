@@ -32,7 +32,7 @@ $delete_link = wp_nonce_url( $delete_link, 'delete-listing-' . $listing_id . '-i
 			<?php esc_html_e( 'Delete image', 'business-directory-plugin' ); ?>
 		</a>
 		<div style="clear:both"></div>
-        <span class="wpbdp_thumbnail_indicator">
+		<span class="wpbdp_thumbnail_indicator">
 			<?php esc_html_e( 'Thumbnail image', 'business-directory-plugin' ); ?>
 		</span>
     </div>

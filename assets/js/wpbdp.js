@@ -48,7 +48,7 @@ jQuery(document).ready(function($){
         },
 
         sum_width: function( $selector, prop ) {
-            var prop = ( 'undefined' === typeof( prop ) ) ? 'width' : prop;
+            prop = ( 'undefined' === typeof( prop ) ) ? 'width' : prop;
             var sum = 0;
 
             $selector.each(function() {
@@ -454,13 +454,12 @@ WPBDP.fileUpload = {
                 opacity: 0.9,
                 update: function( ev, ui ) {
                     var sorted = $( this ).sortable( 'toArray', { attribute: 'data-imageid' } );
-                    var no_images = sorted.length;
 
                     $.each( sorted, function( i, v ) {
-						input = $( 'input[name="images_meta[' + v + '][order]"]' ).val( i + 1 );
+						$( 'input[name="images_meta[' + v + '][order]"]' ).val( i + 1 );
 
 						if ( 0 === i ) {
-							$( '#_thumbnail_id' ).val( v );
+							$( '#thumbnail_id' ).val( v );
 						}
                     } );
                 }
