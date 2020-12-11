@@ -881,7 +881,15 @@ function wpbdp_get_fee_plans( $args = array() ) {
     $orderby = $args['orderby'];
     $query   = "SELECT p.id FROM {$wpdb->prefix}wpbdp_plans p WHERE {$where} ORDER BY {$orderby} {$order}";
 
-    $plan_ids = $wpdb->get_col( $query );
+	$plan_ids = WPBDP_Utils::check_cache(
+		array(
+			'cache_key' => json_encode( $args ),
+			'group'     => 'wpbdp_plans',
+			'query'     => $query,
+			'type'      => 'get_col',
+		)
+	);
+
     $plan_ids = apply_filters( 'wpbdp_pre_get_fee_plans', $plan_ids );
 
     $plans = array();

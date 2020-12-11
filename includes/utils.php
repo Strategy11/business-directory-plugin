@@ -89,6 +89,122 @@ class WPBDP__Utils {
         $wpdb->query( "ALTER TABLE {$table} DROP COLUMN {$col}" );
     }
 
+	/**
+	 * Check cache before fetching values and saving to cache
+	 *
+	 * @since x.x
+	 *
+	 * @param array  $args
+	 * @param string $args[string] $cache_key The unique name for this cache
+	 * @param string $args[group] The name of the cache group
+	 * @param string $args[query] If blank, don't run a db call
+	 * @param string $args[type] The wpdb function to use with this query
+	 * @param int    $args[time] When the cahce should expire
+	 *
+	 * @return mixed $results The cache or query results
+	 */
+	public static function check_cache( $args ) {
+		$defaults = array(
+			'cache_key' => '',
+			'group'     => '',
+			'query'     => '',
+			'type'      => 'get_var',
+			'time'      => 300,
+			'return'    => 'object',
+		);
+		$args = array_merge( $defaults, $args );
+
+		$type  = $args['type'];
+		$query = $args['query'];
+
+		$results = wp_cache_get( $args['cache_key'], $args['group'] );
+		if ( ! self::is_empty_value( $results, false ) || empty( $query ) ) {
+			return $results;
+		}
+
+		if ( 'get_posts' === $type ) {
+			$results = get_posts( $query );
+		} elseif ( 'get_associative_results' === $type ) {
+			global $wpdb;
+			$results = $wpdb->get_results( $query, OBJECT_K ); // WPCS: unprepared SQL ok.
+		} else {
+			global $wpdb;
+			if ( $args['return'] === 'array' ) {
+				$results = $wpdb->{$type}( $query, ARRAY_A );
+			} else {
+				$results = $wpdb->{$type}( $query );
+			}
+		}
+
+		self::set_cache( $args['cache_key'], $results, $args['group'], $args['time'] );
+
+		return $results;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public static function set_cache( $cache_key, $results, $group = '', $time = 300 ) {
+		self::add_key_to_group_cache( $cache_key, $group );
+		wp_cache_set( $cache_key, $results, $group, $time );
+	}
+
+	/**
+	 * Keep track of the keys cached in each group so they can be deleted
+	 * in Redis and Memcache
+	 *
+	 * @since x.x
+	 */
+	public static function add_key_to_group_cache( $key, $group ) {
+		$cached         = self::get_group_cached_keys( $group );
+		$cached[ $key ] = $key;
+		wp_cache_set( 'cached_keys', $cached, $group, 300 );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public static function get_group_cached_keys( $group ) {
+		$cached = wp_cache_get( 'cached_keys', $group );
+		if ( ! $cached || ! is_array( $cached ) ) {
+			$cached = array();
+		}
+
+		return $cached;
+	}
+
+	/**
+	 * Delete all caching in a single group
+	 *
+	 * @since x.x
+	 *
+	 * @param string $group The name of the cache group
+	 */
+	public static function cache_delete_group( $group ) {
+		$cached_keys = self::get_group_cached_keys( $group );
+
+		if ( ! empty( $cached_keys ) ) {
+			foreach ( $cached_keys as $key ) {
+				wp_cache_delete( $key, $group );
+			}
+
+			wp_cache_delete( 'cached_keys', $group );
+		}
+	}
+
+	/**
+	 * Check if value contains blank value or empty array
+	 *
+	 * @since x.x
+	 *
+	 * @param mixed $value - value to check
+	 * @param string
+	 *
+	 * @return boolean
+	 */
+	public static function is_empty_value( $value, $empty = '' ) {
+		return ( is_array( $value ) && empty( $value ) ) || $value === $empty;
+	}
 }
 
 /**

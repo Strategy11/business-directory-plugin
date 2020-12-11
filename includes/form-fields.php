@@ -309,8 +309,14 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 				$sql = "SELECT id FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC";
             }
 
-            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-            $ids = $wpdb->get_col( $sql );
+			$ids = WPBDP_Utils::check_cache(
+				array(
+					'cache_key' => implode( '.', $args ) . '.' . $one,
+					'group'     => 'wpbdp_form_fields',
+					'query'     => $sql,
+					'type'      => 'get_col',
+				)
+			);
 
             if ( 'ids' == $output ) {
                 return $ids;
@@ -508,6 +514,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
                     array( 'id' => $field_id )
                 );
             }
+			WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
 
             return true;
         }
