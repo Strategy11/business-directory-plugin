@@ -58,7 +58,7 @@ class WPBDP__ListingsWithNoFeePlanView {
             _x( 'No Fee Plan', 'listings view', 'business-directory-plugin' ),
             'wpbdmfilter',
             $listings_without_fee_plan,
-            ! empty( $_GET['wpbdmfilter'] ) && 'no-fee-plan' == $_GET['wpbdmfilter']
+			'no-fee-plan' === wpbdp_get_var( array( 'param' => 'wpbdmfilter' ) )
         );
 
         return $views;

@@ -966,7 +966,11 @@ function wpbdp_get_taxonomy_link( $taxonomy, $link = '' ) {
 }
 
 function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
-    if ( $vars ) {
+	if ( empty( $template ) ) {
+		return '';
+	}
+
+	if ( $vars ) {
         extract( $vars );
     }
 
@@ -1262,7 +1266,7 @@ function wpbdp_get_return_link() {
     }
 
     if ( $msg ) {
-        echo '<p><a href="' . esc_url( $referer ) . '" >&larr; ' . esc_html( $msg ) . '</a></p>';
+        echo '<p class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >&larr; ' . esc_html( $msg ) . '</a></p>';
     }
 
 }

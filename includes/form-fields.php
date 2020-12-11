@@ -380,12 +380,12 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'tag'           => 'excerpt',
 				),
                 'content'  => array(
-					'label'         => __( 'Long Description', 'business-directory-plugin' ),
+					'label'         => __( 'Description', 'business-directory-plugin' ),
 					'field_type'    => 'textarea',
 					'association'   => 'content',
 					'weight'        => 6,
 					'validators'    => array( 'required' ),
-					'display_flags' => array( 'excerpt', 'listing', 'search' ),
+					'display_flags' => array( 'listing', 'search', 'nolabel' ),
 					'tag'           => 'content',
 				),
                 'website'  => array(

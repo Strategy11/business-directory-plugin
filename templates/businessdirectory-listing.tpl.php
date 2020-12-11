@@ -16,12 +16,13 @@
     <?php echo $listing_fields; ?>
 </div>
 
-<?php if ($extra_images): ?>
-<div class="extra-images">
-    <ul>
-    <?php foreach ($extra_images as $image): ?>
-        <li><?php echo $image; ?></li>
-    <?php endforeach; ?>
-    </ul>
-</div>
-<?php endif; ?>
+<?php
+wpbdp_render(
+	'parts/listing-images',
+	array(
+		'images' => $extra_images,
+		'echo'   => true,
+	),
+	true
+);
+?>
