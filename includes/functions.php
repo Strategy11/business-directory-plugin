@@ -40,18 +40,19 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
 
     if ( isset( $request_cached[ $page_id ] ) ) {
         $page_ids = $request_cached[ $page_id ];
-    } else {
-        $page_ids = null;
+		return apply_filters( 'wpbdp_get_page_ids', $page_ids, $page_id );
     }
+
+	$page_ids = null;
 
     $cached_ids = get_transient( 'wpbdp-page-ids' );
 
     if ( is_null( $page_ids ) ) {
         $page_ids = wpbdp_get_page_ids_from_cache( $cached_ids, $page_id );
-    }
 
-    if ( is_null( $page_ids ) ) {
-        $page_ids = wpbdp_get_page_ids_with_query( $page_id );
+	    if ( is_null( $page_ids ) ) {
+	        $page_ids = wpbdp_get_page_ids_with_query( $page_id );
+	    }
     }
 
     if ( is_array( $cached_ids ) ) {
@@ -60,7 +61,7 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
         $cached_ids = array( $page_id => $page_ids );
     }
 
-    set_transient( 'wpbdp-page-ids', $cached_ids, 60 * 60 * 24 * 30 );
+    set_transient( 'wpbdp-page-ids', $cached_ids, MONTH_IN_SECONDS );
 
     $request_cached[ $page_id ] = $page_ids;
 
