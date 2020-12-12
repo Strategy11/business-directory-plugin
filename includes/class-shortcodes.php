@@ -25,10 +25,6 @@ class WPBDP__Shortcodes {
         if ( ! empty( $this->shortcodes ) )
             return;
 
-        // TODO: change this to use the actual views or a "generic callback" that actually loads the view and returns
-        // the output.
-        global $wpbdp;
-
         /*
          * WordPress Shortcode:
          *  [businessdirectory], [business-directory], [WPBUSDIRMANUI]
@@ -40,7 +36,7 @@ class WPBDP__Shortcodes {
          *  `[businessdirectory]`
          */
         $this->add( 'businessdirectory',
-                    array( $this, 'sc_main' ),
+                    array( &$this, 'sc_main' ),
                     array( 'business-directory', 'WPBUSDIRMANUI' ) );
 
         /*
@@ -54,7 +50,7 @@ class WPBDP__Shortcodes {
          *  `[businessdirectory-submitlisting]`
          */
         $this->add( 'businessdirectory-submit-listing',
-                    array( $this, 'sc_submit_listing' ),
+                    array( &$this, 'sc_submit_listing' ),
                     array( 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' ) );
 
         /*
@@ -68,7 +64,7 @@ class WPBDP__Shortcodes {
          *  `[businessdirectory-manage-listings]`
          */
         $this->add( 'businessdirectory-manage-listings',
-                    array( $this, 'sc_manage_listings' ),
+                    array( &$this, 'sc_manage_listings' ),
                     array( 'businessdirectory-managelistings', 'business-directory-manage-listings', 'businessdirectory-manage_listings', 'WPBUSDIRMANMANAGELISTING' ) );
 
         /*
@@ -91,14 +87,12 @@ class WPBDP__Shortcodes {
          *
          */
         $this->add( 'businessdirectory-listings',
-                    array( $this, 'sc_listings' ),
+                    array( &$this, 'sc_listings' ),
                     array( 'WPBUSDIRMANVIEWLISTINGS', 'WPBUSDIRMANMVIEWLISTINGS', 'businessdirectory-view_listings', 'businessdirectory-viewlistings' ) );
 
         /*
-         * WordPress Shortcode:
-         *  [businessdirectory-search], [business-directory-search]
-         * Used for:
-         *  Shows the Advanced Search Screen on any single page.
+         * WordPress Shortcode: [businessdirectory-search], [business-directory-search]
+         * Used for: Shows the Advanced Search Screen on any single page.
          * Parameters:
          *  - form_only   Display search form only even after search is performed. Default is 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
          *  - return_url  After the search is performed, when no results are found, a "Return to Search" link is shown with this parameter as target. Default value is the URL of the Advanced Search screen. (Allowed Values: Any valid URL or 'auto' to mean the URL of the page where the shortcode is being used.)
@@ -106,26 +100,22 @@ class WPBDP__Shortcodes {
          *  `[businessdirectory-search]`
          */
         $this->add( 'businessdirectory-search',
-                    array( $this, 'sc_search' ),
+                    array( &$this, 'sc_search' ),
                     array( 'business-directory-search', 'businessdirectory_search', 'business-directory_search' ) );
 
         /*
-         * WordPress Shortcode:
-         *  [businessdirectory-featuredlistings]
-         * Used for:
-         *  To show all of the featured listings within your directory on a single page.
+         * WordPress Shortcode: [businessdirectory-featuredlistings]
+         * Used for: To show all of the featured listings within your directory on a single page.
          * Parameters:
          *  - number_of_listings  Maximum number of listings to display. (Allowed Values: Any positive integer or 0 for no limit)
          * Example:
          *  `[businessdirectory-featuredlistings]`
          */
-        $this->add( 'businessdirectory-featuredlistings', array( $this, 'sc_featured_listings' ) );
+        $this->add( 'businessdirectory-featuredlistings', array( &$this, 'sc_featured_listings' ) );
 
         /*
-         * WordPress Shortcode:
-         *  [businessdirectory-listing]
-         * Used for:
-         *  Displaying a single listing from the directory (by slug or ID).
+         * WordPress Shortcode: [businessdirectory-listing]
+         * Used for: Displaying a single listing from the directory (by slug or ID).
          * Parameters:
          *  - id   Post ID of the listing. (Allowed Values: Any valid listing ID.)
          *  - slug Slug for the listing. (Allowed Values: Any valid listing slug.)
@@ -133,16 +123,47 @@ class WPBDP__Shortcodes {
          *  At least one of the parameters `id` or `slug` must be provided.
          * Example:
          *  `[businessdirectory-listing slug="my-listing"]`
-         * Since:
-         *  3.6.10
+         * @since 3.6.10
          */
-        $this->add( 'businessdirectory-listing', array( $this, 'sc_single_listing' ) );
+        $this->add( 'businessdirectory-listing', array( &$this, 'sc_single_listing' ) );
+
+		/*
+		 * WordPress Shortcode: [businessdirectory-images]
+		 * Used for: Displaying the field images for a single listing (by slug or ID).
+		 * Parameters:
+		 *  - id   Post ID or slug of the listing.
+		 *
+		 * @since 5.9
+		 */
+		$this->add( 'businessdirectory-images', array( &$this, 'single_listing_images' ) );
+
+		/*
+		 * @since 5.9
+		 */
+		$this->add( 'businessdirectory-socials', array( &$this, 'single_listing_socials' ) );
+
+		/*
+		 * @since 5.9
+		 */
+		$this->add( 'businessdirectory-buttons', array( &$this, 'single_listing_actions' ) );
+
+		/*
+		 * @since 5.9
+		 */
+		$this->add( 'businessdirectory-details', array( &$this, 'single_listing_details' ) );
+
+		/*
+		 * Parameters:
+		 *  - id
+		 *  - section. Can be comments, contact_form, and more.
+		 *
+		 * @since 5.9
+		 */
+		$this->add( 'businessdirectory-section', array( &$this, 'single_listing_section' ) );
 
         /*
-         * WordPress Shortcode:
-         *  [businessdirectory-categories]
-         * Used for:
-         *  Displaying the list of categories in a similar fashion as the main page.
+         * WordPress Shortcode: [businessdirectory-categories]
+         * Used for: Displaying the list of categories in a similar fashion as the main page.
          * Parameters:
          *  - parent    Parent directory category ID. (Allowed Values: A directory category term ID)
          *  - orderby What value to use for odering the categories. Default is taken from current BD settings. (Allowed Values: "name", "slug", "id", "description", "count" (listing count).)
@@ -155,13 +176,11 @@ class WPBDP__Shortcodes {
          *  - Display the list of categories starting at the one with ID 20 and ordering by slug.
          *    `[businessdirectory-categories parent=20 order="slug"]`
          */
-        $this->add( 'businessdirectory-categories', array( $this, 'sc_categories' ) );
+        $this->add( 'businessdirectory-categories', array( &$this, 'sc_categories' ) );
 
         /*
-         * WordPress Shortcode:
-         *  [businessdirectory-listing-count]
-         * Used for:
-         *  Outputs the listing count for a given category or region.
+         * WordPress Shortcode: [businessdirectory-listing-count]
+         * Used for: Outputs the listing count for a given category or region.
          * Parameters:
          *  - category  What category to use. (Allowed Values: A valid category ID, name or slug.)
          *  - region    What region to use. (Allowed Values: A valid region ID, name or slug.)
@@ -172,27 +191,22 @@ class WPBDP__Shortcodes {
          *
          *    `[businessdirectory-listing-count category="Restaurants" region="New York"]`
          */
-        $this->add( 'businessdirectory-listing-count', array( $this, 'sc_count' ), array( 'bd-listing-count', 'business-directory-listing-count' ) );
+        $this->add( 'businessdirectory-listing-count', array( &$this, 'sc_count' ), array( 'bd-listing-count', 'business-directory-listing-count' ) );
 
         /*
-         * WordPress Shortcode:
-         *  [businessdirectory-quick-search], [business-directory-quick-search]
-         * Used for:
-         *  Displaying the quick search box on any page.
+         * WordPress Shortcode: [businessdirectory-quick-search], [business-directory-quick-search]
+         * Used for: Displaying the quick search box on any page.
          * Parameters:
          *  - buttons  Which menu buttons to show inside the box. Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          * Example:
          *  `[businessdirectory-quick-search buttons="create,listings"]`
-         * Since:
-         *  4.1.13
+         * @since 4.1.13
          */
-        $this->add( 'businessdirectory-quick-search', array( $this, 'sc_quick_search' ), array( 'business-directory-quick-search' ) );
+        $this->add( 'businessdirectory-quick-search', array( &$this, 'sc_quick_search' ), array( 'business-directory-quick-search' ) );
 
         /*
-         * WordPress Shortcode:
-         *  [businessdirectory-latest-listings]
-         * Used for:
-         *  Displaying all or a set of latest listings from the directory.
+         * WordPress Shortcode: [businessdirectory-latest-listings]
+         * Used for: Displaying all or a set of latest listings from the directory.
          * Parameters:
          *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
@@ -203,10 +217,9 @@ class WPBDP__Shortcodes {
          *    `[businessdirectory-latest-listings items_per_page=5 pagination=0]`
          *  - Display all listings, started from most recent, submitted to the directory, 4 listings per page:
          *    `[businessdirectory-latest-listings items_per_page=4 pagination=1]`
-         * Since:
-         *  4.1.13
+         * @since 4.1.13
          */
-        $this->add( 'businessdirectory-latest-listings', array( $this, 'sc_listings_latest' ) );
+        $this->add( 'businessdirectory-latest-listings', array( &$this, 'sc_listings_latest' ) );
 
         /*
          * WordPress Shortcode:
@@ -222,16 +235,13 @@ class WPBDP__Shortcodes {
          *  - Display a set of 10 random listings, including the directory menu with only the "Add Listing" button:
          *
          *    `[businessdirectory-random-listings items_per_page=10 menu=1 buttons="create"]`
-         * Since:
-         *  4.1.13
+         * @since 4.1.13
          */
-        $this->add( 'businessdirectory-random-listings', array( $this, 'sc_listings_random' ) );
+        $this->add( 'businessdirectory-random-listings', array( &$this, 'sc_listings_random' ) );
 
         /*
-         * WordPress Shortcode:
-         *  [businessdirectory-featured-listings]
-         * Used for:
-         *  Displaying all or a set of featured listings from the directory.
+         * WordPress Shortcode: [businessdirectory-featured-listings]
+         * Used for: Displaying all or a set of featured listings from the directory.
          * Parameters:
          *  - menu Whether to include the quick search and menu bar as part of the output. Defaults to 0. (Allowed Values: 0 or 1)
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
@@ -239,10 +249,9 @@ class WPBDP__Shortcodes {
          *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
          * Example:
          *  `[businessdirectory-featured-listings items_per_page=5]`
-         * Since:
-         *  4.1.13
+         * @since 4.1.13
          */
-        $this->add( 'businessdirectory-featured-listings', array( $this, 'sc_listings_featured' ) );
+        $this->add( 'businessdirectory-featured-listings', array( &$this, 'sc_listings_featured' ) );
 
         do_action_ref_array( 'wpbdp_shortcodes_register', array( &$this ) );
 
@@ -506,7 +515,6 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_featured_listings( $atts ) {
-        global $wpbdp;
         global $wpdb;
 
         $atts = shortcode_atts( array( 'number_of_listings' => wpbdp_get_option( 'listings-per-page' ) ), $atts );
@@ -553,6 +561,186 @@ class WPBDP__Shortcodes {
 
         return wpbdp_render_listing( $listing_id, 'single' );
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function single_listing_images( $atts ) {
+		$this->add_current_listing_id( $atts );
+		if ( empty( $atts['id'] ) ) {
+			return '';
+		}
+
+		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'images_vars' ) );
+
+		return wpbdp_render(
+			'parts/listing-images',
+			array(
+				'images' => $vars['images']->extra,
+			),
+			true
+		);
+	}
+
+	/**
+	 * Show the socials for a listing.
+	 *
+	 * @since x.x
+	 */
+	public function single_listing_socials( $atts ) {
+		$this->add_current_listing_id( $atts );
+		if ( empty( $atts['id'] ) ) {
+			return '';
+		}
+
+		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'fields_vars' ) );
+
+		return wpbdp_render(
+			'parts/listing-socials',
+			array(
+				'fields' => $vars['fields'],
+			),
+			true
+		);
+	}
+
+	/**
+	 * Show the listing action buttons (edit, delete).
+	 *
+	 * @since x.x
+	 */
+	public function single_listing_actions( $atts ) {
+		$this->add_current_listing_id( $atts );
+		if ( empty( $atts['id'] ) ) {
+			return '';
+		}
+
+		return wpbdp_render(
+			'parts/listing-buttons',
+			array(
+				'listing_id' => $atts['id'],
+				'view'       => 'single',
+			),
+			false
+		);
+	}
+
+	/**
+	 * Show the listing details in fields.
+	 *
+	 * @since x.x
+	 */
+	public function single_listing_details( $atts ) {
+		$this->add_current_listing_id( $atts );
+		if ( empty( $atts['id'] ) ) {
+			return '';
+		}
+
+		$vars   = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'fields_vars' ) );
+		$fields = $vars['fields'];
+
+		$atts['exclude'] = empty( $atts['exclude'] ) ? array( 'social' ) : explode( ',', $atts['exclude'] );
+
+		if ( in_array( 'social', $atts['exclude'], true ) ) {
+			$fields = $fields->not( 'social' );
+			$k = array_search( 'social', $atts['exclude'] );
+			unset( $atts['exclude'][ $k ] );
+		}
+
+		$html = '';
+		foreach ( $fields as $field ) {
+			if ( $this->should_exclude_field( $atts['exclude'], $field ) ) {
+				continue;
+			}
+
+			$html .= $field->html;
+		}
+
+		return $html;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function should_exclude_field( $exclude, $field ) {
+		if ( empty( $exclude ) ) {
+			return false;
+		}
+
+		if ( in_array( $field->id, $exclude ) ) {
+			return true;
+		}
+
+		// Are there are non-ids to check?
+		$done = array_filter( $exclude, 'is_numeric' );
+		if ( count( $done ) === count( $exclude ) ) {
+			return false;
+		}
+
+		$type = $field->field->get_field_type_id();
+		if ( in_array( $type, $exclude, true ) ) {
+			return true;
+		}
+
+		$mapping = $field->field->get_association();
+		if ( in_array( $mapping, $exclude, true ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get any section included on the single listing page.
+	 *
+	 * @since x.x
+	 */
+	public function single_listing_section( $atts ) {
+		$this->add_current_listing_id( $atts );
+		if ( empty( $atts['id'] ) ) {
+			return '';
+		}
+
+		$sections = empty( $atts['section'] ) ? '' : $atts['section'];
+		$sections = explode( ',', $sections );
+
+		//'#contact_form'
+		$template_id = 'single';
+		$vars = WPBDP_Listing_Display_Helper::single_listing_vars();
+		$vars = apply_filters( 'wpbdp_template_variables', $vars, $template_id );
+		$vars = apply_filters( 'wpbdp_template_variables__' . $template_id, $vars, $path );
+
+		$html = '';
+		foreach ( $sections as $section ) {
+			$add = isset( $vars[ '#' . $section ] ) ? $vars[ '#' . $section ] : ( isset( $vars[ $section ] ) ? $vars[ $section ] : '' );
+			if ( $add && isset( $add['callback'] ) ) {
+				$html .= call_user_func_array( $add['callback'], array( $vars, $vars['_template'] ) );
+			}
+		}
+		return $html;
+	}
+
+	/**
+	 * Get the id of the current listing to use for shortcodes.
+	 *
+	 * @since x.x
+	 */
+	private function add_current_listing_id( &$vars ) {
+		$vars = (array) $vars;
+		if ( $vars['id'] && ! is_numeric( $vars['id'] ) ) {
+			$atts['id'] = wpbdp_get_post_by_id_or_slug( $atts['id'], 'slug', 'id' );
+			return;
+		}
+
+		if ( ! is_singular( WPBDP_POST_TYPE ) || ! empty( $vars['id'] ) ) {
+			return;
+		}
+
+		global $post;
+		$vars['id'] = $post->ID;
+	}
 
     /**
      * @since 4.0

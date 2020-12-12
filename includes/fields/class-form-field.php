@@ -963,16 +963,22 @@ class WPBDP_Form_Field {
     public static function get( $id ) {
         global $wpdb;
 
-        $id = absint( $id );
-
         if ( ! $id ) {
             return null;
         }
 
+		if ( is_numeric( $id ) ) {
+			$id = absint( $id );
+		}
+
         $_field = wp_cache_get( $id, 'wpbdp formfields' );
 
         if ( ! $_field ) {
-            $_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id ) );
+			if ( is_numeric( $id ) ) {
+            	$_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id ) );
+			} else {
+				$_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s", $id ) );
+			}
 
             if ( ! $_field ) {
                 return null;

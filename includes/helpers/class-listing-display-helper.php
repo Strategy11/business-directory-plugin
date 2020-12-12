@@ -42,20 +42,7 @@ class WPBDP_Listing_Display_Helper {
     }
 
     public static function single() {
-        global $post;
-
-        $vars = array();
-        $vars = array_merge( $vars, self::basic_vars( $post->ID ) );
-        $vars = array_merge( $vars, self::fields_vars( $post->ID, 'listing' ) );
-        $vars = array_merge( $vars, self::images_vars( $post->ID, 'listing' ) );
-        $vars = array_merge( $vars, self::css_classes( $post->ID, 'single' ) );
-
-        if ( ! empty( $vars['images'] ) && $vars['images']->main ) {
-            $vars['listing_css_class'] .= ' with-image';
-        }
-
-        $vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
-        $vars = apply_filters( 'wpbdp_single_template_vars', $vars, $post->ID );
+		$vars = self::single_listing_vars();
 
         // TODO: is this really used? can it be changed to something else?
         // 'listing_fields' => apply_filters('wpbdp_single_listing_fields', $listing_fields, $post->ID), This is
@@ -68,6 +55,50 @@ class WPBDP_Listing_Display_Helper {
 
         return $html;
     }
+
+	/**
+	 * Get needed parameters for full or partial listing.
+	 *
+	 * @since x.x
+	 */
+	public static function single_listing_vars( $include = array() ) {
+		global $post;
+
+		$vars = array();
+		if ( self::maybe_include_vars( $include, 'basic_vars' ) ) {
+			$vars = array_merge( $vars, self::basic_vars( $post->ID ) );
+		}
+
+		if ( self::maybe_include_vars( $include, 'fields_vars' ) ) {
+			$vars = array_merge( $vars, self::fields_vars( $post->ID, 'listing' ) );
+		}
+
+		if ( self::maybe_include_vars( $include, 'images_vars' ) ) {
+			$vars = array_merge( $vars, self::images_vars( $post->ID, 'listing' ) );
+		}
+
+		if ( self::maybe_include_vars( $include, 'css_classes' ) ) {
+			$vars = array_merge( $vars, self::css_classes( $post->ID, 'single' ) );
+		}
+
+		if ( ! empty( $vars['images'] ) && $vars['images']->main ) {
+			$vars['listing_css_class'] .= ' with-image';
+		}
+
+		$vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
+		$vars = apply_filters( 'wpbdp_single_template_vars', $vars, $post->ID );
+
+		return $vars;
+	}
+
+	/**
+	 * Allow selective data to cut down on memeory load and db calls when not used.
+	 *
+	 * @since x.x
+	 */
+	private static function maybe_include_vars( $include, $var_name ) {
+		return empty( $include ) || in_array( $var_name, $include, true );
+	}
 
     private static function basic_vars( $listing_id ) {
         $listing = WPBDP_Listing::get( $listing_id );
