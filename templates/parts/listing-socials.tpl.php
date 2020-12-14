@@ -6,8 +6,12 @@
  */
 
 $social_fields = $fields->filter( 'social' );
-$html          = $social_fields->html;
-if ( $social_fields && ! empty( $html ) ) {
+if ( ! $social_fields ) {
+	return;
+}
+
+$html = $social_fields->html;
+if ( ! empty( $html ) ) {
 	?>
 	<div class="social-fields cf">
 		<?php

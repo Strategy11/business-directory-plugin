@@ -1640,9 +1640,9 @@ final class WPBDP__Settings__Bootstrap {
 			'uninstall',
 			__( 'Uninstall', 'business-directory-plugin' ),
 			'misc',
-            array(
-                'custom_form' => true,
-            )
+			array(
+				'custom_form' => true,
+			)
 		);
 
         wpbdp_register_setting(

@@ -385,7 +385,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					'association'   => 'content',
 					'weight'        => 6,
 					'validators'    => array( 'required' ),
-					'display_flags' => array( 'listing', 'search', 'nolabel' ),
+					'display_flags' => array( 'listing', 'search' ),
 					'tag'           => 'content',
 				),
                 'website'  => array(

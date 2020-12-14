@@ -660,6 +660,8 @@ class WPBDP__Shortcodes {
 	}
 
 	/**
+	 * Exclude fields using the field id, shortname, type, or mapping.
+	 *
 	 * @since x.x
 	 *
 	 * @return bool
