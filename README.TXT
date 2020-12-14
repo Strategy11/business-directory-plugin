@@ -162,6 +162,24 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= Version 5.9 =
+* Start adding caching to speed up all listings page.
+* Replace delete listing button with a link.
+* Change sorting to dropdown to make it more compact.
+* When a field is set to validate as a number, sort the listings as a number too.
+* A bunch of new shortcodes for more modular options: businessdirectory-images, businessdirectory-socials, businessdirectory-buttons, businessdirectory-details, [businessdirectory-section section=comments], [businessdirectory-section section=contact_form]
+* Change 'Manage Form Fields' menu to 'Form Fields'.
+* Move the uninstall page out of main nav and into settings pages.
+* Rename 'Allow images in HTML' option in field settings to make it more clear.
+* Break some content for single listings into separate templates for easier maintenance.
+* Pagination is now in a single template file.
+* Remove View button from all listings page and use standard links instead.
+* New hooks: 'wpbdp_settings_subtab_[subtab name here]', 'wpbdp_allow_template_override', 'wpbdp_is_numeric_sort', 'wpbdp_before_excerpts', 'wpbdp_heading_type' to switch h1 to h2, 'wpbdp_get_page_ids', 'wpbdp_thumbnail_html'
+* Security: Properly escape uses of admin_url().
+* Fix: Compatibility issue with Astra was showing an empty h1 in the page source.
+* Fix: Compatibility with new WP 2021 theme, showing 'Untitled' for the heading.
+* Code: Can get a field by shortname instead of only id.
+
 = Version 5.8.3 =
 * Switch heading on single listing in default theme from h2 to h1
 * Update file upload script and remove a bunch of unneeded files from the package

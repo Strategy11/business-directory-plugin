@@ -417,17 +417,17 @@ function wpbdp_get_listing_sort_links( $sort_options ) {
 	foreach ( $sort_options as $id => $option ) {
 		$default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
 
-		$dir   = '';
-		$arrow = '';
+		$dir     = '';
+		$arrow   = '';
+		$current = '';
 
 		if ( $current_sort && $current_sort->option == $id ) {
-			$dir   = $current_sort->order === 'ASC' ? '-' : '';
-			$arrow = $current_sort->order === 'ASC' ? '↑ ' : '↓ ';
+			$dir     = $current_sort->order === 'ASC' ? '-' : '';
+			$arrow   = $current_sort->order === 'ASC' ? '↑ ' : '↓ ';
+			$current = 'selected="selected"';
 		} elseif ( $default_order === 'DESC' ) {
 			$dir = '-';
 		}
-
-		$current = ( $current_sort && $current_sort->option == $id ) ? 'selected="selected"' : '';
 
 		$links[ $id ] = sprintf(
 			'<option value="%s" %s>%s</option>',
@@ -573,6 +573,11 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
     return apply_filters( 'wpbdp_thumbnail_html', $image_html, $args );
 }
 
+/**
+ * Get the html for a listing thumbnail image.
+ *
+ * @since x.x
+ */
 function wpbdp_thumbnail_html( $args ) {
 	$image_img  = $args['image_img'];
 	$image_link = $args['image_link'];
