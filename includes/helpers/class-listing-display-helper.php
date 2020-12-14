@@ -109,6 +109,7 @@ class WPBDP_Listing_Display_Helper {
         $vars['is_sticky']  = ( 'normal' != $listing->get_sticky_status() );
         $vars['sticky_tag'] = '';
         $vars['title']      = the_title( null, null, false );
+		$vars['title_type'] = apply_filters( 'wpbdp_heading_type', 'h1' );
 
         if ( $vars['is_sticky'] && ! empty( wpbdp_get_option( 'display-sticky-badge' ) ) ) {
             $img_src = wp_get_attachment_url( wpbdp_get_option( 'listings-sticky-image' ) );
