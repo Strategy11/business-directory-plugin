@@ -417,19 +417,21 @@ function wpbdp_get_listing_sort_links( $sort_options ) {
 	foreach ( $sort_options as $id => $option ) {
 		$default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
 
+		$dir   = '';
+		$arrow = '';
+
 		if ( $current_sort && $current_sort->option == $id ) {
-			$link  = add_query_arg( 'wpbdp_sort', ( $current_sort->order === 'ASC' ? '-' : '' ) . $id );
+			$dir   = $current_sort->order === 'ASC' ? '-' : '';
 			$arrow = $current_sort->order === 'ASC' ? '↑ ' : '↓ ';
-		} else {
-			$link  = add_query_arg( 'wpbdp_sort', ( $default_order === 'DESC' ? '-' : '' ) . $id );
-			$arrow = '';
+		} elseif ( $default_order === 'DESC' ) {
+			$dir = '-';
 		}
 
 		$current = ( $current_sort && $current_sort->option == $id ) ? 'selected="selected"' : '';
 
 		$links[ $id ] = sprintf(
 			'<option value="%s" %s>%s</option>',
-			esc_url( $link ),
+			esc_url( add_query_arg( 'wpbdp_sort', $dir . $id ) ),
 			esc_attr( $current ),
 			esc_html( $arrow . $option[0] )
 		);
