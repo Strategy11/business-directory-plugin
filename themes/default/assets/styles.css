@@ -22,6 +22,11 @@
 
 .wpbdp-listing .listing-thumbnail {
 	float: left;
+	width: 150px;
+}
+
+.wpbdp-listing .listing-thumbnail img {
+	max-width: 150px;
 }
 
 .wpbdp-listing .listing-details {
