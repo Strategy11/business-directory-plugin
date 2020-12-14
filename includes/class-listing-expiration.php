@@ -79,6 +79,8 @@ class WPBDP__Listing_Expiration {
     private function get_expiring_listings( $period = '+1 month' ) {
         global $wpdb;
 
+		$this->convert_month_to_days( $period );
+
         $date_a = date( 'Y-m-d H:i:s', strtotime( $period . ' midnight' ) );
         $date_b = date( 'Y-m-d H:i:s', strtotime( $period . 'midnight' ) + DAY_IN_SECONDS );
 
@@ -92,6 +94,29 @@ class WPBDP__Listing_Expiration {
 
         return $listings;
     }
+
+	/**
+	 * Using 'month' skips listings that expire at the end of the month.
+	 * For accuracy, use 30 days instead of 1 month.
+	 *
+	 * @since x.x
+	 */
+	private function convert_month_to_days( &$period ) {
+		if ( strpos( $period, ' month' ) === false ) {
+			return;
+		}
+
+		$plus = $period[0];
+		if ( is_numeric( $plus ) ) {
+			$plus = '';
+		} else {
+			$period = ltrim( $period, $plus );
+		}
+
+		list( $count, $unit ) = explode( ' ', $period );
+		$count  = $count * 30;
+		$period = $plus . $count . ' days';
+	}
 
     private function maybe_renew_free_listing( $listing ) {
         $plan = $listing->get_fee_plan();
