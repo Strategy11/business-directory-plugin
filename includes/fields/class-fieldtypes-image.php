@@ -88,17 +88,14 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             $value[0]
         );
 
-        $html .= '<div class="preview"' . ( empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
+        $html .= '<div class="preview wpbdp-image"' . ( empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
         if ( ! empty( $value[0] ) ) {
+			$html .= '<div class="wpbdp-image-img">';
             $html .= wp_get_attachment_image( $value[0], 'wpbdp-thumb', false );
+			$html .= '</div>';
         }
 
-        $html .= sprintf(
-            '<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
-            $field->get_id(),
-            'listingfields[' . $field->get_id() . '][0]',
-            _x( 'Remove', 'form-fields-api', 'business-directory-plugin' )
-        );
+		$html .= '<div class="wpbdp-image-extra">';
 
         $html .= sprintf(
             '<label for="wpbdp-field-%1$d-caption" style="display:none;">Image Caption:</label><input id="wpbdp-field-%1$d-caption" type="text" name="listingfields[%1$d][1]" value="%2$s" placeholder="Image caption or description">',
@@ -106,7 +103,15 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             ! empty( $value[1] ) ? $value[1] : ''
         );
 
+        $html .= sprintf(
+            '<a href="#" class="delete wpbdp-image-delete-link" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
+            $field->get_id(),
+            'listingfields[' . $field->get_id() . '][0]',
+            _x( 'Remove', 'form-fields-api', 'business-directory-plugin' )
+        );
+
         $html .= '</div>';
+		$html .= '</div>';
 
         // We use $listing_id to prevent CSFR. Related to #2848.
         $listing_id = 0;

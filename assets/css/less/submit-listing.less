@@ -303,6 +303,7 @@
 	}
 }
 
+.wpbdp-form-field-type-image,
 .wpbdp-submit-listing-section-listing_images {
 
     #image-upload-form {
@@ -315,11 +316,12 @@
 
     .wpbdp-image {
         padding: 10px 0;
-        border-bottom: dotted 1px #efefef;
+        border-bottom: 1px solid @gray;
+		display: flex;
+		align-items: center;
 
         .wpbdp-image-img {
             margin: 0 10px;
-            float: left;
 
 			img {
 				object-fit: cover;
@@ -341,7 +343,13 @@
 			}
 		}
 
+		&:last-of-type {
+			border: none;
+		}
+
         .wpbdp-image-extra {
+			flex: 1 0 auto;
+
             input[type="text"] {
                 width: 60%;
             }
@@ -352,6 +360,7 @@
             text-decoration: none;
             color: #900000;
             display: none;
+			margin-left: 10px;
 
             &:hover {
                 text-decoration: underline;
@@ -367,7 +376,6 @@
 
 	.wpbdp-drag-handle {
 		visibility: hidden;
-		margin-top: 20px;
 	}
 
 	&:hover .wpbdp-drag-handle {
@@ -389,6 +397,10 @@
         visibility: hidden;
     }
 
+}
+
+.wpbdp-form-field-type-image .wpbdp-image {
+	border: none;
 }
 
 .wpbdp-submit-listing-section {
