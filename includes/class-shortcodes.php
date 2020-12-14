@@ -155,7 +155,7 @@ class WPBDP__Shortcodes {
 		/*
 		 * Parameters:
 		 *  - id
-		 *  - section. Can be comments, contact_form, and more.
+		 *  - section. Can be comments, contact_form, googlemaps, reviews, and more.
 		 *
 		 * @since 5.9
 		 */
@@ -706,7 +706,6 @@ class WPBDP__Shortcodes {
 		$sections = empty( $atts['section'] ) ? '' : $atts['section'];
 		$sections = explode( ',', $sections );
 
-		//'#contact_form'
 		$template_id = 'single';
 		$vars = WPBDP_Listing_Display_Helper::single_listing_vars();
 		$vars = apply_filters( 'wpbdp_template_variables', $vars, $template_id );
@@ -715,8 +714,12 @@ class WPBDP__Shortcodes {
 		$html = '';
 		foreach ( $sections as $section ) {
 			$add = isset( $vars[ '#' . $section ] ) ? $vars[ '#' . $section ] : ( isset( $vars[ $section ] ) ? $vars[ $section ] : '' );
-			if ( $add && isset( $add['callback'] ) ) {
-				$html .= call_user_func_array( $add['callback'], array( $vars, $vars['_template'] ) );
+			if ( $add ) {
+				if ( ! empty( $add['value'] ) ) {
+					$html .= $add['value'];
+				} elseif ( isset( $add['callback'] ) ) {
+					$html .= call_user_func_array( $add['callback'], array( $vars, $vars['_template'] ) );
+				}
 			}
 		}
 		return $html;

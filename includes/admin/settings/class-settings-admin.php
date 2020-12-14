@@ -493,7 +493,7 @@ foreach ( $value as $i => $notice ) {
 		'email_body'      => $notice['body'],
 		'extra_fields'    => $this->setting_expiration_notices_email_extra_fields( 'wpbdp_settings[' . $setting['id'] . '][' . $i . ']', $uid, $notice ),
 		'after_container' => $this->setting_expiration_notices_email_summary( $notice ),
-		'before_buttons'  => '<a href="#" class="delete">' . _x( 'Delete', 'expiration notices', 'business-directory-plugin' ) . '</a>',
+		'before_buttons'  => '<a href="#" class="delete">' . esc_html__( 'Delete', 'business-directory-plugin' ) . '</a>',
 		'placeholders'    =>
 			array(
 				'site'         => _x( 'Site title (with link)', 'settings', 'business-directory-plugin' ),

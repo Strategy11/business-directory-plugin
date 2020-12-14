@@ -97,7 +97,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
                         $form_fields_url
                     )
                 ),
-                _x( 'Delete', 'form-fields admin', 'business-directory-plugin' )
+                esc_html__( 'Delete', 'business-directory-plugin' )
             );
         }
 

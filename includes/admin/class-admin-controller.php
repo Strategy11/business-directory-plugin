@@ -76,8 +76,8 @@ class WPBDP__Admin__Controller {
 
     function _confirm_action( $args = array() ) {
         $defaults = array(
-            'title' => _x( 'Are you sure you want to do this?', 'admin confirm', 'business-directory-plugin' ),
-            'cancel_url' => '',
+			'title'       => __( 'Are you sure you want to do this?', 'business-directory-plugin' ),
+			'cancel_url'  => '',
             'cancel_text' => _x( 'No, go back', 'admin confirm', 'business-directory-plugin' ),
             'submit_text' => _x( 'Yes, I\'m sure', 'admin confirm', 'business-directory-plugin' ),
             'explanation' => ''
