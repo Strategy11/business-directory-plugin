@@ -16,7 +16,7 @@
 <form class="confirm-form" action="" method="post">
 <p>
 <?php printf( _x( 'You are about to remove your listing "%s" from the directory.', 'delete listing', 'business-directory-plugin' ), $listing->get_title() ); ?><br />
-<b><?php _ex( 'Are you sure you want to do this?', 'delete listing', 'business-directory-plugin' ); ?></b>
+<b><?php esc_html_e( 'Are you sure you want to do this?', 'business-directory-plugin' ); ?></b>
 </p>
 
 <?php wp_nonce_field( 'delete listing ' . $listing->get_id() ); ?>

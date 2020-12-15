@@ -170,6 +170,7 @@ class WPBDP_Form_Field {
         if ( $this->id ) {
             global $wpdb;
             $wpdb->update( $wpdb->prefix . 'wpbdp_form_fields', array( 'shortname' => $shortname ), array( 'id' => $this->id ) );
+			WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
         }
 
         return $shortname;
@@ -715,6 +716,7 @@ class WPBDP_Form_Field {
         }
 
         wp_cache_delete( $this->id, 'wpbdp formfields' );
+		WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
     }
 
     /**
@@ -746,6 +748,7 @@ class WPBDP_Form_Field {
             $this->type->cleanup( $this );
 
             wp_cache_delete( $this->id, 'wpbdp formfields' );
+			WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
 
             $this->id = 0;
         } else {
@@ -791,6 +794,7 @@ class WPBDP_Form_Field {
             foreach ( $fields as &$f ) {
                 $wpdb->update( "{$wpdb->prefix}wpbdp_form_fields", array( 'weight' => $f->weight ), array( 'id' => $f->id ) );
             }
+			WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
         } else {
             $fields = $wpdb->get_results( $wpdb->prepare( "SELECT id, weight FROM {$wpdb->prefix}wpbdp_form_fields WHERE weight <= %d ORDER BY weight ASC", $this->weight ) );
 
@@ -959,16 +963,22 @@ class WPBDP_Form_Field {
     public static function get( $id ) {
         global $wpdb;
 
-        $id = absint( $id );
-
         if ( ! $id ) {
             return null;
         }
 
+		if ( is_numeric( $id ) ) {
+			$id = absint( $id );
+		}
+
         $_field = wp_cache_get( $id, 'wpbdp formfields' );
 
         if ( ! $_field ) {
-            $_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id ) );
+			if ( is_numeric( $id ) ) {
+            	$_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id ) );
+			} else {
+				$_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s", $id ) );
+			}
 
             if ( ! $_field ) {
                 return null;

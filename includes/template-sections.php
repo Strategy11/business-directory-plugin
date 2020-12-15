@@ -4,12 +4,12 @@
  */
 class _WPBDP_Template_Sections {
 
-    function __construct() {
+	public function __construct() {
         add_action( 'wpbdp_template_variables', array( &$this, 'add_contact_form' ), 10, 2 );
         add_action( 'wpbdp_template_variables', array( &$this, 'add_comments' ), 999, 2 );
     }
 
-    function add_contact_form( $vars, $template ) {
+	public function add_contact_form( $vars, $template ) {
         if ( 'single' != $template )
             return $vars;
 
@@ -19,7 +19,7 @@ class _WPBDP_Template_Sections {
         return $vars;
     }
 
-    function listing_contact_form( $vars ) {
+	public function listing_contact_form( $vars ) {
         if ( ! class_exists( 'WPBDP__Views__Listing_Contact' ) )
             require_once( WPBDP_PATH . 'includes/views/listing_contact.php' );
 
@@ -27,7 +27,7 @@ class _WPBDP_Template_Sections {
         return $v->render_form( $vars['listing_id'] );
     }
 
-    function add_comments( $vars, $template ) {
+	public function add_comments( $vars, $template ) {
         if ( 'single' != $template )
             return $vars;
 
@@ -37,7 +37,7 @@ class _WPBDP_Template_Sections {
         return $vars;
     }
 
-    function listing_comments( $listing_id ) {
+	public function listing_comments( $listing_id ) {
         if ( wpbdp_get_option( 'allow-comments-in-listings' ) != 'allow-comments-and-insert-template' ) {
             return;
         }
@@ -52,10 +52,6 @@ class _WPBDP_Template_Sections {
 
         return $html;
     }
-
-
-
 }
 
 new _WPBDP_Template_Sections();
-

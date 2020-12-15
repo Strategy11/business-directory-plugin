@@ -295,7 +295,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                         $admin_fees_url
                     )
                 ),
-                _x( 'Delete', 'fees admin', 'business-directory-plugin' )
+                esc_html__( 'Delete', 'business-directory-plugin' )
             );
         }
 

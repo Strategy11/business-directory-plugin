@@ -127,41 +127,4 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         return '<a href="' . esc_url( $listing->get_admin_edit_link() ) . '">' . esc_html( $listing->get_title() ) . '</a>';
     }
 
-//     public function column_label($fee) {
-//         $actions = array();
-//         $actions['edit'] = sprintf('<a href="%s">%s</a>',
-//                                    esc_url(add_query_arg(array('wpbdp-view' => 'edit-fee', 'id' => $fee->id))),
-//                                    _x('Edit', 'fees admin', 'business-directory-plugin' ));
-//
-//         if ( 'free' == $fee->tag ) {
-// //            $actions['delete'] = sprintf('<a href="%s">%s</a>',
-// //                                       esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),
-// //                                       _x('Disable', 'fees admin', 'business-directory-plugin' ));
-//         } else {
-//             if ( $fee->enabled )
-//                 $actions['disable'] = sprintf('<a href="%s">%s</a>',
-//                                            esc_url(add_query_arg(array('wpbdp-view' => 'toggle-fee', 'id' => $fee->id))),
-//                                            _x('Disable', 'fees admin', 'business-directory-plugin' ));
-//             else
-//                 $actions['enable'] = sprintf('<a href="%s">%s</a>',
-//                                            esc_url(add_query_arg(array('wpbdp-view' => 'toggle-fee', 'id' => $fee->id))),
-//                                            _x('Enable', 'fees admin', 'business-directory-plugin' ));
-//
-//             $actions['delete'] = sprintf('<a href="%s">%s</a>',
-//                                        esc_url(add_query_arg(array('wpbdp-view' => 'delete-fee', 'id' => $fee->id))),
-//                                        _x('Delete', 'fees admin', 'business-directory-plugin' ));
-//         }
-//
-//         $html = '';
-//         $html .= sprintf( '<span class="wpbdp-drag-handle" data-fee-id="%s"></span></a>',
-//                         $fee->id );
-//
-//         $html .= sprintf('<strong><a href="%s">%s</a></strong>',
-//                          esc_url(add_query_arg(array('wpbdp-view' => 'edit-fee', 'id' => $fee->id))),
-//                          esc_attr($fee->label));
-//         $html .= $this->row_actions($actions);
-//
-//         return $html;
-//     }
-
 }

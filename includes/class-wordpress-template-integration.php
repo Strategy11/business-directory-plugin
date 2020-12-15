@@ -42,10 +42,17 @@ class WPBDP__WordPress_Template_Integration {
 
         add_filter( 'document_title_parts', array( $this, 'modify_global_post_title' ), 1000 );
         add_filter( 'wp_title', array( $this, 'modify_global_post_title' ), 1000 );
-        add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 
-        if ( $page_template = locate_template( $this->get_template_alternatives() ) )
-            $template = $page_template;
+		$allow_override = apply_filters( 'wpbdp_allow_template_override', true );
+
+		if ( $allow_override ) {
+			add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
+
+			$page_template = locate_template( $this->get_template_alternatives() );
+			if ( $allow_override && $page_template ) {
+				$template = $page_template;
+			}
+		}
 
         return $template;
     }
@@ -79,6 +86,7 @@ class WPBDP__WordPress_Template_Integration {
 
         add_action( 'the_post', array( $this, 'spoof_post' ) );
         remove_filter( 'the_content', 'wpautop' );
+
         // TODO: we should probably be more clever here to avoid conflicts. Run last so other hooks don't break our
         // output.
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );

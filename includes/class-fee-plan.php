@@ -117,6 +117,7 @@ final class WPBDP__Fee_Plan {
         }
 
         if ( $saved ) {
+			WPBDP_Utils::cache_delete_group( 'wpbdp_plans' );
             if ( $fire_hooks ) {
                 do_action( 'wpbdp_fee_save', $this, $update );
             }
@@ -139,10 +140,12 @@ final class WPBDP__Fee_Plan {
         return $this->save();
     }
 
-    public function delete() {
-        global $wpdb;
-        return $wpdb->delete( $wpdb->prefix . 'wpbdp_plans', array( 'id' => $this->id ) );
-    }
+	public function delete() {
+		global $wpdb;
+		$deleted = $wpdb->delete( $wpdb->prefix . 'wpbdp_plans', array( 'id' => $this->id ) );
+		WPBDP_Utils::cache_delete_group( 'wpbdp_plans' );
+		return $deleted;
+	}
 
     public function supports_category( $category_id ) {
         return $this->supports_category_selection( array( $category_id ) );
@@ -211,7 +214,16 @@ final class WPBDP__Fee_Plan {
     public static function get_instance( $fee_id ) {
         global $wpdb;
 
-        $row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $fee_id ), ARRAY_A );
+		$query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $fee_id );
+		$row = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => $fee_id,
+				'group'     => 'wpbdp_plans',
+				'query'     => $query,
+				'type'      => 'get_row',
+				'return'    => 'array',
+			)
+		);
 
         if ( ! $row ) {
             return false;

@@ -4,12 +4,12 @@
  *
  * @package BDP/Templates/Single
  */
-
 ?>
-<div id="<?php echo $listing_css_id; ?>" class="<?php echo $listing_css_class; ?>">
+
+<div id="<?php echo esc_attr( $listing_css_id ); ?>" class="<?php echo esc_attr( $listing_css_class ); ?>">
     <?php wpbdp_get_return_link(); ?>
     <div class="listing-title">
-        <h1><?php echo esc_html( $title ); ?></h1>
+        <<?php echo esc_attr( $title_type ); ?>><?php echo esc_html( $title ); ?></<?php echo esc_attr( $title_type ); ?>>
     </div>
 
     <?php if ( in_array( 'single', wpbdp_get_option( 'display-sticky-badge' ) ) ) : ?>

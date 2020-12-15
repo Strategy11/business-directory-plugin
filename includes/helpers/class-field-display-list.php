@@ -63,20 +63,32 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
     }
 
     public function filter( $filter ) {
-        $neg = ( '-' == substr( $filter, 0, 1 ) );
+		$neg = ( '-' === substr( $filter, 0, 1 ) );
         $filter = ( $neg ? substr( $filter, 1 ) : $filter );
 
         $filtered = array();
 
-        $type_filter = '';
-        $association_filter = '';
-        $social_filter = ( $filter == 'social' );
+		$social_filter  = ( $filter === 'social' );
+		$is_association = false;
+
+		if ( ! $social_filter ) {
+			$api            = WPBDP_FormFields::instance();
+			$post_fields    = $api->get_associations();
+			$is_association = isset( $post_fields[ $filter ] );
+		}
 
         foreach ( $this->items as &$f ) {
-            if ( $social_filter && $neg && ! $f->field->display_in( 'social' ) )
-                $filtered[] = $f;
-            elseif ( $social_filter && ! $neg && $f->field->display_in( 'social' ) )
-                $filtered[] = $f;
+			$display = ! $neg;
+			if ( $social_filter ) {
+				$display = $f->field->display_in( 'social' );
+			} elseif ( $is_association ) {
+				$mapping = $f->field->get_association();
+				$display = $mapping === $filter;
+			}
+
+			if ( $neg !== $display ) {
+				$filtered[] = $f;
+			}
         }
 
         $res = new self( $this->listing_id, $this->display, $filtered );

@@ -12,7 +12,7 @@ $buttons = '';
 if ( 'single' === $view ) :
     if ( wpbdp_user_can( 'edit', $listing_id ) ) :
 		$buttons .= sprintf(
-            '<form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button edit-listing" rel="nofollow" /></form>',
+            '<a href="%s" class="button edit-listing" rel="nofollow">%s</a>',
             wpbdp_url( 'edit_listing', $listing_id ),
             _x( 'Edit', 'templates', 'business-directory-plugin' )
 		);
@@ -28,18 +28,17 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_user_can( 'delete', $listing_id ) ) :
         $buttons .= sprintf(
-            '<form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button delete-listing" data-confirmation-message="%s" rel="nofollow"/></form>',
+            '<a href="%s" class="delete-listing" rel="nofollow">%s</a>',
             wpbdp_url( 'delete_listing', $listing_id ),
-            _x( 'Delete', 'templates', 'business-directory-plugin' ),
-            _x( 'Are you sure you wish to delete this listing?', 'templates', 'business-directory-plugin' )
+            esc_html__( 'Delete', 'business-directory-plugin' )
         );
     endif;
 
     if ( wpbdp_get_option( 'show-directory-button' ) ) :
         $buttons .= sprintf(
-            '<div style="display: inline;" class="back-to-dir-buttons"><input type="button" value="%1$s" onclick="window.location.href = \'%2$s\'" class="wpbdp-hide-on-mobile button back-to-dir wpbdp-button" /><input type="button" value="←" onclick="window.location.href = \'%2$s\'" class="wpbdp-show-on-mobile button back-to-dir wpbdp-button" /></div>',
-            __( 'Return to Directory', 'business-directory-plugin' ),
-            wpbdp_url( '/' )
+            '<span class="back-to-dir-buttons"><a href="%2$s" class="back-to-dir">%1$s</a></span>',
+            esc_html__( 'Return to Directory', 'business-directory-plugin' ),
+            esc_url( wpbdp_url( '/' ) )
         );
     endif;
     ?>
@@ -66,7 +65,7 @@ if ( 'single' === $view ) :
         $buttons .= sprintf(
             '<a class="wpbdp-button button delete-listing" href="%s" rel="nofollow">%s</a>',
             wpbdp_url( 'delete_listing', $listing_id ),
-            _x( 'Delete', 'templates', 'business-directory-plugin' )
+            esc_html__( 'Delete', 'business-directory-plugin' )
         );
     endif;
     ?>
