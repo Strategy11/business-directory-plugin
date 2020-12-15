@@ -1622,14 +1622,14 @@ final class WPBDP__Settings__Bootstrap {
     }
 
 	/**
-	 * @since x.x
+	 * @since v5.9
 	 */
 	private static function settings_misc() {
 		self::uninstall_section();
 	}
 
 	/**
-	 * @since x.x
+	 * @since v5.9
 	 */
 	private static function uninstall_section() {
 		if ( ! current_user_can( 'administrator' ) ) {

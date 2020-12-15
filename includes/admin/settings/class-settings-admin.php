@@ -451,7 +451,7 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Use for non-settings.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public function setting_none_callback() {
 		return;

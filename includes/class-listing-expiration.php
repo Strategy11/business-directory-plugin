@@ -99,7 +99,7 @@ class WPBDP__Listing_Expiration {
 	 * Using 'month' skips listings that expire at the end of the month.
 	 * For accuracy, use 30 days instead of 1 month.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	private function convert_month_to_days( &$period ) {
 		if ( strpos( $period, ' month' ) === false ) {

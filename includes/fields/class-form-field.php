@@ -250,7 +250,7 @@ class WPBDP_Form_Field {
 	/**
 	 * Used for sorting values.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public function is_numeric() {
 		$is_numeric = $this->has_validator( 'integer_number' ) || $this->has_validator( 'decimal_number' );

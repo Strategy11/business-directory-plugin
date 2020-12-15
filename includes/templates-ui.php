@@ -392,7 +392,7 @@ function wpbdp_listing_sort_options( $filters = array( 'wpbdp_listing_sort_optio
 }
 
 /**
- * @since x.x
+ * @since v5.9
  */
 function wpbdp_maybe_apply_filter( $filter, $filters, $value ) {
 	return in_array( $filter, $filters ) ? apply_filters( $filter, $value ) : $value;
@@ -401,7 +401,7 @@ function wpbdp_maybe_apply_filter( $filter, $filters, $value ) {
 /**
  * Get links to include in the sorting options.
  *
- * @since x.x
+ * @since v5.9
  */
 function wpbdp_get_listing_sort_links( $sort_options ) {
 	$current_sort = wpbdp_get_current_sort_option();
@@ -568,7 +568,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 	$image_html = wpbdp_thumbnail_html( $args );
 
 	/**
-	 * @since x.x
+	 * @since v5.9
 	 */
     return apply_filters( 'wpbdp_thumbnail_html', $image_html, $args );
 }
@@ -576,7 +576,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 /**
  * Get the html for a listing thumbnail image.
  *
- * @since x.x
+ * @since v5.9
  */
 function wpbdp_thumbnail_html( $args ) {
 	$image_img  = $args['image_img'];

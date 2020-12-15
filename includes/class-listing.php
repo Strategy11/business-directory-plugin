@@ -155,7 +155,7 @@ class WPBDP_Listing {
 	/**
 	 * Get saved thumbnail image.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	private function get_saved_thumbnail() {
 		$thumbnail_id = get_post_meta( $this->id, '_thumbnail_id', true );
@@ -170,7 +170,7 @@ class WPBDP_Listing {
 	/**
 	 * Add thumbnail as first image.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	private function prepend_thumbnail( &$images, $fields = 'ids' ) {
 		$thumbnail = $this->get_saved_thumbnail();

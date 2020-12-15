@@ -563,7 +563,7 @@ class WPBDP__Shortcodes {
     }
 
 	/**
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public function single_listing_images( $atts ) {
 		$this->add_current_listing_id( $atts );
@@ -585,7 +585,7 @@ class WPBDP__Shortcodes {
 	/**
 	 * Show the socials for a listing.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public function single_listing_socials( $atts ) {
 		$this->add_current_listing_id( $atts );
@@ -607,7 +607,7 @@ class WPBDP__Shortcodes {
 	/**
 	 * Show the listing action buttons (edit, delete).
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public function single_listing_actions( $atts ) {
 		$this->add_current_listing_id( $atts );
@@ -628,7 +628,7 @@ class WPBDP__Shortcodes {
 	/**
 	 * Show the listing details in fields.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public function single_listing_details( $atts ) {
 		$this->add_current_listing_id( $atts );
@@ -662,7 +662,7 @@ class WPBDP__Shortcodes {
 	/**
 	 * Exclude fields using the field id, shortname, type, or mapping.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 *
 	 * @return bool
 	 */
@@ -697,7 +697,7 @@ class WPBDP__Shortcodes {
 	/**
 	 * Get any section included on the single listing page.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public function single_listing_section( $atts ) {
 		$this->add_current_listing_id( $atts );
@@ -730,7 +730,7 @@ class WPBDP__Shortcodes {
 	/**
 	 * Get the id of the current listing to use for shortcodes.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	private function add_current_listing_id( &$vars ) {
 		$vars = (array) $vars;

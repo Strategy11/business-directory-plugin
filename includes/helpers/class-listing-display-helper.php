@@ -59,7 +59,7 @@ class WPBDP_Listing_Display_Helper {
 	/**
 	 * Get needed parameters for full or partial listing.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public static function single_listing_vars( $include = array() ) {
 		global $post;
@@ -94,7 +94,7 @@ class WPBDP_Listing_Display_Helper {
 	/**
 	 * Allow selective data to cut down on memeory load and db calls when not used.
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	private static function maybe_include_vars( $include, $var_name ) {
 		return empty( $include ) || in_array( $var_name, $include, true );

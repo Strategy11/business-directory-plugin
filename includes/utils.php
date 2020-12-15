@@ -92,7 +92,7 @@ class WPBDP__Utils {
 	/**
 	 * Check cache before fetching values and saving to cache
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 *
 	 * @param array  $args
 	 * @param string $args[string] $cache_key The unique name for this cache
@@ -142,7 +142,7 @@ class WPBDP__Utils {
 	}
 
 	/**
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public static function set_cache( $cache_key, $results, $group = '', $time = 300 ) {
 		self::add_key_to_group_cache( $cache_key, $group );
@@ -153,7 +153,7 @@ class WPBDP__Utils {
 	 * Keep track of the keys cached in each group so they can be deleted
 	 * in Redis and Memcache
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public static function add_key_to_group_cache( $key, $group ) {
 		$cached         = self::get_group_cached_keys( $group );
@@ -162,7 +162,7 @@ class WPBDP__Utils {
 	}
 
 	/**
-	 * @since x.x
+	 * @since v5.9
 	 */
 	public static function get_group_cached_keys( $group ) {
 		$cached = wp_cache_get( 'cached_keys', $group );
@@ -176,7 +176,7 @@ class WPBDP__Utils {
 	/**
 	 * Delete all caching in a single group
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 *
 	 * @param string $group The name of the cache group
 	 */
@@ -195,7 +195,7 @@ class WPBDP__Utils {
 	/**
 	 * Check if value contains blank value or empty array
 	 *
-	 * @since x.x
+	 * @since v5.9
 	 *
 	 * @param mixed $value - value to check
 	 * @param string
