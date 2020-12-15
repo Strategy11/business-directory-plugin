@@ -140,7 +140,7 @@ class WPBDP_Listing {
         $images = $this->get_images( 'ids' );
 
         if ( ! $images ) {
-			if ( $thumbnail_id ) {
+			if ( $thumbnail ) {
 				// Clear out previous value.
 				$this->set_thumbnail_id( 0 );
 			}
