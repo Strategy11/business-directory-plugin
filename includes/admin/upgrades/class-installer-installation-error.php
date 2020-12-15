@@ -14,7 +14,7 @@ class WPBDP__Installer__Installation_Error {
         print '<div class="notice notice-error"><p>';
         print '<strong>' . __( 'Business Directory - Installation Failed', 'business-directory-plugin' ) . '</strong>';
         print '<br />';
-        print  __( 'Business Directory installation failed. An exception with following message was generated:', 'business-directory-plugin' );
+		esc_html_e( 'Business Directory installation failed. An exception with following message was generated:', 'business-directory-plugin' );
         print '<br/><br/>';
         print '<i>' . $this->exception->getMessage() . '</i>';
         print '<br /><br />';

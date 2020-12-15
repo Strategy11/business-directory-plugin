@@ -198,7 +198,7 @@ class WPBDP_reCAPTCHA {
 
         if ( ! $this->verify() ) {
             $this->comment_error = true;
-            add_filter( 'pre_comment_approved', create_function( '$a', 'return \'spam\';' ) );
+            add_filter( 'pre_comment_approved', function( $a ) { return 'spam'; } );
         }
 
         return $comment_data;
@@ -217,7 +217,8 @@ class WPBDP_reCAPTCHA {
     }
 
     function _restore_comment_fields() {
-        $comment_id = isset( $_GET['wre'] ) ? absint( base64_decode( urldecode( $_GET['wre'] ) ) ) : 0;
+		$wre        = wpbdp_get_var( array( 'param' => 'wre' ) );
+		$comment_id = $wre ? absint( base64_decode( urldecode( $wre ) ) ) : 0;
 
         if ( ! $comment_id ) {
             return;

@@ -878,7 +878,7 @@ class WPBDP_Listing {
 
         if ( ! is_array( $args['status'] ) ) {
             if ( 'all' == $args['status'] ) {
-                $args['status'] = array_keys( WPBDP_Listing::get_stati() );
+				$args['status'] = array_keys( self::get_stati() );
             } else {
                 $args['status'] = explode( ',', $args['status'] );
             }

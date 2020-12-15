@@ -93,10 +93,12 @@ class WPBDP__Dispatcher {
      * @since 5.0
      */
     public function _ajax_dispatch() {
-        if ( empty( $_REQUEST['handler'] ) )
-            return;
+		$ajax_handler = wpbdp_get_var( array( 'param' => 'handler' ), 'request' );
+		if ( empty( $ajax_handler ) ) {
+			return;
+		}
 
-        $handler = trim( $_REQUEST['handler'] );
+        $handler = trim( $ajax_handler );
         $handler = WPBDP__Utils::normalize( $handler );
 
         $parts = explode( '__', $handler );
@@ -149,7 +151,7 @@ class WPBDP__Dispatcher {
                     continue;
 
                 if ( is_null( $args ) ) {
-                    return new $classname;
+                    return new $classname();
                 } else {
                     // TODO: this is terrible. Maybe we can use an `init()` function for all views and use that instead.
                     // That way all views can be instantiated without arguments.

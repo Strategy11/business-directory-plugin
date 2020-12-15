@@ -6,7 +6,7 @@
 require_once WPBDP_PATH . 'includes/compatibility/deprecated.php';
 class WPBDP_Compat {
 
-    function __construct() {
+    public function __construct() {
         $this->workarounds_for_wp_bugs();
         $this->load_integrations();
 
@@ -23,7 +23,7 @@ class WPBDP_Compat {
         add_action( 'wp_head', array( &$this, '_handle_broken_plugin_filters' ), 0 );
     }
 
-    function load_integrations() {
+    public function load_integrations() {
         if ( isset( $GLOBALS['sitepress'] ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-wpml-compat.php';
             $wpml_integration = new WPBDP_WPML_Compat();
@@ -52,28 +52,26 @@ class WPBDP_Compat {
         if ( class_exists( 'Cornerstone_Plugin' ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-cornerstone-compat.php';
             $cornerstone_integration = new WPBDP_Cornerstone_Compat();
-            
         }
 
         if ( class_exists( 'FLTheme' ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-beaver-themer-compat.php';
             $cornerstone_integration = new WPBDP_Beaver_Themer_Compat();
-            
         }
     }
 
-    function cpt_compat_mode() {
+    public function cpt_compat_mode() {
         require_once WPBDP_PATH . 'includes/compatibility/class-cpt-compat-mode.php';
         $nocpt = new WPBDP__CPT_Compat_Mode();
     }
 
     // Work around WP bugs. {{{
-    function workarounds_for_wp_bugs() {
+    public function workarounds_for_wp_bugs() {
         // #1466 (related to https://core.trac.wordpress.org/ticket/28081).
         add_filter( 'wpbdp_query_clauses', array( &$this, '_fix_pagination_issue' ), 10, 2 );
     }
 
-    function _fix_pagination_issue( $clauses, $query ) {
+    public function _fix_pagination_issue( $clauses, $query ) {
         $posts_per_page = intval( $query->get( 'posts_per_page' ) );
         $paged          = intval( $query->get( 'paged' ) );
 
@@ -145,7 +143,10 @@ class WPBDP_Compat {
         }
 
         // Quick AdSense - http://quicksense.net/
-        global $QData;
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		global $QData;
+
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
         if ( isset( $QData ) ) {
             $bad_filters['the_content'][] = 'process_content';
         }

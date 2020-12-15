@@ -153,11 +153,11 @@ class WPBDP__CPT_Integration {
 
         if ( ! wpbdp_rewrite_on() ) {
             if ( wpbdp_get_option( 'disable-cpt' ) ) {
-                $link = wpbdp_url( '/' ) . '&' . '_' . wpbdp_get_option( 'permalinks-directory-slug' ) . '=' . $post->post_name;
+                $link = wpbdp_url( '/' ) . '&_' . wpbdp_get_option( 'permalinks-directory-slug' ) . '=' . $post->post_name;
             }
         } else {
             if ( $leavename ) {
-                return wpbdp_url( '/' . '%' . WPBDP_POST_TYPE . '%' . $querystring );
+                return wpbdp_url( '/%' . WPBDP_POST_TYPE . '%' . $querystring );
             }
 
             if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
@@ -193,7 +193,7 @@ class WPBDP__CPT_Integration {
 
         global $q_config;
 
-        $lang         = isset( $_GET['lang'] ) ? $_GET['lang'] : $q_config['language'];
+        $lang         = wpbdp_get_var( array( 'param' => 'lang', 'default' => $q_config['language'] ) );
         $default_lang = $q_config['default_language'];
 
         if ( $lang != $default_lang ) {
@@ -308,8 +308,8 @@ class WPBDP__CPT_Integration {
             delete_post_meta( $listing->get_id(), '_gateway_suscription_cancel_status' );
         } catch ( Exception $e ) {
             update_post_meta( $listing->get_id(), '_gateway_suscription_cancel_status', 'not_canceled' );
-            if ( 'pre_delete_post' === current_filter() && ( ! isset( $_REQUEST['page'] ) || 'wpbdp_uninstall' !== $_REQUEST['page'] ) ) {
-                wp_die( $e->getMessage() );
+            if ( 'pre_delete_post' === current_filter() && 'wpbdp_uninstall' !== wpbdp_get_var( array( 'param' => 'page' ), 'request' ) ) {
+                wp_die( wp_kses_post( $e->getMessage() ) );
                 return false;
             }
         }

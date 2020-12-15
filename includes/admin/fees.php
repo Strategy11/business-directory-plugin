@@ -84,7 +84,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         if ( 'insert' == $mode ) {
             $fee = new WPBDP__Fee_Plan( $posted_values );
         } else {
-            $fee = wpbdp_get_fee_plan( $_GET['id'] ) or die();
+			$fee = $this->get_or_die();
         }
 
         if ( $posted_values ) {
@@ -112,8 +112,20 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         return array( 'fee' => $fee );
     }
 
+	/**
+	 * @since 5.9
+	 */
+	private function get_or_die() {
+		$fee = wpbdp_get_fee_plan( wpbdp_get_var( array( 'param' => 'id' ) ) );
+
+		if ( ! $fee ) {
+			wp_die();
+		}
+		return $fee;
+	}
+
     function delete_fee() {
-        $fee = wpbdp_get_fee_plan( $_GET['id'] ) or die();
+		$fee = $this->get_or_die();
 
         list( $do, $html ) = $this->_confirm_action( array(
             'cancel_url' => remove_query_arg( array( 'wpbdp-view', 'id' ) ),
@@ -128,7 +140,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     function toggle_fee() {
-        $fee = wpbdp_get_fee_plan( $_GET['id'] ) or die();
+		$fee = $this->get_or_die();
         $fee->enabled = ! $fee->enabled;
         $fee->save();
 

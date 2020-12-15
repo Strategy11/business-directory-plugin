@@ -18,8 +18,6 @@ class WPBDP__Modules {
 
         // Register modules with the Licensing API.
         foreach ( $this->modules as $mod ) {
-            $valid = false;
-
             if ( ! $mod->is_premium_module ) {
                 $valid = true;
             } else {
@@ -35,11 +33,13 @@ class WPBDP__Modules {
     public function load( $module ) {
         try {
             if ( is_string( $module ) && class_exists( $module ) )
-                $module = new $module;
+                $module = new $module();
 
             $wrapper = new WPBDP__Module( $module );
             $this->modules[ $wrapper->id ] = $wrapper;
         } catch ( Exception $e ) {
+			// could not load a module.
+			return;
         }
     }
 

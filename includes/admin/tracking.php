@@ -98,12 +98,6 @@ class WPBDP_SiteTracking {
                 } else {
                     $data['theme']['parent'] = null;
                 }
-            } else {
-                $theme = (object) get_theme_data( get_stylesheet_directory() . '/style.css' );
-
-                foreach ( array( 'Name', 'Version', 'Author' ) as $k ) {
-                    $data['theme'][ strtolower( $k ) ] = wpbdp_getv( $theme, $k, '' );
-                }
             }
 
             // Posts.
@@ -170,18 +164,25 @@ class WPBDP_SiteTracking {
         ) );
     }
 
-    public static function handle_ajax_response() {
-        if ( !wp_verify_nonce( $_POST['nonce'], 'wpbdp-set_site_tracking' ) )
-            exit();
+	public static function handle_ajax_response() {
+		if ( ! wp_verify_nonce( wpbdp_get_var( array( 'param' => 'nonce' ), 'post' ), 'wpbdp-set_site_tracking' ) ) {
+			exit();
+		}
 
-        if ( isset( $_POST['enable_tracking'] ) ) {
-            update_option( 'wpbdp-show-tracking-pointer', 0 );
+		$params = array(
+			'param'    => 'enable_tracking',
+			'sanitize' => 'intval',
+			'default'  => null,
+		);
+		$tracking = wpbdp_get_var( $params, 'post' ) );
+		if ( $tracking !== null ) {
+			update_option( 'wpbdp-show-tracking-pointer', 0 );
 
-            if ( intval( $_POST['enable_tracking'] ) ) {
-                wpbdp_set_option( 'tracking-on', true );
-            }
-        }
-    }
+			if ( $tracking ) {
+				wpbdp_set_option( 'tracking-on', true );
+			}
+		}
+	}
 
     public static function request_js() {
         $content  = '';
@@ -199,7 +200,7 @@ class WPBDP_SiteTracking {
                 var args = {
                     action: "wpbdp-set_site_tracking",
                     enable_tracking: enable ? 1 : 0,
-                    nonce: "<?php echo wp_create_nonce( 'wpbdp-set_site_tracking' ); ?>"
+                    nonce: "<?php echo esc_attr( wp_create_nonce( 'wpbdp-set_site_tracking' ) ); ?>"
                 };
 
                 $.post(ajaxurl, args, function() {

@@ -44,7 +44,7 @@ class WPBDP_CSVImportAdmin {
             die();
         }
 
-        $import_id = ! empty( $_POST['import_id'] ) ? $_POST['import_id'] : 0;
+        $import_id = wpbdp_get_var( array( 'param' => 'import_id', 'default' => 0 ), 'post' );
 
         if ( ! $import_id ) {
             die();
@@ -91,7 +91,8 @@ class WPBDP_CSVImportAdmin {
     }
 
     public function ajax_autocomplete_user() {
-        $users = get_users( array( 'search' => "*{$_REQUEST['term']}*" ) );
+		$term  = wpbdp_get_var( array( 'param' => 'term' ), 'request' );
+        $users = get_users( array( 'search' => "*{$term}*" ) );
 
         foreach ( $users as $user ) {
             $return[] = array(
@@ -104,7 +105,7 @@ class WPBDP_CSVImportAdmin {
     }
 
     function dispatch() {
-        $action = wpbdp_getv( $_REQUEST, 'action' );
+        $action = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
 
         switch ( $action ) {
             case 'example-csv':
@@ -124,20 +125,25 @@ class WPBDP_CSVImportAdmin {
 
         if ( $field ) {
             if ( $field->get_association() == 'title' ) {
-                return sprintf( _x( 'Business %s', 'admin csv-import', 'business-directory-plugin' ), $letters[ rand( 0, strlen( $letters ) - 1 ) ] );
-            } elseif ( $field->get_association() == 'category' ) {
+				/* translators: %s: Sample business name */
+                return sprintf( esc_html__( 'Business %s', 'business-directory-plugin' ), $letters[ rand( 0, strlen( $letters ) - 1 ) ] );
+            }
+
+			if ( $field->get_association() === 'category' ) {
                 if ( $terms = get_terms( WPBDP_CATEGORY_TAX, 'number=5&hide_empty=0' ) ) {
                     return $terms[ array_rand( $terms ) ]->name;
-                } else {
-                    return '';
                 }
-            } elseif ( $field->get_association() == 'tags' ) {
+				return '';
+            }
+
+			if ( $field->get_association() === 'tags' ) {
                 if ( $terms = get_terms( WPBDP_TAGS_TAX, 'number=5&hide_empty=0' ) ) {
                     return $terms[ array_rand( $terms ) ]->name;
-                } else {
-                    return '';
                 }
-            } elseif ( $field->has_validator( 'url' ) ) {
+				return '';
+            }
+
+			if ( $field->has_validator( 'url' ) ) {
                 return get_site_url();
             } elseif ( $field->has_validator( 'email' ) ) {
                 return get_option( 'admin_email' );
