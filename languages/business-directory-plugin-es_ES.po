@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-15 16:28:31+00:00\n"
+"POT-Creation-Date: 2020-12-15 20:58:24+00:00\n"
 "PO-Revision-Date: 2020-10-07 14:57-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -56,12 +56,12 @@ msgstr "Atributos"
 msgid "Edit listing permalink"
 msgstr "Editar enlace del listado"
 
-#: includes/admin/class-admin.php:166
+#: includes/admin/class-admin.php:169
 #, fuzzy
 msgid "Never"
 msgstr "Nunca"
 
-#: includes/admin/class-admin.php:167
+#: includes/admin/class-admin.php:170
 #: includes/fields/class-fieldtypes-textarea.php:201
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:113
@@ -69,7 +69,7 @@ msgstr "Nunca"
 msgid "Yes"
 msgstr "Sí"
 
-#: includes/admin/class-admin.php:168
+#: includes/admin/class-admin.php:171
 #: includes/admin/settings/class-settings-bootstrap.php:235
 #: includes/fields/class-fieldtypes-textarea.php:200
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:106
@@ -78,7 +78,7 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#: includes/admin/class-admin.php:177
+#: includes/admin/class-admin.php:180
 msgid ""
 "Preview is only available after you've saved the first draft. This is due\n"
 "    to how WordPress stores the data."
@@ -87,7 +87,7 @@ msgstr ""
 "Esto se debe a\n"
 "    la forma en que WordPress almacena los datos."
 
-#: includes/admin/class-admin.php:249
+#: includes/admin/class-admin.php:252
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
 "scratch in this ridiculously actionable (and FREE) 5-part email course."
@@ -95,48 +95,48 @@ msgstr ""
 "Descubra cómo crear un directorio de negocios próspero y llamativo desde "
 "cero en este curso GRATUITO por e-mail de 5 partes."
 
-#: includes/admin/class-admin.php:258
+#: includes/admin/class-admin.php:261
 #, fuzzy
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr ""
 "Quiere conocer los secretos para crear un Directorio de Negocios "
 "impresionante?"
 
-#: includes/admin/class-admin.php:260
+#: includes/admin/class-admin.php:263
 #, fuzzy
 msgid "Yes, please!"
 msgstr "Sí, por favor!"
 
-#: includes/admin/class-admin.php:262 includes/admin/tracking.php:214
+#: includes/admin/class-admin.php:265 includes/admin/tracking.php:214
 #, fuzzy
 msgid "No, thanks"
 msgstr "No, gracias"
 
-#: includes/admin/class-admin.php:324
+#: includes/admin/class-admin.php:327
 #, fuzzy
 msgid "Invalid email address."
 msgstr "Dirección de correo-e inválida."
 
-#: includes/admin/class-admin.php:358
+#: includes/admin/class-admin.php:361
 #, fuzzy
 msgid "Business Directory Admin"
 msgstr "Administración de Directorio de Negocios"
 
-#: includes/admin/class-admin.php:359 includes/templates-ui.php:286
+#: includes/admin/class-admin.php:362 includes/templates-ui.php:286
 msgid "Directory"
 msgstr "Directorio"
 
-#: includes/admin/class-admin.php:370 templates/admin/home.tpl.php:65
+#: includes/admin/class-admin.php:373 templates/admin/home.tpl.php:65
 #, fuzzy
 msgid "Fee Plans"
 msgstr "Plan de Pago"
 
-#: includes/admin/class-admin.php:373 templates/admin/home.tpl.php:60
+#: includes/admin/class-admin.php:376 templates/admin/home.tpl.php:60
 #, fuzzy
 msgid "Form Fields"
 msgstr "campos de formulario"
 
-#: includes/admin/class-admin.php:999 includes/admin/form-fields.php:122
+#: includes/admin/class-admin.php:1002 includes/admin/form-fields.php:122
 #: includes/admin/helpers/class-payments-table.php:54
 #: templates/email/listing-added.tpl.php:7
 #: templates/email/listing-edited.tpl.php:13
@@ -145,7 +145,7 @@ msgstr "campos de formulario"
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-admin.php:1001 includes/admin/class-admin.php:1009
+#: includes/admin/class-admin.php:1004 includes/admin/class-admin.php:1012
 #: includes/admin/settings/class-settings-bootstrap.php:656
 #, fuzzy
 msgid "Listing Count"
@@ -833,7 +833,31 @@ msgstr ""
 "plan de pago público. Diríjase a %1$sAdministrar Tarifas%2$s para agregar o "
 "editar plan(es) de tarifa(s)."
 
-#: includes/class-wpbdp.php:526
+#: includes/class-wpbdp.php:294
+#, fuzzy
+msgid "Settings"
+msgstr "Configuración"
+
+#: includes/class-wpbdp.php:488
+#, fuzzy
+msgid "Could not find listing ID"
+msgstr "No se pudo encontrar el ID del listado"
+
+#: includes/class-wpbdp.php:495
+#, fuzzy
+msgid ""
+"Could not verify the image upload request. If problem persists contact site "
+"admin."
+msgstr ""
+"Algo salió mal, por favor inténtelo de nuevo. Si el error persiste contacte "
+"al administrador del sitio"
+
+#: includes/class-wpbdp.php:502 includes/fields/class-fieldtypes-image.php:322
+#, fuzzy
+msgid "Could not find image ID"
+msgstr "No se pudo encontrar el ID del la imagen"
+
+#: includes/class-wpbdp.php:534
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -841,7 +865,7 @@ msgstr ""
 "Las características de Business Directory se encuentran deshabilitadas en "
 "este momento por una <a>actualización manual</a> está pendiente."
 
-#: includes/class-wpbdp.php:533
+#: includes/class-wpbdp.php:541
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -883,13 +907,9 @@ msgstr "Este campo no está disponible en el momento."
 
 #: includes/fields/class-fieldtypes-image.php:155
 #: templates/submit-listing-images-upload-form.tpl.php:38
-msgid "Select from Media"
-msgstr "Seleccionar desde Medios"
-
-#: includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
-msgid "Could not find image ID"
-msgstr "No se pudo encontrar el ID del la imagen"
+msgid "Select Media"
+msgstr "Seleccionar desde Medios"
 
 #: includes/fields/class-fieldtypes-select.php:24
 #, fuzzy
@@ -1943,7 +1963,54 @@ msgstr "Desinstalación completa."
 msgid "Return to Dashboard."
 msgstr "Regresar al administrador de WordPress."
 
-#: templates/admin/uninstall-confirm.tpl.php:48
+#. translators: %1$s: open link html, %2$s: close link html
+#: templates/admin/uninstall-confirm.tpl.php:43
+#, fuzzy
+msgid "Go to %1$sPlugins->Installed Plugins%2$s"
+msgstr "Visite la página de <a>Plugins -> Plugins instalados"
+
+#: templates/admin/uninstall-confirm.tpl.php:50
+#, fuzzy
+msgid ""
+"Click on \"Deactivate\" for Business Directory Plugin. Wait for this to "
+"finish"
+msgstr ""
+"Haga click en en la acción “Desactivar” en la fila que corresponde a "
+"Business Directory Plugin. Espere hasta que esta acción esté completa"
+
+#. translators: %1$s: open italic html, %2$s: close italic html
+#: templates/admin/uninstall-confirm.tpl.php:55
+#, fuzzy
+msgid ""
+"Click on \"Delete\" for Business Directory Plugin. %1$sTHIS OPERATION IS "
+"SAFE--your data will NOT BE LOST doing this%2$s"
+msgstr ""
+"Haga click en la acción “Eliminar”. <i>ESTA OPERACIÓN ES SEGURA — sus datos "
+"NO SE PERDERAN</i>"
+
+#: templates/admin/uninstall-confirm.tpl.php:61
+#, fuzzy
+msgid "Wait for the delete to finish"
+msgstr "Espere a que el plugin sea eliminado"
+
+#: templates/admin/uninstall-confirm.tpl.php:62
+#, fuzzy
+msgid ""
+"The plugin is now removed, but your data is still present inside of your "
+"database."
+msgstr ""
+"Ahora el plugin está eliminado, pero la información todavía está almacenada "
+"en la base de datos."
+
+#. translators: %1$s: open link html, %2$s: close link html
+#: templates/admin/uninstall-confirm.tpl.php:67
+#, fuzzy
+msgid "You can reinstall the plugin again under %1$sPlugins->Add New%2$s"
+msgstr ""
+"Usted puede reinstalar el plugin de nuevo bajo <a>Plugins -> Agregar nuevo</"
+"a>"
+
+#: templates/admin/uninstall-confirm.tpl.php:76
 #, fuzzy
 msgid "Take me to the Plugins screen"
 msgstr "Visitar la página de <b>Plugins</b>"
@@ -2950,16 +3017,6 @@ msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr "El historial de pagos del listado se eliminó correctamente"
 
-#: includes/class-wpbdp.php:484
-msgctxt "admin listings"
-msgid "Could not find listing ID"
-msgstr "No se pudo encontrar el ID del listado"
-
-#: includes/class-wpbdp.php:490
-msgctxt "admin listings"
-msgid "Could not find image ID"
-msgstr "No se pudo encontrar el ID del la imagen"
-
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:29
 msgctxt "admin listings"
 msgid "Selected Option: "
@@ -2990,52 +3047,52 @@ msgctxt "admin"
 msgid "Categories"
 msgstr "Categorías"
 
-#: includes/admin/class-admin.php:283
+#: includes/admin/class-admin.php:286
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Directorio de Negocios"
 
-#: includes/admin/class-admin.php:298
+#: includes/admin/class-admin.php:301
 msgctxt "admin"
 msgid "You're all set. Visit your new <a>Business Directory</a> page."
 msgstr ""
 "Está todo listo. Visite la página de su nuevo <a>Directorio de Negocios</a>."
 
-#: includes/admin/class-admin.php:468
+#: includes/admin/class-admin.php:471
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Menú sin título"
 
-#: includes/admin/class-admin.php:771
+#: includes/admin/class-admin.php:774
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Ignorar."
 
-#: includes/admin/class-admin.php:810 includes/admin/class-admin.php:820
+#: includes/admin/class-admin.php:813 includes/admin/class-admin.php:823
 msgctxt "admin"
 msgid "The listing has been updated."
 msgid_plural "The listings have been updated."
 msgstr[0] "El listado ha sido actualizado."
 msgstr[1] "Los listados han sido actualizados."
 
-#: includes/admin/class-admin.php:846
+#: includes/admin/class-admin.php:849
 msgctxt "admin"
 msgid "The fee was successfully assigned."
 msgstr "La comisión se asignó satisfactoriamente."
 
-#: includes/admin/class-admin.php:856
+#: includes/admin/class-admin.php:859
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "El listado ha sido renovado."
 msgstr[1] "Los listados fueron renovados."
 
-#: includes/admin/class-admin.php:868
+#: includes/admin/class-admin.php:871
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Mensaje de correo electrónico de renovación enviado."
 
-#: includes/admin/class-admin.php:872
+#: includes/admin/class-admin.php:875
 msgctxt "admin"
 msgid ""
 "Could not send renewal email, notice template at listing expiration not "
@@ -3044,24 +3101,24 @@ msgstr ""
 "No se pudo enviar el correo electrónico de renovación, no se encontró la "
 "plantilla de notificación al momento de expirar e listado."
 
-#: includes/admin/class-admin.php:879
+#: includes/admin/class-admin.php:882
 msgctxt "admin"
 msgid "Listing report deleted."
 msgid_plural "Listing reports deleted."
 msgstr[0] "Reporte eliminado."
 msgstr[1] "Reportes eliminados."
 
-#: includes/admin/class-admin.php:927
+#: includes/admin/class-admin.php:930
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Claves de acceso enviadas."
 
-#: includes/admin/class-admin.php:929
+#: includes/admin/class-admin.php:932
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr "No se pudo enviar las claves de acceso."
 
-#: includes/admin/class-admin.php:1078
+#: includes/admin/class-admin.php:1081
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -3070,7 +3127,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere una página con el shortcode "
 "<tt>[businessdirectory]</tt> para funcionar adecuadamente."
 
-#: includes/admin/class-admin.php:1080
+#: includes/admin/class-admin.php:1083
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -3079,12 +3136,12 @@ msgstr ""
 "Puede crear esta página usted mismo o dejar que Business Directory lo haga "
 "por usted automáticamente."
 
-#: includes/admin/class-admin.php:1085
+#: includes/admin/class-admin.php:1088
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crear las páginas requeridas por mi"
 
-#: includes/admin/class-admin.php:1119
+#: includes/admin/class-admin.php:1122
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -3096,7 +3153,7 @@ msgstr ""
 "Por favor comuníquese con su proveedor de hosting para actualizar su sistema "
 "y evitar problemas de compatibilidad."
 
-#: includes/admin/class-admin.php:1143
+#: includes/admin/class-admin.php:1146
 #, fuzzy
 msgctxt "admin"
 msgid ""
@@ -3263,22 +3320,22 @@ msgctxt "admin actions"
 msgid "Send access keys"
 msgstr "Enviar claves de acceso"
 
-#: includes/admin/class-admin.php:251
+#: includes/admin/class-admin.php:254
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "Correo electrónico:"
 
-#: includes/admin/class-admin.php:377
+#: includes/admin/class-admin.php:380
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Historia Transaccional"
 
-#: includes/admin/class-admin.php:380
+#: includes/admin/class-admin.php:383
 msgctxt "admin menu"
 msgid "Import & Export"
 msgstr "Importar/Exportar"
 
-#: includes/admin/class-admin.php:383
+#: includes/admin/class-admin.php:386
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Depuración"
@@ -7234,11 +7291,6 @@ msgctxt "views"
 msgid "Find A Listing"
 msgstr "Encontrar un Listado"
 
-#: includes/class-wpbdp.php:295
-msgctxt "admin plugins"
-msgid "Settings"
-msgstr "Configuración"
-
 #: includes/class-wpbdp.php:386
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
@@ -7349,7 +7401,7 @@ msgctxt "form-fields api"
 msgid "Social Site (Twitter handle)"
 msgstr "Sitio Social (Twitter @)"
 
-#: includes/fields/class-form-field.php:739
+#: includes/fields/class-form-field.php:740
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -7379,22 +7431,22 @@ msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Tipo de campo inválido"
 
-#: includes/fields/class-form-field.php:617
+#: includes/fields/class-form-field.php:618
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "El nombre del campo es requerido."
 
-#: includes/fields/class-form-field.php:621
+#: includes/fields/class-form-field.php:622
 msgctxt "form-fields-api"
 msgid "Field label max length is 255 characters."
 msgstr "La longitud máxima de la etiqueta del campo es de 255 caracteres."
 
-#: includes/fields/class-form-field.php:625
+#: includes/fields/class-form-field.php:626
 msgctxt "form-fields-api"
 msgid "Field description max length is 255 characters."
 msgstr "La longitud máxima de la descripción del campo es de 255 caracteres."
 
-#: includes/fields/class-form-field.php:636
+#: includes/fields/class-form-field.php:637
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -7406,7 +7458,7 @@ msgstr ""
 "debe eliminar el campo actual y crear un nuevo campo de tipo %1$s en su "
 "lugar."
 
-#: includes/fields/class-form-field.php:639
+#: includes/fields/class-form-field.php:640
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
@@ -7415,7 +7467,7 @@ msgstr ""
 "<strong>ADVERTENCIA</strong>: si se elimina este campo, también se "
 "eliminarán los datos de éste en los listados existentes."
 
-#: includes/fields/class-form-field.php:673
+#: includes/fields/class-form-field.php:674
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -7424,17 +7476,17 @@ msgstr ""
 "Solo puede haber un campo con asociación \"%s\". Por favor elija otra "
 "asociación."
 
-#: includes/fields/class-form-field.php:683
+#: includes/fields/class-form-field.php:684
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" es un tipo de campo inválido para esta asociación."
 
-#: includes/fields/class-form-field.php:729
+#: includes/fields/class-form-field.php:730
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "ID de campo inválido"
 
-#: includes/fields/class-form-field.php:755
+#: includes/fields/class-form-field.php:756
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Un error ocurrió mientras se trataba de eliminar este campo."
@@ -8905,49 +8957,10 @@ msgctxt "uninstall"
 msgid "If you just need to reinstall the plugin, please do the following:"
 msgstr "Si está intentando reinstalar el plugin, por favor haga lo siguiente:"
 
-#: templates/admin/uninstall-confirm.tpl.php:39
+#: templates/admin/uninstall-confirm.tpl.php:49
 msgctxt "uninstall"
 msgid "Go to <a>Plugins->Installed Plugins"
 msgstr "Visite la página de <a>Plugins -> Plugins instalados"
-
-#: templates/admin/uninstall-confirm.tpl.php:40
-msgctxt "uninstall"
-msgid ""
-"Click on \"Deactivate\" for Business Directory Plugin. Wait for this to "
-"finish"
-msgstr ""
-"Haga click en en la acción “Desactivar” en la fila que corresponde a "
-"Business Directory Plugin. Espere hasta que esta acción esté completa"
-
-#: templates/admin/uninstall-confirm.tpl.php:41
-msgctxt "uninstall"
-msgid ""
-"Click on \"Delete\" for Business Directory Plugin. <i>THIS OPERATION IS "
-"SAFE--your data will NOT BE LOST doing this</i>"
-msgstr ""
-"Haga click en la acción “Eliminar”. <i>ESTA OPERACIÓN ES SEGURA — sus datos "
-"NO SE PERDERAN</i>"
-
-#: templates/admin/uninstall-confirm.tpl.php:42
-msgctxt "uninstall"
-msgid "Wait for the delete to finish"
-msgstr "Espere a que el plugin sea eliminado"
-
-#: templates/admin/uninstall-confirm.tpl.php:43
-msgctxt "uninstall"
-msgid ""
-"The plugin is now removed, but your data is still present inside of your "
-"database."
-msgstr ""
-"Ahora el plugin está eliminado, pero la información todavía está almacenada "
-"en la base de datos."
-
-#: templates/admin/uninstall-confirm.tpl.php:44
-msgctxt "uninstall"
-msgid "You can reinstall the plugin again under <a>Plugins->Add New</a>"
-msgstr ""
-"Usted puede reinstalar el plugin de nuevo bajo <a>Plugins -> Agregar nuevo</"
-"a>"
 
 #: templates/delete-listing-confirm.tpl.php:3
 msgctxt "manage recurring"
@@ -9100,6 +9113,14 @@ msgstr "Ingrese su dirección de correo-e"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuar"
+
+#~ msgctxt "admin listings"
+#~ msgid "Could not find image ID"
+#~ msgstr "No se pudo encontrar el ID del la imagen"
+
+#~ msgctxt "admin plugins"
+#~ msgid "Settings"
+#~ msgstr "Configuración"
 
 #~ msgid "Uninstall Business Directory Plugin"
 #~ msgstr "Desinstalar Business Directory Plugin"
@@ -9991,14 +10012,6 @@ msgstr "Continuar"
 #~ msgstr ""
 #~ "Longitud máxima para el extracto del campo descripción cuando se muestran "
 #~ "varios listados."
-
-#~ msgctxt "flag listing"
-#~ msgid ""
-#~ "Something went wrong, please try again. If error persists contact site "
-#~ "admin"
-#~ msgstr ""
-#~ "Algo salió mal, por favor inténtelo de nuevo. Si el error persiste "
-#~ "contacte al administrador del sitio"
 
 #~ msgctxt "flag listing"
 #~ msgid ""

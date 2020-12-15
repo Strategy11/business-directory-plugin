@@ -60,7 +60,7 @@ final class WPBDP_Listing_Image {
 	 * If images are not assigned to the directory post type, they'll
 	 * be removed from the listing later.
 	 *
-	 * @since x.x
+	 * @since 5.9
 	 *
 	 * @param array $image_ids - The new media ids being linked.
 	 * @param int   $listing_id - The new post parent.
@@ -75,7 +75,7 @@ final class WPBDP_Listing_Image {
 	 * If images are not assigned to the directory post type, they'll
 	 * be removed from the listing in get().
 	 *
-	 * @since x.x
+	 * @since 5.9
 	 *
 	 * @param int $id - The attachment id.
 	 */
