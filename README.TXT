@@ -163,11 +163,12 @@ Our directory website builder software combined with our add-on modules is the m
 == Changelog ==
 
 = Version 5.9 =
-* Start adding caching to speed up all listings page.
-* Replace delete listing button with a link.
+* Start adding caching to speed up all listings page and merge some css files.
 * Change sorting to dropdown to make it more compact.
+* Simplify and cleanup selecting a thumbnail image. Now the WP thumbnai is used instead of a custom meta.
 * When a field is set to validate as a number, sort the listings as a number too.
 * A bunch of new shortcodes for more modular options: businessdirectory-images, businessdirectory-socials, businessdirectory-buttons, businessdirectory-details, [businessdirectory-section section=comments], [businessdirectory-section section=contact_form]
+* Replace delete listing button with a link.
 * Change 'Manage Form Fields' menu to 'Form Fields'.
 * Move the uninstall page out of main nav and into settings pages.
 * Rename 'Allow images in HTML' option in field settings to make it more clear.
@@ -178,6 +179,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Security: Properly escape uses of admin_url().
 * Fix: Compatibility issue with Astra was showing an empty h1 in the page source.
 * Fix: Compatibility with new WP 2021 theme, showing 'Untitled' for the heading.
+* Fix: Renewal reminders weren't always being sent for listings that expire at the end of the month if they were set to send a month or two ahead.
 * Code: Can get a field by shortname instead of only id.
 
 = Version 5.8.3 =
