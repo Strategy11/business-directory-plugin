@@ -56,4 +56,38 @@ final class WPBDP_Listing_Image {
         return new WPBDP_Listing_Image( $post->ID );
     }
 
+	/**
+	 * If images are not assigned to the directory post type, they'll
+	 * be removed from the listing later.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $image_ids - The new media ids being linked.
+	 * @param int   $listing_id - The new post parent.
+	 */
+	public function maybe_set_post_parent( $image_ids, $listing_id ) {
+		foreach ( $image_ids as $image_id ) {
+			self::set_post_parent( $image_id, $listing_id );
+		}
+	}
+
+	/**
+	 * If images are not assigned to the directory post type, they'll
+	 * be removed from the listing in get().
+	 *
+	 * @since x.x
+	 *
+	 * @param int $id - The attachment id.
+	 */
+	public static function set_post_parent( $id, $parent ) {
+		$post = get_post( $id );
+		if ( WPBDP_POST_TYPE !== get_post_type( $post->post_parent ) ) {
+			wp_update_post(
+				array(
+					'ID'          => $id,
+					'post_parent' => $parent
+				)
+			);
+		}
+	}
 }

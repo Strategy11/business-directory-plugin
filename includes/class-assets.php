@@ -68,6 +68,8 @@ class WPBDP__Assets {
         );
 
         $this->register_select2();
+
+		wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css', array(), WPBDP_VERSION );
     }
 
 	private function register_select2() {
@@ -132,8 +134,6 @@ class WPBDP__Assets {
             return;
         }
 
-        wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css', array(), WPBDP_VERSION );
-
         // TODO: Is it possible (and worth it) to figure out if we need the
         // jquery-ui-datepicker script based on which fields are available?
         wp_register_script(
@@ -178,7 +178,7 @@ class WPBDP__Assets {
         }
     }
 
-    private function load_css() {
+    public function load_css() {
         $rootline_color = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
 
         if ( ! $rootline_color ) {

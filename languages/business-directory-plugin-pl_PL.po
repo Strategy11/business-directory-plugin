@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-15 00:19:03+00:00\n"
+"POT-Creation-Date: 2020-12-15 16:28:31+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -3539,60 +3539,60 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:827
+#: includes/class-listing.php:833
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:828
+#: includes/class-listing.php:834
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
 # @ WPBDM
-#: includes/class-listing.php:829
+#: includes/class-listing.php:835
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:830
+#: includes/class-listing.php:836
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Oczekujące na abonament"
 
 # @ WPBDM
-#: includes/class-listing.php:831
+#: includes/class-listing.php:837
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Zakończona"
 
 # @ WPBDM
-#: includes/class-listing.php:832
+#: includes/class-listing.php:838
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Oferty oczekujące na zatwierdzenie"
 
 # @ WPBDM
-#: includes/class-listing.php:833
+#: includes/class-listing.php:839
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Wygasłe"
 
 # @ WPBDM
-#: includes/class-listing.php:834
+#: includes/class-listing.php:840
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Tylko aktywne i oczekujące na odświeżenie "
 
 # @ WPBDM
-#: includes/class-listing.php:835
+#: includes/class-listing.php:841
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -7787,41 +7787,41 @@ msgid "Add New Listing"
 msgstr "Dodaj nową ofertę"
 
 # @ WPBDM
-#: includes/class-listing.php:360
+#: includes/class-listing.php:366
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Data zakończenia emisji oferty"
 
 # @ WPBDM
-#: includes/class-listing.php:368
+#: includes/class-listing.php:374
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Odrzucenie płatności"
 
 # @ WPBDM
-#: includes/class-listing.php:407
+#: includes/class-listing.php:413
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/class-listing.php:567
+#: includes/class-listing.php:573
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Abonament niedostępny)"
 
 # @ WPBDM
-#: includes/class-listing.php:724
+#: includes/class-listing.php:730
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(powtarzające się)"
 
-#: includes/class-listing.php:726
+#: includes/class-listing.php:732
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""

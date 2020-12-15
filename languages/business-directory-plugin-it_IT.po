@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-15 00:19:03+00:00\n"
+"POT-Creation-Date: 2020-12-15 16:28:31+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3231,47 +3231,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr "Segnalato"
 
-#: includes/class-listing.php:827
+#: includes/class-listing.php:833
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: includes/class-listing.php:828
+#: includes/class-listing.php:834
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Legacy"
 
-#: includes/class-listing.php:829
+#: includes/class-listing.php:835
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incompleto"
 
-#: includes/class-listing.php:830
+#: includes/class-listing.php:836
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Pagamento in attesa"
 
-#: includes/class-listing.php:831
+#: includes/class-listing.php:837
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Completato"
 
-#: includes/class-listing.php:832
+#: includes/class-listing.php:838
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Aggiornamento in attesa"
 
-#: includes/class-listing.php:833
+#: includes/class-listing.php:839
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Scaduto"
 
-#: includes/class-listing.php:834
+#: includes/class-listing.php:840
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "In attesa di rinnovo"
 
-#: includes/class-listing.php:835
+#: includes/class-listing.php:841
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abbandonato"
@@ -6902,32 +6902,32 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Aggiungi Nuovo Annuncio"
 
-#: includes/class-listing.php:360
+#: includes/class-listing.php:366
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "L'annuncio non ha pagamenti registrati"
 
-#: includes/class-listing.php:368
+#: includes/class-listing.php:374
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Non è possibile cancellare il pagamento"
 
-#: includes/class-listing.php:407
+#: includes/class-listing.php:413
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Annuncio scaduto"
 
-#: includes/class-listing.php:567
+#: includes/class-listing.php:573
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Piano non disponibile)"
 
-#: includes/class-listing.php:724
+#: includes/class-listing.php:730
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "Piano \"%s\" (ricorrente)"
 
-#: includes/class-listing.php:726
+#: includes/class-listing.php:732
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Piano \"%s\"."

@@ -375,7 +375,7 @@ class WPBDP_FormFieldsAdmin {
                 );
                 $msg = str_replace(
                     '<a>',
-                    '<a href="' . admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) . '">',
+                    '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '">',
                     $msg
                 );
                 wpbdp_admin_message( $msg, 'error' );

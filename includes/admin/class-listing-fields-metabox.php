@@ -28,7 +28,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
         echo '</a></li>';
         echo '</ul>';
 
-        echo '<div id="wpbdp-listing-fields-fields" class="wpbdp-admin-tab-content" tabindex="1">';
+		echo '<div id="wpbdp-listing-fields-fields" class="wpbdp-admin-tab-content wpbdp-grid" tabindex="1">';
         $this->listing_fields();
         echo '</div>';
 

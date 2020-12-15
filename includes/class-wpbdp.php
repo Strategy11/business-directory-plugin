@@ -4,7 +4,6 @@
  *
  * @package WPBDP
  */
-
 final class WPBDP {
 
     public $_query_stack = array();
@@ -209,7 +208,6 @@ final class WPBDP {
         $this->compat = new WPBDP_Compat();
         $this->rewrite = new WPBDP__Rewrite();
 
-
         do_action( 'wpbdp_loaded' );
     }
 
@@ -292,7 +290,9 @@ final class WPBDP {
 
     public function plugin_action_links( $links ) {
         $links = array_merge(
-            array( 'settings' => '<a href="' . admin_url( 'admin.php?page=wpbdp_settings' ) . '">' . _x( 'Settings', 'admin plugins', 'business-directory-plugin' ) . '</a>' ),
+			array(
+				'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings' ) ) . '">' . esc_html__( 'Settings', 'business-directory-plugin' ) . '</a>'
+			),
             $links
         );
 
@@ -477,20 +477,34 @@ final class WPBDP {
     }
 
     public function ajax_listing_media_image() {
-        $data = stripslashes_deep( $_REQUEST );
-        $listing_id = intval( $data['listing_id'] );
+		$json_data = array(
+			'errorElement'   => '.media-area-and-conditions',
+			'previewElement' => '#wpbdp-uploaded-images',
+			'source'         => 'listing_images'
+		);
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'intval' ), 'request' );
 
-        if ( ! $listing_id ) {
-            return wp_send_json_error( array( 'errors' => _x( 'Could not find listing ID', 'admin listings', 'business-directory-plugin' ) ) );
-        }
+		if ( ! $listing_id ) {
+			$json_data['errors'] = esc_html__( 'Could not find listing ID', 'business-directory-plugin' );
+			wp_send_json_error( $json_data );
+		}
 
-        $image_ids = isset( $data['image_ids'] ) ? $data['image_ids'] : array();
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 
-        if( ! $image_ids ) {
-            return wp_send_json_error( array( 'errors' => _x( 'Could not find image ID', 'admin listings', 'business-directory-plugin' ) ) );
+		if ( ! wp_verify_nonce( $nonce, 'listing-' . $listing_id . '-image-from-media' ) ) {
+			$json_data['errors'] = esc_html__( 'Could not verify the image upload request. If problem persists contact site admin.', 'business-directory-plugin' );
+			wp_send_json_error( $json_data );
+		}
+
+		$image_ids = wpbdp_get_var( array( 'param' => 'image_ids', 'default' => array() ), 'request' );
+
+		if ( ! $image_ids ) {
+            $json_data['errors'] = esc_html__( 'Could not find image ID', 'business-directory-plugin' );
+			wp_send_json_error( $json_data );
         }
 
         $image_ids = is_array( $image_ids ) ? $image_ids : array( $image_ids );
+		WPBDP_Listing_Image::maybe_set_post_parent( $image_ids, $listing_id );
 
         $html = '';
         foreach( $image_ids as $id ) {
@@ -504,15 +518,9 @@ final class WPBDP {
             );
         }
 
-        wp_send_json_success(
-            array(
-                'html'           => $html,
-                'errorElement'   => '.media-area-and-conditions',
-                'previewElement' => '#wpbdp-uploaded-images',
-                'source'         => 'listing_images'
-            ) 
-        );
+		$json_data['html'] = $html;
 
+		wp_send_json_success( $json_data );
     }
 
     public function frontend_manual_upgrade_msg() {
@@ -522,7 +530,7 @@ final class WPBDP {
             return wpbdp_render_msg(
                 str_replace(
                     '<a>',
-                    '<a href="' . admin_url( 'admin.php?page=wpbdp-upgrade-page' ) . '">',
+                    '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-upgrade-page' ) ) . '">',
                     __( 'The directory features are disabled at this time because a <a>manual upgrade</a> is pending.', 'business-directory-plugin' )
                 ),
                 'error'

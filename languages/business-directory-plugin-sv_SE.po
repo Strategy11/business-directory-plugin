@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-15 00:19:03+00:00\n"
+"POT-Creation-Date: 2020-12-15 16:28:31+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3167,47 +3167,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:827
+#: includes/class-listing.php:833
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Okänd"
 
-#: includes/class-listing.php:828
+#: includes/class-listing.php:834
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Legat"
 
-#: includes/class-listing.php:829
+#: includes/class-listing.php:835
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Ofullständig"
 
-#: includes/class-listing.php:830
+#: includes/class-listing.php:836
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Väntar på betalning."
 
-#: includes/class-listing.php:831
+#: includes/class-listing.php:837
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Genomförd"
 
-#: includes/class-listing.php:832
+#: includes/class-listing.php:838
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Väntar på uppgradering"
 
-#: includes/class-listing.php:833
+#: includes/class-listing.php:839
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Utgången"
 
-#: includes/class-listing.php:834
+#: includes/class-listing.php:840
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Inväntar förnyelse"
 
-#: includes/class-listing.php:835
+#: includes/class-listing.php:841
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Övergiven"
@@ -6791,35 +6791,35 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Lägg till ny annons"
 
-#: includes/class-listing.php:360
+#: includes/class-listing.php:366
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Utgångsdatum för annons"
 
-#: includes/class-listing.php:368
+#: includes/class-listing.php:374
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Ta bort betalning"
 
-#: includes/class-listing.php:407
+#: includes/class-listing.php:413
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Annonsen förfallit."
 
-#: includes/class-listing.php:567
+#: includes/class-listing.php:573
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Avgiftsplan inte tillgänglig)"
 
-#: includes/class-listing.php:724
+#: includes/class-listing.php:730
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(återkommande)"
 
-#: includes/class-listing.php:726
+#: includes/class-listing.php:732
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Plan ”%s”"

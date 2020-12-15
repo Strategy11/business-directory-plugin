@@ -28,7 +28,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         if ( 'all' === $this->get_current_view() ) {
             echo str_replace(
                 '<a>',
-                '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) . '">',
+                '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) . '">',
                 _x( 'There are no fees right now. You can <a>create one</a>, if you want.', 'fees admin', 'business-directory-plugin' )
             );
             return;
@@ -51,7 +51,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         printf(
             str_replace(
                 '<a>',
-                '<a href="' . admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) . '">',
+                '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) . '">',
                 _x( 'There are no "%s" fees right now. You can <a>create one</a>, if you want.', 'fees admin', 'business-directory-plugin' )
             ),
             $view_name

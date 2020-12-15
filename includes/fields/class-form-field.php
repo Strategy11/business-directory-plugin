@@ -317,8 +317,9 @@ class WPBDP_Form_Field {
         if ( $render_context ) {
             $css_classes[] = 'wpbdp-form-field-in-' . $render_context;
 
-            if ( 'submit' === $render_context ) {
-                if ( in_array( $this->get_field_type()->get_id(), array( 'textarea', 'url', 'social-network' ) ) || in_array( $this->get_association(), array( 'title', 'excerpt', 'content', 'regions' ) ) ) {
+			if ( 'submit' === $render_context || 'admin-submit' === $render_context ) {
+				$full = array( 'textarea', 'url', 'image', 'social-network', 'title', 'excerpt', 'content', 'regions' );
+                if ( in_array( $this->get_field_type()->get_id(), $full, true ) || in_array( $this->get_association(), $full, true ) ) {
                     $css_classes[] = 'wpbdp-full';
                 } else {
                     $css_classes[] = 'wpbdp-half';

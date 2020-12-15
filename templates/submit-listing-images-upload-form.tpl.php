@@ -35,7 +35,7 @@ $media_action = add_query_arg(
     <?php if ( is_admin() && ! wpbdp_is_request( 'ajax' ) ): ?>
         <div class="media-area-and-conditions cf">
             <div class="wpbdp_media_images_wrapper">
-                <input type='button' class="button" value="<?php esc_attr_e( 'Select from Media', 'business-directory-plugin' ); ?>" id="wpbdp_media_manager" data-action="<?php echo esc_url( wp_nonce_url( $media_action, 'listing-' . $listing_id . '-image-from-media') ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>"/>
+                <input type='button' class="button" value="<?php esc_attr_e( 'Select Media', 'business-directory-plugin' ); ?>" id="wpbdp_media_manager" data-action="<?php echo esc_url( wp_nonce_url( $media_action, 'listing-' . $listing_id . '-image-from-media') ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>"/>
             </div>
             <p><?php esc_html_e( 'or', 'business-directory-plugin' ); ?></p>
         </div>

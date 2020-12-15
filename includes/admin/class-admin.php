@@ -118,7 +118,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			wp_enqueue_style( 'thickbox' );
 
-			wp_enqueue_style( 'wpbdp-frontend-css', $assets . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
+			wp_enqueue_style( 'wpbdp-base-css' );
 
 			wp_enqueue_script( 'wpbdp-frontend-js', $assets . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION );
 
@@ -131,6 +131,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			if ( ! $wpbdp->is_bd_post_page() ) {
 				return;
 			}
+
+			$wpbdp->assets->load_css();
+
                 wpbdp_enqueue_jquery_ui_style();
 
                 wp_enqueue_style(
@@ -1140,7 +1143,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 && ! get_option( 'users_can_register' )
                 && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
                     $this->messages[] = array(
-                        str_replace( array( '[', ']' ), array( '<a href="' . admin_url( 'options-general.php' ) . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register".', 'admin', 'business-directory-plugin' ) ),
+                        str_replace( array( '[', ']' ), array( '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register".', 'admin', 'business-directory-plugin' ) ),
                         'error dismissible',
                         array( 'dismissible-id' => 'registration_disabled' ),
                     );

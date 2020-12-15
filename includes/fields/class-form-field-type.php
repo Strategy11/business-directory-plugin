@@ -232,9 +232,7 @@ class WPBDP_Form_Field_Type {
 
                 break;
 
-            case 'submit':
-            case 'edit':
-            default:
+			default: // includes submit and edit
                 $html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
 
                 $html .= sprintf(

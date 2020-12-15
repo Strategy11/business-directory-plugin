@@ -36,12 +36,40 @@
         <p><?php _ex( 'If you just need to reinstall the plugin, please do the following:', 'uninstall', 'business-directory-plugin' ); ?></p>
 
         <ul>
-            <li><?php echo str_replace( '<a>', '<a href="' . admin_url( 'plugins.php?plugin_status=active' ) . '">', _x( 'Go to <a>Plugins->Installed Plugins', 'uninstall', 'business-directory-plugin' ) ); ?></a></li>
-            <li><?php _ex( 'Click on "Deactivate" for Business Directory Plugin. Wait for this to finish', 'uninstall', 'business-directory-plugin' ); ?></li>
-            <li><?php _ex( 'Click on "Delete" for Business Directory Plugin. <i>THIS OPERATION IS SAFE--your data will NOT BE LOST doing this</i>', 'uninstall', 'business-directory-plugin' ); ?></li>
-            <li><?php _ex( 'Wait for the delete to finish', 'uninstall', 'business-directory-plugin' ); ?></li>
-            <li><?php _ex( 'The plugin is now removed, but your data is still present inside of your database.', 'uninstall', 'business-directory-plugin' ); ?></li>
-            <li><?php echo str_replace( '<a>', '<a href="' . admin_url( 'plugin-install.php' ) . '">', _x( 'You can reinstall the plugin again under <a>Plugins->Add New</a>', 'uninstall', 'business-directory-plugin' ) ); ?></li>
+			<li>
+				<?php
+				echo sprintf(
+					/* translators: %1$s: open link html, %2$s: close link html */
+					esc_html__( 'Go to %1$sPlugins->Installed Plugins%2$s', 'business-directory-plugin' ),
+					'<a href="' . esc_url( admin_url( 'plugins.php?plugin_status=active' ) ) . '">',
+					'</a>'
+				);
+				?>
+			</li>
+            <li><?php echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'plugins.php?plugin_status=active' ) ) . '">', _x( 'Go to <a>Plugins->Installed Plugins', 'uninstall', 'business-directory-plugin' ) ); ?></a></li>
+<li><?php esc_html_e( 'Click on "Deactivate" for Business Directory Plugin. Wait for this to finish', 'business-directory-plugin' ); ?></li>
+            <li>
+                <?php
+                printf(
+                    /* translators: %1$s: open italic html, %2$s: close italic html */
+                    esc_html__( 'Click on "Delete" for Business Directory Plugin. %1$sTHIS OPERATION IS SAFE--your data will NOT BE LOST doing this%2$s', 'business-directory-plugin' ),
+                    '<i>',
+                    '</i>'
+                );
+                ?>
+            </li>
+            <li><?php esc_html_e( 'Wait for the delete to finish', 'business-directory-plugin' ); ?></li>
+            <li><?php esc_html_e( 'The plugin is now removed, but your data is still present inside of your database.', 'business-directory-plugin' ); ?></li>
+            <li>
+                <?php
+                echo sprintf(
+                    /* translators: %1$s: open link html, %2$s: close link html */
+                    esc_html__( 'You can reinstall the plugin again under %1$sPlugins->Add New%2$s', 'business-directory-plugin' ),
+                    '<a href="' . esc_url( admin_url( 'plugin-install.php' ) ) . '">',
+                    '</a>'
+                );
+                ?>
+            </li>
         </ul>
 
         <a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="button">

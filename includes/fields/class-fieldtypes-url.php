@@ -170,7 +170,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
                           esc_attr( $value[1] ) );
         $html .= '</div>';
 
-		if ( 'submit' === $context ) {
+		if ( strpos( $context, 'submit' ) !== false ) {
 			$html = '<div class="wpbdp-grid">' . $html . '</div>';
 		}
 

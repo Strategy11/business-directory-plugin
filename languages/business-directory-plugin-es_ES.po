@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-15 00:19:03+00:00\n"
+"POT-Creation-Date: 2020-12-15 16:28:31+00:00\n"
 "PO-Revision-Date: 2020-10-07 14:57-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -3168,47 +3168,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr "Reportado"
 
-#: includes/class-listing.php:827
+#: includes/class-listing.php:833
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: includes/class-listing.php:828
+#: includes/class-listing.php:834
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Antiguo"
 
-#: includes/class-listing.php:829
+#: includes/class-listing.php:835
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incompleto"
 
-#: includes/class-listing.php:830
+#: includes/class-listing.php:836
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Pendiente de pago"
 
-#: includes/class-listing.php:831
+#: includes/class-listing.php:837
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Completado"
 
-#: includes/class-listing.php:832
+#: includes/class-listing.php:838
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Pendiente de mejora"
 
-#: includes/class-listing.php:833
+#: includes/class-listing.php:839
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Expirado"
 
-#: includes/class-listing.php:834
+#: includes/class-listing.php:840
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Pendientes de renovación"
 
-#: includes/class-listing.php:835
+#: includes/class-listing.php:841
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abandonado"
@@ -6807,32 +6807,32 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: includes/class-listing.php:360
+#: includes/class-listing.php:366
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "El listado no tiene pagos registrados"
 
-#: includes/class-listing.php:368
+#: includes/class-listing.php:374
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "No se puede eliminar el pago"
 
-#: includes/class-listing.php:407
+#: includes/class-listing.php:413
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "El listado expiró"
 
-#: includes/class-listing.php:567
+#: includes/class-listing.php:573
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Comisión no disponible)"
 
-#: includes/class-listing.php:724
+#: includes/class-listing.php:730
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "Comisión “%s” (recurrente)"
 
-#: includes/class-listing.php:726
+#: includes/class-listing.php:732
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Comisión “%s”"

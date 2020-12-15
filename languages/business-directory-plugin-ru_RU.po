@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2020-12-15 00:19:03+00:00\n"
+"POT-Creation-Date: 2020-12-15 16:28:31+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -3121,53 +3121,53 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:827
+#: includes/class-listing.php:833
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:828
+#: includes/class-listing.php:834
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/class-listing.php:829
+#: includes/class-listing.php:835
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Завершено"
 
-#: includes/class-listing.php:830
+#: includes/class-listing.php:836
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Платёж был заброшен."
 
-#: includes/class-listing.php:831
+#: includes/class-listing.php:837
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Завершено"
 
-#: includes/class-listing.php:832
+#: includes/class-listing.php:838
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Ожидается подтверждение"
 
-#: includes/class-listing.php:833
+#: includes/class-listing.php:839
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Истекло"
 
-#: includes/class-listing.php:834
+#: includes/class-listing.php:840
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Активные + ожидающие продление"
 
-#: includes/class-listing.php:835
+#: includes/class-listing.php:841
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -6940,37 +6940,37 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Добавить запись"
 
-#: includes/class-listing.php:360
+#: includes/class-listing.php:366
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Дата окончания срока действия"
 
-#: includes/class-listing.php:368
+#: includes/class-listing.php:374
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Отказать в платеже"
 
-#: includes/class-listing.php:407
+#: includes/class-listing.php:413
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Срок действия записи истёк"
 
-#: includes/class-listing.php:567
+#: includes/class-listing.php:573
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Тариф недоступен)"
 
-#: includes/class-listing.php:724
+#: includes/class-listing.php:730
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(периодически)"
 
-#: includes/class-listing.php:726
+#: includes/class-listing.php:732
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""

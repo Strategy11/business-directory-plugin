@@ -341,7 +341,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
         echo '</strong><br />';
         echo str_replace(
             '<a>',
-            '<a href="' . admin_url( 'admin.php?page=wpbdp_migration_18_0_featured_levels' ) . '">',
+            '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_migration_18_0_featured_levels' ) ) . '">',
             _x( 'Featured levels were removed in 5.0. You need to perform your <a>Featured Levels migration here</a>.', 'migrate-18', 'business-directory-plugin' )
         );
         echo '</p></div>';

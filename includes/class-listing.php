@@ -35,19 +35,25 @@ class WPBDP_Listing {
     }
 
     public function get_images( $fields = 'all', $sorted = false ) {
-        $q = array( 'numberposts' => -1, 'post_type' => 'attachment', 'post_parent' => $this->id, 'fields' => 'ids' );
-        $result = array();
+		$q = array(
+			'numberposts' => -1,
+			'post_type'   => 'attachment',
+			'post_parent' => $this->id,
+			'fields'      => 'ids',
+		);
 
-        $images = get_post_meta( $this->id, '_wpbdp[images]', true );
+		$get_ids = 'id' === $fields || 'ids' === $fields;
 
-        $images = array_merge( is_array( $images ) ? $images : array( $images ), get_posts( $q ) );
+		$images = get_post_meta( $this->id, '_wpbdp[images]', true );
+		$images = array_merge( is_array( $images ) ? $images : array( $images ), get_posts( $q ) );
 
+		$result = array();
         foreach ( array_unique( $images ) as $attachment_id ) {
             $attachment = get_post( $attachment_id );
             if ( ! $attachment || ! wp_attachment_is_image( $attachment->ID ) )
                 continue;
 
-            if ( ! $sorted && ( 'id' == $fields || 'ids' == $fields ) ) {
+            if ( ! $sorted && $get_ids ) {
                 $result[] = $attachment->ID;
 			} else {
 				$img = WPBDP_Listing_Image::get( $attachment->ID );
@@ -65,7 +71,7 @@ class WPBDP_Listing {
 	            }
 	        );
 
-	        if ( 'id' === $fields || 'ids' === $fields ) {
+	        if ( $get_ids ) {
 	            foreach ( $result as $i => $img ) {
 	                $result[$i] = $img->id;
 	            }
