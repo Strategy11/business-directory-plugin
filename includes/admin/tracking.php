@@ -174,7 +174,7 @@ class WPBDP_SiteTracking {
 			'sanitize' => 'intval',
 			'default'  => null,
 		);
-		$tracking = wpbdp_get_var( $params, 'post' ) );
+		$tracking = wpbdp_get_var( $params, 'post' );
 		if ( $tracking !== null ) {
 			update_option( 'wpbdp-show-tracking-pointer', 0 );
 
