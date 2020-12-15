@@ -453,10 +453,11 @@ WPBDP.fileUpload = {
                 cursor: 'move',
                 opacity: 0.9,
                 update: function( ev, ui ) {
-                    var sorted = $( this ).sortable( 'toArray', { attribute: 'data-imageid' } );
+                    var sorted = $( this ).sortable( 'toArray', { attribute: 'data-imageid' } ),
+						no_images = sorted.length;
 
                     $.each( sorted, function( i, v ) {
-						$( 'input[name="images_meta[' + v + '][order]"]' ).val( i + 1 );
+						$( 'input[name="images_meta[' + v + '][order]"]' ).val( no_images - i );
 
 						if ( 0 === i ) {
 							document.getElementById('_thumbnail_id').value = v;

@@ -64,7 +64,7 @@ class WPBDP_Listing {
 	            	return $y->weight - $x->weight;
 	            }
 	        );
-			$result = array_reverse( $result, true );
+
 	        if ( 'id' === $fields || 'ids' === $fields ) {
 	            foreach ( $result as $i => $img ) {
 	                $result[$i] = $img->id;
