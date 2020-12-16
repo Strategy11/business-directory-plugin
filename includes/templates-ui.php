@@ -509,7 +509,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
     $image_img               = '';
     $image_link              = '';
     $image_title             = '';
-    $listing_link_in_new_tab = '""';
+    $listing_link_in_new_tab = '';
     $image_classes           = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
 
     if ( ! $main_image && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $listing_id ) ) {
@@ -556,7 +556,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 
     if ( ! $image_link && $args['link'] == 'listing' ) {
         $image_link              = get_permalink( $listing_id );
-        $listing_link_in_new_tab = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '"_blank" rel="noopener"' : '"_self"';
+        $listing_link_in_new_tab = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '_blank' : '_self';
     }
 
 	$args['image_img']   = $image_img;
@@ -599,13 +599,21 @@ function wpbdp_thumbnail_html( $args ) {
 		);
 	}
 
+	if ( $args['link'] === 'picture' ) {
+		$extra = 'data-lightbox="wpbdpgal" rel="wpbdpgal"';
+	} elseif ( $args['listing_link_in_new_tab'] === '_blank' ) {
+		$extra = 'rel="noopener noreferrer"';
+	} else {
+		$extra = '';
+	}
+
 	return sprintf(
-		'<div class="listing-thumbnail"><a href="%s" target=%s class="%s" title="%s" %s>%s</a></div>',
+		'<div class="listing-thumbnail"><a href="%s" target="%s" class="%s" title="%s" %s>%s</a></div>',
 		esc_url( $image_link ),
 		esc_attr( $args['listing_link_in_new_tab'] ),
 		esc_attr( $args['link'] == 'picture' ? 'thickbox' : '' ),
 		esc_attr( $args['image_title'] ),
-		$args['link'] == 'picture' ? 'data-lightbox="wpbdpgal" rel="wpbdpgal"' : '',
+		$extra,
 		$image_img
 	);
 }
