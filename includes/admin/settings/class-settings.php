@@ -192,7 +192,39 @@ class WPBDP__Settings {
     }
 
 	/**
+	 * Deregister a group if it has no settings.
+	 *
+	 * @since x.x
+	 */
+	public function deregister_empty_group( $id ) {
+		if ( ! isset( $this->groups[ $id ] ) ) {
+			return;
+		}
+
+		// Check if there are any settings in the group.
+		foreach ( $this->settings as $setting => $details ) {
+			if ( $details['group'] === $id ) {
+				return;
+			}
+		}
+
+		// Check if there are any sub groups in the group.
+		foreach ( $this->groups as $group => $details ) {
+			if ( $details['parent'] === $id ) {
+				return;
+			}
+		}
+
+		$parent = $this->groups[ $id ]['parent'];
+		unset( $this->groups[ $id ] );
+
+		// Unset parent if it's empty now.
+		$this->deregister_empty_group( $parent );
+	}
+
+	/**
 	 * Register a setting within the Settings API.
+	 *
 	 * @since 5.7.6
 	 */
 	public function deregister_setting( $id ) {

@@ -297,7 +297,6 @@ class WPBDP_Licensing {
         }
 
         if ( $license_key ) {
-            // TODO: maybe refresh license info here?
             $data_key = $item_type . '-' . $item_id;
             if ( ! empty( $this->licenses[ $data_key ] ) ) {
                 $data = $this->licenses[ $data_key ];
@@ -306,7 +305,7 @@ class WPBDP_Licensing {
                     return $data['status'];
                 }
             }
-        }
+		}
 
         return 'invalid';
     }
