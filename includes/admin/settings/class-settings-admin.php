@@ -23,6 +23,8 @@ class WPBDP__Settings_Admin {
 
         add_action( 'wp_ajax_wpbdp-file-upload', array( $this, '_ajax_file_upload' ) );
         add_action( 'wp_ajax_nopriv_wpbdp-file-upload', array( $this, '_ajax_file_upload' ) );
+
+		add_filter( 'wpbdp_setting_type_pro_license', array( &$this, 'no_license' ), 20, 2 );
     }
 
     public function enqueue_scripts( $hook ) {
@@ -447,6 +449,18 @@ class WPBDP__Settings_Admin {
 
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $args );
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function no_license( $setting, $value ) {
+		$html = '<p class="howto">';
+		$html .= esc_html__( 'Your license key provides access to new features and updates.', 'business-directory-plugin' );
+		$html .= '</p>';
+		$html .= '<p>' . esc_html__( 'You\'re using Business Directory Plugin Lite. Enjoy!', 'business-directory-plugin' ); 		$html .= ' 🙂</p>';
+
+		return $html;
+	}
 
 	/**
 	 * Use for non-settings.

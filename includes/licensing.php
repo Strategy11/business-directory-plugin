@@ -559,41 +559,31 @@ class WPBDP_Licensing {
             return;
         }
 
-        echo '<div id="wpbdp-licensing-issues-warning" class="error"><p>';
-        echo '<b>' . _x( 'Business Directory - Please verify your license keys', 'licensing', 'business-directory-plugin' ) . '</b><br />';
+		$modules_str = '';
+		if ( $modules ) {
+			foreach ( $modules as $m ) {
+				$modules_str .= '<span class="item-name">' . $m['name'] . '</span>';
+			}
+		}
 
-        echo '<ul>';
-        if ( $modules ) {
-            $modules_str = '';
-            foreach ( $modules as $m ) {
-                $modules_str .= '<span class="item-name">' . $m['name'] . '</span>';
-            }
-
-            echo '<li>';
-            printf( _x( 'The following premium modules will not work until a valid license key is provided: %s.', 'licensing', 'business-directory-plugin' ), $modules_str );
-            echo '</li>';
-        }
-
-        if ( $themes ) {
-            $themes_str = '';
-            foreach ( $themes as $t ) {
-                $themes_str .= '<span class="item-name">' . $t['name'] . '</span>';
-            }
-
-            echo '<li>';
-            printf( _x( 'You need to activate the license keys for the following themes before they can be used: %s.', 'licensing', 'business-directory-plugin' ), $themes_str );
-            echo '</li>';
-        }
-
-        echo '</ul>';
-
-        echo '<p>';
-        echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '" class="button button-primary">';
-        echo _x( 'Review my license keys', 'licensing', 'business-directory-plugin' );
-        echo '</a>';
-        echo '</p>';
-
-        echo '</div>';
+		if ( $themes ) {
+			foreach ( $themes as $t ) {
+				$modules_str .= '<span class="item-name">' . $t['name'] . '</span>';
+			}
+		}
+		?>
+        <div id="wpbdp-licensing-issues-warning" class="error">
+			<p class="alignleft">
+				<?php printf( __( 'The following plugins need a valid license key: %s', 'business-directory-plugin' ), $modules_str ); ?>
+			</p>
+			<p class="alignright">
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ); ?>" class="button button-primary">
+        			<?php esc_html_e( 'Review license keys', 'business-directory-plugin' ); ?>
+				</a>
+        	</p>
+			<div style="clear:both"></div>
+		</div>
+		<?php
     }
 
     private function render_expired_license_admin_notice( $expired ) {

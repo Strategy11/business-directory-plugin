@@ -35,9 +35,29 @@ final class WPBDP__Settings__Bootstrap {
 
     private static function settings_general() {
         wpbdp_register_settings_group( 'general/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'general' );
+		wpbdp_register_settings_group( 'upgrade', __( 'License Key', 'business-directory-plugin' ), 'general/main' );
+
+		wpbdp_register_setting(
+			array(
+				'id'    => 'pro_license',
+				'name'  => '',
+				'type'  => 'pro_license',
+				'group' => 'upgrade',
+			)
+		);
+
+		wpbdp_register_setting(
+			array(
+				'id'      => 'uninstall',
+				'name'    => '',
+				'type'    => 'none',
+				'group'   => 'uninstall',
+			)
+		);
 
         // Permalinks.
-        wpbdp_register_settings_group( 'permalink_settings', _x( 'Permalink Settings', 'settings', 'business-directory-plugin' ), 'general/main' );
+		wpbdp_register_settings_group( 'seo/main', __( 'SEO', 'business-directory-plugin' ), 'general' );
+		wpbdp_register_settings_group( 'permalink_settings', _x( 'Permalink Settings', 'settings', 'business-directory-plugin' ), 'seo/main' );
         wpbdp_register_setting(
             array(
                 'id'        => 'permalinks-directory-slug',
@@ -241,12 +261,13 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         // Terms & Conditions.
-        wpbdp_register_settings_group( 'tos_settings', __( 'Terms and Conditions', 'business-directory-plugin' ), 'general/main' );
+        wpbdp_register_settings_group( 'tos_settings', __( 'Terms and Conditions', 'business-directory-plugin' ), 'listings/main' );
         wpbdp_register_setting(
             array(
                 'id'    => 'display-terms-and-conditions',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Display and require user agreement to Terms and Conditions', 'settings', 'business-directory-plugin' ),
+                'name'  => __( 'User Agreement', 'business-directory-plugin' ),
+				'desc'  => __( 'Display and require user agreement to Terms and Conditions', 'business-directory-plugin' ),
                 'group' => 'tos_settings',
             )
         );
@@ -264,19 +285,21 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         // Tracking.
-        wpbdp_register_settings_group( 'tracking_settings', _x( 'Data Collection', 'settings', 'business-directory-plugin' ), 'general/main' );
+		wpbdp_register_settings_group( 'misc/misc', __( 'Miscellaneous', 'business-directory-plugin' ), 'misc' );
+
         wpbdp_register_setting(
             array(
                 'id'    => 'tracking-on',
                 'type'  => 'checkbox',
-                'name'  => __( 'Allow Business Directory to anonymously collect information about your installed plugins, themes and WP version?', 'business-directory-plugin' ),
-                'desc'  => str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">', __( '<a>Learn more</a> about what Business Directory tracks.', 'business-directory-plugin' ) ),
-                'group' => 'tracking_settings',
+                'name'  => __( 'Data Collection', 'business-directory-plugin' ),
+                'desc'  => __( 'Allow Business Directory to anonymously collect information about your installed plugins, themes and WP version?', 'business-directory-plugin' ) .
+					' <a href="https://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">' . __( 'Learn more', 'business-directory-plugin' ) . '</a>',
+                'group' => 'misc/misc',
             )
         );
 
         // Search.
-        wpbdp_register_settings_group( 'search_settings', _x( 'Directory Search', 'settings', 'business-directory-plugin' ), 'general/main' );
+        wpbdp_register_settings_group( 'search_settings', __( 'Searching', 'business-directory-plugin' ), 'listings' );
         wpbdp_register_setting(
             array(
                 'id'      => 'search-form-in-results',
@@ -391,10 +414,10 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     private static function settings_listings() {
-        wpbdp_register_settings_group( 'listings/post_category', _x( 'Post/Category Settings', 'settings', 'business-directory-plugin' ), 'listings' );
+        wpbdp_register_settings_group( 'listings/post_category', __( 'Categories', 'business-directory-plugin' ), 'listings' );
         wpbdp_register_settings_group( 'listings/contact', _x( 'Contact Form', 'settings', 'business-directory-plugin' ), 'listings' );
         wpbdp_register_settings_group( 'listings/report', _x( 'Report Listings', 'settings', 'business-directory-plugin' ), 'listings' );
-        wpbdp_register_settings_group( 'listings/sorting', _x( 'Listings Sorting', 'settings', 'business-directory-plugin' ), 'listings' );
+        wpbdp_register_settings_group( 'listings/sorting', __( 'Sorting', 'business-directory-plugin' ), 'listings' );
         wpbdp_register_setting(
             array(
                 'id'      => 'listings-per-page',
@@ -538,7 +561,7 @@ final class WPBDP__Settings__Bootstrap {
                 'type'    => 'checkbox',
                 'name'    => _x( 'Show listings under categories on main page?', 'settings', 'business-directory-plugin' ),
                 'default' => false,
-                'group'   => 'listings/main',
+                'group'   => 'listings/post_category',
             )
         );
         wpbdp_register_setting(
@@ -581,6 +604,34 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'listings/main',
             )
         );
+
+        wpbdp_register_setting(
+            array(
+                'id'      => 'new-post-status',
+                'type'    => 'radio',
+                'name'    => _x( 'Default new post status', 'settings', 'business-directory-plugin' ),
+                'default' => 'pending',
+                'options' => array(
+                    'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
+                    'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/main',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+                'id'      => 'edit-post-status',
+                'type'    => 'radio',
+                'name'    => _x( 'Edit post status', 'settings', 'business-directory-plugin' ),
+                'default' => 'publish',
+                'options' => array(
+                    'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
+                    'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
+                ),
+                'group'   => 'listings/main',
+            )
+        );
+
         wpbdp_register_setting(
             array(
                 'id'      => 'status-on-uninstall',
@@ -618,32 +669,6 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_setting(
-            array(
-                'id'      => 'new-post-status',
-                'type'    => 'radio',
-                'name'    => _x( 'Default new post status', 'settings', 'business-directory-plugin' ),
-                'default' => 'pending',
-                'options' => array(
-                    'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
-                    'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
-                ),
-                'group'   => 'listings/post_category',
-            )
-        );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'edit-post-status',
-                'type'    => 'radio',
-                'name'    => _x( 'Edit post status', 'settings', 'business-directory-plugin' ),
-                'default' => 'publish',
-                'options' => array(
-                    'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
-                    'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
-                ),
-                'group'   => 'listings/post_category',
-            )
-        );
         wpbdp_register_setting(
             array(
                 'id'      => 'categories-order-by',

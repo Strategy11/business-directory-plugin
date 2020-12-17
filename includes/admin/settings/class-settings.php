@@ -302,6 +302,12 @@ class WPBDP__Settings {
         update_option( 'wpbdp_settings', $old );
     }
 
+	/**
+	 * @since x.x
+	 */
+    public function delete_option( $setting_id ) {
+        $this->set_option( $setting_id );
+    }
 
     /**
      * @deprecated 5.0. Use {@link WPBDP__Settings::register_group()}.
