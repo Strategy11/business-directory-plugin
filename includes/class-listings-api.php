@@ -51,7 +51,8 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
             $fields = array();
 
             foreach ( wpbdp_get_option( 'quick-search-fields', array() ) as $field_id ) {
-                if ( $field = WPBDP_FormField::get( $field_id ) ) {
+				$field = WPBDP_Form_Field::get( $field_id );
+                if ( $field ) {
                     $fields[] = $field;
                 }
             }
@@ -102,6 +103,8 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
          * @deprecated since 5.0. Added back in 5.1.2 for compatibility with other plugins (#3178)
          */
         public function get_thumbnail_id( $listing_id ) {
+			_deprecated_function( __METHOD__, '5.0', 'WPBDP_Listing::get_thumbnail_id' );
+
             if ( $listing = wpbdp_get_listing( $listing_id ) ) {
                 return $listing->get_thumbnail_id();
             }

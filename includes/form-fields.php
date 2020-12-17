@@ -186,7 +186,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
         }
 
         public function &get_field( $id = 0 ) {
-            $field = WPBDP_FormField::get( $id );
+            $field = WPBDP_Form_Field::get( $id );
             return $field;
         }
 
@@ -202,7 +202,8 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
             $field_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC" );
 
             foreach ( $field_ids as $field_id ) {
-                if ( $field = WPBDP_FormField::get( $field_id ) ) {
+				$field = WPBDP_Form_Field::get( $field_id );
+                if ( $field ) {
                     $res[] = $field;
                 }
             }
@@ -323,7 +324,8 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
             }
 
             foreach ( $ids as $id ) {
-                if ( $field = WPBDP_FormField::get( $id ) ) {
+				$field = WPBDP_Form_Field::get( $id );
+                if ( $field ) {
                     if ( ! in_array( $field->get_association(), array_keys( $this->associations ), true ) ) {
                         continue;
                     }
@@ -456,7 +458,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
             $fields_to_create = $identifiers ? array_intersect_key( $default_fields, array_flip( $identifiers ) ) : $default_fields;
 
             foreach ( $fields_to_create as &$f ) {
-                $field = new WPBDP_FormField( $f );
+                $field = new WPBDP_Form_Field( $f );
                 $field->save();
             }
         }
@@ -465,6 +467,8 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
          * @deprecated since 4.0.
          */
         public function get_short_names( $fieldid = null ) {
+			_deprecated_function( __FUNCTION__, '4.0' );
+
             $fields     = $this->get_fields();
             $shortnames = array();
 

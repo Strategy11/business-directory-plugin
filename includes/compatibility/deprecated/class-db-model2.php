@@ -1,6 +1,6 @@
 <?php
 /**
- * @deprecated since next-release. Use {@link WPBDP__DB__Model} instead.
+ * @deprecated - Use {@link WPBDP__DB__Model} instead.
  */
 class WPBDP_DB_Model2 {
 
@@ -13,6 +13,7 @@ class WPBDP_DB_Model2 {
 
 
     public function __construct( $data = array() ) {
+		_deprecated_function( __METHOD__, 'Unknown', 'WPBDP__DB__Model' );
         $this->fill( $data );
     }
 

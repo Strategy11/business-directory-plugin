@@ -210,7 +210,11 @@ class WPBDP__Utils {
 /**
  * @deprecated since next-release. Use {@link WPBDP__Utils} instead.
  */
-class WPBDP_Utils extends WPBDP__Utils {}
+class WPBDP_Utils extends WPBDP__Utils {
+	public function __construct() {
+		_deprecated_function( __METHOD__, '', 'WPBDP__Utils' );
+	}
+}
 
 
 /**
@@ -710,6 +714,7 @@ function wpbdp_scandir( $path, $args = array() ) {
  * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
  */
 function wpbdp_rrmdir( $path ) {
+	_deprecated_function( __FUNCTION__, '3.6.10', 'WPBDP_FS::rmdir' );
     return WPBDP_FS::rmdir( $path );
 }
 

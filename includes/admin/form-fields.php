@@ -344,7 +344,7 @@ class WPBDP_FormFieldsAdmin {
         $api = WPBDP_FormFields::instance();
 
         if ( isset( $_POST['field'] ) ) {
-            $field = new WPBDP_FormField( stripslashes_deep( $_POST['field'] ) );
+            $field = new WPBDP_Form_Field( stripslashes_deep( $_POST['field'] ) );
             $res   = $field->save();
 
             if ( ! is_wp_error( $res ) ) {
@@ -360,7 +360,7 @@ class WPBDP_FormFieldsAdmin {
                 $this->admin->messages[] = array( $errmsg, 'error' );
             }
         } else {
-            $field = isset( $_GET['id'] ) ? WPBDP_FormField::get( $_GET['id'] ) : new WPBDP_FormField( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
+            $field = isset( $_GET['id'] ) ? WPBDP_Form_Field::get( $_GET['id'] ) : new WPBDP_Form_Field( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
         }
 
 		if ( ! $field ) {
@@ -431,7 +431,7 @@ class WPBDP_FormFieldsAdmin {
     private function deleteField() {
         global $wpdb;
 
-        $field = WPBDP_FormField::get( $_REQUEST['id'] );
+        $field = WPBDP_Form_Field::get( wpbdp_get_var( array( 'param' => 'id' ), 'request' ) );
 
         if ( ! $field || $field->has_behavior_flag( 'no-delete' ) ) {
             return;

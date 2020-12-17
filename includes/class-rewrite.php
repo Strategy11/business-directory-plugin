@@ -155,46 +155,6 @@ class WPBDP__Rewrite {
         if ( is_feed() )
             return;
 
-        // FIXME for themes-release
-        // handle some deprecated stuff
-        // if ( is_search() && isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == WPBDP_POST_TYPE ) {
-        //     $url = esc_url_raw( add_query_arg( array( 'action' => 'search',
-        //                                  'dosrch' => 1,
-        //                                  'q' => wpbdp_getv( $_REQUEST, 's', '' ) ), wpbdp_get_page_link( 'main' ) ) );
-        //     wp_redirect( $url ); exit;
-        // }
-        //
-        // if ( wpbdp_experimental( 'typeintegration') && (get_query_var('taxonomy') == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
-        //     return;
-        // }
-        //
-        // if ( (get_query_var('taxonomy') == WPBDP_CATEGORY_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
-        //     wp_redirect( esc_url_raw( add_query_arg('category', get_query_var('term'), wpbdp_get_page_link('main')) ) ); // XXX
-        //     exit;
-        // }
-        //
-        // if ( (get_query_var('taxonomy') == WPBDP_TAGS_TAX) && (_wpbdp_template_mode('category') == 'page') ) {
-        //     wp_redirect( esc_url_raw( add_query_arg('tag', get_query_var('term'), wpbdp_get_page_link('main')) ) ); // XXX
-        //     exit;
-        // }
-        //
-        // if ( wpbdp_experimental( 'typeintegration' ) && is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
-        //     return;
-        // }
-        //
-        // if ( is_single() && (get_query_var('post_type') == WPBDP_POST_TYPE) && (_wpbdp_template_mode('single') == 'page') ) {
-        //     $url = wpbdp_get_page_link( 'main' );
-        //
-        //     if (get_query_var('name')) {
-        //         wp_redirect( esc_url_raw( add_query_arg('listing', get_query_var('name'), $url) ) ); // XXX
-        //     } else {
-        //         wp_redirect( esc_url_raw( add_query_arg('id', get_query_var('p'), $url) ) ); // XXX
-        //     }
-        //
-        //     exit;
-        // }
-        //
-
         // Redirect some old views.
         if ( 'main' == wpbdp_current_view() && ! empty( $_GET['action'] ) ) {
             switch ( $_GET['action'] ) {
@@ -212,23 +172,6 @@ class WPBDP__Rewrite {
             wp_redirect( add_query_arg( 'wpbdp_view', $newview, remove_query_arg( 'action' ) ) );
             exit();
         }
-
-        // Handle login URL for some views.
-        // FIXME: review if this is now handled in each view correctly, before @next-release.
-        // if ( in_array( wpbdp_current_view(), array( 'edit_listing', 'submit_listing', 'delete_listing', 'renew_listing' ), true )
-        //      && wpbdp_get_option( 'require-login' )
-        //      && ! is_user_logged_in() ) {
-        //
-        //     $login_url = trim( wpbdp_get_option( 'login-url' ) );
-        //
-        //     if ( ! $login_url )
-        //         return;
-        //
-        //      $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        // $url = add_query_arg( 'redirect_to', urlencode( $current_url ), $login_url );
-        //     wp_redirect( esc_url_raw( $url ) );
-        //     exit();
-        // }
     }    
 
 }

@@ -115,4 +115,9 @@ class WPBDP__View {
 /**
  * @deprecated since 5.0. Use {@link WPBDP__View}.
  */
-class WPBDP_NView extends WPBDP__View {}
+class WPBDP_NView extends WPBDP__View {
+	public function __construct( $args = null ) {
+		_deprecated_function( __METHOD__, '5.0', 'WPBDP__View' );
+		parent::__construct( $args );
+	}
+}

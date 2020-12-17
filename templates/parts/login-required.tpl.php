@@ -6,6 +6,8 @@
  *                  or displays the login form and even handles access key access.
  */
 
+_deprecated_file( esc_html( basename( __FILE__ ) ), '5.0', 'Redirect to ?wpbdp_view-login' );
+
 $show_message = isset( $show_message ) ? $show_message : true;
 ?>
 

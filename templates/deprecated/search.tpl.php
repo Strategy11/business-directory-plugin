@@ -1,4 +1,6 @@
 <?php
+_deprecated_file( esc_html( basename( __FILE__ ) ), 'Unknown' );
+
 $api = wpbdp_formfields_api();
 ?>
 <div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page">

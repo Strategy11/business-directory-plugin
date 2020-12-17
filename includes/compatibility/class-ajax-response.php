@@ -1,13 +1,17 @@
 <?php
 
 /**
- * @deprecated since fees-revamp. Use `wp_send_json()` family of functions.
+ * @deprecated since 5.0. Use `wp_send_json()` family of functions.
  */
 class WPBDP_AJAX_Response {
     public $success = true;
     public $error = '';
     public $message = '';
     public $data = array();
+
+	public function __construct() {
+		_deprecated_function( __METHOD__, '5.0', 'wp_send_json' );
+	}
 
     public function add( $k, $v ) {
         $this->data[ $k ] = $v;

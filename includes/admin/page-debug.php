@@ -3,7 +3,7 @@
 class WPBDP_Admin_Debug_Page {
 
     public function __construct() {
-        add_action( 'admin_init', array( $this, 'handle_download' ) );
+		add_action( 'admin_init', array( &$this, 'handle_download' ) );
 		add_filter( 'debug_information', array( &$this, 'register_debug_information' ) );
     }
 
@@ -181,6 +181,9 @@ class WPBDP_Admin_Debug_Page {
         }
     }
 
+	/**
+	 * @deprecated since 5.9.1
+	 */
     public function ajax_ssl_test() {
 		_deprecated_function( __METHOD__, '5.9.1' );
     }

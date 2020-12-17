@@ -1,4 +1,6 @@
 <?php
+_deprecated_file( esc_html( basename( __FILE__ ) ), 'Unknown' );
+
 $in_shortcode = ! isset( $in_shortcode ) ? false : (bool) $in_shortcode;
 ?>
 <div id="wpbdp-category-page" class="wpbdp-category-page businessdirectory-category businessdirectory wpbdp-page">

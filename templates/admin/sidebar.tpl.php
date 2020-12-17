@@ -42,8 +42,9 @@ $themes = array(
                 <ul>
 				<?php
 				$can_upgrade = false;
+				$modules_obj = wpbdp()->modules;
 				foreach ( $modules as $mod_info ) :
-                    if ( wpbdp_has_module( $mod_info[0] ) ) {
+                    if ( $modules_obj->is_loaded( $mod_info[0] ) ) {
                         continue;
                     }
 					$can_upgrade = true;

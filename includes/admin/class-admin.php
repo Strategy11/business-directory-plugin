@@ -949,6 +949,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @see WPBDP__Admin__Listing_Owner::_dropdown_users_args
          */
         public function _dropdown_users_args( $query_args, $r ) {
+			_deprecated_function( __METHOD__, '5.6.3', 'WPBDP__Admin__Listing_Owner::_dropdown_users' );
+
             global $post;
 
             if ( isset( $r['wpbdp_skip_dropdown_users_args'] ) ) {
@@ -968,6 +970,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @see WPBDP__Admin__Listing_Owner::_dropdown_users
          */
         public function _dropdown_users( $output ) {
+			_deprecated_function( __METHOD__, '5.6.3', 'WPBDP__Admin__Listing_Owner::_dropdown_users' );
+
             global $post;
 
             remove_filter( 'wp_dropdown_users', array( $this, '_dropdown_users' ) );

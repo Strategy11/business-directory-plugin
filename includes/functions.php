@@ -123,6 +123,8 @@ function wpbdp_get_page_id( $name = 'main' ) {
  * @see wpbdp_url()
  */
 function wpbdp_get_page_link( $name = 'main', $arg0 = null ) {
+	//_deprecated_function( __FUNCTION__, '4.0', 'wpbdp_url' );
+
     $page_id = wpbdp_get_page_id( $name );
 
     if ( $page_id ) {
@@ -452,6 +454,8 @@ function _wpbdp_resize_image_if_needed( $id ) {
  * @deprecated since 3.6.10. See {@link wpbdp_currency_format()}.
  */
 function wpbdp_format_currency( $amount, $decimals = 2, $currency = null ) {
+	_deprecated_function( __FUNCTION__, '3.6.10', 'wpbdp_currency_format' );
+
     if ( $amount == 0.0 ) {
         return '—';
     }

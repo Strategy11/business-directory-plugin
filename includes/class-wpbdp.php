@@ -347,9 +347,10 @@ final class WPBDP {
     }
 
     /**
-     * @deprecated since fees-revamp. Remove when found, kept for backwards compat.
+     * @deprecated since 5.0. Remove when found, kept for backwards compat.
      */
     public function is_debug_on() {
+		_deprecated_function( __FUNCTION__, '5.0' );
         return false;
     }
 

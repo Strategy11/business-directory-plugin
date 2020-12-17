@@ -995,7 +995,7 @@ class WPBDP_Form_Field {
         }
 
         try {
-            return new WPBDP_FormField( $_field );
+            return new WPBDP_Form_Field( $_field );
         } catch ( Exception $e ) {
             return null;
         }
@@ -1027,4 +1027,9 @@ class WPBDP_Form_Field {
 /**
  * @deprecated Since 3.4.2. Use {@link WPBDP_Form_Field} instead.
  */
-class WPBDP_FormField extends WPBDP_Form_Field {}
+class WPBDP_FormField extends WPBDP_Form_Field {
+	public function __construct( $attrs = array() ) {
+		_deprecated_function( __CLASS__, '3.4.2', 'WPBDP_Form_Field' );
+		parent::__construct( $attrs );
+	}
+}

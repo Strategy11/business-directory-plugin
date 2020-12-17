@@ -313,6 +313,8 @@ class WPBDP__Settings {
      * @deprecated 5.0. Use {@link WPBDP__Settings::register_group()}.
      */
     public function add_group( $slug, $name, $help_text = '' ) {
+		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_group' );
+
         if ( ! isset( $this->groups[ $slug ] ) ) {
             $this->register_group( $slug, $name, '', array( 'desc' => $help_text ) );
         }
@@ -324,6 +326,8 @@ class WPBDP__Settings {
      * @deprecated 5.0. Use {@link WPBDP__Settings::register_group()}.
      */
     public function add_section($group_slug, $slug, $name, $help_text='') {
+		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_group' );
+
         $tab = $group_slug;
         $subtab = $group_slug . '/main';
 
@@ -339,7 +343,8 @@ class WPBDP__Settings {
     /**
      * @deprecated 5.0. Use {@link WPBDP__Settings::register_setting()}.
      */
-    public function add_core_setting( $name, $default=null ) {
+    public function add_core_setting() {
+		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_setting' );
         return false;
     }
 
@@ -347,6 +352,7 @@ class WPBDP__Settings {
      * @deprecated 5.0. Use {@link WPBDP__Settings::register_setting()}.
      */
     public function add_setting( $section_key, $name, $label, $type = 'text', $default = null, $help_text = '', $args = array(), $validator = null, $callback = null ) {
+		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_setting' );
         return;
         $args_ = func_get_args();
         wpbdp_debug_e( 'add setting called', $args_ );
@@ -356,6 +362,8 @@ class WPBDP__Settings {
      * @deprecated 5.0. Specify dependencies while registering the setting using {@link WPBDP__Settings::register_setting()}.
      */
     public function register_dep( $setting, $dep, $arg = null ) {
+		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_setting' );
+
         return;
         wpbdp_debug_e( 'register dep called' );
 

@@ -955,6 +955,8 @@ class WPBDP_Licensing {
  * @deprecated since 5.0.
  */
 function wpbdp_licensing_register_module( $name, $file_, $version ) {
+	_deprecated_function( __FUNCTION__, '5.0' );
+
     global $wpbdp_compat_modules_registry;
 
     if ( ! isset( $wpbdp_compat_modules_registry ) ) {

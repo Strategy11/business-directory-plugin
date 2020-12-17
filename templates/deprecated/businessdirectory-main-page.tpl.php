@@ -1,3 +1,5 @@
+<?php _deprecated_file( esc_html( basename( __FILE__ ) ), 'Unknown' ); ?>
+
 <div id="wpbdp-main-page" class="wpbdp-main-page wpbdp-main businessdirectory wpbdp-page <?php echo join(' ', $__page__['class']); ?>">
 
     <?php wpbdp_the_main_box(); ?>
