@@ -430,6 +430,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @since 5.7.3
          */
         public function hide_menu() {
+			remove_submenu_page( 'wpbdp_admin', 'wpbdp-debug-info' );
+
             if ( current_user_can( 'administrator' ) ) {
                 remove_menu_page( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) );
             } else {

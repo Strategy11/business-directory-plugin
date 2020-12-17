@@ -76,6 +76,10 @@
 			<?php esc_html_e( 'Take me to the Plugins screen', 'business-directory-plugin' ); ?>
 		</a>
     </div>
+
+	<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-debug-info' ) ); ?>">
+		<?php esc_html_e( 'Get debug info', 'business-directory-plugin' ); ?>
+	</a>
 </div>
 
 <?php wpbdp_render_page( WPBDP_PATH . 'templates/admin/uninstall-capture-form.tpl.php', array(), true ); ?>
