@@ -3,7 +3,6 @@
 <div id="wpbdp-admin-debug-info-page">
 <p>
 	<?php esc_html_e( 'The following information can help our team debug possible problems with your setup.', 'business-directory-plugin' ); ?>
-	<strong><u><?php esc_html_e( 'The debug information does not contain personal or sensitive information such as passwords or private keys.', 'business-directory-plugin' ); ?></u></strong>
 </p>
 <p style="text-align: right;">
     <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Download Debug Information', 'business-directory-plugin' ); ?></a>
@@ -42,24 +41,5 @@
 </table>
 <?php endforeach; ?>
 </div>
-
-<script type="text/javascript">
-jQuery( function( $ ) {
-    $( '#wpbdp-admin-debug-info-page a.test-ssl-link' ).click( function( e ) {
-        e.preventDefault();
-
-        var $textarea = $( 'textarea.test-ssl-results' );
-
-        if ( 0 == $textarea.length )
-            $textarea = $( '<textarea class="test-ssl-results"></textarea>' ).insertAfter( $( this ) );
-
-        $textarea.text( 'Loading...' );
-
-        $.post( ajaxurl, { action: 'wpbdp-debugging-ssltest' }, function( res ) {
-            $textarea.text( res );
-        }, 'text' );
-    } );
-} );
-</script>
 
 <?php wpbdp_admin_footer( 'echo' ); ?>

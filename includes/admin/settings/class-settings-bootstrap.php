@@ -17,7 +17,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'payment/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'payment' );
 
         wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ) );
-        wpbdp_register_settings_group( 'appearance/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'appearance' );
+		wpbdp_register_settings_group( 'appearance/main', _x( 'General', 'settings', 'business-directory-plugin' ), 'appearance' );
 
         wpbdp_register_settings_group( 'modules', _x( 'Premium Modules', 'settings', 'business-directory-plugin' ) );
 
@@ -788,7 +788,7 @@ final class WPBDP__Settings__Bootstrap {
 
     private static function settings_appearance() {
         // Display Options.
-        wpbdp_register_settings_group( 'display_options', _x( 'Directory Display Options', 'settings', 'business-directory-plugin' ), 'appearance/main' );
+		wpbdp_register_settings_group( 'display_options', __( 'Buttons', 'business-directory-plugin' ), 'appearance/main' );
         wpbdp_register_setting(
             array(
                 'id'           => 'show-submit-listing',

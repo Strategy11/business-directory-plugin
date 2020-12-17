@@ -2,52 +2,41 @@
 
 class WPBDP_Admin_Debug_Page {
 
-    function __construct() {
+    public function __construct() {
         add_action( 'admin_init', array( $this, 'handle_download' ) );
-        add_action( 'wp_ajax_wpbdp-debugging-ssltest', array( &$this, 'ajax_ssl_test' ) );
+		add_filter( 'debug_information', array( &$this, 'register_debug_information' ) );
     }
 
-    function dispatch( $plain = false ) {
-        global $wpdb, $wpbdp;
+	public function register_debug_information( $debug_info ) {
+		$basic = $this->get_basic_debug();
+		unset( $basic['_title'] );
 
-        $debug_info = array();
+		$debug = array(
+			'label'  => __( 'Business Directory Plugin', 'business-directory-plugin' ),
+			'fields' => [],
+		);
 
-        // basic BD setup info & tests
-        $debug_info['basic']['_title']                        = __( 'Plugin Info', 'business-directory-plugin' );
-        $debug_info['basic']['Version']                       = WPBDP_VERSION;
-        $debug_info['basic']['Database revision (current)']   = WPBDP_Installer::DB_VERSION;
-        $debug_info['basic']['Database revision (installed)'] = get_option( 'wpbdp-db-version' );
+		foreach ( $basic as $label => $value ) {
+			if ( is_array( $value ) ) {
+				$value = isset( $value['value'] ) ? $value['value'] : reset( $value );
+			}
+			$debug['fields'][] = [
+				'label' => $label,
+				'value' => $value,
+			];
+		}
 
-        // Premium modules.
-        $mod_versions = array();
-        foreach ( $wpbdp->licensing->get_items() as $m ) {
-            $mod_versions[] = str_replace( ' Module', '', $m['name'] ) . ' - ' . $m['version'];
-        }
-        if ( class_exists( 'WPBDP_CategoriesModule' ) ) {
-            $mod_versions[] = 'Enhanced Categories - ' . WPBDP_CategoriesModule::VERSION;
-        }
+		$debug_info['wpbdp'] = $debug;
+		return $debug_info;
+	}
 
-        $debug_info['basic']['Premium Modules'] = array(
-            'value' => implode( "\n" . str_repeat( ' ', 36 ), $mod_versions ),
-            'html'  => implode( '<br />', $mod_versions ),
-        );
+    public function dispatch( $plain = false ) {
 
-        $tables         = apply_filters( 'wpbdp_debug_info_tables_check', array( 'wpbdp_form_fields', 'wpbdp_plans', 'wpbdp_payments', 'wpbdp_listings' ) );
-        $missing_tables = array();
-        foreach ( $tables as &$t ) {
-            if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . $t ) ) == '' ) {
-                $missing_tables[] = $t;
-            }
-        }
-        $debug_info['basic']['Table check'] = $missing_tables
-                                              ? sprintf( __( 'Missing tables: %s', 'business-directory-plugin' ), implode( ',', $missing_tables ) )
-                                              : __( 'OK', 'business-directory-plugin' );
-
-        $debug_info['basic']['Main Page'] = sprintf( '%d (%s)', wpbdp_get_page_id( 'main' ), get_post_status( wpbdp_get_page_id( 'main' ) ) );
-        $debug_info['basic']              = apply_filters( 'wpbdp_debug_info_section', $debug_info['basic'], 'basic' );
+		$debug_info = array();
 
         // BD options
         $blacklisted                     = array( 'authorize-net-transaction-key', 'authorize-net-login-id', 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
+		$partial_block = array( 'secret-key', 'publishable-key', 'private-key', 'public-key', 'license-key' );
         $debug_info['options']['_title'] = __( 'Plugin Settings', 'business-directory-plugin' );
 
         $settings_api = wpbdp_settings_api();
@@ -56,6 +45,12 @@ class WPBDP_Admin_Debug_Page {
             if ( in_array( $s['id'], $blacklisted ) ) {
                 continue;
             }
+
+			foreach ( $partial_block as $blockme ) {
+				if ( strpos( $s['id'], $blockme ) !== false ) {
+					continue 2;
+				}
+			}
 
             $value = wpbdp_get_option( $s['id'] );
 
@@ -73,37 +68,12 @@ class WPBDP_Admin_Debug_Page {
 
         // environment info
         $debug_info['environment']['_title']            = __( 'Environment', 'business-directory-plugin' );
-        $debug_info['environment']['WordPress version'] = get_bloginfo( 'version', 'raw' );
-        $debug_info['environment']['OS']                = php_uname( 's' ) . ' ' . php_uname( 'r' ) . ' ' . php_uname( 'm' );
-
-        if ( function_exists( 'apache_get_version' ) ) {
-            $apache_version                              = apache_get_version();
-            $debug_info['environment']['Apache version'] = $apache_version;
-        }
-
-        $debug_info['environment']['PHP version'] = phpversion();
-
-        $mysql_version = $wpdb->get_var( 'SELECT @@version' );
-        if ( $sql_mode = $wpdb->get_var( 'SELECT @@sql_mode' ) ) {
-            $mysql_version .= ' ( ' . $sql_mode . ' )';
-        }
-        $debug_info['environment']['MySQL version'] = $mysql_version ? $mysql_version : 'N/A';
-
-        if ( function_exists( 'curl_init' ) ) {
-            $data = curl_version();
-
-            $debug_info['environment']['cURL version']     = $data['version'];
-            $debug_info['environment']['cURL SSL library'] = $data['ssl_version'];
-            $debug_info['environment']['Test SSL setup']   = array(
-				'exclude' => true,
-				'html'    => '<a href="#" class="test-ssl-link">' . __( 'Test SSL setup...', 'business-directory-plugin' ) . '</a>',
-			);
-        } else {
-            $debug_info['environment']['cURL version']     = 'N/A';
-            $debug_info['environment']['cURL SSL library'] = 'N/A';
-        }
 
         $debug_info['environment'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['environment'], 'environment' );
+
+		if ( count( $debug_info['environment'] ) === 1 ) {
+			unset( $debug_info['environment'] );
+		}
 
         $debug_info = apply_filters( 'wpbdp_debug_info', $debug_info );
 
@@ -138,7 +108,62 @@ class WPBDP_Admin_Debug_Page {
         wpbdp_render_page( WPBDP_PATH . 'templates/admin/debug-info.tpl.php', array( 'debug_info' => $debug_info ), true );
     }
 
-    function handle_download() {
+	private function get_basic_debug() {
+		global $wpbdp;
+
+		$debug_info = array(
+			'_title'  => __( 'Plugin Info', 'business-directory-plugin' ),
+			'Version' => WPBDP_VERSION,
+		);
+
+		$debug_info['Database revision (current)']   = WPBDP_Installer::DB_VERSION;
+		$debug_info['Database revision (installed)'] = get_option( 'wpbdp-db-version' );
+
+		$debug_info['Modules']     = $this->installed_plugins();
+		$debug_info['Table check'] = $this->table_info();
+
+		$debug_info['Main Page'] = sprintf( '%d (%s)', wpbdp_get_page_id( 'main' ), get_post_status( wpbdp_get_page_id( 'main' ) ) );
+		$debug_info              = apply_filters( 'wpbdp_debug_info_section', $debug_info, 'basic' );
+
+		return $debug_info;
+	}
+
+	private function installed_plugins() {
+		global $wpbdp;
+
+		// Premium modules.
+		$mod_versions = array();
+		foreach ( $wpbdp->licensing->get_items() as $m ) {
+			$mod_versions[] = str_replace( ' Module', '', $m['name'] ) . ' - ' . $m['version'];
+		}
+		if ( class_exists( 'WPBDP_CategoriesModule' ) ) {
+			$mod_versions[] = 'Enhanced Categories - ' . WPBDP_CategoriesModule::VERSION;
+		}
+
+		return array(
+			'value' => implode( ', ', $mod_versions ),
+			'html'  => implode( '<br />', $mod_versions ),
+		);
+	}
+
+	private function table_info() {
+		global $wpdb;
+
+		$tables         = apply_filters( 'wpbdp_debug_info_tables_check', array( 'wpbdp_form_fields', 'wpbdp_plans', 'wpbdp_payments', 'wpbdp_listings' ) );
+		$missing_tables = array();
+		foreach ( $tables as &$t ) {
+			if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . $t ) ) == '' ) {
+				$missing_tables[] = $t;
+			}
+		}
+		$status = __( 'OK', 'business-directory-plugin' );
+		if ( $missing_tables ) {
+			$status = sprintf( __( 'Missing tables: %s', 'business-directory-plugin' ), implode( ',', $missing_tables ) );
+		}
+		return $status;
+	}
+
+    public function handle_download() {
         global $pagenow;
 
         if ( ! current_user_can( 'administrator' ) || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
@@ -156,32 +181,7 @@ class WPBDP_Admin_Debug_Page {
         }
     }
 
-    function ajax_ssl_test() {
-        if ( ! function_exists( 'curl_init' ) ) {
-            die( 'cURL not available.' );
-        }
-
-        $ch = curl_init( 'https://www.howsmyssl.com/a/check' );
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt( $ch, CURLOPT_SSLVERSION, 6 );
-        $data = curl_exec( $ch );
-
-        if ( 0 !== curl_errno( $ch ) ) {
-            die( 'cURL error: ' . wp_kses_post( curl_error( $ch ) ) );
-        }
-
-        curl_close( $ch );
-
-        if ( ! $data ) {
-            die( 'No response from remote server.' );
-        }
-
-        $json = json_decode( $data );
-
-        echo "Cipher Suites:\n" . wp_kses_post( implode( ',', $json->given_cipher_suites ) ) . "\n\n";
-        echo "TLS Version:\n" . wp_kses_post( $json->tls_version ) . "\n\n";
-        echo "Rating:\n" . wp_kses_post( $json->rating );
-
-        exit();
+    public function ajax_ssl_test() {
+		_deprecated_function( __METHOD__, '5.9.1' );
     }
 }
