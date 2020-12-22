@@ -30,7 +30,7 @@ endswitch
 <?php endif; ?>
 
 <?php if ( 'pending' == $payment->status ): ?>
-<script type="text/javascript">
+<script>
 setTimeout(function() {
     location.reload();
 }, 5000 );

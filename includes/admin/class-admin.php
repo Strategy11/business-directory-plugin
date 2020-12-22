@@ -1205,7 +1205,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            echo '<script type="text/javascript">jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
+            echo '<script>jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
         }
 
         /**

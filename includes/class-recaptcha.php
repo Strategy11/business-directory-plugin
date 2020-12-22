@@ -230,7 +230,7 @@ class WPBDP_reCAPTCHA {
         }
 
         echo <<<JS
-        <script type="text/javascript">//<![CDATA[
+        <script>//<![CDATA[
             jQuery( '#comment' ).val( "{$comment->comment_content}" );
         //}}>
         </script>

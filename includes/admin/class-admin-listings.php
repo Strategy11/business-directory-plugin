@@ -674,7 +674,7 @@ class WPBDP_Admin_Listings {
                     $bulk_actions = apply_filters( 'wpbdp_admin_directory_bulk_actions', $bulk_actions );
 
                     // the 'bulk_actions' filter doesn't really work for this until this bug is fixed: http://core.trac.wordpress.org/ticket/16031
-                    echo '<script type="text/javascript">';
+                    echo '<script>';
 
                     foreach ( $bulk_actions as $action => $text ) {
                         echo sprintf(
@@ -703,7 +703,7 @@ class WPBDP_Admin_Listings {
         // 'contributors' should still use the frontend to add listings (editors, authors and admins are allowed to add things directly)
         // XXX: this is kind of hacky but is the best we can do atm, there aren't hooks to change add links
         if ( current_user_can( 'contributor' ) && isset( $_GET['post_type'] ) && $_GET['post_type'] == WPBDP_POST_TYPE ) {
-            echo '<script type="text/javascript">';
+            echo '<script>';
             echo sprintf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', wpbdp_get_page_link( 'add-listing' ) );
             echo '</script>';
         }

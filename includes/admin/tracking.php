@@ -193,7 +193,7 @@ class WPBDP_SiteTracking {
         $content .= '&#149; ' . sprintf( '<a href="%s" target="_blank" rel="noopener">%s</a>', 'http://businessdirectoryplugin.com/what-we-track', _x( 'What do you track?', 'tracking', 'business-directory-plugin' ) );
         $content .= '</p>';
 ?>
-    <script type="text/javascript">
+    <script>
         //<![CDATA[
         jQuery(function($){
             function WPBDP_SiteTracking_answer(enable) {

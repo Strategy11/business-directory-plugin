@@ -130,7 +130,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         );
 
         $html.= sprintf(
-            '<script type="text/javascript">
+            '<script>
                 var WPBDPTinyMCESettings = WPBDPTinyMCESettings || {};
 
                 WPBDPTinyMCESettings[ \'%s\' ] = {

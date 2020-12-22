@@ -426,14 +426,14 @@ jQuery(function($) {
     var $confirm_button = $( '#wpbdp-uninstall-proceed-btn' );
     var $form = $( '#wpbdp-uninstall-capture-form' );
 
-    $( '#wpbdp-uninstall-proceed-btn' ).click(function(e) {
+    $confirm_button.click(function(e) {
         e.preventDefault();
         $warnings.fadeOut( 'fast', function() {
             $form.fadeIn( 'fast' );
         } );
     });
     
-    $( '#wpbdp-uninstall-capture-form' ).submit(function() {
+    $form.submit(function() {
         var $no_reason_error = $( '.wpbdp-validation-error.no-reason' ).hide();
         var $no_text_error   = $( '.wpbdp-validation-error.no-reason-text' ).hide();
         var $reason_checked = $( 'input[name="uninstall[reason_id]"]:checked' );

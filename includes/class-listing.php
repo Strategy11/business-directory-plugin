@@ -431,7 +431,8 @@ class WPBDP_Listing {
 
     public function delete() {
         global $wpdb;
-        $wpdb->update( $wpdb->posts, array( 'post_status' => wpbdp_get_option( 'deleted-status' ) ), array( 'ID' => $this->id ) );
+		$status = apply_filters( 'wpbdp_delete_post_status', wpbdp_get_option( 'deleted-status' ) );
+        $wpdb->update( $wpdb->posts, array( 'post_status' => $status ), array( 'ID' => $this->id ) );
         clean_post_cache( $this->id );
 
         return true;

@@ -294,7 +294,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 				echo wp_get_attachment_image( $media_id, 'thumb', false );
 				echo '</div>';
 
-				echo '<script type="text/javascript">';
+				echo '<script>';
 				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");', esc_js( $field_id ), esc_js( $media_id ), esc_js( $element ) );
 				echo '</script>';
             } else {
@@ -302,7 +302,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             }
         }
 
-        echo sprintf( '<script type="text/javascript">document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>', esc_js( $field_id ) );
+        echo sprintf( '<script>document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>', esc_js( $field_id ) );
 
         exit;
     }

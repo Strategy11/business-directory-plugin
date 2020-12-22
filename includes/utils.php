@@ -871,7 +871,7 @@ function wpbdp_admin_pointer( $selector, $title, $content_ = '',
     $content .= '<h3>' . $title . '</h3>';
     $content .= '<p>' . $content_ . '</p>';
 ?>
-<script type="text/javascript">
+<script>
 //<![CDATA[
 jQuery(function( $ ) {
         var wpbdp_pointer = $( '<?php echo $selector; ?>' ).pointer({

@@ -303,7 +303,7 @@ wpbdp_admin_notices();
     <?php endif; ?>
 </form>
 
-<script type="text/javascript">
+<script>
 jQuery(document).ready(function(){
 WPBDP_associations_fieldtypes = <?php echo json_encode( $association_field_types ); ?>
 });

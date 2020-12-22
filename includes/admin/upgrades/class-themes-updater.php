@@ -7,10 +7,8 @@ class WPBDP_Themes_Updater {
 
     public function __construct( &$themes_api ) {
         $this->themes_api = $themes_api;
-        $this->data = get_transient( 'wpbdp-themes-updates' );
 
-        if ( ! is_array( $this->data ) )
-            $this->check_for_updates();
+		$this->check_for_updates();
 
         add_action( 'wp_ajax_wpbdp-themes-update', array( &$this, '_update_theme' ) );
         add_action( 'wpbdp-admin-themes-item-css', array( &$this, '_add_update_css' ) );
@@ -36,8 +34,13 @@ class WPBDP_Themes_Updater {
 
     private function check_for_updates() {
         $data = get_transient( 'wpbdp-themes-updates' );
-        if ( ! is_array( $data ) )
-            $data = array();
+
+		if ( is_array( $data ) ) {
+			$this->data = $data;
+			return;
+		}
+
+		$data = array();
 
         $themes = $this->themes_api->get_installed_themes();
         $res = array();

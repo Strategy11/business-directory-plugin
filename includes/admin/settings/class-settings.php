@@ -560,7 +560,6 @@ class WPBDP__Settings {
             'wpbusdirman_settings_config_39' => 'use-default-picture',
             'wpbusdirman_settings_config_44' => 'show-listings-under-categories',
             'wpbusdirman_settings_config_45' => 'override-email-blocking',
-            'wpbusdirman_settings_config_46' => 'status-on-uninstall',
             'wpbusdirman_settings_config_47' => 'deleted-status',
             'wpbusdirman_settings_config_3' => 'require-login',
             'wpbusdirman_settings_config_4' => 'login-url',

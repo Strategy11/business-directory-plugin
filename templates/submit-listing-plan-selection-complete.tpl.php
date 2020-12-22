@@ -25,7 +25,7 @@ $categories = wp_get_post_terms( $listing->get_id(), WPBDP_CATEGORY_TAX, array( 
     <a href="#"><?php _ex( 'Change category/plan', 'listing submit', 'business-directory-plugin' ); ?></a>
 </div>
 
-<script type="text/javascript">
+<script>
 jQuery(function($) {
     var amount = <?php echo $plan->calculate_amount( $categories ); ?>;
 

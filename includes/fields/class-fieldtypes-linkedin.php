@@ -48,7 +48,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 
         if ( is_numeric( $value ) ) {
             if ( ! $js_loaded ) {
-                $html     .= '<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>';
+                $html     .= '<script src="//platform.linkedin.com/in.js"></script>';
                 $js_loaded = true;
             }
             $html .= '<script type="IN/FollowCompany" data-id="' . intval( $value ) . '" data-counter="none"></script>';

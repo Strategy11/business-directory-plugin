@@ -278,6 +278,17 @@ class WPBDP__Settings_Admin {
         }
     }
 
+	/**
+	 * Hide a field setting that is no longer used.
+	 *
+	 * @since x.x
+	 */
+	public function setting_hidden_callback( $setting, $value ) {
+		?>
+		<input type="hidden" value="<?php echo esc_attr( $value ); ?>" name="wpbdp_settings[<?php echo esc_attr( $setting['id'] ); ?>]"/>
+		<?php
+	}
+
     public function setting_multicheck_callback( $setting, $value ) {
         if ( empty( $setting['options'] ) ) {
             return;
@@ -760,7 +771,7 @@ foreach ( $value as $i => $notice ) {
                 echo wp_get_attachment_image( $media_id, 'thumb', false );
                 echo '</div>';
 
-                echo '<script type="text/javascript">';
+                echo '<script>';
                 echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload("%s", %d, "%s");', $setting_id, $media_id, $element );
                 echo '</script>';
             } else {
@@ -768,7 +779,7 @@ foreach ( $value as $i => $notice ) {
             }
         }
 
-        echo sprintf( '<script type="text/javascript">window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', $setting_id, 30 );
+        echo sprintf( '<script>window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', $setting_id, 30 );
 
         exit;
     }

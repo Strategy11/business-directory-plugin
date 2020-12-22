@@ -17,7 +17,6 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_settings_group( 'payment/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'payment' );
 
         wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ) );
-		wpbdp_register_settings_group( 'appearance/main', _x( 'General', 'settings', 'business-directory-plugin' ), 'appearance' );
 
         wpbdp_register_settings_group( 'modules', _x( 'Premium Modules', 'settings', 'business-directory-plugin' ) );
 
@@ -416,7 +415,8 @@ final class WPBDP__Settings__Bootstrap {
     private static function settings_listings() {
         wpbdp_register_settings_group( 'listings/post_category', __( 'Categories', 'business-directory-plugin' ), 'listings' );
         wpbdp_register_settings_group( 'listings/contact', _x( 'Contact Form', 'settings', 'business-directory-plugin' ), 'listings' );
-        wpbdp_register_settings_group( 'listings/report', _x( 'Report Listings', 'settings', 'business-directory-plugin' ), 'listings' );
+		wpbdp_register_settings_group( 'listings/report', __( 'Buttons', 'business-directory-plugin' ), 'listings' );
+
         wpbdp_register_settings_group( 'listings/sorting', __( 'Sorting', 'business-directory-plugin' ), 'listings' );
         wpbdp_register_setting(
             array(
@@ -613,7 +613,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default' => 'pending',
                 'options' => array(
                     'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
-                    'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
+                    'pending' => __( 'Pending (Require approval)', 'business-directory-plugin' ),
                 ),
                 'group'   => 'listings/main',
             )
@@ -626,7 +626,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default' => 'publish',
                 'options' => array(
                     'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),
-                    'pending' => _x( 'Pending', 'post status', 'business-directory-plugin' ),
+                    'pending' => __( 'Pending (Require approval)', 'business-directory-plugin' ),
                 ),
                 'group'   => 'listings/main',
             )
@@ -634,21 +634,9 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting(
             array(
-                'id'      => 'status-on-uninstall',
-                'type'    => 'radio',
-                'name'    => _x( 'Status of listings upon uninstalling plugin', 'settings', 'business-directory-plugin' ),
-                'default' => 'trash',
-                'options' => array(
-                    'draft' => _x( 'Draft', 'post status', 'business-directory-plugin' ),
-                    'trash' => _x( 'Trash', 'post status', 'business-directory-plugin' ),
-                ),
-                'group'   => 'listings/main',
-            )
-        );
-        wpbdp_register_setting(
-            array(
                 'id'      => 'deleted-status',
-                'type'    => 'radio',
+                'type'    => 'hidden',
+				'class'   => 'hidden',
                 'name'    => _x( 'Status of deleted listings', 'settings', 'business-directory-plugin' ),
                 'default' => 'trash',
                 'options' => array(
@@ -788,7 +776,7 @@ final class WPBDP__Settings__Bootstrap {
 
     private static function settings_appearance() {
         // Display Options.
-		wpbdp_register_settings_group( 'display_options', __( 'Buttons', 'business-directory-plugin' ), 'appearance/main' );
+		wpbdp_register_settings_group( 'display_options', __( 'Show Buttons', 'business-directory-plugin' ), 'listings/report' );
         wpbdp_register_setting(
             array(
                 'id'           => 'show-submit-listing',

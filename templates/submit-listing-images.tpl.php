@@ -84,6 +84,6 @@ $vars['echo'] = true;
 wpbdp_render( 'submit-listing-images-upload-form', $vars, false );
 ?>
 
-<script type="text/javascript">
+<script>
 wpbdp.listingSubmit.images.init();
 </script>
