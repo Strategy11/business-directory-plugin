@@ -72,16 +72,25 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
-        if ( empty( $value ) || empty( $value[0] ) )
+        if ( empty( $value ) || empty( $value[0] ) ) {
             return '';
+		}
 
+		$rel = $field->data( 'use_nofollow' ) ? 'nofollow' : '';
+		if ( $field->data( 'open_in_new_window' ) ) {
+			$rel .= ' noopener';
+		}
 
-        return sprintf( '<a href="%s" rel="%s" target=%s title="%s">%s</a>',
-                        esc_url( $value[0] ),
-                        $field->data( 'use_nofollow' ) == true ? 'nofollow': '',
-                        $field->data( 'open_in_new_window' ) == true ? '"_blank" rel="noopener"' : '"_self"',
-                        esc_attr( ! empty( $value[1] ) ? $value[1] : $value[0] ),
-                        esc_html( ! empty( $value[1] ) ? $value[1] : $value[0] ) );
+		$label = empty( $value[1] ) ? $value[1] : $value[0];
+
+		return sprintf(
+			'<a href="%s" rel="%s" target="%s" title="%s">%s</a>',
+			esc_url( $value[0] ),
+			esc_attr( $rel ),
+			esc_attr( $field->data( 'open_in_new_window' ) ? '_blank' : '_self' ),
+			esc_attr( $label ),
+			esc_html( $label )
+		);
     }
 
     public function get_field_plain_value( &$field, $post_id ) {

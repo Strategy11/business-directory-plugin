@@ -1,7 +1,6 @@
 <div class="wpbdp-page-csv-export">
 
-<a name="exporterror"></a>
-<div class="error" style="display: none;"><p>
+<div class="error" id="exporterror" style="display: none;"><p>
 <?php
     esc_html_e( 'An unknown error occurred during the export. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.',
     'business-directory-plugin' ); ?>

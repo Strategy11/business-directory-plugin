@@ -167,7 +167,7 @@ class WPBDP__Settings_Admin {
 
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo apply_filters( 'wpbdp_admin_settings_render', $callback_html, $setting );
-        echo '<a name="' . esc_attr( $setting['id'] ) . '"></a>';
+        echo '<span id="' . esc_attr( $setting['id'] ) . '"></span>';
         echo '</div>';
     }
 

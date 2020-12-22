@@ -408,7 +408,7 @@ class WPBDP_Form_Field_Type {
             $html .= '<span class="field-label">' . apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $labelorfield ) . ':</span> ';
 
         if ( $content )
-            $html .= '<span class="value">' . $content . '</span>';
+            $html .= '<div class="value">' . $content . '</div>';
 
         $html .= '</div>';
 

@@ -192,7 +192,7 @@ class WPBDP_Themes {
             )
         );
 
-        echo '<style type="text/css">';
+        echo '<style>';
 
         foreach ( $plans as $plan ) {
             if ( empty( $plan->extra_data['bgcolor'] ) ) {

@@ -35,7 +35,7 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
         <?php if ( 'csv_import' == $current_tab ) : ?>
         <div class="wpbdp-csv-import-top-buttons">
             <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) ); ?>" class="button"><?php _ex( 'See an example CSV import file', 'admin csv-import', 'business-directory-plugin' ); ?></a>
-            <a href="#help" class="button"><?php _ex( 'Help', 'admin csv-import', 'business-directory-plugin' ); ?></a>
+			<a href="#help" class="button"><?php esc_html_e( 'Help', 'business-directory-plugin' ); ?></a>
         </div>
         <?php endif; ?>
 

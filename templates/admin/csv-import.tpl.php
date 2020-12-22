@@ -281,8 +281,7 @@ echo str_replace(
 </form>
 
 <hr />
-<a name="help"></a>
-<h2><?php _ex('Help', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
+<h2 id="help"><?php esc_html_e( 'Help', 'business-directory-plugin' ); ?></h2>
 <p>
     <?php echo sprintf(_x('The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'admin csv-import', 'business-directory-plugin' ),
                   esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) ) ); ?>
