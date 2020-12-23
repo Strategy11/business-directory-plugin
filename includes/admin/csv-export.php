@@ -30,7 +30,7 @@ class WPBDP_Admin_CSVExport {
     }
 
     public function dispatch() {
-        echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/csv-export.tpl.php' );
+		wpbdp_render_page( WPBDP_PATH . 'templates/admin/csv-export.tpl.php', array(), true );
     }
 
     public function ajax_csv_export() {
@@ -51,7 +51,7 @@ class WPBDP_Admin_CSVExport {
 
                 $export = WPBDP_CSVExporter::from_state( $state );
 
-                if ( isset( $_REQUEST['cleanup'] ) && $_REQUEST['cleanup'] == 1 ) {
+				if ( 1 === intval( wpbdp_get_var( array( 'param' => 'cleanup' ), 'request' ) ) ) {
                     $export->cleanup();
                 } else {
                     $export->advance();

@@ -313,7 +313,10 @@ echo str_replace(
                 <?php echo ($field->get_association() == 'category' || $field->get_association() == 'tags') || ($field->get_field_type_id() == 'checkbox' || $field->get_field_type_id() == 'multiselect') ? 'X' : ''; ?>
             </td>
         </tr>
-    <?php $i++; endforeach; ?>
+		<?php
+		$i++;
+	endforeach;
+	?>
         <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">fee_id</td>
             <td class="field-label"><?php _ex( 'Fee ID (integer) associated to a listing. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>

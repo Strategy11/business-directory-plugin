@@ -143,12 +143,19 @@ class WPBDP_Themes_Updater {
     // Theme update process. {{
 
     public function _update_theme() {
-        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'update theme ' . $_REQUEST['theme'] ) )
-            die();
+		if ( ! current_user_can( 'administrator' ) ) {
+			wp_die();
+		}
+
+		$theme_id = wpbdp_get_var( array( 'param' => 'theme' ), 'request' );
+		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
+
+		if ( ! wp_verify_nonce( $nonce, 'update theme ' . $theme_id ) ) {
+			wp_die();
+		}
 
         $response = new WPBDP_Ajax_Response();
 
-        $theme_id = $_REQUEST['theme'];
         $theme = $this->themes_api->get_theme( $theme_id );
 
         if ( ! $theme )

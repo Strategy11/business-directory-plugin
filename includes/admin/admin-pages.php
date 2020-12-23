@@ -1,6 +1,12 @@
 <?php
-function wpbdp_admin_sidebar() {
-    return wpbdp_render_page( WPBDP_PATH . 'templates/admin/sidebar.tpl.php' );
+function wpbdp_admin_sidebar( $echo = false ) {
+	$page = wpbdp_render_page( WPBDP_PATH . 'templates/admin/sidebar.tpl.php', array(), $echo );
+
+	if ( ! $echo ) {
+		return $page;
+	}
+
+	return ! empty( $page );
 }
 
 function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = null ) {
@@ -45,7 +51,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 
     $defaults = array(
         'title'   => $default_title,
-        'id'      => ! empty( $_GET['page'] ) ? $_GET['page'] : '',
+        'id'      => wpbdp_get_var( array( 'param' => 'page' ) ),
         'buttons' => array(),
         'sidebar' => true,
         'echo'    => false,
@@ -62,17 +68,17 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
         ob_start();
     }
 ?>
-<div class="wrap wpbdp-admin wpbdp-admin-page wpbdp-admin-page-<?php echo $id; ?>" id="wpbdp-admin-page-<?php echo $id; ?>">
+<div class="wrap wpbdp-admin wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
 	<div id="icon-edit-pages" class="icon32"></div>
 		<h1>
-            <?php echo $title; ?>
+            <?php echo esc_html( $title ); ?>
 
             <?php foreach ( $buttons as $label => $url ): ?>
-                <a href="<?php echo $url; ?>" class="add-new-h2"><?php echo $label; ?></a>
+                <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php echo esc_html( $label ); ?></a>
             <?php endforeach; ?>
         </h1>
 
-		<?php echo $sidebar = $sidebar ? wpbdp_admin_sidebar() : ''; ?>
+		<?php $sidebar = $sidebar ? wpbdp_admin_sidebar( true ) : ''; ?>
 
 		<div class="wpbdp-admin-content <?php echo ! empty( $sidebar ) ? 'with-sidebar' : 'without-sidebar'; ?>">
     <?php
@@ -81,6 +87,9 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
     }
 }
 
+/*
+ * @param bool|string Use 'echo' or true to show the footer.
+ */
 function wpbdp_admin_footer( $echo = false ) {
 	$footer = '</div><br class="clear" /></div>';
     if ( ! $echo ) {

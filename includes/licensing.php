@@ -715,15 +715,19 @@ class WPBDP_Licensing {
     }
 
     public function ajax_activate_license() {
-        $setting_id = $_POST['setting'];
-        $key        = $_POST['license_key'];
-        $item_type  = $_POST['item_type'];
-        $item_id    = $_POST['item_id'];
-        $nonce      = $_POST['nonce'];
+		$nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
+		if ( ! wp_verify_nonce( $nonce, 'license activation' ) ) {
+			wp_die();
+		}
+
+		$setting_id = wpbdp_get_var( array( 'param' => 'setting' ), 'post' );
+		$key        = wpbdp_get_var( array( 'param' => 'license_key' ), 'post' );
+		$item_type  = wpbdp_get_var( array( 'param' => 'item_type' ), 'post' );
+		$item_id    = wpbdp_get_var( array( 'param' => 'item_id' ), 'post' );
 
         $response = new WPBDP_Ajax_Response();
 
-        if ( ! $setting_id || ! $item_type || ! $item_id || ! wp_verify_nonce( $nonce, 'license activation' ) ) {
+        if ( ! $setting_id || ! $item_type || ! $item_id ) {
             $response->send_error();
         }
 
@@ -745,13 +749,17 @@ class WPBDP_Licensing {
     }
 
     public function ajax_deactivate_license() {
-        $setting_id = $_POST['setting'];
-        $key        = $_POST['license_key'];
-        $item_type  = $_POST['item_type'];
-        $item_id    = $_POST['item_id'];
-        $nonce      = $_POST['nonce'];
+		$nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
+		if ( ! wp_verify_nonce( $nonce, 'license activation' ) ) {
+			wp_die();
+		}
 
-        if ( ! $setting_id || ! $key || ! $item_type || ! $item_id || ! wp_verify_nonce( $nonce, 'license activation' ) ) {
+		$setting_id = wpbdp_get_var( array( 'param' => 'setting' ), 'post' );
+		$key        = wpbdp_get_var( array( 'param' => 'license_key' ), 'post' );
+		$item_type  = wpbdp_get_var( array( 'param' => 'item_type' ), 'post' );
+		$item_id    = wpbdp_get_var( array( 'param' => 'item_id' ), 'post' );
+
+        if ( ! $setting_id || ! $key || ! $item_type || ! $item_id ) {
             die();
         }
 

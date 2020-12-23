@@ -393,7 +393,8 @@ class WPBDP_Themes_Admin {
     // Theme update process. {{
 
     public function _update_theme() {
-        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'update theme ' . $_REQUEST['theme'] ) ) {
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
+        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'update theme ' . $_REQUEST['theme'] ) ) {
             die();
         }
 

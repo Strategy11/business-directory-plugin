@@ -271,7 +271,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @since 3.5.3
          */
         public function ajax_create_main_page() {
-            $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
+            $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 
             if ( ! current_user_can( 'administrator' ) || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
                 exit();
@@ -558,7 +558,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $handler = trim( $_REQUEST['handler'] );
+            $handler = trim( wpbdp_get_var( array( 'param' => 'handler' ), 'request' ) );
             $handler = WPBDP__Utils::normalize( $handler );
 
             $parts         = explode( '__', $handler );
@@ -665,8 +665,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         public function ajax_fees_set_order() {
-            $nonce = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
-            $order = isset( $_POST['fee_order'] ) ? $_POST['fee_order'] : false;
+            $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
+            $order = wpbdp_get_var( array( 'param' => 'fee_order' ), 'post' );
 
             if ( ! wp_verify_nonce( $nonce, 'change fees order' ) || ! $order ) {
                 exit();
@@ -707,8 +707,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         * AJAX listing actions.
         */
         function ajax_dismiss_notification() {
-            $id      = isset( $_POST['id'] ) ? $_POST['id'] : '';
-            $nonce   = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+            $id      = wpbdp_get_var( array( 'param' => 'id' ), 'post' );
+            $nonce   = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
             $user_id = get_current_user_id();
 
             $res = new WPBDP_Ajax_Response();
@@ -788,8 +788,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $action = $_REQUEST['wpbdmaction'];
-            $posts  = is_array( $_REQUEST['post'] ) ? $_REQUEST['post'] : array( $_REQUEST['post'] );
+			$action = wpbdp_get_var( array( 'param' => 'wpbdmaction' ), 'request' );
+			$posts  = wpbdp_get_var( array( 'param' => 'post' ), 'request' );
+			$posts  = is_array( $posts ) ? $posts : array( $posts );
 
             $listings_api = wpbdp_listings_api();
 
@@ -879,9 +880,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     break;
 
                 case 'delete-flagging':
-                    WPBDP__Listing_Flagging::remove_flagging( $_GET['listing_id'], $_GET['meta_pos'] );
+					$meta_pos   = wpbdp_get_var( array( 'param' => 'meta_pos' ) );
+					$listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ) );
+					WPBDP__Listing_Flagging::remove_flagging( $listing_id, $meta_pos );
 
-                    $this->messages[] = _nx( 'Listing report deleted.', 'Listing reports deleted.', $_GET['meta_pos'] == 'all' ? 2 : 1, 'admin', 'business-directory-plugin' );
+					$this->messages[] = _nx( 'Listing report deleted.', 'Listing reports deleted.', $meta_pos == 'all' ? 2 : 1, 'admin', 'business-directory-plugin' );
                     break;
 
                 case 'send-access-keys':
@@ -923,6 +926,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $message_sent = $message_sent || $sender->send_access_keys_for_listings( $listings, $email_address );
                 } catch ( Exception $e ) {
                     // pass
+					continue;
                 }
             }
 

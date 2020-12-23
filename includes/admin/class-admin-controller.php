@@ -26,7 +26,7 @@ class WPBDP__Admin__Controller {
     }
 
     function _ajax_dispatch() {
-        $handler = ! empty( $_REQUEST['handler'] ) ? trim( $_REQUEST['handler'] ) : '';
+		$handler = trim( wpbdp_get_var( array( 'param' => 'handler' ), 'request' ) );
         $parts = explode( '__', $handler );
         $controller_id = $parts[0];
         $function = isset( $parts[1] ) ? $parts[1] : '';
@@ -36,8 +36,9 @@ class WPBDP__Admin__Controller {
     }
 
     function _dispatch() {
-        if ( empty( $this->current_view ) )
-            $this->current_view = isset( $_GET['wpbdp-view'] ) ? $_GET['wpbdp-view'] : 'index';
+		if ( empty( $this->current_view ) ) {
+            $this->current_view = wpbdp_get_var( array( 'param' => 'wpbdp-view', 'default' => 'index' ) );
+		}
 
         $this->current_view = WPBDP_Utils::normalize( $this->current_view );
 
@@ -83,7 +84,7 @@ class WPBDP__Admin__Controller {
             'explanation' => ''
         );
         $args = wp_parse_args( $args, $defaults );
-        $nonce = ! empty( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
         if ( $nonce && wp_verify_nonce( $nonce, 'confirm ' . md5( $args['title'] ) ) )
             return array( true, '' );

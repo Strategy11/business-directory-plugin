@@ -450,9 +450,9 @@ final class WPBDP {
     public function ajax_listing_submit_image_delete() {
         $res = new WPBDP_Ajax_Response();
 
-        $image_id = intval( $_REQUEST['image_id'] );
-        $listing_id = intval( $_REQUEST['listing_id'] );
-        $nonce = $_REQUEST['_wpnonce'];
+		$image_id   = wpbdp_get_var( array( 'param' => 'image_id', 'sanitize' => 'intval' ), 'request' );
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'intval' ), 'request' );
+		$nonce      = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 
         if ( ! $image_id || ! $listing_id || ! wp_verify_nonce( $nonce, 'delete-listing-' . $listing_id . '-image-' . $image_id ) )
             $res->send_error();

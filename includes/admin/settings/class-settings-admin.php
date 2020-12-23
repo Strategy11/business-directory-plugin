@@ -702,16 +702,14 @@ foreach ( $value as $i => $notice ) {
         $all_groups = wp_list_filter( $all_groups, array( 'count' => 0 ), 'NOT' );
 
         $tabs = wp_list_filter( $all_groups, array( 'type' => 'tab' ) );
-        if ( ! empty( $_GET['tab'] ) && array_key_exists( $_GET['tab'], $tabs ) ) {
-            $active_tab = $_GET['tab'];
-        } else {
+		$active_tab = wpbdp_get_var( array( 'param' => 'tab' ) );
+		if ( ! isset( $tabs[ $active_tab ] ) ) {
             $active_tab = 'general';
         }
 
         $subtabs = wp_list_filter( $all_groups, array( 'parent' => $active_tab ) );
-        if ( ! empty( $_GET['subtab'] ) && array_key_exists( $_GET['subtab'], $subtabs ) ) {
-            $active_subtab = $_GET['subtab'];
-        } else {
+		$active_subtab = wpbdp_get_var( array( 'param' => 'subtab' ) );
+		if ( ! isset( $subtabs[ $active_subtab ] ) ) {
             $subtabs_ids   = array_keys( $subtabs );
             $active_subtab = reset( $subtabs_ids );
         }
@@ -724,7 +722,7 @@ foreach ( $value as $i => $notice ) {
 
 
     public function settings_reset_defaults() {
-        if ( ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'reset defaults' ) ) {
+		if ( wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' ), 'reset defaults' ) ) {
             global $wpbdp;
             $wpbdp->settings->reset_defaults();
 
@@ -741,18 +739,18 @@ foreach ( $value as $i => $notice ) {
     }
 
     public function _ajax_file_upload() {
-        $setting_id = ! empty( $_REQUEST['setting_id'] ) ? $_REQUEST['setting_id'] : '';
-        $nonce      = ! empty( $_REQUEST['nonce'] ) ? $_REQUEST['nonce'] : '';
+		$setting_id = wpbdp_get_var( array( 'param' => 'setting_id' ), 'request' );
+		$nonce      = wpbdp_get_var( array( 'param' => 'nonce' ), 'request' );
 
         if ( ! $setting_id || ! $nonce ) {
             die;
         }
 
-        $element = ! empty( $_REQUEST['element'] ) ? $_REQUEST['element'] : 'wpbdp_settings[' . $setting_id . ']';
-
         if ( ! wp_verify_nonce( $nonce, 'wpbdp-file-upload-' . $setting_id ) ) {
             die;
         }
+
+		$element = wpbdp_get_var( array( 'param' => 'element', 'default' => 'wpbdp_settings[' . $setting_id . ']' ), 'request' );
 
         echo '<form action="" method="POST" enctype="multipart/form-data">';
         echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
