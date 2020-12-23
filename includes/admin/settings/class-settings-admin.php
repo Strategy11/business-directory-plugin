@@ -126,6 +126,21 @@ class WPBDP__Settings_Admin {
         }
     }
 
+	/**
+	 * @since x.x
+	 */
+	private function add_requirement( $setting ) {
+		if ( ! empty( $setting['requirements'] ) ) {
+			$reqs_info = array();
+
+			foreach ( $setting['requirements'] as $r ) {
+				$reqs_info[] = array( $r, (bool) wpbdp_get_option( str_replace( '!', '', $r ) ) );
+			}
+
+			echo ' data-requirements="' . esc_attr( wp_json_encode( $reqs_info ) ) . '"';
+		}
+	}
+
     public function setting_callback( $setting ) {
         if ( 'callback' == $setting['type'] ) {
             if ( ! empty( $setting['callback'] ) && is_callable( $setting['callback'] ) ) {
@@ -153,16 +168,7 @@ class WPBDP__Settings_Admin {
         }
 
         echo ' data-setting-id="' . esc_attr( $setting['id'] ) . '" ';
-
-        if ( ! empty( $setting['requirements'] ) ) {
-            $reqs_info = array();
-
-            foreach ( $setting['requirements'] as $r ) {
-                $reqs_info[] = array( $r, (bool) wpbdp_get_option( str_replace( '!', '', $r ) ) );
-            }
-
-            echo ' data-requirements="' . esc_attr( wp_json_encode( $reqs_info ) ) . '"';
-        }
+		$this->add_requirement( $setting );
 		echo '>';
 
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

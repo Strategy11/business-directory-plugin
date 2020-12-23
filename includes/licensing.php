@@ -846,7 +846,7 @@ class WPBDP_Licensing {
             }
         }
 
-        set_transient( 'wpbdp_updates', $updates, 1 * DAY_IN_SECONDS );
+		set_transient( 'wpbdp_updates', $updates, DAY_IN_SECONDS );
 
         return $updates;
     }

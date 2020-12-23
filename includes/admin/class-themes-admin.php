@@ -35,7 +35,7 @@ class WPBDP_Themes_Admin {
         $count = count( $this->outdated_themes );
 
         if ( $count ) {
-            $count_html = '<span class="update-plugins"><span class="plugin-count">' . number_format_i18n( $count ) . '</span></span>';
+            $count_html = ' <span class="update-plugins"><span class="plugin-count">' . number_format_i18n( $count ) . '</span></span>';
         } else {
 			$count_html = '';
         }
@@ -43,7 +43,7 @@ class WPBDP_Themes_Admin {
         add_submenu_page(
             $slug,
             _x( 'Directory Themes', 'themes', 'business-directory-plugin' ),
-            $count_html ? sprintf( _x( 'Dir. Themes %s', 'themes', 'business-directory-plugin' ), $count_html ) : _x( 'Directory Themes', 'themes', 'business-directory-plugin' ),
+            __( 'Themes', 'business-directory-plugin' ) . $count_html,
             'administrator',
             'wpbdp-themes',
             array( &$this, 'dispatch' )

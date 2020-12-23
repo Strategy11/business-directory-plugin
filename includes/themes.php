@@ -240,7 +240,7 @@ class WPBDP_Themes {
      *
      * @return array An array of theme objects.
      */
-    function get_installed_themes() {
+	public function get_installed_themes() {
         // Use cached info if available.
         if ( ! empty( $this->themes ) ) {
             return $this->themes;
