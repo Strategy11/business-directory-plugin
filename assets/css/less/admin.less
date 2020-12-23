@@ -1,4 +1,5 @@
 @import 'common.less';
+@brand: #6D87B9;
 
 .cf:before, .cf:after {
     content: " ";
@@ -13,12 +14,19 @@
     margin-left: 30px;
 }
 
+.wpbdp-error.error {
+	border-left-color: @brand;
+	display: flex;
+	align-items: center;
+}
+
+.wpbdp-error.error p:first-of-type {
+	flex: 1;
+}
+
 /* Sidebar */
 .wpbdp-admin-content.with-sidebar {
     margin-top: 20px;
-    /*float: left;*/
-    /*width: 80%;*/
-    /*margin-right: 300px;*/
     clear: left;
     float: left;
     width: 78%;
