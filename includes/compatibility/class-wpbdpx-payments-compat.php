@@ -17,9 +17,9 @@ class WPBDP__WPBDPX_Payments_Compat {
     }
 
     public function dispatch() {
-        $action  = isset( $_GET['action'] ) ? trim( $_GET['action'] ) : '';
+        $action  = trim( wpbdp_get_var( array( 'param' => 'action' ), 'get' ) );
         $payment = isset( $_GET['payment_id'] ) ? wpbdp_get_payment( intval( $_GET['payment_id'] ) ) : null;
-        $gid     = isset( $_GET['gid'] ) ? trim( $_GET['gid'] ) : '';
+        $gid     = trim( wpbdp_get_var( array( 'param' => 'gid' ), 'get' ) );
 
         if ( ! in_array( $action, array( 'postback', 'process', 'notify', 'return', 'cancel', 'ins' ) ) || ( ! $payment && ! $gid ) ) {
             return;
@@ -40,9 +40,10 @@ class WPBDP__WPBDPX_Payments_Compat {
 
         switch ( $gateway ) {
             case '2checkout':
-                $_POST['wpbdp_payment_id']    = $_REQUEST['merchant_order_id'];
-                $_GET['wpbdp_payment_id']     = $_REQUEST['merchant_order_id'];
-                $_REQUEST['wpbdp_payment_id'] = $_REQUEST['merchant_order_id'];
+				$order_id = wpbdp_get_var( array( 'param' => 'merchant_order_id' ), 'request' );
+				$_POST['wpbdp_payment_id']    = $order_id;
+				$_GET['wpbdp_payment_id']     = $order_id;
+				$_REQUEST['wpbdp_payment_id'] = $order_id;
                 break;
             case 'paypal':
                 break;

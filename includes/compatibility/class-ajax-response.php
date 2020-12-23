@@ -9,8 +9,11 @@ class WPBDP_AJAX_Response {
     public $message = '';
     public $data = array();
 
+	/**
+	 * @todo Show deprecated message.
+	 */
 	public function __construct() {
-		_deprecated_function( __METHOD__, '5.0', 'wp_send_json' );
+		//_deprecated_function( __METHOD__, '5.0', 'wp_send_json' );
 	}
 
     public function add( $k, $v ) {

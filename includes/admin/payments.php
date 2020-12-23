@@ -24,18 +24,19 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
         $table = new WPBDP__Admin__Payments_Table();
         $table->prepare_items();
 
-        if ( ! empty( $_GET['listing'] ) ) {
-            $listing = WPBDP_Listing::get( $_GET['listing'] );
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing' ) );
+		if ( ! empty( $listing_id ) ) {
+			$listing = WPBDP_Listing::get( $listing_id );
 
             if ( $listing ) {
                 wpbdp_admin_message(
                     str_replace(
                         '<a>',
-                        '<a href="' . remove_query_arg( 'listing' ) . '">',
+						'<a href="' . esc_url( remove_query_arg( 'listing' ) ) . '">',
                         sprintf(
                             _x( 'You\'re seeing payments related to listing: "%1$s" (ID #%2$d). <a>Click here</a> to see all payments.', 'payments admin', 'business-directory-plugin' ),
                             esc_html( $listing->get_title() ),
-                            $listing->get_id()
+							esc_html( $listing->get_id() )
                         )
                     )
                 );

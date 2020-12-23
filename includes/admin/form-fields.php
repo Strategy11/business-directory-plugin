@@ -360,7 +360,8 @@ class WPBDP_FormFieldsAdmin {
                 $this->admin->messages[] = array( $errmsg, 'error' );
             }
         } else {
-            $field = isset( $_GET['id'] ) ? WPBDP_Form_Field::get( $_GET['id'] ) : new WPBDP_Form_Field( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
+			$id    = wpbdp_get_var( array( 'param' => 'id' ), 'get' );
+			$field = $id ? WPBDP_Form_Field::get( $id ) : new WPBDP_Form_Field( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
         }
 
 		if ( ! $field ) {

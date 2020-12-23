@@ -114,7 +114,7 @@ class WPBDP_NavXT_Integration {
         $id_or_slug = get_query_var( 'listing' );
 
         if ( ! $id_or_slug && isset( $_GET['listing'] ) ) {
-            $id_or_slug = $_GET['listing'];
+            $id_or_slug = wpbdp_get_var( array( 'param' => 'listing' ), 'get' );
         }
 
         if ( ! $id_or_slug ) {
@@ -122,7 +122,7 @@ class WPBDP_NavXT_Integration {
         }
 
         if ( ! $id_or_slug && isset( $_GET['id'] ) ) {
-            $id_or_slug = $_GET['id'];
+            $id_or_slug = wpbdp_get_var( array( 'param' => 'id' ), 'get' );
         }
 
         if ( ! $id_or_slug ) {
