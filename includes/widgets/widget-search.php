@@ -90,7 +90,6 @@ class WPBDP_SearchWidget extends WP_Widget {
         echo '<input type="hidden" name="wpbdp_view" value="search" />';
         echo '<input type="hidden" name="dosrch" value="1" />';
 
-        echo '<label for="wpbdp-keyword-field" style="display:none;">Keywords:</label>';
         if (wpbdp_getv($instance, 'form_mode', 'basic') == 'advanced') {
             $fields_api = wpbdp_formfields_api();
 
@@ -101,7 +100,12 @@ class WPBDP_SearchWidget extends WP_Widget {
             }
 
         } else {
-            echo '<input id="wpbdp-keyword-field" type="text" name="kw" value="" />';
+			?>
+			<div class="wpbdp-form-field">
+				<label for="wpbdp-keyword-field" style="display:none;">Keywords:</label>
+				<input id="wpbdp-keyword-field" type="text" name="kw" value="" />
+			</div>
+			<?php
         }
 
         echo sprintf('<p><input type="submit" value="%s" class="submit wpbdp-search-widget-submit" /></p>', _x('Search', 'widgets', 'business-directory-plugin' ));

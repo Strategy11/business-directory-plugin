@@ -303,7 +303,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'search-form-in-results',
                 'type'    => 'radio',
-                'name'    => _x( 'Search form display', 'settings', 'business-directory-plugin' ),
+				'name'    => __( 'Display advanced search form', 'business-directory-plugin' ),
                 'default' => 'above',
                 'options' => array(
                     'above' => _x( 'Above results', 'admin settings', 'business-directory-plugin' ),
