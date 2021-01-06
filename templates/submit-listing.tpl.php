@@ -9,7 +9,15 @@
         <input type="hidden" name="reset" value="" />
         <input type="hidden" name="current_section" value="<?php echo esc_attr( $submit->current_section ); ?>" />
 
-            <h3><?php esc_html_e( 'Add Listing', 'business-directory-plugin' ); ?></h3>
+		<h3>
+			<?php
+			if ( $editing ) {
+				esc_html_e( 'Edit Listing', 'business-directory-plugin' );
+			} else {
+				esc_html_e( 'Add Listing', 'business-directory-plugin' );
+			}
+			?>
+		</h3>
 			<?php
 			$submit->render_rootline();
 

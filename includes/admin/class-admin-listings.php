@@ -467,11 +467,11 @@ class WPBDP_Admin_Listings {
 
         if ( current_user_can( 'contributor' ) && ! current_user_can( 'administrator' ) ) {
             if ( wpbdp_user_can( 'edit', $post->ID ) ) {
-                $actions['edit'] = sprintf(
-                    '<a href="%s">%s</a>',
-                    wpbdp_url( 'edit_listing', $post->ID ),
-                    _x( 'Edit Listing', 'admin actions', 'business-directory-plugin' )
-                );
+				$actions['edit'] = sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( wpbdp_url( 'edit_listing', $post->ID ) ),
+					esc_html__( 'Edit Listing', 'business-directory-plugin' )
+				);
             }
 
             if ( wpbdp_user_can( 'delete', $post->ID ) ) {
