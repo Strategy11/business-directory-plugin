@@ -414,25 +414,37 @@ function wpbdp_get_listing_sort_links( $sort_options ) {
 		esc_html__( 'Default', 'business-directory-plugin' )
 	);
 
+	$arrows = array(
+		'ASC'  => '↓ ',
+		'DESC' => '↑ ',
+	);
+
 	foreach ( $sort_options as $id => $option ) {
 		$default_order = isset( $option[2] ) && ! empty( $option[2] ) ? strtoupper( $option[2] ) : 'ASC';
 
-		$dir     = '';
+		$dir     = $default_order === 'ASC' ? '' : '-';
 		$arrow   = '';
-		$current = '';
 
 		if ( $current_sort && $current_sort->option == $id ) {
-			$dir     = $current_sort->order === 'ASC' ? '-' : '';
-			$arrow   = $current_sort->order === 'ASC' ? '↑ ' : '↓ ';
-			$current = 'selected="selected"';
-		} elseif ( $default_order === 'DESC' ) {
-			$dir = '-';
+			$sort_dir = $current_sort->order === 'ASC' ? 'ASC' : 'DESC';
+			$dir      = $sort_dir === 'ASC' ? '-' : '';
+			$arrow    = $arrows[ $sort_dir ];
+
+			$links[ $id . '-s' ] = sprintf(
+				'<option value="%s" selected="selected">%s</option>',
+				esc_url( add_query_arg( 'wpbdp_sort', $dir . $id ) ),
+				esc_html( $arrow . $option[0] )
+			);
+
+			// Swap and include option for other direction.
+			$sort_dir = $sort_dir === 'ASC' ? 'DESC' : 'ASC';
+			$dir      = $sort_dir === 'ASC' ? '' : '-';
+			$arrow    = $arrows[ $sort_dir ];
 		}
 
 		$links[ $id ] = sprintf(
-			'<option value="%s" %s>%s</option>',
+			'<option value="%s">%s</option>',
 			esc_url( add_query_arg( 'wpbdp_sort', $dir . $id ) ),
-			esc_attr( $current ),
 			esc_html( $arrow . $option[0] )
 		);
 	}
