@@ -116,8 +116,8 @@ class WPBDP_Form_Field_Type {
                                   esc_html( $value ) );
                 break;
             case 'excerpt':
-                $value = apply_filters( 'get_the_excerpt', wpautop( $post->post_excerpt, true ) );
-                break;
+				$value = apply_filters( 'get_the_excerpt', wpautop( $post->post_excerpt, true ), $post );
+				break;
             case 'content':
                 $value = apply_filters( 'the_content', $post->post_content );
                 break;
@@ -130,7 +130,6 @@ class WPBDP_Form_Field_Type {
             case 'meta':
             default:
                 $value = $field->value( $post_id );
-                break;
         }
 
         return $value;

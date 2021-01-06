@@ -390,7 +390,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
         $current_post = $post;
         $post = get_post( $post_id );
-        $value = apply_filters( 'get_the_excerpt', '' );
+		$value = apply_filters( 'get_the_excerpt', '', $post );
         $post = $current_post;
 
         return $value;
