@@ -335,28 +335,30 @@ class WPBDP__Query_Integration {
 					break;
 				}
 
-				switch ( $field->get_association() ) {
+				$mapping = $field->get_association();
+				switch ( $mapping ) {
 					case 'title':
 					case 'excerpt':
 					case 'content':
-						$qn = "{$wpdb->posts}.post_" . $field->get_association();
-					    break;
+						$qn = $wpdb->posts . '.post_' . $mapping;
+						break;
 					case 'meta':
-						$qn = "field_{$sname}";
-					    break;
+						$qn = 'field_' . $sname;
+						break;
+				}
+
+				if ( $qn !== $orderby && $field->is_numeric() ) {
+					$qn .= ' +0';
 				}
 
                 break;
         }
 
         if ( $qn && $qn !== $orderby ) {
-			if ( $field->is_numeric() ) {
-				$qn .= ' +0';
-			}
-            return $orderby . ( $orderby ? ', ' : '' ) . $qn . ' ' . $sort->order;
-        } else {
-			return $orderby;
+			$orderby = $orderby . ( $orderby ? ', ' : '' ) . $qn . ' ' . $sort->order;
         }
+
+		return $orderby;
     }
 
     private function verify_unique_listing_url( &$query ) {
