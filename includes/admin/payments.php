@@ -51,7 +51,8 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
             wpbdp_admin_message( _x( 'Payment details updated.', 'payments admin', 'business-directory-plugin' ) );
         }
 
-        $payment = WPBDP_Payment::objects()->get( $_GET['payment-id'] );
+		$payment_id = wpbdp_get_var( array( 'param' => 'payment-id' ), 'get' );
+		$payment    = WPBDP_Payment::objects()->get( $payment_id );
         return compact( 'payment' );
     }
 

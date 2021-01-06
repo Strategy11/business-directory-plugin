@@ -474,7 +474,8 @@ class WPBDP__Settings_Admin {
 		$html = '<p class="howto">';
 		$html .= esc_html__( 'Your license key provides access to new features and updates.', 'business-directory-plugin' );
 		$html .= '</p>';
-		$html .= '<p>' . esc_html__( 'You\'re using Business Directory Plugin Lite. Enjoy!', 'business-directory-plugin' ); 		$html .= ' 🙂</p>';
+		$html .= '<p>' . esc_html__( 'You\'re using Business Directory Plugin Lite. Enjoy!', 'business-directory-plugin' );
+		$html .= ' 🙂</p>';
 
 		return $html;
 	}

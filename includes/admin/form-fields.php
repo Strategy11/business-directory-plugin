@@ -240,7 +240,9 @@ class WPBDP_FormFieldsAdmin {
                 break;
             case 'fieldup':
             case 'fielddown':
-                if ( $field = $this->api->get_field( $_REQUEST['id'] ) ) {
+				$field_id = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
+				$field = $this->api->get_field( $field_id );
+				if ( $field ) {
                     $field->reorder( $action == 'fieldup' ? 1 : -1 );
                 }
                 $this->fieldsTable();
@@ -447,7 +449,8 @@ class WPBDP_FormFieldsAdmin {
                 $this->admin->messages[] = _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' );
 
                 $quick_search_fields = wpbdp_get_option( 'quick-search-fields' );
-                $quick_search_fields = array_diff( $quick_search_fields, array( $_REQUEST['id'] ) );
+				$field_id            = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
+				$quick_search_fields = array_diff( $quick_search_fields, array( $field_id ) );
 
                 wpbdp_set_option( 'quick-search-fields', $quick_search_fields );
             }

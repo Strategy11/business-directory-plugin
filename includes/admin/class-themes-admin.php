@@ -260,7 +260,9 @@ class WPBDP_Themes_Admin {
     }
 
     function upload_theme() {
-        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'upload theme zip' ) ) {
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
+
+		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'upload theme zip' ) ) {
             wp_die();
         }
 
@@ -303,7 +305,7 @@ class WPBDP_Themes_Admin {
     }
 
     function theme_delete_confirm() {
-        $theme_id = $_REQUEST['theme_id'];
+		$theme_id = wpbdp_get_var( array( 'param' => 'theme_id' ), 'request' );
         $theme    = $this->api->get_theme( $theme_id );
 
         echo wpbdp_render_page(
@@ -323,8 +325,8 @@ class WPBDP_Themes_Admin {
             exit;
         }
 
-        $theme_id = isset( $_POST['theme_id'] ) ? $_POST['theme_id'] : '';
-        $nonce    = isset( $_POST['_wpnonce'] ) ? $_POST['_wpnonce'] : '';
+		$theme_id = wpbdp_get_var( array( 'param' => 'theme_id' ), 'post' );
+		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
         if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'delete theme ' . $theme_id ) ) {
             wp_die();

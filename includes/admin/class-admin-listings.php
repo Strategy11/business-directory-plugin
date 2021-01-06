@@ -121,7 +121,7 @@ class WPBDP_Admin_Listings {
             return $search;
         }
 
-        $search_term = wp_unslash( $_GET['s'] );
+		$search_term = wpbdp_get_var( array( 'param' => 's' ), 'get' );
         $search_term = '%' . $wpdb->esc_like( $search_term ) . '%';
 
         $sql  = 'SELECT ID FROM ' . $wpdb->users . ' ';
@@ -509,9 +509,9 @@ class WPBDP_Admin_Listings {
             return;
         }
 
-        $nonce = isset( $_POST['wpbdp-admin-listing-fields-nonce'] ) ? $_POST['wpbdp-admin-listing-fields-nonce'] : '';
+		$nonce = wpbdp_get_var( array( 'param' => 'wpbdp-admin-listing-fields-nonce' ), 'post' );
 
-        if ( ! $nonce || ! wp_verify_nonce( $nonce, 'save listing fields' ) || empty( $_POST['listingfields'] ) ) {
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'save listing fields' ) || empty( $_POST['listingfields'] ) ) {
             return;
         }
 
@@ -603,11 +603,11 @@ class WPBDP_Admin_Listings {
             return;
         }
 
-        $nonce = isset( $_POST['wpbdp-admin-listing-plan-nonce'] ) ? $_POST['wpbdp-admin-listing-plan-nonce'] : '';
+		$nonce = wpbdp_get_var( array( 'param' => 'wpbdp-admin-listing-plan-nonce' ), 'post' );
 
-        if ( ! $nonce || ! wp_verify_nonce( $nonce, 'update listing plan' ) ) {
-            return;
-        }
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'update listing plan' ) ) {
+			return;
+		}
 
         global $wpdb;
 
