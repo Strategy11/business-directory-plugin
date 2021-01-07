@@ -112,6 +112,8 @@ class WPBDP_SearchWidget extends WP_Widget {
         echo '</form>';
 
         echo $after_widget;
-    }    
+
+		wp_enqueue_style( 'wpbdp-base-css' );
+	}
 
 }
