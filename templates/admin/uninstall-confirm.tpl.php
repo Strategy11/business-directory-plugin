@@ -46,8 +46,6 @@
 				);
 				?>
 			</li>
-            <li><?php echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'plugins.php?plugin_status=active' ) ) . '">', _x( 'Go to <a>Plugins->Installed Plugins', 'uninstall', 'business-directory-plugin' ) ); ?></a></li>
-<li><?php esc_html_e( 'Click on "Deactivate" for Business Directory Plugin. Wait for this to finish', 'business-directory-plugin' ); ?></li>
             <li>
                 <?php
                 printf(
