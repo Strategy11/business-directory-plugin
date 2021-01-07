@@ -567,16 +567,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $section['prev_section'] = $this->find_prev_section( $section['id'] );
             $section['next_section'] = $this->find_next_section( $section['id'] );
 
-            if ( ! $next_section && in_array( 'has-error', $this->sections[ $section['id'] ]['flags'] ) ) {
+			$same_page = array_intersect( array( 'has-error', 'has-message' ), $this->sections[ $section['id'] ]['flags'] );
+			if ( ! $next_section && ! empty( $same_page ) ) {
 				$next_section = $section['id'];
                 continue;
             }
 
             if ( $section['id'] === $this->current_section ) {
                 // Compatibility with attachments module.
-                if ( 'attachments' === $section['id'] && ! empty( wpbdp_get_var( array( 'param' => 'attachment-upload' ), 'post' ) ) ) {
-                    continue;
-                }
+				$file_upload = wpbdp_get_var( array( 'param' => 'attachment-upload' ), 'post' );
+				if ( in_array( $section['id'], array( 'attachments', 'listing_images' ) ) && ! empty( $file_upload ) ) {
+					continue;
+				}
                 $next_section = $section['next_section'];
             }
 
