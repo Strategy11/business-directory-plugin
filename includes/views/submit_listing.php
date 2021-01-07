@@ -138,9 +138,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             if ( $possible_payment ) {
                 return $this->_redirect( $possible_payment->get_checkout_url() );
-            } else {
-				return $this->done();
             }
+
+			if ( $this->can_view_receipt() ) {
+				// Show the receipt.
+				return $this->done();
+			}
         }
 
         if ( $this->editing && ! $this->listing->has_fee_plan() ) {
@@ -211,6 +214,32 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         );
         return $html;
     }
+
+	/**
+	 * Check if the user has permission to view the receipt.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function can_view_receipt() {
+		if ( current_user_can( 'administrator' ) ) {
+			return true;
+		}
+
+		$listing_id = $this->listing->get_id();
+		$listing    = get_post( $listing_id );
+
+		$user_id = get_current_user_id();
+		if ( $user_id ) {
+			$is_author = $listing->post_author === $user_id;
+			if ( $is_author ) {
+				return true;
+			}
+		}
+
+		return apply_filters( 'wpbdp_can_view_receipt', false, array( 'post' => $listing ) );
+	}
 
     public function ajax_reset_plan() {
         $res = new WPBDP_Ajax_Response();
