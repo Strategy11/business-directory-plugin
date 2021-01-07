@@ -563,7 +563,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	private function link_to_license_page() {
 		?>

@@ -8,12 +8,12 @@
 /**
  * Class WPBDP_Admin_Education
  *
- * @since x.x
+ * @since 5.9.1
  */
 class WPBDP_Admin_Education {
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	public static function add_tip_in_settings( $id, $group ) {
 		$tip = self::get_tip( $id );
@@ -34,7 +34,7 @@ class WPBDP_Admin_Education {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	private static function tips() {
 		return array(
@@ -59,7 +59,7 @@ class WPBDP_Admin_Education {
 	/**
 	 * @param string $id
 	 *
-	 * @since x.x
+	 * @since 5.9.1
 	 *
 	 * @return array
 	 */
@@ -76,7 +76,7 @@ class WPBDP_Admin_Education {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 *
 	 * @return bool
 	 */

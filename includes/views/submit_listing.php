@@ -218,7 +218,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Check if the user has permission to view the receipt.
 	 *
-	 * @since x.x
+	 * @since 5.9.1
 	 *
 	 * @return bool
 	 */

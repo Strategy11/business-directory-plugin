@@ -786,7 +786,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
 		/**
-		 * @since x.x
+		 * @since 5.9.1
 		 */
 		private function upgrade_bar() {
 			global $wpbdp;

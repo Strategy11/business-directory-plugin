@@ -127,7 +127,7 @@ class WPBDP__Settings_Admin {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	private function add_requirement( $setting ) {
 		if ( ! empty( $setting['requirements'] ) ) {
@@ -287,7 +287,7 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Hide a field setting that is no longer used.
 	 *
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	public function setting_hidden_callback( $setting, $value ) {
 		?>
@@ -468,7 +468,7 @@ class WPBDP__Settings_Admin {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	public function no_license( $setting, $value ) {
 		$html = '<p class="howto">';
@@ -490,7 +490,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	private function setting_education_callback( $setting ) {
 		?>

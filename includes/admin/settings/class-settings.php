@@ -194,7 +194,7 @@ class WPBDP__Settings {
 	/**
 	 * Deregister a group if it has no settings.
 	 *
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	public function deregister_empty_group( $id ) {
 		if ( ! isset( $this->groups[ $id ] ) ) {
@@ -303,7 +303,7 @@ class WPBDP__Settings {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 */
     public function delete_option( $setting_id ) {
         $this->set_option( $setting_id );

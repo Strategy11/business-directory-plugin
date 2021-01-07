@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 5.9
+Stable tag: 5.9.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -162,7 +162,20 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
-= Version 5.9 =
+= 5.9.1 =
+* Improved HTML5 validity.
+* Group more settings to make them easier to find.
+* Add a way to sort by the opposite direction with the dropdown sorter.
+* Fix: Include styling for the search widget when it's needed.
+* Fix: Cases of 'get_the_excerpt' were causing conflicts with other plugins.
+* Fix: When the file attachments module was used, submitting the listing form was difficult in some cases.
+* Fix: Some links were opening in a new tab when they shouldn't.
+* Code: Add deprecated notices on old deprecated code.
+* Fix: The receipt url was not protected from non-owners.
+* Securty: Sanitize REQUEST and GET values.
+* Move the debug menu into a sub tab and into the site health page.
+
+= 5.9 =
 * Start adding caching to speed up all listings page and merge some css files.
 * Change sorting to dropdown to make it more compact.
 * Simplify and cleanup selecting a thumbnail image. Now the WP thumbnai is used instead of a custom meta.
@@ -182,14 +195,14 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: Renewal reminders weren't always being sent for listings that expire at the end of the month if they were set to send a month or two ahead.
 * Code: Can get a field by shortname instead of only id.
 
-= Version 5.8.3 =
+= 5.8.3 =
 * Switch heading on single listing in default theme from h2 to h1
 * Update file upload script and remove a bunch of unneeded files from the package
 * Added wpbdp_hidden_field_settings hook to hide options in the field settings
 * Fix: Pages in the listing form for some add-ons weren't being rendered correctly
 * Fix: Only strip images from textareas fields that include the option to allow them
 
-= Version 5.8.2 =
+= 5.8.2 =
 * New: Only load select2 assets when needed to start reducing http requests
 * New: Only load admin js/css on BD pages
 * New: Addded wpbdp_contact_form_output hook for replacing the contact form
@@ -201,7 +214,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: Error showing on some sites with only one fee plan when creating a new listing
 * Merge more duplicate strings to reduce the number of translations needed
 
-= Version 5.8.1 =
+= 5.8.1 =
 * Better align the social fields in the listing form
 * Make the grids more responsive for column listings
 * Security fixes for getting SERVER and REQUEST values. More escaping on translatable strings.
@@ -211,26 +224,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: Prevent full width listings from being forced in all themes
 * Fix: Prevent duplicate error messages from showing up when a category field is empty
 * Fix: Always save the right category when changes are made when editing
-
-= Version 5.8 =
-* Updated the look of the new listing form with pagination
-* Match the contact form and checkout form to the new listing form style
-* Added a setting for color to set buttons, rootline, file uploader, and more
-* Let the WP theme handle more form styling
-* If an autocomplete dropdown has fewer than 10 options, use a normal dropdown so the theme can style it
-* Update default field labels to work for a wider range of directories
-* Added new hooks: wpbdp_tag_link to change the link to a tag page, wpbd_column_count for setting number of columns, and wpbdp_listings_class hook for adding classes on listings page
-* Added support for tags to WPML integration. Also switch to using wpml_current_language to get current language.
-* A few label changes in the settings: Rename "Manage Fees" menu to "Fee Plans", "Theme button style" to "Button style"
-* Switch "E-mail" to "Email"
-* Remove the unnecessary 50x50 image size
-* Update: Change the single listings heading from h2 to h1
-* Fix: Correctly set listings to published based on the setting
-* Fix: A conflict was causing an error when WPBDP_Personal_Data_Privacy class was missing
-* Fix: Get rid of a few php warnings
-
-= Version 5.7.6 =
-* Validate field exists before using if to configure search. (#4705)
-* Minor tweaks in styling.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

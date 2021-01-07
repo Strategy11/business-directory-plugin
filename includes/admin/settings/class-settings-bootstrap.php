@@ -1222,7 +1222,7 @@ final class WPBDP__Settings__Bootstrap {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.9.1
 	 */
 	private static function maybe_show_deprecated() {
 		// Deprecated setting.
