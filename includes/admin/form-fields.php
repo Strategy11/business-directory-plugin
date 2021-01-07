@@ -362,7 +362,7 @@ class WPBDP_FormFieldsAdmin {
                 $this->admin->messages[] = array( $errmsg, 'error' );
             }
         } else {
-			$id    = wpbdp_get_var( array( 'param' => 'id' ), 'get' );
+			$id    = wpbdp_get_var( array( 'param' => 'id' ) );
 			$field = $id ? WPBDP_Form_Field::get( $id ) : new WPBDP_Form_Field( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
         }
 

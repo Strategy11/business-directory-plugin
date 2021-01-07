@@ -156,7 +156,7 @@ class WPBDP__Rewrite {
             return;
 
         // Redirect some old views.
-		$action = wpbdp_get_var( array( 'param' => 'action' ), 'get' );
+		$action = wpbdp_get_var( array( 'param' => 'action' ) );
 		if ( 'main' === wpbdp_current_view() && $action ) {
 			switch ( $action ) {
                 case 'submitlisting':

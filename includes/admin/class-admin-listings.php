@@ -121,7 +121,7 @@ class WPBDP_Admin_Listings {
             return $search;
         }
 
-		$search_term = wpbdp_get_var( array( 'param' => 's' ), 'get' );
+		$search_term = wpbdp_get_var( array( 'param' => 's' ) );
         $search_term = '%' . $wpdb->esc_like( $search_term ) . '%';
 
         $sql  = 'SELECT ID FROM ' . $wpdb->users . ' ';

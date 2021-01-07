@@ -17,9 +17,9 @@ class WPBDP__WPBDPX_Payments_Compat {
     }
 
     public function dispatch() {
-        $action  = trim( wpbdp_get_var( array( 'param' => 'action' ), 'get' ) );
+        $action  = trim( wpbdp_get_var( array( 'param' => 'action' ) ) );
         $payment = isset( $_GET['payment_id'] ) ? wpbdp_get_payment( intval( $_GET['payment_id'] ) ) : null;
-        $gid     = trim( wpbdp_get_var( array( 'param' => 'gid' ), 'get' ) );
+        $gid     = trim( wpbdp_get_var( array( 'param' => 'gid' ) ) );
 
         if ( ! in_array( $action, array( 'postback', 'process', 'notify', 'return', 'cancel', 'ins' ) ) || ( ! $payment && ! $gid ) ) {
             return;

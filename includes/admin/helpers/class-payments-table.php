@@ -69,7 +69,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         if ( 'all' != $this->get_current_view() )
             $args['status'] = $this->get_current_view();
 
-		$listing_id = wpbdp_get_var( array( 'param' => 'listing' ), 'get' );
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing' ) );
 		if ( ! empty( $listing_id ) ) {
 			$args['listing_id'] = absint( $listing_id );
 		}

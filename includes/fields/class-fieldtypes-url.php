@@ -81,7 +81,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 			$rel .= ' noopener';
 		}
 
-		$label = empty( $value[1] ) ? $value[1] : $value[0];
+		$label = empty( $value[1] ) ? $value[0] : $value[1];
 
 		return sprintf(
 			'<a href="%s" rel="%s" target="%s" title="%s">%s</a>',

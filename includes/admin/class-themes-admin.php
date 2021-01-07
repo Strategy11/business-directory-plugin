@@ -153,7 +153,7 @@ class WPBDP_Themes_Admin {
     }
 
     function create_suggested_fields() {
-        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ), 'get' ), 'create_suggested_fields' ) ) {
+        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ) ), 'create_suggested_fields' ) ) {
             wp_die();
         }
 
