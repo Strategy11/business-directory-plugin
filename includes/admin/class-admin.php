@@ -731,9 +731,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * the current standard
          */
         function admin_notices() {
-            if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! current_user_can( 'administrator' ) ) {
                 return;
             }
+
+			$this->upgrade_bar();
 
             if ( ! isset( $this->displayed_warnings ) ) {
                 $this->displayed_warnings = array();
@@ -782,6 +784,25 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $this->messages = array();
         }
+
+		/**
+		 * @since x.x
+		 */
+		private function upgrade_bar() {
+			global $wpbdp;
+			if ( ! $wpbdp->is_bd_page() ) {
+				return;
+			}
+
+			?>
+			<div class="wpbdp-notice wpbdp-upgrade-bar">
+				You're using Business Directory Plugin Lite. To unlock more features consider
+				<a href="<?php echo esc_url( wpbdp_admin_upgrade_link( 'upgrade-bar' ) ); ?>">
+					upgrading to premium.
+				</a>
+			</div>
+			<?php
+		}
 
         function handle_actions() {
             if ( ! isset( $_REQUEST['wpbdmaction'] ) || ! isset( $_REQUEST['post'] ) ) {

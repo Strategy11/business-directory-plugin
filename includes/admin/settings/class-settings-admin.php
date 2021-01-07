@@ -483,10 +483,22 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Use for non-settings.
 	 *
-	 * @since v5.9
+	 * @since 5.9
 	 */
 	public function setting_none_callback() {
 		return;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function setting_education_callback( $setting ) {
+		?>
+		<p class="wpbdp-pro-tip">
+			<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.00003L1 13H10L9 21L19 9.00003H10L11 1.00003Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			<?php echo $setting['desc']; // already escaped ?>
+		</p>
+		<?php
 	}
 
     public function setting_expiration_notices_callback( $setting, $value ) {

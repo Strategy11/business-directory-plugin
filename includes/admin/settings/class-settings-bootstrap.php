@@ -24,6 +24,8 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     public static function register_initial_settings() {
+		require_once WPBDP_INC . 'admin/class-education.php';
+
         self::settings_general();
         self::settings_listings();
         self::settings_email();
@@ -345,6 +347,8 @@ final class WPBDP__Settings__Bootstrap {
                 'group' => 'search_settings',
             )
         );
+
+		WPBDP_Admin_Education::add_tip_in_settings( 'zip', 'search_settings' );
 
         // Advanced settings.
         wpbdp_register_settings_group( 'general/advanced', _x( 'Advanced', 'settings', 'business-directory-plugin' ), 'general' );
@@ -772,6 +776,8 @@ final class WPBDP__Settings__Bootstrap {
                 'requirements' => array( 'listings-sortbar-enabled' ),
             )
         );
+
+		WPBDP_Admin_Education::add_tip_in_settings( 'abc', 'listings/sorting' );
     }
 
     private static function settings_appearance() {
@@ -1212,13 +1218,25 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
+		self::maybe_show_deprecated();
+    }
+
+	/**
+	 * @since x.x
+	 */
+	private static function maybe_show_deprecated() {
 		// Deprecated setting.
+		$turned_on = wpbdp_get_option( 'payment-abandonment' );
+		if ( ! $turned_on ) {
+			WPBDP_Admin_Education::add_tip_in_settings( 'abandon', 'payment/main' );
+			return;
+		}
+
         wpbdp_register_setting(
             array(
                 'id'           => 'payment-abandonment',
                 'type'         => 'checkbox',
-                'name'         => _x( 'Ask users to come back for abandoned payments?', 'settings', 'business-directory-plugin' ),
-                'desc'         => __( 'An abandoned payment is when a user attempts to place a listing and gets to the end, but fails to complete their payment for the listing. This results in listings that look like they failed, when the user simply didn\'t complete the transaction. Business Directory Plugin can remind them to come back and continue.', 'business-directory-plugin' ),
+                'desc'         => _x( 'Ask users to come back for abandoned payments?', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',
                 'requirements' => array( 'payments-on' ),
@@ -1239,7 +1257,7 @@ final class WPBDP__Settings__Bootstrap {
 				'requirements' => array( 'payment-abandonment' ),
             )
         );
-    }
+	}
 
     private static function settings_email() {
         wpbdp_register_settings_group( 'email/main/general', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'email/main' );
