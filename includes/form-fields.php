@@ -216,7 +216,8 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
             $res = array();
 
             $args = wp_parse_args(
-                $args, array(
+				$args,
+				array(
 					'association'   => null,
 					'field_type'    => null,
 					'validators'    => null,
@@ -312,7 +313,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
 			$ids = WPBDP_Utils::check_cache(
 				array(
-					'cache_key' => implode( '.', $args ) . '.' . $one,
+					'cache_key' => json_encode( array_filter( $args ) ) . '.' . $one,
 					'group'     => 'wpbdp_form_fields',
 					'query'     => $sql,
 					'type'      => 'get_col',
