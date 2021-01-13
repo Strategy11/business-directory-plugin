@@ -794,6 +794,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
+			$modules = wpbdp()->modules;
+
+			if ( $modules->is_loaded( 'premium' ) || $modules->is_loaded( 'paypal' ) || $modules->is_loaded( 'googlemaps' ) ) {
+				return;
+			}
 			?>
 			<div class="wpbdp-notice wpbdp-upgrade-bar">
 				You're using Business Directory Plugin Lite. To unlock more features consider
