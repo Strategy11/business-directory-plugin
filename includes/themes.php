@@ -890,7 +890,16 @@ class WPBDP_Themes {
         foreach ( $this->template_dirs as $p ) {
             if ( file_exists( $p . $filename ) ) {
                 $path = $p . $filename;
-                break;
+
+				/**
+				 * Allow override since the order isn't the most dependable indicator.
+				 *
+				 * @since x.x
+				 */
+				$path = apply_filters( 'wpbdp_use_template_' . $id, $path );
+				if ( $path ) {
+					break;
+				}
             }
         }
 

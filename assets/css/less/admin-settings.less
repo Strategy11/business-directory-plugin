@@ -320,23 +320,57 @@
     }
 }
 
-#wpbdp-admin-page-settings .wpbdp-settings-type-checkbox input[type="checkbox"] {
-    vertical-align: bottom;
+#wpbdp-admin-page-settings {
+	.wpbdp-settings-type-checkbox input[type="checkbox"] {
+    	vertical-align: bottom;
+	}
+
+	.wpbdp-settings-radio-options,
+	.wpbdp-settings-multicheck-options {
+		grid-gap: 0;
+
+		.wpbdp-settings-radio-option, .wpbdp-settings-multicheck-option {
+			margin: 0 0 5px 0;
+
+			input[type="radio"], input[type="checkbox"] {
+				vertical-align: bottom;
+			}
+		}
+
+		& + .wpbdp-setting-description {
+			margin: 10px 0 0 0;
+		}
+	}
 }
 
-#wpbdp-admin-page-settings .wpbdp-settings-radio-options,
-#wpbdp-admin-page-settings .wpbdp-settings-multicheck-options {
-	grid-gap: 0;
+.wpbdp-settings-radio-option {
+	.wpbdp-img-opt {
+		display:block;
+		margin: 0 auto 10px;
+	}
+}
 
-    .wpbdp-settings-radio-option, .wpbdp-settings-multicheck-option {
-        margin: 0 0 5px 0;
+#wpbdp-settings-list-layout {
+	.wpbdp-settings-radio-option {
+		float: left;
+		text-align: center;
+		margin-right: 1% !important;
+		width: 32%;
+		min-width: 173px;
+	}
 
-        input[type="radio"], input[type="checkbox"] {
-            vertical-align: bottom;
-        }
-    }
+	input {
+		display: none;
+	}
 
-    & + .wpbdp-setting-description {
-        margin: 10px 0 0 0;
-    }
+	label span {
+		border: 2px solid transparent;
+		display: inline-block;
+		padding-bottom: 10px;
+		border-radius: 3px;
+	}
+
+	input:checked + label span {
+		border-color: #4199FD;
+	}
 }
