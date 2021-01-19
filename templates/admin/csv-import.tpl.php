@@ -264,12 +264,15 @@ echo str_replace(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'Disable e-mail notifications during import?', 'admin csv-import', 'business-directory-plugin' ); ?>
+                    <?php esc_html_e( 'Disable email notifications during import?', 'business-directory-plugin' ); ?>
                 </th>
                 <td>
-                    <label><input name="settings[disable-email-notifications]"
+					<label>
+						<input name="settings[disable-email-notifications]"
                            type="checkbox"
-                           value="1" checked="checked" /> <?php _ex( 'Disable e-mail notifications.', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+                           value="1" checked="checked" />
+						<?php esc_html_e( 'Disable email notifications.', 'business-directory-plugin' ); ?>
+					</label>
                 </td>
             </tr>
     </table>

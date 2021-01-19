@@ -468,7 +468,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
          * @deprecated since 4.0.
          */
         public function get_short_names( $fieldid = null ) {
-			_deprecated_function( __FUNCTION__, '4.0' );
+			//_deprecated_function( __FUNCTION__, '4.0' );
 
             $fields     = $this->get_fields();
             $shortnames = array();
