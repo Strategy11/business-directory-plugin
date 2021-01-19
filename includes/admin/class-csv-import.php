@@ -270,7 +270,7 @@ class WPBDP_CSV_Import {
     }
 
     public function cleanup() {
-        wpbdp_rrmdir( $this->working_dir );
+		WPBDP_FS::rmdir( $this->working_dir );
     }
 
     private function restore_state( $state_id ) {

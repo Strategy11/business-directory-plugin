@@ -13,10 +13,6 @@ class WPBDP__Admin__Listing_Owner {
     public function __construct( $post_id = 0 ) {
         $this->listing_id = $post_id;
 
-        if ( ! self::$users ) {
-            self::$users = wpbdp_users_dropdown();
-        }
-
         add_filter( 'wp_dropdown_users_args', array( $this, '_dropdown_users_args' ), 10, 2 );
 
         add_action( 'wp_ajax_wpbdp-autocomplete-users', array( $this, 'ajax_autocomplete_users' ) );
@@ -192,10 +188,12 @@ class WPBDP__Admin__Listing_Owner {
      * @since 5.6.3
      */
     private function get_common_configuration( $params ) {
+		$users = $this->get_all_users();
+
         return array(
             'selected' => ! empty( $params['selected'] ) ? array(
                 'id'   => $params['selected'],
-                'text' => self::$users[ $params['selected'] ],
+                'text' => $users[ $params['selected'] ],
             ) : '',
             'mode'     => $params['mode'],
         );
@@ -206,14 +204,22 @@ class WPBDP__Admin__Listing_Owner {
      * @since 4.0.0
      */
     private function prepare_inline_mode_parameters( $params ) {
-        $params['users']         = self::$users;
+        $params['users']         = $this->get_all_users();
         $params['configuration'] = $this->get_iniline_mode_configuration( $params );
         $params['listing_id']    = $this->listing_id;
 
         return $params;
     }
 
-
+	/**
+	 * @since x.x
+	 */
+	private function get_all_users() {
+		if ( ! self::$users ) {
+			self::$users = wpbdp_users_dropdown();
+		}
+		return self::$users;
+	}
 
     /**
      * @param array $params     An array of configuration parameters.

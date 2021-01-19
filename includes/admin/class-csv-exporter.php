@@ -178,14 +178,14 @@ class WPBDP_CSVExporter {
     public function cleanup() {
         $upload_dir = wp_upload_dir();
 
-        wpbdp_rrmdir( $this->workingdir );
+        WPBDP_FS::rmdir( $this->workingdir );
 
         if ( ! $upload_dir['error'] ) {
             $csvexportsdir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-exports';
             $contents      = wpbdp_scandir( $csvexportsdir );
 
             if ( ! $contents ) {
-                wpbdp_rrmdir( $csvexportsdir );
+                WPBDP_FS::rmdir( $csvexportsdir );
             }
         }
     }
