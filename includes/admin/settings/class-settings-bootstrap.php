@@ -603,7 +603,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => __( 'Owner of anonymous listings', 'business-directory-plugin' ),
                 'type'    => 'text',
                 'default' => $admin ? $admin->ID : '1',
-                'desc'    => _x( 'New listings must have an author, If login is not required to submit listings, this user will own them, typically the administrator of the site or some other user that will never actually be managing a listing.', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.', 'settings', 'business-directory-plugin' ),
                 'group'   => 'registration',
             )
         );
