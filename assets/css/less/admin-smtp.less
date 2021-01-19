@@ -1,0 +1,134 @@
+#wpbdp-admin-smtp *,
+#wpbdp-admin-smtp *::before,
+#wpbdp-admin-smtp *::after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#wpbdp-admin-smtp{
+	width: 700px;
+	margin: 0 auto;
+
+	p {
+		font-size: 15px;
+	}
+
+	section{
+		margin: 50px 0;
+		text-align: left;
+		clear: both;
+	}
+
+	.top{
+		text-align: center;
+
+		h1 {
+			font-size: 26px;
+			font-weight: 600;
+			margin-bottom: 0;
+			padding: 0;
+		}
+
+		p {
+			font-size: 17px;
+			color: #777;
+			margin-top: .5em;
+		}
+
+		.error,
+		.notice {
+			display: none;
+		}
+	}
+
+	.screenshot ul {
+		display: inline-block;
+		margin: 0 0 0 30px;
+		list-style-type: none;
+		max-width: ~"calc(100% - 350px)";
+	}
+
+	.screenshot li {
+		margin: 16px 0;
+		padding: 0;
+		font-size: 15px;
+		color: #777;
+	}
+	.screenshot .cont img {
+		max-width: 100%;
+		display: block;
+	}
+	.screenshot .cont {
+		display: inline-block;
+		position: relative;
+		width: 315px;
+		padding: 5px;
+		background-color: #fff;
+		border-radius: 3px;
+	}
+	.step,
+	.screenshot .cont {
+		-webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
+		-moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
+		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
+	}
+	.step {
+		background-color: #F9F9F9;
+		border: 1px solid #E5E5E5;
+		margin: 0 0 25px;
+
+		p {
+			font-size: 16px;
+			color: #777777;
+		}
+
+		.num {
+			display: inline-block;
+			position: relative;
+			width: 100px;
+			height: 50px;
+			text-align: center;
+		}
+
+		div {
+			display: inline-block;
+			width: ~"calc( 100% - 104px )";
+			background-color: #fff;
+			padding: 30px;
+			border-left: 1px solid #eee;
+		}
+
+		h2 {
+			font-size: 24px;
+			line-height: 22px;
+			margin-top: 0;
+			margin-bottom: 15px;
+		}
+	}
+
+	.screenshot > *,
+	.step > * {
+		vertical-align: middle;
+	}
+
+	.grey {
+		opacity: 0.5;
+		background: #F6F6F6 !important;
+		border-color: #ddd !important;
+		color: #9FA5AA !important;
+	}
+
+	.button.disabled {
+		cursor: default;
+	}
+}
+
+.wpbdp-smtp-logos {
+	margin-bottom: 38px;
+
+	img,
+	svg {
+		vertical-align: middle;
+	}
+}
