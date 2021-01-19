@@ -109,7 +109,7 @@ class WPBDP__View {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected function is_listing_owner( $listing ) {
 		if ( empty( $listing ) ) {

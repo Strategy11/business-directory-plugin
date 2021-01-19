@@ -894,7 +894,7 @@ class WPBDP_Themes {
 				/**
 				 * Allow override since the order isn't the most dependable indicator.
 				 *
-				 * @since x.x
+				 * @since 5.9.2
 				 */
 				$path = apply_filters( 'wpbdp_use_template_' . $id, $path );
 				if ( $path ) {

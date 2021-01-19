@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @since x.x
+ * @since 5.9.2
  */
 class WPBDP_Addons_Controller {
 
@@ -14,7 +14,7 @@ class WPBDP_Addons_Controller {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public static function ajax_install_addon() {
 		self::install_addon_permissions();
@@ -27,7 +27,7 @@ class WPBDP_Addons_Controller {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected static function download_and_activate() {
 		// Set the current screen to avoid undefined notices.
@@ -46,7 +46,7 @@ class WPBDP_Addons_Controller {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected static function maybe_show_cred_form() {
 		if ( ! function_exists( 'request_filesystem_credentials' ) ) {
@@ -88,7 +88,7 @@ class WPBDP_Addons_Controller {
 	 * We do not need any extra credentials if we have gotten this far,
 	 * so let's install the plugin.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected static function install_addon() {
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
@@ -114,7 +114,7 @@ class WPBDP_Addons_Controller {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public static function ajax_activate_addon() {
 
@@ -133,7 +133,7 @@ class WPBDP_Addons_Controller {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param string $installed The plugin folder name with file name
 	 */
@@ -161,7 +161,7 @@ class WPBDP_Addons_Controller {
 	/**
 	 * Run security checks before installing
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected static function install_addon_permissions() {
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );

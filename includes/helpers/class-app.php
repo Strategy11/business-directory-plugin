@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @since x.x
+ * @since 5.9.2
  */
 class WPBDP_App_Helper {
 
@@ -44,7 +44,7 @@ class WPBDP_App_Helper {
 	/**
 	 * Check for certain page in settings
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param string $page The name of the page to check
 	 *
@@ -67,7 +67,7 @@ class WPBDP_App_Helper {
 	/**
 	 * Try to show the SVG if possible. Otherwise, use the font icon.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param string $class
 	 * @param array  $atts
@@ -104,7 +104,7 @@ class WPBDP_App_Helper {
 	/**
 	 * Include svg images.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public static function include_svg() {
 		include_once self::plugin_path() . '/assets/images/icons.svg';
@@ -113,7 +113,7 @@ class WPBDP_App_Helper {
 	/**
 	 * Convert an associative array to HTML values.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param array $atts
 	 * @return string
@@ -129,14 +129,14 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public static function show_logo( $size ) {
 		echo self::kses( self::svg_logo( $size ), 'all' ); // WPCS: XSS ok.
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public static function svg_logo( $size = 18 ) {
 		$atts = array(
@@ -150,7 +150,7 @@ class WPBDP_App_Helper {
 	/**
 	 * Sanitize the value, and allow some HTML
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param string $value
 	 * @param array|string $allowed 'all' for everything included as defaults
@@ -164,7 +164,7 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	private static function allowed_html( $allowed ) {
 		$html         = self::safe_html();
@@ -181,7 +181,7 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	private static function safe_html() {
 		$allow_class = array(

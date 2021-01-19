@@ -6,21 +6,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * SMTP Sub-page.
  *
- * @since x.x
+ * @since 5.9.2
  */
 class WPBDP_SMTP_Controller {
 
 	/**
 	 * Admin menu page slug.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @var string
 	 */
 	private $slug = 'wpbdp-smtp';
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @var array
 	 */
@@ -34,7 +34,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Runtime data used for generating page HTML.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @var array
 	 */
@@ -43,7 +43,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Hooks.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public static function load_hooks() {
 
@@ -81,7 +81,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Don't nag people to install WPForms
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public static function remove_wpforms_nag( $upsell ) {
 		if ( is_array( $upsell ) ) {
@@ -105,7 +105,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Generate and output page HTML.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public function output() {
 		WPBDP_App_Helper::include_svg();
@@ -124,7 +124,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Generate and output heading section HTML.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected function output_section_heading() {
 		// Heading section.
@@ -153,7 +153,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Generate and output screenshot section HTML.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected function output_section_screenshot() {
 
@@ -182,7 +182,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Generate and output step 'Install' section HTML.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected function output_section_step_install() {
 
@@ -229,7 +229,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Generate and output step 'Setup' section HTML.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	protected function output_section_step_setup() {
 
@@ -273,7 +273,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Step 'Install' data.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @return array Step data.
 	 */
@@ -324,7 +324,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Step 'Setup' data.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @return array Step data.
 	 */
@@ -351,7 +351,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Whether WP Mail SMTP plugin configured or not.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @return bool True if some mailer is selected and configured properly.
 	 */
@@ -372,7 +372,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Whether WP Mail SMTP plugin active or not.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @return bool True if SMTP plugin is active.
 	 */
@@ -384,7 +384,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Get $phpmailer instance.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @return PHPMailer Instance of PHPMailer.
 	 */
@@ -406,7 +406,7 @@ class WPBDP_SMTP_Controller {
 	/**
 	 * Redirect to SMTP settings page if it is activated..
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public function redirect_to_smtp_settings() {
 		if ( $this->is_smtp_configured() ) {

@@ -440,7 +440,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Get the author id if logged in, or the default by id or login.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	private function default_author() {
         $post_author = get_current_user_id();

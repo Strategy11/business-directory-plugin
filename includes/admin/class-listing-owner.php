@@ -212,7 +212,7 @@ class WPBDP__Admin__Listing_Owner {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	private function get_all_users() {
 		if ( ! self::$users ) {

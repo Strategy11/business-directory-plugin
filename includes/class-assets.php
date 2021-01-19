@@ -178,7 +178,7 @@ class WPBDP__Assets {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public function global_localize( $script = 'wpbdp-js' ) {
 		wp_localize_script(

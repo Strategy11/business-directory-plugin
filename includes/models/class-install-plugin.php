@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @since x.x
+ * @since 5.9.2
  */
 class WPBDP_Install_Plugin {
 

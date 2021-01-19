@@ -1,6 +1,6 @@
 <?php
 /**
- * @since x.x
+ * @since 5.9.2
  *
  * @subpackage  Upgrader Skin
  */
@@ -20,7 +20,7 @@ class WPBDP_Installer_Skin extends WP_Upgrader_Skin {
 	/**
 	 * Set the upgrader object and store it as a property in the parent class.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param object $upgrader The upgrader object (passed by reference).
 	 */
@@ -33,7 +33,7 @@ class WPBDP_Installer_Skin extends WP_Upgrader_Skin {
 	/**
 	 * Set the upgrader result and store it as a property in the parent class.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param object $result The result of the install process.
 	 */
@@ -45,14 +45,14 @@ class WPBDP_Installer_Skin extends WP_Upgrader_Skin {
 	 * Empty out the header of its HTML content and only check to see if it has
 	 * been performed or not.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public function header() {}
 
 	/**
 	 * Empty out the footer of its HTML contents.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 */
 	public function footer() {}
 
@@ -60,7 +60,7 @@ class WPBDP_Installer_Skin extends WP_Upgrader_Skin {
 	 * Instead of outputting HTML for errors, json_encode the errors and send them
 	 * back to the Ajax script for processing.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param string|object $errors The WP Error object of errors with the install process.
 	 */
@@ -90,7 +90,7 @@ class WPBDP_Installer_Skin extends WP_Upgrader_Skin {
 	 * Empty out the feedback method to prevent outputting HTML strings as the install
 	 * is progressing.
 	 *
-	 * @since x.x
+	 * @since 5.9.2
 	 *
 	 * @param string $string The feedback string.
 	 * @param mixed  ...$args Optional text replacements.
