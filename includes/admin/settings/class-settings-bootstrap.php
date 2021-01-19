@@ -601,10 +601,9 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'default-listing-author',
                 'name'    => _x( 'Default owner of \'Anonymous Submitted Listings\'', 'settings', 'business-directory-plugin' ),
-                'type'    => 'select',
+                'type'    => 'text',
                 'default' => $admin ? $admin->ID : '1',
                 'desc'    => _x( 'New listings must have an author, If login is not required to submit listings, this user will own them, typically the administrator of the site or some other user that will never actually be managing a listing.', 'settings', 'business-directory-plugin' ),
-                'options' => wpbdp_users_dropdown(),
                 'group'   => 'listings/main',
             )
         );

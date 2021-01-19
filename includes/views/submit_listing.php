@@ -415,11 +415,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( $listing_id && false !== get_post_status( $listing_id ) ) {
             $listing = wpbdp_get_listing( $listing_id );
         } else {
-            $post_author = get_current_user_id();
-            $post_author = $post_author ? $post_author : wpbdp_get_option( 'default-listing-author' );
             $listing_id  = wp_insert_post(
                 array(
-                    'post_author' => $post_author,
+                    'post_author' => $this->default_author(),
                     'post_type'   => WPBDP_POST_TYPE,
                     'post_status' => 'auto-draft',
                     'post_title'  => '(no title)',
@@ -438,6 +436,35 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         return $listing;
     }
+
+	/**
+	 * Get the author id if logged in, or the default by id or login.
+	 *
+	 * @since x.x
+	 */
+	private function default_author() {
+        $post_author = get_current_user_id();
+		if ( $post_author ) {
+			return $post_author;
+		}
+
+		$post_author = wpbdp_get_option( 'default-listing-author' );
+		if ( empty( $post_author ) ) {
+			$post_author = 1;
+		}
+
+		if ( is_numeric( $post_author ) ) {
+			return $post_author;
+		}
+
+		// Check if a user login was used.
+		$author = get_user_by( 'login', $post_author );
+		if ( $author ) {
+			$post_author = $author->ID;
+		}
+
+		return $post_author;
+	}
 
     public function get_listing() {
         return $this->listing;
