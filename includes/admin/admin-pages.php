@@ -69,12 +69,14 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
     }
 ?>
 <div class="wrap wpbdp-admin wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
-	<div id="icon-edit-pages" class="icon32"></div>
 		<h1>
+			<?php WPBDP_App_Helper::show_logo( 35 ); ?>
             <?php echo esc_html( $title ); ?>
 
             <?php foreach ( $buttons as $label => $url ): ?>
-                <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php echo esc_html( $label ); ?></a>
+                <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2">
+					<?php echo esc_html( $label ); ?>
+				</a>
             <?php endforeach; ?>
         </h1>
 

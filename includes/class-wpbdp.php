@@ -30,6 +30,8 @@ final class WPBDP {
     }
 
     private function includes() {
+		require_once WPBDP_INC . 'helpers/class-app.php';
+
         // Make DBO framework available to everyone.
         require_once WPBDP_INC . 'db/class-db-model.php';
 

@@ -560,6 +560,170 @@ jQuery(function($) {
     });
 })(jQuery);
 
+// Install addons
+function wpbdpAddons() {
+	function activateAddon( e ) {
+		e.preventDefault();
+		installOrActivate( this, 'wpbdp_activate_addon' );
+	}
+
+	function installAddon( e ) {
+		e.preventDefault();
+		installOrActivate( this, 'wpbdp_install_addon' );
+	}
+
+	function installOrActivate( clicked, action ) {
+		// Remove any leftover error messages, output an icon and get the plugin basename that needs to be activated.
+		jQuery( '.wpbdp-addon-error' ).remove();
+		var button = jQuery( clicked );
+		var plugin = button.attr( 'rel' );
+		var el = button.parent();
+		var message = el.parent().find( '.addon-status-label' );
+
+		button.addClass( 'wpbdp-loading-button' );
+
+		// Process the Ajax to perform the activation.
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			async: true,
+			cache: false,
+			dataType: 'json',
+			data: {
+				action: action,
+				nonce: wpbdp_global.nonce,
+				plugin: plugin
+			},
+			success: function( response ) {
+				var error = extractErrorFromAddOnResponse( response );
+
+				if ( error ) {
+					addonError( error, el, button );
+					return;
+				}
+
+				afterAddonInstall( response, button, message, el );
+			},
+			error: function() {
+				button.removeClass( 'wpbdp-loading-button' );
+			}
+		});
+	}
+
+	function installAddonWithCreds( e ) {
+		// Prevent the default action, let the user know we are attempting to install again and go with it.
+		e.preventDefault();
+
+		// Now let's make another Ajax request once the user has submitted their credentials.
+		var proceed = jQuery( this ),
+			el = proceed.parent().parent(),
+			plugin = proceed.attr( 'rel' );
+
+		proceed.addClass( 'wpbdp-loading-button' );
+
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			async: true,
+			cache: false,
+			dataType: 'json',
+			data: {
+				action: 'wpbdp_install_addon',
+				nonce: wpbdp_global.nonce,
+				plugin: plugin,
+				hostname: el.find( '#hostname' ).val(),
+				username: el.find( '#username' ).val(),
+				password: el.find( '#password' ).val()
+			},
+			success: function( response ) {
+				var error = extractErrorFromAddOnResponse( response );
+
+				if ( error ) {
+					addonError( error, el, proceed );
+					return;
+				}
+
+				afterAddonInstall( response, proceed, message, el );
+			},
+			error: function() {
+				proceed.removeClass( 'wpbdp-loading-button' );
+			}
+		});
+	}
+
+	function afterAddonInstall( response, button, message, el ) {
+		// The Ajax request was successful, so let's update the output.
+		button.css({ 'opacity': '0' });
+		message.text( 'Active' );
+		jQuery( '#wpbdp-oneclick' ).hide();
+		jQuery( '#wpbdp-addon-status' ).text( response ).show();
+		jQuery( '#wpbdp-upgrade-modal h2' ).hide();
+		jQuery( '#wpbdp-upgrade-modal .wpbdp-lock-icon' ).addClass( 'wpbdp-lock-open-icon' );
+		jQuery( '#wpbdp-upgrade-modal .wpbdp-lock-icon use' ).attr( 'xlink:href', '#wpbdp-lock-open-icon' );
+
+		// Proceed with CSS changes
+		el.parent().removeClass( 'wpbdp-addon-not-installed wpbdp-addon-installed' ).addClass( 'wpbdp-addon-active' );
+		button.removeClass( 'wpbdp-loading-button' );
+
+		// Maybe refresh import and SMTP pages
+		var refreshPage = document.querySelectorAll( '.wpbdp-admin-page-import, #wpbdp-admin-smtp, #wpbdp-welcome' );
+		if ( refreshPage.length > 0 ) {
+			window.location.reload();
+		}
+	}
+
+	function extractErrorFromAddOnResponse( response ) {
+		var $message, text;
+
+		if ( typeof response !== 'string' ) {
+			if ( typeof response.success !== 'undefined' && response.success ) {
+				return false;
+			}
+
+			if ( response.form ) {
+				if ( jQuery( response.form ).is( '#message' ) ) {
+					return {
+						message: jQuery( response.form ).find( 'p' ).html()
+					};
+				}
+			}
+
+			return response;
+		}
+
+		return false;
+	}
+
+	function addonError( response, el, button ) {
+		if ( response.form ) {
+			jQuery( '.wpbdp-inline-error' ).remove();
+			button.closest( '.wpbdp-card' )
+				.html( response.form )
+				.css({ padding: 5 })
+				.find( '#upgrade' )
+					.attr( 'rel', button.attr( 'rel' ) )
+					.on( 'click', installAddonWithCreds );
+		} else {
+			el.append( '<div class="wpbdp-addon-error wpbdp_error_style"><p><strong>' + response.message + '</strong></p></div>' );
+			button.removeClass( 'wpbdp-loading-button' );
+			jQuery( '.wpbdp-addon-error' ).delay( 4000 ).fadeOut();
+		}
+	}
+
+	return {
+		init: function() {
+			jQuery( document ).on( 'click', '.wpbdp-install-addon', installAddon );
+			jQuery( document ).on( 'click', '.wpbdp-activate-addon', activateAddon );
+		}
+	}
+}
+
+wpbdpAddonBuild = wpbdpAddons();
+
+jQuery( document ).ready( function( $ ) {
+	wpbdpAddonBuild.init();
+});
+
 // Some utilities for our admin forms.
 jQuery(function( $ ) {
 

@@ -19,6 +19,9 @@ class WPBDP__Assets {
         // Scripts & styles.
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_css_override' ), 9999, 0 );
+
+		// Admin
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
     }
 
     /**
@@ -148,11 +151,7 @@ class WPBDP__Assets {
             WPBDP_VERSION
         );
 
-        wp_localize_script(
-            'wpbdp-js', 'wpbdp_global', array(
-				'ajaxurl' => wpbdp_ajaxurl(),
-            )
-        );
+		$this->global_localize( 'wpbdp-js' );
 
         wp_enqueue_script( 'wpbdp-dnd-upload' );
 
@@ -177,6 +176,20 @@ class WPBDP__Assets {
             );
         }
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function global_localize( $script = 'wpbdp-js' ) {
+		wp_localize_script(
+			$script,
+			'wpbdp_global',
+			array(
+				'ajaxurl' => wpbdp_ajaxurl(),
+				'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
+			)
+		);
+	}
 
     public function load_css() {
         $rootline_color = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
@@ -237,4 +250,85 @@ class WPBDP__Assets {
             }
         }
     }
+
+	public function enqueue_admin_scripts( $force = false ) {
+		global $wpbdp;
+
+		if ( ! $force && ! $wpbdp->is_bd_page() ) {
+			return;
+		}
+
+		$assets = WPBDP_URL . 'assets/';
+		wp_enqueue_style( 'wpbdp-admin', $assets . 'css/admin.min.css', array(), WPBDP_VERSION );
+
+		wp_enqueue_style( 'thickbox' );
+
+		wp_enqueue_style( 'wpbdp-base-css' );
+
+		wp_enqueue_script( 'wpbdp-frontend-js', $assets . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION );
+
+		wp_enqueue_script( 'wpbdp-admin-js', $assets . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION );
+		$this->global_localize( 'wpbdp-admin-js' );
+
+		wp_enqueue_script( 'wpbdp-user-selector-js', $assets . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION );
+
+        wp_enqueue_style( 'wpbdp-js-select2-css' );
+
+		if ( ! $wpbdp->is_bd_post_page() ) {
+			return;
+		}
+
+		$this->load_css();
+
+		wpbdp_enqueue_jquery_ui_style();
+
+		wp_enqueue_style(
+			'wpbdp-listing-admin-metabox',
+			WPBDP_URL . 'assets/css/admin-listing-metabox.min.css',
+			array(),
+			WPBDP_VERSION
+		);
+
+		wp_enqueue_script(
+			'wpbdp-admin-listing',
+			WPBDP_URL . 'assets/js/admin-listing.min.js',
+			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' ),
+			WPBDP_VERSION
+		);
+
+		wp_enqueue_script(
+			'wpbdp-admin-listing-metabox',
+			WPBDP_URL . 'assets/js/admin-listing-metabox.min.js',
+			array( 'wpbdp-admin-js', 'jquery-ui-datepicker' ),
+			WPBDP_VERSION
+		);
+
+		wp_localize_script(
+			'wpbdp-admin-listing-metabox',
+			'wpbdpListingMetaboxL10n',
+			array(
+				'planDisplayFormat' => sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ) ),
+					'{{plan_label}}'
+				),
+				'noExpiration'      => __( 'Never', 'business-directory-plugin' ),
+				'yes'               => __( 'Yes', 'business-directory-plugin' ),
+				'no'                => __( 'No', 'business-directory-plugin' ),
+			)
+		);
+
+		wp_localize_script(
+			'wpbdp-admin-listing',
+			'WPBDP_admin_listings_config',
+			array(
+				'messages' => array(
+					'preview_button_tooltip' => __(
+						"Preview is only available after you've saved the first draft. This is due to how WordPress stores the data.",
+						'business-directory-plugin'
+					),
+				),
+			)
+		);
+	}
 }

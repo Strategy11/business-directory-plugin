@@ -1,4 +1,5 @@
 @import 'common.less';
+@import 'fonts.less';
 @brand: #6D87B9;
 
 .cf:before, .cf:after {
@@ -63,6 +64,10 @@
 
 .wpbdp-admin-content .wpbdp-upgrade-bar {
 	display: none;
+}
+
+.wpbdp-admin h1 img {
+	vertical-align: bottom;
 }
 
 /* Sidebar */
@@ -436,6 +441,49 @@ body.taxonomy-wpbdp_category .column-id {
 
 .wpbdp-payment-details .actions a.button-primary {
     color: #fff !important;
+}
+
+/* Buttons */
+.wp-core-ui .wpbdp-loading-button.button-primary,
+.wpbdp-loading-button {
+	position: relative !important;
+	opacity: .8;
+	color: transparent !important;
+	text-shadow: none !important;
+}
+
+.wpbdp-loading-button:hover,
+.wpbdp-loading-button:active,
+.wpbdp-loading-button:focus {
+	cursor: not-allowed;
+	color: transparent !important;
+	outline: none !important;
+	box-shadow: none;
+}
+
+.wpbdp-loading-button:before {
+	content: '';
+	display: inline-block;
+
+	position: absolute;
+	background: transparent;
+	border: 1px solid #fff;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-radius: 50%;
+
+	box-sizing: border-box;
+	top: 50%;
+	left: 50%;
+	margin-top: -10px;
+	margin-left: -10px;
+	width: 20px;
+	height: 20px;
+
+	-webkit-animation: spin 2s linear infinite;
+	-moz-animation: spin 2s linear infinite;
+	-o-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
 }
 
 /* @group Listing fee change. */

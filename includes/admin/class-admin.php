@@ -42,7 +42,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
             add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'init_scripts' ) );
 
             // Adds admin menus.
             add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -82,6 +82,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_filter('admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
             add_filter('admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
 
+			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
+			WPBDP_Addons_Controller::load_hooks();
+
+			require_once WPBDP_INC . 'controllers/class-smtp.php';
+			WPBDP_SMTP_Controller::load_hooks();
 
             $this->listings   = new WPBDP_Admin_Listings();
             $this->csv_import = new WPBDP_CSVImportAdmin();
@@ -104,7 +109,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
         }
 
-		function enqueue_scripts( $force = false ) {
+		public function init_scripts( $force = false ) {
 			global $wpbdp;
 
 			if ( ! $force && ! $wpbdp->is_bd_page() ) {
@@ -112,79 +117,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			$this->add_pointers();
-
-			$assets = WPBDP_URL . 'assets/';
-			wp_enqueue_style( 'wpbdp-admin', $assets . 'css/admin.min.css', array(), WPBDP_VERSION );
-
-			wp_enqueue_style( 'thickbox' );
-
-			wp_enqueue_style( 'wpbdp-base-css' );
-
-			wp_enqueue_script( 'wpbdp-frontend-js', $assets . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION );
-
-			wp_enqueue_script( 'wpbdp-admin-js', $assets . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION );
-
-			wp_enqueue_script( 'wpbdp-user-selector-js', $assets . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION );
-
-            wp_enqueue_style( 'wpbdp-js-select2-css' );
-
-			if ( ! $wpbdp->is_bd_post_page() ) {
-				return;
-			}
-
-			$wpbdp->assets->load_css();
-
-                wpbdp_enqueue_jquery_ui_style();
-
-                wp_enqueue_style(
-                    'wpbdp-listing-admin-metabox',
-                    WPBDP_URL . 'assets/css/admin-listing-metabox.min.css',
-                    array(),
-                    WPBDP_VERSION
-                );
-
-                wp_enqueue_script(
-                    'wpbdp-admin-listing',
-                    WPBDP_URL . 'assets/js/admin-listing.min.js',
-                    array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' ),
-                    WPBDP_VERSION
-                );
-
-                wp_enqueue_script(
-                    'wpbdp-admin-listing-metabox',
-                    WPBDP_URL . 'assets/js/admin-listing-metabox.min.js',
-                    array( 'wpbdp-admin-js', 'jquery-ui-datepicker' ),
-                    WPBDP_VERSION
-                );
-
-                wp_localize_script(
-                    'wpbdp-admin-listing-metabox',
-                    'wpbdpListingMetaboxL10n',
-					array(
-						'planDisplayFormat' => sprintf(
-							'<a href="%s">%s</a>',
-							esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ) ),
-							'{{plan_label}}'
-						),
-						'noExpiration'      => __( 'Never', 'business-directory-plugin' ),
-						'yes'               => __( 'Yes', 'business-directory-plugin' ),
-						'no'                => __( 'No', 'business-directory-plugin' ),
-					)
-                );
-
-                wp_localize_script(
-                    'wpbdp-admin-listing',
-                    'WPBDP_admin_listings_config',
-                    array(
-                        'messages' => array(
-                            'preview_button_tooltip' => __(
-                                "Preview is only available after you've saved the first draft. This is due
-    to how WordPress stores the data.",
-                                'business-directory-plugin'
-                            ),
-                        ),
-                    )
-                );
 		}
 
 		/**
@@ -1170,7 +1102,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function check_setup() {
             global $pagenow;
 
-            if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
+            if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! WPBDP_App_Helper::is_admin_page( 'wpbdp_settings' ) ) {
                 return;
             }
 
@@ -1189,7 +1121,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function check_ajax_compat_mode() {
             global $pagenow;
 
-            if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! isset( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
+            if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! WPBDP_App_Helper::is_admin_page( 'wpbdp_settings' ) ) {
                 return;
             }
 
@@ -1266,6 +1198,21 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 array_splice( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ], count( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ] ), 0, array( $submenu[ $parent_file ][ $directory_regions ] ) );
             }
         }
+
+		/**
+		 * @deprecated x.x
+		 */
+		public function enqueue_scripts( $force = false ) {
+			_deprecated_function( __METHOD__, '5.9.2', 'WPBDP__Assets::enqueue_admin_scripts' );
+
+			global $wpbdp;
+
+			if ( ! $force && ! $wpbdp->is_bd_page() ) {
+				return;
+			}
+
+			$wpbdp->assets->enqueue_admin_scripts( $force );
+		}
     }
 
     function wpbdp_admin_message( $msg, $kind = '', $extra = array() ) {
