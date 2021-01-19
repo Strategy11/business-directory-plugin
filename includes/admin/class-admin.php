@@ -1200,7 +1200,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
 		/**
-		 * @deprecated x.x
+		 * @deprecated 5.9.2
 		 */
 		public function enqueue_scripts( $force = false ) {
 			_deprecated_function( __METHOD__, '5.9.2', 'WPBDP__Assets::enqueue_admin_scripts' );

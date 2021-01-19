@@ -67,6 +67,7 @@ class WPBDP__View {
             'redirect_on_failure' => true,
             'wpbdp_view'          => '',
             'redirect_query_args' => array(),
+			'listing'             => false,
         );
         $args     = wp_parse_args( $args, $defaults );
         extract( $args );
@@ -80,7 +81,7 @@ class WPBDP__View {
         } elseif ( 'administrator' == $test ) {
             $passes = current_user_can( 'administrator' );
         } else {
-			$passes = is_user_logged_in();
+			$passes = is_user_logged_in() && $this->is_listing_owner( $args['listing'] );
         }
 
         if ( $passes ) {
@@ -107,9 +108,15 @@ class WPBDP__View {
         }
     }
 
-    //
-    // }
-    //
+	/**
+	 * @since x.x
+	 */
+	protected function is_listing_owner( $listing ) {
+		if ( empty( $listing ) ) {
+			return true;
+		}
+		return $listing->owned_by_user();
+	}
 }
 
 /**

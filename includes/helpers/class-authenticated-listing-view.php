@@ -6,11 +6,13 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
         if ( ! $this->listing )
             die();
 
-        if ( current_user_can( 'administrator' ) )
-            return true;
+		if ( current_user_can( 'administrator' ) ) {
+			return true;
+		}
 
-        $user_id = intval( get_current_user_id() );
-        $post = get_post( $this->listing->get_id() );
+		if ( is_user_logged_in() && $this->listing->owned_by_user() ) {
+			return true;
+		}
 
         if ( 'WPBDP__Views__Submit_Listing' == get_class( $this ) && empty( $this->editing ) && ! wpbdp_get_option( 'require-login' ) )
             return true;

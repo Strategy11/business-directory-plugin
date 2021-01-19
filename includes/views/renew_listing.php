@@ -24,18 +24,30 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
         $renewal_id = wpbdp_get_var( array( 'param' => 'renewal_id', 'default' => 0 ) );
 
-        if ( ! ( $this->listing = WPBDP_Listing::get( $renewal_id ) ) ) {
+		$this->listing = WPBDP_Listing::get( $renewal_id );
+
+		if ( ! $this->listing ) {
             return wpbdp_render_msg( _x( 'Your renewal ID is invalid. Please use the URL you were given on the renewal e-mail message.', 'renewal', 'business-directory-plugin' ), 'error' );
         }
 
-        $this->_auth_required(
+		$status = $this->listing->get_status();
+		$not_allowed = array( 'abandoned', 'pending_payment', 'incomplete', 'unknown' );
+		if ( in_array( $status, $not_allowed, true ) ) {
+			return wpbdp_render_msg( __( 'That listing cannot yet be renewed.', 'business-directory-plugin' ), 'error' );
+		}
+
+        $auth = $this->_auth_required(
             array(
                 'wpbdp_view' => 'renew_listing',
+				'listing'    => $this->listing,
                 'redirect_query_args' => array(
                     'renewal_id' => $renewal_id,
                 ),
             )
         );
+		if ( $auth ) {
+			return $auth;
+		}
 
         $this->plan = $this->listing->get_fee_plan();
 

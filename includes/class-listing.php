@@ -503,6 +503,23 @@ class WPBDP_Listing {
         return wpbdp_url( 'renew_listing', $this->id );
     }
 
+	/**
+	 * @since x.x
+	 */
+	public function owned_by_user( $user_id = 'current' ) {
+		if ( $user_id === 'current' ) {
+			$user_id = get_current_user_id();
+		}
+
+		if ( empty( $user_id ) || ! $this->id ) {
+			// This function is currently intended for logged in users.
+			return true;
+		}
+
+		$post = get_post( $this->id );
+		return $user_id === absint( $post->post_author );
+	}
+
     /**
      * @since 4.0
      */
