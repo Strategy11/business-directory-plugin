@@ -361,12 +361,9 @@ class WPBDP_SMTP_Controller {
 			return false;
 		}
 
-		$phpmailer = $this->get_phpmailer();
+		$mailer = WPMailSMTP\Options::init()->get( 'mail', 'mailer' );
 
-		$mailer             = WPMailSMTP\Options::init()->get( 'mail', 'mailer' );
-		$is_mailer_complete = wp_mail_smtp()->get_providers()->get_mailer( $mailer, $phpmailer )->is_mailer_complete();
-
-		return 'mail' !== $mailer && $is_mailer_complete;
+		return 'mail' !== $mailer;
 	}
 
 	/**
@@ -378,29 +375,6 @@ class WPBDP_SMTP_Controller {
 	 */
 	protected function is_smtp_activated() {
 		return function_exists( 'wp_mail_smtp' ) && ( is_plugin_active( $this->config['lite_plugin'] ) || is_plugin_active( $this->config['pro_plugin'] ) );
-	}
-
-
-	/**
-	 * Get $phpmailer instance.
-	 *
-	 * @since 5.9.2
-	 *
-	 * @return PHPMailer Instance of PHPMailer.
-	 */
-	protected function get_phpmailer() {
-		global $phpmailer;
-
-		if ( ! is_object( $phpmailer ) || ! is_a( $phpmailer, 'PHPMailer' ) ) {
-			if ( is_callable( array( wp_mail_smtp(), 'generate_mail_catcher' ) ) ) {
-				$phpmailer = wp_mail_smtp()->generate_mail_catcher( true ); // phpcs:ignore
-			} else {
-				require_once ABSPATH . WPINC . '/class-phpmailer.php';
-				$phpmailer = new PHPMailer( true ); // phpcs:ignore
-			}
-		}
-
-		return $phpmailer;
 	}
 
 	/**
