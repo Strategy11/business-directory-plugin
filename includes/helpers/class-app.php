@@ -138,29 +138,6 @@ class WPBDP_App_Helper {
 	/**
 	 * @since x.x
 	 */
-	public static function show_header_logo() {
-		$icon = self::svg_logo(
-			array(
-				'height' => 35,
-				'width'  => 35,
-			)
-		);
-
-		$new_icon = apply_filters( 'wpbdp_icon', $icon, true );
-		if ( $new_icon !== $icon ) {
-			if ( strpos( $new_icon, '<svg' ) === 0 ) {
-				$icon = str_replace( 'viewBox="0 0 20', 'width="30" height="35" style="color:#929699" viewBox="0 0 20', $new_icon );
-			} else {
-				// Show nothing if it isn't an SVG.
-				$icon = '<div style="height:39px"></div>';
-			}
-		}
-		echo self::kses( $icon, 'all' ); // WPCS: XSS ok.
-	}
-
-	/**
-	 * @since x.x
-	 */
 	public static function svg_logo( $size = 18 ) {
 		$atts = array(
 			'height' => $size,
