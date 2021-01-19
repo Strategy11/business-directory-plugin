@@ -124,41 +124,47 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function fee_payment( $payment = null ) {
-        if ( isset( $_POST['listing_plan'] ) ) {
-            if ( $fee = wpbdp_get_fee( absint( $_POST['listing_plan'] ) ) ) {
-                if ( ! $payment ) {
-                    $payment = new WPBDP_Payment(
-                        array(
-                            'listing_id' => $this->listing->get_id(),
-                            'payment_type' => 'renewal',
-                        )
-                    );
-                }
+		$listing_plan = wpbdp_get_var( array( 'param' => 'listing_plan', 'sanitize' => 'absint' ), 'post' );
+		if ( ! $listing_plan ) {
+			return;
+		}
 
-                $payment->payment_items   = array();
-                $payment->payment_items[] = array(
-                    'type' => 'plan',
-                    'description' => sprintf( _x( 'Fee "%s" renewal.', 'listings', 'business-directory-plugin' ), $fee->label ),
-                    'amount' => $fee->calculate_amount( $this->listing->get_categories() ),
-                    'fee_id' => $fee->id,
-                    'fee_days' => $fee->days,
-                    'fee_images' => $fee->images,
-                    'is_renewal' => true,
-                );
+		$fee = wpbdp_get_fee_plan( $listing_plan );
+		if ( ! $fee ) {
+			return;
+		}
 
-                if ( $payment->save() ) {
-                    if ( 0.0 === $payment->amount ) {
-                        $this->listing->update_plan( $fee, array( 'recalculate' => 0 ) );
-                        $this->listing->renew();
-                    }
-                }
+		if ( ! $payment ) {
+			$payment = new WPBDP_Payment(
+				array(
+					'listing_id'   => $this->listing->get_id(),
+					'payment_type' => 'renewal',
+				)
+			);
+		}
 
-                $this->payment_id = $payment->id;
+		$payment->payment_items   = array();
+		$payment->payment_items[] = array(
+			'type'        => 'plan',
+			'description' => sprintf( _x( 'Fee "%s" renewal.', 'listings', 'business-directory-plugin' ), $fee->label ),
+			'amount'      => $fee->calculate_amount( $this->listing->get_categories() ),
+			'fee_id'      => $fee->id,
+			'fee_days'    => $fee->days,
+			'fee_images'  => $fee->images,
+			'is_renewal'  => true,
+		);
 
-                return $this->_redirect( $payment->get_checkout_url() );
-            }
-        }
-    }
+		if ( $payment->save() ) {
+			if ( 0.0 === $payment->amount ) {
+				$this->listing->update_plan( $fee, array( 'recalculate' => 0 ) );
+				$this->listing->renew();
+			}
+		}
+
+		$this->payment_id = $payment->id;
+
+		return $this->_redirect( $payment->get_checkout_url() );
+	}
 
     private function render_plan_selection( $current_plan ) {
         $params = array(
