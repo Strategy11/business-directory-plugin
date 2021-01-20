@@ -19,6 +19,7 @@ class WPBDP_Themes {
 		'template_vars_stack' => array(),
 	);
 
+	private $folder_name = 'businessdirectory-themes';
 
     function __construct() {
         $this->find_themes();
@@ -217,14 +218,15 @@ class WPBDP_Themes {
     }
 
     function get_themes_dir() {
-        return WP_CONTENT_DIR . '/businessdirectory-themes/';
+        return WP_CONTENT_DIR . '/' . $this->folder_name . '/';
     }
 
-    function get_themes_directories() {
-        $res = array();
-
-        $res[ WPBDP_PATH . 'themes/' ]                        = WPBDP_URL . 'themes/';
-        $res[ WP_CONTENT_DIR . '/businessdirectory-themes/' ] = WP_CONTENT_URL . '/businessdirectory-themes/';
+	public function get_themes_directories() {
+		$folder = 'themes/';
+		$res = array(
+			WPBDP_PATH . $folder  => WPBDP_URL . $folder,
+			$this->get_themes_dir() => trailingslashit( content_url( $this->folder_name ) ),
+		);
 
         $res = array_combine(
             array_map( 'wp_normalize_path', array_keys( $res ) ),
@@ -910,8 +912,8 @@ class WPBDP_Themes {
         return $path;
     }
 
-    function install_theme( $file ) {
-        $themes_dir                       = wp_normalize_path( WP_CONTENT_DIR . '/businessdirectory-themes/' ); // TODO: do not hardcode this directory.
+	public function install_theme( $file ) {
+		$themes_dir                       = wp_normalize_path( $this->get_themes_dir() );
         list( $temp_dir, $unzipped_dir, ) = WPBDP_FS::unzip_to_temp_dir( $file );
         $package_dir                      = $unzipped_dir;
 
