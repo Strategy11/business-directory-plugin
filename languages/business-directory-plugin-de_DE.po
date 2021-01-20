@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-01-19 23:27:37+00:00\n"
+"POT-Creation-Date: 2021-01-20 00:06:20+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -940,91 +940,91 @@ msgstr ""
 msgid "SMTP"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:147
+#: includes/controllers/class-smtp.php:146
 msgid "Making Email Deliverability Easy for WordPress"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:148
+#: includes/controllers/class-smtp.php:147
 msgid ""
 "WP Mail SMTP allows you to easily set up WordPress to use a trusted provider "
 "to reliably send emails, including listing notifications."
 msgstr ""
 
-#: includes/controllers/class-smtp.php:173
+#: includes/controllers/class-smtp.php:172
 msgid "WP Mail SMTP screenshot"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:175
+#: includes/controllers/class-smtp.php:174
 msgid "Over 1,000,000 websites use WP Mail SMTP."
 msgstr ""
 
-#: includes/controllers/class-smtp.php:176
+#: includes/controllers/class-smtp.php:175
 msgid "Send emails authenticated via trusted parties."
 msgstr ""
 
-#: includes/controllers/class-smtp.php:177
+#: includes/controllers/class-smtp.php:176
 msgid ""
 "Transactional Mailers: Pepipost, SendinBlue, Mailgun, SendGrid, Amazon SES."
 msgstr ""
 
-#: includes/controllers/class-smtp.php:178
+#: includes/controllers/class-smtp.php:177
 msgid "Web Mailers: Gmail, G Suite, Office 365, Outlook.com."
 msgstr ""
 
-#: includes/controllers/class-smtp.php:198
+#: includes/controllers/class-smtp.php:197
 msgid "Step 1"
 msgstr ""
 
 #. translators: %s: Name of the plugin
-#: includes/controllers/class-smtp.php:205
+#: includes/controllers/class-smtp.php:204
 #, fuzzy
 msgid "Install and Activate %s"
 msgstr "Installiert: %s"
 
-#: includes/controllers/class-smtp.php:221
+#: includes/controllers/class-smtp.php:220
 msgid "Install WP Mail SMTP from the WordPress.org plugin repository."
 msgstr ""
 
-#: includes/controllers/class-smtp.php:245
+#: includes/controllers/class-smtp.php:244
 msgid "Step 2"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:265
+#: includes/controllers/class-smtp.php:264
 msgid "Set Up WP Mail SMTP"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:266
+#: includes/controllers/class-smtp.php:265
 msgid "Select and configure your mailer."
 msgstr ""
 
-#: includes/controllers/class-smtp.php:299
+#: includes/controllers/class-smtp.php:298
 msgid "Install WP Mail SMTP"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:301
+#: includes/controllers/class-smtp.php:300
 #, fuzzy
 msgid "Install"
 msgstr "Installiert"
 
-#: includes/controllers/class-smtp.php:313
+#: includes/controllers/class-smtp.php:312
 msgid "WP Mail SMTP Installed & Activated"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:316
+#: includes/controllers/class-smtp.php:315
 msgid "Activate WP Mail SMTP"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:318
+#: includes/controllers/class-smtp.php:317
 #, fuzzy
 msgid "Activate"
 msgstr "Aktiviere Lizenz"
 
-#: includes/controllers/class-smtp.php:337
+#: includes/controllers/class-smtp.php:336
 #, fuzzy
 msgid "Start Setup"
 msgstr "CSV-Datei importieren"
 
-#: includes/controllers/class-smtp.php:343
+#: includes/controllers/class-smtp.php:342
 #, fuzzy
 msgid "Go to SMTP settings"
 msgstr "Zum Eintrag"
