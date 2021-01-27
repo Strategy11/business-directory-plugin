@@ -35,65 +35,9 @@ $themes = array(
             </div>
         </div>
 
-        <!-- Premium modules -->
-        <div class="postbox premium-modules">
-            <h3 class="hndle"><span><?php esc_html_e( 'Make better directories', 'business-directory-plugin' ); ?></span></h3>
-            <div class="inside">
-                <ul>
-				<?php
-				$can_upgrade = false;
-				$modules_obj = wpbdp()->modules;
-				foreach ( $modules as $mod_info ) :
-                    if ( $modules_obj->is_loaded( $mod_info[0] ) ) {
-                        continue;
-                    }
-					$can_upgrade = true;
-                    ?>
-                    <li class="li_link">
-                        <?php
-                        if ( isset( $mod_info[3] ) && 'new' === $mod_info[3] ) :
-							?>
-                            <span class="tag new"><?php esc_html_e( 'new', 'business-directory-plugin' ); ?></span> <?php endif; ?>
-                        <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener"><?php echo esc_html( $mod_info[2] ); ?></a>
-                    </li>
-					<?php
-				endforeach;
-
-				if ( ! $can_upgrade ) {
-					// Hide the upgrade box. This should be more accurate later.
-					?>
-					<style>.postbox.premium-modules{display:none;}</style>
-					<?php
-				}
-				?>
-                </ul>
-                <a href="https://businessdirectoryplugin.com/lite-upgrade/?utm_source=WordPress&utm_campaign=liteplugin&utm_medium=sidebar" target="_blank" rel="noopener" class="button-primary">
-                    <?php esc_html_e( 'Upgrade Now', 'business-directory-plugin' ); ?>
-                </a>
-            </div>
-        </div>
-
-        <!-- Themes -->
-        <div class="postbox premium-modules">
-            <h3 class="hndle"><span><?php echo esc_html_x( 'Get a Directory Theme', 'admin sidebar', 'business-directory-plugin' ); ?></span></h3>
-            <div class="inside">
-                <ul>
-                <?php foreach ( $themes as $mod_info ) : ?>
-                    <li class="li_link">
-                        <?php
-                        if ( isset( $mod_info[2] ) && 'new' === $mod_info[2] ) :
-							?>
-                            <span class="tag new"><?php esc_html_e( 'new', 'business-directory-plugin' ); ?></span> <?php endif; ?>
-                        <a href="http://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[0] ); ?>/?ref=wp" target="_blank" rel="noopener"><?php echo esc_html( $mod_info[1] ); ?></a>
-                    </li>
-                <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-
         <!-- support -->
         <div class="postbox">
-            <h3 class="hndle"><span><?php echo esc_html_x( 'Found a bug? Need support?', 'admin sidebar', 'business-directory-plugin' ); ?></span></h3>
+            <h3 class="hndle"><span><?php esc_html_e( 'Need help?', 'business-directory-plugin' ); ?></span></h3>
             <div class="inside">
                 <p>
                     <?php
