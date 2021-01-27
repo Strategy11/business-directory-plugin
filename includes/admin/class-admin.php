@@ -16,6 +16,8 @@ require_once WPBDP_PATH . 'includes/admin/page-debug.php';
 require_once WPBDP_PATH . 'includes/admin/class-admin-controller.php';
 require_once WPBDP_PATH . 'includes/admin/tracking.php';
 require_once WPBDP_PATH . 'includes/admin/class-listings-with-no-fee-plan-view.php';
+require_once WPBDP_PATH . 'includes/admin/helpers/class-modules-list.php';
+
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -333,6 +335,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     array( $this, 'menu_dispatch' )
                 );
             }
+
+			$label = '<span style="color:#fe5a1d">' . __( 'Modules', 'business-directory-plugin' ) . '</span>';
+			add_submenu_page( $menu_id, __( 'Business Directory', 'business-directory-plugin' ) . ' | ' . __( 'Modules', 'business-directory-plugin' ), $label, 'install_plugins', 'wpbdp-addons', 'WPBDP_Show_Modules::list_addons' );
 
             do_action( 'wpbdp_admin_menu', $menu_id );
 

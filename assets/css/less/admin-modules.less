@@ -1,0 +1,124 @@
+/* Add-on tiles */
+.wpbdp-addons {
+	margin-top: 30px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 30px 2%;
+}
+
+.wpbdp-addons,
+.wpbdp-addons h2,
+.wpbdp-addons h3 {
+	color: var(--dark-grey);
+}
+
+.wpbdp-addons h2 {
+	font-size: 17px;
+}
+
+.wpbdp-addons h3 {
+	margin-top: 0;
+}
+
+.wpbdp-card {
+	width: 100%;
+	border-radius: 10px;
+	border: 1px solid var(--grey-border);
+	opacity: 1;
+	transition: opacity 1s;
+	background: #fff;
+}
+
+.wpbdp-addons .wpbdp-card.wpbdp-addon-not-installed {
+	position: relative;
+}
+
+.wpbdp-addons .plugin-card-top {
+	height: 140px;
+	padding-top: 30px;
+	overflow: hidden;
+}
+
+.wpbdp-addons .plugin-card-top h2 {
+	margin-top: 0;
+	font-weight: 400;
+}
+
+.wpbdp-template-row p,
+.wpbdp-addons .plugin-card-top p {
+	opacity: 0.8;
+}
+
+.wpbdp-addons .plugin-card-bottom {
+	padding: 5px 20px 20px;
+	text-align: center;
+	background: transparent;
+	border-top: none;
+}
+
+.wpbdp-addons .plugin-card-bottom,
+.wpbdp-addons .plugin-card-bottom .button {
+	font-size: 15px;
+}
+
+.wpbdp-addons .button {
+	float: right;
+}
+
+.wpbdp-addons .addon-status {
+	float: left;
+	padding-top: 4px;
+}
+
+.wpbdp-addon-active .button {
+	visibility: hidden;
+}
+
+.addon-status-label {
+	opacity: .7;
+}
+
+.wpbdp-addon-active .addon-status-label {
+	color: var(--green);
+	opacity: 1;
+}
+
+.wpbdp-addon-error {
+	position: absolute;
+	top: 55px;
+	left: 10px;
+	right: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.wpbdp-ribbon {
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	border: 25px solid transparent;
+	border-bottom: 25px solid var(--orange);
+	position: absolute;
+	top: -31px;
+	right: -74px;
+	padding: 0px 10px;
+	width: 30px;
+	color: white;
+	font-family: sans-serif;
+	size: 11px;
+}
+
+.wpbdp-ribbon span {
+	position: absolute;
+	left: 25px;
+	font-size: 15px;
+	top: 4px;
+}
+
+@media only screen and (max-width: 1200px) {
+	.wpbdp-addons {
+		grid-template-columns: 1fr 1fr;
+	}
+}
