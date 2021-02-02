@@ -113,16 +113,16 @@ jQuery(function($) {
         });
     });
     
-    $('a.cancel-import').click(function(e) {
+    $('a.cancel-import').on( 'click', function(e) {
         e.preventDefault();
         cancelExport = true;
     });
     
-    $('.step-3 .download-link a').click(function(e) {
+    $('.step-3 .download-link a').on( 'click', function(e) {
         $('.step-3 .cleanup-link').fadeIn(); 
     });
 
-    $('.step-3 .cleanup-link a').click(function(e) {
+    $('.step-3 .cleanup-link a').on( 'click', function(e) {
         e.preventDefault();
         $.ajax(ajaxurl, {
             data: { 'action': 'wpbdp-csv-export', 'state': lastState, 'cleanup': 1 },

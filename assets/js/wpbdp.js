@@ -93,15 +93,15 @@ jQuery(document).ready(function($){
     if ( $( '#wpbdp-main-box' ).length > 0 )
         wpbdp.main_box.init();
 
-    if ( $('.wpbdp-bar').children().length == 0 && $.trim( $('.wpbdp-bar').text() ) == '' ) {
+    if ( $('.wpbdp-bar').children().length == 0 && $('.wpbdp-bar').text().trim() == '' ) {
         $('.wpbdp-bar').remove();
     }
 
-    $( '.wpbdp-listing-contact-form .send-message-button' ).click(function() {
+    $( '.wpbdp-listing-contact-form .send-message-button' ).on( 'click', function() {
         $( '.wpbdp-listing-contact-form .contact-form-wrapper' ).toggle();
     });
 
-    $( '.wpbdp-listings-sort-options select' ).change(function(e) {
+    $( '.wpbdp-listings-sort-options select' ).on( 'change', function(e) {
         var selected = $(this).val();
         location.href = selected;
     });
@@ -370,7 +370,7 @@ WPBDP.fileUpload = {
                 }
             } );
 
-            $( 'input#wpbdp_media_manager' ).click( function( e ) {
+            $( 'input#wpbdp_media_manager' ).on( 'click', function( e ) {
 
                 e.preventDefault();
                 var image_frame;

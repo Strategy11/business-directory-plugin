@@ -24,12 +24,12 @@ jQuery(function( $ ) {
         _setup_events: function() {
             var t = this;
 
-            $( 'a.cancel-import' ).click(function(e) {
+            $( 'a.cancel-import' ).on( 'click', function(e) {
                 e.preventDefault();
                 t.cancel();
             });
 
-            $( 'a.resume-import' ).click(function(e) {
+            $( 'a.resume-import' ).on( 'click', function(e) {
                 e.preventDefault();
                 t.start_or_resume();
             });
@@ -164,7 +164,7 @@ jQuery(function( $ ) {
     }
 
     // Import config. page.
-    $( '.wpbdp-page-csv-import .file-local-selection a.toggle-selection' ).click(function(e) {
+    $( '.wpbdp-page-csv-import .file-local-selection a.toggle-selection' ).on( 'click', function(e) {
         e.preventDefault();
         var $files = $( this ).siblings( 'ul' );
         $files.toggle();
