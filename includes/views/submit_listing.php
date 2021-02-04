@@ -18,13 +18,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     protected $data         = array();
     protected $messages     = array( 'general' => array() );
 
-    private $available_plans         = array();
+    private $available_plans         = false;
     public $skip_plan_selection      = false;
     public $skip_plan_payment        = false;
     public $category_specific_fields = false;
     public $fixed_plan_id            = 0;
     public $current_section          = '';
 
+	protected $fixed_category = '';
+	protected $category_count  = false;
 
     public function get_title() {
         return __( 'Add Listing', 'business-directory-plugin' );
@@ -275,30 +277,33 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      * @since 5.1.2
      */
     private function configure() {
-        // Show "Complete Listing" instead of "Continue to Payment" if all fees are free.
-        $this->skip_plan_payment = true;
-        foreach ( wpbdp_get_fee_plans() as $plan ) {
-            if ( 'flat' !== $plan->pricing_model || 0.0 !== $plan->amount ) {
-                $this->skip_plan_payment = false;
-            }
-
-            $this->available_plans[] = $plan;
-        }
+        $this->set_skip_plan_payment();
 
         $this->category_specific_fields = $this->category_specific_fields();
 
         // Maybe skip plan selection?
         if ( $this->skip_plan_payment ) {
             $this->skip_plan_selection = ( 1 === count( $this->get_available_plans() ) );
-
-            if ( $this->skip_plan_selection ) {
-                $plan                = $this->available_plans[0];
-                $this->fixed_plan_id = $plan->id;
-            }
         }
 
         $this->current_section = wpbdp_get_var( array( 'param' => 'current_section', 'default' => '' ), 'post' );
     }
+
+	/**
+	 * Show "Complete Listing" instead of "Continue to Payment" if the selected plan is free.
+	 *
+	 * @since x.x
+	 */
+	private function set_skip_plan_payment() {
+		$this->skip_plan_payment = true;
+
+		$plans = $this->get_selected_or_available_plans();
+		foreach ( $plans as $plan ) {
+			if ( 'flat' !== $plan->pricing_model || 0.0 !== $plan->amount ) {
+				$this->skip_plan_payment = false;
+			}
+		}
+	}
 
     public function ajax_sections() {
         $res = new WPBDP_Ajax_Response();
@@ -425,7 +430,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             );
 
             $listing = wpbdp_get_listing( $listing_id );
-            $listing->set_fee_plan( null );
+			$listing->set_fee_plan( $this->single_plan() );
+
+			$this->set_fixed_category_id();
+			if ( $this->fixed_category ) {
+				wp_set_post_terms( $listing_id, $this->fixed_category, WPBDP_CATEGORY_TAX, false );
+			}
         }
 
         if ( ! $listing_id ) {
@@ -477,7 +487,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function submit_sections() {
         $sections = array();
 
-        if ( $this->can_edit_plan_or_categories() ) {
+        if ( $this->can_edit_plan_or_categories() && ! $this->skip_plan_and_category() ) {
             $sections['plan_selection'] = array(
                 'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'business-directory-plugin' ) : _x( 'Category & plan selection', 'submit listing', 'business-directory-plugin' ),
             );
@@ -614,6 +624,18 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return false;
     }
 
+	/**
+	 * If there are no categories and only one plan, skip page 1.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function skip_plan_and_category() {
+		$skip = $this->skip_plan_selection && $this->category_count === 1;
+		return apply_filters( 'wpbdp_skip_page_1', $skip, compact( 'this' ) );
+	}
+
     private function prepare_sections() {
 		$section_ids  = array_keys( $this->sections );
 		$first_key    = reset( $section_ids );
@@ -711,7 +733,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function plan_selection() {
         global $wpbdp;
 
-        $plans = $this->available_plans;
+        $plans = $this->get_available_plans();
 
         if ( ! $plans && ! $this->editing ) {
             $msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
@@ -826,10 +848,37 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$selected_plan = $this->get_selected_plan( $plan_id );
 
-        $category_count = wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
-        $selected_categories = $this->get_selected_category( $categories );
+		$this->set_fixed_category_id();
+		$category_count      = $this->category_count;
+		$selected_categories = $this->fixed_category ? $this->fixed_category : $this->get_selected_category( $categories );
         return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'category_count', 'plans', 'selected_categories', 'selected_plan' ) );
     }
+
+	/**
+	 * @since x.x
+	 *
+	 * @return false|int - False if multiple categories.
+	 */
+	private function set_fixed_category_id() {
+		if ( $this->category_count !== false ) {
+			return $this->fixed_category;
+		}
+
+		$this->category_count = (int) wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
+
+		if ( 1 !== $this->category_count ) {
+			return;
+		}
+
+		$terms = get_terms(
+			array(
+				'taxonomy'   => WPBDP_CATEGORY_TAX,
+				'hide_empty' => false,
+			)
+		);
+		$term = reset( $terms );
+		$this->fixed_category = $term->term_id;
+	}
 
 	/**
 	 * Select the category for the listing or from the POST values.
@@ -974,9 +1023,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             return false;
         }
 
-        $listing = $this->listing;
-        $plan = $listing->get_fee_plan();
-
+		$plan = $this->get_plan_for_listing();
         if ( ! $plan ) {
             return false;
         }
@@ -988,6 +1035,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         $validation_error = '';
+		$listing          = $this->listing;
 
 		$thumbnail_id = absint( wpbdp_get_var( array( 'param' => '_thumbnail_id', 'default' => 0 ), 'post' ) );
 
@@ -1326,8 +1374,72 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return false;
     }
 
-    public function get_available_plans() {
-        return $this->available_plans;
-    }
+	/**
+	 * Get the plan that has been selected, or the default if there is only one.
+	 *
+	 * @since x.x
+	 *
+	 * @return null|object
+	 */
+	private function get_plan_for_listing() {
+		$listing = $this->listing;
+		return $listing->get_fee_plan();
+	}
 
+	/**
+	 * If there's only one plan, get it.
+	 *
+	 * @since x.x
+	 *
+	 * @return null|object
+	 */
+	private function single_plan() {
+		$plans = $this->get_available_plans();
+		if ( count( $plans ) === 1 ) {
+			$this->fixed_plan_id = $plans[0]->id;
+			return $plans[0];
+		}
+
+		return null;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function set_available_plans() {
+		$this->available_plans = array();
+		foreach ( wpbdp_get_fee_plans() as $plan ) {
+			$this->available_plans[] = $plan;
+		}
+	}
+
+	public function get_available_plans() {
+		if ( $this->available_plans === false ) {
+			$this->set_available_plans();
+		}
+		return $this->available_plans;
+	}
+
+	/**
+	 * If a plan is selected, return it. If not, return all.
+	 *
+	 * @since x.x
+	 */
+	private function get_selected_or_available_plans() {
+		$all_plans = $this->get_available_plans();
+
+		$selected_plan = $this->get_plan_for_listing();
+		if ( ! $selected_plan ) {
+			return $all_plans;
+		}
+
+		$plans = array();
+		foreach ( $all_plans as $plan ) {
+			if ( $selected_plan->fee_id === $plan->id ) {
+				$plans[] = $plan;
+			}
+		}
+
+		return $plans;
+	}
 }

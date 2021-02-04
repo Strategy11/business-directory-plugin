@@ -579,13 +579,15 @@ class WPBDP_Listing {
         global $wpdb;
 
         $res = $wpdb->get_row( $wpdb->prepare( "SELECT listing_id, fee_id, fee_price, fee_days, fee_images, expiration_date, is_recurring, is_sticky FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d LIMIT 1", $this->id ) );
-        if ( ! $res )
-            return false;
+		if ( ! $res ) {
+			return false;
+		}
 
-        if ( $res->fee_id )
-            $fee = wpbdp_get_fee_plan( $res->fee_id );
-        else
-            $fee = null;
+		if ( $res->fee_id ) {
+			$fee = wpbdp_get_fee_plan( $res->fee_id );
+		} else {
+			$fee = null;
+		}
 
         $res->fee = $fee;
         $res->fee_label = $fee ? $fee->label : _x( '(Unavailable Plan)', 'listing', 'business-directory-plugin' );
