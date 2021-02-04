@@ -231,7 +231,7 @@ function wpbdp_get_formfields() {
  * @since 2.3
  */
 function wpbusdirman_get_the_business_email($post_id) {
-	_deprecated_function( __FUNCTION__, '2.3' );
+	// _deprecated_function( __FUNCTION__, '2.3' );
 
     $email_mode = wpbdp_get_option( 'listing-email-mode' );
     
