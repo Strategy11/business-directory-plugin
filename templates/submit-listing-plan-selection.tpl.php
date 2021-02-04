@@ -8,25 +8,10 @@
 $single_plan = ! ( count( $plans ) > 1 );
 ?>
 <div class="wpbdp-category-selection-with-tip">
-    <?php if ( $editing ) : ?>
-    <div class="wpbdp-msg tip">
-        <?php
-        esc_html_e(
-            'You can\'t change the plan your listing is on but you can modify the categories it appears in, using the field below.',
-            'business-directory-plugin'
-        );
-        ?>
-    </div>
-    <?php endif; ?>
 
     <?php
-	if ( ! empty( $selected_categories ) ) :
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo $category_field->render( (array) $selected_categories, 'submit' );
-	else :
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo $category_field->render();
-	endif;
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo $category_field->render( $selected_categories ? (array) $selected_categories : null );
 	?>
 </div>
 

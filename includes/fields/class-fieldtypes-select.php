@@ -79,7 +79,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $html = '';
 
-        if ( $field->get_association() == 'tags' && ! $options ) {
+		if ( $field->get_association() === 'tags' && ! $options ) {
             $tags    = get_terms(
                 WPBDP_TAGS_TAX, array(
                     'hide_empty' => false,
@@ -91,7 +91,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         $size = $field->data( 'size', 4 );
 
-        if ( $field->get_association() == 'category' ) {
+		if ( $field->get_association() === 'category' ) {
             $args = array(
                 'taxonomy'         => $field->get_association() == 'tags' ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX,
                 'show_option_none' => null,
@@ -105,6 +105,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
                 'name'             => 'listingfields[' . $field->get_id() . ']',
                 'class'            => 'wpbdp-js-select2',
             );
+
+			$show_hidden = false;
 
 			if ( ( 'submit' === $context || 'search' === $context ) && ! $this->is_multiple() ) {
                 $args['show_option_none'] = esc_html__( '-- Choose One --', 'business-directory-plugin' );
@@ -123,6 +125,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 	                    );
 	                    $term = reset( $terms );
 
+						$show_hidden              = true;
 	                    $args['selected']         = $term->term_id;
 	                    $args['show_option_none'] = false;
 	                    $this->set_multiple( false );
@@ -137,6 +140,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             }
 
             $args = apply_filters( 'wpbdp_field_type_select_categories_args', $args, $field, $value, $context, $extra, $field_settings );
+			if ( $show_hidden ) {
+				return $this->add_hidden_field( $args );
+			}
 
             $html .= wp_dropdown_categories( $args );
 
@@ -227,6 +233,16 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
         return $html;
     }
+
+	/**
+	 * If only one category, use a hidden field.
+	 *
+	 * @since x.x
+	 */
+	protected function add_hidden_field( $args ) {
+		$value = $args['selected'];
+		return '<input type="hidden" name="' . esc_attr( $args['name'] ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '"/>';
+	}
 
     public function get_supported_associations() {
         return array( 'category', 'tags', 'meta', 'region' );
