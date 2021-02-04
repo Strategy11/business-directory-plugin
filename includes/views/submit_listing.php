@@ -598,7 +598,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
     private function can_edit_plan_or_categories() {
-        if ( ! $this->editing || ! $this->listing->has_fee_plan() ) {
+		if ( ! $this->editing || ! $this->listing->has_fee_plan() ) {
             return true;
         }
 
@@ -615,7 +615,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
     private function prepare_sections() {
-        $next_section = $this->current_section ? '' : 'plan_selection';
+		$section_ids  = array_keys( $this->sections );
+		$first_key    = reset( $section_ids );
+		$next_section = $this->current_section ? '' : $first_key;
+
         foreach ( $this->sections as &$section ) {
             $this->add_html_to_section( $section );
 
