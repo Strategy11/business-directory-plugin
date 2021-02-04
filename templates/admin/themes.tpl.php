@@ -1,39 +1,46 @@
 <?php
-echo wpbdp_admin_header( null, 'themes', array(
-    array( _x( 'Upload Directory Theme', 'themes', 'business-directory-plugin' ), esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ) ) ),
-    array( _x( 'Manage Theme Tags', 'form-fields admin', 'business-directory-plugin' ), esc_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags') ),
-    array( _x( 'Settings', 'themes', 'business-directory-plugin' ), esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=appearance&subtab=themes' ) ) ),
-), true );
-
-echo wpbdp_admin_notices();
-?>
-
-<div class="wpbdp-note">
-<?php
-echo str_replace(
-    '<a>',
-    '<a href="http://businessdirectoryplugin.com/premium-themes/" target="_blank" rel="noopener">',
-    _x( '<a><b>Directory Themes</b></a> are pre-made templates for the <i>Business Directory Plugin</i> to change the look of the directory quickly and easily. We have a number of them available for purchase <a>here</a>.', 'themes', 'business-directory-plugin' )
+wpbdp_admin_header(
+    array(
+        'id'      => 'themes',
+        'buttons' => array(
+            __( 'Upload Directory Theme', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ) ),
+            __( 'Manage Theme Tags', 'business-directory-plugin' )      => esc_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
+            __( 'Settings', 'business-directory-plugin' )               => esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=appearance&subtab=themes' ) ),
+        ),
+		'sidebar' => false,
+        'echo'    => true,
+    )
 );
+wpbdp_admin_notices();
 ?>
-                  <br />
-<?php esc_html_x( 'They are different than your regular WordPress theme and they are not a replacement for WP themes either. They will change the look and feel of your directory only.', 'themes', 'business-directory-plugin' ); ?>
-</div>
 
-<div id="wpbdp-theme-selection" class="wpbdp-theme-selection cf">
+<p class="howto">
+<?php
+
+echo sprintf(
+    // translators: %1$s is opening <a> tag, %2$s is closing </a> tag
+    esc_html__( '%1$sDirectory Themes%2$s are pre-made templates for the Business Directory Plugin to change the look of the directory quickly and easily. We have a number of them available for purchase %1$shere%2$s.', 'business-directory-plugin' ),
+    '<a href="https://businessdirectoryplugin.com/premium-themes/" target="_blank" rel="noopener">',
+    '</a>'
+);
+echo ' ';
+esc_html_e( 'They are different from regular WordPress themes and are not a replacement. They change the look and feel of the directory only.', 'business-directory-plugin' );
+?>
+</p>
+
+<div id="wpbdp-theme-selection" class="wpbdp-addons wpbdp-theme-selection">
 <?php foreach ( $themes as &$t ) : ?>
     <?php
-    echo wpbdp_render_page(
+    wpbdp_render_page(
         WPBDP_PATH . 'templates/admin/themes-item.tpl.php',
         array(
-			'theme'       => $t,
-			'is_outdated' => in_array( $t->id, $outdated_themes ),
-        )
+            'theme' => $t,
+            'is_outdated' => in_array( $t->id, $outdated_themes ),
+        ),
+        true
     );
-	?>
+    ?>
 <?php endforeach; ?>
 </div>
 
-<?php
-echo wpbdp_admin_footer();
-?>
+<?php wpbdp_admin_footer( 'echo' ); ?>

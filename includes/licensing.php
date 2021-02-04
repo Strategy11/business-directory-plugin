@@ -193,7 +193,7 @@ class WPBDP_Licensing {
         $html .= '<span class="wpbdp-license-warning-icon dashicons dashicons-warning"></span>';
         $html .= '<span class="wpbdp-license-ok-icon dashicons dashicons-yes"></span>';
         $html .= '<input type="text" id="' . $setting['id'] . '" class="wpbdp-license-key-input" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" ' . ( 'valid' == $license_status ? 'readonly="readonly"' : '' ) . ' placeholder="' . _x( 'Enter License Key here', 'admin settings', 'business-directory-plugin' ) . '"/>';
-        $html .= '<input type="button" value="' . _x( 'Activate', 'settings', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
+        $html .= '<input type="button" value="' . esc_attr__( 'Activate', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
         $html .= '<input type="button" value="' . _x( 'Deactivate', 'settings', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
         $html .= '<div class="wpbdp-license-key-activation-status-msg wpbdp-hidden"></div>';
         $html .= '</div>';

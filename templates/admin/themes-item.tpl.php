@@ -1,37 +1,21 @@
-    <div class="wpbdp-theme <?php echo $theme->id; ?> <?php echo ( $theme->active ? 'active' : '' ); ?> <?php do_action( 'wpbdp-admin-themes-item-css', $theme ); ?> ">
-        <h3 class="wpbdp-theme-name">
-            <?php if ( $theme->active ): ?><span><?php _ex( 'Active:', 'themes', 'business-directory-plugin' ); ?></span> <?php endif; ?>
-            <?php echo $theme->name; ?>
-        </h3>
+<div class="wpbdp-card plugin-card-<?php echo esc_attr( $slug ); ?> wpbdp-no-thumb  wpbdp-theme <?php echo esc_attr( $theme->id ); ?> <?php echo ( $theme->active ? 'wpbdp-addon-active active' : '' ); ?> <?php do_action( 'wpbdp-admin-themes-item-css', $theme ); ?> ">
+	<div class="plugin-card-top">
+        <h2 class="wpbdp-theme-name">
+            <?php echo esc_html( $theme->name ); ?>
+        </h2>
 
-        <div class="wpbdp-theme-actions">
-            <?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ): ?>
-            <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=delete-theme&theme_id=' . $theme->id ) ); ?>" class="button delete-theme-link">Delete</a>
-            <?php endif; ?>
-
-            <?php if ( $theme->can_be_activated ): ?>
-            <form action="" method="post">
-                <input type="hidden" name="wpbdp-action" value="set-active-theme" />
-                <input type="hidden" name="theme_id" value="<?php echo $theme->id; ?>" />
-                <?php wp_nonce_field( 'activate theme ' . $theme->id ); ?>
-                <input type="submit" class="button choose-theme button-primary" value="<?php _ex( 'Activate', 'themes', 'business-directory-plugin' ); ?>" />
-            </form>
-            <?php endif; ?>
-        </div>
-
-        <?php if ( $theme->can_be_activated && $is_outdated ) :
-            printf( '<div class="wpbdp-theme-update-info update-available" data-l10n-updating="%s" data-l10n-updated="%s">',
-                    _x( 'Updating theme...', 'themes', 'business-directory-plugin' ),
-                    _x( 'Theme updated.', 'themes', 'business-directory-plugin' ) );
-            ?>
+		<?php if ( $theme->can_be_activated && $is_outdated ) : ?>
+			<div class="wpbdp-theme-update-info update-message notice inline notice-warning notice-alt" data-l10n-updating="<?php esc_attr_e( 'Updating theme...', 'business-directory-plugin' ); ?>" data-l10n-updated="<?php esc_attr_e( 'Theme updated.', 'business-directory-plugin' ); ?>">
                 <div class="update-message">
-                    <?php 
-                    $msg = _x( 'New version available. <a>Update now.</a>', 'themes', 'business-directory-plugin' );
-                    $msg = str_replace( '<a>', '<a href="#" data-theme-id="' . $theme->id . '" data-nonce="' . wp_create_nonce( 'update theme ' . $theme->id ) . '" class="update-link">', $msg );
-                    echo $msg;
+                    <?php
+					echo sprintf(
+						// translators: %1$s is opening <a> tag, %2$s is closing </a> tag
+						esc_html__( 'New version available. %1$sUpdate now.%2$s', 'business-directory-plugin' ),
+						'<a href="#" data-theme-id="' . esc_attr( $theme->id ) . '" data-nonce="' . esc_attr( wp_create_nonce( 'update theme ' . $theme->id ) ) . '" class="update-link">',
+						'</a>'
+					);
                     ?>
                 </div>
-
             </div>
         <?php endif; ?>
 
@@ -46,20 +30,36 @@
             <div class="wpbdp-theme-thumbnail"></div>
             <?php endif; ?>
 
-            <div class="wpbdp-theme-details">
-                <dl>
-                    <dt class="version"><?php _ex( 'Version:', 'themes', 'business-directory-plugin' ); ?></dt>
-                    <dd class="version"><?php echo $theme->version; ?></dd>
-
-                    <dt class="author"><?php _ex( 'Author:', 'themes', 'business-directory-plugin' ); ?></dt>
-                    <dd class="author"><?php echo $theme->author; ?></dd>
-                </dl>
-
-                <p class="desc"><?php echo $theme->description; ?></p>
-            </div>
-
         </div>
 
         <?php do_action( 'wpbdp-admin-themes-extra', $theme ); ?>
         
     </div>
+
+	<div class="plugin-card-bottom">
+		<span class="addon-status">
+			<?php
+			printf(
+				/* translators: %s: Status name */
+				esc_html__( 'Status: %s', 'business-directory-plugin' ),
+				'<span class="addon-status-label">' . esc_html( $theme->active ? __( 'Active', 'business-directory-plugin' ) : __( 'Inactive', 'business-directory-plugin' )  ) . '</span>'
+			);
+			?>
+		</span>
+		<div class="wpbdp-theme-actions">
+			<?php if ( $theme->can_be_activated ): ?>
+				<form action="" method="post">
+					<input type="hidden" name="wpbdp-action" value="set-active-theme" />
+					<input type="hidden" name="theme_id" value="<?php echo esc_attr( $theme->id ); ?>" />
+					<?php wp_nonce_field( 'activate theme ' . $theme->id ); ?>
+					<input type="submit" class="button choose-theme button-primary" value="<?php esc_attr_e( 'Activate', 'business-directory-plugin' ); ?>" />
+				</form>
+			<?php endif; ?>
+			<?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ): ?>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=delete-theme&theme_id=' . esc_attr( $theme->id ) ) ); ?>" class="delete-theme-link delete-theme">
+					<?php esc_html_e( 'Delete', 'business-directory-plugin' ); ?>
+				</a>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>
