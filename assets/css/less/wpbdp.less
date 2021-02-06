@@ -248,40 +248,23 @@ form#wpbdmsearchform a.advanced-search-link {
 .single-wpbdp_listing .social-fields,
 .wpbdp-listing .social-fields {
     margin: 20px 0;
-    vertical-align: middle;
-
-    .social-field {
-        margin-bottom: 10px;
-		display: inline-block;
-		margin-right: 10px;
-
-        &.twitter {
-            height: 20px;
-
-            iframe {
-                margin-bottom: 0;
-            }
-        }
-
-        &.facebook {
-            height: 20px;
-
-            .fb-like span:first-of-type {
-                vertical-align: middle !important;
-            }
-        }
-
-        &.linkedin {
-            img {
-                vertical-align: middle;
-            }
-        }
-    }
+    vertical-align: top;
 }
 
-.social-field-link {
-    display: inline-block;
-    margin-right: 10px;
+.social-field-link,
+.single-wpbdp_listing .social-fields .social-field,
+.wpbdp-listing .social-fields .social-field {
+	display: inline-block;
+	margin-right: 10px;
+	height: 20px;
+
+    iframe {
+		margin-bottom: 0;
+    }
+
+	img {
+		vertical-align: top;
+	}
 
     .social-icon {
         display: inline-block;
@@ -290,24 +273,22 @@ form#wpbdmsearchform a.advanced-search-link {
         color: #1a1a1a;
     }
 
+    .social-text {
+		font-size: 90%;
+    }
+
     a {
         box-shadow: none;
 
         img {
-            height: 30px;
+            height: 20px;
             width: auto;
         }
 
         object {
-            height: 34px;
+            height: 20px;
             margin-bottom: 0;
 
-        }
-    }
-
-    &.twitter {
-        object {
-            border-radius: 17px;
         }
     }
 
