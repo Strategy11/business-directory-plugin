@@ -20,7 +20,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_get_option( 'enable-listing-flagging' ) && wpbdp_user_can( 'flagging', $listing_id ) ) :
         $buttons .= sprintf(
-            ' <form action="%s" method="post"><input type="submit" name="" value="%s" class="button wpbdp-button report-listing" rel="nofollow"/></form>',
+            ' <a href="%s" class="button report-listing" rel="nofollow">%s</a>',
             wpbdp_url( 'flag_listing', $listing_id ),
             apply_filters( 'wpbdp_listing_flagging_button_text', _x( 'Flag Listing', 'templates', 'business-directory-plugin' ) )
         );
@@ -41,9 +41,8 @@ if ( 'single' === $view ) :
             esc_url( wpbdp_url( '/' ) )
         );
     endif;
-    ?>
-<?php elseif ( 'excerpt' === $view ) : ?>
-    <?php
+
+elseif ( 'excerpt' === $view ) :
 
     if ( wpbdp_user_can( 'edit', $listing_id ) ) :
         $buttons .= sprintf(
@@ -68,9 +67,8 @@ if ( 'single' === $view ) :
             esc_html__( 'Delete', 'business-directory-plugin' )
         );
     endif;
-    ?>
-<?php endif; ?>
-<?php
+endif;
+
 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 echo apply_filters( 'wpbdp-listing-buttons', $buttons, $listing_id );
 ?>

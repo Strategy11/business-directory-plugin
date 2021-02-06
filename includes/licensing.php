@@ -267,7 +267,7 @@ class WPBDP_Licensing {
 		$html .= '<input type="button" value="' . esc_attr__( 'Activate', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
 		$html .= '<input type="button" value="' . esc_attr( _x( 'Deactivate', 'settings', 'business-directory-plugin' ) ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
 		if ( $tooltip_msg ) {
-			$html .= '<span class="howto">' . esc_html( $tooltip_msg ) . '</span>';
+			$html .= '<span class="wpbdp-setting-description">' . esc_html( $tooltip_msg ) . '</span>';
 		}
 
 		$html .= '<div class="wpbdp-license-key-activation-status-msg wpbdp-hidden notice inline"></div>';
