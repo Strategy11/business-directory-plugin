@@ -123,7 +123,7 @@ jQuery(function($) {
                     data,
                     function( res ) {
                         if ( res.success ) {
-                            $msg.removeClass( 'status-error' ).addClass( 'status-success' ).html( res.message ).show();
+                            $msg.removeClass( 'status-error notice-error' ).addClass( 'status-success notice-success' ).html( res.message ).show();
 
                             if ( activate ) {
                                 var classes = $setting.attr( 'class' ).split( ' ' ).filter( function( item ) {
@@ -149,7 +149,7 @@ jQuery(function($) {
 
                             $field.prop( 'readonly', activate ? true : false );
                         } else {
-                            $msg.removeClass( 'status-success' ).addClass( 'status-error' ).html( res.error ).show();
+                            $msg.removeClass( 'status-success notice-success' ).addClass( 'status-error notice-error' ).html( res.error ).show();
                             $setting.removeClass( 'wpbdp-license-status-valid' ).addClass( 'wpbdp-license-status-invalid' );
                             $field.prop( 'readonly', false );
                         }
