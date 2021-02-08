@@ -162,6 +162,19 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= 5.9.3 =
+* New: Skip page 1 of listing form is there's only one plan and one category.
+* New: If there's only one category, hide the dropdown in the listing form.
+* New: Move the list of modules from the sidebar to a separate page.
+* New: Add wpbdp_skip_page_1 hook to show the first page when it's skipped.
+* Fix: Every time a free plan is used, show 'Complete payment' button instead of 'Continue to payment' on the final page.
+* Fix: Some themes weren't loading the css when the site link used http instead of https.
+* Fix: In some cases with a single plan, editing a listing was showing a blank page.
+* Fix: The Facebook button was hidden on mobile.
+* Fix: Align the social buttons.
+* Fix: The 'flag listing' button now matches the other directory buttons.
+* Start replacing deprecated jQuery functions.
+
 = 5.9.2 =
 * New: Add hook to override template file - wpbdp_use_template_[template id]
 * Fix: Improve admin performance on sites with lots of users by switching user dropdowns to text fields.
@@ -218,16 +231,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: Some combinations of fee/category settings were causing the category dropdown to stay disabled on new listing form
 * Fix: Error showing on some sites with only one fee plan when creating a new listing
 * Merge more duplicate strings to reduce the number of translations needed
-
-= 5.8.1 =
-* Better align the social fields in the listing form
-* Make the grids more responsive for column listings
-* Security fixes for getting SERVER and REQUEST values. More escaping on translatable strings.
-* Fix: The email request wasn't getting dismissed when it should have
-* Fix: Merge a few duplicate strings for translation
-* Fix: If iframes are allowed in a field, the HTML box doesn't have to be checked
-* Fix: Prevent full width listings from being forced in all themes
-* Fix: Prevent duplicate error messages from showing up when a category field is empty
-* Fix: Always save the right category when changes are made when editing
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
