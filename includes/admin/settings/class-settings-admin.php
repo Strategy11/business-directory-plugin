@@ -493,12 +493,7 @@ class WPBDP__Settings_Admin {
 	 * @since 5.9.1
 	 */
 	private function setting_education_callback( $setting ) {
-		?>
-		<p class="wpbdp-pro-tip">
-			<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.00003L1 13H10L9 21L19 9.00003H10L11 1.00003Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-			<?php echo $setting['desc']; // already escaped ?>
-		</p>
-		<?php
+		WPBDP_Admin_Education::show_tip_message( $setting['desc'] ); // already escaped
 	}
 
     public function setting_expiration_notices_callback( $setting, $value ) {

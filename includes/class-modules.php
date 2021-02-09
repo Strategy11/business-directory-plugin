@@ -7,7 +7,6 @@ class WPBDP__Modules {
     private $modules = array();
     private $valid   = array();
 
-
     public function __construct() {
         $this->register_modules();
     }
@@ -29,6 +28,13 @@ class WPBDP__Modules {
             }
         }
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function get_modules() {
+		return $this->modules;
+	}
 
     public function load( $module ) {
         try {

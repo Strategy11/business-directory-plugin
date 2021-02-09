@@ -9,13 +9,15 @@ wpbdp_admin_header(
 wpbdp_admin_notices();
 ?>
 
-<div class="wpbdp-note">
-<p><?php
+<p class="howto">
+<?php
 // translators: %s is the link for Business Directory Premium Themes.
-printf( esc_html__( 'This is a theme or skin from %s and is NOT a regular WordPress theme.', 'business-directory-plugin' ),
-        '<a href="http://businessdirectoryplugin.com/premium-themes/">http://businessdirectoryplugin.com/premium-themes/</a>' );
-?></p>
-</div>
+printf(
+	esc_html__( 'This is a theme or skin from %s and is NOT a regular WordPress theme.', 'business-directory-plugin' ),
+	'<a href="https://businessdirectoryplugin.com/premium-themes/">https://businessdirectoryplugin.com/</a>'
+);
+?>
+</p>
 
 <form action="" method="post" enctype="multipart/form-data">
     <input type="hidden" name="wpbdp-action" value="upload-theme" />

@@ -181,6 +181,9 @@ endif;
     </table>
 
     <h2><?php _ex( 'Pricing', 'fees admin', 'business-directory-plugin' ); ?></h2>
+
+	<?php WPBDP_Admin_Education::show_tip( 'discounts' ); ?>
+
     <table class="form-table">
         <tbody>
             <tr class="form-field pricing-info">

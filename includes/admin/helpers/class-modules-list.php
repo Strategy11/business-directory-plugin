@@ -215,13 +215,13 @@ class WPBDP_Show_Modules {
 	/**
 	 * @since x.x
 	 */
-	protected static function addon_upgrade_link( $addon, $upgrade_link ) {
+	public static function addon_upgrade_link( $addon, $upgrade_link ) {
 		if ( $addon ) {
 			$upgrade_link .= '&utm_content=' . $addon['slug'];
 		}
 
 		?>
-		<a class="install-now button button-secondary" href="<?php echo esc_url( $upgrade_link ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'Upgrade Now', 'business-directory-plugin' ); ?>">
+		<a class="install-now button button-primary" href="<?php echo esc_url( $upgrade_link ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'Upgrade Now', 'business-directory-plugin' ); ?>">
 			<?php esc_html_e( 'Upgrade Now', 'business-directory-plugin' ); ?>
 		</a>
 		<?php

@@ -13,8 +13,7 @@
     <?php wpbdp_admin_notices(); ?>
 
     <?php if ( ! wpbdp_get_option( 'payments-on' ) ) : ?>
-    <div class="wpbdp-note">
-    <p>
+	<p class="howto">
         <?php esc_html_e('Payments are currently turned off.', 'business-directory-plugin' ); ?><br />
         <?php
             echo sprintf(
@@ -25,7 +24,6 @@
             );
         ?>
     </p>
-    </div>
     <?php endif; ?>
 
     <?php if ( 'active' == $table->get_current_view() || 'all' == $table->get_current_view() ) : ?>
@@ -61,8 +59,7 @@
         <br class="clear" />
         <?php endif; ?>
 
-
-        <div class="wpbdp-note"><p>
+		<p class="howto">
         <?php
         switch ( $table->get_current_view() ) :
 			case 'active':
@@ -109,7 +106,7 @@
 				?>
             <?php break; ?>
         <?php endswitch; ?>
-        </p></div>
+		</p>
 
 
         <?php $table->views(); ?>

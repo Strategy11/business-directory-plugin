@@ -8,7 +8,7 @@
 
 <div class="step-1">
 
-<div class="wpbdp-note"><p>
+<p class="howto">
 <?php
 $notice = _x( 'Please note that the export process is a resource intensive task. If your export does not succeed try disabling other plugins first and/or increasing the values of the \'memory_limit\' and \'max_execution_time\' directives in your server\'s php.ini configuration file.',
     'admin csv-export',
@@ -23,7 +23,6 @@ $notice );
 echo $notice;
 ?>
 </p>
-</div>
 
 <!--<h3><?php _ex( 'Export Configuration', 'admin csv-export', 'business-directory-plugin' ); ?></h3>-->
 <form id="wpbdp-csv-export-form" action="" method="POST">

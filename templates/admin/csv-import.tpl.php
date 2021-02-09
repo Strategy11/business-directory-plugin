@@ -20,8 +20,9 @@ function _defaults_or( $defs, $key, $val ) {
 ?>
 <div class="wpbdp-page-csv-import wpbdp-clearfix">
 
-<div class="wpbdp-note">
-<p>
+<?php WPBDP_Admin_Education::show_tip( 'migrator' ); ?>
+
+<p class="howto">
 <?php
 _ex( 'Here, you can import data into your directory using the CSV format.',
      'admin csv-import',
@@ -34,8 +35,8 @@ echo str_replace(
     _x( 'We strongly recommend reading our <a>CSV import documentation</a> first to help you do things in the right order.',
         'admin csv-import',
         'business-directory-plugin' ) );
-?></p>
-</div>
+?>
+</p>
 
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="do-import" />

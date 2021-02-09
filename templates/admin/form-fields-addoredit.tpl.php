@@ -12,6 +12,7 @@ wpbdp_admin_header(
 );
 
 wpbdp_admin_notices();
+
 ?>
 
 <form id="wpbdp-formfield-form" action="" method="post">
@@ -52,12 +53,10 @@ wpbdp_admin_notices();
                     <label> <?php _ex( 'Field Type', 'form-fields admin', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
-                    <?php if ( 'custom' === $field->get_association() ) : ?>
-                    <select name="field[field_type]" id="field-type">
+					<select name="field[field_type]" id="field-type">
+						<?php if ( 'custom' === $field->get_association() ) : ?>
                         <option value="<?php echo $field->get_field_type_id(); ?>"><?php echo $field->get_field_type()->get_name(); ?></option>
-                    </select>
-                    <?php else : ?>
-                    <select name="field[field_type]" id="field-type">
+						<?php else : ?>
                         <?php foreach ( $field_types as $key => &$field_type ) : ?>
                             <?php if ( ! in_array( $field->get_association(), $field_type->get_supported_associations() ) ) : ?>
                             <option value="<?php echo $key; ?>" disabled="disabled"><?php echo $field_type->get_name(); ?></option>
@@ -65,8 +64,9 @@ wpbdp_admin_notices();
                             <option value="<?php echo $key; ?>" <?php echo $field->get_field_type() == $field_type ? 'selected="true"' : ''; ?>><?php echo $field_type->get_name(); ?></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
-                    </select>
-                    <?php endif; ?>
+						<?php endif; ?>
+					</select>
+					<?php WPBDP_Admin_Education::show_tip( 'ratings' ); ?>
                 </td>
             </tr>
 

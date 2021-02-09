@@ -13,6 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	    )
 	);
 
+	$modules = wpbdp()->modules->get_modules();
+	if ( count( $modules ) > 1 && ! isset( $modules['premium'] ) ) {
+		// Has a module, but not Premium.
+		WPBDP_Admin_Education::show_tip( 'install-premium' );
+	}
+
 	?>
 	<div class="wrap">
 
