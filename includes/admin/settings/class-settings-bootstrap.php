@@ -18,7 +18,7 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ) );
 
-        wpbdp_register_settings_group( 'modules', _x( 'Premium Modules', 'settings', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'modules', __( 'Module Settings', 'business-directory-plugin' ) );
 
 		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ) );
     }
@@ -854,6 +854,8 @@ final class WPBDP__Settings__Bootstrap {
 				'desc'    => __( 'This is used for form buttons and form rootline.', 'business-directory-plugin' ),
 			)
 		);
+
+		WPBDP_Admin_Education::add_tip_in_settings( 'table', 'themes' );
 
         // Image.
         wpbdp_register_settings_group( 'appearance/image', __( 'Images', 'business-directory-plugin' ), 'appearance' );

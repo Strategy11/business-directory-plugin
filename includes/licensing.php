@@ -48,10 +48,30 @@ class WPBDP_Licensing {
 	 * @since x.x
 	 */
 	private function get_license_errors() {
-		if ( $this->licenses_errors === 0 ) {
-			$this->licenses_errors = get_option( 'wpbdp_licenses_errors' );
+		if ( $this->licenses_errors !== 0 ) {
+			return $this->licenses_errors;
 		}
+
+		$pro_id = 'module-' . $this->premium_id();
+		$pro    = isset( $this->licenses[ $pro_id ] );
+
+		$errors = get_option( 'wpbdp_licenses_errors' );
+		if ( $pro && isset( $errors[ $pro_id ] ) ) {
+			// Remove any other plugin errors since only the main one helps.
+			$errors = array(
+				$pro_id => $errors[ $pro_id ],
+			);
+		}
+
+		$this->licenses_errors = $errors;
 		return $this->licenses_errors;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function premium_id() {
+		return 'business-directory-premium';
 	}
 
 	/**
@@ -175,7 +195,7 @@ class WPBDP_Licensing {
         }
 
         if ( $modules ) {
-            wpbdp_register_settings_group( 'licenses/modules', _x( 'Premium Modules', 'settings', 'business-directory-plugin' ), 'licenses/main' );
+            wpbdp_register_settings_group( 'licenses/modules', __( 'Modules', 'business-directory-plugin' ), 'licenses/main' );
 
             foreach ( $modules as $module ) {
                 wpbdp_register_setting(
@@ -242,7 +262,7 @@ class WPBDP_Licensing {
 			$license_status    = 'not-verified';
 			$tooltip_msg       = sprintf(
 				/* translators: %s: item type. */
-				__( '%s will not get updates until license is verified.', 'business-directory-plugin' ),
+				__( '%s will not get updates until license is reauthorized.', 'business-directory-plugin' ),
 				ucwords( $item_type )
 			);
 		}
@@ -264,8 +284,8 @@ class WPBDP_Licensing {
 		$html  = '';
 		$html .= '<div class="wpbdp-license-key-activation-ui wpbdp-license-status-' . esc_attr( $atts['status'] ) . '" data-licensing="' . esc_attr( $licensing_info_attr ) . '">';
 		$html .= '<input type="text" id="' . esc_attr( $atts['setting'] ) . '" class="wpbdp-license-key-input" name="wpbdp_settings[' . esc_attr( $atts['setting'] ) . ']" value="' . esc_attr( $value ) . '" ' . ( 'valid' === $atts['status'] ? 'readonly="readonly"' : '' ) . ' placeholder="' . esc_attr__( 'Enter License Key here', 'business-directory-plugin' ) . '"/>';
-		$html .= '<input type="button" value="' . esc_attr__( 'Activate', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
-		$html .= '<input type="button" value="' . esc_attr( _x( 'Deactivate', 'settings', 'business-directory-plugin' ) ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
+		$html .= '<input type="button" value="' . esc_attr__( 'Authorize', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
+		$html .= '<input type="button" value="' . esc_attr( _x( 'Deauthorize', 'settings', 'business-directory-plugin' ) ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
 		if ( $tooltip_msg ) {
 			$html .= '<span class="wpbdp-setting-description">' . esc_html( $tooltip_msg ) . '</span>';
 		}
@@ -367,16 +387,19 @@ class WPBDP_Licensing {
             return new WP_Error( 'invalid-module', esc_html__( 'Invalid item ID', 'business-directory-plugin' ), $module );
         }
 
+		$key = 0;
         if ( 'deactivate' === $action ) {
             unset( $this->licenses[ $item_type . '-' . $item_id ] );
             update_option( 'wpbdp_licenses', $this->licenses );
-        }
+			$key = wpbdp_get_var( array( 'param' => 'license_key' ), 'post' );
+		}
+		if ( ! $key ) {
+			$key = wpbdp_get_option( 'license-key-' . $item_type . '-' . $item_id );
+		}
 
-        $key = wpbdp_get_option( 'license-key-' . $item_type . '-' . $item_id );
-
-        if ( ! $key ) {
-            return new WP_Error( 'no-license-provided', esc_html__( 'No license key provided', 'business-directory-plugin' ) );
-        }
+		if ( ! $key ) {
+			return new WP_Error( 'no-license-provided', esc_html__( 'No license key provided', 'business-directory-plugin' ) );
+		}
 
         $request = array(
             'edd_action' => $action . '_license',
@@ -615,10 +638,9 @@ class WPBDP_Licensing {
         global $pagenow;
 
 		$page = wpbdp_get_var( array( 'param' => 'page' ) );
-		$tab  = wpbdp_get_var( array( 'param' => 'tab' ) );
 
-		$is_license_tab = in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) && 'wpbdp_settings' === $page && 'licenses' === $tab;
-		if ( $is_license_tab ) {
+		$is_settings = in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) && 'wpbdp_settings' === $page;
+		if ( $is_settings ) {
             return;
         }
 
@@ -655,8 +677,7 @@ class WPBDP_Licensing {
 		}
 
 		$nonce  = wp_create_nonce( 'dismiss notice ' . $notice_id );
-		$class  = 'wpbdp-notice notice notice-'. $type;
-		$class .= ' is-dismissible';
+		$class  = 'wpbdp-notice notice notice-error wpbdp-error is-dismissible';
 
 		?>
 		<div id="wpbdp-licensing-issues-warning" class="<?php echo esc_attr( $class ); ?>" data-dismissible-id="<?php echo esc_attr( $notice_id ); ?>" data-nonce="<?php echo esc_attr( $nonce ); ?>">
@@ -681,7 +702,7 @@ class WPBDP_Licensing {
 	 */
 	private function license_notice( $type ) {
 		$messages = $this->license_notices();
-		return isset( $type ) ? $messages[ $type ] : '';
+		return isset( $messages[ $type ] ) ? $messages[ $type ] : '';
 	}
 
 	/**
@@ -748,33 +769,59 @@ class WPBDP_Licensing {
 		$this->licenses_errors = array();
 		$this->save_license_errors();
 
-		foreach ( $this->items as $item_id => $item ) {
-            $item_key = $item['item_type'] . '-' . $item['id'];
-            $key      = wpbdp_get_option( 'license-key-' . $item_key );
+		$pro_id  = $this->premium_id();
+		$pro_key = wpbdp_get_option( 'license-key-module-' . $pro_id );
 
-            if ( ! $key ) {
-                $licenses[ $item_key ] = array(
-                    'status'       => 'invalid',
-                    'last_checked' => time(),
-                );
-                continue;
-            }
+		if ( isset( $this->items[ $pro_id ] ) ) {
+			// Check Premium first.
+			$this->check_single_license( $this->items[ $pro_id ], $pro_key, $licenses );
+		}
 
-			$response = $this->license_action( $item['item_type'], $item['id'], 'check' );
-
-            if ( is_wp_error( $response ) ) {
-				$licenses[ $item_key ]             = $this->licenses[ $item_key ];
-				$this->licenses_errors[ $item_id ] = $response->get_error_message();
-                continue;
+		foreach ( $this->items as $item ) {
+			if ( $item['id'] !== 'premium' ) {
+				$this->check_single_license( $item, $pro_key, $licenses );
 			}
-
-			$licenses[ $item_key ] = $response;
         }
 
 		$this->save_license_errors();
 
         return $licenses;
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function check_single_license( $item, $pro_key, &$licenses ) {
+		$item_key = $item['item_type'] . '-' . $item['id'];
+		$key      = wpbdp_get_option( 'license-key-' . $item_key );
+
+		if ( ! $key && ! $pro_key ) {
+			$licenses[ $item_key ] = array(
+				'status'       => 'invalid',
+				'last_checked' => time(),
+			);
+			return;
+		}
+
+		$pro_id      = $this->premium_id();
+		$should_skip = $pro_key && ( $pro_key === $key || ! $key ) && $item['id'] !== $pro_id && isset( $licenses[ 'module-' . $pro_id ] );
+		$should_skip = apply_filters( 'wpbdp_skip_license_check', $should_skip, $item );
+		if ( $should_skip ) {
+			// Only check premium license once.
+			$licenses[ $item_key ] = $licenses[ 'module-' . $pro_id ];
+			return;
+		}
+
+		$response = $this->license_action( $item['item_type'], $item['id'], 'check' );
+
+		if ( is_wp_error( $response ) ) {
+			$licenses[ $item_key ]             = $this->licenses[ $item_key ];
+			$this->licenses_errors[ $item['id'] ] = $response->get_error_message();
+			return;
+		}
+
+		$licenses[ $item_key ] = $response;
+	}
 
     public function ajax_activate_license() {
 		$nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );

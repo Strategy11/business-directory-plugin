@@ -26,7 +26,7 @@ class WPBDP_Admin_Education {
         wpbdp_register_setting(
             array(
                 'id'      => $id,
-				'desc'    => esc_html( $tip['tip'] ) . $cta,
+				'desc'    => wp_kses_post( $tip['tip'] ) . $cta,
                 'type'    => 'education',
                 'group'   => $group,
             )
@@ -42,7 +42,7 @@ class WPBDP_Admin_Education {
 			return;
 		}
 
-		$message = esc_html( $tip['tip'] );
+		$message = wp_kses_post( $tip['tip'] );
 		$message .= '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">';
 		$message .= esc_html( $tip['cta'] );
 		$message .= '</a>';
@@ -75,12 +75,10 @@ class WPBDP_Admin_Education {
 			'abc'     => array(
 				'requires' => 'premium',
 				'tip'      => 'Add ABC filtering to get listings by the first letter.',
-				'cta'      => 'Upgrade Now.',
 			),
 			'abandon' => array(
 				'requires' => 'premium',
 				'tip'      => 'Want to ask users to come back for abandoned payments?',
-				'cta'      => 'Upgrade Now.',
 			),
 			'maps'    => array(
 				'requires' => 'googlemaps',
@@ -90,12 +88,10 @@ class WPBDP_Admin_Education {
 			'ratings' => array(
 				'requires' => 'ratings',
 				'tip'      => 'Add more value to listings with visitors reviews and ratings.',
-				'cta'      => 'Upgrade Now.',
 			),
 			'attachments' => array(
 				'requires' => 'attachments',
 				'tip'      => 'Want to allow file uploads with listing submissions?',
-				'cta'      => 'Upgrade Now.',
 			),
 			'discounts' => array(
 				'requires' => 'discount-codes',
@@ -105,13 +101,16 @@ class WPBDP_Admin_Education {
 			'migrator'  => array(
 				'requires' => 'migrate',
 				'tip'      => 'Need to export, backup, or move your directory settings and listings?',
-				'cta'      => 'Upgrade Now.',
 			),
 			'install-premium'  => array(
 				'requires' => 'premium',
 				'tip'      => 'Install modules with one click, get table listings, abandonment emails, and more.',
-				'link'     => wpbdp_admin_upgrade_link( $id, '/account/downloads/' ),
+				'link'     => wpbdp_admin_upgrade_link( 'install-modules', '/account/downloads/' ),
 				'cta'      => 'Download Now.',
+			),
+			'table'    => array(
+				'requires' => 'premium',
+				'tip'      => '<span style="max-width:70%;text-align:center"><img src="https://s3.amazonaws.com/bd-docs/pro/directory-layout-setting.png" style="max-width:100%;display:block;" alt="Directory listing layout setting" /> Show listings in a grid or table.</span>',
 			),
 		);
 		// TODO: Show maps and attachments.
@@ -131,7 +130,7 @@ class WPBDP_Admin_Education {
 			$tip['link'] = wpbdp_admin_upgrade_link( $id );
 		}
 		if ( empty( $tip['cta'] ) ) {
-			$tip['cta'] = 'Upgrade to Premium';
+			$tip['cta'] = 'Upgrade Now.';
 		}
 
 		$has_premium = self::is_installed( 'premium' );
