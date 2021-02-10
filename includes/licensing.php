@@ -53,14 +53,18 @@ class WPBDP_Licensing {
 		}
 
 		$pro_id = 'module-' . $this->premium_id();
-		$pro    = isset( $this->licenses[ $pro_id ] );
+		$pro    = ! empty( $this->modules_array( true ) );
 
 		$errors = get_option( 'wpbdp_licenses_errors' );
-		if ( $pro && isset( $errors[ $pro_id ] ) ) {
+		if ( $pro ) {
 			// Remove any other plugin errors since only the main one helps.
-			$errors = array(
-				$pro_id => $errors[ $pro_id ],
-			);
+			if ( isset( $errors[ $pro_id ] ) ) {
+				$errors = array(
+					$pro_id => $errors[ $pro_id ],
+				);
+			} else {
+				$errors = array();
+			}
 		}
 
 		$this->licenses_errors = $errors;
@@ -93,17 +97,43 @@ class WPBDP_Licensing {
 			return;
 		}
 
-		$modules = wp_list_filter( $this->items, array( 'item_type' => 'module' ) );
+		$modules = $this->modules_array( true );
 		if ( ! $modules ) {
 			return;
 		}
 
+		$errors = $this->get_license_errors();
+		if ( empty( $errors ) ) {
+			return;
+		}
+
 		foreach ( $modules as $module_id => $module ) {
-			$errors = $this->get_license_errors();
 			if ( isset( $errors[ $module_id ] ) ) {
 				add_action( 'after_plugin_row_' . plugin_basename( $module['file'] ), array( &$this, 'show_validation_notice_under_plugin' ), 10, 3 );
 			}
 		}
+	}
+
+	/**
+	 * @since 5.10
+	 */
+	private function modules_array( $pro_only = false ) {
+		$modules = wp_list_filter( $this->items, array( 'item_type' => 'module' ) );
+		if ( ! $pro_only || ! $modules ) {
+			return $modules;
+		}
+
+		$pro_id = $this->premium_id();
+		if ( isset( $modules[ $pro_id ] ) ) {
+			// Only check Premium if it's available.
+			$modules = array(
+				$pro_id => $modules[ $pro_id ],
+			);
+		} else {
+			$modules = array();
+		}
+
+		return $modules;
 	}
 
 	/**
@@ -168,7 +198,7 @@ class WPBDP_Licensing {
     }
 
     public function register_settings() {
-        $modules = wp_list_filter( $this->items, array( 'item_type' => 'module' ) );
+		$modules = $this->modules_array();
         $themes  = wp_list_filter( $this->items, array( 'item_type' => 'theme' ) );
 
         wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ) );
@@ -993,7 +1023,7 @@ class WPBDP_Licensing {
             return $transient;
         }
 
-        $modules = wp_list_filter( $this->items, array( 'item_type' => 'module' ) );
+		$modules = $this->modules_array();
 
         foreach ( $modules as $module ) {
             $license_status = $this->get_license_status( '', $module['id'], $module['item_type'] );

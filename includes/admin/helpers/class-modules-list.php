@@ -209,17 +209,28 @@ class WPBDP_Show_Modules {
 			return WPBDP_Addons::show_conditional_action_button( $atts );
 		}
 
-		self::addon_upgrade_link( $atts['addon'], $atts['upgrade_link'] );
+		if ( ! empty( $atts['addon']['status']['type'] ) && $atts['addon']['status']['type'] === 'installed' ) {
+			self::addon_activate_link( $atts['addon'] );
+		} else {
+			self::addon_upgrade_link( $atts['addon'], $atts['upgrade_link'] );
+		}
+	}
+
+	/**
+	 * @since 5.10
+	 */
+	public static function addon_activate_link( $addon ) {
+		?>
+		<a rel="<?php echo esc_attr( $addon['plugin'] ); ?>" class="button button-primary wpbdp-activate-addon <?php echo esc_attr( empty( $addon['activate_url'] ) ? 'wpbdp_hidden' : '' ); ?>">
+			<?php esc_html_e( 'Activate', 'wpbdp-pro' ); ?>
+		</a>
+		<?php
 	}
 
 	/**
 	 * @since 5.10
 	 */
 	public static function addon_upgrade_link( $addon, $upgrade_link ) {
-		if ( $addon ) {
-			$upgrade_link .= '&utm_content=' . $addon['slug'];
-		}
-
 		?>
 		<a class="install-now button button-primary" href="<?php echo esc_url( $upgrade_link ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'Upgrade Now', 'business-directory-plugin' ); ?>">
 			<?php esc_html_e( 'Upgrade Now', 'business-directory-plugin' ); ?>
