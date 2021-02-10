@@ -45,7 +45,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function get_license_errors() {
 		if ( $this->licenses_errors !== 0 ) {
@@ -68,14 +68,14 @@ class WPBDP_Licensing {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public function premium_id() {
 		return 'business-directory-premium';
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function register_dismissable() {
 		$notices = array_keys( $this->license_notices() );
@@ -85,7 +85,7 @@ class WPBDP_Licensing {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public function add_modules_hooks() {
 		global $pagenow;
@@ -107,7 +107,7 @@ class WPBDP_Licensing {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public function show_validation_notice_under_plugin( $plugin_file, $plugin_data ) {
 		?>
@@ -458,14 +458,14 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function save_license_errors() {
 		update_option( 'wpbdp_licenses_errors', $this->licenses_errors, 'no' );
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function process_license_response( $response, $item_type, $item_id, $key ) {
 		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
@@ -493,7 +493,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function revoked_license_error() {
 		$message  = '<strong>' . esc_html__( 'The license key was revoked.', 'business-directory-plugin' ) . '</strong>';
@@ -546,7 +546,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function curl_missing_error() {
 		$message  = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. cURL was not found in your system", 'licensing', 'business-directory-plugin' ) . '</strong>';
@@ -560,7 +560,7 @@ class WPBDP_Licensing {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function curl_connection_error( $error_number, $error_message ) {
 		$message  = '<strong>' . __( 'It was not possible to establish a connection with the Business Directory server. The connection failed with the following error:', 'business-directory-plugin' ) . '</strong>';
@@ -573,7 +573,7 @@ class WPBDP_Licensing {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function ssl_curl_error( $error_number, $error_message ) {
 		$message = '<strong>' . __( 'It was not possible to establish a connection with the Business Directory server. A problem occurred in the SSL/TSL handshake:', 'business-directory-plugin' ) . '</strong>';
@@ -618,7 +618,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function unauthorized_message() {
 		$message  = '<strong>' . _x( 'The server returned a 403 Forbidden error.', 'licensing', 'business-directory-plugin' ) . '</strong>';
@@ -667,7 +667,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function show_notice( $notice_id, $content = '' ) {
 		$transient_key = 'wpbdp-notice-dismissed-' . $notice_id . '-' . get_current_user_id();
@@ -698,7 +698,7 @@ class WPBDP_Licensing {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function license_notice( $type ) {
 		$messages = $this->license_notices();
@@ -706,7 +706,7 @@ class WPBDP_Licensing {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function license_notices() {
 		return array(
@@ -734,7 +734,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public function dismiss_notification() {
 		$nonce  = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
@@ -789,7 +789,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function check_single_license( $item, $pro_key, &$licenses ) {
 		$item_key = $item['item_type'] . '-' . $item['id'];

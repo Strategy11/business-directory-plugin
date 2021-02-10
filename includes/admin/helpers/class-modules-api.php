@@ -10,7 +10,7 @@ class WPBDP_Modules_API {
 	protected $cache_timeout = '+6 hours';
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public function __construct( $license = null ) {
 		$this->set_license( $license );
@@ -18,7 +18,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function set_license( $license ) {
 		if ( $license === null ) {
@@ -31,7 +31,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 * @return string
 	 */
 	public function get_license() {
@@ -39,14 +39,14 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected function set_cache_key() {
 		$this->cache_key = 'wpbdp_addons_l' . ( empty( $this->license ) ? '' : md5( $this->license ) );
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 * @return string
 	 */
 	public function get_cache_key() {
@@ -54,7 +54,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 * @return array
 	 */
 	public function get_api_info() {
@@ -105,21 +105,21 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected function api_url() {
 		return 'https://businessdirectoryplugin.com/wp-json/s11edd/v1/updates/';
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected function skip_categories() {
 		return array();
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public function get_pro_license() {
 		$license = wpbdp_get_option( 'license-key-module-business-directory-premium' );
@@ -131,7 +131,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 * @return array
 	 */
 	protected function get_cached() {
@@ -152,7 +152,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected function set_cached( $addons ) {
 		$data = array(
@@ -165,14 +165,14 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public function reset_cached() {
 		delete_option( $this->cache_key );
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 * @return array
 	 */
 	public function error_for_license() {
@@ -185,7 +185,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 * @return array
 	 */
 	public function get_error_from_response( $addons = array() ) {

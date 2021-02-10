@@ -34,7 +34,7 @@ class WPBDP_Admin_Education {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public static function show_tip( $id ) {
 		$tip = self::get_tip( $id );
@@ -51,7 +51,7 @@ class WPBDP_Admin_Education {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public static function show_tip_message( $message ) {
 		?>

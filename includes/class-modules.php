@@ -30,7 +30,7 @@ class WPBDP__Modules {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public function get_modules() {
 		return $this->modules;

@@ -292,7 +292,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Show "Complete Listing" instead of "Continue to Payment" if the selected plan is free.
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function set_skip_plan_payment() {
 		$this->skip_plan_payment = true;
@@ -627,7 +627,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * If there are no categories and only one plan, skip page 1.
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 *
 	 * @return bool
 	 */
@@ -855,7 +855,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 *
 	 * @return false|int - False if multiple categories.
 	 */
@@ -1377,7 +1377,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Get the plan that has been selected, or the default if there is only one.
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 *
 	 * @return null|object
 	 */
@@ -1389,7 +1389,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * If there's only one plan, get it.
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 *
 	 * @return null|object
 	 */
@@ -1404,7 +1404,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function set_available_plans() {
 		$this->available_plans = array();
@@ -1423,7 +1423,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * If a plan is selected, return it. If not, return all.
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 */
 	private function get_selected_or_available_plans() {
 		$all_plans = $this->get_available_plans();

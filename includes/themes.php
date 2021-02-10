@@ -412,9 +412,6 @@ class WPBDP_Themes {
             array( 'template_variables', 'array', array() ),
             array( 'suggested_fields', 'array', array() ),
             array( 'thumbnails', 'array', array() ),
-		/*
-		            array( 'assets/css', 'array/string', array() ),
-            array( 'assets/js', 'array/string', array() )*/
         );
 
         $info = new StdClass();

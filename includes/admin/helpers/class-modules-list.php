@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @since x.x
+ * @since 5.10
  */
 class WPBDP_Show_Modules {
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public static function list_addons() {
 		$license_type     = '';
@@ -29,7 +29,7 @@ class WPBDP_Show_Modules {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected static function get_api_addons() {
 		include_once dirname( __FILE__ ) . '/class-modules-api.php';
@@ -52,7 +52,7 @@ class WPBDP_Show_Modules {
 	/**
 	 * If the API is unable to connect, show something on the addons page
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 * @return array
 	 */
 	protected static function fallback_plugin_list() {
@@ -137,7 +137,7 @@ class WPBDP_Show_Modules {
 	/**
 	 * Check if a plugin is installed before showing an update for it
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 *
 	 * @param string $plugin - the folder/filename.php for a plugin
 	 *
@@ -154,7 +154,7 @@ class WPBDP_Show_Modules {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected static function prepare_addon_link( &$link ) {
 		$site_url = 'https://businessdirectoryplugin.com/';
@@ -173,7 +173,7 @@ class WPBDP_Show_Modules {
 	 * Add the status to the addon array. Status options are:
 	 * installed, active, not installed
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected static function set_addon_status( &$addon ) {
 		if ( ! empty( $addon['activate_url'] ) ) {
@@ -197,7 +197,7 @@ class WPBDP_Show_Modules {
 	/**
 	 * Render a conditional action button for an add on
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 *
 	 * @param array $addon
 	 * @param string|false $license_type
@@ -213,7 +213,7 @@ class WPBDP_Show_Modules {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.10
 	 */
 	public static function addon_upgrade_link( $addon, $upgrade_link ) {
 		if ( $addon ) {

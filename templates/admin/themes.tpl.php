@@ -5,7 +5,6 @@ wpbdp_admin_header(
         'buttons' => array(
             __( 'Upload Directory Theme', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ) ),
             __( 'Manage Theme Tags', 'business-directory-plugin' )      => esc_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
-            __( 'Settings', 'business-directory-plugin' )               => esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=appearance&subtab=themes' ) ),
         ),
 		'sidebar' => false,
         'echo'    => true,

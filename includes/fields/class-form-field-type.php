@@ -276,7 +276,7 @@ class WPBDP_Form_Field_Type {
 	/**
 	 * If the input is a hidden field, don't show the field label.
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected function strip_label_for_hidden( $field_inner, &$html ) {
 		if ( strpos( $field_inner, '<input type="hidden"' ) === 0 && substr_count( $field_inner, '<input ' ) === 1 ) {

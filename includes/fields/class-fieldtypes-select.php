@@ -237,7 +237,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 	/**
 	 * If only one category, use a hidden field.
 	 *
-	 * @since x.x
+	 * @since 5.10
 	 */
 	protected function add_hidden_field( $args ) {
 		$value = $args['selected'];

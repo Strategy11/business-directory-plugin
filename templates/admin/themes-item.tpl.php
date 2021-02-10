@@ -22,12 +22,10 @@
         <div class="wpbdp-theme-details-wrapper">
             <?php if ( $theme->thumbnail ): ?>
                 <a href="<?php echo esc_url( $theme->thumbnail ); ?>" title="<?php echo esc_attr( $theme->name ); ?>" class="thickbox" rel="wpbdp-theme-<?php echo esc_attr( $theme->id ); ?>-gallery"><img src="<?php echo esc_url( $theme->thumbnail ); ?>" class="wpbdp-theme-thumbnail" /></a>
-                <!-- Other images -->
-                <?php foreach ( $theme->thumbnails as $imgpath => $title ): ?>
-                    <a href="<?php echo esc_url( $theme->url . $imgpath ); ?>" class="thickbox" title="<?php echo esc_attr( $title ); ?>" class="thickbox" rel="wpbdp-theme-<?php echo esc_attr( $theme->id ); ?>-gallery" style="display: none;"></a>
-                <?php endforeach; ?>
             <?php else: ?>
-            <div class="wpbdp-theme-thumbnail"></div>
+            <div class="wpbdp-theme-thumbnail">
+            	<p><?php echo esc_html( $theme->description ); ?></p>
+            </div>
             <?php endif; ?>
 
         </div>
