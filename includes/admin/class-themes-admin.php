@@ -395,14 +395,15 @@ class WPBDP_Themes_Admin {
     // Theme update process. {{
 
     public function _update_theme() {
-		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
-        if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'update theme ' . $_REQUEST['theme'] ) ) {
+		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
+		$theme_id = wpbdp_get_var( array( 'param' => 'theme' ), 'request' );
+
+		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'update theme ' . $theme_id ) ) {
             die();
         }
 
         $response = array( 'success' => false );
 
-        $theme_id = $_REQUEST['theme'];
         $theme    = $this->api->get_theme( $theme_id );
 
         if ( ! $theme ) {

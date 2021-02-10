@@ -1,7 +1,7 @@
 <div id="wpbdmentry">
-    <div id="lco">
-          <?php wpbdp_the_main_links(); ?>
-          <?php wpbdp_the_search_form(); ?>
+	<div id="lco">
+		<?php wpbdp_the_main_links(); ?>
+		<?php wpbdp_the_search_form(); ?>
 	</div>
 
 	<div id="wpbusdirmancats">

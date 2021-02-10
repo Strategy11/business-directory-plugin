@@ -75,9 +75,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function ajax_add_note() {
-        $payment_id = absint( $_POST['payment_id'] );
+		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ), 'post' );
         $payment    = WPBDP_Payment::objects()->get( $payment_id );
-        $text       = trim( $_POST['note'] );
+		$text       = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ), 'post' ) );
 
         $res = new WPBDP_Ajax_Response();
 
@@ -103,8 +103,8 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function ajax_delete_note() {
-        $payment_id = absint( $_GET['payment_id'] );
-        $note_key   = trim( $_GET['note'] );
+		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ) );
+		$note_key   = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ) ) );
 
         $res = new WPBDP_Ajax_Response();
 

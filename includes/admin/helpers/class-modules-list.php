@@ -222,7 +222,7 @@ class WPBDP_Show_Modules {
 	public static function addon_activate_link( $addon ) {
 		?>
 		<a rel="<?php echo esc_attr( $addon['plugin'] ); ?>" class="button button-primary wpbdp-activate-addon <?php echo esc_attr( empty( $addon['activate_url'] ) ? 'wpbdp_hidden' : '' ); ?>">
-			<?php esc_html_e( 'Activate', 'wpbdp-pro' ); ?>
+			<?php esc_html_e( 'Activate', 'business-directory-plugin' ); ?>
 		</a>
 		<?php
 	}
