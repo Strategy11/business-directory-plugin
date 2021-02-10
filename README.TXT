@@ -162,7 +162,7 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
-= 5.9.3 =
+= 5.10 =
 * New: Skip page 1 of listing form is there's only one plan and one category.
 * New: If there's only one category, hide the dropdown in the listing form.
 * New: Move the list of modules from the sidebar to a separate page.
