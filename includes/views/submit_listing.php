@@ -896,8 +896,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	private function new_listing_plan( $categories ) {
 		if ( $this->skip_plan_selection && ! $this->category_specific_fields ) {
 			$plan_id = $this->fixed_plan_id;
+			if ( ! $plan_id ) {
+				$this->single_plan();
+				$plan_id = $this->fixed_plan_id;
+			}
 
-			if ( ! $this->listing->get_fee_plan() ) {
+			if ( $plan_id && ! $this->listing->get_fee_plan() ) {
 				$this->listing->set_fee_plan( $plan_id );
 			}
 

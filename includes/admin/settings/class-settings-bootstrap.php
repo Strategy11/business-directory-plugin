@@ -24,8 +24,6 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     public static function register_initial_settings() {
-		require_once WPBDP_INC . 'admin/class-education.php';
-
         self::settings_general();
         self::settings_listings();
         self::settings_email();
