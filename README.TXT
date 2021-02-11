@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 5.10
+Stable tag: 5.10.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -162,6 +162,10 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= 5.10.1 =
+* Fix: When a single plan is available without payments, there was an error that the plan wasn't selected.
+* Fix: Some sites were showing an error on the fees admin page that a file was missing.
+
 = 5.10 =
 * New: Skip page 1 of listing form is there's only one plan and one category.
 * New: If there's only one category, hide the dropdown in the listing form.
@@ -212,24 +216,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: Compatibility with new WP 2021 theme, showing 'Untitled' for the heading.
 * Fix: Renewal reminders weren't always being sent for listings that expire at the end of the month if they were set to send a month or two ahead.
 * Code: Can get a field by shortname instead of only id.
-
-= 5.8.3 =
-* Switch heading on single listing in default theme from h2 to h1
-* Update file upload script and remove a bunch of unneeded files from the package
-* Added wpbdp_hidden_field_settings hook to hide options in the field settings
-* Fix: Pages in the listing form for some add-ons weren't being rendered correctly
-* Fix: Only strip images from textareas fields that include the option to allow them
-
-= 5.8.2 =
-* New: Only load select2 assets when needed to start reducing http requests
-* New: Only load admin js/css on BD pages
-* New: Addded wpbdp_contact_form_output hook for replacing the contact form
-* Combine a few listing pages (terms + recaptcha, images + attachments)
-* Fix: Strip HTML from textareas when the options to allow WYSIWYG, HTML, and iframe settings are all off
-* Fix: Allow iframes in textarea fields when the setting is on
-* Fix: Prevent reCaptcha issues by keeping it on the last page of the form
-* Fix: Some combinations of fee/category settings were causing the category dropdown to stay disabled on new listing form
-* Fix: Error showing on some sites with only one fee plan when creating a new listing
-* Merge more duplicate strings to reduce the number of translations needed
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
