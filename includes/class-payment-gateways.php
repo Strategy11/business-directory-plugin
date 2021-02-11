@@ -38,10 +38,7 @@ class WPBDP__Payment_Gateways {
     }
 
     public function _execute_listener() {
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-        $get         = wp_unslash( $_GET );
-        $listener_id = ! empty( $get['wpbdp-listener'] ) ? $get['wpbdp-listener'] : '';
-
+		$listener_id = wpbdp_get_var( array( 'param' => 'wpbdp-listener' ) );
         if ( ! $listener_id ) {
             return;
         }
