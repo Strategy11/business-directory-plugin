@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-02-10 17:08:59+00:00\n"
+"POT-Creation-Date: 2021-02-10 21:18:02+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -122,7 +122,7 @@ msgid "Form Fields"
 msgstr "champ de formulaires"
 
 #: includes/admin/class-admin.php:339 includes/admin/class-admin.php:340
-#: includes/licensing.php:198
+#: includes/licensing.php:228
 #, fuzzy
 msgid "Modules"
 msgstr "Tous les (modules installés)"
@@ -390,8 +390,15 @@ msgstr "Actif"
 msgid "Not Installed"
 msgstr "Non installé"
 
-#: includes/admin/helpers/class-modules-list.php:224
-#: includes/admin/helpers/class-modules-list.php:225 includes/licensing.php:246
+#: includes/admin/helpers/class-modules-list.php:225
+#: includes/controllers/class-smtp.php:317
+#: templates/admin/themes-item.tpl.php:53
+#, fuzzy
+msgid "Activate"
+msgstr "Activer"
+
+#: includes/admin/helpers/class-modules-list.php:235
+#: includes/admin/helpers/class-modules-list.php:236 includes/licensing.php:276
 #, fuzzy
 msgid "Upgrade Now"
 msgstr "Mettre à jour vers %s"
@@ -1107,12 +1114,6 @@ msgstr ""
 msgid "Activate WP Mail SMTP"
 msgstr ""
 
-#: includes/controllers/class-smtp.php:317
-#: templates/admin/themes-item.tpl.php:53
-#, fuzzy
-msgid "Activate"
-msgstr "Activer"
-
 #: includes/controllers/class-smtp.php:336
 #, fuzzy
 msgid "Start Setup"
@@ -1421,72 +1422,72 @@ msgid ""
 msgstr ""
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:121
+#: includes/licensing.php:151
 msgid ""
 "The license key could not be verified. Please %1$scheck your license%2$s to "
 "get updates."
 msgstr ""
 
-#: includes/licensing.php:174 includes/licensing.php:177
+#: includes/licensing.php:204 includes/licensing.php:207
 msgid "Licenses"
 msgstr "Licences"
 
-#: includes/licensing.php:244
+#: includes/licensing.php:274
 msgid "Build more powerful directories"
 msgstr ""
 
-#: includes/licensing.php:245
+#: includes/licensing.php:275
 msgid ""
 "Add category images, maps, filter by location, payment gateways, and more."
 msgstr ""
 
-#: includes/licensing.php:247
+#: includes/licensing.php:277
 #, fuzzy
 msgid "Already purchased?"
 msgstr "Déjà installé."
 
 #. translators: %s: item type.
-#: includes/licensing.php:265
+#: includes/licensing.php:295
 msgid "%s will not get updates until license is reauthorized."
 msgstr ""
 
-#: includes/licensing.php:286
+#: includes/licensing.php:316
 #, fuzzy
 msgid "Enter License Key here"
 msgstr "Entrer la clé de licence"
 
-#: includes/licensing.php:287
+#: includes/licensing.php:317
 #, fuzzy
 msgid "Authorize"
 msgstr "Activer Authorize.net"
 
-#: includes/licensing.php:387
+#: includes/licensing.php:417
 #, fuzzy
 msgid "Invalid item ID"
 msgstr "ID d'élément non valide"
 
-#: includes/licensing.php:401
+#: includes/licensing.php:431
 #, fuzzy
 msgid "No license key provided"
 msgstr "Aucune clé de licence fournie"
 
-#: includes/licensing.php:450 includes/licensing.php:487
+#: includes/licensing.php:480 includes/licensing.php:517
 #, fuzzy
 msgid "License key is invalid"
 msgstr "La clé de licence est invalide"
 
-#: includes/licensing.php:454
+#: includes/licensing.php:484
 #, fuzzy
 msgid "Deactivation failed"
 msgstr "La désactivation a échoué"
 
-#: includes/licensing.php:499
+#: includes/licensing.php:529
 #, fuzzy
 msgid "The license key was revoked."
 msgstr "Aucune clé de licence fournie"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:503
+#: includes/licensing.php:533
 #, fuzzy
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory support"
@@ -1499,7 +1500,7 @@ msgstr ""
 "technique</support-link> et demandez-leur d'ajouter votre adresse IP <ip-"
 "address> à la liste blanche."
 
-#: includes/licensing.php:566
+#: includes/licensing.php:596
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -1508,7 +1509,7 @@ msgstr ""
 "Il n'a pas été possible d'établir une connexion avec le serveur de Business "
 "Directory. La connexion a échoué avec l'erreur suivante:"
 
-#: includes/licensing.php:579
+#: includes/licensing.php:609
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -1518,7 +1519,7 @@ msgstr ""
 "Directory. Un problème est survenu lors de l'établissement de liaison SSL / "
 "TLS:"
 
-#: includes/licensing.php:626
+#: includes/licensing.php:656
 #, fuzzy
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
@@ -1529,31 +1530,31 @@ msgstr ""
 "aux serveurs de Business Directory. Contactez le support technique et "
 "demandez-leur d'ajouter votre adresse IP <ip-address> à la liste blanche."
 
-#: includes/licensing.php:713
+#: includes/licensing.php:743
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Clé de licence expirée"
 
-#: includes/licensing.php:714
+#: includes/licensing.php:744
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Clé de licence expirée"
 
-#: includes/licensing.php:715
+#: includes/licensing.php:745
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Aider à améliorer Business Directory"
 
-#: includes/licensing.php:726
+#: includes/licensing.php:756
 #, fuzzy
 msgid "Review license keys"
 msgstr "Renouveller la clé de licence"
 
-#: includes/licensing.php:839
+#: includes/licensing.php:869
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:844
+#: includes/licensing.php:874
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "S'il vous plaît entrer une clé de licence."
@@ -4070,13 +4071,13 @@ msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr "Activer votre <a>numéro de licence</a> pour utiliser ce thème."
 
-#: includes/admin/class-themes-admin.php:409
+#: includes/admin/class-themes-admin.php:410
 #, fuzzy
 msgctxt "themes"
 msgid "Invalid theme ID"
 msgstr "ID d'élément non valide"
 
-#: includes/admin/class-themes-admin.php:415
+#: includes/admin/class-themes-admin.php:416
 #: includes/admin/upgrades/class-themes-updater.php:169
 msgctxt "themes"
 msgid "Could not update theme: %s"
@@ -6774,17 +6775,17 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "L'élément \"%s\" est déjà utilisé pour une autre taxinomie."
 
-#: includes/licensing.php:216
+#: includes/licensing.php:246
 msgctxt "settings"
 msgid "Themes"
 msgstr "Thèmes"
 
-#: includes/licensing.php:287 includes/licensing.php:288
+#: includes/licensing.php:317 includes/licensing.php:318
 msgctxt "settings"
 msgid "Please wait..."
 msgstr "Veuillez attendre..."
 
-#: includes/licensing.php:288
+#: includes/licensing.php:318
 #, fuzzy
 msgctxt "settings"
 msgid "Deauthorize"
@@ -8190,12 +8191,12 @@ msgctxt "default category name"
 msgid "General"
 msgstr "Général"
 
-#: includes/licensing.php:539
+#: includes/licensing.php:569
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Impossible de contacter le serveur de licences"
 
-#: includes/licensing.php:552
+#: includes/licensing.php:582
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8206,7 +8207,7 @@ msgstr ""
 "Directory. Un problème est survenu lors de l'établissement de liaison SSL / "
 "TLS:"
 
-#: includes/licensing.php:554 includes/licensing.php:584
+#: includes/licensing.php:584 includes/licensing.php:614
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8219,7 +8220,7 @@ msgstr ""
 "version d'OpenSSL qui supporte TLSv1.2 (la version minimale avec le support "
 "est OpenSSL 1.0.1c)."
 
-#: includes/licensing.php:556 includes/licensing.php:586
+#: includes/licensing.php:586 includes/licensing.php:616
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8231,7 +8232,7 @@ msgstr ""
 "votre site Web à pouvoir interagir avec les services en utilisant les "
 "dernières normes de sécurité."
 
-#: includes/licensing.php:558
+#: includes/licensing.php:588
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8241,7 +8242,7 @@ msgstr ""
 "Veuillez contacter votre fournisseur d'hébergement et demandez-lui de mettre "
 "à jour votre hébergement. Incluez ce message si nécessaire."
 
-#: includes/licensing.php:588
+#: includes/licensing.php:618
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8251,33 +8252,33 @@ msgstr ""
 "Veuillez contacter votre fournisseur d'hébergement et demandez-lui de mettre "
 "à jour votre hébergement. Incluez ce message si nécessaire."
 
-#: includes/licensing.php:624
+#: includes/licensing.php:654
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Le serveur a renvoyé une erreur 403 Forbidden."
 
-#: includes/licensing.php:855
+#: includes/licensing.php:885
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossible d'activer la licence: %s."
 
-#: includes/licensing.php:859
+#: includes/licensing.php:889
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licence activée"
 
-#: includes/licensing.php:884
+#: includes/licensing.php:914
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossible de désactiver la licence: %s."
 
-#: includes/licensing.php:886
+#: includes/licensing.php:916
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licence désactivée"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1095
+#: includes/licensing.php:1125
 #, fuzzy
 msgctxt "deprecation"
 msgid ""
