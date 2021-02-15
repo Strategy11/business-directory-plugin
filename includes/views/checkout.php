@@ -45,34 +45,14 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     public function dispatch() {
         $this->pre_dispatch();
 
-        if ( $this->is_successful_initial_payment() ) {
-            $args = array(
-                'listing_id' => $this->payment->listing_id,
-            );
-
-            $this->_redirect( add_query_arg( $args, wpbdp_url( 'submit_listing' ) ) );
-        }
-
         if ( ! $this->can_checkout() ) {
             return $this->thank_you_message();
         }
 
-        $action = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
-
-        if ( has_action( 'wpbdp_checkout_before_action' ) ) {
-            // Lightweight object used to pass checkout state to modules.
-            // Eventually, we might want to pass $this directly with a better get/set interface.
-            $checkout          = new StdClass();
-            $checkout->payment = $this->payment;
-            $checkout->gateway = $this->gateway;
-            $checkout->errors  = array();
-
-            do_action( 'wpbdp_checkout_before_action', $checkout );
-
-            $this->errors = array_merge( $this->errors, $checkout->errors );
-        }
+		$this->check_gateway_errors();
 
         if ( ! $this->errors ) {
+			$action = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
             if ( 'do_checkout' == $action ) {
                 $this->do_checkout();
 
@@ -85,10 +65,6 @@ class WPBDP__Views__Checkout extends WPBDP__View {
             } elseif ( 'return' == $action ) {
                 return $this->handle_return_request();
             }
-        }
-
-        if ( ! empty( $_POST ) ) {
-            $_POST = stripslashes_deep( $_POST );
         }
 
         $vars['_bar']                 = false;
@@ -104,21 +80,29 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         return $this->_render_page( 'checkout', $vars );
     }
 
-    private function is_successful_initial_payment() {
-        if ( 'initial' !== $this->payment->payment_type ) {
-            return false;
-        }
-
-        if ( 'completed' !== $this->payment->status ) {
-            return false;
-        }
-
-        return $this->payment->gateway ? true : false;
-    }
-
     private function can_checkout() {
         return ( 'pending' == $this->payment->status && ! $this->payment->gateway );
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function check_gateway_errors() {
+        if ( ! has_action( 'wpbdp_checkout_before_action' ) ) {
+			return;
+		}
+
+		// Lightweight object used to pass checkout state to modules.
+		// Eventually, we might want to pass $this directly with a better get/set interface.
+		$checkout          = new StdClass();
+		$checkout->payment = $this->payment;
+		$checkout->gateway = $this->gateway;
+		$checkout->errors  = array();
+
+		do_action( 'wpbdp_checkout_before_action', $checkout );
+
+		$this->errors = array_merge( $this->errors, $checkout->errors );
+	}
 
     private function pre_dispatch() {
         $this->fetch_payment();
@@ -167,16 +151,14 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
     private function set_current_gateway() {
-        $chosen_gateway = '';
+		$chosen_gateway = wpbdp_get_var( array( 'param' => 'gateway' ), 'request' );
 
-        if ( ! empty( $_REQUEST['gateway'] ) ) {
-            $chosen_gateway = wpbdp_get_var( array( 'param' => 'gateway' ), 'request' );
-        } elseif ( $this->payment->gateway ) {
-            $chosen_gateway = $this->payment->gateway;
-        } else {
-            $gateway_ids    = array_keys( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $this->payment->currency_code ) ) );
-            $chosen_gateway = array_shift( $gateway_ids );
-        }
+		if ( ! $chosen_gateway && $this->payment->gateway ) {
+			$chosen_gateway = $this->payment->gateway;
+		} elseif ( ! $chosen_gateway ) {
+			$gateway_ids    = array_keys( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $this->payment->currency_code ) ) );
+			$chosen_gateway = array_shift( $gateway_ids );
+		}
 
         if ( ! wpbdp()->payment_gateways->can_use( $chosen_gateway ) ) {
             wp_die( _x( 'Invalid gateway selected.', 'checkout', 'business-directory-plugin' ) );

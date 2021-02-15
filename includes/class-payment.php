@@ -241,8 +241,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	 * @return string
 	 */
 	public function get_gateway_link() {
-		global $wpbdp;
-		$gateway = $wpbdp->payment_gateways->get( $this->gateway );
+		$gateway = wpbdp()->payment_gateways->get( $this->gateway );
 		$link    = '';
 		if ( $gateway ) {
 			$link = $gateway->get_payment_link( $this );

@@ -84,7 +84,8 @@ class WPBDP__Listing_Subscription {
                 array(
                     'amount'        => '0.0',
                     'gateway_tx_id' => '',
-                    'gateway'       => ''
+                    'gateway'       => '',
+					// TODO: accept 'created_at' and 'mode' (live/test).
                 )
             );
 
