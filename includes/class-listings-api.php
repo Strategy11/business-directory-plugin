@@ -41,7 +41,12 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
             $listing->set_status( 'complete' );
 
             if ( 'initial' === $payment->payment_type ) {
-                $listing->set_post_status( wpbdp_get_option( 'new-post-status' ) );
+				$new_status = wpbdp_get_option( 'new-post-status' );
+				if ( $new_status !== 'publish' && $payment->amount > 0 ) {
+					// If this was a paid listing, mark as published.
+					$new_status = 'publish';
+				}
+				$listing->set_post_status( $new_status );
             }
         }
 
