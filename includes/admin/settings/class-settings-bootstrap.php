@@ -1211,7 +1211,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'           => 'payment-message',
                 'type'         => 'textarea',
                 'name'         => _x( 'Thank you for payment message', 'settings', 'business-directory-plugin' ),
-                'default'      => _x( 'Thank you for your payment. Your payment is being verified and your listing reviewed. The verification and review process could take up to 48 hours.', 'admin settings', 'business-directory-plugin' ),
+                'default'      => __( 'Thank you for your payment.', 'business-directory-plugin' ),
                 'group'        => 'payment/main',
                 'requirements' => array( 'payments-on' ),
             )
