@@ -73,8 +73,8 @@ class WPBDP_SMTP_Controller {
 	 * Customize the upgrade link.
 	 */
 	public function link( $link ) {
-		$new_link = 'formidableforms.com/go-wp-mail-smtp/?urllink=wpmailsmtp%2Ecom%2Flite%2Dupgrade&';
-		$link     = str_replace( 'wpmailsmtp.com/lite-upgrade/?', $new_link, $link );
+		$new_link = 'businessdirectoryplugin.com/go/wp-mail-smtp-upgrade/';
+		$link     = str_replace( 'wpmailsmtp.com/lite-upgrade/', $new_link, $link );
 		return $link;
 	}
 
