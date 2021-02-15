@@ -10,13 +10,24 @@ wpbdp_admin_header(
             __( '← Return to "Payment History"', 'business-directory-plugin' ) => admin_url( 'admin.php?page=wpbdp_admin_payments' )
         ),
         'echo'    => true,
+		'sidebar' => false,
     )
 );
 
 wpbdp_admin_notices();
+
+if ( ! $payment->id ) {
+	?>
+	<h2><?php esc_html_e( 'Payment Not Found', 'business-directory-plugin' ); ?></h2>
+	<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ); ?>">
+		<?php esc_html_e( '← Return to "Payment History"', 'business-directory-plugin' ); ?>
+	</a>
+	<?php
+	wpbdp_admin_footer( 'echo' );
+	return;
+}
 ?>
 
-<?php if ( $payment->id ) : ?>
 <form action="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_update' ) ); ?>" method="post">
     <input type="hidden" name="payment[id]" value="<?php echo esc_attr( $payment->id ); ?>" />
 
@@ -24,7 +35,7 @@ wpbdp_admin_notices();
         <div id="post-body" class="metabox-holder columns-2">
 
             <div id="postbox-container-1" class="postbox-container">
-                <!-- Basic details. {{ -->
+
                 <div class="meta-box-sortables">
                     <div id="wpbdp-admin-payment-info-box" class="postbox">
                         <h2 class="hndle"><span><?php esc_html_e( 'Overview', 'business-directory-plugin' ); ?></span></h2>
@@ -63,6 +74,15 @@ wpbdp_admin_notices();
                                     <?php /* translators: Gateway: (Not yet set) */ ?>
                                     <?php echo esc_html( $payment->gateway ? $payment->gateway : __( '(Not yet set)', 'business-directory-plugin' ) ); ?>
                                 </div>
+								<?php if ( $payment->gateway_tx_id && $payment->get_gateway_link() ) { ?>
+									<div class="wpbdp-admin-box-row">
+										<label><?php esc_html_e( 'Payment ID', 'business-directory-plugin' ); ?></label>
+										<a href="<?php echo esc_url( $payment->get_gateway_link() ); ?>">
+											<?php echo esc_html( $payment->gateway_tx_id ); ?>
+										</a>
+									</div>
+								<?php } ?>
+
                             </div>
                         </div>
                         <div id="major-publishing-actions">
@@ -74,7 +94,6 @@ wpbdp_admin_notices();
                         </div>
                     </div>
                 </div>
-                <!-- }} -->
 
             </div>
 
@@ -200,10 +219,5 @@ wpbdp_admin_notices();
     </div>
 
 </form>
-<?php else : ?>
-    <h1><?php esc_html_e( 'Payment Not Found', 'business-directory-plugin' ); ?></h1>
-    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ); ?>">
-        <?php esc_html_e( '← Return to "Payment History"', 'business-directory-plugin' ); ?>
-    </a>
-<?php endif; ?>
+
 <?php wpbdp_admin_footer( 'echo' ); ?>

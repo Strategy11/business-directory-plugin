@@ -12,6 +12,8 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
     private $old_status = '';
 
+	private $listing = array();
+
     protected function get_defaults() {
         return array(
             'parent_id'     => 0,
@@ -22,6 +24,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             'currency_code' => wpbdp_get_option( 'currency', 'USD' ),
             'amount'        => 0.0,
             'data'          => array(),
+			'test'          => false,
         );
     }
 
@@ -111,7 +114,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     }
 
     public function get_listing() {
-        return WPBDP_Listing::get( $this->listing_id );
+		if ( empty( $this->listing ) ) {
+			$this->listing = WPBDP_Listing::get( $this->listing_id );
+		}
+		return $this->listing;
     }
 
     public function get_summary() {
@@ -227,6 +233,23 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         return 'pending' == $this->status;
     }
 
+	/**
+	 * The link to view the payment at the gateway.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public function get_gateway_link() {
+		global $wpbdp;
+		$gateway = $wpbdp->payment_gateways->get( $this->gateway );
+		$link    = '';
+		if ( $gateway ) {
+			$link = $gateway->get_payment_link( $this );
+		}
+		return $link;
+	}
+
     public function get_admin_url() {
         return admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $this->id );
     }
@@ -246,6 +269,11 @@ class WPBDP_Payment extends WPBDP__DB__Model {
             'action'   => 'return',
             '_wpnonce' => wp_create_nonce( 'wpbdp-checkout-' . $this->id ),
         );
+
+		if ( $this->gateway ) {
+			// Set the correct gateway if leaving to complete the payment.
+			$params['gateway'] = $this->gateway;
+		}
 
         return add_query_arg( $params, $this->get_checkout_url() );
     }
