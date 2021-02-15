@@ -65,24 +65,24 @@ class WPBDP_PaymentsAPI {
     </div>
     <div class="wpbdp-payment-receipt-details">
         <dl>
-            <?php if ( $payment->gateway ): ?>
-            <dt><?php _ex( 'Gateway:', 'payments', 'business-directory-plugin' ); ?></dt>
-            <dd><?php echo $payment->gateway; ?></dd>
-            <dt><?php _ex( 'Gateway Transaction ID:', 'payments', 'business-directory-plugin' ); ?></dt>
-            <dd><?php echo $payment->gateway_tx_id ? $payment->gateway_tx_id : '—'; ?></dd>
-            <?php endif; ?>
-            <dt><?php _ex( 'Bill To:', 'payments', 'business-directory-plugin' ); ?></dt>
-            <dd>
-                <?php
-                $bill_to  = '';
+            <?php if ( $payment->gateway && $payment->gateway_tx_id ) { ?>
+            <dt><?php esc_html_e( 'Gateway Transaction ID:', 'business-directory-plugin' ); ?></dt>
+            <dd><?php echo esc_html( $payment->gateway . ' ' . $payment->gateway_tx_id ); ?></dd>
+			<?php } ?>
+			<?php
+			$bill_to  = '';
 
-                $bill_to .= ( $payment->payer_first_name || $payment->payer_last_name ) ? $payment->payer_first_name . ' ' . $payment->payer_last_name : $current_user->display_name;
-                $bill_to .= $payment->payer_data ? '<br />' . implode( '<br />', $payment->get_payer_address() ) : '';
-                $bill_to .= '<br />';
-                $bill_to .= $payment->payer_email ? $payment->payer_email : sprintf( '<%s>', $current_user->user_email );
-                echo $bill_to;
-                ?>
-            </dd>
+			$bill_to .= ( $payment->payer_first_name || $payment->payer_last_name ) ? $payment->payer_first_name . ' ' . $payment->payer_last_name : $current_user->display_name;
+			$bill_to .= $payment->payer_data ? '<br />' . implode( '<br />', $payment->get_payer_address() ) : '';
+			$bill_to .= '<br />';
+			$bill_to .= $payment->payer_email ? $payment->payer_email : $current_user->user_email;
+			if ( ! empty( str_replace( '<br />', '', $bill_to ) ) ) {
+				?>
+				<dt><?php esc_html_e( 'Bill To:', 'business-directory-plugin' ); ?></dt>
+				<dd><?php echo $bill_to; ?></dd>
+				<?php
+			}
+			?>
         </dl>
     </div>
 
