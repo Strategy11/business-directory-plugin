@@ -716,8 +716,7 @@ class WPBDP_Form_Field {
             $this->id = intval( $wpdb->insert_id );
         }
 
-        wp_cache_delete( $this->id, 'wpbdp formfields' );
-		WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
+		$this->clear_field_cache();
     }
 
     /**
@@ -748,8 +747,7 @@ class WPBDP_Form_Field {
         if ( $wpdb->query( $wpdb->prepare( "DELETE FROM  {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $this->id ) ) !== false ) {
             $this->type->cleanup( $this );
 
-            wp_cache_delete( $this->id, 'wpbdp formfields' );
-			WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
+			$this->clear_field_cache();
 
             $this->id = 0;
         } else {
@@ -758,6 +756,15 @@ class WPBDP_Form_Field {
 
         return true;
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function clear_field_cache() {
+		wp_cache_delete( $this->id, 'wpbdp_form_fields' );
+		wp_cache_delete( 'all', 'wpbdp_form_fields' );
+		WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
+	}
 
     /**
      * Reorders this field within the list of fields.
@@ -962,37 +969,26 @@ class WPBDP_Form_Field {
      * @return WPBDP_FormField a valid WPBDP_FormField if the record exists or null if not.
      */
     public static function get( $id ) {
-        global $wpdb;
-
-        if ( ! $id ) {
-            return null;
-        }
 
 		if ( is_numeric( $id ) ) {
 			$id = absint( $id );
 		}
 
-        $_field = wp_cache_get( $id, 'wpbdp formfields' );
+		if ( ! $id ) {
+			return null;
+		}
 
-        if ( ! $_field ) {
-			if ( is_numeric( $id ) ) {
-            	$_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id ) );
-			} else {
-				$_field = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s", $id ) );
-			}
+		$_field = self::get_cached_field( $id );
 
-            if ( ! $_field ) {
-                return null;
-            }
+		if ( ! $_field ) {
+			return null;
+		}
 
-            $_field = (array) $_field;
+		$_field = (array) $_field;
 
-            $_field['display_flags'] = explode( ',', $_field['display_flags'] );
-            $_field['validators']    = explode( ',', $_field['validators'] );
-            $_field['field_data']    = unserialize( $_field['field_data'] );
-
-            wp_cache_set( $id, $_field, 'wpbdp formfields' );
-        }
+		$_field['display_flags'] = explode( ',', $_field['display_flags'] );
+		$_field['validators']    = explode( ',', $_field['validators'] );
+		$_field['field_data']    = unserialize( $_field['field_data'] );
 
         try {
             return new WPBDP_Form_Field( $_field );
@@ -1000,6 +996,50 @@ class WPBDP_Form_Field {
             return null;
         }
     }
+
+	/**
+	 * @since x.x
+	 */
+	private static function get_cached_field( $id ) {
+		global $wpdb;
+
+		$all_fields = self::get_all_fields();
+
+		if ( $all_fields && isset( $all_fields[ $id ] ) ) {
+			return $all_fields[ $id ];
+		}
+
+		if ( is_numeric( $id ) ) {
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE id = %d", $id );
+		} else {
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields WHERE shortname = %s", $id );
+		}
+
+		return WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => $id,
+				'group'     => 'wpbdp_form_fields',
+				'query'     => $sql,
+				'type'      => 'get_row',
+			)
+		);
+	}
+
+	/**
+	 * Reduce database calls by getting all fields at once.
+	 *
+	 * @since x.x
+	 */
+	private static function get_all_fields() {
+		return WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'all',
+				'group'     => 'wpbdp_form_fields',
+				'type'      => 'all',
+				'query'     => array( 'id', 'shortname' ),
+			)
+		);
+	}
 
     public static function find_by_tag( $tag ) {
         global $wpdb;

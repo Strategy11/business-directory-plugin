@@ -124,6 +124,10 @@ class WPBDP__Utils {
 
 		if ( 'get_posts' === $type ) {
 			$results = get_posts( $query );
+		} elseif ( 'get_post' === $type ) {
+			$results = get_post( $query );
+		} elseif ( 'all' === $type ) {
+			$results = self::get_all_ids( $args );
 		} elseif ( 'get_associative_results' === $type ) {
 			global $wpdb;
 			$results = $wpdb->get_results( $query, OBJECT_K ); // WPCS: unprepared SQL ok.
@@ -139,6 +143,41 @@ class WPBDP__Utils {
 		self::set_cache( $args['cache_key'], $results, $args['group'], $args['time'] );
 
 		return $results;
+	}
+
+	/**
+	 * Reduce database calls by getting all rows at once.
+	 *
+	 * @since x.x
+	 */
+	private static function get_all_ids( $args ) {
+		global $wpdb;
+
+		$table = $args['group'];
+		$keys  = $args['query'];
+		if ( empty( $keys ) ) {
+			$keys = array( 'id' );
+		}
+
+		$query = 'SELECT * FROM ' . $wpdb->prefix . $table;
+		if ( $args['return'] === 'array' ) {
+			$results = $wpdb->get_results( $query, ARRAY_A );
+		} else {
+			$results = $wpdb->get_results( $query );
+		}
+
+		if ( ! $results ) {
+			return array();
+		}
+
+		$all_rows = array();
+		foreach ( $results as $row ) {
+			foreach ( $keys as $key ) {
+				$all_rows[ $row->$key ] = $row;
+			}
+		}
+
+		return $all_rows;
 	}
 
 	/**

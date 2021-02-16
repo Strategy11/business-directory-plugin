@@ -11,7 +11,10 @@ final class WPBDP {
 
 
     public function __construct() {
-        $this->_db_version = get_option( 'wpbdp-db-version', get_option( 'wpbusdirman_db_version', null ) );
+		$this->_db_version = get_option( 'wpbdp-db-version', null );
+		if ( $this->_db_version === null ) {
+			$this->_db_version = get_option( 'wpbusdirman_db_version', null );
+		}
         $this->setup_constants();
         $this->includes();
         $this->hooks();
@@ -270,7 +273,7 @@ final class WPBDP {
             return;
         }
 
-        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp formfields', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
+        wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
     }
 
     private function load_textdomain() {

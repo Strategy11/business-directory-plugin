@@ -20,6 +20,8 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     // values, only new values are updated leaving everything as before.
     global $wpdb;
 
+	WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
+
     $args = apply_filters( 'wpbdp_save_listing_args', $args, $error, $context );
 
     $listing                = array();

@@ -45,11 +45,18 @@ class WPBDP_Listing {
 			'fields'      => 'ids',
 		);
 
-		$get_ids = 'id' === $fields || 'ids' === $fields;
-
+		$attachments = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => __FUNCTION__ . $fields . '.' . $sorted . ' .' . $this->id,
+				'group'     => 'wpbdp_listings',
+				'query'     => $q,
+				'type'      => 'get_posts',
+			)
+		);
 		$images = get_post_meta( $this->id, '_wpbdp[images]', true );
-		$images = array_merge( is_array( $images ) ? $images : array( $images ), get_posts( $q ) );
+		$images = array_merge( is_array( $images ) ? $images : array( $images ), (array) $attachments );
 
+		$get_ids = 'id' === $fields || 'ids' === $fields;
 		$result = array();
         foreach ( array_unique( $images ) as $attachment_id ) {
             $attachment = get_post( $attachment_id );
@@ -94,8 +101,10 @@ class WPBDP_Listing {
         $meta = array();
 
         foreach ( $images as $img_id ) {
-            $meta[ $img_id ] = array( 'order' => (int) get_post_meta( $img_id, '_wpbdp_image_weight', true ),
-                                      'caption' => strval( get_post_meta( $img_id, '_wpbdp_image_caption', true ) ) );
+			$meta[ $img_id ] = array(
+				'order'   => (int) get_post_meta( $img_id, '_wpbdp_image_weight', true ),
+				'caption' => strval( get_post_meta( $img_id, '_wpbdp_image_caption', true ) )
+			);
         }
 
         return $meta;
@@ -116,8 +125,11 @@ class WPBDP_Listing {
             }
         }
 
-        foreach ( $images as $image_id )
-            wp_update_post( array( 'ID' => $image_id, 'post_parent' => $this->id ) );
+		foreach ( $images as $image_id ) {
+			wp_update_post( array( 'ID' => $image_id, 'post_parent' => $this->id ) );
+		}
+
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
     }
 
 	public function set_thumbnail_id( $image_id ) {
@@ -158,7 +170,14 @@ class WPBDP_Listing {
 
         $this->set_thumbnail_id( $images[0] );
 
-        return get_post( $images[0] );
+		return WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => __FUNCTION__ . $this->id,
+				'group'     => 'wpbdp_listings',
+				'query'     => $images[0],
+				'type'      => 'get_post',
+			)
+		);
     }
 
 	/**
@@ -580,7 +599,15 @@ class WPBDP_Listing {
     public function get_fee_plan() {
         global $wpdb;
 
-        $res = $wpdb->get_row( $wpdb->prepare( "SELECT listing_id, fee_id, fee_price, fee_days, fee_images, expiration_date, is_recurring, is_sticky FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d LIMIT 1", $this->id ) );
+		$sql = $wpdb->prepare( "SELECT listing_id, fee_id, fee_price, fee_days, fee_images, expiration_date, is_recurring, is_sticky FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d LIMIT 1", $this->id );
+		$res = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'listing_fee_plan' . $this->id,
+				'group'     => 'wpbdp_listings',
+				'query'     => $sql,
+				'type'      => 'get_row',
+			)
+		);
 		if ( ! $res ) {
 			return false;
 		}
@@ -668,6 +695,7 @@ class WPBDP_Listing {
             $row['recurring_data'] = maybe_serialize( $row['recurring_data'] );
         }
 
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
         return $wpdb->replace( "{$wpdb->prefix}wpbdp_listings", $row );
     }
 
@@ -676,6 +704,8 @@ class WPBDP_Listing {
      */
     public function set_fee_plan( $fee, $recurring_data = array() ) {
         global $wpdb;
+
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
 
         if ( is_null( $fee ) ) {
             $wpdb->delete( $wpdb->prefix . 'wpbdp_listings', array( 'listing_id' => $this->id ) );

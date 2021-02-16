@@ -194,12 +194,28 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
             global $wpdb;
 
             if ( $lightweight ) {
-                $results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC" );
+				$sql     = "SELECT * FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC";
+				$results = WPBDP_Utils::check_cache(
+					array(
+						'cache_key' => 'get_fields_light',
+						'group'     => 'wpbdp_form_fields',
+						'query'     => $sql,
+						'type'      => 'get_results',
+					)
+				);
                 return $results;
             }
 
             $res       = array();
-            $field_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC" );
+			$sql       = "SELECT ID FROM {$wpdb->prefix}wpbdp_form_fields ORDER BY weight DESC";
+			$field_ids = WPBDP_Utils::check_cache(
+				array(
+					'cache_key' => 'get_field_ids',
+					'group'     => 'wpbdp_form_fields',
+					'query'     => $sql,
+					'type'      => 'get_col',
+				)
+			);
 
             foreach ( $field_ids as $field_id ) {
 				$field = WPBDP_Form_Field::get( $field_id );

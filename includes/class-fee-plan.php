@@ -214,16 +214,29 @@ final class WPBDP__Fee_Plan {
     public static function get_instance( $fee_id ) {
         global $wpdb;
 
-		$query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $fee_id );
-		$row = WPBDP_Utils::check_cache(
+		$all_plans = WPBDP_Utils::check_cache(
 			array(
-				'cache_key' => $fee_id,
+				'cache_key' => 'all',
 				'group'     => 'wpbdp_plans',
-				'query'     => $query,
-				'type'      => 'get_row',
+				'type'      => 'all',
 				'return'    => 'array',
 			)
 		);
+
+		if ( $all_plans && isset( $all_plans[ $fee_id ] ) ) {
+			$row = $all_plans[ $fee_id ];
+		} else {
+			$query = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $fee_id );
+			$row = WPBDP_Utils::check_cache(
+				array(
+					'cache_key' => $fee_id,
+					'group'     => 'wpbdp_plans',
+					'query'     => $query,
+					'type'      => 'get_row',
+					'return'    => 'array',
+				)
+			);
+		}
 
         if ( ! $row ) {
             return false;
