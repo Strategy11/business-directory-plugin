@@ -177,9 +177,34 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         foreach ( (array) $this->payer_data as $k => $v ) {
             $data[ $k ] = $v;
         }
+		$this->fill_from_listing( $data );
 
         return $data;
     }
+
+	/**
+	 * If the payer is empty, get info from the listing.
+	 *
+	 * @since x.x
+	 */
+	private function fill_from_listing( &$data ) {
+		$this->get_listing();
+		$map = array(
+			'email'   => array( 'email', 'business_contact_email' ),
+			'country' => array( 'country' ),
+			'state'   => array( 'state' ),
+			'city'    => array( 'city' ),
+			'zip'     => array( 'zip_code', 'zip' ),
+		);
+
+		foreach ( $map as $key => $fields ) {
+			foreach ( $fields as $field ) {
+				if ( empty( $data[ $key ] ) ) {
+					$data[ $key ] = $this->listing->get_field_value( $field );
+				}
+			}
+		}
+	}
 
     public function get_payer_address() {
         $address = array();

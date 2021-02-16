@@ -22,6 +22,9 @@ class WPBDP_Listing {
             $field = wpbdp_get_form_field( $id );
         } else {
             $field = wpbdp_get_form_fields( array( 'association' => $id, 'unique' => true ) );
+			if ( ! $field ) {
+				$field = wpbdp_get_form_field( $id );
+			}
         }
 
         return $field ? $field->html_value( $this->id ) : '';
@@ -381,7 +384,6 @@ class WPBDP_Listing {
         return true;
 
     }
-
 
     public function publish() {
         if ( ! $this->id )
