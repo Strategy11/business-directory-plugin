@@ -314,28 +314,8 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        $too_many_fields  = '<span class="text-fields-warning wpbdp-note" style="display: none;">';
-        $too_many_fields .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'business-directory-plugin' );
-        $too_many_fields .= '</span>';
+        self::register_quick_search();
 
-        list( $fields, $text_fields, $default_fields ) = self::get_quicksearch_fields();
-        $no_fields                                     = '<p><strong>' . _x( 'If no fields are selected, the following fields will be used in Quick Searches:', 'admin settings', 'business-directory-plugin' ) . ' ' . implode( ', ', $default_fields ) . '.</strong></p>';
-
-        wpbdp_register_setting(
-            array(
-                'id'       => 'quick-search-fields',
-                'type'     => 'multicheck',
-                'name'     => _x( 'Quick search fields', 'settings', 'business-directory-plugin' ),
-                'desc'     => _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'business-directory-plugin' ) . $no_fields . $too_many_fields,
-                'default'  => array(),
-                'multiple' => true,
-                'options'  => $fields,
-                'group'    => 'search_settings',
-                'attrs'    => array(
-                    'data-text-fields' => wp_json_encode( $text_fields ),
-                ),
-            )
-        );
         wpbdp_register_setting(
             array(
                 'id'    => 'quick-search-enable-performance-tricks',
@@ -390,6 +370,51 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
     }
+
+	/**
+	 * @since x.x
+	 */
+	private static function register_quick_search() {
+		$fields         = array();
+		$text_fields    = array();
+		$default_fields = array();
+		if ( is_admin() ) {
+			list( $fields, $text_fields, $default_fields ) = self::get_quicksearch_fields();
+		}
+
+		wpbdp_register_setting(
+			array(
+				'id'       => 'quick-search-fields',
+				'type'     => 'multicheck',
+				'name'     => _x( 'Quick search fields', 'settings', 'business-directory-plugin' ),
+				'desc'     => self::quicksearch_field_desc( $default_fields ),
+				'default'  => array(),
+				'multiple' => true,
+				'options'  => $fields,
+				'group'    => 'search_settings',
+				'attrs'    => array(
+					'data-text-fields' => wp_json_encode( $text_fields ),
+				),
+			)
+		);
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private static function quicksearch_field_desc( $default_fields ) {
+		if ( ! is_admin() ) {
+			return '';
+		}
+
+		$too_many_fields  = '<span class="text-fields-warning wpbdp-note" style="display: none;">';
+		$too_many_fields .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'business-directory-plugin' );
+		$too_many_fields .= '</span>';
+
+		$no_fields = '<p><strong>' . _x( 'If no fields are selected, the following fields will be used in Quick Searches:', 'admin settings', 'business-directory-plugin' ) . ' ' . implode( ', ', $default_fields ) . '.</strong></p>';
+
+		return _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'business-directory-plugin' ) . $no_fields . $too_many_fields;
+	}
 
     /**
      * Find fields that can be used in Quick Search.
@@ -548,7 +573,7 @@ final class WPBDP__Settings__Bootstrap {
                 'type'    => 'radio',
                 'name'    => _x( 'Include comment form on listing pages?', 'settings', 'business-directory-plugin' ),
                 'desc'    => __( 'Business Directory Plugin uses the standard WordPress comments. Most themes allow for comments on posts, not pages. Some themes handle both. Since the directory is displayed on a page, we need a theme that can handle both. Use the 2nd option if you want to allow comments on listings. If that doesn\'t work, try the 3rd option.', 'business-directory-plugin' ),
-                'default' => get_option( 'wpbdp-show-comment-form', false ) ? 'allow-comments-and-insert-template' : 'do-not-allow-comments',
+                'default' => 'allow-comments-and-insert-template',
                 'options' => array(
                     'do-not-allow-comments'              => _x( 'Do not include comments in listings', 'admin settings', 'business-directory-plugin' ),
                     'allow-comments'                     => __( 'Include theme comment form (standard option)', 'business-directory-plugin' ),
@@ -768,7 +793,7 @@ final class WPBDP__Settings__Bootstrap {
                 'type'         => 'multicheck',
                 'name'         => _x( 'Sortbar Fields', 'settings', 'business-directory-plugin' ),
                 'default'      => array(),
-                'options'      => wpbdp_sortbar_get_field_options(),
+                'options'      => is_admin() ? wpbdp_sortbar_get_field_options() : array(),
                 'group'        => 'listings/sorting',
                 'requirements' => array( 'listings-sortbar-enabled' ),
             )
@@ -1021,7 +1046,7 @@ final class WPBDP__Settings__Bootstrap {
                 'type'    => 'select',
                 'name'    => _x( 'Default thumbnail image size', 'settings', 'business-directory-plugin' ),
                 'default' => 'wpbdp-thumb',
-                'options' => self::get_registered_image_sizes(),
+                'options' => is_admin() ? self::get_registered_image_sizes() : array(),
                 'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
                 'group'   => 'image/listings',
             )
@@ -1115,23 +1140,6 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        $aed_usupported_gateways = apply_filters( 'wpbdp_aed_not_supported', wpbdp_get_option( 'authorize-net', false ) ? array( 'Authorize.net' ) : array() );
-        $desc                    = '';
-
-        if ( $aed_usupported_gateways ) {
-            $desc = sprintf(
-                /* translators: %1$s: gateway name, %2$s: explanation string */
-                _x( 'AED currency is not supported by %1$s. %2$s', 'admin settings', 'business-directory-plugin' ),
-                '<b>' . implode( ' or ', $aed_usupported_gateways ) . '</b>',
-                _n(
-                    'If you are using this gateway, we recommend you disable it if you wish to collect payments in this currency.',
-                    'If you are using these gateways, we recommend you disable them if you wish to collect payments in this currency.',
-                    count( $aed_usupported_gateways ),
-                    'business-directory-plugin'
-                )
-            );
-        }
-
         wpbdp_register_setting(
             array(
                 'id'           => 'currency',
@@ -1166,7 +1174,7 @@ final class WPBDP__Settings__Bootstrap {
                     'TRY' => _x( 'Turkish Lira (TRY)', 'admin settings', 'business-directory-plugin' ),
                     'USD' => _x( 'U.S. Dollar (USD)', 'admin settings', 'business-directory-plugin' ),
                 ),
-                'desc'         => $desc,
+                'desc'         => self::gateway_description(),
                 'group'        => 'payment/main',
                 'requirements' => array( 'payments-on' ),
             )
@@ -1219,6 +1227,35 @@ final class WPBDP__Settings__Bootstrap {
 
 		self::maybe_show_deprecated();
     }
+
+	/**
+	 * Don't run db calls unless we need it.
+	 *
+	 * @since x.x
+	 */
+	private static function gateway_description() {
+		if ( ! is_admin() ) {
+			return '';
+		}
+
+		$aed_usupported_gateways = apply_filters( 'wpbdp_aed_not_supported', wpbdp_get_option( 'authorize-net', false ) ? array( 'Authorize.net' ) : array() );
+
+		if ( ! $aed_usupported_gateways ) {
+			return '';
+		}
+
+		return sprintf(
+			/* translators: %1$s: gateway name, %2$s: explanation string */
+			_x( 'AED currency is not supported by %1$s. %2$s', 'admin settings', 'business-directory-plugin' ),
+			'<b>' . implode( ' or ', $aed_usupported_gateways ) . '</b>',
+			_n(
+				'If you are using this gateway, we recommend you disable it if you wish to collect payments in this currency.',
+				'If you are using these gateways, we recommend you disable them if you wish to collect payments in this currency.',
+				count( $aed_usupported_gateways ),
+				'business-directory-plugin'
+			)
+		);
+	}
 
 	/**
 	 * @since 5.9.1
