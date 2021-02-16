@@ -79,8 +79,8 @@ var WPBDP_associations_fieldtypes = {};
 
             // URL fields can only have the 'url' validator.
             if ( 'url' == field_type ) {
-                $( 'select#field-validator option' ).not( '[value="url"]' ).attr( 'disabled', 'disabled' ).prop( 'selected', false );
-                $( 'select#field-validator option[value="url"]' ).attr( 'selected', 'selected' );
+                $( 'select#field-validator option' ).not( '[value="url"]' ).prop( 'disabled', true ).prop( 'selected', false );
+                $( 'select#field-validator option[value="url"]' ).prop( 'selected', true );
             } else {
                 $( 'select#field-validator option' ).prop( 'disabled', false );
             }
@@ -157,7 +157,7 @@ var WPBDP_associations_fieldtypes = {};
                 }
             } else {
                 $('#wpbdp_word_count').hide();
-                $('select#field-validator option[value="word_number"]').attr('disabled', 'disabled').prop( 'selected', false );
+                $('select#field-validator option[value="word_number"]').prop( 'disabled', true ).prop( 'selected', false );
             }
         }
     };
