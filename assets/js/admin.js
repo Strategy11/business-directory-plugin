@@ -23,7 +23,7 @@ var WPBDP_associations_fieldtypes = {};
                 if ( $( this ).hasClass( 'yes' ) ) {
                     $( this ).parents( '.iframe-confirm' ).hide();
                 } else {
-                    $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).removeAttr( 'checked' );
+                    $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).prop( 'checked', false );
                     $( this ).parents( '.iframe-confirm' ).hide();
                 }
             })
@@ -79,10 +79,10 @@ var WPBDP_associations_fieldtypes = {};
 
             // URL fields can only have the 'url' validator.
             if ( 'url' == field_type ) {
-                $( 'select#field-validator option' ).not( '[value="url"]' ).attr( 'disabled', 'disabled' ).removeAttr( 'selected' );
+                $( 'select#field-validator option' ).not( '[value="url"]' ).attr( 'disabled', 'disabled' ).prop( 'selected', false );
                 $( 'select#field-validator option[value="url"]' ).attr( 'selected', 'selected' );
             } else {
-                $( 'select#field-validator option' ).removeAttr( 'disabled' );
+                $( 'select#field-validator option' ).prop( 'disabled', false );
             }
 
             // Twitter fields can not have a validator.
@@ -151,13 +151,13 @@ var WPBDP_associations_fieldtypes = {};
             if ('textfield' === field_type || 'textarea' === field_type) {
                 if ( 'word_number' ===  $field_validator.val() ) {
                     $('#wpbdp_word_count').show();
-                    $('select#field-validator option[value="word_number"]').removeAttr('disabled');
+                    $('select#field-validator option[value="word_number"]').prop( 'disabled', false );
                 } else {
                     $('#wpbdp_word_count').hide();
                 }
             } else {
                 $('#wpbdp_word_count').hide();
-                $('select#field-validator option[value="word_number"]').attr('disabled', 'disabled').removeAttr('selected');
+                $('select#field-validator option[value="word_number"]').attr('disabled', 'disabled').prop( 'selected', false );
             }
         }
     };
