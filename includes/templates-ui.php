@@ -86,28 +86,23 @@ function _wpbdp_padded_count( &$term, $return = false ) {
  * @access private
  */
 function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
-    $term_ids = get_terms(
-        WPBDP_CATEGORY_TAX,
-        array(
-            'orderby'    => $args['orderby'],
-            'order'      => $args['order'],
-            'hide_empty' => false,
-            'pad_counts' => empty( $parent ),
-            'parent'     => is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] ),
-            'fields'     => 'ids',
-        )
-    );
+	$terms       = _wpbdp_get_terms_from_args( $args );
+	$terms_array = array();
+	$term_ids    = array();
+	foreach ( $terms as $term ) {
+		$term_ids[] = $term->term_id;
+		$terms_array[ $term->term_id ] = $term;
+	}
+	unset( $terms );
 
     $term_ids = apply_filters( 'wpbdp_category_terms_order', $term_ids );
 
     $terms = array();
     foreach ( $term_ids as $term_id ) {
-        $t = get_term( $term_id, WPBDP_CATEGORY_TAX );
+        $t = $terms_array[ $term_id ];
         // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
         // we need a workaround until the bug is fixed.
-		if ( $parent ) {
-			_wpbdp_padded_count( $t );
-		}
+		_wpbdp_padded_count( $t );
 
         $terms[] = $t;
     }
@@ -136,7 +131,8 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
         }
     }
     foreach ( $terms as &$term ) {
-        $html .= '<li class="cat-item cat-item-' . $term->term_id . ' ' . apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . ' ' . ( $depth > 0 ? 'subcat' : '' ) . '">';
+		$class = apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . ' ' . ( $depth > 0 ? 'subcat' : '' );
+		$html .= '<li class="cat-item cat-item-' . esc_attr( $term->term_id . ' ' . $class ) . '">';
 
         $item_html = '';
         $item_html .= '<a href="' . apply_filters( 'wpbdp_categories_term_link', esc_url( get_term_link( $term ) ) ) . '" ';
@@ -171,6 +167,27 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
     }
 
     return $html;
+}
+
+/**
+ * @since x.x
+ */
+function _wpbdp_get_terms_from_args( $args ) {
+	$term_args = array(
+		'taxonomy'   => WPBDP_CATEGORY_TAX,
+		'orderby'    => $args['orderby'],
+		'order'      => $args['order'],
+		'hide_empty' => false,
+		'fields'     => 'all',
+		'parent'     => intval( $args['parent'] ),
+	);
+
+	if ( empty( $args['parent'] ) ) {
+		$term_args['pad_counts'] = true;
+	} else {
+		$term_args['parent'] = is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] );
+	}
+	return get_terms( $term_args );
 }
 
 /**
