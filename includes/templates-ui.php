@@ -39,7 +39,6 @@ function wpbdp_the_directory_categories() {
  * @since 2.3
  * @access private
  */
-
 function _wpbdp_padded_count( &$term, $return = false ) {
     global $wpdb;
 
@@ -93,7 +92,7 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
             'orderby'    => $args['orderby'],
             'order'      => $args['order'],
             'hide_empty' => false,
-            'pad_counts' => false,
+            'pad_counts' => empty( $parent ),
             'parent'     => is_object( $args['parent'] ) ? $args['parent']->term_id : intval( $args['parent'] ),
             'fields'     => 'ids',
         )
@@ -106,7 +105,9 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
         $t = get_term( $term_id, WPBDP_CATEGORY_TAX );
         // 'pad_counts' doesn't work because of WP bug #15626 (see http://core.trac.wordpress.org/ticket/15626).
         // we need a workaround until the bug is fixed.
-        _wpbdp_padded_count( $t );
+		if ( $parent ) {
+			_wpbdp_padded_count( $t );
+		}
 
         $terms[] = $t;
     }
