@@ -47,23 +47,25 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
         return sprintf(
             '<span class="wpbdp-drag-handle" data-field-id="%s"></span> <a href="%s"><strong>↑</strong></a> | <a href="%s"><strong>↓</strong></a>',
             $field->get_id(),
-            esc_url(
+			wp_nonce_url(
                 add_query_arg(
                     array(
                         'action' => 'fieldup',
                         'id'     => $field->get_id(),
                     ),
                     $form_fields_url
-                )
+				),
+				'movefield'
             ),
-            esc_url(
+			wp_nonce_url(
                 add_query_arg(
                     array(
                         'action' => 'fielddown',
                         'id'     => $field->get_id(),
                     ),
                     $form_fields_url
-                )
+				),
+				'movefield'
             )
         );
     }
@@ -73,29 +75,31 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
         $actions         = array();
         $actions['edit'] = sprintf(
             '<a href="%s">%s</a>',
-            esc_url(
+			wp_nonce_url(
                 add_query_arg(
                     array(
                         'action' => 'editfield',
                         'id'     => $field->get_id(),
                     ),
                     $form_fields_url
-                )
+				),
+				'editfield'
             ),
-            _x( 'Edit', 'form-fields admin', 'business-directory-plugin' )
+			esc_html__( 'Edit', 'business-directory-plugin' )
         );
 
         if ( ! $field->has_behavior_flag( 'no-delete' ) ) {
             $actions['delete'] = sprintf(
                 '<a href="%s">%s</a>',
-                esc_url(
+				wp_nonce_url(
                     add_query_arg(
                         array(
                             'action' => 'deletefield',
                             'id'     => $field->get_id(),
                         ),
                         $form_fields_url
-                    )
+					),
+					'deletefield'
                 ),
                 esc_html__( 'Delete', 'business-directory-plugin' )
             );
@@ -104,14 +108,15 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
         $html  = '';
         $html .= sprintf(
             '<strong><a href="%s">%s</a></strong> (as <i>%s</i>)',
-            esc_url(
+			wp_nonce_url(
                 add_query_arg(
                     array(
                         'action' => 'editfield',
                         'id'     => $field->get_id(),
                     ),
                     $form_fields_url
-                )
+				),
+				'editfield'
             ),
             esc_attr( $field->get_label() ),
             $field->get_association()
@@ -209,16 +214,16 @@ class WPBDP_FormFieldsAdmin {
             }
 
             $message .= '<br />';
-            $message .= __( 'You can create these custom fields inside "Form Fields" or let Business Directory do it for you.', 'business-directory-plugin' );
+			$message .= esc_html__( 'You can create these custom fields inside "Form Fields" or let Business Directory do it for you.', 'business-directory-plugin' );
             $message .= '<br /><br />';
             $message .= sprintf(
                 '<a href="%s">%s</a> | ',
                 esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields' ) ),
-                __( 'Go to "Form Fields"', 'business-directory-plugin' )
+				esc_html__( 'Go to "Form Fields"', 'business-directory-plugin' )
             );
             $message .= sprintf(
                 '<a href="%s">%s</a>',
-                esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=createrequired' ) ),
+				wp_nonce_url( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=createrequired' ), 'createrequired' ),
                 _x( 'Create these required fields for me', 'admin', 'business-directory-plugin' )
             );
 
@@ -233,31 +238,27 @@ class WPBDP_FormFieldsAdmin {
         switch ( $action ) {
             case 'addfield':
             case 'editfield':
-                $this->processFieldForm();
+				$this->process_field_form();
                 break;
             case 'deletefield':
-                $this->deleteField();
+				$this->delete_field();
                 break;
             case 'fieldup':
             case 'fielddown':
-				$field_id = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
-				$field = $this->api->get_field( $field_id );
-				if ( $field ) {
-                    $field->reorder( $action == 'fieldup' ? 1 : -1 );
-                }
-                $this->fieldsTable();
+				$this->move_field();
+				$this->fields_table();
                 break;
             case 'previewform':
-                $this->previewForm();
+				$this->preview_form();
                 break;
             case 'createrequired':
-                $this->createRequiredFields();
+				$this->create_required_fields();
                 break;
             case 'updatetags':
-                $this->update_field_tags();
+				$this->update_field_tags();
                 break;
             default:
-                $this->fieldsTable();
+				$this->fields_table();
                 break;
         }
     }
@@ -299,7 +300,7 @@ class WPBDP_FormFieldsAdmin {
     }
 
     /* preview form */
-    private function previewForm() {
+	private function preview_form() {
         require_once WPBDP_INC . 'views/submit_listing.php';
 
         $html  = '';
@@ -331,7 +332,7 @@ class WPBDP_FormFieldsAdmin {
     }
 
     /* field list */
-    private function fieldsTable() {
+	private function fields_table() {
         $table = new WPBDP_FormFieldsTable();
         $table->prepare_items();
 
@@ -342,25 +343,42 @@ class WPBDP_FormFieldsAdmin {
         );
     }
 
-    private function processFieldForm() {
+	/**
+	 * @since x.x
+	 */
+	private function check_permission( $action ) {
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
+		if ( ! wp_verify_nonce( $nonce, $action ) ) {
+			wp_die( esc_html( 'You are not allowed to do that.', 'business-directory-plugin' ) );
+		}
+	}
+
+	private function process_field_form() {
+		// Check permission.
+		check_admin_referer( 'editfield' );
+
         $api = WPBDP_FormFields::instance();
 
         if ( isset( $_POST['field'] ) ) {
+			$this->check_permission( 'editfield' );
+
             $field = new WPBDP_Form_Field( stripslashes_deep( $_POST['field'] ) );
             $res   = $field->save();
 
             if ( ! is_wp_error( $res ) ) {
                 $this->admin->messages[] = _x( 'Form fields updated.', 'form-fields admin', 'business-directory-plugin' );
-                return $this->fieldsTable();
-            } else {
-                $errmsg = '';
-
-                foreach ( $res->get_error_messages() as $err ) {
-                    $errmsg .= sprintf( '&#149; %s<br />', $err );
-                }
-
-                $this->admin->messages[] = array( $errmsg, 'error' );
+				$this->fields_table();
+				return;
             }
+
+			$errmsg = '';
+
+			foreach ( $res->get_error_messages() as $err ) {
+				$errmsg .= sprintf( '&#149; %s<br />', $err );
+			}
+
+			$this->admin->messages[] = array( $errmsg, 'error' );
+
         } else {
 			$id    = wpbdp_get_var( array( 'param' => 'id' ) );
 			$field = $id ? WPBDP_Form_Field::get( $id ) : new WPBDP_Form_Field( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
@@ -431,7 +449,10 @@ class WPBDP_FormFieldsAdmin {
 		return $hidden;
 	}
 
-    private function deleteField() {
+    private function delete_field() {
+		// Check permission.
+		check_admin_referer( 'deletefield' );
+
         global $wpdb;
 
         $field = WPBDP_Form_Field::get( wpbdp_get_var( array( 'param' => 'id' ), 'request' ) );
@@ -455,7 +476,8 @@ class WPBDP_FormFieldsAdmin {
                 wpbdp_set_option( 'quick-search-fields', $quick_search_fields );
             }
 
-            return $this->fieldsTable();
+			$this->fields_table();
+			return;
         }
 
         wpbdp_render_page(
@@ -465,7 +487,24 @@ class WPBDP_FormFieldsAdmin {
         );
     }
 
-    private function createRequiredFields() {
+	/**
+	 * @since x.x
+	 */
+	private function move_field() {
+		// Check permission.
+		check_admin_referer( 'movefield' );
+
+		$field_id = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
+		$field = $this->api->get_field( $field_id );
+		if ( $field ) {
+			$field->reorder( $action === 'fieldup' ? 1 : -1 );
+		}
+	}
+
+	private function create_required_fields() {
+		// Check permission.
+		check_admin_referer( 'createrequired' );
+
         global $wpbdp;
 
         if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
@@ -473,7 +512,7 @@ class WPBDP_FormFieldsAdmin {
             $this->admin->messages[] = _x( 'Required fields created successfully.', 'form-fields admin', 'business-directory-plugin' );
         }
 
-        return $this->fieldsTable();
+		$this->fields_table();
     }
 
     private function update_field_tags() {
@@ -504,6 +543,9 @@ class WPBDP_FormFieldsAdmin {
         $field_tags   = array();
 
         if ( isset( $_POST['field_tags'] ) ) {
+			// Check permission.
+			$this->check_permission( 'fieldtags' );
+
             global $wpdb;
 
             $posted = $_POST['field_tags'];

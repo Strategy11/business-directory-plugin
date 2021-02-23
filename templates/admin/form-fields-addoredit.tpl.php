@@ -19,6 +19,7 @@ wpbdp_admin_notices();
     <input type="hidden" name="field[id]" value="<?php echo esc_attr( $field->get_id() ); ?>" />
     <input type="hidden" name="field[tag]" value="<?php echo esc_attr( $field->get_tag() ); ?>" />
     <input type="hidden" name="field[weight]" value="<?php echo esc_attr( $field->get_weight() ); ?>" />
+	<?php wp_nonce_field( 'editfield' ); ?>
 
     <table class="form-table">
         <tbody>

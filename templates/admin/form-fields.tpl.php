@@ -2,8 +2,9 @@
     $buttons = array(
         array(
             _x( 'Add New Form Field', 'form-fields admin', 'business-directory-plugin' ),
-            esc_url(
-                admin_url( 'admin.php?page=wpbdp_admin_formfields&action=addfield' )
+            wp_nonce_url(
+				admin_url( 'admin.php?page=wpbdp_admin_formfields&action=addfield' ),
+				'editfield'
             ),
         ),
         array(
@@ -21,10 +22,9 @@
     );
 
     echo wpbdp_admin_header( null, null, $buttons );
-    ?>
-    <?php wpbdp_admin_notices(); ?>
 
-    <?php
+	wpbdp_admin_notices();
+
     echo esc_html_x(
         'Here, you can create new fields for your listings, edit or delete existing ones, change the order and visibility of the fields as well as configure special options for them.',
         'form-fields admin',

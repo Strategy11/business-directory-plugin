@@ -24,14 +24,8 @@ function _fields_dropdown( $name, $field_id, $fixed = false ) {
 <?php endif; ?>
 
 <form action="" method="post">
+	<?php wp_nonce_field( 'fieldtags' ); ?>
     <table class="form-table">
-    <!--    <thead>
-            <tr>
-                <th><?php _ex( 'Field Tag', 'form-fields admin', 'business-directory-plugin' ); ?></th>
-                <th><?php _ex( 'Field', 'form-fields admin', 'business-directory-plugin' ); ?></th>
-            </tr>
-        </thead>-->
-
         <tbody>
             <?php foreach ( $field_tags as $ft ) : ?>
             <tr>
