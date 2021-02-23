@@ -13,6 +13,11 @@ require_once WPBDP_INC . 'admin/class-csv-import.php';
  */
 class WPBDP_CSVImportAdmin {
 
+	private $files = array(
+		'images' => '',
+		'csv'    => '',
+	);
+
     function __construct() {
         global $wpbdp;
 
@@ -315,58 +320,40 @@ class WPBDP_CSVImportAdmin {
     }
 
     private function import() {
-        $sources  = array();
-        $csv_file = '';
-        $zip_file = '';
+		$sources = array();
+		$error   = '';
 
         // CSV file.
-        if ( ! empty( $_POST['csv-file-local'] ) ) {
-            $csv_file  = $this->get_imports_dir() . DIRECTORY_SEPARATOR . basename( $_POST['csv-file-local'] );
-            $sources[] = basename( $csv_file );
-        }
+		$error = $this->add_file_to_sources( 'csv', $sources );
+		if ( $error ) {
+			$this->show_error( $error );
+			return;
+		}
 
-        if ( ! $csv_file && ! empty( $_FILES['csv-file'] ) ) {
-            if ( ! $_FILES['csv-file']['error'] && is_uploaded_file( $_FILES['csv-file']['tmp_name'] ) ) {
-                $sources[] = $_FILES['csv-file']['name'];
-                $csv_file  = $_FILES['csv-file']['tmp_name'];
-            } elseif ( UPLOAD_ERR_NO_FILE != $_FILES['csv-file']['error'] ) {
-                wpbdp_admin_message( _x( 'There was an error uploading the CSV file.', 'admin csv-import', 'business-directory-plugin' ), 'error' );
-                return $this->import_settings();
-            }
-        }
-
-        if ( ! $csv_file ) {
-            wpbdp_admin_message( _x( 'Please upload or select a CSV file.', 'admin csv-import', 'business-directory-plugin' ), 'error' );
-            return $this->import_settings();
-        }
+		if ( ! $this->files['csv'] ) {
+			$this->show_error( _x( 'Please upload or select a CSV file.', 'admin csv-import', 'business-directory-plugin' ) );
+			return;
+		}
 
         // Images file.
-        if ( ! empty( $_POST['images-file-local'] ) ) {
-            $zip_file  = $this->get_imports_dir() . DIRECTORY_SEPARATOR . basename( $_POST['images-file-local'] );
-            $sources[] = basename( $zip_file );
-        }
+		$error = $this->add_file_to_sources( 'images', $sources );
 
-        if ( ! $zip_file && ! empty( $_FILES['images-file'] ) ) {
-            if ( UPLOAD_ERR_NO_FILE == $_FILES['images-file']['error'] ) {
-            } elseif ( ! is_uploaded_file( $_FILES['images-file']['tmp_name'] ) ) {
-                wpbdp_admin_message( _x( 'There was an error uploading the images ZIP file.', 'admin csv-import', 'business-directory-plugin' ), 'error' );
-                return $this->import_settings();
-            }
-
-            $zip_file  = $_FILES['images-file']['tmp_name'];
-            $sources[] = $_FILES['images-file']['name'];
-        }
+		if ( $error ) {
+			$this->show_error( $error );
+			return;
+		}
 
         // Store settings to use as defaults next time.
-        update_user_option( get_current_user_id(), 'wpbdp-csv-import-settings', $_POST['settings'], false );
+		$settings = wpbdp_get_var( array( 'param' => 'settings' ), 'post' );
+		update_user_option( get_current_user_id(), 'wpbdp-csv-import-settings', $settings, false );
 
         $import = null;
         try {
             $import = new WPBDP_CSV_Import(
                 '',
-                $csv_file,
-                $zip_file,
-                array_merge( $_POST['settings'], array( 'test-import' => ! empty( $_POST['test-import'] ) ) )
+				$this->files['csv'],
+				$this->files['images'],
+				array_merge( $settings, array( 'test-import' => ! empty( $_POST['test-import'] ) ) )
             );
         } catch ( Exception $e ) {
             if ( $import ) {
@@ -375,10 +362,10 @@ class WPBDP_CSVImportAdmin {
 
             $error  = _x( 'An error was detected while validating the CSV file for import. Please fix this before proceeding.', 'admin csv-import', 'business-directory-plugin' );
             $error .= '<br />';
-            $error .= '<b>' . $e->getMessage() . '</b>';
+			$error .= '<b>' . esc_html( $e->getMessage() ) . '</b>';
 
-            wpbdp_admin_message( $error, 'error' );
-            return $this->import_settings();
+			$this->show_error( $error );
+			return;
         }
 
         if ( $import->in_test_mode() ) {
@@ -394,6 +381,74 @@ class WPBDP_CSVImportAdmin {
         );
     }
 
+	/**
+	 * @since x.x
+	 */
+	private function show_error( $error ) {
+		wpbdp_admin_message( $error, 'error' );
+		$this->import_settings();
+	}
+
+	/**
+	 * @param $type    string - 'csv' or 'image'
+	 * @param $sources array
+	 *
+	 * @since x.x
+	 */
+	private function add_file_to_sources( $type, &$sources ) {
+		$file = wpbdp_get_var( array( 'param' => $type . '-file-local' ), 'post' );
+
+		if ( $file && $this->is_correct_type( $allowed_type[ $type ], $file ) ) {
+			$this->files[ $type ] = $this->get_imports_dir() . DIRECTORY_SEPARATOR . basename( $file );
+
+			$sources[] = basename( $this->files[ $type ] );
+			return;
+		}
+
+		$file = $this->get_file_name( $type . '-file', 'tmp' );
+		if ( empty( $_FILES[ $type . '-file' ] ) || empty( $file ) ) {
+			return;
+		}
+
+		$this->files[ $type ] = $file;
+
+		$no_file  = UPLOAD_ERR_NO_FILE == $_FILES[ $type . '-file' ]['error'] || ! is_uploaded_file( $this->files[ $type ] );
+		if ( $no_file ) {
+			return __( 'There was an error uploading the file:', 'business-directory-plugin' ) . ' ' . $type;
+		}
+
+		$filename = $this->get_file_name( $type . '-file' );
+		if ( ! $this->is_correct_type( $type, $filename ) ) {
+			return __( 'Please upload the correct file type.', 'business-directory-plugin' );
+		}
+
+		$sources[] = $filename;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function is_correct_type( $type, $filename ) {
+		$allowed_type = array(
+			'images' => 'zip',
+			'csv'    => 'csv',
+		);
+
+		$uploaded_type = pathinfo( $filename, PATHINFO_EXTENSION );
+		return $uploaded_type === $allowed_type[ $type ];
+	}
+
+	/**
+	 * Unslashing causes issues in Windows.
+	 *
+	 * @since x.x
+	 */
+	private function get_file_name( $name, $temp = false ) {
+		$value = $temp ? 'tmp_name' : 'name';
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		return isset( $_FILES[ $name ][ $value ] ) ? sanitize_option( 'upload_path', $_FILES[ $name ][ $value ] ) : '';
+	}
 }
 
 
