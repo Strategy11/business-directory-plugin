@@ -42,24 +42,6 @@ class WPBDP_CSV_Import {
 
 
     public function __construct( $state_id = '', $csv_file = '', $images_file = '', $settings = array() ) {
-        $defaults = array(
-            'allow-partial-imports'       => true,
-            'csv-file-separator'          => ',',
-            'images-separator'            => ';',
-            'category-separator'          => ';',
-            'create-missing-categories'   => true,
-
-            'assign-listings-to-user'     => true,
-            'default-user'                => '0',
-            'post-status'                 => 'publish',
-            'existing-post-status'        => 'preserve_status',
-            'disable-email-notifications' => true,
-            'append-images'               => true,
-
-            'test-import'                 => false,
-
-            'batch-size'                  => 40,
-        );
 
         if ( $state_id ) {
             $this->restore_state( $state_id );
@@ -70,23 +52,7 @@ class WPBDP_CSV_Import {
 
             $this->setup_working_dir( $csv_file, $images_file );
 
-            if ( ! array_key_exists( 'assign-listings-to-user', $settings ) ) {
-                $settings['assign-listings-to-user'] = false;
-            }
-
-            if ( ! array_key_exists( 'disable-email-notifications', $settings ) ) {
-                $settings['disable-email-notifications'] = false;
-            }
-
-            if ( ! array_key_exists( 'append-images', $settings ) ) {
-                $settings['append-images'] = false;
-            }
-
-            if ( $settings['csv-file-separator'] == 'tab' ) {
-                $settings['csv-file-separator'] = "\t";
-            }
-
-            $this->settings = wp_parse_args( $settings, $defaults );
+			$this->setup_settings( $settings );
 
             $file = $this->get_csv_file();
             $file->seek( PHP_INT_MAX );
@@ -98,6 +64,33 @@ class WPBDP_CSV_Import {
             $this->read_header();
         }
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function setup_settings( $settings ) {
+		$defaults = array(
+			'allow-partial-imports'       => true,
+			'csv-file-separator'          => ',',
+			'images-separator'            => ';',
+			'category-separator'          => ';',
+			'create-missing-categories'   => true,
+			'assign-listings-to-user'     => false,
+			'default-user'                => '0',
+			'post-status'                 => 'publish',
+			'existing-post-status'        => 'preserve_status',
+			'disable-email-notifications' => false,
+			'append-images'               => false,
+			'test-import'                 => false,
+			'batch-size'                  => 40,
+		);
+
+		if ( $settings['csv-file-separator'] === 'tab' ) {
+			$settings['csv-file-separator'] = "\t";
+		}
+
+		$this->settings = array_merge( $defaults, $settings );
+	}
 
     public function do_work() {
         if ( $this->done ) {
@@ -226,11 +219,7 @@ class WPBDP_CSV_Import {
     }
 
     public function get_setting( $k ) {
-        if ( isset( $this->settings[ $k ] ) ) {
-            return $this->settings[ $k ];
-        }
-
-        return null;
+		return isset( $this->settings[ $k ] ) ? $this->settings[ $k ] : null;
     }
 
     public function get_settings() {
@@ -274,13 +263,7 @@ class WPBDP_CSV_Import {
     }
 
     private function restore_state( $state_id ) {
-        $upload_dir = wp_upload_dir();
-
-        if ( $upload_dir['error'] ) {
-            throw new Exception();
-        }
-
-        $csv_imports_dir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-imports' . DIRECTORY_SEPARATOR . $state_id;
+        $csv_imports_dir = $this->directory_path() . DIRECTORY_SEPARATOR . $state_id;
 
         // TODO: validate $state_id is really an uniqid() string and does not contain other chars (maybe someone is
         // trying to access parts that it shouldn't in the FS).
@@ -300,13 +283,8 @@ class WPBDP_CSV_Import {
     }
 
     private function setup_working_dir( $csv_file, $images_file = '' ) {
-        $upload_dir = wp_upload_dir();
 
-        if ( $upload_dir['error'] ) {
-            throw new Exception();
-        }
-
-        $csv_imports_dir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-imports';
+        $csv_imports_dir = $this->directory_path();
         if ( is_dir( $csv_imports_dir ) || mkdir( $csv_imports_dir ) ) {
             $working_dir = rtrim( $csv_imports_dir, DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . uniqid();
 
@@ -346,6 +324,19 @@ class WPBDP_CSV_Import {
 
         $this->state_persist();
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function directory_path() {
+		$upload_dir = wp_upload_dir();
+
+		if ( $upload_dir['error'] ) {
+			throw new Exception();
+		}
+
+		return rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-imports';
+	}
 
     private function read_header() {
         $file = new SplFileObject( $this->csv_file );

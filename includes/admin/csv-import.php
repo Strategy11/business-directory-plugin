@@ -450,6 +450,3 @@ class WPBDP_CSVImportAdmin {
 		return isset( $_FILES[ $name ][ $value ] ) ? sanitize_option( 'upload_path', $_FILES[ $name ][ $value ] ) : '';
 	}
 }
-
-
-
