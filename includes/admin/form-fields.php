@@ -548,27 +548,15 @@ class WPBDP_FormFieldsAdmin {
 
             global $wpdb;
 
-            $posted = $_POST['field_tags'];
+			$posted = wpbdp_get_var( array( 'param' => 'field_tags' ), 'post' );
 
             foreach ( $posted as $tag => $field_id ) {
                 if ( in_array( $tag, $fixed_tags, true ) ) {
                     continue;
                 }
 
-                $wpdb->query(
-                    $wpdb->prepare(
-                        "UPDATE {$wpdb->prefix}wpbdp_form_fields SET tag = %s WHERE tag = %s",
-                        '',
-                        $tag
-                    )
-                );
-                $wpdb->query(
-                    $wpdb->prepare(
-                        "UPDATE {$wpdb->prefix}wpbdp_form_fields SET tag = %s WHERE id = %d",
-                        $tag,
-                        $field_id
-                    )
-                );
+				$wpdb->update( $wpdb->prefix . 'wpbdp_form_fields', array( 'tag' => '' ), array( 'tag' => $tag ) );
+				$wpdb->update( $wpdb->prefix . 'wpbdp_form_fields', array( 'tag' => $tag ), array( 'id' => $field_id ) );
 
 				WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
             }

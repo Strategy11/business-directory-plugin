@@ -189,6 +189,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	 */
 	private function fill_from_listing( &$data ) {
 		$this->get_listing();
+		if ( empty( $this->listing ) ) {
+			return;
+		}
+
 		$map = array(
 			'email'   => array( 'email', 'business_contact_email' ),
 			'country' => array( 'country' ),

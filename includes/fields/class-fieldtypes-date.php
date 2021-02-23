@@ -48,10 +48,11 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
     }
 
     public function process_field_settings( &$field ) {
-        if ( ! array_key_exists( 'x_date_format', $_POST['field'] ) )
-            return;
+		if ( ! isset( $_POST['field']['x_date_format'] ) ) {
+			return;
+		}
 
-        $date_format = $_POST['field']['x_date_format'];
+		$date_format = sanitize_text_field( wp_unslash( $_POST['field']['x_date_format'] ) );
         $field->set_data( 'date_format', $date_format );
     }
 

@@ -776,7 +776,6 @@ class WPBDP_CSV_Import {
                             $csv_category = $csv_category_;
                             $csv_category = strip_tags( str_replace( "\n", '-', $csv_category ) );
                             $csv_category = str_replace( array( '"', "'" ), '', $csv_category );
-                            $csv_category = str_replace( '&', '&amp;', $csv_category );
 
                             if ( ! $csv_category ) {
                                 continue;
