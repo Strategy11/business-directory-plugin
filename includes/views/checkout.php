@@ -121,8 +121,8 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
     private function fetch_payment() {
-        if ( ! $this->payment_id && ! empty( $_REQUEST['payment'] ) ) {
-			$payment_id    = wpbdp_get_var( array( 'param' => 'payment' ), 'request' );
+		$payment_id = wpbdp_get_var( array( 'param' => 'payment' ), 'request' );
+        if ( ! $this->payment_id && ! empty( $payment_id ) ) {
             $this->payment = WPBDP_Payment::objects()->get( array( 'payment_key' => $payment_id ) );
         } elseif ( $this->payment_id ) {
             $this->payment = WPBDP_Payment::objects()->get( $this->payment_id );
