@@ -320,6 +320,11 @@ class WPBDP_CSVImportAdmin {
     }
 
     private function import() {
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'do-import' ) ) {
+			wp_die( esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' ) );
+		}
+
 		$sources = array();
 		$error   = '';
 

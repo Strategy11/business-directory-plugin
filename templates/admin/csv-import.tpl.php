@@ -40,6 +40,7 @@ echo str_replace(
 
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="do-import" />
+	<?php wp_nonce_field( 'do-import' ); ?>
 
     <h2><?php _ex('Import Files', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
@@ -64,7 +65,7 @@ echo str_replace(
                         <ul>
                             <?php foreach ( $files['csv'] as $f ): ?>
                             <li><label>
-                                <input type="radio" name="csv-file-local" value="<?php echo basename( $f ); ?>" /> <?php echo basename( $f ); ?>
+								<input type="radio" name="csv-file-local" value="<?php echo esc_attr( basename( $f ) ); ?>" /> <?php echo esc_html( basename( $f ) ); ?>
                             </label></li>
                             <?php endforeach; ?>
                             <li>

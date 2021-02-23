@@ -4,6 +4,9 @@
  *
  * @package Includes/Admin/CSV Import
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
 
 @ini_set( 'auto_detect_line_endings', true );
 
