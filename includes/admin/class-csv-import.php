@@ -307,12 +307,16 @@ class WPBDP_CSV_Import {
                 throw new Exception( 'Could not copy images ZIP file to working directory' );
             }
 
+			$image_folder = $this->working_dir . DIRECTORY_SEPARATOR . 'images';
+
             require_once ABSPATH . 'wp-admin/includes/class-pclzip.php';
             $zip = new PclZip( $dest );
-            if ( $files = $zip->extract( PCLZIP_OPT_PATH, $this->working_dir . DIRECTORY_SEPARATOR . 'images', PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
-                $this->images_dir = $this->working_dir . DIRECTORY_SEPARATOR . 'images';
+			$files = $zip->extract( PCLZIP_OPT_PATH, $image_folder, PCLZIP_OPT_REMOVE_ALL_PATH );
+			if ( $files ) {
+				$this->images_dir = $image_folder;
 
                 @unlink( $dest );
+				$this->delete_non_images( $files );
             } else {
                 throw new Exception( 'Images ZIP file could not be uncompressed' );
             }
@@ -324,6 +328,21 @@ class WPBDP_CSV_Import {
 
         $this->state_persist();
     }
+
+	/**
+	 * Check the file types after the zip is unzipped.
+	 *
+	 * @since x.x
+	 */
+	private function delete_non_images( $files ) {
+		$disallowed = array( 'php', 'js', 'css', 'mo' );
+		foreach ( $files as $file ) {
+			$uploaded_type = strtolower( pathinfo( $file['filename'], PATHINFO_EXTENSION ) );
+			if ( in_array( $uploaded_type, $disallowed ) ) {
+				 @unlink( $file['filename'] );
+			}
+		}
+	}
 
 	/**
 	 * @since x.x
