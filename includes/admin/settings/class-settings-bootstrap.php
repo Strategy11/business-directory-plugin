@@ -635,7 +635,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'new-post-status',
                 'type'    => 'radio',
-                'name'    => _x( 'Default new post status', 'settings', 'business-directory-plugin' ),
+				'name'    => __( 'Default free listings status', 'business-directory-plugin' ),
                 'default' => 'pending',
                 'options' => array(
                     'publish' => _x( 'Published', 'post status', 'business-directory-plugin' ),

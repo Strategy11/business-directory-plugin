@@ -23,6 +23,7 @@ class WPBDP_Listing {
         } else {
             $field = wpbdp_get_form_fields( array( 'association' => $id, 'unique' => true ) );
 			if ( ! $field ) {
+				// Get the field by key.
 				$field = wpbdp_get_form_field( $id );
 			}
         }

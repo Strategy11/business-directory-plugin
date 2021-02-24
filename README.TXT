@@ -162,6 +162,17 @@ Our directory website builder software combined with our add-on modules is the m
 
 == Changelog ==
 
+= 5.11 =
+* Improve site-wide performance: caching for fee plans & listing images, load fewer settings on page load, reduce database calls for fields, getting category lists 
+* Always mark paid listings as published, regardless of default status.
+* New: Start adding links to the payments on processor site.
+* New: Autofill email and address fields on the checkout page if we have the info.
+* Security: Image imports allowed executable PHP files.
+* Security: Fields could be created, edited, and deleted without any permission checks (XSS).
+* Replaced a few deprecated jQuery functions.
+* Removed empty values from teh receipt page.
+* Show the payment confirmation page after submission instead of going to first page of listing.
+
 = 5.10.1 =
 * Fix: When a single plan is available without payments, there was an error that the plan wasn't selected.
 * Fix: Some sites were showing an error on the fees admin page that a file was missing.

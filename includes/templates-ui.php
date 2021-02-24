@@ -170,6 +170,8 @@ function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
 }
 
 /**
+ * Get the list of categories.
+ *
  * @since x.x
  */
 function _wpbdp_get_terms_from_args( $args ) {
