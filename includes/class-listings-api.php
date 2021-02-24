@@ -44,7 +44,7 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 				$new_status = wpbdp_get_option( 'new-post-status' );
 				if ( $new_status !== 'publish' && $payment->amount > 0 ) {
 					// If this was a paid listing, mark as published.
-					$new_status = 'publish';
+					$new_status = apply_filters( 'wpbdp_paid_listing_status', 'publish' );
 				}
 				$listing->set_post_status( $new_status );
             }
