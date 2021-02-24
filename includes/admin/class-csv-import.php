@@ -769,47 +769,13 @@ class WPBDP_CSV_Import {
                     }
 
                     if ( 'category' == $field->get_association() ) {
-						$decoded_value  = html_entity_decode( $value );
-                        $csv_categories = array_map( 'trim', explode( $this->settings['category-separator'], $decoded_value ) );
+                        $this->prepare_categories( $value, $categories, $errors );
 
-                        foreach ( $csv_categories as $csv_category_ ) {
-                            $csv_category = $csv_category_;
-							$csv_category = strip_tags( str_replace( "\n", '-', $csv_category ) );
-                            $csv_category = str_replace( array( '"', "'" ), '', $csv_category );
-							$csv_category = str_replace( '& ', '&amp; ', $csv_category );
-
-                            if ( ! $csv_category ) {
-                                continue;
-                            }
-
-                            $term = term_exists( $csv_category, WPBDP_CATEGORY_TAX );
-
-                            if ( $term ) {
-                                $categories[] = array(
-									'name'    => $csv_category,
-									'term_id' => is_array( $term ) ? $term['term_id'] : $term,
-								);
-                            } else {
-                                if ( ! $this->settings['create-missing-categories'] ) {
-                                    $errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $csv_category );
-                                    continue;
-                                }
-
-                                if ( $this->settings['test-import'] ) {
-                                    continue;
-                                }
-
-                                $categories[] = array(
-									'name'    => $csv_category,
-									'term_id' => 0,
-								);
-                            }
-                        }
-                    } /*
-					else if ( 'tags' == $field->get_association() ) {
+					/* } else if ( 'tags' == $field->get_association() ) {
                         $tags = array_map( 'trim', explode( $this->settings['category-separator'], $value ) );
                         $fields[ $field->get_id() ] = $tags;
-                    }*/ else {
+					*/
+                    } else {
                         $fields[ $field->get_id() ] = $field->convert_csv_input( $value, $this->settings );
                     }
 
@@ -819,6 +785,64 @@ class WPBDP_CSV_Import {
 
         return array( compact( 'categories', 'fields', 'images', 'meta', 'expires_on', 'plan_id', 'terms_and_conditions_acceptance_date' ), $errors );
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function prepare_categories( $value, &$categories, &$errors ) {
+		$csv_categories = $this->split_categories( $value );
+
+		foreach ( $csv_categories as $csv_category_ ) {
+			$csv_category = $this->prepare_category_name( $csv_category_ );
+			if ( ! $csv_category ) {
+				continue;
+			}
+
+			$term = term_exists( $csv_category, WPBDP_CATEGORY_TAX );
+
+			if ( $term ) {
+				$categories[] = array(
+					'name'    => $csv_category,
+					'term_id' => is_array( $term ) ? $term['term_id'] : $term,
+				);
+				continue;
+			}
+
+			if ( ! $this->settings['create-missing-categories'] ) {
+				$errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $csv_category );
+				continue;
+			}
+
+			if ( ! $this->settings['test-import'] ) {
+				$categories[] = array(
+					'name'    => $csv_category,
+					'term_id' => 0,
+				);
+			}
+		}
+	}
+
+	/**
+	 * Get rid of entities so ; can be used to separate.
+	 *
+	 * @since x.x
+	 */
+	private function split_categories( $value ) {
+		$decoded_value = html_entity_decode( $value );
+		return array_map( 'trim', explode( $this->settings['category-separator'], $decoded_value ) );
+	}
+
+	/**
+	 * Get some entities back after removing them.
+	 *
+	 * @since x.x
+	 */
+	private function prepare_category_name( $csv_category ) {
+		$csv_category = str_replace( "\n", '-', $csv_category );
+		$csv_category = strip_tags( $csv_category );
+		$csv_category = str_replace( array( '"', "'" ), '', $csv_category );
+		return str_replace( '& ', '&amp; ', $csv_category );
+	}
 
     private function get_header() {
         return $this->header;
