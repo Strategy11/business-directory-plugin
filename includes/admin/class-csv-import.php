@@ -769,7 +769,7 @@ class WPBDP_CSV_Import {
                     }
 
                     if ( 'category' == $field->get_association() ) {
-                        $decoded_value  = html_entity_decode( $value );
+                        $decoded_value  = $value;
                         $csv_categories = array_map( 'trim', explode( $this->settings['category-separator'], $decoded_value ) );
 
                         foreach ( $csv_categories as $csv_category_ ) {
