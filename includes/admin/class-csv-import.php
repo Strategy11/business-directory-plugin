@@ -769,13 +769,14 @@ class WPBDP_CSV_Import {
                     }
 
                     if ( 'category' == $field->get_association() ) {
-                        $decoded_value  = $value;
+						$decoded_value  = html_entity_decode( $value );
                         $csv_categories = array_map( 'trim', explode( $this->settings['category-separator'], $decoded_value ) );
 
                         foreach ( $csv_categories as $csv_category_ ) {
                             $csv_category = $csv_category_;
-                            $csv_category = str_replace( "\n", '-', $csv_category );
+							$csv_category = strip_tags( str_replace( "\n", '-', $csv_category ) );
                             $csv_category = str_replace( array( '"', "'" ), '', $csv_category );
+							$csv_category = str_replace( '& ', '&amp; ', $csv_category );
 
                             if ( ! $csv_category ) {
                                 continue;

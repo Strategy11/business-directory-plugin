@@ -170,7 +170,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Security: Image imports allowed executable PHP files.
 * Security: Fields could be created, edited, and deleted without any permission checks (XSS).
 * Replaced a few deprecated jQuery functions.
-* Removed empty values from teh receipt page.
+* Removed empty values from the receipt page.
 * Show the payment confirmation page after submission instead of going to first page of listing.
 
 = 5.10.1 =
