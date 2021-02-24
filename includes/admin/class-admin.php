@@ -1048,22 +1048,25 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
         /* Required pages check. */
         public function check_for_required_pages() {
-            if ( ! wpbdp_get_page_id( 'main' ) && current_user_can( 'administrator' ) ) {
-				$this->enqueue_scripts( true );
+			if ( wpbdp_get_page_id( 'main' ) || ! current_user_can( 'administrator' ) ) {
+				return;
+			}
 
-                $message  = _x( '<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin' );
-                $message .= '<br />';
-                $message .= _x( 'You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'business-directory-plugin' );
-                $message .= '<p>';
-                $message .= sprintf(
-                    '<a href="#" class="button wpbdp-create-main-page-button" data-nonce="%s">%s</a>',
-                    wp_create_nonce( 'create main page' ),
-                    _x( 'Create required pages for me', 'admin', 'business-directory-plugin' )
-                );
-                $message .= '</p>';
+			global $wpbdp;
+			$wpbdp->assets->enqueue_admin_scripts( true );
 
-                $this->messages[] = array( $message, 'error' );
-            }
+			$message  = _x( '<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin' );
+			$message .= '<br />';
+			$message .= _x( 'You can create this page by yourself or let Business Directory do this for you automatically.', 'admin', 'business-directory-plugin' );
+			$message .= '<p>';
+			$message .= sprintf(
+				'<a href="#" class="button wpbdp-create-main-page-button" data-nonce="%s">%s</a>',
+				wp_create_nonce( 'create main page' ),
+				esc_html( _x( 'Create required pages for me', 'admin', 'business-directory-plugin' ) )
+			);
+			$message .= '</p>';
+
+			$this->messages[] = array( $message, 'error' );
         }
 
         /**
