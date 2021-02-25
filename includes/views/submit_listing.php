@@ -551,6 +551,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 	private function merge_sections( &$sections ) {
 		$this->combine_image_pages( $sections );
+		$this->add_maps_to_listing( $sections );
 		$this->maybe_merge_terms( $sections );
 		$this->add_recaptcha_last( $sections );
 	}
@@ -590,6 +591,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$sections['account_creation'] = array(
 				'title' => __( 'Account Creation', 'business-directory-plugin' ),
 			);
+		}
+	}
+
+	/**
+	 * Include map location in listing section.
+	 *
+	 * @since x.x
+	 */
+	private function add_maps_to_listing( &$sections ) {
+		if ( isset( $sections['googlemaps_place_chooser'] ) ) {
+			$this->add_to_section( 'listing_fields', 'googlemaps_place_chooser', $sections );
 		}
 	}
 
@@ -838,7 +850,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			if ( $this->skip_plan_selection && ! $this->category_specific_fields ) {
 				$this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
 			} else {
-				if ( $this->listing->get_fee_plan() ) {
+				if ( $this->listing->get_fee_plan() && $categories ) {
 					return $this->section_render( 'submit-listing-plan-selection-complete' );
 				}
 
