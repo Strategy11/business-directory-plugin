@@ -538,14 +538,33 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			return;
 		}
 
-		$listing    = $this->listing;
-		$plan       = $listing->get_fee_plan();
-		$has_images = $plan ? absint( $plan->fee_images ) : 1;
-
-		if ( $has_images ) {
+		if ( $this->plan_allows_images() ) {
 			$sections['listing_images'] = array(
 				'title' => __( 'Listing Images', 'business-directory-plugin' ),
 			);
+		}
+	}
+
+	/**
+	 * Check if the plan is selected and has images allowed.
+	 *
+	 * @since x.x
+	 */
+	private function plan_allows_images() {
+		$listing = $this->listing;
+		$plan    = $listing->get_fee_plan();
+		return $plan ? absint( $plan->fee_images ) : 1;
+	}
+
+	/**
+	 * Since the plan is checked after the sections are added, check the plan
+	 * to see if the images section should be removed.
+	 *
+	 * @since x.x
+	 */
+	private function maybe_remove_images_section() {
+		if ( isset( $this->sections['listing_images'] ) && ! $this->plan_allows_images() ) {
+			unset( $this->sections['listing_images'] );
 		}
 	}
 
@@ -655,6 +674,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         foreach ( $this->sections as &$section ) {
             $this->add_html_to_section( $section );
+			if ( $section['id'] === 'plan_selection' ) {
+				$this->maybe_remove_images_section();
+			}
 
             $section['flags'][] = $section['state'];
             $section['prev_section'] = $this->find_prev_section( $section['id'] );
