@@ -40,7 +40,7 @@
 			printf(
 				/* translators: %s: Status name */
 				esc_html__( 'Status: %s', 'business-directory-plugin' ),
-				'<span class="addon-status-label">' . esc_html( $theme->active ? __( 'Active', 'business-directory-plugin' ) : __( 'Inactive', 'business-directory-plugin' )  ) . '</span>'
+				'<span class="addon-status-label">' . esc_html( $theme->active ? __( 'Active', 'business-directory-plugin' ) : __( 'Inactive', 'business-directory-plugin' )  ) . esc_html( ' v' . $theme->version ) . '</span>'
 			);
 			?>
 		</span>
