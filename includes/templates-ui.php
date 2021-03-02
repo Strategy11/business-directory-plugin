@@ -85,7 +85,7 @@ function _wpbdp_padded_count( &$term, $return = false ) {
  * @since 2.3
  * @access private
  */
-function _wpbdp_list_categories_walk( $parent = 0, $depth = 0, $args ) {
+function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
 	$terms       = _wpbdp_get_terms_from_args( $args );
 	$terms_array = array();
 	$term_ids    = array();
@@ -664,7 +664,7 @@ class WPBDP_ListingFieldDisplayItem {
     public $id = 0;
     public $field;
 
-    public function __construct( &$field, $listing_id = 0, $display ) {
+    public function __construct( &$field, $listing_id, $display ) {
         $this->field      = $field;
         $this->id         = $this->field->get_id();
         $this->listing_id = $listing_id;

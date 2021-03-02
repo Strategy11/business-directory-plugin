@@ -377,7 +377,7 @@ class WPBDP_Licensing {
         return $new_value;
     }
 
-    function licenses_tab_css( $css = '', $tab_id ) {
+    function licenses_tab_css( $css, $tab_id ) {
         if ( 'licenses' == $tab_id ) {
             foreach ( $this->items as $item ) {
                 if ( 'valid' != $this->get_license_status( '', $item['id'], $item['item_type'] ) ) {

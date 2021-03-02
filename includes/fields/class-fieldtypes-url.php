@@ -186,7 +186,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         return $html;
     }
 
-    public function css_classes( $css_classes = array(), $field, $render_context ) {
+    public function css_classes( $css_classes, $field, $render_context ) {
         if ( $field->get_field_type()->get_id() == 'url' ) {
             $css_classes[] = 'wpbdp-clearfix';
         }
