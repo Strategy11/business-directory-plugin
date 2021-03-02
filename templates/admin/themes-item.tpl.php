@@ -1,4 +1,4 @@
-<div class="wpbdp-card plugin-card-<?php echo esc_attr( $slug ); ?> wpbdp-no-thumb  wpbdp-theme <?php echo esc_attr( $theme->id ); ?> <?php echo ( $theme->active ? 'wpbdp-addon-active active' : '' ); ?> <?php do_action( 'wpbdp-admin-themes-item-css', $theme ); ?> ">
+<div class="wpbdp-card plugin-card-<?php echo esc_attr( $theme->id ); ?> wpbdp-no-thumb  wpbdp-theme <?php echo esc_attr( $theme->id ); ?> <?php echo ( $theme->active ? 'wpbdp-addon-active active' : '' ); ?> <?php do_action( 'wpbdp-admin-themes-item-css', $theme ); ?> ">
 	<div class="plugin-card-top">
         <h2 class="wpbdp-theme-name">
             <?php echo esc_html( $theme->name ); ?>
