@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-02-23 23:58:36+00:00\n"
+"POT-Creation-Date: 2021-03-03 23:16:40+00:00\n"
 "PO-Revision-Date: 2020-10-07 14:57-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -103,7 +103,7 @@ msgstr "Dirección de correo-e inválida."
 msgid "Business Directory Admin"
 msgstr "Administración de Directorio de Negocios"
 
-#: includes/admin/class-admin.php:296 includes/templates-ui.php:304
+#: includes/admin/class-admin.php:296 includes/templates-ui.php:306
 msgid "Directory"
 msgstr "Directorio"
 
@@ -271,7 +271,7 @@ msgstr ""
 "Puede crear estos campos usted mismo en \"Administrar Campos de Formulario\" "
 "o puede dejar que Business Directory haga esto por usted automáticamente."
 
-#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:766
+#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:800
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "Ir a \"Administrar Campos de Formulario\""
@@ -443,7 +443,7 @@ msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "¿Por qué está desinstalando Business Directory Plugin?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:428 includes/views/submit_listing.php:1161
+#: includes/form-fields.php:428 includes/views/submit_listing.php:1199
 #: templates/admin/payments-details.tpl.php:136
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -595,6 +595,11 @@ msgstr "No mostrar listados destacados en estas páginas?"
 #, fuzzy
 msgid "Owner of anonymous listings"
 msgstr "Dueño por defecto de ‘Listados Enviados Anónimamente’"
+
+#: includes/admin/settings/class-settings-bootstrap.php:638
+#, fuzzy
+msgid "Default free listings status"
+msgstr "Usuario a usar por defecto"
 
 #: includes/admin/settings/class-settings-bootstrap.php:642
 #: includes/admin/settings/class-settings-bootstrap.php:655
@@ -951,13 +956,13 @@ msgstr[1] "%s listados restablecidos de la Papelera."
 msgid "Free Listing"
 msgstr "Listado Gratuito"
 
-#: includes/class-meta.php:155 includes/templates-ui.php:331
+#: includes/class-meta.php:155 includes/templates-ui.php:333
 #: includes/views/submit_listing.php:32 templates/submit-listing.tpl.php:17
 #, fuzzy
 msgid "Add Listing"
 msgstr "Agregar Comisión de Listado"
 
-#: includes/class-meta.php:165 includes/templates-ui.php:313
+#: includes/class-meta.php:165 includes/templates-ui.php:315
 #: includes/views/all_listings.php:6
 msgid "View All Listings"
 msgstr "Ver Todos los Listados"
@@ -998,12 +1003,12 @@ msgstr ""
 msgid "Settings"
 msgstr "Configuración"
 
-#: includes/class-wpbdp.php:496
+#: includes/class-wpbdp.php:503
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "No se pudo encontrar el ID del listado"
 
-#: includes/class-wpbdp.php:503
+#: includes/class-wpbdp.php:510
 #, fuzzy
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
@@ -1012,12 +1017,12 @@ msgstr ""
 "Algo salió mal, por favor inténtelo de nuevo. Si el error persiste contacte "
 "al administrador del sitio"
 
-#: includes/class-wpbdp.php:510 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:517 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "No se pudo encontrar el ID del la imagen"
 
-#: includes/class-wpbdp.php:542
+#: includes/class-wpbdp.php:549
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1025,7 +1030,7 @@ msgstr ""
 "Las características de Business Directory se encuentran deshabilitadas en "
 "este momento por una <a>actualización manual</a> está pendiente."
 
-#: includes/class-wpbdp.php:549
+#: includes/class-wpbdp.php:556
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1597,11 +1602,11 @@ msgstr "ID de la transacción en la pasarela de pago:"
 msgid "Bill To:"
 msgstr "Pagar a:"
 
-#: includes/templates-ui.php:322
+#: includes/templates-ui.php:324
 msgid "Manage Listings"
 msgstr "Administrar Listados"
 
-#: includes/templates-ui.php:432
+#: includes/templates-ui.php:434
 #, fuzzy
 msgid "Default"
 msgstr "Comisión por Defecto"
@@ -1652,44 +1657,44 @@ msgstr "l F j, Y \\a\\t g:i a"
 msgid "That listing cannot yet be renewed."
 msgstr "Este listado no ha sido reportado."
 
-#: includes/views/submit_listing.php:547
+#: includes/views/submit_listing.php:543
 #, fuzzy
 msgid "Listing Images"
 msgstr "Imágenes del listado"
 
-#: includes/views/submit_listing.php:591
+#: includes/views/submit_listing.php:611
 #, fuzzy
 msgid "Account Creation"
 msgstr "Creación de cuenta de usuario"
 
-#: includes/views/submit_listing.php:749
+#: includes/views/submit_listing.php:783
 #, fuzzy
 msgid "Go to \"Fee Plans\""
 msgstr "Sin Plan de Pago"
 
-#: includes/views/submit_listing.php:805
+#: includes/views/submit_listing.php:839
 #, fuzzy
 msgid "Please choose a fee plan."
 msgstr "(Por favor elija una comisión arriba)"
 
-#: includes/views/submit_listing.php:988
+#: includes/views/submit_listing.php:1023
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Algo salió mal. Por favor verifique que el formulario no contiene errores y "
 "envíelo de nuevo."
 
-#: includes/views/submit_listing.php:1145
+#: includes/views/submit_listing.php:1183
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Crear una cuenta de usuario en este sitio"
 
-#: includes/views/submit_listing.php:1152
+#: includes/views/submit_listing.php:1190
 #, fuzzy
 msgid "Username"
 msgstr "Nombre de usuario:"
 
-#: includes/views/submit_listing.php:1174
+#: includes/views/submit_listing.php:1212
 #, fuzzy
 msgid "Clear Form"
 msgstr "Limpiar"
@@ -2909,12 +2914,12 @@ msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Falta campo requerido: %s"
 
-#: includes/admin/class-csv-import.php:793
+#: includes/admin/class-csv-import.php:812
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "La categoría \"%s\" no existe"
 
-#: includes/admin/class-csv-import.php:858
+#: includes/admin/class-csv-import.php:883
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "La cadena <string> no pudo ser interpretada como una fecha válida."
@@ -3514,7 +3519,7 @@ msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr "No se pudo enviar las claves de acceso."
 
-#: includes/admin/class-admin.php:1054
+#: includes/admin/class-admin.php:1058
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -3523,7 +3528,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> requiere una página con el shortcode "
 "<tt>[businessdirectory]</tt> para funcionar adecuadamente."
 
-#: includes/admin/class-admin.php:1056
+#: includes/admin/class-admin.php:1060
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -3532,12 +3537,12 @@ msgstr ""
 "Puede crear esta página usted mismo o dejar que Business Directory lo haga "
 "por usted automáticamente."
 
-#: includes/admin/class-admin.php:1061
+#: includes/admin/class-admin.php:1065
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crear las páginas requeridas por mi"
 
-#: includes/admin/class-admin.php:1095
+#: includes/admin/class-admin.php:1098
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -3549,7 +3554,7 @@ msgstr ""
 "Por favor comuníquese con su proveedor de hosting para actualizar su sistema "
 "y evitar problemas de compatibilidad."
 
-#: includes/admin/class-admin.php:1119
+#: includes/admin/class-admin.php:1122
 #, fuzzy
 msgctxt "admin"
 msgid ""
@@ -3621,47 +3626,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr "Reportado"
 
-#: includes/class-listing.php:885
+#: includes/class-listing.php:886
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: includes/class-listing.php:886
+#: includes/class-listing.php:887
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Antiguo"
 
-#: includes/class-listing.php:887
+#: includes/class-listing.php:888
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incompleto"
 
-#: includes/class-listing.php:888
+#: includes/class-listing.php:889
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Pendiente de pago"
 
-#: includes/class-listing.php:889
+#: includes/class-listing.php:890
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Completado"
 
-#: includes/class-listing.php:890
+#: includes/class-listing.php:891
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Pendiente de mejora"
 
-#: includes/class-listing.php:891
+#: includes/class-listing.php:892
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Expirado"
 
-#: includes/class-listing.php:892
+#: includes/class-listing.php:893
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Pendientes de renovación"
 
-#: includes/class-listing.php:893
+#: includes/class-listing.php:894
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abandonado"
@@ -6261,11 +6266,6 @@ msgstr ""
 "para enviar listados, este usuario será el propietario, generalmente el "
 "administrador del sitio o algún otro usuario que nunca gestionará un listado."
 
-#: includes/admin/settings/class-settings-bootstrap.php:638
-msgctxt "settings"
-msgid "Default new post status"
-msgstr "Estado por defecto para los listados nuevos"
-
 #: includes/admin/settings/class-settings-bootstrap.php:651
 msgctxt "settings"
 msgid "Edit post status"
@@ -7080,32 +7080,32 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Agregar Nuevo Listado"
 
-#: includes/class-listing.php:388
+#: includes/class-listing.php:389
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "El listado no tiene pagos registrados"
 
-#: includes/class-listing.php:396
+#: includes/class-listing.php:397
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "No se puede eliminar el pago"
 
-#: includes/class-listing.php:434
+#: includes/class-listing.php:435
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "El listado expiró"
 
-#: includes/class-listing.php:622
+#: includes/class-listing.php:623
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Comisión no disponible)"
 
-#: includes/class-listing.php:782
+#: includes/class-listing.php:783
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "Comisión “%s” (recurrente)"
 
-#: includes/class-listing.php:784
+#: includes/class-listing.php:785
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Comisión “%s”"
@@ -7441,46 +7441,46 @@ msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Selección de categoría y comisión"
 
-#: includes/views/submit_listing.php:739
+#: includes/views/submit_listing.php:773
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 "No puede publicar un listado en este momento. Por favor intente más tarde."
 
-#: includes/views/submit_listing.php:788 includes/views/submit_listing.php:909
+#: includes/views/submit_listing.php:822 includes/views/submit_listing.php:944
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Por favor seleccione una categoría."
 
-#: includes/views/submit_listing.php:811
+#: includes/views/submit_listing.php:845
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Por favor seleccione una categoría válida para su comisión."
 
-#: includes/views/submit_listing.php:813
+#: includes/views/submit_listing.php:847
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Por favor elija una comisión válida para la categoría seleccionada."
 
-#: includes/views/submit_listing.php:1115
+#: includes/views/submit_listing.php:1153
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Por favor ingrese su nombre de usuario."
 
-#: includes/views/submit_listing.php:1120
+#: includes/views/submit_listing.php:1158
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 "Por favor ingrese la dirección de correo electrónico para su nueva cuenta."
 
-#: includes/views/submit_listing.php:1125
+#: includes/views/submit_listing.php:1163
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "El nombre de usuario que eligió ya está en uso. Por favor elija un nombre de "
 "usuario diferente."
 
-#: includes/views/submit_listing.php:1130
+#: includes/views/submit_listing.php:1168
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7746,17 +7746,17 @@ msgctxt "templates"
 msgid "Return to fee selection"
 msgstr "Regresar a la selección de tarifa"
 
-#: includes/templates-ui.php:221
+#: includes/templates-ui.php:223
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "No se encontraron categorías."
 
-#: includes/templates-ui.php:370
+#: includes/templates-ui.php:372
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Buscar Listados"
 
-#: includes/templates-ui.php:375
+#: includes/templates-ui.php:377
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Búsqueda Avanzada"
@@ -7819,7 +7819,7 @@ msgstr ""
 "Se ha deshabilitado la opción para agregar listados. Contacte al "
 "administrador para más detalles."
 
-#: includes/views/submit_listing.php:742
+#: includes/views/submit_listing.php:776
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
@@ -7828,7 +7828,7 @@ msgstr ""
 "<b>No hay planes disponibles</b>, sin un plan de tarifas, los usuarios del "
 "sitio no pueden crear listados. %s para crear un plan"
 
-#: includes/views/submit_listing.php:756
+#: includes/views/submit_listing.php:790
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
@@ -7837,7 +7837,7 @@ msgstr ""
 "La opción para agregar listados no está disponible en el momento. Contacte "
 "al administrador para más detalles."
 
-#: includes/views/submit_listing.php:759
+#: includes/views/submit_listing.php:793
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7848,12 +7848,12 @@ msgstr ""
 "“Categoría”. %s y cree un nuevo campo con dicha asociación, o asigne la "
 "asociación a un campo existente"
 
-#: includes/views/submit_listing.php:1195
+#: includes/views/submit_listing.php:1233
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Por favor acepte los Términos y Condiciones."
 
-#: includes/views/submit_listing.php:1209
+#: includes/views/submit_listing.php:1247
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Acepto los <a>Términos y Condiciones</a>"
@@ -8308,7 +8308,7 @@ msgctxt "checkout"
 msgid "Select a Payment Method"
 msgstr "Método de pago"
 
-#: includes/templates-ui.php:402
+#: includes/templates-ui.php:404
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Ordenar Por:"
@@ -8627,7 +8627,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Esta es tan solo una previsualización. El listado no ha sido publicado aún."
 
-#: includes/views/submit_listing.php:1068
+#: includes/views/submit_listing.php:1111
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -9147,3 +9147,7 @@ msgstr "Ingrese su dirección de correo-e"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuar"
+
+#~ msgctxt "settings"
+#~ msgid "Default new post status"
+#~ msgstr "Estado por defecto para los listados nuevos"

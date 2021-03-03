@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-02-23 23:58:36+00:00\n"
+"POT-Creation-Date: 2021-03-03 23:16:40+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -104,7 +104,7 @@ msgstr "Ogiltig e-postadress."
 msgid "Business Directory Admin"
 msgstr "Business Directory admin"
 
-#: includes/admin/class-admin.php:296 includes/templates-ui.php:304
+#: includes/admin/class-admin.php:296 includes/templates-ui.php:306
 msgid "Directory"
 msgstr "Katalog"
 
@@ -279,7 +279,7 @@ msgstr ""
 "Du kan skapa dessa anpassade fält själv i \"Hantera formulärfält\" eller "
 "låta Business Directory göra det åt dig automatiskt."
 
-#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:766
+#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:800
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "Gå till \"Hantera formulärfält\""
@@ -452,7 +452,7 @@ msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "Varför avinstallerar du Business Directory Plugin?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:428 includes/views/submit_listing.php:1161
+#: includes/form-fields.php:428 includes/views/submit_listing.php:1199
 #: templates/admin/payments-details.tpl.php:136
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -605,6 +605,11 @@ msgstr "Utvald (fäst) status"
 #, fuzzy
 msgid "Owner of anonymous listings"
 msgstr "Gå till din annons."
+
+#: includes/admin/settings/class-settings-bootstrap.php:638
+#, fuzzy
+msgid "Default free listings status"
+msgstr "standardanvändare"
 
 #: includes/admin/settings/class-settings-bootstrap.php:642
 #: includes/admin/settings/class-settings-bootstrap.php:655
@@ -958,13 +963,13 @@ msgstr[1] "Din annons har tagits bort."
 msgid "Free Listing"
 msgstr "Gratis annons"
 
-#: includes/class-meta.php:155 includes/templates-ui.php:331
+#: includes/class-meta.php:155 includes/templates-ui.php:333
 #: includes/views/submit_listing.php:32 templates/submit-listing.tpl.php:17
 #, fuzzy
 msgid "Add Listing"
 msgstr "Lägg till annonsavgift"
 
-#: includes/class-meta.php:165 includes/templates-ui.php:313
+#: includes/class-meta.php:165 includes/templates-ui.php:315
 #: includes/views/all_listings.php:6
 msgid "View All Listings"
 msgstr "Visa alla annonser"
@@ -996,12 +1001,12 @@ msgstr ""
 msgid "Settings"
 msgstr "Inställningar"
 
-#: includes/class-wpbdp.php:496
+#: includes/class-wpbdp.php:503
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Det gick inte att kontakta licensservern"
 
-#: includes/class-wpbdp.php:503
+#: includes/class-wpbdp.php:510
 #, fuzzy
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
@@ -1010,12 +1015,12 @@ msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/class-wpbdp.php:510 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:517 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Det gick inte att uppdatera tema:%s"
 
-#: includes/class-wpbdp.php:542
+#: includes/class-wpbdp.php:549
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1023,7 +1028,7 @@ msgstr ""
 "Business Directorys funktioner är för närvarande avaktiverade på grund av "
 "att pluginet behöver <a> en manuell uppgradering</a>."
 
-#: includes/class-wpbdp.php:549
+#: includes/class-wpbdp.php:556
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1585,12 +1590,12 @@ msgstr "Transaktions-ID i betalmodul:"
 msgid "Bill To:"
 msgstr "Fakturera till:"
 
-#: includes/templates-ui.php:322
+#: includes/templates-ui.php:324
 #, fuzzy
 msgid "Manage Listings"
 msgstr "Hantera betalda annonser"
 
-#: includes/templates-ui.php:432
+#: includes/templates-ui.php:434
 #, fuzzy
 msgid "Default"
 msgstr "Standardavgift"
@@ -1640,44 +1645,44 @@ msgstr "l F j, Y \\a\\t g:i en"
 msgid "That listing cannot yet be renewed."
 msgstr "Annonsen har uppgraderats."
 
-#: includes/views/submit_listing.php:547
+#: includes/views/submit_listing.php:543
 #, fuzzy
 msgid "Listing Images"
 msgstr "Annonsbilder"
 
-#: includes/views/submit_listing.php:591
+#: includes/views/submit_listing.php:611
 #, fuzzy
 msgid "Account Creation"
 msgstr "Konto skapas"
 
-#: includes/views/submit_listing.php:749
+#: includes/views/submit_listing.php:783
 #, fuzzy
 msgid "Go to \"Fee Plans\""
 msgstr "Avgiftsplan"
 
-#: includes/views/submit_listing.php:805
+#: includes/views/submit_listing.php:839
 #, fuzzy
 msgid "Please choose a fee plan."
 msgstr "(Vänligen välj en avgiftsplan ovan)"
 
-#: includes/views/submit_listing.php:988
+#: includes/views/submit_listing.php:1023
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/views/submit_listing.php:1145
+#: includes/views/submit_listing.php:1183
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/views/submit_listing.php:1152
+#: includes/views/submit_listing.php:1190
 #, fuzzy
 msgid "Username"
 msgstr "Användarnamn:"
 
-#: includes/views/submit_listing.php:1174
+#: includes/views/submit_listing.php:1212
 #, fuzzy
 msgid "Clear Form"
 msgstr "Rensa"
@@ -2901,12 +2906,12 @@ msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Saknar det obligatoriska fältet %s"
 
-#: includes/admin/class-csv-import.php:793
+#: includes/admin/class-csv-import.php:812
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Annonskategorin \"%s\" existerar inte"
 
-#: includes/admin/class-csv-import.php:858
+#: includes/admin/class-csv-import.php:883
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "Tråden <string> kunde inte omvandlas till ett giltigt datum."
@@ -3506,7 +3511,7 @@ msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1054
+#: includes/admin/class-admin.php:1058
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -3515,7 +3520,7 @@ msgstr ""
 "<b>Tillägget Business Directory</b> kräver att du lagt shortcoden "
 "<tt>[businessdirectory]</tt> på en sida för att fungera korrekt."
 
-#: includes/admin/class-admin.php:1056
+#: includes/admin/class-admin.php:1060
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -3524,12 +3529,12 @@ msgstr ""
 "Du kan skapa denna sida av dig själv eller låta Business Directory göra det "
 "åt dig automatiskt."
 
-#: includes/admin/class-admin.php:1061
+#: includes/admin/class-admin.php:1065
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Skapa nödvändiga sidor åt mig."
 
-#: includes/admin/class-admin.php:1095
+#: includes/admin/class-admin.php:1098
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -3540,7 +3545,7 @@ msgstr ""
 "eller senare, men servern kör version <strong>%s</strong>. Be din leverantör "
 "att uppgradera för att förhindra eventuella problem med pluginet."
 
-#: includes/admin/class-admin.php:1119
+#: includes/admin/class-admin.php:1122
 #, fuzzy
 msgctxt "admin"
 msgid ""
@@ -3612,47 +3617,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:885
+#: includes/class-listing.php:886
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Okänd"
 
-#: includes/class-listing.php:886
+#: includes/class-listing.php:887
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Legat"
 
-#: includes/class-listing.php:887
+#: includes/class-listing.php:888
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Ofullständig"
 
-#: includes/class-listing.php:888
+#: includes/class-listing.php:889
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Väntar på betalning."
 
-#: includes/class-listing.php:889
+#: includes/class-listing.php:890
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Genomförd"
 
-#: includes/class-listing.php:890
+#: includes/class-listing.php:891
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Väntar på uppgradering"
 
-#: includes/class-listing.php:891
+#: includes/class-listing.php:892
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Utgången"
 
-#: includes/class-listing.php:892
+#: includes/class-listing.php:893
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Inväntar förnyelse"
 
-#: includes/class-listing.php:893
+#: includes/class-listing.php:894
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Övergiven"
@@ -6262,11 +6267,6 @@ msgid ""
 "that will not a be posting a listing is best."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:638
-msgctxt "settings"
-msgid "Default new post status"
-msgstr "Standard på nytt inlägg"
-
 #: includes/admin/settings/class-settings-bootstrap.php:651
 msgctxt "settings"
 msgid "Edit post status"
@@ -7053,35 +7053,35 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Lägg till ny annons"
 
-#: includes/class-listing.php:388
+#: includes/class-listing.php:389
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Utgångsdatum för annons"
 
-#: includes/class-listing.php:396
+#: includes/class-listing.php:397
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Ta bort betalning"
 
-#: includes/class-listing.php:434
+#: includes/class-listing.php:435
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Annonsen förfallit."
 
-#: includes/class-listing.php:622
+#: includes/class-listing.php:623
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Avgiftsplan inte tillgänglig)"
 
-#: includes/class-listing.php:782
+#: includes/class-listing.php:783
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(återkommande)"
 
-#: includes/class-listing.php:784
+#: includes/class-listing.php:785
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Plan ”%s”"
@@ -7424,42 +7424,42 @@ msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Val av kategori och avgiftsplan"
 
-#: includes/views/submit_listing.php:739
+#: includes/views/submit_listing.php:773
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Det går inte att registrera en annons just nu. Försök igen senare."
 
-#: includes/views/submit_listing.php:788 includes/views/submit_listing.php:909
+#: includes/views/submit_listing.php:822 includes/views/submit_listing.php:944
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en kategori."
 
-#: includes/views/submit_listing.php:811
+#: includes/views/submit_listing.php:845
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Välj en giltig kategori för din plan."
 
-#: includes/views/submit_listing.php:813
+#: includes/views/submit_listing.php:847
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/views/submit_listing.php:1115
+#: includes/views/submit_listing.php:1153
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/views/submit_listing.php:1120
+#: includes/views/submit_listing.php:1158
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/views/submit_listing.php:1125
+#: includes/views/submit_listing.php:1163
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/views/submit_listing.php:1130
+#: includes/views/submit_listing.php:1168
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
@@ -7721,17 +7721,17 @@ msgctxt "templates"
 msgid "Return to fee selection"
 msgstr "Återvänd till annons"
 
-#: includes/templates-ui.php:221
+#: includes/templates-ui.php:223
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Inga kategorier hittades."
 
-#: includes/templates-ui.php:370
+#: includes/templates-ui.php:372
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "Sök annonser"
 
-#: includes/templates-ui.php:375
+#: includes/templates-ui.php:377
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Avancerad Sökning"
@@ -7793,21 +7793,21 @@ msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:742
+#: includes/views/submit_listing.php:776
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:756
+#: includes/views/submit_listing.php:790
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:759
+#: includes/views/submit_listing.php:793
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7815,12 +7815,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:1195
+#: includes/views/submit_listing.php:1233
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/views/submit_listing.php:1209
+#: includes/views/submit_listing.php:1247
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
@@ -8279,7 +8279,7 @@ msgctxt "checkout"
 msgid "Select a Payment Method"
 msgstr "Välj betalningsmetod"
 
-#: includes/templates-ui.php:402
+#: includes/templates-ui.php:404
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortering:"
@@ -8597,7 +8597,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
-#: includes/views/submit_listing.php:1068
+#: includes/views/submit_listing.php:1111
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -9115,3 +9115,7 @@ msgstr "Skriv in din e-postadress"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Fortsätt "
+
+#~ msgctxt "settings"
+#~ msgid "Default new post status"
+#~ msgstr "Standard på nytt inlägg"

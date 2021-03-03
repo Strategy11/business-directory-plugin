@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-02-23 23:58:36+00:00\n"
+"POT-Creation-Date: 2021-03-03 23:16:40+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -109,7 +109,7 @@ msgstr "عنوان البريد الإلكتروني غير صالح!"
 msgid "Business Directory Admin"
 msgstr "مدير دليل الأعمال"
 
-#: includes/admin/class-admin.php:296 includes/templates-ui.php:304
+#: includes/admin/class-admin.php:296 includes/templates-ui.php:306
 msgid "Directory"
 msgstr "الدليل"
 
@@ -282,7 +282,7 @@ msgstr ""
 "يمكنك إنشاء هذه الحقول المخصصة بنفسك داخل \"إدارة الحقول\" أو السماح لدليل "
 "الأعمال للقيام بذلك نيابة عنك تلقائياً."
 
-#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:766
+#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:800
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "إنتقل إلى \"إدارة حقول\""
@@ -454,7 +454,7 @@ msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "لماذا قمت بحذف إضافة دليل الأعمال؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:428 includes/views/submit_listing.php:1161
+#: includes/form-fields.php:428 includes/views/submit_listing.php:1199
 #: templates/admin/payments-details.tpl.php:136
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -598,6 +598,11 @@ msgstr "حالة مميز (مثبت)"
 #, fuzzy
 msgid "Owner of anonymous listings"
 msgstr "الذهاب إلى إعلانك"
+
+#: includes/admin/settings/class-settings-bootstrap.php:638
+#, fuzzy
+msgid "Default free listings status"
+msgstr "إعلان العضو الافتراضي"
 
 #: includes/admin/settings/class-settings-bootstrap.php:642
 #: includes/admin/settings/class-settings-bootstrap.php:655
@@ -968,13 +973,13 @@ msgstr[5] "تم حذف إعلانك."
 msgid "Free Listing"
 msgstr "إعلان مجاني"
 
-#: includes/class-meta.php:155 includes/templates-ui.php:331
+#: includes/class-meta.php:155 includes/templates-ui.php:333
 #: includes/views/submit_listing.php:32 templates/submit-listing.tpl.php:17
 #, fuzzy
 msgid "Add Listing"
 msgstr "إضافة رسوم الإعلان"
 
-#: includes/class-meta.php:165 includes/templates-ui.php:313
+#: includes/class-meta.php:165 includes/templates-ui.php:315
 #: includes/views/all_listings.php:6
 msgid "View All Listings"
 msgstr "مشاهدة جميع الإعلانات"
@@ -1006,23 +1011,23 @@ msgstr ""
 msgid "Settings"
 msgstr "إعدادات"
 
-#: includes/class-wpbdp.php:496
+#: includes/class-wpbdp.php:503
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "لا يمكن الاتصال بخادم الترخيص"
 
-#: includes/class-wpbdp.php:503
+#: includes/class-wpbdp.php:510
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:510 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:517 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "تعذر تحديث القالب : %s"
 
-#: includes/class-wpbdp.php:542
+#: includes/class-wpbdp.php:549
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1031,7 +1036,7 @@ msgstr ""
 "تم تعطيل ميزات دليل الأعمال حاليا بسبب أن الإضافة تحتاج إلى إجراء ترقية "
 "يدوية قبل المتابعة."
 
-#: includes/class-wpbdp.php:549
+#: includes/class-wpbdp.php:556
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1574,12 +1579,12 @@ msgstr "transaction"
 msgid "Bill To:"
 msgstr ""
 
-#: includes/templates-ui.php:322
+#: includes/templates-ui.php:324
 #, fuzzy
 msgid "Manage Listings"
 msgstr "إدارة الإعلانات المدفوعة"
 
-#: includes/templates-ui.php:432
+#: includes/templates-ui.php:434
 #, fuzzy
 msgid "Default"
 msgstr "رسوم افتراضية"
@@ -1629,39 +1634,39 @@ msgstr "l F j, Y \\a\\t g:i a"
 msgid "That listing cannot yet be renewed."
 msgstr "تمت ترقية الإعلان."
 
-#: includes/views/submit_listing.php:547
+#: includes/views/submit_listing.php:543
 #, fuzzy
 msgid "Listing Images"
 msgstr "صور الإعلانات"
 
-#: includes/views/submit_listing.php:591
+#: includes/views/submit_listing.php:611
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:749
+#: includes/views/submit_listing.php:783
 #, fuzzy
 msgid "Go to \"Fee Plans\""
 msgstr "إنتقل إلى \"إدارة حقول\""
 
-#: includes/views/submit_listing.php:805
+#: includes/views/submit_listing.php:839
 #, fuzzy
 msgid "Please choose a fee plan."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:988
+#: includes/views/submit_listing.php:1023
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:1145
+#: includes/views/submit_listing.php:1183
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:1152
+#: includes/views/submit_listing.php:1190
 #, fuzzy
 msgid "Username"
 msgstr "عضو"
 
-#: includes/views/submit_listing.php:1174
+#: includes/views/submit_listing.php:1212
 #, fuzzy
 msgid "Clear Form"
 msgstr "مسح"
@@ -2849,12 +2854,12 @@ msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "حقل مطلوب مفقود: %s"
 
-#: includes/admin/class-csv-import.php:793
+#: includes/admin/class-csv-import.php:812
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "تصنيف الإعلان \"%s\" غير موجود"
 
-#: includes/admin/class-csv-import.php:858
+#: includes/admin/class-csv-import.php:883
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
@@ -3469,7 +3474,7 @@ msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1054
+#: includes/admin/class-admin.php:1058
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -3478,7 +3483,7 @@ msgstr ""
 "<b>إضافة دليل الأعمال</b> تتطلب صفحة فيها الكود القصير "
 "<tt>[businessdirectory]</tt>  لكي تعمل بشكل صحيح."
 
-#: includes/admin/class-admin.php:1056
+#: includes/admin/class-admin.php:1060
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -3487,12 +3492,12 @@ msgstr ""
 "يمكنك إنشاء هذه الصفحة بنفسك أو ترك دليل الأعمال القيام بذلك نيابة عنك "
 "تلقائياً."
 
-#: includes/admin/class-admin.php:1061
+#: includes/admin/class-admin.php:1065
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "إنشاء الصفحات المطلوب نيابة عني"
 
-#: includes/admin/class-admin.php:1095
+#: includes/admin/class-admin.php:1098
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -3500,7 +3505,7 @@ msgid ""
 "your provider to upgrade in order to prevent any issues with the plugin."
 msgstr ""
 
-#: includes/admin/class-admin.php:1119
+#: includes/admin/class-admin.php:1122
 #, fuzzy
 msgctxt "admin"
 msgid ""
@@ -3573,53 +3578,53 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/class-listing.php:885
+#: includes/class-listing.php:886
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/class-listing.php:886
+#: includes/class-listing.php:887
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/class-listing.php:887
+#: includes/class-listing.php:888
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "إكتمل"
 
-#: includes/class-listing.php:888
+#: includes/class-listing.php:889
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "في انتظار التخلي"
 
-#: includes/class-listing.php:889
+#: includes/class-listing.php:890
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "إكتمل"
 
-#: includes/class-listing.php:890
+#: includes/class-listing.php:891
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr " في انتظار الترقية"
 
-#: includes/class-listing.php:891
+#: includes/class-listing.php:892
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "منتهي الصلاحية"
 
-#: includes/class-listing.php:892
+#: includes/class-listing.php:893
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "مفعل + ريثما يتم التجديد"
 
-#: includes/class-listing.php:893
+#: includes/class-listing.php:894
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
@@ -6353,12 +6358,6 @@ msgid ""
 "that will not a be posting a listing is best."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:638
-#, fuzzy
-msgctxt "settings"
-msgid "Default new post status"
-msgstr "حالة الإعلان الجديد الافتراضية"
-
 #: includes/admin/settings/class-settings-bootstrap.php:651
 #, fuzzy
 msgctxt "settings"
@@ -7205,37 +7204,37 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "إضافة إعلان جديد"
 
-#: includes/class-listing.php:388
+#: includes/class-listing.php:389
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "إنتهاء صلاحية الإعلان"
 
-#: includes/class-listing.php:396
+#: includes/class-listing.php:397
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "رفض الدفع"
 
-#: includes/class-listing.php:434
+#: includes/class-listing.php:435
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/class-listing.php:622
+#: includes/class-listing.php:623
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(رسم غير متوفر)"
 
-#: includes/class-listing.php:782
+#: includes/class-listing.php:783
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(متكرر)"
 
-#: includes/class-listing.php:784
+#: includes/class-listing.php:785
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -7590,7 +7589,7 @@ msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:739
+#: includes/views/submit_listing.php:773
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -7598,41 +7597,41 @@ msgstr ""
 "لا يمكن أن نقوم بمعالجة الدفع الخاص بك في هذه اللحظة. المرجو المحاولة مرة "
 "أخرى لاحقاً."
 
-#: includes/views/submit_listing.php:788 includes/views/submit_listing.php:909
+#: includes/views/submit_listing.php:822 includes/views/submit_listing.php:944
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:811
+#: includes/views/submit_listing.php:845
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:813
+#: includes/views/submit_listing.php:847
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:1115
+#: includes/views/submit_listing.php:1153
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:1120
+#: includes/views/submit_listing.php:1158
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:1125
+#: includes/views/submit_listing.php:1163
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:1130
+#: includes/views/submit_listing.php:1168
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7891,17 +7890,17 @@ msgctxt "templates"
 msgid "Return to fee selection"
 msgstr "الرجوع إلى الإعلان."
 
-#: includes/templates-ui.php:221
+#: includes/templates-ui.php:223
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "لم يتم العثور على تصنيفات الإعلانات."
 
-#: includes/templates-ui.php:370
+#: includes/templates-ui.php:372
 msgctxt "templates"
 msgid "Search Listings"
 msgstr "البحث في الإعلانات"
 
-#: includes/templates-ui.php:375
+#: includes/templates-ui.php:377
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "بحث متقدم"
@@ -7961,21 +7960,21 @@ msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:742
+#: includes/views/submit_listing.php:776
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:756
+#: includes/views/submit_listing.php:790
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:759
+#: includes/views/submit_listing.php:793
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7983,12 +7982,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:1195
+#: includes/views/submit_listing.php:1233
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "يرجى الموافقة على الشروط والأحكام."
 
-#: includes/views/submit_listing.php:1209
+#: includes/views/submit_listing.php:1247
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -8436,7 +8435,7 @@ msgctxt "checkout"
 msgid "Select a Payment Method"
 msgstr "طريقة الدفع"
 
-#: includes/templates-ui.php:402
+#: includes/templates-ui.php:404
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "ترتيب حسب:"
@@ -8760,7 +8759,7 @@ msgstr ""
 "Il s'agit seulement d'une pré-visualisation. L'annonce n'a pas encore été "
 "publiée."
 
-#: includes/views/submit_listing.php:1068
+#: includes/views/submit_listing.php:1111
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -9278,3 +9277,8 @@ msgstr "إدخال بريدك إلكتروني"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "متابعة"
+
+#, fuzzy
+#~ msgctxt "settings"
+#~ msgid "Default new post status"
+#~ msgstr "حالة الإعلان الجديد الافتراضية"

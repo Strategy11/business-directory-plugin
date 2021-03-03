@@ -372,7 +372,7 @@ final class WPBDP__Settings__Bootstrap {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private static function register_quick_search() {
 		$fields         = array();
@@ -400,7 +400,7 @@ final class WPBDP__Settings__Bootstrap {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private static function quicksearch_field_desc( $default_fields ) {
 		if ( ! is_admin() ) {
@@ -1231,7 +1231,7 @@ final class WPBDP__Settings__Bootstrap {
 	/**
 	 * Don't run db calls unless we need it.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private static function gateway_description() {
 		if ( ! is_admin() ) {

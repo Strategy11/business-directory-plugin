@@ -344,7 +344,7 @@ class WPBDP_FormFieldsAdmin {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function check_permission( $action ) {
 		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
@@ -488,7 +488,7 @@ class WPBDP_FormFieldsAdmin {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function move_field() {
 		// Check permission.

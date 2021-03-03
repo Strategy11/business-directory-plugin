@@ -145,7 +145,7 @@ abstract class WPBDP__Payment_Gateway {
 	/**
 	 * Override this in the individual gateway class.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	public function get_payment_link( $payment ) {
 		return '';

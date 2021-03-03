@@ -758,7 +758,7 @@ class WPBDP_Form_Field {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function clear_field_cache() {
 		wp_cache_delete( $this->id, 'wpbdp_form_fields' );
@@ -998,7 +998,7 @@ class WPBDP_Form_Field {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private static function get_cached_field( $id ) {
 		global $wpdb;
@@ -1028,7 +1028,7 @@ class WPBDP_Form_Field {
 	/**
 	 * Reduce database calls by getting all fields at once.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private static function get_all_fields() {
 		return WPBDP_Utils::check_cache(

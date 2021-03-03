@@ -548,7 +548,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Check if the plan is selected and has images allowed.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function plan_allows_images() {
 		$listing = $this->listing;
@@ -560,7 +560,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Since the plan is checked after the sections are added, check the plan
 	 * to see if the images section should be removed.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function maybe_remove_images_section() {
 		if ( isset( $this->sections['listing_images'] ) && ! $this->plan_allows_images() ) {
@@ -616,7 +616,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Include map location in listing section.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function add_maps_to_listing( &$sections ) {
 		if ( isset( $sections['googlemaps_place_chooser'] ) ) {

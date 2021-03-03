@@ -69,7 +69,7 @@ class WPBDP_CSV_Import {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function setup_settings( $settings ) {
 		$defaults = array(
@@ -335,7 +335,7 @@ class WPBDP_CSV_Import {
 	/**
 	 * Check the file types after the zip is unzipped.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function delete_non_images( $files ) {
 		$disallowed = array( 'php', 'js', 'css', 'mo' );
@@ -348,7 +348,7 @@ class WPBDP_CSV_Import {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function directory_path() {
 		$upload_dir = wp_upload_dir();
@@ -787,7 +787,7 @@ class WPBDP_CSV_Import {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function prepare_categories( $value, &$categories, &$errors ) {
 		$csv_categories = $this->split_categories( $value );
@@ -825,7 +825,7 @@ class WPBDP_CSV_Import {
 	/**
 	 * Get rid of entities so ; can be used to separate.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function split_categories( $value ) {
 		$decoded_value = html_entity_decode( $value );
@@ -835,7 +835,7 @@ class WPBDP_CSV_Import {
 	/**
 	 * Get some entities back after removing them.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function prepare_category_name( $csv_category ) {
 		$csv_category = str_replace( "\n", '-', $csv_category );

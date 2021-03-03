@@ -85,7 +85,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function check_gateway_errors() {
         if ( ! has_action( 'wpbdp_checkout_before_action' ) ) {

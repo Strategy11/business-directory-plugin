@@ -148,7 +148,7 @@ class WPBDP__Utils {
 	/**
 	 * Reduce database calls by getting all rows at once.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private static function get_all_ids( $args ) {
 		global $wpdb;

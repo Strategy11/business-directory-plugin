@@ -185,7 +185,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	/**
 	 * If the payer is empty, get info from the listing.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function fill_from_listing( &$data ) {
 		$this->get_listing();
@@ -265,7 +265,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	/**
 	 * The link to view the payment at the gateway.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 *
 	 * @return string
 	 */

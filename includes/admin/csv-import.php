@@ -387,7 +387,7 @@ class WPBDP_CSVImportAdmin {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function show_error( $error ) {
 		wpbdp_admin_message( $error, 'error' );
@@ -398,7 +398,7 @@ class WPBDP_CSVImportAdmin {
 	 * @param $type    string - 'csv' or 'image'
 	 * @param $sources array
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function add_file_to_sources( $type, &$sources ) {
 		$file = wpbdp_get_var( array( 'param' => $type . '-file-local' ), 'post' );
@@ -431,7 +431,7 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function is_correct_type( $type, $filename ) {
 		$allowed_type = array(
@@ -446,7 +446,7 @@ class WPBDP_CSVImportAdmin {
 	/**
 	 * Unslashing causes issues in Windows.
 	 *
-	 * @since x.x
+	 * @since 5.11
 	 */
 	private function get_file_name( $name, $temp = false ) {
 		$value = $temp ? 'tmp_name' : 'name';
