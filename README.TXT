@@ -164,7 +164,7 @@ Our directory website builder software combined with our add-on modules is the m
 
 = 5.11 =
 * Improve site-wide performance: caching for fee plans & listing images, load fewer settings on page load, reduce database calls for fields, getting category lists 
-* Always mark paid listings as published, regardless of default status.
+* New: Add wpbdp_paid_listing_status hook to always mark paid listings as published, regardless of default status.
 * New: Start adding links to the payments on processor site.
 * New: Autofill email and address fields on the checkout page if we have the info.
 * Security: Image imports allowed executable PHP files.

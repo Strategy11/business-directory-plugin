@@ -1078,36 +1078,38 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$thumbnail_id = absint( wpbdp_get_var( array( 'param' => '_thumbnail_id', 'default' => 0 ), 'post' ) );
 
-        if ( ! empty( $thumbnail_id ) ) {
-            $listing->set_thumbnail_id( $thumbnail_id );
-        }
+		if ( $thumbnail_id ) {
+			$listing->set_thumbnail_id( $thumbnail_id );
+		} else {
+			$thumbnail_id = $this->listing->get_thumbnail_id();
+		}
 
-        $images = $this->listing->get_images( 'ids' );
+		$images = $this->listing->get_images( 'ids', true );
 
         $images_meta = $this->listing->get_images_meta();
 
+		$should_validate = $this->should_validate_section( 'listing_images' );
+
         // Maybe update meta.
-        if ( ! empty( $_POST['images_meta'] ) ) {
+		if ( $should_validate && ! empty( $_POST['images_meta'] ) ) {
+			$order = 0;
             foreach ( $images as $img_id ) {
 				$updated_meta = wpbdp_get_var( array( 'param' => 'images_meta' ), 'post' );
 				$updated_meta = ! empty( $updated_meta[ $img_id ] ) ? (array) $updated_meta[ $img_id ] : array();
 
-                update_post_meta( $img_id, '_wpbdp_image_weight', ! empty( $updated_meta['order'] ) ? intval( $updated_meta['order'] ) : 0 );
-                update_post_meta( $img_id, '_wpbdp_image_caption', ! empty( $updated_meta['caption'] ) ? trim( $updated_meta['caption'] ) : '' );
+				$new_order = ! empty( $updated_meta['order'] ) ? intval( $updated_meta['order'] ) : $order;
+				update_post_meta( $img_id, '_wpbdp_image_weight', $thumbnail_id ? 0 : $new_order );
+				update_post_meta( $img_id, '_wpbdp_image_caption', ! empty( $updated_meta['caption'] ) ? trim( $updated_meta['caption'] ) : '' );
+				$order = $new_order + 1;
 
                 $images_meta[ $img_id ] = $updated_meta;
             }
         }
 
-        if ( $this->should_validate_section( 'listing_images' ) && ! count( $images_meta ) && wpbdp_get_option( 'enforce-image-upload' ) ) {
+		if ( $should_validate && ! count( $images_meta ) && wpbdp_get_option( 'enforce-image-upload' ) ) {
             $this->prevent_save = true;
             $this->messages( _x( 'Image upload is required, please provide at least one image and submit again.', 'listing submit', 'business-directory-plugin' ), 'error', 'listing_images' );
         }
-
-        $thumbnail_id = $this->listing->get_thumbnail_id();
-
-        // TODO: replace this with calls to utility functions.
-        $images = $this->sort_images( $images, $images_meta );
 
         $image_slots_remaining = $image_slots - count( $images );
 

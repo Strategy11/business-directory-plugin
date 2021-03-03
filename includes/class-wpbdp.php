@@ -436,7 +436,14 @@ final class WPBDP {
                                    false );
         }
 
+		$has_images = $listing->get_images( 'ids' );
         $listing->set_images( $attachments, true );
+
+		// Maybe set thumbnail if there aren't already images on this listing.
+		if ( ! $has_images ) {
+			$image_id = reset( $attachments );
+			$listing->set_thumbnail_id( $image_id );
+		}
 
         if ( $errors ) {
             $error_msg = '';
