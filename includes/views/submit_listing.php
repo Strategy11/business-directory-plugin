@@ -1089,7 +1089,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         // Maybe update meta.
         if ( ! empty( $_POST['images_meta'] ) ) {
             foreach ( $images as $img_id ) {
-                $updated_meta = ( ! empty( $_POST['images_meta'][ $img_id ] ) ) ? (array) $_POST['images_meta'][ $img_id ] : array();
+				$updated_meta = wpbdp_get_var( array( 'param' => 'images_meta' ), 'post' );
+				$updated_meta = ! empty( $updated_meta[ $img_id ] ) ? (array) $updated_meta[ $img_id ] : array();
 
                 update_post_meta( $img_id, '_wpbdp_image_weight', ! empty( $updated_meta['order'] ) ? intval( $updated_meta['order'] ) : 0 );
                 update_post_meta( $img_id, '_wpbdp_image_caption', ! empty( $updated_meta['caption'] ) ? trim( $updated_meta['caption'] ) : '' );
