@@ -505,7 +505,7 @@ class WPBDP__Settings {
 				$disallow = array( ' ', ',', '&' );
 				$stripped = str_replace( $disallow, '', $value );
 				if ( $stripped !== $value ) {
-					add_settings_error( 'wpbdp_settings', $setting_id, __( 'The Region slug cannot include spaces, commas, or &', 'business-directory-plugin' ), 'error' );
+					add_settings_error( 'wpbdp_settings', $setting_id, sprintf( __( '%s cannot include spaces, commas, or &', 'business-directory-plugin' ), $setting['name'] ), 'error' );
 					$has_error = true;
 					continue 2;
 				}
