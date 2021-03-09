@@ -498,7 +498,17 @@ class WPBDP__Settings {
                 if ( empty( $value ) ) {
                     add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'business-directory-plugin' ), $setting['name'] ), 'error' );
                     $has_error = true;
+					continue 2;
                 }
+
+				// Check for characters that will break the url.
+				$disallow = array( ' ', ',', '&' );
+				$stripped = str_replace( $disallow, '', $value );
+				if ( $stripped !== $value ) {
+					add_settings_error( 'wpbdp_settings', $setting_id, __( 'The Region slug cannot include spaces, commas, or &', 'business-directory-plugin' ), 'error' );
+					$has_error = true;
+					continue 2;
+				}
 
                 if ( ! empty( $setting ) && ! empty( $setting['taxonomy'] ) ) {
                     foreach ( get_taxonomies( null, 'objects' ) as $taxonomy ) {
