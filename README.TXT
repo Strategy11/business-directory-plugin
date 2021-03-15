@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.7
-Stable tag: 5.10.1
+Stable tag: 5.11
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -41,7 +41,7 @@ See all [features](https://businessdirectoryplugin.com/features/?utm_source=wpre
 * Fully customizable form fields to submit listings
 * Upload images per listing, allow restricted numbers of images based on fee plan
 * Lots of image options: drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
-* Accept paid or free listings with Authorize.net
+* Accept paid or free listings in your directory with Authorize.net
 * Full support for recurring payments
 * Allow for featured/sticky listings for an upgrade fee
 * Widgets for Featured, Latest and Random listings, and a Search widget.
@@ -72,7 +72,7 @@ For a detailed list of features, please visit: [BusinessDirectoryPlugin.com](htt
 * [Claim Listings](https://businessdirectoryplugin.com/downloads/claim-listings-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Post claimable listings in your business directory that other users can pay (or not) to claim.
 * Enhanced Categories - Display images or icons with categories, with Parent-Child Categories.
 
-== Payment Gateways for Paid Listings (Premium) ==
+== Payment Gateways for Paid Business Directory Listings (Premium) ==
 
 * [Stripe Gateway](https://businessdirectoryplugin.com/downloads/stripe-payment-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept paid listings with Stripe payments.
 * [PayPal Gateway](https://businessdirectoryplugin.com/downloads/paypal-gateway-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept payments using PayPal.
@@ -97,7 +97,7 @@ For more information please visit [businessdirectoryplugin.com](https://business
 Please see our [Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).We also have an [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
 == Installation ==
-Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) page for instructions on how to get going quickly with our directory software.
+Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) page for instructions on how to get going quickly with our business directory software.
 
 [Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for the plugin is also available.
 
@@ -140,13 +140,13 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 = What types of directories can I build? =
-Our directory website builder software combined with the add-on modules is the most powerful directory plugin on the market. The options are limitless. Here are a few types of directories you can create:
+Our directory website builder software combined with our add-on modules is the most powerful business directory plugin on the market. The options are limitless. Here are a few types of directories you can create:
 
 * Business listings
 * Company directory
 * Team directory
 * Member directory
-* Staff / Employee directory
+* Staff directory / Employee directory
 * Hotel directory
 * Medical directory
 * Restaurant directory
@@ -155,12 +155,27 @@ Our directory website builder software combined with the add-on modules is the m
 * Software review sites
 * Professional directory
 * Local provider listings (like a Yelp clone)
-* A Yellow Pages website
+* A Yellow Pages directory
 * Online magazine listings
 * Website listings
 * Book review sites
 
 == Changelog ==
+
+= 5.11 =
+* Improve site-wide performance: caching for fee plans & listing images, load fewer settings on page load, reduce database calls for fields, getting category lists 
+* New: Add wpbdp_paid_listing_status hook to always mark paid listings as published, regardless of default status.
+* New: Start adding links to the payments on processor site.
+* New: Autofill email and address fields on the checkout page if we have the info.
+* Security: Image imports allowed executable PHP files.
+* Security: Fields could be created, edited, and deleted without any permission checks (XSS).
+* Replaced a few deprecated jQuery functions.
+* Removed empty values from the receipt page.
+* Show the payment confirmation page after submission instead of going to first page of listing.
+
+= 5.10.1 =
+* Fix: When a single plan is available without payments, there was an error that the plan wasn't selected.
+* Fix: Some sites were showing an error on the fees admin page that a file was missing.
 
 = 5.10 =
 * New: Skip page 1 of listing form is there's only one plan and one category.
@@ -212,24 +227,5 @@ Our directory website builder software combined with the add-on modules is the m
 * Fix: Compatibility with new WP 2021 theme, showing 'Untitled' for the heading.
 * Fix: Renewal reminders weren't always being sent for listings that expire at the end of the month if they were set to send a month or two ahead.
 * Code: Can get a field by shortname instead of only id.
-
-= 5.8.3 =
-* Switch heading on single listing in default theme from h2 to h1
-* Update file upload script and remove a bunch of unneeded files from the package
-* Added wpbdp_hidden_field_settings hook to hide options in the field settings
-* Fix: Pages in the listing form for some add-ons weren't being rendered correctly
-* Fix: Only strip images from textareas fields that include the option to allow them
-
-= 5.8.2 =
-* New: Only load select2 assets when needed to start reducing http requests
-* New: Only load admin js/css on BD pages
-* New: Addded wpbdp_contact_form_output hook for replacing the contact form
-* Combine a few listing pages (terms + recaptcha, images + attachments)
-* Fix: Strip HTML from textareas when the options to allow WYSIWYG, HTML, and iframe settings are all off
-* Fix: Allow iframes in textarea fields when the setting is on
-* Fix: Prevent reCaptcha issues by keeping it on the last page of the form
-* Fix: Some combinations of fee/category settings were causing the category dropdown to stay disabled on new listing form
-* Fix: Error showing on some sites with only one fee plan when creating a new listing
-* Merge more duplicate strings to reduce the number of translations needed
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
