@@ -264,8 +264,8 @@ class WPBDP_Listing_Display_Helper {
             $image->height = $data[2];
             $image->html   = sprintf(
                 '<a href="%s" class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal" target="_blank" rel="noopener" title="%s">%s</a>',
-                $image->url,
-                get_post_meta( $img_id, '_wpbdp_image_caption', true ),
+				esc_url( $image->url ),
+				esc_attr( get_post_meta( $img_id, '_wpbdp_image_caption', true ) ),
                 wp_get_attachment_image(
                     $image->id, 'wpbdp-thumb', false, array(
                         'class' => 'wpbdp-thumbnail size-thumbnail',

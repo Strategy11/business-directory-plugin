@@ -15,8 +15,8 @@
             esc_attr( wpbdp_get_page_link( 'main' ) ),
             esc_html__( 'Return to directory', 'business-directory-plugin' )
         );
-        ?>
-    <?php else : ?>
+	else :
+		?>
         <p><?php echo esc_html_x( 'Your current listings are shown below. To edit a listing click the edit button. To delete a listing click the delete button.', 'templates', 'business-directory-plugin' ); ?></p>
         <?php
         while ( $query->have_posts() ) :
@@ -33,8 +33,6 @@
 			),
 			true
 		);
-        ?>
-
-        </div>
-    <?php endif; ?>
+	endif;
+	?>
 </div>
