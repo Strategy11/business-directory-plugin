@@ -338,10 +338,10 @@ class WPBDP_CSV_Import {
 	 * @since 5.11
 	 */
 	private function delete_non_images( $files ) {
-		$disallowed = array( 'php', 'js', 'css', 'mo' );
+		$allowed = array( 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'txt', 'rtf' );
 		foreach ( $files as $file ) {
 			$uploaded_type = strtolower( pathinfo( $file['filename'], PATHINFO_EXTENSION ) );
-			if ( in_array( $uploaded_type, $disallowed ) ) {
+			if ( ! in_array( $uploaded_type, $allowed, true ) ) {
 				 @unlink( $file['filename'] );
 			}
 		}
