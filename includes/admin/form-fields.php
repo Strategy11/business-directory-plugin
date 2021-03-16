@@ -348,7 +348,7 @@ class WPBDP_FormFieldsAdmin {
 	 */
 	private function check_permission( $action ) {
 		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
-		if ( ! wp_verify_nonce( $nonce, $action ) ) {
+		if ( ! wp_verify_nonce( $nonce, $action ) || ! current_user_can( 'manage_categories' ) ) {
 			wp_die( esc_html( 'You are not allowed to do that.', 'business-directory-plugin' ) );
 		}
 	}
@@ -462,6 +462,7 @@ class WPBDP_FormFieldsAdmin {
         }
 
         if ( isset( $_POST['doit'] ) ) {
+			$this->check_permission( 'deletefield' );
             $ret = $field->delete();
 
             if ( is_wp_error( $ret ) ) {
@@ -491,8 +492,7 @@ class WPBDP_FormFieldsAdmin {
 	 * @since 5.11
 	 */
 	private function move_field() {
-		// Check permission.
-		check_admin_referer( 'movefield' );
+		$this->check_permission( 'movefield' );
 
 		$field_id = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
 		$field = $this->api->get_field( $field_id );
@@ -502,8 +502,7 @@ class WPBDP_FormFieldsAdmin {
 	}
 
 	private function create_required_fields() {
-		// Check permission.
-		check_admin_referer( 'createrequired' );
+		$this->check_permission( 'createrequired' );
 
         global $wpbdp;
 
