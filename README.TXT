@@ -161,6 +161,13 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.11.1 =
+* When importing files, switch to only accept allowed file types instead of excluding some.
+* Removed Spanish PO file since WP handles it now!
+* Fix: Captions with quotation marks weren't showing in the lightbox.
+* Fix: The Manage Listings page had an extra /div
+* Fix: Add extra validation to slug settings to prevent characters that won't work in the URL.
+* Fix: Add more role protection for editing and deleting fields.
 
 = 5.11 =
 * Improve site-wide performance: caching for fee plans & listing images, load fewer settings on page load, reduce database calls for fields, getting category lists 
