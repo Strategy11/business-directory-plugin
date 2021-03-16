@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-03-03 23:16:40+00:00\n"
+"POT-Creation-Date: 2021-03-16 22:30:36+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -292,7 +292,7 @@ msgstr "Aller à \"Gestion des Champs\""
 msgid "Go back"
 msgstr "Non, reviens"
 
-#: includes/admin/form-fields.php:525
+#: includes/admin/form-fields.php:524
 #: includes/admin/settings/class-settings-bootstrap.php:753
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -301,87 +301,87 @@ msgstr "Non, reviens"
 msgid "Title"
 msgstr "Titre"
 
-#: includes/admin/form-fields.php:526 templates/admin/fees-form.tpl.php:216
+#: includes/admin/form-fields.php:525 templates/admin/fees-form.tpl.php:216
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
 #, fuzzy
 msgid "Category"
 msgstr "Catégorie"
 
-#: includes/admin/form-fields.php:527
+#: includes/admin/form-fields.php:526
 #, fuzzy
 msgid "Excerpt"
 msgstr "Extrait"
 
-#: includes/admin/form-fields.php:528
+#: includes/admin/form-fields.php:527
 #, fuzzy
 msgid "Content"
 msgstr "Contenu"
 
-#: includes/admin/form-fields.php:529
+#: includes/admin/form-fields.php:528
 #, fuzzy
 msgid "Tags"
 msgstr "Étiquettes (tags)"
 
-#: includes/admin/form-fields.php:530 includes/form-fields.php:445
+#: includes/admin/form-fields.php:529 includes/form-fields.php:445
 #: templates/checkout-billing-form.tpl.php:75
 #: themes/default/templates/excerpt_content.tpl.php:22
 #, fuzzy
 msgid "Address"
 msgstr "Adresse"
 
-#: includes/admin/form-fields.php:531
+#: includes/admin/form-fields.php:530
 #, fuzzy
 msgid "Address 2"
 msgstr "Adresse"
 
-#: includes/admin/form-fields.php:532
+#: includes/admin/form-fields.php:531
 #: templates/admin/payments-details.tpl.php:160
 #: templates/checkout-billing-form.tpl.php:87
 #, fuzzy
 msgid "City"
 msgstr "Ville"
 
-#: includes/admin/form-fields.php:533
+#: includes/admin/form-fields.php:532
 #: templates/admin/payments-details.tpl.php:156
 #, fuzzy
 msgid "State"
 msgstr "Région"
 
-#: includes/admin/form-fields.php:534
+#: includes/admin/form-fields.php:533
 #: templates/admin/payments-details.tpl.php:152
 #: templates/checkout-billing-form.tpl.php:102
 #, fuzzy
 msgid "Country"
 msgstr "Pays"
 
-#: includes/admin/form-fields.php:535 includes/form-fields.php:453
+#: includes/admin/form-fields.php:534 includes/form-fields.php:453
 #: templates/admin/payments-details.tpl.php:164
 msgid "ZIP Code"
 msgstr "Code postal"
 
-#: includes/admin/form-fields.php:536
+#: includes/admin/form-fields.php:535
 #, fuzzy
 msgid "FAX Number"
 msgstr "Numéro de fax"
 
-#: includes/admin/form-fields.php:537
+#: includes/admin/form-fields.php:536
 #: includes/fields/class-fieldtypes-phone-number.php:13
 #, fuzzy
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: includes/admin/form-fields.php:538
+#: includes/admin/form-fields.php:537
 #, fuzzy
 msgid "Ratings Field"
 msgstr "Champs d'évaluation"
 
-#: includes/admin/form-fields.php:539
+#: includes/admin/form-fields.php:538
 #, fuzzy
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/form-fields.php:540 includes/form-fields.php:411
+#: includes/admin/form-fields.php:539 includes/form-fields.php:411
 #, fuzzy
 msgid "Website"
 msgstr "Site Internet"
@@ -615,7 +615,7 @@ msgstr "Aller vers votre annonce"
 
 #: includes/admin/settings/class-settings-bootstrap.php:638
 #, fuzzy
-msgid "Default free listings status"
+msgid "Default listing status"
 msgstr "Annonce par défault de l'utilisateur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:642
@@ -770,6 +770,10 @@ msgstr ""
 #: templates/admin/uninstall-complete.tpl.php:4
 msgid "Uninstall"
 msgstr "Désinstaller"
+
+#: includes/admin/settings/class-settings.php:508
+msgid "%s cannot include spaces, commas, or &"
+msgstr ""
 
 #: includes/admin/tracking.php:222
 #, fuzzy
@@ -4560,17 +4564,17 @@ msgstr ""
 "s'affichent publiquement, vous pouvez <a>activer l'affichage public des e-"
 "mails</a>."
 
-#: includes/admin/form-fields.php:470
+#: includes/admin/form-fields.php:471
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Champ effacé."
 
-#: includes/admin/form-fields.php:512
+#: includes/admin/form-fields.php:511
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Champs requis créés avec succès."
 
-#: includes/admin/form-fields.php:564
+#: includes/admin/form-fields.php:563
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Étiquettes mises à jour."
@@ -6769,7 +6773,7 @@ msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr "\"%s\" ne peut pas être vide."
 
-#: includes/admin/settings/class-settings.php:506
+#: includes/admin/settings/class-settings.php:516
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "L'élément \"%s\" est déjà utilisé pour une autre taxinomie."

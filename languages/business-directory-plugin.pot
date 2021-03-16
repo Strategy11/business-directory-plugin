@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 5.11\n"
+"Project-Id-Version: Business Directory Plugin 5.11.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2021-03-03 23:16:40+00:00\n"
+"POT-Creation-Date: 2021-03-16 22:30:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: includes/admin/form-fields.php:525
+#: includes/admin/form-fields.php:524
 #: includes/admin/settings/class-settings-bootstrap.php:753
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -252,74 +252,74 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: includes/admin/form-fields.php:526 templates/admin/fees-form.tpl.php:216
+#: includes/admin/form-fields.php:525 templates/admin/fees-form.tpl.php:216
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
 msgid "Category"
 msgstr ""
 
-#: includes/admin/form-fields.php:527
+#: includes/admin/form-fields.php:526
 msgid "Excerpt"
 msgstr ""
 
-#: includes/admin/form-fields.php:528
+#: includes/admin/form-fields.php:527
 msgid "Content"
 msgstr ""
 
-#: includes/admin/form-fields.php:529
+#: includes/admin/form-fields.php:528
 msgid "Tags"
 msgstr ""
 
-#: includes/admin/form-fields.php:530 includes/form-fields.php:445
+#: includes/admin/form-fields.php:529 includes/form-fields.php:445
 #: templates/checkout-billing-form.tpl.php:75
 #: themes/default/templates/excerpt_content.tpl.php:22
 msgid "Address"
 msgstr ""
 
-#: includes/admin/form-fields.php:531
+#: includes/admin/form-fields.php:530
 msgid "Address 2"
 msgstr ""
 
-#: includes/admin/form-fields.php:532
+#: includes/admin/form-fields.php:531
 #: templates/admin/payments-details.tpl.php:160
 #: templates/checkout-billing-form.tpl.php:87
 msgid "City"
 msgstr ""
 
-#: includes/admin/form-fields.php:533
+#: includes/admin/form-fields.php:532
 #: templates/admin/payments-details.tpl.php:156
 msgid "State"
 msgstr ""
 
-#: includes/admin/form-fields.php:534
+#: includes/admin/form-fields.php:533
 #: templates/admin/payments-details.tpl.php:152
 #: templates/checkout-billing-form.tpl.php:102
 msgid "Country"
 msgstr ""
 
-#: includes/admin/form-fields.php:535 includes/form-fields.php:453
+#: includes/admin/form-fields.php:534 includes/form-fields.php:453
 #: templates/admin/payments-details.tpl.php:164
 msgid "ZIP Code"
 msgstr ""
 
-#: includes/admin/form-fields.php:536
+#: includes/admin/form-fields.php:535
 msgid "FAX Number"
 msgstr ""
 
-#: includes/admin/form-fields.php:537
+#: includes/admin/form-fields.php:536
 #: includes/fields/class-fieldtypes-phone-number.php:13
 msgid "Phone Number"
 msgstr ""
 
-#: includes/admin/form-fields.php:538
+#: includes/admin/form-fields.php:537
 msgid "Ratings Field"
 msgstr ""
 
-#: includes/admin/form-fields.php:539
+#: includes/admin/form-fields.php:538
 msgid "Twitter"
 msgstr ""
 
-#: includes/admin/form-fields.php:540 includes/form-fields.php:411
+#: includes/admin/form-fields.php:539 includes/form-fields.php:411
 msgid "Website"
 msgstr ""
 
@@ -501,7 +501,7 @@ msgid "Owner of anonymous listings"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:638
-msgid "Default free listings status"
+msgid "Default listing status"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:642
@@ -626,6 +626,10 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:1708
 #: templates/admin/uninstall-complete.tpl.php:4
 msgid "Uninstall"
+msgstr ""
+
+#: includes/admin/settings/class-settings.php:508
+msgid "%s cannot include spaces, commas, or &"
 msgstr ""
 
 #: includes/admin/tracking.php:222
@@ -3871,17 +3875,17 @@ msgid ""
 "of e-mails</a>."
 msgstr ""
 
-#: includes/admin/form-fields.php:470
+#: includes/admin/form-fields.php:471
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr ""
 
-#: includes/admin/form-fields.php:512
+#: includes/admin/form-fields.php:511
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr ""
 
-#: includes/admin/form-fields.php:564
+#: includes/admin/form-fields.php:563
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr ""
@@ -5920,7 +5924,7 @@ msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:506
+#: includes/admin/settings/class-settings.php:516
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""

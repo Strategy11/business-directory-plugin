@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-03-03 23:16:40+00:00\n"
+"POT-Creation-Date: 2021-03-16 22:30:36+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -292,7 +292,7 @@ msgstr "إنتقل إلى \"إدارة حقول\""
 msgid "Go back"
 msgstr ""
 
-#: includes/admin/form-fields.php:525
+#: includes/admin/form-fields.php:524
 #: includes/admin/settings/class-settings-bootstrap.php:753
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -301,87 +301,87 @@ msgstr ""
 msgid "Title"
 msgstr "العنوان"
 
-#: includes/admin/form-fields.php:526 templates/admin/fees-form.tpl.php:216
+#: includes/admin/form-fields.php:525 templates/admin/fees-form.tpl.php:216
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
 #, fuzzy
 msgid "Category"
 msgstr "التصنيف"
 
-#: includes/admin/form-fields.php:527
+#: includes/admin/form-fields.php:526
 #, fuzzy
 msgid "Excerpt"
 msgstr "مقتطف"
 
-#: includes/admin/form-fields.php:528
+#: includes/admin/form-fields.php:527
 #, fuzzy
 msgid "Content"
 msgstr "المحتوى"
 
-#: includes/admin/form-fields.php:529
+#: includes/admin/form-fields.php:528
 #, fuzzy
 msgid "Tags"
 msgstr "الوسوم"
 
-#: includes/admin/form-fields.php:530 includes/form-fields.php:445
+#: includes/admin/form-fields.php:529 includes/form-fields.php:445
 #: templates/checkout-billing-form.tpl.php:75
 #: themes/default/templates/excerpt_content.tpl.php:22
 #, fuzzy
 msgid "Address"
 msgstr "العنوان"
 
-#: includes/admin/form-fields.php:531
+#: includes/admin/form-fields.php:530
 #, fuzzy
 msgid "Address 2"
 msgstr "العنوان"
 
-#: includes/admin/form-fields.php:532
+#: includes/admin/form-fields.php:531
 #: templates/admin/payments-details.tpl.php:160
 #: templates/checkout-billing-form.tpl.php:87
 #, fuzzy
 msgid "City"
 msgstr "المدينة"
 
-#: includes/admin/form-fields.php:533
+#: includes/admin/form-fields.php:532
 #: templates/admin/payments-details.tpl.php:156
 #, fuzzy
 msgid "State"
 msgstr "الولاية"
 
-#: includes/admin/form-fields.php:534
+#: includes/admin/form-fields.php:533
 #: templates/admin/payments-details.tpl.php:152
 #: templates/checkout-billing-form.tpl.php:102
 #, fuzzy
 msgid "Country"
 msgstr "الدولة:"
 
-#: includes/admin/form-fields.php:535 includes/form-fields.php:453
+#: includes/admin/form-fields.php:534 includes/form-fields.php:453
 #: templates/admin/payments-details.tpl.php:164
 msgid "ZIP Code"
 msgstr "الرمز البريدي"
 
-#: includes/admin/form-fields.php:536
+#: includes/admin/form-fields.php:535
 #, fuzzy
 msgid "FAX Number"
 msgstr "رقم الفاكس"
 
-#: includes/admin/form-fields.php:537
+#: includes/admin/form-fields.php:536
 #: includes/fields/class-fieldtypes-phone-number.php:13
 #, fuzzy
 msgid "Phone Number"
 msgstr "رقم الهاتف"
 
-#: includes/admin/form-fields.php:538
+#: includes/admin/form-fields.php:537
 #, fuzzy
 msgid "Ratings Field"
 msgstr "حقول التقييم"
 
-#: includes/admin/form-fields.php:539
+#: includes/admin/form-fields.php:538
 #, fuzzy
 msgid "Twitter"
 msgstr "تويتر"
 
-#: includes/admin/form-fields.php:540 includes/form-fields.php:411
+#: includes/admin/form-fields.php:539 includes/form-fields.php:411
 #, fuzzy
 msgid "Website"
 msgstr "موقع الأنترنيت"
@@ -601,7 +601,7 @@ msgstr "الذهاب إلى إعلانك"
 
 #: includes/admin/settings/class-settings-bootstrap.php:638
 #, fuzzy
-msgid "Default free listings status"
+msgid "Default listing status"
 msgstr "إعلان العضو الافتراضي"
 
 #: includes/admin/settings/class-settings-bootstrap.php:642
@@ -755,6 +755,10 @@ msgstr "تعذر نسخ إضافة التوافق أجاكس \"%s\". لم يتم
 #, fuzzy
 msgid "Uninstall"
 msgstr "حذف"
+
+#: includes/admin/settings/class-settings.php:508
+msgid "%s cannot include spaces, commas, or &"
+msgstr ""
 
 #: includes/admin/tracking.php:222
 #, fuzzy
@@ -4490,17 +4494,17 @@ msgstr ""
 "الواجهة. إذا كنت تريد إظهار عناوين البريد الإلكتروني في الواجهة، يمكنك "
 "<a>تمكين عرض البريد الإلكتروني للعموم</a>."
 
-#: includes/admin/form-fields.php:470
+#: includes/admin/form-fields.php:471
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "تم حذف الحقل."
 
-#: includes/admin/form-fields.php:512
+#: includes/admin/form-fields.php:511
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "الحقول المطلوبة أنشئت بنجاح."
 
-#: includes/admin/form-fields.php:564
+#: includes/admin/form-fields.php:563
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "تم تحديث الوسوم"
@@ -6838,7 +6842,7 @@ msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:506
+#: includes/admin/settings/class-settings.php:516
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
