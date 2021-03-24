@@ -295,16 +295,20 @@ final class WPBDP {
         wp_clear_scheduled_hook( 'wpbdp_daily_events' );
     }
 
-    public function plugin_action_links( $links ) {
-        $links = array_merge(
-			array(
-				'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings' ) ) . '">' . esc_html__( 'Settings', 'business-directory-plugin' ) . '</a>'
-			),
-            $links
-        );
+	/**
+	 * Adds a settings link to the plugins page
+	 */
+	public function plugin_action_links( $links ) {
+		$add_links = array();
 
-        return $links;
-    }
+		if ( ! WPBDP_Admin_Education::is_installed( 'premium' ) ) {
+			$add_links[] = '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener"><b>' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</b></a>';
+		}
+
+		$add_links['settings'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings' ) ) . '">' . esc_html__( 'Settings', 'business-directory-plugin' ) . '</a>';
+
+		return array_merge( $add_links, $links );
+	}
 
     public function is_plugin_page() {
         if ( wpbdp_current_view() ) {
