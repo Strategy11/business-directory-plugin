@@ -412,12 +412,11 @@ class WPBDP_Licensing {
         return 'invalid';
     }
 
-	private function license_action( $item_type, $item_id, $action ) {
+	private function license_action( $item_type, $item_id, $action, $key = 0 ) {
         if ( ! in_array( $item_id, array_keys( $this->items ), true ) ) {
             return new WP_Error( 'invalid-module', esc_html__( 'Invalid item ID', 'business-directory-plugin' ), $module );
         }
 
-		$key = 0;
         if ( 'deactivate' === $action ) {
             unset( $this->licenses[ $item_type . '-' . $item_id ] );
             update_option( 'wpbdp_licenses', $this->licenses );
@@ -878,11 +877,13 @@ class WPBDP_Licensing {
         // Store the new license key. This clears stored information about the license.
         wpbdp_set_option( 'license-key-' . $item_type . '-' . $item_id, $key );
 
-		$result = $this->license_action( $item_type, $item_id, 'activate' );
+		$result = $this->license_action( $item_type, $item_id, 'activate', $key );
 
-		$response = new WPBDP_Ajax_Response();
-        if ( is_wp_error( $result ) ) {
-			$response['error'] = sprintf( _x( 'Could not activate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() );
+		if ( is_wp_error( $result ) ) {
+			$response = array(
+				'success' => false,
+				'error'   => sprintf( _x( 'Could not activate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ),
+			);
         } else {
 			$response = array(
 				'success' => true,
