@@ -30,6 +30,7 @@ if ( ! $payment->id ) {
 
 <form action="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_update' ) ); ?>" method="post">
     <input type="hidden" name="payment[id]" value="<?php echo esc_attr( $payment->id ); ?>" />
+	<?php wp_nonce_field( 'payment-' . $payment->id ); ?>
 
     <div id="poststuff">
         <div id="post-body" class="metabox-holder columns-2">
