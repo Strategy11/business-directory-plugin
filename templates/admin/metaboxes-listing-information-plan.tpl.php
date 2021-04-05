@@ -19,7 +19,9 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
         <?php if ( 'incomplete' == $status[0] ) : ?>
             <?php _ex( 'N/A', 'listing metabox', 'business-directory-plugin' ); ?>
         <?php else : ?>
-            <span class="tag plan-status paymentstatus <?php echo $status[0]; ?>"><?php echo $status[1]; ?></span>
+			<span class="tag plan-status paymentstatus <?php echo esc_attr( $status[0] ); ?>">
+				<?php echo esc_html( $status[1] ); ?>
+			</span>
         <?php endif; ?>
         </dd>
         <dt><?php _ex( 'Last renew date', 'listing metabox', 'business-directory-plugin' ); ?></dt>
@@ -43,7 +45,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             </span>
             <a href="#" class="edit-value-toggle"><?php _ex( 'Change plan', 'listing metabox', 'business-directory-plugin' ); ?></a>
             <div class="value-editor">
-                <input type="hidden" name="listing_plan[fee_id]" value="<?php echo $current_plan ? $current_plan->fee_id : ''; ?>" />
+				<input type="hidden" name="listing_plan[fee_id]" value="<?php echo esc_attr( $current_plan ? $current_plan->fee_id : '' ); ?>" />
                 <select name="" id="wpbdp-listing-plan-select">
                 <?php foreach ( $plans as $p ) : ?>
                     <?php
@@ -58,7 +60,9 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
                         'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ),
                     );
                     ?>
-                    <option value="<?php echo $p->id; ?>" <?php selected( $p->id, $current_plan ? $current_plan->fee_id : 0 ); ?> data-plan-info="<?php echo esc_attr( json_encode( $plan_info ) ); ?>"><?php echo $p->label; ?></option>
+					<option value="<?php echo esc_attr( $p->id ); ?>" <?php selected( $p->id, $current_plan ? $current_plan->fee_id : 0 ); ?> data-plan-info="<?php echo esc_attr( json_encode( $plan_info ) ); ?>">
+						<?php echo esc_html( $p->label ); ?>
+					</option>
                 <?php endforeach; ?>
                 </select>
 
@@ -77,9 +81,9 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             <span class="display-value" id="wpbdp-listing-plan-prop-expiration">
                 <?php echo ( $current_plan && $current_plan->expiration_date ) ? wpbdp_date_full_format( strtotime( $current_plan->expiration_date ) ) : ( $listing->get_fee_plan() ? 'Never' : '-' ); ?>
             </span>
-            <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'business-directory-plugin' ); ?></a>
+			<a href="#" class="edit-value-toggle"><?php esc_html_e( 'Edit', 'business-directory-plugin' ); ?></a>
             <div class="value-editor">
-                <input type="text" name="listing_plan[expiration_date]" value="<?php echo ( $current_plan && $current_plan->expiration_date ) ? $current_plan->expiration_date : ''; ?>" placeholder="<?php _ex( 'Never', 'listing metabox', 'business-directory-plugin' ); ?>" />
+				<input type="text" name="listing_plan[expiration_date]" value="<?php echo esc_attr( ( $current_plan && $current_plan->expiration_date ) ? $current_plan->expiration_date : '' ); ?>" placeholder="<?php esc_attr_e( 'Never', 'business-directory-plugin' ); ?>" />
 
                 <p>
                     <a href="#" class="update-value button"><?php _ex( 'OK', 'listing metabox', 'business-directory-plugin' ); ?></a>
@@ -92,7 +96,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             <span class="display-value" id="wpbdp-listing-plan-prop-images">
                 <?php echo $current_plan ? $current_plan->fee_images : '-'; ?>
             </span>
-            <a href="#" class="edit-value-toggle"><?php _ex( 'Edit', 'listing metabox', 'business-directory-plugin' ); ?></a>
+			<a href="#" class="edit-value-toggle"><?php esc_html_e( 'Edit', 'business-directory-plugin' ); ?></a>
             <div class="value-editor">
                 <input type="text" name="listing_plan[fee_images]" value="<?php echo $current_plan ? $current_plan->fee_images : 0; ?>" size="2" />
 
@@ -117,7 +121,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
 
     <ul class="wpbdp-listing-metabox-renewal-actions">
         <li>
-            <a href="#" class="button button-small" onclick="window.prompt('<?php _ex( 'Renewal url (copy & paste)', 'admin infometabox', 'business-directory-plugin' ); ?>', '<?php echo $listing->get_renewal_url(); ?>'); return false;"><?php _ex( 'Get renewal URL', 'admin infometabox', 'business-directory-plugin' ); ?></a>
+            <a href="#" class="button button-small" onclick="window.prompt('<?php _ex( 'Renewal url (copy & paste)', 'admin infometabox', 'business-directory-plugin' ); ?>', '<?php echo esc_url_raw( $listing->get_renewal_url() ); ?>'); return false;"><?php _ex( 'Get renewal URL', 'admin infometabox', 'business-directory-plugin' ); ?></a>
             <a class="button button-small" href="
             <?php
             echo esc_url(
