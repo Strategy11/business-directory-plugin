@@ -70,6 +70,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function payment_delete() {
+		$nonce = array( 'nonce' => 'payment-' . absint( $_REQUEST['payment-id'] ) );
+		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+
         $payment = WPBDP_Payment::objects()->get( (int) $_REQUEST['payment-id'] );
         $payment->delete();
 
