@@ -72,10 +72,17 @@ class WPBDP_App_Helper {
 	 *
 	 * @param string $permission
 	 */
-	public static function permission_check( $permission, $show_message = 'show' ) {
-		$permission_error = self::permission_nonce_error( $permission );
+	public static function permission_check( $permission, $atts = array() ) {
+		$defaults = array(
+			'show_message' => '',
+			'nonce_name'   => '',
+			'nonce'        => '',
+		);
+		$atts = array_merge( $defaults, $atts );
+
+		$permission_error = self::permission_nonce_error( $permission, $atts );
 		if ( $permission_error !== false ) {
-			if ( 'hide' === $show_message ) {
+			if ( 'hide' === $atts['show_message'] ) {
 				$permission_error = '';
 			}
 			wp_die( esc_html( $permission_error ) );
@@ -91,19 +98,21 @@ class WPBDP_App_Helper {
 	 *
 	 * @return false|string The permission message or false if allowed
 	 */
-	public static function permission_nonce_error( $permission, $nonce_name = '', $nonce = '' ) {
+	public static function permission_nonce_error( $permission, $atts = array() ) {
 		if ( ! empty( $permission ) && ! current_user_can( $permission ) && ! current_user_can( 'administrator' ) ) {
 			return esc_html( 'You are not allowed to do that.', 'business-directory-plugin' );
 		}
 
 		$error = false;
-		if ( empty( $nonce_name ) ) {
+		if ( empty( $atts['nonce_name'] ) ) {
 			return $error;
 		}
 
+		$nonce_name  = $atts['nonce_name'];
 		$nonce_value = ( $_REQUEST && isset( $_REQUEST[ $nonce_name ] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_name ] ) ) : '';
-		if ( $_REQUEST && ( ! isset( $_REQUEST[ $nonce_name ] ) || ! wp_verify_nonce( $nonce_value, $nonce ) ) ) {
-			$error        = esc_html( 'You are not allowed to do that.', 'business-directory-plugin' );
+
+		if ( $_REQUEST && ( ! isset( $_REQUEST[ $nonce_name ] ) || ! wp_verify_nonce( $nonce_value, $atts['nonce'] ) ) ) {
+			$error = esc_html( 'You are not allowed to do that.', 'business-directory-plugin' );
 		}
 
 		return $error;
