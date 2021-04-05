@@ -347,10 +347,7 @@ class WPBDP_FormFieldsAdmin {
 	 * @since 5.11
 	 */
 	private function check_permission( $action ) {
-		$nonce = array(
-			'nonce_name' => $action,
-			'nonce'      => '_wpnonce',
-		);
+		$nonce = array( 'nonce' => $action );
 		WPBDP_App_Helper::permission_check( 'manage_categories', $nonce );
 	}
 

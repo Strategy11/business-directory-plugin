@@ -106,6 +106,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function ajax_delete_note() {
+		$nonce = array( 'nonce' => 'wpbdp_ajax' );
+		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+
 		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ) );
 		$note_key   = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ) ) );
 

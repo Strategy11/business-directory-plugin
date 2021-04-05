@@ -75,7 +75,7 @@ class WPBDP_App_Helper {
 	public static function permission_check( $permission, $atts = array() ) {
 		$defaults = array(
 			'show_message' => '',
-			'nonce_name'   => '',
+			'nonce_name'   => '_wpnonce',
 			'nonce'        => '',
 		);
 		$atts = array_merge( $defaults, $atts );
@@ -104,7 +104,7 @@ class WPBDP_App_Helper {
 		}
 
 		$error = false;
-		if ( empty( $atts['nonce_name'] ) ) {
+		if ( empty( $atts['nonce_name'] ) || empty( $atts['nonce'] ) ) {
 			return $error;
 		}
 
