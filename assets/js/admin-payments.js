@@ -21,6 +21,7 @@ jQuery(function($) {
                 action: 'wpbdp_admin_ajax',
                 handler: 'payments__add_note',
                 payment_id: $( this ).data( 'payment-id' ),
+				nonce: wpbdp_global.nonce,
                 note: $note.val()
             },
             success: function( res ) {

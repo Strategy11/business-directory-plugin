@@ -75,6 +75,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function ajax_add_note() {
+		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
+
 		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ), 'post' );
         $payment    = WPBDP_Payment::objects()->get( $payment_id );
 		$text       = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ), 'post' ) );
@@ -120,4 +123,3 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
 }
-
