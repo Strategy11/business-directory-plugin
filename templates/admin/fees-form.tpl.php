@@ -8,6 +8,7 @@
 ?>
 
 <form id="wpbdp-fee-form" action="" method="post">
+	<?php wp_nonce_field( 'wpbdp-fees' ); ?>
 
     <table class="form-table">
         <tbody>

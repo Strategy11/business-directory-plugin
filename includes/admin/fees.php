@@ -66,6 +66,11 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     private function insert_or_update_fee( $mode ) {
+		if ( ! empty( $_POST ) ) {
+			$nonce = array( 'nonce' => 'wpbdp-fees' );
+			WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+		}
+
         if ( ! empty( $_POST['fee'] ) ) {
             $posted_values = stripslashes_deep( $_POST['fee'] );
 
@@ -100,8 +105,6 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
                 } else {
                     wpbdp_admin_message( _x( 'Fee plan updated.', 'fees admin', 'business-directory-plugin' ) );
                 }
-
-                return $this->_redirect( 'index' );
             } else {
                 foreach ( $result->get_error_messages() as $msg ) {
                     wpbdp_admin_message( $msg, 'error' );
