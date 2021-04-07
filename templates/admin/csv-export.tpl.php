@@ -137,7 +137,7 @@ echo $notice;
     </table>
 
     <p class="submit">
-        <?php echo submit_button( _x( 'Export Listings', 'admin csv-export', 'business-directory-plugin' ), 'primary', 'do-export', false ); ?>
+		<?php submit_button( _x( 'Export Listings', 'admin csv-export', 'business-directory-plugin' ), 'primary', 'do-export', false ); ?>
     </p>
 </form>
 </div>

@@ -153,7 +153,7 @@ class WPBDP_Admin_Education {
 	 *
 	 * @return bool
 	 */
-	private static function is_installed( $requires ) {
+	public static function is_installed( $requires ) {
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}

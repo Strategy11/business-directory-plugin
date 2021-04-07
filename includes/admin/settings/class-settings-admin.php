@@ -302,15 +302,15 @@ class WPBDP__Settings_Admin {
 
         $value = (array) $value;
 
-        echo '<input type="hidden" name="wpbdp_settings[' . $setting['id'] . '][]" value="" />';
+		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" value="" />';
 
         echo '<div class="wpbdp-settings-multicheck-options wpbdp-grid">';
         $n = 0;
         foreach ( $setting['options'] as $option_value => $option_label ) {
-            echo '<div class="wpbdp-settings-multicheck-option wpbdp-half wpbdp-settings-multicheck-option-no-' . $n . '">';
-            echo '<input type="checkbox" name="wpbdp_settings[' . $setting['id'] . '][]" id="wpbdp-' . $setting['id'] . '-checkbox-no-' . $n . '" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
-            echo '<label for="wpbdp-' . $setting['id'] . '-checkbox-no-' . $n . '">';
-            echo $option_label;
+			echo '<div class="wpbdp-settings-multicheck-option wpbdp-half wpbdp-settings-multicheck-option-no-' . esc_attr( $n ) . '">';
+			echo '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
+			echo '<label for="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '">';
+			echo esc_html( $option_label );
             echo '</label>';
             echo '</div>';
 

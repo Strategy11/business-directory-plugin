@@ -246,15 +246,16 @@ class WPBDP_Form_Field_Type {
                 $html .= sprintf(
                     '<label for="%s">%s</label>',
                     'wpbdp-field-' . esc_attr( $field->get_id() ),
-                    apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) .
+					wp_kses_post( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) .
 					( ( $field->has_validator( 'required' ) && 'widget' !== $render_context  ) ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
                 );
 
                 $html .= '</div>';
 
                 $field_description = trim( apply_filters( 'wpbdp_render_field_description', $field->get_description(), $field ) );
-                if ( $field_description && 'widget' !== $render_context )
-                    $html .= '<div class="wpbdp-form-field-description">' . $field_description .'</div>';
+                if ( $field_description && 'widget' !== $render_context ) {
+					$html .= '<div class="wpbdp-form-field-description">' . wp_kses_post( $field_description ) . '</div>';
+				}
 
                 $html .= '<div class="wpbdp-form-field-html wpbdp-form-field-inner">';
 
