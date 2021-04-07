@@ -30,8 +30,6 @@ class WPBDP_Admin_Listings {
         add_action( 'wpbdp_save_listing', array( $this, 'maybe_restore_listing_slug' ) );
         add_action( 'wpbdp_save_listing', array( $this, 'maybe_update_plan' ) );
 
-        add_filter( 'get_sample_permalink_html', array( $this, 'maybe_hide_permalinks' ), 10, 5 );
-
         // Filter by category.
         add_action( 'restrict_manage_posts', array( &$this, '_add_category_filter' ) );
         add_action( 'parse_query', array( &$this, '_apply_category_filter' ) );
@@ -495,7 +493,6 @@ class WPBDP_Admin_Listings {
             }
         }
 
-        $listing = wpbdp_get_listing( $post->ID );
         $actions = apply_filters( 'wpbdp_admin_directory_row_actions', $actions, $listing );
 
         return $actions;
@@ -558,41 +555,7 @@ class WPBDP_Admin_Listings {
             return;
         }
 
-        if (
-            ! $post_name ||
-            ( isset( $_POST['edit_listing_slug'] ) && (bool) $_POST['edit_listing_slug'] ) ||
-            ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] && 'edit-wpbdp_listing' === $_POST['screen'] )
-        ) {
-            update_post_meta( $post_id, '_wpbdp[name]', get_post_field( 'post_name', $post_id ) );
-            return;
-        }
-
-        wp_update_post(
-            array(
-                'post_name' => $post_name,
-                'ID'        => $post_id,
-            )
-        );
-    }
-
-    function maybe_hide_permalinks( $return, $post_id, $new_title, $new_slug, $post = null ) {
-        if ( ! $post ) {
-            return $return;
-        }
-
-        if ( WPBDP_POST_TYPE === $post->post_type ) {
-            $return = sprintf(
-                '<div class="wpbdp_allow_slug_edit"><label for="wpbdp_allow_slug_edit_input"><input id="wpbdp_allow_slug_edit_input" type="checkbox" name="edit_listing_slug" value="1" checked="%s" /> %s</label></div>',
-                ( ! empty( $_POST['action'] ) && 'sample-permalink' == $_POST['action'] ) ? 'checked' : '',
-                __( 'Edit listing permalink', 'business-directory-plugin' )
-            ) . sprintf(
-                '<div class="wpbdp_listing_slug_edit %s">%s</div>',
-                ( ! empty( $_POST['action'] ) && 'sample-permalink' == $_POST['action'] ) ? '' : 'hidden',
-                $return
-            );
-        }
-
-        return $return;
+		update_post_meta( $post_id, '_wpbdp[name]', get_post_field( 'post_name', $post_id ) );
     }
 
     /**
@@ -745,4 +708,12 @@ class WPBDP_Admin_Listings {
 
     }
 
+	/**
+	 * @deprecated 5.11.2
+	 */
+	public function maybe_hide_permalinks( $return ) {
+		_deprecated_function( __METHOD__, '5.11.2' );
+
+		return $return;
+	}
 }
