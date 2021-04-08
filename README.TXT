@@ -161,6 +161,11 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.11.2 =
+* Security: Lots of security fixes after a security audit. This includes XSS, Cross-Site Request Forgery, and unprotected import and export files.
+* Fix: Some combination of add-ons was preventing the listing form from progressing.
+* Fix: Post duplicator plugins were resulting in an endless loop when updating or deleting a duplicated listing.
+
 = 5.11.1 =
 * When importing files, switch to only accept allowed file types instead of excluding some.
 * Removed Spanish PO file since WP handles it now!
@@ -201,38 +206,5 @@ Our directory website builder software combined with our add-on modules is the m
 * New: Add hook to override template file - wpbdp_use_template_[template id]
 * Fix: Improve admin performance on sites with lots of users by switching user dropdowns to text fields.
 * Fix: Don't allow pending listings to be renewed. Add more protection.
-
-= 5.9.1 =
-* Improved HTML5 validity.
-* Group more settings to make them easier to find.
-* Add a way to sort by the opposite direction with the dropdown sorter.
-* Fix: Include styling for the search widget when it's needed.
-* Fix: Cases of 'get_the_excerpt' were causing conflicts with other plugins.
-* Fix: When the file attachments module was used, submitting the listing form was difficult in some cases.
-* Fix: Some links were opening in a new tab when they shouldn't.
-* Code: Add deprecated notices on old deprecated code.
-* Fix: The receipt url was not protected from non-owners.
-* Securty: Sanitize REQUEST and GET values.
-* Move the debug menu into a sub tab and into the site health page.
-
-= 5.9 =
-* Start adding caching to speed up all listings page and merge some css files.
-* Change sorting to dropdown to make it more compact.
-* Simplify and cleanup selecting a thumbnail image. Now the WP thumbnai is used instead of a custom meta.
-* When a field is set to validate as a number, sort the listings as a number too.
-* A bunch of new shortcodes for more modular options: businessdirectory-images, businessdirectory-socials, businessdirectory-buttons, businessdirectory-details, [businessdirectory-section section=comments], [businessdirectory-section section=contact_form]
-* Replace delete listing button with a link.
-* Change 'Manage Form Fields' menu to 'Form Fields'.
-* Move the uninstall page out of main nav and into settings pages.
-* Rename 'Allow images in HTML' option in field settings to make it more clear.
-* Break some content for single listings into separate templates for easier maintenance.
-* Pagination is now in a single template file.
-* Remove View button from all listings page and use standard links instead.
-* New hooks: 'wpbdp_settings_subtab_[subtab name here]', 'wpbdp_allow_template_override', 'wpbdp_is_numeric_sort', 'wpbdp_before_excerpts', 'wpbdp_heading_type' to switch h1 to h2, 'wpbdp_get_page_ids', 'wpbdp_thumbnail_html'
-* Security: Properly escape uses of admin_url().
-* Fix: Compatibility issue with Astra was showing an empty h1 in the page source.
-* Fix: Compatibility with new WP 2021 theme, showing 'Untitled' for the heading.
-* Fix: Renewal reminders weren't always being sent for listings that expire at the end of the month if they were set to send a month or two ahead.
-* Code: Can get a field by shortname instead of only id.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
