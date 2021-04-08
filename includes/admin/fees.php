@@ -119,7 +119,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	/**
 	 * Sanitize each field in the fee form.
 	 *
-	 * @since x.x
+	 * @since 5.11.2
 	 */
 	private function sanitize_posted_values( $posted_values ) {
 		$sanitizing = $this->sanitize_mapping();
@@ -133,7 +133,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	/**
 	 * This shows how to sanitize each field in the fee form.
 	 *
-	 * @since x.x
+	 * @since 5.11.2
 	 */
 	private function sanitize_mapping() {
 		return array(

@@ -697,7 +697,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.11.2
 	 */
 	private function prepare_single_section( &$section, &$next_section, $previous_section = '' ) {
 		$this->add_html_to_section( $section );

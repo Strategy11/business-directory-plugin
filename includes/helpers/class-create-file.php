@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @since x.x
+ * @since 5.11.2
  */
 class WPBDP_Create_File {
 
@@ -30,7 +30,7 @@ class WPBDP_Create_File {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.11.2
 	 */
 	private function set_new_file_path( $atts ) {
 		if ( isset( $atts['new_file_path'] ) ) {
@@ -56,7 +56,7 @@ class WPBDP_Create_File {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.11.2
 	 */
 	public function create_index( $force = false ) {
 		$exist = true;
@@ -64,7 +64,7 @@ class WPBDP_Create_File {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.11.2
 	 */
 	private function check_permission() {
 		$creds = $this->get_creds();

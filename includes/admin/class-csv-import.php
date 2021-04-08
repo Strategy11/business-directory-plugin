@@ -331,7 +331,7 @@ class WPBDP_CSV_Import {
 	/**
 	 * Create folders and index.php
 	 *
-	 * @since x.x
+	 * @since 5.11.2
 	 */
 	private function create_folders() {
 		require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/helpers/class-create-file.php';

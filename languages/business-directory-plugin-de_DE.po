@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-03-16 22:30:36+00:00\n"
+"POT-Creation-Date: 2021-04-08 23:15:52+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -25,53 +25,48 @@ msgstr ""
 msgid "Are you sure you want to do this?"
 msgstr "Möchtest du das wirklich tun?"
 
-#: includes/admin/class-admin-csv.php:38 templates/admin/csv-import.tpl.php:289
+#: includes/admin/class-admin-csv.php:38 templates/admin/csv-import.tpl.php:294
 #, fuzzy
 msgid "Help"
 msgstr "Hilfe "
 
-#: includes/admin/class-admin-listings.php:187
+#: includes/admin/class-admin-listings.php:185
 #: includes/views/submit_listing.php:497
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Eintrag Informationen"
 
-#: includes/admin/class-admin-listings.php:195
+#: includes/admin/class-admin-listings.php:193
 msgid "Listing Timeline"
 msgstr "Eintrag Titel:"
 
-#: includes/admin/class-admin-listings.php:213
+#: includes/admin/class-admin-listings.php:211
 #, fuzzy
 msgid "Listing Reports"
 msgstr "Ein Eintrag läuft aus."
 
-#: includes/admin/class-admin-listings.php:223
+#: includes/admin/class-admin-listings.php:221
 #: includes/admin/class-listing-owner.php:87
 #, fuzzy
 msgid "Listing Owner"
 msgstr "Ein Eintrag läuft aus."
 
-#: includes/admin/class-admin-listings.php:268
+#: includes/admin/class-admin-listings.php:266
 #, fuzzy
 msgid "Expires on"
 msgstr "Läuft ab am"
 
-#: includes/admin/class-admin-listings.php:276
+#: includes/admin/class-admin-listings.php:274
 #, fuzzy
 msgid "Attributes"
 msgstr "Feld Attribute"
 
-#: includes/admin/class-admin-listings.php:473
+#: includes/admin/class-admin-listings.php:471
 #: includes/class-cpt-integration.php:19
 #: includes/compatibility/class-navxt-integration.php:200
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
 msgstr "Eintrag bearbeiten"
-
-#: includes/admin/class-admin-listings.php:587
-#, fuzzy
-msgid "Edit listing permalink"
-msgstr "Eintrag Bearbeiten"
 
 #: includes/admin/class-admin.php:186
 #, fuzzy
@@ -149,7 +144,7 @@ msgstr "ID"
 msgid "Listing Count"
 msgstr "Anzahl Einträge"
 
-#: includes/admin/class-csv-import.php:655
+#: includes/admin/class-csv-import.php:674
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Eintrag zusenden (Initialbezahlung)"
@@ -236,8 +231,8 @@ msgstr "Die hochgeladene Datei ist nicht im CSV Format."
 #: includes/admin/fees.php:46 includes/admin/helpers/class-fees-table.php:122
 #: includes/admin/helpers/class-payments-table.php:57
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:69
-#: templates/admin/payments-details.tpl.php:109
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:73
+#: templates/admin/payments-details.tpl.php:110
 #: templates/email/listing-payment-completed.tpl.php:21
 #: templates/payment/payment_items.tpl.php:5
 #, fuzzy
@@ -253,12 +248,14 @@ msgstr "Bilder"
 
 #: includes/admin/form-fields.php:31
 #: includes/fields/class-fieldtypes-social.php:138
-#: templates/admin/csv-import.tpl.php:300
+#: templates/admin/csv-import.tpl.php:305
 #, fuzzy
 msgid "Type"
 msgstr "Typ"
 
 #: includes/admin/form-fields.php:88
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -283,7 +280,7 @@ msgstr ""
 "Sie können diese benutzerdefinierten Felder selbst erzeugen \"Formularfelder "
 "verwalten\" oder vom Branchenverzeichnis automatisch erstellen lassen."
 
-#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:800
+#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:826
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "zu \"Formularfelder verwalten\""
@@ -294,7 +291,7 @@ msgstr "zu \"Formularfelder verwalten\""
 msgid "Go back"
 msgstr "Geh zurück"
 
-#: includes/admin/form-fields.php:524
+#: includes/admin/form-fields.php:522
 #: includes/admin/settings/class-settings-bootstrap.php:753
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -303,87 +300,87 @@ msgstr "Geh zurück"
 msgid "Title"
 msgstr "Titel"
 
-#: includes/admin/form-fields.php:525 templates/admin/fees-form.tpl.php:216
+#: includes/admin/form-fields.php:523 templates/admin/fees-form.tpl.php:217
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
 #, fuzzy
 msgid "Category"
 msgstr "Kategorien"
 
-#: includes/admin/form-fields.php:526
+#: includes/admin/form-fields.php:524
 #, fuzzy
 msgid "Excerpt"
 msgstr "Im Textauszug"
 
-#: includes/admin/form-fields.php:527
+#: includes/admin/form-fields.php:525
 #, fuzzy
 msgid "Content"
 msgstr "Post Inhalt"
 
-#: includes/admin/form-fields.php:528
+#: includes/admin/form-fields.php:526
 #, fuzzy
 msgid "Tags"
 msgstr "Tags Entwurf"
 
-#: includes/admin/form-fields.php:529 includes/form-fields.php:445
+#: includes/admin/form-fields.php:527 includes/form-fields.php:445
 #: templates/checkout-billing-form.tpl.php:75
 #: themes/default/templates/excerpt_content.tpl.php:22
 #, fuzzy
 msgid "Address"
 msgstr "E-Mail Adresse:"
 
-#: includes/admin/form-fields.php:530
+#: includes/admin/form-fields.php:528
 #, fuzzy
 msgid "Address 2"
 msgstr "E-Mail Adresse:"
 
-#: includes/admin/form-fields.php:531
-#: templates/admin/payments-details.tpl.php:160
+#: includes/admin/form-fields.php:529
+#: templates/admin/payments-details.tpl.php:161
 #: templates/checkout-billing-form.tpl.php:87
 #, fuzzy
 msgid "City"
 msgstr "Stadt"
 
-#: includes/admin/form-fields.php:532
-#: templates/admin/payments-details.tpl.php:156
+#: includes/admin/form-fields.php:530
+#: templates/admin/payments-details.tpl.php:157
 #, fuzzy
 msgid "State"
 msgstr "Status"
 
-#: includes/admin/form-fields.php:533
-#: templates/admin/payments-details.tpl.php:152
+#: includes/admin/form-fields.php:531
+#: templates/admin/payments-details.tpl.php:153
 #: templates/checkout-billing-form.tpl.php:102
 #, fuzzy
 msgid "Country"
 msgstr "Land"
 
-#: includes/admin/form-fields.php:534 includes/form-fields.php:453
-#: templates/admin/payments-details.tpl.php:164
+#: includes/admin/form-fields.php:532 includes/form-fields.php:453
+#: templates/admin/payments-details.tpl.php:165
 msgid "ZIP Code"
 msgstr "Postleitzahl"
 
-#: includes/admin/form-fields.php:535
+#: includes/admin/form-fields.php:533
 #, fuzzy
 msgid "FAX Number"
 msgstr "Telefonnummer geschäftlich"
 
-#: includes/admin/form-fields.php:536
+#: includes/admin/form-fields.php:534
 #: includes/fields/class-fieldtypes-phone-number.php:13
 #, fuzzy
 msgid "Phone Number"
 msgstr "Telefonnummer geschäftlich"
 
-#: includes/admin/form-fields.php:537
+#: includes/admin/form-fields.php:535
 #, fuzzy
 msgid "Ratings Field"
 msgstr "Bewertungsfeld"
 
-#: includes/admin/form-fields.php:538
+#: includes/admin/form-fields.php:536
 #, fuzzy
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/form-fields.php:539 includes/form-fields.php:411
+#: includes/admin/form-fields.php:537 includes/form-fields.php:411
 #, fuzzy
 msgid "Website"
 msgstr "Webseite"
@@ -456,8 +453,8 @@ msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "Warum löscht du die Branchenverzeichnis Erweiterung?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:428 includes/views/submit_listing.php:1199
-#: templates/admin/payments-details.tpl.php:136
+#: includes/form-fields.php:428 includes/views/submit_listing.php:1225
+#: templates/admin/payments-details.tpl.php:137
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
 #, fuzzy
@@ -487,8 +484,8 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:254
 #: includes/class-assets.php:317
 #: includes/fields/class-fieldtypes-textarea.php:200
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
 #, fuzzy
 msgid "No"
 msgstr "Nein"
@@ -554,6 +551,12 @@ msgstr "Erweiterte Suche"
 msgid ""
 "Enabling this sacrifices result quality to improve speed. This is helpful if "
 "you're on shared hosting plans, where database performance is an issue."
+msgstr ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:414
+msgid ""
+"If no fields are selected, the following fields will be used in Quick "
+"Searches:"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:443
@@ -811,7 +814,7 @@ msgid "Business Directory - Featured Levels Migration"
 msgstr "Branchenverzeichnis - Hervorgehobene Einträge"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:272
-#: templates/admin/fees-form.tpl.php:16
+#: templates/admin/fees-form.tpl.php:17
 #, fuzzy
 msgid "Fee Label"
 msgstr "Preisbezeichnung"
@@ -840,14 +843,15 @@ msgid "Status: %s"
 msgstr "Status"
 
 #: includes/class-assets.php:315
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:86
 #, fuzzy
 msgid "Never"
 msgstr "niemals"
 
 #: includes/class-assets.php:316
 #: includes/fields/class-fieldtypes-textarea.php:201
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
 #, fuzzy
 msgid "Yes"
 msgstr "Ja"
@@ -980,28 +984,33 @@ msgid ""
 "to %1$sFee Plans%2$s to add or edit your fee plan(s)."
 msgstr ""
 
-#: includes/class-wpbdp.php:301
+#: includes/class-wpbdp.php:305
+#, fuzzy
+msgid "Upgrade to Premium"
+msgstr "Aktualisieren auf %s"
+
+#: includes/class-wpbdp.php:308
 #, fuzzy
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: includes/class-wpbdp.php:503
+#: includes/class-wpbdp.php:507
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Eine Verbindung zum Lizenzserver konnte nicht hergestellt werden."
 
-#: includes/class-wpbdp.php:510
+#: includes/class-wpbdp.php:514
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:517 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:521 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Konnte Lizenz nicht deaktivieren: %s"
 
-#: includes/class-wpbdp.php:549
+#: includes/class-wpbdp.php:553
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1010,7 +1019,7 @@ msgstr ""
 "Branchenverzeichnis Hervorhebungen sind aktuell deaktiviert, weil das Modul "
 "manuell aktualisiert werden muss, bevor weiter hervorgehoben werden kann."
 
-#: includes/class-wpbdp.php:556
+#: includes/class-wpbdp.php:560
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1182,8 +1191,8 @@ msgstr ""
 "Feldoptionen (für ausgewählte Listen, Radiobutton und Kontrollkästchen)"
 
 #: includes/fields/class-fieldtypes-select.php:262
-#: templates/admin/fees-form.tpl.php:16 templates/admin/fees-form.tpl.php:37
-#: templates/admin/fees-form.tpl.php:57
+#: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
+#: templates/admin/fees-form.tpl.php:58
 #, fuzzy
 msgid "required"
 msgstr "Pflichtfeld"
@@ -1297,7 +1306,7 @@ msgstr "Eintrag Titel"
 msgid "Short Description"
 msgstr "Kurze Geschäftsbeschreibung"
 
-#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:108
+#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:109
 #, fuzzy
 msgid "Description"
 msgstr "Beschreibung"
@@ -1459,28 +1468,28 @@ msgstr "Aktiviere Lizenz"
 msgid "Invalid item ID"
 msgstr "Ungültige Feld ID"
 
-#: includes/licensing.php:431
+#: includes/licensing.php:430
 #, fuzzy
 msgid "No license key provided"
 msgstr "Kein Lizenzschlüssel"
 
-#: includes/licensing.php:480 includes/licensing.php:517
+#: includes/licensing.php:479 includes/licensing.php:516
 #, fuzzy
 msgid "License key is invalid"
 msgstr "Lizenzschlüssel ungültig "
 
-#: includes/licensing.php:484
+#: includes/licensing.php:483
 #, fuzzy
 msgid "Deactivation failed"
 msgstr "Deaktivierung fehlgeschlagen"
 
-#: includes/licensing.php:529
+#: includes/licensing.php:528
 #, fuzzy
 msgid "The license key was revoked."
 msgstr "Kein Lizenzschlüssel"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:533
+#: includes/licensing.php:532
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory support"
 "%2$s and let them know your license is being reported as revoked by the "
@@ -1488,50 +1497,50 @@ msgid ""
 "with your report."
 msgstr ""
 
-#: includes/licensing.php:596
+#: includes/licensing.php:595
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:609
+#: includes/licensing.php:608
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:656
+#: includes/licensing.php:655
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
 "Business Directory servers. Please contact your webhost and ask them to add "
 "our IP address 52.0.78.177 to your allow list."
 msgstr ""
 
-#: includes/licensing.php:743
+#: includes/licensing.php:742
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Branchenverzeichnis - Lizenzschlüssel abgelaufen"
 
-#: includes/licensing.php:744
+#: includes/licensing.php:743
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Branchenverzeichnis - Lizenzschlüssel abgelaufen"
 
-#: includes/licensing.php:745
+#: includes/licensing.php:744
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Hilf Business Directory zu unterstützen"
 
-#: includes/licensing.php:756
+#: includes/licensing.php:755
 #, fuzzy
 msgid "Review license keys"
 msgstr "Erneuere Lizenzschlüssel"
 
-#: includes/licensing.php:869
+#: includes/licensing.php:868
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:874
+#: includes/licensing.php:873
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
@@ -1618,30 +1627,30 @@ msgstr "Eintrag Bilder"
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:783
+#: includes/views/submit_listing.php:809
 #, fuzzy
 msgid "Go to \"Fee Plans\""
 msgstr "zu \"Formularfelder verwalten\""
 
-#: includes/views/submit_listing.php:839
+#: includes/views/submit_listing.php:865
 #, fuzzy
 msgid "Please choose a fee plan."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/views/submit_listing.php:1023
+#: includes/views/submit_listing.php:1049
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:1183
+#: includes/views/submit_listing.php:1209
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:1190
+#: includes/views/submit_listing.php:1216
 #, fuzzy
 msgid "Username"
 msgstr "Benutzer"
 
-#: includes/views/submit_listing.php:1212
+#: includes/views/submit_listing.php:1238
 #, fuzzy
 msgid "Clear Form"
 msgstr "Zurücksetzen"
@@ -1657,7 +1666,7 @@ msgstr ""
 "stelle sicher, dass du genügend Speicherplatz für PHP vorhanden ist. Schaue "
 "ins Fehlerprotokoll."
 
-#: templates/admin/csv-export.tpl.php:66
+#: templates/admin/csv-export.tpl.php:65
 #, fuzzy
 msgid ""
 "If you plan to re-import the listings into your directory and don't want new "
@@ -1666,12 +1675,22 @@ msgstr ""
 "Wenn Sie vorhaben die Einträge in BD erneut zu importieren und keine neuen "
 "erstellen wollen, wählen Sie diese Option!"
 
-#: templates/admin/csv-import.tpl.php:269
+#. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
+#: templates/admin/csv-import.tpl.php:34
+#, fuzzy
+msgid ""
+"We strongly recommend reading our %1$sCSV import documentation%2$s first to "
+"help you do things in the right order."
+msgstr ""
+"Wir empfehlen Ihnen dringend, unsere <a>CSV-Importdokumentation</a> zu "
+"lesen, um Ihnen zu helfen, Dinge in der richtigen Reihenfolge zu machen."
+
+#: templates/admin/csv-import.tpl.php:274
 #, fuzzy
 msgid "Disable email notifications during import?"
 msgstr "E-Mail-Benachrichtigungen"
 
-#: templates/admin/csv-import.tpl.php:276
+#: templates/admin/csv-import.tpl.php:281
 #, fuzzy
 msgid "Disable email notifications."
 msgstr "E-Mail-Benachrichtigungen beim Import deaktivieren?"
@@ -1690,7 +1709,7 @@ msgstr ""
 msgid "Download Debug Information"
 msgstr "Fehlerprotokoll herunterladen"
 
-#: templates/admin/fees-add-fee.tpl.php:4 templates/admin/fees-form.tpl.php:242
+#: templates/admin/fees-add-fee.tpl.php:4 templates/admin/fees-form.tpl.php:243
 #, fuzzy
 msgid "Add Listing Fee"
 msgstr "Preispaket hinzufügen"
@@ -1700,55 +1719,55 @@ msgstr "Preispaket hinzufügen"
 msgid "Edit Listing Fee"
 msgstr "Eintrag Bearbeiten"
 
-#: templates/admin/fees-form.tpl.php:29
+#: templates/admin/fees-form.tpl.php:30
 #, fuzzy
 msgid "Fee Description"
 msgstr "Beschreibung"
 
-#: templates/admin/fees-form.tpl.php:37
+#: templates/admin/fees-form.tpl.php:38
 msgid "How long should the listing run?"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:40
+#: templates/admin/fees-form.tpl.php:41
 #, fuzzy
 msgid "run listing for"
 msgstr "Eintrag ausführen für"
 
-#: templates/admin/fees-form.tpl.php:50
+#: templates/admin/fees-form.tpl.php:51
 #: templates/plan-selection-plan.tpl.php:39
 #, fuzzy
 msgid "days"
 msgstr "Tage"
 
-#: templates/admin/fees-form.tpl.php:52
+#: templates/admin/fees-form.tpl.php:53
 #, fuzzy
 msgid "run listing forever"
 msgstr "Eintrag dauerhaft ausführen"
 
-#: templates/admin/fees-form.tpl.php:57
+#: templates/admin/fees-form.tpl.php:58
 #, fuzzy
 msgid "Number of images allowed"
 msgstr "Erlaubte Anzahl der Bilder"
 
-#: templates/admin/fees-form.tpl.php:72
+#: templates/admin/fees-form.tpl.php:73
 msgid "Private Fee Plan (visible to admins only)?"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:89
+#: templates/admin/fees-form.tpl.php:90
 #, fuzzy
 msgid "Is recurring?"
 msgstr "(wiederkehrend)"
 
-#: templates/admin/fees-form.tpl.php:101
+#: templates/admin/fees-form.tpl.php:102
 msgid "Should the listing auto-renew at the end of the listing term?"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:107
+#: templates/admin/fees-form.tpl.php:108
 #, fuzzy
 msgid "Is featured listing/sticky?"
 msgstr "Top Einträge"
 
-#: templates/admin/fees-form.tpl.php:118
+#: templates/admin/fees-form.tpl.php:119
 #, fuzzy
 msgid ""
 "This floats the listing to the top of search results and browsing the "
@@ -1757,15 +1776,15 @@ msgstr ""
 "Dies Platziert den Eintrag an die Spitze der Suchergebnisse und durchsucht "
 "das Verzeichnis, wenn der Benutzer dieses Angebot kauft."
 
-#: templates/admin/fees-form.tpl.php:124
+#: templates/admin/fees-form.tpl.php:125
 msgid "Listing background color:"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:130
+#: templates/admin/fees-form.tpl.php:131
 msgid "Used to differentiate listings inside this plan from others."
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:242
+#: templates/admin/fees-form.tpl.php:243
 #: templates/admin/settings-email.tpl.php:116
 #: templates/submit-listing-section.tpl.php:30
 #, fuzzy
@@ -1955,110 +1974,110 @@ msgstr "← Zurück zu meinem Eintrag."
 msgid "Payment Not Found"
 msgstr "Preisinformation"
 
-#: templates/admin/payments-details.tpl.php:41
+#: templates/admin/payments-details.tpl.php:42
 msgid "Overview"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:45
-#: templates/admin/payments-details.tpl.php:79
+#: templates/admin/payments-details.tpl.php:46
+#: templates/admin/payments-details.tpl.php:80
 #, fuzzy
 msgid "Payment ID"
 msgstr "Bezahlung"
 
-#: templates/admin/payments-details.tpl.php:49
+#: templates/admin/payments-details.tpl.php:50
 #, fuzzy
 msgid "Listing"
 msgstr "Einträge"
 
-#: templates/admin/payments-details.tpl.php:55
+#: templates/admin/payments-details.tpl.php:56
 #, fuzzy
 msgid "Status"
 msgstr "Status"
 
-#: templates/admin/payments-details.tpl.php:64
+#: templates/admin/payments-details.tpl.php:65
 #, fuzzy
 msgid "Date"
 msgstr "Datum"
 
-#: templates/admin/payments-details.tpl.php:68
+#: templates/admin/payments-details.tpl.php:69
 #, fuzzy
 msgid "Time"
 msgstr "Zeit: %s"
 
-#: templates/admin/payments-details.tpl.php:73
+#: templates/admin/payments-details.tpl.php:74
 #, fuzzy
 msgid "Gateway"
 msgstr "Gateway"
 
 #. translators: Gateway: (Not yet set)
-#: templates/admin/payments-details.tpl.php:75
+#: templates/admin/payments-details.tpl.php:76
 #, fuzzy
 msgid "(Not yet set)"
 msgstr "Noch nicht registriert?"
 
-#: templates/admin/payments-details.tpl.php:90
+#: templates/admin/payments-details.tpl.php:91
 #, fuzzy
 msgid "Delete Payment"
 msgstr "Bezahlung zurückweisen"
 
-#: templates/admin/payments-details.tpl.php:92
+#: templates/admin/payments-details.tpl.php:93
 #, fuzzy
 msgid "Save Payment"
 msgstr "Bezahlung"
 
-#: templates/admin/payments-details.tpl.php:103
+#: templates/admin/payments-details.tpl.php:104
 #, fuzzy
 msgid "Details"
 msgstr "+ Details"
 
-#: templates/admin/payments-details.tpl.php:107
+#: templates/admin/payments-details.tpl.php:108
 #, fuzzy
 msgid "Item Type"
 msgstr "Feldtyp"
 
-#: templates/admin/payments-details.tpl.php:120
+#: templates/admin/payments-details.tpl.php:121
 #: templates/payment/payment_items.tpl.php:23
 #, fuzzy
 msgid "Total"
 msgstr "Gesamt"
 
-#: templates/admin/payments-details.tpl.php:131
+#: templates/admin/payments-details.tpl.php:132
 #, fuzzy
 msgid "Customer Details"
 msgstr "Aktuelle Preisdetails"
 
-#: templates/admin/payments-details.tpl.php:141
+#: templates/admin/payments-details.tpl.php:142
 #: templates/checkout-billing-form.tpl.php:17
 #, fuzzy
 msgid "First Name"
 msgstr "Name:"
 
-#: templates/admin/payments-details.tpl.php:146
+#: templates/admin/payments-details.tpl.php:147
 #: templates/checkout-billing-form.tpl.php:22
 #, fuzzy
 msgid "Last Name"
 msgstr "Name:"
 
-#: templates/admin/payments-details.tpl.php:168
+#: templates/admin/payments-details.tpl.php:169
 #, fuzzy
 msgid "Address Line 1"
 msgstr "Adresszeile 1:"
 
-#: templates/admin/payments-details.tpl.php:172
+#: templates/admin/payments-details.tpl.php:173
 #: templates/checkout-billing-form.tpl.php:81
 #, fuzzy
 msgid "Address Line 2"
 msgstr "Adresszeile 2:"
 
-#: templates/admin/payments-details.tpl.php:181
+#: templates/admin/payments-details.tpl.php:182
 msgid "Notes & Log"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:186
+#: templates/admin/payments-details.tpl.php:187
 msgid "No notes."
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:206
+#: templates/admin/payments-details.tpl.php:207
 #, fuzzy
 msgid "Add Note"
 msgstr "Preis Erstellen"
@@ -2816,7 +2835,7 @@ msgctxt "admin csv-import"
 msgid "See an example CSV import file"
 msgstr "Beispiel CSV Import Datei anschauen"
 
-#: includes/admin/class-csv-import.php:512
+#: includes/admin/class-csv-import.php:531
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -2825,32 +2844,32 @@ msgstr ""
 "Die Kategorieauflistung \"<category-name>\" konnte nicht erstellt werden. "
 "Der Vorgang ist mit dem folgenden Fehler fehlgeschlagen: <error-message>."
 
-#: includes/admin/class-csv-import.php:518
+#: includes/admin/class-csv-import.php:537
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: includes/admin/class-csv-import.php:709
+#: includes/admin/class-csv-import.php:728
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Benutzername \"%s\" existiert nicht"
 
-#: includes/admin/class-csv-import.php:736
+#: includes/admin/class-csv-import.php:755
 msgctxt "admin csv-import"
 msgid "There is no Fee Plan with ID = <fee-id>"
 msgstr ""
 
-#: includes/admin/class-csv-import.php:767
+#: includes/admin/class-csv-import.php:786
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Benötigtes nicht vorhandenes Feld: %s"
 
-#: includes/admin/class-csv-import.php:812
+#: includes/admin/class-csv-import.php:831
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Eintragskategorie \"%s\" existiert nicht"
 
-#: includes/admin/class-csv-import.php:883
+#: includes/admin/class-csv-import.php:902
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
@@ -3029,15 +3048,6 @@ msgid "Here, you can import data into your directory using the CSV format."
 msgstr ""
 "Hier können Sie mit dem CSV-Format Daten in Ihr Verzeichnis importieren."
 
-#: templates/admin/csv-import.tpl.php:35
-msgctxt "admin csv-import"
-msgid ""
-"We strongly recommend reading our <a>CSV import documentation</a> first to "
-"help you do things in the right order."
-msgstr ""
-"Wir empfehlen Ihnen dringend, unsere <a>CSV-Importdokumentation</a> zu "
-"lesen, um Ihnen zu helfen, Dinge in der richtigen Reihenfolge zu machen."
-
 #: templates/admin/csv-import.tpl.php:45
 msgctxt "admin csv-import"
 msgid "Import Files"
@@ -3054,7 +3064,7 @@ msgid "... or <a>select a file uploaded to the imports folder</a>"
 msgstr ""
 "... oder <a>wählen sie eine Datei die im upload Ordner hochgeladen wurde</a>"
 
-#: templates/admin/csv-import.tpl.php:72 templates/admin/csv-import.tpl.php:103
+#: templates/admin/csv-import.tpl.php:72 templates/admin/csv-import.tpl.php:104
 msgctxt "admin csv-import"
 msgid "(Upload new file)"
 msgstr "(Neue Datei hochladen)"
@@ -3064,110 +3074,110 @@ msgctxt "admin csv-import"
 msgid "ZIP file containing images"
 msgstr "ZIP-Datei mit Bildern"
 
-#: templates/admin/csv-import.tpl.php:112
+#: templates/admin/csv-import.tpl.php:113
 msgctxt "admin csv-import"
 msgid "CSV File Settings"
 msgstr "CSV-Datei Einstellungen"
 
-#: templates/admin/csv-import.tpl.php:116
+#: templates/admin/csv-import.tpl.php:117
 msgctxt "admin csv-import"
 msgid "Column Separator"
 msgstr "Spaltentrenner"
 
-#: templates/admin/csv-import.tpl.php:124
+#: templates/admin/csv-import.tpl.php:125
 msgctxt "admin csv-import"
 msgid "Comma (,)"
 msgstr "Komma (,)"
 
-#: templates/admin/csv-import.tpl.php:130
+#: templates/admin/csv-import.tpl.php:131
 msgctxt "admin csv-import"
 msgid "Semicolon (;)"
 msgstr "Semikolon (;)"
 
-#: templates/admin/csv-import.tpl.php:136
+#: templates/admin/csv-import.tpl.php:137
 msgctxt "admin csv-import"
 msgid "TAB"
 msgstr "TAB"
 
-#: templates/admin/csv-import.tpl.php:142
+#: templates/admin/csv-import.tpl.php:143
 msgctxt "admin csv-import"
 msgid "Image Separator"
 msgstr "Bildertrenner"
 
-#: templates/admin/csv-import.tpl.php:153
+#: templates/admin/csv-import.tpl.php:154
 msgctxt "admin csv-import"
 msgid "Category Separator"
 msgstr "Kategorietrenner"
 
-#: templates/admin/csv-import.tpl.php:164
+#: templates/admin/csv-import.tpl.php:165
 msgctxt "admin csv-import"
 msgid "Import settings"
 msgstr "Importeinstellungen"
 
-#: templates/admin/csv-import.tpl.php:168
+#: templates/admin/csv-import.tpl.php:169
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Post status of new imported listings"
 msgstr "Status der importierten Einträge"
 
-#: templates/admin/csv-import.tpl.php:183
+#: templates/admin/csv-import.tpl.php:186
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Post status of existing imported listings"
 msgstr "Status der importierten Einträge"
 
-#: templates/admin/csv-import.tpl.php:187
+#: templates/admin/csv-import.tpl.php:190
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Preserve existing status"
 msgstr "Einträge"
 
-#: templates/admin/csv-import.tpl.php:199
+#: templates/admin/csv-import.tpl.php:204
 msgctxt "admin csv-import"
 msgid "Missing categories handling"
 msgstr "Verhalten bei nicht vorhandener Kategorie"
 
-#: templates/admin/csv-import.tpl.php:204
+#: templates/admin/csv-import.tpl.php:209
 msgctxt "admin csv-import"
 msgid "Auto-create categories"
 msgstr "Kategorie automatisch erstellen"
 
-#: templates/admin/csv-import.tpl.php:207
+#: templates/admin/csv-import.tpl.php:212
 msgctxt "admin csv-import"
 msgid "Generate errors when a category is not found"
 msgstr "Fehlermeldung erzeugen, wenn die Kategorie nicht gefunden wird"
 
-#: templates/admin/csv-import.tpl.php:212
+#: templates/admin/csv-import.tpl.php:217
 msgctxt "admin csv-import"
 msgid "Keep existing listing images?"
 msgstr "Vorhandene Bilder beibehalten?"
 
-#: templates/admin/csv-import.tpl.php:217
+#: templates/admin/csv-import.tpl.php:222
 msgctxt "admin csv-import"
 msgid "Keep existing images."
 msgstr "Vorhandene Bilder behalten."
 
-#: templates/admin/csv-import.tpl.php:218
+#: templates/admin/csv-import.tpl.php:223
 msgctxt "admin csv-import"
 msgid "Appends new images while keeping current ones."
 msgstr "Hängt neue Bilder an und behaltet die alten."
 
-#: templates/admin/csv-import.tpl.php:223
+#: templates/admin/csv-import.tpl.php:228
 msgctxt "admin csv-import"
 msgid "Assign listings to a user?"
 msgstr "Zuweisung"
 
-#: templates/admin/csv-import.tpl.php:229
+#: templates/admin/csv-import.tpl.php:234
 msgctxt "admin csv-import"
 msgid "Assign listings to a user."
 msgstr "Einträge einem Benutzer zuweisen."
 
-#: templates/admin/csv-import.tpl.php:234
+#: templates/admin/csv-import.tpl.php:239
 msgctxt "admin csv-import"
 msgid "Use a default user for listings?"
 msgstr "Voreingestellter-Nutzer für neue Einträge?"
 
-#: templates/admin/csv-import.tpl.php:240
+#: templates/admin/csv-import.tpl.php:245
 msgctxt "admin csv-import"
 msgid ""
 "Select a default user to be used if the username column is not present in "
@@ -3176,12 +3186,12 @@ msgstr ""
 "Wählen Sie einen Benutzernamen der verwendet werden soll, wenn die Username-"
 "Spalte in der CSV-Datei nicht vorhanden ist."
 
-#: templates/admin/csv-import.tpl.php:245
+#: templates/admin/csv-import.tpl.php:250
 msgctxt "admin csv-import"
 msgid "Default listing user"
 msgstr "Voreingestellter-Nutzer"
 
-#: templates/admin/csv-import.tpl.php:251
+#: templates/admin/csv-import.tpl.php:256
 msgctxt "admin csv-import"
 msgid ""
 "This user will be used if the username column is not present in the CSV file."
@@ -3189,13 +3199,13 @@ msgstr ""
 "Dieser Benutzer wird verwendet wenn die Spalte Benutzername nicht in der CSV-"
 "Datei vorhanden ist."
 
-#: templates/admin/csv-import.tpl.php:256
+#: templates/admin/csv-import.tpl.php:261
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Number of listings imported on every cycle"
 msgstr "Nummer der Einträge zum Anzeigen:"
 
-#: templates/admin/csv-import.tpl.php:264
+#: templates/admin/csv-import.tpl.php:269
 msgctxt "admin csv-import"
 msgid ""
 "If you are having trouble importing listings due to memory problems, try "
@@ -3204,17 +3214,17 @@ msgid ""
 "success on shared hosting platforms and other resource-constrained servers."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:283
+#: templates/admin/csv-import.tpl.php:288
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr "Importtest"
 
-#: templates/admin/csv-import.tpl.php:284
+#: templates/admin/csv-import.tpl.php:289
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr "Einträge importieren"
 
-#: templates/admin/csv-import.tpl.php:291
+#: templates/admin/csv-import.tpl.php:296
 msgctxt "admin csv-import"
 msgid ""
 "The following are the valid header names to be used in the CSV file. "
@@ -3227,27 +3237,27 @@ msgstr ""
 "erscheinen. Klicken Sie <a href=\"%s\">\"CSV Beispieldatei anschauen\"</a>, "
 "um zu sehen wie eine Importdatei aufgebaut sein muss."
 
-#: templates/admin/csv-import.tpl.php:298
+#: templates/admin/csv-import.tpl.php:303
 msgctxt "admin csv-import"
 msgid "Header name/label"
 msgstr "Kopfname/Bezeichnung"
 
-#: templates/admin/csv-import.tpl.php:299
+#: templates/admin/csv-import.tpl.php:304
 msgctxt "admin csv-import"
 msgid "Field"
 msgstr "Feld"
 
-#: templates/admin/csv-import.tpl.php:301
+#: templates/admin/csv-import.tpl.php:306
 msgctxt "admin csv-import"
 msgid "Required?"
 msgstr "Pflichtfeld?"
 
-#: templates/admin/csv-import.tpl.php:302
+#: templates/admin/csv-import.tpl.php:307
 msgctxt "admin csv-import"
 msgid "Multivalued?"
 msgstr "Mehrfachwert?"
 
-#: templates/admin/csv-import.tpl.php:327
+#: templates/admin/csv-import.tpl.php:332
 #, fuzzy
 msgctxt "admin csv-import"
 msgid ""
@@ -3257,17 +3267,17 @@ msgstr ""
 "Tag des Eintragende formatiert als YYYY-MM-DD. Benutze diese Spalte, wenn "
 "Einträge aus externen Quellen hinzugefügt oder aktualisiert werden."
 
-#: templates/admin/csv-import.tpl.php:334
+#: templates/admin/csv-import.tpl.php:339
 msgctxt "admin csv-import"
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr "Semikolon getrennte Liste der Eintragsbilder (aus der ZIP Datei)"
 
-#: templates/admin/csv-import.tpl.php:341
+#: templates/admin/csv-import.tpl.php:346
 msgctxt "admin csv-import"
 msgid "Listing author's username"
 msgstr "Benutzername des Authors"
 
-#: templates/admin/csv-import.tpl.php:348
+#: templates/admin/csv-import.tpl.php:353
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -3275,7 +3285,7 @@ msgstr ""
 "Interne Sequenz ID wird benutzt um Aktualisierungen von Einträgen aus "
 "externer Quellen durchzuführen."
 
-#: templates/admin/csv-import.tpl.php:355
+#: templates/admin/csv-import.tpl.php:360
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -3296,12 +3306,12 @@ msgctxt "admin csv"
 msgid "Export"
 msgstr "CVS Export"
 
-#: includes/admin/class-admin-listings.php:62
+#: includes/admin/class-admin-listings.php:60
 msgctxt "admin category filter"
 msgid "All categories"
 msgstr "Alle Kategorien"
 
-#: includes/admin/class-admin-listings.php:177
+#: includes/admin/class-admin-listings.php:175
 #, fuzzy
 msgctxt "admin listings"
 msgid ""
@@ -3314,48 +3324,48 @@ msgstr ""
 "Auflistung zur Verfügung stehenden Funktionen sowie die Erneuerung zu "
 "ermitteln."
 
-#: includes/admin/class-admin-listings.php:313
+#: includes/admin/class-admin-listings.php:311
 #, fuzzy
 msgctxt "admin listings"
 msgid "Never"
 msgstr "niemals"
 
-#: includes/admin/class-admin-listings.php:339
+#: includes/admin/class-admin-listings.php:337
 #, fuzzy
 msgctxt "admin listings"
 msgid "Featured"
 msgstr "unterstützter (unbeweglicher) Status"
 
-#: includes/admin/class-admin-listings.php:343
+#: includes/admin/class-admin-listings.php:341
 #, fuzzy
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(wiederkehrend)"
 
-#: includes/admin/class-admin-listings.php:347
+#: includes/admin/class-admin-listings.php:345
 #, fuzzy
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Kostenlos"
 
-#: includes/admin/class-admin-listings.php:351
+#: includes/admin/class-admin-listings.php:349
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment Not Found"
 msgstr "Preisinformation"
 
-#: includes/admin/class-admin-listings.php:355
+#: includes/admin/class-admin-listings.php:353
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment %s"
 msgstr "Bezahlung #%d"
 
-#: includes/admin/class-admin-listings.php:364
+#: includes/admin/class-admin-listings.php:362
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:726
+#: includes/admin/class-admin-listings.php:689
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -3383,13 +3393,13 @@ msgctxt "admin listings"
 msgid "Clear listing reports."
 msgstr "Ein Eintrag läuft aus."
 
-#: includes/admin/class-admin-listings.php:203
+#: includes/admin/class-admin-listings.php:201
 #, fuzzy
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "Eintrag Felder / Bilder"
 
-#: includes/admin/class-admin-listings.php:267
+#: includes/admin/class-admin-listings.php:265
 msgctxt "admin"
 msgid "Categories"
 msgstr "Kategorien"
@@ -3563,12 +3573,12 @@ msgctxt "admin"
 msgid "Abandoned"
 msgstr "Abgebrochen"
 
-#: includes/admin/class-admin-listings.php:324
+#: includes/admin/class-admin-listings.php:322
 msgctxt "listing attribute"
 msgid "No Fee Plan"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:424
+#: includes/admin/class-admin-listings.php:422
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
@@ -3625,53 +3635,53 @@ msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abgebrochen"
 
-#: includes/admin/class-admin-listings.php:478
+#: includes/admin/class-admin-listings.php:476
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Eintrag Löschen"
 
-#: includes/admin/class-admin-listings.php:489
+#: includes/admin/class-admin-listings.php:487
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Bezahlung"
 
-#: includes/admin/class-admin-listings.php:494
+#: includes/admin/class-admin-listings.php:492
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Bezahlung"
 
-#: includes/admin/class-admin-listings.php:659
+#: includes/admin/class-admin-listings.php:622
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Eintrag veröffentlichen"
 
-#: includes/admin/class-admin-listings.php:660
+#: includes/admin/class-admin-listings.php:623
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Ausstehend"
 
-#: includes/admin/class-admin-listings.php:661
+#: includes/admin/class-admin-listings.php:624
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:663
+#: includes/admin/class-admin-listings.php:626
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Eintrag erneuern"
 
-#: includes/admin/class-admin-listings.php:664
+#: includes/admin/class-admin-listings.php:627
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Ein Eintrag läuft aus."
 
-#: includes/admin/class-admin-listings.php:671
+#: includes/admin/class-admin-listings.php:634
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -3705,26 +3715,21 @@ msgctxt "admin menu"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: includes/admin/class-csv-exporter.php:100
+#: includes/admin/class-csv-exporter.php:110
 msgctxt "admin csv-export"
 msgid "Could not create a temporary directory for handling this CSV export."
 msgstr ""
 "Es konnte kein temporäres Verzeichnis erstellt werden um den CSV Export "
 "durchzuführen."
 
-#: includes/admin/class-csv-exporter.php:103
-msgctxt "admin csv-export"
-msgid "Could not create wpbdp-csv-exports directory."
-msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
-
-#: includes/admin/class-csv-exporter.php:108
+#: includes/admin/class-csv-exporter.php:111
 msgctxt "admin csv-export"
 msgid "Error while creating a temporary directory for CSV export: %s"
 msgstr ""
 "Es konnte kein temporäres Verzeichnis erstellt werden um den CSV Export "
 "durchzuführen."
 
-#: includes/admin/csv-export.php:49
+#: includes/admin/csv-export.php:48
 msgctxt "admin csv-export"
 msgid "Could not decode export state information."
 msgstr ""
@@ -3742,47 +3747,42 @@ msgstr ""
 "Erweiterungen abzuschalten und/oder den Wert von 'memory_limit' und "
 "'max_execution_time' in deiner php.ini Konfigurationsdatei anzupassen."
 
-#: templates/admin/csv-export.tpl.php:27
-msgctxt "admin csv-export"
-msgid "Export Configuration"
-msgstr "Export Konfiguration"
-
-#: templates/admin/csv-export.tpl.php:30
+#: templates/admin/csv-export.tpl.php:29
 msgctxt "admin csv-export"
 msgid "Export settings"
 msgstr "Export Einstellungen"
 
-#: templates/admin/csv-export.tpl.php:34
+#: templates/admin/csv-export.tpl.php:33
 msgctxt "admin csv-export"
 msgid "Which listings to export?"
 msgstr "Welche Einträge sollen exportiert werden?"
 
-#: templates/admin/csv-export.tpl.php:38
+#: templates/admin/csv-export.tpl.php:37
 msgctxt "admin csv-export"
 msgid "All"
 msgstr "Alle"
 
-#: templates/admin/csv-export.tpl.php:39
+#: templates/admin/csv-export.tpl.php:38
 msgctxt "admin csv-export"
 msgid "Active Only"
 msgstr "Nur Aktiv"
 
-#: templates/admin/csv-export.tpl.php:40
+#: templates/admin/csv-export.tpl.php:39
 msgctxt "admin csv-export"
 msgid "Active + Pending Renewal"
 msgstr "Aktiv + Ausstehende Erneuerungen"
 
-#: templates/admin/csv-export.tpl.php:46
+#: templates/admin/csv-export.tpl.php:45
 msgctxt "admin csv-export"
 msgid "Export images?"
 msgstr "Bilder exportieren?"
 
-#: templates/admin/csv-export.tpl.php:51
+#: templates/admin/csv-export.tpl.php:50
 msgctxt "admin csv-export"
 msgid "Export images"
 msgstr "Bilder exportieren"
 
-#: templates/admin/csv-export.tpl.php:53
+#: templates/admin/csv-export.tpl.php:52
 msgctxt "admin csv-export"
 msgid ""
 "When checked, instead of just a CSV file a ZIP file will be generated with "
@@ -3791,65 +3791,65 @@ msgstr ""
 "Wenn aktiviert, wird anstatt nur einer CSV-Datei, eine ZIP Datei generiert, "
 "die sowohl eine CSV-Datei und Eintragsbilder enthält."
 
-#: templates/admin/csv-export.tpl.php:59
+#: templates/admin/csv-export.tpl.php:58
 msgctxt "admin csv-export"
 msgid "Additional metadata to export:"
 msgstr "zu exportierende zusätzliche Metadaten"
 
-#: templates/admin/csv-export.tpl.php:64
+#: templates/admin/csv-export.tpl.php:63
 msgctxt "admin csv-export"
 msgid "Include unique IDs for each listing (sequence_id column)."
 msgstr "Füge Schlüssel Ids für jeden Eintrag hinzu (sequence_id_column)"
 
-#: templates/admin/csv-export.tpl.php:72
+#: templates/admin/csv-export.tpl.php:71
 msgctxt "admin csv-export"
 msgid "Author information (username)"
 msgstr "Author Informationen (Benutzername)"
 
-#: templates/admin/csv-export.tpl.php:77
+#: templates/admin/csv-export.tpl.php:76
 msgctxt "admin csv-export"
 msgid "Listing expiration date"
 msgstr "Eintrag Enddatum"
 
-#: templates/admin/csv-export.tpl.php:81
+#: templates/admin/csv-export.tpl.php:80
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Listing created date"
 msgstr "Eintrag Bilder"
 
-#: templates/admin/csv-export.tpl.php:85
+#: templates/admin/csv-export.tpl.php:84
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Listing last updated date"
 msgstr "Eintrag Enddatum"
 
-#: templates/admin/csv-export.tpl.php:89
+#: templates/admin/csv-export.tpl.php:88
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Listing T&C acceptance date"
 msgstr "Eintrag Bilder"
 
-#: templates/admin/csv-export.tpl.php:94
+#: templates/admin/csv-export.tpl.php:93
 msgctxt "admin csv-export"
 msgid "CSV File Settings"
 msgstr "CSV-Datei Einstellungen"
 
-#: templates/admin/csv-export.tpl.php:98
+#: templates/admin/csv-export.tpl.php:97
 msgctxt "admin csv-export"
 msgid "What operating system will you use to edit the CSV file?"
 msgstr "Welches Betriebssystem verwenden Sie, um die CSV-Datei zu bearbeiten?"
 
-#: templates/admin/csv-export.tpl.php:105
+#: templates/admin/csv-export.tpl.php:104
 msgctxt "admin csv-export"
 msgid "Windows"
 msgstr "Windows"
 
-#: templates/admin/csv-export.tpl.php:110
+#: templates/admin/csv-export.tpl.php:109
 msgctxt "admin csv-export"
 msgid "macOS"
 msgstr "MacOS"
 
-#: templates/admin/csv-export.tpl.php:112
+#: templates/admin/csv-export.tpl.php:111
 msgctxt "admin csv-export"
 msgid ""
 "Windows and macOS versions of MS Excel handle CSV files differently. To make "
@@ -3863,27 +3863,27 @@ msgstr ""
 "müssen wir für jedes Betriebssystem unterschiedliche Versionen der Datei "
 "generieren."
 
-#: templates/admin/csv-export.tpl.php:117
+#: templates/admin/csv-export.tpl.php:116
 msgctxt "admin csv-export"
 msgid "Image Separator"
 msgstr "Bildtrenner"
 
-#: templates/admin/csv-export.tpl.php:128
+#: templates/admin/csv-export.tpl.php:127
 msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr "Kategorietrenner"
 
-#: templates/admin/csv-export.tpl.php:140
+#: templates/admin/csv-export.tpl.php:139
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr "Export Einträge"
 
-#: templates/admin/csv-export.tpl.php:146
+#: templates/admin/csv-export.tpl.php:145
 msgctxt "admin csv-export"
 msgid "Export in Progress..."
 msgstr "Export wird durchgeführt..."
 
-#: templates/admin/csv-export.tpl.php:147
+#: templates/admin/csv-export.tpl.php:146
 msgctxt "admin csv-export"
 msgid ""
 "Your export file is being prepared. Please <u>do not leave</u> this page "
@@ -3892,27 +3892,27 @@ msgstr ""
 "Die Exportdatei wurde vorbereitet. Bitte <u>verlasse</u> diese Seite nicht "
 "bis der Export abgeschlossen wurde."
 
-#: templates/admin/csv-export.tpl.php:150
+#: templates/admin/csv-export.tpl.php:149
 msgctxt "admin csv-export"
 msgid "No. of listings:"
 msgstr "Anzahl der Einträge:"
 
-#: templates/admin/csv-export.tpl.php:152
+#: templates/admin/csv-export.tpl.php:151
 msgctxt "admin csv-export"
 msgid "Approximate export file size:"
 msgstr "Exportdatei Größe ca. :"
 
-#: templates/admin/csv-export.tpl.php:159
+#: templates/admin/csv-export.tpl.php:158
 msgctxt "admin csv-export"
 msgid "Cancel Export"
 msgstr "Export abbrechen"
 
-#: templates/admin/csv-export.tpl.php:164
+#: templates/admin/csv-export.tpl.php:163
 msgctxt "admin csv-export"
 msgid "Export Complete"
 msgstr "Export vollständig"
 
-#: templates/admin/csv-export.tpl.php:165
+#: templates/admin/csv-export.tpl.php:164
 msgctxt "admin csv-export"
 msgid ""
 "Your export file has been successfully created and it is now ready for "
@@ -3921,13 +3921,13 @@ msgstr ""
 "Der Export wurde erfolgreich generiert und steht nun zum Herunterladen zur "
 "Verfügung."
 
-#: templates/admin/csv-export.tpl.php:169
+#: templates/admin/csv-export.tpl.php:168
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "Herunterladen %s (%s)"
 
-#: templates/admin/csv-export.tpl.php:176
+#: templates/admin/csv-export.tpl.php:175
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -3936,22 +3936,22 @@ msgstr ""
 "Klicke \"Bereinigen\" wenn die Datei heruntergeladen wurde um alle "
 "temporären Daten zu löschen, die während des Exportprozesses erzeugt wurden."
 
-#: templates/admin/csv-export.tpl.php:177
+#: templates/admin/csv-export.tpl.php:176
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "Bereinigen"
 
-#: templates/admin/csv-export.tpl.php:182
+#: templates/admin/csv-export.tpl.php:181
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "Export abgebrochen"
 
-#: templates/admin/csv-export.tpl.php:183
+#: templates/admin/csv-export.tpl.php:182
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "Der Export wurde abgebrochen."
 
-#: templates/admin/csv-export.tpl.php:184
+#: templates/admin/csv-export.tpl.php:183
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← Zurück nach CSV Export"
@@ -4131,25 +4131,25 @@ msgctxt "fees order"
 msgid "Custom Order"
 msgstr "Benutzerdefinierte Reihenfolge"
 
-#: includes/admin/fees.php:99
+#: includes/admin/fees.php:105
 #, fuzzy
 msgctxt "fees admin"
 msgid "Fee plan added."
 msgstr "Preis aktualisiert."
 
-#: includes/admin/fees.php:101
+#: includes/admin/fees.php:107
 #, fuzzy
 msgctxt "fees admin"
 msgid "Fee plan updated."
 msgstr "Preis aktualisiert."
 
-#: includes/admin/fees.php:135
+#: includes/admin/fees.php:166
 #, fuzzy
 msgctxt "fees admin"
 msgid "Fee \"%s\" deleted."
 msgstr "Preis gelöscht."
 
-#: includes/admin/fees.php:147
+#: includes/admin/fees.php:178
 msgctxt "fees admin"
 msgid "Fee disabled."
 msgstr "Preis gelöscht."
@@ -4328,79 +4328,79 @@ msgctxt "fees admin"
 msgid "Status"
 msgstr "Status"
 
-#: templates/admin/fees-form.tpl.php:135
+#: templates/admin/fees-form.tpl.php:136
 msgctxt "fees admin"
 msgid "Plan Category Policy:"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:140
+#: templates/admin/fees-form.tpl.php:141
 #, fuzzy
 msgctxt "fees admin"
 msgid "Plan applies to all categories"
 msgstr "Erneuere alle Einträge in abgelaufenen Kategorien"
 
-#: templates/admin/fees-form.tpl.php:141
+#: templates/admin/fees-form.tpl.php:142
 msgctxt "fees admin"
 msgid "Plan applies to only certain categories"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:145
+#: templates/admin/fees-form.tpl.php:146
 #, fuzzy
 msgctxt "fees admin"
 msgid "Limit plan to the following categories:"
 msgstr "Du kannst folgende Platzhalter verwenden:"
 
-#: templates/admin/fees-form.tpl.php:169
+#: templates/admin/fees-form.tpl.php:170
 msgctxt "fees admin"
 msgid "Click to add categories to the selection."
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:183
+#: templates/admin/fees-form.tpl.php:184
 #, fuzzy
 msgctxt "fees admin"
 msgid "Pricing"
 msgstr "Preis"
 
-#: templates/admin/fees-form.tpl.php:191
+#: templates/admin/fees-form.tpl.php:192
 msgctxt "fees admin"
 msgid "Pricing model"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:195
+#: templates/admin/fees-form.tpl.php:196
 msgctxt "fees admin"
 msgid "Flat price"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:196
+#: templates/admin/fees-form.tpl.php:197
 #, fuzzy
 msgctxt "fees admin"
 msgid "Different price for different categories"
 msgstr "Sortierung für Kategorien"
 
-#: templates/admin/fees-form.tpl.php:197
+#: templates/admin/fees-form.tpl.php:198
 msgctxt "fees admin"
 msgid "Base price plus an extra amount per category"
 msgstr ""
 
-#: templates/admin/fees-form.tpl.php:203
+#: templates/admin/fees-form.tpl.php:204
 #, fuzzy
 msgctxt "fees admin"
 msgid "Fee Price"
 msgstr "Preis"
 
-#: templates/admin/fees-form.tpl.php:211
+#: templates/admin/fees-form.tpl.php:212
 #, fuzzy
 msgctxt "fees admin"
 msgid "Prices per category"
 msgstr "Kategorie entfernen"
 
-#: templates/admin/fees-form.tpl.php:217
+#: templates/admin/fees-form.tpl.php:218
 #, fuzzy
 msgctxt "fees admin"
 msgid "Price"
 msgstr "Preis"
 
-#: templates/admin/fees-form.tpl.php:231
+#: templates/admin/fees-form.tpl.php:232
 msgctxt "fees admin"
 msgid "Extra amount (per category)"
 msgstr ""
@@ -4482,12 +4482,12 @@ msgctxt "form-fields admin"
 msgid "Form Preview"
 msgstr "Form Vorschau"
 
-#: includes/admin/form-fields.php:369
+#: includes/admin/form-fields.php:367
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Formularfelder aktualisiert."
 
-#: includes/admin/form-fields.php:392
+#: includes/admin/form-fields.php:390
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -4501,17 +4501,17 @@ msgstr ""
 "Mail-Adressen auf der Webseite angezeigt werden, können Sie die "
 "<a>öffentliche Anzeige von E-Mails</a> aktivieren."
 
-#: includes/admin/form-fields.php:471
+#: includes/admin/form-fields.php:469
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Feld gelöscht."
 
-#: includes/admin/form-fields.php:511
+#: includes/admin/form-fields.php:509
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Benötigtes Feld wurde erfolgreich erstellt."
 
-#: includes/admin/form-fields.php:563
+#: includes/admin/form-fields.php:561
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Einstellungen aktualisiert."
@@ -4942,82 +4942,69 @@ msgid "Listing Status"
 msgstr "Einträge"
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:20
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:29
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:31
 #, fuzzy
 msgctxt "listing metabox"
 msgid "N/A"
 msgstr "keine Angabe"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:25
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:27
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Last renew date"
 msgstr "Erneuerungsdatum"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:33
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:35
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Details planen"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:35
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
 msgctxt "listing metabox"
 msgid "Fee Plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:44
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:46
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:65
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:69
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:89
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
 #, fuzzy
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "OK"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:66
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:86
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:100
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:70
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:90
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:104
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:79
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "Läuft ab am"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:80
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:95
-#, fuzzy
-msgctxt "listing metabox"
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:82
-#, fuzzy
-msgctxt "listing metabox"
-msgid "Never"
-msgstr "niemals"
-
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:90
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
 #, fuzzy
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "# Bilder"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "% Feed"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:114
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Recurring?"
@@ -5157,13 +5144,6 @@ msgstr ""
 "Du hast ein Textfeld für die schnelle Suche ausgewählt. Eine Suche der viele "
 "Felder hinzugefügt werden, kann sehr langsam sein und lange Zeit in Anspruch "
 "nehmen. "
-
-#: includes/admin/settings/class-settings-bootstrap.php:414
-msgctxt "admin settings"
-msgid ""
-"If no fields are selected, the following fields will be used in Quick "
-"Searches:"
-msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:578
 msgctxt "admin settings"
@@ -7562,7 +7542,7 @@ msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Kategorien auswählen"
 
-#: includes/views/submit_listing.php:773
+#: includes/views/submit_listing.php:799
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -7570,41 +7550,41 @@ msgstr ""
 "Ihre Zahlung kann momentan nicht ausgeführt werden. Bitte versuchen Sie es "
 "später noch einmal."
 
-#: includes/views/submit_listing.php:822 includes/views/submit_listing.php:944
+#: includes/views/submit_listing.php:848 includes/views/submit_listing.php:970
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/views/submit_listing.php:845
+#: includes/views/submit_listing.php:871
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:847
+#: includes/views/submit_listing.php:873
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/views/submit_listing.php:1153
+#: includes/views/submit_listing.php:1179
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/views/submit_listing.php:1158
+#: includes/views/submit_listing.php:1184
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/views/submit_listing.php:1163
+#: includes/views/submit_listing.php:1189
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:1168
+#: includes/views/submit_listing.php:1194
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7631,13 +7611,13 @@ msgctxt "views"
 msgid "Find A Listing"
 msgstr "Eintrag finden"
 
-#: includes/class-wpbdp.php:394
+#: includes/class-wpbdp.php:398
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Kategorie für diesen Eintrag"
 
-#: includes/class-wpbdp.php:398
+#: includes/class-wpbdp.php:402
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -7930,21 +7910,21 @@ msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:776
+#: includes/views/submit_listing.php:802
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:790
+#: includes/views/submit_listing.php:816
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:793
+#: includes/views/submit_listing.php:819
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7952,12 +7932,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:1233
+#: includes/views/submit_listing.php:1259
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen."
 
-#: includes/views/submit_listing.php:1247
+#: includes/views/submit_listing.php:1273
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Ich akzeptiere die <a>AGB</a>s"
@@ -8225,19 +8205,19 @@ msgctxt "default category name"
 msgid "General"
 msgstr "Allgemein"
 
-#: includes/licensing.php:569
+#: includes/licensing.php:568
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Eine Verbindung zum Lizenzserver konnte nicht hergestellt werden."
 
-#: includes/licensing.php:582
+#: includes/licensing.php:581
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. cURL was not found in your system"
 msgstr ""
 
-#: includes/licensing.php:584 includes/licensing.php:614
+#: includes/licensing.php:583 includes/licensing.php:613
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8246,7 +8226,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:586 includes/licensing.php:616
+#: includes/licensing.php:585 includes/licensing.php:615
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8254,21 +8234,21 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:588
+#: includes/licensing.php:587
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary"
 msgstr ""
 
-#: includes/licensing.php:618
+#: includes/licensing.php:617
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary."
 msgstr ""
 
-#: includes/licensing.php:654
+#: includes/licensing.php:653
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
@@ -8278,23 +8258,23 @@ msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Konnte Lizenz nicht aktivieren: %s"
 
-#: includes/licensing.php:889
+#: includes/licensing.php:890
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Lizenz aktiviert"
 
-#: includes/licensing.php:914
+#: includes/licensing.php:915
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Konnte Lizenz nicht deaktivieren: %s"
 
-#: includes/licensing.php:916
+#: includes/licensing.php:917
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Lizenz deaktiviert"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1125
+#: includes/licensing.php:1126
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -8738,7 +8718,7 @@ msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
 msgstr "Dies ist nur eine Vorschau. Der Eintrag wurde bisher nicht publiziert."
 
-#: includes/views/submit_listing.php:1111
+#: includes/views/submit_listing.php:1137
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8888,12 +8868,12 @@ msgctxt "widgets"
 msgid "Search"
 msgstr "Suche"
 
-#: templates/admin/csv-export.tpl.php:98 templates/admin/csv-export.tpl.php:117
-#: templates/admin/csv-export.tpl.php:128 templates/admin/csv-import.tpl.php:50
-#: templates/admin/csv-import.tpl.php:116
-#: templates/admin/csv-import.tpl.php:142
-#: templates/admin/csv-import.tpl.php:153
-#: templates/admin/csv-import.tpl.php:199
+#: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:116
+#: templates/admin/csv-export.tpl.php:127 templates/admin/csv-import.tpl.php:50
+#: templates/admin/csv-import.tpl.php:117
+#: templates/admin/csv-import.tpl.php:143
+#: templates/admin/csv-import.tpl.php:154
+#: templates/admin/csv-import.tpl.php:204
 msgctxt "admin forms"
 msgid "required"
 msgstr "Pflichtfeld"
@@ -8941,24 +8921,24 @@ msgstr ""
 "Bei Fragen, schreiben Sie Kommentar im <a>Support Forum</a> und wir werden "
 "schnellstmöglich  antworten (meistens in weniger als 24 Std.)."
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:124
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "URL Erneuern (kopieren & einfügen)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:124
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:134
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:138
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Erneuerungsmail an Benutzer schicken"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:139
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:143
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renew listing"
@@ -9269,6 +9249,28 @@ msgstr "Ungültiger Erneuerungszustand."
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Weiter"
+
+#, fuzzy
+#~ msgid "Edit listing permalink"
+#~ msgstr "Eintrag Bearbeiten"
+
+#~ msgctxt "admin csv-export"
+#~ msgid "Could not create wpbdp-csv-exports directory."
+#~ msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
+
+#~ msgctxt "admin csv-export"
+#~ msgid "Export Configuration"
+#~ msgstr "Export Konfiguration"
+
+#, fuzzy
+#~ msgctxt "listing metabox"
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgctxt "listing metabox"
+#~ msgid "Never"
+#~ msgstr "niemals"
 
 #, fuzzy
 #~ msgctxt "settings"

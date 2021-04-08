@@ -68,7 +68,7 @@ class WPBDP_App_Helper {
 	 * Check if the user has permision for action.
 	 * Return permission message and stop the action if no permission
 	 *
-	 * @since x.x
+	 * @since 5.11.2
 	 *
 	 * @param string $permission
 	 */
@@ -92,7 +92,7 @@ class WPBDP_App_Helper {
 	/**
 	 * Check user permission and nonce
 	 *
-	 * @since x.x
+	 * @since 5.11.2
 	 *
 	 * @param string $permission
 	 *
