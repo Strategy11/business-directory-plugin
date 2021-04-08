@@ -60,7 +60,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		$nonce = array( 'nonce' => 'payment-' . absint( $_POST['payment']['id'] ) );
 		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
 
-        $data    = wpbdp_get_var( array( 'param' => 'payment' ) );
+        $data    = wpbdp_get_var( array( 'param' => 'payment' ), 'post' );
         $payment = WPBDP_Payment::objects()->get( absint( $data['id'] ) );
         $payment->update( $data );
         $payment->save();
