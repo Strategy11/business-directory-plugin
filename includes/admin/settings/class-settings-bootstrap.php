@@ -411,7 +411,7 @@ final class WPBDP__Settings__Bootstrap {
 		$too_many_fields .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'business-directory-plugin' );
 		$too_many_fields .= '</span>';
 
-		$no_fields = '<p><strong>' . _x( 'If no fields are selected, the following fields will be used in Quick Searches:', 'admin settings', 'business-directory-plugin' ) . ' ' . implode( ', ', $default_fields ) . '.</strong></p>';
+		$no_fields = '<p><strong>' . __( 'If no fields are selected, the following fields will be used in Quick Searches:', 'business-directory-plugin' ) . ' ' . esc_html( implode( ', ', $default_fields ) ) . '.</strong></p>';
 
 		return _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'business-directory-plugin' ) . $no_fields . $too_many_fields;
 	}

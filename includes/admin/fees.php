@@ -66,8 +66,14 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     private function insert_or_update_fee( $mode ) {
+		if ( ! empty( $_POST ) ) {
+			$nonce = array( 'nonce' => 'wpbdp-fees' );
+			WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+		}
+
         if ( ! empty( $_POST['fee'] ) ) {
             $posted_values = stripslashes_deep( $_POST['fee'] );
+			$posted_values = $this->sanitize_posted_values( $posted_values );
 
             if ( ! isset( $_POST['limit_categories'] ) || 0 == $_POST['limit_categories'] )
                 $posted_values['supported_categories'] = 'all';
@@ -100,8 +106,6 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
                 } else {
                     wpbdp_admin_message( _x( 'Fee plan updated.', 'fees admin', 'business-directory-plugin' ) );
                 }
-
-                return $this->_redirect( 'index' );
             } else {
                 foreach ( $result->get_error_messages() as $msg ) {
                     wpbdp_admin_message( $msg, 'error' );
@@ -111,6 +115,33 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
         return array( 'fee' => $fee );
     }
+
+	/**
+	 * Sanitize each field in the fee form.
+	 *
+	 * @since x.x
+	 */
+	private function sanitize_posted_values( $posted_values ) {
+		$sanitizing = $this->sanitize_mapping();
+		foreach ( $posted_values as $k => $v ) {
+			$sanitize = isset( $sanitizing[ $k ] ) ? $sanitizing[ $k ] : 'sanitize_text_field';
+			wpbdp_sanitize_value( $sanitize, $posted_values[ $k ] );
+		}
+		return $posted_values;
+	}
+
+	/**
+	 * This shows how to sanitize each field in the fee form.
+	 *
+	 * @since x.x
+	 */
+	private function sanitize_mapping() {
+		return array(
+			'description' => 'wp_kses_post',
+			'days'        => 'absint',
+			'images'      => 'absint',
+		);
+	}
 
 	/**
 	 * @since 5.9

@@ -29,12 +29,12 @@ _ex( 'Here, you can import data into your directory using the CSV format.',
      'business-directory-plugin' );
 ?><br />
 <?php
-echo str_replace(
-    '<a>',
-    '<a href="https://businessdirectoryplugin.com/knowledge-base/csv-import-export/" target="_blank" rel="noopener">',
-    _x( 'We strongly recommend reading our <a>CSV import documentation</a> first to help you do things in the right order.',
-        'admin csv-import',
-        'business-directory-plugin' ) );
+printf(
+	// translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
+	esc_html__( 'We strongly recommend reading our %1$sCSV import documentation%2$s first to help you do things in the right order.', 'business-directory-plugin' ),
+	'<a href="https://businessdirectoryplugin.com/knowledge-base/csv-import-export/" target="_blank" rel="noopener">',
+	'</a>'
+);
 ?>
 </p>
 
@@ -96,7 +96,8 @@ echo str_replace(
                         <ul>
                             <?php foreach ( $files['images'] as $f ): ?>
                             <li><label>
-                                <input type="radio" name="images-file-local" value="<?php echo basename( $f ); ?>" /> <?php echo basename( $f ); ?>
+								<input type="radio" name="images-file-local" value="<?php echo esc_attr( basename( $f ) ); ?>" />
+								<?php echo esc_html( basename( $f ) ); ?>
                             </label></li>
                             <?php endforeach; ?>
                             <li>
@@ -145,7 +146,7 @@ echo str_replace(
                     <input name="settings[images-separator]"
                            type="text"
                            aria-required="true"
-                           value="<?php echo _defaults_or( $defaults, 'images-separator', ';' ); ?>" />
+                           value="<?php echo esc_attr( _defaults_or( $defaults, 'images-separator', ';' ) ); ?>" />
                 </td>
             </tr>
             <tr class="form-required">
@@ -156,7 +157,7 @@ echo str_replace(
                     <input name="settings[category-separator]"
                            type="text"
                            aria-required="true"
-                           value="<?php echo _defaults_or( $defaults, 'category-separator', ';' ); ?>" />
+                           value="<?php echo esc_attr( _defaults_or( $defaults, 'category-separator', ';' ) ); ?>" />
                 </td>
             </tr>
     </table>
@@ -173,7 +174,9 @@ echo str_replace(
                             <?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
                                 <?php continue; ?>
                             <?php endif; ?>
-                            <option value="<?php echo $post_status; ?>" <?php echo _defaults_or( $defaults, 'post-status', 'publish' ) == $post_status ? 'selected="selected"' : ''; ?>><?php echo $post_status_label; ?></option>
+							<option value="<?php echo esc_attr( $post_status ); ?>" <?php echo _defaults_or( $defaults, 'post-status', 'publish' ) == $post_status ? 'selected="selected"' : ''; ?>>
+								<?php echo esc_html( $post_status_label ); ?>
+							</option>
                         <?php endforeach; ?>
                     </select>
                 </td>
@@ -189,7 +192,9 @@ echo str_replace(
                             <?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
                                 <?php continue; ?>
                             <?php endif; ?>
-                            <option value="<?php echo $post_status; ?>" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == $post_status ? 'selected="selected"' : ''; ?>><?php echo $post_status_label; ?></option>
+							<option value="<?php echo esc_attr( $post_status ); ?>" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == $post_status ? 'selected="selected"' : ''; ?>>
+								<?php echo esc_html( $post_status_label ); ?>
+							</option>
                         <?php endforeach; ?>
                     </select>
                 </td>
@@ -280,8 +285,8 @@ echo str_replace(
     </table>
 
     <p class="submit">
-        <?php echo submit_button(_x('Test Import', 'admin csv-import', 'business-directory-plugin' ), 'secondary', 'test-import', false); ?>
-        <?php echo submit_button(_x('Import Listings', 'admin csv-import', 'business-directory-plugin' ), 'primary', 'do-import', false); ?>
+		<?php submit_button( _x( 'Test Import', 'admin csv-import', 'business-directory-plugin' ), 'secondary', 'test-import', false ); ?>
+		<?php submit_button( _x( 'Import Listings', 'admin csv-import', 'business-directory-plugin' ), 'primary', 'do-import', false ); ?>
     </p>
 </form>
 
@@ -310,9 +315,9 @@ echo str_replace(
             endif
         ?>
         <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
-            <td class="header-name"><?php echo $field->get_short_name(); ?></td>
-            <td class="field-label"><?php echo $field->get_label(); ?></td>
-            <td class="field-type"><?php echo $field->get_field_type()->get_name(); ?></td>
+            <td class="header-name"><?php echo esc_html( $field->get_short_name() ); ?></td>
+            <td class="field-label"><?php echo esc_html( $field->get_label() ); ?></td>
+            <td class="field-type"><?php echo esc_html( $field->get_field_type()->get_name() ); ?></td>
             <td class="field-is-required"><?php echo $field->is_required() ? 'X' : ''; ?></td>
             <td class="field-is-multivalued">
                 <?php echo ($field->get_association() == 'category' || $field->get_association() == 'tags') || ($field->get_field_type_id() == 'checkbox' || $field->get_field_type_id() == 'multiselect') ? 'X' : ''; ?>

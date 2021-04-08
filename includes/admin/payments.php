@@ -57,8 +57,11 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function payment_update() {
-        $data    = $_POST['payment'];
-        $payment = WPBDP_Payment::objects()->get( $data['id'] );
+		$nonce = array( 'nonce' => 'payment-' . absint( $_POST['payment']['id'] ) );
+		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+
+        $data    = wpbdp_get_var( array( 'param' => 'payment' ), 'post' );
+        $payment = WPBDP_Payment::objects()->get( absint( $data['id'] ) );
         $payment->update( $data );
         $payment->save();
 
@@ -67,6 +70,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function payment_delete() {
+		$nonce = array( 'nonce' => 'payment-' . absint( $_REQUEST['payment-id'] ) );
+		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+
         $payment = WPBDP_Payment::objects()->get( (int) $_REQUEST['payment-id'] );
         $payment->delete();
 
@@ -75,6 +81,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function ajax_add_note() {
+		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
+
 		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ), 'post' );
         $payment    = WPBDP_Payment::objects()->get( $payment_id );
 		$text       = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ), 'post' ) );
@@ -103,6 +112,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function ajax_delete_note() {
+		$nonce = array( 'nonce' => 'wpbdp_ajax' );
+		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+
 		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ) );
 		$note_key   = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ) ) );
 
@@ -120,4 +132,3 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
 }
-

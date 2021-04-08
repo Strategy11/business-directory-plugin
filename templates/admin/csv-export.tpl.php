@@ -24,9 +24,8 @@ echo $notice;
 ?>
 </p>
 
-<!--<h3><?php _ex( 'Export Configuration', 'admin csv-export', 'business-directory-plugin' ); ?></h3>-->
 <form id="wpbdp-csv-export-form" action="" method="POST">
-    
+
     <h2><?php _ex( 'Export settings', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
         <tr>
@@ -137,7 +136,7 @@ echo $notice;
     </table>
 
     <p class="submit">
-        <?php echo submit_button( _x( 'Export Listings', 'admin csv-export', 'business-directory-plugin' ), 'primary', 'do-export', false ); ?>
+		<?php submit_button( _x( 'Export Listings', 'admin csv-export', 'business-directory-plugin' ), 'primary', 'do-export', false ); ?>
     </p>
 </form>
 </div>

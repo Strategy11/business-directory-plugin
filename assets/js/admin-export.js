@@ -10,7 +10,15 @@ jQuery(function($) {
             $('.wpbdp-page-csv-export div.error p').text(msg);
 
         if (res && res.state) {
-            $.ajax(ajaxurl, {data: { 'action': 'wpbdp-csv-export', 'state': state, 'cleanup': 1}, type: 'POST' });
+            $.ajax(ajaxurl, {
+				data: {
+					action: 'wpbdp-csv-export',
+					nonce: wpbdp_global.nonce,
+					state: state,
+					cleanup: 1
+				},
+				type: 'POST'
+			});
         }
 
         cancelExport = true;
@@ -38,7 +46,12 @@ jQuery(function($) {
             });
             
             $.ajax(ajaxurl, {
-                data: { 'action': 'wpbdp-csv-export', 'state': state, 'cleanup': 1 },
+                data: {
+					action: 'wpbdp-csv-export',
+					nonce: wpbdp_global.nonce,
+					state: state,
+					cleanup: 1
+				},
                 type: 'POST',
                 dataType: 'json',
                 success: function(res) {
@@ -48,7 +61,11 @@ jQuery(function($) {
         }
             
         $.ajax(ajaxurl, {
-            data: { 'action': 'wpbdp-csv-export', 'state': state },
+            data: {
+				action: 'wpbdp-csv-export',
+				nonce: wpbdp_global.nonce,
+				state: state,
+			},
             type: 'POST',
             dataType: 'json',
             success: function(res) {
@@ -87,7 +104,7 @@ jQuery(function($) {
     $('form#wpbdp-csv-export-form').submit(function(e) {
         e.preventDefault();
         
-        var data = $(this).serialize() + '&action=wpbdp-csv-export';
+        var data = $(this).serialize() + '&action=wpbdp-csv-export&nonce=' + wpbdp_global.nonce;
         $.ajax(ajaxurl, {
            data: data,
            type: 'POST',
@@ -125,7 +142,12 @@ jQuery(function($) {
     $('.step-3 .cleanup-link a').on( 'click', function(e) {
         e.preventDefault();
         $.ajax(ajaxurl, {
-            data: { 'action': 'wpbdp-csv-export', 'state': lastState, 'cleanup': 1 },
+            data: {
+				action: 'wpbdp-csv-export',
+				nonce: wpbdp_global.nonce,
+				state: lastState,
+				cleanup: 1
+			},
             type: 'POST',
             dataType: 'json',
             success: function(res) {

@@ -347,10 +347,8 @@ class WPBDP_FormFieldsAdmin {
 	 * @since 5.11
 	 */
 	private function check_permission( $action ) {
-		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
-		if ( ! wp_verify_nonce( $nonce, $action ) || ! current_user_can( 'manage_categories' ) ) {
-			wp_die( esc_html( 'You are not allowed to do that.', 'business-directory-plugin' ) );
-		}
+		$nonce = array( 'nonce' => $action );
+		WPBDP_App_Helper::permission_check( 'manage_categories', $nonce );
 	}
 
 	private function process_field_form() {

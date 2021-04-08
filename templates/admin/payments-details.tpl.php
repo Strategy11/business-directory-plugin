@@ -30,6 +30,7 @@ if ( ! $payment->id ) {
 
 <form action="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_update' ) ); ?>" method="post">
     <input type="hidden" name="payment[id]" value="<?php echo esc_attr( $payment->id ); ?>" />
+	<?php wp_nonce_field( 'payment-' . $payment->id ); ?>
 
     <div id="poststuff">
         <div id="post-body" class="metabox-holder columns-2">
@@ -87,7 +88,7 @@ if ( ! $payment->id ) {
                         </div>
                         <div id="major-publishing-actions">
                             <div id="delete-action">
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_delete&payment-id=' . $payment->id ) ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm"><?php esc_html_e( 'Delete Payment', 'business-directory-plugin' ); ?></a>
+								<a href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_delete&payment-id=' . $payment->id ), 'payment-' . $payment->id ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm"><?php esc_html_e( 'Delete Payment', 'business-directory-plugin' ); ?></a>
                             </div>
                             <input type="submit" class="button button-primary right" value="<?php esc_attr_e( 'Save Payment', 'business-directory-plugin' ); ?>" />
                             <div class="clear"></div>

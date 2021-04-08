@@ -34,9 +34,8 @@ class WPBDP_Admin_CSVExport {
     }
 
     public function ajax_csv_export() {
-        if ( ! current_user_can( 'administrator' ) ) {
-            exit();
-        }
+		WPBDP_App_Helper::permission_check( 'administrator' );
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
         $error = '';
 
