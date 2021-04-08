@@ -288,13 +288,9 @@ class WPBDP_CSV_Import {
     private function setup_working_dir( $csv_file, $images_file = '' ) {
 
         $csv_imports_dir = $this->directory_path();
-        if ( is_dir( $csv_imports_dir ) || mkdir( $csv_imports_dir ) ) {
-            $working_dir = rtrim( $csv_imports_dir, DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . uniqid();
+		require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/helpers/class-create-file.php';
 
-            if ( is_dir( $working_dir ) || mkdir( $working_dir, 0777 ) ) {
-                $this->working_dir = $working_dir;
-            }
-        }
+		$this->create_folders();
 
         if ( ! $this->working_dir ) {
             throw new Exception( 'Could not set working dir' );
@@ -331,6 +327,29 @@ class WPBDP_CSV_Import {
 
         $this->state_persist();
     }
+
+	/**
+	 * Create folders and index.php
+	 *
+	 * @since x.x
+	 */
+	private function create_folders() {
+		require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/helpers/class-create-file.php';
+
+		$id           = uniqid();
+		$import_dir   = rtrim( $this->directory_path(), DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . $id;
+		$create_index = new WPBDP_Create_File(
+			array(
+				'file_name'   => 'index.php',
+				'folder_name' => 'wpbdp-csv-imports/' . $id
+			)
+		);
+		$create_index->create_index( 'force' );
+
+		if ( is_dir( $import_dir ) ) {
+			$this->working_dir = $import_dir;
+		}
+	}
 
 	/**
 	 * Check the file types after the zip is unzipped.

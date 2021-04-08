@@ -87,26 +87,31 @@ class WPBDP_CSVExporter {
 
         // Setup working directory.
         if ( ! $workingdir ) {
-            $direrror = '';
 
             $upload_dir = wp_upload_dir();
+			$id         = uniqid();
 
             if ( ! $upload_dir['error'] ) {
-                $csvexportsdir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR . 'wpbdp-csv-exports';
-                if ( is_dir( $csvexportsdir ) || mkdir( $csvexportsdir ) ) {
-                    $this->workingdir = rtrim( $csvexportsdir . DIRECTORY_SEPARATOR . uniqid(), DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR;
 
-                    if ( ! mkdir( $this->workingdir, 0777 ) ) {
-                        $direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'business-directory-plugin' );
-                    }
-                } else {
-                    $direrror = _x( 'Could not create wpbdp-csv-exports directory.', 'admin csv-export', 'business-directory-plugin' );
-                }
+				$folder_name = 'wpbdp-csv-exports/' . $id;
+				require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/helpers/class-create-file.php';
+				$create_folder = new WPBDP_Create_File(
+					array(
+						'file_name'   => 'index.php',
+						'folder_name' => $folder_name
+					)
+				);
+				$create_folder->create_index( 'force' );
+
+				$csvexportsdir = rtrim( $upload_dir['basedir'], DIRECTORY_SEPARATOR ) . '/' . $folder_name;
+				if ( is_dir( $csvexportsdir ) ) {
+					$this->workingdir = $csvexportsdir . '/';
+				} else {
+					$direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'business-directory-plugin' );
+					throw new Exception( sprintf( _x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'business-directory-plugin' ), $direrror ) );
+				}
             }
 
-            if ( $direrror ) {
-                throw new Exception( sprintf( _x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'business-directory-plugin' ), $direrror ) );
-            }
         } else {
             $this->workingdir = $workingdir;
         }
