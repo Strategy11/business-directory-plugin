@@ -672,35 +672,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$first_key    = reset( $section_ids );
 		$next_section = $this->current_section ? '' : $first_key;
 
-        foreach ( $this->sections as &$section ) {
-            $this->add_html_to_section( $section );
-			if ( $section['id'] === 'plan_selection' ) {
-				$this->maybe_remove_images_section();
-			}
+		foreach ( $this->sections as $k => &$section ) {
+			$previous_section = $this->find_prev_section( $section['id'] );
 
-            $section['flags'][] = $section['state'];
-            $section['prev_section'] = $this->find_prev_section( $section['id'] );
-            $section['next_section'] = $this->find_next_section( $section['id'] );
+			$this->prepare_single_section( $section, $next_section, $previous_section );
 
-			$same_page = array_intersect( array( 'has-error', 'has-message' ), $this->sections[ $section['id'] ]['flags'] );
-			if ( ! $next_section && ! empty( $same_page ) ) {
-				$next_section = $section['id'];
-                continue;
-            }
+			if ( empty( $section ) ) {
+				unset( $this->sections[ $k ] );
+				$this->sections_keys = array_keys( $this->sections );
 
-            if ( $section['id'] === $this->current_section ) {
-                // Compatibility with attachments module.
-				$file_upload = wpbdp_get_var( array( 'param' => 'attachment-upload' ), 'post' );
-				if ( in_array( $section['id'], array( 'attachments', 'listing_images' ) ) && ! empty( $file_upload ) ) {
-					continue;
+				// If a section was removed, reset the previous one.
+				if ( $previous_section ) {
+					$this->prepare_single_section( $this->sections[ $previous_section ], $next_section );
 				}
-                $next_section = $section['next_section'];
-            }
-
-            if ( ! $next_section || $next_section !== $section['id'] ) {
-                $section['flags'][] = 'hidden';
-            }
-        }
+			}
+		}
 
         if ( $next_section ) {
             $this->current_section = $next_section;
@@ -709,6 +695,46 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         $this->sections = apply_filters( 'wpbdp_submit_prepare_sections', $this->sections, $this );
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function prepare_single_section( &$section, &$next_section, $previous_section = '' ) {
+		$this->add_html_to_section( $section );
+
+		// Exclude any disabled sections.
+		if ( is_array( $section['flags'] ) && in_array( 'disabled', $section['flags'], true ) ) {
+			$section = array();
+			return;
+		}
+
+		if ( $section['id'] === 'plan_selection' ) {
+			$this->maybe_remove_images_section();
+		}
+
+		$section['flags'][]      = $section['state'];
+		$section['prev_section'] = $previous_section ? $previous_section : $this->find_next_section( $section['id'] );
+		$section['next_section'] = $this->find_next_section( $section['id'] );
+
+		$same_page = array_intersect( array( 'has-error', 'has-message' ), $this->sections[ $section['id'] ]['flags'] );
+		if ( ! $next_section && ! empty( $same_page ) ) {
+			$next_section = $section['id'];
+			return;
+		}
+
+		if ( $section['id'] === $this->current_section ) {
+			// Compatibility with attachments module.
+			$file_upload = wpbdp_get_var( array( 'param' => 'attachment-upload' ), 'post' );
+			if ( in_array( $section['id'], array( 'attachments', 'listing_images' ) ) && ! empty( $file_upload ) ) {
+				return;
+			}
+			$next_section = $section['next_section'];
+		}
+
+		if ( ! $next_section || $next_section !== $section['id'] ) {
+			$section['flags'][] = 'hidden';
+		}
+	}
 
 	private function add_html_to_section( &$section, $level = 1 ) {
 		$callback = WPBDP_Utils::normalize( $section['id'] );
