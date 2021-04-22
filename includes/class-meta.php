@@ -397,7 +397,7 @@ class WPBDP__Meta {
             if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
                 echo '<meta property="og:image" content="' . $img[0] . '" />';
         } else {
-            $image_url = get_commin_soon_image();
+            $image_url = get_coming_soon_image();
             echo '<meta property="og:image" content="' . $image_url . '" />';
         }
     }    

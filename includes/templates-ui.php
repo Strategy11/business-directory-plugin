@@ -558,7 +558,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
             )
         );
     } elseif ( ! $main_image && ! empty( wpbdp_get_option( 'use-default-picture' ) ) && in_array( $display, (array)wpbdp_get_option( 'use-default-picture', array() ) ) ) {
-        $image_src = get_commin_soon_image();
+        $image_src = get_coming_soon_image();
         $image_img  = sprintf(
             '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
             esc_attr( $image_src ),
