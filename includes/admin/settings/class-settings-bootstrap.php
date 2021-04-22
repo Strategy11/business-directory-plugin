@@ -1044,7 +1044,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'listings-coming-soon-image',
                 'type'    => 'file',
-                'name'    => _x( 'Coming Soon Image', 'settings', 'business-directory-plugin' ),
+                'name'    => __( 'Coming Soon Image', 'settings', 'business-directory-plugin' ),
                 'default' => '',
                 'group'   => 'image/listings',
             )

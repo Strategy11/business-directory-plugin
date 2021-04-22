@@ -558,15 +558,10 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
             )
         );
     } elseif ( ! $main_image && ! empty( wpbdp_get_option( 'use-default-picture' ) ) && in_array( $display, (array)wpbdp_get_option( 'use-default-picture', array() ) ) ) {
-        $coming_soon_image_option = wpbdp_get_option( 'listings-coming-soon-image' );
-        if ( ! empty( $coming_soon_image_option ) ) {
-            $image_src = wp_get_attachment_image_url( $coming_soon_image_option );
-        } else {
-            $image_src = WPBDP_URL . 'assets/images/default-image-big.gif';
-        }
+        $image_src = get_commin_soon_image();
         $image_img  = sprintf(
             '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
-            $image_src,
+            esc_attr( $image_src ),
             get_the_title( $listing_id ),
             get_the_title( $listing_id ),
             wpbdp_get_option( 'thumbnail-width' ),

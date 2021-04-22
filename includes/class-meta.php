@@ -397,12 +397,7 @@ class WPBDP__Meta {
             if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
                 echo '<meta property="og:image" content="' . $img[0] . '" />';
         } else {
-            $coming_soon_image_option = wpbdp_get_option( 'listings-coming-soon-image' );
-            if ( ! empty( $coming_soon_image_option ) ) {
-                $image_url = wp_get_attachment_image_url( $coming_soon_image_option );
-            } else {
-                $image_url = WPBDP_URL . 'assets/images/default-image-big.gif';
-            }
+            $image_url = get_commin_soon_image();
             echo '<meta property="og:image" content="' . $image_url . '" />';
         }
     }    
