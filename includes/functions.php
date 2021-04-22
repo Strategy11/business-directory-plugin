@@ -1290,7 +1290,7 @@ function wpbdp_users_dropdown() {
 }
 
 /**
- * Gets commin soon image url
+ * Gets coming soon image url
  * 
  * @since  5.11.2
  * @return string
