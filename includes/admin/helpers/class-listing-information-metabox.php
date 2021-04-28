@@ -31,7 +31,7 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
         $vars = array(
             'plans' => wpbdp_get_fee_plans(),
             'listing' => $this->listing,
-            'current_plan' => $this->listing->get_fee_plan()
+            'current_plan' => $this->listing ? $this->listing->get_fee_plan() : 0,
         );
 
         return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information-plan.tpl.php', $vars );
