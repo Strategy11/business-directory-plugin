@@ -295,7 +295,7 @@ class WPBDP_Listing_Display_Helper {
 	 * @return string
 	 */
 	private static function get_sticky_image() {
-		return self::get_image_option( 'listings-sticky-image' ) ;
+		return self::get_image_option( 'listings-sticky-image' );
 	}
 
 	/**
@@ -305,7 +305,7 @@ class WPBDP_Listing_Display_Helper {
 	 * @return string
 	 */
 	private static function get_coming_soon_image() {
-		return self::get_image_option( 'listings-coming-soon-image' ) ;
+		return self::get_image_option( 'listings-coming-soon-image' );
 	}
 
 	/**
