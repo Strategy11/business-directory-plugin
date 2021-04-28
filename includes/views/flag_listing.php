@@ -54,12 +54,12 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
 					$flagging_msg  = sprintf(
 						/* translators: %1$s: listing name, %2$s: open link html, %3$s close link html */
 						esc_html__( 'The listing %1$s has been reported. %2$sReturn to directory%3$s', 'business-directory-plugin' ),
-						'<i>' . esc_html( $this->listing->get_title() ) . '</i>',
-						'<a href="' . esc_url( wpbdp_url( 'main' ) ) . '">',
+						'<strong>' . esc_html( $this->listing->get_title() ) . '</strong>',
+						'</p><p><a href="' . esc_url( wpbdp_url( 'main' ) ) . '">',
 						'</a>'
 					);
 
-                    return wpbdp_render_msg( $flagging_msg );
+					return '<p>' . wp_kses_post( $flagging_msg ) . '</p>';
                 }
             }
         //} elseif ( wp_verify_nonce( $nonce, 'flag listing unreport ' . $this->listing_id ) ) {
