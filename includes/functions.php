@@ -1288,19 +1288,3 @@ function wpbdp_users_dropdown() {
 
     return $res;
 }
-
-/**
- * Gets coming soon image url
- * 
- * @since  5.11.2
- * @return string
- */
-function get_coming_soon_image() {
-    $coming_soon_image_option = wpbdp_get_option( 'listings-coming-soon-image' );
-    if ( ! empty( $coming_soon_image_option ) ) {
-        $image_src = wp_get_attachment_image_url( $coming_soon_image_option );
-    } else {
-        $image_src = WPBDP_URL . 'assets/images/default-image-big.gif';
-    }
-    return $image_src;
-}

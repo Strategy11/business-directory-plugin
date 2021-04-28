@@ -533,13 +533,17 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
         $thumbnail_id = 0;
     }
 
-    $args = wp_parse_args(
-        $args, array(
-            'link'  => 'picture',
-            'class' => '',
-            'echo'  => false,
-        )
-    );
+	$defaults = array(
+		'link'  => 'picture',
+		'class' => '',
+		'echo'  => false,
+	);
+	if ( is_array( $args ) ) {
+		$args = array_merge( $defaults, $args );
+	} else {
+		// For reverse compatibility.
+		$args = wp_parse_args( $args, $defaults );
+	}
 
     $image_img               = '';
     $image_link              = '';
@@ -547,7 +551,27 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
     $listing_link_in_new_tab = '';
     $image_classes           = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'];
 
-    if ( ! $main_image && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $listing_id ) ) {
+	if ( $main_image ) {
+		$image_title = get_post_meta( $main_image->ID, '_wpbdp_image_caption', true );
+		_wpbdp_resize_image_if_needed( $main_image->ID );
+
+		$image_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
+		$image_img  = wp_get_attachment_image(
+			$main_image->ID,
+			'uploaded' !== $image_size ? $image_size : '',
+			false,
+			array(
+				'alt'   => $image_title ? $image_title : get_the_title( $listing_id ),
+				'title' => $image_title ? $image_title : get_the_title( $listing_id ),
+				'class' => $image_classes,
+			)
+		);
+
+		if ( $args['link'] == 'picture' ) {
+			$full_image_data = wp_get_attachment_image_src( $main_image->ID, 'wpbdp-large' );
+			$image_link      = $full_image_data[0];
+		}
+	} elseif ( has_post_thumbnail( $listing_id ) ) {
         $caption = get_post_meta( get_post_thumbnail_id( $listing_id ), '_wpbdp_image_caption', true );
         $image_img = get_the_post_thumbnail(
             $listing_id,
@@ -557,37 +581,21 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
                 'title' => $caption ? $caption : get_the_title( $listing_id ),
             )
         );
-    } elseif ( ! $main_image && ! empty( wpbdp_get_option( 'use-default-picture' ) ) && in_array( $display, (array)wpbdp_get_option( 'use-default-picture', array() ) ) ) {
-        $image_src = get_coming_soon_image();
-        $image_img  = sprintf(
-            '<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
-            esc_attr( $image_src ),
-            get_the_title( $listing_id ),
-            get_the_title( $listing_id ),
-            wpbdp_get_option( 'thumbnail-width' ),
-            $image_classes
-        );
-        $image_link = $args['link'] == 'picture' ? $image_src : '';
-    } elseif ( $main_image ) {
-        $image_title = get_post_meta( $main_image->ID, '_wpbdp_image_caption', true );
-        _wpbdp_resize_image_if_needed( $main_image->ID );
+	} elseif ( isset( $args['coming_soon'] ) ) {
+		$use_default_img = (array) wpbdp_get_option( 'use-default-picture', array() );
+		if ( ! empty( $use_default_img ) && in_array( $display, $use_default_img ) ) {
 
-        $image_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
-        $image_img  = wp_get_attachment_image(
-            $main_image->ID,
-            'uploaded' !== $image_size ? $image_size : '',
-            false,
-            array(
-                'alt'   => $image_title ? $image_title : get_the_title( $listing_id ),
-                'title' => $image_title ? $image_title : get_the_title( $listing_id ),
-                'class' => $image_classes,
-            )
-        );
-
-        if ( $args['link'] == 'picture' ) {
-            $full_image_data = wp_get_attachment_image_src( $main_image->ID, 'wpbdp-large' );
-            $image_link      = $full_image_data[0];
-        }
+			$image_src = $args['coming_soon'];
+			$image_img  = sprintf(
+				'<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
+				esc_url( $image_src ),
+				esc_attr( get_the_title( $listing_id ) ),
+				esc_attr( get_the_title( $listing_id ) ),
+				esc_attr( wpbdp_get_option( 'thumbnail-width' ) ),
+				esc_attr( $image_classes )
+			);
+			$image_link = $args['link'] == 'picture' ? $image_src : '';
+		}
     }
 
     if ( ! $image_link && $args['link'] == 'listing' ) {

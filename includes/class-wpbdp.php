@@ -269,10 +269,6 @@ final class WPBDP {
     }
 
     public function register_cache_groups() {
-        if ( ! function_exists( 'wp_cache_add_non_persistent_groups' ) ) {
-            return;
-        }
-
         wp_cache_add_non_persistent_groups( array( 'wpbdp pages', 'wpbdp fees', 'wpbdp submit state', 'wpbdp' ) );
     }
 
@@ -284,9 +280,7 @@ final class WPBDP {
     }
 
     public function plugin_activation() {
-        if ( function_exists( 'flush_rewrite_rules' ) ) {
-            add_action( 'shutdown', 'flush_rewrite_rules' );
-        }
+		add_action( 'shutdown', 'flush_rewrite_rules' );
         delete_transient( 'wpbdp-page-ids' );
     }
 

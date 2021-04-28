@@ -1040,15 +1040,15 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'image/listings',
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'listings-coming-soon-image',
-                'type'    => 'file',
-                'name'    => __( 'Coming Soon Image', 'settings', 'business-directory-plugin' ),
-                'default' => '',
-                'group'   => 'image/listings',
-            )
-        );
+		wpbdp_register_setting(
+			array(
+				'id'      => 'listings-coming-soon-image',
+				'type'    => 'file',
+				'name'    => __( 'Coming Soon image', 'business-directory-plugin' ),
+				'default' => '',
+				'group'   => 'image/listings',
+			)
+		);
         wpbdp_register_setting(
             array(
                 'id'      => 'listing-main-image-default-size',
