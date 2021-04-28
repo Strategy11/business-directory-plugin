@@ -21,6 +21,8 @@ Our easy WordPress directory plugin allows you to take the listings you want and
 
 Not only can you create business listings, but you can also build any other kind of listings directory. Build a team or employee directory, company directory, and other web directory sites with our easy listing plugin.
 
+[See the directory demo](https://demo.businessdirectoryplugin.com/).
+
 Need a classifieds listings site? Try [Another WordPress Classifieds Plugin - AWPCP](https://wordpress.org/plugins/another-wordpress-classifieds-plugin/).
 
 == Get Simple Listing Solutions ==
