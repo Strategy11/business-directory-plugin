@@ -20,6 +20,9 @@ class WPBDP_Fees_API {
         }
 
         $free_plan = wpbdp_get_fee_plan( 'free' );
+		if ( ! $free_plan ) {
+			return;
+		}
 
         switch ( $setting_id ) {
         case 'listing-duration':
