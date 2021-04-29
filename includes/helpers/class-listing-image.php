@@ -65,7 +65,7 @@ final class WPBDP_Listing_Image {
 	 * @param array $image_ids - The new media ids being linked.
 	 * @param int   $listing_id - The new post parent.
 	 */
-	public function maybe_set_post_parent( $image_ids, $listing_id ) {
+	public static function maybe_set_post_parent( $image_ids, $listing_id ) {
 		foreach ( $image_ids as $image_id ) {
 			self::set_post_parent( $image_id, $listing_id );
 		}
@@ -88,6 +88,48 @@ final class WPBDP_Listing_Image {
 					'post_parent' => $parent
 				)
 			);
+		}
+	}
+
+	/**
+	 * Detach an image from the listing.
+	 *
+	 * @since x.x
+	 */
+	public static function clear_post_parent( $id ) {
+		wp_update_post(
+			array(
+				'ID'          => $id,
+				'post_parent' => ''
+			)
+		);
+	}
+
+	/**
+	 * Only delete if it's not attached to any other posts.
+	 *
+	 * @since x.x
+	 */
+	public static function maybe_delete_image( $id, $listing_id ) {
+		global $wpdb;
+
+		// Check if the image is used on another listing.
+		$linked_listings = $wpdb->get_col(
+			$wpdb->prepare(
+				'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key=%s AND meta_value LIKE %s LIMIT 2',
+				'_wpbdp[images]',
+				'%i:' . absint( $id ) . ';%'
+			)
+		);
+
+		// If the current listing is still cached, don't count it.
+		$linked_listings = array_diff( $linked_listings, array( $listing_id ) );
+
+		if ( empty( $linked_listings ) ) {
+			wp_delete_attachment( $id, true );
+		} else {
+			// Attach to the next listing.
+			self::set_post_parent( $id, reset( $linked_listings ) );
 		}
 	}
 }

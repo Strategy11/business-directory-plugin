@@ -112,7 +112,8 @@ class WPBDP_Listing {
     }
 
     /**
-     * Sets listing images.
+	 * Sets listing images.
+	 *
      * @param array $images array of image IDs.
      * @param boolean $append if TRUE images will be appended without clearing previous ones.
      */
@@ -132,6 +133,35 @@ class WPBDP_Listing {
 
 		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
     }
+
+	/**
+	 * Remove an image from a listing. If the image belongs to the listing,
+	 * clear the post parent or assign it to another listing. This will only
+	 * delete images from the media library if the post parent is this listing,
+	 * and no other listings are using it.
+	 *
+	 * @since x.x
+	 */
+	public function remove_image( $image_id ) {
+		$current = $this->get_images( 'ids' );
+
+		$keep_images = array();
+		foreach ( $current as $current_img_id ) {
+			if ( $image_id === $current_img_id ) {
+				// Remove post parent.
+				$parent_id = (int) wp_get_post_parent_id( $image_id );
+				if ( $parent_id === $this->id ) {
+					WPBDP_Listing_Image::clear_post_parent( $image_id );
+					WPBDP_Listing_Image::maybe_delete_image( $image_id, $this->id );
+				}
+			} else {
+				$keep_images[] = $current_img_id;
+			}
+		}
+
+		update_post_meta( $this->id, '_wpbdp[images]', $keep_images );
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
+	}
 
 	public function set_thumbnail_id( $image_id ) {
 		delete_post_meta( $this->id, '_wpbdp[thumbnail_id]' );

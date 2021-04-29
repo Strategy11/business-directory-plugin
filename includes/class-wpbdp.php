@@ -469,21 +469,14 @@ final class WPBDP {
         if ( ! $image_id || ! $listing_id || ! wp_verify_nonce( $nonce, 'delete-listing-' . $listing_id . '-image-' . $image_id ) )
             $res->send_error();
 
-        $parent_id = (int) wp_get_post_parent_id( $image_id );
-        if ( $parent_id != $listing_id )
-            $res->send_error();
-
         $listing = wpbdp_get_listing( $listing_id );
 
         if ( ! $listing ) {
             $res->send_error();
         }
 
-        $thumbnail_id = $listing->get_thumbnail_id();
-
-        if ( false !== wp_delete_attachment( $image_id, true ) && $image_id == $thumbnail_id ) {
-            $listing->set_thumbnail_id( 0 );
-        }
+		// Remove from images list.
+		$listing->remove_image( $image_id );
 
         $res->add( 'imageId', $image_id );
         $res->send();
