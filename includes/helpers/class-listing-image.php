@@ -122,6 +122,7 @@ final class WPBDP_Listing_Image {
 			)
 		);
 
+		// If the current listing is still cached, don't count it.
 		$linked_listings = array_diff( $linked_listings, array( $listing_id ) );
 
 		if ( empty( $linked_listings ) ) {

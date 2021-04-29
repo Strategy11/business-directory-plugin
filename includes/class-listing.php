@@ -135,6 +135,11 @@ class WPBDP_Listing {
     }
 
 	/**
+	 * Remove an image from a listing. If the image belongs to the listing,
+	 * clear the post parent or assign it to another listing. This will only
+	 * delete images from the media library if the post parent is this listing,
+	 * and no other listings are using it.
+	 *
 	 * @since x.x
 	 */
 	public function remove_image( $image_id ) {
