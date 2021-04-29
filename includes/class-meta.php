@@ -393,13 +393,20 @@ class WPBDP__Meta {
         echo '<meta property="og:url" content="' . esc_url( user_trailingslashit( $listing->get_permalink() ) ) . '" />';
         echo '<meta property="og:description" content="' . esc_attr( WPBDP_SEO::listing_og_description( $listing_id ) ) . '" />';
 
-        if ( $thumbnail_id = $listing->get_thumbnail_id() ) {
-            if ( $img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' ) )
-                echo '<meta property="og:image" content="' . $img[0] . '" />';
-        } else {
-            $image_url = WPBDP_URL . 'assets/images/default-image-big.gif';
-            echo '<meta property="og:image" content="' . $image_url . '" />';
-        }
+		$this->add_image_meta( $listing );
     }    
 
+	/**
+	 * @since x.x
+	 */
+	private function add_image_meta( $listing ) {
+		$thumbnail_id = $listing->get_thumbnail_id();
+		if ( $thumbnail_id ) {
+			$img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' );
+			$img = $img ? $img[0] : '';
+		}
+		if ( $img ) {
+			echo '<meta property="og:image" content="' . esc_url( $img ) . '" />';
+		}
+	}
 }

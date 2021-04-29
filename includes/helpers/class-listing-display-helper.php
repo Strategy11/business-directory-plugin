@@ -112,11 +112,7 @@ class WPBDP_Listing_Display_Helper {
 		$vars['title_type'] = apply_filters( 'wpbdp_heading_type', 'h1' );
 
         if ( $vars['is_sticky'] && ! empty( wpbdp_get_option( 'display-sticky-badge' ) ) ) {
-            $img_src = wp_get_attachment_url( wpbdp_get_option( 'listings-sticky-image' ) );
-
-            if ( empty( $img_src ) ) {
-                $img_src = WPBDP_URL . 'assets/images/featuredlisting.png';
-            }
+			$img_src = self::get_sticky_image();
 
             $vars['sticky_tag'] = wpbdp_x_render(
                 'listing sticky tag', array(
@@ -130,7 +126,7 @@ class WPBDP_Listing_Display_Helper {
             if ( ! empty( $sticky_url ) ) {
                 $vars['sticky_tag'] = sprintf(
                     '<a href="%s" rel="noopener" target="_blank">%s</a>',
-                    $sticky_url,
+					esc_url( $sticky_url ),
                     $vars['sticky_tag']
                 );
             }
@@ -218,22 +214,33 @@ class WPBDP_Listing_Display_Helper {
         $listing_id = apply_filters( 'wpbdp_listing_images_listing_id', $listing_id );
         $listing    = WPBDP_Listing::get( $listing_id );
 
+		$thumbnail_id = $listing->get_thumbnail_id();
+		$pass_args = array();
+		if ( ! $thumbnail_id ) {
+			$pass_args['coming_soon'] = self::get_coming_soon_image();
+		}
+
         // Thumbnail.
         if ( wpbdp_get_option( 'show-thumbnail' ) ) {
+			$pass_args['link']  = 'listing';
+			$pass_args['class'] = 'wpbdmthumbs wpbdp-excerpt-thumbnail';
+
             $thumb       = new StdClass();
-            $thumb->html = wpbdp_listing_thumbnail( null, 'link=listing&class=wpbdmthumbs wpbdp-excerpt-thumbnail', $display );
+			$thumb->html = wpbdp_listing_thumbnail( null, $pass_args, $display );
 
             $vars['images']->thumbnail = $thumb;
         }
 
         // Main image.
-        $thumbnail_id = $listing->get_thumbnail_id();
         $data_main    = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large', false );
 
         if ( $thumbnail_id ) {
+			$pass_args['link']  = 'picture';
+			$pass_args['class'] = 'wpbdp-single-thumbnail';
+
             $main_image         = new StdClass();
             $main_image->id     = $thumbnail_id;
-            $main_image->html   = wpbdp_listing_thumbnail( $listing_id, 'link=picture&class=wpbdp-single-thumbnail', $display );
+			$main_image->html   = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
             $main_image->url    = $data_main[0];
             $main_image->width  = $data_main[1];
             $main_image->height = $data_main[2];
@@ -280,6 +287,58 @@ class WPBDP_Listing_Display_Helper {
 
         return $vars;
     }
+
+	/**
+	 * Gets sticky image url.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	private static function get_sticky_image() {
+		return self::get_image_option( 'listings-sticky-image' );
+	}
+
+	/**
+	 * Gets coming soon image url.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	private static function get_coming_soon_image() {
+		return self::get_image_option( 'listings-coming-soon-image' );
+	}
+
+	/**
+	 * Gets image url from setting.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	private static function get_image_option( $option ) {
+		$setting = wpbdp_get_option( $option );
+		$image = '';
+		if ( $setting ) {
+			$image = wp_get_attachment_url( $setting );
+		}
+
+		self::get_default_image( $option, $image );
+
+		return $image;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private static function get_default_image( $option, &$image ) {
+		$defaults = array(
+			'listings-sticky-image'      => WPBDP_URL . 'assets/images/featuredlisting.png',
+			'listings-coming-soon-image' => WPBDP_URL . 'assets/images/default-image-big.gif',
+		);
+
+		if ( empty( $image ) && isset( $defaults[ $option ] ) ) {
+			$image = $defaults[ $option ];
+		}
+	}
 
     private static function schema_org( $vars ) {
         $schema               = array();

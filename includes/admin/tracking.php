@@ -83,7 +83,6 @@ class WPBDP_SiteTracking {
             // Theme info.
             $data['theme'] = array();
 
-            if ( function_exists( 'wp_get_theme' ) ) {
                 $theme = wp_get_theme();
 
                 foreach ( array( 'Name', 'ThemeURI', 'Version', 'Author', 'AuthorURI' ) as $k ) {
@@ -98,7 +97,6 @@ class WPBDP_SiteTracking {
                 } else {
                     $data['theme']['parent'] = null;
                 }
-            }
 
             // Posts.
             $data['posts'] = array();
