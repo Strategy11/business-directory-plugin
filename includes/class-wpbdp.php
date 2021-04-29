@@ -481,16 +481,8 @@ final class WPBDP {
             $res->send_error();
         }
 
-        $parent_id = (int) wp_get_post_parent_id( $image_id );
-        if ( $parent_id === $listing_id ) {
-            wp_delete_attachment( $image_id, true );
-        }
-
-        $thumbnail_id = $listing->get_thumbnail_id();
-
-        if ( $image_id === $thumbnail_id ) {
-            $listing->set_thumbnail_id( 0 );
-        }
+		// Remove from images list.
+		$listing->remove_image( $image_id );
 
         $res->add( 'imageId', $image_id );
         $res->send();
