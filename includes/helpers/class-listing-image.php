@@ -94,7 +94,7 @@ final class WPBDP_Listing_Image {
 	/**
 	 * Detach an image from the listing.
 	 *
-	 * @since x.x
+	 * @since 5.12
 	 */
 	public static function clear_post_parent( $id ) {
 		wp_update_post(
@@ -108,7 +108,7 @@ final class WPBDP_Listing_Image {
 	/**
 	 * Only delete if it's not attached to any other posts.
 	 *
-	 * @since x.x
+	 * @since 5.12
 	 */
 	public static function maybe_delete_image( $id, $listing_id ) {
 		global $wpdb;

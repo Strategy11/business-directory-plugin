@@ -140,7 +140,7 @@ class WPBDP_Listing {
 	 * delete images from the media library if the post parent is this listing,
 	 * and no other listings are using it.
 	 *
-	 * @since x.x
+	 * @since 5.12
 	 */
 	public function remove_image( $image_id ) {
 		$current = $this->get_images( 'ids' );

@@ -397,7 +397,7 @@ class WPBDP__Meta {
     }    
 
 	/**
-	 * @since x.x
+	 * @since 5.12
 	 */
 	private function add_image_meta( $listing ) {
 		$thumbnail_id = $listing->get_thumbnail_id();

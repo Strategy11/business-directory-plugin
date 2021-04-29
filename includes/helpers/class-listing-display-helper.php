@@ -291,7 +291,7 @@ class WPBDP_Listing_Display_Helper {
 	/**
 	 * Gets sticky image url.
 	 *
-	 * @since x.x
+	 * @since 5.12
 	 * @return string
 	 */
 	private static function get_sticky_image() {
@@ -301,7 +301,7 @@ class WPBDP_Listing_Display_Helper {
 	/**
 	 * Gets coming soon image url.
 	 *
-	 * @since x.x
+	 * @since 5.12
 	 * @return string
 	 */
 	private static function get_coming_soon_image() {
@@ -311,7 +311,7 @@ class WPBDP_Listing_Display_Helper {
 	/**
 	 * Gets image url from setting.
 	 *
-	 * @since x.x
+	 * @since 5.12
 	 * @return string
 	 */
 	private static function get_image_option( $option ) {
@@ -327,7 +327,7 @@ class WPBDP_Listing_Display_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.12
 	 */
 	private static function get_default_image( $option, &$image ) {
 		$defaults = array(

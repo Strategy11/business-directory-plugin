@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.7
-Stable tag: 5.11.2
+Stable tag: 5.12
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -163,6 +163,14 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.12 =
+* New: Add an option to set a custom "Coming Soon" image.
+* Code: A bit of cleanup for the more recent WP versions.
+* Fix: An error prevented listings from being created from the back-end.
+* Fix: When an image is removed from a link, don't delete it from the media library if it's still being used in another listing.
+* Fix: Some listing images were not being removed correctly from a listing when removed from the back-end.
+* Fix: Prevent an error when the default free plan is deleted.
+
 = 5.11.2 =
 * Security: Lots of security fixes after a security audit. This includes XSS, Cross-Site Request Forgery, and unprotected import and export files.
 * Fix: Some combination of add-ons was preventing the listing form from progressing.
@@ -203,10 +211,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: Align the social buttons.
 * Fix: The 'flag listing' button now matches the other directory buttons.
 * Start replacing deprecated jQuery functions.
-
-= 5.9.2 =
-* New: Add hook to override template file - wpbdp_use_template_[template id]
-* Fix: Improve admin performance on sites with lots of users by switching user dropdowns to text fields.
-* Fix: Don't allow pending listings to be renewed. Add more protection.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
