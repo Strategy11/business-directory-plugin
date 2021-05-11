@@ -232,7 +232,12 @@ final class WPBDP {
 		}
 
 		$page = wpbdp_get_var( array( 'param' => 'page' ) );
-		return $page && strpos( $page, 'wpbdp' ) !== false;
+		$is_page = $page && strpos( $page, 'wpbdp' ) !== false;
+
+		/**
+		 * @since x.x
+		 */
+		return apply_filters( 'wpbdp_is_bd_page', $is_page );
 	}
 
 	/**
