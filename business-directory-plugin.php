@@ -54,6 +54,18 @@ function wpbdp() {
     return $instance;
 }
 
+/**
+ * Removes ALL data on plugin uninstall
+ *
+ * @return void
+ */
+function wpbdp_uninstall() {
+	require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/admin/class-admin.php';
+
+	$WPBDP_admin = new WPBDP_Admin();
+	$WPBDP_admin->uninstall_plugin();
+}
+register_uninstall_hook( __FILE__, 'wpbdp_uninstall' );
 
 // For backwards compatibility.
 $GLOBALS['wpbdp'] = wpbdp();
