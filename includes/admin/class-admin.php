@@ -1029,9 +1029,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $tracking = new WPBDP_SiteTracking();
                 $tracking->track_uninstall( wpbdp_get_var( array( 'param' => 'uninstall', 'default' => null ), 'post' ) );
 
-                // Delete AJAX Compatibility Module
-                WPBDP__Settings__Bootstrap::setup_ajax_compat_mode( array(), 0 );
-
                 // Deactivate plugin.
                 $real_path = WPBDP_PATH . 'business-directory-plugin.php';
                 // if the plugin directory is a symlink, plugin_basename will return
