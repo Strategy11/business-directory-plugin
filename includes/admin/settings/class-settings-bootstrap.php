@@ -1621,7 +1621,14 @@ final class WPBDP__Settings__Bootstrap {
 		update_option( 'wpbdp-ajax-compat-mode', $value );
 	}
 
-	// Only activate BD plugins during BD-related AJAX requests.
+	/**
+	 * Only activate BD plugins during BD-related AJAX requests
+	 *
+	 * @since x.x
+	 * 
+	 * @param  [array] $plugins
+	 * @return [array] $plugins
+	 */
 	public function wpbdp_include_ajax_compat_mode( $plugins ) {
 		if ( ! wp_doing_ajax() || false === strpos( wpbdp_get_var( array( 'param' => 'action' ), 'request' ), 'wpbdp') ) {
 			return $plugins;
