@@ -373,7 +373,7 @@ final class WPBDP__Settings__Bootstrap {
 		if ( get_option( 'wpbdp-ajax-compat-mode', 0 ) == 1 ) {
 			global $wpbdp_ajax_compat;
 			$wpbdp_ajax_compat = true;
-			add_filter( 'option_active_plugins', __CLASS__ . '::wpbdp_include_ajax_compat_mode' );
+			add_filter( 'option_active_plugins', __CLASS__ . '::run_ajax_compat_mode' );
 		}
     }
 
@@ -1629,7 +1629,7 @@ final class WPBDP__Settings__Bootstrap {
 	 * @param  [array] $plugins
 	 * @return [array] $plugins
 	 */
-	public function wpbdp_include_ajax_compat_mode( $plugins ) {
+	public static function run_ajax_compat_mode( $plugins ) {
 		if ( ! wp_doing_ajax() || false === strpos( wpbdp_get_var( array( 'param' => 'action' ), 'request' ), 'wpbdp') ) {
 			return $plugins;
 		}
