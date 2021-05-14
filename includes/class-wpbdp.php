@@ -98,7 +98,6 @@ final class WPBDP {
     private function hooks() {
         register_activation_hook( WPBDP_PLUGIN_FILE, array( $this, 'plugin_activation' ) );
         register_deactivation_hook( WPBDP_PLUGIN_FILE, array( $this, 'plugin_deactivation' ) );
-        register_uninstall_hook( WPBDP_PLUGIN_FILE, __CLASS__ . '::plugin_uninstall' );
 
         add_action( 'init', array( $this, 'init' ), 0 );
         add_filter( 'plugin_action_links_' . plugin_basename( WPBDP_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
@@ -289,11 +288,6 @@ final class WPBDP {
         wp_clear_scheduled_hook( 'wpbdp_hourly_events' );
         wp_clear_scheduled_hook( 'wpbdp_daily_events' );
     }
-
-	public static function plugin_uninstall() {
-		// Delete AJAX Compatibility Module
-		WPBDP__Settings__Bootstrap::setup_ajax_compat_mode( array(), 0 );
-	}
 
 	/**
 	 * Adds a settings link to the plugins page

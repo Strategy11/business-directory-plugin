@@ -369,6 +369,10 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'general/advanced',
             )
         );
+
+        if ( get_option( 'wpbdp-ajax-compat-mode', 0 ) == 1 ) {
+        	add_filter( 'option_active_plugins', __CLASS__ . '::wpbdp_include_ajax_compat_mode' );
+        }
     }
 
 	/**
@@ -1612,44 +1616,29 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     public static function setup_ajax_compat_mode( $setting, $value ) {
-        $mu_dir = ( defined( 'WPMU_PLUGIN_DIR' ) && defined( 'WPMU_PLUGIN_URL' ) ) ? WPMU_PLUGIN_DIR : trailingslashit( WP_CONTENT_DIR ) . 'mu-plugins';
-        $source = WPBDP_INC . '/compatibility/wpbdp-ajax-compat-mu.php';
-        $dest   = trailingslashit( $mu_dir ) . basename( $source );
-
-        if ( 0 == $value && file_exists( $dest ) ) {
-            if ( ! unlink( $dest ) ) {
-                $message = array(
-                    sprintf(
-                        /* translators: %s: file name */
-                        __( 'Could not remove the "Business Directory Plugin - AJAX Compatibility Module". Please remove the file "%s" manually or deactivate the plugin.', 'business-directory-plugin' ),
-                        $dest
-                    ),
-                    'error',
-                );
-                update_option( 'wpbdp-ajax-compat-mode-notice', $message );
-            }
-        } elseif ( 1 == $value && ! file_exists( $dest ) ) {
-            // Install plugin.
-            $success = true;
-
-            if ( ! wp_mkdir_p( $mu_dir ) ) {
-                /* translators: %s: directory name */
-                $message = array( sprintf( __( 'Could not activate AJAX Compatibility mode: the directory "%s" could not be created.', 'business-directory-plugin' ), $mu_dir ), 'error' );
-                $success = false;
-            }
-
-            if ( $success && ! copy( $source, $dest ) ) {
-                /* translators: %s: file name */
-                $message = array( sprintf( __( 'Could not copy the AJAX compatibility plugin "%s". Compatibility mode was not activated.', 'business-directory-plugin' ), $dest ), 'error' );
-                $success = false;
-            }
-
-            if ( ! $success ) {
-                update_option( 'wpbdp-ajax-compat-mode-notice', $message );
-                wpbdp_set_option( $setting['id'], 0 );
-            }
+        if ( 1 == $value ) {
+        	update_option( 'wpbdp-ajax-compat-mode', $value );
         }
     }
+
+	// Only activate BD plugins during BD-related AJAX requests.
+	public function wpbdp_include_ajax_compat_mode( $plugins ) {
+		global $wpbdp_ajax_compat;
+		$wpbdp_ajax_compat = true;
+
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! isset( $_REQUEST['action'] ) || false === strpos( sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ), 'wpbdp' ) ) {
+			return $plugins;
+		}
+
+		foreach ( $plugins as $key => $plugin ) {
+			if ( false !== strpos( $plugin, 'business-directory-' ) )
+				continue;
+
+			unset( $plugins[ $key ] );
+		}
+
+		return $plugins;
+	}
 
     private static function register_image_sizes() {
         $thumbnail_width  = absint( wpbdp_get_option( 'thumbnail-width' ) );
