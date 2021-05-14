@@ -371,6 +371,8 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         if ( get_option( 'wpbdp-ajax-compat-mode', 0 ) == 1 ) {
+        	global $wpbdp_ajax_compat;
+			$wpbdp_ajax_compat = true;
         	add_filter( 'option_active_plugins', __CLASS__ . '::wpbdp_include_ajax_compat_mode' );
         }
     }
@@ -1616,16 +1618,11 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     public static function setup_ajax_compat_mode( $setting, $value ) {
-        if ( 1 == $value ) {
-        	update_option( 'wpbdp-ajax-compat-mode', $value );
-        }
+        update_option( 'wpbdp-ajax-compat-mode', $value );
     }
 
 	// Only activate BD plugins during BD-related AJAX requests.
 	public function wpbdp_include_ajax_compat_mode( $plugins ) {
-		global $wpbdp_ajax_compat;
-		$wpbdp_ajax_compat = true;
-
 		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX || ! isset( $_REQUEST['action'] ) || false === strpos( sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ), 'wpbdp' ) ) {
 			return $plugins;
 		}
