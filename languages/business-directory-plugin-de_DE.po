@@ -7865,7 +7865,7 @@ msgstr "Nachicht an den Händler"
 #: includes/views/listing_contact.php:200
 msgctxt "templates"
 msgid "Send Message to listing owner"
-msgstr "Nachricht an den Kfz-Händler"
+msgstr "Nachricht an den Anbieter"
 
 #: includes/views/main.php:9
 msgctxt "templates"
