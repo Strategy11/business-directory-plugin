@@ -150,9 +150,10 @@ class WPBDP__Listing_Email_Notification {
 
         $post_status = get_post_status( $listing->get_id() );
 
-        if ( ! $post_status || in_array( $post_status, array( 'trash', 'auto-draft' ), true ) ) {
-            return $sent;
-        }
+		if ( ! $post_status || in_array( $post_status, array( 'trash', 'auto-draft', 'draft', 'pending' ), true ) ) {
+			// Don't send for pending.
+			return $sent;
+		}
 
         $all_notices = wpbdp_get_option( 'expiration-notices' );
 
