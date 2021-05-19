@@ -580,6 +580,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             $validators = array(
                 'email'          => __( 'Email Validator', 'business-directory-plugin' ),
                 'url'            => __( 'URL Validator', 'business-directory-plugin' ),
+				'no_url'         => __( 'Don\'t Allow Urls', 'business-directory-plugin' ),
                 'integer_number' => __( 'Whole Number Validator', 'business-directory-plugin' ),
                 'decimal_number' => __( 'Decimal Number Validator', 'business-directory-plugin' ),
                 'date_'          => __( 'Date Validator', 'business-directory-plugin' ),
@@ -648,6 +649,23 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                 );
             }
         }
+
+		/**
+		 * Don't allow URLS that include http, www., or .com.
+		 *
+		 * @since x.x
+		 */
+		private function no_url( $value, $args = array() ) {
+			if ( is_array( $value ) ) {
+				$value = implode( ' ', $value );
+			}
+
+			$has_url = preg_match( '/http(s)?:/s', $value ) || preg_match( '/\.com(\w)?/s', $value );
+			$has_url = $has_url || strpos( $value, 'www.' ) !== false;
+			if ( $has_url ) {
+				return WPBDP_ValidationError( esc_html__( 'URLs are not allowed.', 'business-directory-plugin' ) );
+			}
+		}
 
         /* EmailValidator */
         private function email( $value, $args = array() ) {
