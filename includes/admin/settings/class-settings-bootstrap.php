@@ -369,10 +369,6 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'general/advanced',
             )
         );
-
-		if ( get_option( 'wpbdp-ajax-compat-mode', 0 ) == 1 ) {
-			add_filter( 'option_active_plugins', __CLASS__ . '::run_ajax_compat_mode' );
-		}
     }
 
 	/**
@@ -1616,27 +1612,7 @@ final class WPBDP__Settings__Bootstrap {
     }
 
 	public static function setup_ajax_compat_mode( $setting, $value ) {
-		update_option( 'wpbdp-ajax-compat-mode', $value );
-	}
-
-	/**
-	 * Only activate BD plugins during BD-related AJAX requests
-	 *
-	 * @since x.x
-	 * 
-	 * @param  array $plugins
-	 * @return array $plugins
-	 */
-	public static function run_ajax_compat_mode( $plugins ) {
-		if ( ! wp_doing_ajax() || false === strpos( wpbdp_get_var( array( 'param' => 'action' ), 'request' ), 'wpbdp') ) {
-			return $plugins;
-		}
-
-		return array_filter( $plugins, array( __CLASS__, 'keep_only_bd_plugins' ) );
-	}
-
-	private static function keep_only_bd_plugins( $plugin ) {
-		return false !== strpos( $plugin, 'business-directory-' );
+		_deprecated_function( __METHOD__, '5.12.1' );
 	}
 
     private static function register_image_sizes() {

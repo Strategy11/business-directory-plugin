@@ -5,4 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Mark this file as deprecated.
-_deprecated_file( esc_html( basename( __FILE__ ) ), '5.12', null, __( 'The content of the wpbdp-ajax-compat-mu plugin has been moved to includes/admin/settings/class-settings-bootstrap.php.' ) );
+_deprecated_file(
+	esc_html( basename( __FILE__ ) ),
+	'5.12.1',
+	null,
+	'The content of the wpbdp-ajax-compat-mu plugin has been moved to includes/admin/settings/class-settings-bootstrap.php.'
+);
