@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-04-29 16:51:37+00:00\n"
+"POT-Creation-Date: 2021-05-20 16:56:28+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -821,40 +821,7 @@ msgid "Sender's email address"
 msgstr "Nieprawidłowy adres e-mail"
 
 # @ WPBDM
-#. translators: %s: file name
-#: includes/admin/settings/class-settings-bootstrap.php:1624
-#, fuzzy
-msgid ""
-"Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
-"\". Please remove the file \"%s\" manually or deactivate the plugin."
-msgstr ""
-"Nie można usunąć \"Katalog Firm - Moduł Kompatybilności AJAX \".Proszę "
-"ręcznie usunąć plik \"%s\" lub de-aktywować plugin."
-
-# @ WPBDM
-#. translators: %s: directory name
-#: includes/admin/settings/class-settings-bootstrap.php:1637
-#, fuzzy
-msgid ""
-"Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
-"be created."
-msgstr ""
-"Nie można aktywować trybu kompatybilności AJAX: Nie można utworzyć katalogu  "
-"\"%s\"."
-
-# @ WPBDM
-#. translators: %s: file name
-#: includes/admin/settings/class-settings-bootstrap.php:1643
-#, fuzzy
-msgid ""
-"Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
-"not activated."
-msgstr ""
-"Nie można skopiować pluginu kompatybilności AJAX  \"%s\". Tryb "
-"Kompatybilności nie został aktywowany."
-
-# @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1717
+#: includes/admin/settings/class-settings-bootstrap.php:1681
 #: templates/admin/uninstall-complete.tpl.php:4
 #, fuzzy
 msgid "Uninstall"
@@ -1132,37 +1099,37 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/class-wpbdp.php:299
+#: includes/class-wpbdp.php:344
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "Podnieś status do %s"
 
 # @ WPBDM
-#: includes/class-wpbdp.php:302
+#: includes/class-wpbdp.php:347
 #, fuzzy
 msgid "Settings"
 msgstr "Ustawienia"
 
 # @ WPBDM
-#: includes/class-wpbdp.php:494
+#: includes/class-wpbdp.php:539
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Nie można połączyć z serwerem danych licencji"
 
-#: includes/class-wpbdp.php:501
+#: includes/class-wpbdp.php:546
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
 # @ WPBDM
-#: includes/class-wpbdp.php:508 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:553 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Nie możemy deaktywować Licencji: %s."
 
 # @ WPBDM
-#: includes/class-wpbdp.php:540
+#: includes/class-wpbdp.php:585
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1171,7 +1138,7 @@ msgstr ""
 "Funkcje pluginu KATALOG FIRM są chwilowo wyłączone, ponieważ plugin oczekuje "
 "na ręczną aktualizację, przed kontynuacją."
 
-#: includes/class-wpbdp.php:547
+#: includes/class-wpbdp.php:592
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1295,7 +1262,7 @@ msgstr "%s (bez %s)"
 # @ WPBDM
 #. translators: %1$s: Field label, %2$s: Accepted date format
 #. translators: %1$s: field label, %2$s: format
-#: includes/fields/class-fieldtypes-date.php:72 includes/form-fields.php:720
+#: includes/fields/class-fieldtypes-date.php:72 includes/form-fields.php:738
 #, fuzzy
 msgid "%1$s must be in the format %2$s."
 msgstr "%s musi być w formacie %s."
@@ -1303,7 +1270,7 @@ msgstr "%s musi być w formacie %s."
 # @ WPBDM
 #. translators: %s Field label
 #. translators: %s: field label
-#: includes/fields/class-fieldtypes-date.php:78 includes/form-fields.php:759
+#: includes/fields/class-fieldtypes-date.php:78 includes/form-fields.php:777
 #, fuzzy
 msgid "%s must be a valid date."
 msgstr "%s musi być datą poprawną."
@@ -1519,46 +1486,50 @@ msgstr "Weryfikator E-mail"
 msgid "URL Validator"
 msgstr "Weryfikator URL"
 
-# @ WPBDM
 #: includes/form-fields.php:583
+msgid "Don't Allow Urls"
+msgstr ""
+
+# @ WPBDM
+#: includes/form-fields.php:584
 #, fuzzy
 msgid "Whole Number Validator"
 msgstr "Weryfikator liczb całkowitych"
 
 # @ WPBDM
-#: includes/form-fields.php:584
+#: includes/form-fields.php:585
 #, fuzzy
 msgid "Decimal Number Validator"
 msgstr "Weryfikator liczb dziesiętnych"
 
 # @ WPBDM
-#: includes/form-fields.php:585
+#: includes/form-fields.php:586
 #, fuzzy
 msgid "Date Validator"
 msgstr "Weryfikator daty"
 
 # @ WPBDM
-#: includes/form-fields.php:586
+#: includes/form-fields.php:587
 #, fuzzy
 msgid "Word Count Validator"
 msgstr "Weryfikator liczb całkowitych"
 
 # @ WPBDM
-#: includes/form-fields.php:593
+#: includes/form-fields.php:594
 #, fuzzy
 msgid "Field"
 msgstr "Pole"
 
 # @ WPBDM
 #. translators: %s: field label
-#: includes/form-fields.php:617 includes/form-fields.php:628
+#: includes/form-fields.php:618 includes/form-fields.php:629
 #, fuzzy
 msgid "%s is required."
 msgstr "%s jest wymagane."
 
 # @ WPBDM
 #. translators: %s: field label
-#: includes/form-fields.php:645
+#: includes/form-fields.php:646
 #, fuzzy
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr ""
@@ -1566,43 +1537,49 @@ msgstr ""
 "zapomniałeś o http://"
 
 # @ WPBDM
+#: includes/form-fields.php:666
+#, fuzzy
+msgid "URLs are not allowed."
+msgstr "Liczba dozwolonych obrazów"
+
+# @ WPBDM
 #. translators: %s: field label
-#: includes/form-fields.php:671
+#: includes/form-fields.php:689
 #, fuzzy
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s jest źle sformatowany. Wymagamy właściwego adresu E-mail."
 
 # @ WPBDM
 #. translators: %s: field label
-#: includes/form-fields.php:684
+#: includes/form-fields.php:702
 #, fuzzy
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s musi być liczbą. Dziesiętne nie są dozwolone. "
 
 # @ WPBDM
 #. translators: %s: field label
-#: includes/form-fields.php:697
+#: includes/form-fields.php:715
 #, fuzzy
 msgid "%s must be a number."
 msgstr "%s musi być liczbą."
 
 # @ WPBDM
 #. translators: %s: field label
-#: includes/form-fields.php:767
+#: includes/form-fields.php:785
 #, fuzzy
 msgid "Caption for %s is required."
 msgstr "Kraj jest wymagany."
 
 # @ WPBDM
 #. translators: %1$s: field label, %2$d: max word count
-#: includes/form-fields.php:784
+#: includes/form-fields.php:802
 #, fuzzy
 msgid "%1$s must have less than %2$d words."
 msgstr "%s musi być w formacie %s."
 
 # @ WPBDM
 #. translators: %1$s: field label, %2$s allowed values
-#: includes/form-fields.php:804
+#: includes/form-fields.php:822
 #, fuzzy
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%s jest niewłaściwe. Wartość musi być jedną z %s."
@@ -2155,6 +2132,12 @@ msgstr ""
 #, fuzzy
 msgid "Add Form Field"
 msgstr "Dodaj Pole formularza"
+
+# @ WPBDM
+#: templates/admin/form-fields-addoredit.tpl.php:133
+#, fuzzy
+msgid "Maximum number of words"
+msgstr "Liczba obrazów:"
 
 # @ WPBDM
 #: templates/admin/form-fields-addoredit.tpl.php:263
@@ -5230,13 +5213,6 @@ msgid "No validation"
 msgstr "Bez weryfikacji"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:133
-#, fuzzy
-msgctxt "form-fields admin"
-msgid "Number of words"
-msgstr "Liczba obrazów:"
-
-# @ WPBDM
 #: templates/admin/form-fields-addoredit.tpl.php:143
 msgctxt "form-fields admin"
 msgid "Is field required?"
@@ -6265,7 +6241,7 @@ msgid "Checkout URL link"
 msgstr "Sprawdzanie link URL"
 
 # @ WPBDM
-#: includes/admin/settings/class-settings-bootstrap.php:1672
+#: includes/admin/settings/class-settings-bootstrap.php:1636
 #, fuzzy
 msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
@@ -7600,7 +7576,7 @@ msgstr ""
 "Wysyłany do użytkowników, po pewnym czasie od zmiany statusu na \"porzucone"
 "\"."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1693
+#: includes/admin/settings/class-settings-bootstrap.php:1657
 msgctxt "settings"
 msgid "Cropped"
 msgstr ""
@@ -8111,21 +8087,21 @@ msgstr ""
 
 # @ WPBDM
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:233
+#: includes/class-listing-email-notification.php:234
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Powiadomienie o Nowej ofercie"
 
 # @ WPBDM
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:301
+#: includes/class-listing-email-notification.php:302
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Powiadomienie o Edycji oferty"
 
 # @ WPBDM
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:372
+#: includes/class-listing-email-notification.php:373
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
@@ -8133,7 +8109,7 @@ msgstr "[%s] Powiadomienie o Nowej ofercie"
 
 # @ WPBDM
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:419
+#: includes/class-listing-email-notification.php:420
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] New payment notification"
@@ -8525,13 +8501,13 @@ msgid "Find A Listing"
 msgstr "Znajdź Firmę"
 
 # @ WPBDM
-#: includes/class-wpbdp.php:392
+#: includes/class-wpbdp.php:437
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Kategorie dla tej oferty"
 
-#: includes/class-wpbdp.php:396
+#: includes/class-wpbdp.php:441
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -10378,6 +10354,33 @@ msgstr "Nieprawidłowy adres e-mail"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Kontynuacja"
+
+# @ WPBDM
+#, fuzzy
+#~ msgid ""
+#~ "Could not remove the \"Business Directory Plugin - AJAX Compatibility "
+#~ "Module\". Please remove the file \"%s\" manually or deactivate the plugin."
+#~ msgstr ""
+#~ "Nie można usunąć \"Katalog Firm - Moduł Kompatybilności AJAX \".Proszę "
+#~ "ręcznie usunąć plik \"%s\" lub de-aktywować plugin."
+
+# @ WPBDM
+#, fuzzy
+#~ msgid ""
+#~ "Could not activate AJAX Compatibility mode: the directory \"%s\" could "
+#~ "not be created."
+#~ msgstr ""
+#~ "Nie można aktywować trybu kompatybilności AJAX: Nie można utworzyć "
+#~ "katalogu  \"%s\"."
+
+# @ WPBDM
+#, fuzzy
+#~ msgid ""
+#~ "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode "
+#~ "was not activated."
+#~ msgstr ""
+#~ "Nie można skopiować pluginu kompatybilności AJAX  \"%s\". Tryb "
+#~ "Kompatybilności nie został aktywowany."
 
 # @ WPBDM
 #, fuzzy

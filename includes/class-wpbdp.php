@@ -21,7 +21,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.12' );
+        define( 'WPBDP_VERSION', '5.12.1' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -236,7 +236,7 @@ final class WPBDP {
 		$is_page = $page && strpos( $page, 'wpbdp' ) !== false;
 
 		/**
-		 * @since x.x
+		 * @since 5.12.1
 		 */
 		return apply_filters( 'wpbdp_is_bd_page', $is_page );
 	}
@@ -265,7 +265,7 @@ final class WPBDP {
 	/**
 	 * If this is a BD ajax call, check if other plugins should be disabled.
 	 *
-	 * @since x.x
+	 * @since 5.12.1
 	 */
 	private function maybe_run_ajax_compat_mode() {
 		$action  = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
@@ -279,7 +279,7 @@ final class WPBDP {
 	/**
 	 * Only activate BD plugins during BD-related AJAX requests
 	 *
-	 * @since x.x
+	 * @since 5.12.1
 	 *
 	 * @param  array $plugins
 	 * @return array $plugins
@@ -293,7 +293,7 @@ final class WPBDP {
 	 *
 	 * @param string $plugin
 	 *
-	 * @since x.x
+	 * @since 5.12.1
 	 *
 	 * @return boolean
 	 */

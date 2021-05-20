@@ -653,7 +653,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 		/**
 		 * Don't allow URLS that include http, www., or .com.
 		 *
-		 * @since x.x
+		 * @since 5.12.1
 		 */
 		private function no_url( $value, $args = array() ) {
 			if ( is_array( $value ) ) {

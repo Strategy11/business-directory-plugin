@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-04-29 16:51:37+00:00\n"
+"POT-Creation-Date: 2021-05-20 16:56:28+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -731,33 +731,7 @@ msgstr "البريد الإلكتروني:  %s"
 msgid "Sender's email address"
 msgstr "إدخال بريدك إلكتروني"
 
-#. translators: %s: file name
-#: includes/admin/settings/class-settings-bootstrap.php:1624
-#, fuzzy
-msgid ""
-"Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
-"\". Please remove the file \"%s\" manually or deactivate the plugin."
-msgstr ""
-"تعذر إزالة \"إضافة دليل الأعمال – وحدة التوافق أجاكس\". المرجو إزالة الملف "
-"\"%s\" يدوياً أو قم بإلغاء تفعيل الإضافة."
-
-#. translators: %s: directory name
-#: includes/admin/settings/class-settings-bootstrap.php:1637
-#, fuzzy
-msgid ""
-"Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
-"be created."
-msgstr "لا يمكن تفعيل وضع التوافق أجاكس: تعذر إنشاء المجلد \"%s\"."
-
-#. translators: %s: file name
-#: includes/admin/settings/class-settings-bootstrap.php:1643
-#, fuzzy
-msgid ""
-"Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
-"not activated."
-msgstr "تعذر نسخ إضافة التوافق أجاكس \"%s\". لم يتم تفعيل وضع التوافق."
-
-#: includes/admin/settings/class-settings-bootstrap.php:1717
+#: includes/admin/settings/class-settings-bootstrap.php:1681
 #: templates/admin/uninstall-complete.tpl.php:4
 #, fuzzy
 msgid "Uninstall"
@@ -1018,33 +992,33 @@ msgid ""
 "to %1$sFee Plans%2$s to add or edit your fee plan(s)."
 msgstr ""
 
-#: includes/class-wpbdp.php:299
+#: includes/class-wpbdp.php:344
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "ترقية إلى %s"
 
-#: includes/class-wpbdp.php:302
+#: includes/class-wpbdp.php:347
 #, fuzzy
 msgid "Settings"
 msgstr "إعدادات"
 
-#: includes/class-wpbdp.php:494
+#: includes/class-wpbdp.php:539
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "لا يمكن الاتصال بخادم الترخيص"
 
-#: includes/class-wpbdp.php:501
+#: includes/class-wpbdp.php:546
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:508 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:553 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "تعذر تحديث القالب : %s"
 
-#: includes/class-wpbdp.php:540
+#: includes/class-wpbdp.php:585
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1053,7 +1027,7 @@ msgstr ""
 "تم تعطيل ميزات دليل الأعمال حاليا بسبب أن الإضافة تحتاج إلى إجراء ترقية "
 "يدوية قبل المتابعة."
 
-#: includes/class-wpbdp.php:547
+#: includes/class-wpbdp.php:592
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1171,14 +1145,14 @@ msgstr "%s (ex. %s)"
 
 #. translators: %1$s: Field label, %2$s: Accepted date format
 #. translators: %1$s: field label, %2$s: format
-#: includes/fields/class-fieldtypes-date.php:72 includes/form-fields.php:720
+#: includes/fields/class-fieldtypes-date.php:72 includes/form-fields.php:738
 #, fuzzy
 msgid "%1$s must be in the format %2$s."
 msgstr "%s يجب أن يكون بتنسيق  %s."
 
 #. translators: %s Field label
 #. translators: %s: field label
-#: includes/fields/class-fieldtypes-date.php:78 includes/form-fields.php:759
+#: includes/fields/class-fieldtypes-date.php:78 includes/form-fields.php:777
 #, fuzzy
 msgid "%s must be a valid date."
 msgstr "%s يجب أن يكون تاريخاً صالحاً."
@@ -1368,73 +1342,83 @@ msgstr "المصادقة على URL"
 
 #: includes/form-fields.php:583
 #, fuzzy
+msgid "Don't Allow Urls"
+msgstr "لا تظهر مع النتائج"
+
+#: includes/form-fields.php:584
+#, fuzzy
 msgid "Whole Number Validator"
 msgstr "المصادقة على رقم صحيح"
 
-#: includes/form-fields.php:584
+#: includes/form-fields.php:585
 #, fuzzy
 msgid "Decimal Number Validator"
 msgstr "المصادقة على رقم عشري"
 
-#: includes/form-fields.php:585
+#: includes/form-fields.php:586
 #, fuzzy
 msgid "Date Validator"
 msgstr "المصادقة على التاريخ"
 
-#: includes/form-fields.php:586
+#: includes/form-fields.php:587
 #, fuzzy
 msgid "Word Count Validator"
 msgstr "المصادقة على رقم صحيح"
 
-#: includes/form-fields.php:593
+#: includes/form-fields.php:594
 #, fuzzy
 msgid "Field"
 msgstr "حقل"
 
 #. translators: %s: field label
-#: includes/form-fields.php:617 includes/form-fields.php:628
+#: includes/form-fields.php:618 includes/form-fields.php:629
 #, fuzzy
 msgid "%s is required."
 msgstr "%s مطلوب."
 
 #. translators: %s: field label
-#: includes/form-fields.php:645
+#: includes/form-fields.php:646
 #, fuzzy
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr "%s مهيأ بشكل سيئ. المطلوب تنسيق URL صالح. يتضمن http://"
 
+#: includes/form-fields.php:666
+#, fuzzy
+msgid "URLs are not allowed."
+msgstr "الصور المسموح بها"
+
 #. translators: %s: field label
-#: includes/form-fields.php:671
+#: includes/form-fields.php:689
 #, fuzzy
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s مهيأ بشكل سيئ. المطلوب تنسيق بريد إلكتروني صالح."
 
 #. translators: %s: field label
-#: includes/form-fields.php:684
+#: includes/form-fields.php:702
 #, fuzzy
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s يجب أن تكون عددا. لا يسمح بالقيم العشرية."
 
 #. translators: %s: field label
-#: includes/form-fields.php:697
+#: includes/form-fields.php:715
 #, fuzzy
 msgid "%s must be a number."
 msgstr "%s يجب أن تكون عددا."
 
 #. translators: %s: field label
-#: includes/form-fields.php:767
+#: includes/form-fields.php:785
 #, fuzzy
 msgid "Caption for %s is required."
 msgstr "البلد المطلوب."
 
 #. translators: %1$s: field label, %2$d: max word count
-#: includes/form-fields.php:784
+#: includes/form-fields.php:802
 #, fuzzy
 msgid "%1$s must have less than %2$d words."
 msgstr "%s يجب أن يكون بتنسيق  %s."
 
 #. translators: %1$s: field label, %2$s allowed values
-#: includes/form-fields.php:804
+#: includes/form-fields.php:822
 #, fuzzy
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%s غير صالح. يجب أن تكون القيمة واحدة من %s."
@@ -1945,6 +1929,11 @@ msgstr ""
 #, fuzzy
 msgid "Add Form Field"
 msgstr "أضف حقل الاستمارة"
+
+#: templates/admin/form-fields-addoredit.tpl.php:133
+#, fuzzy
+msgid "Maximum number of words"
+msgstr "عدد الصور:"
 
 #: templates/admin/form-fields-addoredit.tpl.php:263
 #, fuzzy
@@ -4682,12 +4671,6 @@ msgctxt "form-fields admin"
 msgid "No validation"
 msgstr "لا يوجد تحقق من الصحة"
 
-#: templates/admin/form-fields-addoredit.tpl.php:133
-#, fuzzy
-msgctxt "form-fields admin"
-msgid "Number of words"
-msgstr "عدد الصور:"
-
 #: templates/admin/form-fields-addoredit.tpl.php:143
 msgctxt "form-fields admin"
 msgid "Is field required?"
@@ -5588,7 +5571,7 @@ msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "رابط URL إتمام الشراء"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1672
+#: includes/admin/settings/class-settings-bootstrap.php:1636
 #, fuzzy
 msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
@@ -6815,7 +6798,7 @@ msgctxt "settings"
 msgid "Sent some time after a pending payment is abandoned by users."
 msgstr "ترسل أحيانا بعد أن يتخلي الأعضاء عن الدفعة المنتظرة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1693
+#: includes/admin/settings/class-settings-bootstrap.php:1657
 msgctxt "settings"
 msgid "Cropped"
 msgstr ""
@@ -7276,26 +7259,26 @@ msgid ""
 msgstr ""
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:233
+#: includes/class-listing-email-notification.php:234
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] تنبيه الإعلان الجديد"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:301
+#: includes/class-listing-email-notification.php:302
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] تنبيه تحرير الإعلان"
 
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:372
+#: includes/class-listing-email-notification.php:373
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
 msgstr "[%s] تنبيه الإعلان الجديد"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:419
+#: includes/class-listing-email-notification.php:420
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] New payment notification"
@@ -7646,13 +7629,13 @@ msgctxt "views"
 msgid "Find A Listing"
 msgstr "العثور على إعلان"
 
-#: includes/class-wpbdp.php:392
+#: includes/class-wpbdp.php:437
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "التصنيفات لهذا الإعلان"
 
-#: includes/class-wpbdp.php:396
+#: includes/class-wpbdp.php:441
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -9265,6 +9248,26 @@ msgstr "إدخال بريدك إلكتروني"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "متابعة"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not remove the \"Business Directory Plugin - AJAX Compatibility "
+#~ "Module\". Please remove the file \"%s\" manually or deactivate the plugin."
+#~ msgstr ""
+#~ "تعذر إزالة \"إضافة دليل الأعمال – وحدة التوافق أجاكس\". المرجو إزالة "
+#~ "الملف \"%s\" يدوياً أو قم بإلغاء تفعيل الإضافة."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not activate AJAX Compatibility mode: the directory \"%s\" could "
+#~ "not be created."
+#~ msgstr "لا يمكن تفعيل وضع التوافق أجاكس: تعذر إنشاء المجلد \"%s\"."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode "
+#~ "was not activated."
+#~ msgstr "تعذر نسخ إضافة التوافق أجاكس \"%s\". لم يتم تفعيل وضع التوافق."
 
 #, fuzzy
 #~ msgid "Edit listing permalink"

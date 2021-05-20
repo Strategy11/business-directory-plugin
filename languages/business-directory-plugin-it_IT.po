@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-04-29 16:51:37+00:00\n"
+"POT-Creation-Date: 2021-05-20 16:56:28+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -748,38 +748,7 @@ msgstr "E-Mail: %s"
 msgid "Sender's email address"
 msgstr "Indirizzo e-mail del mittente"
 
-#. translators: %s: file name
-#: includes/admin/settings/class-settings-bootstrap.php:1624
-#, fuzzy
-msgid ""
-"Could not remove the \"Business Directory Plugin - AJAX Compatibility Module"
-"\". Please remove the file \"%s\" manually or deactivate the plugin."
-msgstr ""
-"Impossibile rimuovere il \"Business Directory Plugin - Modulo di "
-"compatibilità AJAX\". Si prega di rimuovere il file \"%s\" manualmente o "
-"disattivare il plugin."
-
-#. translators: %s: directory name
-#: includes/admin/settings/class-settings-bootstrap.php:1637
-#, fuzzy
-msgid ""
-"Could not activate AJAX Compatibility mode: the directory \"%s\" could not "
-"be created."
-msgstr ""
-"Impossibile attivare la modalità di compatibilità AJAX: non è stato "
-"possibile creare la directory \"%s\"."
-
-#. translators: %s: file name
-#: includes/admin/settings/class-settings-bootstrap.php:1643
-#, fuzzy
-msgid ""
-"Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode was "
-"not activated."
-msgstr ""
-"Impossibile copiare il plugin di compatibilità AJAX \"%s\". La modalità "
-"compatibilità non è stata attivata."
-
-#: includes/admin/settings/class-settings-bootstrap.php:1717
+#: includes/admin/settings/class-settings-bootstrap.php:1681
 #: templates/admin/uninstall-complete.tpl.php:4
 msgid "Uninstall"
 msgstr "Disinstalla"
@@ -1026,32 +995,32 @@ msgid ""
 "to %1$sFee Plans%2$s to add or edit your fee plan(s)."
 msgstr ""
 
-#: includes/class-wpbdp.php:299
+#: includes/class-wpbdp.php:344
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: includes/class-wpbdp.php:302
+#: includes/class-wpbdp.php:347
 #, fuzzy
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: includes/class-wpbdp.php:494
+#: includes/class-wpbdp.php:539
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/class-wpbdp.php:501
+#: includes/class-wpbdp.php:546
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:508 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:553 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Non è stato possibile aggiornare il tema: %s"
 
-#: includes/class-wpbdp.php:540
+#: includes/class-wpbdp.php:585
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1059,7 +1028,7 @@ msgstr ""
 "Le funzioni della directory sono disattivate in questo momento perché è in "
 "attesa di un <a>aggiornamento manuale</a>."
 
-#: includes/class-wpbdp.php:547
+#: includes/class-wpbdp.php:592
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1178,14 +1147,14 @@ msgstr "%s (esempio %s)"
 
 #. translators: %1$s: Field label, %2$s: Accepted date format
 #. translators: %1$s: field label, %2$s: format
-#: includes/fields/class-fieldtypes-date.php:72 includes/form-fields.php:720
+#: includes/fields/class-fieldtypes-date.php:72 includes/form-fields.php:738
 #, fuzzy
 msgid "%1$s must be in the format %2$s."
 msgstr "%1$s deve essere nel formato %2$s."
 
 #. translators: %s Field label
 #. translators: %s: field label
-#: includes/fields/class-fieldtypes-date.php:78 includes/form-fields.php:759
+#: includes/fields/class-fieldtypes-date.php:78 includes/form-fields.php:777
 #, fuzzy
 msgid "%s must be a valid date."
 msgstr "%s deve essere una data valida."
@@ -1380,75 +1349,85 @@ msgstr "Validatore URL"
 
 #: includes/form-fields.php:583
 #, fuzzy
+msgid "Don't Allow Urls"
+msgstr "Non mostrare con i risultati"
+
+#: includes/form-fields.php:584
+#, fuzzy
 msgid "Whole Number Validator"
 msgstr "Validatore di numero intero"
 
-#: includes/form-fields.php:584
+#: includes/form-fields.php:585
 #, fuzzy
 msgid "Decimal Number Validator"
 msgstr "Validatore numero decimale"
 
-#: includes/form-fields.php:585
+#: includes/form-fields.php:586
 #, fuzzy
 msgid "Date Validator"
 msgstr "Validatore di data"
 
-#: includes/form-fields.php:586
+#: includes/form-fields.php:587
 #, fuzzy
 msgid "Word Count Validator"
 msgstr "Validatore del conteggio delle parole"
 
-#: includes/form-fields.php:593
+#: includes/form-fields.php:594
 #, fuzzy
 msgid "Field"
 msgstr "Campo"
 
 #. translators: %s: field label
-#: includes/form-fields.php:617 includes/form-fields.php:628
+#: includes/form-fields.php:618 includes/form-fields.php:629
 #, fuzzy
 msgid "%s is required."
 msgstr "%s è richiesto."
 
 #. translators: %s: field label
-#: includes/form-fields.php:645
+#: includes/form-fields.php:646
 #, fuzzy
 msgid "%s is badly formatted. Valid URL format required. Include http://"
 msgstr ""
 "%s è mal formattato. Formato URL valido richiesto. Includere http:// o "
 "https://"
 
+#: includes/form-fields.php:666
+#, fuzzy
+msgid "URLs are not allowed."
+msgstr "%d immagine consentita."
+
 #. translators: %s: field label
-#: includes/form-fields.php:671
+#: includes/form-fields.php:689
 #, fuzzy
 msgid "%s is badly formatted. Valid Email format required."
 msgstr "%s è mal formattato. Formato email valido richiesto."
 
 #. translators: %s: field label
-#: includes/form-fields.php:684
+#: includes/form-fields.php:702
 #, fuzzy
 msgid "%s must be a number. Decimal values are not allowed."
 msgstr "%s deve essere un numero intero. Non sono ammessi valori decimali."
 
 #. translators: %s: field label
-#: includes/form-fields.php:697
+#: includes/form-fields.php:715
 #, fuzzy
 msgid "%s must be a number."
 msgstr "%s deve essere un numero."
 
 #. translators: %s: field label
-#: includes/form-fields.php:767
+#: includes/form-fields.php:785
 #, fuzzy
 msgid "Caption for %s is required."
 msgstr "La didascalia per %s è necessaria."
 
 #. translators: %1$s: field label, %2$d: max word count
-#: includes/form-fields.php:784
+#: includes/form-fields.php:802
 #, fuzzy
 msgid "%1$s must have less than %2$d words."
 msgstr "%s deve avere meno di %d parole."
 
 #. translators: %1$s: field label, %2$s allowed values
-#: includes/form-fields.php:804
+#: includes/form-fields.php:822
 #, fuzzy
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%1$s non è valido. Valore più essere uno di %2$s."
@@ -2000,6 +1979,11 @@ msgstr ""
 #, fuzzy
 msgid "Add Form Field"
 msgstr "Aggiungi Campo"
+
+#: templates/admin/form-fields-addoredit.tpl.php:133
+#, fuzzy
+msgid "Maximum number of words"
+msgstr "Numero di parole"
 
 #: templates/admin/form-fields-addoredit.tpl.php:263
 #, fuzzy
@@ -4777,11 +4761,6 @@ msgctxt "form-fields admin"
 msgid "No validation"
 msgstr "Nessuna convalida"
 
-#: templates/admin/form-fields-addoredit.tpl.php:133
-msgctxt "form-fields admin"
-msgid "Number of words"
-msgstr "Numero di parole"
-
 #: templates/admin/form-fields-addoredit.tpl.php:143
 msgctxt "form-fields admin"
 msgid "Is field required?"
@@ -5659,7 +5638,7 @@ msgctxt "admin settings"
 msgid "Checkout URL link"
 msgstr "Collegamento URL Checkout"
 
-#: includes/admin/settings/class-settings-bootstrap.php:1672
+#: includes/admin/settings/class-settings-bootstrap.php:1636
 #, fuzzy
 msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
@@ -6767,7 +6746,7 @@ msgstr ""
 "Invia poco tempo dopo che un pagamento in sospeso viene abbandonato dagli "
 "utenti."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1693
+#: includes/admin/settings/class-settings-bootstrap.php:1657
 msgctxt "settings"
 msgid "Cropped"
 msgstr ""
@@ -7234,25 +7213,25 @@ msgstr ""
 "in modo appropriato."
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:233
+#: includes/class-listing-email-notification.php:234
 msgctxt "notify email"
 msgid "[%s] New listing notification"
 msgstr "[%s] Notifica nuovo Annuncio"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:301
+#: includes/class-listing-email-notification.php:302
 msgctxt "notify email"
 msgid "[%s] Listing edit notification"
 msgstr "[%s] Notifica modifica Annuncio"
 
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:372
+#: includes/class-listing-email-notification.php:373
 msgctxt "notify email"
 msgid "[%s] Reported listing notification"
 msgstr "[%s] Notifica segnalazione annuncio"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:419
+#: includes/class-listing-email-notification.php:420
 #, fuzzy
 msgctxt "notify email"
 msgid "[%s] New payment notification"
@@ -7586,12 +7565,12 @@ msgctxt "views"
 msgid "Find A Listing"
 msgstr "Trova un annuncio"
 
-#: includes/class-wpbdp.php:392
+#: includes/class-wpbdp.php:437
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Non è possibile caricare altre immagini per questo annuncio."
 
-#: includes/class-wpbdp.php:396
+#: includes/class-wpbdp.php:441
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %d images, but only have %d slot available. Please "
@@ -9247,6 +9226,31 @@ msgstr "Inserisci il tuo indirizzo email"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continua"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not remove the \"Business Directory Plugin - AJAX Compatibility "
+#~ "Module\". Please remove the file \"%s\" manually or deactivate the plugin."
+#~ msgstr ""
+#~ "Impossibile rimuovere il \"Business Directory Plugin - Modulo di "
+#~ "compatibilità AJAX\". Si prega di rimuovere il file \"%s\" manualmente o "
+#~ "disattivare il plugin."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not activate AJAX Compatibility mode: the directory \"%s\" could "
+#~ "not be created."
+#~ msgstr ""
+#~ "Impossibile attivare la modalità di compatibilità AJAX: non è stato "
+#~ "possibile creare la directory \"%s\"."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not copy the AJAX compatibility plugin \"%s\". Compatibility mode "
+#~ "was not activated."
+#~ msgstr ""
+#~ "Impossibile copiare il plugin di compatibilità AJAX \"%s\". La modalità "
+#~ "compatibilità non è stata attivata."
 
 #, fuzzy
 #~ msgid "Edit listing permalink"
