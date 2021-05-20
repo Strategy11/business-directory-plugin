@@ -1624,8 +1624,8 @@ final class WPBDP__Settings__Bootstrap {
 	 *
 	 * @since x.x
 	 * 
-	 * @param  [array] $plugins
-	 * @return [array] $plugins
+	 * @param  array $plugins
+	 * @return array $plugins
 	 */
 	public static function run_ajax_compat_mode( $plugins ) {
 		if ( ! wp_doing_ajax() || false === strpos( wpbdp_get_var( array( 'param' => 'action' ), 'request' ), 'wpbdp') ) {
