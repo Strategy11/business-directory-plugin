@@ -163,6 +163,12 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.12.1 =
+* New: Add a new validator option to fields to not allow urls. This prevents URLS that include http, www., or .com.
+* New: Add wpbdp_is_bd_page filter for add-ons to load BD scripts.
+* Fix: Don't send renewal reminders for draft listings.
+* Fix: Refactor and simplify the Ajax compatibility mode to work without creating a new plugin. If this ajax plugin is installed, it will be removed on update.
+
 = 5.12 =
 * New: Add an option to set a custom "Coming Soon" image.
 * Code: A bit of cleanup for the more recent WP versions.
@@ -198,18 +204,5 @@ Our directory website builder software combined with our add-on modules is the m
 = 5.10.1 =
 * Fix: When a single plan is available without payments, there was an error that the plan wasn't selected.
 * Fix: Some sites were showing an error on the fees admin page that a file was missing.
-
-= 5.10 =
-* New: Skip page 1 of listing form is there's only one plan and one category.
-* New: If there's only one category, hide the dropdown in the listing form.
-* New: Move the list of modules from the sidebar to a separate page.
-* New: Add wpbdp_skip_page_1 hook to show the first page when it's skipped.
-* Fix: Every time a free plan is used, show 'Complete payment' button instead of 'Continue to payment' on the final page.
-* Fix: Some themes weren't loading the css when the site link used http instead of https.
-* Fix: In some cases with a single plan, editing a listing was showing a blank page.
-* Fix: The Facebook button was hidden on mobile.
-* Fix: Align the social buttons.
-* Fix: The 'flag listing' button now matches the other directory buttons.
-* Start replacing deprecated jQuery functions.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
