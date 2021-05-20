@@ -1632,15 +1632,11 @@ final class WPBDP__Settings__Bootstrap {
 			return $plugins;
 		}
 
-		foreach ( $plugins as $key => $plugin ) {
-			if ( false !== strpos( $plugin, 'business-directory-' ) ) {
-				continue;
-			}
+		return array_filter( $plugins, array( __CLASS__, 'keep_only_bd_plugins' ) );
+	}
 
-			unset( $plugins[ $key ] );
-		}
-
-		return $plugins;
+	private static function keep_only_bd_plugins( $plugin ) {
+		return false !== strpos( $plugin, 'business-directory-' );
 	}
 
     private static function register_image_sizes() {
