@@ -1633,8 +1633,9 @@ final class WPBDP__Settings__Bootstrap {
 		}
 
 		foreach ( $plugins as $key => $plugin ) {
-			if ( false !== strpos( $plugin, 'business-directory-' ) )
+			if ( false !== strpos( $plugin, 'business-directory-' ) ) {
 				continue;
+			}
 
 			unset( $plugins[ $key ] );
 		}
