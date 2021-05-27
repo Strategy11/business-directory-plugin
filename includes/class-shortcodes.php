@@ -734,7 +734,7 @@ class WPBDP__Shortcodes {
 	 */
 	private function add_current_listing_id( &$vars ) {
 		$vars = (array) $vars;
-		if ( $vars['id'] && ! is_numeric( $vars['id'] ) ) {
+		if ( ! empty( $vars['id'] ) && ! is_numeric( $vars['id'] ) ) {
 			$atts['id'] = wpbdp_get_post_by_id_or_slug( $atts['id'], 'slug', 'id' );
 			return;
 		}
