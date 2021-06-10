@@ -379,7 +379,7 @@ class WPBDP__Query_Integration {
             if ( 'main' == $query->wpbdp_view && ! empty( $query->query[$dir_slug] ) ) {
                 if ( $query->query['listing_slug'] !== get_post_field( 'post_name', $query->query[$dir_slug] ) ) {
                     unset( $query->query['page_id'] );
-                    unset( $query->query[$dir_] );
+                    unset( $query->query[$dir_slug] );
                     $wpbdp_404_query = true;
                 }
             }

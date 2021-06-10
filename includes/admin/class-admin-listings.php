@@ -374,8 +374,8 @@ class WPBDP_Admin_Listings {
     // {{{ List views.
     function listing_views( $views ) {
         if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
-            if ( current_user_can( 'contributor' ) && isset( $views_['mine'] ) ) {
-                return array( $views_['mine'] );
+            if ( current_user_can( 'contributor' ) && isset( $views['mine'] ) ) {
+                return array( $views['mine'] );
             }
 
             return array();
