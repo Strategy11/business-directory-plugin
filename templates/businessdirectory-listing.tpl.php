@@ -1,8 +1,7 @@
 <div class="listing-title">
     <h1><?php echo $title; ?></h1>
+	<?php echo $is_sticky ? $sticky_tag : ''; ?>
 </div>
-
-<?php echo $is_sticky ? $sticky_tag : ''; ?>
 
 <?php if ($actions): ?>
     <?php echo $actions; ?>

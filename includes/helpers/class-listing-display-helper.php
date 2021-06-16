@@ -113,13 +113,17 @@ class WPBDP_Listing_Display_Helper {
 
         if ( $vars['is_sticky'] && ! empty( wpbdp_get_option( 'display-sticky-badge' ) ) ) {
 			$img_src = self::get_sticky_image();
-
-            $vars['sticky_tag'] = wpbdp_x_render(
-                'listing sticky tag', array(
-					'listing' => $listing,
-					'img_src' => $img_src,
-                )
-            );
+			if ( $img_src ) {
+				$vars['sticky_tag'] = wpbdp_x_render(
+					'listing sticky tag',
+					array(
+						'listing' => $listing,
+						'img_src' => $img_src,
+					)
+				);
+			} else {
+				$vars['sticky_tag'] = '<span class="wpbdp-sticky-tag">' . __( 'Featured', 'business-directory-plugin' ) . '</span>';
+			}
 
             $sticky_url = wpbdp_get_option( 'sticky-image-link-to' );
 
@@ -155,6 +159,10 @@ class WPBDP_Listing_Display_Helper {
             if ( $fee->is_sticky ) {
                 $classes[] = 'sticky';
                 $classes[] = 'wpbdp-listing-is-sticky';
+				$img_src = self::get_sticky_image();
+				if ( ! $img_src ) {
+					$classes[] = 'wpbdp-has-ribbon';
+				}
             }
         }
 
@@ -331,7 +339,6 @@ class WPBDP_Listing_Display_Helper {
 	 */
 	private static function get_default_image( $option, &$image ) {
 		$defaults = array(
-			'listings-sticky-image'      => WPBDP_URL . 'assets/images/featuredlisting.png',
 			'listings-coming-soon-image' => WPBDP_URL . 'assets/images/default-image-big.gif',
 		);
 

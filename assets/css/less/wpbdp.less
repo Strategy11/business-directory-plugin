@@ -162,38 +162,70 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-top: 30px;
 }
 
-.wpbdp-listing-excerpt .stickytag {
-    float: right;
-    margin-top: -20px;
+.wpbdp-listing-excerpt,
+.wpbdp-listing-single {
+	.stickytag {
+		float: right;
+		margin-top: -20px;
+
+		img {
+			border: 0;
+			box-shadow: none;
+			background: transparent;
+			max-height: 102px;
+		}
+	}
 }
 
 .wpbdp-listing-single .stickytag {
-    float: right;
-    margin-top: -100px;
-
-    img {
-        margin-left: -85px;
-        position: absolute;
-        overflow: hidden;
-    }
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
-.wpbdp-listing-excerpt .stickytag img {
-    margin-top: -19px;
+.wpbdp-sticky-tag {
+	background: var(--bd-main-color);
+	color: #fff;
+	padding: 6px 15px;
+	margin: 0 15px;
+	border-radius: 4px;
+	text-transform: uppercase;
+	font-weight: 600;
+	vertical-align: text-bottom;
+	display: inline-block;
+	font-size: 12px;
 }
 
-.wpbdp-listing-excerpt,
-.wpbdp-listing-single {
-    .stickytag img {
-        border: 0;
-        box-shadow: none;
-        background: transparent;
-        height: 102px;
-    }
+.wpbdp-listing-excerpt {
+	.wpbdp-sticky-tag {
+		float: right;
+		margin-top: 10px;
+		margin-right: 0;
+	}
+}
+
+.wpbdp-listing-excerpt.wpbdp-has-ribbon {
+	position: relative;
+	overflow: hidden;
+
+	.wpbdp-sticky-tag {
+		transform: rotate(45deg);
+		text-align: center;
+		position: absolute;
+		top: 20px;
+		right: -40px;
+		width: 150px;
+		margin: 0;
+	}
 }
 
 .wpbdp-listing-single .listing-title {
     margin-bottom: 7px;
+	position: relative;
+
+	h1, h2, h3 {
+		display: inline-block;
+	}
 }
 
 .wpbdp-listing-single .listing-title h2 {
