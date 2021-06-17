@@ -334,7 +334,7 @@ class WPBDP_Admin_Listings {
 
         if ( $plan ) {
             if ( $plan->is_sticky ) {
-                $attributes['featured'] = '<span class="wpbdp-tag wpbdp-listing-attr-featured">' . _x( 'Featured', 'admin listings', 'business-directory-plugin' ) . '</span>';
+				$attributes['featured'] = '<span class="wpbdp-tag wpbdp-listing-attr-featured">' . __( 'Featured', 'business-directory-plugin' ) . '</span>';
             }
 
             if ( $plan->is_recurring ) {

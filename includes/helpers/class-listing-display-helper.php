@@ -122,7 +122,7 @@ class WPBDP_Listing_Display_Helper {
 					)
 				);
 			} else {
-				$vars['sticky_tag'] = '<span class="wpbdp-sticky-tag">' . __( 'Featured', 'business-directory-plugin' ) . '</span>';
+				$vars['sticky_tag'] = '<span class="wpbdp-sticky-tag">' . esc_html__( 'Featured', 'business-directory-plugin' ) . '</span>';
 			}
 
             $sticky_url = wpbdp_get_option( 'sticky-image-link-to' );
