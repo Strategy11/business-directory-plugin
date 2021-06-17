@@ -329,12 +329,12 @@ class WPBDP_Admin_Listings {
         }
 
         foreach ( $listing->get_flags() as $f ) {
-            $attributes[ $f ] = '<span class="wpbdp-tag wpbdp-listing-attr-' . $f . '">' . ucwords( str_replace( '-', ' ', $f ) ) . '</span>';
+			$attributes[ $f ] = '<span class="wpbdp-tag wpbdp-listing-attr-' . esc_attr( $f ) . '">' . esc_html( ucwords( str_replace( '-', ' ', $f ) ) ) . '</span>';
         }
 
         if ( $plan ) {
             if ( $plan->is_sticky ) {
-				$attributes['featured'] = '<span class="wpbdp-tag wpbdp-listing-attr-featured">' . __( 'Featured', 'business-directory-plugin' ) . '</span>';
+				$attributes['featured'] = '<span class="wpbdp-tag wpbdp-listing-attr-featured">' . esc_html__( 'Featured', 'business-directory-plugin' ) . '</span>';
             }
 
             if ( $plan->is_recurring ) {
