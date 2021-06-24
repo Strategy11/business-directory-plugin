@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-05-20 16:56:28+00:00\n"
+"POT-Creation-Date: 2021-06-24 15:41:30+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -26,7 +26,7 @@ msgid "Help"
 msgstr ""
 
 #: includes/admin/class-admin-listings.php:185
-#: includes/views/submit_listing.php:497
+#: includes/views/submit_listing.php:498
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Registratie informatie"
@@ -57,7 +57,13 @@ msgstr "Verlopen"
 msgid "Attributes"
 msgstr "Veld attributen"
 
-#: includes/admin/class-admin-listings.php:471
+#: includes/admin/class-admin-listings.php:337
+#: includes/helpers/class-listing-display-helper.php:125
+#, fuzzy
+msgid "Featured"
+msgstr "Aanbieding/sticky"
+
+#: includes/admin/class-admin-listings.php:474
 #: includes/class-cpt-integration.php:19
 #: includes/compatibility/class-navxt-integration.php:200
 #: templates/submit-listing.tpl.php:15
@@ -259,7 +265,7 @@ msgid ""
 "Directory do it for you."
 msgstr ""
 
-#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:826
+#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:827
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "Ga naar \"instellen formulier velden\""
@@ -428,7 +434,7 @@ msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "Business Directory instellingen"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:428 includes/views/submit_listing.php:1225
+#: includes/form-fields.php:428 includes/views/submit_listing.php:1226
 #: templates/admin/payments-details.tpl.php:137
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -442,7 +448,7 @@ msgid "Module Settings"
 msgstr "Instellingen"
 
 #: includes/admin/settings/class-settings-bootstrap.php:23
-#: includes/admin/settings/class-settings-bootstrap.php:287
+#: includes/admin/settings/class-settings-bootstrap.php:288
 #, fuzzy
 msgid "Miscellaneous"
 msgstr "Diverse instellingen"
@@ -456,7 +462,7 @@ msgstr "Beelden bij de registratie"
 msgid "SEO"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:254
+#: includes/admin/settings/class-settings-bootstrap.php:255
 #: includes/class-assets.php:317
 #: includes/fields/class-fieldtypes-textarea.php:200
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:110
@@ -465,58 +471,58 @@ msgstr ""
 msgid "No"
 msgstr "Nee"
 
-#: includes/admin/settings/class-settings-bootstrap.php:255
+#: includes/admin/settings/class-settings-bootstrap.php:256
 msgid "Yes, and make it optional"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:256
+#: includes/admin/settings/class-settings-bootstrap.php:257
 #, fuzzy
 msgid "Yes, and make it required"
 msgstr "%s is vereist."
 
-#: includes/admin/settings/class-settings-bootstrap.php:263
-#: includes/admin/settings/class-settings-bootstrap.php:277
-#: includes/views/submit_listing.php:510
+#: includes/admin/settings/class-settings-bootstrap.php:264
+#: includes/admin/settings/class-settings-bootstrap.php:278
+#: includes/views/submit_listing.php:511
 #, fuzzy
 msgid "Terms and Conditions"
 msgstr "Voorwaarden en condities"
 
-#: includes/admin/settings/class-settings-bootstrap.php:268
+#: includes/admin/settings/class-settings-bootstrap.php:269
 #, fuzzy
 msgid "User Agreement"
 msgstr "Gebruiker"
 
-#: includes/admin/settings/class-settings-bootstrap.php:269
+#: includes/admin/settings/class-settings-bootstrap.php:270
 #, fuzzy
 msgid "Display and require user agreement to Terms and Conditions"
 msgstr "Toon en verplicht gebruikersovereenkomst voorwaarden en condities"
 
-#: includes/admin/settings/class-settings-bootstrap.php:293
+#: includes/admin/settings/class-settings-bootstrap.php:294
 #, fuzzy
 msgid "Data Collection"
 msgstr "Data verzamelen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:294
+#: includes/admin/settings/class-settings-bootstrap.php:295
 msgid ""
 "Allow Business Directory to anonymously collect information about your "
 "installed plugins, themes and WP version?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:295
+#: includes/admin/settings/class-settings-bootstrap.php:296
 msgid "Learn more"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:301
+#: includes/admin/settings/class-settings-bootstrap.php:302
 #, fuzzy
 msgid "Searching"
 msgstr "Zoek"
 
-#: includes/admin/settings/class-settings-bootstrap.php:306
+#: includes/admin/settings/class-settings-bootstrap.php:307
 #, fuzzy
 msgid "Display advanced search form"
 msgstr "Geavanceerd zoeken"
 
-#: includes/admin/settings/class-settings-bootstrap.php:324
+#: includes/admin/settings/class-settings-bootstrap.php:325
 #, fuzzy
 msgid ""
 "Enabling this sacrifices result quality to improve speed. This is helpful if "
@@ -1542,38 +1548,38 @@ msgstr ""
 msgid "That listing cannot yet be renewed."
 msgstr "De registratie / vermelding is bijgewerkt."
 
-#: includes/views/submit_listing.php:543
+#: includes/views/submit_listing.php:544
 #, fuzzy
 msgid "Listing Images"
 msgstr "Beelden bij de registratie"
 
-#: includes/views/submit_listing.php:611
+#: includes/views/submit_listing.php:612
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:809
+#: includes/views/submit_listing.php:810
 #, fuzzy
 msgid "Go to \"Fee Plans\""
 msgstr "Ga naar \"instellen formulier velden\""
 
-#: includes/views/submit_listing.php:865
+#: includes/views/submit_listing.php:866
 msgid "Please choose a fee plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:1049
+#: includes/views/submit_listing.php:1050
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:1209
+#: includes/views/submit_listing.php:1210
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:1216
+#: includes/views/submit_listing.php:1217
 #, fuzzy
 msgid "Username"
 msgstr "Gebruiker"
 
-#: includes/views/submit_listing.php:1238
+#: includes/views/submit_listing.php:1239
 #, fuzzy
 msgid "Clear Form"
 msgstr "Leegmaken"
@@ -3116,12 +3122,6 @@ msgctxt "admin listings"
 msgid "Never"
 msgstr "nooit"
 
-#: includes/admin/class-admin-listings.php:337
-#, fuzzy
-msgctxt "admin listings"
-msgid "Featured"
-msgstr "Aanbieding/sticky"
-
 #: includes/admin/class-admin-listings.php:341
 msgctxt "admin listings"
 msgid "Recurring"
@@ -3150,7 +3150,7 @@ msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:689
+#: includes/admin/class-admin-listings.php:692
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -3402,53 +3402,53 @@ msgctxt "listing status"
 msgid "Abandoned"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:476
+#: includes/admin/class-admin-listings.php:479
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Registratie verwijderen"
 
-#: includes/admin/class-admin-listings.php:487
+#: includes/admin/class-admin-listings.php:490
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Betaling"
 
-#: includes/admin/class-admin-listings.php:492
+#: includes/admin/class-admin-listings.php:495
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Betaling"
 
-#: includes/admin/class-admin-listings.php:622
+#: includes/admin/class-admin-listings.php:625
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Registratie publiceren"
 
-#: includes/admin/class-admin-listings.php:623
+#: includes/admin/class-admin-listings.php:626
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "In Afwachting"
 
-#: includes/admin/class-admin-listings.php:624
+#: includes/admin/class-admin-listings.php:627
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:626
+#: includes/admin/class-admin-listings.php:629
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Vernieuw registratie"
 
-#: includes/admin/class-admin-listings.php:627
+#: includes/admin/class-admin-listings.php:630
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Een registratie verloopt."
 
-#: includes/admin/class-admin-listings.php:634
+#: includes/admin/class-admin-listings.php:637
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr ""
@@ -4778,29 +4778,29 @@ msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:100
+#: includes/admin/settings/class-settings-bootstrap.php:101
 msgctxt "admin settings"
 msgid ""
 "<strong>IMPORTANT:</strong> subpages of the main directory page cannot be "
 "accesed while this setting is checked."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:309
+#: includes/admin/settings/class-settings-bootstrap.php:310
 msgctxt "admin settings"
 msgid "Above results"
 msgstr "Boven resultaten"
 
-#: includes/admin/settings/class-settings-bootstrap.php:310
+#: includes/admin/settings/class-settings-bootstrap.php:311
 msgctxt "admin settings"
 msgid "Below results"
 msgstr "Onder resultaten"
 
-#: includes/admin/settings/class-settings-bootstrap.php:311
+#: includes/admin/settings/class-settings-bootstrap.php:312
 msgctxt "admin settings"
 msgid "Don't show with results"
 msgstr "Niet tonen bij de registraties "
 
-#: includes/admin/settings/class-settings-bootstrap.php:347
+#: includes/admin/settings/class-settings-bootstrap.php:348
 msgctxt "admin settings"
 msgid ""
 "Check this if you are having trouble with BD, particularly when importing or "
@@ -5561,88 +5561,88 @@ msgctxt "settings"
 msgid "The slug can't be in use by another term. Avoid \"tag\", for instance."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:98
+#: includes/admin/settings/class-settings-bootstrap.php:99
 msgctxt "settings"
 msgid "Remove listing ID from directory URLs?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:99
+#: includes/admin/settings/class-settings-bootstrap.php:100
 msgctxt "settings"
 msgid "Check this setting to remove the ID for better SEO."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:100
+#: includes/admin/settings/class-settings-bootstrap.php:101
 msgctxt "settings"
 msgid ""
 "Prior to 3.5.1, we included the ID in the listing URL, like \"/business-"
 "directory/1809/listing-title\"."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:111
+#: includes/admin/settings/class-settings-bootstrap.php:112
 msgctxt "settings"
 msgid "Need API keys for reCAPTCHA? Get them <a>here</a>."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:118
+#: includes/admin/settings/class-settings-bootstrap.php:119
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for contact forms"
 msgstr "Gebruik reCAPTCHA for contact formulier"
 
-#: includes/admin/settings/class-settings-bootstrap.php:126
+#: includes/admin/settings/class-settings-bootstrap.php:127
 #, fuzzy
 msgctxt "settings"
 msgid "Turn off reCAPTCHA for logged in users?"
 msgstr "Zet reCAPTCHA uit voor ingelogde gebruikers"
 
-#: includes/admin/settings/class-settings-bootstrap.php:134
+#: includes/admin/settings/class-settings-bootstrap.php:135
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for listing submits"
 msgstr "Gebruik reCAPTCHA bij indienen Registratie/vermelding"
 
-#: includes/admin/settings/class-settings-bootstrap.php:142
+#: includes/admin/settings/class-settings-bootstrap.php:143
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for edit listings"
 msgstr "Gebruik reCAPTCHA voor registratie commentaar?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:150
+#: includes/admin/settings/class-settings-bootstrap.php:151
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for report listings"
 msgstr "Gebruik reCAPTCHA voor registratie commentaar?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:158
+#: includes/admin/settings/class-settings-bootstrap.php:159
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for listing comments?"
 msgstr "Gebruik reCAPTCHA voor registratie commentaar?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:166
+#: includes/admin/settings/class-settings-bootstrap.php:167
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA Public Key"
 msgstr "reCAPTCHA publieke sleutel"
 
-#: includes/admin/settings/class-settings-bootstrap.php:175
+#: includes/admin/settings/class-settings-bootstrap.php:176
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA Private Key"
 msgstr "reCAPTCHA Privé sleutel"
 
-#: includes/admin/settings/class-settings-bootstrap.php:184
+#: includes/admin/settings/class-settings-bootstrap.php:185
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA version"
 msgstr "reCAPTCHA Instellingen"
 
-#: includes/admin/settings/class-settings-bootstrap.php:197
+#: includes/admin/settings/class-settings-bootstrap.php:198
 msgctxt "settings"
 msgid "reCAPTCHA V3 threshold score"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:202
+#: includes/admin/settings/class-settings-bootstrap.php:203
 msgctxt "settings"
 msgid ""
 "reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is "
@@ -5651,13 +5651,13 @@ msgid ""
 "this value will result in reCAPTCHA validation error."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:207
+#: includes/admin/settings/class-settings-bootstrap.php:208
 #, fuzzy
 msgctxt "settings"
 msgid "Registration"
 msgstr "Registratie URL (adres)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:207
+#: includes/admin/settings/class-settings-bootstrap.php:208
 msgctxt "settings"
 msgid ""
 "We expect that a membership plugin supports the 'redirect_to' parameter for "
@@ -5666,24 +5666,24 @@ msgid ""
 "them to support the WP standard 'redirect_to' query parameter."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:212
+#: includes/admin/settings/class-settings-bootstrap.php:213
 #, fuzzy
 msgctxt "settings"
 msgid "Require login to post listings?"
 msgstr "Login vereist om Registratie te creëren?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:221
+#: includes/admin/settings/class-settings-bootstrap.php:222
 msgctxt "settings"
 msgid "Allow anonymous users to edit/manage listings with an access key?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:229
+#: includes/admin/settings/class-settings-bootstrap.php:230
 #, fuzzy
 msgctxt "settings"
 msgid "Login URL"
 msgstr "Login URL (adres)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:230
+#: includes/admin/settings/class-settings-bootstrap.php:231
 #, fuzzy
 msgctxt "settings"
 msgid "Only enter this if using a membership plugin or custom login page."
@@ -5691,18 +5691,18 @@ msgstr ""
 "URL (adres) van je gebruikers/leden login pagina. Alleen ingeven als je een "
 "gebruikers/leden plugin gebruikt of een eigen login pagina hebt."
 
-#: includes/admin/settings/class-settings-bootstrap.php:231
+#: includes/admin/settings/class-settings-bootstrap.php:232
 msgctxt "settings"
 msgid "URL of your membership plugin's login page."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:240
+#: includes/admin/settings/class-settings-bootstrap.php:241
 #, fuzzy
 msgctxt "settings"
 msgid "Registration URL"
 msgstr "Registratie URL (adres)"
 
-#: includes/admin/settings/class-settings-bootstrap.php:241
+#: includes/admin/settings/class-settings-bootstrap.php:242
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -5711,17 +5711,17 @@ msgstr ""
 "URL (adres) van je gebruikers/leden registratie pagina. Alleen ingeven als "
 "je een gebruikers/leden plugin gebruikt of een eigen login pagina hebt."
 
-#: includes/admin/settings/class-settings-bootstrap.php:242
+#: includes/admin/settings/class-settings-bootstrap.php:243
 msgctxt "settings"
 msgid "URL of your membership plugin's registration page."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:251
+#: includes/admin/settings/class-settings-bootstrap.php:252
 msgctxt "settings"
 msgid "Allow users to create accounts during listing submit?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:278
+#: includes/admin/settings/class-settings-bootstrap.php:279
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -5732,37 +5732,37 @@ msgstr ""
 "zal de tekst van de voorwaarden vervangen worden door het adres naar de "
 "betreffende pagina."
 
-#: includes/admin/settings/class-settings-bootstrap.php:280
+#: includes/admin/settings/class-settings-bootstrap.php:281
 #, fuzzy
 msgctxt "settings"
 msgid "Terms and Conditions text goes here."
 msgstr "Voorwaarden en condities tekst hier..."
 
-#: includes/admin/settings/class-settings-bootstrap.php:323
+#: includes/admin/settings/class-settings-bootstrap.php:324
 #, fuzzy
 msgctxt "settings"
 msgid "Enable high performance searches?"
 msgstr "Hoge snelheid zoeken aanzetten?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:332
+#: includes/admin/settings/class-settings-bootstrap.php:333
 #, fuzzy
 msgctxt "settings"
 msgid "Advanced"
 msgstr "Geavanceerd"
 
-#: includes/admin/settings/class-settings-bootstrap.php:338
+#: includes/admin/settings/class-settings-bootstrap.php:339
 #, fuzzy
 msgctxt "settings"
 msgid "Disable advanced CPT integration?"
 msgstr "Geavanceerde CPT integratie uitzetten?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:346
+#: includes/admin/settings/class-settings-bootstrap.php:347
 #, fuzzy
 msgctxt "settings"
 msgid "Enable AJAX compatibility mode?"
 msgstr "Ajax compatibiliteit modus aanzetten?"
 
-#: includes/admin/settings/class-settings-bootstrap.php:348
+#: includes/admin/settings/class-settings-bootstrap.php:349
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -7140,54 +7140,54 @@ msgstr ""
 "Je bent ingelogd als een beheerder (admin). De betaalstappen worden "
 "overgeslagen."
 
-#: includes/views/submit_listing.php:492
+#: includes/views/submit_listing.php:493
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "categorie selectie"
 
-#: includes/views/submit_listing.php:492
+#: includes/views/submit_listing.php:493
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "categorie selectie"
 
-#: includes/views/submit_listing.php:799
+#: includes/views/submit_listing.php:800
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 
-#: includes/views/submit_listing.php:848 includes/views/submit_listing.php:970
+#: includes/views/submit_listing.php:849 includes/views/submit_listing.php:971
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr ""
 
-#: includes/views/submit_listing.php:871
+#: includes/views/submit_listing.php:872
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:873
+#: includes/views/submit_listing.php:874
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr ""
 
-#: includes/views/submit_listing.php:1179
+#: includes/views/submit_listing.php:1180
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr ""
 
-#: includes/views/submit_listing.php:1184
+#: includes/views/submit_listing.php:1185
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 
-#: includes/views/submit_listing.php:1189
+#: includes/views/submit_listing.php:1190
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:1194
+#: includes/views/submit_listing.php:1195
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7496,21 +7496,21 @@ msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:802
+#: includes/views/submit_listing.php:803
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:816
+#: includes/views/submit_listing.php:817
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:819
+#: includes/views/submit_listing.php:820
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7518,12 +7518,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:1259
+#: includes/views/submit_listing.php:1260
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Ga s.v.p. akkoord met de voorwaarden"
 
-#: includes/views/submit_listing.php:1273
+#: includes/views/submit_listing.php:1274
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -8254,7 +8254,7 @@ msgid "This is just a preview. The listing has not been published yet."
 msgstr ""
 "Dit is alleen een voorvertoning. De registratie is nog niet gepubliceerd."
 
-#: includes/views/submit_listing.php:1137
+#: includes/views/submit_listing.php:1138
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

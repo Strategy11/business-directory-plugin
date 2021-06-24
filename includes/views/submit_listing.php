@@ -442,7 +442,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             die();
         }
 
-        $this->editing = $this->editing || ! empty( wpbdp_get_var( array( 'param' => 'editing', 'sanitize' => 'absint', 'default' => 0 ), 'post' ) );
+		$editing_id    = wpbdp_get_var( array( 'param' => 'editing', 'sanitize' => 'absint', 'default' => 0 ), 'post' );
+		$this->editing = $this->editing || ! empty( $editing_id );
 
         return $listing;
     }

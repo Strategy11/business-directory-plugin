@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-05-20 16:56:28+00:00\n"
+"POT-Creation-Date: 2021-06-24 15:41:30+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -31,7 +31,7 @@ msgid "Help"
 msgstr "المساعدة"
 
 #: includes/admin/class-admin-listings.php:185
-#: includes/views/submit_listing.php:497
+#: includes/views/submit_listing.php:498
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "معلومات حول الإعلان"
@@ -62,7 +62,13 @@ msgstr "ستنتهي الصلاحية في"
 msgid "Attributes"
 msgstr "سمات الحقل"
 
-#: includes/admin/class-admin-listings.php:471
+#: includes/admin/class-admin-listings.php:337
+#: includes/helpers/class-listing-display-helper.php:125
+#, fuzzy
+msgid "Featured"
+msgstr "حالة مميزة (مثبت)"
+
+#: includes/admin/class-admin-listings.php:474
 #: includes/class-cpt-integration.php:19
 #: includes/compatibility/class-navxt-integration.php:200
 #: templates/submit-listing.tpl.php:15
@@ -279,7 +285,7 @@ msgstr ""
 "يمكنك إنشاء هذه الحقول المخصصة بنفسك داخل \"إدارة الحقول\" أو السماح لدليل "
 "الأعمال للقيام بذلك نيابة عنك تلقائياً."
 
-#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:826
+#: includes/admin/form-fields.php:222 includes/views/submit_listing.php:827
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "إنتقل إلى \"إدارة حقول\""
@@ -451,7 +457,7 @@ msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "لماذا قمت بحذف إضافة دليل الأعمال؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/form-fields.php:428 includes/views/submit_listing.php:1225
+#: includes/form-fields.php:428 includes/views/submit_listing.php:1226
 #: templates/admin/payments-details.tpl.php:137
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -465,7 +471,7 @@ msgid "Module Settings"
 msgstr "إعدادات"
 
 #: includes/admin/settings/class-settings-bootstrap.php:23
-#: includes/admin/settings/class-settings-bootstrap.php:287
+#: includes/admin/settings/class-settings-bootstrap.php:288
 #, fuzzy
 msgid "Miscellaneous"
 msgstr "إعدادات متنوعة"
@@ -479,7 +485,7 @@ msgstr "تراخيص"
 msgid "SEO"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:254
+#: includes/admin/settings/class-settings-bootstrap.php:255
 #: includes/class-assets.php:317
 #: includes/fields/class-fieldtypes-textarea.php:200
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:110
@@ -488,39 +494,39 @@ msgstr ""
 msgid "No"
 msgstr "لا"
 
-#: includes/admin/settings/class-settings-bootstrap.php:255
+#: includes/admin/settings/class-settings-bootstrap.php:256
 #, fuzzy
 msgid "Yes, and make it optional"
 msgstr "الإسم العائلي مطلوب."
 
-#: includes/admin/settings/class-settings-bootstrap.php:256
+#: includes/admin/settings/class-settings-bootstrap.php:257
 #, fuzzy
 msgid "Yes, and make it required"
 msgstr "الإسم العائلي مطلوب."
 
-#: includes/admin/settings/class-settings-bootstrap.php:263
-#: includes/admin/settings/class-settings-bootstrap.php:277
-#: includes/views/submit_listing.php:510
+#: includes/admin/settings/class-settings-bootstrap.php:264
+#: includes/admin/settings/class-settings-bootstrap.php:278
+#: includes/views/submit_listing.php:511
 #, fuzzy
 msgid "Terms and Conditions"
 msgstr "شروط وأحكام"
 
-#: includes/admin/settings/class-settings-bootstrap.php:268
+#: includes/admin/settings/class-settings-bootstrap.php:269
 #, fuzzy
 msgid "User Agreement"
 msgstr "عضو"
 
-#: includes/admin/settings/class-settings-bootstrap.php:269
+#: includes/admin/settings/class-settings-bootstrap.php:270
 #, fuzzy
 msgid "Display and require user agreement to Terms and Conditions"
 msgstr "عرض وطلب موافقة العضو على الشروط والأحكام"
 
-#: includes/admin/settings/class-settings-bootstrap.php:293
+#: includes/admin/settings/class-settings-bootstrap.php:294
 #, fuzzy
 msgid "Data Collection"
 msgstr "تجميع البيانات"
 
-#: includes/admin/settings/class-settings-bootstrap.php:294
+#: includes/admin/settings/class-settings-bootstrap.php:295
 #, fuzzy
 msgid ""
 "Allow Business Directory to anonymously collect information about your "
@@ -529,21 +535,21 @@ msgstr ""
 "تسمح لدليل الأعمال بجمع معلومات مجهولة حول الإضافات المثبتة، والقوالب وإصدار "
 "ووردبريس الخاص بك؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:295
+#: includes/admin/settings/class-settings-bootstrap.php:296
 msgid "Learn more"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:301
+#: includes/admin/settings/class-settings-bootstrap.php:302
 #, fuzzy
 msgid "Searching"
 msgstr "بحث"
 
-#: includes/admin/settings/class-settings-bootstrap.php:306
+#: includes/admin/settings/class-settings-bootstrap.php:307
 #, fuzzy
 msgid "Display advanced search form"
 msgstr "بحث متقدم"
 
-#: includes/admin/settings/class-settings-bootstrap.php:324
+#: includes/admin/settings/class-settings-bootstrap.php:325
 #, fuzzy
 msgid ""
 "Enabling this sacrifices result quality to improve speed. This is helpful if "
@@ -1635,39 +1641,39 @@ msgstr "l F j, Y \\a\\t g:i a"
 msgid "That listing cannot yet be renewed."
 msgstr "تمت ترقية الإعلان."
 
-#: includes/views/submit_listing.php:543
+#: includes/views/submit_listing.php:544
 #, fuzzy
 msgid "Listing Images"
 msgstr "صور الإعلانات"
 
-#: includes/views/submit_listing.php:611
+#: includes/views/submit_listing.php:612
 msgid "Account Creation"
 msgstr ""
 
-#: includes/views/submit_listing.php:809
+#: includes/views/submit_listing.php:810
 #, fuzzy
 msgid "Go to \"Fee Plans\""
 msgstr "إنتقل إلى \"إدارة حقول\""
 
-#: includes/views/submit_listing.php:865
+#: includes/views/submit_listing.php:866
 #, fuzzy
 msgid "Please choose a fee plan."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:1049
+#: includes/views/submit_listing.php:1050
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/views/submit_listing.php:1209
+#: includes/views/submit_listing.php:1210
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/views/submit_listing.php:1216
+#: includes/views/submit_listing.php:1217
 #, fuzzy
 msgid "Username"
 msgstr "عضو"
 
-#: includes/views/submit_listing.php:1238
+#: includes/views/submit_listing.php:1239
 #, fuzzy
 msgid "Clear Form"
 msgstr "مسح"
@@ -3324,12 +3330,6 @@ msgctxt "admin listings"
 msgid "Never"
 msgstr "أبداً"
 
-#: includes/admin/class-admin-listings.php:337
-#, fuzzy
-msgctxt "admin listings"
-msgid "Featured"
-msgstr "حالة مميزة (مثبت)"
-
 #: includes/admin/class-admin-listings.php:341
 #, fuzzy
 msgctxt "admin listings"
@@ -3359,7 +3359,7 @@ msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:689
+#: includes/admin/class-admin-listings.php:692
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -3637,53 +3637,53 @@ msgctxt "listing status"
 msgid "Abandoned"
 msgstr "متخلى عنه"
 
-#: includes/admin/class-admin-listings.php:476
+#: includes/admin/class-admin-listings.php:479
 msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "حذف الإعلان"
 
-#: includes/admin/class-admin-listings.php:487
+#: includes/admin/class-admin-listings.php:490
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "الدفع"
 
-#: includes/admin/class-admin-listings.php:492
+#: includes/admin/class-admin-listings.php:495
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "الدفع"
 
-#: includes/admin/class-admin-listings.php:622
+#: includes/admin/class-admin-listings.php:625
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "نشر إعلان"
 
-#: includes/admin/class-admin-listings.php:623
+#: includes/admin/class-admin-listings.php:626
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr " في الانتظار"
 
-#: includes/admin/class-admin-listings.php:624
+#: includes/admin/class-admin-listings.php:627
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/class-admin-listings.php:626
+#: includes/admin/class-admin-listings.php:629
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "تجديد الإعلان"
 
-#: includes/admin/class-admin-listings.php:627
+#: includes/admin/class-admin-listings.php:630
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/class-admin-listings.php:634
+#: includes/admin/class-admin-listings.php:637
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -5076,29 +5076,29 @@ msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "العناصر النائبة صالحة: %s"
 
-#: includes/admin/settings/class-settings-bootstrap.php:100
+#: includes/admin/settings/class-settings-bootstrap.php:101
 msgctxt "admin settings"
 msgid ""
 "<strong>IMPORTANT:</strong> subpages of the main directory page cannot be "
 "accesed while this setting is checked."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:309
+#: includes/admin/settings/class-settings-bootstrap.php:310
 msgctxt "admin settings"
 msgid "Above results"
 msgstr "أعلى النتائج"
 
-#: includes/admin/settings/class-settings-bootstrap.php:310
+#: includes/admin/settings/class-settings-bootstrap.php:311
 msgctxt "admin settings"
 msgid "Below results"
 msgstr "أسفل النتائج"
 
-#: includes/admin/settings/class-settings-bootstrap.php:311
+#: includes/admin/settings/class-settings-bootstrap.php:312
 msgctxt "admin settings"
 msgid "Don't show with results"
 msgstr "لا تظهر مع النتائج"
 
-#: includes/admin/settings/class-settings-bootstrap.php:347
+#: includes/admin/settings/class-settings-bootstrap.php:348
 msgctxt "admin settings"
 msgid ""
 "Check this if you are having trouble with BD, particularly when importing or "
@@ -5912,18 +5912,18 @@ msgstr ""
 "لا يمكن أن يكون الرابط اللطيف مستخدم من طرف مصطلح آخر. تجنب \"tag\"، على "
 "سبيل المثال."
 
-#: includes/admin/settings/class-settings-bootstrap.php:98
+#: includes/admin/settings/class-settings-bootstrap.php:99
 #, fuzzy
 msgctxt "settings"
 msgid "Remove listing ID from directory URLs?"
 msgstr "إزالة معرف الإعلان من روابط  URLs الدليل؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:99
+#: includes/admin/settings/class-settings-bootstrap.php:100
 msgctxt "settings"
 msgid "Check this setting to remove the ID for better SEO."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:100
+#: includes/admin/settings/class-settings-bootstrap.php:101
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -5934,72 +5934,72 @@ msgstr ""
 "الأعمال/1809/عنوان-الإعلان\". تحقق من هذا الإعداد لإزالة المعرف لأفضل أرشفة "
 "SEO."
 
-#: includes/admin/settings/class-settings-bootstrap.php:111
+#: includes/admin/settings/class-settings-bootstrap.php:112
 #, fuzzy
 msgctxt "settings"
 msgid "Need API keys for reCAPTCHA? Get them <a>here</a>."
 msgstr "بحاجة إلى مفاتيح API ل reCAPTCHA؟ أحصل عليها <a>هنا</a>."
 
-#: includes/admin/settings/class-settings-bootstrap.php:118
+#: includes/admin/settings/class-settings-bootstrap.php:119
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for contact forms"
 msgstr "إستخدم reCAPTCHA لاستمارة الاتصال"
 
-#: includes/admin/settings/class-settings-bootstrap.php:126
+#: includes/admin/settings/class-settings-bootstrap.php:127
 #, fuzzy
 msgctxt "settings"
 msgid "Turn off reCAPTCHA for logged in users?"
 msgstr "إيقاف reCAPTCHA للأعضاء الذين سجلوا الدخول؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:134
+#: includes/admin/settings/class-settings-bootstrap.php:135
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for listing submits"
 msgstr "إستخدم reCAPTCHA أثناء إضافة إعلان"
 
-#: includes/admin/settings/class-settings-bootstrap.php:142
+#: includes/admin/settings/class-settings-bootstrap.php:143
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for edit listings"
 msgstr "إستخدم reCAPTCHA في تعليقات الإعلان؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:150
+#: includes/admin/settings/class-settings-bootstrap.php:151
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for report listings"
 msgstr "إستخدم reCAPTCHA في تعليقات الإعلان؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:158
+#: includes/admin/settings/class-settings-bootstrap.php:159
 #, fuzzy
 msgctxt "settings"
 msgid "Use reCAPTCHA for listing comments?"
 msgstr "إستخدم reCAPTCHA في تعليقات الإعلان؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:166
+#: includes/admin/settings/class-settings-bootstrap.php:167
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA Public Key"
 msgstr "مفتاح عام reCAPTCHA"
 
-#: includes/admin/settings/class-settings-bootstrap.php:175
+#: includes/admin/settings/class-settings-bootstrap.php:176
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA Private Key"
 msgstr "مفتاح خاص reCAPTCHA"
 
-#: includes/admin/settings/class-settings-bootstrap.php:184
+#: includes/admin/settings/class-settings-bootstrap.php:185
 #, fuzzy
 msgctxt "settings"
 msgid "reCAPTCHA version"
 msgstr "إعدادات reCaptcha"
 
-#: includes/admin/settings/class-settings-bootstrap.php:197
+#: includes/admin/settings/class-settings-bootstrap.php:198
 msgctxt "settings"
 msgid "reCAPTCHA V3 threshold score"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:202
+#: includes/admin/settings/class-settings-bootstrap.php:203
 msgctxt "settings"
 msgid ""
 "reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is "
@@ -6008,13 +6008,13 @@ msgid ""
 "this value will result in reCAPTCHA validation error."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:207
+#: includes/admin/settings/class-settings-bootstrap.php:208
 #, fuzzy
 msgctxt "settings"
 msgid "Registration"
 msgstr "Enregistrement"
 
-#: includes/admin/settings/class-settings-bootstrap.php:207
+#: includes/admin/settings/class-settings-bootstrap.php:208
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6028,24 +6028,24 @@ msgstr ""
 "الاتصال بعضوية الإضافة، واطلب منهم دعم معامل الاستعلام القياسي 'redirect_to' "
 "لووردبريس."
 
-#: includes/admin/settings/class-settings-bootstrap.php:212
+#: includes/admin/settings/class-settings-bootstrap.php:213
 #, fuzzy
 msgctxt "settings"
 msgid "Require login to post listings?"
 msgstr "يتطلب تسجيل الدخول لنشر الإعلانات؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:221
+#: includes/admin/settings/class-settings-bootstrap.php:222
 msgctxt "settings"
 msgid "Allow anonymous users to edit/manage listings with an access key?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:229
+#: includes/admin/settings/class-settings-bootstrap.php:230
 #, fuzzy
 msgctxt "settings"
 msgid "Login URL"
 msgstr "رابط تسجيل الدخول"
 
-#: includes/admin/settings/class-settings-bootstrap.php:230
+#: includes/admin/settings/class-settings-bootstrap.php:231
 #, fuzzy
 msgctxt "settings"
 msgid "Only enter this if using a membership plugin or custom login page."
@@ -6053,18 +6053,18 @@ msgstr ""
 "رابط URL لصفحة تسجيل الدخول لعضوية الإضافة الخاصة بك.  فقط أدخل هذا إذا كان "
 "هناك استخدام لعضوية الإضافة أو صفحة تسجيل دخول مخصصة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:231
+#: includes/admin/settings/class-settings-bootstrap.php:232
 msgctxt "settings"
 msgid "URL of your membership plugin's login page."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:240
+#: includes/admin/settings/class-settings-bootstrap.php:241
 #, fuzzy
 msgctxt "settings"
 msgid "Registration URL"
 msgstr "رابط التسجيل"
 
-#: includes/admin/settings/class-settings-bootstrap.php:241
+#: includes/admin/settings/class-settings-bootstrap.php:242
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6073,17 +6073,17 @@ msgstr ""
 "رابط URL لصفحة التسجيل في عضوية الإضافة الخاصة بك.  فقط أدخل هذا إذا كان "
 "هناك استخدام لعضوية الإضافة أو صفحة تسجيل مخصصة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:242
+#: includes/admin/settings/class-settings-bootstrap.php:243
 msgctxt "settings"
 msgid "URL of your membership plugin's registration page."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:251
+#: includes/admin/settings/class-settings-bootstrap.php:252
 msgctxt "settings"
 msgid "Allow users to create accounts during listing submit?"
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:278
+#: includes/admin/settings/class-settings-bootstrap.php:279
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -6093,37 +6093,37 @@ msgstr ""
 "أدخل النص أو عنوان URL يبدأ ب http. إذا كنت تستخدم عنوان URL، سيتم استبدال "
 "نص الأحكام والشروط برابط إلى الصفحة المناسبة."
 
-#: includes/admin/settings/class-settings-bootstrap.php:280
+#: includes/admin/settings/class-settings-bootstrap.php:281
 #, fuzzy
 msgctxt "settings"
 msgid "Terms and Conditions text goes here."
 msgstr "نص الأحكام والشروط هنا..."
 
-#: includes/admin/settings/class-settings-bootstrap.php:323
+#: includes/admin/settings/class-settings-bootstrap.php:324
 #, fuzzy
 msgctxt "settings"
 msgid "Enable high performance searches?"
 msgstr "تمكين عمليات البحث عالية الأداء؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:332
+#: includes/admin/settings/class-settings-bootstrap.php:333
 #, fuzzy
 msgctxt "settings"
 msgid "Advanced"
 msgstr "متقدم"
 
-#: includes/admin/settings/class-settings-bootstrap.php:338
+#: includes/admin/settings/class-settings-bootstrap.php:339
 #, fuzzy
 msgctxt "settings"
 msgid "Disable advanced CPT integration?"
 msgstr "تعطيل التكامل CPT المتقدم؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:346
+#: includes/admin/settings/class-settings-bootstrap.php:347
 #, fuzzy
 msgctxt "settings"
 msgid "Enable AJAX compatibility mode?"
 msgstr "تمكين وضع التوافق أجاكس؟"
 
-#: includes/admin/settings/class-settings-bootstrap.php:348
+#: includes/admin/settings/class-settings-bootstrap.php:349
 #, fuzzy
 msgctxt "settings"
 msgid ""
@@ -7548,19 +7548,19 @@ msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "لقد تم تسجيل دخولك كمدير. سيتم تخطي أي خطوات للدفع."
 
-#: includes/views/submit_listing.php:492
+#: includes/views/submit_listing.php:493
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:492
+#: includes/views/submit_listing.php:493
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "إختيار تصنيف"
 
-#: includes/views/submit_listing.php:799
+#: includes/views/submit_listing.php:800
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -7568,41 +7568,41 @@ msgstr ""
 "لا يمكن أن نقوم بمعالجة الدفع الخاص بك في هذه اللحظة. المرجو المحاولة مرة "
 "أخرى لاحقاً."
 
-#: includes/views/submit_listing.php:848 includes/views/submit_listing.php:970
+#: includes/views/submit_listing.php:849 includes/views/submit_listing.php:971
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:871
+#: includes/views/submit_listing.php:872
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/views/submit_listing.php:873
+#: includes/views/submit_listing.php:874
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid fee plan for your category selection."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/views/submit_listing.php:1179
+#: includes/views/submit_listing.php:1180
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:1184
+#: includes/views/submit_listing.php:1185
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/views/submit_listing.php:1189
+#: includes/views/submit_listing.php:1190
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/views/submit_listing.php:1194
+#: includes/views/submit_listing.php:1195
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7931,21 +7931,21 @@ msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:802
+#: includes/views/submit_listing.php:803
 msgctxt "templates"
 msgid ""
 "<b>There are no Fee Plans available</b>, without a fee plan site users can't "
 "submit a listing. %s to create a fee plan"
 msgstr ""
 
-#: includes/views/submit_listing.php:816
+#: includes/views/submit_listing.php:817
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/views/submit_listing.php:819
+#: includes/views/submit_listing.php:820
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7953,12 +7953,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/views/submit_listing.php:1259
+#: includes/views/submit_listing.php:1260
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "يرجى الموافقة على الشروط والأحكام."
 
-#: includes/views/submit_listing.php:1273
+#: includes/views/submit_listing.php:1274
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -8730,7 +8730,7 @@ msgstr ""
 "Il s'agit seulement d'une pré-visualisation. L'annonce n'a pas encore été "
 "publiée."
 
-#: includes/views/submit_listing.php:1137
+#: includes/views/submit_listing.php:1138
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
