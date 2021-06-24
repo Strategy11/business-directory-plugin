@@ -163,6 +163,11 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.12.2 =
+* New: Remove the id from listing url by default on new installs.
+* New: Use css for the featured banner by deafult instead of an image. This makes the 'Featured' label translatable.
+* Fix: Some of the filters in the admin listing table were causing SQL errors.
+
 = 5.12.1 =
 * New: Add a new validator option to fields to not allow urls. This prevents URLS that include http, www., or .com.
 * New: Add wpbdp_is_bd_page filter for add-ons to load BD scripts.
