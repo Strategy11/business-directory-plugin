@@ -89,7 +89,10 @@ class WPBDP__ListingsWithNoFeePlanView {
         global $wpdb;
 
         if ( $active_filter == $this->id ) {
-            $pieces['join']  .= " LEFT JOIN {$wpdb->prefix}wpbdp_listings ls ON ls.listing_id = {$wpdb->posts}.ID ";
+			$add = " LEFT JOIN {$wpdb->prefix}wpbdp_listings ls ON ls.listing_id = {$wpdb->posts}.ID ";
+			if ( strpos( $pieces['join'], $add ) === false ) {
+				$pieces['join'] .= $add;
+			}
             $pieces['where'] .= ' AND ls.listing_id IS NULL';
         }
 

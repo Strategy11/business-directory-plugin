@@ -441,7 +441,10 @@ class WPBDP_Admin_Listings {
         $other_filter  = wpbdp_getv( $_REQUEST, 'wpbdmfilter', '' );
 
         if ( in_array( $status_filter, array_keys( WPBDP_Listing::get_stati() ), true ) ) {
-            $pieces['join']  .= " LEFT JOIN {$wpdb->prefix}wpbdp_listings ls ON ls.listing_id = {$wpdb->posts}.ID ";
+			$add = " LEFT JOIN {$wpdb->prefix}wpbdp_listings ls ON ls.listing_id = {$wpdb->posts}.ID ";
+			if ( strpos( $pieces['join'], $add ) === false ) {
+				$pieces['join'] .= $add;
+			}
             $pieces['where'] .= $wpdb->prepare( 'AND ls.listing_status = %s', $status_filter );
         }
 
