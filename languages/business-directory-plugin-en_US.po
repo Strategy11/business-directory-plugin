@@ -3100,7 +3100,6 @@ msgid "Abandoned"
 msgstr ""
 
 #: includes/admin/class-admin-listings.php:479
-msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr ""
 
@@ -6988,7 +6987,6 @@ msgid "Recurring Fee Management"
 msgstr ""
 
 #: templates/renew-listing.tpl.php:11
-msgctxt "templates"
 msgid "Renew Listing"
 msgstr ""
 

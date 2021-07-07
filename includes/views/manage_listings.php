@@ -93,8 +93,8 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
         $buttons = sprintf(
             '<a class="wpbdp-button button renew-listing" href="%s" %s >%s</a>',
             $listing->get_renewal_url(),
-            esc_html( 'target="_blank" rel="noopener"' ),
-            _x( 'Renew Listing', 'view:manage-listings', 'business-directory-plugin' )
+            'target="_blank" rel="noopener"',
+			esc_html__( 'Renew Listing', 'business-directory-plugin' )
         ) . $buttons;
 
         return $buttons;

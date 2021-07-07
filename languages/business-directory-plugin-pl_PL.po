@@ -4061,7 +4061,6 @@ msgstr "Porzucone"
 
 # @ WPBDM
 #: includes/admin/class-admin-listings.php:479
-msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Usuń Ofertę"
 
@@ -8910,7 +8909,6 @@ msgstr "Zarządzanie powtarzającymi sie Abonamentami"
 
 # @ WPBDM
 #: templates/renew-listing.tpl.php:11
-msgctxt "templates"
 msgid "Renew Listing"
 msgstr "Odnowienie oferty"
 

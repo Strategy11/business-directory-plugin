@@ -3666,7 +3666,6 @@ msgid "Abandoned"
 msgstr "Övergiven"
 
 #: includes/admin/class-admin-listings.php:479
-msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Ta bort annons"
 
@@ -7828,7 +7827,6 @@ msgid "Recurring Fee Management"
 msgstr "Hantera återkommande avgifter"
 
 #: templates/renew-listing.tpl.php:11
-msgctxt "templates"
 msgid "Renew Listing"
 msgstr "Förnya annons"
 

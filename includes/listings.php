@@ -77,7 +77,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 
     // Sanitize everything.
     if ( empty( $listing['post_title'] ) ) {
-        $listing['post_title'] = 'Untitled Listing';
+		$listing['post_title'] = __( 'Untitled Listing', 'business-directory-plugin' );
     }
 
     if ( ! empty( $listing['post_title'] ) && empty( $listing['post_name'] ) ) {

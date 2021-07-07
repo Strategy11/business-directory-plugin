@@ -3093,7 +3093,7 @@ msgid "Abandoned"
 msgstr ""
 
 #: includes/admin/class-admin-listings.php:479
-msgctxt "admin actions"
+#: templates/delete-listing-confirm.tpl.php:3
 msgid "Delete Listing"
 msgstr ""
 
@@ -6978,7 +6978,6 @@ msgid "Recurring Fee Management"
 msgstr ""
 
 #: templates/renew-listing.tpl.php:11
-msgctxt "templates"
 msgid "Renew Listing"
 msgstr ""
 
@@ -7994,11 +7993,6 @@ msgstr ""
 #: templates/admin/uninstall-confirm.tpl.php:36
 msgctxt "uninstall"
 msgid "If you just need to reinstall the plugin, please do the following:"
-msgstr ""
-
-#: templates/delete-listing-confirm.tpl.php:3
-msgctxt "manage recurring"
-msgid "Delete Listing"
 msgstr ""
 
 #: templates/manage-recurring-cancel.tpl.php:1

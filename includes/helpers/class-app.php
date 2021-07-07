@@ -42,6 +42,85 @@ class WPBDP_App_Helper {
 	}
 
 	/**
+	 * Check for any words in the string that have been flagged for replacement.
+	 *
+	 * @since x.x
+	 */
+	public static function replace_labels( $msg ) {
+		$originals = self::default_strings();
+		foreach ( $originals as $name => $default ) {
+			$label = self::get_label( $name );
+			self::replace_single_label( $default, $label, $msg );
+
+			$lowercase = strtolower( $label );
+			if ( $label !== $lowercase ) {
+				self::replace_single_label( strtolower( $default ), $lowercase, $msg );
+			}
+		}
+		return $msg;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private static function replace_single_label( $find, $replace, &$msg ) {
+		if ( $msg === $find ) {
+			$msg = $replace;
+			return;
+		}
+
+		// Middle of string.
+		$msg = str_replace( ' ' . $find . ' ', ' ' . $replace . ' ', $msg );
+		$msg = str_replace( ' ' . $find . '.', ' ' . $replace . '.', $msg );
+
+		// Beginning of string
+		$msg = preg_replace('/^' . $find . ' /', $replace . ' ', $msg );
+
+		// End of string
+		$msg = preg_replace('/ ' . $find . '$/', ' ' . $replace, $msg );
+	}
+
+	/**
+	 * All the strings that have a setting.
+	 *
+	 * @since x.x
+	 */
+	public static function default_strings( $translate = true ) {
+		if ( $translate ) {
+			$strings = array(
+				'listing'   => __( 'Listing', 'business-directory-plugin' ),
+				'listings'  => __( 'Listings', 'business-directory-plugin' ),
+				'directory' => __( 'Directory', 'business-directory-plugin' ),
+			);
+		} else {
+			// Prevent an infinite loop.
+			$strings = array(
+				'listing'   => 'Listing',
+				'listings'  => 'Listings',
+				'directory' => 'Directory',
+			);
+		}
+
+		/**
+		 * Add extra strings with their replacements.
+		 *
+		 * @since x.x
+		 */
+		return apply_filters( 'wpbdp_custom_strings', $strings );
+	}
+
+	/**
+	 * Get the saved setting. These settings should include '-label' on the end.
+	 *
+	 * @since x.x
+	 */
+	private static function get_label( $name ) {
+		$defaults = self::default_strings();
+		$default = isset( $defaults[ $name ] ) ? $defaults[ $name ] : false;
+		return wpbdp_get_option( $name . '-label', $default );
+	}
+
+	/**
 	 * Check for certain page in settings
 	 *
 	 * @since 5.9.2

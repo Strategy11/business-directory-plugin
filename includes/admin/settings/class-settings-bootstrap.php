@@ -445,6 +445,7 @@ final class WPBDP__Settings__Bootstrap {
 		wpbdp_register_settings_group( 'listings/report', __( 'Buttons', 'business-directory-plugin' ), 'listings' );
 
         wpbdp_register_settings_group( 'listings/sorting', __( 'Sorting', 'business-directory-plugin' ), 'listings' );
+
         wpbdp_register_setting(
             array(
                 'id'      => 'listings-per-page',
@@ -672,6 +673,41 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'listings/main',
             )
         );
+
+		wpbdp_register_settings_group( 'listings/strings', __( 'Message Defaults', 'business-directory-plugin' ), 'listings/main' );
+		wpbdp_register_setting(
+			array(
+				'id'      => 'listing-label',
+				'type'    => 'text',
+				'name'    => __( 'Listing label', 'business-directory-plugin' ),
+				'desc'    => __( 'What is a single listing called?', 'business-directory-plugin' ),
+				'default' => __( 'Listing', 'business-directory-plugin' ),
+				'group'   => 'listings/strings',
+			)
+		);
+
+		wpbdp_register_setting(
+			array(
+				'id'      => 'listings-label',
+				'type'    => 'text',
+				'name'    => __( 'Listing label (Plural)', 'business-directory-plugin' ),
+				'desc'    => __( 'What are your listings called?', 'business-directory-plugin' ),
+				'default' => __( 'Listings', 'business-directory-plugin' ),
+				'group'   => 'listings/strings',
+			)
+		);
+
+		wpbdp_register_setting(
+			array(
+				'id'      => 'directory-label',
+				'type'    => 'text',
+				'name'    => __( 'Directory label', 'business-directory-plugin' ),
+				'desc'    => __( 'What should we call your directory?', 'business-directory-plugin' ),
+				'default' => __( 'Directory', 'business-directory-plugin' ),
+				'group'   => 'listings/strings',
+			)
+		);
+
         wpbdp_register_setting(
             array(
                 'id'      => 'submit-instructions',
@@ -679,7 +715,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Submit Listing instructions message', 'settings', 'business-directory-plugin' ),
                 'desc'    => __( 'This text is displayed on the first page of the Submit Listing process. You can use it for instructions about filling out the form or information to get started.', 'business-directory-plugin' ),
                 'default' => '',
-                'group'   => 'listings/main',
+                'group'   => 'listings/strings',
             )
         );
 
