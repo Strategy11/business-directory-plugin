@@ -360,7 +360,7 @@ class WPBDP_FormFieldsAdmin {
         if ( isset( $_POST['field'] ) ) {
 			$this->check_permission( 'editfield' );
 
-            $field = new WPBDP_Form_Field( stripslashes_deep( $_POST['field'] ) );
+			$field = new WPBDP_Form_Field( wpbdp_get_var( array( 'param' => 'field' ), 'post' ) );
             $res   = $field->save();
 
             if ( ! is_wp_error( $res ) ) {
