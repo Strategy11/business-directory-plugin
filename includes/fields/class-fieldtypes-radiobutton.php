@@ -137,12 +137,12 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	 * @since x.x
 	 */
 	private function get_posted_options() {
-		$options = sanitize_textarea_field( wp_unslash( $_POST['field']['x_options'] ) );
-		if ( empty( $options ) ) {
+		$field_data = wpbdp_get_var( array( 'param' => 'field', 'sanitize' => 'sanitize_textarea_field' ), 'post' );
+		if ( empty( $field_data['x_options'] ) ) {
 			return array();
 		}
 
-		return array_map( 'trim', explode( "\n", $options ) );
+		return array_map( 'trim', explode( "\n", $field_data['x_options'] ) );
 	}
 
     public function get_field_value( &$field, $post_id ) {

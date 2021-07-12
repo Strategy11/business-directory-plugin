@@ -266,7 +266,7 @@ class WPBDP_Themes_Admin {
             wp_die();
         }
 
-		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
         $theme_file = isset( $_FILES['themezip'] ) ? $_FILES['themezip'] : false;
 		wpbdp_sanitize_value( 'sanitize_text_field', $theme_file );
 
