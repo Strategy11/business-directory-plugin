@@ -169,16 +169,23 @@ class WPBDP_PaymentsAPI {
             'initial'
         ) );
 
-        $views['pending-abandonment'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-                                                 esc_url( add_query_arg( 'wpbdmfilter', 'pending-abandonment', remove_query_arg( 'listing_status' ) ) ),
-                                                 'pending-abandonment' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
-                                                 _x( 'Pending Abandonment', 'admin', 'business-directory-plugin' ),
-                                                 number_format_i18n( $count_pending ) );
-        $views['abandoned'] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-                                        esc_url( add_query_arg( 'wpbdmfilter', 'abandoned', remove_query_arg( 'listing_status' ) ) ),
-                                        'abandoned' == wpbdp_getv( $_REQUEST, 'wpbdmfilter' ) ? 'current' : '',
-                                        _x( 'Abandoned', 'admin', 'business-directory-plugin' ),
-                                        number_format_i18n( $count_abandoned ) );
+		$filter = wpbdp_get_var( array( 'param' => 'wpbdmfilter' ), 'request' );
+		$url    = add_query_arg( 'wpbdmfilter', $filter, remove_query_arg( 'listing_status' ) );
+
+		$views['pending-abandonment'] = sprintf(
+			'<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+			esc_url( add_query_arg( 'wpbdmfilter', 'pending-abandonment', $url ) ),
+			'pending-abandonment' === $filter ? 'current' : '',
+			esc_html__( 'Pending Abandonment', 'business-directory-plugin' ),
+			esc_html( number_format_i18n( $count_pending ) )
+		);
+		$views['abandoned'] = sprintf(
+			'<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+			esc_url( add_query_arg( 'wpbdmfilter', 'abandoned', $url ) ),
+			'abandoned' === $filter ? 'current' : '',
+			esc_html__( 'Abandoned', 'business-directory-plugin' ),
+			esc_html( number_format_i18n( $count_abandoned ) )
+		);
 
         return $views;
     }

@@ -415,12 +415,13 @@ class WPBDP_Admin_Listings {
             $count                = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses_string}) AND pm.meta_key = %s AND pm.meta_value = %d", WPBDP_POST_TYPE, '_wpbdp_flagged', 1 ) ) );
 
             if ( $count > 0 ) {
+				$status = wpbdp_get_var( array( 'param' => 'listing_status' ), 'request' );
                 $views['reported'] = sprintf(
                     '<a href="%s" class="%s">%s <span class="count">(%s)</span></a>',
                     esc_url( add_query_arg( array( 'post_type' => WPBDP_POST_TYPE, 'listing_status' => 'reported' ), admin_url( 'edit.php' ) ) ),
-                    wpbdp_getv( $_REQUEST, 'listing_status' ) == 'reported' ? 'current' : '',
-                    _x( 'Reported', 'listing status', 'business-directory-plugin' ),
-                    number_format_i18n( $count )
+					$status === 'reported' ? 'current' : '',
+					esc_html_x( 'Reported', 'listing status', 'business-directory-plugin' ),
+					esc_html( number_format_i18n( $count ) )
                 );
             }
         }
@@ -437,8 +438,8 @@ class WPBDP_Admin_Listings {
             return $pieces;
         }
 
-        $status_filter = wpbdp_getv( $_REQUEST, 'listing_status', 'all' );
-        $other_filter  = wpbdp_getv( $_REQUEST, 'wpbdmfilter', '' );
+		$status_filter = wpbdp_get_var( array( 'param' => 'listing_status', 'default' => 'all' ), 'request' );
+		$other_filter  = wpbdp_get_var( array( 'param' => 'wpbdmfilter' ), 'request' );
 
         if ( in_array( $status_filter, array_keys( WPBDP_Listing::get_stati() ), true ) ) {
 			$add = " LEFT JOIN {$wpdb->prefix}wpbdp_listings ls ON ls.listing_id = {$wpdb->posts}.ID ";
@@ -676,7 +677,7 @@ class WPBDP_Admin_Listings {
     }
 
     public function ajax_clear_payment_history() {
-        $listing_id = wpbdp_getv( $_POST, 'listing_id', null );
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ), 'post' );
 
         if ( ! $listing_id ) {
             wp_send_json_error();

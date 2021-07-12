@@ -59,7 +59,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     }
 
     public function get_current_view() {
-        return wpbdp_getv( $_GET, 'fee_status', 'active' );
+		return wpbdp_get_var( array( 'param' => 'fee_status', 'default' => 'active' ) );
     }
 
     public function get_views() {

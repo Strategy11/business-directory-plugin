@@ -16,11 +16,11 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function no_items() {
-        echo _x( 'No payments found.', 'payments admin', 'business-directory-plugin' );
+		echo esc_html_x( 'No payments found.', 'payments admin', 'business-directory-plugin' );
     }
 
     public function get_current_view() {
-        return wpbdp_getv( $_GET, 'status', 'all' );
+		return wpbdp_get_var( array( 'param' => 'status', 'default' => 'all' ) );
     }
 
     public function get_views() {
@@ -89,7 +89,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
                 false,
                 'OR'
             );
-                    
+
             // wpbdp_debug_e( $s, $this->items );
         }
 
@@ -101,7 +101,11 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
     }
 
     public function column_payment_id( $payment ) {
-        return sprintf( '<a href="%s">%d</a>', admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ), $payment->id );
+		return sprintf(
+			'<a href="%s">%d</a>',
+			esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ),
+			esc_html( $payment->id )
+		);
     }
 
     public function column_date( $payment ) {

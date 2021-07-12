@@ -271,9 +271,10 @@ class WPBDP_FormFieldsAdmin {
     public static function _render_field_settings() {
         $api = wpbdp_formfields_api();
 
-        $association = wpbdp_getv( $_REQUEST, 'association', false );
-        $field_type  = $api->get_field_type( wpbdp_getv( $_REQUEST, 'field_type', false ) );
-        $field_id    = wpbdp_getv( $_REQUEST, 'field_id', 0 );
+		$association = wpbdp_get_var( array( 'param' => 'association', 'default' => false ), 'request' );
+		$field_type  = wpbdp_get_var( array( 'param' => 'field_type', 'default' => false ), 'request' );
+		$field_type  = $api->get_field_type( $field_type );
+		$field_id    = wpbdp_get_var( array( 'param' => 'field_id', 'default' => 0 ), 'request' );
 
         $response = array(
             'ok'   => false,
