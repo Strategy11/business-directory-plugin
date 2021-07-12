@@ -88,7 +88,7 @@ if ( ! $payment->id ) {
                         </div>
                         <div id="major-publishing-actions">
                             <div id="delete-action">
-								<a href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_delete&payment-id=' . $payment->id ), 'payment-' . $payment->id ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm"><?php esc_html_e( 'Delete Payment', 'business-directory-plugin' ); ?></a>
+								<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=payment_delete&payment-id=' . $payment->id ), 'payment-' . $payment->id ) ); ?>" class="wpbdp-admin-delete-link wpbdp-admin-confirm"><?php esc_html_e( 'Delete Payment', 'business-directory-plugin' ); ?></a>
                             </div>
                             <input type="submit" class="button button-primary right" value="<?php esc_attr_e( 'Save Payment', 'business-directory-plugin' ); ?>" />
                             <div class="clear"></div>

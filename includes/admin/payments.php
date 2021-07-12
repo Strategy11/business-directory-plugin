@@ -57,10 +57,10 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function payment_update() {
-		$nonce = array( 'nonce' => 'payment-' . absint( $_POST['payment']['id'] ) );
+		$data  = wpbdp_get_var( array( 'param' => 'payment' ), 'post' );
+		$nonce = array( 'nonce' => 'payment-' . absint( $data['id'] ) );
 		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
 
-        $data    = wpbdp_get_var( array( 'param' => 'payment' ), 'post' );
         $payment = WPBDP_Payment::objects()->get( absint( $data['id'] ) );
         $payment->update( $data );
         $payment->save();
@@ -70,10 +70,11 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     function payment_delete() {
-		$nonce = array( 'nonce' => 'payment-' . absint( $_REQUEST['payment-id'] ) );
+		$payment_id = wpbdp_get_var( array( 'param' => 'payment-id', 'sanitize' => 'absint' ), 'request' );
+		$nonce = array( 'nonce' => 'payment-' . $payment_id );
 		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
 
-        $payment = WPBDP_Payment::objects()->get( (int) $_REQUEST['payment-id'] );
+        $payment = WPBDP_Payment::objects()->get( $payment_id );
         $payment->delete();
 
         wp_redirect( admin_url( 'admin.php?page=wpbdp_admin_payments&message=payment_delete' ) );
