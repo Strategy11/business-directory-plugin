@@ -266,9 +266,11 @@ class WPBDP_Themes_Admin {
             wp_die();
         }
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $theme_file = isset( $_FILES['themezip'] ) ? $_FILES['themezip'] : false;
+		wpbdp_sanitize_value( 'sanitize_text_field', $theme_file );
 
-        if ( ! $theme_file || ! is_uploaded_file( $theme_file['tmp_name'] ) || UPLOAD_ERR_OK != $_FILES['themezip']['error'] ) {
+		if ( ! $theme_file || ! is_uploaded_file( $theme_file['tmp_name'] ) || UPLOAD_ERR_OK != $theme_file['error'] ) {
             wpbdp_admin_message( _x( 'Please upload a valid theme file.', 'themes', 'business-directory-plugin' ), 'error' );
             return;
         }

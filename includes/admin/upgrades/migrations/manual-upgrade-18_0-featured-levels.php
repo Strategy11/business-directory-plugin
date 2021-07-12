@@ -32,7 +32,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
     }
 
     function _validate_config( $levels ) {
-        $posted = ! empty( $_POST['level'] ) ? $_POST['level'] : false;
+		$posted = wpbdp_get_var( array( 'param' => 'level', 'default' => false ), 'post' );
 
         if ( ! $posted ) {
             return false;

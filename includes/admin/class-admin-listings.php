@@ -518,7 +518,7 @@ class WPBDP_Admin_Listings {
         $fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
         foreach ( $fields as $field ) {
             if ( isset( $_POST['listingfields'][ $field->get_id() ] ) ) {
-                $value = $field->convert_input( $_POST['listingfields'][ $field->get_id() ] );
+				$value = $field->value_from_POST();
                 $field->store_value( $post_id, $value );
             } else {
                 $field->store_value( $post_id, $field->convert_input( null ) );
@@ -578,7 +578,7 @@ class WPBDP_Admin_Listings {
         global $wpdb;
 
         $listing      = wpbdp_get_listing( $post_id );
-        $new_plan     = ! empty( $_POST['listing_plan'] ) ? $_POST['listing_plan'] : array();
+		$new_plan     = wpbdp_get_var( array( 'param' => 'listing_plan', 'default' => array() ), 'post' );
         $current_plan = $listing->get_fee_plan();
 
         if ( ! $current_plan && empty( $new_plan['fee_id'] ) ) {

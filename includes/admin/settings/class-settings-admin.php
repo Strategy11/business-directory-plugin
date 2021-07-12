@@ -764,10 +764,13 @@ foreach ( $value as $i => $notice ) {
         echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
         echo '</form>';
 
-        if ( isset( $_FILES['file'] ) && $_FILES['file']['error'] == 0 ) {
+        if ( isset( $_FILES['file']['error'] ) && $_FILES['file']['error'] == 0 ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$file = wp_unslash( $_FILES['file'] );
+			wpbdp_sanitize_value( 'sanitize_text_field', $file );
             // TODO: we support only images for now but we could use this for anything later
-            if ( $media_id = wpbdp_media_upload(
-                $_FILES['file'],
+			$media_id = wpbdp_media_upload(
+                $file,
                 true,
                 true,
                 array(
@@ -778,7 +781,8 @@ foreach ( $value as $i => $notice ) {
                     'min-height' => wpbdp_get_option( 'image-min-height' ),
                 ),
                 $errors
-            ) ) {
+            );
+			if ( $media_id ) {
                 echo '<div class="preview" style="display: none;">';
                 echo wp_get_attachment_image( $media_id, 'thumb', false );
                 echo '</div>';

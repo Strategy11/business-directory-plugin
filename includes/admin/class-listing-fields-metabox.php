@@ -44,7 +44,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
             $value = $field->value( $this->listing->get_id() );
 
             if ( ! empty( $_POST['listingfields'][ $field->get_id() ] ) ) {
-                $value = $field->convert_input( $_POST['listingfields'][ $field->get_id() ] );
+				$value = $field->value_from_POST();
             }
 
             $args = array( 'listing_id' => $this->listing->get_id() );
