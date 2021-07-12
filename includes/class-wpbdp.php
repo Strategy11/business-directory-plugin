@@ -422,6 +422,8 @@ final class WPBDP {
         }
 
         $attachments = array();
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $files = wpbdp_flatten_files_array( isset( $_FILES['images'] ) ? $_FILES['images'] : array() );
         $errors = array();
 

@@ -132,11 +132,11 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
     }
 
     public function process_field_settings( &$field ) {
-        if ( ! array_key_exists( 'x_options', $_POST['field'] ) ) {
+		if ( ! isset( $_POST['field']['x_options'] ) ) {
             return;
         }
 
-        $options = stripslashes( trim( $_POST['field']['x_options'] ) );
+		$options = trim( sanitize_textarea_field( wp_unslash( $_POST['field']['x_options'] ) ) );
 
         if ( ! $options && $field->get_association() != 'tags' ) {
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'business-directory-plugin' ) );
@@ -158,7 +158,9 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         }
 
         $field->set_data( 'options', $options );
-        $field->set_data( 'allow_select_all', array_key_exists( 'allow_select_all', $_POST['field'] ) ? $_POST['field']['allow_select_all'] : '' );
+
+		$field_data = wpbdp_get_var( array( 'param' => 'field' ), 'post' );
+		$field->set_data( 'allow_select_all', empty( $field_data['allow_select_all'] ) ? '' : '1' );
     }
 
     public function store_field_value( &$field, $post_id, $value ) {

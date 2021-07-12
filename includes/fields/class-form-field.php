@@ -647,11 +647,13 @@ class WPBDP_Form_Field {
             }
         }
 
-        if ( isset( $_POST['field'] ) ) {
+		$field_data = wpbdp_get_var( array( 'param' => 'field' ), 'post' );
+
+		if ( ! empty( $field_data ) ) {
             $res = $this->type->process_field_settings( $this );
             do_action_ref_array( 'wpbdp_form_field_settings_process', array( &$this ) );
 
-            $supported_cats = ! empty( $_POST['limit_categories'] ) && ! empty( $_POST['field']['supported_categories'] ) ? $_POST['field']['supported_categories'] : 'all';
+			$supported_cats = empty( $field_data['supported_categories'] ) ? 'all' : $field_data['supported_categories'];
 
             if ( in_array( $this->get_association(), array( 'title', 'category') ) ) {
                 $supported_cats = 'all';
@@ -827,7 +829,8 @@ class WPBDP_Form_Field {
             return null;
         }
 
-        $value = stripslashes_deep( $_POST[ $key ][ $this->id ] );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$value = wp_unslash( $_POST[ $key ][ $this->id ] );
         $value = $this->convert_input( $value );
 
         return $value;
@@ -841,7 +844,8 @@ class WPBDP_Form_Field {
             return null;
         }
 
-        $value = stripslashes_deep( $_GET[ $key ][ $this->id ] );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$value = wp_unslash( $_GET[ $key ][ $this->id ] );
         $value = $this->convert_input( $value );
 
         return $value;

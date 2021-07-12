@@ -71,7 +71,7 @@ class WPBDP_SiteTracking {
                 $plugin = get_plugin_data( WP_PLUGIN_DIR . '/' . $path );
                 
                 $data['plugins'][] = array(
-                    'id' => str_replace( '/' . basename( $path ),  '', $path ),
+					'id'      => str_replace( '/' . basename( $path ), '', $path ),
                     'name' => wpbdp_getv( $plugin, 'Name', '' ),                    
                     'version' => wpbdp_getv( $plugin, 'Version', '' ),
                     'plugin_uri' => wpbdp_getv( $plugin, 'PluginURI', '' ),

@@ -92,8 +92,13 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
         $content  = '<span class="description">One option per line</span><br />';
         $content .= '<textarea name="field[x_options]" cols="50" rows="2">';
 
-        if ( $field && ( $field->data( 'options' ) || array_key_exists( 'x_options', $_POST['field'] ) ) ) {
-            $options = $field->data( 'options' ) ? $field->data( 'options' ) : array_map( 'trim', explode( "\n", stripslashes( trim( $_POST['field']['x_options'] ) ) ) );
+		if ( $field && ( $field->data( 'options' ) || isset( $_POST['field']['x_options'] ) ) ) {
+			if ( $field->data( 'options' ) ) {
+				$options = $field->data( 'options' );
+			} else {
+				$options = $this->get_posted_options();
+			}
+
             $content .= implode( "\n", $options );
         }
         $content .= '</textarea>';
@@ -106,13 +111,11 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
             return;
         }
 
-        $options = stripslashes( trim( $_POST['field']['x_options'] ) );
+        $options = $this->get_posted_options();
 
         if ( ! $options && $field->get_association() != 'tags' ) {
             return new WP_Error( 'wpbdp-invalid-settings', _x( 'Field list of options is required.', 'form-fields admin', 'business-directory-plugin' ) );
         }
-
-        $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();
 
         if ( 'tags' === $field->get_association() ) {
             $tags = get_terms(
@@ -129,6 +132,18 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
         $field->set_data( 'options', $options );
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function get_posted_options() {
+		$options = sanitize_textarea_field( wp_unslash( $_POST['field']['x_options'] ) );
+		if ( empty( $options ) ) {
+			return array();
+		}
+
+		return array_map( 'trim', explode( "\n", $options ) );
+	}
 
     public function get_field_value( &$field, $post_id ) {
         $value = parent::get_field_value( $field, $post_id );

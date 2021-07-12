@@ -72,17 +72,21 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		}
 
         if ( ! empty( $_POST['fee'] ) ) {
-            $posted_values = stripslashes_deep( $_POST['fee'] );
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$posted_values = stripslashes_deep( $_POST['fee'] );
 			$posted_values = $this->sanitize_posted_values( $posted_values );
 
-            if ( ! isset( $_POST['limit_categories'] ) || 0 == $_POST['limit_categories'] )
+			if ( 0 == intval( wpbdp_get_var( array( 'param' => 'limit_categories', 'default' => 0 ), 'post' ) ) ) {
                 $posted_values['supported_categories'] = 'all';
+			}
 
-            if ( ! isset( $posted_values['sticky'] ) )
+			if ( ! isset( $posted_values['sticky'] ) ) {
                 $posted_values['sticky'] = 0;
+			}
 
-            if ( ! isset( $posted_values['recurring'] ) )
+			if ( ! isset( $posted_values['recurring'] ) ) {
                 $posted_values['recurring'] = 0;
+			}
         } else {
             $posted_values = array();
         }

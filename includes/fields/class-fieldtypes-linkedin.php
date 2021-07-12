@@ -38,8 +38,6 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
     public function get_field_html_value( &$field, $post_id ) {
         $value = $field->value( $post_id );
 
-        static $js_loaded = false;
-
         $html  = '';
         $html .= '<div class="social-field linkedin">';
         if ( ! $value ) {
@@ -47,10 +45,8 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
         }
 
         if ( is_numeric( $value ) ) {
-            if ( ! $js_loaded ) {
-                $html     .= '<script src="//platform.linkedin.com/in.js"></script>';
-                $js_loaded = true;
-            }
+            wp_enqueue_script( 'linkedin', '//platform.linkedin.com/in.js', array(), 1, true );
+
             $html .= '<script type="IN/FollowCompany" data-id="' . intval( $value ) . '" data-counter="none"></script>';
             $html .= '</div>';
             return $html;

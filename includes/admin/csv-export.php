@@ -41,9 +41,9 @@ class WPBDP_Admin_CSVExport {
 
         try {
             if ( ! isset( $_REQUEST['state'] ) ) {
-                $export = new WPBDP_CSVExporter( array_merge( $_REQUEST['settings'], array() ) );
+				$export = new WPBDP_CSVExporter( array_merge( wpbdp_get_var( array( 'param' => 'settings' ), 'request' ), array() ) );
             } else {
-                $state  = json_decode( base64_decode( $_REQUEST['state'] ), true );
+				$state = json_decode( base64_decode( wpbdp_get_var( array( 'param' => 'state' ), 'request' ) ), true );
                 if ( ! $state || ! is_array( $state ) || empty( $state['workingdir'] ) ) {
                     $error = _x( 'Could not decode export state information.', 'admin csv-export', 'business-directory-plugin' );
                 }
