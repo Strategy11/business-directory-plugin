@@ -9,7 +9,7 @@ $email_subject = ! empty( $email_subject ) ? $email_subject : __( 'Untitled', 'b
 $email_body = ! empty( $email_body ) ? $email_body : '';
 $email_body_display = strip_tags( $email_body );
 if ( strlen( $email_body_display ) > 200 ) {
-    $email_body_display = substr( $email_body_display, 0, 200 ) ) . '...';
+    $email_body_display = substr( $email_body_display, 0, 200 ) . '...';
 }
 
 $placeholders = ! empty( $placeholders ) ? $placeholders : array();
