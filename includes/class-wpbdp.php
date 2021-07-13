@@ -248,7 +248,8 @@ final class WPBDP {
 	public function use_custom_strings( $translation, $text, $domain ) {
 		$domains = array( 'business-directory-plugin' );
 		$is_bd   = in_array( $domain, $domains ) || strpos( $domain, 'wpbdp' ) === 0;
-		if ( ! $is_bd ) {
+		$is_admin = is_admin() && ! wp_doing_ajax();
+		if ( ! $is_bd || $is_admin ) {
 			return $translation;
 		}
 
