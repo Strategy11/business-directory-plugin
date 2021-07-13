@@ -23,7 +23,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.12.2' );
+        define( 'WPBDP_VERSION', '5.13' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -223,7 +223,7 @@ final class WPBDP {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.13
 	 */
 	public function translation_filters() {
 		add_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10, 3 );
@@ -233,7 +233,7 @@ final class WPBDP {
 	/**
 	 * Remove filters when an infinite loop is possible.
 	 *
-	 * @since x.x
+	 * @since 5.13
 	 */
 	private function remove_translation_filters() {
 		remove_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10, 3 );
@@ -243,7 +243,7 @@ final class WPBDP {
 	/**
 	 * Replace default naming in strings with the setting.
 	 *
-	 * @since x.x
+	 * @since 5.13
 	 */
 	public function use_custom_strings( $translation, $text, $domain ) {
 		$domains = array( 'business-directory-plugin' );
@@ -261,7 +261,7 @@ final class WPBDP {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.13
 	 */
 	public function use_custom_context_strings( $translation, $text, $context, $domain ) {
 		return $this->use_custom_strings( $translation, $text, $domain );

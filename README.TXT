@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.7.2
-Stable tag: 5.12.2
+Stable tag: 5.13
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -163,6 +163,11 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.13 =
+* New: Add settings to change the words "Directory", "Listings", and "Listing" under Listings -> General Settings.
+* New: Add wpbdp_custom_strings hook to replace additional strings.
+* Security: Sanitize and escape more settings (fees, fields, general settings)
+
 = 5.12.2 =
 * New: Remove the id from listing url by default on new installs.
 * New: Use css for the featured banner by deafult instead of an image. This makes the 'Featured' label translatable.
@@ -186,13 +191,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Security: Lots of security fixes after a security audit. This includes XSS, Cross-Site Request Forgery, and unprotected import and export files.
 * Fix: Some combination of add-ons was preventing the listing form from progressing.
 * Fix: Post duplicator plugins were resulting in an endless loop when updating or deleting a duplicated listing.
-
-= 5.11.1 =
-* When importing files, switch to only accept allowed file types instead of excluding some.
-* Removed Spanish PO file since WP handles it now!
-* Fix: Captions with quotation marks weren't showing in the lightbox.
-* Fix: The Manage Listings page had an extra /div
-* Fix: Add extra validation to slug settings to prevent characters that won't work in the URL.
-* Fix: Add more role protection for editing and deleting fields.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

@@ -134,7 +134,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.13
 	 */
 	private function get_posted_options() {
 		$field_data = wpbdp_get_var( array( 'param' => 'field', 'sanitize' => 'sanitize_textarea_field' ), 'post' );

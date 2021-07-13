@@ -44,7 +44,7 @@ class WPBDP_App_Helper {
 	/**
 	 * Check for any words in the string that have been flagged for replacement.
 	 *
-	 * @since x.x
+	 * @since 5.13
 	 */
 	public static function replace_labels( $msg ) {
 		$originals = self::default_strings();
@@ -65,7 +65,7 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.13
 	 */
 	private static function replace_single_label( $find, $replace, &$msg ) {
 		if ( $msg === $find ) {
@@ -87,7 +87,7 @@ class WPBDP_App_Helper {
 	/**
 	 * All the strings that have a setting.
 	 *
-	 * @since x.x
+	 * @since 5.13
 	 */
 	public static function default_strings( $translate = true ) {
 		if ( $translate ) {
@@ -108,7 +108,7 @@ class WPBDP_App_Helper {
 		/**
 		 * Add extra strings with their replacements.
 		 *
-		 * @since x.x
+		 * @since 5.13
 		 */
 		return apply_filters( 'wpbdp_custom_strings', $strings );
 	}
@@ -116,7 +116,7 @@ class WPBDP_App_Helper {
 	/**
 	 * Get the saved setting. These settings should include '-label' on the end.
 	 *
-	 * @since x.x
+	 * @since 5.13
 	 */
 	private static function get_label( $name ) {
 		$defaults = self::default_strings();
