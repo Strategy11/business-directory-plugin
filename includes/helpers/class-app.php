@@ -50,6 +50,10 @@ class WPBDP_App_Helper {
 		$originals = self::default_strings();
 		foreach ( $originals as $name => $default ) {
 			$label = self::get_label( $name );
+			if ( empty( $label ) ) {
+				continue;
+			}
+
 			self::replace_single_label( $default, $label, $msg );
 
 			$lowercase = strtolower( $label );
@@ -116,7 +120,7 @@ class WPBDP_App_Helper {
 	 */
 	private static function get_label( $name ) {
 		$defaults = self::default_strings();
-		$default = isset( $defaults[ $name ] ) ? $defaults[ $name ] : false;
+		$default  = isset( $defaults[ $name ] ) ? $defaults[ $name ] : false;
 		return wpbdp_get_option( $name . '-label', $default );
 	}
 
