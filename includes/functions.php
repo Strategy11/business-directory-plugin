@@ -193,6 +193,9 @@ function wpbdp_settings_api() {
 
 function wpbdp_get_option( $key, $default = false ) {
     $args_ = func_get_args();
+	if ( empty( wpbdp()->settings ) ) {
+		return $default;
+	}
     return call_user_func_array( array( wpbdp()->settings, 'get_option' ), $args_ );
 }
 

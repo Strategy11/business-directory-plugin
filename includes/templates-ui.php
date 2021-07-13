@@ -369,7 +369,7 @@ function wpbdp_search_form() {
     $html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
     $html .= sprintf(
         '<input id="wpbdmsearchsubmit" class="submit wpbdp-button wpbdp-submit" type="submit" value="%s" />',
-        _x( 'Search Listings', 'templates', 'business-directory-plugin' )
+		esc_attr__( 'Search Listings', 'business-directory-plugin' )
     );
     $html .= sprintf(
         '<a href="%s" class="advanced-search-link">%s</a>',

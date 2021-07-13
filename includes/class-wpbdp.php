@@ -7,8 +7,10 @@
 final class WPBDP {
 
     public $_query_stack = array();
+
     private $_db_version = null;
 
+	public $settings = null;
 
     public function __construct() {
 		$this->_db_version = get_option( 'wpbdp-db-version', null );
@@ -100,6 +102,7 @@ final class WPBDP {
         register_deactivation_hook( WPBDP_PLUGIN_FILE, array( $this, 'plugin_deactivation' ) );
 
         add_action( 'init', array( $this, 'init' ), 0 );
+		self::translation_filters();
         add_filter( 'plugin_action_links_' . plugin_basename( WPBDP_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
         // Clear cache of page IDs when a page is saved.
@@ -218,6 +221,51 @@ final class WPBDP {
 
         do_action( 'wpbdp_loaded' );
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function translation_filters() {
+		add_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10, 3 );
+		add_filter( 'gettext_with_context', array( &$this, 'use_custom_context_strings' ), 10, 4 );
+	}
+
+	/**
+	 * Remove filters when an infinite loop is possible.
+	 *
+	 * @since x.x
+	 */
+	private function remove_translation_filters() {
+		remove_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10, 3 );
+		remove_filter( 'gettext_with_context', array( &$this, 'use_custom_context_strings' ), 10, 4 );
+	}
+
+	/**
+	 * Replace default naming in strings with the setting.
+	 *
+	 * @since x.x
+	 */
+	public function use_custom_strings( $translation, $text, $domain ) {
+		$domains = array( 'business-directory-plugin' );
+		$is_bd   = in_array( $domain, $domains ) || strpos( $domain, 'wpbdp' ) === 0;
+		$is_admin = is_admin() && ! wp_doing_ajax();
+		if ( ! $is_bd || $is_admin ) {
+			return $translation;
+		}
+
+		$this->remove_translation_filters();
+		$translation = WPBDP_App_Helper::replace_labels( $translation );
+		$this->translation_filters();
+
+		return $translation;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function use_custom_context_strings( $translation, $text, $context, $domain ) {
+		return $this->use_custom_strings( $translation, $text, $domain );
+	}
 
 	/**
 	 * Is this a page we should be changing?

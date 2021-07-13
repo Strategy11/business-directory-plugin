@@ -3734,7 +3734,6 @@ msgid "Abandoned"
 msgstr "Abbandonato"
 
 #: includes/admin/class-admin-listings.php:479
-msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Elimina Annuncio"
 
@@ -7952,7 +7951,6 @@ msgid "Recurring Fee Management"
 msgstr "Gestione dei canoni ricorrenti"
 
 #: templates/renew-listing.tpl.php:11
-msgctxt "templates"
 msgid "Renew Listing"
 msgstr "Modifica Abbonamento"
 

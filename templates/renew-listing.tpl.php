@@ -8,7 +8,7 @@
 ?>
 <div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">
 
-    <h2><?php echo esc_html_x( 'Renew Listing', 'templates', 'business-directory-plugin' ); ?></h2>
+    <h2><?php esc_html_e( 'Renew Listing', 'business-directory-plugin' ); ?></h2>
 
     <?php if ( isset( $payment ) && $payment ) : ?>
         <form action="<?php echo esc_url( $payment->get_checkout_url() ); ?>" method="POST">

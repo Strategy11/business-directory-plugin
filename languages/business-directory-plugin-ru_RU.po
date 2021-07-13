@@ -3598,7 +3598,6 @@ msgid "Abandoned"
 msgstr "Заброшено"
 
 #: includes/admin/class-admin-listings.php:479
-msgctxt "admin actions"
 msgid "Delete Listing"
 msgstr "Удалить запись"
 
@@ -7951,7 +7950,6 @@ msgid "Recurring Fee Management"
 msgstr "Управление периодический оплатой"
 
 #: templates/renew-listing.tpl.php:11
-msgctxt "templates"
 msgid "Renew Listing"
 msgstr "Продлить запись"
 

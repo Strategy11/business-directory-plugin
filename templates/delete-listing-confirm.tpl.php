@@ -1,6 +1,6 @@
 <div id="wpbdp-delete-listing-page">
 
-<h3><?php _ex( 'Delete Listing', 'manage recurring', 'business-directory-plugin' ); ?></h3>
+<h3><?php esc_html_e( 'Delete Listing', 'business-directory-plugin' ); ?></h3>
 
 <?php if ( $has_recurring ): ?>
 <div class="wpbdp-msg error">

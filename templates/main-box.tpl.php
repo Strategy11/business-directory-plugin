@@ -20,14 +20,14 @@
             <div class="box-row cols-<?php echo $no_cols; ?>">
                 <div class="box-col main-input">
                     <label for="wpbdp-main-box-keyword-field" style="display:none;">Keywords:</label>
-                    <input type="text" id="wpbdp-main-box-keyword-field" title="Quick search keywords" class="keywords-field" name="kw" placeholder="<?php echo esc_attr( _x( 'Find listings for <keywords>', 'main box', 'business-directory-plugin' ) ); ?>" />
+					<input type="text" id="wpbdp-main-box-keyword-field" title="Quick search keywords" class="keywords-field" name="kw" placeholder="<?php esc_attr_e( 'Search Listings', 'business-directory-plugin' ); ?>" />
                 </div>
                 <?php echo $extra_fields; ?>
             </div>
         </div>
         <div class="box-col submit-btn">
             <input type="submit" value="<?php echo esc_attr_x( 'Find Listings', 'main box', 'business-directory-plugin' ); ?>" /><br />
-            <a class="advanced-search-link" href="<?php echo $search_url; ?>"><?php echo esc_attr_x( 'Advanced Search', 'main box', 'business-directory-plugin' ); ?></a>
+			<a class="advanced-search-link" href="<?php echo esc_url( $search_url ); ?>"><?php echo esc_attr_x( 'Advanced Search', 'main box', 'business-directory-plugin' ); ?></a>
         </div>
     </form>
 </div>

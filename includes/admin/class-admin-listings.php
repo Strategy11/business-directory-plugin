@@ -477,7 +477,7 @@ class WPBDP_Admin_Listings {
             }
 
             if ( wpbdp_user_can( 'delete', $post->ID ) ) {
-                $actions['delete'] = sprintf( '<a href="%s">%s</a>', wpbdp_url( 'delete_listing', $post->ID ), _x( 'Delete Listing', 'admin actions', 'business-directory-plugin' ) );
+				$actions['delete'] = sprintf( '<a href="%s">%s</a>', wpbdp_url( 'delete_listing', $post->ID ), __( 'Delete Listing', 'business-directory-plugin' ) );
             }
         }
 

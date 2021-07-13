@@ -12,8 +12,9 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
         $tabs = array();
         $tabs[] = array(
             'id' => 'plan-info',
-            'label' => _x( 'Listing', 'listing metabox', 'business-directory-plugin' ),
-            'content' => $this->plan_info_tab() );
+			'label'   => __( 'Listing', 'business-directory-plugin' ),
+			'content' => $this->plan_info_tab(),
+		);
         $tabs[] = array(
             'id' => 'payments',
             'label' => _x( 'Recent Payments', 'listing metabox', 'business-directory-plugin' ),
