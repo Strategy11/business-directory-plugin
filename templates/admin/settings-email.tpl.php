@@ -8,6 +8,9 @@ $setting_name = ! empty( $setting_name ) ? $setting_name : '';
 $email_subject = ! empty( $email_subject ) ? $email_subject : __( 'Untitled', 'business-directory-plugin' );
 $email_body = ! empty( $email_body ) ? $email_body : '';
 $email_body_display = strip_tags( $email_body );
+if ( strlen( $email_body_display ) > 200 ) {
+    $email_body_display = substr( $email_body_display, 0, 200 ) ) . '...';
+}
 
 $placeholders = ! empty( $placeholders ) ? $placeholders : array();
 $before_container = ! empty( $before_container ) ? $before_container : '';
@@ -32,23 +35,8 @@ echo $before_container;
     ?>
     <div class="wpbdp-settings-email-preview" title="<?php esc_attr_e( 'Click to edit email', 'business-directory-plugin' ); ?>">
         <a href="#" class="wpbdp-settings-email-edit-btn wpbdp-tag"><?php esc_html_e( 'Click to edit', 'business-directory-plugin' ); ?></a>
-        <h4>
-            <?php
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo $email_subject;
-            ?>
-        </h4>
-        <?php if ( strlen( $email_body_display ) > 200 ): ?>
-            <?php
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo substr( $email_body_display, 0, 200 );
-            ?>...
-        <?php else: ?>
-            <?php
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo $email_body_display;
-            ?>
-        <?php endif; ?>
+        <h4><?php echo esc_html( $email_subject ); ?></h4>
+		<?php echo wp_kses_post( $email_body_display ); ?>
     </div>
     <?php
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

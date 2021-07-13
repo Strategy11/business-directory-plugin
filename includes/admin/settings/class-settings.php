@@ -178,6 +178,10 @@ class WPBDP__Settings {
 
         if ( 'number' == $args['type'] ) {
             add_filter( 'wpbdp_settings_sanitize_' . $args['id'], array( $this, 'validate_number_setting' ), 10, 2 );
+        } elseif ( 'text' === $args['type'] || 'radio' === $args['type'] ) {
+        	add_filter( 'wpbdp_settings_sanitize_' . $args['id'], 'sanitize_text_field' );
+        } elseif ( 'textarea' === $args['type'] ) {
+        	add_filter( 'wpbdp_settings_sanitize_' . $args['id'], 'wp_kses_post' );
         }
 
         $this->settings[ $args['id' ] ] = $args;
