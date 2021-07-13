@@ -121,7 +121,9 @@ class WPBDP_App_Helper {
 	private static function get_label( $name ) {
 		$defaults = self::default_strings();
 		$default  = isset( $defaults[ $name ] ) ? $defaults[ $name ] : false;
-		return wpbdp_get_option( $name . '-label', $default );
+		$label    = wpbdp_get_option( $name . '-label', $default );
+		$label    = strip_tags( $label );
+		return $label;
 	}
 
 	/**
