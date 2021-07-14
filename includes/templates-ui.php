@@ -303,7 +303,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'directory', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-show-directory-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            __( 'Directory', 'business-directory-plugin' ),
+			esc_attr__( 'Directory', 'business-directory-plugin' ),
             wpbdp_url( '/' )
         );
         $buttons_count++;
@@ -312,7 +312,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'listings', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-view-listings-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            __( 'View All Listings', 'business-directory-plugin' ),
+			esc_attr__( 'View All Listings', 'business-directory-plugin' ),
             wpbdp_url( 'all_listings' )
         );
         $buttons_count++;
@@ -321,7 +321,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'manage', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-manage-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            __( 'Manage Listings', 'business-directory-plugin' ),
+			esc_attr__( 'Manage Listings', 'business-directory-plugin' ),
             wpbdp_url( 'manage_listings' )
         );
         $buttons_count++;
@@ -330,7 +330,7 @@ function wpbdp_main_links( $buttons = null ) {
     if ( in_array( 'create', $buttons ) ) {
         $html .= sprintf(
             '<input id="wpbdp-bar-submit-listing-button" type="button" value="%s" onclick="window.location.href = \'%s\'" class="button wpbdp-button" />',
-            esc_html__( 'Add Listing', 'business-directory-plugin' ),
+			esc_attr__( 'Add Listing', 'business-directory-plugin' ),
             esc_js( wpbdp_url( 'submit_listing' ) )
         );
         $buttons_count++;

@@ -682,6 +682,7 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => __( 'Listing label', 'business-directory-plugin' ),
 				'desc'    => __( 'What is a single listing called?', 'business-directory-plugin' ),
 				'default' => __( 'Listing', 'business-directory-plugin' ),
+				'placeholder' => __( 'Listing', 'business-directory-plugin' ),
 				'group'   => 'listings/strings',
 			)
 		);
@@ -693,6 +694,7 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => __( 'Listing label (Plural)', 'business-directory-plugin' ),
 				'desc'    => __( 'What are your listings called?', 'business-directory-plugin' ),
 				'default' => __( 'Listings', 'business-directory-plugin' ),
+				'placeholder' => __( 'Listings', 'business-directory-plugin' ),
 				'group'   => 'listings/strings',
 			)
 		);
@@ -704,6 +706,7 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => __( 'Directory label', 'business-directory-plugin' ),
 				'desc'    => __( 'What should we call your directory?', 'business-directory-plugin' ),
 				'default' => __( 'Directory', 'business-directory-plugin' ),
+				'placeholder' => __( 'Directory', 'business-directory-plugin' ),
 				'group'   => 'listings/strings',
 			)
 		);

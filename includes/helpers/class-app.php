@@ -55,11 +55,7 @@ class WPBDP_App_Helper {
 			}
 
 			self::replace_single_label( $default, $label, $msg );
-
-			$lowercase = strtolower( $label );
-			if ( $label !== $lowercase ) {
-				self::replace_single_label( strtolower( $default ), $lowercase, $msg );
-			}
+			self::replace_single_label( strtolower( $default ), strtolower( $label ), $msg );
 		}
 		return $msg;
 	}
