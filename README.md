@@ -1,0 +1,2 @@
+= Run phpunit =
+composer install

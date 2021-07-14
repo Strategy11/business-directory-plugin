@@ -16,14 +16,13 @@
 	ignoreDeprecatedCodeUnitsFromCodeCoverage="true"
     >
   <testsuites>
-    <testsuite prefix="test_" suffix=".php">
-      <directory>tests/suite</directory>
+    <testsuite>
+      <directory suffix=".php">./tests/suite/</directory>
     </testsuite>
   </testsuites>
   <filter>
       <whitelist>
-          <directory>./includes</directory>
-          <directory>./templates</directory>
+          <directory suffix=".php">./includes</directory>
           <file>business-directory-plugin.php</file>
     </whitelist>
   </filter>
