@@ -1,0 +1,27 @@
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [ opened, labeled, synchronize ]
+
+name: Inspections
+jobs:
+  runPHPCSInspection:
+    if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
+    name: Run PHPCS inspection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Check PHPCS
+        run: |
+          export PHPCS_DIR=/tmp/phpcs
+          export SNIFFS_DIR=/tmp/sniffs
+          git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR
+          git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR
+          git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility
+          $PHPCS_DIR/bin/phpcs --config-set installed_paths $SNIFFS_DIR
+          $PHPCS_DIR/bin/phpcs -p -s -v -n . --standard=phpcs.xml --extensions=php

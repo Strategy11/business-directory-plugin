@@ -1,0 +1,12 @@
+{
+    "autoload-dev": {
+        "psr-4": {
+            "WPBDP\\Tests\\": ["tests/includes", "tests/suite/"]
+        }
+    },
+    "require-dev": {
+        "antecedent/patchwork": "^2.0",
+        "brain/monkey": "^2",
+        "phake/phake": "^2.3"
+    }
+}
