@@ -711,7 +711,7 @@ class WPBDP__Shortcodes {
 		$template_id = 'single';
 		$vars = WPBDP_Listing_Display_Helper::single_listing_vars();
 		$vars = apply_filters( 'wpbdp_template_variables', $vars, $template_id );
-		$vars = apply_filters( 'wpbdp_template_variables__' . $template_id, $vars, $path );
+		$vars = apply_filters( 'wpbdp_template_variables__' . $template_id, $vars, $template_id );
 
 		$html = '';
 		foreach ( $sections as $section ) {
@@ -720,7 +720,11 @@ class WPBDP__Shortcodes {
 				if ( ! empty( $add['value'] ) ) {
 					$html .= $add['value'];
 				} elseif ( isset( $add['callback'] ) ) {
-					$html .= call_user_func_array( $add['callback'], array( $vars, $vars['_template'] ) );
+					$send = array( $vars );
+					if ( isset( $vars['_template'] ) ) {
+						$send[] = $vars['_template'];
+					}
+					$html .= call_user_func_array( $add['callback'], $send );
 				}
 			}
 		}
