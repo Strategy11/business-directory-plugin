@@ -980,7 +980,20 @@ function wpbdp_x_render_page( $template_id, $vars = array() ) {
 
 function wpbdp_x_part( $template_id, $vars = array() ) {
     global $wpbdp;
-    echo $wpbdp->themes->render_part( $template_id, $vars );
+	$echo = ! isset( $vars['echo'] ) || $vars['echo'] === true;
+
+	// Temporary reverse compatibilty
+	if ( isset( $vars['images'] ) && $template_id === 'parts/listing-images' ) {
+		_deprecated_argument( __FUNCTION__, '5.13.1', '$vars[images] has been replaced with $vars[extra_images]' );
+		$vars['extra_images'] = $vars['images'];
+		unset( $vars['images'] );
+	}
+
+	$part = $wpbdp->themes->render_part( $template_id, $vars );
+	if ( ! $echo ) {
+		return $part;
+	}
+	echo $part;
 }
 
 function wpbdp_add_template_dir( $dir_or_file ) {

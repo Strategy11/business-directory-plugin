@@ -15,25 +15,7 @@
         <?php echo $field->html; ?>
     <?php endforeach; ?>
 
-	<?php
-	wpbdp_render(
-		'parts/listing-socials',
-		array(
-			'fields' => $fields,
-			'echo'   => true,
-		),
-		true
-	);
-	?>
+	<?php wpbdp_x_part( 'parts/listing-socials' ); ?>
 </div>
 
-<?php
-wpbdp_render(
-	'parts/listing-images',
-	array(
-		'images' => $images->extra,
-		'echo'   => true,
-	),
-	true
-);
-?>
+<?php wpbdp_x_part( 'parts/listing-images' ); ?>

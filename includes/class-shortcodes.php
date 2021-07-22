@@ -573,12 +573,12 @@ class WPBDP__Shortcodes {
 
 		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'images_vars' ) );
 
-		return wpbdp_render(
+		return wpbdp_x_part(
 			'parts/listing-images',
 			array(
-				'images' => $vars['images']->extra,
-			),
-			true
+				'extra_images' => $vars['images']->extra,
+				'echo'         => false,
+			)
 		);
 	}
 
@@ -595,12 +595,12 @@ class WPBDP__Shortcodes {
 
 		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'fields_vars' ) );
 
-		return wpbdp_render(
+		return wpbdp_x_part(
 			'parts/listing-socials',
 			array(
 				'fields' => $vars['fields'],
-			),
-			true
+				'echo'   => false,
+			)
 		);
 	}
 
@@ -615,13 +615,13 @@ class WPBDP__Shortcodes {
 			return '';
 		}
 
-		return wpbdp_render(
+		return wpbdp_x_part(
 			'parts/listing-buttons',
 			array(
 				'listing_id' => $atts['id'],
 				'view'       => 'single',
-			),
-			false
+				'echo'       => false,
+			)
 		);
 	}
 
