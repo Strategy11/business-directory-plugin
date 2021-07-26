@@ -34,13 +34,11 @@ $query = isset( $query ) ? $query : wpbdp_current_query();
                     <?php wpbdp_render_listing( null, 'excerpt', 'echo' ); ?>
                 <?php endwhile; ?>
 				<?php
-				wpbdp_render(
+				wpbdp_x_part(
 					'parts/pagination',
 					array(
 						'query' => $query,
-						'echo'  => true,
-					),
-					true
+					)
 				);
 				?>
             </div>

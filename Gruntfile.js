@@ -102,7 +102,7 @@ module.exports = function( grunt ) {
       // Compress config.
       grunt.config.set( 'compress.' + id, {
         options: {
-          archive: './release/' + path.basename(basedir) + '-<%= compress.version %>.zip',
+          archive: '../' + path.basename(basedir) + '-<%= compress.version %>.zip',
           mode: 'zip'
         },
         expand: true,

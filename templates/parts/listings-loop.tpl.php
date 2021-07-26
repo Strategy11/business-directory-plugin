@@ -11,13 +11,11 @@ else:
 		wpbdp_render_listing( null, 'excerpt', 'echo' );
 	}
 
-	wpbdp_render(
+	wpbdp_x_part(
 		'parts/pagination',
 		array(
 			'query' => $query,
-			'echo'  => true,
-		),
-		true
+		)
 	);
 
 endif;
