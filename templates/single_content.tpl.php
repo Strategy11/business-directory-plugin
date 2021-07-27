@@ -23,23 +23,9 @@
 		echo $field->html;
 	}
 
-	wpbdp_render(
-		'parts/listing-socials',
-		array(
-			'fields' => $fields,
-			'echo'   => true,
-		),
-		true
-	);
+	wpbdp_x_part( 'parts/listing-socials' );
 
-	wpbdp_render(
-		'parts/listing-images',
-		array(
-			'images' => $images->extra,
-			'echo'   => true,
-		),
-		true
-	);
+	wpbdp_x_part( 'parts/listing-images' );
 	?>
 </div>
 </div>

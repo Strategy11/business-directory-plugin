@@ -16,12 +16,10 @@
 </div>
 
 <?php
-wpbdp_render(
+wpbdp_x_part(
 	'parts/listing-images',
 	array(
-		'images' => $extra_images,
-		'echo'   => true,
-	),
-	true
+		'extra_images' => $extra_images,
+	)
 );
 ?>

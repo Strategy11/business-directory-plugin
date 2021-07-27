@@ -16,13 +16,14 @@
     </div>
 
     <?php
-    echo wpbdp_render(
-        'parts/listing-buttons', array(
+	wpbdp_x_part(
+		'parts/listing-buttons',
+		array(
 			'listing_id' => $listing_id,
 			'view'       => 'single',
-        ), false
-    );
-?>
-    <?php wpbdp_x_part( 'single_content' ); ?>
+		)
+	);
 
+	wpbdp_x_part( 'single_content' );
+	?>
 </div>
