@@ -201,7 +201,7 @@ class WPBDP_NavXT_Integration {
     }
 
     function before_search( $trail ) {
-        $trail->add( new bcn_breadcrumb( _x( 'Search', 'navxt', 'business-directory-plugin' ) ) );
+		$trail->add( new bcn_breadcrumb( __( 'Search', 'business-directory-plugin' ) ) );
     }
 
     // }}

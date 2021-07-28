@@ -123,6 +123,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 				'fields'               => $fields,
 				'searching'            => $searching,
 				'results'              => $results,
+				'count'                => $this->get_count(),
             )
         );
 
@@ -134,4 +135,11 @@ class WPBDP__Views__Search extends WPBDP__View {
         return $html;
     }
 
+	/**
+	 * @since x.x
+	 */
+	private function get_count() {
+		global $wp_query;
+		return $wp_query->found_posts;
+	}
 }

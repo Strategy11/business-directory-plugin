@@ -10,7 +10,7 @@
     <?php
     $social = $fields->filter( 'social' );
     ?>
-    <?php if ( $social ): ?>
+	<?php if ( $social && $social->html ): ?>
     <div class="social-fields cf"><?php echo $social->html; ?></div>
     <?php endif; ?>
 </div>
