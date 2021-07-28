@@ -25,7 +25,7 @@
 
     <p>
         <input type="button" class="wpbdp-button reset" value="<?php _ex( 'Clear', 'search', 'business-directory-plugin' ); ?> " onclick="window.location.href = '<?php echo wpbdp_get_page_link( 'search' ); ?>';" />
-        <input type="submit" class="wpbdp-submit wpbdp-button submit" value="<?php _ex('Search', 'search', 'business-directory-plugin' ); ?>" />
+		<input type="submit" class="wpbdp-submit wpbdp-button submit" value="<?php esc_attr_e( 'Search', 'business-directory-plugin' ); ?>" />
     </p>
 </form>
 

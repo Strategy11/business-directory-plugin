@@ -253,8 +253,8 @@ class WPBDP_Admin_Listings {
 
     // {{{ Custom columns.
     function modify_columns( $columns ) {
-        // Hide comments and author column.
-        unset( $columns['author'], $columns['comments'] );
+		// Hide comments column.
+		unset( $columns['comments'] );
 
         $new_columns = array();
 

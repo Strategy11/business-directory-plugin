@@ -108,8 +108,10 @@ class WPBDP_SearchWidget extends WP_Widget {
 			<?php
         }
 
-        echo sprintf('<p><input type="submit" value="%s" class="submit wpbdp-search-widget-submit" /></p>', _x('Search', 'widgets', 'business-directory-plugin' ));
-        echo '</form>';
+		?>
+		<p><input type="submit" value="<?php esc_attr_e( 'Search', 'business-directory-plugin' ); ?>" class="submit wpbdp-search-widget-submit" /></p>
+		</form>
+		<?php
 
         echo $after_widget;
 

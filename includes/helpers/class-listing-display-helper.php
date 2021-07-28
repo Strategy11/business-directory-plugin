@@ -82,6 +82,9 @@ class WPBDP_Listing_Display_Helper {
 		}
 
 		if ( ! empty( $vars['images'] ) && $vars['images']->main ) {
+			if ( ! isset( $vars['listing_css_class'] ) ) {
+				$vars['listing_css_class'] = '';
+			}
 			$vars['listing_css_class'] .= ' with-image';
 		}
 
