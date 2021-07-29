@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-07-14 18:02:31+00:00\n"
+"POT-Creation-Date: 2021-07-29 17:45:48+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -62,7 +62,7 @@ msgid "Attributes"
 msgstr "Feld Attribute"
 
 #: includes/admin/class-admin-listings.php:337
-#: includes/helpers/class-listing-display-helper.php:125
+#: includes/helpers/class-listing-display-helper.php:128
 #, fuzzy
 msgid "Featured"
 msgstr "unterstützter (unbeweglicher) Status"
@@ -1071,6 +1071,15 @@ msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
 msgstr ""
+
+#: includes/compatibility/class-navxt-integration.php:204
+#: includes/widgets/widget-search.php:112
+#: templates/admin/payments-index.tpl.php:13
+#: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:28
+#: templates/search.tpl.php:3
+#, fuzzy
+msgid "Search"
+msgstr "Suche"
 
 #: includes/controllers/class-addons.php:25
 msgid ""
@@ -2162,12 +2171,6 @@ msgstr "Preis Erstellen"
 msgid "Search Payments:"
 msgstr "Ergebnisse durchsuchen"
 
-#: templates/admin/payments-index.tpl.php:13
-#: templates/deprecated/search.tpl.php:8
-#, fuzzy
-msgid "Search"
-msgstr "Suche"
-
 #: templates/admin/privacy-policy.tpl.php:12
 msgid "Suggested text:"
 msgstr ""
@@ -2597,7 +2600,7 @@ msgstr "Post Inhalt"
 msgid "Next"
 msgstr ""
 
-#: templates/deprecated/search.tpl.php:16
+#: templates/deprecated/search.tpl.php:16 templates/search.tpl.php:10
 #, fuzzy
 msgid "Search Results"
 msgstr "Ergebnisse durchsuchen"
@@ -7669,11 +7672,6 @@ msgctxt "navxt"
 msgid "Submit Listing"
 msgstr "Eintrag erstellen"
 
-#: includes/compatibility/class-navxt-integration.php:204
-msgctxt "navxt"
-msgid "Search"
-msgstr "Suche"
-
 #: includes/fields/class-fieldtypes-checkbox.php:18
 msgctxt "form-fields api"
 msgid "Checkbox"
@@ -8723,16 +8721,6 @@ msgctxt "search"
 msgid "Clear"
 msgstr "Zurücksetzen"
 
-#: templates/search-form.tpl.php:28 templates/search.tpl.php:3
-msgctxt "search"
-msgid "Search"
-msgstr "Suche"
-
-#: templates/search.tpl.php:10
-msgctxt "search"
-msgid "Search Results"
-msgstr "Ergebnisse durchsuchen"
-
 #: includes/views/show_listing.php:12
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
@@ -8882,11 +8870,6 @@ msgstr "Felder durchsuchen (erweiterter Modus)"
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Diese Felder in der Form anzeigen."
-
-#: includes/widgets/widget-search.php:111
-msgctxt "widgets"
-msgid "Search"
-msgstr "Suche"
 
 #: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:116
 #: templates/admin/csv-export.tpl.php:127 templates/admin/csv-import.tpl.php:50
@@ -9259,6 +9242,22 @@ msgstr "Ungültiger Erneuerungszustand."
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Weiter"
+
+#~ msgctxt "navxt"
+#~ msgid "Search"
+#~ msgstr "Suche"
+
+#~ msgctxt "search"
+#~ msgid "Search"
+#~ msgstr "Suche"
+
+#~ msgctxt "search"
+#~ msgid "Search Results"
+#~ msgstr "Ergebnisse durchsuchen"
+
+#~ msgctxt "widgets"
+#~ msgid "Search"
+#~ msgstr "Suche"
 
 #, fuzzy
 #~ msgctxt "fees admin"

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-07-14 18:02:31+00:00\n"
+"POT-Creation-Date: 2021-07-29 17:45:48+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -59,7 +59,7 @@ msgid "Attributes"
 msgstr "Attributs"
 
 #: includes/admin/class-admin-listings.php:337
-#: includes/helpers/class-listing-display-helper.php:125
+#: includes/helpers/class-listing-display-helper.php:128
 #, fuzzy
 msgid "Featured"
 msgstr "Statut sélectionné (Post-it)"
@@ -1098,6 +1098,15 @@ msgid ""
 msgstr ""
 "L'annuaire n'est pas disponible pour le moment. Veuillez réessayer dans "
 "quelques minutes ou contactez l'administrateur si le problème persiste."
+
+#: includes/compatibility/class-navxt-integration.php:204
+#: includes/widgets/widget-search.php:112
+#: templates/admin/payments-index.tpl.php:13
+#: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:28
+#: templates/search.tpl.php:3
+#, fuzzy
+msgid "Search"
+msgstr "Rechercher"
 
 #: includes/controllers/class-addons.php:25
 msgid ""
@@ -2222,12 +2231,6 @@ msgstr "Ajouter une note"
 msgid "Search Payments:"
 msgstr "Rechercher des paiements:"
 
-#: templates/admin/payments-index.tpl.php:13
-#: templates/deprecated/search.tpl.php:8
-#, fuzzy
-msgid "Search"
-msgstr "Rechercher"
-
 #: templates/admin/privacy-policy.tpl.php:12
 msgid "Suggested text:"
 msgstr ""
@@ -2672,7 +2675,7 @@ msgstr "Code postal"
 msgid "Next"
 msgstr "Suivant"
 
-#: templates/deprecated/search.tpl.php:16
+#: templates/deprecated/search.tpl.php:16 templates/search.tpl.php:10
 #, fuzzy
 msgid "Search Results"
 msgstr "Résultats de la recherche"
@@ -7626,11 +7629,6 @@ msgctxt "navxt"
 msgid "Submit Listing"
 msgstr "Soumettre l'annonce"
 
-#: includes/compatibility/class-navxt-integration.php:204
-msgctxt "navxt"
-msgid "Search"
-msgstr "Rechercher"
-
 #: includes/fields/class-fieldtypes-checkbox.php:18
 msgctxt "form-fields api"
 msgid "Checkbox"
@@ -8712,16 +8710,6 @@ msgctxt "search"
 msgid "Clear"
 msgstr "Effacer"
 
-#: templates/search-form.tpl.php:28 templates/search.tpl.php:3
-msgctxt "search"
-msgid "Search"
-msgstr "Rechercher"
-
-#: templates/search.tpl.php:10
-msgctxt "search"
-msgid "Search Results"
-msgstr "Résultats de la recherche"
-
 #: includes/views/show_listing.php:12
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
@@ -8873,11 +8861,6 @@ msgstr "Champ de recherche (mode avancé)"
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Afficher les champs suivants dans le formulaire."
-
-#: includes/widgets/widget-search.php:111
-msgctxt "widgets"
-msgid "Search"
-msgstr "Rechercher"
 
 #: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:116
 #: templates/admin/csv-export.tpl.php:127 templates/admin/csv-import.tpl.php:50
@@ -9252,6 +9235,22 @@ msgstr "Adresse e-mail non valide"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuer"
+
+#~ msgctxt "navxt"
+#~ msgid "Search"
+#~ msgstr "Rechercher"
+
+#~ msgctxt "search"
+#~ msgid "Search"
+#~ msgstr "Rechercher"
+
+#~ msgctxt "search"
+#~ msgid "Search Results"
+#~ msgstr "Résultats de la recherche"
+
+#~ msgctxt "widgets"
+#~ msgid "Search"
+#~ msgstr "Rechercher"
 
 #~ msgctxt "fees admin"
 #~ msgid "Listing"
