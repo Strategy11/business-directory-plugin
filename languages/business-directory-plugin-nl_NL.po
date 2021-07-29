@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-07-14 18:02:31+00:00\n"
+"POT-Creation-Date: 2021-07-29 17:45:48+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -58,7 +58,7 @@ msgid "Attributes"
 msgstr "Veld attributen"
 
 #: includes/admin/class-admin-listings.php:337
-#: includes/helpers/class-listing-display-helper.php:125
+#: includes/helpers/class-listing-display-helper.php:128
 #, fuzzy
 msgid "Featured"
 msgstr "Aanbieding/sticky"
@@ -1034,6 +1034,15 @@ msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
 msgstr ""
+
+#: includes/compatibility/class-navxt-integration.php:204
+#: includes/widgets/widget-search.php:112
+#: templates/admin/payments-index.tpl.php:13
+#: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:28
+#: templates/search.tpl.php:3
+#, fuzzy
+msgid "Search"
+msgstr "Zoek"
 
 #: includes/controllers/class-addons.php:25
 msgid ""
@@ -2047,12 +2056,6 @@ msgstr "Veld toevoegen "
 msgid "Search Payments:"
 msgstr "Zoek resultaten"
 
-#: templates/admin/payments-index.tpl.php:13
-#: templates/deprecated/search.tpl.php:8
-#, fuzzy
-msgid "Search"
-msgstr "Zoek"
-
 #: templates/admin/privacy-policy.tpl.php:12
 msgid "Suggested text:"
 msgstr ""
@@ -2447,7 +2450,7 @@ msgstr "Postcode"
 msgid "Next"
 msgstr ""
 
-#: templates/deprecated/search.tpl.php:16
+#: templates/deprecated/search.tpl.php:16 templates/search.tpl.php:10
 #, fuzzy
 msgid "Search Results"
 msgstr "Zoek resultaten"
@@ -7277,11 +7280,6 @@ msgctxt "navxt"
 msgid "Submit Listing"
 msgstr "Registratie Creëren"
 
-#: includes/compatibility/class-navxt-integration.php:204
-msgctxt "navxt"
-msgid "Search"
-msgstr "Zoek"
-
 #: includes/fields/class-fieldtypes-checkbox.php:18
 msgctxt "form-fields api"
 msgid "Checkbox"
@@ -8265,16 +8263,6 @@ msgctxt "search"
 msgid "Clear"
 msgstr "Leegmaken"
 
-#: templates/search-form.tpl.php:28 templates/search.tpl.php:3
-msgctxt "search"
-msgid "Search"
-msgstr "Zoek"
-
-#: templates/search.tpl.php:10
-msgctxt "search"
-msgid "Search Results"
-msgstr "Zoek resultaten"
-
 #: includes/views/show_listing.php:12
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
@@ -8423,11 +8411,6 @@ msgstr ""
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr ""
-
-#: includes/widgets/widget-search.php:111
-msgctxt "widgets"
-msgid "Search"
-msgstr "Zoek"
 
 #: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:116
 #: templates/admin/csv-export.tpl.php:127 templates/admin/csv-import.tpl.php:50
@@ -8774,6 +8757,22 @@ msgstr ""
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Doorgaan"
+
+#~ msgctxt "navxt"
+#~ msgid "Search"
+#~ msgstr "Zoek"
+
+#~ msgctxt "search"
+#~ msgid "Search"
+#~ msgstr "Zoek"
+
+#~ msgctxt "search"
+#~ msgid "Search Results"
+#~ msgstr "Zoek resultaten"
+
+#~ msgctxt "widgets"
+#~ msgid "Search"
+#~ msgstr "Zoek"
 
 #, fuzzy
 #~ msgctxt "fees admin"

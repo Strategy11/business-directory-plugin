@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-07-14 18:02:31+00:00\n"
+"POT-Creation-Date: 2021-07-29 17:45:48+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -69,7 +69,7 @@ msgid "Attributes"
 msgstr "Атрибуты"
 
 #: includes/admin/class-admin-listings.php:337
-#: includes/helpers/class-listing-display-helper.php:125
+#: includes/helpers/class-listing-display-helper.php:128
 #, fuzzy
 msgid "Featured"
 msgstr "Статус \"Особая\""
@@ -1078,6 +1078,15 @@ msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
 msgstr ""
+
+#: includes/compatibility/class-navxt-integration.php:204
+#: includes/widgets/widget-search.php:112
+#: templates/admin/payments-index.tpl.php:13
+#: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:28
+#: templates/search.tpl.php:3
+#, fuzzy
+msgid "Search"
+msgstr "Поиск"
 
 #: includes/controllers/class-addons.php:25
 msgid ""
@@ -2151,12 +2160,6 @@ msgstr "Добавить тариф"
 msgid "Search Payments:"
 msgstr "Результаты поиска"
 
-#: templates/admin/payments-index.tpl.php:13
-#: templates/deprecated/search.tpl.php:8
-#, fuzzy
-msgid "Search"
-msgstr "Поиск"
-
 #: templates/admin/privacy-policy.tpl.php:12
 msgid "Suggested text:"
 msgstr ""
@@ -2572,7 +2575,7 @@ msgstr "Текст записи"
 msgid "Next"
 msgstr ""
 
-#: templates/deprecated/search.tpl.php:16
+#: templates/deprecated/search.tpl.php:16 templates/search.tpl.php:10
 #, fuzzy
 msgid "Search Results"
 msgstr "Результаты поиска"
@@ -7654,11 +7657,6 @@ msgctxt "navxt"
 msgid "Submit Listing"
 msgstr "Добавить"
 
-#: includes/compatibility/class-navxt-integration.php:204
-msgctxt "navxt"
-msgid "Search"
-msgstr "Поиск"
-
 #: includes/fields/class-fieldtypes-checkbox.php:18
 msgctxt "form-fields api"
 msgid "Checkbox"
@@ -8701,16 +8699,6 @@ msgctxt "search"
 msgid "Clear"
 msgstr "Очистить форму"
 
-#: templates/search-form.tpl.php:28 templates/search.tpl.php:3
-msgctxt "search"
-msgid "Search"
-msgstr "Поиск"
-
-#: templates/search.tpl.php:10
-msgctxt "search"
-msgid "Search Results"
-msgstr "Результаты поиска"
-
 #: includes/views/show_listing.php:12
 msgctxt "preview"
 msgid "This is just a preview. The listing has not been published yet."
@@ -8858,11 +8846,6 @@ msgstr "Поля поиска (расширенный режим):"
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Показать следующие поля в форме."
-
-#: includes/widgets/widget-search.php:111
-msgctxt "widgets"
-msgid "Search"
-msgstr "Поиск"
 
 #: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:116
 #: templates/admin/csv-export.tpl.php:127 templates/admin/csv-import.tpl.php:50
@@ -9239,6 +9222,22 @@ msgstr "Некорректный электронный адрес."
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Далее"
+
+#~ msgctxt "navxt"
+#~ msgid "Search"
+#~ msgstr "Поиск"
+
+#~ msgctxt "search"
+#~ msgid "Search"
+#~ msgstr "Поиск"
+
+#~ msgctxt "search"
+#~ msgid "Search Results"
+#~ msgstr "Результаты поиска"
+
+#~ msgctxt "widgets"
+#~ msgid "Search"
+#~ msgstr "Поиск"
 
 #, fuzzy
 #~ msgctxt "fees admin"

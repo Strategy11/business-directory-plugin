@@ -136,7 +136,7 @@ class WPBDP__Views__Search extends WPBDP__View {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.13.1
 	 */
 	private function get_count() {
 		global $wp_query;
