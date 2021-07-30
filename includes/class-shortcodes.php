@@ -571,7 +571,7 @@ class WPBDP__Shortcodes {
 			return '';
 		}
 
-		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'images_vars' ) );
+		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'images_vars', 'id' => $atts['id'] ) );
 
 		return wpbdp_x_part(
 			'parts/listing-images',
@@ -593,7 +593,7 @@ class WPBDP__Shortcodes {
 			return '';
 		}
 
-		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'fields_vars' ) );
+		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'fields_vars', 'id' => $atts['id'] ) );
 
 		return wpbdp_x_part(
 			'parts/listing-socials',
@@ -636,7 +636,7 @@ class WPBDP__Shortcodes {
 			return '';
 		}
 
-		$vars   = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'fields_vars' ) );
+		$vars   = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'fields_vars', 'id' => $atts['id'] ) );
 		$fields = $vars['fields'];
 
 		$atts['exclude'] = empty( $atts['exclude'] ) ? array( 'social' ) : explode( ',', $atts['exclude'] );
@@ -709,7 +709,7 @@ class WPBDP__Shortcodes {
 		$sections = explode( ',', $sections );
 
 		$template_id = 'single';
-		$vars = WPBDP_Listing_Display_Helper::single_listing_vars();
+		$vars = WPBDP_Listing_Display_Helper::single_listing_vars( array( 'id' => $atts['id'] ) );
 		$vars = apply_filters( 'wpbdp_template_variables', $vars, $template_id );
 		$vars = apply_filters( 'wpbdp_template_variables__' . $template_id, $vars, $template_id );
 

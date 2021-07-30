@@ -64,21 +64,23 @@ class WPBDP_Listing_Display_Helper {
 	public static function single_listing_vars( $include = array() ) {
 		global $post;
 
+		$post_id = isset( $include['id'] ) ? $include['id'] : $post->ID;
+
 		$vars = array();
 		if ( self::maybe_include_vars( $include, 'basic_vars' ) ) {
-			$vars = array_merge( $vars, self::basic_vars( $post->ID ) );
+			$vars = array_merge( $vars, self::basic_vars( $post_id ) );
 		}
 
 		if ( self::maybe_include_vars( $include, 'fields_vars' ) ) {
-			$vars = array_merge( $vars, self::fields_vars( $post->ID, 'listing' ) );
+			$vars = array_merge( $vars, self::fields_vars( $post_id, 'listing' ) );
 		}
 
 		if ( self::maybe_include_vars( $include, 'images_vars' ) ) {
-			$vars = array_merge( $vars, self::images_vars( $post->ID, 'listing' ) );
+			$vars = array_merge( $vars, self::images_vars( $post_id, 'listing' ) );
 		}
 
 		if ( self::maybe_include_vars( $include, 'css_classes' ) ) {
-			$vars = array_merge( $vars, self::css_classes( $post->ID, 'single' ) );
+			$vars = array_merge( $vars, self::css_classes( $post_id, 'single' ) );
 		}
 
 		if ( ! empty( $vars['images'] ) && $vars['images']->main ) {
@@ -88,8 +90,8 @@ class WPBDP_Listing_Display_Helper {
 			$vars['listing_css_class'] .= ' with-image';
 		}
 
-		$vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
-		$vars = apply_filters( 'wpbdp_single_template_vars', $vars, $post->ID );
+		$vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post_id );
+		$vars = apply_filters( 'wpbdp_single_template_vars', $vars, $post_id );
 
 		return $vars;
 	}
@@ -237,7 +239,7 @@ class WPBDP_Listing_Display_Helper {
 			$pass_args['class'] = 'wpbdmthumbs wpbdp-excerpt-thumbnail';
 
             $thumb       = new StdClass();
-			$thumb->html = wpbdp_listing_thumbnail( null, $pass_args, $display );
+			$thumb->html = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
 
             $vars['images']->thumbnail = $thumb;
         }
