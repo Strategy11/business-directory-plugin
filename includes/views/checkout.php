@@ -197,7 +197,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         $this->gateway->save_billing_data( $this->payment );
         $this->payment->refresh();
 
-        $res = (array) $this->gateway->process_payment( $this->payment );
+		$res = $this->maybe_process_payment();
 
         if ( 'success' == $res['result'] && ! empty( $res['redirect'] ) ) {
             return $this->_redirect( $res['redirect'] );
@@ -230,6 +230,25 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         unset( $_POST['cvc'] );
         unset( $_POST['card_name'] );
     }
+
+	/**
+	 * If there's no amount, save the payment without sending it to
+	 * the payment gateway.
+	 *
+	 * @since x.x
+	 */
+	protected function maybe_process_payment() {
+		if ( $this->payment->amount !== '0.00' ) {
+			return (array) $this->gateway->process_payment( $this->payment );
+		}
+
+		$this->payment->status = 'completed';
+		$this->payment->save();
+
+		return array(
+			'result' => 'success',
+		);
+	}
 
     private function thank_you_message() {
         $vars = array(
