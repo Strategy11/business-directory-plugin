@@ -78,7 +78,7 @@ abstract class WPBDP__Payment_Gateway {
         $vars['errors'] = $errors;
         $vars['payment'] = $payment;
 
-        if ( 'form' == $this->get_integration_method() ) {
+		if ( $this->skip_payment_form( $payment ) ) {
             $vars['show_cc_section'] = false;
             $vars['show_details_section'] = false;
         }
@@ -90,7 +90,7 @@ abstract class WPBDP__Payment_Gateway {
         $errors = array();
 
         $required = array( 'payer_email', 'payer_first_name' );
-        if ( 'form' != $this->get_integration_method() ) {
+		if ( ! $this->skip_payment_form( $payment ) ) {
             $required = array_merge( $required, array( 'card_number', 'cvc', 'card_name', 'exp_month', 'exp_year', 'payer_address', 'payer_city', 'payer_zip', 'payer_country' ) );
         }
 
@@ -108,6 +108,13 @@ abstract class WPBDP__Payment_Gateway {
 
         return $errors;
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function skip_payment_form( $payment ) {
+		return 'form' === $this->get_integration_method() || $payment->amount === '0.00';
+	}
 
     public function save_billing_data( $payment ) {
         $form = $_POST;
