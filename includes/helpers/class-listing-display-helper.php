@@ -66,7 +66,9 @@ class WPBDP_Listing_Display_Helper {
 
 		$post_id = isset( $include['id'] ) ? $include['id'] : $post->ID;
 
-		$vars = array();
+		$vars = array(
+			'listing_id' => $post_id,
+		);
 		if ( self::maybe_include_vars( $include, 'basic_vars' ) ) {
 			$vars = array_merge( $vars, self::basic_vars( $post_id ) );
 		}
