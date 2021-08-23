@@ -24,19 +24,7 @@ class WPBDP_Themes {
     function __construct() {
         $this->find_themes();
 
-        // Overrides dir is priority 0.
-        $this->template_dirs[] = trailingslashit( get_stylesheet_directory() ) . 'business-directory/';
-
-        if ( get_stylesheet_directory() != get_template_directory() ) {
-            $this->template_dirs[] = trailingslashit( get_template_directory() ) . 'business-directory/';
-        }
-
-        // Theme template dir is priority 1.
-        $theme                 = $this->get_active_theme_data();
-        $this->template_dirs[] = $theme->path . 'templates/';
-
-        // Core templates are last priority.
-        $this->template_dirs[] = trailingslashit( WPBDP_PATH . 'templates' );
+        $this->set_template_dirs();
 
         // Keep settings controlling themes licenses in sync (Settings API <-> Themes API).
         // FIXME: this should be removed once everything is handled by the Settings API + Licensing API, but we're not
@@ -61,6 +49,27 @@ class WPBDP_Themes {
             $this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
         }
     }
+
+	/**
+	 * Get the list of folders to check for override templates.
+	 *
+	 * @since x.x
+	 */
+	private function set_template_dirs() {
+		// Theme BD template dir is priority 1.
+		$theme                       = $this->get_active_theme_data();
+		$this->template_dirs['bd']   = $theme->path . 'templates/';
+
+		$this->add_core_template_dir();
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function add_core_template_dir() {
+		// Core templates are last priority.
+		$this->template_dirs['core'] = trailingslashit( WPBDP_TEMPLATES_PATH );
+	}
 
     function call_theme_function( $fname, $args = array() ) {
         $theme = $this->get_active_theme_data();
@@ -875,7 +884,7 @@ class WPBDP_Themes {
         }
     }
 
-    function locate_template( $id ) {
+	public function locate_template( $id ) {
         $id = str_replace( '.tpl.php', '', $id );
 
         if ( isset( $this->cache['templates'][ $id ] ) ) {
@@ -883,13 +892,15 @@ class WPBDP_Themes {
         }
 
         $filename = str_replace( ' ', '-', $id ) . '.tpl.php';
-        $path     = false;
+		$path     = locate_template( 'business-directory/' . $filename );
 
         // Find the template.
         foreach ( $this->template_dirs as $p ) {
-            if ( file_exists( $p . $filename ) ) {
-                $path = $p . $filename;
+			if ( empty( $path ) && file_exists( $p . $filename ) ) {
+				$path = $p . $filename;
+			}
 
+			if ( $path ) {
 				/**
 				 * Allow override since the order isn't the most dependable indicator.
 				 *
@@ -906,8 +917,18 @@ class WPBDP_Themes {
             $this->cache['templates'][ $id ] = $path;
         }
 
-        return $path;
+		return empty( $path ) ? false : $path;
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function template_has_override( $id ) {
+		unset( $this->template_dirs['core'] );
+		$template = $this->locate_template( $id );
+		$this->add_core_template_dir();
+		return $template;
+	}
 
 	public function install_theme( $file ) {
 		$themes_dir                       = wp_normalize_path( $this->get_themes_dir() );

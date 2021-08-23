@@ -1002,11 +1002,16 @@ function wpbdp_locate_template( $template, $allow_override = true, $try_defaults
     }
 
 	if ( $allow_override ) {
-		$search_for = array();
+		global $wpbdp;
+
+		$search_for    = array();
+		$template_file = '';
 
 		foreach ( $template as $t ) {
-			$search_for[] = 'business-directory/' . $t . '.tpl.php';
-			$search_for[] = 'business-directory/' . $t . '.php';
+			$template_file = $wpbdp->themes->locate_template( $t );
+			if ( $template_file ) {
+				break;
+			}
 
 			// These file checks could be a little risky and get unintended results.
 			if ( wpbdp_get_option( 'disable-cpt' ) ) {
@@ -1017,11 +1022,21 @@ function wpbdp_locate_template( $template, $allow_override = true, $try_defaults
 			}
 		}
 
-		// Check for the template in the theme.
-		$template_file = locate_template( $search_for );
+		// Check for the template in the WP theme.
+		if ( empty( $template_file ) ) {
+			$template_file = locate_template( $search_for );
+		}
 	}
 
-    if ( ! $template_file && $try_defaults ) {
+	if ( $template_file && ! $try_defaults ) {
+		_deprecated_argument( __FUNCTION__, '5.13.2', 'Defaults are always checked here. Use $wpbdp->themes->template_has_override' );
+
+		// Temporary reverse compatibility: The BD folder was checked when it shouldn't be. Remove it.
+		if ( strpos( $template_path, WPBDP_TEMPLATES_PATH ) !== false ) {
+			$template_file = '';
+		}
+	} elseif ( ! $allow_override ) {
+		// Only get the core file if it hasn't already been checked.
         foreach ( $template as $t ) {
             $template_path = WPBDP_TEMPLATES_PATH . '/' . $t . '.tpl.php';
 
@@ -1069,7 +1084,10 @@ function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
 }
 
 function _wpbdp_template_mode( $template ) {
-    if ( wpbdp_locate_template( array( 'businessdirectory-' . $template, 'wpbusdirman-' . $template ), true, false ) ) {
+	global $wpbdp;
+
+	$has_override = $wpbdp->themes->template_has_override( 'businessdirectory-' . $template ) || $wpbdp->themes->template_has_override( 'wpbusdirman-' . $template );
+	if ( $has_override ) {
         return 'template';
     }
     return 'page';
