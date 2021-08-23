@@ -680,7 +680,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $this->check_server_requirements();
             $this->check_setup();
-            $this->check_ajax_compat_mode();
             $this->check_deprecation_warnings();
 
             do_action( 'wpbdp_admin_notices' );
@@ -1126,23 +1125,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
         }
 
-        public function check_ajax_compat_mode() {
-            global $pagenow;
-
-            if ( in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) || ! WPBDP_App_Helper::is_admin_page( 'wpbdp_settings' ) ) {
-                return;
-            }
-
-            $notice = get_option( 'wpbdp-ajax-compat-mode-notice' );
-
-            if ( ! $notice ) {
-                return;
-            }
-
-            $this->messages[] = $notice;
-            delete_option( 'wpbdp-ajax-compat-mode-notice' );
-        }
-
         private function check_deprecation_warnings() {
             global $wpbdp_deprecation_warnings;
 
@@ -1206,6 +1188,13 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 array_splice( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ], count( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ] ), 0, array( $submenu[ $parent_file ][ $directory_regions ] ) );
             }
         }
+
+		/**
+		 * @deprecated 5.13.2
+		 */
+		public function check_ajax_compat_mode() {
+			_deprecated_function( __METHOD__, '5.13.2' );
+		}
 
 		/**
 		 * @deprecated 5.9.2

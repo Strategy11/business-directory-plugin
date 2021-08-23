@@ -340,16 +340,7 @@ final class WPBDP__Settings__Bootstrap {
                 'group' => 'general/advanced',
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'        => 'ajax-compat-mode',
-                'type'      => 'checkbox',
-                'name'      => _x( 'Enable AJAX compatibility mode?', 'settings', 'business-directory-plugin' ),
-                'desc'      => _x( 'Check this if you are having trouble with BD, particularly when importing or exporting CSV files.', 'admin settings', 'business-directory-plugin' )
-                    . ' ' . str_replace( '<a>', '<a href="http://businessdirectoryplugin.com/support-forum/faq/how-to-check-for-plugin-and-theme-conflicts-with-bd/" target="_blank" rel="noopener">', _x( 'If this compatibility mode doesn\'t solve your issue, you may be experiencing a more serious conflict. <a>Here is an article</a> about how to test for theme and plugin conflicts with Business Directory.', 'settings', 'business-directory-plugin' ) ),
-                'group'     => 'general/advanced',
-            )
-        );
+
         wpbdp_register_setting(
             array(
                 'id'    => 'disable-submit-listing',

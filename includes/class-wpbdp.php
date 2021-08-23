@@ -130,7 +130,6 @@ final class WPBDP {
         $this->formfields = $this->form_fields; // Backwards compat.
 
         $this->settings = new WPBDP__Settings();
-		$this->maybe_run_ajax_compat_mode();
         $this->settings->bootstrap();
 
         $this->cpt_integration = new WPBDP__CPT_Integration();
@@ -311,28 +310,16 @@ final class WPBDP {
 	}
 
 	/**
-	 * If this is a BD ajax call, check if other plugins should be disabled.
-	 *
-	 * @since 5.12.1
-	 */
-	private function maybe_run_ajax_compat_mode() {
-		$action  = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
-		$is_ajax = wp_doing_ajax() && strpos( $action, 'wpbdp' ) !== false;
-
-		if ( $is_ajax && wpbdp_get_option( 'ajax-compat-mode' ) ) {
-			add_filter( 'option_active_plugins', array( $this, 'run_ajax_compat_mode' ) );
-		}
-	}
-
-	/**
 	 * Only activate BD plugins during BD-related AJAX requests
 	 *
 	 * @since 5.12.1
+	 * @deprecated 5.13.2
 	 *
 	 * @param  array $plugins
 	 * @return array $plugins
 	 */
 	public function run_ajax_compat_mode( $plugins ) {
+		_deprecated_function( __METHOD__, '5.13.2' );
 		return array_filter( $plugins, array( $this, 'keep_only_bd_plugins' ) );
 	}
 
@@ -342,10 +329,12 @@ final class WPBDP {
 	 * @param string $plugin
 	 *
 	 * @since 5.12.1
+	 * @deprecated 5.13.2
 	 *
 	 * @return boolean
 	 */
 	private function keep_only_bd_plugins( $plugin ) {
+		_deprecated_function( __METHOD__, '5.13.2' );
 		return false !== strpos( $plugin, 'business-directory-' );
 	}
 
