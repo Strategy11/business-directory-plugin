@@ -77,13 +77,12 @@ class WPBDP__Shortcodes {
          * Parameters:
          *  - tag       Shows the listings with a certain tag name. (Allowed Values: Any valid tag name within the directory. Can be a comma separated list too (eg. "New, Hot").)
          *  - category  Shows the listings with a certain category. (Allowed Values: Any valid category slug or ID you have configured under Directory -> Directory Categories. Can be a comma separated list too (e.g. "Dentists, Doctors" or 1,2,56).)
-         *  - title     Adds a title to the page of listings to indicate what they are for. (Allowed Values: Any non-blank string.)
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
          *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
          * Example:
          *  - Display listings from category "Dentists" with tag "New" and include a title.
          *
-         *    `[businessdirectory-listings tag="New" category="Dentists" title="Recent Listings for Dentists"]`
+         *    `[businessdirectory-listings tag="New" category="Dentists"]`
          *
          */
         $this->add( 'businessdirectory-listings',
@@ -299,7 +298,6 @@ class WPBDP__Shortcodes {
                 'tags'           => '',
                 'category'       => '',
                 'categories'     => '',
-                'title'          => '',
                 'operator'       => 'OR',
                 'author'         => '',
                 'menu'           => null,
