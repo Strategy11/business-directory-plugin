@@ -202,7 +202,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
-		$html = wpbdp_x_part(
+		$html = wpbdp_render(
             'submit-listing',
             array(
                 'listing'  => $this->listing,
@@ -211,8 +211,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 'is_admin' => current_user_can( 'administrator' ),
                 'editing'  => $this->editing,
                 'submit'   => $this,
-				'echo'     => false,
             ),
+			false
         );
         return $html;
     }

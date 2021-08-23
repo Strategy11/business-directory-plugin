@@ -978,6 +978,9 @@ function wpbdp_x_render_page( $template_id, $vars = array() ) {
     return wpbdp_x_render( $template_id, $vars, 'page' );
 }
 
+/**
+ * Used when we want a BD theme to be able to override.
+ */
 function wpbdp_x_part( $template_id, $vars = array() ) {
     global $wpbdp;
 	$echo = ! isset( $vars['echo'] ) || $vars['echo'] === true;

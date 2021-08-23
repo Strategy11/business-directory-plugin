@@ -1001,20 +1001,25 @@ function wpbdp_locate_template( $template, $allow_override = true, $try_defaults
         $template = array( $template );
     }
 
-    if ( wpbdp_get_option( 'disable-cpt' ) ) {
-        if ( $allow_override ) {
-            $search_for = array();
+	if ( $allow_override ) {
+		$search_for = array();
 
-            foreach ( $template as $t ) {
-                $search_for[] = $t . '.tpl.php';
-                $search_for[] = $t . '.php';
-                $search_for[] = 'single/' . $t . '.tpl.php';
-                $search_for[] = 'single/' . $t . '.php';
-            }
+		foreach ( $template as $t ) {
+			$search_for[] = 'business-directory/' . $t . '.tpl.php';
+			$search_for[] = 'business-directory/' . $t . '.php';
 
-            $template_file = locate_template( $search_for );
-        }
-    }
+			// These file checks could be a little risky and get unintended results.
+			if ( wpbdp_get_option( 'disable-cpt' ) ) {
+				$search_for[] = $t . '.tpl.php';
+				$search_for[] = $t . '.php';
+				$search_for[] = 'single/' . $t . '.tpl.php';
+				$search_for[] = 'single/' . $t . '.php';
+			}
+		}
+
+		// Check for the template in the theme.
+		$template_file = locate_template( $search_for );
+	}
 
     if ( ! $template_file && $try_defaults ) {
         foreach ( $template as $t ) {
