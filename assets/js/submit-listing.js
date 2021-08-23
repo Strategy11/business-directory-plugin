@@ -351,11 +351,7 @@ jQuery(function($) {
             this.doing_ajax = true;
             var self = this;
 
-            $.post( this.ajax_url, data, function( res ) {
-				res = res.replace( /^\s+|\s+$/g, '' ); // Remove white space for conflicts.
-				if ( res.indexOf( '{' ) === 0 ) {
-					res = JSON.parse( res );
-				}
+            $.post( this.ajax_url, data, function( res ) {s
                 if ( ! res.success ) {
                     alert( wpbdpSubmitListingL10n.somethingWentWrong );
                     return;
@@ -391,10 +387,6 @@ jQuery(function($) {
                 data += '&action=wpbdp_ajax&handler=submit_listing__reset_plan';
 
                 self.ajax( data, function( res ) {
-					res = res.replace( /^\s+|\s+$/g, '' ); // Remove white space for conflicts.
-					if ( res.indexOf( '{' ) === 0 ) {
-						res = JSON.parse( res );
-					}
                     self.refresh( res );
                 } );
             }) ;
