@@ -351,7 +351,7 @@ jQuery(function($) {
             this.doing_ajax = true;
             var self = this;
 
-            $.post( this.ajax_url, data, function( res ) {s
+            $.post( this.ajax_url, data, function( res ) {
                 if ( ! res.success ) {
                     alert( wpbdpSubmitListingL10n.somethingWentWrong );
                     return;
