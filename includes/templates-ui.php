@@ -181,7 +181,7 @@ function _wpbdp_get_terms_from_args( $args ) {
 		'order'      => $args['order'],
 		'hide_empty' => false,
 		'fields'     => 'all',
-		'parent'     => intval( $args['parent'] ),
+		'parent'     => intval( is_object( $args['parent'] ) ? $args['parent']->term_id : $args['parent'] ),
 	);
 
 	if ( empty( $args['parent'] ) ) {
