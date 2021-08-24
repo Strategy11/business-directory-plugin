@@ -15,6 +15,7 @@ The best WordPress Business Directory Plugin. Build an easy team directory, memb
 
 Are you looking for a simple directory website builder for WordPress? With Business Directory Plugin, you can be in control without a developer.
 
+== The Best Business Directory Plugin for WordPress ==
 You've found the most popular, versatile, and easy to use WordPress directory plugin available. Increase interaction on your WordPress site, improve customer retention and add a generate revenue with our WordPress business directory plugin!
 
 Our easy WordPress directory plugin allows you to take the listings you want and build a local directory, simple directory of providers, a real estate listings site, a Yellow-Pages directory, a Yelp clone with review sections, an address book directory, a book review site (like Goodreads), and much more.
@@ -25,7 +26,7 @@ Not only can you create business listings, but you can also build any other kind
 
 Need a classifieds listings site? Try [Another WordPress Classifieds Plugin - AWPCP](https://wordpress.org/plugins/another-wordpress-classifieds-plugin/).
 
-== Get Simple Listing Solutions ==
+== Get Simple Business Directory Listing Solutions ==
 Here are just a few things our community is doing to build connections, help communities, and grow traffic with our directory website builder:
 
 * Start a listing manager service for providers. (Like counselors, plumbers, electricians, house cleaning, locksmiths, therapists, wedding vendors, veterinarians, consultants, photographers, artists, authors, etc.)
@@ -81,7 +82,7 @@ For a detailed list of features, please visit: [BusinessDirectoryPlugin.com](htt
 * [PayFast Gateway](https://businessdirectoryplugin.com/downloads/payfast-payment-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept payments using PayFast.
 * [Authorize.net Gateway](https://businessdirectoryplugin.com/knowledge-base/authorize-net-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
-== Premium Directory Themes ==
+== Premium Business Directory Themes ==
 Transform your WP directory site the easy way with a few clicks. Our business directory templates are designed not to take over as a full WordPress theme.
 
 * [Elegant Grid Theme](https://businessdirectoryplugin.com/downloads/elegant-grid-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
@@ -94,7 +95,7 @@ Transform your WP directory site the easy way with a few clicks. Our business di
 
 For more information please visit [businessdirectoryplugin.com](https://businessdirectoryplugin.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-== Docs ==
+== Business Directory Plugin Docs ==
 
 Please see our [Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).We also have an [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
