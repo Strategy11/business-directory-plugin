@@ -9,58 +9,58 @@ use function Patchwork\redefine;
 
 class TestCase extends \PHPUnit\Framework\TestCase {
 
-    private $patchwork = array();
+	private $patchwork = array();
 
 	public static function wpSetUpBeforeClass( $factory ) {
 		$_POST = array();
 	}
 
 	public function setup() {
-        parent::setup();
-        Monkey\setup();
+		parent::setup();
+		Monkey\setup();
 
-        if ( ! defined( 'WPBDP_POST_TYPE' ) ) {
-            define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
-        }
+		if ( ! defined( 'WPBDP_POST_TYPE' ) ) {
+			define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
+		}
 
-        if ( ! defined( 'WPBDP_CATEGORY_TAX' ) ) {
-            define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
-        }
-    }
+		if ( ! defined( 'WPBDP_CATEGORY_TAX' ) ) {
+			define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
+		}
+	}
 
-    public function teardown() {
-        array_map( 'Patchwork\restore', $this->patchwork );
+	public function teardown() {
+		array_map( 'Patchwork\restore', $this->patchwork );
 
-        Monkey\teardown();
-        parent::teardown();
-    }
+		Monkey\teardown();
+		parent::teardown();
+	}
 
-    protected function prepare_options( $options ) {
-        $callback = function( $name, $default = null ) use ( $options ) {
-            if ( isset( $options[ $name ] ) ) {
-                return $options[ $name ];
-            }
+	protected function prepare_options( $options ) {
+		$callback = function( $name, $default = null ) use ( $options ) {
+			if ( isset( $options[ $name ] ) ) {
+				return $options[ $name ];
+			}
 
-            return $default;
-        };
+			return $default;
+		};
 
-        $this->redefine( 'wpbdp_get_option', $callback );
-    }
+		$this->redefine( 'wpbdp_get_option', $callback );
+	}
 
-    /**
-     * Use it to redefine methods of the object under the test or static methods.
-     *
-     * To set expectations or control the behaviour of other methods/functions
-     * use Brain\Monkey\Functions API.
-     *
-     * The same can be achieved creating a partial mock of the object under test,
-     * but I find the following easier to write:
-     *
-     * `$this->redefine( 'ObjectUnderTest::some_method', function() { ... } );
-     */
-    protected function redefine( $callable, $callback ) {
-        $this->patchwork[] = redefine( $callable, $callback );
-    }
+	/**
+	 * Use it to redefine methods of the object under the test or static methods.
+	 *
+	 * To set expectations or control the behaviour of other methods/functions
+	 * use Brain\Monkey\Functions API.
+	 *
+	 * The same can be achieved creating a partial mock of the object under test,
+	 * but I find the following easier to write:
+	 *
+	 * `$this->redefine( 'ObjectUnderTest::some_method', function() { ... } );
+	 */
+	protected function redefine( $callable, $callback ) {
+		$this->patchwork[] = redefine( $callable, $callback );
+	}
 
 	/**
 	 * Get a user by the specified role and set them as the current user
@@ -88,7 +88,7 @@ class TestCase extends \PHPUnit\Framework\TestCase {
 	public function get_user_by_role( $role ) {
 		$users = get_users(
 			array(
-				'role' => $role,
+				'role'   => $role,
 				'number' => 1,
 			)
 		);
@@ -106,6 +106,44 @@ class TestCase extends \PHPUnit\Framework\TestCase {
 		$m = new \ReflectionMethod( $method[0], $method[1] );
 		$m->setAccessible( true );
 		return $m->invokeArgs( is_string( $method[0] ) ? null : $method[0], $args );
+	}
+
+	/**
+	 * Reset the data
+	 * This clears posts already made
+	 */
+	public function reset_data() {
+		global $wpdb;
+		$wpdb->query( "TRUNCATE TABLE {$wpdb->posts};" );
+		$wpdb->query( "TRUNCATE TABLE {$wpdb->postmeta};" );
+
+		// create demo posts
+		$posts = array(
+			'sample-post' => array(
+				'post_content' => 'Just a very simple sample post...',
+			),
+			'sample-page' => array(
+				'post_type'    => 'page',
+				'post_content' => 'Just a very simple sample page...',
+			),
+		);
+		foreach ( $posts as $slug => $data ) {
+			$defaults = array(
+				'post_type'   => 'post',
+				'post_author' => 1,
+				'post_title'  => $slug,
+				'post_name'   => $slug,
+			);
+			$data     = shortcode_atts( $defaults, $data );
+
+			$id = wp_insert_post( $data );
+			if ( ! empty( $data['meta'] ) ) {
+				foreach ( $data['meta'] as $key => $val ) {
+					$val = maybe_serialize( $val );
+					update_post_meta( $id, $key, $val );
+				}
+			}
+		}
 	}
 }
 

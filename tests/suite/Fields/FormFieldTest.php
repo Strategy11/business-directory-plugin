@@ -19,32 +19,32 @@ use WPBDP_Form_Field;
  */
 class FormFieldTest extends TestCase {
 
-    /**
-     * Test convert_input().
-     */
-    public function test_convert_input_applies_filter() {
-        // Uncomment me when FormField becomes easier to test.
-        $this->markTestSkipped();
+	/**
+	 * Test convert_input().
+	 */
+	public function test_convert_input_applies_filter() {
+		// Uncomment me when FormField becomes easier to test.
+		$this->markTestSkipped();
 
-        $original_value = 'something';
+		$original_value = 'something';
 
-        // This is a hack to avoid having to load FormField and all form field
-        // types just for this test.
-        $this->redefine( 'WPBDP_Form_Field::__construct', Patchwork\always( null ) );
+		// This is a hack to avoid having to load FormField and all form field
+		// types just for this test.
+		$this->redefine( 'WPBDP_Form_Field::__construct', Patchwork\always( null ) );
 
-        Functions\when( 'wp_parse_args' )->returnArg();
+		Functions\when( 'wp_parse_args' )->returnArg();
 
-        Filters\expectApplied( 'wpbdp_form_field_pre_convert_input' )
-            ->never()
-            ->with( Mockery::any(), Mockery::any() );
+		Filters\expectApplied( 'wpbdp_form_field_pre_convert_input' )
+			->never()
+			->with( Mockery::any(), Mockery::any() );
 
-        Filters\expectApplied( 'wpbdp_form_field_pre_convert_input' )
-            ->once()
-            ->with( null, Mockery::any(), Mockery::any() );
+		Filters\expectApplied( 'wpbdp_form_field_pre_convert_input' )
+			->once()
+			->with( null, Mockery::any(), Mockery::any() );
 
-        $form_field = new WPBDP_Form_Field();
+		$form_field = new WPBDP_Form_Field();
 
-        // Execution
-        $form_field->convert_input( $original_value );
-    }
+		// Execution
+		$form_field->convert_input( $original_value );
+	}
 }
