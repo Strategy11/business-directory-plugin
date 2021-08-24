@@ -29,6 +29,7 @@ jobs:
           php-version: ${{ matrix.php }}
           tools: phpunit:${{ matrix.phpunit }}
       - run: composer install --no-progress --ansi
+      - run: composer update
       - name: Installing WordPress
         run: |
           export WP_DEVELOP_DIR=/tmp/wordpress/
@@ -50,7 +51,6 @@ jobs:
       - name: PhpUnit tests
         run: |
           cd "/tmp/wordpress/src/wp-content/plugins/${GITHUB_REPOSITORY#*/}"
-          composer update
           pwd
           phpunit
   syntax-test:
