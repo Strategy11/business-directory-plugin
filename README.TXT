@@ -13,7 +13,7 @@ The best WordPress Business Directory Plugin. Build an easy team directory, memb
 
 [Main Site](https://businessdirectoryplugin.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) | [Docs](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-Are you looking for a simple directory website builder for WordPress? With Business Directory Plugin, you can be in control without a developer.
+Are you looking for a simple directory website builder with WordPress? With Business Directory Plugin, it's never been easier to be in control with directories for any business type. All without a developer!
 
 == The Best Business Directory Plugin for WordPress ==
 You've found the most popular, versatile, and easy to use WordPress directory plugin available. Increase interaction on your WordPress site, improve customer retention and add a generate revenue with our WordPress business directory plugin!
@@ -22,12 +22,12 @@ Our easy WordPress directory plugin allows you to take the listings you want and
 
 Not only can you create business listings, but you can also build any other kind of listings directory. Build a team or employee directory, company directory, medical directory, and other web directory sites with our easy listing plugin.
 
-[See demo](https://demo.businessdirectoryplugin.com/).
+[See Business Directory Plugin demo](https://demo.businessdirectoryplugin.com/).
 
 Need a classifieds listings site? Try [Another WordPress Classifieds Plugin - AWPCP](https://wordpress.org/plugins/another-wordpress-classifieds-plugin/).
 
 == Get Simple Business Directory Listing Solutions ==
-Here are just a few things our community is doing to build connections, help communities, and grow traffic with our directory website builder:
+Here are just a few things our community is doing with Business Directory Plugin to build connections, help communities, and grow traffic with our directory website builder:
 
 * Start a listing manager service for providers. (Like counselors, plumbers, electricians, house cleaning, locksmiths, therapists, wedding vendors, veterinarians, consultants, photographers, artists, authors, etc.)
 * Make a Yelp-clone with reviews to connect travelers to hotels, tours, local businesses, and other visitor attractions.
@@ -112,13 +112,13 @@ Please see our detailed [Installation Guide](https://businessdirectoryplugin.com
 
 For the definitive FAQ section, please visit the [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), or our [Getting Started](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
-= Can I accept paid and free listings? =
+= Can I accept paid and free listings with Business Directory Plugin? =
 Yes it can. You can do this by creating fee plans for 0.00 and some other paid amount at the same time. For more details, read [this article](https://businessdirectoryplugin.com/knowledge-base/how-to-run-bd-in-free-mode/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
 = Do you have video tutorials for building WordPress directories? =
 Yes we do. They can be found [here](https://businessdirectoryplugin.com/video-tutorials/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
-= Will this plugin work with my theme? =
+= Will Business Directory Plugin work with my WordPress theme? =
 Our WP directory plugin will work with any well-written, WP compliant theme. Generally speaking, paid themes tend to be higher quality than free ones.
 
 Whatever theme you pick, we recommend using the Theme Check plugin (available for free on WordPress.org) to validate a theme. The more errors and warnings you see on the theme when you run that check, the worse the theme is. You can read more about it at https://wordpress.org/plugins/theme-check/
@@ -154,6 +154,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Medical directory
 * Restaurant directory
 * Church directory
+* City directory
 * Travel review directories
 * Software review sites
 * Professional directory
