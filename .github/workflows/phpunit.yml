@@ -50,6 +50,7 @@ jobs:
       - name: PhpUnit tests
         run: |
           cd "/tmp/wordpress/src/wp-content/plugins/${GITHUB_REPOSITORY#*/}"
+		  composer update
           pwd
           phpunit
   syntax-test:
