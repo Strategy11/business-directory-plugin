@@ -18,7 +18,10 @@ class MultiSelectTest extends TestCase {
 		$options = array(
 			'first'  => 'First Select',
 			'second' => 'Second Select',
+			'third'  => 'Third Select',
 		);
+
+		$values = array( 'first', 'second' );
 
 		$field = Phake::mock( 'WPBDP_Form_Field' );
 
@@ -32,7 +35,7 @@ class MultiSelectTest extends TestCase {
 
 		// Execution
 		// SEt selected items
-		$output = $type->render_field_inner( $field, array( 'first', 'second' ), $context );
+		$output = $type->render_field_inner( $field, $values, $context );
 
 		// Verification
 		$this->assertContains( $empty_option_label, $output );
@@ -41,6 +44,6 @@ class MultiSelectTest extends TestCase {
 		// There should be 2 selected occurences
 		$selected = substr_count( $output, 'selected="selected"' );
 
-		$this->assertEquals( 2, $selected );
+		$this->assertEquals( count( $values ), $selected );
 	}
 }
