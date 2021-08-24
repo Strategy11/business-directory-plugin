@@ -9,15 +9,15 @@ on:
 jobs:
   build-test:
     if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         include:
           - php: 7.3
-            wordpress: master
+            wordpress: 5.8
             phpunit: 6.5.14
           - php: 7.4
-            wordpress: master
+            wordpress: 5.8
             phpunit: 6.5.14
     name: PHP ${{ matrix.php }} tests in WP ${{ matrix.wordpress }}
     steps:
