@@ -14,10 +14,10 @@ jobs:
       matrix:
         include:
           - php: 7.3
-            wordpress: master
+            wordpress: 5.8
             phpunit: 6.5.14
           - php: 7.4
-            wordpress: master
+            wordpress: 5.8
             phpunit: 6.5.14
     name: PHP ${{ matrix.php }} tests in WP ${{ matrix.wordpress }}
     steps:
@@ -29,7 +29,6 @@ jobs:
           php-version: ${{ matrix.php }}
           tools: phpunit:${{ matrix.phpunit }}
       - run: composer install --no-progress --ansi
-      - run: composer update
       - name: Installing WordPress
         run: |
           export WP_DEVELOP_DIR=/tmp/wordpress/
