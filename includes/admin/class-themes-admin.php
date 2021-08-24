@@ -76,6 +76,8 @@ class WPBDP_Themes_Admin {
     }
 
     function pre_themes_templates_warning() {
+		global $wpbdp;
+
         $pre_themes_templates = array(
 			'businessdirectory-excerpt',
 			'businessdirectory-listing',
@@ -85,7 +87,8 @@ class WPBDP_Themes_Admin {
         $overridden           = array();
 
         foreach ( $pre_themes_templates as $t ) {
-            if ( $f = wpbdp_locate_template( $t, true, false ) ) {
+			$f = $wpbdp->themes->template_has_override( $t );
+			if ( ! empty( $f ) ) {
                 $overridden[ $t ] = str_replace( WP_CONTENT_DIR, '', $f );
             }
         }

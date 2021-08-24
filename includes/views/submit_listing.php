@@ -202,7 +202,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
-        $html = wpbdp_render(
+		$html = wpbdp_render(
             'submit-listing',
             array(
                 'listing'  => $this->listing,
@@ -212,7 +212,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 'editing'  => $this->editing,
                 'submit'   => $this,
             ),
-            false
+			false
         );
         return $html;
     }
