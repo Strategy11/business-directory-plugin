@@ -53,7 +53,7 @@ class WPBDP_Themes {
 	/**
 	 * Get the list of folders to check for override templates.
 	 *
-	 * @since x.x
+	 * @since 5.13.2
 	 */
 	private function set_template_dirs() {
 		// Theme BD template dir is priority 1.
@@ -64,7 +64,7 @@ class WPBDP_Themes {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.13.2
 	 */
 	private function add_core_template_dir() {
 		// Core templates are last priority.
@@ -921,7 +921,7 @@ class WPBDP_Themes {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.13.2
 	 */
 	public function template_has_override( $id ) {
 		unset( $this->template_dirs['core'] );

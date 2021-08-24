@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8
-Stable tag: 5.13.1
+Stable tag: 5.13.2
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -163,6 +163,15 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.13.2 =
+* New: Added support for using id=# in several shortcodes. ie [businessdirectory-socials id=251], [businessdirectory-buttons id=251], [businessdirectory-details id=251], [businessdirectory-images id=251]
+* Fix: Check template override locations more consistently
+* Fix: Payment gateway errors when checking out with 100% off code
+* Fix: PHP error when viewing a category page with children
+* Fix: Non-BD plugin were getting deactivated when activating a module from the Modules page
+* Removed: The Ajax compatibility mode has been removed
+* Removed: The 'title' option in businessdirectory-listings shortcode wasn't being processed
+
 = 5.13.1 =
 * New: Allow the part/templates to be overridden
 * New: Include the author column on the admin listings page

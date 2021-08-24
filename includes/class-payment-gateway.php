@@ -110,7 +110,7 @@ abstract class WPBDP__Payment_Gateway {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.13.2
 	 */
 	private function skip_payment_form( $payment ) {
 		return 'form' === $this->get_integration_method() || $payment->amount === '0.00';

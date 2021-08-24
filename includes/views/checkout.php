@@ -235,7 +235,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 	 * If there's no amount, save the payment without sending it to
 	 * the payment gateway.
 	 *
-	 * @since x.x
+	 * @since 5.13.2
 	 */
 	protected function maybe_process_payment() {
 		if ( $this->payment->amount !== '0.00' ) {
