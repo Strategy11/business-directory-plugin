@@ -9,6 +9,11 @@ use WPBDP\Tests\TestCase;
 
 use WPBDP__Listing_Search;
 
+/**
+ * Search class needs additional adjustments to return variables that can be used to test
+ * These include - the query, the params, etc
+ * It will allow easier testing
+ */
 class SearchTest extends TestCase {
 
 	 /**
