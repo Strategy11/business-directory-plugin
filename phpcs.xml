@@ -39,7 +39,6 @@
         <exclude name="PSR2.Classes.PropertyDeclaration.VarUsed" />
         <exclude name="WordPress.WP.I18n.UnorderedPlaceholdersPlural" />
         <exclude name="WordPress.WP.I18n.UnorderedPlaceholdersSingle" />
-        <exclude name="WordPress.Classes.ClassInstantiation.MissingParenthesis" />
         <exclude name="Generic.Strings.UnnecessaryStringConcat.Found" />
         <exclude name="WordPress.WhiteSpace.OperatorSpacing.SpacingBefore" />
 

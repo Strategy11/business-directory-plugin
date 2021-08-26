@@ -364,8 +364,8 @@ function wpbdp_capture_action($hook) {
     $output = '';
 
     $args = func_get_args();
-    if (count($args) > 1) {
-        $args = array_slice($args,  1);
+	if ( count( $args ) > 1 ) {
+		$args = array_slice( $args, 1 );
     } else {
         $args = array();
     }
