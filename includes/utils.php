@@ -460,18 +460,20 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
 
     if ($file['error'] == 0) {
         if ($constraints['max-size'] > 0 && $file['size'] > $constraints['max-size'] ) {
-            $error_msg = sprintf( _x( 'File size (%s) exceeds maximum file size of %s', 'utils', 'business-directory-plugin' ),
-                                size_format ($file['size'], 2),
-                                size_format ($constraints['max-size'], 2)
-                                );
+			$error_msg = sprintf(
+				__( 'File size (%1$s) exceeds maximum file size of %2$s', 'business-directory-plugin' ),
+				size_format( $file['size'], 2 ),
+				size_format( $constraints['max-size'], 2 )
+			);
             return false;
         }
 
         if ( $constraints['min-size'] > 0 && $file['size'] < $constraints['min-size'] ) {
-            $error_msg = sprintf( _x( 'File size (%s) is inferior to the required minimum file size of %s', 'utils', 'business-directory-plugin' ),
-                                size_format( $file['size'], 2 ),
-                                size_format( $constraints['min-size'], 2 )
-                                );
+			$error_msg = sprintf(
+				__( 'File size (%1$s) is smaller than the minimum file size of %2$s', 'business-directory-plugin' ),
+				size_format( $file['size'], 2 ),
+				size_format( $constraints['min-size'], 2 )
+			);
             return false;
         }
 
@@ -519,27 +521,35 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
                 $failed = false;
 
                 if ( ! $failed && $meta && $constraints['min-width'] > 0 && $meta['width'] < $constraints['min-width'] ) {
-                    $error_msg = sprintf( _x( 'Image width (%s px) is inferior to minimum required width of %s px.', 'utils', 'business-directory-plugin' ),
-                                          $meta['width'],
-                                          $constraints['min-width'] );
+					$error_msg = sprintf(
+						__( 'Image width (%1$s px) is smaller than the minimum width of %2$s px.', 'business-directory-plugin' ),
+						$meta['width'],
+						$constraints['min-width']
+					);
                 }
 
                 if ( ! $failed && $meta && $constraints['min-height'] > 0 && $meta['height'] < $constraints['min-height'] ) {
-                    $error_msg = sprintf( _x( 'Image height (%s px) is inferior to minimum required height of %s px.', 'utils', 'business-directory-plugin' ),
-                                          $meta['height'],
-                                          $constraints['min-height'] );
+					$error_msg = sprintf(
+						__( 'Image height (%1$s px) is smaller than the minimum height of %2$s px.', 'business-directory-plugin' ),
+						$meta['height'],
+						$constraints['min-height']
+					);
                 }
 
                 if ( ! $failed && $meta && $constraints['max-width'] > 0 && $meta['width'] > $constraints['max-width'] ) {
-                    $error_msg = sprintf( _x( 'Image width (%s px) is greater than maximum allowed width of %s px.', 'utils', 'business-directory-plugin' ),
-                                          $meta['width'],
-                                          $constraints['max-width'] );
+					$error_msg = sprintf(
+						__( 'Image width (%1$s px) is greater than maximum width of %2$s px.', 'business-directory-plugin' ),
+						$meta['width'],
+						$constraints['max-width']
+					);
                 }
 
                 if ( ! $failed && $meta && $constraints['max-height'] > 0 && $meta['height'] > $constraints['max-height'] ) {
-                    $error_msg = sprintf( _x( 'Image height (%s px) is greater than maximum required height of %s px.', 'utils', 'business-directory-plugin' ),
-                                          $meta['height'],
-                                         $constraints['max-height'] );
+					$error_msg = sprintf(
+						__( 'Image height (%1$s px) is greater than maximum height of %2$s px.', 'business-directory-plugin' ),
+						$meta['height'],
+						$constraints['max-height']
+					);
                 }
 
                 if ( $failed ) {

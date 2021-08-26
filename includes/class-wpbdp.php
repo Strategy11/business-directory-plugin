@@ -478,8 +478,8 @@ final class WPBDP {
                 return $res->send_error(
                     sprintf(
                         _nx(
-                            'You\'re trying to upload %d images, but only have %d slot available. Please adjust your selection.',
-                            'You\'re trying to upload %d images, but only have %d slots available. Please adjust your selection.',
+							'You\'re trying to upload %$1d images, but only have %2$d slot available. Please adjust your selection.',
+							'You\'re trying to upload %2$d images, but only have %2$d slots available. Please adjust your selection.',
                             $slots_available,
                             'listing image upload',
                             'business-directory-plugin'
