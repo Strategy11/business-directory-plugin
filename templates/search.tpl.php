@@ -1,5 +1,7 @@
 <div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo $_class; ?>">
-    <div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
+    <?php if ( !$form_only ) : ?>
+        <div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
+    <?php endif; ?>
 	<h2 class="title"><?php esc_html_e( 'Search', 'business-directory-plugin' ); ?></h2>
 
     <?php if ( 'none' == $search_form_position || 'above' == $search_form_position ): ?>
