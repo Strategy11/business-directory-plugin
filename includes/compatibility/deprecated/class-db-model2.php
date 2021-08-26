@@ -199,7 +199,7 @@ class WPBDP_DB_Model2 {
                 break;
         }
 
-        $single = (  ! $single && isset( $args['_single'] ) && true == $args['_single'] ) ? true : $single;
+		$single = ( ! $single && isset( $args['_single'] ) && true == $args['_single'] ) ? true : $single;
         $order = isset( $args['_order'] ) ? $args['_order'] : '';
         $limit = isset( $args['_limit'] ) ? $args['_limit'] : '';
         $extra = isset( $args['_query_extra'] ) ? $args['_query_extra'] : array();
