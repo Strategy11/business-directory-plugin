@@ -165,6 +165,10 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.13.3 =
+* Fix: An warning message was showing in the admin area when it shouldn't.
+* Update for code styling and more escaping.
+
 = 5.13.2 =
 * New: Added support for using id=# in several shortcodes. ie [businessdirectory-socials id=251], [businessdirectory-buttons id=251], [businessdirectory-details id=251], [businessdirectory-images id=251]
 * Fix: Check template override locations more consistently
@@ -203,10 +207,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: When an image is removed from a link, don't delete it from the media library if it's still being used in another listing.
 * Fix: Some listing images were not being removed correctly from a listing when removed from the back-end.
 * Fix: Prevent an error when the default free plan is deleted.
-
-= 5.11.2 =
-* Security: Lots of security fixes after a security audit. This includes XSS, Cross-Site Request Forgery, and unprotected import and export files.
-* Fix: Some combination of add-ons was preventing the listing form from progressing.
-* Fix: Post duplicator plugins were resulting in an endless loop when updating or deleting a duplicated listing.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
