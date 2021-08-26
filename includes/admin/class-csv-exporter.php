@@ -330,7 +330,7 @@ class WPBDP_CSVExporter {
                     break;
 				case 'images':
                     $images = array();
-                    
+
                     $image_ids = $listing->get_images( 'ids' );
 
 					if ( $image_ids ) {

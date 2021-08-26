@@ -19,7 +19,7 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
         return array( 'category', 'tags', 'meta' );
     }
 
-    protected function get_field_settings( $field=null, $association=null ) {
+	protected function get_field_settings( $field = null, $association = null ) {
         $settings = parent::get_field_settings( $field, $association );
 
         $label = _x( 'Number of options visible without scrolling', 'form-fields-admin', 'business-directory-plugin' );

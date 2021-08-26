@@ -302,7 +302,7 @@ class WPBDP_Listing {
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
-    public function get_categories( $fields='all' ) {
+	public function get_categories( $fields = 'all' ) {
         $args = array();
         $args['fields'] = $fields;
 
@@ -416,14 +416,15 @@ class WPBDP_Listing {
         $payments = $this->get_latest_payments();
 
         if ( ! $payments ) {
-            return new WP_Error( 'No listing payments', _x( "Listing has no registered payments", 'listing', 'business-directory-plugin' ) );
+			return new WP_Error( 'No listing payments', _x( 'Listing has no registered payments', 'listing', 'business-directory-plugin' ) );
         }
 
         foreach ( $payments as $payment ) {
             if ( ! $payment->delete() ) {
                 return new WP_Error(
                     'payment delete error',
-                    sprintf( "%s: %s",
+					sprintf(
+						'%s: %s',
                         _x( "Can't delete payment", 'listing', 'business-directory-plugin' ),
                         $payment->id
                     )
@@ -979,9 +980,9 @@ class WPBDP_Listing {
 
         $query = "SELECT COUNT(*) FROM {$wpdb->posts} p ";
 		$query .= "LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON ( p.ID = l.listing_id ) ";
-		$query .= "WHERE p.post_type = %s ";
+		$query .= 'WHERE p.post_type = %s ';
 		$query .= "AND post_status IN ({$query_post_statuses}) ";
-		$query .= "AND l.listing_id IS NULL ";
+		$query .= 'AND l.listing_id IS NULL ';
 
         return absint( $wpdb->get_var( $wpdb->prepare( $query, WPBDP_POST_TYPE ) ) );
     }

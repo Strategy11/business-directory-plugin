@@ -253,7 +253,7 @@ class WPBDP__Listing_Email_Notification {
             $plan = $listing->get_fee_plan();
 
             $plan_features = '';
-                
+
             foreach ( $plan->fee->get_feature_list() as $feature ) {
                 $plan_features .= '<li>' . $feature . '</li>';
             }
@@ -430,9 +430,9 @@ class WPBDP__Listing_Email_Notification {
                     'payment'         => $payment,
                     'listing'         => $listing,
                     'plan'            => $plan,
-                    'payment_datails' => preg_replace( "/\r|\n/", "", wpbdp()->payments->render_invoice( $payment ) ),
-                ), 
-                false 
+					'payment_datails' => preg_replace( "/\r|\n/", '', wpbdp()->payments->render_invoice( $payment ) ),
+				),
+				false
             );
             $admin_email->send();
         }
@@ -440,7 +440,7 @@ class WPBDP__Listing_Email_Notification {
         // Notify the submitter.
         if ( in_array( 'payment-completed', wpbdp_get_option( 'user-notifications' ), true ) ) {
             $plan_features = '';
-                
+
             foreach ( $plan->fee->get_feature_list() as $feature ) {
                 $plan_features .= '<li>' . $feature . '</li>';
             }
@@ -456,7 +456,7 @@ class WPBDP__Listing_Email_Notification {
                     'fee_name'        => $plan->fee_label,
                     'fee_description' => $plan->fee->description,
                     'fee_details'     => $plan_features,
-                    'payment_details' => preg_replace( "/\r|\n/", "", wpbdp()->payments->render_invoice( $payment ) ),
+					'payment_details' => preg_replace( "/\r|\n/", '', wpbdp()->payments->render_invoice( $payment ) ),
                     'receipt_url'     => $payment->get_checkout_url(),
                     'gateway'         => $payment->gateway,
                 )

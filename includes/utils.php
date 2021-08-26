@@ -62,7 +62,7 @@ class WPBDP__Utils {
     public static function table_exists( $table ) {
         global $wpdb;
 
-        $res = $wpdb->get_results( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) );
+		$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
         return count( $res ) > 0;
     }
 
@@ -290,7 +290,7 @@ function wpbdp_flatten_files_array( $files = array() ) {
  * @param string $key Property name or array key.
  * @param mixed $default Optional. Defaults to `false`.
  */
-function wpbdp_getv($dict, $key, $default=false) {
+function wpbdp_getv( $dict, $key, $default = false ) {
 	$_dict = is_object( $dict ) ? (array) $dict : $dict;
 
 	if ( is_array( $_dict ) && isset( $_dict[ $key ] ) ) {
@@ -379,7 +379,7 @@ function wpbdp_capture_action($hook) {
     return $output;
 }
 
-function wpbdp_capture_action_array($hook, $args=array()) {
+function wpbdp_capture_action_array( $hook, $args = array() ) {
     $output = '';
 
     ob_start();
@@ -425,7 +425,7 @@ function wpbdp_media_upload_check_env( &$error ) {
 /**
  * @since 2.1.6
  */
-function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false, $constraints=array(), &$error_msg=null, $sideload=false) {
+function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = false, $constraints = array(), &$error_msg = null, $sideload = false ) {
 	require_once ABSPATH . 'wp-admin/includes/file.php';
 	require_once ABSPATH . 'wp-admin/includes/image.php';
 
@@ -602,7 +602,7 @@ function wpbdp_get_mimetype( $file ) {
  * @since 2.1.5
  * @param $www  boolean     true to include the 'www' part,
  */
-function wpbdp_get_current_domain($www=true, $prefix='') {
+function wpbdp_get_current_domain( $www = true, $prefix = '' ) {
     $domain = wpbdp_get_server_value( 'HTTP_HOST' );
 	if ( empty( $domain ) ) {
 		$domain = wpbdp_get_server_value( 'SERVER_NAME' );
@@ -665,7 +665,7 @@ function wpbdp_admin_upgrade_link( $args, $page = '' ) {
  *
  * @since 2.1.5
  */
-function wpbdp_ajaxurl($overwrite=false) {
+function wpbdp_ajaxurl( $overwrite = false ) {
     static $ajaxurl = false;
 
     if ($overwrite || $ajaxurl === false) {
@@ -705,7 +705,7 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
  * @return TRUE if $str starts with $prefix or FALSE otherwise
  * @since 3.0.3
  */
-function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
+function wpbdp_starts_with( $str, $prefix, $case_sensitive = true ) {
 	if ( ! $case_sensitive ) {
         return stripos( $str, $prefix, 0 ) === 0;
 	}
@@ -716,7 +716,7 @@ function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
 /**
  * @since 3.1
  */
-function wpbdp_format_time( $time=null, $format='mysql', $time_is_date=false ) {
+function wpbdp_format_time( $time = null, $format = 'mysql', $time_is_date = false ) {
     // TODO: add more formats
     switch ( $format ) {
         case 'mysql':
@@ -1288,7 +1288,6 @@ function wpbdp_is_request( $type ) {
  */
 function wpbdp_deprecation_warning( $msg = '' ) {
     global $wpbdp_deprecation_warnings;
-
 
     if ( ! isset( $wpbdp_deprecation_warnings ) ) {
         $wpbdp_deprecation_warnings = array();

@@ -179,7 +179,7 @@ class WPBDP__Query_Integration {
             if ( ! is_array( $current_post_types ) ) {
                 $current_post_types = array( $current_post_types );
             }
-            
+
             if ( ! in_array( WPBDP_POST_TYPE, $current_post_types ) ) {
                 $current_post_types [] = WPBDP_POST_TYPE;
             }

@@ -307,17 +307,17 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
             foreach ( $display_flags as $f ) {
                 if ( substr( $f, 0, 1 ) == '-' ) {
-                    $where .= $wpdb->prepare( " AND ( display_flags IS NULL OR display_flags NOT LIKE %s )", '%%' . $wpdb->esc_like( substr( $f, 1 ) ) . '%%' );
+					$where .= $wpdb->prepare( ' AND ( display_flags IS NULL OR display_flags NOT LIKE %s )', '%%' . $wpdb->esc_like( substr( $f, 1 ) ) . '%%' );
                 } else {
-					$where .= $wpdb->prepare( " AND ( display_flags LIKE %s )", '%%' . $wpdb->esc_like( $f ) . '%%' );
+					$where .= $wpdb->prepare( ' AND ( display_flags LIKE %s )', '%%' . $wpdb->esc_like( $f ) . '%%' );
                 }
             }
 
             foreach ( $validators as $v ) {
                 if ( substr( $v, 0, 1 ) == '-' ) {
-                    $where .= $wpdb->prepare( " AND ( validators IS NULL OR validators NOT LIKE %s )", '%%' . $wpdb->esc_like( substr( $v, 1 ) ) . '%%' );
+					$where .= $wpdb->prepare( ' AND ( validators IS NULL OR validators NOT LIKE %s )', '%%' . $wpdb->esc_like( substr( $v, 1 ) ) . '%%' );
                 } else {
-					$where .= $wpdb->prepare( " AND ( validators LIKE %s )", '%%' . $wpdb->esc_like( $v ) . '%%'  );
+					$where .= $wpdb->prepare( ' AND ( validators LIKE %s )', '%%' . $wpdb->esc_like( $v ) . '%%'  );
                 }
             }
 
@@ -644,7 +644,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                     sprintf(
                         /* translators: %s: field label */
                         esc_html__( '%s is badly formatted. Valid URL format required. Include http://', 'business-directory-plugin' ),
-                        esc_attr( $args['field-label'] ) 
+                        esc_attr( $args['field-label'] )
                     )
                 );
             }

@@ -1145,7 +1145,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_filter( 'wpbdp_admin_directory_views', array( $view, 'filter_views' ), 10, 2 );
             add_filter( 'wpbdp_admin_directory_filter', array( $view, 'filter_query_pieces' ), 10, 2 );
         }
-        
+
         public function maybe_highlight_menu() {
             global $post;
 
@@ -1162,8 +1162,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
         /**
          * This function restores Manage Regions menu for Editors,
-         * it won't be necessary after fixing the editors 
-         * issue in regions module. 
+         * it won't be necessary after fixing the editors
+         * issue in regions module.
          */
         private function maybe_restore_regions_submenu() {
             if ( class_exists( 'WPBDP_RegionsAdmin' ) ) {

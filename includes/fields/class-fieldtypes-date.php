@@ -83,7 +83,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         return $args;
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
         static $enqueued = false;
 
         if ( ! $enqueued ) {

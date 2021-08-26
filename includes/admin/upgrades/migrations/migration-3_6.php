@@ -10,7 +10,7 @@ class WPBDP__Migrations__3_6 extends WPBDP__Migration {
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_payments MODIFY id bigint(20) AUTO_INCREMENT" );
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_listing_fees MODIFY id bigint(20) AUTO_INCREMENT" );
 
-		update_option( WPBDP_Settings::PREFIX . "listings-per-page", get_option( 'posts_per_page' ) );
+		update_option( WPBDP_Settings::PREFIX . 'listings-per-page', get_option( 'posts_per_page' ) );
     }
 
 }

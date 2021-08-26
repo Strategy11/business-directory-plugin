@@ -343,7 +343,6 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             return true;
         }
 
-
         $batch_size = 20;
 
         $count = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_type = %s AND p.ID NOT IN (SELECT lp.listing_id FROM {$wpdb->prefix}wpbdp_listings lp) ORDER BY ID ASC LIMIT {$batch_size}", WPBDP_POST_TYPE ) ) );

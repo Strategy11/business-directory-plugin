@@ -51,7 +51,7 @@ class WPBDP_Form_Field_Type {
      * @since 5.0.5
      */
     public function before_field_update( $field ) {
-    }    
+	}
 
     /**
      * TODO: dodoc.
@@ -197,11 +197,11 @@ class WPBDP_Form_Field_Type {
         return self::standard_display_wrapper( $field, $field->html_value( $post_id, $display_context ) );
     }
 
-    public function render_field_inner( &$field, $value, $render_context, &$extra=null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $render_context, &$extra = null, $field_settings = array() ) {
         return '';
     }
 
-    public function render_field( &$field, $value, $render_context, &$extra=null, $field_settings = array() ) {
+	public function render_field( &$field, $value, $render_context, &$extra = null, $field_settings = array() ) {
         $html = '';
 
         switch ( $render_context ) {
@@ -243,7 +243,7 @@ class WPBDP_Form_Field_Type {
                 $html .= '<div class="wpbdp-form-field-label">';
 
                 $this->add_error_message( $field, $html );
-                
+
                 $html .= sprintf(
                     '<label for="%s">%s</label>',
                     'wpbdp-field-' . esc_attr( $field->get_id() ),
@@ -353,8 +353,6 @@ class WPBDP_Form_Field_Type {
             global $wpdb;
             $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[fields][' . $field->get_id() . ']' ) );
         }
-
-
     }
 
     /**
@@ -373,7 +371,7 @@ class WPBDP_Form_Field_Type {
      * @param string $association field association.
      * @return string the HTML output.
      */
-    public function render_field_settings( &$field=null, $association=null ) {
+	public function render_field_settings( &$field = null, $association = null ) {
         return '';
     }
 
@@ -396,7 +394,7 @@ class WPBDP_Form_Field_Type {
 
 
     /* Utils. */
-    public static function standard_display_wrapper( $labelorfield, $content=null, $extra_classes='', $args=array() ) {
+	public static function standard_display_wrapper( $labelorfield, $content = null, $extra_classes = '', $args = array() ) {
         $css_classes = '';
         $css_classes .= 'wpbdp-field-display wpbdp-field wpbdp-field-value field-display field-value ';
 

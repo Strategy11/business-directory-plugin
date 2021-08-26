@@ -28,7 +28,7 @@ class WPBDP__Migrations__2_5 extends WPBDP__Migration {
             $filename = ABSPATH . 'wp-content/uploads/wpbdm/' . $old_image->meta_value;
 
 			$wp_filetype = wp_check_filetype( basename( $filename ), null );
-            
+
             $attachment_id = wp_insert_attachment(array(
                 'post_mime_type' => $wp_filetype['type'],
 				'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
@@ -39,7 +39,7 @@ class WPBDP__Migrations__2_5 extends WPBDP__Migration {
             wp_update_attachment_metadata( $attachment_id, $attach_data );
         }
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_image' ) );
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_thumbnail' ) );        
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp_thumbnail' ) );
     }
 
 }

@@ -166,7 +166,7 @@ class WPBDP_Debugging {
 		return $context;
 	}
 
-	private static function add_debug_msg($msg, $type='debug', $context=null) {
+	private static function add_debug_msg( $msg, $type = 'debug', $context = null ) {
 		self::$messages[] = array( 'timestamp' => microtime(),
 								   'message' => $msg,
 								   'type' => $type,

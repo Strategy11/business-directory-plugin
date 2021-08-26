@@ -511,7 +511,6 @@ final class WPBDP {
 			}
         }
 
-
         $html = '';
         foreach ( $attachments as $attachment_id ) {
             $html .= wpbdp_render( 'submit-listing-images-single',

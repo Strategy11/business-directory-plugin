@@ -72,7 +72,6 @@ function wpbdp_get_logs( $args = array() ) {
     );
     $args = wp_parse_args( $args, $defaults );
 
-
     global $wpdb;
 
     $query  = '';

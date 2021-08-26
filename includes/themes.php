@@ -6,7 +6,7 @@
 
 /**
  * Class WPBDP_Themes
- * 
+ *
  * @since 4.0
  */
 class WPBDP_Themes {

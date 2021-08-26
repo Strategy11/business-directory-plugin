@@ -286,7 +286,6 @@ class WPBDP_PaymentsAPI {
             return;
         }
 
-
         $url = esc_url_raw(
             add_query_arg(
                 array(

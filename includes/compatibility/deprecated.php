@@ -3,11 +3,11 @@
  * Deprecated functionality.
  */
 
-$wpbusdirmanconfigoptionsprefix = "wpbusdirman";
+$wpbusdirmanconfigoptionsprefix = 'wpbusdirman';
 
-$wpbdmposttype = "wpbdp_listing";
-$wpbdmposttypecategory = "wpbdp_category";
-$wpbdmposttypetags = "wpbdp_tag";
+$wpbdmposttype         = 'wpbdp_listing';
+$wpbdmposttypecategory = 'wpbdp_category';
+$wpbdmposttypetags     = 'wpbdp_tag';
 
 define( 'WPBUSDIRMAN_TEMPLATES_PATH', WPBDP_PATH . '/includes/compatibility/templates' );
 
@@ -129,7 +129,7 @@ function wpbusdirman_post_extra_thumbnails() {
 			);
         }
 
-        $html .= '</div>';      
+		$html .= '</div>';
     }
 
     return $html;
@@ -237,7 +237,7 @@ function wpbusdirman_get_the_business_email($post_id) {
 	// _deprecated_function( __FUNCTION__, '2.3' );
 
     $email_mode = wpbdp_get_option( 'listing-email-mode' );
-    
+
     $email_field_value = '';
     if ( $email_field = wpbdp_get_form_fields( 'validators=email&unique=1' ) ) {
         $email_field_value = trim( $email_field->plain_value( $post_id ) );
@@ -254,7 +254,7 @@ function wpbusdirman_get_the_business_email($post_id) {
 	if ( empty( $author_email ) && ! empty( $email_field_value ) ) {
         return $email_field_value;
 	}
-    
+
     return $author_email ? $author_email : '';
 }
 
@@ -294,7 +294,7 @@ function wpbdp_get_fee( $fee_id ) {
  * @since 3.0.3
  * @deprecated since 3.7. Use {@link wpbdp_get_fee_plans()} instead.
  */
-function wpbdp_get_fees_for_category( $categories=null ) {
+function wpbdp_get_fees_for_category( $categories = null ) {
 	_deprecated_function( __FUNCTION__, '3.7', 'wpbdp_get_fee_plans' );
 
     return wpbdp_get_fee_plans( array( 'categories' => $categories ) );
@@ -303,7 +303,7 @@ function wpbdp_get_fees_for_category( $categories=null ) {
 /**
  * @deprecated since next-release
  */
-function wpbdp_categories_list($parent=0, $hierarchical=true) {
+function wpbdp_categories_list( $parent = 0, $hierarchical = true) {
 	_deprecated_function( __FUNCTION__, 'Unknown' );
 
     $terms = get_categories(array(

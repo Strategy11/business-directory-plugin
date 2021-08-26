@@ -275,7 +275,7 @@ class WPBDP__Settings {
 
         $value = apply_filters( 'wpbdp_get_option', $value, $setting_id );
         $value = apply_filters( 'wpbdp_get_option_' . $setting_id, $value );
-        
+
         // Sanitize the value (if empty) based on setting type.
         if ( empty( $value ) ) {
             if ( $setting = $this->get_setting( $setting_id ) ) {
@@ -329,7 +329,7 @@ class WPBDP__Settings {
     /**
      * @deprecated 5.0. Use {@link WPBDP__Settings::register_group()}.
      */
-    public function add_section($group_slug, $slug, $name, $help_text='') {
+	public function add_section( $group_slug, $slug, $name, $help_text = '' ) {
 		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_group' );
 
         $tab = $group_slug;
@@ -452,7 +452,7 @@ class WPBDP__Settings {
         if ( ! $on_admin ) {
             return $value;
         }
-        
+
         if ( ! empty( $this->settings[ $setting_id ] ) ) {
             $setting = $this->get_setting( $setting_id );
 

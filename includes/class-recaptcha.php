@@ -105,7 +105,6 @@ class WPBDP_reCAPTCHA {
             $html .= '<input type="hidden" name="g-recaptcha-response" value="" />';
         }
 
-
         $html .= '</div>';
 
         if ( $name ) {
@@ -249,8 +248,8 @@ JS;
 		$current = wpbdp_current_view();
         if ( 'submit_listing' === $current && ! wpbdp_get_option( 'recaptcha-for-submits' )  ) {
             return $submit_sections;
-        } 
-         
+        }
+
         if ( 'edit_listing' === $current && ! wpbdp_get_option( 'recaptcha-for-edits' ) ) {
             return $submit_sections;
         }

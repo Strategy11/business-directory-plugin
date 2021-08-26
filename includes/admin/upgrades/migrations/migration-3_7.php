@@ -185,7 +185,7 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
                             $item['data'] = serialize( array( 'fee' => $fee_info->fee ) );
                             $item['rel_id_1'] = $fee_info->category_id;
                             $item['rel_id_2'] = $fee_info->fee['id'];
-     
+
                             $wpdb->insert( $wpdb->prefix . 'wpbdp_payments_items', $item );
                             $wpdb->update( $wpdb->prefix . 'wpbdp_payments', $t, array( 'id' => $t['id'] ) );
 

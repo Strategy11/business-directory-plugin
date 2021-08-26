@@ -126,7 +126,7 @@ class WPBDP__Meta {
         } elseif ( class_exists( 'WPSEO_Frontend' ) && method_exists( 'WPSEO_Frontend', 'get_instance' ) ) {
             return WPSEO_Frontend::get_instance();
         }
-    }    
+    }
 
     public function set_view_title( $title ) {
         global $wp_query;
@@ -272,7 +272,7 @@ class WPBDP__Meta {
         } else {
             return $view_title . ' ' . $sep . ' ' . $title;
         }
-    }    
+    }
 
     public function _meta_keywords() {
         $wpseo_front = $this->_get_wpseo_frontend();
@@ -398,7 +398,7 @@ class WPBDP__Meta {
         echo '<meta property="og:description" content="' . esc_attr( WPBDP_SEO::listing_og_description( $listing_id ) ) . '" />';
 
 		$this->add_image_meta( $listing );
-    }    
+    }
 
 	/**
 	 * @since 5.12
