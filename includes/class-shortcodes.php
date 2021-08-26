@@ -327,11 +327,13 @@ class WPBDP__Shortcodes {
 
             foreach ( $requested_categories as $cat ) {
                 $term = null;
-                if ( !is_numeric( $cat ) )
-                    $term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+				if ( ! is_numeric( $cat ) ) {
+					$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+				}
 
-                if ( !$term && is_numeric( $cat ) )
-                    $term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
+				if ( ! $term && is_numeric( $cat ) ) {
+					$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
+				}
 
                 if ( $term )
                     $categories[] = $term->term_id;
@@ -894,7 +896,7 @@ class WPBDP__Shortcodes {
             $sc_atts['items_per_page'] = ! isset( $sc_atts['pagination'] ) ? ( wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 ) : -1;
         }
 
-        if ( ! empty(  $sc_atts['pagination'] ) && 0 > intval( $sc_atts['items_per_page'] ) ) {
+		if ( ! empty( $sc_atts['pagination'] ) && 0 > intval( $sc_atts['items_per_page'] ) ) {
             $sc_atts['items_per_page'] = wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1;
         }
 
@@ -904,7 +906,7 @@ class WPBDP__Shortcodes {
     }
 
     private function maybe_paginate_frontpage( $query ) {
-        if ( ! function_exists('wp_pagenavi' ) && is_front_page() && isset( $query->query['paged'] ) ) {
+		if ( ! function_exists( 'wp_pagenavi' ) && is_front_page() && isset( $query->query['paged'] ) ) {
             global $paged;
             $paged = $query->query['paged'];
         }

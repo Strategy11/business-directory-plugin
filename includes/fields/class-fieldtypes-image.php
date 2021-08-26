@@ -263,7 +263,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $element = wpbdp_get_var( array( 'param' => 'element', 'default' => "listingfields[$field_id][0]" ), 'request' );
 
         $field = wpbdp_get_form_field( $field_id );
-        if ( ! $field || ! in_array(  $field->get_field_type_id(), array( 'image', 'social-network') ) ) {
+		if ( ! $field || ! in_array( $field->get_field_type_id(), array( 'image', 'social-network') ) ) {
             die;
         }
 
@@ -318,7 +318,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $image_id = wpbdp_get_var( array( 'param' => 'image_ids', 'default' => 0 ), 'request' );
 
-        if( ! $image_id ) {
+		if ( ! $image_id ) {
             return wp_send_json_error( array( 'errors' => __( 'Could not find image ID', 'business-directory-plugin' ) ) );
         }
 

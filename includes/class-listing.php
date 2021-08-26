@@ -955,7 +955,7 @@ class WPBDP_Listing {
             if ( 'all' == $args['post_status'] ) {
                 $args['post_status'] = array_keys( get_post_statuses() );
             } else {
-                $args['post_status']= explode( ',', $args['post_status'] );
+				$args['post_status'] = explode( ',', $args['post_status'] );
             }
         }
 
@@ -978,10 +978,10 @@ class WPBDP_Listing {
         $query_post_statuses = "'" . implode( "','", $args['post_status'] ) . "'";
 
         $query = "SELECT COUNT(*) FROM {$wpdb->posts} p ";
-        $query.= "LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON ( p.ID = l.listing_id ) ";
-        $query.= "WHERE p.post_type = %s ";
-        $query.= "AND post_status IN ({$query_post_statuses}) ";
-        $query.= "AND l.listing_id IS NULL ";
+		$query .= "LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON ( p.ID = l.listing_id ) ";
+		$query .= "WHERE p.post_type = %s ";
+		$query .= "AND post_status IN ({$query_post_statuses}) ";
+		$query .= "AND l.listing_id IS NULL ";
 
         return absint( $wpdb->get_var( $wpdb->prepare( $query, WPBDP_POST_TYPE ) ) );
     }
@@ -1025,10 +1025,11 @@ class WPBDP_Listing {
                                                                  '_wpbdp[import_sequence_id]' ) ) );
             $candidate++;
 
-            if ( false == add_post_meta( $this->id, '_wpbdp[import_sequence_id]', $candidate, true ) )
+			if ( false == add_post_meta( $this->id, '_wpbdp[import_sequence_id]', $candidate, true ) ) {
                 $sequence_id = 0;
-            else
+			} else {
                 $sequence_id = $candidate;
+			}
         }
 
         return $sequence_id;

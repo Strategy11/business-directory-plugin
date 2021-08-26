@@ -14,7 +14,7 @@
 
     <?php if ( ! wpbdp_get_option( 'payments-on' ) ) : ?>
 	<p class="howto">
-        <?php esc_html_e('Payments are currently turned off.', 'business-directory-plugin' ); ?><br />
+		<?php esc_html_e( 'Payments are currently turned off.', 'business-directory-plugin' ); ?><br />
         <?php
             echo sprintf(
                 /* translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag. */

@@ -25,7 +25,7 @@ class WPBDP__Listing_Flagging {
     }
 
     public static function user_has_flagged( $listing_id, $user_id ) {
-        if( ! $user_id ) {
+		if ( ! $user_id ) {
             return false;
         }
 
@@ -85,7 +85,7 @@ class WPBDP__Listing_Flagging {
             }
         }
 
-        if( ! isset( $data[ 'date' ] ) ) {
+		if ( ! isset( $data[ 'date' ] ) ) {
             $data[ 'date' ] = time();
         }
 

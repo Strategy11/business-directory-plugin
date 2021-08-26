@@ -90,7 +90,7 @@ echo $notice;
         </tr>
     </table>
 
-    <h2><?php _ex( 'CSV File Settings', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
+	<h2><?php esc_html_e( 'CSV File Settings', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
@@ -113,7 +113,9 @@ echo $notice;
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'Image Separator', 'admin csv-export', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
+                    <label> <?php esc_html_e( 'Image Separator', 'business-directory-plugin' ); ?>
+						<span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+					</label>
                 </th>
                 <td>
                     <input name="settings[images-separator]"

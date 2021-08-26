@@ -30,7 +30,7 @@ class WPBDP__Migrations__3_2 extends WPBDP__Migration {
             $newfield['validators'] = array();
 
             // display options
-            $f_display_options = array_merge(array('show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true), $f->display_options ? (array) unserialize($f->display_options) : array());
+			$f_display_options = array_merge( array( 'show_in_excerpt' => true, 'show_in_listing' => true, 'show_in_search' => true ), $f->display_options ? (array) unserialize( $f->display_options ) : array() );
             if ( isset( $f_display_options['hide_field'] ) && $f_display_options['hide_field'] ) {
                 // do nothing
             } else {

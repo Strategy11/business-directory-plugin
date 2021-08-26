@@ -13,7 +13,7 @@
             <div class="search-results">
             <?php echo $results; ?>
             </div>
-        <?php else: ?>
+		<?php else : ?>
             <p><?php esc_html_e( 'No listings found.', 'business-directory-plugin' ); ?></p>
             <?php if ( 'none' == $search_form_position ): ?>
                 <?php

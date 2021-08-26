@@ -11,20 +11,20 @@ class WPBDP_Debugging {
 	public static function debug_on() {
 		self::$debug = true;
 
-		error_reporting(E_ALL | E_DEPRECATED);
+		error_reporting( E_ALL | E_DEPRECATED );
 
 		// Disable our debug util for AJAX requests in order to be able to see the errors.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
 			return;
 
-		// @ini_set('display_errors', '1');
-		set_error_handler(array('WPBDP_Debugging', '_php_error_handler'));
+		// @ini_set( 'display_errors', '1' );
+		set_error_handler( array( 'WPBDP_Debugging', '_php_error_handler' ) );
 
 		add_action( 'wp_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
 
-		add_action('admin_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
-		add_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
+		add_action( 'admin_footer', array( 'WPBDP_Debugging', '_debug_bar_footer' ), 99999 );
+		add_action( 'wp_footer', array( 'WPBDP_Debugging', '_debug_bar_footer' ), 99999 );
 	}
 
 	public static function _enqueue_scripts() {
@@ -64,19 +64,21 @@ class WPBDP_Debugging {
 	public static function debug_off() {
 		self::$debug = false;
 
-		remove_action('admin_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
-		remove_action('wp_footer', array('WPBDP_Debugging', '_debug_bar_footer'), 99999);
+		remove_action( 'admin_footer', array( 'WPBDP_Debugging', '_debug_bar_footer' ), 99999 );
+		remove_action( 'wp_footer', array( 'WPBDP_Debugging', '_debug_bar_footer' ), 99999 );
 	}
 
 	public static function _debug_bar_footer() {
-		if (!self::$debug)
+		if ( ! self::$debug ) {
 			return;
+		}
 
 		global $wpdb;
 		$queries = $wpdb->queries;
 
-		if (!self::$messages && !$queries)
+		if ( ! self::$messages && ! $queries ) {
 			return;
+		}
 
 		echo '<div id="wpbdp-debugging">';
 		echo '<ul class="tab-selector">';
@@ -91,14 +93,14 @@ class WPBDP_Debugging {
 
 			echo '<tr class="' . $item['type'] . '">';
 			echo '<td class="handle">&raquo;</td>';
-			echo '<td class="timestamp">' . date('H:i:s', $time[1]) . '</td>';
+			echo '<td class="timestamp">' . date( 'H:i:s', $time[1] ) . '</td>';
 
 			echo '<td class="type">' . $item['type'] . '</td>';
 			echo '<td class="message">' . $item['message'] . '</td>';
 
 			if ($item['context']) {
 				echo '<td class="context">' . $item['context']['function'] . '</td>';
-				echo '<td class="file">' . basename($item['context']['file']) . ':' . $item['context']['line'] . '</td>';
+				echo '<td class="file">' . basename( $item['context']['file'] ) . ':' . $item['context']['line'] . '</td>';
 			} else {
 				echo '<td class="context"></td><td class="file"></td>';
 			}
@@ -109,7 +111,7 @@ class WPBDP_Debugging {
 		echo '</div>';
 
 		echo '<div class="tab" id="wpbdp-debugging-tab-wpdbqueries">';
-		if ( !$queries ) {
+		if ( ! $queries ) {
 			echo 'No SQL queries were logged.';
 		} else {
 			echo '<table>';
@@ -136,8 +138,9 @@ class WPBDP_Debugging {
 	}
 
 	private static function _extract_context($stack) {
-		if ( !is_array( $stack ) || empty( $stack ) )
+		if ( ! is_array( $stack ) || empty( $stack ) ) {
 			return array();
+		}
 
 		$context = array( 'class' => '', 'file' => '', 'function' => '', 'line' => '' );
 
@@ -167,7 +170,7 @@ class WPBDP_Debugging {
 		self::$messages[] = array( 'timestamp' => microtime(),
 								   'message' => $msg,
 								   'type' => $type,
-								   'context' => wpbdp_starts_with( $type, 'php', false ) ? $context : self::_extract_context($context),
+								   'context' => wpbdp_starts_with( $type, 'php', false ) ? $context : self::_extract_context( $context ),
 								 );
 	}
 
@@ -175,48 +178,50 @@ class WPBDP_Debugging {
 		if ( is_bool( $var ) || is_int( $var ) || ( is_string( $var ) && empty( $var ) ) )
 			return var_export( $var, true );
 
-		return print_r($var, true);
+		return print_r( $var, true );
 	}
 
 	/* API */
 
 	public static function debug() {
 		if (self::$debug) {
-			foreach (func_get_args() as $var)
-				self::add_debug_msg(self::_var_dump($var), 'debug', debug_backtrace());
+			foreach ( func_get_args() as $var ) {
+				self::add_debug_msg( self::_var_dump( $var ), 'debug', debug_backtrace() );
+			}
 		}
 	}
 
 	public static function debug_e() {
 		$ret = '';
 
-		foreach (func_get_args() as $arg)
-			$ret .= self::_var_dump($arg) . "\n";
+		foreach ( func_get_args() as $arg ) {
+			$ret .= self::_var_dump( $arg ) . "\n";
+		}
 
-		wp_die(sprintf('<pre>%s</pre>', $ret), '');
+		wp_die( sprintf( '<pre>%s</pre>', $ret ), '' );
 	}
 
-	public static function log($msg, $type='info') {
-		self::add_debug_msg($msg, sprintf('log-%s', $type), debug_backtrace());
+	public static function log( $msg, $type = 'info' ) {
+		self::add_debug_msg( $msg, sprintf( 'log-%s', $type ), debug_backtrace() );
 	}
 
 }
 
-function wpbdp_log($msg, $type='info') {
-	call_user_func(array('WPBDP_Debugging', 'log'), $msg, $type);
+function wpbdp_log( $msg, $type = 'info' ) {
+	call_user_func( array( 'WPBDP_Debugging', 'log' ), $msg, $type );
 }
 
 function wpbdp_log_deprecated() {
-	wpbdp_log('Deprecated function called.', 'deprecated');
+	wpbdp_log( 'Deprecated function called.', 'deprecated' );
 }
 
 function wpbdp_debug() {
 	$args = func_get_args();
-	call_user_func_array(array('WPBDP_Debugging', 'debug'), $args);
+	call_user_func_array( array( 'WPBDP_Debugging', 'debug' ), $args );
 }
 
 function wpbdp_debug_e() {
 	$args = func_get_args();
-	call_user_func_array(array('WPBDP_Debugging', 'debug_e'), $args);
+	call_user_func_array( array( 'WPBDP_Debugging', 'debug_e' ), $args );
 }
 

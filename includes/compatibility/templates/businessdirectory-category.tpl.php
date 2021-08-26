@@ -12,7 +12,7 @@
     </div>
 
     <h2 class="category-name"><?php echo wpbusdirman_post_catpage_title(); ?></h2>
-    <?php echo wpbdp_render('businessdirectory-listings'); ?>
+	<?php echo wpbdp_render( 'businessdirectory-listings' ); ?>
 </div>
 
 </div>

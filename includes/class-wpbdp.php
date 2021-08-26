@@ -171,11 +171,11 @@ final class WPBDP {
 
         $this->payment_gateways = new WPBDP__Payment_Gateways();
 
-        do_action('wpbdp_modules_loaded');
+		do_action( 'wpbdp_modules_loaded' );
 
         do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
-        do_action('wpbdp_register_fields', $this->formfields);
-        do_action('wpbdp_modules_init');
+		do_action( 'wpbdp_register_fields', $this->formfields );
+		do_action( 'wpbdp_modules_init' );
 
         $this->listings = new WPBDP_Listings_API();
         $this->payments = new WPBDP_PaymentsAPI();
@@ -478,8 +478,8 @@ final class WPBDP {
                 return $res->send_error(
                     sprintf(
                         _nx(
-							'You\'re trying to upload %$1d images, but only have %2$d slot available. Please adjust your selection.',
-							'You\'re trying to upload %2$d images, but only have %2$d slots available. Please adjust your selection.',
+							'You\'re trying to upload %1$d images, but only have %2$d slot available. Please adjust your selection.',
+							'You\'re trying to upload %1$d images, but only have %2$d slots available. Please adjust your selection.',
                             $slots_available,
                             'listing image upload',
                             'business-directory-plugin'
@@ -504,10 +504,11 @@ final class WPBDP {
                                                      ),
                                                  $image_error ); // TODO: handle errors.
 
-            if ( $image_error )
-                $errors[ $file['name'] ] = $image_error;
-            else
-                $attachments[] = $attachment_id;
+			if ( $image_error ) {
+				$errors[ $file['name'] ] = $image_error;
+			} else {
+				$attachments[] = $attachment_id;
+			}
         }
 
 
@@ -597,7 +598,7 @@ final class WPBDP {
 		WPBDP_Listing_Image::maybe_set_post_parent( $image_ids, $listing_id );
 
         $html = '';
-        foreach( $image_ids as $id ) {
+		foreach ( $image_ids as $id ) {
             $html .= wpbdp_render(
                 'submit-listing-images-single',
                 array(

@@ -5,7 +5,7 @@ if ( ! $query->have_posts() ) :
 		<?php esc_html_e( 'No listings found.', 'business-directory-plugin' ); ?>
 	</span>
 	<?php
-else:
+else :
 	while ( $query->have_posts() ) {
 		$query->the_post();
 		wpbdp_render_listing( null, 'excerpt', 'echo' );

@@ -32,7 +32,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 
             <ul class="wpbdp-plan-feature-list">
 		        <li class="wpbdp-plan-duration">
-		            <?php if ( $plan->days > 0 ): ?>
+					<?php if ( $plan->days > 0 ) : ?>
 		            <span class="wpbdp-plan-duration-amount">
 		                <?php echo esc_html( $plan->days ); ?>
 		            </span>
@@ -40,13 +40,13 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 		                <?php if ( $plan->recurring ): ?>
 		                <span class="wpbdp-plan-is-recurring">(<?php esc_html_e( 'Recurring', 'business-directory-plugin' ); ?>)</span>
 		                <?php endif; ?>
-		            <?php else: ?>
+					<?php else : ?>
 		            <span class="wpbdp-plan-duration-never-expires">
 		                <?php esc_html_e( 'Never Expires', 'business-directory-plugin' ); ?>
 		            </span>
 		            <?php endif; ?>
 		        </li>
-                <?php foreach ( $plan->get_feature_list() as $feature ): ?>
+				<?php foreach ( $plan->get_feature_list() as $feature ) : ?>
                 <li><?php echo esc_html( $feature ); ?></li>
                 <?php endforeach; ?>
             </ul>
@@ -60,7 +60,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 					name="<?php echo esc_attr( $field_name ); ?>"
 					value="<?php echo esc_attr( $plan->id ); ?>"
 					<?php disabled( $disabled, true ); ?>
-					<?php echo $disabled ? '': checked( absint( $plan->id ), absint( $selected ), false ); ?> />
+					<?php echo $disabled ? '' : checked( absint( $plan->id ), absint( $selected ), false ); ?> />
 				<label for="wpbdp-plan-select-radio-<?php echo esc_attr( $plan->id ); ?>">
 					<span>
 						<?php esc_html_e( 'Select', 'business-directory-plugin' ); ?>

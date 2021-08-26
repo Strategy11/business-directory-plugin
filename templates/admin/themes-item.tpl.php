@@ -20,9 +20,9 @@
         <?php endif; ?>
 
         <div class="wpbdp-theme-details-wrapper">
-            <?php if ( $theme->thumbnail ): ?>
+			<?php if ( $theme->thumbnail ) : ?>
                 <a href="<?php echo esc_url( $theme->thumbnail ); ?>" title="<?php echo esc_attr( $theme->name ); ?>" class="thickbox" rel="wpbdp-theme-<?php echo esc_attr( $theme->id ); ?>-gallery"><img src="<?php echo esc_url( $theme->thumbnail ); ?>" class="wpbdp-theme-thumbnail" /></a>
-            <?php else: ?>
+			<?php else : ?>
             <div class="wpbdp-theme-thumbnail">
             	<p><?php echo esc_html( $theme->description ); ?></p>
             </div>

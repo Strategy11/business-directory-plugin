@@ -17,9 +17,9 @@ $api = wpbdp_formfields_api();
 
         <?php do_action( 'wpbdp_before_search_results' ); ?>
         <div class="search-results">
-        <?php if (have_posts()): ?>
+		<?php if ( have_posts() ) : ?>
             <?php wpbdp_render( 'businessdirectory-listings', array( 'echo' => true ) ); ?>
-        <?php else: ?>
+		<?php else : ?>
             <?php esc_html_e( 'No listings found.', 'business-directory-plugin' ); ?>
             <br />
             <?php
@@ -34,7 +34,7 @@ $api = wpbdp_formfields_api();
         <?php do_action( 'wpbdp_after_search_results' ); ?>
     <?php endif; ?>
 
-    <?php if ( 'below' == $search_form_position ): ?>
+	<?php if ( 'below' === $search_form_position ) : ?>
         <?php echo $search_form; ?>
     <?php endif; ?>
 

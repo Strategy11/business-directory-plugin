@@ -291,10 +291,11 @@ function wpbdp_flatten_files_array( $files = array() ) {
  * @param mixed $default Optional. Defaults to `false`.
  */
 function wpbdp_getv($dict, $key, $default=false) {
-    $_dict = is_object($dict) ? (array) $dict : $dict;
+	$_dict = is_object( $dict ) ? (array) $dict : $dict;
 
-    if (is_array($_dict) && isset($_dict[$key]))
-        return $_dict[$key];
+	if ( is_array( $_dict ) && isset( $_dict[ $key ] ) ) {
+		return $_dict[ $key ];
+	}
 
     return $default;
 }
@@ -371,7 +372,7 @@ function wpbdp_capture_action($hook) {
     }
 
     ob_start();
-    do_action_ref_array($hook, $args);
+	do_action_ref_array( $hook, $args );
     $output = ob_get_contents();
     ob_end_clean();
 
@@ -382,7 +383,7 @@ function wpbdp_capture_action_array($hook, $args=array()) {
     $output = '';
 
     ob_start();
-    do_action_ref_array($hook, $args);
+	do_action_ref_array( $hook, $args );
     $output = ob_get_contents();
     ob_end_clean();
 
@@ -392,7 +393,7 @@ function wpbdp_capture_action_array($hook, $args=array()) {
 function wpbdp_php_ini_size_to_bytes( $val ) {
     $val = trim( $val );
     $size = intval( $val );
-    $unit = strtoupper( $val[strlen($val) - 1] );
+	$unit = strtoupper( $val[ strlen( $val ) - 1 ] );
 
     switch ( $unit ) {
         case 'G':
@@ -425,8 +426,8 @@ function wpbdp_media_upload_check_env( &$error ) {
  * @since 2.1.6
  */
 function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false, $constraints=array(), &$error_msg=null, $sideload=false) {
-    require_once(ABSPATH . 'wp-admin/includes/file.php');
-    require_once(ABSPATH . 'wp-admin/includes/image.php');
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+	require_once ABSPATH . 'wp-admin/includes/image.php';
 
     $sideload = ( is_string( $file_ ) && file_exists( $file_ ) ) ? true : false;
 
@@ -478,7 +479,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
         }
 
         if ( is_array( $constraints['mimetypes'] ) ) {
-            if ( !in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
+			if ( ! in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
                 $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
                 return false;
             }
@@ -492,17 +493,18 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
 
         $upload = $sideload ? wp_handle_sideload( $file, array( 'test_form' => FALSE ) ) : wp_handle_upload( $file, array('test_form' => FALSE) );
 
-        if( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
+		if ( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
             $error_msg = isset( $upload['error'] ) ? $upload['error'] : _x( 'Unkown error while uploading file.', 'utils', 'business-directory-plugin' );
             return false;
         }
 
-        if ( !$use_media_library )
+        if ( ! $use_media_library ) {
             return $upload;
+		}
 
         if ( $attachment_id = wp_insert_attachment(array(
             'post_mime_type' => $upload['type'],
-            'post_title' => preg_replace('/\.[^.]+$/', '', basename($upload['file'])),
+			'post_title'   => preg_replace( '/\.[^.]+$/', '', basename( $upload['file'] ) ),
             'post_content' => '',
             'post_status' => 'inherit'
         ), $upload['file']) ) {
@@ -512,7 +514,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
             if ( $check_image && ! wp_attachment_is_image( $attachment_id ) ) {
                 wp_delete_attachment( $attachment_id, true );
 
-                $error_msg = _x('Uploaded file is not an image', 'utils', 'business-directory-plugin' );
+				$error_msg = _x( 'Uploaded file is not an image', 'utils', 'business-directory-plugin' );
                 return false;
             }
 
@@ -561,7 +563,7 @@ function wpbdp_media_upload($file_, $use_media_library=true, $check_image=false,
             return $attachment_id;
         }
     } else {
-        $error_msg = _x('Error while uploading file', 'utils', 'business-directory-plugin' );
+		$error_msg = _x( 'Error while uploading file', 'utils', 'business-directory-plugin' );
     }
 
     return false;
@@ -602,13 +604,13 @@ function wpbdp_get_mimetype( $file ) {
  */
 function wpbdp_get_current_domain($www=true, $prefix='') {
     $domain = wpbdp_get_server_value( 'HTTP_HOST' );
-    if (empty($domain)) {
-        $domain = wpbdp_get_server_value( 'SERVER_NAME' );
-    }
+	if ( empty( $domain ) ) {
+		$domain = wpbdp_get_server_value( 'SERVER_NAME' );
+	}
 
-    if (!$www && substr($domain, 0, 4) === 'www.') {
-        $domain = $prefix . substr($domain, 4);
-    }
+	if ( ! $www && substr( $domain, 0, 4 ) === 'www.' ) {
+		$domain = $prefix . substr( $domain, 4 );
+	}
 
     return $domain;
 }
@@ -667,8 +669,8 @@ function wpbdp_ajaxurl($overwrite=false) {
     static $ajaxurl = false;
 
     if ($overwrite || $ajaxurl === false) {
-        $url = admin_url('admin-ajax.php');
-        $parts = parse_url($url);
+		$url   = admin_url( 'admin-ajax.php' );
+		$parts = parse_url( $url );
 
         $domain = wpbdp_get_current_domain();
 
@@ -676,7 +678,7 @@ function wpbdp_ajaxurl($overwrite=false) {
         if ( isset( $parts['port'] ) && $parts['port'] )
             $domain = str_replace( ':' . $parts['port'], '', $domain );
 
-        $ajaxurl = str_replace($parts['host'], $domain, $url);
+		$ajaxurl = str_replace( $parts['host'], $domain, $url );
     }
 
     return $ajaxurl;
@@ -704,8 +706,9 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
  * @since 3.0.3
  */
 function wpbdp_starts_with( $str, $prefix, $case_sensitive=true ) {
-    if ( !$case_sensitive )
+	if ( ! $case_sensitive ) {
         return stripos( $str, $prefix, 0 ) === 0;
+	}
 
     return strpos( $str, $prefix, 0 ) === 0;
 }
@@ -733,8 +736,9 @@ function wpbdp_format_time( $time=null, $format='mysql', $time_is_date=false ) {
  * @since 3.3
  */
 function wpbdp_scandir( $path, $args = array() ) {
-    if ( !is_dir( $path ) )
+	if ( ! is_dir( $path ) ) {
         return array();
+	}
 /*
     $defaults = array(
         'filter' => false
@@ -930,7 +934,7 @@ jQuery(function( $ ) {
             'buttons': function( e, t ) {
                 <?php if ( ! $secondary_button ): ?>
                 var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
-                <?php else: ?>
+				<?php else : ?>
                 var b = $( '<a id="wpbdp-pointer-b2" class="button" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
                 <?php endif; ?>
                 return b;
@@ -975,8 +979,15 @@ class WPBDP_NoopObject {
     }
 
     public function __set( $k, $v ) { }
-    public function __get( $k ) { return null; }
-    public function __isset( $k ) { return false; }
+
+    public function __get( $k ) {
+		return null;
+	}
+
+	public function __isset( $k ) {
+		return false;
+	}
+
     public function __unset( $k ) { }
 
     public function __call( $name, $args = array() ) {
@@ -1019,10 +1030,11 @@ function wpbdp_detect_encoding( $content ) {
         // See documentation for mb_detect_order()
         return mb_detect_encoding( $content, $encodings, true );
     } else {
-        if ( ! function_exists( 'iconv' ) )
-            return 'UTF-8';
-        else
-            return wpbdp_mb_detect_encoding( $content, $encodings );
+		if ( ! function_exists( 'iconv' ) ) {
+			return 'UTF-8';
+		} else {
+			return wpbdp_mb_detect_encoding( $content, $encodings );
+		}
     }
 }
 
@@ -1075,7 +1087,7 @@ function wpbdp_render_user_field( $args = array() ) {
         $hidden_field_id = 'autocomplete-value-' . uniqid();
 
         $output = '<input class="wpbdp-user-autocomplete ' . esc_attr( $args['class'] ) . '" type="text" value="' . esc_attr( $text_value ) . '" data-hidden-field="' . $hidden_field_id . '" />';
-        $output.= '<input id="' . $hidden_field_id . '" name="' . esc_attr( $args['name'] ) . '" type="hidden" value="' . esc_attr( $hidden_value ) . '">';
+		$output .= '<input id="' . esc_attr( $hidden_field_id ) . '" name="' . esc_attr( $args['name'] ) . '" type="hidden" value="' . esc_attr( $hidden_value ) . '">';
     }
 
     return $output;

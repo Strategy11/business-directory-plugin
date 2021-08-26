@@ -22,16 +22,18 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         $this->db = $wpdb;
         $this->model = is_array( $model ) ? $model : WPBDP__DB__Model::get_model_info( $model );
 
-        if ( $query )
+        if ( $query ) {
             $this->query = $query;
-        else
+        } else {
             $this->query = array( 'where' => '',
                                   'join' => '',
                                   'groupby' => '',
                                   'orderby' => '',
                                   'distinct' => '',
                                   'limits' => '',
-                                  'fields' => '' );
+                                  'fields' => ''
+			);
+		}
         $this->is_manager = $is_manager;
     }
 
@@ -93,10 +95,11 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         $order = array();
 
         foreach ( $args as $o ) {
-            if ( '-' == $o[0] )
-                $order[] = substr( $o, 1 ) . ' DESC';
-            else
-                $order[] = $o . ' ASC';
+			if ( '-' == $o[0] ) {
+				$order[] = substr( $o, 1 ) . ' DESC';
+			} else {
+				$order[] = $o . ' ASC';
+			}
         }
 
         $order = implode( ',', $order );
@@ -198,10 +201,11 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
                 }
             }
 
-            if ( is_array( $v ) )
-                $filters[] = "$f IN ('" . implode( '\',\'', $v ) . "')";
-            else
-                $filters[] = $this->db->prepare( "$f $op %s", $v );
+			if ( is_array( $v ) ) {
+				$filters[] = "$f IN ('" . implode( '\',\'', $v ) . "')";
+			} else {
+				$filters[] = $this->db->prepare( "$f $op %s", $v );
+			}
         }
 
         return $filters;

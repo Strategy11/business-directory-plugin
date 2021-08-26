@@ -100,7 +100,7 @@ class WPBDP__Rewrite {
     public function _wp_loaded() {
         if ($rules = get_option( 'rewrite_rules' )) {
             foreach ($this->get_rewrite_rules() as $k => $v) {
-                if (!isset($rules[$k]) || $rules[$k] != $v) {
+				if ( ! isset( $rules[ $k ] ) || $rules[ $k ] != $v ) {
                     global $wp_rewrite;
                     $wp_rewrite->flush_rules();
                     return;
@@ -122,7 +122,7 @@ class WPBDP__Rewrite {
         global $wp_query;
 
         if ( $main_page_id = wpbdp_get_page_id( 'main' ) ) {
-            if ( is_page() && !is_feed() && isset( $wp_query->queried_object ) &&
+			if ( is_page() && ! is_feed() && isset( $wp_query->queried_object ) &&
                  get_option( 'show_on_front' ) == 'page' &&
                  get_option( 'page_on_front' ) == $wp_query->queried_object->ID ) {
                 return $requested_url;

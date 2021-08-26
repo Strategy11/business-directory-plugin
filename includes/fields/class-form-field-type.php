@@ -64,8 +64,9 @@ class WPBDP_Form_Field_Type {
     public function get_field_value( &$field, $post_id ) {
         $post = get_post( $post_id );
 
-        if ( !$post )
+		if ( ! $post ) {
             return null;
+		}
 
         switch ( $field->get_association() ) {
             case 'title':
@@ -428,9 +429,10 @@ class WPBDP_Form_Field_Type {
         return $html;
     }
 
-    public static function render_admin_settings( $admin_settings=array() ) {
-        if ( !$admin_settings )
-            return '';
+	public static function render_admin_settings( $admin_settings = array() ) {
+		if ( ! $admin_settings ) {
+			return '';
+		}
 
         $html  = '';
         $html .= '<table class="form-table">';

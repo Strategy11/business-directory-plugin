@@ -195,8 +195,9 @@ final class WPBDP_FS {
         if ( ! self::copydir( $dir, $destdir ) )
             return false;
 
-        if (! self::rmdir( $dir ) )
-            return false;
+		if ( ! self::rmdir( $dir ) ) {
+			return false;
+		}
 
         return true;
     }

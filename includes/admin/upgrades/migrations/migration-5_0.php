@@ -54,8 +54,9 @@ class WPBDP__Migrations__5_0 extends WPBDP__Migration {
         // Category images.
         $imgs = get_option( 'wpbdp[category_images]', false );
         if ( $imgs && is_array( $imgs ) ) {
-            if ( !empty ( $imgs['images'] ) )
-                $res = array_merge( $res, array_keys( $imgs['images'] ) );
+			if ( ! empty( $imgs['images'] ) ) {
+				$res = array_merge( $res, array_keys( $imgs['images'] ) );
+			}
 
             if ( ! empty( $imgs['temp'] ) )
                 $res = array_merge( $res, array_keys( $imgs['temp'] ) );
