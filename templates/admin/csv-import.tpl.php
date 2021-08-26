@@ -138,7 +138,9 @@ printf(
                            type="radio"
                            aria-required="true"
                            value="tab"
-                           <?php echo $column_separator == "tab" ? 'checked="checked"' : ''; ?>/><?php _ex( 'TAB', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+						   <?php echo $column_separator === 'tab' ? 'checked="checked"' : ''; ?>/>
+						<?php esc_html_e( 'TAB', 'business-directory-plugin' ); ?>
+					</label>
                     <br />
                 </td>
             </tr>

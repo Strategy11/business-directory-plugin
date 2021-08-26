@@ -691,7 +691,7 @@ class WPBDP_CSV_Import {
         $images     = array();
         $expires_on = '';
         $plan_id    = 0;
-        
+
         $terms_and_conditions_acceptance_date = '';
 
         $meta                = array();
@@ -741,7 +741,7 @@ class WPBDP_CSV_Import {
                     if ( $expires ) {
                         $expires_on = $expires;
                     }
-                    
+
                     break;
 
                 case 'fee_id':

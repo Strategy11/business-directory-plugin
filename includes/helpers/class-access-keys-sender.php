@@ -57,7 +57,7 @@ class WPBDP__Access_Keys_Sender {
     }
 
     /**
-     * TODO: Move to a class with all the other available functions/methods for 
+	 * TODO: Move to a class with all the other available functions/methods for
      * searching listings.
      */
     public function find_listings_by_email_address( $email_address ) {

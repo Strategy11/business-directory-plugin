@@ -22,7 +22,7 @@ class WPBDP_DB_Model2 {
             $this->attrs[ $k ] = ( in_array( $k, $this->serialized, true) && $v ) ? maybe_unserialize( $v ) : $v;
         }
     }
-    
+
     private function validate() {
         $this->errors = $this->_validate();
         return empty( $this->errors ) ? true : false;
@@ -205,7 +205,7 @@ class WPBDP_DB_Model2 {
         $limit = isset( $args['_limit'] ) ? $args['_limit'] : '';
         $extra = isset( $args['_query_extra'] ) ? $args['_query_extra'] : array();
 
-        $query = "SELECT t.*";
+		$query = 'SELECT t.*';
 
         if ( isset( $extra['fields'] ) )
             $query .= ', ' . $extra['fields'];
@@ -214,7 +214,7 @@ class WPBDP_DB_Model2 {
         if ( isset( $extra['table'] ) )
             $query .= ', ' . $extra['table'] . ' ';
 
-        $query .= " WHERE 1=1";
+		$query .= ' WHERE 1=1';
         if ( isset( $extra['where'] ) )
             $query .= ' ' . $extra['where'] . ' ';
 
@@ -258,11 +258,11 @@ class WPBDP_DB_Model2 {
 			}
         }
 
-        return array_map( 
+		return array_map(
             function( $x ) use ( $classname ) {
-                return new $classname( $x ); 
+				return new $classname( $x );
             },
-            $wpdb->get_results( $query, ARRAY_A ) 
+			$wpdb->get_results( $query, ARRAY_A )
         );
     }
 

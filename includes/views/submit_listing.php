@@ -1151,7 +1151,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $image_min_height = intval( wpbdp_get_option( 'image-min-height' ) );
         $image_max_height = intval( wpbdp_get_option( 'image-max-height' ) );
 
-
         return $this->section_render( 'submit-listing-images',
                                       compact( 'image_max_file_size',
                                                'image_min_file_size',
@@ -1260,7 +1259,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->messages( _x( 'Please agree to the Terms and Conditions.', 'templates', 'business-directory-plugin' ), 'error', 'terms_and_conditions' );
             $this->prevent_save = true;
         }
-        
+
         if ( $this->saving() && ! $this->prevent_save && $accepted ) {
             $this->data['tos_acceptance'] = date( 'Y-m-d H:i:s' );
         }

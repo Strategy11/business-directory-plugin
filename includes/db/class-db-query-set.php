@@ -166,9 +166,9 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
     private function filter_args( $args ) {
         $args = wp_parse_args( $args );
         // null is NULL
-        // _exact 
+        // _exact
         // _iexact ILIKE
-        // __in 
+        // __in
         // >
         // <
         // <=

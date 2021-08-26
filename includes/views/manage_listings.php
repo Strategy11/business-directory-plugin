@@ -55,7 +55,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
         if ( 'title' !== $field->get_association() || current_user_can( 'administrator' ) ) {
             return $value;
         }
-        
+
         $listing         = wpbdp_get_listing( $listing_id );
         $listing_status  = $listing->get_status();
 

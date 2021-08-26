@@ -1,7 +1,7 @@
 <?php
 /**
  * @since 3.5.3
- */ 
+ */
 class WPBDP__Views__Manage_Recurring extends WPBDP__View {
 
     private $subscriptions = array();

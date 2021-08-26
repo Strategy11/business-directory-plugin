@@ -93,11 +93,11 @@ class WPBDP__View {
         }
 
         if ( $redirect_on_failure ) {
-            $redirect_query_args['redirect_to'] = urlencode( 
-                add_query_arg( 
-                    $redirect_query_args, 
+			$redirect_query_args['redirect_to'] = urlencode(
+				add_query_arg(
+					$redirect_query_args,
                     $wpbdp_view ? wpbdp_url( $wpbdp_view ) : apply_filters( 'the_permalink', get_permalink() )
-                ) 
+				)
             );
 
             $login_url = add_query_arg( $redirect_query_args, $login_url );

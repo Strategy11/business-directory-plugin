@@ -9,7 +9,7 @@ class WPBDP_CategoryFormInputWalker extends Walker {
     private $selected;
     private $field;
 
-    public function __construct( $input_type='radio', $selected=null, &$field=null ) {
+	public function __construct( $input_type = 'radio', $selected = null, &$field = null ) {
         $this->input_type = $input_type;
         $this->selected = $selected;
         $this->field = $field;

@@ -1,7 +1,7 @@
 <?php
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     wpbdp_admin_header(
-        array( 
+		array(
             'id'      => 'admin-fees',
             'buttons' => array(
                 __( 'Add New Listing Fee', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )

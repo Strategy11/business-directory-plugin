@@ -30,7 +30,6 @@ class WPBDP__Themes_Compat {
         if ( ! $current_view )
             return;
 
-
         $themes_with_fixes = $this->get_themes_with_fixes();
         $themes_to_try = array( $this->theme, $this->parent_theme );
 

@@ -76,7 +76,7 @@ class WPBDP__Migrations__3_2 extends WPBDP__Migration {
             echo sprintf( '<div class="error"><p>%s</p></div>',
                           _x( '<b>Business Directory Plugin - Regions Module</b> was disabled because it is incompatible with the current version of Business Directory. Please update the Regions module.', 'installer', 'business-directory-plugin' )
                         );
-        }        
+        }
     }
 
 }

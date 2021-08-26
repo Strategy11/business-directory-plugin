@@ -523,7 +523,7 @@ class WPBDP__Shortcodes {
         $q = $wpdb->prepare(
             "SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts}
              JOIN {$wpdb->prefix}wpbdp_listings lp ON lp.listing_id = {$wpdb->posts}.ID
-             WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND lp.is_sticky = 1 " . ( $atts['number_of_listings'] > 0 ? sprintf( "LIMIT %d", $atts['number_of_listings'] ) : '' ),
+			 WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND lp.is_sticky = 1 " . ( $atts['number_of_listings'] > 0 ? sprintf( 'LIMIT %d', $atts['number_of_listings'] ) : '' ),
             'publish',
             WPBDP_POST_TYPE
         );
@@ -538,8 +538,8 @@ class WPBDP__Shortcodes {
             'posts_per_page' => $atts['number_of_listings'],
             'orderby' => 'post__in'
         );
-        
-        $q = new WP_Query( $args );      
+
+		$q = new WP_Query( $args );
         wpbdp_push_query( $q );
 
         $html = wpbdp_x_render( 'listings', array( 'query' => $q ) );

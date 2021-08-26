@@ -106,7 +106,7 @@ class WPBDP__Listing_Search {
         foreach ( $this->parts as $key => $data ) {
             $res   = null;
             $field = wpbdp_get_form_field( $data[0] );
-            
+
             if ( $field ) {
                 $res = $field->configure_search( $data[1], $this );
             }

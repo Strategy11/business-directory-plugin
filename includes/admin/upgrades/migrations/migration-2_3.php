@@ -29,7 +29,7 @@ class WPBDP__Migrations__2_3 extends WPBDP__Migration {
 					$category_data['categories'][] = intval( $category_id );
                 }
             }
-            
+
 			$newfee['categories'] = serialize( $category_data );
 
 			if ( $wpdb->insert( $wpdb->prefix . 'wpbdp_fees', $newfee ) ) {

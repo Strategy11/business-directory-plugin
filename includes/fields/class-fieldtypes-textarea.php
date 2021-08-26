@@ -19,7 +19,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         return 'textarea';
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
         // render textareas as textfields when searching
         if ( $context == 'search' ) {
             global $wpbdp;
@@ -187,7 +187,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         return array( 'title', 'excerpt', 'content', 'meta' );
     }
 
-    public function render_field_settings( &$field=null, $association=null ) {
+	public function render_field_settings( &$field = null, $association = null ) {
         $settings = array();
 
         $settings['allow_html'][] = _x( 'Allow HTML input for this field?', 'form-fields admin', 'business-directory-plugin' );
