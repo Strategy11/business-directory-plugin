@@ -387,7 +387,7 @@ class WPBDP__Query_Integration {
             if ( $wpbdp_404_query ) {
                 $query->query( $query->query );
                 $query->set_404();
-                status_header(404);
+				status_header( 404 );
             }
         }
     }

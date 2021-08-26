@@ -49,7 +49,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         }
 
         if ( ! $class ) {
-            throw new AuthorizeNetException;
+			throw new AuthorizeNetException();
         }
 
         if ( 'ARB' == $class ) {

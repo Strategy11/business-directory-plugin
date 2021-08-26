@@ -3,7 +3,7 @@
 class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x('Social Site (Twitter handle)', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( _x( 'Social Site (Twitter handle)', 'form-fields api', 'business-directory-plugin' ) );
     }
 
     public function get_id() {

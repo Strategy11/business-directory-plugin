@@ -109,10 +109,11 @@ class WPBDP__Dispatcher {
         if ( ! $view )
             return;
 
-        if ( ! $function )
-            $function = 'ajax_dispatch';
-        else
-            $function = 'ajax_' . $function;
+		if ( ! $function ) {
+			$function = 'ajax_dispatch';
+		} else {
+			$function = 'ajax_' . $function;
+		}
 
         if ( ! method_exists( $view, $function ) )
             return;

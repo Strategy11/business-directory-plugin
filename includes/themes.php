@@ -610,9 +610,10 @@ class WPBDP_Themes {
             return true;
         }
 
-        $last                  = array_pop( $this->template_dirs );
-        $this->template_dirs[] = $path;
-        $this->template_dirs[] = $last;
+		// Add the template before core.
+		unset( $this->template_dirs['core'] );
+		$this->template_dirs[] = $path;
+		$this->add_core_template_dir();
 
         return true;
     }

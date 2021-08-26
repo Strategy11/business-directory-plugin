@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8
-Stable tag: 5.13.2
+Stable tag: 5.13.3
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -13,7 +13,7 @@ The best WordPress Business Directory Plugin. Build an easy team directory, memb
 
 [Main Site](https://businessdirectoryplugin.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) | [Docs](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-Are you looking for a simple directory website builder for WordPress? With Business Directory Plugin, you can be in control without a developer.
+Are you looking for a simple directory website builder with WordPress? With Business Directory Plugin, it's never been easier to be in control with directories for any business type. All without a developer!
 
 == The Best Business Directory Plugin for WordPress ==
 You've found the most popular, versatile, and easy to use WordPress directory plugin available. Increase interaction on your WordPress site, improve customer retention and add a generate revenue with our WordPress business directory plugin!
@@ -22,12 +22,12 @@ Our easy WordPress directory plugin allows you to take the listings you want and
 
 Not only can you create business listings, but you can also build any other kind of listings directory. Build a team or employee directory, company directory, medical directory, and other web directory sites with our easy listing plugin.
 
-[See demo](https://demo.businessdirectoryplugin.com/).
+[See Business Directory Plugin demo](https://demo.businessdirectoryplugin.com/).
 
 Need a classifieds listings site? Try [Another WordPress Classifieds Plugin - AWPCP](https://wordpress.org/plugins/another-wordpress-classifieds-plugin/).
 
 == Get Simple Business Directory Listing Solutions ==
-Here are just a few things our community is doing to build connections, help communities, and grow traffic with our directory website builder:
+Here are just a few things our community is doing with Business Directory Plugin to build connections, help communities, and grow traffic with our directory website builder:
 
 * Start a listing manager service for providers. (Like counselors, plumbers, electricians, house cleaning, locksmiths, therapists, wedding vendors, veterinarians, consultants, photographers, artists, authors, etc.)
 * Make a Yelp-clone with reviews to connect travelers to hotels, tours, local businesses, and other visitor attractions.
@@ -97,12 +97,12 @@ For more information please visit [businessdirectoryplugin.com](https://business
 
 == Business Directory Plugin Docs ==
 
-Please see our [Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).We also have an [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
+Please see our [Business Directory Plugin Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion). We also have an [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
 == Installation ==
 Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) page for instructions on how to get going quickly with our business directory software.
 
-[Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for the plugin is also available.
+[Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for Business Directory Plugin is also available.
 
 == Screenshots ==
 
@@ -112,13 +112,13 @@ Please see our detailed [Installation Guide](https://businessdirectoryplugin.com
 
 For the definitive FAQ section, please visit the [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), or our [Getting Started](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
-= Can I accept paid and free listings? =
+= Can I accept paid and free listings with Business Directory Plugin? =
 Yes it can. You can do this by creating fee plans for 0.00 and some other paid amount at the same time. For more details, read [this article](https://businessdirectoryplugin.com/knowledge-base/how-to-run-bd-in-free-mode/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
 = Do you have video tutorials for building WordPress directories? =
 Yes we do. They can be found [here](https://businessdirectoryplugin.com/video-tutorials/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
-= Will this plugin work with my theme? =
+= Will Business Directory Plugin work with my WordPress theme? =
 Our WP directory plugin will work with any well-written, WP compliant theme. Generally speaking, paid themes tend to be higher quality than free ones.
 
 Whatever theme you pick, we recommend using the Theme Check plugin (available for free on WordPress.org) to validate a theme. The more errors and warnings you see on the theme when you run that check, the worse the theme is. You can read more about it at https://wordpress.org/plugins/theme-check/
@@ -137,7 +137,7 @@ Yes! We offer many user-provided translations under the /languages folder. It is
 
 And you can also easily [translate it yourself](https://translate.wordpress.org/projects/wp-plugins/business-directory-plugin/).
 
-= Is this plugin compatible with WordPress Multisite (WPMU)? =
+= Is this plugin compatible with WordPress Multisite? =
 Yes it is. However, you cannot "network activate" the plugin (as this will share the database). Activate it on only the sub sites you need it.
 
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
@@ -154,6 +154,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Medical directory
 * Restaurant directory
 * Church directory
+* City directory
 * Travel review directories
 * Software review sites
 * Professional directory
@@ -164,6 +165,10 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 == Changelog ==
+= 5.13.3 =
+* Fix: An warning message was showing in the admin area when it shouldn't.
+* Update for code styling and more escaping.
+
 = 5.13.2 =
 * New: Added support for using id=# in several shortcodes. ie [businessdirectory-socials id=251], [businessdirectory-buttons id=251], [businessdirectory-details id=251], [businessdirectory-images id=251]
 * Fix: Check template override locations more consistently
@@ -202,10 +207,5 @@ Our directory website builder software combined with our add-on modules is the m
 * Fix: When an image is removed from a link, don't delete it from the media library if it's still being used in another listing.
 * Fix: Some listing images were not being removed correctly from a listing when removed from the back-end.
 * Fix: Prevent an error when the default free plan is deleted.
-
-= 5.11.2 =
-* Security: Lots of security fixes after a security audit. This includes XSS, Cross-Site Request Forgery, and unprotected import and export files.
-* Fix: Some combination of add-ons was preventing the listing form from progressing.
-* Fix: Post duplicator plugins were resulting in an endless loop when updating or deleting a duplicated listing.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

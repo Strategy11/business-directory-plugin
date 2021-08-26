@@ -398,7 +398,7 @@ class WPBDP__Listing_Email_Notification {
     public function payment_completed_email( $payment, $old_status, $new_status ) {
         $listing = wpbdp_get_listing( $payment->listing_id );
 
-        if( ! $listing || $old_status === $new_status ) {
+		if ( ! $listing || $old_status === $new_status ) {
             return;
         }
 
@@ -408,7 +408,7 @@ class WPBDP__Listing_Email_Notification {
 
         $plan = $listing->get_fee_plan();
 
-        if( ! $plan ) {
+		if ( ! $plan ) {
             return;
         }
 

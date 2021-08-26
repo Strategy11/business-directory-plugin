@@ -21,7 +21,7 @@ $in_shortcode = ! isset( $in_shortcode ) ? false : (bool) $in_shortcode;
 
     <?php do_action( 'wpbdp_before_category_page', $category ); ?>
     <?php
-    	echo apply_filters( 'wpbdp_category_page_listings', wpbdp_render('businessdirectory-listings', array('excludebuttons' => true)), $category );
+	echo apply_filters( 'wpbdp_category_page_listings', wpbdp_render( 'businessdirectory-listings', array( 'excludebuttons' => true ) ), $category );
     ?>
     <?php do_action( 'wpbdp_after_category_page', $category ); ?>
 

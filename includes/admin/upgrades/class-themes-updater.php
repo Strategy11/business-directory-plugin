@@ -94,10 +94,11 @@ class WPBDP_Themes_Updater {
         $url = $data->package;
 
         $sections = isset( $data->sections ) ? unserialize( $data->sections ) : false;
-        if ( $sections && isset( $sections['changelog'] ) )
-            $changelog = $sections['changelog'];
-        else
-            $changelog = '';
+		if ( $sections && isset( $sections['changelog'] ) ) {
+			$changelog = $sections['changelog'];
+		} else {
+			$changelog = '';
+		}
 
         return array( $new_version, $changelog, $url );
     }

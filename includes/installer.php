@@ -26,12 +26,11 @@ class WPBDP_Installer {
 
         // TODO: Is this event now unnecessary? Check wpbdp_daily_events event.
         // schedule expiration hook if needed
-        if (!wp_next_scheduled('wpbdp_listings_expiration_check')) {
-            wpbdp_log('Expiration check was not in schedule. Scheduling.');
-            wp_schedule_event(current_time('timestamp'), 'hourly', 'wpbdp_listings_expiration_check');
+		if ( ! wp_next_scheduled( 'wpbdp_listings_expiration_check' ) ) {
+			wpbdp_log( 'Expiration check was not in schedule. Scheduling.' );
+			wp_schedule_event( current_time( 'timestamp' ), 'hourly', 'wpbdp_listings_expiration_check' );
         } else {
-            // error_log( 'Expiration check was in schedule. Nothing to do.' );
-            wpbdp_log('Expiration check was in schedule. Nothing to do.');
+			wpbdp_log( 'Expiration check was in schedule. Nothing to do.' );
         }
 
         if ( false === get_option( 'wpbdp-db-migrations', false ) )
@@ -43,10 +42,10 @@ class WPBDP_Installer {
         $this->update_database_schema();
 
         if ( $this->installed_version ) {
-            wpbdp_log('WPBDP is already installed.');
+			wpbdp_log( 'WPBDP is already installed.' );
             return $this->_update();
         } else if ( $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
-            wpbdp_log('New installation. Creating default form fields.');
+			wpbdp_log( 'New installation. Creating default form fields.' );
             global $wpbdp;
 
             // Create default category.
@@ -71,7 +70,7 @@ class WPBDP_Installer {
             throw new Exception( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" );
         }
 
-        update_option('wpbdp-db-version', self::DB_VERSION);
+		update_option( 'wpbdp-db-version', self::DB_VERSION );
     }
 
     /**
@@ -174,7 +173,7 @@ class WPBDP_Installer {
     }
 
     public function update_database_schema() {
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
         wpbdp_log( 'Running dbDelta.' );
 

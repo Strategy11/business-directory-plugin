@@ -28,22 +28,14 @@
         <exclude name="WordPress.DB.PreparedSQL.NotPrepared" />
 
         <!-- Fast -->
-        <exclude name="Generic.Files.EndFileNewline.NotFound" />
         <exclude name="Generic.PHP.LowerCaseConstant.Found" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
-        <exclude name="WordPress.WP.I18n.UnorderedPlaceholdersText" />
         <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned" />
         <exclude name="PSR2.ControlStructures.SwitchDeclaration.TerminatingComment" />
-        <exclude name="Generic.Functions.FunctionCallArgumentSpacing.TooMuchSpaceAfterComma" />
         <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing" />
         <exclude name="Squiz.Commenting.FunctionCommentThrowTag.Missing" />
         <exclude name="PSR2.Classes.PropertyDeclaration.VarUsed" />
-        <exclude name="WordPress.WP.I18n.UnorderedPlaceholdersPlural" />
-        <exclude name="WordPress.WP.I18n.UnorderedPlaceholdersSingle" />
-        <exclude name="WordPress.Classes.ClassInstantiation.MissingParenthesis" />
-        <exclude name="Generic.Strings.UnnecessaryStringConcat.Found" />
-        <exclude name="WordPress.WhiteSpace.OperatorSpacing.SpacingBefore" />
 
         <!-- Temporary exclusions -->
         <exclude name="WordPress.PHP.DontExtract.extract_extract" />
@@ -61,19 +53,14 @@
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
         <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
         <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
-        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword" />
         <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket" />
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
-        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
         <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen" />
         <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
         <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.SpacesAroundArrayKeys" />
         <exclude name="WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned" />
-        <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceAfter" />
-        <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceBefore" />
         <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
         <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeOpenBracket" />
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />

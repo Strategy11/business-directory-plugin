@@ -14,9 +14,9 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
             'post_type' => WPBDP_POST_TYPE,
             'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
             'post_status' => 'publish',
-            'paged' => intval($paged),
-            'orderby' => wpbdp_get_option('listings-order-by', 'date'),
-            'order' => wpbdp_get_option('listings-sort', 'ASC'),
+			'paged'              => intval( $paged ),
+			'orderby'            => wpbdp_get_option( 'listings-order-by', 'date' ),
+			'order'              => wpbdp_get_option( 'listings-sort', 'ASC' ),
             'wpbdp_main_query' => true,
             'wpbdp_in_shortcode' => true,
         );
@@ -47,7 +47,7 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
                                 '_bar'     => $show_menu,
                                 'query' => $q );
 
-        if ( ! function_exists('wp_pagenavi' ) && is_front_page() ) {
+		if ( ! function_exists( 'wp_pagenavi' ) && is_front_page() ) {
             global $paged;
             $paged = $q->query['paged'];
         }

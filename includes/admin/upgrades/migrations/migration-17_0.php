@@ -44,8 +44,8 @@ class WPBDP__Migrations__17_0 extends WPBDP__Migration {
         }
 
         $sql = "SELECT post_id, meta_id, meta_key, meta_value FROM {$wpdb->postmeta} ";
-        $sql.= "WHERE meta_key IN (%s) AND meta_value REGEXP '^ |\\t | \\t| $|[\\r\\n]' ";
-        $sql.= "LIMIT 50";
+		$sql .= "WHERE meta_key IN (%s) AND meta_value REGEXP '^ |\\t | \\t| $|[\\r\\n]' ";
+		$sql .= "LIMIT 50";
 
         $sql = sprintf( $sql, "'" . implode( "', '", $meta_keys ) . "'" );
 

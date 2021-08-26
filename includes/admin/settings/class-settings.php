@@ -99,7 +99,7 @@ class WPBDP__Settings {
         $parents = array();
         $parent_ = $parent;
 
-        while( $parent_ ) {
+		while ( $parent_ ) {
             $parents[] = $parent_;
             $parent_ = $this->groups[ $parent_ ]['parent'];
         }
@@ -414,10 +414,11 @@ class WPBDP__Settings {
         $legacy_options = array();
 
         foreach ($this->pre_2_0_options() as $old_key => $new_key) {
-            $setting_value = $this->get($new_key);
+			$setting_value = $this->get( $new_key );
 
-            if ($new_key == 'googlecheckout' || $new_key == 'paypal' || $new_key == '2checkout')
-                $setting_value = !$setting_value;
+			if ( $new_key === 'paypal' || $new_key === '2checkout' ) {
+				$setting_value = ! $setting_value;
+			}
 
             if ($this->settings[$new_key]->type == 'boolean') {
                 $setting_value = $setting_value == true ? 'yes' : 'no';
@@ -621,47 +622,51 @@ class WPBDP__Settings {
     }
 
     public function upgrade_options() {
-        if (!$this->settings)
-            $this->_register_settings();
+		if ( ! $this->settings ) {
+			$this->_register_settings();
+		}
 
         $translations = $this->pre_2_0_options();
 
-        if ($old_options = get_option('wpbusdirman_settings_config')) {
+		$old_options = get_option( 'wpbusdirman_settings_config' );
+		if ( $old_options ) {
             foreach ($old_options as $option) {
-                $id = strtolower($option['id']);
-                $type = strtolower($option['type']);
+				$id    = strtolower( $option['id'] );
+				$type  = strtolower( $option['type'] );
                 $value = $option['std'];
 
-                if ($type == 'titles' || $id == 'wpbusdirman_settings_config_25' || empty($value))
+				if ( $type === 'titles' || $id === 'wpbusdirman_settings_config_25' || empty( $value ) ) {
                     continue;
+				}
 
-                if ($id == 'wpbusdirman_settings_config_40') {
-                    $this->set('googlecheckout', $value == 'yes' ? false : true);
-                } elseif ($id == 'wpbusdirman_settings_config_41') {
-                    $this->set('paypal', $value == 'yes' ? false : true);
-                } elseif ($id == 'wpbusdirman_settings_config_43') {
-                    $this->set('2checkout', $value == 'yes' ? false : true);
-                } else {
-                    if (!isset($this->settings[$translations[$id]]))
-                        continue;
+				if ( $id === 'wpbusdirman_settings_config_40' ) {
+					$this->set( 'googlecheckout', $value === 'yes' ? false : true );
+				} elseif ( $id === 'wpbusdirman_settings_config_41' ) {
+					$this->set( 'paypal', $value === 'yes' ? false : true );
+				} elseif ( $id === 'wpbusdirman_settings_config_43' ) {
+					$this->set( '2checkout', $value === 'yes' ? false : true );
+				} else {
+					if ( ! isset( $this->settings[ $translations[ $id ] ] ) ) {
+						continue;
+					}
 
-                    $newsetting = $this->settings[$translations[$id]];
+					$newsetting = $this->settings[ $translations[ $id ] ];
 
                     switch ($newsetting->type) {
                         case 'boolean':
-                            $this->set($newsetting->name, $value == 'yes' ? true : false);
+							$this->set( $newsetting->name, $value === 'yes' );
                             break;
                         case 'choice':
                         case 'text':
                         default:
-                            $this->set($newsetting->name, $value);
+							$this->set( $newsetting->name, $value );
                             break;
                     }
                 }
 
             }
 
-            delete_option('wpbusdirman_settings_config');
+			delete_option( 'wpbusdirman_settings_config' );
         }
     }
 

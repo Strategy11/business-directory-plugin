@@ -1273,10 +1273,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $html .= '<input id="wpbdp-terms-and-conditions-agreement" type="checkbox" name="terms-and-conditions-agreement" value="1" ' . ( $accepted ? 'checked="checked"' : '' ) . ' /> ';
         $label = _x( 'I agree to the <a>Terms and Conditions</a>', 'templates', 'business-directory-plugin' );
 
-        if ( $is_url )
+		if ( $is_url ) {
             $label = str_replace( '<a>', '<a href="' . esc_url( $tos ) . '" target="_blank" rel="noopener">', $label );
-        else
+		} else {
             $label = str_replace( array( '<a>', '</a>' ), '', $label );
+		}
 
         $html .= $label;
         $html .= '</label>';

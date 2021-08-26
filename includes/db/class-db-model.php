@@ -178,7 +178,7 @@ class WPBDP__DB__Model {
             $this->clean( $errors );
 
         if ( $errors )
-            throw new Exception('Invalid model instance!');
+			throw new Exception( 'Invalid model instance!' );
 
         $this->_saving = true;
 
@@ -244,7 +244,7 @@ class WPBDP__DB__Model {
     }
 
     public static function objects() {
-        throw new Exception('Method not overridden in subclass!');
+		throw new Exception( 'Method not overridden in subclass!' );
     }
 
     public static function _objects( $classname ) {

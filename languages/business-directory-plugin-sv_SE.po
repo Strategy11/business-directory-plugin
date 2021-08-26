@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-08-24 19:42:43+00:00\n"
+"POT-Creation-Date: 2021-08-26 18:29:37+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,14 +16,14 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/admin/class-admin-controller.php:80
+#: includes/admin/class-admin-controller.php:81
 #: templates/admin/payments-note.tpl.php:13
 #: templates/delete-listing-confirm.tpl.php:19
 #, fuzzy
 msgid "Are you sure you want to do this?"
 msgstr "Är du säker på att du vill göra detta?"
 
-#: includes/admin/class-admin-csv.php:38 templates/admin/csv-import.tpl.php:294
+#: includes/admin/class-admin-csv.php:38 templates/admin/csv-import.tpl.php:310
 #, fuzzy
 msgid "Help"
 msgstr "Hjälp"
@@ -95,7 +95,7 @@ msgstr "Vill du veta hemligheten bakom att bygga en grymt bra affärskatalog?"
 msgid "Yes, please!"
 msgstr "Ja tack!"
 
-#: includes/admin/class-admin.php:199 includes/admin/tracking.php:213
+#: includes/admin/class-admin.php:199 includes/admin/tracking.php:214
 #, fuzzy
 msgid "No, thanks"
 msgstr "Nej tack."
@@ -257,7 +257,7 @@ msgstr "Bilder"
 
 #: includes/admin/form-fields.php:31
 #: includes/fields/class-fieldtypes-social.php:138
-#: templates/admin/csv-import.tpl.php:305
+#: templates/admin/csv-import.tpl.php:325
 #, fuzzy
 msgid "Type"
 msgstr "Typ"
@@ -804,11 +804,11 @@ msgstr "Skriv in din e-postadress"
 msgid "Uninstall"
 msgstr "Avinstallera"
 
-#: includes/admin/settings/class-settings.php:512
+#: includes/admin/settings/class-settings.php:513
 msgid "%s cannot include spaces, commas, or &"
 msgstr ""
 
-#: includes/admin/tracking.php:220
+#: includes/admin/tracking.php:221
 #, fuzzy
 msgid "Allow Tracking"
 msgstr "Tillåt spårning"
@@ -880,6 +880,16 @@ msgstr "Avgiftetikett"
 #, fuzzy
 msgid "Duration"
 msgstr "Varaktighet"
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:251
+#, fuzzy
+msgid "Could not migrate fee \"%1$s\" (%2$d)"
+msgstr "! Det gick inte att migrera avgiften \"%s\" (%d)"
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:181
+#, fuzzy
+msgid "Renewal fee \"%1$s\" for category \"%2$s\""
+msgstr "Förnyelseavgift \"%s\" för kategorin \"%s\""
 
 #: includes/admin/views/modules/list.php:10
 #, fuzzy
@@ -1051,12 +1061,12 @@ msgstr "Uppgradera till %s"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: includes/class-wpbdp.php:578
+#: includes/class-wpbdp.php:579
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Det gick inte att kontakta licensservern"
 
-#: includes/class-wpbdp.php:585
+#: includes/class-wpbdp.php:586
 #, fuzzy
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
@@ -1065,12 +1075,12 @@ msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/class-wpbdp.php:592 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:593 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Det gick inte att uppdatera tema:%s"
 
-#: includes/class-wpbdp.php:624
+#: includes/class-wpbdp.php:625
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1078,7 +1088,7 @@ msgstr ""
 "Business Directorys funktioner är för närvarande avaktiverade på grund av "
 "att pluginet behöver <a> en manuell uppgradering</a>."
 
-#: includes/class-wpbdp.php:631
+#: includes/class-wpbdp.php:632
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1087,7 +1097,7 @@ msgstr ""
 "eller kontakta administratören om problemet kvarstår."
 
 #: includes/compatibility/class-navxt-integration.php:204
-#: includes/widgets/widget-search.php:112
+#: includes/widgets/widget-search.php:125
 #: templates/admin/payments-index.tpl.php:13
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:28
 #: templates/search.tpl.php:3
@@ -1262,8 +1272,12 @@ msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr "Fältalternativ (för utvalda annonser, radioknappar och kryssrutor)"
 
 #: includes/fields/class-fieldtypes-select.php:262
-#: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
-#: templates/admin/fees-form.tpl.php:58
+#: templates/admin/csv-export.tpl.php:117 templates/admin/csv-import.tpl.php:51
+#: templates/admin/csv-import.tpl.php:120
+#: templates/admin/csv-import.tpl.php:148
+#: templates/admin/csv-import.tpl.php:161
+#: templates/admin/csv-import.tpl.php:213 templates/admin/fees-form.tpl.php:17
+#: templates/admin/fees-form.tpl.php:38 templates/admin/fees-form.tpl.php:58
 #, fuzzy
 msgid "required"
 msgstr "obligatoriskt"
@@ -1429,7 +1443,7 @@ msgstr "Datumvalidator"
 msgid "Word Count Validator"
 msgstr "Heltal Validator"
 
-#: includes/form-fields.php:594
+#: includes/form-fields.php:594 templates/admin/csv-import.tpl.php:324
 #, fuzzy
 msgid "Field"
 msgstr "Fält"
@@ -1483,7 +1497,7 @@ msgid "%1$s must have less than %2$d words."
 msgstr "%s måste vara i formatet %s."
 
 #. translators: %1$s: field label, %2$s allowed values
-#: includes/form-fields.php:822
+#: includes/form-fields.php:824
 #, fuzzy
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%s är ogiltig. Värdet måste vara en av %s."
@@ -1684,10 +1698,40 @@ msgstr "Hantera betalda annonser"
 msgid "Default"
 msgstr "Standardavgift"
 
-#: includes/themes.php:951
+#: includes/themes.php:952
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "ZIP-filen är inte en giltig BD temafil."
+
+#: includes/utils.php:465
+#, fuzzy
+msgid "File size (%1$s) exceeds maximum file size of %2$s"
+msgstr "Filstorlek (%s) överskrider maximal filstorlek på %s"
+
+#: includes/utils.php:474
+#, fuzzy
+msgid "File size (%1$s) is smaller than the minimum file size of %2$s"
+msgstr "Filstorlek (%s) är sämre än den minifilstiorleken på%s"
+
+#: includes/utils.php:527
+#, fuzzy
+msgid "Image width (%1$s px) is smaller than the minimum width of %2$s px."
+msgstr "Bildbredden (%s px) är större än högsta tillåtna bredd%s px."
+
+#: includes/utils.php:535
+#, fuzzy
+msgid "Image height (%1$s px) is smaller than the minimum height of %2$s px."
+msgstr "Bildhöjden (%s px) är större än maximalt tillåtna höjd%s px."
+
+#: includes/utils.php:543
+#, fuzzy
+msgid "Image width (%1$s px) is greater than maximum width of %2$s px."
+msgstr "Bildbredden (%s px) är större än högsta tillåtna bredd%s px."
+
+#: includes/utils.php:551
+#, fuzzy
+msgid "Image height (%1$s px) is greater than maximum height of %2$s px."
+msgstr "Bildhöjden (%s px) är större än maximalt tillåtna höjd%s px."
 
 #. translators: %1$s: listing name, %2$s: open link html, %3$s close link html
 #: includes/views/flag_listing.php:56
@@ -1732,6 +1776,12 @@ msgstr "Förnya annons"
 #, fuzzy
 msgid "That listing cannot yet be renewed."
 msgstr "Annonsen har uppgraderats."
+
+#: includes/views/show_listing.php:12
+#, fuzzy
+msgid "This is just a preview. The listing has not been published yet."
+msgstr ""
+"Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
 #: includes/views/submit_listing.php:544
 #, fuzzy
@@ -1795,6 +1845,17 @@ msgstr ""
 "Markera detta val om du planerar att återimportera annonser till BD och inte "
 "vill att nya skapas."
 
+#: templates/admin/csv-export.tpl.php:93 templates/admin/csv-import.tpl.php:115
+#, fuzzy
+msgid "CSV File Settings"
+msgstr "Inställningar för CSV-fil"
+
+#: templates/admin/csv-export.tpl.php:116
+#: templates/admin/csv-import.tpl.php:147
+#, fuzzy
+msgid "Image Separator"
+msgstr "Bildavgränsare"
+
 #. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
 #: templates/admin/csv-import.tpl.php:34
 #, fuzzy
@@ -1805,15 +1866,140 @@ msgstr ""
 "Vi rekommenderar starkt att du läser vår <a>CSV import dokumentation</a> "
 "först för att hjälpa dig att göra saker i rätt ordning."
 
-#: templates/admin/csv-import.tpl.php:274
+#: templates/admin/csv-import.tpl.php:45
+#, fuzzy
+msgid "Import Files"
+msgstr "Importera filer"
+
+#: templates/admin/csv-import.tpl.php:50
+#, fuzzy
+msgid "CSV File"
+msgstr "CSV Fil"
+
+#: templates/admin/csv-import.tpl.php:83
+#, fuzzy
+msgid "ZIP file containing images"
+msgstr "ZIP-fil som innehåller bilder"
+
+#: templates/admin/csv-import.tpl.php:119
+#, fuzzy
+msgid "Column Separator"
+msgstr "Kolumnavgränsare"
+
+#: templates/admin/csv-import.tpl.php:160
+#, fuzzy
+msgid "Category Separator"
+msgstr "Kategoriavgränsare"
+
+#: templates/admin/csv-import.tpl.php:173
+#, fuzzy
+msgid "Import settings"
+msgstr "Importera inställningar"
+
+#: templates/admin/csv-import.tpl.php:177
+#, fuzzy
+msgid "Post status of new imported listings"
+msgstr "Status av importerade annonser"
+
+#: templates/admin/csv-import.tpl.php:194
+#, fuzzy
+msgid "Post status of existing imported listings"
+msgstr "Status av importerade annonser"
+
+#: templates/admin/csv-import.tpl.php:212
+#, fuzzy
+msgid "Missing categories handling"
+msgstr "Hantera saknade kategorier"
+
+#: templates/admin/csv-import.tpl.php:220
+#, fuzzy
+msgid "Auto-create categories"
+msgstr "Autoskapa kategorier"
+
+#: templates/admin/csv-import.tpl.php:225
+#, fuzzy
+msgid "Generate errors when a category is not found"
+msgstr "Generera fel när en kategori inte hittas"
+
+#: templates/admin/csv-import.tpl.php:242
+#: templates/admin/csv-import.tpl.php:249
+#, fuzzy
+msgid "Assign listings to a user?"
+msgstr "Tilldela annons till användare?"
+
+#: templates/admin/csv-import.tpl.php:266
+#, fuzzy
+msgid "Default listing user"
+msgstr "standardanvändare"
+
+#: templates/admin/csv-import.tpl.php:272
+#, fuzzy
+msgid ""
+"This user will be used if the username column is not present in the CSV file."
+msgstr ""
+"Denna användare kommer att användas om användarkolumnen inte finns i CSV-"
+"filen."
+
+#: templates/admin/csv-import.tpl.php:277
+#, fuzzy
+msgid "Number of listings imported on every cycle"
+msgstr "Antal annonser att visa:"
+
+#: templates/admin/csv-import.tpl.php:285
+msgid ""
+"If you are having trouble importing listings due to memory problems, try "
+"reducing the import batch size to 5 or 1 and then re-attempt. This will "
+"result in a longer batch import time, but will increase the chance of "
+"success on shared hosting platforms and other resource-constrained servers."
+msgstr ""
+
+#: templates/admin/csv-import.tpl.php:290
 #, fuzzy
 msgid "Disable email notifications during import?"
 msgstr "Inaktivera e-postmeddelanden vid import?"
 
-#: templates/admin/csv-import.tpl.php:281
+#: templates/admin/csv-import.tpl.php:297
 #, fuzzy
 msgid "Disable email notifications."
 msgstr "Inaktivera e-postmeddelanden."
+
+#: templates/admin/csv-import.tpl.php:314
+#, fuzzy
+msgid ""
+"The following are the valid header names to be used in the CSV file. "
+"Multivalued fields (such as category or tags) can appear multiple times in "
+"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
+"how an import file should look like."
+msgstr ""
+"Följande är giltiga rubriknamn som ska användas i CSV-filen. Fält med flera "
+"värden (såsom kategori eller taggar) kan förekomma flera gånger i filen. "
+"Klicka <a href=\"%s\">\"Se ett exempel CSV-importfilen\"</a> för att se hur "
+"en importfil ska se ut."
+
+#: templates/admin/csv-import.tpl.php:323
+#, fuzzy
+msgid "Header name/label"
+msgstr "Rubriknamn / etikett"
+
+#: templates/admin/csv-import.tpl.php:326
+#, fuzzy
+msgid "Required?"
+msgstr "Obligatoriskt?"
+
+#: templates/admin/csv-import.tpl.php:327
+#, fuzzy
+msgid "Multivalued?"
+msgstr "Fler värden?"
+
+#: templates/admin/csv-import.tpl.php:359
+#, fuzzy
+msgid "Semicolon separated list of listing images (from the ZIP file)"
+msgstr "Semikolonseparerad lista med annonsbilder (från ZIP-filen)."
+
+#: templates/admin/csv-import.tpl.php:366
+#, fuzzy
+msgid "Listing author's username"
+msgstr "Annonsens författares användarnamn"
 
 #: templates/admin/debug-info.tpl.php:5
 #, fuzzy
@@ -2286,6 +2472,7 @@ msgid "Preview email"
 msgstr "Förhandsgranska e-post"
 
 #: templates/admin/settings-email.tpl.php:103
+#: templates/admin/themes-delete-confirm.tpl.php:12
 #: templates/listing-flagging-form.tpl.php:64
 #, fuzzy
 msgid "Cancel"
@@ -2419,6 +2606,12 @@ msgstr "Gillar du detta plugin?"
 #: templates/admin/sidebar.tpl.php:40
 msgid "Need help?"
 msgstr ""
+
+#: templates/admin/themes-delete-confirm.tpl.php:1
+#: templates/admin/themes-delete-confirm.tpl.php:13
+#, fuzzy
+msgid "Delete Directory Theme"
+msgstr "Ta bort tema"
 
 #: templates/admin/themes-install.tpl.php:4 templates/admin/themes.tpl.php:6
 #, fuzzy
@@ -2654,6 +2847,16 @@ msgstr "Postnummer"
 msgid "Next"
 msgstr "Nästa"
 
+#: templates/delete-listing-confirm.tpl.php:24
+#, fuzzy
+msgid "No. Take me back to the directory."
+msgstr "Nej. Ta mig tillbaka till katalogen."
+
+#: templates/delete-listing-confirm.tpl.php:25
+#, fuzzy
+msgid "Yes. Delete my listing."
+msgstr "Ja. Ta bort min annons."
+
 #: templates/deprecated/search.tpl.php:16 templates/search.tpl.php:10
 #, fuzzy
 msgid "Search Results"
@@ -2671,6 +2874,11 @@ msgstr "Återgå till katalogen"
 #, fuzzy
 msgid "(not published yet)"
 msgstr "(ej publicerad ännu)"
+
+#: templates/email/listing-payment-completed.tpl.php:25
+#, fuzzy
+msgid "Plan"
+msgstr "Avgiftsplan"
 
 #: templates/email-access-keys.tpl.php:1
 #, fuzzy
@@ -2954,12 +3162,12 @@ msgstr ""
 msgid "Business Directory Team"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin-controller.php:82
+#: includes/admin/class-admin-controller.php:83
 msgctxt "admin confirm"
 msgid "No, go back"
 msgstr "Nej, gå tillbaka"
 
-#: includes/admin/class-admin-controller.php:83
+#: includes/admin/class-admin-controller.php:84
 msgctxt "admin confirm"
 msgid "Yes, I'm sure"
 msgstr "Ja, jag är säker"
@@ -3176,135 +3384,58 @@ msgctxt "admin csv-import"
 msgid "Here, you can import data into your directory using the CSV format."
 msgstr "Här kan du importera data till din katalog med hjälp av CSV-format."
 
-#: templates/admin/csv-import.tpl.php:45
-msgctxt "admin csv-import"
-msgid "Import Files"
-msgstr "Importera filer"
-
-#: templates/admin/csv-import.tpl.php:50
-msgctxt "admin csv-import"
-msgid "CSV File"
-msgstr "CSV Fil"
-
-#: templates/admin/csv-import.tpl.php:62 templates/admin/csv-import.tpl.php:93
+#: templates/admin/csv-import.tpl.php:64 templates/admin/csv-import.tpl.php:95
 msgctxt "admin csv-import"
 msgid "... or <a>select a file uploaded to the imports folder</a>"
 msgstr "... eller <a>välj en fil som laddats upp till import-mappen</a>"
 
-#: templates/admin/csv-import.tpl.php:72 templates/admin/csv-import.tpl.php:104
+#: templates/admin/csv-import.tpl.php:74 templates/admin/csv-import.tpl.php:106
 msgctxt "admin csv-import"
 msgid "(Upload new file)"
 msgstr "(Ladda upp ny fil)"
 
-#: templates/admin/csv-import.tpl.php:81
-msgctxt "admin csv-import"
-msgid "ZIP file containing images"
-msgstr "ZIP-fil som innehåller bilder"
-
-#: templates/admin/csv-import.tpl.php:113
-msgctxt "admin csv-import"
-msgid "CSV File Settings"
-msgstr "Inställningar för CSV-fil"
-
-#: templates/admin/csv-import.tpl.php:117
-msgctxt "admin csv-import"
-msgid "Column Separator"
-msgstr "Kolumnavgränsare"
-
-#: templates/admin/csv-import.tpl.php:125
+#: templates/admin/csv-import.tpl.php:129
 msgctxt "admin csv-import"
 msgid "Comma (,)"
 msgstr "Komma (,)"
 
-#: templates/admin/csv-import.tpl.php:131
+#: templates/admin/csv-import.tpl.php:135
 msgctxt "admin csv-import"
 msgid "Semicolon (;)"
 msgstr "Semikolon (;)"
 
-#: templates/admin/csv-import.tpl.php:137
+#: templates/admin/csv-import.tpl.php:141
 msgctxt "admin csv-import"
 msgid "TAB"
 msgstr "Tab"
 
-#: templates/admin/csv-import.tpl.php:143
-msgctxt "admin csv-import"
-msgid "Image Separator"
-msgstr "Bildavgränsare"
-
-#: templates/admin/csv-import.tpl.php:154
-msgctxt "admin csv-import"
-msgid "Category Separator"
-msgstr "Kategoriavgränsare"
-
-#: templates/admin/csv-import.tpl.php:165
-msgctxt "admin csv-import"
-msgid "Import settings"
-msgstr "Importera inställningar"
-
-#: templates/admin/csv-import.tpl.php:169
-#, fuzzy
-msgctxt "admin csv-import"
-msgid "Post status of new imported listings"
-msgstr "Status av importerade annonser"
-
-#: templates/admin/csv-import.tpl.php:186
-#, fuzzy
-msgctxt "admin csv-import"
-msgid "Post status of existing imported listings"
-msgstr "Status av importerade annonser"
-
-#: templates/admin/csv-import.tpl.php:190
+#: templates/admin/csv-import.tpl.php:198
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Preserve existing status"
 msgstr "Annonsstatus"
 
-#: templates/admin/csv-import.tpl.php:204
-msgctxt "admin csv-import"
-msgid "Missing categories handling"
-msgstr "Hantera saknade kategorier"
-
-#: templates/admin/csv-import.tpl.php:209
-msgctxt "admin csv-import"
-msgid "Auto-create categories"
-msgstr "Autoskapa kategorier"
-
-#: templates/admin/csv-import.tpl.php:212
-msgctxt "admin csv-import"
-msgid "Generate errors when a category is not found"
-msgstr "Generera fel när en kategori inte hittas"
-
-#: templates/admin/csv-import.tpl.php:217
+#: templates/admin/csv-import.tpl.php:231
 msgctxt "admin csv-import"
 msgid "Keep existing listing images?"
 msgstr "Behålla befintliga annonsbilder?"
 
-#: templates/admin/csv-import.tpl.php:222
+#: templates/admin/csv-import.tpl.php:236
 msgctxt "admin csv-import"
 msgid "Keep existing images."
 msgstr "Behåll befintliga bilder."
 
-#: templates/admin/csv-import.tpl.php:223
+#: templates/admin/csv-import.tpl.php:237
 msgctxt "admin csv-import"
 msgid "Appends new images while keeping current ones."
 msgstr "Lägger till nya bilder och behåller de existerande."
 
-#: templates/admin/csv-import.tpl.php:228
-msgctxt "admin csv-import"
-msgid "Assign listings to a user?"
-msgstr "Tilldela annons till användare?"
-
-#: templates/admin/csv-import.tpl.php:234
-msgctxt "admin csv-import"
-msgid "Assign listings to a user."
-msgstr "Tilldela annons till användare."
-
-#: templates/admin/csv-import.tpl.php:239
+#: templates/admin/csv-import.tpl.php:255
 msgctxt "admin csv-import"
 msgid "Use a default user for listings?"
 msgstr "Använd en standardanvändare för annonser?"
 
-#: templates/admin/csv-import.tpl.php:245
+#: templates/admin/csv-import.tpl.php:261
 msgctxt "admin csv-import"
 msgid ""
 "Select a default user to be used if the username column is not present in "
@@ -3313,78 +3444,17 @@ msgstr ""
 "Välj en standardanvändare som används om användarkolumnen inte finns i CSV-"
 "filen."
 
-#: templates/admin/csv-import.tpl.php:250
-msgctxt "admin csv-import"
-msgid "Default listing user"
-msgstr "standardanvändare"
-
-#: templates/admin/csv-import.tpl.php:256
-msgctxt "admin csv-import"
-msgid ""
-"This user will be used if the username column is not present in the CSV file."
-msgstr ""
-"Denna användare kommer att användas om användarkolumnen inte finns i CSV-"
-"filen."
-
-#: templates/admin/csv-import.tpl.php:261
-#, fuzzy
-msgctxt "admin csv-import"
-msgid "Number of listings imported on every cycle"
-msgstr "Antal annonser att visa:"
-
-#: templates/admin/csv-import.tpl.php:269
-msgctxt "admin csv-import"
-msgid ""
-"If you are having trouble importing listings due to memory problems, try "
-"reducing the import batch size to 5 or 1 and then re-attempt. This will "
-"result in a longer batch import time, but will increase the chance of "
-"success on shared hosting platforms and other resource-constrained servers."
-msgstr ""
-
-#: templates/admin/csv-import.tpl.php:288
+#: templates/admin/csv-import.tpl.php:304
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr "Testimport"
 
-#: templates/admin/csv-import.tpl.php:289
+#: templates/admin/csv-import.tpl.php:305
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr "Importera annonser"
 
-#: templates/admin/csv-import.tpl.php:296
-msgctxt "admin csv-import"
-msgid ""
-"The following are the valid header names to be used in the CSV file. "
-"Multivalued fields (such as category or tags) can appear multiple times in "
-"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
-"how an import file should look like."
-msgstr ""
-"Följande är giltiga rubriknamn som ska användas i CSV-filen. Fält med flera "
-"värden (såsom kategori eller taggar) kan förekomma flera gånger i filen. "
-"Klicka <a href=\"%s\">\"Se ett exempel CSV-importfilen\"</a> för att se hur "
-"en importfil ska se ut."
-
-#: templates/admin/csv-import.tpl.php:303
-msgctxt "admin csv-import"
-msgid "Header name/label"
-msgstr "Rubriknamn / etikett"
-
-#: templates/admin/csv-import.tpl.php:304
-msgctxt "admin csv-import"
-msgid "Field"
-msgstr "Fält"
-
-#: templates/admin/csv-import.tpl.php:306
-msgctxt "admin csv-import"
-msgid "Required?"
-msgstr "Obligatoriskt?"
-
-#: templates/admin/csv-import.tpl.php:307
-msgctxt "admin csv-import"
-msgid "Multivalued?"
-msgstr "Fler värden?"
-
-#: templates/admin/csv-import.tpl.php:332
+#: templates/admin/csv-import.tpl.php:352
 #, fuzzy
 msgctxt "admin csv-import"
 msgid ""
@@ -3394,17 +3464,7 @@ msgstr ""
 "Annonsens utgångsdatum formateras som ÅÅÅÅ-MM-DD. Använd den här kolumnen "
 "när du lägger till eller uppdaterar listor från externa källor."
 
-#: templates/admin/csv-import.tpl.php:339
-msgctxt "admin csv-import"
-msgid "Semicolon separated list of listing images (from the ZIP file)"
-msgstr "Semikolonseparerad lista med annonsbilder (från ZIP-filen)."
-
-#: templates/admin/csv-import.tpl.php:346
-msgctxt "admin csv-import"
-msgid "Listing author's username"
-msgstr "Annonsens författares användarnamn"
-
-#: templates/admin/csv-import.tpl.php:353
+#: templates/admin/csv-import.tpl.php:373
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -3412,7 +3472,7 @@ msgstr ""
 "Intern sekvens ID som används för att tillåta notering uppdateringar från "
 "externa källor."
 
-#: templates/admin/csv-import.tpl.php:360
+#: templates/admin/csv-import.tpl.php:380
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -3914,11 +3974,6 @@ msgctxt "admin csv-export"
 msgid "Listing T&C acceptance date"
 msgstr "Annons skapad"
 
-#: templates/admin/csv-export.tpl.php:93
-msgctxt "admin csv-export"
-msgid "CSV File Settings"
-msgstr "Inställningar för CSV-fil"
-
 #: templates/admin/csv-export.tpl.php:97
 msgctxt "admin csv-export"
 msgid "What operating system will you use to edit the CSV file?"
@@ -3947,27 +4002,22 @@ msgstr ""
 "CSV-filen behöver vi generera olika versioner av filen för varje "
 "operativsystem."
 
-#: templates/admin/csv-export.tpl.php:116
-msgctxt "admin csv-export"
-msgid "Image Separator"
-msgstr "Bildavgränsare"
-
-#: templates/admin/csv-export.tpl.php:127
+#: templates/admin/csv-export.tpl.php:129
 msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr "Kategoriavgränsare"
 
-#: templates/admin/csv-export.tpl.php:139
+#: templates/admin/csv-export.tpl.php:141
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr "Exportera annonser"
 
-#: templates/admin/csv-export.tpl.php:145
+#: templates/admin/csv-export.tpl.php:147
 msgctxt "admin csv-export"
 msgid "Export in Progress..."
 msgstr "Export pågår..."
 
-#: templates/admin/csv-export.tpl.php:146
+#: templates/admin/csv-export.tpl.php:148
 msgctxt "admin csv-export"
 msgid ""
 "Your export file is being prepared. Please <u>do not leave</u> this page "
@@ -3976,40 +4026,40 @@ msgstr ""
 "Exportfilen förbereds. Vänligen <u>lämna inte denna sida</u> till dess att "
 "exporten är klar."
 
-#: templates/admin/csv-export.tpl.php:149
+#: templates/admin/csv-export.tpl.php:151
 msgctxt "admin csv-export"
 msgid "No. of listings:"
 msgstr "Antal annonser"
 
-#: templates/admin/csv-export.tpl.php:151
+#: templates/admin/csv-export.tpl.php:153
 msgctxt "admin csv-export"
 msgid "Approximate export file size:"
 msgstr "Ungefärlig filstorlek:"
 
-#: templates/admin/csv-export.tpl.php:158
+#: templates/admin/csv-export.tpl.php:160
 msgctxt "admin csv-export"
 msgid "Cancel Export"
 msgstr "Avbryt export"
 
-#: templates/admin/csv-export.tpl.php:163
+#: templates/admin/csv-export.tpl.php:165
 msgctxt "admin csv-export"
 msgid "Export Complete"
 msgstr "Export klar."
 
-#: templates/admin/csv-export.tpl.php:164
+#: templates/admin/csv-export.tpl.php:166
 msgctxt "admin csv-export"
 msgid ""
 "Your export file has been successfully created and it is now ready for "
 "download."
 msgstr "Exportfilen har skapats och det är nu klar för nedladdning."
 
-#: templates/admin/csv-export.tpl.php:168
+#: templates/admin/csv-export.tpl.php:170
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "Ladda ner%s (%s)"
 
-#: templates/admin/csv-export.tpl.php:175
+#: templates/admin/csv-export.tpl.php:177
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -4018,22 +4068,22 @@ msgstr ""
 "Klicka på \"Rensa\" när filen har laddats ner för att ta bort alla "
 "tillfälliga data som skapats av Busniess Directory under exportprocessen."
 
-#: templates/admin/csv-export.tpl.php:176
+#: templates/admin/csv-export.tpl.php:178
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "Rensa"
 
-#: templates/admin/csv-export.tpl.php:181
+#: templates/admin/csv-export.tpl.php:183
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "Export avbruten"
 
-#: templates/admin/csv-export.tpl.php:182
+#: templates/admin/csv-export.tpl.php:184
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "Export har avbrutits."
 
-#: templates/admin/csv-export.tpl.php:183
+#: templates/admin/csv-export.tpl.php:185
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← Tillbaka till CSV Export"
@@ -4115,42 +4165,42 @@ msgid "Invalid theme ID"
 msgstr "Ogiltigt objekt-ID"
 
 #: includes/admin/class-themes-admin.php:421
-#: includes/admin/upgrades/class-themes-updater.php:169
+#: includes/admin/upgrades/class-themes-updater.php:170
 msgctxt "themes"
 msgid "Could not update theme: %s"
 msgstr "Det gick inte att uppdatera tema:%s"
 
-#: includes/admin/upgrades/class-themes-updater.php:131
+#: includes/admin/upgrades/class-themes-updater.php:132
 msgctxt "themes"
 msgid "Updating theme..."
 msgstr "Uppdaterar ditt tema"
 
-#: includes/admin/upgrades/class-themes-updater.php:132
+#: includes/admin/upgrades/class-themes-updater.php:133
 msgctxt "themes"
 msgid "Theme updated."
 msgstr "Tema uppdateras."
 
-#: includes/admin/upgrades/class-themes-updater.php:134
+#: includes/admin/upgrades/class-themes-updater.php:135
 msgctxt "themes"
 msgid "New version available (<b>%s</b>). <a>Update now.</a>"
 msgstr "Ny version tillgänglig <b>(%s).</b> <a>Uppdatera nu.</a>"
 
-#: includes/admin/upgrades/class-themes-updater.php:175
+#: includes/admin/upgrades/class-themes-updater.php:176
 msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Temat har uppdaterats."
 
-#: includes/themes.php:959
+#: includes/themes.php:960
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Det gick inte att skapa temakatalogen."
 
-#: includes/themes.php:970
+#: includes/themes.php:971
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Det gick inte att ta bort tidigare temakatalogen \"%s\"."
 
-#: includes/themes.php:978
+#: includes/themes.php:979
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Det gick inte att flytta det nya temat till temakatalogen."
@@ -6677,13 +6727,13 @@ msgctxt "settings"
 msgid "Cropped"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:492
-#: includes/admin/settings/class-settings.php:503
+#: includes/admin/settings/class-settings.php:493
+#: includes/admin/settings/class-settings.php:504
 msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr "\"%s\" får inte vara tomt."
 
-#: includes/admin/settings/class-settings.php:520
+#: includes/admin/settings/class-settings.php:521
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "Sluggen “%s” används redan för en annan taxonomi."
@@ -6743,12 +6793,12 @@ msgctxt "contact email"
 msgid "Time: %s"
 msgstr "Tid: %s"
 
-#: includes/admin/tracking.php:187
+#: includes/admin/tracking.php:188
 msgctxt "tracking"
 msgid "Help Improve Business Directory"
 msgstr "Hjälp oss förbättra Business Directory"
 
-#: includes/admin/tracking.php:189
+#: includes/admin/tracking.php:190
 msgctxt "tracking"
 msgid ""
 "Can Business Directory keep track of your theme, plugins, and other non-"
@@ -6759,7 +6809,7 @@ msgstr ""
 "personlig, icke-identifierande information för att hjälpa oss att testa "
 "plugin för framtida versioner?"
 
-#: includes/admin/tracking.php:191
+#: includes/admin/tracking.php:192
 msgctxt "tracking"
 msgid "What do you track?"
 msgstr "Vad spårar ni?"
@@ -6819,11 +6869,6 @@ msgctxt "installer"
 msgid "Migrating fee plans..."
 msgstr "Migrerar avgiftsplan..."
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:251
-msgctxt "installer"
-msgid "! Could not migrate fee \"%s\" (%d)"
-msgstr "! Det gick inte att migrera avgiften \"%s\" (%d)"
-
 #: includes/admin/upgrades/migrations/migration-18_0.php:324
 msgctxt "installer"
 msgid "! Could not migrate payment #%d"
@@ -6856,13 +6901,15 @@ msgid "Migrating payments information."
 msgstr "Migrerar betalningsinformation."
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:61
+#, fuzzy
 msgctxt "installer"
-msgid "Cleaning up listing fees information... %d/%d"
+msgid "Cleaning up listing fees information... %1$d/%2$d"
 msgstr "Rensar annonsavgiftsinformation...% d /% d"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:119
+#, fuzzy
 msgctxt "installer"
-msgid "Migrating previous transactions to new Payments API... %d/%d"
+msgid "Migrating previous transactions to new Payments API... %1$d/%2$d"
 msgstr ""
 "Migrerar tidigare transaktioner till nya betalningsgränssnittet ...% d /% d"
 
@@ -6876,17 +6923,12 @@ msgctxt "installer"
 msgid "Listing edit payment (BD < 3.4)"
 msgstr "Ändring annonsbetalning (BD <3.4)"
 
-#: includes/admin/upgrades/migrations/migration-3_7.php:180
-msgctxt "installer"
-msgid "Renewal fee \"%s\" for category \"%s\""
-msgstr "Förnyelseavgift \"%s\" för kategorin \"%s\""
-
-#: includes/admin/upgrades/migrations/migration-3_7.php:199
+#: includes/admin/upgrades/migrations/migration-3_7.php:201
 msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Uppgradera till Utvald"
 
-#: includes/installer.php:62
+#: includes/installer.php:61
 msgctxt "installer"
 msgid "Default Fee"
 msgstr "Standardavgift"
@@ -7179,12 +7221,6 @@ msgctxt "notify email"
 msgid "Payment Details"
 msgstr "Betalningsdetaljer"
 
-#: templates/email/listing-payment-completed.tpl.php:25
-#, fuzzy
-msgctxt "notify email"
-msgid "Plan"
-msgstr "Avgiftsplan"
-
 #: templates/email/listing-payment-completed.tpl.php:32
 #, fuzzy
 msgctxt "notify email"
@@ -7246,7 +7282,7 @@ msgctxt "title"
 msgid "Find a Listing"
 msgstr "Hitta en annons"
 
-#: includes/class-meta.php:194
+#: includes/class-meta.php:195
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Annonser med tagg: %s"
@@ -7485,13 +7521,14 @@ msgid "Can not upload any more images for this listing."
 msgstr "Fler bilder kan inte laddas upp för denna annons."
 
 #: includes/class-wpbdp.php:480
+#, fuzzy
 msgctxt "listing image upload"
 msgid ""
-"You're trying to upload %d images, but only have %d slot available. Please "
-"adjust your selection."
+"You're trying to upload %1$d images, but only have %2$d slot available. "
+"Please adjust your selection."
 msgid_plural ""
-"You're trying to upload %d images, but only have %d slots available. Please "
-"adjust your selection."
+"You're trying to upload %1$d images, but only have %2$d slots available. "
+"Please adjust your selection."
 msgstr[0] ""
 "Du försöker ladda upp %d bilder, men har bara %d plats tillgänglig. Vänligen "
 "ändra markeringen."
@@ -8058,7 +8095,7 @@ msgctxt "flag listing"
 msgid "Report comment is required to save a report"
 msgstr ""
 
-#: includes/installer.php:53
+#: includes/installer.php:52
 msgctxt "default category name"
 msgid "General"
 msgstr "Allmän"
@@ -8263,7 +8300,7 @@ msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortering:"
 
-#: includes/utils.php:416
+#: includes/utils.php:417
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8271,52 +8308,22 @@ msgstr ""
 "Postat data överskrider PHP config. max. Se \\\"post_max_size \\\" "
 "direktivet."
 
-#: includes/utils.php:463
-msgctxt "utils"
-msgid "File size (%s) exceeds maximum file size of %s"
-msgstr "Filstorlek (%s) överskrider maximal filstorlek på %s"
-
-#: includes/utils.php:471
-msgctxt "utils"
-msgid "File size (%s) is inferior to the required minimum file size of %s"
-msgstr "Filstorlek (%s) är sämre än den minifilstiorleken på%s"
-
-#: includes/utils.php:480 includes/utils.php:487
+#: includes/utils.php:483 includes/utils.php:490
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Filtyp \"%s\" är inte tillåten"
 
-#: includes/utils.php:494
+#: includes/utils.php:497
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Okänt fel uppstod när filen laddades upp."
 
-#: includes/utils.php:513
+#: includes/utils.php:517
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "Den uppladdade filen är inte en bild"
 
-#: includes/utils.php:522
-msgctxt "utils"
-msgid "Image width (%s px) is inferior to minimum required width of %s px."
-msgstr "Bildbredd (%s px) är mindre än minimikravet på bredden %s px."
-
-#: includes/utils.php:528
-msgctxt "utils"
-msgid "Image height (%s px) is inferior to minimum required height of %s px."
-msgstr "Bildhöjden (%s px) är mindre än minimikravet på höjden %s px."
-
-#: includes/utils.php:534
-msgctxt "utils"
-msgid "Image width (%s px) is greater than maximum allowed width of %s px."
-msgstr "Bildbredden (%s px) är större än högsta tillåtna bredd%s px."
-
-#: includes/utils.php:540
-msgctxt "utils"
-msgid "Image height (%s px) is greater than maximum required height of %s px."
-msgstr "Bildhöjden (%s px) är större än maximalt tillåtna höjd%s px."
-
-#: includes/utils.php:554
+#: includes/utils.php:566
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Okänt fel uppstod när filen laddades upp."
@@ -8350,16 +8357,6 @@ msgstr ""
 msgctxt "delete listing"
 msgid "You are about to remove your listing \"%s\" from the directory."
 msgstr "Du är på väg att ta bort din annons \"%s\" från registret."
-
-#: templates/delete-listing-confirm.tpl.php:24
-msgctxt "delete listing"
-msgid "No. Take me back to the directory."
-msgstr "Nej. Ta mig tillbaka till katalogen."
-
-#: templates/delete-listing-confirm.tpl.php:25
-msgctxt "delete listing"
-msgid "Yes. Delete my listing."
-msgstr "Ja. Ta bort min annons."
 
 #: includes/views/listing_contact.php:51
 msgctxt "contact-message"
@@ -8554,12 +8551,6 @@ msgctxt "search"
 msgid "Clear"
 msgstr "Rensa"
 
-#: includes/views/show_listing.php:12
-msgctxt "preview"
-msgid "This is just a preview. The listing has not been published yet."
-msgstr ""
-"Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
-
 #: includes/views/submit_listing.php:1138
 msgctxt "listing submit"
 msgid ""
@@ -8572,7 +8563,7 @@ msgid "Change category/plan"
 msgstr "Ändra kategori/plan."
 
 #: includes/widgets/class-listings-widget.php:45
-#: includes/widgets/widget-search.php:22
+#: includes/widgets/widget-search.php:28
 msgctxt "widgets"
 msgid "Title:"
 msgstr "Rubrik:"
@@ -8632,17 +8623,17 @@ msgctxt "widgets"
 msgid "Display listings in random order"
 msgstr "Visa annonser i slumpmässig ordning"
 
-#: includes/widgets/widget-latest-listings.php:11
+#: includes/widgets/widget-latest-listings.php:12
 msgctxt "widgets"
 msgid "Business Directory - Latest Listings"
 msgstr "Business Directory - senaste annonser"
 
-#: includes/widgets/widget-latest-listings.php:12
+#: includes/widgets/widget-latest-listings.php:13
 msgctxt "widgets"
 msgid "Displays a list of the latest listings in the Business Directory."
 msgstr "Visar en lista över de senaste annonserna i Business Directory."
 
-#: includes/widgets/widget-latest-listings.php:14
+#: includes/widgets/widget-latest-listings.php:16
 msgctxt "widgets"
 msgid "Latest Listings"
 msgstr "Senaste annonserna"
@@ -8662,52 +8653,47 @@ msgctxt "widgets"
 msgid "Random Listings"
 msgstr "Slumpmässiga annonser"
 
-#: includes/widgets/widget-search.php:10
+#: includes/widgets/widget-search.php:11
 msgctxt "widgets"
 msgid "Business Directory - Search"
 msgstr "Business Directory - Sök"
 
-#: includes/widgets/widget-search.php:11
+#: includes/widgets/widget-search.php:13
 msgctxt "widgets"
 msgid "Displays a search form to look for Business Directory listings."
 msgstr "Visa ett sökfält för att söka i annonserna."
 
-#: includes/widgets/widget-search.php:18
+#: includes/widgets/widget-search.php:22
 msgctxt "widgets"
 msgid "Search the Business Directory"
 msgstr "Sök i annonsregistret"
 
-#: includes/widgets/widget-search.php:29
+#: includes/widgets/widget-search.php:35
 msgctxt "widgets"
 msgid "Form Style:"
 msgstr "Stil på formulär"
 
-#: includes/widgets/widget-search.php:37
+#: includes/widgets/widget-search.php:44
 msgctxt "widgets"
 msgid "Basic"
 msgstr "Basic"
 
-#: includes/widgets/widget-search.php:45
+#: includes/widgets/widget-search.php:54
 msgctxt "widgets"
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: includes/widgets/widget-search.php:49
+#: includes/widgets/widget-search.php:59
 msgctxt "widgets"
 msgid "Search Fields (advanced mode):"
 msgstr "Sökfält (avancerat läge):"
 
-#: includes/widgets/widget-search.php:50
+#: includes/widgets/widget-search.php:60
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Visa följande fält i formuläret."
 
-#: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:116
-#: templates/admin/csv-export.tpl.php:127 templates/admin/csv-import.tpl.php:50
-#: templates/admin/csv-import.tpl.php:117
-#: templates/admin/csv-import.tpl.php:143
-#: templates/admin/csv-import.tpl.php:154
-#: templates/admin/csv-import.tpl.php:204
+#: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:129
 msgctxt "admin forms"
 msgid "required"
 msgstr "obligatoriskt"
@@ -8794,21 +8780,10 @@ msgctxt "admin sidebar"
 msgid "Video Tutorials"
 msgstr "Handledningar (video)"
 
-#: templates/admin/themes-delete-confirm.tpl.php:1
-#: templates/admin/themes-delete-confirm.tpl.php:13
-msgctxt "themes admin"
-msgid "Delete Directory Theme"
-msgstr "Ta bort tema"
-
 #: templates/admin/themes-delete-confirm.tpl.php:3
 msgctxt "themes admin"
 msgid "Are you sure you want to delete the directory theme \"%s\"?"
 msgstr "Är du säker på att du vill ta bort temat \"%s\"?"
-
-#: templates/admin/themes-delete-confirm.tpl.php:12
-msgctxt "themes admin"
-msgid "Cancel"
-msgstr "Avbryt"
 
 #: templates/admin/uninstall-capture-form.tpl.php:5
 msgctxt "uninstall"
@@ -9063,6 +9038,35 @@ msgstr "Skriv in din e-postadress"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Fortsätt "
+
+#~ msgctxt "admin csv-import"
+#~ msgid "Assign listings to a user."
+#~ msgstr "Tilldela annons till användare."
+
+#~ msgctxt "admin csv-import"
+#~ msgid "Field"
+#~ msgstr "Fält"
+
+#~ msgctxt "admin csv-export"
+#~ msgid "CSV File Settings"
+#~ msgstr "Inställningar för CSV-fil"
+
+#~ msgctxt "admin csv-export"
+#~ msgid "Image Separator"
+#~ msgstr "Bildavgränsare"
+
+#~ msgctxt "utils"
+#~ msgid "Image width (%s px) is inferior to minimum required width of %s px."
+#~ msgstr "Bildbredd (%s px) är mindre än minimikravet på bredden %s px."
+
+#~ msgctxt "utils"
+#~ msgid ""
+#~ "Image height (%s px) is inferior to minimum required height of %s px."
+#~ msgstr "Bildhöjden (%s px) är mindre än minimikravet på höjden %s px."
+
+#~ msgctxt "themes admin"
+#~ msgid "Cancel"
+#~ msgstr "Avbryt"
 
 #~ msgctxt "admin settings"
 #~ msgid ""

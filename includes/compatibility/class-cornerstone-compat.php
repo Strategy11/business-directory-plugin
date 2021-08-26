@@ -9,7 +9,7 @@ class WPBDP_Cornerstone_Compat {
     }
 
     public function cornerstone_wpbdp_has_shortcode( $has_shortcode, $post, $shortcode ) {
-        if( $has_shortcode ) {
+		if ( $has_shortcode ) {
             return $has_shortcode;
         }
 

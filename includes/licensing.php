@@ -452,7 +452,7 @@ class WPBDP_Licensing {
 		if ( 'deactivate' !== $action ) {
 			$license = $this->process_license_response( $response, $item_type, $item_id, $key );
 
-			if( is_wp_error( $license ) ) {
+			if ( is_wp_error( $license ) ) {
 				$this->licenses_errors[ $item_id ] = $license->get_error_message();
 				$this->save_license_errors();
 				return $license;

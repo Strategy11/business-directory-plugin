@@ -1,11 +1,11 @@
 <?php
-if ( !defined( 'WPBDP_VERSION' ) ) die; // This page should not be called directly.
+if ( ! defined( 'WPBDP_VERSION' ) ) die; // This page should not be called directly.
 
 /**
  * @package admin
  */
 
-if ( !class_exists( 'WPBDP_SiteTracking' ) ) {
+if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
 
 /**
  * Class used for anonymously tracking of users setups.
@@ -19,7 +19,7 @@ class WPBDP_SiteTracking {
         if ( ! wpbdp_get_option( 'tracking-on', false ) )
             return;
 
-        if ( !wp_next_scheduled( 'wpbdp_site_tracking' ) ) {
+		if ( ! wp_next_scheduled( 'wpbdp_site_tracking' ) ) {
             wp_schedule_event( current_time( 'timestamp' ), 'daily', 'wpbdp_site_tracking' );
         }
 
@@ -30,7 +30,7 @@ class WPBDP_SiteTracking {
     public function site_hash() {
         $hash = get_option( 'wpbdp-site_tracking_hash', '' );
 
-        if ( !$hash ) {
+		if ( ! $hash ) {
             $hash = sha1( site_url() );
             update_option( 'wpbdp-site_tracking_hash', $hash );
         }
@@ -46,7 +46,7 @@ class WPBDP_SiteTracking {
         $site_hash = $this->site_hash();
         $data = get_transient( 'wpbdp-site_tracking_data' );
 
-        if ( !$data ) {
+		if ( ! $data ) {
             wpbdp_log( 'Gathering site tracking metrics.' );
 
             $data = array();
@@ -63,8 +63,9 @@ class WPBDP_SiteTracking {
             );
 
             // Plugins info.
-            if ( !function_exists( 'get_plugin_data' ) )
-                require_once ABSPATH . 'wp-admin/includes/admin.php';
+			if ( ! function_exists( 'get_plugin_data' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/admin.php';
+			}
 
             $data['plugins'] = array();
             foreach ( get_option( 'active_plugins' ) as $path ) {

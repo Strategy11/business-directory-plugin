@@ -154,10 +154,11 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         if ( strlen( $y ) < 4 ) {
             $y_ = intval( $y );
 
-            if ( $y_ < 0 )
-                $y = '19' . $y;
-            else
-                $y = '20' . $y;
+			if ( $y_ < 0 ) {
+				$y = '19' . $y;
+			} else {
+				$y = '20' . $y;
+			}
         }
 
         $value = sprintf( "%'.04d%'.02d%'.02d", $y, $m, $d );

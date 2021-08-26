@@ -26,12 +26,13 @@ $name = $listing->get_author_meta( 'user_login' );
 $email = $listing->get_author_meta( 'user_email' );
 $author_text = _x( 'Posted By', 'notify email', 'business-directory-plugin' ) . ': ';
 
-if ( $name && $email ):
+if ( $name && $email ) :
     echo $author_text . $name . ' &lt;' . $email . '&gt;';
-elseif ( $name ):
+elseif ( $name ) :
     echo $author_text . $name;
-elseif ( $email ):
+elseif ( $email ) :
     echo $author_text . '&lt;' . $email . '&gt;';
-else:
+else :
     echo $author_text . _x( 'Annonymous User', 'notify email', 'business-directory-plugin' );
-endif; ?>
+endif;
+?>

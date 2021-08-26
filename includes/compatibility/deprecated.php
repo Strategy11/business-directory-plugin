@@ -9,7 +9,7 @@ $wpbdmposttype = "wpbdp_listing";
 $wpbdmposttypecategory = "wpbdp_category";
 $wpbdmposttypetags = "wpbdp_tag";
 
-define('WPBUSDIRMAN_TEMPLATES_PATH', WPBDP_PATH . '/includes/compatibility/templates');
+define( 'WPBUSDIRMAN_TEMPLATES_PATH', WPBDP_PATH . '/includes/compatibility/templates' );
 
 
 /* template-related */
@@ -62,8 +62,9 @@ function wpbusdirman_the_listing_meta($excerptorsingle) {
     $fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
 
     foreach ( $fields as &$f ) {
-        if ( $excerptorsingle == 'excerpt' && !$field->display_in( 'excerpt' ) )
+		if ( $excerptorsingle === 'excerpt' && ! $field->display_in( 'excerpt' ) ) {
             continue;
+		}
 
         $html .= $f->display( get_the_ID() );
     }
@@ -71,9 +72,9 @@ function wpbusdirman_the_listing_meta($excerptorsingle) {
     return $html;
 }
 
-function wpbusdirman_display_excerpt($deprecated=null) {
+function wpbusdirman_display_excerpt( $deprecated = null ) {
 	_deprecated_function( __FUNCTION__, '', 'wpbusdirman_post_excerpt' );
-    echo wpbusdirman_post_excerpt($deprecated);
+	echo wpbusdirman_post_excerpt( $deprecated );
 }
 
 function wpbusdirman_post_excerpt() {
@@ -119,12 +120,13 @@ function wpbusdirman_post_extra_thumbnails() {
             if ($img->ID == $thumbnail_id)
                 continue;
 
-            $html .= sprintf('<a class="thickbox" href="%s"><img class="wpbdmthumbs" src="%s" alt="%s" title="%s" border="0" /></a>',
-                             wp_get_attachment_url($img->ID),
-                             wp_get_attachment_thumb_url($img->ID),
-                             the_title(null, null, false),
-                             the_title(null, null, false)
-                             );
+            $html .= sprintf(
+				'<a class="thickbox" href="%s"><img class="wpbdmthumbs" src="%s" alt="%s" title="%s" border="0" /></a>',
+				esc_url( wp_get_attachment_url( $img->ID ) ),
+				esc_url( wp_get_attachment_thumb_url( $img->ID ) ),
+				esc_attr( the_title( null, null, false ) ),
+				esc_attr( the_title( null, null, false ) )
+			);
         }
 
         $html .= '</div>';      
@@ -141,8 +143,9 @@ function wpbusdirman_display_the_listing_fields() {
     $html = '';
 
     foreach ( wpbdp_formfields_api()->get_fields() as $field ) {
-        if ( !$field->display_in( 'excerpt' ) )
+		if ( ! $field->display_in( 'excerpt' ) ) {
             continue;
+		}
 
         $html .= $field->display( $post->ID, 'excerpt' );
     }
@@ -163,22 +166,22 @@ function wpbusdirman_sticky_loop() {
 
 function wpbusdirman_latest_listings($numlistings) {
 	_deprecated_function( __FUNCTION__, '', 'wpbdp_latest_listings' );
-    return wpbdp_latest_listings($numlistings);
+	return wpbdp_latest_listings( $numlistings );
 }
 
 function wpbusdirman_post_catpage_title() {
 	_deprecated_function( __FUNCTION__, '' );
     $categories = WPBDP_CATEGORY_TAX;
 
-    if ( get_query_var($categories) ) {
-        $term = get_term_by('slug', get_query_var($categories), $categories);
-    } else if ( get_query_var('taxonomy') == $categories ) {
-        $term = get_term_by('slug', get_query_var('term'), $categories);
-    } elseif ( get_query_var('taxonomy') == WPBDP_TAGS_TAX ) {
-        $term = get_term_by('slug', get_query_var('term'), WPBDP_TAGS_TAX);
-    }
+	if ( get_query_var( $categories ) ) {
+		$term = get_term_by( 'slug', get_query_var( $categories ), $categories );
+	} elseif ( get_query_var( 'taxonomy' ) == $categories ) {
+		$term = get_term_by( 'slug', get_query_var( 'term' ), $categories );
+	} elseif ( get_query_var( 'taxonomy' ) == WPBDP_TAGS_TAX ) {
+		$term = get_term_by( 'slug', get_query_var( 'term' ), WPBDP_TAGS_TAX );
+	}
 
-    return esc_attr($term->name);
+	return esc_attr( $term->name );
 }
 
 function wpbusdirman_list_categories() {
@@ -240,15 +243,17 @@ function wpbusdirman_get_the_business_email($post_id) {
         $email_field_value = trim( $email_field->plain_value( $post_id ) );
     }
 
-    if ( $email_mode == 'field' && !empty( $email_field_value ) )
+	if ( $email_mode === 'field' && ! empty( $email_field_value ) ) {
         return $email_field_value;
+	}
 
     $author_email = '';
     $post = get_post( $post_id );
     $author_email = trim( get_the_author_meta( 'user_email', $post->post_author ) );
 
-    if ( empty( $author_email ) && !empty( $email_field_value ) )
+	if ( empty( $author_email ) && ! empty( $email_field_value ) ) {
         return $email_field_value;
+	}
     
     return $author_email ? $author_email : '';
 }
@@ -310,8 +315,8 @@ function wpbdp_categories_list($parent=0, $hierarchical=true) {
     ));
 
     if ($hierarchical) {
-        foreach ($terms as &$term) {
-            $term->subcategories = wpbdp_categories_list($term->term_id, true);
+		foreach ( $terms as &$term ) {
+			$term->subcategories = wpbdp_categories_list( $term->term_id, true );
         }
     }
 

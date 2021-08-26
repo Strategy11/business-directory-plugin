@@ -58,7 +58,7 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
         $fees_done = ( $n_fees_migrated == $n_fees ) ? true : false;
 
         if ( ! $fees_done ) {
-            $status_msg = sprintf( _x( 'Cleaning up listing fees information... %d/%d', 'installer', 'business-directory-plugin' ), $n_fees_migrated, $n_fees );
+			$status_msg = sprintf( _x( 'Cleaning up listing fees information... %1$d/%2$d', 'installer', 'business-directory-plugin' ), $n_fees_migrated, $n_fees );
 
             $fees = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE migrated = %d ORDER BY id ASC LIMIT 50", 0 ), ARRAY_A );
 
@@ -116,7 +116,7 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
                 }
                 $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", '_wpbdp[payment_status]' ) );
             } else {
-                $status_msg = sprintf( _x( 'Migrating previous transactions to new Payments API... %d/%d', 'installer', 'business-directory-plugin' ), $n_transactions_migrated, $n_transactions );
+				$status_msg = sprintf( _x( 'Migrating previous transactions to new Payments API... %1$d/%2$d', 'installer', 'business-directory-plugin' ), $n_transactions_migrated, $n_transactions );
 
                 $transactions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE migrated = %d ORDER BY id ASC LIMIT 50", 0 ), ARRAY_A );
 
@@ -177,9 +177,11 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
                             $item['payment_id'] = $t['id'];
                             $item['amount'] = $t['amount'];
                             $item['item_type'] = 'fee';
-                            $item['description'] = sprintf( _x( 'Renewal fee "%s" for category "%s"', 'installer', 'business-directory-plugin' ),
-                                                            $fee_info->fee['label'],
-                                                            wpbdp_get_term_name( $fee_info->category_id ) );
+							$item['description'] = sprintf(
+								__( 'Renewal fee "%1$s" for category "%2$s"', 'business-directory-plugin' ),
+								$fee_info->fee['label'],
+								wpbdp_get_term_name( $fee_info->category_id )
+							);
                             $item['data'] = serialize( array( 'fee' => $fee_info->fee ) );
                             $item['rel_id_1'] = $fee_info->category_id;
                             $item['rel_id_2'] = $fee_info->fee['id'];

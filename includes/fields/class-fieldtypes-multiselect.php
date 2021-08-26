@@ -3,7 +3,7 @@
 class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
 
     public function __construct() {
-        parent::__construct( _x('Multiple select list', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( _x( 'Multiple select list', 'form-fields api', 'business-directory-plugin' ) );
         $this->set_multiple( true );
     }
 
@@ -26,7 +26,7 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
         $description = _x( 'The height of the list will be adjusted to accommodate the specified number of options.', 'form-fields-admin', 'business-directory-plugin' );
 
         $content = '<span class="description">' . $description . '</span><br />';
-        $content.= '<input name="field[x_size]" type="number" value="%d">';
+		$content .= '<input name="field[x_size]" type="number" value="%d">';
 
         $settings['size'] = array( $label, sprintf( $content, $field ? $field->data( 'size', 4 ) : 4 ) );
 

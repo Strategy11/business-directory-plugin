@@ -57,10 +57,11 @@ class WPBDP__Admin__Controller {
         if ( is_array( $result ) ) {
             $template = WPBDP_PATH . 'templates/admin/' . $this->controller_id . '-' . $this->current_view . '.tpl.php';
 
-            if ( ! file_exists( $template ) )
-                $output = json_encode( $result );
-            else
-                $output = wpbdp_render_page( $template, $result );
+			if ( ! file_exists( $template ) ) {
+				$output = json_encode( $result );
+			} else {
+				$output = wpbdp_render_page( $template, $result );
+			}
         } else {
             $output = $result;
         }
