@@ -477,7 +477,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $this->current_controller = new $classname;
+			$this->current_controller = new $classname();
 
             ob_start();
             $this->current_controller->_dispatch();
