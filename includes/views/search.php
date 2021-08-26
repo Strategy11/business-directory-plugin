@@ -123,6 +123,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 				'fields'               => $fields,
 				'searching'            => $searching,
 				'results'              => $results,
+                'form_only'            => $this->form_only,
 				'count'                => $this->get_count(),
             )
         );
