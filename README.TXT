@@ -97,12 +97,12 @@ For more information please visit [businessdirectoryplugin.com](https://business
 
 == Business Directory Plugin Docs ==
 
-Please see our [Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).We also have an [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
+Please see our [Business Directory Plugin Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion). We also have an [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
 == Installation ==
 Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) page for instructions on how to get going quickly with our business directory software.
 
-[Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for the plugin is also available.
+[Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for Business Directory Plugin is also available.
 
 == Screenshots ==
 
@@ -137,7 +137,7 @@ Yes! We offer many user-provided translations under the /languages folder. It is
 
 And you can also easily [translate it yourself](https://translate.wordpress.org/projects/wp-plugins/business-directory-plugin/).
 
-= Is this plugin compatible with WordPress Multisite (WPMU)? =
+= Is this plugin compatible with WordPress Multisite? =
 Yes it is. However, you cannot "network activate" the plugin (as this will share the database). Activate it on only the sub sites you need it.
 
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".

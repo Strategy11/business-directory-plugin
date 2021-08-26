@@ -28,14 +28,12 @@
         <exclude name="WordPress.DB.PreparedSQL.NotPrepared" />
 
         <!-- Fast -->
-        <exclude name="Generic.Files.EndFileNewline.NotFound" />
         <exclude name="Generic.PHP.LowerCaseConstant.Found" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
         <exclude name="WordPress.WP.I18n.UnorderedPlaceholdersText" />
         <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned" />
         <exclude name="PSR2.ControlStructures.SwitchDeclaration.TerminatingComment" />
-        <exclude name="Generic.Functions.FunctionCallArgumentSpacing.TooMuchSpaceAfterComma" />
         <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing" />
         <exclude name="Squiz.Commenting.FunctionCommentThrowTag.Missing" />
         <exclude name="PSR2.Classes.PropertyDeclaration.VarUsed" />
