@@ -980,7 +980,7 @@ class WPBDP_Listing {
 
         $query = "SELECT COUNT(*) FROM {$wpdb->posts} p ";
 		$query .= "LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON ( p.ID = l.listing_id ) ";
-		$query .= 'WHERE p.post_type = %s 's;
+		$query .= 'WHERE p.post_type = %s ';
 		$query .= "AND post_status IN ({$query_post_statuses}) ";
 		$query .= 'AND l.listing_id IS NULL ';
 
