@@ -11,6 +11,7 @@ use Patchwork;
 use WPBDP\Tests\TestCase;
 
 use WPBDP;
+use WPBDP__Abandoned_Payment_Notification;
 
 /**
  * Test cases for WPBDP class.
