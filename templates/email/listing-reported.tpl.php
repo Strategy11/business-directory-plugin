@@ -20,11 +20,11 @@
 
 <?php _ex( 'Report Information', 'notify email', 'business-directory-plugin' ); ?>:
 
-<?php if( ! empty( $report['name'] ) ): ?>
+<?php if ( ! empty( $report['name'] ) ) : ?>
     <?php _ex( 'User name', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $report['name'] ?>
 
 <?php endif; ?>
-<?php if( ! empty( $report['email'] ) ): ?>
+<?php if ( ! empty( $report['email'] ) ) : ?>
     <?php _ex( 'User Email', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $report['email'] ?>
 
 <?php endif; ?>

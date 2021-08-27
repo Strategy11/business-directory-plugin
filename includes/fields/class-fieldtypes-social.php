@@ -261,7 +261,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         if ( $type ) {
             $icon = '<span class="social-icon">';
 
-            $social_icon = sprintf( 
+			$social_icon = sprintf(
                 '<img src="%s" class="logo" alt="%s">',
                 WPBDP_URL . 'assets/images/social/' .$type . '.svg',
                 $type

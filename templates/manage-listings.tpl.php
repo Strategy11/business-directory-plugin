@@ -1,11 +1,11 @@
 <div id="wpbdp-manage-listings-page" class="wpbdp-manage-listings-page businessdirectory-manage-listings businessdirectory wpbdp-page">
-    <?php if ( $query->have_posts() ): ?>
+	<?php if ( $query->have_posts() ) : ?>
         <p><?php esc_html_e( 'Your current listings are shown below. To edit a listing click the edit button. To delete a listing click the delete button.', 'business-directory-plugin' ); ?></p>
         <?php
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo wpbdp_x_part( 'listings' );
         ?>
-    <?php else: ?>
+	<?php else : ?>
         <p><?php esc_html_e( 'You do not currently have any listings in the directory.', 'business-directory-plugin' ); ?></p>
         <?php
         echo sprintf(

@@ -96,7 +96,7 @@ class WPBDP_Admin_Debug_Page {
                         }
                     }
 
-                    printf( '%-33s = %s', esc_html( $k ), is_array( $v ) ? esc_html(  $v['value'] ) : esc_html( $v ) );
+					printf( '%-33s = %s', esc_html( $k ), is_array( $v ) ? esc_html( $v['value'] ) : esc_html( $v ) );
                     print PHP_EOL;
                 }
 

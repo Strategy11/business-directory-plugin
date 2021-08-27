@@ -23,7 +23,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         return array( 'meta' );
     }
 
-    public function render_field_settings( &$field=null, $association=null ) {
+	public function render_field_settings( &$field = null, $association = null ) {
         if ( $association != 'meta' )
             return '';
 
@@ -143,7 +143,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         parent::store_field_value( $field, $post_id, $value );
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
 		if ( empty( $value ) ) {
 			// Set an empty array to avoid php warnings.
 			$value = array( '', '' );

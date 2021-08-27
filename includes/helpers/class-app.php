@@ -74,10 +74,10 @@ class WPBDP_App_Helper {
 		$msg = str_replace( ' ' . $find . '.', ' ' . $replace . '.', $msg );
 
 		// Beginning of string
-		$msg = preg_replace('/^' . $find . ' /', $replace . ' ', $msg );
+		$msg = preg_replace( '/^' . $find . ' /', $replace . ' ', $msg );
 
 		// End of string
-		$msg = preg_replace('/ ' . $find . '$/', ' ' . $replace, $msg );
+		$msg = preg_replace( '/ ' . $find . '$/', ' ' . $replace, $msg );
 	}
 
 	/**

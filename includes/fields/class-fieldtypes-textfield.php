@@ -42,7 +42,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
     public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
         // @since 5.5.3
         $value = apply_filters_ref_array( 'wpbdp_fields_text_value_for_rendering', array( $value, null,  $field ) );
-        
+
         if ( is_array( $value ) ) {
             $value = implode( ',', $value );
         }

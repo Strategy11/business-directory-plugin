@@ -14,28 +14,28 @@ use WPBDP__Listing_Expiration;
  */
 class ListingExpirationTest extends TestCase {
 
-    /**
-     * @since 5.1.10
-     */
-    public function test_send_expiration_reminders_dont_send_anything_if_expiration_notifications_are_disabled() {
-        Functions\expect( 'wpbdp_get_option' )
-            ->with( 'listing-renewal' )
-            ->andReturn( true );
+	/**
+	 * @since 5.1.10
+	 */
+	public function test_send_expiration_reminders_dont_send_anything_if_expiration_notifications_are_disabled() {
+		Functions\expect( 'wpbdp_get_option' )
+			->with( 'listing-renewal' )
+			->andReturn( true );
 
-        // The enabled user notifications does not include 'listing-expires'.
-        Functions\expect( 'wpbdp_get_option' )
-            ->with( 'user-notifications' )
-            ->andReturn( [ 'new-listing', 'listing-published' ] );
+		// The enabled user notifications does not include 'listing-expires'.
+		Functions\expect( 'wpbdp_get_option' )
+			->with( 'user-notifications' )
+			->andReturn( array( 'new-listing', 'listing-published' ) );
 
-        Functions\expect( 'do_action' )
-            ->never()
-            ->withAnyArgs();
+		Functions\expect( 'do_action' )
+			->never()
+			->withAnyArgs();
 
-        $expirations = new WPBDP__Listing_Expiration();
+		$expirations = new WPBDP__Listing_Expiration();
 
-        // Execution.
-        $expirations->send_expiration_reminders();
-    }
+		// Execution.
+		$expirations->send_expiration_reminders();
+	}
 
 	/**
 	 * @covers WPBDP__Listing_Expiration::get_expiring_listings

@@ -30,40 +30,41 @@ class WPBDP__Migrations__2_1 extends WPBDP__Migration {
         );
 
         $field_count = $wpdb->get_var(
-            sprintf("SELECT COUNT(*) FROM {$wpdb->prefix}options WHERE option_name LIKE '%%%s%%'", 'wpbusdirman_postform_field_label'));
+			sprintf( "SELECT COUNT(*) FROM {$wpdb->prefix}options WHERE option_name LIKE '%%%s%%'", 'wpbusdirman_postform_field_label' )
+		);
 
-        for ($i = 1; $i <= $field_count; $i++) {
-            $label = get_option('wpbusdirman_postform_field_label_' . $i);
-            $type = get_option('wpbusdirman_postform_field_type_'. $i);
-            $validation = get_option('wpbusdirman_postform_field_validation_'. $i);
-            $association = get_option('wpbusdirman_postform_field_association_'. $i);
-            $required = strtolower(get_option('wpbusdirman_postform_field_required_'. $i));
-            $show_in_excerpt = strtolower(get_option('wpbusdirman_postform_field_showinexcerpt_'. $i));
-            $hide_field = strtolower(get_option('wpbusdirman_postform_field_hide_'. $i));
-            $options = get_option('wpbusdirman_postform_field_options_'. $i);
+		for ( $i = 1; $i <= $field_count; $i++ ) {
+			$label = get_option( 'wpbusdirman_postform_field_label_' . $i );
+			$type = get_option( 'wpbusdirman_postform_field_type_'. $i );
+			$validation = get_option( 'wpbusdirman_postform_field_validation_'. $i );
+			$association = get_option( 'wpbusdirman_postform_field_association_'. $i );
+			$required = strtolower( get_option( 'wpbusdirman_postform_field_required_'. $i ) );
+			$show_in_excerpt = strtolower( get_option( 'wpbusdirman_postform_field_showinexcerpt_'. $i ) );
+			$hide_field = strtolower( get_option( 'wpbusdirman_postform_field_hide_'. $i ) );
+			$options = get_option( 'wpbusdirman_postform_field_options_'. $i );
 
             $newfield = array();
             $newfield['label'] = $label;
-            $newfield['type'] = wpbdp_getv($pre_2_1_types, intval($type), 'textfield');
-            $newfield['validator'] = wpbdp_getv($pre_2_1_validators, $validation, null);
-            $newfield['association'] = wpbdp_getv($pre_2_1_associations, $association, 'meta');
-            $newfield['is_required'] = $required == 'yes' ? true : false;
+			$newfield['type']        = wpbdp_getv( $pre_2_1_types, intval( $type ), 'textfield');
+			$newfield['validator']   = wpbdp_getv( $pre_2_1_validators, $validation, null );
+			$newfield['association'] = wpbdp_getv( $pre_2_1_associations, $association, 'meta' );
+			$newfield['is_required'] = $required === 'yes';
             $newfield['display_options'] = serialize(
-                array('show_in_excerpt' => $show_in_excerpt == 'yes' ? true : false,
+                array( 'show_in_excerpt' => $show_in_excerpt == 'yes' ? true : false,
                       'hide_field' => $hide_field == 'yes' ? true : false)
             );
-            $newfield['field_data'] = $options ? serialize(array('options' => explode(',', $options))) : null;
+			$newfield['field_data'] = $options ? serialize( array( 'options' => explode( ',', $options ) ) ) : null;
 
-            if ($wpdb->insert($wpdb->prefix . 'wpbdp_form_fields', $newfield)) {
-                delete_option('wpbusdirman_postform_field_label_' . $i);
-                delete_option('wpbusdirman_postform_field_type_' . $i);
-                delete_option('wpbusdirman_postform_field_validation_' . $i);
-                delete_option('wpbusdirman_postform_field_association_' . $i);
-                delete_option('wpbusdirman_postform_field_required_' . $i);
-                delete_option('wpbusdirman_postform_field_showinexcerpt_' . $i);
-                delete_option('wpbusdirman_postform_field_hide_' . $i);
-                delete_option('wpbusdirman_postform_field_options_' . $i);
-                delete_option('wpbusdirman_postform_field_order_' . $i);
+			if ( $wpdb->insert( $wpdb->prefix . 'wpbdp_form_fields', $newfield ) ) {
+				delete_option( 'wpbusdirman_postform_field_label_' . $i );
+				delete_option( 'wpbusdirman_postform_field_type_' . $i );
+				delete_option( 'wpbusdirman_postform_field_validation_' . $i );
+				delete_option( 'wpbusdirman_postform_field_association_' . $i );
+				delete_option( 'wpbusdirman_postform_field_required_' . $i );
+				delete_option( 'wpbusdirman_postform_field_showinexcerpt_' . $i );
+				delete_option( 'wpbusdirman_postform_field_hide_' . $i );
+				delete_option( 'wpbusdirman_postform_field_options_' . $i );
+				delete_option( 'wpbusdirman_postform_field_order_' . $i );
             }
 
         }

@@ -121,7 +121,7 @@ class WPBDP__Listing_Expiration {
     private function maybe_renew_free_listing( $listing ) {
         $plan = $listing->get_fee_plan();
 
-        if( ! $plan->is_recurring ) {
+		if ( ! $plan->is_recurring ) {
             return false;
         }
 

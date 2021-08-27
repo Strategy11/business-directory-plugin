@@ -1,7 +1,7 @@
 <?php
 /**
  * @since 3.5.3
- */ 
+ */
 class WPBDP__Views__Manage_Recurring extends WPBDP__View {
 
     private $subscriptions = array();
@@ -103,8 +103,8 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
         global $wpdb;
 
         $sql = "SELECT * FROM {$wpdb->posts} p ";
-        $sql.= "LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON ( p.ID = l.listing_id ) ";
-        $sql.= 'WHERE post_type = %s AND post_author = %d AND is_recurring = %d ';
+		$sql .= "LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON ( p.ID = l.listing_id ) ";
+		$sql .= 'WHERE post_type = %s AND post_author = %d AND is_recurring = %d ';
 
         $listings = $wpdb->get_col( $wpdb->prepare( $sql, WPBDP_POST_TYPE, get_current_user_id(), true ) );
 

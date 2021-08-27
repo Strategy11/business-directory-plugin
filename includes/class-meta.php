@@ -126,7 +126,7 @@ class WPBDP__Meta {
         } elseif ( class_exists( 'WPSEO_Frontend' ) && method_exists( 'WPSEO_Frontend', 'get_instance' ) ) {
             return WPSEO_Frontend::get_instance();
         }
-    }    
+    }
 
     public function set_view_title( $title ) {
         global $wp_query;
@@ -184,8 +184,9 @@ class WPBDP__Meta {
                         $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
                     }
 
-                    if ( !empty( $title ) )
+					if ( ! empty( $title ) ) {
                         return wpseo_replace_vars( $title, (array) $term );
+					}
 
                     if ( is_object( $wpseo_front ) )
                         return $wpseo_front->get_title_from_options( 'title-tax-' . $term->taxonomy, $term );
@@ -217,8 +218,9 @@ class WPBDP__Meta {
                         $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
                     }
 
-                    if ( !empty( $title ) )
+					if ( ! empty( $title ) ) {
                         return wpseo_replace_vars( $title, (array) $term );
+					}
 
                     if ( is_object( $wpseo_front ) )
                         return $wpseo_front->get_title_from_options( 'title-tax-' . $term->taxonomy, $term );
@@ -242,7 +244,7 @@ class WPBDP__Meta {
                     return $title;
                     break;
                 } else {
-                    $post_title = get_the_title($listing_id);
+					$post_title = get_the_title( $listing_id );
                 }
 
                 return $post_title . ' '.  $sep . ' ' . $title;
@@ -270,7 +272,7 @@ class WPBDP__Meta {
         } else {
             return $view_title . ' ' . $sep . ' ' . $title;
         }
-    }    
+    }
 
     public function _meta_keywords() {
         $wpseo_front = $this->_get_wpseo_frontend();
@@ -324,8 +326,9 @@ class WPBDP__Meta {
                                 WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'desc' ) :
                                 wpseo_get_term_meta( $term, $term->taxonomy, 'desc' );
 
-                    if ( !$metadesc && is_object( $wpseo_front ) && isset( $wpseo_front->options['metadesc-tax-' . $term->taxonomy] ) )
+					if ( ! $metadesc && is_object( $wpseo_front ) && isset( $wpseo_front->options[ 'metadesc-tax-' . $term->taxonomy ] ) ) {
                         $metadesc = wpseo_replace_vars( $wpseo_front->options['metadesc-tax-' . $term->taxonomy], (array) $term );
+					}
 
                     if ( $metadesc )
                         echo '<meta name="description" content="' . esc_attr( strip_tags( stripslashes( $metadesc ) ) ) . '"/>' . "\n";
@@ -351,8 +354,9 @@ class WPBDP__Meta {
     public function _meta_rel_canonical() {
         $action = wpbdp_current_view();
 
-        if ( !$action )
+		if ( ! $action ) {
             return rel_canonical();
+		}
 
         $not_supported_views = array(
             'edit_listing', 'submit_listing', 'delete_listing', 'renew_listing',
@@ -394,7 +398,7 @@ class WPBDP__Meta {
         echo '<meta property="og:description" content="' . esc_attr( WPBDP_SEO::listing_og_description( $listing_id ) ) . '" />';
 
 		$this->add_image_meta( $listing );
-    }    
+    }
 
 	/**
 	 * @since 5.12

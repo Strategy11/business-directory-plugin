@@ -40,7 +40,7 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         foreach ( $views_ as $view_id => $view_data ) {
             $views[ $view_id ] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
                                           esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&status=' . $view_id ) ),
-                                          $view_id == $this->get_current_view() ? 'current': '',
+										  $view_id == $this->get_current_view() ? 'current' : '',
                                           $view_data[0],
                                           number_format_i18n( $view_data[1] ) );
         }

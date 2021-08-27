@@ -248,7 +248,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
 
             if ( ! $success ) {
-                $msg = sprintf( _x( '! Could not migrate fee "%s" (%d)', 'installer', 'business-directory-plugin' ), $fee->label, $fee->id );
+				$msg = sprintf( __( 'Could not migrate fee "%1$s" (%2$d)', 'business-directory-plugin' ), $fee->label, $fee->id );
                 return false;
             }
         }
@@ -342,7 +342,6 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         if ( ! wpbdp_table_exists( $wpdb->prefix . 'wpbdp_listing_fees' ) ) {
             return true;
         }
-
 
         $batch_size = 20;
 
@@ -443,10 +442,12 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
         foreach ( $fees as $fee ) {
             if ( $fee->recurring ) {
-                if ( $x = wpbdp_get_fee( $fee->fee_id ) )
-                    $price = $x->amount;
-                else
-                    $price = 0.0;
+				$x = wpbdp_get_fee( $fee->fee_id );
+				if ( $x ) {
+					$price = $x->amount;
+				} else {
+					$price = 0.0;
+				}
 
                 return array(
                     'listing_id' => $listing_id,
@@ -465,10 +466,12 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                 $oldkey = isset( $key_translations[ $key ] ) ? $key_translations[ $key ] : $key;
 
                 if ( 'fee_price' == $key ) {
-                    if ( $x = wpbdp_get_fee( $fee->fee_id ) )
-                        $fee->fee_price = $x->amount;
-                    else
-                        $fee->fee_price = 0.0;
+					$x = wpbdp_get_fee( $fee->fee_id );
+					if ( $x ) {
+						$fee->fee_price = $x->amount;
+					} else {
+						$fee->fee_price = 0.0;
+					}
                 }
 
                 if ( 'expiration_date' == $key && ! $fee->expires_on )

@@ -307,17 +307,17 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
             foreach ( $display_flags as $f ) {
                 if ( substr( $f, 0, 1 ) == '-' ) {
-                    $where .= $wpdb->prepare( " AND ( display_flags IS NULL OR display_flags NOT LIKE %s )", '%%' . $wpdb->esc_like( substr( $f, 1 ) ) . '%%' );
+					$where .= $wpdb->prepare( ' AND ( display_flags IS NULL OR display_flags NOT LIKE %s )', '%%' . $wpdb->esc_like( substr( $f, 1 ) ) . '%%' );
                 } else {
-					$where .= $wpdb->prepare( " AND ( display_flags LIKE %s )", '%%' . $wpdb->esc_like( $f ) . '%%' );
+					$where .= $wpdb->prepare( ' AND ( display_flags LIKE %s )', '%%' . $wpdb->esc_like( $f ) . '%%' );
                 }
             }
 
             foreach ( $validators as $v ) {
                 if ( substr( $v, 0, 1 ) == '-' ) {
-                    $where .= $wpdb->prepare( " AND ( validators IS NULL OR validators NOT LIKE %s )", '%%' . $wpdb->esc_like( substr( $v, 1 ) ) . '%%' );
+					$where .= $wpdb->prepare( ' AND ( validators IS NULL OR validators NOT LIKE %s )', '%%' . $wpdb->esc_like( substr( $v, 1 ) ) . '%%' );
                 } else {
-					$where .= $wpdb->prepare( " AND ( validators LIKE %s )", '%%' . $wpdb->esc_like( $v ) . '%%'  );
+					$where .= $wpdb->prepare( ' AND ( validators LIKE %s )', '%%' . $wpdb->esc_like( $v ) . '%%'  );
                 }
             }
 
@@ -644,7 +644,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                     sprintf(
                         /* translators: %s: field label */
                         esc_html__( '%s is badly formatted. Valid URL format required. Include http://', 'business-directory-plugin' ),
-                        esc_attr( $args['field-label'] ) 
+                        esc_attr( $args['field-label'] )
                     )
                 );
             }
@@ -790,14 +790,14 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
         private function word_number( $value, $args = array() ) {
             $word_count = $args['field']->data( 'word_count' );
 
-            if( empty( $word_count ) ) {
+			if ( empty( $word_count ) ) {
                 return;
             }
 
             $no_html_text = preg_replace( '/(<[^>]+>)/i', '', $value );
-            $input_array  = preg_split("/[\s,]+/", $no_html_text );
+			$input_array  = preg_split( '/[\s,]+/', $no_html_text );
 
-            if( $word_count < count( $input_array ) ) {
+			if ( $word_count < count( $input_array ) ) {
                 /* translators: %1$s: field label, %2$d: max word count */
                 return WPBDP_ValidationError( sprintf( esc_html__( '%1$s must have less than %2$d words.', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), $word_count ) );
             }
@@ -808,7 +808,9 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             $args = wp_parse_args(
                 $args, array(
 					'values'    => array(),
-					'formatter' => function( $x ) { return join( ",", $x ); },
+					'formatter' => function( $x ) {
+						return join( ',', $x );
+					},
                 )
             );
             extract( $args, EXTR_SKIP );

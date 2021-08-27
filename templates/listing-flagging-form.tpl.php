@@ -11,7 +11,7 @@ $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
         <?php wp_nonce_field( 'flag listing report ' . $listing->get_id() ); ?>
 
         <?php if ( false === $user_flagged ) : ?>
-            <?php if ($current_user): ?>
+			<?php if ( $current_user ) : ?>
                 <p>
                     <?php
                     printf(
@@ -30,7 +30,7 @@ $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
                     );
                     ?>
                 </p>
-            <?php else: ?>
+			<?php else : ?>
                 <p>
                     <label><?php esc_html_e( 'Name', 'business-directory-plugin' ); ?></label>
                     <input type="text" class="intextbox" name="reportauthorname" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) ); ?>" />
@@ -41,7 +41,7 @@ $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
                 </p>
             <?php endif; ?>
 
-            <?php if ( $flagging_options ): ?>
+			<?php if ( $flagging_options ) : ?>
                 <p><?php esc_html_e( 'Please select the reason to report this listing:', 'business-directory-plugin' ); ?></p>
 
                 <div class="wpbdp-listing-flagging-options">
@@ -49,7 +49,7 @@ $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
                         <p><label><input type="radio" name="flagging_option" value="<?php echo esc_attr( $option ); ?>" required> <span><?php echo esc_html( $option ); ?></span></label></p>
                     <?php endforeach; ?>
                 </div>
-            <?php else: ?>
+			<?php else : ?>
                 <p><?php esc_html_e( 'Please enter the reasons to report this listing:', 'business-directory-plugin' ); ?></p>
             <?php endif; ?>
 
@@ -64,7 +64,7 @@ $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
                 <input type="button" onclick="location.href = '<?php echo esc_url_raw( wpbdp_url( 'main' ) ); ?>'; return false;" value="<?php esc_attr_e( 'Cancel', 'business-directory-plugin' ); ?>" class="wpbdp-button button" />
                 <input class="wpbdp-submit wpbdp-button" type="submit" value="<?php echo esc_attr( $flagging_text ); ?>" />
             </p>
-        <?php else: ?>
+		<?php else : ?>
             <?php
             printf(
                 /* translators: %s: listing title */

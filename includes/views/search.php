@@ -17,7 +17,7 @@ class WPBDP__Views__Search extends WPBDP__View {
         $search    = null;
         $redirect  = ! $searching && isset( $_GET['kw'] ) && 'none' === wpbdp_get_option( 'search-form-in-results' );
 
-        if( $redirect ) {
+		if ( $redirect ) {
             $this->_redirect( wpbdp_url( 'all_listings' ) );
         }
 

@@ -105,7 +105,6 @@ class WPBDP_reCAPTCHA {
             $html .= '<input type="hidden" name="g-recaptcha-response" value="" />';
         }
 
-
         $html .= '</div>';
 
         if ( $name ) {
@@ -198,7 +197,12 @@ class WPBDP_reCAPTCHA {
 
         if ( ! $this->verify() ) {
             $this->comment_error = true;
-            add_filter( 'pre_comment_approved', function( $a ) { return 'spam'; } );
+			add_filter(
+				'pre_comment_approved',
+				function( $a ) {
+					return 'spam';
+				}
+			);
         }
 
         return $comment_data;
@@ -244,8 +248,8 @@ JS;
 		$current = wpbdp_current_view();
         if ( 'submit_listing' === $current && ! wpbdp_get_option( 'recaptcha-for-submits' )  ) {
             return $submit_sections;
-        } 
-         
+        }
+
         if ( 'edit_listing' === $current && ! wpbdp_get_option( 'recaptcha-for-edits' ) ) {
             return $submit_sections;
         }
@@ -289,7 +293,7 @@ JS;
             return false;
         }
 
-        if( ! ( wpbdp_get_option( 'recaptcha-on' ) || wpbdp_get_option( 'recaptcha-for-submits' ) || wpbdp_get_option( 'recaptcha-for-edits' ) || wpbdp_get_option( 'recaptcha-for-flagging' ) || wpbdp_get_option( 'recaptcha-for-comments' ) ) ) {
+		if ( ! ( wpbdp_get_option( 'recaptcha-on' ) || wpbdp_get_option( 'recaptcha-for-submits' ) || wpbdp_get_option( 'recaptcha-for-edits' ) || wpbdp_get_option( 'recaptcha-for-flagging' ) || wpbdp_get_option( 'recaptcha-for-comments' ) ) ) {
             return false;
         }
 

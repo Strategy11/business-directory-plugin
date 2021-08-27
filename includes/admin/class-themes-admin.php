@@ -17,8 +17,6 @@ class WPBDP_Themes_Admin {
         add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
         add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
 
-        add_action( 'wpbdp_admin_notices', array( &$this, 'pre_themes_templates_warning' ) );
-
         add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
         add_action( 'wpbdp_action_set-active-theme', array( &$this, 'set_active_theme' ) );
@@ -73,43 +71,6 @@ class WPBDP_Themes_Admin {
         $menu = array_merge( array( $menu[0], $themes ), array_slice( $menu, 1 ) );
 
         return $menu;
-    }
-
-    function pre_themes_templates_warning() {
-		global $wpbdp;
-
-        $pre_themes_templates = array(
-			'businessdirectory-excerpt',
-			'businessdirectory-listing',
-			'businessdirectory-listings',
-			'businessdirectory-main-page',
-		);
-        $overridden           = array();
-
-        foreach ( $pre_themes_templates as $t ) {
-			$f = $wpbdp->themes->template_has_override( $t );
-			if ( ! empty( $f ) ) {
-                $overridden[ $t ] = str_replace( WP_CONTENT_DIR, '', $f );
-            }
-        }
-
-        if ( ! $overridden ) {
-            return;
-        }
-
-        $msg  = '';
-        $msg .= '<strong>' . _x( 'Business Directory Plugin - Your template overrides need to be reviewed!', 'admin themes', 'business-directory-plugin' ) . '</strong>';
-        $msg .= '<br />';
-        $msg .= _x( 'Starting with version 4.0, Business Directory is using a new theming system that is not compatible with the templates used in previous versions.', 'admin themes', 'business-directory-plugin' );
-        $msg .= '<br />';
-        $msg .= _x( 'Because of this, your template overrides below have been disabled. You should <a>review our documentation on customization</a> in order adjust your templates.', 'admin themes', 'business-directory-plugin' );
-        $msg .= '<br /><br />';
-
-        foreach ( $overridden as $t => $relpath ) {
-            $msg .= '&#149; <tt>' . $relpath . '</tt><br />';
-        }
-
-        wpbdp_admin_message( $msg, 'error' );
     }
 
     function enqueue_scripts( $hook ) {
@@ -508,4 +469,16 @@ class WPBDP_Themes_Admin {
         return true;
     }
 
+	function pre_themes_templates_warning() {
+		_deprecated_function( __METHOD__, '5.13.3' );
+
+		// TODO: Remove these templates from the code.
+		// This function showed a warning for v4.0 if any of the following templates were used:
+		$pre_themes_templates = array(
+			'businessdirectory-excerpt',
+			'businessdirectory-listing',
+			'businessdirectory-listings',
+			'businessdirectory-main-page',
+		);
+	}
 }

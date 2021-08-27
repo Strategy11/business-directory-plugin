@@ -269,7 +269,7 @@ class WPBDP_PaymentsAPI {
 
 
 
-    function _return_fee_list_button( $payment ){
+	function _return_fee_list_button( $payment ) {
         if ( 'renewal' !== $payment->payment_type ) {
             return;
         }
@@ -285,7 +285,6 @@ class WPBDP_PaymentsAPI {
         if ( empty( $_POST['return-to-fee-select'] ) ) {
             return;
         }
-
 
         $url = esc_url_raw(
             add_query_arg(

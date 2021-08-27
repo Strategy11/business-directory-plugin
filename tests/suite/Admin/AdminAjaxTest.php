@@ -1,18 +1,18 @@
 <?php
-	
+
 /**
  * Unit tests for Ajax functions in WPBDP_Admin class.
  */
 class AdminAjaxTest extends AjaxTestCase {
 
-	
+
 	public function test_close_subscribe() {
 		require_once WPBDP_INC . 'admin/class-admin.php';
 		new WPBDP_Admin();
 
 		$_POST = array(
 			'action'    => 'wpbdp-drip_subscribe',
-            'nonce'     => wp_create_nonce( 'drip pointer subscribe' ),
+			'nonce'     => wp_create_nonce( 'drip pointer subscribe' ),
 			'subscribe' => '0',
 			'email'     => 'bad',
 		);

@@ -9,11 +9,11 @@
     <?php foreach ( $listings as $listing ): ?>
     <tr>
         <td class="listing-title">
-            <b><?php if ( $listing->is_published() ): ?>
+			<b><?php if ( $listing->is_published() ) : ?>
                 <?php printf( '<a href="%s">%s</a>',
                               esc_url( $listing->get_permalink() ),
                               $listing->get_title() ); ?>
-            <?php else: ?>
+			<?php else : ?>
                 <?php echo $listing->get_title(); ?>
             <?php endif; ?></b>
         </td>

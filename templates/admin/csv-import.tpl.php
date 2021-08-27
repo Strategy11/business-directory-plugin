@@ -42,12 +42,14 @@ printf(
     <input type="hidden" name="action" value="do-import" />
 	<?php wp_nonce_field( 'do-import' ); ?>
 
-    <h2><?php _ex('Import Files', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
+	<h2><?php esc_html_e( 'Import Files', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
         <tbody>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label> <?php _ex('CSV File', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
+					<label> <?php esc_html_e( 'CSV File', 'business-directory-plugin' ); ?>
+						<span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+					</label>
                 </th>
                 <td>
                     <input name="csv-file"
@@ -78,7 +80,7 @@ printf(
             </tr>
             <tr class="form-field">
                 <th scope="row">
-                    <label> <?php _ex('ZIP file containing images', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+					<label> <?php esc_html_e( 'ZIP file containing images', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <input name="images-file"
@@ -110,11 +112,13 @@ printf(
             </tr>
     </table>
 
-    <h2><?php _ex('CSV File Settings', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
+    <h2><?php esc_html_e( 'CSV File Settings', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex( 'Column Separator', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
+                    <label> <?php esc_html_e( 'Column Separator', 'business-directory-plugin' ); ?>
+						<span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+					</label>
                 </th>
                 <td>
                     <?php $column_separator = _defaults_or( $defaults, 'csv-file-separator', ',' ); ?>
@@ -134,13 +138,17 @@ printf(
                            type="radio"
                            aria-required="true"
                            value="tab"
-                           <?php echo $column_separator == "tab" ? 'checked="checked"' : ''; ?>/><?php _ex( 'TAB', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+						   <?php echo $column_separator === 'tab' ? 'checked="checked"' : ''; ?>/>
+						<?php esc_html_e( 'TAB', 'business-directory-plugin' ); ?>
+					</label>
                     <br />
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Image Separator', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex('required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
+					<label> <?php esc_html_e( 'Image Separator', 'business-directory-plugin' ); ?>
+						<span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+					</label>
                 </th>
                 <td>
                     <input name="settings[images-separator]"
@@ -151,7 +159,9 @@ printf(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Category Separator', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex('required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
+					<label> <?php esc_html_e( 'Category Separator', 'business-directory-plugin' ); ?>
+						<span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+					</label>
                 </th>
                 <td>
                     <input name="settings[category-separator]"
@@ -162,11 +172,11 @@ printf(
             </tr>
     </table>
 
-    <h2><?php _ex('Import settings', 'admin csv-import', 'business-directory-plugin' ); ?></h2>
+	<h2><?php esc_html_e( 'Import settings', 'business-directory-plugin' ); ?></h2>
     <table class="form-table">
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Post status of new imported listings', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+					<label> <?php esc_html_e( 'Post status of new imported listings', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <select name="settings[post-status]">
@@ -183,7 +193,7 @@ printf(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Post status of existing imported listings', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+					<label> <?php esc_html_e( 'Post status of existing imported listings', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <select name="settings[existing-post-status]">
@@ -201,15 +211,21 @@ printf(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Missing categories handling', 'admin csv-import', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
+					<label> <?php esc_html_e( 'Missing categories handling', 'business-directory-plugin' ); ?>
+						<span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+					</label>
                 </th>
                 <td>
                     <label><input name="settings[create-missing-categories]"
                            type="radio"
-                           value="1" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Auto-create categories', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+                           value="1" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ) ? 'checked="checked"' : ''; ?> />
+						<?php esc_html_e( 'Auto-create categories', 'business-directory-plugin' ); ?>
+					</label>
                     <label><input name="settings[create-missing-categories]"
                            type="radio"
-                           value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Generate errors when a category is not found', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+                           value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> />
+						<?php esc_html_e( 'Generate errors when a category is not found', 'business-directory-plugin' ); ?>
+					</label>
                 </td>
             </tr>
             <tr class="form-required">
@@ -225,13 +241,15 @@ printf(
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Assign listings to a user?', 'admin csv-import', 'business-directory-plugin' ); ?>
+					<label> <?php esc_html_e( 'Assign listings to a user?', 'business-directory-plugin' ); ?>
                 </th>
                 <td>
                     <label><input name="settings[assign-listings-to-user]"
                            type="checkbox"
                            class="assign-listings-to-user"
-                           value="1" <?php echo _defaults_or( $defaults, 'assign-listings-to-user', 1 ) ? 'checked="checked"' : ''; ?> /> <?php _ex('Assign listings to a user.', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+						   value="1" <?php echo _defaults_or( $defaults, 'assign-listings-to-user', 1 ) ? 'checked="checked"' : ''; ?> />
+						<?php esc_html_e( 'Assign listings to a user?', 'business-directory-plugin' ); ?>
+					</label>
                 </td>
             </tr>
             <tr class="form-required default-user-selection">
@@ -247,18 +265,18 @@ printf(
             </tr>
             <tr class="form-required default-user-selection">
                 <th scope="row">
-                    <label> <?php _ex('Default listing user', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+					<label> <?php esc_html_e( 'Default listing user', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <?php echo wpbdp_render_user_field( array( 'class' => 'default-user', 'name' => 'settings[default-user]', 'value' => _defaults_or( $defaults, 'default-user', '' ) ) ); ?>
                     </label>
-                    <span class="description"><?php _ex('This user will be used if the username column is not present in the CSV file.', 'admin csv-import', 'business-directory-plugin' ); ?></span>
+					<span class="description"><?php esc_html_e( 'This user will be used if the username column is not present in the CSV file.', 'business-directory-plugin' ); ?></span>
                 </td>
             </tr>
             <tr class="form-required">
                 <th scope="row">
-                    <label> <?php _ex('Number of listings imported on every cycle', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+					<label> <?php esc_html_e( 'Number of listings imported on every cycle', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <select name="settings[batch-size]">
@@ -266,7 +284,7 @@ printf(
                             <option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <span class="description"><?php _ex('If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'admin csv-import', 'business-directory-plugin' ); ?></span>
+					<span class="description"><?php esc_html_e( 'If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'business-directory-plugin' ); ?></span>
                 </td>
             </tr>
             <tr class="form-required">
@@ -293,18 +311,22 @@ printf(
 <hr />
 <h2 id="help"><?php esc_html_e( 'Help', 'business-directory-plugin' ); ?></h2>
 <p>
-    <?php echo sprintf(_x('The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'admin csv-import', 'business-directory-plugin' ),
-                  esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) ) ); ?>
+	<?php
+	printf(
+		esc_html__( 'The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'business-directory-plugin' ),
+		esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) )
+	);
+	?>
 </p>
 
 <table class="wpbdp-csv-import-headers">
     <thead>
         <tr>
-            <th class="header-name"><?php _ex('Header name/label', 'admin csv-import', 'business-directory-plugin' ); ?></th>
-            <th class="field-label"><?php _ex('Field', 'admin csv-import', 'business-directory-plugin' ); ?></th>
-            <th class="field-type"><?php esc_html_e( 'Type', 'business-directory-plugin' ); ?></th>
-            <th class="field-is-required"><?php _ex('Required?', 'admin csv-import', 'business-directory-plugin' ); ?></th>
-            <th class="field-is-multivalued"><?php _ex('Multivalued?', 'admin csv-import', 'business-directory-plugin' ); ?></th>
+			<th class="header-name"><?php esc_html_e( 'Header name/label', 'business-directory-plugin' ); ?></th>
+			<th class="field-label"><?php esc_html_e( 'Field', 'business-directory-plugin' ); ?></th>
+			<th class="field-type"><?php esc_html_e( 'Type', 'business-directory-plugin' ); ?></th>
+			<th class="field-is-required"><?php esc_html_e( 'Required?', 'business-directory-plugin' ); ?></th>
+			<th class="field-is-multivalued"><?php esc_html_e( 'Multivalued?', 'business-directory-plugin' ); ?></th>
         </tr>
     </thead>
     <tbody>
@@ -336,14 +358,14 @@ printf(
         </tr>
         <tr class="<?php echo ($i + 1) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">images</td>
-            <td class="field-label"><?php _ex('Semicolon separated list of listing images (from the ZIP file)', 'admin csv-import', 'business-directory-plugin' ); ?></td>
+            <td class="field-label"><?php esc_html_e( 'Semicolon separated list of listing images (from the ZIP file)', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued">X</td>
         </tr>
         <tr class="<?php echo ($i + 2) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">username</td>
-            <td class="field-label"><?php _ex('Listing author\'s username', 'admin csv-import', 'business-directory-plugin' ); ?></td>
+			<td class="field-label"><?php esc_html_e( 'Listing author\'s username', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>

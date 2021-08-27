@@ -1,7 +1,7 @@
 <?php
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     wpbdp_admin_header(
-        array( 
+		array(
             'id'      => 'admin-fees',
             'buttons' => array(
                 __( 'Add New Listing Fee', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
@@ -14,7 +14,7 @@
 
     <?php if ( ! wpbdp_get_option( 'payments-on' ) ) : ?>
 	<p class="howto">
-        <?php esc_html_e('Payments are currently turned off.', 'business-directory-plugin' ); ?><br />
+		<?php esc_html_e( 'Payments are currently turned off.', 'business-directory-plugin' ); ?><br />
         <?php
             echo sprintf(
                 /* translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag. */

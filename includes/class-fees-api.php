@@ -9,8 +9,8 @@ class WPBDP_Fees_API {
         $this->setup_default_fees();
 
         // Keep settings in sync with free plan.
-        add_action( "wpbdp_setting_updated_listing-duration", array( $this, 'sync_setting_with_free_plan' ), 10, 3 );
-        add_action( "wpbdp_setting_updated_free-images", array( $this, 'sync_setting_with_free_plan' ), 10, 3 );
+        add_action( 'wpbdp_setting_updated_listing-duration', array( $this, 'sync_setting_with_free_plan' ), 10, 3 );
+        add_action( 'wpbdp_setting_updated_free-images', array( $this, 'sync_setting_with_free_plan' ), 10, 3 );
         add_action( 'wpbdp_fee_save', array( $this, 'sync_fee_plan_with_settings' ), 10, 2 );
     }
 

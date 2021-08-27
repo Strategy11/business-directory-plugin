@@ -3,7 +3,7 @@
 class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
 
     public function __construct() {
-        parent::__construct( _x('Social Site (Facebook page)', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( _x( 'Social Site (Facebook page)', 'form-fields api', 'business-directory-plugin' ) );
     }
 
     public function get_id() {
@@ -14,7 +14,7 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
         $field->add_display_flag( 'social' );
     }
 
-    public function render_field_inner( &$field, $value, $context, &$extra=null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
         // facebook fields are rendered as normal textfields
         global $wpbdp;
         return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );

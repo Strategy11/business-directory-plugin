@@ -178,7 +178,7 @@ class WPBDP__DB__Model {
             $this->clean( $errors );
 
         if ( $errors )
-            throw new Exception('Invalid model instance!');
+			throw new Exception( 'Invalid model instance!' );
 
         $this->_saving = true;
 
@@ -244,7 +244,7 @@ class WPBDP__DB__Model {
     }
 
     public static function objects() {
-        throw new Exception('Method not overridden in subclass!');
+		throw new Exception( 'Method not overridden in subclass!' );
     }
 
     public static function _objects( $classname ) {
@@ -281,7 +281,7 @@ class WPBDP__DB__Model {
         $info['primary_key'] = isset( $cls_vars['primary_key'] ) ? $cls_vars['primary_key'] : 'id';
         $info['serialized']  = isset( $cls_vars['serialized'] ) ? $cls_vars['serialized'] : array();
 
-        foreach ( $wpdb->get_results( "SHOW COLUMNS FROM " . $info['table']['name'], ARRAY_A ) as $col ) {
+		foreach ( $wpdb->get_results( 'SHOW COLUMNS FROM ' . $info['table']['name'], ARRAY_A ) as $col ) {
             $info['table']['columns'][ $col['Field'] ] = array( 'type'       => $col['Type'],
                                                                 'nullable'   => ( 'yes' == strtolower( $col['Null'] ) ),
                                                                 'default'    => $col['Default'],

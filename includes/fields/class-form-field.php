@@ -913,7 +913,7 @@ class WPBDP_Form_Field {
                         }
 
                     }
-                    
+
                     if ( is_string( $term_ ) ) {
                         $tt_ids = $wpdb->get_col(
                             $wpdb->prepare(

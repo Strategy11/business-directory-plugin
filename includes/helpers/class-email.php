@@ -87,7 +87,7 @@ class WPBDP_Email {
         }
 
         if ( 'both' !== $this->content_type ) {
-            $headers[] = "Content-Type: text/" . $this->content_type;
+			$headers[] = 'Content-Type: text/' . $this->content_type;
         }
 
         foreach ( $this->headers as $k => $v ) {

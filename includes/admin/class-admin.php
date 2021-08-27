@@ -78,11 +78,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
-            add_filter('admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
-            add_filter('admin_head-post-new.php', array( $this, 'maybe_highlight_menu' ) );
-            add_filter('admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
-            add_filter('admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
-            add_filter('admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
+			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
+			add_filter( 'admin_head-post-new.php', array( $this, 'maybe_highlight_menu' ) );
+			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
+			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
+			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
 
 			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
@@ -390,8 +390,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $cpt_menu   = sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE );
             $admin_menu = 'wpbdp_admin';
 
-            if( isset( $submenu[$cpt_menu] ) && isset( $submenu[$admin_menu] ) ) {
-                $submenu[$admin_menu] = array_merge( $submenu[$cpt_menu], $submenu[$admin_menu] );
+			if ( isset( $submenu[ $cpt_menu ] ) && isset( $submenu[ $admin_menu ] ) ) {
+                $submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
             }
         }
 
@@ -477,7 +477,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $this->current_controller = new $classname;
+			$this->current_controller = new $classname();
 
             ob_start();
             $this->current_controller->_dispatch();
@@ -1145,7 +1145,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_filter( 'wpbdp_admin_directory_views', array( $view, 'filter_views' ), 10, 2 );
             add_filter( 'wpbdp_admin_directory_filter', array( $view, 'filter_query_pieces' ), 10, 2 );
         }
-        
+
         public function maybe_highlight_menu() {
             global $post;
 
@@ -1162,8 +1162,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
         /**
          * This function restores Manage Regions menu for Editors,
-         * it won't be necessary after fixing the editors 
-         * issue in regions module. 
+         * it won't be necessary after fixing the editors
+         * issue in regions module.
          */
         private function maybe_restore_regions_submenu() {
             if ( class_exists( 'WPBDP_RegionsAdmin' ) ) {

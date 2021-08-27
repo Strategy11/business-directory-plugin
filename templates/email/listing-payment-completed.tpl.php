@@ -22,11 +22,12 @@
 <?php endif; ?>
 
 
-<?php _ex('Plan', 'notify email', 'business-directory-plugin' ); ?>: <?php 
+<?php esc_html_e( 'Plan', 'business-directory-plugin' ); ?>: <?php
     echo sprintf( '<a href="%s">%s</a>',
         esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=edit-fee&id=' . $plan->fee_id ) ),
         esc_html( $plan->fee_label )
-    );?>
+	);
+?>
 
 
 <?php _ex( 'Listing URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo $listing->is_published() ? $listing->get_permalink() : get_preview_post_link( $listing->get_id() ); ?>

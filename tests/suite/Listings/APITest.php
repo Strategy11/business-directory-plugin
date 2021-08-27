@@ -17,7 +17,7 @@ use WPBDP_Listings_API;
  */
 class APITest extends TestCase {
 
-    
+
 	public function setup() {
 		parent::setup();
 		global $wpdb;
@@ -26,34 +26,34 @@ class APITest extends TestCase {
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE 1;" );
 	}
 
-    public function test_listing_published_status_after_payment() {
-        // Set option for testing.
-        wpbdp_set_option( 'new-post-status', 'publish' );
-        
-    	$listing_id = wp_insert_post(
-            array(
-                'post_author' => 1,
-                'post_type'   => WPBDP_POST_TYPE,
-                'post_status' => 'pending_payment',
-                'post_title'  => '(no title)',
-            )
-        );
+	public function test_listing_published_status_after_payment() {
+		// Set option for testing.
+		wpbdp_set_option( 'new-post-status', 'publish' );
 
-        $listing = wpbdp_get_listing( $listing_id );
+		$listing_id = wp_insert_post(
+			array(
+				'post_author' => 1,
+				'post_type'   => WPBDP_POST_TYPE,
+				'post_status' => 'pending_payment',
+				'post_title'  => '(no title)',
+			)
+		);
 
-        $listing->set_fee_plan( 1 );
+		$listing = wpbdp_get_listing( $listing_id );
 
-        $payment = $listing->generate_or_retrieve_payment();
+		$listing->set_fee_plan( 1 );
 
-        // Execute
-        $payment->status = 'completed';
-        $payment->save();
+		$payment = $listing->generate_or_retrieve_payment();
 
-        // // Verification.
-        $this->assertEquals( 'publish', get_post_status( $listing_id ) );
+		// Execute
+		$payment->status = 'completed';
+		$payment->save();
 
-        // Restore option to default value
-        wpbdp_set_option( 'new-post-status', 'pending' );
+		// // Verification.
+		$this->assertEquals( 'publish', get_post_status( $listing_id ) );
 
-    }
+		// Restore option to default value
+		wpbdp_set_option( 'new-post-status', 'pending' );
+
+	}
 }

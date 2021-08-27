@@ -105,7 +105,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
     }
 
     public function widget( $args, $instance ) {
-        extract($args);
+		extract( $args );
         $title = apply_filters( 'widget_title', $instance['title'] );
 
         echo $before_widget;

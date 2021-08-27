@@ -4,7 +4,7 @@ $is_reported = WPBDP__Listing_Flagging::is_flagged( $listing->get_id() );
 ?>
 <table class="widefat fixed" cellspacing="0">
     <tbody>
-        <tr class="no-items" style="<?php echo ( $is_reported ? 'display : none;' : "" ); ?>">
+		<tr class="no-items" style="<?php echo ( $is_reported ? 'display : none;' : '' ); ?>">
             <td colspan="2"><?php echo _x( 'This listing has not been reported.', 'admin listings', 'business-directory-plugin' ); ?></td>
         </tr>
         <?php if ( $is_reported ) : ?>

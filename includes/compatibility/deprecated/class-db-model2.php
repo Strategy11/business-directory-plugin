@@ -22,7 +22,7 @@ class WPBDP_DB_Model2 {
             $this->attrs[ $k ] = ( in_array( $k, $this->serialized, true) && $v ) ? maybe_unserialize( $v ) : $v;
         }
     }
-    
+
     private function validate() {
         $this->errors = $this->_validate();
         return empty( $this->errors ) ? true : false;
@@ -67,10 +67,10 @@ class WPBDP_DB_Model2 {
         if ( $validate )
             $this->sanitize();
 
-        if ( isset( $this->attrs['id'] ) && $this->attrs['id'] )
+		if ( isset( $this->attrs['id'] ) && $this->attrs['id'] ) {
             return $this->update( $validate );
-        else
-            return $this->insert( $validate );
+		}
+		return $this->insert( $validate );
     }
 
     public function delete() {
@@ -94,7 +94,7 @@ class WPBDP_DB_Model2 {
             if ( is_null( $v ) )
                 continue;
 
-            $row[ $k ] = in_array( $k, $this->serialized, true ) ? ( $v ? serialize( $v ) : '' ): $v;
+			$row[ $k ] = in_array( $k, $this->serialized, true ) ? ( $v ? serialize( $v ) : '' ) : $v;
         }
 
         $row = $this->update_timestamps( $row );
@@ -113,8 +113,9 @@ class WPBDP_DB_Model2 {
 
         $row = array();
         foreach ( $this->attrs as $k => $v ) {
-            if ( ! is_null( $v ) )
-                $row[ $k ] = in_array( $k, $this->serialized, true ) ? ( $v ? serialize( $v ) : '' ): $v;
+			if ( ! is_null( $v ) ) {
+				$row[ $k ] = in_array( $k, $this->serialized, true ) ? ( $v ? serialize( $v ) : '' ) : $v;
+			}
         }
 
         $row = $this->update_timestamps( $row );
@@ -165,7 +166,7 @@ class WPBDP_DB_Model2 {
      * @return array
      */
     public static function find( $id, $args = array() ) {
-        throw new Exception('find() method not implemented.');
+		throw new Exception( 'find() method not implemented.' );
     }
 
     protected static function _find( $id, $args = array(), $table = '', $classname = '' ) {
@@ -199,12 +200,12 @@ class WPBDP_DB_Model2 {
                 break;
         }
 
-        $single = (  ! $single && isset( $args['_single'] ) && true == $args['_single'] ) ? true : $single;
+		$single = ( ! $single && isset( $args['_single'] ) && true == $args['_single'] ) ? true : $single;
         $order = isset( $args['_order'] ) ? $args['_order'] : '';
         $limit = isset( $args['_limit'] ) ? $args['_limit'] : '';
         $extra = isset( $args['_query_extra'] ) ? $args['_query_extra'] : array();
 
-        $query = "SELECT t.*";
+		$query = 'SELECT t.*';
 
         if ( isset( $extra['fields'] ) )
             $query .= ', ' . $extra['fields'];
@@ -213,7 +214,7 @@ class WPBDP_DB_Model2 {
         if ( isset( $extra['table'] ) )
             $query .= ', ' . $extra['table'] . ' ';
 
-        $query .= " WHERE 1=1";
+		$query .= ' WHERE 1=1';
         if ( isset( $extra['where'] ) )
             $query .= ' ' . $extra['where'] . ' ';
 
@@ -238,27 +239,30 @@ class WPBDP_DB_Model2 {
             $order_field = wpbdp_starts_with( $order, '-' ) ? substr( $order, 1 ) : $order;
             $order_dir = wpbdp_starts_with( $order, '-' ) ? 'DESC' : 'ASC';
 
-            if ( isset( $extra['orderby'] ) )
+			if ( isset( $extra['orderby'] ) ) {
                 $query .= ' ORDER BY ' . $extra['orderby'];
-            else
+			} else {
                 $query .= " ORDER BY t.{$order_field} {$order_dir}";
+			}
         }
 
         if ( $limit > 0 )
             $query .= " LIMIT {$limit}";
 
         if ( $single ) {
-            if ( $row = $wpdb->get_row( $query, ARRAY_A ) )
+			$row = $wpdb->get_row( $query, ARRAY_A );
+			if ( $row ) {
                 return new $classname( $row );
-            else
+			} else {
                 return null;
+			}
         }
 
-        return array_map( 
+		return array_map(
             function( $x ) use ( $classname ) {
-                return new $classname( $x ); 
+				return new $classname( $x );
             },
-            $wpdb->get_results( $query, ARRAY_A ) 
+			$wpdb->get_results( $query, ARRAY_A )
         );
     }
 

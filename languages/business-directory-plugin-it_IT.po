@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-08-24 19:42:43+00:00\n"
+"POT-Creation-Date: 2021-08-26 18:29:37+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,14 +23,14 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/admin/class-admin-controller.php:80
+#: includes/admin/class-admin-controller.php:81
 #: templates/admin/payments-note.tpl.php:13
 #: templates/delete-listing-confirm.tpl.php:19
 #, fuzzy
 msgid "Are you sure you want to do this?"
 msgstr "Sei sicuro di volerlo fare?"
 
-#: includes/admin/class-admin-csv.php:38 templates/admin/csv-import.tpl.php:294
+#: includes/admin/class-admin-csv.php:38 templates/admin/csv-import.tpl.php:310
 #, fuzzy
 msgid "Help"
 msgstr "Aiuto"
@@ -103,7 +103,7 @@ msgstr ""
 msgid "Yes, please!"
 msgstr "Sì, per favore!"
 
-#: includes/admin/class-admin.php:199 includes/admin/tracking.php:213
+#: includes/admin/class-admin.php:199 includes/admin/tracking.php:214
 #, fuzzy
 msgid "No, thanks"
 msgstr "No, Grazie"
@@ -260,7 +260,7 @@ msgstr "Immagini"
 
 #: includes/admin/form-fields.php:31
 #: includes/fields/class-fieldtypes-social.php:138
-#: templates/admin/csv-import.tpl.php:305
+#: templates/admin/csv-import.tpl.php:325
 #, fuzzy
 msgid "Type"
 msgstr "Tipo"
@@ -816,11 +816,11 @@ msgstr "Indirizzo e-mail del mittente"
 msgid "Uninstall"
 msgstr "Disinstalla"
 
-#: includes/admin/settings/class-settings.php:512
+#: includes/admin/settings/class-settings.php:513
 msgid "%s cannot include spaces, commas, or &"
 msgstr ""
 
-#: includes/admin/tracking.php:220
+#: includes/admin/tracking.php:221
 #, fuzzy
 msgid "Allow Tracking"
 msgstr "Consenti il monitoraggio"
@@ -893,6 +893,16 @@ msgstr "Etichetta della Donazione"
 #, fuzzy
 msgid "Duration"
 msgstr "Durata"
+
+#: includes/admin/upgrades/migrations/migration-18_0.php:251
+#, fuzzy
+msgid "Could not migrate fee \"%1$s\" (%2$d)"
+msgstr "! Impossibile migrare il canone \"%s\" (%d)"
+
+#: includes/admin/upgrades/migrations/migration-3_7.php:181
+#, fuzzy
+msgid "Renewal fee \"%1$s\" for category \"%2$s\""
+msgstr "Canone di rinnovo \"%s\" per la categoria \"%s\"."
 
 #: includes/admin/views/modules/list.php:10
 #, fuzzy
@@ -1068,23 +1078,23 @@ msgstr ""
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: includes/class-wpbdp.php:578
+#: includes/class-wpbdp.php:579
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/class-wpbdp.php:585
+#: includes/class-wpbdp.php:586
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:592 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:593 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Non è stato possibile aggiornare il tema: %s"
 
-#: includes/class-wpbdp.php:624
+#: includes/class-wpbdp.php:625
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1092,7 +1102,7 @@ msgstr ""
 "Le funzioni della directory sono disattivate in questo momento perché è in "
 "attesa di un <a>aggiornamento manuale</a>."
 
-#: includes/class-wpbdp.php:631
+#: includes/class-wpbdp.php:632
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1101,7 +1111,7 @@ msgstr ""
 "contattare l'amministratore se il problema persiste."
 
 #: includes/compatibility/class-navxt-integration.php:204
-#: includes/widgets/widget-search.php:112
+#: includes/widgets/widget-search.php:125
 #: templates/admin/payments-index.tpl.php:13
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:28
 #: templates/search.tpl.php:3
@@ -1277,8 +1287,12 @@ msgstr ""
 "di controllo)."
 
 #: includes/fields/class-fieldtypes-select.php:262
-#: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
-#: templates/admin/fees-form.tpl.php:58
+#: templates/admin/csv-export.tpl.php:117 templates/admin/csv-import.tpl.php:51
+#: templates/admin/csv-import.tpl.php:120
+#: templates/admin/csv-import.tpl.php:148
+#: templates/admin/csv-import.tpl.php:161
+#: templates/admin/csv-import.tpl.php:213 templates/admin/fees-form.tpl.php:17
+#: templates/admin/fees-form.tpl.php:38 templates/admin/fees-form.tpl.php:58
 #, fuzzy
 msgid "required"
 msgstr "richiesto"
@@ -1445,7 +1459,7 @@ msgstr "Validatore di data"
 msgid "Word Count Validator"
 msgstr "Validatore del conteggio delle parole"
 
-#: includes/form-fields.php:594
+#: includes/form-fields.php:594 templates/admin/csv-import.tpl.php:324
 #, fuzzy
 msgid "Field"
 msgstr "Campo"
@@ -1500,7 +1514,7 @@ msgid "%1$s must have less than %2$d words."
 msgstr "%s deve avere meno di %d parole."
 
 #. translators: %1$s: field label, %2$s allowed values
-#: includes/form-fields.php:822
+#: includes/form-fields.php:824
 #, fuzzy
 msgid "%1$s is invalid. Value most be one of %2$s."
 msgstr "%1$s non è valido. Valore più essere uno di %2$s."
@@ -1703,10 +1717,51 @@ msgstr "Gestione delle Donazioni ricevute"
 msgid "Default"
 msgstr "Canone predefinito"
 
-#: includes/themes.php:951
+#: includes/themes.php:952
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Il file ZIP non è un file tema BD valido."
+
+#: includes/utils.php:465
+#, fuzzy
+msgid "File size (%1$s) exceeds maximum file size of %2$s"
+msgstr ""
+"La dimensione del file (%s) supera la dimensione massima del file di %s"
+
+#: includes/utils.php:474
+#, fuzzy
+msgid "File size (%1$s) is smaller than the minimum file size of %2$s"
+msgstr ""
+"La dimensione del file (%s) è inferiore alla dimensione minima richiesta di "
+"%s"
+
+#: includes/utils.php:527
+#, fuzzy
+msgid "Image width (%1$s px) is smaller than the minimum width of %2$s px."
+msgstr ""
+"La larghezza dell'immagine (%s px) è troppo grande rispetto al massimo "
+"consentito di:  %s px."
+
+#: includes/utils.php:535
+#, fuzzy
+msgid "Image height (%1$s px) is smaller than the minimum height of %2$s px."
+msgstr ""
+"L'altezza dell'immagine (%s px) è troppo grande rispetto al massimo "
+"consentito che è: %s px."
+
+#: includes/utils.php:543
+#, fuzzy
+msgid "Image width (%1$s px) is greater than maximum width of %2$s px."
+msgstr ""
+"La larghezza dell'immagine (%s px) è troppo grande rispetto al massimo "
+"consentito di:  %s px."
+
+#: includes/utils.php:551
+#, fuzzy
+msgid "Image height (%1$s px) is greater than maximum height of %2$s px."
+msgstr ""
+"L'altezza dell'immagine (%s px) è troppo grande rispetto al massimo "
+"consentito che è: %s px."
 
 #. translators: %1$s: listing name, %2$s: open link html, %3$s close link html
 #: includes/views/flag_listing.php:56
@@ -1755,6 +1810,11 @@ msgstr "Modifica Abbonamento"
 #, fuzzy
 msgid "That listing cannot yet be renewed."
 msgstr "Questo annuncio non è stato segnalato"
+
+#: includes/views/show_listing.php:12
+#, fuzzy
+msgid "This is just a preview. The listing has not been published yet."
+msgstr "Questa è solo un'anteprima. L'Annuncio non è ancora stato pubblicato."
 
 #: includes/views/submit_listing.php:544
 #, fuzzy
@@ -1818,6 +1878,17 @@ msgstr ""
 "Se si prevede di reimportare gli elenchi in BD e non si desidera crearne "
 "nuovi, selezionare questa opzione!"
 
+#: templates/admin/csv-export.tpl.php:93 templates/admin/csv-import.tpl.php:115
+#, fuzzy
+msgid "CSV File Settings"
+msgstr "Impostazioni file CSV"
+
+#: templates/admin/csv-export.tpl.php:116
+#: templates/admin/csv-import.tpl.php:147
+#, fuzzy
+msgid "Image Separator"
+msgstr "Separatore di immagini"
+
 #. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
 #: templates/admin/csv-import.tpl.php:34
 #, fuzzy
@@ -1828,15 +1899,147 @@ msgstr ""
 "Raccomandiamo vivamente di leggere prima la nostra <a>documentazione di "
 "importazione CSV</a> per aiutarvi a fare le cose nel giusto ordine."
 
-#: templates/admin/csv-import.tpl.php:274
+#: templates/admin/csv-import.tpl.php:45
+#, fuzzy
+msgid "Import Files"
+msgstr "Importa Files"
+
+#: templates/admin/csv-import.tpl.php:50
+#, fuzzy
+msgid "CSV File"
+msgstr "CSV data"
+
+#: templates/admin/csv-import.tpl.php:83
+#, fuzzy
+msgid "ZIP file containing images"
+msgstr "File ZIP contenente immagini"
+
+#: templates/admin/csv-import.tpl.php:119
+#, fuzzy
+msgid "Column Separator"
+msgstr "Separatore Colonna"
+
+#: templates/admin/csv-import.tpl.php:160
+#, fuzzy
+msgid "Category Separator"
+msgstr "Separatore di Categoria"
+
+#: templates/admin/csv-import.tpl.php:173
+#, fuzzy
+msgid "Import settings"
+msgstr "Importa le impostazioni"
+
+#: templates/admin/csv-import.tpl.php:177
+#, fuzzy
+msgid "Post status of new imported listings"
+msgstr "Stato delle inserzioni importate"
+
+#: templates/admin/csv-import.tpl.php:194
+#, fuzzy
+msgid "Post status of existing imported listings"
+msgstr "Stato delle inserzioni importate"
+
+#: templates/admin/csv-import.tpl.php:212
+#, fuzzy
+msgid "Missing categories handling"
+msgstr "Gestione delle categorie mancanti"
+
+#: templates/admin/csv-import.tpl.php:220
+#, fuzzy
+msgid "Auto-create categories"
+msgstr "Creazione automatica delle categorie"
+
+#: templates/admin/csv-import.tpl.php:225
+#, fuzzy
+msgid "Generate errors when a category is not found"
+msgstr "Generare errori quando una categoria non viene trovata"
+
+#: templates/admin/csv-import.tpl.php:242
+#: templates/admin/csv-import.tpl.php:249
+#, fuzzy
+msgid "Assign listings to a user?"
+msgstr "Assegna annunci a un utente?"
+
+#: templates/admin/csv-import.tpl.php:266
+#, fuzzy
+msgid "Default listing user"
+msgstr "Utente predefinito"
+
+#: templates/admin/csv-import.tpl.php:272
+#, fuzzy
+msgid ""
+"This user will be used if the username column is not present in the CSV file."
+msgstr ""
+"Questo utente verrà utilizzato se la colonna username non è presente nel "
+"file CSV."
+
+#: templates/admin/csv-import.tpl.php:277
+#, fuzzy
+msgid "Number of listings imported on every cycle"
+msgstr "Numero di elenchi importati per ogni ciclo"
+
+#: templates/admin/csv-import.tpl.php:285
+#, fuzzy
+msgid ""
+"If you are having trouble importing listings due to memory problems, try "
+"reducing the import batch size to 5 or 1 and then re-attempt. This will "
+"result in a longer batch import time, but will increase the chance of "
+"success on shared hosting platforms and other resource-constrained servers."
+msgstr ""
+"Se si riscontrano problemi nell'importazione di elenchi a causa di problemi "
+"di memoria, provare a ridurre la dimensione del batch di importazione a 5 o "
+"1 e quindi riprovare. Questo si tradurrà in un tempo di importazione batch "
+"più lungo, ma aumenterà le possibilità di successo su piattaforme di hosting "
+"condiviso e altri server con risorse limitate."
+
+#: templates/admin/csv-import.tpl.php:290
 #, fuzzy
 msgid "Disable email notifications during import?"
 msgstr "Disattiva le notifiche di posta elettronica durante l'importazione?"
 
-#: templates/admin/csv-import.tpl.php:281
+#: templates/admin/csv-import.tpl.php:297
 #, fuzzy
 msgid "Disable email notifications."
 msgstr "Disattiva le notifiche di posta elettronica."
+
+#: templates/admin/csv-import.tpl.php:314
+#, fuzzy
+msgid ""
+"The following are the valid header names to be used in the CSV file. "
+"Multivalued fields (such as category or tags) can appear multiple times in "
+"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
+"how an import file should look like."
+msgstr ""
+"Di seguito sono riportati i nomi di intestazione validi da utilizzare nel "
+"file CSV. I campi multivalore (ad esempio categoria o tag) possono essere "
+"visualizzati più volte nel file. Clicva <a href=\"%s\">\"Vedi un esempio di "
+"file di importazione CSV\"</a> Per vedere come un file di importazione deve "
+"essere."
+
+#: templates/admin/csv-import.tpl.php:323
+#, fuzzy
+msgid "Header name/label"
+msgstr "Nome intestazione / etichetta"
+
+#: templates/admin/csv-import.tpl.php:326
+#, fuzzy
+msgid "Required?"
+msgstr "Necessario?"
+
+#: templates/admin/csv-import.tpl.php:327
+#, fuzzy
+msgid "Multivalued?"
+msgstr "Multivalore?"
+
+#: templates/admin/csv-import.tpl.php:359
+#, fuzzy
+msgid "Semicolon separated list of listing images (from the ZIP file)"
+msgstr "Elenco separato di immagini (dal file ZIP)"
+
+#: templates/admin/csv-import.tpl.php:366
+#, fuzzy
+msgid "Listing author's username"
+msgstr "Elenco degli utenti"
 
 #: templates/admin/debug-info.tpl.php:5
 #, fuzzy
@@ -2336,6 +2539,7 @@ msgid "Preview email"
 msgstr "Anteprima e-mail"
 
 #: templates/admin/settings-email.tpl.php:103
+#: templates/admin/themes-delete-confirm.tpl.php:12
 #: templates/listing-flagging-form.tpl.php:64
 #, fuzzy
 msgid "Cancel"
@@ -2469,6 +2673,12 @@ msgstr "Tipiace questo plugin?"
 #: templates/admin/sidebar.tpl.php:40
 msgid "Need help?"
 msgstr ""
+
+#: templates/admin/themes-delete-confirm.tpl.php:1
+#: templates/admin/themes-delete-confirm.tpl.php:13
+#, fuzzy
+msgid "Delete Directory Theme"
+msgstr "Elimina il tema della directory"
 
 #: templates/admin/themes-install.tpl.php:4 templates/admin/themes.tpl.php:6
 #, fuzzy
@@ -2712,6 +2922,16 @@ msgstr "Codice postale"
 msgid "Next"
 msgstr "Successivo"
 
+#: templates/delete-listing-confirm.tpl.php:24
+#, fuzzy
+msgid "No. Take me back to the directory."
+msgstr "No. Riportatemi all'elenco."
+
+#: templates/delete-listing-confirm.tpl.php:25
+#, fuzzy
+msgid "Yes. Delete my listing."
+msgstr "Si'. Cancellare il mio annuncio."
+
 #: templates/deprecated/search.tpl.php:16 templates/search.tpl.php:10
 #, fuzzy
 msgid "Search Results"
@@ -2729,6 +2949,11 @@ msgstr "Torna all'elenco"
 #, fuzzy
 msgid "(not published yet)"
 msgstr "(non ancora pubblicato)"
+
+#: templates/email/listing-payment-completed.tpl.php:25
+#, fuzzy
+msgid "Plan"
+msgstr "Piano tariffario"
 
 #: templates/email-access-keys.tpl.php:1
 #, fuzzy
@@ -3016,12 +3241,12 @@ msgstr ""
 msgid "Business Directory Team"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin-controller.php:82
+#: includes/admin/class-admin-controller.php:83
 msgctxt "admin confirm"
 msgid "No, go back"
 msgstr "No, torna indietro"
 
-#: includes/admin/class-admin-controller.php:83
+#: includes/admin/class-admin-controller.php:84
 msgctxt "admin confirm"
 msgid "Yes, I'm sure"
 msgstr "Si', sono sicuro che"
@@ -3245,136 +3470,59 @@ msgid "Here, you can import data into your directory using the CSV format."
 msgstr ""
 "Qui puoi importare i dati nella tua directory utilizzando il formato CSV."
 
-#: templates/admin/csv-import.tpl.php:45
-msgctxt "admin csv-import"
-msgid "Import Files"
-msgstr "Importa Files"
-
-#: templates/admin/csv-import.tpl.php:50
-msgctxt "admin csv-import"
-msgid "CSV File"
-msgstr "CSV data"
-
-#: templates/admin/csv-import.tpl.php:62 templates/admin/csv-import.tpl.php:93
+#: templates/admin/csv-import.tpl.php:64 templates/admin/csv-import.tpl.php:95
 msgctxt "admin csv-import"
 msgid "... or <a>select a file uploaded to the imports folder</a>"
 msgstr ""
 ".... o <a>selezionare un file caricato nella cartella di importazione</a>"
 
-#: templates/admin/csv-import.tpl.php:72 templates/admin/csv-import.tpl.php:104
+#: templates/admin/csv-import.tpl.php:74 templates/admin/csv-import.tpl.php:106
 msgctxt "admin csv-import"
 msgid "(Upload new file)"
 msgstr "(Carica nuovo file)"
 
-#: templates/admin/csv-import.tpl.php:81
-msgctxt "admin csv-import"
-msgid "ZIP file containing images"
-msgstr "File ZIP contenente immagini"
-
-#: templates/admin/csv-import.tpl.php:113
-msgctxt "admin csv-import"
-msgid "CSV File Settings"
-msgstr "Impostazioni file CSV"
-
-#: templates/admin/csv-import.tpl.php:117
-msgctxt "admin csv-import"
-msgid "Column Separator"
-msgstr "Separatore Colonna"
-
-#: templates/admin/csv-import.tpl.php:125
+#: templates/admin/csv-import.tpl.php:129
 msgctxt "admin csv-import"
 msgid "Comma (,)"
 msgstr "Comma (,)"
 
-#: templates/admin/csv-import.tpl.php:131
+#: templates/admin/csv-import.tpl.php:135
 msgctxt "admin csv-import"
 msgid "Semicolon (;)"
 msgstr "Punto e virgola (;)"
 
-#: templates/admin/csv-import.tpl.php:137
+#: templates/admin/csv-import.tpl.php:141
 msgctxt "admin csv-import"
 msgid "TAB"
 msgstr "TAB"
 
-#: templates/admin/csv-import.tpl.php:143
-msgctxt "admin csv-import"
-msgid "Image Separator"
-msgstr "Separatore di immagini"
-
-#: templates/admin/csv-import.tpl.php:154
-msgctxt "admin csv-import"
-msgid "Category Separator"
-msgstr "Separatore di Categoria"
-
-#: templates/admin/csv-import.tpl.php:165
-msgctxt "admin csv-import"
-msgid "Import settings"
-msgstr "Importa le impostazioni"
-
-#: templates/admin/csv-import.tpl.php:169
-#, fuzzy
-msgctxt "admin csv-import"
-msgid "Post status of new imported listings"
-msgstr "Stato delle inserzioni importate"
-
-#: templates/admin/csv-import.tpl.php:186
-#, fuzzy
-msgctxt "admin csv-import"
-msgid "Post status of existing imported listings"
-msgstr "Stato delle inserzioni importate"
-
-#: templates/admin/csv-import.tpl.php:190
+#: templates/admin/csv-import.tpl.php:198
 #, fuzzy
 msgctxt "admin csv-import"
 msgid "Preserve existing status"
 msgstr "Stato Inserzione"
 
-#: templates/admin/csv-import.tpl.php:204
-msgctxt "admin csv-import"
-msgid "Missing categories handling"
-msgstr "Gestione delle categorie mancanti"
-
-#: templates/admin/csv-import.tpl.php:209
-msgctxt "admin csv-import"
-msgid "Auto-create categories"
-msgstr "Creazione automatica delle categorie"
-
-#: templates/admin/csv-import.tpl.php:212
-msgctxt "admin csv-import"
-msgid "Generate errors when a category is not found"
-msgstr "Generare errori quando una categoria non viene trovata"
-
-#: templates/admin/csv-import.tpl.php:217
+#: templates/admin/csv-import.tpl.php:231
 msgctxt "admin csv-import"
 msgid "Keep existing listing images?"
 msgstr "Mantenere le immagini dell'elenco esistenti?"
 
-#: templates/admin/csv-import.tpl.php:222
+#: templates/admin/csv-import.tpl.php:236
 msgctxt "admin csv-import"
 msgid "Keep existing images."
 msgstr "Conservare le immagini esistenti."
 
-#: templates/admin/csv-import.tpl.php:223
+#: templates/admin/csv-import.tpl.php:237
 msgctxt "admin csv-import"
 msgid "Appends new images while keeping current ones."
 msgstr "Aggiunge nuove immagini mantenendo quelle attuali."
 
-#: templates/admin/csv-import.tpl.php:228
-msgctxt "admin csv-import"
-msgid "Assign listings to a user?"
-msgstr "Assegna annunci a un utente?"
-
-#: templates/admin/csv-import.tpl.php:234
-msgctxt "admin csv-import"
-msgid "Assign listings to a user."
-msgstr "Assegnare le inserzioni ad un utente."
-
-#: templates/admin/csv-import.tpl.php:239
+#: templates/admin/csv-import.tpl.php:255
 msgctxt "admin csv-import"
 msgid "Use a default user for listings?"
 msgstr "Utilizzare un utente predefinito per gli elenchi?"
 
-#: templates/admin/csv-import.tpl.php:245
+#: templates/admin/csv-import.tpl.php:261
 msgctxt "admin csv-import"
 msgid ""
 "Select a default user to be used if the username column is not present in "
@@ -3383,83 +3531,17 @@ msgstr ""
 "Selezionare un utente predefinito da utilizzare se la colonna nome utente "
 "non è presente nel file CSV."
 
-#: templates/admin/csv-import.tpl.php:250
-msgctxt "admin csv-import"
-msgid "Default listing user"
-msgstr "Utente predefinito"
-
-#: templates/admin/csv-import.tpl.php:256
-msgctxt "admin csv-import"
-msgid ""
-"This user will be used if the username column is not present in the CSV file."
-msgstr ""
-"Questo utente verrà utilizzato se la colonna username non è presente nel "
-"file CSV."
-
-#: templates/admin/csv-import.tpl.php:261
-msgctxt "admin csv-import"
-msgid "Number of listings imported on every cycle"
-msgstr "Numero di elenchi importati per ogni ciclo"
-
-#: templates/admin/csv-import.tpl.php:269
-msgctxt "admin csv-import"
-msgid ""
-"If you are having trouble importing listings due to memory problems, try "
-"reducing the import batch size to 5 or 1 and then re-attempt. This will "
-"result in a longer batch import time, but will increase the chance of "
-"success on shared hosting platforms and other resource-constrained servers."
-msgstr ""
-"Se si riscontrano problemi nell'importazione di elenchi a causa di problemi "
-"di memoria, provare a ridurre la dimensione del batch di importazione a 5 o "
-"1 e quindi riprovare. Questo si tradurrà in un tempo di importazione batch "
-"più lungo, ma aumenterà le possibilità di successo su piattaforme di hosting "
-"condiviso e altri server con risorse limitate."
-
-#: templates/admin/csv-import.tpl.php:288
+#: templates/admin/csv-import.tpl.php:304
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr "Test importazione"
 
-#: templates/admin/csv-import.tpl.php:289
+#: templates/admin/csv-import.tpl.php:305
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr "Importa Annunci"
 
-#: templates/admin/csv-import.tpl.php:296
-msgctxt "admin csv-import"
-msgid ""
-"The following are the valid header names to be used in the CSV file. "
-"Multivalued fields (such as category or tags) can appear multiple times in "
-"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
-"how an import file should look like."
-msgstr ""
-"Di seguito sono riportati i nomi di intestazione validi da utilizzare nel "
-"file CSV. I campi multivalore (ad esempio categoria o tag) possono essere "
-"visualizzati più volte nel file. Clicva <a href=\"%s\">\"Vedi un esempio di "
-"file di importazione CSV\"</a> Per vedere come un file di importazione deve "
-"essere."
-
-#: templates/admin/csv-import.tpl.php:303
-msgctxt "admin csv-import"
-msgid "Header name/label"
-msgstr "Nome intestazione / etichetta"
-
-#: templates/admin/csv-import.tpl.php:304
-msgctxt "admin csv-import"
-msgid "Field"
-msgstr "Campo"
-
-#: templates/admin/csv-import.tpl.php:306
-msgctxt "admin csv-import"
-msgid "Required?"
-msgstr "Necessario?"
-
-#: templates/admin/csv-import.tpl.php:307
-msgctxt "admin csv-import"
-msgid "Multivalued?"
-msgstr "Multivalore?"
-
-#: templates/admin/csv-import.tpl.php:332
+#: templates/admin/csv-import.tpl.php:352
 msgctxt "admin csv-import"
 msgid ""
 "Fee ID (integer) associated to a listing. Use this column when adding or "
@@ -3468,17 +3550,7 @@ msgstr ""
 "Fee ID (numero intero) associato ad un elenco. Utilizzare questa colonna per "
 "aggiungere o aggiornare gli elenchi da fonti esterne."
 
-#: templates/admin/csv-import.tpl.php:339
-msgctxt "admin csv-import"
-msgid "Semicolon separated list of listing images (from the ZIP file)"
-msgstr "Elenco separato di immagini (dal file ZIP)"
-
-#: templates/admin/csv-import.tpl.php:346
-msgctxt "admin csv-import"
-msgid "Listing author's username"
-msgstr "Elenco degli utenti"
-
-#: templates/admin/csv-import.tpl.php:353
+#: templates/admin/csv-import.tpl.php:373
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -3486,7 +3558,7 @@ msgstr ""
 "ID di sequenza interna utilizzata per consentire l'elenco degli "
 "aggiornamenti da fonti esterne."
 
-#: templates/admin/csv-import.tpl.php:360
+#: templates/admin/csv-import.tpl.php:380
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -3979,11 +4051,6 @@ msgctxt "admin csv-export"
 msgid "Listing T&C acceptance date"
 msgstr "Annuncio creato"
 
-#: templates/admin/csv-export.tpl.php:93
-msgctxt "admin csv-export"
-msgid "CSV File Settings"
-msgstr "Impostazioni file CSV"
-
 #: templates/admin/csv-export.tpl.php:97
 msgctxt "admin csv-export"
 msgid "What operating system will you use to edit the CSV file?"
@@ -4012,27 +4079,22 @@ msgstr ""
 "siano visualizzate correttamente quando visualizzate o modificate il file "
 "CSV, dobbiamo generare diverse versioni del file per ogni sistema operativo."
 
-#: templates/admin/csv-export.tpl.php:116
-msgctxt "admin csv-export"
-msgid "Image Separator"
-msgstr "Separatore di immagini"
-
-#: templates/admin/csv-export.tpl.php:127
+#: templates/admin/csv-export.tpl.php:129
 msgctxt "admin csv-export"
 msgid "Category Separator"
 msgstr "Separatore di Categoria"
 
-#: templates/admin/csv-export.tpl.php:139
+#: templates/admin/csv-export.tpl.php:141
 msgctxt "admin csv-export"
 msgid "Export Listings"
 msgstr "Esporta Annunci"
 
-#: templates/admin/csv-export.tpl.php:145
+#: templates/admin/csv-export.tpl.php:147
 msgctxt "admin csv-export"
 msgid "Export in Progress..."
 msgstr "Esportazione in corso ..."
 
-#: templates/admin/csv-export.tpl.php:146
+#: templates/admin/csv-export.tpl.php:148
 msgctxt "admin csv-export"
 msgid ""
 "Your export file is being prepared. Please <u>do not leave</u> this page "
@@ -4041,27 +4103,27 @@ msgstr ""
 "Il file di esportazione è in preparando. Assolutamente <u>non chiudere</u> "
 "questa pagina finché l'esportazione non finisce."
 
-#: templates/admin/csv-export.tpl.php:149
+#: templates/admin/csv-export.tpl.php:151
 msgctxt "admin csv-export"
 msgid "No. of listings:"
 msgstr "Numero di Annunci:"
 
-#: templates/admin/csv-export.tpl.php:151
+#: templates/admin/csv-export.tpl.php:153
 msgctxt "admin csv-export"
 msgid "Approximate export file size:"
 msgstr "Dimensione approssimativa del file di esportazione:"
 
-#: templates/admin/csv-export.tpl.php:158
+#: templates/admin/csv-export.tpl.php:160
 msgctxt "admin csv-export"
 msgid "Cancel Export"
 msgstr "Annulla l'esportazione"
 
-#: templates/admin/csv-export.tpl.php:163
+#: templates/admin/csv-export.tpl.php:165
 msgctxt "admin csv-export"
 msgid "Export Complete"
 msgstr "Esportazione completata"
 
-#: templates/admin/csv-export.tpl.php:164
+#: templates/admin/csv-export.tpl.php:166
 msgctxt "admin csv-export"
 msgid ""
 "Your export file has been successfully created and it is now ready for "
@@ -4070,13 +4132,13 @@ msgstr ""
 "Il file di esportazione è stato creato con successo e ora è pronto per il "
 "download."
 
-#: templates/admin/csv-export.tpl.php:168
+#: templates/admin/csv-export.tpl.php:170
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "Download %s (%s)"
 
-#: templates/admin/csv-export.tpl.php:175
+#: templates/admin/csv-export.tpl.php:177
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -4086,22 +4148,22 @@ msgstr ""
 "dati temporanei creati da Business Directory durante il processo di "
 "esportazione."
 
-#: templates/admin/csv-export.tpl.php:176
+#: templates/admin/csv-export.tpl.php:178
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "Pulire"
 
-#: templates/admin/csv-export.tpl.php:181
+#: templates/admin/csv-export.tpl.php:183
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "Esportazione annullata"
 
-#: templates/admin/csv-export.tpl.php:182
+#: templates/admin/csv-export.tpl.php:184
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "L'esportazione è stata annullata."
 
-#: templates/admin/csv-export.tpl.php:183
+#: templates/admin/csv-export.tpl.php:185
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← Ritorna all'esportazione di CSV"
@@ -4183,42 +4245,42 @@ msgid "Invalid theme ID"
 msgstr "ID articolo non valido"
 
 #: includes/admin/class-themes-admin.php:421
-#: includes/admin/upgrades/class-themes-updater.php:169
+#: includes/admin/upgrades/class-themes-updater.php:170
 msgctxt "themes"
 msgid "Could not update theme: %s"
 msgstr "Non è stato possibile aggiornare il tema: %s"
 
-#: includes/admin/upgrades/class-themes-updater.php:131
+#: includes/admin/upgrades/class-themes-updater.php:132
 msgctxt "themes"
 msgid "Updating theme..."
 msgstr "Aggiornamento del tema....."
 
-#: includes/admin/upgrades/class-themes-updater.php:132
+#: includes/admin/upgrades/class-themes-updater.php:133
 msgctxt "themes"
 msgid "Theme updated."
 msgstr "Tema aggiornato."
 
-#: includes/admin/upgrades/class-themes-updater.php:134
+#: includes/admin/upgrades/class-themes-updater.php:135
 msgctxt "themes"
 msgid "New version available (<b>%s</b>). <a>Update now.</a>"
 msgstr "Nuova versione disponibile (<b>%s</b>).. <a>Aggiorna ora.</a>"
 
-#: includes/admin/upgrades/class-themes-updater.php:175
+#: includes/admin/upgrades/class-themes-updater.php:176
 msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Il tema è stato aggiornato con successo."
 
-#: includes/themes.php:959
+#: includes/themes.php:960
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossibile creare una directory dei temi."
 
-#: includes/themes.php:970
+#: includes/themes.php:971
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossibile rimuovere la directory al tema precedente \"%s\"."
 
-#: includes/themes.php:978
+#: includes/themes.php:979
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Non è stato possibile spostare un nuovo tema nella directory dei temi."
@@ -6777,13 +6839,13 @@ msgctxt "settings"
 msgid "Cropped"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:492
-#: includes/admin/settings/class-settings.php:503
+#: includes/admin/settings/class-settings.php:493
+#: includes/admin/settings/class-settings.php:504
 msgctxt "settings"
 msgid "\"%s\" can not be empty."
 msgstr "\"%s\" non può essere vuoto."
 
-#: includes/admin/settings/class-settings.php:520
+#: includes/admin/settings/class-settings.php:521
 msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "Lo slug \"%s\" è già in uso per un'altra tassonomia."
@@ -6843,12 +6905,12 @@ msgctxt "contact email"
 msgid "Time: %s"
 msgstr "Tempo: %s"
 
-#: includes/admin/tracking.php:187
+#: includes/admin/tracking.php:188
 msgctxt "tracking"
 msgid "Help Improve Business Directory"
 msgstr "Aiuta a migliorare la directory aziendale"
 
-#: includes/admin/tracking.php:189
+#: includes/admin/tracking.php:190
 msgctxt "tracking"
 msgid ""
 "Can Business Directory keep track of your theme, plugins, and other non-"
@@ -6859,7 +6921,7 @@ msgstr ""
 "informazioni non personali e non identificabili per aiutarci a testare il "
 "plugin per le versioni future?"
 
-#: includes/admin/tracking.php:191
+#: includes/admin/tracking.php:192
 msgctxt "tracking"
 msgid "What do you track?"
 msgstr "Cosa traccia?"
@@ -6923,11 +6985,6 @@ msgctxt "installer"
 msgid "Migrating fee plans..."
 msgstr "Migrazione dei piani tariffari....."
 
-#: includes/admin/upgrades/migrations/migration-18_0.php:251
-msgctxt "installer"
-msgid "! Could not migrate fee \"%s\" (%d)"
-msgstr "! Impossibile migrare il canone \"%s\" (%d)"
-
 #: includes/admin/upgrades/migrations/migration-18_0.php:324
 msgctxt "installer"
 msgid "! Could not migrate payment #%d"
@@ -6963,13 +7020,15 @@ msgid "Migrating payments information."
 msgstr "Migrazione delle informazioni sui pagamenti."
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:61
+#, fuzzy
 msgctxt "installer"
-msgid "Cleaning up listing fees information... %d/%d"
+msgid "Cleaning up listing fees information... %1$d/%2$d"
 msgstr "Pulizia delle informazioni sui piani tariffari.... %d/%d"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:119
+#, fuzzy
 msgctxt "installer"
-msgid "Migrating previous transactions to new Payments API... %d/%d"
+msgid "Migrating previous transactions to new Payments API... %1$d/%2$d"
 msgstr "Migrazione di transazioni precedenti ai nuovi pagamenti API... %d/%d"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:148
@@ -6982,17 +7041,12 @@ msgctxt "installer"
 msgid "Listing edit payment (BD < 3.4)"
 msgstr "Modificare il pagamento dell'annuncio(BD < 3.4)"
 
-#: includes/admin/upgrades/migrations/migration-3_7.php:180
-msgctxt "installer"
-msgid "Renewal fee \"%s\" for category \"%s\""
-msgstr "Canone di rinnovo \"%s\" per la categoria \"%s\"."
-
-#: includes/admin/upgrades/migrations/migration-3_7.php:199
+#: includes/admin/upgrades/migrations/migration-3_7.php:201
 msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Upgrade ell'annuncio a In Evidenza"
 
-#: includes/installer.php:62
+#: includes/installer.php:61
 msgctxt "installer"
 msgid "Default Fee"
 msgstr "Canone predefinito"
@@ -7294,12 +7348,6 @@ msgctxt "notify email"
 msgid "Payment Details"
 msgstr "Dettagli del piano"
 
-#: templates/email/listing-payment-completed.tpl.php:25
-#, fuzzy
-msgctxt "notify email"
-msgid "Plan"
-msgstr "Piano tariffario"
-
 #: templates/email/listing-payment-completed.tpl.php:32
 #, fuzzy
 msgctxt "notify email"
@@ -7358,7 +7406,7 @@ msgctxt "title"
 msgid "Find a Listing"
 msgstr "Trova un annuncio"
 
-#: includes/class-meta.php:194
+#: includes/class-meta.php:195
 msgctxt "title"
 msgid "Listings tagged: %s"
 msgstr "Annunci taggati: %s"
@@ -7597,13 +7645,14 @@ msgid "Can not upload any more images for this listing."
 msgstr "Non è possibile caricare altre immagini per questo annuncio."
 
 #: includes/class-wpbdp.php:480
+#, fuzzy
 msgctxt "listing image upload"
 msgid ""
-"You're trying to upload %d images, but only have %d slot available. Please "
-"adjust your selection."
+"You're trying to upload %1$d images, but only have %2$d slot available. "
+"Please adjust your selection."
 msgid_plural ""
-"You're trying to upload %d images, but only have %d slots available. Please "
-"adjust your selection."
+"You're trying to upload %1$d images, but only have %2$d slots available. "
+"Please adjust your selection."
 msgstr[0] ""
 "Stai cercando di caricare %d immagini, ma hai solo %d slot disponibile. Si "
 "prega di modificare la selezione."
@@ -8180,7 +8229,7 @@ msgctxt "flag listing"
 msgid "Report comment is required to save a report"
 msgstr "Il commento è necessario per salvare una segnalazione"
 
-#: includes/installer.php:53
+#: includes/installer.php:52
 msgctxt "default category name"
 msgid "General"
 msgstr "Generale"
@@ -8389,7 +8438,7 @@ msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Ordina per:"
 
-#: includes/utils.php:416
+#: includes/utils.php:417
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8397,61 +8446,22 @@ msgstr ""
 "I dati inviati come POST superano il massimo di configurazione PHP. Si veda "
 "la direttiva \"post_max_size\"."
 
-#: includes/utils.php:463
-msgctxt "utils"
-msgid "File size (%s) exceeds maximum file size of %s"
-msgstr ""
-"La dimensione del file (%s) supera la dimensione massima del file di %s"
-
-#: includes/utils.php:471
-msgctxt "utils"
-msgid "File size (%s) is inferior to the required minimum file size of %s"
-msgstr ""
-"La dimensione del file (%s) è inferiore alla dimensione minima richiesta di "
-"%s"
-
-#: includes/utils.php:480 includes/utils.php:487
+#: includes/utils.php:483 includes/utils.php:490
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Il tipo di file \"%s\" non è consentito"
 
-#: includes/utils.php:494
+#: includes/utils.php:497
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Errore durante il caricamento del file."
 
-#: includes/utils.php:513
+#: includes/utils.php:517
 msgctxt "utils"
 msgid "Uploaded file is not an image"
 msgstr "Il file caricato non è un'immagine"
 
-#: includes/utils.php:522
-msgctxt "utils"
-msgid "Image width (%s px) is inferior to minimum required width of %s px."
-msgstr ""
-"La larghezza dell'immagine (%s px) è inferiore a quella richiesta di: %s px."
-
-#: includes/utils.php:528
-msgctxt "utils"
-msgid "Image height (%s px) is inferior to minimum required height of %s px."
-msgstr ""
-"L'altezza dell'immagine (%s px) è inferiore a quella richiesta di: %s px."
-
-#: includes/utils.php:534
-msgctxt "utils"
-msgid "Image width (%s px) is greater than maximum allowed width of %s px."
-msgstr ""
-"La larghezza dell'immagine (%s px) è troppo grande rispetto al massimo "
-"consentito di:  %s px."
-
-#: includes/utils.php:540
-msgctxt "utils"
-msgid "Image height (%s px) is greater than maximum required height of %s px."
-msgstr ""
-"L'altezza dell'immagine (%s px) è troppo grande rispetto al massimo "
-"consentito che è: %s px."
-
-#: includes/utils.php:554
+#: includes/utils.php:566
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Errore durante il caricamento del file"
@@ -8486,16 +8496,6 @@ msgstr ""
 msgctxt "delete listing"
 msgid "You are about to remove your listing \"%s\" from the directory."
 msgstr "Stai per rimuovere il tuo annuncio \"%s\" dalla directory."
-
-#: templates/delete-listing-confirm.tpl.php:24
-msgctxt "delete listing"
-msgid "No. Take me back to the directory."
-msgstr "No. Riportatemi all'elenco."
-
-#: templates/delete-listing-confirm.tpl.php:25
-msgctxt "delete listing"
-msgid "Yes. Delete my listing."
-msgstr "Si'. Cancellare il mio annuncio."
 
 #: includes/views/listing_contact.php:51
 msgctxt "contact-message"
@@ -8693,11 +8693,6 @@ msgctxt "search"
 msgid "Clear"
 msgstr "Cancella"
 
-#: includes/views/show_listing.php:12
-msgctxt "preview"
-msgid "This is just a preview. The listing has not been published yet."
-msgstr "Questa è solo un'anteprima. L'Annuncio non è ancora stato pubblicato."
-
 #: includes/views/submit_listing.php:1138
 msgctxt "listing submit"
 msgid ""
@@ -8712,7 +8707,7 @@ msgid "Change category/plan"
 msgstr "Cambia categoria/piano"
 
 #: includes/widgets/class-listings-widget.php:45
-#: includes/widgets/widget-search.php:22
+#: includes/widgets/widget-search.php:28
 msgctxt "widgets"
 msgid "Title:"
 msgstr "Titolo:"
@@ -8772,17 +8767,17 @@ msgctxt "widgets"
 msgid "Display listings in random order"
 msgstr "Visualizzare gli annunci in ordine casuale"
 
-#: includes/widgets/widget-latest-listings.php:11
+#: includes/widgets/widget-latest-listings.php:12
 msgctxt "widgets"
 msgid "Business Directory - Latest Listings"
 msgstr "Business Directory - Ultimi Annunci"
 
-#: includes/widgets/widget-latest-listings.php:12
+#: includes/widgets/widget-latest-listings.php:13
 msgctxt "widgets"
 msgid "Displays a list of the latest listings in the Business Directory."
 msgstr "Visualizza un elenco degli ultimi annunci nella  Business Directory."
 
-#: includes/widgets/widget-latest-listings.php:14
+#: includes/widgets/widget-latest-listings.php:16
 msgctxt "widgets"
 msgid "Latest Listings"
 msgstr "Ultimi Annunci"
@@ -8802,54 +8797,49 @@ msgctxt "widgets"
 msgid "Random Listings"
 msgstr "Annunci casuali"
 
-#: includes/widgets/widget-search.php:10
+#: includes/widgets/widget-search.php:11
 msgctxt "widgets"
 msgid "Business Directory - Search"
 msgstr " Business Directory - Ricerca"
 
-#: includes/widgets/widget-search.php:11
+#: includes/widgets/widget-search.php:13
 msgctxt "widgets"
 msgid "Displays a search form to look for Business Directory listings."
 msgstr ""
 "Visualizza un modulo di ricerca per cercare gli annunci di Business "
 "Directory."
 
-#: includes/widgets/widget-search.php:18
+#: includes/widgets/widget-search.php:22
 msgctxt "widgets"
 msgid "Search the Business Directory"
 msgstr "Ricerca nella Business Directory"
 
-#: includes/widgets/widget-search.php:29
+#: includes/widgets/widget-search.php:35
 msgctxt "widgets"
 msgid "Form Style:"
 msgstr "Stile del modulo:"
 
-#: includes/widgets/widget-search.php:37
+#: includes/widgets/widget-search.php:44
 msgctxt "widgets"
 msgid "Basic"
 msgstr "Base"
 
-#: includes/widgets/widget-search.php:45
+#: includes/widgets/widget-search.php:54
 msgctxt "widgets"
 msgid "Advanced"
 msgstr "Avanzate"
 
-#: includes/widgets/widget-search.php:49
+#: includes/widgets/widget-search.php:59
 msgctxt "widgets"
 msgid "Search Fields (advanced mode):"
 msgstr "Campi di ricerca (modalità avanzata):"
 
-#: includes/widgets/widget-search.php:50
+#: includes/widgets/widget-search.php:60
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Visualizzare i seguenti campi nel modulo."
 
-#: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:116
-#: templates/admin/csv-export.tpl.php:127 templates/admin/csv-import.tpl.php:50
-#: templates/admin/csv-import.tpl.php:117
-#: templates/admin/csv-import.tpl.php:143
-#: templates/admin/csv-import.tpl.php:154
-#: templates/admin/csv-import.tpl.php:204
+#: templates/admin/csv-export.tpl.php:97 templates/admin/csv-export.tpl.php:129
 msgctxt "admin forms"
 msgid "required"
 msgstr "richiesto"
@@ -8936,21 +8926,10 @@ msgctxt "admin sidebar"
 msgid "Video Tutorials"
 msgstr "Video Tutorial"
 
-#: templates/admin/themes-delete-confirm.tpl.php:1
-#: templates/admin/themes-delete-confirm.tpl.php:13
-msgctxt "themes admin"
-msgid "Delete Directory Theme"
-msgstr "Elimina il tema della directory"
-
 #: templates/admin/themes-delete-confirm.tpl.php:3
 msgctxt "themes admin"
 msgid "Are you sure you want to delete the directory theme \"%s\"?"
 msgstr "Sei sicuro di voler eliminare il tema della directory \"%s\"?"
-
-#: templates/admin/themes-delete-confirm.tpl.php:12
-msgctxt "themes admin"
-msgid "Cancel"
-msgstr "Annulla"
 
 #: templates/admin/uninstall-capture-form.tpl.php:5
 msgctxt "uninstall"
@@ -9206,6 +9185,38 @@ msgstr "Inserisci il tuo indirizzo email"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continua"
+
+#~ msgctxt "admin csv-import"
+#~ msgid "Assign listings to a user."
+#~ msgstr "Assegnare le inserzioni ad un utente."
+
+#~ msgctxt "admin csv-import"
+#~ msgid "Field"
+#~ msgstr "Campo"
+
+#~ msgctxt "admin csv-export"
+#~ msgid "CSV File Settings"
+#~ msgstr "Impostazioni file CSV"
+
+#~ msgctxt "admin csv-export"
+#~ msgid "Image Separator"
+#~ msgstr "Separatore di immagini"
+
+#~ msgctxt "utils"
+#~ msgid "Image width (%s px) is inferior to minimum required width of %s px."
+#~ msgstr ""
+#~ "La larghezza dell'immagine (%s px) è inferiore a quella richiesta di: %s "
+#~ "px."
+
+#~ msgctxt "utils"
+#~ msgid ""
+#~ "Image height (%s px) is inferior to minimum required height of %s px."
+#~ msgstr ""
+#~ "L'altezza dell'immagine (%s px) è inferiore a quella richiesta di: %s px."
+
+#~ msgctxt "themes admin"
+#~ msgid "Cancel"
+#~ msgstr "Annulla"
 
 #~ msgctxt "admin settings"
 #~ msgid ""
