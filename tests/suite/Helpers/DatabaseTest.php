@@ -10,68 +10,68 @@ use WPBDP_Database_Helper;
 
 class DatabaseTest extends TestCase {
 
-    public function test_get_collate_never_returns_an_empty_value() {
-        $db = Mockery::mock();
+	public function test_get_collate_never_returns_an_empty_value() {
+		$db = Mockery::mock();
 
-        $db->charset = 'utf8';
-        $db->collate = '';
+		$db->charset = 'utf8';
+		$db->collate = '';
 
-        $database_helper = new WPBDP_Database_Helper( $db );
+		$database_helper = new WPBDP_Database_Helper( $db );
 
-        // Execution
-        $collate = $database_helper->get_collate();
+		// Execution
+		$collate = $database_helper->get_collate();
 
-        // Verification
-        $this->assertNotEmpty( $collate );
-        $this->assertEquals( 'utf8_general_ci', $collate );
-    }
+		// Verification
+		$this->assertNotEmpty( $collate );
+		$this->assertEquals( 'utf8_general_ci', $collate );
+	}
 
-    public function test_replace_charset_and_collate() {
-        $sql = 'CHARACTER SET <charset> COLLATE <collate>';
+	public function test_replace_charset_and_collate() {
+		$sql = 'CHARACTER SET <charset> COLLATE <collate>';
 
-        $db = Mockery::mock();
+		$db = Mockery::mock();
 
-        $db->charset = 'utf8';
-        $db->collate = 'collate';
+		$db->charset = 'utf8';
+		$db->collate = 'collate';
 
-        $database_helper = new WPBDP_Database_Helper( $db );
+		$database_helper = new WPBDP_Database_Helper( $db );
 
-        // Execution
-        $collate = $database_helper->replace_charset_and_collate( $sql );
+		// Execution
+		$collate = $database_helper->replace_charset_and_collate( $sql );
 
-        // Verification
-        $this->assertEquals( 'CHARACTER SET utf8 COLLATE collate', $collate );
-    }
+		// Verification
+		$this->assertEquals( 'CHARACTER SET utf8 COLLATE collate', $collate );
+	}
 
-    public function test_replace_charset_and_collate_when_charset_is_empty() {
-        $sql = 'COLLATE <collate>';
+	public function test_replace_charset_and_collate_when_charset_is_empty() {
+		$sql = 'COLLATE <collate>';
 
-        $db = Mockery::mock();
-        $db->charset = '';
+		$db          = Mockery::mock();
+		$db->charset = '';
 
-        $database_helper = new WPBDP_Database_Helper( $db );
+		$database_helper = new WPBDP_Database_Helper( $db );
 
-        // Execution
-        $collate = $database_helper->replace_charset_and_collate( $sql );
+		// Execution
+		$collate = $database_helper->replace_charset_and_collate( $sql );
 
-        // Verification
-        $this->assertEquals( 'COLLATE utf8_general_ci', $collate );
-    }
+		// Verification
+		$this->assertEquals( 'COLLATE utf8_general_ci', $collate );
+	}
 
-    public function test_replace_charset_and_collate_when_db_collate_is_empty() {
-        $sql = 'COLLATE <collate>';
+	public function test_replace_charset_and_collate_when_db_collate_is_empty() {
+		$sql = 'COLLATE <collate>';
 
-        $db = Mockery::mock();
-        $db->charset = 'utf8';
-        $db->collate = '';
+		$db          = Mockery::mock();
+		$db->charset = 'utf8';
+		$db->collate = '';
 
-        $database_helper = new WPBDP_Database_Helper( $db );
+		$database_helper = new WPBDP_Database_Helper( $db );
 
-        // Execution
-        $collate = $database_helper->replace_charset_and_collate( $sql );
+		// Execution
+		$collate = $database_helper->replace_charset_and_collate( $sql );
 
-        // Verification
-        $this->assertEquals( 'COLLATE utf8_general_ci', $collate );
-    }
+		// Verification
+		$this->assertEquals( 'COLLATE utf8_general_ci', $collate );
+	}
 }
 

@@ -16,33 +16,33 @@ use WPBDP_Payment;
  */
 class PaymentTest extends TestCase {
 
-    public function test_get_payer_details() {
-        $required_keys = array(
-            'email',
-            'first_name',
-            'last_name',
-            'address',
-            'city',
-            'state',
-            'country',
-            'zip',
-        );
+	public function test_get_payer_details() {
+		$required_keys = array(
+			'email',
+			'first_name',
+			'last_name',
+			'address',
+			'city',
+			'state',
+			'country',
+			'zip',
+		);
 
-        $model_info = array();
+		$model_info = array();
 
-        Patchwork\redefine( 'WPBDP__DB__Model::get_model_info', Patchwork\always( $model_info ) );
-        Patchwork\redefine( 'WPBDP__DB__Model::init', Patchwork\always( null ) );
-        Patchwork\redefine( 'WPBDP__DB__Model::is_valid_attr', Patchwork\always( true ) );
+		Patchwork\redefine( 'WPBDP__DB__Model::get_model_info', Patchwork\always( $model_info ) );
+		Patchwork\redefine( 'WPBDP__DB__Model::init', Patchwork\always( null ) );
+		Patchwork\redefine( 'WPBDP__DB__Model::is_valid_attr', Patchwork\always( true ) );
 
-        $payment = new WPBDP_Payment( array() );
+		$payment = new WPBDP_Payment( array() );
 
-        // Execution
-        $data = $payment->get_payer_details();
+		// Execution
+		$data = $payment->get_payer_details();
 
-        // Verification
-        foreach( $required_keys as $key ) {
-            $this->assertArrayHasKey( $key, $data );
-        }
-    }
+		// Verification
+		foreach ( $required_keys as $key ) {
+			$this->assertArrayHasKey( $key, $data );
+		}
+	}
 }
 
