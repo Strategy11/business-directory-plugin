@@ -81,7 +81,7 @@ module.exports = function( grunt ) {
       if ( ! _.isEmpty( less_config ) ) {
         grunt.config.set( 'less.' + id, {options: {cleancss: false, compress: true, strictImports: true}, files: less_config} );
         grunt.config.set( 'watch.' + id + '_less', {
-          files: [path.join(basedir, '**/*.less'), path.join(basedir, '**/*.css'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.css')],
+          files: [path.join(basedir, '**/*.less'), path.join(basedir, '**/*.css'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.css'), '!' + path.join(basedir, 'assets/vendor/**/*')],
           tasks: [ 'less:' + id ]
         } );
       }
@@ -89,7 +89,7 @@ module.exports = function( grunt ) {
       if ( ! _.isEmpty( uglify_config ) ) {
         grunt.config.set( 'uglify.' + id, {options: { mangle: false }, files: uglify_config} );
         grunt.config.set( 'watch.' + id + '_js', {
-          files: [path.join(basedir, '**/*.js'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.js')],
+          files: [path.join(basedir, '**/*.js'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.js'), '!' + path.join(basedir, 'assets/vendor/**/*')],
           tasks: [ 'uglify:' + id ]
         } );
       }
@@ -279,7 +279,7 @@ module.exports = function( grunt ) {
     ],
     js: [
       'assets/js/*.js',
-      'vendors/jquery-breakpoints.js',
+      'assets/vendor/jquery-breakpoints/jquery-breakpoints.js',
     ],
     i18n: {textDomain: 'business-directory-plugin', domainPath: 'languages/'}
   });

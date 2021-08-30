@@ -84,14 +84,14 @@ class WPBDP_Themes_Admin {
 
         wp_enqueue_style(
             'wpbdp-admin-themes',
-            WPBDP_URL . 'assets/css/admin-themes.min.css',
+            WPBDP_ASSETS_URL . 'css/admin-themes.min.css',
             array(),
             WPBDP_VERSION
         );
 
         wp_enqueue_script(
             'wpbdp-admin-themes',
-            WPBDP_URL . 'assets/js/admin-themes.min.js',
+            WPBDP_ASSETS_URL . 'js/admin-themes.min.js',
             array(),
             WPBDP_VERSION
         );

@@ -30,7 +30,7 @@ class WPBDP_Debugging {
 	public static function _enqueue_scripts() {
         wp_enqueue_script(
             'wpbdp-debugging-js',
-            WPBDP_URL . 'assets/js/debug.min.js',
+            WPBDP_ASSETS_URL . 'js/debug.min.js',
             array( 'jquery' ),
             WPBDP_VERSION,
             true
@@ -38,7 +38,7 @@ class WPBDP_Debugging {
 
         wp_enqueue_style(
             'wpbdp-debugging-styles',
-            WPBDP_URL . 'assets/css/debug.min.css',
+            WPBDP_ASSETS_URL . 'css/debug.min.css',
             array(),
             WPBDP_VERSION
         );

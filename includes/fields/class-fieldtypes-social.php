@@ -263,7 +263,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
 			$social_icon = sprintf(
                 '<img src="%s" class="logo" alt="%s">',
-                WPBDP_URL . 'assets/images/social/' .$type . '.svg',
+                WPBDP_ASSETS_URL . 'images/social/' .$type . '.svg',
                 $type
             );
 
