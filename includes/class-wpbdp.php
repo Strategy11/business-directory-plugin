@@ -126,7 +126,7 @@ final class WPBDP {
         add_action( 'switch_blog', array( $this, 'register_cache_groups' ) );
     }
 
-    public function init() {        
+    public function init() {
 
         $this->load_textdomain();
 
