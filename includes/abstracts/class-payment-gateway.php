@@ -1,7 +1,7 @@
 <?php
 /**
  * Abstract Gateway
- * 
+ *
  * Hanldes generic payment gateway functionality which is extended by idividual payment gateways.
  */
 abstract class WPBDP__Payment_Gateway {

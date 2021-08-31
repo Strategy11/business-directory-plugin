@@ -2,7 +2,7 @@
 
 /**
  * Base Field Type
- * 
+ *
  * Handles generice field functionality
  */
 class WPBDP_Form_Field_Type {
