@@ -1,5 +1,11 @@
 <?php
-class WPBDP_Form_Field_Type {
+
+/**
+ * Abstract Field Type
+ * 
+ * Handles generice field functionality
+ */
+abstract class WPBDP_Form_Field_Type {
 
     private $name = null;
 
