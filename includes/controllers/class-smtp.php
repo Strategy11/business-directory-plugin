@@ -168,7 +168,7 @@ class WPBDP_SMTP_Controller {
 					<li>%3$s %7$s</li>
 				</ul>			
 			</section>',
-			esc_url( WPBDP_URL . 'assets/images/smtp-screenshot-tnail.png' ),
+			esc_url( WPBDP_ASSETS_URL . 'images/smtp-screenshot-tnail.png' ),
 			esc_attr__( 'WP Mail SMTP screenshot', 'business-directory-plugin' ),
 			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 492" width="14" height="14"><path d="M484 227L306 49a27 27 0 00-38 0l-16 16a27 27 0 000 38l104 105H27c-15 0-27 11-27 26v23c0 15 12 27 27 27h330L252 389a27 27 0 000 38l16 16a27 27 0 0038 0l178-178a27 27 0 000-38z" fill="#5bbfa5"/></svg> &nbsp;',
 			esc_html__( 'Over 1,000,000 websites use WP Mail SMTP.', 'business-directory-plugin' ),

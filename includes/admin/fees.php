@@ -21,7 +21,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
             wp_enqueue_script(
                 'wpbdp-admin-fees-js',
-                WPBDP_URL . 'assets/js/admin-fees.min.js',
+                WPBDP_ASSETS_URL . 'js/admin-fees.min.js',
                 array( 'wp-color-picker', 'wpbdp-js-select2' ),
                 WPBDP_VERSION
             );

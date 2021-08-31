@@ -34,21 +34,21 @@ class WPBDP__Assets {
 
         wp_register_script(
             'jquery-file-upload-iframe-transport',
-            WPBDP_URL . 'vendors/jQuery-File-Upload/js/jquery.iframe-transport.js',
+            WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.iframe-transport.js',
             array(),
             '10.7.0'
         );
 
         wp_register_script(
             'jquery-file-upload',
-            WPBDP_URL . 'vendors/jQuery-File-Upload/js/jquery.fileupload.js',
+            WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.fileupload.js',
             array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' ),
             '10.7.0'
         );
 
         $this->maybe_register_script(
             'breakpoints.js',
-            WPBDP_URL . 'vendors/jquery-breakpoints.min.js',
+            WPBDP_ASSETS_URL . 'vendor/jquery-breakpoints/jquery-breakpoints.min.js',
             array( 'jquery' ),
             '0.0.11',
             true
@@ -57,7 +57,7 @@ class WPBDP__Assets {
         // Views.
         wp_register_script(
             'wpbdp-checkout',
-            WPBDP_URL . 'assets/js/checkout.js',
+            WPBDP_ASSETS_URL . 'js/checkout.js',
             array( 'wpbdp-js' ),
             WPBDP_VERSION
         );
@@ -65,28 +65,28 @@ class WPBDP__Assets {
         // Drag & Drop.
         wp_register_script(
             'wpbdp-dnd-upload',
-            WPBDP_URL . 'assets/js/dnd-upload.min.js',
+            WPBDP_ASSETS_URL . 'js/dnd-upload.min.js',
             array( 'jquery-file-upload' ),
             WPBDP_VERSION
         );
 
         $this->register_select2();
 
-		wp_register_style( 'wpbdp-base-css', WPBDP_URL . 'assets/css/wpbdp.min.css', array(), WPBDP_VERSION );
+		wp_register_style( 'wpbdp-base-css', WPBDP_ASSETS_URL . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
     }
 
 	private function register_select2() {
         // Use Select2 styles and scripts from selectWoo https://woocommerce.wordpress.com/2017/08/08/selectwoo-an-accessible-replacement-for-select2/.
         wp_register_style(
             'wpbdp-js-select2-css',
-            WPBDP_URL . 'vendors/selectWoo/css/selectWoo.min.css',
+            WPBDP_ASSETS_URL . 'vendor/selectWoo/css/selectWoo.min.css',
             array(),
             '4.0.5'
         );
 
         wp_register_script(
             'wpbdp-js-select2',
-            WPBDP_URL . 'vendors/selectWoo/js/selectWoo.full.min.js',
+            WPBDP_ASSETS_URL . 'vendor/selectWoo/js/selectWoo.full.min.js',
             array( 'jquery' ),
             '4.0.5',
 			true
@@ -128,7 +128,7 @@ class WPBDP__Assets {
 
         wp_enqueue_style(
             'wpbdp-widgets',
-            WPBDP_URL . 'assets/css/widgets.min.css',
+            WPBDP_ASSETS_URL . 'css/widgets.min.css',
             array(),
             WPBDP_VERSION
         );
@@ -141,7 +141,7 @@ class WPBDP__Assets {
         // jquery-ui-datepicker script based on which fields are available?
         wp_register_script(
             'wpbdp-js',
-            WPBDP_URL . 'assets/js/wpbdp.min.js',
+            WPBDP_ASSETS_URL . 'js/wpbdp.min.js',
             array(
                 'jquery',
                 'breakpoints.js',
@@ -170,7 +170,7 @@ class WPBDP__Assets {
         if ( _wpbdp_template_mode( 'single' ) == 'template' || _wpbdp_template_mode( 'category' ) == 'template' ) {
             wp_enqueue_style(
                 'wpbdp-legacy-css',
-                WPBDP_URL . 'assets/css/wpbdp-legacy.min.css',
+                WPBDP_ASSETS_URL . 'css/wpbdp-legacy.min.css',
                 array(),
                 WPBDP_VERSION
             );
@@ -258,19 +258,18 @@ class WPBDP__Assets {
 			return;
 		}
 
-		$assets = WPBDP_URL . 'assets/';
-		wp_enqueue_style( 'wpbdp-admin', $assets . 'css/admin.min.css', array(), WPBDP_VERSION );
+		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
 		wp_enqueue_style( 'thickbox' );
 
 		wp_enqueue_style( 'wpbdp-base-css' );
 
-		wp_enqueue_script( 'wpbdp-frontend-js', $assets . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION );
+		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION );
 
-		wp_enqueue_script( 'wpbdp-admin-js', $assets . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION );
+		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION );
 		$this->global_localize( 'wpbdp-admin-js' );
 
-		wp_enqueue_script( 'wpbdp-user-selector-js', $assets . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION );
+		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION );
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
 
@@ -284,21 +283,21 @@ class WPBDP__Assets {
 
 		wp_enqueue_style(
 			'wpbdp-listing-admin-metabox',
-			WPBDP_URL . 'assets/css/admin-listing-metabox.min.css',
+			WPBDP_ASSETS_URL . 'css/admin-listing-metabox.min.css',
 			array(),
 			WPBDP_VERSION
 		);
 
 		wp_enqueue_script(
 			'wpbdp-admin-listing',
-			WPBDP_URL . 'assets/js/admin-listing.min.js',
+			WPBDP_ASSETS_URL . 'js/admin-listing.min.js',
 			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' ),
 			WPBDP_VERSION
 		);
 
 		wp_enqueue_script(
 			'wpbdp-admin-listing-metabox',
-			WPBDP_URL . 'assets/js/admin-listing-metabox.min.js',
+			WPBDP_ASSETS_URL . 'js/admin-listing-metabox.min.js',
 			array( 'wpbdp-admin-js', 'jquery-ui-datepicker' ),
 			WPBDP_VERSION
 		);

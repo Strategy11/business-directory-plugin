@@ -32,6 +32,12 @@ final class WPBDP {
         define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
         define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
         define( 'WPBDP_TAGS_TAX', 'wpbdp_tag' );
+
+        //Plugin url
+        define( 'WPBDP_URL', trailingslashit( plugins_url( '/', WPBDP_PLUGIN_FILE ) ) );
+
+        //Assets url
+        define( 'WPBDP_ASSETS_URL', WPBDP_URL . 'assets/' );
     }
 
     private function includes() {
@@ -121,8 +127,6 @@ final class WPBDP {
     }
 
     public function init() {
-        // Define constant that will be used to enqueue scripts and styles.
-        define( 'WPBDP_URL', trailingslashit( plugins_url( '/', WPBDP_PLUGIN_FILE ) ) );
 
         $this->load_textdomain();
 

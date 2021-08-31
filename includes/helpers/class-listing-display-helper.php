@@ -346,7 +346,7 @@ class WPBDP_Listing_Display_Helper {
 	 */
 	private static function get_default_image( $option, &$image ) {
 		$defaults = array(
-			'listings-coming-soon-image' => WPBDP_URL . 'assets/images/default-image-big.gif',
+			'listings-coming-soon-image' => WPBDP_ASSETS_URL . 'images/default-image-big.gif',
 		);
 
 		if ( empty( $image ) && isset( $defaults[ $option ] ) ) {

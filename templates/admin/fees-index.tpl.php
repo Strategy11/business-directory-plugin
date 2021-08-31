@@ -144,7 +144,7 @@
 			?>
         <div class="gateway inside <?php echo esc_attr( $mod_info[0] ); ?> <?php echo $modules_obj->is_loaded( $mod_info[0] ) ? 'installed' : ''; ?>">
             <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener">
-                <img src="<?php echo esc_url( WPBDP_URL ); ?>assets/images/<?php echo esc_attr( $mod_info[1] ); ?>.png" class="gateway-logo">
+                <img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/<?php echo esc_attr( $mod_info[1] ); ?>.png" class="gateway-logo">
             </a><br/>
 			<?php
 			echo sprintf(

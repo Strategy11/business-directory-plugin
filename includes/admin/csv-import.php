@@ -29,14 +29,14 @@ class WPBDP_CSVImportAdmin {
     function enqueue_scripts() {
         wp_enqueue_script(
             'wpbdp-admin-import-js',
-            WPBDP_URL . 'assets/js/admin-csv-import.min.js',
+            WPBDP_ASSETS_URL . 'js/admin-csv-import.min.js',
             array( 'wpbdp-admin-js', 'jquery-ui-autocomplete' ),
             WPBDP_VERSION
         );
 
         wp_enqueue_style(
             'wpbdp-admin-import-css',
-            WPBDP_URL . 'assets/css/admin-csv-import.min.css',
+            WPBDP_ASSETS_URL . 'css/admin-csv-import.min.css',
             array(),
             WPBDP_VERSION
         );

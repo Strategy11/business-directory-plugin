@@ -18,7 +18,7 @@ class WPBDP__Admin__Controller {
         if ( file_exists( WPBDP_PATH . 'assets/js/admin-' . $this->controller_id . '.js' ) ) {
             wp_enqueue_script(
                 'wpbdp-' . $this->controller_id . '-js',
-                WPBDP_URL . 'assets/js/admin-' . $this->controller_id . '.js',
+                WPBDP_ASSETS_URL . 'js/admin-' . $this->controller_id . '.js',
                 array( 'wpbdp-admin-js' ),
                 WPBDP_VERSION
             );

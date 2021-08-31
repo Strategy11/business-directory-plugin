@@ -310,21 +310,21 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
         wp_enqueue_style(
             'wpbdp-admin',
-            WPBDP_URL . 'assets/css/admin.min.css',
+            WPBDP_ASSETS_URL . 'css/admin.min.css',
             array(),
             WPBDP_VERSION
         );
 
         wp_enqueue_style(
             'wpbdp-manual-upgrade-css',
-            WPBDP_URL . 'assets/css/admin-manual-upgrade.min.css',
+            WPBDP_ASSETS_URL . 'css/admin-manual-upgrade.min.css',
             array(),
             WPBDP_VERSION
         );
 
         wp_enqueue_script(
             'wpbdp-manual-upgrade',
-            WPBDP_URL . 'assets/js/admin-manual-upgrade.min.js',
+            WPBDP_ASSETS_URL . 'js/admin-manual-upgrade.min.js',
             array( 'jquery' ),
             WPBDP_VERSION
         );
