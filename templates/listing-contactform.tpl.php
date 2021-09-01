@@ -35,7 +35,7 @@ if ( $validation_errors ) :
     <?php endif; ?>
 
     <p class="wpbdp-form-field">
-        <label for="wpbdp-contact-form-phone"><?php esc_html_e( 'Phone Number', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-phone" type="text" class="intextbox" name="commentauthorphone" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorphone' ), 'post' ) ); ?>" />
+        <label for="wpbdp-contact-form-phone"><?php esc_html_e( 'Phone Number', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-phone" type="tel" class="intextbox" name="commentauthorphone" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorphone' ), 'post' ) ); ?>" />
     </p>
 
     <p class="wpbdp-form-field">
