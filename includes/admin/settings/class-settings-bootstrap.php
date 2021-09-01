@@ -1481,6 +1481,10 @@ final class WPBDP__Settings__Bootstrap {
 
                                 /* translators: %s: email shortcode */
                                 sprintf( __( 'Email: %s', 'business-directory-plugin' ), '[email]' ) . "\n" .
+
+                                /* translators: %s: phone shortcode */
+                                sprintf( __( 'Phone: %s', 'business-directory-plugin' ), '[phone]' ) . "\n" .
+
                                 _x( 'Message:', 'contact email', 'business-directory-plugin' ) . "\n" .
                                 '[message]' . "\n\n" .
 
@@ -1492,6 +1496,7 @@ final class WPBDP__Settings__Bootstrap {
                     'listing'     => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
                     'name'        => _x( 'Sender\'s name', 'admin settings', 'business-directory-plugin' ),
                     'email'       => __( 'Sender\'s email address', 'business-directory-plugin' ),
+                    'phone'       => __( 'Sender\'s phone number', 'business-directory-plugin' ),
                     'message'     => _x( 'Contact message', 'admin settings', 'business-directory-plugin' ),
                     'date'        => _x( 'Date and time the message was sent', 'admin settings', 'business-directory-plugin' ),
                     'access_key'  => _x( 'Listing\'s Access Key', 'admin settings', 'business-directory-plugin' ),
