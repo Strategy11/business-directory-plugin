@@ -713,9 +713,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$this->maybe_remove_images_section();
 		}
 
-		$section['flags'][]      = $section['state'];
-		$section['prev_section'] = $previous_section ? $previous_section : $this->find_next_section( $section['id'] );
-		$section['next_section'] = $this->find_next_section( $section['id'] );
+		$section['flags'][]         = $section['state'];
+        // If there is no previous section, we should not set it to the next section. It should be blank by default, only allowing next.
+		$section['prev_section']    = $previous_section ? $previous_section : '';
+		$section['next_section']    = $this->find_next_section( $section['id'] );
 
 		$same_page = array_intersect( array( 'has-error', 'has-message' ), $this->sections[ $section['id'] ]['flags'] );
 		if ( ! $next_section && ! empty( $same_page ) ) {
