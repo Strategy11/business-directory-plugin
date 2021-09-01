@@ -22,7 +22,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
     private function prepare_input() {
         $this->name    = trim( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) );
         $this->email   = trim( wpbdp_get_var( array( 'param' => 'commentauthoremail', 'sanitize' => 'sanitize_email' ), 'post' ) );
-        $this->phone    = trim( wpbdp_get_var( array( 'param' => 'commentauthorphone' ), 'post' ) );
+        $this->phone   = trim( wpbdp_get_var( array( 'param' => 'commentauthorphone' ), 'post' ) );
 		$message       = wpbdp_get_var( array( 'param' => 'commentauthormessage', 'sanitize' => 'sanitize_textarea_field' ), 'post' );
 		$this->message = trim( wp_kses( $message, array() ) );
 
@@ -55,18 +55,6 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
         if ( ! wpbdp_validate_value( $this->email, 'email' ) ) {
             $this->errors[] = _x( 'Please enter a valid email.', 'contact-message', 'business-directory-plugin' );
-        }
-
-        /**
-         * Optional phone validation.
-         *
-         * @param bool $validate - defaults to false to skip phone validation.
-         * @param string $phone - the phone field.
-         *
-         * @return bool
-         */
-        if ( apply_filters( 'wpbdp_contact_form_validate_phone', false, $this->phone ) ) {
-            $this->errors[] = _x( 'Please enter a valid phone number.', 'contact-message', 'business-directory-plugin' );
         }
 
         if ( ! $this->message ) {
