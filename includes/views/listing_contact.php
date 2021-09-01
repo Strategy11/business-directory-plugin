@@ -57,15 +57,8 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             $this->errors[] = _x( 'Please enter a valid email.', 'contact-message', 'business-directory-plugin' );
         }
 
-        /**
-         * Optional phone validation.
-         *
-         * @param bool $validate - defaults to false to skip phone validation.
-         * @param string $phone - the phone field.
-         *
-         * @return bool
-         */
-        if ( apply_filters( 'wpbdp_contact_form_validate_phone', false, $this->phone ) ) {
+
+        if ( ! wpbdp_validate_value( $this->phone, 'tel' ) ) {
             $this->errors[] = _x( 'Please enter a valid phone number.', 'contact-message', 'business-directory-plugin' );
         }
 
