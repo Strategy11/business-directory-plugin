@@ -714,7 +714,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		$section['flags'][]         = $section['state'];
-		$section['prev_section']    = $previous_section ? $previous_section : $this->current_section; //Set previous section to current section if none is set
+		$section['prev_section']    = $previous_section ? $previous_section : $this->current_section; // Set previous section to current section if none is set.
 		$section['next_section']    = $this->find_next_section( $section['id'] );
 
 		$same_page = array_intersect( array( 'has-error', 'has-message' ), $this->sections[ $section['id'] ]['flags'] );
