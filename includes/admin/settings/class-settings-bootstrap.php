@@ -1483,7 +1483,7 @@ final class WPBDP__Settings__Bootstrap {
                                 sprintf( __( 'Email: %s', 'business-directory-plugin' ), '[email]' ) . "\n" .
 
                                 /* translators: %s: phone shortcode */
-                                sprintf( __( 'Phone: %s', 'business-directory-plugin' ), '[phone]' ) . "\n" .
+                                sprintf( __( 'Phone Number: %s', 'business-directory-plugin' ), '[phone]' ) . "\n" .
 
                                 _x( 'Message:', 'contact email', 'business-directory-plugin' ) . "\n" .
                                 '[message]' . "\n\n" .
