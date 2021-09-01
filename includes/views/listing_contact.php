@@ -59,10 +59,10 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
         /**
          * Optional phone validation.
-         * 
+         *
          * @param bool $validate - defaults to false to skip phone validation.
          * @param string $phone - the phone field.
-         * 
+         *
          * @return bool
          */
         if ( apply_filters( 'wpbdp_contact_form_validate_phone', false, $this->phone ) ) {
