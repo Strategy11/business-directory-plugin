@@ -585,7 +585,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                 'decimal_number' => __( 'Decimal Number Validator', 'business-directory-plugin' ),
                 'date_'          => __( 'Date Validator', 'business-directory-plugin' ),
                 'word_number'    => __( 'Word Count Validator', 'business-directory-plugin' ),
-                'tel'            => __( 'Telephon Number Validator', 'business-directory-plugin' ),
+                'tel'            => __( 'Telephone Number Validator', 'business-directory-plugin' ),
             );
 
             return $validators;
