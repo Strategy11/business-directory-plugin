@@ -5,7 +5,7 @@
  * @package BDP/Includes/Fields/Types
  */
 
-require_once WPBDP_PATH . 'includes/fields/class-form-field-type.php';
+require_once WPBDP_INC . 'abstracts/class-form-field-type.php';
 
 // Standard types.
 require_once WPBDP_INC . 'fields/class-fieldtypes-textfield.php';

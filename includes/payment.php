@@ -6,7 +6,7 @@
  */
 
 require_once( WPBDP_PATH . 'includes/class-payment.php' );
-require_once( WPBDP_INC . 'class-payment-gateway.php' );
+require_once( WPBDP_INC . 'abstracts/class-payment-gateway.php' );
 require_once( WPBDP_PATH . 'includes/class-fees-api.php' );
 
 
