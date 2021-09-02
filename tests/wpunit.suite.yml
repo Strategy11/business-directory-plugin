@@ -1,0 +1,22 @@
+# Codeception Test Suite Configuration
+#
+# Suite for unit or integration tests that require WordPress functions and classes.
+
+actor: WpunitTester
+modules:
+    enabled:
+        - WPLoader
+        - \Helper\Wpunit
+    config:
+        WPLoader:
+            wpRootFolder: "/var/www/businessdirectory"
+            dbName: "wpTests"
+            dbHost: "localhost"
+            dbUser: "root"
+            dbPassword: "12345"
+            tablePrefix: "wp_"
+            domain: "businessdirectory"
+            adminEmail: "admin@businessdirectory"
+            title: "Test"        
+            plugins: ['business-directory-plugin/business-directory-plugin.php']
+            activatePlugins: ['business-directory-plugin/business-directory-plugin.php']

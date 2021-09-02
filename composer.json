@@ -6,7 +6,10 @@
     },
     "require-dev": {
         "antecedent/patchwork": "^2.0",
+        "lucatume/wp-browser": "^1.21",
+		"codeception/specify": "^1.4.0",
+		"codeception/verify": "^1.2.0",
         "brain/monkey": "^2",
-        "phake/phake": "^2.3"
+        "phake/phake": "^4.1.0"
     }
 }
