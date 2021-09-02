@@ -15,12 +15,14 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
     private $name    = '';
     private $email   = '';
+    private $phone   = '';
     private $message = '';
 
 
     private function prepare_input() {
         $this->name    = trim( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) );
         $this->email   = trim( wpbdp_get_var( array( 'param' => 'commentauthoremail', 'sanitize' => 'sanitize_email' ), 'post' ) );
+        $this->phone   = trim( wpbdp_get_var( array( 'param' => 'commentauthorphone' ), 'post' ) );
 		$message       = wpbdp_get_var( array( 'param' => 'commentauthormessage', 'sanitize' => 'sanitize_textarea_field' ), 'post' );
 		$this->message = trim( wp_kses( $message, array() ) );
 
@@ -53,6 +55,10 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
         if ( ! wpbdp_validate_value( $this->email, 'email' ) ) {
             $this->errors[] = _x( 'Please enter a valid email.', 'contact-message', 'business-directory-plugin' );
+        }
+
+        if ( ! wpbdp_validate_value( $this->phone, 'tel' ) ) {
+            $this->errors[] = _x( 'Please enter a valid phone number.', 'contact-message', 'business-directory-plugin' );
         }
 
         if ( ! $this->message ) {
@@ -252,6 +258,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             'listing'     => get_the_title( $listing_id ),
             'name'        => $this->name,
             'email'       => $this->email,
+            'phone'       => $this->phone,
             'message'     => $this->message,
             'date'        => date_i18n( __( 'l F j, Y \a\t g:i a', 'business-directory-plugin' ), current_time( 'timestamp' ) ),
             'access_key'  => wpbdp_get_listing( $listing_id )->get_access_key(),

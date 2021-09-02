@@ -585,6 +585,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                 'decimal_number' => __( 'Decimal Number Validator', 'business-directory-plugin' ),
                 'date_'          => __( 'Date Validator', 'business-directory-plugin' ),
                 'word_number'    => __( 'Word Count Validator', 'business-directory-plugin' ),
+                'tel'            => __( 'Telephone Number Validator', 'business-directory-plugin' ),
             );
 
             return $validators;
@@ -822,6 +823,26 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
             if ( ! in_array( $value, $values ) ) {
                 /* translators: %1$s: field label, %2$s allowed values */
                 return WPBDP_ValidationError( sprintf( __( '%1$s is invalid. Value most be one of %2$s.', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), esc_html( call_user_func( $formatter, $values ) ) ) );
+            }
+        }
+
+        /**
+         * Telephone number validator
+         */
+        private function tel( $value, $args = array() ) {
+            if ( '' === $value ) {
+				// Don't check formatting on an empty value.
+				return;
+			}
+            $valid = (bool) preg_match( '/^((\+\d{1,3}(-|.| )?\(?\d\)?(-| |.)?\d{1,5})|(\(?\d{2,6}\)?))(-|.| )?(\d{3,4})(-|.| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/', $value );
+            if ( ! $valid ) {
+                return WPBDP_ValidationError(
+                    sprintf(
+                        /* translators: %s: field label */
+                        __( '%s is badly formatted. Valid Phone Number format required.', 'business-directory-plugin' ),
+                        esc_attr( $args['field-label'] )
+                    )
+                );
             }
         }
 
