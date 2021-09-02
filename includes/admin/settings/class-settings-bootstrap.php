@@ -878,6 +878,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'show-directory-button',
                 'type'    => 'checkbox',
                 'name'    => _x( 'Show the "Directory" button.', 'settings', 'business-directory-plugin' ),
+                'desc'    => __( 'Show the "Directory" and "Return to Directory" button.', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'display_options',
             )
