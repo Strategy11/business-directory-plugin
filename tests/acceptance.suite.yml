@@ -21,19 +21,19 @@ modules:
             dump: 'tests/_data/dump.sql'
             populate: true #import the dump before the tests
             cleanup: true #import the dump between tests
-            url: 'http://defender.dev'
+            url: 'http://businessdirectory.dev'
             urlReplacement: true #replace the hardcoded dump URL with the one above
             tablePrefix: 'wp_'
         WPBrowser:
-            url: 'http://defender.dev'
+            url: 'http://businessdirectory.dev'
             adminUsername: 'admin'
             adminPassword: '12345'
             adminPath: '/wp-admin'
         WebDriver:
-            url: 'http://defender.dev'
+            url: 'http://businessdirectory.dev'
             browser: phantomjs
         WPWebDriver:
-            url: 'http://defender.dev'
+            url: 'http://businessdirectory.dev'
             browser: phantomjs
             port: 4444
             window_size: 1024x768

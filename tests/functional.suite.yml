@@ -23,7 +23,7 @@ modules:
             tablePrefix: 'wp_'
         WordPress:
             depends: WPDb
-            wpRootFolder: '/var/www/businessdirectory'
+            wpRootFolder: './../../../'
             adminUsername: 'admin'
-            adminPassword: '12345'
+            adminPassword: ''
             adminPath: '/wp-admin'
