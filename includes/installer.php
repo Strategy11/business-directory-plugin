@@ -10,7 +10,7 @@ require_once ( WPBDP_PATH . 'includes/admin/upgrades/class-migration.php' );
  */
 class WPBDP_Installer {
 
-    const DB_VERSION = '18.4';
+    const DB_VERSION = '18.5';
 
     private $installed_version = null;
 
@@ -81,6 +81,9 @@ class WPBDP_Installer {
      */
     public function get_database_schema() {
         global $wpdb;
+
+        // https://core.trac.wordpress.org/ticket/33885.
+        $max_index_length 	= 191;
 
         $schema = array();
 
@@ -167,6 +170,20 @@ class WPBDP_Installer {
             actor varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             message text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             data longblob NULL
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+
+        $schema['statistics'] = "CREATE TABLE {$wpdb->prefix}wpbdp_statistics (
+            `id` bigint(20) PRIMARY KEY  AUTO_INCREMENT,
+            `listing_id` bigint(20) NULL DEFAULT 0,
+            `page_id` bigint(20) NULL DEFAULT 0,
+            `ip` VARCHAR($max_index_length) default NULL,
+            `views` mediumint(8) unsigned not null default 0,
+            `form_usage` mediumint(8) unsigned not null default 0,
+            `date_created` datetime NOT NULL default '0000-00-00 00:00:00',
+            KEY `stat_listing_id` (`listing_id` ASC ),
+            KEY `statistic_ip` (`ip`($max_index_length)),
+            KEY `statistic_object` (`listing_id` ASC, `id` ASC),
+            KEY `statistic_object_ip` (`listing_id` ASC, `id` ASC, `ip` ASC)
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
         return apply_filters( 'wpbdp_database_schema', $schema );
