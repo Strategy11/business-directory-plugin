@@ -270,9 +270,12 @@ wpbdp_admin_notices();
                 </th>
                 <td>
                     <label>
-                        <input name="field[display_flags][]"
-                               value="nolabel"
-                               type="checkbox" <?php echo $field->has_display_flag( 'nolabel' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Hide this field\'s label when displaying it.', 'form-fields admin', 'business-directory-plugin' ); ?>
+                        <select name="field[display_flags][]" class="wpbd-field-label-select">
+                            <option value="fieldlabel" <?php selected( $field->has_display_flag( 'fieldlabel' ) ); ?>><?php _ex( 'Field label', 'form-fields admin', 'business-directory-plugin' ); ?></option>
+                            <option value="nolabel" <?php selected( $field->has_display_flag( 'nolabel' ) ); ?>><?php _ex( 'No label', 'form-fields admin', 'business-directory-plugin' ); ?></option>
+                            <option value="icon" <?php selected( $field->has_display_flag( 'icon' ) ); ?>><?php _ex( 'Icon', 'form-fields admin', 'business-directory-plugin' ); ?></option>
+                        </select>
+                        
                     </label>
                 </td>
             </tr>
