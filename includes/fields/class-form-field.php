@@ -26,6 +26,7 @@ class WPBDP_Form_Field {
 
     private $display_flags = array();
     private $field_data    = array();
+    private $icon          = '';
 
     public $css_classes     = array();
     public $html_attributes = array();
@@ -49,6 +50,7 @@ class WPBDP_Form_Field {
             'display_flags' => array(),
             /*'display_flags' => array( 'excerpt', 'listing', 'search' ),*/
             'field_data'    => array(),
+            'icon'          => 'archive'
         );
 
         $attrs = wp_parse_args( $attrs, $defaults );
@@ -85,6 +87,7 @@ class WPBDP_Form_Field {
         /* display_options */
         $this->display_flags = $attrs['display_flags'];
         $this->field_data    = $attrs['field_data'];
+        $this->icon          = $attrs['icon'];
         $this->tag           = trim( $attrs['tag'] );
 
         if ( $this->association == 'category' ) {
@@ -702,6 +705,7 @@ class WPBDP_Form_Field {
         $data['weight']        = $this->weight;
         $data['display_flags'] = implode( ',', $this->display_flags );
         $data['field_data']    = serialize( $this->field_data );
+        $data['icon']          = $this->icon;
 
         if ( in_array( $this->association, array( 'title', 'excerpt', 'content', 'category', 'tags' ), true ) ) {
             $data['tag'] = $this->association;
@@ -1064,6 +1068,15 @@ class WPBDP_Form_Field {
      */
     public function is_privacy_field() {
         return in_array( $this->get_tag(), self::$default_tags );
+    }
+
+    /**
+     * Get the icon
+     * 
+     * @return string
+     */
+    public function get_icon() {
+        return $this->icon;
     }
 
 }

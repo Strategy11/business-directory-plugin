@@ -279,6 +279,17 @@ wpbdp_admin_notices();
                     </label>
                 </td>
             </tr>
+            <tr class="if-field-icon <?php echo !$field->has_display_flag( 'icon' ) ? 'wpbdp-hidden' : ''; ?>">
+                <th scope="row">
+                    <label> <?php _ex( 'Field Icon', 'form-fields admin', 'business-directory-plugin' ); ?></label>
+                </th>
+                <td>
+                    <label>
+                        <input name="field[icon]" type="text" aria-required="true" value="<?php echo esc_attr( $field->get_icon() ); ?>" />
+						<?php esc_html_e( 'Require this field on the Advanced Search screen.', 'business-directory-plugin' ); ?>
+                    </label>
+                </td>
+            </tr>
     </table>
 
     <!-- display options -->
@@ -290,11 +301,8 @@ wpbdp_admin_notices();
             </th>
             <td>
                 <label>
-                    <input name="field[display_flags][]"
-                           value="privacy"
-                           type="checkbox" <?php echo ( $field->is_privacy_field() || $field->has_display_flag( 'privacy' ) ) ? 'checked="checked"' : ''; ?>
-                           <?php echo $field->is_privacy_field() ? 'disabled' : '' ?>
-                    /> <?php _ex( 'Add this field when exporting or deleting user\'s personal data.', 'form-fields admin', 'business-directory-plugin' ); ?>
+                    <input name="field[icon]" type="text" aria-required="true" value="<?php echo esc_attr( $field->get_label() ); ?>" /> 
+                    <?php _ex( 'Add this field when exporting or deleting user\'s personal data.', 'form-fields admin', 'business-directory-plugin' ); ?>
                 </label>
             </td>
         </tr>
