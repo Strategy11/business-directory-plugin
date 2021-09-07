@@ -15,7 +15,7 @@ class LicenseKeyCest {
     public function tryToTestLicenseKey(AcceptanceTester $I) {
 		
 		$I->amOnPage( '/wp-admin/admin.php?page=wpbdp_settings' );
-		$I->fillField( 'Enter License Key here', '123456789' );
-		$I->click( '.wpbdp-license-key-activate-btn' );
+		//Test that its the free version
+		$I->see( "Your license key provides access to new features and updates.", 'p' );
     }
 }
