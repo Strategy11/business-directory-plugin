@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Settings tab click actions
+ */
 class SettingTabsCest {
 	
     public function _before( AcceptanceTester $I ) {
@@ -21,9 +23,11 @@ class SettingTabsCest {
 		$I->dontSeeCheckboxIsChecked('#listing-link-in-new-tab');
 		$I->checkOption('#listing-link-in-new-tab');
 		$I->click('Save Changes');
+		$I->reloadPage();
 		$I->seeCheckboxIsChecked('#listing-link-in-new-tab');
 		$I->uncheckOption('#listing-link-in-new-tab');
 		$I->click('Save Changes');
+		$I->see('Settings saved.');
 		$I->dontSeeCheckboxIsChecked('#listing-link-in-new-tab');
     }
 }
