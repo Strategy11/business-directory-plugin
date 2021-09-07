@@ -15,28 +15,29 @@ modules:
         #- WebDriver
     config:
         WPDb:
-            dsn: 'mysql:host=localhost;dbname=def'
+            dsn: 'mysql:host=localhost;dbname=wordpress_test'
             user: 'root'
-            password: '12345'
-            dump: 'tests/_data/dump.sql'
-            populate: true #import the dump before the tests
-            cleanup: true #import the dump between tests
+            password: ''
+            populate: false #import the dump before the tests
+            cleanup: false #import the dump between tests
             url: 'http://businessdirectory.dev'
-            urlReplacement: true #replace the hardcoded dump URL with the one above
+            urlReplacement: false #replace the hardcoded dump URL with the one above
             tablePrefix: 'wp_'
         WPBrowser:
             url: 'http://businessdirectory.dev'
             adminUsername: 'admin'
-            adminPassword: '12345'
+            adminPassword: 'password'
             adminPath: '/wp-admin'
         WebDriver:
             url: 'http://businessdirectory.dev'
             browser: phantomjs
         WPWebDriver:
             url: 'http://businessdirectory.dev'
-            browser: phantomjs
             port: 4444
+            path: ''
+            http_proxy: direct
+            browser: firefox
             window_size: 1024x768
             adminUsername: 'admin'
-            adminPassword: '12345'
+            adminPassword: 'password'
             adminPath: '/wp-admin'
