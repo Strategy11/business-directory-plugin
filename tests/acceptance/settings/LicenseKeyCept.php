@@ -12,7 +12,7 @@ class LicenseKeyCest {
     }
 
     // tests
-    public function tryToTestTrackBack(AcceptanceTester $I) {
+    public function tryToTestLicenseKey(AcceptanceTester $I) {
 		
 		$I->amOnPage( '/wp-admin/admin.php?page=wpbdp_settings' );
 		$I->fillField( 'Enter License Key here', '123456789' );
