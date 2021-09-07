@@ -15,7 +15,15 @@ class SettingTabsCest {
     public function tryToTestSettings( AcceptanceTester $I ) {
 		
 		$I->amOnPage( '/wp-admin/admin.php?page=wpbdp_settings' );
-        $I->see( 'Directory Settings' );
+        $I->see( 'Directory Settings', 'h1' );
 		$I->click( 'Listings' );
+		$I->seeCheckboxIsChecked('#wpbdp-settings-listing-renewal');
+		$I->dontSeeCheckboxIsChecked('#listing-link-in-new-tab');
+		$I->checkOption('#listing-link-in-new-tab');
+		$I->click('Save Changes');
+		$I->seeCheckboxIsChecked('#listing-link-in-new-tab');
+		$I->uncheckOption('#listing-link-in-new-tab');
+		$I->click('Save Changes');
+		$I->dontSeeCheckboxIsChecked('#listing-link-in-new-tab');
     }
 }
