@@ -167,7 +167,7 @@ var WPBDP_associations_fieldtypes = {};
         onFieldVisibilityChange : function() {
             var $field_visibility = WPBDPAdmin_FormFields.$f_fieldvisibility.find( 'option:selected' ).val(),
                 $iconArea = $('.if-field-icon');
-            if ( $field_visibility === 'icon') {
+            if ( $field_visibility === 'icon' || $field_visibility === 'fieldlabelicon' ) {
                 $iconArea.removeClass('wpbdp-hidden');
             } else {
                 $iconArea.addClass('wpbdp-hidden');

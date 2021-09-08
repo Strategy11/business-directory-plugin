@@ -266,14 +266,15 @@ wpbdp_admin_notices();
             </tr>
 			<tr class="<?php echo in_array( 'nolabel', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
-                    <label> <?php _ex( 'Hide this field\'s label?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
+                    <label> <?php _ex( 'How would you like to display the field label', 'form-fields admin', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <select name="field[display_flags][]" class="wpbd-field-label-select">
-                            <option value="fieldlabel" <?php selected( $field->has_display_flag( 'fieldlabel' ) ); ?>><?php _ex( 'Field label', 'form-fields admin', 'business-directory-plugin' ); ?></option>
-                            <option value="nolabel" <?php selected( $field->has_display_flag( 'nolabel' ) ); ?>><?php _ex( 'No label', 'form-fields admin', 'business-directory-plugin' ); ?></option>
-                            <option value="icon" <?php selected( $field->has_display_flag( 'icon' ) ); ?>><?php _ex( 'Icon', 'form-fields admin', 'business-directory-plugin' ); ?></option>
+                            <option value="fieldlabel" <?php selected( $field->has_display_flag( 'fieldlabel' ) ); ?>><?php _ex( 'Show Label', 'form-fields admin', 'business-directory-plugin' ); ?></option>
+                            <option value="nolabel" <?php selected( $field->has_display_flag( 'nolabel' ) ); ?>><?php _ex( 'Hide Label', 'form-fields admin', 'business-directory-plugin' ); ?></option>
+                            <option value="fieldlabelicon" <?php selected( $field->has_display_flag( 'fieldlabelicon' ) ); ?>><?php _ex( 'Show Label and Icon', 'form-fields admin', 'business-directory-plugin' ); ?></option>
+                            <option value="icon" <?php selected( $field->has_display_flag( 'icon' ) ); ?>><?php _ex( 'Show Icon', 'form-fields admin', 'business-directory-plugin' ); ?></option>
                         </select>
                         
                     </label>
