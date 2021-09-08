@@ -50,7 +50,7 @@ class WPBDP_Form_Field {
             'display_flags' => array(),
             /*'display_flags' => array( 'excerpt', 'listing', 'search' ),*/
             'field_data'    => array(),
-            'icon'          => 'archive'
+            'icon'          => 'fas fa-archive'
         );
 
         $attrs = wp_parse_args( $attrs, $defaults );

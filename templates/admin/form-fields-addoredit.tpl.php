@@ -29,11 +29,11 @@ wpbdp_admin_notices();
                     <label> <?php _ex( 'Field Association', 'form-fields admin', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'form-fields admin', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
-                    <?php $field_association_info = $field_associations[ $field->get_association() ]; ?>
-                    <?php if ( in_array( 'private', $field_association_info->flags, true ) ) : ?>
-                    <select name="field[association]" id="field-association">
-                        <option value="<?php echo $field_association_info->id; ?>"><?php echo $field_association_info->label; ?></option>
-                    </select>
+                    <?php $field_association_info = isset( $field_associations[ $field->get_association() ] ) ? $field_associations[ $field->get_association() ] : false; ?>
+                    <?php if ( $field_association_info && isset( $field_association_info->flags ) && is_array( $field_association_info->flags ) && in_array( 'private', $field_association_info->flags, true ) ) : ?>
+                        <select name="field[association]" id="field-association">
+                            <option value="<?php echo $field_association_info->id; ?>"><?php echo $field_association_info->label; ?></option>
+                        </select>
                     <?php else : ?>
                     <select name="field[association]" id="field-association">
                     <?php foreach ( $field_associations as &$association ) : ?>
@@ -286,7 +286,7 @@ wpbdp_admin_notices();
                 </th>
                 <td>
                     <label>
-                        <input name="field[icon]" type="text" aria-required="true" value="<?php echo esc_attr( $field->get_icon() ); ?>" />
+                        <?php echo $icon_drop_down; ?>
 						<?php esc_html_e( 'Require this field on the Advanced Search screen.', 'business-directory-plugin' ); ?>
                     </label>
                 </td>
@@ -302,7 +302,11 @@ wpbdp_admin_notices();
             </th>
             <td>
                 <label>
-                    <input name="field[icon]" type="text" aria-required="true" value="<?php echo esc_attr( $field->get_label() ); ?>" /> 
+                    <input name="field[display_flags][]"
+                           value="privacy"
+                           type="checkbox" <?php echo ( $field->is_privacy_field() || $field->has_display_flag( 'privacy' ) ) ? 'checked="checked"' : ''; ?>
+                           <?php echo $field->is_privacy_field() ? 'disabled' : '' ?>
+                    />
                     <?php _ex( 'Add this field when exporting or deleting user\'s personal data.', 'form-fields admin', 'business-directory-plugin' ); ?>
                 </label>
             </td>

@@ -58,6 +58,19 @@ class WPBDP_FontAwesome {
 		return $fa_icons;
 	}
 
+
+	public function icons_drop_down() {
+		$results = array();
+		$fa_icons = $this->get_icons();
+		foreach ( $fa_icons['list'] as $prefix => $icons ) {
+			foreach( $icons as $k => $v ) {
+				$v = strval( $v );
+				$results[$k] = $v;
+			}
+		}
+		return $results;
+	}
+
 	/**
 	 * Search icon set
 	 * Used in autocomplete
@@ -70,7 +83,6 @@ class WPBDP_FontAwesome {
 		$results = array();
 		$fa_icons = $this->get_icons();
 		foreach ( $fa_icons['list'] as $prefix => $icons ) {
-			$prefix_icons = array();
 			foreach( $icons as $k => $v ) {
 
 				$v = strval( $v );
@@ -78,17 +90,11 @@ class WPBDP_FontAwesome {
 				if ( is_string( $query ) && false === stripos( $v, $query ) ) {
 					continue;
 				}
-
-				$prefix_icons[] = array(
+				$results[] = array(
 					'id'	=> $k,
 					'text'	=> $v
 				);
 			}
-			$results[] = array(
-				'id'		=> 'fab',
-				'text'		=> $this->get_prefix_label( $prefix ),
-				'children'	=> $prefix_icons
-			);
 		}
 		$response = array(
 			'results'	=> $results
