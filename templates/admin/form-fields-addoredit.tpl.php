@@ -319,7 +319,6 @@ wpbdp_admin_notices();
         <?php echo submit_button( _x( 'Add Field', 'form-fields admin', 'business-directory-plugin' ) ); ?>
     <?php endif; ?>
 </form>
-
 <script>
 jQuery(document).ready(function(){
 WPBDP_associations_fieldtypes = <?php echo json_encode( $association_field_types ); ?>

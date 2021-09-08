@@ -12,7 +12,6 @@
     <?php if ( $default ) : ?>
         <option value=""><?php echo esc_html( $default ); ?></option>
     <?php endif; ?>
-
     <?php foreach ( $icons as $key => $icon ) : ?>
         <option value="<?php echo esc_attr( $key ); ?>"<?php selected( $selected, $key ); ?>><?php echo $icon; ?></option>
     <?php endforeach; ?>
