@@ -1,4 +1,7 @@
 <?php
+
+require_once WPBDP_INC . 'helpers/class-fontawesome.php';
+
 /**
  * @since 5.6.3
  */

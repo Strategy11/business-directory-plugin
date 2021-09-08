@@ -194,6 +194,7 @@ class WPBDP_FormFieldsAdmin {
         $this->admin = wpbdp()->admin;
 
         add_action( 'admin_init', array( $this, 'check_for_required_fields' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
     }
 
     /* Required fields check. */
@@ -228,6 +229,17 @@ class WPBDP_FormFieldsAdmin {
             );
 
             $this->messages[] = array( $message, 'error' );
+        }
+    }
+
+    public function enqueue_scripts() {
+        if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
+            wp_enqueue_style(
+                'wpbdp_font_awesome',
+                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
+                array(),
+                '5.14.0'
+            );
         }
     }
 

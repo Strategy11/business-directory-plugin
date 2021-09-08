@@ -29,7 +29,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         private $menu                      = array();
         private $current_controller        = null;
         private $current_controller_output = '';
-        private $fontawesome               = null;
 
         private $dropdown_users_args_stack = array();
 
@@ -110,9 +109,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             if ( wpbdp_get_option( 'tracking-on' ) ) {
                 $this->site_tracking = new WPBDP_SiteTracking();
             }
-
-            require_once WPBDP_INC . 'helpers/class-fontawesome.php';
-            $this->fontawesome = new WPBDP_FontAwesome();
         }
 
 		public function init_scripts( $force = false ) {
