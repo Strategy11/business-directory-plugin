@@ -23,7 +23,7 @@ class WPBDP_Admin_Field_Icon {
             'default'   => __( 'Please select an icon', 'business-directory-plugin' ),
             'id'        => 'field[icon]',
             'name'      => 'field[icon]',
-            'class'     => array( 'wpbdp-icon-selector' ),
+            'class'     => array( 'wpbdp-icon-selector wpbdp-font-awesome-selector' ),
             'mode'      => 'inline',
             'selected'  => $selected
         );
