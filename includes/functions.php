@@ -1127,6 +1127,11 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
         $html = WPBDP_Listing_Display_Helper::single();
     }
 
+    if ( $view === 'single' ) {
+        $post_id = get_post() ? get_the_ID() : '0';
+        wpbdp_save_listing_statistic( $listing_id, $post_id );
+    }
+
     if ( $echo ) {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $html;

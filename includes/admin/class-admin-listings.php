@@ -320,7 +320,7 @@ class WPBDP_Admin_Listings {
      * View column
      */
     public function listing_column_views( $post_id ) {
-        $statistics = WPBDP_Listing_Statistic::instance();
+        $statistics = WPBDP_Listing_Statistic::get_instance();
         echo $statistics->count_views( $post_id );
     }
 
