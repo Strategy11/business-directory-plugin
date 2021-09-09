@@ -270,9 +270,13 @@ class WPBDP_Admin_Listings {
             $new_columns[ $c_key ] = $c_label;
         }
 
-        // Attributes goes last.
-        $new_columns['attributes'] = __( 'Attributes', 'business-directory-plugin' );
+        //Views for statistics
+        if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
+            $new_columns['views']   = __( 'Views', 'business-directory-plugin' );
+        }
 
+        // Attributes goes last.
+        $new_columns['attributes']  = __( 'Attributes', 'business-directory-plugin' );
         $new_columns = apply_filters( 'wpbdp_admin_directory_columns', $new_columns );
         return $new_columns;
     }

@@ -437,6 +437,8 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_settings_group( 'listings/sorting', __( 'Sorting', 'business-directory-plugin' ), 'listings' );
 
+        wpbdp_register_settings_group( 'listings/stats', __( 'Statistics', 'business-directory-plugin' ), 'listings' );
+
         wpbdp_register_setting(
             array(
                 'id'      => 'listings-per-page',
@@ -765,6 +767,17 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Show only parent categories in category list?', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/post_category',
+            )
+        );
+
+        wpbdp_register_setting(
+            array(
+                'id'      => 'listings-sortbar-enabled',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Enable statistics?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Enable usage tracking of your listings', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/stats',
             )
         );
 
