@@ -251,3 +251,22 @@ function wpbdp_get_listings_by_email( $email, $posts_per_page = -1, $offset = 0 
     return $post_ids;
 }
 
+/**
+ * Save the listing statistic
+ * 
+ * @param int $listing_id - the listing id
+ * @param int $page_id
+ */
+function wpbdp_save_listing_statistic( $listing_id, $page_id ) {
+    if ( wpbdp_get_option( 'listings-stats-enabled' ) ) {
+        $statistics = WPBDP_Listing_Statistic::instance();
+        $can_save = true;
+        if ( current_user_can( 'administrator' ) && !wpbdp_get_option( 'listings-stats-admin-enabled' ) ) {
+            $can_save = false;
+        }
+        if ( $can_save ) {
+            $ip = WPBDP_IP_Helper::get_user_ip();
+            $statistics->save_listing_view( $listing_id, $page_id, $ip );
+        }
+    }
+}

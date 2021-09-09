@@ -67,6 +67,8 @@ final class WPBDP {
 
         require_once WPBDP_INC . 'helpers/listing_flagging.php';
 
+        require_once WPBDP_INC . 'helpers/class-ip-helper.php';
+
         require_once WPBDP_INC . 'class-cpt-integration.php';
         require_once WPBDP_INC . 'class-listing-expiration.php';
         require_once WPBDP_INC . 'class-listing-email-notification.php';

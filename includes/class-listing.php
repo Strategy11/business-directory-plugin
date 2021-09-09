@@ -489,7 +489,8 @@ class WPBDP_Listing {
 		$status = apply_filters( 'wpbdp_delete_post_status', wpbdp_get_option( 'deleted-status' ) );
         $wpdb->update( $wpdb->posts, array( 'post_status' => $status ), array( 'ID' => $this->id ) );
         clean_post_cache( $this->id );
-
+        $statistics = WPBDP_Listing_Statistic::instance();
+        $statistics->delete_by_listing_id( $this->id );
         return true;
     }
 

@@ -316,8 +316,11 @@ class WPBDP_Admin_Listings {
         }
     }
 
+    /**
+     * View column
+     */
     public function listing_column_views( $post_id ) {
-        $statistics = new WPBDP_Listing_Statistic();
+        $statistics = WPBDP_Listing_Statistic::instance();
         echo $statistics->count_views( $post_id );
     }
 

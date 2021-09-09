@@ -15,6 +15,28 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WPBDP_Listing_Statistic {
 
+
+    /**
+	 * Class instance
+	 *
+	 * @var null
+	 */
+	private static $instance = null;
+
+	/**
+	 * Return the class instance
+	 *
+	 * @return WPBDP_Listing_Statistic
+	 */
+	public static function get_instance() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+
     /**
      * Save or update a listing view
      * 
