@@ -253,7 +253,7 @@ function wpbdp_get_listings_by_email( $email, $posts_per_page = -1, $offset = 0 
 
 /**
  * Save the listing statistic
- * 
+ *
  * @param int $listing_id - the listing id
  * @param int $page_id
  */
@@ -261,7 +261,7 @@ function wpbdp_save_listing_statistic( $listing_id, $page_id ) {
     if ( wpbdp_get_option( 'listings-stats-enabled' ) ) {
         $statistics = WPBDP_Listing_Statistic::get_instance();
         $can_save = true;
-        if ( current_user_can( 'administrator' ) && !wpbdp_get_option( 'listings-stats-admin-enabled' ) ) {
+        if ( current_user_can( 'administrator' ) && ! wpbdp_get_option( 'listings-stats-admin-enabled' ) ) {
             $can_save = false;
         }
         if ( $can_save ) {

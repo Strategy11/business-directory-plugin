@@ -39,7 +39,7 @@ class WPBDP_Listing_Statistic {
 
     /**
      * Save or update a listing view
-     * 
+     *
      * @param int $listing_id - the listing it
      * @param int $page_id - the page id
      * @param string $ip - the user ip
@@ -86,7 +86,7 @@ class WPBDP_Listing_Statistic {
 
 	/**
 	 * Delete stats by listing id
-     * 
+     *
 	 * @param int $listing_id - the form id
 	 */
 	public function delete_by_listing_id( $listing_id ) {
@@ -103,7 +103,7 @@ class WPBDP_Listing_Statistic {
 	 */
 	public function get_table_name() {
         global $wpdb;
-        $table_name = $wpdb->prefix."wpbdp_statistics";
+        $table_name = $wpdb->prefix.'wpbdp_statistics';
 		return $table_name;
 	}
 
@@ -137,7 +137,6 @@ class WPBDP_Listing_Statistic {
      * 
 	 * @param int $id - stat id
 	 * @param bool|object $db - the wp db object
-	 *
 	 */
 	private function _update( $id, $db = false ) {
 		if ( ! $db ) {

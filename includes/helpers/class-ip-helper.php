@@ -74,15 +74,19 @@ class WPBDP_IP_Helper {
 	private static function _cloudflare_requests_check() {
 		$flag = true;
 
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! isset( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) {
 			$flag = false;
 		}
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! isset( $_SERVER['HTTP_CF_IPCOUNTRY'] ) ) {
 			$flag = false;
 		}
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! isset( $_SERVER['HTTP_CF_RAY'] ) ) {
 			$flag = false;
 		}
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! isset( $_SERVER['HTTP_CF_VISITOR'] ) ) {
 			$flag = false;
 		}
@@ -97,10 +101,13 @@ class WPBDP_IP_Helper {
 	 */
 	private static function is_cloudflare() {
 		if ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
 		} elseif ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		} else {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
 		if ( isset( $ip ) ) {
@@ -123,17 +130,22 @@ class WPBDP_IP_Helper {
 	 * @return mixed|string
 	 */
 	public static function get_user_ip() {
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$client  = isset( $_SERVER['HTTP_CLIENT_IP'] ) ? $_SERVER['HTTP_CLIENT_IP'] : null;
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$forward = isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : null;
 		$is_cf   = self::is_cloudflare(); //Check if request is from CloudFlare
 		if ( $is_cf ) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$cf_ip = $_SERVER['HTTP_CF_CONNECTING_IP']; //We already make sure this is set in the checks
 			if ( filter_var( $cf_ip, FILTER_VALIDATE_IP ) ) {
 				return apply_filters( 'wpbdp_helper_user_ip', $cf_ip );
 			}
 		} else {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$remote = isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : null;
 		}
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$client_real = isset( $_SERVER['HTTP_X_REAL_IP'] ) ? $_SERVER['HTTP_X_REAL_IP'] : null;
 		$user_ip     = $remote;
 		if ( filter_var( $client, FILTER_VALIDATE_IP ) ) {

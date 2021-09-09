@@ -83,7 +83,7 @@ class WPBDP_Installer {
         global $wpdb;
 
         // https://core.trac.wordpress.org/ticket/33885.
-        $max_index_length 	= 191;
+        $max_index_length = 191;
 
         $schema = array();
 
