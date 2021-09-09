@@ -134,7 +134,7 @@ class WPBDP_Listing_Statistic {
 
 	/**
 	 * Update views
-     * 
+     *
 	 * @param int $id - stat id
 	 * @param bool|object $db - the wp db object
 	 */
