@@ -271,7 +271,7 @@ class WPBDP_Admin_Listings {
         }
 
         //Views for statistics
-        if ( wpbdp_get_option( 'listings-sortbar-enabled' ) ) {
+        if ( wpbdp_get_option( 'listings-stats-enabled' ) ) {
             $new_columns['views']   = __( 'Views', 'business-directory-plugin' );
         }
 

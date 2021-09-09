@@ -770,17 +770,6 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_setting(
-            array(
-                'id'      => 'listings-sortbar-enabled',
-                'type'    => 'checkbox',
-                'name'    => _x( 'Enable statistics?', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'Enable usage tracking of your listings', 'settings', 'business-directory-plugin' ),
-                'default' => false,
-                'group'   => 'listings/stats',
-            )
-        );
-
         $msg = _x( 'Fee Plan Custom Order can be changed under <a>Fee Plans</a>', 'admin settings', 'business-directory-plugin' );
         $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
         wpbdp_register_setting(
@@ -843,6 +832,28 @@ final class WPBDP__Settings__Bootstrap {
         );
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'abc', 'listings/sorting' );
+
+        wpbdp_register_setting(
+            array(
+                'id'      => 'listings-stats-enabled',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Enable statistics?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Enable usage tracking of your listings', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/stats',
+            )
+        );
+
+        wpbdp_register_setting(
+            array(
+                'id'      => 'listings-stats-admin-enabled',
+                'type'    => 'checkbox',
+                'name'    => _x( 'Track Admins?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Enable tracking of admin views to the count', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'listings/stats',
+            )
+        );
     }
 
     private static function settings_appearance() {
