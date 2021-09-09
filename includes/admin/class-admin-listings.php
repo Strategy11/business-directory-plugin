@@ -316,6 +316,11 @@ class WPBDP_Admin_Listings {
         }
     }
 
+    public function listing_column_views( $post_id ) {
+        $statistics = new WPBDP_Listing_Statistic();
+        echo $statistics->count_views( $post_id );
+    }
+
     public function listing_column_attributes( $post_id ) {
         $listing = WPBDP_Listing::get( $post_id );
         $plan    = $listing->get_fee_plan();

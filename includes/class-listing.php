@@ -6,6 +6,8 @@
 require_once WPBDP_PATH . 'includes/class-payment.php';
 require_once WPBDP_PATH . 'includes/class-listing-subscription.php';
 require_once WPBDP_PATH . 'includes/helpers/class-listing-image.php';
+require_once WPBDP_PATH . 'includes/models/listing/class-listing-statistic.php';
+
 class WPBDP_Listing {
 
     private $id = 0;

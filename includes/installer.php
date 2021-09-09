@@ -180,6 +180,7 @@ class WPBDP_Installer {
             `views` mediumint(8) unsigned not null default 0,
             `form_usage` mediumint(8) unsigned not null default 0,
             `date_created` datetime NOT NULL default '0000-00-00 00:00:00',
+            `date_updated` datetime NOT NULL default '0000-00-00 00:00:00',
             KEY `stat_listing_id` (`listing_id` ASC ),
             KEY `statistic_ip` (`ip`($max_index_length)),
             KEY `statistic_object` (`listing_id` ASC, `id` ASC),
