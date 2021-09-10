@@ -67,6 +67,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'wp_ajax_wpbdp-admin-fees-reorder', array( &$this, 'ajax_fees_reorder' ) );
 
             add_action( 'wp_ajax_wpbdp-renderfieldsettings', array( 'WPBDP_FormFieldsAdmin', '_render_field_settings' ) );
+            add_action( 'admin_enqueue_scripts', array( 'WPBDP_FormFieldsAdmin', 'enqueue_scripts' ) );
 
             add_action( 'wp_ajax_wpbdp-create-main-page', array( &$this, 'ajax_create_main_page' ) );
             add_action( 'wp_ajax_wpbdp-drip_subscribe', array( &$this, 'ajax_drip_subscribe' ) );

@@ -194,7 +194,6 @@ class WPBDP_FormFieldsAdmin {
         $this->admin = wpbdp()->admin;
 
         add_action( 'admin_init', array( $this, 'check_for_required_fields' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
     }
 
     /* Required fields check. */
@@ -232,14 +231,32 @@ class WPBDP_FormFieldsAdmin {
         }
     }
 
-    public function enqueue_scripts() {
-        if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
-            wp_enqueue_style(
-                'wpbdp_font_awesome',
-                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
-                array(),
-                '5.14.0'
+    public static function enqueue_scripts() {
+        if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'wpbdp_admin_formfields' ) {
+            wp_enqueue_script(
+                'wpbdp-admin-field-icon',
+                WPBDP_ASSETS_URL . 'js/admin-field-icon.min.js',
+                array( 'jquery' ),
+                WPBDP_VERSION
             );
+            wp_localize_script(
+                'wpbdp-admin-field-icon',
+                'WPBDP_admin_field_icon',
+                array(
+                    'select_font'   => __( 'Select Font:', 'business-directory-plugin' ),
+                    'dashicons'     => __( 'Dashicons', 'business-directory-plugin' ),
+                    'font_awesome'  => __( 'Font Awesome', 'business-directory-plugin' ),
+                    'search'        => __( 'Search', 'business-directory-plugin' )
+                )
+            );
+            if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
+                wp_enqueue_style(
+                    'wpbdp_font_awesome',
+                    'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
+                    array(),
+                    '5.14.0'
+                );
+            }
         }
     }
 

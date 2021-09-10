@@ -3,7 +3,7 @@
 (function ($) {
 
 	$.fn.wpbdpIconPicker = function (options) {
-		var options = ['dashicons', 'dashicons']; // default font set
+		var options = ['dashicons', 'fa']; // default font set
 		var icons;
 		$list = $('');
 		function font_set() {
@@ -739,22 +739,23 @@
 		function createPopup($button) {
 			$target = $($button.data('target'));
 			$popup = $('<div class="wpbdp-icon-picker-container"> \
-						<div class="wpbdp-icon-picker-control" /> \
-						<ul class="wpbdp-icon-picker-list" /> \
+						<div class="wpbdp-icon-picker-control"></div> \
+						<ul class="wpbdp-icon-picker-list"></ul> \
 					</div>')
 				.css({
 					'top': $button.offset().top,
 					'left': $button.offset().left
 				});
+			font_set();
 			build_list($popup, $button, 0);
 			var $control = $popup.find('.wpbdp-icon-picker-control');
-			$control.html('<p>' + WPBDP_admin_field_icon.select_font + ' <select><option value="dashicons">' + WPBDP_admin_field_icon.dashicons + '</option><option value="fa">' + WPBDP_admin_field_icon.font_awesome + '</option></select></p>' +
+			$control.html('<p>' + WPBDP_admin_field_icon.select_font + ' <select class="wpbdp-font-select-picker"><option value="dashicons">' + WPBDP_admin_field_icon.dashicons + '</option><option value="fa">' + WPBDP_admin_field_icon.font_awesome + '</option></select></p>' +
 				'<a data-direction="back" href="#"><span class="dashicons dashicons-arrow-left-alt2"></span></a> ' +
 				'<input type="text" class="" placeholder="' + WPBDP_admin_field_icon.search + '" />' +
 				'<a data-direction="forward" href="#"><span class="dashicons dashicons-arrow-right-alt2"></span></a>' +
 				'');
 
-			$('select', $control).on('change', function (e) {
+			$('.wpbdp-font-select-picker', $control).on('change', function (e) {
 				e.preventDefault();
 				if (this.value != options[0]) {
 					options[0] = this.value;

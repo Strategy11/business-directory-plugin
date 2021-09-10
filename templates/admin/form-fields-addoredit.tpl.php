@@ -286,6 +286,8 @@ wpbdp_admin_notices();
                 </th>
                 <td>
                     <label>
+                        <input class="regular-text" type="hidden" id="wpbdp-field-icon" name="field[icon]" value="<?php echo $field->get_icon(); ?>"/>
+						<div data-target="#wpbdp-field-icon" class="button wpbdp-icon-picker <?php echo $field->get_icon(); ?>"></div><br/>
 						<?php esc_html_e( 'Require this field on the Advanced Search screen.', 'business-directory-plugin' ); ?>
                     </label>
                 </td>
