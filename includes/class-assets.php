@@ -302,6 +302,13 @@ class WPBDP__Assets {
 			WPBDP_VERSION
 		);
 
+        wp_enqueue_script(
+			'wpbdp-admin-field-icon',
+			WPBDP_ASSETS_URL . 'js/admin-field-icon.min.js',
+			array( 'wpbdp-admin-js', 'jquery-ui-datepicker' ),
+			WPBDP_VERSION
+		);
+
 		wp_localize_script(
 			'wpbdp-admin-listing-metabox',
 			'wpbdpListingMetaboxL10n',
@@ -327,6 +334,17 @@ class WPBDP__Assets {
 						'business-directory-plugin'
 					),
 				),
+			)
+		);
+
+        wp_localize_script(
+			'wpbdp-field-icon',
+			'WPBDP_admin_field_icon',
+			array(
+				'select_font'   => __( 'Select Font:', 'business-directory-plugin' ),
+                'dashicons'     => __( 'Dashicons', 'business-directory-plugin' ),
+                'font_awesome'  => __( 'Font Awesome', 'business-directory-plugin' ),
+                'search'        => __( 'Search', 'business-directory-plugin' )
 			)
 		);
 	}
