@@ -413,9 +413,6 @@ class WPBDP_FormFieldsAdmin {
             wpbdp_admin_message( $msg, 'error' );
         }
 
-        require_once WPBDP_INC . 'admin/class-field-icon.php';
-        $icon_drop_down = new WPBDP_Admin_Field_Icon();
-
         wpbdp_render_page(
             WPBDP_PATH . 'templates/admin/form-fields-addoredit.tpl.php',
             array(
@@ -424,8 +421,7 @@ class WPBDP_FormFieldsAdmin {
                 'field_types'             => $api->get_field_types(),
                 'validators'              => $api->get_validators(),
                 'association_field_types' => $api->get_association_field_types(),
-                'hidden_fields'           => $this->hidden_fields_for_type( $field ),
-                'icon_drop_down'          => $icon_drop_down->dropdown_fonts( $field->get_icon() )
+                'hidden_fields'           => $this->hidden_fields_for_type( $field )
             ),
             true
         );

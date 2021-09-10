@@ -286,7 +286,6 @@ wpbdp_admin_notices();
                 </th>
                 <td>
                     <label>
-                        <?php echo $icon_drop_down; ?>
 						<?php esc_html_e( 'Require this field on the Advanced Search screen.', 'business-directory-plugin' ); ?>
                     </label>
                 </td>
