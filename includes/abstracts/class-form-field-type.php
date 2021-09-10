@@ -413,6 +413,17 @@ class WPBDP_Form_Field_Type {
             $css_classes .= 'wpbdp-field-type-' . $labelorfield->get_field_type_id() . ' ';
             $css_classes .= 'wpbdp-field-association-' . $labelorfield->get_association() . ' ';
             $label = $labelorfield->has_display_flag( 'nolabel' ) ? null : $labelorfield->get_label();
+            if ( $labelorfield->has_display_flag( 'icon' ) || $labelorfield->has_display_flag( 'fieldlabelicon' ) ) {
+                if ( !empty( $labelorfield->get_icon() ) ) {
+                    $icon_parts = explode( '|', $field->get_icon() ); 
+                    $icon = $icon_parts[1];
+                    if ( $labelorfield->has_display_flag( 'icon' ) ) {
+                        $label = "<span class='" + $icon + "'></span>";
+                    } else {
+                        $label = "<span class='" + $icon + "'></span> {$label}";
+                    }
+                }
+            }
         } else {
             $css_classes .= 'wpbdp-field-' . self::normalize_name( $labelorfield ) . ' ';
             $label = $labelorfield;
