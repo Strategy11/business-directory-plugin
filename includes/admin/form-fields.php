@@ -249,14 +249,6 @@ class WPBDP_FormFieldsAdmin {
                     'search'        => __( 'Search', 'business-directory-plugin' )
                 )
             );
-            if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
-                wp_enqueue_style(
-                    'wpbdp_font_awesome',
-                    'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
-                    array(),
-                    '5.14.0'
-                );
-            }
         }
     }
 

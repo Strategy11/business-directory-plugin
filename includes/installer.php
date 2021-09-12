@@ -10,7 +10,7 @@ require_once ( WPBDP_PATH . 'includes/admin/upgrades/class-migration.php' );
  */
 class WPBDP_Installer {
 
-    const DB_VERSION = '18.4';
+    const DB_VERSION = '18.5';
 
     private $installed_version = null;
 

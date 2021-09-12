@@ -413,16 +413,20 @@ class WPBDP_Form_Field_Type {
             $css_classes .= 'wpbdp-field-type-' . $labelorfield->get_field_type_id() . ' ';
             $css_classes .= 'wpbdp-field-association-' . $labelorfield->get_association() . ' ';
             $label = $labelorfield->has_display_flag( 'nolabel' ) ? null : $labelorfield->get_label();
+            $label_text = $label;
             if ( $labelorfield->has_display_flag( 'icon' ) || $labelorfield->has_display_flag( 'fieldlabelicon' ) ) {
                 if ( !empty( $labelorfield->get_icon() ) ) {
-                    $icon_parts = explode( '|', $field->get_icon() ); 
+                    $icon_parts = explode( '|', $labelorfield->get_icon() ); 
                     $icon = $icon_parts[1];
                     if ( $labelorfield->has_display_flag( 'icon' ) ) {
-                        $label = "<span class='" + $icon + "'></span>";
+                        $label = "<span class='wpbdp-icon " . $icon . "'></span>";
                     } else {
-                        $label = "<span class='" + $icon + "'></span> {$label}";
+                        $label = "<span class='wpbdp-icon " . $icon . "'></span> " . $label;
                     }
                 }
+            }
+            if ( $labelorfield->get_field_type_id() === 'phone_number' ) {
+                $label = "<a href='tel:$label_text'>$label</a>";
             }
         } else {
             $css_classes .= 'wpbdp-field-' . self::normalize_name( $labelorfield ) . ' ';
@@ -433,8 +437,8 @@ class WPBDP_Form_Field_Type {
         $tag_attrs = isset( $args['tag_attrs'] ) ? self::html_attributes( $args['tag_attrs'] ) : '';
         $html .= '<div class="' . $css_classes . ' ' . $extra_classes . '" ' . $tag_attrs . '>';
 
-        if ( $label )
-            $html .= '<span class="field-label">' . apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $labelorfield ) . ':</span> ';
+        if ( $label ) 
+            $html .= '<span class="field-label">' . apply_filters( 'wpbdp_display_field_label', $label, $labelorfield ) . ':</span> ';
 
         if ( $content )
             $html .= '<div class="value">' . $content . '</div>';

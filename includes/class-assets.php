@@ -73,6 +73,8 @@ class WPBDP__Assets {
         $this->register_select2();
 
 		wp_register_style( 'wpbdp-base-css', WPBDP_ASSETS_URL . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
+
+        
     }
 
 	private function register_select2() {
@@ -173,6 +175,15 @@ class WPBDP__Assets {
                 WPBDP_ASSETS_URL . 'css/wpbdp-legacy.min.css',
                 array(),
                 WPBDP_VERSION
+            );
+        }
+
+        if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
+            wp_enqueue_style(
+                'wpbdp_font_awesome',
+                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
+                array(),
+                '5.14.0'
             );
         }
     }
@@ -329,5 +340,14 @@ class WPBDP__Assets {
 				),
 			)
 		);
+
+        if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
+            wp_enqueue_style(
+                'wpbdp_font_awesome',
+                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
+                array(),
+                '5.14.0'
+            );
+        }
 	}
 }
