@@ -73,8 +73,6 @@ class WPBDP__Assets {
         $this->register_select2();
 
 		wp_register_style( 'wpbdp-base-css', WPBDP_ASSETS_URL . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
-
-        
     }
 
 	private function register_select2() {
