@@ -415,8 +415,8 @@ class WPBDP_Form_Field_Type {
             $label = $labelorfield->has_display_flag( 'nolabel' ) ? null : $labelorfield->get_label();
             $label_text = $label;
             if ( $labelorfield->has_display_flag( 'icon' ) || $labelorfield->has_display_flag( 'fieldlabelicon' ) ) {
-                if ( !empty( $labelorfield->get_icon() ) ) {
-                    $icon_parts = explode( '|', $labelorfield->get_icon() ); 
+                if ( ! empty( $labelorfield->get_icon() ) ) {
+                    $icon_parts = explode( '|', $labelorfield->get_icon() );
                     $icon = $icon_parts[1];
                     if ( $labelorfield->has_display_flag( 'icon' ) ) {
                         $label = "<span class='wpbdp-icon " . $icon . "'></span>";
@@ -437,7 +437,7 @@ class WPBDP_Form_Field_Type {
         $tag_attrs = isset( $args['tag_attrs'] ) ? self::html_attributes( $args['tag_attrs'] ) : '';
         $html .= '<div class="' . $css_classes . ' ' . $extra_classes . '" ' . $tag_attrs . '>';
 
-        if ( $label ) 
+        if ( $label )
             $html .= '<span class="field-label">' . apply_filters( 'wpbdp_display_field_label', $label, $labelorfield ) . ':</span> ';
 
         if ( $content )

@@ -280,16 +280,16 @@ wpbdp_admin_notices();
                     </label>
                 </td>
             </tr>
-            <tr class="if-field-icon <?php echo ( !$field->has_display_flag( 'icon' ) && !$field->has_display_flag( 'fieldlabelicon' ) ) ? 'wpbdp-hidden' : ''; ?>">
+            <tr class="if-field-icon <?php echo ( ! $field->has_display_flag( 'icon' ) && ! $field->has_display_flag( 'fieldlabelicon' ) ) ? 'wpbdp-hidden' : ''; ?>">
                 <th scope="row">
                     <label> <?php _ex( 'Field Icon', 'form-fields admin', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label>
-                        <?php 
-                            $icon = "";
-                            if ( !empty( $field->get_icon() ) ) {
-                                $icon_parts = explode( '|', $field->get_icon() ); 
+                        <?php
+                            $icon = '';
+                            if ( ! empty( $field->get_icon() ) ) {
+                                $icon_parts = explode( '|', $field->get_icon() );
                                 $icon = $icon_parts[1];
                             }
                         ?>

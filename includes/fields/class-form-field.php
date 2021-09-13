@@ -1071,8 +1071,8 @@ class WPBDP_Form_Field {
     }
 
     /**
-     * Get the icon
-     * 
+     * Get the icon.
+     *
      * @return string
      */
     public function get_icon() {
