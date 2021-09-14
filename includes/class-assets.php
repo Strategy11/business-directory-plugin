@@ -72,7 +72,15 @@ class WPBDP__Assets {
 
         $this->register_select2();
 
-		wp_register_style( 'wpbdp-base-css', WPBDP_ASSETS_URL . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
+
+        wp_register_style(
+            'wpbdp_font_awesome',
+            'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
+            array(),
+            '5.14.0'
+        );
+
+		wp_register_style( 'wpbdp-base-css', WPBDP_ASSETS_URL . 'css/wpbdp.min.css', array( 'dashicons' ), WPBDP_VERSION );
     }
 
 	private function register_select2() {
@@ -177,12 +185,7 @@ class WPBDP__Assets {
         }
 
         if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
-            wp_enqueue_style(
-                'wpbdp_font_awesome',
-                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
-                array(),
-                '5.14.0'
-            );
+            wp_enqueue_style( 'wpbdp_font_awesome' );
         }
     }
 
@@ -282,6 +285,10 @@ class WPBDP__Assets {
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
 
+        if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
+            wp_enqueue_style( 'wpbdp_font_awesome' );
+        }
+
 		if ( ! $wpbdp->is_bd_post_page() ) {
 			return;
 		}
@@ -339,13 +346,6 @@ class WPBDP__Assets {
 			)
 		);
 
-        if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
-            wp_enqueue_style(
-                'wpbdp_font_awesome',
-                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
-                array(),
-                '5.14.0'
-            );
-        }
+        
 	}
 }
