@@ -72,7 +72,6 @@ class WPBDP__Assets {
 
         $this->register_select2();
 
-
         wp_register_style(
             'wpbdp_font_awesome',
             'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
@@ -345,7 +344,5 @@ class WPBDP__Assets {
 				),
 			)
 		);
-
-        
 	}
 }
