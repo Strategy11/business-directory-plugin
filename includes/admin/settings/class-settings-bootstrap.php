@@ -424,6 +424,10 @@ final class WPBDP__Settings__Bootstrap {
                 $text_fields[] = $field->get_id();
             }
 
+            if ( in_array( $field->get_field_type_id(), array( 'image' ) ) ) {
+                continue;
+            }
+            
             $fields[ $field->get_id() ] = $field->get_label();
         }
 
