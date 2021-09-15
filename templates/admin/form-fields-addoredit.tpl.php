@@ -303,6 +303,8 @@ wpbdp_admin_notices();
         </tr>
     </table>
 
+	<?php do_action( 'wpbdp_admin_listing_field_after_settings', $field, $hidden_fields ); ?>
+
     <?php if ( $field->get_id() ) : ?>
         <?php echo submit_button( _x( 'Update Field', 'form-fields admin', 'business-directory-plugin' ) ); ?>
     <?php else : ?>
