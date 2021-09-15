@@ -837,7 +837,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                         break;
                     }
 
-                    $this->messages[] = array( _x( 'Could not send renewal email, notice template at listing expiration not found.', 'admin', 'business-directory-plugin' ), 'error' );
+                    $this->messages[] = array( __( 'Could not send renewal email.', 'business-directory-plugin' ), 'error' );
 
                     break;
 

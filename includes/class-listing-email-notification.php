@@ -151,8 +151,11 @@ class WPBDP__Listing_Email_Notification {
         $post_status = get_post_status( $listing->get_id() );
 
 		if ( ! $post_status || in_array( $post_status, array( 'trash', 'auto-draft', 'draft', 'pending' ), true ) ) {
-			// Don't send for pending.
-			return $sent;
+			// Don't send for pending, but allow renewal emails after auto switched to draft.
+			$is_renewal = $post_status === 'draft' && $event === 'expiration';
+			if ( ! $is_renewal ) {
+				return $sent;
+			}
 		}
 
         $all_notices = wpbdp_get_option( 'expiration-notices' );
