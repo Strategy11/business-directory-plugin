@@ -264,18 +264,24 @@ wpbdp_admin_notices();
                     </label>
                 </td>
             </tr>
-			<tr class="<?php echo in_array( 'nolabel', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
-                <th scope="row">
-                    <label> <?php _ex( 'Hide this field\'s label?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
-                </th>
-                <td>
-                    <label>
-                        <input name="field[display_flags][]"
-                               value="nolabel"
-                               type="checkbox" <?php echo $field->has_display_flag( 'nolabel' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Hide this field\'s label when displaying it.', 'form-fields admin', 'business-directory-plugin' ); ?>
-                    </label>
-                </td>
-            </tr>
+            <?php
+			if ( has_action( 'wpbdp_admin_listing_field_section_visibility' ) ) {
+				do_action( 'wpbdp_admin_listing_field_section_visibility', $field, $hidden_fields );
+			} else {
+				?>
+				<tr class="<?php echo in_array( 'nolabel', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
+					<th scope="row">
+						<label> <?php _ex( 'Hide this field\'s label?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
+					</th>
+					<td>
+						<label>
+							<input name="field[display_flags][]"
+								value="nolabel"
+								type="checkbox" <?php echo $field->has_display_flag( 'nolabel' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Hide this field\'s label when displaying it.', 'form-fields admin', 'business-directory-plugin' ); ?>
+						</label>
+					</td>
+				</tr>
+			<?php } ?>
     </table>
 
     <!-- display options -->
