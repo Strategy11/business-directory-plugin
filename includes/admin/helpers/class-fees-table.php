@@ -38,9 +38,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             case 'active':
                 $view_name = _x( 'Active', 'fees admin', 'business-directory-plugin' );
                 break;
-            case 'unavailable':
-                $view_name = _x( 'Not Available', 'fees admin', 'business-directory-plugin' );
-                break;
             case 'disabled':
                 $view_name = _x( 'Disabled', 'fees admin', 'business-directory-plugin' );
                 break;
@@ -82,7 +79,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         );
 
         if ( ! wpbdp_payments_possible() ) {
-            $active = $all - $non_free - $disabled;
+            $active = $all - $disabled;
         } else {
             $active = $non_free;
         }
@@ -95,15 +92,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             number_format_i18n( $active )
         );
 
-        $unavailable = $all - $active - $disabled;
-
-        $views['unavailable'] = sprintf(
-            '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-            esc_url( add_query_arg( 'fee_status', 'unavailable', $admin_fees_url ) ),
-            'unavailable' === $this->get_current_view() ? 'current' : '',
-            _x( 'Not Available', 'admin fees table', 'business-directory-plugin' ),
-            number_format_i18n( $unavailable )
-        );
 
         $views['disabled'] = sprintf(
             '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
@@ -131,27 +119,19 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function prepare_items() {
         $this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 
-        $args = array();
+        $args = array(
+            'admin_view' => true // Admin view shows all listings
+        );
 
         switch ( $this->get_current_view() ) {
 			case 'active':
 				$args['enabled']      = 1;
-				$args['include_free'] = ! wpbdp_payments_possible();
+				$args['include_free'] = true;
+                $args['tag']          = '';
                 break;
 			case 'disabled':
 				$args['enabled'] = 0;
 				$args['tag']     = ''; // FIXME: Without tag = '', you only get disabled free fees.
-
-                break;
-			case 'unavailable':
-				if ( wpbdp_payments_possible() ) {
-					$args['enabled'] = 'all';
-					$args['tag']     = 'free';
-				} else {
-					$args['enabled']      = 1;
-					$args['include_free'] = false;
-					$args['tag']          = ''; // FIXME: Without tag = '', include_free is ignored.
-				}
 
                 break;
 			case 'all':

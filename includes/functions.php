@@ -847,12 +847,13 @@ function wpbdp_get_fee_plans( $args = array() ) {
 
     $defaults = array(
         'enabled'         => 1,
-        'include_free'    => wpbdp_payments_possible() ? false : true,
-        'tag'             => wpbdp_payments_possible() ? '' : 'free',
+        'include_free'    => true,
+        'tag'             => '',
         'orderby'         => 'label',
         'order'           => 'ASC',
         'categories'      => array(),
         'include_private' => false,
+        'admin_view'      => wpbdp_payments_possible()
     );
     if ( $order = wpbdp_get_option( 'fee-order' ) ) {
         $defaults['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
@@ -871,8 +872,12 @@ function wpbdp_get_fee_plans( $args = array() ) {
         $where .= $wpdb->prepare( ' AND p.tag = %s', $args['tag'] );
     }
 
-    if ( ! $args['include_free'] && 'free' != $args['tag'] ) {
+    if ( ! $args['admin_view'] && ( ! $args['include_free'] && 'free' != $args['tag'] ) ) {
         $where .= $wpdb->prepare( ' AND p.tag != %s', 'free' );
+    }
+
+    if ( ! $args['admin_view'] ) {
+        $where .= $wpdb->prepare( ' AND p.amount = %d', 0 );
     }
 
     $categories = $args['categories'];
