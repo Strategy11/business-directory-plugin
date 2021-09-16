@@ -92,7 +92,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             number_format_i18n( $active )
         );
 
-
         $views['disabled'] = sprintf(
             '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
             esc_url( add_query_arg( 'fee_status', 'disabled', $admin_fees_url ) ),
