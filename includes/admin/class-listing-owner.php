@@ -141,16 +141,16 @@ class WPBDP__Admin__Listing_Owner {
      */
     private function get_mode( $params ) {
         if ( $params['mode'] ) {
-            return $params['mode'];
+            return apply_filters( 'wpbdp_admin_listing_owner_mode', $params['mode'] );
         }
 
         $users_count = count_users();
 
         if ( isset( $users_count['total_users'] ) && $users_count['total_users'] > 100 ) {
-            return 'ajax';
+            return apply_filters( 'wpbdp_admin_listing_owner_mode', 'ajax' );
         }
 
-        return 'inline';
+        return apply_filters( 'wpbdp_admin_listing_owner_mode', 'inline' );
     }
 
     /**
