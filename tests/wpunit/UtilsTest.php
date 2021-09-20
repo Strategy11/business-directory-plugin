@@ -16,9 +16,6 @@ class UtilsTest extends \Codeception\Test\Unit {
     protected $tester;
 
 
-	/**
-	 * @since 5.2.1
-	 */
 	public function testSortByProperty() {
 		$data = array(
 			'a' => array(
@@ -33,7 +30,7 @@ class UtilsTest extends \Codeception\Test\Unit {
 		);
 
 		WPBDP_Utils::sort_by_property( $data, 'order' );
-		$this->tester->wantToTest("Utils Sort Order");
+		$this->tester->wantToTest( 'Utils Sort Order' );
 		$this->assertEquals( array( 'b', 'a', 'c' ), array_keys( $data ) );
 	}
 }
