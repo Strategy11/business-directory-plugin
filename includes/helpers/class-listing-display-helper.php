@@ -199,9 +199,12 @@ class WPBDP_Listing_Display_Helper {
         $fields         = array();
 
         $listing_cats = WPBDP_Listing::get( $listing_id )->get_categories( 'ids' );
-
         foreach ( $display_fields as $field ) {
             if ( ! $field->validate_categories( $listing_cats ) ) {
+                continue;
+            }
+
+            if ( $display === 'listing' && $field->get_association() === 'title' ) {
                 continue;
             }
 
