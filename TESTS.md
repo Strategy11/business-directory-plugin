@@ -4,6 +4,7 @@
 
 ### Local Servers
 Install ChromeDriver, GeckoDriver or Selenium Server. These will be used to emulate the browser acceptance tests
+For each tests, the browser will have to be restarted
 
 ### Composer
 Ensure composer in installed. Run `composer install` to install dependencies
@@ -21,7 +22,7 @@ Run the following in the `business-directory-plugin` plugin folder
 #!bash 
 $ cd <path-to-wordpress>/wp-content/plugins/business-directory-plugin
 
-$ codeception
+$ codeception run
 
 ```
 
