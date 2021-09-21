@@ -377,7 +377,7 @@ final class WPBDP__Settings__Bootstrap {
 			array(
 				'id'       => 'quick-search-fields',
 				'type'     => 'multicheck',
-				'name'     => _x( 'Quick search fields', 'settings', 'business-directory-plugin' ),
+				'name'     => __( 'Quick search data', 'business-directory-plugin' ),
 				'desc'     => self::quicksearch_field_desc( $default_fields ),
 				'default'  => array(),
 				'multiple' => true,
@@ -402,9 +402,9 @@ final class WPBDP__Settings__Bootstrap {
 		$too_many_fields .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'business-directory-plugin' );
 		$too_many_fields .= '</span>';
 
-		$no_fields = '<p><strong>' . __( 'If no fields are selected, the following fields will be used in Quick Searches:', 'business-directory-plugin' ) . ' ' . esc_html( implode( ', ', $default_fields ) ) . '.</strong></p>';
+		$no_fields = '<p><strong>' . __( 'If no fields are selected, the following fields will be searched in Quick Searches:', 'business-directory-plugin' ) . ' ' . esc_html( implode( ', ', $default_fields ) ) . '.</strong></p>';
 
-		return _x( 'Choosing too many fields for inclusion into Quick Search can result in very slow search performance.', 'settings', 'business-directory-plugin' ) . $no_fields . $too_many_fields;
+		return __( 'The Quick Search is a single search box, but you may choose what data is searched. Searching too many fields can result in very slow search performance.', 'business-directory-plugin' ) . $no_fields . $too_many_fields;
 	}
 
     /**
@@ -422,6 +422,10 @@ final class WPBDP__Settings__Bootstrap {
 
             if ( in_array( $field->get_association(), array( 'excerpt', 'content' ), true ) || 'textarea' === $field->get_field_type_id() ) {
                 $text_fields[] = $field->get_id();
+            }
+
+            if ( in_array( $field->get_field_type_id(), array( 'image' ) ) ) {
+                continue;
             }
 
             $fields[ $field->get_id() ] = $field->get_label();
@@ -877,7 +881,8 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-directory-button',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Show the "Directory" and "Return to Directory" button.', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Show the "Directory" button.', 'settings', 'business-directory-plugin' ),
+                'desc'    => __( 'Show the "Directory" and "Return to Directory" button.', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'display_options',
             )
