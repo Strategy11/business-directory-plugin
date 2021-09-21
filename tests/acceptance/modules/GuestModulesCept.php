@@ -3,20 +3,20 @@
 /**
  * Appearance Settings Test
  */
-class AppearanceSettingsCest {
-	
-    public function _before( AcceptanceTester $I ) {
-		$I->wantTo('log in to site');
+class GuestModulesCest {
+
+	public function _before( AcceptanceTester $I ) {
+		$I->wantTo( 'log in to site' );
 		$I->loginAsAdmin();
-    }
+	}
 
-    public function _after( AcceptanceTester $I ) {
-    }
+	public function _after( AcceptanceTester $I ) {
+	}
 
-    // tests
-    public function tryToTestModuleGuest( AcceptanceTester $I ) {
-		
+	// tests
+	public function tryToTestModuleGuest( AcceptanceTester $I ) {
+		$I->wantTo( 'Test Modules' );
 		$I->amOnPage( '/wp-admin/admin.php?page=wpbdp-addons' );
-        $I->see( 'Directory Modules', 'h1' );
-    }
+		$I->see( 'Directory Modules', 'h1' );
+	}
 }

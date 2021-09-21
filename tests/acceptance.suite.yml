@@ -18,21 +18,22 @@ modules:
             dsn: 'mysql:host=localhost;dbname=wordpress_test'
             user: 'root'
             password: ''
-            populate: false #import the dump before the tests
-            cleanup: false #import the dump between tests
-            url: 'http://businessdirectory.dev'
-            urlReplacement: false #replace the hardcoded dump URL with the one above
-            tablePrefix: 'wp_'
+            dump: 'tests/_data/dump.sql'
+            populate: true #import the dump before the tests
+            cleanup: true #import the dump between tests
+            url: 'http://example.com'
+            urlReplacement: true #replace the hardcoded dump URL with the one above
+            tablePrefix: 'wpl_'
         WPBrowser:
-            url: 'http://businessdirectory.dev'
+            url: 'http://example.com'
             adminUsername: 'admin'
             adminPassword: 'password'
             adminPath: '/wp-admin'
         WebDriver:
-            url: 'http://businessdirectory.dev'
+            url: 'http://example.com'
             browser: phantomjs
         WPWebDriver:
-            url: 'http://businessdirectory.dev'
+            url: 'http://example.com'
             port: 4444
             path: ''
             http_proxy: direct

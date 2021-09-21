@@ -10,13 +10,13 @@ modules:
     config:
         WPLoader:
             wpRootFolder: "./../../../"
-            dbName: "wpTests"
+            dbName: "wordpress_test"
             dbHost: "localhost"
             dbUser: "root"
-            dbPassword: "12345"
-            tablePrefix: "wp_"
+            dbPassword: ""
+            tablePrefix: "wpl_"
             domain: "businessdirectory"
-            adminEmail: "admin@businessdirectory"
+            adminEmail: "admin@businessdirectory.com"
             title: "Test"        
             plugins: ['business-directory-plugin/business-directory-plugin.php']
             activatePlugins: ['business-directory-plugin/business-directory-plugin.php']

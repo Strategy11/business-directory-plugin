@@ -4,9 +4,9 @@
  * Create Field Test
  */
 class CreateTextFieldCest {
-	
+
 	public function _before( AcceptanceTester $I ) {
-		$I->wantTo('log in to site');
+		$I->wantTo( 'log in to site' );
 		$I->loginAsAdmin();
 	}
 
@@ -15,15 +15,15 @@ class CreateTextFieldCest {
 
 	// tests
 	public function tryToTestCreateField( AcceptanceTester $I ) {
-		$I->wantTo('Test creating a textfield');
+		$I->wantTo( 'Test creating a textfield' );
 		$I->amOnPage( '/wp-admin/admin.php?page=wpbdp_admin_formfields' );
-        $I->see( 'Form Fields', 'h1' );
-		$I->click( array( 'link' => 'Add New Form Field') );
+		$I->see( 'Form Fields', 'h1' );
+		$I->click( array( 'link' => 'Add New Form Field' ) );
 		$I->see( 'Add Form Field', 'h1' );
-		$I->selectOption( 'form input[name=field[association]]','meta' );
-		$I->selectOption( 'form input[name=field[field_type]]','textfield' );
+		$I->selectOption( 'form input[name=field[association]]', 'meta' );
+		$I->selectOption( 'form input[name=field[field_type]]', 'textfield' );
 		$I->fillField( 'field[label]', 'Sample Field' );
-		$I->click('Add Field');
+		$I->click( 'Add Field' );
 		$I->see( 'Form fields updated.', 'p' );
 		$I->see( 'Sample Field', 'a' ); // Field link.
 	}

@@ -9,11 +9,11 @@ use WPBDP_Utils;
  * Unit tests for Utils class.
  */
 class UtilsTest extends \Codeception\Test\Unit {
-		
+
 	/**
-     * @var \WpunitTester
-     */
-    protected $tester;
+	 * @var \WpunitTester
+	 */
+	protected $tester;
 
 
 	public function testSortByProperty() {

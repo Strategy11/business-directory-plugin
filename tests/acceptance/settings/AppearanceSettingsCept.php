@@ -4,20 +4,20 @@
  * Appearance Settings Test
  */
 class AppearanceSettingsCest {
-	
-    public function _before( AcceptanceTester $I ) {
-		$I->wantTo('log in to site');
+
+	public function _before( AcceptanceTester $I ) {
+		$I->wantTo( 'log in to site' );
 		$I->loginAsAdmin();
-    }
+	}
 
-    public function _after( AcceptanceTester $I ) {
-    }
+	public function _after( AcceptanceTester $I ) {
+	}
 
-    // tests
-    public function tryToTestAppearanceSettings( AcceptanceTester $I ) {
-		
+	// tests
+	public function tryToTestAppearanceSettings( AcceptanceTester $I ) {
+		$I->wantTo( 'Test Appearance Settings' );
 		$I->amOnPage( '/wp-admin/admin.php?page=wpbdp_settings&tab=appearance' );
-        $I->see( 'Directory Settings', 'h1' );
-        $I->seeCheckboxIsChecked('#themes-button-style');
-    }
+		$I->see( 'Directory Settings', 'h1' );
+		$I->seeCheckboxIsChecked( '#themes-button-style' );
+	}
 }

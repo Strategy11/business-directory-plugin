@@ -13,13 +13,13 @@ use WPBDP_Listings_API;
 class APITest extends \Codeception\Test\Unit {
 
 	/**
-     * @var \WpunitTester
-     */
-    protected $tester;
+	 * @var \WpunitTester
+	 */
+	protected $tester;
 
 
 	protected function _before() {
-		
+
 	}
 
 	protected function _after() {
@@ -31,9 +31,6 @@ class APITest extends \Codeception\Test\Unit {
 
 	public function testListingPublishedStatusAfterPayment() {
 		$this->tester->wantToTest( 'Payment Listing publish status' );
-		// Set option for testing.
-		wpbdp_set_option( 'new-post-status', 'publish' );
-
 		$listing_id = wp_insert_post(
 			array(
 				'post_author' => 1,
@@ -55,9 +52,5 @@ class APITest extends \Codeception\Test\Unit {
 
 		// // Verification.
 		$this->assertEquals( 'publish', get_post_status( $listing_id ) );
-
-		// Restore option to default value
-		wpbdp_set_option( 'new-post-status', 'pending' );
-
 	}
 }

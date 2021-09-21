@@ -12,15 +12,15 @@ modules:
         - \Helper\Functional
     config:
         WPDb:
-            dsn: 'mysql:host=localhost;dbname=businessdirectory'
+            dsn: 'mysql:host=localhost;dbname=wordpress_test'
             user: 'root'
-            password: '12345'
+            password: ''
             dump: 'tests/_data/dump.sql'
             populate: true
             cleanup: true
             url: 'http://example.com'
             urlReplacement: true
-            tablePrefix: 'wp_'
+            tablePrefix: 'wpl_'
         WordPress:
             depends: WPDb
             wpRootFolder: './../../../'
