@@ -1172,17 +1172,6 @@ final class WPBDP__Settings__Bootstrap {
                 'requirements' => array( 'payments-on' ),
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'           => 'payments-use-https',
-                'type'         => 'checkbox',
-                'name'         => _x( 'Perform checkouts on the secure (HTTPS) version of your site?', 'settings', 'business-directory-plugin' ),
-                'desc'         => _x( 'Recommended for added security. For this to work you need to enable HTTPS on your server and obtain an SSL certificate.', 'settings', 'business-directory-plugin' ),
-                'default'      => false,
-                'group'        => 'payment/main',
-                'requirements' => array( 'payments-on' ),
-            )
-        );
 
         wpbdp_register_setting(
             array(
