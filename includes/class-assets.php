@@ -123,7 +123,6 @@ class WPBDP__Assets {
     }
 
     public function enqueue_scripts() {
-        $only_in_plugin_pages       = true;
         $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
 
         wp_enqueue_style(
@@ -133,7 +132,7 @@ class WPBDP__Assets {
             WPBDP_VERSION
         );
 
-        if ( $only_in_plugin_pages && ! $enqueue_scripts_and_styles ) {
+        if ( ! $enqueue_scripts_and_styles ) {
             return;
         }
 

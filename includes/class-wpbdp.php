@@ -411,10 +411,14 @@ final class WPBDP {
             }
         }
 
-        if ( $post && WPBDP_POST_TYPE == $post->post_type )
-            return true;
+		if ( $post && WPBDP_POST_TYPE === $post->post_type ) {
+			return true;
+		}
 
-        return false;
+		// Load CSS in Elementor templates.
+		$is_elementor = $post && $post->post_type === 'elementor_library';
+
+		return $is_elementor;
     }
 
     public function get_post_type() {
