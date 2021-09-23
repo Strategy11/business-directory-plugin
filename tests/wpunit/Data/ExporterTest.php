@@ -13,9 +13,7 @@ class ExporterTest extends \Codeception\Test\Unit {
 
 	public function testDataExport() {
 		$this->tester->wantToTest( 'Data export' );
-		$this->markTestSkipped(
-			'Cannot generate an export file'
-		);
+		
 		$listing = wpbdp_save_listing(
 			array(
 				'post_author' => 1,
