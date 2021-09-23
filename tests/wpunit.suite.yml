@@ -9,14 +9,18 @@ modules:
         - \Helper\Wpunit
     config:
         WPLoader:
+            loadOnly: false
+            multisite: false
             wpRootFolder: "/tmp/wordpress/src/"
             dbName: "wordpress_tests"
             dbHost: "localhost"
             dbUser: "root"
             dbPassword: "root"
             tablePrefix: "wpl_"
-            domain: "businessdirectory"
+            domain: "http://example.com"
             adminEmail: "admin@businessdirectory.com"
             title: "Test"        
             plugins: ['business-directory-plugin/business-directory-plugin.php']
             activatePlugins: ['business-directory-plugin/business-directory-plugin.php']
+            bootstrapActions:
+                - wp
