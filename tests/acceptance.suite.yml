@@ -37,7 +37,7 @@ modules:
             port: 4444
             path: ''
             http_proxy: direct
-            browser: firefox
+            browser: chrome
             window_size: 1024x768
             adminUsername: 'admin'
             adminPassword: 'password'

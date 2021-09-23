@@ -25,5 +25,5 @@ modules:
             depends: WPDb
             wpRootFolder: '/tmp/wordpress/src/'
             adminUsername: 'admin'
-            adminPassword: ''
+            adminPassword: 'password'
             adminPath: '/wp-admin'
