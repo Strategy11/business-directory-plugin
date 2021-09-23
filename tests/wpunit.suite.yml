@@ -10,10 +10,10 @@ modules:
     config:
         WPLoader:
             wpRootFolder: "./../../../"
-            dbName: "wordpress_test"
+            dbName: "wordpress_tests"
             dbHost: "localhost"
             dbUser: "root"
-            dbPassword: ""
+            dbPassword: "root"
             tablePrefix: "wpl_"
             domain: "businessdirectory"
             adminEmail: "admin@businessdirectory.com"
