@@ -34,10 +34,10 @@ modules:
             browser: phantomjs
         WPWebDriver:
             url: 'http://example.com'
-            port: 9515
+            port: 4444
             path: ''
             http_proxy: direct
-            browser: firefox
+            browser: chrome
             window_size: 1024x768
             adminUsername: 'admin'
             adminPassword: 'password'
