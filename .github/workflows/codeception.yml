@@ -1,4 +1,4 @@
-name: PHPUnit
+name: CodeCeption
 
 on:
   # Trigger the workflow on push or pull request,
@@ -15,10 +15,8 @@ jobs:
         include:
           - php: 7.3
             wordpress: 5.8
-            phpunit: 6.5.14
           - php: 7.4
             wordpress: 5.8
-            phpunit: 6.5.14
     name: PHP ${{ matrix.php }} tests in WP ${{ matrix.wordpress }}
     steps:
       - uses: actions/checkout@v2
@@ -27,8 +25,10 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          tools: phpunit:${{ matrix.phpunit }}
       - run: composer install --no-progress --ansi
+      - name: Codeception Action
+        uses: joelwmale/codeception-action@1.0.0
+
       - name: Installing WordPress
         run: |
           export WP_DEVELOP_DIR=/tmp/wordpress/
@@ -47,11 +47,13 @@ jobs:
           mysql -u root -proot -e "CREATE DATABASE wordpress_tests;"
       - name: Check Syntax
         run: find -L .  -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
-      - name: PhpUnit tests
+      - name: Run chromedriver
+        run:  nohup $CHROMEWEBDRIVER/chromedriver --url-base=/wd/hub /dev/null 2>&1 &
+      - name: Codeception tests
         run: |
           cd "/tmp/wordpress/src/wp-content/plugins/${GITHUB_REPOSITORY#*/}"
           pwd
-          phpunit
+          codeception run
   syntax-test:
     if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
     runs-on: ubuntu-latest
