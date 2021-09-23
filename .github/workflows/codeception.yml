@@ -51,7 +51,7 @@ jobs:
         run: |
           cd "/tmp/wordpress/src/wp-content/plugins/${GITHUB_REPOSITORY#*/}"
           pwd
-          codeception run
+          php vendor/bin/codecept run
   syntax-test:
     if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
     runs-on: ubuntu-latest
