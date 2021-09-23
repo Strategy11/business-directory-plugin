@@ -26,8 +26,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - run: composer install --no-progress --ansi
-      - name: Codeception Action
-        uses: joelwmale/codeception-action@1.0.0
 
       - name: Installing WordPress
         run: |
