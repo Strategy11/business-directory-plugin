@@ -31,10 +31,8 @@ class APITest extends \Codeception\Test\Unit {
 
 	public function testListingPublishedStatusAfterPayment() {
 		$this->tester->wantToTest( 'Payment Listing publish status' );
-		$this->markTestSkipped(
-			'Cannot get mysqli'
-		);
-		$listing_id = wp_insert_post(
+
+		$listing = wpbdp_save_listing(
 			array(
 				'post_author' => 1,
 				'post_type'   => WPBDP_POST_TYPE,
@@ -42,18 +40,19 @@ class APITest extends \Codeception\Test\Unit {
 				'post_title'  => '(no title)',
 			)
 		);
+		if ( ! is_wp_error( $listing ) ) {
+			$listing->set_fee_plan( 1 );
 
-		$listing = wpbdp_get_listing( $listing_id );
+			$payment = $listing->generate_or_retrieve_payment();
 
-		$listing->set_fee_plan( 1 );
+			// Execute
+			$payment->status = 'completed';
+			$payment->save();
 
-		$payment = $listing->generate_or_retrieve_payment();
-
-		// Execute
-		$payment->status = 'completed';
-		$payment->save();
-
-		// // Verification.
-		$this->assertEquals( 'publish', get_post_status( $listing_id ) );
+			// // Verification.
+			$this->assertEquals( 'publish', get_post_status( $listing_id ) );
+		} else {
+			$this->assertTrue( is_wp_error( $listing ), $listing->get_error_message() );
+		}
 	}
 }
