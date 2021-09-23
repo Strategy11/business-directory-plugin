@@ -34,7 +34,7 @@ modules:
             browser: phantomjs
         WPWebDriver:
             url: 'http://example.com'
-            port: 4444
+            port: 9515
             path: ''
             http_proxy: direct
             browser: firefox
