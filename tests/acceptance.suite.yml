@@ -31,12 +31,10 @@ modules:
             adminPath: '/wp-admin'
         WebDriver:
             url: 'http://example.com'
-            browser: phantomjs
+            browser: chrome
         WPWebDriver:
             url: 'http://example.com'
             port: 9515
-            path: ''
-            http_proxy: direct
             browser: chrome
             window_size: 1024x768
             adminUsername: 'admin'
