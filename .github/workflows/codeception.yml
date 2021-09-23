@@ -20,6 +20,7 @@ jobs:
     name: PHP ${{ matrix.php }} tests in WP ${{ matrix.wordpress }}
     steps:
       - uses: actions/checkout@v2
+      - uses: joelwmale/codeception-action@1.0.0
 
       # get the PHP version
       - uses: shivammathur/setup-php@v2
