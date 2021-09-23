@@ -35,10 +35,11 @@ modules:
         WPWebDriver:
             url: 'http://example.com'
             port: 9515
-            path: ''
-            http_proxy: direct
             browser: chrome
-            window_size: 1024x768
+            window_size: 'false'
             adminUsername: 'admin'
             adminPassword: 'password'
             adminPath: '/wp-admin'
+            capabilities:
+                goog:chromeOptions:
+                    args: ["--headless", "--disable-gpu"]
