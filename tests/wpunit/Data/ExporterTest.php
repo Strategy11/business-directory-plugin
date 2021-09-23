@@ -36,8 +36,8 @@ class ExporterTest extends \Codeception\Test\Unit {
 			// Execution
 			$exporter->advance();
 
-			// Ensure file exists
-			$this->assertFileExists( $export->get_file_path() );
+			// Ensure name is generated
+			$this->assertNotNull( $export->get_file_path() );
 		} else {
 			$this->assertTrue( is_wp_error( $listing ), $listing->get_error_message() );
 		}
