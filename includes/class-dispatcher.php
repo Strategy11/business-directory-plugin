@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'includes/class-view.php' );
+require_once( WPBDP_INC . 'abstracts/class-view.php' );
 
 /**
  * @since 4.0

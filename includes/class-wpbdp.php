@@ -48,7 +48,7 @@ final class WPBDP {
 
 		require_once WPBDP_PATH . 'includes/admin/class-education.php';
 
-        require_once WPBDP_INC . 'class-view.php';
+        require_once WPBDP_INC . 'abstracts/class-view.php';
 
         require_once WPBDP_INC . 'class-modules.php';
         require_once WPBDP_INC . 'licensing.php';
