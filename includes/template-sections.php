@@ -21,7 +21,7 @@ class _WPBDP_Template_Sections {
 
 	public function listing_contact_form( $vars ) {
         if ( ! class_exists( 'WPBDP__Views__Listing_Contact' ) )
-            require_once( WPBDP_PATH . 'includes/views/listing_contact.php' );
+            require_once( WPBDP_INC . 'controllers/pages/listing_contact.php' );
 
         $v = new WPBDP__Views__Listing_Contact();
         return $v->render_form( $vars['listing_id'] );

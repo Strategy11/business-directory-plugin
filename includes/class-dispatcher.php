@@ -125,7 +125,7 @@ class WPBDP__Dispatcher {
 
     public function get_view_locations() {
         $dirs = array();
-        $dirs[] = WPBDP_PATH . 'includes/views/';
+        $dirs[] = WPBDP_PATH . 'includes/controllers/pages/';
         $dirs[] = WPBDP_PATH . 'core/views/';
 
         return apply_filters( 'wpbdp_view_locations', $dirs );
