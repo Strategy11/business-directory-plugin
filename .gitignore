@@ -22,3 +22,4 @@ node_modules/
 /vendor/
 .site/
 _vvv/
+.composer.lock
