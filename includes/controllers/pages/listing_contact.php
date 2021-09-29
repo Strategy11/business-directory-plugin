@@ -53,7 +53,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
             $this->errors[] = _x( 'Please enter your name.', 'contact-message', 'business-directory-plugin' );
         }
 
-        if ( ! wpbdp_validate_value( $this->email, 'email' ) ) {
+        if ( ! $this->email || ! wpbdp_validate_value( $this->email, 'email' ) ) {
             $this->errors[] = _x( 'Please enter a valid email.', 'contact-message', 'business-directory-plugin' );
         }
 
@@ -302,4 +302,3 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
     }
 
 }
-
