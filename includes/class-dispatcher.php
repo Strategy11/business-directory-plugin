@@ -148,7 +148,7 @@ class WPBDP__Dispatcher {
                     continue;
 
                 // Views that start with class- in the file name. Addons may not have this hence the condition.
-                if ( substr( $f, 0, 5 ) === 'class' ) {
+                if ( strpos( $f, 'class' ) !== false ) {
                     $f = str_replace( '-', '_', $f );
                     $classname = 'WPBDP__Views_' . implode( '_', array_map( 'ucfirst', explode( '_', str_replace( $find, $replace, $f ) ) ) );
                 } else {
