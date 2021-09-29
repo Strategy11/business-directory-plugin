@@ -34,7 +34,7 @@ class WPBDP__Views__Main extends WPBDP__View {
 
         // Listings under categories?
         if ( wpbdp_get_option( 'show-listings-under-categories' ) ) {
-            require_once WPBDP_INC . 'controllers/pages/all_listings.php';
+            require_once WPBDP_INC . 'controllers/pages/class-all-listings.php';
             $v        = new WPBDP__Views__All_Listings( array( 'menu' => false ) );
             $listings = $v->dispatch();
         } else {

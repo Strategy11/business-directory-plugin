@@ -302,7 +302,7 @@ class WPBDP_FormFieldsAdmin {
 
     /* preview form */
 	private function preview_form() {
-        require_once WPBDP_INC . 'controllers/pages/submit_listing.php';
+        require_once WPBDP_INC . 'controllers/pages/class-submit-listing.php';
 
         $html  = '';
         $html .= wpbdp_admin_header(
