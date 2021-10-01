@@ -145,8 +145,15 @@ class WPBDP__Dispatcher {
                 if ( ! file_exists( $path ) )
                     continue;
 
-                $explode = ( strpos( $f, 'class' ) === 0 ) ? '-' : '_';
-                $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( $explode, str_replace( array( '.php', 'class-' ), '', $f ) ) ) );
+                if ( ( strpos( $f, 'class' ) === 0 ) ) {
+                    $explode = '-';
+                    $find = array( '.php', 'class-' );
+                } else {
+                    $explode = '_';
+                    $find = '.php';
+                }
+
+                $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( $explode, str_replace( $find, '', $f ) ) ) );
 
                 if ( ! class_exists( $classname ) )
                     include( $path );
