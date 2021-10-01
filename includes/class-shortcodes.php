@@ -290,7 +290,7 @@ class WPBDP__Shortcodes {
     }
 
     public function sc_listings( $atts ) {
-        require_once WPBDP_PATH . 'includes/views/all_listings.php';
+        require_once WPBDP_INC . 'controllers/pages/class-all-listings.php';
 
         $sc_atts = shortcode_atts(
             array(
