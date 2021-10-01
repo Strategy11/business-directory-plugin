@@ -145,7 +145,6 @@ class WPBDP__Dispatcher {
                 if ( ! file_exists( $path ) )
                     continue;
 
-
                 $explode = ( strpos( $f, 'class' ) === 0 ) ? '-' : '_';
                 $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( $explode, str_replace( array( '.php', 'class-' ), '', $f ) ) ) );
 
