@@ -138,7 +138,6 @@ class WPBDP__Dispatcher {
                             'views-' . $view_name . '.php',
                             'class-' . $class_view_name . '.php',
                         );
-        $find = array( '.php', 'class' );
         foreach ( $this->get_view_locations() as $dir ) {
             foreach ( $filenames as $f ) {
                 $path = wp_normalize_path( WPBDP_FS::join( $dir, $f ) );
@@ -148,10 +147,11 @@ class WPBDP__Dispatcher {
 
                 // Views that start with class- in the file name. Addons may not have this hence the condition.
                 if ( strpos( $f, 'class' ) === 0 ) {
-                    $classname = 'WPBDP__Views_' . implode( '_', array_map( 'ucfirst', explode( '-', str_replace( $find, '', $f ) ) ) );
+                    $explode = '-';
                 } else {
-                    $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( '_', str_replace( '.php', '', $f ) ) ) );
+                    $explode = '_';
                 }
+                $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( $explode, str_replace( array( '.php', 'class-' ), '', $f ) ) ) );
 
                 if ( ! class_exists( $classname ) )
                     include( $path );
