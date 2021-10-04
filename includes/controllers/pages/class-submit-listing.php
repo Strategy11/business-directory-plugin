@@ -40,7 +40,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             WPBDP_ASSETS_URL . 'js/submit-listing.min.js',
             array(),
             WPBDP_VERSION,
-            false
+            true
         );
 
         wp_enqueue_script( 'wpbdp-checkout' );
