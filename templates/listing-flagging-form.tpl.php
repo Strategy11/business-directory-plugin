@@ -62,7 +62,7 @@ $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
 
             <p>
                 <input type="button" onclick="location.href = '<?php echo esc_url_raw( wpbdp_url( 'main' ) ); ?>'; return false;" value="<?php esc_attr_e( 'Cancel', 'business-directory-plugin' ); ?>" class="wpbdp-button button" />
-                <input class="wpbdp-submit wpbdp-button" type="submit" value="<?php echo esc_attr( $flagging_text ); ?>" />
+                <input class="wpbdp-submit button wpbdp-button" type="submit" value="<?php echo esc_attr( $flagging_text ); ?>" />
             </p>
 		<?php else : ?>
             <?php
