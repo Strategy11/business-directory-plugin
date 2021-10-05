@@ -19,7 +19,7 @@ class WPBDP_LatestListingsWidget extends WPBDP_Listings_Widget {
     public function get_listings( $instance ) {
         return get_posts( array( 'post_type' => WPBDP_POST_TYPE,
                                  'post_status' => 'publish',
-                                 'numberposts' => $instance['number_of_listings'],
+                                 'numberposts' => $this->get_field_value( $instance, 'number_of_listings' ),
                                  'orderby' => 'date',
                                  'suppress_filters' => false ) );
     }

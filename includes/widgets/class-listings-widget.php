@@ -15,11 +15,26 @@ class WPBDP_Listings_Widget extends WP_Widget {
         $this->defaults['number_of_listings'] = 10;
     }
 
+    /**
+     * Default Form Settings.
+     */
+    protected function defaults() {
+        return array(
+            'number_of_listings' => 10,
+            'show_images' => 0,
+            'thumbnail_width' => '',
+            'thumbnail_height' => '',
+            'thumbnail_desktop' => 'left',
+            'thumbnail_mobile' => 'above',
+        );
+    }
+
     protected function set_default_option_value( $k, $v = '' ) {
         $this->defaults[ $k ] = $v;
     }
 
     protected function get_field_value( $instance, $k ) {
+        $instance = array_merge( $this->defaults(), $instance );
         if ( isset( $instance[ $k ] ) )
             return $instance[ $k ];
 
@@ -40,27 +55,29 @@ class WPBDP_Listings_Widget extends WP_Widget {
     protected function _form( $instance ) { }
 
     public function form( $instance ) {
-        include_once WPBDP_INC . 'views/widget/widget-settings.php';
+        $instance = array_merge( $this->defaults(), $instance );
+        require_once WPBDP_INC . 'views/widget/widget-settings.php';
     }
 
     public function update( $new, $old ) {
-        $new['title'] = strip_tags( $new['title'] );
-        $new['number_of_listings'] = max( intval( $new['number_of_listings'] ), 1 );
-        $new['show_images'] = intval( $new['show_images'] ) == 1 ? 1 : 0;
+        $instance = $old;
+        $instance['title'] = strip_tags( $new['title'] );
+        $instance['number_of_listings'] = max( intval( $new['number_of_listings'] ), 1 );
+        $instance['show_images'] = isset( $new['show_images'] ) && intval( $new['show_images'] ) == 1 ? 1 : 0;
 
-        if ( $new['show_images'] ) {
-            $new['thumbnail_width'] = max( intval( $new['thumbnail_width'] ), 0 );
-            $new['thumbnail_height'] = max( intval( $new['thumbnail_height'] ), 0 );
-            $new['thumbnail-position-in-desktop'] = sanitize_text_field( $new['thumbnail-position-in-desktop'] );
-            $new['thumbnail-position-in-mobile'] = sanitize_text_field( $new['thumbnail-position-in-mobile'] );
+        if ( $instance['show_images'] ) {
+            $instance['thumbnail_width'] = max( intval( $new['thumbnail_width'] ), 0 );
+            $instance['thumbnail_height'] = max( intval( $new['thumbnail_height'] ), 0 );
+            $instance['thumbnail_desktop'] = isset( $new['thumbnail_mobile'] ) ? sanitize_text_field( $new['thumbnail_desktop'] ) : $old['thumbnail_desktop'];
+            $instance['thumbnail_mobile'] = isset( $new['thumbnail_mobile'] ) ? sanitize_text_field( $new['thumbnail_mobile'] ) : $old['thumbnail_mobile'];
         }
 
-        return $new;
+        return $instance;
     }
 
     public function widget( $args, $instance ) {
 		extract( $args );
-        $title = apply_filters( 'widget_title', $instance['title'] );
+        $title = apply_filters( 'widget_title', $this->get_field_value( $instance, 'title' ) );
 
         echo $before_widget;
         if ( ! empty( $title ) )
