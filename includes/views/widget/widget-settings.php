@@ -1,0 +1,35 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+?>
+<p>
+	<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title', 'business-directory-plugin' ); ?>:</label>
+	<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $this->get_field_value( $instance, 'title' ) ); ?>" />
+</p>
+<p>
+	<label for="<?php echo esc_attr( $this->get_field_id( 'number_of_listings' ) ); ?>"><?php _e( 'Number of listings to display', 'business-directory-plugin' ); ?>:</label>
+	<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'number_of_listings' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_of_listings' ) ); ?>" type="text" value="<?php echo esc_attr( $this->get_field_value( $instance, 'number_of_listings' ) ); ?>" />
+</p>
+
+<?php $this->_form( $instance ); ?>
+
+<?php if ( in_array( 'images', $this->supports ) ) : ?>
+
+	<?php $style = 'style="' . ( $this->get_field_value( $instance, 'show_images' ) ? '' : 'display: none;' ) . '"'; ?>
+	<h4><?php _e( 'Thumbnails', 'business-directory-plugin' ); ?></h4>
+	<p>
+		<input id="<?php echo esc_attr( $this->get_field_id( 'show_images' ) ); ?>" class="wpbdp-toggle-images" name="<?php echo esc_attr( $this->get_field_name( 'show_images' ) ); ?>" type="checkbox" value="1" <?php checked( $this->get_field_value( $instance, 'show_images' ), true ); ?> /> <label for="<?php echo esc_attr( $this->get_field_id( 'show_images' ) ); ?>"><?php _e( 'Show thumbnails', 'business-directory-plugin' ); ?></label>
+	</p>
+	<p class="thumbnail-width-config" <?php echo $style; ?> >
+		<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_width' ) ); ?>"><?php _e( 'Image width (in px)', 'business-directory-plugin' ); ?>:</label>
+		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_width' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_width' ) ); ?>" type="text" value="<?php echo esc_attr( $this->get_field_value( $instance, 'thumbnail_width' ) ); ?>" size="5" />
+		<span class="help components-placeholder__instructions"><?php _e( 'Leave blank for automatic width.', 'business-directory-plugin' ); ?></span>
+	</p>
+	<p class="thumbnail-width-config" <?php echo $style; ?> >
+		<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_height' ) ); ?>"><?php _e( 'Image height (in px)', 'business-directory-plugin' ); ?>:</label>
+		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_height' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_height' ) ); ?>" type="text" value="<?php echo esc_attr( $this->get_field_value( $instance, 'thumbnail_height' ) ); ?>" size="5" />
+		<span class="help components-placeholder__instructions"><?php _e( 'Leave blank for automatic height.', 'business-directory-plugin' ); ?></span>
+	</p>
+
+<?php endif; ?>

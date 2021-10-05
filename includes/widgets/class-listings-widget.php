@@ -40,55 +40,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
     protected function _form( $instance ) { }
 
     public function form( $instance ) {
-        printf( '<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
-                $this->get_field_id( 'title' ),
-                _x( 'Title:', 'widgets', 'business-directory-plugin' ),
-                $this->get_field_id( 'title' ),
-                $this->get_field_name( 'title' ),
-                esc_attr( $this->get_field_value( $instance, 'title' ) ) );
-        printf( '<p><label for="%s">%s</label> <input id="%s" name="%s" type="text" value="%s" size="5" /></p>',
-                $this->get_field_id( 'number_of_listings' ),
-                _x( 'Number of listings to display:', 'widgets', 'business-directory-plugin' ),
-                $this->get_field_id( 'number_of_listings' ),
-                $this->get_field_name( 'number_of_listings' ),
-                intval( $this->get_field_value( $instance, 'number_of_listings' ) ) );
-
-        $this->_form( $instance );
-
-        if ( in_array( 'images', $this->supports ) ) {
-            echo '<h4>';
-            _ex( 'Thumbnails', 'widgets', 'business-directory-plugin' );
-            echo '</h4>';
-
-            printf( '<p><input id="%s" class="wpbdp-toggle-images" name="%s" type="checkbox" value="1" %s /> <label for="%s">%s</label></p>',
-                    $this->get_field_id( 'show_images' ),
-                    $this->get_field_name( 'show_images' ),
-                    $this->get_field_value( $instance, 'show_images' ) ? 'checked="checked"' : '',
-                    $this->get_field_id( 'show_images' ),
-                    _x( 'Show thumbnails', 'widgets', 'business-directory-plugin' ) );
-
-            echo '<p class="thumbnail-width-config" style="' . ( $this->get_field_value( $instance, 'show_images' ) ? '' : 'display: none;' ) . '">';
-            echo '<label for="' . $this->get_field_id( 'thumbnail_width' ) . '">';
-            _ex( 'Image width (in px):', 'widgets', 'business-directory-plugin' );
-            echo '</label> ';
-            printf( '<input type="text" name="%s" id="%s" value="%s" size="5" />',
-                    $this->get_field_name( 'thumbnail_width' ),
-                    $this->get_field_id( 'thumbnail_width' ),
-                    $this->get_field_value( $instance, 'thumbnail_width' ) );
-            echo '<br /><span class="help">' . _x( 'Leave blank for automatic width.', 'widgets', 'business-directory-plugin' ) . '</span>';
-            echo '</p>';
-
-            echo '<p class="thumbnail-height-config" style="' . ( $this->get_field_value( $instance, 'show_images' ) ? '' : 'display: none;' ) . '">';
-            echo '<label for="' . $this->get_field_id( 'thumbnail_height' ) . '">';
-            _ex( 'Image height (in px):', 'widgets', 'business-directory-plugin' );
-            echo '</label> ';
-            printf( '<input type="text" name="%s" id="%s" value="%s" size="5" />',
-                    $this->get_field_name( 'thumbnail_height' ),
-                    $this->get_field_id( 'thumbnail_height' ),
-                    $this->get_field_value( $instance, 'thumbnail_height' ) );
-            echo '<br /><span class="help">' . _x( 'Leave blank for automatic height.', 'widgets', 'business-directory-plugin' ) . '</span>';
-            echo '</p>';
-        }
+        include_once WPBDP_INC . 'views/widget/widget-settings.php';
     }
 
     public function update( $new, $old ) {
@@ -99,6 +51,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
         if ( $new['show_images'] ) {
             $new['thumbnail_width'] = max( intval( $new['thumbnail_width'] ), 0 );
             $new['thumbnail_height'] = max( intval( $new['thumbnail_height'] ), 0 );
+            $new['thumbnail-position-in-desktop'] = sanitize_text_field( $new['thumbnail-position-in-desktop'] );
+            $new['thumbnail-position-in-mobile'] = sanitize_text_field( $new['thumbnail-position-in-mobile'] );
         }
 
         return $new;
