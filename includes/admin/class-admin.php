@@ -17,7 +17,7 @@ require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-controller.php
 require_once WPBDP_PATH . 'includes/admin/tracking.php';
 require_once WPBDP_PATH . 'includes/admin/class-listings-with-no-fee-plan-view.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/class-modules-list.php';
-
+require_once WPBDP_PATH . 'includes/models/class-reviews.php';
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -39,6 +39,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'admin_init', array( $this, 'handle_actions' ) );
 
             add_action( 'admin_init', array( $this, 'check_for_required_pages' ) );
+
+            add_action( 'admin_init', array( $this, 'check_for_rating' ) );
 
             add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
@@ -1066,6 +1068,17 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$message .= '</p>';
 
 			$this->messages[] = array( $message, 'error' );
+        }
+
+        /**
+         * Check rating
+         */
+        public function check_for_rating() {
+            $message = WPBDP_Reviews::instance()->review_request();
+            if ( ! $message ) {
+                return;
+            }
+            $this->messages[] = array( $message, 'notice' );
         }
 
         /**

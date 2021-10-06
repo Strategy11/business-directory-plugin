@@ -16,6 +16,15 @@ class WPBDP_Reviews {
 
 	private $inbox_key = 'review';
 
+	private static $instance = null;
+
+	public static function instance() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
 	/**
 	 * Add admin notices as needed for reviews
 	 */
@@ -23,7 +32,7 @@ class WPBDP_Reviews {
 
 		// Only show the review request to high-level users on business directory pages
 		if ( ! current_user_can( 'administrator' ) || ! WPBDP_App_Helper::is_directory_admin() ) {
-			return;
+			return false;
 		}
 
 		// Verify that we can do a check for reviews
@@ -38,8 +47,9 @@ class WPBDP_Reviews {
 		$week_ago = ( $this->review_status['time'] + WEEK_IN_SECONDS ) <= time();
 
 		if ( empty( $dismissed ) && $week_ago ) {
-			$this->review();
+			return $this->review();
 		}
+		return false;
 	}
 
 	/**
@@ -56,7 +66,7 @@ class WPBDP_Reviews {
 
 		if ( empty( $review ) ) {
 			// Set the review request to show in a week
-			update_user_meta( $user_id, $this->option_name, $default );
+			update_option( $this->option_name, $default, 'no' );
 		}
 
 		$review              = array_merge( $default, (array) $review );
@@ -85,7 +95,7 @@ class WPBDP_Reviews {
 		if ( $entries < $count ) {
 			// check the entry count again in a week
 			$this->review_status['time'] = time();
-			update_user_meta( $user->ID, $this->option_name, $this->review_status );
+			update_option( $this->option_name, $this->review_status, 'no' );
 
 			return;
 		}
@@ -104,50 +114,24 @@ class WPBDP_Reviews {
 
 		$title = sprintf(
 			/* translators: %s: User name, %2$d: number of entries */
-			esc_html__( 'Congratulations%1$s! You have collected %2$d form submissions.', 'formidable' ),
+			esc_html__( 'Congratulations%1$s! You have collected %2$d form submissions.', 'business-directory-plugin' ),
 			esc_html( $name ),
 			absint( $entries )
 		);
 
-		$this->add_to_inbox( $title, $name, $asked );
-
-		// We have a candidate! Output a review message.
-		include( WPBDP_INC . 'views/shared/review.php' );
+		return $this->get_message( $title, $name, $asked );
 	}
 
-	private function add_to_inbox( $title, $name, $asked ) {
-		$message = new WPBDP_Inbox();
-		$requests = $message->get_messages();
-		$key      = $this->inbox_key . ( $asked ? $asked : '' );
-
-		if ( isset( $requests[ $key ] ) ) {
-			return;
-		}
-
-		// Remove previous requests.
-		if ( $asked > 0 ) {
-			$message->remove( $this->inbox_key );
-		}
-		if ( $asked > 1 ) {
-			$message->remove( $this->inbox_key . '1' );
-		}
-
-		if ( $this->has_later_request( $requests, $asked ) ) {
-			// Don't add a request that has already been passed.
-			return;
-		}
-
-		$message->add_message(
-			array(
-				'key'     => $key,
-				'message' => __( 'If you are enjoying Formidable, could you do me a BIG favor and give us a review to help me grow my little business and boost our motivation?', 'formidable' ) . '<br/>' .
-					'- Steph Wells<br/>' .
-					'<span>' . esc_html__( 'Co-Founder and CTO of Formidable Forms', 'formidable' ) . '<span>',
-				'subject' => str_replace( $name, '', $title ),
-				'cta'     => '<a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" class="wpbdp-dismiss-review-notice wpbdp-review-out button-secondary wpbdp-button-secondary" data-link="yes" target="_blank" rel="noopener noreferrer">' .
-					esc_html__( 'Ok, you deserve it', 'formidable' ) . '</a>',
-				'type'    => 'feedback',
-			)
+	private function get_message( $title, $name, $asked ) {
+		return array(
+			'key'     => $key,
+			'message' => __( 'If you are enjoying Business Directory Plugin, could you do me a BIG favor and give us a review to help me grow my little business and boost our motivation?', 'business-directory-plugin' ) . '<br/>' .
+				'- Steph Wells<br/>' .
+				'<span>' . esc_html__( 'Co-Founder and CTO of Business Directory Plugin', 'business-directory-plugin' ) . '<span>',
+			'subject' => str_replace( $name, '', $title ),
+			'cta'     => '<a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" class="wpbdp-dismiss-review-notice wpbdp-review-out button-secondary wpbdp-button-secondary" data-link="yes" target="_blank" rel="noopener noreferrer">' .
+				esc_html__( 'Ok, you deserve it', 'business-directory-plugin' ) . '</a>',
+			'type'    => 'feedback',
 		);
 	}
 
@@ -161,45 +145,19 @@ class WPBDP_Reviews {
 	}
 
 	/**
-	 * @since 4.05.02
-	 */
-	private function inbox_keys() {
-		return array(
-			$this->inbox_key,
-			$this->inbox_key . '1',
-			$this->inbox_key . '2',
-		);
-	}
-
-	private function set_inbox_dismissed() {
-		$message = new WPBDP_Inbox();
-		foreach ( $this->inbox_keys() as $key ) {
-			$message->dismiss( $key );
-		}
-	}
-
-	private function set_inbox_read() {
-		$message = new WPBDP_Inbox();
-		foreach ( $this->inbox_keys() as $key ) {
-			$message->mark_read( $key );
-		}
-	}
-
-	/**
 	 * Save the request to hide the review
 	 */
 	public function dismiss_review() {
 		check_admin_referer( 'frm_ajax', 'nonce' );
 
-		$user_id = get_current_user_id();
-		$review  = get_user_meta( $user_id, $this->option_name, true );
+		$review  = get_option( $this->option_name, array() );
 		if ( empty( $review ) ) {
 			$review = array();
 		}
 
 		if ( isset( $review['dismissed'] ) && $review['dismissed'] === 'done' ) {
 			// if feedback was submitted, don't update it again when the review is dismissed
-			$this->set_inbox_dismissed();
+			update_option( $this->option_name, $review, 'no' );
 			wp_die();
 		}
 
@@ -208,8 +166,7 @@ class WPBDP_Reviews {
 		$review['dismissed'] = $dismissed === 'done' ? true : 'later';
 		$review['asked']     = isset( $review['asked'] ) ? $review['asked'] + 1 : 1;
 
-		update_user_meta( $user_id, $this->option_name, $review );
-		$this->set_inbox_read();
+		update_option( $this->option_name, $review, 'no' );
 		wp_die();
 	}
 }
