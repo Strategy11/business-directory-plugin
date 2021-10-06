@@ -146,6 +146,16 @@ class WPBDP_App_Helper {
 	}
 
 	/**
+	 * Check if the current view is any page in the directory settings
+	 *
+	 * @return bool
+	 */
+	public static function is_directory_admin() {
+		$screen = get_current_screen();
+		return ( strpos( $screen->id , 'wpbdp' ) === 0 );
+	}
+
+	/**
 	 * Check if the user has permision for action.
 	 * Return permission message and stop the action if no permission
 	 *
