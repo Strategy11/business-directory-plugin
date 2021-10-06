@@ -119,9 +119,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
      * @param  [type] $items      [description]
      * @param  [type] $instance   [description]
      * @param  string $html_class CSS class for each LI element.
-     * 
+     *
      * @since  x.x
-     * 
+     *
      * @return string             HTML
      */
     protected function render( $items, $instance, $html_class='' ) {
@@ -133,7 +133,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
     }
 
     private function render_empty_widget( $html_class ) {
-        return sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', $html_class, __( 'There are currently no listings to show.', 'business-directory-plugin' ) );
+        return sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', $html_class , __( 'There are currently no listings to show.', 'business-directory-plugin' ) );
     }
 
     private function render_widget( $items, $instance, $html_class ) {
@@ -157,7 +157,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
             $html[] = $this->render_item( $post, $instance, $show_images, $default_image, $img_size, $html_class );
         }
 
-        return join("\n", $html);
+        return join( "\n", $html );
     }
 
 
@@ -181,7 +181,6 @@ class WPBDP_Listings_Widget extends WP_Widget {
             $template = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container wpbdp-clearfix"><div class="wpbdp-listings-widget-thumb wpbdp-clearfix">%2$s</div><div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></div></li>';
         } else {
             $html_class .= ' wpbdp-listings-widget-item-without-thumbnail';
-            
             $template = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container wpbdp-clearfix"><div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></div></li>';
         }
 
@@ -195,7 +194,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
                 $image_link = '<a href="' . get_permalink( $post->ID ) . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
             } else if ( $default_image ) {
                 $size_class = $img_size;
-                $attribute = "";
+                $attribute = '';
                 if ( is_array( $size_class ) ) {
                     $width = $size_class[0] . 'px';
                     $height = $size_class[1] . 'px';
