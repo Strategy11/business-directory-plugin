@@ -31,8 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_height' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_height' ) ); ?>" type="text" value="<?php echo esc_attr( $this->get_field_value( $instance, 'thumbnail_height' ) ); ?>" size="5" />
 		<span class="help components-placeholder__instructions"><?php _e( 'Leave blank for automatic height.', 'business-directory-plugin' ); ?></span>
 	</p>
-	<p>
-		<input id="<?php echo esc_attr( $this->get_field_id( 'default_image' ) ); ?>" class="wpbdp-toggle-images" name="<?php echo esc_attr( $this->get_field_name( 'default_image' ) ); ?>" type="checkbox" value="1" <?php checked( $this->get_field_value( $instance, 'default_image' ), true ); ?> /> <label for="<?php echo esc_attr( $this->get_field_id( 'default_image' ) ); ?>"><?php _e( 'Show "No Image" PNG when listing has no picture (improves layout).', 'business-directory-plugin' ); ?></label>
+	<p class="thumbnail-width-config"  <?php echo $style; ?>>
+		<input id="<?php echo esc_attr( $this->get_field_id( 'default_image' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'default_image' ) ); ?>" type="checkbox" value="1" <?php checked( $this->get_field_value( $instance, 'default_image' ), true ); ?> /> <label for="<?php echo esc_attr( $this->get_field_id( 'default_image' ) ); ?>"><?php _e( 'Show "No Image" PNG when listing has no picture (improves layout).', 'business-directory-plugin' ); ?></label>
 	</p>
 	<p class="thumbnail-width-config"  <?php echo $style; ?>><strong><?php _e( "Position of the thumbnail (Desktop):", 'business-directory-plugin' ); ?></strong></p>
 	<p class="thumbnail-width-config"  <?php echo $style; ?>>

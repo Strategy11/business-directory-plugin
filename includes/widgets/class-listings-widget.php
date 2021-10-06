@@ -175,7 +175,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
         $output = '';
         $listing = wpbdp_get_listing( $post->ID );
         $listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
-        $html_image = $this->render_image( $show_images, $default_image, $listing, $post );
+        $html_image = $this->render_image( $show_images, $default_image, $listing, $post, $img_size );
 
         if ( ! empty( $html_image ) ) {
             $template = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container wpbdp-clearfix"><div class="wpbdp-listings-widget-thumb wpbdp-clearfix">%2$s</div><div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></div></li>';
@@ -188,13 +188,18 @@ class WPBDP_Listings_Widget extends WP_Widget {
         return sprintf( $template, $html_class, $html_image, $listing_title );
     }
 
-    private function render_image( $show_images, $default_image, $listing, $post ) {
+    private function render_image( $show_images, $default_image, $listing, $post, $img_size ) {
         $image_link = '';
         if ( $show_images ) {
             if ( $img_id = $listing->get_thumbnail_id() ) {
                 $image_link = '<a href="' . get_permalink( $post->ID ) . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
             } else if ( $default_image ) {
-                $image_link = '<a href="' . get_permalink( $post->ID ) . '"><img src="' .WPBDP_ASSETS_URL. 'images/default-image-big.gif" class="listing-image" /></a>';
+                $size_class = $img_size;
+                if ( is_array( $size_class ) ) {
+                    $size_class = implode( 'x', $size_class );
+                }
+                $class = "attachment-$size_class size-$size_class listing-image";
+                $image_link = '<a href="' . get_permalink( $post->ID ) . '"><img src="' .WPBDP_ASSETS_URL. 'images/default-image-big.gif" class="' . $class . '" /></a>';
             }
         }
         return apply_filters( 'wpbdp_listings_widget_render_image', $image_link, $listing );
