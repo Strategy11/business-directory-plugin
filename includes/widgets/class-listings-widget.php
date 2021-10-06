@@ -195,11 +195,15 @@ class WPBDP_Listings_Widget extends WP_Widget {
                 $image_link = '<a href="' . get_permalink( $post->ID ) . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
             } else if ( $default_image ) {
                 $size_class = $img_size;
+                $attribute = "";
                 if ( is_array( $size_class ) ) {
+                    $width = $size_class[0] . 'px';
+                    $height = $size_class[1] . 'px';
                     $size_class = implode( 'x', $size_class );
+                    $attribute = "width='$width' height='$height'";
                 }
                 $class = "attachment-$size_class size-$size_class listing-image";
-                $image_link = '<a href="' . get_permalink( $post->ID ) . '"><img src="' .WPBDP_ASSETS_URL. 'images/default-image-big.gif" class="' . $class . '" /></a>';
+                $image_link = '<a href="' . get_permalink( $post->ID ) . '"><img src="' .WPBDP_ASSETS_URL. 'images/default-image-big.gif" class="' . $class . '" ' . $attribute . ' /></a>';
             }
         }
         return apply_filters( 'wpbdp_listings_widget_render_image', $image_link, $listing );
