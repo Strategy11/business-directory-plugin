@@ -10,9 +10,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 	public function __construct( $name, $description = '' ) {
 		parent::__construct( false, $name, array( 'description' => $description ) );
-
-		$this->defaults['title']              = str_replace( array( 'WPBDP', '_' ), array( '', ' ' ), get_class( $this ) );
-		$this->defaults['number_of_listings'] = 10;
+		$this->defaults['title'] = str_replace( array( 'WPBDP', '_' ), array( '', ' ' ), get_class( $this ) );
 	}
 
 	/**
@@ -22,7 +20,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 */
 	protected function defaults() {
 		return array(
-			'number_of_listings' => 10,
+			'number_of_listings' => 5,
 			'show_images'        => 0,
 			'default_image'      => 0,
 			'thumbnail_desktop'  => 'left',
@@ -186,7 +184,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$image_link = '';
 		if ( $args['show_images'] ) {
 			$img_size = 'wpbdp-thumb';
-			if ( $img_id = $listing->get_thumbnail_id() ) {
+			$img_id = $listing->get_thumbnail_id();
+			if ( $img_id ) {
 				$image_link = '<a href="' . $listing->get_permalink() . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
 			} elseif ( $args['default_image'] ) {
 				$class      = "attachment-$img_size size-$img_size listing-image";

@@ -18,7 +18,7 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
         printf( '<p><input id="%s" name="%s" type="checkbox" value="1" %s /> <label for="%s">%s</label></p>',
                 $this->get_field_id( 'random_order' ),
                 $this->get_field_name( 'random_order' ),
-                ( isset( $instance['random_order'] ) && $instance['random_order'] == 1 ) ? 'checked="checked"' : '',
+                ! empty( $instance['random_order'] ) ? 'checked="checked"' : '',
                 $this->get_field_id( 'random_order' ),
                 _x( 'Display listings in random order', 'widgets', 'business-directory-plugin' )
               );
@@ -26,7 +26,7 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
 
     public function update( $new, $old ) {
         $new = parent::update( $new, $old );
-        $new['random_order'] = ! empty( $new['random_order'] ) ? 1 : 0;
+        $new['random_order'] = ! empty( $new['random_order'] );
 
         return $new;
     }
@@ -38,7 +38,7 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
             "SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts}
              JOIN {$wpdb->prefix}wpbdp_listings lp ON lp.listing_id = {$wpdb->posts}.ID
              WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND lp.is_sticky = 1
-			 ORDER BY " . ( ( isset( $instance['random_order'] ) && $instance['random_order'] ) ? 'RAND()' : $wpdb->posts . '.post_date' ) .
+			 ORDER BY " . ( ! empty( $instance['random_order'] ) ? 'RAND()' : $wpdb->posts . '.post_date' ) .
 			 ' LIMIT %d',
             'publish', WPBDP_POST_TYPE, $instance['number_of_listings'] );
         $featured = $wpdb->get_col( $q );
