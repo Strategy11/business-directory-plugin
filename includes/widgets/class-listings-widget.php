@@ -145,12 +145,11 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			)
 		);
 
-		$show_images        = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
-		$default_image      = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
-		$comming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
-		$img_size           = 'wpbdp-thumb';
+		$show_images       = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
+		$default_image     = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
+		$coming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
 		foreach ( $items as $post ) {
-			$html[] = $this->render_item( $post, $instance, $show_images, $default_image, $img_size, $comming_soon_image, $html_class );
+			$html[] = $this->render_item( $post, $show_images, $default_image, $coming_soon_image, $html_class );
 		}
 
 		return join( "\n", $html );
@@ -167,11 +166,11 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		return $css_class;
 	}
 
-	private function render_item( $post, $instance, $show_images, $default_image, $img_size, $comming_soon_image, $html_class ) {
+	private function render_item( $post, $show_images, $default_image, $coming_soon_image, $html_class ) {
 		$output        = '';
 		$listing       = wpbdp_get_listing( $post->ID );
-		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
-		$html_image    = $this->render_image( $show_images, $default_image, $listing, $post, $img_size, $comming_soon_image );
+		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', $listing->get_permalink(), $listing->get_title() );
+		$html_image    = $this->render_image( $show_images, $default_image, $listing, $coming_soon_image );
 
 		if ( ! empty( $html_image ) ) {
 			$template = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container wpbdp-clearfix"><div class="wpbdp-listings-widget-thumb wpbdp-clearfix">%2$s</div><div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></div></li>';
@@ -183,14 +182,15 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		return sprintf( $template, $html_class, $html_image, $listing_title );
 	}
 
-	private function render_image( $show_images, $default_image, $listing, $post, $img_size, $comming_soon_image ) {
+	private function render_image( $show_images, $default_image, $listing, $coming_soon_image ) {
 		$image_link = '';
 		if ( $show_images ) {
+			$img_size = 'wpbdp-thumb';
 			if ( $img_id = $listing->get_thumbnail_id() ) {
-				$image_link = '<a href="' . get_permalink( $post->ID ) . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
+				$image_link = '<a href="' . $listing->get_permalink() . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
 			} elseif ( $default_image ) {
 				$class      = "attachment-$img_size size-$img_size listing-image";
-				$image_link = '<a href="' . get_permalink( $post->ID ) . '"><img src="' . $comming_soon_image . '" class="' . $class . '" /></a>';
+				$image_link = '<a href="' . $listing->get_permalink() . '"><img src="' . $coming_soon_image . '" class="' . $class . '" /></a>';
 			}
 		}
 		return apply_filters( 'wpbdp_listings_widget_render_image', $image_link, $listing );
