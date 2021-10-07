@@ -145,10 +145,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			)
 		);
 
-		$show_images   = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
-		$default_image = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
+		$show_images        = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
+		$default_image      = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
 		$comming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
-		$img_size = 'wpbdp-thumb';
+		$img_size           = 'wpbdp-thumb';
 		foreach ( $items as $post ) {
 			$html[] = $this->render_item( $post, $instance, $show_images, $default_image, $img_size, $comming_soon_image, $html_class );
 		}
