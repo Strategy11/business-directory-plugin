@@ -23,31 +23,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</p>
 	<div class="thumbnail-width-config <?php echo esc_attr( $class_name ); ?>">
 		<p>
-			<input id="<?php echo esc_attr( $this->get_field_id( 'default_image' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'default_image' ) ); ?>" type="checkbox" value="1" <?php checked( $this->get_field_value( $instance, 'default_image' ), true ); ?> /> <label for="<?php echo esc_attr( $this->get_field_id( 'default_image' ) ); ?>"><?php esc_html_e( 'Show "No Image" PNG when listing has no picture (improves layout).', 'business-directory-plugin' ); ?></label>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'default_image' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'default_image' ) ); ?>" type="checkbox" value="1" <?php checked( $this->get_field_value( $instance, 'default_image' ), true ); ?> />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'default_image' ) ); ?>">
+				<?php esc_html_e( 'Use "Coming Soon" photo for listings without an image?', 'business-directory-plugin' ); ?>
+			</label>
 		</p>
-		<p><strong><?php esc_html_e( 'Position of the thumbnail (Desktop):', 'business-directory-plugin' ); ?></strong></p>
 		<p>
-			<input type="radio" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop_above' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_desktop' ) ); ?>" value="above" <?php checked( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'above' ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop_above' ) ); ?>"><?php esc_html_e( 'Above the listing text.', 'business-directory-plugin' ); ?></label>
-			<br/>
-			<input type="radio" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop_left' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_desktop' ) ); ?>" value="left" <?php checked( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'left' ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop_left' ) ); ?>"><?php esc_html_e( 'To the left of the listing text.', 'business-directory-plugin' ); ?></label>
-			<br/>
-			<input type="radio" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop_right' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_desktop' ) ); ?>" value="right" <?php checked( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'right' ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop_right' ) ); ?>"><?php esc_html_e( 'To the right of the listing text.', 'business-directory-plugin' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop' ) ); ?>">
+				<?php esc_html_e( 'Thumbnail Position (Desktop):', 'business-directory-plugin' ); ?>
+			</label><br/>
+			<select name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_desktop' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop' ) ); ?>">
+				<option value="above" <?php selected( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'above' ); ?>><?php esc_html_e( 'Top', 'business-directory-plugin' ); ?></option>
+				<option value="left" <?php selected( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'left' ); ?>><?php esc_html_e( 'Left', 'business-directory-plugin' ); ?></option>
+				<option value="right" <?php selected( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'right' ); ?>><?php esc_html_e( 'Right', 'business-directory-plugin' ); ?></option>
+			</select>
 		</p>
 
-		<p><strong><?php echo __( 'Position of the thumbnail (mobile):', 'business-directory-plugin' ); ?></strong></p>
-		
 		<p>
-			<input type="radio" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile_above' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_mobile' ) ); ?>" value="above" <?php checked( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'above' ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile_above' ) ); ?>"><?php esc_html_e( 'Above the listing text.', 'business-directory-plugin' ); ?></label>
-			<br/>
-			<input type="radio" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile_left' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_mobile' ) ); ?>" value="left" <?php checked( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'left' ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile_left' ) ); ?>"><?php esc_html_e( 'To the left of the listing text.', 'business-directory-plugin' ); ?></label>
-			<br/>
-			<input type="radio" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile_right' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_mobile' ) ); ?>" value="right" <?php checked( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'right' ); ?> />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile_right' ) ); ?>"><?php esc_html_e( 'To the right of the listing text.', 'business-directory-plugin' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile' ) ); ?>">
+				<?php esc_html_e( 'Thumbnail Position (Mobile):', 'business-directory-plugin' ); ?>
+			</label><br/>
+			<select name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_mobile' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile' ) ); ?>">
+				<option value="above" <?php selected( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'above' ); ?>><?php esc_html_e( 'Top', 'business-directory-plugin' ); ?></option>
+				<option value="left" <?php selected( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'left' ); ?>><?php esc_html_e( 'Left', 'business-directory-plugin' ); ?></option>
+				<option value="right" <?php selected( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'right' ); ?>><?php esc_html_e( 'Right', 'business-directory-plugin' ); ?></option>
+			</select>
 		</p>
 	</div>
 
