@@ -25,8 +25,6 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			'number_of_listings' => 10,
 			'show_images'        => 0,
 			'default_image'      => 0,
-			'thumbnail_width'    => '',
-			'thumbnail_height'   => '',
 			'thumbnail_desktop'  => 'left',
 			'thumbnail_mobile'   => 'above',
 		);
@@ -80,8 +78,6 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$instance['show_images']        = ! empty( $new['show_images'] ) ? 1 : 0;
 
 		if ( $instance['show_images'] ) {
-			$instance['thumbnail_width']   = max( intval( $new['thumbnail_width'] ), 0 );
-			$instance['thumbnail_height']  = max( intval( $new['thumbnail_height'] ), 0 );
 			$instance['default_image']     = ! empty( $new['default_image'] ) ? 1 : 0;
 			$instance['thumbnail_desktop'] = sanitize_text_field( $new['thumbnail_desktop'] );
 			$instance['thumbnail_mobile']  = sanitize_text_field( $new['thumbnail_mobile'] );
@@ -150,15 +146,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		);
 
 		$show_images   = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
-		$thumb_w       = isset( $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : 0;
-		$thumb_h       = isset( $instance['thumbnail_height'] ) ? $instance['thumbnail_height'] : 0;
 		$default_image = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
 
 		$img_size = 'wpbdp-thumb';
-		if ( $show_images && ( $thumb_w > 0 || $thumb_h > 0 ) ) {
-			$img_size = array( $thumb_w, $thumb_h );
-		}
-
 		foreach ( $items as $post ) {
 			$html[] = $this->render_item( $post, $instance, $show_images, $default_image, $img_size, $html_class );
 		}
@@ -199,16 +189,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			if ( $img_id = $listing->get_thumbnail_id() ) {
 				$image_link = '<a href="' . get_permalink( $post->ID ) . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
 			} elseif ( $default_image ) {
-				$size_class = $img_size;
-				$attribute  = '';
-				if ( is_array( $size_class ) ) {
-					$width      = $size_class[0] . 'px';
-					$height     = $size_class[1] . 'px';
-					$size_class = implode( 'x', $size_class );
-					$attribute  = "width='$width' height='$height'";
-				}
-				$class      = "attachment-$size_class size-$size_class listing-image";
-				$image_link = '<a href="' . get_permalink( $post->ID ) . '"><img src="' . WPBDP_ASSETS_URL . 'images/default-image-big.gif" class="' . $class . '" ' . $attribute . ' /></a>';
+				$class      = "attachment-$img_size size-$img_size listing-image";
+				$image_link = '<a href="' . get_permalink( $post->ID ) . '"><img src="' . WPBDP_ASSETS_URL . 'images/default-image-big.gif" class="' . $class . '" /></a>';
 			}
 		}
 		return apply_filters( 'wpbdp_listings_widget_render_image', $image_link, $listing );
