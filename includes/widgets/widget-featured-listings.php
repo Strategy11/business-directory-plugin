@@ -26,7 +26,7 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
 
     public function update( $new, $old ) {
         $new = parent::update( $new, $old );
-        $new['random_order'] = intval( $new['random_order'] ) == 1 ? 1 : 0;
+        $new['random_order'] = ! empty( $new['random_order'] ) ? 1 : 0;
 
         return $new;
     }
