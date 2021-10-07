@@ -70,21 +70,21 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 	public function form( $instance ) {
 		$instance = $this->instance_defaults( $instance );
-		require_once WPBDP_INC . 'views/widget/widget-settings.php';
+		require WPBDP_INC . 'views/widget/widget-settings.php';
 	}
 
 	public function update( $new, $old ) {
 		$instance                       = $old;
-		$instance['title']              = isset( $new['title'] ) ? strip_tags( $new['title'] ) : strip_tags( $old['title'] );
-		$instance['number_of_listings'] = isset( $new['number_of_listings'] ) ? max( intval( $new['number_of_listings'] ), 1 ) : $old['number_of_listings'];
-		$instance['show_images']        = isset( $new['show_images'] ) && intval( $new['show_images'] ) == 1 ? 1 : 0;
+		$instance['title']              = strip_tags( $new['title'] );
+		$instance['number_of_listings'] = max( intval( $new['number_of_listings'] ), 1 );
+		$instance['show_images']        = ! empty( $new['show_images'] ) ? 1 : 0;
 
 		if ( $instance['show_images'] ) {
-			$instance['thumbnail_width']   = isset( $new['thumbnail_width'] ) ? max( intval( $new['thumbnail_width'] ), 0 ) : $old['thumbnail_width'];
-			$instance['thumbnail_height']  = isset( $new['thumbnail_height'] ) ? max( intval( $new['thumbnail_height'] ), 0 ) : $old['thumbnail_height'];
-			$instance['default_image']     = isset( $new['default_image'] ) && intval( $new['default_image'] ) == 1 ? 1 : 0;
-			$instance['thumbnail_desktop'] = isset( $new['thumbnail_desktop'] ) ? sanitize_text_field( $new['thumbnail_desktop'] ) : $old['thumbnail_desktop'];
-			$instance['thumbnail_mobile']  = isset( $new['thumbnail_mobile'] ) ? sanitize_text_field( $new['thumbnail_mobile'] ) : $old['thumbnail_mobile'];
+			$instance['thumbnail_width']   = max( intval( $new['thumbnail_width'] ), 0 );
+			$instance['thumbnail_height']  = max( intval( $new['thumbnail_height'] ), 0 );
+			$instance['default_image']     = ! empty( $new['default_image'] ) ? 1 : 0;
+			$instance['thumbnail_desktop'] = sanitize_text_field( $new['thumbnail_desktop'] );
+			$instance['thumbnail_mobile']  = sanitize_text_field( $new['thumbnail_mobile'] );
 		}
 
 		return $instance;
