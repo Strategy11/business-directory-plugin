@@ -1,42 +1,26 @@
 .thumbnail_by_the_side() {
-    .wpbdp-listings-widget-container {
-        flex-direction: row;
-        flex-wrap: wrap;
+	flex-direction: row;
+	flex-wrap: wrap;
 
-        .wpbdp-listings-widget-thumb {
-            order: 1;
-            width: 50%;
-        }
-
-        .wpbdp-listings-widget-item--title-and-content {
-            order: 2;
-            width: 50%;
-        }
-    }
+	.wpbdp-listings-widget-thumb {
+		width: 33%;
+	}
 }
 
 .thumbnail_on_right_side() {
-    .wpbdp-listings-widget-thumb {
-        order: 2;
-    }
-
-    .wpbdp-listings-widget-item--title-and-content {
-        order: 1;
-    }
+	flex-direction: row-reverse;
 }
 
 .thumbnail_above() {
     flex-direction: column;
+	text-align: center;
 
     .wpbdp-listings-widget-thumb {
-        margin: 0 0 4px;
         width: 100%;
-    }
-}
 
-.no_thumbnail() {
-    .wpbdp-listings-widget-item--title-and-content {
-        width: 100%;
+		img{
+			width: 100%;
+		}
     }
 }
 
@@ -59,44 +43,42 @@
 
     .wpbdp-listings-widget-item {
         margin-bottom: 15px;
+	}
 
-        .wpbdp-listings-widget-container {
-            display: flex;
+	.wpbdp-listings-widget-container {
+		display: flex;
+		gap: 10px;
+	}
 
-            .wpbdp-listings-widget-thumb, .wpbdp-listings-widget-item--title-and-content, .wpbdp-widget-read-more-container {
-                box-sizing: border-box;
-                flex: 0 0 auto;
-            }
+	.wpbdp-listings-widget-thumb, .wpbdp-listings-widget-item--title-and-content {
+		box-sizing: border-box;
+		flex: 0 0 auto;
+	}
 
-            .wpbdp-listings-widget-item--title-and-content {
-                padding: 4px;
-            }
+	.wpbdp-listings-widget-item--title-and-content {
+		flex-grow: 1;
+	}
 
-        }
+	.wpbdp-listings-widget-thumb {
+		margin: 0;
 
-        .wpbdp-listings-widget-thumb {
-            margin: 0;
+		a {
+			display: block !important;
+			margin: 0 auto !important;
+			position: relative;
+			width: 100%;
+		}
 
-            a {
-                display: block !important;
-                margin: 0 auto !important;
-                position: relative;
-                width: 100%;
+		img {
+			height: auto;
+			max-width: 100%;
+			margin: 0 auto;
+		}
+	}
 
-                img {
-                    height: auto;
-                    max-width: 100%;
-                    width: 33%;
-                    margin: 0 auto;
-                }
-            }
-        }
-
-        .wpbdp-listing-title {
-            font-weight: bold;
-        }
-
-    }
+	.wpbdp-listing-title {
+		font-weight: bold;
+	}
 
     .wpbdp-listings-widget-item-with-left-thumbnail-in-desktop, .wpbdp-listings-widget-item-with-right-thumbnail-in-desktop {
         .thumbnail_by_the_side();
@@ -108,10 +90,6 @@
 
     .wpbdp-listings-widget-item-with-thumbnail-above-in-desktop .wpbdp-listings-widget-container {
         .thumbnail_above();
-    }
-
-    .wpbdp-listings-widget-item-without-thumbnail .wpbdp-listings-widget-container {
-        .no_thumbnail();
     }
 }
 
@@ -127,10 +105,6 @@
     
         .wpbdp-listings-widget-item-with-thumbnail-above-in-mobile .wpbdp-listings-widget-container {
             .thumbnail_above();
-        }
-    
-        .wpbdp-listings-widget-item-without-thumbnail .wpbdp-listings-widget-container {
-            .no_thumbnail();
         }
     }
 }

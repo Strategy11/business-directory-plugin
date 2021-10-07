@@ -33,9 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php esc_html_e( 'Thumbnail Position (Desktop):', 'business-directory-plugin' ); ?>
 			</label><br/>
 			<select name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_desktop' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop' ) ); ?>">
-				<option value="above" <?php selected( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'above' ); ?>><?php esc_html_e( 'Top', 'business-directory-plugin' ); ?></option>
 				<option value="left" <?php selected( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'left' ); ?>><?php esc_html_e( 'Left', 'business-directory-plugin' ); ?></option>
 				<option value="right" <?php selected( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'right' ); ?>><?php esc_html_e( 'Right', 'business-directory-plugin' ); ?></option>
+				<option value="above" <?php selected( $this->get_field_value( $instance, 'thumbnail_desktop' ), 'above' ); ?>><?php esc_html_e( 'Top', 'business-directory-plugin' ); ?></option>
 			</select>
 		</p>
 
@@ -44,9 +44,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php esc_html_e( 'Thumbnail Position (Mobile):', 'business-directory-plugin' ); ?>
 			</label><br/>
 			<select name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_mobile' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_mobile' ) ); ?>">
-				<option value="above" <?php selected( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'above' ); ?>><?php esc_html_e( 'Top', 'business-directory-plugin' ); ?></option>
 				<option value="left" <?php selected( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'left' ); ?>><?php esc_html_e( 'Left', 'business-directory-plugin' ); ?></option>
 				<option value="right" <?php selected( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'right' ); ?>><?php esc_html_e( 'Right', 'business-directory-plugin' ); ?></option>
+				<option value="above" <?php selected( $this->get_field_value( $instance, 'thumbnail_mobile' ), 'above' ); ?>><?php esc_html_e( 'Top', 'business-directory-plugin' ); ?></option>
 			</select>
 		</p>
 	</div>
