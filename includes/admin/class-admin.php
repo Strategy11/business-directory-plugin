@@ -1078,7 +1078,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             if ( ! $message ) {
                 return;
             }
-            $this->messages[] = array( $message, 'notice' );
+            $this->messages[] = array( $message, 'notice dismissible', array( 'dismissible-id' => 'plugin_rating' ) );
         }
 
         /**
