@@ -356,10 +356,6 @@ form#wpbdmsearchform a.advanced-search-link {
     }
 }
 
-.wpbdp-listing-contact-form .send-message-button {
-    margin-left: -10px;
-}
-
 .wpbdp-listing-contact-form textarea {
     width: 100%;
 }
@@ -511,8 +507,8 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 #wpbdp-delete-listing-page input.delete-listing-confirm {
-    margin-left: 20px;
-    color: #c00;
+	margin-right: 20px;
+	background: @red;
 }
 
 .wpbdp-scroll-box {
@@ -605,11 +601,9 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 /* }} */
 
 /* {{ Mobile CSS. */
+a.wpbdp-show-on-mobile,
+input[type="button"].wpbdp-show-on-mobile,
 .wpbdp-show-on-mobile {
-    display: none;
-}
-
-input[type="button"].wpbdp-show-on-mobile {
     display: none;
 }
 
@@ -620,10 +614,6 @@ input[type="button"].wpbdp-show-on-mobile {
 
     input[type="button"].wpbdp-hide-on-mobile {
         display: none;
-    }
-
-    input[type="button"].wpbdp-show-on-mobile {
-        //padding: 1em 2em;
     }
 
     .wpbdp-hide-on-mobile {
