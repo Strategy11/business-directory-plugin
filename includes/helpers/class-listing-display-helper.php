@@ -322,7 +322,7 @@ class WPBDP_Listing_Display_Helper {
 	 * @since 5.12
 	 * @return string
 	 */
-	private static function get_coming_soon_image() {
+	public static function get_coming_soon_image() {
 		return self::get_image_option( 'listings-coming-soon-image' );
 	}
 
