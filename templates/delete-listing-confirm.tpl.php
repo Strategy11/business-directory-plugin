@@ -22,7 +22,7 @@
 <?php wp_nonce_field( 'delete listing ' . $listing->get_id() ); ?>
 
 <input class="delete-listing-confirm wpbdp-submit button wpbdp-button" type="submit" value="<?php esc_attr_e( 'Yes. Delete my listing.', 'business-directory-plugin' ); ?>" />
-<a href="<?php echo esc_url_raw( wpbdp_get_page_link( 'main') ); ?>"><?php esc_html_e( 'No. Take me back to the directory.', 'business-directory-plugin' ); ?></a>
+<a href="<?php echo esc_url( wpbdp_get_page_link( 'main') ); ?>"><?php esc_html_e( 'No. Take me back to the directory.', 'business-directory-plugin' ); ?></a>
 </form>
 
 </div>
