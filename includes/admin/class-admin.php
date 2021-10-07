@@ -76,6 +76,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
 
             add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
+            add_action( 'wpbdp_admin_ajax_dismiss_notification_plugin_rating', array( $this, 'ajax_dismiss_notification_plugin_rating' ) );
 
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
@@ -1079,6 +1080,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
             $this->messages[] = array( $message, 'notice dismissible', array( 'dismissible-id' => 'plugin_rating' ) );
+        }
+
+        public function ajax_dismiss_notification_plugin_rating() {
+            WPBDP_Reviews::instance()->dismiss_review();
         }
 
         /**

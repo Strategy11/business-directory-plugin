@@ -25,9 +25,39 @@ class WPBDP_Reviews {
 		return self::$instance;
 	}
 
+	/**
+	 * Add admin notices as needed for reviews
+	 */
+	public function review_request() {
+
+		// Only show the review request to high-level users on business directory pages
+		if ( ! current_user_can( 'administrator' ) || ! WPBDP_App_Helper::is_directory_admin() ) {
+			return false;
+		}
+
+		// Verify that we can do a check for reviews
+		$this->set_review_status();
+
+		// Check if it has been dismissed or if we can ask later
+		$dismissed = $this->review_status['dismissed'];
+		if ( $dismissed === 'later' && $this->review_status['asked'] < 3 ) {
+			$dismissed = false;
+		}
+
+		$week_ago = ( $this->review_status['time'] + WEEK_IN_SECONDS ) <= time();
+
+		if ( empty( $dismissed ) && $week_ago ) {
+			return $this->review();
+		}
+		return false;
+	}
+
+	/**
+	 * When was the review request last dismissed?
+	 */
 	private function set_review_status() {
 		$user_id = get_current_user_id();
-		$review  = get_option( $this->option_name );
+		$review  = get_user_meta( $user_id, $this->option_name, true );
 		$default = array(
 			'time'      => time(),
 			'dismissed' => false,
@@ -45,54 +75,31 @@ class WPBDP_Reviews {
 	}
 
 	/**
-	 * Add admin notices as needed for reviews
-	 */
-	public function review_request() {
-
-		// Only show the review request to high-level users on business directory pages
-		if ( ! current_user_can( 'administrator' ) || ! WPBDP_App_Helper::is_directory_admin() ) {
-			return false;
-		}
-
-		$this->set_review_status();
-
-		$dismissed = $this->review_status['dismissed'];
-		if ( $dismissed === 'done' ) {
-			return false;
-		}
-
-		if ( $dismissed === 'later' && $this->review_status['asked'] < 3 ) {
-			$dismissed = false;
-		}
-
-		$week_ago = ( $this->review_status['time'] + WEEK_IN_SECONDS ) <= time();
-
-		if ( empty( $dismissed ) && $week_ago ) {
-			return $this->review();
-		}
-		return false;
-	}
-
-
-	/**
 	 * Maybe show review request
 	 */
-	private function get_review() {
+	private function review() {
 
 		// show the review request 3 times, depending on the number of entries
 		$show_intervals = array( 50, 200, 500 );
 		$asked          = $this->review_status['asked'];
 
 		if ( ! isset( $show_intervals[ $asked ] ) ) {
-			return false;
-		}
-
-		if ( $entries < 3 ) {
-			return false;
+			return;
 		}
 
 		$entries = WPBDP_Listing::count_listings();
+		$count   = $show_intervals[ $asked ];
 		$user    = wp_get_current_user();
+
+		// Only show review request if the site has collected enough entries
+		if ( $entries < $count ) {
+			// check the entry count again in a week
+			$this->review_status['time'] = time();
+			update_option( $this->option_name, $this->review_status, 'no' );
+
+			return;
+		}
+
 		if ( $entries <= 100 ) {
 			// round to the nearest 10
 			$entries = floor( $entries / 10 ) * 10;
@@ -116,21 +123,33 @@ class WPBDP_Reviews {
 	}
 
 	private function get_message( $title, $name, $asked ) {
-		$message = str_replace( $name, '', $title );
-		$message .= '<br />';
-		$message .= __( 'If you are enjoying Business Directory Plugin, could you do me a BIG favor and give us a review to help me grow my little business and boost our motivation?', 'business-directory-plugin' );
-		$message .= '- Steph Wells<br/>';
-		$message .= '<span>' . esc_html__( 'Co-Founder and CTO of Business Directory Plugin', 'business-directory-plugin' ) . '<span>';
-		$message .= '<a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" class="wpbdp-dismiss-review-notice wpbdp-review-out button-secondary wpbdp-button-secondary" data-link="yes" target="_blank" rel="noopener noreferrer">' .
-		esc_html__( 'Ok, you deserve it', 'business-directory-plugin' ) . '</a>';
-		return $message;
+		return array(
+			'key'     => $key,
+			'message' => __( 'If you are enjoying Business Directory Plugin, could you do me a BIG favor and give us a review to help me grow my little business and boost our motivation?', 'business-directory-plugin' ) . '<br/>' .
+				'- Steph Wells<br/>' .
+				'<span>' . esc_html__( 'Co-Founder and CTO of Business Directory Plugin', 'business-directory-plugin' ) . '<span>',
+			'subject' => str_replace( $name, '', $title ),
+			'cta'     => '<a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" class="wpbdp-dismiss-review-notice wpbdp-review-out button-secondary wpbdp-button-secondary" data-link="yes" target="_blank" rel="noopener noreferrer">' .
+				esc_html__( 'Ok, you deserve it', 'business-directory-plugin' ) . '</a>',
+			'type'    => 'feedback',
+		);
 	}
 
+	/**
+	 * If there are already later requests, don't add it to the inbox again.
+	 *
+	 * @since 4.05.02
+	 */
+	private function has_later_request( $requests, $asked ) {
+		return isset( $requests[ $this->inbox_key . ( $asked + 1 ) ] ) || isset( $requests[ $this->inbox_key . ( $asked + 2 ) ] );
+	}
 
 	/**
 	 * Save the request to hide the review
 	 */
 	public function dismiss_review() {
+		check_admin_referer( 'frm_ajax', 'nonce' );
+
 		$review  = get_option( $this->option_name, array() );
 		if ( empty( $review ) ) {
 			$review = array();
