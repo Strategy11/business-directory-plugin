@@ -130,7 +130,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	}
 
 	private function render_empty_widget( $html_class ) {
-		return sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', $html_class, __( 'There are currently no listings to show.', 'business-directory-plugin' ) );
+		return wp_kses_post( sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', $html_class, __( 'There are currently no listings to show.', 'business-directory-plugin' ) ) );
 	}
 
 	private function render_widget( $items, $instance, $html_class ) {
@@ -177,8 +177,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		}
 		$template .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></div></li>';
 		$args['image'] = $html_image;
-		$output = wp_kses_post( sprintf( $template, $args['html_class'], $html_image, $listing_title ) );
-		return apply_filters( 'wpbdp_listing_widget_item', $output, $args );
+		$output = sprintf( $template, $args['html_class'], $html_image, $listing_title );
+		return apply_filters( 'wpbdp_listing_widget_item', wp_kses_post( $output ), $args );
 	}
 
 	private function render_image( $listing, $args ) {
