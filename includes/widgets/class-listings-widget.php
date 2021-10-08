@@ -184,12 +184,14 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	private function render_image( $listing, $args ) {
 		$image_link = '';
 		if ( $args['show_images'] ) {
+			$img_size = 'medium';
 			$img_id = $listing->get_thumbnail_id();
 			$permalink = esc_url( $listing->get_permalink() );
 			if ( $img_id ) {
-				$image_link = '<a href="' . $permalink . '">' . wp_kses_post( wp_get_attachment_image( $img_id, '', false, array( 'class' => 'listing-image' ) ) ). '</a>';
+				$image_link = '<a href="' . $permalink . '">' . wp_kses_post( wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) ). '</a>';
 			} elseif ( $args['default_image'] ) {
-				$image_link = '<a href="' . $permalink . '"><img src="' . wp_kses_post( $args['coming_soon_image'] ) . '" class="attachment listing-image" /></a>';
+				$class      = "attachment-$img_size size-$img_size listing-image";
+				$image_link = '<a href="' . $permalink . '"><img src="' . wp_kses_post( $args['coming_soon_image'] ) . '" class="' . $class . '" /></a>';
 			} else {
 				// For image spacing.
 				$image_link = '<span></span>';
