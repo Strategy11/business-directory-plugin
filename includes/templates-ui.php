@@ -330,7 +330,7 @@ function wpbdp_main_links( $buttons = null ) {
 			'</a>';
     }
 
-    if ( ! $html ) {
+    if ( empty( $html ) ) {
         return '';
     }
 
