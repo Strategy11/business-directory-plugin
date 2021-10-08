@@ -166,7 +166,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 	private function render_item( $post, $args ) {
 		$listing       = wpbdp_get_listing( $post->ID );
-		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', $listing->get_permalink(), $listing->get_title() );
+		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
 		$html_image    = $this->render_image( $listing, $args );
 
 		$template = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
@@ -176,10 +176,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			$args['html_class'] .= ' wpbdp-listings-widget-item-without-thumbnail';
 		}
 		$template .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></div></li>';
-
-		$output = sprintf( $template, $args['html_class'], $html_image, $listing_title );
 		$args['image'] = $html_image;
-		return apply_filters( 'wpbdp_widget_item', $output, $args );
+		$output = wp_kses_post( sprintf( $template, $args['html_class'], $html_image, $listing_title ) );
+		return apply_filters( 'wpbdp_listing_widget_item', $output, $args );
 	}
 
 	private function render_image( $listing, $args ) {
@@ -187,17 +186,18 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		if ( $args['show_images'] ) {
 			$img_size = 'wpbdp-thumb';
 			$img_id = $listing->get_thumbnail_id();
+			$permalink = esc_url( $listing->get_permalink() );
 			if ( $img_id ) {
-				$image_link = '<a href="' . $listing->get_permalink() . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
+				$image_link = '<a href="' . $permalink . '">' . wp_kses_post( wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) ). '</a>';
 			} elseif ( $args['default_image'] ) {
 				$class      = "attachment-$img_size size-$img_size listing-image";
-				$image_link = '<a href="' . $listing->get_permalink() . '"><img src="' . $args['coming_soon_image'] . '" class="' . $class . '" /></a>';
+				$image_link = '<a href="' . $permalink . '"><img src="' . wp_kses_post( $args['coming_soon_image'] ) . '" class="' . $class . '" /></a>';
 			} else {
 				// For image spacing.
 				$image_link = '<span></span>';
 			}
 		}
-		return apply_filters( 'wpbdp_listings_widget_render_image', $image_link, $listing );
+		return apply_filters( 'wpbdp_listings_widget_render_image', wp_kses_post( $image_link ), $listing );
 	}
 
 }
