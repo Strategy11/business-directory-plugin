@@ -519,13 +519,17 @@ class WPBDP__Shortcodes {
 
         $atts = shortcode_atts( array( 'number_of_listings' => wpbdp_get_option( 'listings-per-page' ) ), $atts );
         $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
+        $order_by = wpbdp_get_option( 'listings-order-by', 'date' );
+        $order = wpbdp_get_option( 'listings-sort', 'ASC' );
 
         $q = $wpdb->prepare(
             "SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts}
              JOIN {$wpdb->prefix}wpbdp_listings lp ON lp.listing_id = {$wpdb->posts}.ID
-			 WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND lp.is_sticky = 1 " . ( $atts['number_of_listings'] > 0 ? sprintf( 'LIMIT %d', $atts['number_of_listings'] ) : '' ),
+			 WHERE {$wpdb->posts}.post_status = %s AND {$wpdb->posts}.post_type = %s AND lp.is_sticky = 1 ORDER BY %s %s" . ( $atts['number_of_listings'] > 0 ? sprintf( 'LIMIT %d', $atts['number_of_listings'] ) : '' ),
             'publish',
-            WPBDP_POST_TYPE
+            WPBDP_POST_TYPE,
+            $order_by,
+            $order
         );
         $featured = $wpdb->get_col( $q );
 
