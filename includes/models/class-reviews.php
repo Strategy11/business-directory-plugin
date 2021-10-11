@@ -134,7 +134,7 @@ class WPBDP_Reviews {
 	public function dismiss_review() {
 		check_admin_referer( 'wpbdp_dismiss_review' );
 
-		$review  = get_user_meta( $user_id, $this->option_name, true );
+		$review = get_user_meta( $user_id, $this->option_name, true );
 		if ( empty( $review ) ) {
 			$review = array();
 		}
@@ -145,7 +145,13 @@ class WPBDP_Reviews {
 			wp_die();
 		}
 
-		$dismissed           = wpbdp_get_var( array( 'param' => 'link', 'default' => 'no' ), 'post' );
+		$dismissed           = wpbdp_get_var(
+			array(
+				'param'   => 'link',
+				'default' => 'no',
+			),
+			'post'
+		);
 		$review['time']      = time();
 		$review['dismissed'] = $dismissed === 'done' ? true : 'later';
 		$review['asked']     = isset( $review['asked'] ) ? $review['asked'] + 1 : 1;
