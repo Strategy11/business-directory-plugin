@@ -40,12 +40,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             add_action( 'admin_init', array( $this, 'check_for_required_pages' ) );
 
-            add_action( 'admin_init', array( $this, 'check_for_rating' ) );
-
             add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
             add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+            add_action( 'admin_notices', array( $this, 'maybe_request_review' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_scripts' ) );
 
             // Adds admin menus.
@@ -76,7 +75,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
 
             add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
-            add_action( 'wpbdp_admin_ajax_dismiss_notification_plugin_rating', array( $this, 'ajax_dismiss_notification_plugin_rating' ) );
 
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
@@ -1072,20 +1070,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         /**
-         * Check rating
+         * Request review
          */
-        public function check_for_rating() {
-            $message = WPBDP_Reviews::instance()->review_request();
-            if ( ! $message ) {
-                return;
-            }
-            $this->messages[] = array( $message, 'notice dismissible', array( 'dismissible-id' => 'plugin_rating' ) );
+        public function maybe_request_review() {
+            WPBDP_Reviews::instance()->review_request();
         }
-
-        public function ajax_dismiss_notification_plugin_rating() {
-            WPBDP_Reviews::instance()->dismiss_review();
-        }
-
+        
         /**
          * @since 3.6.10
          */

@@ -118,22 +118,10 @@ class WPBDP_Reviews {
 			esc_html( $name ),
 			absint( $entries )
 		);
-
-		return $this->get_message( $title, $name, $asked );
+		
+		include WPBDP_PATH . 'includes/admin/views/review.php';
 	}
 
-	private function get_message( $title, $name, $asked ) {
-		return array(
-			'key'     => $key,
-			'message' => __( 'If you are enjoying Business Directory Plugin, could you do me a BIG favor and give us a review to help me grow my little business and boost our motivation?', 'business-directory-plugin' ) . '<br/>' .
-				'- Steph Wells<br/>' .
-				'<span>' . esc_html__( 'Co-Founder and CTO of Business Directory Plugin', 'business-directory-plugin' ) . '<span>',
-			'subject' => str_replace( $name, '', $title ),
-			'cta'     => '<a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" class="wpbdp-dismiss-review-notice wpbdp-review-out button-secondary wpbdp-button-secondary" data-link="yes" target="_blank" rel="noopener noreferrer">' .
-				esc_html__( 'Ok, you deserve it', 'business-directory-plugin' ) . '</a>',
-			'type'    => 'feedback',
-		);
-	}
 
 	/**
 	 * If there are already later requests, don't add it to the inbox again.
