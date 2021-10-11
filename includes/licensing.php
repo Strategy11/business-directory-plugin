@@ -769,6 +769,8 @@ class WPBDP_Licensing {
     public function license_check() {
 		_deprecated_function( __METHOD__, '5.14' );
 
+		$last_license_check = get_site_transient( 'wpbdp-license-check-time' );
+
 		if ( ! empty( $last_license_check ) ) {
             return;
         }
