@@ -356,10 +356,6 @@ form#wpbdmsearchform a.advanced-search-link {
     }
 }
 
-.wpbdp-listing-contact-form .send-message-button {
-    margin-left: -10px;
-}
-
 .wpbdp-listing-contact-form textarea {
     width: 100%;
 }
@@ -511,8 +507,8 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 #wpbdp-delete-listing-page input.delete-listing-confirm {
-    margin-left: 20px;
-    color: #c00;
+	margin-right: 20px;
+	background: @red;
 }
 
 .wpbdp-scroll-box {
@@ -605,11 +601,9 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 /* }} */
 
 /* {{ Mobile CSS. */
+a.wpbdp-show-on-mobile,
+input[type="button"].wpbdp-show-on-mobile,
 .wpbdp-show-on-mobile {
-    display: none;
-}
-
-input[type="button"].wpbdp-show-on-mobile {
     display: none;
 }
 
@@ -732,10 +726,20 @@ body.business-directory #TB_secondLine {
     text-align: right;
 }
 
-.wpbdp-main-links .button {
+/*
+ * Buttons
+ */
+a.wpbdp-button {
+	white-space: nowrap;
+}
+
+.wpbdp-main-links .button,
+.wpbdp-main-links-large .button {
     margin: 0 3px 6px;
     font-size: 15px;
+	display: inline-block;
 }
+
 .wpbdp-main-links .button:first-child {
     margin-left: 0;
 }
@@ -754,6 +758,7 @@ body.business-directory #TB_secondLine {
 .wpbdp-main-links-small .button {
     width: 100%;
     margin: 0 0 4px;
+	text-align: center;
 }
 
 .wpbdp-main-links-small .wpbdp-main-links-2-buttons .button {
@@ -762,22 +767,20 @@ body.business-directory #TB_secondLine {
 .wpbdp-main-links-small .wpbdp-main-links-2-buttons .button:first-child {
     margin-right: 1%;
 }
-.wpbdp-main-links-small .wpbdp-main-links-2-buttons .button:last-child {
-    margin-left: 1%;
-}
-
-.wpbdp-main-links-small .wpbdp-main-links-3-buttons .button:nth-child(2n) {
-    width: 49%;
-    margin-top: 1%;
-    margin-right: 1%;
-}
-.wpbdp-main-links-small .wpbdp-main-links-3-buttons .button:nth-child(2n+3) {
-    width: 49%;
-    margin-top: 1%;
-    margin-left: 1%;
-}
 
 .wpbdp-with-button-styles {
+	.wpbdp-ratings-reviews input[type=submit],
+	.listing-actions a.button,
+	.wpbdp-main-box input[type=submit],
+	.wpbdp-button {
+		background: var(--bd-main-color);
+
+		&:hover{
+			opacity: .8;
+			background: var(--bd-main-color);
+		}
+	}
+
     .wpbdp-main-links-tiny .wpbdp-main-links .button {
         padding-top: 10px;
         padding-bottom: 10px;
