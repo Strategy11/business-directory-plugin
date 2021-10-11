@@ -32,7 +32,7 @@ class WPBDP_Reviews {
 
 		// Only show the review request to high-level users on business directory pages
 		if ( ! current_user_can( 'administrator' ) || ! WPBDP_App_Helper::is_directory_admin() ) {
-			return false;
+			return;
 		}
 
 		// Verify that we can do a check for reviews
@@ -47,9 +47,8 @@ class WPBDP_Reviews {
 		$week_ago = ( $this->review_status['time'] + WEEK_IN_SECONDS ) <= time();
 
 		if ( empty( $dismissed ) && $week_ago ) {
-			return $this->review();
+			$this->review();
 		}
-		return false;
 	}
 
 	/**
@@ -66,7 +65,7 @@ class WPBDP_Reviews {
 
 		if ( empty( $review ) ) {
 			// Set the review request to show in a week
-			update_option( $this->option_name, $default, 'no' );
+			update_user_meta( $user_id, $this->option_name, $default );
 		}
 
 		$review              = array_merge( $default, (array) $review );
@@ -95,7 +94,7 @@ class WPBDP_Reviews {
 		if ( $entries < $count ) {
 			// check the entry count again in a week
 			$this->review_status['time'] = time();
-			update_option( $this->option_name, $this->review_status, 'no' );
+			update_user_meta( $user->ID, $this->option_name, $this->review_status );
 
 			return;
 		}
@@ -135,14 +134,14 @@ class WPBDP_Reviews {
 	public function dismiss_review() {
 		check_admin_referer( 'wpbdp_dismiss_review' );
 
-		$review  = get_option( $this->option_name, array() );
+		$review  = get_user_meta( $user_id, $this->option_name, true );
 		if ( empty( $review ) ) {
 			$review = array();
 		}
 
 		if ( isset( $review['dismissed'] ) && $review['dismissed'] === 'done' ) {
 			// if feedback was submitted, don't update it again when the review is dismissed
-			update_option( $this->option_name, $review, 'no' );
+			update_user_meta( $user_id, $this->option_name, $review );
 			wp_die();
 		}
 
@@ -151,7 +150,7 @@ class WPBDP_Reviews {
 		$review['dismissed'] = $dismissed === 'done' ? true : 'later';
 		$review['asked']     = isset( $review['asked'] ) ? $review['asked'] + 1 : 1;
 
-		update_option( $this->option_name, $review, 'no' );
+		update_user_meta( $user_id, $this->option_name, $review );
 		wp_die();
 	}
 }
