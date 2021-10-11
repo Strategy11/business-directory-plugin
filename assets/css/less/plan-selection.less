@@ -27,25 +27,12 @@
 			margin-top: 15px;
 		    font-size: 20px;
 			border: 1px solid #f3f3f3;
-			border-color: var(--bd-main-color);
-			color: var(--bd-main-color);
-			border-radius: 2px;
 			display: block;
 			padding: 6px 12px;
-
-			&:hover {
-				background: var(--bd-main-color);
-				color: #fff;
-			}
 		}
 
 		input[type=radio] {
 		    display: none;
-		}
-
-		input[type=radio]:checked + label {
-			background: var(--bd-main-color);
-			color: #fff;
 		}
 	}
 
@@ -107,4 +94,26 @@
         }
     }
 
+}
+.wpbdp-with-button-styles {
+	.wpbdp-plan-info-box {
+		.wpbdp-plan-price {
+			label {
+				border-color: var(--bd-main-color);
+				color: var(--bd-main-color);
+				
+				&:hover {
+					color: #fff;
+				}
+				
+				&:hover {
+					background: var(--bd-main-color);
+				}
+			}
+			input[type=radio]:checked + label {
+				color: #fff;
+				background: var(--bd-main-color);
+			}
+		}
+	}
 }

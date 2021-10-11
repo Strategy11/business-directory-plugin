@@ -61,7 +61,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 					value="<?php echo esc_attr( $plan->id ); ?>"
 					<?php disabled( $disabled, true ); ?>
 					<?php echo $disabled ? '' : checked( absint( $plan->id ), absint( $selected ), false ); ?> />
-				<label for="wpbdp-plan-select-radio-<?php echo esc_attr( $plan->id ); ?>">
+				<label class="button" for="wpbdp-plan-select-radio-<?php echo esc_attr( $plan->id ); ?>">
 					<span>
 						<?php esc_html_e( 'Select', 'business-directory-plugin' ); ?>
 					</span>
