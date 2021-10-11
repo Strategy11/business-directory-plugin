@@ -999,11 +999,17 @@ class WPBDP_Licensing {
 				$updates[ $item_key ]->slug = $item['id'];
 
 				// Update the license status too.
+				if ( $item['id'] === 'business-directory-premium' ) {
+					// Handle premium from it's own updater.
+					continue;
+				}
+
 				$this->licenses[ $item_key ] = array(
 					'license_key'  => $item_information->license,
 					'status'       => $item_information->license_status,
 					'expires'      => isset( $item_information->expires ) ? $item_information->expires : '',
 					'last_checked' => time(),
+					'bundle'       => $item['item_type'] === 'module' && $item_information->bundle,
 				);
             }
         }
