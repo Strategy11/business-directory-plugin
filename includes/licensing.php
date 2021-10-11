@@ -31,6 +31,7 @@ class WPBDP_Licensing {
 
 		add_action( 'admin_init', array( &$this, 'add_modules_hooks' ) );
         add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'inject_update_info' ) );
+		add_filter( 'plugins_api', array( $this, 'module_update_information' ), 10, 3 );
 
 		$this->register_dismissable();
     }
@@ -1073,13 +1074,9 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * This function gets version numbers. It's duplicated in inject_update_info().
-	 *
-	 * @deprecated 5.14
+	 * Fill the info in the plugin details popup.
 	 */
     public function module_update_information( $data, $action = '', $args = null ) {
-		_deprecated_function( __METHOD__, '5.14' );
-
         if ( 'plugin_information' != $action || ! isset( $args->slug ) ) {
             return $data;
         }
