@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php esc_html_e( 'Yes!', 'business-directory-plugin' ); ?>
 		</a>
 	</div>
-	<div class="wpbdp-review-request wpbdp_hidden">
+	<div class="wpbdp-review-request hidden">
 		<p><?php esc_html_e( 'Awesome! Could you do me a BIG favor and give Business Directory Plugin a review to help me grow my little business and boost our motivation?', 'business-directory-plugin' ); ?></p>
 		<p>- Steph Wells<br/>
 			<span><?php esc_html_e( 'Co-Founder and CTO of Business Directory Plugin', 'business-directory-plugin' ); ?><span>
@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		jQuery.post( ajaxurl, {
 			action: 'wpbdp_dismiss_review',
 			link: link,
-			nonce: '<?php echo esc_html( wp_create_nonce( 'wpbdp_ajax' ) ); ?>'
+			nonce: '<?php echo esc_html( wp_create_nonce( 'wpbdp_dismiss_review' ) ); ?>'
 		} );
 	}
 </script>

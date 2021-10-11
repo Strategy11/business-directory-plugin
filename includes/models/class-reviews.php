@@ -108,17 +108,14 @@ class WPBDP_Reviews {
 			$entries = floor( $entries / 50 ) * 50;
 		}
 		$name = $user->first_name;
-		if ( ! empty( $name ) ) {
-			$name = ' ' . $name;
-		}
 
 		$title = sprintf(
 			/* translators: %s: User name, %2$d: number of entries */
-			esc_html__( 'Congratulations%1$s! You have collected %2$d form submissions.', 'business-directory-plugin' ),
+			esc_html__( 'Congratulations %1$s! You have collected %2$d listings.', 'business-directory-plugin' ),
 			esc_html( $name ),
 			absint( $entries )
 		);
-		
+
 		include WPBDP_PATH . 'includes/admin/views/review.php';
 	}
 
@@ -136,7 +133,7 @@ class WPBDP_Reviews {
 	 * Save the request to hide the review
 	 */
 	public function dismiss_review() {
-		check_admin_referer( 'frm_ajax', 'nonce' );
+		check_admin_referer( 'wpbdp_dismiss_review' );
 
 		$review  = get_option( $this->option_name, array() );
 		if ( empty( $review ) ) {

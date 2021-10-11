@@ -45,6 +45,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             add_action( 'admin_notices', array( $this, 'admin_notices' ) );
             add_action( 'admin_notices', array( $this, 'maybe_request_review' ) );
+            add_action( 'wp_ajax_wpbdp_dismiss_review', array( &$this, 'maybe_dismiss_review' ) );
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_scripts' ) );
 
             // Adds admin menus.
@@ -1075,7 +1077,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function maybe_request_review() {
             WPBDP_Reviews::instance()->review_request();
         }
-        
+
+        /**
+         * Dismiss review
+         */
+        public function maybe_dismiss_review() {
+            WPBDP_Reviews::instance()->dismiss_review();
+        }
+
         /**
          * @since 3.6.10
          */
