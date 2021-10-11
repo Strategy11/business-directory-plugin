@@ -152,7 +152,7 @@ class WPBDP_App_Helper {
 	 */
 	public static function is_directory_admin() {
 		$screen = get_current_screen();
-		return ( strpos( $screen->id , 'wpbdp' ) === 0 );
+		return ( strpos( $screen->id , 'wpbdp' ) !== false );
 	}
 
 	/**
