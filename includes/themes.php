@@ -150,7 +150,7 @@ class WPBDP_Themes {
                 $deps   = array();
             }
 
-            wp_enqueue_script( $handle, $source, $deps, $theme->version );
+            wp_enqueue_script( $handle, $source, $deps, $theme->version, true );
         }
 
         $this->call_theme_function( 'enqueue_scripts' );

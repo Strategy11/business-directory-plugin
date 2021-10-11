@@ -20,7 +20,8 @@ class WPBDP__Admin__Controller {
                 'wpbdp-' . $this->controller_id . '-js',
                 WPBDP_ASSETS_URL . 'js/admin-' . $this->controller_id . '.js',
                 array( 'wpbdp-admin-js' ),
-                WPBDP_VERSION
+                WPBDP_VERSION,
+				true
             );
         }
     }
