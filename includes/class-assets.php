@@ -75,18 +75,11 @@ class WPBDP__Assets {
 		wp_register_style( 'wpbdp-base-css', WPBDP_ASSETS_URL . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
 
         $custom_css = "
-                .wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]:checked + label span{
-                    visibility: hidden;
-                    position: relative;
+                .wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]+ label span:before{
+                    content: '" . esc_html__( 'Select', 'business-directory-plugin' ) . "';
                 }
-                .wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]:checked + label span:after{
+                .wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]:checked + label span:before{
                     content: '" . esc_html__( 'Selected', 'business-directory-plugin' ) . "';
-                    visibility: visible;
-                    position: absolute;
-                    width: 10px;
-                    left: 50%;
-                    top: -2px;
-                    margin-left: -30px;
                 }";
         wp_add_inline_style( 'wpbdp-base-css', $custom_css );
     }
