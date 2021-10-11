@@ -34,7 +34,8 @@ class WPBDP__Settings_Admin {
                 'wpbdp-admin-settings',
                 WPBDP_ASSETS_URL . 'js/admin-settings.js',
                 array(),
-                WPBDP_VERSION
+                WPBDP_VERSION,
+				true
             );
         }
     }
