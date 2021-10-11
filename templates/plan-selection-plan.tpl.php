@@ -62,9 +62,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 					<?php disabled( $disabled, true ); ?>
 					<?php echo $disabled ? '' : checked( absint( $plan->id ), absint( $selected ), false ); ?> />
 				<label class="button wpbdp-button" for="wpbdp-plan-select-radio-<?php echo esc_attr( $plan->id ); ?>">
-					<span>
-						
-					</span>
+					<span> </span>
 				</label>
 			<?php elseif ( empty( $editing ) && isset( $plans_count ) && 1 === $plans_count ) : ?>
 				<input type="hidden" name="<?php echo esc_attr( $field_name ); ?>" value="<?php echo esc_attr( $plan->id ); ?>">

@@ -416,34 +416,8 @@
 }
 
 .wpbdp-with-button-styles {
-	.wpbdp-checkout-submit input[type=submit],
-    .submit-next-button,
-    #wpbdp-submit-listing-submit-btn {
-        background: @default-color;
-        background: var(--bd-main-color);
-		border: 1px solid @default-color;
-		border-color: var(--bd-main-color);
-		color: #fff;
-
-		&:hover {
-			background: transparent;
-			color: @default-color;
-			color: var(--bd-main-color);
-		}
-    }
-
     .submit-back-button {
-        background: transparent;
-        border: 1px solid @default-color;
-        border-color: var(--bd-main-color);
-        color: @default-color;
-        color: var(--bd-main-color);
-
-		&:hover {
-	        background: @default-color;
-	        background: var(--bd-main-color);
-			color: #fff;
-		}
+		.wpbdp-reverse-btn();
     }
 
 	.select2-container {
