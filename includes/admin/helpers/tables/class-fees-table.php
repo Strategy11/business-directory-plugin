@@ -122,6 +122,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			'admin_view'   => true, // Admin view shows all listings
 			'enabled'      => 'all',
 			'include_free' => true,
+			'tag'          => '',
         );
 
         switch ( $this->get_current_view() ) {
