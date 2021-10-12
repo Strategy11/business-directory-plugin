@@ -14,8 +14,6 @@ class WPBDP_Reviews {
 
 	private $review_status = array();
 
-	private $inbox_key = 'review';
-
 	private static $instance = null;
 
 	public static function instance() {
@@ -114,16 +112,6 @@ class WPBDP_Reviews {
 		);
 
 		include WPBDP_PATH . 'includes/admin/views/review.php';
-	}
-
-
-	/**
-	 * If there are already later requests, don't add it to the inbox again.
-	 *
-	 * @since 4.05.02
-	 */
-	private function has_later_request( $requests, $asked ) {
-		return isset( $requests[ $this->inbox_key . ( $asked + 1 ) ] ) || isset( $requests[ $this->inbox_key . ( $asked + 2 ) ] );
 	}
 
 	/**
