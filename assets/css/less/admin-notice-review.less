@@ -1,8 +1,4 @@
 .wpbdp-review-notice {
-    --primary-color: rgb(126,146,188);
-	--primary-hover: rgb(96,114,151); 
-}
-.wpbdp-review-notice {
 	&.notice {
 		border: 1px solid #ddd;
 		text-align: center;
@@ -29,7 +25,7 @@
 			text-shadow: none;
 			box-shadow: none;
 			border-radius: 30px;
-			border:1px solid var(--primary-color);
+			border:1px solid @wpbdp-primary-button-color;
 			font-size: 1em;
 			transition: all .2s ease;
 			height: 28px;
@@ -43,19 +39,19 @@
 			text-decoration: none;
 		}
 		&-primary{
-			background-color: var(--primary-color) !important;
+			background-color: @wpbdp-primary-button-color !important;
 			color: #fff !important;
 			&:hover, &:focus{
-				background: var(--primary-hover) !important;
-				border-color: var(--primary-hover) !important;
+				background: @wpbdp-primary-button-hover !important;
+				border-color: @wpbdp-primary-button-hover !important;
 			}
 		}
 		&-secondary{
-			color: var(--primary-color);
+			color: @wpbdp-primary-button-color;
 			background-color: transparent;
 			&:hover, &:focus{
-				border-color: var(--primary-hover) !important;
-				background: var(--primary-hover) !important;
+				border-color: @wpbdp-primary-button-hover !important;
+				background: @wpbdp-primary-button-hover !important;
 				color: #fff;
 				box-shadow: none;
 			}
@@ -87,8 +83,8 @@
 			border: 1px solid #fff;
 			border-top-color: transparent;
 			border-left-color: transparent;
-			border-bottom-color: var(--primary-hover);
-			border-right-color: var(--primary-hover);
+			border-bottom-color: @wpbdp-primary-button-hover;
+			border-right-color: @wpbdp-primary-button-hover;
 			border-radius: 50%;
 
 			box-sizing: border-box;

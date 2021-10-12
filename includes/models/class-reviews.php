@@ -46,7 +46,6 @@ class WPBDP_Reviews {
 		if ( empty( $dismissed ) && $week_ago ) {
 			$this->review();
 		}
-		
 	}
 
 	/**
