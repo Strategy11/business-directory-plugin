@@ -1075,7 +1075,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         /**
          * Request review
          */
-        public function maybe_request_review() {
+        private function maybe_request_review() {
             WPBDP_Reviews::instance()->review_request();
         }
 

@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="wpbdp-feedback-request hidden">
 		<p><?php esc_html_e( 'Sorry to hear you aren\'t enjoying building with Business Directory Plugin. We would love a chance to improve. Could you take a minute and let us know what we can do better?', 'business-directory-plugin' ); ?></p>
 
-		<div id="wpbdpapi-feedback" class="wpbdpapi-form" data-url="https://community.formidableforms.com/wp-json/frm/v2/forms/bd-feedback?return=html">
+		<div id="wpbdpapi-feedback" class="wpbdpapi-form" data-url="https://services.strategy11.com/wp-json/frm/v2/forms/bd-feedback?return=html">
 			<span class="wpbdp-wait wpbdp_visible_spinner"></span>
 		</div>
 	</div>
@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			url:frmcont.data('url'),
 			success:function(json){
 				var form = json.renderedHtml;
-				form = form.replace(/<script\b[^<]*(community.formidableforms.com\/wp-includes\/js\/jquery\/jquery)[^<]*><\/script>/gi, '' );
+				form = form.replace(/<script\b[^<]*(services.strategy11.com\/wp-includes\/js\/jquery\/jquery)[^<]*><\/script>/gi, '' );
 				form = form.replace(/<link\b[^>]*(formidableforms.css)[^>]*>/gi, '' );
 				frmcont.html(form);
 			}
