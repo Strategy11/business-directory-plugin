@@ -75,7 +75,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			'admin_view'   => true, // Admin view shows all listings
 			'enabled'      => 'all',
 			'include_free' => true,
-			'tag'          => '', // Only the free plan will show without this when payments are off.s
         );
 
         $this->items = wpbdp_get_fee_plans( $args );
@@ -259,9 +258,10 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function column_attributes( $fee ) {
 		$html = '<span class="wpbdp-tag">';
 
+		$free_only = 'free' === $fee->tag;
 		if ( ! $fee->enabled ) {
 			$html .= __( 'Disabled', 'business-directory-plugin' );
-		} elseif ( ( ! wpbdp_payments_possible() && 'free' !== $fee->tag ) || ( wpbdp_payments_possible() && 'free' === $fee->tag ) ) {
+		} elseif ( ( ! wpbdp_payments_possible() && 0.0 !== $fee->amount ) || ( wpbdp_payments_possible() && $free_only ) ) {
 			$html .= __( 'Disabled', 'business-directory-plugin' );
 		} else {
 			$html .= __( 'Active', 'business-directory-plugin' );
