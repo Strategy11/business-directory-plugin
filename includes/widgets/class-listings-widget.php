@@ -150,7 +150,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @return string
 	 */
 	private function render_empty_widget( $html_class ) {
-		return wp_kses_post( sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', $html_class, __( 'There are currently no listings to show.', 'business-directory-plugin' ) ) );
+		return sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', esc_attr( $html_class ), esc_html__( 'There are currently no listings to show.', 'business-directory-plugin' ) );
 	}
 
 	/**
@@ -227,7 +227,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		}
 		$template .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></div></li>';
 		$args['image'] = $html_image;
-		$output = sprintf( $template, $args['html_class'], $html_image, $listing_title );
+		$output = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title );
 		return apply_filters( 'wpbdp_listing_widget_item', wp_kses_post( $output ), $args );
 	}
 
@@ -247,12 +247,12 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		if ( $args['show_images'] ) {
 			$img_size = 'medium';
 			$img_id = $listing->get_thumbnail_id();
-			$permalink = esc_url( $listing->get_permalink() );
+			$permalink = $listing->get_permalink();
 			if ( $img_id ) {
-				$image_link = '<a href="' . $permalink . '">' . wp_kses_post( wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) ). '</a>';
+				$image_link = '<a href="' . esc_url( $permalink ) . '">' . wp_kses_post( wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) ). '</a>';
 			} elseif ( $args['default_image'] ) {
 				$class      = "attachment-$img_size size-$img_size listing-image";
-				$image_link = '<a href="' . $permalink . '"><img src="' . wp_kses_post( $args['coming_soon_image'] ) . '" class="' . $class . '" /></a>';
+				$image_link = '<a href="' . esc_url( $permalink ) . '"><img src="' . wp_kses_post( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" /></a>';
 			} else {
 				// For image spacing.
 				$image_link = '<span></span>';
