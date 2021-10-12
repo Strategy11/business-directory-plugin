@@ -61,28 +61,11 @@
 
 		<p class="howto">
         <?php
-        switch ( $table->get_current_view() ) :
-			case 'active':
-				/* translators: %1$s is directory payment mode (Free or Paid), %2$s is a opening <a> tag, %3$s is a closing </a> tag. */
-				esc_html_e( 'These are all of the fee plans displayed to the user when they place a listing. Your current mode of "%1$s" restricts what you see here.', 'business-directory-plugin' );
-			break;
-
-            case 'disabled':
-				?>
-                <?php
-                esc_html_e( 'These fee plans were disabled by the admin and will not show to the end user regardless of mode until you enable them.', 'business-directory-plugin' );
-			break;
-
-			default:
-				echo sprintf(
-                    /* translators: %1$s is directory payment mode (Free or Paid), %2$s is a opening <a> tag, %3$s is a closing </a> tag. */
-                    esc_html__( 'These are all of the fee plans you have configured. Not all of them are available for the current mode (currently set to "%1$s"). To see the fee plans for this mode click %2$sActive%3$s.', 'business-directory-plugin' ),
-                    esc_html( wpbdp_payments_possible() ? __( 'Paid', 'business-directory-plugin' ) : __( 'Free', 'business-directory-plugin' ) ),
-                    '<a href="' . esc_url( add_query_arg( 'fee_status', 'active', admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) ) . '">',
-                    '</a>'
-                );
-			break;
-		endswitch;
+		printf(
+			/* translators: %1$s is directory payment mode (Free or Paid) */
+			esc_html__( 'All fee plans may not be available in "%1$s" mode.', 'business-directory-plugin' ),
+			esc_html( wpbdp_payments_possible() ? __( 'Paid', 'business-directory-plugin' ) : __( 'Free', 'business-directory-plugin' ) )
+		);
 		?>
 		</p>
 
