@@ -119,25 +119,18 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 
         $args = array(
-            'admin_view' => true // Admin view shows all listings
+			'admin_view'   => true, // Admin view shows all listings
+			'enabled'      => 'all',
+			'include_free' => true,
         );
 
         switch ( $this->get_current_view() ) {
 			case 'active':
 				$args['enabled']      = 1;
-				$args['include_free'] = true;
-                $args['tag']          = '';
+				$args['include_free'] = ! wpbdp_payments_possible();
                 break;
 			case 'disabled':
 				$args['enabled'] = 0;
-				$args['tag']     = ''; // FIXME: Without tag = '', you only get disabled free fees.
-
-                break;
-			case 'all':
-			default:
-				$args['enabled']      = 'all';
-				$args['include_free'] = true;
-				$args['tag']          = ''; // FIXME: Without tag = '', you get only free fees.
                 break;
         }
 
@@ -163,27 +156,10 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             echo '<tr class="free-fee-related-tr"></tr>';
             echo '<tr class="wpbdp-item-message-tr free-fee-related-tr">';
             echo '<td colspan="' . count( $this->get_columns() ) . '">';
-            echo '<div>';
-            _ex(
-                'This is the default free plan for your directory.  You can\'t delete it and it\'s always free, but you can edit the name and other settings. It\'s only available when the directory is in Free mode.  You can always create other fee plans, including ones for 0.00 (free) if you wish.',
-                'fees admin',
-                'business-directory-plugin'
-            );
-            echo '</div>';
+
             echo '</td>';
             echo '</tr>';
         }
-
-		// if ( $free_mode && $item->amount > 0.0 ) {
-		// echo '<tr></tr>';
-		// echo '<tr class="wpbdp-item-message-tr">';
-		// echo '<td colspan="' . count( $this->get_columns() ) . '">';
-		// echo '<div>';
-		// _ex( 'Fee plan disabled because directory is in free mode.', 'fees admin', 'business-directory-plugin' );
-		// echo '</div>';
-		// echo '</td>';
-		// echo '</tr>';
-		// }
     }
 
     public function column_order( $fee ) {
@@ -228,41 +204,30 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             _x( 'Edit', 'fees admin', 'business-directory-plugin' )
         );
 
-        if ( 'free' === $fee->tag ) {
-			// $actions['delete'] = sprintf('<a href="%s">%s</a>',
-			// esc_url(add_query_arg(array('action' => 'deletefee', 'id' => $fee->id))),
-			// _x('Disable', 'fees admin', 'business-directory-plugin' ));
-        } else {
-            if ( $fee->enabled ) {
-                $actions['disable'] = sprintf(
-                    '<a href="%s">%s</a>',
-                    esc_url(
-                        add_query_arg(
-                            array(
-								'wpbdp-view' => 'toggle-fee',
-								'id'         => $fee->id,
-                            ),
-                            $admin_fees_url
-                        )
-                    ),
-                    _x( 'Disable', 'fees admin', 'business-directory-plugin' )
-                );
-            } else {
-				$actions['enable'] = sprintf(
-                    '<a href="%s">%s</a>',
-                    esc_url(
-                        add_query_arg(
-                            array(
-								'wpbdp-view' => 'toggle-fee',
-								'id'         => $fee->id,
-                            ),
-                            $admin_fees_url
-                        )
-                    ),
-                    _x( 'Enable', 'fees admin', 'business-directory-plugin' )
-				);
-            }
 
+		$toggle_url = add_query_arg(
+			array(
+				'wpbdp-view' => 'toggle-fee',
+				'id'         => $fee->id,
+			),
+			$admin_fees_url
+		);
+
+		if ( $fee->enabled ) {
+			$actions['disable'] = sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( $toggle_url ),
+				esc_html__( 'Disable', 'business-directory-plugin' )
+			);
+		} else {
+			$actions['enable'] = sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( $toggle_url ),
+				esc_html__( 'Enable', 'business-directory-plugin' )
+			);
+		}
+
+		if ( 'free' !== $fee->tag ) {
             $actions['delete'] = sprintf(
                 '<a href="%s">%s</a>',
                 esc_url(
@@ -353,13 +318,13 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         if ( 'all' === $this->get_current_view() ) {
             $html .= '<span class="wpbdp-tag">';
 
-            if ( ! $fee->enabled ) {
-                $html .= _x( 'Disabled', 'fees admin', 'business-directory-plugin' );
-            } elseif ( ( ! wpbdp_payments_possible() && 'free' !== $fee->tag ) || ( wpbdp_payments_possible() && 'free' === $fee->tag ) ) {
-                $html .= _x( 'Unavailable', 'fees admin', 'business-directory-plugin' );
-            } else {
-                $html .= _x( 'Active', 'fees admin', 'business-directory-plugin' );
-            }
+			if ( ! $fee->enabled ) {
+				$html .= __( 'Disabled', 'business-directory-plugin' );
+			} elseif ( ( ! wpbdp_payments_possible() && 'free' !== $fee->tag ) || ( wpbdp_payments_possible() && 'free' === $fee->tag ) ) {
+				$html .= __( 'Disabled', 'business-directory-plugin' );
+			} else {
+				$html .= __( 'Active', 'business-directory-plugin' );
+			}
 
             $html .= '</span>';
         }
