@@ -77,15 +77,6 @@ class WPBDP__Assets {
         $this->register_select2();
 
 		wp_register_style( 'wpbdp-base-css', WPBDP_ASSETS_URL . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
-
-		$custom_css = "
-		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]+ label span:before{
-			content: '" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
-		}
-		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]:checked + label span:before{
-			content: '" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
-		}";
-		wp_add_inline_style( 'wpbdp-base-css', $custom_css );
     }
 
 	private function register_select2() {
