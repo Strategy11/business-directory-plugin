@@ -33,6 +33,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php esc_html_e( 'I already did', 'business-directory-plugin' ); ?>
 		</a>
 	</div>
+	<div class="wpbdp-feedback-request hidden">
+		<p><?php esc_html_e( 'Sorry to hear you aren\'t enjoying building with Business Directory Plugin. We would love a chance to improve. Could you take a minute and let us know what we can do better?', 'business-directory-plugin' ); ?></p>
+
+		<div id="wpbdpapi-feedback" class="wpbdpapi-form" data-url="https://community.formidableforms.com/wp-json/frm/v2/forms/bd-feedback?return=html">
+			<span class="wpbdp-wait wpbdp_visible_spinner"></span>
+		</div>
+	</div>
 </div>
 <script type="text/javascript">
 	jQuery( document ).ready( function( $ ) {
@@ -50,6 +57,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$( '.wpbdp-review-notice' ).remove();
 		} );
 
+		$(document).on('click', '.wpbdp-feedback-request button', function() {
+			wpbdpDismissReview( 'done' );
+		} );
 
 		$('.show-wpbdp-feedback').click( function( e ){
 			e.preventDefault();
@@ -57,6 +67,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			var className = '.wpbdp-' + link + '-request';
 			jQuery('.wpbdp-satisfied').hide();
 			jQuery(className).show();
+			if ( className === '.wpbdp-feedback-request' ) {
+				var wpbdpapi = $('#wpbdpapi-feedback');
+				wpbdpapiGetData( wpbdpapi );
+			}
 		});
 	} );
 
@@ -66,5 +80,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 			link: link,
 			nonce: '<?php echo esc_html( wp_create_nonce( 'wpbdp_dismiss_review' ) ); ?>'
 		} );
+	}
+	function wpbdpapiGetData( frmcont ) {
+		jQuery.ajax({
+			dataType:'json',
+			url:frmcont.data('url'),
+			success:function(json){
+				var form = json.renderedHtml;
+				form = form.replace(/<script\b[^<]*(community.formidableforms.com\/wp-includes\/js\/jquery\/jquery)[^<]*><\/script>/gi, '' );
+				form = form.replace(/<link\b[^>]*(formidableforms.css)[^>]*>/gi, '' );
+				frmcont.html(form);
+			}
+		});
 	}
 </script>
