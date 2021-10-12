@@ -16,6 +16,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Default Form Settings.
 	 *
+	 * @since  x.x
+	 * 
 	 * @return array
 	 */
 	protected function defaults() {
@@ -64,11 +66,17 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 	protected function _form( $instance ) { }
 
+	/**
+	 * Render the settings form
+	 */
 	public function form( $instance ) {
 		$instance = $this->instance_defaults( $instance );
 		require WPBDP_INC . 'views/widget/widget-settings.php';
 	}
 
+	/**
+	 * Handle settings update
+	 */
 	public function update( $new, $old ) {
 		$instance                       = $old;
 		$instance['title']              = strip_tags( $new['title'] );
@@ -84,6 +92,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		return $instance;
 	}
 
+	/**
+	 * Render the widget
+	 */
 	public function widget( $args, $instance ) {
 		extract( $args );
 
@@ -129,10 +140,30 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		return $this->render_widget( $items, $instance, $html_class );
 	}
 
+	/**
+	 * Render empty message
+	 *
+	 * @param string $html_class - the html class to append to the view
+	 *
+	 * @since  x.x
+	 *
+	 * @return string
+	 */
 	private function render_empty_widget( $html_class ) {
 		return wp_kses_post( sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', $html_class, __( 'There are currently no listings to show.', 'business-directory-plugin' ) ) );
 	}
 
+	/**
+	 * Render the widget
+	 *
+	 * @param array $items - the widget items
+	 * @param array $instance - the settings instance
+	 * @param string $html_class - the html class to append to the view
+	 *
+	 * @since  x.x
+	 *
+	 * @return string
+	 */
 	private function render_widget( $items, $instance, $html_class ) {
 		$html_class = implode(
 			' ',
@@ -153,17 +184,36 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		return join( "\n", $html );
 	}
 
-
-	private function get_item_thumbnail_position_css_class( $thumbnail_position, $version ) {
+	/**
+	 * Generate the thumbnail position classes.
+	 *
+	 * @param string $thumbnail_position - the thumbnail position ( left, right )
+	 * @param string $device - the device being used ( desktop, mobile )
+	 *
+	 * @since  x.x
+	 *
+	 * @return string
+	 */
+	private function get_item_thumbnail_position_css_class( $thumbnail_position, $device ) {
 		if ( $thumbnail_position == 'left' || $thumbnail_position == 'right' ) {
-			$css_class = sprintf( 'wpbdp-listings-widget-item-with-%s-thumbnail-in-%s', $thumbnail_position, $version );
+			$css_class = sprintf( 'wpbdp-listings-widget-item-with-%s-thumbnail-in-%s', $thumbnail_position, $device );
 		} else {
-			$css_class = sprintf( 'wpbdp-listings-widget-item-with-thumbnail-above-in-%s', $version );
+			$css_class = sprintf( 'wpbdp-listings-widget-item-with-thumbnail-above-in-%s', $device );
 		}
 
 		return $css_class;
 	}
 
+	/**
+	 * Render item for widget
+	 *
+	 * @param WP_Post $post - the current listing post
+	 * @param array $args - the view arguments
+	 *
+	 * @since  x.x
+	 *
+	 * @return string
+	 */
 	private function render_item( $post, $args ) {
 		$listing       = wpbdp_get_listing( $post->ID );
 		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
@@ -181,6 +231,17 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		return apply_filters( 'wpbdp_listing_widget_item', wp_kses_post( $output ), $args );
 	}
 
+	/**
+	 * Render the listing image
+	 * Depending on the settings, this will return the listing image or the default image or none
+	 *
+	 * @param object $listing - the listing object
+	 * @param array $args - the view arguments
+	 *
+	 * @since  x.x
+	 *
+	 * @return string
+	 */
 	private function render_image( $listing, $args ) {
 		$image_link = '';
 		if ( $args['show_images'] ) {
