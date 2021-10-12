@@ -198,7 +198,6 @@ class WPBDP_Themes {
             array(
                 'include_free'    => true,
                 'include_private' => true,
-                'tag'             => '',
             )
         );
 

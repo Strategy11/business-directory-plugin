@@ -856,7 +856,9 @@ function wpbdp_get_fee_plans( $args = array() ) {
         'include_private' => false,
 		'admin_view'      => false,
     );
-    if ( $order = wpbdp_get_option( 'fee-order' ) ) {
+
+	$order = wpbdp_get_option( 'fee-order' );
+    if ( $order ) {
         $defaults['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
         $defaults['order']   = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
     }

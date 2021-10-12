@@ -454,7 +454,6 @@ class WPBDP_WPML_Compat {
             array(
                 'enabled'      => 'all',
                 'include_free' => true,
-                'tag'          => '',
             )
         );
 
