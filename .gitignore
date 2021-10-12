@@ -8,13 +8,6 @@
 .themes-beta
 .vagrant/
 release/
-support-files/edd/
-support-files/scripts/wordpress-i18n/
-support-files/zipdb/sources/
-support-files/zipdb/databases/
-support-files/wpml/
-support-files/themes/
-support-files/*.sql
 themes/test-theme/
 support-files/docs/accounts.txt
 business-directory-plugin/experimental
