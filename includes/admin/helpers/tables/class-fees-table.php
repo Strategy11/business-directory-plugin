@@ -258,10 +258,13 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function column_attributes( $fee ) {
 		$html = '<span class="wpbdp-tag">';
 
-		$free_only = 'free' === $fee->tag;
+		$is_default_free_plan = 'free' === $fee->tag;
+		$is_paid_plan         = 0.0 !== $fee->amount;
+		$payments_on          = wpbdp_payments_possible();
+
 		if ( ! $fee->enabled ) {
 			$html .= __( 'Disabled', 'business-directory-plugin' );
-		} elseif ( ( ! wpbdp_payments_possible() && 0.0 !== $fee->amount ) || ( wpbdp_payments_possible() && $free_only ) ) {
+		} elseif ( ( ! $payments_on && $is_paid_plan ) || ( $payments_on && $is_default_free_plan ) ) {
 			$html .= __( 'Disabled', 'business-directory-plugin' );
 		} else {
 			$html .= __( 'Active', 'business-directory-plugin' );
