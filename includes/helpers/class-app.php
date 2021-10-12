@@ -146,13 +146,46 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * Check if the current view is any page in the directory settings
+	 * Is this a page we should be changing?
+	 *
+	 * @since 5.8.2
 	 *
 	 * @return bool
 	 */
-	public static function is_directory_admin() {
-		$screen = get_current_screen();
-		return ( strpos( $screen->id , 'wpbdp' ) !== false );
+	public static function is_bd_page() {
+		$is_post_page = self::is_bd_post_page();
+		if ( $is_post_page ) {
+			return true;
+		}
+
+		$page = wpbdp_get_var( array( 'param' => 'page' ) );
+		$is_page = $page && strpos( $page, 'wpbdp' ) !== false;
+
+		/**
+		 * @since 5.12.1
+		 */
+		return apply_filters( 'wpbdp_is_bd_page', $is_page );
+	}
+
+	/**
+	 * @since 5.8.2
+	 */
+	public static function is_bd_post_page() {
+		global $pagenow;
+
+		if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' && $pagenow !== 'edit.php' ) {
+			return false;
+		}
+
+		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
+
+		if ( empty( $post_type ) ) {
+			$post_id = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
+			$post    = get_post( $post_id );
+			$post_type = $post ? $post->post_type : '';
+		}
+
+		return $post_type === WPBDP_POST_TYPE;
 	}
 
 	/**

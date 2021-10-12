@@ -278,39 +278,14 @@ final class WPBDP {
 	 * @return bool
 	 */
 	public function is_bd_page() {
-		$is_post_page = $this->is_bd_post_page();
-		if ( $is_post_page ) {
-			return true;
-		}
-
-		$page = wpbdp_get_var( array( 'param' => 'page' ) );
-		$is_page = $page && strpos( $page, 'wpbdp' ) !== false;
-
-		/**
-		 * @since 5.12.1
-		 */
-		return apply_filters( 'wpbdp_is_bd_page', $is_page );
+		return WPBDP_App_Helper::is_bd_page();
 	}
 
 	/**
 	 * @since 5.8.2
 	 */
 	public function is_bd_post_page() {
-		global $pagenow;
-
-		if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' && $pagenow !== 'edit.php' ) {
-			return false;
-		}
-
-		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
-
-		if ( empty( $post_type ) ) {
-			$post_id = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
-			$post    = get_post( $post_id );
-			$post_type = $post ? $post->post_type : '';
-		}
-
-		return $post_type === WPBDP_POST_TYPE;
+		return WPBDP_App_Helper::is_bd_post_page();
 	}
 
 	/**

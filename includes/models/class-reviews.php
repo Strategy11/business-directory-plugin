@@ -31,23 +31,21 @@ class WPBDP_Reviews {
 	public function review_request() {
 
 		// Only show the review request to high-level users on business directory pages
-		if ( ! current_user_can( 'administrator' ) || ! WPBDP_App_Helper::is_directory_admin() ) {
-			return;
-		}
+		if ( WPBDP_App_Helper::is_bd_page() ) {
+			// Verify that we can do a check for reviews
+			$this->set_review_status();
 
-		// Verify that we can do a check for reviews
-		$this->set_review_status();
+			// Check if it has been dismissed or if we can ask later
+			$dismissed = $this->review_status['dismissed'];
+			if ( $dismissed === 'later' && $this->review_status['asked'] < 3 ) {
+				$dismissed = false;
+			}
 
-		// Check if it has been dismissed or if we can ask later
-		$dismissed = $this->review_status['dismissed'];
-		if ( $dismissed === 'later' && $this->review_status['asked'] < 3 ) {
-			$dismissed = false;
-		}
+			$week_ago = ( $this->review_status['time'] + WEEK_IN_SECONDS ) <= time();
 
-		$week_ago = ( $this->review_status['time'] + WEEK_IN_SECONDS ) <= time();
-
-		if ( empty( $dismissed ) && $week_ago ) {
-			$this->review();
+			if ( empty( $dismissed ) && $week_ago ) {
+				$this->review();
+			}
 		}
 	}
 

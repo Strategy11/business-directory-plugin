@@ -44,7 +44,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
             add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-            add_action( 'admin_notices', array( $this, 'maybe_request_review' ) );
             add_action( 'wp_ajax_wpbdp_dismiss_review', array( &$this, 'maybe_dismiss_review' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_scripts' ) );
@@ -684,6 +683,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $this->check_server_requirements();
             $this->check_setup();
             $this->check_deprecation_warnings();
+
+            $this->maybe_request_review();
 
             do_action( 'wpbdp_admin_notices' );
 
