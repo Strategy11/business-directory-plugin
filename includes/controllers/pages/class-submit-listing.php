@@ -73,7 +73,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             )
         );
 
-        $custom_css = "
+		$custom_css = "
 		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]+ label span:before{
 			content: '" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
 		}
