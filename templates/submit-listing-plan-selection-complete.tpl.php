@@ -26,7 +26,7 @@ $categories = wp_get_post_terms( $listing->get_id(), WPBDP_CATEGORY_TAX, array( 
 </div>
 
 <script>
-document.addEventListener( 'DOMContentLoaded', function () {
+jQuery(function($) {
     var amount = <?php echo $plan->calculate_amount( $categories ); ?>;
 
     if ( wpbdpSubmitListingL10n.isAdmin || amount == 0.0 ) {
@@ -34,5 +34,5 @@ document.addEventListener( 'DOMContentLoaded', function () {
     } else {
         $( '#wpbdp-submit-listing-submit-btn' ).val( wpbdpSubmitListingL10n.continueToPaymentTxt );
     }
-}, false );
+});
 </script>
