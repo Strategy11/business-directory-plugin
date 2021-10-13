@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 5.14\n"
+"Project-Id-Version: Business Directory Plugin 5.14.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2021-10-12 20:40:03+00:00\n"
+"POT-Creation-Date: 2021-10-13 00:37:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -220,7 +220,7 @@ msgid "Please upload the correct file type."
 msgstr ""
 
 #: includes/admin/fees.php:47
-#: includes/admin/helpers/tables/class-fees-table.php:109
+#: includes/admin/helpers/tables/class-fees-table.php:62
 #: includes/admin/helpers/tables/class-payments-table.php:57
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:73
@@ -231,7 +231,7 @@ msgid "Amount"
 msgstr ""
 
 #: includes/admin/fees.php:49
-#: includes/admin/helpers/tables/class-fees-table.php:111
+#: includes/admin/helpers/tables/class-fees-table.php:64
 #: includes/admin/settings/class-settings-bootstrap.php:919
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:275
 msgid "Images"
@@ -256,6 +256,7 @@ msgid "Installed"
 msgstr ""
 
 #: includes/admin/helpers/class-modules-list.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:260
 #: templates/admin/themes-item.tpl.php:43
 msgid "Active"
 msgstr ""
@@ -275,7 +276,20 @@ msgstr ""
 msgid "Upgrade Now"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:277
+#: includes/admin/helpers/tables/class-fees-table.php:30
+#. translators: %1$s: open link html, %2$s close link
+msgid "There are no fees right now. %1$sCreate one%2$s."
+msgstr ""
+
+#: includes/admin/helpers/tables/class-fees-table.php:153
+msgid "Disable"
+msgstr ""
+
+#: includes/admin/helpers/tables/class-fees-table.php:159
+msgid "Enable"
+msgstr ""
+
+#: includes/admin/helpers/tables/class-fees-table.php:175
 #: includes/admin/helpers/tables/class-form-fields-table.php:104
 #: includes/admin/settings/class-settings-admin.php:536
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
@@ -284,6 +298,16 @@ msgstr ""
 #: templates/parts/listing-buttons.tpl.php:33
 #: templates/parts/listing-buttons.tpl.php:67
 msgid "Delete"
+msgstr ""
+
+#: includes/admin/helpers/tables/class-fees-table.php:256
+#: includes/admin/helpers/tables/class-fees-table.php:258
+msgid "Disabled"
+msgstr ""
+
+#: includes/admin/helpers/tables/class-fees-table.php:264
+#: includes/templates-ui.php:431
+msgid "Default"
 msgstr ""
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:31
@@ -310,7 +334,7 @@ msgid "Go to \"Form Fields\""
 msgstr ""
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:313
-#: includes/functions.php:1295 includes/functions.php:1300
+#: includes/functions.php:1297 includes/functions.php:1302
 msgid "Go back"
 msgstr ""
 
@@ -1397,8 +1421,7 @@ msgstr ""
 msgid "%s is badly formatted. Valid Phone Number format required."
 msgstr ""
 
-#: includes/functions.php:498 templates/admin/fees-index.tpl.php:71
-#: templates/admin/fees-index.tpl.php:84 templates/admin/fees-index.tpl.php:102
+#: includes/functions.php:498 templates/admin/fees-index.tpl.php:67
 msgid "Free"
 msgstr ""
 
@@ -1558,11 +1581,7 @@ msgstr ""
 msgid "Manage Listings"
 msgstr ""
 
-#: includes/templates-ui.php:431
-msgid "Default"
-msgstr ""
-
-#: includes/themes.php:952
+#: includes/themes.php:951
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr ""
 
@@ -1840,66 +1859,37 @@ msgstr ""
 msgid "Drag and drop to re-order fees."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:70
-#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
-#. opening <a> tag, %3$s is a closing </a> tag.
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%1$s\" restricts what you see here. Those "
-"on the %2$sNot Available%3$s filter will become active when you change the "
-"payment mode."
+#: templates/admin/fees-index.tpl.php:66
+#. translators: %1$s is directory payment mode (Free or Paid)
+msgid "All fee plans may not be available in \"%1$s\" mode."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:71 templates/admin/fees-index.tpl.php:84
-#: templates/admin/fees-index.tpl.php:102
+#: templates/admin/fees-index.tpl.php:67
 msgid "Paid"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:83
-#. translators: %s is directory payment mode (Free or Paid)
-msgid ""
-"These are all of the fee plans that aren't available because you're in "
-"\"%s\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-
 #: templates/admin/fees-index.tpl.php:92
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end "
-"user regardless of mode until you enable them."
-msgstr ""
-
-#: templates/admin/fees-index.tpl.php:101
-#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
-#. opening <a> tag, %3$s is a closing </a> tag.
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%1$s\"). To see the fee "
-"plans for this mode click %2$sActive%3$s."
-msgstr ""
-
-#: templates/admin/fees-index.tpl.php:131
 msgid "Set up a payment gateway to charge a fee for listings"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:133
+#: templates/admin/fees-index.tpl.php:94
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:152
+#: templates/admin/fees-index.tpl.php:113
 #. translators: %s: payment gateway name */
 msgid "Add the %s gateway as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:158
+#: templates/admin/fees-index.tpl.php:119
 msgid "Upgrade"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:166
+#: templates/admin/fees-index.tpl.php:127
 msgid "Set up Authorize.net as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:169
+#: templates/admin/fees-index.tpl.php:130
 msgid "Set Up"
 msgstr ""
 
@@ -3605,17 +3595,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr ""
 
-#: includes/themes.php:960
+#: includes/themes.php:959
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: includes/themes.php:971
+#: includes/themes.php:970
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: includes/themes.php:979
+#: includes/themes.php:978
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""
@@ -3673,122 +3663,76 @@ msgctxt "fees admin"
 msgid "fees"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:32
-msgctxt "fees admin"
-msgid "There are no fees right now. You can <a>create one</a>, if you want."
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:39
-#: includes/admin/helpers/tables/class-fees-table.php:361
-msgctxt "fees admin"
-msgid "Active"
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:42
-#: includes/admin/helpers/tables/class-fees-table.php:357
-msgctxt "fees admin"
-msgid "Disabled"
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:52
-msgctxt "fees admin"
-msgid "There are no \"%s\" fees right now. You can <a>create one</a>, if you want."
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:108
+#: includes/admin/helpers/tables/class-fees-table.php:61
 msgctxt "fees admin"
 msgid "Label"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:110
+#: includes/admin/helpers/tables/class-fees-table.php:63
 msgctxt "fees admin"
 msgid "Duration"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:112
+#: includes/admin/helpers/tables/class-fees-table.php:65
 msgctxt "fees admin"
 msgid "Attributes"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:167
-msgctxt "fees admin"
-msgid ""
-"This is the default free plan for your directory.  You can't delete it and "
-"it's always free, but you can edit the name and other settings. It's only "
-"available when the directory is in Free mode.  You can always create other "
-"fee plans, including ones for 0.00 (free) if you wish."
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:228
+#: includes/admin/helpers/tables/class-fees-table.php:138
 msgctxt "fees admin"
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:248
-msgctxt "fees admin"
-msgid "Disable"
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:262
-msgctxt "fees admin"
-msgid "Enable"
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:287
+#: includes/admin/helpers/tables/class-fees-table.php:185
 msgctxt "fees admin"
 msgid "<strong>Fee ID:</strong> <fee-id>"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:311
+#: includes/admin/helpers/tables/class-fees-table.php:209
 msgctxt "fees admin"
 msgid "Variable"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:316
+#: includes/admin/helpers/tables/class-fees-table.php:214
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:324
+#: includes/admin/helpers/tables/class-fees-table.php:222
 msgctxt "fees admin"
 msgid "Forever"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:326
+#: includes/admin/helpers/tables/class-fees-table.php:224
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:330
+#: includes/admin/helpers/tables/class-fees-table.php:228
 msgctxt "fees admin"
 msgid "%d image"
 msgid_plural "%d images"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:335
+#: includes/admin/helpers/tables/class-fees-table.php:233
 msgctxt "fees admin"
 msgid "All categories"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:359
-msgctxt "fees admin"
-msgid "Unavailable"
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:368
+#: includes/admin/helpers/tables/class-fees-table.php:268
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:372
+#: includes/admin/helpers/tables/class-fees-table.php:272
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:376
+#: includes/admin/helpers/tables/class-fees-table.php:276
 msgctxt "fees admin"
 msgid "Private"
 msgstr ""
@@ -3998,19 +3942,9 @@ msgctxt "listing timeline"
 msgid "Initial Payment"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:77
+#: includes/admin/helpers/tables/class-fees-table.php:52
 msgctxt "admin fees table"
 msgid "All"
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:91
-msgctxt "admin fees table"
-msgid "Active"
-msgstr ""
-
-#: includes/admin/helpers/tables/class-fees-table.php:99
-msgctxt "admin fees table"
-msgid "Disabled"
 msgstr ""
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:20
@@ -4587,13 +4521,13 @@ msgid "Author"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:789
-#: includes/functions.php:1213
+#: includes/functions.php:1215
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:790
-#: includes/functions.php:1214
+#: includes/functions.php:1216
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr ""
@@ -4966,12 +4900,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr ""
 
-#: includes/functions.php:1211
+#: includes/functions.php:1213
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: includes/functions.php:1212
+#: includes/functions.php:1214
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr ""
@@ -6907,7 +6841,7 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr ""
 
-#: includes/functions.php:1291
+#: includes/functions.php:1293
 msgctxt "templates"
 msgid "Return to results"
 msgstr ""
