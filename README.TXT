@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8.1
-Stable tag: 5.14
+Stable tag: 5.14.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -162,6 +162,9 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.14.1 =
+* Fix: Prevent the default free fee option from showing when payments are turned on.
+
 = 5.14 =
 * New: Make the button styling more consistent across all buttons in the directory. The option to Override the theme button styles better handles this now, and lets the theme handle it when turned off. This update added the "button" class to buttons throughout the plugin in order to allow themes to cover the styling.
 * New: Load the BD CSS in an Elementor template. This helps the page look much closer to reality.

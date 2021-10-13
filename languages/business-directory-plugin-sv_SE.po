@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-10-12 20:40:03+00:00\n"
+"POT-Creation-Date: 2021-10-13 00:32:32+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -258,7 +258,7 @@ msgid "Please upload the correct file type."
 msgstr "Vänligen ladda upp eller välj en CSV-fil."
 
 #: includes/admin/fees.php:47
-#: includes/admin/helpers/tables/class-fees-table.php:109
+#: includes/admin/helpers/tables/class-fees-table.php:62
 #: includes/admin/helpers/tables/class-payments-table.php:57
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:73
@@ -270,7 +270,7 @@ msgid "Amount"
 msgstr "Belopp"
 
 #: includes/admin/fees.php:49
-#: includes/admin/helpers/tables/class-fees-table.php:111
+#: includes/admin/helpers/tables/class-fees-table.php:64
 #: includes/admin/settings/class-settings-bootstrap.php:919
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:275
 #, fuzzy
@@ -299,6 +299,7 @@ msgid "Installed"
 msgstr "Installerat"
 
 #: includes/admin/helpers/class-modules-list.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:261
 #: templates/admin/themes-item.tpl.php:43
 #, fuzzy
 msgid "Active"
@@ -322,7 +323,23 @@ msgstr "Aktivera:"
 msgid "Upgrade Now"
 msgstr "Uppgradera till %s"
 
-#: includes/admin/helpers/tables/class-fees-table.php:277
+#. translators: %1$s: open link html, %2$s close link
+#: includes/admin/helpers/tables/class-fees-table.php:30
+#, fuzzy
+msgid "There are no fees right now. %1$sCreate one%2$s."
+msgstr "Det finns inga avgifter just nu. Du kan <a>skapa ett</a> , om du vill."
+
+#: includes/admin/helpers/tables/class-fees-table.php:154
+#, fuzzy
+msgid "Disable"
+msgstr "Koppla ur"
+
+#: includes/admin/helpers/tables/class-fees-table.php:160
+#, fuzzy
+msgid "Enable"
+msgstr "Aktivera"
+
+#: includes/admin/helpers/tables/class-fees-table.php:176
 #: includes/admin/helpers/tables/class-form-fields-table.php:104
 #: includes/admin/settings/class-settings-admin.php:536
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
@@ -333,6 +350,18 @@ msgstr "Uppgradera till %s"
 #, fuzzy
 msgid "Delete"
 msgstr "Ta bort"
+
+#: includes/admin/helpers/tables/class-fees-table.php:257
+#: includes/admin/helpers/tables/class-fees-table.php:259
+#, fuzzy
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: includes/admin/helpers/tables/class-fees-table.php:265
+#: includes/templates-ui.php:431
+#, fuzzy
+msgid "Default"
+msgstr "Standardavgift"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:31
 #: includes/fields/class-fieldtypes-social.php:138
@@ -364,7 +393,7 @@ msgid "Go to \"Form Fields\""
 msgstr "Gå till \"Hantera formulärfält\""
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:313
-#: includes/functions.php:1295 includes/functions.php:1300
+#: includes/functions.php:1297 includes/functions.php:1302
 #, fuzzy
 msgid "Go back"
 msgstr "Nej, gå tillbaka"
@@ -1658,8 +1687,7 @@ msgstr "%s är ogiltig. Värdet måste vara en av %s."
 msgid "%s is badly formatted. Valid Phone Number format required."
 msgstr "%s är dåligt formaterat. Giltig e-postformat krävs."
 
-#: includes/functions.php:498 templates/admin/fees-index.tpl.php:71
-#: templates/admin/fees-index.tpl.php:84 templates/admin/fees-index.tpl.php:102
+#: includes/functions.php:498 templates/admin/fees-index.tpl.php:67
 msgid "Free"
 msgstr "Gratis"
 
@@ -1854,12 +1882,7 @@ msgstr "Övergiven"
 msgid "Manage Listings"
 msgstr "Hantera betalda annonser"
 
-#: includes/templates-ui.php:431
-#, fuzzy
-msgid "Default"
-msgstr "Standardavgift"
-
-#: includes/themes.php:952
+#: includes/themes.php:951
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "ZIP-filen är inte en giltig BD temafil."
@@ -2216,82 +2239,38 @@ msgstr "↓ Fallande"
 msgid "Drag and drop to re-order fees."
 msgstr "Dra och släpp för att ändra ordning på avgifter"
 
-#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
-#. opening <a> tag, %3$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:70
-#, fuzzy
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%1$s\" restricts what you see here. Those on "
-"the %2$sNot Available%3$s filter will become active when you change the "
-"payment mode."
+#. translators: %1$s is directory payment mode (Free or Paid)
+#: templates/admin/fees-index.tpl.php:66
+msgid "All fee plans may not be available in \"%1$s\" mode."
 msgstr ""
-"Dessa är alla avgiftsplanerna som visas för användaren när de placerar en "
-"annons. Din nuvarande läge av \"%s\" begränsar vad du ser här. De på <a>Inte "
-"tillgänglig</a> filtret blir aktiv när du byter betalningsläget."
 
-#: templates/admin/fees-index.tpl.php:71 templates/admin/fees-index.tpl.php:84
-#: templates/admin/fees-index.tpl.php:102
+#: templates/admin/fees-index.tpl.php:67
 msgid "Paid"
 msgstr "Betald"
 
-#. translators: %s is directory payment mode (Free or Paid)
-#: templates/admin/fees-index.tpl.php:83
-#, fuzzy
-msgid ""
-"These are all of the fee plans that aren't available because you're in \"%s"
-"\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-"Detta är de avgiftsplaner som inte är tillgängliga för att du är i \"%s\" -"
-"läge. De på det aktiva filtret ändrar status till inte tillgänglig när du "
-"ändra betalningsläget."
-
 #: templates/admin/fees-index.tpl.php:92
-#, fuzzy
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end user "
-"regardless of mode until you enable them."
-msgstr ""
-"Dessa avgiftsplaner har inaktiverats av administratören och kommer inte att "
-"visas för slutanvändaren oavsett läge tills du aktiverar dem."
-
-#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
-#. opening <a> tag, %3$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:101
-#, fuzzy
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%1$s\"). To see the fee "
-"plans for this mode click %2$sActive%3$s."
-msgstr ""
-"Detta är alla avgiftsplanern du har konfigurerat. Inte alla av dem är "
-"tillgängliga för det aktuella läget (för närvarande satt till \"%s\"). För "
-"att se avgiftsplanerna för detta läge klicka <a>Active</a> ."
-
-#: templates/admin/fees-index.tpl.php:131
 msgid "Set up a payment gateway to charge a fee for listings"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:133
+#: templates/admin/fees-index.tpl.php:94
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #. translators: %s: payment gateway name */
-#: templates/admin/fees-index.tpl.php:152
+#: templates/admin/fees-index.tpl.php:113
 msgid "Add the %s gateway as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:158
+#: templates/admin/fees-index.tpl.php:119
 #, fuzzy
 msgid "Upgrade"
 msgstr "Uppgradera till %s"
 
-#: templates/admin/fees-index.tpl.php:166
+#: templates/admin/fees-index.tpl.php:127
 msgid "Set up Authorize.net as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:169
+#: templates/admin/fees-index.tpl.php:130
 msgid "Set Up"
 msgstr ""
 
@@ -4262,17 +4241,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Temat har uppdaterats."
 
-#: includes/themes.php:960
+#: includes/themes.php:959
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Det gick inte att skapa temakatalogen."
 
-#: includes/themes.php:971
+#: includes/themes.php:970
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Det gick inte att ta bort tidigare temakatalogen \"%s\"."
 
-#: includes/themes.php:979
+#: includes/themes.php:978
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Det gick inte att flytta det nya temat till temakatalogen."
@@ -4334,130 +4313,77 @@ msgctxt "fees admin"
 msgid "fees"
 msgstr "avgifter"
 
-#: includes/admin/helpers/tables/class-fees-table.php:32
-msgctxt "fees admin"
-msgid "There are no fees right now. You can <a>create one</a>, if you want."
-msgstr "Det finns inga avgifter just nu. Du kan <a>skapa ett</a> , om du vill."
-
-#: includes/admin/helpers/tables/class-fees-table.php:39
-#: includes/admin/helpers/tables/class-fees-table.php:361
-msgctxt "fees admin"
-msgid "Active"
-msgstr "Aktiv"
-
-#: includes/admin/helpers/tables/class-fees-table.php:42
-#: includes/admin/helpers/tables/class-fees-table.php:357
-msgctxt "fees admin"
-msgid "Disabled"
-msgstr "Inaktiverad"
-
-#: includes/admin/helpers/tables/class-fees-table.php:52
-msgctxt "fees admin"
-msgid ""
-"There are no \"%s\" fees right now. You can <a>create one</a>, if you want."
-msgstr ""
-"Det finns inga \"%s\" avgifter just nu. Du kan <a>skapa en</a> , om du vill."
-
-#: includes/admin/helpers/tables/class-fees-table.php:108
+#: includes/admin/helpers/tables/class-fees-table.php:61
 msgctxt "fees admin"
 msgid "Label"
 msgstr "Etikett"
 
-#: includes/admin/helpers/tables/class-fees-table.php:110
+#: includes/admin/helpers/tables/class-fees-table.php:63
 msgctxt "fees admin"
 msgid "Duration"
 msgstr "Varaktighet"
 
-#: includes/admin/helpers/tables/class-fees-table.php:112
+#: includes/admin/helpers/tables/class-fees-table.php:65
 msgctxt "fees admin"
 msgid "Attributes"
 msgstr "Attribut"
 
-#: includes/admin/helpers/tables/class-fees-table.php:167
-msgctxt "fees admin"
-msgid ""
-"This is the default free plan for your directory.  You can't delete it and "
-"it's always free, but you can edit the name and other settings. It's only "
-"available when the directory is in Free mode.  You can always create other "
-"fee plans, including ones for 0.00 (free) if you wish."
-msgstr ""
-"Detta är den kostnadsfria standard-planen för din katalog. Du kan inte ta "
-"bort den och den är alltid gratis, men du kan redigera namn och andra "
-"inställningar. Den är bara tillgänglig när katalogen är i \"Gratis\" läge. "
-"Du kan alltid skapa andra avgiftsplaner, inklusive sådana för 0,00 (gratis) "
-"om du vill."
-
-#: includes/admin/helpers/tables/class-fees-table.php:228
+#: includes/admin/helpers/tables/class-fees-table.php:138
 msgctxt "fees admin"
 msgid "Edit"
 msgstr "Redigera"
 
-#: includes/admin/helpers/tables/class-fees-table.php:248
-msgctxt "fees admin"
-msgid "Disable"
-msgstr "Koppla ur"
-
-#: includes/admin/helpers/tables/class-fees-table.php:262
-msgctxt "fees admin"
-msgid "Enable"
-msgstr "Aktivera"
-
-#: includes/admin/helpers/tables/class-fees-table.php:287
+#: includes/admin/helpers/tables/class-fees-table.php:186
 msgctxt "fees admin"
 msgid "<strong>Fee ID:</strong> <fee-id>"
 msgstr "<strong>Avgifts-ID:</strong><fee-id></fee-id>"
 
-#: includes/admin/helpers/tables/class-fees-table.php:311
+#: includes/admin/helpers/tables/class-fees-table.php:210
 msgctxt "fees admin"
 msgid "Variable"
 msgstr "Variabel"
 
-#: includes/admin/helpers/tables/class-fees-table.php:316
+#: includes/admin/helpers/tables/class-fees-table.php:215
 #, fuzzy
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "%s + %s per kategori"
 
-#: includes/admin/helpers/tables/class-fees-table.php:324
+#: includes/admin/helpers/tables/class-fees-table.php:223
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "För alltid"
 
-#: includes/admin/helpers/tables/class-fees-table.php:326
+#: includes/admin/helpers/tables/class-fees-table.php:225
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d dag"
 msgstr[1] "%d dagar"
 
-#: includes/admin/helpers/tables/class-fees-table.php:330
+#: includes/admin/helpers/tables/class-fees-table.php:229
 msgctxt "fees admin"
 msgid "%d image"
 msgid_plural "%d images"
 msgstr[0] "%d bild"
 msgstr[1] "%d bilder"
 
-#: includes/admin/helpers/tables/class-fees-table.php:335
+#: includes/admin/helpers/tables/class-fees-table.php:234
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "Alla kategorier"
 
-#: includes/admin/helpers/tables/class-fees-table.php:359
-msgctxt "fees admin"
-msgid "Unavailable"
-msgstr "Ej tillgänglig"
-
-#: includes/admin/helpers/tables/class-fees-table.php:368
+#: includes/admin/helpers/tables/class-fees-table.php:269
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr "Klistrad"
 
-#: includes/admin/helpers/tables/class-fees-table.php:372
+#: includes/admin/helpers/tables/class-fees-table.php:273
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "Återkommande"
 
-#: includes/admin/helpers/tables/class-fees-table.php:376
+#: includes/admin/helpers/tables/class-fees-table.php:277
 #, fuzzy
 msgctxt "fees admin"
 msgid "Private"
@@ -4672,20 +4598,10 @@ msgctxt "listing timeline"
 msgid "Initial Payment"
 msgstr "Första betalning"
 
-#: includes/admin/helpers/tables/class-fees-table.php:77
+#: includes/admin/helpers/tables/class-fees-table.php:52
 msgctxt "admin fees table"
 msgid "All"
 msgstr "Alla "
-
-#: includes/admin/helpers/tables/class-fees-table.php:91
-msgctxt "admin fees table"
-msgid "Active"
-msgstr "Aktiv"
-
-#: includes/admin/helpers/tables/class-fees-table.php:99
-msgctxt "admin fees table"
-msgid "Disabled"
-msgstr "Inaktiverad"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:20
 msgctxt "form-fields admin"
@@ -5300,13 +5216,13 @@ msgid "Author"
 msgstr "Författare"
 
 #: includes/admin/settings/class-settings-bootstrap.php:789
-#: includes/functions.php:1213
+#: includes/functions.php:1215
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum inlagd"
 
 #: includes/admin/settings/class-settings-bootstrap.php:790
-#: includes/functions.php:1214
+#: includes/functions.php:1216
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Senast ändrad"
@@ -5703,12 +5619,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Ladda upp bilder"
 
-#: includes/functions.php:1211
+#: includes/functions.php:1213
 msgctxt "admin settings"
 msgid "User"
 msgstr "Användare"
 
-#: includes/functions.php:1212
+#: includes/functions.php:1214
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Användarens registreringsdatum"
@@ -7793,7 +7709,7 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
 
-#: includes/functions.php:1291
+#: includes/functions.php:1293
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -9031,6 +8947,82 @@ msgstr "Skriv in din e-postadress"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Fortsätt "
+
+#, fuzzy
+#~ msgid ""
+#~ "These are all of the fee plans displayed to the user when they place a "
+#~ "listing. Your current mode of \"%1$s\" restricts what you see here. Those "
+#~ "on the %2$sNot Available%3$s filter will become active when you change "
+#~ "the payment mode."
+#~ msgstr ""
+#~ "Dessa är alla avgiftsplanerna som visas för användaren när de placerar en "
+#~ "annons. Din nuvarande läge av \"%s\" begränsar vad du ser här. De på "
+#~ "<a>Inte tillgänglig</a> filtret blir aktiv när du byter betalningsläget."
+
+#, fuzzy
+#~ msgid ""
+#~ "These are all of the fee plans that aren't available because you're in "
+#~ "\"%s\" mode. Those on the Active filter will become Not Available when "
+#~ "you change the payment mode."
+#~ msgstr ""
+#~ "Detta är de avgiftsplaner som inte är tillgängliga för att du är i \"%s\" "
+#~ "-läge. De på det aktiva filtret ändrar status till inte tillgänglig när "
+#~ "du ändra betalningsläget."
+
+#, fuzzy
+#~ msgid ""
+#~ "These fee plans were disabled by the admin and will not show to the end "
+#~ "user regardless of mode until you enable them."
+#~ msgstr ""
+#~ "Dessa avgiftsplaner har inaktiverats av administratören och kommer inte "
+#~ "att visas för slutanvändaren oavsett läge tills du aktiverar dem."
+
+#, fuzzy
+#~ msgid ""
+#~ "These are all of the fee plans you have configured. Not all of them are "
+#~ "available for the current mode (currently set to \"%1$s\"). To see the "
+#~ "fee plans for this mode click %2$sActive%3$s."
+#~ msgstr ""
+#~ "Detta är alla avgiftsplanern du har konfigurerat. Inte alla av dem är "
+#~ "tillgängliga för det aktuella läget (för närvarande satt till \"%s\"). "
+#~ "För att se avgiftsplanerna för detta läge klicka <a>Active</a> ."
+
+#~ msgctxt "fees admin"
+#~ msgid "Active"
+#~ msgstr "Aktiv"
+
+#~ msgctxt "fees admin"
+#~ msgid ""
+#~ "There are no \"%s\" fees right now. You can <a>create one</a>, if you "
+#~ "want."
+#~ msgstr ""
+#~ "Det finns inga \"%s\" avgifter just nu. Du kan <a>skapa en</a> , om du "
+#~ "vill."
+
+#~ msgctxt "fees admin"
+#~ msgid ""
+#~ "This is the default free plan for your directory.  You can't delete it "
+#~ "and it's always free, but you can edit the name and other settings. It's "
+#~ "only available when the directory is in Free mode.  You can always create "
+#~ "other fee plans, including ones for 0.00 (free) if you wish."
+#~ msgstr ""
+#~ "Detta är den kostnadsfria standard-planen för din katalog. Du kan inte ta "
+#~ "bort den och den är alltid gratis, men du kan redigera namn och andra "
+#~ "inställningar. Den är bara tillgänglig när katalogen är i \"Gratis\" "
+#~ "läge. Du kan alltid skapa andra avgiftsplaner, inklusive sådana för 0,00 "
+#~ "(gratis) om du vill."
+
+#~ msgctxt "fees admin"
+#~ msgid "Unavailable"
+#~ msgstr "Ej tillgänglig"
+
+#~ msgctxt "admin fees table"
+#~ msgid "Active"
+#~ msgstr "Aktiv"
+
+#~ msgctxt "admin fees table"
+#~ msgid "Disabled"
+#~ msgstr "Inaktiverad"
 
 #~ msgctxt "fees admin"
 #~ msgid "Not Available"

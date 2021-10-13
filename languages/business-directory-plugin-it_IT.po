@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-10-12 20:40:03+00:00\n"
+"POT-Creation-Date: 2021-10-13 00:32:32+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -265,7 +265,7 @@ msgid "Please upload the correct file type."
 msgstr "Si prega di caricare o selezionare un file CSV."
 
 #: includes/admin/fees.php:47
-#: includes/admin/helpers/tables/class-fees-table.php:109
+#: includes/admin/helpers/tables/class-fees-table.php:62
 #: includes/admin/helpers/tables/class-payments-table.php:57
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:73
@@ -277,7 +277,7 @@ msgid "Amount"
 msgstr "Importo"
 
 #: includes/admin/fees.php:49
-#: includes/admin/helpers/tables/class-fees-table.php:111
+#: includes/admin/helpers/tables/class-fees-table.php:64
 #: includes/admin/settings/class-settings-bootstrap.php:919
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:275
 #, fuzzy
@@ -306,6 +306,7 @@ msgid "Installed"
 msgstr "Installato"
 
 #: includes/admin/helpers/class-modules-list.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:261
 #: templates/admin/themes-item.tpl.php:43
 #, fuzzy
 msgid "Active"
@@ -328,7 +329,25 @@ msgstr "Attiva"
 msgid "Upgrade Now"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:277
+#. translators: %1$s: open link html, %2$s close link
+#: includes/admin/helpers/tables/class-fees-table.php:30
+#, fuzzy
+msgid "There are no fees right now. %1$sCreate one%2$s."
+msgstr ""
+"Non ci sono contributi in questo momento. È possibile <a>crearne uno</a>, se "
+"volete."
+
+#: includes/admin/helpers/tables/class-fees-table.php:154
+#, fuzzy
+msgid "Disable"
+msgstr "Disabilita"
+
+#: includes/admin/helpers/tables/class-fees-table.php:160
+#, fuzzy
+msgid "Enable"
+msgstr "Abilita"
+
+#: includes/admin/helpers/tables/class-fees-table.php:176
 #: includes/admin/helpers/tables/class-form-fields-table.php:104
 #: includes/admin/settings/class-settings-admin.php:536
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
@@ -339,6 +358,18 @@ msgstr ""
 #, fuzzy
 msgid "Delete"
 msgstr "Elimina"
+
+#: includes/admin/helpers/tables/class-fees-table.php:257
+#: includes/admin/helpers/tables/class-fees-table.php:259
+#, fuzzy
+msgid "Disabled"
+msgstr "Disabilitato"
+
+#: includes/admin/helpers/tables/class-fees-table.php:265
+#: includes/templates-ui.php:431
+#, fuzzy
+msgid "Default"
+msgstr "Canone predefinito"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:31
 #: includes/fields/class-fieldtypes-social.php:138
@@ -371,7 +402,7 @@ msgid "Go to \"Form Fields\""
 msgstr "Vai a \"Gestire i campi dei moduli\"."
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:313
-#: includes/functions.php:1295 includes/functions.php:1300
+#: includes/functions.php:1297 includes/functions.php:1302
 #, fuzzy
 msgid "Go back"
 msgstr "Va indietro"
@@ -1678,8 +1709,7 @@ msgstr "%1$s non è valido. Valore più essere uno di %2$s."
 msgid "%s is badly formatted. Valid Phone Number format required."
 msgstr "%s è mal formattato. Formato email valido richiesto."
 
-#: includes/functions.php:498 templates/admin/fees-index.tpl.php:71
-#: templates/admin/fees-index.tpl.php:84 templates/admin/fees-index.tpl.php:102
+#: includes/functions.php:498 templates/admin/fees-index.tpl.php:67
 msgid "Free"
 msgstr "Gratis"
 
@@ -1876,12 +1906,7 @@ msgstr "Abbandonato"
 msgid "Manage Listings"
 msgstr "Gestione delle Donazioni ricevute"
 
-#: includes/templates-ui.php:431
-#, fuzzy
-msgid "Default"
-msgstr "Canone predefinito"
-
-#: includes/themes.php:952
+#: includes/themes.php:951
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Il file ZIP non è un file tema BD valido."
@@ -2261,86 +2286,39 @@ msgstr "↓ Discendente"
 msgid "Drag and drop to re-order fees."
 msgstr "Trascinare e rilasciare per ordinare le Donazioni."
 
-#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
-#. opening <a> tag, %3$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:70
-#, fuzzy
-msgid ""
-"These are all of the fee plans displayed to the user when they place a "
-"listing. Your current mode of \"%1$s\" restricts what you see here. Those on "
-"the %2$sNot Available%3$s filter will become active when you change the "
-"payment mode."
+#. translators: %1$s is directory payment mode (Free or Paid)
+#: templates/admin/fees-index.tpl.php:66
+msgid "All fee plans may not be available in \"%1$s\" mode."
 msgstr ""
-"Questi sono tutti i piani di pagamento che vengono visualizzati all'utente "
-"quando inseriscono un'Annuncio. La tua modalità corrente di \"%s\" limita "
-"quello che vedi qui. Quelli del<a>Non disponibile\n"
-"</a> il filtro diventa attivo quando si modifica la modalità di pagamento."
 
-#: templates/admin/fees-index.tpl.php:71 templates/admin/fees-index.tpl.php:84
-#: templates/admin/fees-index.tpl.php:102
+#: templates/admin/fees-index.tpl.php:67
 #, fuzzy
 msgid "Paid"
 msgstr "Pagato"
 
-#. translators: %s is directory payment mode (Free or Paid)
-#: templates/admin/fees-index.tpl.php:83
-#, fuzzy
-msgid ""
-"These are all of the fee plans that aren't available because you're in \"%s"
-"\" mode. Those on the Active filter will become Not Available when you "
-"change the payment mode."
-msgstr ""
-"Questi sono tutti i piani a pagamento che non sono disponibili perché sei in "
-"modalità \"%s\". Quelli del filtro attivo diventeranno non disponibili "
-"quando si modifica la modalità di pagamento."
-
 #: templates/admin/fees-index.tpl.php:92
-#, fuzzy
-msgid ""
-"These fee plans were disabled by the admin and will not show to the end user "
-"regardless of mode until you enable them."
-msgstr ""
-"Questi piani tariffari sono stati disabilitati dall'amministratore e non "
-"verranno mostrati all'utente finale indipendentemente dalla modalità fino a "
-"quando non vengono abilitati."
-
-#. translators: %1$s is directory payment mode (Free or Paid), %2$s is a
-#. opening <a> tag, %3$s is a closing </a> tag.
-#: templates/admin/fees-index.tpl.php:101
-#, fuzzy
-msgid ""
-"These are all of the fee plans you have configured. Not all of them are "
-"available for the current mode (currently set to \"%1$s\"). To see the fee "
-"plans for this mode click %2$sActive%3$s."
-msgstr ""
-"Questi sono tutti i piani a pagamento che hai configurato. Non tutti sono "
-"disponibili per la modalità corrente (attualmente impostata su \"%s\"). Per "
-"visualizzare i piani di pagamento per questa modalità fare clic su<a>Attivo</"
-"a>."
-
-#: templates/admin/fees-index.tpl.php:131
 msgid "Set up a payment gateway to charge a fee for listings"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:133
+#: templates/admin/fees-index.tpl.php:94
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #. translators: %s: payment gateway name */
-#: templates/admin/fees-index.tpl.php:152
+#: templates/admin/fees-index.tpl.php:113
 msgid "Add the %s gateway as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:158
+#: templates/admin/fees-index.tpl.php:119
 #, fuzzy
 msgid "Upgrade"
 msgstr "Avviare l'aggiornamento"
 
-#: templates/admin/fees-index.tpl.php:166
+#: templates/admin/fees-index.tpl.php:127
 msgid "Set up Authorize.net as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:169
+#: templates/admin/fees-index.tpl.php:130
 msgid "Set Up"
 msgstr ""
 
@@ -4342,17 +4320,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Il tema è stato aggiornato con successo."
 
-#: includes/themes.php:960
+#: includes/themes.php:959
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossibile creare una directory dei temi."
 
-#: includes/themes.php:971
+#: includes/themes.php:970
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossibile rimuovere la directory al tema precedente \"%s\"."
 
-#: includes/themes.php:979
+#: includes/themes.php:978
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Non è stato possibile spostare un nuovo tema nella directory dei temi."
@@ -4415,132 +4393,76 @@ msgctxt "fees admin"
 msgid "fees"
 msgstr "Canoni"
 
-#: includes/admin/helpers/tables/class-fees-table.php:32
-msgctxt "fees admin"
-msgid "There are no fees right now. You can <a>create one</a>, if you want."
-msgstr ""
-"Non ci sono contributi in questo momento. È possibile <a>crearne uno</a>, se "
-"volete."
-
-#: includes/admin/helpers/tables/class-fees-table.php:39
-#: includes/admin/helpers/tables/class-fees-table.php:361
-msgctxt "fees admin"
-msgid "Active"
-msgstr "Attivo"
-
-#: includes/admin/helpers/tables/class-fees-table.php:42
-#: includes/admin/helpers/tables/class-fees-table.php:357
-msgctxt "fees admin"
-msgid "Disabled"
-msgstr "Disabilitato"
-
-#: includes/admin/helpers/tables/class-fees-table.php:52
-msgctxt "fees admin"
-msgid ""
-"There are no \"%s\" fees right now. You can <a>create one</a>, if you want."
-msgstr ""
-"Non ci sono tariffe \"%s\" al momento. È possibile <a>crearne uno</a>, se lo "
-"si desidera."
-
-#: includes/admin/helpers/tables/class-fees-table.php:108
+#: includes/admin/helpers/tables/class-fees-table.php:61
 msgctxt "fees admin"
 msgid "Label"
 msgstr "Etichetta"
 
-#: includes/admin/helpers/tables/class-fees-table.php:110
+#: includes/admin/helpers/tables/class-fees-table.php:63
 msgctxt "fees admin"
 msgid "Duration"
 msgstr "Durata"
 
-#: includes/admin/helpers/tables/class-fees-table.php:112
+#: includes/admin/helpers/tables/class-fees-table.php:65
 msgctxt "fees admin"
 msgid "Attributes"
 msgstr "Attributi"
 
-#: includes/admin/helpers/tables/class-fees-table.php:167
-msgctxt "fees admin"
-msgid ""
-"This is the default free plan for your directory.  You can't delete it and "
-"it's always free, but you can edit the name and other settings. It's only "
-"available when the directory is in Free mode.  You can always create other "
-"fee plans, including ones for 0.00 (free) if you wish."
-msgstr ""
-"Questo è il piano libero predefinito per la vostra directory.  Non è "
-"possibile cancellarlo ed è sempre gratuito, ma è possibile modificare il "
-"nome e le altre impostazioni. E' disponibile solo quando la directory è in "
-"modalità Free.  È sempre possibile creare altri piani a pagamento, compresi "
-"quelli a 0,00 (gratuito) se lo si desidera."
-
-#: includes/admin/helpers/tables/class-fees-table.php:228
+#: includes/admin/helpers/tables/class-fees-table.php:138
 msgctxt "fees admin"
 msgid "Edit"
 msgstr "Modifica"
 
-#: includes/admin/helpers/tables/class-fees-table.php:248
-msgctxt "fees admin"
-msgid "Disable"
-msgstr "Disabilita"
-
-#: includes/admin/helpers/tables/class-fees-table.php:262
-msgctxt "fees admin"
-msgid "Enable"
-msgstr "Abilita"
-
-#: includes/admin/helpers/tables/class-fees-table.php:287
+#: includes/admin/helpers/tables/class-fees-table.php:186
 msgctxt "fees admin"
 msgid "<strong>Fee ID:</strong> <fee-id>"
 msgstr "<strong>ID pagamento:</strong> <fee-id>"
 
-#: includes/admin/helpers/tables/class-fees-table.php:311
+#: includes/admin/helpers/tables/class-fees-table.php:210
 msgctxt "fees admin"
 msgid "Variable"
 msgstr "Variabile"
 
-#: includes/admin/helpers/tables/class-fees-table.php:316
+#: includes/admin/helpers/tables/class-fees-table.php:215
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "%1$s + %2$s per categoria"
 
-#: includes/admin/helpers/tables/class-fees-table.php:324
+#: includes/admin/helpers/tables/class-fees-table.php:223
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "Per sempre"
 
-#: includes/admin/helpers/tables/class-fees-table.php:326
+#: includes/admin/helpers/tables/class-fees-table.php:225
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d giorno"
 msgstr[1] "%d giorni"
 
-#: includes/admin/helpers/tables/class-fees-table.php:330
+#: includes/admin/helpers/tables/class-fees-table.php:229
 msgctxt "fees admin"
 msgid "%d image"
 msgid_plural "%d images"
 msgstr[0] "%d immagine"
 msgstr[1] "%d immagini"
 
-#: includes/admin/helpers/tables/class-fees-table.php:335
+#: includes/admin/helpers/tables/class-fees-table.php:234
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "Tutte le categorie"
 
-#: includes/admin/helpers/tables/class-fees-table.php:359
-msgctxt "fees admin"
-msgid "Unavailable"
-msgstr "Non disponibile"
-
-#: includes/admin/helpers/tables/class-fees-table.php:368
+#: includes/admin/helpers/tables/class-fees-table.php:269
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr "Sticky"
 
-#: includes/admin/helpers/tables/class-fees-table.php:372
+#: includes/admin/helpers/tables/class-fees-table.php:273
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "Ricorrente"
 
-#: includes/admin/helpers/tables/class-fees-table.php:376
+#: includes/admin/helpers/tables/class-fees-table.php:277
 msgctxt "fees admin"
 msgid "Private"
 msgstr "Privato"
@@ -4751,20 +4673,10 @@ msgctxt "listing timeline"
 msgid "Initial Payment"
 msgstr "Sottoscrizione"
 
-#: includes/admin/helpers/tables/class-fees-table.php:77
+#: includes/admin/helpers/tables/class-fees-table.php:52
 msgctxt "admin fees table"
 msgid "All"
 msgstr "Tutti"
-
-#: includes/admin/helpers/tables/class-fees-table.php:91
-msgctxt "admin fees table"
-msgid "Active"
-msgstr "Attivo"
-
-#: includes/admin/helpers/tables/class-fees-table.php:99
-msgctxt "admin fees table"
-msgid "Disabled"
-msgstr "Disabilitato"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:20
 msgctxt "form-fields admin"
@@ -5382,13 +5294,13 @@ msgid "Author"
 msgstr "Autore"
 
 #: includes/admin/settings/class-settings-bootstrap.php:789
-#: includes/functions.php:1213
+#: includes/functions.php:1215
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data di pubblicazione"
 
 #: includes/admin/settings/class-settings-bootstrap.php:790
-#: includes/functions.php:1214
+#: includes/functions.php:1216
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ultima modifica"
@@ -5782,12 +5694,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Carica Immagini"
 
-#: includes/functions.php:1211
+#: includes/functions.php:1213
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utente"
 
-#: includes/functions.php:1212
+#: includes/functions.php:1214
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data di registrazione"
@@ -7937,7 +7849,7 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Accetto i <a>termini e le condizioni</a> d'uso"
 
-#: includes/functions.php:1291
+#: includes/functions.php:1293
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Ritorno ai risultati"
@@ -9178,6 +9090,85 @@ msgstr "Inserisci il tuo indirizzo email"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continua"
+
+#, fuzzy
+#~ msgid ""
+#~ "These are all of the fee plans displayed to the user when they place a "
+#~ "listing. Your current mode of \"%1$s\" restricts what you see here. Those "
+#~ "on the %2$sNot Available%3$s filter will become active when you change "
+#~ "the payment mode."
+#~ msgstr ""
+#~ "Questi sono tutti i piani di pagamento che vengono visualizzati "
+#~ "all'utente quando inseriscono un'Annuncio. La tua modalità corrente di "
+#~ "\"%s\" limita quello che vedi qui. Quelli del<a>Non disponibile\n"
+#~ "</a> il filtro diventa attivo quando si modifica la modalità di pagamento."
+
+#, fuzzy
+#~ msgid ""
+#~ "These are all of the fee plans that aren't available because you're in "
+#~ "\"%s\" mode. Those on the Active filter will become Not Available when "
+#~ "you change the payment mode."
+#~ msgstr ""
+#~ "Questi sono tutti i piani a pagamento che non sono disponibili perché sei "
+#~ "in modalità \"%s\". Quelli del filtro attivo diventeranno non disponibili "
+#~ "quando si modifica la modalità di pagamento."
+
+#, fuzzy
+#~ msgid ""
+#~ "These fee plans were disabled by the admin and will not show to the end "
+#~ "user regardless of mode until you enable them."
+#~ msgstr ""
+#~ "Questi piani tariffari sono stati disabilitati dall'amministratore e non "
+#~ "verranno mostrati all'utente finale indipendentemente dalla modalità fino "
+#~ "a quando non vengono abilitati."
+
+#, fuzzy
+#~ msgid ""
+#~ "These are all of the fee plans you have configured. Not all of them are "
+#~ "available for the current mode (currently set to \"%1$s\"). To see the "
+#~ "fee plans for this mode click %2$sActive%3$s."
+#~ msgstr ""
+#~ "Questi sono tutti i piani a pagamento che hai configurato. Non tutti sono "
+#~ "disponibili per la modalità corrente (attualmente impostata su \"%s\"). "
+#~ "Per visualizzare i piani di pagamento per questa modalità fare clic "
+#~ "su<a>Attivo</a>."
+
+#~ msgctxt "fees admin"
+#~ msgid "Active"
+#~ msgstr "Attivo"
+
+#~ msgctxt "fees admin"
+#~ msgid ""
+#~ "There are no \"%s\" fees right now. You can <a>create one</a>, if you "
+#~ "want."
+#~ msgstr ""
+#~ "Non ci sono tariffe \"%s\" al momento. È possibile <a>crearne uno</a>, se "
+#~ "lo si desidera."
+
+#~ msgctxt "fees admin"
+#~ msgid ""
+#~ "This is the default free plan for your directory.  You can't delete it "
+#~ "and it's always free, but you can edit the name and other settings. It's "
+#~ "only available when the directory is in Free mode.  You can always create "
+#~ "other fee plans, including ones for 0.00 (free) if you wish."
+#~ msgstr ""
+#~ "Questo è il piano libero predefinito per la vostra directory.  Non è "
+#~ "possibile cancellarlo ed è sempre gratuito, ma è possibile modificare il "
+#~ "nome e le altre impostazioni. E' disponibile solo quando la directory è "
+#~ "in modalità Free.  È sempre possibile creare altri piani a pagamento, "
+#~ "compresi quelli a 0,00 (gratuito) se lo si desidera."
+
+#~ msgctxt "fees admin"
+#~ msgid "Unavailable"
+#~ msgstr "Non disponibile"
+
+#~ msgctxt "admin fees table"
+#~ msgid "Active"
+#~ msgstr "Attivo"
+
+#~ msgctxt "admin fees table"
+#~ msgid "Disabled"
+#~ msgstr "Disabilitato"
 
 #~ msgctxt "fees admin"
 #~ msgid "Not Available"
