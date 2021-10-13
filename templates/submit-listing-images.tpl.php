@@ -85,5 +85,7 @@ wpbdp_render( 'submit-listing-images-upload-form', $vars, false );
 ?>
 
 <script>
-wpbdp.listingSubmit.images.init();
+jQuery(function($) {
+	wpbdp.listingSubmit.images.init();
+});
 </script>
