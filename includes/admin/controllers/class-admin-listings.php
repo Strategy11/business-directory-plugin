@@ -43,6 +43,9 @@ class WPBDP_Admin_Listings {
 
         add_filter( 'tag_cloud_sort', array( $this, '_add_tag_cloud' ) );
 
+        add_action( 'admin_footer-post-new.php', array( $this, 'edit_screen_scripts' ) );
+        add_action( 'admin_footer-post.php', array( $this, 'edit_screen_scripts' ) );
+
         $this->listing_owner = new WPBDP__Admin__Listing_Owner();
     }
 
@@ -710,6 +713,23 @@ class WPBDP_Admin_Listings {
 
         return $tags;
 
+    }
+
+    /**
+     * Add script to edit footer
+     * This loads the scripts in the footer area to prevent js errors
+     */
+    public function edit_screen_scripts() {
+        if ( WPBDP_POST_TYPE !== $GLOBALS['post_type'] ) {
+            return;
+        }
+        ?>
+        <script>
+            jQuery(function($) {
+                wpbdp.listingSubmit.images.init();
+            });
+        </script>
+        <?php
     }
 
 	/**

@@ -83,9 +83,3 @@ endif;
 $vars['echo'] = true;
 wpbdp_render( 'submit-listing-images-upload-form', $vars, false );
 ?>
-
-<script>
-jQuery(function($) {
-	wpbdp.listingSubmit.images.init();
-});
-</script>
