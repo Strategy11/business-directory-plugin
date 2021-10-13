@@ -247,34 +247,37 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     }
 
     public function column_attributes( $fee ) {
-		$html = '<span class="wpbdp-tag">';
+		$tags = array();
 
 		$is_default_free_plan = 'free' === $fee->tag;
 		$is_paid_plan         = 0.0 !== $fee->amount;
 		$payments_on          = wpbdp_payments_possible();
 
 		if ( ! $fee->enabled ) {
-			$html .= __( 'Disabled', 'business-directory-plugin' );
+			$tags[] = esc_html__( 'Disabled', 'business-directory-plugin' );
 		} elseif ( ( ! $payments_on && $is_paid_plan ) || ( $payments_on && $is_default_free_plan ) ) {
-			$html .= __( 'Disabled', 'business-directory-plugin' );
+			$tags[] = esc_html__( 'Disabled', 'business-directory-plugin' );
 		} else {
-			$html .= __( 'Active', 'business-directory-plugin' );
+			$tags[] = esc_html__( 'Active', 'business-directory-plugin' );
 		}
 
-		$html .= '</span>';
+		if ( $is_default_free_plan ) {
+			$tags[] = esc_html__( 'Default', 'business-directory-plugin' ) . '</span>';
+		}
 
-        if ( $fee->sticky ) {
-            $html .= '<span class="wpbdp-tag">' . _x( 'Sticky', 'fees admin', 'business-directory-plugin' ) . '</span>';
-        }
+		if ( $fee->sticky ) {
+			$tags[] = _x( 'Sticky', 'fees admin', 'business-directory-plugin' );
+		}
 
-        if ( $fee->recurring ) {
-            $html .= '<span class="wpbdp-tag">' . _x( 'Recurring', 'fees admin', 'business-directory-plugin' ) . '</span>';
-        }
+		if ( $fee->recurring ) {
+			$tags[] = _x( 'Recurring', 'fees admin', 'business-directory-plugin' );
+		}
 
-        if ( ! empty( $fee->extra_data['private'] ) ) {
-            $html .= '<span class="wpbdp-tag">' . _x( 'Private', 'fees admin', 'business-directory-plugin' ) . '</span>';
-        }
+		if ( ! empty( $fee->extra_data['private'] ) ) {
+			$tags[] = _x( 'Private', 'fees admin', 'business-directory-plugin' );
+		}
 
+		$html = '<span class="wpbdp-tag">' . implode( '</span><span class="wpbdp-tag">', $tags ) . '</span>';
         return $html;
     }
 
