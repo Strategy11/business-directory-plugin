@@ -94,15 +94,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         echo '<tr class="' . $classes . '">';
         $this->single_row_columns( $item );
         echo '</tr>';
-
-        if ( 'free' === $item->tag ) {
-            echo '<tr class="free-fee-related-tr"></tr>';
-            echo '<tr class="wpbdp-item-message-tr free-fee-related-tr">';
-            echo '<td colspan="' . count( $this->get_columns() ) . '">';
-
-            echo '</td>';
-            echo '</tr>';
-        }
     }
 
     public function column_order( $fee ) {
