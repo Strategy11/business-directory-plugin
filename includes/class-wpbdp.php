@@ -23,7 +23,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.14.1' );
+        define( 'WPBDP_VERSION', '5.14.2' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
