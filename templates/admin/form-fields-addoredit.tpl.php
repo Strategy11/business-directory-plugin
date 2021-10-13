@@ -313,9 +313,9 @@ wpbdp_admin_notices();
 </form>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-WPBDP_associations_fieldtypes = <?php echo json_encode( $association_field_types ); ?>
-}, false);
+document.addEventListener( 'DOMContentLoaded', function () {
+    WPBDP_associations_fieldtypes = <?php echo json_encode( $association_field_types ); ?>
+}, false );
 </script>
 
 <?php echo wpbdp_admin_footer(); ?>
