@@ -138,7 +138,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             _x( 'Edit', 'fees admin', 'business-directory-plugin' )
         );
 
-
 		$toggle_url = add_query_arg(
 			array(
 				'wpbdp-view' => 'toggle-fee',

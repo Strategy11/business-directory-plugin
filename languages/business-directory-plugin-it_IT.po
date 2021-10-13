@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-10-13 00:32:32+00:00\n"
+"POT-Creation-Date: 2021-10-13 00:37:47+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -306,7 +306,7 @@ msgid "Installed"
 msgstr "Installato"
 
 #: includes/admin/helpers/class-modules-list.php:187
-#: includes/admin/helpers/tables/class-fees-table.php:261
+#: includes/admin/helpers/tables/class-fees-table.php:260
 #: templates/admin/themes-item.tpl.php:43
 #, fuzzy
 msgid "Active"
@@ -337,17 +337,17 @@ msgstr ""
 "Non ci sono contributi in questo momento. È possibile <a>crearne uno</a>, se "
 "volete."
 
-#: includes/admin/helpers/tables/class-fees-table.php:154
+#: includes/admin/helpers/tables/class-fees-table.php:153
 #, fuzzy
 msgid "Disable"
 msgstr "Disabilita"
 
-#: includes/admin/helpers/tables/class-fees-table.php:160
+#: includes/admin/helpers/tables/class-fees-table.php:159
 #, fuzzy
 msgid "Enable"
 msgstr "Abilita"
 
-#: includes/admin/helpers/tables/class-fees-table.php:176
+#: includes/admin/helpers/tables/class-fees-table.php:175
 #: includes/admin/helpers/tables/class-form-fields-table.php:104
 #: includes/admin/settings/class-settings-admin.php:536
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
@@ -359,13 +359,13 @@ msgstr "Abilita"
 msgid "Delete"
 msgstr "Elimina"
 
-#: includes/admin/helpers/tables/class-fees-table.php:257
-#: includes/admin/helpers/tables/class-fees-table.php:259
+#: includes/admin/helpers/tables/class-fees-table.php:256
+#: includes/admin/helpers/tables/class-fees-table.php:258
 #, fuzzy
 msgid "Disabled"
 msgstr "Disabilitato"
 
-#: includes/admin/helpers/tables/class-fees-table.php:265
+#: includes/admin/helpers/tables/class-fees-table.php:264
 #: includes/templates-ui.php:431
 #, fuzzy
 msgid "Default"
@@ -4413,56 +4413,56 @@ msgctxt "fees admin"
 msgid "Edit"
 msgstr "Modifica"
 
-#: includes/admin/helpers/tables/class-fees-table.php:186
+#: includes/admin/helpers/tables/class-fees-table.php:185
 msgctxt "fees admin"
 msgid "<strong>Fee ID:</strong> <fee-id>"
 msgstr "<strong>ID pagamento:</strong> <fee-id>"
 
-#: includes/admin/helpers/tables/class-fees-table.php:210
+#: includes/admin/helpers/tables/class-fees-table.php:209
 msgctxt "fees admin"
 msgid "Variable"
 msgstr "Variabile"
 
-#: includes/admin/helpers/tables/class-fees-table.php:215
+#: includes/admin/helpers/tables/class-fees-table.php:214
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "%1$s + %2$s per categoria"
 
-#: includes/admin/helpers/tables/class-fees-table.php:223
+#: includes/admin/helpers/tables/class-fees-table.php:222
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "Per sempre"
 
-#: includes/admin/helpers/tables/class-fees-table.php:225
+#: includes/admin/helpers/tables/class-fees-table.php:224
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d giorno"
 msgstr[1] "%d giorni"
 
-#: includes/admin/helpers/tables/class-fees-table.php:229
+#: includes/admin/helpers/tables/class-fees-table.php:228
 msgctxt "fees admin"
 msgid "%d image"
 msgid_plural "%d images"
 msgstr[0] "%d immagine"
 msgstr[1] "%d immagini"
 
-#: includes/admin/helpers/tables/class-fees-table.php:234
+#: includes/admin/helpers/tables/class-fees-table.php:233
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "Tutte le categorie"
 
-#: includes/admin/helpers/tables/class-fees-table.php:269
+#: includes/admin/helpers/tables/class-fees-table.php:268
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr "Sticky"
 
-#: includes/admin/helpers/tables/class-fees-table.php:273
+#: includes/admin/helpers/tables/class-fees-table.php:272
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "Ricorrente"
 
-#: includes/admin/helpers/tables/class-fees-table.php:277
+#: includes/admin/helpers/tables/class-fees-table.php:276
 msgctxt "fees admin"
 msgid "Private"
 msgstr "Privato"

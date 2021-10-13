@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-10-13 00:32:32+00:00\n"
+"POT-Creation-Date: 2021-10-13 00:37:47+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -310,7 +310,7 @@ msgid "Installed"
 msgstr "Установлен"
 
 #: includes/admin/helpers/class-modules-list.php:187
-#: includes/admin/helpers/tables/class-fees-table.php:261
+#: includes/admin/helpers/tables/class-fees-table.php:260
 #: templates/admin/themes-item.tpl.php:43
 #, fuzzy
 msgid "Active"
@@ -339,16 +339,16 @@ msgstr "Поднять статус до %s"
 msgid "There are no fees right now. %1$sCreate one%2$s."
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:154
+#: includes/admin/helpers/tables/class-fees-table.php:153
 msgid "Disable"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:160
+#: includes/admin/helpers/tables/class-fees-table.php:159
 #, fuzzy
 msgid "Enable"
 msgstr "Показать строку сортировки?"
 
-#: includes/admin/helpers/tables/class-fees-table.php:176
+#: includes/admin/helpers/tables/class-fees-table.php:175
 #: includes/admin/helpers/tables/class-form-fields-table.php:104
 #: includes/admin/settings/class-settings-admin.php:536
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
@@ -360,13 +360,13 @@ msgstr "Показать строку сортировки?"
 msgid "Delete"
 msgstr "Удалить"
 
-#: includes/admin/helpers/tables/class-fees-table.php:257
-#: includes/admin/helpers/tables/class-fees-table.php:259
+#: includes/admin/helpers/tables/class-fees-table.php:256
+#: includes/admin/helpers/tables/class-fees-table.php:258
 #, fuzzy
 msgid "Disabled"
 msgstr "Тариф удалён."
 
-#: includes/admin/helpers/tables/class-fees-table.php:265
+#: includes/admin/helpers/tables/class-fees-table.php:264
 #: includes/templates-ui.php:431
 #, fuzzy
 msgid "Default"
@@ -4288,28 +4288,28 @@ msgctxt "fees admin"
 msgid "Edit"
 msgstr "Изменить"
 
-#: includes/admin/helpers/tables/class-fees-table.php:186
+#: includes/admin/helpers/tables/class-fees-table.php:185
 msgctxt "fees admin"
 msgid "<strong>Fee ID:</strong> <fee-id>"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:210
+#: includes/admin/helpers/tables/class-fees-table.php:209
 msgctxt "fees admin"
 msgid "Variable"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:215
+#: includes/admin/helpers/tables/class-fees-table.php:214
 #, fuzzy
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "Тариф \"%s\" для рубрики \"%s\""
 
-#: includes/admin/helpers/tables/class-fees-table.php:223
+#: includes/admin/helpers/tables/class-fees-table.php:222
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "Вечно"
 
-#: includes/admin/helpers/tables/class-fees-table.php:225
+#: includes/admin/helpers/tables/class-fees-table.php:224
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
@@ -4317,7 +4317,7 @@ msgstr[0] "%d день"
 msgstr[1] "%d дней"
 msgstr[2] ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:229
+#: includes/admin/helpers/tables/class-fees-table.php:228
 msgctxt "fees admin"
 msgid "%d image"
 msgid_plural "%d images"
@@ -4325,24 +4325,24 @@ msgstr[0] "%d изображение"
 msgstr[1] "%d изображений"
 msgstr[2] ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:234
+#: includes/admin/helpers/tables/class-fees-table.php:233
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "Все рубрики"
 
-#: includes/admin/helpers/tables/class-fees-table.php:269
+#: includes/admin/helpers/tables/class-fees-table.php:268
 #, fuzzy
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr "Специальная?"
 
-#: includes/admin/helpers/tables/class-fees-table.php:273
+#: includes/admin/helpers/tables/class-fees-table.php:272
 #, fuzzy
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "(периодически)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:277
+#: includes/admin/helpers/tables/class-fees-table.php:276
 #, fuzzy
 msgctxt "fees admin"
 msgid "Private"
