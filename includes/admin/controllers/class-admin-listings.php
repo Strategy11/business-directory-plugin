@@ -610,6 +610,10 @@ class WPBDP_Admin_Listings {
             if ( null === $row['expiration_date'] || strtotime( $new_plan['expiration_date'] ) > current_time( 'timestamp' ) ) {
                 $listing->get_status( true, true );
             }
+        } else {
+            if ( null !== $row['expiration_date'] && strtotime( $row['expiration_date'] ) < current_time( 'timestamp' ) ) {
+                $listing->set_status( 'expired' );
+            }
         }
     }
 
