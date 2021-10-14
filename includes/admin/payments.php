@@ -62,6 +62,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
 
         $payment = WPBDP_Payment::objects()->get( absint( $data['id'] ) );
+        $this->handle_payment_not_found_redirect( $payment );
         $payment->update( $data );
         $payment->save();
 
@@ -75,6 +76,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
 
         $payment = WPBDP_Payment::objects()->get( $payment_id );
+		$this->handle_payment_not_found_redirect( $payment );
         $payment->delete();
 
 		wp_redirect( esc_url_raw( admin_url( 'admin.php?page=wpbdp_admin_payments&message=payment_delete' ) ) );
@@ -131,5 +133,13 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
         $res->add( 'note', $note );
         $res->send();
     }
+
+    private function handle_payment_not_found_redirect( $payment ) {
+		if ( !$payment ) {
+            // Not found.
+            wp_redirect( esc_url_raw( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details' ) ) );
+            exit;
+        }
+	}
 
 }
