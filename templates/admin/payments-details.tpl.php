@@ -3,7 +3,7 @@ wpbdp_admin_header(
     array(
         'title'   => sprintf(
             __( 'Payment %s', 'business-directory-plugin' ),
-            $payment->id ? '#' . $payment->id : __( 'Not Found', 'business-directory-plugin' )
+            ( $payment && $payment->id ) ? '#' . $payment->id : __( 'Not Found', 'business-directory-plugin' )
         ),
         'id'      => 'payments-details',
         'buttons' => array(
@@ -16,7 +16,7 @@ wpbdp_admin_header(
 
 wpbdp_admin_notices();
 
-if ( ! $payment->id ) {
+if ( ! $payment || ! $payment->id ) {
 	?>
 	<h2><?php esc_html_e( 'Payment Not Found', 'business-directory-plugin' ); ?></h2>
 	<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ); ?>">
