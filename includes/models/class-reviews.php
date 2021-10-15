@@ -53,7 +53,7 @@ class WPBDP_Reviews {
 	 */
 	private function set_review_status() {
 		$user_id = get_current_user_id();
-		$review  = get_user_meta( $user_id, $this->option_name, true );
+		$review  = $this->get_user_meta( $user_id );
 		$default = array(
 			'time'      => time(),
 			'dismissed' => false,
@@ -62,7 +62,7 @@ class WPBDP_Reviews {
 
 		if ( empty( $review ) ) {
 			// Set the review request to show in a week
-			update_user_meta( $user_id, $this->option_name, $default );
+			$this->update_user_meta( $user_id, $default );
 		}
 
 		$review              = array_merge( $default, (array) $review );
@@ -91,8 +91,7 @@ class WPBDP_Reviews {
 		if ( $entries < $count ) {
 			// check the entry count again in a week
 			$this->review_status['time'] = time();
-			update_user_meta( $user->ID, $this->option_name, $this->review_status );
-
+			$this->update_user_meta( $user->ID, $this->review_status );
 			return;
 		}
 
@@ -121,14 +120,16 @@ class WPBDP_Reviews {
 	public function dismiss_review() {
 		check_admin_referer( 'wpbdp_dismiss_review' );
 
-		$review = get_user_meta( $user_id, $this->option_name, true );
+		$user_id = get_current_user_id();
+
+		$review = $this->get_user_meta( $user_id );
 		if ( empty( $review ) ) {
 			$review = array();
 		}
 
 		if ( isset( $review['dismissed'] ) && $review['dismissed'] === 'done' ) {
 			// if feedback was submitted, don't update it again when the review is dismissed
-			update_user_meta( $user_id, $this->option_name, $review );
+			$this->update_user_meta( $user_id, $review );
 			wp_die();
 		}
 
@@ -143,7 +144,28 @@ class WPBDP_Reviews {
 		$review['dismissed'] = $dismissed === 'done' ? true : 'later';
 		$review['asked']     = isset( $review['asked'] ) ? $review['asked'] + 1 : 1;
 
-		update_user_meta( $user_id, $this->option_name, $review );
+		$this->update_user_meta( $user_id, $review );
 		wp_die();
+	}
+
+	/**
+	 * Update user meta
+	 *
+	 * @param int $user_id - the user id
+	 * @param array $review - the review
+	 */
+	private function update_user_meta( $user_id, $review ) {
+		update_user_meta( $user_id, $this->option_name, $review );
+	}
+
+	/**
+	 * Get user meta
+	 *
+	 * @param int $user_id - the user id
+	 *
+	 * @return bool|array
+	 */
+	private function get_user_meta( $user_id ) {
+		return get_user_meta( $user_id, $this->option_name, true );
 	}
 }
