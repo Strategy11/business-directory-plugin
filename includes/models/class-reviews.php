@@ -95,13 +95,8 @@ class WPBDP_Reviews {
 			return;
 		}
 
-		if ( $entries <= 100 ) {
-			// round to the nearest 10
-			$entries = floor( $entries / 10 ) * 10;
-		} else {
-			// round to the nearest 50
-			$entries = floor( $entries / 50 ) * 50;
-		}
+		$entries = $this->calculate_entries( $entries );
+
 		$name = $user->first_name;
 
 		$title = sprintf(
@@ -167,5 +162,23 @@ class WPBDP_Reviews {
 	 */
 	private function get_user_meta( $user_id ) {
 		return get_user_meta( $user_id, $this->option_name, true );
+	}
+
+	/**
+	 * Calculate and round off the entries to whole numbers
+	 *
+	 * @param int $entries
+	 *
+	 * @return int $entries
+	 */
+	private function calculate_entries( $entries ) {
+		if ( $entries <= 100 ) {
+			// round to the nearest 10
+			$entries = floor( $entries / 10 ) * 10;
+		} else {
+			// round to the nearest 50
+			$entries = floor( $entries / 50 ) * 50;
+		}
+		return $entries;
 	}
 }
