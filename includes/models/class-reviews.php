@@ -3,7 +3,7 @@
  * @since x.x
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -24,18 +24,18 @@ class WPBDP_Reviews {
 	}
 
 	/**
-	 * Add admin notices as needed for reviews
+	 * Add admin notices as needed for reviews.
 	 */
 	public function review_request() {
 
-		// Only show the review request to high-level users on business directory pages
+		// Only show the review request to high-level users on business directory pages.
 		if ( ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
-		// Verify that we can do a check for reviews
+		// Verify that we can do a check for reviews.
 		$this->set_review_status();
 
-		// Check if it has been dismissed or if we can ask later
+		// Check if it has been dismissed or if we can ask later.
 		$dismissed = $this->review_status['dismissed'];
 		if ( $dismissed === 'later' && $this->review_status['asked'] < 3 ) {
 			$dismissed = false;
@@ -61,7 +61,7 @@ class WPBDP_Reviews {
 		);
 
 		if ( empty( $review ) ) {
-			// Set the review request to show in a week
+			// Set the review request to show in a week.
 			$this->update_user_meta( $user_id, $default );
 		}
 
@@ -71,11 +71,11 @@ class WPBDP_Reviews {
 	}
 
 	/**
-	 * Maybe show review request
+	 * Maybe show review request.
 	 */
 	private function review() {
 
-		// show the review request 3 times, depending on the number of entries
+		// show the review request 3 times, depending on the number of entries.
 		$show_intervals = array( 50, 200, 500 );
 		$asked          = $this->review_status['asked'];
 
@@ -87,9 +87,9 @@ class WPBDP_Reviews {
 		$count   = $show_intervals[ $asked ];
 		$user    = wp_get_current_user();
 
-		// Only show review request if the site has collected enough entries
+		// Only show review request if the site has collected enough entries.
 		if ( $entries < $count ) {
-			// check the entry count again in a week
+			// check the entry count again in a week.
 			$this->review_status['time'] = time();
 			$this->update_user_meta( $user->ID, $this->review_status );
 			return;
@@ -109,7 +109,7 @@ class WPBDP_Reviews {
 	}
 
 	/**
-	 * Save the request to hide the review
+	 * Save the request to hide the review.
 	 */
 	public function dismiss_review() {
 		check_admin_referer( 'wpbdp_dismiss_review' );
@@ -121,7 +121,7 @@ class WPBDP_Reviews {
 		}
 
 		if ( isset( $review['dismissed'] ) && $review['dismissed'] === 'done' ) {
-			// if feedback was submitted, don't update it again when the review is dismissed
+			// if feedback was submitted, don't update it again when the review is dismissed.
 			$this->update_user_meta( $user_id, $review );
 			wp_die();
 		}
@@ -147,39 +147,39 @@ class WPBDP_Reviews {
 	}
 
 	/**
-	 * Update user meta
+	 * Update user meta.
 	 *
-	 * @param int   $user_id - the user id
-	 * @param array $review - the review
+	 * @param int   $user_id - the user id.
+	 * @param array $review - the review.
 	 */
 	private function update_user_meta( $user_id, $review ) {
 		update_user_meta( $user_id, $this->option_name, $review );
 	}
 
 	/**
-	 * Get user meta
+	 * Get user meta.
 	 *
-	 * @param int $user_id - the user id
+	 * @param int $user_id - the user id.
 	 *
-	 * @return bool|array
+	 * @return bool|array.
 	 */
 	private function get_user_meta( $user_id ) {
 		return get_user_meta( $user_id, $this->option_name, true );
 	}
 
 	/**
-	 * Calculate and round off the entries to whole numbers
+	 * Calculate and round off the entries to whole numbers.
 	 *
-	 * @param int $entries
+	 * @param int $entries.
 	 *
-	 * @return int $entries
+	 * @return int $entries.
 	 */
 	private function calculate_entries( $entries ) {
 		if ( $entries <= 100 ) {
-			// round to the nearest 10
+			// round to the nearest 10.
 			$entries = floor( $entries / 10 ) * 10;
 		} else {
-			// round to the nearest 50
+			// round to the nearest 50.
 			$entries = floor( $entries / 50 ) * 50;
 		}
 		return $entries;
