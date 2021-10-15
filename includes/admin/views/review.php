@@ -43,12 +43,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 <script type="text/javascript">
 	jQuery( document ).ready( function( $ ) {
-		$(document).on( 'click', '.wpbdp-dismiss-review-notice, .wpbdp-review-notice .notice-dismiss', function( event ) {
+		$( document ).on( 'click', '.wpbdp-dismiss-review-notice, .wpbdp-review-notice .notice-dismiss', function( event ) {
 
 			if ( ! $( this ).hasClass( 'wpbdp-review-out' ) ) {
 				event.preventDefault();
 			}
-			var link = $( this ).data('link');
+			var link = $( this ).data( 'link' );
 			if ( typeof link === 'undefined' ) {
 				link = 'no';
 			}
@@ -57,21 +57,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$( '.wpbdp-review-notice' ).remove();
 		} );
 
-		$(document).on('click', '.wpbdp-feedback-request button', function() {
+		$( document ).on(' click', '.wpbdp-feedback-request button', function() {
 			wpbdpDismissReview( 'done' );
 		} );
 
-		$('.show-wpbdp-feedback').click( function( e ){
+		$( '.show-wpbdp-feedback' ).click( function( e ) {
 			e.preventDefault();
-			var link = $(this).data('link');
+			var link = $( this ).data( 'link' );
 			var className = '.wpbdp-' + link + '-request';
-			jQuery('.wpbdp-satisfied').hide();
-			jQuery(className).show();
+			jQuery( '.wpbdp-satisfied' ).hide();
+			jQuery( className ).show();
 			if ( className === '.wpbdp-feedback-request' ) {
 				var wpbdpapi = $('#wpbdpapi-feedback');
 				wpbdpapiGetData( wpbdpapi );
 			}
-		});
+		} );
 	} );
 
 	function wpbdpDismissReview( link ) {
@@ -82,13 +82,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		} );
 	}
 	function wpbdpapiGetData( frmcont ) {
-		jQuery.ajax({
+		jQuery.ajax( {
 			dataType:'json',
-			url:frmcont.data('url'),
-			success:function(json){
+			url:frmcont.data( 'url' ),
+			success:function( json ) {
 				var form = json.renderedHtml;
-				frmcont.html(form);
+				frmcont.html( form );
 			}
-		});
+		} );
 	}
 </script>
