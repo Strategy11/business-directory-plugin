@@ -96,10 +96,9 @@ class WPBDP_Reviews {
 		}
 
 		$entries = $this->calculate_entries( $entries );
+		$name    = $user->first_name;
 
-		$name = $user->first_name;
-
-		$title = sprintf(
+		$title   = sprintf(
 			/* translators: %s: User name, %2$d: number of entries */
 			esc_html__( 'Congratulations %1$s! You have collected %2$d listings.', 'business-directory-plugin' ),
 			esc_html( $name ),
@@ -116,8 +115,7 @@ class WPBDP_Reviews {
 		check_admin_referer( 'wpbdp_dismiss_review' );
 
 		$user_id = get_current_user_id();
-
-		$review = $this->get_user_meta( $user_id );
+		$review  = $this->get_user_meta( $user_id );
 		if ( empty( $review ) ) {
 			$review = array();
 		}
@@ -146,7 +144,7 @@ class WPBDP_Reviews {
 	/**
 	 * Update user meta
 	 *
-	 * @param int $user_id - the user id
+	 * @param int   $user_id - the user id
 	 * @param array $review - the review
 	 */
 	private function update_user_meta( $user_id, $review ) {
