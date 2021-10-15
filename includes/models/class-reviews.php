@@ -138,7 +138,7 @@ class WPBDP_Reviews {
 		$review['dismissed'] = 'later';
 		$review['asked']     = isset( $review['asked'] ) ? $review['asked'] + 1 : 1;
 
-		if ( $dismissed ) {
+		if ( $dismissed && $dismissed === 'done' ) {
 			$review['dismissed'] = true;
 		}
 
