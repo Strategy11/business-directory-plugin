@@ -177,8 +177,8 @@ class WPBDP_Reviews {
 	/**
 	 * Update user meta.
 	 *
-	 * @param int   $user_id. The user id.
-	 * @param array $review. The review.
+	 * @param int   $user_id The user id.
+	 * @param array $review The review.
 	 *
 	 * @since x.x
 	 */
@@ -189,7 +189,7 @@ class WPBDP_Reviews {
 	/**
 	 * Get user meta.
 	 *
-	 * @param int $user_id. The user id.
+	 * @param int $user_id The user id.
 	 *
 	 * @since x.x
 	 *
@@ -202,11 +202,11 @@ class WPBDP_Reviews {
 	/**
 	 * Calculate and round off the entries to whole numbers.
 	 *
-	 * @param int $entries. The total number of listings.
+	 * @param int $entries The total number of listings.
 	 *
 	 * @since x.x
 	 *
-	 * @return int $entries.
+	 * @return int $entries
 	 */
 	private function calculate_entries( $entries ) {
 		if ( $entries <= 100 ) {
