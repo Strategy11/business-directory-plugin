@@ -2,6 +2,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
+/**
+ * Review template.
+ * Used to request for reviews.
+ *
+ * @since x.x
+ */
 ?>
 <div class="notice notice-info is-dismissible wpbdp-review-notice">
 	<div class="wpbdp-satisfied">

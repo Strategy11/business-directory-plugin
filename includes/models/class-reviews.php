@@ -8,14 +8,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Model to handle reviews
+ * This checks if the admin has addeda certain number of listings before requesting for a review.
+ *
+ * @since x.x
+ */
 class WPBDP_Reviews {
 
+	/**
+	 * The obtion name used to check the review status per user.
+	 *
+	 * @var string
+	 *
+	 * @since x.x
+	 */
 	private $option_name = 'wpbdp_reviewed';
 
+	/**
+	 * The review status
+	 *
+	 * @var array
+	 *
+	 * @since x.x
+	 */
 	private $review_status = array();
 
 	private static $instance = null;
 
+	/**
+	 * Get the instance of the class
+	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
@@ -25,6 +48,8 @@ class WPBDP_Reviews {
 
 	/**
 	 * Add admin notices as needed for reviews.
+	 *
+	 * @since x.x
 	 */
 	public function review_request() {
 
@@ -50,6 +75,8 @@ class WPBDP_Reviews {
 
 	/**
 	 * When was the review request last dismissed?
+	 *
+	 * @since x.x
 	 */
 	private function set_review_status() {
 		$user_id = get_current_user_id();
@@ -72,6 +99,9 @@ class WPBDP_Reviews {
 
 	/**
 	 * Maybe show review request.
+	 * Include the review html file.
+	 *
+	 * @since x.x
 	 */
 	private function review() {
 
@@ -110,6 +140,8 @@ class WPBDP_Reviews {
 
 	/**
 	 * Save the request to hide the review.
+	 *
+	 * @since x.x
 	 */
 	public function dismiss_review() {
 		check_admin_referer( 'wpbdp_dismiss_review' );
@@ -149,8 +181,10 @@ class WPBDP_Reviews {
 	/**
 	 * Update user meta.
 	 *
-	 * @param int   $user_id - the user id.
-	 * @param array $review - the review.
+	 * @param int   $user_id. The user id.
+	 * @param array $review. The review.
+	 *
+	 * @since x.x
 	 */
 	private function update_user_meta( $user_id, $review ) {
 		update_user_meta( $user_id, $this->option_name, $review );
@@ -159,9 +193,11 @@ class WPBDP_Reviews {
 	/**
 	 * Get user meta.
 	 *
-	 * @param int $user_id - the user id.
+	 * @param int $user_id. The user id.
 	 *
-	 * @return bool|array.
+	 * @since x.x
+	 *
+	 * @return bool|array
 	 */
 	private function get_user_meta( $user_id ) {
 		return get_user_meta( $user_id, $this->option_name, true );
@@ -170,7 +206,9 @@ class WPBDP_Reviews {
 	/**
 	 * Calculate and round off the entries to whole numbers.
 	 *
-	 * @param int $entries.
+	 * @param int $entries. The total number of listings.
+	 *
+	 * @since x.x
 	 *
 	 * @return int $entries.
 	 */
