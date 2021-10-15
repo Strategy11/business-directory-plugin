@@ -135,7 +135,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
     }
 
     private function handle_payment_not_found_redirect( $payment ) {
-		if ( !$payment ) {
+		if ( ! $payment ) {
             // Not found.
             wp_redirect( esc_url_raw( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details' ) ) );
             exit;
