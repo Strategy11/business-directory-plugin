@@ -1106,7 +1106,9 @@ class WPBDP_Listing {
         // Remove payment information.
         foreach ( $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) as $payment_id ) {
             $payment = WPBDP_Payment::objects()->get( $payment_id );
-            $payment->delete();
+			if ( $payment ) {
+				$payment->delete();
+			}
         }
     }
 

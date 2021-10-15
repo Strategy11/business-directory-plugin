@@ -42,6 +42,9 @@ class WPBDP__Abandoned_Payment_Notification {
             }
 
             $payment = WPBDP_Payment::objects()->get( $data->id );
+			if ( !$payment ) {
+				continue;
+			}
             $listing = $payment->get_listing();
 
 			if ( ! $listing ) {
