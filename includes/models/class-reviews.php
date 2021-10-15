@@ -133,9 +133,14 @@ class WPBDP_Reviews {
 			),
 			'post'
 		);
+
 		$review['time']      = time();
-		$review['dismissed'] = $dismissed === 'done' ? true : 'later';
+		$review['dismissed'] = 'later';
 		$review['asked']     = isset( $review['asked'] ) ? $review['asked'] + 1 : 1;
+
+		if ( $dismissed ) {
+			$review['dismissed'] = true;
+		}
 
 		$this->update_user_meta( $user_id, $review );
 		wp_die();
