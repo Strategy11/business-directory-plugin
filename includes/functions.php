@@ -7,6 +7,10 @@ function wpbdp_get_version() {
     return WPBDP_VERSION;
 }
 
+/**
+ * Check pages that have the shortcode and are public.
+ * This is used in the main query to ensure that the views for the main pages are loaded
+ */
 function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     global $wpdb;
 
