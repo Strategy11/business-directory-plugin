@@ -58,7 +58,8 @@ class WPBDP_Reviews {
 
 		// Check if it has been dismissed or if we can ask later.
 		$dismissed = $this->review_status['dismissed'];
-		if ( $dismissed === 'later' && $this->review_status['asked'] < 3 ) {
+		$asked     = $this->review_status['asked'];
+		if ( 'later' === $dismissed && $asked < 3 ) {
 			$dismissed = false;
 		}
 
@@ -148,7 +149,7 @@ class WPBDP_Reviews {
 			$review = array();
 		}
 
-		if ( isset( $review['dismissed'] ) && $review['dismissed'] === 'done' ) {
+		if ( isset( $review['dismissed'] ) && 'done' === $review['dismissed'] ) {
 			// if feedback was submitted, don't update it again when the review is dismissed.
 			$this->update_user_meta( $user_id, $review );
 			wp_die();
@@ -163,7 +164,7 @@ class WPBDP_Reviews {
 		);
 
 		$review['time']      = time();
-		$review['dismissed'] = ( $dismissed === 'done' ) ? true : 'later';
+		$review['dismissed'] = ( 'done' === $dismissed ) ? true : 'later';
 		$review['asked']     = isset( $review['asked'] ) ? $review['asked'] + 1 : 1;
 
 		$this->update_user_meta( $user_id, $review );
