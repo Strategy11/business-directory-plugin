@@ -173,7 +173,7 @@ class WPBDP_App_Helper {
 	public static function is_bd_post_page() {
 		global $pagenow;
 
-		if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' && $pagenow !== 'edit.php' ) {
+		if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow && 'edit.php' !== $pagenow ) {
 			return false;
 		}
 
@@ -185,7 +185,7 @@ class WPBDP_App_Helper {
 			$post_type = $post ? $post->post_type : '';
 		}
 
-		return $post_type === WPBDP_POST_TYPE;
+		return WPBDP_POST_TYPE === $post_type;
 	}
 
 	/**
