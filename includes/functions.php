@@ -9,9 +9,10 @@ function wpbdp_get_version() {
 
 /**
  * Check pages that have the shortcode and are public.
- * This is used in the main query to ensure that the views for the main pages are loaded
+ * This is used in the main query to ensure that the views for the main pages are loaded.
+ * Allow shortcodes to be used in private pages.
  *
- * @since x.x Allow shortcodes to be used in private pages.
+ * @since x.x
  */
 function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     global $wpdb;
