@@ -16,8 +16,6 @@ class WPBDP_Reviews {
 	 * The obtion name used to check the review status per user.
 	 *
 	 * @var string
-	 *
-	 * @since x.x
 	 */
 	private $option_name = 'wpbdp_reviewed';
 
@@ -25,8 +23,6 @@ class WPBDP_Reviews {
 	 * The review status
 	 *
 	 * @var array
-	 *
-	 * @since x.x
 	 */
 	private $review_status = array();
 
