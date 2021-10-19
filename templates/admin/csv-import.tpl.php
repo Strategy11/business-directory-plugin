@@ -342,7 +342,7 @@ printf(
             <td class="field-type"><?php echo esc_html( $field->get_field_type()->get_name() ); ?></td>
             <td class="field-is-required"><?php echo $field->is_required() ? 'X' : ''; ?></td>
             <td class="field-is-multivalued">
-				<?php echo ( $field->get_association() === 'category' || $field->get_association() === 'tags') || ( $field->get_field_type_id() === 'checkbox' || $field->get_field_type_id() === 'multiselect' ) ? 'X' : ''; ?>
+				<?php echo ( $field->get_association() === 'category' || $field->get_association() === 'tags' ) || ( $field->get_field_type_id() === 'checkbox' || $field->get_field_type_id() === 'multiselect' ) ? 'X' : ''; ?>
             </td>
         </tr>
 		<?php
