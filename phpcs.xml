@@ -51,12 +51,12 @@
         <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
         <exclude name="WordPress.NamingConventions.ValidHookName.NotLowercase" />
 
-        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
+        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
         <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
-        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen" />
         <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
         <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.SpacesAroundArrayKeys" />
         <exclude name="WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned" />
@@ -90,7 +90,6 @@
         <exclude name="Squiz.Commenting.VariableComment" />
         <exclude name="Generic.Commenting.DocComment.MissingShort" />
         <exclude name="Squiz.Commenting.InlineComment" />
-        <exclude name="Generic.Commenting.DocComment.SpacingBeforeTags" />
         <exclude name="Squiz.Commenting.ClassComment" />
         <exclude name="Squiz.Commenting.BlockComment" />
     </rule>
