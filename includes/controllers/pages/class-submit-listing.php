@@ -40,7 +40,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             WPBDP_ASSETS_URL . 'js/submit-listing.min.js',
             array(),
             WPBDP_VERSION,
-            false
+            true
         );
 
         wp_enqueue_script( 'wpbdp-checkout' );
@@ -72,6 +72,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				'somethingWentWrong'       => _x( 'Something went wrong!', 'submit listing', 'business-directory-plugin' ),
             )
         );
+
+		$custom_css = "
+		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]+ label span:before{
+			content: '" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
+		}
+		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]:checked + label span:before{
+			content: '" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
+		}";
+		wp_add_inline_style( 'wpbdp-base-css', $custom_css );
 
         do_action( 'wpbdp_submit_listing_enqueue_resources' );
     }
