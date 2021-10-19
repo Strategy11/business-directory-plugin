@@ -80,7 +80,7 @@ class WPBDP_Reviews {
 			'asked'     => 0,
 		);
 
-		if ( empty( $review ) ) {
+		if ( ! $review || ! is_array( $review ) ) {
 			// Set the review request to show in a week.
 			$this->update_user_meta( $user_id, $default );
 		}
@@ -139,7 +139,7 @@ class WPBDP_Reviews {
 	public function dismiss_review() {
 		$user_id = get_current_user_id();
 		$review  = $this->get_user_meta( $user_id );
-		if ( empty( $review ) ) {
+		if ( ! $review || ! is_array( $review ) ) {
 			$review = array();
 		}
 
