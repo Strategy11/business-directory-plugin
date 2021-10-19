@@ -49,8 +49,8 @@
         <exclude name="WordPress.PHP.StrictComparisons.LooseComparison" />
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
         <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
-        <exclude name="WordPress.NamingConventions.ValidHookName.NotLowercase" />
 
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
         <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
         <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
         <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
@@ -65,8 +65,6 @@
         <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
         <exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakIndent" />
-        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose" />
-        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen" />
         <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
         <exclude name="Generic.Formatting.DisallowMultipleStatements.SameLine" />
         <exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
