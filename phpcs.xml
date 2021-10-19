@@ -70,11 +70,9 @@
         <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose" />
         <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen" />
         <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
-        <exclude name="WordPress.WhiteSpace.OperatorSpacing.SpacingAfter" />
         <exclude name="Generic.Formatting.DisallowMultipleStatements.SameLine" />
         <exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
         <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent" />
-        <exclude name="Generic.Formatting.SpaceAfterCast.NoSpace" />
 
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen" />
