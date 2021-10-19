@@ -1073,17 +1073,22 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         /**
-         * Request review
+         * Request review.
          */
         private function maybe_request_review() {
             WPBDP_Reviews::instance()->review_request();
         }
 
         /**
-         * Dismiss review
+         * Dismiss review.
+         * Action is only valid for an admin.
          */
         public function maybe_dismiss_review() {
-            check_admin_referer( 'wpbdp_dismiss_review' );
+            check_ajax_referer( 'wpbdp_dismiss_review' );
+            if ( ! is_admin() ) {
+                wp_die();
+            }
+
             WPBDP_Reviews::instance()->dismiss_review();
         }
 
