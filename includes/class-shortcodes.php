@@ -499,8 +499,8 @@ class WPBDP__Shortcodes {
 
             if ( $args['menu'] ) {
                 $vars['_wrapper']  = 'page';
-                $vars['_bar']      =   true;
-                $vars['_bar_args'] =  array( 'buttons' => $args['buttons'] );
+				$vars['_bar']      = true;
+				$vars['_bar_args'] = array( 'buttons' => $args['buttons'] );
             }
 
             $this->maybe_paginate_frontpage( $query );

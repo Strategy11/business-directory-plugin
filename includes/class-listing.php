@@ -750,13 +750,15 @@ class WPBDP_Listing {
         if ( ! $fee )
             return false;
 
-        $row =  array( 'listing_id' => $this->id,
-                       'fee_id' => $fee->id,
-                       'fee_days' => $fee->days,
-                       'fee_images' => $fee->images,
-                       'fee_price' => $fee->calculate_amount( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ),
-                       'is_recurring' => $fee->recurring || ! empty( $recurring_data ),
-                       'is_sticky' => (int) $fee->sticky );
+		$row = array(
+			'listing_id'   => $this->id,
+			'fee_id'       => $fee->id,
+			'fee_days'     => $fee->days,
+			'fee_images'   => $fee->images,
+			'fee_price'    => $fee->calculate_amount( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ),
+			'is_recurring' => $fee->recurring || ! empty( $recurring_data ),
+			'is_sticky'    => (int) $fee->sticky,
+		);
 
         if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $fee ) )
             $row['expiration_date'] = $expiration;

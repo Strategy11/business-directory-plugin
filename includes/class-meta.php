@@ -157,7 +157,7 @@ class WPBDP__Meta {
                 break;
 
             case 'search':
-                $view_title =  _x( 'Find a Listing', 'title', 'business-directory-plugin' );
+				$view_title = _x( 'Find a Listing', 'title', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 

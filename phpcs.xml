@@ -52,8 +52,6 @@
         <exclude name="WordPress.NamingConventions.ValidHookName.NotLowercase" />
 
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
-        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
         <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />

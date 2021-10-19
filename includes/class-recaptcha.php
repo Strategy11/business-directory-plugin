@@ -63,8 +63,8 @@ class WPBDP_reCAPTCHA {
 
         $url = add_query_arg(
             array(
-                'onload' =>  'wpbdp_recaptcha_callback',
-                'render' =>  'v2' === $this->version ? 'explicit' : $this->public_key,
+				'onload' => 'wpbdp_recaptcha_callback',
+				'render' => 'v2' === $this->version ? 'explicit' : $this->public_key,
             ),
             'https://www.google.com/recaptcha/api.js'
         );
