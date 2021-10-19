@@ -98,6 +98,7 @@ class WPBDP_PaymentsAPI {
 
     /**
      * Renders an invoice table for a given payment.
+	 *
      * @param $payment WPBDP_Payment
      * @return string HTML output.
      * @since 3.4

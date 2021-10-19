@@ -15,6 +15,7 @@ class WPBDP__Shortcodes {
 
     /**
      * Returns shortcodes being handled by Business Directory.
+	 *
      * @return array array of `shortcode => callback` items.
      */
     public function get_shortcodes() {

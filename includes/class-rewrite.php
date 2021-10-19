@@ -109,7 +109,7 @@ class WPBDP__Rewrite {
         }
     }
 
-    public function _rewrite_rules($rules) {
+	public function _rewrite_rules( $rules ) {
         $newrules = $this->get_rewrite_rules();
         return $newrules + $rules;
     }

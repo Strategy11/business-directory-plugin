@@ -342,7 +342,7 @@ printf(
             <td class="field-type"><?php echo esc_html( $field->get_field_type()->get_name() ); ?></td>
             <td class="field-is-required"><?php echo $field->is_required() ? 'X' : ''; ?></td>
             <td class="field-is-multivalued">
-                <?php echo ($field->get_association() == 'category' || $field->get_association() == 'tags') || ($field->get_field_type_id() == 'checkbox' || $field->get_field_type_id() == 'multiselect') ? 'X' : ''; ?>
+				<?php echo ( $field->get_association() === 'category' || $field->get_association() === 'tags') || ( $field->get_field_type_id() === 'checkbox' || $field->get_field_type_id() === 'multiselect' ) ? 'X' : ''; ?>
             </td>
         </tr>
 		<?php
@@ -356,28 +356,28 @@ printf(
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
-        <tr class="<?php echo ($i + 1) % 2 == 0 ? 'alt' : ''; ?>">
+		<tr class="<?php echo ( $i + 1 ) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">images</td>
             <td class="field-label"><?php esc_html_e( 'Semicolon separated list of listing images (from the ZIP file)', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued">X</td>
         </tr>
-        <tr class="<?php echo ($i + 2) % 2 == 0 ? 'alt' : ''; ?>">
+		<tr class="<?php echo ( $i + 2 ) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">username</td>
 			<td class="field-label"><?php esc_html_e( 'Listing author\'s username', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
-        <tr class="<?php echo ($i + 3) % 2 == 0 ? 'alt' : ''; ?>">
+		<tr class="<?php echo ( $i + 3 ) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">sequence_id</td>
             <td class="field-label"><?php _ex( 'Internal Sequence ID used to allow listing updates from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
         </tr>
-        <tr class="<?php echo ($i + 4) % 2 == 0 ? 'alt' : ''; ?>">
+		<tr class="<?php echo ( $i + 4 ) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">expires_on</td>
             <td class="field-label"><?php _ex( 'Date of listing expiration formatted as YYYY-MM-DD. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>

@@ -83,6 +83,7 @@ class WPBDP__Settings {
 
     /**
      * Register a setings group within the Settings API.
+	 *
      * @since 5.0
      */
     public function register_group( $slug, $title = '', $parent = '', $args = array() ) {
@@ -138,6 +139,7 @@ class WPBDP__Settings {
 
     /**
      * Register a setting within the Settings API.
+	 *
      * @since 5.0
      */
     public function register_setting( $id_or_args, $name = '', $type = 'text', $group = '', $args = array() ) {

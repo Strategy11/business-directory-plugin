@@ -13,6 +13,7 @@ class WPBDP_PersonalDataEraser {
 
     /**
      * WPBDP_PersonalDataEraser constructor.
+	 *
      * @param $data_eraser
      */
     public function __construct( $data_eraser ) {

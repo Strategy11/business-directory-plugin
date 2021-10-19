@@ -369,6 +369,7 @@ class WPBDP_Listing {
         if ( WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending' ) )->count() > 0 )
             $status = 'pending';
 
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName
         return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
     }
 
@@ -1071,11 +1072,11 @@ class WPBDP_Listing {
      */
     public function _after_save( $context = '' ) {
         if ( 'submit-new' == $context ) {
-            do_action( 'WPBDP_Listing::listing_created', $this->id );
+            do_action( 'WPBDP_Listing::listing_created', $this->id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName
             do_action( 'wpbdp_add_listing', $this->id );
         } elseif ( 'submit-edit' == $context ) {
             do_action( 'wpbdp_edit_listing', $this->id );
-            do_action( 'WPBDP_Listing::listing_edited', $this->id );
+            do_action( 'WPBDP_Listing::listing_edited', $this->id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName
         }
 
         do_action( 'wpbdp_save_listing', $this->id, 'submit-new' == $context );

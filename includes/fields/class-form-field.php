@@ -340,6 +340,7 @@ class WPBDP_Form_Field {
      * @since 3.4
      */
     public function get_behavior_flags() {
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName
         return apply_filters( 'WPBDP_Form_Field::get_behavior_flags', $this->type->get_behavior_flags( $this ), $this );
     }
 

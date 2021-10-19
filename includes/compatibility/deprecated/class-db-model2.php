@@ -163,6 +163,7 @@ class WPBDP_DB_Model2 {
     /**
      * Convenience method to search records in a database table.
      * Subclasses should override this method because we have to support PHP 5.2 where late static binding is not available.
+	 *
      * @return array
      */
     public static function find( $id, $args = array() ) {

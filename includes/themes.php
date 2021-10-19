@@ -1,6 +1,7 @@
 <?php
 /**
  * BD Premium Themes setup
+ *
  * @since 4.0
  */
 

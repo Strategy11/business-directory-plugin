@@ -1054,6 +1054,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         // FIXME: fake this (for compatibility with modules) until we move everything to wpbdp_save_listing() and
         // friends. See #2945.
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName
         do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$this->listing, $field_values ) );
 
         if ( $validation_errors ) {

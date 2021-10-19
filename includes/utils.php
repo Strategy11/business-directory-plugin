@@ -361,7 +361,7 @@ function wpbdp_sanitize_value( $sanitize, &$value ) {
     }
 }
 
-function wpbdp_capture_action($hook) {
+function wpbdp_capture_action( $hook ) {
     $output = '';
 
     $args = func_get_args();
@@ -686,6 +686,7 @@ function wpbdp_ajaxurl( $overwrite = false ) {
 
 /**
  * Removes a value from an array.
+ *
  * @since 2.3
  */
 function wpbdp_array_remove_value( &$array_, &$value_ ) {
@@ -700,6 +701,7 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
 
 /**
  * Checks if a given string starts with another string.
+ *
  * @param string $str the string to be searched
  * @param string $prefix the prefix to search for
  * @return TRUE if $str starts with $prefix or FALSE otherwise
@@ -731,6 +733,7 @@ function wpbdp_format_time( $time = null, $format = 'mysql', $time_is_date = fal
 
 /**
  * Returns the contents of a directory (ignoring . and .. special files).
+ *
  * @param string $path a directory.
  * @return array list of files within the directory.
  * @since 3.3
@@ -762,6 +765,7 @@ function wpbdp_scandir( $path, $args = array() ) {
 
 /**
  * Recursively deletes a directory.
+ *
  * @param string $path a directory.
  * @since 3.3
  * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
@@ -773,6 +777,7 @@ function wpbdp_rrmdir( $path ) {
 
 /**
  * Returns the name of a term.
+ *
  * @param id|string $id_or_slug The term ID or slug (see `$field`).
  * @param string $taxonomy Taxonomy name. Defaults to `WPBDP_CATEGORY_TAX` (BD's category taxonomy).
  * @param string $field Field used for the term lookup. Defaults to "id".
@@ -1040,6 +1045,7 @@ function wpbdp_detect_encoding( $content ) {
 
 /**
  * Taken from http://php.net/manual/en/function.mb-detect-encoding.php#113983
+ *
  * @since 4.0.5dev
  */
 function wpbdp_mb_detect_encoding( $content, $encodings ) {
