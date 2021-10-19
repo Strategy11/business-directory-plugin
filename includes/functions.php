@@ -7,6 +7,13 @@ function wpbdp_get_version() {
     return WPBDP_VERSION;
 }
 
+/**
+ * Check pages that have the shortcode and are public.
+ * This is used in the main query to ensure that the views for the main pages are loaded.
+ * Allow shortcodes to be used in private pages.
+ *
+ * @since x.x
+ */
 function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     global $wpdb;
 
@@ -22,9 +29,9 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     }
 
     if ( $count ) {
-        $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND ( 1=0";
+        $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'page' AND ( 1=0";
     } else {
-        $query = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND ( 1=0";
+        $query = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND ( 1=0";
     }
 
     foreach ( $shortcodes[ $page_id ] as $s ) {
