@@ -137,8 +137,6 @@ class WPBDP_Reviews {
 	 * @since x.x
 	 */
 	public function dismiss_review() {
-		check_admin_referer( 'wpbdp_dismiss_review' );
-
 		$user_id = get_current_user_id();
 		$review  = $this->get_user_meta( $user_id );
 		if ( empty( $review ) ) {

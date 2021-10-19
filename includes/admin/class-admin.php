@@ -1083,6 +1083,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * Dismiss review
          */
         public function maybe_dismiss_review() {
+            check_admin_referer( 'wpbdp_dismiss_review' );
             WPBDP_Reviews::instance()->dismiss_review();
         }
 

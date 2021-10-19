@@ -158,7 +158,7 @@ class WPBDP_App_Helper {
 			return true;
 		}
 
-		$page = wpbdp_get_var( array( 'param' => 'page' ) );
+		$page    = wpbdp_get_var( array( 'param' => 'page' ) );
 		$is_page = $page && strpos( $page, 'wpbdp' ) !== false;
 
 		/**
@@ -168,7 +168,11 @@ class WPBDP_App_Helper {
 	}
 
 	/**
+	 * Check if current page is a Business Directory plugin page.
+	 *
 	 * @since 5.8.2
+	 *
+	 * @return bool
 	 */
 	public static function is_bd_post_page() {
 		global $pagenow;
@@ -180,8 +184,8 @@ class WPBDP_App_Helper {
 		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
 
 		if ( empty( $post_type ) ) {
-			$post_id = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
-			$post    = get_post( $post_id );
+			$post_id   = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
+			$post      = get_post( $post_id );
 			$post_type = $post ? $post->post_type : '';
 		}
 
