@@ -354,6 +354,6 @@ class WPBDP__Assets {
 			return $admin_body_classes;
 		}
 
-		return "$admin_body_classes bd-admin";
+		return "$admin_body_classes wpbdp-admin-page";
 	}
 }
