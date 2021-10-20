@@ -83,6 +83,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 					'message'   => sprintf( _x( 'Payment status changed from "%1$s" to "%2$s".', 'payment', 'business-directory-plugin' ), $this->old_status, $this->status ),
                 )
             );
+			// phpcs:ignore WordPress.NamingConventions.ValidHookName
             do_action_ref_array( 'WPBDP_Payment::status_change', array( &$this, $this->old_status, $this->status ) );
             do_action( "wpbdp_payment_{$this->status}", $this );
         }

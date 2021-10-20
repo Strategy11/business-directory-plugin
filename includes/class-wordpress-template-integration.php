@@ -257,9 +257,8 @@ class WPBDP__WordPress_Template_Integration {
         if ( $wp_query->post_count > 0 ) {
             $wp_query->rewind_posts();
             wp_reset_postdata();
-        }
-        // If there are no other posts, unset the $post property
-        elseif ( 0 === $wp_query->post_count ) {
+        } elseif ( 0 === $wp_query->post_count ) {
+			// If there are no other posts, unset the $post property.
             $wp_query->current_post = -1;
             unset( $wp_query->post );
         }
@@ -279,7 +278,7 @@ class WPBDP__WordPress_Template_Integration {
         $wp_query->post_count   = 0;
     }
 
-    public function _comments_template($template) {
+	public function _comments_template( $template ) {
         $is_single_listing = is_single() && get_post_type() == WPBDP_POST_TYPE;
         $is_main_page = get_post_type() == 'page' && get_the_ID() == wpbdp_get_page_id( 'main' );
 
@@ -296,7 +295,7 @@ class WPBDP__WordPress_Template_Integration {
         return $template;
     }
 
-    public function _category_template($template) {
+	public function _category_template( $template ) {
 		if ( get_query_var( WPBDP_CATEGORY_TAX ) && taxonomy_exists( WPBDP_CATEGORY_TAX ) ) {
 			return wpbdp_locate_template( array( 'businessdirectory-category', 'wpbusdirman-category' ) );
         }
@@ -304,7 +303,7 @@ class WPBDP__WordPress_Template_Integration {
         return $template;
     }
 
-    public function _single_template($template) {
+	public function _single_template( $template ) {
         if (is_single() && get_post_type() == WPBDP_POST_TYPE) {
 			return wpbdp_locate_template( array( 'businessdirectory-single', 'wpbusdirman-single' ) );
         }

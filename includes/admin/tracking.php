@@ -9,6 +9,7 @@ if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
 
 /**
  * Class used for anonymously tracking of users setups.
+ *
  * @since 3.2
  */
 class WPBDP_SiteTracking {

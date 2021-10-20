@@ -1,7 +1,7 @@
 <?php echo wpbdp_admin_header( $title ); ?>
 <?php wpbdp_admin_notices(); ?>
 
-<?php if ( $explanation ): ?>
+<?php if ( $explanation ) : ?>
     <p><?php echo $explanation; ?></p>
 <?php endif; ?>
 

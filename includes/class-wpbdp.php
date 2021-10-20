@@ -510,7 +510,8 @@ final class WPBDP {
                                                         'min-width' => wpbdp_get_option( 'image-min-width' ),
                                                         'min-height' => wpbdp_get_option( 'image-min-height' )
                                                      ),
-                                                 $image_error ); // TODO: handle errors.
+                                                 $image_error
+			); // TODO: handle errors.
 
 			if ( $image_error ) {
 				$errors[ $file['name'] ] = $image_error;
@@ -521,9 +522,14 @@ final class WPBDP {
 
         $html = '';
         foreach ( $attachments as $attachment_id ) {
-            $html .= wpbdp_render( 'submit-listing-images-single',
-                                   array( 'image_id' => $attachment_id, 'listing_id' => $listing_id ),
-                                   false );
+			$html .= wpbdp_render(
+				'submit-listing-images-single',
+				array(
+					'image_id' => $attachment_id,
+					'listing_id' => $listing_id,
+				),
+				false
+			);
         }
 
 		$has_images = $listing->get_images( 'ids' );

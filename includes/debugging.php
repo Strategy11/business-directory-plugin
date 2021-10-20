@@ -44,7 +44,7 @@ class WPBDP_Debugging {
         );
 	}
 
-	public static function _php_error_handler($errno, $errstr, $file, $line, $context) {
+	public static function _php_error_handler( $errno, $errstr, $file, $line, $context ) {
 		static $errno_to_string = array(
 			E_ERROR => 'error',
 			E_WARNING => 'warning',
@@ -137,7 +137,7 @@ class WPBDP_Debugging {
 		echo '</div>';
 	}
 
-	private static function _extract_context($stack) {
+	private static function _extract_context( $stack ) {
 		if ( ! is_array( $stack ) || empty( $stack ) ) {
 			return array();
 		}
@@ -174,7 +174,7 @@ class WPBDP_Debugging {
 								 );
 	}
 
-	private static function _var_dump($var) {
+	private static function _var_dump( $var ) {
 		if ( is_bool( $var ) || is_int( $var ) || ( is_string( $var ) && empty( $var ) ) )
 			return var_export( $var, true );
 

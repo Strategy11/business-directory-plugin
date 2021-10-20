@@ -26,7 +26,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
         <div class="wpbdp-plan-details">
         <div class="wpbdp-plan-label"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $plan->label, $plan ) ); ?></div>
 
-            <?php if ( $description ): ?>
+			<?php if ( $description ) : ?>
             <div class="wpbdp-plan-description"><?php echo wp_kses_post( wpautop( $description ) ); ?></div>
             <?php endif; ?>
 
@@ -37,7 +37,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 		                <?php echo esc_html( $plan->days ); ?>
 		            </span>
 		            <span class="wpbdp-plan-duration-period"><?php esc_html_e( 'days', 'business-directory-plugin' ); ?></span>
-		                <?php if ( $plan->recurring ): ?>
+						<?php if ( $plan->recurring ) : ?>
 		                <span class="wpbdp-plan-is-recurring">(<?php esc_html_e( 'Recurring', 'business-directory-plugin' ); ?>)</span>
 		                <?php endif; ?>
 					<?php else : ?>
@@ -54,7 +54,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
         <div class="wpbdp-plan-price">
 			<span class="wpbdp-plan-price-amount"><?php echo esc_html( wpbdp_currency_format( $plan->calculate_amount( $categories ) ) ); ?></span>
 
-			<?php if ( ! $display_only ): ?>
+			<?php if ( ! $display_only ) : ?>
 				<input type="radio"
 					id="wpbdp-plan-select-radio-<?php echo esc_attr( $plan->id ); ?>"
 					name="<?php echo esc_attr( $field_name ); ?>"
@@ -69,7 +69,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 			<?php endif; ?>
         </div>
 
-        <?php if ( $disabled ): ?>
+		<?php if ( $disabled ) : ?>
         <div class="wpbdp-msg wpbdp-plan-disabled-msg wpbdp-full">
             <?php esc_html_e( 'This plan can\'t be used for admin submits. For a recurring plan to work, end users need to pay for it using a supported gateway.', 'business-directory-plugin' ); ?>
         </div>

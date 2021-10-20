@@ -58,13 +58,17 @@ class WPBDP_Installer {
             add_option( 'wpbdp-show-tracking-pointer', 1 );
 
             // Create default paid fee.
-            $fee = new WPBDP__Fee_Plan( array( 'label' => _x( 'Default Fee', 'installer', 'business-directory-plugin' ),
+            $fee = new WPBDP__Fee_Plan(
+				array(
+					'label' => _x( 'Default Fee', 'installer', 'business-directory-plugin' ),
                                                'amount' => 1.0,
                                                'days' => 365,
                                                'images' => 1,
                                                'supported_categories' => 'all',
                                                'pricing_model' => 'flat',
-                                               'enabled' => 1 ) );
+                                               'enabled' => 1,
+				)
+			);
             $fee->save();
         } else {
             throw new Exception( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" );
@@ -76,6 +80,7 @@ class WPBDP_Installer {
     /**
      * Builds the SQL queries (without running them) used to create all of the required database tables for BD.
      * Calls the `wpbdp_database_schema` filter that allows plugins to modify the schema.
+	 *
      * @return array An associative array of (non prefixed)table => SQL items.
      * @since 3.3
      */
@@ -292,9 +297,11 @@ class WPBDP_Installer {
                 continue;
             }
 
-            $version = str_replace( array( 'migration-', '.php', '_' ),
-                                    array( '', '', '.' ),
-                                    basename( $_ ) );
+			$version = str_replace(
+				array( 'migration-', '.php', '_' ),
+				array( '', '', '.' ),
+				basename( $_ )
+			);
 
             if ( version_compare( $version, $current_version, '<=' ) )
                 continue;

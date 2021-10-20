@@ -340,6 +340,7 @@ class WPBDP_Form_Field {
      * @since 3.4
      */
     public function get_behavior_flags() {
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName
         return apply_filters( 'WPBDP_Form_Field::get_behavior_flags', $this->type->get_behavior_flags( $this ), $this );
     }
 
@@ -824,7 +825,7 @@ class WPBDP_Form_Field {
     /**
      * @since 5.0
      */
-    public function value_from_POST( $key = 'listingfields' ) {
+	public function value_from_POST( $key = 'listingfields' ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
         if ( ! $_POST || ! isset( $_POST[ $key ][ $this->id ] ) ) {
             return null;
         }
@@ -839,7 +840,7 @@ class WPBDP_Form_Field {
     /**
      * @since 5.0
      */
-    public function value_from_GET( $key = 'listingfields' ) {
+	public function value_from_GET( $key = 'listingfields' ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
         if ( ! $_GET || ! isset( $_GET[ $key ][ $this->id ] ) ) {
             return null;
         }
