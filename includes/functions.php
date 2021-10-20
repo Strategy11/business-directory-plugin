@@ -468,7 +468,7 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
         if ( abs( $thumb_width - $def_width ) < 10 ) {
             return;
         }
-        $crop = isset( $metadata['crop'] ) ? $metadata['crop'] : wpbdp_get_option( 'thumbnail-crop' );
+        $crop = isset( $args['crop'] ) ? $args['crop'] : wpbdp_get_option( 'thumbnail-crop' );
         if ( $crop && abs( $thumb_height - $def_height ) < 10 ) {
             return;
         }
