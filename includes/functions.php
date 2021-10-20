@@ -444,14 +444,14 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
         return;
     }
 
-    $def_width = isset( $args['width'] ) ?  absint( $args['width'] ) : absint( wpbdp_get_option( 'thumbnail-width' ) );
+    $def_width = absint( isset( $args['width'] ) ?  $args['width'] : wpbdp_get_option( 'thumbnail-width' ) );
     $width     = absint( isset( $metadata['width'] ) ? $metadata['width'] : 0 );
 
     if ( ! $width || $width <= $def_width ) {
         return;
     }
 
-    $def_height = isset( $args['height'] ) ?  absint( $args['height'] ) : absint( wpbdp_get_option( 'thumbnail-height' ) );
+    $def_height = absint( isset( $args['height'] ) ?  $args['height'] : wpbdp_get_option( 'thumbnail-height' ) );
     $height     = absint( isset( $metadata['height'] ) ? $metadata['height'] : 0 );
 
     if ( ! $height || $height <= $def_height ) {
