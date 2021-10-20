@@ -521,9 +521,14 @@ final class WPBDP {
 
         $html = '';
         foreach ( $attachments as $attachment_id ) {
-            $html .= wpbdp_render( 'submit-listing-images-single',
-                                   array( 'image_id' => $attachment_id, 'listing_id' => $listing_id ),
-                                   false );
+			$html .= wpbdp_render(
+				'submit-listing-images-single',
+				array(
+					'image_id' => $attachment_id,
+					'listing_id' => $listing_id,
+				),
+				false
+			);
         }
 
 		$has_images = $listing->get_images( 'ids' );

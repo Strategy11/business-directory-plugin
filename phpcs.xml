@@ -55,6 +55,7 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
         <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
         <exclude name="WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned" />
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
         <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeOpenBracket" />
         <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />

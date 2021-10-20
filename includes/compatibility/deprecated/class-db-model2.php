@@ -19,7 +19,7 @@ class WPBDP_DB_Model2 {
 
     public function fill( $data = array() ) {
         foreach ( $data as $k => $v ) {
-            $this->attrs[ $k ] = ( in_array( $k, $this->serialized, true) && $v ) ? maybe_unserialize( $v ) : $v;
+			$this->attrs[ $k ] = ( in_array( $k, $this->serialized, true ) && $v ) ? maybe_unserialize( $v ) : $v;
         }
     }
 

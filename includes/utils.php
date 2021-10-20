@@ -398,8 +398,10 @@ function wpbdp_php_ini_size_to_bytes( $val ) {
     switch ( $unit ) {
         case 'G':
             $size *= 1024;
+			// no break
         case 'M':
             $size *= 1024;
+			// no break
         case 'K':
             $size *= 1024;
     }
@@ -861,7 +863,9 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     $placeholders = $setting ? ( isset( $setting['placeholders'] ) && is_array( $setting['placeholders'] ) ? $setting['placeholders'] : array() ) : array();
 
     // Add core replacements.
-    $replacements = array_merge( $replacements, array(
+	$replacements = array_merge(
+		$replacements,
+		array(
         'site-title'    => get_bloginfo( 'name' ),
         'site-link'     => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
         'site-url'      => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'url' ) ),
@@ -937,7 +941,7 @@ jQuery(function( $ ) {
             'position': { 'edge': '<?php echo isset( $options['edge'] ) ? $options['edge'] : 'top'; ?>',
                           'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
             'buttons': function( e, t ) {
-                <?php if ( ! $secondary_button ): ?>
+				<?php if ( ! $secondary_button ) : ?>
                 var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
 				<?php else : ?>
                 var b = $( '<a id="wpbdp-pointer-b2" class="button" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
@@ -946,11 +950,11 @@ jQuery(function( $ ) {
             }
         }).pointer('open');
 
-        <?php if ( $secondary_button ): ?>
+		<?php if ( $secondary_button ) : ?>
         $( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
         $( '#wpbdp-pointer-b2' ).click(function(e) {
             e.preventDefault();
-            <?php if ( $secondary_action ): ?>
+			<?php if ( $secondary_action ) : ?>
             <?php echo $secondary_action; ?>
             <?php endif; ?>
             wpbdp_pointer.pointer( 'close' );
@@ -959,7 +963,7 @@ jQuery(function( $ ) {
 
         $( '#wpbdp-pointer-b1' ).click(function(e) {
             e.preventDefault();
-            <?php if ( $primary_action ): ?>
+			<?php if ( $primary_action ) : ?>
             <?php echo $primary_action; ?>
             <?php endif; ?>
             wpbdp_pointer.pointer( 'close' );
@@ -1102,7 +1106,7 @@ function wpbdp_render_user_field( $args = array() ) {
 function wpbdp_enqueue_jquery_ui_style() {
     global $wp_scripts;
 
-    if ( is_object( $wp_scripts ) && isset( $wp_scripts->registered[ 'jquery-ui-core' ] ) ) {
+	if ( is_object( $wp_scripts ) && isset( $wp_scripts->registered['jquery-ui-core'] ) ) {
         $ui_version = $wp_scripts->registered['jquery-ui-core']->ver;
     } else {
         $ui_version = '1.8.21';

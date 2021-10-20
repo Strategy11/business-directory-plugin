@@ -317,7 +317,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
                 if ( substr( $v, 0, 1 ) == '-' ) {
 					$where .= $wpdb->prepare( ' AND ( validators IS NULL OR validators NOT LIKE %s )', '%%' . $wpdb->esc_like( substr( $v, 1 ) ) . '%%' );
                 } else {
-					$where .= $wpdb->prepare( ' AND ( validators LIKE %s )', '%%' . $wpdb->esc_like( $v ) . '%%'  );
+					$where .= $wpdb->prepare( ' AND ( validators LIKE %s )', '%%' . $wpdb->esc_like( $v ) . '%%' );
                 }
             }
 

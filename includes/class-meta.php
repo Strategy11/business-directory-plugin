@@ -279,7 +279,7 @@ class WPBDP__Meta {
 
         $current_view = wpbdp_current_view();
 
-        switch ( $current_view ){
+		switch ( $current_view ) {
             case 'show_listing':
                 global $post;
 
