@@ -2,6 +2,35 @@
 
 class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 
+    /**
+     * Load resources required for the view
+     *
+     * @since x.x
+     */
+    public function enqueue_resources() {
+
+        // CSS used for plan buttons on the listing page only.
+        $custom_css = "
+		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]+ label span:before{
+			content: '" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
+		}
+		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]:checked + label span:before{
+			content: '" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
+		}";
+		wp_add_inline_style( 'wpbdp-base-css', $custom_css );
+
+        $this->enqueue_custom_resources();
+    }
+
+    /**
+     * Load custom resources in classes that extend this class
+     *
+     * @since x.x
+     */
+    public function enqueue_custom_resources() {
+
+    }
+
     protected function authenticate() {
         if ( ! $this->listing )
             die();
