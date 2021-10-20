@@ -250,13 +250,17 @@ class WPBDP__Assets {
         }
     }
 
-	public function enqueue_admin_scripts( $force = false ) {
+    /**
+     * Load resources on admin page
+     *
+     * @param string $hook The current admin page.
+     */
+	public function enqueue_admin_scripts( $hook ) {
 		global $wpbdp;
 
-		if ( ! $force && ! $wpbdp->is_bd_page() ) {
+		if ( ! $wpbdp->is_bd_page() ) {
 			return;
 		}
-
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
 		wp_enqueue_style( 'thickbox' );
