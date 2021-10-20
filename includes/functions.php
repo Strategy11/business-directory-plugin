@@ -410,10 +410,32 @@ function wpbdp_get_current_sort_option() {
     return null;
 }
 
-/*
+/**
+ * Maybe resize image
+ *
+ * @param int   $id    The media attachement id.
+ * @param array $args  Optional. Accepts an array of width and height in pixels and crop as a boolean.
+ *
  * @since 2.1.6
  */
-function _wpbdp_resize_image_if_needed( $id ) {
+function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
+
+    /**
+     * Add filter to allow user to skin image resizing
+     *
+     * @param bool  $resize Whether to resize the image or not.
+     * @param int   $id     The media attachement id.
+     * @param array $args   Optional. An array of width and height in pixels and crop as a boolean.
+     *
+     * @since x.x
+     *
+     * @return bool
+     */
+    $resize_image = apply_filters( 'wpbdp_resize_image_if_needed', true, $id, $args );
+    if ( ! $resize_image ) {
+        return;
+    }
+
     require_once ABSPATH . 'wp-admin/includes/image.php';
 
     $metadata = wp_get_attachment_metadata( $id );
@@ -422,14 +444,14 @@ function _wpbdp_resize_image_if_needed( $id ) {
         return;
     }
 
-    $def_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
+    $def_width = isset( $args['width'] ) ?  absint( $args['width'] ) : absint( wpbdp_get_option( 'thumbnail-width' ) );
     $width     = absint( isset( $metadata['width'] ) ? $metadata['width'] : 0 );
 
     if ( ! $width || $width <= $def_width ) {
         return;
     }
 
-    $def_height = absint( wpbdp_get_option( 'thumbnail-height' ) );
+    $def_height = isset( $args['height'] ) ?  absint( $args['height'] ) : absint( wpbdp_get_option( 'thumbnail-height' ) );
     $height     = absint( isset( $metadata['height'] ) ? $metadata['height'] : 0 );
 
     if ( ! $height || $height <= $def_height ) {
