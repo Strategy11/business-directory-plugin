@@ -154,7 +154,7 @@
             );
 			?>
             <p>
-                <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?utm_campaign=liteplugin" target="_blank" rel="noopener" class="button-primary">
+                <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?utm_campaign=liteplugin" target="_blank" rel="noopener" class="wpbdp-button-primary">
                     <?php esc_html_e( 'Upgrade', 'business-directory-plugin' ); ?>
                 </a>
             </p>
@@ -165,7 +165,7 @@
             <h3>Authorize.net</h3>
             <?php esc_html_e( 'Set up Authorize.net as a payment option.', 'business-directory-plugin' ); ?>
             <p>
-                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ); ?>" class="button-primary">
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ); ?>" class="wpbdp-button-primary">
                     <?php esc_html_e( 'Set Up', 'business-directory-plugin' ); ?>
                 </a>
             </p>

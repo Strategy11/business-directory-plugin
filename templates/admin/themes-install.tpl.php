@@ -36,7 +36,7 @@ printf(
         </tbody>
     </table>
 
-    <?php submit_button( esc_html__( 'Upload', 'business-directory-plugin' ), 'primary', 'begin-theme-upload' ); ?>
+    <?php submit_button( esc_html__( 'Upload', 'business-directory-plugin' ), 'wpbdp-button-primary', 'begin-theme-upload' ); ?>
 </form>
 
 <?php wpbdp_admin_footer( 'echo' ); ?>

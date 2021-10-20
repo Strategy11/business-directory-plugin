@@ -240,6 +240,6 @@ endif;
 
     <?php do_action( 'wpbdp_after_admin_fee_form', $fee ); ?>
 
-    <?php submit_button( $fee->id ? esc_html__( 'Save Changes', 'business-directory-plugin' ) : esc_html__( 'Add Listing Fee', 'business-directory-plugin' ) ); ?>
+    <?php submit_button( $fee->id ? esc_html__( 'Save Changes', 'business-directory-plugin' ) : esc_html__( 'Add Listing Fee', 'business-directory-plugin' ), 'wpbdp-button-primary' ); ?>
 </form>
 

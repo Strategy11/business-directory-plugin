@@ -65,7 +65,7 @@ wpbdp_admin_header(
         // actual properties of the parent form.
         //
         // See http://kangax.github.io/domlint/
-        submit_button( null, 'primary', 'save-changes' );
+        submit_button( null, 'wpbdp-button-primary', 'save-changes' );
     endif;
 ?>
 

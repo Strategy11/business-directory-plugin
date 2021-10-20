@@ -5,7 +5,7 @@
 	<?php esc_html_e( 'The following information can help our team debug possible problems with your setup.', 'business-directory-plugin' ); ?>
 </p>
 <p style="text-align: right;">
-    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Download Debug Information', 'business-directory-plugin' ); ?></a>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ) ); ?>" class="button wpbdp-button-primary"><?php esc_html_e( 'Download Debug Information', 'business-directory-plugin' ); ?></a>
 </p>
 
 <h3 class="nav-tab-wrapper">

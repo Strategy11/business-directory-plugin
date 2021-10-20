@@ -42,7 +42,7 @@
     </dl>
 
     <p class="submit">
-        <a href="#" class="resume-import button button-primary"><?php _ex( 'Start Import', 'admin csv-import', 'business-directory-plugin' ); ?></a>
+        <a href="#" class="resume-import button wpbdp-button-primary"><?php _ex( 'Start Import', 'admin csv-import', 'business-directory-plugin' ); ?></a>
         <a href="#" class="cancel-import"><?php _ex( 'Cancel Import', 'admin csv-import', 'business-directory-plugin' ); ?></a>
     </p>
 </div>
