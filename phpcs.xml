@@ -50,7 +50,6 @@
 
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
         <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
         <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
@@ -59,10 +58,8 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeOpenBracket" />
         <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
-        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
         <exclude name="Generic.Formatting.DisallowMultipleStatements.SameLine" />
         <exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent" />
 
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen" />
