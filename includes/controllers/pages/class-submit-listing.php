@@ -79,8 +79,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             )
         );
 
-		
-
         do_action( 'wpbdp_submit_listing_enqueue_resources' );
     }
 
