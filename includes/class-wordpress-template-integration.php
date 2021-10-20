@@ -257,9 +257,8 @@ class WPBDP__WordPress_Template_Integration {
         if ( $wp_query->post_count > 0 ) {
             $wp_query->rewind_posts();
             wp_reset_postdata();
-        }
-        // If there are no other posts, unset the $post property
-        elseif ( 0 === $wp_query->post_count ) {
+        } elseif ( 0 === $wp_query->post_count ) {
+			// If there are no other posts, unset the $post property.
             $wp_query->current_post = -1;
             unset( $wp_query->post );
         }

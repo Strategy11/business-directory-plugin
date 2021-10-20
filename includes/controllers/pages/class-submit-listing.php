@@ -1162,19 +1162,23 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $image_min_height = intval( wpbdp_get_option( 'image-min-height' ) );
         $image_max_height = intval( wpbdp_get_option( 'image-max-height' ) );
 
-        return $this->section_render( 'submit-listing-images',
-                                      compact( 'image_max_file_size',
-                                               'image_min_file_size',
-                                               'image_min_width',
-                                               'image_max_width',
-                                               'image_min_height',
-                                               'image_max_height',
-                                               'images',
-                                               'images_meta',
-                                               'image_slots',
-                                               'image_slots_remaining',
-                                               'thumbnail_id',
-                                               'listing' ) );
+		return $this->section_render(
+			'submit-listing-images',
+			compact(
+				'image_max_file_size',
+				'image_min_file_size',
+				'image_min_width',
+				'image_max_width',
+				'image_min_height',
+				'image_max_height',
+				'images',
+				'images_meta',
+				'image_slots',
+				'image_slots_remaining',
+				'thumbnail_id',
+				'listing'
+			)
+		);
     }
 
     private function account_creation() {
