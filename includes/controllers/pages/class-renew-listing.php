@@ -15,6 +15,20 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
     private $payment_id = 0;
     public $listing     = null;
 
+    /**
+     * Enqueue resources
+     */
+    public function enqueue_resources() {
+        $custom_css = "
+		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]+ label span:before{
+			content: '" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
+		}
+		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]:checked + label span:before{
+			content: '" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
+		}";
+		wp_add_inline_style( 'wpbdp-base-css', $custom_css );
+    }
+
     public function dispatch() {
         global $wpdb;
 
