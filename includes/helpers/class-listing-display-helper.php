@@ -270,10 +270,16 @@ class WPBDP_Listing_Display_Helper {
 
         // Other images.
         $listing_images = $listing->get_images( 'ids', true );
-
+        $def_width      = wpbdp_get_option( 'thumbnail-width' );
+        $def_height     = wpbdp_get_option( 'thumbnail-height' );
+        $crop           = wpbdp_get_option( 'thumbnail-crop' );
         foreach ( $listing_images as $img_id ) {
             // Correct size of thumbnail if needed.
-            _wpbdp_resize_image_if_needed( $img_id );
+            _wpbdp_resize_image_if_needed( $img_id, array(
+                'width'  => $def_width,
+                'height' => $def_height,
+                'crop'   => $crop
+            ) );
 
             if ( $img_id == $thumbnail_id ) {
                 continue;
