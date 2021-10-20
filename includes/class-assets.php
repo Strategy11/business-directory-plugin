@@ -255,10 +255,13 @@ class WPBDP__Assets {
      *
      * @param string $hook The current admin page.
      */
-	public function enqueue_admin_scripts( $hook ) {
+	public function enqueue_admin_scripts( $force = false ) {
 		global $wpbdp;
 
-		if ( ! $wpbdp->is_bd_page() ) {
+        if ( is_string( $force ) ) {
+            $force = false;
+        }
+		if ( ! $force && ! $wpbdp->is_bd_page() ) {
 			return;
 		}
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
