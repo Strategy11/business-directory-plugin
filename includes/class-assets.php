@@ -253,7 +253,7 @@ class WPBDP__Assets {
     /**
      * Load resources on admin page
      *
-     * @param string $hook The current admin page.
+     * @param bool $force Force reloading the resources.
      */
 	public function enqueue_admin_scripts( $force = false ) {
 		global $wpbdp;
