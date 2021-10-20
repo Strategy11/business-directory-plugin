@@ -510,7 +510,8 @@ final class WPBDP {
                                                         'min-width' => wpbdp_get_option( 'image-min-width' ),
                                                         'min-height' => wpbdp_get_option( 'image-min-height' )
                                                      ),
-                                                 $image_error ); // TODO: handle errors.
+                                                 $image_error
+			); // TODO: handle errors.
 
 			if ( $image_error ) {
 				$errors[ $file['name'] ] = $image_error;

@@ -308,13 +308,15 @@ function wpbdp_get_fees_for_category( $categories = null ) {
 function wpbdp_categories_list( $parent = 0, $hierarchical = true) {
 	_deprecated_function( __FUNCTION__, 'Unknown' );
 
-    $terms = get_categories(array(
-        'taxonomy' => WPBDP_CATEGORY_TAX,
-        'parent' => $parent,
-        'orderby' => 'name',
-        'hide_empty' => 0,
-        'hierarchical' => 0
-    ));
+	$terms = get_categories(
+		array(
+			'taxonomy'     => WPBDP_CATEGORY_TAX,
+			'parent'       => $parent,
+			'orderby'      => 'name',
+			'hide_empty'   => 0,
+			'hierarchical' => 0
+		)
+	);
 
     if ($hierarchical) {
 		foreach ( $terms as &$term ) {

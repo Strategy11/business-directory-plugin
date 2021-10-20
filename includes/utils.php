@@ -447,7 +447,8 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
         $file = $file_;
     }
 
-    $constraints = array_merge( array(
+	$constraints = array_merge(
+		array(
                                     'image' => false,
                                     'min-size' => 0,
                                     'max-size' => 0,
@@ -456,7 +457,9 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
                                     'max-width' => 0,
                                     'max-height' => 0,
                                     'mimetypes' => null
-                              ), $constraints );
+		),
+		$constraints
+	);
 
     foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k )
         $constraints[ $k ] = absint( $constraints[ $k ] );
@@ -504,12 +507,17 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
             return $upload;
 		}
 
-        if ( $attachment_id = wp_insert_attachment(array(
-            'post_mime_type' => $upload['type'],
-			'post_title'   => preg_replace( '/\.[^.]+$/', '', basename( $upload['file'] ) ),
-            'post_content' => '',
-            'post_status' => 'inherit'
-        ), $upload['file']) ) {
+		$attachment_id = wp_insert_attachment(
+			array(
+				'post_mime_type' => $upload['type'],
+				'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $upload['file'] ) ),
+				'post_content'   => '',
+				'post_status'    => 'inherit'
+			),
+			$upload['file']
+		);
+
+		if ( $attachment_id ) {
             $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
             wp_update_attachment_metadata( $attachment_id, $attach_metadata );
 
@@ -788,9 +796,11 @@ function wpbdp_rrmdir( $path ) {
  * @since 3.3
  */
 function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $field = 'id', $escape = true ) {
-    $term = get_term_by( $field,
-                         'id' == $field ? intval( $id_or_slug ) : $id_or_slug,
-                         $taxonomy );
+	$term = get_term_by(
+		$field,
+		'id' == $field ? intval( $id_or_slug ) : $id_or_slug,
+		$taxonomy
+	);
 
     if ( ! $term )
         return '';
@@ -866,13 +876,14 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
 	$replacements = array_merge(
 		$replacements,
 		array(
-        'site-title'    => get_bloginfo( 'name' ),
-        'site-link'     => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-        'site-url'      => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'url' ) ),
-        'directory-url' => sprintf( '<a href="%1$s">%1$s</a>', wpbdp_get_page_link( 'main' ) ),
-        'today'         => date_i18n( get_option( 'date_format' ) ),
-        'now'           => date_i18n( get_option( 'time_format' ) )
-    ) );
+			'site-title'    => get_bloginfo( 'name' ),
+			'site-link'     => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+			'site-url'      => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'url' ) ),
+			'directory-url' => sprintf( '<a href="%1$s">%1$s</a>', wpbdp_get_page_link( 'main' ) ),
+			'today'         => date_i18n( get_option( 'date_format' ) ),
+			'now'           => date_i18n( get_option( 'time_format' ) )
+		)
+	);
 
     if ( $file ) {
         $keys = array_keys( $replacements );
@@ -1064,11 +1075,14 @@ function wpbdp_mb_detect_encoding( $content, $encodings ) {
 }
 
 function wpbdp_render_user_field( $args = array() ) {
-    $args = wp_parse_args( $args, array(
-        'class' => '',
-        'name' => 'user',
-        'value' => null,
-    ) );
+	$args = wp_parse_args(
+		$args,
+		array(
+			'class' => '',
+			'name'  => 'user',
+			'value' => null,
+		)
+	);
 
     $users_query = new WP_User_Query( array( 'count_total' => true, 'fields' => 'ID', 'number' => 200 ) );
 

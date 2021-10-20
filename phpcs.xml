@@ -50,6 +50,7 @@
 
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
         <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
+        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
         <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
