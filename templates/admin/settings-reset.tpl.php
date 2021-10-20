@@ -21,7 +21,7 @@ echo wpbdp_admin_header(
 <form action="" method="POST">
     <input type="hidden" name="wpbdp-action" value="reset-default-settings" />
     <?php wp_nonce_field( 'reset defaults' ); ?>
-	<?php echo submit_button( __( 'Reset Defaults', 'business-directory-plugin' ), 'delete wpbdp-button-primary' ); ?>
+	<?php echo submit_button( __( 'Reset Defaults', 'business-directory-plugin' ), 'delete button-primary' ); ?>
 </form>
 
 <?php

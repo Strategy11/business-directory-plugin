@@ -306,9 +306,9 @@ wpbdp_admin_notices();
 	<?php do_action( 'wpbdp_admin_listing_field_after_settings', $field, $hidden_fields ); ?>
 
     <?php if ( $field->get_id() ) : ?>
-        <?php echo submit_button( _x( 'Update Field', 'form-fields admin', 'business-directory-plugin' ), 'wpbdp-button-primary' ); ?>
+        <?php echo submit_button( _x( 'Update Field', 'form-fields admin', 'business-directory-plugin' ) ); ?>
     <?php else : ?>
-        <?php echo submit_button( _x( 'Add Field', 'form-fields admin', 'business-directory-plugin' ), 'wpbdp-button-primary' ); ?>
+        <?php echo submit_button( _x( 'Add Field', 'form-fields admin', 'business-directory-plugin' ) ); ?>
     <?php endif; ?>
 </form>
 

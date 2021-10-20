@@ -50,7 +50,7 @@
 					<input type="hidden" name="wpbdp-action" value="set-active-theme" />
 					<input type="hidden" name="theme_id" value="<?php echo esc_attr( $theme->id ); ?>" />
 					<?php wp_nonce_field( 'activate theme ' . $theme->id ); ?>
-					<input type="submit" class="button choose-theme wpbdp-button-primary" value="<?php esc_attr_e( 'Activate', 'business-directory-plugin' ); ?>" />
+					<input type="submit" class="button choose-theme button-primary" value="<?php esc_attr_e( 'Activate', 'business-directory-plugin' ); ?>" />
 				</form>
 			<?php endif; ?>
 			<?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ): ?>

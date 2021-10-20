@@ -43,6 +43,6 @@ $reasons = array(
     </div>
 
     <p class="buttons">
-        <input type="submit" value="<?php _ex( 'Uninstall Plugin', 'uninstall', 'business-directory-plugin' ); ?>" class="button wpbdp-button-primary" />
+        <input type="submit" value="<?php _ex( 'Uninstall Plugin', 'uninstall', 'business-directory-plugin' ); ?>" class="button button-primary" />
     </p>
 </form>

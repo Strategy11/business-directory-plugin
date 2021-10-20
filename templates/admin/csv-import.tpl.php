@@ -303,8 +303,8 @@ printf(
     </table>
 
     <p class="submit">
-		<?php submit_button( _x( 'Test Import', 'admin csv-import', 'business-directory-plugin' ), 'wpbdp-button-secondary', 'test-import', false ); ?>
-		<?php submit_button( _x( 'Import Listings', 'admin csv-import', 'business-directory-plugin' ), 'wpbdp-button-primary', 'do-import', false ); ?>
+		<?php submit_button( _x( 'Test Import', 'admin csv-import', 'business-directory-plugin' ), 'secondary', 'test-import', false ); ?>
+		<?php submit_button( _x( 'Import Listings', 'admin csv-import', 'business-directory-plugin' ), 'primary', 'do-import', false ); ?>
     </p>
 </form>
 

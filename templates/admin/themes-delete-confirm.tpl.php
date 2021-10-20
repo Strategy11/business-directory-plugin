@@ -9,7 +9,7 @@
     <input type="hidden" name="wpbdp-action" value="delete-theme" />
     <?php wp_nonce_field( 'delete theme ' . $theme->id ); ?>
 
-	<?php submit_button( __( 'Cancel', 'business-directory-plugin' ), 'wpbdp-button-secondary', 'cancel', false ); ?>
+	<?php submit_button( __( 'Cancel', 'business-directory-plugin' ), 'secondary', 'cancel', false ); ?>
 	<?php submit_button( __( 'Delete Directory Theme', 'business-directory-plugin' ), 'delete', 'delete-theme', false ); ?>
 </form>
 

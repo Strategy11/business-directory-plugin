@@ -138,7 +138,7 @@ echo $notice;
     </table>
 
     <p class="submit">
-		<?php submit_button( _x( 'Export Listings', 'admin csv-export', 'business-directory-plugin' ), 'wpbdp-button-primary', 'do-export', false ); ?>
+		<?php submit_button( _x( 'Export Listings', 'admin csv-export', 'business-directory-plugin' ), 'primary', 'do-export', false ); ?>
     </p>
 </form>
 </div>
@@ -165,7 +165,7 @@ echo $notice;
     <h2><?php _ex( 'Export Complete', 'admin csv-export', 'business-directory-plugin' ) ?></h2>
     <p><?php _ex( 'Your export file has been successfully created and it is now ready for download.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
     <div class="download-link">
-        <a href="" class="button wpbdp-button-primary">
+        <a href="" class="button button-primary">
             <?php
             echo sprintf( _x( 'Download %1$s (%2$s)', 'admin csv-export', 'business-directory-plugin' ),
                 '<span class="filename"></span>',

@@ -40,7 +40,7 @@ function _fields_dropdown( $name, $field_id, $fixed = false ) {
         </tbody>
     </table>
 
-    <?php submit_button( null, 'wpbdp-button-primary' ); ?>
+    <?php submit_button(); ?>
 </form>
 
 <?php echo wpbdp_admin_footer(); ?>

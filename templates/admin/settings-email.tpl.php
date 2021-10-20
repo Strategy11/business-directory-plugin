@@ -101,7 +101,7 @@ echo $before_container;
             ?>
             <!-- <a href="#" class="button preview-email"><?php esc_attr_e( 'Preview email', 'business-directory-plugin' ); ?></a> -->
             <a href="#" class="button cancel"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a> 
-            <input type="submit" class="button wpbdp-button-primary" value="<?php esc_attr_e( 'Save Changes', 'business-directory-plugin' ); ?>" />
+            <input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Save Changes', 'business-directory-plugin' ); ?>" />
             <?php
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo $after_buttons;
