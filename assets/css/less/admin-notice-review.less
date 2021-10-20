@@ -20,43 +20,7 @@
 	a {
 		margin: 5px;
 	}
-	.wpbdp-button {
-		&-primary, &-secondary {
-			text-shadow: none;
-			box-shadow: none;
-			border-radius: 30px;
-			border:1px solid @wpbdp-primary-button-color;
-			font-size: 1em;
-			transition: all .2s ease;
-			height: 28px;
-			min-height: 28px;
-			outline: none;
-			line-height: 26px;
-			min-width: 100px;
-			display: inline-block;
-			text-align: center;
-			padding: 2px 10px;
-			text-decoration: none;
-		}
-		&-primary {
-			background-color: @wpbdp-primary-button-color !important;
-			color: #fff !important;
-			&:hover, &:focus {
-				background: @wpbdp-primary-button-hover !important;
-				border-color: @wpbdp-primary-button-hover !important;
-			}
-		}
-		&-secondary {
-			color: @wpbdp-primary-button-color;
-			background-color: transparent;
-			&:hover, &:focus {
-				border-color: @wpbdp-primary-button-hover !important;
-				background: @wpbdp-primary-button-hover !important;
-				color: #fff;
-				box-shadow: none;
-			}
-		}
-	}
+	
 	p > span {
 		font-size: 13px;
 		opacity: 0.75;
@@ -67,46 +31,5 @@
 	}
 	label {
 		font-size: 14px;
-	}
-	.wpbdp-wait {
-		margin: 20px;
-		width: 20px;
-		height: 20px;
-		position: relative;
-		display: inline-block;
-		&:before {
-			content: '';
-			display: inline-block;
-
-			position: absolute;
-			background: transparent;
-			border: 1px solid #fff;
-			border-top-color: transparent;
-			border-left-color: transparent;
-			border-bottom-color: @wpbdp-primary-button-hover;
-			border-right-color: @wpbdp-primary-button-hover;
-			border-radius: 50%;
-
-			box-sizing: border-box;
-			top: 50%;
-			left: 50%;
-			margin-top: -10px;
-			margin-left: -10px;
-			width: 20px;
-			height: 20px;
-
-			-webkit-animation: spin 2s linear infinite;
-			-moz-animation: spin 2s linear infinite;
-			-o-animation: spin 2s linear infinite;
-			animation: spin 2s linear infinite;
-			
-		}
-		&.wpbdp_visible_spinner {
-			margin-bottom: 10px;
-			.spinner {
-				visibility: visible;
-				float: none;
-			}
-		}
 	}
 }

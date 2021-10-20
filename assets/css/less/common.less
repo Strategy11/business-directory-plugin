@@ -34,3 +34,45 @@
 .wpbdp-no-bold {
 	font-weight: normal;
 }
+
+.wpbdp-wait {
+    margin: 20px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    display: inline-block;
+    &:before {
+        content: '';
+        display: inline-block;
+
+        position: absolute;
+        background: transparent;
+        border: 1px solid #fff;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: @wpbdp-primary-button-hover;
+        border-right-color: @wpbdp-primary-button-hover;
+        border-radius: 50%;
+
+        box-sizing: border-box;
+        top: 50%;
+        left: 50%;
+        margin-top: -10px;
+        margin-left: -10px;
+        width: 20px;
+        height: 20px;
+
+        -webkit-animation: spin 2s linear infinite;
+        -moz-animation: spin 2s linear infinite;
+        -o-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        
+    }
+    &.wpbdp_visible_spinner {
+        margin-bottom: 10px;
+        .spinner {
+            visibility: visible;
+            float: none;
+        }
+    }
+}
