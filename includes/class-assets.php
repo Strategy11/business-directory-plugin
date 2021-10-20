@@ -348,6 +348,12 @@ class WPBDP__Assets {
 	 * @return string $admin_body_classes The body class with the added plugin class
 	 */
 	public function add_body_class( $admin_body_classes ) {
+		global $wpbdp;
+
+		if ( ! $wpbdp->is_bd_page() ) {
+			return $admin_body_classes;
+		}
+
 		return "$admin_body_classes bd-admin";
 	}
 }
