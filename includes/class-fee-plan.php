@@ -118,6 +118,9 @@ final class WPBDP__Fee_Plan {
 
         if ( $saved ) {
 			WPBDP_Utils::cache_delete_group( 'wpbdp_plans' );
+            if ( $update ) {
+                WPBDP_Utils::cache_delete_group( 'wpbdp_listings' ); // Delete listings cache group to allow reflecting on the frontend.
+            }
             if ( $fire_hooks ) {
                 do_action( 'wpbdp_fee_save', $this, $update );
             }

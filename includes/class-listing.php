@@ -636,7 +636,7 @@ class WPBDP_Listing {
 		$res = WPBDP_Utils::check_cache(
 			array(
 				'cache_key' => 'listing_fee_plan' . $this->id,
-				'group'     => 'wpbdp_listings',
+				'group'     => 'wpbdp_listing',
 				'query'     => $sql,
 				'type'      => 'get_row',
 			)
