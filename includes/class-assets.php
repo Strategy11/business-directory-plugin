@@ -22,6 +22,9 @@ class WPBDP__Assets {
 
 		// Admin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+
+        // Add admin body class for parent page class to avoid css conflicts.
+        add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
     }
 
     /**
@@ -332,5 +335,19 @@ class WPBDP__Assets {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Add admin body class.
+	 * This will be used a wrapper for admin css classes to prevent conflicts with other page styles.
+	 *
+	 * @param string $admin_body_classes The current admin body classes.
+	 *
+	 * @since x.x
+	 *
+	 * @return string $admin_body_classes The body class with the added plugin class
+	 */
+	public function add_body_class( $admin_body_classes ) {
+		return "$admin_body_classes bd-admin";
 	}
 }
