@@ -15,7 +15,6 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
     private $payment_id = 0;
     public $listing     = null;
 
-
     public function dispatch() {
         global $wpdb;
 
@@ -46,6 +45,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
                 ),
             )
         );
+
 		if ( $auth ) {
 			return $auth;
 		}
