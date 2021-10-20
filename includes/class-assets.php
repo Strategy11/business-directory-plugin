@@ -258,9 +258,6 @@ class WPBDP__Assets {
 	public function enqueue_admin_scripts( $force = false ) {
 		global $wpbdp;
 
-        if ( is_string( $force ) ) {
-            $force = false;
-        }
 		if ( ! $force && ! $wpbdp->is_bd_page() ) {
 			return;
 		}
