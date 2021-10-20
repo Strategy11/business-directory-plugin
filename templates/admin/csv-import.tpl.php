@@ -56,7 +56,7 @@ printf(
                            type="file"
                            aria-required="true" />
 
-                    <?php if ( $files['csv'] ): ?>
+                    <?php if ( $files['csv'] ) : ?>
                     <div class="file-local-selection">
                         <?php
                         echo str_replace( '<a>',
@@ -65,7 +65,7 @@ printf(
                         ?>
 
                         <ul>
-                            <?php foreach ( $files['csv'] as $f ): ?>
+                            <?php foreach ( $files['csv'] as $f ) : ?>
                             <li><label>
 								<input type="radio" name="csv-file-local" value="<?php echo esc_attr( basename( $f ) ); ?>" /> <?php echo esc_html( basename( $f ) ); ?>
                             </label></li>
@@ -87,7 +87,7 @@ printf(
                            type="file"
                            aria-required="true" />
 
-                    <?php if ( $files['images'] ): ?>
+                    <?php if ( $files['images'] ) : ?>
                     <div class="file-local-selection">
                         <?php
                         echo str_replace( '<a>',
@@ -96,7 +96,7 @@ printf(
                         ?>
 
                         <ul>
-                            <?php foreach ( $files['images'] as $f ): ?>
+                            <?php foreach ( $files['images'] as $f ) : ?>
                             <li><label>
 								<input type="radio" name="images-file-local" value="<?php echo esc_attr( basename( $f ) ); ?>" />
 								<?php echo esc_html( basename( $f ) ); ?>
@@ -180,7 +180,7 @@ printf(
                 </th>
                 <td>
                     <select name="settings[post-status]">
-                        <?php foreach ( get_post_statuses() as $post_status => $post_status_label ): ?>
+                        <?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
                             <?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
                                 <?php continue; ?>
                             <?php endif; ?>
@@ -198,7 +198,7 @@ printf(
                 <td>
                     <select name="settings[existing-post-status]">
                             <option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'business-directory-plugin' ); ?></option>
-                        <?php foreach ( get_post_statuses() as $post_status => $post_status_label ): ?>
+                        <?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
                             <?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
                                 <?php continue; ?>
                             <?php endif; ?>
@@ -280,7 +280,7 @@ printf(
                 </th>
                 <td>
                     <select name="settings[batch-size]">
-                        <?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ): ?>
+                        <?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ) : ?>
                             <option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>
                         <?php endforeach; ?>
                     </select>
@@ -332,9 +332,9 @@ printf(
     <tbody>
     <?php $i = 0; foreach ( wpbdp_get_form_fields() as $field ) : ?>
         <?php
-            if ( 'custom' == $field->get_association() ):
-                continue;
-            endif
+		if ( 'custom' === $field->get_association() ) {
+			continue;
+		}
         ?>
         <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name"><?php echo esc_html( $field->get_short_name() ); ?></td>

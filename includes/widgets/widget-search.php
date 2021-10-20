@@ -40,7 +40,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 			esc_attr( $this->get_field_id( 'use_basic_form' ) ),
 			esc_attr( $this->get_field_name( 'form_mode' ) ),
 			'basic',
-			wpbdp_getv( $instance, 'form_mode', 'basic') === 'basic' ? 'checked="checked"' : '',
+			wpbdp_getv( $instance, 'form_mode', 'basic' ) === 'basic' ? 'checked="checked"' : '',
 			esc_attr( $this->get_field_id( 'use_basic_form' ) ),
 			esc_html_x( 'Basic', 'widgets', 'business-directory-plugin' )
 		);

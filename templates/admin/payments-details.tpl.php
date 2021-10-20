@@ -56,7 +56,7 @@ if ( ! $payment || ! $payment->id ) {
                                     <label><?php esc_html_e( 'Status', 'business-directory-plugin' ); ?></label>
 
                                     <select name="payment[status]">
-                                    <?php foreach ( WPBDP_Payment::get_stati() as $status_id => $status_label ): ?>
+									<?php foreach ( WPBDP_Payment::get_stati() as $status_id => $status_label ) : ?>
                                         <option value="<?php echo esc_attr( $status_id ); ?>" <?php selected( $status_id, $payment->status ); ?>><?php echo esc_html( $status_label ); ?></option>
                                     <?php endforeach; ?>
                                     </select>

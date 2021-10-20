@@ -12,7 +12,7 @@ $show_message = isset( $show_message ) ? $show_message : true;
 ?>
 
 <div class="wpbdp-login-form">
-<?php if ( $show_message ): ?>
+<?php if ( $show_message ) : ?>
     <?php wpbdp_render_msg( esc_html__( "You are not currently logged in. Please login or register first. When registering, you will receive an activation email. Be sure to check your spam if you don't see it in your email within 60 minutes.", 'business-directory-plugin' ), 'status', true ); ?>
 <?php endif; ?>
 
@@ -36,7 +36,7 @@ $lost_password_url = add_query_arg( 'redirect_to', rawurlencode( $current_url ),
 ?>
 
 <p class="wpbdp-login-form-extra-links">
-    <?php if ( $registration_url ): ?>
+	<?php if ( $registration_url ) : ?>
     <a href="<?php echo esc_url( $registration_url ); ?>" rel="nofollow"><?php esc_html_e( 'Not yet registered?', 'business-directory-plugin' ); ?></a> |
     <?php endif; ?>
     <a href="<?php echo esc_url( $lost_password_url ); ?>" rel="nofollow"><?php esc_html_e( 'Lost your password?', 'business-directory-plugin' ); ?></a>

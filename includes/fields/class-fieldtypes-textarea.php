@@ -309,8 +309,9 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $value = parent::get_field_value( $field, $post_id );
 
         // Only return auto-generated excerpt if there's no value at all.
-        if ( 'excerpt' == $field->get_association() && $field->data( 'auto_excerpt') && ! $value )
+		if ( 'excerpt' === $field->get_association() && $field->data( 'auto_excerpt' ) && ! $value ) {
             $value = $this->get_excerpt_value_from_post( $post_id );
+		}
 
         return $value;
     }

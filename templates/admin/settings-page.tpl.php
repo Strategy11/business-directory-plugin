@@ -12,17 +12,17 @@ wpbdp_admin_header(
 ?>
 
 <h2 class="nav-tab-wrapper">
-    <?php foreach ( $tabs as $tab_id => $tab ): ?>
+	<?php foreach ( $tabs as $tab_id => $tab ) : ?>
     <a class="nav-tab <?php echo $active_tab == $tab_id ? 'nav-tab-active' : ''; ?> <?php echo esc_attr( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>"><?php echo esc_html( $tab['title'] ); ?></a>
     <?php endforeach; ?>
 </h2>
 
-<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ): ?>
+<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ) : ?>
 <div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
     <ul class="subsubsub">
     <?php
     $n = 0;
-    foreach ( $subtabs as $subtab_id => $subtab ):
+	foreach ( $subtabs as $subtab_id => $subtab ) :
         $n++;
     ?>
         <?php
@@ -31,7 +31,7 @@ wpbdp_admin_header(
         ?>
         <li>
             <a class="<?php echo $active_subtab == $subtab_id ? 'current' : ''; ?>" href="<?php echo esc_url( $subtab_url ); ?>"><?php echo esc_html( $subtab['title'] ); ?></a>
-            <?php if ( $n != count( $subtabs ) ): ?>
+			<?php if ( $n != count( $subtabs ) ) : ?>
 				|
 			<?php endif; ?>
         </li>
@@ -42,25 +42,25 @@ wpbdp_admin_header(
 
 <?php settings_errors(); ?>
 
-<?php if ( $active_subtab_description ): ?>
+<?php if ( $active_subtab_description ) : ?>
 <p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo wp_kses_post( $active_subtab_description ); ?></p>
 <?php endif; ?>
 
-<?php if ( ! $custom_form ): ?>
+<?php if ( ! $custom_form ) : ?>
 <form action="options.php" method="post">
 <?php endif; ?>
 
 <?php
     $_SERVER['REQUEST_URI'] = $original_uri;
 
-    if ( ! $custom_form ):
+	if ( ! $custom_form ) :
         settings_fields( 'wpbdp_settings' );
     endif;
 
     do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
 	do_action( 'wpbdp_settings_subtab_' . $active_subtab );
 
-    if ( ! $custom_form ):
+	if ( ! $custom_form ) :
         // Submit button shouldn't use 'submit' as name to avoid conflicts with
         // actual properties of the parent form.
         //
@@ -69,7 +69,7 @@ wpbdp_admin_header(
     endif;
 ?>
 
-<?php if ( ! $custom_form ): ?>
+<?php if ( ! $custom_form ) : ?>
 </form>
 <?php endif; ?>
 
