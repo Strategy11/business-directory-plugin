@@ -2,11 +2,11 @@
 
 class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 
-    /**
-     * Load resources required for the view
-     *
-     * @since x.x
-     */
+	/**
+	 * Load resources required for the view
+	 *
+	 * @since x.x
+	 */
 	public function enqueue_resources() {
 		// CSS used for plan buttons on the listing page only.
 		$custom_css = "
@@ -21,9 +21,9 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 		$this->enqueue_custom_resources();
 	}
 
-    /**
-     * @since x.x
-     */
+	/**
+	 * @since x.x
+	 */
 	public function enqueue_custom_resources() {
 		// Load custom resources in classes that extend this class.
 	 	// Defaults to empty function if not overriden in the child class.
