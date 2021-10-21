@@ -438,47 +438,65 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 
     require_once ABSPATH . 'wp-admin/includes/image.php';
 
-    $metadata = wp_get_attachment_metadata( $id );
-
-    if ( ! $metadata ) {
-        return;
-    }
-
-    $def_width = absint( isset( $args['width'] ) ?  $args['width'] : wpbdp_get_option( 'thumbnail-width' ) );
-    $width     = absint( isset( $metadata['width'] ) ? $metadata['width'] : 0 );
-
-    if ( ! $width || $width <= $def_width ) {
-        return;
-    }
-
-    $def_height = absint( isset( $args['height'] ) ?  $args['height'] : wpbdp_get_option( 'thumbnail-height' ) );
-    $height     = absint( isset( $metadata['height'] ) ? $metadata['height'] : 0 );
-
-    if ( ! $height || $height <= $def_height ) {
-        return;
-    }
-
-    $thumb_info = isset( $metadata['sizes']['wpbdp-thumb'] ) ? $metadata['sizes']['wpbdp-thumb'] : false;
-
-    if ( $thumb_info ) {
-        $thumb_width  = absint( $thumb_info['width'] );
-        $thumb_height = absint( $thumb_info['height'] );
-
-        // 10px of tolerance.
-        if ( abs( $thumb_width - $def_width ) < 10 ) {
-            return;
-        }
-        $crop = isset( $args['crop'] ) ? $args['crop'] : wpbdp_get_option( 'thumbnail-crop' );
-        if ( $crop && abs( $thumb_height - $def_height ) < 10 ) {
-            return;
-        }
-    }
+	// Check if image should be resized.
+	_wpbdp_should_image_be_resized( $id, $args );
 
     $filename    = get_attached_file( $id, true );
     $attach_data = wp_generate_attachment_metadata( $id, $filename );
     wp_update_attachment_metadata( $id, $attach_data );
 
     wpbdp_log( sprintf( 'Resized image "%s" [ID: %d] to match updated size constraints.', $filename, $id ) );
+}
+
+/**
+ * Check if we should resize the image.
+ * This checks against the image dimensions and the database image settings.
+ * If the dimensions are the same or smaller than what is saved, we skip the resize.
+ *
+ * @param int   $id    The media attachement id.
+ * @param array $args  Optional. Accepts an array of width and height in pixels and crop as a boolean.
+ *
+ * @since x.x
+ */
+function _wpbdp_should_image_be_resized( $id, $args = array() ) {
+
+	$metadata = wp_get_attachment_metadata( $id );
+
+	if ( ! $metadata ) {
+		return;
+	}
+
+	$def_width = absint( isset( $args['width'] ) ?  $args['width'] : wpbdp_get_option( 'thumbnail-width' ) );
+	$width     = absint( isset( $metadata['width'] ) ? $metadata['width'] : 0 );
+
+	if ( ! $width || $width <= $def_width ) {
+		return;
+	}
+
+	$def_height = absint( isset( $args['height'] ) ?  $args['height'] : wpbdp_get_option( 'thumbnail-height' ) );
+	$height     = absint( isset( $metadata['height'] ) ? $metadata['height'] : 0 );
+
+	if ( ! $height || $height <= $def_height ) {
+		return;
+	}
+
+	$thumb_info = isset( $metadata['sizes']['wpbdp-thumb'] ) ? $metadata['sizes']['wpbdp-thumb'] : false;
+
+	if ( $thumb_info ) {
+		$thumb_width  = absint( $thumb_info['width'] );
+		$thumb_height = absint( $thumb_info['height'] );
+
+		// 10px of tolerance.
+		if ( abs( $thumb_width - $def_width ) < 10 ) {
+			return;
+		}
+
+		$crop = isset( $args['crop'] ) ? $args['crop'] : wpbdp_get_option( 'thumbnail-crop' );
+
+		if ( $crop && abs( $thumb_height - $def_height ) < 10 ) {
+			return;
+		}
+	}
 }
 
 /*
