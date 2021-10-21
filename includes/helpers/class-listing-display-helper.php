@@ -281,7 +281,7 @@ class WPBDP_Listing_Display_Helper {
                     'width'  => $def_width,
                     'height' => $def_height,
                     'crop'   => $crop
-                ) 
+                )
             );
 
             if ( $img_id == $thumbnail_id ) {
