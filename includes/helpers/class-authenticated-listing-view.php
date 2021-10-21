@@ -22,12 +22,12 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 	}
 
     /**
+	 * Load custom resources in classes that extend this class.
+	 * Defaults to empty function if not overriden in the child class.
+	 *
      * @since x.x
      */
-	public function enqueue_custom_resources() {
-		// Load custom resources in classes that extend this class.
-		// Defaults to empty function if not overriden in the child class.
-	}
+	public function enqueue_custom_resources() {}
 
 	protected function authenticate() {
 		if ( ! $this->listing )
