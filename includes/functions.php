@@ -417,19 +417,18 @@ function wpbdp_get_current_sort_option() {
  * @param array $args  Optional. Accepts an array of width and height in pixels and crop as a boolean.
  *
  * @since 2.1.6
+ * @since x.x
  */
 function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 
     /**
-     * Add filter to allow user to skin image resizing
+     * Add filter to allow user to skin image resizing.
      *
      * @param bool  $resize Whether to resize the image or not.
      * @param int   $id     The media attachement id.
      * @param array $args   Optional. An array of width and height in pixels and crop as a boolean.
      *
      * @since x.x
-     *
-     * @return bool
      */
     $resize_image = apply_filters( 'wpbdp_resize_image_if_needed', true, $id, $args );
     if ( ! $resize_image ) {
