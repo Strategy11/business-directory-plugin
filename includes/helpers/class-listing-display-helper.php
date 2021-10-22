@@ -280,7 +280,7 @@ class WPBDP_Listing_Display_Helper {
                 array(
                     'width'  => $def_width,
                     'height' => $def_height,
-                    'crop'   => $crop
+                    'crop'   => $crop,
                 )
             );
 
