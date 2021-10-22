@@ -1,0 +1,48 @@
+.wpbdp-admin-page {
+    .wpbdp-button {
+        &-primary, &-secondary {
+            text-shadow: none;
+            box-shadow: none;
+            border-radius: 30px;
+            border:1px solid @button !important;
+            font-size: 1em;
+            transition: all .2s ease;
+            height: 28px;
+            min-height: 28px;
+            outline: none;
+            line-height: 26px;
+            min-width: 100px;
+            display: inline-block;
+            text-align: center;
+            padding: 2px 10px;
+            text-decoration: none;
+        }
+	}
+
+	.page-title-action,
+	.wpbdp-button-primary,
+	.button-primary {
+		background-color: @button !important;
+		border-color: @button !important;
+		color: @white !important;
+		&:hover, &:focus {
+			background: @button-hover !important;
+			border-color: @button-hover !important;
+		}
+	}
+
+	.add-new-h2,
+	.wpbdp-button-secondary,
+	.button-secondary,
+	.button {
+		background-color: @white;
+		border-color: @button !important;
+		color: @button-hover;
+		&:hover, &:focus {
+			border-color: @button-hover !important;
+			background: @button-hover !important;
+			color: @white;
+			box-shadow: none;
+		}
+	}
+}
