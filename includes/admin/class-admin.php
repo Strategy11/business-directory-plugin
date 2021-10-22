@@ -453,8 +453,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $candidates = array(
                 $item['file'],
-                WPBDP_INC . 'admin/class-admin-' . $id . '.php',
                 WPBDP_INC . 'admin/controllers/class-admin-' . $id . '-controller.php',
+                WPBDP_INC . 'admin/class-admin-' . $id . '.php',
                 WPBDP_INC . 'admin/' . $id . '.php',
             );
             foreach ( $candidates as $c ) {
