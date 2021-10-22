@@ -17,45 +17,32 @@
             padding: 2px 10px;
             text-decoration: none;
         }
-        &-primary {
-            background-color: @button !important;
-            color: @white !important;
-            &:hover, &:focus {
-                background: @button-hover !important;
-                border-color: @button-hover !important;
-            }
-        }
-        &-secondary {
-            color: @button;
-            background-color: transparent;
-            &:hover, &:focus {
-                border-color: @button-hover !important;
-                background: @button-hover !important;
-                color: @white;
-                box-shadow: none;
-            }
-        }
-    }
-    .button {
-        &-primary {
-            background-color: @button !important;
-            border-color: @button !important;
-            color: @white !important;
-            &:hover, &:focus {
-                background: @button-hover !important;
-                border-color: @button-hover !important;
-            }
-        }
-        &-secondary {
-            color: @button;
-            background-color: transparent;
-            border-color: @button !important;
-            &:hover, &:focus {
-                border-color: @button-hover !important;
-                background: @button-hover !important;
-                color: @white;
-                box-shadow: none;
-            }
-        }
-    }
+	}
+
+	.page-title-action,
+	.wpbdp-button-primary,
+	.button-primary {
+		background-color: @button !important;
+		border-color: @button !important;
+		color: @white !important;
+		&:hover, &:focus {
+			background: @button-hover !important;
+			border-color: @button-hover !important;
+		}
+	}
+
+	.add-new-h2,
+	.wpbdp-button-secondary,
+	.button-secondary,
+	.button {
+		background-color: @white;
+		border-color: @button !important;
+		color: @button-hover;
+		&:hover, &:focus {
+			border-color: @button-hover !important;
+			background: @button-hover !important;
+			color: @white;
+			box-shadow: none;
+		}
+	}
 }
