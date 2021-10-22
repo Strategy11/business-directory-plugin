@@ -451,15 +451,16 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
-            $candidates = array(
-                $item['file'],
-                WPBDP_INC . 'admin/controllers/class-admin-' . $id . '-controller.php',
-                WPBDP_INC . 'admin/class-admin-' . $id . '.php',
-                WPBDP_INC . 'admin/' . $id . '.php',
-            );
+			$candidates = array(
+				$item['file'],
+				WPBDP_INC . 'admin/controllers/class-admin-' . $id . '-controller.php',
+				WPBDP_INC . 'admin/class-admin-' . $id . '.php',
+				WPBDP_INC . 'admin/' . $id . '.php',
+			);
             foreach ( $candidates as $c ) {
                 if ( $c && file_exists( $c ) ) {
                     require_once $c;
+					break; // Prevent loading deprecated files and looping for the same file once its found.
                 }
             }
 
