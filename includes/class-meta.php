@@ -157,7 +157,7 @@ class WPBDP__Meta {
                 break;
 
             case 'search':
-                $view_title =  _x( 'Find a Listing', 'title', 'business-directory-plugin' );
+				$view_title = _x( 'Find a Listing', 'title', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 
@@ -279,7 +279,7 @@ class WPBDP__Meta {
 
         $current_view = wpbdp_current_view();
 
-        switch ( $current_view ){
+		switch ( $current_view ) {
             case 'show_listing':
                 global $post;
 

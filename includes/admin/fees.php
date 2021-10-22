@@ -23,7 +23,8 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
                 'wpbdp-admin-fees-js',
                 WPBDP_ASSETS_URL . 'js/admin-fees.min.js',
                 array( 'wp-color-picker', 'wpbdp-js-select2' ),
-                WPBDP_VERSION
+                WPBDP_VERSION,
+				true
             );
 
             break;
@@ -36,7 +37,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     function index() {
-        require_once( WPBDP_PATH . 'includes/admin/helpers/class-fees-table.php' );
+        require_once( WPBDP_INC . 'admin/helpers/tables/class-fees-table.php' );
 
         $table = new WPBDP__Admin__Fees_Table();
         $table->prepare_items();

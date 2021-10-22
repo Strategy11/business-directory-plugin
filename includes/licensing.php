@@ -29,19 +29,11 @@ class WPBDP_Licensing {
         add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
         add_filter( 'wpbdp_settings_tab_css', array( $this, 'licenses_tab_css' ), 10, 2 );
 
-        add_action( 'wpbdp_license_check', array( &$this, 'license_check' ) );
-
 		add_action( 'admin_init', array( &$this, 'add_modules_hooks' ) );
         add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'inject_update_info' ) );
-        add_filter( 'plugins_api', array( $this, 'module_update_information' ), 10, 3 );
+		add_filter( 'plugins_api', array( $this, 'module_update_information' ), 10, 3 );
 
 		$this->register_dismissable();
-
-        if ( ! wp_next_scheduled( 'wpbdp_license_check' ) ) {
-            wp_schedule_event( time(), 'daily', 'wpbdp_license_check' );
-        }
-
-        // add_action( 'init', function() { do_action( 'wpbdp_license_check' );  }, 999 ); // For testing.
     }
 
 	/**
@@ -775,9 +767,11 @@ class WPBDP_Licensing {
 	}
 
     public function license_check() {
-        $last_license_check = get_site_transient( 'wpbdp-license-check-time' );
+		_deprecated_function( __METHOD__, '5.14' );
 
-        if ( ! empty( $last_license_check ) ) {
+		$last_license_check = get_site_transient( 'wpbdp-license-check-time' );
+
+		if ( ! empty( $last_license_check ) ) {
             return;
         }
 
@@ -924,16 +918,21 @@ class WPBDP_Licensing {
             return array();
         }
 
-        $store_url = set_url_scheme( trim( self::STORE_URL, '/' ), 'https' );
-        $home_url  = set_url_scheme( trim( home_url(), '/' ), 'https' );
+		$store_url = untrailingslashit( self::STORE_URL );
 
-        // Don't allow a plugin to ping itself.
-        if ( $store_url == $home_url ) {
-            return array();
-        }
+		$updates = get_option( 'wpbdp_updates' );
+		if ( empty( $updates ) ) {
+			// Temporary fallback for switching from option to transient.
+			// TODO: Remove in v5.14.1.
+			$updates = get_transient( 'wpbdp_updates' );
+			if ( $updates !== false ) {
+				$updates['last'] = current_time( 'timestamp' );
+			}
+		}
 
-        $updates       = get_transient( 'wpbdp_updates' );
-        $needs_refresh = false === $updates || $force_refresh;
+		$due = current_time( 'timestamp' ) - DAY_IN_SECONDS;
+
+		$needs_refresh = false === $updates || $force_refresh || $updates['last'] < $due;
 
         foreach ( $this->items as $item ) {
             if ( ! isset( $updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
@@ -953,9 +952,12 @@ class WPBDP_Licensing {
             'url'        => home_url(),
         );
 
+		$licenses = array();
         foreach ( $this->items as $item ) {
-            $args['licenses'][] = wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] );
-            $args['items'][]    = $item['name'];
+			$license            = wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] );
+			$args['licenses'][] = $license;
+			$args['items'][]    = $item['name'];
+			$licenses[ $item['id'] ] = $license;
         }
 
         $request = wp_remote_get(
@@ -985,21 +987,38 @@ class WPBDP_Licensing {
             }
         }
 
-        // Some processing.
         $updates = array();
 
         foreach ( $this->items as $item ) {
             $item_key = $item['item_type'] . '-' . $item['id'];
 
             foreach ( $body as $item_information ) {
-                if ( $item_information->name == $item['name'] ) {
-                    $updates[ $item_key ]       = $item_information;
-                    $updates[ $item_key ]->slug = $item['id'];
-                }
+				if ( $item_information->name !== $item['name'] ) {
+					continue;
+				}
+
+				$updates[ $item_key ]       = $item_information;
+				$updates[ $item_key ]->slug = $item['id'];
+
+				// Update the license status too.
+				if ( $item['id'] === 'business-directory-premium' ) {
+					// Handle premium from it's own updater.
+					continue;
+				}
+
+				$this->licenses[ $item_key ] = array(
+					'license_key'  => $item_information->license,
+					'status'       => $item_information->license_status,
+					'expires'      => isset( $item_information->expires ) ? $item_information->expires : '',
+					'last_checked' => time(),
+					'bundle'       => $item['item_type'] === 'module' && $item_information->bundle,
+				);
             }
         }
 
-		set_transient( 'wpbdp_updates', $updates, DAY_IN_SECONDS );
+		$updates['last'] = current_time( 'timestamp' );
+		update_option( 'wpbdp_updates', $updates, false );
+		update_option( 'wpbdp_licenses', $this->licenses );
 
         return $updates;
     }
@@ -1029,10 +1048,6 @@ class WPBDP_Licensing {
         foreach ( $modules as $module ) {
             $license_status = $this->get_license_status( '', $module['id'], $module['item_type'] );
 
-            if ( 'valid' != $license_status ) {
-                continue;
-            }
-
             $item_key = $module['item_type'] . '-' . $module['id'];
 
             if ( ! isset( $updates[ $item_key ] ) ) {
@@ -1060,6 +1075,9 @@ class WPBDP_Licensing {
         return $transient;
     }
 
+	/**
+	 * Fill the info in the plugin details popup.
+	 */
     public function module_update_information( $data, $action = '', $args = null ) {
         if ( 'plugin_information' != $action || ! isset( $args->slug ) ) {
             return $data;

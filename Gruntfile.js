@@ -108,7 +108,11 @@ module.exports = function( grunt ) {
         expand: true,
         cwd: basedir,
 		dest: path.basename(basedir),
-        src: ['**/*', '!**/*~', '!**/**.less', '!**/tests/**', '!**/**/less', '!**/.*', '!**/phpcs.xml', '!**/phpunit.xml', '!**/composer.json']
+        src: [
+			'**/*', '!**/*~', '!**/**.less', '!**/tests/**', '!**/**/less',
+			'!**/.*', '!**/phpcs.xml', '!**/phpunit.xml', '!**/composer.json',
+			'!**/*.md', '!**/*.yml'
+		]
       } );
 
 	  grunt.config.set( 'replace.setversion-' + id, {

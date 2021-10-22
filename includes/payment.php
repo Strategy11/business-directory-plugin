@@ -89,7 +89,7 @@ class WPBDP_PaymentsAPI {
     <?php echo $this->render_invoice( $payment ); ?>
 
 </div>
-<input type="button" class="wpbdp-payment-receipt-print" value="<?php _ex( 'Print Receipt', 'checkout', 'business-directory-plugin' ); ?>" />
+<a href="#" class="wpbdp-payment-receipt-print button wpbdp-button" ><?php esc_html_e( 'Print Receipt', 'business-directory-plugin' ); ?></a>
 
 <?php
         do_action( 'wpbdp_after_render_receipt', $payment );
@@ -98,6 +98,7 @@ class WPBDP_PaymentsAPI {
 
     /**
      * Renders an invoice table for a given payment.
+	 *
      * @param $payment WPBDP_Payment
      * @return string HTML output.
      * @since 3.4

@@ -98,7 +98,8 @@ jQuery(document).ready(function($){
     }
 
     $( '.wpbdp-listing-contact-form .send-message-button' ).on( 'click', function() {
-        $( '.wpbdp-listing-contact-form .contact-form-wrapper' ).toggle();
+		$( this ).removeClass( 'wpbdp-show-on-mobile' ).hide();
+		$( '.wpbdp-listing-contact-form .contact-form-wrapper' ).show();
     });
 
     $( '.wpbdp-listings-sort-options select' ).on( 'change', function(e) {

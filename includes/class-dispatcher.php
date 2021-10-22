@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'includes/class-view.php' );
+require_once( WPBDP_INC . 'abstracts/class-view.php' );
 
 /**
  * @since 4.0
@@ -125,17 +125,19 @@ class WPBDP__Dispatcher {
 
     public function get_view_locations() {
         $dirs = array();
-        $dirs[] = WPBDP_PATH . 'includes/views/';
+        $dirs[] = WPBDP_PATH . 'includes/controllers/pages/';
         $dirs[] = WPBDP_PATH . 'core/views/';
 
         return apply_filters( 'wpbdp_view_locations', $dirs );
     }
 
     public function load_view( $view_name, $args = null ) {
+        $class_view_name = str_replace( '_', '-', $view_name );
         // TODO: add some filters so plugins can override default view loading.
         $filenames = array( $view_name . '.php',
-                            'views-' . $view_name . '.php' );
-
+                            'views-' . $view_name . '.php',
+                            'class-' . $class_view_name . '.php',
+                        );
         foreach ( $this->get_view_locations() as $dir ) {
             foreach ( $filenames as $f ) {
                 $path = wp_normalize_path( WPBDP_FS::join( $dir, $f ) );
@@ -143,7 +145,15 @@ class WPBDP__Dispatcher {
                 if ( ! file_exists( $path ) )
                     continue;
 
-                $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( '_', str_replace( '.php', '', $f ) ) ) );
+                if ( ( strpos( $f, 'class' ) === 0 ) ) {
+                    $explode = '-';
+                    $find = array( '.php', 'class-' );
+                } else {
+                    $explode = '_';
+                    $find = '.php';
+                }
+
+                $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( $explode, str_replace( $find, '', $f ) ) ) );
 
                 if ( ! class_exists( $classname ) )
                     include( $path );

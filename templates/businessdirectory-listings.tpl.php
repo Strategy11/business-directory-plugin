@@ -30,7 +30,7 @@ $query = isset( $query ) ? $query : wpbdp_current_query();
             <?php esc_html_e( 'No listings found.', 'business-directory-plugin' ); ?>
 		<?php else : ?>
             <div class="listings wpbdp-listings-list">
-                <?php while ( $query->have_posts() ): $query->the_post(); ?>
+				<?php while ( $query->have_posts() ) : $query->the_post(); ?>
                     <?php wpbdp_render_listing( null, 'excerpt', 'echo' ); ?>
                 <?php endwhile; ?>
 				<?php

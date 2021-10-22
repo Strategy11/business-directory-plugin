@@ -13,7 +13,7 @@ if ( ! $admin ) :
 <div id="wpbdp-uploaded-images" class="cf">
 
 <?php
-foreach ( $images as $image ):
+foreach ( $images as $image ) :
     $image_id = $image;
 
     if ( is_object( $image ) && $image->id ) :
@@ -27,7 +27,7 @@ foreach ( $images as $image ):
 		'admin'        => $admin,
         'echo'         => true,
     );
-    if ( ! $admin ):
+    if ( ! $admin ) :
         $vars['image_id'] = $image_id;
 		if ( isset( $images_meta[ $image_id ]['order'] ) ) {
 			$vars['weight'] = $images_meta[ $image_id ]['order'];
@@ -83,7 +83,8 @@ endif;
 $vars['echo'] = true;
 wpbdp_render( 'submit-listing-images-upload-form', $vars, false );
 ?>
-
 <script>
-wpbdp.listingSubmit.images.init();
+document.addEventListener( 'DOMContentLoaded', function () {
+	wpbdp.listingSubmit.images.init();
+}, false );
 </script>

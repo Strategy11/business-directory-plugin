@@ -12,7 +12,7 @@ $buttons = '';
 if ( 'single' === $view ) :
     if ( wpbdp_user_can( 'edit', $listing_id ) ) :
 		$buttons .= sprintf(
-            '<a href="%s" class="button edit-listing" rel="nofollow">%s</a>',
+            '<a href="%s" class="wpbdp-button button edit-listing" rel="nofollow">%s</a>',
             wpbdp_url( 'edit_listing', $listing_id ),
             _x( 'Edit', 'templates', 'business-directory-plugin' )
 		);
@@ -20,7 +20,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_get_option( 'enable-listing-flagging' ) && wpbdp_user_can( 'flagging', $listing_id ) ) :
         $buttons .= sprintf(
-			' <a href="%s" class="button report-listing" rel="nofollow">%s</a>',
+			' <a href="%s" class="wpbdp-button button report-listing" rel="nofollow">%s</a>',
 			esc_url( wpbdp_url( 'flag_listing', $listing_id ) ),
             apply_filters( 'wpbdp_listing_flagging_button_text', _x( 'Flag Listing', 'templates', 'business-directory-plugin' ) )
         );

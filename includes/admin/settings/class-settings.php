@@ -83,6 +83,7 @@ class WPBDP__Settings {
 
     /**
      * Register a setings group within the Settings API.
+	 *
      * @since 5.0
      */
     public function register_group( $slug, $title = '', $parent = '', $args = array() ) {
@@ -138,6 +139,7 @@ class WPBDP__Settings {
 
     /**
      * Register a setting within the Settings API.
+	 *
      * @since 5.0
      */
     public function register_setting( $id_or_args, $name = '', $type = 'text', $group = '', $args = array() ) {
@@ -167,7 +169,7 @@ class WPBDP__Settings {
             'dependencies' => array()
         ) );
 
-        if ( isset( $this->settings[ $args['id' ] ] ) ) {
+		if ( isset( $this->settings[ $args['id'] ] ) ) {
             return false;
         }
 
@@ -184,7 +186,7 @@ class WPBDP__Settings {
         	add_filter( 'wpbdp_settings_sanitize_' . $args['id'], 'wp_kses_post' );
         }
 
-        $this->settings[ $args['id' ] ] = $args;
+		$this->settings[ $args['id'] ] = $args;
 
         if ( 'silent' != $args['type'] ) {
             $this->groups[ $args['group'] ]['count'] += 1;

@@ -28,7 +28,7 @@ $after_buttons = isset( $after_buttons ) ? $after_buttons : '';
 echo $before_container;
 ?>
 <div class="wpbdp-settings-email <?php echo esc_attr( $container_class ); ?>">
-    <?php if ( ! $editor_only ): ?>
+	<?php if ( ! $editor_only ) : ?>
     <?php
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $before_preview;
@@ -61,18 +61,18 @@ echo $before_container;
                 <td>
                     <textarea name="<?php echo esc_attr( $setting_name ); ?>[body]" id="<?php echo esc_attr( $uid ); ?>-body" class="email-body" placeholder="<?php esc_attr_e( 'Email body text', 'business-directory-plugin' ); ?>"><?php echo esc_textarea( $email_body ); ?></textarea>
 
-                    <?php if ( $placeholders ): ?>
+					<?php if ( $placeholders ) : ?>
                     <div class="placeholders">
                         <p><?php esc_html_e( 'You can use the following placeholders:', 'business-directory-plugin' ); ?></p>
 
                         <?php
                         $added_sep = false;
 
-                        foreach ( $placeholders as $placeholder => $placeholder_data ):
+						foreach ( $placeholders as $placeholder => $placeholder_data ) :
                             $description = is_array( $placeholder_data ) ? $placeholder_data[0] : $placeholder_data;
                             $is_core_placeholder = is_array( $placeholder_data ) && isset( $placeholder_data[2] ) && $placeholder_data[2];
 
-                            if ( $is_core_placeholder && ! $added_sep ):
+							if ( $is_core_placeholder && ! $added_sep ) :
                         ?>
                             <div class="placeholder-separator"></div>
                         <?php

@@ -14,8 +14,9 @@
         <dd><?php echo date_i18n( get_option( 'date_format' ), strtotime( $plan->expiration_date ) ); ?></dd>
     </dl>
 
-    <?php if ( $show_cancel_subscription_button ): ?>
     <?php
+	if ( $show_cancel_subscription_button ) :
+
         $url = add_query_arg( array(
             'wpbdp_view' => 'manage_recurring',
             'action' => 'cancel-subscription',

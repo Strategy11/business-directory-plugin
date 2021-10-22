@@ -1,6 +1,7 @@
 <?php
 /**
  * BD Premium Themes setup
+ *
  * @since 4.0
  */
 
@@ -45,7 +46,7 @@ class WPBDP_Themes {
         add_action( 'wp_footer', array( $this, 'fee_specific_coloring' ), 999 );
 
         if ( is_admin() ) {
-            require_once WPBDP_PATH . 'includes/admin/class-themes-admin.php';
+            require_once WPBDP_PATH . 'includes/admin/controllers/class-themes-admin.php';
             $this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
         }
     }
@@ -150,7 +151,7 @@ class WPBDP_Themes {
                 $deps   = array();
             }
 
-            wp_enqueue_script( $handle, $source, $deps, $theme->version );
+            wp_enqueue_script( $handle, $source, $deps, $theme->version, true );
         }
 
         $this->call_theme_function( 'enqueue_scripts' );
@@ -198,7 +199,6 @@ class WPBDP_Themes {
             array(
                 'include_free'    => true,
                 'include_private' => true,
-                'tag'             => '',
             )
         );
 

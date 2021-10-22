@@ -104,7 +104,7 @@ class WPBDP_CSV_Import {
         $file->seek( $this->current_line );
 
         $n = 0;
-        while ( $n < (int)$this->settings['batch-size'] ) {
+		while ( $n < (int) $this->settings['batch-size'] ) {
             if ( $file->eof() && empty( $file->current() ) ) {
                 $this->done = true;
                 break;

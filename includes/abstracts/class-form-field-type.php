@@ -38,6 +38,7 @@ class WPBDP_Form_Field_Type {
 
     /**
      * Called after a field of this type is constructed.
+	 *
      * @param object $field
      */
     public function setup_field( &$field ) {
@@ -46,6 +47,7 @@ class WPBDP_Form_Field_Type {
 
     /**
      * Called before field validation takes place.
+	 *
      * @since 3.6.5
      */
     public function setup_validation( $field, $validator, $value ) {
@@ -54,13 +56,13 @@ class WPBDP_Form_Field_Type {
 
     /**
      * Called before the listing is to be saved.
+	 *
      * @since 5.0.5
      */
     public function before_field_update( $field ) {
 	}
 
     /**
-     * TODO: dodoc.
      * @since 3.4
      */
     public function get_behavior_flags( &$field ) {
@@ -254,7 +256,7 @@ class WPBDP_Form_Field_Type {
                     '<label for="%s">%s</label>',
                     'wpbdp-field-' . esc_attr( $field->get_id() ),
 					wp_kses_post( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) .
-					( ( $field->has_validator( 'required' ) && 'widget' !== $render_context  ) ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
+					( ( $field->has_validator( 'required' ) && 'widget' !== $render_context ) ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
                 );
 
                 $html .= '</div>';
@@ -352,6 +354,7 @@ class WPBDP_Form_Field_Type {
 
     /**
      * Called after a field of this type is deleted.
+	 *
      * @param object $field the deleted WPBDP_FormField object.
      */
     public function cleanup( &$field ) {
@@ -363,6 +366,7 @@ class WPBDP_Form_Field_Type {
 
     /**
      * Returns an array of valid associations for this field type.
+	 *
      * @return array
      */
     public function get_supported_associations() {
@@ -373,6 +377,7 @@ class WPBDP_Form_Field_Type {
      * Renders the field-specific settings area for fields of this type.
      * It is recommended to use `render_admin_settings` here to keep an uniform look.
      * `$_POST` values can be used here to populate things when needed.
+	 *
      * @param object $field might be NULL if field is new or the field that is being edited.
      * @param string $association field association.
      * @return string the HTML output.
@@ -384,6 +389,7 @@ class WPBDP_Form_Field_Type {
     /**
      * Called when saving fields of this type.
      * It should be used by field types to store any field type specific configuration.
+	 *
      * @param object $field the field being saved.
      * @return mixed WP_Error in case of error, anything else for success.
      */

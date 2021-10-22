@@ -40,12 +40,12 @@
 			printf(
 				/* translators: %s: Status name */
 				esc_html__( 'Status: %s', 'business-directory-plugin' ),
-				'<span class="addon-status-label">' . esc_html( $theme->active ? __( 'Active', 'business-directory-plugin' ) : __( 'Inactive', 'business-directory-plugin' )  ) . esc_html( ' v' . $theme->version ) . '</span>'
+				'<span class="addon-status-label">' . esc_html( $theme->active ? __( 'Active', 'business-directory-plugin' ) : __( 'Inactive', 'business-directory-plugin' ) ) . esc_html( ' v' . $theme->version ) . '</span>'
 			);
 			?>
 		</span>
 		<div class="wpbdp-theme-actions">
-			<?php if ( $theme->can_be_activated ): ?>
+			<?php if ( $theme->can_be_activated ) : ?>
 				<form action="" method="post">
 					<input type="hidden" name="wpbdp-action" value="set-active-theme" />
 					<input type="hidden" name="theme_id" value="<?php echo esc_attr( $theme->id ); ?>" />
@@ -53,7 +53,7 @@
 					<input type="submit" class="button choose-theme button-primary" value="<?php esc_attr_e( 'Activate', 'business-directory-plugin' ); ?>" />
 				</form>
 			<?php endif; ?>
-			<?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ): ?>
+			<?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ) : ?>
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=delete-theme&theme_id=' . esc_attr( $theme->id ) ) ); ?>" class="delete-theme-link delete-theme">
 					<?php esc_html_e( 'Delete', 'business-directory-plugin' ); ?>
 				</a>

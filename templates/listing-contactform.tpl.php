@@ -27,10 +27,10 @@ if ( $validation_errors ) :
 	<div class="wpbdp-grid">
     <?php if ( ! $current_user ) : ?>
         <p class="wpbdp-form-field wpbdp-half">
-            <label for="wpbdp-contact-form-name"><?php esc_html_e( 'Name', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-name" type="text" class="intextbox" name="commentauthorname" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) ); ?>" />
+            <label for="wpbdp-contact-form-name"><?php esc_html_e( 'Name', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-name" type="text" class="intextbox" name="commentauthorname" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) ); ?>" required />
         </p>
         <p class="wpbdp-form-field wpbdp-half">
-            <label for="wpbdp-contact-form-email"><?php esc_html_e( 'Email', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-email" type="text" class="intextbox" name="commentauthoremail" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthoremail' ), 'post' ) ); ?>" />
+            <label for="wpbdp-contact-form-email"><?php esc_html_e( 'Email', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-email" type="text" class="intextbox" name="commentauthoremail" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthoremail' ), 'post' ) ); ?>" required />
 		</p>
     <?php endif; ?>
 
@@ -52,5 +52,5 @@ if ( $validation_errors ) :
 	}
 	?>
 
-    <input type="submit" class="wpbdp-button wpbdp-submit submit" value="<?php esc_attr_e( 'Send', 'business-directory-plugin' ); ?>" />
+    <input type="submit" class="wpbdp-button button wpbdp-submit submit" value="<?php esc_attr_e( 'Send', 'business-directory-plugin' ); ?>" />
 </form>

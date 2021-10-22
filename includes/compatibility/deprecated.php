@@ -55,7 +55,7 @@ function wpbusdirman_the_listing_tags() {
 	}
 }
 
-function wpbusdirman_the_listing_meta($excerptorsingle) {
+function wpbusdirman_the_listing_meta( $excerptorsingle ) {
 	_deprecated_function( __FUNCTION__, '' );
 
     $html = '';
@@ -164,7 +164,7 @@ function wpbusdirman_sticky_loop() {
 	return;
 }
 
-function wpbusdirman_latest_listings($numlistings) {
+function wpbusdirman_latest_listings( $numlistings ) {
 	_deprecated_function( __FUNCTION__, '', 'wpbdp_latest_listings' );
 	return wpbdp_latest_listings( $numlistings );
 }
@@ -233,7 +233,7 @@ function wpbdp_get_formfields() {
  * @deprecated
  * @since 2.3
  */
-function wpbusdirman_get_the_business_email($post_id) {
+function wpbusdirman_get_the_business_email( $post_id ) {
 	// _deprecated_function( __FUNCTION__, '2.3' );
 
     $email_mode = wpbdp_get_option( 'listing-email-mode' );
@@ -276,6 +276,7 @@ function wpbdp_categories_taxonomy() {
 
 /**
  * Finds a fee by its ID. The special ID of 0 is reserved for the "free fee".
+ *
  * @param int $fee_id fee ID
  * @return object a fee object or NULL if nothing is found
  * @since 3.0.3
@@ -289,6 +290,7 @@ function wpbdp_get_fee( $fee_id ) {
 
 /**
  * Finds fees available for one or more directory categories.
+ *
  * @param int|array $categories term ID or array of term IDs
  * @return object|
  * @since 3.0.3
@@ -306,13 +308,15 @@ function wpbdp_get_fees_for_category( $categories = null ) {
 function wpbdp_categories_list( $parent = 0, $hierarchical = true) {
 	_deprecated_function( __FUNCTION__, 'Unknown' );
 
-    $terms = get_categories(array(
-        'taxonomy' => WPBDP_CATEGORY_TAX,
-        'parent' => $parent,
-        'orderby' => 'name',
-        'hide_empty' => 0,
-        'hierarchical' => 0
-    ));
+	$terms = get_categories(
+		array(
+			'taxonomy'     => WPBDP_CATEGORY_TAX,
+			'parent'       => $parent,
+			'orderby'      => 'name',
+			'hide_empty'   => 0,
+			'hierarchical' => 0
+		)
+	);
 
     if ($hierarchical) {
 		foreach ( $terms as &$term ) {

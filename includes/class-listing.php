@@ -369,6 +369,7 @@ class WPBDP_Listing {
         if ( WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'status' => 'pending' ) )->count() > 0 )
             $status = 'pending';
 
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName
         return apply_filters( 'WPBDP_Listing::get_payment_status', $status, $this->id );
     }
 
@@ -750,13 +751,15 @@ class WPBDP_Listing {
         if ( ! $fee )
             return false;
 
-        $row =  array( 'listing_id' => $this->id,
-                       'fee_id' => $fee->id,
-                       'fee_days' => $fee->days,
-                       'fee_images' => $fee->images,
-                       'fee_price' => $fee->calculate_amount( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ),
-                       'is_recurring' => $fee->recurring || ! empty( $recurring_data ),
-                       'is_sticky' => (int) $fee->sticky );
+		$row = array(
+			'listing_id'   => $this->id,
+			'fee_id'       => $fee->id,
+			'fee_days'     => $fee->days,
+			'fee_images'   => $fee->images,
+			'fee_price'    => $fee->calculate_amount( wp_get_post_terms( $this->id, WPBDP_CATEGORY_TAX, array( 'fields' => 'ids' ) ) ),
+			'is_recurring' => $fee->recurring || ! empty( $recurring_data ),
+			'is_sticky'    => (int) $fee->sticky,
+		);
 
         if ( $expiration = $this->calculate_expiration_date( current_time( 'timestamp' ), $fee ) )
             $row['expiration_date'] = $expiration;
@@ -1069,11 +1072,11 @@ class WPBDP_Listing {
      */
     public function _after_save( $context = '' ) {
         if ( 'submit-new' == $context ) {
-            do_action( 'WPBDP_Listing::listing_created', $this->id );
+            do_action( 'WPBDP_Listing::listing_created', $this->id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName
             do_action( 'wpbdp_add_listing', $this->id );
         } elseif ( 'submit-edit' == $context ) {
             do_action( 'wpbdp_edit_listing', $this->id );
-            do_action( 'WPBDP_Listing::listing_edited', $this->id );
+            do_action( 'WPBDP_Listing::listing_edited', $this->id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName
         }
 
         do_action( 'wpbdp_save_listing', $this->id, 'submit-new' == $context );
@@ -1106,7 +1109,9 @@ class WPBDP_Listing {
         // Remove payment information.
         foreach ( $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}wpbdp_payments WHERE listing_id = %d", $this->id ) ) as $payment_id ) {
             $payment = WPBDP_Payment::objects()->get( $payment_id );
-            $payment->delete();
+			if ( $payment ) {
+				$payment->delete();
+			}
         }
     }
 

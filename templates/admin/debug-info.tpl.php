@@ -9,16 +9,16 @@
 </p>
 
 <h3 class="nav-tab-wrapper">
-<?php foreach ( $debug_info as $section_id => &$section ): ?>
+<?php foreach ( $debug_info as $section_id => &$section ) : ?>
 	<a class="nav-tab" href="<?php echo esc_attr( $section_id ); ?>"><?php echo esc_html( $section['_title'] ); ?></a>
 <?php endforeach; ?>
 </h3>
 
-<?php foreach ( $debug_info as $section_id => &$section ): ?>
+<?php foreach ( $debug_info as $section_id => &$section ) : ?>
 <table class="wpbdp-debug-section" data-id="<?php echo esc_attr( $section_id ); ?>" style="display: none;">
 	<tbody>
 		<?php
-        foreach ( $section as $k => $v ):
+		foreach ( $section as $k => $v ) :
 			if ( wpbdp_starts_with( $k, '_' ) ) {
 				continue;
 			}

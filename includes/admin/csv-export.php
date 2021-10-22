@@ -4,6 +4,7 @@ require_once( WPBDP_INC . 'admin/class-csv-exporter.php' );
 
 /**
  * CSV Export admin pages.
+ *
  * @since 3.2
  */
 class WPBDP_Admin_CSVExport {
@@ -18,7 +19,8 @@ class WPBDP_Admin_CSVExport {
             'wpbdp-admin-export-js',
             WPBDP_ASSETS_URL . 'js/admin-export.min.js',
             array( 'wpbdp-admin-js' ),
-            WPBDP_VERSION
+            WPBDP_VERSION,
+			true
         );
 
         wp_enqueue_style(
