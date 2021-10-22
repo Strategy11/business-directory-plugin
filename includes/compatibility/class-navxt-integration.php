@@ -82,11 +82,15 @@ class WPBDP_NavXT_Integration {
             array_pop( $trail->trail );
         }
 
-        $trail->add( new bcn_breadcrumb( get_the_title( wpbdp_get_page_id() ),
-                                         '',
-                                         array(),
-                                         wpbdp_get_page_link(),
-                                         wpbdp_get_page_id() ) );
+		$trail->add(
+			new bcn_breadcrumb(
+				get_the_title( wpbdp_get_page_id() ),
+				'',
+				array(),
+				wpbdp_get_page_link(),
+				wpbdp_get_page_id()
+			)
+		);
     }
 
     // {{ Handlers.

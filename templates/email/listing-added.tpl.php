@@ -15,7 +15,7 @@
 <?php _ex( 'Admin URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>
 
 <?php $categories = array();
-foreach ( $listing->get_categories() as $category ):
+foreach ( $listing->get_categories() as $category ) :
     $categories[] = $category->name;
 endforeach; ?>
 <?php echo esc_html( _n( 'Category', 'Categories', count( $listing->get_categories() ), 'business-directory-plugin' ) ); ?>: <?php echo esc_html( implode( ' / ', $categories ) ); ?>

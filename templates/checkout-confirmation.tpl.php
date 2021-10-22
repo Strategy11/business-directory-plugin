@@ -1,5 +1,5 @@
 <?php
-switch ( $payment->status ):
+switch ( $payment->status ) :
 case 'completed':
     echo wpbdp_get_option( 'payment-message' );
     break;
@@ -23,13 +23,13 @@ default:
 endswitch
 ?>
 
-<?php if ( 'canceled' != $payment->status ): ?>
+<?php if ( 'canceled' != $payment->status ) : ?>
 <div id="wpbdp-checkout-confirmation-receipt">
     <?php echo wpbdp()->payments->render_receipt( $payment ); ?>
 </div>
 <?php endif; ?>
 
-<?php if ( 'pending' == $payment->status ): ?>
+<?php if ( 'pending' == $payment->status ) : ?>
 <script>
 setTimeout(function() {
     location.reload();

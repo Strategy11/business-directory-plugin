@@ -40,7 +40,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             WPBDP_ASSETS_URL . 'js/submit-listing.min.js',
             array(),
             WPBDP_VERSION,
-            false
+            true
         );
 
         wp_enqueue_script( 'wpbdp-checkout' );
@@ -72,6 +72,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				'somethingWentWrong'       => _x( 'Something went wrong!', 'submit listing', 'business-directory-plugin' ),
             )
         );
+
+		$custom_css = "
+		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]+ label span:before{
+			content: '" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
+		}
+		.wpbdp-plan-info-box .wpbdp-plan-price input[type=radio]:checked + label span:before{
+			content: '" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
+		}";
+		wp_add_inline_style( 'wpbdp-base-css', $custom_css );
 
         do_action( 'wpbdp_submit_listing_enqueue_resources' );
     }
@@ -1045,6 +1054,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         // FIXME: fake this (for compatibility with modules) until we move everything to wpbdp_save_listing() and
         // friends. See #2945.
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName
         do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$this->listing, $field_values ) );
 
         if ( $validation_errors ) {
@@ -1152,19 +1162,23 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $image_min_height = intval( wpbdp_get_option( 'image-min-height' ) );
         $image_max_height = intval( wpbdp_get_option( 'image-max-height' ) );
 
-        return $this->section_render( 'submit-listing-images',
-                                      compact( 'image_max_file_size',
-                                               'image_min_file_size',
-                                               'image_min_width',
-                                               'image_max_width',
-                                               'image_min_height',
-                                               'image_max_height',
-                                               'images',
-                                               'images_meta',
-                                               'image_slots',
-                                               'image_slots_remaining',
-                                               'thumbnail_id',
-                                               'listing' ) );
+		return $this->section_render(
+			'submit-listing-images',
+			compact(
+				'image_max_file_size',
+				'image_min_file_size',
+				'image_min_width',
+				'image_max_width',
+				'image_min_height',
+				'image_max_height',
+				'images',
+				'images_meta',
+				'image_slots',
+				'image_slots_remaining',
+				'thumbnail_id',
+				'listing'
+			)
+		);
     }
 
     private function account_creation() {

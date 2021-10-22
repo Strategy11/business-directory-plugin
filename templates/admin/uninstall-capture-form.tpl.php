@@ -23,13 +23,13 @@ $reasons = array(
     </div>
 
     <div class="reasons">
-        <?php foreach ( $reasons as $r => $l ): ?>
+		<?php foreach ( $reasons as $r => $l ) : ?>
         <div class="reason">
             <label>
                 <input type="radio" name="uninstall[reason_id]" value="<?php echo $r; ?>" /> <?php echo $l; ?>
             </label>
 
-            <?php if ( 0 == $r ): ?>
+			<?php if ( 0 == $r ) : ?>
             <div class="custom-reason">
                 <textarea name="uninstall[reason_text]" placeholder="<?php _ex( 'Please tell us why are you deleting Business Directory Plugin.', 'uninstall', 'business-directory-plugin' ); ?>"></textarea>
 

@@ -5,10 +5,10 @@
 class WPBDP__Rewrite {
 
     public function __construct() {
-        add_filter( 'rewrite_rules_array', array( $this, '_rewrite_rules'));
-        add_filter( 'redirect_canonical', array( $this, '_redirect_canonical' ), 10, 2 );
-        add_action( 'template_redirect', array( $this, '_template_redirect'));
-        add_action( 'wp_loaded', array( $this, '_wp_loaded'));
+		add_filter( 'rewrite_rules_array', array( $this, '_rewrite_rules' ) );
+		add_filter( 'redirect_canonical', array( $this, '_redirect_canonical' ), 10, 2 );
+		add_action( 'template_redirect', array( $this, '_template_redirect' ) );
+		add_action( 'wp_loaded', array( $this, '_wp_loaded' ) );
     }
 
     private function get_rewrite_rules() {
@@ -50,7 +50,7 @@ class WPBDP__Rewrite {
                 $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&feed=$matches[3]';
                 $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&feed=$matches[3]';
 
-                if ( ! wpbdp_get_option( 'disable-cpt') ) {
+				if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
                     $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&paged=$matches[3]';
                     $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]';
                 } else {
@@ -109,7 +109,7 @@ class WPBDP__Rewrite {
         }
     }
 
-    public function _rewrite_rules($rules) {
+	public function _rewrite_rules( $rules ) {
         $newrules = $this->get_rewrite_rules();
         return $newrules + $rules;
     }

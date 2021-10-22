@@ -39,14 +39,16 @@ class WPBDP__Assets {
             'jquery-file-upload-iframe-transport',
             WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.iframe-transport.js',
             array(),
-            '10.7.0'
+            '10.7.0',
+			true
         );
 
         wp_register_script(
             'jquery-file-upload',
             WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.fileupload.js',
             array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' ),
-            '10.7.0'
+            '10.7.0',
+			true
         );
 
         $this->maybe_register_script(
@@ -62,7 +64,8 @@ class WPBDP__Assets {
             'wpbdp-checkout',
             WPBDP_ASSETS_URL . 'js/checkout.js',
             array( 'wpbdp-js' ),
-            WPBDP_VERSION
+            WPBDP_VERSION,
+			true
         );
 
         // Drag & Drop.
@@ -70,7 +73,8 @@ class WPBDP__Assets {
             'wpbdp-dnd-upload',
             WPBDP_ASSETS_URL . 'js/dnd-upload.min.js',
             array( 'jquery-file-upload' ),
-            WPBDP_VERSION
+            WPBDP_VERSION,
+			true
         );
 
         $this->register_select2();
@@ -150,7 +154,8 @@ class WPBDP__Assets {
                 'jquery-ui-sortable',
                 'jquery-ui-datepicker',
             ),
-            WPBDP_VERSION
+            WPBDP_VERSION,
+			true
         );
 
 		$this->global_localize( 'wpbdp-js' );
@@ -270,12 +275,12 @@ class WPBDP__Assets {
 
 		wp_enqueue_style( 'wpbdp-base-css' );
 
-		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION );
+		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION, true );
 
-		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION );
+		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION, true );
 		$this->global_localize( 'wpbdp-admin-js' );
 
-		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION );
+		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
 
@@ -298,14 +303,16 @@ class WPBDP__Assets {
 			'wpbdp-admin-listing',
 			WPBDP_ASSETS_URL . 'js/admin-listing.min.js',
 			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' ),
-			WPBDP_VERSION
+			WPBDP_VERSION,
+			true
 		);
 
 		wp_enqueue_script(
 			'wpbdp-admin-listing-metabox',
 			WPBDP_ASSETS_URL . 'js/admin-listing-metabox.min.js',
 			array( 'wpbdp-admin-js', 'jquery-ui-datepicker' ),
-			WPBDP_VERSION
+			WPBDP_VERSION,
+			true
 		);
 
 		wp_localize_script(

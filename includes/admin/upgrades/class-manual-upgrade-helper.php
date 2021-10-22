@@ -134,7 +134,8 @@ class WPBDP__Manual_Upgrade_Helper {
             'wpbdp-manual-upgrade',
             WPBDP_ASSETS_URL . 'js/admin-manual-upgrade.min.js',
             array(),
-            WPBDP_VERSION
+            WPBDP_VERSION,
+			true
         );
     }
 

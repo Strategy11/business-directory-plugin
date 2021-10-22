@@ -1,5 +1,6 @@
 @import 'colors.less';
 @import 'common.less';
+@import 'wordpress-default-themes.less';
 
 .wpbdp-cf:before, .wpbdp-cf:after,
 .cf:before, .cf:after {
@@ -357,10 +358,6 @@ form#wpbdmsearchform a.advanced-search-link {
     }
 }
 
-.wpbdp-listing-contact-form .send-message-button {
-    margin-left: -10px;
-}
-
 .wpbdp-listing-contact-form textarea {
     width: 100%;
 }
@@ -512,8 +509,8 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 #wpbdp-delete-listing-page input.delete-listing-confirm {
-    margin-left: 20px;
-    color: #c00;
+	margin-right: 20px;
+	background: @red;
 }
 
 .wpbdp-scroll-box {
@@ -606,128 +603,10 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 /* }} */
 
 /* {{ Mobile CSS. */
+a.wpbdp-show-on-mobile,
+input[type="button"].wpbdp-show-on-mobile,
 .wpbdp-show-on-mobile {
     display: none;
-}
-
-input[type="button"].wpbdp-show-on-mobile {
-    display: none;
-}
-
-@media screen and (max-width: 500px) {
-    .wpbdp-show-on-mobile {
-        display: inline !important;
-    }
-
-    input[type="button"].wpbdp-hide-on-mobile {
-        display: none;
-    }
-
-    input[type="button"].wpbdp-show-on-mobile {
-        //padding: 1em 2em;
-    }
-
-    .wpbdp-hide-on-mobile {
-        display: none;
-    }
-
-    .wpbdp-bar form.wpbdp-search-form {
-       /* width: 49%;*/
-        display: block;
-        margin-left: 0;
-        margin-top: 10px;
-    }
-    .wpbdp-bar form.wpbdp-search-form  #intextbox{
-        margin-bottom: 5px;
-        padding: 4px;
-    }
-
-    .wpbdp-bar form.wpbdp-search-form input[type="text"] {
-        padding: 4px 0;
-        margin: 0 0 2px 0;
-    }
-
-    .wpbdp-listing.wpbdp-listing {
-        font-size: 90%;
-    }
-
-    .wpbdp-listing.wpbdp-listing-excerpt .field-value > label {
-        display: block;
-    }
-
-    .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail,
-    .wpbdp-listing.wpbdp-listing-single .listing-thumbnail {
-        /*width: 40%;*/
-        float: none;
-        padding: 5px;
-    }
-
-    .wpbdp-listing.wpbdp-listing-excerpt .listing-details,
-    .wpbdp-listing.wpbdp-listing-single .listing-details {
-        margin: 0 5px;
-        float: none;
-        display: block;
-    }
-
-    .wpbdp-listing .listing-actions input {
-        font-size: 70%;
-    }
-
-    .wpbdp-listing .listing-actions input.back-to-dir {
-        float: right;
-    }
-
-    .wpbdp-listing.wpbdp-listing-single .main-image {
-        display: block;
-        float: none;
-        padding: 0;
-        margin: 0 0 10px 0;
-        text-align: center;
-        max-width: 90%;
-    }
-
-    .wpbdp-listing.wpbdp-listing-single .field-value > label {
-        display: block;
-    }
-
-    .wpbdp-submit-page.step-images #image-upload-dnd-area {
-        font-size: 90%;
-        float: none !important;
-        width: 100% !important;
-    }
-
-    .wpbdp-submit-page.step-images .dnd-area-inside-error {
-        margin-top: 30px;
-    }
-
-    .wpbdp-submit-page.step-images #image-upload-conditions {
-        width: 100% !important;
-        float: none !important;
-        font-size: 90%;
-    }
-
-    .wpbdp-submit-page.step-images #image-upload-conditions dl {
-        margin: 0;
-        padding: 0;
-    }
-
-    .wpbdp-submit-page.step-images #image-upload-conditions dl dt {
-        margin: 0;
-        margin-right: 5px;
-        padding: 0;
-        float: left;
-    }
-
-    .wpbdp-submit-page.step-images #image-upload-conditions dl dd {
-        margin: 0;
-        padding: 0;
-        display: block;
-    }
-
-    .wpbdp-submit-page.step-images .wpbdp-image img {
-        max-width: 50%;
-    }
-
 }
 
 /* }} */
@@ -786,23 +665,20 @@ body.business-directory #TB_secondLine {
 .wpbdp-main-box .box-row,
 .wpbdp-main-box .box-col {
     box-sizing: border-box;
+	width: 100%;
 }
 
 .wpbdp-main-box {
     margin: 10px 0 20px 0;
-    width: 100%;
-}
-
-.wpbdp-main-box .box-row {
-    margin-bottom: 4px;
 }
 
 .wpbdp-main-box .box-col {
     margin-bottom: 4px;
-    width: 100%;
 }
+
 .wpbdp-main-box .box-col input {
     width: 100%;
+	min-width: 150px;
 }
 
 // Cover vertical aligning text.
@@ -824,67 +700,48 @@ body.business-directory #TB_secondLine {
     text-decoration: none;
 }
 
-.wpbdp-main-box-medium .box-col,
-.wpbdp-main-box-large .box-col {
-    float: left;
+.wpbdp-main-box .search-fields .box-row,
+.wpbdp-main-box .main-fields.box-row form {
+	width: 100%;
+	display: flex;
+	gap: 5px;
 }
 
-.wpbdp-main-box-medium .search-fields > .cols-1 .box-col,
-.wpbdp-main-box-large .search-fields > .cols-1 .box-col {
-    width: 100%;
+.wpbdp-main-box .submit-btn {
+	width: 22%;
+	min-width: 150px;
 }
 
-.wpbdp-main-box-medium .search-fields > .cols-2 .box-col,
-.wpbdp-main-box-large .search-fields > .cols-2 .box-col {
-    width: 50%;
-}
-.wpbdp-main-box-medium .search-fields > .cols-2 .box-col:first-child,
-.wpbdp-main-box-large .search-fields > .cols-2 .box-col:first-child {
-    padding-right: 5px;
-    width: 50%;
-}
-.wpbdp-main-box-medium .search-fields > .cols-2 .box-col:last-child,
-.wpbdp-main-box-large .search-fields > .cols-2 .box-col:last-child {
-    padding-left: 5px;
-    width: 50%;
+.wpbdp-main-box-tiny .submit-btn,
+.wpbdp-main-box-small .submit-btn {
+	width: 100%;
 }
 
-.wpbdp-main-box-medium .search-fields > .cols-3 .box-col,
-.wpbdp-main-box-large .search-fields > .cols-3 .box-col {
-    padding-left: 5px;
-    width: 50%;
-}
-.wpbdp-main-box-medium .search-fields > .cols-3 .box-col:first-child,
-.wpbdp-main-box-large .search-fields > .cols-3 .box-col:first-child {
-    padding-right: 5px;
-}
-.wpbdp-main-box-medium .search-fields > .cols-3 .box-col:first-child,
-.wpbdp-main-box-large .search-fields > .cols-3 .box-col:first-child {
-    padding: 0;
-    width: 100%;
-}
-
-.wpbdp-main-box-large .box-row {
-    margin-bottom: 0px;
-}
-
-.wpbdp-main-box-large .search-fields {
-    padding-right: 5px;
-    width: 78%;
-}
-.wpbdp-main-box-large .submit-btn {
-    padding-left: 5px;
-    width: 22%;
+.wpbdp-main-box-tiny .search-fields .box-row,
+.wpbdp-main-box-tiny .main-fields.box-row form,
+.wpbdp-main-box-small .search-fields .box-row,
+.wpbdp-main-box-small .main-fields.box-row form {
+	display: block;
 }
 
 .wpbdp-main-links {
     text-align: right;
 }
 
-.wpbdp-main-links .button {
-    margin: 5px;
-    font-size: 15px;
+/*
+ * Buttons
+ */
+a.wpbdp-button {
+	white-space: nowrap;
 }
+
+.wpbdp-main-links .button,
+.wpbdp-main-links-large .button {
+    margin: 0 3px 6px;
+    font-size: 15px;
+	display: inline-block;
+}
+
 .wpbdp-main-links .button:first-child {
     margin-left: 0;
 }
@@ -903,6 +760,7 @@ body.business-directory #TB_secondLine {
 .wpbdp-main-links-small .button {
     width: 100%;
     margin: 0 0 4px;
+	text-align: center;
 }
 
 .wpbdp-main-links-small .wpbdp-main-links-2-buttons .button {
@@ -911,26 +769,24 @@ body.business-directory #TB_secondLine {
 .wpbdp-main-links-small .wpbdp-main-links-2-buttons .button:first-child {
     margin-right: 1%;
 }
-.wpbdp-main-links-small .wpbdp-main-links-2-buttons .button:last-child {
-    margin-left: 1%;
-}
-
-.wpbdp-main-links-small .wpbdp-main-links-3-buttons .button:nth-child(2n) {
-    width: 49%;
-    margin-top: 1%;
-    margin-right: 1%;
-}
-.wpbdp-main-links-small .wpbdp-main-links-3-buttons .button:nth-child(2n+3) {
-    width: 49%;
-    margin-top: 1%;
-    margin-left: 1%;
-}
-
-.wpbdp-main-links-large .button {
-    margin: 0 3px;
-}
 
 .wpbdp-with-button-styles {
+	.wpbdp-checkout-submit input[type=submit],
+	.wpbdp-ratings-reviews input[type=submit],
+	.wpbdp-main-box input[type=submit],
+	.listing-actions a.wpbdp-button,
+	.wpbdp-button {
+		background: @default-color;
+		background: var(--bd-main-color) !important;
+		border: 1px solid @default-color;
+		border-color: var(--bd-main-color);
+
+		&:hover{
+			opacity: .8;
+			background: var(--bd-main-color);
+		}
+	}
+
     .wpbdp-main-links-tiny .wpbdp-main-links .button {
         padding-top: 10px;
         padding-bottom: 10px;
@@ -1145,4 +1001,133 @@ body.business-directory #TB_secondLine {
             vertical-align: top;
         }
     }
+}
+
+@media screen and (max-width: 560px) {
+    .wpbdp-show-on-mobile {
+        display: inline !important;
+    }
+
+    input[type="button"].wpbdp-hide-on-mobile {
+        display: none;
+    }
+
+    input[type="button"].wpbdp-show-on-mobile {
+        //padding: 1em 2em;
+    }
+
+    .wpbdp-hide-on-mobile {
+        display: none;
+    }
+
+    .wpbdp-bar form.wpbdp-search-form {
+       /* width: 49%;*/
+        display: block;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .wpbdp-bar form.wpbdp-search-form  #intextbox{
+        margin-bottom: 5px;
+        padding: 4px;
+    }
+
+    .wpbdp-bar form.wpbdp-search-form input[type="text"] {
+        padding: 4px 0;
+        margin: 0 0 2px 0;
+    }
+
+	.wpbdp-main-box .search-fields .box-row,
+	.wpbdp-main-box .main-fields.box-row form {
+		display: block;
+	}
+
+	.wpbdp-main-box .submit-btn {
+		width: 100%;
+	}
+
+	.wpbdp-main-links .button {
+	    width: 100%;
+	}
+
+    .wpbdp-listing.wpbdp-listing {
+        font-size: 90%;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt .field-value > label {
+        display: block;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-thumbnail,
+    .wpbdp-listing.wpbdp-listing-single .listing-thumbnail {
+        /*width: 40%;*/
+        float: none;
+        padding: 5px;
+    }
+
+    .wpbdp-listing.wpbdp-listing-excerpt .listing-details,
+    .wpbdp-listing.wpbdp-listing-single .listing-details {
+        margin: 0 5px;
+        float: none;
+        display: block;
+    }
+
+    .wpbdp-listing .listing-actions input {
+        font-size: 70%;
+    }
+
+    .wpbdp-listing .listing-actions input.back-to-dir {
+        float: right;
+    }
+
+    .wpbdp-listing.wpbdp-listing-single .main-image {
+        display: block;
+        float: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        text-align: center;
+        max-width: 90%;
+    }
+
+    .wpbdp-listing.wpbdp-listing-single .field-value > label {
+        display: block;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-dnd-area {
+        font-size: 90%;
+        float: none !important;
+        width: 100% !important;
+    }
+
+    .wpbdp-submit-page.step-images .dnd-area-inside-error {
+        margin-top: 30px;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-conditions {
+        width: 100% !important;
+        float: none !important;
+        font-size: 90%;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-conditions dl {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-conditions dl dt {
+        margin: 0;
+        margin-right: 5px;
+        padding: 0;
+        float: left;
+    }
+
+    .wpbdp-submit-page.step-images #image-upload-conditions dl dd {
+        margin: 0;
+        padding: 0;
+        display: block;
+    }
+
+    .wpbdp-submit-page.step-images .wpbdp-image img {
+        max-width: 50%;
+    }
+
 }

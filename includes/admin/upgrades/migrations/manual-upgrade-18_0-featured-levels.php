@@ -326,7 +326,8 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             'wpbdp-manual-upgrade',
             WPBDP_ASSETS_URL . 'js/admin-manual-upgrade.min.js',
             array( 'jquery' ),
-            WPBDP_VERSION
+            WPBDP_VERSION,
+			true
         );
     }
 

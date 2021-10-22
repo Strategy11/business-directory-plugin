@@ -45,7 +45,7 @@ class WPBDP__Migrations__2_1 extends WPBDP__Migration {
 
             $newfield = array();
             $newfield['label'] = $label;
-			$newfield['type']        = wpbdp_getv( $pre_2_1_types, intval( $type ), 'textfield');
+			$newfield['type']        = wpbdp_getv( $pre_2_1_types, intval( $type ), 'textfield' );
 			$newfield['validator']   = wpbdp_getv( $pre_2_1_validators, $validation, null );
 			$newfield['association'] = wpbdp_getv( $pre_2_1_associations, $association, 'meta' );
 			$newfield['is_required'] = $required === 'yes';

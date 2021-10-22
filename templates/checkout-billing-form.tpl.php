@@ -3,7 +3,7 @@ $show_personal_info_section = ! isset( $show_personal_info_section );
 $show_cc_section = ! isset( $show_cc_section );
 $show_details_section = ! isset( $show_details_section );
 ?>
-<?php if ( $show_personal_info_section ): ?>
+<?php if ( $show_personal_info_section ) : ?>
 <div class="wpbdp-checkout-personal-info-fields wpbdp-grid">
     <h3><?php esc_html_e( 'Personal Info', 'business-directory-plugin' ); ?></h3>
 
@@ -25,7 +25,7 @@ $show_details_section = ! isset( $show_details_section );
 </div>
 <?php endif; ?>
 
-<?php if ( $show_cc_section ): ?>
+<?php if ( $show_cc_section ) : ?>
 <div class="wpbdp-checkout-cc-fields wpbdp-checkout-section">
     <h3><?php esc_html_e( 'Credit Card Info', 'business-directory-plugin' ); ?></h3>
 
@@ -51,7 +51,7 @@ $show_details_section = ! isset( $show_details_section );
         <label><?php esc_html_e( 'Expiration Date', 'business-directory-plugin' ); ?></label>
         <span class="wpbdp-description  wpbdp-form-field-description"><?php esc_html_e( 'Format: MM/YY', 'business-directory-plugin' ); ?></span>
         <select name="exp_month">
-            <?php for ( $i = 1; $i <= 12; $i++ ): ?>
+			<?php for ( $i = 1; $i <= 12; $i++ ) : ?>
             <option value="<?php echo esc_attr( sprintf( '%02d', $i ) ); ?>">
                 <?php echo esc_attr( sprintf( '%02d', $i ) ); ?>
             </option>
@@ -59,7 +59,7 @@ $show_details_section = ! isset( $show_details_section );
         </select>
         <span class="wpbdp-exp-slash">/</span>
         <select name="exp_year">
-            <?php for ( $i = date( 'Y' ); $i < date( 'Y' ) + 30; $i++ ): ?>
+            <?php for ( $i = date( 'Y' ); $i < date( 'Y' ) + 30; $i++ ) : ?>
             <option value="<?php echo esc_attr( $i ); ?>"><?php echo esc_html( substr( $i, 2 ) ); ?></option>
             <?php endfor; ?>
         </select>
@@ -67,7 +67,7 @@ $show_details_section = ! isset( $show_details_section );
 </div>
 <?php endif; ?>
 
-<?php if ( $show_details_section ): ?>
+<?php if ( $show_details_section ) : ?>
 <div class="wpbdp-checkout-billing-details wpbdp-grid">
     <h3><?php esc_html_e( 'Billing Details', 'business-directory-plugin' ); ?></h3>
 

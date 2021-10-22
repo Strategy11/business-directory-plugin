@@ -128,7 +128,7 @@ wpbdp_admin_notices();
                     </select>
                 </td>
             </tr>
-			<tr id="wpbdp_word_count" style="<?php echo ( in_array( 'word_number', $field->get_validators() ) &&  in_array( $field->get_field_type()->get_id(), array( 'textfield', 'textarea' ) ) ) ? '' : 'display: none'; ?>">
+			<tr id="wpbdp_word_count" style="<?php echo ( in_array( 'word_number', $field->get_validators() ) && in_array( $field->get_field_type()->get_id(), array( 'textfield', 'textarea' ) ) ) ? '' : 'display: none'; ?>">
                 <th scope="row">
                     <label><?php esc_html_e( 'Maximum number of words', 'business-directory-plugin' ); ?></label>
                 </th>
@@ -313,9 +313,9 @@ wpbdp_admin_notices();
 </form>
 
 <script>
-jQuery(document).ready(function(){
-WPBDP_associations_fieldtypes = <?php echo json_encode( $association_field_types ); ?>
-});
+document.addEventListener( 'DOMContentLoaded', function () {
+    WPBDP_associations_fieldtypes = <?php echo json_encode( $association_field_types ); ?>
+}, false );
 </script>
 
 <?php echo wpbdp_admin_footer(); ?>

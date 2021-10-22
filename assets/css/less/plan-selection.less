@@ -26,26 +26,12 @@
 			cursor: pointer;
 			margin-top: 15px;
 		    font-size: 20px;
-			border: 1px solid #f3f3f3;
-			border-color: var(--bd-main-color);
-			color: var(--bd-main-color);
-			border-radius: 2px;
 			display: block;
 			padding: 6px 12px;
-
-			&:hover {
-				background: var(--bd-main-color);
-				color: #fff;
-			}
 		}
 
 		input[type=radio] {
 		    display: none;
-		}
-
-		input[type=radio]:checked + label {
-			background: var(--bd-main-color);
-			color: #fff;
 		}
 	}
 
@@ -72,10 +58,7 @@
 	    list-style-position: inside;
 	    margin: 0;
 	}
-}
-
-.wpbdp-plan-info-box {
-    .wpbdp-plan-disabled-msg {
+	.wpbdp-plan-disabled-msg {
         clear: both;
     }
 
@@ -110,4 +93,18 @@
         }
     }
 
+}
+.wpbdp-with-button-styles {
+	.wpbdp-plan-info-box {
+		.wpbdp-plan-price {
+			input[type=radio] + label {
+				.wpbdp-reverse-btn();
+			}
+
+			input[type=radio]:checked + label {
+				color: #fff !important;
+				background: var(--bd-main-color) !important;
+			}
+		}
+	}
 }

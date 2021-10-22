@@ -15,6 +15,7 @@ class WPBDP__Shortcodes {
 
     /**
      * Returns shortcodes being handled by Business Directory.
+	 *
      * @return array array of `shortcode => callback` items.
      */
     public function get_shortcodes() {
@@ -499,8 +500,8 @@ class WPBDP__Shortcodes {
 
             if ( $args['menu'] ) {
                 $vars['_wrapper']  = 'page';
-                $vars['_bar']      =   true;
-                $vars['_bar_args'] =  array( 'buttons' => $args['buttons'] );
+				$vars['_bar']      = true;
+				$vars['_bar_args'] = array( 'buttons' => $args['buttons'] );
             }
 
             $this->maybe_paginate_frontpage( $query );
@@ -519,6 +520,8 @@ class WPBDP__Shortcodes {
 
         $atts = shortcode_atts( array( 'number_of_listings' => wpbdp_get_option( 'listings-per-page' ) ), $atts );
         $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
+        $order_by = wpbdp_get_option( 'listings-order-by', 'date' );
+        $order = wpbdp_get_option( 'listings-sort', 'ASC' );
 
         $q = $wpdb->prepare(
             "SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts}
@@ -536,7 +539,8 @@ class WPBDP__Shortcodes {
             'post_status' => 'publish',
             'post__in' => ! empty( $featured ) ? $featured : array( 0 ),
             'posts_per_page' => $atts['number_of_listings'],
-            'orderby' => 'post__in'
+            'orderby' => $order_by,
+            'order' => $order
         );
 
 		$q = new WP_Query( $args );

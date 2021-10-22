@@ -7,6 +7,13 @@ function wpbdp_get_version() {
     return WPBDP_VERSION;
 }
 
+/**
+ * Check pages that have the shortcode and are public.
+ * This is used in the main query to ensure that the views for the main pages are loaded.
+ * Allow shortcodes to be used in private pages.
+ *
+ * @since x.x
+ */
 function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     global $wpdb;
 
@@ -22,9 +29,9 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     }
 
     if ( $count ) {
-        $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND ( 1=0";
+        $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'page' AND ( 1=0";
     } else {
-        $query = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND ( 1=0";
+        $query = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND ( 1=0";
     }
 
     foreach ( $shortcodes[ $page_id ] as $s ) {
@@ -845,17 +852,20 @@ function wpbdp_get_payment( $id ) {
 function wpbdp_get_fee_plans( $args = array() ) {
     global $wpdb;
 
+	$payments_on = wpbdp_payments_possible();
     $defaults = array(
         'enabled'         => 1,
-        'include_free'    => true,
-        'tag'             => '',
+		'include_free'    => ! $payments_on,
+		'tag'             => '',
         'orderby'         => 'label',
         'order'           => 'ASC',
         'categories'      => array(),
         'include_private' => false,
-        'admin_view'      => wpbdp_payments_possible()
+		'admin_view'      => false,
     );
-    if ( $order = wpbdp_get_option( 'fee-order' ) ) {
+
+	$order = wpbdp_get_option( 'fee-order' );
+    if ( $order ) {
         $defaults['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
         $defaults['order']   = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
     }
@@ -872,13 +882,12 @@ function wpbdp_get_fee_plans( $args = array() ) {
         $where .= $wpdb->prepare( ' AND p.tag = %s', $args['tag'] );
     }
 
-    if ( ! $args['admin_view'] && ( ! $args['include_free'] && 'free' != $args['tag'] ) ) {
-        $where .= $wpdb->prepare( ' AND p.tag != %s', 'free' );
-    }
-
-    if ( ! $args['admin_view'] ) {
-        $where .= $wpdb->prepare( ' AND p.amount = %d', 0 );
-    }
+	if ( ! $args['admin_view'] && $args['include_free'] ) {
+		$where .= $wpdb->prepare( ' AND p.amount = %d', 0 );
+	} elseif ( ! $args['admin_view'] && $args['tag'] !== 'free' ) {
+		// Exclude the default free fee for reverse compatibility.
+		$where .= $wpdb->prepare( ' AND p.tag != %s', 'free' );
+	}
 
     $categories = $args['categories'];
     if ( ! empty( $categories ) ) {
