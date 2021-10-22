@@ -101,7 +101,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $this->post_install_migration = new WPBDP__Manual_Upgrade__18_0__Featured_Levels();
             }
 
-            require_once WPBDP_INC . 'admin/settings/class-settings-admin.php';
+            require_once WPBDP_INC . 'admin/controllers/class-settings-admin.php';
             $this->settings_admin = new WPBDP__Settings_Admin();
 
 			add_action( 'wpbdp_settings_subtab_uninstall', array( $this, 'uninstall_plugin' ) );
