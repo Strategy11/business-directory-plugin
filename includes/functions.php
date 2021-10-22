@@ -413,7 +413,7 @@ function wpbdp_get_current_sort_option() {
 /**
  * Maybe resize image
  *
- * @param int   $id    The media attachement id.
+ * @param int   $id    The media attachment id.
  * @param array $args  Optional. Accepts an array of width and height in pixels and crop as a boolean.
  *
  * @since 2.1.6
@@ -421,33 +421,40 @@ function wpbdp_get_current_sort_option() {
  */
 function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 
-    /**
-     * Add filter to allow user to skin image resizing.
-     *
-     * @param bool  $resize Whether to resize the image or not.
-     * @param int   $id     The media attachement id.
-     * @param array $args   Optional. An array of width and height in pixels and crop as a boolean.
-     *
-     * @since x.x
-     */
-    $resize_image = apply_filters( 'wpbdp_resize_image_if_needed', true, $id, $args );
-    if ( ! $resize_image ) {
-        return;
-    }
+	/**
+	 * Add filter to allow user to skin image resizing.
+	 *
+	 * @param bool  $resize Whether to resize the image or not.
+	 * @param int   $id     The media attachment id.
+	 * @param array $args   Optional. An array of width and height in pixels and crop as a boolean.
+	 *
+	 * @since x.x
+	 */
+	$resize_image = apply_filters( 'wpbdp_resize_image_if_needed', true, $id, $args );
+	if ( ! $resize_image ) {
+		return;
+	}
 
-    require_once ABSPATH . 'wp-admin/includes/image.php';
+	require_once ABSPATH . 'wp-admin/includes/image.php';
 
 	// Check if image should be resized.
 	$should_resized = _wpbdp_should_image_be_resized( $id, $args );
-    if ( ! $should_resized ) {
-        return;
-    }
+	if ( ! $should_resized ) {
+		return;
+	}
 
-    $filename    = get_attached_file( $id, true );
-    $attach_data = wp_generate_attachment_metadata( $id, $filename );
-    wp_update_attachment_metadata( $id, $attach_data );
+	$filename = get_attached_file( $id, true );
+	if ( ! $filename ) {
+		return;
+	}
 
-    wpbdp_log( sprintf( 'Resized image "%s" [ID: %d] to match updated size constraints.', $filename, $id ) );
+	$attach_data = wp_generate_attachment_metadata( $id, $filename );
+	$updated     = wp_update_attachment_metadata( $id, $attach_data );
+	if ( ! $updated ) {
+		wpbdp_log( sprintf( 'Resize Error "%s" [ID: %d] Unable to update attachment metadata.', $filename, $id ) );
+	}
+
+	wpbdp_log( sprintf( 'Resized image "%s" [ID: %d] to match updated size constraints.', $filename, $id ) );
 }
 
 /**
@@ -455,7 +462,7 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
  * This checks against the image dimensions and the database image settings.
  * If the dimensions are the same or smaller than what is saved, we skip the resize.
  *
- * @param int   $id    The media attachement id.
+ * @param int   $id    The media attachment id.
  * @param array $args  Optional. Accepts an array of width and height in pixels and crop as a boolean.
  *
  * @since x.x
