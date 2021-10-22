@@ -6,7 +6,7 @@
  */
 
 require_once WPBDP_PATH . 'includes/admin/admin-pages.php';
-require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-listings.php';
+require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-listings-controller.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/tables/class-form-fields-table.php';
 require_once WPBDP_PATH . 'includes/admin/csv-import.php';
 require_once WPBDP_PATH . 'includes/admin/csv-export.php';
@@ -101,7 +101,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $this->post_install_migration = new WPBDP__Manual_Upgrade__18_0__Featured_Levels();
             }
 
-            require_once WPBDP_INC . 'admin/controllers/class-settings-admin.php';
+            require_once WPBDP_INC . 'admin/controllers/class-admin-settings-controller.php';
             $this->settings_admin = new WPBDP__Settings_Admin();
 
 			add_action( 'wpbdp_settings_subtab_uninstall', array( $this, 'uninstall_plugin' ) );
