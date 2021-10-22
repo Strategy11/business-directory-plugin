@@ -55,7 +55,7 @@ class WPBDP_Reviews {
 		// Check if it has been dismissed or if we can ask later.
 		$dismissed = $this->review_status['dismissed'];
 		$asked     = $this->review_status['asked'];
-		if ( 'later' === $dismissed && $asked < 3 ) {
+		if ( 'later' === $dismissed && $asked < 5 ) {
 			$dismissed = false;
 		}
 
@@ -98,8 +98,8 @@ class WPBDP_Reviews {
 	 */
 	private function review() {
 
-		// show the review request 3 times, depending on the number of entries.
-		$show_intervals = array( 50, 200, 500 );
+		// show the review request 5 times, depending on the number of entries.
+		$show_intervals = array( 25, 50, 100, 200, 500 );
 		$asked          = $this->review_status['asked'];
 
 		if ( ! isset( $show_intervals[ $asked ] ) ) {

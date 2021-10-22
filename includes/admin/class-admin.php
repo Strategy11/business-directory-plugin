@@ -1084,7 +1084,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * Action is only valid for an admin.
          */
         public function maybe_dismiss_review() {
-            check_ajax_referer( 'wpbdp_dismiss_review' );
+            check_ajax_referer( 'wpbdp_dismiss_review', 'nonce' );
             if ( ! is_admin() ) {
                 wp_die();
             }

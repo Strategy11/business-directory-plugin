@@ -22,9 +22,6 @@ class WPBDP__Assets {
 
 		// Admin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-
-        // Add admin body class for parent page class to avoid css conflicts.
-        add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
     }
 
     /**
@@ -264,11 +261,13 @@ class WPBDP__Assets {
      * @param bool $force Force reloading the resources.
      */
 	public function enqueue_admin_scripts( $force = false ) {
-		global $wpbdp;
-
-		if ( ! $force && ! $wpbdp->is_bd_page() ) {
+		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
+
+		// Add admin body class for parent page class to avoid css conflicts.
+		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
+
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
 		wp_enqueue_style( 'thickbox' );
@@ -284,7 +283,7 @@ class WPBDP__Assets {
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
 
-		if ( ! $wpbdp->is_bd_post_page() ) {
+		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 			return;
 		}
 
@@ -352,15 +351,13 @@ class WPBDP__Assets {
 	 *
 	 * @since x.x
 	 *
-	 * @return string $admin_body_classes The body class with the added plugin class
+	 * @return string $admin_body_classes The body class with the added plugin class.
 	 */
 	public function add_body_class( $admin_body_classes ) {
-		global $wpbdp;
-
-		if ( ! $wpbdp->is_bd_page() ) {
-			return $admin_body_classes;
+		if ( WPBDP_App_Helper::is_bd_page() ) {
+			$admin_body_classes = ' wpbdp-admin-page';
 		}
 
-		return "$admin_body_classes wpbdp-admin-page";
+		return $admin_body_classes;
 	}
 }
