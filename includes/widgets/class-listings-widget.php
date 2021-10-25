@@ -280,7 +280,6 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$fields = $listing_data['fields'];
 		$field_html = '';
 		foreach ( $fields->not( 'social' ) as $field ) {
-			error_log( var_export( $field, true ) );
 			$html = $field->html;
 			if ( ! empty( $html ) ) {
 				$field_html .= '<div class="rating-fields cf">' . $html . '</div>';
