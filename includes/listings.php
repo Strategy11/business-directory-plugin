@@ -5,7 +5,7 @@
  * @package BDP/Includes/Listings
  */
 
-require_once WPBDP_PATH . 'includes/class-listing.php';
+require_once WPBDP_PATH . 'includes/models/class-listing.php';
 
 /**
  * @param array  $args
