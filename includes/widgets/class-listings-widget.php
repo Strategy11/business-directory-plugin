@@ -218,16 +218,17 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$listing       = wpbdp_get_listing( $post->ID );
 		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
 		$html_image    = $this->render_image( $listing, $args );
+		$fields        = $this->render_fields( $listing );
 
-		$template = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
+		$template      = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
 		if ( ! empty( $html_image ) ) {
 			$template .= '<div class="wpbdp-listings-widget-thumb">%2$s</div>';
 		} else {
 			$args['html_class'] .= ' wpbdp-listings-widget-item-without-thumbnail';
 		}
-		$template .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></div></li>';
+		$template      .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s</div><div class="wpbdp-listings-widget-item--details">%4$s</div></div></li>';
 		$args['image'] = $html_image;
-		$output = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title );
+		$output        = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title, $fields );
 		return apply_filters( 'wpbdp_listing_widget_item', wp_kses_post( $output ), $args );
 	}
 
@@ -243,10 +244,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @return string
 	 */
 	private function render_image( $listing, $args ) {
-		$image_link = '';
+		$image_link    = '';
 		if ( $args['show_images'] ) {
-			$img_size = 'medium';
-			$img_id = $listing->get_thumbnail_id();
+			$img_size  = 'medium';
+			$img_id    = $listing->get_thumbnail_id();
 			$permalink = $listing->get_permalink();
 			if ( $img_id ) {
 				$image_link = '<a href="' . esc_url( $permalink ) . '">' . wp_kses_post( wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) ). '</a>';
@@ -259,6 +260,33 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			}
 		}
 		return apply_filters( 'wpbdp_listings_widget_render_image', wp_kses_post( $image_link ), $listing );
+	}
+
+	/**
+	 * Render fields.
+	 * Render the field items in the widget
+	 *
+	 * @param object $listing - the listing object
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function render_fields( $listing ) {
+		$listing_data = WPBDP_Listing_Display_Helper::fields_vars( $listing->get_id(), 'excerpt' );
+		if ( empty( $listing_data['fields'] ) ) {
+			return '';
+		}
+		$fields = $listing_data['fields'];
+		$field_html = '';
+		foreach ( $fields->not( 'social' ) as $field ) {
+			error_log( var_export( $field, true ) );
+			$html = $field->html;
+			if ( ! empty( $html ) ) {
+				$field_html .= '<div class="rating-fields cf">' . $html . '</div>';
+			}
+		}
+		return wp_kses_post( $field_html );
 	}
 
 }
