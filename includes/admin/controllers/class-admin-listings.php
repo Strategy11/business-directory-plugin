@@ -607,7 +607,7 @@ class WPBDP_Admin_Listings {
 
         // Check if the status needs to be changed.
         if ( 'expired' == $listing->get_status() ) {
-            if ( null === $row['expiration_date'] || strtotime( $row['expiration_date'] ) > current_time( 'timestamp' ) ) {
+            if ( ! $row['expiration_date'] || strtotime( $row['expiration_date'] ) > current_time( 'timestamp' ) ) {
                 $listing->get_status( true, true );
             }
         } elseif ( $row['expiration_date'] && strtotime( $row['expiration_date'] ) < current_time( 'timestamp' ) ) {
