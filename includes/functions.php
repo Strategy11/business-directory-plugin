@@ -452,9 +452,9 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 	$updated     = wp_update_attachment_metadata( $id, $attach_data );
 	if ( ! $updated ) {
 		wpbdp_log( sprintf( 'Resize Error "%s" [ID: %d] Unable to update attachment metadata.', $filename, $id ) );
-	}
-
-	wpbdp_log( sprintf( 'Resized image "%s" [ID: %d] to match updated size constraints.', $filename, $id ) );
+	} else {
+        wpbdp_log( sprintf( 'Resized image "%s" [ID: %d] to match updated size constraints.', $filename, $id ) );
+    }
 }
 
 /**
@@ -478,14 +478,14 @@ function _wpbdp_should_image_be_resized( $id, $args = array() ) {
 	}
 
 	$def_width = absint( isset( $args['width'] ) ?  $args['width'] : wpbdp_get_option( 'thumbnail-width' ) );
-	$width     = absint( isset( $metadata['width'] ) ? $metadata['width'] : 0 );
+	$width     = isset( $metadata['width'] ) ? absint( $metadata['width'] ) : 0;
 
 	if ( ! $width || $width <= $def_width ) {
 		return false;
 	}
 
 	$def_height = absint( isset( $args['height'] ) ?  $args['height'] : wpbdp_get_option( 'thumbnail-height' ) );
-	$height     = absint( isset( $metadata['height'] ) ? $metadata['height'] : 0 );
+	$height     = isset( $metadata['height'] ) ? absint( $metadata['height'] ) : 0;
 
 	if ( ! $height || $height <= $def_height ) {
 		return false;
