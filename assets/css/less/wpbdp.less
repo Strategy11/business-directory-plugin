@@ -13,107 +13,100 @@
 /*
  * Search Form
  */
-form#wpbdmsearchform {
-    padding: 12px 0;
-    text-align: center;
-}
-
-form#wpbdmsearchform input {
-    display: inline;
-}
-
-form#wpbdmsearchform .wpbdmsearchbutton {
-    margin-top: 5px;
-}
-
-form#wpbdmsearchform a.advanced-search-link {
-    font-size: 70%;
-    display: block;
+form {
+    &#wpbdmsearchform {
+        padding: 12px 0;
+        text-align: center;
+        input {
+            display: inline;
+        }
+        .wpbdmsearchbutton {
+            margin-top: 5px;
+        }
+        a.advanced-search-link {
+            font-size: 70%;
+            display: block;
+        }
+    }
 }
 
 #wpbdp-search-form {
     padding-left: 10px;
+    .wpbdp-search-filter {
+        margin-bottom: 10px;
+        clear: both;
+        >.wpbdp-search-field-label {
+			display: block;
+			width: 40%;
+			float: left;
+		}
+		>div.field {
+			display: block;
+			width: 60%;
+			margin-left: 40%;
+			padding-left: 5px;
+			>input[type="text"] {
+				box-sizing: border-box;
+				width: 90%;
+			}
+			>select {
+				box-sizing: border-box;
+				width: 90%;
+			}
+		}
+    }
+    input[type="submit"] {
+        float: none;
+        margin: auto;
+    }
 }
 
-#wpbdp-search-form .wpbdp-search-filter {
-    margin-bottom: 10px;
-    clear: both;
+.wpbdp-clearfix, .cf {
+    &:after{
+        content: " "; /* 1 */
+        display: table; /* 2 */
+        clear: both;
+    }
 }
-
-#wpbdp-search-form .wpbdp-search-filter > .wpbdp-search-field-label {
-    display: block;
-    width: 40%;
-    float: left;
-}
-
-#wpbdp-search-form .wpbdp-search-filter > div.field {
-    display: block;
-    width: 60%;
-    margin-left: 40%;
-    padding-left: 5px;
-}
-
-#wpbdp-search-form .wpbdp-search-filter > div.field > input[type="text"] {
-    box-sizing: border-box;
-    width: 90%;
-}
-
-#wpbdp-search-form .wpbdp-search-filter > div.field > select {
-    box-sizing: border-box;
-    width: 90%;
-}
-
-#wpbdp-search-form input[type="submit"] {
-    float: none;
-    margin: auto;
-}
-
-.wpbdp-clearfix:after,
-.cf:before, .cf:after {
+.cf:before {
     content: " "; /* 1 */
     display: table; /* 2 */
 }
 
-.wpbdp-clearfix:after, .cf:after { clear: both; }
-
 .wpbdp-pagination {
     margin: 25px 0 0 0;
-}
-
-.wpbdp-pagination .next {
-    float: right;
+    .next {
+        float: right;
+    }
 }
 
 /* listing views */
-.listing-actions form {
-    margin: 0;
-    padding: 0;
-    display: inline;
-}
-
-.listing-actions input {
-    margin: 0 0 5px;
-    font-size: 80%;
-}
-
-.listing-actions .delete-listing,
-.listing-actions a.delete-listing {
-    margin-left: 20px;
-    margin-right: 30px;
-    color: @red !important;
-	background-color: transparent;
-	border: none;
-}
-
-.listing-actions .back-to-dir {
-    float: right;
-}
-
-.listing-actions a.button {
-    padding: 5px 10px;
-    font-size: 11px;
-    text-decoration: none;
-    margin-right: 3px;
+.listing-actions {
+    form {
+        margin: 0;
+        padding: 0;
+        display: inline;
+    }
+    input {
+        margin: 0 0 5px;
+        font-size: 80%;
+    }
+    .delete-listing, a.delete-listing {
+        margin-left: 20px;
+        margin-right: 30px;
+        color: @red !important;
+        background-color: transparent;
+        border: none;
+    }
+    .back-to-dir {
+        float: right;
+    }
+    a.button {
+        padding: 5px 10px;
+        font-size: 11px;
+        text-decoration: none;
+        margin-right: 3px;
+    }
 }
 
 .wpbdp-listing .listing-details .field-value {
