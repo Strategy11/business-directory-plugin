@@ -411,13 +411,13 @@ function wpbdp_get_current_sort_option() {
 }
 
 /**
- * Maybe resize image
+ * Maybe resize image.
  *
- * @param int   $id    The media attachment id.
- * @param array $args  Optional. Accepts an array of width and height in pixels and crop as a boolean.
+ * @param int   $id   The media attachment id.
+ * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
  *
  * @since 2.1.6
- * @since x.x
+ * @since x.x The second parameter is added.
  */
 function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 
@@ -462,8 +462,8 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
  * This checks against the image dimensions and the database image settings.
  * If the dimensions are the same or smaller than what is saved, we skip the resize.
  *
- * @param int   $id    The media attachment id.
- * @param array $args  Optional. Accepts an array of width and height in pixels and crop as a boolean.
+ * @param int   $id   The media attachment id.
+ * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
  *
  * @since x.x
  *
