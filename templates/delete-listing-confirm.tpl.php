@@ -2,7 +2,7 @@
 
 <h3><?php esc_html_e( 'Delete Listing', 'business-directory-plugin' ); ?></h3>
 
-<?php if ( $has_recurring ): ?>
+<?php if ( $has_recurring ) : ?>
 <div class="wpbdp-msg error">
 <?php _ex( 'Your listing is associated to a recurring payment. If you don\'t cancel the recurring payment before deleting the listing, you might be charged for additional periods even though your listing won\'t be available.',
            'delete listing',
@@ -22,7 +22,7 @@
 <?php wp_nonce_field( 'delete listing ' . $listing->get_id() ); ?>
 
 <input class="delete-listing-confirm wpbdp-submit button wpbdp-button" type="submit" value="<?php esc_attr_e( 'Yes. Delete my listing.', 'business-directory-plugin' ); ?>" />
-<a href="<?php echo esc_url( wpbdp_get_page_link( 'main') ); ?>"><?php esc_html_e( 'No. Take me back to the directory.', 'business-directory-plugin' ); ?></a>
+<a href="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>"><?php esc_html_e( 'No. Take me back to the directory.', 'business-directory-plugin' ); ?></a>
 </form>
 
 </div>

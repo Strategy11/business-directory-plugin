@@ -7,12 +7,12 @@ $api = wpbdp_formfields_api();
     <div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
     <h2 class="title"><?php esc_html_e( 'Search', 'business-directory-plugin' ); ?></h2>
 
-    <?php if ( 'none' == $search_form_position || 'above' == $search_form_position ): ?>
+    <?php if ( 'none' === $search_form_position || 'above' === $search_form_position ) : ?>
         <?php echo $search_form; ?>
     <?php endif; ?>
 
     <!-- Results -->
-    <?php if ($searching): ?>    
+    <?php if ( $searching ) : ?>    
         <h3><?php esc_html_e( 'Search Results', 'business-directory-plugin' ); ?></h3>
 
         <?php do_action( 'wpbdp_before_search_results' ); ?>

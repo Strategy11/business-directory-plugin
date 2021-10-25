@@ -3,6 +3,7 @@ require_once( WPBDP_PATH . 'includes/widgets/class-listings-widget.php' );
 
 /**
  * Latest listings widget.
+ *
  * @since 2.1
  */
 class WPBDP_LatestListingsWidget extends WPBDP_Listings_Widget {

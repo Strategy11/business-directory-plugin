@@ -1,6 +1,7 @@
 <?php
 /**
  * Search widget.
+ *
  * @since 2.1.6
  */
 class WPBDP_SearchWidget extends WP_Widget {
@@ -15,7 +16,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 		);
     }
 
-    public function form($instance) {
+	public function form( $instance ) {
 		if ( isset( $instance['title'] ) ) {
 			$title = $instance['title'];
 		} else {
@@ -39,7 +40,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 			esc_attr( $this->get_field_id( 'use_basic_form' ) ),
 			esc_attr( $this->get_field_name( 'form_mode' ) ),
 			'basic',
-			wpbdp_getv( $instance, 'form_mode', 'basic') === 'basic' ? 'checked="checked"' : '',
+			wpbdp_getv( $instance, 'form_mode', 'basic' ) === 'basic' ? 'checked="checked"' : '',
 			esc_attr( $this->get_field_id( 'use_basic_form' ) ),
 			esc_html_x( 'Basic', 'widgets', 'business-directory-plugin' )
 		);
@@ -80,14 +81,14 @@ class WPBDP_SearchWidget extends WP_Widget {
         echo '</p>';
     }
 
-    public function update($new_instance, $old_instance) {
+	public function update( $new_instance, $old_instance ) {
 		$new_instance['title']         = strip_tags( $new_instance['title'] );
 		$new_instance['form_mode']     = wpbdp_getv( $new_instance, 'form_mode', 'basic' );
 		$new_instance['search_fields'] = wpbdp_getv( $new_instance, 'search_fields', array() );
         return $new_instance;
     }
 
-    public function widget($args, $instance) {
+	public function widget( $args, $instance ) {
 		extract( $args );
         $title = apply_filters( 'widget_title', $instance['title'] );
 

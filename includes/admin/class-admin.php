@@ -17,7 +17,7 @@ require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-controller.php
 require_once WPBDP_PATH . 'includes/admin/tracking.php';
 require_once WPBDP_PATH . 'includes/admin/class-listings-with-no-fee-plan-view.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/class-modules-list.php';
-
+require_once WPBDP_PATH . 'includes/models/class-reviews.php';
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -44,6 +44,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
             add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+            add_action( 'wp_ajax_wpbdp_dismiss_review', array( &$this, 'maybe_dismiss_review' ) );
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_scripts' ) );
 
             // Adds admin menus.
@@ -682,6 +684,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $this->check_setup();
             $this->check_deprecation_warnings();
 
+            $this->maybe_request_review();
+
             do_action( 'wpbdp_admin_notices' );
 
             foreach ( $this->messages as $msg ) {
@@ -1066,6 +1070,26 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$message .= '</p>';
 
 			$this->messages[] = array( $message, 'error' );
+        }
+
+        /**
+         * Request review.
+         */
+        private function maybe_request_review() {
+            WPBDP_Reviews::instance()->review_request();
+        }
+
+        /**
+         * Dismiss review.
+         * Action is only valid for an admin.
+         */
+        public function maybe_dismiss_review() {
+            check_ajax_referer( 'wpbdp_dismiss_review', 'nonce' );
+            if ( ! is_admin() ) {
+                wp_die();
+            }
+
+            WPBDP_Reviews::instance()->dismiss_review();
         }
 
         /**

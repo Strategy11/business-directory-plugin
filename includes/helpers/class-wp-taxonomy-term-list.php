@@ -65,7 +65,7 @@ class WPBDP__WP_Taxonomy_Term_List {
     protected function element( $term, $depth ) {
         $res  = '';
         $res .= $this->args['anidate'] ? '<li>' : '';
-        $res .= $this->element_before( $term, $depth  );
+		$res .= $this->element_before( $term, $depth );
 
         switch ( $this->args['input'] ) {
         case 'checkbox':
@@ -89,7 +89,7 @@ class WPBDP__WP_Taxonomy_Term_List {
         if ( $this->args['input'] )
             $res .= '</label>';
 
-        $res .= $this->element_after( $term, $depth  );
+		$res .= $this->element_after( $term, $depth );
 
         $res .= $this->args['anidate'] ? '</li>' : '<br />';
 

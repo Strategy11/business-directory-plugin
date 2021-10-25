@@ -156,7 +156,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     }
     // FIXME: fake this (for compatibility with modules) until we move everything to wpbdp_save_listing() and
     // friends. See #2945.
-    do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$listing_obj, $fields ) );
+    do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$listing_obj, $fields ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.NotLowercase
 
     // Set plan for new listings.
     if ( $adding || 'csv-import' === $context ) {

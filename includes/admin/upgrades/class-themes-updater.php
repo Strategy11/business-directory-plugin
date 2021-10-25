@@ -199,8 +199,9 @@ class WPBDP_Themes_Updater {
         }
 
         $working_dir = $upgrade_folder . basename( basename( $download_file, '.tmp' ), '.zip' );
-        if ( is_dir( $working_dir) && ! WPBDP_FS::rmdir( $working_dir ) )
+        if ( is_dir( $working_dir ) && ! WPBDP_FS::rmdir( $working_dir ) ) {
             return new WP_Error( 'no_upgrade_folder', sprintf( 'Temporary upgrade folder already exists: %s.', $working_dir ) );
+		}
 
         if ( ! WPBDP_FS::mkdir( $working_dir ) )
             return new WP_Error( 'no_upgrade_folder', sprintf( 'Could not create upgrade folder: %s.', $working_dir ) );

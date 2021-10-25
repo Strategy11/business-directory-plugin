@@ -14,7 +14,7 @@
 			<?php
 			$return_url = wpbdp_get_var( array( 'param' => 'return_url' ), 'request' );
 			if ( empty( $return_url ) ) :
-				$return_url = wpbdp_get_page_link( 'search');
+				$return_url = wpbdp_get_page_link( 'search' );
 			endif;
 			?>
 			<a class="wpbdp-no-bold wpbdp-smaller" href="<?php echo esc_url( $return_url ); ?>">

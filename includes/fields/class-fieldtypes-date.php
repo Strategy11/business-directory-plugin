@@ -17,7 +17,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         return array( 'meta' );
     }
 
-    public function render_field_settings(  &$field = null, $association = null) {
+	public function render_field_settings( &$field = null, $association = null ) {
         if ( 'meta' != $association )
             return '';
 

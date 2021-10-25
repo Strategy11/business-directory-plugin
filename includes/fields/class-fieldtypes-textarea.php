@@ -247,7 +247,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $field->set_data( 'wysiwyg_images', isset( $_POST['field']['wysiwyg_images'] ) ? (bool) intval( $_POST['field']['wysiwyg_images'] ) : false );
         $field->set_data( 'excerpt_override', isset( $_POST['field']['excerpt_override'] ) ? intval( $_POST['field']['excerpt_override'] ) : 0 ); // Input var okay.
         $field->set_data( 'auto_excerpt', isset( $_POST['field']['auto_excerpt'] ) ? (bool) intval( $_POST['field']['auto_excerpt'] ) : false );
-        $field->set_data( 'word_count', ( in_array( 'word_number', $field->get_validators() ) && isset( $_POST['field']['word_count'] )  ) ? intval( $_POST['field']['word_count'] ) : 0 );
+		$field->set_data( 'word_count', ( in_array( 'word_number', $field->get_validators() ) && isset( $_POST['field']['word_count'] ) ) ? intval( $_POST['field']['word_count'] ) : 0 );
     }
 
     public function store_field_value( &$field, $post_id, $value ) {
@@ -309,8 +309,9 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         $value = parent::get_field_value( $field, $post_id );
 
         // Only return auto-generated excerpt if there's no value at all.
-        if ( 'excerpt' == $field->get_association() && $field->data( 'auto_excerpt') && ! $value )
+		if ( 'excerpt' === $field->get_association() && $field->data( 'auto_excerpt' ) && ! $value ) {
             $value = $this->get_excerpt_value_from_post( $post_id );
+		}
 
         return $value;
     }
