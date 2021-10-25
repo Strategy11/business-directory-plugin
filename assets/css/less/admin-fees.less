@@ -1,52 +1,51 @@
-.wpbdp-admin-page-fees .tablenav {
-    display: none;
+.wpbdp-admin-page-fees {
+    .tablenav {
+        display: none;
+    }
+    .wp-list-table {
+        .wpbdp-drag-handle {
+            margin-right: 15px;
+            display: none;
+        }
+    }
+    .column-attributes .wpbdp-tag {
+        background: green;
+        color: #fff;
+    }
+    .purchase-gateways {
+        text-align: center;
+        .gateway {
+            float: left;
+            width: 45%;
+            margin: 30px 2% 20px 0;
+            &.installed {
+                opacity: 0.5;
+            }
+            a{
+                img.gateway-logo {
+                /*    width: 30%;*/
+                    height: 40px;
+                    margin: 0;
+                    padding: 0;
+                    border: none;
+                }
+                &.price {
+                    margin-top: 10px;
+                    display: block;
+                    color: green;
+                    font-size: 22px;
+                    font-weight: bold;
+                } 
+            }
+            .check-mark {
+                font-size: 150%;
+                font-weight: bold;
+                color: green;
+            }
+        }
+    }
 }
 
-#wpbdp-admin-admin-page-fees .column-attributes .wpbdp-tag {
-    background: green;
-    color: #fff;
-}
-
-.wpbdp-admin-page-fees .wp-list-table .wpbdp-drag-handle {
-    margin-right: 15px;
-    display: none;
-}
-
-.wpbdp-admin-page-fees .purchase-gateways {
-    text-align: center;
-}
-
-.wpbdp-admin-page-fees .purchase-gateways .gateway {
-    float: left;
-    width: 45%;
-    margin: 30px 2% 20px 0;
-}
-
-.wpbdp-admin-page-fees .purchase-gateways .gateway.installed {
-    opacity: 0.5;
-}
-
-.wpbdp-admin-page-fees .purchase-gateways .gateway a img.gateway-logo {
-/*    width: 30%;*/
-    height: 40px;
-    margin: 0;
-    padding: 0;
-    border: none;
-}
-
-.wpbdp-admin-page-fees .purchase-gateways .gateway a.price {
-    margin-top: 10px;
-    display: block;
-    color: green;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.wpbdp-admin-page-fees .purchase-gateways .gateway .check-mark {
-    font-size: 150%;
-    font-weight: bold;
-    color: green;
-}
 
 #wpbdp-fee-form {
     #limit-categories-list {
