@@ -275,7 +275,7 @@ class WPBDP_Listing_Display_Helper {
         $crop           = wpbdp_get_option( 'thumbnail-crop' );
         foreach ( $listing_images as $img_id ) {
             // Correct size of thumbnail if needed.
-            _wpbdp_resize_image_if_needed( 
+            _wpbdp_resize_image_if_needed(
                 $img_id,
                 array(
                     'width'  => $def_width,
