@@ -93,6 +93,40 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	}
 
 	/**
+	 * Escape content and allow svg in the content.
+	 * This is mainly becuase some of the fields, like the ratings, use svg.
+	 *
+	 * @param string $content The text to filter.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	protected function escape_content( $content ) {
+		$kses_defaults = wp_kses_allowed_html( 'post' );
+
+		$svg_args = array(
+			'svg'   => array(
+				'class' => true,
+				'aria-hidden' => true,
+				'aria-labelledby' => true,
+				'role' => true,
+				'xmlns' => true,
+				'width' => true,
+				'height' => true,
+				'viewbox' => true, // <= Must be lower case!
+			),
+			'g'     => array( 'fill' => true ),
+			'title' => array( 'title' => true ),
+			'path'  => array( 'd' => true, 'fill' => true,  ),
+		);
+
+		$allowed_tags = array_merge( $kses_defaults, $svg_args );
+
+		return wp_kses( $content, $allowed_tags );
+	}
+
+	/**
 	 * Render the widget
 	 */
 	public function widget( $args, $instance ) {
@@ -160,7 +194,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @param array $instance - the settings instance
 	 * @param string $html_class - the html class to append to the view
 	 *
-	 * @since  x.x
+	 * @since x.x
 	 *
 	 * @return string
 	 */
@@ -190,7 +224,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @param string $thumbnail_position - the thumbnail position ( left, right )
 	 * @param string $device - the device being used ( desktop, mobile )
 	 *
-	 * @since  x.x
+	 * @since x.x
 	 *
 	 * @return string
 	 */
@@ -205,12 +239,12 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Render item for widget
+	 * Render item for widget.
 	 *
-	 * @param WP_Post $post - the current listing post
-	 * @param array $args - the view arguments
+	 * @param WP_Post $post The current listing post.
+	 * @param array $args The view arguments.
 	 *
-	 * @since  x.x
+	 * @since x.x
 	 *
 	 * @return string
 	 */
@@ -229,15 +263,15 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$template      .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></li>';
 		$args['image'] = $html_image;
 		$output        = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title . $fields );
-		return apply_filters( 'wpbdp_listing_widget_item', wp_kses_post( $output ), $args );
+		return apply_filters( 'wpbdp_listing_widget_item', $this->escape_content( $output ), $args );
 	}
 
 	/**
-	 * Render the listing image
-	 * Depending on the settings, this will return the listing image or the default image or none
+	 * Render the listing image.
+	 * Depending on the settings, this will return the listing image or the default image or none.
 	 *
-	 * @param object $listing - the listing object
-	 * @param array $args - the view arguments
+	 * @param object $listing The listing object.
+	 * @param array $args The view arguments.
 	 *
 	 * @since  x.x
 	 *
@@ -264,9 +298,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 	/**
 	 * Render fields.
-	 * Render the field items in the widget
+	 * Render the field items in the widget.
 	 *
-	 * @param object $listing - the listing object
+	 * @param object $listing The listing object.
 	 *
 	 * @since x.x
 	 *
@@ -277,10 +311,11 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		if ( empty( $listing_data['fields'] ) ) {
 			return '';
 		}
-		$fields = $listing_data['fields'];
+		$fields     = $listing_data['fields'];
 		$field_html = '';
 		foreach ( $fields->not( 'social' ) as $field ) {
-			if ( $field->field->get_association() === 'title' ) {
+			$field_obj = $field->field;
+			if ( $field_obj->get_association() === 'title' ) {
 				continue;
 			}
 			$html = $field->html;
@@ -288,7 +323,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 				$field_html .= $html;
 			}
 		}
-		return wp_kses_post( $field_html );
+		return $this->escape_content( $field_html );
 	}
 
 }
