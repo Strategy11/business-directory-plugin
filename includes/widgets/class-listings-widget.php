@@ -218,7 +218,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$listing       = wpbdp_get_listing( $post->ID );
 		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
 		$html_image    = $this->render_image( $listing, $args );
-		$fields        = $this->render_fields( $listing );
+		$fields        = sprintf( '<div class="wpbdp-listing-details">%s</div>', $this->render_fields( $listing ) );
 
 		$template      = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
 		if ( ! empty( $html_image ) ) {
@@ -226,9 +226,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		} else {
 			$args['html_class'] .= ' wpbdp-listings-widget-item-without-thumbnail';
 		}
-		$template      .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s</div><div class="wpbdp-listings-widget-item--details">%4$s</div></div></li>';
+		$template      .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s</div></li>';
 		$args['image'] = $html_image;
-		$output        = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title, $fields );
+		$output        = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title . $fields );
 		return apply_filters( 'wpbdp_listing_widget_item', wp_kses_post( $output ), $args );
 	}
 
@@ -280,9 +280,12 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$fields = $listing_data['fields'];
 		$field_html = '';
 		foreach ( $fields->not( 'social' ) as $field ) {
+			if ( $field->field->get_association() === 'title' ) {
+				continue;
+			}
 			$html = $field->html;
 			if ( ! empty( $html ) ) {
-				$field_html .= '<div class="rating-fields cf">' . $html . '</div>';
+				$field_html .= $html;
 			}
 		}
 		return wp_kses_post( $field_html );
