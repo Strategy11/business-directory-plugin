@@ -46,7 +46,7 @@ class WPBDP_Themes {
         add_action( 'wp_footer', array( $this, 'fee_specific_coloring' ), 999 );
 
         if ( is_admin() ) {
-            require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-themes-controller.php';
+            require_once WPBDP_PATH . 'includes/admin/controllers/class-themes-admin.php';
             $this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
         }
     }
