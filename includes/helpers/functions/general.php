@@ -3,6 +3,11 @@
  * @package WPBDP
  */
 
+require_once WPBDP_INC . 'helpers/functions/logging.php';
+require_once WPBDP_PATH . 'includes/class-listings-api.php';
+require_once WPBDP_INC . 'helpers/functions/listings.php';
+require_once WPBDP_PATH . 'includes/helpers/class-listing-display-helper.php';
+
 function wpbdp_get_version() {
     return WPBDP_VERSION;
 }
@@ -1162,8 +1167,6 @@ function _wpbdp_template_mode( $template ) {
     return 'page';
 }
 
-require_once WPBDP_PATH . 'includes/helpers/class-listing-display-helper.php';
-
 
 /**
  * Displays a single listing view taking into account all of the theme overrides.
@@ -1254,10 +1257,6 @@ function wpbdp_listing_actions( $args = array() ) {
         false
     );
 }
-
-require_once WPBDP_INC . 'helpers/functions/logging.php';
-require_once WPBDP_PATH . 'includes/class-listings-api.php';
-require_once WPBDP_INC . 'helpers/functions/listings.php';
 
 function wpbdp_sortbar_get_field_options() {
     $options = array();
