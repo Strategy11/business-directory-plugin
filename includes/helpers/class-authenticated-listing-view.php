@@ -17,7 +17,7 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 			content: '" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
 		}";
 		wp_add_inline_style( 'wpbdp-base-css', $custom_css );
-		
+
 		$this->enqueue_custom_resources();
 	}
 

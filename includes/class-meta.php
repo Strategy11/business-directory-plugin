@@ -405,9 +405,10 @@ class WPBDP__Meta {
 	 */
 	private function add_image_meta( $listing ) {
 		$thumbnail_id = $listing->get_thumbnail_id();
+		$img          = false;
 		if ( $thumbnail_id ) {
 			$img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' );
-			$img = $img ? $img[0] : '';
+			$img = $img ? $img[0] : false;
 		}
 		if ( $img ) {
 			echo '<meta property="og:image" content="' . esc_url( $img ) . '" />';
