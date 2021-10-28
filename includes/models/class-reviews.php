@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Model to handle reviews
  * This checks if the admin has addeda certain number of listings before requesting for a review.
  *
- * @since x.x
+ * @since 5.14.3
  */
 class WPBDP_Reviews {
 
@@ -41,7 +41,7 @@ class WPBDP_Reviews {
 	/**
 	 * Add admin notices as needed for reviews.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	public function review_request() {
 
@@ -72,7 +72,7 @@ class WPBDP_Reviews {
 	/**
 	 * When was the review request last dismissed?
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	private function set_review_status() {
 		$user_id = get_current_user_id();
@@ -97,7 +97,7 @@ class WPBDP_Reviews {
 	 * Maybe show review request.
 	 * Include the review html file.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	private function review() {
 
@@ -137,7 +137,7 @@ class WPBDP_Reviews {
 	/**
 	 * Save the request to hide the review.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	public function dismiss_review() {
 		$user_id = get_current_user_id();
@@ -174,7 +174,7 @@ class WPBDP_Reviews {
 	 * @param int   $user_id The user id.
 	 * @param array $review The review.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	private function update_user_meta( $user_id, $review ) {
 		update_user_meta( $user_id, $this->option_name, $review );
@@ -185,7 +185,7 @@ class WPBDP_Reviews {
 	 *
 	 * @param int $user_id The user id.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 *
 	 * @return bool|array
 	 */
@@ -198,7 +198,7 @@ class WPBDP_Reviews {
 	 *
 	 * @param int $entries The total number of listings.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 *
 	 * @return int $entries
 	 */
@@ -216,7 +216,7 @@ class WPBDP_Reviews {
 	/**
 	 * On BD pages, request a review in the footer.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 *
 	 * @return string
 	 */

@@ -36,7 +36,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      * Load custom resources used for this view only.
      * This is called in the parent class `enqueue_resources` function.
      *
-     * @since x.x
+     * @since 5.14.3
      */
     public function enqueue_custom_resources() {
         wp_enqueue_style( 'dashicons' );
