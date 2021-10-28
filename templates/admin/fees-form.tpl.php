@@ -105,7 +105,9 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-sticky"> <?php esc_html_e( 'Is featured listing/sticky?', 'business-directory-plugin' ); ?></label>
+					<label for="wpbdp-fee-form-fee-sticky">
+						<?php esc_html_e( 'Make listings on this plan featured (sticky)?', 'business-directory-plugin' ); ?>
+					</label>
                 </th>
                 <td>
                     <input
