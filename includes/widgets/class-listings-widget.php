@@ -322,9 +322,12 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 		$fields     = $listing_data['fields'];
 		$field_html = array();
+		$field_obj  = null;
+		$field_id   = '';
 		foreach ( $fields->not( 'social' ) as $field ) {
 			$field_obj = $field->field;
-			if ( $field_obj->get_field_type()->get_id() === 'title' ) {
+			$field_id  = $field_obj->get_field_type()->get_id();
+			if ( $field_id === 'title' ) {
 				continue;
 			}
 
@@ -334,10 +337,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 			$html = $field_obj->html_value( $listing->get_id(), 'widget' );
 			if ( ! empty( $html ) ) {
-				$field_html[] = $html;
+				$field_html[] = sprintf( '<div class="wpbdp-listings-widget-item--field-%1$s">%2$s</div>', $field_id, $html );
 			}
 		}
 
-		return $this->escape_content( join( "<br/>", $field_html ) );
+		return $this->escape_content( join( "\n", $field_html ) );
 	}
 }
