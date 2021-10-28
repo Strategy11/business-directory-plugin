@@ -17,7 +17,7 @@ function wpbdp_get_version() {
  * This is used in the main query to ensure that the views for the main pages are loaded.
  * Allow shortcodes to be used in private pages.
  *
- * @since x.x
+ * @since 5.14.3
  */
 function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     global $wpdb;
@@ -422,7 +422,7 @@ function wpbdp_get_current_sort_option() {
  * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
  *
  * @since 2.1.6
- * @since x.x The second parameter is added.
+ * @since 5.14.3 The second parameter is added.
  */
 function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 
@@ -433,7 +433,7 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 	 * @param int   $id     The media attachment id.
 	 * @param array $args   Optional. An array of width and height in pixels and crop as a boolean.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	$resize_image = apply_filters( 'wpbdp_resize_image_if_needed', true, $id, $args );
 	if ( ! $resize_image ) {
@@ -470,7 +470,7 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
  * @param int   $id   The media attachment id.
  * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
  *
- * @since x.x
+ * @since 5.14.3
  *
  * @return bool
  */

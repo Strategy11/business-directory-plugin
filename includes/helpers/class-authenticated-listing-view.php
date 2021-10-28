@@ -5,7 +5,7 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 	/**
 	 * Load resources required for the view
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	public function enqueue_resources() {
 		// CSS used for plan buttons on the listing page only.
@@ -22,7 +22,7 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	public function enqueue_custom_resources() {
 		// Load custom resources in classes that extend this class.

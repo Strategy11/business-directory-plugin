@@ -144,7 +144,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	 *
 	 * @param WPBDP_Payment|null $payment The payment object pulled from the database. If the object does not exist, null is returned.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	private function handle_payment_not_found_redirect( $payment ) {
 		if ( ! $payment ) {
