@@ -27,6 +27,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			'default_image'      => 0,
 			'thumbnail_desktop'  => 'left',
 			'thumbnail_mobile'   => 'above',
+			'fields'			 => array()
 		);
 	}
 
@@ -82,6 +83,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$instance['title']              = strip_tags( $new['title'] );
 		$instance['number_of_listings'] = max( intval( $new['number_of_listings'] ), 1 );
 		$instance['show_images']        = ! empty( $new['show_images'] ) ? 1 : 0;
+		$instance['fields']				= ! empty( $new['fields'] ) ? array_map( 'sanitize_text_field', wp_unslash( $new['fields'] ) ) : array();
 
 		if ( $instance['show_images'] ) {
 			$instance['default_image']     = ! empty( $new['default_image'] ) ? 1 : 0;
@@ -211,8 +213,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$show_images       = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
 		$default_image     = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
 		$coming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
+		$fields            = is_array( $instance['fields'] ) ? $instance['fields'] : array() ;
 		foreach ( $items as $post ) {
-			$html[] = $this->render_item( $post, compact( 'show_images', 'default_image', 'coming_soon_image', 'html_class' ) );
+			$html[] = $this->render_item( $post, compact( 'show_images', 'default_image', 'coming_soon_image', 'html_class', 'fields' ) );
 		}
 
 		return join( "\n", $html );
@@ -252,7 +255,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$listing       = wpbdp_get_listing( $post->ID );
 		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
 		$html_image    = $this->render_image( $listing, $args );
-		$ratings       = sprintf( '<div class="wpbdp-listing-ratings">%s</div>', $this->render_ratings( $listing ) );
+		$fields        = sprintf( '<div class="wpbdp-listing-fields">%s</div>', $this->render_fields( $listing, $args['fields'] ) );
 
 		$template      = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
 		if ( ! empty( $html_image ) ) {
@@ -262,7 +265,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		}
 		$template      .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s %4$s</div></li>';
 		$args['image'] = $html_image;
-		$output        = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title, $ratings );
+		$output        = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title, $fields );
 		return apply_filters( 'wpbdp_listing_widget_item', $this->escape_content( $output ), $args );
 	}
 
@@ -301,28 +304,40 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Render the field items in the widget.
 	 *
 	 * @param object $listing The listing object.
+	 * @param array $allowed_fields The field ids to show.
 	 *
 	 * @since x.x
 	 *
 	 * @return string
 	 */
-	private function render_ratings( $listing ) {
+	private function render_fields( $listing, $allowed_fields ) {
+		if ( empty( $allowed_fields ) ) {
+			return '';
+		}
+
 		$listing_data = WPBDP_Listing_Display_Helper::fields_vars( $listing->get_id(), 'excerpt' );
 		if ( empty( $listing_data['fields'] ) ) {
 			return '';
 		}
+
 		$fields     = $listing_data['fields'];
-		$field_html = '';
+		$field_html = array();
 		foreach ( $fields->not( 'social' ) as $field ) {
 			$field_obj = $field->field;
-			if ( $field_obj->get_field_type()->get_id() !== 'ratings' ) {
+			if ( $field_obj->get_field_type()->get_id() === 'title' ) {
 				continue;
 			}
+
+			if ( ! in_array( $field_obj->get_id(), $allowed_fields ) ) {
+				continue;
+			}
+
 			$html = $field_obj->html_value( $listing->get_id(), 'widget' );
 			if ( ! empty( $html ) ) {
-				$field_html .= $html;
+				$field_html[] = $html;
 			}
 		}
-		return $this->escape_content( $field_html );
+
+		return $this->escape_content( join( "<br/>", $field_html ) );
 	}
 }
