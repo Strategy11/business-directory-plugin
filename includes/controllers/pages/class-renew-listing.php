@@ -45,6 +45,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
                 ),
             )
         );
+
 		if ( $auth ) {
 			return $auth;
 		}
