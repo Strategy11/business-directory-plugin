@@ -719,15 +719,19 @@ class WPBDP_Listing {
             }
         }
 
-        if ( is_null( $row['expiration_date'] ) || empty( $row['expiration_date'] ) ) {
-            unset( $row['expiration_date'] );
-        }
+		if ( is_null( $row['expiration_date'] ) || empty( $row['expiration_date'] ) ) {
+			unset( $row['expiration_date'] );
+		} else {
+			if ( strtotime( $row['expiration_date'] ) < current_time( 'timestamp' ) ) {
+				$row['listing_status'] = 'expired';
+			}
+		}
 
         if ( ! empty( $row['recurring_data'] ) ) {
             $row['recurring_data'] = maybe_serialize( $row['recurring_data'] );
         }
 
-		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
+        WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
         return $wpdb->replace( "{$wpdb->prefix}wpbdp_listings", $row );
     }
 
