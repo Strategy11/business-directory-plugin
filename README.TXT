@@ -77,7 +77,7 @@ For a detailed list of features, please visit: [BusinessDirectoryPlugin.com](htt
 
 * [Stripe Gateway](https://businessdirectoryplugin.com/downloads/stripe-payment-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept paid listings with Stripe payments.
 * [PayPal Gateway](https://businessdirectoryplugin.com/downloads/paypal-gateway-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept payments using PayPal.
-* [PayFast Gateway](https://businessdirectoryplugin.com/downloads/payfast-payment-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) - Accept payments using PayFast.
+* PayFast Gateway - Accept payments using PayFast.
 * [Authorize.net Gateway](https://businessdirectoryplugin.com/knowledge-base/authorize-net-module/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
 == Premium Directory Themes ==
@@ -91,24 +91,20 @@ Transform your WP directory site the easy way with a few clicks. Our business di
 * [Mobile Compact Theme](https://businessdirectoryplugin.com/downloads/mobile-compact-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 * [Restaurant Directory Theme](https://businessdirectoryplugin.com/downloads/restaurant-theme/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
-For more information please visit [businessdirectoryplugin.com](https://businessdirectoryplugin.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
-
 == Docs ==
 
-Please see our [Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).We also have an [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and our [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
+Please see our [Documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and the [Quick Start](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
 == Installation ==
-Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), the [Getting Started Guide](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for common how-to scenarios, and our [Initial Setup](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) page for instructions on how to get going quickly with our business directory software.
+Please see our detailed [Installation Guide](https://businessdirectoryplugin.com/knowledge-base/installation-guide/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for instructions on how to get going quickly with our business directory software.
 
-[Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) for the plugin is also available.
+[Full documentation](https://businessdirectoryplugin.com/knowledge-base/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) is also available.
 
 == Screenshots ==
 
 [See feature lists and screenshots](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
 == Frequently Asked Questions ==
-
-For the definitive FAQ section, please visit the [FAQ Section](https://businessdirectoryplugin.com/article-categories/faqs/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), or our [Getting Started](https://businessdirectoryplugin.com/article-categories/getting-started/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) guide.
 
 = What types of directories can I build? =
 Our directory website builder software combined with our add-on modules is the most powerful directory plugin on the market. The options are limitless. Here are a few types of directories you can create:
@@ -132,7 +128,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 = Can I accept paid and free listings? =
-Yes it can. You can do this by creating fee plans for 0.00 and some other paid amount at the same time. For more details, read [this article](https://businessdirectoryplugin.com/knowledge-base/how-to-run-bd-in-free-mode/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
+Yes it can. You can do this by creating fee plans for 0.00 and some other paid amount at the same time.
 
 = Do you have video tutorials for building WordPress directories? =
 Yes we do. They can be found [here](https://businessdirectoryplugin.com/video-tutorials/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
