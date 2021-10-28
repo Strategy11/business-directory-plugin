@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php endif; ?>
 <h4><?php esc_html_e( 'Fields To Show', 'business-directory-plugin' ); ?></h4>
-<?php foreach ( wpbdp_get_form_fields( array( 'association' => 'meta' ) ) as $field ) : ?>
+<?php foreach ( wpbdp_get_form_fields( array( 'association' => array( 'meta', 'custom' ) ) ) as $field ) : ?>
 	<p>
 		<input id="<?php echo esc_attr( $field->get_id() ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'fields' ) ); ?>[]" type="checkbox" value="<?php echo esc_attr( $field->get_id() ); ?>" <?php echo ( in_array( $field->get_id(), $this->get_field_value( $instance, 'fields' ) ) ) ? 'checked="checked"' : ""; ?> />
 		<label for="<?php echo esc_attr( $field->get_id() ); ?>">
