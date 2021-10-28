@@ -62,7 +62,7 @@ final class WPBDP {
 
         require_once WPBDP_INC . 'admin/settings/class-settings.php';
 
-        require_once WPBDP_INC . 'functions.php';
+        require_once WPBDP_INC . 'helpers/functions/general.php';
         require_once WPBDP_INC . 'utils.php';
 
         require_once WPBDP_INC . 'helpers/listing_flagging.php';
@@ -80,14 +80,14 @@ final class WPBDP {
         require_once WPBDP_INC . 'widgets/class-widgets.php';
 
         if ( wpbdp_is_request( 'frontend' ) ) {
-            require_once WPBDP_INC . 'templates-ui.php';
+            require_once WPBDP_INC . 'helpers/functions/templates-ui.php';
             require_once WPBDP_INC . 'template-sections.php';
             require_once WPBDP_INC . 'class-shortcodes.php';
             require_once WPBDP_INC . 'class-recaptcha.php';
             require_once WPBDP_INC . 'class-query-integration.php';
             require_once WPBDP_INC . 'class-dispatcher.php';
             require_once WPBDP_INC . 'class-wordpress-template-integration.php';
-            require_once WPBDP_INC . 'seo.php';
+            require_once WPBDP_INC . 'helpers/class-seo.php';
         }
 
         require_once WPBDP_INC . 'themes.php';
