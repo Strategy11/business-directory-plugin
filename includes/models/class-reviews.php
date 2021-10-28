@@ -49,6 +49,9 @@ class WPBDP_Reviews {
 		if ( ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
+
+		add_filter( 'admin_footer_text', array( &$this, 'set_footer_text' ) );
+
 		// Verify that we can do a check for reviews.
 		$this->set_review_status();
 
@@ -208,5 +211,16 @@ class WPBDP_Reviews {
 			$entries = floor( $entries / 50 ) * 50;
 		}
 		return $entries;
+	}
+
+	/**
+	 * On BD pages, request a review in the footer.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public function set_footer_text() {
+		return 'Please rate <strong>Business Directory Plugin</strong> <a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" target="_blank" rel="noopener">★★★★★ on WordPress.org</a> to help us spread the word.</a> Thank you from our team!';
 	}
 }
