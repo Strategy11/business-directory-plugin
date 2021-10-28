@@ -605,17 +605,17 @@ class WPBDP_Admin_Listings {
 
         $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
 
-		$expired = false;
+		$not_expired = false;
 		if ( $row['expiration_date'] ) {
-			$expired = strtotime( $new_plan['expiration_date'] ) > current_time( 'timestamp' );
+			$not_expired = strtotime( $row['expiration_date'] ) > current_time( 'timestamp' );
 		}
 
         // Check if the status needs to be changed.
         if ( 'expired' == $listing->get_status() ) {
-			if ( ! $row['expiration_date'] || $expired ) {
+			if ( ! $row['expiration_date'] || $not_expired ) {
 				$listing->get_status( true, true );
 			}
-        } elseif ( ! $expired ) {
+        } elseif ( ! $not_expired ) {
             $listing->set_status( 'expired' );
         }
     }
