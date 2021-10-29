@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Model to handle reviews
  * This checks if the admin has addeda certain number of listings before requesting for a review.
  *
- * @since x.x
+ * @since 5.14.3
  */
 class WPBDP_Reviews {
 
@@ -41,7 +41,7 @@ class WPBDP_Reviews {
 	/**
 	 * Add admin notices as needed for reviews.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	public function review_request() {
 
@@ -49,6 +49,9 @@ class WPBDP_Reviews {
 		if ( ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
+
+		add_filter( 'admin_footer_text', array( &$this, 'set_footer_text' ) );
+
 		// Verify that we can do a check for reviews.
 		$this->set_review_status();
 
@@ -69,7 +72,7 @@ class WPBDP_Reviews {
 	/**
 	 * When was the review request last dismissed?
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	private function set_review_status() {
 		$user_id = get_current_user_id();
@@ -94,7 +97,7 @@ class WPBDP_Reviews {
 	 * Maybe show review request.
 	 * Include the review html file.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	private function review() {
 
@@ -134,7 +137,7 @@ class WPBDP_Reviews {
 	/**
 	 * Save the request to hide the review.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	public function dismiss_review() {
 		$user_id = get_current_user_id();
@@ -171,7 +174,7 @@ class WPBDP_Reviews {
 	 * @param int   $user_id The user id.
 	 * @param array $review The review.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 */
 	private function update_user_meta( $user_id, $review ) {
 		update_user_meta( $user_id, $this->option_name, $review );
@@ -182,7 +185,7 @@ class WPBDP_Reviews {
 	 *
 	 * @param int $user_id The user id.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 *
 	 * @return bool|array
 	 */
@@ -195,7 +198,7 @@ class WPBDP_Reviews {
 	 *
 	 * @param int $entries The total number of listings.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 *
 	 * @return int $entries
 	 */
@@ -208,5 +211,16 @@ class WPBDP_Reviews {
 			$entries = floor( $entries / 50 ) * 50;
 		}
 		return $entries;
+	}
+
+	/**
+	 * On BD pages, request a review in the footer.
+	 *
+	 * @since 5.14.3
+	 *
+	 * @return string
+	 */
+	public function set_footer_text() {
+		return 'Please rate <strong>Business Directory Plugin</strong> <a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" target="_blank" rel="noopener">★★★★★ on WordPress.org</a> to help us spread the word.</a> Thank you from our team!';
 	}
 }

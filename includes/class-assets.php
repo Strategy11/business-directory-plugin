@@ -349,7 +349,7 @@ class WPBDP__Assets {
 	 *
 	 * @param string $admin_body_classes The current admin body classes.
 	 *
-	 * @since x.x
+	 * @since 5.14.3
 	 *
 	 * @return string $admin_body_classes The body class with the added plugin class.
 	 */

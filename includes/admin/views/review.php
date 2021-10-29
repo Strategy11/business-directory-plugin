@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Review template.
  * Used to request for reviews.
  *
- * @since x.x
+ * @since 5.14.3
  */
 ?>
 <div class="notice notice-info is-dismissible wpbdp-review-notice">

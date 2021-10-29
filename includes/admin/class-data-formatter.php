@@ -1,31 +1,3 @@
 <?php
-/**
- * Formats data from a list of properties in format expected by the Data Exporter API.
- *
- * @package BDP/Admin
- * @since 5.5
- */
-
-/**
- * Class WPBDP_DataFormatter
- */
-class WPBDP_DataFormatter {
-    /**
-     * @param $items
-     * @param $properties
-     * @return array
-     */
-    public function format_data( $items, $properties ) {
-        $data = array();
-        foreach ( $items as $key => $name ) {
-            if ( empty( $properties[ $key ] ) ) {
-                continue;
-            }
-            $data[] = array(
-                'name'  => $name,
-                'value' => $properties[ $key ],
-            );
-        }
-        return $data;
-    }
-}
+_deprecated_file( basename( __FILE__ ), '5.14.3', null, 'This file can be found in includes/admin/helpers/class-data-formatter.php' );
+require_once WPBDP_INC . 'admin/helpers/class-data-formatter.php';
