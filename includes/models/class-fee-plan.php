@@ -269,6 +269,21 @@ final class WPBDP__Fee_Plan {
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
+	/**
+	 * Checks if the current plan is premium and enabled.
+	 * This checks if payments are turned on and the price is set.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public function is_enabled_premium() {
+		if ( ( $this->amount > 0.0 ) && ! wpbdp_payments_possible() ) {
+			return false;
+		}
+		return true;
+	}
+
     private function setup_plan( $data ) {
         if ( is_object( $data ) ) {
             $data = get_object_vars( $data );
