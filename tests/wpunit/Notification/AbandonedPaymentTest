@@ -1,0 +1,23 @@
+<?php
+/**
+ * Includes tests for the Notification API class.
+ */
+namespace Notification;
+
+use WPBDP_Listings_API;
+
+/**
+ * Tests for the Notifications.
+ */
+class AbandonedPaymentTest extends \Codeception\Test\Unit {
+
+    /**
+	 * @var \WpunitTester
+	 */
+	protected $tester;
+
+    public function testAbandonedPaymentNotification() {
+		$this->tester->wantToTest( 'Abandoned Payment Notification' );
+
+    }
+}
