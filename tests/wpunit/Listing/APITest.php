@@ -58,7 +58,7 @@ class APITest extends \Codeception\Test\Unit {
 			// // Verification.
 			$this->assertEquals( 'publish', get_post_status( $listing_id ) );
 		} else {
-			$this->assertTrue( is_wp_error( $listing ), $listing->get_error_message() );
+			$this->fail( $listing->get_error_message() );
 		}
 	}
 }

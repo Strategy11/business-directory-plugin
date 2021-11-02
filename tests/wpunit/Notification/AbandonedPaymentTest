@@ -47,7 +47,11 @@ class AbandonedPaymentTest extends \Codeception\Test\Unit {
 
 				// Assert that the notification was sent
 				$this->assertGreaterThan( $after_notified, $before_notified, 'Notification was sent' );
+			} else {
+				$this->fail( 'Listing has no payment' );
 			}
+		} else {
+			$this->fail( $listing->get_error_message() );
 		}
     }
 }
