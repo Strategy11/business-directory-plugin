@@ -30,11 +30,8 @@ class APITest extends \Codeception\Test\Unit {
 	}
 
 	public function testListingPublishedStatusAfterPayment() {
+		global $wpdb;
 		$this->tester->wantToTest( 'Payment Listing publish status' );
-
-		$this->markTestSkipped(
-			'mysqli fetch error on generate_or_retrieve_payment'
-		);
 
 		$listing = wpbdp_save_listing(
 			array(
@@ -45,13 +42,18 @@ class APITest extends \Codeception\Test\Unit {
 			)
 		);
 		if ( ! is_wp_error( $listing ) ) {
-			$listing->set_fee_plan( 1 );
+			$table_name = $wpdb->prefix . 'wpbdp_payments';
+			$payment_id = $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$table_name} WHERE listing_id = %d", $this->id ) );
+			if ( ! $payment_id ) {
+				$listing->set_fee_plan( 1 );
 
-			$payment = $listing->generate_or_retrieve_payment();
+				$payment = $listing->generate_or_retrieve_payment();
 
-			// Execute
-			$payment->status = 'completed';
-			$payment->save();
+				// Execute
+				$payment->status = 'completed';
+				$payment->save();
+			}
+			
 
 			// // Verification.
 			$this->assertEquals( 'publish', get_post_status( $listing_id ) );
