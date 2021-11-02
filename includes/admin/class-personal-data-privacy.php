@@ -7,7 +7,7 @@
  */
 
 require_once WPBDP_INC . 'admin/interface-personal-data-provider.php';
-require_once WPBDP_INC . 'admin/class-data-formatter.php';
+require_once WPBDP_INC . 'admin/helpers/class-data-formatter.php';
 require_once WPBDP_INC . 'admin/class-personal-data-exporter.php';
 require_once WPBDP_INC . 'admin/class-personal-data-eraser.php';
 require_once WPBDP_INC . 'admin/class-listings-personal-data-provider.php';

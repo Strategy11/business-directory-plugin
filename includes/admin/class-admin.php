@@ -103,7 +103,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $this->post_install_migration = new WPBDP__Manual_Upgrade__18_0__Featured_Levels();
             }
 
-            require_once WPBDP_INC . 'admin/settings/class-settings-admin.php';
+            require_once WPBDP_INC . 'admin/controllers/class-settings-admin.php';
             $this->settings_admin = new WPBDP__Settings_Admin();
 
 			add_action( 'wpbdp_settings_subtab_uninstall', array( $this, 'uninstall_plugin' ) );
@@ -453,16 +453,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
-            $candidates = array(
-                $item['file'],
-                WPBDP_INC . 'admin/class-admin-' . $id . '.php',
-                WPBDP_INC . 'admin/' . $id . '.php',
-            );
-            foreach ( $candidates as $c ) {
-                if ( $c && file_exists( $c ) ) {
-                    require_once $c;
-                }
-            }
+			$candidates = array(
+				$item['file'],
+				WPBDP_INC . 'admin/controllers/class-admin-' . $id . '.php',
+				WPBDP_INC . 'admin/class-admin-' . $id . '.php',
+				WPBDP_INC . 'admin/' . $id . '.php',
+			);
+			foreach ( $candidates as $c ) {
+				if ( $c && file_exists( $c ) ) {
+					require_once $c;
+					break; // Prevent loading deprecated files and looping for the same file once its found.
+				}
+			}
 
             // Maybe loading one of the candidate files made the callback available.
             if ( $callback && is_callable( $callback ) ) {

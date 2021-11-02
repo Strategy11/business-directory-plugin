@@ -1,6 +1,6 @@
 <?php
 
-require_once( WPBDP_INC . 'admin/class-csv-exporter.php' );
+require_once( WPBDP_INC . 'admin/helpers/csv/class-csv-exporter.php' );
 
 /**
  * CSV Export admin pages.
