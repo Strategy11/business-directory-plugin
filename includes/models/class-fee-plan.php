@@ -117,7 +117,7 @@ final class WPBDP__Fee_Plan {
         }
 
         if ( $saved ) {
-			WPBDP_Utils::cache_delete_group( 'wpbdp_plans' );
+			$this->clear_fee_cache();
             if ( $fire_hooks ) {
                 do_action( 'wpbdp_fee_save', $this, $update );
             }
@@ -148,7 +148,7 @@ final class WPBDP__Fee_Plan {
 	public function delete() {
 		global $wpdb;
 		$deleted = $wpdb->delete( $wpdb->prefix . 'wpbdp_plans', array( 'id' => $this->id ) );
-		WPBDP_Utils::cache_delete_group( 'wpbdp_plans' );
+		$this->clear_fee_cache();
 		return $deleted;
 	}
 
@@ -373,8 +373,16 @@ final class WPBDP__Fee_Plan {
     private function sanitize_category( $category_id ) {
         $category = get_term( absint( $category_id ), WPBDP_CATEGORY_TAX );
         return $category && ! is_wp_error( $category );
-
     }
+
+	/**
+	 * Clear the fee cache.
+	 *
+	 * @since 1.0.0
+	 */
+	private function clear_fee_cache() {
+		WPBDP_Utils::cache_delete_group( 'wpbdp_plans' );
+	}
 }
 
 require_once WPBDP_INC . 'compatibility/deprecated/class-fee-plan.php';
