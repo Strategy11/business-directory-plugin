@@ -558,6 +558,18 @@ class WPBDP_Listing {
     }
 
 	/**
+	 * Get the payment url
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public function get_payment_url() {
+		$payment = $this->get_latest_payment();
+		return $payment->get_checkout_url();
+	}
+
+	/**
 	 * @since 5.9.2
 	 */
 	public function owned_by_user( $user_id = 'current' ) {

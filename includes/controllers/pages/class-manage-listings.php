@@ -82,6 +82,11 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
     }
 
+    /**
+     * Show different payment url for a pending listing
+     *
+     * @since x.x
+     */
     public function maybe_add_renew_button( $buttons, $listing_id ) {
         $listing = wpbdp_get_listing( $listing_id );
         $listing_status  = $listing->get_status();
@@ -92,7 +97,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
         $buttons = sprintf(
             '<a class="wpbdp-button button renew-listing" href="%s" %s >%s</a>',
-            $listing->get_renewal_url(),
+            ( 'pending_payment' === $listing_status ) ? $listing->get_payment_url() : $listing->get_renewal_url(),
             'target="_blank" rel="noopener"',
 			esc_html__( 'Renew Listing', 'business-directory-plugin' )
         ) . $buttons;
