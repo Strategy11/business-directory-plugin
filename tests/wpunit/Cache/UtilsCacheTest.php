@@ -39,6 +39,6 @@ class UtilsCacheTest extends \Codeception\Test\Unit {
 		WPBDP_Utils::cache_delete_group( 'wpbdp_test_data' );
 
 		$cached_data = wp_cache_get( 'test_data_1', 'wpbdp_test_data' );
-		$this->assertIsEmpty( $cached_data, 'Cache Data is empty' );
+		$this->assertTrue( empty( $cached_data ), 'Cache Data is empty' );
 	}
 }
