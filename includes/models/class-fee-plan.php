@@ -122,11 +122,6 @@ final class WPBDP__Fee_Plan {
                 do_action( 'wpbdp_fee_save', $this, $update );
             }
 
-			if ( $update ) {
-				// Delete listings cache group to allow reflecting on the frontend.
-				WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
-			}
-
             $wpdb->update(
                 $wpdb->prefix . 'wpbdp_listings',
                 array( 'is_sticky' => $this->sticky ? 1 : 0 ),
@@ -382,6 +377,7 @@ final class WPBDP__Fee_Plan {
 	 */
 	private function clear_fee_cache() {
 		WPBDP_Utils::cache_delete_group( 'wpbdp_plans' );
+        WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
 	}
 }
 

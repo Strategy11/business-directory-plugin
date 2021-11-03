@@ -226,9 +226,8 @@ class WPBDP__Utils {
 			foreach ( $cached_keys as $key ) {
 				wp_cache_delete( $key, $group );
 			}
-
-			wp_cache_delete( 'cached_keys', $group );
 		}
+        wp_cache_delete( 'cached_keys', $group );
 	}
 
 	/**
