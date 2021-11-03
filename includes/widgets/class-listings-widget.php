@@ -17,7 +17,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Default Form Settings.
 	 *
 	 * @since  x.x
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function defaults() {
@@ -27,7 +27,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			'default_image'      => 0,
 			'thumbnail_desktop'  => 'left',
 			'thumbnail_mobile'   => 'above',
-			'fields'			 => array()
+			'fields'             => array(),
 		);
 	}
 
@@ -83,7 +83,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$instance['title']              = strip_tags( $new['title'] );
 		$instance['number_of_listings'] = max( intval( $new['number_of_listings'] ), 1 );
 		$instance['show_images']        = ! empty( $new['show_images'] ) ? 1 : 0;
-		$instance['fields']				= ! empty( $new['fields'] ) ? array_map( 'sanitize_text_field', wp_unslash( $new['fields'] ) ) : array();
+		$instance['fields']             = ! empty( $new['fields'] ) ? array_map( 'sanitize_text_field', wp_unslash( $new['fields'] ) ) : array();
 
 		if ( $instance['show_images'] ) {
 			$instance['default_image']     = ! empty( $new['default_image'] ) ? 1 : 0;
@@ -213,7 +213,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$show_images       = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
 		$default_image     = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
 		$coming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
-		$fields            = is_array( $instance['fields'] ) ? $instance['fields'] : array() ;
+		$fields            = is_array( $instance['fields'] ) ? $instance['fields'] : array();
 		foreach ( $items as $post ) {
 			$html[] = $this->render_item( $post, compact( 'show_images', 'default_image', 'coming_soon_image', 'html_class', 'fields' ) );
 		}
