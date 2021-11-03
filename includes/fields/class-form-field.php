@@ -767,6 +767,7 @@ class WPBDP_Form_Field {
 		wp_cache_delete( $this->id, 'wpbdp_form_fields' );
 		wp_cache_delete( 'all', 'wpbdp_form_fields' );
 		WPBDP_Utils::cache_delete_group( 'wpbdp_form_fields' );
+        WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
 	}
 
     /**
