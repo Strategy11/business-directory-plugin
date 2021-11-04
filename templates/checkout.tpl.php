@@ -32,7 +32,7 @@
         <?php endif; ?>
     </div>
 
-	<?php if ( $payment->amount > 0 || $payment->has_item_type( 'recurring_plan' ) ) : ?>
+	<?php if ( $payment->show_payment_options() ) : ?>
 		<div class="wpbdp-checkout-gateway-selection wpbdp-checkout-section">
 			<h3><?php _ex( 'Select a Payment Method', 'checkout', 'business-directory-plugin' ); ?></h3>
 			<?php foreach ( wpbdp()->payment_gateways->get_available_gateways( array( 'currency_code' => $payment->currency_code ) ) as $gateway ) : ?>
