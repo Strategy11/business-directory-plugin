@@ -25,16 +25,39 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     }
 
     public function no_items() {
+		if ( 'all' === $this->get_current_view() ) {
+            echo str_replace(
+                '<a>',
+                '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) . '">',
+                _x( 'There are no fees right now. You can <a>create one</a>, if you want.', 'fees admin', 'business-directory-plugin' )
+            );
+            return;
+        }
+
+		$current_view = $this->get_current_view();
+        switch ( $current_view ) {
+            case 'active':
+                $view_name = _x( 'Active', 'fees admin', 'business-directory-plugin' );
+                break;
+            case 'disabled':
+                $view_name = _x( 'Disabled', 'fees admin', 'business-directory-plugin' );
+                break;
+            default:
+                $view_name = '';
+                break;
+        }
+
 		printf(
 			/* translators: %1$s: open link html, %2$s close link */
-			esc_html__( 'There are no fees right now. %1$sCreate one%2$s.', 'business-directory-plugin' ),
+			esc_html__( 'There are no %1$s fees right now. %2$sCreate one%3$s.', 'business-directory-plugin' ),
+			$current_view,
 			'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) . '">',
 			'</a>'
         );
     }
 
     public function get_current_view() {
-		return 'all';
+		return wpbdp_get_var( array( 'param' => 'fee_status', 'default' => 'all' ) );
     }
 
     public function get_views() {
@@ -45,12 +68,31 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $views = array();
 
 		$all = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans" ) );
+		$disabled = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled = %d", 0 ) ) );
+		$active = $all - $disabled;
 
         $views['all'] = sprintf(
-            '<a href="%s" class="current">%s</a> <span class="count">(%s)</span></a>',
+            '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
 			esc_url( $admin_fees_url ),
+			'all' === $this->get_current_view() ? 'current' : '',
             _x( 'All', 'admin fees table', 'business-directory-plugin' ),
             number_format_i18n( $all )
+        );
+
+		$views['active'] = sprintf(
+            '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+            esc_url( add_query_arg( 'fee_status', 'active', $admin_fees_url ) ),
+            'active' === $this->get_current_view() ? 'current' : '',
+            _x( 'Active', 'admin fees table', 'business-directory-plugin' ),
+            number_format_i18n( $active )
+        );
+
+        $views['disabled'] = sprintf(
+            '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+            esc_url( add_query_arg( 'fee_status', 'disabled', $admin_fees_url ) ),
+            'disabled' === $this->get_current_view() ? 'current' : '',
+            _x( 'Disabled', 'admin fees table', 'business-directory-plugin' ),
+            number_format_i18n( $disabled )
         );
 
         return $views;
@@ -72,10 +114,21 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 
         $args = array(
-			'admin_view'   => true, // Admin view shows all listings
 			'enabled'      => 'all',
 			'include_free' => true,
         );
+		switch ( $this->get_current_view() ) {
+			case 'active':
+				$args['enabled'] = 1;
+				break;
+			case 'disabled':
+				$args['enabled'] = 0;
+				break;
+			case 'all':
+			default:
+				$args['enabled'] = 'all';
+				break;
+		}
 
         $this->items = wpbdp_get_fee_plans( $args );
     }
