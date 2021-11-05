@@ -262,10 +262,6 @@ function wpbdp_get_formfield( $id ) {
 /* Fees/Payment API */
 
 function wpbdp_payments_possible() {
-    if ( ! wpbdp_get_option( 'payments-on' ) ) {
-        return false;
-    }
-
     return wpbdp()->payment_gateways->can_pay();
 }
 
@@ -912,16 +908,13 @@ function wpbdp_get_payment( $id ) {
 function wpbdp_get_fee_plans( $args = array() ) {
     global $wpdb;
 
-	$payments_on = wpbdp_payments_possible();
     $defaults = array(
         'enabled'         => 1,
-		'include_free'    => ! $payments_on,
 		'tag'             => '',
         'orderby'         => 'label',
         'order'           => 'ASC',
         'categories'      => array(),
         'include_private' => false,
-		'admin_view'      => false,
     );
 
 	$order = wpbdp_get_option( 'fee-order' );
@@ -941,13 +934,6 @@ function wpbdp_get_fee_plans( $args = array() ) {
     if ( $args['tag'] ) {
         $where .= $wpdb->prepare( ' AND p.tag = %s', $args['tag'] );
     }
-
-	if ( ! $args['admin_view'] && $args['include_free'] ) {
-		$where .= $wpdb->prepare( ' AND p.amount = %d', 0 );
-	} elseif ( ! $args['admin_view'] && $args['tag'] !== 'free' ) {
-		// Exclude the default free fee for reverse compatibility.
-		$where .= $wpdb->prepare( ' AND p.tag != %s', 'free' );
-	}
 
     $categories = $args['categories'];
     if ( ! empty( $categories ) ) {

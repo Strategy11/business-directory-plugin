@@ -342,7 +342,6 @@ final class WPBDP__Fee_Plan {
             $this->sticky               = false;
             $this->recurring            = false;
             $this->supported_categories = 'all';
-            $this->enabled              = true;
         }
     }
 

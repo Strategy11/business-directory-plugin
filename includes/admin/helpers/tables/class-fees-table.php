@@ -177,10 +177,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 				unset( $actions['disable'] );
 				unset( $actions['enable'] );
 			}
-        } else {
-			unset( $actions['disable'] );
-			unset( $actions['enable'] );
-		}
+        }
 
         $html  = '';
         $html .= sprintf(

@@ -96,7 +96,6 @@ class WPBDP__Payment_Gateways {
                     'type'         => 'checkbox',
                     'default'      => false,
                     'group'        => 'gateway_' . $gateway->get_id(),
-                    'requirements' => array( 'payments-on' ),
                 )
             );
             foreach ( $gateway->get_settings() as $setting ) {
@@ -112,10 +111,6 @@ class WPBDP__Payment_Gateways {
     public function _admin_warnings() {
         // TODO: Maybe integrate all of these warnings into just one message?
         if ( empty( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
-            return;
-        }
-
-        if ( ! wpbdp_get_option( 'payments-on' ) ) {
             return;
         }
 

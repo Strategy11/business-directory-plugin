@@ -59,17 +59,6 @@
         <br class="clear" />
         <?php endif; ?>
 
-		<p class="howto">
-        <?php
-		printf(
-			/* translators: %1$s is directory payment mode (Free or Paid) */
-			esc_html__( 'All fee plans may not be available in "%1$s" mode.', 'business-directory-plugin' ),
-			esc_html( wpbdp_payments_possible() ? __( 'Paid', 'business-directory-plugin' ) : __( 'Free', 'business-directory-plugin' ) )
-		);
-		?>
-		</p>
-
-
         <?php $table->views(); ?>
         <?php $table->display(); ?>
 
