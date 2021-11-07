@@ -175,10 +175,9 @@ class WPBDP__Views__Checkout extends WPBDP__View {
         // $checkout_form .= wpbdp_capture_action( 'wpbdp_checkout_form_top', $this->payment );
         $checkout_form .= $this->gateway->render_form( $this->payment, $this->errors );
         // $checkout_form .= wpbdp_capture_action( 'wpbdp_checkout_form_bottom', $this->payment );
-        $pay_now = ( $this->payment->has_item_type( 'recurring_plan' ) || $this->payment->amount > 0 );
         $checkout_form .= sprintf(
             '<div class="wpbdp-checkout-submit"><input type="submit" value="%s" /></div>',
-            $this->payment->show_payment_options() ? _x( 'Pay Now', 'checkout', 'business-directory-plugin' ) : _x( 'Complete', 'checkout', 'business-directory-plugin' )
+            $this->payment->show_payment_options() ? esc_html__( 'Pay Now', 'business-directory-plugin' ) : esc_html__( 'Complete', 'business-directory-plugin' )
         );
 
         return $checkout_form;
