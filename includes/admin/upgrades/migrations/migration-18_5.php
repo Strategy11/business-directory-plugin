@@ -20,7 +20,7 @@ class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 		global $wpdb;
 		$payments_on = wpbdp_get_option( 'payments-on' );
 		$sql         = "SELECT `id`, `amount` FROM {$wpdb->prefix}wpbdp_plans WHERE `enabled` = %d";
-		$plans       = $wpdb->get_results(  $wpdb->prepare( $sql, 1 ) );
+		$plans       = $wpdb->get_results( $wpdb->prepare( $sql, 1 ) );
 		$to_disable  = array();
 
 		foreach ( $plans as $plan ) {

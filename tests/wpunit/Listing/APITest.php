@@ -33,7 +33,7 @@ class APITest extends \Codeception\Test\Unit {
 		$this->tester->wantToTest( 'Payment Listing publish status' );
 
 		$this->markTestSkipped(
-			'mysqli fetch error on generate_or_retrieve_payment'
+			'mysqli fetch error on wpbdp_save_listing wp queries'
 		);
 
 		$listing = wpbdp_save_listing(
