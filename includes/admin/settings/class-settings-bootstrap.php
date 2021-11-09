@@ -350,7 +350,7 @@ final class WPBDP__Settings__Bootstrap {
                 'group' => 'general/advanced',
             )
         );
-		if ( ! is_plugin_active( 'font-awesome/font-awesome.php' ) || ( ! class_exists( 'FortAwesome\FontAwesome_Loader' ) ) ) {
+		if ( ! is_plugin_active( 'font-awesome/index.php' ) || ( ! class_exists( '\FortAwesome\FontAwesome_Loader' ) ) ) {
 			wpbdp_register_setting(
 				array(
 					'id'    => 'fontawesome-enabled',
