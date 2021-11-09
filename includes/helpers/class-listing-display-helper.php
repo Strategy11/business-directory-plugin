@@ -163,7 +163,7 @@ class WPBDP_Listing_Display_Helper {
             $classes[] = 'wpbdp-listing-plan-id-' . $fee->fee_id;
             $classes[] = 'wpbdp-listing-plan-' . WPBDP_Utils::normalize( $fee->fee_label );
 
-			if ( $fee->fee->extra_data['bgcolor'] ) {
+			if ( ! empty( $fee->fee->extra_data['bgcolor'] ) ) {
 				// Prevent DB calls later.
 				global $wpbdp;
 				$wpbdp->fee_colors[ $fee->fee_id ] = $fee->fee->extra_data['bgcolor'];
