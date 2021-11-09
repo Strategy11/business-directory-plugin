@@ -334,15 +334,4 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
         return $field_value;
     }
-
-    public function _enqueue_scripts() {
-        if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
-            wp_enqueue_style(
-                'wpbdp_font_awesome',
-                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
-                array(),
-                '5.14.0'
-            );
-        }
-    }
 }

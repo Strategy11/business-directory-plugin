@@ -350,16 +350,33 @@ final class WPBDP__Settings__Bootstrap {
                 'group' => 'general/advanced',
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'enqueue-fontawesome-styles',
-                'type'    => 'checkbox',
-                'name'    => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'business-directory-plugin' ),
-                'default' => true,
-                'group'   => 'general/advanced',
-            )
-        );
+		if ( ! is_plugin_active( 'font-awesome/font-awesome.php' ) || ( ! class_exists( 'FortAwesome\FontAwesome_Loader' ) ) ) {
+			wpbdp_register_setting(
+				array(
+					'id'    => 'fontawesome-enabled',
+					'name'  => _x( 'FontAwesome styles?', 'settings', 'business-directory-plugin' ),
+					'desc'  => wp_kses_post(
+						sprintf(
+							/* translators: %s: addon name */
+							'<span>' . __( 'Install %1$s for FontAwesome styles?', 'business-directory-plugin' ) . '</span>',
+							'<a href="https://wordpress.org/plugins/font-awesome" target="_blank" rel="noopener nofollow">Font Awesome</a> ',
+						)
+					),
+					'type'  => 'education',
+					'group' => 'general/advanced',
+				)
+			);
+		} else {
+			wpbdp_register_setting(
+				array(
+					'id'    => 'fontawesome-enabled',
+					'name'  => _x( 'FontAwesome styles?', 'settings', 'business-directory-plugin' ),
+					'desc'  => _x( 'FontAwesome styles are enabled', 'settings', 'business-directory-plugin' ),
+					'type'  => 'education',
+					'group' => 'general/advanced',
+				)
+			);
+		}
     }
 
 	/**
