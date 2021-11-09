@@ -1243,6 +1243,15 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
+        wpbdp_register_setting(
+            array(
+                'id'      => 'payments-on',
+                'type'    => 'hidden',
+                'default' => false,
+                'group'   => 'payment/main',
+            )
+        );
+
 		self::maybe_show_deprecated();
     }
 
