@@ -197,7 +197,6 @@ class WPBDP_Themes {
     function fee_specific_coloring() {
         $plans = wpbdp_get_fee_plans(
             array(
-                'include_free'    => true,
                 'include_private' => true,
             )
         );
