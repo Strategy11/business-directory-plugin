@@ -197,16 +197,16 @@ class WPBDP_Themes {
 	public function fee_specific_coloring() {
 		global $wpbdp;
 
-        if ( empty( $wpbdp->fee_colors ) ) {
-        	return;
-        }
+		if ( empty( $wpbdp->fee_colors ) ) {
+			return;
+		}
 
-        echo '<style>';
-        foreach ( $wpbdp->fee_colors as $id => $color ) {
-            echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . $id . '{ background-color: ' . esc_attr( $color ) . '}';
-        }
-        echo '</style>';
-    }
+		echo '<style>';
+		foreach ( $wpbdp->fee_colors as $id => $color ) {
+			echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . $id . '{ background-color: ' . esc_attr( $color ) . '}';
+		}
+		echo '</style>';
+	}
 
     function _normalize_asset_name( $a ) {
         $a = strtolower( $a );
