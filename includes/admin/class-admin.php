@@ -77,6 +77,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
 
             add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
+			add_action( 'wpbdp_admin_ajax_dismiss_notification_fontawesome_dismissed', array( $this, 'ajax_dismiss_notification_fontawesome_dismissed' ) );
 
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
@@ -686,6 +687,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $this->check_server_requirements();
             $this->check_setup();
             $this->check_deprecation_warnings();
+			$this->check_font_awesome_setting();
 
             $this->maybe_request_review();
 
@@ -1133,6 +1135,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             set_transient( 'wpbdp_server_requirements_warning_dismissed', true, WEEK_IN_SECONDS );
         }
 
+		/**
+		 * Set fontawesome notice as dismissed.
+		 *
+		 * @since x.x
+		 */
+		public function ajax_dismiss_notification_fontawesome_dismissed() {
+			wpbdp_set_option( 'enqueue-fontawesome-styles', false );
+		}
+
         public function check_setup() {
             global $pagenow;
 
@@ -1161,6 +1172,33 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 }
             }
         }
+
+		/**
+		 * Check old inline fontawesome setting.
+		 * If it was enabled by default, we show an admin notice.
+		 * On dismiss we keep the setting.
+		 *
+		 * @since x.x
+		 */
+		private function check_font_awesome_setting() {
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
+
+			if ( ! WPBDP_App_Helper::is_bd_page() ) {
+				return;
+			}
+
+			if ( ! wpbdp_get_option( 'enqueue-fontawesome-styles', false ) ) {
+				return;
+			}
+
+			$this->messages[] = array(
+				str_replace( array( '[', ']' ), array( '<a href="https://wordpress.org/plugins/font-awesome" target="_blank" rel="noopener nofollow">', '</a>' ), _x( 'We changed how FontAwesome is integrated in Business Directory. Go [here] to install the officle "FontAwesome styles" plugin.', 'admin', 'business-directory-plugin' ) ),
+				'error dismissible',
+				array( 'dismissible-id' => 'fontawesome_dismissed' ),
+			);
+		}
 
         public function main_menu() {
             echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/home.tpl.php' );
