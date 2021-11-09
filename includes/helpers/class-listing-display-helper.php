@@ -163,6 +163,12 @@ class WPBDP_Listing_Display_Helper {
             $classes[] = 'wpbdp-listing-plan-id-' . $fee->fee_id;
             $classes[] = 'wpbdp-listing-plan-' . WPBDP_Utils::normalize( $fee->fee_label );
 
+			if ( $fee->fee->extra_data['bgcolor'] ) {
+				// Prevent DB calls later.
+				global $wpbdp;
+				$wpbdp->fee_colors[ $fee->fee_id ] = $fee->fee->extra_data['bgcolor'];
+			}
+
             if ( $fee->is_sticky ) {
                 $classes[] = 'sticky';
                 $classes[] = 'wpbdp-listing-is-sticky';
@@ -176,7 +182,7 @@ class WPBDP_Listing_Display_Helper {
 		self::add_column_count( $classes, $display );
 
         foreach ( WPBDP_Listing::get( $listing_id )->get_categories( 'ids' ) as $category_id ) {
-                $classes[] = 'wpbdp-listing-category-id-' . $category_id;
+			$classes[] = 'wpbdp-listing-category-id-' . $category_id;
         }
 
         $vars['listing_css_class']  = implode( ' ', $classes );
