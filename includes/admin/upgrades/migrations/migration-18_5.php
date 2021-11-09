@@ -19,7 +19,7 @@ class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 	public function migrate() {
 		global $wpdb;
 		$payments_on = wpbdp_get_option( 'payments-on' );
-		$sql         = "SELECT `id`, `amount` FROM {$wpdb->prefix}wpbdp_plans WHERE `enabled` = %d";
+		$sql         = "SELECT p.id, p.amount FROM {$wpdb->prefix}wpbdp_plans p WHERE p.enabled = %d";
 		$plans       = $wpdb->get_results( $wpdb->prepare( $sql, 1 ) );
 		$to_disable  = array();
 
@@ -31,11 +31,13 @@ class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 			}
 		}
 
-		if ( ! empty( $to_disable ) ) {
-			$sql = "UPDATE {$wpdb->prefix}wpbdp_plans SET `enabled` = 0 WHERE `id` IN(" . implode( ', ', array_fill( 0, count( $to_disable ), '%d' ) ) . ")";
-			// Call $wpdb->prepare passing the values of the array as separate arguments.
-			$query = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $sql ), $to_disable ) );
-			$wpdb->query( $query );
+		if ( empty( $to_disable ) ) {
+			return;
 		}
+
+		$sql = "UPDATE {$wpdb->prefix}wpbdp_plans p SET p.enabled = 0 WHERE p.id IN(" . implode( ', ', array_fill( 0, count( $to_disable ), '%d' ) ) . ")";
+		// Call $wpdb->prepare passing the values of the array as separate arguments.
+		$query = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $sql ), $to_disable ) );
+		$wpdb->query( $query );
 	}
 }

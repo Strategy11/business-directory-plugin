@@ -1140,6 +1140,17 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     private static function settings_payment() {
+		wpbdp_register_setting(
+			array(
+				'id'      => 'payments-on',
+				'type'    => 'hidden',
+				'class'   => 'hidden',
+				'name'    => _x( 'Turn On payments?', 'settings', 'business-directory-plugin' ),
+				'default' => false,
+				'group'   => 'payment/main',
+			)
+		);
+
         wpbdp_register_setting(
             array(
                 'id'      => 'fee-order',
@@ -1240,15 +1251,6 @@ final class WPBDP__Settings__Bootstrap {
                 'name'         => _x( 'Thank you for payment message', 'settings', 'business-directory-plugin' ),
                 'default'      => __( 'Thank you for your payment.', 'business-directory-plugin' ),
                 'group'        => 'payment/main',
-            )
-        );
-
-        wpbdp_register_setting(
-            array(
-                'id'      => 'payments-on',
-                'type'    => 'hidden',
-                'default' => false,
-                'group'   => 'payment/main',
             )
         );
 
