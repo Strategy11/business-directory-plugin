@@ -287,7 +287,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $url = wpbdp_url( 'checkout', $this->payment_key );
 
         if ( ! $force_http && ! is_ssl() ) {
-            $url = set_url_scheme( $url, 'https' );
+            //$url = set_url_scheme( $url, 'https' );
         }
 
         return $url;
