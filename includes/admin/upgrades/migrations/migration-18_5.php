@@ -19,9 +19,13 @@ class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 	public function migrate() {
 		global $wpdb;
 		$payments_on = wpbdp_get_option( 'payments-on' );
-		$sql         = "SELECT p.id, p.amount FROM {$wpdb->prefix}wpbdp_plans p WHERE p.enabled = %d";
-		$plans       = $wpdb->get_results( $wpdb->prepare( $sql, 1 ) );
+		$sql         = "SELECT p.id, p.amount FROM {$wpdb->prefix}wpbdp_plans p WHERE p.enabled != %d";
+		$plans       = $wpdb->get_results( $wpdb->prepare( $sql, 0 ) );
 		$to_disable  = array();
+
+		if ( ! $plans ) {
+			return;
+		}
 
 		foreach ( $plans as $plan ) {
 			if ( $payments_on && $plan->amount <= 0.0 ) {
