@@ -29,9 +29,6 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
      */
     public function __construct() {
         parent::__construct( _x( 'Social Site (Other)', 'form-fields api', 'business-directory-plugin' ) );
-
-        add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
     }
 
     public function get_id() {
