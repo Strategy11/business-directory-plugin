@@ -77,7 +77,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
 
             add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
-			add_action( 'wpbdp_admin_ajax_dismiss_notification_fontawesome_dismissed', array( $this, 'ajax_dismiss_notification_fontawesome_dismissed' ) );
+			add_action( 'wpbdp_admin_ajax_dismiss_notification_fontawesome', array( $this, 'ajax_dismiss_notification_fontawesome' ) );
 
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
@@ -1139,7 +1139,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 *
 		 * @since x.x
 		 */
-		public function ajax_dismiss_notification_fontawesome_dismissed() {
+		public function ajax_dismiss_notification_fontawesome() {
             if ( ! current_user_can( 'install_plugins' ) ) {
 				return;
 			}
@@ -1197,14 +1197,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
 			$this->messages[] = array(
-                sprintf( 
+                sprintf(
                     _x( 'We changed how %1$s is integrated into Business Directory. Go %2$shere%3$s to install the official "%1$s styles" plugin.', 'admin', 'business-directory-plugin' ),
                     'FontAwesome',
-                    '<a href="https://wordpress.org/plugins/font-awesome" target="_blank" rel="noopener nofollow">',
+                    '<a href=" ' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . ' " target="_blank" rel="noopener nofollow">',
                     '</a>'
                 ),
 				'error dismissible',
-				array( 'dismissible-id' => 'fontawesome_dismissed' ),
+				array( 'dismissible-id' => 'fontawesome' ),
 			);
 		}
 
