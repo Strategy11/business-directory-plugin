@@ -198,6 +198,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->messages( $instructions, 'tip', 'general' );
         }
 
+		/**
+		 * Add custom validation when a listing form is submitted.
+		 *
+		 * @since x.x
+		 */
+		$this->messages = apply_filters( 'wpbdp_submit_validation_errors', $this->messages, array( $this ) );
+
         // Prepare $messages for template.
         $messages = array();
         foreach ( $this->messages as $context => $items ) {
