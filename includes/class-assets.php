@@ -255,12 +255,18 @@ class WPBDP__Assets {
         }
     }
 
+    /**
+     * Load resources on admin page
+     *
+     * @param bool $force Force reloading the resources.
+     */
 	public function enqueue_admin_scripts( $force = false ) {
-		global $wpbdp;
-
-		if ( ! $force && ! $wpbdp->is_bd_page() ) {
+		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
+
+		// Add admin body class for parent page class to avoid css conflicts.
+		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
 
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
@@ -277,7 +283,7 @@ class WPBDP__Assets {
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
 
-		if ( ! $wpbdp->is_bd_post_page() ) {
+		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 			return;
 		}
 
@@ -335,5 +341,23 @@ class WPBDP__Assets {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Add admin body class.
+	 * This will be used a wrapper for admin css classes to prevent conflicts with other page styles.
+	 *
+	 * @param string $admin_body_classes The current admin body classes.
+	 *
+	 * @since 5.14.3
+	 *
+	 * @return string $admin_body_classes The body class with the added plugin class.
+	 */
+	public function add_body_class( $admin_body_classes ) {
+		if ( WPBDP_App_Helper::is_bd_page() ) {
+			$admin_body_classes = ' wpbdp-admin-page';
+		}
+
+		return $admin_body_classes;
 	}
 }

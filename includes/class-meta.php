@@ -157,7 +157,7 @@ class WPBDP__Meta {
                 break;
 
             case 'search':
-                $view_title =  _x( 'Find a Listing', 'title', 'business-directory-plugin' );
+				$view_title = _x( 'Find a Listing', 'title', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
                 break;
 
@@ -279,7 +279,7 @@ class WPBDP__Meta {
 
         $current_view = wpbdp_current_view();
 
-        switch ( $current_view ){
+		switch ( $current_view ) {
             case 'show_listing':
                 global $post;
 
@@ -405,9 +405,10 @@ class WPBDP__Meta {
 	 */
 	private function add_image_meta( $listing ) {
 		$thumbnail_id = $listing->get_thumbnail_id();
+		$img          = false;
 		if ( $thumbnail_id ) {
 			$img = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large' );
-			$img = $img ? $img[0] : '';
+			$img = $img ? $img[0] : false;
 		}
 		if ( $img ) {
 			echo '<meta property="og:image" content="' . esc_url( $img ) . '" />';

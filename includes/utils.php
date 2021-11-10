@@ -361,7 +361,7 @@ function wpbdp_sanitize_value( $sanitize, &$value ) {
     }
 }
 
-function wpbdp_capture_action($hook) {
+function wpbdp_capture_action( $hook ) {
     $output = '';
 
     $args = func_get_args();
@@ -398,8 +398,10 @@ function wpbdp_php_ini_size_to_bytes( $val ) {
     switch ( $unit ) {
         case 'G':
             $size *= 1024;
+			// no break
         case 'M':
             $size *= 1024;
+			// no break
         case 'K':
             $size *= 1024;
     }
@@ -445,7 +447,8 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
         $file = $file_;
     }
 
-    $constraints = array_merge( array(
+	$constraints = array_merge(
+		array(
                                     'image' => false,
                                     'min-size' => 0,
                                     'max-size' => 0,
@@ -454,7 +457,9 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
                                     'max-width' => 0,
                                     'max-height' => 0,
                                     'mimetypes' => null
-                              ), $constraints );
+		),
+		$constraints
+	);
 
     foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k )
         $constraints[ $k ] = absint( $constraints[ $k ] );
@@ -502,12 +507,17 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
             return $upload;
 		}
 
-        if ( $attachment_id = wp_insert_attachment(array(
-            'post_mime_type' => $upload['type'],
-			'post_title'   => preg_replace( '/\.[^.]+$/', '', basename( $upload['file'] ) ),
-            'post_content' => '',
-            'post_status' => 'inherit'
-        ), $upload['file']) ) {
+		$attachment_id = wp_insert_attachment(
+			array(
+				'post_mime_type' => $upload['type'],
+				'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $upload['file'] ) ),
+				'post_content'   => '',
+				'post_status'    => 'inherit'
+			),
+			$upload['file']
+		);
+
+		if ( $attachment_id ) {
             $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
             wp_update_attachment_metadata( $attachment_id, $attach_metadata );
 
@@ -686,6 +696,7 @@ function wpbdp_ajaxurl( $overwrite = false ) {
 
 /**
  * Removes a value from an array.
+ *
  * @since 2.3
  */
 function wpbdp_array_remove_value( &$array_, &$value_ ) {
@@ -700,6 +711,7 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
 
 /**
  * Checks if a given string starts with another string.
+ *
  * @param string $str the string to be searched
  * @param string $prefix the prefix to search for
  * @return TRUE if $str starts with $prefix or FALSE otherwise
@@ -731,6 +743,7 @@ function wpbdp_format_time( $time = null, $format = 'mysql', $time_is_date = fal
 
 /**
  * Returns the contents of a directory (ignoring . and .. special files).
+ *
  * @param string $path a directory.
  * @return array list of files within the directory.
  * @since 3.3
@@ -762,6 +775,7 @@ function wpbdp_scandir( $path, $args = array() ) {
 
 /**
  * Recursively deletes a directory.
+ *
  * @param string $path a directory.
  * @since 3.3
  * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
@@ -773,6 +787,7 @@ function wpbdp_rrmdir( $path ) {
 
 /**
  * Returns the name of a term.
+ *
  * @param id|string $id_or_slug The term ID or slug (see `$field`).
  * @param string $taxonomy Taxonomy name. Defaults to `WPBDP_CATEGORY_TAX` (BD's category taxonomy).
  * @param string $field Field used for the term lookup. Defaults to "id".
@@ -781,9 +796,11 @@ function wpbdp_rrmdir( $path ) {
  * @since 3.3
  */
 function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $field = 'id', $escape = true ) {
-    $term = get_term_by( $field,
-                         'id' == $field ? intval( $id_or_slug ) : $id_or_slug,
-                         $taxonomy );
+	$term = get_term_by(
+		$field,
+		'id' == $field ? intval( $id_or_slug ) : $id_or_slug,
+		$taxonomy
+	);
 
     if ( ! $term )
         return '';
@@ -856,14 +873,17 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     $placeholders = $setting ? ( isset( $setting['placeholders'] ) && is_array( $setting['placeholders'] ) ? $setting['placeholders'] : array() ) : array();
 
     // Add core replacements.
-    $replacements = array_merge( $replacements, array(
-        'site-title'    => get_bloginfo( 'name' ),
-        'site-link'     => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
-        'site-url'      => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'url' ) ),
-        'directory-url' => sprintf( '<a href="%1$s">%1$s</a>', wpbdp_get_page_link( 'main' ) ),
-        'today'         => date_i18n( get_option( 'date_format' ) ),
-        'now'           => date_i18n( get_option( 'time_format' ) )
-    ) );
+	$replacements = array_merge(
+		$replacements,
+		array(
+			'site-title'    => get_bloginfo( 'name' ),
+			'site-link'     => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'name' ) ),
+			'site-url'      => sprintf( '<a href="%s">%s</a>', get_bloginfo( 'url' ), get_bloginfo( 'url' ) ),
+			'directory-url' => sprintf( '<a href="%1$s">%1$s</a>', wpbdp_get_page_link( 'main' ) ),
+			'today'         => date_i18n( get_option( 'date_format' ) ),
+			'now'           => date_i18n( get_option( 'time_format' ) )
+		)
+	);
 
     if ( $file ) {
         $keys = array_keys( $replacements );
@@ -932,7 +952,7 @@ jQuery(function( $ ) {
             'position': { 'edge': '<?php echo isset( $options['edge'] ) ? $options['edge'] : 'top'; ?>',
                           'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
             'buttons': function( e, t ) {
-                <?php if ( ! $secondary_button ): ?>
+				<?php if ( ! $secondary_button ) : ?>
                 var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
 				<?php else : ?>
                 var b = $( '<a id="wpbdp-pointer-b2" class="button" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
@@ -941,11 +961,11 @@ jQuery(function( $ ) {
             }
         }).pointer('open');
 
-        <?php if ( $secondary_button ): ?>
+		<?php if ( $secondary_button ) : ?>
         $( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
         $( '#wpbdp-pointer-b2' ).click(function(e) {
             e.preventDefault();
-            <?php if ( $secondary_action ): ?>
+			<?php if ( $secondary_action ) : ?>
             <?php echo $secondary_action; ?>
             <?php endif; ?>
             wpbdp_pointer.pointer( 'close' );
@@ -954,7 +974,7 @@ jQuery(function( $ ) {
 
         $( '#wpbdp-pointer-b1' ).click(function(e) {
             e.preventDefault();
-            <?php if ( $primary_action ): ?>
+			<?php if ( $primary_action ) : ?>
             <?php echo $primary_action; ?>
             <?php endif; ?>
             wpbdp_pointer.pointer( 'close' );
@@ -1040,6 +1060,7 @@ function wpbdp_detect_encoding( $content ) {
 
 /**
  * Taken from http://php.net/manual/en/function.mb-detect-encoding.php#113983
+ *
  * @since 4.0.5dev
  */
 function wpbdp_mb_detect_encoding( $content, $encodings ) {
@@ -1054,11 +1075,14 @@ function wpbdp_mb_detect_encoding( $content, $encodings ) {
 }
 
 function wpbdp_render_user_field( $args = array() ) {
-    $args = wp_parse_args( $args, array(
-        'class' => '',
-        'name' => 'user',
-        'value' => null,
-    ) );
+	$args = wp_parse_args(
+		$args,
+		array(
+			'class' => '',
+			'name'  => 'user',
+			'value' => null,
+		)
+	);
 
     $users_query = new WP_User_Query( array( 'count_total' => true, 'fields' => 'ID', 'number' => 200 ) );
 
@@ -1096,7 +1120,7 @@ function wpbdp_render_user_field( $args = array() ) {
 function wpbdp_enqueue_jquery_ui_style() {
     global $wp_scripts;
 
-    if ( is_object( $wp_scripts ) && isset( $wp_scripts->registered[ 'jquery-ui-core' ] ) ) {
+	if ( is_object( $wp_scripts ) && isset( $wp_scripts->registered['jquery-ui-core'] ) ) {
         $ui_version = $wp_scripts->registered['jquery-ui-core']->ver;
     } else {
         $ui_version = '1.8.21';

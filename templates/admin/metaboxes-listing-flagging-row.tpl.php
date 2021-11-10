@@ -2,8 +2,8 @@
 $name  = empty( $value['name'] ) ? '' : $value['name'];
 $email = empty( $value['email'] ) ? '' : $value['email'];
 
-if ( ! $name && ! $email && 0 !== $value[ 'user_id' ] ) :
-    $user = get_user_by( 'ID', $value[ 'user_id' ] );
+if ( ! $name && ! $email && 0 !== $value['user_id'] ) :
+	$user  = get_user_by( 'ID', $value['user_id'] );
     $name = $user->data->user_login;
     $email = $user->data->user_email;
 endif;
@@ -26,10 +26,10 @@ endif;
             <?php echo date_i18n( get_option( 'date_format' ) . ' @ ' . get_option( 'time_format' ), $value['date'] ); ?>
         </div>
         <div class="report-reasons">
-            <?php echo _x( 'Selected Option: ', 'admin listings', 'business-directory-plugin' ) . esc_html( $value[ 'reason' ] ); ?>
+			<?php echo _x( 'Selected Option: ', 'admin listings', 'business-directory-plugin' ) . esc_html( $value['reason'] ); ?>
             <br/>
             <?php
-            if ( ! empty( $value['comments'] ) ):
+			if ( ! empty( $value['comments'] ) ) :
                 echo _x( 'Aditional Info: ', 'admin listings', 'business-directory-plugin' ) . esc_html( $value['comments'] );
             endif;
             ?>

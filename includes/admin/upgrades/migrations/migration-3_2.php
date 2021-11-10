@@ -50,8 +50,9 @@ class WPBDP__Migrations__3_2 extends WPBDP__Migration {
             if ( isset( $f_data['options'] ) && is_array( $f_data['options'] ) ) $newfield['field_data']['options'] = $f_data['options'];
             if ( isset( $f_data['open_in_new_window'] ) && $f_data['open_in_new_window'] ) $newfield['field_data']['open_in_new_window'] = true;
 
-            if ( $newfield['field_type'] == 'textfield' && in_array( 'url', $newfield['validators']) )
+			if ( $newfield['field_type'] === 'textfield' && in_array( 'url', $newfield['validators'] ) ) {
                 $newfield['field_type'] = 'url';
+			}
 
             $newfield['display_flags'] = implode( ',', $newfield['display_flags'] );
             $newfield['validators'] = implode( ',', $newfield['validators'] );
@@ -65,7 +66,7 @@ class WPBDP__Migrations__3_2 extends WPBDP__Migration {
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN is_required;" );
         $wpdb->query( "ALTER TABLE {$wpdb->prefix}wpbdp_form_fields DROP COLUMN type;" );
 
-        add_action( 'admin_notices', array( $this, 'disable_regions_in_3_2_upgrade' )  );
+		add_action( 'admin_notices', array( $this, 'disable_regions_in_3_2_upgrade' ) );
     }
 
     public function disable_regions_in_3_2_upgrade() {

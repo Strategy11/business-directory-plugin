@@ -353,7 +353,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             $value = null;
         }
 
-        if ( is_array( $value ) && empty( $value[0] ) ){
+		if ( is_array( $value ) && empty( $value[0] ) ) {
             $value = null;
         }
 

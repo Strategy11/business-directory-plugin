@@ -6,7 +6,7 @@
         <th class="subscription-details"><?php _ex( 'Subscription / Fee Plan', 'manage subscriptions', 'business-directory-plugin' ); ?></th>
     </thead>
     <tbody>
-    <?php foreach ( $listings as $listing ): ?>
+    <?php foreach ( $listings as $listing ) : ?>
     <tr>
         <td class="listing-title">
 			<b><?php if ( $listing->is_published() ) : ?>

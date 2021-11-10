@@ -5,7 +5,7 @@
  * @package BDP/Includes/Views/Checkout
  */
 
-require_once( WPBDP_PATH . 'includes/class-payment.php' );
+require_once( WPBDP_PATH . 'includes/models/class-payment.php' );
 require_once( WPBDP_INC . 'abstracts/class-payment-gateway.php' );
 require_once( WPBDP_PATH . 'includes/class-fees-api.php' );
 
@@ -98,6 +98,7 @@ class WPBDP_PaymentsAPI {
 
     /**
      * Renders an invoice table for a given payment.
+	 *
      * @param $payment WPBDP_Payment
      * @return string HTML output.
      * @since 3.4

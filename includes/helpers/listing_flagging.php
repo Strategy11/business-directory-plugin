@@ -69,7 +69,7 @@ class WPBDP__Listing_Flagging {
 
         $data = array_merge( $defaults, $data );
 
-        if ( ! $data[ 'user_id' ] && ! $data[ 'ip' ] ) {
+		if ( ! $data['user_id'] && ! $data['ip'] ) {
             return new WP_Error( 'missing_data', _x( 'User ID or IP address is required to save a report', 'flag listing', 'business-directory-plugin' ) );
         }
 
@@ -85,9 +85,9 @@ class WPBDP__Listing_Flagging {
             }
         }
 
-		if ( ! isset( $data[ 'date' ] ) ) {
-            $data[ 'date' ] = time();
-        }
+		if ( ! isset( $data['date'] ) ) {
+			$data['date'] = time();
+		}
 
         $flagging_data = self::get_flagging_meta( $listing_id );
         $flagging_data[] = $data;

@@ -7,6 +7,7 @@
 
 require_once WPBDP_PATH . 'includes/admin/admin-pages.php';
 require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-listings.php';
+require_once WPBDP_PATH . 'includes/admin/controllers/class-form-fields-admin.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/tables/class-form-fields-table.php';
 require_once WPBDP_PATH . 'includes/admin/csv-import.php';
 require_once WPBDP_PATH . 'includes/admin/csv-export.php';
@@ -17,7 +18,7 @@ require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-controller.php
 require_once WPBDP_PATH . 'includes/admin/tracking.php';
 require_once WPBDP_PATH . 'includes/admin/class-listings-with-no-fee-plan-view.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/class-modules-list.php';
-
+require_once WPBDP_PATH . 'includes/models/class-reviews.php';
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -44,6 +45,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
             add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+            add_action( 'wp_ajax_wpbdp_dismiss_review', array( &$this, 'maybe_dismiss_review' ) );
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_scripts' ) );
 
             // Adds admin menus.
@@ -101,7 +104,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 $this->post_install_migration = new WPBDP__Manual_Upgrade__18_0__Featured_Levels();
             }
 
-            require_once WPBDP_INC . 'admin/settings/class-settings-admin.php';
+            require_once WPBDP_INC . 'admin/controllers/class-settings-admin.php';
             $this->settings_admin = new WPBDP__Settings_Admin();
 
 			add_action( 'wpbdp_settings_subtab_uninstall', array( $this, 'uninstall_plugin' ) );
@@ -451,16 +454,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
-            $candidates = array(
-                $item['file'],
-                WPBDP_INC . 'admin/class-admin-' . $id . '.php',
-                WPBDP_INC . 'admin/' . $id . '.php',
-            );
-            foreach ( $candidates as $c ) {
-                if ( $c && file_exists( $c ) ) {
-                    require_once $c;
-                }
-            }
+			$candidates = array(
+				$item['file'],
+				WPBDP_INC . 'admin/controllers/class-admin-' . $id . '.php',
+				WPBDP_INC . 'admin/class-admin-' . $id . '.php',
+				WPBDP_INC . 'admin/' . $id . '.php',
+			);
+			foreach ( $candidates as $c ) {
+				if ( $c && file_exists( $c ) ) {
+					require_once $c;
+					break; // Prevent loading deprecated files and looping for the same file once its found.
+				}
+			}
 
             // Maybe loading one of the candidate files made the callback available.
             if ( $callback && is_callable( $callback ) ) {
@@ -681,6 +686,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $this->check_server_requirements();
             $this->check_setup();
             $this->check_deprecation_warnings();
+
+            $this->maybe_request_review();
 
             do_action( 'wpbdp_admin_notices' );
 
@@ -1066,6 +1073,26 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$message .= '</p>';
 
 			$this->messages[] = array( $message, 'error' );
+        }
+
+        /**
+         * Request review.
+         */
+        private function maybe_request_review() {
+            WPBDP_Reviews::instance()->review_request();
+        }
+
+        /**
+         * Dismiss review.
+         * Action is only valid for an admin.
+         */
+        public function maybe_dismiss_review() {
+            check_ajax_referer( 'wpbdp_dismiss_review', 'nonce' );
+            if ( ! is_admin() ) {
+                wp_die();
+            }
+
+            WPBDP_Reviews::instance()->dismiss_review();
         }
 
         /**

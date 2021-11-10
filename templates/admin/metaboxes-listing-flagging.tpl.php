@@ -24,7 +24,7 @@ $is_reported = WPBDP__Listing_Flagging::is_flagged( $listing->get_id() );
     </tbody>
 </table>
 
-<?php if ( $is_reported ): ?>
+<?php if ( $is_reported ) : ?>
 <div class="wpbdp-remove-listing-reports">
     <a class="button button-small" href="<?php echo esc_url( add_query_arg( array( 'wpbdmaction' => 'delete-flagging', 'listing_id' => $listing->get_id(), 'meta_pos' => 'all' ) ) ); ?>">
         <?php echo _ex( 'Clear listing reports.', 'admin listings', 'business-directory-plugin' ); ?>

@@ -23,7 +23,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.14.2' );
+        define( 'WPBDP_VERSION', '5.14.3' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -62,7 +62,7 @@ final class WPBDP {
 
         require_once WPBDP_INC . 'admin/settings/class-settings.php';
 
-        require_once WPBDP_INC . 'functions.php';
+        require_once WPBDP_INC . 'helpers/functions/general.php';
         require_once WPBDP_INC . 'utils.php';
 
         require_once WPBDP_INC . 'helpers/listing_flagging.php';
@@ -80,14 +80,14 @@ final class WPBDP {
         require_once WPBDP_INC . 'widgets/class-widgets.php';
 
         if ( wpbdp_is_request( 'frontend' ) ) {
-            require_once WPBDP_INC . 'templates-ui.php';
+            require_once WPBDP_INC . 'helpers/functions/templates-ui.php';
             require_once WPBDP_INC . 'template-sections.php';
             require_once WPBDP_INC . 'class-shortcodes.php';
             require_once WPBDP_INC . 'class-recaptcha.php';
             require_once WPBDP_INC . 'class-query-integration.php';
             require_once WPBDP_INC . 'class-dispatcher.php';
             require_once WPBDP_INC . 'class-wordpress-template-integration.php';
-            require_once WPBDP_INC . 'seo.php';
+            require_once WPBDP_INC . 'helpers/class-seo.php';
         }
 
         require_once WPBDP_INC . 'themes.php';
@@ -278,39 +278,14 @@ final class WPBDP {
 	 * @return bool
 	 */
 	public function is_bd_page() {
-		$is_post_page = $this->is_bd_post_page();
-		if ( $is_post_page ) {
-			return true;
-		}
-
-		$page = wpbdp_get_var( array( 'param' => 'page' ) );
-		$is_page = $page && strpos( $page, 'wpbdp' ) !== false;
-
-		/**
-		 * @since 5.12.1
-		 */
-		return apply_filters( 'wpbdp_is_bd_page', $is_page );
+		return WPBDP_App_Helper::is_bd_page();
 	}
 
 	/**
 	 * @since 5.8.2
 	 */
 	public function is_bd_post_page() {
-		global $pagenow;
-
-		if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' && $pagenow !== 'edit.php' ) {
-			return false;
-		}
-
-		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
-
-		if ( empty( $post_type ) ) {
-			$post_id = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
-			$post    = get_post( $post_id );
-			$post_type = $post ? $post->post_type : '';
-		}
-
-		return $post_type === WPBDP_POST_TYPE;
+		return WPBDP_App_Helper::is_bd_post_page();
 	}
 
 	/**
@@ -510,7 +485,8 @@ final class WPBDP {
                                                         'min-width' => wpbdp_get_option( 'image-min-width' ),
                                                         'min-height' => wpbdp_get_option( 'image-min-height' )
                                                      ),
-                                                 $image_error ); // TODO: handle errors.
+                                                 $image_error
+			); // TODO: handle errors.
 
 			if ( $image_error ) {
 				$errors[ $file['name'] ] = $image_error;
@@ -521,9 +497,14 @@ final class WPBDP {
 
         $html = '';
         foreach ( $attachments as $attachment_id ) {
-            $html .= wpbdp_render( 'submit-listing-images-single',
-                                   array( 'image_id' => $attachment_id, 'listing_id' => $listing_id ),
-                                   false );
+			$html .= wpbdp_render(
+				'submit-listing-images-single',
+				array(
+					'image_id' => $attachment_id,
+					'listing_id' => $listing_id,
+				),
+				false
+			);
         }
 
 		$has_images = $listing->get_images( 'ids' );

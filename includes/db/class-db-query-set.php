@@ -118,8 +118,9 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 
         $q = $this->query;
 
-        if ( ! empty( $q['limits'] ) )
-            throw new Exception( 'Query already has a limit. ');
+		if ( ! empty( $q['limits'] ) ) {
+			throw new Exception( 'Query already has a limit.' );
+		}
 
         $q['limits'] = 'LIMIT ' . $limit;
         return new self( $this->model, $q );

@@ -55,7 +55,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
         'echo'    => false,
     );
 
-    $args = wp_parse_args( $args_or_title, $defaults);
+	$args = wp_parse_args( $args_or_title, $defaults );
 
     extract( $args );
 
@@ -71,7 +71,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 			<?php WPBDP_App_Helper::show_logo( 55 ); ?>
             <?php echo esc_html( $title ); ?>
 
-            <?php foreach ( $buttons as $label => $url ): ?>
+			<?php foreach ( $buttons as $label => $url ) : ?>
                 <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2">
 					<?php echo esc_html( $label ); ?>
 				</a>
