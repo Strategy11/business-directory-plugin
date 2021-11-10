@@ -142,31 +142,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				$plan    = $this->get_plan_for_listing();
 				$updated = $this->maybe_update_listing_plan( $plan );
 				if ( $updated ) {
-					$payment = $this->listing->generate_or_retrieve_payment();
-					if ( $payment ) {
-						$payment->payment_items[] = array(
-							'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
-							'amount' => $plan->fee_price,
-							'fee_id' => $plan->fee_id,
-							'fee_days' => $plan->fee_days,
-							'fee_images' => $plan->fee_images,
-						);
-						$payment->save();
-					}
+					// New listing plan changed. We need to delete other payment records.
+					$this->listing->delete_payment_history();
 				}
-                if ( $plan->amount > 0.0 ) {
-                    $possible_payment = WPBDP_Payment::objects()->filter(
-                        array(
-                            'listing_id'   => $this->listing->get_id(),
-                            'payment_type' => 'initial',
-                            'status'       => 'pending',
-                        )
-                    )->get();
+				$possible_payment = WPBDP_Payment::objects()->filter(
+					array(
+						'listing_id'   => $this->listing->get_id(),
+						'payment_type' => 'initial',
+						'status'       => 'pending',
+					)
+				)->get();
 
-                    if ( $possible_payment ) {
-                        return $this->_redirect( $possible_payment->get_checkout_url() );
-                    }
-                }
+				if ( $possible_payment ) {
+					return $this->_redirect( $possible_payment->get_checkout_url() );
+				}
 			}
 
 			if ( $this->can_view_receipt() ) {
