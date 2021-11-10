@@ -133,12 +133,6 @@ class WPBDP__Payment_Gateways {
             }
         }
 
-        if ( ! $at_least_one_gateway ) {
-            $msg = _x( 'You have payments turned on but no gateway is active and properly configured. Go to <link>Manage Options - Payment</link> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'payment-gateways', 'business-directory-plugin' );
-			$msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">', '</a>' ), $msg );
-            wpbdp_admin_message( $msg, 'error' );
-        }
-
         $this->no_fee_warning();
     }
 
