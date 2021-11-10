@@ -89,6 +89,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			$instance['default_image']     = ! empty( $new['default_image'] ) ? 1 : 0;
 			$instance['thumbnail_desktop'] = sanitize_text_field( $new['thumbnail_desktop'] );
 			$instance['thumbnail_mobile']  = sanitize_text_field( $new['thumbnail_mobile'] );
+			$instance['thumbnail_width']   = max( intval( $new['thumbnail_width'] ), 0 );
+			$instance['thumbnail_height']  = max( intval( $new['thumbnail_height'] ), 0 );
 		}
 
 		return $instance;
@@ -211,12 +213,15 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		);
 
 		$show_images       = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
+		$img_size          = $this->get_image_size( $instance );
 		$default_image     = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
 		$coming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
 		$fields            = is_array( $instance['fields'] ) ? $instance['fields'] : array();
 		foreach ( $items as $post ) {
-			$html[] = $this->render_item( $post, compact( 'show_images', 'default_image', 'coming_soon_image', 'html_class', 'fields' ) );
+			$html[] = $this->render_item( $post, compact( 'show_images', 'img_size', 'default_image', 'coming_soon_image', 'html_class', 'fields' ) );
 		}
+
+		$this->add_css( $img_size, $html );
 
 		return join( "\n", $html );
 	}
@@ -239,6 +244,23 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		}
 
 		return $css_class;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return string|array
+	 */
+	private function get_image_size( $instance ) {
+		$width  = isset( $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : 0;
+		$height = isset( $instance['thumbnail_height'] ) ? $instance['thumbnail_height'] : 0;
+
+		$img_size = 'wpbdp-thumb';
+		if ( $width > 0 || $height > 0 ) {
+			$img_size = array( $width, $height );
+		}
+
+		return $img_size;
 	}
 
 	/**
@@ -283,14 +305,23 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	private function render_image( $listing, $args ) {
 		$image_link    = '';
 		if ( $args['show_images'] ) {
-			$img_size  = 'medium';
+			$img_size = $args['img_size'];
+			if ( is_array( $img_size ) ) {
+				$img_size = 'medium';
+			}
+
 			$img_id    = $listing->get_thumbnail_id();
 			$permalink = $listing->get_permalink();
+
 			if ( $img_id ) {
-				$image_link = '<a href="' . esc_url( $permalink ) . '">' . wp_kses_post( wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) ). '</a>';
+				$image_link = '<a href="' . esc_url( $permalink ) . '">' .
+					wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) .
+					'</a>';
 			} elseif ( $args['default_image'] ) {
 				$class      = "attachment-$img_size size-$img_size listing-image";
-				$image_link = '<a href="' . esc_url( $permalink ) . '"><img src="' . wp_kses_post( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" /></a>';
+				$image_link = '<a href="' . esc_url( $permalink ) . '">' .
+					'<img src="' . esc_url( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" alt="' . esc_attr( $listing->get_title() ) . '" loading="lazy" />' .
+					'</a>';
 			} else {
 				// For image spacing.
 				$image_link = '<span></span>';
@@ -342,5 +373,27 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		}
 
 		return $this->escape_content( join( "\n", $field_html ) );
+	}
+
+	/**
+	 * Use the image height/width settings
+	 *
+	 * @since x.x
+	 */
+	private function add_css( $img_size, &$html ) {
+		if ( ! is_array( $img_size ) ) {
+			return;
+		}
+
+		$img_style = '<style>#'. esc_attr( $this->id ) . ' .listing-image{';
+		if ( $img_size[0] ) {
+			$img_style .= 'max-width:' . absint( $img_size[0] ) . 'px;';
+		}
+		if ( $img_size[1] ) {
+			$img_style .= 'max-height:' . absint( $img_size[1] ) . 'px;';
+		}
+		$img_style .= '}</style>';
+
+		$html[] = $img_style;
 	}
 }

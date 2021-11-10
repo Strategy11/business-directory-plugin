@@ -486,9 +486,9 @@ jQuery(function($) {
             var checked = $(this).is(':checked');
 
             if ( checked ) {
-                $(this).parents('.widget').find('.thumbnail-width-config, .thumbnail-height-config').fadeIn('fast');
+                $(this).parents('.widget').find('.thumbnail-width-config').fadeIn('fast');
             } else {
-                $(this).parents('.widget').find('.thumbnail-width-config, .thumbnail-height-config').fadeOut('fast');
+                $(this).parents('.widget').find('.thumbnail-width-config').fadeOut('fast');
             }
         });
 

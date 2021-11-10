@@ -28,6 +28,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php esc_html_e( 'Use "Coming Soon" photo for listings without an image?', 'business-directory-plugin' ); ?>
 			</label>
 		</p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_width' ) ); ?>">
+				<?php esc_html_e( 'Image width (in px):', 'business-directory-plugin' ); ?>
+			</label>
+			<input type="number" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_width' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_width' ) ); ?>" value="<?php echo esc_attr( $this->get_field_value( $instance, 'thumbnail_width' ) ); ?>" class="widefat" placeholder="<?php esc_attr_e( 'Automatic', 'business-directory-plugin' ); ?>" />
+		</p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_height' ) ); ?>">
+				<?php esc_html_e( 'Image height (in px):', 'business-directory-plugin' ); ?>
+			</label>
+			<input type="number" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_height' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_height' ) ); ?>" value="<?php echo esc_attr( $this->get_field_value( $instance, 'thumbnail_height' ) ); ?>" class="widefat" placeholder="<?php esc_attr_e( 'Automatic', 'business-directory-plugin' ); ?>" />
+		</p>
+
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_desktop' ) ); ?>">
 				<?php esc_html_e( 'Thumbnail Position (Desktop):', 'business-directory-plugin' ); ?>
