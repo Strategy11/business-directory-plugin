@@ -734,7 +734,7 @@ class WPBDP_Listing {
 
         if ( is_null( $row['expiration_date'] ) || empty( $row['expiration_date'] ) ) {
             unset( $row['expiration_date'] );
-        } elseif ( strtotime( $row['expiration_date'] ) < current_time( 'timestamp' ) ) {
+		} elseif ( strtotime( $row['expiration_date'] ) < current_time( 'timestamp' ) ) {
 			$row['listing_status'] = 'expired';
 		}
 
