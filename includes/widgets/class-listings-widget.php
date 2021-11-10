@@ -102,7 +102,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 *
 	 * @param string $content The text to filter.
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -198,7 +198,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @param array $instance - the settings instance
 	 * @param string $html_class - the html class to append to the view
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -232,7 +232,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @param string $thumbnail_position - the thumbnail position ( left, right )
 	 * @param string $device - the device being used ( desktop, mobile )
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -247,7 +247,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return string|array
 	 */
@@ -269,7 +269,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @param WP_Post $post The current listing post.
 	 * @param array $args The view arguments.
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -337,7 +337,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @param object $listing The listing object.
 	 * @param array $allowed_fields The field ids to show.
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -378,7 +378,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Use the image height/width settings
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 */
 	private function add_css( $img_size, &$html ) {
 		if ( ! is_array( $img_size ) ) {

@@ -560,7 +560,7 @@ class WPBDP_Listing {
 	/**
 	 * Get the payment url
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return string
 	 */
