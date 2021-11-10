@@ -1141,6 +1141,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @since x.x
 		 */
 		public function ajax_dismiss_notification_fontawesome_dismissed() {
+            if ( ! current_user_can( 'install_plugins' ) ) {
+				return;
+			}
 			wpbdp_set_option( 'enqueue-fontawesome-styles', false );
 		}
 
@@ -1156,7 +1159,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 && ! get_option( 'users_can_register' )
                 && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
                     $this->messages[] = array(
-                        str_replace( array( '[', ']' ), array( '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register".', 'admin', 'business-directory-plugin' ) ),
+                        sprintf( _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'admin', 'business-directory-plugin' ), '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">', '</a>' ),
                         'error dismissible',
                         array( 'dismissible-id' => 'registration_disabled' ),
                     );
@@ -1181,11 +1184,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @since x.x
 		 */
 		private function check_font_awesome_setting() {
-			if ( ! current_user_can( 'administrator' ) ) {
-				return;
-			}
-
-			if ( ! WPBDP_App_Helper::is_bd_page() ) {
+			if ( ! current_user_can( 'install_plugins' ) && ! WPBDP_App_Helper::is_bd_page() ) {
 				return;
 			}
 
@@ -1193,8 +1192,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
+            if ( is_plugin_active( 'font-awesome/index.php' ) && ( class_exists( '\FortAwesome\FontAwesome_Loader' ) ) ) {
+                wpbdp_set_option( 'enqueue-fontawesome-styles', false );
+                return;
+            }
+
 			$this->messages[] = array(
-				str_replace( array( '[', ']' ), array( '<a href="https://wordpress.org/plugins/font-awesome" target="_blank" rel="noopener nofollow">', '</a>' ), _x( 'We changed how FontAwesome is integrated in Business Directory. Go [here] to install the officle "FontAwesome styles" plugin.', 'admin', 'business-directory-plugin' ) ),
+                sprintf( 
+                    _x( 'We changed how %1$s is integrated into Business Directory. Go %2$shere%3$s to install the official "%1$s styles" plugin.', 'admin', 'business-directory-plugin' ),
+                    'FontAwesome',
+                    '<a href="https://wordpress.org/plugins/font-awesome" target="_blank" rel="noopener nofollow">',
+                    '</a>'
+                ),
 				'error dismissible',
 				array( 'dismissible-id' => 'fontawesome_dismissed' ),
 			);

@@ -359,19 +359,9 @@ final class WPBDP__Settings__Bootstrap {
 						sprintf(
 							/* translators: %s: addon name */
 							'<span>' . __( 'Install %1$s for FontAwesome styles?', 'business-directory-plugin' ) . '</span>',
-							'<a href="https://wordpress.org/plugins/font-awesome" target="_blank" rel="noopener nofollow">Font Awesome</a> ',
+							'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . '" target="_blank" rel="noopener nofollow">Font Awesome</a> ',
 						)
 					),
-					'type'  => 'education',
-					'group' => 'general/advanced',
-				)
-			);
-		} else {
-			wpbdp_register_setting(
-				array(
-					'id'    => 'fontawesome-enabled',
-					'name'  => _x( 'FontAwesome styles?', 'settings', 'business-directory-plugin' ),
-					'desc'  => _x( 'FontAwesome styles are enabled', 'settings', 'business-directory-plugin' ),
 					'type'  => 'education',
 					'group' => 'general/advanced',
 				)
