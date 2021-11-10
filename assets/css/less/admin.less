@@ -792,15 +792,17 @@ body.post-type-wpbdp_listing {
 	width: 100% !important;
 }
 
-.widget-inside {
-    .wpbdp-widget-listing-fields {
-        max-height:200px;
-        overflow-y:auto;
-        border: 1px solid @widget-border-color;
-        p {
-            margin: 0 !important;
-        }
-        margin-bottom: 1em;
-        padding: 0 5px;
-    }
+.wpbdp-scrollbox {
+	max-height: 170px;
+	overflow: auto;
+	border: 1px solid @wp-border-color;
+	margin-bottom: 1em;
+	padding: 0 10px;
+}
+
+.wpbdp-plain-list {
+	list-style-type: none !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding: 0 !important;
 }
