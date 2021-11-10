@@ -87,7 +87,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
-
 			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
 
@@ -1184,7 +1183,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @since x.x
 		 */
 		private function check_font_awesome_setting() {
-			if ( ! current_user_can( 'install_plugins' ) && ! WPBDP_App_Helper::is_bd_page() ) {
+			if ( ! current_user_can( 'install_plugins' ) || ! WPBDP_App_Helper::is_bd_page() ) {
 				return;
 			}
 
