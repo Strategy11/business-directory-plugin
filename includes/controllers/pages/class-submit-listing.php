@@ -139,7 +139,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$plan_id = absint( wpbdp_get_var( array( 'param' => 'listing_plan', 'default' => 0 ), 'post' ) );
 			$plan    = wpbdp_get_fee_plan( $plan_id );
             if ( $plan && $plan->enabled ) {
-                $this->listing->update_plan( $plan );
+				$plan    = $this->get_plan_for_listing();
+				$updated = $this->maybe_update_listing_plan( $plan );
+				if ( $updated ) {
+					$payment = $this->listing->generate_or_retrieve_payment();
+					if ( $payment ) {
+						$payment->payment_items[] = array(
+							'type' => $plan->is_recurring ? 'recurring_plan' : 'plan',
+							'amount' => $plan->fee_price,
+							'fee_id' => $plan->fee_id,
+							'fee_days' => $plan->fee_days,
+							'fee_images' => $plan->fee_images,
+						);
+						$payment->save();
+					}
+				}
                 if ( $plan->amount > 0.0 ) {
                     $possible_payment = WPBDP_Payment::objects()->filter(
                         array(
@@ -1396,12 +1410,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $listing_status = get_post_status( $this->listing->get_id() );
         $this->listing->set_post_status( $this->editing ? ( 'publish' !== $listing_status ? $listing_status : wpbdp_get_option( 'edit-post-status' ) ) : wpbdp_get_option( 'new-post-status' ) );
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
-		$plan = $this->get_plan_for_listing();
-		if ( $plan->amount > 0.0 && ! $this->editing && 'completed' != $payment->status ) {
+		if ( ! $this->editing && 'completed' != $payment->status ) {
 			$checkout_url = $payment->get_checkout_url();
 			return $this->_redirect( $checkout_url );
-		} else {
-			$this->listing->set_status( 'complete' );
 		}
 
         delete_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields' );
@@ -1431,7 +1442,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $params = array(
             'listing' => $this->listing,
             'editing' => $this->editing,
-            'payment' => $this->editing ? false : $this->listing->generate_or_retrieve_latest_payment(),
+            'payment' => $this->editing ? false : $this->listing->generate_or_retrieve_payment(),
         );
 
         return wpbdp_render( 'submit-listing-done', $params );
@@ -1474,6 +1485,24 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	private function get_plan_for_listing() {
 		$listing = $this->listing;
 		return $listing->get_fee_plan();
+	}
+
+	/**
+	 * Change plan if not the same as for listing.
+	 *
+	 * @param object $plan The plan.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function maybe_update_listing_plan( $plan ) {
+		$current_plan = $this->get_plan_for_listing();
+		if ( $current_plan && $current_plan->id === $plan->id ) {
+			return false;
+		}
+		$this->listing->update_plan( $plan );
+		return true;
 	}
 
 	/**
