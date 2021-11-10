@@ -203,7 +203,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		 *
 		 * @since x.x
 		 */
-		$this->messages = apply_filters( 'wpbdp_submit_validation_errors', $this->messages, array( $this ) );
+		$this->messages = apply_filters( 'wpbdp_submit_validation_errors', $this->messages, compact( 'this' ) );
 
         // Prepare $messages for template.
         $messages = array();
