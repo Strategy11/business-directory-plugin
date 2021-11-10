@@ -77,7 +77,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
 
             add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
-			add_action( 'wpbdp_admin_ajax_dismiss_notification_fontawesome', array( $this, 'ajax_dismiss_notification_fontawesome' ) );
+			add_action( 'wpbdp_admin_ajax_dismiss_notification_fa_dismiss', array( $this, 'ajax_dismiss_notification_fa_dismiss' ) );
 
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
@@ -1139,7 +1139,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 *
 		 * @since x.x
 		 */
-		public function ajax_dismiss_notification_fontawesome() {
+		public function ajax_dismiss_notification_fa_dismiss() {
             if ( ! current_user_can( 'install_plugins' ) ) {
 				return;
 			}
@@ -1204,7 +1204,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     '</a>'
                 ),
 				'error dismissible',
-				array( 'dismissible-id' => 'fontawesome' ),
+				array( 'dismissible-id' => 'fa_dismiss' ),
 			);
 		}
 
