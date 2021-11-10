@@ -193,7 +193,7 @@ class WPBDP_Listing_Display_Helper {
 		}
 	}
 
-    private static function fields_vars( $listing_id, $display ) {
+    public static function fields_vars( $listing_id, $display ) {
         $all_fields     = wpbdp_get_form_fields();
         $display_fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id, $display ) );
         $fields         = array();
@@ -331,7 +331,7 @@ class WPBDP_Listing_Display_Helper {
 	 * @since 5.12
 	 * @return string
 	 */
-	private static function get_coming_soon_image() {
+	public static function get_coming_soon_image() {
 		return self::get_image_option( 'listings-coming-soon-image' );
 	}
 

@@ -4,150 +4,396 @@
  */
 class WPBDP_Listings_Widget extends WP_Widget {
 
-    protected $supports = array( 'images' );
-    protected $defaults = array();
+	protected $supports = array( 'images' );
+	protected $defaults = array();
 
 
-    public function __construct( $name, $description = '' ) {
-        parent::__construct( false, $name, array( 'description' => $description ) );
+	public function __construct( $name, $description = '' ) {
+		parent::__construct( false, $name, array( 'description' => $description ) );
+		$this->defaults['title'] = str_replace( array( 'WPBDP', '_' ), array( '', ' ' ), get_class( $this ) );
+	}
 
-        $this->defaults['title'] = str_replace( array( 'WPBDP', '_' ), array( '', ' '), get_class( $this ) );
-        $this->defaults['number_of_listings'] = 10;
-    }
+	/**
+	 * Default Form Settings.
+	 *
+	 * @since  x.x
+	 *
+	 * @return array
+	 */
+	protected function defaults() {
+		return array(
+			'number_of_listings' => 5,
+			'show_images'        => 0,
+			'default_image'      => 0,
+			'thumbnail_desktop'  => 'left',
+			'thumbnail_mobile'   => 'above',
+			'fields'             => array(),
+		);
+	}
 
-    protected function set_default_option_value( $k, $v = '' ) {
-        $this->defaults[ $k ] = $v;
-    }
+	/**
+	 * Instance defaults
+	 *
+	 * @return array
+	 */
+	protected function instance_defaults( $instance ) {
+		return array_merge( $this->defaults(), $instance );
+	}
 
-    protected function get_field_value( $instance, $k ) {
-        if ( isset( $instance[ $k ] ) )
-            return $instance[ $k ];
+	protected function set_default_option_value( $k, $v = '' ) {
+		$this->defaults[ $k ] = $v;
+	}
 
-        if ( isset( $this->defaults[ $k ] ) )
-            return $this->defaults[ $k ];
+	protected function get_field_value( $instance, $k ) {
+		$instance = $this->instance_defaults( $instance );
+		if ( isset( $instance[ $k ] ) ) {
+			return $instance[ $k ];
+		}
 
-        return false;
-    }
+		if ( isset( $this->defaults[ $k ] ) ) {
+			return $this->defaults[ $k ];
+		}
 
-    public function print_listings( $instance ) {
-        return '';
-    }
+		return false;
+	}
 
-    public function get_listings( $instance ) {
-        return array();
-    }
+	public function print_listings( $instance ) {
+		return '';
+	}
 
-    protected function _form( $instance ) { }
+	public function get_listings( $instance ) {
+		return array();
+	}
 
-    public function form( $instance ) {
-        printf( '<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
-                $this->get_field_id( 'title' ),
-                _x( 'Title:', 'widgets', 'business-directory-plugin' ),
-                $this->get_field_id( 'title' ),
-                $this->get_field_name( 'title' ),
-                esc_attr( $this->get_field_value( $instance, 'title' ) ) );
-        printf( '<p><label for="%s">%s</label> <input id="%s" name="%s" type="text" value="%s" size="5" /></p>',
-                $this->get_field_id( 'number_of_listings' ),
-                _x( 'Number of listings to display:', 'widgets', 'business-directory-plugin' ),
-                $this->get_field_id( 'number_of_listings' ),
-                $this->get_field_name( 'number_of_listings' ),
-                intval( $this->get_field_value( $instance, 'number_of_listings' ) ) );
+	protected function _form( $instance ) { }
 
-        $this->_form( $instance );
+	/**
+	 * Render the settings form
+	 */
+	public function form( $instance ) {
+		$instance = $this->instance_defaults( $instance );
+		require WPBDP_INC . 'views/widget/widget-settings.php';
+	}
 
-        if ( in_array( 'images', $this->supports ) ) {
-            echo '<h4>';
-            _ex( 'Thumbnails', 'widgets', 'business-directory-plugin' );
-            echo '</h4>';
+	/**
+	 * Handle settings update
+	 */
+	public function update( $new, $old ) {
+		$instance                       = $old;
+		$instance['title']              = strip_tags( $new['title'] );
+		$instance['number_of_listings'] = max( intval( $new['number_of_listings'] ), 1 );
+		$instance['show_images']        = ! empty( $new['show_images'] ) ? 1 : 0;
+		$instance['fields']             = ! empty( $new['fields'] ) ? array_map( 'sanitize_text_field', wp_unslash( $new['fields'] ) ) : array();
 
-            printf( '<p><input id="%s" class="wpbdp-toggle-images" name="%s" type="checkbox" value="1" %s /> <label for="%s">%s</label></p>',
-                    $this->get_field_id( 'show_images' ),
-                    $this->get_field_name( 'show_images' ),
-                    $this->get_field_value( $instance, 'show_images' ) ? 'checked="checked"' : '',
-                    $this->get_field_id( 'show_images' ),
-                    _x( 'Show thumbnails', 'widgets', 'business-directory-plugin' ) );
+		if ( $instance['show_images'] ) {
+			$instance['default_image']     = ! empty( $new['default_image'] ) ? 1 : 0;
+			$instance['thumbnail_desktop'] = sanitize_text_field( $new['thumbnail_desktop'] );
+			$instance['thumbnail_mobile']  = sanitize_text_field( $new['thumbnail_mobile'] );
+			$instance['thumbnail_width']   = max( intval( $new['thumbnail_width'] ), 0 );
+			$instance['thumbnail_height']  = max( intval( $new['thumbnail_height'] ), 0 );
+		}
 
-            echo '<p class="thumbnail-width-config" style="' . ( $this->get_field_value( $instance, 'show_images' ) ? '' : 'display: none;' ) . '">';
-            echo '<label for="' . $this->get_field_id( 'thumbnail_width' ) . '">';
-            _ex( 'Image width (in px):', 'widgets', 'business-directory-plugin' );
-            echo '</label> ';
-            printf( '<input type="text" name="%s" id="%s" value="%s" size="5" />',
-                    $this->get_field_name( 'thumbnail_width' ),
-                    $this->get_field_id( 'thumbnail_width' ),
-                    $this->get_field_value( $instance, 'thumbnail_width' ) );
-            echo '<br /><span class="help">' . _x( 'Leave blank for automatic width.', 'widgets', 'business-directory-plugin' ) . '</span>';
-            echo '</p>';
+		return $instance;
+	}
 
-            echo '<p class="thumbnail-height-config" style="' . ( $this->get_field_value( $instance, 'show_images' ) ? '' : 'display: none;' ) . '">';
-            echo '<label for="' . $this->get_field_id( 'thumbnail_height' ) . '">';
-            _ex( 'Image height (in px):', 'widgets', 'business-directory-plugin' );
-            echo '</label> ';
-            printf( '<input type="text" name="%s" id="%s" value="%s" size="5" />',
-                    $this->get_field_name( 'thumbnail_height' ),
-                    $this->get_field_id( 'thumbnail_height' ),
-                    $this->get_field_value( $instance, 'thumbnail_height' ) );
-            echo '<br /><span class="help">' . _x( 'Leave blank for automatic height.', 'widgets', 'business-directory-plugin' ) . '</span>';
-            echo '</p>';
-        }
-    }
+	/**
+	 * Escape content and allow svg in the content.
+	 * This is mainly becuase some of the fields, like the ratings, use svg.
+	 *
+	 * @param string $content The text to filter.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	protected function escape_content( $content ) {
+		$kses_defaults = wp_kses_allowed_html( 'post' );
 
-    public function update( $new, $old ) {
-        $new['title'] = strip_tags( $new['title'] );
-        $new['number_of_listings'] = max( intval( $new['number_of_listings'] ), 1 );
-        $new['show_images'] = intval( $new['show_images'] ) == 1 ? 1 : 0;
+		$svg_args = array(
+			'svg'   => array(
+				'class' => true,
+				'aria-hidden' => true,
+				'aria-labelledby' => true,
+				'role' => true,
+				'xmlns' => true,
+				'width' => true,
+				'height' => true,
+				'viewbox' => true, // <= Must be lower case!
+			),
+			'g'     => array( 'fill' => true ),
+			'title' => array( 'title' => true ),
+			'path'  => array( 'd' => true, 'fill' => true,  ),
+		);
 
-        if ( $new['show_images'] ) {
-            $new['thumbnail_width'] = max( intval( $new['thumbnail_width'] ), 0 );
-            $new['thumbnail_height'] = max( intval( $new['thumbnail_height'] ), 0 );
-        }
+		$allowed_tags = array_merge( $kses_defaults, $svg_args );
 
-        return $new;
-    }
+		return wp_kses( $content, $allowed_tags );
+	}
 
-    public function widget( $args, $instance ) {
+	/**
+	 * Render the widget
+	 */
+	public function widget( $args, $instance ) {
 		extract( $args );
-        $title = apply_filters( 'widget_title', $instance['title'] );
 
-        echo $before_widget;
-        if ( ! empty( $title ) )
-            echo $before_title . $title . $after_title;
+		$title    = apply_filters( 'widget_title', $this->get_field_value( $instance, 'title' ) );
+		$instance = $this->instance_defaults( $instance );
 
-        $out = $this->print_listings( $instance );
+		echo $before_widget;
 
-        if ( ! $out ) {
-            if ( $listings = $this->get_listings( $instance ) ) {
-                $show_images = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
-                $thumb_w = isset( $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : 0;
-                $thumb_h = isset( $instance['thumbnail_height'] ) ? $instance['thumbnail_height'] : 0;
+		if ( ! empty( $title ) ) {
+			echo $before_title . $title . $after_title;
+		}
 
-                $img_size = 'wpbdp-thumb';
-                if ( $show_images && ( $thumb_w > 0 || $thumb_h > 0 ) ) {
-                    $img_size = array( $thumb_w, $thumb_h );
-                }
+		$out = $this->print_listings( $instance );
 
-                $out .= '<ul class="wpbdp-listings-widget-list">';
+		if ( ! $out ) {
+			$listings = $this->get_listings( $instance );
+			$out     .= '<ul class="wpbdp-listings-widget-list">';
+			$out     .= $this->render( $listings, $instance );
+			$out     .= '</ul>';
+		}
 
-                foreach ( $listings as &$post ) {
-                    $listing = WPBDP_Listing::get( $post->ID );
+		echo $out;
+		echo $after_widget;
+	}
 
-                    $out .= '<li>';
-                    $out .= sprintf( '<a class="listing-title" href="%s">%s</a>', get_permalink( $post->ID ), get_the_title( $post->ID ) );
 
-                    if ( $show_images ) {
-                        if ( $img_id = $listing->get_thumbnail_id() ) {
-                            $out .= '<a href="' . get_permalink( $post->ID ) . '">' . wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) . '</a>';
-                        }
-                    }
+	/**
+	 * [render description]
+	 *
+	 * @param  [type] $items      [description]
+	 * @param  [type] $instance   [description]
+	 * @param  string $html_class CSS class for each LI element.
+	 *
+	 * @since  x.x
+	 *
+	 * @return string             HTML
+	 */
+	protected function render( $items, $instance, $html_class = '' ) {
+		if ( empty( $items ) ) {
+			return $this->render_empty_widget( $html_class );
+		}
 
-                    $out .= '</li>';
-                }
+		return $this->render_widget( $items, $instance, $html_class );
+	}
 
-                $out .= '</ul>';
-            }
-        }
+	/**
+	 * Render empty message
+	 *
+	 * @param string $html_class - the html class to append to the view
+	 *
+	 * @since  x.x
+	 *
+	 * @return string
+	 */
+	private function render_empty_widget( $html_class ) {
+		return sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', esc_attr( $html_class ), esc_html__( 'There are currently no listings to show.', 'business-directory-plugin' ) );
+	}
 
-        echo $out;
-        echo $after_widget;
-    }
+	/**
+	 * Render the widget
+	 *
+	 * @param array $items - the widget items
+	 * @param array $instance - the settings instance
+	 * @param string $html_class - the html class to append to the view
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function render_widget( $items, $instance, $html_class ) {
+		$html_class = implode(
+			' ',
+			array(
+				$this->get_item_thumbnail_position_css_class( $instance['thumbnail_desktop'], 'desktop' ),
+				$this->get_item_thumbnail_position_css_class( $instance['thumbnail_mobile'], 'mobile' ),
+				$html_class,
+			)
+		);
 
+		$show_images       = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
+		$img_size          = $this->get_image_size( $instance );
+		$default_image     = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
+		$coming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
+		$fields            = is_array( $instance['fields'] ) ? $instance['fields'] : array();
+		foreach ( $items as $post ) {
+			$html[] = $this->render_item( $post, compact( 'show_images', 'img_size', 'default_image', 'coming_soon_image', 'html_class', 'fields' ) );
+		}
+
+		$this->add_css( $img_size, $html );
+
+		return join( "\n", $html );
+	}
+
+	/**
+	 * Generate the thumbnail position classes.
+	 *
+	 * @param string $thumbnail_position - the thumbnail position ( left, right )
+	 * @param string $device - the device being used ( desktop, mobile )
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function get_item_thumbnail_position_css_class( $thumbnail_position, $device ) {
+		if ( $thumbnail_position == 'left' || $thumbnail_position == 'right' ) {
+			$css_class = sprintf( 'wpbdp-listings-widget-item-with-%s-thumbnail-in-%s', $thumbnail_position, $device );
+		} else {
+			$css_class = sprintf( 'wpbdp-listings-widget-item-with-thumbnail-above-in-%s', $device );
+		}
+
+		return $css_class;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return string|array
+	 */
+	private function get_image_size( $instance ) {
+		$width  = isset( $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : 0;
+		$height = isset( $instance['thumbnail_height'] ) ? $instance['thumbnail_height'] : 0;
+
+		$img_size = 'wpbdp-thumb';
+		if ( $width > 0 || $height > 0 ) {
+			$img_size = array( $width, $height );
+		}
+
+		return $img_size;
+	}
+
+	/**
+	 * Render item for widget.
+	 *
+	 * @param WP_Post $post The current listing post.
+	 * @param array $args The view arguments.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function render_item( $post, $args ) {
+		$listing       = wpbdp_get_listing( $post->ID );
+		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
+		$html_image    = $this->render_image( $listing, $args );
+		$fields        = sprintf( '<div class="wpbdp-listing-fields">%s</div>', $this->render_fields( $listing, $args['fields'] ) );
+
+		$template      = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
+		if ( ! empty( $html_image ) ) {
+			$template .= '<div class="wpbdp-listings-widget-thumb">%2$s</div>';
+		} else {
+			$args['html_class'] .= ' wpbdp-listings-widget-item-without-thumbnail';
+		}
+		$template      .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s %4$s</div></li>';
+		$args['image'] = $html_image;
+		$output        = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title, $fields );
+		return apply_filters( 'wpbdp_listing_widget_item', $this->escape_content( $output ), $args );
+	}
+
+	/**
+	 * Render the listing image.
+	 * Depending on the settings, this will return the listing image or the default image or none.
+	 *
+	 * @param object $listing The listing object.
+	 * @param array $args The view arguments.
+	 *
+	 * @since  x.x
+	 *
+	 * @return string
+	 */
+	private function render_image( $listing, $args ) {
+		$image_link    = '';
+		if ( $args['show_images'] ) {
+			$img_size = $args['img_size'];
+			if ( is_array( $img_size ) ) {
+				$img_size = 'medium';
+			}
+
+			$img_id    = $listing->get_thumbnail_id();
+			$permalink = $listing->get_permalink();
+
+			if ( $img_id ) {
+				$image_link = '<a href="' . esc_url( $permalink ) . '">' .
+					wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) .
+					'</a>';
+			} elseif ( $args['default_image'] ) {
+				$class      = "attachment-$img_size size-$img_size listing-image";
+				$image_link = '<a href="' . esc_url( $permalink ) . '">' .
+					'<img src="' . esc_url( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" alt="' . esc_attr( $listing->get_title() ) . '" loading="lazy" />' .
+					'</a>';
+			} else {
+				// For image spacing.
+				$image_link = '<span></span>';
+			}
+		}
+		return apply_filters( 'wpbdp_listings_widget_render_image', wp_kses_post( $image_link ), $listing );
+	}
+
+	/**
+	 * Render fields.
+	 * Render the field items in the widget.
+	 *
+	 * @param object $listing The listing object.
+	 * @param array $allowed_fields The field ids to show.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function render_fields( $listing, $allowed_fields ) {
+		if ( empty( $allowed_fields ) ) {
+			return '';
+		}
+
+		$listing_data = WPBDP_Listing_Display_Helper::fields_vars( $listing->get_id(), 'excerpt' );
+		if ( empty( $listing_data['fields'] ) ) {
+			return '';
+		}
+
+		$fields     = $listing_data['fields'];
+		$field_html = array();
+		$field_obj  = null;
+		$field_id   = '';
+		foreach ( $fields->not( 'social' ) as $field ) {
+			$field_obj = $field->field;
+			$field_id  = $field_obj->get_field_type()->get_id();
+			if ( $field_id === 'title' ) {
+				continue;
+			}
+
+			if ( ! in_array( $field_obj->get_id(), $allowed_fields ) ) {
+				continue;
+			}
+
+			$html = $field_obj->html_value( $listing->get_id(), 'widget' );
+			if ( ! empty( $html ) ) {
+				$field_html[] = sprintf( '<div class="wpbdp-listings-widget-item--field-%1$s">%2$s</div>', $field_id, $html );
+			}
+		}
+
+		return $this->escape_content( join( "\n", $field_html ) );
+	}
+
+	/**
+	 * Use the image height/width settings
+	 *
+	 * @since x.x
+	 */
+	private function add_css( $img_size, &$html ) {
+		if ( ! is_array( $img_size ) ) {
+			return;
+		}
+
+		$img_style = '<style>#'. esc_attr( $this->id ) . ' .listing-image{';
+		if ( $img_size[0] ) {
+			$img_style .= 'max-width:' . absint( $img_size[0] ) . 'px;';
+		}
+		if ( $img_size[1] ) {
+			$img_style .= 'max-height:' . absint( $img_size[1] ) . 'px;';
+		}
+		$img_style .= '}</style>';
+
+		$html[] = $img_style;
+	}
 }
