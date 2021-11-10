@@ -136,17 +136,24 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
         if ( ! $this->editing && 'auto-draft' !== get_post_status( $this->listing->get_id() ) ) {
-            $possible_payment = WPBDP_Payment::objects()->filter(
-                array(
-					'listing_id'   => $this->listing->get_id(),
-					'payment_type' => 'initial',
-					'status'       => 'pending',
-                )
-            )->get();
+			$plan_id = absint( wpbdp_get_var( array( 'param' => 'listing_plan', 'default' => 0 ), 'post' ) );
+			$plan    = wpbdp_get_fee_plan( $plan_id );
+            if ( $plan && $plan->enabled ) {
+                $this->listing->update_plan( $plan );
+                if ( $plan->amount > 0.0 ) {
+                    $possible_payment = WPBDP_Payment::objects()->filter(
+                        array(
+                            'listing_id'   => $this->listing->get_id(),
+                            'payment_type' => 'initial',
+                            'status'       => 'pending',
+                        )
+                    )->get();
 
-            if ( $possible_payment ) {
-                return $this->_redirect( $possible_payment->get_checkout_url() );
-            }
+                    if ( $possible_payment ) {
+                        return $this->_redirect( $possible_payment->get_checkout_url() );
+                    }
+                }
+			}
 
 			if ( $this->can_view_receipt() ) {
 				// Show the receipt.
@@ -1389,11 +1396,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $listing_status = get_post_status( $this->listing->get_id() );
         $this->listing->set_post_status( $this->editing ? ( 'publish' !== $listing_status ? $listing_status : wpbdp_get_option( 'edit-post-status' ) ) : wpbdp_get_option( 'new-post-status' ) );
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
-
-        if ( ! $this->editing && 'completed' != $payment->status ) {
-            $checkout_url = $payment->get_checkout_url();
-            return $this->_redirect( $checkout_url );
-        }
+		$plan = $this->get_plan_for_listing();
+		if ( $plan->amount > 0.0 && ! $this->editing && 'completed' != $payment->status ) {
+			$checkout_url = $payment->get_checkout_url();
+			return $this->_redirect( $checkout_url );
+		} else {
+			$this->listing->set_status( 'complete' );
+		}
 
         delete_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields' );
 
@@ -1422,7 +1431,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $params = array(
             'listing' => $this->listing,
             'editing' => $this->editing,
-            'payment' => $this->editing ? false : $this->listing->generate_or_retrieve_payment(),
+            'payment' => $this->editing ? false : $this->listing->generate_or_retrieve_latest_payment(),
         );
 
         return wpbdp_render( 'submit-listing-done', $params );

@@ -670,6 +670,20 @@ class WPBDP_Listing {
         return $res;
     }
 
+	/**
+	 * Get the fee plan id.
+	 *
+	 * @since x.x
+	 *
+	 * @return int|bool The plan id or false.
+	 */
+	public function get_fee_plan_id() {
+		global $wpdb;
+
+		$sql = $wpdb->prepare( "SELECT fee_id FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d LIMIT 1", $this->id );
+		return $wpdb->get_var( $sql );
+	}
+
     /**
      * @since 5.0
      */
@@ -815,6 +829,28 @@ class WPBDP_Listing {
 
         return $this->create_payment_from_plan( 'initial', $plan );
     }
+
+	/**
+	 * Generate or retrieve the latest payment.
+	 * This is used when a plan is changed from a paid one to free.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool|WPBDP_Payment
+	 */
+	public function generate_or_retrieve_latest_payment() {
+		$plan = $this->get_fee_plan();
+
+		if ( ! $plan )
+			return false;
+
+		$existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id ) )->order_by( '-id' )->get();
+
+		if ( $existing_payment )
+			return $existing_payment;
+
+		return $this->generate_or_retrieve_payment();
+	}
 
     /**
      * @since 5.1.9
