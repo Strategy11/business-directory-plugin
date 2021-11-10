@@ -360,7 +360,7 @@ final class WPBDP__Settings__Bootstrap {
 							/* translators: %s: addon name */
 							'<span>' . __( 'Install %1$s for FontAwesome styles?', 'business-directory-plugin' ) . '</span>',
 							'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . '" target="_blank" rel="noopener nofollow">Font Awesome</a> ',
-						)
+                        ),
 					),
 					'type'  => 'education',
 					'group' => 'general/advanced',
