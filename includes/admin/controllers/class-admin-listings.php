@@ -600,17 +600,24 @@ class WPBDP_Admin_Listings {
 
         // Update plan attributes.
         $row                    = array();
-        $row['expiration_date'] = '' == $new_plan['expiration_date'] ? null : $new_plan['expiration_date'];
+		$row['expiration_date'] = '' == $new_plan['expiration_date'] ? false : $new_plan['expiration_date'];
         $row['fee_images']      = absint( $new_plan['fee_images'] );
 
         $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
 
-        // Check if the status needs to be changed.
-        if ( 'expired' == $listing->get_status() ) {
-            if ( null === $row['expiration_date'] || strtotime( $new_plan['expiration_date'] ) > current_time( 'timestamp' ) ) {
-                $listing->get_status( true, true );
-            }
-        }
+		$not_expired = false;
+		if ( $row['expiration_date'] ) {
+			$not_expired = strtotime( $row['expiration_date'] ) > current_time( 'timestamp' );
+		}
+
+		// Check if the status needs to be changed.
+		if ( 'expired' == $listing->get_status() ) {
+			if ( ! $row['expiration_date'] || $not_expired ) {
+				$listing->get_status( true, true );
+			}
+		} elseif ( ! $not_expired ) {
+			$listing->set_status( 'expired' );
+		}
     }
 
     public function _add_bulk_actions() {
