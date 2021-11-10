@@ -392,7 +392,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	 * Check if the payment is recurring or the amount is greater than 0.
 	 * This is used to show the payment options when price can be 0 or if is recurring.
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return bool
 	 */
