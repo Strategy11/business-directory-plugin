@@ -129,7 +129,7 @@ function wpbdp_admin_bootstrap_header( $args_or_title = null, $id = null ) {
     }
 ?>
 <div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
-	<div class="row wpbdp-admin-row">
+	<div class="row wpbdp-admin-row h-100">
     <?php
     if ( empty( $args['echo'] ) ) {
         return ob_get_clean();

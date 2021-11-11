@@ -132,7 +132,8 @@ class WPBDP__Settings {
                 'desc'   => ! empty( $args['desc'] ) ? $args['desc'] : '',
                 'type'   => $group_type,
                 'parent' => $parent,
-                'count'  => 0
+                'count'  => 0,
+				'icon'   => 'archive'
             )
         );
     }

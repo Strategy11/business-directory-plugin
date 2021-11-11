@@ -8,7 +8,7 @@ wpbdp_admin_bootstrap_header(
     )
 );
 ?>
-<div class="col-md-3 col-lg-2 d-md-block bg-light collapse wpbdp-no-padding">
+<div class="col-md-3 col-lg-2 d-md-block bg-light collapse wpbdp-no-padding wpbdp-menu-area">
 	<?php
 		wpbdp_admin_title(
 			array(
