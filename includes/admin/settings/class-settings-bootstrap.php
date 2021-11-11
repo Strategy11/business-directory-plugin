@@ -351,17 +351,17 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_setting(
-            array(
-                'id'      => 'enqueue-fontawesome-styles',
-                'type'    => 'hidden',
+		wpbdp_register_setting(
+			array(
+				'id'      => 'enqueue-fontawesome-styles',
+				'type'    => 'hidden',
 				'class'   => 'hidden',
-                'name'    => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'business-directory-plugin' ),
-                'default' => false,
-                'group'   => 'general/advanced',
-            )
-        );
+				'name'    => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'business-directory-plugin' ),
+				'desc'    => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'business-directory-plugin' ),
+				'default' => false,
+				'group'   => 'general/advanced',
+			)
+		);
     }
 
 	/**

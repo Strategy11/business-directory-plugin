@@ -1157,11 +1157,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             if ( wpbdp_get_option( 'require-login' )
                 && ! get_option( 'users_can_register' )
                 && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
-                    $this->messages[] = array(
-                        sprintf( _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'admin', 'business-directory-plugin' ), '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">', '</a>' ),
-                        'error dismissible',
-                        array( 'dismissible-id' => 'registration_disabled' ),
-                    );
+					$this->messages[] = array(
+						sprintf( _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'admin', 'business-directory-plugin' ), '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">', '</a>' ),
+						'error dismissible',
+						array( 'dismissible-id' => 'registration_disabled' ),
+					);
             }
         }
 
