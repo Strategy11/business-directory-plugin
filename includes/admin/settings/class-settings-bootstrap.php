@@ -350,22 +350,6 @@ final class WPBDP__Settings__Bootstrap {
                 'group' => 'general/advanced',
             )
         );
-		if ( ! is_plugin_active( 'font-awesome/index.php' ) || ( ! class_exists( '\FortAwesome\FontAwesome_Loader' ) ) ) {
-			wpbdp_register_setting(
-				array(
-					'id'    => 'fontawesome-enabled',
-					'name'  => _x( 'FontAwesome styles?', 'settings', 'business-directory-plugin' ),
-					'desc'  => wp_kses_post(
-						sprintf(
-							'<span>' . __( 'Install %s for FontAwesome styles?', 'business-directory-plugin' ) . '</span>',
-							'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . '" target="_blank" rel="noopener nofollow">Font Awesome</a> '
-                        )
-					),
-					'type'  => 'education',
-					'group' => 'general/advanced',
-				)
-			);
-		}
 
         wpbdp_register_setting(
             array(
@@ -932,6 +916,23 @@ final class WPBDP__Settings__Bootstrap {
 		);
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'table', 'themes' );
+
+        if ( ! is_plugin_active( 'font-awesome/index.php' ) || ( ! class_exists( '\FortAwesome\FontAwesome_Loader' ) ) ) {
+			wpbdp_register_setting(
+				array(
+					'id'    => 'fontawesome-enabled',
+					'name'  => _x( 'FontAwesome styles?', 'settings', 'business-directory-plugin' ),
+					'desc'  => wp_kses_post(
+						sprintf(
+							'<span>' . __( 'Install %s for FontAwesome styles?', 'business-directory-plugin' ) . '</span>',
+							'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . '" target="_blank" rel="noopener nofollow">Font Awesome</a> '
+						)
+					),
+					'type'  => 'education',
+					'group' => 'themes',
+				)
+			);
+		}
 
         // Image.
         wpbdp_register_settings_group( 'appearance/image', __( 'Images', 'business-directory-plugin' ), 'appearance' );
