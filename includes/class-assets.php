@@ -261,12 +261,16 @@ class WPBDP__Assets {
      * @param bool $force Force reloading the resources.
      */
 	public function enqueue_admin_scripts( $force = false ) {
+		$screen = get_current_screen();
 		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
-
 		// Add admin body class for parent page class to avoid css conflicts.
 		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
+
+		if ( $screen && strpos( $screen->id, 'wpbdp' ) !== false ) {
+			$this->enqueue_admin_setting_resources();
+		}
 
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
@@ -280,8 +284,6 @@ class WPBDP__Assets {
 		$this->global_localize( 'wpbdp-admin-js' );
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
-
-        wp_enqueue_style( 'wpbdp-js-select2-css' );
 
 		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 			return;
@@ -341,6 +343,32 @@ class WPBDP__Assets {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Load admin resources that should not conflict with other pages.
+	 * These should only be loaded on the plugin pages.
+	 *
+	 * @since x.x
+	 */
+	private function enqueue_admin_setting_resources() {
+		// Bootstrap.
+		wp_enqueue_style(
+			'wpbdp-bootstrap-css',
+			WPBDP_ASSETS_URL . 'vendor/bootstrap/css/bootstrap.min.css',
+			array(),
+			'5.0.2'
+		);
+
+		wp_enqueue_script(
+			'wpbdp-bootstrap-js',
+			WPBDP_ASSETS_URL . 'vendor/bootstrap/js/bootstrap.bundle.min.js',
+			array( 'jquery' ),
+			WPBDP_VERSION,
+			'5.0.2'
+		);
+
+		wp_enqueue_style( 'wpbdp-js-select2-css' );
 	}
 
 	/**
