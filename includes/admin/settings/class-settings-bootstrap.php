@@ -5,22 +5,43 @@
 final class WPBDP__Settings__Bootstrap {
 
     public static function register_initial_groups() {
-        wpbdp_register_settings_group( 'general', _x( 'General', 'settings', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'general', _x( 'General', 'settings', 'business-directory-plugin' ), '', array(
+			'desc' => __( 'License info, SEO, reCAPTCHA, Registration, Advanced', 'business-directory-plugin' ),
+			'icon' => 'dashicons-admin-generic',
+		) );
 
-        wpbdp_register_settings_group( 'listings', _x( 'Listings', 'settings', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'listings', _x( 'Listings', 'settings', 'business-directory-plugin' ), '', array(
+			'desc' => __( 'Listing settings, Searching, Categories, Contact Form, Buttons, Sorting', 'business-directory-plugin' ),
+			'icon' => 'dashicons-editor-ul',
+		) );
         wpbdp_register_settings_group( 'listings/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'listings' );
 
-        wpbdp_register_settings_group( 'email', __( 'Email', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'email', __( 'Email', 'business-directory-plugin' ), '', array(
+			'desc' => __( 'Email settings, templates', 'business-directory-plugin' ),
+			'icon' => 'dashicons-email',
+		) );
         wpbdp_register_settings_group( 'email/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'email' );
 
-        wpbdp_register_settings_group( 'payment', _x( 'Payment', 'settings', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'payment', _x( 'Payment', 'settings', 'business-directory-plugin' ), '', array(
+			'desc' => __( 'Payment settings, PayFast, Authorize.net, templates', 'business-directory-plugin' ),
+			'icon' => 'dashicons-money-alt',
+		) );
         wpbdp_register_settings_group( 'payment/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'payment' );
 
-        wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ), '', array(
+			'desc' => __( 'Styling settings, Images', 'business-directory-plugin' ),
+			'icon' => 'dashicons-admin-appearance',
+		) );
 
-        wpbdp_register_settings_group( 'modules', __( 'Module Settings', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'modules', __( 'Module Settings', 'business-directory-plugin' ), '', array(
+			'desc' => __( 'Active module settings', 'business-directory-plugin' ),
+			'icon' => 'dashicons-admin-plugins',
+		) );
 
-		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ) );
+		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ), '', array(
+			'desc' => __( 'Miscellaneous settings, templates', 'business-directory-plugin' ),
+			'icon' => 'dashicons-admin-settings',
+		) );
     }
 
     public static function register_initial_settings() {

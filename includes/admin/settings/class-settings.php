@@ -129,11 +129,11 @@ class WPBDP__Settings {
             $args,
             array(
                 'title'  => $title,
-                'desc'   => ! empty( $args['desc'] ) ? $args['desc'] : '',
+                'desc'   => isset( $args['desc'] ) ? $args['desc'] : '',
                 'type'   => $group_type,
                 'parent' => $parent,
                 'count'  => 0,
-				'icon'   => 'archive'
+				'icon'   => isset( $args['icon'] ) ? $args['icon'] : 'dashicons-archive', 
             )
         );
     }

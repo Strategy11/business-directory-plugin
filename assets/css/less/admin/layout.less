@@ -29,8 +29,10 @@
             .active{
                 background-color: @white;
                 color: @link-active;
-                .menu-item-icon svg{
-                    color: @link-active;
+                .wpbdp-nav-item-icon{
+                    &:before{
+                        color: @link-active;
+                    }
                 }
             }
         }
