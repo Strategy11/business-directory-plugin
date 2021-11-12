@@ -4,8 +4,8 @@
         margin-top: 0px;
         margin-right: 0px;
         padding-top: 0px;
-        padding-left: 10px;
-        height: ~"calc( 100vh - 80px )";
+        padding-left: 0px;
+        min-height: 100%;
         h1 {
             color: @text-color;
         }
@@ -25,15 +25,25 @@
             color: @text-color;
             a {
                 color: @text-color;
+                border-radius: 0;
             }
-            .active{
+            .active {
                 background-color: @white;
                 color: @link-active;
-                .wpbdp-nav-item-icon{
-                    &:before{
+                .wpbdp-nav-item-icon {
+                    &:before {
                         color: @link-active;
                     }
                 }
+            }
+            .wpbdp-nav-item-meta {
+                width: 210px;
+                margin-top: 6px;
+                color: @text-meta-color;
+                font-size: 14px;
+            }
+            .wpbdp-nav-item-icon {
+                margin-top: 6px;
             }
         }
     }
@@ -46,5 +56,12 @@
 .directory_page_wpbdp_settings {
     #wpcontent {
         padding-left: 0px;
+    }
+    #wpfooter {
+        position: relative;
+    }
+    #wpbody-content {
+        padding-bottom: 0;
+        min-height: 100%;
     }
 }

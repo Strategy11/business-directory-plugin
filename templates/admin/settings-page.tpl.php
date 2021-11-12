@@ -21,8 +21,17 @@ wpbdp_admin_bootstrap_header(
 		<?php foreach ( $tabs as $tab_id => $tab ) : ?>
 			<li class="nav-item wpbdp-nav-item">
 				<a class="nav-link <?php echo $active_tab == $tab_id ? 'active' : ''; ?> <?php echo esc_attr( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>">
-					<span class="wpbdp-nav-item-icon dashicons <?php echo esc_attr( $tab['icon'] ); ?>"></span>
-					<?php echo esc_html( $tab['title'] ); ?>
+					<div class="row">
+						<div class="col">
+							<span class="wpbdp-nav-item-icon dashicons <?php echo esc_attr( $tab['icon'] ); ?>"></span>
+						</div>
+						<div class="col">
+							<?php echo esc_html( $tab['title'] ); ?>
+							<div class="wpbdp-nav-item-meta">
+								<?php echo esc_html( $tab['desc'] ); ?>
+							</div>
+						</div>
+					</div>
 				</a>
 			</li>
 		<?php endforeach; ?>
