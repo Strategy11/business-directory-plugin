@@ -18,7 +18,7 @@ class FeePlanMigrationTest extends \Codeception\Test\Unit {
 	protected function _after() {
 		global $wpdb;
 
-		// Remove any existing payment in database
+		// Update plans.
 		$wpdb->query( "UPDATE {$wpdb->prefix}wpbdp_plans SET `enabled` = 1 WHERE `amount` > 0;" );
 	}
 
@@ -42,6 +42,8 @@ class FeePlanMigrationTest extends \Codeception\Test\Unit {
 
 		Debug::debug( 'After Total disabled ' . $after_disabled );
 		Debug::debug( 'After Total enabled ' . $after_enabled );
+
+		$this->assertTrue( ( $after_disabled > $disabled ), 'Total disabled after is greater' );
 	}
 
 	private function save_fee() {

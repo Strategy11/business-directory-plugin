@@ -30,7 +30,7 @@ class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 		foreach ( $plans as $plan ) {
 			if ( $payments_on && $plan->amount <= 0.0 ) {
 				$to_disable[] = $plan->id;
-			} elseif( ! $payments_on && $plan->amount > 0.0 ) {
+			} elseif ( ! $payments_on && $plan->amount > 0.0 ) {
 				$to_disable[] = $plan->id;
 			}
 		}
@@ -39,7 +39,7 @@ class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 			return;
 		}
 
-		$sql = "UPDATE {$wpdb->prefix}wpbdp_plans p SET p.enabled = 0 WHERE p.id IN(" . implode( ', ', array_fill( 0, count( $to_disable ), '%d' ) ) . ")";
+		$sql = "UPDATE {$wpdb->prefix}wpbdp_plans p SET p.enabled = 0 WHERE p.id IN(" . implode( ', ', array_fill( 0, count( $to_disable ), '%d' ) ) . ')';
 		// Call $wpdb->prepare passing the values of the array as separate arguments.
 		$query = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $sql ), $to_disable ) );
 		$wpdb->query( $query );
