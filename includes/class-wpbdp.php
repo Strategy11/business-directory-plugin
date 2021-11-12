@@ -12,6 +12,11 @@ final class WPBDP {
 
 	public $settings = null;
 
+	/**
+	 * When excerpt listings are displayed, add the fee color to add to css.
+	 */
+	public $fee_colors = array();
+
     public function __construct() {
 		$this->_db_version = get_option( 'wpbdp-db-version', null );
 		if ( $this->_db_version === null ) {
@@ -23,7 +28,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.14.3' );
+        define( 'WPBDP_VERSION', '5.15' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );

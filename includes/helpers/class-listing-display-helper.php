@@ -163,6 +163,12 @@ class WPBDP_Listing_Display_Helper {
             $classes[] = 'wpbdp-listing-plan-id-' . $fee->fee_id;
             $classes[] = 'wpbdp-listing-plan-' . WPBDP_Utils::normalize( $fee->fee_label );
 
+			if ( ! empty( $fee->fee->extra_data['bgcolor'] ) ) {
+				// Prevent DB calls later.
+				global $wpbdp;
+				$wpbdp->fee_colors[ $fee->fee_id ] = $fee->fee->extra_data['bgcolor'];
+			}
+
             if ( $fee->is_sticky ) {
                 $classes[] = 'sticky';
                 $classes[] = 'wpbdp-listing-is-sticky';
@@ -176,7 +182,7 @@ class WPBDP_Listing_Display_Helper {
 		self::add_column_count( $classes, $display );
 
         foreach ( WPBDP_Listing::get( $listing_id )->get_categories( 'ids' ) as $category_id ) {
-                $classes[] = 'wpbdp-listing-category-id-' . $category_id;
+			$classes[] = 'wpbdp-listing-category-id-' . $category_id;
         }
 
         $vars['listing_css_class']  = implode( ' ', $classes );
@@ -193,7 +199,7 @@ class WPBDP_Listing_Display_Helper {
 		}
 	}
 
-    private static function fields_vars( $listing_id, $display ) {
+    public static function fields_vars( $listing_id, $display ) {
         $all_fields     = wpbdp_get_form_fields();
         $display_fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id, $display ) );
         $fields         = array();
@@ -331,7 +337,7 @@ class WPBDP_Listing_Display_Helper {
 	 * @since 5.12
 	 * @return string
 	 */
-	private static function get_coming_soon_image() {
+	public static function get_coming_soon_image() {
 		return self::get_image_option( 'listings-coming-soon-image' );
 	}
 

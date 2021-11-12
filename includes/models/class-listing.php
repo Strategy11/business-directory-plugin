@@ -560,7 +560,7 @@ class WPBDP_Listing {
 	/**
 	 * Get the payment url
 	 *
-	 * @since x.x
+	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -748,7 +748,9 @@ class WPBDP_Listing {
 
         if ( is_null( $row['expiration_date'] ) || empty( $row['expiration_date'] ) ) {
             unset( $row['expiration_date'] );
-        }
+		} elseif ( strtotime( $row['expiration_date'] ) < current_time( 'timestamp' ) ) {
+			$row['listing_status'] = 'expired';
+		}
 
         if ( ! empty( $row['recurring_data'] ) ) {
             $row['recurring_data'] = maybe_serialize( $row['recurring_data'] );
