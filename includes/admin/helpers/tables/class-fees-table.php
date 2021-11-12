@@ -71,6 +71,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 
         $args = array(
+			'admin_view'   => true,
 			'enabled'      => 'all',
 			'include_free' => true,
         );
