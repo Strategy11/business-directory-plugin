@@ -2,9 +2,10 @@
 
 namespace Data;
 
+use WPBDP\Tests\WPUnitTestCase;
 use WPBDP_CSVExporter;
 
-class ExporterTest extends \Codeception\Test\Unit {
+class ExporterTest extends WPUnitTestCase {
 
 	/**
 	 * @var \WpunitTester

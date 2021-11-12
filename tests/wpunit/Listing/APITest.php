@@ -5,12 +5,13 @@
 
 namespace Listing;
 
+use WPBDP\Tests\WPUnitTestCase;
 use WPBDP_Listings_API;
 
 /**
  * Tests for the Listings API class.
  */
-class APITest extends \Codeception\Test\Unit {
+class APITest extends WPUnitTestCase {
 
 	/**
 	 * @var \WpunitTester
@@ -18,11 +19,7 @@ class APITest extends \Codeception\Test\Unit {
 	protected $tester;
 
 
-	protected function _before() {
-
-	}
-
-	protected function _after() {
+	protected static function before_tear_down() {
 		global $wpdb;
 
 		// Remove any existing payment in database
@@ -31,11 +28,6 @@ class APITest extends \Codeception\Test\Unit {
 
 	public function testListingPublishedStatusAfterPayment() {
 		$this->tester->wantToTest( 'Payment Listing publish status' );
-
-		$this->markTestSkipped(
-			'mysqli fetch error on wpbdp_save_listing wp queries'
-		);
-
 		$listing = wpbdp_save_listing(
 			array(
 				'post_author' => 1,
