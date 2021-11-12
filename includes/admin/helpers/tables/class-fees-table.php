@@ -45,15 +45,14 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
 		$all = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans" ) );
 
-        $views['all'] = sprintf(
-            '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+		$views['all'] = sprintf(
+			'<a href="%s" class="current">%s</a> <span class="count">(%s)</span></a>',
 			esc_url( $admin_fees_url ),
-			'all' === $this->get_current_view() ? 'current' : '',
-            _x( 'All', 'admin fees table', 'business-directory-plugin' ),
-            number_format_i18n( $all )
-        );
+			_x( 'All', 'admin fees table', 'business-directory-plugin' ),
+			number_format_i18n( $all )
+		);
 
-        return $views;
+		return $views;
     }
 
     public function get_columns() {
@@ -81,11 +80,11 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     /** Rows **/
     public function single_row( $item ) {
         $classes   = '';
-        if ( $item->is_enabled_premium() ) {
-            $classes .= 'disabled-fee';
-        } elseif ( 'free' === $item->tag ) {
-            $classes .= 'free-fee';
-        }
+		if ( $item->is_enabled_premium() ) {
+			$classes .= 'disabled-fee';
+		} elseif ( 'free' === $item->tag ) {
+			$classes .= 'free-fee';
+		}
 
         echo '<tr class="' . $classes . '">';
         $this->single_row_columns( $item );
