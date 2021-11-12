@@ -1,4 +1,5 @@
 <?php
+
 function wpbdp_admin_sidebar( $echo = false ) {
 	$page = wpbdp_render_page( WPBDP_PATH . 'templates/admin/sidebar.tpl.php', array(), $echo );
 
@@ -104,7 +105,7 @@ function wpbdp_admin_bootstrap_header( $args_or_title = null, $id = null ) {
     // For backwards compatibility.
     if ( empty( $args_or_title ) || is_string( $args_or_title ) ) {
         $args_or_title = array(
-            'id'=> $id,
+            'id' => $id,
         );
 
         if ( empty( $args_or_title['id'] ) ) {
@@ -129,7 +130,7 @@ function wpbdp_admin_bootstrap_header( $args_or_title = null, $id = null ) {
     }
 ?>
 <div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
-	<div class="row wpbdp-admin-row h-100">
+	<div class="row wpbdp-admin-row">
     <?php
     if ( empty( $args['echo'] ) ) {
         return ob_get_clean();
@@ -166,7 +167,6 @@ function wpbdp_admin_title( $args_or_title = null ) {
 	$args = wp_parse_args( $args_or_title, $defaults );
 
     extract( $args );
-
 
     if ( empty( $args['echo'] ) ) {
         ob_start();
