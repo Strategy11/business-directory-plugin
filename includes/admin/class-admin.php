@@ -1158,7 +1158,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 && ! get_option( 'users_can_register' )
                 && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
 					$this->messages[] = array(
-						sprintf( _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'admin', 'business-directory-plugin' ), '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">', '</a>' ),
+						sprintf(
+                            __( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
+                            '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
+                            '</a>'
+                        ),
 						'error dismissible',
 						array( 'dismissible-id' => 'registration_disabled' ),
 					);
@@ -1191,15 +1195,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			if ( is_plugin_active( 'font-awesome/index.php' ) && ( class_exists( '\FortAwesome\FontAwesome_Loader' ) ) ) {
+			if ( is_plugin_active( 'font-awesome/index.php' ) ) {
 				wpbdp_set_option( 'enqueue-fontawesome-styles', false );
 				return;
 			}
 
 			$this->messages[] = array(
 				sprintf(
-					_x( 'We changed how %1$s is integrated into Business Directory. Go %2$shere%3$s to install the official "%1$s styles" plugin.', 'admin', 'business-directory-plugin' ),
-					'FontAwesome',
+                    __( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin. %1$sInstall Font Awesome now%2$s.', 'business-directory-plugin' ),
 					'<a href=" ' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . ' " target="_blank" rel="noopener nofollow">',
 					'</a>'
 				),
