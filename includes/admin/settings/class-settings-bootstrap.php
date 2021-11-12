@@ -1145,7 +1145,6 @@ final class WPBDP__Settings__Bootstrap {
 				'id'      => 'payments-on',
 				'type'    => 'hidden',
 				'class'   => 'hidden',
-				'name'    => _x( 'Turn On payments?', 'settings', 'business-directory-plugin' ),
 				'default' => false,
 				'group'   => 'payment/main',
 			)
