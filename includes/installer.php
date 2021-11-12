@@ -36,7 +36,7 @@ class WPBDP_Installer {
         if ( false === get_option( 'wpbdp-db-migrations', false ) )
             update_option( 'wpbdp-db-migrations', array(), false );
 
-        if ( self::DB_VERSION == $this->installed_version )
+		if ( version_compare( self::DB_VERSION, $this->installed_version, '>=' ) )
             return;
 
         $this->update_database_schema();
@@ -44,7 +44,7 @@ class WPBDP_Installer {
         if ( $this->installed_version ) {
 			wpbdp_log( 'WPBDP is already installed.' );
             return $this->_update();
-        } else if ( $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
+        } elseif ( $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
 			wpbdp_log( 'New installation. Creating default form fields.' );
             global $wpbdp;
 
