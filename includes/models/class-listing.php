@@ -670,20 +670,6 @@ class WPBDP_Listing {
         return $res;
     }
 
-	/**
-	 * Get the fee plan id.
-	 *
-	 * @since x.x
-	 *
-	 * @return int|bool The plan id or false.
-	 */
-	public function get_fee_plan_id() {
-		global $wpdb;
-
-		$sql = $wpdb->prepare( "SELECT fee_id FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d LIMIT 1", $this->id );
-		return $wpdb->get_var( $sql );
-	}
-
     /**
      * @since 5.0
      */
