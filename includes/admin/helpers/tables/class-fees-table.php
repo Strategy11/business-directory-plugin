@@ -25,10 +25,11 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     }
 
     public function no_items() {
-		echo str_replace(
-			'<a>',
+		printf(
+			/* translators: %1$s: open link html, %2$s close link */
+			esc_html__( 'There are no fees right now. %1$sCreate one%2$s.', 'business-directory-plugin' ),
 			'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) . '">',
-			_x( 'There are no fees right now. You can <a>create one</a>, if you want.', 'fees admin', 'business-directory-plugin' )
+			'</a>'
 		);
     }
 
