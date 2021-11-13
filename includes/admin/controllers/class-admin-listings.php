@@ -600,7 +600,7 @@ class WPBDP_Admin_Listings {
 
         // Update plan attributes.
         $row                    = array();
-		$row['expiration_date'] = '' == $new_plan['expiration_date'] ? false : $new_plan['expiration_date'];
+		$row['expiration_date'] = '' == $new_plan['expiration_date'] ? null : $new_plan['expiration_date'];
         $row['fee_images']      = absint( $new_plan['fee_images'] );
 
         $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
