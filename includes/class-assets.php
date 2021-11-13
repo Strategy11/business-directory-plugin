@@ -268,7 +268,7 @@ class WPBDP__Assets {
 		// Add admin body class for parent page class to avoid css conflicts.
 		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
 
-		if ( $screen && strpos( $screen->id, 'wpbdp' ) !== false ) {
+		if ( $screen && ( strpos( $screen->id, 'wpbdp' ) !== false ) && ! WPBDP_App_Helper::is_bd_post_page() ) {
 			$this->enqueue_admin_setting_resources();
 		}
 
