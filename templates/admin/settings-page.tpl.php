@@ -40,23 +40,20 @@ wpbdp_admin_bootstrap_header(
 <main class="col-md-9 col-lg-10 wpbdp-content-area">
 	<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ) : ?>
 	<div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
-		<ul class="subsubsub">
-		<?php
-		$n = 0;
-		foreach ( $subtabs as $subtab_id => $subtab ) :
-			$n++;
-		?>
+		<ul class="subsubsub wpbdp-sub-menu">
 			<?php
-			$subtab_url = add_query_arg( 'tab', $active_tab );
-			$subtab_url = add_query_arg( 'subtab', $subtab_id, $subtab_url );
+			$n = 0;
+			foreach ( $subtabs as $subtab_id => $subtab ) :
+				$n++;
 			?>
-			<li>
-				<a class="<?php echo $active_subtab == $subtab_id ? 'current' : ''; ?>" href="<?php echo esc_url( $subtab_url ); ?>"><?php echo esc_html( $subtab['title'] ); ?></a>
-				<?php if ( $n != count( $subtabs ) ) : ?>
-					|
-				<?php endif; ?>
-			</li>
-		<?php endforeach; ?>
+				<?php
+				$subtab_url = add_query_arg( 'tab', $active_tab );
+				$subtab_url = add_query_arg( 'subtab', $subtab_id, $subtab_url );
+				?>
+				<li>
+					<a class="<?php echo $active_subtab == $subtab_id ? 'current' : ''; ?>" href="<?php echo esc_url( $subtab_url ); ?>"><?php echo esc_html( $subtab['title'] ); ?></a>
+				</li>
+			<?php endforeach; ?>
 		</ul>
 	</div>
 	<?php endif; ?>

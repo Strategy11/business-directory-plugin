@@ -238,11 +238,10 @@ class WPBDP__Settings_Admin {
 		if ( 1 === $save ) {
 			$value = (bool) $value;
 		}
-
+        echo '<div class="wpdb-checkbox">';
         echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
-		echo '<label>';
         echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
-
+		echo '<label>';
         if ( ! empty( $setting['desc'] ) ) {
             echo wp_kses_post( $setting['desc'] );
         }
@@ -251,6 +250,7 @@ class WPBDP__Settings_Admin {
         if ( ! empty( $setting['tooltip'] ) ) {
             echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['tooltip'] ) . '</span>';
         }
+        echo '</div>';
     }
 
 	/**
