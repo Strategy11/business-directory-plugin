@@ -261,14 +261,13 @@ class WPBDP__Assets {
      * @param bool $force Force reloading the resources.
      */
 	public function enqueue_admin_scripts( $force = false ) {
-		$screen = get_current_screen();
 		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
 		// Add admin body class for parent page class to avoid css conflicts.
 		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
 
-		if ( $screen && ( strpos( $screen->id, 'wpbdp' ) !== false ) && ! WPBDP_App_Helper::is_bd_post_page() ) {
+		if ( WPBDP_App_Helper::is_admin_page() ) {
 			$this->enqueue_admin_setting_resources();
 		}
 

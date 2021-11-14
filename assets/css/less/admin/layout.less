@@ -13,14 +13,15 @@
     &-title-buttons {
         clear: both;
     }
-    &-no-padding{
+    &-no-padding {
         padding-left: 0;
         padding-right: 0;
     }
     &-admin-row {
         margin: 0;
+        justify-content: space-between;
     }
-    &-nav-items{
+    &-nav-items {
         .wpbdp-nav-item {
             color: @text-color;
             a {
@@ -47,10 +48,14 @@
             }
         }
     }
-    &-content-area{
+    &-content-area {
         background-color: @white;
         color: @link-active;
         padding: 20px;
+        min-height: 900px;
+        .h2, h2 {
+            font-size: 25px;
+        }
     }
 }
 .directory_page_wpbdp_settings {
@@ -59,6 +64,9 @@
     }
     #wpfooter {
         position: relative;
+    }
+    #wpwrap {
+        min-height: 80vh;
     }
     #wpbody-content {
         padding-bottom: 0;
