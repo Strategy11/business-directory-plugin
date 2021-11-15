@@ -41,6 +41,26 @@ class BaseMigrationTestCase extends WPUnitTestCase {
 	 * If payments are on, disabled count goes up (enabled free is disabled), enabled count goes down (free plan is disabled).
 	 */
 	protected function after_setup() {
+		// Free plan check. If it does not exist, we create.
+		// The database is created late
+		$free_plan = wpbdp_get_fee_plan( 'free' );
+		if ( ! $free_plan ) {
+			$fee = new WPBDP__Fee_Plan(
+				array(
+					'label' 	=> 'Free Listing',
+					'amount'	=> 0.0,
+					'days'		=> absint( wpbdp_get_option( 'listing-duration' ) ),
+					'sticky'	=> 0,
+					'recurring'	=> 0,
+					'images'    => absint( wpbdp_get_option( 'free-images' ) ),
+					'supported_categories' => 'all',
+					'pricing_model' => 'flat',
+					'enabled' => 1,
+					'tag' => 'free',
+				)
+			);
+			$fee->save();
+		}
 		$fee = new WPBDP__Fee_Plan(
 			array(
 				'label' 	=> 'Premium Fee Plan 1',
