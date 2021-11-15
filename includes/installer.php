@@ -36,7 +36,7 @@ class WPBDP_Installer {
         if ( false === get_option( 'wpbdp-db-migrations', false ) )
             update_option( 'wpbdp-db-migrations', array(), false );
 
-		if ( version_compare( self::DB_VERSION, $this->installed_version, '>=' ) )
+		if ( version_compare( self::DB_VERSION, $this->installed_version, '=' ) )
             return;
 
         $this->update_database_schema();
