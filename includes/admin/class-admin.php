@@ -1195,9 +1195,18 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
+			if ( is_plugin_active( 'font-awesome/index.php' ) ) {
+				$this->messages[] = array(
+					__( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin.', 'business-directory-plugin' ),
+					'notice dismissible',
+					array( 'dismissible-id' => 'fa_dismiss' ),
+				);
+				return;
+			}
+
 			$this->messages[] = array(
 				sprintf(
-                    __( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin. %1$sInstall Font Awesome now%2$s.', 'business-directory-plugin' ),
+					__( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin. %1$sInstall Font Awesome now%2$s.', 'business-directory-plugin' ),
 					'<a href=" ' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . ' " target="_blank" rel="noopener nofollow">',
 					'</a>'
 				),
