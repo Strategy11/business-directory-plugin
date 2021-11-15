@@ -13,6 +13,7 @@ class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		$this->maybe_create_tables();
 		$this->after_setup();
 	}
 
@@ -36,6 +37,14 @@ class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected static function before_tear_down() {
 
+	}
+
+	/**
+	 * Create database scheme if not there.
+	 */
+	private function maybe_create_tables() {
+		$installer = new WPBDP_Installer( 0 );
+		$installer->update_database_schema();
 	}
 
 	/**
