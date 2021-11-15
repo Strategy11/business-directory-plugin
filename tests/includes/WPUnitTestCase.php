@@ -11,12 +11,12 @@ class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $tester;
 
-	public function setUp(): void {
+	public function setUp() {
 		parent::setUp();
 		$this->after_setup();
 	}
 
-	public static function tearDownAfterClass(): void {
+	public static function tearDownAfterClass() {
 		global $wpdb;
 		@$wpdb->check_connection();
 		self::before_tear_down();
