@@ -69,4 +69,4 @@ jobs:
         with:
           php-version: 5.6
       - name: Check Syntax
-        run: find -L .  -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+        run: find -L .  -path ./vendor -prune -o -path ./tests -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l

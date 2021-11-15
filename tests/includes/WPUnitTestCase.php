@@ -11,14 +11,12 @@ class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $tester;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
-		update_option( 'wpbdp-db-version', '0' );
-		$this->maybe_create_tables();
 		$this->after_setup();
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass() : void {
 		global $wpdb;
 		@$wpdb->check_connection();
 		self::before_tear_down();
@@ -38,14 +36,6 @@ class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected static function before_tear_down() {
 
-	}
-
-	/**
-	 * Create database scheme if not there.
-	 */
-	private function maybe_create_tables() {
-		$installer = new WPBDP_Installer( 0 );
-		$installer->update_database_schema();
 	}
 
 	/**
