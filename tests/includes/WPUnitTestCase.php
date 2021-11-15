@@ -13,6 +13,7 @@ class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		update_option( 'wpbdp-db-version', '0' );
 		$this->maybe_create_tables();
 		$this->after_setup();
 	}

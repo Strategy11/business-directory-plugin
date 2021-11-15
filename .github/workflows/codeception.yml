@@ -52,10 +52,10 @@ jobs:
           cd "/tmp/wordpress/src/wp-content/plugins/${GITHUB_REPOSITORY#*/}"
           pwd
           php vendor/bin/codecept run acceptance
-          php vendor/bin/codecept run wpunit Migrations\FeePlanMigrationPaymentEnabledTest.php
-          php vendor/bin/codecept run wpunit Migrations\FeePlanMigrationPaymentDisabledTest.php
-          php vendor/bin/codecept run wpunit Data\ExporterTest.php
-          php vendor/bin/codecept run wpunit Listing\APITest.php
+          php vendor/bin/codecept run wpunit Migrations/FeePlanMigrationPaymentEnabledTest.php
+          php vendor/bin/codecept run wpunit Migrations/FeePlanMigrationPaymentDisabledTest.php
+          php vendor/bin/codecept run wpunit Data/ExporterTest.php
+          php vendor/bin/codecept run wpunit Listing/APITest.php
           php vendor/bin/codecept run wpunit UtilsTest.php
   syntax-test:
     if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
