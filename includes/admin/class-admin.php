@@ -1195,11 +1195,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			if ( is_plugin_active( 'font-awesome/index.php' ) ) {
-				wpbdp_set_option( 'enqueue-fontawesome-styles', false );
-				return;
-			}
-
 			$this->messages[] = array(
 				sprintf(
                     __( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin. %1$sInstall Font Awesome now%2$s.', 'business-directory-plugin' ),
