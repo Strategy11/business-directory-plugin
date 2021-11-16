@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-11-10 22:26:32+00:00\n"
+"POT-Creation-Date: 2021-11-16 21:09:16+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -471,12 +471,12 @@ msgstr "Notering skickas in av admin. Betalning hoppas över."
 msgid "There are no fees right now. %1$sCreate one%2$s."
 msgstr "Det finns inga avgifter just nu. Du kan <a>skapa ett</a> , om du vill."
 
-#: includes/admin/helpers/tables/class-fees-table.php:153
+#: includes/admin/helpers/tables/class-fees-table.php:154
 #, fuzzy
 msgid "Disable"
 msgstr "Koppla ur"
 
-#: includes/admin/helpers/tables/class-fees-table.php:159
+#: includes/admin/helpers/tables/class-fees-table.php:160
 #, fuzzy
 msgid "Enable"
 msgstr "Aktivera"
