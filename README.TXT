@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8.1
-Stable tag: 5.15
+Stable tag: 5.15.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,10 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.15.1 =
+* Fix: Listings set to never expire were switching to expired on edit.
+* Fix: Long listing titles in sidebar widgets weren't wrapping with some settings.
+
 = 5.15 =
 * New: The listing widgets have tons more functionality. Now you can add fields to a widget, set the image position, size images consistently, and use the coming soon image.
 * Fix: The search form didn't look right in a couple default WordPress themes.
@@ -180,19 +184,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 = 5.14.1 =
 * Fix: Prevent the default free fee option from showing when payments are turned on.
-
-= 5.14 =
-* New: Make the button styling more consistent across all buttons in the directory. The option to Override the theme button styles better handles this now, and lets the theme handle it when turned off. This update added the "button" class to buttons throughout the plugin in order to allow themes to cover the styling.
-* New: Load the BD CSS in an Elementor template. This helps the page look much closer to reality.
-* New: Made the fee plans easier to use. The "unavailable" category has been removed and multiple fee plans can be created when payments are turned off.
-* Perfomance: Load all scripts in the footer instead of header for better page loading times.
-* Removed: The setting to force SSL on checkout has been removed. This is now standard practice.
-* Fix: Cut down on server checkins when add-ons are installed. It was happening daily for each add-on, plus weekly for all of them. Now, the daily check has been eliminated.
-* Fix: The listing title in the excerpt was showing twice in some themes.
-* Fix: The email address in the contact form wasn't required as it should have been.
-* Fix: The featured listings shortcode wasn't matching the listing order in the settings.
-* Fix: Prevent movement in the search form when the page is loaded on most screen sizes.
-* Code: Added wpbdp_admin_listing_owner_mode hook to switch between autocomplete or not for the user selector in the back-end (ajax or inline)
-* Code: Start organizing the code structure.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
