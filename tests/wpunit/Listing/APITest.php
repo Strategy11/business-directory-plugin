@@ -5,13 +5,13 @@
 
 namespace Listing;
 
-use WPBDP\Tests\BaseListingTestCase;
+use WPBDP\Tests\WPUnitTestCase;
 use WPBDP_Listings_API;
 
 /**
  * Tests for the Listings API class.
  */
-class APITest extends BaseListingTestCase {
+class APITest extends WPUnitTestCase {
 
 	/**
 	 * @var \WpunitTester
@@ -26,7 +26,7 @@ class APITest extends BaseListingTestCase {
 				'post_author' => 1,
 				'post_type'   => WPBDP_POST_TYPE,
 				'post_status' => 'pending_payment',
-				'post_title'  => '(no title)',
+				'post_title'  => 'Payment test',
 			)
 		);
 		if ( ! is_wp_error( $listing ) ) {

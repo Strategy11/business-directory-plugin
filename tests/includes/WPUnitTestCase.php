@@ -2,9 +2,10 @@
 
 namespace WPBDP\Tests;
 
+use Codeception\TestCase\WPTestCase;
 use WPBDP_Installer;
 
-class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
+class WPUnitTestCase extends WPTestCase {
 
 	/**
 	 * @var \WpunitTester
@@ -13,6 +14,7 @@ class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
 
 	public function setUp() : void {
 		parent::setUp();
+		$this->install();
 		$this->after_setup();
 	}
 
@@ -57,6 +59,30 @@ class WPUnitTestCase extends \Codeception\TestCase\WPTestCase {
 		$tables = array_keys( $installer->get_database_schema() );
 		foreach ( $tables as $table ) {
 			$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}wpbdp_{$table}" );
+		}
+	}
+
+	/**
+	 * Install data required for tests
+	 */
+	private function install() {
+		$free_plan = wpbdp_get_fee_plan( 'free' );
+		if ( ! $free_plan ) {
+			$fee = new WPBDP__Fee_Plan(
+				array(
+					'label' 	=> 'Free Listing',
+					'amount'	=> 0.0,
+					'days'		=> absint( wpbdp_get_option( 'listing-duration' ) ),
+					'sticky'	=> 0,
+					'recurring'	=> 0,
+					'images'    => absint( wpbdp_get_option( 'free-images' ) ),
+					'supported_categories' => 'all',
+					'pricing_model' => 'flat',
+					'enabled' => 1,
+					'tag' => 'free',
+				)
+			);
+			$fee->save();
 		}
 	}
 }

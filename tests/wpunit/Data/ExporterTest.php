@@ -4,10 +4,10 @@ namespace Data;
 
 require_once WPBDP_INC . 'admin/class-csv-exporter.php';
 
-use WPBDP\Tests\BaseListingTestCase;
+use WPBDP\Tests\WPUnitTestCase;
 use WPBDP_CSVExporter;
 
-class ExporterTest extends BaseListingTestCase {
+class ExporterTest extends WPUnitTestCase {
 
 	/**
 	 * @var \WpunitTester
@@ -38,8 +38,8 @@ class ExporterTest extends BaseListingTestCase {
 				'include-sticky-status'   => false,
 				'include-expiration-date' => false,
 			);
-			
-			$exporter = new WPBDP_CSVExporter( $settings, '/tmp/', array( $listing->get_id() ) );
+			$uploads_dir = wp_upload_dir()['basedir'] . '/wpbdp-csv-exports/';
+			$exporter = new WPBDP_CSVExporter( $settings, $uploads_dir, array( $listing->get_id() ) );
 
 			// Execution
 			$exporter->advance();
