@@ -8,7 +8,7 @@ wpbdp_admin_bootstrap_header(
     )
 );
 ?>
-<div class="col-md-3 col-lg-2 d-md-block bg-light collapse wpbdp-no-padding wpbdp-menu-area">
+<div class="wpbdp-no-padding wpbdp-menu-area">
 	<?php
 		wpbdp_admin_title(
 			array(
@@ -37,7 +37,7 @@ wpbdp_admin_bootstrap_header(
 		<?php endforeach; ?>
 	</ul>
 </div>
-<main class="col-md-9 col-lg-10 wpbdp-content-area">
+<main class="height-100 wpbdp-content-area">
 	<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ) : ?>
 	<div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
 		<ul class="subsubsub wpbdp-sub-menu">

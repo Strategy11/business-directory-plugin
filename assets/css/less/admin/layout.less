@@ -1,13 +1,4 @@
 .wpbdp {
-    &-container {
-        display: table;
-    }
-    &-row {
-        display: table-row;
-    }
-    &-col {
-        display: table-cell;
-    }
     &-admin-layout {
         background-color: @page-background;
         margin-top: 0px;
@@ -27,7 +18,12 @@
     }
     &-admin-row {
         margin: 0;
-        justify-content: space-between;
+    }
+    &-menu-area{
+        float: left;
+        background-color: @page-background;
+        transition: .5s;
+        min-height: 800px;
     }
     &-nav-items {
         .wpbdp-nav-item {
@@ -61,6 +57,8 @@
         color: @link-active;
         padding: 20px;
         min-height: 100vh;
+        width: 83%;
+        float: left;
         .h2, h2 {
             font-size: 25px;
         }
