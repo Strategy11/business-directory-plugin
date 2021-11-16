@@ -267,5 +267,24 @@ jQuery(function($) {
     };
     wpbdp_settings_email.init();
 
+    /**
+     * Settings hide/show
+     */
+    $(document).on('click', '.wpbdp-nav-toggle', function(e) {
+        e.preventDefault();
+        $(this).closest('.wpbdp-admin-row').toggleClass('minimized');
+    });
+    /**
+     * Fix the content area margin respective to the sidebar
+     */
+    function wpbdp_settings_content_area() {
+        if ( $('.wpbdp-content-area').length ) {
+            $('.wpbdp-content-area').css('marginLeft', $('.wpbdp-menu-area').width());
+        }
+    }
+    wpbdp_settings_content_area();
+    $(window).on('resize', function(){
+        wpbdp_settings_content_area();
+    });
 });
 
