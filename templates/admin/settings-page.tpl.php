@@ -36,6 +36,19 @@ wpbdp_admin_bootstrap_header(
 			</li>
 		<?php endforeach; ?>
 	</ul>
+	<div class="wpbdp-nav-toggle">
+		<div class="row">
+			<div class="col-3">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect width="24" height="24" rx="12" fill="white"/>
+					<path d="M14 16L10 12L14 8" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</div>
+			<div class="col">
+				<?php esc_html_e( 'Minimize Navigation', 'business-directory-plugin' ); ?>
+			</div>
+		</div>
+	</div>
 </div>
 <main class="height-100 wpbdp-content-area">
 	<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ) : ?>
