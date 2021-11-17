@@ -174,7 +174,7 @@ function wpbdp_admin_title( $args_or_title = null ) {
 	?>
 	<h1>
 		<?php WPBDP_App_Helper::show_logo( 55, 'rounded-circle' ); ?>
-		<?php echo esc_html( $title ); ?>
+		<span class="title-text"><?php echo esc_html( $title ); ?></span>
 	</h1>
 	<?php
 	if ( empty( $args['echo'] ) ) {

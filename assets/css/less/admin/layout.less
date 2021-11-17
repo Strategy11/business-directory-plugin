@@ -19,16 +19,35 @@
     &-admin-row {
         margin: 0;
         display: flex;
+        &.minimized{
+            .title-text{
+                display: none;
+            }
+            .wpbdp-nav-item-name {
+                display: none;
+            }
+            .wpbdp-menu-area {
+                width: 57px;
+            }
+            .wpbdp-content-area {
+                margin-left: 57px;
+            }
+            .wpbdp-icon-maximized{
+                display: none;
+            }
+            .wpbdp-icon-minimized{
+                display: block;
+            }
+        }
     }
     &-menu-area{
         position: fixed;
         top: 0;
         bottom: -120px;
         z-index: 1;
-        width: auto;
+        width: 286px;
         padding: 25px 0;
         background-color: @page-background;
-        transition: .5s;
     }
     &-nav-items {
         .wpbdp-nav-item {
@@ -67,12 +86,16 @@
         font-size: 14px;
         width: 200px;
     }
+    &-icon-minimized{
+        display: none;
+    }
     &-content-area {
         background-color: @white;
         color: @link-active;
         padding: 20px;
         min-height: 100vh;
         width: 100%;
+        margin-left: 286px;
         .h2, h2 {
             font-size: 18px;
         }

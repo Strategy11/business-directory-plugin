@@ -270,26 +270,20 @@ jQuery(function($) {
     /**
      * Settings hide/show
      */
-    $(document).on('click', '.wpbdp-nav-toggle', function(e) {
+    $( document ).on( 'click', '.wpbdp-nav-toggle', function(e) {
         e.preventDefault();
-        $(this).closest('.wpbdp-admin-row').toggleClass('minimized');
+        $( this ).closest( '.wpbdp-admin-row' ).toggleClass( 'minimized' );
     });
+
     /**
-     * Fix the content area margin respective to the sidebar
+     * Settings area fixes
      */
     function wpbdp_settings_content_area() {
-        var wpbdp_content_area = $( '.wpbdp-content-area' ),
-            wpbdp_pro_license_label = $( 'label[for=pro_license]' );
-        if ( wpbdp_content_area.length ) {
-            wpbdp_content_area.css( 'marginLeft', $( '.wpbdp-menu-area' ).width() );
-        }
+        var wpbdp_pro_license_label = $( 'label[for=pro_license]' );
         if ( wpbdp_pro_license_label.length ) {
             wpbdp_pro_license_label.parent( 'th' ).hide();
         }
     }
     wpbdp_settings_content_area();
-    $(window).on('resize', function(){
-        wpbdp_settings_content_area();
-    });
 });
 
