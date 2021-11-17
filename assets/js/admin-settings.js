@@ -281,6 +281,9 @@ jQuery(function($) {
         if ( $('.wpbdp-content-area').length ) {
             $('.wpbdp-content-area').css('marginLeft', $('.wpbdp-menu-area').width());
         }
+        if ( $('label[for=pro_license]') ) {
+            $('label[for=pro_license]').parent('th').hide();
+        }
     }
     wpbdp_settings_content_area();
     $(window).on('resize', function(){
