@@ -278,11 +278,13 @@ jQuery(function($) {
      * Fix the content area margin respective to the sidebar
      */
     function wpbdp_settings_content_area() {
-        if ( $('.wpbdp-content-area').length ) {
-            $('.wpbdp-content-area').css('marginLeft', $('.wpbdp-menu-area').width());
+        var wpbdp_content_area = $( '.wpbdp-content-area' ),
+            wpbdp_pro_license_label = $( 'label[for=pro_license]' );
+        if ( wpbdp_content_area.length ) {
+            wpbdp_content_area.css( 'marginLeft', $( '.wpbdp-menu-area' ).width() );
         }
-        if ( $('label[for=pro_license]') ) {
-            $('label[for=pro_license]').parent('th').hide();
+        if ( wpbdp_pro_license_label.length ) {
+            wpbdp_pro_license_label.parent( 'th' ).hide();
         }
     }
     wpbdp_settings_content_area();
