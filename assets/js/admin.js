@@ -178,7 +178,7 @@ var WPBDP_associations_fieldtypes = {};
         },
 
         initToolTip: function() {
-            $( '.wpbdp-nav-tooltip' ).tooltip( { placement : 'right' } );
+            $( '.wpbdp-nav-tooltip' ).tooltip( { placement : 'right', html : true } );
         },
 
         disableToolTip: function() {
