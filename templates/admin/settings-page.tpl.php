@@ -56,58 +56,63 @@ wpbdp_admin_bootstrap_header(
 	</div>
 </div>
 <main class="height-100 wpbdp-content-area">
-	<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ) : ?>
-	<div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
-		<ul class="subsubsub wpbdp-sub-menu">
-			<?php
-			$n = 0;
-			foreach ( $subtabs as $subtab_id => $subtab ) :
-				$n++;
-			?>
-				<?php
-				$subtab_url = add_query_arg( 'tab', $active_tab );
-				$subtab_url = add_query_arg( 'subtab', $subtab_id, $subtab_url );
-				?>
-				<li>
-					<a class="<?php echo $active_subtab == $subtab_id ? 'current' : ''; ?>" href="<?php echo esc_url( $subtab_url ); ?>"><?php echo esc_html( $subtab['title'] ); ?></a>
-				</li>
-			<?php endforeach; ?>
-		</ul>
+	<div class="wpbdp-content-area-header">
+		<h1 class="wpbdp-sub-section-title"><?php echo esc_html( ucfirst( $active_tab ) ); ?></h1>
 	</div>
-	<?php endif; ?>
+	<div class="wpbdp-content-area-body">
+		<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ) : ?>
+		<div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
+			<ul class="subsubsub wpbdp-sub-menu">
+				<?php
+				$n = 0;
+				foreach ( $subtabs as $subtab_id => $subtab ) :
+					$n++;
+				?>
+					<?php
+					$subtab_url = add_query_arg( 'tab', $active_tab );
+					$subtab_url = add_query_arg( 'subtab', $subtab_id, $subtab_url );
+					?>
+					<li>
+						<a class="<?php echo $active_subtab == $subtab_id ? 'current' : ''; ?>" href="<?php echo esc_url( $subtab_url ); ?>"><?php echo esc_html( $subtab['title'] ); ?></a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php endif; ?>
 
-	<?php settings_errors(); ?>
+		<?php settings_errors(); ?>
 
-	<?php if ( $active_subtab_description ) : ?>
-	<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo wp_kses_post( $active_subtab_description ); ?></p>
-	<?php endif; ?>
+		<?php if ( $active_subtab_description ) : ?>
+		<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo wp_kses_post( $active_subtab_description ); ?></p>
+		<?php endif; ?>
 
-	<?php if ( ! $custom_form ) : ?>
-	<form action="options.php" method="post">
-	<?php endif; ?>
+		<?php if ( ! $custom_form ) : ?>
+		<form action="options.php" method="post">
+		<?php endif; ?>
 
-	<?php
-		$_SERVER['REQUEST_URI'] = $original_uri;
+		<?php
+			$_SERVER['REQUEST_URI'] = $original_uri;
 
-		if ( ! $custom_form ) :
-			settings_fields( 'wpbdp_settings' );
-		endif;
+			if ( ! $custom_form ) :
+				settings_fields( 'wpbdp_settings' );
+			endif;
 
-		do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
-		do_action( 'wpbdp_settings_subtab_' . $active_subtab );
+			do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
+			do_action( 'wpbdp_settings_subtab_' . $active_subtab );
 
-		if ( ! $custom_form ) :
-			// Submit button shouldn't use 'submit' as name to avoid conflicts with
-			// actual properties of the parent form.
-			//
-			// See http://kangax.github.io/domlint/
-			submit_button( null, 'primary', 'save-changes' );
-		endif;
-	?>
+			if ( ! $custom_form ) :
+				// Submit button shouldn't use 'submit' as name to avoid conflicts with
+				// actual properties of the parent form.
+				//
+				// See http://kangax.github.io/domlint/
+				submit_button( null, 'primary', 'save-changes' );
+			endif;
+		?>
 
-	<?php if ( ! $custom_form ) : ?>
-	</form>
-	<?php endif; ?>
+		<?php if ( ! $custom_form ) : ?>
+		</form>
+		<?php endif; ?>
+	</div>
 </div>
 <?php
     wpbdp_admin_footer( 'echo' );
