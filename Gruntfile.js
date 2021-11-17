@@ -305,6 +305,7 @@ module.exports = function( grunt ) {
   grunt.wpbdp.registerModule({path: '../business-directory-stripe', js: ['resources/*.js'], i18n: true});
   grunt.wpbdp.registerModule({path: '../business-directory-zipcodesearch', less: ['resources/*.css'], js: ['resources/*.js'], i18n: true});
   grunt.wpbdp.registerModule({path: '../business-directory-premium', less: ['resources/*.css'], js: [], i18n: {'textDomain':'wpbdp-pro'}});
+  grunt.wpbdp.registerModule({path: '../business-directory-premium', js: ['resources/*.js'], i18n: true});
 
   // Custom modules.
   grunt.wpbdp.registerModule({path: '../business-directory-migrate', less: [], js: ['js/*.js'], i18n: true});
