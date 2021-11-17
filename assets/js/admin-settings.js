@@ -267,13 +267,6 @@ jQuery(function($) {
     };
     wpbdp_settings_email.init();
 
-    /**
-     * Settings hide/show
-     */
-    $( document ).on( 'click', '.wpbdp-nav-toggle', function(e) {
-        e.preventDefault();
-        $( this ).closest( '.wpbdp-admin-row' ).toggleClass( 'minimized' );
-    });
 
     /**
      * Settings area fixes

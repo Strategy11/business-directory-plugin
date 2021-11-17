@@ -162,9 +162,45 @@ var WPBDP_associations_fieldtypes = {};
         }
     };
 
+    /**
+     * Admin layout
+     */
+    var WPBDPAdmin_Layout = {
+        $nav_toggle : null,
+        $layout_container : null,
+        $menu_items : null,
+
+        init: function() {
+            WPBDPAdmin_Layout.$nav_toggle = $( '.wpbdp-nav-toggle' );
+            WPBDPAdmin_Layout.$layout_container = $( '.wpbdp-admin-row' );
+            WPBDPAdmin_Layout.$menu_items = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-nav-item a' );
+            WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
+        },
+
+        initToolTip: function() {
+            $( '.wpbdp-nav-tooltip' ).tooltip( { placement : 'right' } );
+        },
+
+        disableToolTip: function() {
+            $( '.wpbdp-nav-tooltip' ).tooltip( 'dispose' );
+        },
+
+        onNavToggle: function( e ) {
+            e.preventDefault();
+            WPBDPAdmin_Layout.$layout_container.toggleClass( 'minimized' );
+            if ( WPBDPAdmin_Layout.$layout_container.hasClass( 'minimized' ) ) {
+                WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
+                WPBDPAdmin_Layout.initToolTip();
+            } else {
+                WPBDPAdmin_Layout.disableToolTip();
+                WPBDPAdmin_Layout.$menu_items.removeClass( 'wpbdp-nav-tooltip' );
+            }
+        }
+    };
 
     $(document).ready(function(){
         WPBDPAdmin_FormFields.init();
+        WPBDPAdmin_Layout.init();
     });
 
 })(jQuery);
