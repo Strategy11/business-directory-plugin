@@ -809,21 +809,46 @@ jQuery(function($) {
 //
 
 jQuery( function( $ ) {
-        $( document ).on( 'click', '.wpbdp-admin-confirm', function( e ) {
-            // e.preventDefault();
+	$( document ).on( 'click', '.wpbdp-admin-confirm', function( e ) {
+		// e.preventDefault();
 
-            var message = $( this ).data( 'confirm' );
-            if ( ! message || 'undefined' == typeof message )
-                message = 'Are you sure you want to do this?';
+		var message = $( this ).data( 'confirm' );
+		if ( ! message || 'undefined' == typeof message )
+			message = 'Are you sure you want to do this?';
 
-            var confirm = window.confirm( message );
-            if ( ! confirm ) {
-                e.stopImmediatePropagation();
-                return false;
-            }
+		var confirm = window.confirm( message );
+		if ( ! confirm ) {
+			e.stopImmediatePropagation();
+			return false;
+		}
 
-            return true;
-        } );
+		return true;
+	} );
+
+	$( document ).on( 'click', '.wpbdp-admin-ajax', function( e ) {
+		e.preventDefault();
+		var $btn = $(this),
+			data = $btn.data( 'ajax' ),
+			message = $btn.data( 'confirm' ),
+			$target = $btn.data( 'target' );
+		var confirm = window.confirm( message );
+		if ( ! confirm ) {
+			return false;
+		}
+		$.post(
+			ajaxurl,
+			data,
+			function( res ) {
+				if ( res.success ) {
+					$target.removeClass( 'error' ).addClass( 'updated' ).find('p').html( res.message ).show();
+				} else {
+					$target.removeClass( 'updated' ).addClass( 'error' ).find('p').html( res.error ).show();
+				}
+				$button.prop( 'disabled', false );
+			},
+			'json'
+		);
+	});
 });
 
 //
