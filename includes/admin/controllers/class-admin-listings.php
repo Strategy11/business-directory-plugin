@@ -614,7 +614,7 @@ class WPBDP_Admin_Listings {
 		if ( 'expired' == $listing->get_status() && ( ! $row['expiration_date'] || $not_expired ) ) {
 			$listing->get_status( true, true );
 		} elseif ( 'complete' == $listing->get_status() && ( ! $row['expiration_date'] || $not_expired ) ) {
-			$listing->update_post_status( wpbdp_get_option( 'edit-post-status' ) );
+			$listing->update_post_status( 'publish' );
 		} elseif ( ! $not_expired ) {
 			$listing->set_status( 'expired' );
 		}
