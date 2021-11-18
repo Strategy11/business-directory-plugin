@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8.1
-Stable tag: 5.15.1
+Stable tag: 5.15.2
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,9 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.15.2 =
+* Fix: Listings set to never expire were changing to draft after editing.
+
 = 5.15.1 =
 * Fix: Listings set to never expire were switching to expired on edit.
 * Fix: Long listing titles in sidebar widgets weren't wrapping with some settings.
