@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8.1
-Stable tag: 5.15.1
+Stable tag: 5.15.2
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,9 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.15.2 =
+* Fix: Listings set to never expire were changing to draft after editing.
+
 = 5.15.1 =
 * Fix: Listings set to never expire were switching to expired on edit.
 * Fix: Long listing titles in sidebar widgets weren't wrapping with some settings.
@@ -178,11 +181,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Fix the button alignment in the search form in the Twenty TwentyOne theme.
 * Fix: The buttons to select a plan were missing when renewing.
 * Fix: PHP errors were showing in some cases when payments were deleted.
-
-= 5.14.2 =
-* Fix: Adding images to a listing from the back-end was causing js errors.
-
-= 5.14.1 =
-* Fix: Prevent the default free fee option from showing when payments are turned on.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
