@@ -109,7 +109,18 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
                 if ( 'insert' == $mode ) {
                     wpbdp_admin_message( _x( 'Fee plan added.', 'fees admin', 'business-directory-plugin' ) );
                 } else {
-                    wpbdp_admin_message( _x( 'Fee plan updated.', 'fees admin', 'business-directory-plugin' ) );
+					$total_listings = $fee->count_listings();
+					if ( $fee->images != $posted_values['images'] && $total_listings > 0 ) {
+						$nonce = wp_create_nonce( 'wpbdp-update-plan-listings' );
+						wpbdp_admin_message( sprintf(
+							__( 'Fee plan updated. Click %1$shere%2$s to update image limits of %3$s listings', 'business-directory-plugin' ),
+							'<a class="wpbdp-update-plan-listings" data-id="' . $fee->id . '" data-nonce="' . $nonce . '" href="#">',
+							'</a>',
+							$total_listings
+						) );
+					} else {
+						wpbdp_admin_message( _x( 'Fee plan updated.', 'fees admin', 'business-directory-plugin' ) );
+					}
                 }
             } else {
                 foreach ( $result->get_error_messages() as $msg ) {
