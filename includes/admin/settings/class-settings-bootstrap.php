@@ -1546,6 +1546,7 @@ final class WPBDP__Settings__Bootstrap {
                     'link'    => _x( 'Checkout URL link', 'admin settings', 'business-directory-plugin' ),
                 ),
                 'group'        => 'email_templates',
+				'requirements' => array( 'payment-abandonment' ),
             )
         );
 
