@@ -830,21 +830,23 @@ jQuery( function( $ ) {
 		var $btn = $(this),
 			data = $btn.data( 'ajax' ),
 			message = $btn.data( 'confirm' ),
-			$target = $btn.data( 'target' );
+			$target = $($btn.data( 'target' ));
 		var confirm = window.confirm( message );
 		if ( ! confirm ) {
 			return false;
 		}
+		$btn.prop( 'disabled', true );
 		$.post(
 			ajaxurl,
 			data,
 			function( res ) {
 				if ( res.success ) {
 					$target.removeClass( 'error' ).addClass( 'updated' ).find('p').html( res.message ).show();
+					$target.fadeOut( 1000 );
 				} else {
 					$target.removeClass( 'updated' ).addClass( 'error' ).find('p').html( res.error ).show();
 				}
-				$button.prop( 'disabled', false );
+				$btn.prop( 'disabled', false );
 			},
 			'json'
 		);

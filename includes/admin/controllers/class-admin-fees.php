@@ -97,7 +97,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
             $fee = new WPBDP__Fee_Plan( $posted_values );
         } else {
 			$fee            = $this->get_or_die();
-			$images_changed = $fee ? ( ( int ) $fee->images != ( int ) $posted_values['images'] ) : false;
+			$images_changed = $fee ? ( (int) $fee->images != (int) $posted_values['images'] ) : false;
         }
 
         if ( $posted_values ) {
@@ -123,7 +123,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 						);
 						wpbdp_admin_message( sprintf(
 							__( 'Fee plan updated. Click %1$shere%2$s to update image limits of %3$s listings', 'business-directory-plugin' ),
-							'<a class="wpbdp-update-plan-listings wpbdp-admin-ajax" data-target="wpbdp-plan-updated" data-ajax="' . $data . '" href="#">',
+							"<a class='wpbdp-update-plan-listings wpbdp-admin-ajax' data-confirm='" . __( 'Update listing images?', 'business-directory-plugin' ) . "' data-target='.wpbdp-plan-updated' data-ajax='" . $data . "' href='#'>",
 							'</a>',
 							$total_listings
 						), 'updated wpbdp-plan-updated' );
