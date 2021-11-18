@@ -615,7 +615,7 @@ class WPBDP_Admin_Listings {
 			if ( ! $row['expiration_date'] || $not_expired ) {
 				$listing->get_status( true, true );
 			}
-		} elseif ( ! $not_expired ) {
+		} elseif ( ! $not_expired && $row['expiration_date'] ) {
 			$listing->set_status( 'expired' );
 		}
     }
