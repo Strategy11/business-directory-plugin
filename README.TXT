@@ -182,10 +182,4 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: The buttons to select a plan were missing when renewing.
 * Fix: PHP errors were showing in some cases when payments were deleted.
 
-= 5.14.2 =
-* Fix: Adding images to a listing from the back-end was causing js errors.
-
-= 5.14.1 =
-* Fix: Prevent the default free fee option from showing when payments are turned on.
-
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
