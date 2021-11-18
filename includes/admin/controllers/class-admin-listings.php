@@ -611,10 +611,10 @@ class WPBDP_Admin_Listings {
 		}
 
 		// Check if the status needs to be changed.
-		if ( 'expired' == $listing->get_status() ) {
-			if ( ! $row['expiration_date'] || $not_expired ) {
-				$listing->get_status( true, true );
-			}
+		if ( 'expired' == $listing->get_status() && ( ! $row['expiration_date'] || $not_expired ) ) {
+			$listing->get_status( true, true );
+		} elseif ( 'complete' == $listing->get_status() && ( ! $row['expiration_date'] || $not_expired ) ) {
+			$listing->update_post_status( wpbdp_get_option( 'edit-post-status' ) );
 		} elseif ( ! $not_expired ) {
 			$listing->set_status( 'expired' );
 		}

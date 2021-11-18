@@ -479,9 +479,25 @@ class WPBDP_Listing {
             return;
 
         $status = apply_filters( 'wpbdp_listing_post_status', $status, $this );
-
         wp_update_post( array( 'post_status' => $status, 'ID' => $this->id ) );
     }
+
+	/**
+	 * Update post status.
+	 * This follows a direct database update to avoid indefinite loops.
+	 *
+	 * @since x.x
+	 */
+	public function update_post_status( $status ) {
+		global $wpdb;
+		if ( ! $this->id )
+			return;
+
+		$status = apply_filters( 'wpbdp_listing_post_status', $status, $this );
+		// Direct update to avoid indefinite loop.
+		$wpdb->update( $wpdb->posts, array( 'post_status' => $status ), array( 'ID' => $this->id ) );
+		clean_post_cache( $this->id );
+	}
 
     public function delete() {
         global $wpdb;
@@ -1096,11 +1112,16 @@ class WPBDP_Listing {
         do_action( 'wpbdp_save_listing', $this->id, 'submit-new' == $context );
 
         $this->get_status(); // This forces a status refresh if there's no status.
-
-        // Do not let expired listings be public.
-        if ( $this->get_status() && in_array( $this->get_status(), array( 'expired', 'pending_renewal' ) ) && 'publish' == get_post_status( $this->id ) ) {
-            $this->set_post_status( 'draft' );
-        }
+		$listing_status = $this->get_status();
+		// Do not let expired listings be public.
+		if ( $listing_status ) {
+			$post_status = get_post_status( $this->id );
+			if ( in_array( $listing_status, array( 'expired', 'pending_renewal' ) ) && 'publish' == $post_status ) {
+				$this->update_post_status( 'draft' );
+			} elseif ( 'draft' === $post_status && 'complete' === $listing_status ) {
+				$this->update_post_status( wpbdp_get_option( 'edit-post-status' ) );
+			}
+		}
     }
 
     /**
