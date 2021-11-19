@@ -1541,29 +1541,12 @@ final class WPBDP__Settings__Bootstrap {
                 'id'           => 'email-templates-payment-abandoned',
                 'type'         => 'email_template',
                 'name'         => _x( 'Payment abandoned reminder message', 'settings', 'business-directory-plugin' ),
-                'desc'         => _x( 'Sent some time after a pending payment is abandoned by users.', 'settings', 'business-directory-plugin' ),
-                'default'      => array(
-                    'subject' => '[[site-title]] Pending payment for "[listing]"',
-                    'body'    => '
-        Hi there,
-
-        We noticed that you tried submitting a listing on [site-link] but didn\'t finish
-        the process.  If you want to complete the payment and get your listing
-        included, just click here to continue:
-
-        [link]
-
-        If you have any issues, please contact us directly by hitting reply to this
-        email!
-
-        Thanks,
-        - The Administrator of [site-title]',
-                ),
                 'placeholders' => array(
                     'listing' => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
                     'link'    => _x( 'Checkout URL link', 'admin settings', 'business-directory-plugin' ),
                 ),
                 'group'        => 'email_templates',
+				'requirements' => array( 'payment-abandonment' ),
             )
         );
 
@@ -1571,7 +1554,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'        => 'expiration-notices',
                 'type'      => 'expiration_notices',
-                'name'      => __( 'Email Notifications', 'business-directory-plugin' ),
+                'name'      => __( 'Renewal and expiration', 'business-directory-plugin' ),
                 'default'   => self::get_default_expiration_notices(),
                 'group'     => 'email_templates',
                 'validator' => array( __class__, 'validate_expiration_notices' ),

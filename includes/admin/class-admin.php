@@ -7,6 +7,7 @@
 
 require_once WPBDP_PATH . 'includes/admin/admin-pages.php';
 require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-listings.php';
+require_once WPBDP_PATH . 'includes/admin/controllers/class-form-fields-admin.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/tables/class-form-fields-table.php';
 require_once WPBDP_PATH . 'includes/admin/csv-import.php';
 require_once WPBDP_PATH . 'includes/admin/csv-export.php';

@@ -558,6 +558,18 @@ class WPBDP_Listing {
     }
 
 	/**
+	 * Get the payment url
+	 *
+	 * @since 5.15
+	 *
+	 * @return string
+	 */
+	public function get_payment_url() {
+		$payment = $this->get_latest_payment();
+		return $payment->get_checkout_url();
+	}
+
+	/**
 	 * @since 5.9.2
 	 */
 	public function owned_by_user( $user_id = 'current' ) {
@@ -722,7 +734,9 @@ class WPBDP_Listing {
 
         if ( is_null( $row['expiration_date'] ) || empty( $row['expiration_date'] ) ) {
             unset( $row['expiration_date'] );
-        }
+		} elseif ( strtotime( $row['expiration_date'] ) < current_time( 'timestamp' ) ) {
+			$row['listing_status'] = 'expired';
+		}
 
         if ( ! empty( $row['recurring_data'] ) ) {
             $row['recurring_data'] = maybe_serialize( $row['recurring_data'] );

@@ -82,6 +82,12 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
     }
 
+    /**
+     * Show the renew or pay buttons.
+     * This shows either the "Renew Listing" or "Pay Now" button depending on the listing status.
+     *
+     * @return string
+     */
     public function maybe_add_renew_button( $buttons, $listing_id ) {
         $listing = wpbdp_get_listing( $listing_id );
         $listing_status  = $listing->get_status();
@@ -90,11 +96,12 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
             return $buttons;
         }
 
+		$is_pending_payment = ( 'pending_payment' === $listing_status );
         $buttons = sprintf(
             '<a class="wpbdp-button button renew-listing" href="%s" %s >%s</a>',
-            $listing->get_renewal_url(),
+            $is_pending_payment ? esc_url( $listing->get_payment_url() ) : esc_url( $listing->get_renewal_url() ),
             'target="_blank" rel="noopener"',
-			esc_html__( 'Renew Listing', 'business-directory-plugin' )
+			$is_pending_payment ? esc_html__( 'Pay Now', 'business-directory-plugin' ) : esc_html__( 'Renew Listing', 'business-directory-plugin' )
         ) . $buttons;
 
         return $buttons;

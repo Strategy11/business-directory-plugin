@@ -387,5 +387,17 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     public static function objects() {
         return parent::_objects( get_class() );
     }
+
+	/**
+	 * Check if the payment is recurring or the amount is greater than 0.
+	 * This is used to show the payment options when price can be 0 or if is recurring.
+	 *
+	 * @since 5.15
+	 *
+	 * @return bool
+	 */
+	public function show_payment_options() {
+		return ( $this->has_item_type( 'recurring_plan' ) || $this->amount > 0 );
+	}
 }
 
