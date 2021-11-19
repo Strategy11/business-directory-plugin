@@ -1,3 +1,24 @@
+.minimized_menu() {
+    .title-text{
+        display: none;
+    }
+    .wpbdp-nav-item-name {
+        display: none;
+    }
+    .wpbdp-menu-area {
+        width: 57px;
+        top: 11px;
+    }
+    .wpbdp-content-area {
+        margin-left: 57px;
+    }
+    .wpbdp-icon-maximized{
+        display: none;
+    }
+    .wpbdp-icon-minimized{
+        display: block;
+    }
+}
 .wpbdp {
     &-admin-layout {
         background-color: @page-background;
@@ -20,24 +41,10 @@
         margin: 0;
         display: flex;
         &.minimized{
-            .title-text{
-                display: none;
-            }
-            .wpbdp-nav-item-name {
-                display: none;
-            }
-            .wpbdp-menu-area {
-                width: 57px;
-            }
-            .wpbdp-content-area {
-                margin-left: 57px;
-            }
-            .wpbdp-icon-maximized{
-                display: none;
-            }
-            .wpbdp-icon-minimized{
-                display: block;
-            }
+            .minimized_menu()
+        }
+        @media only screen and (max-width: 960px) {
+            .minimized_menu()
         }
     }
     &-menu-area{
