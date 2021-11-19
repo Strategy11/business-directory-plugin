@@ -557,6 +557,14 @@ jQuery(function($) {
 
                 dismissNotice( $notice, dismissible_id, nonce );
             } );
+
+        $( document ).on( 'click', '.wpbdp-admin-silent-dismiss', function( e ) {
+            var $notice = $( this ),
+                notice_id = $notice.data( 'dismissible-id' ),
+                nonce = $notice.data( 'nonce' ),
+                $parent = $( this ).closest( '.wpbdp-notice' );
+            dismissNotice( $parent, notice_id, nonce );
+        })
     });
 })(jQuery);
 
