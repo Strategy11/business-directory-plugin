@@ -56,8 +56,22 @@ wpbdp_admin_bootstrap_header(
 	</div>
 </div>
 <main class="height-100 wpbdp-content-area">
+	<?php if ( ! $custom_form ) : ?>
+	<form action="options.php" method="post">
+	<?php endif; ?>
 	<div class="wpbdp-content-area-header">
-		<h1 class="wpbdp-sub-section-title"><?php echo esc_html( ucfirst( $active_tab ) ); ?></h1>
+		<div class="wpbdp-content-area-header-title">
+			<h1 class="wpbdp-sub-section-title"><?php echo esc_html( ucfirst( $active_tab ) ); ?></h1>
+		</div>
+		<div class="wpbdp-content-area-header-actions">
+			<?php if ( ! $custom_form ) :
+				// Submit button shouldn't use 'submit' as name to avoid conflicts with
+				// actual properties of the parent form.
+				//
+				// See http://kangax.github.io/domlint/
+				submit_button( null, 'primary', 'save-changes' );
+			endif; ?>
+		</div>
 	</div>
 	<div class="wpbdp-content-area-body">
 		<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ) : ?>
@@ -86,9 +100,7 @@ wpbdp_admin_bootstrap_header(
 		<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo wp_kses_post( $active_subtab_description ); ?></p>
 		<?php endif; ?>
 
-		<?php if ( ! $custom_form ) : ?>
-		<form action="options.php" method="post">
-		<?php endif; ?>
+		
 
 		<?php
 			$_SERVER['REQUEST_URI'] = $original_uri;
