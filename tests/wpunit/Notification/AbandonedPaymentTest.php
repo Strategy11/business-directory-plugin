@@ -4,13 +4,14 @@
  */
 namespace Notification;
 
+use WPBDP\Tests\WPUnitTestCase;
 use WPBDP__Abandoned_Payment_Notification;
 use WPBDP__Settings;
 
 /**
  * Tests for the Notifications.
  */
-class AbandonedPaymentTest extends \Codeception\Test\Unit {
+class AbandonedPaymentTest extends WPUnitTestCase {
 
     /**
 	 * @var \WpunitTester
@@ -46,7 +47,7 @@ class AbandonedPaymentTest extends \Codeception\Test\Unit {
 				$after_notified = count( $notified );
 
 				// Assert that the notification was sent
-				$this->assertGreaterThan( $after_notified, $before_notified, 'Notification was sent' );
+				$this->assertTrue( $after_notified > $before_notified, 'Notification was sent' );
 			} else {
 				$this->fail( 'Listing has no payment' );
 			}

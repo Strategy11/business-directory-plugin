@@ -2,9 +2,10 @@
 
 namespace Cache;
 
+use WPBDP\Tests\WPUnitTestCase;
 use WPBDP_Utils;
 
-class UtilsCacheTest extends \Codeception\Test\Unit {
+class UtilsCacheTest extends WPUnitTestCase {
 
 	/**
 	 * @var \WpunitTester
