@@ -915,11 +915,10 @@ final class WPBDP__Settings__Bootstrap {
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'table', 'themes' );
 
-        if ( ! is_plugin_active( 'font-awesome/index.php' ) || ( ! class_exists( '\FortAwesome\FontAwesome_Loader' ) ) ) {
+        if ( ! WPBDP_App_Helper::is_font_awesome_enabled() ) {
 			wpbdp_register_setting(
 				array(
 					'id'    => 'fontawesome-enabled',
-					'name'  => __( 'Font Awesome', 'business-directory-plugin' ),
 					'desc'  => wp_kses_post(
 						sprintf(
 							'<span>' . __( 'Install %s for Font Awesome styles?', 'business-directory-plugin' ) . '</span>',

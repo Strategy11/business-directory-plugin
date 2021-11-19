@@ -346,6 +346,21 @@ class WPBDP_App_Helper {
 	}
 
 	/**
+	 * Check if font awesome is enabled.
+	 * This checks if the plugin is active or the styles are loaded.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public static function is_font_awesome_enabled() {
+		if ( is_plugin_active( 'font-awesome/index.php' ) || wp_style_is( 'font-awesome', 'enqueued' ) ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * @since 5.9.2
 	 */
 	private static function allowed_html( $allowed ) {

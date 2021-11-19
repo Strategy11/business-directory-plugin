@@ -1154,19 +1154,19 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
             // Registration disabled message.
-            if ( wpbdp_get_option( 'require-login' )
-                && ! get_option( 'users_can_register' )
-                && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
+			if ( wpbdp_get_option( 'require-login' )
+				&& ! get_option( 'users_can_register' )
+				&& ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
 					$this->messages[] = array(
 						sprintf(
-                            __( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
-                            '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
-                            '</a>'
-                        ),
+							__( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
+							'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
+							'</a>'
+						),
 						'error dismissible',
 						array( 'dismissible-id' => 'registration_disabled' ),
 					);
-            }
+			}
         }
 
         private function check_deprecation_warnings() {
@@ -1192,15 +1192,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			if ( ! wpbdp_get_option( 'enqueue-fontawesome-styles', false ) ) {
-				return;
-			}
-
-			if ( is_plugin_active( 'font-awesome/index.php' ) ) {
-				$this->messages[] = array(
-					__( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin.', 'business-directory-plugin' ),
-					'notice dismissible',
-					array( 'dismissible-id' => 'fa_dismiss' ),
-				);
 				return;
 			}
 
