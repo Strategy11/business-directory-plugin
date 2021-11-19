@@ -1120,14 +1120,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $this->messages[] = array(
-                sprintf(
-                    _x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
-                    $installed_version
-                ),
-                'error dismissible',
-                array( 'dismissible-id' => 'server_requirements' ),
-            );
+			$this->messages[] = array(
+				sprintf(
+					_x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
+					$installed_version
+				),
+				'error dismissible',
+				array( 'dismissible-id' => 'server_requirements' ),
+			);
         }
 
         public function ajax_dismiss_notification_server_requirements() {
@@ -1199,7 +1199,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				sprintf(
 					__( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin. %1$sInstall Font Awesome now%2$s.', 'business-directory-plugin' ),
 					sprintf(
-						'<a class="wpbdp-admin-silent-dismiss" href="%1$s" data-dismissible-id="%2$s" data-nonce="%3$s" target="_blank" rel="noopener nofollow">',
+						'<a class="wpbdp-admin-silent-dismiss" href="%1$s" data-dismissible-id="%2$s" data-nonce="%3$s" rel="noopener nofollow">',
 						esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ),
 						'fa_dismiss',
 						wp_create_nonce( 'dismiss notice fa_dismiss' )
