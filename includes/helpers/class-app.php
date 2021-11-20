@@ -354,10 +354,7 @@ class WPBDP_App_Helper {
 	 * @return bool
 	 */
 	public static function is_font_awesome_enabled() {
-		if ( is_plugin_active( 'font-awesome/index.php' ) || wp_style_is( 'font-awesome', 'enqueued' ) ) {
-			return true;
-		}
-		return false;
+		return is_plugin_active( 'font-awesome/index.php' ) || wp_style_is( 'font-awesome', 'enqueued' );
 	}
 
 	/**

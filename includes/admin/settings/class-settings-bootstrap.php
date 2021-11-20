@@ -915,13 +915,13 @@ final class WPBDP__Settings__Bootstrap {
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'table', 'themes' );
 
-        if ( ! WPBDP_App_Helper::is_font_awesome_enabled() ) {
+		if ( ! WPBDP_App_Helper::is_font_awesome_enabled() ) {
 			wpbdp_register_setting(
 				array(
 					'id'    => 'fontawesome-enabled',
 					'desc'  => wp_kses_post(
 						sprintf(
-							'<span>' . __( 'Install %s for Font Awesome styles?', 'business-directory-plugin' ) . '</span>',
+							'<span>' . __( 'Use icons in your directory listings and custom fields: Install %s', 'business-directory-plugin' ) . '</span>',
 							'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . '" target="_blank" rel="noopener nofollow">Font Awesome</a> '
 						)
 					),
