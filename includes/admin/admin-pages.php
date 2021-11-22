@@ -201,26 +201,13 @@ function wpbdp_admin_notification_bell( $echo = false ) {
 	?>
 	<div class="wpbdp-bell-notification">
 		<a class="wpbdp-bell-notification-icon" href="#">
-			<svg version="1.1" width="142" height="118" viewBox="0 0 142 118" fill="none" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-				<g filter="url(#filter0_d_807_45823)">
-					<rect x="54" y="30" width="48" height="48" rx="12" fill="white"/>
-					<path d="M84 50C84 48.4087 83.3679 46.8826 82.2426 45.7574C81.1174 44.6321 79.5913 44 78 44C76.4087 44 74.8826 44.6321 73.7574 45.7574C72.6321 46.8826 72 48.4087 72 50C72 57 69 59 69 59H87C87 59 84 57 84 50Z" stroke="#3C4B5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					<path d="M79.7295 63C79.5537 63.3031 79.3014 63.5547 78.9978 63.7295C78.6941 63.9044 78.3499 63.9965 77.9995 63.9965C77.6492 63.9965 77.3049 63.9044 77.0013 63.7295C76.6977 63.5547 76.4453 63.3031 76.2695 63" stroke="#3C4B5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					<circle class="wpbdp-bell-notification-dot" cx="85.5" cy="46.5" r="5" fill="#FF5A5A" stroke="white"/>
-				</g>
-				<defs>
-					<filter id="filter0_d_807_45823" x="0" y="0" width="156" height="156" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-						<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-						<feOffset dy="24"/>
-						<feGaussianBlur stdDeviation="27"/>
-						<feComposite in2="hardAlpha" operator="out"/>
-						<feColorMatrix type="matrix" values="0 0 0 0 0.388235 0 0 0 0 0.435294 0 0 0 0 0.490196 0 0 0 0.4 0"/>
-						<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_807_45823"/>
-						<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_807_45823" result="shape"/>
-					</filter>
-				</defs>
+			<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<rect width="60" height="60" rx="12" fill="white"/>
+				<path d="M37.5 25C37.5 23.0109 36.7098 21.1032 35.3033 19.6967C33.8968 18.2902 31.9891 17.5 30 17.5C28.0109 17.5 26.1032 18.2902 24.6967 19.6967C23.2902 21.1032 22.5 23.0109 22.5 25C22.5 33.75 18.75 36.25 18.75 36.25H41.25C41.25 36.25 37.5 33.75 37.5 25Z" stroke="#3C4B5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<path d="M32.1619 41.25C31.9421 41.6288 31.6267 41.9433 31.2472 42.1619C30.8677 42.3805 30.4374 42.4956 29.9994 42.4956C29.5614 42.4956 29.1312 42.3805 28.7516 42.1619C28.3721 41.9433 28.0567 41.6288 27.8369 41.25" stroke="#3C4B5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<circle class="wpbdp-bell-notification-dot" cx="39.375" cy="20.625" r="6.125" fill="#FF5A5A" stroke="white"/>
 			</svg>
+
 		</a>
 	</div>
 	<?php
