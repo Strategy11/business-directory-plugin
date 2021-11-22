@@ -8,23 +8,24 @@
 ?>
 
 <div class="listing-title">
-    <?php echo $fields->t_title->value; ?>
+	<?php echo $fields->t_title->value; ?>
 </div>
 
 <div class="excerpt-content">
-    <?php if ( $images->thumbnail ): ?>
-        <?php echo $images->thumbnail->html; ?>
-    <?php endif; ?>
+	<?php if ( $images->thumbnail ): ?>
+		<?php echo $images->thumbnail->html; ?>
+	<?php endif; ?>
 
-    <div class="listing-details">
-        <?php if ( $fields->_h_address ): ?>
-        <div class="address-info">
-            <span class="address-label"><?php esc_html_e( 'Address', 'business-directory-plugin' ); ?>:</span>
-            <?php echo $fields->_h_address; ?>
-        </div>
-        <?php endif; ?>
+	<div class="listing-details">
+		<?php foreach ( $fields->not( 'social' ) as $field ) : ?>
+			<?php echo $field->html; ?>
+		<?php endforeach; ?>
 
-        <?php echo $fields->exclude('t_title,t_address,t_address2,t_city,t_state,t_country,t_zip')->html; ?>
-    </div>
-
+		<?php
+			$social = $fields->filter( 'social' );
+		?>
+		<?php if ( $social && $social->html ) : ?>
+			<div class="social-fields cf"><?php echo $social->html; ?></div>
+		<?php endif; ?>
+	</div>
 </div>
