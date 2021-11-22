@@ -528,43 +528,31 @@ jQuery(function($) {
 // Dismissible Messages
 (function($) {
     $(function(){
-        var dismissNotice = function( $notice, notice_id, nonce ) {
+        var dismissNotice = function( $notice, notice_id, nonce, callback ) {
             $.post( ajaxurl, {
                 action: 'wpbdp_dismiss_notification',
                 id: notice_id,
                 nonce: nonce
             }, function() {
-                $notice.fadeOut( 'fast', function(){ $notice.remove(); } );
+                $notice.fadeOut( 'fast', function(){ 
+                    $notice.remove();
+                    if ( typeof callback !== 'undefined' && typeof callback === 'function' ) {
+                        callback();
+                    }
+                } );
             } );
         };
 
-        $( '#wpbody-content' )
-            .on( 'click', '.wpbdp-notice.dismissible > .notice-dismiss', function( e ) {
+        $( document )
+            .on( 'click', '.wpbdp-notice.dismissible > .notice-dismiss, .wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss-inline', function( e ) {
                 e.preventDefault();
-
-                var $notice = $( this ).parent( '.wpbdp-notice' );
-                var dismissible_id = $( this ).data( 'dismissible-id' );
-                var nonce = $( this ).data( 'nonce' );
-
-                dismissNotice( $notice, dismissible_id, nonce );
-            } )
-            .on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss', function( e ) {
-                e.preventDefault();
-
-                var $notice = $( this ).parent( '.wpbdp-notice' );
-                var dismissible_id = $notice.data( 'dismissible-id' );
-                var nonce = $notice.data( 'nonce' );
-
-                dismissNotice( $notice, dismissible_id, nonce );
+                var $button = $( this ),
+                    $notice = $button.closest( '.wpbdp-notice' ),
+                    dismissible_id = $button.data( 'dismissible-id' ),
+                    nonce = $button.data( 'nonce' ),
+                    $link = $button.attr( 'href' );
+                dismissNotice( $notice, dismissible_id, nonce, $link ? function() { window.location.href = $link; } : null );
             } );
-
-        $( document ).on( 'click', '.wpbdp-admin-silent-dismiss', function( e ) {
-            var $notice = $( this ),
-                notice_id = $notice.data( 'dismissible-id' ),
-                nonce = $notice.data( 'nonce' ),
-                $parent = $( this ).closest( '.wpbdp-notice' );
-            dismissNotice( $parent, notice_id, nonce );
-        })
     });
 })(jQuery);
 

@@ -1199,7 +1199,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				sprintf(
 					__( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin. %1$sInstall Font Awesome now%2$s.', 'business-directory-plugin' ),
 					sprintf(
-						'<a class="wpbdp-admin-silent-dismiss" href="%1$s" data-dismissible-id="%2$s" data-nonce="%3$s" rel="noopener nofollow">',
+						'<a class="wpbdp-notice-dismiss-inline" href="%1$s" data-dismissible-id="%2$s" data-nonce="%3$s" rel="noopener nofollow">',
 						esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ),
 						'fa_dismiss',
 						wp_create_nonce( 'dismiss notice fa_dismiss' )
