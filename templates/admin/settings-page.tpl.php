@@ -125,6 +125,7 @@ wpbdp_admin_bootstrap_header(
 		</form>
 		<?php endif; ?>
 	</div>
+	<?php wpbdp_admin_notification_bell( true ); ?>
 </div>
 <?php
     wpbdp_admin_footer( 'echo' );
