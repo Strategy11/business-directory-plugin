@@ -199,13 +199,11 @@ function wpbdp_admin_notification_bell( $echo = false ) {
 		ob_start();
 	}
 	?>
-	<div class="wpbdp-bell-notifications">
-		<ul class="wpbdp-bell-notifications-list">
-			
-		</ul>
+	<div class="wpbdp-bell-notifications hidden">
+		<a href="#" class="wpbdp-bell-notifications-close"><?php esc_html_e( 'Close', 'business-directory-plugin' ); ?></a>
+		<ul class="wpbdp-bell-notifications-list"></ul>
 	</div>
 	<div class="wpbdp-bell-notification">
-		
 		<a class="wpbdp-bell-notification-icon" href="#">
 			<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<rect width="60" height="60" rx="12" fill="white"/>

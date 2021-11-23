@@ -363,8 +363,17 @@ class WPBDP__Assets {
 			'wpbdp-bootstrap-js',
 			WPBDP_ASSETS_URL . 'vendor/bootstrap/js/bootstrap.bundle.min.js',
 			array( 'jquery' ),
+			'5.0.2',
+			true
+		);
+
+		// Notifications JS
+		wp_enqueue_script(
+			'wpbdp-admin-notifications',
+			WPBDP_ASSETS_URL . 'js/admin-notifications.min.js',
+			array( 'jquery' ),
 			WPBDP_VERSION,
-			'5.0.2'
+			true
 		);
 
 		wp_enqueue_style( 'wpbdp-js-select2-css' );
