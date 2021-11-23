@@ -54,13 +54,12 @@ jQuery( function( $ ) {
 			wpbdp_admin_notification_center.notificationDot.addClass( 'wpbdp-bell-notification-dot-active' );
 			wpbdp_admin_notification_center.preAdminNotifications.each( function() {
 				var notification = $(this);
-				if ( ! notification.hasClass( 'wpbdp-review-notice' ) || ! notification.hasClass( 'wpbdp-notice' ) ) {
-					notification.remove();
-				}
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
 					wpbdp_admin_notification_center.adminNotifications.append( '<li>' + notification.html() + '</li>');
 				}
-				notification.remove();
+				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
+					notification.remove();
+				}
 			});
 		}
 	};
