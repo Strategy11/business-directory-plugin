@@ -3,7 +3,7 @@
 <?php endif; ?>
 
 <div class="listing-details">
-	<?php foreach ( $fields->not( 'social' )->exclude( ( isset( $exclude_title ) && $exclude_title ) ? 't_title' : '' ) as $field ) : ?>
+	<?php foreach ( $fields->not( 'social' )->exclude( isset( $exclude_fields ) ? $exclude_fields : '' ) as $field ) : ?>
 		<?php echo $field->html; ?>
 	<?php endforeach; ?>
 

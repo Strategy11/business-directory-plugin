@@ -12,5 +12,5 @@
 </div>
 
 <div class="excerpt-content">
-	<?php wpbdp_x_part( 'parts/excerpt-details', array( 'exclude_title' => true ) ); ?>
+	<?php wpbdp_x_part( 'parts/excerpt-details', array( 'exclude_fields' => 't_title' ) ); ?>
 </div>
