@@ -199,7 +199,13 @@ function wpbdp_admin_notification_bell( $echo = false ) {
 		ob_start();
 	}
 	?>
+	<div class="wpbdp-bell-notifications">
+		<ul class="wpbdp-bell-notifications-list">
+			
+		</ul>
+	</div>
 	<div class="wpbdp-bell-notification">
+		
 		<a class="wpbdp-bell-notification-icon" href="#">
 			<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<rect width="60" height="60" rx="12" fill="white"/>
@@ -207,7 +213,6 @@ function wpbdp_admin_notification_bell( $echo = false ) {
 				<path d="M32.1619 41.25C31.9421 41.6288 31.6267 41.9433 31.2472 42.1619C30.8677 42.3805 30.4374 42.4956 29.9994 42.4956C29.5614 42.4956 29.1312 42.3805 28.7516 42.1619C28.3721 41.9433 28.0567 41.6288 27.8369 41.25" stroke="#3C4B5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<circle class="wpbdp-bell-notification-dot" cx="39.375" cy="20.625" r="6.125" fill="#FF5A5A" stroke="white"/>
 			</svg>
-
 		</a>
 	</div>
 	<?php
