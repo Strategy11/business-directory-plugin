@@ -33,13 +33,15 @@ jQuery( function( $ ) {
 		},
 
 		onClickNotifications: function() {
-			wpbdp_admin_notification_center.buttonNotification.on( 'click', function() {
+			wpbdp_admin_notification_center.buttonNotification.on( 'click', function(e) {
+				e.preventDefault();
 				wpbdp_admin_notification_center.notificationContainer.toggleClass( 'hidden' );
 			});
 		},
 
 		initCloseNotifications: function() {
-			wpbdp_admin_notification_center.closeButton.on( 'click', function() {
+			wpbdp_admin_notification_center.closeButton.on( 'click', function(e) {
+				e.preventDefault();
 				wpbdp_admin_notification_center.notificationContainer.addClass( 'hidden' );
 			});
 		},
