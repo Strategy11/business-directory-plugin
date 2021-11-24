@@ -25,12 +25,11 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
               );
     }
 
-    public function update( $new, $old ) {
-        $new = parent::update( $new, $old );
-        $new['random_order'] = ! empty( $new['random_order'] );
-
-        return $new;
-    }
+	public function update( $new, $old ) {
+		$instance = parent::update( $new, $old );
+		$instance['random_order'] = ! empty( $new['random_order'] ) ? 1 : 0;
+		return $instance;
+	}
 
     public function get_listings( $instance ) {
         global $wpdb;
