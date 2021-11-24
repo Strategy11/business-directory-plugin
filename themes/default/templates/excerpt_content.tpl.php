@@ -12,9 +12,6 @@
 </div>
 
 <div class="excerpt-content">
-<<<<<<< HEAD
-	<?php wpbdp_x_part( 'parts/excerpt-details', array( 'exclude_fields' => 't_title' ) ); ?>
-=======
     <?php if ( $images->thumbnail ): ?>
         <?php echo $images->thumbnail->html; ?>
     <?php endif; ?>
@@ -30,5 +27,4 @@
         <?php echo $fields->exclude('t_title,t_address,t_address2,t_city,t_state,t_country,t_zip')->html; ?>
     </div>
 
->>>>>>> parent of 9c9beccc (Excerpt view default theme)
 </div>
