@@ -109,7 +109,7 @@ wpbdp_admin_bootstrap_header(
 				settings_fields( 'wpbdp_settings' );
 			endif;
 
-			do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
+			wpbdp_admin_do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
 			do_action( 'wpbdp_settings_subtab_' . $active_subtab );
 
 			if ( ! $custom_form ) :

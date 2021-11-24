@@ -16,7 +16,7 @@
                 font-weight: 600;
                 &:active, &:visited{
                     color: @text-color;
-                    outline: 0;
+                    outline: none;
                 }
                 &.current{
                     color: @link-active;
@@ -37,6 +37,10 @@
         .wpbdp-button-secondary {
             padding: 0;
         }
+    }
+    .progress {
+        /**Override bootstrap**/
+        display: inline-block;
     }
 }
 .directory_page_wpbdp_settings {
