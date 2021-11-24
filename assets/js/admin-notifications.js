@@ -29,9 +29,7 @@ jQuery( function( $ ) {
 			this.onClickNotifications();
 			this.initCloseNotifications();
 	
-			setTimeout(function(){
-				wpbdp_admin_notification_center.parseNotifications();
-			}, 500);
+			this.parseNotifications();
 		},
 
 		onClickNotifications: function() {
