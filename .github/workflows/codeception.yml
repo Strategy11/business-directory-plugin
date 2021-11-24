@@ -55,6 +55,7 @@ jobs:
           php vendor/bin/codecept run wpunit Data/ExporterTest.php
           php vendor/bin/codecept run wpunit Listing/APITest.php
           php vendor/bin/codecept run wpunit UtilsTest.php
+          php vendor/bin/codecept run wpunit Fee/FeeCrudeTest.php
   syntax-test:
     if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
     runs-on: ubuntu-latest
