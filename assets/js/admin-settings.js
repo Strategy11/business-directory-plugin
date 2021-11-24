@@ -266,17 +266,5 @@ jQuery(function($) {
         },
     };
     wpbdp_settings_email.init();
-
-
-    /**
-     * Settings area fixes
-     */
-    function wpbdp_settings_content_area() {
-        var wpbdp_pro_license_label = $( 'label[for=pro_license]' );
-        if ( wpbdp_pro_license_label.length ) {
-            wpbdp_pro_license_label.parent( 'th' ).hide();
-        }
-    }
-    wpbdp_settings_content_area();
 });
 
