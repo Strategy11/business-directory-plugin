@@ -4,6 +4,7 @@ namespace WPBDP\Tests;
 
 use Codeception\TestCase\WPTestCase;
 use WPBDP_Installer;
+use WPBDP__Fee_Plan;
 
 class WPUnitTestCase extends WPTestCase {
 
@@ -58,7 +59,8 @@ class WPUnitTestCase extends WPTestCase {
 		}
 
 		// Drop tables.
-		$tables = array_keys( $this->installer->get_database_schema() );
+		$installer = new WPBDP_Installer( 0 );
+		$tables    = array_keys( $installer->get_database_schema() );
 		foreach ( $tables as $table ) {
 			$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}wpbdp_{$table}" );
 		}
