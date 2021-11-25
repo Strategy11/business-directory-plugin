@@ -1074,7 +1074,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'enforce-image-upload',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Enforce image upload on submit/edit?', 'settings', 'business-directory-plugin' ),
+                'desc'    => _x( 'Enforce image upload on submit/edit?', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'image/listings',
             )
