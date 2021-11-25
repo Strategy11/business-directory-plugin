@@ -957,6 +957,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Min Image File Size (KB)', 'settings', 'business-directory-plugin' ),
                 'default' => '0',
                 'group'   => 'images/general',
+                'class'   => 'wpbdp-setting-row-1-2',
             )
         );
         wpbdp_register_setting(
@@ -968,6 +969,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Max Image File Size (KB)', 'settings', 'business-directory-plugin' ),
                 'default' => '10000',
                 'group'   => 'images/general',
+                'class'   => 'wpbdp-setting-row-1-2',
             )
         );
         wpbdp_register_setting(
@@ -979,6 +981,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Min image width (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '0',
                 'group'   => 'images/general',
+                'class'   => 'wpbdp-setting-row-1-2',
             )
         );
         wpbdp_register_setting(
@@ -990,6 +993,7 @@ final class WPBDP__Settings__Bootstrap {
                 'min'     => 0,
                 'step'    => 1,
                 'group'   => 'images/general',
+                'class'   => 'wpbdp-setting-row-1-2',
             )
         );
         wpbdp_register_setting(
@@ -1001,6 +1005,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Max image width (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '500',
                 'group'   => 'images/general',
+                'class'   => 'wpbdp-setting-row-1-2',
             )
         );
         wpbdp_register_setting(
@@ -1012,6 +1017,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Max image height (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '500',
                 'group'   => 'images/general',
+                'class'   => 'wpbdp-setting-row-1-2',
             )
         );
         wpbdp_register_setting(
@@ -1037,6 +1043,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Thumbnail width (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '150',
                 'group'   => 'image/thumbnails',
+                'class'   => 'wpbdp-setting-row-1-2',
             )
         );
         wpbdp_register_setting(
@@ -1048,6 +1055,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Thumbnail height (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '150',
                 'group'   => 'image/thumbnails',
+                'class'   => 'wpbdp-setting-row-1-2',
             )
         );
         wpbdp_register_setting(

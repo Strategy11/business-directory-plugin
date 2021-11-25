@@ -33,7 +33,7 @@ function wpbdp_admin_do_settings_sections( $page ) {
 		if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[ $page ] ) || ! isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
 			continue;
 		}
-		echo '<div class="form-table" role="presentation">';
+		echo '<div class="form-table wpbdp-settings-form">';
 		wpbdp_admin_do_settings_fields( $page, $section['id'] );
 		echo '</div>';
 	}
@@ -57,23 +57,23 @@ function wpbdp_admin_do_settings_fields( $page, $section ) {
 	}
 
 	foreach ( (array) $wp_settings_fields[ $page ][ $section ] as $field ) {
-		$class = '';
+		$class = ' class="wpbdp-setting-row"';
 
 		if ( ! empty( $field['args']['class'] ) ) {
-			$class = ' class="' . esc_attr( $field['args']['class'] ) . '"';
+			$class = ' class="wpbdp-setting-row ' . esc_attr( $field['args']['class'] ) . '"';
 		}
 
 		echo "<div{$class}>";
 
 		if ( ! empty( $field['title'] ) ) {
 			if ( ! empty( $field['args']['label_for'] ) ) {
-				echo '<div scope="row"><label for="' . esc_attr( $field['args']['label_for'] ) . '">' . $field['title'] . '</label></div>';
+				echo '<div class="wpbdp-setting-label"><label for="' . esc_attr( $field['args']['label_for'] ) . '">' . $field['title'] . '</label></div>';
 			} else {
-				echo '<div scope="row">' . $field['title'] . '</div>';
+				echo '<div class="wpbdp-setting-label">' . $field['title'] . '</div>';
 			}
 		}
 
-		echo '<div>';
+		echo '<div class="wpbdp-setting-content">';
 		call_user_func( $field['callback'], $field['args'] );
 		echo '</div>';
 		echo '</div>';
