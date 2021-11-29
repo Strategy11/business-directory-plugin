@@ -169,12 +169,18 @@ var WPBDP_associations_fieldtypes = {};
         $nav_toggle : null,
         $layout_container : null,
         $menu_items : null,
+        $menu_container : null,
 
         init: function() {
             WPBDPAdmin_Layout.$nav_toggle = $( '.wpbdp-nav-toggle' );
             WPBDPAdmin_Layout.$layout_container = $( '.wpbdp-admin-row' );
             WPBDPAdmin_Layout.$menu_items = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-nav-item a' );
+            WPBDPAdmin_Layout.$menu_container = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-menu-area' );
             WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
+            WPBDPAdmin_Layout.menuReSize();
+            $(window).on('resize', function(){
+                WPBDPAdmin_Layout.menuReSize();
+            });
         },
 
         initToolTip: function() {
@@ -195,6 +201,10 @@ var WPBDP_associations_fieldtypes = {};
                 WPBDPAdmin_Layout.disableToolTip();
                 WPBDPAdmin_Layout.$menu_items.removeClass( 'wpbdp-nav-tooltip' );
             }
+        },
+
+        menuReSize : function() {
+            WPBDPAdmin_Layout.$menu_container.css( 'height', $( 'body' ).css( 'height' ) );
         }
     };
 
