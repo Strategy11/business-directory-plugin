@@ -29,13 +29,20 @@
             }
         }
     }
-    .form-table td {
-        padding-left: 0;
-    }
+
     .wpbdp-license-key-activation-ui {
-        display: flex;
+        &.wpbdp-license-status-valid {
+            display: flex;
+        }
         .wpbdp-button-secondary {
             padding: 0;
+        }
+        p {
+            line-height: 26px;
+            margin: 0;
+        }
+        .wpbdp-license-key-input {
+            padding: 0 8px !important;
         }
     }
     .progress {
