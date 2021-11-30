@@ -55,7 +55,7 @@ wpbdp_admin_bootstrap_header(
 		</div>
 	</div>
 </div>
-<main class="height-100 wpbdp-content-area">
+<main class="wpbdp-content-area">
 	<?php if ( ! $custom_form ) : ?>
 	<form action="options.php" method="post">
 	<?php endif; ?>

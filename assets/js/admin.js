@@ -204,7 +204,11 @@ var WPBDP_associations_fieldtypes = {};
         },
 
         menuReSize : function() {
-            WPBDPAdmin_Layout.$menu_container.css( 'height', $( window ).height() );
+            if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
+                WPBDPAdmin_Layout.$menu_container.css( 'height', $( window ).height() );
+            } else {
+                WPBDPAdmin_Layout.$menu_container.css( 'height', 'auto' );
+            }
         }
     };
 
