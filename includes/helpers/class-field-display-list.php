@@ -238,7 +238,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	 * @return string
 	 */
 	public function helper__address_label() {
-		return trim( apply_filters( 'wpbdp_display_field_label', $this->t_address->label, $this->t_address->field ) );
+		return trim( WPBDP_Form_Field_Type::field_label_display_wrapper( $this->t_address->label, $this->t_address->field ) );
 	}
 
     public function helper__author() {

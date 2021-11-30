@@ -429,7 +429,7 @@ class WPBDP_Form_Field_Type {
         $html .= '<div class="' . $css_classes . ' ' . $extra_classes . '" ' . $tag_attrs . '>';
 
         if ( $label )
-            $html .= '<span class="field-label">' . apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $labelorfield ) . ':</span> ';
+            $html .= self::field_label_display_wrapper( $label, $labelorfield );
 
         if ( $content )
             $html .= '<div class="value">' . $content . '</div>';
@@ -438,6 +438,21 @@ class WPBDP_Form_Field_Type {
 
         return $html;
     }
+
+	/**
+	 * Field label display wrapper.
+	 * Used to render the field label.
+	 *
+	 * @param string $label The field label.
+	 * @param object $labelorfield The lfield object of the label.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public static function field_label_display_wrapper( $label, $labelorfield ) {
+		return '<span class="field-label">' . apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $labelorfield ) . ':</span> ';
+	}
 
 	public static function render_admin_settings( $admin_settings = array() ) {
 		if ( ! $admin_settings ) {
