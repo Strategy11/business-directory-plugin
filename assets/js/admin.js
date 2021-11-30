@@ -181,6 +181,9 @@ var WPBDP_associations_fieldtypes = {};
             $(window).on('resize', function(){
                 WPBDPAdmin_Layout.menuReSize();
             });
+            if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
+                WPBDPAdmin_Layout.$layout_container.addClass( 'minimized' );
+            }
         },
 
         initToolTip: function() {

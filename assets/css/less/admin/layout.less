@@ -7,7 +7,6 @@
     }
     .wpbdp-menu-area {
         width: 57px;
-        padding: 37px 0;
     }
     .wpbdp-content-area {
         margin-left: 57px;
@@ -47,9 +46,11 @@
             
         }
         @media only screen and (max-width: 960px) {
-            .minimized_menu();
             .wpbdp-content-area-header {
                 height: 60px;
+            }
+            .wpbdp-menu-area {
+                padding: 37px 0;
             }
         }
     }
@@ -97,9 +98,6 @@
         color: @text-meta-color;
         font-size: 14px;
         width: 200px;
-        @media only screen and (max-width: 960px) {
-            display: none;
-        }
     }
     &-icon-minimized{
         display: none;
