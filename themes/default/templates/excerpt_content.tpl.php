@@ -19,7 +19,7 @@
     <div class="listing-details">
         <?php if ( $fields->_h_address ): ?>
         <div class="wpbdp-field-display wpbdp-field wpbdp-field-value field-display field-value">
-            <span class="field-label address-label"><?php echo $fields->_h_address_label; ?>:</span>
+            <span class="field-label address-label"><?php echo $fields->_h_address_label; ?></span>
             <div><?php echo $fields->_h_address; ?></div>
         </div>
         <?php endif; ?>
