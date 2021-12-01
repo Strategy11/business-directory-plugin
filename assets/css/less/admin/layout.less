@@ -21,9 +21,7 @@
 .wpbdp {
     &-admin-layout {
         background-color: @page-background;
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
+        margin: 0px;
         padding-top: 0px;
         padding-left: 0px;
         display: inline-block;
@@ -60,7 +58,7 @@
         top: 0;
         bottom: -120px;
         z-index: 1;
-        width: 286px;
+        width: 296px;
         background-color: @page-background;
     }
     &-nav-items {
@@ -69,6 +67,7 @@
             a {
                 color: @text-color;
                 border-radius: 0;
+                padding-left: 20px;
             }
             .active {
                 background-color: @white;
@@ -108,7 +107,7 @@
         color: @link-active;
         padding: 0px 20px;
         width: 100%;
-        margin-left: 286px;
+        margin-left: 296px;
         .h2, h2 {
             font-size: 18px;
         }
@@ -132,6 +131,9 @@
                     text-align: right;
                 }
             }
+        }
+        &-body {
+            padding: 20px 80px;
         }
     }
     &-sub-section-title {
