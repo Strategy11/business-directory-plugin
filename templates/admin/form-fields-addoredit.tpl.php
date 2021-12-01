@@ -100,7 +100,7 @@ wpbdp_admin_notices();
     $field_settings .= ob_get_contents();
     ob_end_clean();
     ?>
-    <div id="wpbdp-fieldsettings" style="<?php echo $field_settings ? '' : 'display: none;'; ?>">
+    <div id="wpbdp-fieldsettings" class="wpbdp-fieldsettings-<?php echo sanitize_html_class( $field->get_field_type_id() ); ?>" style="<?php echo $field_settings ? '' : 'display: none;'; ?>">
     <h2><?php _ex( 'Field-specific settings', 'form-fields admin', 'business-directory-plugin' ); ?></h2>
     <div id="wpbdp-fieldsettings-html">
         <?php echo $field_settings; ?>

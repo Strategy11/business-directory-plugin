@@ -65,6 +65,8 @@ var WPBDP_associations_fieldtypes = {};
                     form.addClass( 'hidden' );
                 }
             });
+
+            WPBDPAdmin_FormFields.handleCategoryScrollOptions();
         },
 
         onFieldTypeChange: function() {
@@ -101,6 +103,7 @@ var WPBDP_associations_fieldtypes = {};
                 if ( response.ok && response.html ) {
                     $('#wpbdp-fieldsettings-html').html(response.html);
                     $('#wpbdp-fieldsettings').show();
+                    WPBDPAdmin_FormFields.handleCategoryScrollOptions();
                 } else {
                     $('#wpbdp-fieldsettings-html').empty();
                     $('#wpbdp-fieldsettings').hide();
@@ -158,6 +161,17 @@ var WPBDP_associations_fieldtypes = {};
             } else {
                 $('#wpbdp_word_count').hide();
                 $('select#field-validator option[value="word_number"]').prop( 'disabled', true ).prop( 'selected', false );
+            }
+        },
+
+        handleCategoryScrollOptions : function() {
+            var $association = WPBDPAdmin_FormFields.$f_association.val(),
+                $type = WPBDPAdmin_FormFields.$f_fieldtype.val(),
+                $target = $( '.wpbdp-admin-page-field-form .wpbdp-fieldsettings-multiselect' );
+            if ( 'category' === $association && 'multiselect' === $type ) {
+                $target.hide();
+            } else {
+                $target.show();
             }
         }
     };
