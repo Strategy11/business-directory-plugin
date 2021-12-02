@@ -234,18 +234,12 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_checkbox_callback( $setting, $value ) {
-        $save = $this->checkbox_saved_value( $setting );
-		if ( 1 === $save ) {
-			$value = (bool) $value;
-		}
-
 		if ( $setting['grid_layout'] ) {
 			$setting['class'] = $setting['class'] . ' wpbdp-grid';
 		}
 
         echo '<div class="wpdb-checkbox ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
         echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
-        echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
 
 		if ( $setting['grid_layout'] ) {
 			echo '<div class="wpbdp-half">';
@@ -253,9 +247,11 @@ class WPBDP__Settings_Admin {
 			echo $this->checkbox_desc( $setting );
 			echo '</div>';
 			echo '<div class="wpbdp-half">';
+			echo $this->checkbox_input_html( $setting, $value );
 			echo '<label></label>';
 			echo '</div>';
 		} else {
+			echo $this->checkbox_input_html( $setting, $value );
 			echo $this->checkbox_label( $setting );
 			echo $this->checkbox_desc( $setting );
 		}
@@ -265,6 +261,24 @@ class WPBDP__Settings_Admin {
         }
         echo '</div>';
     }
+
+	/**
+	 * Render checkbox input hmtl.
+	 *
+	 * @param array $setting The setting of the field.
+	 * @param int $value The input value.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function checkbox_input_html( $setting, $value ) {
+		$save = $this->checkbox_saved_value( $setting );
+		if ( 1 === $save ) {
+			$value = (bool) $value;
+		}
+		return '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
+	}
 
 	/**
 	 * Render checkbox label.
