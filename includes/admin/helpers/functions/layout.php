@@ -65,7 +65,7 @@ function wpbdp_admin_do_settings_fields( $page, $section ) {
 
 		echo "<div{$class}>";
 
-		if ( ! empty( $field['title'] ) ) {
+		if ( 'checkbox' !== $field['args']['type'] && ! empty( $field['title'] ) ) {
 			if ( ! empty( $field['args']['label_for'] ) ) {
 				echo '<div class="wpbdp-setting-label"><label for="' . esc_attr( $field['args']['label_for'] ) . '">' . $field['title'] . '</label></div>';
 			} else {

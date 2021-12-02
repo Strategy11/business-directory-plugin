@@ -238,14 +238,20 @@ class WPBDP__Settings_Admin {
 		if ( 1 === $save ) {
 			$value = (bool) $value;
 		}
-        echo '<div class="wpdb-checkbox">';
+        echo '<div class="wpdb-checkbox ' . sanitize_html_class( $setting['class'] ) . '">';
         echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
         echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
-		echo '<label>';
-        if ( ! empty( $setting['desc'] ) ) {
-            echo wp_kses_post( $setting['desc'] );
-        }
-		echo '</label>';
+
+		if ( ! empty( $setting['name'] ) ) {
+			echo '<label>';
+			echo wp_kses_post( $setting['name'] );
+			echo '</label>';
+		}
+		if ( ! empty( $setting['desc'] ) ) {
+			echo '<span>';
+			echo wp_kses_post( $setting['desc'] );
+			echo '</span>';
+		}
 
         if ( ! empty( $setting['tooltip'] ) ) {
             echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['tooltip'] ) . '</span>';
