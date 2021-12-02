@@ -168,6 +168,7 @@ class WPBDP__Settings {
             'validator'    => false,
             'default'      => false,
             'on_update'    => false,
+            'grid_layout'  => false,
             'dependencies' => array()
         ) );
 

@@ -238,19 +238,26 @@ class WPBDP__Settings_Admin {
 		if ( 1 === $save ) {
 			$value = (bool) $value;
 		}
-        echo '<div class="wpdb-checkbox ' . sanitize_html_class( $setting['class'] ) . '">';
+
+		if ( $setting['grid_layout'] ) {
+			$setting['class'] = $setting['class'] . ' wpbdp-grid';
+		}
+
+        echo '<div class="wpdb-checkbox ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
         echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
         echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
 
-		if ( ! empty( $setting['name'] ) ) {
-			echo '<label>';
-			echo wp_kses_post( $setting['name'] );
-			echo '</label>';
-		}
-		if ( ! empty( $setting['desc'] ) ) {
-			echo '<span>';
-			echo wp_kses_post( $setting['desc'] );
-			echo '</span>';
+		if ( $setting['grid_layout'] ) {
+			echo '<div class="wpbdp-half">';
+			echo $this->checkbox_label( $setting, 'div', 'wpbdp-setting-label' );
+			echo $this->checkbox_desc( $setting );
+			echo '</div>';
+			echo '<div class="wpbdp-half">';
+			echo '<label></label>';
+			echo '</div>';
+		} else {
+			echo $this->checkbox_label( $setting );
+			echo $this->checkbox_desc( $setting );
 		}
 
         if ( ! empty( $setting['tooltip'] ) ) {
@@ -258,6 +265,40 @@ class WPBDP__Settings_Admin {
         }
         echo '</div>';
     }
+
+	/**
+	 * Render checkbox label.
+	 *
+	 * @param array $setting The setting of the field.
+	 * @param string $tag The element tag. Defaults to "label".
+	 * @param string $class The element tag class. Defaults to empty.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function checkbox_label( $setting, $tag = 'label', $class = '' ) {
+		if ( empty( $setting['name'] ) ) {
+			return '';
+		}
+		return '<' . $tag . ' class=" ' . wpbdp_sanitize_html_classes( $class ) . ' ">' . wp_kses_post( $setting['name'] ) . '</' . $tag . '>';
+	}
+
+	/**
+	 * Render checkbox description.
+	 *
+	 * @param array $setting The setting of the field.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function checkbox_desc( $setting ) {
+		if ( empty( $setting['desc'] ) ) {
+			return '';
+		}
+		return '<span>' . wp_kses_post( $setting['desc'] ) . '</span>';
+	}
 
 	/**
 	 * Allow a check box to have a value other than 1.
