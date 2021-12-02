@@ -144,17 +144,22 @@
     &-settings-form {
         width: 100%;
         display: inline-block;
+        color: @text-color;
         .wpbdp-setting-row {
             padding-bottom: 0px;
-            .wpbdp-setting-label,
-            .wpbdp-setting-form-title label {
-                color: @text-color;
-                font-weight: 600;
-                font-size: 13px;
-            }
         }
     }
-    
+    &-setting-label,
+    &-setting-form-title label {
+        color: @text-color;
+        font-weight: 600;
+        font-size: 13px;
+    }
+    &-setting-desc {
+        color: @text-color;
+        font-size: 12px;
+        opacity: 0.7;
+    }
 }
 
 .wpbdp-admin-page {
