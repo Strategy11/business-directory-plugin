@@ -894,7 +894,6 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Show "Search listings".', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'display_options',
-                'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -904,7 +903,6 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Show the "View Listings" button.', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'display_options',
-                'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -914,7 +912,6 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Show the "Manage Listings" button.', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'display_options',
-                'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -925,7 +922,6 @@ final class WPBDP__Settings__Bootstrap {
                 'desc'    => __( 'Show the "Directory" and "Return to Directory" button.', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'display_options',
-                'class'   => 'wpbdp-half',
             )
         );
 

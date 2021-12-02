@@ -311,7 +311,7 @@ class WPBDP__Settings_Admin {
 		if ( empty( $setting['desc'] ) ) {
 			return '';
 		}
-		return '<span class="wpbdp-setting-desc">' . wp_kses_post( $setting['desc'] ) . '</span>';
+		return '<div class="wpbdp-setting-desc">' . wp_kses_post( $setting['desc'] ) . '</div>';
 	}
 
 	/**
