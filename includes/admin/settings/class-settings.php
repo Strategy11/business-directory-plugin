@@ -133,7 +133,8 @@ class WPBDP__Settings {
                 'type'   => $group_type,
                 'parent' => $parent,
                 'count'  => 0,
-				'icon'   => isset( $args['icon'] ) ? $args['icon'] : 'dashicons-archive', 
+                'icon'   => isset( $args['icon'] ) ? $args['icon'] : 'dashicons-archive',
+                'class'  => isset( $args['class'] ) ? $args['class'] : '',
             )
         );
     }

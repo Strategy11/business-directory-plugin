@@ -33,7 +33,7 @@ function wpbdp_admin_do_settings_sections( $page ) {
 		if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[ $page ] ) || ! isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
 			continue;
 		}
-		echo '<div class="form-table wpbdp-settings-form">';
+		echo '<div class="form-table wpbdp-settings-form wpbdp-grid">';
 		wpbdp_admin_do_settings_fields( $page, $section['id'] );
 		echo '</div>';
 	}
