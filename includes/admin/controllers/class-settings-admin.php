@@ -330,6 +330,10 @@ class WPBDP__Settings_Admin {
             return;
         }
 
+		if ( ! empty( $setting['desc'] ) ) {
+            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
+        }
+
         echo '<div class="wpbdp-settings-radio-options">';
         foreach ( $setting['options'] as $option_value => $option_label ) {
             echo '<div class="wpbdp-settings-radio-option">';
@@ -340,10 +344,6 @@ class WPBDP__Settings_Admin {
             echo '</div>';
         }
         echo '</div>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
     }
 
 	/**

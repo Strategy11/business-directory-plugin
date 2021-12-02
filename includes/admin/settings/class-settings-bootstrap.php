@@ -137,54 +137,48 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'recaptcha-on',
                 'type'  => 'checkbox',
-                'desc'  => _x( 'Use reCAPTCHA for contact forms', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Use reCAPTCHA for contact forms', 'settings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
-                'class' => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'    => 'hide-recaptcha-loggedin',
                 'type'  => 'checkbox',
-                'desc'  => _x( 'Turn off reCAPTCHA for logged in users?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Turn off reCAPTCHA for logged in users?', 'settings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
-                'class' => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'    => 'recaptcha-for-submits',
                 'type'  => 'checkbox',
-                'desc'  => _x( 'Use reCAPTCHA for listing submits', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Use reCAPTCHA for listing submits', 'settings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
-                'class' => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'    => 'recaptcha-for-edits',
                 'type'  => 'checkbox',
-                'desc'  => _x( 'Use reCAPTCHA for edit listings', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Use reCAPTCHA for edit listings', 'settings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
-                'class' => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'    => 'recaptcha-for-flagging',
                 'type'  => 'checkbox',
-                'desc'  => _x( 'Use reCAPTCHA for report listings', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Use reCAPTCHA for report listings', 'settings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
-                'class' => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'    => 'recaptcha-for-comments',
                 'type'  => 'checkbox',
-                'desc'  => _x( 'Use reCAPTCHA for listing comments?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Use reCAPTCHA for listing comments?', 'settings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
-                'class' => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
@@ -237,19 +231,17 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'require-login',
                 'type'    => 'checkbox',
-                'desc'    => _x( 'Require login to post listings?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Require login to post listings?', 'settings', 'business-directory-plugin' ),
                 'default' => 1,
                 'group'   => 'registration',
-                'class'   => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'    => 'enable-key-access',
                 'type'  => 'checkbox',
-                'desc'  => _x( 'Allow anonymous users to edit/manage listings with an access key?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Allow anonymous users to edit/manage listings with an access key?', 'settings', 'business-directory-plugin' ),
                 'group' => 'registration',
-                'class' => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
@@ -505,20 +497,18 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'listing-renewal',
                 'type'    => 'checkbox',
-                'desc'    => _x( 'Turn on listing renewal option?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Turn on listing renewal option?', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'listings/main',
-                'class'   => 'wpbdp-setting-form-title',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'      => 'listing-link-in-new-tab',
                 'type'    => 'checkbox',
-                'desc'    => _x( 'Open detailed view of listing in new tab?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Open detailed view of listing in new tab?', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/main',
-                'class'   => 'wpbdp-setting-form-title',
             )
         );
 
