@@ -205,7 +205,7 @@ class WPBDP__Settings_Admin {
 		}
 		echo '<div class="wpdb-number ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
 		if ( $setting['grid_layout'] ) {
-			echo '<div class="wpbdp-half">';
+			echo '<div class="wpbdp-col-8">';
 		}
 		echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
 		if ( ! empty( $setting['tooltip'] ) ) {
@@ -214,7 +214,7 @@ class WPBDP__Settings_Admin {
 		echo $this->setting_input_desc( $setting );
 		if ( $setting['grid_layout'] ) {
 			echo '</div>';
-			echo '<div class="wpbdp-half">';
+			echo '<div class="wpbdp-col-4 wpbdp-right">';
 		}
         echo '<input type="number" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
 
@@ -403,7 +403,7 @@ class WPBDP__Settings_Admin {
 
 		echo '<div class="wpdb-select ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
 		if ( $setting['grid_layout'] ) {
-			echo '<div class="wpbdp-half">';
+			echo '<div class="wpbdp-col-8">';
 		}
 		echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
 		if ( ! empty( $setting['tooltip'] ) ) {
@@ -412,7 +412,7 @@ class WPBDP__Settings_Admin {
 		echo $this->setting_input_desc( $setting );
 		if ( $setting['grid_layout'] ) {
 			echo '</div>';
-			echo '<div class="wpbdp-half">';
+			echo '<div class="wpbdp-col-4 wpbdp-right">';
 		}
 		$this->setting_input_select_html( $setting, $value );
 		if ( $setting['grid_layout'] ) {

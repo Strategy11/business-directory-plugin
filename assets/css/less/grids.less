@@ -1,3 +1,5 @@
+@grid-iterations: 12;
+
 .wpbdp-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -53,6 +55,16 @@
 .wpbdp11{
 	grid-column: span 11/span 11;
 }
+
+.mixin-loop (@index) when (@index > 0) {
+	.wpbdp-col-@{index}{
+		grid-column: span @index;
+	}
+
+	.mixin-loop(@index - 1);
+}
+.mixin-loop (0) {}
+.mixin-loop(@grid-iterations);
 
 .wpbdp12,
 .wpbdp-full{
