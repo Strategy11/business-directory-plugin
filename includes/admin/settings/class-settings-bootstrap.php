@@ -915,14 +915,16 @@ final class WPBDP__Settings__Bootstrap {
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'table', 'themes' );
 
-		if ( ! WPBDP_App_Helper::is_font_awesome_enabled() ) {
+		if ( is_admin() && ! WPBDP_App_Helper::is_font_awesome_enabled() ) {
+			$fa_install_url = admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' );
 			wpbdp_register_setting(
 				array(
 					'id'    => 'fontawesome-enabled',
 					'desc'  => wp_kses_post(
 						sprintf(
-							'<span>' . __( 'Use icons in your directory listings and custom fields: Install %s', 'business-directory-plugin' ) . '</span>',
-							'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . '" target="_blank" rel="noopener nofollow">Font Awesome</a> '
+							esc_html__( 'Did you know you can use icons in directory listings and custom fields? %1$sInstall Font Awesome now%2$s', 'business-directory-plugin' ),
+							'<a href="' . esc_url( $fa_install_url ) . '" target="_blank" rel="noopener nofollow">',
+							'</a>'
 						)
 					),
 					'type'  => 'education',

@@ -26,7 +26,7 @@ var WPBDP_associations_fieldtypes = {};
                     $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).prop( 'checked', false );
                     $( this ).parents( '.iframe-confirm' ).hide();
                 }
-            })
+            });
 
             $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).change(function() {
                 if ( $( this ).is(':checked') ) {
@@ -337,7 +337,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
             payments.viewPaymentDetails( $(this).attr('data-id') );
         });
 
-        if ($('#wpbdp-modal-dialog').length == 0) {
+        if ($('#wpbdp-modal-dialog').length === 0) {
             $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
         }
     };
@@ -345,7 +345,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
     payments.viewPaymentDetails = function(id) {
         $.get( ajaxurl, { 'action': 'wpbdp-payment-details', 'id': id }, function(res) {
             if (res && res.success) {
-                if ($('#wpbdp-modal-dialog').length == 0) {
+                if ($('#wpbdp-modal-dialog').length === 0) {
                     $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
                 }
 
@@ -418,7 +418,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
 
 /* {{ Uninstall. */
 jQuery(function($) {
-    if ( 0 == $( '.wpbdp-admin-page-uninstall' ).length ) {
+    if ( 0 === $( '.wpbdp-admin-page-uninstall' ).length ) {
         return;
     }
 
@@ -438,7 +438,7 @@ jQuery(function($) {
         var $no_text_error   = $( '.wpbdp-validation-error.no-reason-text' ).hide();
         var $reason_checked = $( 'input[name="uninstall[reason_id]"]:checked' );
 
-        if ( 0 == $reason_checked.length ) {
+        if ( 0 === $reason_checked.length ) {
             $no_reason_error.show();
             return false;
         }
@@ -478,7 +478,7 @@ jQuery(function($) {
 // {{ Widgets.
 (function($) {
     $(document).ready(function() {
-        if ( $('body.wp-admin.widgets-php').length == 0 ) {
+        if ( $('body.wp-admin.widgets-php').length === 0 ) {
             return;
         }
 
@@ -513,9 +513,9 @@ jQuery(function($) {
                         return;
 
                     $msg.fadeOut( 'fast', function() {
-                        $(this).html( '<p>' + res.message + '</p>' )
-                        $(this).removeClass('error')
-                        $(this).addClass('updated')
+                        $(this).html( '<p>' + res.message + '</p>' );
+                        $(this).removeClass('error');
+                        $(this).addClass('updated');
                         $(this).fadeIn( 'fast' );
                     } );
                 }
@@ -528,32 +528,30 @@ jQuery(function($) {
 // Dismissible Messages
 (function($) {
     $(function(){
-        var dismissNotice = function( $notice, notice_id, nonce, callback ) {
+        var dismissNotice = function( $notice, $button ) {
             $.post( ajaxurl, {
                 action: 'wpbdp_dismiss_notification',
-                id: notice_id,
-                nonce: nonce
+                id: $button.data( 'dismissible-id' ),
+                nonce: $button.data( 'nonce' )
             }, function() {
                 $notice.fadeOut( 'fast', function(){ 
                     $notice.remove();
-                    if ( typeof callback !== 'undefined' && typeof callback === 'function' ) {
-                        callback();
-                    }
                 } );
             } );
         };
 
-        $( document )
-            .on( 'click', '.wpbdp-notice.dismissible > .notice-dismiss, .wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss-inline', function( e ) {
-                e.preventDefault();
-                var $button = $( this ),
-                    $notice = $button.closest( '.wpbdp-notice' ),
-                    dismissible_id = $button.data( 'dismissible-id' ),
-                    nonce = $button.data( 'nonce' ),
-                    $link = $button.attr( 'href' );
-                dismissNotice( $notice, dismissible_id, nonce, $link ? function() { window.location.href = $link; } : null );
-            } );
-    });
+		$( '#wpbody-content' ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
+			e.preventDefault();
+			var $button = $( this ),
+				$notice = $button.closest( '.wpbdp-notice' ),
+				link = $button.attr( 'href' );
+
+			if ( link ) {
+				window.open( link, '_blank').focus();
+			}
+			dismissNotice( $notice, $button );
+		});
+	});
 })(jQuery);
 
 // Install addons
@@ -711,7 +709,7 @@ function wpbdpAddons() {
 			jQuery( document ).on( 'click', '.wpbdp-install-addon', installAddon );
 			jQuery( document ).on( 'click', '.wpbdp-activate-addon', activateAddon );
 		}
-	}
+	};
 }
 
 wpbdpAddonBuild = wpbdpAddons();
@@ -724,7 +722,8 @@ jQuery( document ).ready( function( $ ) {
 jQuery(function( $ ) {
 
     $( '.wpbdp-js-toggle' ).change(function() {
-        var name = $(this).attr('name');
+        var other_opts,
+			name = $(this).attr('name');
         var value = $(this).val();
         var is_checkbox = $(this).is(':checkbox');
         var is_radio = $(this).is(':radio');
@@ -733,7 +732,7 @@ jQuery(function( $ ) {
 
         if ( is_select ) {
             var $option = $( this ).find( ':selected' );
-            var toggles = $option.attr( 'data-toggles' );
+            toggles = $option.attr( 'data-toggles' );
 
             if ( ! toggles || 'undefined' == typeof toggles )
                 toggles = '';
@@ -742,7 +741,7 @@ jQuery(function( $ ) {
         if ( toggles ) {
             var $dest = ( toggles.startsWith('#') || toggles.startsWith('-') ) ? $(toggles) : $( '#' + toggles + ', .' + toggles );
 
-            if ( 0 == $dest.length || ( ! is_radio && ! is_checkbox && ! is_select ) )
+            if ( 0 === $dest.length || ( ! is_radio && ! is_checkbox && ! is_select ) )
                 return;
 
             if ( is_checkbox && $(this).is(':checked') ) {
@@ -752,9 +751,9 @@ jQuery(function( $ ) {
         }
 
         if ( is_select ) {
-            var other_opts = $( this ).find( 'option' ).not( '[value="' + value + '"]' );
+            other_opts = $( this ).find( 'option' ).not( '[value="' + value + '"]' );
         } else {
-            var other_opts = $('input[name="' + name + '"]').not('[value="' + value + '"]');
+            other_opts = $('input[name="' + name + '"]').not('[value="' + value + '"]');
         }
 
         other_opts.each(function() {
@@ -766,10 +765,6 @@ jQuery(function( $ ) {
             var $dest_i = ( toggles_i.startsWith('#') || toggles_i.startsWith('-') ) ? $(toggles_i) : $( '#' + toggles_i + ', .' + toggles_i );
             $dest_i.addClass('hidden');
         });
-
-        if ( toggles ) {
-            $dest.toggleClass('hidden');
-        }
     });
 
 });

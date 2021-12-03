@@ -77,7 +77,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
 
             add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
-			add_action( 'wpbdp_admin_ajax_dismiss_notification_fa_dismiss', array( $this, 'ajax_dismiss_notification_fa_dismiss' ) );
+			add_action( 'wpbdp_admin_ajax_dismiss_notification_fontawesome', array( $this, 'ajax_dismiss_notification_fontawesome' ) );
 
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
@@ -668,10 +668,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $res->send();
         }
 
-        /**
-         * TODO: Use notice, notice-{type} and is-dismissible CSS classes. Those are
-         * the current standard
-         */
         function admin_notices() {
 			if ( ! current_user_can( 'administrator' ) ) {
                 return;
@@ -711,7 +707,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $extra = array();
                 }
 
-                echo '<div class="wpbdp-notice ' . $class . '">';
+				self::maybe_update_notice_classes( $class );
+
+				echo '<div class="wpbdp-notice notice ' . esc_attr( $class ) . '">';
                 echo '<p>' . $text . '</p>';
 
                 if ( ! empty( $extra['dismissible-id'] ) ) {
@@ -728,6 +726,32 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $this->messages = array();
         }
+
+		/**
+		 * This is for reverse compatibility. Switches old classes to new ones like:
+		 * notice, notice-{type} and is-dismissible
+		 *
+		 * @since x.x
+		 */
+		private function maybe_update_notice_classes( &$class ) {
+			$classes = explode( ' ', $class );
+			$find    = array(
+				'error',
+				'dismissible',
+			);
+			$replace = array(
+				'notice-error',
+				'is-dismissible',
+			);
+
+			if ( empty( array_intersect( $classes, $find ) ) ) {
+				return;
+			}
+
+			_deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
+			$classes = str_replace( $find, $replace, $classes );
+			$class   = implode( ' ', $classes );
+		}
 
 		/**
 		 * @since 5.9.1
@@ -1125,7 +1149,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 					_x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
 					$installed_version
 				),
-				'error dismissible',
+				'notice-error is-dismissible',
 				array( 'dismissible-id' => 'server_requirements' ),
 			);
         }
@@ -1139,7 +1163,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 *
 		 * @since x.x
 		 */
-		public function ajax_dismiss_notification_fa_dismiss() {
+		public function ajax_dismiss_notification_fontawesome() {
 			if ( ! current_user_can( 'install_plugins' ) ) {
 				return;
 			}
@@ -1163,7 +1187,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 							'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
 							'</a>'
 						),
-						'error dismissible',
+						'notice-error is-dismissible',
 						array( 'dismissible-id' => 'registration_disabled' ),
 					);
 			}
@@ -1195,19 +1219,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
+			$plugin_url = admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' );
 			$this->messages[] = array(
 				sprintf(
 					__( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin. %1$sInstall Font Awesome now%2$s.', 'business-directory-plugin' ),
-					sprintf(
-						'<a class="wpbdp-notice-dismiss-inline" href="%1$s" data-dismissible-id="%2$s" data-nonce="%3$s" rel="noopener nofollow">',
-						esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ),
-						'fa_dismiss',
-						wp_create_nonce( 'dismiss notice fa_dismiss' )
-					),
+					'<a class="wpbdp-notice-dismiss" href="' . esc_url( $plugin_url ) . '" data-dismissible-id="fontawesome" data-nonce="' . esc_attr( wp_create_nonce( 'dismiss notice fontawesome' ) ) . '">',
 					'</a>'
 				),
-				'error dismissible',
-				array( 'dismissible-id' => 'fa_dismiss' ),
+				'notice-error is-dismissible',
+				array( 'dismissible-id' => 'fontawesome' ),
 			);
 		}
 
