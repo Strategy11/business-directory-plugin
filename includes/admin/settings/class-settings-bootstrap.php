@@ -210,11 +210,11 @@ final class WPBDP__Settings__Bootstrap {
                     'v3' => 'V3',
                 ),
                 'group'        => 'recaptcha',
-                'grid_layout'  => true,
-                'grid_classes' => array(
-                    'left'  => 'wpbdp-col-8',
-                    'right' => 'wpbdp-col-4 wpbdp-right'
-                ),
+				'grid_layout'  => true,
+				'grid_classes' => array(
+					'left'  => 'wpbdp-col-8',
+					'right' => 'wpbdp-col-4 wpbdp-right'
+				),
             )
         );
         wpbdp_register_setting(
@@ -228,11 +228,11 @@ final class WPBDP__Settings__Bootstrap {
                 'max'          => 1,
                 'desc'         => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
                 'group'        => 'recaptcha',
-                'grid_layout'  => true,
-                'grid_classes' => array(
-                    'left'  => 'wpbdp-col-8',
-                    'right' => 'wpbdp-col-4 wpbdp-right'
-                ),
+				'grid_layout'  => true,
+				'grid_classes' => array(
+					'left'  => 'wpbdp-col-8',
+					'right' => 'wpbdp-col-4 wpbdp-right'
+				),
             )
         );
 
@@ -365,36 +365,48 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting(
             array(
-                'id'          => 'disable-cpt',
-                'type'        => 'checkbox',
-                'name'        => _x( 'Disable advanced CPT integration?', 'settings', 'business-directory-plugin' ),
-                'group'       => 'general/advanced',
-                'class'       => 'wpdb-switch-checkbox',
-                'grid_layout' => true,
+                'id'           => 'disable-cpt',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Disable advanced CPT integration?', 'settings', 'business-directory-plugin' ),
+                'group'        => 'general/advanced',
+                'class'        => 'wpdb-switch-checkbox',
+				'grid_layout'  => true,
+				'grid_classes' => array(
+					'left'  => 'wpbdp-col-8',
+					'right' => 'wpbdp-col-4 wpbdp-right'
+				),
             )
         );
 
         wpbdp_register_setting(
             array(
-                'id'          => 'disable-submit-listing',
-                'type'        => 'checkbox',
-                'name'        => _x( 'Disable Frontend Listing Submission?', 'settings', 'business-directory-plugin' ),
-                'desc'        => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'business-directory-plugin' ),
-                'group'       => 'general/advanced',
-                'class'       => 'wpdb-switch-checkbox',
-                'grid_layout' => true,
+                'id'           => 'disable-submit-listing',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Disable Frontend Listing Submission?', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'business-directory-plugin' ),
+                'group'        => 'general/advanced',
+                'class'        => 'wpdb-switch-checkbox',
+				'grid_layout'  => true,
+				'grid_classes' => array(
+					'left'  => 'wpbdp-col-8',
+					'right' => 'wpbdp-col-4 wpbdp-right'
+				),
             )
         );
         wpbdp_register_setting(
             array(
-                'id'          => 'enqueue-fontawesome-styles',
-                'type'        => 'checkbox',
-                'name'        => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'business-directory-plugin' ),
-                'desc'        => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'business-directory-plugin' ),
-                'default'     => true,
-                'group'       => 'general/advanced',
-                'class'       => 'wpdb-switch-checkbox',
-                'grid_layout' => true,
+                'id'           => 'enqueue-fontawesome-styles',
+                'type'         => 'checkbox',
+                'name'         => _x( 'Enqueue Business Directory\'s FontAwesome styles?', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'This helps to prevent conflicts with other plugins that already do this. Disable this only if you\'re having an issue with FontAwesome icons and have performed a conflict test to validate this is a multiple styles enqueueing issue.', 'settings', 'business-directory-plugin' ),
+                'default'      => true,
+                'group'        => 'general/advanced',
+                'class'        => 'wpdb-switch-checkbox',
+				'grid_layout'  => true,
+				'grid_classes' => array(
+					'left'  => 'wpbdp-col-8',
+					'right' => 'wpbdp-col-4 wpbdp-right'
+				),
             )
         );
     }
