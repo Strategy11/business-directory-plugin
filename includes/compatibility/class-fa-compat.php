@@ -73,6 +73,17 @@ class WPBDP_FA_Compat {
 			return;
 		}
 
+		// Old setting switched to hidden. This can be removed later.
+		wpbdp_register_setting(
+			array(
+				'id'      => 'enqueue-fontawesome-styles',
+				'type'    => 'hidden',
+				'class'   => 'hidden',
+				'default' => false,
+				'group'   => 'general/advanced',
+			)
+		);
+
 		$fa_install_url = admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' );
 		wpbdp_register_setting(
 			array(

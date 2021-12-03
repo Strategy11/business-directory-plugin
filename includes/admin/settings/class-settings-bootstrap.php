@@ -350,16 +350,6 @@ final class WPBDP__Settings__Bootstrap {
                 'group' => 'general/advanced',
             )
         );
-
-		wpbdp_register_setting(
-			array(
-				'id'      => 'enqueue-fontawesome-styles',
-				'type'    => 'hidden',
-				'class'   => 'hidden',
-				'default' => false,
-				'group'   => 'general/advanced',
-			)
-		);
     }
 
 	/**
