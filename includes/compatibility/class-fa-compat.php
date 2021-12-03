@@ -47,7 +47,7 @@ class WPBDP_FA_Compat {
 				'</a>'
 			),
 			'notice-error is-dismissible',
-			array( 'dismissible-id' => 'fontawesome' ),
+			array( 'dismissible-id' => 'fontawesome' )
 		);
 	}
 
