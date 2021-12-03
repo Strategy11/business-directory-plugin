@@ -179,6 +179,7 @@ final class WPBDP {
         $this->modules->init(); // Change to something we can fire in WPBDP__Modules to register modules.
 
         $this->payment_gateways = new WPBDP__Payment_Gateways();
+		$this->compat           = new WPBDP_Compat();
 
 		do_action( 'wpbdp_modules_loaded' );
 
@@ -224,7 +225,6 @@ final class WPBDP {
             $this->privacy = new WPBDP_Personal_Data_Privacy();
         }
 
-        $this->compat = new WPBDP_Compat();
         $this->rewrite = new WPBDP__Rewrite();
 
         do_action( 'wpbdp_loaded' );

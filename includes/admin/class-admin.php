@@ -77,7 +77,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
 
             add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
-			add_action( 'wpbdp_admin_ajax_dismiss_notification_fontawesome', array( $this, 'ajax_dismiss_notification_fontawesome' ) );
 
             add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
             add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
@@ -87,6 +86,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
+
 			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
 
@@ -682,7 +682,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $this->check_server_requirements();
             $this->check_setup();
             $this->check_deprecation_warnings();
-			$this->check_font_awesome_setting();
 
             $this->maybe_request_review();
 
@@ -1158,18 +1157,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             set_transient( 'wpbdp_server_requirements_warning_dismissed', true, WEEK_IN_SECONDS );
         }
 
-		/**
-		 * Set fontawesome notice as dismissed.
-		 *
-		 * @since x.x
-		 */
-		public function ajax_dismiss_notification_fontawesome() {
-			if ( ! current_user_can( 'install_plugins' ) ) {
-				return;
-			}
-			wpbdp_set_option( 'enqueue-fontawesome-styles', false );
-		}
-
         public function check_setup() {
             global $pagenow;
 
@@ -1202,34 +1189,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 }
             }
         }
-
-		/**
-		 * Check old inline fontawesome setting.
-		 * If it was enabled by default, we show an admin notice.
-		 * On dismiss we keep the setting.
-		 *
-		 * @since x.x
-		 */
-		private function check_font_awesome_setting() {
-			if ( ! current_user_can( 'install_plugins' ) || ! WPBDP_App_Helper::is_bd_page() ) {
-				return;
-			}
-
-			if ( ! wpbdp_get_option( 'enqueue-fontawesome-styles', false ) ) {
-				return;
-			}
-
-			$plugin_url = admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' );
-			$this->messages[] = array(
-				sprintf(
-					__( 'Good news! Business Directory Plugin now integrates with the official Font Awesome plugin. %1$sInstall Font Awesome now%2$s.', 'business-directory-plugin' ),
-					'<a class="wpbdp-notice-dismiss" href="' . esc_url( $plugin_url ) . '" data-dismissible-id="fontawesome" data-nonce="' . esc_attr( wp_create_nonce( 'dismiss notice fontawesome' ) ) . '">',
-					'</a>'
-				),
-				'notice-error is-dismissible',
-				array( 'dismissible-id' => 'fontawesome' ),
-			);
-		}
 
         public function main_menu() {
             echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/home.tpl.php' );

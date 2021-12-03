@@ -24,39 +24,42 @@ class WPBDP_Compat {
     }
 
     public function load_integrations() {
+		require_once WPBDP_PATH . 'includes/compatibility/class-fa-compat.php';
+		new WPBDP_FA_Compat();
+
         if ( isset( $GLOBALS['sitepress'] ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-wpml-compat.php';
-            $wpml_integration = new WPBDP_WPML_Compat();
+			new WPBDP_WPML_Compat();
         }
 
         if ( function_exists( 'bcn_display' ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-navxt-integration.php';
-            $navxt_integration = new WPBDP_NavXT_Integration();
+			new WPBDP_NavXT_Integration();
         }
 
         if ( class_exists( 'Advanced_Excerpt' ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-advanced-excerpt-integration.php';
-            $advanced_excerpt_integration = new WPBDP_Advanced_Excerpt_Integration();
+			new WPBDP_Advanced_Excerpt_Integration();
         }
 
         if ( defined( 'CUSTOM_PERMALINKS_PLUGIN_VERSION' ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-custom-permalinks-integration.php';
-            $custom_permalinks_integration = new WPBDP_Custom_Permalink_Integration();
+			new WPBDP_Custom_Permalink_Integration();
         }
 
         if ( class_exists( 'acf' ) && 'Bold Move' === wp_get_theme()->Name ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-acf-boldmove-compat.php';
-            $advanced_custom_fields = new WPBDP_ACF_Compat();
+			new WPBDP_ACF_Compat();
         }
 
         if ( class_exists( 'Cornerstone_Plugin' ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-cornerstone-compat.php';
-            $cornerstone_integration = new WPBDP_Cornerstone_Compat();
+			new WPBDP_Cornerstone_Compat();
         }
 
         if ( class_exists( 'FLTheme' ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-beaver-themer-compat.php';
-            $cornerstone_integration = new WPBDP_Beaver_Themer_Compat();
+			new WPBDP_Beaver_Themer_Compat();
         }
     }
 

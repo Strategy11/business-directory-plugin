@@ -915,24 +915,6 @@ final class WPBDP__Settings__Bootstrap {
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'table', 'themes' );
 
-		if ( is_admin() && ! WPBDP_App_Helper::is_font_awesome_enabled() ) {
-			$fa_install_url = admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' );
-			wpbdp_register_setting(
-				array(
-					'id'    => 'fontawesome-enabled',
-					'desc'  => wp_kses_post(
-						sprintf(
-							esc_html__( 'Did you know you can use icons in directory listings and custom fields? %1$sInstall Font Awesome now%2$s', 'business-directory-plugin' ),
-							'<a href="' . esc_url( $fa_install_url ) . '" target="_blank" rel="noopener nofollow">',
-							'</a>'
-						)
-					),
-					'type'  => 'education',
-					'group' => 'themes',
-				)
-			);
-		}
-
         // Image.
         wpbdp_register_settings_group( 'appearance/image', __( 'Images', 'business-directory-plugin' ), 'appearance' );
         wpbdp_register_settings_group( 'images/general', _x( 'Image Settings', 'settings', 'business-directory-plugin' ), 'appearance/image', array( 'desc' => 'Any changes to these settings will affect new listings only.  Existing listings will not be affected.  If you wish to change existing listings, you will need to re-upload the image(s) on that listing after changing things here.' ) );
