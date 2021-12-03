@@ -169,6 +169,11 @@ class WPBDP__Settings {
             'default'      => false,
             'on_update'    => false,
             'grid_layout'  => false,
+            'class'        => '',
+            'grid_classes' => array(
+                'left'  => 'wpbdp-half',
+                'right' => 'wpbdp-half'
+            ),
             'dependencies' => array()
         ) );
 
