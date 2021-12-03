@@ -24,9 +24,6 @@ class WPBDP_Compat {
     }
 
     public function load_integrations() {
-		require_once WPBDP_PATH . 'includes/compatibility/class-fa-compat.php';
-		new WPBDP_FA_Compat();
-
         if ( isset( $GLOBALS['sitepress'] ) ) {
             require_once WPBDP_PATH . 'includes/compatibility/class-wpml-compat.php';
 			new WPBDP_WPML_Compat();
