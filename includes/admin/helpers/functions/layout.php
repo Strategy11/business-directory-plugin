@@ -58,13 +58,13 @@ function wpbdp_admin_do_settings_fields( $page, $section ) {
 		return;
 	}
 
-	$hide_labels = array( 'checkbox', 'select' );
+	$hide_labels = array( 'checkbox', 'select', 'number' );
 
 	foreach ( (array) $wp_settings_fields[ $page ][ $section ] as $field ) {
 		$class = ' class="wpbdp-setting-row"';
 
 		if ( ! empty( $field['args']['class'] ) ) {
-			$class = ' class="wpbdp-setting-row ' . esc_attr( $field['args']['class'] ) . '"';
+			$class = ' class="wpbdp-setting-row ' . wpbdp_sanitize_html_classes( $field['args']['class'] ) . '"';
 		}
 
 		echo "<div{$class}>";

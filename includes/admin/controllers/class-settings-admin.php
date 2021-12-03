@@ -200,6 +200,22 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_number_callback( $setting, $value ) {
+		if ( $setting['grid_layout'] ) {
+			$setting['class'] = $setting['class'] . ' wpbdp-grid';
+		}
+		echo '<div class="wpdb-number ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
+		if ( $setting['grid_layout'] ) {
+			echo '<div class="wpbdp-half">';
+		}
+		echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
+		if ( ! empty( $setting['tooltip'] ) ) {
+			echo $this->setting_tooltip( $setting['tooltip'] );
+		}
+		echo $this->setting_input_desc( $setting );
+		if ( $setting['grid_layout'] ) {
+			echo '</div>';
+			echo '<div class="wpbdp-half">';
+		}
         echo '<input type="number" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
 
         if ( isset( $setting['min'] ) ) {
@@ -214,8 +230,10 @@ class WPBDP__Settings_Admin {
             echo 'max="' . $setting['max'] . '"';
         }
         echo '/>';
-
-		echo $this->setting_input_desc( $setting );
+		if ( $setting['grid_layout'] ) {
+			echo '</div>';
+		}
+		echo '</div>';
     }
 
     public function setting_textarea_callback( $setting, $value ) {
@@ -386,20 +404,19 @@ class WPBDP__Settings_Admin {
 		echo '<div class="wpdb-select ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
 		if ( $setting['grid_layout'] ) {
 			echo '<div class="wpbdp-half">';
-			echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
-			echo $this->setting_input_desc( $setting );
+		}
+		echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
+		if ( ! empty( $setting['tooltip'] ) ) {
+			echo $this->setting_tooltip( $setting['tooltip'] );
+		}
+		echo $this->setting_input_desc( $setting );
+		if ( $setting['grid_layout'] ) {
 			echo '</div>';
 			echo '<div class="wpbdp-half">';
-			$this->setting_input_select_html( $setting, $value );
-			echo '<label></label>';
+		}
+		$this->setting_input_select_html( $setting, $value );
+		if ( $setting['grid_layout'] ) {
 			echo '</div>';
-		} else {
-			echo $this->setting_input_label( $setting );
-			if ( ! empty( $setting['tooltip'] ) ) {
-				echo $this->setting_tooltip( $setting['tooltip'] );
-			}
-			echo $this->setting_input_desc( $setting );
-			$this->setting_input_select_html( $setting, $value );
 		}
 
 		echo '</div>';
