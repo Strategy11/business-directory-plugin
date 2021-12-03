@@ -58,6 +58,8 @@ function wpbdp_admin_do_settings_fields( $page, $section ) {
 		return;
 	}
 
+	$hide_labels = array( 'checkbox', 'select' );
+
 	foreach ( (array) $wp_settings_fields[ $page ][ $section ] as $field ) {
 		$class = ' class="wpbdp-setting-row"';
 
@@ -67,7 +69,7 @@ function wpbdp_admin_do_settings_fields( $page, $section ) {
 
 		echo "<div{$class}>";
 
-		if ( 'checkbox' !== $field['args']['type'] && ! empty( $field['title'] ) ) {
+		if ( ! in_array( $field['args']['type'], $hide_labels, true ) && ! empty( $field['title'] ) ) {
 			if ( ! empty( $field['args']['label_for'] ) ) {
 				echo '<div class="wpbdp-setting-label"><label for="' . esc_attr( $field['args']['label_for'] ) . '">' . $field['title'] . '</label></div>';
 			} else {

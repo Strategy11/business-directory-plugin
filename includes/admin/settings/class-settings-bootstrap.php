@@ -119,7 +119,7 @@ final class WPBDP__Settings__Bootstrap {
 				'default' => true,
                 'name'    => _x( 'Remove listing ID from directory URLs?', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'Check this setting to remove the ID for better SEO.', 'settings', 'business-directory-plugin' ),
-                'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'business-directory-plugin' ) . _x( '<strong>IMPORTANT:</strong> subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
+                'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title". ', 'settings', 'business-directory-plugin' ) . _x( 'IMPORTANT: subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
                 'group'   => 'permalink_settings',
             )
         );
@@ -201,28 +201,30 @@ final class WPBDP__Settings__Bootstrap {
         );
         wpbdp_register_setting(
             array(
-                'id'      => 'recaptcha-version',
-                'type'    => 'select',
-                'name'    => _x( 'reCAPTCHA version', 'settings', 'business-directory-plugin' ),
-                'default' => 'v2',
-                'options' => array(
+                'id'          => 'recaptcha-version',
+                'type'        => 'select',
+                'name'        => _x( 'reCAPTCHA version', 'settings', 'business-directory-plugin' ),
+                'default'     => 'v2',
+                'options'     => array(
                     'v2' => 'V2',
                     'v3' => 'V3',
                 ),
-                'group'   => 'recaptcha',
+                'group'       => 'recaptcha',
+                'grid_layout' => true,
             )
         );
         wpbdp_register_setting(
             array(
-                'id'      => 'recaptcha-threshold',
-                'type'    => 'number',
-                'name'    => _x( 'reCAPTCHA V3 threshold score', 'settings', 'business-directory-plugin' ),
-                'default' => 0.5,
-                'min'     => 0,
-                'step'    => 0.1,
-                'max'     => 1,
-                'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
-                'group'   => 'recaptcha',
+                'id'          => 'recaptcha-threshold',
+                'type'        => 'number',
+                'name'        => _x( 'reCAPTCHA V3 threshold score', 'settings', 'business-directory-plugin' ),
+                'default'     => 0.5,
+                'min'         => 0,
+                'step'        => 0.1,
+                'max'         => 1,
+                'desc'        => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
+                'group'       => 'recaptcha',
+                'grid_layout' => true,
             )
         );
 

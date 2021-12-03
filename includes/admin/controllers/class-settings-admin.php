@@ -195,11 +195,8 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_text_callback( $setting, $value ) {
+		echo $this->setting_input_desc( $setting );
         echo '<input type="text" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
-        }
     }
 
     public function setting_number_callback( $setting, $value ) {
@@ -218,19 +215,14 @@ class WPBDP__Settings_Admin {
         }
         echo '/>';
 
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
-        }
+		echo $this->setting_input_desc( $setting );
     }
 
     public function setting_textarea_callback( $setting, $value ) {
         echo '<textarea id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '">';
         echo esc_textarea( $value );
         echo '</textarea>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
+		echo $this->setting_input_desc( $setting );
     }
 
     public function setting_checkbox_callback( $setting, $value ) {
@@ -238,13 +230,13 @@ class WPBDP__Settings_Admin {
 			$setting['class'] = $setting['class'] . ' wpbdp-grid';
 		}
 
-        echo '<div class="wpdb-checkbox ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
+		echo '<div class="wpdb-checkbox ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
         echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 
 		if ( $setting['grid_layout'] ) {
 			echo '<div class="wpbdp-half">';
-			echo $this->checkbox_label( $setting, 'div', 'wpbdp-setting-label' );
-			echo $this->checkbox_desc( $setting );
+			echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
+			echo $this->setting_input_desc( $setting );
 			echo '</div>';
 			echo '<div class="wpbdp-half">';
 			echo $this->checkbox_input_html( $setting, $value );
@@ -252,13 +244,13 @@ class WPBDP__Settings_Admin {
 			echo '</div>';
 		} else {
 			echo $this->checkbox_input_html( $setting, $value );
-			echo $this->checkbox_label( $setting );
-			echo $this->checkbox_desc( $setting );
+			echo $this->setting_input_label( $setting );
+			if ( ! empty( $setting['tooltip'] ) ) {
+				echo $this->setting_tooltip( $setting['tooltip'] );
+			}
+			echo $this->setting_input_desc( $setting );
 		}
 
-        if ( ! empty( $setting['tooltip'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['tooltip'] ) . '</span>';
-        }
         echo '</div>';
     }
 
@@ -281,7 +273,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * Render checkbox label.
+	 * Render settings input label.
 	 *
 	 * @param array $setting The setting of the field.
 	 * @param string $tag The element tag. Defaults to "label".
@@ -291,7 +283,7 @@ class WPBDP__Settings_Admin {
 	 *
 	 * @return string
 	 */
-	private function checkbox_label( $setting, $tag = 'label', $class = '' ) {
+	private function setting_input_label( $setting, $tag = 'label', $class = '' ) {
 		if ( empty( $setting['name'] ) ) {
 			return '';
 		}
@@ -299,7 +291,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * Render checkbox description.
+	 * Render settings input description.
 	 *
 	 * @param array $setting The setting of the field.
 	 *
@@ -307,11 +299,11 @@ class WPBDP__Settings_Admin {
 	 *
 	 * @return string
 	 */
-	private function checkbox_desc( $setting ) {
+	private function setting_input_desc( $setting ) {
 		if ( empty( $setting['desc'] ) ) {
 			return '';
 		}
-		return '<div class="wpbdp-setting-desc">' . wp_kses_post( $setting['desc'] ) . '</div>';
+		return '<div class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</div>';
 	}
 
 	/**
@@ -330,9 +322,7 @@ class WPBDP__Settings_Admin {
             return;
         }
 
-		if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
+		echo $this->setting_input_desc( $setting );
 
         echo '<div class="wpbdp-settings-radio-options">';
         foreach ( $setting['options'] as $option_value => $option_label ) {
@@ -381,9 +371,7 @@ class WPBDP__Settings_Admin {
 
         echo '</div>';
 
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
+		echo $this->setting_input_desc( $setting );
     }
 
     public function setting_select_callback( $setting, $value ) {
@@ -391,7 +379,44 @@ class WPBDP__Settings_Admin {
             return;
         }
 
-        $multiple = ! empty( $setting['multiple'] ) && $setting['multiple'];
+		if ( $setting['grid_layout'] ) {
+			$setting['class'] = $setting['class'] . ' wpbdp-grid';
+		}
+
+		echo '<div class="wpdb-select ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
+		if ( $setting['grid_layout'] ) {
+			echo '<div class="wpbdp-half">';
+			echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
+			echo $this->setting_input_desc( $setting );
+			echo '</div>';
+			echo '<div class="wpbdp-half">';
+			$this->setting_input_select_html( $setting, $value );
+			echo '<label></label>';
+			echo '</div>';
+		} else {
+			echo $this->setting_input_label( $setting );
+			if ( ! empty( $setting['tooltip'] ) ) {
+				echo $this->setting_tooltip( $setting['tooltip'] );
+			}
+			echo $this->setting_input_desc( $setting );
+			$this->setting_input_select_html( $setting, $value );
+		}
+
+		echo '</div>';
+    }
+
+	/**
+	 * Render the select dropdown.
+	 *
+	 * @param array $setting The setting of the current input.
+	 * @param string|array $value The selected value
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function setting_input_select_html( $setting, $value ) {
+		$multiple = ! empty( $setting['multiple'] ) && $setting['multiple'];
 
         echo '<select id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']' . ( $multiple ? '[]' : '' ) . '" ' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
         foreach ( $setting['options'] as $option_value => $option_label ) {
@@ -404,11 +429,7 @@ class WPBDP__Settings_Admin {
             echo '<option value="' . $option_value . '" ' . selected( $selected, true, false ) . '>' . $option_label . '</option>';
         }
         echo '</select>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
-    }
+	}
 
     public function setting_file_callback( $setting, $value ) {
         $html  = '';
@@ -460,9 +481,7 @@ class WPBDP__Settings_Admin {
     public function setting_url_callback( $setting, $value ) {
         echo '<input type="url" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
 
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
-        }
+		echo $this->setting_input_desc( $setting );
     }
 
     public function setting_color_callback( $setting, $value ) {
@@ -471,9 +490,7 @@ class WPBDP__Settings_Admin {
 
         echo '<input type="text" class="cpa-color-picker" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '"/>';
 
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
-        }
+		echo $this->setting_input_desc( $setting );
     }
 
     public function setting_text_template_callback( $setting, $value ) {
@@ -522,9 +539,7 @@ class WPBDP__Settings_Admin {
             'placeholders'  => ! empty( $setting['placeholders'] ) ? $setting['placeholders'] : array(),
         );
 
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
+		echo $this->setting_input_desc( $setting );
 
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $args );
     }
