@@ -93,53 +93,71 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         }
 
 		$images_changed = false;
-        if ( 'insert' == $mode ) {
+        if ( 'insert' === $mode ) {
             $fee = new WPBDP__Fee_Plan( $posted_values );
         } else {
 			$fee            = $this->get_or_die();
-			$images_changed = $fee ? ( (int) $fee->images != (int) $posted_values['images'] ) : false;
+			$images_changed = (int) $fee->images !== (int) $posted_values['images'] );
         }
 
-        if ( $posted_values ) {
-            if ( $fee->exists() ) {
-                $result = $fee->update( $posted_values );
-            } else {
-                $result = $fee->save();
-            }
+        if ( ! $posted_values ) {
+			return array( 'fee' => $fee );
+		}
 
-            if ( ! is_wp_error( $result ) ) {
-                if ( 'insert' == $mode ) {
-                    wpbdp_admin_message( _x( 'Fee plan added.', 'fees admin', 'business-directory-plugin' ) );
-                } else {
-					$total_listings = $fee->count_listings();
-					if ( $images_changed && $total_listings > 0 ) {
-						$data = wp_json_encode(
-							array(
-								'plan_id' => $fee->id,
-								'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
-								'action'  => 'wpbdp_admin_ajax',
-								'handler' => 'fees__update_listing_plan'
-							)
-						);
-						wpbdp_admin_message( sprintf(
-							__( 'Fee plan updated. Click %1$shere%2$s to update image limits of %3$s listings', 'business-directory-plugin' ),
-							"<a class='wpbdp-update-plan-listings wpbdp-admin-ajax' data-confirm='" . __( 'Update listing images?', 'business-directory-plugin' ) . "' data-target='.wpbdp-plan-updated' data-ajax='" . $data . "' href='#'>",
-							'</a>',
-							$total_listings
-						), 'updated wpbdp-plan-updated' );
-					} else {
-						wpbdp_admin_message( _x( 'Fee plan updated.', 'fees admin', 'business-directory-plugin' ) );
-					}
-                }
-            } else {
-                foreach ( $result->get_error_messages() as $msg ) {
-                    wpbdp_admin_message( $msg, 'error' );
-                }
-            }
-        }
+		if ( $fee->exists() ) {
+			$result = $fee->update( $posted_values );
+		} else {
+			$result = $fee->save();
+		}
+
+		if ( ! is_wp_error( $result ) ) {
+			if ( 'insert' === $mode ) {
+				wpbdp_admin_message( __( 'Fee plan added.', 'business-directory-plugin' ) );
+			} elseif ( $images_changed ) {
+				$this->show_update_listing_msg( $fee );
+			} else {
+				wpbdp_admin_message( __( 'Fee plan updated.', 'business-directory-plugin' ) );
+			}
+		} else {
+			foreach ( $result->get_error_messages() as $msg ) {
+				wpbdp_admin_message( $msg, 'error' );
+			}
+		}
 
         return array( 'fee' => $fee );
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function show_update_listing_msg( $fee ) {
+		$message = __( 'Fee plan updated.', 'business-directory-plugin' );
+
+		$total_listings = $fee->count_listings();
+		if ( ! $total_listings ) {
+			wpbdp_admin_message( $message );
+			return;
+		}
+
+		$data = wp_json_encode(
+			array(
+				'plan_id' => $fee->id,
+				'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
+				'action'  => 'wpbdp_admin_ajax',
+				'handler' => 'fees__update_listing_plan'
+			)
+		);
+
+		wpbdp_admin_message(
+			$message . sprintf(
+				__( '%1$sClick here to update image limits%2$s of %3$s existing listings', 'business-directory-plugin' ),
+				'<a class="wpbdp-update-plan-listings wpbdp-admin-ajax" data-confirm="' . esc_attr__( 'Update listing image limits?', 'business-directory-plugin' ) . '" data-target=".wpbdp-plan-updated" data-ajax="' . esc_attr( $data ) . '" href="#">',
+				'</a>',
+				$total_listings
+			),
+			'updated wpbdp-plan-updated'
+		);
+	}
 
 	/**
 	 * Ajax action to update listing plan.
