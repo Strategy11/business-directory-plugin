@@ -149,8 +149,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		);
 
 		wpbdp_admin_message(
-			$message . sprintf(
-				__( '%1$sClick here to update image limits%2$s of %3$s existing listings', 'business-directory-plugin' ),
+			$message . ' ' .
+			sprintf(
+				__( '%1$sClick here to update image limits%2$s of %3$s existing listings.', 'business-directory-plugin' ),
 				'<a class="wpbdp-update-plan-listings wpbdp-admin-ajax" data-confirm="' . esc_attr__( 'Update listing image limits?', 'business-directory-plugin' ) . '" data-target=".wpbdp-plan-updated" data-ajax="' . esc_attr( $data ) . '" href="#">',
 				'</a>',
 				$total_listings
