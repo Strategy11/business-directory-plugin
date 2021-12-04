@@ -97,7 +97,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
             $fee = new WPBDP__Fee_Plan( $posted_values );
         } else {
 			$fee            = $this->get_or_die();
-			$images_changed = (int) $fee->images !== (int) $posted_values['images'] );
+			$images_changed = (int) $fee->images !== (int) $posted_values['images'];
         }
 
 		if ( ! $posted_values ) {
