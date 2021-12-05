@@ -350,16 +350,6 @@ final class WPBDP__Settings__Bootstrap {
                 'group' => 'general/advanced',
             )
         );
-
-		wpbdp_register_setting(
-			array(
-				'id'      => 'enqueue-fontawesome-styles',
-				'type'    => 'hidden',
-				'class'   => 'hidden',
-				'default' => false,
-				'group'   => 'general/advanced',
-			)
-		);
     }
 
 	/**
@@ -914,22 +904,6 @@ final class WPBDP__Settings__Bootstrap {
 		);
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'table', 'themes' );
-
-		if ( ! WPBDP_App_Helper::is_font_awesome_enabled() ) {
-			wpbdp_register_setting(
-				array(
-					'id'    => 'fontawesome-enabled',
-					'desc'  => wp_kses_post(
-						sprintf(
-							'<span>' . __( 'Use icons in your directory listings and custom fields: Install %s', 'business-directory-plugin' ) . '</span>',
-							'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fontawesome&tab=search&type=author' ) ) . '" target="_blank" rel="noopener nofollow">Font Awesome</a> '
-						)
-					),
-					'type'  => 'education',
-					'group' => 'themes',
-				)
-			);
-		}
 
         // Image.
         wpbdp_register_settings_group( 'appearance/image', __( 'Images', 'business-directory-plugin' ), 'appearance' );
