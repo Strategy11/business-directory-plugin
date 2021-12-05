@@ -22,6 +22,11 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
 	protected function get_field_settings( $field = null, $association = null ) {
         $settings = parent::get_field_settings( $field, $association );
 
+		if ( $association === 'category' ) {
+			// Don't show height option for JS-generated multiselect.
+			return $settings;
+		}
+
         $label = _x( 'Number of options visible without scrolling', 'form-fields-admin', 'business-directory-plugin' );
         $description = _x( 'The height of the list will be adjusted to accommodate the specified number of options.', 'form-fields-admin', 'business-directory-plugin' );
 
