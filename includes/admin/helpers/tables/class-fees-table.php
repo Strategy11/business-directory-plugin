@@ -62,6 +62,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             'amount'     => __( 'Amount', 'business-directory-plugin' ),
             'duration'   => _x( 'Duration', 'fees admin', 'business-directory-plugin' ),
             'images'     => __( 'Images', 'business-directory-plugin' ),
+			'listings'   => __( 'Listing Count', 'business-directory-plugin' ),
             'attributes' => _x( 'Attributes', 'fees admin', 'business-directory-plugin' ),
         );
 
@@ -227,6 +228,19 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function column_images( $fee ) {
         return sprintf( _nx( '%d image', '%d images', $fee->images, 'fees admin', 'business-directory-plugin' ), $fee->images );
     }
+
+	/**
+	 * Add listing count column.
+	 *
+	 * @param WPBDP__Fee_Plan $fee The current fee plan.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public function column_listings( $fee ) {
+		return sprintf( _nx( '%d listing', '%d listings', $fee->count_listings(), 'fees admin', 'business-directory-plugin' ), $fee->count_listings() );
+	}
 
     public function column_categories( $fee ) {
         if ( $fee->categories['all'] ) {
