@@ -57,6 +57,8 @@ class WPBDP_Payment extends WPBDP__DB__Model {
                 $this->status = 'completed';
             }
         }
+
+		WPBDP_Utils::cache_delete_group( 'wpbdp_payments' );
     }
 
     protected function after_save( $new = false ) {
@@ -100,6 +102,8 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 				'object_id'   => $this->id,
             )
         );
+
+		WPBDP_Utils::cache_delete_group( 'wpbdp_payments' );
     }
 
     protected function set_attr( $name, $value ) {

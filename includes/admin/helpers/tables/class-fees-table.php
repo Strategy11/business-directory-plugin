@@ -58,11 +58,11 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
     public function get_columns() {
         $cols = array(
-            'label'      => _x( 'Label', 'fees admin', 'business-directory-plugin' ),
-            'amount'     => __( 'Amount', 'business-directory-plugin' ),
-            'duration'   => _x( 'Duration', 'fees admin', 'business-directory-plugin' ),
-            'images'     => __( 'Images', 'business-directory-plugin' ),
-            'attributes' => _x( 'Attributes', 'fees admin', 'business-directory-plugin' ),
+			'label'      => __( 'Plan Details', 'business-directory-plugin' ),
+			'amount'     => __( 'Pricing', 'business-directory-plugin' ),
+			'listings'   => __( 'Listings', 'business-directory-plugin' ),
+			'images'     => __( 'Images', 'business-directory-plugin' ),
+			'attributes' => _x( 'Attributes', 'fees admin', 'business-directory-plugin' ),
         );
 
         return $cols;
@@ -182,8 +182,11 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             $fee->id
         );
 
-        $fee_id_string = _x( '<strong>Fee ID:</strong> <fee-id>', 'fees admin', 'business-directory-plugin' );
-        $fee_id_string = str_replace( '<fee-id>', $fee->id, $fee_id_string );
+		$fee_id_string = sprintf(
+			__( 'ID: %s', 'business-directory-plugin' ),
+			$fee->id
+		);
+		$fee_id_string .= '<br/>' . ( $fee->amount > 0.0 ? __( 'Paid Plan', 'business-directory-plugin' ) : __( 'Free Plan', 'business-directory-plugin' ) );
 
         $html .= sprintf(
             '<strong><a href="%s">%s</a></strong><br/>%s',
@@ -197,7 +200,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                 )
             ),
             esc_attr( $fee->label ),
-            $fee_id_string
+            wp_kses( $fee_id_string, array( 'br' => array() ) )
         );
         $html .= $this->row_actions( $actions );
 
@@ -214,7 +217,18 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             return sprintf( _x( '%1$s + %2$s per category', 'fees admin', 'business-directory-plugin' ), $amount, $extra );
         }
 
-        return wpbdp_currency_format( $fee->amount );
+		$amount = $fee->amount ? wpbdp_currency_format( $fee->amount ) : '';
+		$time   = $this->column_duration( $fee );
+		if ( $amount ) {
+			$amount = sprintf(
+				__( '%1$s for %2$s', 'business-directory-plugin' ),
+				esc_html( $amount ),
+				esc_html( $time )
+			);
+		} else {
+			$amount = $time;
+		}
+		return $amount;
     }
 
     public function column_duration( $fee ) {
@@ -224,8 +238,23 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         return sprintf( _nx( '%d day', '%d days', $fee->days, 'fees admin', 'business-directory-plugin' ), $fee->days );
     }
 
+	/**
+	 * @since x.x
+	 */
+	public function column_listings( $fee ) {
+		$column = $fee->count_listings();
+
+		if ( ! (float) $fee->amount ) {
+			return $column;
+		}
+
+		$revenue = wpbdp_currency_format( $fee->total_revenue() );
+		$column .= ' <br/><span class="wpbdp-tag">' . esc_html( $revenue ) . '</span>';
+		return $column;
+	}
+
     public function column_images( $fee ) {
-        return sprintf( _nx( '%d image', '%d images', $fee->images, 'fees admin', 'business-directory-plugin' ), $fee->images );
+		return $fee->images;
     }
 
     public function column_categories( $fee ) {
