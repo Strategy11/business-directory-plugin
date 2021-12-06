@@ -669,10 +669,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $res->send();
         }
 
-        /**
-         * TODO: Use notice, notice-{type} and is-dismissible CSS classes. Those are
-         * the current standard
-         */
         function admin_notices() {
 			if ( ! current_user_can( 'administrator' ) ) {
                 return;
@@ -711,7 +707,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $extra = array();
                 }
 
-                echo '<div class="wpbdp-notice ' . $class . '">';
+				self::maybe_update_notice_classes( $class );
+
+				echo '<div class="wpbdp-notice notice ' . esc_attr( $class ) . '">';
                 echo '<p>' . $text . '</p>';
 
                 if ( ! empty( $extra['dismissible-id'] ) ) {
@@ -728,6 +726,32 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $this->messages = array();
         }
+
+		/**
+		 * This is for reverse compatibility. Switches old classes to new ones like:
+		 * notice, notice-{type} and is-dismissible
+		 *
+		 * @since x.x
+		 */
+		private function maybe_update_notice_classes( &$class ) {
+			$classes = explode( ' ', $class );
+			$find    = array(
+				'error',
+				'dismissible',
+			);
+			$replace = array(
+				'notice-error',
+				'is-dismissible',
+			);
+
+			if ( empty( array_intersect( $classes, $find ) ) ) {
+				return;
+			}
+
+			_deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
+			$classes = str_replace( $find, $replace, $classes );
+			$class   = implode( ' ', $classes );
+		}
 
 		/**
 		 * @since 5.9.1
@@ -1120,14 +1144,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            $this->messages[] = array(
-                sprintf(
-                    _x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
-                    $installed_version
-                ),
-                'error dismissible',
-                array( 'dismissible-id' => 'server_requirements' ),
-            );
+			$this->messages[] = array(
+				sprintf(
+					_x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
+					$installed_version
+				),
+				'notice-error is-dismissible',
+				array( 'dismissible-id' => 'server_requirements' ),
+			);
         }
 
         public function ajax_dismiss_notification_server_requirements() {
@@ -1142,15 +1166,19 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
             // Registration disabled message.
-            if ( wpbdp_get_option( 'require-login' )
-                && ! get_option( 'users_can_register' )
-                && ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
-                    $this->messages[] = array(
-                        str_replace( array( '[', ']' ), array( '<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">', '</a>' ), _x( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go [here] and check "Anyone can register".', 'admin', 'business-directory-plugin' ) ),
-                        'error dismissible',
-                        array( 'dismissible-id' => 'registration_disabled' ),
-                    );
-            }
+			if ( wpbdp_get_option( 'require-login' )
+				&& ! get_option( 'users_can_register' )
+				&& ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
+					$this->messages[] = array(
+						sprintf(
+							__( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
+							'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
+							'</a>'
+						),
+						'notice-error is-dismissible',
+						array( 'dismissible-id' => 'registration_disabled' ),
+					);
+			}
         }
 
         private function check_deprecation_warnings() {
