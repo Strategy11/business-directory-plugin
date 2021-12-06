@@ -186,7 +186,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			__( 'ID: %s', 'business-directory-plugin' ),
 			$fee->id
 		);
-		$fee_id_string .= '<br/>' . ( $fee->amount > 0.0 ? __( 'Paid Plan', 'business-directory-plugin' ) : __( 'Free Plan', 'business-directory-plugin' ) );
+		$fee_id_string .= '<br/><strong>' . ( $fee->amount > 0.0 ? __( 'Paid Plan', 'business-directory-plugin' ) : __( 'Free Plan', 'business-directory-plugin' ) ) . '</strong>';
 
         $html .= sprintf(
             '<strong><a href="%s">%s</a></strong><br/>%s',
@@ -200,7 +200,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                 )
             ),
             esc_attr( $fee->label ),
-            wp_kses( $fee_id_string, array( 'br' => array() ) )
+            wp_kses( $fee_id_string, array( 'br' => array(), 'strong' => array() ) )
         );
         $html .= $this->row_actions( $actions );
 
