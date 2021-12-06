@@ -239,7 +239,13 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     }
 
 	/**
+	 * Add listing count column.
+	 *
+	 * @param WPBDP__Fee_Plan $fee The current fee plan.
+	 *
 	 * @since x.x
+	 *
+	 * @return string
 	 */
 	public function column_listings( $fee ) {
 		$column = $fee->count_listings();
