@@ -222,13 +222,13 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		if ( $amount ) {
 			$amount = sprintf(
 				__( '%1$s for %2$s', 'business-directory-plugin' ),
-				esc_html( $amount ),
-				esc_html( $time )
+				$amount,
+				$time
 			);
 		} else {
 			$amount = $time;
 		}
-		return $amount;
+		return esc_html( $amount );
     }
 
     public function column_duration( $fee ) {
