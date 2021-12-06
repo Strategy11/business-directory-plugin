@@ -253,7 +253,7 @@ class WPBDP__Settings_Admin {
 		$tag = 'label';
 		if ( $setting['grid_layout'] ) {
 			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
-			$tag = 'div';
+			$tag = 'div'; // Use a div tag for the label to prevent multiple switches.
 		} else {
 			echo $this->checkbox_input_html( $setting, $value );
 		}
@@ -266,7 +266,7 @@ class WPBDP__Settings_Admin {
 			echo '</div>';
 			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
 			echo $this->checkbox_input_html( $setting, $value );
-			echo '<label></label>';
+			echo '<label></label>'; // Empty label to hold the switch.
 			echo '</div>';
 		}
 
