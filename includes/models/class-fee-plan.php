@@ -290,6 +290,33 @@ final class WPBDP__Fee_Plan {
 		return $total ? $total : 0;
 	}
 
+	/**
+	 * Get the total revenue for this plan. This isn't totally accurate since the fee id
+	 * is coming from the setting in the listing.
+	 *
+	 * TODO: Update the DB structure to include the fee_id in the payments table.
+	 *
+	 * @since x.x
+	 */
+	public function total_revenue() {
+		if ( 0.0 === $this->amount || ! $this->amount ) {
+			return 0;
+		}
+
+		global $wpdb;
+
+		$query = $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments p LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON (l.listing_id = p.listing_id) WHERE p.status = %s AND l.fee_id = %d", 'completed', $this->id );
+		$total = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'payments_complete_plan_' . $this->id,
+				'group'     => 'wpbdp_payments',
+				'query'     => $query,
+				'type'      => 'get_var',
+			)
+		);
+		return $total;
+	}
+
     private function setup_plan( $data ) {
         if ( is_object( $data ) ) {
             $data = get_object_vars( $data );
