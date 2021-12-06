@@ -30,6 +30,7 @@ jQuery( function( $ ) {
 			this.initCloseNotifications();
 	
 			this.parseNotifications();
+			this.handleDismissAction();
 		},
 
 		onClickNotifications: function() {
@@ -55,12 +56,34 @@ jQuery( function( $ ) {
 			wpbdp_admin_notification_center.preAdminNotifications.each( function() {
 				var notification = $(this);
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
-					wpbdp_admin_notification_center.adminNotifications.append( '<li>' + notification.html() + '</li>');
+					wpbdp_admin_notification_center.adminNotifications.append( '<li class="wpbdp-bell-notice">' + notification.html() + '</li>');
 				}
 				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
 					notification.remove();
 				}
 			});
+		},
+
+		handleDismissAction : function() {
+			$( document ).on( 'click', '.wpbdp-bell-notifications-list .notice-dismiss', function( e ) {
+				e.preventDefault();
+				var $button = $( this ),
+					$notice = $button.parent( '.wpbdp-bell-notice' ),
+					dismissible_id = $button.data( 'dismissible-id' ),
+					nonce = $button.data( 'nonce' );
+
+				wpbdp_admin_notification_center.dismissNotice( $notice, dismissible_id, nonce );
+			} );
+		},
+
+		dismissNotice : function( $notice, notice_id, nonce ) {
+			$.post( ajaxurl, {
+                action: 'wpbdp_dismiss_notification',
+                id: notice_id,
+                nonce: nonce
+            }, function() {
+                $notice.fadeOut( 'fast', function(){ $notice.remove(); } );
+            } );
 		}
 	};
 	wpbdp_admin_notification_center.init();
