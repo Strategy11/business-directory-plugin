@@ -32,7 +32,7 @@ class WPBDP__Settings_Admin {
         if ( false !== strstr( $hook, 'wpbdp_settings' ) ) {
             wp_enqueue_script(
                 'wpbdp-admin-settings',
-                WPBDP_ASSETS_URL . 'js/admin-settings.js',
+                WPBDP_ASSETS_URL . 'js/admin-settings.min.js',
                 array(),
                 WPBDP_VERSION,
 				true

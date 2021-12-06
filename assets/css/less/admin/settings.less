@@ -54,10 +54,19 @@
     }
     select, input[type="number"] {
         min-width: 10rem;
+        padding: 7px;
     }
     .wpbdp-right {
         select, input[type="number"] {
             float: right;
+        }
+    }
+    .wpbdp-input-wide {
+        input, select {
+            min-width: 80%;
+            @media only screen and (max-width: 960px) {
+                min-width: 100%;
+            }
         }
     }
 }

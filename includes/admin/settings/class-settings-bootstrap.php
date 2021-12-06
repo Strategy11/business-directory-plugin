@@ -499,6 +499,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default' => '10',
                 'min'     => 0,
                 'step'    => 1,
+				'class'   => 'wpbdp-input-wide',
                 'group'   => 'listings/main',
             )
         );
@@ -512,6 +513,7 @@ final class WPBDP__Settings__Bootstrap {
                 'min'     => 0,
                 'step'    => 1,
                 'max'     => 3650,
+				'class'   => 'wpbdp-input-wide',
                 'group'   => 'listings/main',
             )
         );
@@ -595,6 +597,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default'      => '0',
                 'min'          => 0,
                 'step'         => 1,
+				'class'        => 'wpbdp-input-wide',
                 'group'        => 'listings/contact',
                 'requirements' => array( 'show-contact-form', 'contact-form-require-login' ),
             )
@@ -608,6 +611,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default'      => '0',
                 'min'          => 0,
                 'step'         => 1,
+				'class'        => 'wpbdp-input-wide',
                 'group'        => 'listings/contact',
                 'requirements' => array( 'show-contact-form' ),
             )
@@ -844,6 +848,7 @@ final class WPBDP__Settings__Bootstrap {
                         'plan-order-title' => _x( 'Fee Plan Custom Order, then Title', 'admin settings', 'business-directory-plugin' ),
                     )
                 ),
+				'class'   => 'wpbdp-input-wide',
                 'group'   => 'listings/sorting',
             )
         );

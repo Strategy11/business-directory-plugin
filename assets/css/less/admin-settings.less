@@ -38,8 +38,11 @@
     }
 
     input[type="text"], input[type="url"], textarea {
-        width: 100%;
+        width: 80%;
         padding: 7px;
+        @media only screen and (max-width: 960px) {
+            min-width: 100%;
+        }
     }
 
     textarea {
