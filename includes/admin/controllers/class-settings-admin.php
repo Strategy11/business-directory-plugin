@@ -216,25 +216,25 @@ class WPBDP__Settings_Admin {
 			echo '</div>';
 			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
 		}
-        echo '<input type="number" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
+		echo '<input type="number" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
 
-        if ( isset( $setting['min'] ) ) {
-            echo 'min="' . $setting['min'] . '"';
-        }
+		if ( isset( $setting['min'] ) ) {
+			echo 'min="' . $setting['min'] . '"';
+		}
 
-        if ( isset( $setting['step'] ) ) {
-            echo 'step="' . $setting['step'] . '"';
-        }
+		if ( isset( $setting['step'] ) ) {
+			echo 'step="' . $setting['step'] . '"';
+		}
 
-        if ( isset( $setting['max'] ) ) {
-            echo 'max="' . $setting['max'] . '"';
-        }
-        echo '/>';
+		if ( isset( $setting['max'] ) ) {
+			echo 'max="' . $setting['max'] . '"';
+		}
+		echo '/>';
 		if ( $setting['grid_layout'] ) {
 			echo '</div>';
 		}
 		echo '</div>';
-    }
+	}
 
     public function setting_textarea_callback( $setting, $value ) {
         echo '<textarea id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '">';
@@ -243,34 +243,34 @@ class WPBDP__Settings_Admin {
 		echo $this->setting_input_desc( $setting );
     }
 
-    public function setting_checkbox_callback( $setting, $value ) {
+	public function setting_checkbox_callback( $setting, $value ) {
 		if ( $setting['grid_layout'] ) {
 			$setting['class'] = $setting['class'] . ' wpbdp-grid';
 		}
 
 		echo '<div class="wpdb-checkbox ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
-        echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
+		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 
 		if ( $setting['grid_layout'] ) {
 			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
-			echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
-			echo $this->setting_input_desc( $setting );
+		} else {
+			echo $this->checkbox_input_html( $setting, $value );
+		}
+		echo $this->setting_input_label( $setting );
+		if ( ! empty( $setting['tooltip'] ) ) {
+			echo $this->setting_tooltip( $setting['tooltip'] );
+		}
+		echo $this->setting_input_desc( $setting );
+		if ( $setting['grid_layout'] ) {
 			echo '</div>';
 			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
 			echo $this->checkbox_input_html( $setting, $value );
 			echo '<label></label>';
 			echo '</div>';
-		} else {
-			echo $this->checkbox_input_html( $setting, $value );
-			echo $this->setting_input_label( $setting );
-			if ( ! empty( $setting['tooltip'] ) ) {
-				echo $this->setting_tooltip( $setting['tooltip'] );
-			}
-			echo $this->setting_input_desc( $setting );
 		}
 
-        echo '</div>';
-    }
+		echo '</div>';
+	}
 
 	/**
 	 * Render checkbox input hmtl.
