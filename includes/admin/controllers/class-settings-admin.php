@@ -250,13 +250,14 @@ class WPBDP__Settings_Admin {
 
 		echo '<div class="wpdb-checkbox ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
 		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
-
+		$tag = 'label';
 		if ( $setting['grid_layout'] ) {
 			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
+			$tag = 'div';
 		} else {
 			echo $this->checkbox_input_html( $setting, $value );
 		}
-		echo $this->setting_input_label( $setting );
+		echo $this->setting_input_label( $setting, $tag );
 		if ( ! empty( $setting['tooltip'] ) ) {
 			echo $this->setting_tooltip( $setting['tooltip'] );
 		}
