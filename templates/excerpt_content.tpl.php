@@ -4,7 +4,20 @@
 
 <div class="listing-details">
     <?php foreach ( $fields->not( 'social' ) as $field ) : ?>
-        <?php echo $field->html; ?>
+        <?php
+		$address = array( 'address', 'address2', 'city', 'state', 'country', 'zip' );
+		if ( in_array( $field->tag, $address ) ) :
+			if ( empty( $skip_address ) && $field->html ) :
+				$skip_address = $address;
+				?>
+        <div class="address-info wpbdp-field-display wpbdp-field wpbdp-field-value">
+            <?php echo wp_kses_post( $fields->_h_address_label ); ?>
+            <div><?php echo wp_kses_post( $fields->_h_address ); ?></div>
+        </div>
+			<?php endif; ?>
+		<?php else : ?>
+			<?php echo $field->html; ?>
+		<?php endif; ?>
     <?php endforeach; ?>
 
     <?php

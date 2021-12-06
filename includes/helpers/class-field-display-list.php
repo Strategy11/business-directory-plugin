@@ -241,8 +241,13 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		$field = $this->t_address->field;
 		if ( $field->has_display_flag( 'nolabel' ) ) {
 			return '';
-        }
-		return trim( WPBDP_Form_Field_Type::field_label_display_wrapper( $this->t_address->label, $field ) );
+		}
+
+		$atts = array(
+			'class' => 'address-label',
+			'field' => $field,
+		);
+		return WPBDP_Form_Field_Type::field_label_display_wrapper( $this->t_address->label, $atts );
 	}
 
     public function helper__author() {

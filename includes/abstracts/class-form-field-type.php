@@ -426,13 +426,19 @@ class WPBDP_Form_Field_Type {
 
         $html  = '';
         $tag_attrs = isset( $args['tag_attrs'] ) ? self::html_attributes( $args['tag_attrs'] ) : '';
-        $html .= '<div class="' . $css_classes . ' ' . $extra_classes . '" ' . $tag_attrs . '>';
+		$html .= '<div class="' . esc_attr( $css_classes . ' ' . $extra_classes ) . '" ' . $tag_attrs . '>';
 
-        if ( $label )
-            $html .= self::field_label_display_wrapper( $label, $labelorfield );
+		if ( $label ) {
+			$atts = array();
+			if ( is_object( $labelorfield ) ) {
+				$atts['field'] = $labelorfield;
+			}
+			$html .= self::field_label_display_wrapper( $label, $atts );
+		}
 
-        if ( $content )
-            $html .= '<div class="value">' . $content . '</div>';
+		if ( $content ) {
+			$html .= '<div class="value">' . $content . '</div>';
+		}
 
         $html .= '</div>';
 
@@ -444,14 +450,20 @@ class WPBDP_Form_Field_Type {
 	 * Used to render the field label.
 	 *
 	 * @param string $label The field label.
-	 * @param object $labelorfield The lfield object of the label.
+	 * @param array $atts includes $atts['field'] - The field object of the label.
 	 *
 	 * @since x.x
 	 *
 	 * @return string
 	 */
-	public static function field_label_display_wrapper( $label, $labelorfield ) {
-		return '<span class="field-label">' . apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $labelorfield ) . ':</span> ';
+	public static function field_label_display_wrapper( $label, $atts = array() ) {
+		$class = 'field-label';
+		if ( isset( $atts['class'] ) ) {
+			$class .= ' ' . $atts['class'];
+		}
+		return '<span class="' . esc_attr( $class ) . '">' .
+			apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $atts ) .
+			':</span> ';
 	}
 
 	public static function render_admin_settings( $admin_settings = array() ) {
