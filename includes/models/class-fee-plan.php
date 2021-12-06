@@ -269,6 +269,27 @@ final class WPBDP__Fee_Plan {
         return date( 'Y-m-d H:i:s', $expire_time );
     }
 
+	/**
+	 * Count total listings in current plan.
+	 *
+	 * @since x.x
+	 *
+	 * @return int
+	 */
+	public function count_listings() {
+		global $wpdb;
+		$query   = $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings WHERE fee_id = %d", $this->id );
+		$total   = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'listing_count_' . $this->id,
+				'group'     => 'wpbdp_plans',
+				'query'     => $query,
+				'type'      => 'get_var',
+			)
+		);
+		return $total ? $total : 0;
+	}
+
     private function setup_plan( $data ) {
         if ( is_object( $data ) ) {
             $data = get_object_vars( $data );

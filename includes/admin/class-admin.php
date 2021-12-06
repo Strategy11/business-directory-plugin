@@ -509,8 +509,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $function      = isset( $parts[1] ) ? $parts[1] : '';
 
             $candidates = array(
-                WPBDP_INC . 'admin/class-admin-' . $controller_id . '.php',
-                WPBDP_INC . 'admin/' . $controller_id . '.php',
+				WPBDP_INC . 'admin/controllers/class-admin-' . $controller_id . '.php',
+				WPBDP_INC . 'admin/class-admin-' . $controller_id . '.php',
+				WPBDP_INC . 'admin/' . $controller_id . '.php',
             );
             foreach ( $candidates as $c ) {
                 if ( ! file_exists( $c ) ) {
