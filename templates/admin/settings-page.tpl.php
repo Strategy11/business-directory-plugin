@@ -21,11 +21,11 @@ wpbdp_admin_bootstrap_header(
 		<?php foreach ( $tabs as $tab_id => $tab ) : ?>
 			<li class="nav-item wpbdp-nav-item">
 				<a class="nav-link <?php echo $active_tab == $tab_id ? 'active' : ''; ?> <?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>" title="<?php echo esc_html( $tab['title'] ); ?>">
-					<div class="row">
-						<div class="col wpbdp-nav-item-icon wpbdp-nav-item-icon-<?php echo esc_attr( $tab_id ); ?>">
+					<div class="wpbdp-grid">
+						<div class="wpbdp-col-2 wpbdp-nav-item-icon wpbdp-nav-item-icon-<?php echo esc_attr( $tab_id ); ?>">
 							<span class="wpbdp-nav-item-icon dashicons <?php echo esc_attr( $tab['icon'] ); ?>"></span>
 						</div>
-						<div class="col wpbdp-nav-item-name wpbdp-nav-item-name-<?php echo esc_attr( $tab_id ); ?>">
+						<div class="wpbdp-col-10 wpbdp-nav-item-name wpbdp-nav-item-name-<?php echo esc_attr( $tab_id ); ?>">
 							<?php echo esc_html( $tab['title'] ); ?>
 							<div class="wpbdp-nav-item-meta">
 								<?php echo esc_html( $tab['desc'] ); ?>
@@ -37,8 +37,8 @@ wpbdp_admin_bootstrap_header(
 		<?php endforeach; ?>
 	</ul>
 	<div class="wpbdp-nav-toggle">
-		<div class="row">
-			<div class="col-3 wpbdp-nav-item-icon">
+		<div class="wpbdp-grid">
+			<div class="wpbdp-col-3 wpbdp-nav-item-icon">
 				<svg width="24" height="24" class="wpbdp-icon-maximized" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<rect width="24" height="24" rx="12" fill="white"/>
 					<path d="M14 16L10 12L14 8" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,9 +47,8 @@ wpbdp_admin_bootstrap_header(
 					<rect width="24" height="24" rx="12" transform="matrix(-1 0 0 1 24 0)" fill="white"/>
 					<path d="M10 16L14 12L10 8" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
-
 			</div>
-			<div class="col wpbdp-nav-item-name">
+			<div class="wpbdp-col-9 wpbdp-nav-item-name">
 				<?php esc_html_e( 'Minimize Navigation', 'business-directory-plugin' ); ?>
 			</div>
 		</div>
