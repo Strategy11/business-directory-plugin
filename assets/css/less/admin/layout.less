@@ -10,6 +10,7 @@
     }
     .wpbdp-content-area {
         margin-left: 57px;
+        width: ~"calc(100% - 57px)";
     }
     .wpbdp-icon-maximized{
         display: none;
@@ -18,7 +19,11 @@
         display: block;
     }
 }
+::before, ::after, * {
+    box-sizing: border-box;
+}
 .wpbdp {
+    
     &-admin-layout {
         background-color: @page-background;
         margin: 0px;
@@ -56,19 +61,28 @@
     &-menu-area {
         position: absolute;
         top: 0;
-        bottom: -120px;
+        bottom: 0;
         z-index: 1;
-        width: 296px;
+        width: 287px;
         background-color: @page-background;
     }
     &-nav-items {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        list-style: none;
+        flex-direction: column;
+        margin-bottom: auto;
+        margin-top: 0;
         .wpbdp-nav-item {
-            color: @text-color;
-            a {
+            &-link {
+                display: block;
+                padding: .5rem 1rem .5rem 20px;
+                text-decoration: none;
                 color: @text-color;
                 border-radius: 0;
-                padding-left: 20px;
             }
+            color: @text-color;
             .active {
                 background-color: @white;
                 color: @link-active;
@@ -108,8 +122,12 @@
     &-content-area {
         background-color: @white;
         color: @link-active;
-        width: 100%;
-        margin-left: 296px;
+        width: ~"calc(100% - 287px)";
+        position: absolute;
+        min-height: 100vh;
+        top: 0;
+        bottom: 0;
+        margin-left: 287px;
         .h2, h2 {
             font-size: 14px;
             font-weight: 600;
