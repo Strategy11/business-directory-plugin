@@ -29,9 +29,6 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
      */
     public function __construct() {
         parent::__construct( _x( 'Social Site (Other)', 'form-fields api', 'business-directory-plugin' ) );
-
-        add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_scripts' ) );
     }
 
     public function get_id() {
@@ -335,14 +332,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         return $field_value;
     }
 
-    public function _enqueue_scripts() {
-        if ( wpbdp_get_option( 'enqueue-fontawesome-styles', true ) ) {
-            wp_enqueue_style(
-                'wpbdp_font_awesome',
-                'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
-                array(),
-                '5.14.0'
-            );
-        }
-    }
+	public function _enqueue_scripts() {
+		_deprecated_function( __METHOD__, '5.15.4' );
+	}
 }
