@@ -7,11 +7,16 @@ class DirectoryCrudCest {
 
 	private $listing_title = '';
 
+	private $slug = '';
+
+	private $edit_url = '';
+
 	public function _before( AcceptanceTester $I ) {
 		$I->wantTo( 'log in to site' );
 		$I->loginAsAdmin();
 		$I->amOnPage( '/wp-admin/edit.php?post_type=wpbdp_listing' );
 		$this->listing_title = 'Sample Test Listing';
+		$this->slug = 'sample-test-listing';
 	}
 
 	public function _after( AcceptanceTester $I ) {
@@ -19,7 +24,7 @@ class DirectoryCrudCest {
 	}
 
 	public function createDirectory( AcceptanceTester $I ) {
-		$i->amGoingTo( 'Create a new listing' );
+		$I->amGoingTo( 'Create a new listing' );
 		$I->click( 'Add New Listing' );
 		$I->fillField( 'post_title', $this->listing_title );
 		// Fields do not have proper names. Very hard to determine
@@ -34,35 +39,19 @@ class DirectoryCrudCest {
 		$I->see( 'Post published.', 'p' );
 		$I->click( array( 'link' => 'View post' ) );
 		$I->seeInTitle( $this->listing_title );
+		$this->edit_url = $I->getCurrentUrl();
 	}
 
 	public function editDirectory( AcceptanceTester $I ) {
-		$slug       = sanitize_title( $this->listing_title );
-		$listing_id = wpbdp_get_post_by_id_or_slug( $slug, 'id', 'id' );
-		$i->amGoingTo( 'Edit a listing' );
-		if ( $listing_id ) {
-			$I->amOnPage( '/wp-admin/post.php?post=' . $listing_id . '&action=edit' );
-			$I->seeInCurrentUrl( 'edit' );
-			$I->see( 'Update', 'input' );
-			$I->click( 'Update' );
-			$I->see( 'Post updated.', 'p' );
-		} else {
-			$I->dontSee( 'Edit Listing' );
-		}
+		$I->amOnPage( $this->edit_url );
+		$I->seeInCurrentUrl( 'edit' );
+		$I->see( 'Update', 'input' );
+		$I->click( 'Update' );
+		$I->see( 'Post updated.', 'p' );
 	}
 
 	public function viewDirectory( AcceptanceTester $I ) {
-		$slug = sanitize_title( $this->listing_title );
-		$I->amOnPage( '/business-directory/' . $slug );
+		$I->amOnPage( '/business-directory/' . $this->slug );
 		$I->seeInTitle( $this->listing_title );
-	}
-
-	public function deleteDirectory( AcceptanceTester $I ) {
-		$I->amOnPage( '/wp-admin/edit.php?post_type=wpbdp_listing' );
-		$listing_id = wpbdp_get_post_by_id_or_slug( $slug, 'id', 'id' );
-		$i->amGoingTo( 'Delete a listing' );
-		if ( $listing_id ) {
-			$I->click( '#post-' . $listing_id . ' a.submitdelete' );
-		}
 	}
 }
