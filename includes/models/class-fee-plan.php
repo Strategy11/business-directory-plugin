@@ -272,7 +272,7 @@ final class WPBDP__Fee_Plan {
 	/**
 	 * Count total listings in current plan.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 *
 	 * @return int
 	 */
@@ -296,7 +296,7 @@ final class WPBDP__Fee_Plan {
 	 *
 	 * TODO: Update the DB structure to include the fee_id in the payments table.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 */
 	public function total_revenue() {
 		if ( 0.0 === $this->amount || ! $this->amount ) {
