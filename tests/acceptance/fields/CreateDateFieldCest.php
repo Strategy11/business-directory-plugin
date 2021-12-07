@@ -20,8 +20,8 @@ class CreateDateFieldCest {
 		$I->see( 'Form Fields', 'h1' );
 		$I->click( array( 'link' => 'Add New Form Field' ) );
 		$I->see( 'Add Form Field', 'h1' );
-		$I->selectOption( 'form input[name=field[association]]', 'meta' );
-		$I->selectOption( 'form input[name=field[field_type]]', 'date' );
+		$I->selectOption( 'field[association]', 'meta' );
+		$I->selectOption( 'field[field_type]', 'date' );
 		$I->fillField( 'field[label]', 'Sample Date Field' );
 		$I->click( 'Add Field' );
 		$I->see( 'Form fields updated.', 'p' );

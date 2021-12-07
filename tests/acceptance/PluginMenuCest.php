@@ -8,7 +8,7 @@ class PluginMenuCest {
 	public function _before( AcceptanceTester $I ) {
 		$I->wantTo( 'log in to site' );
 		$I->loginAsAdmin();
-		$I->amOnPage( '/wp-admin/index.php' );
+		$I->amOnPage( '/wp-admin/edit.php?post_type=wpbdp_listing' );
 	}
 
 	public function tryToTestMenusExist( AcceptanceTester $I ) {

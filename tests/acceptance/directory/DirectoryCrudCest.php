@@ -27,14 +27,6 @@ class DirectoryCrudCest {
 		$I->amGoingTo( 'Create a new listing' );
 		$I->click( 'Add New Listing' );
 		$I->fillField( 'post_title', $this->listing_title );
-		// Fields do not have proper names. Very hard to determine
-
-		foreach ( wpbdp_get_form_fields( array( 'association' => 'meta' ) ) as $field ) {
-			$field_id = $field->get_id();
-			if ( strtolower( $field->get_label() ) === 'email' ) {
-				$I->fillField( array( 'name' => 'listingfields[' . $field_id . ']' ), 'jon@example.com' );
-			}
-		}
 		$I->click( 'Publish' );
 		$I->see( 'Post published.', 'p' );
 		$I->click( array( 'link' => 'View post' ) );
