@@ -452,7 +452,7 @@ class WPBDP_Form_Field_Type {
 	 * @param string $label The field label.
 	 * @param array $atts includes $atts['field'] - The field object of the label.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 *
 	 * @return string
 	 */
@@ -461,8 +461,9 @@ class WPBDP_Form_Field_Type {
 		if ( isset( $atts['class'] ) ) {
 			$class .= ' ' . $atts['class'];
 		}
+		$field = isset( $atts['field'] ) ? $atts['field'] : '';
 		return '<span class="' . esc_attr( $class ) . '">' .
-			apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $atts ) .
+			apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $field ) .
 			':</span> ';
 	}
 

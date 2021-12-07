@@ -243,7 +243,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 	 *
 	 * @param WPBDP__Fee_Plan $fee The current fee plan.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 *
 	 * @return string
 	 */
