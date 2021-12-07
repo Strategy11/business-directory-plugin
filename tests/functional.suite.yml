@@ -18,7 +18,7 @@ modules:
             dump: 'tests/_data/dump.sql'
             populate: true
             cleanup: true
-            url: 'http://example.com'
+            url: 'https://qa.businessdirectoryplugin.com/'
             urlReplacement: true
             tablePrefix: 'wpl_'
         WordPress:

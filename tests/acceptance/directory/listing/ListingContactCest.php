@@ -3,7 +3,7 @@
 /**
  * Test listing contact form
  */
-class ListingContactCept {
+class ListingContactCest {
 
     private $listing = false;
 

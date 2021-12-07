@@ -3,7 +3,7 @@
 /**
  * Crude test for creating directories
  */
-class DirectoryCrudCept {
+class DirectoryCrudCest {
 
 	private $listing_title = '';
 

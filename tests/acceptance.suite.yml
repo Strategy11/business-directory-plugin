@@ -21,19 +21,19 @@ modules:
             dump: 'tests/_data/dump.sql'
             populate: true #import the dump before the tests
             cleanup: true #import the dump between tests
-            url: 'http://example.com'
+            url: 'https://qa.businessdirectoryplugin.com/'
             urlReplacement: true #replace the hardcoded dump URL with the one above
             tablePrefix: 'wpl_'
         WPBrowser:
-            url: 'http://example.com'
+            url: 'https://qa.businessdirectoryplugin.com/'
             adminUsername: 'admin'
             adminPassword: 'password'
             adminPath: '/wp-admin'
         WebDriver:
-            url: 'http://example.com'
+            url: 'https://qa.businessdirectoryplugin.com/'
             browser: phantomjs
         WPWebDriver:
-            url: 'http://example.com'
+            url: 'https://qa.businessdirectoryplugin.com/'
             port: 9515
             browser: chrome
             window_size: 'false'

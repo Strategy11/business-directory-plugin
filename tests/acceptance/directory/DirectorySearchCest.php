@@ -3,7 +3,7 @@
 /**
  * Crude test for searching listings
  */
-class DirectorySearchCept {
+class DirectorySearchCest {
 
 	private $listing_ids = array();
 
