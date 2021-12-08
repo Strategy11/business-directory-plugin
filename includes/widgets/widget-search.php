@@ -81,11 +81,12 @@ class WPBDP_SearchWidget extends WP_Widget {
         echo '</p>';
     }
 
-	public function update( $new_instance, $old_instance ) {
-		$new_instance['title']         = strip_tags( $new_instance['title'] );
-		$new_instance['form_mode']     = wpbdp_getv( $new_instance, 'form_mode', 'basic' );
-		$new_instance['search_fields'] = wpbdp_getv( $new_instance, 'search_fields', array() );
-        return $new_instance;
+	public function update( $new, $old ) {
+		$instance                  = $old;
+		$instance['title']         = strip_tags( $new['title'] );
+		$instance['form_mode']     = wpbdp_getv( $new, 'form_mode', 'basic' );
+		$instance['search_fields'] = wpbdp_getv( $new, 'search_fields', array() );
+		return $instance;
     }
 
 	public function widget( $args, $instance ) {

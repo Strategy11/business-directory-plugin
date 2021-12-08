@@ -230,6 +230,26 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         return str_replace( '<br />', ', ', $this->helper__address() );
     }
 
+	/**
+	 * Helper function to get the address label.
+	 *
+	 * @since 5.15.3
+	 *
+	 * @return string
+	 */
+	public function helper__address_label() {
+		$field = $this->t_address->field;
+		if ( $field->has_display_flag( 'nolabel' ) ) {
+			return '';
+		}
+
+		$atts = array(
+			'class' => 'address-label',
+			'field' => $field,
+		);
+		return WPBDP_Form_Field_Type::field_label_display_wrapper( $this->t_address->label, $atts );
+	}
+
     public function helper__author() {
         $listing = wpbdp_get_listing( $this->listing_id );
         $author  = $listing->get_author_meta( 'display_name' );
