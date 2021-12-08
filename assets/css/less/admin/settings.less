@@ -6,7 +6,7 @@
             padding: 3px 2px;
             border-radius: 7px;
             font-size: 13px;
-            background-color: @page-background;
+            background-color: @menu-background;
             li {
                 margin: 0 1px;
             }
@@ -22,9 +22,10 @@
                     color: @link-active;
                     background-color: @white;
                     border-radius: 7px;
-                    box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
-                    -webkit-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
-                    -moz-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
+                    border: 0.5px solid rgba(0, 0, 0, 0.04);
+                    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+                    -webkit-box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+                    -moz-box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
                 }
             }
         }
@@ -44,10 +45,6 @@
         .wpbdp-license-key-input {
             padding: 0 8px !important;
         }
-    }
-    .progress {
-        /**Override bootstrap**/
-        display: inline-block;
     }
     label {
         line-height: 1em;
