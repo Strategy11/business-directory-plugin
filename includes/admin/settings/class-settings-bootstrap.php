@@ -1111,6 +1111,7 @@ final class WPBDP__Settings__Bootstrap {
 				'min'     => 0,
 				'step'    => 1,
 				'desc'    => str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'business-directory-plugin' ) ),
+                'class'   => 'wpbdp-input-wide',
 				'group'   => 'image/listings',
             )
         );
@@ -1144,6 +1145,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default' => 'wpbdp-thumb',
                 'options' => is_admin() ? self::get_registered_image_sizes() : array(),
                 'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
+                'class'   => 'wpbdp-input-wide',
                 'group'   => 'image/listings',
             )
         );

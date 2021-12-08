@@ -383,7 +383,7 @@ function wpbdp_sanitize_html_classes( $classes, $sep = ' ' ) {
 			$output .= sanitize_html_class( $class ) . ' ';
 		}
 	}
-	return $output;
+	return rtrim( $output );
 }
 
 function wpbdp_capture_action( $hook ) {
