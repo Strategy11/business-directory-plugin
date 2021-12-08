@@ -4,6 +4,7 @@ namespace WPBDP\Tests;
 
 use Codeception\TestCase\WPTestCase;
 use WPBDP_Installer;
+use WPBDP__Fee_Plan;
 
 class WPUnitTestCase extends WPTestCase {
 
