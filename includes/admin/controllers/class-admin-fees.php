@@ -128,7 +128,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
 	/**
-	 * @since x.x
+	 * @since 5.15.3
 	 */
 	private function show_update_listing_msg( $fee ) {
 		$message = __( 'Fee plan updated.', 'business-directory-plugin' );
@@ -163,7 +163,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	/**
 	 * Ajax action to update listing plan.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 */
 	public function ajax_update_listing_plan() {
 		WPBDP_App_Helper::permission_check( 'edit_posts' );
@@ -187,7 +187,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 *
 	 * @param object $fee The fee
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 */
 	private function update_listing_images( $fee ) {
 		global $wpdb;

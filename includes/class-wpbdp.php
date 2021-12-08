@@ -28,7 +28,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.15.2' );
+        define( 'WPBDP_VERSION', '5.15.3' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -180,6 +180,10 @@ final class WPBDP {
 
         $this->payment_gateways = new WPBDP__Payment_Gateways();
 
+		// Load before wpbdp_register_settings hook runs.
+		require_once WPBDP_PATH . 'includes/compatibility/class-fa-compat.php';
+		new WPBDP_FA_Compat();
+
 		do_action( 'wpbdp_modules_loaded' );
 
         do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
@@ -224,7 +228,7 @@ final class WPBDP {
             $this->privacy = new WPBDP_Personal_Data_Privacy();
         }
 
-        $this->compat = new WPBDP_Compat();
+		$this->compat = new WPBDP_Compat();
         $this->rewrite = new WPBDP__Rewrite();
 
         do_action( 'wpbdp_loaded' );
