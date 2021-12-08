@@ -9,8 +9,6 @@ class DirectoryCrudCest {
 
 	private $slug = '';
 
-	private $edit_url = '';
-
 	public function _before( AcceptanceTester $I ) {
 		$I->wantTo( 'log in to site' );
 		$I->loginAsAdmin();
@@ -31,16 +29,8 @@ class DirectoryCrudCest {
 		$I->see( 'Post published.', 'p' );
 		$I->click( array( 'link' => 'View post' ) );
 		$I->seeInTitle( $this->listing_title );
-		$this->edit_url = $I->getCurrentUrl();
 	}
 
-	public function editDirectory( AcceptanceTester $I ) {
-		$I->amOnPage( $this->edit_url );
-		$I->seeInCurrentUrl( 'edit' );
-		$I->see( 'Update', 'input' );
-		$I->click( 'Update' );
-		$I->see( 'Post updated.', 'p' );
-	}
 
 	public function viewDirectory( AcceptanceTester $I ) {
 		$I->amOnPage( '/business-directory/' . $this->slug );

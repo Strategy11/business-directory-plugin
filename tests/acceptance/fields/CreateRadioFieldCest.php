@@ -21,11 +21,11 @@ class CreateRadioFieldCest {
 		$I->click( array( 'link' => 'Add New Form Field' ) );
 		$I->see( 'Add Form Field', 'h1' );
 		$I->selectOption( 'field[association]', 'meta' );
-		$I->selectOption( 'field[field_type]', 'textfield' );
-		$I->fillField( 'field[label]', 'Sample Field' );
+		$I->selectOption( 'field[field_type]', 'radio' );
+		$I->fillField( 'field[label]', 'Sample Radio Field' );
 		$I->fillField( 'field[x_options]', "First\nSecond\nThird\nforth" );
 		$I->click( 'Add Field' );
 		$I->see( 'Form fields updated.', 'p' );
-		$I->see( 'Sample Field', 'a' ); // Field link.
+		$I->see( 'Sample Radio Field', 'a' ); // Field link.
 	}
 }

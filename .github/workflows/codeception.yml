@@ -51,7 +51,7 @@ jobs:
         run: |
           cd "/tmp/wordpress/src/wp-content/plugins/${GITHUB_REPOSITORY#*/}"
           pwd
-          php vendor/bin/codecept run acceptance
+          # php vendor/bin/codecept run acceptance
           php vendor/bin/codecept run wpunit Data/ExporterTest.php
           php vendor/bin/codecept run wpunit Listing/APITest.php
           php vendor/bin/codecept run wpunit UtilsTest.php
