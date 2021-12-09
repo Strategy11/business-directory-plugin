@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8.1
-Stable tag: 5.15.2
+Stable tag: 5.15.3
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,15 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.15.3 =
+* New: When the number of images on a plan changes, offer the option to update the image limit on existing listings.
+* New: Update the plan table to include the number of listings and amount earned.
+* In the default theme, combine the address fields into one section on the excerpt page.
+* Stop loading the external Font Awesome css, and use a Font Awesome plugin for WordPress instead.
+* Switch to current standards for WordPress admin notices.
+* Fix: Some widget settings weren't getting saved.
+* Remove the option to set a height for category multiselect fields since it wasn't being used.
+
 = 5.15.2 =
 * Fix: Listings set to never expire were changing to draft after editing.
 
@@ -173,13 +182,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: If a payment is pending, show link to complete payment rather than renew.
 * Fix: After changing an expiration date in the back-end, the listing wasn't correctly getting marked expired.
 * New: Added hook wpbdp_submit_validation_errors to add custom validation.
-
-= 5.14.3 =
-* Allow the directory shortcodes in private pages and drafts.
-* Improve the performance a bit when showing listing images.
-* Remove the review request in the sidebar and replace it with asking a few different times.
-* Fix: Fix the button alignment in the search form in the Twenty TwentyOne theme.
-* Fix: The buttons to select a plan were missing when renewing.
-* Fix: PHP errors were showing in some cases when payments were deleted.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

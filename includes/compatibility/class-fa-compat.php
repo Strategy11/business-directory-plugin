@@ -11,7 +11,7 @@
 class WPBDP_FA_Compat {
 
  	/*
-	 * @since x.x
+	 * @since 5.15.3
 	 */
 	public function __construct() {
 		if ( ! is_admin() ) {
@@ -28,7 +28,7 @@ class WPBDP_FA_Compat {
 	 * If it was enabled by default, we show an admin notice.
 	 * On dismiss we keep the setting.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 */
 	public function admin_notice() {
 		if ( ! WPBDP_App_Helper::is_bd_page() ) {
@@ -54,7 +54,7 @@ class WPBDP_FA_Compat {
 	/**
 	 * Set fontawesome notice as dismissed.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 */
 	public function ajax_dismiss_notification_fontawesome() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
@@ -66,7 +66,7 @@ class WPBDP_FA_Compat {
 	/**
 	 * Let people know they can add Font Awesome.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 */
 	public function register_setting() {
 		if ( self::is_enabled() ) {
@@ -105,7 +105,7 @@ class WPBDP_FA_Compat {
 	 * Check if font awesome is enabled.
 	 * This checks if the plugin is active or the styles are loaded.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 *
 	 * @return bool
 	 */

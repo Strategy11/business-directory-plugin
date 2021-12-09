@@ -731,7 +731,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * This is for reverse compatibility. Switches old classes to new ones like:
 		 * notice, notice-{type} and is-dismissible
 		 *
-		 * @since x.x
+		 * @since 5.15.3
 		 */
 		private function maybe_update_notice_classes( &$class ) {
 			$classes = explode( ' ', $class );

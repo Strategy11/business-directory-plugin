@@ -233,7 +233,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	/**
 	 * Helper function to get the address label.
 	 *
-	 * @since x.x
+	 * @since 5.15.3
 	 *
 	 * @return string
 	 */
