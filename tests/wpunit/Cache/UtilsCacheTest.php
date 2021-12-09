@@ -15,8 +15,8 @@ class UtilsCacheTest extends WPUnitTestCase {
 	public function testCacheCrude() {
 		$this->tester->wantToTest( 'Test Utils Cache' );
 		$data = array(
-			'id' => 1,
-			'name' => 'Test Data'
+			'id'   => 1,
+			'name' => 'Test Data',
 		);
 		WPBDP_Utils::set_cache( 'test_data_1', $data, 'wpbdp_test_data' );
 
@@ -26,8 +26,8 @@ class UtilsCacheTest extends WPUnitTestCase {
 
 		// Update Cache
 		$new_data = array(
-			'id' => 2,
-			'name' => 'Test Data'
+			'id'   => 2,
+			'name' => 'Test Data',
 		);
 		WPBDP_Utils::set_cache( 'test_data_1', $new_data, 'wpbdp_test_data' );
 

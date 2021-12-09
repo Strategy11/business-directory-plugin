@@ -13,12 +13,12 @@ use WPBDP__Settings;
  */
 class AbandonedPaymentTest extends WPUnitTestCase {
 
-    /**
+	/**
 	 * @var \WpunitTester
 	 */
 	protected $tester;
 
-    public function testAbandonedPaymentNotification() {
+	public function testAbandonedPaymentNotification() {
 		global $wpdb;
 		$this->tester->wantToTest( 'Abandoned Payment Notification' );
 
@@ -34,16 +34,24 @@ class AbandonedPaymentTest extends WPUnitTestCase {
 			$table_name = $wpdb->prefix . 'wpbdp_payments';
 			$payment_id = $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$table_name} WHERE listing_id = %d", $this->id ) );
 			if ( $payment_id ) {
-				$notified = get_option( 'wpbdp-payment-abandonment-notified', array() );
+				$notified        = get_option( 'wpbdp-payment-abandonment-notified', array() );
 				$before_notified = count( $notified );
-				$created_at = date_i18n( 'Y-m-d H:i:s', strtotime( '-7 days' ) );
-				$wpdb->update( $table_name, array( 'status'=> 'pending', 'payment_type' => 'initial', 'created_at' => $created_at ), array( 'id' => $payment_id )  );
+				$created_at      = date_i18n( 'Y-m-d H:i:s', strtotime( '-7 days' ) );
+				$wpdb->update(
+					$table_name,
+					array(
+						'status'       => 'pending',
+						'payment_type' => 'initial',
+						'created_at'   => $created_at,
+					),
+					array( 'id' => $payment_id )
+				);
 
 				$settings = new WPBDP__Settings();
-        		$settings->bootstrap();
+				$settings->bootstrap();
 				$abandoned_payment_notification = new WPBDP__Abandoned_Payment_Notification( $settings, $wpdb );
 				$abandoned_payment_notification->send_abandoned_payment_notifications();
-				$notified = get_option( 'wpbdp-payment-abandonment-notified', array() );
+				$notified       = get_option( 'wpbdp-payment-abandonment-notified', array() );
 				$after_notified = count( $notified );
 
 				// Assert that the notification was sent
@@ -54,5 +62,5 @@ class AbandonedPaymentTest extends WPUnitTestCase {
 		} else {
 			$this->fail( $listing->get_error_message() );
 		}
-    }
+	}
 }

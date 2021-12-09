@@ -34,18 +34,20 @@ class FeeCrudeTest extends WPUnitTestCase {
 	 */
 	private function createFee() {
 		Debug::debug( 'Creating the fee' );
-		$this->fee = new WPBDP__Fee_Plan( array(
-			'label' 	=> 'Premium Fee',
-			'amount'	=> 100.0,
-			'days'		=> 100,
-			'sticky'	=> 0,
-			'recurring'	=> 0,
-			'images'    => 5,
-			'supported_categories' => 'all',
-			'pricing_model' => 'flat',
-			'enabled' => 1,
-		) );
-		$result = $this->fee->save();
+		$this->fee = new WPBDP__Fee_Plan(
+			array(
+				'label'                => 'Premium Fee',
+				'amount'               => 100.0,
+				'days'                 => 100,
+				'sticky'               => 0,
+				'recurring'            => 0,
+				'images'               => 5,
+				'supported_categories' => 'all',
+				'pricing_model'        => 'flat',
+				'enabled'              => 1,
+			)
+		);
+		$result    = $this->fee->save();
 		if ( ! is_wp_error( $result ) ) {
 			$this->assertTrue( is_int( $this->fee->id ), 'Fee Created' );
 		} else {
@@ -61,17 +63,19 @@ class FeeCrudeTest extends WPUnitTestCase {
 		if ( ! $this->fee || ! $this->fee->exists() ) {
 			$this->fail( 'Could not retrieve previously created fee plan' );
 		}
-		$result = $this->fee->update( array(
-			'label'     => 'Premium Fee updated',
-			'amount'	=> 100.0,
-			'days'		=> 100,
-			'sticky'	=> 0,
-			'recurring'	=> 0,
-			'images'    => 5,
-			'supported_categories' => 'all',
-			'pricing_model' => 'flat',
-			'enabled' => 1,
-		) );
+		$result = $this->fee->update(
+			array(
+				'label'                => 'Premium Fee updated',
+				'amount'               => 100.0,
+				'days'                 => 100,
+				'sticky'               => 0,
+				'recurring'            => 0,
+				'images'               => 5,
+				'supported_categories' => 'all',
+				'pricing_model'        => 'flat',
+				'enabled'              => 1,
+			)
+		);
 		if ( ! is_wp_error( $result ) ) {
 			$this->assertTrue( ( $this->fee->label === 'Premium Fee updated' ), 'Fee updated' );
 		} else {
@@ -88,12 +92,12 @@ class FeeCrudeTest extends WPUnitTestCase {
 			$this->fail( 'Could not retrieve previously created fee plan' );
 		}
 		$this->fee->enabled = false;
-        $this->fee->save();
+		$this->fee->save();
 
 		$this->assertFalse( $this->fee->enabled, 'Fee disabled' );
 
 		$this->fee->enabled = true;
-        $this->fee->save();
+		$this->fee->save();
 
 		$this->assertTrue( $this->fee->enabled, 'Fee enabled' );
 	}

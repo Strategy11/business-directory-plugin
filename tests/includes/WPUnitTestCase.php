@@ -74,7 +74,7 @@ class WPUnitTestCase extends WPTestCase {
 		$this->installer->install();
 		$this->create_users();
 		$wpbdp->formfields->create_default_fields();
-        $wpbdp->settings->set_new_install_settings();
+		$wpbdp->settings->set_new_install_settings();
 		$this->maybe_create_default_fee();
 	}
 
@@ -89,30 +89,30 @@ class WPUnitTestCase extends WPTestCase {
 		}
 
 		$admin_args = array(
-			'user_login'  => 'admin',
+			'user_login' => 'admin',
 			'user_email' => 'admin@mail.com',
-			'user_pass' => 'admin',
-			'role' => 'administrator',
+			'user_pass'  => 'admin',
+			'role'       => 'administrator',
 		);
-		$admin = $this->factory->user->create_object( $admin_args );
+		$admin      = $this->factory->user->create_object( $admin_args );
 		$this->assertNotEmpty( $admin );
 
 		$editor_args = array(
-			'user_login'  => 'editor',
+			'user_login' => 'editor',
 			'user_email' => 'editor@mail.com',
-			'user_pass' => 'editor',
-			'role' => 'editor',
+			'user_pass'  => 'editor',
+			'role'       => 'editor',
 		);
-		$editor = $this->factory->user->create_object( $editor_args );
+		$editor      = $this->factory->user->create_object( $editor_args );
 		$this->assertNotEmpty( $editor );
 
 		$subscriber_args = array(
-			'user_login'  => 'subscriber',
+			'user_login' => 'subscriber',
 			'user_email' => 'subscriber@mail.com',
-			'user_pass' => 'subscriber',
-			'role' => 'subscriber',
+			'user_pass'  => 'subscriber',
+			'role'       => 'subscriber',
 		);
-		$subscriber = $this->factory->user->create_object( $subscriber_args );
+		$subscriber      = $this->factory->user->create_object( $subscriber_args );
 		$this->assertNotEmpty( $subscriber );
 	}
 
@@ -124,16 +124,16 @@ class WPUnitTestCase extends WPTestCase {
 		if ( ! $free_plan ) {
 			$fee = new WPBDP__Fee_Plan(
 				array(
-					'label' 	=> 'Free Listing',
-					'amount'	=> 0.0,
-					'days'		=> absint( wpbdp_get_option( 'listing-duration' ) ),
-					'sticky'	=> 0,
-					'recurring'	=> 0,
-					'images'    => absint( wpbdp_get_option( 'free-images' ) ),
+					'label'                => 'Free Listing',
+					'amount'               => 0.0,
+					'days'                 => absint( wpbdp_get_option( 'listing-duration' ) ),
+					'sticky'               => 0,
+					'recurring'            => 0,
+					'images'               => absint( wpbdp_get_option( 'free-images' ) ),
 					'supported_categories' => 'all',
-					'pricing_model' => 'flat',
-					'enabled' => 1,
-					'tag' => 'free',
+					'pricing_model'        => 'flat',
+					'enabled'              => 1,
+					'tag'                  => 'free',
 				)
 			);
 			$fee->save();
