@@ -76,6 +76,7 @@ class WPUnitTestCase extends WPTestCase {
 		$wpbdp->formfields->create_default_fields();
 		$wpbdp->settings->set_new_install_settings();
 		$this->maybe_create_default_fee();
+		$this->maybe_create_dummy_listings();
 	}
 
 
@@ -138,5 +139,24 @@ class WPUnitTestCase extends WPTestCase {
 			);
 			$fee->save();
 		}
+	}
+
+
+	/**
+	 * Create dummy listings
+	 */
+	private function maybe_create_dummy_listings() {
+		wpbdp_set_option( 'new-post-status', 'publish' );
+		foreach ( range( 0, 10 ) as $number ) {
+			wpbdp_save_listing(
+				array(
+					'post_author' => 1,
+					'post_type'   => WPBDP_POST_TYPE,
+					'post_status' => 'publish',
+					'post_title'  => 'My listing ' . $number,
+				)
+			);
+		}
+		wpbdp_set_option( 'new-post-status', 'pending' );
 	}
 }

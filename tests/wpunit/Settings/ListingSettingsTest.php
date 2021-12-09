@@ -46,25 +46,4 @@ class ListingSettingsTest extends WPUnitTestCase {
 		$count = count( $q->posts );
 		$this->assertEquals( $count, $per_page );
 	}
-
-	protected function after_setup() {
-		$this->create_dummy_listings();
-	}
-
-	/**
-	 * Create dummy listings
-	 */
-	private function create_dummy_listings() {
-		wpbdp_set_option( 'new-post-status', 'publish' );
-		foreach ( range( 0, 10 ) as $number ) {
-			wpbdp_save_listing(
-				array(
-					'post_author' => 1,
-					'post_type'   => WPBDP_POST_TYPE,
-					'post_status' => 'publish',
-					'post_title'  => 'My listing ' . $number,
-				)
-			);
-		}
-	}
 }
