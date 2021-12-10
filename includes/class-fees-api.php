@@ -10,7 +10,6 @@ class WPBDP_Fees_API {
 
         // Keep settings in sync with free plan.
         add_action( 'wpbdp_setting_updated_listing-duration', array( $this, 'sync_setting_with_free_plan' ), 10, 3 );
-        add_action( 'wpbdp_setting_updated_free-images', array( $this, 'sync_setting_with_free_plan' ), 10, 3 );
         add_action( 'wpbdp_fee_save', array( $this, 'sync_fee_plan_with_settings' ), 10, 2 );
     }
 
@@ -28,11 +27,6 @@ class WPBDP_Fees_API {
         case 'listing-duration':
             $free_plan->days = $value;
             break;
-        case 'free-images':
-            $free_plan->images = $value;
-            break;
-        default:
-            break;
         }
 
         $free_plan->save( false );
@@ -46,7 +40,6 @@ class WPBDP_Fees_API {
         $this->recursion_guard = true;
 
         wpbdp_set_option( 'listing-duration', $plan->days );
-        wpbdp_set_option( 'free-images', $plan->images );
 
         unset( $this->recursion_guard );
     }
@@ -64,7 +57,7 @@ class WPBDP_Fees_API {
                     'tag' => 'free',
                     'label' => __( 'Free Listing', 'business-directory-plugin' ),
                     'amount' => 0.0,
-                    'images' => absint( wpbdp_get_option( 'free-images' ) ),
+                    'images' => 0,
                     'days' => absint( wpbdp_get_option( 'listing-duration' ) ),
                     'supported_categories' => 'all',
                     'pricing_model' => 'flat',

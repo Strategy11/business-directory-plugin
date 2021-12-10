@@ -1040,18 +1040,18 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'image/listings',
             )
         );
-        wpbdp_register_setting(
-            array(
-				'id'      => 'free-images',
-				'type'    => 'number',
-				'name'    => _x( 'Number of free images', 'settings', 'business-directory-plugin' ),
-				'default' => '2',
-				'min'     => 0,
-				'step'    => 1,
-				'desc'    => str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', _x( 'For paid listing images, configure that by adding or editing a <a>Fee Plan</a> instead of this setting, which is ignored for paid listings.', 'admin settings', 'business-directory-plugin' ) ),
+
+		wpbdp_register_setting(
+			array(
+				'id'      => 'show-thumbnail',
+				'type'    => 'checkbox',
+				'name'    => __( 'Show Thumbnail', 'business-directory-plugin' ),
+				'desc'    => _x( 'Excerpt view.', 'admin settings', 'business-directory-plugin' ),
+				'default' => true,
 				'group'   => 'image/listings',
-            )
-        );
+			)
+		);
+
         wpbdp_register_setting(
             array(
                 'id'      => 'use-default-picture',
@@ -1085,15 +1085,7 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'image/listings',
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'show-thumbnail',
-                'type'    => 'checkbox',
-                'name'    => _x( 'Show Thumbnail on main listings page?', 'settings', 'business-directory-plugin' ),
-                'default' => true,
-                'group'   => 'image/listings',
-            )
-        );
+
         wpbdp_register_setting(
             array(
                 'id'      => 'listings-sticky-image',

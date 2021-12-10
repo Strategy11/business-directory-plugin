@@ -591,7 +591,6 @@ class WPBDP__Settings {
             'wpbusdirman_settings_config_52' => 'listings-order-by',
             'wpbusdirman_settings_config_53' => 'listings-sort',
             'wpbusdirman_settings_config_6' => 'allow-images',
-            'wpbusdirman_settings_config_2' => 'free-images',
             'wpbusdirman_settings_config_11' => 'show-thumbnail',
             'wpbusdirman_settings_config_13' => 'image-max-filesize',
             'wpbusdirman_settings_config_14' => 'image-min-filesize',
