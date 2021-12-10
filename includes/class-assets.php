@@ -36,7 +36,7 @@ class WPBDP__Assets {
             'jquery-file-upload-iframe-transport',
             WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.iframe-transport.js',
             array(),
-            '10.7.0',
+			'10.32.0',
 			true
         );
 
@@ -44,7 +44,7 @@ class WPBDP__Assets {
             'jquery-file-upload',
             WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.fileupload.js',
             array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' ),
-            '10.7.0',
+			'10.32.0',
 			true
         );
 

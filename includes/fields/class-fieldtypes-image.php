@@ -288,9 +288,8 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
                 ),
                 $errors
             );
+
             if ( $media_id ) {
-                // Create the thumbnails for the front view.
-				_wpbdp_resize_image_if_needed( $media_id );
 
 				echo '<div class="preview" style="display: none;">';
 				echo wp_get_attachment_image( $media_id, 'thumb', false );

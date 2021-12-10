@@ -3,7 +3,7 @@ var wpbdp = window.wpbdp || {};
 ( function( $ ) {
     var dnd = wpbdp.dnd = {
         setup: function( $area, options ) {
-            var options = $.extend( options, {} );
+            options = $.extend( options, {} );
             var $input = $area.find( 'input[type="file"]' );
 
             $area.data( 'dnd-working', false );
