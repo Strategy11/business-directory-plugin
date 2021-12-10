@@ -168,8 +168,6 @@ class WPBDP__Assets {
 
 		$this->load_css();
 
-		$this->image_listing_css();
-
         do_action( 'wpbdp_enqueue_scripts' );
 
         // enable legacy css (should be removed in a future release) XXX
@@ -198,7 +196,12 @@ class WPBDP__Assets {
 	}
 
     public function load_css() {
-        $rootline_color = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
+        $rootline_color    = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
+        $thumbnail_width   = wpbdp_get_option( 'thumbnail-width' );
+		$thumbnail_height  = wpbdp_get_option( 'thumbnail-height' );
+        $thumbnail_crop    = wpbdp_get_option( 'thumbnail-crop' );
+        $dimension_prefix  = $thumbnail_crop ? '' : 'max-';
+        $crop_attribute    = $thumbnail_crop ? 'object-fit: cover;' : '';
 
         if ( ! $rootline_color ) {
             $rootline_color = '#569AF6';
@@ -206,27 +209,14 @@ class WPBDP__Assets {
 
         wp_add_inline_style(
             'wpbdp-base-css',
-            'html{ --bd-main-color:' . $rootline_color . '; --bd-main-color-20:' . $rootline_color . '33;--bd-main-color-8:' . $rootline_color . '14;}'
+            'html{ --bd-main-color:' . $rootline_color . '; --bd-main-color-20:' . $rootline_color . '33;--bd-main-color-8:' . $rootline_color . '14;}
+            .wpbdp-listing .listing-thumbnail img, .single-wpbdp_listing .extra-images ul li img, .wpbdp-listing-single .extra-images ul li img {
+				' . $dimension_prefix . 'width: ' . esc_attr( $thumbnail_width ) .'px;
+				' . $dimension_prefix . 'height: ' . esc_attr( $thumbnail_height ) .'px;
+                ' . $crop_attribute . '
+			}'
         );
     }
-
-	/**
-	 * Image listing css styling.
-	 * This sets the dimensions of the listing image if not cropped.
-	 *
-	 * @since x.x
-	 */
-	public function image_listing_css() {
-		$thumbnail_width      = wpbdp_get_option( 'thumbnail-width' );
-		$thumbnail_height     = wpbdp_get_option( 'thumbnail-height' );
-		wp_add_inline_style(
-			'wpbdp-base-css',
-			'.wpbdp-listing .listing-thumbnail img {
-				max-width: ' . $thumbnail_width .'px;
-				max-height: ' . $thumbnail_height .'px;
-			}'
-		);
-	}
 
     /**
      * @since 3.5.3
