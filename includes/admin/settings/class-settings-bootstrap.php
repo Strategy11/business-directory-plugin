@@ -1040,6 +1040,18 @@ final class WPBDP__Settings__Bootstrap {
 			)
 		);
 
+		wpbdp_register_setting(
+			array(
+				'id'      => 'listing-main-image-default-size',
+				'type'    => 'select',
+				'name'    => _x( 'Default thumbnail image size', 'settings', 'business-directory-plugin' ),
+				'default' => 'wpbdp-thumb',
+				'options' => is_admin() ? self::get_registered_image_sizes() : array(),
+				'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
+				'group'   => 'image/listings',
+			)
+		);
+
         wpbdp_register_setting(
             array(
                 'id'      => 'use-default-picture',
@@ -1060,16 +1072,20 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => __( 'Coming Soon image', 'business-directory-plugin' ),
 				'default' => '',
 				'group'   => 'image/listings',
+				'requirements' => array( 'use-default-picture' ),
 			)
 		);
+
         wpbdp_register_setting(
             array(
-                'id'      => 'listing-main-image-default-size',
-                'type'    => 'select',
-                'name'    => _x( 'Default thumbnail image size', 'settings', 'business-directory-plugin' ),
-                'default' => 'wpbdp-thumb',
-                'options' => is_admin() ? self::get_registered_image_sizes() : array(),
-                'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
+                'id'      => 'display-sticky-badge',
+                'type'    => 'multicheck',
+                'name'    => _x( 'Display featured (sticky) badge', 'settings', 'business-directory-plugin' ),
+                'default' => array( 'single' ),
+                'options' => array(
+                    'excerpt' => _x( 'Excerpt view.', 'admin settings', 'business-directory-plugin' ),
+                    'single'  => _x( 'Detail view.', 'admin settings', 'business-directory-plugin' ),
+                ),
                 'group'   => 'image/listings',
             )
         );
@@ -1081,6 +1097,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Featured Badge image', 'settings', 'business-directory-plugin' ),
                 'default' => '',
                 'group'   => 'image/listings',
+				'requirements' => array( 'display-sticky-badge' ),
             )
         );
         wpbdp_register_setting(
@@ -1092,19 +1109,7 @@ final class WPBDP__Settings__Bootstrap {
                 'placeholder' => __( 'URL', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'image/listings',
-            )
-        );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'display-sticky-badge',
-                'type'    => 'multicheck',
-                'name'    => _x( 'Display featured (sticky) badge on listing:', 'settings', 'business-directory-plugin' ),
-                'default' => array( 'single' ),
-                'options' => array(
-                    'excerpt' => _x( 'Excerpt view.', 'admin settings', 'business-directory-plugin' ),
-                    'single'  => _x( 'Detail view.', 'admin settings', 'business-directory-plugin' ),
-                ),
-                'group'   => 'image/listings',
+				'requirements' => array( 'display-sticky-badge' ),
             )
         );
     }
