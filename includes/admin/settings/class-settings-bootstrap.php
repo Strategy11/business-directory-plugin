@@ -443,19 +443,7 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'listings/main',
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'listing-duration',
-                'type'    => 'number',
-                'name'    => _x( 'Listing duration for no-fee sites (in days)', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'Use a value of "0" to keep a listing alive indefinitely or enter a number less than 10 years (3650 days).', 'settings', 'business-directory-plugin' ),
-                'default' => '365',
-                'min'     => 0,
-                'step'    => 1,
-                'max'     => 3650,
-                'group'   => 'listings/main',
-            )
-        );
+
         wpbdp_register_setting(
             array(
                 'id'      => 'listing-renewal',

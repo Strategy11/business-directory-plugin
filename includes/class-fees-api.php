@@ -7,41 +7,6 @@ class WPBDP_Fees_API {
 
     public function __construct() {
         $this->setup_default_fees();
-
-        // Keep settings in sync with free plan.
-        add_action( 'wpbdp_setting_updated_listing-duration', array( $this, 'sync_setting_with_free_plan' ), 10, 3 );
-        add_action( 'wpbdp_fee_save', array( $this, 'sync_fee_plan_with_settings' ), 10, 2 );
-    }
-
-    public function sync_setting_with_free_plan( $value, $old_value, $setting_id ) {
-        if ( ! empty( $this->recursion_guard ) ) {
-            return;
-        }
-
-        $free_plan = wpbdp_get_fee_plan( 'free' );
-		if ( ! $free_plan ) {
-			return;
-		}
-
-        switch ( $setting_id ) {
-        case 'listing-duration':
-            $free_plan->days = $value;
-            break;
-        }
-
-        $free_plan->save( false );
-    }
-
-    public function sync_fee_plan_with_settings( $plan, $update ) {
-        if ( empty( $plan->tag ) || 'free' != $plan->tag ) {
-            return;
-        }
-
-        $this->recursion_guard = true;
-
-        wpbdp_set_option( 'listing-duration', $plan->days );
-
-        unset( $this->recursion_guard );
     }
 
     private function setup_default_fees() {
@@ -54,15 +19,15 @@ class WPBDP_Fees_API {
             $wpdb->insert(
                 $wpdb->prefix . 'wpbdp_plans',
                 array(
-                    'tag' => 'free',
-                    'label' => __( 'Free Listing', 'business-directory-plugin' ),
-                    'amount' => 0.0,
-                    'images' => 0,
-                    'days' => absint( wpbdp_get_option( 'listing-duration' ) ),
-                    'supported_categories' => 'all',
-                    'pricing_model' => 'flat',
-                    'sticky' => 0,
-                    'enabled' => 1
+					'tag' => 'free',
+					'label' => __( 'Free Listing', 'business-directory-plugin' ),
+					'amount' => 0.0,
+					'images' => 0,
+					'days'   => 365,
+					'supported_categories' => 'all',
+					'pricing_model' => 'flat',
+					'sticky' => 0,
+					'enabled' => 1
                 )
             );
             $fee_id = $wpdb->insert_id;
@@ -121,6 +86,19 @@ class WPBDP_Fees_API {
         return $fees;
     }
 
+	/**
+	 * @deprecated 5.16
+	 */
+	public function sync_fee_plan_with_settings( $plan, $update ) {
+		_deprecated_function( __METHOD__, '5.16' );
+	}
+
+	/**
+	 * @deprecated 5.16
+	 */
+	public function sync_setting_with_free_plan() {
+		_deprecated_function( __METHOD__, '5.16' );
+	}
 }
 
 }
