@@ -239,14 +239,20 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	 */
 	public function helper__address_label() {
 		$field = $this->t_address->field;
+		$atts = array(
+			'class' => 'address-label',
+		);
+
+		if ( ! $field ) {
+			return WPBDP_Form_Field_Type::field_label_display_wrapper( __( 'Address', 'business-directory-plugin' ), $atts );
+		}
+
 		if ( $field->has_display_flag( 'nolabel' ) ) {
 			return '';
 		}
 
-		$atts = array(
-			'class' => 'address-label',
-			'field' => $field,
-		);
+		$atts['field'] = $field;
+
 		return WPBDP_Form_Field_Type::field_label_display_wrapper( $this->t_address->label, $atts );
 	}
 
