@@ -196,26 +196,24 @@ class WPBDP__Assets {
 	}
 
     public function load_css() {
-        $rootline_color    = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
-        $thumbnail_width   = wpbdp_get_option( 'thumbnail-width' );
+		$rootline_color    = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
+		$thumbnail_width   = wpbdp_get_option( 'thumbnail-width' );
 		$thumbnail_height  = wpbdp_get_option( 'thumbnail-height' );
-        $thumbnail_crop    = wpbdp_get_option( 'thumbnail-crop' );
-        $dimension_prefix  = $thumbnail_crop ? '' : 'max-';
-        $crop_attribute    = $thumbnail_crop ? 'object-fit: cover;' : '';
 
-        if ( ! $rootline_color ) {
-            $rootline_color = '#569AF6';
-        }
+		if ( ! $rootline_color ) {
+			$rootline_color = '#569AF6';
+		}
 
-        wp_add_inline_style(
-            'wpbdp-base-css',
-            'html{ --bd-main-color:' . $rootline_color . '; --bd-main-color-20:' . $rootline_color . '33;--bd-main-color-8:' . $rootline_color . '14;}
-            .wpbdp-listing .listing-thumbnail img, .single-wpbdp_listing .extra-images ul li img, .wpbdp-listing-single .extra-images ul li img {
-				' . $dimension_prefix . 'width: ' . esc_attr( $thumbnail_width ) .'px;
-				' . $dimension_prefix . 'height: ' . esc_attr( $thumbnail_height ) .'px;
-                ' . $crop_attribute . '
+		wp_add_inline_style(
+			'wpbdp-base-css',
+			'html{ 
+				--bd-main-color:' . $rootline_color . ';
+				--bd-main-color-20:' . $rootline_color . '33;
+				--bd-main-color-8:' . $rootline_color . '14;
+				--bd-thumbnail-width: ' . esc_attr( $thumbnail_width ) .'px;
+				--bd-thumbnail-height: ' . esc_attr( $thumbnail_height ) .'px;
 			}'
-        );
+		);
     }
 
     /**
