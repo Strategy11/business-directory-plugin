@@ -3,8 +3,6 @@
  * @package WPBDP\Tests\Plugin
  */
 
-use WPBDP_Utils;
-
 /**
  * Unit tests for Utils class.
  */

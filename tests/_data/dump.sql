@@ -399,6 +399,111 @@ INSERT INTO `wpl_users` VALUES (1,'admin','$P$B6nO1JwROS4R4wFOeE3cMH7aGvFApr/','
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+
+DROP TABLE IF EXISTS `wpl_wpbdp_form_fields`;
+
+CREATE TABLE `wpl_wpbdp_form_fields` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `field_type` varchar(100) NOT NULL,
+  `association` varchar(100) NOT NULL,
+  `validators` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `weight` int NOT NULL DEFAULT '0',
+  `display_flags` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `field_data` blob,
+  `shortname` varchar(255) NOT NULL DEFAULT '',
+  `tag` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `field_type` (`field_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+
+DROP TABLE IF EXISTS `wpl_wpbdp_listings`;
+
+CREATE TABLE `wpl_wpbdp_listings` (
+  `listing_id` bigint NOT NULL,
+  `fee_id` bigint DEFAULT NULL,
+  `fee_price` decimal(10,2) DEFAULT '0.00',
+  `fee_days` smallint unsigned DEFAULT '0',
+  `fee_images` smallint unsigned DEFAULT '0',
+  `expiration_date` timestamp NULL DEFAULT NULL,
+  `is_recurring` tinyint(1) NOT NULL DEFAULT '0',
+  `is_sticky` tinyint(1) NOT NULL DEFAULT '0',
+  `subscription_id` varchar(255) DEFAULT '',
+  `subscription_data` longblob,
+  `listing_status` varchar(255) NOT NULL DEFAULT 'unknown',
+  `flags` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`listing_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+
+DROP TABLE IF EXISTS `wpl_wpbdp_logs`;
+
+CREATE TABLE `wpl_wpbdp_logs` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `object_id` bigint DEFAULT '0',
+  `rel_object_id` bigint DEFAULT '0',
+  `object_type` varchar(20) DEFAULT '',
+  `created_at` datetime NOT NULL,
+  `log_type` varchar(255) DEFAULT '',
+  `actor` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '',
+  `message` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `data` longblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+
+DROP TABLE IF EXISTS `wpl_wpbdp_payments`;
+
+CREATE TABLE `wpl_wpbdp_payments` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `listing_id` bigint NOT NULL DEFAULT '0',
+  `parent_id` bigint NOT NULL DEFAULT '0',
+  `payment_key` varchar(255) DEFAULT '',
+  `payment_type` varchar(255) DEFAULT '',
+  `payment_items` longblob,
+  `data` longblob,
+  `context` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '',
+  `payer_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '',
+  `payer_first_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '',
+  `payer_last_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '',
+  `payer_data` blob,
+  `gateway` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `gateway_tx_id` varchar(255) DEFAULT '',
+  `currency_code` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'USD',
+  `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `processed_on` timestamp NULL DEFAULT NULL,
+  `processed_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `listing_id` (`listing_id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+
+DROP TABLE IF EXISTS `wpl_wpbdp_plans`;
+
+CREATE TABLE `wpl_wpbdp_plans` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `days` smallint unsigned NOT NULL DEFAULT '0',
+  `images` smallint unsigned NOT NULL DEFAULT '0',
+  `sticky` tinyint(1) NOT NULL DEFAULT '0',
+  `recurring` tinyint(1) NOT NULL DEFAULT '0',
+  `pricing_model` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'flat',
+  `pricing_details` blob,
+  `supported_categories` text NOT NULL,
+  `weight` int NOT NULL DEFAULT '0',
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `extra_data` longblob,
+  `tag` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
