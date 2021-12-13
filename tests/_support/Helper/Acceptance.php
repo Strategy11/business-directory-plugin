@@ -6,5 +6,12 @@ namespace Helper;
 
 class Acceptance extends \Codeception\Module {
 
-
+	/**
+	 * Get current url from WebDriver
+	 * @return mixed
+	 * @throws \Codeception\Exception\ModuleException
+	 */
+	public function getCurrentUrl() {
+		return $this->getModule('WebDriver')->_getCurrentUri();
+	}
 }

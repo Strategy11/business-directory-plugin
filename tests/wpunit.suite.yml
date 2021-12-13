@@ -16,7 +16,7 @@ modules:
             dump: 'tests/_data/dump.sql'
             populate: true #import the dump before the tests
             cleanup: false #do not import the dump between tests
-            url: 'http://example.com'
+            url: 'https://qa.businessdirectoryplugin.com/'
             urlReplacement: true #replace the hardcoded dump URL with the one above
             tablePrefix: 'wpl_'
         WPLoader:
@@ -28,7 +28,7 @@ modules:
             dbUser: "root"
             dbPassword: "root"
             tablePrefix: "wpl_"
-            domain: "http://example.com"
+            domain: "https://qa.businessdirectoryplugin.com/"
             adminEmail: "admin@businessdirectory.com"
             title: "Test"        
             plugins: ['business-directory-plugin/business-directory-plugin.php']

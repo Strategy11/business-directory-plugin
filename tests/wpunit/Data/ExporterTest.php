@@ -2,7 +2,7 @@
 
 namespace Data;
 
-require_once WPBDP_INC . 'admin/class-csv-exporter.php';
+require_once WPBDP_INC . 'admin/helpers/csv/class-csv-exporter.php';
 
 use WPBDP\Tests\WPUnitTestCase;
 use WPBDP_CSVExporter;
@@ -34,12 +34,12 @@ class ExporterTest extends WPUnitTestCase {
 			$payment->status = 'completed';
 			$payment->save();
 
-			$settings = array(
+			$settings    = array(
 				'include-sticky-status'   => false,
 				'include-expiration-date' => false,
 			);
 			$uploads_dir = wp_upload_dir()['basedir'] . '/wpbdp-csv-exports/';
-			$exporter = new WPBDP_CSVExporter( $settings, $uploads_dir, array( $listing->get_id() ) );
+			$exporter    = new WPBDP_CSVExporter( $settings, $uploads_dir, array( $listing->get_id() ) );
 
 			// Execution
 			$exporter->advance();

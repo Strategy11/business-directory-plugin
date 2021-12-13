@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-12-07 23:04:03+00:00\n"
+"POT-Creation-Date: 2021-12-10 22:26:44+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -293,7 +293,9 @@ msgid "Tags"
 msgstr ""
 
 #: includes/admin/controllers/class-form-fields-admin.php:343
-#: includes/form-fields.php:445 templates/checkout-billing-form.tpl.php:75
+#: includes/form-fields.php:445
+#: includes/helpers/class-field-display-list.php:247
+#: templates/checkout-billing-form.tpl.php:75
 msgid "Address"
 msgstr ""
 
