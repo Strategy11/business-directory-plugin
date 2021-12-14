@@ -58,6 +58,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
     public function get_columns() {
         $cols = array(
+			'order'      => __( 'Order', 'business-directory-plugin' ),
 			'label'      => __( 'Plan Details', 'business-directory-plugin' ),
 			'amount'     => __( 'Pricing', 'business-directory-plugin' ),
 			'listings'   => __( 'Listings', 'business-directory-plugin' ),
@@ -179,10 +180,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         }
 
         $html  = '';
-        $html .= sprintf(
-            '<span class="wpbdp-drag-handle" data-fee-id="%s"></span></a>',
-            $fee->id
-        );
 
 		$fee_id_string = sprintf(
 			__( 'ID: %s', 'business-directory-plugin' ),
