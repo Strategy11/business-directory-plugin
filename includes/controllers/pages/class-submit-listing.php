@@ -139,12 +139,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$plan_id = absint( wpbdp_get_var( array( 'param' => 'listing_plan', 'default' => 0 ), 'post' ) );
 			$plan    = wpbdp_get_fee_plan( $plan_id );
             if ( $plan && $plan->enabled ) {
-				$plan    = $this->get_plan_for_listing();
-				$updated = $this->maybe_update_listing_plan( $plan );
-				if ( $updated ) {
-					// New listing plan changed. We need to delete other payment records.
-					$this->listing->delete_payment_history();
-				}
+				$plan = $this->get_plan_for_listing();
+				$this->maybe_update_listing_plan( $plan );
 				$possible_payment = WPBDP_Payment::objects()->filter(
 					array(
 						'listing_id'   => $this->listing->get_id(),
