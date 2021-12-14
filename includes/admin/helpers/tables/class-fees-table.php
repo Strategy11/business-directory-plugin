@@ -81,11 +81,11 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
     /** Rows **/
     public function single_row( $item ) {
-        $classes   = '';
-		if ( $item->is_enabled_premium() ) {
-			$classes .= 'disabled-fee';
+        $classes = 'fee';
+		if ( ! $item->is_enabled_premium() ) {
+			$classes .= ' disabled-fee';
 		} elseif ( 'free' === $item->tag ) {
-			$classes .= 'free-fee';
+			$classes .= ' free-fee';
 		}
 
         echo '<tr class="' . $classes . '">';
