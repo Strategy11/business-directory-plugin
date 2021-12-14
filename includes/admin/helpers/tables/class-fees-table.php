@@ -83,7 +83,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     /** Rows **/
     public function single_row( $item ) {
         $classes = 'fee';
-		if ( ! $item->is_enabled_premium() ) {
+		if ( ! $item->enabled ) {
 			$classes .= ' disabled-fee';
 		} elseif ( 'free' === $item->tag ) {
 			$classes .= ' free-fee';
@@ -172,11 +172,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                 ),
                 esc_html__( 'Delete', 'business-directory-plugin' )
             );
-
-			if ( ! $fee->is_enabled_premium() ) {
-				unset( $actions['disable'] );
-				unset( $actions['enable'] );
-			}
         }
 
         $html  = '';
@@ -282,7 +277,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function column_attributes( $fee ) {
 		$tags = array();
 
-		if ( ! $fee->enabled || ! $fee->is_enabled_premium() ) {
+		if ( ! $fee->enabled ) {
 			$tags[] = esc_html__( 'Disabled', 'business-directory-plugin' );
 		} else {
 			$tags[] = esc_html__( 'Active', 'business-directory-plugin' );

@@ -270,21 +270,6 @@ final class WPBDP__Fee_Plan {
     }
 
 	/**
-	 * Checks if the current plan is premium and enabled.
-	 * This checks if payments are turned on and the price is set.
-	 *
-	 * @since x.x
-	 *
-	 * @return bool
-	 */
-	public function is_enabled_premium() {
-		if ( ( $this->amount > 0.0 ) && ! wpbdp_payments_possible() ) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
 	 * Count total listings in current plan.
 	 *
 	 * @since 5.15.3

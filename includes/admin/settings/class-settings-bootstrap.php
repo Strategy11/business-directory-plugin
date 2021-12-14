@@ -1135,7 +1135,7 @@ final class WPBDP__Settings__Bootstrap {
 				'id'      => 'payments-on',
 				'type'    => 'hidden',
 				'class'   => 'hidden',
-				'default' => false,
+				'default' => true,
 				'group'   => 'payment/main',
 			)
 		);
