@@ -185,22 +185,12 @@ var WPBDP_associations_fieldtypes = {};
             });
         },
 
-        initToolTip: function() {
-            //$( '.wpbdp-nav-tooltip' ).tooltip( { placement : 'right', html : true } );
-        },
-
-        disableToolTip: function() {
-            //$( '.wpbdp-nav-tooltip' ).tooltip( 'dispose' );
-        },
-
         onNavToggle: function( e ) {
             e.preventDefault();
             WPBDPAdmin_Layout.$layout_container.toggleClass( 'minimized' );
             if ( WPBDPAdmin_Layout.$layout_container.hasClass( 'minimized' ) ) {
                 WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
-                WPBDPAdmin_Layout.initToolTip();
             } else {
-                WPBDPAdmin_Layout.disableToolTip();
                 WPBDPAdmin_Layout.$menu_items.removeClass( 'wpbdp-nav-tooltip' );
             }
         },
