@@ -186,11 +186,11 @@ var WPBDP_associations_fieldtypes = {};
         },
 
         initToolTip: function() {
-            $( '.wpbdp-nav-tooltip' ).tooltip( { placement : 'right', html : true } );
+            //$( '.wpbdp-nav-tooltip' ).tooltip( { placement : 'right', html : true } );
         },
 
         disableToolTip: function() {
-            $( '.wpbdp-nav-tooltip' ).tooltip( 'dispose' );
+            //$( '.wpbdp-nav-tooltip' ).tooltip( 'dispose' );
         },
 
         onNavToggle: function( e ) {
