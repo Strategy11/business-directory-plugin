@@ -23,7 +23,7 @@ wpbdp_admin_bootstrap_header(
 				<a class="wpbdp-nav-item-link <?php echo $active_tab == $tab_id ? 'active' : ''; ?> <?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>" title="<?php echo esc_html( $tab['title'] ); ?>">
 					<div class="wpbdp-grid">
 						<div class="wpbdp-col-2 wpbdp-nav-item-icon wpbdp-nav-item-icon-<?php echo esc_attr( $tab_id ); ?>">
-							<span class="wpbdp-nav-item-icon dashicons <?php echo esc_attr( $tab['icon'] ); ?>"></span>
+							<span class="wpbdp-nav-item-icon <?php echo esc_attr( $tab['icon'] ); ?>"></span>
 						</div>
 						<div class="wpbdp-col-10 wpbdp-nav-item-name wpbdp-nav-item-name-<?php echo esc_attr( $tab_id ); ?>">
 							<?php echo esc_html( $tab['title'] ); ?>
