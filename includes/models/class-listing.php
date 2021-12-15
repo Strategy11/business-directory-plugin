@@ -635,7 +635,7 @@ class WPBDP_Listing {
      */
     public function has_fee_plan( $fee = false ) {
         $current = $this->get_fee_plan();
-        return ( ! $fee && ! empty( $current ) ) || ( $fee && $current && $current->id == $fee );
+        return ( ! $fee && ! empty( $current ) ) || ( $fee && $current && $current->fee && $current->fee->id == $fee );
     }
 
     /**
@@ -812,8 +812,12 @@ class WPBDP_Listing {
 
         $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) )->get();
 
-        if ( $existing_payment )
-            return $existing_payment;
+        if ( $existing_payment ) {
+            $key = array_search( $plan->fee_id, array_column( $existing_payment->payment_items, 'fee_id' ), true );
+            if ( false === $key ) {
+			    return $existing_payment;
+            }
+		}
 
         return $this->create_payment_from_plan( 'initial', $plan );
     }
@@ -822,8 +826,8 @@ class WPBDP_Listing {
      * @since 5.1.9
      */
     private function create_payment_from_plan( $payment_type, $plan ) {
-        $payment = new WPBDP_Payment( array(
-            'listing_id' => $this->id,
+		$payment = new WPBDP_Payment( array(
+            'listing_id'   => $this->id,
             'payment_type' => $payment_type,
         ) );
 

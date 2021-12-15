@@ -1481,7 +1481,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 	/**
 	 * Change plan if not the same as for listing.
-	 * Only update the plan if there was an existing one.
+	 * Update the plan in the payment.
 	 *
 	 * @param object $plan The plan.
 	 *
@@ -1492,10 +1492,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		if ( ! $current_plan ) {
 			return;
 		}
-		if ( $current_plan->id === $plan->id ) {
+		if ( $current_plan->fee_id === $plan->id ) {
 			return;
 		}
-		$this->listing->update_plan( $plan );
+		$this->listing->set_fee_plan_with_payment( $plan );
 	}
 
 	/**
