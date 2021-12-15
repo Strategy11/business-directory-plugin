@@ -179,8 +179,8 @@ function wpbdp_admin_title( $args_or_title = null ) {
 		ob_start();
 	}
 	?>
-	<h1>
-		<?php WPBDP_App_Helper::show_logo( 55, 'rounded-circle' ); ?>
+	<h1 class="wpbdp-page-title">
+		<?php WPBDP_App_Helper::show_logo( 35, 'wpbdp-logo-center', true ); ?>
 		<span class="title-text"><?php echo esc_html( $title ); ?></span>
 	</h1>
 	<?php

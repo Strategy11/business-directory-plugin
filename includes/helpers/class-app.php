@@ -313,20 +313,20 @@ class WPBDP_App_Helper {
 	/**
 	 * @since 5.9.2
 	 */
-	public static function show_logo( $size, $extra_class = false ) {
-		echo self::kses( self::svg_logo( $size, $extra_class ), 'all' ); // WPCS: XSS ok.
+	public static function show_logo( $size, $extra_class = false, $round = false ) {
+		echo self::kses( self::svg_logo( $size, $extra_class, $round ), 'all' ); // WPCS: XSS ok.
 	}
 
 	/**
 	 * @since 5.9.2
 	 */
-	public static function svg_logo( $size = 18, $extra_class = false ) {
+	public static function svg_logo( $size = 18, $extra_class = false, $round = false ) {
 		$atts = array(
 			'height' => $size,
 			'width'  => $size,
 		);
 		$img_class = $extra_class ? 'class="' . $extra_class . '"' : '';
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie.svg' ). '" width="' . esc_attr( $atts['width'] ) . '" height="' . esc_attr( $atts['height'] ) . '" ' . $img_class . ' />';
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $round ? '-round' : '' ) . '.svg' ). '" width="' . esc_attr( $atts['width'] ) . '" height="' . esc_attr( $atts['height'] ) . '" ' . $img_class . ' />';
 	}
 
 	/**
