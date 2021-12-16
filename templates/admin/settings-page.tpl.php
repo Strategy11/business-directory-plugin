@@ -36,7 +36,7 @@ wpbdp_admin_bootstrap_header(
 			</li>
 		<?php endforeach; ?>
 	</ul>
-	<div class="wpbdp-nav-toggle">
+	<div class="wpbdp-nav-toggle hide-if-no-js">
 		<div class="wpbdp-grid">
 			<div class="wpbdp-col-3 wpbdp-nav-item-icon">
 				<svg width="24" height="24" class="wpbdp-icon-maximized" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

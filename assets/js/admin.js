@@ -171,6 +171,7 @@ var WPBDP_associations_fieldtypes = {};
         $menu_items : null,
         $menu_container : null,
         $content_area : null,
+        $menu_state : null,
 
         init: function() {
             WPBDPAdmin_Layout.$nav_toggle = $( '.wpbdp-nav-toggle' );
@@ -178,19 +179,25 @@ var WPBDP_associations_fieldtypes = {};
             WPBDPAdmin_Layout.$menu_items = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-nav-item a' );
             WPBDPAdmin_Layout.$menu_container = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-menu-area' );
             WPBDPAdmin_Layout.$content_area = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-content-area' );
+            WPBDPAdmin_Layout.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
             WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
             WPBDPAdmin_Layout.layoutResize();
             $(window).on('resize', function(){
                 WPBDPAdmin_Layout.layoutResize();
             });
+            if ( WPBDPAdmin_Layout.$menu_state && WPBDPAdmin_Layout.$menu_state == 'minimized' ) {
+                WPBDPAdmin_Layout.$layout_container.addClass( 'minimized' );
+            }
         },
 
         onNavToggle: function( e ) {
             e.preventDefault();
             WPBDPAdmin_Layout.$layout_container.toggleClass( 'minimized' );
             if ( WPBDPAdmin_Layout.$layout_container.hasClass( 'minimized' ) ) {
+                window.localStorage.setItem( '_wpbdp_admin_menu', 'minimized' );
                 WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
             } else {
+                window.localStorage.removeItem( '_wpbdp_admin_menu' );
                 WPBDPAdmin_Layout.$menu_items.removeClass( 'wpbdp-nav-tooltip' );
             }
         },
