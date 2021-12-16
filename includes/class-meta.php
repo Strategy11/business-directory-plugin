@@ -161,12 +161,8 @@ class WPBDP__Meta {
                     return $title;
                 }
 
-                if ( $this->_do_wpseo ) {
-                    if ( method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ) {
-                        $title = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
-                    } else {
-                        $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
-                    }
+				if ( $this->_do_wpseo && method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ) {
+					$title = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
 
 					if ( ! empty( $title ) ) {
                         return wpseo_replace_vars( $title, (array) $term );
@@ -192,12 +188,8 @@ class WPBDP__Meta {
                     return $title;
                 }
 
-                if ( $this->_do_wpseo ) {
-                    if ( method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ) {
-                        $title = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
-                    } else {
-                        $title = trim( wpseo_get_term_meta( $term, $term->taxonomy, 'title' ) );
-                    }
+				if ( $this->_do_wpseo && method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ) {
+					$title = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
 
 					if ( ! empty( $title ) ) {
                         return wpseo_replace_vars( $title, (array) $term );
@@ -239,20 +231,14 @@ class WPBDP__Meta {
     }
 
     public function _meta_keywords() {
+		$has_yoast = method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' );
+		if ( ! $has_yoast ) {
+			return;
+		}
 
         $current_view = wpbdp_current_view();
 
 		switch ( $current_view ) {
-            case 'show_listing':
-                global $post;
-
-                $listing_id = wpbdp_get_post_by_id_or_slug(
-                    get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) ),
-                    'id',
-                    'id'
-                );
-
-                break;
             case 'show_category':
             case 'show_tag':
                 if ( $current_view == 'show_tag' ) {
@@ -273,15 +259,13 @@ class WPBDP__Meta {
                     }
                 }
 
-                if ( $term ) {
-                    $metadesc = method_exists( 'WPSEO_Taxonomy_Meta', 'get_term_meta' ) ?
-                                WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'desc' ) :
-                                wpseo_get_term_meta( $term, $term->taxonomy, 'desc' );
+				if ( $term ) {
+					$metadesc = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'desc' );
 
-
-                    if ( $metadesc )
-                        echo '<meta name="description" content="' . esc_attr( strip_tags( stripslashes( $metadesc ) ) ) . '"/>' . "\n";
-                }
+					if ( $metadesc ) {
+						echo '<meta name="description" content="' . esc_attr( strip_tags( stripslashes( $metadesc ) ) ) . '"/>' . "\n";
+					}
+				}
 
                 break;
         }
