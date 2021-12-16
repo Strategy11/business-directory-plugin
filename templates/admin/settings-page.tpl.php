@@ -20,29 +20,20 @@ wpbdp_admin_bootstrap_header(
 	<ul class="wpbdp-nav-items">
 		<?php foreach ( $tabs as $tab_id => $tab ) : ?>
 			<li class="wpbdp-nav-item">
-				<a class="wpbdp-nav-item-link <?php echo $active_tab == $tab_id ? 'active' : ''; ?> <?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>" title="<?php echo esc_html( $tab['title'] ); ?>">
-					<div class="wpbdp-grid">
-						<div class="wpbdp-col-2 wpbdp-nav-item-icon wpbdp-nav-item-icon-<?php echo esc_attr( $tab_id ); ?>">
-							<span class="wpbdp-nav-item-icon <?php echo esc_attr( $tab['icon'] ); ?>"></span>
-						</div>
-						<div class="wpbdp-col-10 wpbdp-nav-item-name wpbdp-nav-item-name-<?php echo esc_attr( $tab_id ); ?>">
-							<?php echo esc_html( $tab['title'] ); ?>
-							<div class="wpbdp-nav-item-meta">
-								<?php echo esc_html( $tab['desc'] ); ?>
-							</div>
-						</div>
-					</div>
+				<a class="<?php echo $active_tab == $tab_id ? 'active ' : ''; ?><?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>" title="<?php echo esc_html( $tab['title'] ); ?>">
+					<span class="wpbdp-nav-item-icon <?php echo esc_attr( $tab['icon'] ); ?>"></span>
+					<span class="wpbdp-nav-item-name"><?php echo esc_html( $tab['title'] ); ?></span>
 				</a>
 			</li>
 		<?php endforeach; ?>
 	</ul>
 	<div class="wpbdp-nav-toggle hide-if-no-js">
 		<div class="wpbdp-grid">
-			<div class="wpbdp-col-3 wpbdp-nav-item-icon">
+			<div class="wpbdp-col-2 wpbdp-nav-item-icon">
 				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/caret-left.svg' ); ?>" class="wpbdp-icon-maximized" width="24" height="24"/>
 				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/caret-right.svg' ); ?>" class="wpbdp-icon-minimized" width="24" height="24"/>
 			</div>
-			<div class="wpbdp-col-9 wpbdp-nav-item-name">
+			<div class="wpbdp-col-10 wpbdp-nav-item-name">
 				<?php esc_html_e( 'Minimize Navigation', 'business-directory-plugin' ); ?>
 			</div>
 		</div>
@@ -53,9 +44,8 @@ wpbdp_admin_bootstrap_header(
 	<form action="options.php" method="post">
 	<?php endif; ?>
 	<div class="wpbdp-content-area-header">
-		<div class="wpbdp-content-area-header-title">
-			<h1 class="wpbdp-sub-section-title"><?php echo esc_html( ucfirst( $active_tab ) ); ?></h1>
-		</div>
+		<h2 class="wpbdp-sub-section-title"><?php echo esc_html( ucfirst( $active_tab ) ); ?></h2>
+
 		<div class="wpbdp-content-area-header-actions">
 			<?php if ( ! $custom_form ) :
 				// Submit button shouldn't use 'submit' as name to avoid conflicts with

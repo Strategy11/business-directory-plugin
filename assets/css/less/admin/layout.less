@@ -1,26 +1,21 @@
 .minimized_menu() {
-    .title-text{
-        display: none;
-    }
-    .wpbdp-nav-item-name {
-        display: none;
-    }
-    .wpbdp-nav-item-link {
-        padding: .8rem .5rem .5rem 17px;
-    }
+	.title-text,
+	.wpbdp-nav-item-name,
+	.wpbdp-icon-maximized {
+		display: none;
+	}
     .wpbdp-menu-area {
         width: 57px;
     }
+	.wpbdp-nav-item a {
+		text-align: center;
+		padding-left: 0;
+		padding-right: 0;
+	}
     .wpbdp-page-title {
         padding-left: 10px !important;
     }
-    .wpbdp-content-area {
-        margin-left: 57px;
-        width: ~"calc(100% - 57px)";
-    }
-    .wpbdp-icon-maximized{
-        display: none;
-    }
+
     .wpbdp-icon-minimized{
         display: block;
     }
@@ -42,9 +37,6 @@
         padding-left: 0px;
         display: inline-block;
         width: 100%;
-        h1 {
-            color: @text-color;
-        }
     }
     &-title-buttons {
         clear: both;
@@ -54,8 +46,11 @@
         padding-right: 0;
     }
     &-page-title {
-        padding-left: 20px !important;
-        padding-bottom: 9px !important;
+        padding: 10px 0 10px 20px !important;
+
+		span {
+			vertical-align: middle;
+		}
     }
     &-admin-row {
         margin: 0;
@@ -64,9 +59,6 @@
             .minimized_menu();
         }
         @media only screen and (max-width: 960px) {
-            .wpbdp-content-area-header {
-                height: 60px;
-            }
             .wpbdp-menu-area {
                 padding: 37px 0;
             }
@@ -74,10 +66,6 @@
         }
     }
     &-menu-area {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        z-index: 1;
         width: 287px;
         background-color: @page-background;
     }
@@ -91,17 +79,17 @@
         margin-top: 0;
         .wpbdp-nav-item {
             font-size: 16px;
-            &-link {
+
+            a {
                 display: block;
-                padding: .5rem .5rem .5rem 20px;
+                padding: 15px;
                 text-decoration: none;
                 color: @text-color;
-                border-radius: 0;
                 &:focus {
                     box-shadow: none;
                 }
             }
-            color: @text-color;
+
             .active {
                 background-color: @white;
                 color: @link-active;
@@ -114,31 +102,29 @@
                     background-color: @link-active;
                 }
             }
-            .wpbdp-nav-item-meta {
-                width: 210px;
-                margin: 13px 0;
-                color: @text-meta-color;
-                font-size: 14px;
-            }
+
+			.wpbdp-admin-icon {
+				margin: 0 10px
+			}
         }
     }
     &-nav-item-icon {
-        display: block;
-        margin: 0 auto;
+        display: inline-block;
+		opacity: .7;
     }
     &-nav-toggle {
         bottom: 0;
         position: relative;
         margin-top: 40px;
-        margin-left: 15px;
+        margin-left: 25px;
         cursor: pointer;
-        color: @text-meta-color;
         font-size: 14px;
         width: 200px;
         @media only screen and (max-width: 960px) {
             display: none;
         }
         .wpbdp-nav-item-name {
+			opacity: .7;
             line-height: 2;
         }
     }
@@ -196,74 +182,59 @@
         display: none;
     }
     &-content-area {
-        background-color: @white;
-        color: @link-active;
-        width: ~"calc(100% - 287px)";
-        position: relative;
-        min-height: 100vh;
-        top: 0;
-        bottom: 0;
-        margin-left: 287px;
-        .h2, h2 {
-            font-size: 14px;
-            font-weight: 600;
-        }
-        &-header {
-            width: 100%;
-            padding: 10px 40px;
-            height: 54px;
-            background-color: @white;
-            border-bottom: 1px solid @border-color;
-            flex-direction: row;
-            align-items: stretch;
-            display: flex;
-            > div {
-                flex: 1;
-            }
-            &-actions {
-                p.submit {
-                    float: none;
-                    padding: 0;
-                    margin-top: 0;
-                    text-align: right;
-                }
-            }
-        }
-        &-body {
-            padding: 30px 80px;
-            font-size: 14px;
-            @media only screen and (min-width: 960px) {
-                max-width: 1000px;
-            }
+		flex: 1;
+    }
+
+	&-content-area-header {
+		width: 100%;
+		padding: 10px 40px;
+		background-color: @white;
+		border-bottom: 1px solid @border-color;
+		flex-direction: row;
+		align-items: center;
+		display: flex;
+		> div {
+			flex: 1;
+		}
+    }
+    &-content-area-header-actions {
+        p.submit {
+            float: none;
+            padding: 0;
+            margin-top: 0;
+            text-align: right;
         }
     }
+    &-content-area-body {
+        padding: 40px;
+        font-size: 14px;
+
+		h3 {
+            font-size: 20px;
+			margin-bottom: 40px;
+        }
+
+        @media only screen and (min-width: 960px) {
+            max-width: 1000px;
+        }
+    }
+	&-page-title,
     &-sub-section-title {
-        padding-top: 0 !important;
+		font-size: 24px;
+		font-weight: 400;
+		margin: 0;
     }
-    &-settings-form {
-        width: 100%;
-        display: inline-block;
-        color: @text-color;
-        .wpbdp-setting-row {
-            padding-bottom: 0px;
-        }
-        &-title {
-            margin: 10px 0;
-        }
+    &-settings-form.wpbdp-grid {
+		grid-gap: 30px 4%;
     }
+	&-settings-form-title {
+		margin: 10px 0;
+	}
     &-setting-label,
     &-setting-form-title label {
-        color: @text-color;
         font-weight: 600;
         font-size: 14px;
         padding-bottom: 5px;
-        line-height: 15.25px;
-    }
-    &-setting-desc {
-        color: @text-color;
-        font-size: 12px;
-        opacity: 0.7;
-        padding: 0px 0px 5px 0px;
     }
 }
 

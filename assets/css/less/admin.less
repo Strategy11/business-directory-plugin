@@ -1,4 +1,4 @@
-.wpdbp-wrap {
+.wpbdp-admin-page {
 	--darkest-grey: rgb(40, 47, 54);
 	--dark-grey: rgba(40, 47, 54, .85);
 	--medium-grey: rgba(40, 47, 54, .65);
@@ -21,6 +21,18 @@
 @import 'admin/switch.less';
 @import 'admin/notification.less';
 @import 'admin/icons.less';
+
+.wpbdp-admin-page {
+	background-color: @white;
+}
+
+.wpbdp-admin-page,
+.wpbdp-admin-page h1,
+.wpbdp-admin-page h2,
+.wpbdp-admin-page h3,
+.wpbdp-admin-page label {
+	color: @text-color;
+}
 
 .cf:before, .cf:after {
     content: " ";

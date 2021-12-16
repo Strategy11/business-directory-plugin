@@ -24,7 +24,7 @@ function wpbdp_admin_do_settings_sections( $page ) {
 	foreach ( (array) $wp_settings_sections[ $page ] as $section ) {
 		if ( $section['title'] ) {
 			echo '<div class="wpbdp-settings-form-title">';
-			echo "<h2>{$section['title']}</h2>\n";
+			echo '<h3>' . esc_html( $section['title'] ) . '</h3>';
 			echo '</div>';
 		}
 
