@@ -244,10 +244,179 @@ class WPBDP__Utils {
 	public static function is_empty_value( $value, $empty = '' ) {
 		return ( is_array( $value ) && empty( $value ) ) || $value === $empty;
 	}
+
+	public static function media_upload( $file_, $use_media_library = true, $check_image = false, $constraints = array(), &$error_msg = null, $sideload = false ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		$sideload = is_string( $file_ ) && file_exists( $file_ );
+
+		if ( $sideload ) {
+			$mime_type = self::get_mimetype( $file_ );
+
+			$file = array(
+				'name' => basename( $file_ ),
+				'tmp_name' => $file_,
+				'type' => $mime_type,
+				'error' => 0,
+				'size' => filesize( $file_ )
+			);
+		} else {
+			$file = $file_;
+		}
+
+		if ( ! self::is_valid_upload( $file, $constraints, $error_msg ) ) {
+			return false;
+		}
+
+		if ( ! $use_media_library ) {
+			$upload = $sideload ? wp_handle_sideload( $file, array( 'test_form' => false ) ) : wp_handle_upload( $file, array( 'test_form' => false ) );
+
+			if ( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
+				$error_msg = isset( $upload['error'] ) ? $upload['error'] : _x( 'Unkown error while uploading file.', 'utils', 'business-directory-plugin' );
+				return false;
+			}
+
+			return $upload;
+		}
+
+		$file_id = self::get_file_id( $file_ );
+		if ( ! empty( $_FILES[ $file_id ]['name'] ) && is_array( $_FILES[ $file_id ]['name'] ) ) {
+			// Force an array of files to a single file.
+			$file_id = substr( sha1( rand() ), 0, 5 );
+			$_FILES[ $file_id ] = $file;
+		}
+
+		$attachment_id = $sideload ? media_handle_sideload( $file_id, 0 ) : media_handle_upload( $file_id, 0 );
+
+		if ( is_wp_error( $attachment_id ) ) {
+			$error_msg = $attachment_id->get_error_message();
+			return false;
+		}
+
+		if ( ! is_numeric( $attachment_id ) ) {
+			$error_msg = $attachment_id;
+			return false;
+		}
+
+		return $attachment_id;
+	}
+
+	/**
+	 * Attempts to get the mimetype of a file.
+	 *
+	 * @param $file string  The path to a file.
+	 *
+	 * @since x.x
+	 */
+	public static function get_mimetype( $file ) {
+		$mime_type = null;
+
+		if ( function_exists( 'finfo_open' ) ) {
+			if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
+				$mime_type = explode( ';', finfo_file( $finfo, $file ) );
+				$mime_type = trim( $mime_type[0] );
+				finfo_close( $finfo );
+			}
+		}
+
+		if ( null === $mime_type ) {
+			$type_info = wp_check_filetype( $file, wp_get_mime_types() );
+			$mime_type = $type_info['type'];
+		}
+
+		return $mime_type;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private static function is_valid_upload( $file, $constraints, &$error_msg ) {
+		self::get_file_contrstraints( $constraints );
+
+	    if ( $file['error'] !== 0 ) {
+			$error_msg = _x( 'Error while uploading file', 'utils', 'business-directory-plugin' );
+			return false;
+		}
+
+		if ( $constraints['max-size'] > 0 && $file['size'] > $constraints['max-size'] ) {
+			$error_msg = sprintf(
+				__( 'File size (%1$s) exceeds maximum file size of %2$s', 'business-directory-plugin' ),
+				size_format( $file['size'], 2 ),
+				size_format( $constraints['max-size'], 2 )
+			);
+			return false;
+		}
+
+		if ( $constraints['min-size'] > 0 && $file['size'] < $constraints['min-size'] ) {
+			$error_msg = sprintf(
+				__( 'File size (%1$s) is smaller than the minimum file size of %2$s', 'business-directory-plugin' ),
+				size_format( $file['size'], 2 ),
+				size_format( $constraints['min-size'], 2 )
+			);
+			return false;
+		}
+
+		if ( is_array( $constraints['mimetypes'] ) ) {
+			if ( ! in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
+				$error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
+				return false;
+			}
+		}
+
+		// We do not accept TIFF format. Compatibility issues.
+		if ( in_array( strtolower( $file['type'] ), array('image/tiff') ) ) {
+			$error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private static function get_file_contrstraints( &$constraints ) {
+		$constraints = array_merge(
+			array(
+				'image' => false,
+				'min-size' => 0,
+				'max-size' => 0,
+				'min-width' => 0,
+				'min-height' => 0,
+				'max-width' => 0,
+				'max-height' => 0,
+				'mimetypes' => null
+			),
+			$constraints
+		);
+
+		foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k ) {
+			$constraints[ $k ] = absint( $constraints[ $k ] );
+		}
+	}
+
+	/**
+	 * We have the file info, but WP needs the file id.
+	 *
+	 * @since x.x
+	 */
+	private static function get_file_id( $_file ) {
+		if ( empty( $_FILES ) ) {
+			return '';
+		}
+		foreach ( $_FILES as $id => $file ) {
+			if ( $file === $_file ) {
+				return esc_attr( $id );
+			}
+		}
+		reset( $_FILES );
+		return esc_attr( key( $_FILES ) );
+	}
 }
 
 /**
- * @deprecated since next-release. Use {@link WPBDP__Utils} instead.
+ * @deprecated Use {@link WPBDP__Utils} instead.
  */
 class WPBDP_Utils extends WPBDP__Utils {
 	public function __construct() {
@@ -453,155 +622,7 @@ function wpbdp_media_upload_check_env( &$error ) {
  * @since 2.1.6
  */
 function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = false, $constraints = array(), &$error_msg = null, $sideload = false ) {
-	require_once ABSPATH . 'wp-admin/includes/file.php';
-	require_once ABSPATH . 'wp-admin/includes/image.php';
-
-    $sideload = ( is_string( $file_ ) && file_exists( $file_ ) ) ? true : false;
-
-    if ( $sideload ) {
-        $mime_type = wpbdp_get_mimetype( $file_ );
-
-        $file = array(
-            'name' => basename( $file_ ),
-            'tmp_name' => $file_,
-            'type' => $mime_type,
-            'error' => 0,
-            'size' => filesize( $file_ )
-        );
-    } else {
-        $file = $file_;
-    }
-
-	$constraints = array_merge(
-		array(
-                                    'image' => false,
-                                    'min-size' => 0,
-                                    'max-size' => 0,
-                                    'min-width' => 0,
-                                    'min-height' => 0,
-                                    'max-width' => 0,
-                                    'max-height' => 0,
-                                    'mimetypes' => null
-		),
-		$constraints
-	);
-
-    foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k )
-        $constraints[ $k ] = absint( $constraints[ $k ] );
-
-    if ($file['error'] == 0) {
-        if ($constraints['max-size'] > 0 && $file['size'] > $constraints['max-size'] ) {
-			$error_msg = sprintf(
-				__( 'File size (%1$s) exceeds maximum file size of %2$s', 'business-directory-plugin' ),
-				size_format( $file['size'], 2 ),
-				size_format( $constraints['max-size'], 2 )
-			);
-            return false;
-        }
-
-        if ( $constraints['min-size'] > 0 && $file['size'] < $constraints['min-size'] ) {
-			$error_msg = sprintf(
-				__( 'File size (%1$s) is smaller than the minimum file size of %2$s', 'business-directory-plugin' ),
-				size_format( $file['size'], 2 ),
-				size_format( $constraints['min-size'], 2 )
-			);
-            return false;
-        }
-
-        if ( is_array( $constraints['mimetypes'] ) ) {
-			if ( ! in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
-                $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
-                return false;
-            }
-        }
-
-        // We do not accept TIFF format. Compatibility issues.
-        if ( in_array( strtolower( $file['type'] ), array('image/tiff') ) ) {
-            $error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
-            return false;
-        }
-
-        $upload = $sideload ? wp_handle_sideload( $file, array( 'test_form' => FALSE ) ) : wp_handle_upload( $file, array('test_form' => FALSE) );
-
-		if ( ! $upload || ! is_array( $upload ) || isset( $upload['error'] ) ) {
-            $error_msg = isset( $upload['error'] ) ? $upload['error'] : _x( 'Unkown error while uploading file.', 'utils', 'business-directory-plugin' );
-            return false;
-        }
-
-        if ( ! $use_media_library ) {
-            return $upload;
-		}
-
-		$attachment_id = wp_insert_attachment(
-			array(
-				'post_mime_type' => $upload['type'],
-				'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $upload['file'] ) ),
-				'post_content'   => '',
-				'post_status'    => 'inherit'
-			),
-			$upload['file']
-		);
-
-		if ( $attachment_id ) {
-            $attach_metadata = wp_generate_attachment_metadata( $attachment_id, $upload['file'] );
-            wp_update_attachment_metadata( $attachment_id, $attach_metadata );
-
-            if ( $check_image && ! wp_attachment_is_image( $attachment_id ) ) {
-                wp_delete_attachment( $attachment_id, true );
-
-				$error_msg = _x( 'Uploaded file is not an image', 'utils', 'business-directory-plugin' );
-                return false;
-            }
-
-            if ( wp_attachment_is_image( $attachment_id ) ) {
-                $meta = wp_get_attachment_metadata( $attachment_id );
-                $failed = false;
-
-                if ( ! $failed && $meta && $constraints['min-width'] > 0 && $meta['width'] < $constraints['min-width'] ) {
-					$error_msg = sprintf(
-						__( 'Image width (%1$s px) is smaller than the minimum width of %2$s px.', 'business-directory-plugin' ),
-						$meta['width'],
-						$constraints['min-width']
-					);
-                }
-
-                if ( ! $failed && $meta && $constraints['min-height'] > 0 && $meta['height'] < $constraints['min-height'] ) {
-					$error_msg = sprintf(
-						__( 'Image height (%1$s px) is smaller than the minimum height of %2$s px.', 'business-directory-plugin' ),
-						$meta['height'],
-						$constraints['min-height']
-					);
-                }
-
-                if ( ! $failed && $meta && $constraints['max-width'] > 0 && $meta['width'] > $constraints['max-width'] ) {
-					$error_msg = sprintf(
-						__( 'Image width (%1$s px) is greater than maximum width of %2$s px.', 'business-directory-plugin' ),
-						$meta['width'],
-						$constraints['max-width']
-					);
-                }
-
-                if ( ! $failed && $meta && $constraints['max-height'] > 0 && $meta['height'] > $constraints['max-height'] ) {
-					$error_msg = sprintf(
-						__( 'Image height (%1$s px) is greater than maximum height of %2$s px.', 'business-directory-plugin' ),
-						$meta['height'],
-						$constraints['max-height']
-					);
-                }
-
-                if ( $failed ) {
-                    wp_delete_attachment( $attachment_id, true );
-                    return false;
-                }
-            }
-
-            return $attachment_id;
-        }
-    } else {
-		$error_msg = _x( 'Error while uploading file', 'utils', 'business-directory-plugin' );
-    }
-
-    return false;
+	return WPBDP__Utils::media_upload( $file_, $use_media_library, $check_image, $constraints, $error_msg, $sideload );
 }
 
 /**
@@ -612,22 +633,7 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
  * @since 5.0.5
  */
 function wpbdp_get_mimetype( $file ) {
-    $mime_type = null;
-
-    if ( function_exists( 'finfo_open' ) ) {
-        if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
-            $mime_type = explode( ';', finfo_file( $finfo, $file ) );
-            $mime_type = trim( $mime_type[0] );
-            finfo_close( $finfo );
-        }
-    }
-
-    if ( null === $mime_type ) {
-        $type_info = wp_check_filetype( $file, wp_get_mime_types() );
-        $mime_type = $type_info['type'];
-    }
-
-    return $mime_type;
+    return WPBDP__Utils::get_mimetype( $file );
 }
 
 /**

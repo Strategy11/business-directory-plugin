@@ -201,7 +201,6 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $thumbnail_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
 
-        _wpbdp_resize_image_if_needed( $img_id );
         $img = wp_get_attachment_image_src( $img_id, 'large' );
 
         if ( ! $img ) {
@@ -289,7 +288,9 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
                 ),
                 $errors
             );
+
             if ( $media_id ) {
+
 				echo '<div class="preview" style="display: none;">';
 				echo wp_get_attachment_image( $media_id, 'thumb', false );
 				echo '</div>';
