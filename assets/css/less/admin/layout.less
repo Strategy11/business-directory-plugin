@@ -24,6 +24,11 @@
     .wpbdp-icon-minimized{
         display: block;
     }
+    .wpbdp-nav-toggle {
+        .wpbdp-nav-item-icon {
+            margin: 0;
+        }
+    }
 }
 ::before, ::after, * {
     box-sizing: border-box;
@@ -115,11 +120,11 @@
                 color: @text-meta-color;
                 font-size: 14px;
             }
-            &-icon {
-                display: block;
-                margin: 0 auto;
-            }
         }
+    }
+    &-nav-item-icon {
+        display: block;
+        margin: 0 auto;
     }
     &-nav-toggle {
         bottom: 0;
@@ -132,6 +137,9 @@
         width: 200px;
         @media only screen and (max-width: 960px) {
             display: none;
+        }
+        .wpbdp-nav-item-name {
+            line-height: 2;
         }
     }
     &-nav-tooltip {

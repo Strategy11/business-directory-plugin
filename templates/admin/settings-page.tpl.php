@@ -39,14 +39,8 @@ wpbdp_admin_bootstrap_header(
 	<div class="wpbdp-nav-toggle hide-if-no-js">
 		<div class="wpbdp-grid">
 			<div class="wpbdp-col-3 wpbdp-nav-item-icon">
-				<svg width="24" height="24" class="wpbdp-icon-maximized" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<rect width="24" height="24" rx="12" fill="white"/>
-					<path d="M14 16L10 12L14 8" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-				<svg width="24" class="wpbdp-icon-minimized" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<rect width="24" height="24" rx="12" transform="matrix(-1 0 0 1 24 0)" fill="white"/>
-					<path d="M10 16L14 12L10 8" stroke="black" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
+				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/caret-left.svg' ); ?>" class="wpbdp-icon-maximized" width="24" height="24"/>
+				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/caret-right.svg' ); ?>" class="wpbdp-icon-minimized" width="24" height="24"/>
 			</div>
 			<div class="wpbdp-col-9 wpbdp-nav-item-name">
 				<?php esc_html_e( 'Minimize Navigation', 'business-directory-plugin' ); ?>
