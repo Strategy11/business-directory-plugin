@@ -303,8 +303,10 @@ WPBDP.fileUpload = {
                     $( '#noslots-message' ).show();
                     $( '#image-upload-dnd-area' ).addClass('error');
                     $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
+                    $( '.image-upload-wrapper .error').remove();
                 },
                 validate: function( data ) {
+                    $( '.image-upload-wrapper .error').remove();
                     if ( t._admin_nonce )
                         return true;
 
@@ -330,7 +332,8 @@ WPBDP.fileUpload = {
 
                     if ( uploadErrors ) {
                         var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( uploadErrors );
-                        $( '.area-and-conditions' ).prepend( errorMsg );
+                        $( errorMsg ).insertAfter( $( '.area-and-conditions' ) );
+                        $( '#image-upload-dnd-area .dnd-area-inside' ).show();
                         return;
                     }
 
