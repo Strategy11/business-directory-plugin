@@ -94,7 +94,7 @@ class WPBDP__Meta {
         require_once( WPBDP_PATH . 'includes/class-page-meta.php' );
         $this->page_meta = new WPBDP_Page_Meta( $action );
 
-        $this->_do_wpseo = defined( 'WPSEO_VERSION' ) ? true : false;
+		$this->_do_wpseo = WPBDP_SEO::is_wp_seo_enabled();
 
         if ( $this->_do_wpseo ) {
 
