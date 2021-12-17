@@ -218,3 +218,24 @@ function wpbdp_admin_notification_bell( $echo = false ) {
 		return ob_get_clean();
 	}
 }
+
+/**
+ * Display the help section icon.
+ *
+ * @since x.x
+ */
+function wpbdp_admin_help_section( $echo = false ) {
+	if ( ! $echo ) {
+		ob_start();
+	}
+	?>
+	<div class="wpbdp-admin-info-centre">
+		<a class="wpbdp-admin-info-centre-icon" href="#">
+			<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/help-circle.svg' ); ?>" width="60" height="60"/>
+		</a>
+	</div>
+	<?php
+	if ( ! $echo ) {
+		return ob_get_clean();
+	}
+}
