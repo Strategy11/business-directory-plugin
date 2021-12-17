@@ -14,8 +14,13 @@
 	line-height: 1.5;
 }
 
+.directory_page_wpbdp_settings .notice {
+	display: none
+}
+
 .wpbdp-bell {
 	&-notification {
+		display: none;
 		position: fixed;
 		right: 20px;
 		bottom: 20px;
@@ -26,11 +31,11 @@
 				.wpbdp_notification_shadow();
 			}
 		}
-		&-dot {
-			display: none;
-			&-active {
-				display: block;
-			}
+
+		svg {
+			height: 48px;
+			width: 48px;
+			display: block;
 		}
 	}
 	&-notifications {
@@ -54,7 +59,7 @@
 			}
 		}
 		li {
-			padding: 10px;
+			padding: 10px 25px;
 			.wpbdp_notification_shadow();
 			.notice-dismiss {
 				right: 0;

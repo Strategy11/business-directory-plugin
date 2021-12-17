@@ -205,12 +205,7 @@ function wpbdp_admin_notification_bell( $echo = false ) {
 	</div>
 	<div class="wpbdp-bell-notification">
 		<a class="wpbdp-bell-notification-icon" href="#">
-			<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<rect width="60" height="60" rx="12" fill="white"/>
-				<path d="M37.5 25C37.5 23.0109 36.7098 21.1032 35.3033 19.6967C33.8968 18.2902 31.9891 17.5 30 17.5C28.0109 17.5 26.1032 18.2902 24.6967 19.6967C23.2902 21.1032 22.5 23.0109 22.5 25C22.5 33.75 18.75 36.25 18.75 36.25H41.25C41.25 36.25 37.5 33.75 37.5 25Z" stroke="#3C4B5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				<path d="M32.1619 41.25C31.9421 41.6288 31.6267 41.9433 31.2472 42.1619C30.8677 42.3805 30.4374 42.4956 29.9994 42.4956C29.5614 42.4956 29.1312 42.3805 28.7516 42.1619C28.3721 41.9433 28.0567 41.6288 27.8369 41.25" stroke="#3C4B5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				<circle class="wpbdp-bell-notification-dot" cx="39.375" cy="20.625" r="6.125" fill="#FF5A5A" stroke="white"/>
-			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 60 60"><rect width="60" height="60" fill="#fff" rx="12"/><path stroke="#3C4B5D" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M37.5 25a7.5 7.5 0 0 0-15 0c0 8.8-3.8 11.3-3.8 11.3h22.6s-3.8-2.5-3.8-11.3ZM32.2 41.3a2.5 2.5 0 0 1-4.4 0"/><circle cx="39.4" cy="20.6" r="6.1" fill="#FF5A5A" stroke="#fff"/></svg>
 		</a>
 	</div>
 	<?php
