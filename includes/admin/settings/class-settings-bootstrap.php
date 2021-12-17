@@ -33,7 +33,7 @@ final class WPBDP__Settings__Bootstrap {
 		) );
 
 		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ), '', array(
-			'icon' => 'dashicons dashicons-admin-settings',
+			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-misc',
 		) );
     }
 
