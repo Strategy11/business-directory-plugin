@@ -4,188 +4,188 @@
 	.wpbdp-icon-maximized {
 		display: none;
 	}
-    .wpbdp-menu-area {
-        width: 57px;
-    }
+	.wpbdp-menu-area {
+		width: 57px;
+	}
 	.wpbdp-nav-item a {
 		text-align: center;
 		padding-left: 0;
 		padding-right: 0;
 	}
-    .wpbdp-page-title {
-        padding-left: 10px !important;
-    }
+	.wpbdp-page-title {
+		padding-left: 10px !important;
+	}
 
-    .wpbdp-icon-minimized{
-        display: block;
-    }
-    .wpbdp-nav-toggle {
-        margin-left: 15px;
-        .wpbdp-nav-item-icon {
-            margin: 0;
-        }
-    }
+	.wpbdp-icon-minimized{
+		display: block;
+	}
+	.wpbdp-nav-toggle {
+		margin-left: 15px;
+		.wpbdp-nav-item-icon {
+			margin: 0;
+		}
+	}
 }
 
 .wpbdp {
 
-    &-admin-layout {
-        background-color: @page-background;
-        margin: 0px;
-        padding-top: 0px;
-        padding-left: 0px;
-        display: inline-block;
-        width: 100%;
-        ::before, ::after, * {
-            box-sizing: border-box;
-        }
-    }
-    &-title-buttons {
-        clear: both;
-    }
-    &-no-padding {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    &-page-title {
-        padding: 10px 0 10px 20px !important;
+	&-admin-layout {
+		background-color: @page-background;
+		margin: 0px;
+		padding-top: 0px;
+		padding-left: 0px;
+		display: inline-block;
+		width: 100%;
+		::before, ::after, * {
+			box-sizing: border-box;
+		}
+	}
+	&-title-buttons {
+		clear: both;
+	}
+	&-no-padding {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	&-page-title {
+		padding: 10px 0 10px 20px !important;
 
 		span {
 			vertical-align: middle;
 		}
-    }
-    &-admin-row {
-        margin: 0;
-        display: flex;
-        &.minimized{
-            .minimized_menu();
-        }
-        @media only screen and (max-width: 960px) {
-            .wpbdp-menu-area {
-                padding: 37px 0;
-            }
-            .minimized_menu();
-        }
-    }
-    &-menu-area {
-        width: 287px;
-        background-color: @page-background;
-    }
-    &-nav-items {
-        display: flex;
-        flex-wrap: wrap;
-        padding-left: 0;
-        list-style: none;
-        flex-direction: column;
-        margin-bottom: auto;
-        margin-top: 0;
-        .wpbdp-nav-item {
-            font-size: 16px;
+	}
+	&-admin-row {
+		margin: 0;
+		display: flex;
+		&.minimized{
+			.minimized_menu();
+		}
+		@media only screen and (max-width: 960px) {
+			.wpbdp-menu-area {
+				padding: 37px 0;
+			}
+			.minimized_menu();
+		}
+	}
+	&-menu-area {
+		width: 287px;
+		background-color: @page-background;
+	}
+	&-nav-items {
+		display: flex;
+		flex-wrap: wrap;
+		padding-left: 0;
+		list-style: none;
+		flex-direction: column;
+		margin-bottom: auto;
+		margin-top: 0;
+		.wpbdp-nav-item {
+			font-size: 16px;
 
-            a {
-                display: block;
-                padding: 15px;
-                text-decoration: none;
-                color: @text-color;
-                &:focus {
-                    box-shadow: none;
-                }
-            }
+			a {
+				display: block;
+				padding: 15px;
+				text-decoration: none;
+				color: @text-color;
+				&:focus {
+					box-shadow: none;
+				}
+			}
 
-            .active {
-                background-color: @white;
-                color: @link-active;
-                .wpbdp-nav-item-icon {
-                    &:before {
-                        color: @link-active;
-                    }
-                }
-                .wpbdp-admin-icon {
-                    background-color: @link-active;
-                }
-            }
+			.active {
+				background-color: @white;
+				color: @link-active;
+				.wpbdp-nav-item-icon {
+					&:before {
+						color: @link-active;
+					}
+				}
+				.wpbdp-admin-icon {
+					background-color: @link-active;
+				}
+			}
 
 			&-icon {
 				margin: 0 10px
 			}
-        }
-    }
-    &-nav-item-icon {
-        display: inline-block;
+		}
+	}
+	&-nav-item-icon {
+		display: inline-block;
 		opacity: .7;
-    }
-    &-nav-toggle {
-        bottom: 0;
-        position: relative;
-        margin-top: 40px;
-        margin-left: 25px;
-        cursor: pointer;
-        font-size: 14px;
-        width: 200px;
-        @media only screen and (max-width: 960px) {
-            display: none;
-        }
-        .wpbdp-nav-item-name {
+	}
+	&-nav-toggle {
+		bottom: 0;
+		position: relative;
+		margin-top: 40px;
+		margin-left: 25px;
+		cursor: pointer;
+		font-size: 14px;
+		width: 200px;
+		@media only screen and (max-width: 960px) {
+			display: none;
+		}
+		.wpbdp-nav-item-name {
 			opacity: .7;
-            line-height: 2;
-        }
-    }
-    &-nav-tooltip {
-        position: relative;
-        &::before {
-            position: absolute;
-            top: 0;
-            left: 50px;
-            background-color: @tooltip-background;
-            border-radius: 5px;
-            color: #fff;
-            content: attr(title);
-            padding: 1rem;
-            text-transform: none;
-            transition: all 0.5s ease;
-            width: 160px;
-        }
-    
-        //Tooltip arrow
-        &::after {
-            position: absolute;
-            top: 20px;
-            left: 49px;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            border-right: 5px solid @tooltip-background;
-            content: " ";
-            font-size: 0;
-            line-height: 0;
-            margin-left: -4px;
-            width: 0;
-        }
-        
-        //Setting up the transition
-        &::before,
-        &::after {
-            color: @white;
-            font-size: 12px;
-            opacity: 0;
-            pointer-events: none;
-            text-align: left;
-        }
-        
-        //Triggering the transition
-        &:focus::before,
-        &:focus::after,
-        &:hover::before,
-        &:hover::after {
-            opacity: 0.8;
-            transition: all 0.75s ease;
-        }
-    }
-    &-icon-minimized {
-        display: none;
-    }
-    &-content-area {
+			line-height: 2;
+		}
+	}
+	&-nav-tooltip {
+		position: relative;
+		&::before {
+			position: absolute;
+			top: 0;
+			left: 50px;
+			background-color: @tooltip-background;
+			border-radius: 5px;
+			color: #fff;
+			content: attr(title);
+			padding: 1rem;
+			text-transform: none;
+			transition: all 0.5s ease;
+			width: 160px;
+		}
+	
+		//Tooltip arrow
+		&::after {
+			position: absolute;
+			top: 20px;
+			left: 49px;
+			border-top: 5px solid transparent;
+			border-bottom: 5px solid transparent;
+			border-right: 5px solid @tooltip-background;
+			content: " ";
+			font-size: 0;
+			line-height: 0;
+			margin-left: -4px;
+			width: 0;
+		}
+		
+		//Setting up the transition
+		&::before,
+		&::after {
+			color: @white;
+			font-size: 12px;
+			opacity: 0;
+			pointer-events: none;
+			text-align: left;
+		}
+		
+		//Triggering the transition
+		&:focus::before,
+		&:focus::after,
+		&:hover::before,
+		&:hover::after {
+			opacity: 0.8;
+			transition: all 0.75s ease;
+		}
+	}
+	&-icon-minimized {
+		display: none;
+	}
+	&-content-area {
 		flex: 1;
-    }
+	}
 
 	&-content-area-header {
 		width: 100%;
@@ -198,52 +198,52 @@
 		> div {
 			flex: 1;
 		}
-    }
-    &-content-area-header-actions {
-        p.submit {
-            float: none;
-            padding: 0;
-            margin-top: 0;
-            text-align: right;
-        }
-    }
-    &-content-area-body {
-        padding: 40px;
-        font-size: 14px;
+	}
+	&-content-area-header-actions {
+		p.submit {
+			float: none;
+			padding: 0;
+			margin-top: 0;
+			text-align: right;
+		}
+	}
+	&-content-area-body {
+		padding: 40px;
+		font-size: 14px;
 
 		h3 {
-            font-size: 20px;
+			font-size: 20px;
 			margin-bottom: 40px;
-        }
+		}
 
-        @media only screen and (min-width: 960px) {
-            max-width: 1000px;
-        }
-    }
+		@media only screen and (min-width: 960px) {
+			max-width: 1000px;
+		}
+	}
 	&-page-title,
-    &-sub-section-title {
+	&-sub-section-title {
 		font-size: 24px;
 		font-weight: 400;
 		margin: 0;
-    }
-    &-settings-form.wpbdp-grid {
+	}
+	&-settings-form.wpbdp-grid {
 		grid-gap: 30px 4%;
-    }
+	}
 	&-settings-form-title {
 		margin: 10px 0;
 	}
-    &-setting-label,
-    &-setting-form-title label {
-        font-weight: 600;
-        font-size: 14px;
-        padding-bottom: 5px;
-    }
+	&-setting-label,
+	&-setting-form-title label {
+		font-weight: 600;
+		font-size: 14px;
+		padding-bottom: 5px;
+	}
 }
 
 .wpbdp-admin-page {
-    .wp-responsive-open #wpbody {
-        @media only screen and (max-width: 728px) {
-            right: -12em;
-        }
-    }
+	.wp-responsive-open #wpbody {
+		@media only screen and (max-width: 728px) {
+			right: -12em;
+		}
+	}
 }

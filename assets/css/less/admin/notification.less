@@ -1,57 +1,57 @@
 .wpdb_notification_shadow() {
-    display: block;
-    background-color: @white;
-    border-radius: 7px;
-    box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
-    -webkit-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
-    -moz-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
+	display: block;
+	background-color: @white;
+	border-radius: 7px;
+	box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
+	-webkit-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
+	-moz-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
 }
 .wpbdp {
-    &-bell {
-        &-notification {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            &-icon {
-                .wpdb_notification_shadow();
-                &:focus {
-                    outline: 0;
-                    .wpdb_notification_shadow();
-                }
-            }
-            &-dot {
-                display: none;
-                &-active {
-                    display: block;
-                }
-            }
-        }
-        &-notifications {
-            position: fixed;
-            bottom: 75px;
-            min-width: 20%;
-            right: 20px;
-            max-width: 400px;
-            font-size: 13px;
-            text-align: justify;
-            &-close {
-                text-decoration: none;
-                color: @text-meta-color;
-                display: block;
-                text-align: right;
-                padding-right: 5px;
-                position: relative;
-                float: right;
-                bottom: 22px;
-            }
-            li {
-                padding: 10px;
-                .wpdb_notification_shadow();
-                .notice-dismiss {
-                    right: 0;
-                    top: 7px;
-                }
-            }
-        }
-    }
+	&-bell {
+		&-notification {
+			position: fixed;
+			right: 20px;
+			bottom: 20px;
+			&-icon {
+				.wpdb_notification_shadow();
+				&:focus {
+					outline: 0;
+					.wpdb_notification_shadow();
+				}
+			}
+			&-dot {
+				display: none;
+				&-active {
+					display: block;
+				}
+			}
+		}
+		&-notifications {
+			position: fixed;
+			bottom: 75px;
+			min-width: 20%;
+			right: 20px;
+			max-width: 400px;
+			font-size: 13px;
+			text-align: justify;
+			&-close {
+				text-decoration: none;
+				color: @text-meta-color;
+				display: block;
+				text-align: right;
+				padding-right: 5px;
+				position: relative;
+				float: right;
+				bottom: 22px;
+			}
+			li {
+				padding: 10px;
+				.wpdb_notification_shadow();
+				.notice-dismiss {
+					right: 0;
+					top: 7px;
+				}
+			}
+		}
+	}
 }
