@@ -14,8 +14,9 @@
             bottom: 20px;
             &-icon {
                 .wpdb_notification_shadow();
-                &:active, &:visited {
+                &:focus {
                     outline: 0;
+                    .wpdb_notification_shadow();
                 }
             }
             &-dot {
