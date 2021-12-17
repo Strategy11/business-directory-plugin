@@ -200,7 +200,7 @@ function wpbdp_admin_notification_bell( $echo = false ) {
 	}
 	?>
 	<div class="wpbdp-bell-notifications hidden">
-		<a href="#" class="wpbdp-bell-notifications-close"><?php esc_html_e( 'Close', 'business-directory-plugin' ); ?></a>
+		<a href="#" class="wpbdp-bell-notifications-close"><?php esc_html_e( 'Hide notifications', 'business-directory-plugin' ); ?></a>
 		<ul class="wpbdp-bell-notifications-list"></ul>
 	</div>
 	<div class="wpbdp-bell-notification">

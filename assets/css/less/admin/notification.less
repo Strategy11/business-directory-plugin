@@ -1,10 +1,17 @@
-.wpdb_notification_shadow() {
+.wpbdp_notification_shadow() {
 	display: block;
 	background-color: @white;
 	border-radius: 7px;
 	box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
 	-webkit-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
 	-moz-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
+}
+.wpbdp_notification_buttons() {
+	border-radius: 12px;
+	background-color: @text-color;
+	color: @white;
+	padding: 5px 15px;
+	line-height: 1.5;
 }
 .wpbdp {
 	&-bell {
@@ -13,10 +20,10 @@
 			right: 20px;
 			bottom: 20px;
 			&-icon {
-				.wpdb_notification_shadow();
+				.wpbdp_notification_shadow();
 				&:focus {
 					outline: 0;
-					.wpdb_notification_shadow();
+					.wpbdp_notification_shadow();
 				}
 			}
 			&-dot {
@@ -35,18 +42,20 @@
 			font-size: 13px;
 			text-align: justify;
 			&-close {
+				.wpbdp_notification_buttons();
 				text-decoration: none;
-				color: @text-meta-color;
 				display: block;
 				text-align: right;
-				padding-right: 5px;
 				position: relative;
 				float: right;
 				bottom: 22px;
+				&:hover {
+					color: @white;
+				}
 			}
 			li {
 				padding: 10px;
-				.wpdb_notification_shadow();
+				.wpbdp_notification_shadow();
 				.notice-dismiss {
 					right: 0;
 					top: 7px;
