@@ -34,9 +34,9 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     }
 
     if ( $count ) {
-        $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'page' AND ( 1=0";
+        $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status != 'trash' AND ( 1=0";
     } else {
-        $query = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND ( 1=0";
+        $query = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status != 'trash' AND ( 1=0";
     }
 
     foreach ( $shortcodes[ $page_id ] as $s ) {
