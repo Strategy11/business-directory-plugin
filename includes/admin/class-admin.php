@@ -1221,9 +1221,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		/**
 		 * Action called before a post is trashed.
+		 *
+		 * @since x.x
 		 */
 		public function before_trash_post( $check, $post ) {
-			return $this->before_delete_post( $check, $post, false );
+			$this->before_delete_post( $check, $post, false );
+			return $check;
 		}
 
 		/**
