@@ -160,7 +160,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     str_replace(
                         '<a>',
                         '<a href="' . esc_url( $this->listing->get_admin_edit_link() ) . '">',
-                        _x( 'This listing can\'t be edited at this time because it has no fee plan associated. Please <a>edit the listing</a> on the backend and associate it to a fee plan.', 'submit listing', 'business-directory-plugin' )
+                        _x( 'This listing can\'t be edited at this time because it has no plan associated. Please <a>edit the listing</a> on the backend and associate it to a plan.', 'submit listing', 'business-directory-plugin' )
                     ),
                     'error'
                 );
@@ -814,14 +814,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
             if ( current_user_can( 'administrator' ) ) {
                 $msg .= '<br><br>';
-                $msg .= _x( '<b>There are no Fee Plans available</b>, without a fee plan site users can\'t submit a listing. %s to create a fee plan', 'templates', 'business-directory-plugin' );
+                $msg .= _x( '<b>There are no Plans available</b>, without a plan site users can\'t submit a listing. %s to create a plan', 'templates', 'business-directory-plugin' );
 
                 $msg = sprintf(
                     $msg,
                     sprintf(
                         '<a href="%s">%s</a>',
                         esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ),
-                        esc_html__( 'Go to "Fee Plans"', 'business-directory-plugin' )
+                        esc_html__( 'Go to "Plans"', 'business-directory-plugin' )
                     )
                 );
             }
@@ -877,7 +877,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             $this->prevent_save = true;
 		} elseif ( $categories && ! $plan_id ) {
-			$this->messages( __( 'Please choose a fee plan.', 'business-directory-plugin' ), 'error', 'plan_selection' );
+			$this->messages( __( 'Please choose a plan.', 'business-directory-plugin' ), 'error', 'plan_selection' );
         } elseif ( $categories && $plan_id ) {
             $plan = wpbdp_get_fee_plan( $plan_id );
 
@@ -885,7 +885,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 if ( $this->editing ) {
                     $this->messages( _x( 'Please choose a valid category for your plan.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
                 } else {
-                    $this->messages( _x( 'Please choose a valid fee plan for your category selection.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
+                    $this->messages( _x( 'Please choose a valid plan for your category selection.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
                 }
 
                 $this->prevent_save = true;
@@ -894,7 +894,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 wp_set_post_terms( $this->listing->get_id(), $categories, WPBDP_CATEGORY_TAX, false );
 
                 if ( ! $this->editing ) {
-                    // Set fee plan.
+                    // Set plan.
                     $this->listing->set_fee_plan( $plan );
                 }
             }

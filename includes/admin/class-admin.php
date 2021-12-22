@@ -311,7 +311,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $menu = array();
 
             $menu['wpbdp-admin-fees']       = array(
-                'title' => __( 'Fee Plans', 'business-directory-plugin' ),
+                'title' => __( 'Plans', 'business-directory-plugin' ),
             );
             $menu['wpbdp_admin_formfields'] = array(
                 'title'    => __( 'Form Fields', 'business-directory-plugin' ),
@@ -857,7 +857,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $fee_id  = (int) $_GET['fee_id'];
                     $listing->set_fee_plan( $fee_id );
 
-                    $this->messages[] = _x( 'The fee was successfully assigned.', 'admin', 'business-directory-plugin' );
+					$this->messages[] = _x( 'The plan was successfully assigned.', 'admin', 'business-directory-plugin' );
 
                     break;
 

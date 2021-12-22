@@ -70,7 +70,7 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-private"> <?php esc_html_e( 'Private Fee Plan (visible to admins only)?', 'business-directory-plugin' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-private"> <?php esc_html_e( 'Private Plan (visible to admins only)?', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label>
@@ -242,6 +242,6 @@ endif;
 
     <?php do_action( 'wpbdp_after_admin_fee_form', $fee ); ?>
 
-    <?php submit_button( $fee->id ? esc_html__( 'Save Changes', 'business-directory-plugin' ) : esc_html__( 'Add Listing Fee', 'business-directory-plugin' ) ); ?>
+    <?php submit_button( $fee->id ? esc_html__( 'Save Changes', 'business-directory-plugin' ) : esc_html__( 'Add Plan', 'business-directory-plugin' ) ); ?>
 </form>
 

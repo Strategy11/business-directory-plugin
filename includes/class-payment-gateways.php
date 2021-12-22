@@ -162,7 +162,7 @@ class WPBDP__Payment_Gateways {
 
         $msg = sprintf(
             /* translators: %1$s: open link html, %2$s close link */
-            esc_html__( 'You have payments turned on but do not have a public fee plan. Directory users won\'t be able to submit a listing until you add a public fee plan. Go to %1$sFee Plans%2$s to add or edit your fee plan(s).', 'business-directory-plugin' ),
+            esc_html__( 'You have payments turned on but do not have a public plan. Directory users won\'t be able to submit a listing until you add a public plan. Go to %1$sPlans%2$s to add or edit your plan(s).', 'business-directory-plugin' ),
             '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">',
             '</a>'
         );

@@ -62,7 +62,7 @@ echo wpbdp_admin_header();
     </li>
     <li>
         <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ); ?>" class="button">
-			<?php esc_html_e( 'Fee Plans', 'business-directory-plugin' ); ?>
+			<?php esc_html_e( 'Plans', 'business-directory-plugin' ); ?>
 		</a>
     </li>
     <li class="clear"></li>

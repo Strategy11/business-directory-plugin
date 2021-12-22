@@ -1,7 +1,7 @@
 <?php
 wpbdp_admin_header(
     array(
-        'title' => __( 'Edit Listing Fee', 'business-directory-plugin' ),
+		'title' => __( 'Edit Plan', 'business-directory-plugin' ),
         'echo'  => true,
     )
 );
