@@ -463,25 +463,23 @@ final class WPBDP {
             $slots_available = absint( $plan->fee_images ) - absint( $_POST['images_count'] );
         }
 
-        if ( ! current_user_can( 'administrator' ) ) {
-            if ( 0 >= $slots_available ) {
-                return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'business-directory-plugin' ) );
-            } elseif ( $slots_available < count( $files ) ) {
-                return $res->send_error(
-                    sprintf(
-                        _nx(
-							'You\'re trying to upload %1$d images, but only have %2$d slot available. Please adjust your selection.',
-							'You\'re trying to upload %1$d images, but only have %2$d slots available. Please adjust your selection.',
-                            $slots_available,
-                            'listing image upload',
-                            'business-directory-plugin'
-                        ),
-                        count( $files ),
-                        $slots_available
-                    )
-                );
-            }
-        }
+		if ( 0 >= $slots_available ) {
+			return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'business-directory-plugin' ) );
+		} elseif ( $slots_available < count( $files ) ) {
+			return $res->send_error(
+				sprintf(
+					_nx(
+						'You\'re trying to upload %1$d images, but only have %2$d slot available. Please adjust your selection.',
+						'You\'re trying to upload %1$d images, but only have %2$d slots available. Please adjust your selection.',
+						$slots_available,
+						'listing image upload',
+						'business-directory-plugin'
+					),
+					count( $files ),
+					$slots_available
+				)
+			);
+		}
 
         foreach ( $files as $i => $file ) {
             $image_error = '';
