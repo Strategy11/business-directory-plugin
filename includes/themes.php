@@ -613,7 +613,7 @@ class WPBDP_Themes {
 
     private function render_template_file( $template_id, $path, $vars = array() ) {
         if ( ! $path ) {
-            wpbdp_log( 'Invalid template path for template: "' . $template_id . '"' );
+			wpbdp_log( 'Invalid template path for template: "' . $template_id . '"' );
 			return '';
         }
 
