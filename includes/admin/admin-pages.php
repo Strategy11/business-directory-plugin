@@ -51,7 +51,7 @@ class WPBDP_Admin_Pages {
 			'id'         => wpbdp_get_var( array( 'param' => 'page' ) ),
 			'tabs'       => array(),
 			'buttons'    => array(),
-			'active_tab' => wpbdp_get_var( array( 'param' => 'page' ) ),
+			'active_tab' => self::get_active_tab(),
 			'show_nav'   => true,
 		);
 
@@ -253,6 +253,22 @@ class WPBDP_Admin_Pages {
 			return $menu_icons[ $menu_id ];
 		}
 		return isset( $menu_item['icon'] ) ? $menu_item['icon'] : 'dashicons dashicons-archive';
+	}
+
+	/**
+	 * Get the active tab
+	 *
+	 * @return string
+	 */
+	private static function get_active_tab() {
+		if ( WPBDP_App_Helper::is_bd_post_page() ) {
+			$taxonomy = wpbdp_get_var( array( 'param' => 'taxonomy' ) );
+			if ( ! $taxonomy ) {
+				return 'edit.php?post_type=wpbdp_listing';
+			}
+			return add_query_arg( 'taxonomy', $taxonomy, 'edit-tags.php?post_type=wpbdp_listing' );
+		}
+		return wpbdp_get_var( array( 'param' => 'page' ) );
 	}
 }
 
