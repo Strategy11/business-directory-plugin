@@ -785,8 +785,9 @@ span.tag {
 	display: inline-block;
 }
 
-body.post-type-wpbdp_listing {
-
+body.post-type-wpbdp_listing,
+.wpbdp-admin-page-fees,
+.wpbdp-admin-page-formfields {
 	.wp-list-table {
 		border: 0;
 		box-shadow: none;
@@ -804,7 +805,7 @@ body.post-type-wpbdp_listing {
 			a, .inline .button-link {
 				color: @link-active;
 			}
-			.row-actions .trash a {
+			.row-actions .trash a, .row-actions .delete a {
 				color: @link-red;
 			}
 		}
@@ -815,7 +816,6 @@ body.post-type-wpbdp_listing {
 			color: @text-color;
 		}
 	}
-
 }
 
 #wpbdp-listing-form-preview {

@@ -249,7 +249,7 @@ class WPBDP_Admin_Pages {
 				'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' => 'wpbdp-admin-icon wpbdp-admin-icon-tag',
 				'wpbdp-admin-fees' => 'wpbdp-admin-icon wpbdp-admin-icon-money',
 				'wpbdp_admin_formfields' => 'wpbdp-admin-icon wpbdp-admin-icon-clipboard',
-				'wpbdp_admin_csv' => 'wpbdp-admin-icon wpbdp-admin-icon-import'
+				'wpbdp_admin_csv' => 'wpbdp-admin-icon wpbdp-admin-icon-import',
 			)
 		);
 		if ( isset( $menu_icons[ $menu_id ] ) ) {
