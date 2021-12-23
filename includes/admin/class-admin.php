@@ -1272,7 +1272,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				$states['wpbdp_page'] = sprintf(
 					'<span style="%2$s">%1$s</span>',
 					__( 'Directory Page', 'business-directory-plugin' ),
-					'background:#aaa;color:#fff;padding:1px 4px;border-radius:4px;font-size:0.8em',
+					'background:#aaa;color:#fff;padding:1px 4px;border-radius:4px;font-size:0.8em'
 				);
 			}
 			return $states;
