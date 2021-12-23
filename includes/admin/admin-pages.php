@@ -131,10 +131,38 @@ class WPBDP_Admin_Pages {
 			<span class="title-text"><?php echo esc_html( $title ); ?></span>
 
 			<?php foreach ( $buttons as $label => $url ) : ?>
-                <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2">
+				<a href="<?php echo esc_url( $url ); ?>" class="add-new-h2">
 					<?php echo esc_html( $label ); ?>
 				</a>
-            <?php endforeach; ?>
+			<?php endforeach; ?>
+		</h1>
+		<?php
+	}
+
+	/**
+	 * Admin tabbed title.
+	 *
+	 * @since x.x
+	 */
+	public static function show_tabbed_title( $args = array() ) {
+		$titles   = isset( $args['titles'] ) ? $args['titles'] : array();
+		$selected = isset( $args['selected'] ) ? $args['selected'] : '';
+		$buttons  = isset( $args['buttons'] ) ? $args['buttons'] : array();
+
+		?>
+		<h1 class="wpbdp-page-title">
+			<?php WPBDP_App_Helper::show_logo( 35, 'wpbdp-logo-center', true ); ?>
+			<span class="title-text nav-tab-wrapper">
+			<?php foreach ( $titles as $key => $title ) : ?>
+				<a class="nav-tab <?php echo $key === $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( $title['url'] ); ?>"><?php echo esc_html( $title['name'] ); ?></a>
+			<?php endforeach; ?>	
+			</span>
+
+			<?php foreach ( $buttons as $label => $url ) : ?>
+				<a href="<?php echo esc_url( $url ); ?>" class="add-new-h2">
+					<?php echo esc_html( $label ); ?>
+				</a>
+			<?php endforeach; ?>
 		</h1>
 		<?php
 	}
