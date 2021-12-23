@@ -225,11 +225,33 @@ class WPBDP_Admin_Pages {
 					'',
 					strip_tags( $menu_item['title'] )
 				),
-				'icon' => '',
+				'icon'  => self::get_admin_menu_icon( $id, $menu_item ),
 			);
 		}
 
 		return $tabs;
+	}
+
+	/**
+	 * Set the admin menu icon with their corresponding inner locations.
+	 *
+	 * @param int   $menu_id The menu id.
+	 * @param array $menu_item The menu item as an array.
+	 *
+	 * @return string
+	 */
+	private static function get_admin_menu_icon( $menu_id, $menu_item ) {
+		$menu_icons = apply_filters( 'wpbdp_admin_menu_icons',
+			array(
+				'edit.php?post_type=wpbdp_listing' => 'wpbdp-admin-icon wpbdp-admin-icon-list',
+				'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' => 'wpbdp-admin-icon wpbdp-admin-icon-folder',
+				'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' => 'wpbdp-admin-icon wpbdp-admin-icon-tag',
+			)
+		);
+		if ( isset( $menu_icons[ $menu_id ] ) ) {
+			return $menu_icons[ $menu_id ];
+		}
+		return isset( $menu_item['icon'] ) ? $menu_item['icon'] : 'dashicons dashicons-archive';
 	}
 }
 

@@ -312,20 +312,25 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $menu['wpbdp-admin-fees']       = array(
                 'title' => __( 'Plans', 'business-directory-plugin' ),
+				'icon'  => 'wpbdp-admin-icon wpbdp-admin-icon-money',
             );
             $menu['wpbdp_admin_formfields'] = array(
                 'title'    => __( 'Form Fields', 'business-directory-plugin' ),
                 'callback' => array( 'WPBDP_FormFieldsAdmin', 'admin_menu_cb' ),
+				'icon'     => 'wpbdp-admin-icon wpbdp-admin-icon-clipboard',
             );
             $menu['wpbdp_admin_payments']   = array(
                 'title' => _x( 'Payment History', 'admin menu', 'business-directory-plugin' ),
+				'icon'  => '',
             );
             $menu['wpbdp_admin_csv']        = array(
                 'title' => _x( 'Import & Export', 'admin menu', 'business-directory-plugin' ),
+				'icon'  => 'wpbdp-admin-icon wpbdp-admin-icon-import',
             );
             $menu['wpbdp-debug-info']       = array(
                 'title'    => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
                 'callback' => array( &$this->debug_page, 'dispatch' ),
+				'icon'     => '',
             );
 
             $this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
@@ -367,7 +372,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
 		/**
-		 * Get the menu to piece togehter tabs.
+		 * Get the menu to piece together tabs.
 		 *
 		 * @since x.x
 		 */
