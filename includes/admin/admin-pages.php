@@ -52,6 +52,7 @@ class WPBDP_Admin_Pages {
 			'tabs'       => array(),
 			'buttons'    => array(),
 			'active_tab' => wpbdp_get_var( array( 'param' => 'page' ) ),
+			'show_nav'   => true,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -69,7 +70,9 @@ class WPBDP_Admin_Pages {
 	?>
 	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
 		<div class="wpbdp-admin-row">
-			<?php include WPBDP_PATH . 'templates/admin/_admin-menu.php'; ?>
+			<?php if ( $show_nav ) : ?>
+				<?php include WPBDP_PATH . 'templates/admin/_admin-menu.php'; ?>
+			<?php endif; ?>
 			<div class="wpbdp-content-area">
 			<?php
 			wpbdp_admin_notices();
@@ -267,7 +270,7 @@ function wpbdp_admin_sidebar( $echo = false ) {
 	return ! empty( $page );
 }
 
-function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = null ) {
+function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = true ) {
     // For backwards compatibility.
     if ( ! is_array( $args_or_title ) ) {
         $buttons = array();
@@ -324,9 +327,10 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 
 	WPBDP_Admin_Pages::show_tabs(
 		array(
-			'id'      => $id,
-			'sub'     => $args['title'],
-			'buttons' => isset( $args['button'] ) ? $args['button'] : array(),
+			'id'       => $id,
+			'sub'      => $args['title'],
+			'buttons'  => isset( $args['button'] ) ? $args['button'] : array(),
+			'show_nav' => $args['sidebar'],
 		)
 	);
 
