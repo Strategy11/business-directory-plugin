@@ -178,6 +178,7 @@
 		transition: all 0.75s ease;
 	}
 }
+
 .wpbdp-icon-minimized {
 	display: none;
 }
@@ -186,24 +187,33 @@
 }
 .wpbdp-content-area-header {
 	width: 100%;
+	min-height: 54px;
 	padding: 10px 40px;
 	background-color: @white;
 	border-bottom: 1px solid @border-color;
 	flex-direction: row;
 	align-items: center;
 	display: flex;
+	gap: 20px;
+
 	> div {
 		flex: 1;
 	}
 }
 .wpbdp-content-area-header-actions {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	gap: 20px;
+
 	p.submit {
 		float: none;
 		padding: 0;
-		margin-top: 0;
-		text-align: right;
+		margin: 0 0 0 auto;
+		display: inline-block;
 	}
 }
+
 .wpbdp-content-area-body {
 	padding: 40px;
 	font-size: 14px;
@@ -212,11 +222,16 @@
 		font-size: 20px;
 		margin-bottom: 40px;
 	}
+}
 
-	@media only screen and (min-width: 960px) {
-		max-width: 1000px;
+@media only screen and (min-width: 960px) {
+	.wpbdp-admin-page-settings {
+		.wpbdp-content-area-body {
+			max-width: 1000px;
+		}
 	}
 }
+
 .wpbdp-page-title,
 .wpbdp-sub-section-title {
 	font-size: 24px;
@@ -235,6 +250,42 @@
 	font-size: 14px;
 	padding-bottom: 5px;
 }
+
+.edit-php.post-type-wpbdp_listing {
+	.wp-heading-inline + .page-title-action,
+	.wp-heading-inline {
+		display: none !important;
+	}
+
+	#wpbody-content > .wrap {
+		margin: 0;
+	}
+}
+
+.wpbdp-admin-page {
+	#wpcontent {
+		padding-left: 0px;
+	}
+
+	&:not(.edit-php) .wrap:not(.wpbdp-admin) {
+		padding-left: 20px; /* Cover pages without tabs */
+	}
+
+	#wpfooter {
+		display: none;
+	}
+
+	#wpbody-content {
+		padding-bottom: 0;
+		min-height: 100%;
+	}
+
+	#screen-meta-links {
+		position: absolute;
+		right: 200px;
+	}
+}
+
 .wpbdp-admin-page {
 	.wp-responsive-open #wpbody {
 		@media only screen and (max-width: 728px) {

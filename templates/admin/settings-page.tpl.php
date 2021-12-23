@@ -2,44 +2,16 @@
 $original_uri = wpbdp_get_server_value( 'REQUEST_URI' );
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'tab', 'subtab' ) );
 
-wpbdp_admin_bootstrap_header(
+WPBDP_Admin_Pages::show_tabs(
     array(
-        'echo' => true,
+		'title'      => __( 'Directory Settings', 'business-directory-plugin' ),
+		'echo'       => true,
+		'tabs'       => $tabs,
+		'active_tab' => $active_tab,
     )
 );
+
 ?>
-<div class="wpbdp-no-padding wpbdp-menu-area">
-	<?php
-		wpbdp_admin_title(
-			array(
-				'title' => esc_html__( 'Directory Settings', 'business-directory-plugin' ),
-				'echo'  => true,
-			)
-		);
-	?>
-	<ul class="wpbdp-nav-items">
-		<?php foreach ( $tabs as $tab_id => $tab ) : ?>
-			<li class="wpbdp-nav-item">
-				<a class="<?php echo $active_tab == $tab_id ? 'active ' : ''; ?><?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( add_query_arg( 'tab', $tab_id ) ); ?>" title="<?php echo esc_html( $tab['title'] ); ?>">
-					<span class="wpbdp-nav-item-icon <?php echo esc_attr( $tab['icon'] ); ?>"></span>
-					<span class="wpbdp-nav-item-name"><?php echo esc_html( $tab['title'] ); ?></span>
-				</a>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-	<div class="wpbdp-nav-toggle hide-if-no-js">
-		<div class="wpbdp-grid">
-			<div class="wpbdp-col-2 wpbdp-nav-item-icon">
-				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/caret-left.svg' ); ?>" class="wpbdp-icon-maximized" width="24" height="24"/>
-				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/caret-right.svg' ); ?>" class="wpbdp-icon-minimized" width="24" height="24"/>
-			</div>
-			<div class="wpbdp-col-10 wpbdp-nav-item-name">
-				<?php esc_html_e( 'Minimize Navigation', 'business-directory-plugin' ); ?>
-			</div>
-		</div>
-	</div>
-</div>
-<main class="wpbdp-content-area">
 	<?php if ( ! $custom_form ) : ?>
 	<form action="options.php" method="post">
 	<?php endif; ?>
@@ -83,8 +55,6 @@ wpbdp_admin_bootstrap_header(
 		<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo wp_kses_post( $active_subtab_description ); ?></p>
 		<?php endif; ?>
 
-		
-
 		<?php
 			$_SERVER['REQUEST_URI'] = $original_uri;
 
@@ -108,9 +78,9 @@ wpbdp_admin_bootstrap_header(
 		</form>
 		<?php endif; ?>
 	</div>
-</div>
+
 <?php
-    wpbdp_admin_footer( 'echo' );
+WPBDP_Admin_Pages::show_tabs_footer();
 
     /*
 <h3 class="nav-tab-wrapper">

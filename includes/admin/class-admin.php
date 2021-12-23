@@ -366,6 +366,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
         }
 
+		/**
+		 * Get the menu to piece togehter tabs.
+		 *
+		 * @since x.x
+		 */
+		public function get_menu() {
+			return $this->menu;
+		}
+
         /**
          * Removed the dashboard wpbdp_admin submenu.
          *
@@ -375,6 +384,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          */
         public function hide_menu() {
 			remove_submenu_page( 'wpbdp_admin', 'wpbdp-debug-info' );
+			remove_submenu_page( 'wpbdp_admin', 'wpbdp-admin-fees' );
+			remove_submenu_page( 'wpbdp_admin', 'wpbdp_admin_formfields' );
+			remove_submenu_page( 'wpbdp_admin', 'wpbdp_admin_csv' );
 
             if ( current_user_can( 'administrator' ) ) {
                 remove_menu_page( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) );
@@ -392,7 +404,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			if ( ! WPBDP_App_Helper::is_bd_page() ) {
 				return;
 			}
-			wpbdp_admin_notification_bell( true );
+			WPBDP_Admin_Pages::notification_bell();
 		}
 
         /**

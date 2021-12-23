@@ -1,16 +1,14 @@
 <?php
-    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    wpbdp_admin_header(
-		array(
-            'id'      => 'admin-fees',
-            'buttons' => array(
-				__( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
-            ),
-            'echo' => true,
-        )
-    );
-	?>
-    <?php wpbdp_admin_notices(); ?>
+WPBDP_Admin_Pages::show_tabs(
+	array(
+		'id'      => 'admin-fees',
+		'sub'     => __( 'Plans', 'business-directory-plugin' ),
+		'buttons' => array(
+			__( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
+		),
+	)
+);
+?>
 
     <?php if ( ! wpbdp_get_option( 'payments-on' ) ) : ?>
 	<p class="howto">
@@ -134,4 +132,4 @@
         <?php endif; ?>
         </div>
 
-<?php wpbdp_admin_footer( 'echo' ); ?>
+<?php WPBDP_Admin_Pages::show_tabs_footer( array( 'sub' => true ) ); ?>

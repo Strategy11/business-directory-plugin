@@ -1,39 +1,29 @@
 <?php
     $buttons = array(
-        array(
-            _x( 'Add New Form Field', 'form-fields admin', 'business-directory-plugin' ),
+        _x( 'Add New Form Field', 'form-fields admin', 'business-directory-plugin' ) =>
             wp_nonce_url(
 				admin_url( 'admin.php?page=wpbdp_admin_formfields&action=addfield' ),
 				'editfield'
             ),
-        ),
-        array(
-            _x( 'Preview Form', 'form-fields admin', 'business-directory-plugin' ),
-            esc_url(
-                admin_url( 'admin.php?page=wpbdp_admin_formfields&action=previewform' )
-            ),
-        ),
-        array(
-            _x( 'Manage Theme Tags', 'form-fields admin', 'business-directory-plugin' ),
-            esc_url(
-                admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' )
-            ),
-        ),
+        __( 'Preview Form', 'business-directory-plugin' )      => admin_url( 'admin.php?page=wpbdp_admin_formfields&action=previewform' ),
+        __( 'Manage Theme Tags', 'business-directory-plugin' ) => admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
     );
 
-    echo wpbdp_admin_header( null, null, $buttons );
+	WPBDP_Admin_Pages::show_tabs(
+		array(
+			'id'      => 'formfields',
+			'sub'     => __( 'Form Fields', 'business-directory-plugin' ),
+			'buttons' => $buttons,
+		)
+	);
 
-	wpbdp_admin_notices();
-
-    echo esc_html_x(
-        'Here, you can create new fields for your listings, edit or delete existing ones, change the order and visibility of the fields as well as configure special options for them.',
-        'form-fields admin',
+	echo '<span class="howto">';
+	esc_html_e(
+        'Create new fields, edit existing fields, change the field order and visibility.',
         'business-directory-plugin'
-    );
-    ?>
-               <br />
-    <?php
-    echo str_replace(
+	);
+
+    echo ' ' . str_replace(
         '<a>',
         '<a href="https://businessdirectoryplugin.com/knowledge-base/manage-form-fields/" target="_blank" rel="noopener">',
         _x(
@@ -42,6 +32,7 @@
             'business-directory-plugin'
         )
     );
+	echo '</span>';
     ?>
 
     <?php $table->views(); ?>

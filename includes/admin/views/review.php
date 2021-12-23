@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
+<script>
 	jQuery( document ).ready( function( $ ) {
 		$( document ).on( 'click', '.wpbdp-dismiss-review-notice, .wpbdp-review-notice .notice-dismiss', function( event ) {
 
