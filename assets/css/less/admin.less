@@ -795,6 +795,25 @@ body.post-type-wpbdp_listing {
 			font-size: 10px !important;
 			text-transform: none !important;
 		}
+		thead, tfoot {
+			.manage-column, a {
+				color: @table-header-text-color;
+			}
+		}
+		tbody {
+			a, .inline .button-link {
+				color: @link-active;
+			}
+			.row-actions .trash a {
+				color: @link-red;
+			}
+		}
+	}
+	.subsubsub a {
+		color: @link-active;
+		&.current {
+			color: @text-color;
+		}
 	}
 
 }
