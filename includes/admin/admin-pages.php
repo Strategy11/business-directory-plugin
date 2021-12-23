@@ -180,9 +180,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Display the help section icon.
 	 *
-	 * @todo Is this being used?
-	 *
-	 * @since x.x
+	 * @todo Is this being used? Not at the moment, but its to be menu with links to Knowledge base, contact support, etc.
 	 */
 	public static function help_section() {
 		?>
