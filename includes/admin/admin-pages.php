@@ -13,13 +13,13 @@ class WPBDP_Admin_Pages {
 			return;
 		}
 
-		add_action( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
+		add_filter( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
 	}
 
 	/*
 	 * @since x.x
 	 */
-	public static function add_listings_nav() {
+	public static function add_listings_nav( $views ) {
 		global $post_type_object;
 		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
 
@@ -35,6 +35,8 @@ class WPBDP_Admin_Pages {
 		}
 
 		self::show_tabs( $args );
+
+		return $views;
 	}
 
 	/**
@@ -174,14 +176,12 @@ class WPBDP_Admin_Pages {
 
 	/**
 	 * Display the help section icon.
+	 *
 	 * @todo Is this being used?
 	 *
 	 * @since x.x
 	 */
-	public static function help_section( $echo = false ) {
-		if ( ! $echo ) {
-			ob_start();
-		}
+	public static function help_section() {
 		?>
 		<div class="wpbdp-admin-info-centre">
 			<a class="wpbdp-admin-info-centre-icon" href="#">
@@ -189,9 +189,6 @@ class WPBDP_Admin_Pages {
 			</a>
 		</div>
 		<?php
-		if ( ! $echo ) {
-			return ob_get_clean();
-		}
 	}
 
 	private static function get_content_tabs() {
@@ -216,7 +213,7 @@ class WPBDP_Admin_Pages {
 
 		$exclude = array( 'wpbdp_settings', 'wpbdp-smtp', 'wpbdp_admin', 'wpbdp_admin_payments', 'post-new.php?post_type=wpbdp_listing', 'wpbdp-addons', 'wpbdp-themes', 'wpbdp-debug-info' );
 
-		foreach( $this_menu as $id => $menu_item ) {
+		foreach ( $this_menu as $id => $menu_item ) {
 			$requires = empty( $menu_item['capability'] ) ? 'administrator' : $menu_item['capability'];
 			if ( ! current_user_can( $requires ) || in_array( $id, $exclude ) ) {
 				continue;
