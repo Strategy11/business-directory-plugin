@@ -70,7 +70,7 @@ class WPBDP_Admin_Pages {
 	?>
 	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
 		<div class="wpbdp-admin-row">
-			<?php if ( $show_nav ) : ?>
+			<?php if ( $args['show_nav'] ) : ?>
 				<?php include WPBDP_PATH . 'templates/admin/_admin-menu.php'; ?>
 			<?php endif; ?>
 			<div class="wpbdp-content-area">
