@@ -337,6 +337,13 @@ jQuery(document).ready(function($){
         $tr.after( '<tr class="more-details-row"><td colspan="7">' + $details.html() + '</td></tr>' ).show();
     });
 
+	$( document ).on( 'change', '.wpbdp-inner-file', function(){
+		var files = $(this)[0].files[0];
+		if ( files ) {
+			$(this).parent().find('.wpbdp-inner-file-name').html(files.name);
+		}
+	});
+
 });
 
 function wpbdp_load_placeholder($v) {

@@ -43,7 +43,7 @@ class WPBDP_Admin_Education {
 		}
 
 		$message = wp_kses_post( $tip['tip'] );
-		$message .= '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">';
+		$message .= '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener" class="wpbdp-button-secondary">';
 		$message .= esc_html( $tip['cta'] );
 		$message .= '</a>';
 
