@@ -53,7 +53,8 @@ class WPBDP_Admin_Pages {
 			'buttons'      => array(),
 			'active_tab'   => self::get_active_tab(),
 			'show_nav'     => true,
-            'tabbed_title' => false,
+			'tabbed_title' => false,
+			'titles'       => array(),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -82,13 +83,18 @@ class WPBDP_Admin_Pages {
 			}
 			?>
 			<div class="wpbdp-content-area-header">
+				<?php if ( $args['tabbed_title'] ) :
+					$current_tab = isset( $args['current_tab'] ) ? $args['current_tab'] : '';
+					self::show_tabbed_title( $args['titles'], $current_tab );
+				else : ?>
 				<h2 class="wpbdp-sub-section-title"><?php echo esc_html( $args['sub'] ); ?></h2>
+				<?php endif; ?>
 				<div class="wpbdp-content-area-header-actions">
 					<?php foreach ( $args['buttons'] as $label => $url ) : ?>
-		                <a href="<?php echo esc_url( $url ); ?>" class="wpbdp-button-secondary">
+						<a href="<?php echo esc_url( $url ); ?>" class="wpbdp-button-secondary">
 							<?php echo esc_html( $label ); ?>
 						</a>
-		            <?php endforeach; ?>
+					<?php endforeach; ?>
 				</div>
 			</div>
 			<div class="wpbdp-content-area-body">
@@ -143,29 +149,15 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Admin tabbed title.
 	 *
+	 * @param array $titles The titles as an array.
+	 * @param string $current_tab The current selected tab.
+	 *
 	 * @since x.x
 	 */
-	public static function show_tabbed_title( $args = array() ) {
-		$titles   = isset( $args['titles'] ) ? $args['titles'] : array();
-		$selected = isset( $args['selected'] ) ? $args['selected'] : '';
-		$buttons  = isset( $args['buttons'] ) ? $args['buttons'] : array();
-
-		?>
-		<h1 class="wpbdp-page-title">
-			<?php WPBDP_App_Helper::show_logo( 35, 'wpbdp-logo-center', true ); ?>
-			<span class="title-text nav-tab-wrapper">
-			<?php foreach ( $titles as $key => $title ) : ?>
-				<a class="nav-tab <?php echo $key === $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( $title['url'] ); ?>"><?php echo esc_html( $title['name'] ); ?></a>
-			<?php endforeach; ?>	
-			</span>
-
-			<?php foreach ( $buttons as $label => $url ) : ?>
-				<a href="<?php echo esc_url( $url ); ?>" class="add-new-h2">
-					<?php echo esc_html( $label ); ?>
-				</a>
-			<?php endforeach; ?>
-		</h1>
-		<?php
+	public static function show_tabbed_title( $titles, $current_tab = '' ) {
+		foreach ( $titles as $key => $title ) : ?>
+			<a class="nav-tab <?php echo $key === $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( $title['url'] ); ?>"><?php echo esc_html( $title['name'] ); ?></a>
+		<?php endforeach;
 	}
 
 	/**
@@ -317,35 +309,35 @@ function wpbdp_admin_sidebar( $echo = false ) {
 }
 
 function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = true ) {
-    // For backwards compatibility.
-    if ( ! is_array( $args_or_title ) ) {
-        $buttons = array();
+	// For backwards compatibility.
+	if ( ! is_array( $args_or_title ) ) {
+		$buttons = array();
 
-        if ( $h2items ) {
-            foreach ( $h2items as $item ) {
-                $buttons[ $item[0] ] = $item[1];
-            }
-        }
+		if ( $h2items ) {
+			foreach ( $h2items as $item ) {
+				$buttons[ $item[0] ] = $item[1];
+			}
+		}
 
-        $args_or_title = array(
-            'title'   => $args_or_title,
-            'id'      => $id,
-            'buttons' => $buttons,
-            'sidebar' => $sidebar,
-        );
+		$args_or_title = array(
+			'title'   => $args_or_title,
+			'id'      => $id,
+			'buttons' => $buttons,
+			'sidebar' => $sidebar,
+		);
 
-        if ( empty( $args_or_title['title'] ) ) {
-            unset( $args_or_title['title'] );
-        }
+		if ( empty( $args_or_title['title'] ) ) {
+			unset( $args_or_title['title'] );
+		}
 
-        if ( empty( $args_or_title['id'] ) ) {
-            unset( $args_or_title['id'] );
-        }
+		if ( empty( $args_or_title['id'] ) ) {
+			unset( $args_or_title['id'] );
+		}
 
-        if ( is_null( $args_or_title['sidebar'] ) ) {
-            unset( $args_or_title['sidebar'] );
-        }
-    }
+		if ( is_null( $args_or_title['sidebar'] ) ) {
+			unset( $args_or_title['sidebar'] );
+		}
+	}
 
 	$default_title = '';
 	if ( empty( $GLOBALS['title'] ) ) {
@@ -354,48 +346,54 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 		$default_title = $GLOBALS['title'];
 	}
 
-    $defaults = array(
-        'title'   => $default_title,
-        'id'      => wpbdp_get_var( array( 'param' => 'page' ) ),
-        'buttons' => array(),
-        'sidebar' => true,
-        'echo'    => false,
-    );
+	$defaults = array(
+		'title'        => $default_title,
+		'id'           => wpbdp_get_var( array( 'param' => 'page' ) ),
+		'buttons'      => array(),
+		'sidebar'      => true,
+		'echo'         => false,
+		'tabbed_title' => false,
+		'titles'       => array(),
+		'current_tab'  => '',
+	);
 
 	$args = wp_parse_args( $args_or_title, $defaults );
 
-    $id = str_replace( array( 'wpbdp_', 'wpbdp-' ), '', $args['id'] );
-    $id = str_replace( array( 'admin-', 'admin_' ), '', $id );
+	$id = str_replace( array( 'wpbdp_', 'wpbdp-' ), '', $args['id'] );
+	$id = str_replace( array( 'admin-', 'admin_' ), '', $id );
 
-    if ( empty( $args['echo'] ) ) {
-        ob_start();
-    }
+	if ( empty( $args['echo'] ) ) {
+		ob_start();
+	}
 
 	WPBDP_Admin_Pages::show_tabs(
 		array(
-			'id'       => $id,
-			'sub'      => $args['title'],
-			'buttons'  => isset( $args['button'] ) ? $args['button'] : array(),
-			'show_nav' => $args['sidebar'],
+			'id'           => $id,
+			'sub'          => $args['title'],
+			'buttons'      => isset( $args['button'] ) ? $args['button'] : array(),
+			'show_nav'     => $args['sidebar'],
+			'tabbed_title' => $args['tabbed_title'],
+			'titles'       => $args['titles'],
+			'current_tab'  => $args['current_tab'],
 		)
 	);
 
-    if ( empty( $args['echo'] ) ) {
-        return ob_get_clean();
-    }
+	if ( empty( $args['echo'] ) ) {
+		return ob_get_clean();
+	}
 }
 
 /*
  * @param bool|string Use 'echo' or true to show the footer.
  */
 function wpbdp_admin_footer( $echo = false ) {
-    if ( ! $echo ) {
-        ob_start();
-    }
+	if ( ! $echo ) {
+		ob_start();
+	}
 
 	WPBDP_Admin_Pages::show_tabs_footer();
 
-    if ( ! $echo ) {
-        return ob_get_clean();
-    }
+	if ( ! $echo ) {
+		return ob_get_clean();
+	}
 }
