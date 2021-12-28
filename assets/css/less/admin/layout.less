@@ -200,6 +200,12 @@
 		flex: 1;
 	}
 }
+.wpbdp-content-area-header-tabbed {
+	padding-bottom: 0px;
+	.wpbdp-content-area-header-actions {
+		padding-bottom: 10px;
+	}
+}
 .wpbdp-content-area-header-actions {
 	display: flex;
 	align-items: center;
@@ -211,6 +217,23 @@
 		padding: 0;
 		margin: 0 0 0 auto;
 		display: inline-block;
+	}
+}
+
+.wpbdp-content-area-header-tabs {
+	.wpbdp-header-tab {
+		text-decoration: none;
+		float: left;
+		border-bottom: none;
+		margin-left: .5em;
+		padding: 5px 10px 20px 10px;
+		font-size: 24px;
+		font-weight: 400;
+		color: @text-color;
+	}
+	.wpbdp-header-tab-active {
+		color: @link-active;
+		border-bottom: 2px solid @link-active;
 	}
 }
 

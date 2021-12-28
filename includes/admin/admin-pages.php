@@ -81,7 +81,7 @@ class WPBDP_Admin_Pages {
 				return;
 			}
 			?>
-			<div class="wpbdp-content-area-header">
+			<div class="wpbdp-content-area-header <?php echo $args['tabbed_title'] ? 'wpbdp-content-area-header-tabbed' : '' ?>">
 				<?php if ( $args['tabbed_title'] ) :
 					$current_tab = isset( $args['current_tab'] ) ? $args['current_tab'] : '';
 					self::show_tabbed_title( $args['titles'], $current_tab );
@@ -158,7 +158,7 @@ class WPBDP_Admin_Pages {
 		<div class="wpbdp-content-area-header-tabs">
 		<?php
 		foreach ( $titles as $key => $title ) : ?>
-			<a class="nav-tab <?php echo $key === $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( $title['url'] ); ?>"><?php echo esc_html( $title['name'] ); ?></a>
+			<a class="wpbdp-header-tab <?php echo $key === $current_tab ? 'wpbdp-header-tab-active' : ''; ?>" href="<?php echo esc_url( $title['url'] ); ?>"><?php echo esc_html( $title['name'] ); ?></a>
 		<?php endforeach;
 		?>
 		</div>
