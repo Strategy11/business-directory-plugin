@@ -44,10 +44,10 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 			),
 			'current_tab'  => $current_tab,
 		);
-		if ( 'csv_import' == $current_tab ) {
+		if ( 'csv_import' === $current_tab ) {
 			$args['buttons'] = array(
 				__( 'See an example CSV import file', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) ),
-				__( 'Help', 'business-directory-plugin' ) => '#'
+				__( 'Help', 'business-directory-plugin' ) => '#help'
 			);
 		}
 

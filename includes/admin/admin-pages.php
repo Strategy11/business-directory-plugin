@@ -68,7 +68,6 @@ class WPBDP_Admin_Pages {
 			$tabs = self::get_content_tabs();
 		}
 		$title = $args['title'];
-
 	?>
 	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
 		<div class="wpbdp-admin-row">
@@ -155,9 +154,15 @@ class WPBDP_Admin_Pages {
 	 * @since x.x
 	 */
 	public static function show_tabbed_title( $titles, $current_tab = '' ) {
+		?>
+		<div class="wpbdp-content-area-header-tabs">
+		<?php
 		foreach ( $titles as $key => $title ) : ?>
 			<a class="nav-tab <?php echo $key === $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( $title['url'] ); ?>"><?php echo esc_html( $title['name'] ); ?></a>
 		<?php endforeach;
+		?>
+		</div>
+		<?php
 	}
 
 	/**
@@ -370,7 +375,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 		array(
 			'id'           => $id,
 			'sub'          => $args['title'],
-			'buttons'      => isset( $args['button'] ) ? $args['button'] : array(),
+			'buttons'      => isset( $args['buttons'] ) ? $args['buttons'] : array(),
 			'show_nav'     => $args['sidebar'],
 			'tabbed_title' => $args['tabbed_title'],
 			'titles'       => $args['titles'],
