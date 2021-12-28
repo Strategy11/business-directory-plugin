@@ -1,10 +1,18 @@
 <div class="wpbdp-no-padding wpbdp-menu-area">
 	<?php
-	WPBDP_Admin_Pages::show_title(
-		array(
-			'title' => $title,
-		)
-	);
+	if ( $args['tabbed_title'] ) {
+		WPBDP_Admin_Pages::show_tabbed_title(
+			array(
+				'title' => $title,
+			)
+		);
+	} else {
+		WPBDP_Admin_Pages::show_title(
+			array(
+				'title' => $title,
+			)
+		);
+	}
 	?>
 	<ul class="wpbdp-nav-items">
 		<?php

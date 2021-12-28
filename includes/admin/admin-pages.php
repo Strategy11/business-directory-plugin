@@ -47,12 +47,13 @@ class WPBDP_Admin_Pages {
 	public static function show_tabs( $args = array() ) {
 
 		$defaults = array(
-			'title'      => 'Business Directory', // Don't translate this.
-			'id'         => wpbdp_get_var( array( 'param' => 'page' ) ),
-			'tabs'       => array(),
-			'buttons'    => array(),
-			'active_tab' => self::get_active_tab(),
-			'show_nav'   => true,
+			'title'        => 'Business Directory', // Don't translate this.
+			'id'           => wpbdp_get_var( array( 'param' => 'page' ) ),
+			'tabs'         => array(),
+			'buttons'      => array(),
+			'active_tab'   => self::get_active_tab(),
+			'show_nav'     => true,
+            'tabbed_title' => false,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
