@@ -388,19 +388,23 @@ class WPBDP_Licensing {
      * Returns the license status from license information.
      */
     public function get_license_status( $license_key = '', $item_id = '', $item_type = 'module' ) {
-        if ( ! $license_key ) {
-            $license_key = wpbdp_get_option( 'license-key-' . $item_type . '-' . $item_id );
-        }
+		$data_key = $item_type . '-' . $item_id;
+		$no_prefix = $item_type . '-' . str_replace( 'bd-', '', $item_id );
+		if ( ! empty( $this->licenses[ $no_prefix ] ) ) {
+			// Allow for an extra 'bd-' on the theme folder name.
+			$data_key = $no_prefix;
+		}
 
-        if ( $license_key ) {
-            $data_key = $item_type . '-' . $item_id;
-            if ( ! empty( $this->licenses[ $data_key ] ) ) {
-                $data = $this->licenses[ $data_key ];
+		if ( ! $license_key ) {
+			$license_key = wpbdp_get_option( 'license-key-' . $data_key );
+		}
 
-                if ( ! empty( $data['license_key'] ) && $license_key == $data['license_key'] ) {
-                    return $data['status'];
-                }
-            }
+		if ( $license_key && ! empty( $this->licenses[ $data_key ] ) ) {
+			$data = $this->licenses[ $data_key ];
+
+			if ( ! empty( $data['license_key'] ) && $license_key == $data['license_key'] ) {
+				return $data['status'];
+			}
 		}
 
         return 'invalid';
