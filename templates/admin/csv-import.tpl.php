@@ -221,7 +221,7 @@ printf(
 						type="radio"
 						value="1" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ) ? 'checked="checked"' : ''; ?> />
 					<?php esc_html_e( 'Auto-create categories', 'business-directory-plugin' ); ?>
-				</label>
+				</label><br/>
 				<label><input name="settings[create-missing-categories]"
 						type="radio"
 						value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> />
@@ -279,7 +279,7 @@ printf(
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Number of listings imported on every cycle', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content">
+			<div class="wpbdp-setting-content wpbdp-input-wide">
 				<select name="settings[batch-size]">
 					<?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ) : ?>
 						<option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>
@@ -314,7 +314,7 @@ printf(
 <p>
 	<?php
 	printf(
-		esc_html__( 'The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'business-directory-plugin' ),
+		__( 'The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'business-directory-plugin' ),
 		esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) )
 	);
 	?>
