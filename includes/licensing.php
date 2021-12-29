@@ -659,7 +659,14 @@ class WPBDP_Licensing {
         return strncasecmp( $x['name'], $y['name'], 4 );
     }
 
+	/**
+	 * @since x.x Chaged to only show notice to administrators.
+	 */
     public function admin_notices() {
+		if ( ! current_user_can( 'administrator' ) ) {
+			return;
+		}
+
         global $pagenow;
 
 		$page = wpbdp_get_var( array( 'param' => 'page' ) );
