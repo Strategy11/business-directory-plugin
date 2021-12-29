@@ -16,6 +16,8 @@ class WPBDP_Admin_Pages {
 		add_filter( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
 		add_filter( 'views_edit-wpbdp_tag', 'WPBDP_Admin_Pages::add_tag_nav' );
 		add_filter( 'views_edit-wpbdp_category', 'WPBDP_Admin_Pages::add_category_nav' );
+
+		add_action( 'wpbdp_admin_pages_show_tabs', 'WPBDP_Admin_Pages::taxonomy_search_form', 10, 2 );
 	}
 
 	/**
@@ -98,15 +100,21 @@ class WPBDP_Admin_Pages {
 	 *
 	 * @since x.x
 	 */
-	private static function taxonomy_search_form() {
+	public static function taxonomy_search_form( $active_tab, $id ) {
+		$active_tabs = array(
+			'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing',
+			'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing',
+		);
+		if ( ! in_array( $active_tab, $active_tabs, true ) ) {
+			return;
+		}
 		global $post_type, $taxonomy, $tax, $wp_list_table;
 		?>
 		<form class="search-form wp-clearfix" method="get">
-		<input type="hidden" name="taxonomy" value="<?php echo esc_attr( $taxonomy ); ?>" />
-		<input type="hidden" name="post_type" value="<?php echo esc_attr( $post_type ); ?>" />
+			<input type="hidden" name="taxonomy" value="<?php echo esc_attr( $taxonomy ); ?>" />
+			<input type="hidden" name="post_type" value="<?php echo esc_attr( $post_type ); ?>" />
 
-		<?php $wp_list_table->search_box( $tax->labels->search_items, 'tag' ); ?>
-
+			<?php $wp_list_table->search_box( $tax->labels->search_items, 'tag' ); ?>
 		</form>
 		<?php
 	}
@@ -170,7 +178,7 @@ class WPBDP_Admin_Pages {
 			</div>
 			<div class="wpbdp-content-area-body">
 			<?php
-			do_action( 'wpbdp_admin_pages_show_tabs' );
+			do_action( 'wpbdp_admin_pages_show_tabs', $active_tab, $id );
 	}
 
 	/**
