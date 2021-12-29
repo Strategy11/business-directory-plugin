@@ -286,6 +286,9 @@
 	#wpbody-content > .wrap {
 		margin: 0;
 	}
+	select {
+		padding: 0 24px 0 8px;
+	}
 }
 
 .wpbdp-admin-page {
@@ -293,7 +296,7 @@
 		padding-left: 0px;
 	}
 
-	&:not(.edit-php) .wrap:not(.wpbdp-admin) {
+	&:not(.edit-php) .wrap:not(.wpbdp-admin){
 		padding-left: 20px; /* Cover pages without tabs */
 	}
 
@@ -314,23 +317,26 @@
 		color: @text-color;
 	}
 }
-.edit-tags-php.taxonomy-wpbdp_category,
-.edit-tags-php.taxonomy-wpbdp_tag {
-	#col-left, .search-form {
-		display: none;
-	}
-	#col-right {
-		float: none;
-		width: 100%;
-		.col-wrap {
-			padding: 0;
+
+.edit-tags-php{
+	&.taxonomy-wpbdp_category,
+	&.taxonomy-wpbdp_tag {
+		#col-left, .search-form {
+			display: none;
 		}
-	}
-	#wpcontent {
-		padding-left: 0;
-	}
-	.wpbdp-admin-layout {
-		display: block;
+		#col-right {
+			float: none;
+			width: 100%;
+			.col-wrap {
+				padding: 0;
+			}
+		}
+		#wpcontent, .wrap {
+			padding-left: 0 !important;
+		}
+		.wpbdp-admin-layout {
+			display: block;
+		}
 	}
 }
 

@@ -93,6 +93,11 @@ class WPBDP_Admin_Pages {
 		return $views;
 	}
 
+	/**
+	 * Search form for taxonomies.
+	 *
+	 * @since x.x
+	 */
 	private static function taxonomy_search_form() {
 		global $post_type, $taxonomy, $tax, $wp_list_table;
 		?>
@@ -165,6 +170,7 @@ class WPBDP_Admin_Pages {
 			</div>
 			<div class="wpbdp-content-area-body">
 			<?php
+			do_action( 'wpbdp_admin_pages_show_tabs' );
 	}
 
 	/**
