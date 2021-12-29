@@ -14,9 +14,13 @@ class WPBDP_Admin_Pages {
 		}
 
 		add_filter( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
+		add_filter( 'views_edit-wpbdp_tag', 'WPBDP_Admin_Pages::add_tag_nav' );
+		add_filter( 'views_edit-wpbdp_category', 'WPBDP_Admin_Pages::add_category_nav' );
 	}
 
-	/*
+	/**
+	 * Add listing nav header to the post listing page.
+	 *
 	 * @since x.x
 	 */
 	public static function add_listings_nav( $views ) {
@@ -37,6 +41,69 @@ class WPBDP_Admin_Pages {
 		self::show_tabs( $args );
 
 		return $views;
+	}
+
+	/**
+	 * Add listing category nav.
+	 *
+	 * @since x.x
+	 */
+	public static function add_category_nav( $views ) {
+		global $tax;
+		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
+
+		$args = array(
+			'sub'        => __( 'Directory Categories', 'business-directory-plugin' ),
+			'active_tab' => 'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing',
+		);
+
+		if ( current_user_can( $tax->cap->edit_terms ) ) {
+			$args['buttons'] = array(
+				__( 'Add New Category', 'business-directory-plugin' ) => admin_url( 'post-new.php?post_type=wpbdp_listing' ),
+			);
+		}
+
+		self::show_tabs( $args );
+
+		return $views;
+	}
+
+	/**
+	 * Add listing tags nav.
+	 *
+	 * @since x.x
+	 */
+	public static function add_tag_nav( $views ) {
+		global $tax;
+		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
+
+		$args = array(
+			'sub'        => __( 'Directory Tags', 'business-directory-plugin' ),
+			'active_tab' => 'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing',
+		);
+
+		if ( current_user_can( $tax->cap->edit_terms ) ) {
+			$args['buttons'] = array(
+				__( 'Add New Tag', 'business-directory-plugin' ) => admin_url( 'post-new.php?post_type=wpbdp_listing' ),
+			);
+		}
+
+		self::show_tabs( $args );
+
+		return $views;
+	}
+
+	private static function taxonomy_search_form() {
+		global $post_type, $taxonomy, $tax, $wp_list_table;
+		?>
+		<form class="search-form wp-clearfix" method="get">
+		<input type="hidden" name="taxonomy" value="<?php echo esc_attr( $taxonomy ); ?>" />
+		<input type="hidden" name="post_type" value="<?php echo esc_attr( $post_type ); ?>" />
+
+		<?php $wp_list_table->search_box( $tax->labels->search_items, 'tag' ); ?>
+
+		</form>
+		<?php
 	}
 
 	/**
@@ -295,7 +362,11 @@ class WPBDP_Admin_Pages {
 			if ( ! $taxonomy ) {
 				return 'edit.php?post_type=wpbdp_listing';
 			}
-			return add_query_arg( 'taxonomy', $taxonomy, 'edit-tags.php?post_type=wpbdp_listing' );
+			return add_query_arg(
+				array(
+					'taxonomy' => $taxonomy,
+					'post_type' => 'wpbdp_listing'
+				), 'edit-tags.php' );
 		}
 		return wpbdp_get_var( array( 'param' => 'page' ) );
 	}

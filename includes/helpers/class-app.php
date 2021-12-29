@@ -177,7 +177,7 @@ class WPBDP_App_Helper {
 	public static function is_bd_post_page() {
 		global $pagenow;
 
-		if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow && 'edit.php' !== $pagenow ) {
+		if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow && 'edit.php' !== $pagenow && 'edit-tags.php' !== $pagenow ) {
 			return false;
 		}
 

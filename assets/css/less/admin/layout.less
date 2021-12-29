@@ -258,9 +258,9 @@
 
 .wpbdp-page-title,
 .wpbdp-sub-section-title {
-	font-size: 24px;
-	font-weight: 400;
-	margin: 0;
+	font-size: 24px !important;
+	font-weight: 400 !important;
+	margin: 0 !important;
 }
 .wpbdp-settings-form.wpbdp-grid {
 	grid-gap: 30px 4%;
@@ -275,7 +275,9 @@
 	padding-bottom: 5px;
 }
 
-.edit-php.post-type-wpbdp_listing {
+.edit-php.post-type-wpbdp_listing,
+.edit-tags-php.taxonomy-wpbdp_category,
+.edit-tags-php.taxonomy-wpbdp_tag {
 	.wp-heading-inline + .page-title-action,
 	.wp-heading-inline {
 		display: none !important;
@@ -310,6 +312,25 @@
 	}
 	.required {
 		color: @text-color;
+	}
+}
+.edit-tags-php.taxonomy-wpbdp_category,
+.edit-tags-php.taxonomy-wpbdp_tag {
+	#col-left, .search-form {
+		display: none;
+	}
+	#col-right {
+		float: none;
+		width: 100%;
+		.col-wrap {
+			padding: 0;
+		}
+	}
+	#wpcontent {
+		padding-left: 0;
+	}
+	.wpbdp-admin-layout {
+		display: block;
 	}
 }
 
