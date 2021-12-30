@@ -55,7 +55,7 @@ class WPBDP_Admin_Pages {
 		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
 
 		$args = array(
-			'sub'        => __( 'Directory Categories', 'business-directory-plugin' ),
+			'sub'        => __( 'Categories', 'business-directory-plugin' ),
 			'active_tab' => 'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing',
 		);
 
@@ -80,7 +80,7 @@ class WPBDP_Admin_Pages {
 		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
 
 		$args = array(
-			'sub'        => __( 'Directory Tags', 'business-directory-plugin' ),
+			'sub'        => __( 'Tags', 'business-directory-plugin' ),
 			'active_tab' => 'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing',
 		);
 
