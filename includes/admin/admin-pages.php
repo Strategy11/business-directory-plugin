@@ -52,21 +52,12 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function add_category_nav( $views ) {
 		global $tax;
-		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
-
-		$args = array(
-			'sub'        => __( 'Categories', 'business-directory-plugin' ),
-			'active_tab' => 'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing',
-		);
-
-		if ( current_user_can( $tax->cap->edit_terms ) ) {
-			$args['buttons'] = array(
-				__( 'Add New Category', 'business-directory-plugin' ) => admin_url( 'post-new.php?post_type=wpbdp_listing' ),
-			);
-		}
-
-		self::show_tabs( $args );
-
+		$views = self::add_taxonomy_nav( $views, $tax, array(
+			'title'       => __( 'Categories', 'business-directory-plugin' ),
+			'taxonomy'    => 'wpbdp_category',
+			'button_name' => __( 'Add New Category', 'business-directory-plugin' ),
+			'button_hash' => 'wpbdp-add-category'
+		) );
 		return $views;
 	}
 
@@ -77,16 +68,32 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function add_tag_nav( $views ) {
 		global $tax;
+		$views = self::add_taxonomy_nav( $views, $tax, array(
+			'title'       => __( 'Tags', 'business-directory-plugin' ),
+			'taxonomy'    => 'wpbdp_tag',
+			'button_name' => __( 'Add New Tag', 'business-directory-plugin' ),
+			'button_hash' => 'wpbdp-add-tag'
+		) );
+		return $views;
+	}
+
+
+	private static function add_taxonomy_nav( $views, $tax, $params = array() ) {
 		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
 
 		$args = array(
-			'sub'        => __( 'Tags', 'business-directory-plugin' ),
-			'active_tab' => 'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing',
+			'sub'        => $params['title'],
+			'active_tab' => 'edit-tags.php?taxonomy=' . $params['taxonomy'] . '&amp;post_type=wpbdp_listing',
 		);
-
 		if ( current_user_can( $tax->cap->edit_terms ) ) {
 			$args['buttons'] = array(
-				__( 'Add New Tag', 'business-directory-plugin' ) => admin_url( 'post-new.php?post_type=wpbdp_listing' ),
+				$params['button_name'] => add_query_arg(
+					array(
+						'taxonomy'  => $params['taxonomy'],
+						'post_type' => 'wpbdp_listing',
+					),
+					admin_url( 'edit-tags.php' )
+				) . '#' . $params['button_hash'],
 			);
 		}
 
@@ -109,16 +116,17 @@ class WPBDP_Admin_Pages {
 			return;
 		}
 		global $post_type, $taxonomy, $tax, $wp_list_table;
-        $search_param = wpbdp_get_var( array( 'param' => 's' ), 'request' );
-        if ( $search_param ) {
-            echo '<span class="wpbdp-taxonomy-search-results">';
-            printf(
-                /* translators: %s: Search query. */
-                __( 'Search results for: %s' ),
-                '<strong>' . esc_html( $search_param ) . '</strong>'
-            );
-            echo '</span>';
-        }
+		$search_param = wpbdp_get_var( array( 'param' => 's' ), 'request' );
+		if ( $search_param ) {
+			echo '<span class="wpbdp-taxonomy-search-results">';
+			printf(
+				/* translators: %s: Search query. */
+				// phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+				__( 'Search results for: %s' ),
+				'<strong>' . esc_html( $search_param ) . '</strong>'
+			);
+			echo '</span>';
+		}
 		?>
 		<form class="search-form wp-clearfix" method="get">
 			<input type="hidden" name="taxonomy" value="<?php echo esc_attr( $taxonomy ); ?>" />
