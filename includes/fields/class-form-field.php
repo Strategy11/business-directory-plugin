@@ -529,6 +529,19 @@ class WPBDP_Form_Field {
         return $this->validation_errors;
     }
 
+	/**
+	 * @param array|string $error
+	 *
+	 * @since x.x
+	 */
+	public function add_validation_error( $error ) {
+		if ( is_array( $error ) ) {
+			$this->validation_errors = array_merge( $this->validation_errors, $error );
+		} else {
+			$this->validation_errors[] = $error;
+		}
+	}
+
     public function validate_categories( $categories = array() ) {
         $supported_cats = $this->data( 'supported_categories', 'all' );
         if ( 'all' === $supported_cats ) {
