@@ -90,6 +90,9 @@ class WPBDP_Themes {
 			'wpbdp_themes__' . $theme_name . '_' . $fname,
 			'wpbdp_' . $theme_name . '_' . $fname,
 			$theme_name . '_' . $fname,
+
+			// Allow for themes with bd- prefix.
+			'wpbdp_themes__' . str_replace( 'bd_', '', $theme_name ) . '_' . $fname,
 		);
 
         foreach ( $alternatives as $alt ) {
@@ -379,9 +382,9 @@ class WPBDP_Themes {
 
         $manifest_file = $d . 'theme.json';
 
-        if ( ! is_readable( $manifest_file ) ) {
-            return false;
-        }
+		if ( ! is_readable( $manifest_file ) ) {
+			return false;
+		}
 
         $manifest = (array) json_decode( file_get_contents( $manifest_file ) );
         if ( ! $manifest ) {
@@ -613,7 +616,8 @@ class WPBDP_Themes {
 
     private function render_template_file( $template_id, $path, $vars = array() ) {
         if ( ! $path ) {
-            throw new Exception( 'Invalid template path for template: "' . $template_id . '"' );
+			wpbdp_log( 'Invalid template path for template: "' . $template_id . '"' );
+			return '';
         }
 
         $in_wrapper    = isset( $vars['_child'] );
