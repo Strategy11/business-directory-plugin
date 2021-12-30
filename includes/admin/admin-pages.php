@@ -109,6 +109,16 @@ class WPBDP_Admin_Pages {
 			return;
 		}
 		global $post_type, $taxonomy, $tax, $wp_list_table;
+        $search_param = wpbdp_get_var( array( 'param' => 's' ), 'request' );
+        if ( $search_param ) {
+            echo '<span class="wpbdp-taxonomy-search-results">';
+            printf(
+                /* translators: %s: Search query. */
+                __( 'Search results for: %s' ),
+                '<strong>' . esc_html( $search_param ) . '</strong>'
+            );
+            echo '</span>';
+        }
 		?>
 		<form class="search-form wp-clearfix" method="get">
 			<input type="hidden" name="taxonomy" value="<?php echo esc_attr( $taxonomy ); ?>" />
