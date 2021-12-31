@@ -532,7 +532,7 @@ class WPBDP_Form_Field {
 	/**
 	 * @param array|string $error
 	 *
-	 * @since x.x
+	 * @since 5.16
 	 */
 	public function add_validation_error( $error ) {
 		if ( is_array( $error ) ) {
