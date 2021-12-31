@@ -347,28 +347,18 @@ class WPBDP_Admin_Pages {
 	}
 
 	private static function get_content_tabs() {
-		global $wpbdp, $submenu;
+		global $wpbdp;
 
 		$menu = $wpbdp->admin->get_menu();
-
 		$tabs = array();
 
-		if ( empty( $menu ) && empty( $submenu['wpbdp_admin'] ) ) {
+		if ( empty( $menu ) ) {
 			return $tabs;
 		}
 
-		$this_menu = array();
-		foreach ( $submenu['wpbdp_admin'] as $sub_item ) {
-			$this_menu[ $sub_item[2] ] = array(
-				'title' => $sub_item[0],
-			);
-		}
+		$exclude = $wpbdp->admin->top_level_nav();
 
-		$this_menu = $this_menu + $menu;
-
-		$exclude = array( 'wpbdp_settings', 'wpbdp-smtp', 'wpbdp_admin', 'wpbdp_admin_payments', 'post-new.php?post_type=wpbdp_listing', 'wpbdp-addons', 'wpbdp-themes', 'wpbdp-debug-info' );
-
-		foreach ( $this_menu as $id => $menu_item ) {
+		foreach ( $menu as $id => $menu_item ) {
 			$requires = empty( $menu_item['capability'] ) ? 'administrator' : $menu_item['capability'];
 			if ( ! current_user_can( $requires ) || in_array( $id, $exclude ) ) {
 				continue;

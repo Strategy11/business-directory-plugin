@@ -29,6 +29,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
     class WPBDP_Admin {
 
         private $menu                      = array();
+		private $menu_id                   = 'wpbdp_admin';
         private $current_controller        = null;
         private $current_controller_output = '';
 
@@ -52,8 +53,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             // Adds admin menus.
             add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
-            add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ), 20 );
-            add_action( 'admin_menu', array( &$this, 'admin_menu_combine' ), 20 );
             add_action( 'admin_head', array( &$this, 'hide_menu' ) );
 
 			// Admin footer.
@@ -292,11 +291,13 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
         function admin_menu() {
+            add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ), 20 );
+
             if ( ! current_user_can( 'manage_categories' ) ) {
                 return;
             }
 
-            $menu_id = 'wpbdp_admin';
+            $menu_id = $this->menu_id;
 
             add_menu_page(
                 __( 'Business Directory Admin', 'business-directory-plugin' ),
@@ -348,13 +349,29 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             do_action( 'wpbdp_admin_menu', $menu_id );
 
+			$this->admin_menu_combine();
+
 			if ( empty( $GLOBALS['submenu'] ) || empty( $GLOBALS['submenu'][ $menu_id ] ) ) {
 				return;
 			}
 
             // Handle some special menu items.
-            foreach ( $GLOBALS['submenu'][$menu_id] as &$menu_item ) {
+			$prepend = array();
+
+			foreach ( $GLOBALS['submenu'][ $menu_id ] as &$menu_item ) {
                 if ( ! isset( $this->menu[ $menu_item[2] ] ) ) {
+					$new = array(
+						$menu_item[2] => array(
+							'title' => $menu_item[0],
+						),
+					);
+					// Add in front of the existing nav items.
+					if ( strpos( $menu_item[2], 'post_type' ) ) {
+						$prepend = $prepend + $new;
+					} else {
+						$this->menu = $this->menu + $new;
+					}
+
                     continue;
                 }
 
@@ -364,6 +381,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $menu_item[2] = $menu_item_data['url'];
                 }
             }
+
+			if ( ! empty( $prepend ) ) {
+				$this->menu = $prepend + $this->menu;
+			}
         }
 
 		/**
@@ -383,19 +404,54 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @since 5.7.3
          */
         public function hide_menu() {
-			remove_submenu_page( 'wpbdp_admin', 'wpbdp-debug-info' );
-			remove_submenu_page( 'wpbdp_admin', 'wpbdp-admin-fees' );
-			remove_submenu_page( 'wpbdp_admin', 'wpbdp_admin_formfields' );
-			remove_submenu_page( 'wpbdp_admin', 'wpbdp_admin_csv' );
+			global $submenu;
+
+			$menu_id = $this->menu_id;
+			if ( empty( $submenu[ $menu_id ] ) ) {
+				return;
+			}
+
+			$top_level   = $this->top_level_nav();
+			$top_level[] = 'edit.php?post_type=' . WPBDP_POST_TYPE;
+
+			foreach ( $submenu[ $menu_id ] as $menu ) {
+				$key = $menu[2];
+				if ( ! in_array( $key, $top_level, true ) ) {
+					// Remove all the menu items that are included in the combined page.
+					remove_submenu_page( $menu_id, $key );
+				}
+			}
+
+			remove_submenu_page( $menu_id, 'wpbdp-debug-info' ); // This page isn't used anymore.
 
             if ( current_user_can( 'administrator' ) ) {
-                remove_menu_page( sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE ) );
+                remove_menu_page( 'edit.php?post_type=' . WPBDP_POST_TYPE );
+				//remove_menu_page( $menu_id, 'post-new.php?post_type=' . WPBDP_POST_TYPE );
             } else {
                 $this->maybe_restore_regions_submenu();
-                remove_menu_page( sprintf( 'wpbdp_admin' ) );
+                remove_menu_page( $menu_id );
             }
-            remove_submenu_page( 'wpbdp_admin', 'wpbdp_admin' );
+
+            remove_submenu_page( $menu_id, $menu_id );
         }
+
+		/**
+		 * These are the pages that will be hidden from the combined tabs page.
+		 *
+		 * @since x.x
+		 */
+		public function top_level_nav() {
+			return array(
+				'wpbdp_settings',
+				'wpbdp-smtp',
+				$this->menu_id,
+				'wpbdp_admin_payments',
+				'post-new.php?post_type=' . WPBDP_POST_TYPE,
+				'wpbdp-addons',
+				'wpbdp-themes',
+				'wpbdp-debug-info', // Exclude from the tabs.
+			);
+		}
 
 		/**
 		 * Show admin notification icon in footer.
@@ -416,8 +472,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function admin_menu_combine() {
             global $submenu;
 
-            $cpt_menu   = sprintf( 'edit.php?post_type=%s', WPBDP_POST_TYPE );
-            $admin_menu = 'wpbdp_admin';
+            $cpt_menu   = 'edit.php?post_type=' . WPBDP_POST_TYPE;
+            $admin_menu = $this->menu_id;
 
 			if ( isset( $submenu[ $cpt_menu ] ) && isset( $submenu[ $admin_menu ] ) ) {
                 $submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
@@ -471,7 +527,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $item     = $this->menu[ $plugin_page ];
             $slug     = $plugin_page;
-            $callback = $item['callback'];
+            $callback = isset( $item['callback'] ) ? $item['callback'] : false;
 
             // Simple callback view are not processed here.
             if ( $callback && is_callable( $callback ) ) {
@@ -481,11 +537,13 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $id = str_replace( array( 'wpbdp-admin-', 'wpbdp_admin_' ), '', $slug );
 
 			$candidates = array(
-				$item['file'],
+				isset( $item['file'] ) ? $item['file'] : '',
 				WPBDP_INC . 'admin/controllers/class-admin-' . $id . '.php',
 				WPBDP_INC . 'admin/class-admin-' . $id . '.php',
 				WPBDP_INC . 'admin/' . $id . '.php',
 			);
+			$candidates = array_filter( $candidates );
+
 			foreach ( $candidates as $c ) {
 				if ( $c && file_exists( $c ) ) {
 					require_once $c;
@@ -597,7 +655,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $menu_item = wp_list_filter(
                 $menu,
-                array( 2 => 'wpbdp_admin' ) // 2 is the position of an array item which contains URL, it will always be 2!
+                array( 2 => $this->menu_id ) // 2 is the position of an array item which contains URL, it will always be 2!
             );
 
             if ( ! empty( $menu_item ) ) {
@@ -733,7 +791,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $extra = array();
                 }
 
-				self::maybe_update_notice_classes( $class );
+				$this->maybe_update_notice_classes( $class );
 
 				echo '<div class="wpbdp-notice notice ' . esc_attr( $class ) . '">';
                 echo '<p>' . $text . '</p>';
