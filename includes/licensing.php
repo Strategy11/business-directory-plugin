@@ -660,7 +660,7 @@ class WPBDP_Licensing {
     }
 
 	/**
-	 * @since x.x Chaged to only show notice to administrators.
+	 * @since 5.16 Chaged to only show notice to administrators.
 	 */
     public function admin_notices() {
 		if ( ! current_user_can( 'administrator' ) ) {

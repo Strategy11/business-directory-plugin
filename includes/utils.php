@@ -307,7 +307,7 @@ class WPBDP__Utils {
 	 *
 	 * @param $file string  The path to a file.
 	 *
-	 * @since x.x
+	 * @since 5.16
 	 */
 	public static function get_mimetype( $file ) {
 		$mime_type = null;
@@ -329,7 +329,7 @@ class WPBDP__Utils {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.16
 	 */
 	private static function is_valid_upload( $file, $constraints, &$error_msg ) {
 		self::get_file_contrstraints( $constraints );
@@ -374,7 +374,7 @@ class WPBDP__Utils {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.16
 	 */
 	private static function get_file_contrstraints( &$constraints ) {
 		$constraints = array_merge(
@@ -399,7 +399,7 @@ class WPBDP__Utils {
 	/**
 	 * We have the file info, but WP needs the file id.
 	 *
-	 * @since x.x
+	 * @since 5.16
 	 */
 	private static function get_file_id( $_file ) {
 		if ( empty( $_FILES ) ) {
