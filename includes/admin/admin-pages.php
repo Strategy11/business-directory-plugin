@@ -159,7 +159,7 @@ class WPBDP_Admin_Pages {
 		<div id="wpbdp-add-taxonomy-form" class="hidden settings-lite-cta">
 			<div class="metabox-holder">
 				<div class="postbox">
-					<a href="#" class="dismiss alignright" title="<?php esc_attr_e( 'Dismiss this message', 'business-directory-plugin' ); ?>">
+					<a href="#" class="dismiss alignright" title="<?php esc_attr_e( 'Dismiss', 'business-directory-plugin' ); ?>">
 						<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/close.svg' ); ?>" width="24" height="24"/>
 					</a>
 					<div class="inside">

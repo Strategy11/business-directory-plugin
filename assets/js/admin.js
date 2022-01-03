@@ -244,12 +244,14 @@ var WPBDP_associations_fieldtypes = {};
                 open: function() {
                     $( '.ui-dialog-titlebar' ).addClass( 'hidden' ).removeClass( 'ui-helper-clearfix' );
                     $( '#wpwrap' ).addClass( 'wpbdp-overlay' );
+                    $( '.ui-widget-overlay' ).addClass( 'wpbdp-modal-overlay' );
                     $( '.wpbdp-admin-dialog' ).removeClass( 'ui-widget ui-widget-content ui-corner-all' );
                     $info.removeClass( 'ui-dialog-content ui-widget-content' );
                     WPBDPAdmin_Layout.onCloseModal( $info );
                 },
                 close: function() {
                     $( '#wpwrap' ).removeClass( 'wpbdp-overlay' );
+                    $( '.ui-widget-overlay' ).removeClass( 'wpbdp-modal-overlay' );
                     $( '.spinner' ).css( 'visibility', 'hidden' );
     
                     this.removeAttribute( 'data-option-type' );
@@ -264,7 +266,8 @@ var WPBDP_associations_fieldtypes = {};
         },
 
         onCloseModal : function ( $modal ) {
-            const closeModal = function() {
+            const closeModal = function( e ) {
+                e.preventDefault();
                 $modal.dialog( 'close' );
             };
             $( '.ui-widget-overlay' ).on( 'click', closeModal );

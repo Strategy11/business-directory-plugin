@@ -383,6 +383,19 @@
 		color: @text-color;
 		text-transform: none;
 	}
+	.dismiss {
+		z-index: 9999;
+		padding-right: 10px;
+		position: relative;
+		&:focus {
+			outline: 0;
+			box-shadow: none;
+		}
+	}
+}
+.wpbdp-modal-overlay {
+	background: @modal-background-color !important;
+	opacity: inherit !important;
 }
 
 .wpbdp-admin-page {
