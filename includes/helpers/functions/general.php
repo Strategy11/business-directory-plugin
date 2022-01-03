@@ -112,8 +112,8 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
         return null;
     }
 
-    $q .= ' ORDER BY ID ASC ';
-
+    $q .= ' ORDER BY ID, post_status ASC ';
+error_log( $q );
 	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
     return $wpdb->get_col( $q );
 }
