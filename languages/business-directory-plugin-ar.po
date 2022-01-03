@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2021-12-31 00:13:06+00:00\n"
+"POT-Creation-Date: 2022-01-03 16:01:14+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -650,7 +650,7 @@ msgid "SEO"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:255
-#: includes/class-assets.php:336
+#: includes/class-assets.php:335
 #: includes/fields/class-fieldtypes-textarea.php:200
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:110
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:117
@@ -1123,13 +1123,13 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:334
+#: includes/class-assets.php:333
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:86
 #, fuzzy
 msgid "Never"
 msgstr "أبداً"
 
-#: includes/class-assets.php:335
+#: includes/class-assets.php:334
 #: includes/fields/class-fieldtypes-textarea.php:201
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:110
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:117
@@ -1137,7 +1137,7 @@ msgstr "أبداً"
 msgid "Yes"
 msgstr "نعم"
 
-#: includes/class-assets.php:345
+#: includes/class-assets.php:344
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "

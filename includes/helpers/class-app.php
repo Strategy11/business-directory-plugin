@@ -483,4 +483,12 @@ class WPBDP_App_Helper {
 			'ul'         => $allow_class,
 		);
 	}
+
+	/**
+	 * @since 5.16
+	 * @return string
+	 */
+	public static function minimize_code( $html ) {
+		return str_replace( array( "\r\n", "\n", "\t" ), '', $html );
+	}
 }
