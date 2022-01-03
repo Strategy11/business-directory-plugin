@@ -287,7 +287,7 @@
 	#wpbody-content > .wrap {
 		margin: 0;
 	}
-	select {
+	.tablenav select {
 		padding: 0 24px 0 8px;
 	}
 	.wpbdp-content-area-header-actions {
@@ -361,27 +361,10 @@
 		box-shadow: none;
 		border: none;
 	}
-	.wpbdp-sub-label,
-	label {
-		color: @text-color;
-		font-size: 17px;
-		font-weight: 300;
-	}
-	input[type=text], textarea {
-		font-size: 16px;
-	}
 
-	textarea {
-		height: 75px;
-	}
-
-	button.wpbdp-button-primary {
-		margin-right: 10px;
-	}
-
-	.wpbdp-sub-label {
-		color: @text-color;
-		text-transform: none;
+	select, input[type="text"] {
+		width: 100%;
+		max-width: 100%;
 	}
 	.dismiss {
 		z-index: 9999;
@@ -391,6 +374,15 @@
 			outline: 0;
 			box-shadow: none;
 		}
+	}
+	h2 {
+		border-bottom: 1px solid @border-color;
+		padding-bottom: 15px !important;
+		font-weight: 700 !important;
+		padding-left: 15px !important;
+	}
+	form {
+		padding: 15px !important;
 	}
 }
 .wpbdp-modal-overlay {

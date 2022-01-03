@@ -219,6 +219,8 @@ var WPBDP_associations_fieldtypes = {};
             }
             $( document ).on( 'click', '.wpbdp-add-taxonomy-form', function( e ) {
                 e.preventDefault();
+                $( '#wpbdp-add-taxonomy-form .term-slug-wrap' ).addClass( 'hidden' );
+                $( '#wpbdp-add-taxonomy-form .term-description-wrap' ).addClass( 'hidden' );
                 modal.dialog( 'open' );
             })
         },
