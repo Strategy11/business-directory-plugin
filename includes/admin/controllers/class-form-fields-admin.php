@@ -121,13 +121,15 @@ class WPBDP_FormFieldsAdmin {
 
 		$html  = '';
 		$html .= wpbdp_admin_header(
-			_x( 'Form Preview', 'form-fields admin', 'business-directory-plugin' ),
-			'formfields-preview',
 			array(
-				array(
-					'← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
-					esc_url( remove_query_arg( 'action' ) ),
-				),
+				'title'   => __( 'Form Preview', 'business-directory-plugin' ),
+				'id'      => 'formfields-preview',
+				'buttons' => array(
+					'back' => array(
+						'label' => '← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
+						'url'   => esc_url( remove_query_arg( 'action' ) ),
+					),
+				)
 			)
 		);
 		$html .= '<div id="wpbdp-listing-form-preview">';

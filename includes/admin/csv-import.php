@@ -178,11 +178,17 @@ class WPBDP_CSVImportAdmin {
     }
 
     private function example_csv() {
-        echo wpbdp_admin_header(
-            _x( 'Example CSV Import File', 'admin csv-import', 'business-directory-plugin' ), null, array(
-				array( _x( '← Return to "CSV Import"', 'admin csv-import', 'business-directory-plugin' ), esc_url( remove_query_arg( 'action' ) ) ),
-            ), false
-        );
+		echo wpbdp_admin_header(
+			array(
+				'title' => __( 'Example CSV Import File', 'business-directory-plugin' ),
+				'buttons' => array(
+					'return' => array(
+						'label' => __( '← Return to "CSV Import"', 'business-directory-plugin' ),
+						'url'   => esc_url( remove_query_arg( 'action' ) ),
+					)
+				)
+			)
+		);
 
         $posts = get_posts(
             array(

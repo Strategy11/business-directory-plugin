@@ -149,7 +149,12 @@ class WPBDP__Manual_Upgrade_Helper {
     }
 
     public function upgrade_page() {
-        echo wpbdp_admin_header( __( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ), 'manual-upgrade', null, false );
+		echo wpbdp_admin_header(
+			array(
+				'title' => __( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
+				'id'    => 'manual-upgrade'
+			)
+		);
         echo '<div class="wpbdp-manual-upgrade-wrapper">';
 
         if ( ! $this->is_configured() ) {

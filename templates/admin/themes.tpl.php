@@ -3,8 +3,14 @@ wpbdp_admin_header(
     array(
         'id'      => 'themes',
         'buttons' => array(
-            __( 'Upload Directory Theme', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ) ),
-            __( 'Manage Theme Tags', 'business-directory-plugin' )      => esc_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
+            'theme-install' => array(
+                'label' => __( 'Upload Directory Theme', 'business-directory-plugin' ),
+                'url'   => esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ) ),
+            ),
+            'updatetags'    => array(
+                'label' => __( 'Manage Theme Tags', 'business-directory-plugin' ),
+                'url'   => esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ) )
+            ),
         ),
 		'sidebar' => false,
         'echo'    => true,

@@ -44,7 +44,10 @@ class WPBDP_Admin_Pages {
 
 		if ( current_user_can( $post_type_object->cap->create_posts ) ) {
 			$args['buttons'] = array(
-				__( 'Add New Listing', 'business-directory-plugin' ) => admin_url( 'post-new.php?post_type=wpbdp_listing' ),
+				'add_listing' => array(
+					'label' => __( 'Add New Listing', 'business-directory-plugin' ),
+					'url'   => esc_url( admin_url( 'post-new.php?post_type=wpbdp_listing' ) ),
+				),
 			);
 		}
 
@@ -98,9 +101,12 @@ class WPBDP_Admin_Pages {
 		);
 		if ( current_user_can( $tax->cap->edit_terms ) ) {
 			$args['buttons'] = array(
-				$params['button_name'] => '#TB_inline?width=350&height=650&inlineId=wpbdp-add-taxonomy-form',
+				'add_listing' => array(
+					'label' => $params['button_name'],
+					'url'   => '#TB_inline?width=350&height=650&inlineId=wpbdp-add-taxonomy-form',
+					'class' => 'thickbox',
+				),
 			);
-			$args['button_class'] = 'thickbox';
 		}
 
 		self::show_tabs( $args );
@@ -181,7 +187,6 @@ class WPBDP_Admin_Pages {
 			'show_nav'     => true,
 			'tabbed_title' => false,
 			'titles'       => array(),
-			'button_class' => '',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -216,9 +221,9 @@ class WPBDP_Admin_Pages {
 				<h2 class="wpbdp-sub-section-title"><?php echo esc_html( $args['sub'] ); ?></h2>
 				<?php endif; ?>
 				<div class="wpbdp-content-area-header-actions">
-					<?php foreach ( $args['buttons'] as $label => $url ) : ?>
-						<a href="<?php echo esc_url( $url ); ?>" class="wpbdp-button-secondary <?php echo esc_attr( $args['button_class'] ) ?>">
-							<?php echo esc_html( $label ); ?>
+					<?php foreach ( $args['buttons'] as $id => $button ) : ?>
+						<a href="<?php echo esc_url( $button['url'] ); ?>" class="wpbdp-button-secondary <?php echo isset( $button['class'] ) ? esc_attr( $button['class'] ) : '' ?>">
+							<?php echo esc_html( $button['label'] ); ?>
 						</a>
 					<?php endforeach; ?>
 				</div>
