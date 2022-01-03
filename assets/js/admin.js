@@ -273,7 +273,7 @@ var WPBDP_associations_fieldtypes = {};
                 $modal.dialog( 'close' );
             };
             $( '.ui-widget-overlay' ).on( 'click', closeModal );
-            $modal.on( 'click', 'a.dismiss', closeModal );
+            $modal.on( 'click', 'a.dismiss, .dismiss-button', closeModal );
         }
     };
 

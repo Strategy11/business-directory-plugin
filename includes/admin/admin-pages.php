@@ -173,6 +173,9 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function taxonomy_after_form_wrapper() {
 		?>
+		<p class="close">
+			<a class="dismiss-button" href="#"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a>
+		</p>
 		</form></div></div></div></div>
 		<?php
 	}

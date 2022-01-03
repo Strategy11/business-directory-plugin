@@ -375,6 +375,9 @@
 			box-shadow: none;
 		}
 	}
+	.dismiss-button{
+		text-decoration: none;
+	}
 	h2 {
 		border-bottom: 1px solid @border-color;
 		padding-bottom: 15px !important;
@@ -383,6 +386,19 @@
 	}
 	form {
 		padding: 15px !important;
+		p.submit {
+			position: absolute;
+			right: 0;
+			margin: 0;
+			padding: 0;
+			input[type="submit"] {
+				float: right;
+				margin-right: 25px;
+			}
+		}
+		p.close {
+			position: absolute;
+		}
 	}
 }
 .wpbdp-modal-overlay {
