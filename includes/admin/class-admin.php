@@ -87,13 +87,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
 
-			// Clear listing page cache.
-			add_filter( 'pre_trash_post', array( $this, 'before_trash_post' ), 10, 2 );
-			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 3 );
-
-			// Add post state.
-			add_filter( 'display_post_states', array( $this, 'add_post_state' ), 10, 2 );
-
 			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
 
@@ -1222,61 +1215,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             echo '<script>jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
         }
-
-		/**
-		 * Action called before a post is trashed.
-		 *
-		 * @since x.x
-		 */
-		public function before_trash_post( $check, $post ) {
-			$this->before_delete_post( $check, $post, false );
-			return $check;
-		}
-
-		/**
-		 * Action called before post is deleted.
-		 * Delete transient of saved directory ids if a directory page is deleted.
-		 *
-		 * @since x.x
-		 */
-		public function before_delete_post( $check, $post, $force_delete ) {
-			if ( 'page' === $post->post_type ) {
-				if ( strpos( $post->post_content, '[businessdirectory]' ) !== false ) {
-					wpbdp_delete_page_ids_cache();
-				}
-			}
-			return $check;
-		}
-
-		/**
-		 * This filter is called by WordPress when the page-listtable is created to
-		 * display all available Posts/Pages. We use this filter to add a note
-		 * to all pages that are special membership pages.
-		 *
-		 * @param  array   $states The states
-		 * @param  WP_Post $post The current post
-		 *
-		 * @since  x.x
-		 *
-		 * @return array
-		 */
-		public function add_post_state( $states, $post ) {
-			if ( 'page' !== $post->post_type ) {
-				return $states;
-			}
-			$base_id = wpbdp_get_page_id( 'main' );
-			if ( ! $base_id ) {
-				return $states;
-			}
-			if ( $post->ID === (int) $base_id ) {
-				$states['wpbdp_page'] = sprintf(
-					'<span style="%2$s">%1$s</span>',
-					__( 'Directory Page', 'business-directory-plugin' ),
-					'background:#aaa;color:#fff;padding:1px 4px;border-radius:4px;font-size:0.8em'
-				);
-			}
-			return $states;
-		}
 
         /**
          * This function restores Manage Regions menu for Editors,
