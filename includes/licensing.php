@@ -932,14 +932,6 @@ class WPBDP_Licensing {
 		$store_url = untrailingslashit( self::STORE_URL );
 
 		$updates = get_option( 'wpbdp_updates' );
-		if ( empty( $updates ) ) {
-			// Temporary fallback for switching from option to transient.
-			// TODO: Remove in v5.14.1.
-			$updates = get_transient( 'wpbdp_updates' );
-			if ( $updates !== false ) {
-				$updates['last'] = current_time( 'timestamp' );
-			}
-		}
 
 		$due = current_time( 'timestamp' ) - DAY_IN_SECONDS;
 
