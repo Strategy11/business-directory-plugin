@@ -182,6 +182,7 @@ var WPBDP_associations_fieldtypes = {};
             WPBDPAdmin_Layout.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
             WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
             WPBDPAdmin_Layout.layoutResize();
+            WPBDPAdmin_Layout.initTaxonomyModal();
             $(window).on('resize', function(){
                 WPBDPAdmin_Layout.layoutResize();
             });
@@ -209,6 +210,65 @@ var WPBDP_associations_fieldtypes = {};
             } else {
                 WPBDPAdmin_Layout.$menu_container.css( 'height', 'auto' );
             }
+        },
+
+        initTaxonomyModal : function() {
+            var modal = WPBDPAdmin_Layout.initModal( '#wpbdp-add-taxonomy-form' );
+            if ( modal === false ) {
+                return;
+            }
+            $( document ).on( 'click', '.wpbdp-add-taxonomy-form', function( e ) {
+                e.preventDefault();
+                modal.dialog( 'open' );
+            })
+        },
+
+        initModal : function( id, width ) {
+            var $info = $( id );
+            if ( $info.length < 1 ) {
+                return false;
+            }
+
+            if ( typeof width === 'undefined' ) {
+                width = '550px';
+            }
+
+            $info.dialog({
+                dialogClass: 'wpbdp-admin-dialog',
+                modal: true,
+                autoOpen: false,
+                closeOnEscape: true,
+                width: width,
+                resizable: false,
+                draggable: false,
+                open: function() {
+                    $( '.ui-dialog-titlebar' ).addClass( 'hidden' ).removeClass( 'ui-helper-clearfix' );
+                    $( '#wpwrap' ).addClass( 'wpbdp-overlay' );
+                    $( '.wpbdp-admin-dialog' ).removeClass( 'ui-widget ui-widget-content ui-corner-all' );
+                    $info.removeClass( 'ui-dialog-content ui-widget-content' );
+                    WPBDPAdmin_Layout.onCloseModal( $info );
+                },
+                close: function() {
+                    $( '#wpwrap' ).removeClass( 'wpbdp-overlay' );
+                    $( '.spinner' ).css( 'visibility', 'hidden' );
+    
+                    this.removeAttribute( 'data-option-type' );
+                    const optionType = document.getElementById( 'bulk-option-type' );
+                    if ( optionType ) {
+                        optionType.value = '';
+                    }
+                }
+            });
+    
+            return $info;
+        },
+
+        onCloseModal : function ( $modal ) {
+            const closeModal = function() {
+                $modal.dialog( 'close' );
+            };
+            $( '.ui-widget-overlay' ).on( 'click', closeModal );
+            $modal.on( 'click', 'a.dismiss', closeModal );
         }
     };
 
@@ -216,6 +276,7 @@ var WPBDP_associations_fieldtypes = {};
         WPBDPAdmin_FormFields.init();
         WPBDPAdmin_Layout.init();
     });
+
 
 })(jQuery);
 

@@ -103,8 +103,8 @@ class WPBDP_Admin_Pages {
 			$args['buttons'] = array(
 				'add_listing' => array(
 					'label' => $params['button_name'],
-					'url'   => '#TB_inline?width=350&height=650&inlineId=wpbdp-add-taxonomy-form',
-					'class' => 'thickbox',
+					'url'   => '#',
+					'class' => 'wpbdp-add-taxonomy-form',
 				),
 			);
 		}
@@ -156,7 +156,13 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function taxonomy_before_form_wrapper() {
 		?>
-		<div id="wpbdp-add-taxonomy-form" style="display: none;">
+		<div id="wpbdp-add-taxonomy-form" class="hidden settings-lite-cta">
+			<div class="metabox-holder">
+				<div class="postbox">
+					<a href="#" class="dismiss alignright" title="<?php esc_attr_e( 'Dismiss this message', 'business-directory-plugin' ); ?>">
+						<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/close.svg' ); ?>" width="24" height="24"/>
+					</a>
+					<div class="inside">
 		<?php
 	}
 
@@ -167,7 +173,7 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function taxonomy_after_form_wrapper() {
 		?>
-		</form></div>
+		</form></div></div></div></div>
 		<?php
 	}
 

@@ -349,6 +349,42 @@
 	}
 }
 
+.wpbdp-admin-dialog {
+	z-index: 100;
+	padding: 0 !important;
+	border-radius: 12px;
+	border: 1px solid @brand;
+	background-color: @white;
+	max-width: 100% !important;
+	.postbox {
+		background: transparent;
+		box-shadow: none;
+		border: none;
+	}
+	.wpbdp-sub-label,
+	label {
+		color: @text-color;
+		font-size: 17px;
+		font-weight: 300;
+	}
+	input[type=text], textarea {
+		font-size: 16px;
+	}
+
+	textarea {
+		height: 75px;
+	}
+
+	button.wpbdp-button-primary {
+		margin-right: 10px;
+	}
+
+	.wpbdp-sub-label {
+		color: @text-color;
+		text-transform: none;
+	}
+}
+
 .wpbdp-admin-page {
 	.wp-responsive-open #wpbody {
 		@media only screen and (max-width: 728px) {
