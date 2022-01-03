@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8.1
-Stable tag: 5.15.4
+Stable tag: 5.16
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,14 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.16 =
+* Improve front-end performance by only resizing images at the time they are uploaded. Now WordPress handles all the image resizing.
+* Clean up the images settings page. Removed the 'Number of free images' and 'Listing duration for no-fee sites' settings since they are included in the plan settings.
+* Fix: Remove outdated integration code with Yoast SEO. This was causing errors on some sites.
+* Fix: Prevent admins from uploading more images than the listing allows.
+* Fix: When the plan selector was used in other places, the buttons didn't always have labels.
+* Code update: Errors for a field returned by the wpbdp_listing_submit_validate_field will be shown with the field.
+
 = 5.15.4 =
 * Fix: Sites without a field selected for the address were getting errors.
 
@@ -176,14 +184,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 = 5.15.1 =
 * Fix: Listings set to never expire were switching to expired on edit.
 * Fix: Long listing titles in sidebar widgets weren't wrapping with some settings.
-
-= 5.15 =
-* New: The listing widgets have tons more functionality. Now you can add fields to a widget, set the image position, size images consistently, and use the coming soon image.
-* Fix: The search form didn't look right in a couple default WordPress themes.
-* Fix: The background color for paid plans wasn't showing up on listings.
-* Fix: On checkout with 100% off, don't show payment method and use "Complete" on submit button
-* Fix: If a payment is pending, show link to complete payment rather than renew.
-* Fix: After changing an expiration date in the back-end, the listing wasn't correctly getting marked expired.
-* New: Added hook wpbdp_submit_validation_errors to add custom validation.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
