@@ -99,7 +99,6 @@ class WPBDP_Admin_Education {
 			'discounts' => array(
 				'requires' => 'discount-codes',
 				'tip'      => 'Offer discount & coupon codes to your paid listing customers.',
-				'cta'      => 'Upgrade to Pro.',
 			),
 			'migrator'  => array(
 				'requires' => 'migrate',
