@@ -14,13 +14,19 @@ class WPBDP_Admin_Pages {
 		}
 
 		add_filter( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
+
+		// Categories and tags.
 		add_filter( 'views_edit-wpbdp_tag', 'WPBDP_Admin_Pages::add_tag_nav' );
 		add_filter( 'views_edit-wpbdp_category', 'WPBDP_Admin_Pages::add_category_nav' );
+
+		// Category and tag edit page.
+		add_filter( 'wpbdp_tag_pre_edit_form', 'WPBDP_Admin_Pages::edit_tag_nav' );
+		add_filter( 'wpbdp_category_pre_edit_form', 'WPBDP_Admin_Pages::edit_category_nav' );
 
 		// Add search form.
 		add_action( 'wpbdp_admin_pages_show_tabs', 'WPBDP_Admin_Pages::taxonomy_search_form', 10, 2 );
 
-		// Add wrapper before form
+		// Add wrapper before form.
 		add_action( 'wpbdp_tag_pre_add_form', 'WPBDP_Admin_Pages::taxonomy_before_form_wrapper' );
 		add_action( 'wpbdp_category_pre_add_form', 'WPBDP_Admin_Pages::taxonomy_before_form_wrapper' );
 
@@ -86,6 +92,34 @@ class WPBDP_Admin_Pages {
 		return $views;
 	}
 
+	/**
+	 * Add listing category nav.
+	 *
+	 * @since x.x
+	 */
+	public static function edit_category_nav( $views ) {
+		global $tax;
+		$views = self::add_taxonomy_nav( $views, $tax, array(
+			'title'    => __( 'Edit Category', 'business-directory-plugin' ),
+			'taxonomy' => 'wpbdp_category',
+		) );
+		return $views;
+	}
+
+	/**
+	 * Add listing tags nav.
+	 *
+	 * @since x.x
+	 */
+	public static function edit_tag_nav( $views ) {
+		global $tax;
+		$views = self::add_taxonomy_nav( $views, $tax, array(
+			'title'    => __( 'Edit Tag', 'business-directory-plugin' ),
+			'taxonomy' => 'wpbdp_tag',
+		) );
+		return $views;
+	}
+
 
 	/**
 	 * Add taxonomy navigation.
@@ -99,7 +133,7 @@ class WPBDP_Admin_Pages {
 			'sub'        => $params['title'],
 			'active_tab' => 'edit-tags.php?taxonomy=' . $params['taxonomy'] . '&amp;post_type=wpbdp_listing',
 		);
-		if ( current_user_can( $tax->cap->edit_terms ) ) {
+		if ( current_user_can( $tax->cap->edit_terms ) && isset( $params['button_name'] ) ) {
 			$args['buttons'] = array(
 				'add_listing' => array(
 					'label' => $params['button_name'],
@@ -120,11 +154,16 @@ class WPBDP_Admin_Pages {
 	 * @since x.x
 	 */
 	public static function taxonomy_search_form( $active_tab, $id ) {
-		$active_tabs = array(
-			'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing',
-			'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing',
+		$active_screens = array(
+			'edit-wpbdp_tag',
+			'edit-wpbdp_category',
 		);
-		if ( ! in_array( $active_tab, $active_tabs, true ) ) {
+		$current_screen = get_current_screen();
+		if ( ! in_array( $current_screen->id, $active_screens, true ) ) {
+			return;
+		}
+		$tag_id = wpbdp_get_var( array( 'param' => 'tag_ID' ), 'get' );
+		if ( $tag_id ) {
 			return;
 		}
 		global $post_type, $taxonomy, $tax, $wp_list_table;
