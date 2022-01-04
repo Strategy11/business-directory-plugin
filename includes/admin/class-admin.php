@@ -89,6 +89,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
+			add_filter( 'admin_head-term.php', array( $this, 'maybe_highlight_menu' ) );
 
 			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
@@ -1287,15 +1288,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         public function maybe_highlight_menu() {
-            global $post;
-
-            if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] != WPBDP_POST_TYPE ) {
-                return;
-            }
-
-            if ( is_object( $post ) && $post->post_type != WPBDP_POST_TYPE ) {
-                return;
-            }
+            if ( ! WPBDP_App_Helper::is_bd_page() ) {
+				return;
+			}
 
             echo '<script>jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
         }
