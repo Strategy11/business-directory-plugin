@@ -15,6 +15,15 @@ class WPBDP_Admin_Pages {
 
 		add_filter( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
 
+		self::taxonomy_hooks();
+	}
+
+	/**
+	 * Register hooks for the category and tags page.
+	 *
+	 * @since x.x
+	 */
+	private static function taxonomy_hooks() {
 		// Categories and tags.
 		add_filter( 'views_edit-wpbdp_tag', 'WPBDP_Admin_Pages::add_tag_nav' );
 		add_filter( 'views_edit-wpbdp_category', 'WPBDP_Admin_Pages::add_category_nav' );
@@ -29,6 +38,10 @@ class WPBDP_Admin_Pages {
 		// Add wrapper before form.
 		add_action( 'wpbdp_tag_pre_add_form', 'WPBDP_Admin_Pages::taxonomy_before_form_wrapper' );
 		add_action( 'wpbdp_category_pre_add_form', 'WPBDP_Admin_Pages::taxonomy_before_form_wrapper' );
+
+		// Close button.
+		add_action( 'wpbdp_tag_add_form_fields', 'WPBDP_Admin_Pages::taxonomy_close_button', 9999 );
+		add_action( 'wpbdp_category_add_form_fields', 'WPBDP_Admin_Pages::taxonomy_close_button', 9999 );
 
 		add_action( 'wpbdp_tag_add_form', 'WPBDP_Admin_Pages::taxonomy_after_form_wrapper' );
 		add_action( 'wpbdp_category_add_form', 'WPBDP_Admin_Pages::taxonomy_after_form_wrapper' );
@@ -205,6 +218,19 @@ class WPBDP_Admin_Pages {
 		<?php
 	}
 
+	public static function taxonomy_close_button() {
+		global $taxonomy;
+		if ( 'wpbdp_category' === $taxonomy ) {
+			WPBDP_Admin_Education::show_tip( 'categories' );
+		}
+		?>
+		<div class="clear"></div>
+		<p class="close">
+			<a class="dismiss-button" href="#"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a>
+		</p>
+		<?php
+	}
+
 	/**
 	 * Wrapper after the taxonomy form.
 	 *
@@ -212,9 +238,6 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function taxonomy_after_form_wrapper() {
 		?>
-		<p class="close">
-			<a class="dismiss-button" href="#"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a>
-		</p>
 		</form></div></div></div></div>
 		<?php
 	}

@@ -104,6 +104,10 @@ class WPBDP_Admin_Education {
 				'requires' => 'migrate',
 				'tip'      => 'Need to export, backup, or move your directory settings and listings?',
 			),
+			'categories'  => array(
+				'requires' => 'categories',
+				'tip'      => 'Would you like to use image preview for your categories?',
+			),
 			'install-premium'  => array(
 				'requires' => 'premium',
 				'tip'      => 'Install modules with one click, get table listings, abandonment emails, and more.',
