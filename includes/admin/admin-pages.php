@@ -83,9 +83,11 @@ class WPBDP_Admin_Pages {
 	public static function add_category_nav( $views ) {
 		global $tax;
 		$views = self::add_taxonomy_nav( $views, $tax, array(
-			'title'       => __( 'Categories', 'business-directory-plugin' ),
-			'taxonomy'    => 'wpbdp_category',
-			'button_name' => __( 'Add New Category', 'business-directory-plugin' ),
+			'title'        => __( 'Categories', 'business-directory-plugin' ),
+			'taxonomy'     => 'wpbdp_category',
+			'button_name'  => __( 'Add New Category', 'business-directory-plugin' ),
+			'button_url'   => '#',
+			'button_class' => 'wpbdp-add-taxonomy-form',
 		) );
 		return $views;
 	}
@@ -98,9 +100,11 @@ class WPBDP_Admin_Pages {
 	public static function add_tag_nav( $views ) {
 		global $tax;
 		$views = self::add_taxonomy_nav( $views, $tax, array(
-			'title'       => __( 'Tags', 'business-directory-plugin' ),
-			'taxonomy'    => 'wpbdp_tag',
-			'button_name' => __( 'Add New Tag', 'business-directory-plugin' ),
+			'title'        => __( 'Tags', 'business-directory-plugin' ),
+			'taxonomy'     => 'wpbdp_tag',
+			'button_name'  => __( 'Add New Tag', 'business-directory-plugin' ),
+			'button_url'   => '#',
+			'button_class' => 'wpbdp-add-taxonomy-form',
 		) );
 		return $views;
 	}
@@ -113,8 +117,10 @@ class WPBDP_Admin_Pages {
 	public static function edit_category_nav( $views ) {
 		global $tax;
 		$views = self::add_taxonomy_nav( $views, $tax, array(
-			'title'    => __( 'Edit Category', 'business-directory-plugin' ),
-			'taxonomy' => 'wpbdp_category',
+			'title'       => __( 'Edit Category', 'business-directory-plugin' ),
+			'taxonomy'    => 'wpbdp_category',
+			'button_name' => __( 'Back to Categories', 'business-directory-plugin' ),
+			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' ),
 		) );
 		return $views;
 	}
@@ -127,8 +133,10 @@ class WPBDP_Admin_Pages {
 	public static function edit_tag_nav( $views ) {
 		global $tax;
 		$views = self::add_taxonomy_nav( $views, $tax, array(
-			'title'    => __( 'Edit Tag', 'business-directory-plugin' ),
-			'taxonomy' => 'wpbdp_tag',
+			'title'       => __( 'Edit Tag', 'business-directory-plugin' ),
+			'taxonomy'    => 'wpbdp_tag',
+			'button_name' => __( 'Back To Tags', 'business-directory-plugin' ),
+			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' ),
 		) );
 		return $views;
 	}
@@ -150,8 +158,8 @@ class WPBDP_Admin_Pages {
 			$args['buttons'] = array(
 				'add_listing' => array(
 					'label' => $params['button_name'],
-					'url'   => '#',
-					'class' => 'wpbdp-add-taxonomy-form',
+					'url'   => $params['button_url'],
+					'class' => isset( $params['button_class'] ) ? $params['button_class'] : '',
 				),
 			);
 		}
@@ -293,9 +301,15 @@ class WPBDP_Admin_Pages {
 				<?php endif; ?>
 				<div class="wpbdp-content-area-header-actions">
 					<?php foreach ( $args['buttons'] as $id => $button ) : ?>
-						<a href="<?php echo esc_url( $button['url'] ); ?>" class="wpbdp-button-secondary <?php echo isset( $button['class'] ) ? esc_attr( $button['class'] ) : '' ?>">
-							<?php echo esc_html( $button['label'] ); ?>
-						</a>
+						<?php if ( is_array( $button ) ) : ?>
+							<a href="<?php echo esc_url( $button['url'] ); ?>" class="wpbdp-button-secondary <?php echo isset( $button['class'] ) ? esc_attr( $button['class'] ) : '' ?>">
+								<?php echo esc_html( $button['label'] ); ?>
+							</a>
+						<?php else : ?>
+							<a href="<?php echo esc_url( $button ); ?>" class="wpbdp-button-secondary">
+								<?php echo esc_html( $id ); ?>
+							</a>
+						<?php endif; ?>
 					<?php endforeach; ?>
 				</div>
 			</div>
