@@ -1,9 +1,10 @@
 <?php
 wpbdp_admin_header(
     array(
-        'title' => __( 'Upload Directory Theme', 'business-directory-plugin' ),
-		'id'    => 'themes-install',
-        'echo'  => true,
+        'title'   => __( 'Upload Directory Theme', 'business-directory-plugin' ),
+		'id'      => 'themes-install',
+        'echo'    => true,
+        'sidebar' => false
     )
 );
 wpbdp_admin_notices();
