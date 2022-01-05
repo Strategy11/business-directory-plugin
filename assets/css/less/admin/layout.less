@@ -269,6 +269,8 @@
 .wpbdp-settings-form-title {
 	margin: 10px 0;
 }
+
+.wpbdp-admin-page .form-field label,
 .wpbdp-setting-label,
 .wpbdp-setting-form-title label {
 	font-weight: 600;
@@ -288,12 +290,6 @@
 
 	#wpbody-content > .wrap {
 		margin: 0;
-	}
-	.tablenav select {
-		padding: 0 24px 0 8px;
-	}
-	.wpbdp-content-area-header-actions {
-		justify-content: flex-start;
 	}
 }
 
@@ -318,9 +314,6 @@
 	#screen-meta-links {
 		position: absolute;
 		right: 200px;
-	}
-	.required {
-		color: @text-color;
 	}
 }
 
@@ -348,81 +341,6 @@
 			.search-form{
 				display: block;
 			}
-		}
-	}
-}
-
-.wpbdp-admin-dialog {
-	z-index: 100;
-	padding: 0 !important;
-	border-radius: 12px;
-	border: 1px solid @brand;
-	background-color: @white;
-	max-width: 100% !important;
-	.postbox {
-		background: transparent;
-		box-shadow: none;
-		border: none;
-	}
-
-	select, input[type="text"] {
-		width: 100%;
-		max-width: 100%;
-	}
-	.dismiss {
-		z-index: 9999;
-		padding-right: 10px;
-		position: relative;
-		&:focus {
-			outline: 0;
-			box-shadow: none;
-		}
-	}
-	.dismiss-button{
-		text-decoration: none;
-	}
-	h2 {
-		border-bottom: 1px solid @border-color;
-		padding-bottom: 15px !important;
-		font-weight: 700 !important;
-		padding-left: 15px !important;
-	}
-	form {
-		padding: 15px !important;
-		p.submit {
-			position: absolute;
-			right: 0;
-			margin: 0;
-			padding: 0;
-			input[type="submit"] {
-				float: right;
-				margin-right: 25px;
-			}
-		}
-		p.close {
-			position: absolute;
-		}
-		.wpbdp-pro-tip {
-			.wpbdp-button-secondary {
-				line-height: 2;
-			}
-		}
-		.clear {
-			margin-top: 20px;
-			margin-bottom: 20px;
-			border-top: 1px solid @border-color;
-		}
-	}
-}
-.wpbdp-modal-overlay {
-	background: @modal-background-color !important;
-	opacity: inherit !important;
-}
-
-.wpbdp-admin-page {
-	.wp-responsive-open #wpbody {
-		@media only screen and (max-width: 728px) {
-			right: -12em;
 		}
 	}
 }

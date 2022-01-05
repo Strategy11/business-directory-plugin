@@ -17,33 +17,48 @@
 @import 'admin-modules.less';
 @import 'admin-notice-review.less';
 @import 'admin/layout.less';
+@import 'admin/modal.less';
 @import 'admin/settings.less';
 @import 'admin/switch.less';
 @import 'admin/inputs.less';
 @import 'admin/notification.less';
 @import 'admin/icons.less';
 
-.wpbdp-admin-page {
+.wpbdp-admin-page,
+.wpbdp-admin-dialog {
 	background-color: @white;
 
 	#wp-content-editor-tools {
 		background-color: transparent;
 	}
+
+	h1,
+	h2,
+	h3,
+	label {
+		color: @text-color;
+	}
+
+	h1,
+	h2,
+	h3,
+	label {
+		opacity: 0.8;
+	}
+
+	#wpbody-content a {
+		color: @link-active;
+	}
 }
 
-.wpbdp-admin-page,
-.wpbdp-admin-page h1,
-.wpbdp-admin-page h2,
-.wpbdp-admin-page h3,
-.wpbdp-admin-page label {
-	color: @text-color;
+.wpbdp-admin-page {
+	.required {
+		color: @text-color;
+	}
 }
 
-.wpbdp-admin-page h1,
-.wpbdp-admin-page h2,
-.wpbdp-admin-page h3,
-.wpbdp-admin-page label {
-	opacity: 0.8;
+.wpbdp-admin-dialog .metabox-holder a {
+	color: @link-active;
 }
 
 .cf:before, .cf:after {

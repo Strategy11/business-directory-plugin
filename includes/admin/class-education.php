@@ -43,7 +43,7 @@ class WPBDP_Admin_Education {
 		}
 
 		$message = wp_kses_post( $tip['tip'] );
-		$message .= '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener" class="wpbdp-button-secondary">';
+		$message .= '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">';
 		$message .= esc_html( $tip['cta'] );
 		$message .= '</a>';
 
@@ -106,7 +106,7 @@ class WPBDP_Admin_Education {
 			),
 			'categories'  => array(
 				'requires' => 'categories',
-				'tip'      => 'Would you like to use image preview for your categories?',
+				'tip'      => 'Want to show a list of images for your categories?',
 			),
 			'install-premium'  => array(
 				'requires' => 'premium',
