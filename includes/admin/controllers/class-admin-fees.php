@@ -88,16 +88,17 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			if ( ! isset( $posted_values['recurring'] ) ) {
                 $posted_values['recurring'] = 0;
 			}
+
+			$images_changed = (int) $fee->images !== (int) $posted_values['images'];
         } else {
             $posted_values = array();
+			$images_changed = false;
         }
 
-		$images_changed = false;
 		if ( 'insert' === $mode ) {
             $fee = new WPBDP__Fee_Plan( $posted_values );
         } else {
-			$fee            = $this->get_or_die();
-			$images_changed = (int) $fee->images !== (int) $posted_values['images'];
+			$fee = $this->get_or_die();
         }
 
 		if ( ! $posted_values ) {
