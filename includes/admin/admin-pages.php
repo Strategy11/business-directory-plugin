@@ -300,17 +300,23 @@ class WPBDP_Admin_Pages {
 				<h2 class="wpbdp-sub-section-title"><?php echo esc_html( $args['sub'] ); ?></h2>
 				<?php endif; ?>
 				<div class="wpbdp-content-area-header-actions">
-					<?php foreach ( $args['buttons'] as $id => $button ) : ?>
-						<?php if ( is_array( $button ) ) : ?>
-							<a href="<?php echo esc_url( $button['url'] ); ?>" class="wpbdp-button-secondary <?php echo isset( $button['class'] ) ? esc_attr( $button['class'] ) : '' ?>">
-								<?php echo esc_html( $button['label'] ); ?>
-							</a>
-						<?php else : ?>
-							<a href="<?php echo esc_url( $button ); ?>" class="wpbdp-button-secondary">
-								<?php echo esc_html( $id ); ?>
-							</a>
-						<?php endif; ?>
-					<?php endforeach; ?>
+					<?php
+					$button_class = 'wpbdp-button-primary';
+					foreach ( $args['buttons'] as $id => $button ) :
+						if ( ! is_array( $button ) ) {
+							$button = array(
+								'url'   => $button,
+								'label' => $id,
+							);
+						}
+						?>
+						<a href="<?php echo esc_url( $button['url'] ); ?>" class="<?php echo esc_attr( $button_class . ( isset( $button['class'] ) ? ' ' . $button['class'] : '' ) ); ?>">
+							<?php echo esc_html( $button['label'] ); ?>
+						</a>
+						<?php
+						$button_class = 'wpbdp-button-secondary';
+					endforeach;
+					?>
 				</div>
 			</div>
 			<div class="wpbdp-content-area-body">

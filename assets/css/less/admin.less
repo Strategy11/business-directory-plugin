@@ -39,6 +39,13 @@
 	color: @text-color;
 }
 
+.wpbdp-admin-page h1,
+.wpbdp-admin-page h2,
+.wpbdp-admin-page h3,
+.wpbdp-admin-page label {
+	opacity: 0.8;
+}
+
 .cf:before, .cf:after {
 	content: " ";
 	display: table;
@@ -803,6 +810,8 @@ body.post-type-wpbdp_listing,
 		thead, tfoot {
 			.manage-column, a {
 				color: @table-header-text-color;
+				font-weight: 600;
+				font-size: 13px;
 			}
 		}
 		tbody {
@@ -812,6 +821,17 @@ body.post-type-wpbdp_listing,
 			.row-actions .trash a, .row-actions .delete a {
 				color: @link-red;
 			}
+		}
+
+		&.striped > tbody > :nth-child(odd) {
+			background-color: #FAFAFA;
+		}
+
+		&.widefat thead th,
+		&.widefat thead td,
+		&.widefat tfoot th,
+		&.widefat tfoot td  {
+			border-color: #D4D5D7;
 		}
 	}
 	.subsubsub a {

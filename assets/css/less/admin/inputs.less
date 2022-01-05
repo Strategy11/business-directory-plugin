@@ -11,30 +11,32 @@
 		color: @button;
 	}
 }
-.wpbdp-admin-page {
-	select, input[type="number"], input[type="text"] {
-		min-width: 10rem;
-		padding: 7px;
-	}
-	input {
-		line-height: 1.9;
-	}
-	select {
-		line-height: 2;
-	}
-}
+
 .wpbdp-right {
 	select, input[type="number"] {
 		float: right;
 	}
 }
-.wpbdp-input-wide {
-	input, select {
-		min-width: 100%;
-	}
-}
+
+.wpbdp-input-wide,
+.wpbdp-admin-page-settings,
 .wpbdp-admin-page-csv {
+	select,
 	input[type="text"] {
 		width: 100%;
+	}
+}
+
+.wpbdp-admin-page {
+	input[type="text"],
+	input[type="url"],
+	input[type="search"],
+	select,
+	textarea {
+		border-color: @border-color;
+	}
+
+	textarea {
+		min-height: 150px;
 	}
 }
