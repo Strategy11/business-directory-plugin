@@ -1026,6 +1026,43 @@ class WPBDP_Licensing {
         return $updates;
     }
 
+	/**
+	 * Get the single version information.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool|object Returns a boolean if no data is returned. And returns an object wit hthe data
+	 */
+	public function get_single_version_info( $item_id ) {
+		$item = isset( $this->items[ $item_id ] ) ? $this->items[ $item_id ] : false;
+		if ( ! $item ) {
+			return false;
+		}
+
+		$http_args = array(
+			'timeout'   => 15,
+			'sslverify' => false,
+			'body'      => array(
+				'edd_action' => 'get_version',
+				'item_name'  => $item['name'],
+				'license'    => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] ),
+				'url'        => home_url(),
+			),
+		);
+		$request   = wp_remote_post( self::STORE_URL, $http_args );
+
+		if ( is_wp_error( $request ) ) {
+			return false;
+		}
+
+		$request = json_decode( wp_remote_retrieve_body( $request ) );
+
+		if ( $request && is_object( $request ) ) {
+			return $request;
+		}
+		return false;
+	}
+
     /**
      * Inject BD modules update info into update array (`update_plugins` transient).
      */
