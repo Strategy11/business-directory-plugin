@@ -6,7 +6,7 @@ echo wpbdp_admin_header(
         'buttons' => array(
             'wpbdp_settings' => array(
                 'label' => __( '← Return to "Manage Options"', 'business-directory-plugin' ),
-                'url'   => esc_url( admin_url( 'admin.php?page=wpbdp_settings' ) ),
+                'url'   => admin_url( 'admin.php?page=wpbdp_settings' ),
             ),
         ),
     )

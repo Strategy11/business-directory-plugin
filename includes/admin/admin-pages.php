@@ -300,28 +300,35 @@ class WPBDP_Admin_Pages {
 				<h2 class="wpbdp-sub-section-title"><?php echo esc_html( $args['sub'] ); ?></h2>
 				<?php endif; ?>
 				<div class="wpbdp-content-area-header-actions">
-					<?php
-					$button_class = 'wpbdp-button-primary';
-					foreach ( $args['buttons'] as $id => $button ) :
-						if ( ! is_array( $button ) ) {
-							$button = array(
-								'url'   => $button,
-								'label' => $id,
-							);
-						}
-						?>
-						<a href="<?php echo esc_url( $button['url'] ); ?>" class="<?php echo esc_attr( $button_class . ( isset( $button['class'] ) ? ' ' . $button['class'] : '' ) ); ?>">
-							<?php echo esc_html( $button['label'] ); ?>
-						</a>
-						<?php
-						$button_class = 'wpbdp-button-secondary';
-					endforeach;
-					?>
+					<?php self::show_buttons( $args['buttons'] ); ?>
 				</div>
 			</div>
 			<div class="wpbdp-content-area-body">
 			<?php
 			do_action( 'wpbdp_admin_pages_show_tabs', $active_tab, $id );
+	}
+
+	/**
+	 * Show action buttons at the top of the page.
+	 *
+	 * @since x.x
+	 */
+	private static function show_buttons( $buttons ) {
+		$button_class = 'wpbdp-button-primary';
+		foreach ( $buttons as $id => $button ) {
+			if ( ! is_array( $button ) ) {
+				$button = array(
+					'url'   => $button,
+					'label' => $id,
+				);
+			}
+			?>
+			<a href="<?php echo esc_url( $button['url'] ); ?>" class="<?php echo esc_attr( $button_class . ( isset( $button['class'] ) ? ' ' . $button['class'] : '' ) ); ?>">
+				<?php echo esc_html( $button['label'] ); ?>
+			</a>
+			<?php
+			$button_class = 'wpbdp-button-secondary';
+		}
 	}
 
 	/**

@@ -9,7 +9,7 @@ wpbdp_admin_header(
         'buttons' => array(
             'wpbdp_admin_payments' => array(
                 'label' => __( '← Return to "Payment History"', 'business-directory-plugin' ),
-                'url'   => esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ),
+                'url'   => admin_url( 'admin.php?page=wpbdp_admin_payments' ),
             ),
         ),
         'echo'    => true,

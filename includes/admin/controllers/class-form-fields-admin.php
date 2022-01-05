@@ -127,7 +127,7 @@ class WPBDP_FormFieldsAdmin {
 				'buttons' => array(
 					'back' => array(
 						'label' => '← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
-						'url'   => esc_url( remove_query_arg( 'action' ) ),
+						'url'   => remove_query_arg( 'action' ),
 					),
 				)
 			)

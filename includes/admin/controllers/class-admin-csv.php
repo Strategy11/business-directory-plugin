@@ -48,7 +48,7 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 			$args['buttons'] = array(
 				'example-csv' => array(
 					'label' => __( 'See an example CSV import file', 'business-directory-plugin' ),
-					'url'   => esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) ),
+					'url'   => admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ),
 				),
 				'help'        => array(
 					'label' => __( 'Help', 'business-directory-plugin' ),

@@ -5,11 +5,11 @@ wpbdp_admin_header(
         'buttons' => array(
             'theme-install' => array(
                 'label' => __( 'Upload Directory Theme', 'business-directory-plugin' ),
-                'url'   => esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ) ),
+                'url'   => admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ),
             ),
             'updatetags'    => array(
                 'label' => __( 'Manage Theme Tags', 'business-directory-plugin' ),
-                'url'   => esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ) )
+                'url'   => admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' )
             ),
         ),
 		'sidebar' => false,
