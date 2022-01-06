@@ -281,8 +281,6 @@ var WPBDP_associations_fieldtypes = {};
         WPBDPAdmin_FormFields.init();
         WPBDPAdmin_Layout.init();
     });
-
-
 })(jQuery);
 
 
