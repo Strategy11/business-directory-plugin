@@ -485,6 +485,14 @@ class WPBDP_App_Helper {
 	}
 
 	/**
+	 * @since 5.16
+	 * @return string
+	 */
+	public static function minimize_code( $html ) {
+		return str_replace( array( "\r\n", "\n", "\t" ), '', $html );
+	}
+
+	/**
 	 * Sanitize HTML classes.
 	 * This sanitizes multiple html classes that are an array of classes or a string of them separated by a delimiter.
 	 *

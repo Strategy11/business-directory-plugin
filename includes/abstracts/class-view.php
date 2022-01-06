@@ -30,12 +30,12 @@ class WPBDP__View {
 		// CSS used for plan buttons on the listing page.
 		$custom_css = "
 		.wpbdp-plan-price input[type=radio]+ label span:before{
-			content: '" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
+			content:'" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
 		}
 		.wpbdp-plan-price input[type=radio]:checked + label span:before{
-			content: '" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
+			content:'" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
 		}";
-		wp_add_inline_style( 'wpbdp-base-css', $custom_css );
+		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $custom_css ) );
 
 		$this->enqueue_custom_resources();
 	}
