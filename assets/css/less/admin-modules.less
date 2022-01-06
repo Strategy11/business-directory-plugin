@@ -34,9 +34,26 @@
 }
 
 .wpbdp-addons .plugin-card-top {
-	height: 140px;
+	min-height: 150px;
 	padding-top: 30px;
 	overflow: hidden;
+
+	.plugin-card-title {
+		font-weight: 600;
+		font-size: 15px;
+	}
+
+	.plugin-card-details {
+		margin-bottom: 0;
+		color: @text-color;
+	}
+	.plugin-card-docs {
+		padding-top: 5px;
+		a {
+			text-decoration: none;
+			font-weight: 600;
+		}
+	}
 }
 
 .wpbdp-addons .plugin-card-top h2 {
