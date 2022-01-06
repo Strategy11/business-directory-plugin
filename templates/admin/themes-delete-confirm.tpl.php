@@ -1,11 +1,11 @@
 <?php
 wpbdp_admin_header(
-    array(
-        'title'   => __( 'Delete Directory Theme', 'business-directory-plugin' ),
-		'id'      => 'themes-delete',
-        'echo'    => true,
-        'sidebar' => false
-    )
+	array(
+		'title'   => __( 'Delete Directory Theme', 'business-directory-plugin' ),
+		'id'      => 'theme-delete',
+		'echo'    => true,
+		'sidebar' => false
+	)
 );
 ?>
 

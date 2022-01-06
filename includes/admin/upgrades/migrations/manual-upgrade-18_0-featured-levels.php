@@ -186,8 +186,9 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
         }
 		echo wpbdp_admin_header(
 			array(
-				'title' => __( 'Business Directory - Featured Levels Migration', 'business-directory-plugin' ),
-				'id'    => 'manual-upgrade'
+				'title'   => __( 'Business Directory - Featured Levels Migration', 'business-directory-plugin' ),
+				'id'      => 'manual-upgrade',
+				'sidebar' => false,
 			)
 		);
 
