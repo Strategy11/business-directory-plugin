@@ -62,7 +62,7 @@ WPBDP_Admin_Pages::show_tabs(
 				settings_fields( 'wpbdp_settings' );
 			endif;
 
-			wpbdp_admin_do_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
+			WPBDP_Admin_Pages::render_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
 			do_action( 'wpbdp_settings_subtab_' . $active_subtab );
 
 			if ( ! $custom_form ) :
