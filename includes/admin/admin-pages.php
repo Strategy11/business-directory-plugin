@@ -226,10 +226,28 @@ class WPBDP_Admin_Pages {
 		<?php
 	}
 
+	/**
+	 * Inner create form container.
+	 *
+	 * @since x.x
+	 */
+	public static function taxonomy_opening_tag_wrapper() {
+		?>
+		<div class="wpbdp-add-taxonomy-form-wrapper">
+		<?php
+	}
+
+	/**
+	 * Footer close button
+	 *
+	 * @since x.x
+	 */
 	public static function taxonomy_close_button() {
 		global $taxonomy;
 		if ( 'wpbdp_category' === $taxonomy ) {
+			?><div class="form-field"><?php
 			WPBDP_Admin_Education::show_tip( 'categories' );
+			?></div><?php
 		}
 		?>
 		<div class="clear"></div>
