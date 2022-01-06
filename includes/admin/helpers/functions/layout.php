@@ -64,7 +64,7 @@ function wpbdp_admin_do_settings_fields( $page, $section ) {
 		$class = ' class="wpbdp-setting-row"';
 
 		if ( ! empty( $field['args']['class'] ) ) {
-			$class = ' class="wpbdp-setting-row ' . wpbdp_sanitize_html_classes( $field['args']['class'] ) . '"';
+			$class = ' class="wpbdp-setting-row ' . WPBDP_App_Helper::sanitize_html_classes( $field['args']['class'] ) . '"';
 		}
 
 		echo "<div{$class}>";

@@ -483,4 +483,29 @@ class WPBDP_App_Helper {
 			'ul'         => $allow_class,
 		);
 	}
+
+	/**
+	 * Sanitize HTML classes.
+	 * This sanitizes multiple html classes that are an array of classes or a string of them separated by a delimiter.
+	 *
+	 * @param string|array $classes The html classes.
+	 * @param string $sep The seperator of the strings. Defaults to ' '.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	function sanitize_html_classes( $classes, $sep = ' ' ) {
+		$output = '';
+		if ( ! is_array( $classes ) ) {
+			$classes = explode( $sep, $classes );
+		}
+
+		if ( ! empty( $classes ) ) {
+			foreach ( $classes as $class ) {
+				$output .= sanitize_html_class( $class ) . ' ';
+			}
+		}
+		return rtrim( $output );
+	}
 }

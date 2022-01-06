@@ -203,9 +203,9 @@ class WPBDP__Settings_Admin {
 		if ( $setting['grid_layout'] ) {
 			$setting['class'] = $setting['class'] . ' wpbdp-grid';
 		}
-		echo '<div class="wpdb-number ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
+		echo '<div class="wpdb-number ' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
 		if ( $setting['grid_layout'] ) {
-			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
+			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
 		}
 		echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
 		if ( ! empty( $setting['tooltip'] ) ) {
@@ -214,7 +214,7 @@ class WPBDP__Settings_Admin {
 		echo $this->setting_input_desc( $setting );
 		if ( $setting['grid_layout'] ) {
 			echo '</div>';
-			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
+			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
 		}
 		echo '<input type="number" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
 
@@ -248,11 +248,11 @@ class WPBDP__Settings_Admin {
 			$setting['class'] = $setting['class'] . ' wpbdp-grid';
 		}
 
-		echo '<div class="wpdb-checkbox ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
+		echo '<div class="wpdb-checkbox ' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
 		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 		$tag = 'label';
 		if ( $setting['grid_layout'] ) {
-			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
+			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
 			$tag = 'div'; // Use a div tag for the label to prevent multiple switches.
 		} else {
 			echo $this->checkbox_input_html( $setting, $value );
@@ -264,7 +264,7 @@ class WPBDP__Settings_Admin {
 		echo $this->setting_input_desc( $setting );
 		if ( $setting['grid_layout'] ) {
 			echo '</div>';
-			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
+			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
 			echo $this->checkbox_input_html( $setting, $value );
 			echo '<label></label>'; // Empty label to hold the switch.
 			echo '</div>';
@@ -306,7 +306,7 @@ class WPBDP__Settings_Admin {
 		if ( empty( $setting['name'] ) ) {
 			return '';
 		}
-		return '<' . $tag . ' class=" ' . wpbdp_sanitize_html_classes( $class ) . ' ">' . wp_kses_post( $setting['name'] ) . '</' . $tag . '>';
+		return '<' . $tag . ' class=" ' . WPBDP_App_Helper::sanitize_html_classes( $class ) . ' ">' . wp_kses_post( $setting['name'] ) . '</' . $tag . '>';
 	}
 
 	/**
@@ -402,9 +402,9 @@ class WPBDP__Settings_Admin {
 			$setting['class'] = $setting['class'] . ' wpbdp-grid';
 		}
 
-		echo '<div class="wpdb-select ' . wpbdp_sanitize_html_classes( $setting['class'] ) . '">';
+		echo '<div class="wpdb-select ' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
 		if ( $setting['grid_layout'] ) {
-			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
+			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
 		}
 		echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
 		if ( ! empty( $setting['tooltip'] ) ) {
@@ -413,7 +413,7 @@ class WPBDP__Settings_Admin {
 		echo $this->setting_input_desc( $setting );
 		if ( $setting['grid_layout'] ) {
 			echo '</div>';
-			echo '<div class="' . wpbdp_sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
+			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
 		}
 		$this->setting_input_select_html( $setting, $value );
 		if ( $setting['grid_layout'] ) {
