@@ -313,20 +313,40 @@ class WPBDP_App_Helper {
 	/**
 	 * @since 5.9.2
 	 */
-	public static function show_logo( $size, $extra_class = false, $round = false ) {
-		echo self::kses( self::svg_logo( $size, $extra_class, $round ), 'all' ); // WPCS: XSS ok.
+	public static function show_logo( $size ) {
+		echo self::kses( self::svg_logo( $size ), 'all' ); // WPCS: XSS ok.
+	}
+
+	/**
+	 * Render a round logo.
+	 *
+	 * @param int $size The logo size.
+	 * @param bool|string $logo_class The optional logo class
+	 *
+	 * @since x.x
+	 */
+	public static function show_round_logo( $size, $logo_class = false ) {
+		echo self::kses( self::svg_logo( $size, array(
+			'round' => true,
+			'class' => $logo_class,
+		) ), 'all' ); // WPCS: XSS ok.
 	}
 
 	/**
 	 * @since 5.9.2
 	 */
-	public static function svg_logo( $size = 18, $extra_class = false, $round = false ) {
+	public static function svg_logo( $size = 18, $args = array() ) {
 		$atts = array(
 			'height' => $size,
 			'width'  => $size,
 		);
-		$img_class = $extra_class ? 'class="' . $extra_class . '"' : '';
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $round ? '-round' : '' ) . '.svg' ). '" width="' . esc_attr( $atts['width'] ) . '" height="' . esc_attr( $atts['height'] ) . '" ' . $img_class . ' />';
+		$defaults   = array(
+			'class' => false,
+			'round' => false,
+		);
+		$args      = wp_parse_args( $args, $defaults );
+		$img_class = $args['class'] ? 'class="' . $args['class'] . '"' : '';
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $args['round'] ? '-round' : '' ) . '.svg' ). '" width="' . esc_attr( $atts['width'] ) . '" height="' . esc_attr( $atts['height'] ) . '" ' . $img_class . ' />';
 	}
 
 	/**
