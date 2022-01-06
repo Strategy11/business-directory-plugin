@@ -523,7 +523,7 @@ class WPBDP_App_Helper {
 	 *
 	 * @return string
 	 */
-	function sanitize_html_classes( $classes, $sep = ' ' ) {
+	public static function sanitize_html_classes( $classes, $sep = ' ' ) {
 		$output = '';
 		if ( ! is_array( $classes ) ) {
 			$classes = explode( $sep, $classes );

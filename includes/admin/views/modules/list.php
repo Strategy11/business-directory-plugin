@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wpbdp-wrap" id="wpbdp-addons-page">
 	<?php
 	wpbdp_admin_header(
-	    array(
-	        'title'   => esc_html__( 'Directory Modules', 'business-directory-plugin' ),
+		array(
+			'title'   => esc_html__( 'Directory Modules', 'business-directory-plugin' ),
 			'sidebar' => false,
-	        'echo'    => true,
-	    )
+			'echo'    => true,
+		)
 	);
 
 	$modules = wpbdp()->modules->get_modules();
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="plugin-card-top">
 					<?php if ( strtotime( $addon['released'] ) > strtotime( '-90 days' ) ) { ?>
 						<div class="wpbdp-ribbon">
-							<span>New</span>
+							<span><?php esc_attr_e( 'New' ); ?></span>
 						</div>
 					<?php } ?>
 					<h2>
