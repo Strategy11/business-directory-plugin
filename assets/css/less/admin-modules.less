@@ -33,71 +33,47 @@
 	position: relative;
 }
 
-.wpbdp-addons .plugin-card-top {
-	min-height: 150px;
-	padding-top: 30px;
-	overflow: hidden;
-
-	.plugin-card-title {
-		font-weight: 600;
-		font-size: 15px;
+.wpbdp-addons {
+	.wpbdp-card {
+		padding: 25px;
 	}
 
 	.plugin-card-details {
 		margin-bottom: 0;
 		color: @text-color;
 	}
+
 	.plugin-card-docs {
 		padding-top: 5px;
 		a {
 			text-decoration: none;
-			font-weight: 600;
+			font-weight: 500;
 		}
+	}
+
+	h2.plugin-card-title {
+		margin: 0 0 10px;
+		font-weight: 600;
+		font-size: 15px;
+	}
+
+	.button {
+		float: right;
+	}
+
+	.addon-status {
+		font-style: italic;
+		opacity: 0.8;
+		margin: 0 0 20px;
 	}
 }
 
-.wpbdp-addons .plugin-card-top h2 {
-	margin-top: 0;
-	font-weight: 400;
-}
-
-.wpbdp-template-row p,
-.wpbdp-addons .plugin-card-top p {
+.wpbdp-template-row p {
 	opacity: 0.8;
-}
-
-.wpbdp-addons .plugin-card-bottom {
-	padding: 5px 20px 20px;
-	text-align: center;
-	background: transparent;
-	border-top: none;
-}
-
-.wpbdp-addons .plugin-card-bottom,
-.wpbdp-addons .plugin-card-bottom .button {
-	font-size: 15px;
-}
-
-.wpbdp-addons .button {
-	float: right;
-}
-
-.wpbdp-addons .addon-status {
-	float: left;
-	padding-top: 4px;
 }
 
 .wpbdp-addon-active .button {
 	visibility: hidden;
-}
-
-.addon-status-label {
-	opacity: .7;
-}
-
-.wpbdp-addon-active .addon-status-label {
-	color: var(--green);
-	opacity: 1;
 }
 
 .wpbdp-addon-error {
