@@ -30,7 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 		?>
 			<div class="wpbdp-card plugin-card-<?php echo esc_attr( $slug ); ?> wpbdp-no-thumb wpbdp-addon-<?php echo esc_attr( $addon['status']['type'] ); ?>">
-				<div class="plugin-card-top">
 					<?php if ( strtotime( $addon['released'] ) > strtotime( '-90 days' ) ) : ?>
 						<div class="wpbdp-ribbon">
 							<span><?php esc_attr_e( 'New' ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain ?></span>
@@ -39,17 +38,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="wpbdp-grid">
 						<div class="wpbdp-col-8">
 							<h2 class="plugin-card-title">
-								<?php echo esc_html( $addon['title'] ); ?>
+								<?php echo esc_html( str_replace( ' Module', '', $addon['title'] ) ); ?>
 							</h2>
-							<span class="addon-status">
-								<?php
-								printf(
-									/* translators: %s: Status name */
-									esc_html__( 'Status: %s', 'business-directory-plugin' ),
-									'<span class="addon-status-label">' . esc_html( $addon['status']['label'] ) . '</span>'
-								);
-								?>
-							</span>
+							<p class="addon-status">
+								<?php echo esc_html( $addon['status']['label'] ); ?>
+							</p>
 						</div>
 						<div class="wpbdp-col-4">
 							<?php
@@ -63,7 +56,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 							?>
 						</div>
 					</div>
-					<p class="plugin-card-details">
+
+					<div class="plugin-card-details">
 						<?php echo esc_html( $addon['excerpt'] ); ?>
 						<?php $show_docs = isset( $addon['docs'] ) && ! empty( $addon['docs'] ) && $addon['installed']; ?>
 						<?php if ( $show_docs ) { ?>
@@ -73,14 +67,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</a>
 							</div>
 						<?php } ?>
-					</p>
+					</div>
 					<?php
 					if ( ! $show_docs ) {
 						// $plan_required = FrmFormsHelper::get_plan_required( $addon );
 						// FrmFormsHelper::show_plan_required( $plan_required, $pricing . '&utm_content=' . $addon['slug'] );
 					}
 					?>
-				</div>
 			</div>
 		<?php } ?>
 	</div>

@@ -476,7 +476,22 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$admin_menu = $this->menu_id;
 
 			if ( isset( $submenu[ $cpt_menu ] ) && isset( $submenu[ $admin_menu ] ) ) {
+				$this->change_menu_name( $submenu[ $cpt_menu ] );
 				$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
+			}
+		}
+
+		/**
+		 * Since the top link points to the listings page, the menu name needs to change.
+		 * If we add a dashboard, this can be removed.
+		 *
+		 * @since x.x
+		 */
+		private function change_menu_name( &$submenu ) {
+			foreach ( $submenu as $k => $menu ) {
+				if ( $menu[0] === __( 'Directory Listings', 'business-directory-plugin' ) ) {
+					$submenu[ $k ][0] = __( 'Directory Content', 'business-directory-plugin' );
+				}
 			}
 		}
 

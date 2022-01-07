@@ -11,7 +11,6 @@
 	background-color: @text-color;
 	color: @white;
 	padding: 5px 15px;
-	line-height: 1.5;
 }
 
 .post-type-wpbdp_listing .notice:not(.wpbdp-notice),
@@ -20,53 +19,58 @@
 	display: none
 }
 
-.wpbdp-bell {
-	&-notification {
-		display: none;
-		position: fixed;
-		right: 20px;
-		bottom: 20px;
-		&-icon {
-			.wpbdp_notification_shadow();
-			&:focus {
-				outline: 0;
-				.wpbdp_notification_shadow();
-			}
-		}
+.wpbdp-bell-notifications-list {
+	clear: both;
+	margin-top: 0;
+}
 
-		svg {
-			height: 48px;
-			width: 48px;
-			display: block;
+.wpbdp-bell-notification {
+	display: none;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+
+	svg {
+		height: 48px;
+		width: 48px;
+		display: block;
+	}
+}
+
+.wpbdp-bell-notification-icon {
+	.wpbdp_notification_shadow();
+	&:focus {
+		outline: 0;
+		.wpbdp_notification_shadow();
+	}
+}
+
+.wpbdp-bell-notifications {
+	position: fixed;
+	bottom: 75px;
+	min-width: 20%;
+	right: 20px;
+	max-width: 400px;
+	font-size: 13px;
+
+	li {
+		padding: 10px 25px;
+		.wpbdp_notification_shadow();
+		.notice-dismiss {
+			right: 0;
+			top: 7px;
 		}
 	}
-	&-notifications {
-		position: fixed;
-		bottom: 75px;
-		min-width: 20%;
-		right: 20px;
-		max-width: 400px;
-		font-size: 13px;
-		text-align: justify;
-		&-close {
-			.wpbdp_notification_buttons();
-			text-decoration: none;
-			display: block;
-			text-align: right;
-			position: relative;
-			float: right;
-			bottom: 22px;
-			&:hover {
-				color: @white;
-			}
-		}
-		li {
-			padding: 10px 25px;
-			.wpbdp_notification_shadow();
-			.notice-dismiss {
-				right: 0;
-				top: 7px;
-			}
-		}
+}
+
+.wpbdp-bell-notifications-close {
+	.wpbdp_notification_buttons();
+	text-decoration: none;
+	display: block;
+	float: right;
+	margin-bottom: 15px;
+
+	&:hover {
+		color: @white;
 	}
 }
