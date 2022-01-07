@@ -33,9 +33,6 @@ class WPBDP_Installer {
 			wpbdp_log( 'Expiration check was in schedule. Nothing to do.' );
         }
 
-        if ( false === get_option( 'wpbdp-db-migrations', false ) )
-            update_option( 'wpbdp-db-migrations', array(), false );
-
         if ( self::DB_VERSION == $this->installed_version )
             return;
 
