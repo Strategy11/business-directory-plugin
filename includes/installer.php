@@ -43,7 +43,7 @@ class WPBDP_Installer {
 
         if ( $this->installed_version ) {
 			wpbdp_log( 'WPBDP is already installed.' );
-            return $this->_update();
+			$this->_update();
         } else if ( $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
 			wpbdp_log( 'New installation. Creating default form fields.' );
             global $wpbdp;

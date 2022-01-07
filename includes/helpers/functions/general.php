@@ -34,6 +34,7 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     }
 
     if ( $count ) {
+		_deprecated_argument( __FUNCTION__, '5.16.1', '$count is no longer supported' );
         $query = 'SELECT COUNT(*)';
     } else {
         $query = 'SELECT ID';
