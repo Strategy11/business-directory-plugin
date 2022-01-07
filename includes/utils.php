@@ -118,7 +118,7 @@ class WPBDP__Utils {
 		$query = $args['query'];
 
 		$results = wp_cache_get( $args['cache_key'], $args['group'] );
-		if ( $results === false || empty( $query ) ) {
+		if ( $results !== false || empty( $query ) ) {
 			return $results;
 		}
 
