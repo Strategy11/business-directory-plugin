@@ -453,6 +453,51 @@ class WPBDP_Admin_Pages {
 	}
 
 	/**
+	 * Show the settings notice.
+	 * Renders settings notice in notification area.
+	 *
+	 * @since x.x
+	 */
+	public static function settings_errors( $setting = '', $sanitize = false, $hide_on_update = false ) {
+		if ( $hide_on_update && ! empty( $_GET['settings-updated'] ) ) {
+			return;
+		}
+
+		$settings_errors = get_settings_errors( $setting, $sanitize );
+
+		if ( empty( $settings_errors ) ) {
+			return;
+		}
+
+		$output = '';
+
+		foreach ( $settings_errors as $key => $details ) {
+			if ( 'updated' === $details['type'] ) {
+				$details['type'] = 'success';
+			}
+
+			if ( in_array( $details['type'], array( 'error', 'success', 'warning', 'info' ), true ) ) {
+				$details['type'] = 'notice-' . $details['type'];
+			}
+
+			$css_id    = sprintf(
+				'setting-error-%s',
+				esc_attr( $details['code'] )
+			);
+			$css_class = sprintf(
+				'notice wpbdp-notice %s settings-error is-dismissible',
+				esc_attr( $details['type'] )
+			);
+
+			$output .= "<div id='$css_id' class='$css_class'> \n";
+			$output .= "<p><strong>{$details['message']}</strong></p>";
+			$output .= "</div> \n";
+		}
+
+		echo $output;
+	}
+
+	/**
 	 * Display the help section icon.
 	 *
 	 * @todo Is this being used? Not at the moment, but its to be menu with links to Knowledge base, contact support, etc.
