@@ -454,7 +454,9 @@ class WPBDP_Admin_Pages {
 
 	/**
 	 * Show the settings notice.
-	 * Renders settings notice in notification area.
+	 * Renders settings notice in notification area. Adds extra wpbdp-notice to show in area.
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/settings_errors/
 	 *
 	 * @since x.x
 	 */
