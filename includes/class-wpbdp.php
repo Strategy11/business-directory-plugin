@@ -349,7 +349,7 @@ final class WPBDP {
 
     public function plugin_activation() {
 		add_action( 'shutdown', 'flush_rewrite_rules' );
-		wpbdp_delete_page_ids_cache()
+		wpbdp_delete_page_ids_cache();
     }
 
     public function plugin_deactivation() {
