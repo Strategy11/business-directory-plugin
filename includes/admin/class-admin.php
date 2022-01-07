@@ -88,8 +88,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
 
 			// Clear listing page cache.
-			add_filter( 'pre_trash_post', array( $this, 'before_trash_post' ), 10, 2 );
-			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 3 );
+			add_filter( 'pre_trash_post', array( $this, 'before_delete_post' ), 10, 2 );
+			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
 
 			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
@@ -1221,26 +1221,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
 		/**
-		 * Action called before a post is trashed.
+		 * Action called before post is deleted or trashed.
+		 * Delete cached directory ids if a page is deleted.
 		 *
 		 * @since x.x
 		 */
-		public function before_trash_post( $check, $post ) {
-			$this->before_delete_post( $check, $post, false );
-			return $check;
-		}
-
-		/**
-		 * Action called before post is deleted.
-		 * Delete transient of saved directory ids if a directory page is deleted.
-		 *
-		 * @since x.x
-		 */
-		public function before_delete_post( $check, $post, $force_delete ) {
+		public function before_delete_post( $check, $post ) {
 			if ( 'page' === $post->post_type ) {
-				if ( strpos( $post->post_content, '[businessdirectory]' ) !== false ) {
-					wpbdp_delete_page_ids_cache();
-				}
+				wpbdp_delete_page_ids_cache();
 			}
 			return $check;
 		}

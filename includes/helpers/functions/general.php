@@ -34,10 +34,11 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     }
 
     if ( $count ) {
-        $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'page' AND ( post_status = 'publish' OR post_status = 'private' ) AND ( 1=0";
+        $query = 'SELECT COUNT(*)';
     } else {
-        $query = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND ( post_status = 'publish' OR post_status = 'private' ) AND ( 1=0";
+        $query = 'SELECT ID';
     }
+	$query .= " FROM {$wpdb->posts} WHERE post_type = 'page' AND ( post_status = 'publish' OR post_status = 'private' ) AND ( 1=0";
 
     foreach ( $shortcodes[ $page_id ] as $s ) {
         $query .= sprintf( " OR post_content LIKE '%%[%s]%%' ", $s );
@@ -52,35 +53,17 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
 
     if ( isset( $request_cached[ $page_id ] ) ) {
         $page_ids = $request_cached[ $page_id ];
-		return apply_filters( 'wpbdp_get_page_ids', $page_ids, $page_id );
-    }
-
-	$page_ids = null;
-
-    $cached_ids = get_transient( 'wpbdp-page-ids' );
-
-    if ( is_null( $page_ids ) ) {
-        $page_ids = wpbdp_get_page_ids_from_cache( $cached_ids, $page_id );
-
-	    if ( is_null( $page_ids ) ) {
-	        $page_ids = wpbdp_get_page_ids_with_query( $page_id );
-	    }
-    }
-
-    if ( is_array( $cached_ids ) ) {
-        $cached_ids[ $page_id ] = $page_ids;
-    } else {
-        $cached_ids = array( $page_id => $page_ids );
-    }
-
-    set_transient( 'wpbdp-page-ids', $cached_ids, MONTH_IN_SECONDS );
-
-    $request_cached[ $page_id ] = $page_ids;
+	} else {
+		$page_ids = wpbdp_get_page_ids_with_query( $page_id );
+		$request_cached[ $page_id ] = $page_ids;
+	}
 
     return apply_filters( 'wpbdp_get_page_ids', $page_ids, $page_id );
 }
 
 function wpbdp_get_page_ids_from_cache( $cache, $page_id ) {
+	_deprecated_function( __FUNCTION__, '5.16.1' );
+
     global $wpdb;
 
     if ( ! is_array( $cache ) || empty( $cache[ $page_id ] ) ) {
@@ -103,8 +86,6 @@ function wpbdp_get_page_ids_from_cache( $cache, $page_id ) {
 }
 
 function wpbdp_get_page_ids_with_query( $page_id ) {
-    global $wpdb;
-
     // Look up for pages.
     $q = _wpbdp_page_lookup_query( $page_id );
 
@@ -112,10 +93,16 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
         return null;
     }
 
-    $q .= ' ORDER BY ID, post_status ASC ';
-error_log( $q );
-	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-    return $wpdb->get_col( $q );
+	$q .= ' ORDER BY ID ASC ';
+
+	return WPBDP_Utils::check_cache(
+		array(
+			'cache_key' => 'wpbdp_page_ids' . $page_id,
+			'group'     => 'wpbdp_pages',
+			'query'     => $q,
+			'type'      => 'get_col',
+		)
+	);
 }
 
 function wpbdp_get_page_id( $name = 'main' ) {
@@ -1324,12 +1311,10 @@ function wpbdp_get_client_ip_address() {
 }
 
 /**
- * Added as replacement for a function crated with create_function().
- *
  * @since 5.2.1
  */
 function wpbdp_delete_page_ids_cache() {
-    delete_transient( 'wpbdp-page-ids' );
+	WPBDP__Utils::cache_delete_group( 'wpbdp_pages' );
 }
 
 /**
