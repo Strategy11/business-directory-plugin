@@ -39,12 +39,9 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
     } else {
         $query = 'SELECT ID';
     }
-	$query .= " FROM {$wpdb->posts} WHERE post_type = 'page' AND ( post_status = 'publish' OR post_status = 'private' ) AND ( 1=0";
 
-    foreach ( $shortcodes[ $page_id ] as $s ) {
-        $query .= sprintf( " OR post_content LIKE '%%[%s]%%' ", $s );
-    }
-    $query .= ')';
+	$query .= " FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status in ( 'publish', 'private' ) AND ";
+	$query .= $wpdb->prepare( 'post_content REGEXP %s', implode( '|', $shortcodes[ $page_id ] ) );
 
     return $query;
 }
