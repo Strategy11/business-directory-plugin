@@ -116,7 +116,7 @@ final class WPBDP {
 		self::translation_filters();
         add_filter( 'plugin_action_links_' . plugin_basename( WPBDP_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
-        // Clear cache of page IDs when a page is saved.
+		// Clear cache of page IDs when a page is created, trashed, or saved.
         add_action( 'save_post_page', 'wpbdp_delete_page_ids_cache' );
 
         // AJAX actions.

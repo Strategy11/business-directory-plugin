@@ -33,12 +33,12 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
         return false;
     }
 
-    if ( $count ) {
+	if ( $count ) {
 		_deprecated_argument( __FUNCTION__, '5.16.1', '$count is no longer supported' );
-        $query = 'SELECT COUNT(*)';
-    } else {
-        $query = 'SELECT ID';
-    }
+		$query = 'SELECT COUNT(*)';
+	} else {
+		$query = 'SELECT ID';
+	}
 
 	$query .= " FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status in ( 'publish', 'private' ) AND ";
 	$query .= $wpdb->prepare( 'post_content REGEXP %s', implode( '|', $shortcodes[ $page_id ] ) );

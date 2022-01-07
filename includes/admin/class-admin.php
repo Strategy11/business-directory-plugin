@@ -88,7 +88,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
 
 			// Clear listing page cache.
-			add_filter( 'pre_trash_post', array( $this, 'before_delete_post' ), 10, 2 );
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
 
 			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
@@ -1221,7 +1220,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
 		/**
-		 * Action called before post is deleted or trashed.
+		 * Action called before post is deleted.
 		 * Delete cached directory ids if a page is deleted.
 		 *
 		 * @since x.x
