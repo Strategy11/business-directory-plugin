@@ -1,9 +1,8 @@
 /* Add-on tiles */
 .wpbdp-addons {
-	margin-top: 30px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-gap: 30px 2%;
+	grid-gap: 25px;
 }
 
 .wpbdp-addons,
@@ -23,7 +22,7 @@
 .wpbdp-card {
 	width: 100%;
 	border-radius: 10px;
-	border: 1px solid var(--grey-border);
+	border: 1px solid @border-color;
 	opacity: 1;
 	transition: opacity 1s;
 	background: #fff;
@@ -36,6 +35,7 @@
 .wpbdp-addons {
 	.wpbdp-card {
 		padding: 25px;
+		border-color: transparent;
 	}
 
 	.plugin-card-details {
@@ -109,6 +109,110 @@
 	font-size: 15px;
 	top: 4px;
 }
+
+/* Themes */
+
+.wpbdp-theme-actions form { margin: 0; padding: 0; display: inline; }
+.wpbdp-theme-actions form input[type="submit"] { margin: 0; }
+
+.wpbdp-theme-details-wrapper {
+    text-align: center;
+}
+
+.wpbdp-theme-thumbnail {
+    max-width: 100%;
+	max-height: 200px;
+	min-height: 200px;
+	object-fit: cover;
+}
+
+.wpbdp-theme .enter-license {
+    display: none;
+    position: absolute;
+    float: none;
+    font-weight: normal;
+    top: 3px;
+    right: 10px;
+    color: #a00;
+}
+
+.wpbdp-theme:hover {
+
+	.enter-license {
+		display: block;
+	}
+
+	a.delete-theme-link,
+	.choose-theme {
+	    display: inline-block;
+	}
+}
+
+.wpbdp-theme.active .choose-theme,
+.wpbdp-theme.active:hover .choose-theme {
+    display: none;
+}
+
+.wpbdp-theme a.delete-theme-link {
+    display: none;
+	margin-top: 4px;
+    margin-right: 10px;
+	float: right;
+	color: #a00;
+	font-size: 13px;
+}
+
+#wpbdp-admin-page-theme-delete #delete-theme {
+    margin-left: 20px;
+    color: #a00;
+}
+
+#wpbdp-admin-page-theme-delete #delete-theme:hover {
+    background: #d54e21;
+    border-color: #d54e21;
+    color: #fff;
+    box-shadow: none;
+}
+
+.wpbdp-theme {
+	.wpbdp-theme-update-info {
+		left: 0;
+		position: absolute;
+		right: 0;
+		z-index: 1;
+		padding: 5px 10px;
+		margin: 0;
+	}
+
+	.wpbdp-theme-update-info.theme-updated {
+	    background: #ecf7ed;
+	    border-left-color: #46b450;
+	}
+
+	.wpbdp-theme-update-info.update-error {
+	    border-color: red;
+
+		.update-message {
+			color: red;
+		}
+	}
+
+	.wpbdp-theme-update-info .update-message {
+	    padding: 2px 4px;
+	}
+
+	.wpbdp-theme-update-info.theme-updated .update-message {
+	    background: #F0F5F7;
+	}
+
+	.wpbdp-theme-license-required-row {
+	    padding: 5px 10px;
+	    border-top: solid 2px;
+	    background: #fef7f1;
+	    border-color: #D34F2B;
+	}
+}
+
 
 @media only screen and (max-width: 1200px) {
 	.wpbdp-addons {
