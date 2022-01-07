@@ -52,7 +52,7 @@ jQuery( function( $ ) {
 			wpbdp_admin_notification_center.preAdminNotifications.each( function() {
 				var notification = $(this);
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
-					wpbdp_admin_notification_center.adminNotifications.append( '<li class="wpbdp-bell-notice">' + notification.html() + '</li>');
+					wpbdp_admin_notification_center.adminNotifications.append( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>');
 				}
 				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
 					notification.remove();

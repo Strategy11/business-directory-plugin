@@ -564,11 +564,18 @@ class WPBDP_Admin_Pages {
 				continue;
 			}
 
+			$title = strip_tags( $menu_item['title'] );
+
+			// change_menu_name() changes the name here. This changes it back.
+			if ( $title === __( 'Directory Content', 'business-directory-plugin' ) ) {
+				$title = __( 'Listings', 'business-directory-plugin' );
+			}
+
 			$tabs[ $id ] = array(
 				'title' => str_replace(
 					__( 'Directory', 'business-directory-plugin' ) . ' ',
 					'',
-					strip_tags( $menu_item['title'] )
+					$title
 				),
 				'icon'  => self::get_admin_menu_icon( $id, $menu_item ),
 			);
