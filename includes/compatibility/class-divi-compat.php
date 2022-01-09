@@ -21,9 +21,6 @@ class WPBDP_Divi_Compat {
 		if ( ! class_exists( 'ET_Builder_Plugin' ) ) {
 			return false;
 		}
-		if ( isset( $_GET['et_fb'] ) ) {
-			return true;
-		}
-		return false;
+		return isset( $_GET['et_fb'] );
 	}
 }
