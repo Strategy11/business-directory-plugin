@@ -33,7 +33,7 @@ class WPBDP_SiteTracking {
 
 		if ( ! $hash ) {
             $hash = sha1( site_url() );
-            update_option( 'wpbdp-site_tracking_hash', $hash );
+			update_option( 'wpbdp-site_tracking_hash', $hash, 'no' );
         }
 
         return $hash;
@@ -176,7 +176,7 @@ class WPBDP_SiteTracking {
 		);
 		$tracking = wpbdp_get_var( $params, 'post' );
 		if ( $tracking !== null ) {
-			update_option( 'wpbdp-show-tracking-pointer', 0 );
+			update_option( 'wpbdp-show-tracking-pointer', 0, 'no' );
 
 			if ( $tracking ) {
 				wpbdp_set_option( 'tracking-on', true );
