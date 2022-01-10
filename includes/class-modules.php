@@ -14,7 +14,6 @@ class WPBDP__Modules {
     private function register_modules() {
         // Allow modules to register themselves with this class.
         do_action( 'wpbdp_load_modules', $this );
-
         // Register modules with the Licensing API.
         foreach ( $this->modules as $mod ) {
             if ( ! $mod->is_premium_module ) {
