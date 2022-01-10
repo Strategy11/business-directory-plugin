@@ -311,42 +311,44 @@ class WPBDP_App_Helper {
 	}
 
 	/**
+	 * @param array|int $atts
+	 *
 	 * @since 5.9.2
 	 */
-	public static function show_logo( $size ) {
-		echo self::kses( self::svg_logo( $size ), 'all' ); // WPCS: XSS ok.
+	public static function show_logo( $atts ) {
+		echo self::kses( self::svg_logo( $atts ), 'all' ); // WPCS: XSS ok.
 	}
 
 	/**
-	 * Render a round logo.
-	 *
-	 * @param int $size The logo size.
-	 * @param bool|string $logo_class The optional logo class
+	 * @since 5.9.2
+	 */
+	public static function svg_logo( $atts = array() ) {
+		$atts = self::prep_logo_atts( $atts );
+
+		$img_class = $atts['class'] ? 'class="' . $atts['class'] . '"' : '';
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" ' . $img_class . ' />';
+	}
+
+	/**
+	 * @param int|array $atts
 	 *
 	 * @since x.x
 	 */
-	public static function show_round_logo( $size, $logo_class = false ) {
-		echo self::kses( self::svg_logo( $size, array(
-			'round' => true,
-			'class' => $logo_class,
-		) ), 'all' ); // WPCS: XSS ok.
-	}
+	private static function prep_logo_atts( $atts ) {
+		if ( ! is_array( $atts ) ) {
+			// For reverse compatibility, changing param from int to array.
+			$atts = array(
+				'size' => $atts,
+			);
+		}
 
-	/**
-	 * @since 5.9.2
-	 */
-	public static function svg_logo( $size = 18, $args = array() ) {
-		$atts = array(
-			'height' => $size,
-			'width'  => $size,
-		);
 		$defaults   = array(
 			'class' => false,
 			'round' => false,
+			'size'  => 18,
 		);
-		$args      = wp_parse_args( $args, $defaults );
-		$img_class = $args['class'] ? 'class="' . $args['class'] . '"' : '';
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $args['round'] ? '-round' : '' ) . '.svg' ). '" width="' . esc_attr( $atts['width'] ) . '" height="' . esc_attr( $atts['height'] ) . '" ' . $img_class . ' />';
+
+		return wp_parse_args( $atts, $defaults );
 	}
 
 	/**
