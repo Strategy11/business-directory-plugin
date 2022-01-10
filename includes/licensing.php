@@ -173,8 +173,10 @@ class WPBDP_Licensing {
 
     public function add_item_and_check_license( $args = array() ) {
         $item = $this->add_item( $args );
+
         if ( $item ) {
             $license_status = $this->get_license_status( '', $item['id'], $item['item_type'] );
+
             if ( in_array( $license_status, array( 'valid', 'expired' ), true ) ) {
                 return true;
             }
@@ -397,6 +399,7 @@ class WPBDP_Licensing {
 
 		if ( $license_key && ! empty( $this->licenses[ $data_key ] ) ) {
 			$data = $this->licenses[ $data_key ];
+
 			if ( ! empty( $data['license_key'] ) && $license_key == $data['license_key'] ) {
 				return $data['status'];
 			}
@@ -409,6 +412,7 @@ class WPBDP_Licensing {
         if ( ! in_array( $item_id, array_keys( $this->items ), true ) ) {
             return new WP_Error( 'invalid-module', esc_html__( 'Invalid item ID', 'business-directory-plugin' ), $module );
         }
+
         if ( 'deactivate' === $action ) {
             unset( $this->licenses[ $item_type . '-' . $item_id ] );
             update_option( 'wpbdp_licenses', $this->licenses );
@@ -443,6 +447,7 @@ class WPBDP_Licensing {
 
 		if ( 'deactivate' !== $action ) {
 			$license = $this->process_license_response( $response, $item_type, $item_id, $key );
+
 			if ( is_wp_error( $license ) ) {
 				$this->licenses_errors[ $item_id ] = $license->get_error_message();
 				$this->save_license_errors();
@@ -498,6 +503,7 @@ class WPBDP_Licensing {
 				'last_checked' => time(),
 			);
 		}
+
 		update_option( 'wpbdp_licenses', $this->licenses );
 
 		$is_revoked = isset( $license_data->error ) && 'revoked' === $license_data->error;
@@ -780,8 +786,8 @@ class WPBDP_Licensing {
             return;
         }
 
-        //$this->licenses = $this->get_licenses_status();
-        //update_option( 'wpbdp_licenses', $this->licenses );
+        $this->licenses = $this->get_licenses_status();
+        update_option( 'wpbdp_licenses', $this->licenses );
 
 		set_site_transient( 'wpbdp-license-check-time', current_time( 'timestamp' ), WEEK_IN_SECONDS );
     }
