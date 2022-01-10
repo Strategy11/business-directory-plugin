@@ -50,8 +50,9 @@ final class WPBDP_Listing_Image {
             return false;
 
         $post = get_post( $id );
-        if ( 'attachment' != $post->post_type || WPBDP_POST_TYPE != get_post_type( $post->post_parent ) || ! wp_attachment_is_image( $post->ID ) )
-            return false;
+		if ( 'attachment' !== $post->post_type || WPBDP_POST_TYPE !== get_post_type( $post->post_parent ) || ! wp_attachment_is_image( $post ) ) {
+			return false;
+		}
 
         return new WPBDP_Listing_Image( $post->ID );
     }
