@@ -40,7 +40,7 @@ class WPBDP_Listing {
 
     public function get_images( $fields = 'all', $sorted = false ) {
 		$q = array(
-			'numberposts' => -1,
+			'numberposts' => 50,
 			'post_type'   => 'attachment',
 			'post_parent' => $this->id,
 			'fields'      => 'ids',
@@ -48,7 +48,7 @@ class WPBDP_Listing {
 
 		$attachments = WPBDP_Utils::check_cache(
 			array(
-				'cache_key' => __FUNCTION__ . $fields . '.' . $sorted . ' .' . $this->id,
+				'cache_key' => __FUNCTION__ . $this->id,
 				'group'     => 'wpbdp_listings',
 				'query'     => $q,
 				'type'      => 'get_posts',

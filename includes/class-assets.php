@@ -36,7 +36,7 @@ class WPBDP__Assets {
             'jquery-file-upload-iframe-transport',
             WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.iframe-transport.js',
             array(),
-            '10.7.0',
+			'10.32.0',
 			true
         );
 
@@ -44,7 +44,7 @@ class WPBDP__Assets {
             'jquery-file-upload',
             WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.fileupload.js',
             array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' ),
-            '10.7.0',
+			'10.32.0',
 			true
         );
 
@@ -196,16 +196,23 @@ class WPBDP__Assets {
 	}
 
     public function load_css() {
-        $rootline_color = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
+		$rootline_color    = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
+		$thumbnail_width   = wpbdp_get_option( 'thumbnail-width' );
+		$thumbnail_height  = wpbdp_get_option( 'thumbnail-height' );
 
-        if ( ! $rootline_color ) {
-            $rootline_color = '#569AF6';
-        }
+		if ( ! $rootline_color ) {
+			$rootline_color = '#569AF6';
+		}
 
-        wp_add_inline_style(
-            'wpbdp-base-css',
-            'html{ --bd-main-color:' . $rootline_color . '; --bd-main-color-20:' . $rootline_color . '33;--bd-main-color-8:' . $rootline_color . '14;}'
-        );
+		$css = 'html{
+			--bd-main-color:' . $rootline_color . ';
+			--bd-main-color-20:' . $rootline_color . '33;
+			--bd-main-color-8:' . $rootline_color . '14;
+			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) .'px;
+			--bd-thumbnail-height:' . esc_attr( $thumbnail_height ) .'px;
+		}';
+
+		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $css ) );
     }
 
     /**

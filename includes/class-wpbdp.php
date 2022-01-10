@@ -28,7 +28,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.15.4' );
+        define( 'WPBDP_VERSION', '5.16' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -116,7 +116,7 @@ final class WPBDP {
 		self::translation_filters();
         add_filter( 'plugin_action_links_' . plugin_basename( WPBDP_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
-        // Clear cache of page IDs when a page is saved.
+		// Clear cache of page IDs when a page is created, trashed, or saved.
         add_action( 'save_post_page', 'wpbdp_delete_page_ids_cache' );
 
         // AJAX actions.
@@ -343,15 +343,13 @@ final class WPBDP {
     }
 
     private function load_textdomain() {
-        //        $languages_dir = str_replace( trailingslashit( WP_PLUGIN_DIR ), '', WPBDP_PATH . 'languages' );
-
         $languages_dir = trailingslashit( basename( WPBDP_PATH ) ) . 'languages';
         load_plugin_textdomain( 'business-directory-plugin', false, $languages_dir );
     }
 
     public function plugin_activation() {
 		add_action( 'shutdown', 'flush_rewrite_rules' );
-        delete_transient( 'wpbdp-page-ids' );
+		wpbdp_delete_page_ids_cache();
     }
 
     public function plugin_deactivation() {
@@ -463,25 +461,23 @@ final class WPBDP {
             $slots_available = absint( $plan->fee_images ) - absint( $_POST['images_count'] );
         }
 
-        if ( ! current_user_can( 'administrator' ) ) {
-            if ( 0 >= $slots_available ) {
-                return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'business-directory-plugin' ) );
-            } elseif ( $slots_available < count( $files ) ) {
-                return $res->send_error(
-                    sprintf(
-                        _nx(
-							'You\'re trying to upload %1$d images, but only have %2$d slot available. Please adjust your selection.',
-							'You\'re trying to upload %1$d images, but only have %2$d slots available. Please adjust your selection.',
-                            $slots_available,
-                            'listing image upload',
-                            'business-directory-plugin'
-                        ),
-                        count( $files ),
-                        $slots_available
-                    )
-                );
-            }
-        }
+		if ( 0 >= $slots_available ) {
+			return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'business-directory-plugin' ) );
+		} elseif ( $slots_available < count( $files ) ) {
+			return $res->send_error(
+				sprintf(
+					_nx(
+						'You\'re trying to upload %1$d images, but only have %2$d slot available. Please adjust your selection.',
+						'You\'re trying to upload %1$d images, but only have %2$d slots available. Please adjust your selection.',
+						$slots_available,
+						'listing image upload',
+						'business-directory-plugin'
+					),
+					count( $files ),
+					$slots_available
+				)
+			);
+		}
 
         foreach ( $files as $i => $file ) {
             $image_error = '';

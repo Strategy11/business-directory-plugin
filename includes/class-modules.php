@@ -66,4 +66,20 @@ class WPBDP__Modules {
         }
     }
 
+	/**
+	 * Get module information.
+	 *
+	 * @param string $module_id The module id.
+	 *
+	 * @since 5.16
+	 *
+	 * @return bool|object Returns false if module is not loaded. Returns an object if loaded
+	 */
+	public function get_module_info( $module_id ) {
+		if ( ! $this->is_loaded( $module_id ) ) {
+			return false;
+		}
+		$module = $this->modules[ $module_id ];
+		return $module;
+	}
 }

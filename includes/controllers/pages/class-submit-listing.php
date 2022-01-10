@@ -1054,6 +1054,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
                 if ( ! $validate_res ) {
                     $validation_errors[ $field->get_id() ] = $field_errors;
+					$field->add_validation_error( $field_errors );
                 } else {
                     $field->store_value( $this->listing->get_id(), $value );
                 }

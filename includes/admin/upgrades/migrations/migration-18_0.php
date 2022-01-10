@@ -367,8 +367,8 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                     'listing_id' => $listing_id,
                     'fee_id' => $free_plan->id,
                     'fee_price' => 0.0,
-                    'fee_days' => ! empty( $free_plan->days ) ? $free_plan->days : get_option( 'wpbdp-listing-duration', 0 ),
-                    'fee_images' => ! empty( $free_plan->images ) ? absint( $free_plan->images ) : get_option( 'wpbdp-free-images', 0 ),
+                    'fee_days' => ! empty( $free_plan->days ) ? $free_plan->days : 365,
+                    'fee_images' => ! empty( $free_plan->images ) ? absint( $free_plan->images ) : 0,
                     'is_sticky' => ! empty( $free_plan->sticky ),
                 );
 
