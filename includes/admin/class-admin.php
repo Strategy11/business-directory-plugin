@@ -481,8 +481,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			if ( isset( $submenu[ $cpt_menu ] ) && isset( $submenu[ $admin_menu ] ) ) {
 				$this->change_menu_name( $submenu[ $cpt_menu ] );
 				$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
-			}
-		}
+            }
+        }
 
 		/**
 		 * Since the top link points to the listings page, the menu name needs to change.
@@ -502,7 +502,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @since 5.0
          */
         private function prepare_menu( &$menu ) {
-			$n = 1;
+            $n = 1;
 
 			foreach ( $menu as &$item ) {
 				if ( ! isset( $item['priority'] ) ) {
@@ -531,7 +531,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			WPBDP_Utils::sort_by_property( $menu, 'priority' );
-		}
+        }
 
         /**
          * @since 5.0
@@ -945,7 +945,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $fee_id  = (int) $_GET['fee_id'];
                     $listing->set_fee_plan( $fee_id );
 
-					$this->messages[] = _x( 'The plan was successfully assigned.', 'admin', 'business-directory-plugin' );
+                    $this->messages[] = _x( 'The plan was successfully assigned.', 'admin', 'business-directory-plugin' );
 
                     break;
 
@@ -1312,6 +1312,19 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             echo '<script>jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
         }
 
+		/**
+		 * Action called before post is deleted.
+		 * Delete cached directory ids if a page is deleted.
+		 *
+		 * @since x.x
+		 */
+		public function before_delete_post( $check, $post ) {
+			if ( 'page' === $post->post_type ) {
+				wpbdp_delete_page_ids_cache();
+			}
+			return $check;
+		}
+
         /**
          * This function restores Manage Regions menu for Editors,
          * it won't be necessary after fixing the editors
@@ -1340,19 +1353,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 array_splice( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ], count( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ] ), 0, array( $submenu[ $parent_file ][ $directory_regions ] ) );
             }
         }
-
-		/**
-		 * Action called before post is deleted.
-		 * Delete cached directory ids if a page is deleted.
-		 *
-		 * @since x.x
-		 */
-		public function before_delete_post( $check, $post ) {
-			if ( 'page' === $post->post_type ) {
-				wpbdp_delete_page_ids_cache();
-			}
-			return $check;
-		}
 
 		/**
 		 * @deprecated 5.13.2
