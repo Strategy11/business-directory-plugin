@@ -382,7 +382,15 @@ class WPBDP_Admin_Pages {
 
 		?>
 		<h1 class="wpbdp-page-title">
-			<?php WPBDP_App_Helper::show_round_logo( 35, 'wpbdp-logo-center', true ); ?>
+			<?php
+			WPBDP_App_Helper::show_logo(
+				array(
+					'round' => true,
+					'class' => 'wpbdp-logo-center',
+					'size'  => 35,
+				)
+			);
+			?>
 			<span class="title-text"><?php echo esc_html( $title ); ?></span>
 
 			<?php foreach ( $buttons as $label => $url ) : ?>
