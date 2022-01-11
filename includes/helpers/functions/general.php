@@ -41,7 +41,7 @@ function _wpbdp_page_lookup_query( $page_id, $count = false ) {
 	}
 
 	$query .= " FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status in ( 'publish', 'private' ) AND ";
-	$query .= $wpdb->prepare( 'post_content REGEXP %s', implode( '|', $shortcodes[ $page_id ] ) );
+	$query .= $wpdb->prepare( 'post_content REGEXP %s', '\[' . implode( '\]|\[', $shortcodes[ $page_id ] ) );
 
     return $query;
 }
@@ -91,7 +91,7 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
         return null;
     }
 
-	$q .= ' ORDER BY ID ASC ';
+	$q .= ' ORDER BY ID DESC ';
 
 	return WPBDP_Utils::check_cache(
 		array(
