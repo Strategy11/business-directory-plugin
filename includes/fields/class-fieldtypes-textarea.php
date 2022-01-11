@@ -317,7 +317,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
     }
 
     public function get_field_html_value( &$field, $post_id ) {
-        $value = apply_filters( 'wpbdp_form_field_html_value', $field->value( $post_id ), $post_id, $field );
+		$value = apply_filters( 'wpbdp_form_field_html_value', $field->value( $post_id ), $post_id, $field, 'listing' );
 
 		$allowed_tags = self::allowed_html_tags( $field );
 
