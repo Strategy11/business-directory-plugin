@@ -11,7 +11,7 @@ jQuery( function( $ ) {
 			this.notificationContainer = $( '.wpbdp-bell-notifications' );
 	
 			//We get all the notifications to display in the modal
-			this.preAdminNotifications = $( '.wpbdp-notice' );
+			this.preAdminNotifications = $( '.wpbdp-notice, .wpbdp-notice:hidden' );
 
 			// Notifications container
 			this.adminNotifications = this.notificationContainer.find( '.wpbdp-bell-notifications-list' );
@@ -48,16 +48,24 @@ jQuery( function( $ ) {
 				return true;
 			}
 			$( '.wpbdp-bell-notification' ).show();
-
+			var notifications = [];
 			wpbdp_admin_notification_center.preAdminNotifications.each( function() {
 				var notification = $(this);
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
-					wpbdp_admin_notification_center.adminNotifications.append( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>');
+					notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
 				}
 				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
 					notification.remove();
 				}
 			});
+			notifications = wpbdp_admin_notification_center.removeDuplicates( notifications );
+			wpbdp_admin_notification_center.adminNotifications.append( notifications.join( ' ') );
+		},
+
+		removeDuplicates : function( arr ) {
+			var uniq = {};
+			arr.forEach( function( item ) { uniq[item] = true; } );
+			return Object.keys( uniq );
 		},
 
 		handleDismissAction : function() {

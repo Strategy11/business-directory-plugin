@@ -133,8 +133,7 @@ class WPBDP_Licensing {
 	 */
 	public function show_validation_notice_under_plugin( $plugin_file, $plugin_data ) {
 		?>
-		<tr class="wpbdp-module-key-not-verified plugin-update-tr active">
-		<td colspan="4">
+		<div class="wpbdp-setting-row">
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>
 					<?php
@@ -147,8 +146,7 @@ class WPBDP_Licensing {
 					?>
 				</p>
 			</div>
-		</td>
-		</tr>
+		</div>
 		<?php
 	}
 
