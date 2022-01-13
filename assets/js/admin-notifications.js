@@ -48,11 +48,15 @@ jQuery( function( $ ) {
 				return true;
 			}
 			$( '.wpbdp-bell-notification' ).show();
-			var notifications = [];
+			var notifications = [],
+				showNoficiation = false;
 			wpbdp_admin_notification_center.preAdminNotifications.each( function() {
 				var notification = $(this);
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
 					notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
+					if ( notification.hasClass( 'wpbdp-show-notice' ) ) {
+						showNoficiation = true;
+					}
 				}
 				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
 					notification.remove();
@@ -60,6 +64,9 @@ jQuery( function( $ ) {
 			});
 			notifications = wpbdp_admin_notification_center.removeDuplicates( notifications );
 			wpbdp_admin_notification_center.adminNotifications.append( notifications.join( ' ') );
+			if ( showNoficiation ) {
+				wpbdp_admin_notification_center.notificationContainer.removeClass( 'hidden' );
+			}
 		},
 
 		removeDuplicates : function( arr ) {

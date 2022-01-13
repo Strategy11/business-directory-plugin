@@ -495,7 +495,7 @@ class WPBDP_Admin_Pages {
 				esc_attr( $details['code'] )
 			);
 			$css_class = sprintf(
-				'notice wpbdp-notice %s settings-error is-dismissible',
+				'notice wpbdp-notice wpbdp-show-notice %s settings-error is-dismissible',
 				esc_attr( $details['type'] )
 			);
 
