@@ -87,12 +87,20 @@ jQuery( function( $ ) {
 		 * This hides notifications that have the class wpbdp-show-notice as they are notices
 		 */
 		timeoutVisibleNotices : function() {
-			wpbdp_admin_notification_center.adminNotifications.find( 'li.wpbdp-show-notice' ).each( function() {
+			wpbdp_admin_notification_center.adminNotifications.find( 'li.wpbdp-show-notice-once' ).each( function() {
 				var notification = $(this);
 				notification.fadeOut( 2500, function() {
 					notification.remove();
+					wpbdp_admin_notification_center.hideNotificationCenter();
 				});
 			});
+		},
+
+		hideNotificationCenter : function() {
+			if ( wpbdp_admin_notification_center.adminNotifications.find( 'li' ).length < 1 ) {
+				wpbdp_admin_notification_center.notificationContainer.addClass( 'hidden' );
+				$( '.wpbdp-bell-notification' ).hide();
+			}
 		},
 
 		dismissNotice : function( $notice, notice_id, nonce ) {
