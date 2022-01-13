@@ -6,9 +6,7 @@
  */
 
 $buttons = '';
-?>
-<div class="listing-actions cf">
-<?php
+
 if ( 'single' === $view ) :
     if ( wpbdp_user_can( 'edit', $listing_id ) ) :
 		$buttons .= sprintf(
@@ -69,7 +67,14 @@ elseif ( 'excerpt' === $view ) :
     endif;
 endif;
 
-// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-echo apply_filters( 'wpbdp-listing-buttons', $buttons, $listing_id );
+$buttons = apply_filters( 'wpbdp-listing-buttons', $buttons, $listing_id );
+if ( ! $buttons ) {
+	return;
+}
 ?>
+<div class="listing-actions cf">
+	<?php
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo $buttons;
+	?>
 </div>
