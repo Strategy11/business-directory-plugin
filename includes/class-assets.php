@@ -275,7 +275,11 @@ class WPBDP__Assets {
 		// Add admin body class for parent page class to avoid css conflicts.
 		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
 
-		$this->enqueue_admin_setting_resources();
+		// Prevent hiding notices on non-bd pages.
+		// The main parent function enqueue_admin_scripts is also called in other places the class-admin.php check_for_required_pages().
+		if ( WPBDP_App_Helper::is_bd_page() ) {
+			$this->enqueue_admin_setting_resources();
+		}
 
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
