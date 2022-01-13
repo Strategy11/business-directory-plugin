@@ -16,7 +16,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'listing' );
 
 		if ( 'payment_delete' === wpbdp_get_var( array( 'param' => 'message' ) ) ) {
-			wpbdp_admin_message( _x( 'Payment deleted.', 'payments admin', 'business-directory-plugin' ) );
+			wpbdp_admin_message( _x( 'Payment deleted.', 'payments admin', 'business-directory-plugin' ), 'wpbdp-show-notice' );
 		}
 
 		require_once WPBDP_INC . 'admin/helpers/tables/class-payments-table.php';
@@ -53,7 +53,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	 */
 	public function details() {
 		if ( 1 == wpbdp_get_var( array( 'param' => 'message' ) ) ) {
-			wpbdp_admin_message( _x( 'Payment details updated.', 'payments admin', 'business-directory-plugin' ) );
+			wpbdp_admin_message( _x( 'Payment details updated.', 'payments admin', 'business-directory-plugin' ), 'wpbdp-show-notice' );
 		}
 
 		$payment_id = wpbdp_get_var( array( 'param' => 'payment-id' ) );
