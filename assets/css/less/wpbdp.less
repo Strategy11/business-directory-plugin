@@ -96,13 +96,12 @@ form#wpbdmsearchform a.advanced-search-link {
     font-size: 80%;
 }
 
+.wpbdp-with-button-styles .wpbdp-listing .listing-actions .wpbdp-button.delete-listing,
 .listing-actions .delete-listing,
 .listing-actions a.delete-listing {
-    margin-left: 20px;
-    margin-right: 30px;
     color: @red !important;
-	background-color: transparent;
-	border: none;
+	background-color: transparent !important;
+	border-color: transparent;
 }
 
 .listing-actions .back-to-dir {
@@ -152,7 +151,7 @@ form#wpbdmsearchform a.advanced-search-link {
 
 .wpbdp-listing-excerpt .listing-thumbnail {
     float: right;
-    margin: 0 10px 0 0;
+    margin: 0 0 0 10px;
 }
 
 .wpbdp-listing-excerpt .listing-actions {
@@ -221,11 +220,11 @@ form#wpbdmsearchform a.advanced-search-link {
 	.wpbdp-sticky-tag {
 		transform: rotate(45deg);
 		text-align: center;
-		position: relative;
-		top: 7px;
-		right: -50px;
+		position: absolute;
+		top: 12px;
+		right: -48px;
 		width: 150px;
-		margin: 0 0 50px;
+		margin: 0;
 		border-radius: 0;
 	}
 

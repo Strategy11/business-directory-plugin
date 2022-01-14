@@ -426,13 +426,14 @@ class WPBDP_Form_Field_Type {
 
         $html  = '';
         $tag_attrs = isset( $args['tag_attrs'] ) ? self::html_attributes( $args['tag_attrs'] ) : '';
+		$atts = array();
+		if ( is_object( $labelorfield ) ) {
+			$atts['field'] = $labelorfield;
+		}
+		$extra_classes = apply_filters( 'wpbdp_display_field_wrapper_classes', $extra_classes, $atts );
 		$html .= '<div class="' . esc_attr( $css_classes . ' ' . $extra_classes ) . '" ' . $tag_attrs . '>';
 
 		if ( $label ) {
-			$atts = array();
-			if ( is_object( $labelorfield ) ) {
-				$atts['field'] = $labelorfield;
-			}
 			$html .= self::field_label_display_wrapper( $label, $atts );
 		}
 
