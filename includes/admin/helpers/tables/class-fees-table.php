@@ -30,7 +30,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			esc_html__( 'There are no fees right now. %1$sCreate one%2$s.', 'business-directory-plugin' ),
 			'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) . '">',
 			'</a>'
-		);
+        );
     }
 
     public function get_current_view() {
@@ -46,14 +46,14 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
 		$all = absint( $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans" ) );
 
-		$views['all'] = sprintf(
-			'<a href="%s" class="current">%s</a> <span class="count">(%s)</span></a>',
+        $views['all'] = sprintf(
+            '<a href="%s" class="current">%s</a> <span class="count">(%s)</span></a>',
 			esc_url( $admin_fees_url ),
-			_x( 'All', 'admin fees table', 'business-directory-plugin' ),
-			number_format_i18n( $all )
-		);
+            _x( 'All', 'admin fees table', 'business-directory-plugin' ),
+            number_format_i18n( $all )
+        );
 
-		return $views;
+        return $views;
     }
 
     public function get_columns() {
@@ -73,10 +73,11 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
 
         $args = array(
-			'admin_view'   => true,
+			'admin_view'   => true, // Admin view shows all listings
 			'enabled'      => 'all',
 			'include_free' => true,
         );
+
         $this->items = wpbdp_get_fee_plans( $args );
     }
 
@@ -89,7 +90,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			$classes .= ' free-fee';
 		}
 
-        echo '<tr class="' . $classes . '">';
+        echo '<tr class="' . esc_attr( $classes ) . '">';
         $this->single_row_columns( $item );
         echo '</tr>';
     }
