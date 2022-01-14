@@ -90,7 +90,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			$classes .= ' free-fee';
 		}
 
-        echo '<tr class="' . esc_attr( $classes ) . '">';
+        echo '<tr class="' . $classes . '">';
         $this->single_row_columns( $item );
         echo '</tr>';
     }
