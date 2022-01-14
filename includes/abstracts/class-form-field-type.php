@@ -465,7 +465,7 @@ class WPBDP_Form_Field_Type {
 		$field = isset( $atts['field'] ) ? $atts['field'] : '';
 		return '<span class="' . esc_attr( $class ) . '">' .
 			apply_filters( 'wpbdp_display_field_label', esc_html( $label ), $field ) .
-			':</span> ';
+			'</span> ';
 	}
 
 	public static function render_admin_settings( $admin_settings = array() ) {
