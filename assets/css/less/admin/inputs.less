@@ -39,7 +39,23 @@
 	input[type="search"],
 	select,
 	textarea {
-		border-color: @border-color;
+		border-color: @input-active;
+		&:default {
+			border-color: @input-active;	
+		}
+		&:hover, &:active {
+			border-color: @input-hover;
+		}
+		&:disabled {
+			background-color: @background;
+			border-color: @input-active;
+		}
+		&:invalid {
+			border-color: @input-invalid;
+		}
+		&.valid {
+			border-color: @input-valid;
+		}
 	}
 
 	textarea {

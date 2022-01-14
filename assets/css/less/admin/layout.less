@@ -103,12 +103,19 @@
 			}
 		}
 
-		&-icon {
-			margin: 0 10px
+		&:hover {
+			background-color: @background;
+			a {
+				color: @link-active;
+			}
+			.wpbdp-nav-item-icon {
+				background-color: @link-active;
+			}
 		}
 	}
 }
 .wpbdp-nav-item-icon {
+	margin: 0 10px;
 	display: inline-block;
 	opacity: .7;
 }

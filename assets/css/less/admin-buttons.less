@@ -4,7 +4,7 @@
 		text-shadow: none;
 		box-shadow: none;
 		border-radius: 4px;
-		border:1px solid @button !important;
+		border:1px solid @button;
 		font-size: 1em;
 		transition: all .2s ease;
 		height: 28px;
@@ -18,37 +18,58 @@
 		text-decoration: none;
 	}
 
-	.page-title-action,
-	.wpbdp-button-primary,
-	.button-primary {
-		background-color: @button !important;
-		border-color: @button !important;
-		color: @white !important;
-		&:hover, &:focus {
-			background: @button-hover !important;
-			border-color: @button-hover !important;
-		}
-	}
-
 	.add-new-h2,
 	.wpbdp-button-secondary,
 	.button-secondary,
 	.button {
 		background-color: @white;
-		border-color: @button !important;
+		border-color: @button;
 		color: @button-hover;
-		font-weight: 500;
+		font-weight: 600;
 
-		&:hover, &:focus {
-			border-color: @button-hover !important;
-			background: @button-hover !important;
-			color: @white;
+		&:hover {
+			background: @background;
+			color: @button;
 			box-shadow: none;
 		}
+		&:focus, &:active {
+			background-color: @white;
+		}
+		&:disabled {
+			background-color: @white;
+			border-color: @button;
+			color: @button-hover;
+			opacity: 0.5;
+		}
 	}
+
+	.page-title-action,
+	.wpbdp-button-primary,
+	.button-primary {
+		background-color: @button;
+		border-color: @button;
+		color: @white;
+		&:hover {
+			background: @button-hover;
+			border-color: @button-hover;
+			color: @white;
+		}
+		&:focus, &:active {
+			background: @button;
+			border-color: @button;
+			color: @white;
+		}
+		&:disabled {
+			background: @button !important;
+			border-color: @button !important;
+			color: @white !important;
+			opacity: 0.5;
+		}
+	}
+
 	.file-upload {
 		background-color: @white;
-		border-color: @button !important;
+		border-color: @button;
 		color: @button-hover;
 	}
 }
