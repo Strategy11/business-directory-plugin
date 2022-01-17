@@ -307,18 +307,19 @@ jQuery(document).ready(function($){
         }
     });
 
-    $( 'select[name="fee_order[method]"], select[name="fee_order[order]"]' ).change(function(e) {
-        $.ajax({
-            url: ajaxurl,
-            data: $(this).parent('form').serialize(),
-            dataType: 'json',
-            type: 'POST',
-            success: function(res) {
-                if ( res.success )
-                    location.reload();
-            }
-        });
-    });
+	$( document ).on( 'click', '.fee-order-submit', function( e ) {
+		e.preventDefault();
+		$.ajax({
+			url: ajaxurl,
+			data: $(this).parent('form').serialize(),
+			dataType: 'json',
+			type: 'POST',
+			success: function(res) {
+				if ( res.success )
+					location.reload();
+			}
+		});
+	});
 
     if ( 'custom' == $('select[name="fee_order[method]"]').val() ) {
         $( '.wpbdp-admin-page-fees .wp-list-table .wpbdp-drag-handle' ).show();

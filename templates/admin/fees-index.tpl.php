@@ -10,26 +10,33 @@ WPBDP_Admin_Pages::show_tabs(
 );
 ?>
 
-    <?php if ( ! wpbdp_get_option( 'payments-on' ) ) : ?>
 	<p class="howto">
-		<?php esc_html_e( 'Payments are currently turned off.', 'business-directory-plugin' ); ?><br />
-        <?php
-            echo sprintf(
-                /* translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag. */
-                esc_html__( 'To manage fees you need to go to the %1$sManage Options - Payment%2$s page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.', 'business-directory-plugin' ),
-                '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">',
-                '</a>'
-            );
-        ?>
+		<?php if ( ! wpbdp_get_option( 'payments-on' ) ) : ?>
+			<span class="title"><?php esc_html_e( 'Payments are currently turned off.', 'business-directory-plugin' ); ?></span>
+			<?php
+				echo sprintf(
+					/* translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag. */
+					esc_html__( 'To manage fees you need to go to the %1$sManage Options - Payment%2$s page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.', 'business-directory-plugin' ),
+					'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">',
+					'</a>'
+				);
+			?>
+		<?php endif; ?>
+		<br/>
+		<?php
+		printf(
+			/* translators: %1$s is directory payment mode (Free or Paid) */
+			esc_html__( 'All plans may not be available in "%1$s" mode.', 'business-directory-plugin' ),
+			esc_html( wpbdp_payments_possible() ? __( 'Paid', 'business-directory-plugin' ) : __( 'Free', 'business-directory-plugin' ) )
+		);
+		?>
     </p>
-    <?php endif; ?>
 
     <?php if ( 'active' == $table->get_current_view() || 'all' == $table->get_current_view() ) : ?>
         <div class="fees-order">
             <form>
             <input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
             <?php wp_nonce_field( 'change fees order' ); ?>
-			<b><?php esc_html_e( 'Order plans on the frontend by:', 'business-directory-plugin' ); ?></b><br />
             <select name="fee_order[method]">
             <?php foreach ( $order_options as $k => $l ) : ?>
             <option value="<?php echo esc_attr( $k ); ?>" <?php echo $k == $current_order['method'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
@@ -46,7 +53,7 @@ WPBDP_Admin_Pages::show_tabs(
                 <option value="<?php echo esc_attr( $o ); ?>" <?php echo $o == $current_order['order'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
             <?php endforeach; ?>
             </select>
-
+			<a class="button-secondary fee-order-submit"><?php esc_html_e( 'Order on the frontend', 'business-directory-plugin' ); ?></a>
             <?php if ( 'custom' == $current_order['method'] ) : ?>
 				<span><?php esc_html_e( 'Drag and drop to re-order plans.', 'business-directory-plugin' ); ?></span>
             <?php endif; ?>
@@ -57,21 +64,10 @@ WPBDP_Admin_Pages::show_tabs(
         <br class="clear" />
         <?php endif; ?>
 
-		<p class="howto">
-        <?php
-		printf(
-			/* translators: %1$s is directory payment mode (Free or Paid) */
-			esc_html__( 'All plans may not be available in "%1$s" mode.', 'business-directory-plugin' ),
-			esc_html( wpbdp_payments_possible() ? __( 'Paid', 'business-directory-plugin' ) : __( 'Free', 'business-directory-plugin' ) )
-		);
-		?>
-		</p>
-
 
         <?php $table->views(); ?>
         <?php $table->display(); ?>
 
-        <hr />
         <?php
         $modules = array(
             array( 'stripe', 'stripe-payment-module', 'Stripe' ),
@@ -82,9 +78,9 @@ WPBDP_Admin_Pages::show_tabs(
         global $wpbdp;
         ?>
 
-        <div class="purchase-gateways cf postbox">
+        <div class="purchase-gateways cf postbox wpbdp-grid">
             <div class="inside">
-                <h2 class="aligncenter">
+                <h2>
                     <?php
                     if ( ! wpbdp_payments_possible() ) {
                         esc_html_e( 'Set up a payment gateway to charge a fee for listings', 'business-directory-plugin' );
@@ -101,18 +97,20 @@ WPBDP_Admin_Pages::show_tabs(
                 continue;
             }
 			?>
-        <div class="gateway inside <?php echo esc_attr( $mod_info[0] ); ?> <?php echo $modules_obj->is_loaded( $mod_info[0] ) ? 'installed' : ''; ?>">
-            <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener">
-                <img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/<?php echo esc_attr( $mod_info[1] ); ?>.png" class="gateway-logo">
-            </a><br/>
-			<?php
-			echo sprintf(
-                // translators: %s: payment gateway name */
-                esc_html__( 'Add the %s gateway as a payment option.', 'business-directory-plugin' ),
-                '<a href="https://businessdirectoryplugin.com/downloads/' . esc_attr( $mod_info[1] ) . '/?utm_campaign=liteplugin" target="_blank" rel="noopener">' . esc_html( $mod_info[2] ) . '</a>'
-            );
-			?>
-            <p>
+        <div class="gateway inside wpbdp-col-3 <?php echo esc_attr( $mod_info[0] ); ?> <?php echo $modules_obj->is_loaded( $mod_info[0] ) ? 'installed' : ''; ?>">
+            <a class="gateway-title" href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener">
+				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/gateways/<?php echo esc_attr( $mod_info[1] ); ?>.svg" class="gateway-logo">
+            </a>
+			<div class="gateway-description">
+				<?php
+				echo sprintf(
+					// translators: %s: payment gateway name */
+					esc_html__( 'Add the %s gateway as a payment option.', 'business-directory-plugin' ),
+					esc_html( $mod_info[2] )
+				);
+				?>
+			</div>
+            <p class="gateway-footer">
                 <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?utm_campaign=liteplugin" target="_blank" rel="noopener" class="button-primary">
                     <?php esc_html_e( 'Upgrade', 'business-directory-plugin' ); ?>
                 </a>
@@ -120,10 +118,14 @@ WPBDP_Admin_Pages::show_tabs(
         </div>
         <?php endforeach; ?>
         <?php if ( ! wpbdp_payments_possible() ) : ?>
-        <div class="gateway">
-            <h3>Authorize.net</h3>
-            <?php esc_html_e( 'Set up Authorize.net as a payment option.', 'business-directory-plugin' ); ?>
-            <p>
+        <div class="gateway inside wpbdp-col-3">
+			<div class="gateway-title">
+				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/gateways/authorize-net-payment-module.svg" class="gateway-logo">
+			</div>
+			<div class="gateway-description">
+				<?php esc_html_e( 'Set up Authorize.net as a payment option.', 'business-directory-plugin' ); ?>
+			</div>
+            <p class="gateway-footer">
                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ); ?>" class="button-primary">
                     <?php esc_html_e( 'Set Up', 'business-directory-plugin' ); ?>
                 </a>
