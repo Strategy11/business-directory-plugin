@@ -47,10 +47,12 @@ jQuery( function( $ ) {
 			if ( wpbdp_admin_notification_center.preAdminNotifications.length < 1 ){
 				return true;
 			}
-			$( '.wpbdp-bell-notification' ).show();
 			var notifications = [];
 			wpbdp_admin_notification_center.preAdminNotifications.each( function() {
 				var notification = $(this);
+				if ( notification.hasClass( 'wpbdp-upgrade-bar' ) ) {
+					return false;
+				}
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
 					notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
 				}
@@ -60,8 +62,11 @@ jQuery( function( $ ) {
 			});
 			notifications = wpbdp_admin_notification_center.removeDuplicates( notifications );
 			wpbdp_admin_notification_center.adminNotifications.append( notifications.join( ' ') );
-			wpbdp_admin_notification_center.notificationContainer.removeClass( 'hidden' );
-			wpbdp_admin_notification_center.timeoutVisibleNotices();
+			if ( notifications.length > 0 ) {
+				$( '.wpbdp-bell-notification' ).show();
+				wpbdp_admin_notification_center.notificationContainer.removeClass( 'hidden' );
+				wpbdp_admin_notification_center.timeoutVisibleNotices();
+			}
 		},
 
 		removeDuplicates : function( arr ) {
