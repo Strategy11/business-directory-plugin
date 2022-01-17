@@ -132,7 +132,13 @@
 	}
 	.wpbdp-nav-item-name {
 		opacity: .7;
-		line-height: 2;
+		line-height: 1.5;
+		&:hover {
+			color: @link-active;
+		}
+	}
+	.wpbdp-nav-item-icon {
+		margin-left: 0;
 	}
 }
 .wpbdp-nav-tooltip {
@@ -238,6 +244,9 @@
 		font-size: 24px;
 		font-weight: 400;
 		color: @text-color;
+		&:hover {
+			color: @link-active;
+		}
 	}
 	.wpbdp-header-tab-active {
 		color: @link-active;
