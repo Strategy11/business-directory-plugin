@@ -78,7 +78,7 @@ WPBDP_Admin_Pages::show_tabs(
         global $wpbdp;
         ?>
 
-        <div class="purchase-gateways cf postbox wpbdp-grid">
+        <div class="purchase-gateways cf postbox">
             <div class="inside">
                 <h2>
                     <?php
@@ -90,6 +90,7 @@ WPBDP_Admin_Pages::show_tabs(
                     ?>
                 </h2>
             </div>
+		<div class="wpbdp-fee-gateway-list wpbdp-grid">
         <?php
 		$modules_obj = wpbdp()->modules;
         foreach ( $modules as $mod_info ) :
@@ -132,6 +133,7 @@ WPBDP_Admin_Pages::show_tabs(
             </p>
         </div>
         <?php endif; ?>
+		</div>
         </div>
 
 <?php WPBDP_Admin_Pages::show_tabs_footer( array( 'sub' => true ) ); ?>

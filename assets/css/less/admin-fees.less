@@ -9,8 +9,17 @@
 	.purchase-gateways {
 		border: none;
 		box-shadow: none;
+		.wpbdp-fee-gateway-list {
+			padding-left: 20px;
+			padding-right: 20px;
+			@media only screen and (max-width: 960px) {
+				padding-left: 0px;
+				padding-right: 0px;
+			}
+		}
+		
 		h2 {
-			text-align: left;
+			font-size: 19px;
 		}
 		.gateway {
 			a , div {
@@ -67,6 +76,11 @@
 			clear: both;
 			font-size: 14px;
 			display: block;
+		}
+	}
+	.fees-order {
+		.button-secondary {
+			line-height: 2;
 		}
 	}
 }
