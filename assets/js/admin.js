@@ -277,9 +277,56 @@ var WPBDP_associations_fieldtypes = {};
         }
     };
 
+	/**
+	 * Tables handle checked states
+	 */
+	var WPBDPAdmin_Tables = {
+		$bodyCheckboxes : null,
+		$selectAllCheckboxes : null,
+
+		init: function() {
+			WPBDPAdmin_Tables.$bodyCheckboxes = $( '.wpbdp-admin-page .wp-list-table tbody .check-column input[type="checkbox"]' );
+			WPBDPAdmin_Tables.$selectAllCheckboxes = $( '.wpbdp-admin-page .wp-list-table thead .check-column input[type="checkbox"], .wpbdp-admin-page .wp-list-table tfoot .check-column input[type="checkbox"]' );
+			WPBDPAdmin_Tables.checkBoxToggle();
+			WPBDPAdmin_Tables.selectAllChecked();
+		},
+
+		checkBoxToggle : function() {
+			WPBDPAdmin_Tables.$bodyCheckboxes.on( 'click', function(){
+				WPBDPAdmin_Tables.handleClick( $( this ) );
+			});
+		},
+
+		selectAllChecked : function() {
+			WPBDPAdmin_Tables.$selectAllCheckboxes.on( 'click',  function() {
+				var checked = $( this ).is( ':checked' );
+				WPBDPAdmin_Tables.$bodyCheckboxes.each( function() {
+					WPBDPAdmin_Tables.handleClick( $( this ), checked );
+				});
+			});
+		},
+
+		handleClick : function( checkbox, checked ) {
+			var $parent = checkbox.closest( 'tr' );
+			if ( typeof checked === 'undefined') {
+				checked = checkbox.is( ':checked' );
+			}
+			WPBDPAdmin_Tables.toggleClass( checked, $parent );
+		},
+
+		toggleClass : function( checked, $parent ) {
+			if ( checked ) {
+				$parent.addClass( 'wpbdp-row-selected' );
+			} else {
+				$parent.removeClass( 'wpbdp-row-selected' );
+			}
+		}
+	}
+
     $(document).ready(function(){
         WPBDPAdmin_FormFields.init();
         WPBDPAdmin_Layout.init();
+		WPBDPAdmin_Tables.init();
     });
 })(jQuery);
 
