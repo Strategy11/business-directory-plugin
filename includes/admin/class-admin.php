@@ -767,7 +767,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$modules = wpbdp()->modules;
 			$module_count = $this->get_installed_premium_module_count( $modules );
-			if ( $modules->is_loaded( 'premium' ) || $module_count > 0 ) {
+			if ( $module_count > 0 ) {
 				return;
 			}
 			?>
