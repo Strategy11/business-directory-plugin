@@ -212,13 +212,13 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          */
         public function ajax_create_main_page() {
             $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
-
+			$res = new WPBDP_Ajax_Response();
             if ( ! current_user_can( 'administrator' ) || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
-                exit();
+				$res->send_error();
             }
 
             if ( wpbdp_get_page_id( 'main' ) ) {
-                exit();
+				$res->send_error();
             }
 
             $page    = array(
@@ -230,16 +230,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $page_id = wp_insert_post( $page );
 
             if ( ! $page_id ) {
-                exit();
+				$res->send_error();
             }
 
-            $res = new WPBDP_Ajax_Response();
             $res->set_message(
-                str_replace(
-                    '<a>',
-                    '<a href="' . get_permalink( $page_id ) . '" target="_blank" rel="noopener">',
-                    _x( 'You\'re all set. Visit your new <a>Business Directory</a> page.', 'admin', 'business-directory-plugin' )
-                )
+				sprintf(
+					__( 'You\'re all set. Visit your new %1$sBusiness Directory%2$s page.', 'business-directory-plugin' ),
+					'<a href="' . get_permalink( $page_id ) . '" target="_blank" rel="noopener">',
+					'</a>'
+				)
             );
             $res->send();
         }
