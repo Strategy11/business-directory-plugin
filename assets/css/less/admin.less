@@ -106,6 +106,14 @@
 	align-items: center;
 	border-radius: 6px;
 	padding: 11px 22px;
+	&-full {
+		display: block;
+	}
+	&-modern {
+		&.wpbdp-pro-tip-disabled, .wpbdp-button-secondary {
+			background: rgba(188, 126, 126, 0.19);
+		}
+	}
 
 	svg {
 		color: @brand;
@@ -117,6 +125,17 @@
 	}
 	.wpbdp-button-secondary {
 		line-height: 1.5;
+	}
+
+	.wpbdp-pro-tip-title {
+		margin-bottom: 15px;
+		svg {
+			display: block;
+			float: left;
+		}
+	}
+	.wpbdp-pro-tip-body {
+		padding-left: 35px;
 	}
 }
 

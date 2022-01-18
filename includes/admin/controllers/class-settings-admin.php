@@ -588,7 +588,7 @@ class WPBDP__Settings_Admin {
 	 * @since 5.9.1
 	 */
 	private function setting_education_callback( $setting ) {
-		WPBDP_Admin_Education::show_tip_message( $setting['desc'] ); // already escaped
+		WPBDP_Admin_Education::show_setting_tip_message( $setting ); // already escaped
 	}
 
     public function setting_expiration_notices_callback( $setting, $value ) {

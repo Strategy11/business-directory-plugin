@@ -29,6 +29,8 @@ class WPBDP_Admin_Education {
 				'desc'    => wp_kses_post( $tip['tip'] ) . $cta,
                 'type'    => 'education',
                 'group'   => $group,
+				'class'   => $tip['class'],
+				'tip_layout' => $tip['layout'],
             )
         );
 	}
@@ -43,26 +45,80 @@ class WPBDP_Admin_Education {
 		}
 
 		$message = wp_kses_post( $tip['tip'] );
-		$message .= '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">';
-		$message .= esc_html( $tip['cta'] );
-		$message .= '</a>';
+		$message .= self::render_cta( $tip );
 
-		self::show_tip_message( $message );
+		self::show_tip_message( $message, $tip['class'] );
+	}
+
+	/**
+	 * Render the cta.
+	 *
+	 * @param array $tip The current tip.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public static function render_cta( $tip ) {
+		$cta = '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" class="wpbdp-button-secondary wpbdp-rounded-button" rel="noopener">';
+		$cta .= esc_html( $tip['cta'] );
+		$cta .= '</a>';
+		return $cta;
 	}
 
 	/**
 	 * @since 5.10
+	 * @since x.x Added second parameter for class name.
 	 */
-	public static function show_tip_message( $message ) {
+	public static function show_tip_message( $message, $class = '' ) {
 		?>
-		<p class="wpbdp-pro-tip">
+		<div class="wpbdp-pro-tip <?php echo esc_attr( $class ); ?>">
 			<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.00003L1 13H10L9 21L19 9.00003H10L11 1.00003Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			<?php
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $message; // already escaped.
 			?>
-		</p>
+		</div>
 		<?php
+	}
+
+	public static function show_modern_tip_message( $tip ) {
+		?>
+		<div class="wpbdp-pro-tip wpbdp-pro-tip-modern <?php echo esc_attr( $tip['class'] ); ?>">
+			<div class="wpbdp-pro-tip-title">
+				<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.00003L1 13H10L9 21L19 9.00003H10L11 1.00003Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				<?php echo $tip['title']; ?>
+			</div>
+			<div class="wpbdp-pro-tip-body wpbdp-grid">
+				<div class="wpbdp-col-9">
+					<?php
+						echo wp_kses_post( $tip['tip'] );
+					?>
+				</div>
+				<div class="wpbdp-col-3">
+					<?php
+						echo self::render_cta( $tip );
+					?>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Show setting tip message.
+	 *
+	 * @param array $setting The setting array.
+	 *
+	 * @since x.x
+	 */
+	public static function show_setting_tip_message( $setting ) {
+		if ( 'modern' === $setting['tip_layout']  ) {
+			$tip = self::get_tip( $setting['id'] );
+			self::show_modern_tip_message( $tip );
+		} else {
+			self::show_tip_message( $setting['desc'], $setting['class'] );
+		}
 	}
 
 	/**
@@ -116,7 +172,10 @@ class WPBDP_Admin_Education {
 			),
 			'table'    => array(
 				'requires' => 'premium',
-				'tip'      => '<span style="max-width:70%;text-align:center"><img src="https://s3.amazonaws.com/bd-docs/pro/directory-layout-setting.png" style="max-width:100%;display:block;" alt="Directory listing layout setting" /> Show listings in a grid or table.</span>',
+				'tip'      => '<div class="wpbdp-admin-premium-layouts"><img src="' . esc_url( WPBDP_ASSETS_URL . 'images/premium-layout.svg' ) . '" style="max-width:100%;" alt="Directory listing layout setting" /></div>',
+				'title'    => 'Get ability to display your directory in a different ways.',
+				'layout'   => 'modern',
+				'class'    => 'wpbdp-pro-tip-full wpbdp-pro-tip-disabled',
 			),
 		);
 		// TODO: Show maps and attachments.
@@ -137,6 +196,15 @@ class WPBDP_Admin_Education {
 		}
 		if ( empty( $tip['cta'] ) ) {
 			$tip['cta'] = 'Upgrade Now.';
+		}
+		if ( empty( $tip['class'] ) ) {
+			$tip['class'] = '';
+		}
+		if ( empty( $tip['title'] ) ) {
+			$tip['title'] = false;
+		}
+		if ( empty( $tip['layout'] ) ) {
+			$tip['layout'] = 'grid';
 		}
 
 		$has_premium = self::is_installed( 'premium' );
