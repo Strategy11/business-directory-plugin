@@ -767,7 +767,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$modules = wpbdp()->modules;
 
-			if ( $modules->is_loaded( 'premium' ) || $modules->is_loaded( 'paypal' ) || $modules->is_loaded( 'googlemaps' ) ) {
+			if ( $modules->is_loaded( 'premium' ) || count( array_keys( $modules->get_modules() ) ) > 0 ) {
 				return;
 			}
 			?>
