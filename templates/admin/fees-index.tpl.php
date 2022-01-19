@@ -100,7 +100,7 @@ WPBDP_Admin_Pages::show_tabs(
 			?>
         <div class="gateway inside wpbdp-col-3 <?php echo esc_attr( $mod_info[0] ); ?> <?php echo $modules_obj->is_loaded( $mod_info[0] ) ? 'installed' : ''; ?>">
             <a class="gateway-title" href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener">
-				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/gateways/<?php echo esc_attr( $mod_info[1] ); ?>.svg" class="gateway-logo">
+				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/modules/<?php echo esc_attr( $mod_info[1] ); ?>.svg" class="gateway-logo">
             </a>
 			<div class="gateway-description">
 				<?php
@@ -121,7 +121,7 @@ WPBDP_Admin_Pages::show_tabs(
         <?php if ( ! wpbdp_payments_possible() ) : ?>
         <div class="gateway inside wpbdp-col-3">
 			<div class="gateway-title">
-				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/gateways/authorize-net-payment-module.svg" class="gateway-logo">
+				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/modules/authorize-net-payment-module.svg" class="gateway-logo">
 			</div>
 			<div class="gateway-description">
 				<?php esc_html_e( 'Set up Authorize.net as a payment option.', 'business-directory-plugin' ); ?>
