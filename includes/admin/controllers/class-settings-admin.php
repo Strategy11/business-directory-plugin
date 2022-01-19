@@ -306,7 +306,7 @@ class WPBDP__Settings_Admin {
 		if ( empty( $setting['name'] ) ) {
 			return '';
 		}
-		return '<' . $tag . ' class=" ' . WPBDP_App_Helper::sanitize_html_classes( $class ) . ' ">' . wp_kses_post( $setting['name'] ) . '</' . $tag . '>';
+		return '<' . $tag . ' class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' . wp_kses_post( $setting['name'] ) . '</' . $tag . '>';
 	}
 
 	/**
