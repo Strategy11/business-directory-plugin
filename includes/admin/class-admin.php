@@ -782,7 +782,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Get the installed premium modules count.
 		 *
-		 * @since x.x
+		 * @since 5.16.1
 		 *
 		 * @return int
 		 */
@@ -1237,7 +1237,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * Action called before post is deleted.
 		 * Delete cached directory ids if a page is deleted.
 		 *
-		 * @since x.x
+		 * @since 5.16.1
 		 */
 		public function before_delete_post( $check, $post ) {
 			if ( 'page' === $post->post_type ) {
