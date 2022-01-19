@@ -257,7 +257,7 @@ class WPBDP__Settings_Admin {
 		} else {
 			echo $this->checkbox_input_html( $setting, $value );
 		}
-		echo $this->setting_input_label( $setting, $tag );
+		echo $this->setting_input_label( $setting, $tag, 'wpbdp-setting-label' );
 		if ( ! empty( $setting['tooltip'] ) ) {
 			echo $this->setting_tooltip( $setting['tooltip'] );
 		}
