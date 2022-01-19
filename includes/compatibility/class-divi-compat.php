@@ -13,7 +13,7 @@ class WPBDP_Divi_Compat {
 	/**
 	 * Check if Divi builder is being used.
 	 *
-	 * @since x.x
+	 * @since 5.16.1
 	 *
 	 * @return bool
 	 */
