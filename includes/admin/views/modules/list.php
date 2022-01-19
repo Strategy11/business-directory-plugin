@@ -24,7 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div id="the-list" class="wpbdp-addons">
 		<?php foreach ( $addons as $slug => $addon ) {
-			error_log( $addon['slug'] );
 			if ( strpos( $addon['title'], 'Theme' ) ) {
 				// Skip themes for now since they have another page.
 				continue;
