@@ -38,12 +38,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php endif; ?>
 					<div class="wpbdp-grid">
 						<div class="wpbdp-col-8">
-							<h2 class="plugin-card-title">
-								<?php echo esc_html( str_replace( ' Module', '', $addon['title'] ) ); ?>
-							</h2>
-							<p class="addon-status">
-								<?php echo esc_html( $addon['status']['label'] ); ?>
-							</p>
+							<div class="wpbdp-grid">
+								<span class="wpbdp-col-2 wpbdp-card-module-icon wpbdp-admin-module-icon wpbdp-admin-module-icon-<?php echo esc_attr( $addon['slug'] ); ?>"></span>
+								<div class="wpbdp-col-10">
+									<h2 class="plugin-card-title">
+										<?php echo esc_html( str_replace( ' Module', '', $addon['title'] ) ); ?>
+									</h2>
+									<p class="addon-status">
+										<?php echo esc_html( $addon['status']['label'] ); ?>
+									</p>
+								</div>
+							</div>
 						</div>
 						<div class="wpbdp-col-4">
 							<?php
