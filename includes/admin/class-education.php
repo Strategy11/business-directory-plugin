@@ -172,7 +172,7 @@ class WPBDP_Admin_Education {
 			),
 			'table'    => array(
 				'requires' => 'premium',
-				'tip'      => '<div class="wpbdp-admin-premium-layouts"><img src="' . esc_url( WPBDP_ASSETS_URL . 'images/premium-layout.svg' ) . '" style="max-width:100%;" alt="Directory listing layout setting" /></div>',
+				'tip'      => '<div class="wpbdp-admin-premium-layouts"><img src="' . esc_url( WPBDP_ASSETS_URL . 'images/premium-layout.svg' ) . '" style="max-width:80%;" alt="Directory listing layout setting" /></div>',
 				'title'    => 'Get ability to display your directory in a different ways.',
 				'layout'   => 'modern',
 				'class'    => 'wpbdp-pro-tip-full wpbdp-pro-tip-disabled',
