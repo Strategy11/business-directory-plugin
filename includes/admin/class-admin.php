@@ -765,8 +765,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			$modules = wpbdp()->modules;
-
-			if ( $modules->is_loaded( 'premium' ) || $modules->is_loaded( 'paypal' ) || $modules->is_loaded( 'googlemaps' ) ) {
+			$module_count = $this->get_installed_premium_module_count( $modules );
+			if ( $module_count > 0 ) {
 				return;
 			}
 			?>
@@ -777,6 +777,21 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				</a>
 			</div>
 			<?php
+		}
+
+		/**
+		 * Get the installed premium modules count.
+		 *
+		 * @since x.x
+		 *
+		 * @return int
+		 */
+		private function get_installed_premium_module_count( $modules ) {
+			$module_list = $modules->get_modules();
+			if ( isset( $module_list['categories'] ) ) {
+				unset( $module_list['categories'] );
+			}
+			return count( array_keys( $module_list ) );
 		}
 
         function handle_actions() {
