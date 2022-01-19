@@ -169,23 +169,18 @@ var WPBDP_associations_fieldtypes = {};
         $nav_toggle : null,
         $layout_container : null,
         $menu_items : null,
-        $menu_container : null,
-        $content_area : null,
         $menu_state : null,
+        $header : null,
 
         init: function() {
             WPBDPAdmin_Layout.$nav_toggle = $( '.wpbdp-nav-toggle' );
             WPBDPAdmin_Layout.$layout_container = $( '.wpbdp-admin-row' );
             WPBDPAdmin_Layout.$menu_items = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-nav-item a' );
-            WPBDPAdmin_Layout.$menu_container = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-menu-area' );
-            WPBDPAdmin_Layout.$content_area = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-content-area' );
+            WPBDPAdmin_Layout.$header = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-content-area-header ' );
             WPBDPAdmin_Layout.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
             WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
-            WPBDPAdmin_Layout.layoutResize();
+            WPBDPAdmin_Layout.headerScoll();
             WPBDPAdmin_Layout.initTaxonomyModal();
-            $(window).on('resize', function(){
-                WPBDPAdmin_Layout.layoutResize();
-            });
             if ( WPBDPAdmin_Layout.$menu_state && WPBDPAdmin_Layout.$menu_state == 'minimized' ) {
                 WPBDPAdmin_Layout.$layout_container.addClass( 'minimized' );
             }
@@ -203,12 +198,16 @@ var WPBDP_associations_fieldtypes = {};
             }
         },
 
-        layoutResize : function() {
-            WPBDPAdmin_Layout.$content_area.css( 'height', $( document ).height() );
-            if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
-                WPBDPAdmin_Layout.$menu_container.css( 'height', $( window ).height() );
-            } else {
-                WPBDPAdmin_Layout.$menu_container.css( 'height', 'auto' );
+        headerScoll : function() {
+            var sticky = WPBDPAdmin_Layout.$header.offset().top;
+            if ( ! window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
+                window.onscroll = function() {
+                    if ( window.pageYOffset > sticky ) {
+                        WPBDPAdmin_Layout.$header.addClass( 'wpbdp-header-scroll' );
+                    } else {
+                        WPBDPAdmin_Layout.$header.removeClass( 'wpbdp-header-scroll' );
+                    }
+                };
             }
         },
 
