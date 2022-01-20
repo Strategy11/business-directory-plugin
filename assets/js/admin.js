@@ -322,10 +322,65 @@ var WPBDP_associations_fieldtypes = {};
 		}
 	}
 
-    $(document).ready(function(){
+	var WPBDPAdmin_Helper = {
+		/**
+		 * Add event helper for different browser types
+		 * @param {*} elem 
+		 * @param {*} eventType 
+		 * @param {*} handler 
+		 */
+		addEventHandler : function( elem, eventType, handler ) {
+			if ( elem.addEventListener ) {
+				elem.addEventListener ( eventType, handler, false );
+			} else if ( elem.attachEvent ) {
+				elem.attachEvent ( 'on' + eventType, handler ); 
+			}
+		},
+
+		fileInput : {
+			addListeners : function( fileInputs ) {
+				for ( var i = 0; i < fileInputs.length; i++ ) {
+					var fileInput = fileInputs.item( i );
+					WPBDPAdmin_Helper.addEventHandler( fileInput, 'change',function() {
+						var input = this,
+							files = input.files[0];
+						if ( files ) {
+							input.nextElementSibling.nextElementSibling.innerHTML = files.name;
+						}
+					} );
+				}
+			},
+
+			fileInputText : function( isIframe, iframe ) {
+				var fileInputs = [];
+				if ( isIframe ) {
+					fileInputs = iframe.contentWindow.document.getElementsByClassName( 'wpbdp-inner-file' );
+				} else {
+					fileInputs = document.getElementsByClassName( 'wpbdp-inner-file' );
+				}
+				if ( fileInputs.length <= 0 ) {
+					return;
+				}
+				WPBDPAdmin_Helper.fileInput.addListeners( fileInputs );
+			}
+		}
+	};
+
+    $( document ).ready( function() {
         WPBDPAdmin_FormFields.init();
         WPBDPAdmin_Layout.init();
 		WPBDPAdmin_Tables.init();
+        $( '.wpbdp-upload-iframe' ).on( 'load', function() {
+            var $iframe = $( this ),
+				$contents = $iframe.contents(),
+				$head = $contents.find( 'head' ),
+				$body = $contents.find( 'body' ),
+                url = wpbdp_global.asseturl + 'css/admin.min.css';
+            $head.append( $( '<link/>', { rel: 'stylesheet', href: url, type: 'text/css' } ) );
+			$body.css( 'margin', 0 );
+			WPBDPAdmin_Helper.fileInput.fileInputText( true, this );
+        });
+		WPBDPAdmin_Helper.fileInput.fileInputText( false );
     });
 })(jQuery);
 
@@ -447,13 +502,6 @@ jQuery(document).ready(function($){
 
         $tr.after( '<tr class="more-details-row"><td colspan="7">' + $details.html() + '</td></tr>' ).show();
     });
-
-	$( document ).on( 'change', '.wpbdp-inner-file', function(){
-		var files = $(this)[0].files[0];
-		if ( files ) {
-			$(this).parent().find('.wpbdp-inner-file-name').html(files.name);
-		}
-	});
 
 });
 
@@ -1015,8 +1063,8 @@ jQuery( function( $ ) {
  * Highlight Directory menu.
  */
 function wpbdpSelectSubnav() {
-        var wpbdpMenu = jQuery( '#toplevel_page_wpbdp_admin' );
-        jQuery( wpbdpMenu ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
-        jQuery( '#toplevel_page_wpbdp_admin a.wp-has-submenu' ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
-        jQuery( '#toplevel_page_wpbdp_admin ul.wp-submenu-wrap li.wp-first-item' ).addClass( 'current' );
+	var wpbdpMenu = jQuery( '#toplevel_page_wpbdp_admin' );
+	jQuery( wpbdpMenu ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
+	jQuery( '#toplevel_page_wpbdp_admin a.wp-has-submenu' ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
+	jQuery( '#toplevel_page_wpbdp_admin ul.wp-submenu-wrap li.wp-first-item' ).addClass( 'current' );
 }
