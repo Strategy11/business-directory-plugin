@@ -264,6 +264,7 @@ class WPBDP__Utils {
 		} else {
 			$file = $file_;
 		}
+		$file = wp_unslash( $file );
 
 		if ( ! self::is_valid_upload( $file, $constraints, $error_msg ) ) {
 			return false;
