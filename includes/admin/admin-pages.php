@@ -298,7 +298,7 @@ class WPBDP_Admin_Pages {
 		}
 		$title = $args['title'];
 	?>
-	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
+	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?> <?php echo ! $args['show_nav'] ? 'wpbdp-admin-page-full-width' : ''; ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
 		<div class="wpbdp-admin-row">
 			<?php if ( $args['show_nav'] ) : ?>
 				<?php include WPBDP_PATH . 'templates/admin/_admin-menu.php'; ?>
@@ -744,6 +744,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 		'tabbed_title' => false,
 		'titles'       => array(),
 		'current_tab'  => '',
+		'full_width'   => false,
 	);
 
 	$args = wp_parse_args( $args_or_title, $defaults );
@@ -764,6 +765,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 			'tabbed_title' => $args['tabbed_title'],
 			'titles'       => $args['titles'],
 			'current_tab'  => $args['current_tab'],
+			'full_width'   => $args['full_width'],
 		)
 	);
 
