@@ -264,7 +264,6 @@ class WPBDP__Utils {
 		} else {
 			$file = $file_;
 		}
-		$file = wp_unslash( $file );
 
 		if ( ! self::is_valid_upload( $file, $constraints, $error_msg ) ) {
 			return false;
@@ -313,12 +312,8 @@ class WPBDP__Utils {
 	public static function get_mimetype( $file ) {
 		$mime_type = null;
 
-		if ( function_exists( 'finfo_open' ) ) {
-			if ( $finfo = finfo_open( FILEINFO_MIME ) ) {
-				$mime_type = explode( ';', finfo_file( $finfo, $file ) );
-				$mime_type = trim( $mime_type[0] );
-				finfo_close( $finfo );
-			}
+		if ( function_exists( 'mime_content_type' ) ) {
+            $mime_type = mime_content_type( $file );
 		}
 
 		if ( null === $mime_type ) {
@@ -326,7 +321,7 @@ class WPBDP__Utils {
 			$mime_type = $type_info['type'];
 		}
 
-		return $mime_type;
+		return esc_attr( $mime_type );
 	}
 
 	/**
