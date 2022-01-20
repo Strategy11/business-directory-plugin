@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8.1
-Stable tag: 5.16
+Stable tag: 5.16.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,19 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.16.1 =
+* Fix: The message to create a page on install wasn't updating when it was successful.
+* Fix: Exclude admin test fees in the stats for the plan total amount collected.
+* Fix: Show '0.00' for free listings rather than 'Free'.
+* Fix: The Divi page builder was showing errors when editing listing pages.
+* Remove colons and use space instead after a label in a listing. Colons can be added manually using the wpbdp_display_field_label hook if desired.
+* Added wpbdp_display_field_wrapper_classes hook to add extra classes to a field wrapper.
+* Fix: Get rid of button styling on delete link so it shows as a red link instead of a button.
+* Fix: Make the featured banner work better by not pushing content around. Now it overlaps the image.
+* Add a bit more caching and a performance lift.
+* Fix: If a second page is added with the businessdirectory shortcode, use the most recent page. Also, ignore a page with the shortcode if it's in the trash.
+* Fix: The database upgrade wasn't always getting marked as complete, and was running multiple times.
+
 = 5.16 =
 * Improve front-end performance by only resizing images at the time they are uploaded. Now WordPress handles all the image resizing.
 * Clean up the images settings page. Removed the 'Number of free images' and 'Listing duration for no-fee sites' settings since they are included in the plan settings.
@@ -177,12 +190,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Switch to current standards for WordPress admin notices.
 * Fix: Some widget settings weren't getting saved.
 * Remove the option to set a height for category multiselect fields since it wasn't being used.
-
-= 5.15.2 =
-* Fix: Listings set to never expire were changing to draft after editing.
-
-= 5.15.1 =
-* Fix: Listings set to never expire were switching to expired on edit.
-* Fix: Long listing titles in sidebar widgets weren't wrapping with some settings.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
