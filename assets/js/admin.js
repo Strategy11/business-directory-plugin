@@ -201,15 +201,20 @@ var WPBDP_associations_fieldtypes = {};
         headerScoll : function() {
             var sticky = WPBDPAdmin_Layout.$header.offset().top;
             if ( ! window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
+				WPBDPAdmin_Layout.headerSetScrollClass( sticky );
                 window.onscroll = function() {
-                    if ( window.pageYOffset > sticky ) {
-                        WPBDPAdmin_Layout.$header.addClass( 'wpbdp-header-scroll' );
-                    } else {
-                        WPBDPAdmin_Layout.$header.removeClass( 'wpbdp-header-scroll' );
-                    }
+                    WPBDPAdmin_Layout.headerSetScrollClass( sticky );
                 };
             }
         },
+
+		headerSetScrollClass : function( sticky ) {
+			if ( window.pageYOffset > sticky ) {
+				WPBDPAdmin_Layout.$header.addClass( 'wpbdp-header-scroll' );
+			} else {
+				WPBDPAdmin_Layout.$header.removeClass( 'wpbdp-header-scroll' );
+			}
+		},
 
         initTaxonomyModal : function() {
             var modal = WPBDPAdmin_Layout.initModal( '#wpbdp-add-taxonomy-form' );
