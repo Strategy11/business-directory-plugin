@@ -266,5 +266,6 @@ jQuery(function($) {
         },
     };
     wpbdp_settings_email.init();
+
 });
 
