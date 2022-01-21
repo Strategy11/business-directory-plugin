@@ -995,7 +995,7 @@ class WPBDP_Licensing {
             $item_key = $item['item_type'] . '-' . $item['id'];
 
             foreach ( $body as $item_information ) {
-				if ( trim( $item_information->name ) !== trim( $item['name'] ) ) {
+				if ( trim( $item_information->name ) !== trim( $item['name'] ) || empty( $item_information->license ) ) {
 					continue;
 				}
 
