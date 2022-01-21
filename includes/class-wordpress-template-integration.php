@@ -22,8 +22,10 @@ class WPBDP__WordPress_Template_Integration {
         }
 
         add_filter( 'template_include', array( $this, 'template_include' ), 20 );
-        add_action( 'wp_head', array( $this, 'maybe_spoof_post' ), 100 );
-        add_action( 'wp_head', array( $this, 'wp_head_done' ), 999 );
+		if ( ! WPBDP_Divi_Compat::divi_builder_is_active() ) {
+			add_action( 'wp_head', array( $this, 'maybe_spoof_post' ), 100 );
+			add_action( 'wp_head', array( $this, 'wp_head_done' ), 999 );
+		}
         add_filter( 'post_class', array( $this, 'post_class' ), 10, 3 );
     }
 

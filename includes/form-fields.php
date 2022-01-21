@@ -514,7 +514,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
                 $names[ $field->get_id() ] = $name;
             }
 
-            update_option( 'wpbdp-field-short-names', $names );
+            update_option( 'wpbdp-field-short-names', $names, 'no' );
 
             return $names;
         }

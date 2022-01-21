@@ -71,7 +71,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		$social_filter  = ( $filter === 'social' );
 		$is_association = false;
 
-		if ( ! $social_filter ) {
+		if ( ! $social_filter && $filter !== 'excerpt' ) {
 			$api            = WPBDP_FormFields::instance();
 			$post_fields    = $api->get_associations();
 			$is_association = isset( $post_fields[ $filter ] );
@@ -79,11 +79,11 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 
         foreach ( $this->items as &$f ) {
 			$display = ! $neg;
-			if ( $social_filter ) {
-				$display = $f->field->display_in( 'social' );
-			} elseif ( $is_association ) {
+			if ( $is_association ) {
 				$mapping = $f->field->get_association();
 				$display = $mapping === $filter;
+			} else {
+				$display = $f->field->display_in( $filter );
 			}
 
 			if ( $neg !== $display ) {

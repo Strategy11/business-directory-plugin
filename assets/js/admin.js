@@ -498,30 +498,29 @@ jQuery(function($) {
 
 // {{ Create main page warning.
 (function($) {
-    $(document).ready(function() {
-        $( 'a.wpbdp-create-main-page-button' ).click(function(e) {
-            e.preventDefault();
-            var $msg = $(this).parents('div.error');
+    $( document ).on( 'click', 'a.wpbdp-create-main-page-button' ,function( e ) {
+		e.preventDefault();
+		var button = $( this ),
+			$msg = button.parents('div.wpbdp-notice'),
+			nonce = button.attr('data-nonce');
+		$.ajax({
+			'url': ajaxurl,
+			'data': { 'action': 'wpbdp-create-main-page',
+					  '_wpnonce': nonce },
+			'dataType': 'json',
+			success: function(res) {
+				if ( ! res.success )
+					return;
 
-            $.ajax({
-                'url': ajaxurl,
-                'data': { 'action': 'wpbdp-create-main-page',
-                          '_wpnonce': $(this).attr('data-nonce') },
-                'dataType': 'json',
-                success: function(res) {
-                    if ( ! res.success )
-                        return;
-
-                    $msg.fadeOut( 'fast', function() {
-                        $(this).html( '<p>' + res.message + '</p>' );
-                        $(this).removeClass('error');
-                        $(this).addClass('updated');
-                        $(this).fadeIn( 'fast' );
-                    } );
-                }
-            });
-        });
-    });
+				$msg.fadeOut( 'fast', function() {
+					$(this).html( '<p>' + res.message + '</p>' );
+					$(this).removeClass('error');
+					$(this).addClass('updated');
+					$(this).fadeIn( 'fast' );
+				} );
+			}
+		});
+	});
 })(jQuery);
 // }}
 

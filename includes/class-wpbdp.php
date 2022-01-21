@@ -28,7 +28,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.16' );
+        define( 'WPBDP_VERSION', '5.16.1' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -116,7 +116,7 @@ final class WPBDP {
 		self::translation_filters();
         add_filter( 'plugin_action_links_' . plugin_basename( WPBDP_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
-        // Clear cache of page IDs when a page is saved.
+		// Clear cache of page IDs when a page is created, trashed, or saved.
         add_action( 'save_post_page', 'wpbdp_delete_page_ids_cache' );
 
         // AJAX actions.
@@ -201,6 +201,8 @@ final class WPBDP {
 
         $this->assets = new WPBDP__Assets();
         $this->widgets = new WPBDP__Widgets();
+
+		require_once WPBDP_PATH . 'includes/compatibility/class-divi-compat.php';
 
         // We need to ask for frontend requests first, because
         // wpbdp_is_request( 'admin' ) or is_admin() return true for ajax
@@ -343,15 +345,13 @@ final class WPBDP {
     }
 
     private function load_textdomain() {
-        //        $languages_dir = str_replace( trailingslashit( WP_PLUGIN_DIR ), '', WPBDP_PATH . 'languages' );
-
         $languages_dir = trailingslashit( basename( WPBDP_PATH ) ) . 'languages';
         load_plugin_textdomain( 'business-directory-plugin', false, $languages_dir );
     }
 
     public function plugin_activation() {
 		add_action( 'shutdown', 'flush_rewrite_rules' );
-        delete_transient( 'wpbdp-page-ids' );
+		wpbdp_delete_page_ids_cache();
     }
 
     public function plugin_deactivation() {
