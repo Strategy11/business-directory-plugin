@@ -68,7 +68,7 @@ WPBDP_Admin_Pages::show_tabs(
         <?php $table->views(); ?>
         <?php $table->display(); ?>
 
-		<?php require_once WPBDP_PATH . 'includes/admin/views/fields/delete.php'; ?>
+		<?php require_once WPBDP_PATH . 'includes/admin/views/modals/plan-delete.php'; ?>
 
         <?php
         $modules = array(
