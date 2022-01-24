@@ -162,7 +162,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			}
 
             $actions['delete'] = sprintf(
-                '<a href="%s">%s</a>',
+                '<a href="%1$s" data-id="%2$s" data-name="%3$s" class="wpbdp-admin-fee-delete">%4$s</a>',
                 esc_url(
                     add_query_arg(
                         array(
@@ -172,6 +172,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                         $admin_fees_url
                     )
                 ),
+                esc_attr( $fee->id ),
+                esc_attr( $fee->label ),
                 esc_html__( 'Delete', 'business-directory-plugin' )
             );
         }
