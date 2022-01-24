@@ -2,8 +2,8 @@
 
 <div class="error" id="exporterror" style="display: none;"><p>
 <?php
-	esc_html_e( 'An unknown error occurred during the export. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.',
-	'business-directory-plugin' ); ?>
+    esc_html_e( 'An unknown error occurred during the export. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.',
+    'business-directory-plugin' ); ?>
 </p></div>
 
 <div class="step-1">
@@ -11,14 +11,14 @@
 <p class="howto">
 <?php
 $notice = _x( 'Please note that the export process is a resource intensive task. If your export does not succeed try disabling other plugins first and/or increasing the values of the \'memory_limit\' and \'max_execution_time\' directives in your server\'s php.ini configuration file.',
-	'admin csv-export',
-	'business-directory-plugin'
+    'admin csv-export',
+    'business-directory-plugin'
 );
 $notice = str_replace( array( 'memory_limit', 'max_execution_time' ),
-	array(
-		'<a href="http://www.php.net/manual/en/ini.core.php#ini.memory-limit" target="_blank" rel="noopener">memory_limit</a>',
-		'<a href="http://www.php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank" rel="noopener">max_execution_time</a>',
-	),
+    array(
+        '<a href="http://www.php.net/manual/en/ini.core.php#ini.memory-limit" target="_blank" rel="noopener">memory_limit</a>',
+        '<a href="http://www.php.net/manual/en/info.configuration.php#ini.max-execution-time" target="_blank" rel="noopener">max_execution_time</a>',
+    ),
 $notice );
 echo $notice;
 ?>
