@@ -182,6 +182,7 @@ var WPBDP_associations_fieldtypes = {};
 			WPBDPAdmin_Layout.headerScoll();
 			WPBDPAdmin_Layout.initTaxonomyModal();
 			WPBDPAdmin_Layout.initDeletePlanModal();
+			WPBDPAdmin_Layout.initDeleteFieldModal();
 			if ( WPBDPAdmin_Layout.$menu_state && WPBDPAdmin_Layout.$menu_state == 'minimized' ) {
 				WPBDPAdmin_Layout.$layout_container.addClass( 'minimized' );
 			}
@@ -243,6 +244,23 @@ var WPBDP_associations_fieldtypes = {};
 					$form = $( '#wpbdp-fee-delete-modal form' );
 				$form.find( 'input[name="id"]' ).val( $id );
 				$form.find( '.plan-name' ).html( $name );
+				modal.dialog( 'open' );
+			})
+		},
+
+		initDeleteFieldModal : function() {
+			var modal = WPBDPAdmin_Layout.initModal( '#wpbdp-field-delete-modal' );
+			if ( modal === false ) {
+				return;
+			}
+			$( document ).on( 'click', '.wpbdp-admin-field-delete', function( e ) {
+				e.preventDefault();
+				var $elem = $( this ),
+					$id = $elem.attr( 'data-id' ),
+					$name = $elem.attr( 'data-name' ),
+					$form = $( '#wpbdp-field-delete-modal form' );
+				$form.find( 'input[name="id"]' ).val( $id );
+				$form.find( '.field-name' ).html( $name );
 				modal.dialog( 'open' );
 			})
 		},

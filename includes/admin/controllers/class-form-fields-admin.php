@@ -151,6 +151,9 @@ class WPBDP_FormFieldsAdmin {
 
 	/* field list */
 	private function fields_table() {
+		// Load required styling for modal.
+		wpbdp_enqueue_jquery_ui_style();
+
 		$table = new WPBDP_FormFieldsTable();
 		$table->prepare_items();
 
