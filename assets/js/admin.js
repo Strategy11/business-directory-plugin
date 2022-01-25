@@ -623,7 +623,7 @@ function wpbdpAddons() {
 		var button = jQuery( clicked );
 		var plugin = button.attr( 'rel' );
 		var el = button.parent();
-		var message = el.parent().find( '.addon-status-label' );
+		var message = el.parent().find( '.addon-status' );
 
 		button.addClass( 'wpbdp-loading-button' );
 
