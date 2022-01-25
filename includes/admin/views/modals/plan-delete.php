@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<h2><?php esc_html_e( 'Are you sure you want to do this?', 'business-directory-plugin' ); ?></h2>
 					<form action="<?php echo admin_url( 'admin.php?page=wpbdp-admin-fees' ); ?>" method="POST">
 						<div class="inner-message">
-							<p><?php echo sprintf( __( 'You\'re going to remove %1$s plan.', 'business-directory-plugin' ), '<b><span class="plan-name"></span></b>' ) ?></p>
+							<p><?php echo sprintf( __( 'You\'re going to remove %1$s plan. This action cannot be undone.', 'business-directory-plugin' ), '<b><span class="plan-name"></span></b>' ) ?></p>
 						</div>
 						<input type="hidden" name="id" value="" />
 						<?php wp_nonce_field( 'wpbdp_fee_delete_nonce', 'wpbdp_fee_delete_nonce' ); ?>
