@@ -23,6 +23,7 @@ jQuery( function( $ ) {
 			WPBDPAdmin_Layout.initDeleteFieldModal();
 			if ( WPBDPAdmin_Layout.$menu_state && WPBDPAdmin_Layout.$menu_state == 'minimized' ) {
 				WPBDPAdmin_Layout.$layout_container.addClass( 'minimized' );
+				WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
 			}
 		},
 
@@ -41,6 +42,7 @@ jQuery( function( $ ) {
 		layoutAdjustment : function() {
 			if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
 				WPBDPAdmin_Layout.$layout_container.css( 'height', $( document ).height() );
+				WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
 			} else {
 				WPBDPAdmin_Layout.$layout_container.css( 'height', 'inherit' );
 			}
