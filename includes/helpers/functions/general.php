@@ -93,7 +93,12 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
 
 	$q .= ' ORDER BY ID DESC ';
 
-	return WPBDP_Utils::check_cache(
+	$results = get_transient( 'wpbdp_pages' );
+	if ( false !== $results && is_array( $results ) && isset( $results[ $page_id ] ) ) {
+		return $results[ $page_id ];
+	}
+
+	$pages = WPBDP_Utils::check_cache(
 		array(
 			'cache_key' => 'wpbdp_page_ids' . $page_id,
 			'group'     => 'wpbdp_pages',
@@ -101,6 +106,11 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
 			'type'      => 'get_col',
 		)
 	);
+
+	$results[ $page_id ] = $pages;
+	set_transient( 'wpbdp_pages', $results, 300 );
+
+	return $results[ $page_id ];
 }
 
 function wpbdp_get_page_id( $name = 'main' ) {
@@ -1313,6 +1323,7 @@ function wpbdp_get_client_ip_address() {
  */
 function wpbdp_delete_page_ids_cache() {
 	WPBDP__Utils::cache_delete_group( 'wpbdp_pages' );
+	delete_transient( 'wpbdp_pages' );
 }
 
 /**
