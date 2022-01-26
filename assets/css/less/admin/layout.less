@@ -63,6 +63,7 @@
 		.minimized_menu();
 	}
 	@media only screen and (max-width: 960px) {
+		height: 100%;
 		.wpbdp-menu-area {
 			padding: 9px 0px 37px 0;
 		}
@@ -78,6 +79,11 @@
 	position: fixed;
 	bottom: 0;
 	top: 34px;
+	@media only screen and (max-width: 960px) {
+		position: relative;
+		top: 0;
+		bottom: 0;
+	}
 }
 .wpbdp-nav-items {
 	display: flex;
@@ -208,6 +214,9 @@
 .wpbdp-content-area {
 	flex: 1;
 	margin-left: 287px;
+	@media only screen and (max-width: 960px) {
+		margin-left: 0px !important;
+	}
 }
 .wpbdp-content-area-header {
 	width: 100%;

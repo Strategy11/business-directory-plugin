@@ -16,6 +16,7 @@ jQuery( function( $ ) {
 			WPBDPAdmin_Layout.$header = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-content-area-header ' );
 			WPBDPAdmin_Layout.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
 			WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
+			WPBDPAdmin_Layout.layoutAdjustment();
 			WPBDPAdmin_Layout.headerScoll();
 			WPBDPAdmin_Layout.initTaxonomyModal();
 			WPBDPAdmin_Layout.initDeletePlanModal();
@@ -34,6 +35,14 @@ jQuery( function( $ ) {
 			} else {
 				window.localStorage.removeItem( '_wpbdp_admin_menu' );
 				WPBDPAdmin_Layout.$menu_items.removeClass( 'wpbdp-nav-tooltip' );
+			}
+		},
+
+		layoutAdjustment : function() {
+			if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
+				WPBDPAdmin_Layout.$layout_container.css( 'height', $( document ).height() );
+			} else {
+				WPBDPAdmin_Layout.$layout_container.css( 'height', 'inherit' );
 			}
 		},
 

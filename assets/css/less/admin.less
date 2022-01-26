@@ -404,6 +404,11 @@ table.wpbdp-debug-section tbody tr:nth-child(2n) {
 
 body.taxonomy-wpbdp_category .column-id {
     width: 74px;
+    &::before {
+        @media only screen and (max-width: 960px) {
+            display: none !important;
+        }
+    }
 }
 
 .transaction-status-container {
