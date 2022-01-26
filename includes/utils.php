@@ -313,7 +313,7 @@ class WPBDP__Utils {
 		$mime_type = null;
 
 		if ( function_exists( 'mime_content_type' ) ) {
-            $mime_type = mime_content_type( $file );
+			$mime_type = mime_content_type( $file );
 		}
 
 		if ( null === $mime_type ) {
@@ -321,7 +321,8 @@ class WPBDP__Utils {
 			$mime_type = $type_info['type'];
 		}
 
-		return esc_attr( $mime_type );
+		wpbdp_sanitize_value( 'sanitize_text_field', $mime_type );
+		return $mime_type;
 	}
 
 	/**
