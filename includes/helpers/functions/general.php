@@ -98,6 +98,10 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
 		return $results[ $page_id ];
 	}
 
+	if ( ! is_array( $results ) ) {
+		$results = array();
+	}
+
 	$pages = WPBDP_Utils::check_cache(
 		array(
 			'cache_key' => 'wpbdp_page_ids' . $page_id,
