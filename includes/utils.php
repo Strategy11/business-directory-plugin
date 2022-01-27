@@ -122,6 +122,11 @@ class WPBDP__Utils {
 			return $results;
 		}
 
+		$results = self::check_transient_cache( $args );
+		if ( false !== $results ) {
+			return $results;
+		}
+
 		if ( 'get_posts' === $type ) {
 			$results = get_posts( $query );
 		} elseif ( 'get_post' === $type ) {
@@ -143,6 +148,26 @@ class WPBDP__Utils {
 		self::set_cache( $args['cache_key'], $results, $args['group'], $args['time'] );
 
 		return $results;
+	}
+
+	/**
+	 * Handle transient WP options cache.
+	 *
+	 * @see check_cache
+	 *
+	 * @param $args Array of arguments
+	 *
+	 * @since x.x
+	 *
+	 * @return mixed
+	 */
+	private static function check_transient_cache( $args ) {
+		$results = get_transient( $args['group'] );
+		$key     = $args['cache_key'];
+		if ( false !== $results && is_array( $results ) && isset( $results[ $key ] ) ) {
+			return $results[ $key ];
+		}
+		return false;
 	}
 
 	/**
@@ -186,6 +211,26 @@ class WPBDP__Utils {
 	public static function set_cache( $cache_key, $results, $group = '', $time = 300 ) {
 		self::add_key_to_group_cache( $cache_key, $group );
 		wp_cache_set( $cache_key, $results, $group, $time );
+		self::set_transient_cache( $cache_key, $results, $group, $time );
+	}
+
+	/**
+	 * Set the transient cache.
+	 *
+	 * @param string $cache_key The cache key.
+	 * @param mixed $results The cache results to be stored.
+	 * @param string $group The cache group.
+	 * @param int $time The cache expire time.
+	 *
+	 * @since x.x
+	 */
+	private static function set_transient_cache( $cache_key, $results, $group, $time ) {
+		$cache = get_transient( $group );
+		if ( ! $cache || ! is_array( $cache ) ) {
+			$cache = array();
+		}
+		$cache[ $cache_key ] = $results;
+		set_transient( $group, $cache, $time );
 	}
 
 	/**
@@ -229,6 +274,8 @@ class WPBDP__Utils {
 
 			wp_cache_delete( 'cached_keys', $group );
 		}
+
+		delete_transient( $group );
 	}
 
 	/**
