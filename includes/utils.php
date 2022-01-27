@@ -117,13 +117,8 @@ class WPBDP__Utils {
 		$type  = $args['type'];
 		$query = $args['query'];
 
-		$results = wp_cache_get( $args['cache_key'], $args['group'] );
+		$results = self::has_cache( $args );
 		if ( $results !== false || empty( $query ) ) {
-			return $results;
-		}
-
-		$results = self::check_transient_cache( $args );
-		if ( false !== $results ) {
 			return $results;
 		}
 
@@ -148,6 +143,31 @@ class WPBDP__Utils {
 		self::set_cache( $args['cache_key'], $results, $args['group'], $args['time'] );
 
 		return $results;
+	}
+
+	/**
+	 * Check if the current operation has a cache.
+	 *
+	 * @see check_cache
+	 *
+	 * @param $args Array of arguments
+	 *
+	 * @since x.x
+	 *
+	 * @return mixed
+	 */
+	private static function has_cache( $args ) {
+		$results = wp_cache_get( $args['cache_key'], $args['group'] );
+		if ( false !== $results ) {
+			return $results;
+		}
+
+		$results = self::check_transient_cache( $args );
+		if ( false !== $results ) {
+			return $results;
+		}
+
+		return false;
 	}
 
 	/**
