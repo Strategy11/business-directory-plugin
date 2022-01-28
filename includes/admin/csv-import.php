@@ -440,7 +440,7 @@ class WPBDP_CSVImportAdmin {
 			'csv'    => 'csv',
 		);
 
-		$uploaded_type = pathinfo( $filename, PATHINFO_EXTENSION );
+		$uploaded_type = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
 		return $uploaded_type === $allowed_type[ $type ];
 	}
 
