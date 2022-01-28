@@ -101,7 +101,7 @@ final class WPBDP_Listing_Image {
 		wp_update_post(
 			array(
 				'ID'          => $id,
-				'post_parent' => ''
+				'post_parent' => 0
 			)
 		);
 	}
@@ -131,6 +131,12 @@ final class WPBDP_Listing_Image {
 		} else {
 			// Attach to the next listing.
 			self::set_post_parent( $id, reset( $linked_listings ) );
+			clean_post_cache( $id );
+			clean_post_cache( $listing_id );
+		}
+		$post_thumbnail_id = get_post_thumbnail_id( $listing_id );
+		if ( $post_thumbnail_id === $id ) {
+			delete_post_thumbnail( $listing_id );
 		}
 	}
 }
