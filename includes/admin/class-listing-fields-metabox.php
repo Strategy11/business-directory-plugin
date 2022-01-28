@@ -59,7 +59,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
             return;
         }
 
-        $images       = $this->listing->get_images( 'all', true );
+        $images       = $this->listing->get_images( 'all', false );
         $thumbnail_id = $this->listing->get_thumbnail_id();
 
         echo '<div class="wpbdp-submit-listing-section-listing_images">';
