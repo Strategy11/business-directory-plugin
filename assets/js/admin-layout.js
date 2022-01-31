@@ -17,7 +17,6 @@ jQuery( function( $ ) {
 			WPBDPAdmin_Layout.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
 			WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
 			WPBDPAdmin_Layout.layoutAdjustment();
-			WPBDPAdmin_Layout.headerScoll();
 			WPBDPAdmin_Layout.initTaxonomyModal();
 			WPBDPAdmin_Layout.initDeletePlanModal();
 			WPBDPAdmin_Layout.initDeleteFieldModal();
@@ -40,29 +39,9 @@ jQuery( function( $ ) {
 		},
 
 		layoutAdjustment : function() {
+			WPBDPAdmin_Layout.$layout_container.css( 'height', $( document ).height() );
 			if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
-				WPBDPAdmin_Layout.$layout_container.css( 'height', $( document ).height() );
 				WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
-			} else {
-				WPBDPAdmin_Layout.$layout_container.css( 'height', 'inherit' );
-			}
-		},
-
-		headerScoll : function() {
-			var sticky = WPBDPAdmin_Layout.$header.offset().top;
-			if ( ! window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
-				WPBDPAdmin_Layout.headerSetScrollClass( sticky );
-				window.onscroll = function() {
-					WPBDPAdmin_Layout.headerSetScrollClass( sticky );
-				};
-			}
-		},
-
-		headerSetScrollClass : function( sticky ) {
-			if ( window.pageYOffset > sticky ) {
-				WPBDPAdmin_Layout.$header.addClass( 'wpbdp-header-scroll' );
-			} else {
-				WPBDPAdmin_Layout.$header.removeClass( 'wpbdp-header-scroll' );
 			}
 		},
 
