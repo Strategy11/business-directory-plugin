@@ -273,7 +273,6 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         if ( isset( $_FILES['file'] ) && empty( $_FILES['file']['error'] ) ) {
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             $files = wp_unslash( $_FILES['file'] );
-            wpbdp_sanitize_value( 'sanitize_text_field', $files );
             // TODO: we support only images for now but we could use this for anything later
             $media_id = wpbdp_media_upload(
                 $files,
