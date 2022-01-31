@@ -219,10 +219,10 @@ class WPBDP__Utils {
 	 * @since x.x
 	 */
 	public static function set_transient_cache( $args ) {
-        $defaults = array(
+		$defaults = array(
 			'cache_key' => '',
 			'group'     => '',
-            'results'   => '',
+			'results'   => '',
 			'time'      => 300,
 		);
 		$args = array_merge( $defaults, $args );
