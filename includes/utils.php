@@ -117,7 +117,7 @@ class WPBDP__Utils {
 		$type  = $args['type'];
 		$query = $args['query'];
 
-		$results = self::has_cache( $args );
+		$results = wp_cache_get( $args['cache_key'], $args['group'] );
 		if ( $results !== false || empty( $query ) ) {
 			return $results;
 		}
@@ -146,31 +146,6 @@ class WPBDP__Utils {
 	}
 
 	/**
-	 * Check if the current operation has a cache.
-	 *
-	 * @see check_cache
-	 *
-	 * @param $args Array of arguments
-	 *
-	 * @since x.x
-	 *
-	 * @return mixed
-	 */
-	private static function has_cache( $args ) {
-		if ( wp_using_ext_object_cache() ) {
-			$results = wp_cache_get( $args['cache_key'], $args['group'] );
-		} else {
-			$results = self::check_transient_cache( $args );
-		}
-
-		if ( false !== $results ) {
-			return $results;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Handle transient WP options cache.
 	 *
 	 * @see check_cache
@@ -181,7 +156,7 @@ class WPBDP__Utils {
 	 *
 	 * @return mixed
 	 */
-	private static function check_transient_cache( $args ) {
+	public static function check_transient_cache( $args ) {
 		$results = get_transient( $args['group'] );
 		$key     = $args['cache_key'];
 		if ( false !== $results && is_array( $results ) && isset( $results[ $key ] ) ) {
@@ -230,11 +205,7 @@ class WPBDP__Utils {
 	 */
 	public static function set_cache( $cache_key, $results, $group = '', $time = 300 ) {
 		self::add_key_to_group_cache( $cache_key, $group );
-		if ( wp_using_ext_object_cache() ) {
-			wp_cache_set( $cache_key, $results, $group, $time );
-		} else {
-			self::set_transient_cache( $cache_key, $results, $group, $time );
-		}
+		wp_cache_set( $cache_key, $results, $group, $time );
 	}
 
 	/**
@@ -247,13 +218,21 @@ class WPBDP__Utils {
 	 *
 	 * @since x.x
 	 */
-	private static function set_transient_cache( $cache_key, $results, $group, $time ) {
-		$cache = get_transient( $group );
+	public static function set_transient_cache( $args ) {
+        $defaults = array(
+			'cache_key' => '',
+			'group'     => '',
+            'results'   => '',
+			'time'      => 300,
+		);
+		$args = array_merge( $defaults, $args );
+
+		$cache = get_transient( $args['group'] );
 		if ( ! $cache || ! is_array( $cache ) ) {
 			$cache = array();
 		}
-		$cache[ $cache_key ] = $results;
-		set_transient( $group, $cache, $time );
+		$cache[ $args['cache_key'] ] = $args['results'];
+		set_transient( $args['group'], $cache, $args['time'] );
 	}
 
 	/**
@@ -265,25 +244,14 @@ class WPBDP__Utils {
 	public static function add_key_to_group_cache( $key, $group ) {
 		$cached         = self::get_group_cached_keys( $group );
 		$cached[ $key ] = $key;
-		if ( wp_using_ext_object_cache() ) {
-			wp_cache_set( 'cached_keys', $cached, $group, 300 );
-		} else {
-			self::set_transient_cache( $group, $cached, 'wpbdp_cached_keys', 300 );
-		}
+		wp_cache_set( 'cached_keys', $cached, $group, 300 );
 	}
 
 	/**
 	 * @since v5.9
 	 */
 	public static function get_group_cached_keys( $group ) {
-		if ( wp_using_ext_object_cache() ) {
-			$cached = wp_cache_get( 'cached_keys', $group );
-		} else {
-			$cached = self::check_transient_cache( array(
-				'group'     => 'wpbdp_cached_keys',
-				'cache_key' => $group,
-			) );
-		}
+		$cached = wp_cache_get( 'cached_keys', $group );
 		if ( ! $cached || ! is_array( $cached ) ) {
 			$cached = array();
 		}
@@ -300,39 +268,16 @@ class WPBDP__Utils {
 	 */
 	public static function cache_delete_group( $group ) {
 		$cached_keys = self::get_group_cached_keys( $group );
-		$ext_cache   = wp_using_ext_object_cache();
+
 		if ( ! empty( $cached_keys ) ) {
 			foreach ( $cached_keys as $key ) {
-				if ( $ext_cache ) {
-					wp_cache_delete( $key, $group );
-				} else {
-					self::delete_transient_cache( $group, $key );
-				}
+				wp_cache_delete( $key, $group );
 			}
-			if ( $ext_cache ) {
-				wp_cache_delete( 'cached_keys', $group );
-			} else {
-				self::delete_transient_cache( 'wpbdp_cached_keys', $group );
-			}
+
+			wp_cache_delete( 'cached_keys', $group );
 		}
 	}
 
-	/**
-	 * Delete transient cache
-	 *
-	 * @param string $group The cache group.
-	 * @param string $key The cache key
-	 *
-	 * @since x.x
-	 */
-	private static function delete_transient_cache( $group, $key ) {
-		$cache = get_transient( $group );
-		if ( ! $cache || ! is_array( $cache ) || ! isset( $cache[$key] ) ) {
-			return;
-		}
-		unset( $cache[$key] );
-		set_transient( $group, $cache, 300 );
-	}
 
 	/**
 	 * Check if value contains blank value or empty array
