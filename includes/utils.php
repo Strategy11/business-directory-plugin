@@ -146,26 +146,6 @@ class WPBDP__Utils {
 	}
 
 	/**
-	 * Handle transient WP options cache.
-	 *
-	 * @see check_cache
-	 *
-	 * @param $args Array of arguments
-	 *
-	 * @since x.x
-	 *
-	 * @return mixed
-	 */
-	public static function check_transient_cache( $args ) {
-		$results = get_transient( $args['group'] );
-		$key     = $args['cache_key'];
-		if ( false !== $results && is_array( $results ) && isset( $results[ $key ] ) ) {
-			return $results[ $key ];
-		}
-		return false;
-	}
-
-	/**
 	 * Reduce database calls by getting all rows at once.
 	 *
 	 * @since 5.11
@@ -206,6 +186,26 @@ class WPBDP__Utils {
 	public static function set_cache( $cache_key, $results, $group = '', $time = 300 ) {
 		self::add_key_to_group_cache( $cache_key, $group );
 		wp_cache_set( $cache_key, $results, $group, $time );
+	}
+
+	/**
+	 * Handle transient WP options cache.
+	 *
+	 * @see check_cache
+	 *
+	 * @param $args Array of arguments
+	 *
+	 * @since x.x
+	 *
+	 * @return mixed
+	 */
+	public static function check_transient_cache( $args ) {
+		$results = get_transient( $args['group'] );
+		$key     = $args['cache_key'];
+		if ( false !== $results && is_array( $results ) && isset( $results[ $key ] ) ) {
+			return $results[ $key ];
+		}
+		return false;
 	}
 
 	/**
