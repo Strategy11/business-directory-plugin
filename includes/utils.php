@@ -234,9 +234,9 @@ class WPBDP__Utils {
 	/**
 	 * Handle transient WP options cache.
 	 *
-	 * @see check_cache
-	 *
-	 * @param $args Array of arguments
+	 * @param array  $args
+	 * @param string $args[cache_key] The unique name for this cache
+	 * @param string $args[group] The name of the cache group
 	 *
 	 * @since x.x
 	 *
@@ -254,10 +254,11 @@ class WPBDP__Utils {
 	/**
 	 * Set the transient cache.
 	 *
-	 * @param string $cache_key The cache key.
-	 * @param mixed $results The cache results to be stored.
-	 * @param string $group The cache group.
-	 * @param int $time The cache expire time.
+	 * @param array  $args
+	 * @param string $args[cache_key] The unique name for this cache
+	 * @param string $args[group] The name of the cache group
+	 * @param string $args[results] The cache results.
+	 * @param int    $args[time] When the cahce should expire, default to 300
 	 *
 	 * @since x.x
 	 */
