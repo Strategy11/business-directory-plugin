@@ -132,7 +132,6 @@ final class WPBDP_Listing_Image {
 			// Attach to the next listing.
 			self::set_post_parent( $id, reset( $linked_listings ) );
 			clean_post_cache( $id );
-			clean_post_cache( $listing_id );
 		}
 		$post_thumbnail_id = get_post_thumbnail_id( $listing_id );
 		if ( $post_thumbnail_id === $id ) {

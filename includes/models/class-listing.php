@@ -161,6 +161,7 @@ class WPBDP_Listing {
 
 		update_post_meta( $this->id, '_wpbdp[images]', $keep_images );
 		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
+        clean_post_cache( $this->id );
 	}
 
 	public function set_thumbnail_id( $image_id ) {
