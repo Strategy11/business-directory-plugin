@@ -111,6 +111,7 @@ module.exports = function( grunt ) {
         src: [
 			'**/*', '!**/*~', '!**/**.less', '!**/tests/**', '!**/**/less',
 			'!**/.*', '!**/phpcs.xml', '!**/phpunit.xml', '!**/composer.json',
+			'!**/package.json', '!**/package-lock.json', '!**/node_modules/**',
 			'!**/*.md', '!**/*.yml'
 		]
       } );
