@@ -185,7 +185,7 @@ class WPBDP_FormFieldsAdmin {
 			$res   = $field->save();
 
 			if ( ! is_wp_error( $res ) ) {
-				$this->admin->messages[] = _x( 'Form fields updated.', 'form-fields admin', 'business-directory-plugin' );
+				wpbdp_admin_message( __( 'Form fields updated.', 'business-directory-plugin' ), 'success wpbdp-show-notice-once' );
 				$this->fields_table();
 				return;
 			}
@@ -196,7 +196,7 @@ class WPBDP_FormFieldsAdmin {
 				$errmsg .= sprintf( '&#149; %s<br />', $err );
 			}
 
-			$this->admin->messages[] = array( $errmsg, 'error' );
+			wpbdp_admin_message( $errmsg, 'error wpbdp-show-notice-once' );
 
 		} else {
 			$id    = wpbdp_get_var( array( 'param' => 'id' ) );
@@ -285,9 +285,9 @@ class WPBDP_FormFieldsAdmin {
 			$ret = $field->delete();
 
 			if ( is_wp_error( $ret ) ) {
-				$this->admin->messages[] = array( $ret->get_error_message(), 'error' );
+				wpbdp_admin_message( $ret->get_error_message(), 'error wpbdp-show-notice-once' );
 			} else {
-				$this->admin->messages[] = _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' );
+				wpbdp_admin_message( _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' ), 'success wpbdp-show-notice-once' );
 
 				$quick_search_fields = wpbdp_get_option( 'quick-search-fields' );
 				$field_id            = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
@@ -327,7 +327,7 @@ class WPBDP_FormFieldsAdmin {
 
 		if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
 			$wpbdp->formfields->create_default_fields( $missing );
-			$this->admin->messages[] = _x( 'Required fields created successfully.', 'form-fields admin', 'business-directory-plugin' );
+			wpbdp_admin_message( _x( 'Required fields created successfully.', 'form-fields admin', 'business-directory-plugin' ), 'success' );
 		}
 
 		$this->fields_table();
