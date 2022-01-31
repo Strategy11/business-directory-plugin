@@ -157,12 +157,12 @@ class WPBDP__Utils {
 	 * @return mixed
 	 */
 	private static function has_cache( $args ) {
-		$results = wp_cache_get( $args['cache_key'], $args['group'] );
-		if ( false !== $results ) {
-			return $results;
+		if ( wp_using_ext_object_cache() ) {
+			$results = wp_cache_get( $args['cache_key'], $args['group'] );
+		} else {
+			$results = self::check_transient_cache( $args );
 		}
 
-		$results = self::check_transient_cache( $args );
 		if ( false !== $results ) {
 			return $results;
 		}
@@ -230,8 +230,11 @@ class WPBDP__Utils {
 	 */
 	public static function set_cache( $cache_key, $results, $group = '', $time = 300 ) {
 		self::add_key_to_group_cache( $cache_key, $group );
-		wp_cache_set( $cache_key, $results, $group, $time );
-		self::set_transient_cache( $cache_key, $results, $group, $time );
+		if ( wp_using_ext_object_cache() ) {
+			wp_cache_set( $cache_key, $results, $group, $time );
+		} else {
+			self::set_transient_cache( $cache_key, $results, $group, $time );
+		}
 	}
 
 	/**
@@ -262,14 +265,25 @@ class WPBDP__Utils {
 	public static function add_key_to_group_cache( $key, $group ) {
 		$cached         = self::get_group_cached_keys( $group );
 		$cached[ $key ] = $key;
-		wp_cache_set( 'cached_keys', $cached, $group, 300 );
+		if ( wp_using_ext_object_cache() ) {
+			wp_cache_set( 'cached_keys', $cached, $group, 300 );
+		} else {
+			self::set_transient_cache( $group, $cached, 'wpbdp_cached_keys', 300 );
+		}
 	}
 
 	/**
 	 * @since v5.9
 	 */
 	public static function get_group_cached_keys( $group ) {
-		$cached = wp_cache_get( 'cached_keys', $group );
+		if ( wp_using_ext_object_cache() ) {
+			$cached = wp_cache_get( 'cached_keys', $group );
+		} else {
+			$cached = self::check_transient_cache( array(
+				'group'     => 'wpbdp_cached_keys',
+				'cache_key' => $group,
+			) );
+		}
 		if ( ! $cached || ! is_array( $cached ) ) {
 			$cached = array();
 		}
@@ -286,16 +300,38 @@ class WPBDP__Utils {
 	 */
 	public static function cache_delete_group( $group ) {
 		$cached_keys = self::get_group_cached_keys( $group );
-
+		$ext_cache   = wp_using_ext_object_cache();
 		if ( ! empty( $cached_keys ) ) {
 			foreach ( $cached_keys as $key ) {
-				wp_cache_delete( $key, $group );
+				if ( $ext_cache ) {
+					wp_cache_delete( $key, $group );
+				} else {
+					self::delete_transient_cache( $group, $key );
+				}
 			}
-
-			wp_cache_delete( 'cached_keys', $group );
+			if ( $ext_cache ) {
+				wp_cache_delete( 'cached_keys', $group );
+			} else {
+				self::delete_transient_cache( 'wpbdp_cached_keys', $group );
+			}
 		}
+	}
 
-		delete_transient( $group );
+	/**
+	 * Delete transient cache
+	 *
+	 * @param string $group The cache group.
+	 * @param string $key The cache key
+	 *
+	 * @since x.x
+	 */
+	private static function delete_transient_cache( $group, $key ) {
+		$cache = get_transient( $group );
+		if ( ! $cache || ! is_array( $cache ) || ! isset( $cache[$key] ) ) {
+			return;
+		}
+		unset( $cache[$key] );
+		set_transient( $group, $cache, 300 );
 	}
 
 	/**
