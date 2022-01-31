@@ -189,6 +189,49 @@ class WPBDP__Utils {
 	}
 
 	/**
+	 * Keep track of the keys cached in each group so they can be deleted
+	 * in Redis and Memcache
+	 *
+	 * @since v5.9
+	 */
+	public static function add_key_to_group_cache( $key, $group ) {
+		$cached         = self::get_group_cached_keys( $group );
+		$cached[ $key ] = $key;
+		wp_cache_set( 'cached_keys', $cached, $group, 300 );
+	}
+
+	/**
+	 * @since v5.9
+	 */
+	public static function get_group_cached_keys( $group ) {
+		$cached = wp_cache_get( 'cached_keys', $group );
+		if ( ! $cached || ! is_array( $cached ) ) {
+			$cached = array();
+		}
+
+		return $cached;
+	}
+
+	/**
+	 * Delete all caching in a single group
+	 *
+	 * @since v5.9
+	 *
+	 * @param string $group The name of the cache group
+	 */
+	public static function cache_delete_group( $group ) {
+		$cached_keys = self::get_group_cached_keys( $group );
+
+		if ( ! empty( $cached_keys ) ) {
+			foreach ( $cached_keys as $key ) {
+				wp_cache_delete( $key, $group );
+			}
+
+			wp_cache_delete( 'cached_keys', $group );
+		}
+	}
+
+	/**
 	 * Handle transient WP options cache.
 	 *
 	 * @see check_cache
@@ -234,50 +277,6 @@ class WPBDP__Utils {
 		$cache[ $args['cache_key'] ] = $args['results'];
 		set_transient( $args['group'], $cache, $args['time'] );
 	}
-
-	/**
-	 * Keep track of the keys cached in each group so they can be deleted
-	 * in Redis and Memcache
-	 *
-	 * @since v5.9
-	 */
-	public static function add_key_to_group_cache( $key, $group ) {
-		$cached         = self::get_group_cached_keys( $group );
-		$cached[ $key ] = $key;
-		wp_cache_set( 'cached_keys', $cached, $group, 300 );
-	}
-
-	/**
-	 * @since v5.9
-	 */
-	public static function get_group_cached_keys( $group ) {
-		$cached = wp_cache_get( 'cached_keys', $group );
-		if ( ! $cached || ! is_array( $cached ) ) {
-			$cached = array();
-		}
-
-		return $cached;
-	}
-
-	/**
-	 * Delete all caching in a single group
-	 *
-	 * @since v5.9
-	 *
-	 * @param string $group The name of the cache group
-	 */
-	public static function cache_delete_group( $group ) {
-		$cached_keys = self::get_group_cached_keys( $group );
-
-		if ( ! empty( $cached_keys ) ) {
-			foreach ( $cached_keys as $key ) {
-				wp_cache_delete( $key, $group );
-			}
-
-			wp_cache_delete( 'cached_keys', $group );
-		}
-	}
-
 
 	/**
 	 * Check if value contains blank value or empty array
