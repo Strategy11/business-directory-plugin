@@ -138,8 +138,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         if ( ! $this->editing && 'auto-draft' !== get_post_status( $this->listing->get_id() ) ) {
 			$plan_id = absint( wpbdp_get_var( array( 'param' => 'listing_plan', 'default' => 0 ), 'post' ) );
 			$plan    = wpbdp_get_fee_plan( $plan_id );
-            if ( $plan && $plan->enabled ) {
-				$plan = $this->get_plan_for_listing();
+			if ( $plan && $plan->enabled ) {
 				$this->maybe_update_listing_plan( $plan );
 				$possible_payment = WPBDP_Payment::objects()->filter(
 					array(
@@ -1484,19 +1483,19 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Change plan if not the same as for listing.
 	 * Update the plan in the payment.
 	 *
-	 * @param object $plan The plan.
+	 * @param object $new_plan The new selected plan to assign to the listing.
 	 *
 	 * @since x.x
 	 */
-	private function maybe_update_listing_plan( $plan ) {
+	private function maybe_update_listing_plan( $new_plan ) {
 		$current_plan = $this->get_plan_for_listing();
 		if ( ! $current_plan ) {
 			return;
 		}
-		if ( $current_plan->fee_id === $plan->id ) {
+		if ( $current_plan->fee_id === $new_plan->id ) {
 			return;
 		}
-		$this->listing->set_fee_plan_with_payment( $plan );
+		$this->listing->set_fee_plan_with_payment( $new_plan );
 	}
 
 	/**

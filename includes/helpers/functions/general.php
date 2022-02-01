@@ -253,8 +253,8 @@ function wpbdp_get_formfield( $id ) {
  * @return bool
  */
 function wpbdp_payments_possible() {
-	if ( wpbdp_has_premium_fees() ) {
-		return true;
+	if ( ! wpbdp_has_premium_fees() ) {
+		return false;
 	}
     return wpbdp()->payment_gateways->can_pay();
 }

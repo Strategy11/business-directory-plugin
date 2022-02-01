@@ -635,7 +635,7 @@ class WPBDP_Listing {
      */
     public function has_fee_plan( $fee = false ) {
         $current = $this->get_fee_plan();
-        return ( ! $fee && ! empty( $current ) ) || ( $fee && $current && $current->fee && $current->fee->id == $fee );
+        return ( ! $fee && ! empty( $current ) ) || ( $fee && ! empty( $current->fee ) && $current->fee->id == $fee );
     }
 
     /**
@@ -812,7 +812,10 @@ class WPBDP_Listing {
 
         $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) )->get();
 
+		// Search the fees in the payments if the current payment of the plan has been made or exists.
+		// This prevents generating duplicate payments of the same fee in situations where a user will go back to correct something.
         if ( $existing_payment ) {
+			// Fee ids are saved as an array in the payment table as `payment_items`.
             $key = array_search( $plan->fee_id, array_column( $existing_payment->payment_items, 'fee_id' ), true );
             if ( false === $key ) {
 			    return $existing_payment;

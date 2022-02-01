@@ -114,6 +114,11 @@ class WPBDP__Payment_Gateways {
             return;
         }
 
+		// Check if there are premium fees.
+		if ( ! wpbdp_has_premium_fees() ) {
+			return;
+		}
+
         $at_least_one_gateway = false;
         foreach ( $this->gateways as $gateway ) {
             if ( $gateway->is_enabled( true ) ) {
