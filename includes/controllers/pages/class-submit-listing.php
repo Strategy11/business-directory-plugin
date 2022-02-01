@@ -501,6 +501,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function submit_sections() {
         $sections = array();
 
+		$this->set_fixed_category_id();
+
         if ( $this->can_edit_plan_or_categories() && ! $this->skip_plan_and_category() ) {
             $sections['plan_selection'] = array(
                 'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'business-directory-plugin' ) : _x( 'Category & plan selection', 'submit listing', 'business-directory-plugin' ),
