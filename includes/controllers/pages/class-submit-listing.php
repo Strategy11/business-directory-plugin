@@ -501,6 +501,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     private function submit_sections() {
         $sections = array();
 
+		$this->set_fixed_category_id();
+
         if ( $this->can_edit_plan_or_categories() && ! $this->skip_plan_and_category() ) {
             $sections['plan_selection'] = array(
                 'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'business-directory-plugin' ) : _x( 'Category & plan selection', 'submit listing', 'business-directory-plugin' ),
@@ -863,7 +865,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 $this->messages( _x( 'Please select a category.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
             }
         } else {
-			$plan_id = $this->new_listing_plan( $categories );
+			$plan_id = $this->new_listing_plan( $categories, $should_validate );
         }
 
         $errors = array();
@@ -969,7 +971,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 *
 	 * @return int
 	 */
-	private function new_listing_plan( $categories ) {
+	private function new_listing_plan( $categories, $should_validate ) {
 		if ( $this->skip_plan_selection && ! $this->category_specific_fields ) {
 			$plan_id = $this->fixed_plan_id;
 			if ( ! $plan_id ) {
@@ -981,7 +983,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				$this->listing->set_fee_plan( $plan_id );
 			}
 
-			if ( $this->saving() && ! $categories ) {
+			if ( $this->saving() && ! $categories && $should_validate ) {
 				$this->messages( _x( 'Please select a category.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
 				$this->prevent_save = true;
 			}
