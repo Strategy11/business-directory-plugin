@@ -249,7 +249,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			return $column;
 		}
 
-		$revenue = wpbdp_currency_format( $fee->total_revenue() );
+		$revenue = wpbdp_currency_format( $fee->total_revenue(), array( 'force_numeric' => true ) );
 		$column .= ' <br/><span class="wpbdp-tag">' . esc_html( $revenue ) . '</span>';
 		return $column;
 	}

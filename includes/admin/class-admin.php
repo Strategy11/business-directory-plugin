@@ -212,13 +212,13 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          */
         public function ajax_create_main_page() {
             $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
-
+			$res = new WPBDP_Ajax_Response();
             if ( ! current_user_can( 'administrator' ) || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
-                exit();
+				$res->send_error();
             }
 
             if ( wpbdp_get_page_id( 'main' ) ) {
-                exit();
+				$res->send_error();
             }
 
             $page    = array(
@@ -230,16 +230,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $page_id = wp_insert_post( $page );
 
             if ( ! $page_id ) {
-                exit();
+				$res->send_error();
             }
 
-            $res = new WPBDP_Ajax_Response();
             $res->set_message(
-                str_replace(
-                    '<a>',
-                    '<a href="' . get_permalink( $page_id ) . '" target="_blank" rel="noopener">',
-                    _x( 'You\'re all set. Visit your new <a>Business Directory</a> page.', 'admin', 'business-directory-plugin' )
-                )
+				sprintf(
+					__( 'You\'re all set. Visit your new %1$sBusiness Directory%2$s page.', 'business-directory-plugin' ),
+					'<a href="' . get_permalink( $page_id ) . '" target="_blank" rel="noopener">',
+					'</a>'
+				)
             );
             $res->send();
         }
@@ -766,8 +765,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			$modules = wpbdp()->modules;
-
-			if ( $modules->is_loaded( 'premium' ) || $modules->is_loaded( 'paypal' ) || $modules->is_loaded( 'googlemaps' ) ) {
+			$module_count = $this->get_installed_premium_module_count( $modules );
+			if ( $module_count > 0 ) {
 				return;
 			}
 			?>
@@ -778,6 +777,21 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				</a>
 			</div>
 			<?php
+		}
+
+		/**
+		 * Get the installed premium modules count.
+		 *
+		 * @since 5.16.1
+		 *
+		 * @return int
+		 */
+		private function get_installed_premium_module_count( $modules ) {
+			$module_list = $modules->get_modules();
+			if ( isset( $module_list['categories'] ) ) {
+				unset( $module_list['categories'] );
+			}
+			return count( array_keys( $module_list ) );
 		}
 
         function handle_actions() {
@@ -1223,7 +1237,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * Action called before post is deleted.
 		 * Delete cached directory ids if a page is deleted.
 		 *
-		 * @since x.x
+		 * @since 5.16.1
 		 */
 		public function before_delete_post( $check, $post ) {
 			if ( 'page' === $post->post_type ) {
