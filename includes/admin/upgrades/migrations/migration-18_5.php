@@ -9,28 +9,30 @@
 class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 
 	/**
-	 * If payments were on, we disable all free plans and vice versa.
-	 * We scan all enabled plans first for this migration.
-	 * If payments was enabled, we disable the free plans.
-	 * If payments was disabled, we disabled the paid plans.
+	 * We scan all enabled plans first for this migration and disable
+	 * the plans that shouldn't be displayed.
+	 * If payments were enabled, we disable the default free plan.
+	 * If payments were disabled, we disabled the paid plans.
 	 *
 	 * @since x.x
 	 */
 	public function migrate() {
 		global $wpdb;
-		$payments_on = wpbdp_get_option( 'payments-on' );
-		$sql         = "SELECT p.id, p.amount, p.tag FROM {$wpdb->prefix}wpbdp_plans p WHERE p.enabled != 0";
-		$plans       = $wpdb->get_results( $sql );
-		$to_disable  = array();
+		$payments_on  = wpbdp_get_option( 'payments-on' );
+		$sql          = "SELECT id, amount, tag FROM {$wpdb->prefix}wpbdp_plans WHERE enabled != 0";
+		$active_plans = $wpdb->get_results( $sql );
+		$to_disable   = array();
 
-		if ( ! $plans ) {
+		if ( ! $active_plans ) {
 			return;
 		}
 
-		foreach ( $plans as $plan ) {
+		foreach ( $active_plans as $plan ) {
 			if ( ! $payments_on && $plan->amount > 0.0 ) {
+				// Disable any paid plan if payments are off.
 				$to_disable[] = $plan->id;
 			} elseif ( $payments_on && 'free' === $plan->tag ) {
+				// Disable the default plan since it was hidden before fee changes.
 				$to_disable[] = $plan->id;
 			}
 		}
@@ -39,7 +41,7 @@ class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 			return;
 		}
 
-		$sql = "UPDATE {$wpdb->prefix}wpbdp_plans p SET p.enabled = 0 WHERE p.id IN(" . implode( ', ', array_fill( 0, count( $to_disable ), '%d' ) ) . ')';
+		$sql = "UPDATE {$wpdb->prefix}wpbdp_plans SET enabled = 0 WHERE id IN(" . implode( ', ', array_fill( 0, count( $to_disable ), '%d' ) ) . ')';
 		// Call $wpdb->prepare passing the values of the array as separate arguments.
 		$query = call_user_func_array( array( $wpdb, 'prepare' ), array_merge( array( $sql ), $to_disable ) );
 		$wpdb->query( $query );
