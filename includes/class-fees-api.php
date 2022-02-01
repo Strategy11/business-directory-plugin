@@ -46,6 +46,28 @@ class WPBDP_Fees_API {
         }
     }
 
+	/**
+	 * Check if there are enabled premium fee plans.
+	 * This does a count for all enabled fee plans with a price greater than 0.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public static function has_premium_fees() {
+		global $wpdb;
+		$query   = "SELECT count(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled = 1 AND amount > 0";
+		$total   = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'premium_fee_count',
+				'group'     => 'wpbdp_plans',
+				'query'     => $query,
+				'type'      => 'get_var',
+			)
+		);
+		return ( $total && $total > 0 );
+	}
+
     /**
      * @deprecated since 3.7.
      */

@@ -12,20 +12,6 @@
 	?>
     <?php wpbdp_admin_notices(); ?>
 
-    <?php if ( ! wpbdp_get_option( 'payments-on' ) ) : ?>
-	<p class="howto">
-		<?php esc_html_e( 'Payments are currently turned off.', 'business-directory-plugin' ); ?><br />
-        <?php
-            echo sprintf(
-                /* translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag. */
-                esc_html__( 'To manage fees you need to go to the %1$sManage Options - Payment%2$s page and check the box next to \'Turn On Payments\' under \'Payment Settings\'.', 'business-directory-plugin' ),
-                '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">',
-                '</a>'
-            );
-        ?>
-    </p>
-    <?php endif; ?>
-
     <?php if ( 'active' == $table->get_current_view() || 'all' == $table->get_current_view() ) : ?>
         <div class="fees-order">
             <form>

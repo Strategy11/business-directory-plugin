@@ -253,7 +253,7 @@ function wpbdp_get_formfield( $id ) {
  * @return bool
  */
 function wpbdp_payments_possible() {
-	if ( ! wpbdp_has_premium_fees() ) {
+	if ( ! WPBDP_Fees_API::has_premium_fees() ) {
 		return false;
 	}
     return wpbdp()->payment_gateways->can_pay();
@@ -993,28 +993,6 @@ function wpbdp_get_fee_plan( $plan_id ) {
     $plan_id = absint( $plan_id );
 
     return WPBDP__Fee_Plan::get_instance( $plan_id );
-}
-
-/**
- * Check if there are enabled premium fee plans.
- * This does a count for all enabled fee plans with a price greater than 0.
- *
- * @since x.x
- *
- * @return bool
- */
-function wpbdp_has_premium_fees() {
-	global $wpdb;
-	$query   = "SELECT count(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled = 1 AND amount > 0";
-	$total   = WPBDP_Utils::check_cache(
-		array(
-			'cache_key' => 'premium_fee_count',
-			'group'     => 'wpbdp_plans',
-			'query'     => $query,
-			'type'      => 'get_var',
-		)
-	);
-	return ( $total && $total > 0 );
 }
 
 /**
