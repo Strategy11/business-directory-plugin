@@ -810,7 +810,7 @@ class WPBDP_Listing {
         if ( ! $plan )
             return false;
 
-		$existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) )->get();
+        $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) )->get();
 
 		// Search the fees in the payments if the current payment of the plan has been made or exists.
 		// This prevents generating duplicate payments of the same fee in situations where a user will go back to correct something.
