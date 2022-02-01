@@ -1337,7 +1337,7 @@ function wpbdp_get_client_ip_address() {
  */
 function wpbdp_delete_page_ids_cache() {
 	WPBDP__Utils::cache_delete_group( 'wpbdp_pages' );
-	delete_transient( 'wpbdp_pages' );
+	delete_option( 'wpbdp_pages' );
 }
 
 /**

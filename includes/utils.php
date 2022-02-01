@@ -243,16 +243,21 @@ class WPBDP__Utils {
 	 * @return mixed
 	 */
 	public static function check_transient_cache( $args ) {
-		$results = get_transient( $args['group'] );
+		$results = get_option( $args['group'], array() );
 		$key     = $args['cache_key'];
-		if ( false !== $results && is_array( $results ) && isset( $results[ $key ] ) ) {
-			return $results[ $key ];
+		if ( is_array( $results ) && isset( $results[ $key ] ) && is_array( $results[ $key ] ) ) {
+			if ( $results[ $key ]['time'] < time() ) {
+				unset( $results[ $key ] );
+				update_option( $args['group'], $results, false );
+				return false;
+			}
+			return $results[ $key ]['results'];
 		}
 		return false;
 	}
 
 	/**
-	 * Set the transient cache.
+	 * Set the custom transient cache.
 	 *
 	 * @param array  $args
 	 * @param string $args[cache_key] The unique name for this cache
@@ -271,12 +276,16 @@ class WPBDP__Utils {
 		);
 		$args = array_merge( $defaults, $args );
 
-		$cache = get_transient( $args['group'] );
-		if ( ! $cache || ! is_array( $cache ) ) {
+		$cache = get_option( $args['group'], array() );
+		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
-		$cache[ $args['cache_key'] ] = $args['results'];
-		set_transient( $args['group'], $cache, $args['time'] );
+		$expiration = (int) $args['time'];
+		$cache[ $args['cache_key'] ] = array(
+			'results' => $args['results'],
+			'time'    => time() + $expiration,
+		);
+		update_option( $args['group'], $cache, false );
 	}
 
 	/**
