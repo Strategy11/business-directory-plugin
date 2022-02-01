@@ -219,6 +219,7 @@ class WPBDP_Themes_Admin {
             }
 
             $theme->can_be_activated = 'valid' === $license_status;
+			$theme->license_status   = $license_status;
         }
 
         return $themes;
