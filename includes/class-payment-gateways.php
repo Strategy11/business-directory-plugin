@@ -139,7 +139,7 @@ class WPBDP__Payment_Gateways {
         }
 
         if ( ! $at_least_one_gateway ) {
-            $msg = _x( 'You have premium fee plans but no gateway is active and properly configured. Go to %1$sManage Options - Payment%2$s to enable a payment gateway. Until you change this, the directory will operate in <i>Free Mode</i>.', 'payment-gateways', 'business-directory-plugin' );
+            $msg = _x( 'You have premium fee plans but no gateway is active and properly configured. Go to %1$sManage Options - Payment%2$s to enable and configure a payment gateway. Until you change this, the directory will operate in <i>Free Mode</i>.', 'payment-gateways', 'business-directory-plugin' );
 			$msg = sprintf( $msg, '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">', '</a>' );
             wpbdp_admin_message( $msg, 'error' );
         }
