@@ -59,6 +59,13 @@ class WPBDP_Licensing {
 			}
 		}
 
+		// Remove an error if it's for a plugin that's deactivated.
+		foreach ( $errors as $k => $error ) {
+			if ( ! isset( $this->items[ $k ] ) ) {
+				unset( $errors[ $k ] );
+			}
+		}
+
 		$this->licenses_errors = $errors;
 		return $this->licenses_errors;
 	}
@@ -504,6 +511,7 @@ class WPBDP_Licensing {
 			);
 		}
 
+		$this->licenses[ $item_type . '-' . $item_id ]['status'] = 'invalid';
 		update_option( 'wpbdp_licenses', $this->licenses );
 
 		$is_revoked = isset( $license_data->error ) && 'revoked' === $license_data->error;
@@ -513,7 +521,6 @@ class WPBDP_Licensing {
 			return new WP_Error( 'invalid-license', $message );
 		}
 
-		$this->licenses[ $item_type . '-' . $item_id ]['status'] = 'invalid';
 		return $this->revoked_license_error();
     }
 
@@ -884,7 +891,12 @@ class WPBDP_Licensing {
 
 		$result = $this->license_action( $item_type, $item_id, 'activate', $key );
 
+		$this->get_license_errors();
+
 		if ( is_wp_error( $result ) ) {
+			// Save the message for later.
+			$this->licenses_errors[ $item_id ] = $result->get_error_message();
+
 			$response = array(
 				'success' => false,
 				'error'   => sprintf( _x( 'Could not activate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ),
@@ -894,7 +906,14 @@ class WPBDP_Licensing {
 				'success' => true,
 				'message' => _x( 'License activated', 'licensing', 'business-directory-plugin' ),
 			);
+
+			// Remove any saved error messages.
+			if ( isset( $this->licenses_errors[ $item_id ] ) ) {
+				unset( $this->licenses_errors[ $item_id ] );
+			}
         }
+
+		$this->save_license_errors();
 		wp_send_json( $response );
     }
 
