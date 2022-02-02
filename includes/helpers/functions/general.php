@@ -94,13 +94,8 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
 	$q .= ' ORDER BY ID DESC ';
 
 	if ( ! wp_using_ext_object_cache() ) {
-		$results = WPBDP_Utils::check_transient_cache(
-			array(
-				'cache_key' => 'wpbdp_page_ids' . $page_id,
-				'group'     => 'wpbdp_pages',
-			)
-		);
-		if ( $results ) {
+		$results = get_transient( 'wpbdp_page_ids_' . $page_id );
+		if ( false !== $results ) {
 			return $results;
 		}
 	}
@@ -115,13 +110,7 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
 	);
 
 	if ( ! wp_using_ext_object_cache() ) {
-		WPBDP_Utils::set_transient_cache(
-			array(
-				'cache_key' => 'wpbdp_page_ids' . $page_id,
-				'group'     => 'wpbdp_pages',
-				'results'   => $results,
-			)
-		 );
+		set_transient( 'wpbdp_page_ids_' . $page_id, $results );
 	}
 
 	return $results;
@@ -1340,7 +1329,11 @@ function wpbdp_get_client_ip_address() {
  */
 function wpbdp_delete_page_ids_cache() {
 	WPBDP__Utils::cache_delete_group( 'wpbdp_pages' );
-	delete_transient( 'wpbdp_pages' );
+	// Delete page transient cache for the main plugin pages.
+	delete_transient( 'wpbdp_page_ids_main' );
+	delete_transient( 'wpbdp_page_ids_add-listing' );
+	delete_transient( 'wpbdp_page_ids_manage-listings' );
+	delete_transient( 'wpbdp_page_ids_view-listings' );
 }
 
 /**

@@ -232,54 +232,6 @@ class WPBDP__Utils {
 	}
 
 	/**
-	 * Handle transient WP options cache.
-	 *
-	 * @param array  $args
-	 * @param string $args[cache_key] The unique name for this cache
-	 * @param string $args[group] The name of the cache group
-	 *
-	 * @since x.x
-	 *
-	 * @return mixed
-	 */
-	public static function check_transient_cache( $args ) {
-		$results = get_transient( $args['group'] );
-		$key     = $args['cache_key'];
-		if ( false !== $results && is_array( $results ) && isset( $results[ $key ] ) ) {
-			return $results[ $key ];
-		}
-		return false;
-	}
-
-	/**
-	 * Set the transient cache.
-	 *
-	 * @param array  $args
-	 * @param string $args[cache_key] The unique name for this cache
-	 * @param string $args[group] The name of the cache group
-	 * @param string $args[results] The cache results.
-	 * @param int    $args[time] When the cahce should expire, default to 300
-	 *
-	 * @since x.x
-	 */
-	public static function set_transient_cache( $args ) {
-		$defaults = array(
-			'cache_key' => '',
-			'group'     => '',
-			'results'   => '',
-			'time'      => 300,
-		);
-		$args = array_merge( $defaults, $args );
-
-		$cache = get_transient( $args['group'] );
-		if ( ! $cache || ! is_array( $cache ) ) {
-			$cache = array();
-		}
-		$cache[ $args['cache_key'] ] = $args['results'];
-		set_transient( $args['group'], $cache, $args['time'] );
-	}
-
-	/**
 	 * Check if value contains blank value or empty array
 	 *
 	 * @since v5.9
