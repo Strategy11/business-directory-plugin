@@ -59,6 +59,13 @@ class WPBDP_Licensing {
 			}
 		}
 
+		// Remove an error if it's for a plugin that's deactivated.
+		foreach ( $errors as $k => $error ) {
+			if ( ! isset( $this->items[ $k ] ) ) {
+				unset( $errors[ $k ] );
+			}
+		}
+
 		$this->licenses_errors = $errors;
 		return $this->licenses_errors;
 	}
@@ -173,7 +180,7 @@ class WPBDP_Licensing {
         $item = $this->add_item( $args );
 
         if ( $item ) {
-            $license_status = wpbdp()->licensing->get_license_status( '', $item['id'], 'module' );
+            $license_status = $this->get_license_status( '', $item['id'], $item['item_type'] );
 
             if ( in_array( $license_status, array( 'valid', 'expired' ), true ) ) {
                 return true;
@@ -504,6 +511,7 @@ class WPBDP_Licensing {
 			);
 		}
 
+		$this->licenses[ $item_type . '-' . $item_id ]['status'] = 'invalid';
 		update_option( 'wpbdp_licenses', $this->licenses );
 
 		$is_revoked = isset( $license_data->error ) && 'revoked' === $license_data->error;
@@ -513,7 +521,6 @@ class WPBDP_Licensing {
 			return new WP_Error( 'invalid-license', $message );
 		}
 
-		$this->licenses[ $item_type . '-' . $item_id ]['status'] = 'invalid';
 		return $this->revoked_license_error();
     }
 
@@ -884,7 +891,12 @@ class WPBDP_Licensing {
 
 		$result = $this->license_action( $item_type, $item_id, 'activate', $key );
 
+		$this->get_license_errors();
+
 		if ( is_wp_error( $result ) ) {
+			// Save the message for later.
+			$this->licenses_errors[ $item_id ] = $result->get_error_message();
+
 			$response = array(
 				'success' => false,
 				'error'   => sprintf( _x( 'Could not activate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ),
@@ -894,7 +906,14 @@ class WPBDP_Licensing {
 				'success' => true,
 				'message' => _x( 'License activated', 'licensing', 'business-directory-plugin' ),
 			);
+
+			// Remove any saved error messages.
+			if ( isset( $this->licenses_errors[ $item_id ] ) ) {
+				unset( $this->licenses_errors[ $item_id ] );
+			}
         }
+
+		$this->save_license_errors();
 		wp_send_json( $response );
     }
 
@@ -932,14 +951,6 @@ class WPBDP_Licensing {
 		$store_url = untrailingslashit( self::STORE_URL );
 
 		$updates = get_option( 'wpbdp_updates' );
-		if ( empty( $updates ) ) {
-			// Temporary fallback for switching from option to transient.
-			// TODO: Remove in v5.14.1.
-			$updates = get_transient( 'wpbdp_updates' );
-			if ( $updates !== false ) {
-				$updates['last'] = current_time( 'timestamp' );
-			}
-		}
 
 		$due = current_time( 'timestamp' ) - DAY_IN_SECONDS;
 
@@ -999,12 +1010,11 @@ class WPBDP_Licensing {
         }
 
         $updates = array();
-
         foreach ( $this->items as $item ) {
             $item_key = $item['item_type'] . '-' . $item['id'];
 
             foreach ( $body as $item_information ) {
-				if ( $item_information->name !== $item['name'] ) {
+				if ( trim( $item_information->name ) !== trim( $item['name'] ) || empty( $item_information->license ) ) {
 					continue;
 				}
 
@@ -1012,7 +1022,7 @@ class WPBDP_Licensing {
 				$updates[ $item_key ]->slug = $item['id'];
 
 				// Update the license status too.
-				if ( $item['id'] === 'business-directory-premium' ) {
+				if ( $item['id'] === $this->premium_id() ) {
 					// Handle premium from it's own updater.
 					continue;
 				}
@@ -1057,7 +1067,6 @@ class WPBDP_Licensing {
 		$modules = $this->modules_array();
 
         foreach ( $modules as $module ) {
-            $license_status = $this->get_license_status( '', $module['id'], $module['item_type'] );
 
             $item_key = $module['item_type'] . '-' . $module['id'];
 
@@ -1087,6 +1096,33 @@ class WPBDP_Licensing {
     }
 
 	/**
+	 * Get item version.
+	 * Get the update information of an item.
+	 *
+	 * @todo change to new rest api.
+	 *
+	 * @param $item The module item.
+	 *
+	 * @since 5.17
+	 *
+	 * @return mixed
+	 */
+	private function get_item_version( $item ) {
+		$http_args = array(
+			'timeout'   => 15,
+			'sslverify' => false,
+			'body'      => array(
+				'edd_action' => 'get_version',
+				'item_name'  => $item['name'],
+				'license'    => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] ),
+				'url'        => home_url(),
+			),
+		);
+		$request   = wp_remote_post( self::STORE_URL, $http_args );
+		return $request;
+	}
+
+	/**
 	 * Fill the info in the plugin details popup.
 	 */
     public function module_update_information( $data, $action = '', $args = null ) {
@@ -1099,17 +1135,7 @@ class WPBDP_Licensing {
             return $data;
         }
 
-        $http_args = array(
-            'timeout'   => 15,
-            'sslverify' => false,
-            'body'      => array(
-                'edd_action' => 'get_version',
-                'item_name'  => $item['name'],
-                'license'    => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] ),
-                'url'        => home_url(),
-            ),
-        );
-        $request   = wp_remote_post( self::STORE_URL, $http_args );
+		$request = $this->get_item_version( $item );
 
         if ( ! is_wp_error( $request ) ) {
             $request = json_decode( wp_remote_retrieve_body( $request ) );

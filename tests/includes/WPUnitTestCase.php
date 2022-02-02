@@ -84,37 +84,13 @@ class WPUnitTestCase extends WPTestCase {
 	 * Create an administrator, editor, and subscriber
 	 */
 	private function create_users() {
-		$has_user = get_user_by( 'email', 'admin@mail.com' );
+		$has_user = get_user_by( 'email', 'test@test.com' );
 		if ( ! empty( $has_user ) ) {
 			return;
 		}
 
-		$admin_args = array(
-			'user_login' => 'admin',
-			'user_email' => 'admin@mail.com',
-			'user_pass'  => 'admin',
-			'role'       => 'administrator',
-		);
-		$admin      = $this->factory->user->create_object( $admin_args );
-		$this->assertNotEmpty( $admin );
-
-		$editor_args = array(
-			'user_login' => 'editor',
-			'user_email' => 'editor@mail.com',
-			'user_pass'  => 'editor',
-			'role'       => 'editor',
-		);
-		$editor      = $this->factory->user->create_object( $editor_args );
-		$this->assertNotEmpty( $editor );
-
-		$subscriber_args = array(
-			'user_login' => 'subscriber',
-			'user_email' => 'subscriber@mail.com',
-			'user_pass'  => 'subscriber',
-			'role'       => 'subscriber',
-		);
-		$subscriber      = $this->factory->user->create_object( $subscriber_args );
-		$this->assertNotEmpty( $subscriber );
+		$user_id = wp_create_user( 'testuser', 'password', 'test@test.com' );
+		$this->assertNotEmpty( $user_id );
 	}
 
 	/**

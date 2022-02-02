@@ -93,7 +93,14 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
 
 	$q .= ' ORDER BY ID DESC ';
 
-	return WPBDP_Utils::check_cache(
+	if ( ! wp_using_ext_object_cache() ) {
+		$results = get_transient( 'wpbdp_page_ids_' . $page_id );
+		if ( false !== $results ) {
+			return $results;
+		}
+	}
+
+	$results = WPBDP_Utils::check_cache(
 		array(
 			'cache_key' => 'wpbdp_page_ids' . $page_id,
 			'group'     => 'wpbdp_pages',
@@ -101,6 +108,12 @@ function wpbdp_get_page_ids_with_query( $page_id ) {
 			'type'      => 'get_col',
 		)
 	);
+
+	if ( ! wp_using_ext_object_cache() ) {
+		set_transient( 'wpbdp_page_ids_' . $page_id, $results );
+	}
+
+	return $results;
 }
 
 function wpbdp_get_page_id( $name = 'main' ) {
@@ -246,11 +259,16 @@ function wpbdp_get_formfield( $id ) {
 
 /* Fees/Payment API */
 
+/**
+ * Check if payments are possible.
+ * This first checks if there are available enabled premium fees, then checks if there are enabled gateways.
+ *
+ * @return bool
+ */
 function wpbdp_payments_possible() {
-    if ( ! wpbdp_get_option( 'payments-on' ) ) {
-        return false;
-    }
-
+	if ( ! WPBDP_Fees_API::has_paid_plans() ) {
+		return false;
+	}
     return wpbdp()->payment_gateways->can_pay();
 }
 
@@ -589,24 +607,27 @@ function wpbdp_date( $timestamp ) {
  * @since 3.5.3
  */
 function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post' ) {
-    if ( 'slug' == $try_first ) {
-        $strategies = array( 'slug', 'id' );
-    } else {
-        $strategies = is_numeric( $id_or_slug ) ? array( 'id', 'slug' ) : array( 'slug' );
-    }
+	if ( 'slug' === $try_first ) {
+		$strategies = array( 'post_name', 'ID' );
+	} else {
+		$strategies = is_numeric( $id_or_slug ) ? array( 'ID', 'post_name' ) : array( 'post_name' );
+	}
 
     global $wpdb;
     $listing_id = 0;
 
     foreach ( $strategies as $s ) {
-        switch ( $s ) {
-            case 'id':
-                $listing_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE ID = %d AND post_type = %s", $id_or_slug, WPBDP_POST_TYPE ) ) );
-                break;
-            case 'slug':
-                $listing_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_name = %s AND post_type = %s", $id_or_slug, WPBDP_POST_TYPE ) ) );
-                break;
-        }
+		$q = $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE $s = %s AND post_type = %s", $id_or_slug, WPBDP_POST_TYPE );
+
+		$listing_id = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'get_id_' . $id_or_slug,
+				'group'     => 'wpbdp_listings',
+				'query'     => $q,
+				'type'      => 'get_var',
+			)
+		);
+		$listing_id = intval( $listing_id );
 
         if ( $listing_id ) {
             break;
@@ -896,11 +917,10 @@ function wpbdp_get_payment( $id ) {
  */
 function wpbdp_get_fee_plans( $args = array() ) {
     global $wpdb;
-
 	$payments_on = wpbdp_payments_possible();
     $defaults = array(
+        'include_free'    => ! $payments_on,
         'enabled'         => 1,
-		'include_free'    => ! $payments_on,
 		'tag'             => '',
         'orderby'         => 'label',
         'order'           => 'ASC',
@@ -1318,6 +1338,11 @@ function wpbdp_get_client_ip_address() {
  */
 function wpbdp_delete_page_ids_cache() {
 	WPBDP__Utils::cache_delete_group( 'wpbdp_pages' );
+	// Delete page transient cache for the main plugin pages.
+	delete_transient( 'wpbdp_page_ids_main' );
+	delete_transient( 'wpbdp_page_ids_add-listing' );
+	delete_transient( 'wpbdp_page_ids_manage-listings' );
+	delete_transient( 'wpbdp_page_ids_view-listings' );
 }
 
 /**

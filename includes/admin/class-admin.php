@@ -1311,7 +1311,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         public function main_menu() {
-            echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/home.tpl.php' );
+            // TODO: This will be the new dashboard page.
         }
 
         public function register_listings_views() {

@@ -1,3 +1,12 @@
+<?php
+if ( $theme->active ) {
+	$status = __( 'Active', 'business-directory-plugin' );
+} elseif ( ! $theme->can_be_activated && ! empty( $theme->license_status ) ) {
+	$status = ucfirst( $theme->license_status );
+} else {
+	$status = __( 'Inactive', 'business-directory-plugin' );
+}
+?>
 <div class="wpbdp-card plugin-card-<?php echo esc_attr( $theme->id ); ?> wpbdp-no-thumb  wpbdp-theme <?php echo esc_attr( $theme->id ); ?> <?php echo ( $theme->active ? 'wpbdp-addon-active active' : '' ); ?> <?php do_action( 'wpbdp-admin-themes-item-css', $theme ); ?> ">
 	<div class="wpbdp-grid">
 		<div class="wpbdp-col-8">
@@ -5,7 +14,7 @@
             <?php echo esc_html( $theme->name ); ?>
         </h2>
 		<p class="addon-status">
-			<?php echo esc_html( $theme->active ? __( 'Active', 'business-directory-plugin' ) : __( 'Inactive', 'business-directory-plugin' ) ) . esc_html( ' v' . $theme->version ); ?>
+			<?php echo esc_html( $status ) . esc_html( ' v' . $theme->version ); ?>
 		</p>
 		</div>
 		<div class="wpbdp-col-4">
@@ -54,5 +63,4 @@
         </div>
 
         <?php do_action( 'wpbdp-admin-themes-extra', $theme ); ?>
-
 </div>

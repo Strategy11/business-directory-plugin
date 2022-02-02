@@ -161,6 +161,7 @@ class WPBDP_Listing {
 
 		update_post_meta( $this->id, '_wpbdp[images]', $keep_images );
 		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
+		clean_post_cache( $this->id );
 	}
 
 	public function set_thumbnail_id( $image_id ) {
@@ -635,7 +636,7 @@ class WPBDP_Listing {
      */
     public function has_fee_plan( $fee = false ) {
         $current = $this->get_fee_plan();
-        return ( ! $fee && ! empty( $current ) ) || ( $fee && $current && $current->id == $fee );
+        return ( ! $fee && ! empty( $current ) ) || ( $fee && $current && $current->fee_id == $fee );
     }
 
     /**
@@ -810,13 +811,39 @@ class WPBDP_Listing {
         if ( ! $plan )
             return false;
 
-        $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) )->get();
-
-        if ( $existing_payment )
-            return $existing_payment;
+		$existing_payment = $this->get_existing_payment_for_plan( $plan );
+		if ( $existing_payment ) {
+			return $existing_payment;
+		}
 
         return $this->create_payment_from_plan( 'initial', $plan );
     }
+
+	/**
+	 * Search the fees in the payments if the current payment of the plan has been made or exists.
+	 * This prevents generating duplicate payments of the same fee in situations where a user will
+	 * go back to correct something.
+	 *
+	 * @since 5.17
+	 */
+	private function get_existing_payment_for_plan( $plan ) {
+		$existing_payment = WPBDP_Payment::objects()->filter(
+			array(
+				'listing_id'   => $this->id,
+				'payment_type' => 'initial',
+			)
+		)->get();
+
+		if ( ! $existing_payment ) {
+			return false;
+		}
+
+		// Get the current fee ids for this payment, and check if the current plan is included.
+		$plan_ids    = array_column( $existing_payment->payment_items, 'fee_id' );
+		$is_for_plan = in_array( $plan->fee_id, $plan_ids, true );
+
+		return $is_for_plan ? $existing_payment : false;
+	}
 
     /**
      * @since 5.1.9

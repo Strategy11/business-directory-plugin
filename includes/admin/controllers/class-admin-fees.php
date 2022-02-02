@@ -284,7 +284,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         $fee->enabled = ! $fee->enabled;
         $fee->save();
 
-        wpbdp_admin_message( _x( 'Fee disabled.', 'fees admin', 'business-directory-plugin' ), 'wpbdp-show-notice-once' );
+		$message = $fee->enabled ? _x( 'Fee enabled.', 'fees admin', 'business-directory-plugin' ) : _x( 'Fee disabled.', 'fees admin', 'business-directory-plugin' );
+        wpbdp_admin_message( $message, 'wpbdp-show-notice-once' );
+
         return $this->_redirect( 'index' );
     }
 

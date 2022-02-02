@@ -10,7 +10,7 @@ require_once ( WPBDP_PATH . 'includes/admin/upgrades/class-migration.php' );
  */
 class WPBDP_Installer {
 
-    const DB_VERSION = '18.4';
+    const DB_VERSION = '18.5';
 
     private $installed_version = null;
 
@@ -33,7 +33,7 @@ class WPBDP_Installer {
 			wpbdp_log( 'Expiration check was in schedule. Nothing to do.' );
         }
 
-        if ( self::DB_VERSION == $this->installed_version )
+		if ( version_compare( self::DB_VERSION, $this->installed_version, '=' ) )
             return;
 
         $this->update_database_schema();

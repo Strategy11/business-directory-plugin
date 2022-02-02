@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.8.1
-Stable tag: 5.16.1
+Stable tag: 5.17
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,14 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.17 =
+* New: Simplify setting up plans. Now, there's no free vs paid mode. If paid plans are created, a gateway needs to be set up.
+* Add more caching to speed up page loading.
+* Fix: The category wasn't getting auto selected with only one category.
+* Fix: Some images weren't uploading in the admin settings or in social fields.
+* Fix: Images can now be removed from a listing if it is used in another listing too.
+* Add more helpful info if a BD theme is missing an Activate button.
+
 = 5.16.1 =
 * Fix: The message to create a page on install wasn't updating when it was successful.
 * Fix: Exclude admin test fees in the stats for the plan total amount collected.
@@ -178,17 +186,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Prevent admins from uploading more images than the listing allows.
 * Fix: When the plan selector was used in other places, the buttons didn't always have labels.
 * Code update: Errors for a field returned by the wpbdp_listing_submit_validate_field will be shown with the field.
-
-= 5.15.4 =
-* Fix: Sites without a field selected for the address were getting errors.
-
-= 5.15.3 =
-* New: When the number of images on a plan changes, offer the option to update the image limit on existing listings.
-* New: Update the plan table to include the number of listings and amount earned.
-* In the default theme, combine the address fields into one section on the excerpt page.
-* Stop loading the external Font Awesome css, and use a Font Awesome plugin for WordPress instead.
-* Switch to current standards for WordPress admin notices.
-* Fix: Some widget settings weren't getting saved.
-* Remove the option to set a height for category multiselect fields since it wasn't being used.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
