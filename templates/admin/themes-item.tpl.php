@@ -37,10 +37,18 @@
 	<div class="plugin-card-bottom">
 		<span class="addon-status">
 			<?php
+			if ( $theme->active ) {
+				$status = __( 'Active', 'business-directory-plugin' );
+			} elseif ( ! $theme->can_be_activated && ! empty( $theme->license_status ) ) {
+				$status = ucfirst( $theme->license_status );
+			} else {
+				$status = __( 'Inactive', 'business-directory-plugin' );
+			}
+
 			printf(
 				/* translators: %s: Status name */
 				esc_html__( 'Status: %s', 'business-directory-plugin' ),
-				'<span class="addon-status-label">' . esc_html( $theme->active ? __( 'Active', 'business-directory-plugin' ) : __( 'Inactive', 'business-directory-plugin' ) ) . esc_html( ' v' . $theme->version ) . '</span>'
+				'<span class="addon-status-label">' . esc_html( $status ) . esc_html( ' v' . $theme->version ) . '</span>'
 			);
 			?>
 		</span>
