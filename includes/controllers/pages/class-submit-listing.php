@@ -1489,13 +1489,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 */
 	private function maybe_update_listing_plan( $new_plan ) {
 		$current_plan = $this->get_plan_for_listing();
-		if ( ! $current_plan ) {
-			return;
+		if ( $current_plan && $current_plan->fee_id !== $new_plan->id ) {
+			$this->listing->set_fee_plan_with_payment( $new_plan );
 		}
-		if ( $current_plan->fee_id === $new_plan->id ) {
-			return;
-		}
-		$this->listing->set_fee_plan_with_payment( $new_plan );
 	}
 
 	/**
