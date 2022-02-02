@@ -88,11 +88,27 @@ jQuery( function( $ ) {
         } else {
             // Plan changes are handled in a special way.
             if ($input.is('#wpbdp-listing-plan-select')) {
-                var plan = $.parseJSON( $input.find( 'option:selected' ).attr( 'data-plan-info' ) );
+                var plan = $.parseJSON( $input.find( 'option:selected' ).attr( 'data-plan-info' ) ),
+					listing_id = $( 'input[name="post_ID"]' ).val();
 
-                $metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
-                $metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
-                $metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
+				
+				$.ajax(ajaxurl, {
+					data: {
+						action: 'wpbdp-assign-plan-to-listing',
+						nonce: wpbdp_global.nonce,
+						listing_id: listing_id,
+						plan_id: plan.id
+					},
+					type: 'POST',
+					dataType: 'json',
+					success: function(res) {
+						if ( res.success ) {
+							$metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
+							$metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
+							$metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
+						}
+					}
+				});
             }
 
             updateText();

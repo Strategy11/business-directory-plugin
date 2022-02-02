@@ -59,12 +59,6 @@ class WPBDP_Admin_Listing_Fields_Metabox {
             return;
         }
 
-		if ( ! $this->listing->get_fee_plan() ) {
-			echo '<div class="wpbdp-submit-listing-section-listing_images">';
-			esc_html_e( 'Listing has no plan. Select a plan and save the listing first to manage images', 'business-directory-plugin' );
-			echo '</div>';
-			return;
-		}
         $images       = $this->listing->get_images( 'all', false );
         $thumbnail_id = $this->listing->get_thumbnail_id();
 
