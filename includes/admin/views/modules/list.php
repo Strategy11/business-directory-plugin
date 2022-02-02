@@ -38,8 +38,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="wpbdp-grid">
 						<div class="wpbdp-col-8">
 							<div class="wpbdp-grid">
-								<span class="wpbdp-col-2 wpbdp-card-module-icon wpbdp-admin-module-icon wpbdp-admin-module-icon-<?php echo esc_attr( $addon['slug'] ); ?>"></span>
-								<div class="wpbdp-col-10">
+								<span class="wpbdp-col-3 wpbdp-card-module-icon wpbdp-admin-module-icon ">
+									<img src="<?php echo esc_attr( $addon['icons']['1x'] )?>" alt="" />
+								</span>
+								<div class="wpbdp-col-9">
 									<h2 class="plugin-card-title">
 										<?php echo esc_html( str_replace( ' Module', '', $addon['title'] ) ); ?>
 									</h2>
