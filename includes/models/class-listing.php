@@ -824,7 +824,7 @@ class WPBDP_Listing {
 	 * This prevents generating duplicate payments of the same fee in situations where a user will
 	 * go back to correct something.
 	 *
-	 * @since x.x
+	 * @since 5.17
 	 */
 	private function get_existing_payment_for_plan( $plan ) {
 		$existing_payment = WPBDP_Payment::objects()->filter(

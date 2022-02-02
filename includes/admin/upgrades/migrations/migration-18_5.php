@@ -14,7 +14,7 @@ class WPBDP__Migrations__18_5 extends WPBDP__Migration {
 	 * If payments were enabled, we disable the default free plan.
 	 * If payments were disabled, we disabled the paid plans.
 	 *
-	 * @since x.x
+	 * @since 5.17
 	 */
 	public function migrate() {
 		global $wpdb;

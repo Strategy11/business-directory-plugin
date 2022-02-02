@@ -1103,7 +1103,7 @@ class WPBDP_Licensing {
 	 *
 	 * @param $item The module item.
 	 *
-	 * @since x.x
+	 * @since 5.17
 	 *
 	 * @return mixed
 	 */

@@ -1487,7 +1487,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 *
 	 * @param object $new_plan The new selected plan to assign to the listing.
 	 *
-	 * @since x.x
+	 * @since 5.17
 	 */
 	private function maybe_update_listing_plan( $new_plan ) {
 		$current_plan = $this->get_plan_for_listing();
