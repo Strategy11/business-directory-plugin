@@ -58,6 +58,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
     public function get_columns() {
         $cols = array(
+			'order'      => __( 'Order', 'business-directory-plugin' ),
 			'label'      => __( 'Plan Details', 'business-directory-plugin' ),
 			'amount'     => __( 'Pricing', 'business-directory-plugin' ),
 			'listings'   => __( 'Listings', 'business-directory-plugin' ),
@@ -82,14 +83,12 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 
     /** Rows **/
     public function single_row( $item ) {
-        $free_mode = ( ! wpbdp_payments_possible() );
-        $classes   = '';
-
-        if ( $free_mode && $item->amount > 0.0 ) {
-            $classes .= 'disabled-fee';
-        } elseif ( 'free' === $item->tag ) {
-            $classes .= 'free-fee';
-        }
+		$classes = 'fee';
+		if ( ! $item->enabled ) {
+			$classes .= ' disabled-fee';
+		} elseif ( 'free' === $item->tag ) {
+			$classes .= ' free-fee';
+		}
 
         echo '<tr class="' . $classes . '">';
         $this->single_row_columns( $item );
@@ -177,10 +176,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         }
 
         $html  = '';
-        $html .= sprintf(
-            '<span class="wpbdp-drag-handle" data-fee-id="%s"></span></a>',
-            $fee->id
-        );
 
 		$fee_id_string = sprintf(
 			__( 'ID: %s', 'business-directory-plugin' ),
@@ -283,19 +278,13 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function column_attributes( $fee ) {
 		$tags = array();
 
-		$is_default_free_plan = 'free' === $fee->tag;
-		$is_paid_plan         = 0.0 !== $fee->amount;
-		$payments_on          = wpbdp_payments_possible();
-
 		if ( ! $fee->enabled ) {
-			$tags[] = esc_html__( 'Disabled', 'business-directory-plugin' );
-		} elseif ( ( ! $payments_on && $is_paid_plan ) || ( $payments_on && $is_default_free_plan ) ) {
 			$tags[] = esc_html__( 'Disabled', 'business-directory-plugin' );
 		} else {
 			$tags[] = esc_html__( 'Active', 'business-directory-plugin' );
 		}
 
-		if ( $is_default_free_plan ) {
+		if ( 'free' === $fee->tag ) {
 			$tags[] = esc_html__( 'Default', 'business-directory-plugin' ) . '</span>';
 		}
 

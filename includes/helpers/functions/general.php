@@ -259,11 +259,16 @@ function wpbdp_get_formfield( $id ) {
 
 /* Fees/Payment API */
 
+/**
+ * Check if payments are possible.
+ * This first checks if there are available enabled premium fees, then checks if there are enabled gateways.
+ *
+ * @return bool
+ */
 function wpbdp_payments_possible() {
-    if ( ! wpbdp_get_option( 'payments-on' ) ) {
-        return false;
-    }
-
+	if ( ! WPBDP_Fees_API::has_paid_plans() ) {
+		return false;
+	}
     return wpbdp()->payment_gateways->can_pay();
 }
 
@@ -912,11 +917,10 @@ function wpbdp_get_payment( $id ) {
  */
 function wpbdp_get_fee_plans( $args = array() ) {
     global $wpdb;
-
 	$payments_on = wpbdp_payments_possible();
     $defaults = array(
+        'include_free'    => ! $payments_on,
         'enabled'         => 1,
-		'include_free'    => ! $payments_on,
 		'tag'             => '',
         'orderby'         => 'label',
         'order'           => 'ASC',

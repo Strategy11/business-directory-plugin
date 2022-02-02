@@ -96,7 +96,6 @@ class WPBDP__Payment_Gateways {
                     'type'         => 'checkbox',
                     'default'      => false,
                     'group'        => 'gateway_' . $gateway->get_id(),
-                    'requirements' => array( 'payments-on' ),
                 )
             );
             foreach ( $gateway->get_settings() as $setting ) {
@@ -110,20 +109,23 @@ class WPBDP__Payment_Gateways {
     }
 
     public function _admin_warnings() {
-        // TODO: Maybe integrate all of these warnings into just one message?
-        if ( empty( $_GET['page'] ) || 'wpbdp_settings' != $_GET['page'] ) {
+		$page = wpbdp_get_var( array( 'param' => 'page' ) );
+		$is_settings = 'wpbdp_settings' === $page;
+		$is_plans    = 'wpbdp-admin-fees' === $page;
+		if ( ! $is_settings && ! $is_plans ) {
             return;
         }
 
-        if ( ! wpbdp_get_option( 'payments-on' ) ) {
-            return;
-        }
+		// Check if there are premium fees.
+		if ( ! WPBDP_Fees_API::has_paid_plans() ) {
+			return;
+		}
 
         $at_least_one_gateway = false;
         foreach ( $this->gateways as $gateway ) {
             if ( $gateway->is_enabled( true ) ) {
                 $at_least_one_gateway = true;
-            } elseif ( $gateway->is_enabled( false ) ) {
+			} elseif ( $gateway->is_enabled( false ) && $is_settings ) {
                 $errors = rtrim( '&#149; ' . implode( ' &#149; ', $gateway->validate_settings() ), '.' );
 
                 $msg  = _x( 'The <gateway> gateway is enabled but not properly configured. The gateway won\'t be available until the following problems are fixed: <problems>.', 'payment-gateways', 'business-directory-plugin' );
@@ -138,34 +140,10 @@ class WPBDP__Payment_Gateways {
             }
         }
 
-        if ( ! $at_least_one_gateway ) {
-            $msg = _x( 'You have payments turned on but no gateway is active and properly configured. Go to <link>Manage Options - Payment</link> to change the payment settings. Until you change this, the directory will operate in <i>Free Mode</i>.', 'payment-gateways', 'business-directory-plugin' );
-			$msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">', '</a>' ), $msg );
-            wpbdp_admin_message( $msg, 'error' );
-        }
-
-        $this->no_fee_warning();
-    }
-
-    /**
-     * Show a warning if payments are turned on but no fees are setup.
-     *
-     * @since 5.7.3
-     */
-    private function no_fee_warning() {
-        foreach ( wpbdp_get_fee_plans() as $plan ) {
-            if ( empty( $plan->extra_data['private'] ) ) {
-                // This plan is public, so don't continue.
-                return;
-            }
-        }
-
-        $msg = sprintf(
-            /* translators: %1$s: open link html, %2$s close link */
-            esc_html__( 'You have payments turned on but do not have a public fee plan. Directory users won\'t be able to submit a listing until you add a public fee plan. Go to %1$sFee Plans%2$s to add or edit your fee plan(s).', 'business-directory-plugin' ),
-            '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">',
-            '</a>'
-        );
-        wpbdp_admin_message( $msg, 'error' );
+		if ( ! $at_least_one_gateway && $is_plans ) {
+			$msg = __( 'You have paid plans but no payment gateway. Go to %1$sSettings - Payment%2$s to set up a gateway. Until you do this, only free plans will be available.', 'business-directory-plugin' );
+			$msg = sprintf( $msg, '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">', '</a>' );
+			wpbdp_admin_message( $msg, 'error' );
+		}
     }
 }

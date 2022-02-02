@@ -1115,6 +1115,16 @@ final class WPBDP__Settings__Bootstrap {
     }
 
     private static function settings_payment() {
+		wpbdp_register_setting(
+			array(
+				'id'      => 'payments-on',
+				'type'    => 'hidden',
+				'class'   => 'hidden',
+				'default' => true,
+				'group'   => 'payment/main',
+			)
+		);
+
         wpbdp_register_setting(
             array(
                 'id'      => 'fee-order',
@@ -1130,21 +1140,11 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_setting(
             array(
-                'id'      => 'payments-on',
-                'type'    => 'checkbox',
-                'name'    => _x( 'Turn On payments?', 'settings', 'business-directory-plugin' ),
-                'default' => false,
-                'group'   => 'payment/main',
-            )
-        );
-        wpbdp_register_setting(
-            array(
                 'id'           => 'payments-test-mode',
                 'type'         => 'checkbox',
                 'name'         => _x( 'Put payment gateways in test mode?', 'settings', 'business-directory-plugin' ),
                 'default'      => true,
                 'group'        => 'payment/main',
-                'requirements' => array( 'payments-on' ),
             )
         );
 
@@ -1184,7 +1184,6 @@ final class WPBDP__Settings__Bootstrap {
                 ),
                 'desc'         => self::gateway_description(),
                 'group'        => 'payment/main',
-                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
@@ -1194,7 +1193,6 @@ final class WPBDP__Settings__Bootstrap {
                 'name'         => _x( 'Currency Symbol', 'settings', 'business-directory-plugin' ),
                 'default'      => '$',
                 'group'        => 'payment/main',
-                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
@@ -1209,7 +1207,6 @@ final class WPBDP__Settings__Bootstrap {
                     'none'  => _x( 'Do not show currency symbol', 'admin settings', 'business-directory-plugin' ),
                 ),
                 'group'        => 'payment/main',
-                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
@@ -1219,7 +1216,6 @@ final class WPBDP__Settings__Bootstrap {
                 'name'         => _x( 'Include fee description in receipt?', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',
-                'requirements' => array( 'payments-on' ),
             )
         );
         wpbdp_register_setting(
@@ -1229,7 +1225,6 @@ final class WPBDP__Settings__Bootstrap {
                 'name'         => _x( 'Thank you for payment message', 'settings', 'business-directory-plugin' ),
                 'default'      => __( 'Thank you for your payment.', 'business-directory-plugin' ),
                 'group'        => 'payment/main',
-                'requirements' => array( 'payments-on' ),
             )
         );
 
@@ -1283,7 +1278,6 @@ final class WPBDP__Settings__Bootstrap {
                 'desc'         => _x( 'Ask users to come back for abandoned payments?', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',
-                'requirements' => array( 'payments-on' ),
             )
         );
 
