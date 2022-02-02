@@ -10116,47 +10116,6 @@ msgstr "Kontynuacja"
 #~ "będzie działał w <i>Trybie Bezpłatnym</i>."
 
 # @ WPBDM
-#~ msgctxt "admin home"
-#~ msgid "Welcome to Business Directory Plugin. You are using %s."
-#~ msgstr "Witamy w Katalogu Firm. Używasz %s."
-
-# @ WPBDM
-#~ msgctxt "admin home"
-#~ msgid ""
-#~ "Thanks for choosing us.  There's a lot you probably want to get done, so "
-#~ "let's jump right in!"
-#~ msgstr ""
-#~ "Dziękujemy, że nas wybrałeś. Jest tu wiele rzeczy, które prawdopodobnie "
-#~ "chciałbyś zrobić. Poprostu zacznij zabawę."
-
-# @ WPBDM
-#~ msgctxt "admin home"
-#~ msgid ""
-#~ "Our complete documentation is <a>here</a> which we encourage you to use "
-#~ "while setting things up."
-#~ msgstr ""
-#~ "Pełną dokumentację znajdziesz <a>tutaj</a>. Korzystaj z niej, aby "
-#~ "skonfirgurować nasz plugin."
-
-# @ WPBDM
-#~ msgctxt "admin home"
-#~ msgid ""
-#~ "We have some quick-start scenarios that you will find useful regarding "
-#~ "setup and configuration <a>here</a>."
-#~ msgstr ""
-#~ "Kilka scenariuszy szybkiego startu, w kótrych znajdziesz przydatne opcje "
-#~ "i informacje na temat konfiguracji znajdziesz<a>tutaj</a>."
-
-# @ WPBDM
-#~ msgctxt "admin home"
-#~ msgid ""
-#~ "If you have questions, please post a comment on <a>support forum</a> and "
-#~ "we'll answer it within 24 hours most days."
-#~ msgstr ""
-#~ "Jeśli masz pytania, napisz komentarz na  <a>forum wsparcia</a>, a my "
-#~ "postaramy sie odpowiedzieć w ciągu 24 godzin."
-
-# @ WPBDM
 #, fuzzy
 #~ msgid "Image width (%1$s px) is smaller than the minimum width of %2$s px."
 #~ msgstr ""
