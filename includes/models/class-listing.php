@@ -810,20 +810,41 @@ class WPBDP_Listing {
         if ( ! $plan )
             return false;
 
-        $existing_payment = WPBDP_Payment::objects()->filter( array( 'listing_id' => $this->id, 'payment_type' => 'initial' ) )->get();
-
-		// Search the fees in the payments if the current payment of the plan has been made or exists.
-		// This prevents generating duplicate payments of the same fee in situations where a user will go back to correct something.
+		$existing_payment = $this->get_existing_payment_for_plan( $plan );
 		if ( $existing_payment ) {
-			// Fee ids are saved as an array in the payment table as `payment_items`.
-			$key = array_search( $plan->fee_id, array_column( $existing_payment->payment_items, 'fee_id' ), true );
-			if ( false === $key ) {
-				return $existing_payment;
-			}
+			return $existing_payment;
 		}
 
         return $this->create_payment_from_plan( 'initial', $plan );
     }
+
+	/**
+	 * Search the fees in the payments if the current payment of the plan has been made or exists.
+	 * This prevents generating duplicate payments of the same fee in situations where a user will
+	 * go back to correct something.
+	 *
+	 * @since x.x
+	 */
+	private function get_existing_payment_for_plan( $plan ) {
+		$existing_payment = WPBDP_Payment::objects()->filter(
+			array(
+				'listing_id'   => $this->id,
+				'payment_type' => 'initial',
+			)
+		)->get();
+
+		if ( ! $existing_payment ) {
+			return false;
+		}
+
+		// Fee ids are saved as an array in the payment table as `payment_items`.
+		$key = array_search( $plan->fee_id, array_column( $existing_payment->payment_items, 'fee_id' ), true );
+		if ( false === $key ) {
+			return $existing_payment;
+		}
+
+		return false;
+	}
 
     /**
      * @since 5.1.9
