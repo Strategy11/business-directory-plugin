@@ -837,13 +837,15 @@ class WPBDP_Listing {
 			return false;
 		}
 
-		// Fee ids are saved as an array in the payment table as `payment_items`.
-		$key = array_search( $plan->fee_id, array_column( $existing_payment->payment_items, 'fee_id' ), true );
-		if ( false === $key ) {
-			return $existing_payment;
+		// Get the current fee ids for this payment.
+		$plan_ids = array_column( $existing_payment->payment_items, 'fee_id' );
+
+		$payment_for_plan = array_search( $plan->fee_id, $plan_ids, true );
+		if ( false === $payment_for_plan ) {
+			return false;
 		}
 
-		return false;
+		return $existing_payment;
 	}
 
     /**
