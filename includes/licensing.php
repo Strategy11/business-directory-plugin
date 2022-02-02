@@ -1098,6 +1098,7 @@ class WPBDP_Licensing {
 	/**
 	 * Get item version.
 	 * Get the update information of an item.
+	 *
 	 * @todo change to new rest api.
 	 *
 	 * @param $item The module item.
