@@ -22,7 +22,7 @@ Run the following in the `business-directory-plugin` plugin folder
 #!bash 
 $ cd <path-to-wordpress>/wp-content/plugins/business-directory-plugin
 
-$ codeception run
+$ codecept run
 
 ```
 
@@ -32,7 +32,7 @@ $ codeception run
 #!bash 
 $ cd <path-to-wordpress>/wp-content/plugins/business-directory-plugin
 
-$ codeception run acceptance
+$ codecept run acceptance
 
 ```
 
@@ -42,7 +42,7 @@ $ codeception run acceptance
 #!bash 
 $ cd <path-to-wordpress>/wp-content/plugins/business-directory-plugin
 
-$ codeception run functional
+$ codecept run functional
 
 ```
 
@@ -53,7 +53,7 @@ $ codeception run functional
 #!bash 
 $ cd <path-to-wordpress>/wp-content/plugins/business-directory-plugin
 
-$ codeception run wpunit
+$ codecept run wpunit
 
 ```
 
@@ -63,6 +63,6 @@ $ codeception run wpunit
 #!bash 
 $ cd <path-to-wordpress>/wp-content/plugins/business-directory-plugin
 
-$ codeception run unit
+$ codecept run unit
 
 ```
