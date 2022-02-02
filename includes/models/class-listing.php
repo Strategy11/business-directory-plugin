@@ -837,15 +837,11 @@ class WPBDP_Listing {
 			return false;
 		}
 
-		// Get the current fee ids for this payment.
-		$plan_ids = array_column( $existing_payment->payment_items, 'fee_id' );
+		// Get the current fee ids for this payment, and check if the current plan is included.
+		$plan_ids    = array_column( $existing_payment->payment_items, 'fee_id' );
+		$is_for_plan = in_array( $plan->fee_id, $plan_ids, true );
 
-		$payment_for_plan = array_search( $plan->fee_id, $plan_ids, true );
-		if ( false === $payment_for_plan ) {
-			return false;
-		}
-
-		return $existing_payment;
+		return $is_for_plan ? $existing_payment : false;
 	}
 
     /**
