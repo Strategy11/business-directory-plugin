@@ -709,6 +709,7 @@ class WPBDP_Admin_Listings {
 	 * @since x.x
 	 */
 	public function ajax_assign_plan_to_listing() {
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ), 'post' );
 		$plan_id    = wpbdp_get_var( array( 'param' => 'plan_id' ), 'post' );
 		if ( ! $listing_id || ! $plan_id ) {
