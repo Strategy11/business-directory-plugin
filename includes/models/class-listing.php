@@ -635,7 +635,7 @@ class WPBDP_Listing {
      */
     public function has_fee_plan( $fee = false ) {
         $current = $this->get_fee_plan();
-        return ( ! $fee && ! empty( $current ) ) || ( $fee && ! empty( $current->fee ) && $current->fee->id == $fee );
+        return ( ! $fee && ! empty( $current ) ) || ( $fee && $current && $current->fee_id == $fee );
     }
 
     /**
