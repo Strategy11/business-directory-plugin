@@ -602,24 +602,27 @@ function wpbdp_date( $timestamp ) {
  * @since 3.5.3
  */
 function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post' ) {
-    if ( 'slug' == $try_first ) {
-        $strategies = array( 'slug', 'id' );
-    } else {
-        $strategies = is_numeric( $id_or_slug ) ? array( 'id', 'slug' ) : array( 'slug' );
-    }
+	if ( 'slug' === $try_first ) {
+		$strategies = array( 'post_name', 'ID' );
+	} else {
+		$strategies = is_numeric( $id_or_slug ) ? array( 'ID', 'post_name' ) : array( 'post_name' );
+	}
 
     global $wpdb;
     $listing_id = 0;
 
     foreach ( $strategies as $s ) {
-        switch ( $s ) {
-            case 'id':
-                $listing_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE ID = %d AND post_type = %s", $id_or_slug, WPBDP_POST_TYPE ) ) );
-                break;
-            case 'slug':
-                $listing_id = intval( $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_name = %s AND post_type = %s", $id_or_slug, WPBDP_POST_TYPE ) ) );
-                break;
-        }
+		$q = $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE $s = %s AND post_type = %s", $id_or_slug, WPBDP_POST_TYPE );
+
+		$listing_id = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'get_id_' . $id_or_slug,
+				'group'     => 'wpbdp_listings',
+				'query'     => $q,
+				'type'      => 'get_var',
+			)
+		);
+		$listing_id = intval( $listing_id );
 
         if ( $listing_id ) {
             break;
