@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-02-02 19:38:07+00:00\n"
+"POT-Creation-Date: 2022-02-03 21:01:26+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -100,7 +100,7 @@ msgid "Form Fields"
 msgstr "حقول الاستمارة"
 
 #: includes/admin/class-admin.php:344 includes/admin/class-admin.php:345
-#: includes/licensing.php:227
+#: includes/licensing.php:229
 #, fuzzy
 msgid "Modules"
 msgstr "(جميع الوحدات)"
@@ -437,7 +437,7 @@ msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "لماذا قمت بحذف إضافة دليل الأعمال؟"
 
 #: includes/admin/controllers/class-settings-admin.php:536
-#: includes/admin/helpers/tables/class-fees-table.php:174
+#: includes/admin/helpers/tables/class-fees-table.php:177
 #: includes/admin/helpers/tables/class-form-fields-table.php:104
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
 #: templates/admin/payments-note.tpl.php:14
@@ -495,7 +495,7 @@ msgid "Installed"
 msgstr "تم التنصيب"
 
 #: includes/admin/helpers/class-modules-list.php:187
-#: includes/admin/helpers/tables/class-fees-table.php:284
+#: includes/admin/helpers/tables/class-fees-table.php:287
 #: templates/admin/themes-item.tpl.php:41
 #, fuzzy
 msgid "Active"
@@ -514,7 +514,7 @@ msgid "Activate"
 msgstr "قم بالتفعيل"
 
 #: includes/admin/helpers/class-modules-list.php:235
-#: includes/admin/helpers/class-modules-list.php:236 includes/licensing.php:275
+#: includes/admin/helpers/class-modules-list.php:236 includes/licensing.php:277
 #, fuzzy
 msgid "Upgrade Now"
 msgstr "ترقية إلى %s"
@@ -553,41 +553,41 @@ msgstr "السعر"
 msgid "Listings"
 msgstr "الإعلانات"
 
-#: includes/admin/helpers/tables/class-fees-table.php:153
+#: includes/admin/helpers/tables/class-fees-table.php:156
 #, fuzzy
 msgid "Disable"
 msgstr "تعطيل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:159
+#: includes/admin/helpers/tables/class-fees-table.php:162
 #, fuzzy
 msgid "Enable"
 msgstr "تفعيل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:181
+#: includes/admin/helpers/tables/class-fees-table.php:184
 msgid "ID: %s"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:184
+#: includes/admin/helpers/tables/class-fees-table.php:187
 #, fuzzy
 msgid "Paid Plan"
 msgstr "تم الدفع"
 
-#: includes/admin/helpers/tables/class-fees-table.php:184
+#: includes/admin/helpers/tables/class-fees-table.php:187
 #, fuzzy
 msgid "Free Plan"
 msgstr "إنتقل إلى \"إدارة حقول\""
 
-#: includes/admin/helpers/tables/class-fees-table.php:219
+#: includes/admin/helpers/tables/class-fees-table.php:222
 #, fuzzy
 msgid "%1$s for %2$s"
 msgstr "%s (ex. %s)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:282
+#: includes/admin/helpers/tables/class-fees-table.php:285
 #, fuzzy
 msgid "Disabled"
 msgstr "معطل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:288
+#: includes/admin/helpers/tables/class-fees-table.php:291
 #: includes/helpers/functions/templates-ui.php:431
 #, fuzzy
 msgid "Default"
@@ -1875,73 +1875,73 @@ msgid "Manage Listings"
 msgstr "إدارة الإعلانات المدفوعة"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:150
+#: includes/licensing.php:152
 msgid ""
 "The license key could not be verified. Please %1$scheck your license%2$s to "
 "get updates."
 msgstr ""
 
-#: includes/licensing.php:203 includes/licensing.php:206
+#: includes/licensing.php:205 includes/licensing.php:208
 #, fuzzy
 msgid "Licenses"
 msgstr "تراخيص"
 
-#: includes/licensing.php:273
+#: includes/licensing.php:275
 msgid "Build more powerful directories"
 msgstr ""
 
-#: includes/licensing.php:274
+#: includes/licensing.php:276
 msgid ""
 "Add category images, maps, filter by location, payment gateways, and more."
 msgstr ""
 
-#: includes/licensing.php:276
+#: includes/licensing.php:278
 #, fuzzy
 msgid "Already purchased?"
 msgstr "مُركب مسبقا"
 
 #. translators: %s: item type.
-#: includes/licensing.php:294
+#: includes/licensing.php:296
 msgid "%s will not get updates until license is reauthorized."
 msgstr ""
 
-#: includes/licensing.php:315
+#: includes/licensing.php:317
 #, fuzzy
 msgid "Enter License Key here"
 msgstr "تجديد مفتاح الترخيص"
 
-#: includes/licensing.php:316
+#: includes/licensing.php:318
 #, fuzzy
 msgid "Authorize"
 msgstr "تفعيل Authorize.net؟"
 
-#: includes/licensing.php:420
+#: includes/licensing.php:422
 #, fuzzy
 msgid "Invalid item ID"
 msgstr "معرف حقل غير صالح"
 
-#: includes/licensing.php:433
+#: includes/licensing.php:435
 #, fuzzy
 msgid "No license key provided"
 msgstr "لم يتم تقديم أي مفتاح الترخيص"
 
-#: includes/licensing.php:482 includes/licensing.php:520
+#: includes/licensing.php:484 includes/licensing.php:522
 #, fuzzy
 msgid "License key is invalid"
 msgstr "مفتاح الترخيص غير صالح"
 
-#: includes/licensing.php:486
+#: includes/licensing.php:488
 #, fuzzy
 msgid "Deactivation failed"
 msgstr "فشل التعطيل"
 
-#: includes/licensing.php:531
+#: includes/licensing.php:533
 #, fuzzy
 msgid "The license key was revoked."
 msgstr "لم يتم تقديم أي مفتاح الترخيص"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:535
+#: includes/licensing.php:537
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory support"
 "%2$s and let them know your license is being reported as revoked by the "
@@ -1949,50 +1949,50 @@ msgid ""
 "with your report."
 msgstr ""
 
-#: includes/licensing.php:598
+#: includes/licensing.php:600
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:611
+#: includes/licensing.php:613
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:658
+#: includes/licensing.php:660
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
 "Business Directory servers. Please contact your webhost and ask them to add "
 "our IP address 52.0.78.177 to your allow list."
 msgstr ""
 
-#: includes/licensing.php:752
+#: includes/licensing.php:754
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "دليل الأعمال - مفتاح الترخيص منتهي"
 
-#: includes/licensing.php:753
+#: includes/licensing.php:755
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "دليل الأعمال - مفتاح الترخيص منتهي"
 
-#: includes/licensing.php:754
+#: includes/licensing.php:756
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "المساعدة في تحسين دليل الأعمال"
 
-#: includes/licensing.php:765
+#: includes/licensing.php:767
 #, fuzzy
 msgid "Review license keys"
 msgstr "تجديد مفتاح الترخيص"
 
-#: includes/licensing.php:880
+#: includes/licensing.php:882
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:885
+#: includes/licensing.php:887
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "يرجى إدخال بريد إلكتروني صحيح."
@@ -3862,29 +3862,29 @@ msgctxt "fees admin"
 msgid "Attributes"
 msgstr "سمات الحقل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:137
+#: includes/admin/helpers/tables/class-fees-table.php:141
 msgctxt "fees admin"
 msgid "Edit"
 msgstr "تحرير"
 
-#: includes/admin/helpers/tables/class-fees-table.php:207
+#: includes/admin/helpers/tables/class-fees-table.php:210
 #, fuzzy
 msgctxt "fees admin"
 msgid "Variable"
 msgstr "تعطيل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:212
+#: includes/admin/helpers/tables/class-fees-table.php:215
 #, fuzzy
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "Frais \"%s\" pour catégorie \"%s\""
 
-#: includes/admin/helpers/tables/class-fees-table.php:231
+#: includes/admin/helpers/tables/class-fees-table.php:234
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "دائما"
 
-#: includes/admin/helpers/tables/class-fees-table.php:233
+#: includes/admin/helpers/tables/class-fees-table.php:236
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
@@ -3895,23 +3895,23 @@ msgstr[3] "%d  أيام"
 msgstr[4] "%d يوم"
 msgstr[5] "%d يوم"
 
-#: includes/admin/helpers/tables/class-fees-table.php:263
+#: includes/admin/helpers/tables/class-fees-table.php:266
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "جميع التصنيفات"
 
-#: includes/admin/helpers/tables/class-fees-table.php:292
+#: includes/admin/helpers/tables/class-fees-table.php:295
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:296
+#: includes/admin/helpers/tables/class-fees-table.php:299
 #, fuzzy
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "(متكرر)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:300
+#: includes/admin/helpers/tables/class-fees-table.php:303
 #, fuzzy
 msgctxt "fees admin"
 msgid "Private"
@@ -6336,18 +6336,18 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr ""
 
-#: includes/licensing.php:245
+#: includes/licensing.php:247
 #, fuzzy
 msgctxt "settings"
 msgid "Themes"
 msgstr "القوالب"
 
-#: includes/licensing.php:316 includes/licensing.php:317
+#: includes/licensing.php:318 includes/licensing.php:319
 msgctxt "settings"
 msgid "Please wait..."
 msgstr ""
 
-#: includes/licensing.php:317
+#: includes/licensing.php:319
 #, fuzzy
 msgctxt "settings"
 msgid "Deauthorize"
@@ -8392,19 +8392,19 @@ msgctxt "default category name"
 msgid "General"
 msgstr "عام"
 
-#: includes/licensing.php:571
+#: includes/licensing.php:573
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "لا يمكن الاتصال بخادم الترخيص"
 
-#: includes/licensing.php:584
+#: includes/licensing.php:586
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. cURL was not found in your system"
 msgstr ""
 
-#: includes/licensing.php:586 includes/licensing.php:616
+#: includes/licensing.php:588 includes/licensing.php:618
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8413,7 +8413,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:588 includes/licensing.php:618
+#: includes/licensing.php:590 includes/licensing.php:620
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8421,47 +8421,47 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:590
+#: includes/licensing.php:592
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary"
 msgstr ""
 
-#: includes/licensing.php:620
+#: includes/licensing.php:622
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary."
 msgstr ""
 
-#: includes/licensing.php:656
+#: includes/licensing.php:658
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
-#: includes/licensing.php:902
+#: includes/licensing.php:904
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "لا يمكن تفعيل الترخيص: %s."
 
-#: includes/licensing.php:907
+#: includes/licensing.php:909
 msgctxt "licensing"
 msgid "License activated"
 msgstr "تم تفعيل ترخيص"
 
-#: includes/licensing.php:939
+#: includes/licensing.php:941
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "لا يمكن إلغاء الترخيص:  %s."
 
-#: includes/licensing.php:941
+#: includes/licensing.php:943
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "تم  إلغاء تفعيل الترخيص"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1181
+#: includes/licensing.php:1183
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
