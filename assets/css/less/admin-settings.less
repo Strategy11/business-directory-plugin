@@ -20,7 +20,7 @@
 
     .wpbdp-setting-description {
         font-size: 12px;
-        padding: 0 0 8px;
+        padding: 0 0 6px;
         color:@text-color;
         opacity: 70%;
     }
@@ -270,26 +270,28 @@
     }
 }
 
-#wpbdp-admin-page-settings {
-	.wpbdp-settings-type-checkbox input[type="checkbox"] {
-    	vertical-align: bottom;
+
+.wpbdp-settings-radio-options,
+.wpbdp-settings-multicheck-options.wpbdp-grid,
+.wpbdp-settings-multicheck-options {
+	grid-gap: 0;
+
+	.wpbdp-settings-radio-option, .wpbdp-settings-multicheck-option {
+		margin: 0 0 5px 0;
+
+		input[type="radio"], input[type="checkbox"] {
+			vertical-align: bottom;
+		}
 	}
 
-	.wpbdp-settings-radio-options,
-	.wpbdp-settings-multicheck-options {
-		grid-gap: 0;
+	& + .wpbdp-setting-description {
+		margin: 10px 0 0 0;
+	}
+}
 
-		.wpbdp-settings-radio-option, .wpbdp-settings-multicheck-option {
-			margin: 0 0 5px 0;
-
-			input[type="radio"], input[type="checkbox"] {
-				vertical-align: bottom;
-			}
-		}
-
-		& + .wpbdp-setting-description {
-			margin: 10px 0 0 0;
-		}
+.wpdb-checkbox {
+	.wpbdp-setting-description {
+		margin: 0 28px;
 	}
 }
 

@@ -172,8 +172,29 @@ class WPBDP__Settings_Admin {
 		$this->add_requirement( $setting );
 		echo '>';
 
+		$this->add_grid_class( $setting );
+		$setting['class'] .= ' wpdb-' . $setting['type'];
+
+		echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
+		$this->open_grid_div( $setting, 'left' );
+
+		if ( $setting['type'] !== 'checkbox' ) {
+			echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
+			if ( ! empty( $setting['tooltip'] ) ) {
+				echo $this->setting_tooltip( $setting['tooltip'] );
+			}
+			echo $this->setting_input_desc( $setting );
+		}
+
+		$this->close_grid_div( $setting );
+		$this->open_grid_div( $setting, 'right' );
+
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo apply_filters( 'wpbdp_admin_settings_render', $callback_html, $setting );
+
+		$this->close_grid_div( $setting );
+		echo '</div>';
+
         echo '<span id="' . esc_attr( $setting['id'] ) . '"></span>';
         echo '</div>';
     }
@@ -195,81 +216,44 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_text_callback( $setting, $value ) {
-		echo $this->setting_input_desc( $setting );
-        echo '<input type="text" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
+		$this->setting_input_text_html( $setting, $value );
     }
 
     public function setting_number_callback( $setting, $value ) {
-		if ( $setting['grid_layout'] ) {
-			$setting['class'] = $setting['class'] . ' wpbdp-grid';
-		}
-		echo '<div class="wpdb-number ' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
-		if ( $setting['grid_layout'] ) {
-			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
-		}
-		echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
-		if ( ! empty( $setting['tooltip'] ) ) {
-			echo $this->setting_tooltip( $setting['tooltip'] );
-		}
-		echo $this->setting_input_desc( $setting );
-		if ( $setting['grid_layout'] ) {
-			echo '</div>';
-			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
-		}
-		echo '<input type="number" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
-
-		if ( isset( $setting['min'] ) ) {
-			echo 'min="' . $setting['min'] . '"';
-		}
-
-		if ( isset( $setting['step'] ) ) {
-			echo 'step="' . $setting['step'] . '"';
-		}
-
-		if ( isset( $setting['max'] ) ) {
-			echo 'max="' . $setting['max'] . '"';
-		}
-		echo '/>';
-		if ( $setting['grid_layout'] ) {
-			echo '</div>';
-		}
-		echo '</div>';
+		$this->setting_input_text_html( $setting, $value );
 	}
 
     public function setting_textarea_callback( $setting, $value ) {
         echo '<textarea id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '">';
         echo esc_textarea( $value );
         echo '</textarea>';
-		echo $this->setting_input_desc( $setting );
     }
 
 	public function setting_checkbox_callback( $setting, $value ) {
-		if ( $setting['grid_layout'] ) {
-			$setting['class'] = $setting['class'] . ' wpbdp-grid';
-		}
-
-		echo '<div class="wpdb-checkbox ' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
 		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
-		$tag = 'label';
-		if ( $setting['grid_layout'] ) {
-			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
-			$tag = 'div'; // Use a div tag for the label to prevent multiple switches.
-		} else {
-			echo $this->checkbox_input_html( $setting, $value );
-		}
-		echo $this->setting_input_label( $setting, $tag, 'wpbdp-setting-label' );
+
+		echo '<label>';
+		echo $this->checkbox_input_html( $setting, $value );
+
+		echo $this->setting_input_label( $setting, 'span' );
+		echo '</label>';
+
 		if ( ! empty( $setting['tooltip'] ) ) {
 			echo $this->setting_tooltip( $setting['tooltip'] );
 		}
-		echo $this->setting_input_desc( $setting );
-		if ( $setting['grid_layout'] ) {
-			echo '</div>';
-			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
-			echo $this->checkbox_input_html( $setting, $value );
-			echo '<label></label>'; // Empty label to hold the switch.
-			echo '</div>';
-		}
 
+		echo $this->setting_input_desc( $setting );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function setting_toggle_callback( $setting, $value ) {
+		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
+
+		echo '<div class="wpdb-switch-checkbox">';
+		echo $this->checkbox_input_html( $setting, $value );
+		echo '<label></label>';
 		echo '</div>';
 	}
 
@@ -306,6 +290,15 @@ class WPBDP__Settings_Admin {
 		if ( empty( $setting['name'] ) ) {
 			return '';
 		}
+
+		if ( $tag === 'div' && ! empty( $setting['label_for'] ) ) {
+			return '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' .
+				'<label for="' . esc_attr( $setting['label_for'] ) . '">' .
+				wp_kses_post( $setting['name'] ) .
+				'</label>' .
+				'</div>';
+		}
+
 		return '<' . $tag . ' class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' . wp_kses_post( $setting['name'] ) . '</' . $tag . '>';
 	}
 
@@ -319,7 +312,7 @@ class WPBDP__Settings_Admin {
 	 * @return string
 	 */
 	private function setting_input_desc( $setting ) {
-		if ( empty( $setting['desc'] ) ) {
+		if ( empty( $setting['desc'] ) || $setting['type'] === 'education' ) {
 			return '';
 		}
 		return '<div class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</div>';
@@ -340,8 +333,6 @@ class WPBDP__Settings_Admin {
         if ( empty( $setting['options'] ) ) {
             return;
         }
-
-		echo $this->setting_input_desc( $setting );
 
         echo '<div class="wpbdp-settings-radio-options">';
         foreach ( $setting['options'] as $option_value => $option_label ) {
@@ -389,38 +380,6 @@ class WPBDP__Settings_Admin {
         }
 
         echo '</div>';
-
-		echo $this->setting_input_desc( $setting );
-    }
-
-    public function setting_select_callback( $setting, $value ) {
-        if ( empty( $setting['options'] ) ) {
-            return;
-        }
-
-		if ( $setting['grid_layout'] ) {
-			$setting['class'] = $setting['class'] . ' wpbdp-grid';
-		}
-
-		echo '<div class="wpdb-select ' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
-		if ( $setting['grid_layout'] ) {
-			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['left'] ) . '">';
-		}
-		echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
-		if ( ! empty( $setting['tooltip'] ) ) {
-			echo $this->setting_tooltip( $setting['tooltip'] );
-		}
-		echo $this->setting_input_desc( $setting );
-		if ( $setting['grid_layout'] ) {
-			echo '</div>';
-			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes']['right'] ) . '">';
-		}
-		$this->setting_input_select_html( $setting, $value );
-		if ( $setting['grid_layout'] ) {
-			echo '</div>';
-		}
-
-		echo '</div>';
     }
 
 	/**
@@ -428,12 +387,12 @@ class WPBDP__Settings_Admin {
 	 *
 	 * @param array $setting The setting of the current input.
 	 * @param string|array $value The selected value
-	 *
-	 * @since x.x
-	 *
-	 * @return string
 	 */
-	private function setting_input_select_html( $setting, $value ) {
+    public function setting_select_callback( $setting, $value ) {
+        if ( empty( $setting['options'] ) ) {
+            return;
+        }
+
 		$multiple = ! empty( $setting['multiple'] ) && $setting['multiple'];
 
         echo '<select id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']' . ( $multiple ? '[]' : '' ) . '" ' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
@@ -447,6 +406,57 @@ class WPBDP__Settings_Admin {
             echo '<option value="' . $option_value . '" ' . selected( $selected, true, false ) . '>' . $option_label . '</option>';
         }
         echo '</select>';
+    }
+
+	/**
+	 * @since x.x
+	 */
+	private function add_grid_class( &$setting ) {
+		if ( $setting['grid_classes'] ) {
+			$setting['class'] .= ' wpbdp-grid';
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function open_grid_div( $setting, $position = 'left' ) {
+		if ( $setting['grid_classes'] ) {
+			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes'][ $position ] ) . '">';
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function close_grid_div( $setting ) {
+		if ( $setting['grid_classes'] ) {
+			echo '</div>';
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function setting_input_text_html( $setting, $value ) {
+		echo '<input type="' . esc_attr( $setting['type'] ) . '" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
+
+		if ( ! empty( $setting['placeholder'] ) ) {
+			echo ' placeholder="' . esc_attr( $setting['placeholder'] ) . '"';
+		}
+
+		if ( isset( $setting['min'] ) ) {
+			echo ' min="' . $setting['min'] . '"';
+		}
+
+		if ( isset( $setting['step'] ) ) {
+			echo ' step="' . $setting['step'] . '"';
+		}
+
+		if ( isset( $setting['max'] ) ) {
+			echo ' max="' . $setting['max'] . '"';
+		}
+		echo '/>';
 	}
 
     public function setting_file_callback( $setting, $value ) {
@@ -498,8 +508,6 @@ class WPBDP__Settings_Admin {
 
     public function setting_url_callback( $setting, $value ) {
         echo '<input type="url" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
-
-		echo $this->setting_input_desc( $setting );
     }
 
     public function setting_color_callback( $setting, $value ) {
@@ -507,8 +515,6 @@ class WPBDP__Settings_Admin {
 		wp_enqueue_style( 'wp-color-picker' );
 
         echo '<input type="text" class="cpa-color-picker" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '"/>';
-
-		echo $this->setting_input_desc( $setting );
     }
 
     public function setting_text_template_callback( $setting, $value ) {
@@ -556,8 +562,6 @@ class WPBDP__Settings_Admin {
             'email_body'    => $value['body'],
             'placeholders'  => ! empty( $setting['placeholders'] ) ? $setting['placeholders'] : array(),
         );
-
-		echo $this->setting_input_desc( $setting );
 
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $args );
     }

@@ -17,7 +17,7 @@ if ( $theme->active ) {
 			<?php echo esc_html( $status ) . esc_html( ' v' . $theme->version ); ?>
 		</p>
 		</div>
-		<div class="wpbdp-col-4">
+		<div class="wpbdp-col-4 wpbdp-right">
 			<div class="wpbdp-theme-actions">
 				<?php if ( $theme->can_be_activated ) : ?>
 					<form action="" method="post">

@@ -168,12 +168,8 @@ class WPBDP__Settings {
             'validator'    => false,
             'default'      => false,
             'on_update'    => false,
-            'grid_layout'  => false,
             'class'        => '',
-            'grid_classes' => array(
-                'left'  => 'wpbdp-half',
-                'right' => 'wpbdp-half'
-            ),
+            'grid_classes' => false,
             'dependencies' => array()
         ) );
 

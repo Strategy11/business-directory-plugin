@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</div>
 							</div>
 						</div>
-						<div class="wpbdp-col-4">
+						<div class="wpbdp-col-4 wpbdp-right">
 							<?php
 							$passing = array(
 								'addon'         => $addon,
