@@ -130,7 +130,7 @@ class WPBDP_Admin_Education {
 			),
 			'table'    => array(
 				'requires' => 'premium',
-				'tip'      => 'Show listings in a grid or table. <img src="' . esc_url( WPBDP_ASSETS_URL . 'images/premium-layout.svg' ) . '" alt="Directory listing layout setting" />',
+				'tip'      => 'Show listings in a grid or table. <img src="' . esc_url( WPBDP_ASSETS_URL . 'images/premium-layout.svg' ) . '" alt="Directory listing layout setting" style="max-width:645px" />',
 			),
 		);
 		// TODO: Show maps and attachments.
