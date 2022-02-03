@@ -65,6 +65,10 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			'images'     => __( 'Images', 'business-directory-plugin' ),
 			'attributes' => _x( 'Attributes', 'fees admin', 'business-directory-plugin' ),
         );
+		$current_order = wpbdp_get_option( 'fee-order' );
+		if ( 'custom' !== $current_order['method'] ) {
+			unset( $cols['order'] );
+		}
 
         return $cols;
     }
