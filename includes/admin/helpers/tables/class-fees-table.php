@@ -179,7 +179,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             );
         }
 
-        $html = '';
+        $html  = '';
 
 		$fee_id_string = sprintf(
 			__( 'ID: %s', 'business-directory-plugin' ),
