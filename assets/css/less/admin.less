@@ -97,7 +97,7 @@
 
 .wpbdp-pro-tip,
 .wpbdp-upgrade-bar {
-	background-color: rgba(227,230,243,.64);
+	background-color: @background;
 
 	a {
 		color: @brand;
@@ -108,12 +108,11 @@
 
 .wpbdp-pro-tip {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	border-radius: 6px;
 	padding: 11px 22px;
-	&-full {
-		display: block;
-	}
+	position: relative;
 
 	svg {
 		color: @brand;
@@ -123,39 +122,14 @@
 	a {
 		margin-left: 5px;
 	}
-	.wpbdp-button-secondary {
-		line-height: 1.5;
-	}
-}
-
-.wpbdp-pro-tip-modern {
-	max-width: 850px;
-	&.wpbdp-pro-tip-disabled {
-		background: rgba(188, 126, 126, 0.19);
-		svg {
-			color: #BC7E7E;
+	> img {
+		width: ~"calc(100% - 35px)";
+		margin: 10px 0 10px 35px;
+		~ a {
+			position: absolute;
+			right: 22px;
+			top: 11px;
 		}
-	}
-	.wpbdp-button-secondary {
-		background: transparent;
-	}
-
-	.wpbdp-pro-tip-title {
-		margin-bottom: 15px;
-		svg {
-			display: block;
-			float: left;
-		}
-		&-cta {
-			text-align: right;
-			@media only screen and (max-width: 600px) {
-				text-align: left;
-				margin-left: 35px;
-			}
-		}
-	}
-	.wpbdp-pro-tip-body {
-		padding-left: 35px;
 	}
 }
 
