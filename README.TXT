@@ -3,7 +3,7 @@ Contributors: businessdirectoryplugin
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 5.8.1
+Tested up to: 5.9
 Stable tag: 5.17.1
 License: GPLv2 or later
 
