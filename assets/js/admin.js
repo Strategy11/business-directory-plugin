@@ -217,6 +217,9 @@ var WPBDP_associations_fieldtypes = {};
 			WPBDPAdmin_FormFields.fileUploadInput.fileInputText( true, this );
 		});
 		WPBDPAdmin_FormFields.fileUploadInput.fileInputText( false );
+        $( '.wpbdp-tooltip' ).tooltip({
+            tooltipClass: 'wpbdp-admin-tooltip-content'
+        });
 	});
 })(jQuery);
 

@@ -292,7 +292,7 @@ class WPBDP__Assets {
 
 		wp_register_script( 'wpbdp-admin-layout-js', WPBDP_ASSETS_URL . 'js/admin-layout.min.js', array( 'jquery' ), WPBDP_VERSION, true );
 
-		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'wpbdp-admin-layout-js' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'jquery-ui-tooltip', 'wpbdp-admin-layout-js' ), WPBDP_VERSION, true );
 		$this->global_localize( 'wpbdp-admin-js' );
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
@@ -315,7 +315,7 @@ class WPBDP__Assets {
 		wp_enqueue_script(
 			'wpbdp-admin-listing',
 			WPBDP_ASSETS_URL . 'js/admin-listing.min.js',
-			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' ),
+			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ),
 			WPBDP_VERSION,
 			true
 		);
