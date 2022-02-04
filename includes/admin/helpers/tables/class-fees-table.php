@@ -65,6 +65,10 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			'images'     => __( 'Images', 'business-directory-plugin' ),
 			'attributes' => _x( 'Attributes', 'fees admin', 'business-directory-plugin' ),
         );
+		$current_order = wpbdp_get_option( 'fee-order' );
+		if ( 'custom' !== $current_order['method'] ) {
+			unset( $cols['order'] );
+		}
 
         return $cols;
     }
@@ -145,21 +149,20 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			$admin_fees_url
 		);
 
+		if ( $fee->enabled ) {
+			$actions['disable'] = sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( $toggle_url ),
+				esc_html__( 'Disable', 'business-directory-plugin' )
+			);
+		} else {
+			$actions['enable'] = sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( $toggle_url ),
+				esc_html__( 'Enable', 'business-directory-plugin' )
+			);
+		}
 		if ( 'free' !== $fee->tag ) {
-			if ( $fee->enabled ) {
-				$actions['disable'] = sprintf(
-					'<a href="%s">%s</a>',
-					esc_url( $toggle_url ),
-					esc_html__( 'Disable', 'business-directory-plugin' )
-				);
-			} else {
-				$actions['enable'] = sprintf(
-					'<a href="%s">%s</a>',
-					esc_url( $toggle_url ),
-					esc_html__( 'Enable', 'business-directory-plugin' )
-				);
-			}
-
             $actions['delete'] = sprintf(
                 '<a href="%1$s" data-id="%2$s" data-name="%3$s" class="wpbdp-admin-fee-delete">%4$s</a>',
                 esc_url(

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-02-02 19:38:07+00:00\n"
+"POT-Creation-Date: 2022-02-03 21:01:26+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -112,7 +112,7 @@ msgid "Form Fields"
 msgstr "campi del modulo"
 
 #: includes/admin/class-admin.php:344 includes/admin/class-admin.php:345
-#: includes/licensing.php:227
+#: includes/licensing.php:229
 #, fuzzy
 msgid "Modules"
 msgstr "(Tutti i moduli)"
@@ -444,7 +444,7 @@ msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "Perché stai eliminando Business Directory Plugin?"
 
 #: includes/admin/controllers/class-settings-admin.php:536
-#: includes/admin/helpers/tables/class-fees-table.php:174
+#: includes/admin/helpers/tables/class-fees-table.php:177
 #: includes/admin/helpers/tables/class-form-fields-table.php:104
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
 #: templates/admin/payments-note.tpl.php:14
@@ -502,7 +502,7 @@ msgid "Installed"
 msgstr "Installato"
 
 #: includes/admin/helpers/class-modules-list.php:187
-#: includes/admin/helpers/tables/class-fees-table.php:284
+#: includes/admin/helpers/tables/class-fees-table.php:287
 #: templates/admin/themes-item.tpl.php:41
 #, fuzzy
 msgid "Active"
@@ -521,7 +521,7 @@ msgid "Activate"
 msgstr "Attiva"
 
 #: includes/admin/helpers/class-modules-list.php:235
-#: includes/admin/helpers/class-modules-list.php:236 includes/licensing.php:275
+#: includes/admin/helpers/class-modules-list.php:236 includes/licensing.php:277
 msgid "Upgrade Now"
 msgstr ""
 
@@ -560,41 +560,41 @@ msgstr "Prezzi"
 msgid "Listings"
 msgstr "Annunci"
 
-#: includes/admin/helpers/tables/class-fees-table.php:153
+#: includes/admin/helpers/tables/class-fees-table.php:156
 #, fuzzy
 msgid "Disable"
 msgstr "Disabilita"
 
-#: includes/admin/helpers/tables/class-fees-table.php:159
+#: includes/admin/helpers/tables/class-fees-table.php:162
 #, fuzzy
 msgid "Enable"
 msgstr "Abilita"
 
-#: includes/admin/helpers/tables/class-fees-table.php:181
+#: includes/admin/helpers/tables/class-fees-table.php:184
 msgid "ID: %s"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:184
+#: includes/admin/helpers/tables/class-fees-table.php:187
 #, fuzzy
 msgid "Paid Plan"
 msgstr "Pagato come amministratore"
 
-#: includes/admin/helpers/tables/class-fees-table.php:184
+#: includes/admin/helpers/tables/class-fees-table.php:187
 #, fuzzy
 msgid "Free Plan"
 msgstr "Piano tariffario"
 
-#: includes/admin/helpers/tables/class-fees-table.php:219
+#: includes/admin/helpers/tables/class-fees-table.php:222
 #, fuzzy
 msgid "%1$s for %2$s"
 msgstr "%s (esempio %s)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:282
+#: includes/admin/helpers/tables/class-fees-table.php:285
 #, fuzzy
 msgid "Disabled"
 msgstr "Disabilitato"
 
-#: includes/admin/helpers/tables/class-fees-table.php:288
+#: includes/admin/helpers/tables/class-fees-table.php:291
 #: includes/helpers/functions/templates-ui.php:431
 #, fuzzy
 msgid "Default"
@@ -1896,72 +1896,72 @@ msgid "Manage Listings"
 msgstr "Gestione delle Donazioni ricevute"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:150
+#: includes/licensing.php:152
 msgid ""
 "The license key could not be verified. Please %1$scheck your license%2$s to "
 "get updates."
 msgstr ""
 
-#: includes/licensing.php:203 includes/licensing.php:206
+#: includes/licensing.php:205 includes/licensing.php:208
 msgid "Licenses"
 msgstr "Licenze"
 
-#: includes/licensing.php:273
+#: includes/licensing.php:275
 msgid "Build more powerful directories"
 msgstr ""
 
-#: includes/licensing.php:274
+#: includes/licensing.php:276
 msgid ""
 "Add category images, maps, filter by location, payment gateways, and more."
 msgstr ""
 
-#: includes/licensing.php:276
+#: includes/licensing.php:278
 #, fuzzy
 msgid "Already purchased?"
 msgstr "Già installato."
 
 #. translators: %s: item type.
-#: includes/licensing.php:294
+#: includes/licensing.php:296
 msgid "%s will not get updates until license is reauthorized."
 msgstr ""
 
-#: includes/licensing.php:315
+#: includes/licensing.php:317
 #, fuzzy
 msgid "Enter License Key here"
 msgstr "Inserisci qui il codice di licenza"
 
-#: includes/licensing.php:316
+#: includes/licensing.php:318
 #, fuzzy
 msgid "Authorize"
 msgstr "Carta di Credito"
 
-#: includes/licensing.php:420
+#: includes/licensing.php:422
 #, fuzzy
 msgid "Invalid item ID"
 msgstr "ID articolo non valido"
 
-#: includes/licensing.php:433
+#: includes/licensing.php:435
 #, fuzzy
 msgid "No license key provided"
 msgstr "Nessuna chiave di licenza fornita"
 
-#: includes/licensing.php:482 includes/licensing.php:520
+#: includes/licensing.php:484 includes/licensing.php:522
 #, fuzzy
 msgid "License key is invalid"
 msgstr "La chiave di licenza non è valida"
 
-#: includes/licensing.php:486
+#: includes/licensing.php:488
 #, fuzzy
 msgid "Deactivation failed"
 msgstr "Disattivazione fallita"
 
-#: includes/licensing.php:531
+#: includes/licensing.php:533
 #, fuzzy
 msgid "The license key was revoked."
 msgstr "La chiave di licenza è stata revocata."
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:535
+#: includes/licensing.php:537
 #, fuzzy
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory support"
@@ -1973,7 +1973,7 @@ msgstr ""
 "Business Directory</support-link> e fate loro sapere che la vostra licenza è "
 "stata segnalata come revocata dal software di licenza."
 
-#: includes/licensing.php:598
+#: includes/licensing.php:600
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -1982,7 +1982,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. Il collegamento non è riuscito con il seguente errore:"
 
-#: includes/licensing.php:611
+#: includes/licensing.php:613
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -1991,7 +1991,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. Si è verificato un problema nella stretta di mano SSL/TSL:"
 
-#: includes/licensing.php:658
+#: includes/licensing.php:660
 #, fuzzy
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
@@ -2003,31 +2003,31 @@ msgstr ""
 "support-link> e chiedi loro di aggiungere il tuo indirizzo IP <ip-"
 "address>alla whitelist."
 
-#: includes/licensing.php:752
+#: includes/licensing.php:754
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Chiave di licenza scaduta"
 
-#: includes/licensing.php:753
+#: includes/licensing.php:755
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Chiave di licenza scaduta"
 
-#: includes/licensing.php:754
+#: includes/licensing.php:756
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Aiuta a migliorare la directory aziendale"
 
-#: includes/licensing.php:765
+#: includes/licensing.php:767
 #, fuzzy
 msgid "Review license keys"
 msgstr "Rivedere le mie chiavi di licenza"
 
-#: includes/licensing.php:880
+#: includes/licensing.php:882
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:885
+#: includes/licensing.php:887
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "Per favore inserisci una chiave di licenza."
@@ -3977,49 +3977,49 @@ msgctxt "fees admin"
 msgid "Attributes"
 msgstr "Attributi"
 
-#: includes/admin/helpers/tables/class-fees-table.php:137
+#: includes/admin/helpers/tables/class-fees-table.php:141
 msgctxt "fees admin"
 msgid "Edit"
 msgstr "Modifica"
 
-#: includes/admin/helpers/tables/class-fees-table.php:207
+#: includes/admin/helpers/tables/class-fees-table.php:210
 msgctxt "fees admin"
 msgid "Variable"
 msgstr "Variabile"
 
-#: includes/admin/helpers/tables/class-fees-table.php:212
+#: includes/admin/helpers/tables/class-fees-table.php:215
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "%1$s + %2$s per categoria"
 
-#: includes/admin/helpers/tables/class-fees-table.php:231
+#: includes/admin/helpers/tables/class-fees-table.php:234
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "Per sempre"
 
-#: includes/admin/helpers/tables/class-fees-table.php:233
+#: includes/admin/helpers/tables/class-fees-table.php:236
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d giorno"
 msgstr[1] "%d giorni"
 
-#: includes/admin/helpers/tables/class-fees-table.php:263
+#: includes/admin/helpers/tables/class-fees-table.php:266
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "Tutte le categorie"
 
-#: includes/admin/helpers/tables/class-fees-table.php:292
+#: includes/admin/helpers/tables/class-fees-table.php:295
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr "Sticky"
 
-#: includes/admin/helpers/tables/class-fees-table.php:296
+#: includes/admin/helpers/tables/class-fees-table.php:299
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "Ricorrente"
 
-#: includes/admin/helpers/tables/class-fees-table.php:300
+#: includes/admin/helpers/tables/class-fees-table.php:303
 msgctxt "fees admin"
 msgid "Private"
 msgstr "Privato"
@@ -6306,17 +6306,17 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "Lo slug \"%s\" è già in uso per un'altra tassonomia."
 
-#: includes/licensing.php:245
+#: includes/licensing.php:247
 msgctxt "settings"
 msgid "Themes"
 msgstr "Temi"
 
-#: includes/licensing.php:316 includes/licensing.php:317
+#: includes/licensing.php:318 includes/licensing.php:319
 msgctxt "settings"
 msgid "Please wait..."
 msgstr "Attendi..."
 
-#: includes/licensing.php:317
+#: includes/licensing.php:319
 #, fuzzy
 msgctxt "settings"
 msgid "Deauthorize"
@@ -8367,12 +8367,12 @@ msgctxt "default category name"
 msgid "General"
 msgstr "Generale"
 
-#: includes/licensing.php:571
+#: includes/licensing.php:573
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/licensing.php:584
+#: includes/licensing.php:586
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -8381,7 +8381,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. cURL non è stato trovato nel sistema."
 
-#: includes/licensing.php:586 includes/licensing.php:616
+#: includes/licensing.php:588 includes/licensing.php:618
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8394,7 +8394,7 @@ msgstr ""
 "recente di cURL e una versione di OpenSSL che supporta TLSv1.2 (la versione "
 "minima con supporto è OpenSSL 1.0.1.1c)."
 
-#: includes/licensing.php:588 includes/licensing.php:618
+#: includes/licensing.php:590 includes/licensing.php:620
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8406,7 +8406,7 @@ msgstr ""
 "sito web a interagire con i servizi utilizzando i più recenti standard di "
 "sicurezza."
 
-#: includes/licensing.php:590
+#: includes/licensing.php:592
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -8415,7 +8415,7 @@ msgstr ""
 "Contatta il tuo fornitore di hosting e chiedi loro di aggiornare il tuo "
 "sistema. Includere questo messaggio se necessario"
 
-#: includes/licensing.php:620
+#: includes/licensing.php:622
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -8424,33 +8424,33 @@ msgstr ""
 "Contatta il tuo fornitore di hosting e chiedi loro di aggiornare il tuo "
 "sistema. Includere questo messaggio se necessario."
 
-#: includes/licensing.php:656
+#: includes/licensing.php:658
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Il server ha restituito un errore 403 Forbidden error."
 
-#: includes/licensing.php:902
+#: includes/licensing.php:904
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossibile attivare la licenza: %s."
 
-#: includes/licensing.php:907
+#: includes/licensing.php:909
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licenza attivata"
 
-#: includes/licensing.php:939
+#: includes/licensing.php:941
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossibile disattivare la licenza: %s."
 
-#: includes/licensing.php:941
+#: includes/licensing.php:943
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licenza disattivata"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1181
+#: includes/licensing.php:1183
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
