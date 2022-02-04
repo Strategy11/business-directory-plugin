@@ -309,20 +309,20 @@ jQuery(document).ready(function($){
     });
 
     /* Debug info page */
-    $('#wpbdp-admin-debug-info-page a.nav-tab').click(function(e){
+    $('.wpbdp-admin-page-debug-info a.current-nav').click(function(e){
         e.preventDefault();
 
-        $('#wpbdp-admin-debug-info-page a.nav-tab').not(this).removeClass('nav-tab-active');
+        $('.wpbdp-admin-page-debug-info a.current-nav').not(this).removeClass('current');
 
         var $selected_tab = $(this);
-        $selected_tab.addClass( 'nav-tab-active' );
+        $selected_tab.addClass( 'current' );
 
         $( '.wpbdp-debug-section' ).hide();
         $( '.wpbdp-debug-section[data-id="' + $(this).attr('href') + '"]' ).show();
     });
 
-    if ( $('#wpbdp-admin-debug-info-page a.nav-tab').length > 0 )
-        $('#wpbdp-admin-debug-info-page a.nav-tab').get(0).click();
+    if ( $('.wpbdp-admin-page-debug-info a.current-nav').length > 0 )
+        $('.wpbdp-admin-page-debug-info a.current-nav').get(0).click();
 
     /* Transactions */
     $( '.wpbdp-page-admin-transactions .column-actions a.details-link' ).click(function(e){
