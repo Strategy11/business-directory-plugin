@@ -255,7 +255,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		}
 
 		$revenue = wpbdp_currency_format( $fee->total_revenue(), array( 'force_numeric' => true ) );
-        $title   = __( 'Total revenue generated from listings', 'business-directory-plugin' );
+        $title   = __( 'Total revenue earned from listings', 'business-directory-plugin' );
 		$column .= ' <br/><span class="wpbdp-tag wpbdp-tooltip" title="' . $title . '">' . esc_html( $revenue ) . '</span>';
 		return $column;
 	}
