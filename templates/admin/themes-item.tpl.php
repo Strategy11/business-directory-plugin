@@ -8,10 +8,32 @@ if ( $theme->active ) {
 }
 ?>
 <div class="wpbdp-card plugin-card-<?php echo esc_attr( $theme->id ); ?> wpbdp-no-thumb  wpbdp-theme <?php echo esc_attr( $theme->id ); ?> <?php echo ( $theme->active ? 'wpbdp-addon-active active' : '' ); ?> <?php do_action( 'wpbdp-admin-themes-item-css', $theme ); ?> ">
-	<div class="wpbdp-theme-header-wrapper">
-		<h2 class="plugin-card-title">
-			<?php echo esc_html( $theme->name ); ?>
-		</h2>
+	<div class="wpbdp-grid">
+		<div class="wpbdp-col-8">
+			<h2 class="plugin-card-title">
+				<?php echo esc_html( $theme->name ); ?>
+			</h2>
+			<p class="addon-status">
+				<?php echo esc_html( $status ) . esc_html( ' v' . $theme->version ); ?>
+			</p>
+		</div>
+		<div class="wpbdp-col-4 wpbdp-right">
+			<div class="wpbdp-theme-actions">
+				<?php if ( $theme->can_be_activated ) : ?>
+					<form action="" method="post">
+						<input type="hidden" name="wpbdp-action" value="set-active-theme" />
+						<input type="hidden" name="theme_id" value="<?php echo esc_attr( $theme->id ); ?>" />
+						<?php wp_nonce_field( 'activate theme ' . $theme->id ); ?>
+						<input type="submit" class="button choose-theme button-primary" value="<?php esc_attr_e( 'Activate', 'business-directory-plugin' ); ?>" />
+					</form>
+				<?php endif; ?>
+				<?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ) : ?>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=delete-theme&theme_id=' . esc_attr( $theme->id ) ) ); ?>" class="delete-theme-link delete-theme">
+						<?php esc_html_e( 'Delete', 'business-directory-plugin' ); ?>
+					</a>
+				<?php endif; ?>
+			</div>
+		</div>
 	</div>
 
 	<?php if ( $theme->can_be_activated && $is_outdated ) : ?>
@@ -38,32 +60,6 @@ if ( $theme->active ) {
 		</div>
 		<?php endif; ?>
 
-	</div>
-	<div class="wpbdp-theme-footer-wrapper">
-		<div class="wpbdp-grid">
-			<div class="wpbdp-col-8">
-				<p class="addon-status">
-					<?php echo sprintf( __( 'Status %s', 'business-directory-plugin' ), esc_html( $status ) ) . esc_html( ' v' . $theme->version ); ?>
-				</p>
-			</div>
-			<div class="wpbdp-col-4 wpbdp-right">
-				<div class="wpbdp-theme-actions">
-					<?php if ( $theme->can_be_activated ) : ?>
-						<form action="" method="post">
-							<input type="hidden" name="wpbdp-action" value="set-active-theme" />
-							<input type="hidden" name="theme_id" value="<?php echo esc_attr( $theme->id ); ?>" />
-							<?php wp_nonce_field( 'activate theme ' . $theme->id ); ?>
-							<input type="submit" class="button choose-theme button-primary" value="<?php esc_attr_e( 'Activate', 'business-directory-plugin' ); ?>" />
-						</form>
-					<?php endif; ?>
-					<?php if ( ! $theme->active && ! in_array( $theme->id, array( 'default', 'no_theme' ), true ) ) : ?>
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-themes&action=delete-theme&theme_id=' . esc_attr( $theme->id ) ) ); ?>" class="delete-theme-link delete-theme">
-							<?php esc_html_e( 'Delete', 'business-directory-plugin' ); ?>
-						</a>
-					<?php endif; ?>
-				</div>
-			</div>
-		</div>
 	</div>
 	<?php do_action( 'wpbdp-admin-themes-extra', $theme ); ?>
 </div>
