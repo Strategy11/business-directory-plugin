@@ -235,71 +235,70 @@ table.wp-list-table td .tag {
     display: inline-block;
 }
 
-table.wp-list-table.formfields th.column-label {
-    width: 40%;
-}
-
-table.wp-list-table.formfields th.column-tags, table.wp-list-table.formfields td.column-tags {
-    width: 200px;
-}
-
-table.wp-list-table.formfields th.column-order, table.wp-list-table.formfields td.column-order  {
-    width: 55px;
-}
-
-table.wp-list-table.formfields td.column-order .wpbdp-drag-handle {
-    visibility: hidden;
+table.wp-list-table.formfields {
+    th.column-label {
+        width: 40%;
+    }
+    th.column-tags, td.column-tags {
+        width: 200px;
+    }
+    th.column-order, td.column-order  {
+        width: 55px;
+    }
+    td.column-order .wpbdp-drag-handle {
+        visibility: hidden;
+    }
+    tr:hover .wpbdp-drag-handle {
+        visibility: visible;
+    }
+    .tag.private {
+        background: red;
+    }
+    .tag.privacy {
+        background: blue;
+    }
+    
+    .tag.required {
+        background: orange;
+    }
+    
+    .tag.in-excerpt {
+        background: green;
+    }
+    
+    .tag.in-listing {
+        background: green;
+    }
+    
+    tr.wpbdp-draggable-highlight {
+        height: 54px;
+    }
+    
+    tr.ui-sortable-helper {
+        background: @white;
+        border: 1px dashed #c1c1c1;
+    }
 }
 
 /*table.wp-list-table.formfields tbody tr:hover {
     cursor: move;
 }*/
 
-table.wp-list-table.formfields tr:hover .wpbdp-drag-handle {
-    visibility: visible;
-}
-
-table.wp-list-table.formfields .tag.private {
-    background: red;
-}
-
-table.wp-list-table.formfields .tag.privacy {
-    background: blue;
-}
-
-table.wp-list-table.formfields .tag.required {
-    background: orange;
-}
-
-table.wp-list-table.formfields .tag.in-excerpt {
-    background: green;
-}
-
-table.wp-list-table.formfields .tag.in-listing {
-    background: green;
-}
-
-table.wp-list-table.formfields tr.wpbdp-draggable-highlight {
-    height: 54px;
-}
-
-table.wp-list-table.formfields tr.ui-sortable-helper {
-    background: @white;
-    border: 1px dashed #c1c1c1;
-}
-
-#wpbdp-admin-page-field-form .iframe-confirm {
-    display: none;
-}
-
-#wpbdp-admin-page-field-form .iframe-confirm p {
-    font-size: 90%;
-}
-
-#wpbdp-admin-page-field-form .wpbdp-setting-description {
-    color: #666;
-    font-style: italic;
-    display: block;
+.wpbdp-admin-page-field-form {
+    .iframe-confirm {
+        display: none;
+        p {
+            font-size: 90%;
+        }
+    }
+    .wpbdp-setting-description {
+        color: #666;
+        font-style: italic;
+        display: block;
+    }
+    .wpbdp-pro-tip {
+        margin-top: 5px;
+    }
 }
 
 #wpbdp-settings-currency .wpbdp-setting-description {
