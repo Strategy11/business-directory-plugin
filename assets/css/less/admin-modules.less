@@ -182,9 +182,10 @@
 	.wpbdp-theme-update-info {
 		display: inline-block;
 		width: 100%;
-		z-index: 1;
 		padding: 5px 10px;
-		margin: 0;
+		position: absolute;
+		left: 0;
+		right: 0;
 	}
 
 	.wpbdp-theme-update-info.theme-updated {
@@ -216,6 +217,11 @@
 	}
 }
 
+.wpbdp-admin-page-themes {
+	.wpbdp-addons .wpbdp-card {
+		position: relative;
+	}
+}
 
 @media only screen and (max-width: 1200px) {
 	.wpbdp-addons {
