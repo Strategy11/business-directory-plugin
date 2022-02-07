@@ -650,7 +650,7 @@ class WPBDP_Admin_Pages {
 		if ( isset( $menu_icons[ $menu_id ] ) ) {
 			return $menu_icons[ $menu_id ];
 		}
-		return isset( $menu_item['icon'] ) ? $menu_item['icon'] : 'dashicons dashicons-archive';
+		return isset( $menu_item['icon'] ) ? $menu_item['icon'] : 'wpbdp-admin-icon wpbdp-admin-icon-archive';
 	}
 
 	/**
