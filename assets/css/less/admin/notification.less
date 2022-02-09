@@ -86,3 +86,44 @@
 		color: @white;
 	}
 }
+
+.wpbdp-snackbar {
+	min-width: 250px;
+	margin-left: -125px;
+	background-color: @modal-background-color;
+	color: @white;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	z-index: 1;
+	left: 50%;
+	bottom: 30px;
+	-webkit-animation: snackbar-animation-fade-in 0.5s, snackbar-animation-fade-out 0.5s 2.5s;
+  	animation: snackbar-animation-fade-in 0.5s, snackbar-animation-fade-out 0.5s 2.5s;
+	p {
+		margin: 0;
+		color: @white !important;
+	}
+	button {
+		&::before {
+			color: @white !important;
+		}
+	}
+}
+
+.keyframes( @name; @arguments ) {
+	@-moz-keyframes @name { @arguments(); }
+	@-webkit-keyframes @name { @arguments(); }
+	@keyframes @name { @arguments(); }
+}
+
+.keyframes( snackbar-animation-fade-in; {
+	from {bottom: 0; opacity: 0;}
+	to {bottom: 30px; opacity: 1;}
+});
+
+.keyframes( snackbar-animation-fade-out; {
+	from {bottom: 30px; opacity: 1;}
+	to {bottom: 0; opacity: 0;}
+});

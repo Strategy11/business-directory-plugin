@@ -47,26 +47,53 @@ jQuery( function( $ ) {
 			if ( wpbdp_admin_notification_center.preAdminNotifications.length < 1 ){
 				return true;
 			}
-			var notifications = [];
+			var notifications = [],
+				snackbars = [];
 			wpbdp_admin_notification_center.preAdminNotifications.each( function() {
 				var notification = $(this);
 				if ( notification.hasClass( 'wpbdp-upgrade-bar' ) ) {
 					return false;
 				}
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
-					notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
+					if ( notification.hasClass( 'wpbdp-show-notice-once' ) ) {
+						snackbars.push( notification.html() );
+					} else {
+						notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
+					}
 				}
 				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
 					notification.remove();
 				}
 			});
 			notifications = wpbdp_admin_notification_center.removeDuplicates( notifications );
+			snackbars = wpbdp_admin_notification_center.removeDuplicates( snackbars );
 			wpbdp_admin_notification_center.adminNotifications.append( notifications.join( ' ') );
 			if ( notifications.length > 0 ) {
 				$( '.wpbdp-bell-notification' ).show();
 				wpbdp_admin_notification_center.notificationContainer.removeClass( 'hidden' );
-				wpbdp_admin_notification_center.timeoutVisibleNotices();
 			}
+			if ( snackbars.length > 0 ) {
+				snackbars.forEach( function( value, index, array ) {
+					wpbdp_admin_notification_center.generateSnackBar( value );
+				});
+			}
+		},
+
+		/**
+		 * Render the snack bar
+		 * 
+		 * @param {string} notification 
+		 */
+		generateSnackBar : function( notification ) {
+			var id = Date.now(),
+				container_id = 'wpbdp-snackbar-' + id;
+			var snackbar = $( '<div>', {
+				id: container_id,
+				class: 'wpbdp-snackbar'
+			});
+			snackbar.html( notification );
+			$( 'body' ).append(snackbar);
+			setTimeout( function(){ snackbar.remove(); }, 3000);
 		},
 
 		removeDuplicates : function( arr ) {
@@ -85,20 +112,15 @@ jQuery( function( $ ) {
 
 				wpbdp_admin_notification_center.dismissNotice( $notice, dismissible_id, nonce );
 			} );
-		},
+			$( document ).on( 'click', '.wpbdp-snackbar .notice-dismiss', function( e ) {
+				e.preventDefault();
+				var $button = $( this ),
+					$notice = $button.parent( '.wpbdp-bell-notice' ),
+					dismissible_id = $button.data( 'dismissible-id' ),
+					nonce = $button.data( 'nonce' );
 
-		/**
-		 * Timeout the visible notifications only.
-		 * This hides notifications that have the class wpbdp-show-notice as they are notices
-		 */
-		timeoutVisibleNotices : function() {
-			wpbdp_admin_notification_center.adminNotifications.find( 'li.wpbdp-show-notice-once' ).each( function() {
-				var notification = $(this);
-				notification.fadeOut( 2500, function() {
-					notification.remove();
-					wpbdp_admin_notification_center.hideNotificationCenter();
-				});
-			});
+				wpbdp_admin_notification_center.dismissNotice( $notice, dismissible_id, nonce );
+			} );
 		},
 
 		hideNotificationCenter : function() {

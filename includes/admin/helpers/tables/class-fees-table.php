@@ -164,7 +164,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		}
 		if ( 'free' !== $fee->tag ) {
             $actions['delete'] = sprintf(
-                '<a href="%1$s" data-id="%2$s" data-name="%3$s" class="wpbdp-admin-fee-delete">%4$s</a>',
+                '<a href="%1$s" data-id="%2$s" data-name="%3$s" class="wpbdp-admin-fee-delete wpbdp-delete-link">%4$s</a>',
                 esc_url(
                     add_query_arg(
                         array(
