@@ -119,15 +119,15 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
 		if ( ! is_wp_error( $result ) ) {
 			if ( 'insert' === $mode ) {
-				wpbdp_admin_message( __( 'Plan added.', 'business-directory-plugin' ), 'wpbdp-show-notice-once' );
+				wpbdp_admin_message( __( 'Plan added.', 'business-directory-plugin' ), 'wpbdp-snackbar-notice' );
 			} elseif ( $images_changed ) {
 				$this->show_update_listing_msg( $fee );
 			} else {
-				wpbdp_admin_message( __( 'Plan updated.', 'business-directory-plugin' ), 'wpbdp-show-notice-once' );
+				wpbdp_admin_message( __( 'Plan updated.', 'business-directory-plugin' ), 'wpbdp-snackbar-notice' );
 			}
 		} else {
 			foreach ( $result->get_error_messages() as $msg ) {
-				wpbdp_admin_message( $msg, 'error wpbdp-show-notice-once' );
+				wpbdp_admin_message( $msg, 'error wpbdp-snackbar-notice' );
 			}
 		}
 
@@ -142,7 +142,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
 		$total_listings = $fee->count_listings();
 		if ( ! $total_listings ) {
-			wpbdp_admin_message( $message, 'wpbdp-show-notice-once' );
+			wpbdp_admin_message( $message, 'wpbdp-snackbar-notice' );
 			return;
 		}
 
@@ -163,7 +163,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				'</a>',
 				$total_listings
 			),
-			'updated wpbdp-plan-updated wpbdp-show-notice-once'
+			'updated wpbdp-plan-updated wpbdp-snackbar-notice'
 		);
 	}
 
@@ -249,7 +249,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         ) );
 
         if ( $do && $fee->delete() ) {
-            wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ), 'wpbdp-show-notice-once' );
+            wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ), 'wpbdp-snackbar-notice' );
             return $this->_redirect( 'index' );
         }
 
@@ -275,7 +275,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			return;
 		}
 		if ( $fee->delete() ) {
-			wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ), 'wpbdp-show-notice-once' );
+			wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ), 'wpbdp-snackbar-notice' );
 		}
 	}
 
@@ -285,7 +285,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         $fee->save();
 
 		$message = $fee->enabled ? _x( 'Fee enabled.', 'fees admin', 'business-directory-plugin' ) : _x( 'Fee disabled.', 'fees admin', 'business-directory-plugin' );
-        wpbdp_admin_message( $message, 'wpbdp-show-notice-once' );
+        wpbdp_admin_message( $message, 'wpbdp-snackbar-notice' );
 
         return $this->_redirect( 'index' );
     }

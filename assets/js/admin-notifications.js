@@ -55,7 +55,7 @@ jQuery( function( $ ) {
 					return false;
 				}
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
-					if ( notification.hasClass( 'wpbdp-show-notice-once' ) ) {
+					if ( notification.hasClass( 'wpbdp-snackbar-notice' ) ) {
 						snackbars.push( notification.html() );
 					} else {
 						notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
@@ -93,7 +93,7 @@ jQuery( function( $ ) {
 			});
 			snackbar.html( notification );
 			$( 'body' ).append(snackbar);
-			setTimeout( function(){ snackbar.remove(); }, 3000);
+			setTimeout( function(){ snackbar.remove(); }, 2500);
 		},
 
 		removeDuplicates : function( arr ) {
