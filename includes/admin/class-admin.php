@@ -1322,7 +1322,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         public function maybe_highlight_menu() {
-            if ( ! WPBDP_App_Helper::is_bd_page() ) {
+			if ( ! WPBDP_App_Helper::is_bd_page() ) {
 				return;
 			}
 

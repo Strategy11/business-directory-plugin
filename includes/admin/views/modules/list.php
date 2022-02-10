@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="wpbdp-card plugin-card-<?php echo esc_attr( $slug ); ?> wpbdp-no-thumb wpbdp-addon-<?php echo esc_attr( $addon['status']['type'] ); ?>">
 					<?php if ( strtotime( $addon['released'] ) > strtotime( '-90 days' ) ) : ?>
 						<div class="wpbdp-ribbon">
-							<span><?php esc_attr_e( 'New' ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain ?></span>
+							<span><?php esc_attr_e( 'New', 'business-directory-plugin' ); ?></span>
 						</div>
 					<?php endif; ?>
 					<div class="wpbdp-grid">
@@ -42,10 +42,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<img src="<?php echo esc_attr( $addon['icons']['1x'] )?>" alt="" />
 								</span>
 								<div class="wpbdp-col-9">
-									<h2 class="plugin-card-title">
+									<h2 class="wpbdp-plugin-card-title">
 										<?php echo esc_html( str_replace( ' Module', '', $addon['title'] ) ); ?>
 									</h2>
-									<p class="addon-status">
+									<p class="wpbdp-addon-status">
 										<?php echo esc_html( $addon['status']['label'] ); ?>
 									</p>
 								</div>
@@ -64,11 +64,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 					</div>
 
-					<div class="plugin-card-details">
+					<div class="wpbdp-plugin-card-details">
 						<?php echo esc_html( $addon['excerpt'] ); ?>
 						<?php $show_docs = isset( $addon['docs'] ) && ! empty( $addon['docs'] ) && $addon['installed']; ?>
 						<?php if ( $show_docs ) { ?>
-							<div class="plugin-card-docs">
+							<div class="wpbdp-plugin-card-docs">
 								<a href="<?php echo esc_url( $addon['docs'] ); ?>" target="_blank" aria-label="<?php esc_attr_e( 'View Docs', 'business-directory-plugin' ); ?>">
 									<?php esc_html_e( 'View Docs', 'business-directory-plugin' ); ?>
 								</a>
