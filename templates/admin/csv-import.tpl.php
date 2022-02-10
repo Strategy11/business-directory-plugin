@@ -179,7 +179,7 @@ printf(
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Post status of new imported listings', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content wpbdp-input-wide">
+			<div class="wpbdp-setting-content">
 				<select name="settings[post-status]">
 					<?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
 						<?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
@@ -196,7 +196,7 @@ printf(
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Post status of existing imported listings', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content wpbdp-input-wide">
+			<div class="wpbdp-setting-content">
 				<select name="settings[existing-post-status]">
 						<option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'business-directory-plugin' ); ?></option>
 					<?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
@@ -279,7 +279,7 @@ printf(
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Number of listings imported on every cycle', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content wpbdp-input-wide">
+			<div class="wpbdp-setting-content">
 				<select name="settings[batch-size]">
 					<?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ) : ?>
 						<option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>

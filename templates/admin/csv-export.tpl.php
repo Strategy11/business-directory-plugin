@@ -32,7 +32,7 @@ echo $notice;
 			<div class="wpbdp-setting-label">
 				<label> <?php _ex( 'Which listings to export?', 'admin csv-export', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content wpbdp-input-wide">
+			<div class="wpbdp-setting-content">
 				<select name="settings[listing_status]">
 					<option value="all"><?php _ex( 'All', 'admin csv-export', 'business-directory-plugin' ); ?></option>
 					<option value="publish"><?php _ex( 'Active Only', 'admin csv-export', 'business-directory-plugin' ); ?></option>

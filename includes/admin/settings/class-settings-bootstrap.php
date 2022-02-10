@@ -1095,7 +1095,6 @@ final class WPBDP__Settings__Bootstrap {
 				'options' => is_admin() ? self::get_registered_image_sizes() : array(),
 				'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
 				'group'   => 'image/listings',
-				'class'   => 'wpbdp-input-wide',
 			)
 		);
 
@@ -1156,7 +1155,6 @@ final class WPBDP__Settings__Bootstrap {
                 'placeholder' => __( 'URL', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'image/listings',
-				'class'        => 'wpbdp-input-wide',
 				'requirements' => array( 'display-sticky-badge' ),
             )
         );
