@@ -42,5 +42,8 @@
 
     <?php $table->views(); ?>
     <?php $table->display(); ?>
-	<?php require_once WPBDP_PATH . 'includes/admin/views/modals/field-delete.php'; ?>
+	<?php
+		$modal_action_url = admin_url( 'admin.php?page=wpbdp_admin_formfields' );
+		require_once WPBDP_PATH . 'includes/admin/views/delete-modal.php';
+	?>
 <?php echo wpbdp_admin_footer(); ?>

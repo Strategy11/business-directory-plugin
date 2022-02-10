@@ -18,8 +18,7 @@ jQuery( function( $ ) {
 			WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
 			WPBDPAdmin_Layout.layoutAdjustment();
 			WPBDPAdmin_Layout.initTaxonomyModal();
-			WPBDPAdmin_Layout.initDeletePlanModal();
-			WPBDPAdmin_Layout.initDeleteFieldModal();
+			WPBDPAdmin_Layout.initDeleteModal();
 			if ( WPBDPAdmin_Layout.$menu_state && WPBDPAdmin_Layout.$menu_state == 'minimized' ) {
 				WPBDPAdmin_Layout.$layout_container.addClass( 'minimized' );
 				WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
@@ -58,36 +57,24 @@ jQuery( function( $ ) {
 			})
 		},
 
-		initDeletePlanModal : function() {
-			var modal = WPBDPAdmin_Layout.initModal( '#wpbdp-fee-delete-modal' );
+		/**
+		 * Initialize the modal delete on click action
+		 */
+		initDeleteModal : function() {
+			var modal = WPBDPAdmin_Layout.initModal( '#wpbdp-admin-delete-modal' );
 			if ( modal === false ) {
 				return;
 			}
-			$( document ).on( 'click', '.wpbdp-admin-fee-delete', function( e ) {
+			$( document ).on( 'click', '.wpbdp-admin-delete-modal', function( e ) {
 				e.preventDefault();
 				var $elem = $( this ),
 					$id = $elem.attr( 'data-id' ),
 					$name = $elem.attr( 'data-name' ),
-					$form = $( '#wpbdp-fee-delete-modal form' );
+					$action = $elem.attr( 'data-action' ),
+					$form = $( '#wpbdp-admin-delete-modal form' );
 				$form.find( 'input[name="id"]' ).val( $id );
-				$form.find( '.plan-name' ).html( $name );
-				modal.dialog( 'open' );
-			})
-		},
-
-		initDeleteFieldModal : function() {
-			var modal = WPBDPAdmin_Layout.initModal( '#wpbdp-field-delete-modal' );
-			if ( modal === false ) {
-				return;
-			}
-			$( document ).on( 'click', '.wpbdp-admin-field-delete', function( e ) {
-				e.preventDefault();
-				var $elem = $( this ),
-					$id = $elem.attr( 'data-id' ),
-					$name = $elem.attr( 'data-name' ),
-					$form = $( '#wpbdp-field-delete-modal form' );
-				$form.find( 'input[name="id"]' ).val( $id );
-				$form.find( '.field-name' ).html( $name );
+				$form.find( 'input[name="action"]' ).val( $action );
+				$form.find( '.wpbdp-item-name' ).html( $name );
 				modal.dialog( 'open' );
 			})
 		},

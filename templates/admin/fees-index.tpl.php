@@ -45,7 +45,10 @@ WPBDP_Admin_Pages::show_tabs(
         <?php $table->views(); ?>
         <?php $table->display(); ?>
 
-		<?php require_once WPBDP_PATH . 'includes/admin/views/modals/plan-delete.php'; ?>
+		<?php
+			$modal_action_url = admin_url( 'admin.php?page=wpbdp-admin-fees' );
+			require_once WPBDP_PATH . 'includes/admin/views/delete-modal.php';
+		?>
 
         <?php
         $modules = array(

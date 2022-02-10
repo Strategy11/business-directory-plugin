@@ -265,15 +265,18 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		if ( empty( $_POST ) ) {
 			return;
 		}
-		$nonce = wpbdp_get_var( array( 'param' => 'wpbdp_fee_delete_nonce' ), 'post' );
-		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wpbdp_fee_delete_nonce' ) ) {
+
+		$nonce = wpbdp_get_var( array( 'param' => 'wpbdp_admin_delete_nonce' ), 'post' );
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wpbdp_admin_delete_nonce' ) ) {
 			return;
 		}
+
 		$id  = wpbdp_get_var( array( 'param' => 'id' ), 'post' );
 		$fee = wpbdp_get_fee_plan( $id );
 		if ( ! $fee ) {
 			return;
 		}
+
 		if ( $fee->delete() ) {
 			wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ), 'wpbdp-snackbar-notice' );
 		}

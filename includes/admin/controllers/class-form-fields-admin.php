@@ -269,8 +269,11 @@ class WPBDP_FormFieldsAdmin {
 	}
 
 	private function delete_field() {
-		// Check permission.
-		check_admin_referer( 'deletefield' );
+		$nonce = wpbdp_get_var( array( 'param' => 'wpbdp_admin_delete_nonce' ), 'post' );
+		if ( ! $nonce ) {
+			// Check permission.
+			check_admin_referer( 'deletefield' );
+		}
 
 		global $wpdb;
 
@@ -280,8 +283,11 @@ class WPBDP_FormFieldsAdmin {
 			return;
 		}
 
-		if ( isset( $_POST['doit'] ) ) {
-			$this->check_permission( 'deletefield' );
+		if ( isset( $_POST['doit'] ) || wp_verify_nonce( $nonce, 'wpbdp_admin_delete_nonce' ) ) {
+			if ( ! $nonce ) {
+				$this->check_permission( 'deletefield' );
+			}
+
 			$ret = $field->delete();
 
 			if ( is_wp_error( $ret ) ) {
