@@ -842,7 +842,7 @@ jQuery(function($) {
         if ( $selected.length > 0 )
             $( $selected.attr( 'href' ) ).hide();
 
-        $content.show().focus();
+        $content.show();
     });
 
     $( '.wpbdp-admin-tab-nav' ).each(function(i, v) {
