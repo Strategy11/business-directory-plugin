@@ -156,7 +156,7 @@ final class WPBDP_Listing_Image {
 			$wpdb->prepare(
 				'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key= %s AND meta_value = %s',
 				'_thumbnail_id',
-				absint( $attachment_id )
+				$attachment_id
 			)
 		);
 		return $linked_posts;
