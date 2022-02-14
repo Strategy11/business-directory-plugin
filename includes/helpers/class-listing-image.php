@@ -112,25 +112,9 @@ final class WPBDP_Listing_Image {
 	 * @since 5.12
 	 */
 	public static function maybe_delete_image( $id, $listing_id ) {
-		global $wpdb;
-
-		// Check if the image is used on another listing.
-		$linked_listings = $wpdb->get_col(
-			$wpdb->prepare(
-				'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key=%s AND meta_value LIKE %s LIMIT 2',
-				'_wpbdp[images]',
-				'%i:' . absint( $id ) . ';%'
-			)
-		);
-
-		// If the current listing is still cached, don't count it.
-		$linked_listings = array_diff( $linked_listings, array( $listing_id ) );
-		if ( empty( $linked_listings ) ) {
-			$linked_posts = self::get_linked_posts( $id );
-			$linked_posts = array_diff( $linked_posts, array( $listing_id ) );
-			if ( empty( $linked_posts ) ) {
-				wp_delete_attachment( $id, true );
-			}
+		$is_attachment_linked = self::check_if_attachment_id_is_linked( $id, $listing_id );
+		if ( ! $is_attachment_linked ) {
+			wp_delete_attachment( $id, true );
 		} else {
 			// Attach to the next listing.
 			self::set_post_parent( $id, reset( $linked_listings ) );
@@ -140,6 +124,43 @@ final class WPBDP_Listing_Image {
 		if ( $post_thumbnail_id === $id ) {
 			delete_post_thumbnail( $listing_id );
 		}
+	}
+
+	/**
+	 * Check if the attachment is linked to any other resource.
+	 *
+	 * @param int $attachment_id The attachment id.
+	 * @param int $listing_id    The listing id.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool Returns true if the attachment is linked to a listing or a post. Returns fals otherwise.
+	 */
+	private static function check_if_attachment_id_is_linked( $attachment_id, $listing_id ) {
+		global $wpdb;
+
+		// Check if the image is used on another listing.
+		$linked_listings = $wpdb->get_col(
+			$wpdb->prepare(
+				'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key=%s AND meta_value LIKE %s LIMIT 2',
+				'_wpbdp[images]',
+				'%i:' . absint( $attachment_id ) . ';%'
+			)
+		);
+
+		$linked_listings = array_diff( $linked_listings, array( $listing_id ) );
+		if ( ! empty( $linked_listings ) ) {
+			return true;
+		}
+
+		// Check for linked posts as a featured image.
+		$linked_posts = self::get_linked_posts( $attachment_id );
+		$linked_posts = array_diff( $linked_posts, array( $listing_id ) );
+		if ( ! empty( $linked_posts ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
