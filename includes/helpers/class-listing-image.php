@@ -125,10 +125,12 @@ final class WPBDP_Listing_Image {
 
 		// If the current listing is still cached, don't count it.
 		$linked_listings = array_diff( $linked_listings, array( $listing_id ) );
-		$linked_posts    = self::get_linked_posts( $id );
-		$linked_posts    = array_diff( $linked_posts, array( $listing_id ) );
-		if ( empty( $linked_listings ) && empty( $linked_posts ) ) {
-			wp_delete_attachment( $id, true );
+		if ( empty( $linked_listings ) ) {
+			$linked_posts = self::get_linked_posts( $id );
+			$linked_posts = array_diff( $linked_posts, array( $listing_id ) );
+			if ( empty( $linked_posts ) ) {
+				wp_delete_attachment( $id, true );
+			}
 		} else {
 			// Attach to the next listing.
 			self::set_post_parent( $id, reset( $linked_listings ) );
@@ -150,7 +152,7 @@ final class WPBDP_Listing_Image {
 	 *
 	 * @return array
 	 */
-	public static function get_linked_posts( $attachment_id ) {
+	private static function get_linked_posts( $attachment_id ) {
 		global $wpdb;
 		$linked_posts = $wpdb->get_col(
 			$wpdb->prepare(
