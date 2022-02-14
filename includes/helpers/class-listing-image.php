@@ -112,7 +112,7 @@ final class WPBDP_Listing_Image {
 	 * @since 5.12
 	 */
 	public static function maybe_delete_image( $id, $listing_id ) {
-		$is_attachment_linked = self::check_if_attachment_id_is_linked( $id, $listing_id );
+		$is_attachment_linked = self::check_if_attachment_is_linked( $id, $listing_id );
 		if ( ! $is_attachment_linked ) {
 			wp_delete_attachment( $id, true );
 		} else {
@@ -136,7 +136,7 @@ final class WPBDP_Listing_Image {
 	 *
 	 * @return bool Returns true if the attachment is linked to a listing or a post. Returns fals otherwise.
 	 */
-	private static function check_if_attachment_id_is_linked( $attachment_id, $listing_id ) {
+	private static function check_if_attachment_is_linked( $attachment_id, $listing_id ) {
 		global $wpdb;
 
 		// Check if the image is used on another listing.
