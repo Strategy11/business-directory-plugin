@@ -247,9 +247,11 @@ class WPBDP__Shortcodes {
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
          *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
+		 *  - category The listing category. Multiple categories are comma separated. (Allowed Values: A valid category ID, name or slug.)
          * Example:
          *  `[businessdirectory-featured-listings items_per_page=5]`
          * @since 4.1.13
+		 * @since x.x  Added category attribute comment
          */
         $this->add( 'businessdirectory-featured-listings', array( &$this, 'sc_listings_featured' ) );
 
@@ -432,6 +434,7 @@ class WPBDP__Shortcodes {
                 'buttons'         => 'none',
                 'limit'           => 0,
                 'items_per_page'  => -1,
+				'category'        => '',
             ),
             $atts,
             'businessdirectory-featured-listings'
@@ -448,14 +451,41 @@ class WPBDP__Shortcodes {
             'publish',
             WPBDP_POST_TYPE
         );
-        $featured = $wpdb->get_col( $q );
+		$featured   = $wpdb->get_col( $q );
+		$query_args = array(
+			'post__in' => ! empty( $featured ) ? $featured : array( 0 ),
+			'orderby'  => 'post__in',
+		);
+		if ( $sc_atts['category'] ) {
+			$requested_categories = explode( ',', $sc_atts['category'] );
 
+			$categories = array();
+
+			foreach ( $requested_categories as $cat ) {
+				$term = null;
+				if ( ! is_numeric( $cat ) ) {
+					$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+				}
+
+				if ( ! $term && is_numeric( $cat ) ) {
+					$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
+				}
+
+				if ( $term )
+					$categories[] = $term->term_id;
+			}
+
+			$query_args['tax_query'][] = array(
+				array(
+					'taxonomy' => WPBDP_CATEGORY_TAX,
+					'field'    => 'id',
+					'terms'    => $categories,
+				)
+			);
+		}
         return $this->display_listings(
-            array(
-                'post__in'  => ! empty( $featured ) ? $featured : array( 0 ),
-                'orderby'   => 'post__in',
-            ),
-            $atts
+			$query_args,
+            $sc_atts
         );
     }
 
