@@ -178,6 +178,7 @@ class WPBDP_Admin_Pages {
 		$active_screens = array(
 			'edit-wpbdp_tag',
 			'edit-wpbdp_category',
+			'edit-wpbdm-region',
 		);
 		$current_screen = get_current_screen();
 		if ( ! in_array( $current_screen->id, $active_screens, true ) ) {
