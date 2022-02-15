@@ -144,10 +144,11 @@ class WPBDP_Admin_Pages {
 
 	/**
 	 * Add taxonomy navigation.
+	 * Public function to be used in addons that have custom tags.
 	 *
 	 * @since x.x
 	 */
-	private static function add_taxonomy_nav( $views, $tax, $params = array() ) {
+	public static function add_taxonomy_nav( $views, $tax, $params = array() ) {
 		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
 
 		$args = array(
