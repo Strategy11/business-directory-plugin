@@ -319,12 +319,8 @@
 }
 
 .edit-php.post-type-wpbdp_listing,
-.edit-tags-php.taxonomy-wpbdp_category,
-.edit-tags-php.taxonomy-wpbdp_tag,
-.edit-tags-php.taxonomy-wpbdm-region,
-.term.php.taxonomy-wpbdp_tag,
-.term.php.taxonomy-wpbdp_category,
-.term.php.taxonomy-wpbdm-region {
+.edit-tags-php[class*="taxonomy-wpbd"],
+.term-php[class*="taxonomy-wpbd"] {
 	.wp-heading-inline + .page-title-action,
 	.wp-heading-inline, .subtitle {
 		display: none !important;
@@ -359,31 +355,27 @@
 	}
 }
 
-.edit-tags-php,
-.term.php {
-	&.taxonomy-wpbdp_category,
-	&.taxonomy-wpbdp_tag,
-	&.taxonomy-wpbdm-region {
-		#col-left, .search-form{
-			display: none;
+.edit-tags-php[class*="taxonomy-wpbd"],
+.term-php[class*="taxonomy-wpbd"] {
+	#col-left, .search-form{
+		display: none;
+	}
+	#col-right {
+		float: none;
+		width: 100%;
+		.col-wrap {
+			padding: 0;
 		}
-		#col-right {
-			float: none;
-			width: 100%;
-			.col-wrap {
-				padding: 0;
-			}
-		}
-		#wpcontent, .wrap {
-			padding-left: 0 !important;
-		}
-		.wpbdp-admin-layout {
+	}
+	#wpcontent, .wrap {
+		padding-left: 0 !important;
+	}
+	.wpbdp-admin-layout {
+		display: block;
+	}
+	.wpbdp-content-area {
+		.search-form{
 			display: block;
-		}
-		.wpbdp-content-area {
-			.search-form{
-				display: block;
-			}
 		}
 	}
 }
