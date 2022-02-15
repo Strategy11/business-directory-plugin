@@ -1,11 +1,12 @@
-var WPBDP_associations_fieldtypes = {};
+var WPBDP_associations_fieldtypes = {},
+WPBDPAdmin_Layout = {};
 
 (function($) {
 
     /**
 	 * Admin layout
 	 */
-	 var WPBDPAdmin_Layout = {
+	window.WPBDPAdmin_Layout = {
 		$nav_toggle : null,
 		$layout_container : null,
 		$menu_items : null,
