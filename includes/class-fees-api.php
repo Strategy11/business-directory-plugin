@@ -68,6 +68,29 @@ class WPBDP_Fees_API {
 		return $total > 0;
 	}
 
+
+    /**
+	 * Check if there are enabled plans.
+	 * This does a count for all enabled plans regardless of the amount.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public static function has_enabled_plans() {
+		global $wpdb;
+		$query   = "SELECT count(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled != 0";
+		$total   = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'enabled_plan_count',
+				'group'     => 'wpbdp_plans',
+				'query'     => $query,
+				'type'      => 'get_var',
+			)
+		);
+		return $total;
+	}
+
     /**
      * @deprecated since 3.7.
      */

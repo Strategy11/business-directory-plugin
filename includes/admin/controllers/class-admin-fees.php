@@ -251,9 +251,14 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
     function toggle_fee() {
 		$fee = $this->get_or_die();
-        $fee->enabled = ! $fee->enabled;
-        $fee->save();
-		wpbdp_admin_message( $fee->enabled ? _x( 'Fee enabled.', 'fees admin', 'business-directory-plugin' ) : _x( 'Fee disabled.', 'fees admin', 'business-directory-plugin' ) );
+		$enabled_plans = WPBDP_Fees_API::has_enabled_plans();
+		if ( $enabled_plans > 1 || ! $fee->enabled ) {
+			$fee->enabled = ! $fee->enabled;
+			$fee->save();
+			wpbdp_admin_message( $fee->enabled ? _x( 'Fee enabled.', 'fees admin', 'business-directory-plugin' ) : _x( 'Fee disabled.', 'fees admin', 'business-directory-plugin' ) );
+		} else {
+			wpbdp_admin_message( __( 'Cannot disable fee plan. At least one fee plan should be enabled', 'business-directory-plugin' ), 'error' );
+		}
         return $this->_redirect( 'index' );
     }
 
