@@ -317,35 +317,7 @@ class WPBDP__Shortcodes {
         $query_args = array();
         $query_args['items_per_page'] = intval( $sc_atts['items_per_page'] );
 
-        if ( $sc_atts['category'] || $sc_atts['categories'] ) {
-            $requested_categories = array();
-
-            if ( $sc_atts['category'] )
-                $requested_categories = array_merge( $requested_categories, explode( ',', $sc_atts['category'] ) );
-
-            if ( $sc_atts['categories'] )
-                $requested_categories = array_merge( $requested_categories, explode( ',', $sc_atts['categories'] ) );
-
-            $categories = array();
-
-            foreach ( $requested_categories as $cat ) {
-                $term = null;
-				if ( ! is_numeric( $cat ) ) {
-					$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
-				}
-
-				if ( ! $term && is_numeric( $cat ) ) {
-					$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
-				}
-
-                if ( $term )
-                    $categories[] = $term->term_id;
-            }
-
-            $query_args['tax_query'][] = array( array( 'taxonomy' => WPBDP_CATEGORY_TAX,
-                                                     'field' => 'id',
-                                                     'terms' => $categories ) );
-        }
+		$query_args = $this->process_category_atts( $sc_atts, $query_args );
 
         if ( $sc_atts['tag'] || $sc_atts['tags'] ) {
             $requested_tags = array();
@@ -456,8 +428,32 @@ class WPBDP__Shortcodes {
 			'post__in' => ! empty( $featured ) ? $featured : array( 0 ),
 			'orderby'  => 'post__in',
 		);
-		if ( $sc_atts['category'] ) {
-			$requested_categories = explode( ',', $sc_atts['category'] );
+		$query_args = $this->process_category_atts( $sc_atts, $query_args );
+        return $this->display_listings(
+			$query_args,
+            $sc_atts
+        );
+    }
+
+	/**
+	 * Process category query attributes.
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param array $query_args The query args used to search based on attributes.
+	 *
+	 * @since x.x
+	 *
+	 * @return array $query_args
+	 */
+	private function process_category_atts( $atts, $query_args ) {
+		if ( isset( $atts['category'] ) || isset( $atts['categories'] ) ) {
+			$requested_categories = array();
+
+			if ( isset( $atts['category'] ) )
+				$requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
+
+			if ( isset( $atts['categories'] ) )
+				$requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
 
 			$categories = array();
 
@@ -483,11 +479,8 @@ class WPBDP__Shortcodes {
 				)
 			);
 		}
-        return $this->display_listings(
-			$query_args,
-            $sc_atts
-        );
-    }
+		return $query_args;
+	}
 
     private function display_listings( $query_args, $args = array() ) {
         $query_args = array_merge(
