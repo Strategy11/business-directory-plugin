@@ -90,7 +90,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
         if ( ! $field->has_behavior_flag( 'no-delete' ) ) {
             $actions['delete'] = sprintf(
-                '<a href="%1$s" data-id="%2$s" data-name="%3$s" data-action="deletefield" class="wpbdp-admin-delete-modal wpbdp-delete-link">%4$s</a>',
+                '<a href="%1$s" data-id="%2$s" data-name="%3$s" data-action="ajaxDeletefield" class="wpbdp-admin-delete-modal wpbdp-delete-link">%4$s</a>',
 				wp_nonce_url(
                     add_query_arg(
                         array(
