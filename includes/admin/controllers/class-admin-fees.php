@@ -112,11 +112,11 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
 		if ( ! is_wp_error( $result ) ) {
 			if ( 'insert' === $mode ) {
-				wpbdp_admin_message( __( 'Fee plan added.', 'business-directory-plugin' ) );
+				wpbdp_admin_message( __( 'Plan added.', 'business-directory-plugin' ) );
 			} elseif ( $images_changed ) {
 				$this->show_update_listing_msg( $fee );
 			} else {
-				wpbdp_admin_message( __( 'Fee plan updated.', 'business-directory-plugin' ) );
+				wpbdp_admin_message( __( 'Plan updated.', 'business-directory-plugin' ) );
 			}
 		} else {
 			foreach ( $result->get_error_messages() as $msg ) {
@@ -131,7 +131,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * @since 5.15.3
 	 */
 	private function show_update_listing_msg( $fee ) {
-		$message = __( 'Fee plan updated.', 'business-directory-plugin' );
+		$message = __( 'Plan updated.', 'business-directory-plugin' );
 
 		$total_listings = $fee->count_listings();
 		if ( ! $total_listings ) {
@@ -173,11 +173,11 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		$fee     = wpbdp_get_fee_plan( $plan_id );
 		$res     = new WPBDP_Ajax_Response();
 		if ( ! $fee ) {
-			$res->send_error( __( 'Fee plan not found.', 'business-directory-plugin' ) );
+			$res->send_error( __( 'Plan not found.', 'business-directory-plugin' ) );
 		}
 
 		$this->update_listing_images( $fee );
-		$res->set_message( __( 'Fee plan listings updated.', 'business-directory-plugin' ) );
+		$res->set_message( __( 'Plan listings updated.', 'business-directory-plugin' ) );
 		$res->send();
 	}
 
@@ -242,7 +242,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         ) );
 
         if ( $do && $fee->delete() ) {
-            wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
+            wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
             return $this->_redirect( 'index' );
         }
 
@@ -251,9 +251,14 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
     function toggle_fee() {
 		$fee = $this->get_or_die();
-        $fee->enabled = ! $fee->enabled;
-        $fee->save();
-		wpbdp_admin_message( $fee->enabled ? _x( 'Fee enabled.', 'fees admin', 'business-directory-plugin' ) : _x( 'Fee disabled.', 'fees admin', 'business-directory-plugin' ) );
+		$enabled_plans = WPBDP_Fees_API::get_enabled_plans();
+		if ( $enabled_plans > 1 || ! $fee->enabled ) {
+			$fee->enabled = ! $fee->enabled;
+			$fee->save();
+			wpbdp_admin_message( $fee->enabled ? _x( 'Plan enabled.', 'fees admin', 'business-directory-plugin' ) : _x( 'Plan disabled.', 'fees admin', 'business-directory-plugin' ) );
+		} else {
+			wpbdp_admin_message( __( 'Cannot disable plan. At least one plan should be enabled', 'business-directory-plugin' ), 'error' );
+		}
         return $this->_redirect( 'index' );
     }
 
