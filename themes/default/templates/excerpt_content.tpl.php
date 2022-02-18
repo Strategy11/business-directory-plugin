@@ -6,6 +6,7 @@
  */
 
 ?>
+
 <div class="listing-title">
     <?php echo $fields->t_title->value; ?>
 </div>
