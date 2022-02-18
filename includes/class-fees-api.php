@@ -50,7 +50,7 @@ class WPBDP_Fees_API {
 	 * Check if there are enabled plans with a fee.
 	 * This does a count for all enabled plans with a price greater than 0.
 	 *
-	 * @since x.x
+	 * @since 5.17
 	 *
 	 * @return bool
 	 */

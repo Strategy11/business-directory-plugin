@@ -26,7 +26,7 @@ class SubmitListingTest extends WPUnitTestCase {
 	 * This is after a user has input all required information.
 	 * This tests payments based on different fee plans.
 	 *
-	 * @since x.x
+	 * @since 5.17
 	 */
 	public function testSubmitListing() {
 		$this->tester->wantToTest( 'Listing payment submission' );

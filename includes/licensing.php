@@ -47,7 +47,7 @@ class WPBDP_Licensing {
 		$pro_id = 'module-' . $this->premium_id();
 		$pro    = ! empty( $this->modules_array( true ) );
 
-		$errors = get_option( 'wpbdp_licenses_errors' );
+		$errors = get_option( 'wpbdp_licenses_errors', array() );
 		if ( $pro ) {
 			// Remove any other plugin errors since only the main one helps.
 			if ( isset( $errors[ $pro_id ] ) ) {
@@ -59,10 +59,12 @@ class WPBDP_Licensing {
 			}
 		}
 
-		// Remove an error if it's for a plugin that's deactivated.
-		foreach ( $errors as $k => $error ) {
-			if ( ! isset( $this->items[ $k ] ) ) {
-				unset( $errors[ $k ] );
+		if ( is_array( $errors ) ) {
+			// Remove an error if it's for a plugin that's deactivated.
+			foreach ( $errors as $k => $error ) {
+				if ( ! isset( $this->items[ $k ] ) ) {
+					unset( $errors[ $k ] );
+				}
 			}
 		}
 
@@ -1103,7 +1105,7 @@ class WPBDP_Licensing {
 	 *
 	 * @param $item The module item.
 	 *
-	 * @since x.x
+	 * @since 5.17
 	 *
 	 * @return mixed
 	 */
