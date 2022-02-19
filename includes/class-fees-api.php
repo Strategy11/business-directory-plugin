@@ -55,17 +55,38 @@ class WPBDP_Fees_API {
 	 * @return bool
 	 */
 	public static function has_paid_plans() {
+		$total = self::get_enabled_plans( true );
+		return $total > 0;
+	}
+
+
+    /**
+	 * Check if there are enabled plans.
+	 * This does a count for all enabled plans regardless of the amount.
+	 *
+	 * @param bool $paid Return paid plans or all plans. Set to true to check for plans that have a price greater than 0
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public static function get_enabled_plans( $paid = false ) {
 		global $wpdb;
-		$query   = "SELECT count(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled != 0 AND amount > 0";
-		$total   = WPBDP_Utils::check_cache(
+		$query     = "SELECT count(*) FROM {$wpdb->prefix}wpbdp_plans WHERE enabled != 0";
+		$cache_key = 'enabled_plan_count';
+		if ( $paid ) {
+			$cache_key = 'paid_plan_count';
+			$query     .= ' AND amount > 0';
+		}
+		$total = WPBDP_Utils::check_cache(
 			array(
-				'cache_key' => 'paid_plan_count',
+				'cache_key' => $cache_key,
 				'group'     => 'wpbdp_plans',
 				'query'     => $query,
 				'type'      => 'get_var',
 			)
 		);
-		return $total > 0;
+		return $total;
 	}
 
     /**

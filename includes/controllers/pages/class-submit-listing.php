@@ -890,7 +890,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             if ( ! $plan || ! $plan->enabled || ! $plan->supports_category_selection( $categories ) ) {
                 if ( $this->editing ) {
-                    $this->messages( _x( 'Please choose a valid category for your plan.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
+					if ( ! $plan->enabled ) {
+						$this->messages( _x( 'Current active plan is disabled. Please select another plan.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
+					} else {
+						$this->messages( _x( 'Please choose a valid category for your plan.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
+					}
                 } else {
                     $this->messages( _x( 'Please choose a valid plan for your category selection.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
                 }
