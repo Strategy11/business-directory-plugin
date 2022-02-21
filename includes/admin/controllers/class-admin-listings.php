@@ -709,6 +709,9 @@ class WPBDP_Admin_Listings {
 	 * @since x.x
 	 */
 	public function ajax_assign_plan_to_listing() {
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error();
+		}
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ), 'post' );
 		$plan_id    = wpbdp_get_var( array( 'param' => 'plan_id' ), 'post' );
@@ -719,11 +722,7 @@ class WPBDP_Admin_Listings {
 		$current_plan = $listing->get_fee_plan();
 
 		if ( ! $current_plan || (int) $current_plan->fee_id != (int) $plan_id ) {
-			$payment = $listing->set_fee_plan_with_payment( $plan_id );
-
-			if ( $payment ) {
-				$payment->process_as_admin();
-			}
+			$listing->set_fee_plan_with_payment( $plan_id );
 		}
 		wp_send_json_success();
 	}
