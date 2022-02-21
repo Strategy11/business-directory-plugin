@@ -267,8 +267,8 @@ class WPBDP__Assets {
      *
      * @param bool $force Force reloading the resources.
      */
-	public function enqueue_admin_scripts( $force = false ) {
-		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
+	public function enqueue_admin_scripts() {
+		if ( ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
 
@@ -289,6 +289,8 @@ class WPBDP__Assets {
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
+
+		do_action( 'wpbdp_enqueue_admin_scripts' );
 
 		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 			return;
@@ -366,5 +368,16 @@ class WPBDP__Assets {
 		}
 
 		return $admin_body_classes;
+	}
+
+	/**
+	 * Register resources required in installation only.
+	 *
+	 * @since x.x
+	 */
+	public function register_installation_resources() {
+		wp_enqueue_script( 'wpbdp-admin-install-js', WPBDP_ASSETS_URL . 'js/admin-install.min.js', array( 'jquery' ), WPBDP_VERSION, true );
+		// Load other scripts if its on a BD page.
+		$this->enqueue_admin_scripts();
 	}
 }

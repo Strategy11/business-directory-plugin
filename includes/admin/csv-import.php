@@ -21,7 +21,7 @@ class WPBDP_CSVImportAdmin {
     function __construct() {
         global $wpbdp;
 
-        add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
+        add_action( 'wpbdp_enqueue_admin_scripts', array( &$this, 'enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-csv-import', array( &$this, 'ajax_csv_import' ) );
         add_action( 'wp_ajax_wpbdp-autocomplete-user', array( &$this, 'ajax_autocomplete_user' ) );
     }
