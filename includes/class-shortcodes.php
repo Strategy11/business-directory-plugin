@@ -247,9 +247,11 @@ class WPBDP__Shortcodes {
          *  - buttons  Which menu buttons to show inside the menu (applies only when `menu` is `1`). Default is none. (Allowed Values: "all", "none", or a comma-separated list from the set "create", "directory" and "listings").
          *  - items_per_page The number of listings to show per page. If not present value will be set to "Listings per page" setting (Allowed Values: A positive integer)
          *  - pagination Enable pagination for shortcode. Default to 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
+		 *  - category The listing category. Multiple categories are comma separated. (Allowed Values: A valid category ID, name or slug.)
          * Example:
          *  `[businessdirectory-featured-listings items_per_page=5]`
          * @since 4.1.13
+		 * @since x.x  Added category attribute comment
          */
         $this->add( 'businessdirectory-featured-listings', array( &$this, 'sc_listings_featured' ) );
 
@@ -315,35 +317,7 @@ class WPBDP__Shortcodes {
         $query_args = array();
         $query_args['items_per_page'] = intval( $sc_atts['items_per_page'] );
 
-        if ( $sc_atts['category'] || $sc_atts['categories'] ) {
-            $requested_categories = array();
-
-            if ( $sc_atts['category'] )
-                $requested_categories = array_merge( $requested_categories, explode( ',', $sc_atts['category'] ) );
-
-            if ( $sc_atts['categories'] )
-                $requested_categories = array_merge( $requested_categories, explode( ',', $sc_atts['categories'] ) );
-
-            $categories = array();
-
-            foreach ( $requested_categories as $cat ) {
-                $term = null;
-				if ( ! is_numeric( $cat ) ) {
-					$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
-				}
-
-				if ( ! $term && is_numeric( $cat ) ) {
-					$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
-				}
-
-                if ( $term )
-                    $categories[] = $term->term_id;
-            }
-
-            $query_args['tax_query'][] = array( array( 'taxonomy' => WPBDP_CATEGORY_TAX,
-                                                     'field' => 'id',
-                                                     'terms' => $categories ) );
-        }
+		$this->process_category_atts( $sc_atts, $query_args );
 
         if ( $sc_atts['tag'] || $sc_atts['tags'] ) {
             $requested_tags = array();
@@ -432,6 +406,7 @@ class WPBDP__Shortcodes {
                 'buttons'         => 'none',
                 'limit'           => 0,
                 'items_per_page'  => -1,
+				'category'        => '',
             ),
             $atts,
             'businessdirectory-featured-listings'
@@ -448,16 +423,66 @@ class WPBDP__Shortcodes {
             'publish',
             WPBDP_POST_TYPE
         );
-        $featured = $wpdb->get_col( $q );
-
+		$featured   = $wpdb->get_col( $q );
+		$query_args = array(
+			'post__in' => ! empty( $featured ) ? $featured : array( 0 ),
+			'orderby'  => 'post__in',
+		);
+		$this->process_category_atts( $sc_atts, $query_args );
         return $this->display_listings(
-            array(
-                'post__in'  => ! empty( $featured ) ? $featured : array( 0 ),
-                'orderby'   => 'post__in',
-            ),
-            $atts
+			$query_args,
+            $sc_atts
         );
     }
+
+	/**
+	 * Process category query attributes.
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param array $query_args The query args used to search based on attributes.
+	 *
+	 * @since x.x
+	 */
+	private function process_category_atts( $atts, &$query_args ) {
+		if ( ! isset( $atts['category'] ) && ! isset( $atts['categories'] ) ) {
+			return;
+		}
+
+		$requested_categories = array();
+
+		if ( isset( $atts['category'] ) ) {
+			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
+		}
+
+		if ( isset( $atts['categories'] ) ) {
+			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
+		}
+
+		$categories = array();
+
+		foreach ( $requested_categories as $cat ) {
+			$term = null;
+			if ( ! is_numeric( $cat ) ) {
+				$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+			}
+
+			if ( ! $term && is_numeric( $cat ) ) {
+				$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
+			}
+
+			if ( $term ) {
+				$categories[] = $term->term_id;
+			}
+		}
+
+		$query_args['tax_query'][] = array(
+			array(
+				'taxonomy' => WPBDP_CATEGORY_TAX,
+				'field'    => 'id',
+				'terms'    => $categories,
+			)
+		);
+	}
 
     private function display_listings( $query_args, $args = array() ) {
         $query_args = array_merge(
