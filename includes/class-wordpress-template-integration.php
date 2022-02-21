@@ -49,8 +49,7 @@ class WPBDP__WordPress_Template_Integration {
 
 		if ( $allow_override ) {
 			add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
-
-			$page_template = locate_template( $this->get_template_alternatives() );
+			$page_template = get_query_template( 'page', $this->get_template_alternatives() );
 			if ( $allow_override && $page_template ) {
 				$template = $page_template;
 			}
