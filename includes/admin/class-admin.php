@@ -1101,6 +1101,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			global $wpbdp;
+			$wpbdp->assets->enqueue_admin_scripts();
 			$wpbdp->assets->register_installation_resources();
 
 			$message  = _x( '<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin' );
@@ -1294,6 +1295,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
+			$wpbdp->assets->enqueue_admin_scripts();
 			$wpbdp->assets->register_installation_resources();
 		}
     }

@@ -290,6 +290,12 @@ class WPBDP__Assets {
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
 
+		/**
+		 * Load additional scripts or styles used only in BD plugin pages.
+		 * This hook can be used to load scripts and resources using `wp_enqueue_script` or `wp_enqueue_style` WordPress hooks.
+		 *
+		 * @since x.x
+		 */
 		do_action( 'wpbdp_enqueue_admin_scripts' );
 
 		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
@@ -377,7 +383,5 @@ class WPBDP__Assets {
 	 */
 	public function register_installation_resources() {
 		wp_enqueue_script( 'wpbdp-admin-install-js', WPBDP_ASSETS_URL . 'js/admin-install.min.js', array( 'jquery' ), WPBDP_VERSION, true );
-		// Load other scripts if its on a BD page.
-		$this->enqueue_admin_scripts();
 	}
 }
