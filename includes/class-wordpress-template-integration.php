@@ -77,7 +77,7 @@ class WPBDP__WordPress_Template_Integration {
     }
 
     public function setup_post_hooks( $query ) {
-        if ( ! $this->wp_head_done )
+        if ( ! $this->wp_head_done && ( function_exists( 'wp_is_block_theme' ) && ! wp_is_block_theme() ) )
             return;
 
         if ( ! $query->is_main_query() )
