@@ -26,7 +26,7 @@ if ( 'single' === $view ) :
 
     if ( wpbdp_user_can( 'delete', $listing_id ) ) :
         $buttons .= sprintf(
-            '<a href="%s" class="delete-listing" rel="nofollow">%s</a>',
+            '<a href="%s" class="wpbdp-button button delete-listing" rel="nofollow">%s</a>',
             wpbdp_url( 'delete_listing', $listing_id ),
             esc_html__( 'Delete', 'business-directory-plugin' )
         );
