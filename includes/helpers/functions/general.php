@@ -948,7 +948,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
     }
 
 	if ( ! $args['admin_view'] && $args['include_free'] ) {
-		$where .= $wpdb->prepare( ' AND p.amount = %d', 0 );
+		$where .= $wpdb->prepare( ' AND p.amount >= %d', 0 );
 	} elseif ( ! $args['admin_view'] && $args['tag'] !== 'free' ) {
 		// Exclude the default free fee for reverse compatibility.
 		$where .= $wpdb->prepare( ' AND p.tag != %s', 'free' );
