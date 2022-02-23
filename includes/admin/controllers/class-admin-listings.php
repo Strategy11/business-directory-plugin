@@ -721,8 +721,8 @@ class WPBDP_Admin_Listings {
 		$listing = wpbdp_get_listing( $listing_id );
 		$current_plan = $listing->get_fee_plan();
 
-		if ( ! $current_plan || (int) $current_plan->fee_id != (int) $plan_id ) {
-			$listing->set_fee_plan_with_payment( $plan_id );
+		if ( ! $current_plan || (int) $current_plan->fee_id !== (int) $plan_id ) {
+			$listing->set_fee_plan( $plan_id );
 		}
 		wp_send_json_success();
 	}
