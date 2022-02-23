@@ -266,9 +266,14 @@ class WPBDP__Assets {
      * Load resources on admin page
      *
      * @param bool $force Force reloading the resources.
+	 *
+	 * @since x.x Deprecate the $force parameter to not load on non BD pages.
      */
-	public function enqueue_admin_scripts() {
-		if ( ! WPBDP_App_Helper::is_bd_page() ) {
+	public function enqueue_admin_scripts( $force ) {
+		if ( ! is_string( $force ) ) {
+			_deprecated_argument( __FUNCTION__, '5.17.2', 'Only String values accepted for `$force` parameter' );
+		}
+		if ( ( is_bool( $force ) && ! $force ) && ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
 
