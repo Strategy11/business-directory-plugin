@@ -270,10 +270,10 @@ class WPBDP__Assets {
 	 * @since x.x Deprecate the $force parameter to not load on non BD pages.
      */
 	public function enqueue_admin_scripts( $force = '' ) {
-		if ( ! is_string( $force ) ) {
-			_deprecated_argument( __FUNCTION__, '5.17.2', 'Only String values accepted for `$force` parameter' );
+		if ( is_bool( $force ) && $force ) {
+			_deprecated_argument( __FUNCTION__, '5.17.2', 'Boolean parameters will be deprecated in future versions. This is to prevent loading plugin resources on unecessary pages' );
 		}
-		if ( ( is_bool( $force ) && ! $force ) && ! WPBDP_App_Helper::is_bd_page() ) {
+		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
 
