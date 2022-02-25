@@ -47,7 +47,6 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             <div class="value-editor">
 				<input type="hidden" name="listing_plan[fee_id]" value="<?php echo esc_attr( $current_plan ? $current_plan->fee_id : '' ); ?>" />
                 <select name="" id="wpbdp-listing-plan-select">
-					<option value=""><?php esc_html_e( 'None', 'business-directory-plugin' ); ?></option>
                 <?php foreach ( $plans as $p ) : ?>
                     <?php
                     $plan_info = array(

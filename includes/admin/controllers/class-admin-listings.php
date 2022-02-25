@@ -724,7 +724,17 @@ class WPBDP_Admin_Listings {
 		if ( ! $current_plan || (int) $current_plan->fee_id !== (int) $plan_id ) {
 			$listing->set_fee_plan( $plan_id );
 		}
-		wp_send_json_success();
+        $new_plan = $listing->get_fee_plan();
+        $fee = $new_plan->fee;
+		wp_send_json_success( array(
+            'id'              => $fee->id,
+            'label'           => $fee->label,
+            'amount'          => $fee->amount ? wpbdp_currency_format( $fee->amount ) : '',
+            'days'            => $fee->days,
+            'images'          => $fee->images,
+            'sticky'          => $fee->sticky,
+            'recurring'       => $fee->recurring,
+        ) );
 	}
 
     public function _add_tag_cloud( $tags ) {
