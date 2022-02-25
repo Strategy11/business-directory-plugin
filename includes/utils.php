@@ -410,6 +410,22 @@ class WPBDP__Utils {
 		reset( $_FILES );
 		return esc_attr( key( $_FILES ) );
 	}
+
+	/**
+	 * Validate file extension for the uploaded file
+	 *
+	 * @param string $file The file upload name.
+	 * @param array  $allowed The allowed extensions.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public static function validate_file_extension( $file, $allowed ) {
+		$filename = sanitize_file_name( wp_unslash( $_FILES[ $file ]['name'] ) );
+		$ext      = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
+		return in_array( $ext, $allowed );
+	}
 }
 
 /**
