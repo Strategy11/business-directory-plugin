@@ -324,14 +324,11 @@ final class WPBDP__Fee_Plan {
 	 *
 	 * @since x.x
 	 *
-	 * @return string
+	 * @return bool
 	 */
-	public function get_plan_type() {
+	public function is_paid_plan() {
 		$is_variable = ( 'variable' === $this->pricing_model && array_sum( $this->pricing_details ) > 0 );
-		if ( $is_variable || $this->amount > 0.0 ) {
-			return __( 'Paid Plan', 'business-directory-plugin' );
-		}
-		return __( 'Free Plan', 'business-directory-plugin' );
+		return ( $is_variable || $this->amount > 0.0 );
 	}
 
     private function setup_plan( $data ) {
