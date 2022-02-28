@@ -1151,8 +1151,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				$updated_meta = wpbdp_get_var( array( 'param' => 'images_meta' ), 'post' );
 				$updated_meta = ! empty( $updated_meta[ $img_id ] ) ? (array) $updated_meta[ $img_id ] : array();
 
-				$new_order = ! empty( $updated_meta['order'] ) ? intval( $updated_meta['order'] ) : $order;
-				update_post_meta( $img_id, '_wpbdp_image_weight', $thumbnail_id ? 0 : $new_order );
+				$new_order = ! empty( $updated_meta['order'] ) ? absint( $updated_meta['order'] ) : $order;
+				update_post_meta( $img_id, '_wpbdp_image_weight', $new_order );
 				update_post_meta( $img_id, '_wpbdp_image_caption', ! empty( $updated_meta['caption'] ) ? trim( $updated_meta['caption'] ) : '' );
 				$order = $new_order + 1;
 
