@@ -317,6 +317,23 @@ final class WPBDP__Fee_Plan {
 		return $total;
 	}
 
+	/**
+	 * Get the plan type.
+	 * This checks if the amount of the plan has been set or the pricing type.
+	 * For variable plans, we check and ensure the price total is greater than 0 to classify as paid.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public function get_plan_type() {
+		$is_variable = ( 'variable' === $this->pricing_model && array_sum( $this->pricing_details ) > 0 );
+		if ( $is_variable || $this->amount > 0.0 ) {
+			return __( 'Paid Plan', 'business-directory-plugin' );
+		}
+		return __( 'Free Plan', 'business-directory-plugin' );
+	}
+
     private function setup_plan( $data ) {
         if ( is_object( $data ) ) {
             $data = get_object_vars( $data );
