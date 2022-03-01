@@ -58,7 +58,7 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
         $fees_done = ( $n_fees_migrated == $n_fees ) ? true : false;
 
         if ( ! $fees_done ) {
-			$status_msg = sprintf( _x( 'Cleaning up listing fees information... %1$d/%2$d', 'installer', 'business-directory-plugin' ), $n_fees_migrated, $n_fees );
+			$status_msg = sprintf( _x( 'Cleaning up listing plans information... %1$d/%2$d', 'installer', 'business-directory-plugin' ), $n_fees_migrated, $n_fees );
 
             $fees = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_listing_fees WHERE migrated = %d ORDER BY id ASC LIMIT 50", 0 ), ARRAY_A );
 

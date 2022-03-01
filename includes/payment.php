@@ -275,7 +275,7 @@ class WPBDP_PaymentsAPI {
             return;
         }
 
-        echo '<input type="submit" name="return-to-fee-select" value="' . _x( 'Return to fee selection', 'templates', 'business-directory-plugin' ) . '" style="margin-bottom:  1.5em;" />';
+        echo '<input type="submit" name="return-to-fee-select" value="' . _x( 'Return to plan selection', 'templates', 'business-directory-plugin' ) . '" style="margin-bottom:  1.5em;" />';
     }
 
     function maybe_fee_select_redirect( $checkout ) {

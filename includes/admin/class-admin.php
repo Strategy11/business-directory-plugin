@@ -860,7 +860,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $fee_id  = (int) $_GET['fee_id'];
                     $listing->set_fee_plan( $fee_id );
 
-                    $this->messages[] = _x( 'The fee was successfully assigned.', 'admin', 'business-directory-plugin' );
+                    $this->messages[] = _x( 'The plan was successfully assigned.', 'admin', 'business-directory-plugin' );
 
                     break;
 

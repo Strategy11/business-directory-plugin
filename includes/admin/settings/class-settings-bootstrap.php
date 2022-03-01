@@ -1213,7 +1213,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'           => 'include-fee-description',
                 'type'         => 'checkbox',
-                'name'         => _x( 'Include fee description in receipt?', 'settings', 'business-directory-plugin' ),
+                'name'         => _x( 'Include plan description in receipt?', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',
             )

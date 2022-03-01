@@ -248,7 +248,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
 
             if ( ! $success ) {
-				$msg = sprintf( __( 'Could not migrate fee "%1$s" (%2$d)', 'business-directory-plugin' ), $fee->label, $fee->id );
+				$msg = sprintf( __( 'Could not migrate plan "%1$s" (%2$d)', 'business-directory-plugin' ), $fee->label, $fee->id );
                 return false;
             }
         }
