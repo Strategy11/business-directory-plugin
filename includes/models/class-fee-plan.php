@@ -398,7 +398,7 @@ final class WPBDP__Fee_Plan {
         $errors = array();
 
         if ( ! $this->label ) {
-            $errors['label'] = _x( 'Fee label is required.', 'fees-api', 'business-directory-plugin' );
+            $errors['label'] = _x( 'Plan label is required.', 'fees-api', 'business-directory-plugin' );
         }
 
         // limit 'duration' because of TIMESTAMP limited range (issue #157).

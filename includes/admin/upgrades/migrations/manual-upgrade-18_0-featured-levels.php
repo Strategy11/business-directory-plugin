@@ -269,7 +269,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             echo '<h4>' . _x( 'New plan summary', 'migrate-18', 'business-directory-plugin' ) . '</h4>';
             echo '<table class="new-fee-summary" data-level-id="' . esc_attr( $level_id ) . '">';
             echo '<thead><tr>';
-            echo '<th>' . esc_html__( 'Fee Label', 'business-directory-plugin' ) . '</th>';
+            echo '<th>' . esc_html__( 'Plan Label', 'business-directory-plugin' ) . '</th>';
             echo '<th>' . esc_html__( 'Amount', 'business-directory-plugin' ) . '</th>';
             echo '<th>' . esc_html__( 'Duration', 'business-directory-plugin' ) . '</th>';
             echo '<th>' . esc_html__( 'Images', 'business-directory-plugin' ) . '</th>';

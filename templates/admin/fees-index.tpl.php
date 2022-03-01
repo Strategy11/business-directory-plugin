@@ -4,7 +4,7 @@
 		array(
             'id'      => 'admin-fees',
             'buttons' => array(
-                __( 'Add New Listing Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
+                __( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
             ),
             'echo' => true,
         )

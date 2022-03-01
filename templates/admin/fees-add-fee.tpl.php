@@ -1,7 +1,7 @@
 <?php
 wpbdp_admin_header(
     array(
-        'title' => __( 'Add Listing Plan', 'business-directory-plugin' ),
+        'title' => __( 'Add Plan', 'business-directory-plugin' ),
         'echo'  => true,
     )
 );
