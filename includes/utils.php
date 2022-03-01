@@ -318,6 +318,8 @@ class WPBDP__Utils {
 	 * @return int|false The attachement id
 	 */
 	public static function attach_image_to_media_library( $file_data, $post_id = 0 ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
 		$url        = $file_data['url'];
 		$type       = $file_data['type'];
 		$file       = $file_data['file'];
