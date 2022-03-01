@@ -322,7 +322,7 @@ class WPBDP__Utils {
 		$type       = $file_data['type'];
 		$file       = $file_data['file'];
 		$ext        = pathinfo( $file, PATHINFO_EXTENSION );
-    	$name       = wp_basename( $file, ".$ext" );
+		$name       = wp_basename( $file, ".$ext" );
 		$title      = sanitize_file_name( $name );
 		$excerpt    = '';
 		$image_meta = wp_read_image_metadata( $file );
