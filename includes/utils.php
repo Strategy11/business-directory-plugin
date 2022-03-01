@@ -306,7 +306,7 @@ class WPBDP__Utils {
 	 * Attach an image to a media library after upload from `wp_handle_upload` or `wp_handle_sideload`.
 	 * This is used to include an image into the media library.
 	 *
-	 * @param array $file (
+	 * @param array $file_data (
 	 *     @type string $file Filename of the newly-uploaded file.
  	 *     @type string $url  URL of the newly-uploaded file.
  	 *     @type string $type Mime type of the newly-uploaded file.
@@ -317,17 +317,18 @@ class WPBDP__Utils {
 	 *
 	 * @return int|false The attachement id
 	 */
-	public static function attach_image_to_media_library( $file, $post_id = 0 ) {
-		$url        = $file['url'];
-		$type       = $file['type'];
-		$file       = $file['file'];
+	public static function attach_image_to_media_library( $file_data, $post_id = 0 ) {
+		$url        = $file_data['url'];
+		$type       = $file_data['type'];
+		$file       = $file_data['file'];
 		$ext        = pathinfo( $file, PATHINFO_EXTENSION );
     	$name       = wp_basename( $file, ".$ext" );
 		$title      = sanitize_file_name( $name );
 		$excerpt    = '';
 		$image_meta = wp_read_image_metadata( $file );
 		if ( $image_meta ) {
-			if ( trim( $image_meta['title'] ) && ! is_numeric( sanitize_title( $image_meta['title'] ) ) ) {
+			$image_title = sanitize_title( $image_meta['title'] );
+			if ( ! is_numeric( $image_title ) ) {
 				$title = $image_meta['title'];
 			}
 
