@@ -76,7 +76,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
         <?php endif; ?>
         <?php if ( ! empty( $plan->extra_data['private'] ) ) : ?>
             <div class="wpbdp-plan-private-msg wpbdp-full">
-                (<?php esc_html_e( 'Private fee plan', 'business-directory-plugin' ); ?>)
+                (<?php esc_html_e( 'Private plan', 'business-directory-plugin' ); ?>)
             </div>
         <?php endif; ?>
 

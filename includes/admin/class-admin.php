@@ -309,7 +309,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $menu = array();
 
             $menu['wpbdp-admin-fees']       = array(
-                'title' => __( 'Fee Plans', 'business-directory-plugin' ),
+                'title' => __( 'Plans', 'business-directory-plugin' ),
             );
             $menu['wpbdp_admin_formfields'] = array(
                 'title'    => __( 'Form Fields', 'business-directory-plugin' ),

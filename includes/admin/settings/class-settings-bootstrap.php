@@ -750,7 +750,7 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        $msg = _x( 'Fee Plan Custom Order can be changed under <a>Fee Plans</a>', 'admin settings', 'business-directory-plugin' );
+        $msg = _x( 'Plan Custom Order can be changed under <a>Plans</a>', 'admin settings', 'business-directory-plugin' );
         $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
         wpbdp_register_setting(
             array(
@@ -769,8 +769,8 @@ final class WPBDP__Settings__Bootstrap {
                         'rand'             => _x( 'Random', 'admin settings', 'business-directory-plugin' ),
                         'paid'             => _x( 'Paid first then free. Inside each group by date.', 'admin settings', 'business-directory-plugin' ),
                         'paid-title'       => _x( 'Paid first then free. Inside each group by title.', 'admin settings', 'business-directory-plugin' ),
-                        'plan-order-date'  => _x( 'Fee Plan Custom Order, then Date', 'admin settings', 'business-directory-plugin' ),
-                        'plan-order-title' => _x( 'Fee Plan Custom Order, then Title', 'admin settings', 'business-directory-plugin' ),
+                        'plan-order-date'  => _x( 'Plan Custom Order, then Date', 'admin settings', 'business-directory-plugin' ),
+                        'plan-order-title' => _x( 'Plan Custom Order, then Title', 'admin settings', 'business-directory-plugin' ),
                     )
                 ),
                 'group'   => 'listings/sorting',
@@ -1402,9 +1402,9 @@ final class WPBDP__Settings__Bootstrap {
                 ),
                 'placeholders' => array(
                     'listing'         => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
-                    'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'business-directory-plugin' ),
-                    'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'business-directory-plugin' ),
-                    'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'business-directory-plugin' ),
+                    'fee_name'        => _x( 'Listing\'s plan name', 'admin settings', 'business-directory-plugin' ),
+                    'fee_description' => _x( 'Listing\'s plan description', 'admin settings', 'business-directory-plugin' ),
+                    'fee_details'     => _x( 'Listing\'s plan details', 'admin settings', 'business-directory-plugin' ),
                 ),
                 'group'        => 'email_templates',
             )
@@ -1493,9 +1493,9 @@ final class WPBDP__Settings__Bootstrap {
                 ),
                 'placeholders' => array(
                     'listing'         => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
-                    'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'business-directory-plugin' ),
-                    'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'business-directory-plugin' ),
-                    'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'business-directory-plugin' ),
+                    'fee_name'        => _x( 'Listing\'s plan name', 'admin settings', 'business-directory-plugin' ),
+                    'fee_description' => _x( 'Listing\'s plan description', 'admin settings', 'business-directory-plugin' ),
+                    'fee_details'     => _x( 'Listing\'s plan details', 'admin settings', 'business-directory-plugin' ),
                     'payment_details' => _x( 'Payment items details.', 'admin settings', 'business-directory-plugin' ),
                     'receipt_url'     => _x( 'URL where user can review and print payment receipt.', 'admin settings', 'business-directory-plugin' ),
                     'gateway'         => _x( 'Gateway used to process listing\'s payment.', 'admin settings', 'business-directory-plugin' ),

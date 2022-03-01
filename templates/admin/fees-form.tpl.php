@@ -70,7 +70,7 @@
             </tr>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-private"> <?php esc_html_e( 'Private Fee Plan (visible to admins only)?', 'business-directory-plugin' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-private"> <?php esc_html_e( 'Private Plan (visible to admins only)?', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <label>

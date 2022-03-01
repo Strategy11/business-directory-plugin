@@ -239,7 +239,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 	/**
 	 * Add listing count column.
 	 *
-	 * @param WPBDP__Fee_Plan $fee The current fee plan.
+	 * @param WPBDP__Fee_Plan $fee The current plan.
 	 *
 	 * @since 5.15.3
 	 *

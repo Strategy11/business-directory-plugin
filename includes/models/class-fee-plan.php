@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Fee Plan Creates, Updates and Deletes Directory Plans
+ * Class Plan Creates, Updates and Deletes Directory Plans
  *
  * @package BDP/Includes
  */
@@ -409,10 +409,10 @@ final class WPBDP__Fee_Plan {
 
         if ( 1 == $this->recurring ) {
             if ( 0 === $this->days ) {
-                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-days">', _x( 'To set this fee as "Recurring" you must have a time for the listing to renew (e.g. 30 days). To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'business-directory-plugin' ) );
+                $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-days">', _x( 'To set this fee as "Recurring" you must have a time for the listing to renew (e.g. 30 days). To avoid issues with the listing, please edit the <a>plan</a> appropriately.', 'fees-api', 'business-directory-plugin' ) );
             }
 
-            $error_message = _x( 'To set this fee as "Recurring" you must set a price for your fee plan. To avoid issues with the listing, please edit the <a>fee plan</a> appropriately.', 'fees-api', 'business-directory-plugin' );
+            $error_message = _x( 'To set this fee as "Recurring" you must set a price for your plan. To avoid issues with the listing, please edit the <a>plan</a> appropriately.', 'fees-api', 'business-directory-plugin' );
 
             if ( 'variable' === $this->pricing_model && 0 === array_sum( $this->pricing_details ) ) {
                 $errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-category">', $error_message );
