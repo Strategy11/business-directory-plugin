@@ -303,6 +303,55 @@ class WPBDP__Utils {
 	}
 
 	/**
+	 * Attach an image to a media library after upload from `wp_handle_upload` or `wp_handle_sideload`.
+	 * This is used to include an image into the media library.
+	 *
+	 * @param array $file (
+	 *     @type string $file Filename of the newly-uploaded file.
+ 	 *     @type string $url  URL of the newly-uploaded file.
+ 	 *     @type string $type Mime type of the newly-uploaded file.
+ 	 * )
+	 * @param int $post_id The optional post id to attatch the image to
+	 *
+	 * @since x.x
+	 *
+	 * @return int|false The attachement id
+	 */
+	public static function attach_image_to_media_library( $file, $post_id = 0 ) {
+		$url        = $file['url'];
+		$type       = $file['type'];
+		$file       = $file['file'];
+		$ext        = pathinfo( $file, PATHINFO_EXTENSION );
+    	$name       = wp_basename( $file, ".$ext" );
+		$title      = sanitize_file_name( $name );
+		$excerpt    = '';
+		$image_meta = wp_read_image_metadata( $file );
+		if ( $image_meta ) {
+			if ( trim( $image_meta['title'] ) && ! is_numeric( sanitize_title( $image_meta['title'] ) ) ) {
+				$title = $image_meta['title'];
+			}
+
+			if ( trim( $image_meta['caption'] ) ) {
+				$excerpt = $image_meta['caption'];
+			}
+		}
+		$attachment = array(
+			'post_mime_type' => $type,
+			'guid'           => $url,
+			'post_parent'    => $post_id,
+			'post_title'     => $title,
+			'post_content'   => '',
+			'post_excerpt'   => $excerpt,
+		);
+		$attachment_id = wp_insert_attachment( $attachment, $file, $post_id, true );
+		if ( is_wp_error( $attachment_id ) ) {
+			return false;
+		}
+		wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $file ) );
+		return $attachment_id;
+	}
+
+	/**
 	 * Attempts to get the mimetype of a file.
 	 *
 	 * @param $file string  The path to a file.
