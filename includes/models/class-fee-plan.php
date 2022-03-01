@@ -317,6 +317,20 @@ final class WPBDP__Fee_Plan {
 		return $total;
 	}
 
+	/**
+	 * Get the plan type.
+	 * This checks if the amount of the plan has been set or the pricing type.
+	 * For variable plans, we check and ensure the price total is greater than 0 to classify as paid.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public function is_paid_plan() {
+		$is_variable = ( 'variable' === $this->pricing_model && array_sum( $this->pricing_details ) > 0 );
+		return ( $is_variable || $this->amount > 0.0 );
+	}
+
     private function setup_plan( $data ) {
         if ( is_object( $data ) ) {
             $data = get_object_vars( $data );
