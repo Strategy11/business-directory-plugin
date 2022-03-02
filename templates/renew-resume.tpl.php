@@ -7,7 +7,7 @@
 
 ?>
 
-<h2><?php echo esc_html( $listing->get_title() ); ?> - <?php echo esc_html_x( 'Renew Fee Resume', 'renewal', 'business-directory-plugin' ); ?></h2>
+<h2><?php echo esc_html( $listing->get_title() ); ?> - <?php echo esc_html_x( 'Renew Plan Resume', 'renewal', 'business-directory-plugin' ); ?></h2>
 
 <p>
     <?php

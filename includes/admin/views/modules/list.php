@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wpbdp-wrap" id="wpbdp-addons-page">
 	<?php
 	wpbdp_admin_header(
-	    array(
-	        'title'   => esc_html__( 'Directory Modules', 'business-directory-plugin' ),
+		array(
+			'title'   => esc_html__( 'Directory Modules', 'business-directory-plugin' ),
 			'sidebar' => false,
-	        'echo'    => true,
-	    )
+			'echo'    => true,
+		)
 	);
 
 	$modules = wpbdp()->modules->get_modules();
