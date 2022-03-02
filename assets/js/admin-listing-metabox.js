@@ -90,8 +90,8 @@ jQuery( function( $ ) {
                 $input.val(prev_value);
         } else {
             // Plan changes are handled in a special way.
-            if ( $input.is('#wpbdp-listing-plan-select') && $input.val() ) {
-                var listing_id = $( 'input[name="post_ID"]' ).val();
+			if ( $input.is('#wpbdp-listing-plan-select') && $input.val() ) {
+				var listing_id = $( 'input[name="post_ID"]' ).val();
 
 				
 				$.ajax(ajaxurl, {
