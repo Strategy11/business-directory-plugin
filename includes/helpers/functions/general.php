@@ -949,10 +949,6 @@ function wpbdp_get_fee_plans( $args = array() ) {
         $where .= $wpdb->prepare( ' AND p.tag = %s', $args['tag'] );
     }
 
-	if ( ! $args['admin_view'] && $args['include_free'] ) {
-		$where .= $wpdb->prepare( ' AND p.amount = %d', 0 );
-	}
-
     $categories = $args['categories'];
     if ( ! empty( $categories ) ) {
         if ( ! is_array( $categories ) ) {
