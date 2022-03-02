@@ -14,7 +14,7 @@
         <tbody>
             <tr class="form-field form-required">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-label"> <?php esc_html_e( 'Fee Label', 'business-directory-plugin' ); ?> <span class="description'">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span></label>
+                    <label for="wpbdp-fee-form-fee-label"> <?php esc_html_e( 'Plan Label', 'business-directory-plugin' ); ?> <span class="description'">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span></label>
                 </th>
                 <td>
                     <input
@@ -27,7 +27,7 @@
             </tr>
             <tr class="form-field">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-description"> <?php esc_html_e( 'Fee Description', 'business-directory-plugin' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-description"> <?php esc_html_e( 'Plan Description', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <textarea id="wpbdp-fee-form-fee-description" name="fee[description]" rows="5" cols="50"><?php echo esc_textarea( $fee->description ); ?></textarea>
@@ -203,7 +203,7 @@ endif;
             </tr>
             <tr class="form-field fee-pricing-details pricing-details-flat pricing-details-extra <?php echo ( 'flat' === $fee->pricing_model || 'extra' === $fee->pricing_model ) ? '' : 'hidden'; ?>">
                 <th scope="row">
-                    <label for="wpbdp-fee-form-fee-price"><?php _ex( 'Fee Price', 'fees admin', 'business-directory-plugin' ); ?></label>
+                    <label for="wpbdp-fee-form-fee-price"><?php _ex( 'Plan Price', 'fees admin', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
                     <input id="wpbdp-fee-form-fee-price" type="text" name="fee[amount]" value="<?php echo $fee->amount; ?>" />

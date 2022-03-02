@@ -1,4 +1,4 @@
-<!-- {{  Fee plan info. -->
+<!-- {{  Plan info. -->
 <?php
 /**
  * Listing information plan metabox

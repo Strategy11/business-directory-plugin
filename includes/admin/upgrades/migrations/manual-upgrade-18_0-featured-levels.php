@@ -211,11 +211,11 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
         echo $this->_fee_form();
         echo '</div>';
 
-        _ex( 'Business Directory <b>version 5.0</b> is changing how Featured Levels plugin works. We are leaving restricted features for fee plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'migrate-18', 'business-directory-plugin' );
+        _ex( 'Business Directory <b>version 5.0</b> is changing how Featured Levels plugin works. We are leaving restricted features for plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'migrate-18', 'business-directory-plugin' );
         echo '<br />';
-        _ex( 'We need to migrate your existing "featured levels" to fee plans for use by the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier to configure and manage your listings with restricted feature access. If you are unsure about what to do here, <support-link>contact support</support-link> and <cancel-link>cancel migration</cancel-link>.', 'migrate-18', 'business-directory-plugin' );
+        _ex( 'We need to migrate your existing "featured levels" to plans for use by the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier to configure and manage your listings with restricted feature access. If you are unsure about what to do here, <support-link>contact support</support-link> and <cancel-link>cancel migration</cancel-link>.', 'migrate-18', 'business-directory-plugin' );
         echo '<br /><br />';
-        _ex( 'Before we do the migration, we need to ask a few simple questions to move your data from the old "featured level" to the new "restricted feature fee plan" that is right for you.', 'migrate-18', 'business-directory-plugin' );
+        _ex( 'Before we do the migration, we need to ask a few simple questions to move your data from the old "featured level" to the new "restricted feature plan" that is right for you.', 'migrate-18', 'business-directory-plugin' );
 
         // Compute listing counts.
         foreach ( array_keys( $levels ) as $level_id ) {
@@ -247,13 +247,13 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             echo '<td>';
             echo '<select data-level-id="' . $level_id . '" class="level-migration" name="level[' . $level_id . '][strategy]">';
             echo '<option class="placeholder" value="">' . _x( 'Select an option', 'upgrade-18', 'business-directory-plugin' ) . '</option>';
-            echo '<option data-description="' . esc_attr( _x( 'Remove "sticky" status for listings.', 'upgrade-18', 'business-directory-plugin' ) ) . '" value="remove">' . _x( 'Remove this (old) level, and leave the listing on the old fee plan.', 'upgrade-18', 'business-directory-plugin' ) . '</option>';
+            echo '<option data-description="' . esc_attr( _x( 'Remove "sticky" status for listings.', 'upgrade-18', 'business-directory-plugin' ) ) . '" value="remove">' . _x( 'Remove this (old) level, and leave the listing on the old plan.', 'upgrade-18', 'business-directory-plugin' ) . '</option>';
 
             if ( $fee_options ) {
-                echo '<option data-description="' . esc_attr( _x( 'May change "sticky" status depending on fee plan.', 'upgrade-18', 'business-directory-plugin' ) ) . '" value="move">' . _x( 'Move listings with this level to existing fee plan.', 'upgrade-18', 'business-directory-plugin' ) . '</option>';
+                echo '<option data-description="' . esc_attr( _x( 'May change "sticky" status depending on plan.', 'upgrade-18', 'business-directory-plugin' ) ) . '" value="move">' . _x( 'Move listings with this level to existing plan.', 'upgrade-18', 'business-directory-plugin' ) . '</option>';
             }
 
-                echo '<option data-description="' . esc_attr( _x( 'Keep "sticky" status of listings.', 'upgrade-18', 'business-directory-plugin' ) ) . '" value="create">' . _x( 'Replace this level with a new fee plan.', 'upgrade-18', 'business-directory-plugin' ) . '</option>';
+                echo '<option data-description="' . esc_attr( _x( 'Keep "sticky" status of listings.', 'upgrade-18', 'business-directory-plugin' ) ) . '" value="create">' . _x( 'Replace this level with a new plan.', 'upgrade-18', 'business-directory-plugin' ) . '</option>';
 
             echo '</select>';
             echo '<div class="option-description"></div>';
@@ -273,7 +273,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             echo '<h4>' . _x( 'New plan summary', 'migrate-18', 'business-directory-plugin' ) . '</h4>';
             echo '<table class="new-fee-summary" data-level-id="' . esc_attr( $level_id ) . '">';
             echo '<thead><tr>';
-            echo '<th>' . esc_html__( 'Fee Label', 'business-directory-plugin' ) . '</th>';
+            echo '<th>' . esc_html__( 'Plan Label', 'business-directory-plugin' ) . '</th>';
             echo '<th>' . esc_html__( 'Amount', 'business-directory-plugin' ) . '</th>';
             echo '<th>' . esc_html__( 'Duration', 'business-directory-plugin' ) . '</th>';
             echo '<th>' . esc_html__( 'Images', 'business-directory-plugin' ) . '</th>';

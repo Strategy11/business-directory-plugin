@@ -33,7 +33,7 @@ WPBDP_Admin_Pages::show_tabs(
             </select>
 			<a class="button-secondary fee-order-submit"><?php esc_html_e( 'Save front-end order', 'business-directory-plugin' ); ?></a>
             <?php if ( 'custom' == $current_order['method'] ) : ?>
-				<span><?php esc_html_e( 'Drag and drop to re-order plans.', 'business-directory-plugin' ); ?></span>
+            <span><?php esc_html_e( 'Drag and drop to re-order plans.', 'business-directory-plugin' ); ?></span>
             <?php endif; ?>
 
             </form>

@@ -15,7 +15,7 @@ class WPBDP_Fees_API {
         $count = intval( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE tag = %s", 'free' ) ) );
 
         if ( 0 === $count ) {
-            // Add free fee to the DB.
+            // Add free plan to the DB.
             $wpdb->insert(
                 $wpdb->prefix . 'wpbdp_plans',
                 array(
@@ -121,7 +121,7 @@ class WPBDP_Fees_API {
                 }
             }
 
-            // Do this so the first fee is at index 0.
+            // Do this so the first plan is at index 0.
             $category_fees = array_merge( array(), $category_fees );
             $fees[ $cat_id ] = $category_fees;
         }
