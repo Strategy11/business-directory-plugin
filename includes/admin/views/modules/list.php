@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 				<div class="wpbdp-grid">
 					<span class="wpbdp2 wpbdp-card-module-icon wpbdp-admin-module-icon ">
-						<img src="<?php echo esc_attr( $addon['icons']['1x'] )?>" alt="" />
+						<img src="<?php echo esc_attr( $addon['icons']['1x'] ); ?>" alt="" />
 					</span>
 					<div class="<?php echo esc_attr( $addon['status']['type'] === 'active' ) ? 'wpbdp10' : 'wpbdp7'; ?>">
 						<h2 class="wpbdp-plugin-card-title">
