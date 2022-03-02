@@ -156,7 +156,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'recaptcha-for-comments',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Use reCAPTCHA for listing comments?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Use reCAPTCHA for listing comments', 'settings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
             )
         );
@@ -210,7 +210,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'require-login',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Require login to post listings?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Require login to post listings', 'settings', 'business-directory-plugin' ),
                 'default' => 1,
                 'group'   => 'registration',
             )
@@ -219,7 +219,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'enable-key-access',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Allow anonymous users to edit/manage listings with an access key?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Allow anonymous users to edit/manage listings with an access key', 'settings', 'business-directory-plugin' ),
                 'group' => 'registration',
             )
         );
@@ -228,7 +228,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'          => 'login-url',
                 'type'        => 'text',
                 'name'        => _x( 'Login URL', 'settings', 'business-directory-plugin' ),
-                'desc'        => _x( 'Only enter this if using a membership plugin or custom login page.', 'settings', 'business-directory-plugin' ),
+                'desc'        => _x( 'Only enter this if using a membership plugin or custom login page', 'settings', 'business-directory-plugin' ),
                 'placeholder' => _x( 'URL of your membership plugin\'s login page.', 'settings', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'registration',
@@ -240,7 +240,7 @@ final class WPBDP__Settings__Bootstrap {
                 'type'        => 'text',
                 'name'        => _x( 'Registration URL', 'settings', 'business-directory-plugin' ),
                 'desc'        => _x( 'Only enter this if using a membership plugin or custom registration page.', 'settings', 'business-directory-plugin' ),
-                'placeholder' => _x( 'URL of your membership plugin\'s registration page.', 'settings', 'business-directory-plugin' ),
+                'placeholder' => _x( 'URL of your membership plugin\'s registration page', 'settings', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'registration',
             )
@@ -249,7 +249,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'create-account-during-submit-mode',
                 'type'    => 'radio',
-                'name'    => _x( 'Allow users to create accounts during listing submit?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Allow users to create accounts during listing submit', 'settings', 'business-directory-plugin' ),
                 'default' => 'required',
                 'options' => array(
                     'disabled' => __( 'No', 'business-directory-plugin' ),
@@ -278,7 +278,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'         => __( 'Terms and Conditions', 'business-directory-plugin' ),
                 'desc'         => _x( 'Enter text or a URL starting with http. If you use a URL, the Terms and Conditions text will be replaced by a link to the appropiate page.', 'settings', 'business-directory-plugin' ),
                 'default'      => '',
-                'placeholder'  => _x( 'Terms and Conditions text goes here.', 'settings', 'business-directory-plugin' ),
+                'placeholder'  => _x( 'Terms and Conditions text goes here', 'settings', 'business-directory-plugin' ),
                 'group'        => 'tos_settings',
                 'requirements' => array( 'display-terms-and-conditions' ),
             )
@@ -321,7 +321,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'quick-search-enable-performance-tricks',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Enable high performance searches?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Enable high performance searches', 'settings', 'business-directory-plugin' ),
                 'desc'  => __( 'Enabling this sacrifices result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'business-directory-plugin' ),
                 'group' => 'search_settings',
             )
@@ -336,7 +336,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'disable-cpt',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Disable advanced CPT integration?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Disable advanced CPT integration', 'settings', 'business-directory-plugin' ),
                 'group' => 'general/advanced',
             )
         );
@@ -345,7 +345,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'disable-submit-listing',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Disable Frontend Listing Submission?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Disable frontend listing submission', 'settings', 'business-directory-plugin' ),
                 'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'business-directory-plugin' ),
                 'group' => 'general/advanced',
             )
@@ -448,7 +448,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'listing-renewal',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Turn on listing renewal option?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Turn on listing renewal option', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'listings/main',
             )
@@ -457,7 +457,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'listing-link-in-new-tab',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Open detailed view of listing in new tab?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Open detailed view of listing in new tab', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/main',
             )
@@ -467,7 +467,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'enable-listing-flagging',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Include button to report listings?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Include button to report listings', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/report',
             )
@@ -498,7 +498,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-contact-form',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Include listing contact form on listing pages?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Include listing contact form on listing pages', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'listings/contact',
@@ -508,7 +508,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'           => 'contact-form-require-login',
                 'type'         => 'checkbox',
-                'name'         => _x( 'Require login for using the contact form?', 'settings', 'business-directory-plugin' ),
+                'name'         => _x( 'Require login for using the contact form', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'listings/contact',
                 'requirements' => array( 'show-contact-form' ),
@@ -560,7 +560,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-listings-under-categories',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Show listings under categories on main page?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Show listings under categories on main page', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/post_category',
             )
@@ -726,7 +726,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-category-post-count',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Show category post count?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Show category post count', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'listings/post_category',
             )
@@ -735,7 +735,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'hide-empty-categories',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Hide empty categories?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Hide empty categories', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/post_category',
             )
@@ -744,13 +744,13 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-only-parent-categories',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Show only parent categories in category list?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Show only parent categories in category list', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/post_category',
             )
         );
 
-        $msg = _x( 'Fee Plan Custom Order can be changed under <a>Fee Plans</a>', 'admin settings', 'business-directory-plugin' );
+        $msg = _x( 'Plan Custom Order can be changed under <a>Plans</a>', 'admin settings', 'business-directory-plugin' );
         $msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
         wpbdp_register_setting(
             array(
@@ -769,8 +769,8 @@ final class WPBDP__Settings__Bootstrap {
                         'rand'             => _x( 'Random', 'admin settings', 'business-directory-plugin' ),
                         'paid'             => _x( 'Paid first then free. Inside each group by date.', 'admin settings', 'business-directory-plugin' ),
                         'paid-title'       => _x( 'Paid first then free. Inside each group by title.', 'admin settings', 'business-directory-plugin' ),
-                        'plan-order-date'  => _x( 'Fee Plan Custom Order, then Date', 'admin settings', 'business-directory-plugin' ),
-                        'plan-order-title' => _x( 'Fee Plan Custom Order, then Title', 'admin settings', 'business-directory-plugin' ),
+                        'plan-order-date'  => _x( 'Plan Custom Order, then Date', 'admin settings', 'business-directory-plugin' ),
+                        'plan-order-title' => _x( 'Plan Custom Order, then Title', 'admin settings', 'business-directory-plugin' ),
                     )
                 ),
                 'group'   => 'listings/sorting',
@@ -794,7 +794,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'listings-sortbar-enabled',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Enable sort bar?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Enable sort bar', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/sorting',
             )
@@ -821,7 +821,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'           => 'show-submit-listing',
                 'type'         => 'checkbox',
-                'name'         => _x( 'Show the "Submit listing" button.', 'settings', 'business-directory-plugin' ),
+                'name'         => _x( 'Show the "Submit listing" button', 'settings', 'business-directory-plugin' ),
                 'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'business-directory-plugin' ),
                 'default'      => true,
                 'group'        => 'display_options',
@@ -832,7 +832,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-search-listings',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Show "Search listings".', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Show "Search listings"', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'display_options',
             )
@@ -841,7 +841,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-view-listings',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Show the "View Listings" button.', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Show the "View Listings" button', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'display_options',
             )
@@ -850,7 +850,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-manage-listings',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Show the "Manage Listings" button.', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Show the "Manage Listings" button', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'display_options',
             )
@@ -900,7 +900,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'allow-images',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Allow images?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Allow images', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'images/general',
             )
@@ -977,7 +977,7 @@ final class WPBDP__Settings__Bootstrap {
                 'type'    => 'checkbox',
                 'min'     => 0,
                 'step'    => 1,
-                'name'    => _x( 'Turn on thickbox/lightbox?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Turn on thickbox/lightbox', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'Uncheck if it conflicts with other elements or plugins installed on your site', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'images/general',
@@ -1011,7 +1011,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'thumbnail-crop',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Crop thumbnails to exact dimensions?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Crop thumbnails to exact dimensions', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'When enabled images will match exactly the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'image/thumbnails',
@@ -1023,7 +1023,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'enforce-image-upload',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Enforce image upload on submit/edit?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Enforce image upload on submit/edit', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'image/listings',
             )
@@ -1142,7 +1142,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'           => 'payments-test-mode',
                 'type'         => 'checkbox',
-                'name'         => _x( 'Put payment gateways in test mode?', 'settings', 'business-directory-plugin' ),
+                'name'         => _x( 'Put payment gateways in test mode', 'settings', 'business-directory-plugin' ),
                 'default'      => true,
                 'group'        => 'payment/main',
             )
@@ -1213,7 +1213,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'           => 'include-fee-description',
                 'type'         => 'checkbox',
-                'name'         => _x( 'Include fee description in receipt?', 'settings', 'business-directory-plugin' ),
+                'name'         => _x( 'Include plan description in receipt', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',
             )
@@ -1275,7 +1275,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'           => 'payment-abandonment',
                 'type'         => 'checkbox',
-                'desc'         => _x( 'Ask users to come back for abandoned payments?', 'settings', 'business-directory-plugin' ),
+                'desc'         => _x( 'Ask users to come back for abandoned payments', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',
             )
@@ -1303,7 +1303,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'override-email-blocking',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Display email address fields publicly?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Display email address fields publicly', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'Shows the email address of the listing owner to all web users. NOT RECOMMENDED as this increases spam to the address and allows spam bots to harvest it for future use.', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'email/main/general',
@@ -1402,9 +1402,9 @@ final class WPBDP__Settings__Bootstrap {
                 ),
                 'placeholders' => array(
                     'listing'         => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
-                    'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'business-directory-plugin' ),
-                    'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'business-directory-plugin' ),
-                    'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'business-directory-plugin' ),
+                    'fee_name'        => _x( 'Listing\'s plan name', 'admin settings', 'business-directory-plugin' ),
+                    'fee_description' => _x( 'Listing\'s plan description', 'admin settings', 'business-directory-plugin' ),
+                    'fee_details'     => _x( 'Listing\'s plan details', 'admin settings', 'business-directory-plugin' ),
                 ),
                 'group'        => 'email_templates',
             )
@@ -1493,9 +1493,9 @@ final class WPBDP__Settings__Bootstrap {
                 ),
                 'placeholders' => array(
                     'listing'         => _x( 'Listing\'s title', 'admin settings', 'business-directory-plugin' ),
-                    'fee_name'        => _x( 'Listing\'s fee plan name', 'admin settings', 'business-directory-plugin' ),
-                    'fee_description' => _x( 'Listing\'s fee plan description', 'admin settings', 'business-directory-plugin' ),
-                    'fee_details'     => _x( 'Listing\'s fee plan details', 'admin settings', 'business-directory-plugin' ),
+                    'fee_name'        => _x( 'Listing\'s plan name', 'admin settings', 'business-directory-plugin' ),
+                    'fee_description' => _x( 'Listing\'s plan description', 'admin settings', 'business-directory-plugin' ),
+                    'fee_details'     => _x( 'Listing\'s plan details', 'admin settings', 'business-directory-plugin' ),
                     'payment_details' => _x( 'Payment items details.', 'admin settings', 'business-directory-plugin' ),
                     'receipt_url'     => _x( 'URL where user can review and print payment receipt.', 'admin settings', 'business-directory-plugin' ),
                     'gateway'         => _x( 'Gateway used to process listing\'s payment.', 'admin settings', 'business-directory-plugin' ),

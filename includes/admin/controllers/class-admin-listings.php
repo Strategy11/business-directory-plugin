@@ -174,7 +174,7 @@ class WPBDP_Admin_Listings {
         }
 
         if ( ! $listing->has_fee_plan() ) {
-            wpbdp_admin_message( _x( 'This listing doesn\'t have a fee plan assigned. This is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'business-directory-plugin' ), 'error' );
+            wpbdp_admin_message( _x( 'This listing doesn\'t have a plan assigned. This is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'business-directory-plugin' ), 'error' );
         }
     }
 
@@ -321,7 +321,7 @@ class WPBDP_Admin_Listings {
         $attributes = array();
 
         if ( ! $plan ) {
-            $attributes['no-fee-plan'] = '<span class="wpbdp-tag wpbdp-listing-attr-no-fee-plan">' . _x( 'No Fee Plan', 'listing attribute', 'business-directory-plugin' ) . '</span>';
+            $attributes['no-fee-plan'] = '<span class="wpbdp-tag wpbdp-listing-attr-no-fee-plan">' . _x( 'No Plan', 'listing attribute', 'business-directory-plugin' ) . '</span>';
         }
 
         $listing_status = $listing->get_status();

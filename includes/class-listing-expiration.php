@@ -125,7 +125,7 @@ class WPBDP__Listing_Expiration {
             return false;
         }
 
-        // Paid fee plans should be renewed through gateways.
+        // Paid plans should be renewed through gateways.
         if ( 0 < $plan->fee_price ) {
             return false;
         }

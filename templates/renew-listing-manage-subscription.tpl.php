@@ -1,9 +1,9 @@
 <div id="wpbdp-renewal-page" class="wpbdp-renewal-page businessdirectory-renewal businessdirectory wpbdp-page">
-    <h2><?php _ex( 'Recurring Fee Management', 'templates', 'business-directory-plugin' ); ?></h2>
+	<h2><?php esc_html_e( 'Recurring Plan Management', 'business-directory-plugin' ); ?></h2>
 
-    <p><?php _ex( 'Because you are on a recurring fee plan you don\'t have to renew your listing right now as this will be handled automatically when renewal comes.', 'renew', 'business-directory-plugin' ); ?></p>
+    <p><?php _ex( 'Because you are on a recurring plan you don\'t have to renew your listing right now as this will be handled automatically when renewal comes.', 'renew', 'business-directory-plugin' ); ?></p>
 
-    <h4><?php _ex( 'Current Fee Details', 'renewal', 'business-directory-plugin' ); ?></h4>
+	<h4><?php _ex( 'Current Plan Details', 'renewal', 'business-directory-plugin' ); ?></h4>
 
     <dl class="recurring-fee-details">
         <dt><?php _ex( 'Name:', 'renewal', 'business-directory-plugin' ); ?></dt>

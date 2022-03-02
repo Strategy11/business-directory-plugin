@@ -1,12 +1,14 @@
 <?php
 echo wpbdp_admin_header(
-    __( 'Business Directory - Reset Defaults', 'business-directory-plugin' ),
-    'admin-settings',
 	array(
-        array(
-            __( '← Return to "Manage Options"', 'business-directory-plugin' ),
-            admin_url( 'admin.php?page=wpbdp_settings' )
-        )
+		'title'   => __( 'Directory Reset to Default', 'business-directory-plugin' ),
+		'id'      => 'admin-settings',
+		'buttons' => array(
+			'wpbdp_settings' => array(
+				'label' => __( 'Cancel', 'business-directory-plugin' ),
+				'url'   => admin_url( 'admin.php?page=wpbdp_settings' ),
+			),
+		),
 	)
 );
 ?>

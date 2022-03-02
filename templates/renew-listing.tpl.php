@@ -19,7 +19,7 @@
             <?php printf( esc_html_x( 'You are about to renew your listing "%s" publication.', 'templates', 'business-directory-plugin' ), esc_html( $listing->get_title() ) ); ?>
         </p>
         <p>
-            <?php echo esc_html_x( 'Please select a fee option or click "Do not renew my listing" to remove your listing from the directory.', 'templates', 'business-directory-plugin' ); ?>
+			<?php echo esc_html_x( 'Please select a plan or click "Do not renew my listing" to remove your listing from the directory.', 'templates', 'business-directory-plugin' ); ?>
         </p>
 
         <form id="wpbdp-renewlisting-form" method="post" action="">
