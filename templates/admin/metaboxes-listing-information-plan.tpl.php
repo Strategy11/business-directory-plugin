@@ -34,7 +34,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
 
     <h4><?php _ex( 'Plan Details', 'listing metabox', 'business-directory-plugin' ); ?></h4>
     <dl>
-        <dt><?php _ex( 'Plan', 'listing metabox', 'business-directory-plugin' ); ?></dt>
+		<dt><?php esc_html_e( 'Plan', 'business-directory-plugin' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-label">
 				<?php if ( $current_plan ) : ?>
