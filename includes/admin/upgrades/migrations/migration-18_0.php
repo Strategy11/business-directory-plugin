@@ -204,7 +204,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
     public function _migrate_fee_plans( &$msg ) {
         global $wpdb;
 
-        $msg = _x( 'Migrating fee plans...', 'installer', 'business-directory-plugin' );
+        $msg = _x( 'Migrating plans...', 'installer', 'business-directory-plugin' );
 
         if ( ! wpbdp_table_exists( $wpdb->prefix . 'wpbdp_fees' ) ) {
             return true;
@@ -235,7 +235,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                 'recurring' => ( 0 != $fee->days && $fee->amount > 0.0 && get_option( 'wpbdp-listing-renewal-auto' ) && get_option( 'wpbdp-listing-renewal-auto-dontask' ) ) ? 1 : 0
             );
 
-            // Check if fee plan already exists.
+            // Check if plan already exists.
             $exists  = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_plans WHERE id = %d", $fee->id ) );
             $success = true;
 
@@ -248,7 +248,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
 
             if ( ! $success ) {
-				$msg = sprintf( __( 'Could not migrate fee "%1$s" (%2$d)', 'business-directory-plugin' ), $fee->label, $fee->id );
+				$msg = sprintf( __( 'Could not migrate plan "%1$s" (%2$d)', 'business-directory-plugin' ), $fee->label, $fee->id );
                 return false;
             }
         }
@@ -354,7 +354,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
         foreach ( $listings as $listing_id ) {
             $this->set_listing_categories( $listing_id ); // Set listing categories.
 
-            // Obtain new fee plan.
+            // Obtain new plan.
             $new_plan = $this->plan_from_fees( $listing_id );
 
             if ( ! $new_plan )

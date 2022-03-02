@@ -1157,7 +1157,12 @@ function wpbdp_render( $template, $vars = array(), $allow_override = true ) {
 }
 
 function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
-	$msg = '<div class="wpbdp-msg ' . esc_attr( $type ) . '">' . wp_kses_post( $msg ) . '</div>';
+	$classes = array( 'wpbdp-msg', $type );
+	if ( is_admin() ) {
+		$classes[] = 'wpbdp-notice notice';
+		$classes[] = 'notice-' . $type;
+	}
+	$msg = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses_post( $msg ) . '</div>';
     if ( $echo ) {
         echo $msg;
     }

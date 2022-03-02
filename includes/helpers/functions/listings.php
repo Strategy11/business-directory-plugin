@@ -64,7 +64,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
     $listing['categories'] = ! empty( $args['categories'] ) ? $args['categories'] : array();
     $append_categories     = false;
 
-    // Fee plan.
+    // Plan.
     $listing['plan_id'] = ! empty( $args['plan_id'] ) ? absint( $args['plan_id'] ) : 0;
 
     // Expiration date.

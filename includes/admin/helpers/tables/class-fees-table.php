@@ -27,7 +27,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
     public function no_items() {
 		printf(
 			/* translators: %1$s: open link html, %2$s close link */
-			esc_html__( 'There are no fees right now. %1$sCreate one%2$s.', 'business-directory-plugin' ),
+			esc_html__( 'There are no plans right now. %1$sCreate one%2$s.', 'business-directory-plugin' ),
 			'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ) . '">',
 			'</a>'
         );
@@ -184,7 +184,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			__( 'ID: %s', 'business-directory-plugin' ),
 			$fee->id
 		);
-		$fee_id_string .= '<br/><strong>' . ( $fee->amount > 0.0 ? __( 'Paid Plan', 'business-directory-plugin' ) : __( 'Free Plan', 'business-directory-plugin' ) ) . '</strong>';
+		$fee_id_string .= '<br/><strong>' . ( $fee->is_paid_plan() ? __( 'Paid Plan', 'business-directory-plugin' ) : __( 'Free Plan', 'business-directory-plugin' ) ) . '</strong>';
 
         $html .= sprintf(
             '<strong><a href="%s">%s</a></strong><br/>%s',
@@ -239,7 +239,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 	/**
 	 * Add listing count column.
 	 *
-	 * @param WPBDP__Fee_Plan $fee The current fee plan.
+	 * @param WPBDP__Fee_Plan $fee The current plan.
 	 *
 	 * @since 5.15.3
 	 *
