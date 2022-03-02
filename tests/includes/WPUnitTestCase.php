@@ -109,7 +109,7 @@ class WPUnitTestCase extends WPTestCase {
 					'images'               => absint( wpbdp_get_option( 'free-images' ) ),
 					'supported_categories' => 'all',
 					'pricing_model'        => 'flat',
-					'enabled'              => 1,
+					'enabled'              => true,
 					'tag'                  => 'free',
 				)
 			);

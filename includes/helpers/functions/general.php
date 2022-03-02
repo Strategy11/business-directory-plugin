@@ -937,6 +937,8 @@ function wpbdp_get_fee_plans( $args = array() ) {
 
     $args = wp_parse_args( $args, $defaults );
     $args = apply_filters( 'wpbdp_get_fee_plans_args', $args );
+	// Add payments status in arguments to refresh the cache based on payment status.
+	$args['payments_on'] = $payments_on;
 
     $where = '1=1';
     if ( 'all' !== $args['enabled'] ) {
