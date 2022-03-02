@@ -79,7 +79,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $args = array(
 			'admin_view'   => true, // Admin view shows all listings
 			'enabled'      => 'all',
-			'include_free' => true,
         );
 
         $this->items = wpbdp_get_fee_plans( $args );
