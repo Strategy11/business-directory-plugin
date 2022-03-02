@@ -463,7 +463,7 @@ final class WPBDP {
 			return $res->send_error( _x( 'Please select a plan before uploading images to the listing', 'listing image upload', 'business-directory-plugin' ) );
 		}
 
-        $slots_available = absint( $plan->fee_images ) - absint( $_POST['images_count'] );
+		$slots_available = absint( $plan->fee_images ) - absint( $_POST['images_count'] );
 		if ( 0 >= $slots_available ) {
 			return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'business-directory-plugin' ) );
 		} elseif ( $slots_available < count( $files ) ) {
