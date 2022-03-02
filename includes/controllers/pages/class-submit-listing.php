@@ -1522,7 +1522,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 */
 	private function set_available_plans() {
 		$this->available_plans = array();
-		foreach ( wpbdp_get_fee_plans( array( 'include_free' => true ) ) as $plan ) {
+		foreach ( wpbdp_get_fee_plans() as $plan ) {
 			$this->available_plans[] = $plan;
 		}
 	}
