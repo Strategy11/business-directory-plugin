@@ -39,7 +39,7 @@
 		border-color: transparent;
 	}
 	.wpbdp-card-module-icon {
-		margin: 8px;
+		margin: 3px;
 		display: inline-block;
 	}
 
@@ -120,12 +120,11 @@
     text-align: center;
 }
 
-
 .wpbdp-theme-thumbnail {
-    max-width: 100%;
-	max-height: 200px;
-	min-height: 200px;
+	width: 100%;
+	height: 150px;
 	object-fit: cover;
+	object-position: 100% 0;
 }
 
 .wpbdp-theme .enter-license {
@@ -155,16 +154,6 @@
     display: none;
 }
 
-.wpbdp-theme a.delete-theme-link {
-    display: none;
-	margin-top: 4px;
-    margin-right: 10px;
-	margin-left: 5px;
-	float: right;
-	color: @red !important;
-	font-size: 13px;
-}
-
 #wpbdp-admin-page-theme-delete #delete-theme {
     margin-left: 20px;
     color: @red;
@@ -178,14 +167,47 @@
 }
 
 .wpbdp-theme {
+
+	a.delete-theme-link {
+	    display: none;
+		margin-top: 4px;
+	    margin-right: 10px;
+		margin-left: 5px;
+		color: @red !important;
+		font-size: 13px;
+	}
+
+	&.wpbdp-card {
+		padding: 0;
+	}
+
+	h2.wpbdp-plugin-card-title,
+	.wpbdp-theme-thumbnail p {
+		margin: 0;
+		padding: 24px;
+	}
+
+	.wpbdp-theme-thumbnail p {
+		padding-top: 0;
+	}
+
+	.wpbdp-card-footer {
+		padding: 17px 24px;
+	}
+
+	.addon-status {
+		margin: 0;
+	}
+
 	.wpbdp-theme-update-info {
 		display: inline-block;
-		width: 100%;
-		padding: 5px 10px;
+		padding: 5px 24px;
 		position: absolute;
-		left: 0;
-		right: 0;
+		left: -1px;
+		right: -1px;
 		margin: 0;
+		text-align: left;
+		border-left-width: 1px;
 	}
 
 	.wpbdp-theme-update-info.theme-updated {
