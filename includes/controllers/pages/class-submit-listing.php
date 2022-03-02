@@ -1134,8 +1134,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		if ( $thumbnail_id ) {
 			$listing->set_thumbnail_id( $thumbnail_id );
-		} else {
-			$thumbnail_id = $this->listing->get_thumbnail_id();
 		}
 
 		$images = $this->listing->get_images( 'ids', true );
