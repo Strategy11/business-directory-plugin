@@ -59,8 +59,6 @@ if ( $theme->active ) {
 				</form>
 			<?php endif; ?>
 		</div>
-		<?php endif; ?>
-
 	</div>
 
 	<?php do_action( 'wpbdp-admin-themes-extra', $theme ); ?>

@@ -58,16 +58,6 @@
 	grid-column: span 11/span 11;
 }
 
-.wpbdp-grid-mixin-loop (@index) when (@index > 0) {
-	.wpbdp-col-@{index}{
-		grid-column: span @index;
-	}
-
-	.wpbdp-grid-mixin-loop(@index - 1);
-}
-.wpbdp-grid-mixin-loop (0) {}
-.wpbdp-grid-mixin-loop( 12 );
-
 .wpbdp12,
 .wpbdp-full{
     width:100% !important;

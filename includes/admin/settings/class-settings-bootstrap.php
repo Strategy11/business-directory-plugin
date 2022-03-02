@@ -203,8 +203,8 @@ final class WPBDP__Settings__Bootstrap {
                 ),
                 'group'   => 'recaptcha',
 				'grid_classes' => array(
-					'left'  => 'wpbdp-col-8',
-					'right' => 'wpbdp-col-4'
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
 				),
             )
         );
@@ -220,8 +220,8 @@ final class WPBDP__Settings__Bootstrap {
                 'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
                 'group'   => 'recaptcha',
 				'grid_classes' => array(
-					'left'  => 'wpbdp-col-8',
-					'right' => 'wpbdp-col-4'
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
 				),
             )
         );
@@ -317,8 +317,8 @@ final class WPBDP__Settings__Bootstrap {
 					' <a href="https://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">' . __( 'Learn more', 'business-directory-plugin' ) . '</a>',
                 'group' => 'misc/misc',
 				'grid_classes' => array(
-					'left'  => 'wpbdp-col-8',
-					'right' => 'wpbdp-col-4'
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
 				),
             )
         );
@@ -364,8 +364,8 @@ final class WPBDP__Settings__Bootstrap {
                 'name'  => _x( 'Disable advanced CPT integration', 'settings', 'business-directory-plugin' ),
                 'group' => 'general/advanced',
 				'grid_classes' => array(
-					'left'  => 'wpbdp-col-8',
-					'right' => 'wpbdp-col-4'
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
 				),
             )
         );
@@ -378,8 +378,8 @@ final class WPBDP__Settings__Bootstrap {
                 'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'business-directory-plugin' ),
                 'group' => 'general/advanced',
 				'grid_classes' => array(
-					'left'  => 'wpbdp-col-8',
-					'right' => 'wpbdp-col-4'
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
 				),
             )
         );
@@ -637,8 +637,8 @@ final class WPBDP__Settings__Bootstrap {
                 'desc'    => _x( 'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.', 'settings', 'business-directory-plugin' ),
                 'group'   => 'registration',
 				'grid_classes' => array(
-					'left'  => 'wpbdp-col-8',
-					'right' => 'wpbdp-col-4'
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
 				),
             )
         );
