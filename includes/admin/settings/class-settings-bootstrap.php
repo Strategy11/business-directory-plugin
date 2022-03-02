@@ -249,8 +249,8 @@ final class WPBDP__Settings__Bootstrap {
                 'id'          => 'login-url',
                 'type'        => 'text',
                 'name'        => _x( 'Login URL', 'settings', 'business-directory-plugin' ),
-                'desc'        => _x( 'Only enter this if using a membership plugin or custom login page.', 'settings', 'business-directory-plugin' ),
-                'placeholder' => _x( 'URL of your membership plugin\'s login page', 'settings', 'business-directory-plugin' ),
+                'desc'        => _x( 'Only enter this if using a membership plugin or custom login page', 'settings', 'business-directory-plugin' ),
+                'placeholder' => _x( 'URL of your membership plugin\'s login page.', 'settings', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'registration',
             )
@@ -270,7 +270,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'create-account-during-submit-mode',
                 'type'    => 'radio',
-                'name'    => _x( 'Allow users to create accounts during listing submit?', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Allow users to create accounts during listing submit', 'settings', 'business-directory-plugin' ),
                 'default' => 'required',
                 'options' => array(
                     'disabled' => __( 'No', 'business-directory-plugin' ),

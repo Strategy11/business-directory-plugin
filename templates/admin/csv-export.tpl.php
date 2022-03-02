@@ -59,33 +59,33 @@ echo $notice;
 			</div>
 			<div class="wpbdp-setting-content">
 				<label><input name="settings[generate-sequence-ids]"
-					   type="checkbox"
-					   value="1" /> <?php _ex( 'Include unique IDs for each listing (sequence_id column).', 'admin csv-export', 'business-directory-plugin' ); ?></label><br />
+					type="checkbox"
+					value="1" /> <?php _ex( 'Include unique IDs for each listing (sequence_id column).', 'admin csv-export', 'business-directory-plugin' ); ?></label><br />
 				<span class="description">
 				<strong><?php esc_html_e( 'If you plan to re-import the listings into your directory and don\'t want new ones created, select this option!', 'business-directory-plugin' ); ?></strong>
 				</span> <br /><br />
 
 				<label><input name="settings[include-users]"
-					   type="checkbox"
-					   value="1"
-					   checked="checked" /> <?php _ex( 'Author information (username)', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
+					type="checkbox"
+					value="1"
+					checked="checked" /> <?php _ex( 'Author information (username)', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
 
 				<label><input name="settings[include-expiration-date]"
-					   type="checkbox"
-					   value="1"
-					   checked="checked" /> <?php _ex( 'Listing expiration date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
-				
+					type="checkbox"
+					value="1"
+					checked="checked" /> <?php _ex( 'Listing expiration date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
+
 				<label><input name="settings[include-created-date]"
-				type="checkbox"
-				value="1" /> <?php _ex( 'Listing created date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
+					type="checkbox"
+					value="1" /> <?php _ex( 'Listing created date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
 
 				<label><input name="settings[include-modified-date]"
-				type="checkbox"
-				value="1" /> <?php _ex( 'Listing last updated date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
+					type="checkbox"
+					value="1" /> <?php _ex( 'Listing last updated date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
 
 				<label><input name="settings[include-tos-acceptance-date]"
-				type="checkbox"
-				value="1" /> <?php _ex( 'Listing T&C acceptance date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
+					type="checkbox"
+					value="1" /> <?php _ex( 'Listing T&C acceptance date', 'admin csv-export', 'business-directory-plugin' ); ?></label> <br />
 			</div>
 		</div>
 	</div>
@@ -104,9 +104,9 @@ echo $notice;
 						checked="checked" /><?php _ex( 'Windows', 'admin csv-export', 'business-directory-plugin' ); ?></label>
 				<br />
 				<label><input name="settings[target-os]"
-						type="radio"
-						aria-required="true"
-						value="macos" /><?php _ex( 'macOS', 'admin csv-export', 'business-directory-plugin' ); ?></label>
+					type="radio"
+					aria-required="true"
+					value="macos" /><?php _ex( 'macOS', 'admin csv-export', 'business-directory-plugin' ); ?></label>
 				<br />
 				<p><?php _ex( 'Windows and macOS versions of MS Excel handle CSV files differently. To make sure all your listings information is displayed properly when you view or edit the CSV file, we need to generate different versions of the file for each operating system.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
 			</div>
@@ -146,16 +146,16 @@ echo $notice;
 <div class="step-2">
 	<h2><?php _ex( 'Export in Progress...', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
 	<p><?php _ex( 'Your export file is being prepared. Please <u>do not leave</u> this page until the export finishes.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
-	
+
 	<dl>
 		<dt><?php _ex( 'No. of listings:', 'admin csv-export', 'business-directory-plugin' ); ?></dt>
 		<dd class="listings">?</dd>
 		<dt><?php _ex( 'Approximate export file size:', 'admin csv-export', 'business-directory-plugin' ); ?></dt>
 		<dd class="size">?</dd> 
 	</dl>
-	
+
 	<div class="export-progress"></div>
-	
+
 	<p class="submit">
 		<a href="#" class="cancel-import button"><?php _ex( 'Cancel Export', 'admin csv-export', 'business-directory-plugin' ); ?></a>
 	</p>
@@ -167,9 +167,11 @@ echo $notice;
 	<div class="download-link">
 		<a href="" class="button button-primary">
 			<?php
-			echo sprintf( _x( 'Download %1$s (%2$s)', 'admin csv-export', 'business-directory-plugin' ),
+			echo sprintf(
+				_x( 'Download %1$s (%2$s)', 'admin csv-export', 'business-directory-plugin' ),
 				'<span class="filename"></span>',
-			'<span class="filesize"></span>' );
+				'<span class="filesize"></span>'
+			);
 			?>
 		</a>
 	</div>
