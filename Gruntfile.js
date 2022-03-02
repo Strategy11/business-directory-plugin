@@ -121,6 +121,7 @@ module.exports = function( grunt ) {
 			  basedir + '/business-directory-' + id + '.php',
 			  basedir + '/includes/class-wpbdp.php',
 			  basedir + '/classes/class-wpbdp-premium-module.php',
+			  basedir + '/includes/models/*module.php',
 			  basedir + '/theme.json',
 			  basedir + '/themes/default/theme.json'
 		  ],
