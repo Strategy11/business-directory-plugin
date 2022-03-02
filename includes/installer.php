@@ -57,7 +57,7 @@ class WPBDP_Installer {
             // Create default paid fee.
             $fee = new WPBDP__Fee_Plan(
 				array(
-					'label' => _x( 'Default Fee', 'installer', 'business-directory-plugin' ),
+					'label' => _x( 'Default Plan', 'installer', 'business-directory-plugin' ),
                                                'amount' => 1.0,
                                                'days' => 365,
                                                'images' => 1,
