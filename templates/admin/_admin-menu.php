@@ -28,11 +28,11 @@
 	</ul>
 	<div class="wpbdp-nav-toggle hide-if-no-js">
 		<div class="wpbdp-grid">
-			<div class="wpbdp-col-2 wpbdp-nav-item-icon">
+			<div class="wpbdp2 wpbdp-nav-item-icon">
 				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/caret-left.svg' ); ?>" class="wpbdp-icon-maximized" width="24" height="24"/>
 				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/caret-right.svg' ); ?>" class="wpbdp-icon-minimized" width="24" height="24"/>
 			</div>
-			<div class="wpbdp-col-10 wpbdp-nav-item-name">
+			<div class="wpbdp10 wpbdp-nav-item-name">
 				<?php esc_html_e( 'Minimize Navigation', 'business-directory-plugin' ); ?>
 			</div>
 		</div>

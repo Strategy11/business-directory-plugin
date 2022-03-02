@@ -111,7 +111,7 @@ echo $notice;
 				<p><?php _ex( 'Windows and macOS versions of MS Excel handle CSV files differently. To make sure all your listings information is displayed properly when you view or edit the CSV file, we need to generate different versions of the file for each operating system.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
 			</div>
 		</tr>
-		<div class="wpbdp-setting-row wpbdp-grid form-required wpbdp-col-6">
+		<div class="wpbdp-setting-row wpbdp-grid form-required wpbdp6">
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Image Separator', 'business-directory-plugin' ); ?>
 					<span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
@@ -124,7 +124,7 @@ echo $notice;
 						value=";" />
 			</div>
 		</div>
-		<div class="wpbdp-setting-row wpbdp-grid form-required wpbdp-col-6">
+		<div class="wpbdp-setting-row wpbdp-grid form-required wpbdp6">
 			<div class="wpbdp-setting-label">
 				<label> <?php _ex( 'Category Separator', 'admin csv-export', 'business-directory-plugin' ); ?> <span class="description">(<?php _ex( 'required', 'admin forms', 'business-directory-plugin' ); ?>)</span></label>
 			</div>

@@ -80,7 +80,7 @@ WPBDP_Admin_Pages::show_tabs(
                 continue;
             }
 			?>
-        <div class="gateway inside wpbdp-col-3 <?php echo esc_attr( $mod_info[0] ); ?> <?php echo $modules_obj->is_loaded( $mod_info[0] ) ? 'installed' : ''; ?>">
+        <div class="gateway inside wpbdp3 <?php echo esc_attr( $mod_info[0] ); ?> <?php echo $modules_obj->is_loaded( $mod_info[0] ) ? 'installed' : ''; ?>">
             <a class="gateway-title" href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener">
 				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/modules/<?php echo esc_attr( $mod_info[1] ); ?>.svg" class="gateway-logo">
             </a>
@@ -101,7 +101,7 @@ WPBDP_Admin_Pages::show_tabs(
         </div>
         <?php endforeach; ?>
         <?php if ( ! wpbdp_payments_possible() ) : ?>
-        <div class="gateway inside wpbdp-col-3">
+        <div class="gateway inside wpbdp3">
 			<div class="gateway-title">
 				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/modules/authorize-net-payment-module.svg" class="gateway-logo">
 			</div>

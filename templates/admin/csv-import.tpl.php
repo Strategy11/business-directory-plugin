@@ -45,12 +45,12 @@ printf(
 	<h2><?php esc_html_e( 'Import Files', 'business-directory-plugin' ); ?></h2>
     <div class="form-table wpbdp-settings-form wpbdp-grid">
 		<div class="wpbdp-setting-row form-field form-required wpbdp-grid">
-			<div class="wpbdp-setting-label wpbdp-col-6">
+			<div class="wpbdp-setting-label wpbdp6">
 				<label> <?php esc_html_e( 'CSV File', 'business-directory-plugin' ); ?>
 					<span class="required">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
 				</label>
 			</div>
-			<div class="wpbdp-setting-content wpbdp-col-6">
+			<div class="wpbdp-setting-content wpbdp6">
 				<label class="wpbdp-file-input">
 					<input name="csv-file" class="wpbdp-inner-file" type="file" aria-required="true" />
 					<span class="wpbdp-inner-file-input"><?php esc_html_e( 'Choose File', 'business-directory-plugin' ); ?></span>
@@ -79,10 +79,10 @@ printf(
 			</div>
 		</div>
 		<div class="wpbdp-setting-row form-field wpbdp-grid">
-			<div class="wpbdp-setting-label wpbdp-col-6">
+			<div class="wpbdp-setting-label wpbdp6">
 				<label> <?php esc_html_e( 'ZIP file containing images', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content wpbdp-col-6">
+			<div class="wpbdp-setting-content wpbdp6">
 				<label class="wpbdp-file-input">
 					<input name="images-file" class="wpbdp-inner-file" type="file" aria-required="true" />
 					<span class="wpbdp-inner-file-input"><?php esc_html_e( 'Choose File', 'business-directory-plugin' ); ?></span>
@@ -145,7 +145,7 @@ printf(
 				<br />
 						</div>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required wpbdp-col-6">
+		<div class="wpbdp-setting-row form-field form-required wpbdp6">
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Image Separator', 'business-directory-plugin' ); ?>
 					<span class="required">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
@@ -158,7 +158,7 @@ printf(
 						value="<?php echo esc_attr( _defaults_or( $defaults, 'images-separator', ';' ) ); ?>" />
 			</div>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required wpbdp-col-6">
+		<div class="wpbdp-setting-row form-field form-required wpbdp6">
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Category Separator', 'business-directory-plugin' ); ?>
 					<span class="required">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
