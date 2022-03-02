@@ -406,33 +406,33 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         private function prepare_menu( &$menu ) {
             $n = 1;
 
-            foreach ( $menu as &$item ) {
-                if ( ! isset( $item['priority'] ) ) {
-                    $item['priority'] = $n++;
-                }
+			foreach ( $menu as &$item ) {
+				if ( ! isset( $item['priority'] ) ) {
+					$item['priority'] = $n++;
+				}
 
-                if ( ! isset( $item['title'] ) ) {
-                    $item['title'] = _x( 'Untitled Menu', 'admin', 'business-directory-plugin' );
-                }
+				if ( ! isset( $item['title'] ) ) {
+					$item['title'] = _x( 'Untitled Menu', 'admin', 'business-directory-plugin' );
+				}
 
-                if ( ! isset( $item['label'] ) ) {
-                    $item['label'] = $item['title'];
-                }
+				if ( ! isset( $item['label'] ) ) {
+					$item['label'] = $item['title'];
+				}
 
-                if ( ! isset( $item['file'] ) ) {
-                    $item['file'] = '';
-                }
+				if ( ! isset( $item['file'] ) ) {
+					$item['file'] = '';
+				}
 
-                if ( ! isset( $item['callback'] ) ) {
-                    $item['callback'] = '';
-                }
+				if ( ! isset( $item['callback'] ) ) {
+					$item['callback'] = '';
+				}
 
-                if ( ! isset( $item['url'] ) ) {
-                    $item['url'] = '';
-                }
-            }
+				if ( ! isset( $item['url'] ) ) {
+					$item['url'] = '';
+				}
+			}
 
-            WPBDP_Utils::sort_by_property( $menu, 'priority' );
+			WPBDP_Utils::sort_by_property( $menu, 'priority' );
         }
 
         /**
