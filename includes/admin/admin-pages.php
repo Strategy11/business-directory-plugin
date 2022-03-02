@@ -692,7 +692,6 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 	// For backwards compatibility.
 	if ( ! is_array( $args_or_title ) ) {
 		$buttons = array();
-
 		if ( $h2items ) {
 			foreach ( $h2items as $item ) {
 				$buttons[ $item[0] ] = $item[1];

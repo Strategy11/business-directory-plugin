@@ -183,7 +183,7 @@ class WPBDP_CSVImportAdmin {
 				'title'   => __( 'Example CSV Import File', 'business-directory-plugin' ),
 				'buttons' => array(
 					'return' => array(
-						'label' => __( '← Return to "CSV Import"', 'business-directory-plugin' ),
+						'label' => __( 'Go Back', 'business-directory-plugin' ),
 						'url'   => remove_query_arg( 'action' ),
 					)
 				),

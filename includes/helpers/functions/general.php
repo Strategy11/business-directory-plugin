@@ -1155,7 +1155,7 @@ function wpbdp_render( $template, $vars = array(), $allow_override = true ) {
 
 function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
 	$classes = array( 'wpbdp-msg', $type );
-	if ( is_admin( ) ) {
+	if ( is_admin() ) {
 		$classes[] = 'wpbdp-notice notice';
 		$classes[] = 'notice-' . $type;
 	}

@@ -151,7 +151,7 @@ class WPBDP__Manual_Upgrade_Helper {
     public function upgrade_page() {
 		echo wpbdp_admin_header(
 			array(
-				'title'   => __( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
+				'title'   => __( 'Directory Manual Upgrade', 'business-directory-plugin' ),
 				'id'      => 'manual-upgrade',
 				'sidebar' => false
 			)
