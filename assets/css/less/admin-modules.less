@@ -250,3 +250,14 @@
 		grid-template-columns: 1fr 1fr;
 	}
 }
+
+@media only screen and (max-width: 782px) {
+	.wpbdp-card-module-icon + .wpbdp7 {
+		grid-column: span 10 / span 10;
+
+		+ .wpbdp-right.wpbdp3 {
+			grid-column: span 12 / span 12;
+			text-align: center;
+		}
+	}
+}
