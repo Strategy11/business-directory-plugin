@@ -43,7 +43,7 @@ printf(
 	<?php wp_nonce_field( 'do-import' ); ?>
 
 	<div class="wpbdp-settings-form-title">
-		<h3><?php esc_html_e( 'Import Files', 'business-directory-plugin' ); ?></h2>
+		<h3><?php esc_html_e( 'Import Files', 'business-directory-plugin' ); ?></h3>
 	</div>
 	<div class="wpbdp-settings-form wpbdp-grid">
 		<div class="wpbdp-setting-row wpbdp-grid">
@@ -114,7 +114,7 @@ printf(
     </div>
 
 	<div class="wpbdp-settings-form-title">
-		<h3><?php esc_html_e( 'CSV File Settings', 'business-directory-plugin' ); ?></h2>
+		<h3><?php esc_html_e( 'CSV File Settings', 'business-directory-plugin' ); ?></h3>
 	</div>
 	<div class="wpbdp-settings-form wpbdp-grid">
 		<div class="wpbdp-setting-row">
@@ -172,7 +172,7 @@ printf(
     </div>
 
 	<div class="wpbdp-settings-form-title">
-		<h3><?php esc_html_e( 'Import settings', 'business-directory-plugin' ); ?></h2>
+		<h3><?php esc_html_e( 'Import settings', 'business-directory-plugin' ); ?></h3>
 	</div>
 	<div class="wpbdp-settings-form wpbdp-grid">
 		<div class="wpbdp-setting-row wpbdp6">
@@ -249,7 +249,7 @@ printf(
 					value="1" <?php echo _defaults_or( $defaults, 'default-user', '' ) ? 'checked="checked"' : ''; ?> /> <?php _ex( 'Select a default user to be used if the username column is not present in the CSV file.', 'admin csv-import', 'business-directory-plugin' ); ?>
 			</label>
 		</div>
-		<div class="wpbdp-setting-row form-required default-user-selection">
+		<div class="wpbdp-setting-row default-user-selection">
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Default listing user', 'business-directory-plugin' ); ?></label>
 			</div>
