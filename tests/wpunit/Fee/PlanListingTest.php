@@ -22,14 +22,37 @@ class PlanListingTest extends WPUnitTestCase {
 	public function testFeePlanVisibility() {
 		$this->tester->wantToTest( 'Test Fee Plan Visibility' );
 		$this->createFees();
+		
+		$this->init_gateway();
+		
+		$this->paymentDisablePlanTest();
+
+		$this->paymentEnabledPlanTest();
+		
+		$this->defaultPlanDisabledPlanTest();
+	}
+
+	/**
+	 * Initialize the gateway.
+	 * Set up Auth net gateway but disable it.
+	 *
+	 */
+	private function init_gateway() {
 		wpbdp_set_option( 'payments-test-mode', true );
 		wpbdp_set_option( 'authorize-net', 0 );
 		$this->assertFalse( 1 === wpbdp_get_option( 'authorize-net' ), 'Gateway Disabled' );
 		// Random details for testing purposes. We won't attempt a charge, we just need to enable payments.
 		wpbdp_set_option( 'authorize-net-login-id', '7h6MbLNyn9qb' );
 		wpbdp_set_option( 'authorize-net-transaction-key', '98GHnS594xy32V7d' );
-		wpbdp_get_fee_plans( array( 'admin_view' => true ) );
-		$plans = wpbdp_get_fee_plans( array( 'include_free' => true ) );
+	}
+
+	/**
+	 * Test fee plans with disabled gateways.
+	 * This should return a total of 0
+	 */
+	private function paymentDisablePlanTest() {
+		Debug::debug( 'Test disabled payments' );
+		$plans = wpbdp_get_fee_plans();
 		$total = 0;
 		$free_plan = null;
 		foreach ( $plans as $plan ) {
@@ -40,14 +63,20 @@ class PlanListingTest extends WPUnitTestCase {
 		}
 		$this->assertTrue( ( $total === 0 ), 'Plan total amount is 0' );
 		$this->assertTrue( ! is_null( $free_plan ), 'Free plan included in all free plans' );
+	}
 
+	/**
+	 * Payment enabled plan list test.
+	 * Test the payment enabled plan total . Total should be more than 0
+	 */
+	private function paymentEnabledPlanTest() {
 		wpbdp_set_option( 'authorize-net', 1 );
 		$this->assertTrue( 1 === wpbdp_get_option( 'authorize-net' ), 'Gateway Enabled' );
 		$payments_on = wpbdp_payments_possible();
 
 		$this->assertTrue( $payments_on, 'Payments Enabled' );
 
-		$plans = wpbdp_get_fee_plans( array( 'include_free' => true ) );
+		$plans = wpbdp_get_fee_plans();
 		$free_plan = null;
 		$total = 0;
 		foreach ( $plans as $plan ) {
@@ -60,12 +89,18 @@ class PlanListingTest extends WPUnitTestCase {
 		$this->assertTrue( ( $total > 0 ), 'Plan total amount is more than 0' );
 		$this->assertTrue( ! is_null( $free_plan ), 'Free plan included in all paid plans' );
 
-		// Disable default plan
+		// Disable default plan for next test phase.
 		$free_plan->enabled = false;
 		$free_plan->save();
 
 		$this->assertFalse( $free_plan->enabled, 'Default plan disabled' );
-		$plans = wpbdp_get_fee_plans( array( 'include_free' => true ) );
+	}
+
+	/**
+	 * Default plan should be null as it was disabled in `paymentEnabledPlanTest()`
+	 */
+	private function defaultPlanDisabledPlanTest() {
+		$plans = wpbdp_get_fee_plans();
 		$free_plan = null;
 		foreach ( $plans as $plan ) {
 			if ( 'free' === $plan->tag ) {
@@ -73,11 +108,10 @@ class PlanListingTest extends WPUnitTestCase {
 			}
 		}
 		$this->assertTrue( is_null( $free_plan ), 'Free plan is not included in all paid plans' );
-
 	}
 
 	/**
-	 * Test create fee
+	 * Test create fees
 	 */
 	private function createFees() {
 		Debug::debug( 'Creating fees' );
@@ -131,6 +165,9 @@ class PlanListingTest extends WPUnitTestCase {
 		);
 	}
 
+	/**
+	 * Create the fee plan
+	 */
 	private function create_fee( $data ) {
 		$fee = new WPBDP__Fee_Plan( $data );
 		$result = $fee->save();
