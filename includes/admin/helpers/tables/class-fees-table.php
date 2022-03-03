@@ -164,7 +164,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		}
 		if ( 'free' !== $fee->tag ) {
             $actions['delete'] = sprintf(
-                '<a href="%s">%s</a>',
+				'<a href="%1$s" data-bdconfirm="%2$s">%3$s</a>',
                 esc_url(
                     add_query_arg(
                         array(
@@ -174,6 +174,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
                         $admin_fees_url
                     )
                 ),
+				esc_attr__( 'Are you sure you want to do this?', 'business-directory-plugin' ),
                 esc_html__( 'Delete', 'business-directory-plugin' )
             );
         }
