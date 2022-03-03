@@ -41,6 +41,8 @@ class WPBDP_Admin_Listings {
 
         add_action( 'wp_ajax_wpbdp-clear-payment-history', array( &$this, 'ajax_clear_payment_history' ) );
 
+		add_action( 'wp_ajax_wpbdp-assign-plan-to-listing', array( &$this, 'ajax_assign_plan_to_listing' ) );
+
         add_filter( 'tag_cloud_sort', array( $this, '_add_tag_cloud' ) );
 
         $this->listing_owner = new WPBDP__Admin__Listing_Owner();
@@ -699,6 +701,41 @@ class WPBDP_Admin_Listings {
 
         wp_send_json_success( array( 'message' => _x( 'Listing\'s payment history successfully deleted', 'admin listings', 'business-directory-plugin' ) ) );
     }
+
+	/**
+	 * Assign a plan to a listing.
+	 * This assigns a plan to a listing in the admin backend.
+	 *
+	 * @since x.x
+	 */
+	public function ajax_assign_plan_to_listing() {
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error();
+		}
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ), 'post' );
+		$plan_id    = wpbdp_get_var( array( 'param' => 'plan_id' ), 'post' );
+		if ( ! $listing_id || ! $plan_id ) {
+			wp_send_json_error();
+		}
+		$listing = wpbdp_get_listing( $listing_id );
+		$current_plan = $listing->get_fee_plan();
+
+		if ( ! $current_plan || (int) $current_plan->fee_id !== (int) $plan_id ) {
+			$listing->set_fee_plan( $plan_id );
+		}
+		$new_plan = $listing->get_fee_plan();
+		$fee = $new_plan->fee;
+		wp_send_json_success( array(
+			'id'        => $fee->id,
+			'label'     => $fee->label,
+			'amount'    => $fee->amount ? wpbdp_currency_format( $fee->amount ) : '',
+			'days'      => $fee->days,
+			'images'    => $fee->images,
+			'sticky'    => $fee->sticky,
+			'recurring' => $fee->recurring,
+		) );
+	}
 
     public function _add_tag_cloud( $tags ) {
         if ( isset( $_POST['tax'] ) && WPBDP_TAGS_TAX !== $_POST['tax'] ) {
