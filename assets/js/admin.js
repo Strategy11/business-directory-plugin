@@ -22,7 +22,6 @@ WPBDPAdmin_Layout = {};
 			WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
 			WPBDPAdmin_Layout.layoutAdjustment();
 			WPBDPAdmin_Layout.initTaxonomyModal();
-			WPBDPAdmin_Layout.initDeleteModal();
 			if ( WPBDPAdmin_Layout.$menu_state && WPBDPAdmin_Layout.$menu_state == 'minimized' ) {
 				WPBDPAdmin_Layout.$layout_container.addClass( 'minimized' );
 				WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
@@ -57,28 +56,6 @@ WPBDPAdmin_Layout = {};
 				e.preventDefault();
 				$( '#wpbdp-add-taxonomy-form .term-slug-wrap' ).addClass( 'hidden' );
 				$( '#wpbdp-add-taxonomy-form .term-description-wrap' ).addClass( 'hidden' );
-				modal.dialog( 'open' );
-			})
-		},
-
-		/**
-		 * Initialize the modal delete on click action
-		 */
-		initDeleteModal : function() {
-			var modal = WPBDPAdmin_Layout.initModal( '#wpbdp-admin-delete-modal' );
-			if ( modal === false ) {
-				return;
-			}
-			$( document ).on( 'click', '.wpbdp-admin-delete-modal', function( e ) {
-				e.preventDefault();
-				var $elem = $( this ),
-					$id = $elem.attr( 'data-id' ),
-					$name = $elem.attr( 'data-name' ),
-					$action = $elem.attr( 'data-action' ),
-					$form = $( '#wpbdp-admin-delete-modal form' );
-				$form.find( 'input[name="id"]' ).val( $id );
-				$form.find( 'input[name="action"]' ).val( $action );
-				$form.find( '.wpbdp-item-name' ).html( $name );
 				modal.dialog( 'open' );
 			})
 		},

@@ -58,9 +58,6 @@ class WPBDP_FormFieldsAdmin {
 			case 'deletefield':
 				$this->delete_field();
 				break;
-			case 'ajaxDeletefield':
-				$this->modal_delete_field();
-				break;
 			case 'fieldup':
 			case 'fielddown':
 				$this->move_field();
@@ -292,29 +289,6 @@ class WPBDP_FormFieldsAdmin {
 			array( 'field' => $field ),
 			true
 		);
-	}
-
-	/**
-	 * Delete field action from modal.
-	 *
-	 * @since x.x
-	 */
-	private function modal_delete_field() {
-		$nonce = wpbdp_get_var( array( 'param' => 'wpbdp_admin_delete_nonce' ), 'post' );
-		if ( ! $nonce ) {
-			return;
-		}
-
-		$field = WPBDP_Form_Field::get( wpbdp_get_var( array( 'param' => 'id' ), 'request' ) );
-
-		if ( ! $field || $field->has_behavior_flag( 'no-delete' ) ) {
-			return;
-		}
-
-		if ( wp_verify_nonce( $nonce, 'wpbdp_admin_delete_nonce' ) ) {
-			$this->handle_field_delete( $field );
-			return;
-		}
 	}
 
 	/**
