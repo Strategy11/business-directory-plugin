@@ -11,12 +11,16 @@ function wpbdp_admin_sidebar( $echo = false ) {
 
 function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = null ) {
 	// For backwards compatibility.
-	if ( ! is_array( $args_or_title ) ) {
+	if ( ! $args_or_title || ! is_array( $args_or_title ) ) {
 		$buttons = array();
 
 		if ( $h2items ) {
 			foreach ( $h2items as $item ) {
-				$buttons[ $item[0] ] = $item[1];
+				if ( isset( $item['label'] ) ) {
+					$buttons[ $item['label'] ] = $item['url'];
+				} else {
+					$buttons[ $item[0] ] = $item[1];
+				}
 			}
 		}
 
