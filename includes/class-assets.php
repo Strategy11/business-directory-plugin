@@ -361,15 +361,6 @@ class WPBDP__Assets {
 	 * @since x.x
 	 */
 	private function enqueue_admin_setting_resources() {
-		// Notifications JS
-		wp_enqueue_script(
-			'wpbdp-admin-notifications',
-			WPBDP_ASSETS_URL . 'js/admin-notifications.min.js',
-			array( 'jquery' ),
-			WPBDP_VERSION,
-			true
-		);
-
 		wp_enqueue_style( 'wpbdp-js-select2-css' );
 	}
 
