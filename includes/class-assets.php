@@ -366,7 +366,7 @@ class WPBDP__Assets {
 		// Notifications JS
 		wp_enqueue_script(
 			'wpbdp-admin-notifications',
-			WPBDP_ASSETS_URL . 'js/admin-notifications.js',
+			WPBDP_ASSETS_URL . 'js/admin-notifications.min.js',
 			array( 'jquery' ),
 			WPBDP_VERSION,
 			true
