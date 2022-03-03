@@ -18,11 +18,11 @@ function _defaults_or( $defs, $key, $val ) {
     return $val;
 }
 ?>
-<div class="wpbdp-page-csv-import wpbdp-clearfix">
+<div class="wpbdp-page-csv-import wpbdp-clearfix wpbdp-admin-page-settings">
 
 <?php WPBDP_Admin_Education::show_tip( 'migrator' ); ?>
 
-<p class="howto">
+<p class="howto wpbdp-settings-subtab-description wpbdp-setting-description">
 <?php
 _ex( 'Here, you can import data into your directory using the CSV format.',
      'admin csv-import',
@@ -42,15 +42,15 @@ printf(
     <input type="hidden" name="action" value="do-import" />
 	<?php wp_nonce_field( 'do-import' ); ?>
 
-	<h2><?php esc_html_e( 'Import Files', 'business-directory-plugin' ); ?></h2>
-    <div class="form-table wpbdp-settings-form wpbdp-grid">
-		<div class="wpbdp-setting-row form-field form-required wpbdp-grid">
+	<div class="wpbdp-settings-form-title">
+		<h3><?php esc_html_e( 'Import Files', 'business-directory-plugin' ); ?></h2>
+	</div>
+	<div class="wpbdp-settings-form wpbdp-grid">
+		<div class="wpbdp-setting-row wpbdp-grid">
 			<div class="wpbdp-setting-label wpbdp6">
-				<label> <?php esc_html_e( 'CSV File', 'business-directory-plugin' ); ?>
-					<span class="required">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
-				</label>
+				<label> <?php esc_html_e( 'CSV File', 'business-directory-plugin' ); ?> *</label>
 			</div>
-			<div class="wpbdp-setting-content wpbdp6">
+			<div class="wpbdp6">
 				<label class="wpbdp-file-input">
 					<input name="csv-file" class="wpbdp-inner-file" type="file" aria-required="true" />
 					<span class="wpbdp-inner-file-input"><?php esc_html_e( 'Choose File', 'business-directory-plugin' ); ?></span>
@@ -78,11 +78,11 @@ printf(
 				<?php endif; ?>
 			</div>
 		</div>
-		<div class="wpbdp-setting-row form-field wpbdp-grid">
+		<div class="wpbdp-setting-row wpbdp-grid">
 			<div class="wpbdp-setting-label wpbdp6">
 				<label> <?php esc_html_e( 'ZIP file containing images', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content wpbdp6">
+			<div class="wpbdp6">
 				<label class="wpbdp-file-input">
 					<input name="images-file" class="wpbdp-inner-file" type="file" aria-required="true" />
 					<span class="wpbdp-inner-file-input"><?php esc_html_e( 'Choose File', 'business-directory-plugin' ); ?></span>
@@ -113,27 +113,30 @@ printf(
 		</div>
     </div>
 
-    <h2><?php esc_html_e( 'CSV File Settings', 'business-directory-plugin' ); ?></h2>
-    <div class="form-table wpbdp-settings-form wpbdp-grid">
-		<div class="wpbdp-setting-row form-field form-required">
+	<div class="wpbdp-settings-form-title">
+		<h3><?php esc_html_e( 'CSV File Settings', 'business-directory-plugin' ); ?></h2>
+	</div>
+	<div class="wpbdp-settings-form wpbdp-grid">
+		<div class="wpbdp-setting-row">
 			<div class="wpbdp-setting-label">
-				<label> <?php esc_html_e( 'Column Separator', 'business-directory-plugin' ); ?>
-					<span class="required">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+				<label>
+					<?php esc_html_e( 'Column Separator', 'business-directory-plugin' ); ?> *
 				</label>
 			</div>
-			<div class="wpbdp-setting-content">
 				<?php $column_separator = _defaults_or( $defaults, 'csv-file-separator', ',' ); ?>
 				<label><input name="settings[csv-file-separator]"
 						type="radio"
 						aria-required="true"
 						value=","
-						<?php echo $column_separator == ',' ? 'checked="checked"' : ''; ?>/><?php _ex( 'Comma (,)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+						<?php echo $column_separator == ',' ? 'checked="checked"' : ''; ?>/>
+					<?php _ex( 'Comma (,)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
 				<br />
 				<label><input name="settings[csv-file-separator]"
 						type="radio"
 						aria-required="true"
 						value=";"
-						<?php echo $column_separator == ';' ? 'checked="checked"' : ''; ?>/><?php _ex( 'Semicolon (;)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+						<?php echo $column_separator == ';' ? 'checked="checked"' : ''; ?>/>
+					<?php _ex( 'Semicolon (;)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
 				<br />
 				<label><input name="settings[csv-file-separator]"
 						type="radio"
@@ -143,80 +146,72 @@ printf(
 					<?php esc_html_e( 'TAB', 'business-directory-plugin' ); ?>
 				</label>
 				<br />
-						</div>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required wpbdp6">
+		<div class="wpbdp-setting-row wpbdp6">
 			<div class="wpbdp-setting-label">
-				<label> <?php esc_html_e( 'Image Separator', 'business-directory-plugin' ); ?>
-					<span class="required">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+				<label>
+					<?php esc_html_e( 'Image Separator', 'business-directory-plugin' ); ?> *
 				</label>
 			</div>
-			<div class="wpbdp-setting-content">
-				<input name="settings[images-separator]"
-						type="text"
-						aria-required="true"
-						value="<?php echo esc_attr( _defaults_or( $defaults, 'images-separator', ';' ) ); ?>" />
-			</div>
+			<input name="settings[images-separator]"
+				type="text"
+				aria-required="true"
+				value="<?php echo esc_attr( _defaults_or( $defaults, 'images-separator', ';' ) ); ?>" />
 		</div>
-		<div class="wpbdp-setting-row form-field form-required wpbdp6">
+		<div class="wpbdp-setting-row wpbdp6">
 			<div class="wpbdp-setting-label">
-				<label> <?php esc_html_e( 'Category Separator', 'business-directory-plugin' ); ?>
-					<span class="required">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+				<label>
+					<?php esc_html_e( 'Category Separator', 'business-directory-plugin' ); ?> *
 				</label>
 			</div>
-			<div class="wpbdp-setting-content">
-				<input name="settings[category-separator]"
-						type="text"
-						aria-required="true"
-						value="<?php echo esc_attr( _defaults_or( $defaults, 'category-separator', ';' ) ); ?>" />
-			</div>
+			<input name="settings[category-separator]"
+				type="text"
+				aria-required="true"
+				value="<?php echo esc_attr( _defaults_or( $defaults, 'category-separator', ';' ) ); ?>" />
 		</div>
     </div>
 
-	<h2><?php esc_html_e( 'Import settings', 'business-directory-plugin' ); ?></h2>
-    <div class="form-table wpbdp-settings-form wpbdp-grid">
-		<div class="wpbdp-setting-row form-field form-required">
+	<div class="wpbdp-settings-form-title">
+		<h3><?php esc_html_e( 'Import settings', 'business-directory-plugin' ); ?></h2>
+	</div>
+	<div class="wpbdp-settings-form wpbdp-grid">
+		<div class="wpbdp-setting-row wpbdp6">
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Post status of new imported listings', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content">
-				<select name="settings[post-status]">
-					<?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
-						<?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
-							<?php continue; ?>
-						<?php endif; ?>
-						<option value="<?php echo esc_attr( $post_status ); ?>" <?php echo _defaults_or( $defaults, 'post-status', 'publish' ) == $post_status ? 'selected="selected"' : ''; ?>>
-							<?php echo esc_html( $post_status_label ); ?>
-						</option>
-					<?php endforeach; ?>
-				</select>
-			</div>
+			<select name="settings[post-status]">
+				<?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
+					<?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
+						<?php continue; ?>
+					<?php endif; ?>
+					<option value="<?php echo esc_attr( $post_status ); ?>" <?php echo _defaults_or( $defaults, 'post-status', 'publish' ) == $post_status ? 'selected="selected"' : ''; ?>>
+						<?php echo esc_html( $post_status_label ); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required">
+		<div class="wpbdp-setting-row wpbdp6">
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Post status of existing imported listings', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content">
-				<select name="settings[existing-post-status]">
-						<option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'business-directory-plugin' ); ?></option>
-					<?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
-						<?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
-							<?php continue; ?>
-						<?php endif; ?>
-						<option value="<?php echo esc_attr( $post_status ); ?>" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == $post_status ? 'selected="selected"' : ''; ?>>
-							<?php echo esc_html( $post_status_label ); ?>
-						</option>
-					<?php endforeach; ?>
-				</select>
-			</div>
+			<select name="settings[existing-post-status]">
+				<option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'business-directory-plugin' ); ?></option>
+				<?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
+					<?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
+						<?php continue; ?>
+					<?php endif; ?>
+					<option value="<?php echo esc_attr( $post_status ); ?>" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == $post_status ? 'selected="selected"' : ''; ?>>
+						<?php echo esc_html( $post_status_label ); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required">
+		<div class="wpbdp-setting-row">
 			<div class="wpbdp-setting-label">
-				<label> <?php esc_html_e( 'Missing categories handling', 'business-directory-plugin' ); ?>
-					<span class="required">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span>
+				<label>
+					<?php esc_html_e( 'Missing categories handling', 'business-directory-plugin' ); ?> *
 				</label>
 			</div>
-			<div class="wpbdp-setting-content">
 				<label><input name="settings[create-missing-categories]"
 						type="radio"
 						value="1" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ) ? 'checked="checked"' : ''; ?> />
@@ -227,79 +222,60 @@ printf(
 						value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> />
 					<?php esc_html_e( 'Generate errors when a category is not found', 'business-directory-plugin' ); ?>
 				</label>
+		</div>
+		<div class="wpbdp-setting-row wpdb-checkbox">
+			<label>
+				<input name="settings[append-images]"
+					type="checkbox"
+					value="1" checked="checked" />
+				<?php esc_html_e( 'Keep existing images', 'admin csv-import', 'business-directory-plugin' ); ?>
+			</label>
+			<div class="wpbdp-setting-description">
+				<?php esc_html_e( 'Appends new images while keeping current ones.', 'business-directory-plugin' ); ?>
 			</div>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required">
-			<div class="wpbdp-setting-label">
-				<label> <?php _ex( 'Keep existing listing images?', 'admin csv-import', 'business-directory-plugin' ); ?>
-			</div>
-			<div class="wpbdp-setting-content">
-				<label><input name="settings[append-images]"
-						type="checkbox"
-						value="1" checked="checked" /> <?php _ex( 'Keep existing images.', 'admin csv-import', 'business-directory-plugin' ); ?></label>
-				<span class="description"><?php _ex( 'Appends new images while keeping current ones.', 'admin csv-import', 'business-directory-plugin' ); ?></span>
-			</div>
+		<div class="wpbdp-setting-row wpdb-checkbox">
+			<label><input name="settings[assign-listings-to-user]"
+					type="checkbox"
+					class="assign-listings-to-user"
+					value="1" <?php echo _defaults_or( $defaults, 'assign-listings-to-user', 1 ) ? 'checked="checked"' : ''; ?> />
+				<?php esc_html_e( 'Assign listings to a user', 'business-directory-plugin' ); ?>
+			</label>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required">
-			<div class="wpbdp-setting-label">
-				<label> <?php esc_html_e( 'Assign listings to a user?', 'business-directory-plugin' ); ?>
-			</div>
-			<div class="wpbdp-setting-content">
-				<label><input name="settings[assign-listings-to-user]"
-						type="checkbox"
-						class="assign-listings-to-user"
-						value="1" <?php echo _defaults_or( $defaults, 'assign-listings-to-user', 1 ) ? 'checked="checked"' : ''; ?> />
-					<?php esc_html_e( 'Assign listings to a user?', 'business-directory-plugin' ); ?>
-				</label>
-			</div>
-		</div>
-		<div class="wpbdp-setting-row form-required default-user-selection">
-			<div class="wpbdp-setting-label">
-				<label> <?php _ex( 'Use a default user for listings?', 'admin csv-import', 'business-directory-plugin' ); ?></label>
-			</div>
-			<div class="wpbdp-setting-content">
-				<label><input
-						type="checkbox"
-						class="use-default-listing-user"
-						value="1" <?php echo _defaults_or( $defaults, 'default-user', '' ) ? 'checked="checked"' : ''; ?> /> <?php _ex( 'Select a default user to be used if the username column is not present in the CSV file.', 'admin csv-import', 'business-directory-plugin' ); ?></label>
-			</div>
+		<div class="wpbdp-setting-row default-user-selection wpdb-checkbox">
+			<label><input
+					type="checkbox"
+					class="use-default-listing-user"
+					value="1" <?php echo _defaults_or( $defaults, 'default-user', '' ) ? 'checked="checked"' : ''; ?> /> <?php _ex( 'Select a default user to be used if the username column is not present in the CSV file.', 'admin csv-import', 'business-directory-plugin' ); ?>
+			</label>
 		</div>
 		<div class="wpbdp-setting-row form-required default-user-selection">
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Default listing user', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content">
-				<label>
-					<?php echo wpbdp_render_user_field( array( 'class' => 'default-user', 'name' => 'settings[default-user]', 'value' => _defaults_or( $defaults, 'default-user', '' ) ) ); ?>
-				</label>
-				<span class="description"><?php esc_html_e( 'This user will be used if the username column is not present in the CSV file.', 'business-directory-plugin' ); ?></span>
-			</div>
+			<span class="wpbdp-setting-description"><?php esc_html_e( 'This user will be used if the username column is not present in the CSV file.', 'business-directory-plugin' ); ?></span>
+			<label>
+				<?php echo wpbdp_render_user_field( array( 'class' => 'default-user', 'name' => 'settings[default-user]', 'value' => _defaults_or( $defaults, 'default-user', '' ) ) ); ?>
+			</label>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required">
+		<div class="wpbdp-setting-row">
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Number of listings imported on every cycle', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-content">
-				<select name="settings[batch-size]">
-					<?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ) : ?>
-						<option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>
-					<?php endforeach; ?>
-				</select>
-				<span class="description"><?php esc_html_e( 'If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'business-directory-plugin' ); ?></span>
-			</div>
+			<div class="wpbdp-setting-description"><?php esc_html_e( 'If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'business-directory-plugin' ); ?></div>
+			<select name="settings[batch-size]">
+				<?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ) : ?>
+					<option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>
+				<?php endforeach; ?>
+			</select>
 		</div>
-		<div class="wpbdp-setting-row form-field form-required">
-			<div class="wpbdp-setting-label">
-				<?php esc_html_e( 'Disable email notifications during import?', 'business-directory-plugin' ); ?>
-			</div>
-			<div class="wpbdp-setting-content">
-				<label>
-					<input name="settings[disable-email-notifications]"
-						type="checkbox"
-						value="1" checked="checked" />
-					<?php esc_html_e( 'Disable email notifications.', 'business-directory-plugin' ); ?>
-				</label>
-			</div>
+		<div class="wpbdp-setting-row">
+			<label>
+				<input name="settings[disable-email-notifications]"
+					type="checkbox"
+					value="1" checked="checked" />
+				<?php esc_html_e( 'Disable email notifications during import', 'business-directory-plugin' ); ?>
+			</label>
 		</div>
     </div>
 
@@ -310,7 +286,10 @@ printf(
 </form>
 
 <hr />
-<h2 id="help"><?php esc_html_e( 'Help', 'business-directory-plugin' ); ?></h2>
+
+<div class="wpbdp-settings-form-title">
+	<h3 id="help"><?php esc_html_e( 'Help', 'business-directory-plugin' ); ?></h3>
+</div>
 <p>
 	<?php
 	printf(
