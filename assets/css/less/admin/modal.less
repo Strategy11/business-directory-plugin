@@ -1,44 +1,27 @@
 .wpbdp-admin-dialog {
-	--modal-left: 40px;
-	--modal-right: 40px;
-}
-
-.wpbdp-admin-dialog {
+	background-color: @white;
 	z-index: 100;
 	padding: 0 !important;
 	border-radius: 12px;
-	border: 1px solid @brand;
 	max-width: 100% !important;
-	.postbox {
-		background: transparent;
-		box-shadow: none;
-		border: none;
-		.inside {
-			padding: 0;
-			padding-bottom: 15px !important;
+
+	.inside:not(.empty) {
+		border-top: 1px solid @border-color;
+		border-bottom: 1px solid @border-color;
+
+		p {
+			padding: 25px;
 		}
 	}
 
-	.dismiss {
-		z-index: 9999;
-		padding-right: 20px;
-		padding-top: 10px;
-		position: relative;
-		&:focus {
-			outline: 0;
-			box-shadow: none;
-		}
+	.dismiss:focus {
+		outline: 0;
+		box-shadow: none;
 	}
+
 	.dismiss-button{
 		text-decoration: none;
 		font-weight: 600;
-	}
-	h2 {
-		border-bottom: 1px solid @border-color;
-		padding-bottom: 25px !important;
-		font-weight: 700 !important;
-		padding-left: var( --modal-left ) !important;
-		padding-right: var( --modal-right ) !important;
 	}
 
 	form {
@@ -79,19 +62,36 @@
 		}
 	}
 
-	.metabox-holder a {
+	h2 {
+		margin: 0;
+	}
+
+	a {
 		color: @link-active;
 	}
 }
-.wpbdp-modal-overlay {
-	background: @modal-background-color !important;
-	opacity: inherit !important;
+
+.wpbdp-modal-top,
+.wpbdp-modal-bottom {
+	padding: 25px;
 }
 
-.wpbdp-admin-page {
-	.wp-responsive-open #wpbody {
-		@media only screen and (max-width: 728px) {
-			right: -12em;
-		}
+.wpbdp-modal-bottom {
+	display: flex;
+	align-items: center;
+
+	.alignright {
+		margin-left: auto;
 	}
+}
+
+.wpbdp-modal-overlay {
+	background: @modal-background-color !important;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }

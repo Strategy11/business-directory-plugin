@@ -185,14 +185,17 @@ class WPBDP__Assets {
 	 * @since 5.9.2
 	 */
 	public function global_localize( $script = 'wpbdp-js' ) {
-		wp_localize_script(
-			$script,
-			'wpbdp_global',
-			array(
-				'ajaxurl' => wpbdp_ajaxurl(),
-				'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
-			)
+		$global = array(
+			'ajaxurl' => wpbdp_ajaxurl(),
+			'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
 		);
+		if ( $script === 'wpbdp-admin-js' ) {
+			$global['assets']   = WPBDP_ASSETS_URL;
+			$global['cancel']   = __( 'Cancel', 'business-directory-plugin' );
+			$global['continue'] = __( 'Continue', 'business-directory-plugin' );
+			$global['confirm']  = __( 'Are you sure?', 'business-directory-plugin' );
+		}
+		wp_localize_script( $script, 'wpbdp_global', $global );
 	}
 
     public function load_css() {

@@ -28,9 +28,6 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
             );
 
             break;
-		case 'index':
-			wpbdp_enqueue_jquery_ui_style();
-			break;
         default:
             break;
         }
@@ -41,8 +38,6 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
     function index() {
         require_once( WPBDP_INC . 'admin/helpers/tables/class-fees-table.php' );
-
-		$this->handle_fee_delete();
 
         $table = new WPBDP__Admin__Fees_Table();
         $table->prepare_items();
@@ -242,45 +237,17 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	}
 
     function delete_fee() {
+		$nonce = array( 'nonce' => 'delete-fee' );
+		WPBDP_App_Helper::permission_check( 'manage_categories', $nonce );
+
 		$fee = $this->get_or_die();
 
-        list( $do, $html ) = $this->_confirm_action( array(
-            'cancel_url' => remove_query_arg( array( 'wpbdp-view', 'id' ) ),
-        ) );
-
-        if ( $do && $fee->delete() ) {
-            wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ), 'wpbdp-snackbar-notice' );
-            return $this->_redirect( 'index' );
-        }
-
-        return $html;
-    }
-
-	/**
-	 * Handle fee delete from modal.
-	 *
-	 * @since x.x
-	 */
-	private function handle_fee_delete() {
-		if ( empty( $_POST ) ) {
-			return;
-		}
-
-		$nonce = wpbdp_get_var( array( 'param' => 'wpbdp_admin_delete_nonce' ), 'post' );
-		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wpbdp_admin_delete_nonce' ) ) {
-			return;
-		}
-
-		$id  = wpbdp_get_var( array( 'param' => 'id' ), 'post' );
-		$fee = wpbdp_get_fee_plan( $id );
-		if ( ! $fee ) {
-			return;
-		}
-
 		if ( $fee->delete() ) {
-			wpbdp_admin_message( sprintf( _x( 'Fee "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ), 'wpbdp-snackbar-notice' );
+			wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
 		}
-	}
+
+		return $this->_redirect( 'index' );
+    }
 
     function toggle_fee() {
 		$fee = $this->get_or_die();

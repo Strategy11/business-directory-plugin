@@ -278,17 +278,10 @@ class WPBDP_FormFieldsAdmin {
 			return;
 		}
 
-		if ( isset( $_POST['doit'] ) ) {
-			$this->check_permission( 'deletefield' );
-			$this->handle_field_delete( $field );
-			return;
-		}
+		$this->check_permission( 'deletefield' );
+		$this->handle_field_delete( $field );
 
-		wpbdp_render_page(
-			WPBDP_PATH . 'templates/admin/form-fields-confirm-delete.tpl.php',
-			array( 'field' => $field ),
-			true
-		);
+		$this->fields_table();
 	}
 
 	/**
@@ -314,8 +307,6 @@ class WPBDP_FormFieldsAdmin {
 
 			wpbdp_set_option( 'quick-search-fields', $quick_search_fields );
 		}
-
-		$this->fields_table();
 	}
 
 	/**
