@@ -16,7 +16,24 @@ var WPBDP_associations_fieldtypes = {};
 			if ( ! links.length ) {
 				return;
 			}
-			var html = '<div id="wpbdp-admin-modal" class="hidden settings-lite-cta">' +
+
+			$('.wpbdp-admin-page').append( WPBDPAdmin_Modal.getHtml() );
+
+			var modal = WPBDPAdmin_Modal.initModal( '#wpbdp-admin-modal' );
+
+			$( document ).on( 'click', 'a[data-bdconfirm]', function( e ) {
+				e.preventDefault();
+
+				modal.find( 'h2' ).text( this.getAttribute( 'data-bdconfirm' ) );
+				modal.find( '.inside' ).addClass( 'empty' );
+				modal.find( '.wpbdp-continue' ).attr( 'href', this.getAttribute( 'href' ) );
+
+				modal.dialog( 'open' );
+			});
+		},
+
+		getHtml : function() {
+			return '<div id="wpbdp-admin-modal" class="hidden settings-lite-cta">' +
 				'<div class="wpbdp-modal-top">' +
 					'<a href="#" class="dismiss alignright" title="Dismiss">' +
 						'<img src="' + wpbdp_global.assets + '/images/icons/close.svg" width="24" height="24"/>' +
@@ -29,22 +46,6 @@ var WPBDP_associations_fieldtypes = {};
 					'<a href="#" class="wpbdp-continue wpbdp-button-primary alignright">' + wpbdp_global.continue + '</a>' +
 				'</div>' +
 			'</div>';
-
-			$('.wpbdp-admin-page').append( html );
-
-			var modal = WPBDPAdmin_Modal.initModal( '#wpbdp-admin-modal' );
-			if ( modal === false ) {
-				return;
-			}
-			$( document ).on( 'click', 'a[data-bdconfirm]', function( e ) {
-				e.preventDefault();
-
-				modal.find( 'h2' ).text( this.getAttribute( 'data-bdconfirm' ) );
-				modal.find( '.inside' ).addClass( 'empty' );
-				modal.find( '.wpbdp-continue' ).attr( 'href', this.getAttribute( 'href' ) );
-
-				modal.dialog( 'open' );
-			});
 		},
 
 		initModal : function( id, width ) {
@@ -71,13 +72,6 @@ var WPBDP_associations_fieldtypes = {};
 				},
 				close: function() {
 					$( '.ui-widget-overlay' ).removeClass( 'wpbdp-modal-overlay' );
-					$( '.spinner' ).css( 'visibility', 'hidden' );
-
-					this.removeAttribute( 'data-option-type' );
-					var optionType = document.getElementById( 'bulk-option-type' );
-					if ( optionType ) {
-						optionType.value = '';
-					}
 				}
 			});
 
