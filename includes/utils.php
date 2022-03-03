@@ -304,7 +304,7 @@ class WPBDP__Utils {
 
 	/**
 	 * Attach an image to a media library after upload from `wp_handle_upload` or `wp_handle_sideload`.
-	 * This is used to include an image into the media library.
+	 * This is used to include an image into the media library and does not resize the image after import.
 	 *
 	 * @param array $file_data (
 	 *     @type string $file Filename of the newly-uploaded file.
@@ -320,8 +320,6 @@ class WPBDP__Utils {
 	public static function attach_image_to_media_library( $file_data, $post_id = 0 ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/image.php';
-		$url        = $file_data['url'];
-		$type       = $file_data['type'];
 		$file       = $file_data['file'];
 		$ext        = pathinfo( $file, PATHINFO_EXTENSION );
 		$name       = wp_basename( $file, ".$ext" );
@@ -339,11 +337,10 @@ class WPBDP__Utils {
 			}
 		}
 		$attachment = array(
-			'post_mime_type' => $type,
-			'guid'           => $url,
+			'post_mime_type' => $file_data['type'],
+			'guid'           => $file_data['url'],
 			'post_parent'    => $post_id,
 			'post_title'     => $title,
-			'post_content'   => '',
 			'post_excerpt'   => $excerpt,
 		);
 		$attachment_id = wp_insert_attachment( $attachment, $file, $post_id, true );
