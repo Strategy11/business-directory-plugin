@@ -761,9 +761,7 @@ foreach ( $value as $i => $notice ) {
 
 		$element = wpbdp_get_var( array( 'param' => 'element', 'default' => 'wpbdp_settings[' . $setting_id . ']' ), 'request' );
 
-        echo '<form action="" method="POST" enctype="multipart/form-data">';
-        echo '<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>';
-        echo '</form>';
+		$this->render_upload_form();
 
         if ( isset( $_FILES['file']['error'] ) && $_FILES['file']['error'] == 0 ) {
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -795,8 +793,34 @@ foreach ( $value as $i => $notice ) {
             }
         }
 
-        echo sprintf( '<script>window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', $setting_id, 30 );
+        echo sprintf( '<script>window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', $setting_id, 45 );
 
         exit;
     }
+
+	/**
+	 * Render the upload form.
+	 * Different forms are shown based if its in the frontend or admin.
+	 *
+	 * @since x.x
+	 */
+	private function render_upload_form() {
+		if ( is_admin() ) {
+			?>
+			<form action="" method="POST" enctype="multipart/form-data">
+				<label class="wpbdp-file-input">
+					<input type="file" name="file" class="file-upload wpbdp-inner-file" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>
+					<span class="wpbdp-inner-file-input"><?php esc_html_e( 'Choose File', 'business-directory-plugin' ); ?></span>
+					<span class="wpbdp-inner-file-name"></span>
+				</label>
+			</form>
+			<?php
+		} else {
+			?>
+			<form action="" method="POST" enctype="multipart/form-data">
+				<input type="file" name="file" class="file-upload" onchange="return window.parent.WPBDP.fileUpload.handleUpload(this);"/>
+			</form>
+			<?php
+		}
+	}
 }

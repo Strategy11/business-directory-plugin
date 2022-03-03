@@ -159,12 +159,67 @@ var WPBDP_associations_fieldtypes = {};
                 $('#wpbdp_word_count').hide();
                 $('select#field-validator option[value="word_number"]').prop( 'disabled', true ).prop( 'selected', false );
             }
-        }
+        },
+
+		/**
+		 * Add event helper for different browser types
+		 * @param {*} elem 
+		 * @param {*} eventType 
+		 * @param {*} handler 
+		 */
+		addEventHandler : function( elem, eventType, handler ) {
+			if ( elem.addEventListener ) {
+				elem.addEventListener ( eventType, handler, false );
+			} else if ( elem.attachEvent ) {
+				elem.attachEvent ( 'on' + eventType, handler ); 
+			}
+		},
+
+		fileUploadInput : {
+			addListeners : function( fileInputs ) {
+				for ( var i = 0; i < fileInputs.length; i++ ) {
+					var fileInput = fileInputs.item( i );
+					WPBDPAdmin_FormFields.addEventHandler( fileInput, 'change',function() {
+						var input = this,
+							files = input.files[0];
+						if ( files ) {
+							input.nextElementSibling.nextElementSibling.innerHTML = files.name;
+						}
+					} );
+				}
+			},
+
+			fileInputText : function( isIframe, iframe ) {
+				var fileInputs = [];
+				if ( isIframe ) {
+					fileInputs = iframe.contentWindow.document.getElementsByClassName( 'wpbdp-inner-file' );
+				} else {
+					fileInputs = document.getElementsByClassName( 'wpbdp-inner-file' );
+				}
+				if ( fileInputs.length <= 0 ) {
+					return;
+				}
+				WPBDPAdmin_FormFields.fileUploadInput.addListeners( fileInputs );
+			}
+		}
     };
 
 
     $(document).ready(function(){
         WPBDPAdmin_FormFields.init();
+
+		$( '.wpbdp-upload-iframe' ).on( 'load', function() {
+			var $iframe = $( this ),
+				$contents = $iframe.contents(),
+				$head = $contents.find( 'head' ),
+				$body = $contents.find( 'body' ),
+				url = wpbdp_global.asseturl + 'css/admin.min.css';
+				console.log(url);
+			$head.append( $( '<link/>', { rel: 'stylesheet', href: url, type: 'text/css' } ) );
+			$body.css( 'margin', 0 );
+			WPBDPAdmin_FormFields.fileUploadInput.fileInputText( true, this );
+		});
+		WPBDPAdmin_FormFields.fileUploadInput.fileInputText( false );
     });
 
 })(jQuery);

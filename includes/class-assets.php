@@ -191,6 +191,7 @@ class WPBDP__Assets {
 			array(
 				'ajaxurl' => wpbdp_ajaxurl(),
 				'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
+				'asseturl' => WPBDP_ASSETS_URL,
 			)
 		);
 	}

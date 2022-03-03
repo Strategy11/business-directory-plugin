@@ -52,9 +52,11 @@ printf(
 					</label>
                 </th>
                 <td>
-                    <input name="csv-file"
-                           type="file"
-                           aria-required="true" />
+					<label class="wpbdp-file-input">
+						<input name="csv-file" class="wpbdp-inner-file" type="file" aria-required="true" />
+						<span class="wpbdp-inner-file-input"><?php esc_html_e( 'Choose File', 'business-directory-plugin' ); ?></span>
+						<span class="wpbdp-inner-file-name"></span>
+					</label>
 
                     <?php if ( $files['csv'] ) : ?>
                     <div class="file-local-selection">
@@ -83,9 +85,11 @@ printf(
 					<label> <?php esc_html_e( 'ZIP file containing images', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
-                    <input name="images-file"
-                           type="file"
-                           aria-required="true" />
+					<label class="wpbdp-file-input">
+						<input name="images-file" class="wpbdp-inner-file" type="file" aria-required="true" />
+						<span class="wpbdp-inner-file-input"><?php esc_html_e( 'Choose File', 'business-directory-plugin' ); ?></span>
+						<span class="wpbdp-inner-file-name"></span>
+					</label>
 
                     <?php if ( $files['images'] ) : ?>
                     <div class="file-local-selection">
