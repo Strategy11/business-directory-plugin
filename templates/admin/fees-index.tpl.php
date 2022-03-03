@@ -47,7 +47,8 @@
         <?php $table->views(); ?>
         <?php $table->display(); ?>
 
-		<?php
+        <hr />
+        <?php
         $modules = array(
             array( 'stripe', 'stripe-payment-module', 'Stripe' ),
             array( 'paypal', 'paypal-gateway-module', 'PayPal' ),

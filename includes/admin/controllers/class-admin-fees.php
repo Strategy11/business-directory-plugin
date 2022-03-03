@@ -240,9 +240,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
 		$fee = $this->get_or_die();
 
-        if ( $fee->delete() ) {
-            wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
-        }
+		if ( $fee->delete() ) {
+			wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
+		}
 
 		return $this->_redirect( 'index' );
     }
