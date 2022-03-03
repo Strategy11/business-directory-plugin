@@ -1,5 +1,4 @@
 <?php
-    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     wpbdp_admin_header(
 		array(
             'id'      => 'admin-fees',
