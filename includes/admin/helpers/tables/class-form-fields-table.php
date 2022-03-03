@@ -90,7 +90,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
         if ( ! $field->has_behavior_flag( 'no-delete' ) ) {
             $actions['delete'] = sprintf(
-				'<a href="%1$s" data-id="%2$s" data-name="%3$s" data-action="ajaxDeletefield" class="wpbdp-admin-delete-modal wpbdp-delete-link">%4$s</a>',
+				'<a href="%1$s" data-bdconfirm="%2$s" class="wpbdp-delete-link">%3$s</a>',
 				wp_nonce_url(
                     add_query_arg(
                         array(
@@ -101,8 +101,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 					),
 					'deletefield'
                 ),
-				esc_attr( $field->get_id() ),
-				esc_attr( $field->get_label() ),
+				esc_attr__( 'Are you sure you want to delete that field?', 'business-directory-plugin' ),
                 esc_html__( 'Delete', 'business-directory-plugin' )
             );
         }

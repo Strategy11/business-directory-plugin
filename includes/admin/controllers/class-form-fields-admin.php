@@ -58,9 +58,6 @@ class WPBDP_FormFieldsAdmin {
 			case 'deletefield':
 				$this->delete_field();
 				break;
-			case 'ajaxDeletefield':
-				$this->modal_delete_field();
-				break;
 			case 'fieldup':
 			case 'fielddown':
 				$this->move_field();
@@ -152,9 +149,6 @@ class WPBDP_FormFieldsAdmin {
 
 	/* field list */
 	private function fields_table() {
-		// Load required styling for modal.
-		wpbdp_enqueue_jquery_ui_style();
-
 		$table = new WPBDP_FormFieldsTable();
 		$table->prepare_items();
 
@@ -281,40 +275,10 @@ class WPBDP_FormFieldsAdmin {
 			return;
 		}
 
-		if ( isset( $_POST['doit'] ) ) {
-			$this->check_permission( 'deletefield' );
-			$this->handle_field_delete( $field );
-			return;
-		}
+		$this->check_permission( 'deletefield' );
+		$this->handle_field_delete( $field );
 
-		wpbdp_render_page(
-			WPBDP_PATH . 'templates/admin/form-fields-confirm-delete.tpl.php',
-			array( 'field' => $field ),
-			true
-		);
-	}
-
-	/**
-	 * Delete field action from modal.
-	 *
-	 * @since x.x
-	 */
-	private function modal_delete_field() {
-		$nonce = wpbdp_get_var( array( 'param' => 'wpbdp_admin_delete_nonce' ), 'post' );
-		if ( ! $nonce ) {
-			return;
-		}
-
-		$field = WPBDP_Form_Field::get( wpbdp_get_var( array( 'param' => 'id' ), 'request' ) );
-
-		if ( ! $field || $field->has_behavior_flag( 'no-delete' ) ) {
-			return;
-		}
-
-		if ( wp_verify_nonce( $nonce, 'wpbdp_admin_delete_nonce' ) ) {
-			$this->handle_field_delete( $field );
-			return;
-		}
+		$this->fields_table();
 	}
 
 	/**
@@ -340,8 +304,6 @@ class WPBDP_FormFieldsAdmin {
 
 			wpbdp_set_option( 'quick-search-fields', $quick_search_fields );
 		}
-
-		$this->fields_table();
 	}
 
 	/**

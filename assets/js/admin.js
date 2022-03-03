@@ -5,36 +5,50 @@ var WPBDP_associations_fieldtypes = {};
 	/* Modals */
 	var WPBDPAdmin_Modal = {
 		init: function() {
-			WPBDPAdmin_Modal.initDeleteModal();
+			WPBDPAdmin_Modal.initConfirmModal();
 		},
 
 		/**
 		 * Initialize the modal delete on click action
 		 */
-		initDeleteModal : function() {
-			var modal = WPBDPAdmin_Modal.initModal( '#wpbdp-admin-delete-modal' );
+		initConfirmModal : function() {
+			var links = $( 'a[data-bdconfirm]' );
+			if ( ! links.length ) {
+				return;
+			}
+			var html = '<div id="wpbdp-admin-modal" class="hidden settings-lite-cta">' +
+				'<div class="wpbdp-modal-top">' +
+					'<a href="#" class="dismiss alignright" title="Dismiss">' +
+						'<img src="' + wpbdp_global.assets + '/images/icons/close.svg" width="24" height="24"/>' +
+					'</a>' +
+					'<h2>' + wpbdp_global.confirm + '</h2>' +
+				'</div>' +
+				'<div class="inside"></div>' +
+				'<div class="wpbdp-modal-bottom">' +
+					'<a href="#" class="dismiss-button" title="Dismiss">' + wpbdp_global.cancel + '</a>' +
+					'<a href="#" class="wpbdp-continue wpbdp-button-primary alignright">' + wpbdp_global.continue + '</a>' +
+				'</div>' +
+			'</div>';
+
+			$('.wpbdp-admin-page').append( html );
+
+			var modal = WPBDPAdmin_Modal.initModal( '#wpbdp-admin-modal' );
 			if ( modal === false ) {
 				return;
 			}
-			$( document ).on( 'click', '.wpbdp-admin-delete-modal', function( e ) {
+			$( document ).on( 'click', 'a[data-bdconfirm]', function( e ) {
 				e.preventDefault();
-				var $elem = $( this ),
-					$id = $elem.attr( 'data-id' ),
-					$name = $elem.attr( 'data-name' ),
-					$action = $elem.attr( 'data-action' ),
-					$form = $( '#wpbdp-admin-delete-modal form' );
-				$form.find( 'input[name="id"]' ).val( $id );
-				$form.find( 'input[name="action"]' ).val( $action );
-				$form.find( '.wpbdp-item-name' ).html( $name );
+
+				modal.find( 'h2' ).text( this.getAttribute( 'data-bdconfirm' ) );
+				modal.find( '.inside' ).addClass( 'empty' );
+				modal.find( '.wpbdp-continue' ).attr( 'href', this.getAttribute( 'href' ) );
+
 				modal.dialog( 'open' );
 			});
 		},
 
 		initModal : function( id, width ) {
 			var $info = $( id );
-			if ( $info.length < 1 ) {
-				return false;
-			}
 
 			if ( typeof width === 'undefined' ) {
 				width = '550px';
@@ -50,14 +64,12 @@ var WPBDP_associations_fieldtypes = {};
 				draggable: false,
 				open: function() {
 					$( '.ui-dialog-titlebar' ).addClass( 'hidden' ).removeClass( 'ui-helper-clearfix' );
-					$( '#wpwrap' ).addClass( 'wpbdp-overlay' );
 					$( '.ui-widget-overlay' ).addClass( 'wpbdp-modal-overlay' );
 					$( '.wpbdp-admin-dialog' ).removeClass( 'ui-widget ui-widget-content ui-corner-all' );
 					$info.removeClass( 'ui-dialog-content ui-widget-content' );
 					WPBDPAdmin_Modal.onCloseModal( $info );
 				},
 				close: function() {
-					$( '#wpwrap' ).removeClass( 'wpbdp-overlay' );
 					$( '.ui-widget-overlay' ).removeClass( 'wpbdp-modal-overlay' );
 					$( '.spinner' ).css( 'visibility', 'hidden' );
 
@@ -397,57 +409,6 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
         this.$bar.find('.progress-bar-inner').attr('style', 'width: ' + pcg + '%;');
     };
 };
-
-(function($) {
-    WPBDP_Admin.dialog = {};
-    var dialog = WPBDP_Admin.dialog;
-
-        // if ($('#wpbdp-modal-dialog').length == 0) {
-        //     $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
-        // }
-})(jQuery);
-
-
-
-(function($) {
-    var payments = WPBDP_Admin.payments;
-
-    payments._initialize = function() {
-        $('#BusinessDirectory_listinginfo a.payment-details-link').click(function(e) {
-            e.preventDefault();
-            payments.viewPaymentDetails( $(this).attr('data-id') );
-        });
-
-        if ($('#wpbdp-modal-dialog').length === 0) {
-            $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
-        }
-    };
-
-    payments.viewPaymentDetails = function(id) {
-        $.get( ajaxurl, { 'action': 'wpbdp-payment-details', 'id': id }, function(res) {
-            if (res && res.success) {
-                if ($('#wpbdp-modal-dialog').length === 0) {
-                    $('body').append($('<div id="wpbdp-modal-dialog"></div>'));
-                }
-
-                $('#wpbdp-modal-dialog').html(res.data.html);
-                tb_show('', '#TB_inline?inlineId=wpbdp-modal-dialog');
-
-                // Workaround WP bug https://core.trac.wordpress.org/ticket/27473.
-                $( '#TB_window' ).width( $( '#TB_ajaxContent' ).outerWidth() );
-
-                if ( $( '#TB_window' ).height() > $( '#TB_ajaxContent' ).outerHeight() )
-                    $( '#TB_ajaxContent' ).height( $( '#TB_window' ).height() );
-
-                $('#wpbdp-modal-dialog').remove();
-            }
-        }, 'json' );
-    };
-
-    // Initialize payments.
-    $(document).ready(function(){ payments._initialize(); });
-
-})(jQuery);
 
 /* {{ Settings. */
 (function($) {
