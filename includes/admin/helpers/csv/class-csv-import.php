@@ -754,7 +754,7 @@ class WPBDP_CSV_Import {
                     $plan = wpbdp_get_fee_plan( $submitted_fee_id );
 
                     if ( ! $plan ) {
-                        $message = _x( 'There is no Fee Plan with ID = <fee-id>', 'admin csv-import', 'business-directory-plugin' );
+                        $message = _x( 'There is no Plan with ID = <fee-id>', 'admin csv-import', 'business-directory-plugin' );
                         $message = str_replace( '<fee-id>', $submitted_fee_id, $message );
 
                         $errors[] = $message;
