@@ -166,13 +166,16 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             $actions['delete'] = sprintf(
 				'<a href="%1$s" data-bdconfirm="%2$s">%3$s</a>',
                 esc_url(
-                    add_query_arg(
-                        array(
-							'wpbdp-view' => 'delete-fee',
-							'id'         => $fee->id,
-                        ),
-                        $admin_fees_url
-                    )
+					wp_nonce_url(
+						add_query_arg(
+							array(
+								'wpbdp-view' => 'delete-fee',
+								'id'         => $fee->id,
+							),
+							$admin_fees_url
+						),
+						'delete-fee'
+					)
                 ),
 				esc_attr__( 'Are you sure you want to do this?', 'business-directory-plugin' ),
                 esc_html__( 'Delete', 'business-directory-plugin' )

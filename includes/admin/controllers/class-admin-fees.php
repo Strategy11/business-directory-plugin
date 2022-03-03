@@ -28,9 +28,6 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
             );
 
             break;
-		case 'index':
-			wpbdp_enqueue_jquery_ui_style();
-			break;
         default:
             break;
         }
@@ -238,6 +235,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	}
 
     function delete_fee() {
+		$nonce = array( 'nonce' => 'delete-fee' );
+		WPBDP_App_Helper::permission_check( 'manage_categories', $nonce );
+
 		$fee = $this->get_or_die();
 
         if ( $fee->delete() ) {
