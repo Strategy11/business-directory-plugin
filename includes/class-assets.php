@@ -191,7 +191,6 @@ class WPBDP__Assets {
 			array(
 				'ajaxurl' => wpbdp_ajaxurl(),
 				'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
-				'asseturl' => WPBDP_ASSETS_URL,
 			)
 		);
 	}
@@ -388,6 +387,7 @@ class WPBDP__Assets {
 		if ( WPBDP_App_Helper::is_bd_page() ) {
 			$admin_body_classes = ' wpbdp-admin-page';
 		}
+
 		return $admin_body_classes;
 	}
 }
