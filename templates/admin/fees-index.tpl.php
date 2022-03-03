@@ -48,8 +48,10 @@
         <?php $table->views(); ?>
         <?php $table->display(); ?>
 
-        <hr />
-        <?php
+		<?php
+		$modal_action_url = admin_url( 'admin.php?page=wpbdp-admin-fees' );
+		require_once WPBDP_PATH . 'includes/admin/views/delete-modal.php';
+
         $modules = array(
             array( 'stripe', 'stripe-payment-module', 'Stripe' ),
             array( 'paypal', 'paypal-gateway-module', 'PayPal' ),

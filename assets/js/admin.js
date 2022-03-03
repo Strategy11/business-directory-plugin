@@ -2,6 +2,86 @@ var WPBDP_associations_fieldtypes = {};
 
 (function($) {
 
+	/* Modals */
+	var WPBDPAdmin_Modal = {
+		init: function() {
+			WPBDPAdmin_Modal.initDeleteModal();
+		},
+
+		/**
+		 * Initialize the modal delete on click action
+		 */
+		initDeleteModal : function() {
+			var modal = WPBDPAdmin_Modal.initModal( '#wpbdp-admin-delete-modal' );
+			if ( modal === false ) {
+				return;
+			}
+			$( document ).on( 'click', '.wpbdp-admin-delete-modal', function( e ) {
+				e.preventDefault();
+				var $elem = $( this ),
+					$id = $elem.attr( 'data-id' ),
+					$name = $elem.attr( 'data-name' ),
+					$action = $elem.attr( 'data-action' ),
+					$form = $( '#wpbdp-admin-delete-modal form' );
+				$form.find( 'input[name="id"]' ).val( $id );
+				$form.find( 'input[name="action"]' ).val( $action );
+				$form.find( '.wpbdp-item-name' ).html( $name );
+				modal.dialog( 'open' );
+			});
+		},
+
+		initModal : function( id, width ) {
+			var $info = $( id );
+			if ( $info.length < 1 ) {
+				return false;
+			}
+
+			if ( typeof width === 'undefined' ) {
+				width = '550px';
+			}
+
+			$info.dialog({
+				dialogClass: 'wpbdp-admin-dialog',
+				modal: true,
+				autoOpen: false,
+				closeOnEscape: true,
+				width: width,
+				resizable: false,
+				draggable: false,
+				open: function() {
+					$( '.ui-dialog-titlebar' ).addClass( 'hidden' ).removeClass( 'ui-helper-clearfix' );
+					$( '#wpwrap' ).addClass( 'wpbdp-overlay' );
+					$( '.ui-widget-overlay' ).addClass( 'wpbdp-modal-overlay' );
+					$( '.wpbdp-admin-dialog' ).removeClass( 'ui-widget ui-widget-content ui-corner-all' );
+					$info.removeClass( 'ui-dialog-content ui-widget-content' );
+					WPBDPAdmin_Modal.onCloseModal( $info );
+				},
+				close: function() {
+					$( '#wpwrap' ).removeClass( 'wpbdp-overlay' );
+					$( '.ui-widget-overlay' ).removeClass( 'wpbdp-modal-overlay' );
+					$( '.spinner' ).css( 'visibility', 'hidden' );
+
+					this.removeAttribute( 'data-option-type' );
+					var optionType = document.getElementById( 'bulk-option-type' );
+					if ( optionType ) {
+						optionType.value = '';
+					}
+				}
+			});
+
+			return $info;
+		},
+
+		onCloseModal : function ( $modal ) {
+			var closeModal = function( e ) {
+				e.preventDefault();
+				$modal.dialog( 'close' );
+			};
+			$( '.ui-widget-overlay' ).on( 'click', closeModal );
+			$modal.on( 'click', 'a.dismiss, .dismiss-button', closeModal );
+		}
+	};
+
     /* Form Fields */
     var WPBDPAdmin_FormFields = {
         $f_association: null,
@@ -165,6 +245,7 @@ var WPBDP_associations_fieldtypes = {};
 
     $(document).ready(function(){
         WPBDPAdmin_FormFields.init();
+		WPBDPAdmin_Modal.init();
     });
 
 })(jQuery);
