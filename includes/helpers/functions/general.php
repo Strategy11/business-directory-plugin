@@ -945,6 +945,10 @@ function wpbdp_get_fee_plans( $args = array() ) {
         $where .= $wpdb->prepare( ' AND p.enabled = %d ', (bool) $args['enabled'] );
     }
 
+	if ( ! $payments_on ) {
+		$where .= $wpdb->prepare( ' AND p.amount = %d ', 0 );
+	}
+
     if ( $args['tag'] ) {
         $where .= $wpdb->prepare( ' AND p.tag = %s', $args['tag'] );
     }
