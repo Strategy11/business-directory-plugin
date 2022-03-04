@@ -16,7 +16,6 @@
             <form>
             <input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
             <?php wp_nonce_field( 'change fees order' ); ?>
-            <b><?php esc_html_e( 'Order plans on the frontend by:', 'business-directory-plugin' ); ?></b><br />
             <select name="fee_order[method]">
             <?php foreach ( $order_options as $k => $l ) : ?>
             <option value="<?php echo esc_attr( $k ); ?>" <?php echo $k == $current_order['method'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
@@ -33,6 +32,10 @@
                 <option value="<?php echo esc_attr( $o ); ?>" <?php echo $o == $current_order['order'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
             <?php endforeach; ?>
             </select>
+
+			<a class="button-secondary fee-order-submit">
+				<?php esc_html_e( 'Save front-end order', 'business-directory-plugin' ); ?>
+			</a>
 
             <?php if ( 'custom' == $current_order['method'] ) : ?>
             <span><?php esc_html_e( 'Drag and drop to re-order plans.', 'business-directory-plugin' ); ?></span>
