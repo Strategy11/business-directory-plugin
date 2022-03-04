@@ -21,25 +21,25 @@
 			'buttons' => $buttons,
 		)
 	);
-
-	echo '<span class="howto">';
+?>
+<span class="howto wpbdp-settings-subtab-description wpbdp-setting-description">
+	<?php
 	esc_html_e(
-        'Create new fields, edit existing fields, change the field order and visibility.',
-        'business-directory-plugin'
+		'Create new fields, edit existing fields, change the field order and visibility.',
+		'business-directory-plugin'
 	);
 
-    echo ' ' . str_replace(
-        '<a>',
-        '<a href="https://businessdirectoryplugin.com/knowledge-base/manage-form-fields/" target="_blank" rel="noopener">',
-        _x(
-            'Please see the <a>Form Fields documentation</a> for more details.',
-            'form-fields admin',
-            'business-directory-plugin'
-        )
-    );
-	echo '</span>';
+	echo ' ';
+	printf(
+		/* translators: %1$s open link, %2$s close link */
+		esc_html__( 'Please see the %1$sForm Fields documentation%2$s for more details.', 'business-directory-plugin' ),
+		'<a href="https://businessdirectoryplugin.com/knowledge-base/manage-form-fields/" target="_blank" rel="noopener">',
+		'</a>'
+	);
     ?>
+</span>
 
-    <?php $table->views(); ?>
-    <?php $table->display(); ?>
+<?php $table->views(); ?>
+<?php $table->display(); ?>
+
 <?php echo wpbdp_admin_footer(); ?>
