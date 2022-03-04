@@ -180,9 +180,7 @@ class WPBDP__Settings_Admin {
 
 		if ( $setting['type'] !== 'checkbox' ) {
 			echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
-			if ( ! empty( $setting['tooltip'] ) ) {
-				echo $this->setting_tooltip( $setting['tooltip'] );
-			}
+			echo $this->setting_tooltip( $setting['tooltip'] );
 			echo $this->setting_input_desc( $setting );
 		}
 
@@ -204,7 +202,7 @@ class WPBDP__Settings_Admin {
             return;
         }
 
-        return '<span class="wpbdp-setting-tooltip wpbdp-tooltip dashicons dashicons-editor-help" title="' . esc_attr( $tooltip ) . '"></span>';
+		return '<span class="wpbdp-setting-tooltip wpbdp-tooltip dashicons dashicons-editor-help" title="' . esc_attr( wp_strip_all_tags( $tooltip ) ) . '"></span>';
     }
 
     public function setting_missing_callback( $setting, $value ) {
@@ -238,9 +236,7 @@ class WPBDP__Settings_Admin {
 		echo $this->setting_input_label( $setting, 'span' );
 		echo '</label>';
 
-		if ( ! empty( $setting['tooltip'] ) ) {
-			echo $this->setting_tooltip( $setting['tooltip'] );
-		}
+		echo $this->setting_tooltip( $setting['tooltip'] );
 
 		echo $this->setting_input_desc( $setting );
 	}

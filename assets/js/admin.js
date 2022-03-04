@@ -392,9 +392,9 @@ WPBDPAdmin_Layout = {};
         WPBDPAdmin_FormFields.init();
 		WPBDPAdmin_Modal.init();
 
-        $( '.wpbdp-tooltip' ).tooltip({
-            tooltipClass: 'wpbdp-admin-tooltip-content'
-        });
+		$( '.wpbdp-tooltip' ).tooltip({
+			tooltipClass: 'wpbdp-admin-tooltip-content'
+		});
     });
 
 })(jQuery);
