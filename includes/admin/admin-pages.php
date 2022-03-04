@@ -34,6 +34,8 @@ class WPBDP_Admin_Pages {
 
 		// Add search form.
 		add_action( 'wpbdp_admin_pages_show_tabs', 'WPBDP_Admin_Pages::taxonomy_search_form', 10, 2 );
+
+		add_action( 'wpbdp_category_add_form_fields', 'WPBDP_Admin_Pages::add_category_info', 9999 );
 	}
 
 	/**
@@ -201,14 +203,14 @@ class WPBDP_Admin_Pages {
 	}
 
 	/**
-	 * Inner create form container.
+	 * Add info about category images.
 	 *
 	 * @since x.x
 	 */
-	public static function taxonomy_opening_tag_wrapper() {
-		?>
-		<div class="wpbdp-add-taxonomy-form-wrapper">
-		<?php
+	public static function add_category_info() {
+		echo '<div class="form-field">';
+		WPBDP_Admin_Education::show_tip( 'categories' );
+		echo '</div>';
 	}
 
 	/**

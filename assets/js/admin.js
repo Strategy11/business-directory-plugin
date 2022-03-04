@@ -58,8 +58,6 @@ WPBDPAdmin_Layout = {};
 
 			$( document ).on( 'click', '.wpbdp-add-taxonomy-form', function( e ) {
 				e.preventDefault();
-				$( '#wpbdp-add-taxonomy-form .term-slug-wrap' ).addClass( 'hidden' );
-				$( '#wpbdp-add-taxonomy-form .term-description-wrap' ).addClass( 'hidden' );
 
 				// Get the heading from the content and move it.
 				var heading = form.find( 'h2' );
