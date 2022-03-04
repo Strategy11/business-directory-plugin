@@ -183,7 +183,7 @@ class WPBDP__Settings_Admin {
             return;
         }
 
-        return '<span class="wpbdp-setting-tooltip wpbdp-tooltip dashicons dashicons-editor-help" title="' . esc_attr( $tooltip ) . '"></span>';
+		return '<span class="wpbdp-setting-tooltip wpbdp-tooltip dashicons dashicons-editor-help" title="' . esc_attr( wp_strip_all_tags( $tooltip ) ) . '"></span>';
     }
 
     public function setting_missing_callback( $setting, $value ) {
@@ -248,9 +248,7 @@ class WPBDP__Settings_Admin {
         }
 		echo '</label>';
 
-        if ( ! empty( $setting['tooltip'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['tooltip'] ) . '</span>';
-        }
+		echo $this->setting_tooltip( $setting['tooltip'] );
     }
 
 	/**
