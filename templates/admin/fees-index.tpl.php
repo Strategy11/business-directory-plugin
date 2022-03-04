@@ -1,10 +1,9 @@
 <?php
-    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     wpbdp_admin_header(
 		array(
             'id'      => 'admin-fees',
             'buttons' => array(
-                __( 'Add New Listing Fee', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
+                __( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
             ),
             'echo' => true,
         )
@@ -17,7 +16,6 @@
             <form>
             <input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
             <?php wp_nonce_field( 'change fees order' ); ?>
-            <b><?php esc_html_e( 'Order fees on the frontend by:', 'business-directory-plugin' ); ?></b><br />
             <select name="fee_order[method]">
             <?php foreach ( $order_options as $k => $l ) : ?>
             <option value="<?php echo esc_attr( $k ); ?>" <?php echo $k == $current_order['method'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
@@ -35,8 +33,12 @@
             <?php endforeach; ?>
             </select>
 
+			<a class="button-secondary fee-order-submit">
+				<?php esc_html_e( 'Save front-end order', 'business-directory-plugin' ); ?>
+			</a>
+
             <?php if ( 'custom' == $current_order['method'] ) : ?>
-            <span><?php esc_html_e( 'Drag and drop to re-order fees.', 'business-directory-plugin' ); ?></span>
+            <span><?php esc_html_e( 'Drag and drop to re-order plans.', 'business-directory-plugin' ); ?></span>
             <?php endif; ?>
 
             </form>

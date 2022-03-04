@@ -28,7 +28,7 @@
         <?php endif; ?>
         
         <?php if ( $payment->has_item_type( 'discount_code' ) && $payment->has_item_type( 'recurring_plan' ) && 0.0 == $payment->amount ) : ?>
-            <div class="wpbdp-msg notice"><?php esc_html_e( 'Recurring fee plans require a payment method to renew your listing at the end of the term.', 'business-directory-plugin' ); ?></div>
+            <div class="wpbdp-msg notice"><?php esc_html_e( 'Recurring plans require a payment method to renew your listing at the end of the term.', 'business-directory-plugin' ); ?></div>
         <?php endif; ?>
     </div>
 

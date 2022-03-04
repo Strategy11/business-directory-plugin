@@ -165,7 +165,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     str_replace(
                         '<a>',
                         '<a href="' . esc_url( $this->listing->get_admin_edit_link() ) . '">',
-                        _x( 'This listing can\'t be edited at this time because it has no fee plan associated. Please <a>edit the listing</a> on the backend and associate it to a fee plan.', 'submit listing', 'business-directory-plugin' )
+                        _x( 'This listing can\'t be edited at this time because it has no plan associated. Please <a>edit the listing</a> on the backend and associate it to a plan.', 'submit listing', 'business-directory-plugin' )
                     ),
                     'error'
                 );
@@ -821,14 +821,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
             if ( current_user_can( 'administrator' ) ) {
                 $msg .= '<br><br>';
-                $msg .= _x( '<b>There are no Fee Plans available</b>, without a fee plan site users can\'t submit a listing. %s to create a fee plan', 'templates', 'business-directory-plugin' );
+                $msg .= _x( '<b>There are no Plans available</b>, without a plan site users can\'t submit a listing. %s to create a plan', 'templates', 'business-directory-plugin' );
 
                 $msg = sprintf(
                     $msg,
                     sprintf(
                         '<a href="%s">%s</a>',
                         esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ),
-                        esc_html__( 'Go to "Fee Plans"', 'business-directory-plugin' )
+                        esc_html__( 'Go to "Plans"', 'business-directory-plugin' )
                     )
                 );
             }
@@ -905,7 +905,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                 wp_set_post_terms( $this->listing->get_id(), $categories, WPBDP_CATEGORY_TAX, false );
 
                 if ( ! $this->editing ) {
-                    // Set fee plan.
+                    // Set plan.
                     $this->listing->set_fee_plan( $plan );
                 }
             }
@@ -1134,8 +1134,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		if ( $thumbnail_id ) {
 			$listing->set_thumbnail_id( $thumbnail_id );
-		} else {
-			$thumbnail_id = $this->listing->get_thumbnail_id();
 		}
 
 		$images = $this->listing->get_images( 'ids', true );
@@ -1151,8 +1149,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				$updated_meta = wpbdp_get_var( array( 'param' => 'images_meta' ), 'post' );
 				$updated_meta = ! empty( $updated_meta[ $img_id ] ) ? (array) $updated_meta[ $img_id ] : array();
 
-				$new_order = ! empty( $updated_meta['order'] ) ? intval( $updated_meta['order'] ) : $order;
-				update_post_meta( $img_id, '_wpbdp_image_weight', $thumbnail_id ? 0 : $new_order );
+				$new_order = ! empty( $updated_meta['order'] ) ? absint( $updated_meta['order'] ) : $order;
+				update_post_meta( $img_id, '_wpbdp_image_weight', $new_order );
 				update_post_meta( $img_id, '_wpbdp_image_caption', ! empty( $updated_meta['caption'] ) ? trim( $updated_meta['caption'] ) : '' );
 				$order = $new_order + 1;
 

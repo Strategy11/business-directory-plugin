@@ -3,7 +3,7 @@
 <table id="wpbdp-manage-recurring">
     <thead>
         <th class="listing-title"><?php _ex( 'Listing', 'manage recurring', 'business-directory-plugin' ); ?></th>
-        <th class="subscription-details"><?php _ex( 'Subscription / Fee Plan', 'manage subscriptions', 'business-directory-plugin' ); ?></th>
+        <th class="subscription-details"><?php _ex( 'Subscription / Plan', 'manage subscriptions', 'business-directory-plugin' ); ?></th>
     </thead>
     <tbody>
     <?php foreach ( $listings as $listing ) : ?>

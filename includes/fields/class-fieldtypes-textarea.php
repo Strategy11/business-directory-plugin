@@ -211,7 +211,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             $settings['wysiwyg_editor'][] = _x( 'Display a WYSIWYG editor on the frontend?', 'form-fields admin', 'business-directory-plugin' );
             $settings['wysiwyg_editor'][] = '<input type="checkbox" value="1" name="field[wysiwyg_editor]" ' . ( $field && $field->data( 'wysiwyg_editor' ) ? ' checked="checked"' : '' ) . ' />';
 
-            $desc                         = __( 'Warning: Users can use this feature to get around your image limits in fee plans.', 'business-directory-plugin' );
+            $desc                         = __( 'Warning: Users can use this feature to get around your image limits in plans.', 'business-directory-plugin' );
             $settings['wysiwyg_images'][] = esc_html__( 'Allow images in HTML?', 'business-directory-plugin' );
             $settings['wysiwyg_images'][] = '<input type="checkbox" value="1" name="field[wysiwyg_images]" ' . ( $field && $field->data( 'wysiwyg_images' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . esc_html( $desc ) . '</span>';
 
