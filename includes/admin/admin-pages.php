@@ -34,17 +34,6 @@ class WPBDP_Admin_Pages {
 
 		// Add search form.
 		add_action( 'wpbdp_admin_pages_show_tabs', 'WPBDP_Admin_Pages::taxonomy_search_form', 10, 2 );
-
-		// Add wrapper before form.
-		add_action( 'wpbdp_tag_pre_add_form', 'WPBDP_Admin_Pages::taxonomy_before_form_wrapper' );
-		add_action( 'wpbdp_category_pre_add_form', 'WPBDP_Admin_Pages::taxonomy_before_form_wrapper' );
-
-		// Close button.
-		add_action( 'wpbdp_tag_add_form_fields', 'WPBDP_Admin_Pages::taxonomy_close_button', 9999 );
-		add_action( 'wpbdp_category_add_form_fields', 'WPBDP_Admin_Pages::taxonomy_close_button', 9999 );
-
-		add_action( 'wpbdp_tag_add_form', 'WPBDP_Admin_Pages::taxonomy_after_form_wrapper' );
-		add_action( 'wpbdp_category_add_form', 'WPBDP_Admin_Pages::taxonomy_after_form_wrapper' );
 	}
 
 	/**
@@ -212,23 +201,6 @@ class WPBDP_Admin_Pages {
 	}
 
 	/**
-	 * Wrapper before the taxonomy form.
-	 *
-	 * @since x.x
-	 */
-	public static function taxonomy_before_form_wrapper() {
-		?>
-		<div id="wpbdp-add-taxonomy-form" class="hidden settings-lite-cta">
-			<div class="metabox-holder">
-				<div class="postbox">
-					<a href="#" class="dismiss alignright" title="<?php esc_attr_e( 'Dismiss', 'business-directory-plugin' ); ?>">
-						<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/close.svg' ); ?>" width="24" height="24"/>
-					</a>
-					<div class="inside">
-		<?php
-	}
-
-	/**
 	 * Inner create form container.
 	 *
 	 * @since x.x
@@ -236,37 +208,6 @@ class WPBDP_Admin_Pages {
 	public static function taxonomy_opening_tag_wrapper() {
 		?>
 		<div class="wpbdp-add-taxonomy-form-wrapper">
-		<?php
-	}
-
-	/**
-	 * Footer close button
-	 *
-	 * @since x.x
-	 */
-	public static function taxonomy_close_button() {
-		global $taxonomy;
-		if ( 'wpbdp_category' === $taxonomy ) {
-			?><div class="form-field"><?php
-			WPBDP_Admin_Education::show_tip( 'categories' );
-			?></div><?php
-		}
-		?>
-		<div class="clear"></div>
-		<p class="close">
-			<a class="dismiss-button" href="#"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a>
-		</p>
-		<?php
-	}
-
-	/**
-	 * Wrapper after the taxonomy form.
-	 *
-	 * @since x.x
-	 */
-	public static function taxonomy_after_form_wrapper() {
-		?>
-		</form></div></div></div></div>
 		<?php
 	}
 

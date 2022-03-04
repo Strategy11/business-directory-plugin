@@ -24,41 +24,37 @@
 		font-weight: 600;
 	}
 
-	form {
-		padding: 0px 0px 15px 0px !important;
+	.form-wrap {
+		padding: 10px 25px 25px;
+
+		p {
+			padding: 0 !important;
+		}
+
 		.inner-message {
-			margin-left: var( --modal-left ) !important;
-			margin-right: var( --modal-right ) !important;
 			margin-top: 2em;
 			margin-bottom: 2em;
 		}
-		.form-field {
-			margin-left: var( --modal-left ) !important;
-			margin-right: var( --modal-right ) !important;
+
+		input[type="submit"] {
+			float: right;
 		}
-		p.submit {
-			position: absolute;
-			right: 0;
-			margin: 0;
-			padding: 0 12px 0 0;
-			input[type="submit"] {
-				float: right;
-				margin-right: 25px;
-			}
+
+		select + p,
+		input + p {
+			/* Hide the field descriptions */
+			display: none;
 		}
-		p.close {
-			position: absolute;
-			padding-left: var( --modal-left ) !important;
+
+		#tag-description {
+			min-height: 50px;
+			height: 66px;
 		}
+
 		.wpbdp-pro-tip {
 			.wpbdp-button-secondary {
 				line-height: 2;
 			}
-		}
-		.clear {
-			margin-top: 25px;
-			margin-bottom: 25px;
-			border-top: 1px solid @border-color;
 		}
 	}
 

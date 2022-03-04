@@ -51,16 +51,42 @@ WPBDPAdmin_Layout = {};
 		},
 
 		initTaxonomyModal : function() {
-			var modal = WPBDPAdmin_Modal.initModal( '#wpbdp-add-taxonomy-form' );
-			if ( modal === false ) {
+			var modal,
+				form = $( '#addtag' ).closest( '.form-wrap' );
+
+			if ( ! form.length ) {
 				return;
 			}
+
+			$('.wpbdp-admin-page').append( WPBDPAdmin_Modal.getFormHtml() );
+
+			modal = WPBDPAdmin_Modal.initModal( '#wpbdp-add-taxonomy-form' );
+
 			$( document ).on( 'click', '.wpbdp-add-taxonomy-form', function( e ) {
 				e.preventDefault();
 				$( '#wpbdp-add-taxonomy-form .term-slug-wrap' ).addClass( 'hidden' );
 				$( '#wpbdp-add-taxonomy-form .term-description-wrap' ).addClass( 'hidden' );
+
+				// Get the heading from the content and move it.
+				var heading = form.find( 'h2' );
+				heading.remove();
+				modal.find( 'h2' ).text( heading.text() );
+
+				modal.find('.inside').html( form );
 				modal.dialog( 'open' );
-			})
+			});
+		},
+
+		getFormHtml : function() {
+			return '<div id="wpbdp-add-taxonomy-form" class="hidden settings-lite-cta">' +
+				'<div class="wpbdp-modal-top">' +
+					'<a href="#" class="dismiss alignright" title="Dismiss">' +
+						'<img src="' + wpbdp_global.assets + '/images/icons/close.svg" width="24" height="24"/>' +
+					'</a>' +
+					'<h2>' + wpbdp_global.confirm + '</h2>' +
+				'</div>' +
+				'<div class="inside"></div>' +
+			'</div>';
 		},
 
 		initModal : function( id, width ) {
@@ -93,7 +119,7 @@ WPBDPAdmin_Layout = {};
 					$( '.spinner' ).css( 'visibility', 'hidden' );
 
 					this.removeAttribute( 'data-option-type' );
-					const optionType = document.getElementById( 'bulk-option-type' );
+					var optionType = document.getElementById( 'bulk-option-type' );
 					if ( optionType ) {
 						optionType.value = '';
 					}
@@ -201,7 +227,7 @@ WPBDPAdmin_Layout = {};
 				$parent.removeClass( 'wpbdp-row-selected' );
 			}
 		}
-	}
+	};
 
 	WPBDPAdmin_Layout.init();
 	WPBDPAdmin_Tables.init();
