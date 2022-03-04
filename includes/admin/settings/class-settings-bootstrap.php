@@ -98,7 +98,7 @@ final class WPBDP__Settings__Bootstrap {
 				'default' => true,
                 'name'    => _x( 'Remove listing ID from directory URLs?', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'Check this setting to remove the ID for better SEO.', 'settings', 'business-directory-plugin' ),
-                'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'business-directory-plugin' ) . _x( '<strong>IMPORTANT:</strong> subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
+                'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'business-directory-plugin' ) . ' ' . _x( 'IMPORTANT:s subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
                 'group'   => 'permalink_settings',
             )
         );
