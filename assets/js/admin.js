@@ -36,13 +36,7 @@ WPBDPAdmin_Layout = {};
 
 		getHtml : function() {
 			return '<div id="wpbdp-admin-modal" class="hidden settings-lite-cta">' +
-				'<div class="wpbdp-modal-top">' +
-					'<a href="#" class="dismiss alignright" title="Dismiss">' +
-						'<img src="' + wpbdp_global.assets + '/images/icons/close.svg" width="24" height="24"/>' +
-					'</a>' +
-					'<h2>' + wpbdp_global.confirm + '</h2>' +
-				'</div>' +
-				'<div class="inside"></div>' +
+				WPBDPAdmin_Modal.getHeaderHtml() +
 				'<div class="wpbdp-modal-bottom">' +
 					'<a href="#" class="dismiss-button" title="Dismiss">' + wpbdp_global.cancel + '</a>' +
 					'<a href="#" class="wpbdp-continue wpbdp-button-primary alignright">' + wpbdp_global.continue + '</a>' +
@@ -79,14 +73,18 @@ WPBDPAdmin_Layout = {};
 
 		getFormHtml : function() {
 			return '<div id="wpbdp-add-taxonomy-form" class="hidden settings-lite-cta">' +
-				'<div class="wpbdp-modal-top">' +
-					'<a href="#" class="dismiss alignright" title="Dismiss">' +
-						'<img src="' + wpbdp_global.assets + '/images/icons/close.svg" width="24" height="24"/>' +
-					'</a>' +
-					'<h2>' + wpbdp_global.confirm + '</h2>' +
-				'</div>' +
-				'<div class="inside"></div>' +
+				WPBDPAdmin_Modal.getHeaderHtml() +
 			'</div>';
+		},
+
+		getHeaderHtml : function() {
+			return '<div class="wpbdp-modal-top">' +
+				'<a href="#" class="dismiss alignright" title="Dismiss">' +
+					'<img src="' + wpbdp_global.assets + '/images/icons/close.svg" width="24" height="24"/>' +
+				'</a>' +
+				'<h2>' + wpbdp_global.confirm + '</h2>' +
+			'</div>' +
+			'<div class="inside"></div>';
 		},
 
 		initModal : function( id, width ) {
