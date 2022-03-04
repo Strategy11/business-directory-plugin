@@ -121,12 +121,14 @@ class WPBDP_FormFieldsAdmin {
 
 		$html  = '';
 		$html .= wpbdp_admin_header(
-			_x( 'Form Preview', 'form-fields admin', 'business-directory-plugin' ),
-			'formfields-preview',
 			array(
-				array(
-					'← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
-					esc_url( remove_query_arg( 'action' ) ),
+				'title'   => __( 'Form Preview', 'business-directory-plugin' ),
+				'id'      => 'formfields-preview',
+				'buttons' => array(
+					'back' => array(
+						'label' => '← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
+						'url'   => remove_query_arg( 'action' ),
+					),
 				),
 			)
 		);
@@ -266,8 +268,6 @@ class WPBDP_FormFieldsAdmin {
 	private function delete_field() {
 		// Check permission.
 		check_admin_referer( 'deletefield' );
-
-		global $wpdb;
 
 		$field = WPBDP_Form_Field::get( wpbdp_get_var( array( 'param' => 'id' ), 'request' ) );
 
