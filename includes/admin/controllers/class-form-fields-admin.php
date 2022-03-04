@@ -129,7 +129,7 @@ class WPBDP_FormFieldsAdmin {
 						'label' => '← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
 						'url'   => remove_query_arg( 'action' ),
 					),
-				)
+				),
 			)
 		);
 		$html .= '<div id="wpbdp-listing-form-preview">';
