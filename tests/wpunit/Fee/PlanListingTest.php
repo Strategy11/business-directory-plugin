@@ -55,18 +55,18 @@ class PlanListingTest extends WPUnitTestCase {
 		$plans = wpbdp_get_fee_plans();
 		$total = 0;
 		$free_plan = null;
+		$tags = array();
 		foreach ( $plans as $plan ) {
 			$total += absint( $plan->amount );
+			array_push( $tags, $plan->tag );
 			if ( 'free' === $plan->tag ) {
 				$free_plan = $plan;
-			}
-			if ( 'third_free' === $plan->tag ) {
-				$this->assertTrue( ( absint( $plan->amount ) === 0 ), 'Third Free Fee plan exists and is 0' );
 			}
 		}
 		$this->assertTrue( ( $total === 0 ), 'Plan total amount is 0' );
 		$this->assertTrue( count( $plans ) === 2, 'Plan count is 2' );
 		$this->assertTrue( ! is_null( $free_plan ), 'Free plan included in all free plans' );
+		$this->assertTrue( in_array( 'third_free', $tags ), 'Third Free Fee plan exists in plan list' );
 	}
 
 	/**
@@ -82,20 +82,20 @@ class PlanListingTest extends WPUnitTestCase {
 
 		$plans = wpbdp_get_fee_plans();
 		$free_plan = null;
+		$tags = array();
 		$total = 0;
 		foreach ( $plans as $plan ) {
 			Debug::debug( 'Plan amount :: ' . $plan->amount );
 			$total += absint( $plan->amount );
+			array_push( $tags, $plan->tag );
 			if ( 'free' === $plan->tag ) {
 				$free_plan = $plan;
-			}
-			if ( 'third_free' === $plan->tag ) {
-				$this->assertTrue( ( absint( $plan->amount ) === 0 ), 'Third Free Fee plan exists and is 0' );
 			}
 		}
 		$this->assertTrue( ( $total > 0 ), 'Plan total amount is more than 0' );
 		$this->assertTrue( count( $plans ) === 5, 'Plan count is 5' );
 		$this->assertTrue( ! is_null( $free_plan ), 'Free plan included in all paid plans' );
+		$this->assertTrue( in_array( 'third_free', $tags ), 'Third Free Fee plan exists in plan list' );
 
 		// Disable default plan for next test phase.
 		$free_plan->enabled = false;
