@@ -60,6 +60,9 @@ class PlanListingTest extends WPUnitTestCase {
 			if ( 'free' === $plan->tag ) {
 				$free_plan = $plan;
 			}
+			if ( 'third_free' === $plan->tag ) {
+				$this->assertTrue( ( absint( $plan->amount ) === 0 ), 'Third Free Fee plan exists and is 0' );
+			}
 		}
 		$this->assertTrue( ( $total === 0 ), 'Plan total amount is 0' );
 		$this->assertTrue( count( $plans ) === 2, 'Plan count is 2' );
@@ -85,6 +88,9 @@ class PlanListingTest extends WPUnitTestCase {
 			$total += absint( $plan->amount );
 			if ( 'free' === $plan->tag ) {
 				$free_plan = $plan;
+			}
+			if ( 'third_free' === $plan->tag ) {
+				$this->assertTrue( ( absint( $plan->amount ) === 0 ), 'Third Free Fee plan exists and is 0' );
 			}
 		}
 		$this->assertTrue( ( $total > 0 ), 'Plan total amount is more than 0' );
