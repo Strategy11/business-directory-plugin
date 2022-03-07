@@ -221,6 +221,6 @@ class WPBDP_Reviews {
 	 * @return string
 	 */
 	public function set_footer_text() {
-		return 'Please rate <strong>Business Directory Plugin</strong> <a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" target="_blank" rel="noopener">★★★★★ on WordPress.org</a> to help us spread the word.</a> Thank you from our team!';
+		return 'Please rate <strong>Business Directory Plugin</strong> <a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" target="_blank" rel="noopener">★★★★★ on WordPress.org</a> to help us spread the word. Thank you from our team!';
 	}
 }

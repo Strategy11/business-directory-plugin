@@ -1,4 +1,13 @@
-<?php echo wpbdp_admin_header( __( 'Delete Directory Theme', 'business-directory-plugin' ), 'theme-delete' ); ?>
+<?php
+wpbdp_admin_header(
+	array(
+		'title'   => __( 'Delete Directory Theme', 'business-directory-plugin' ),
+		'id'      => 'theme-delete',
+		'echo'    => true,
+		'sidebar' => false
+	)
+);
+?>
 
 <p><?php printf( _x( 'Are you sure you want to delete the directory theme "%s"?', 'themes admin', 'business-directory-plugin' ),
                  $theme->name ); ?></p>

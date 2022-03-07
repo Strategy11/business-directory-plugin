@@ -121,6 +121,7 @@ module.exports = function( grunt ) {
 			  basedir + '/business-directory-' + id + '.php',
 			  basedir + '/includes/class-wpbdp.php',
 			  basedir + '/classes/class-wpbdp-premium-module.php',
+			  basedir + '/includes/models/*module.php',
 			  basedir + '/theme.json',
 			  basedir + '/themes/default/theme.json'
 		  ],
@@ -277,7 +278,6 @@ module.exports = function( grunt ) {
       'assets/css/less/wpbdp.less',
       'assets/css/less/admin.less',
       'assets/css/less/admin-manual-upgrade.less',
-      'assets/css/less/admin-themes.less',
       'assets/css/less/admin-csv-import.less',
       'assets/css/less/admin-export.less',
       'assets/css/less/admin-listing-metabox.less'
