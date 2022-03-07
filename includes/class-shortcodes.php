@@ -444,17 +444,17 @@ class WPBDP__Shortcodes {
 	 * @since x.x
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
-		if ( ! isset( $atts['category'] ) && ! isset( $atts['categories'] ) ) {
+		if ( ! $atts['category'] || ! $atts['categories'] ) {
 			return;
 		}
 
 		$requested_categories = array();
 
-		if ( isset( $atts['category'] ) ) {
+		if ( $atts['category'] ) {
 			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
 		}
 
-		if ( isset( $atts['categories'] ) ) {
+		if ( $atts['categories'] ) {
 			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
 		}
 
