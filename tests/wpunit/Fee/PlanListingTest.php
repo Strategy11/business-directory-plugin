@@ -64,7 +64,7 @@ class PlanListingTest extends WPUnitTestCase {
 			}
 		}
 		$this->assertTrue( ( $total === 0 ), 'Plan total amount is 0' );
-		$this->assertTrue( count( $plans ) === 1, 'Plan count is 2' );
+		$this->assertTrue( count( $plans ) === 2, 'Plan count is 2' );
 		$this->assertTrue( ! is_null( $free_plan ), 'Free plan included in all free plans' );
 		$this->assertTrue( in_array( 'third_free', $tags ), 'Third Free Fee plan exists in plan list' );
 	}
