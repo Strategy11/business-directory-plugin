@@ -185,14 +185,17 @@ class WPBDP__Assets {
 	 * @since 5.9.2
 	 */
 	public function global_localize( $script = 'wpbdp-js' ) {
-		wp_localize_script(
-			$script,
-			'wpbdp_global',
-			array(
-				'ajaxurl' => wpbdp_ajaxurl(),
-				'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
-			)
+		$global = array(
+			'ajaxurl' => wpbdp_ajaxurl(),
+			'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
 		);
+		if ( $script === 'wpbdp-admin-js' ) {
+			$global['assets']   = WPBDP_ASSETS_URL;
+			$global['cancel']   = __( 'Cancel', 'business-directory-plugin' );
+			$global['continue'] = __( 'Continue', 'business-directory-plugin' );
+			$global['confirm']  = __( 'Are you sure?', 'business-directory-plugin' );
+		}
+		wp_localize_script( $script, 'wpbdp_global', $global );
 	}
 
     public function load_css() {
@@ -283,7 +286,7 @@ class WPBDP__Assets {
 
 		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION, true );
 
-		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'jquery-ui-tooltip' ), WPBDP_VERSION, true );
 		$this->global_localize( 'wpbdp-admin-js' );
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
@@ -308,7 +311,7 @@ class WPBDP__Assets {
 		wp_enqueue_script(
 			'wpbdp-admin-listing',
 			WPBDP_ASSETS_URL . 'js/admin-listing.min.js',
-			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' ),
+			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ),
 			WPBDP_VERSION,
 			true
 		);
