@@ -588,9 +588,10 @@ class WPBDP_Admin_Listings {
             return;
         }
 
+		$is_plan_change = false;
         if ( ! $current_plan || (int) $current_plan->fee_id != (int) $new_plan['fee_id'] ) {
             $payment = $listing->set_fee_plan_with_payment( $new_plan['fee_id'] );
-
+			$is_plan_change = true;
             if ( $payment ) {
                 $payment->process_as_admin();
             }
@@ -620,8 +621,9 @@ class WPBDP_Admin_Listings {
 		} elseif ( ! $not_expired && $row['expiration_date'] ) {
 			$listing->set_status( 'expired' );
 		}
-
-		$listing->process_subscription_change();
+		if ( ! $is_plan_change ) {
+			$listing->process_subscription_change();
+		}
     }
 
     public function _add_bulk_actions() {
