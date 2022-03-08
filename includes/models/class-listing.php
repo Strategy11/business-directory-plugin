@@ -550,6 +550,8 @@ class WPBDP_Listing {
         $this->set_post_status( 'publish' );
 
         do_action( 'wpbdp_listing_renewed', $this, false, 'admin' );
+
+		$this->process_subscription_change();
     }
 
     public function get_renewal_url( $deprecated = 0 ) {
@@ -1170,4 +1172,25 @@ class WPBDP_Listing {
         $l->new = false;
         return $l;
     }
+
+	/**
+	 * Process subscription change
+	 *
+	 * @since x.x
+	 */
+	public function process_subscription_change() {
+		// Add action for subscription listings to be updated in the gateway.
+		if ( $this->has_subscription() ) {
+
+			/**
+			 * Execute action to gateway on listing subscription change.
+			 * This is mainly used in gateway classes and is called in class-payment-gateways.php
+			 *
+			 * @param int $listing_id The listing id.
+			 *
+			 * @since x.x
+			 */
+			do_action( 'wpbdp_listing_subcription_upated', $this->get_id() );
+		}
+	}
 }

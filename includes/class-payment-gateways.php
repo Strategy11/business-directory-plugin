@@ -164,14 +164,17 @@ class WPBDP__Payment_Gateways {
 		if ( ! $subscription ) {
 			return;
 		}
+
 		$payment = $subscription->get_parent_payment();
 		if ( ! $payment ) {
 			return;
 		}
+
 		$gateway = $this->get( $payment->gateway );
 		if ( ! $gateway ) {
 			return;
 		}
+
         $gateway->update_gateway_subscription( $listing, $subscription );
 	}
 }
