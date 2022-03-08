@@ -620,6 +620,20 @@ class WPBDP_Admin_Listings {
 		} elseif ( ! $not_expired && $row['expiration_date'] ) {
 			$listing->set_status( 'expired' );
 		}
+
+		// Add action for subscription listings to be updated in the gateway.
+		if ( $listing->has_subscription() ) {
+
+			/**
+			 * Execute action to gateway on listing subscription change.
+			 * This is mainly used in gateway classes and is called in class-payment-gateways.php
+			 *
+			 * @param int $listing_id The listing id.
+			 *
+			 * @since x.x
+			 */
+			do_action( 'wpbdp_listing_subcription_upated', $listing->get_id() );
+		}
     }
 
     public function _add_bulk_actions() {

@@ -18,6 +18,8 @@ class WPBDP__Payment_Gateways {
         add_action( 'wpbdp_loaded', array( $this, '_execute_listener' ) );
         add_action( 'wpbdp_register_settings', array( $this, '_add_gateway_settings' ) );
         add_action( 'wpbdp_admin_notices', array( $this, '_admin_warnings' ) );
+
+		add_action( 'wpbdp_listing_subcription_upated', array( $this, 'listing_subscription_upated' ) );
     }
 
     public function load_gateways() {
@@ -148,4 +150,28 @@ class WPBDP__Payment_Gateways {
 			wpbdp_admin_message( $msg, 'error' );
 		}
     }
+
+	/**
+	 * Action called when a listing subscription is updated.
+	 *
+	 * @param int $listing_id The listing id.
+	 *
+	 * @since x.x
+	 */
+	public function listing_subscription_upated( $listing_id ) {
+		$listing = wpbdp_get_listing( $listing_id );
+		$subscription = $listing->get_subscription();
+		if ( ! $subscription ) {
+			return;
+		}
+		$payment = $subscription->get_parent_payment();
+		if ( ! $payment ) {
+			return;
+		}
+		$gateway = $this->get( $payment->gateway );
+		if ( ! $gateway ) {
+			return;
+		}
+        $gateway->update_gateway_subscription( $listing, $subscription );
+	}
 }

@@ -166,4 +166,17 @@ abstract class WPBDP__Payment_Gateway {
         $message = __( "There was an unexpected error trying to cancel your subscription. Please contact the website's administrator mentioning this problem. The administrator should be able to cancel your subscription contacting the payment processor directly.", 'business-directory-plugin' );
         throw new Exception( $message );
     }
+
+	/**
+	 * Update the gateway subscription.
+	 * This is used to update subscription data on the gateway side when listing subscription data is updated.
+	 *
+	 * @param WPBDP_Listing $listing The current listing.
+	 * @param WPBDP__Listing_Subscription $subscription The listing subscription.
+	 *
+	 * @since x.x
+	 */
+	public function update_gateway_subscription( $listing, $subscription ) {
+
+	}
 }
