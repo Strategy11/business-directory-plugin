@@ -23,16 +23,16 @@ class FeeCrudeTest extends WPUnitTestCase {
 
 	public function testFeeCrude() {
 		$this->tester->wantToTest( 'Fee Plan CRUDE' );
-		$this->createFee();
-		$this->editFee();
-		$this->toggleFee();
-		$this->deleteFee();
+		$this->create_fee();
+		$this->edit_fee();
+		$this->toggle_fee();
+		$this->delete_fee();
 	}
 
 	/**
 	 * Test create fee
 	 */
-	private function createFee() {
+	private function create_fee() {
 		Debug::debug( 'Creating the fee' );
 		$this->fee = new WPBDP__Fee_Plan(
 			array(
@@ -58,7 +58,7 @@ class FeeCrudeTest extends WPUnitTestCase {
 	/**
 	 * Test edit fee
 	 */
-	private function editFee() {
+	private function edit_fee() {
 		Debug::debug( 'Editing the fee' );
 		if ( ! $this->fee || ! $this->fee->exists() ) {
 			$this->fail( 'Could not retrieve previously created fee plan' );
@@ -86,7 +86,7 @@ class FeeCrudeTest extends WPUnitTestCase {
 	/**
 	 * Toggle fee enabled and disabled states
 	 */
-	private function toggleFee() {
+	private function toggle_fee() {
 		Debug::debug( 'Editing the fee' );
 		if ( ! $this->fee || ! $this->fee->exists() ) {
 			$this->fail( 'Could not retrieve previously created fee plan' );
@@ -105,7 +105,7 @@ class FeeCrudeTest extends WPUnitTestCase {
 	/**
 	 * Test Delete Fee
 	 */
-	private function deleteFee() {
+	private function delete_fee() {
 		Debug::debug( 'Deleting the fee' );
 		if ( ! $this->fee || ! $this->fee->exists() ) {
 			$this->fail( 'Could not retrieve previously created fee plan' );
