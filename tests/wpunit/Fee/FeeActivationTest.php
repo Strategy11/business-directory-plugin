@@ -24,6 +24,8 @@ class FeeActivationTest extends WPUnitTestCase {
 		$this->tester->wantToTest( 'Fee Activation and Deactivation' );
 
 		$this->create_fees();
+
+		$this->process_plans(); 
 	}
 
 	/**
@@ -31,7 +33,15 @@ class FeeActivationTest extends WPUnitTestCase {
 	 */
 	private function process_plans() {
 		$plans = wpbdp_get_fee_plans( array( 'admin_view' => true ) );
-		$enabled_plans = WPBDP_Fees_API::get_enabled_plans();
+		foreach ( $plans as $plan ) {
+			$enabled_plans = WPBDP_Fees_API::get_enabled_plans();
+			if ( $enabled_plans > 1 ) {
+				$plan->enabled = false;
+				$plan->save();
+			}
+		}
+		$plans = wpbdp_get_fee_plans( array( 'admin_view' => true ) );
+		$this->assertTrue( count( $plans ) === 1, '1 plan left active' );
 	}
 
 	/**
