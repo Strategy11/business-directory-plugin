@@ -444,7 +444,7 @@ class WPBDP__Shortcodes {
 	 * @since x.x
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
-		if ( ! $atts['category'] || ! $atts['categories'] ) {
+		if ( ! $atts['category'] && ! $atts['categories'] ) {
 			return;
 		}
 
