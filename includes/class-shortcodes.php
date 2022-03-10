@@ -433,19 +433,9 @@ class WPBDP__Shortcodes {
 	 * @since x.x
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
-		if ( ! isset( $atts['category'] ) && ! isset( $atts['categories'] ) ) {
-			return;
-		}
-
 		$requested_categories = array();
 
-		if ( isset( $atts['category'] ) && $atts['category'] ) {
-			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
-		}
-
-		if ( isset( $atts['categories'] ) && $atts['categories'] ) {
-			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
-		}
+		$this->validate_taxonomy_atts( 'category', $atts, $requested_categories );
 
 		if ( empty( $requested_categories ) ) {
 			return;
@@ -491,19 +481,7 @@ class WPBDP__Shortcodes {
 	 * @since x.x
 	 */
 	private function process_tag_atts( $atts, &$query_args ) {
-		if ( ! isset( $atts['tag'] ) && ! isset( $atts['tags'] ) ) {
-			return;
-		}
-
-		$requested_tags = array();
-
-		if ( isset( $atts['tag'] ) && $atts['tag'] ) {
-			$requested_tags = array_merge( $requested_tags, explode( ',', $atts['tag'] ) );
-		}
-
-		if ( isset( $atts['tags'] ) && $atts['tags'] ) {
-			$requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
-		}
+		$this->validate_taxonomy_atts( 'tag', $atts, $requested_tags );
 
 		if ( empty( $requested_tags ) ) {
 			return;
@@ -516,6 +494,36 @@ class WPBDP__Shortcodes {
 				'terms'    => $requested_tags,
 			)
 		);
+	}
+
+	/**
+	 * Validate taxonomy attributes
+	 *
+	 * @param string $type The taxonomy type. Can either be `category` or `tag`.
+	 * @param array $atts Shortcode attributes.
+	 * @param array $query_args The query args used to search based on attributes.
+	 *
+	 * @since x.x
+	 */
+	private function validate_taxonomy_atts( $type, $atts, &$requested_tax ) {
+		$types = ( 'tag' === $type ) ? 'tags' : 'categories';
+		if ( ! isset( $atts[ $type ] ) && ! isset( $atts[ $types ] ) ) {
+			return;
+		}
+
+		$requested_tax = array();
+
+		if ( isset( $atts[ $type ] ) && $atts[ $type ] ) {
+			$requested_tax = array_merge( $requested_tax, explode( ',', $atts[ $type ] ) );
+		}
+
+		if ( isset( $atts[ $types ] ) && $atts[ $types ] ) {
+			$requested_tax = array_merge( $requested_tax, explode( ',', $atts[ $types ] ) );
+		}
+
+		if ( empty( $requested_tax ) ) {
+			return;
+		}
 	}
 
     private function display_listings( $query_args, $args = array() ) {
