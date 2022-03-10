@@ -276,7 +276,8 @@ class WPBDP__Assets {
 		if ( $force ) {
 			_deprecated_argument( __FUNCTION__, '5.17.2', 'Loading admin scripts can no longer be forced. Use the wpbdp_is_bd_page hook instead.' );
 		}
-		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
+
+		if ( ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
 
