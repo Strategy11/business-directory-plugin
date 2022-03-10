@@ -452,8 +452,7 @@ class WPBDP_WPML_Compat {
 
         $fees = wpbdp_get_fee_plans(
             array(
-                'enabled'      => 'all',
-                'include_free' => true,
+                'enabled' => 'all',
             )
         );
 

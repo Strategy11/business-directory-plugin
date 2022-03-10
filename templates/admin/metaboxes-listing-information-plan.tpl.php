@@ -81,14 +81,17 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
             <span class="display-value" id="wpbdp-listing-plan-prop-expiration">
                 <?php echo ( $current_plan && $current_plan->expiration_date ) ? wpbdp_date_full_format( strtotime( $current_plan->expiration_date ) ) : ( $listing->get_fee_plan() ? 'Never' : '-' ); ?>
             </span>
-			<a href="#" class="edit-value-toggle"><?php esc_html_e( 'Edit', 'business-directory-plugin' ); ?></a>
+			<?php if ( ! $listing->has_subscription() ) : ?>
+				<a href="#" class="edit-value-toggle"><?php esc_html_e( 'Edit', 'business-directory-plugin' ); ?></a>
+			<?php endif; ?>
             <div class="value-editor">
 				<input type="text" name="listing_plan[expiration_date]" value="<?php echo esc_attr( ( $current_plan && $current_plan->expiration_date ) ? $current_plan->expiration_date : '' ); ?>" placeholder="<?php esc_attr_e( 'Never', 'business-directory-plugin' ); ?>" />
-
+				<?php if ( ! $listing->has_subscription() ) : ?>
                 <p>
                     <a href="#" class="update-value button"><?php _ex( 'OK', 'listing metabox', 'business-directory-plugin' ); ?></a>
                     <a href="#" class="cancel-edit button-cancel"><?php _ex( 'Cancel', 'listing metabox', 'business-directory-plugin' ); ?></a>
                 </p>
+				<?php endif; ?>
             </div>
         </dd>
         <dt><?php _ex( '# of images', 'listing metabox', 'business-directory-plugin' ); ?></dt>

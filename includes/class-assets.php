@@ -269,9 +269,15 @@ class WPBDP__Assets {
      * Load resources on admin page
      *
      * @param bool $force Force reloading the resources.
+	 *
+	 * @since x.x Deprecate the $force parameter to not load on non BD pages.
      */
 	public function enqueue_admin_scripts( $force = false ) {
-		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
+		if ( $force === true ) {
+			_deprecated_argument( __FUNCTION__, '5.17.2', 'Loading admin scripts can no longer be forced. Use the wpbdp_is_bd_page hook instead.' );
+		}
+
+		if ( ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
 
@@ -296,6 +302,14 @@ class WPBDP__Assets {
 		$this->global_localize( 'wpbdp-admin-js' );
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
+
+		/**
+		 * Load additional scripts or styles used only in BD plugin pages.
+		 * This hook can be used to load scripts and resources using `wp_enqueue_script` or `wp_enqueue_style` WordPress hooks.
+		 *
+		 * @since x.x
+		 */
+		do_action( 'wpbdp_enqueue_admin_scripts' );
 
 		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 			return;
@@ -383,5 +397,14 @@ class WPBDP__Assets {
 		}
 
 		return $admin_body_classes;
+	}
+
+	/**
+	 * Register resources required in installation only.
+	 *
+	 * @since x.x
+	 */
+	public function register_installation_resources() {
+		wp_enqueue_script( 'wpbdp-admin-install-js', WPBDP_ASSETS_URL . 'js/admin-install.min.js', array( 'jquery' ), WPBDP_VERSION, true );
 	}
 }
