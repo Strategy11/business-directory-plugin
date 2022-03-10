@@ -514,10 +514,6 @@ class WPBDP__Shortcodes {
 		$tags = $tag . $sep . $tags;
 
 		$requested_tax = explode( $sep, $tags );
-
-		if ( empty( $requested_tax ) ) {
-			return;
-		}
 	}
 
     private function display_listings( $query_args, $args = array() ) {
