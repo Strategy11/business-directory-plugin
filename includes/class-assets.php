@@ -273,7 +273,7 @@ class WPBDP__Assets {
 	 * @since x.x Deprecate the $force parameter to not load on non BD pages.
      */
 	public function enqueue_admin_scripts( $force = false ) {
-		if ( $force ) {
+		if ( $force === true ) {
 			_deprecated_argument( __FUNCTION__, '5.17.2', 'Loading admin scripts can no longer be forced. Use the wpbdp_is_bd_page hook instead.' );
 		}
 
