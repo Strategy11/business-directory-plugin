@@ -319,19 +319,7 @@ class WPBDP__Shortcodes {
 
 		$this->process_category_atts( $sc_atts, $query_args );
 
-        if ( $sc_atts['tag'] || $sc_atts['tags'] ) {
-            $requested_tags = array();
-
-            if ( $sc_atts['tag'] )
-                $requested_tags = array_merge( $requested_tags, explode( ',', $sc_atts['tag'] ) );
-
-            if ( $sc_atts['tags'] )
-                $requested_tags = array_merge( $requested_tags, explode( ',', $sc_atts['tags'] ) );
-
-            $query_args['tax_query'][] = array( array( 'taxonomy' => WPBDP_TAGS_TAX,
-                                                     'field' => 'slug',
-                                                     'terms' => $requested_tags ) );
-        }
+		$this->process_tag_atts( $sc_atts, $query_args );
 
         if ( ! empty( $sc_atts['author'] ) ) {
             $u = false;
@@ -437,6 +425,7 @@ class WPBDP__Shortcodes {
 
 	/**
 	 * Process category query attributes.
+	 * This checks if the `category` or `categories` attributes are passed in the shortcode and includes them in the loop query.
 	 *
 	 * @param array $atts Shortcode attributes.
 	 * @param array $query_args The query args used to search based on attributes.
@@ -450,11 +439,11 @@ class WPBDP__Shortcodes {
 
 		$requested_categories = array();
 
-		if ( $atts['category'] ) {
+		if ( isset( $atts['category'] ) && $atts['category'] ) {
 			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
 		}
 
-		if ( $atts['categories'] ) {
+		if ( isset( $atts['categories'] ) && $atts['categories'] ) {
 			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
 		}
 
@@ -488,6 +477,43 @@ class WPBDP__Shortcodes {
 				'taxonomy' => WPBDP_CATEGORY_TAX,
 				'field'    => 'id',
 				'terms'    => $categories,
+			)
+		);
+	}
+
+	/**
+	 * Process tag query attributes.
+	 * This checks if the `tag` or `tags` attributes are passed in the shortcode and includes them in the loop query.
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param array $query_args The query args used to search based on attributes.
+	 *
+	 * @since x.x
+	 */
+	private function process_tag_atts( $atts, &$query_args ) {
+		if ( ! isset( $atts['tag'] ) && ! isset( $atts['tags'] ) ) {
+			return;
+		}
+
+		$requested_tags = array();
+
+		if ( isset( $atts['tag'] ) && $atts['tag'] ) {
+			$requested_tags = array_merge( $requested_tags, explode( ',', $atts['tag'] ) );
+		}
+
+		if ( isset( $atts['tags'] ) && $atts['tags'] ) {
+			$requested_tags = array_merge( $requested_tags, explode( ',', $atts['tags'] ) );
+		}
+
+		if ( empty( $requested_tags ) ) {
+			return;
+		}
+
+		$query_args['tax_query'][] = array(
+			array(
+				'taxonomy' => WPBDP_TAGS_TAX,
+				'field'    => 'slug',
+				'terms'    => $requested_tags,
 			)
 		);
 	}
