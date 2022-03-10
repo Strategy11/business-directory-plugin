@@ -458,10 +458,6 @@ class WPBDP__Shortcodes {
 			}
 		}
 
-		if ( empty( $categories ) ) {
-			return;
-		}
-
 		$query_args['tax_query'][] = array(
 			array(
 				'taxonomy' => WPBDP_CATEGORY_TAX,
@@ -481,6 +477,8 @@ class WPBDP__Shortcodes {
 	 * @since x.x
 	 */
 	private function process_tag_atts( $atts, &$query_args ) {
+		$requested_tags = array();
+
 		$this->validate_taxonomy_atts( 'tag', $atts, $requested_tags );
 
 		if ( empty( $requested_tags ) ) {
@@ -510,16 +508,15 @@ class WPBDP__Shortcodes {
 		if ( ! isset( $atts[ $type ] ) && ! isset( $atts[ $types ] ) ) {
 			return;
 		}
-
-		$requested_tax = array();
-
-		if ( isset( $atts[ $type ] ) && $atts[ $type ] ) {
-			$requested_tax = array_merge( $requested_tax, explode( ',', $atts[ $type ] ) );
+		$tag  = isset( $atts[ $type ] ) ? $atts[ $type ] : '';
+		$tags = isset( $atts[ $types ] ) ? $atts[ $types ] : '';
+		$sep  = ( $tag || $tags ) ? ',' : false;
+		if ( ! $sep ) {
+			return;
 		}
+		$tags = $tag . $sep . $tags;
 
-		if ( isset( $atts[ $types ] ) && $atts[ $types ] ) {
-			$requested_tax = array_merge( $requested_tax, explode( ',', $atts[ $types ] ) );
-		}
+		$requested_tax = explode( $sep, $tags );
 
 		if ( empty( $requested_tax ) ) {
 			return;
