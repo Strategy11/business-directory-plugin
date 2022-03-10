@@ -706,7 +706,7 @@ class WPBDP_Admin_Listings {
 	 * Assign a plan to a listing.
 	 * This assigns a plan to a listing in the admin backend.
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 */
 	public function ajax_assign_plan_to_listing() {
 		if ( ! current_user_can( 'edit_posts' ) ) {

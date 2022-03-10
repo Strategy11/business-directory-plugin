@@ -270,7 +270,7 @@ class WPBDP__Assets {
      *
      * @param bool $force Force reloading the resources.
 	 *
-	 * @since x.x Deprecate the $force parameter to not load on non BD pages.
+	 * @since 5.18 Deprecate the $force parameter to not load on non BD pages.
      */
 	public function enqueue_admin_scripts( $force = false ) {
 		if ( $force === true ) {
@@ -303,7 +303,7 @@ class WPBDP__Assets {
 		 * Load additional scripts or styles used only in BD plugin pages.
 		 * This hook can be used to load scripts and resources using `wp_enqueue_script` or `wp_enqueue_style` WordPress hooks.
 		 *
-		 * @since x.x
+		 * @since 5.18
 		 */
 		do_action( 'wpbdp_enqueue_admin_scripts' );
 
@@ -388,7 +388,7 @@ class WPBDP__Assets {
 	/**
 	 * Register resources required in installation only.
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 */
 	public function register_installation_resources() {
 		wp_enqueue_script( 'wpbdp-admin-install-js', WPBDP_ASSETS_URL . 'js/admin-install.min.js', array( 'jquery' ), WPBDP_VERSION, true );
