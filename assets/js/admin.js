@@ -61,7 +61,7 @@ WPBDPAdmin_Layout = {};
 
 				// Get the heading from the content and move it.
 				var heading = form.find( 'h2' );
-				heading.remove();
+				heading.hide();
 				modal.find( 'h2' ).text( heading.text() );
 
 				modal.find('.inside').html( form );
