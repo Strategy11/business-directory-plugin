@@ -444,7 +444,7 @@ class WPBDP__Shortcodes {
 	 * @since x.x
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
-		if ( ! $atts['category'] && ! $atts['categories'] ) {
+		if ( ! isset( $atts['category'] ) && ! isset( $atts['categories'] ) ) {
 			return;
 		}
 
@@ -456,6 +456,10 @@ class WPBDP__Shortcodes {
 
 		if ( $atts['categories'] ) {
 			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
+		}
+
+		if ( empty( $requested_categories ) ) {
+			return;
 		}
 
 		$categories = array();
@@ -473,6 +477,10 @@ class WPBDP__Shortcodes {
 			if ( $term ) {
 				$categories[] = $term->term_id;
 			}
+		}
+
+		if ( empty( $categories ) ) {
+			return;
 		}
 
 		$query_args['tax_query'][] = array(
