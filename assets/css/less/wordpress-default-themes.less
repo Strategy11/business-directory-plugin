@@ -88,3 +88,53 @@
         }
     }
 }
+
+.wpbdp-wp-theme-twentytwentytwo {
+	&.single-wpbdp_listing {
+		.listing-title {
+			display: none;
+		}
+	}
+
+	.wpbdp-page {
+		input[type="text"],
+		input[type="email"],
+		input[type="url"],
+		input[type="password"],
+		input[type="search"],
+		input[type="number"],
+		input[type="tel"],
+		input[type="date"],
+		input[type="month"],
+		input[type="week"],
+		input[type="time"],
+		input[type="datetime"],
+		input[type="submit"],
+		select,
+		textarea {
+			padding: 8px;
+			max-width: 100%;
+			font-size: inherit;
+			font-family: inherit;
+		}
+
+		.wpbdp-button,
+		input[type="submit"] {
+			color: var(--wp--preset--color--background);
+			background-color: var(--wp--preset--color--primary);
+			text-decoration: none;
+		}
+
+		/* Big buttons */
+		.wpbdp-submit-listing-form-actions .wpbdp-button,
+		.wpbdp-submit.wpbdp-button,
+		.wpbdp-main-links .button {
+			padding: ~'calc(0.667em + 2px) calc(1.333em + 2px)';
+			font-size: var(--wp--preset--font-size--medium);
+		}
+	}
+
+	.wpbdp-button {
+		color: var(--wp--preset--color--background);
+	}
+}

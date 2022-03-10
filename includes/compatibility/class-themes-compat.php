@@ -359,6 +359,17 @@ class WPBDP__Themes_Compat {
     //
     // }}
     //
+
+	/**
+	 * Check if the current theme is a block theme.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public static function is_block_theme() {
+		return ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() );
+	}
 }
 
 
