@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.9
-Stable tag: 5.17.1
+Stable tag: 5.18
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,23 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 5.18 =
+* New: Allow setting category in the [businessdirectory-featured-listings] shortcode.
+* Rename "Fee Plan" to "Plan" since they can be free.
+* Add modal confirmation for deleting a field and plan.
+* Add compatibility with block themes and Twenty Twenty Two theme.
+* Make the listing expiration date read-only if there's an active subscription. This prevents issues since the data doesn't update the subscription.
+* Fix: Images weren't uploading during listing imports.
+* Fix: Only load the admin BD scripts on BD pages.
+* Fix: The image ordering wasn't saving in the front-end listing form.
+* Fix: When creating a listing from the admin area, set the image limits based on the newly selected plan.
+* Fix: Don't show the "free" label in the plans table for variable plans.
+* Fix: All selecting a new plan when editing a listing if the previously selected plan is disabled.
+* Fix: Don't delete a removed image if it's attached to another post type.
+* Fix: The default BD theme showed the listing title twice.
+* Fix: The default plan wasn't showing up when enabled when used with paid plans.
+* Fix: The spacing between some action buttons and the listing thumbnail were too small.
+
 = 5.17.1 =
 * Fix: Hide the custom order column in the plans table if not using custom ordering.
 * Fix: Allow manual enable/disable of default plan.
@@ -183,13 +200,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Add a bit more caching and a performance lift.
 * Fix: If a second page is added with the businessdirectory shortcode, use the most recent page. Also, ignore a page with the shortcode if it's in the trash.
 * Fix: The database upgrade wasn't always getting marked as complete, and was running multiple times.
-
-= 5.16 =
-* Improve front-end performance by only resizing images at the time they are uploaded. Now WordPress handles all the image resizing.
-* Clean up the images settings page. Removed the 'Number of free images' and 'Listing duration for no-fee sites' settings since they are included in the plan settings.
-* Fix: Remove outdated integration code with Yoast SEO. This was causing errors on some sites.
-* Fix: Prevent admins from uploading more images than the listing allows.
-* Fix: When the plan selector was used in other places, the buttons didn't always have labels.
-* Code update: Errors for a field returned by the wpbdp_listing_submit_validate_field will be shown with the field.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

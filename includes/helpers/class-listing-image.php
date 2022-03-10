@@ -132,7 +132,7 @@ final class WPBDP_Listing_Image {
 	 * @param int $attachment_id The attachment id.
 	 * @param int $listing_id    The listing id.
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 *
 	 * @return bool Returns true if the attachment is linked to a listing or a post. Returns fals otherwise.
 	 */
@@ -169,7 +169,7 @@ final class WPBDP_Listing_Image {
 	 *
 	 * @param int $attachment_id The attachment id.
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 *
 	 * @return array
 	 */

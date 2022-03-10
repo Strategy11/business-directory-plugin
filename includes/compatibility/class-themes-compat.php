@@ -363,7 +363,7 @@ class WPBDP__Themes_Compat {
 	/**
 	 * Check if the current theme is a block theme.
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 *
 	 * @return bool
 	 */
