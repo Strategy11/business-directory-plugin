@@ -937,22 +937,21 @@ function wpbdp_get_fee_plans( $args = array() ) {
 
     $args = wp_parse_args( $args, $defaults );
     $args = apply_filters( 'wpbdp_get_fee_plans_args', $args );
+	// Add payments status in arguments to refresh the cache based on payment status.
+	$args['payments_on'] = $payments_on;
 
     $where = '1=1';
     if ( 'all' !== $args['enabled'] ) {
         $where .= $wpdb->prepare( ' AND p.enabled = %d ', (bool) $args['enabled'] );
     }
 
+	if ( ! $args['admin_view'] && ! $payments_on ) {
+		$where .= $wpdb->prepare( ' AND p.amount = %d ', 0 );
+	}
+
     if ( $args['tag'] ) {
         $where .= $wpdb->prepare( ' AND p.tag = %s', $args['tag'] );
     }
-
-	if ( ! $args['admin_view'] && $args['include_free'] ) {
-		$where .= $wpdb->prepare( ' AND p.amount = %d', 0 );
-	} elseif ( ! $args['admin_view'] && $args['tag'] !== 'free' ) {
-		// Exclude the default free fee for reverse compatibility.
-		$where .= $wpdb->prepare( ' AND p.tag != %s', 'free' );
-	}
 
     $categories = $args['categories'];
     if ( ! empty( $categories ) ) {
@@ -1154,7 +1153,12 @@ function wpbdp_render( $template, $vars = array(), $allow_override = true ) {
 }
 
 function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
-	$msg = '<div class="wpbdp-msg ' . esc_attr( $type ) . '">' . wp_kses_post( $msg ) . '</div>';
+	$classes = array( 'wpbdp-msg', $type );
+	if ( is_admin() ) {
+		$classes[] = 'wpbdp-notice notice';
+		$classes[] = 'notice-' . $type;
+	}
+	$msg = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses_post( $msg ) . '</div>';
     if ( $echo ) {
         echo $msg;
     }

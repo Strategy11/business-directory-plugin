@@ -452,20 +452,19 @@ class WPBDP_WPML_Compat {
 
         $fees = wpbdp_get_fee_plans(
             array(
-                'enabled'      => 'all',
-                'include_free' => true,
+                'enabled' => 'all',
             )
         );
 
         foreach ( $fees as &$f ) {
             icl_register_string(
                 'Business Directory Plugin',
-                sprintf( 'Fee label (#%d)', $f->id ),
+                sprintf( 'Plan label (#%d)', $f->id ),
                 $f->label
             );
             icl_register_string(
                 'Business Directory Plugin',
-                sprintf( 'Fee description (#%d)', $f->id ),
+                sprintf( 'Plan description (#%d)', $f->id ),
                 $f->description
             );
         }
@@ -478,7 +477,7 @@ class WPBDP_WPML_Compat {
 
         return icl_t(
             'Business Directory Plugin',
-            sprintf( 'Fee label (#%d)', $fee->id ),
+            sprintf( 'Plan label (#%d)', $fee->id ),
             $fee->label
         );
     }
@@ -490,7 +489,7 @@ class WPBDP_WPML_Compat {
 
         return icl_t(
             'Business Directory Plugin',
-            sprintf( 'Fee description (#%d)', $fee->id ),
+            sprintf( 'Plan description (#%d)', $fee->id ),
             $fee->description
         );
     }

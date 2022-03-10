@@ -185,14 +185,17 @@ class WPBDP__Assets {
 	 * @since 5.9.2
 	 */
 	public function global_localize( $script = 'wpbdp-js' ) {
-		wp_localize_script(
-			$script,
-			'wpbdp_global',
-			array(
-				'ajaxurl' => wpbdp_ajaxurl(),
-				'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
-			)
+		$global = array(
+			'ajaxurl' => wpbdp_ajaxurl(),
+			'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
 		);
+		if ( $script === 'wpbdp-admin-js' ) {
+			$global['assets']   = WPBDP_ASSETS_URL;
+			$global['cancel']   = __( 'Cancel', 'business-directory-plugin' );
+			$global['continue'] = __( 'Continue', 'business-directory-plugin' );
+			$global['confirm']  = __( 'Are you sure?', 'business-directory-plugin' );
+		}
+		wp_localize_script( $script, 'wpbdp_global', $global );
 	}
 
     public function load_css() {
@@ -266,9 +269,15 @@ class WPBDP__Assets {
      * Load resources on admin page
      *
      * @param bool $force Force reloading the resources.
+	 *
+	 * @since x.x Deprecate the $force parameter to not load on non BD pages.
      */
 	public function enqueue_admin_scripts( $force = false ) {
-		if ( ! $force && ! WPBDP_App_Helper::is_bd_page() ) {
+		if ( $force === true ) {
+			_deprecated_argument( __FUNCTION__, '5.17.2', 'Loading admin scripts can no longer be forced. Use the wpbdp_is_bd_page hook instead.' );
+		}
+
+		if ( ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
 
@@ -283,12 +292,20 @@ class WPBDP__Assets {
 
 		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION, true );
 
-		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'jquery-ui-tooltip' ), WPBDP_VERSION, true );
 		$this->global_localize( 'wpbdp-admin-js' );
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
+
+		/**
+		 * Load additional scripts or styles used only in BD plugin pages.
+		 * This hook can be used to load scripts and resources using `wp_enqueue_script` or `wp_enqueue_style` WordPress hooks.
+		 *
+		 * @since x.x
+		 */
+		do_action( 'wpbdp_enqueue_admin_scripts' );
 
 		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 			return;
@@ -308,7 +325,7 @@ class WPBDP__Assets {
 		wp_enqueue_script(
 			'wpbdp-admin-listing',
 			WPBDP_ASSETS_URL . 'js/admin-listing.min.js',
-			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload', 'jquery-ui-tooltip' ),
+			array( 'wpbdp-admin-js', 'wpbdp-dnd-upload' ),
 			WPBDP_VERSION,
 			true
 		);
@@ -366,5 +383,14 @@ class WPBDP__Assets {
 		}
 
 		return $admin_body_classes;
+	}
+
+	/**
+	 * Register resources required in installation only.
+	 *
+	 * @since x.x
+	 */
+	public function register_installation_resources() {
+		wp_enqueue_script( 'wpbdp-admin-install-js', WPBDP_ASSETS_URL . 'js/admin-install.min.js', array( 'jquery' ), WPBDP_VERSION, true );
 	}
 }

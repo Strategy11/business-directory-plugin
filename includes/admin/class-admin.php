@@ -309,7 +309,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $menu = array();
 
             $menu['wpbdp-admin-fees']       = array(
-                'title' => __( 'Fee Plans', 'business-directory-plugin' ),
+                'title' => __( 'Plans', 'business-directory-plugin' ),
             );
             $menu['wpbdp_admin_formfields'] = array(
                 'title'    => __( 'Form Fields', 'business-directory-plugin' ),
@@ -406,33 +406,33 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         private function prepare_menu( &$menu ) {
             $n = 1;
 
-            foreach ( $menu as &$item ) {
-                if ( ! isset( $item['priority'] ) ) {
-                    $item['priority'] = $n++;
-                }
+			foreach ( $menu as &$item ) {
+				if ( ! isset( $item['priority'] ) ) {
+					$item['priority'] = $n++;
+				}
 
-                if ( ! isset( $item['title'] ) ) {
-                    $item['title'] = _x( 'Untitled Menu', 'admin', 'business-directory-plugin' );
-                }
+				if ( ! isset( $item['title'] ) ) {
+					$item['title'] = _x( 'Untitled Menu', 'admin', 'business-directory-plugin' );
+				}
 
-                if ( ! isset( $item['label'] ) ) {
-                    $item['label'] = $item['title'];
-                }
+				if ( ! isset( $item['label'] ) ) {
+					$item['label'] = $item['title'];
+				}
 
-                if ( ! isset( $item['file'] ) ) {
-                    $item['file'] = '';
-                }
+				if ( ! isset( $item['file'] ) ) {
+					$item['file'] = '';
+				}
 
-                if ( ! isset( $item['callback'] ) ) {
-                    $item['callback'] = '';
-                }
+				if ( ! isset( $item['callback'] ) ) {
+					$item['callback'] = '';
+				}
 
-                if ( ! isset( $item['url'] ) ) {
-                    $item['url'] = '';
-                }
-            }
+				if ( ! isset( $item['url'] ) ) {
+					$item['url'] = '';
+				}
+			}
 
-            WPBDP_Utils::sort_by_property( $menu, 'priority' );
+			WPBDP_Utils::sort_by_property( $menu, 'priority' );
         }
 
         /**
@@ -860,7 +860,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     $fee_id  = (int) $_GET['fee_id'];
                     $listing->set_fee_plan( $fee_id );
 
-                    $this->messages[] = _x( 'The fee was successfully assigned.', 'admin', 'business-directory-plugin' );
+                    $this->messages[] = _x( 'The plan was successfully assigned.', 'admin', 'business-directory-plugin' );
 
                     break;
 
@@ -1101,7 +1101,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			global $wpbdp;
-			$wpbdp->assets->enqueue_admin_scripts( true );
+			$wpbdp->assets->enqueue_admin_scripts();
+			$wpbdp->assets->register_installation_resources();
 
 			$message  = _x( '<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin' );
 			$message .= '<br />';
@@ -1294,7 +1295,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			$wpbdp->assets->enqueue_admin_scripts( $force );
+			$wpbdp->assets->enqueue_admin_scripts();
 		}
     }
 

@@ -40,13 +40,13 @@ Create an online directory to become the “go to” source of your niche. Downl
 See all WordPress listing plugin [features](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 
 * Fully customizable form fields to submit listings
-* Upload images per listing, allow restricted numbers of images based on fee plan
+* Upload images per listing, allow restricted numbers of images based on plan
 * Lots of image options: drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
 * Accept paid or free listings with Authorize.net
 * Full support for recurring payments
 * Allow for featured/sticky listings for an upgrade fee
 * Widgets for Featured, Latest and Random listings, and a Search widget.
-* Create multiple fee plans, which can be assigned to categories for posting
+* Create multiple plans, which can be assigned to categories for posting
 * Built in CSV import and export for easy directory listing creation
 * Avoid spam listings with ReCaptcha
 * Sorting options for categories, listings, and front-end for users to choose sort order
@@ -128,7 +128,7 @@ Our directory website builder software combined with our add-on modules is the m
 * Book review sites
 
 = Can I accept paid and free listings? =
-Yes it can. You can do this by creating fee plans for 0.00 and some other paid amount at the same time.
+Yes it can. You can do this by creating plans for 0.00 and some other paid amount at the same time.
 
 = Do you have video tutorials for building WordPress directories? =
 Yes we do. They can be found [here](https://businessdirectoryplugin.com/video-tutorials/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).

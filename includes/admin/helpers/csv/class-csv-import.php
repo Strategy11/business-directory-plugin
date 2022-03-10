@@ -754,7 +754,7 @@ class WPBDP_CSV_Import {
                     $plan = wpbdp_get_fee_plan( $submitted_fee_id );
 
                     if ( ! $plan ) {
-                        $message = _x( 'There is no Fee Plan with ID = <fee-id>', 'admin csv-import', 'business-directory-plugin' );
+                        $message = _x( 'There is no Plan with ID = <fee-id>', 'admin csv-import', 'business-directory-plugin' );
                         $message = str_replace( '<fee-id>', $submitted_fee_id, $message );
 
                         $errors[] = $message;
@@ -877,9 +877,12 @@ class WPBDP_CSV_Import {
 
         // Make a copy of the file because wpbdp_media_upload() moves the original file.
         copy( $filepath, $filepath . '.backup' );
-        $media_id = wpbdp_media_upload( $filepath, true, true );
+		$upload = wpbdp_media_upload( $filepath, false, true );
+		if ( ! $upload ) {
+			return false;
+		}
+		$media_id = WPBDP__Utils::attach_image_to_media_library( $upload );
         rename( $filepath . '.backup', $filepath );
-
         return $media_id;
     }
 

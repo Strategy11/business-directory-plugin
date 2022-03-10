@@ -16,7 +16,7 @@
 @import 'admin-smtp.less';
 @import 'admin-modules.less';
 @import 'admin-notice-review.less';
-
+@import 'admin/modal.less';
 
 .cf:before, .cf:after {
     content: " ";
@@ -25,6 +25,10 @@
 
 .cf:after {
     clear: both;
+}
+
+.wpbdp-right {
+	text-align: right;
 }
 
 .button-primary.next-to-secondary {
@@ -482,7 +486,7 @@ body.taxonomy-wpbdp_category .column-id {
 	animation: spin 2s linear infinite;
 }
 
-/* @group Listing fee change. */
+/* @group Listing plan change. */
 .listing-fee-change .fee-selection .fee {
     padding-bottom: 5px;
     margin-bottom: 10px;
@@ -805,4 +809,27 @@ body.post-type-wpbdp_listing {
 	margin-left: 0 !important;
 	margin-right: 0 !important;
 	padding: 0 !important;
+}
+
+.wpbdp-setting-tooltip {
+	height: 18px;
+	width: 18px;
+	font-size: 18px;
+	line-height: 18px;
+	vertical-align: middle;
+	margin-right: 5px;
+	color: #666;
+	cursor: help;
+}
+
+.wpbdp-admin-tooltip-content {
+	background-color: @tooltip-background !important;
+	background-image: none !important;
+	box-shadow: none !important;
+	border-radius: 5px !important;
+	color: @white !important;
+	padding: 1rem !important;
+	width: auto;
+	max-width: 220px !important;
+	font-size: 12px !important;
 }
