@@ -1,24 +1,17 @@
 <?php
     $buttons = array(
-        array(
-            _x( 'Add New Form Field', 'form-fields admin', 'business-directory-plugin' ),
-            wp_nonce_url(
-				admin_url( 'admin.php?page=wpbdp_admin_formfields&action=addfield' ),
-				'editfield'
-            ),
-        ),
-        array(
-            _x( 'Preview Form', 'form-fields admin', 'business-directory-plugin' ),
-            esc_url(
-                admin_url( 'admin.php?page=wpbdp_admin_formfields&action=previewform' )
-            ),
-        ),
-        array(
-            _x( 'Manage Theme Tags', 'form-fields admin', 'business-directory-plugin' ),
-            esc_url(
-                admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' )
-            ),
-        ),
+		'addfield'    => array(
+			'label' => __( 'Add New Form Field', 'business-directory-plugin' ),
+			'url'   => wp_nonce_url( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=addfield' ), 'editfield' ),
+		),
+		'previewform' => array(
+			'label' => __( 'Preview Form', 'business-directory-plugin' ),
+			'url'   => admin_url( 'admin.php?page=wpbdp_admin_formfields&action=previewform' ),
+		),
+		'updatetags'  => array(
+			'label' => __( 'Manage Theme Tags', 'business-directory-plugin' ),
+			'url'   => admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
+		),
     );
 
     echo wpbdp_admin_header( null, null, $buttons );

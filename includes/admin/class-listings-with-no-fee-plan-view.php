@@ -55,7 +55,7 @@ class WPBDP__ListingsWithNoFeePlanView {
 
         $views['wpbdp-no-fee-plan'] = $this->render_view_link(
             'no-fee-plan',
-            _x( 'No Fee Plan', 'listings view', 'business-directory-plugin' ),
+            _x( 'No Plan', 'listings view', 'business-directory-plugin' ),
             'wpbdmfilter',
             $listings_without_fee_plan,
 			'no-fee-plan' === wpbdp_get_var( array( 'param' => 'wpbdmfilter' ) )

@@ -82,13 +82,6 @@ class WPBDP_Themes_Admin {
             return;
         }
 
-        wp_enqueue_style(
-            'wpbdp-admin-themes',
-            WPBDP_ASSETS_URL . 'css/admin-themes.min.css',
-            array(),
-            WPBDP_VERSION
-        );
-
         wp_enqueue_script(
             'wpbdp-admin-themes',
             WPBDP_ASSETS_URL . 'js/admin-themes.min.js',

@@ -109,9 +109,11 @@ class WPBDP__Payment_Gateways {
     }
 
     public function _admin_warnings() {
-		$page = wpbdp_get_var( array( 'param' => 'page' ) );
+		$page        = wpbdp_get_var( array( 'param' => 'page' ) );
+		$page_tab    = wpbdp_get_var( array( 'param' => 'tab' ) );
 		$is_settings = 'wpbdp_settings' === $page;
 		$is_plans    = 'wpbdp-admin-fees' === $page;
+		$is_payments = ( $is_settings && 'payment' === $page_tab );
 		if ( ! $is_settings && ! $is_plans ) {
             return;
         }
@@ -140,7 +142,7 @@ class WPBDP__Payment_Gateways {
             }
         }
 
-		if ( ! $at_least_one_gateway && $is_plans ) {
+		if ( ! $at_least_one_gateway && ( $is_plans || $is_payments ) ) {
 			$msg = __( 'You have paid plans but no payment gateway. Go to %1$sSettings - Payment%2$s to set up a gateway. Until you do this, only free plans will be available.', 'business-directory-plugin' );
 			$msg = sprintf( $msg, '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">', '</a>' );
 			wpbdp_admin_message( $msg, 'error' );

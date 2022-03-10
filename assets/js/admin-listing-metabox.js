@@ -33,15 +33,18 @@ jQuery( function( $ ) {
     var $metabox_tab = $('#wpbdp-listing-metabox-plan-info');
 
     // Makes sure texts displayed inside the metabox are in sync with the settings.
-    var updateText = function() {
+    var updateText = function( plan_data ) {
         var plan_id = $( 'input[name="listing_plan[fee_id]"]').val();
         var expiration = $('input[name="listing_plan[expiration_date]"]').val();
         var images = $('input[name="listing_plan[fee_images]"]').val();
 
-        var $plan = $('select#wpbdp-listing-plan-select').find('option[value="' + plan_id + '"]');
-        if ( $plan.length > 0) {
-            var plan_data = $.parseJSON($plan.attr('data-plan-info'));
-
+        if ( typeof plan_data === undefined ) {
+            var $plan = $('select#wpbdp-listing-plan-select').find('option[value="' + plan_id + '"]');
+            if ( $plan.length > 0) {
+                plan_data = $.parseJSON($plan.attr('data-plan-info'));
+            }
+        }
+        if ( plan_data ) {
             $('#wpbdp-listing-plan-prop-label').html(
                 wpbdpListingMetaboxL10n.planDisplayFormat.replace('{{plan_id}}', plan_data.id)
                                                          .replace('{{plan_label}}', plan_data.label));
@@ -87,12 +90,29 @@ jQuery( function( $ ) {
                 $input.val(prev_value);
         } else {
             // Plan changes are handled in a special way.
-            if ($input.is('#wpbdp-listing-plan-select')) {
-                var plan = $.parseJSON( $input.find( 'option:selected' ).attr( 'data-plan-info' ) );
+			if ( $input.is('#wpbdp-listing-plan-select') && $input.val() ) {
+				var listing_id = $( 'input[name="post_ID"]' ).val();
 
-                $metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
-                $metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
-                $metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
+				
+				$.ajax(ajaxurl, {
+					data: {
+						action: 'wpbdp-assign-plan-to-listing',
+						nonce: wpbdp_global.nonce,
+						listing_id: listing_id,
+						plan_id: $input.val()
+					},
+					type: 'POST',
+					dataType: 'json',
+					success: function(res) {
+						if ( res.success ) {
+                            var plan = res.data;
+							$metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
+							$metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
+							$metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
+                            updateText( plan );
+						}
+					}
+				});
             }
 
             updateText();
