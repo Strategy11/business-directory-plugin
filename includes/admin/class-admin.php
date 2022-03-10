@@ -1296,7 +1296,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			$wpbdp->assets->enqueue_admin_scripts();
-			$wpbdp->assets->register_installation_resources();
 		}
     }
 
