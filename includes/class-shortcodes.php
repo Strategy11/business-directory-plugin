@@ -505,12 +505,9 @@ class WPBDP__Shortcodes {
 	 */
 	private function validate_taxonomy_atts( $type, $atts, &$requested_tax ) {
 		$types = ( 'tag' === $type ) ? 'tags' : 'categories';
-		if ( ! isset( $atts[ $type ] ) && ! isset( $atts[ $types ] ) ) {
-			return;
-		}
-		$tag  = isset( $atts[ $type ] ) ? $atts[ $type ] : '';
-		$tags = isset( $atts[ $types ] ) ? $atts[ $types ] : '';
-		$sep  = ( $tag || $tags ) ? ',' : false;
+		$tag   = isset( $atts[ $type ] ) ? $atts[ $type ] : '';
+		$tags  = isset( $atts[ $types ] ) ? $atts[ $types ] : '';
+		$sep   = ( $tag || $tags ) ? ',' : false;
 		if ( ! $sep ) {
 			return;
 		}
