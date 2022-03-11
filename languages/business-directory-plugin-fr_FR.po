@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-02-03 21:01:26+00:00\n"
+"POT-Creation-Date: 2022-03-10 17:51:03+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -94,7 +94,7 @@ msgstr "Annuaire"
 
 #: includes/admin/class-admin.php:312
 #, fuzzy
-msgid "Fee Plans"
+msgid "Plans"
 msgstr "Plan tarifaire"
 
 #: includes/admin/class-admin.php:315
@@ -119,7 +119,7 @@ msgid "Could not send renewal email."
 msgstr "Envoyer un e-mail à l'utilisateur"
 
 #: includes/admin/class-admin.php:1023
-#: includes/admin/helpers/tables/class-form-fields-table.php:127
+#: includes/admin/helpers/tables/class-form-fields-table.php:128
 #: includes/admin/helpers/tables/class-payments-table.php:54
 #: templates/email/listing-added.tpl.php:7
 #: templates/email/listing-edited.tpl.php:13
@@ -134,7 +134,7 @@ msgstr "ID"
 msgid "Listing Count"
 msgstr "Compteur d'annonces"
 
-#: includes/admin/class-admin.php:1191
+#: includes/admin/class-admin.php:1192
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -154,7 +154,7 @@ msgid "Please select a user"
 msgstr "Veuillez sélectionner une catégorie."
 
 #: includes/admin/class-listing-owner.php:87
-#: includes/admin/controllers/class-admin-listings.php:221
+#: includes/admin/controllers/class-admin-listings.php:223
 #, fuzzy
 msgid "Listing Owner"
 msgstr "Une annonce expire"
@@ -208,6 +208,7 @@ msgid "Business Directory Plugin"
 msgstr "Plugin Business Directory"
 
 #: includes/admin/controllers/class-admin-controller.php:82
+#: includes/admin/helpers/tables/class-fees-table.php:179
 #: templates/admin/payments-note.tpl.php:13
 #: templates/delete-listing-confirm.tpl.php:19
 #, fuzzy
@@ -224,7 +225,7 @@ msgstr "Aide"
 #: includes/admin/helpers/tables/class-payments-table.php:57
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:73
-#: templates/admin/payments-details.tpl.php:110
+#: templates/admin/payments-details.tpl.php:113
 #: templates/email/listing-payment-completed.tpl.php:21
 #: templates/payment/payment_items.tpl.php:5
 #, fuzzy
@@ -241,13 +242,13 @@ msgstr "Images"
 
 #: includes/admin/controllers/class-admin-fees.php:115
 #, fuzzy
-msgid "Fee plan added."
+msgid "Plan added."
 msgstr "Frais mis à jour."
 
 #: includes/admin/controllers/class-admin-fees.php:119
 #: includes/admin/controllers/class-admin-fees.php:134
 #, fuzzy
-msgid "Fee plan updated."
+msgid "Plan updated."
 msgstr "Frais mis à jour."
 
 #: includes/admin/controllers/class-admin-fees.php:154
@@ -261,51 +262,55 @@ msgstr "Liste des images ?"
 
 #: includes/admin/controllers/class-admin-fees.php:176
 #, fuzzy
-msgid "Fee plan not found."
+msgid "Plan not found."
 msgstr "Frais mis à jour."
 
 #: includes/admin/controllers/class-admin-fees.php:180
 #, fuzzy
-msgid "Fee plan listings updated."
+msgid "Plan listings updated."
 msgstr "Frais mis à jour."
 
-#: includes/admin/controllers/class-admin-listings.php:185
+#: includes/admin/controllers/class-admin-fees.php:258
+msgid "Cannot disable plan. At least one plan should be enabled"
+msgstr ""
+
+#: includes/admin/controllers/class-admin-listings.php:187
 #: includes/controllers/pages/class-submit-listing.php:518
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Information sur l'annonce"
 
-#: includes/admin/controllers/class-admin-listings.php:193
+#: includes/admin/controllers/class-admin-listings.php:195
 msgid "Listing Timeline"
 msgstr "Titre de l'annonce"
 
-#: includes/admin/controllers/class-admin-listings.php:211
+#: includes/admin/controllers/class-admin-listings.php:213
 #, fuzzy
 msgid "Listing Reports"
 msgstr "Une annonce expire"
 
-#: includes/admin/controllers/class-admin-listings.php:266
+#: includes/admin/controllers/class-admin-listings.php:268
 msgid "Expires on"
 msgstr "Expire le"
 
-#: includes/admin/controllers/class-admin-listings.php:274
+#: includes/admin/controllers/class-admin-listings.php:276
 msgid "Attributes"
 msgstr "Attributs"
 
-#: includes/admin/controllers/class-admin-listings.php:337
+#: includes/admin/controllers/class-admin-listings.php:339
 #: includes/helpers/class-listing-display-helper.php:132
 #, fuzzy
 msgid "Featured"
 msgstr "Statut sélectionné (Post-it)"
 
-#: includes/admin/controllers/class-admin-listings.php:475
+#: includes/admin/controllers/class-admin-listings.php:477
 #: includes/class-cpt-integration.php:19
 #: includes/compatibility/class-navxt-integration.php:204
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
 msgstr "Editer l'annonce"
 
-#: includes/admin/controllers/class-admin-listings.php:480
+#: includes/admin/controllers/class-admin-listings.php:482
 #: templates/delete-listing-confirm.tpl.php:3
 msgid "Delete Listing"
 msgstr "Annuler l'annonce"
@@ -325,14 +330,19 @@ msgstr ""
 msgid "Go to \"Form Fields\""
 msgstr "Aller à \"Gestion des Champs\""
 
-#: includes/admin/controllers/class-form-fields-admin.php:128
-#: includes/helpers/functions/general.php:1366
-#: includes/helpers/functions/general.php:1371
+#: includes/admin/controllers/class-form-fields-admin.php:125
+#, fuzzy
+msgid "Form Preview"
+msgstr "Aperçu du formulaire"
+
+#: includes/admin/controllers/class-form-fields-admin.php:129
+#: includes/helpers/functions/general.php:1370
+#: includes/helpers/functions/general.php:1375
 #, fuzzy
 msgid "Go back"
 msgstr "Non, reviens"
 
-#: includes/admin/controllers/class-form-fields-admin.php:338
+#: includes/admin/controllers/class-form-fields-admin.php:342
 #: includes/admin/settings/class-settings-bootstrap.php:765
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -341,7 +351,7 @@ msgstr "Non, reviens"
 msgid "Title"
 msgstr "Titre"
 
-#: includes/admin/controllers/class-form-fields-admin.php:339
+#: includes/admin/controllers/class-form-fields-admin.php:343
 #: templates/admin/fees-form.tpl.php:219
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
@@ -349,22 +359,22 @@ msgstr "Titre"
 msgid "Category"
 msgstr "Catégorie"
 
-#: includes/admin/controllers/class-form-fields-admin.php:340
+#: includes/admin/controllers/class-form-fields-admin.php:344
 #, fuzzy
 msgid "Excerpt"
 msgstr "Extrait"
 
-#: includes/admin/controllers/class-form-fields-admin.php:341
+#: includes/admin/controllers/class-form-fields-admin.php:345
 #, fuzzy
 msgid "Content"
 msgstr "Contenu"
 
-#: includes/admin/controllers/class-form-fields-admin.php:342
+#: includes/admin/controllers/class-form-fields-admin.php:346
 #, fuzzy
 msgid "Tags"
 msgstr "Étiquettes (tags)"
 
-#: includes/admin/controllers/class-form-fields-admin.php:343
+#: includes/admin/controllers/class-form-fields-admin.php:347
 #: includes/form-fields.php:445
 #: includes/helpers/class-field-display-list.php:247
 #: templates/checkout-billing-form.tpl.php:75
@@ -372,81 +382,80 @@ msgstr "Étiquettes (tags)"
 msgid "Address"
 msgstr "Adresse"
 
-#: includes/admin/controllers/class-form-fields-admin.php:344
+#: includes/admin/controllers/class-form-fields-admin.php:348
 #, fuzzy
 msgid "Address 2"
 msgstr "Adresse"
 
-#: includes/admin/controllers/class-form-fields-admin.php:345
-#: templates/admin/payments-details.tpl.php:161
+#: includes/admin/controllers/class-form-fields-admin.php:349
+#: templates/admin/payments-details.tpl.php:164
 #: templates/checkout-billing-form.tpl.php:87
 #, fuzzy
 msgid "City"
 msgstr "Ville"
 
-#: includes/admin/controllers/class-form-fields-admin.php:346
-#: templates/admin/payments-details.tpl.php:157
+#: includes/admin/controllers/class-form-fields-admin.php:350
+#: templates/admin/payments-details.tpl.php:160
 #, fuzzy
 msgid "State"
 msgstr "Région"
 
-#: includes/admin/controllers/class-form-fields-admin.php:347
-#: templates/admin/payments-details.tpl.php:153
+#: includes/admin/controllers/class-form-fields-admin.php:351
+#: templates/admin/payments-details.tpl.php:156
 #: templates/checkout-billing-form.tpl.php:102
 #, fuzzy
 msgid "Country"
 msgstr "Pays"
 
-#: includes/admin/controllers/class-form-fields-admin.php:348
-#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:165
+#: includes/admin/controllers/class-form-fields-admin.php:352
+#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:168
 msgid "ZIP Code"
 msgstr "Code postal"
 
-#: includes/admin/controllers/class-form-fields-admin.php:349
+#: includes/admin/controllers/class-form-fields-admin.php:353
 #, fuzzy
 msgid "FAX Number"
 msgstr "Numéro de fax"
 
-#: includes/admin/controllers/class-form-fields-admin.php:350
+#: includes/admin/controllers/class-form-fields-admin.php:354
 #: includes/fields/class-fieldtypes-phone-number.php:13
 #: templates/listing-contactform.tpl.php:38
 #, fuzzy
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: includes/admin/controllers/class-form-fields-admin.php:351
+#: includes/admin/controllers/class-form-fields-admin.php:355
 #, fuzzy
 msgid "Ratings Field"
 msgstr "Champs d'évaluation"
 
-#: includes/admin/controllers/class-form-fields-admin.php:352
+#: includes/admin/controllers/class-form-fields-admin.php:356
 #, fuzzy
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/controllers/class-form-fields-admin.php:353
+#: includes/admin/controllers/class-form-fields-admin.php:357
 #: includes/form-fields.php:411
 #, fuzzy
 msgid "Website"
 msgstr "Site Internet"
 
-#: includes/admin/controllers/class-settings-admin.php:476
+#: includes/admin/controllers/class-settings-admin.php:474
 msgid "Your license key provides access to new features and updates."
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:478
+#: includes/admin/controllers/class-settings-admin.php:476
 #, fuzzy
 msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "Pourquoi avez-vous désinstallé le plugin Business Directory?"
 
-#: includes/admin/controllers/class-settings-admin.php:536
-#: includes/admin/helpers/tables/class-fees-table.php:177
-#: includes/admin/helpers/tables/class-form-fields-table.php:104
+#: includes/admin/controllers/class-settings-admin.php:534
+#: includes/admin/helpers/tables/class-fees-table.php:180
+#: includes/admin/helpers/tables/class-form-fields-table.php:105
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
 #: templates/admin/payments-note.tpl.php:14
-#: templates/admin/themes-item.tpl.php:66
+#: templates/admin/themes-item.tpl.php:50
 #: templates/parts/listing-buttons.tpl.php:31
-#: templates/parts/listing-buttons.tpl.php:65
 #, fuzzy
 msgid "Delete"
 msgstr "Effacer"
@@ -462,16 +471,25 @@ msgstr "Thèmes"
 msgid "Business %s"
 msgstr "Professionnel %s"
 
-#: includes/admin/csv-import.php:326
+#: includes/admin/csv-import.php:183
+#, fuzzy
+msgid "Example CSV Import File"
+msgstr "Exemple de fichier d'import CSV"
+
+#: includes/admin/csv-import.php:186
+msgid "Go Back"
+msgstr ""
+
+#: includes/admin/csv-import.php:334
 msgid "You are not allowed to do that."
 msgstr ""
 
-#: includes/admin/csv-import.php:423
+#: includes/admin/csv-import.php:431
 #, fuzzy
 msgid "There was an error uploading the file:"
 msgstr "Il y a eu une erreur lors de l'upload du fichier CSV."
 
-#: includes/admin/csv-import.php:428
+#: includes/admin/csv-import.php:436
 #, fuzzy
 msgid "Please upload the correct file type."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
@@ -481,7 +499,7 @@ msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 #: includes/admin/settings/class-settings-bootstrap.php:657
 #: includes/admin/settings/class-settings-bootstrap.php:658
 #: includes/helpers/class-app.php:91
-#: templates/admin/payments-details.tpl.php:50
+#: templates/admin/payments-details.tpl.php:53
 #, fuzzy
 msgid "Listing"
 msgstr "Annonce"
@@ -498,8 +516,8 @@ msgid "Installed"
 msgstr "Installé"
 
 #: includes/admin/helpers/class-modules-list.php:187
-#: includes/admin/helpers/tables/class-fees-table.php:287
-#: templates/admin/themes-item.tpl.php:41
+#: includes/admin/helpers/tables/class-fees-table.php:291
+#: templates/admin/themes-item.tpl.php:3
 #, fuzzy
 msgid "Active"
 msgstr "Actif"
@@ -511,7 +529,7 @@ msgstr "Non installé"
 
 #: includes/admin/helpers/class-modules-list.php:225
 #: includes/controllers/class-smtp.php:317
-#: templates/admin/themes-item.tpl.php:61
+#: templates/admin/themes-item.tpl.php:58
 #, fuzzy
 msgid "Activate"
 msgstr "Activer"
@@ -530,7 +548,7 @@ msgstr "Annonce soumis par admin. Paiement sauté."
 #. translators: %1$s: open link html, %2$s close link
 #: includes/admin/helpers/tables/class-fees-table.php:30
 #, fuzzy
-msgid "There are no fees right now. %1$sCreate one%2$s."
+msgid "There are no plans right now. %1$sCreate one%2$s."
 msgstr ""
 "Il n'y a pas de tarif en ce moment. Vous pouvez <a>en créer un</a>, si vous "
 "le souhaitez."
@@ -558,41 +576,45 @@ msgstr "Prix"
 msgid "Listings"
 msgstr "Listes"
 
-#: includes/admin/helpers/tables/class-fees-table.php:156
+#: includes/admin/helpers/tables/class-fees-table.php:155
 #, fuzzy
 msgid "Disable"
 msgstr "Effacer les Frais"
 
-#: includes/admin/helpers/tables/class-fees-table.php:162
+#: includes/admin/helpers/tables/class-fees-table.php:161
 #, fuzzy
 msgid "Enable"
 msgstr "Activer"
 
-#: includes/admin/helpers/tables/class-fees-table.php:184
+#: includes/admin/helpers/tables/class-fees-table.php:187
 msgid "ID: %s"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:190
 #, fuzzy
 msgid "Paid Plan"
 msgstr "Payé"
 
-#: includes/admin/helpers/tables/class-fees-table.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:190
 #, fuzzy
 msgid "Free Plan"
 msgstr "Plan tarifaire"
 
-#: includes/admin/helpers/tables/class-fees-table.php:222
+#: includes/admin/helpers/tables/class-fees-table.php:225
 #, fuzzy
 msgid "%1$s for %2$s"
 msgstr "%s (ex. %s)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:285
+#: includes/admin/helpers/tables/class-fees-table.php:259
+msgid "Total revenue earned from listings"
+msgstr ""
+
+#: includes/admin/helpers/tables/class-fees-table.php:289
 #, fuzzy
 msgid "Disabled"
 msgstr "Effacer les Frais"
 
-#: includes/admin/helpers/tables/class-fees-table.php:291
+#: includes/admin/helpers/tables/class-fees-table.php:295
 #: includes/helpers/functions/templates-ui.php:431
 #, fuzzy
 msgid "Default"
@@ -606,10 +628,15 @@ msgid "Type"
 msgstr "Type"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:88
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:102
 msgid "Edit"
 msgstr "Editer"
+
+#: includes/admin/helpers/tables/class-form-fields-table.php:104
+#, fuzzy
+msgid "Are you sure you want to delete that field?"
+msgstr "Etes-vous sûr de vouloir effacer le \"%s\" champ?"
 
 #: includes/admin/page-debug.php:40
 #, fuzzy
@@ -635,8 +662,8 @@ msgid "Missing tables: %s"
 msgstr "Tables manquantes: %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1252
-#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:137
+#: includes/controllers/pages/class-submit-listing.php:1254
+#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:140
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
 #, fuzzy
@@ -664,10 +691,10 @@ msgid "SEO"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:255
-#: includes/class-assets.php:335
+#: includes/class-assets.php:352
 #: includes/fields/class-fieldtypes-textarea.php:200
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 #, fuzzy
 msgid "No"
 msgstr "Non"
@@ -1045,11 +1072,15 @@ msgstr "Effectuer la mise à jour manuelle"
 
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:110
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:111
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:152
 msgid "Business Directory - Manual Upgrade"
 msgstr "Business Directory - Mise à jour manuelle"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:174
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:154
+#, fuzzy
+msgid "Directory Manual Upgrade"
+msgstr "Business Directory - Mise à jour manuelle"
+
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:180
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
@@ -1058,7 +1089,7 @@ msgstr ""
 "désactivées car le plugin a besoin d'effectuer une mise à jour manuelle afin "
 "d'être pleinement utilisable."
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:176
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:182
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr ""
 "Cliquez sur \"Démarrer la mise à jour\" et patientez jusqu'à la fin du "
@@ -1074,8 +1105,8 @@ msgstr "Business Directory - Migration des niveaux en vedette"
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:272
 #: templates/admin/fees-form.tpl.php:17
 #, fuzzy
-msgid "Fee Label"
-msgstr "Etiquettes des Frais"
+msgid "Plan Label"
+msgstr "Etiquette du champ"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:274
 #, fuzzy
@@ -1084,7 +1115,7 @@ msgstr "Durée"
 
 #: includes/admin/upgrades/migrations/migration-18_0.php:251
 #, fuzzy
-msgid "Could not migrate fee \"%1$s\" (%2$d)"
+msgid "Could not migrate plan \"%1$s\" (%2$d)"
 msgstr "! Impossible de migrer les frais \"%s\" (%d)"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:181
@@ -1097,18 +1128,15 @@ msgstr "Renouvellement des frais \"%s\" pour la catégorie \"%s\""
 msgid "Directory Modules"
 msgstr "Catégories de l'annuaire"
 
-#: includes/admin/views/modules/list.php:46
-#: includes/admin/views/modules/list.php:47
+#: includes/admin/views/modules/list.php:35
+msgid "New"
+msgstr ""
+
+#: includes/admin/views/modules/list.php:68
+#: includes/admin/views/modules/list.php:69
 #, fuzzy
 msgid "View Docs"
 msgstr "Vue"
-
-#. translators: %s: Status name
-#: includes/admin/views/modules/list.php:63
-#: templates/admin/themes-item.tpl.php:50
-#, fuzzy
-msgid "Status: %s"
-msgstr "Statut:"
 
 #: includes/admin/views/review.php:17
 #, fuzzy
@@ -1154,21 +1182,38 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:333
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:86
+#: includes/class-assets.php:194 templates/admin/settings-email.tpl.php:103
+#: templates/admin/settings-reset.tpl.php:8
+#: templates/admin/themes-delete-confirm.tpl.php:21
+#: templates/listing-flagging-form.tpl.php:65
+#, fuzzy
+msgid "Cancel"
+msgstr "Annuler"
+
+#: includes/class-assets.php:195
+#, fuzzy
+msgid "Continue"
+msgstr "Continuer"
+
+#: includes/class-assets.php:196
+msgid "Are you sure?"
+msgstr ""
+
+#: includes/class-assets.php:350
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 #, fuzzy
 msgid "Never"
 msgstr "Jamais"
 
-#: includes/class-assets.php:334
+#: includes/class-assets.php:351
 #: includes/fields/class-fieldtypes-textarea.php:201
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 #, fuzzy
 msgid "Yes"
 msgstr "Oui"
 
-#: includes/class-assets.php:344
+#: includes/class-assets.php:361
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
@@ -1279,7 +1324,7 @@ msgstr "Ajouter les droits d'inscription"
 msgid "View All Listings"
 msgstr "Voir toutes les annonces"
 
-#: includes/class-payment-gateways.php:144
+#: includes/class-payment-gateways.php:146
 msgid ""
 "You have paid plans but no payment gateway. Go to %1$sSettings - Payment%2$s "
 "to set up a gateway. Until you do this, only free plans will be available."
@@ -1295,12 +1340,12 @@ msgstr "Mettre à jour vers %s"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: includes/class-wpbdp.php:574
+#: includes/class-wpbdp.php:575
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Impossible de contacter le serveur de licences"
 
-#: includes/class-wpbdp.php:581
+#: includes/class-wpbdp.php:582
 #, fuzzy
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
@@ -1309,12 +1354,12 @@ msgstr ""
 "Quelque chose s'est mal passé. Veuillez vérifier le formulaire, corriger les "
 "erreurs et soumettre à nouveau."
 
-#: includes/class-wpbdp.php:588 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:589 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Impossible de mettre à jour le thème: %s"
 
-#: includes/class-wpbdp.php:620
+#: includes/class-wpbdp.php:621
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1323,7 +1368,7 @@ msgstr ""
 "désactivés car le plugin a besoin d'effectuer une mise à jour manuelle avant "
 "de poursuivre."
 
-#: includes/class-wpbdp.php:627
+#: includes/class-wpbdp.php:628
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1531,32 +1576,32 @@ msgstr "Création de compte"
 
 #: includes/controllers/pages/class-submit-listing.php:831
 #, fuzzy
-msgid "Go to \"Fee Plans\""
+msgid "Go to \"Plans\""
 msgstr "Plan tarifaire"
 
 #: includes/controllers/pages/class-submit-listing.php:887
 #, fuzzy
-msgid "Please choose a fee plan."
+msgid "Please choose a plan."
 msgstr "(Veuillez choisir un tarif ci-dessus)"
 
-#: includes/controllers/pages/class-submit-listing.php:1073
+#: includes/controllers/pages/class-submit-listing.php:1077
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Quelque chose s'est mal passé. Veuillez vérifier le formulaire, corriger les "
 "erreurs et soumettre à nouveau."
 
-#: includes/controllers/pages/class-submit-listing.php:1236
+#: includes/controllers/pages/class-submit-listing.php:1238
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Créer un compte utilisateur sur ce site"
 
-#: includes/controllers/pages/class-submit-listing.php:1243
+#: includes/controllers/pages/class-submit-listing.php:1245
 #, fuzzy
 msgid "Username"
 msgstr "Nom d'utilisateur (login) :"
 
-#: includes/controllers/pages/class-submit-listing.php:1265
+#: includes/controllers/pages/class-submit-listing.php:1267
 #, fuzzy
 msgid "Clear Form"
 msgstr "Effacer le formulaire"
@@ -1667,8 +1712,7 @@ msgstr ""
 #: includes/fields/class-fieldtypes-textarea.php:214
 #, fuzzy
 msgid ""
-"Warning: Users can use this feature to get around your image limits in fee "
-"plans."
+"Warning: Users can use this feature to get around your image limits in plans."
 msgstr ""
 "<b>Attention:</b> Les utilisateurs peuvent utiliser cette fonctionnalité "
 "pour contourner les limitation d'images dans les formules payantes."
@@ -1748,7 +1792,7 @@ msgstr "Titre de l'annonce"
 msgid "Short Description"
 msgstr "Brève description de l'entreprise"
 
-#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:109
+#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:112
 #, fuzzy
 msgid "Description"
 msgstr "Description"
@@ -1891,6 +1935,11 @@ msgstr "Editer l'annonce"
 #, fuzzy
 msgid "Manage Listings"
 msgstr "Gérer annonces payées"
+
+#: includes/installer.php:60
+#, fuzzy
+msgid "Default Plan"
+msgstr "Frais par défaut"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
 #: includes/licensing.php:152
@@ -2068,17 +2117,22 @@ msgstr "Abandon en cours"
 msgid "Abandoned"
 msgstr "Abandonné"
 
+#: includes/payment.php:278
+#, fuzzy
+msgid "Return to plan selection"
+msgstr "Retourner vers l'annonce."
+
 #: includes/themes.php:945
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Le fichier ZIP n'est pas un fichier de thème valide."
 
-#: includes/utils.php:341
+#: includes/utils.php:390
 #, fuzzy
 msgid "File size (%1$s) exceeds maximum file size of %2$s"
 msgstr "La taille du fichier (%s) excède la taille maximale permise de %s"
 
-#: includes/utils.php:350
+#: includes/utils.php:399
 #, fuzzy
 msgid "File size (%1$s) is smaller than the minimum file size of %2$s"
 msgstr ""
@@ -2358,18 +2412,18 @@ msgstr "Télécharger les informations de débogage"
 
 #: templates/admin/fees-add-fee.tpl.php:4 templates/admin/fees-form.tpl.php:245
 #, fuzzy
-msgid "Add Listing Fee"
-msgstr "Ajouter les droits d'inscription"
+msgid "Add Plan"
+msgstr "Payé"
 
 #: templates/admin/fees-edit-fee.tpl.php:4
 #, fuzzy
-msgid "Edit Listing Fee"
-msgstr "Editer l'annonce"
+msgid "Edit Plan"
+msgstr "Payé"
 
 #: templates/admin/fees-form.tpl.php:30
 #, fuzzy
-msgid "Fee Description"
-msgstr "Description du champ"
+msgid "Plan Description"
+msgstr "Description"
 
 #: templates/admin/fees-form.tpl.php:38
 #, fuzzy
@@ -2398,7 +2452,7 @@ msgid "Number of images allowed"
 msgstr "Nombre d'images autorisées"
 
 #: templates/admin/fees-form.tpl.php:73
-msgid "Private Fee Plan (visible to admins only)?"
+msgid "Private Plan (visible to admins only)?"
 msgstr ""
 
 #: templates/admin/fees-form.tpl.php:90
@@ -2443,54 +2497,53 @@ msgstr "Utilisé pour différencier les annonces de ce plan des autres annonces.
 msgid "Save Changes"
 msgstr "Sauvegarder les modifications"
 
-#: templates/admin/fees-index.tpl.php:7
+#: templates/admin/fees-index.tpl.php:6
 #, fuzzy
-msgid "Add New Listing Fee"
-msgstr "Ajouter de nouveaux droits d'inscription"
+msgid "Add New Plan"
+msgstr "Ajouter une nouvelle annonce"
 
-#: templates/admin/fees-index.tpl.php:20
-#, fuzzy
-msgid "Order fees on the frontend by:"
-msgstr "Ordonner les honoraires dans l'interface par:"
-
-#: templates/admin/fees-index.tpl.php:30
+#: templates/admin/fees-index.tpl.php:28
 #, fuzzy
 msgid "↑ Ascending"
 msgstr "↑ Ascendant"
 
-#: templates/admin/fees-index.tpl.php:31
+#: templates/admin/fees-index.tpl.php:29
 #, fuzzy
 msgid "↓ Descending"
 msgstr "↓ Descendant"
 
-#: templates/admin/fees-index.tpl.php:39
+#: templates/admin/fees-index.tpl.php:37
+msgid "Save front-end order"
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:41
 #, fuzzy
-msgid "Drag and drop to re-order fees."
+msgid "Drag and drop to re-order plans."
 msgstr "Glisser-déposer pour réorganiser les frais."
 
-#: templates/admin/fees-index.tpl.php:67
+#: templates/admin/fees-index.tpl.php:69
 msgid "Set up a payment gateway to charge a fee for listings"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:69
+#: templates/admin/fees-index.tpl.php:71
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #. translators: %s: payment gateway name */
-#: templates/admin/fees-index.tpl.php:88
+#: templates/admin/fees-index.tpl.php:90
 msgid "Add the %s gateway as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:94
+#: templates/admin/fees-index.tpl.php:96
 #, fuzzy
 msgid "Upgrade"
 msgstr "Mettre à jour vers %s"
 
-#: templates/admin/fees-index.tpl.php:102
+#: templates/admin/fees-index.tpl.php:104
 msgid "Set up Authorize.net as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:105
+#: templates/admin/fees-index.tpl.php:107
 msgid "Set Up"
 msgstr ""
 
@@ -2509,20 +2562,20 @@ msgstr "Nombre d'images:"
 msgid "Require this field on the Advanced Search screen."
 msgstr "Indiquez les champs obligatoires lors de recherches avancée."
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:4
+#: templates/admin/form-fields.tpl.php:4
 #, fuzzy
-msgid "Delete Form Field"
-msgstr "Effacer du champ"
+msgid "Add New Form Field"
+msgstr "Ajouter un nouveau formulaire de champ"
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:11
+#: templates/admin/form-fields.tpl.php:8
 #, fuzzy
-msgid "Are you sure you want to delete that field?"
-msgstr "Etes-vous sûr de vouloir effacer le \"%s\" champ?"
+msgid "Preview Form"
+msgstr "Formulaire précédent"
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:17
+#: templates/admin/form-fields.tpl.php:12 templates/admin/themes.tpl.php:11
 #, fuzzy
-msgid "Delete Field"
-msgstr "Effacer le champ"
+msgid "Manage Theme Tags"
+msgstr "Gestion des étiquettes du thème"
 
 #: templates/admin/metaboxes-listing-information-other.tpl.php:3
 #: templates/email-access-keys.tpl.php:5 templates/login.tpl.php:69
@@ -2530,6 +2583,12 @@ msgstr "Effacer le champ"
 #, fuzzy
 msgid "Access Key"
 msgstr "Clés d'accès"
+
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
+#: templates/email/listing-payment-completed.tpl.php:25
+#, fuzzy
+msgid "Plan"
+msgstr "Plan tarifaire"
 
 #: templates/admin/payments-details.tpl.php:5
 #, fuzzy
@@ -2541,119 +2600,119 @@ msgstr "Paiement #%d"
 msgid "Not Found"
 msgstr "Information concernant les frais"
 
-#: templates/admin/payments-details.tpl.php:10
-#: templates/admin/payments-details.tpl.php:23
+#: templates/admin/payments-details.tpl.php:11
+#: templates/admin/payments-details.tpl.php:26
 #, fuzzy
 msgid "← Return to \"Payment History\""
 msgstr "← Retour à \"Historique des paiements\""
 
-#: templates/admin/payments-details.tpl.php:21
+#: templates/admin/payments-details.tpl.php:24
 #, fuzzy
 msgid "Payment Not Found"
 msgstr "Information concernant les frais"
 
-#: templates/admin/payments-details.tpl.php:42
+#: templates/admin/payments-details.tpl.php:45
 #, fuzzy
 msgid "Overview"
 msgstr "Aperçu"
 
-#: templates/admin/payments-details.tpl.php:46
-#: templates/admin/payments-details.tpl.php:80
+#: templates/admin/payments-details.tpl.php:49
+#: templates/admin/payments-details.tpl.php:83
 #, fuzzy
 msgid "Payment ID"
 msgstr "ID de paiement:"
 
-#: templates/admin/payments-details.tpl.php:56
+#: templates/admin/payments-details.tpl.php:59
 #, fuzzy
 msgid "Status"
 msgstr "Statut"
 
-#: templates/admin/payments-details.tpl.php:65
+#: templates/admin/payments-details.tpl.php:68
 #, fuzzy
 msgid "Date"
 msgstr "Date"
 
-#: templates/admin/payments-details.tpl.php:69
+#: templates/admin/payments-details.tpl.php:72
 #, fuzzy
 msgid "Time"
 msgstr "Date:"
 
-#: templates/admin/payments-details.tpl.php:74
+#: templates/admin/payments-details.tpl.php:77
 #, fuzzy
 msgid "Gateway"
 msgstr "Passerelle"
 
 #. translators: Gateway: (Not yet set)
-#: templates/admin/payments-details.tpl.php:76
+#: templates/admin/payments-details.tpl.php:79
 #, fuzzy
 msgid "(Not yet set)"
 msgstr "(Pas encore inscrit)"
 
-#: templates/admin/payments-details.tpl.php:91
+#: templates/admin/payments-details.tpl.php:94
 #, fuzzy
 msgid "Delete Payment"
 msgstr "Supprimer le paiement"
 
-#: templates/admin/payments-details.tpl.php:93
+#: templates/admin/payments-details.tpl.php:96
 #, fuzzy
 msgid "Save Payment"
 msgstr "Enregistrer le paiement"
 
-#: templates/admin/payments-details.tpl.php:104
+#: templates/admin/payments-details.tpl.php:107
 #, fuzzy
 msgid "Details"
 msgstr "Détails"
 
-#: templates/admin/payments-details.tpl.php:108
+#: templates/admin/payments-details.tpl.php:111
 #, fuzzy
 msgid "Item Type"
 msgstr "Type d'élément"
 
-#: templates/admin/payments-details.tpl.php:121
+#: templates/admin/payments-details.tpl.php:124
 #: templates/payment/payment_items.tpl.php:23
 #, fuzzy
 msgid "Total"
 msgstr "Total"
 
-#: templates/admin/payments-details.tpl.php:132
+#: templates/admin/payments-details.tpl.php:135
 #, fuzzy
 msgid "Customer Details"
 msgstr "Détails du client"
 
-#: templates/admin/payments-details.tpl.php:142
+#: templates/admin/payments-details.tpl.php:145
 #: templates/checkout-billing-form.tpl.php:17
 #, fuzzy
 msgid "First Name"
 msgstr "Prénom"
 
-#: templates/admin/payments-details.tpl.php:147
+#: templates/admin/payments-details.tpl.php:150
 #: templates/checkout-billing-form.tpl.php:22
 #, fuzzy
 msgid "Last Name"
 msgstr "Nom"
 
-#: templates/admin/payments-details.tpl.php:169
+#: templates/admin/payments-details.tpl.php:172
 #, fuzzy
 msgid "Address Line 1"
 msgstr "Adresse ligne 1:"
 
-#: templates/admin/payments-details.tpl.php:173
+#: templates/admin/payments-details.tpl.php:176
 #: templates/checkout-billing-form.tpl.php:81
 #, fuzzy
 msgid "Address Line 2"
 msgstr "Adresse ligne 2"
 
-#: templates/admin/payments-details.tpl.php:182
+#: templates/admin/payments-details.tpl.php:185
 #, fuzzy
 msgid "Notes & Log"
 msgstr "Notes et registre"
 
-#: templates/admin/payments-details.tpl.php:187
+#: templates/admin/payments-details.tpl.php:190
 #, fuzzy
 msgid "No notes."
 msgstr "Pas de notes."
 
-#: templates/admin/payments-details.tpl.php:207
+#: templates/admin/payments-details.tpl.php:210
 #, fuzzy
 msgid "Add Note"
 msgstr "Ajouter une note"
@@ -2736,33 +2795,22 @@ msgstr "Vous pouvez utiliser les paramètres suivantes:"
 msgid "Preview email"
 msgstr "E-mail précédents"
 
-#: templates/admin/settings-email.tpl.php:103
-#: templates/admin/themes-delete-confirm.tpl.php:12
-#: templates/listing-flagging-form.tpl.php:65
-#, fuzzy
-msgid "Cancel"
-msgstr "Annuler"
-
 #: templates/admin/settings-page.tpl.php:7
 #, fuzzy
 msgid "Directory Settings"
 msgstr "Identifiant de fiche de l'annuaire"
 
 #: templates/admin/settings-page.tpl.php:8
-#: templates/admin/settings-reset.tpl.php:24
+#: templates/admin/settings-reset.tpl.php:26
 msgid "Reset Defaults"
 msgstr "Rétablir les paramètres par défault"
 
-#: templates/admin/settings-reset.tpl.php:3
-msgid "Business Directory - Reset Defaults"
+#: templates/admin/settings-reset.tpl.php:4
+#, fuzzy
+msgid "Directory Reset to Default"
 msgstr "Business Directory - Dernières annonces"
 
-#: templates/admin/settings-reset.tpl.php:7
-#, fuzzy
-msgid "← Return to \"Manage Options\""
-msgstr "← Retourner vers \"Organisation des champs du formulaire\""
-
-#: templates/admin/settings-reset.tpl.php:15
+#: templates/admin/settings-reset.tpl.php:17
 msgid ""
 "Use this option if you want to go back to the original factory settings for "
 "BD."
@@ -2770,11 +2818,11 @@ msgstr ""
 "Utilisez cette option si vous souhaitez revenir aux réglages d'origine pour "
 "le plugin.  Veuillez noter que tous vos paramètres existants seront perdus."
 
-#: templates/admin/settings-reset.tpl.php:16
+#: templates/admin/settings-reset.tpl.php:18
 msgid "Please note that all of your existing settings will be lost."
 msgstr "Merci de noter que tous vos paramètres existants seront perdus."
 
-#: templates/admin/settings-reset.tpl.php:18
+#: templates/admin/settings-reset.tpl.php:20
 msgid "Your existing listings will NOT be deleted doing this."
 msgstr ""
 
@@ -2801,82 +2849,71 @@ msgstr "Guide rapide de lancement"
 msgid "Video Tutorials"
 msgstr "Vidéo tutoriels"
 
-#: templates/admin/themes-delete-confirm.tpl.php:1
-#: templates/admin/themes-delete-confirm.tpl.php:13
+#: templates/admin/themes-delete-confirm.tpl.php:4
+#: templates/admin/themes-delete-confirm.tpl.php:22
 #, fuzzy
 msgid "Delete Directory Theme"
 msgstr "Catégories de l'annuaire"
 
-#: templates/admin/themes-install.tpl.php:4 templates/admin/themes.tpl.php:6
+#: templates/admin/themes-install.tpl.php:4 templates/admin/themes.tpl.php:7
 #, fuzzy
 msgid "Upload Directory Theme"
 msgstr "Catégories de l'annuaire"
 
 #. translators: %s is the link for Business Directory Premium Themes.
-#: templates/admin/themes-install.tpl.php:16
+#: templates/admin/themes-install.tpl.php:17
 #, fuzzy
 msgid "This is a theme or skin from %s and is NOT a regular WordPress theme."
 msgstr "This is a theme or skin from %s and is NOT a regular WordPress theme."
 
-#: templates/admin/themes-install.tpl.php:30
+#: templates/admin/themes-install.tpl.php:31
 #, fuzzy
 msgid "Business Directory Theme archive (ZIP file)"
 msgstr "Archive Thème BD (Fichier zip)"
 
-#: templates/admin/themes-install.tpl.php:39
+#: templates/admin/themes-install.tpl.php:40
 #, fuzzy
 msgid "Upload"
 msgstr "Module d'upload de fichiers"
 
-#: templates/admin/themes-item.tpl.php:8
+#: templates/admin/themes-item.tpl.php:7
+#, fuzzy
+msgid "Inactive"
+msgstr "Actif"
+
+#: templates/admin/themes-item.tpl.php:17
 #, fuzzy
 msgid "Updating theme..."
 msgstr "Mise à jour du thème..."
 
-#: templates/admin/themes-item.tpl.php:8
+#: templates/admin/themes-item.tpl.php:17
 #, fuzzy
 msgid "Theme updated."
 msgstr "Thème mis à jour."
 
 #. translators: %1$s is opening <a> tag, %2$s is closing </a> tag
-#: templates/admin/themes-item.tpl.php:13
+#: templates/admin/themes-item.tpl.php:22
 #, fuzzy
 msgid "New version available. %1$sUpdate now.%2$s"
 msgstr ""
 "Nouvelle version disponible (<b>%s</b>). <a>Mettre à jour maintenant.</a>"
 
-#: templates/admin/themes-item.tpl.php:45
-#, fuzzy
-msgid "Inactive"
-msgstr "Actif"
-
-#: templates/admin/themes.tpl.php:7
-#, fuzzy
-msgid "Manage Theme Tags"
-msgstr "Gestion des étiquettes du thème"
-
 #. translators: %1$s is opening <a> tag, %2$s is closing </a> tag
-#: templates/admin/themes.tpl.php:21
+#: templates/admin/themes.tpl.php:27
 #, fuzzy
 msgid ""
-"%1$sDirectory Themes%2$s are pre-made templates for the Business Directory "
-"Plugin to change the look of the directory quickly and easily. We have a "
-"number of them available for purchase %1$shere%2$s."
+"%1$sDirectory Themes%2$s change the look of the directory. A number of them "
+"are %1$savailable for purchase%2$s."
 msgstr ""
 "Les <a><b> Themes de l'annuaire</b></a> sont des modèles prédéfinis pour le "
 "Plugin <i>Business Directory</i> afin de changer l'apparence de l'annuaire "
 "rapidement et facilement. Nous avons un certain nombre d'entre eux "
 "disponibles à l'achat <a>ici</a>."
 
-#: templates/admin/themes.tpl.php:26
+#: templates/admin/themes.tpl.php:32
 #, fuzzy
-msgid ""
-"They are different from regular WordPress themes and are not a replacement. "
-"They change the look and feel of the directory only."
-msgstr ""
-"Ils sont <strong>différents</strong> de votre thème WordPress habituel et "
-"ils ne sont <strong>pas</strong> un remplacement des thèmes WP non plus. Ils "
-"vont seulement changer l'apparence de Business directory."
+msgid "They are not a replacement for regular WordPress themes."
+msgstr "This is a theme or skin from %s and is NOT a regular WordPress theme."
 
 #: templates/admin/uninstall-complete.tpl.php:12
 #, fuzzy
@@ -3045,8 +3082,8 @@ msgstr "Validation"
 
 #: templates/checkout.tpl.php:31
 msgid ""
-"Recurring fee plans require a payment method to renew your listing at the "
-"end of the term."
+"Recurring plans require a payment method to renew your listing at the end of "
+"the term."
 msgstr ""
 
 #: templates/checkout.tpl.php:37
@@ -3086,11 +3123,6 @@ msgstr "Retourner vers l'annuaire"
 #, fuzzy
 msgid "(not published yet)"
 msgstr "(pas encore publié)"
-
-#: templates/email/listing-payment-completed.tpl.php:25
-#, fuzzy
-msgid "Plan"
-msgstr "Plan tarifaire"
 
 #: templates/email-access-keys.tpl.php:1
 #, fuzzy
@@ -3234,7 +3266,7 @@ msgstr "%s tous les %s jours."
 msgid "%1$s each %2$s days. Next renewal is on %3$s."
 msgstr "%s tous les %s jours. Le prochain renouvellement est le %s."
 
-#: templates/parts/listing-buttons.tpl.php:38
+#: templates/parts/listing-buttons.tpl.php:39
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Retourner vers l'annuaire."
@@ -3276,8 +3308,13 @@ msgstr ""
 
 #: templates/plan-selection-plan.tpl.php:79
 #, fuzzy
-msgid "Private fee plan"
+msgid "Private plan"
 msgstr "Migration des plans d'honoraires. . ."
+
+#: templates/renew-listing-manage-subscription.tpl.php:2
+#, fuzzy
+msgid "Recurring Plan Management"
+msgstr "Gestion des frais récurrents"
 
 #: templates/search-form.tpl.php:28
 #, fuzzy
@@ -3416,8 +3453,9 @@ msgstr[0] "L'annonce a été mise à jour."
 msgstr[1] "Les annonces ont été mise à jour."
 
 #: includes/admin/class-admin.php:863
+#, fuzzy
 msgctxt "admin"
-msgid "The fee was successfully assigned."
+msgid "The plan was successfully assigned."
 msgstr "Les frais ont bien été assignés."
 
 #: includes/admin/class-admin.php:873
@@ -3451,7 +3489,7 @@ msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1106
+#: includes/admin/class-admin.php:1107
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -3460,7 +3498,7 @@ msgstr ""
 "<b>Business Directory  Plugin</b> requiert une page avec le code "
 "d'activation <tt>[businessdirectory]</tt> pour marcher correctement."
 
-#: includes/admin/class-admin.php:1108
+#: includes/admin/class-admin.php:1109
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -3469,12 +3507,12 @@ msgstr ""
 "Vous pouvez créer cette page par vous-mêmes ou laisser le plugin la faire "
 "pour vous automatiquement."
 
-#: includes/admin/class-admin.php:1113
+#: includes/admin/class-admin.php:1114
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Créer les pages requises pour moi"
 
-#: includes/admin/class-admin.php:1166
+#: includes/admin/class-admin.php:1167
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -3501,12 +3539,12 @@ msgctxt "admin"
 msgid "Images"
 msgstr "Images"
 
-#: includes/admin/controllers/class-admin-listings.php:201
+#: includes/admin/controllers/class-admin-listings.php:203
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "Champs des annonces / Images"
 
-#: includes/admin/controllers/class-admin-listings.php:265
+#: includes/admin/controllers/class-admin-listings.php:267
 msgctxt "admin"
 msgid "Categories"
 msgstr "Catégories"
@@ -3559,7 +3597,7 @@ msgstr "Paramètres"
 #: includes/admin/class-listings-with-no-fee-plan-view.php:58
 #, fuzzy
 msgctxt "listings view"
-msgid "No Fee Plan"
+msgid "No Plan"
 msgstr "Plan tarifaire"
 
 #: includes/admin/controllers/class-admin-controller.php:84
@@ -3582,22 +3620,12 @@ msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Tout ce que"
 
-#: includes/admin/csv-import.php:182
-msgctxt "admin csv-import"
-msgid "Example CSV Import File"
-msgstr "Exemple de fichier d'import CSV"
-
-#: includes/admin/csv-import.php:183
-msgctxt "admin csv-import"
-msgid "← Return to \"CSV Import\""
-msgstr "← Revenir à \"Importation CSV \""
-
-#: includes/admin/csv-import.php:340
+#: includes/admin/csv-import.php:348
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 
-#: includes/admin/csv-import.php:369
+#: includes/admin/csv-import.php:377
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -3606,7 +3634,7 @@ msgstr ""
 "Une erreur a été décelée lors de la validation du fichier CSV pour "
 "l'importation. Merci de résoudre ce problème avant de continuer."
 
-#: includes/admin/csv-import.php:378
+#: includes/admin/csv-import.php:386
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -3632,8 +3660,9 @@ msgid "Username \"%s\" does not exist"
 msgstr "Le nom d'utilisateur \"%s\" n'existe pas"
 
 #: includes/admin/helpers/csv/class-csv-import.php:757
+#, fuzzy
 msgctxt "admin csv-import"
-msgid "There is no Fee Plan with ID = <fee-id>"
+msgid "There is no Plan with ID = <fee-id>"
 msgstr "Il n'y a pas de plan de frais avec ID = <fee-id>"
 
 #: includes/admin/helpers/csv/class-csv-import.php:788
@@ -3646,7 +3675,7 @@ msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "La catégorie d'annonce \"%s\" n'existe pas"
 
-#: includes/admin/helpers/csv/class-csv-import.php:904
+#: includes/admin/helpers/csv/class-csv-import.php:907
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "La chaîne <string> ne peut pas être convertie en une date valide."
@@ -3911,20 +3940,22 @@ msgctxt "fees order"
 msgid "Custom Order"
 msgstr "Ordre personnalisé"
 
-#: includes/admin/controllers/class-admin-fees.php:245
+#: includes/admin/controllers/class-admin-fees.php:244
+#, fuzzy
 msgctxt "fees admin"
-msgid "Fee \"%s\" deleted."
+msgid "Plan \"%s\" deleted."
 msgstr "Frais \"%s\"  effacé."
 
 #: includes/admin/controllers/class-admin-fees.php:256
 #, fuzzy
 msgctxt "fees admin"
-msgid "Fee enabled."
+msgid "Plan enabled."
 msgstr "Frais désactivé."
 
 #: includes/admin/controllers/class-admin-fees.php:256
+#, fuzzy
 msgctxt "fees admin"
-msgid "Fee disabled."
+msgid "Plan disabled."
 msgstr "Frais désactivé."
 
 #: includes/admin/helpers/tables/class-fees-table.php:20
@@ -3942,50 +3973,50 @@ msgctxt "fees admin"
 msgid "Attributes"
 msgstr "Attributs"
 
-#: includes/admin/helpers/tables/class-fees-table.php:141
+#: includes/admin/helpers/tables/class-fees-table.php:140
 msgctxt "fees admin"
 msgid "Edit"
 msgstr "Editer"
 
-#: includes/admin/helpers/tables/class-fees-table.php:210
+#: includes/admin/helpers/tables/class-fees-table.php:213
 msgctxt "fees admin"
 msgid "Variable"
 msgstr "Variable"
 
-#: includes/admin/helpers/tables/class-fees-table.php:215
+#: includes/admin/helpers/tables/class-fees-table.php:218
 #, fuzzy
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "%s + %s par catégorie"
 
-#: includes/admin/helpers/tables/class-fees-table.php:234
+#: includes/admin/helpers/tables/class-fees-table.php:237
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "Pour toujours"
 
-#: includes/admin/helpers/tables/class-fees-table.php:236
+#: includes/admin/helpers/tables/class-fees-table.php:239
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d jour"
 msgstr[1] "%d jours"
 
-#: includes/admin/helpers/tables/class-fees-table.php:266
+#: includes/admin/helpers/tables/class-fees-table.php:270
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "Toutes catégories"
 
-#: includes/admin/helpers/tables/class-fees-table.php:295
+#: includes/admin/helpers/tables/class-fees-table.php:299
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr "Premium"
 
-#: includes/admin/helpers/tables/class-fees-table.php:299
+#: includes/admin/helpers/tables/class-fees-table.php:303
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "Récurrent"
 
-#: includes/admin/helpers/tables/class-fees-table.php:303
+#: includes/admin/helpers/tables/class-fees-table.php:307
 #, fuzzy
 msgctxt "fees admin"
 msgid "Private"
@@ -4057,9 +4088,10 @@ msgid "Base price plus an extra amount per category"
 msgstr "Prix de base plus un montant supplémentaire par catégorie"
 
 #: templates/admin/fees-form.tpl.php:206
+#, fuzzy
 msgctxt "fees admin"
-msgid "Fee Price"
-msgstr "Prix"
+msgid "Plan Price"
+msgstr "Prix fixe"
 
 #: templates/admin/fees-form.tpl.php:214
 msgctxt "fees admin"
@@ -4076,15 +4108,16 @@ msgctxt "fees admin"
 msgid "Extra amount (per category)"
 msgstr "Montant supplémentaire (par catégorie)"
 
-#: includes/admin/controllers/class-admin-listings.php:60
+#: includes/admin/controllers/class-admin-listings.php:62
 msgctxt "admin category filter"
 msgid "All categories"
 msgstr "Toutes catégories"
 
-#: includes/admin/controllers/class-admin-listings.php:175
+#: includes/admin/controllers/class-admin-listings.php:177
+#, fuzzy
 msgctxt "admin listings"
 msgid ""
-"This listing doesn't have a fee plan assigned. This is required in order to "
+"This listing doesn't have a plan assigned. This is required in order to "
 "determine the features available to this listing, as well as handling "
 "renewals."
 msgstr ""
@@ -4092,39 +4125,39 @@ msgstr ""
 "les fonctionnalités disponibles pour cette annonce, ainsi que pour gérer les "
 "renouvellements."
 
-#: includes/admin/controllers/class-admin-listings.php:311
+#: includes/admin/controllers/class-admin-listings.php:313
 msgctxt "admin listings"
 msgid "Never"
 msgstr "Jamais"
 
-#: includes/admin/controllers/class-admin-listings.php:341
+#: includes/admin/controllers/class-admin-listings.php:343
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(récurrent)"
 
-#: includes/admin/controllers/class-admin-listings.php:345
+#: includes/admin/controllers/class-admin-listings.php:347
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Gratuit"
 
-#: includes/admin/controllers/class-admin-listings.php:349
+#: includes/admin/controllers/class-admin-listings.php:351
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment Not Found"
 msgstr "Information concernant les frais"
 
-#: includes/admin/controllers/class-admin-listings.php:353
+#: includes/admin/controllers/class-admin-listings.php:355
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment %s"
 msgstr "Paiement #%d"
 
-#: includes/admin/controllers/class-admin-listings.php:362
+#: includes/admin/controllers/class-admin-listings.php:364
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:700
+#: includes/admin/controllers/class-admin-listings.php:702
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -4153,102 +4186,102 @@ msgctxt "admin listings"
 msgid "Clear listing reports."
 msgstr "Une annonce expire."
 
-#: includes/admin/controllers/class-admin-listings.php:322
+#: includes/admin/controllers/class-admin-listings.php:324
 #, fuzzy
 msgctxt "listing attribute"
-msgid "No Fee Plan"
+msgid "No Plan"
 msgstr "Plan tarifaire"
 
-#: includes/admin/controllers/class-admin-listings.php:423
+#: includes/admin/controllers/class-admin-listings.php:425
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/models/class-listing.php:961
+#: includes/models/class-listing.php:970
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: includes/models/class-listing.php:962
+#: includes/models/class-listing.php:971
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Don"
 
-#: includes/models/class-listing.php:963
+#: includes/models/class-listing.php:972
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Incomplet"
 
-#: includes/models/class-listing.php:964
+#: includes/models/class-listing.php:973
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Paiement en attente"
 
-#: includes/models/class-listing.php:965
+#: includes/models/class-listing.php:974
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Complet"
 
-#: includes/models/class-listing.php:966
+#: includes/models/class-listing.php:975
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "En attente de mise à niveau"
 
-#: includes/models/class-listing.php:967
+#: includes/models/class-listing.php:976
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Expiré"
 
-#: includes/models/class-listing.php:968
+#: includes/models/class-listing.php:977
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Actives + En attente de renouvellement"
 
-#: includes/models/class-listing.php:969
+#: includes/models/class-listing.php:978
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abandonné"
 
-#: includes/admin/controllers/class-admin-listings.php:491
+#: includes/admin/controllers/class-admin-listings.php:493
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Voir les Paiements"
 
-#: includes/admin/controllers/class-admin-listings.php:496
+#: includes/admin/controllers/class-admin-listings.php:498
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Voir le Paiement"
 
-#: includes/admin/controllers/class-admin-listings.php:633
+#: includes/admin/controllers/class-admin-listings.php:635
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publier l'annonce"
 
-#: includes/admin/controllers/class-admin-listings.php:634
+#: includes/admin/controllers/class-admin-listings.php:636
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "En attente"
 
-#: includes/admin/controllers/class-admin-listings.php:635
+#: includes/admin/controllers/class-admin-listings.php:637
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:637
+#: includes/admin/controllers/class-admin-listings.php:639
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Renouveler l'annonce"
 
-#: includes/admin/controllers/class-admin-listings.php:638
+#: includes/admin/controllers/class-admin-listings.php:640
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Envoyé lorsqu'une annonce (% s) est expirée."
 
-#: includes/admin/controllers/class-admin-listings.php:645
+#: includes/admin/controllers/class-admin-listings.php:647
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -4299,17 +4332,12 @@ msgctxt "payments admin"
 msgid "View Payment History"
 msgstr "Voir l'historique des paiements"
 
-#: includes/admin/controllers/class-form-fields-admin.php:124
-msgctxt "form-fields admin"
-msgid "Form Preview"
-msgstr "Aperçu du formulaire"
-
-#: includes/admin/controllers/class-form-fields-admin.php:183
+#: includes/admin/controllers/class-form-fields-admin.php:185
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Champs du formulaire mis à jour."
 
-#: includes/admin/controllers/class-form-fields-admin.php:206
+#: includes/admin/controllers/class-form-fields-admin.php:208
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -4324,17 +4352,17 @@ msgstr ""
 "s'affichent publiquement, vous pouvez <a>activer l'affichage public des e-"
 "mails</a>."
 
-#: includes/admin/controllers/class-form-fields-admin.php:285
+#: includes/admin/controllers/class-form-fields-admin.php:299
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Champ effacé."
 
-#: includes/admin/controllers/class-form-fields-admin.php:325
+#: includes/admin/controllers/class-form-fields-admin.php:329
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Champs requis créés avec succès."
 
-#: includes/admin/controllers/class-form-fields-admin.php:377
+#: includes/admin/controllers/class-form-fields-admin.php:381
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Étiquettes mises à jour."
@@ -4369,45 +4397,45 @@ msgctxt "form-fields admin"
 msgid "Field Attributes"
 msgstr "Attributs de champ"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:133
+#: includes/admin/helpers/tables/class-form-fields-table.php:134
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Shortname"
 msgstr "Nom de l'auteur"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:155
+#: includes/admin/helpers/tables/class-form-fields-table.php:156
 msgctxt "form-fields admin"
 msgid "Required"
 msgstr "Requis"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:155
+#: includes/admin/helpers/tables/class-form-fields-table.php:156
 msgctxt "form-fields admin"
 msgid "Optional"
 msgstr "Optionnel"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:162
+#: includes/admin/helpers/tables/class-form-fields-table.php:163
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Private"
 msgstr "Activer"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:169
+#: includes/admin/helpers/tables/class-form-fields-table.php:170
 msgctxt "form-fields admin"
 msgid "This field value is shown in the excerpt view of a listing."
 msgstr ""
 "Cette valeur de champ est représentée dans la vue extraite d'une annonce."
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:170
+#: includes/admin/helpers/tables/class-form-fields-table.php:171
 msgctxt "form-fields admin"
 msgid "In Excerpt"
 msgstr "En extrait"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:177
+#: includes/admin/helpers/tables/class-form-fields-table.php:178
 msgctxt "form-fields admin"
 msgid "This field value is shown in the single view of a listing."
 msgstr "Cette valeur de champ est montré dans l'annonce en lecture."
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:178
+#: includes/admin/helpers/tables/class-form-fields-table.php:179
 msgctxt "form-fields admin"
 msgid "In Listing"
 msgstr "Dans l'annonce"
@@ -4735,22 +4763,7 @@ msgctxt "form-fields admin"
 msgid "Create Missing Fields"
 msgstr "Champs d'annonce"
 
-#: templates/admin/form-fields.tpl.php:4
-msgctxt "form-fields admin"
-msgid "Add New Form Field"
-msgstr "Ajouter un nouveau formulaire de champ"
-
-#: templates/admin/form-fields.tpl.php:11
-msgctxt "form-fields admin"
-msgid "Preview Form"
-msgstr "Formulaire précédent"
-
-#: templates/admin/form-fields.tpl.php:17
-msgctxt "form-fields admin"
-msgid "Manage Theme Tags"
-msgstr "Gestion des étiquettes du thème"
-
-#: templates/admin/form-fields.tpl.php:28
+#: templates/admin/form-fields.tpl.php:21
 msgctxt "form-fields admin"
 msgid ""
 "Here, you can create new fields for your listings, edit or delete existing "
@@ -4761,20 +4774,20 @@ msgstr ""
 "supprimer ceux qui existent déjà, modifier l'ordre et la visibilité des "
 "champs ainsi que configurer des options spéciales pour eux."
 
-#: templates/admin/form-fields.tpl.php:39
+#: templates/admin/form-fields.tpl.php:32
 msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 "Veuillez voir la <a>Documentation de champs de formulaire</a> pour plus de "
 "détails."
 
-#: includes/admin/controllers/class-settings-admin.php:371
+#: includes/admin/controllers/class-settings-admin.php:369
 #, fuzzy
 msgctxt "admin settings"
 msgid "Remove"
 msgstr "Supprimer"
 
-#: includes/admin/controllers/class-settings-admin.php:433
+#: includes/admin/controllers/class-settings-admin.php:431
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Espaces réservés valides:% s"
@@ -4783,8 +4796,8 @@ msgstr "Espaces réservés valides:% s"
 #, fuzzy
 msgctxt "admin settings"
 msgid ""
-"<strong>IMPORTANT:</strong> subpages of the main directory page cannot be "
-"accesed while this setting is checked."
+"IMPORTANT: subpages of the main directory page cannot be accesed while this "
+"setting is checked."
 msgstr ""
 "<strong> IMPORTANT :</strong> les sous-pages de la page principale de "
 "l'annuaire ne sont pas accessibles lorsque ce paramètre est coché."
@@ -4863,7 +4876,7 @@ msgstr "Descendant"
 
 #: includes/admin/settings/class-settings-bootstrap.php:753
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order can be changed under <a>Fee Plans</a>"
+msgid "Plan Custom Order can be changed under <a>Plans</a>"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:766
@@ -4872,13 +4885,13 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:767
-#: includes/helpers/functions/general.php:1281
+#: includes/helpers/functions/general.php:1285
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Date d'ajout"
 
 #: includes/admin/settings/class-settings-bootstrap.php:768
-#: includes/helpers/functions/general.php:1282
+#: includes/helpers/functions/general.php:1286
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Date de dernière modification"
@@ -4900,12 +4913,12 @@ msgstr "Payé d'abord puis gratuit. Dans chaque groupe par titre."
 
 #: includes/admin/settings/class-settings-bootstrap.php:772
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order, then Date"
+msgid "Plan Custom Order, then Date"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:773
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order, then Title"
+msgid "Plan Custom Order, then Title"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1037
@@ -5187,21 +5200,21 @@ msgstr "Titre de l'annonce"
 #: includes/admin/settings/class-settings-bootstrap.php:1496
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan name"
+msgid "Listing's plan name"
 msgstr "Date d'expiration de l'annonce"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1406
 #: includes/admin/settings/class-settings-bootstrap.php:1497
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan description"
+msgid "Listing's plan description"
 msgstr "Sélection des droits d'inscription"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1407
 #: includes/admin/settings/class-settings-bootstrap.php:1498
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan details"
+msgid "Listing's plan details"
 msgstr "Date d'expiration de l'annonce"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1420
@@ -5271,66 +5284,66 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Télécharger les images"
 
-#: includes/helpers/functions/general.php:1279
+#: includes/helpers/functions/general.php:1283
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utilisateur"
 
-#: includes/helpers/functions/general.php:1280
+#: includes/helpers/functions/general.php:1284
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Date d'expiration de l'annonce"
 
-#: includes/admin/controllers/class-settings-admin.php:503
+#: includes/admin/controllers/class-settings-admin.php:501
 msgctxt "expiration notices"
 msgid "Add notice"
 msgstr "Ajouter un avis"
 
-#: includes/admin/controllers/class-settings-admin.php:522
+#: includes/admin/controllers/class-settings-admin.php:520
 msgctxt "expiration notices"
 msgid "No notices configured."
 msgstr "Aucun avis configuré."
 
-#: includes/admin/controllers/class-settings-admin.php:564
+#: includes/admin/controllers/class-settings-admin.php:562
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr "permanent ou temporaire"
 
-#: includes/admin/controllers/class-settings-admin.php:566
+#: includes/admin/controllers/class-settings-admin.php:564
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "récurrente uniquement"
 
-#: includes/admin/controllers/class-settings-admin.php:568
+#: includes/admin/controllers/class-settings-admin.php:566
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "non récurrente seulement"
 
-#: includes/admin/controllers/class-settings-admin.php:572
+#: includes/admin/controllers/class-settings-admin.php:570
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Envoyé lorsque vous renouvelez une liste (% s)."
 
-#: includes/admin/controllers/class-settings-admin.php:577
+#: includes/admin/controllers/class-settings-admin.php:575
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Envoyé lorsqu'une annonce (% s) est expirée."
 
-#: includes/admin/controllers/class-settings-admin.php:585
+#: includes/admin/controllers/class-settings-admin.php:583
 msgctxt "expiration notices"
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d jour"
 msgstr[1] "%d jours"
 
-#: includes/admin/controllers/class-settings-admin.php:588
+#: includes/admin/controllers/class-settings-admin.php:586
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
 msgstr[0] "%d semaine"
 msgstr[1] "%d semaines"
 
-#: includes/admin/controllers/class-settings-admin.php:591
+#: includes/admin/controllers/class-settings-admin.php:589
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -5339,146 +5352,146 @@ msgstr[1] "%d mois"
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/controllers/class-settings-admin.php:597
+#: includes/admin/controllers/class-settings-admin.php:595
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr "Envoyé %1$s avant l'expiration d'une liste (%2$s)."
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/controllers/class-settings-admin.php:600
+#: includes/admin/controllers/class-settings-admin.php:598
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Envoyé %1$s après une liste (%2$s) expire."
 
-#: includes/admin/controllers/class-settings-admin.php:617
+#: includes/admin/controllers/class-settings-admin.php:615
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr "Au moment de l'expiration"
 
-#: includes/admin/controllers/class-settings-admin.php:618
+#: includes/admin/controllers/class-settings-admin.php:616
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Renouvellement réussi"
 
-#: includes/admin/controllers/class-settings-admin.php:629
+#: includes/admin/controllers/class-settings-admin.php:627
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
 msgstr[0] "%d jour avant expiration"
 msgstr[1] "%d jours avant expiration"
 
-#: includes/admin/controllers/class-settings-admin.php:629
+#: includes/admin/controllers/class-settings-admin.php:627
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
 msgstr[0] "%d jour après expiration"
 msgstr[1] "%d jours après expiration"
 
-#: includes/admin/controllers/class-settings-admin.php:632
+#: includes/admin/controllers/class-settings-admin.php:630
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
 msgstr[0] "%d semaine avant expiration"
 msgstr[1] "%d semaines avant expiration"
 
-#: includes/admin/controllers/class-settings-admin.php:632
+#: includes/admin/controllers/class-settings-admin.php:630
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
 msgstr[0] "%d semaine après expiration"
 msgstr[1] "%d semaines après expiration"
 
-#: includes/admin/controllers/class-settings-admin.php:635
+#: includes/admin/controllers/class-settings-admin.php:633
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
 msgstr[0] "%d mois avant expiration"
 msgstr[1] "%d mois avant expiration"
 
-#: includes/admin/controllers/class-settings-admin.php:635
+#: includes/admin/controllers/class-settings-admin.php:633
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
 msgstr[0] "%d mois après expiration"
 msgstr[1] "%d mois après expiration"
 
-#: includes/admin/controllers/class-settings-admin.php:662
+#: includes/admin/controllers/class-settings-admin.php:660
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Appliqué à"
 
-#: includes/admin/controllers/class-settings-admin.php:665
+#: includes/admin/controllers/class-settings-admin.php:663
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr "Annonces temporaires"
 
-#: includes/admin/controllers/class-settings-admin.php:666
+#: includes/admin/controllers/class-settings-admin.php:664
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Retourner à l'annonce"
 
-#: includes/admin/controllers/class-settings-admin.php:667
+#: includes/admin/controllers/class-settings-admin.php:665
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr "Annonces permanentes et temporaires"
 
-#: includes/admin/controllers/class-settings-admin.php:672
+#: includes/admin/controllers/class-settings-admin.php:670
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr "Quand envoyer ?"
 
-#: includes/admin/controllers/class-settings-admin.php:539
+#: includes/admin/controllers/class-settings-admin.php:537
 #, fuzzy
 msgctxt "settings"
 msgid "Site title (with link)"
 msgstr "Titre du site (avec lien)"
 
-#: includes/admin/controllers/class-settings-admin.php:540
+#: includes/admin/controllers/class-settings-admin.php:538
 msgctxt "settings"
 msgid "Author's name"
 msgstr "Nom de l'auteur"
 
-#: includes/admin/controllers/class-settings-admin.php:541
+#: includes/admin/controllers/class-settings-admin.php:539
 msgctxt "settings"
 msgid "Listing's name (with link)"
 msgstr "Nom de l'annonce (avec lien)"
 
-#: includes/admin/controllers/class-settings-admin.php:542
+#: includes/admin/controllers/class-settings-admin.php:540
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's expiration date"
 msgstr "Date d'expiration de l'annonce"
 
-#: includes/admin/controllers/class-settings-admin.php:543
+#: includes/admin/controllers/class-settings-admin.php:541
 msgctxt "settings"
 msgid "Listing's renewal link, formatted with an anchor tag"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:544
+#: includes/admin/controllers/class-settings-admin.php:542
 msgctxt "settings"
 msgid "Listing's renewal URL, unformatted by any tags"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:545
+#: includes/admin/controllers/class-settings-admin.php:543
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's categories"
 msgstr "Titre de l'annonce"
 
-#: includes/admin/controllers/class-settings-admin.php:546
+#: includes/admin/controllers/class-settings-admin.php:544
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's last payment date"
 msgstr "Date d'expiration de l'annonce"
 
-#: includes/admin/controllers/class-settings-admin.php:547
+#: includes/admin/controllers/class-settings-admin.php:545
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's access key"
 msgstr "Liste des clés d'accès"
 
-#: includes/admin/controllers/class-settings-admin.php:704
+#: includes/admin/controllers/class-settings-admin.php:702
 #, fuzzy
 msgctxt "settings"
 msgid "Settings reset to default."
@@ -5600,8 +5613,9 @@ msgid "Use reCAPTCHA for report listings"
 msgstr "Utiliser CAPTCHA pour lister les commentaires?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:159
+#, fuzzy
 msgctxt "settings"
-msgid "Use reCAPTCHA for listing comments?"
+msgid "Use reCAPTCHA for listing comments"
 msgstr "Utiliser CAPTCHA pour lister les commentaires?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:167
@@ -5654,13 +5668,15 @@ msgstr ""
 "charge le paramètre de requête WP 'redirect_to'."
 
 #: includes/admin/settings/class-settings-bootstrap.php:213
+#, fuzzy
 msgctxt "settings"
-msgid "Require login to post listings?"
+msgid "Require login to post listings"
 msgstr "Connexion obligatoire pour poster une annonce ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:222
+#, fuzzy
 msgctxt "settings"
-msgid "Allow anonymous users to edit/manage listings with an access key?"
+msgid "Allow anonymous users to edit/manage listings with an access key"
 msgstr ""
 "Autoriser les utilisateurs anonymes à modifier/gérer les annonces avec une "
 "clé d'accès ?"
@@ -5671,8 +5687,9 @@ msgid "Login URL"
 msgstr "URL de connexion"
 
 #: includes/admin/settings/class-settings-bootstrap.php:231
+#, fuzzy
 msgctxt "settings"
-msgid "Only enter this if using a membership plugin or custom login page."
+msgid "Only enter this if using a membership plugin or custom login page"
 msgstr ""
 "URL de la page d'inscription de votre plugin adhésion. Saisissez uniquement "
 "ceci si vous utilisez la page d'inscription du plugin d'adhésion ou une page "
@@ -5698,13 +5715,15 @@ msgstr ""
 "personnalisée."
 
 #: includes/admin/settings/class-settings-bootstrap.php:243
+#, fuzzy
 msgctxt "settings"
-msgid "URL of your membership plugin's registration page."
+msgid "URL of your membership plugin's registration page"
 msgstr "URL de la page d'inscription de votre plugin d'adhésion."
 
 #: includes/admin/settings/class-settings-bootstrap.php:252
+#, fuzzy
 msgctxt "settings"
-msgid "Allow users to create accounts during listing submit?"
+msgid "Allow users to create accounts during listing submit"
 msgstr ""
 "Autoriser les utilisateurs à créer des comptes pendant la soumission d'une "
 "annonce ?"
@@ -5720,13 +5739,15 @@ msgstr ""
 "appropriée."
 
 #: includes/admin/settings/class-settings-bootstrap.php:281
+#, fuzzy
 msgctxt "settings"
-msgid "Terms and Conditions text goes here."
+msgid "Terms and Conditions text goes here"
 msgstr "Conditions d'utilisation."
 
 #: includes/admin/settings/class-settings-bootstrap.php:324
+#, fuzzy
 msgctxt "settings"
-msgid "Enable high performance searches?"
+msgid "Enable high performance searches"
 msgstr "Activer les recherches de hautes performance?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:333
@@ -5735,13 +5756,15 @@ msgid "Advanced"
 msgstr "Avancé"
 
 #: includes/admin/settings/class-settings-bootstrap.php:339
+#, fuzzy
 msgctxt "settings"
-msgid "Disable advanced CPT integration?"
+msgid "Disable advanced CPT integration"
 msgstr "Désactiver l'intégration avancée avec CPT?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:348
+#, fuzzy
 msgctxt "settings"
-msgid "Disable Frontend Listing Submission?"
+msgid "Disable frontend listing submission"
 msgstr "Désactiver la soumission de l'annonce publique ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:349
@@ -5771,19 +5794,21 @@ msgstr ""
 "afficher toutes les annonces sur une seule page (non recommandé)."
 
 #: includes/admin/settings/class-settings-bootstrap.php:451
+#, fuzzy
 msgctxt "settings"
-msgid "Turn on listing renewal option?"
+msgid "Turn on listing renewal option"
 msgstr "Activer l'option renouvellement des annonces ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:460
+#, fuzzy
 msgctxt "settings"
-msgid "Open detailed view of listing in new tab?"
+msgid "Open detailed view of listing in new tab"
 msgstr "Ouvrir l'annonce dans un nouvel onglet ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:470
 #, fuzzy
 msgctxt "settings"
-msgid "Include button to report listings?"
+msgid "Include button to report listings"
 msgstr "Connexion obligatoire pour poster une annonce ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:479
@@ -5803,8 +5828,9 @@ msgid ""
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:501
+#, fuzzy
 msgctxt "settings"
-msgid "Include listing contact form on listing pages?"
+msgid "Include listing contact form on listing pages"
 msgstr ""
 "Inclure les annonces de formulaire de contact sur les pages d'annonces ?"
 
@@ -5818,8 +5844,9 @@ msgstr ""
 "Les auteurs recevront les messages par e-mail."
 
 #: includes/admin/settings/class-settings-bootstrap.php:511
+#, fuzzy
 msgctxt "settings"
-msgid "Require login for using the contact form?"
+msgid "Require login for using the contact form"
 msgstr "Exiger d'être connecter pour utiliser le formulaire de contact ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:522
@@ -5860,8 +5887,9 @@ msgid "Include comment form on listing pages?"
 msgstr "Inclure les formulaire de commentaires dans pages annonces ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:563
+#, fuzzy
 msgctxt "settings"
-msgid "Show listings under categories on main page?"
+msgid "Show listings under categories on main page"
 msgstr "Afficher les listes des annonces sur la page principale?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:573
@@ -5904,18 +5932,21 @@ msgid "Sort order for categories"
 msgstr "Ordre de tri pour les catégories"
 
 #: includes/admin/settings/class-settings-bootstrap.php:729
+#, fuzzy
 msgctxt "settings"
-msgid "Show category post count?"
+msgid "Show category post count"
 msgstr "Montrer les catégories par messages postés ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:738
+#, fuzzy
 msgctxt "settings"
-msgid "Hide empty categories?"
+msgid "Hide empty categories"
 msgstr "Cacher les catégories vides ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:747
+#, fuzzy
 msgctxt "settings"
-msgid "Show only parent categories in category list?"
+msgid "Show only parent categories in category list"
 msgstr ""
 "Montrer seulement les catégories parentes dans la liste des catégories ?"
 
@@ -5936,8 +5967,9 @@ msgstr ""
 "Ascendant pour un classement de A à Z, Descendant pour un classement de Z à A"
 
 #: includes/admin/settings/class-settings-bootstrap.php:797
+#, fuzzy
 msgctxt "settings"
-msgid "Enable sort bar?"
+msgid "Enable sort bar"
 msgstr "Activer la barre de tri ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:806
@@ -5946,8 +5978,9 @@ msgid "Sortbar Fields"
 msgstr "Champs de la barre de tri"
 
 #: includes/admin/settings/class-settings-bootstrap.php:824
+#, fuzzy
 msgctxt "settings"
-msgid "Show the \"Submit listing\" button."
+msgid "Show the \"Submit listing\" button"
 msgstr "Montrer le bouton \"Soumettre une annonce\"."
 
 #: includes/admin/settings/class-settings-bootstrap.php:825
@@ -5959,19 +5992,21 @@ msgid ""
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:835
+#, fuzzy
 msgctxt "settings"
-msgid "Show \"Search listings\"."
+msgid "Show \"Search listings\""
 msgstr "Montrer \"Chercher annonces\"."
 
 #: includes/admin/settings/class-settings-bootstrap.php:844
+#, fuzzy
 msgctxt "settings"
-msgid "Show the \"View Listings\" button."
+msgid "Show the \"View Listings\" button"
 msgstr "Montrer le bouton \"Voir annonces\"."
 
 #: includes/admin/settings/class-settings-bootstrap.php:853
 #, fuzzy
 msgctxt "settings"
-msgid "Show the \"Manage Listings\" button."
+msgid "Show the \"Manage Listings\" button"
 msgstr "Montrer le bouton \"Voir annonces\"."
 
 #: includes/admin/settings/class-settings-bootstrap.php:862
@@ -5985,8 +6020,9 @@ msgid "Image Settings"
 msgstr "Paraamètres des images"
 
 #: includes/admin/settings/class-settings-bootstrap.php:903
+#, fuzzy
 msgctxt "settings"
-msgid "Allow images?"
+msgid "Allow images"
 msgstr "Autoriser les images ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:914
@@ -6020,8 +6056,9 @@ msgid "Max image height (px)"
 msgstr "Hauteur maximal des images (px)"
 
 #: includes/admin/settings/class-settings-bootstrap.php:980
+#, fuzzy
 msgctxt "settings"
-msgid "Turn on thickbox/lightbox?"
+msgid "Turn on thickbox/lightbox"
 msgstr "Activer thickbox/lightbox ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:981
@@ -6048,8 +6085,9 @@ msgid "Thumbnail height (px)"
 msgstr "Hauteur des miniatures (en pixel)"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1014
+#, fuzzy
 msgctxt "settings"
-msgid "Crop thumbnails to exact dimensions?"
+msgid "Crop thumbnails to exact dimensions"
 msgstr "Recadrer les miniatures aux dimensions exactes ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1015
@@ -6069,7 +6107,7 @@ msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1026
 msgctxt "settings"
-msgid "Enforce image upload on submit/edit?"
+msgid "Enforce image upload on submit/edit"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1047
@@ -6120,8 +6158,9 @@ msgid "Fee Order"
 msgstr "Ordre des prix"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1145
+#, fuzzy
 msgctxt "settings"
-msgid "Put payment gateways in test mode?"
+msgid "Put payment gateways in test mode"
 msgstr "Passer les passerelles de paiement en mode test ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1155
@@ -6141,7 +6180,7 @@ msgstr "Affichage de la devise"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1216
 msgctxt "settings"
-msgid "Include fee description in receipt?"
+msgid "Include plan description in receipt"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1225
@@ -6150,8 +6189,9 @@ msgid "Thank you for payment message"
 msgstr "Nous vous remercions pour votre paiement"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1278
+#, fuzzy
 msgctxt "settings"
-msgid "Ask users to come back for abandoned payments?"
+msgid "Ask users to come back for abandoned payments"
 msgstr "Demandez aux utilisateurs de revenir pour les paiements abandonnés ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1289
@@ -6160,8 +6200,9 @@ msgid "Listing abandonment threshold (hours)"
 msgstr "Seuil d'abandon de l'annonce (heures)"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1306
+#, fuzzy
 msgctxt "settings"
-msgid "Display email address fields publicly?"
+msgid "Display email address fields publicly"
 msgstr "Affichage des champs d'adresses e-mail au public ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1307
@@ -6299,17 +6340,17 @@ msgctxt "themes"
 msgid "Directory Themes"
 msgstr "Catégories de l'annuaire"
 
-#: includes/admin/controllers/class-themes-admin.php:113
+#: includes/admin/controllers/class-themes-admin.php:106
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "Vous ne pouvez pas changer le thème actif pour \"%s\"."
 
-#: includes/admin/controllers/class-themes-admin.php:156
+#: includes/admin/controllers/class-themes-admin.php:149
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr "Thème actuel modifié vers \"%s\"."
 
-#: includes/admin/controllers/class-themes-admin.php:159
+#: includes/admin/controllers/class-themes-admin.php:152
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
@@ -6319,53 +6360,53 @@ msgstr ""
 "correspondre les emplacements et mettre vos données sur le thème. Voici les "
 "champs qui nous manquent."
 
-#: includes/admin/controllers/class-themes-admin.php:170
+#: includes/admin/controllers/class-themes-admin.php:163
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Gestion des champs"
 
-#: includes/admin/controllers/class-themes-admin.php:178
+#: includes/admin/controllers/class-themes-admin.php:171
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Champs créés avec succès."
 
-#: includes/admin/controllers/class-themes-admin.php:181
+#: includes/admin/controllers/class-themes-admin.php:174
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Thème installé avec succès."
 
-#: includes/admin/controllers/class-themes-admin.php:184
+#: includes/admin/controllers/class-themes-admin.php:177
 msgctxt "themes"
 msgid "Theme was deleted successfully."
 msgstr "Le thème a été supprimé."
 
-#: includes/admin/controllers/class-themes-admin.php:187
+#: includes/admin/controllers/class-themes-admin.php:180
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr "Impossible de supprimer le dossier du thème. Vérifier les permissions."
 
-#: includes/admin/controllers/class-themes-admin.php:240
+#: includes/admin/controllers/class-themes-admin.php:233
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Veuillez télécharger un fichier de thème valide."
 
-#: includes/admin/controllers/class-themes-admin.php:249
+#: includes/admin/controllers/class-themes-admin.php:242
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "Impossible de déplacer \"%s\" vers un dossier temporaire."
 
-#: includes/admin/controllers/class-themes-admin.php:335
+#: includes/admin/controllers/class-themes-admin.php:328
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr "Activer votre <a>numéro de licence</a> pour utiliser ce thème."
 
-#: includes/admin/controllers/class-themes-admin.php:378
+#: includes/admin/controllers/class-themes-admin.php:371
 #, fuzzy
 msgctxt "themes"
 msgid "Invalid theme ID"
 msgstr "ID d'élément non valide"
 
-#: includes/admin/controllers/class-themes-admin.php:384
+#: includes/admin/controllers/class-themes-admin.php:377
 #: includes/admin/upgrades/class-themes-updater.php:170
 msgctxt "themes"
 msgid "Could not update theme: %s"
@@ -6602,13 +6643,13 @@ msgstr ""
 "Votre fichier d'exportation a été créé et il est maintenant prêt pour le "
 "téléchargement."
 
-#: templates/admin/csv-export.tpl.php:170
+#: templates/admin/csv-export.tpl.php:171
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "Téléchargement %s (%s)"
 
-#: templates/admin/csv-export.tpl.php:177
+#: templates/admin/csv-export.tpl.php:179
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -6618,27 +6659,27 @@ msgstr ""
 "d'effacer toutes les données temporaires créées par le plugin durant le "
 "processus d'exportation."
 
-#: templates/admin/csv-export.tpl.php:178
+#: templates/admin/csv-export.tpl.php:180
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "Nettoyer"
 
-#: templates/admin/csv-export.tpl.php:183
+#: templates/admin/csv-export.tpl.php:185
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "Exportation annulée"
 
-#: templates/admin/csv-export.tpl.php:184
+#: templates/admin/csv-export.tpl.php:186
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "L'exportation a été annulée."
 
-#: templates/admin/csv-export.tpl.php:185
+#: templates/admin/csv-export.tpl.php:187
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "←Retourner vers l'export CSV"
 
-#: includes/admin/csv-import.php:296
+#: includes/admin/csv-import.php:304
 #, fuzzy
 msgctxt "csv import"
 msgid ""
@@ -6699,26 +6740,21 @@ msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Détails des plans"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
-msgctxt "listing metabox"
-msgid "Fee Plan"
-msgstr "Plan tarifaire"
-
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:46
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr "Changer de plan tarifaire"
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:69
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:89
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "OUI"
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:70
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:90
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:104
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:92
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
 msgctxt "listing metabox"
 msgid "Cancel"
 msgstr "Annuler"
@@ -6728,17 +6764,17 @@ msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "Expire le"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:97
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "# des images"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "A diffusé ?"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:114
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
 msgctxt "listing metabox"
 msgid "Is Recurring?"
 msgstr "Est récurrent?"
@@ -6840,22 +6876,22 @@ msgctxt "tracking"
 msgid "What do you track?"
 msgstr "Qu'est-ce que vous analysez ?"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:165
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:171
 msgctxt "manual-upgrade"
 msgid "Continue"
 msgstr "Continuer"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:179
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:185
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr "Démarrer la mise à jour"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:181
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:187
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr "Mettre la mise à jour en pause"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:187
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:193
 msgctxt "manual-upgrade"
 msgid ""
 "The upgrade was successfully performed. Business Directory Plugin is now "
@@ -6864,7 +6900,7 @@ msgstr ""
 "La mise à jour s'est bien effectuée. Le plugin Business Directory est "
 "maintenant disponible et fonctionnel."
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:191
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:197
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr "Aller à \"Administrateur de l'annuaire\""
@@ -6894,8 +6930,9 @@ msgid "Migrating email notices to new format..."
 msgstr "Migration des avis au nouveau format par courriel . . ."
 
 #: includes/admin/upgrades/migrations/migration-18_0.php:207
+#, fuzzy
 msgctxt "installer"
-msgid "Migrating fee plans..."
+msgid "Migrating plans..."
 msgstr "Migration des plans d'honoraires. . ."
 
 #: includes/admin/upgrades/migrations/migration-18_0.php:324
@@ -6934,7 +6971,7 @@ msgstr "Migration des informations de licence au nouveau format. . ."
 #: includes/admin/upgrades/migrations/migration-3_7.php:61
 #, fuzzy
 msgctxt "installer"
-msgid "Cleaning up listing fees information... %1$d/%2$d"
+msgid "Cleaning up plan information... %1$d/%2$d"
 msgstr "Nettoyage des informations sur les droits d'inscription ... %d/%d"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:119
@@ -6960,11 +6997,6 @@ msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Mise à jour des annonces vers prioritaire"
 
-#: includes/installer.php:60
-msgctxt "installer"
-msgid "Default Fee"
-msgstr "Frais par défaut"
-
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:182
 msgctxt "listings-api"
 msgid "Featured Listing"
@@ -6976,10 +7008,11 @@ msgid "Featured Levels migration is complete."
 msgstr "La migration des niveaux en vedette est terminée."
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:210
+#, fuzzy
 msgctxt "migrate-18"
 msgid ""
 "Business Directory <b>version 5.0</b> is changing how Featured Levels plugin "
-"works. We are leaving restricted features for fee plans, but removing the "
+"works. We are leaving restricted features for plans, but removing the "
 "confusing notion of a \"featured level\" that was limited to sticky listings."
 msgstr ""
 "Business Directory <b>version @next-release</b> est en train de changer le "
@@ -6988,13 +7021,14 @@ msgstr ""
 "de «Niveau en vedette» qui se limitait à des annonces mises en avant."
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:212
+#, fuzzy
 msgctxt "migrate-18"
 msgid ""
-"We need to migrate your existing \"featured levels\" to fee plans for use by "
-"the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it "
-"easier to configure and manage your listings with restricted feature access. "
-"If you are unsure about what to do here, <support-link>contact support</"
-"support-link> and <cancel-link>cancel migration</cancel-link>."
+"We need to migrate your existing \"featured levels\" to plans for use by the "
+"upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier "
+"to configure and manage your listings with restricted feature access. If you "
+"are unsure about what to do here, <support-link>contact support</support-"
+"link> and <cancel-link>cancel migration</cancel-link>."
 msgstr ""
 "Nous devons migrer votre \"niveau Premium\" existant vers des plans "
 "tarifaires à utiliser lors de la mise à niveau. Vos données ne seront pas "
@@ -7004,11 +7038,12 @@ msgstr ""
 "link> et <cancel-link>annulez la migration</cancel-link>."
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:214
+#, fuzzy
 msgctxt "migrate-18"
 msgid ""
 "Before we do the migration, we need to ask a few simple questions to move "
 "your data from the old \"featured level\" to the new \"restricted feature "
-"fee plan\" that is right for you."
+"plan\" that is right for you."
 msgstr ""
 "Avant de procéder à la migration, nous devons vous poser quelques questions "
 "simples pour déplacer vos données de l'ancien \"Niveau Premium\" vers le "
@@ -7081,20 +7116,23 @@ msgid "Remove \"sticky\" status for listings."
 msgstr "Revoir le statut pour les listes \"récurrentes\"."
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:246
+#, fuzzy
 msgctxt "upgrade-18"
-msgid "Remove this (old) level, and leave the listing on the old fee plan."
+msgid "Remove this (old) level, and leave the listing on the old plan."
 msgstr ""
 "Supprimez cet (ancien) niveau et laissez les annonces sur l'ancien plan "
 "tarifaire."
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:249
+#, fuzzy
 msgctxt "upgrade-18"
-msgid "May change \"sticky\" status depending on fee plan."
+msgid "May change \"sticky\" status depending on plan."
 msgstr "Peut changer le statut \"Premium\" en fonction du plan tarifaire."
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:249
+#, fuzzy
 msgctxt "upgrade-18"
-msgid "Move listings with this level to existing fee plan."
+msgid "Move listings with this level to existing plan."
 msgstr "Déplacez les annonces de ce niveau vers le plan tarifaire existant."
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:252
@@ -7103,8 +7141,9 @@ msgid "Keep \"sticky\" status of listings."
 msgstr "Revoir le statut pour les listes \"récurrentes\"."
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:252
+#, fuzzy
 msgctxt "upgrade-18"
-msgid "Replace this level with a new fee plan."
+msgid "Replace this level with a new plan."
 msgstr "Remplacez ce niveau par un nouveau statut."
 
 #: includes/class-cpt-integration.php:15
@@ -7122,35 +7161,35 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Ajouter une nouvelle annonce"
 
-#: includes/models/class-listing.php:421
+#: includes/models/class-listing.php:430
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Date d'expiration de l'annonce"
 
-#: includes/models/class-listing.php:430
+#: includes/models/class-listing.php:439
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Supprimer le paiement"
 
-#: includes/models/class-listing.php:468
+#: includes/models/class-listing.php:477
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Une annonce expire"
 
-#: includes/models/class-listing.php:668
+#: includes/models/class-listing.php:677
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Plan indisponible disponible)"
 
-#: includes/models/class-listing.php:858
+#: includes/models/class-listing.php:867
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(récurrent)"
 
-#: includes/models/class-listing.php:860
+#: includes/models/class-listing.php:869
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Statut \"%s\""
@@ -7288,7 +7327,7 @@ msgctxt "payment-gateways"
 msgid "Enable %s?"
 msgstr "Activer %s?"
 
-#: includes/class-payment-gateways.php:131
+#: includes/class-payment-gateways.php:133
 msgctxt "payment-gateways"
 msgid ""
 "The <gateway> gateway is enabled but not properly configured. The gateway "
@@ -7298,7 +7337,7 @@ msgstr ""
 "passerelle ne sera pas disponible jusqu'à ce que les problèmes suivants sont "
 "résolus: <problems>."
 
-#: includes/class-payment-gateways.php:133
+#: includes/class-payment-gateways.php:135
 msgctxt "payment-gateways"
 msgid "Please check the <link>payment settings</link>."
 msgstr "Veuillez vérifier les <link>paramètres de paiement</link>."
@@ -7314,12 +7353,18 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Le code CAPTCHA n'a pas été rentré correctement."
 
-#: includes/class-wpbdp.php:467
+#: includes/class-wpbdp.php:463
+#, fuzzy
+msgctxt "listing image upload"
+msgid "Please select a plan before uploading images to the listing"
+msgstr "Veuillez choisir une catégorie valide pour votre annonce."
+
+#: includes/class-wpbdp.php:468
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Impossible de télécharger d'images  pour cette annonce."
 
-#: includes/class-wpbdp.php:471
+#: includes/class-wpbdp.php:472
 #, fuzzy
 msgctxt "listing image upload"
 msgid ""
@@ -7552,8 +7597,8 @@ msgstr ""
 #: includes/controllers/pages/class-submit-listing.php:824
 msgctxt "templates"
 msgid ""
-"<b>There are no Fee Plans available</b>, without a fee plan site users can't "
-"submit a listing. %s to create a fee plan"
+"<b>There are no Plans available</b>, without a plan site users can't submit "
+"a listing. %s to create a plan"
 msgstr ""
 
 #: includes/controllers/pages/class-submit-listing.php:838
@@ -7571,17 +7616,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1286
+#: includes/controllers/pages/class-submit-listing.php:1288
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Veuillez accepter les conditions d'utilisation."
 
-#: includes/controllers/pages/class-submit-listing.php:1300
+#: includes/controllers/pages/class-submit-listing.php:1302
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "J'accepte <a> Conditions générales </a>"
 
-#: includes/helpers/functions/general.php:1362
+#: includes/helpers/functions/general.php:1366
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -7596,12 +7641,6 @@ msgstr "Aucune catégorie d'annonce trouvée."
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Recherche avancée"
-
-#: includes/payment.php:278 templates/renew-resume.tpl.php:34
-#, fuzzy
-msgctxt "templates"
-msgid "Return to fee selection"
-msgstr "Retourner vers l'annonce."
 
 #: templates/listing-sticky-tag.tpl.php:11
 #: templates/listing-sticky-tag.tpl.php:12
@@ -7620,22 +7659,15 @@ msgstr ""
 "bouton Supprimer."
 
 #: templates/parts/listing-buttons.tpl.php:15
-#: templates/parts/listing-buttons.tpl.php:49
 msgctxt "templates"
 msgid "Edit"
 msgstr "Editer"
 
 #: templates/parts/listing-buttons.tpl.php:23
-#: templates/parts/listing-buttons.tpl.php:57
 #, fuzzy
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr "Trouver une annonce"
-
-#: templates/renew-listing-manage-subscription.tpl.php:2
-msgctxt "templates"
-msgid "Recurring Fee Management"
-msgstr "Gestion des frais récurrents"
 
 #: templates/renew-listing.tpl.php:19
 msgctxt "templates"
@@ -7646,8 +7678,8 @@ msgstr "Vous êtes sur le point de renouveler votre publication \"%s\"."
 #, fuzzy
 msgctxt "templates"
 msgid ""
-"Please select a fee option or click \"Do not renew my listing\" to remove "
-"your listing from the directory."
+"Please select a plan or click \"Do not renew my listing\" to remove your "
+"listing from the directory."
 msgstr ""
 "S'il vous plaît choisir une option de paiement ou cliquez sur « Ne pas "
 "renouveler mon inscription » pour supprimer votre fiche dans le répertoire."
@@ -7668,6 +7700,12 @@ msgstr "Ne pas renouveler mon annonce"
 msgctxt "templates"
 msgid "Continue to checkout"
 msgstr "Continuer le paiement"
+
+#: templates/renew-resume.tpl.php:34
+#, fuzzy
+msgctxt "templates"
+msgid "Return to plan selection"
+msgstr "Retourner vers l'annonce."
 
 #: templates/search-form.tpl.php:3
 msgctxt "templates"
@@ -7779,8 +7817,9 @@ msgstr "Abonnement annulé."
 
 # Je proposerais plutôt "Plan de financement"  au lieu  de "Plan de frais"
 #: templates/manage-recurring.tpl.php:6
+#, fuzzy
 msgctxt "manage subscriptions"
-msgid "Subscription / Fee Plan"
+msgid "Subscription / Plan"
 msgstr "Abonnement/ Plan de frais"
 
 #: includes/controllers/pages/class-manage-recurring.php:96
@@ -7816,8 +7855,9 @@ msgid "Could not remove listing from directory."
 msgstr "Impossible de supprimer le répertoire."
 
 #: templates/renew-listing-manage-subscription.tpl.php:6
+#, fuzzy
 msgctxt "renewal"
-msgid "Current Fee Details"
+msgid "Current Plan Details"
 msgstr "Détails des frais sélectionnés"
 
 #: templates/renew-listing-manage-subscription.tpl.php:9
@@ -7852,7 +7892,7 @@ msgstr "Votre annonce a été supprimée du répertoire."
 #: templates/renew-resume.tpl.php:10
 #, fuzzy
 msgctxt "renewal"
-msgid "Renew Fee Resume"
+msgid "Renew Plan Resume"
 msgstr "Renouveller la clé de licence"
 
 #: templates/renew-resume.tpl.php:15
@@ -7863,7 +7903,7 @@ msgstr "Vous êtes sur le point de renouveler votre publication \"%s\"."
 
 #: templates/renew-resume.tpl.php:20
 msgctxt "renewal"
-msgid "In order to complete the renewal, please confirm fee selection."
+msgid "In order to complete the renewal, please confirm plan selection."
 msgstr ""
 
 #: includes/controllers/pages/class-renew-listing.php:150
@@ -7931,11 +7971,11 @@ msgid "You can't edit this listing."
 msgstr "Catégories pour cette annonce"
 
 #: includes/controllers/pages/class-submit-listing.php:168
+#, fuzzy
 msgctxt "submit listing"
 msgid ""
-"This listing can't be edited at this time because it has no fee plan "
-"associated. Please <a>edit the listing</a> on the backend and associate it "
-"to a fee plan."
+"This listing can't be edited at this time because it has no plan associated. "
+"Please <a>edit the listing</a> on the backend and associate it to a plan."
 msgstr ""
 "Cette annonce ne peut pas être modifiée pour le moment car aucun plan de "
 "frais n'est associé. S'il vous plaît <a>modifier l'annonce</a> sur le "
@@ -7975,41 +8015,47 @@ msgstr ""
 "Impossible de soumettre une liste en ce moment. Veuillez réessayer plus tard."
 
 #: includes/controllers/pages/class-submit-listing.php:870
-#: includes/controllers/pages/class-submit-listing.php:992
+#: includes/controllers/pages/class-submit-listing.php:996
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Veuillez sélectionner une catégorie."
 
-#: includes/controllers/pages/class-submit-listing.php:893
+#: includes/controllers/pages/class-submit-listing.php:894
+msgctxt "submit listing"
+msgid "Current active plan is disabled. Please select another plan."
+msgstr ""
+
+#: includes/controllers/pages/class-submit-listing.php:896
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Veuillez choisir une catégorie valide pour votre annonce."
 
-#: includes/controllers/pages/class-submit-listing.php:895
+#: includes/controllers/pages/class-submit-listing.php:899
+#, fuzzy
 msgctxt "submit listing"
-msgid "Please choose a valid fee plan for your category selection."
+msgid "Please choose a valid plan for your category selection."
 msgstr ""
 "S'il vous plaît choisir un plan tarifaire valable pour votre sélection de "
 "catégorie."
 
-#: includes/controllers/pages/class-submit-listing.php:1206
+#: includes/controllers/pages/class-submit-listing.php:1208
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "S'il vous plaît entrer votre nom d'utilisateur souhaité."
 
-#: includes/controllers/pages/class-submit-listing.php:1211
+#: includes/controllers/pages/class-submit-listing.php:1213
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "S'il vous plaît entrer votre e-mail pour votre nouveau compte."
 
-#: includes/controllers/pages/class-submit-listing.php:1216
+#: includes/controllers/pages/class-submit-listing.php:1218
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "Le nom d'utilisateur que vous avez choisi est déjà utilisé. Veuillez en "
 "utiliser un autre."
 
-#: includes/controllers/pages/class-submit-listing.php:1221
+#: includes/controllers/pages/class-submit-listing.php:1223
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -8020,7 +8066,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Annonce soumis par admin. Paiement sauté."
 
-#: includes/controllers/pages/class-submit-listing.php:1161
+#: includes/controllers/pages/class-submit-listing.php:1163
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8463,31 +8509,32 @@ msgid_plural "%d images allowed."
 msgstr[0] "Image %d autorisée."
 msgstr[1] "Images autorisées"
 
-#: includes/models/class-fee-plan.php:387
+#: includes/models/class-fee-plan.php:401
+#, fuzzy
 msgctxt "fees-api"
-msgid "Fee label is required."
-msgstr "Une étiquette de frais est requise."
+msgid "Plan label is required."
+msgstr "Ce champ est requis."
 
-#: includes/models/class-fee-plan.php:393
+#: includes/models/class-fee-plan.php:407
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
 "La durée des frais d'annonce doit être un nombre inférieur à 10 ans (3650 "
 "jours)."
 
-#: includes/models/class-fee-plan.php:398
+#: includes/models/class-fee-plan.php:412
 msgctxt "fees-api"
 msgid ""
-"To set this fee as \"Recurring\" you must have a time for the listing to "
+"To set this plan as \"Recurring\" you must have a time for the listing to "
 "renew (e.g. 30 days). To avoid issues with the listing, please edit the "
-"<a>fee plan</a> appropriately."
+"<a>plan</a> appropriately."
 msgstr ""
 
-#: includes/models/class-fee-plan.php:401
+#: includes/models/class-fee-plan.php:415
 msgctxt "fees-api"
 msgid ""
-"To set this fee as \"Recurring\" you must set a price for your fee plan. To "
-"avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
+"To set this plan as \"Recurring\" you must set a price for your plan. To "
+"avoid issues with the listing, please edit the <a>plan</a> appropriately."
 msgstr ""
 
 #: includes/models/class-payment.php:85
@@ -8557,17 +8604,17 @@ msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Une erreur inconnue est survenu lors de l'upload du fichier."
 
-#: includes/utils.php:335
+#: includes/utils.php:384
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Erreur durant l'upload du fichier"
 
-#: includes/utils.php:359 includes/utils.php:366
+#: includes/utils.php:408 includes/utils.php:415
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Le type de fichier \"%s\" n'est pas autorisé"
 
-#: includes/utils.php:585
+#: includes/utils.php:634
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8678,27 +8725,27 @@ msgctxt "admin forms"
 msgid "required"
 msgstr "requis"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:124
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:127
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "URL de renouvellement (copier-coller)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:124
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:127
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr "Obtenir l'URL de renouvellement de l'annonce"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:138
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:141
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Envoyer un e-mail à l'utilisateur"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:143
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:146
 msgctxt "admin infometabox"
 msgid "Renew listing"
 msgstr "Renouveler l'annonce"
 
-#: templates/admin/themes-delete-confirm.tpl.php:3
+#: templates/admin/themes-delete-confirm.tpl.php:12
 msgctxt "themes admin"
 msgid "Are you sure you want to delete the directory theme \"%s\"?"
 msgstr "Etes-vous sûr de vouloir effacer le \"%s\" thème ?"
@@ -8929,9 +8976,10 @@ msgid "Cancel recurring payment"
 msgstr "Annuler le paiement récurrent"
 
 #: templates/renew-listing-manage-subscription.tpl.php:4
+#, fuzzy
 msgctxt "renew"
 msgid ""
-"Because you are on a recurring fee plan you don't have to renew your listing "
+"Because you are on a recurring plan you don't have to renew your listing "
 "right now as this will be handled automatically when renewal comes."
 msgstr ""
 "Étant donné que vous êtes sur un plan de frais récurrents vous n'avez pas à "
@@ -8965,6 +9013,83 @@ msgstr "Adresse e-mail non valide"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuer"
+
+#, fuzzy
+#~ msgid "Fee Plans"
+#~ msgstr "Plan tarifaire"
+
+#, fuzzy
+#~ msgid "Fee Label"
+#~ msgstr "Etiquettes des Frais"
+
+#, fuzzy
+#~ msgid "Status: %s"
+#~ msgstr "Statut:"
+
+#, fuzzy
+#~ msgid "Add Listing Fee"
+#~ msgstr "Ajouter les droits d'inscription"
+
+#, fuzzy
+#~ msgid "Edit Listing Fee"
+#~ msgstr "Editer l'annonce"
+
+#, fuzzy
+#~ msgid "Fee Description"
+#~ msgstr "Description du champ"
+
+#, fuzzy
+#~ msgid "Add New Listing Fee"
+#~ msgstr "Ajouter de nouveaux droits d'inscription"
+
+#, fuzzy
+#~ msgid "Order fees on the frontend by:"
+#~ msgstr "Ordonner les honoraires dans l'interface par:"
+
+#, fuzzy
+#~ msgid "Delete Form Field"
+#~ msgstr "Effacer du champ"
+
+#, fuzzy
+#~ msgid "Delete Field"
+#~ msgstr "Effacer le champ"
+
+#, fuzzy
+#~ msgid "← Return to \"Manage Options\""
+#~ msgstr "← Retourner vers \"Organisation des champs du formulaire\""
+
+#, fuzzy
+#~ msgid ""
+#~ "They are different from regular WordPress themes and are not a "
+#~ "replacement. They change the look and feel of the directory only."
+#~ msgstr ""
+#~ "Ils sont <strong>différents</strong> de votre thème WordPress habituel et "
+#~ "ils ne sont <strong>pas</strong> un remplacement des thèmes WP non plus. "
+#~ "Ils vont seulement changer l'apparence de Business directory."
+
+#~ msgctxt "admin csv-import"
+#~ msgid "← Return to \"CSV Import\""
+#~ msgstr "← Revenir à \"Importation CSV \""
+
+#~ msgctxt "fees admin"
+#~ msgid "Fee Price"
+#~ msgstr "Prix"
+
+#~ msgctxt "form-fields admin"
+#~ msgid "Manage Theme Tags"
+#~ msgstr "Gestion des étiquettes du thème"
+
+#~ msgctxt "listing metabox"
+#~ msgid "Fee Plan"
+#~ msgstr "Plan tarifaire"
+
+#~ msgctxt "installer"
+#~ msgid "Default Fee"
+#~ msgstr "Frais par défaut"
+
+#~ msgctxt "fees-api"
+#~ msgid "Fee label is required."
+#~ msgstr "Une étiquette de frais est requise."
 
 #, fuzzy
 #~ msgid "Payments are currently turned off."

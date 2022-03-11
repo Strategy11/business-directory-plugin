@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-02-03 21:01:26+00:00\n"
+"POT-Creation-Date: 2022-03-10 17:51:03+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -91,7 +91,7 @@ msgid "Directory"
 msgstr "الدليل"
 
 #: includes/admin/class-admin.php:312
-msgid "Fee Plans"
+msgid "Plans"
 msgstr ""
 
 #: includes/admin/class-admin.php:315
@@ -116,7 +116,7 @@ msgid "Could not send renewal email."
 msgstr "إرسال رسالة بريد إلكتروني بخصوص التجديد للعضو"
 
 #: includes/admin/class-admin.php:1023
-#: includes/admin/helpers/tables/class-form-fields-table.php:127
+#: includes/admin/helpers/tables/class-form-fields-table.php:128
 #: includes/admin/helpers/tables/class-payments-table.php:54
 #: templates/email/listing-added.tpl.php:7
 #: templates/email/listing-edited.tpl.php:13
@@ -131,7 +131,7 @@ msgstr "المعرف"
 msgid "Listing Count"
 msgstr "عدد الإعلانات"
 
-#: includes/admin/class-admin.php:1191
+#: includes/admin/class-admin.php:1192
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -149,7 +149,7 @@ msgid "Please select a user"
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
 #: includes/admin/class-listing-owner.php:87
-#: includes/admin/controllers/class-admin-listings.php:221
+#: includes/admin/controllers/class-admin-listings.php:223
 #, fuzzy
 msgid "Listing Owner"
 msgstr "الإعلان منتهي التاريخ"
@@ -203,6 +203,7 @@ msgid "Business Directory Plugin"
 msgstr "Business Directory Plugin"
 
 #: includes/admin/controllers/class-admin-controller.php:82
+#: includes/admin/helpers/tables/class-fees-table.php:179
 #: templates/admin/payments-note.tpl.php:13
 #: templates/delete-listing-confirm.tpl.php:19
 #, fuzzy
@@ -219,7 +220,7 @@ msgstr "المساعدة"
 #: includes/admin/helpers/tables/class-payments-table.php:57
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:73
-#: templates/admin/payments-details.tpl.php:110
+#: templates/admin/payments-details.tpl.php:113
 #: templates/email/listing-payment-completed.tpl.php:21
 #: templates/payment/payment_items.tpl.php:5
 #, fuzzy
@@ -236,13 +237,13 @@ msgstr "الصور"
 
 #: includes/admin/controllers/class-admin-fees.php:115
 #, fuzzy
-msgid "Fee plan added."
+msgid "Plan added."
 msgstr "الرسوم حدثت."
 
 #: includes/admin/controllers/class-admin-fees.php:119
 #: includes/admin/controllers/class-admin-fees.php:134
 #, fuzzy
-msgid "Fee plan updated."
+msgid "Plan updated."
 msgstr "الرسوم حدثت."
 
 #: includes/admin/controllers/class-admin-fees.php:154
@@ -256,54 +257,58 @@ msgstr "الاحتفاظ بصور الإعلانات الموجودة؟"
 
 #: includes/admin/controllers/class-admin-fees.php:176
 #, fuzzy
-msgid "Fee plan not found."
+msgid "Plan not found."
 msgstr "الرسوم حدثت."
 
 #: includes/admin/controllers/class-admin-fees.php:180
 #, fuzzy
-msgid "Fee plan listings updated."
+msgid "Plan listings updated."
 msgstr "الرسوم حدثت."
 
-#: includes/admin/controllers/class-admin-listings.php:185
+#: includes/admin/controllers/class-admin-fees.php:258
+msgid "Cannot disable plan. At least one plan should be enabled"
+msgstr ""
+
+#: includes/admin/controllers/class-admin-listings.php:187
 #: includes/controllers/pages/class-submit-listing.php:518
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "معلومات حول الإعلان"
 
-#: includes/admin/controllers/class-admin-listings.php:193
+#: includes/admin/controllers/class-admin-listings.php:195
 #, fuzzy
 msgid "Listing Timeline"
 msgstr "عنوان الإعلان: "
 
-#: includes/admin/controllers/class-admin-listings.php:211
+#: includes/admin/controllers/class-admin-listings.php:213
 #, fuzzy
 msgid "Listing Reports"
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/controllers/class-admin-listings.php:266
+#: includes/admin/controllers/class-admin-listings.php:268
 #, fuzzy
 msgid "Expires on"
 msgstr "ستنتهي الصلاحية في"
 
-#: includes/admin/controllers/class-admin-listings.php:274
+#: includes/admin/controllers/class-admin-listings.php:276
 #, fuzzy
 msgid "Attributes"
 msgstr "سمات الحقل"
 
-#: includes/admin/controllers/class-admin-listings.php:337
+#: includes/admin/controllers/class-admin-listings.php:339
 #: includes/helpers/class-listing-display-helper.php:132
 #, fuzzy
 msgid "Featured"
 msgstr "حالة مميزة (مثبت)"
 
-#: includes/admin/controllers/class-admin-listings.php:475
+#: includes/admin/controllers/class-admin-listings.php:477
 #: includes/class-cpt-integration.php:19
 #: includes/compatibility/class-navxt-integration.php:204
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
 msgstr "تحرير الإعلان"
 
-#: includes/admin/controllers/class-admin-listings.php:480
+#: includes/admin/controllers/class-admin-listings.php:482
 #: templates/delete-listing-confirm.tpl.php:3
 msgid "Delete Listing"
 msgstr "حذف الإعلان"
@@ -323,13 +328,18 @@ msgstr ""
 msgid "Go to \"Form Fields\""
 msgstr "إنتقل إلى \"إدارة حقول\""
 
-#: includes/admin/controllers/class-form-fields-admin.php:128
-#: includes/helpers/functions/general.php:1366
-#: includes/helpers/functions/general.php:1371
+#: includes/admin/controllers/class-form-fields-admin.php:125
+#, fuzzy
+msgid "Form Preview"
+msgstr "معاينة الاستمارة"
+
+#: includes/admin/controllers/class-form-fields-admin.php:129
+#: includes/helpers/functions/general.php:1370
+#: includes/helpers/functions/general.php:1375
 msgid "Go back"
 msgstr ""
 
-#: includes/admin/controllers/class-form-fields-admin.php:338
+#: includes/admin/controllers/class-form-fields-admin.php:342
 #: includes/admin/settings/class-settings-bootstrap.php:765
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -338,7 +348,7 @@ msgstr ""
 msgid "Title"
 msgstr "العنوان"
 
-#: includes/admin/controllers/class-form-fields-admin.php:339
+#: includes/admin/controllers/class-form-fields-admin.php:343
 #: templates/admin/fees-form.tpl.php:219
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
@@ -346,22 +356,22 @@ msgstr "العنوان"
 msgid "Category"
 msgstr "التصنيف"
 
-#: includes/admin/controllers/class-form-fields-admin.php:340
+#: includes/admin/controllers/class-form-fields-admin.php:344
 #, fuzzy
 msgid "Excerpt"
 msgstr "مقتطف"
 
-#: includes/admin/controllers/class-form-fields-admin.php:341
+#: includes/admin/controllers/class-form-fields-admin.php:345
 #, fuzzy
 msgid "Content"
 msgstr "المحتوى"
 
-#: includes/admin/controllers/class-form-fields-admin.php:342
+#: includes/admin/controllers/class-form-fields-admin.php:346
 #, fuzzy
 msgid "Tags"
 msgstr "الوسوم"
 
-#: includes/admin/controllers/class-form-fields-admin.php:343
+#: includes/admin/controllers/class-form-fields-admin.php:347
 #: includes/form-fields.php:445
 #: includes/helpers/class-field-display-list.php:247
 #: templates/checkout-billing-form.tpl.php:75
@@ -369,81 +379,80 @@ msgstr "الوسوم"
 msgid "Address"
 msgstr "العنوان"
 
-#: includes/admin/controllers/class-form-fields-admin.php:344
+#: includes/admin/controllers/class-form-fields-admin.php:348
 #, fuzzy
 msgid "Address 2"
 msgstr "العنوان"
 
-#: includes/admin/controllers/class-form-fields-admin.php:345
-#: templates/admin/payments-details.tpl.php:161
+#: includes/admin/controllers/class-form-fields-admin.php:349
+#: templates/admin/payments-details.tpl.php:164
 #: templates/checkout-billing-form.tpl.php:87
 #, fuzzy
 msgid "City"
 msgstr "المدينة"
 
-#: includes/admin/controllers/class-form-fields-admin.php:346
-#: templates/admin/payments-details.tpl.php:157
+#: includes/admin/controllers/class-form-fields-admin.php:350
+#: templates/admin/payments-details.tpl.php:160
 #, fuzzy
 msgid "State"
 msgstr "الولاية"
 
-#: includes/admin/controllers/class-form-fields-admin.php:347
-#: templates/admin/payments-details.tpl.php:153
+#: includes/admin/controllers/class-form-fields-admin.php:351
+#: templates/admin/payments-details.tpl.php:156
 #: templates/checkout-billing-form.tpl.php:102
 #, fuzzy
 msgid "Country"
 msgstr "الدولة:"
 
-#: includes/admin/controllers/class-form-fields-admin.php:348
-#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:165
+#: includes/admin/controllers/class-form-fields-admin.php:352
+#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:168
 msgid "ZIP Code"
 msgstr "الرمز البريدي"
 
-#: includes/admin/controllers/class-form-fields-admin.php:349
+#: includes/admin/controllers/class-form-fields-admin.php:353
 #, fuzzy
 msgid "FAX Number"
 msgstr "رقم الفاكس"
 
-#: includes/admin/controllers/class-form-fields-admin.php:350
+#: includes/admin/controllers/class-form-fields-admin.php:354
 #: includes/fields/class-fieldtypes-phone-number.php:13
 #: templates/listing-contactform.tpl.php:38
 #, fuzzy
 msgid "Phone Number"
 msgstr "رقم الهاتف"
 
-#: includes/admin/controllers/class-form-fields-admin.php:351
+#: includes/admin/controllers/class-form-fields-admin.php:355
 #, fuzzy
 msgid "Ratings Field"
 msgstr "حقول التقييم"
 
-#: includes/admin/controllers/class-form-fields-admin.php:352
+#: includes/admin/controllers/class-form-fields-admin.php:356
 #, fuzzy
 msgid "Twitter"
 msgstr "تويتر"
 
-#: includes/admin/controllers/class-form-fields-admin.php:353
+#: includes/admin/controllers/class-form-fields-admin.php:357
 #: includes/form-fields.php:411
 #, fuzzy
 msgid "Website"
 msgstr "موقع الأنترنيت"
 
-#: includes/admin/controllers/class-settings-admin.php:476
+#: includes/admin/controllers/class-settings-admin.php:474
 msgid "Your license key provides access to new features and updates."
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:478
+#: includes/admin/controllers/class-settings-admin.php:476
 #, fuzzy
 msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "لماذا قمت بحذف إضافة دليل الأعمال؟"
 
-#: includes/admin/controllers/class-settings-admin.php:536
-#: includes/admin/helpers/tables/class-fees-table.php:177
-#: includes/admin/helpers/tables/class-form-fields-table.php:104
+#: includes/admin/controllers/class-settings-admin.php:534
+#: includes/admin/helpers/tables/class-fees-table.php:180
+#: includes/admin/helpers/tables/class-form-fields-table.php:105
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
 #: templates/admin/payments-note.tpl.php:14
-#: templates/admin/themes-item.tpl.php:66
+#: templates/admin/themes-item.tpl.php:50
 #: templates/parts/listing-buttons.tpl.php:31
-#: templates/parts/listing-buttons.tpl.php:65
 #, fuzzy
 msgid "Delete"
 msgstr "حذف"
@@ -459,16 +468,25 @@ msgstr "القوالب"
 msgid "Business %s"
 msgstr "الأعمال %s"
 
-#: includes/admin/csv-import.php:326
+#: includes/admin/csv-import.php:183
+#, fuzzy
+msgid "Example CSV Import File"
+msgstr "مثال لملف الاستيراد CSV"
+
+#: includes/admin/csv-import.php:186
+msgid "Go Back"
+msgstr ""
+
+#: includes/admin/csv-import.php:334
 msgid "You are not allowed to do that."
 msgstr ""
 
-#: includes/admin/csv-import.php:423
+#: includes/admin/csv-import.php:431
 #, fuzzy
 msgid "There was an error uploading the file:"
 msgstr "حدث خطأ أثناء رفع ملف CSV."
 
-#: includes/admin/csv-import.php:428
+#: includes/admin/csv-import.php:436
 #, fuzzy
 msgid "Please upload the correct file type."
 msgstr "المرجو رفع أو حدد ملف CSV."
@@ -478,7 +496,7 @@ msgstr "المرجو رفع أو حدد ملف CSV."
 #: includes/admin/settings/class-settings-bootstrap.php:657
 #: includes/admin/settings/class-settings-bootstrap.php:658
 #: includes/helpers/class-app.php:91
-#: templates/admin/payments-details.tpl.php:50
+#: templates/admin/payments-details.tpl.php:53
 #, fuzzy
 msgid "Listing"
 msgstr "إعلان"
@@ -495,8 +513,8 @@ msgid "Installed"
 msgstr "تم التنصيب"
 
 #: includes/admin/helpers/class-modules-list.php:187
-#: includes/admin/helpers/tables/class-fees-table.php:287
-#: templates/admin/themes-item.tpl.php:41
+#: includes/admin/helpers/tables/class-fees-table.php:291
+#: templates/admin/themes-item.tpl.php:3
 #, fuzzy
 msgid "Active"
 msgstr "مفعل"
@@ -508,7 +526,7 @@ msgstr "غير منصب"
 
 #: includes/admin/helpers/class-modules-list.php:225
 #: includes/controllers/class-smtp.php:317
-#: templates/admin/themes-item.tpl.php:61
+#: templates/admin/themes-item.tpl.php:58
 #, fuzzy
 msgid "Activate"
 msgstr "قم بالتفعيل"
@@ -527,7 +545,7 @@ msgstr "Poster annonce(paiement initial)"
 #. translators: %1$s: open link html, %2$s close link
 #: includes/admin/helpers/tables/class-fees-table.php:30
 #, fuzzy
-msgid "There are no fees right now. %1$sCreate one%2$s."
+msgid "There are no plans right now. %1$sCreate one%2$s."
 msgstr "لا توجد أي رسوم الآن. يمكنك <a>إنشاء واحد</a>، إذا كنت تريد."
 
 #: includes/admin/helpers/tables/class-fees-table.php:61
@@ -553,41 +571,45 @@ msgstr "السعر"
 msgid "Listings"
 msgstr "الإعلانات"
 
-#: includes/admin/helpers/tables/class-fees-table.php:156
+#: includes/admin/helpers/tables/class-fees-table.php:155
 #, fuzzy
 msgid "Disable"
 msgstr "تعطيل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:162
+#: includes/admin/helpers/tables/class-fees-table.php:161
 #, fuzzy
 msgid "Enable"
 msgstr "تفعيل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:184
+#: includes/admin/helpers/tables/class-fees-table.php:187
 msgid "ID: %s"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:190
 #, fuzzy
 msgid "Paid Plan"
 msgstr "تم الدفع"
 
-#: includes/admin/helpers/tables/class-fees-table.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:190
 #, fuzzy
 msgid "Free Plan"
 msgstr "إنتقل إلى \"إدارة حقول\""
 
-#: includes/admin/helpers/tables/class-fees-table.php:222
+#: includes/admin/helpers/tables/class-fees-table.php:225
 #, fuzzy
 msgid "%1$s for %2$s"
 msgstr "%s (ex. %s)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:285
+#: includes/admin/helpers/tables/class-fees-table.php:259
+msgid "Total revenue earned from listings"
+msgstr ""
+
+#: includes/admin/helpers/tables/class-fees-table.php:289
 #, fuzzy
 msgid "Disabled"
 msgstr "معطل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:291
+#: includes/admin/helpers/tables/class-fees-table.php:295
 #: includes/helpers/functions/templates-ui.php:431
 #, fuzzy
 msgid "Default"
@@ -601,10 +623,15 @@ msgid "Type"
 msgstr "نوع"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:88
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:102
 msgid "Edit"
 msgstr "Editer"
+
+#: includes/admin/helpers/tables/class-form-fields-table.php:104
+#, fuzzy
+msgid "Are you sure you want to delete that field?"
+msgstr "هل أنت متأكد من أنك تريد حذف الحقل \"%s\"؟"
 
 #: includes/admin/page-debug.php:40
 #, fuzzy
@@ -630,8 +657,8 @@ msgid "Missing tables: %s"
 msgstr "الجداول المفقودة: %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1252
-#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:137
+#: includes/controllers/pages/class-submit-listing.php:1254
+#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:140
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
 #, fuzzy
@@ -659,10 +686,10 @@ msgid "SEO"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:255
-#: includes/class-assets.php:335
+#: includes/class-assets.php:352
 #: includes/fields/class-fieldtypes-textarea.php:200
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 #, fuzzy
 msgid "No"
 msgstr "لا"
@@ -1025,11 +1052,15 @@ msgstr "أداء ترقية يدوية"
 
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:110
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:111
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:152
 msgid "Business Directory - Manual Upgrade"
 msgstr "دليل الأعمال - ترقية يدوية"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:174
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:154
+#, fuzzy
+msgid "Directory Manual Upgrade"
+msgstr "دليل الأعمال - ترقية يدوية"
+
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:180
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
@@ -1037,7 +1068,7 @@ msgstr ""
 "تم تعطيل ميزات دليل الأعمال حاليا بسبب أن الإضافة تحتاج إلى إجراء ترقية "
 "يدوية قبل أن تصلح للاستخدام."
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:176
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:182
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr "إضغط على \"إبدأ الترقية\" وانتظر حتى انتهاء العملية."
 
@@ -1052,8 +1083,8 @@ msgstr "دليل الأعمال - إعلانات مميزة"
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:272
 #: templates/admin/fees-form.tpl.php:17
 #, fuzzy
-msgid "Fee Label"
-msgstr "تسمية الرسوم"
+msgid "Plan Label"
+msgstr "تسمية الحقل"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:274
 #, fuzzy
@@ -1062,7 +1093,7 @@ msgstr "المدة"
 
 #: includes/admin/upgrades/migrations/migration-18_0.php:251
 #, fuzzy
-msgid "Could not migrate fee \"%1$s\" (%2$d)"
+msgid "Could not migrate plan \"%1$s\" (%2$d)"
 msgstr "تعذر تحديث القالب : %s"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:181
@@ -1075,18 +1106,15 @@ msgstr "رسوم التجديد \"%s\" للتصنيف \"%s\""
 msgid "Directory Modules"
 msgstr "قوالب الدليل"
 
-#: includes/admin/views/modules/list.php:46
-#: includes/admin/views/modules/list.php:47
+#: includes/admin/views/modules/list.php:35
+msgid "New"
+msgstr ""
+
+#: includes/admin/views/modules/list.php:68
+#: includes/admin/views/modules/list.php:69
 #, fuzzy
 msgid "View Docs"
 msgstr "Vue"
-
-#. translators: %s: Status name
-#: includes/admin/views/modules/list.php:63
-#: templates/admin/themes-item.tpl.php:50
-#, fuzzy
-msgid "Status: %s"
-msgstr "الحالة"
 
 #: includes/admin/views/review.php:17
 #, fuzzy
@@ -1132,21 +1160,38 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:333
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:86
+#: includes/class-assets.php:194 templates/admin/settings-email.tpl.php:103
+#: templates/admin/settings-reset.tpl.php:8
+#: templates/admin/themes-delete-confirm.tpl.php:21
+#: templates/listing-flagging-form.tpl.php:65
+#, fuzzy
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: includes/class-assets.php:195
+#, fuzzy
+msgid "Continue"
+msgstr "متابعة"
+
+#: includes/class-assets.php:196
+msgid "Are you sure?"
+msgstr ""
+
+#: includes/class-assets.php:350
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 #, fuzzy
 msgid "Never"
 msgstr "أبداً"
 
-#: includes/class-assets.php:334
+#: includes/class-assets.php:351
 #: includes/fields/class-fieldtypes-textarea.php:201
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 #, fuzzy
 msgid "Yes"
 msgstr "نعم"
 
-#: includes/class-assets.php:344
+#: includes/class-assets.php:361
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
@@ -1276,7 +1321,7 @@ msgstr "إضافة رسوم الإعلان"
 msgid "View All Listings"
 msgstr "مشاهدة جميع الإعلانات"
 
-#: includes/class-payment-gateways.php:144
+#: includes/class-payment-gateways.php:146
 msgid ""
 "You have paid plans but no payment gateway. Go to %1$sSettings - Payment%2$s "
 "to set up a gateway. Until you do this, only free plans will be available."
@@ -1292,23 +1337,23 @@ msgstr "ترقية إلى %s"
 msgid "Settings"
 msgstr "إعدادات"
 
-#: includes/class-wpbdp.php:574
+#: includes/class-wpbdp.php:575
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "لا يمكن الاتصال بخادم الترخيص"
 
-#: includes/class-wpbdp.php:581
+#: includes/class-wpbdp.php:582
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:588 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:589 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "تعذر تحديث القالب : %s"
 
-#: includes/class-wpbdp.php:620
+#: includes/class-wpbdp.php:621
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1317,7 +1362,7 @@ msgstr ""
 "تم تعطيل ميزات دليل الأعمال حاليا بسبب أن الإضافة تحتاج إلى إجراء ترقية "
 "يدوية قبل المتابعة."
 
-#: includes/class-wpbdp.php:627
+#: includes/class-wpbdp.php:628
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1521,28 +1566,28 @@ msgstr ""
 
 #: includes/controllers/pages/class-submit-listing.php:831
 #, fuzzy
-msgid "Go to \"Fee Plans\""
+msgid "Go to \"Plans\""
 msgstr "إنتقل إلى \"إدارة حقول\""
 
 #: includes/controllers/pages/class-submit-listing.php:887
 #, fuzzy
-msgid "Please choose a fee plan."
+msgid "Please choose a plan."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:1073
+#: includes/controllers/pages/class-submit-listing.php:1077
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1236
+#: includes/controllers/pages/class-submit-listing.php:1238
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1243
+#: includes/controllers/pages/class-submit-listing.php:1245
 #, fuzzy
 msgid "Username"
 msgstr "عضو"
 
-#: includes/controllers/pages/class-submit-listing.php:1265
+#: includes/controllers/pages/class-submit-listing.php:1267
 #, fuzzy
 msgid "Clear Form"
 msgstr "مسح"
@@ -1649,8 +1694,7 @@ msgstr ""
 #: includes/fields/class-fieldtypes-textarea.php:214
 #, fuzzy
 msgid ""
-"Warning: Users can use this feature to get around your image limits in fee "
-"plans."
+"Warning: Users can use this feature to get around your image limits in plans."
 msgstr ""
 "<b>تحذير:</b> يمكن للأعضاء استخدام هذه الميزة للقيام بتحايل على قيود الصورة "
 "الخاصة بك في رسوم الخطط.."
@@ -1730,7 +1774,7 @@ msgstr "عنوان الإعلان"
 msgid "Short Description"
 msgstr "وصف قصير"
 
-#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:109
+#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:112
 #, fuzzy
 msgid "Description"
 msgstr "رسم الوصف"
@@ -1873,6 +1917,11 @@ msgstr "تحرير الإعلان"
 #, fuzzy
 msgid "Manage Listings"
 msgstr "إدارة الإعلانات المدفوعة"
+
+#: includes/installer.php:60
+#, fuzzy
+msgid "Default Plan"
+msgstr "رسوم افتراضية"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
 #: includes/licensing.php:152
@@ -2033,17 +2082,22 @@ msgstr "في انتظار التخلي"
 msgid "Abandoned"
 msgstr "متخلى عنه"
 
+#: includes/payment.php:278
+#, fuzzy
+msgid "Return to plan selection"
+msgstr "الرجوع إلى الإعلان."
+
 #: includes/themes.php:945
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "ملف الضغط ZIP ليس ملف قالب دليل الأعمال صالح."
 
-#: includes/utils.php:341
+#: includes/utils.php:390
 #, fuzzy
 msgid "File size (%1$s) exceeds maximum file size of %2$s"
 msgstr "حجم الملف (%s) يتجاوز الحجم الأقصى للملف %s"
 
-#: includes/utils.php:350
+#: includes/utils.php:399
 #, fuzzy
 msgid "File size (%1$s) is smaller than the minimum file size of %2$s"
 msgstr "حجم الملف (%s) أقل من الحد الأدنى المطلوب لحجم الملف لـ %s"
@@ -2314,17 +2368,17 @@ msgstr "تحميل معلومات التصحيح"
 
 #: templates/admin/fees-add-fee.tpl.php:4 templates/admin/fees-form.tpl.php:245
 #, fuzzy
-msgid "Add Listing Fee"
-msgstr "إضافة رسوم الإعلان"
+msgid "Add Plan"
+msgstr "تم الدفع"
 
 #: templates/admin/fees-edit-fee.tpl.php:4
 #, fuzzy
-msgid "Edit Listing Fee"
-msgstr "تعديل رسوم الإعلان"
+msgid "Edit Plan"
+msgstr "تم الدفع"
 
 #: templates/admin/fees-form.tpl.php:30
 #, fuzzy
-msgid "Fee Description"
+msgid "Plan Description"
 msgstr "رسم الوصف"
 
 #: templates/admin/fees-form.tpl.php:38
@@ -2353,7 +2407,7 @@ msgid "Number of images allowed"
 msgstr "عدد الصور المسموح بها"
 
 #: templates/admin/fees-form.tpl.php:73
-msgid "Private Fee Plan (visible to admins only)?"
+msgid "Private Plan (visible to admins only)?"
 msgstr ""
 
 #: templates/admin/fees-form.tpl.php:90
@@ -2393,54 +2447,53 @@ msgstr ""
 msgid "Save Changes"
 msgstr "حفظ التعديلات"
 
-#: templates/admin/fees-index.tpl.php:7
+#: templates/admin/fees-index.tpl.php:6
 #, fuzzy
-msgid "Add New Listing Fee"
-msgstr "إضافة رسم إعلان جديد"
+msgid "Add New Plan"
+msgstr "إضافة إعلان جديد"
 
-#: templates/admin/fees-index.tpl.php:20
-#, fuzzy
-msgid "Order fees on the frontend by:"
-msgstr "رسوم الترتيب على الواجهة بواسطة:"
-
-#: templates/admin/fees-index.tpl.php:30
+#: templates/admin/fees-index.tpl.php:28
 #, fuzzy
 msgid "↑ Ascending"
 msgstr "↑ تصاعدي"
 
-#: templates/admin/fees-index.tpl.php:31
+#: templates/admin/fees-index.tpl.php:29
 #, fuzzy
 msgid "↓ Descending"
 msgstr "↓ تنازلي"
 
-#: templates/admin/fees-index.tpl.php:39
+#: templates/admin/fees-index.tpl.php:37
+msgid "Save front-end order"
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:41
 #, fuzzy
-msgid "Drag and drop to re-order fees."
+msgid "Drag and drop to re-order plans."
 msgstr "سحب وإسقاط لإعادة ترتيب الرسوم."
 
-#: templates/admin/fees-index.tpl.php:67
+#: templates/admin/fees-index.tpl.php:69
 msgid "Set up a payment gateway to charge a fee for listings"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:69
+#: templates/admin/fees-index.tpl.php:71
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #. translators: %s: payment gateway name */
-#: templates/admin/fees-index.tpl.php:88
+#: templates/admin/fees-index.tpl.php:90
 msgid "Add the %s gateway as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:94
+#: templates/admin/fees-index.tpl.php:96
 #, fuzzy
 msgid "Upgrade"
 msgstr "ترقية إلى %s"
 
-#: templates/admin/fees-index.tpl.php:102
+#: templates/admin/fees-index.tpl.php:104
 msgid "Set up Authorize.net as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:105
+#: templates/admin/fees-index.tpl.php:107
 msgid "Set Up"
 msgstr ""
 
@@ -2459,20 +2512,20 @@ msgstr "عدد الصور:"
 msgid "Require this field on the Advanced Search screen."
 msgstr "تضمين هذا الحقل في نموذج البحث."
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:4
+#: templates/admin/form-fields.tpl.php:4
 #, fuzzy
-msgid "Delete Form Field"
-msgstr "حذف حقل النموذج"
+msgid "Add New Form Field"
+msgstr "إضافة حقل نموذج جديد"
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:11
+#: templates/admin/form-fields.tpl.php:8
 #, fuzzy
-msgid "Are you sure you want to delete that field?"
-msgstr "هل أنت متأكد من أنك تريد حذف الحقل \"%s\"؟"
+msgid "Preview Form"
+msgstr "معاينة الاستمارة"
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:17
+#: templates/admin/form-fields.tpl.php:12 templates/admin/themes.tpl.php:11
 #, fuzzy
-msgid "Delete Field"
-msgstr "حذف حقل"
+msgid "Manage Theme Tags"
+msgstr "إدارة وسوم القالب"
 
 #: templates/admin/metaboxes-listing-information-other.tpl.php:3
 #: templates/email-access-keys.tpl.php:5 templates/login.tpl.php:69
@@ -2480,6 +2533,11 @@ msgstr "حذف حقل"
 #, fuzzy
 msgid "Access Key"
 msgstr "مفتاح الوصول"
+
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
+#: templates/email/listing-payment-completed.tpl.php:25
+msgid "Plan"
+msgstr ""
 
 #: templates/admin/payments-details.tpl.php:5
 #, fuzzy
@@ -2491,116 +2549,116 @@ msgstr "الدفع #%d"
 msgid "Not Found"
 msgstr "معلومات الرسوم"
 
-#: templates/admin/payments-details.tpl.php:10
-#: templates/admin/payments-details.tpl.php:23
+#: templates/admin/payments-details.tpl.php:11
+#: templates/admin/payments-details.tpl.php:26
 #, fuzzy
 msgid "← Return to \"Payment History\""
 msgstr "← الرجوع إلى \"حذف الإعلان\"."
 
-#: templates/admin/payments-details.tpl.php:21
+#: templates/admin/payments-details.tpl.php:24
 #, fuzzy
 msgid "Payment Not Found"
 msgstr "معلومات الرسوم"
 
-#: templates/admin/payments-details.tpl.php:42
+#: templates/admin/payments-details.tpl.php:45
 msgid "Overview"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:46
-#: templates/admin/payments-details.tpl.php:80
+#: templates/admin/payments-details.tpl.php:49
+#: templates/admin/payments-details.tpl.php:83
 #, fuzzy
 msgid "Payment ID"
 msgstr "الدفع"
 
-#: templates/admin/payments-details.tpl.php:56
+#: templates/admin/payments-details.tpl.php:59
 #, fuzzy
 msgid "Status"
 msgstr "الحالة"
 
-#: templates/admin/payments-details.tpl.php:65
+#: templates/admin/payments-details.tpl.php:68
 #, fuzzy
 msgid "Date"
 msgstr "Date"
 
-#: templates/admin/payments-details.tpl.php:69
+#: templates/admin/payments-details.tpl.php:72
 #, fuzzy
 msgid "Time"
 msgstr "الوقت:  %s"
 
-#: templates/admin/payments-details.tpl.php:74
+#: templates/admin/payments-details.tpl.php:77
 #, fuzzy
 msgid "Gateway"
 msgstr "بوابة"
 
 #. translators: Gateway: (Not yet set)
-#: templates/admin/payments-details.tpl.php:76
+#: templates/admin/payments-details.tpl.php:79
 #, fuzzy
 msgid "(Not yet set)"
 msgstr "لم تتسجل بعد؟"
 
-#: templates/admin/payments-details.tpl.php:91
+#: templates/admin/payments-details.tpl.php:94
 #, fuzzy
 msgid "Delete Payment"
 msgstr "رفض الدفع"
 
-#: templates/admin/payments-details.tpl.php:93
+#: templates/admin/payments-details.tpl.php:96
 #, fuzzy
 msgid "Save Payment"
 msgstr "الدفع"
 
-#: templates/admin/payments-details.tpl.php:104
+#: templates/admin/payments-details.tpl.php:107
 #, fuzzy
 msgid "Details"
 msgstr "+ Détails"
 
-#: templates/admin/payments-details.tpl.php:108
+#: templates/admin/payments-details.tpl.php:111
 #, fuzzy
 msgid "Item Type"
 msgstr "نوع الحقل"
 
-#: templates/admin/payments-details.tpl.php:121
+#: templates/admin/payments-details.tpl.php:124
 #: templates/payment/payment_items.tpl.php:23
 #, fuzzy
 msgid "Total"
 msgstr "مجموع"
 
-#: templates/admin/payments-details.tpl.php:132
+#: templates/admin/payments-details.tpl.php:135
 #, fuzzy
 msgid "Customer Details"
 msgstr "تفاصيل الرسوم الحالية"
 
-#: templates/admin/payments-details.tpl.php:142
+#: templates/admin/payments-details.tpl.php:145
 #: templates/checkout-billing-form.tpl.php:17
 #, fuzzy
 msgid "First Name"
 msgstr "الإسم الشخصي:"
 
-#: templates/admin/payments-details.tpl.php:147
+#: templates/admin/payments-details.tpl.php:150
 #: templates/checkout-billing-form.tpl.php:22
 #, fuzzy
 msgid "Last Name"
 msgstr "الإسم العائلي:"
 
-#: templates/admin/payments-details.tpl.php:169
+#: templates/admin/payments-details.tpl.php:172
 #, fuzzy
 msgid "Address Line 1"
 msgstr "خانة العنوان 1:"
 
-#: templates/admin/payments-details.tpl.php:173
+#: templates/admin/payments-details.tpl.php:176
 #: templates/checkout-billing-form.tpl.php:81
 #, fuzzy
 msgid "Address Line 2"
 msgstr "خانة العنوان 2:"
 
-#: templates/admin/payments-details.tpl.php:182
+#: templates/admin/payments-details.tpl.php:185
 msgid "Notes & Log"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:187
+#: templates/admin/payments-details.tpl.php:190
 msgid "No notes."
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:207
+#: templates/admin/payments-details.tpl.php:210
 #, fuzzy
 msgid "Add Note"
 msgstr "إضافة رسم"
@@ -2683,33 +2741,22 @@ msgstr "يمكنك استخدام العناصر النائبة التالية:"
 msgid "Preview email"
 msgstr "معاينة البريد الإلكتروني"
 
-#: templates/admin/settings-email.tpl.php:103
-#: templates/admin/themes-delete-confirm.tpl.php:12
-#: templates/listing-flagging-form.tpl.php:65
-#, fuzzy
-msgid "Cancel"
-msgstr "إلغاء"
-
 #: templates/admin/settings-page.tpl.php:7
 #, fuzzy
 msgid "Directory Settings"
 msgstr "رابط لطيف لإعلانات الدليل"
 
 #: templates/admin/settings-page.tpl.php:8
-#: templates/admin/settings-reset.tpl.php:24
+#: templates/admin/settings-reset.tpl.php:26
 msgid "Reset Defaults"
 msgstr "إعادة تعيين الوضع الافتراضي"
 
-#: templates/admin/settings-reset.tpl.php:3
-msgid "Business Directory - Reset Defaults"
+#: templates/admin/settings-reset.tpl.php:4
+#, fuzzy
+msgid "Directory Reset to Default"
 msgstr "دليل الأعمال - إعادة تعيين الافتراضي"
 
-#: templates/admin/settings-reset.tpl.php:7
-#, fuzzy
-msgid "← Return to \"Manage Options\""
-msgstr "← العودة إلى \"إدارة الخيارات\""
-
-#: templates/admin/settings-reset.tpl.php:15
+#: templates/admin/settings-reset.tpl.php:17
 msgid ""
 "Use this option if you want to go back to the original factory settings for "
 "BD."
@@ -2717,11 +2764,11 @@ msgstr ""
 "استخدم هذا الخيار إذا كنت تريد العودة إلى إعدادات المصنع الأصلية لدليل "
 "الأعمال."
 
-#: templates/admin/settings-reset.tpl.php:16
+#: templates/admin/settings-reset.tpl.php:18
 msgid "Please note that all of your existing settings will be lost."
 msgstr "يرجى ملاحظة أنه سيتم فقدان كافة الإعدادات الحالية الخاصة بك."
 
-#: templates/admin/settings-reset.tpl.php:18
+#: templates/admin/settings-reset.tpl.php:20
 msgid "Your existing listings will NOT be deleted doing this."
 msgstr ""
 
@@ -2748,79 +2795,68 @@ msgstr "دليل بدء التشغيل السريع"
 msgid "Video Tutorials"
 msgstr "دروس الفيديو التعليمية"
 
-#: templates/admin/themes-delete-confirm.tpl.php:1
-#: templates/admin/themes-delete-confirm.tpl.php:13
+#: templates/admin/themes-delete-confirm.tpl.php:4
+#: templates/admin/themes-delete-confirm.tpl.php:22
 #, fuzzy
 msgid "Delete Directory Theme"
 msgstr "حذف قالب الدليل"
 
-#: templates/admin/themes-install.tpl.php:4 templates/admin/themes.tpl.php:6
+#: templates/admin/themes-install.tpl.php:4 templates/admin/themes.tpl.php:7
 #, fuzzy
 msgid "Upload Directory Theme"
 msgstr "تحميل قالب الدليل"
 
 #. translators: %s is the link for Business Directory Premium Themes.
-#: templates/admin/themes-install.tpl.php:16
+#: templates/admin/themes-install.tpl.php:17
 #, fuzzy
 msgid "This is a theme or skin from %s and is NOT a regular WordPress theme."
 msgstr "هذا قالب أو الغلاف من %s وليس قالب ووردبريس عادي."
 
-#: templates/admin/themes-install.tpl.php:30
+#: templates/admin/themes-install.tpl.php:31
 #, fuzzy
 msgid "Business Directory Theme archive (ZIP file)"
 msgstr "أرشيف قالب دليل الأعمال (ملف مضغوط)"
 
-#: templates/admin/themes-install.tpl.php:39
+#: templates/admin/themes-install.tpl.php:40
 #, fuzzy
 msgid "Upload"
 msgstr "وحدة رفع الملفات"
 
-#: templates/admin/themes-item.tpl.php:8
+#: templates/admin/themes-item.tpl.php:7
+#, fuzzy
+msgid "Inactive"
+msgstr "مفعل"
+
+#: templates/admin/themes-item.tpl.php:17
 #, fuzzy
 msgid "Updating theme..."
 msgstr "تحديث القالب..."
 
-#: templates/admin/themes-item.tpl.php:8
+#: templates/admin/themes-item.tpl.php:17
 #, fuzzy
 msgid "Theme updated."
 msgstr "تم تحديث القالب"
 
 #. translators: %1$s is opening <a> tag, %2$s is closing </a> tag
-#: templates/admin/themes-item.tpl.php:13
+#: templates/admin/themes-item.tpl.php:22
 #, fuzzy
 msgid "New version available. %1$sUpdate now.%2$s"
 msgstr "الإصدار الجديد متوفر (<b>%s</b>). <a>التحديث الآن.</a>"
 
-#: templates/admin/themes-item.tpl.php:45
-#, fuzzy
-msgid "Inactive"
-msgstr "مفعل"
-
-#: templates/admin/themes.tpl.php:7
-#, fuzzy
-msgid "Manage Theme Tags"
-msgstr "إدارة وسوم القالب"
-
 #. translators: %1$s is opening <a> tag, %2$s is closing </a> tag
-#: templates/admin/themes.tpl.php:21
+#: templates/admin/themes.tpl.php:27
 #, fuzzy
 msgid ""
-"%1$sDirectory Themes%2$s are pre-made templates for the Business Directory "
-"Plugin to change the look of the directory quickly and easily. We have a "
-"number of them available for purchase %1$shere%2$s."
+"%1$sDirectory Themes%2$s change the look of the directory. A number of them "
+"are %1$savailable for purchase%2$s."
 msgstr ""
 "<a><b>قوالب الدليل</b></a> هي قوالب مسبقة الصنع لـ<i>إضافة دليل الأعمال</i> "
 "لتغيير مظهر الدليل بسرعة وسهولة. لدينا عدد منهم للشراء <a>هنا</a>."
 
-#: templates/admin/themes.tpl.php:26
+#: templates/admin/themes.tpl.php:32
 #, fuzzy
-msgid ""
-"They are different from regular WordPress themes and are not a replacement. "
-"They change the look and feel of the directory only."
-msgstr ""
-"إنها <strong>مختلفة</strong> عن قوالب ووردبريس العادية الخاصة بك، و "
-"<strong>ليست</strong> بديلاً عن  قوالب ووردبريس. سوف تغير الشكل والمظهر لدليل "
-"الأعمال الخاص بك فقط."
+msgid "They are not a replacement for regular WordPress themes."
+msgstr "هذا قالب أو الغلاف من %s وليس قالب ووردبريس عادي."
 
 #: templates/admin/uninstall-complete.tpl.php:12
 #, fuzzy
@@ -2971,8 +3007,8 @@ msgstr "إنهاء الشراء"
 
 #: templates/checkout.tpl.php:31
 msgid ""
-"Recurring fee plans require a payment method to renew your listing at the "
-"end of the term."
+"Recurring plans require a payment method to renew your listing at the end of "
+"the term."
 msgstr ""
 
 #: templates/checkout.tpl.php:37
@@ -3011,10 +3047,6 @@ msgstr "العودة إلى الدليل."
 #, fuzzy
 msgid "(not published yet)"
 msgstr "(لم تنشر بعد)"
-
-#: templates/email/listing-payment-completed.tpl.php:25
-msgid "Plan"
-msgstr ""
 
 #: templates/email-access-keys.tpl.php:1
 #, fuzzy
@@ -3155,7 +3187,7 @@ msgstr "%s كل %s أيام."
 msgid "%1$s each %2$s days. Next renewal is on %3$s."
 msgstr "%s كل %sالأيام. التجديد القادم في %s."
 
-#: templates/parts/listing-buttons.tpl.php:38
+#: templates/parts/listing-buttons.tpl.php:39
 #, fuzzy
 msgid "Return to Directory"
 msgstr "العودة إلى الدليل."
@@ -3193,8 +3225,13 @@ msgstr ""
 
 #: templates/plan-selection-plan.tpl.php:79
 #, fuzzy
-msgid "Private fee plan"
+msgid "Private plan"
 msgstr "ترخيص مفعل"
+
+#: templates/renew-listing-manage-subscription.tpl.php:2
+#, fuzzy
+msgid "Recurring Plan Management"
+msgstr "إدارة الرسوم المتكررة"
 
 #: templates/search-form.tpl.php:28
 #, fuzzy
@@ -3337,8 +3374,9 @@ msgstr[4] "تمت ترقية الإعلانات."
 msgstr[5] "تمت ترقية الإعلانات."
 
 #: includes/admin/class-admin.php:863
+#, fuzzy
 msgctxt "admin"
-msgid "The fee was successfully assigned."
+msgid "The plan was successfully assigned."
 msgstr "تم تعيين الرسوم بنجاح."
 
 #: includes/admin/class-admin.php:873
@@ -3380,7 +3418,7 @@ msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1106
+#: includes/admin/class-admin.php:1107
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -3389,7 +3427,7 @@ msgstr ""
 "<b>إضافة دليل الأعمال</b> تتطلب صفحة فيها الكود القصير "
 "<tt>[businessdirectory]</tt>  لكي تعمل بشكل صحيح."
 
-#: includes/admin/class-admin.php:1108
+#: includes/admin/class-admin.php:1109
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -3398,12 +3436,12 @@ msgstr ""
 "يمكنك إنشاء هذه الصفحة بنفسك أو ترك دليل الأعمال القيام بذلك نيابة عنك "
 "تلقائياً."
 
-#: includes/admin/class-admin.php:1113
+#: includes/admin/class-admin.php:1114
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "إنشاء الصفحات المطلوب نيابة عني"
 
-#: includes/admin/class-admin.php:1166
+#: includes/admin/class-admin.php:1167
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -3429,13 +3467,13 @@ msgctxt "admin"
 msgid "Images"
 msgstr "الصور"
 
-#: includes/admin/controllers/class-admin-listings.php:201
+#: includes/admin/controllers/class-admin-listings.php:203
 #, fuzzy
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "حقول / صور الإعلان"
 
-#: includes/admin/controllers/class-admin-listings.php:265
+#: includes/admin/controllers/class-admin-listings.php:267
 msgctxt "admin"
 msgid "Categories"
 msgstr "التصنيفات"
@@ -3487,9 +3525,10 @@ msgid "Settings"
 msgstr "إعدادات"
 
 #: includes/admin/class-listings-with-no-fee-plan-view.php:58
+#, fuzzy
 msgctxt "listings view"
-msgid "No Fee Plan"
-msgstr ""
+msgid "No Plan"
+msgstr "تم الدفع"
 
 #: includes/admin/controllers/class-admin-controller.php:84
 msgctxt "admin confirm"
@@ -3511,22 +3550,12 @@ msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "أيا كان"
 
-#: includes/admin/csv-import.php:182
-msgctxt "admin csv-import"
-msgid "Example CSV Import File"
-msgstr "مثال لملف الاستيراد CSV"
-
-#: includes/admin/csv-import.php:183
-msgctxt "admin csv-import"
-msgid "← Return to \"CSV Import\""
-msgstr "← العودة إلى \"استيراد CSV\""
-
-#: includes/admin/csv-import.php:340
+#: includes/admin/csv-import.php:348
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "المرجو رفع أو حدد ملف CSV."
 
-#: includes/admin/csv-import.php:369
+#: includes/admin/csv-import.php:377
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -3535,7 +3564,7 @@ msgstr ""
 "تم اكتشاف خطأ أثناء التحقق من صحة ملف CSV للاستيراد. المرجو إصلاح هذا قبل "
 "المتابعة."
 
-#: includes/admin/csv-import.php:378
+#: includes/admin/csv-import.php:386
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr "الاستيراد في \"وضع الاختبار\". لن يتم إدراج أي شيء في قاعدة البيانات."
@@ -3559,7 +3588,7 @@ msgstr "إسم المستخدم \"%s\" غير موجود"
 
 #: includes/admin/helpers/csv/class-csv-import.php:757
 msgctxt "admin csv-import"
-msgid "There is no Fee Plan with ID = <fee-id>"
+msgid "There is no Plan with ID = <fee-id>"
 msgstr ""
 
 #: includes/admin/helpers/csv/class-csv-import.php:788
@@ -3572,7 +3601,7 @@ msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "تصنيف الإعلان \"%s\" غير موجود"
 
-#: includes/admin/helpers/csv/class-csv-import.php:904
+#: includes/admin/helpers/csv/class-csv-import.php:907
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
@@ -3829,21 +3858,22 @@ msgctxt "fees order"
 msgid "Custom Order"
 msgstr "ترتيب مخصص"
 
-#: includes/admin/controllers/class-admin-fees.php:245
+#: includes/admin/controllers/class-admin-fees.php:244
 #, fuzzy
 msgctxt "fees admin"
-msgid "Fee \"%s\" deleted."
+msgid "Plan \"%s\" deleted."
 msgstr "الرسوم حذفت."
 
 #: includes/admin/controllers/class-admin-fees.php:256
 #, fuzzy
 msgctxt "fees admin"
-msgid "Fee enabled."
+msgid "Plan enabled."
 msgstr "رسوم معطلة."
 
 #: includes/admin/controllers/class-admin-fees.php:256
+#, fuzzy
 msgctxt "fees admin"
-msgid "Fee disabled."
+msgid "Plan disabled."
 msgstr "رسوم معطلة."
 
 #: includes/admin/helpers/tables/class-fees-table.php:20
@@ -3862,29 +3892,29 @@ msgctxt "fees admin"
 msgid "Attributes"
 msgstr "سمات الحقل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:141
+#: includes/admin/helpers/tables/class-fees-table.php:140
 msgctxt "fees admin"
 msgid "Edit"
 msgstr "تحرير"
 
-#: includes/admin/helpers/tables/class-fees-table.php:210
+#: includes/admin/helpers/tables/class-fees-table.php:213
 #, fuzzy
 msgctxt "fees admin"
 msgid "Variable"
 msgstr "تعطيل"
 
-#: includes/admin/helpers/tables/class-fees-table.php:215
+#: includes/admin/helpers/tables/class-fees-table.php:218
 #, fuzzy
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "Frais \"%s\" pour catégorie \"%s\""
 
-#: includes/admin/helpers/tables/class-fees-table.php:234
+#: includes/admin/helpers/tables/class-fees-table.php:237
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "دائما"
 
-#: includes/admin/helpers/tables/class-fees-table.php:236
+#: includes/admin/helpers/tables/class-fees-table.php:239
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
@@ -3895,23 +3925,23 @@ msgstr[3] "%d  أيام"
 msgstr[4] "%d يوم"
 msgstr[5] "%d يوم"
 
-#: includes/admin/helpers/tables/class-fees-table.php:266
+#: includes/admin/helpers/tables/class-fees-table.php:270
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "جميع التصنيفات"
 
-#: includes/admin/helpers/tables/class-fees-table.php:295
+#: includes/admin/helpers/tables/class-fees-table.php:299
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:299
+#: includes/admin/helpers/tables/class-fees-table.php:303
 #, fuzzy
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "(متكرر)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:303
+#: includes/admin/helpers/tables/class-fees-table.php:307
 #, fuzzy
 msgctxt "fees admin"
 msgid "Private"
@@ -3991,7 +4021,7 @@ msgstr ""
 #: templates/admin/fees-form.tpl.php:206
 #, fuzzy
 msgctxt "fees admin"
-msgid "Fee Price"
+msgid "Plan Price"
 msgstr "السعر"
 
 #: templates/admin/fees-form.tpl.php:214
@@ -4011,16 +4041,16 @@ msgctxt "fees admin"
 msgid "Extra amount (per category)"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:60
+#: includes/admin/controllers/class-admin-listings.php:62
 msgctxt "admin category filter"
 msgid "All categories"
 msgstr "جميع التصنيفات"
 
-#: includes/admin/controllers/class-admin-listings.php:175
+#: includes/admin/controllers/class-admin-listings.php:177
 #, fuzzy
 msgctxt "admin listings"
 msgid ""
-"This listing doesn't have a fee plan assigned. This is required in order to "
+"This listing doesn't have a plan assigned. This is required in order to "
 "determine the features available to this listing, as well as handling "
 "renewals."
 msgstr ""
@@ -4028,42 +4058,42 @@ msgstr ""
 "به) مطلوب من أجل تحديد الميزات المتوفرة لهذا الإعلان، زائد التعامل مع تجديد "
 "الاشتراك."
 
-#: includes/admin/controllers/class-admin-listings.php:311
+#: includes/admin/controllers/class-admin-listings.php:313
 #, fuzzy
 msgctxt "admin listings"
 msgid "Never"
 msgstr "أبداً"
 
-#: includes/admin/controllers/class-admin-listings.php:341
+#: includes/admin/controllers/class-admin-listings.php:343
 #, fuzzy
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(متكرر)"
 
-#: includes/admin/controllers/class-admin-listings.php:345
+#: includes/admin/controllers/class-admin-listings.php:347
 #, fuzzy
 msgctxt "admin listings"
 msgid "Free"
 msgstr "مجاني"
 
-#: includes/admin/controllers/class-admin-listings.php:349
+#: includes/admin/controllers/class-admin-listings.php:351
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment Not Found"
 msgstr "معلومات الرسوم"
 
-#: includes/admin/controllers/class-admin-listings.php:353
+#: includes/admin/controllers/class-admin-listings.php:355
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment %s"
 msgstr "الدفع #%d"
 
-#: includes/admin/controllers/class-admin-listings.php:362
+#: includes/admin/controllers/class-admin-listings.php:364
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:700
+#: includes/admin/controllers/class-admin-listings.php:702
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -4091,110 +4121,111 @@ msgctxt "admin listings"
 msgid "Clear listing reports."
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/controllers/class-admin-listings.php:322
+#: includes/admin/controllers/class-admin-listings.php:324
+#, fuzzy
 msgctxt "listing attribute"
-msgid "No Fee Plan"
-msgstr ""
+msgid "No Plan"
+msgstr "تم الدفع"
 
-#: includes/admin/controllers/class-admin-listings.php:423
+#: includes/admin/controllers/class-admin-listings.php:425
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/models/class-listing.php:961
+#: includes/models/class-listing.php:970
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/models/class-listing.php:962
+#: includes/models/class-listing.php:971
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/models/class-listing.php:963
+#: includes/models/class-listing.php:972
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "إكتمل"
 
-#: includes/models/class-listing.php:964
+#: includes/models/class-listing.php:973
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "في انتظار التخلي"
 
-#: includes/models/class-listing.php:965
+#: includes/models/class-listing.php:974
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "إكتمل"
 
-#: includes/models/class-listing.php:966
+#: includes/models/class-listing.php:975
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr " في انتظار الترقية"
 
-#: includes/models/class-listing.php:967
+#: includes/models/class-listing.php:976
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "منتهي الصلاحية"
 
-#: includes/models/class-listing.php:968
+#: includes/models/class-listing.php:977
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "مفعل + ريثما يتم التجديد"
 
-#: includes/models/class-listing.php:969
+#: includes/models/class-listing.php:978
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "متخلى عنه"
 
-#: includes/admin/controllers/class-admin-listings.php:491
+#: includes/admin/controllers/class-admin-listings.php:493
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "الدفع"
 
-#: includes/admin/controllers/class-admin-listings.php:496
+#: includes/admin/controllers/class-admin-listings.php:498
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "الدفع"
 
-#: includes/admin/controllers/class-admin-listings.php:633
+#: includes/admin/controllers/class-admin-listings.php:635
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "نشر إعلان"
 
-#: includes/admin/controllers/class-admin-listings.php:634
+#: includes/admin/controllers/class-admin-listings.php:636
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr " في الانتظار"
 
-#: includes/admin/controllers/class-admin-listings.php:635
+#: includes/admin/controllers/class-admin-listings.php:637
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:637
+#: includes/admin/controllers/class-admin-listings.php:639
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "تجديد الإعلان"
 
-#: includes/admin/controllers/class-admin-listings.php:638
+#: includes/admin/controllers/class-admin-listings.php:640
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/controllers/class-admin-listings.php:645
+#: includes/admin/controllers/class-admin-listings.php:647
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -4249,17 +4280,12 @@ msgctxt "payments admin"
 msgid "View Payment History"
 msgstr "سجل المدفوعات"
 
-#: includes/admin/controllers/class-form-fields-admin.php:124
-msgctxt "form-fields admin"
-msgid "Form Preview"
-msgstr "معاينة الاستمارة"
-
-#: includes/admin/controllers/class-form-fields-admin.php:183
+#: includes/admin/controllers/class-form-fields-admin.php:185
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "تم تحديث الاستمارة."
 
-#: includes/admin/controllers/class-form-fields-admin.php:206
+#: includes/admin/controllers/class-form-fields-admin.php:208
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -4272,17 +4298,17 @@ msgstr ""
 "الواجهة. إذا كنت تريد إظهار عناوين البريد الإلكتروني في الواجهة، يمكنك "
 "<a>تمكين عرض البريد الإلكتروني للعموم</a>."
 
-#: includes/admin/controllers/class-form-fields-admin.php:285
+#: includes/admin/controllers/class-form-fields-admin.php:299
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "تم حذف الحقل."
 
-#: includes/admin/controllers/class-form-fields-admin.php:325
+#: includes/admin/controllers/class-form-fields-admin.php:329
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "الحقول المطلوبة أنشئت بنجاح."
 
-#: includes/admin/controllers/class-form-fields-admin.php:377
+#: includes/admin/controllers/class-form-fields-admin.php:381
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "تم تحديث الوسوم"
@@ -4317,44 +4343,44 @@ msgctxt "form-fields admin"
 msgid "Field Attributes"
 msgstr "سمات الحقل"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:133
+#: includes/admin/helpers/tables/class-form-fields-table.php:134
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Shortname"
 msgstr "إسم الكاتب"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:155
+#: includes/admin/helpers/tables/class-form-fields-table.php:156
 msgctxt "form-fields admin"
 msgid "Required"
 msgstr "مطلوب"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:155
+#: includes/admin/helpers/tables/class-form-fields-table.php:156
 msgctxt "form-fields admin"
 msgid "Optional"
 msgstr "إختياري"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:162
+#: includes/admin/helpers/tables/class-form-fields-table.php:163
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Private"
 msgstr "قم بالتفعيل"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:169
+#: includes/admin/helpers/tables/class-form-fields-table.php:170
 msgctxt "form-fields admin"
 msgid "This field value is shown in the excerpt view of a listing."
 msgstr "قيمة هذا الحقل ظاهرة في عرض المقتطفات للإعلان."
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:170
+#: includes/admin/helpers/tables/class-form-fields-table.php:171
 msgctxt "form-fields admin"
 msgid "In Excerpt"
 msgstr "في مقتطف"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:177
+#: includes/admin/helpers/tables/class-form-fields-table.php:178
 msgctxt "form-fields admin"
 msgid "This field value is shown in the single view of a listing."
 msgstr "قيمة هذا الحقل ظاهرة في العرض المفرد  للإعلان."
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:178
+#: includes/admin/helpers/tables/class-form-fields-table.php:179
 msgctxt "form-fields admin"
 msgid "In Listing"
 msgstr "في الإعلان"
@@ -4678,22 +4704,7 @@ msgctxt "form-fields admin"
 msgid "Create Missing Fields"
 msgstr "إنشاء الحقول المفقودة"
 
-#: templates/admin/form-fields.tpl.php:4
-msgctxt "form-fields admin"
-msgid "Add New Form Field"
-msgstr "إضافة حقل نموذج جديد"
-
-#: templates/admin/form-fields.tpl.php:11
-msgctxt "form-fields admin"
-msgid "Preview Form"
-msgstr "معاينة الاستمارة"
-
-#: templates/admin/form-fields.tpl.php:17
-msgctxt "form-fields admin"
-msgid "Manage Theme Tags"
-msgstr "إدارة وسوم القالب"
-
-#: templates/admin/form-fields.tpl.php:28
+#: templates/admin/form-fields.tpl.php:21
 msgctxt "form-fields admin"
 msgid ""
 "Here, you can create new fields for your listings, edit or delete existing "
@@ -4703,18 +4714,18 @@ msgstr ""
 "هنا، يمكنك إنشاء حقول جديدة لإعلاناتك، تحرير أو حذف الموجود منها، وتغيير "
 "ترتيب وإبراز الحقول فضلا عن إعداد خيارات خاصة لهم."
 
-#: templates/admin/form-fields.tpl.php:39
+#: templates/admin/form-fields.tpl.php:32
 msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr "المرجو مراجعة <a>وثائق حقول الاستمارة</a> للحصول على مزيد من التفاصيل."
 
-#: includes/admin/controllers/class-settings-admin.php:371
+#: includes/admin/controllers/class-settings-admin.php:369
 #, fuzzy
 msgctxt "admin settings"
 msgid "Remove"
 msgstr "إزالة"
 
-#: includes/admin/controllers/class-settings-admin.php:433
+#: includes/admin/controllers/class-settings-admin.php:431
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "العناصر النائبة صالحة: %s"
@@ -4722,8 +4733,8 @@ msgstr "العناصر النائبة صالحة: %s"
 #: includes/admin/settings/class-settings-bootstrap.php:101
 msgctxt "admin settings"
 msgid ""
-"<strong>IMPORTANT:</strong> subpages of the main directory page cannot be "
-"accesed while this setting is checked."
+"IMPORTANT: subpages of the main directory page cannot be accesed while this "
+"setting is checked."
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:310
@@ -4800,7 +4811,7 @@ msgstr "تنازلي"
 
 #: includes/admin/settings/class-settings-bootstrap.php:753
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order can be changed under <a>Fee Plans</a>"
+msgid "Plan Custom Order can be changed under <a>Plans</a>"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:766
@@ -4809,13 +4820,13 @@ msgid "Author"
 msgstr "الكاتب"
 
 #: includes/admin/settings/class-settings-bootstrap.php:767
-#: includes/helpers/functions/general.php:1281
+#: includes/helpers/functions/general.php:1285
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "تاريخ النشر"
 
 #: includes/admin/settings/class-settings-bootstrap.php:768
-#: includes/helpers/functions/general.php:1282
+#: includes/helpers/functions/general.php:1286
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "تاريخ آخر تعديل"
@@ -4837,12 +4848,12 @@ msgstr "تدفع أولاً ثم مجاناً. داخل كل مجموعة بعن
 
 #: includes/admin/settings/class-settings-bootstrap.php:772
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order, then Date"
+msgid "Plan Custom Order, then Date"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:773
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order, then Title"
+msgid "Plan Custom Order, then Title"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1037
@@ -5119,21 +5130,21 @@ msgstr "عنوان الإعلان"
 #: includes/admin/settings/class-settings-bootstrap.php:1496
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan name"
+msgid "Listing's plan name"
 msgstr "إنتهاء صلاحية الإعلان"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1406
 #: includes/admin/settings/class-settings-bootstrap.php:1497
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan description"
+msgid "Listing's plan description"
 msgstr "تحديد رسوم الإعلان"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1407
 #: includes/admin/settings/class-settings-bootstrap.php:1498
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan details"
+msgid "Listing's plan details"
 msgstr "إنتهاء صلاحية الإعلان"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1420
@@ -5203,57 +5214,57 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "رفع الصور"
 
-#: includes/helpers/functions/general.php:1279
+#: includes/helpers/functions/general.php:1283
 msgctxt "admin settings"
 msgid "User"
 msgstr "عضو"
 
-#: includes/helpers/functions/general.php:1280
+#: includes/helpers/functions/general.php:1284
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "تاريخ تسجيل العضو"
 
-#: includes/admin/controllers/class-settings-admin.php:503
+#: includes/admin/controllers/class-settings-admin.php:501
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Add notice"
 msgstr "إضافة حقل"
 
-#: includes/admin/controllers/class-settings-admin.php:522
+#: includes/admin/controllers/class-settings-admin.php:520
 msgctxt "expiration notices"
 msgid "No notices configured."
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:564
+#: includes/admin/controllers/class-settings-admin.php:562
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:566
+#: includes/admin/controllers/class-settings-admin.php:564
 #, fuzzy
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "(متكرر)"
 
-#: includes/admin/controllers/class-settings-admin.php:568
+#: includes/admin/controllers/class-settings-admin.php:566
 #, fuzzy
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "(متكرر)"
 
-#: includes/admin/controllers/class-settings-admin.php:572
+#: includes/admin/controllers/class-settings-admin.php:570
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "ترسل بعد أن يضاف الإعلان."
 
-#: includes/admin/controllers/class-settings-admin.php:577
+#: includes/admin/controllers/class-settings-admin.php:575
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/admin/controllers/class-settings-admin.php:585
+#: includes/admin/controllers/class-settings-admin.php:583
 #, fuzzy
 msgctxt "expiration notices"
 msgid "%d day"
@@ -5265,7 +5276,7 @@ msgstr[3] "%d  أيام"
 msgstr[4] "%d يوم"
 msgstr[5] "%d يوم"
 
-#: includes/admin/controllers/class-settings-admin.php:588
+#: includes/admin/controllers/class-settings-admin.php:586
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -5276,7 +5287,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:591
+#: includes/admin/controllers/class-settings-admin.php:589
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -5289,31 +5300,31 @@ msgstr[5] ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/controllers/class-settings-admin.php:597
+#: includes/admin/controllers/class-settings-admin.php:595
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/controllers/class-settings-admin.php:600
+#: includes/admin/controllers/class-settings-admin.php:598
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "ترسل بعد أن يضاف الإعلان."
 
-#: includes/admin/controllers/class-settings-admin.php:617
+#: includes/admin/controllers/class-settings-admin.php:615
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:618
+#: includes/admin/controllers/class-settings-admin.php:616
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "تم تعيين الرسوم بنجاح."
 
-#: includes/admin/controllers/class-settings-admin.php:629
+#: includes/admin/controllers/class-settings-admin.php:627
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
@@ -5324,7 +5335,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:629
+#: includes/admin/controllers/class-settings-admin.php:627
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
@@ -5335,7 +5346,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:632
+#: includes/admin/controllers/class-settings-admin.php:630
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
@@ -5346,7 +5357,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:632
+#: includes/admin/controllers/class-settings-admin.php:630
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
@@ -5357,7 +5368,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:635
+#: includes/admin/controllers/class-settings-admin.php:633
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
@@ -5368,7 +5379,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:635
+#: includes/admin/controllers/class-settings-admin.php:633
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
@@ -5379,84 +5390,84 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:662
+#: includes/admin/controllers/class-settings-admin.php:660
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Appliqué à"
 
-#: includes/admin/controllers/class-settings-admin.php:665
+#: includes/admin/controllers/class-settings-admin.php:663
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:666
+#: includes/admin/controllers/class-settings-admin.php:664
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "الرجوع إلى الإعلان."
 
-#: includes/admin/controllers/class-settings-admin.php:667
+#: includes/admin/controllers/class-settings-admin.php:665
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:672
+#: includes/admin/controllers/class-settings-admin.php:670
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:539
+#: includes/admin/controllers/class-settings-admin.php:537
 #, fuzzy
 msgctxt "settings"
 msgid "Site title (with link)"
 msgstr "إسم الموقع (مع الرابط)"
 
-#: includes/admin/controllers/class-settings-admin.php:540
+#: includes/admin/controllers/class-settings-admin.php:538
 msgctxt "settings"
 msgid "Author's name"
 msgstr "إسم الكاتب"
 
-#: includes/admin/controllers/class-settings-admin.php:541
+#: includes/admin/controllers/class-settings-admin.php:539
 msgctxt "settings"
 msgid "Listing's name (with link)"
 msgstr "إسم الإعلان (مع رابط)"
 
-#: includes/admin/controllers/class-settings-admin.php:542
+#: includes/admin/controllers/class-settings-admin.php:540
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's expiration date"
 msgstr "إنتهاء صلاحية الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:543
+#: includes/admin/controllers/class-settings-admin.php:541
 msgctxt "settings"
 msgid "Listing's renewal link, formatted with an anchor tag"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:544
+#: includes/admin/controllers/class-settings-admin.php:542
 msgctxt "settings"
 msgid "Listing's renewal URL, unformatted by any tags"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:545
+#: includes/admin/controllers/class-settings-admin.php:543
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's categories"
 msgstr "عنوان الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:546
+#: includes/admin/controllers/class-settings-admin.php:544
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's last payment date"
 msgstr "إنتهاء صلاحية الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:547
+#: includes/admin/controllers/class-settings-admin.php:545
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's access key"
 msgstr "مفاتيح وصول الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:704
+#: includes/admin/controllers/class-settings-admin.php:702
 #, fuzzy
 msgctxt "settings"
 msgid "Settings reset to default."
@@ -5599,7 +5610,7 @@ msgstr "إستخدم reCAPTCHA في تعليقات الإعلان؟"
 #: includes/admin/settings/class-settings-bootstrap.php:159
 #, fuzzy
 msgctxt "settings"
-msgid "Use reCAPTCHA for listing comments?"
+msgid "Use reCAPTCHA for listing comments"
 msgstr "إستخدم reCAPTCHA في تعليقات الإعلان؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:167
@@ -5657,12 +5668,12 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:213
 #, fuzzy
 msgctxt "settings"
-msgid "Require login to post listings?"
+msgid "Require login to post listings"
 msgstr "يتطلب تسجيل الدخول لنشر الإعلانات؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:222
 msgctxt "settings"
-msgid "Allow anonymous users to edit/manage listings with an access key?"
+msgid "Allow anonymous users to edit/manage listings with an access key"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:230
@@ -5674,7 +5685,7 @@ msgstr "رابط تسجيل الدخول"
 #: includes/admin/settings/class-settings-bootstrap.php:231
 #, fuzzy
 msgctxt "settings"
-msgid "Only enter this if using a membership plugin or custom login page."
+msgid "Only enter this if using a membership plugin or custom login page"
 msgstr ""
 "رابط URL لصفحة تسجيل الدخول لعضوية الإضافة الخاصة بك.  فقط أدخل هذا إذا كان "
 "هناك استخدام لعضوية الإضافة أو صفحة تسجيل دخول مخصصة."
@@ -5700,13 +5711,16 @@ msgstr ""
 "هناك استخدام لعضوية الإضافة أو صفحة تسجيل مخصصة."
 
 #: includes/admin/settings/class-settings-bootstrap.php:243
+#, fuzzy
 msgctxt "settings"
-msgid "URL of your membership plugin's registration page."
+msgid "URL of your membership plugin's registration page"
 msgstr ""
+"رابط URL لصفحة التسجيل في عضوية الإضافة الخاصة بك.  فقط أدخل هذا إذا كان "
+"هناك استخدام لعضوية الإضافة أو صفحة تسجيل مخصصة."
 
 #: includes/admin/settings/class-settings-bootstrap.php:252
 msgctxt "settings"
-msgid "Allow users to create accounts during listing submit?"
+msgid "Allow users to create accounts during listing submit"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:279
@@ -5722,13 +5736,13 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:281
 #, fuzzy
 msgctxt "settings"
-msgid "Terms and Conditions text goes here."
+msgid "Terms and Conditions text goes here"
 msgstr "نص الأحكام والشروط هنا..."
 
 #: includes/admin/settings/class-settings-bootstrap.php:324
 #, fuzzy
 msgctxt "settings"
-msgid "Enable high performance searches?"
+msgid "Enable high performance searches"
 msgstr "تمكين عمليات البحث عالية الأداء؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:333
@@ -5740,13 +5754,13 @@ msgstr "متقدم"
 #: includes/admin/settings/class-settings-bootstrap.php:339
 #, fuzzy
 msgctxt "settings"
-msgid "Disable advanced CPT integration?"
+msgid "Disable advanced CPT integration"
 msgstr "تعطيل التكامل CPT المتقدم؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:348
 #, fuzzy
 msgctxt "settings"
-msgid "Disable Frontend Listing Submission?"
+msgid "Disable frontend listing submission"
 msgstr "تعطيل إضافة إعلان من واجهة الموقع؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:349
@@ -5780,19 +5794,19 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:451
 #, fuzzy
 msgctxt "settings"
-msgid "Turn on listing renewal option?"
+msgid "Turn on listing renewal option"
 msgstr "قم بتشغيل خيار تجديد الإعلان؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:460
 #, fuzzy
 msgctxt "settings"
-msgid "Open detailed view of listing in new tab?"
+msgid "Open detailed view of listing in new tab"
 msgstr "فتح تفاصيل مشاهدة الإعلانات في علامة تبويب جديدة؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:470
 #, fuzzy
 msgctxt "settings"
-msgid "Include button to report listings?"
+msgid "Include button to report listings"
 msgstr "يتطلب تسجيل الدخول لنشر الإعلانات؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:479
@@ -5814,7 +5828,7 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:501
 #, fuzzy
 msgctxt "settings"
-msgid "Include listing contact form on listing pages?"
+msgid "Include listing contact form on listing pages"
 msgstr "إدراج الإعلان مع نموذج الاتصال في صفحات الإعلان؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:502
@@ -5830,7 +5844,7 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:511
 #, fuzzy
 msgctxt "settings"
-msgid "Require login for using the contact form?"
+msgid "Require login for using the contact form"
 msgstr "يتطلب تسجيل الدخول لاستخدام نموذج الاتصال؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:522
@@ -5874,7 +5888,7 @@ msgstr "يتضمن نموذج التعليق على صفحات الإعلانا�
 #: includes/admin/settings/class-settings-bootstrap.php:563
 #, fuzzy
 msgctxt "settings"
-msgid "Show listings under categories on main page?"
+msgid "Show listings under categories on main page"
 msgstr "إظهار الإعلانات تحت التصنيفات على الصفحة الرئيسية؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:573
@@ -5924,19 +5938,19 @@ msgstr "ترتيب فرز التصنيفات"
 #: includes/admin/settings/class-settings-bootstrap.php:729
 #, fuzzy
 msgctxt "settings"
-msgid "Show category post count?"
+msgid "Show category post count"
 msgstr "إظهار عدد إعلانات التصنيف؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:738
 #, fuzzy
 msgctxt "settings"
-msgid "Hide empty categories?"
+msgid "Hide empty categories"
 msgstr "إخفاء التصنيفات الفارغة؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:747
 #, fuzzy
 msgctxt "settings"
-msgid "Show only parent categories in category list?"
+msgid "Show only parent categories in category list"
 msgstr "إظهار التصنيفات الأبوية فقط في قائمة التصنيف؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:759
@@ -5960,7 +5974,7 @@ msgstr "ترتيب تصاعدي من أ إلى ي، ترتيب تنازلي من
 #: includes/admin/settings/class-settings-bootstrap.php:797
 #, fuzzy
 msgctxt "settings"
-msgid "Enable sort bar?"
+msgid "Enable sort bar"
 msgstr "تمكين شريط الفرز؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:806
@@ -5972,7 +5986,7 @@ msgstr "حقول شريط الفرز"
 #: includes/admin/settings/class-settings-bootstrap.php:824
 #, fuzzy
 msgctxt "settings"
-msgid "Show the \"Submit listing\" button."
+msgid "Show the \"Submit listing\" button"
 msgstr "إظهار زر \"إضافة إعلان\"."
 
 #: includes/admin/settings/class-settings-bootstrap.php:825
@@ -5986,19 +6000,19 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:835
 #, fuzzy
 msgctxt "settings"
-msgid "Show \"Search listings\"."
+msgid "Show \"Search listings\""
 msgstr "إظهار \"البحث في الإعلانات\"."
 
 #: includes/admin/settings/class-settings-bootstrap.php:844
 #, fuzzy
 msgctxt "settings"
-msgid "Show the \"View Listings\" button."
+msgid "Show the \"View Listings\" button"
 msgstr "إظهار زر \"مشاهدة الإعلانات\"."
 
 #: includes/admin/settings/class-settings-bootstrap.php:853
 #, fuzzy
 msgctxt "settings"
-msgid "Show the \"Manage Listings\" button."
+msgid "Show the \"Manage Listings\" button"
 msgstr "إظهار زر \"مشاهدة الإعلانات\"."
 
 #: includes/admin/settings/class-settings-bootstrap.php:862
@@ -6016,7 +6030,7 @@ msgstr "إعدادات الصورة"
 #: includes/admin/settings/class-settings-bootstrap.php:903
 #, fuzzy
 msgctxt "settings"
-msgid "Allow images?"
+msgid "Allow images"
 msgstr "السماح بالصور؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:914
@@ -6058,7 +6072,7 @@ msgstr "أقصى ارتفاع للصورة (px)"
 #: includes/admin/settings/class-settings-bootstrap.php:980
 #, fuzzy
 msgctxt "settings"
-msgid "Turn on thickbox/lightbox?"
+msgid "Turn on thickbox/lightbox"
 msgstr "تشغيل thickbox/lightbox؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:981
@@ -6091,7 +6105,7 @@ msgstr "ارتفاع الصورة المصغرة (px)"
 #: includes/admin/settings/class-settings-bootstrap.php:1014
 #, fuzzy
 msgctxt "settings"
-msgid "Crop thumbnails to exact dimensions?"
+msgid "Crop thumbnails to exact dimensions"
 msgstr "قطع الصور المصغرة للأبعاد المناسبة؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1015
@@ -6110,7 +6124,7 @@ msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1026
 msgctxt "settings"
-msgid "Enforce image upload on submit/edit?"
+msgid "Enforce image upload on submit/edit"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1047
@@ -6164,7 +6178,7 @@ msgstr "ترتيب"
 #: includes/admin/settings/class-settings-bootstrap.php:1145
 #, fuzzy
 msgctxt "settings"
-msgid "Put payment gateways in test mode?"
+msgid "Put payment gateways in test mode"
 msgstr "وضع بوابات الدفع في وضع الاختبار؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1155
@@ -6187,7 +6201,7 @@ msgstr "عرض رمز العملة"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1216
 msgctxt "settings"
-msgid "Include fee description in receipt?"
+msgid "Include plan description in receipt"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1225
@@ -6199,7 +6213,7 @@ msgstr "رسالة الشكر على الدفع"
 #: includes/admin/settings/class-settings-bootstrap.php:1278
 #, fuzzy
 msgctxt "settings"
-msgid "Ask users to come back for abandoned payments?"
+msgid "Ask users to come back for abandoned payments"
 msgstr "أطلب من الأعضاء العودة للمدفوعات المتخلى عنها؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1289
@@ -6211,7 +6225,7 @@ msgstr "عتبة التخلي على الإعلان (ساعات)"
 #: includes/admin/settings/class-settings-bootstrap.php:1306
 #, fuzzy
 msgctxt "settings"
-msgid "Display email address fields publicly?"
+msgid "Display email address fields publicly"
 msgstr "عرض حقول عنوان البريد الإلكتروني علنا؟"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1307
@@ -6358,17 +6372,17 @@ msgctxt "themes"
 msgid "Directory Themes"
 msgstr "قوالب الدليل"
 
-#: includes/admin/controllers/class-themes-admin.php:113
+#: includes/admin/controllers/class-themes-admin.php:106
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "تعذر تغيير القالب النشط إلى \"%s\"."
 
-#: includes/admin/controllers/class-themes-admin.php:156
+#: includes/admin/controllers/class-themes-admin.php:149
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr "القالب النشط تغير إلى \"%s\"."
 
-#: includes/admin/controllers/class-themes-admin.php:159
+#: includes/admin/controllers/class-themes-admin.php:152
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
@@ -6377,54 +6391,54 @@ msgstr ""
 "%s يتطلب أن تضيف وسوم في الحقول الموجودة الخاصة بك لمطابقة بعض الأماكن لأننا "
 "نريد وضع البيانات الخاصة بك في القالب. وفيما يلي الحقول التي نظن أنها مفقودة."
 
-#: includes/admin/controllers/class-themes-admin.php:170
+#: includes/admin/controllers/class-themes-admin.php:163
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "أنشئ خريطة لحقولي"
 
-#: includes/admin/controllers/class-themes-admin.php:178
+#: includes/admin/controllers/class-themes-admin.php:171
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr " تم إنشاء الحقول المقترحة بنجاح."
 
-#: includes/admin/controllers/class-themes-admin.php:181
+#: includes/admin/controllers/class-themes-admin.php:174
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "تم تثبيت القالب بنجاح."
 
-#: includes/admin/controllers/class-themes-admin.php:184
+#: includes/admin/controllers/class-themes-admin.php:177
 #, fuzzy
 msgctxt "themes"
 msgid "Theme was deleted successfully."
 msgstr "تم حذف القالب بنجاح."
 
-#: includes/admin/controllers/class-themes-admin.php:187
+#: includes/admin/controllers/class-themes-admin.php:180
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr "تعذر حذف مجلد القالب. تحقق من الصلاحيات."
 
-#: includes/admin/controllers/class-themes-admin.php:240
+#: includes/admin/controllers/class-themes-admin.php:233
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "المرجو رفع ملف قالب صالح."
 
-#: includes/admin/controllers/class-themes-admin.php:249
+#: includes/admin/controllers/class-themes-admin.php:242
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "لا يمكن نقل \"%s\" إلى مجلد مؤقت."
 
-#: includes/admin/controllers/class-themes-admin.php:335
+#: includes/admin/controllers/class-themes-admin.php:328
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr "فعِّل <a>مفتاح الترخيص</a> الخاص بك لاستخدام هذا القالب."
 
-#: includes/admin/controllers/class-themes-admin.php:378
+#: includes/admin/controllers/class-themes-admin.php:371
 #, fuzzy
 msgctxt "themes"
 msgid "Invalid theme ID"
 msgstr "معرف حقل غير صالح"
 
-#: includes/admin/controllers/class-themes-admin.php:384
+#: includes/admin/controllers/class-themes-admin.php:377
 #: includes/admin/upgrades/class-themes-updater.php:170
 msgctxt "themes"
 msgid "Could not update theme: %s"
@@ -6649,13 +6663,13 @@ msgid ""
 "download."
 msgstr "تم بنجاح إنشاء ملف التصدير، والآن جاهز للتحميل."
 
-#: templates/admin/csv-export.tpl.php:170
+#: templates/admin/csv-export.tpl.php:171
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "تحميل %s (%s)"
 
-#: templates/admin/csv-export.tpl.php:177
+#: templates/admin/csv-export.tpl.php:179
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -6664,27 +6678,27 @@ msgstr ""
 "إضغط على \"تنظيف\" بعد تحميل الملف بغية إزالة جميع البيانات المؤقتة التي تم "
 "إنشاؤها بواسطة \"دليل الأعمال\" أثناء عملية التصدير."
 
-#: templates/admin/csv-export.tpl.php:178
+#: templates/admin/csv-export.tpl.php:180
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "نظف"
 
-#: templates/admin/csv-export.tpl.php:183
+#: templates/admin/csv-export.tpl.php:185
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "ألغي التصدير"
 
-#: templates/admin/csv-export.tpl.php:184
+#: templates/admin/csv-export.tpl.php:186
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "تم إلغاء التصدير"
 
-#: templates/admin/csv-export.tpl.php:185
+#: templates/admin/csv-export.tpl.php:187
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← العودة إلى تصدير CSV"
 
-#: includes/admin/csv-import.php:296
+#: includes/admin/csv-import.php:304
 #, fuzzy
 msgctxt "csv import"
 msgid ""
@@ -6751,27 +6765,22 @@ msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "تفاصيل الخطة"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
-msgctxt "listing metabox"
-msgid "Fee Plan"
-msgstr ""
-
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:46
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr ""
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:69
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:89
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 #, fuzzy
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "حسناً"
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:70
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:90
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:104
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:92
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Cancel"
@@ -6783,19 +6792,19 @@ msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "ستنتهي الصلاحية في"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:97
 #, fuzzy
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "# الصور"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "تغذية %s"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:114
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Recurring?"
@@ -6900,23 +6909,23 @@ msgctxt "tracking"
 msgid "What do you track?"
 msgstr "ما الذي تتتبع؟"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:165
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:171
 #, fuzzy
 msgctxt "manual-upgrade"
 msgid "Continue"
 msgstr "متابعة"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:179
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:185
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr "بدء الترقية"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:181
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:187
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr "توقيف الترقية"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:187
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:193
 #, fuzzy
 msgctxt "manual-upgrade"
 msgid ""
@@ -6924,7 +6933,7 @@ msgid ""
 "available."
 msgstr "تم إجراء الترقية بنجاح. إضافة دليل الأعمال متاحة الآن."
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:191
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:197
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr "إنتقل إلى \"مشرف الدليل\""
@@ -6956,7 +6965,7 @@ msgstr "نقل المعاملات السابقة إلى المدفوعات ال�
 #: includes/admin/upgrades/migrations/migration-18_0.php:207
 #, fuzzy
 msgctxt "installer"
-msgid "Migrating fee plans..."
+msgid "Migrating plans..."
 msgstr "ترخيص مفعل"
 
 #: includes/admin/upgrades/migrations/migration-18_0.php:324
@@ -6994,7 +7003,7 @@ msgstr "نقل المعاملات السابقة إلى المدفوعات ال�
 #: includes/admin/upgrades/migrations/migration-3_7.php:61
 #, fuzzy
 msgctxt "installer"
-msgid "Cleaning up listing fees information... %1$d/%2$d"
+msgid "Cleaning up plan information... %1$d/%2$d"
 msgstr "تنظيف معلومات رسوم الإعلانات...%d/%d"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:119
@@ -7018,11 +7027,6 @@ msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "الترقية الى إعلان مميز"
 
-#: includes/installer.php:60
-msgctxt "installer"
-msgid "Default Fee"
-msgstr "رسوم افتراضية"
-
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:182
 msgctxt "listings-api"
 msgid "Featured Listing"
@@ -7038,18 +7042,18 @@ msgstr "وحدة المستويات المميزة"
 msgctxt "migrate-18"
 msgid ""
 "Business Directory <b>version 5.0</b> is changing how Featured Levels plugin "
-"works. We are leaving restricted features for fee plans, but removing the "
+"works. We are leaving restricted features for plans, but removing the "
 "confusing notion of a \"featured level\" that was limited to sticky listings."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:212
 msgctxt "migrate-18"
 msgid ""
-"We need to migrate your existing \"featured levels\" to fee plans for use by "
-"the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it "
-"easier to configure and manage your listings with restricted feature access. "
-"If you are unsure about what to do here, <support-link>contact support</"
-"support-link> and <cancel-link>cancel migration</cancel-link>."
+"We need to migrate your existing \"featured levels\" to plans for use by the "
+"upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier "
+"to configure and manage your listings with restricted feature access. If you "
+"are unsure about what to do here, <support-link>contact support</support-"
+"link> and <cancel-link>cancel migration</cancel-link>."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:214
@@ -7057,7 +7061,7 @@ msgctxt "migrate-18"
 msgid ""
 "Before we do the migration, we need to ask a few simple questions to move "
 "your data from the old \"featured level\" to the new \"restricted feature "
-"fee plan\" that is right for you."
+"plan\" that is right for you."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:259
@@ -7136,17 +7140,17 @@ msgstr "حالة مقالة الإعلانات المستوردة"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:246
 msgctxt "upgrade-18"
-msgid "Remove this (old) level, and leave the listing on the old fee plan."
+msgid "Remove this (old) level, and leave the listing on the old plan."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:249
 msgctxt "upgrade-18"
-msgid "May change \"sticky\" status depending on fee plan."
+msgid "May change \"sticky\" status depending on plan."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:249
 msgctxt "upgrade-18"
-msgid "Move listings with this level to existing fee plan."
+msgid "Move listings with this level to existing plan."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:252
@@ -7157,7 +7161,7 @@ msgstr "حالة مقالة الإعلانات المستوردة"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:252
 msgctxt "upgrade-18"
-msgid "Replace this level with a new fee plan."
+msgid "Replace this level with a new plan."
 msgstr ""
 
 #: includes/class-cpt-integration.php:15
@@ -7175,37 +7179,37 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "إضافة إعلان جديد"
 
-#: includes/models/class-listing.php:421
+#: includes/models/class-listing.php:430
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "إنتهاء صلاحية الإعلان"
 
-#: includes/models/class-listing.php:430
+#: includes/models/class-listing.php:439
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "رفض الدفع"
 
-#: includes/models/class-listing.php:468
+#: includes/models/class-listing.php:477
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "الإعلان منتهي التاريخ"
 
-#: includes/models/class-listing.php:668
+#: includes/models/class-listing.php:677
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(رسم غير متوفر)"
 
-#: includes/models/class-listing.php:858
+#: includes/models/class-listing.php:867
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(متكرر)"
 
-#: includes/models/class-listing.php:860
+#: includes/models/class-listing.php:869
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -7344,7 +7348,7 @@ msgctxt "payment-gateways"
 msgid "Enable %s?"
 msgstr "تفعيل"
 
-#: includes/class-payment-gateways.php:131
+#: includes/class-payment-gateways.php:133
 #, fuzzy
 msgctxt "payment-gateways"
 msgid ""
@@ -7355,7 +7359,7 @@ msgstr ""
 "متوفرة حتى يتم إصلاح المشاكل التالية <b>%s</b>.<br/> تحقق من <a href=\"%s"
 "\">إعدادات دفع</a> ."
 
-#: includes/class-payment-gateways.php:133
+#: includes/class-payment-gateways.php:135
 msgctxt "payment-gateways"
 msgid "Please check the <link>payment settings</link>."
 msgstr ""
@@ -7371,13 +7375,19 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "لم يتم إدخال reCAPTCHA بشكل صحيح."
 
-#: includes/class-wpbdp.php:467
+#: includes/class-wpbdp.php:463
+#, fuzzy
+msgctxt "listing image upload"
+msgid "Please select a plan before uploading images to the listing"
+msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
+
+#: includes/class-wpbdp.php:468
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "التصنيفات لهذا الإعلان"
 
-#: includes/class-wpbdp.php:471
+#: includes/class-wpbdp.php:472
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "
@@ -7600,8 +7610,8 @@ msgstr ""
 #: includes/controllers/pages/class-submit-listing.php:824
 msgctxt "templates"
 msgid ""
-"<b>There are no Fee Plans available</b>, without a fee plan site users can't "
-"submit a listing. %s to create a fee plan"
+"<b>There are no Plans available</b>, without a plan site users can't submit "
+"a listing. %s to create a plan"
 msgstr ""
 
 #: includes/controllers/pages/class-submit-listing.php:838
@@ -7619,18 +7629,18 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1286
+#: includes/controllers/pages/class-submit-listing.php:1288
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "يرجى الموافقة على الشروط والأحكام."
 
-#: includes/controllers/pages/class-submit-listing.php:1300
+#: includes/controllers/pages/class-submit-listing.php:1302
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "أوافق على الشروط والأحكام"
 
-#: includes/helpers/functions/general.php:1362
+#: includes/helpers/functions/general.php:1366
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -7645,12 +7655,6 @@ msgstr "لم يتم العثور على تصنيفات الإعلانات."
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "بحث متقدم"
-
-#: includes/payment.php:278 templates/renew-resume.tpl.php:34
-#, fuzzy
-msgctxt "templates"
-msgid "Return to fee selection"
-msgstr "الرجوع إلى الإعلان."
 
 #: templates/listing-sticky-tag.tpl.php:11
 #: templates/listing-sticky-tag.tpl.php:12
@@ -7668,22 +7672,15 @@ msgstr ""
 "ما إضغط على زر حذف."
 
 #: templates/parts/listing-buttons.tpl.php:15
-#: templates/parts/listing-buttons.tpl.php:49
 msgctxt "templates"
 msgid "Edit"
 msgstr "تحرير"
 
 #: templates/parts/listing-buttons.tpl.php:23
-#: templates/parts/listing-buttons.tpl.php:57
 #, fuzzy
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr "العثور على إعلان"
-
-#: templates/renew-listing-manage-subscription.tpl.php:2
-msgctxt "templates"
-msgid "Recurring Fee Management"
-msgstr "إدارة الرسوم المتكررة"
 
 #: templates/renew-listing.tpl.php:19
 #, fuzzy
@@ -7695,8 +7692,8 @@ msgstr "أنت على وشك تجديد الإعلان \"%s\" النشر داخ�
 #, fuzzy
 msgctxt "templates"
 msgid ""
-"Please select a fee option or click \"Do not renew my listing\" to remove "
-"your listing from the directory."
+"Please select a plan or click \"Do not renew my listing\" to remove your "
+"listing from the directory."
 msgstr ""
 "المرجو تحديد خيار رسم أو إضغط فوق \"عدم تجديد إعلاني\" لإلغاء التجديد الخاص "
 "بك."
@@ -7717,6 +7714,12 @@ msgstr "عدم تجديد إعلاني"
 msgctxt "templates"
 msgid "Continue to checkout"
 msgstr "الدفعة الأولية"
+
+#: templates/renew-resume.tpl.php:34
+#, fuzzy
+msgctxt "templates"
+msgid "Return to plan selection"
+msgstr "الرجوع إلى الإعلان."
 
 #: templates/search-form.tpl.php:3
 msgctxt "templates"
@@ -7823,8 +7826,9 @@ msgid "Your subscription was canceled."
 msgstr "تم إلغاء الاشتراك."
 
 #: templates/manage-recurring.tpl.php:6
+#, fuzzy
 msgctxt "manage subscriptions"
-msgid "Subscription / Fee Plan"
+msgid "Subscription / Plan"
 msgstr "الاشتراك/رسم الخطة"
 
 #: includes/controllers/pages/class-manage-recurring.php:96
@@ -7860,8 +7864,9 @@ msgid "Could not remove listing from directory."
 msgstr "تعذر إزالة مجلد القالب السابق \"%s\"."
 
 #: templates/renew-listing-manage-subscription.tpl.php:6
+#, fuzzy
 msgctxt "renewal"
-msgid "Current Fee Details"
+msgid "Current Plan Details"
 msgstr "تفاصيل الرسوم الحالية"
 
 #: templates/renew-listing-manage-subscription.tpl.php:9
@@ -7896,7 +7901,7 @@ msgstr "تم حذف إعلانك."
 #: templates/renew-resume.tpl.php:10
 #, fuzzy
 msgctxt "renewal"
-msgid "Renew Fee Resume"
+msgid "Renew Plan Resume"
 msgstr "تجديد مفتاح الترخيص"
 
 #: templates/renew-resume.tpl.php:15
@@ -7907,7 +7912,7 @@ msgstr "أنت على وشك تجديد الإعلان \"%s\" النشر داخ�
 
 #: templates/renew-resume.tpl.php:20
 msgctxt "renewal"
-msgid "In order to complete the renewal, please confirm fee selection."
+msgid "In order to complete the renewal, please confirm plan selection."
 msgstr ""
 
 #: includes/controllers/pages/class-renew-listing.php:150
@@ -7980,9 +7985,8 @@ msgstr "التصنيفات لهذا الإعلان"
 #: includes/controllers/pages/class-submit-listing.php:168
 msgctxt "submit listing"
 msgid ""
-"This listing can't be edited at this time because it has no fee plan "
-"associated. Please <a>edit the listing</a> on the backend and associate it "
-"to a fee plan."
+"This listing can't be edited at this time because it has no plan associated. "
+"Please <a>edit the listing</a> on the backend and associate it to a plan."
 msgstr ""
 
 #: includes/controllers/pages/class-submit-listing.php:174
@@ -8019,41 +8023,46 @@ msgstr ""
 "أخرى لاحقاً."
 
 #: includes/controllers/pages/class-submit-listing.php:870
-#: includes/controllers/pages/class-submit-listing.php:992
+#: includes/controllers/pages/class-submit-listing.php:996
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:893
+#: includes/controllers/pages/class-submit-listing.php:894
+msgctxt "submit listing"
+msgid "Current active plan is disabled. Please select another plan."
+msgstr ""
+
+#: includes/controllers/pages/class-submit-listing.php:896
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:895
+#: includes/controllers/pages/class-submit-listing.php:899
 #, fuzzy
 msgctxt "submit listing"
-msgid "Please choose a valid fee plan for your category selection."
+msgid "Please choose a valid plan for your category selection."
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:1206
+#: includes/controllers/pages/class-submit-listing.php:1208
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/controllers/pages/class-submit-listing.php:1211
+#: includes/controllers/pages/class-submit-listing.php:1213
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "يرجى إدخال إسمك."
 
-#: includes/controllers/pages/class-submit-listing.php:1216
+#: includes/controllers/pages/class-submit-listing.php:1218
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1221
+#: includes/controllers/pages/class-submit-listing.php:1223
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -8064,7 +8073,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Poster annonce(paiement initial)"
 
-#: includes/controllers/pages/class-submit-listing.php:1161
+#: includes/controllers/pages/class-submit-listing.php:1163
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8486,29 +8495,30 @@ msgstr[3] "الصور المسموح بها"
 msgstr[4] "الصور المسموح بها"
 msgstr[5] "الصور المسموح بها"
 
-#: includes/models/class-fee-plan.php:387
+#: includes/models/class-fee-plan.php:401
+#, fuzzy
 msgctxt "fees-api"
-msgid "Fee label is required."
-msgstr "رسوم التسمية مطلوبة."
+msgid "Plan label is required."
+msgstr "تسمية الحقل مطلوب."
 
-#: includes/models/class-fee-plan.php:393
+#: includes/models/class-fee-plan.php:407
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr "يجب أن تكون رسوم مدة الإعلان بعدد أقل من 10 سنوات (3650 يوما)."
 
-#: includes/models/class-fee-plan.php:398
+#: includes/models/class-fee-plan.php:412
 msgctxt "fees-api"
 msgid ""
-"To set this fee as \"Recurring\" you must have a time for the listing to "
+"To set this plan as \"Recurring\" you must have a time for the listing to "
 "renew (e.g. 30 days). To avoid issues with the listing, please edit the "
-"<a>fee plan</a> appropriately."
+"<a>plan</a> appropriately."
 msgstr ""
 
-#: includes/models/class-fee-plan.php:401
+#: includes/models/class-fee-plan.php:415
 msgctxt "fees-api"
 msgid ""
-"To set this fee as \"Recurring\" you must set a price for your fee plan. To "
-"avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
+"To set this plan as \"Recurring\" you must set a price for your plan. To "
+"avoid issues with the listing, please edit the <a>plan</a> appropriately."
 msgstr ""
 
 #: includes/models/class-payment.php:85
@@ -8583,17 +8593,17 @@ msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "حدث خطأ مجهول أثناء رفع الملف."
 
-#: includes/utils.php:335
+#: includes/utils.php:384
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "حدث خطأ أثناء رفع الملف."
 
-#: includes/utils.php:359 includes/utils.php:366
+#: includes/utils.php:408 includes/utils.php:415
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "غير مسموح بنوع الملف \"%s\""
 
-#: includes/utils.php:585
+#: includes/utils.php:634
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8701,30 +8711,30 @@ msgctxt "admin forms"
 msgid "required"
 msgstr "مطلوب"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:124
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:127
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "تجديد عنوان URL (نسخة & لصق)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:124
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:127
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:138
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:141
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "إرسال رسالة بريد إلكتروني بخصوص التجديد للعضو"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:143
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:146
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renew listing"
 msgstr "تجديد الإعلان"
 
-#: templates/admin/themes-delete-confirm.tpl.php:3
+#: templates/admin/themes-delete-confirm.tpl.php:12
 msgctxt "themes admin"
 msgid "Are you sure you want to delete the directory theme \"%s\"?"
 msgstr "هل أنت متأكد من أنك تريد حذف قالب الدليل \"%s\"؟"
@@ -8946,9 +8956,10 @@ msgid "Cancel recurring payment"
 msgstr "إلغاء الدفع المتكرر"
 
 #: templates/renew-listing-manage-subscription.tpl.php:4
+#, fuzzy
 msgctxt "renew"
 msgid ""
-"Because you are on a recurring fee plan you don't have to renew your listing "
+"Because you are on a recurring plan you don't have to renew your listing "
 "right now as this will be handled automatically when renewal comes."
 msgstr ""
 "لأنك على خطة الرسوم المتكررة لا تحتاج لتجديد الإعلان الخاص بك الآن لأن ذلك "
@@ -8980,6 +8991,76 @@ msgstr "إدخال بريدك إلكتروني"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "متابعة"
+
+#, fuzzy
+#~ msgid "Fee Label"
+#~ msgstr "تسمية الرسوم"
+
+#, fuzzy
+#~ msgid "Status: %s"
+#~ msgstr "الحالة"
+
+#, fuzzy
+#~ msgid "Add Listing Fee"
+#~ msgstr "إضافة رسوم الإعلان"
+
+#, fuzzy
+#~ msgid "Edit Listing Fee"
+#~ msgstr "تعديل رسوم الإعلان"
+
+#, fuzzy
+#~ msgid "Fee Description"
+#~ msgstr "رسم الوصف"
+
+#, fuzzy
+#~ msgid "Add New Listing Fee"
+#~ msgstr "إضافة رسم إعلان جديد"
+
+#, fuzzy
+#~ msgid "Order fees on the frontend by:"
+#~ msgstr "رسوم الترتيب على الواجهة بواسطة:"
+
+#, fuzzy
+#~ msgid "Delete Form Field"
+#~ msgstr "حذف حقل النموذج"
+
+#, fuzzy
+#~ msgid "Delete Field"
+#~ msgstr "حذف حقل"
+
+#, fuzzy
+#~ msgid "← Return to \"Manage Options\""
+#~ msgstr "← العودة إلى \"إدارة الخيارات\""
+
+#, fuzzy
+#~ msgid ""
+#~ "They are different from regular WordPress themes and are not a "
+#~ "replacement. They change the look and feel of the directory only."
+#~ msgstr ""
+#~ "إنها <strong>مختلفة</strong> عن قوالب ووردبريس العادية الخاصة بك، و "
+#~ "<strong>ليست</strong> بديلاً عن  قوالب ووردبريس. سوف تغير الشكل والمظهر "
+#~ "لدليل الأعمال الخاص بك فقط."
+
+#~ msgctxt "admin csv-import"
+#~ msgid "← Return to \"CSV Import\""
+#~ msgstr "← العودة إلى \"استيراد CSV\""
+
+#, fuzzy
+#~ msgctxt "fees admin"
+#~ msgid "Fee Price"
+#~ msgstr "السعر"
+
+#~ msgctxt "form-fields admin"
+#~ msgid "Manage Theme Tags"
+#~ msgstr "إدارة وسوم القالب"
+
+#~ msgctxt "installer"
+#~ msgid "Default Fee"
+#~ msgstr "رسوم افتراضية"
+
+#~ msgctxt "fees-api"
+#~ msgid "Fee label is required."
+#~ msgstr "رسوم التسمية مطلوبة."
 
 #, fuzzy
 #~ msgid "Payments are currently turned off."

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-02-03 21:01:26+00:00\n"
+"POT-Creation-Date: 2022-03-10 17:51:03+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -99,7 +99,7 @@ msgid "Directory"
 msgstr "Все рубрики"
 
 #: includes/admin/class-admin.php:312
-msgid "Fee Plans"
+msgid "Plans"
 msgstr ""
 
 #: includes/admin/class-admin.php:315
@@ -124,7 +124,7 @@ msgid "Could not send renewal email."
 msgstr "Послать уведомление о продлении автору по электронной почте"
 
 #: includes/admin/class-admin.php:1023
-#: includes/admin/helpers/tables/class-form-fields-table.php:127
+#: includes/admin/helpers/tables/class-form-fields-table.php:128
 #: includes/admin/helpers/tables/class-payments-table.php:54
 #: templates/email/listing-added.tpl.php:7
 #: templates/email/listing-edited.tpl.php:13
@@ -139,7 +139,7 @@ msgstr "№"
 msgid "Listing Count"
 msgstr "Количество записей"
 
-#: includes/admin/class-admin.php:1191
+#: includes/admin/class-admin.php:1192
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -159,7 +159,7 @@ msgid "Please select a user"
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
 #: includes/admin/class-listing-owner.php:87
-#: includes/admin/controllers/class-admin-listings.php:221
+#: includes/admin/controllers/class-admin-listings.php:223
 #, fuzzy
 msgid "Listing Owner"
 msgstr "Срок действия записи истёк"
@@ -214,6 +214,7 @@ msgid "Business Directory Plugin"
 msgstr "Справочник Услуг"
 
 #: includes/admin/controllers/class-admin-controller.php:82
+#: includes/admin/helpers/tables/class-fees-table.php:179
 #: templates/admin/payments-note.tpl.php:13
 #: templates/delete-listing-confirm.tpl.php:19
 #, fuzzy
@@ -230,7 +231,7 @@ msgstr "Подсказка"
 #: includes/admin/helpers/tables/class-payments-table.php:57
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:273
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:73
-#: templates/admin/payments-details.tpl.php:110
+#: templates/admin/payments-details.tpl.php:113
 #: templates/email/listing-payment-completed.tpl.php:21
 #: templates/payment/payment_items.tpl.php:5
 #, fuzzy
@@ -247,13 +248,13 @@ msgstr "Изображений"
 
 #: includes/admin/controllers/class-admin-fees.php:115
 #, fuzzy
-msgid "Fee plan added."
+msgid "Plan added."
 msgstr "Тариф сохранён."
 
 #: includes/admin/controllers/class-admin-fees.php:119
 #: includes/admin/controllers/class-admin-fees.php:134
 #, fuzzy
-msgid "Fee plan updated."
+msgid "Plan updated."
 msgstr "Тариф сохранён."
 
 #: includes/admin/controllers/class-admin-fees.php:154
@@ -267,54 +268,58 @@ msgstr "Существующие изображения?"
 
 #: includes/admin/controllers/class-admin-fees.php:176
 #, fuzzy
-msgid "Fee plan not found."
+msgid "Plan not found."
 msgstr "Тариф сохранён."
 
 #: includes/admin/controllers/class-admin-fees.php:180
 #, fuzzy
-msgid "Fee plan listings updated."
+msgid "Plan listings updated."
 msgstr "Тариф сохранён."
 
-#: includes/admin/controllers/class-admin-listings.php:185
+#: includes/admin/controllers/class-admin-fees.php:258
+msgid "Cannot disable plan. At least one plan should be enabled"
+msgstr ""
+
+#: includes/admin/controllers/class-admin-listings.php:187
 #: includes/controllers/pages/class-submit-listing.php:518
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Информация о бизнесе"
 
-#: includes/admin/controllers/class-admin-listings.php:193
+#: includes/admin/controllers/class-admin-listings.php:195
 #, fuzzy
 msgid "Listing Timeline"
 msgstr "Название записи:"
 
-#: includes/admin/controllers/class-admin-listings.php:211
+#: includes/admin/controllers/class-admin-listings.php:213
 #, fuzzy
 msgid "Listing Reports"
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/controllers/class-admin-listings.php:266
+#: includes/admin/controllers/class-admin-listings.php:268
 #, fuzzy
 msgid "Expires on"
 msgstr "Истекает"
 
-#: includes/admin/controllers/class-admin-listings.php:274
+#: includes/admin/controllers/class-admin-listings.php:276
 #, fuzzy
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: includes/admin/controllers/class-admin-listings.php:337
+#: includes/admin/controllers/class-admin-listings.php:339
 #: includes/helpers/class-listing-display-helper.php:132
 #, fuzzy
 msgid "Featured"
 msgstr "Статус \"Особая\""
 
-#: includes/admin/controllers/class-admin-listings.php:475
+#: includes/admin/controllers/class-admin-listings.php:477
 #: includes/class-cpt-integration.php:19
 #: includes/compatibility/class-navxt-integration.php:204
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
 msgstr "Изменить запись"
 
-#: includes/admin/controllers/class-admin-listings.php:480
+#: includes/admin/controllers/class-admin-listings.php:482
 #: templates/delete-listing-confirm.tpl.php:3
 msgid "Delete Listing"
 msgstr "Удалить запись"
@@ -334,13 +339,18 @@ msgstr ""
 msgid "Go to \"Form Fields\""
 msgstr "Перейти в раздел \"Управление / Форма\""
 
-#: includes/admin/controllers/class-form-fields-admin.php:128
-#: includes/helpers/functions/general.php:1366
-#: includes/helpers/functions/general.php:1371
+#: includes/admin/controllers/class-form-fields-admin.php:125
+#, fuzzy
+msgid "Form Preview"
+msgstr "Предварительный просмотр"
+
+#: includes/admin/controllers/class-form-fields-admin.php:129
+#: includes/helpers/functions/general.php:1370
+#: includes/helpers/functions/general.php:1375
 msgid "Go back"
 msgstr ""
 
-#: includes/admin/controllers/class-form-fields-admin.php:338
+#: includes/admin/controllers/class-form-fields-admin.php:342
 #: includes/admin/settings/class-settings-bootstrap.php:765
 #: templates/email/listing-added.tpl.php:10
 #: templates/email/listing-edited.tpl.php:16
@@ -349,7 +359,7 @@ msgstr ""
 msgid "Title"
 msgstr "Название"
 
-#: includes/admin/controllers/class-form-fields-admin.php:339
+#: includes/admin/controllers/class-form-fields-admin.php:343
 #: templates/admin/fees-form.tpl.php:219
 #: templates/email/listing-added.tpl.php:21
 #: templates/email/listing-edited.tpl.php:29
@@ -357,22 +367,22 @@ msgstr "Название"
 msgid "Category"
 msgstr "Рубрика"
 
-#: includes/admin/controllers/class-form-fields-admin.php:340
+#: includes/admin/controllers/class-form-fields-admin.php:344
 #, fuzzy
 msgid "Excerpt"
 msgstr "Цитата"
 
-#: includes/admin/controllers/class-form-fields-admin.php:341
+#: includes/admin/controllers/class-form-fields-admin.php:345
 #, fuzzy
 msgid "Content"
 msgstr "Содержимое"
 
-#: includes/admin/controllers/class-form-fields-admin.php:342
+#: includes/admin/controllers/class-form-fields-admin.php:346
 #, fuzzy
 msgid "Tags"
 msgstr "Метки"
 
-#: includes/admin/controllers/class-form-fields-admin.php:343
+#: includes/admin/controllers/class-form-fields-admin.php:347
 #: includes/form-fields.php:445
 #: includes/helpers/class-field-display-list.php:247
 #: templates/checkout-billing-form.tpl.php:75
@@ -380,81 +390,80 @@ msgstr "Метки"
 msgid "Address"
 msgstr "Адрес"
 
-#: includes/admin/controllers/class-form-fields-admin.php:344
+#: includes/admin/controllers/class-form-fields-admin.php:348
 #, fuzzy
 msgid "Address 2"
 msgstr "Адрес"
 
-#: includes/admin/controllers/class-form-fields-admin.php:345
-#: templates/admin/payments-details.tpl.php:161
+#: includes/admin/controllers/class-form-fields-admin.php:349
+#: templates/admin/payments-details.tpl.php:164
 #: templates/checkout-billing-form.tpl.php:87
 #, fuzzy
 msgid "City"
 msgstr "Город:"
 
-#: includes/admin/controllers/class-form-fields-admin.php:346
-#: templates/admin/payments-details.tpl.php:157
+#: includes/admin/controllers/class-form-fields-admin.php:350
+#: templates/admin/payments-details.tpl.php:160
 #, fuzzy
 msgid "State"
 msgstr "Провинция/Штат:"
 
-#: includes/admin/controllers/class-form-fields-admin.php:347
-#: templates/admin/payments-details.tpl.php:153
+#: includes/admin/controllers/class-form-fields-admin.php:351
+#: templates/admin/payments-details.tpl.php:156
 #: templates/checkout-billing-form.tpl.php:102
 #, fuzzy
 msgid "Country"
 msgstr "Страна:"
 
-#: includes/admin/controllers/class-form-fields-admin.php:348
-#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:165
+#: includes/admin/controllers/class-form-fields-admin.php:352
+#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:168
 msgid "ZIP Code"
 msgstr "Почтовый индекс"
 
-#: includes/admin/controllers/class-form-fields-admin.php:349
+#: includes/admin/controllers/class-form-fields-admin.php:353
 #, fuzzy
 msgid "FAX Number"
 msgstr "Номер факса"
 
-#: includes/admin/controllers/class-form-fields-admin.php:350
+#: includes/admin/controllers/class-form-fields-admin.php:354
 #: includes/fields/class-fieldtypes-phone-number.php:13
 #: templates/listing-contactform.tpl.php:38
 #, fuzzy
 msgid "Phone Number"
 msgstr "Номер телефона"
 
-#: includes/admin/controllers/class-form-fields-admin.php:351
+#: includes/admin/controllers/class-form-fields-admin.php:355
 #, fuzzy
 msgid "Ratings Field"
 msgstr "Рейтинг"
 
-#: includes/admin/controllers/class-form-fields-admin.php:352
+#: includes/admin/controllers/class-form-fields-admin.php:356
 #, fuzzy
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/admin/controllers/class-form-fields-admin.php:353
+#: includes/admin/controllers/class-form-fields-admin.php:357
 #: includes/form-fields.php:411
 #, fuzzy
 msgid "Website"
 msgstr "адрес сайта"
 
-#: includes/admin/controllers/class-settings-admin.php:476
+#: includes/admin/controllers/class-settings-admin.php:474
 msgid "Your license key provides access to new features and updates."
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:478
+#: includes/admin/controllers/class-settings-admin.php:476
 #, fuzzy
 msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "Вопрос: Почему Вы решили удалить плагин \"Справочник Услуг\"?"
 
-#: includes/admin/controllers/class-settings-admin.php:536
-#: includes/admin/helpers/tables/class-fees-table.php:177
-#: includes/admin/helpers/tables/class-form-fields-table.php:104
+#: includes/admin/controllers/class-settings-admin.php:534
+#: includes/admin/helpers/tables/class-fees-table.php:180
+#: includes/admin/helpers/tables/class-form-fields-table.php:105
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
 #: templates/admin/payments-note.tpl.php:14
-#: templates/admin/themes-item.tpl.php:66
+#: templates/admin/themes-item.tpl.php:50
 #: templates/parts/listing-buttons.tpl.php:31
-#: templates/parts/listing-buttons.tpl.php:65
 #, fuzzy
 msgid "Delete"
 msgstr "Удалить"
@@ -470,16 +479,25 @@ msgstr "Темы"
 msgid "Business %s"
 msgstr "Запись %s"
 
-#: includes/admin/csv-import.php:326
+#: includes/admin/csv-import.php:183
+#, fuzzy
+msgid "Example CSV Import File"
+msgstr "Образец файла импорта CSV"
+
+#: includes/admin/csv-import.php:186
+msgid "Go Back"
+msgstr ""
+
+#: includes/admin/csv-import.php:334
 msgid "You are not allowed to do that."
 msgstr ""
 
-#: includes/admin/csv-import.php:423
+#: includes/admin/csv-import.php:431
 #, fuzzy
 msgid "There was an error uploading the file:"
 msgstr "Произошла ошибка при загрузке файла CSV."
 
-#: includes/admin/csv-import.php:428
+#: includes/admin/csv-import.php:436
 #, fuzzy
 msgid "Please upload the correct file type."
 msgstr "Пожалуйста загрузите или выберите файл CSV."
@@ -489,7 +507,7 @@ msgstr "Пожалуйста загрузите или выберите файл
 #: includes/admin/settings/class-settings-bootstrap.php:657
 #: includes/admin/settings/class-settings-bootstrap.php:658
 #: includes/helpers/class-app.php:91
-#: templates/admin/payments-details.tpl.php:50
+#: templates/admin/payments-details.tpl.php:53
 #, fuzzy
 msgid "Listing"
 msgstr "Запись"
@@ -506,8 +524,8 @@ msgid "Installed"
 msgstr "Установлен"
 
 #: includes/admin/helpers/class-modules-list.php:187
-#: includes/admin/helpers/tables/class-fees-table.php:287
-#: templates/admin/themes-item.tpl.php:41
+#: includes/admin/helpers/tables/class-fees-table.php:291
+#: templates/admin/themes-item.tpl.php:3
 #, fuzzy
 msgid "Active"
 msgstr "Активно:"
@@ -519,7 +537,7 @@ msgstr "Не установлен"
 
 #: includes/admin/helpers/class-modules-list.php:225
 #: includes/controllers/class-smtp.php:317
-#: templates/admin/themes-item.tpl.php:61
+#: templates/admin/themes-item.tpl.php:58
 #, fuzzy
 msgid "Activate"
 msgstr "Активировать"
@@ -536,7 +554,7 @@ msgstr ""
 
 #. translators: %1$s: open link html, %2$s close link
 #: includes/admin/helpers/tables/class-fees-table.php:30
-msgid "There are no fees right now. %1$sCreate one%2$s."
+msgid "There are no plans right now. %1$sCreate one%2$s."
 msgstr ""
 
 #: includes/admin/helpers/tables/class-fees-table.php:61
@@ -562,40 +580,44 @@ msgstr "Цена"
 msgid "Listings"
 msgstr "Записи"
 
-#: includes/admin/helpers/tables/class-fees-table.php:156
+#: includes/admin/helpers/tables/class-fees-table.php:155
 msgid "Disable"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:162
+#: includes/admin/helpers/tables/class-fees-table.php:161
 #, fuzzy
 msgid "Enable"
 msgstr "Показать строку сортировки?"
 
-#: includes/admin/helpers/tables/class-fees-table.php:184
+#: includes/admin/helpers/tables/class-fees-table.php:187
 msgid "ID: %s"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:190
 #, fuzzy
 msgid "Paid Plan"
 msgstr "Оплачено"
 
-#: includes/admin/helpers/tables/class-fees-table.php:187
+#: includes/admin/helpers/tables/class-fees-table.php:190
 #, fuzzy
 msgid "Free Plan"
 msgstr "Перейти в раздел \"Управление / Форма\""
 
-#: includes/admin/helpers/tables/class-fees-table.php:222
+#: includes/admin/helpers/tables/class-fees-table.php:225
 #, fuzzy
 msgid "%1$s for %2$s"
 msgstr "%s (например %s)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:285
+#: includes/admin/helpers/tables/class-fees-table.php:259
+msgid "Total revenue earned from listings"
+msgstr ""
+
+#: includes/admin/helpers/tables/class-fees-table.php:289
 #, fuzzy
 msgid "Disabled"
 msgstr "Тариф удалён."
 
-#: includes/admin/helpers/tables/class-fees-table.php:291
+#: includes/admin/helpers/tables/class-fees-table.php:295
 #: includes/helpers/functions/templates-ui.php:431
 #, fuzzy
 msgid "Default"
@@ -609,10 +631,15 @@ msgid "Type"
 msgstr "Тип"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:88
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:84
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:102
 msgid "Edit"
 msgstr "Изменить"
+
+#: includes/admin/helpers/tables/class-form-fields-table.php:104
+#, fuzzy
+msgid "Are you sure you want to delete that field?"
+msgstr "Вы уверены, что хотите удалить поле \"%s\"?"
 
 #: includes/admin/page-debug.php:40
 #, fuzzy
@@ -638,8 +665,8 @@ msgid "Missing tables: %s"
 msgstr "Отсутствующие таблицы: %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1252
-#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:137
+#: includes/controllers/pages/class-submit-listing.php:1254
+#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:140
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
 #, fuzzy
@@ -667,10 +694,10 @@ msgid "SEO"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:255
-#: includes/class-assets.php:335
+#: includes/class-assets.php:352
 #: includes/fields/class-fieldtypes-textarea.php:200
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 #, fuzzy
 msgid "No"
 msgstr "Ноя"
@@ -1027,11 +1054,15 @@ msgstr "Запустить ручное обновление"
 
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:110
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:111
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:152
 msgid "Business Directory - Manual Upgrade"
 msgstr "Справочник Услуг - ручное обновление"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:174
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:154
+#, fuzzy
+msgid "Directory Manual Upgrade"
+msgstr "Справочник Услуг - ручное обновление"
+
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:180
 msgid ""
 "Business Directory features are currently disabled because the plugin needs "
 "to perform a manual upgrade before it can be used."
@@ -1039,7 +1070,7 @@ msgstr ""
 "Функции Справочника Услуг на настоящий момент отключены, потому что "
 "необходимо произвести ручное обновление плагина."
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:176
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:182
 msgid "Click \"Start Upgrade\" and wait until the process finishes."
 msgstr "Нажмите \"Начать обновление\" и подождите пока процесс завершится."
 
@@ -1054,8 +1085,8 @@ msgstr "Справочник Услуг - Особые записи"
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:272
 #: templates/admin/fees-form.tpl.php:17
 #, fuzzy
-msgid "Fee Label"
-msgstr "Название тарифа"
+msgid "Plan Label"
+msgstr "Метка"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:274
 #, fuzzy
@@ -1064,7 +1095,7 @@ msgstr "По сроку действия"
 
 #: includes/admin/upgrades/migrations/migration-18_0.php:251
 #, fuzzy
-msgid "Could not migrate fee \"%1$s\" (%2$d)"
+msgid "Could not migrate plan \"%1$s\" (%2$d)"
 msgstr "Не удалось обновить тему: %s"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:181
@@ -1077,18 +1108,15 @@ msgstr "Плата \"%s\" за обновление рубрики \"%s\""
 msgid "Directory Modules"
 msgstr "Темы справочника"
 
-#: includes/admin/views/modules/list.php:46
-#: includes/admin/views/modules/list.php:47
+#: includes/admin/views/modules/list.php:35
+msgid "New"
+msgstr ""
+
+#: includes/admin/views/modules/list.php:68
+#: includes/admin/views/modules/list.php:69
 #, fuzzy
 msgid "View Docs"
 msgstr "Открыть"
-
-#. translators: %s: Status name
-#: includes/admin/views/modules/list.php:63
-#: templates/admin/themes-item.tpl.php:50
-#, fuzzy
-msgid "Status: %s"
-msgstr "Новый статус:"
 
 #: includes/admin/views/review.php:17
 #, fuzzy
@@ -1134,20 +1162,37 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:333
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:86
+#: includes/class-assets.php:194 templates/admin/settings-email.tpl.php:103
+#: templates/admin/settings-reset.tpl.php:8
+#: templates/admin/themes-delete-confirm.tpl.php:21
+#: templates/listing-flagging-form.tpl.php:65
+#, fuzzy
+msgid "Cancel"
+msgstr "Отменить"
+
+#: includes/class-assets.php:195
+#, fuzzy
+msgid "Continue"
+msgstr "Далее"
+
+#: includes/class-assets.php:196
+msgid "Are you sure?"
+msgstr ""
+
+#: includes/class-assets.php:350
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:88
 #, fuzzy
 msgid "Never"
 msgstr "никогда"
 
-#: includes/class-assets.php:334
+#: includes/class-assets.php:351
 #: includes/fields/class-fieldtypes-textarea.php:201
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:120
 msgid "Yes"
 msgstr ""
 
-#: includes/class-assets.php:344
+#: includes/class-assets.php:361
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
 "how WordPress stores the data."
@@ -1259,7 +1304,7 @@ msgstr "Добавить тариф"
 msgid "View All Listings"
 msgstr "Показать все записи"
 
-#: includes/class-payment-gateways.php:144
+#: includes/class-payment-gateways.php:146
 msgid ""
 "You have paid plans but no payment gateway. Go to %1$sSettings - Payment%2$s "
 "to set up a gateway. Until you do this, only free plans will be available."
@@ -1275,23 +1320,23 @@ msgstr "Поднять статус до %s"
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/class-wpbdp.php:574
+#: includes/class-wpbdp.php:575
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Не удалось связаться с сервером лицензий"
 
-#: includes/class-wpbdp.php:581
+#: includes/class-wpbdp.php:582
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:588 includes/fields/class-fieldtypes-image.php:322
+#: includes/class-wpbdp.php:589 includes/fields/class-fieldtypes-image.php:322
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Не удалось обновить тему: %s"
 
-#: includes/class-wpbdp.php:620
+#: includes/class-wpbdp.php:621
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1300,7 +1345,7 @@ msgstr ""
 "Функции Справочника Услуг на настоящий момент отключены, потому что "
 "необходимо произвести ручное обновление плагина."
 
-#: includes/class-wpbdp.php:627
+#: includes/class-wpbdp.php:628
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1502,27 +1547,27 @@ msgstr ""
 
 #: includes/controllers/pages/class-submit-listing.php:831
 #, fuzzy
-msgid "Go to \"Fee Plans\""
+msgid "Go to \"Plans\""
 msgstr "Перейти в раздел \"Управление / Форма\""
 
 #: includes/controllers/pages/class-submit-listing.php:887
 #, fuzzy
-msgid "Please choose a fee plan."
+msgid "Please choose a plan."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:1073
+#: includes/controllers/pages/class-submit-listing.php:1077
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1236
+#: includes/controllers/pages/class-submit-listing.php:1238
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1243
+#: includes/controllers/pages/class-submit-listing.php:1245
 msgid "Username"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1265
+#: includes/controllers/pages/class-submit-listing.php:1267
 #, fuzzy
 msgid "Clear Form"
 msgstr "Очистить форму"
@@ -1629,8 +1674,7 @@ msgstr ""
 #: includes/fields/class-fieldtypes-textarea.php:214
 #, fuzzy
 msgid ""
-"Warning: Users can use this feature to get around your image limits in fee "
-"plans."
+"Warning: Users can use this feature to get around your image limits in plans."
 msgstr ""
 "<b>ВНИМАНИЕ:</b> Авторы могут использовать этот режим для обхода ограничения "
 "на количество изображений в бесплатном режиме."
@@ -1710,7 +1754,7 @@ msgstr "Название записи"
 msgid "Short Description"
 msgstr "Краткое описание"
 
-#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:109
+#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:112
 #, fuzzy
 msgid "Description"
 msgstr "Описание"
@@ -1855,6 +1899,11 @@ msgstr "Изменить запись"
 #, fuzzy
 msgid "Manage Listings"
 msgstr "Платные записи"
+
+#: includes/installer.php:60
+#, fuzzy
+msgid "Default Plan"
+msgstr "Удалить тариф"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
 #: includes/licensing.php:152
@@ -2015,17 +2064,22 @@ msgstr "Платёж был заброшен."
 msgid "Abandoned"
 msgstr "Заброшено"
 
+#: includes/payment.php:278
+#, fuzzy
+msgid "Return to plan selection"
+msgstr "Вернуться в справочник."
+
 #: includes/themes.php:945
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Файл ZIP - не является файлом темы плагина."
 
-#: includes/utils.php:341
+#: includes/utils.php:390
 #, fuzzy
 msgid "File size (%1$s) exceeds maximum file size of %2$s"
 msgstr "Размер файла (%s) превышает максимальный размер файла - %s"
 
-#: includes/utils.php:350
+#: includes/utils.php:399
 #, fuzzy
 msgid "File size (%1$s) is smaller than the minimum file size of %2$s"
 msgstr "Размер файла (%s) меньше, чем минимальный разрешённый размер - %s"
@@ -2301,17 +2355,17 @@ msgstr "Скачать отладочную информацию"
 
 #: templates/admin/fees-add-fee.tpl.php:4 templates/admin/fees-form.tpl.php:245
 #, fuzzy
-msgid "Add Listing Fee"
-msgstr "Добавить тариф"
+msgid "Add Plan"
+msgstr "Оплачено"
 
 #: templates/admin/fees-edit-fee.tpl.php:4
 #, fuzzy
-msgid "Edit Listing Fee"
-msgstr "Изменить запись"
+msgid "Edit Plan"
+msgstr "Оплачено"
 
 #: templates/admin/fees-form.tpl.php:30
 #, fuzzy
-msgid "Fee Description"
+msgid "Plan Description"
 msgstr "Описание"
 
 #: templates/admin/fees-form.tpl.php:38
@@ -2340,7 +2394,7 @@ msgid "Number of images allowed"
 msgstr "Количество разрешённых изображений"
 
 #: templates/admin/fees-form.tpl.php:73
-msgid "Private Fee Plan (visible to admins only)?"
+msgid "Private Plan (visible to admins only)?"
 msgstr ""
 
 #: templates/admin/fees-form.tpl.php:90
@@ -2377,54 +2431,53 @@ msgstr ""
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: templates/admin/fees-index.tpl.php:7
+#: templates/admin/fees-index.tpl.php:6
 #, fuzzy
-msgid "Add New Listing Fee"
-msgstr "Добавить тариф"
+msgid "Add New Plan"
+msgstr "Добавить запись"
 
-#: templates/admin/fees-index.tpl.php:20
-#, fuzzy
-msgid "Order fees on the frontend by:"
-msgstr "Сортировать тарифы:"
-
-#: templates/admin/fees-index.tpl.php:30
+#: templates/admin/fees-index.tpl.php:28
 #, fuzzy
 msgid "↑ Ascending"
 msgstr "↑ По возрастанию"
 
-#: templates/admin/fees-index.tpl.php:31
+#: templates/admin/fees-index.tpl.php:29
 #, fuzzy
 msgid "↓ Descending"
 msgstr "↓ По убыванию"
 
-#: templates/admin/fees-index.tpl.php:39
+#: templates/admin/fees-index.tpl.php:37
+msgid "Save front-end order"
+msgstr ""
+
+#: templates/admin/fees-index.tpl.php:41
 #, fuzzy
-msgid "Drag and drop to re-order fees."
+msgid "Drag and drop to re-order plans."
 msgstr "Поменяйте порядок тарифов перетаскивая их здесь."
 
-#: templates/admin/fees-index.tpl.php:67
+#: templates/admin/fees-index.tpl.php:69
 msgid "Set up a payment gateway to charge a fee for listings"
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:69
+#: templates/admin/fees-index.tpl.php:71
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #. translators: %s: payment gateway name */
-#: templates/admin/fees-index.tpl.php:88
+#: templates/admin/fees-index.tpl.php:90
 msgid "Add the %s gateway as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:94
+#: templates/admin/fees-index.tpl.php:96
 #, fuzzy
 msgid "Upgrade"
 msgstr "Поднять статус до %s"
 
-#: templates/admin/fees-index.tpl.php:102
+#: templates/admin/fees-index.tpl.php:104
 msgid "Set up Authorize.net as a payment option."
 msgstr ""
 
-#: templates/admin/fees-index.tpl.php:105
+#: templates/admin/fees-index.tpl.php:107
 msgid "Set Up"
 msgstr ""
 
@@ -2443,20 +2496,20 @@ msgstr "Количество изображений:"
 msgid "Require this field on the Advanced Search screen."
 msgstr "Включите чтобы можно было использовать это поле в форме поиска."
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:4
+#: templates/admin/form-fields.tpl.php:4
 #, fuzzy
-msgid "Delete Form Field"
-msgstr "Удалить поле формы"
+msgid "Add New Form Field"
+msgstr "Добавить новое поле формы"
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:11
+#: templates/admin/form-fields.tpl.php:8
 #, fuzzy
-msgid "Are you sure you want to delete that field?"
-msgstr "Вы уверены, что хотите удалить поле \"%s\"?"
+msgid "Preview Form"
+msgstr "Предварительный просмотр формы"
 
-#: templates/admin/form-fields-confirm-delete.tpl.php:17
+#: templates/admin/form-fields.tpl.php:12 templates/admin/themes.tpl.php:11
 #, fuzzy
-msgid "Delete Field"
-msgstr "Удалить поле"
+msgid "Manage Theme Tags"
+msgstr "Настроить метки темы"
 
 #: templates/admin/metaboxes-listing-information-other.tpl.php:3
 #: templates/email-access-keys.tpl.php:5 templates/login.tpl.php:69
@@ -2464,6 +2517,11 @@ msgstr "Удалить поле"
 #, fuzzy
 msgid "Access Key"
 msgstr "Поля и Изображения записи"
+
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
+#: templates/email/listing-payment-completed.tpl.php:25
+msgid "Plan"
+msgstr ""
 
 #: templates/admin/payments-details.tpl.php:5
 #, fuzzy
@@ -2475,116 +2533,116 @@ msgstr "Платёж № %d"
 msgid "Not Found"
 msgstr "Информация о тарифах"
 
-#: templates/admin/payments-details.tpl.php:10
-#: templates/admin/payments-details.tpl.php:23
+#: templates/admin/payments-details.tpl.php:11
+#: templates/admin/payments-details.tpl.php:26
 #, fuzzy
 msgid "← Return to \"Payment History\""
 msgstr "← Вернуться к Вашей записи."
 
-#: templates/admin/payments-details.tpl.php:21
+#: templates/admin/payments-details.tpl.php:24
 #, fuzzy
 msgid "Payment Not Found"
 msgstr "Информация о тарифах"
 
-#: templates/admin/payments-details.tpl.php:42
+#: templates/admin/payments-details.tpl.php:45
 msgid "Overview"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:46
-#: templates/admin/payments-details.tpl.php:80
+#: templates/admin/payments-details.tpl.php:49
+#: templates/admin/payments-details.tpl.php:83
 #, fuzzy
 msgid "Payment ID"
 msgstr "Оплата"
 
-#: templates/admin/payments-details.tpl.php:56
+#: templates/admin/payments-details.tpl.php:59
 #, fuzzy
 msgid "Status"
 msgstr "Новый статус:"
 
-#: templates/admin/payments-details.tpl.php:65
+#: templates/admin/payments-details.tpl.php:68
 #, fuzzy
 msgid "Date"
 msgstr "Провинция/Штат:"
 
-#: templates/admin/payments-details.tpl.php:69
+#: templates/admin/payments-details.tpl.php:72
 #, fuzzy
 msgid "Time"
 msgstr "Время: %s"
 
-#: templates/admin/payments-details.tpl.php:74
+#: templates/admin/payments-details.tpl.php:77
 #, fuzzy
 msgid "Gateway"
 msgstr "Шлюз"
 
 #. translators: Gateway: (Not yet set)
-#: templates/admin/payments-details.tpl.php:76
+#: templates/admin/payments-details.tpl.php:79
 #, fuzzy
 msgid "(Not yet set)"
 msgstr "Ещё не зарегистрированы?"
 
-#: templates/admin/payments-details.tpl.php:91
+#: templates/admin/payments-details.tpl.php:94
 #, fuzzy
 msgid "Delete Payment"
 msgstr "Отказать в платеже"
 
-#: templates/admin/payments-details.tpl.php:93
+#: templates/admin/payments-details.tpl.php:96
 #, fuzzy
 msgid "Save Payment"
 msgstr "Оплата"
 
-#: templates/admin/payments-details.tpl.php:104
+#: templates/admin/payments-details.tpl.php:107
 #, fuzzy
 msgid "Details"
 msgstr "Тарифы"
 
-#: templates/admin/payments-details.tpl.php:108
+#: templates/admin/payments-details.tpl.php:111
 #, fuzzy
 msgid "Item Type"
 msgstr "Тип"
 
-#: templates/admin/payments-details.tpl.php:121
+#: templates/admin/payments-details.tpl.php:124
 #: templates/payment/payment_items.tpl.php:23
 #, fuzzy
 msgid "Total"
 msgstr "Всего"
 
-#: templates/admin/payments-details.tpl.php:132
+#: templates/admin/payments-details.tpl.php:135
 #, fuzzy
 msgid "Customer Details"
 msgstr "Детали текущего платежа"
 
-#: templates/admin/payments-details.tpl.php:142
+#: templates/admin/payments-details.tpl.php:145
 #: templates/checkout-billing-form.tpl.php:17
 #, fuzzy
 msgid "First Name"
 msgstr "Имя:"
 
-#: templates/admin/payments-details.tpl.php:147
+#: templates/admin/payments-details.tpl.php:150
 #: templates/checkout-billing-form.tpl.php:22
 #, fuzzy
 msgid "Last Name"
 msgstr "Фамилия:"
 
-#: templates/admin/payments-details.tpl.php:169
+#: templates/admin/payments-details.tpl.php:172
 #, fuzzy
 msgid "Address Line 1"
 msgstr "Адрес:"
 
-#: templates/admin/payments-details.tpl.php:173
+#: templates/admin/payments-details.tpl.php:176
 #: templates/checkout-billing-form.tpl.php:81
 #, fuzzy
 msgid "Address Line 2"
 msgstr "Адрес (дополнительно)"
 
-#: templates/admin/payments-details.tpl.php:182
+#: templates/admin/payments-details.tpl.php:185
 msgid "Notes & Log"
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:187
+#: templates/admin/payments-details.tpl.php:190
 msgid "No notes."
 msgstr ""
 
-#: templates/admin/payments-details.tpl.php:207
+#: templates/admin/payments-details.tpl.php:210
 #, fuzzy
 msgid "Add Note"
 msgstr "Добавить тариф"
@@ -2667,33 +2725,22 @@ msgstr "Вы можете использовать следующие служе
 msgid "Preview email"
 msgstr "Предварительный просмотр"
 
-#: templates/admin/settings-email.tpl.php:103
-#: templates/admin/themes-delete-confirm.tpl.php:12
-#: templates/listing-flagging-form.tpl.php:65
-#, fuzzy
-msgid "Cancel"
-msgstr "Отменить"
-
 #: templates/admin/settings-page.tpl.php:7
 #, fuzzy
 msgid "Directory Settings"
 msgstr "Ярлык раздела справочник"
 
 #: templates/admin/settings-page.tpl.php:8
-#: templates/admin/settings-reset.tpl.php:24
+#: templates/admin/settings-reset.tpl.php:26
 msgid "Reset Defaults"
 msgstr "Сбросить настройки"
 
-#: templates/admin/settings-reset.tpl.php:3
-msgid "Business Directory - Reset Defaults"
+#: templates/admin/settings-reset.tpl.php:4
+#, fuzzy
+msgid "Directory Reset to Default"
 msgstr "Справочник Услуг - Новые Записи"
 
-#: templates/admin/settings-reset.tpl.php:7
-#, fuzzy
-msgid "← Return to \"Manage Options\""
-msgstr "← Вернуться к \"Управлению Полями Формы\""
-
-#: templates/admin/settings-reset.tpl.php:15
+#: templates/admin/settings-reset.tpl.php:17
 msgid ""
 "Use this option if you want to go back to the original factory settings for "
 "BD."
@@ -2702,11 +2749,11 @@ msgstr ""
 "поставляемые по-умолчанию с плагином. <b>Имейте в виду, что все Ваши "
 "настройки будут очищены!</b>"
 
-#: templates/admin/settings-reset.tpl.php:16
+#: templates/admin/settings-reset.tpl.php:18
 msgid "Please note that all of your existing settings will be lost."
 msgstr ""
 
-#: templates/admin/settings-reset.tpl.php:18
+#: templates/admin/settings-reset.tpl.php:20
 msgid "Your existing listings will NOT be deleted doing this."
 msgstr ""
 
@@ -2733,72 +2780,65 @@ msgstr "Руководство по быстрому старту"
 msgid "Video Tutorials"
 msgstr "Видео-уроки"
 
-#: templates/admin/themes-delete-confirm.tpl.php:1
-#: templates/admin/themes-delete-confirm.tpl.php:13
+#: templates/admin/themes-delete-confirm.tpl.php:4
+#: templates/admin/themes-delete-confirm.tpl.php:22
 #, fuzzy
 msgid "Delete Directory Theme"
 msgstr "Удалить тему справочника"
 
-#: templates/admin/themes-install.tpl.php:4 templates/admin/themes.tpl.php:6
+#: templates/admin/themes-install.tpl.php:4 templates/admin/themes.tpl.php:7
 #, fuzzy
 msgid "Upload Directory Theme"
 msgstr "Загрузить тему справочника"
 
 #. translators: %s is the link for Business Directory Premium Themes.
-#: templates/admin/themes-install.tpl.php:16
+#: templates/admin/themes-install.tpl.php:17
 #, fuzzy
 msgid "This is a theme or skin from %s and is NOT a regular WordPress theme."
 msgstr "Это тема, созданная %s, а НЕ обычная тема WordPress."
 
-#: templates/admin/themes-install.tpl.php:30
+#: templates/admin/themes-install.tpl.php:31
 #, fuzzy
 msgid "Business Directory Theme archive (ZIP file)"
 msgstr "Архив темы справочника (файл ZIP)"
 
-#: templates/admin/themes-install.tpl.php:39
+#: templates/admin/themes-install.tpl.php:40
 #, fuzzy
 msgid "Upload"
 msgstr "Загрузка файлов"
 
-#: templates/admin/themes-item.tpl.php:8
+#: templates/admin/themes-item.tpl.php:7
+#, fuzzy
+msgid "Inactive"
+msgstr "Активно:"
+
+#: templates/admin/themes-item.tpl.php:17
 #, fuzzy
 msgid "Updating theme..."
 msgstr "Тема обновляется..."
 
-#: templates/admin/themes-item.tpl.php:8
+#: templates/admin/themes-item.tpl.php:17
 #, fuzzy
 msgid "Theme updated."
 msgstr "Тема обновлена."
 
 #. translators: %1$s is opening <a> tag, %2$s is closing </a> tag
-#: templates/admin/themes-item.tpl.php:13
+#: templates/admin/themes-item.tpl.php:22
 #, fuzzy
 msgid "New version available. %1$sUpdate now.%2$s"
 msgstr "Доступна новая версия - <b>%s</b>. <a>Обновите сейчас</a>."
 
-#: templates/admin/themes-item.tpl.php:45
-#, fuzzy
-msgid "Inactive"
-msgstr "Активно:"
-
-#: templates/admin/themes.tpl.php:7
-#, fuzzy
-msgid "Manage Theme Tags"
-msgstr "Настроить метки темы"
-
 #. translators: %1$s is opening <a> tag, %2$s is closing </a> tag
-#: templates/admin/themes.tpl.php:21
+#: templates/admin/themes.tpl.php:27
 msgid ""
-"%1$sDirectory Themes%2$s are pre-made templates for the Business Directory "
-"Plugin to change the look of the directory quickly and easily. We have a "
-"number of them available for purchase %1$shere%2$s."
+"%1$sDirectory Themes%2$s change the look of the directory. A number of them "
+"are %1$savailable for purchase%2$s."
 msgstr ""
 
-#: templates/admin/themes.tpl.php:26
-msgid ""
-"They are different from regular WordPress themes and are not a replacement. "
-"They change the look and feel of the directory only."
-msgstr ""
+#: templates/admin/themes.tpl.php:32
+#, fuzzy
+msgid "They are not a replacement for regular WordPress themes."
+msgstr "Это тема, созданная %s, а НЕ обычная тема WordPress."
 
 #: templates/admin/uninstall-complete.tpl.php:12
 #, fuzzy
@@ -2950,8 +2990,8 @@ msgstr "Завершение покупки"
 
 #: templates/checkout.tpl.php:31
 msgid ""
-"Recurring fee plans require a payment method to renew your listing at the "
-"end of the term."
+"Recurring plans require a payment method to renew your listing at the end of "
+"the term."
 msgstr ""
 
 #: templates/checkout.tpl.php:37
@@ -2990,10 +3030,6 @@ msgstr "Вернуться к справочнику"
 #, fuzzy
 msgid "(not published yet)"
 msgstr "(ещё не опубликовано)"
-
-#: templates/email/listing-payment-completed.tpl.php:25
-msgid "Plan"
-msgstr ""
 
 #: templates/email-access-keys.tpl.php:1
 msgid ""
@@ -3131,7 +3167,7 @@ msgstr "%s каждые %s дней(я)."
 msgid "%1$s each %2$s days. Next renewal is on %3$s."
 msgstr "%s каждые %s дней(я). Следующее обновление - %s."
 
-#: templates/parts/listing-buttons.tpl.php:38
+#: templates/parts/listing-buttons.tpl.php:39
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Вернуться в Справочник."
@@ -3169,8 +3205,13 @@ msgstr ""
 
 #: templates/plan-selection-plan.tpl.php:79
 #, fuzzy
-msgid "Private fee plan"
+msgid "Private plan"
 msgstr "Активация лицензии..."
+
+#: templates/renew-listing-manage-subscription.tpl.php:2
+#, fuzzy
+msgid "Recurring Plan Management"
+msgstr "Управление периодический оплатой"
 
 #: templates/search-form.tpl.php:28
 #, fuzzy
@@ -3311,8 +3352,9 @@ msgstr[1] "Статус записей был поднят."
 msgstr[2] ""
 
 #: includes/admin/class-admin.php:863
+#, fuzzy
 msgctxt "admin"
-msgid "The fee was successfully assigned."
+msgid "The plan was successfully assigned."
 msgstr "Тариф был успешно назначен."
 
 #: includes/admin/class-admin.php:873
@@ -3348,7 +3390,7 @@ msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1106
+#: includes/admin/class-admin.php:1107
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -3357,7 +3399,7 @@ msgstr ""
 "Плагин <b>Справочник Услуг</b> для нормальной работы требует наличия "
 "страницы, в которой есть шорткод <tt>[businessdirectory]</tt>."
 
-#: includes/admin/class-admin.php:1108
+#: includes/admin/class-admin.php:1109
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -3366,12 +3408,12 @@ msgstr ""
 "Вы можете создать такую страницу сами, или позвольте плагину создать её для "
 "Вас автоматически."
 
-#: includes/admin/class-admin.php:1113
+#: includes/admin/class-admin.php:1114
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Создать необходимые страницы автоматически"
 
-#: includes/admin/class-admin.php:1166
+#: includes/admin/class-admin.php:1167
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -3397,13 +3439,13 @@ msgctxt "admin"
 msgid "Images"
 msgstr "Изображений"
 
-#: includes/admin/controllers/class-admin-listings.php:201
+#: includes/admin/controllers/class-admin-listings.php:203
 #, fuzzy
 msgctxt "admin"
 msgid "Directory Listing Fields / Images"
 msgstr "Поля и Изображения записи"
 
-#: includes/admin/controllers/class-admin-listings.php:265
+#: includes/admin/controllers/class-admin-listings.php:267
 msgctxt "admin"
 msgid "Categories"
 msgstr "Рубрики"
@@ -3455,9 +3497,10 @@ msgid "Settings"
 msgstr "Настройки"
 
 #: includes/admin/class-listings-with-no-fee-plan-view.php:58
+#, fuzzy
 msgctxt "listings view"
-msgid "No Fee Plan"
-msgstr ""
+msgid "No Plan"
+msgstr "Оплачено"
 
 #: includes/admin/controllers/class-admin-controller.php:84
 msgctxt "admin confirm"
@@ -3479,22 +3522,12 @@ msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Ну ладно"
 
-#: includes/admin/csv-import.php:182
-msgctxt "admin csv-import"
-msgid "Example CSV Import File"
-msgstr "Образец файла импорта CSV"
-
-#: includes/admin/csv-import.php:183
-msgctxt "admin csv-import"
-msgid "← Return to \"CSV Import\""
-msgstr "← Вернуться к \"Импорту из CSV\""
-
-#: includes/admin/csv-import.php:340
+#: includes/admin/csv-import.php:348
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Пожалуйста загрузите или выберите файл CSV."
 
-#: includes/admin/csv-import.php:369
+#: includes/admin/csv-import.php:377
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -3503,7 +3536,7 @@ msgstr ""
 "Произошла ошибка при проверке импортного файла CSV. Пожалуйста исправьте "
 "ошибки перед тем, как попытаться импортировать файл ещё раз."
 
-#: includes/admin/csv-import.php:378
+#: includes/admin/csv-import.php:386
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -3529,7 +3562,7 @@ msgstr "Имя учётной записи \"%s\" не существует"
 
 #: includes/admin/helpers/csv/class-csv-import.php:757
 msgctxt "admin csv-import"
-msgid "There is no Fee Plan with ID = <fee-id>"
+msgid "There is no Plan with ID = <fee-id>"
 msgstr ""
 
 #: includes/admin/helpers/csv/class-csv-import.php:788
@@ -3542,7 +3575,7 @@ msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Рубрика \"%s\" не существует"
 
-#: includes/admin/helpers/csv/class-csv-import.php:904
+#: includes/admin/helpers/csv/class-csv-import.php:907
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
@@ -3804,21 +3837,22 @@ msgctxt "fees order"
 msgid "Custom Order"
 msgstr "Собственный порядок"
 
-#: includes/admin/controllers/class-admin-fees.php:245
+#: includes/admin/controllers/class-admin-fees.php:244
 #, fuzzy
 msgctxt "fees admin"
-msgid "Fee \"%s\" deleted."
+msgid "Plan \"%s\" deleted."
 msgstr "Тариф удалён."
 
 #: includes/admin/controllers/class-admin-fees.php:256
 #, fuzzy
 msgctxt "fees admin"
-msgid "Fee enabled."
+msgid "Plan enabled."
 msgstr "Тариф удалён."
 
 #: includes/admin/controllers/class-admin-fees.php:256
+#, fuzzy
 msgctxt "fees admin"
-msgid "Fee disabled."
+msgid "Plan disabled."
 msgstr "Тариф удалён."
 
 #: includes/admin/helpers/tables/class-fees-table.php:20
@@ -3837,28 +3871,28 @@ msgctxt "fees admin"
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: includes/admin/helpers/tables/class-fees-table.php:141
+#: includes/admin/helpers/tables/class-fees-table.php:140
 msgctxt "fees admin"
 msgid "Edit"
 msgstr "Изменить"
 
-#: includes/admin/helpers/tables/class-fees-table.php:210
+#: includes/admin/helpers/tables/class-fees-table.php:213
 msgctxt "fees admin"
 msgid "Variable"
 msgstr ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:215
+#: includes/admin/helpers/tables/class-fees-table.php:218
 #, fuzzy
 msgctxt "fees admin"
 msgid "%1$s + %2$s per category"
 msgstr "Тариф \"%s\" для рубрики \"%s\""
 
-#: includes/admin/helpers/tables/class-fees-table.php:234
+#: includes/admin/helpers/tables/class-fees-table.php:237
 msgctxt "fees admin"
 msgid "Forever"
 msgstr "Вечно"
 
-#: includes/admin/helpers/tables/class-fees-table.php:236
+#: includes/admin/helpers/tables/class-fees-table.php:239
 msgctxt "fees admin"
 msgid "%d day"
 msgid_plural "%d days"
@@ -3866,24 +3900,24 @@ msgstr[0] "%d день"
 msgstr[1] "%d дней"
 msgstr[2] ""
 
-#: includes/admin/helpers/tables/class-fees-table.php:266
+#: includes/admin/helpers/tables/class-fees-table.php:270
 msgctxt "fees admin"
 msgid "All categories"
 msgstr "Все рубрики"
 
-#: includes/admin/helpers/tables/class-fees-table.php:295
+#: includes/admin/helpers/tables/class-fees-table.php:299
 #, fuzzy
 msgctxt "fees admin"
 msgid "Sticky"
 msgstr "Специальная?"
 
-#: includes/admin/helpers/tables/class-fees-table.php:299
+#: includes/admin/helpers/tables/class-fees-table.php:303
 #, fuzzy
 msgctxt "fees admin"
 msgid "Recurring"
 msgstr "(периодически)"
 
-#: includes/admin/helpers/tables/class-fees-table.php:303
+#: includes/admin/helpers/tables/class-fees-table.php:307
 #, fuzzy
 msgctxt "fees admin"
 msgid "Private"
@@ -3962,7 +3996,7 @@ msgstr ""
 #: templates/admin/fees-form.tpl.php:206
 #, fuzzy
 msgctxt "fees admin"
-msgid "Fee Price"
+msgid "Plan Price"
 msgstr "Цена"
 
 #: templates/admin/fees-form.tpl.php:214
@@ -3982,55 +4016,55 @@ msgctxt "fees admin"
 msgid "Extra amount (per category)"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:60
+#: includes/admin/controllers/class-admin-listings.php:62
 msgctxt "admin category filter"
 msgid "All categories"
 msgstr "Все рубрики"
 
-#: includes/admin/controllers/class-admin-listings.php:175
+#: includes/admin/controllers/class-admin-listings.php:177
 msgctxt "admin listings"
 msgid ""
-"This listing doesn't have a fee plan assigned. This is required in order to "
+"This listing doesn't have a plan assigned. This is required in order to "
 "determine the features available to this listing, as well as handling "
 "renewals."
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:311
+#: includes/admin/controllers/class-admin-listings.php:313
 #, fuzzy
 msgctxt "admin listings"
 msgid "Never"
 msgstr "никогда"
 
-#: includes/admin/controllers/class-admin-listings.php:341
+#: includes/admin/controllers/class-admin-listings.php:343
 #, fuzzy
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(периодически)"
 
-#: includes/admin/controllers/class-admin-listings.php:345
+#: includes/admin/controllers/class-admin-listings.php:347
 #, fuzzy
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Бесплатно"
 
-#: includes/admin/controllers/class-admin-listings.php:349
+#: includes/admin/controllers/class-admin-listings.php:351
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment Not Found"
 msgstr "Информация о тарифах"
 
-#: includes/admin/controllers/class-admin-listings.php:353
+#: includes/admin/controllers/class-admin-listings.php:355
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment %s"
 msgstr "Платёж № %d"
 
-#: includes/admin/controllers/class-admin-listings.php:362
+#: includes/admin/controllers/class-admin-listings.php:364
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:700
+#: includes/admin/controllers/class-admin-listings.php:702
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -4058,110 +4092,111 @@ msgctxt "admin listings"
 msgid "Clear listing reports."
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/controllers/class-admin-listings.php:322
+#: includes/admin/controllers/class-admin-listings.php:324
+#, fuzzy
 msgctxt "listing attribute"
-msgid "No Fee Plan"
-msgstr ""
+msgid "No Plan"
+msgstr "Оплачено"
 
-#: includes/admin/controllers/class-admin-listings.php:423
+#: includes/admin/controllers/class-admin-listings.php:425
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/models/class-listing.php:961
+#: includes/models/class-listing.php:970
 msgctxt "listing status"
 msgid "Unknown"
 msgstr ""
 
-#: includes/models/class-listing.php:962
+#: includes/models/class-listing.php:971
 msgctxt "listing status"
 msgid "Legacy"
 msgstr ""
 
-#: includes/models/class-listing.php:963
+#: includes/models/class-listing.php:972
 #, fuzzy
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Завершено"
 
-#: includes/models/class-listing.php:964
+#: includes/models/class-listing.php:973
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Платёж был заброшен."
 
-#: includes/models/class-listing.php:965
+#: includes/models/class-listing.php:974
 #, fuzzy
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Завершено"
 
-#: includes/models/class-listing.php:966
+#: includes/models/class-listing.php:975
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Ожидается подтверждение"
 
-#: includes/models/class-listing.php:967
+#: includes/models/class-listing.php:976
 #, fuzzy
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Истекло"
 
-#: includes/models/class-listing.php:968
+#: includes/models/class-listing.php:977
 #, fuzzy
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Активные + ожидающие продление"
 
-#: includes/models/class-listing.php:969
+#: includes/models/class-listing.php:978
 #, fuzzy
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Заброшено"
 
-#: includes/admin/controllers/class-admin-listings.php:491
+#: includes/admin/controllers/class-admin-listings.php:493
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Оплата"
 
-#: includes/admin/controllers/class-admin-listings.php:496
+#: includes/admin/controllers/class-admin-listings.php:498
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Оплата"
 
-#: includes/admin/controllers/class-admin-listings.php:633
+#: includes/admin/controllers/class-admin-listings.php:635
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Опубликовать запись"
 
-#: includes/admin/controllers/class-admin-listings.php:634
+#: includes/admin/controllers/class-admin-listings.php:636
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Ожидается"
 
-#: includes/admin/controllers/class-admin-listings.php:635
+#: includes/admin/controllers/class-admin-listings.php:637
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:637
+#: includes/admin/controllers/class-admin-listings.php:639
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Продлить запись"
 
-#: includes/admin/controllers/class-admin-listings.php:638
+#: includes/admin/controllers/class-admin-listings.php:640
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/controllers/class-admin-listings.php:645
+#: includes/admin/controllers/class-admin-listings.php:647
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -4216,17 +4251,12 @@ msgctxt "payments admin"
 msgid "View Payment History"
 msgstr "История платежа"
 
-#: includes/admin/controllers/class-form-fields-admin.php:124
-msgctxt "form-fields admin"
-msgid "Form Preview"
-msgstr "Предварительный просмотр"
-
-#: includes/admin/controllers/class-form-fields-admin.php:183
+#: includes/admin/controllers/class-form-fields-admin.php:185
 msgctxt "form-fields admin"
 msgid "Form fields updated."
 msgstr "Поля формы сохранены."
 
-#: includes/admin/controllers/class-form-fields-admin.php:206
+#: includes/admin/controllers/class-form-fields-admin.php:208
 msgctxt "form-fields admin"
 msgid ""
 "<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
@@ -4240,17 +4270,17 @@ msgstr ""
 "показывался всем посетителям, то Вым нужно <a>разрешить соответствующую "
 "настройку</a>."
 
-#: includes/admin/controllers/class-form-fields-admin.php:285
+#: includes/admin/controllers/class-form-fields-admin.php:299
 msgctxt "form-fields admin"
 msgid "Field deleted."
 msgstr "Поле удалено."
 
-#: includes/admin/controllers/class-form-fields-admin.php:325
+#: includes/admin/controllers/class-form-fields-admin.php:329
 msgctxt "form-fields admin"
 msgid "Required fields created successfully."
 msgstr "Обязательное поле удачно создано."
 
-#: includes/admin/controllers/class-form-fields-admin.php:377
+#: includes/admin/controllers/class-form-fields-admin.php:381
 msgctxt "form-fields admin"
 msgid "Tags updated."
 msgstr "Метки сохранены."
@@ -4285,44 +4315,44 @@ msgctxt "form-fields admin"
 msgid "Field Attributes"
 msgstr "Атрибуты"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:133
+#: includes/admin/helpers/tables/class-form-fields-table.php:134
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Shortname"
 msgstr "Имя автора"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:155
+#: includes/admin/helpers/tables/class-form-fields-table.php:156
 msgctxt "form-fields admin"
 msgid "Required"
 msgstr "Обязательное"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:155
+#: includes/admin/helpers/tables/class-form-fields-table.php:156
 msgctxt "form-fields admin"
 msgid "Optional"
 msgstr "Необязательное"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:162
+#: includes/admin/helpers/tables/class-form-fields-table.php:163
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Private"
 msgstr "Активировать"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:169
+#: includes/admin/helpers/tables/class-form-fields-table.php:170
 msgctxt "form-fields admin"
 msgid "This field value is shown in the excerpt view of a listing."
 msgstr "Значение поля показывается в составе цитаты записи."
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:170
+#: includes/admin/helpers/tables/class-form-fields-table.php:171
 msgctxt "form-fields admin"
 msgid "In Excerpt"
 msgstr "В&nbsp;цитате"
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:177
+#: includes/admin/helpers/tables/class-form-fields-table.php:178
 msgctxt "form-fields admin"
 msgid "This field value is shown in the single view of a listing."
 msgstr "Значение поля показывается в полном просмотре записи."
 
-#: includes/admin/helpers/tables/class-form-fields-table.php:178
+#: includes/admin/helpers/tables/class-form-fields-table.php:179
 msgctxt "form-fields admin"
 msgid "In Listing"
 msgstr "В полном виде"
@@ -4648,22 +4678,7 @@ msgctxt "form-fields admin"
 msgid "Create Missing Fields"
 msgstr "Поля записи:"
 
-#: templates/admin/form-fields.tpl.php:4
-msgctxt "form-fields admin"
-msgid "Add New Form Field"
-msgstr "Добавить новое поле формы"
-
-#: templates/admin/form-fields.tpl.php:11
-msgctxt "form-fields admin"
-msgid "Preview Form"
-msgstr "Предварительный просмотр формы"
-
-#: templates/admin/form-fields.tpl.php:17
-msgctxt "form-fields admin"
-msgid "Manage Theme Tags"
-msgstr "Настроить метки темы"
-
-#: templates/admin/form-fields.tpl.php:28
+#: templates/admin/form-fields.tpl.php:21
 msgctxt "form-fields admin"
 msgid ""
 "Here, you can create new fields for your listings, edit or delete existing "
@@ -4674,20 +4689,20 @@ msgstr ""
 "(или удалить) существующие. Можно изменить порядок их следования, "
 "необходимость их отображения и другие их параметры."
 
-#: templates/admin/form-fields.tpl.php:39
+#: templates/admin/form-fields.tpl.php:32
 msgctxt "form-fields admin"
 msgid "Please see the <a>Form Fields documentation</a> for more details."
 msgstr ""
 "<br />Для дополнительной информации обратитесь к <a>Документации по полям "
 "форм</a>."
 
-#: includes/admin/controllers/class-settings-admin.php:371
+#: includes/admin/controllers/class-settings-admin.php:369
 #, fuzzy
 msgctxt "admin settings"
 msgid "Remove"
 msgstr "Удалить"
 
-#: includes/admin/controllers/class-settings-admin.php:433
+#: includes/admin/controllers/class-settings-admin.php:431
 msgctxt "admin settings"
 msgid "Valid placeholders: %s"
 msgstr "Корректные служебные слова: %s"
@@ -4695,8 +4710,8 @@ msgstr "Корректные служебные слова: %s"
 #: includes/admin/settings/class-settings-bootstrap.php:101
 msgctxt "admin settings"
 msgid ""
-"<strong>IMPORTANT:</strong> subpages of the main directory page cannot be "
-"accesed while this setting is checked."
+"IMPORTANT: subpages of the main directory page cannot be accesed while this "
+"setting is checked."
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:310
@@ -4773,7 +4788,7 @@ msgstr "По убыванию"
 
 #: includes/admin/settings/class-settings-bootstrap.php:753
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order can be changed under <a>Fee Plans</a>"
+msgid "Plan Custom Order can be changed under <a>Plans</a>"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:766
@@ -4782,13 +4797,13 @@ msgid "Author"
 msgstr "По автору"
 
 #: includes/admin/settings/class-settings-bootstrap.php:767
-#: includes/helpers/functions/general.php:1281
+#: includes/helpers/functions/general.php:1285
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "По дате публикации"
 
 #: includes/admin/settings/class-settings-bootstrap.php:768
-#: includes/helpers/functions/general.php:1282
+#: includes/helpers/functions/general.php:1286
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "По дате изменения"
@@ -4810,12 +4825,12 @@ msgstr "По названию, но сначала идут платные"
 
 #: includes/admin/settings/class-settings-bootstrap.php:772
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order, then Date"
+msgid "Plan Custom Order, then Date"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:773
 msgctxt "admin settings"
-msgid "Fee Plan Custom Order, then Title"
+msgid "Plan Custom Order, then Title"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1037
@@ -5093,21 +5108,21 @@ msgstr "Название записи"
 #: includes/admin/settings/class-settings-bootstrap.php:1496
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan name"
+msgid "Listing's plan name"
 msgstr "Дата окончания срока действия"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1406
 #: includes/admin/settings/class-settings-bootstrap.php:1497
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan description"
+msgid "Listing's plan description"
 msgstr "Выбрать тариф для записи"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1407
 #: includes/admin/settings/class-settings-bootstrap.php:1498
 #, fuzzy
 msgctxt "admin settings"
-msgid "Listing's fee plan details"
+msgid "Listing's plan details"
 msgstr "Дата окончания срока действия"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1420
@@ -5177,57 +5192,57 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Загрузить изображение"
 
-#: includes/helpers/functions/general.php:1279
+#: includes/helpers/functions/general.php:1283
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
-#: includes/helpers/functions/general.php:1280
+#: includes/helpers/functions/general.php:1284
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Дата окончания срока действия"
 
-#: includes/admin/controllers/class-settings-admin.php:503
+#: includes/admin/controllers/class-settings-admin.php:501
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Add notice"
 msgstr "Добавить поле"
 
-#: includes/admin/controllers/class-settings-admin.php:522
+#: includes/admin/controllers/class-settings-admin.php:520
 msgctxt "expiration notices"
 msgid "No notices configured."
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:564
+#: includes/admin/controllers/class-settings-admin.php:562
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:566
+#: includes/admin/controllers/class-settings-admin.php:564
 #, fuzzy
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "(периодически)"
 
-#: includes/admin/controllers/class-settings-admin.php:568
+#: includes/admin/controllers/class-settings-admin.php:566
 #, fuzzy
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "(периодически)"
 
-#: includes/admin/controllers/class-settings-admin.php:572
+#: includes/admin/controllers/class-settings-admin.php:570
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) is renewed."
 msgstr "Посылается как только новая запись была помещена в базу данных."
 
-#: includes/admin/controllers/class-settings-admin.php:577
+#: includes/admin/controllers/class-settings-admin.php:575
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent when a listing (%s) expires."
 msgstr "Срок действия записи истёк"
 
-#: includes/admin/controllers/class-settings-admin.php:585
+#: includes/admin/controllers/class-settings-admin.php:583
 #, fuzzy
 msgctxt "expiration notices"
 msgid "%d day"
@@ -5236,7 +5251,7 @@ msgstr[0] "%d день"
 msgstr[1] "%d дней"
 msgstr[2] ""
 
-#: includes/admin/controllers/class-settings-admin.php:588
+#: includes/admin/controllers/class-settings-admin.php:586
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -5244,7 +5259,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/controllers/class-settings-admin.php:591
+#: includes/admin/controllers/class-settings-admin.php:589
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -5254,31 +5269,31 @@ msgstr[2] ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/controllers/class-settings-admin.php:597
+#: includes/admin/controllers/class-settings-admin.php:595
 msgctxt "expiration notices"
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/controllers/class-settings-admin.php:600
+#: includes/admin/controllers/class-settings-admin.php:598
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "Посылается как только новая запись была помещена в базу данных."
 
-#: includes/admin/controllers/class-settings-admin.php:617
+#: includes/admin/controllers/class-settings-admin.php:615
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:618
+#: includes/admin/controllers/class-settings-admin.php:616
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "Тариф был успешно назначен."
 
-#: includes/admin/controllers/class-settings-admin.php:629
+#: includes/admin/controllers/class-settings-admin.php:627
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
@@ -5286,7 +5301,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/controllers/class-settings-admin.php:629
+#: includes/admin/controllers/class-settings-admin.php:627
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
@@ -5294,7 +5309,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/controllers/class-settings-admin.php:632
+#: includes/admin/controllers/class-settings-admin.php:630
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
@@ -5302,7 +5317,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/controllers/class-settings-admin.php:632
+#: includes/admin/controllers/class-settings-admin.php:630
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
@@ -5310,7 +5325,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/controllers/class-settings-admin.php:635
+#: includes/admin/controllers/class-settings-admin.php:633
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
@@ -5318,7 +5333,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/controllers/class-settings-admin.php:635
+#: includes/admin/controllers/class-settings-admin.php:633
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
@@ -5326,84 +5341,84 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: includes/admin/controllers/class-settings-admin.php:662
+#: includes/admin/controllers/class-settings-admin.php:660
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Applies to"
 msgstr "Применимо к..."
 
-#: includes/admin/controllers/class-settings-admin.php:665
+#: includes/admin/controllers/class-settings-admin.php:663
 msgctxt "expiration notices"
 msgid "Non-recurring listings"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:666
+#: includes/admin/controllers/class-settings-admin.php:664
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Recurring listings"
 msgstr "Вернуться к записям."
 
-#: includes/admin/controllers/class-settings-admin.php:667
+#: includes/admin/controllers/class-settings-admin.php:665
 msgctxt "expiration notices"
 msgid "Recurring and non-recurring listings"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:672
+#: includes/admin/controllers/class-settings-admin.php:670
 msgctxt "expiration notices"
 msgid "When to send?"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:539
+#: includes/admin/controllers/class-settings-admin.php:537
 #, fuzzy
 msgctxt "settings"
 msgid "Site title (with link)"
 msgstr "Название сайта (со ссылкой)"
 
-#: includes/admin/controllers/class-settings-admin.php:540
+#: includes/admin/controllers/class-settings-admin.php:538
 msgctxt "settings"
 msgid "Author's name"
 msgstr "Имя автора"
 
-#: includes/admin/controllers/class-settings-admin.php:541
+#: includes/admin/controllers/class-settings-admin.php:539
 msgctxt "settings"
 msgid "Listing's name (with link)"
 msgstr "Имя записи (вместе со ссылкой)"
 
-#: includes/admin/controllers/class-settings-admin.php:542
+#: includes/admin/controllers/class-settings-admin.php:540
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's expiration date"
 msgstr "Дата окончания срока действия"
 
-#: includes/admin/controllers/class-settings-admin.php:543
+#: includes/admin/controllers/class-settings-admin.php:541
 msgctxt "settings"
 msgid "Listing's renewal link, formatted with an anchor tag"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:544
+#: includes/admin/controllers/class-settings-admin.php:542
 msgctxt "settings"
 msgid "Listing's renewal URL, unformatted by any tags"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:545
+#: includes/admin/controllers/class-settings-admin.php:543
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's categories"
 msgstr "Название записи"
 
-#: includes/admin/controllers/class-settings-admin.php:546
+#: includes/admin/controllers/class-settings-admin.php:544
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's last payment date"
 msgstr "Дата окончания срока действия"
 
-#: includes/admin/controllers/class-settings-admin.php:547
+#: includes/admin/controllers/class-settings-admin.php:545
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's access key"
 msgstr "Поля и Изображения записи"
 
-#: includes/admin/controllers/class-settings-admin.php:704
+#: includes/admin/controllers/class-settings-admin.php:702
 #, fuzzy
 msgctxt "settings"
 msgid "Settings reset to default."
@@ -5547,7 +5562,7 @@ msgstr "Использовать reCAPTCHA в форме комментарие�
 #: includes/admin/settings/class-settings-bootstrap.php:159
 #, fuzzy
 msgctxt "settings"
-msgid "Use reCAPTCHA for listing comments?"
+msgid "Use reCAPTCHA for listing comments"
 msgstr "Использовать reCAPTCHA в форме комментариев?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:167
@@ -5606,12 +5621,12 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:213
 #, fuzzy
 msgctxt "settings"
-msgid "Require login to post listings?"
+msgid "Require login to post listings"
 msgstr "Требовать регистрацию для авторов записей?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:222
 msgctxt "settings"
-msgid "Allow anonymous users to edit/manage listings with an access key?"
+msgid "Allow anonymous users to edit/manage listings with an access key"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:230
@@ -5623,7 +5638,7 @@ msgstr "Cтраница входа в сайт"
 #: includes/admin/settings/class-settings-bootstrap.php:231
 #, fuzzy
 msgctxt "settings"
-msgid "Only enter this if using a membership plugin or custom login page."
+msgid "Only enter this if using a membership plugin or custom login page"
 msgstr ""
 "<br />Адрес URL <u>страницы входа</u> на Ваш сайт, с учётом плагина "
 "членства, если таковой установлен. Указывайте адрес только тогда, когда Вы "
@@ -5653,13 +5668,18 @@ msgstr ""
 "отличается от стандартной для WordPress."
 
 #: includes/admin/settings/class-settings-bootstrap.php:243
+#, fuzzy
 msgctxt "settings"
-msgid "URL of your membership plugin's registration page."
+msgid "URL of your membership plugin's registration page"
 msgstr ""
+"<br />Адрес URL <u>страницы регистрации</u> на Вашем сайте, с учётом плагина "
+"членства, если таковой установлен. Указывайте адрес только тогда, когда Вы "
+"пользуетесь плагином членства, или когда адрес страницы регистрации "
+"отличается от стандартной для WordPress."
 
 #: includes/admin/settings/class-settings-bootstrap.php:252
 msgctxt "settings"
-msgid "Allow users to create accounts during listing submit?"
+msgid "Allow users to create accounts during listing submit"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:279
@@ -5677,13 +5697,13 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:281
 #, fuzzy
 msgctxt "settings"
-msgid "Terms and Conditions text goes here."
+msgid "Terms and Conditions text goes here"
 msgstr "Условия и положения"
 
 #: includes/admin/settings/class-settings-bootstrap.php:324
 #, fuzzy
 msgctxt "settings"
-msgid "Enable high performance searches?"
+msgid "Enable high performance searches"
 msgstr "Включить поиск с высокой скоростью?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:333
@@ -5694,12 +5714,12 @@ msgstr "Расширенное"
 
 #: includes/admin/settings/class-settings-bootstrap.php:339
 msgctxt "settings"
-msgid "Disable advanced CPT integration?"
+msgid "Disable advanced CPT integration"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:348
 msgctxt "settings"
-msgid "Disable Frontend Listing Submission?"
+msgid "Disable frontend listing submission"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:349
@@ -5734,18 +5754,18 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:451
 #, fuzzy
 msgctxt "settings"
-msgid "Turn on listing renewal option?"
+msgid "Turn on listing renewal option"
 msgstr "Включить режим автоматического продления срока действия записей?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:460
 msgctxt "settings"
-msgid "Open detailed view of listing in new tab?"
+msgid "Open detailed view of listing in new tab"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:470
 #, fuzzy
 msgctxt "settings"
-msgid "Include button to report listings?"
+msgid "Include button to report listings"
 msgstr "Требовать регистрацию для авторов записей?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:479
@@ -5767,7 +5787,7 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:501
 #, fuzzy
 msgctxt "settings"
-msgid "Include listing contact form on listing pages?"
+msgid "Include listing contact form on listing pages"
 msgstr "Показать контактную форму на странице записей?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:502
@@ -5783,7 +5803,7 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:511
 #, fuzzy
 msgctxt "settings"
-msgid "Require login for using the contact form?"
+msgid "Require login for using the contact form"
 msgstr ""
 "Разрешить пользоваться контактной формой только зарегистрированным "
 "пользователям?"
@@ -5831,7 +5851,7 @@ msgstr "Показать форму комментариев на страниц
 #: includes/admin/settings/class-settings-bootstrap.php:563
 #, fuzzy
 msgctxt "settings"
-msgid "Show listings under categories on main page?"
+msgid "Show listings under categories on main page"
 msgstr "Показывать записи на первой странице под списком рубрик?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:573
@@ -5881,19 +5901,19 @@ msgstr "Порядок сортировки рубрик"
 #: includes/admin/settings/class-settings-bootstrap.php:729
 #, fuzzy
 msgctxt "settings"
-msgid "Show category post count?"
+msgid "Show category post count"
 msgstr "Показать количества записей для каждой рубрики?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:738
 #, fuzzy
 msgctxt "settings"
-msgid "Hide empty categories?"
+msgid "Hide empty categories"
 msgstr "Скрыть пустые рубрики?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:747
 #, fuzzy
 msgctxt "settings"
-msgid "Show only parent categories in category list?"
+msgid "Show only parent categories in category list"
 msgstr "Показать только рубрики верхнего уровня в списке рубрик?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:759
@@ -5917,7 +5937,7 @@ msgstr "<br />В алфавитном порядке"
 #: includes/admin/settings/class-settings-bootstrap.php:797
 #, fuzzy
 msgctxt "settings"
-msgid "Enable sort bar?"
+msgid "Enable sort bar"
 msgstr "Показать строку сортировки?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:806
@@ -5929,7 +5949,7 @@ msgstr "Поля в строке сортировки"
 #: includes/admin/settings/class-settings-bootstrap.php:824
 #, fuzzy
 msgctxt "settings"
-msgid "Show the \"Submit listing\" button."
+msgid "Show the \"Submit listing\" button"
 msgstr "Показать кнопку \"Создать запись\""
 
 #: includes/admin/settings/class-settings-bootstrap.php:825
@@ -5943,19 +5963,19 @@ msgstr ""
 #: includes/admin/settings/class-settings-bootstrap.php:835
 #, fuzzy
 msgctxt "settings"
-msgid "Show \"Search listings\"."
+msgid "Show \"Search listings\""
 msgstr "Показать кнопку \"Поиск в справочнике\""
 
 #: includes/admin/settings/class-settings-bootstrap.php:844
 #, fuzzy
 msgctxt "settings"
-msgid "Show the \"View Listings\" button."
+msgid "Show the \"View Listings\" button"
 msgstr "Показать кнопку \"Все записи\""
 
 #: includes/admin/settings/class-settings-bootstrap.php:853
 #, fuzzy
 msgctxt "settings"
-msgid "Show the \"Manage Listings\" button."
+msgid "Show the \"Manage Listings\" button"
 msgstr "Показать кнопку \"Все записи\""
 
 #: includes/admin/settings/class-settings-bootstrap.php:862
@@ -5973,7 +5993,7 @@ msgstr "Настройки изображений"
 #: includes/admin/settings/class-settings-bootstrap.php:903
 #, fuzzy
 msgctxt "settings"
-msgid "Allow images?"
+msgid "Allow images"
 msgstr "Разрешить загружать изображения?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:914
@@ -6015,7 +6035,7 @@ msgstr "Максимальная высота изображения (пиксе
 #: includes/admin/settings/class-settings-bootstrap.php:980
 #, fuzzy
 msgctxt "settings"
-msgid "Turn on thickbox/lightbox?"
+msgid "Turn on thickbox/lightbox"
 msgstr "Включить ThickBox или LightBox?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:981
@@ -6048,7 +6068,7 @@ msgstr "Высота миниатюры (пикселы)"
 #: includes/admin/settings/class-settings-bootstrap.php:1014
 #, fuzzy
 msgctxt "settings"
-msgid "Crop thumbnails to exact dimensions?"
+msgid "Crop thumbnails to exact dimensions"
 msgstr "Обрезать миниатюру?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1015
@@ -6067,7 +6087,7 @@ msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1026
 msgctxt "settings"
-msgid "Enforce image upload on submit/edit?"
+msgid "Enforce image upload on submit/edit"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1047
@@ -6121,7 +6141,7 @@ msgstr "Порядок"
 #: includes/admin/settings/class-settings-bootstrap.php:1145
 #, fuzzy
 msgctxt "settings"
-msgid "Put payment gateways in test mode?"
+msgid "Put payment gateways in test mode"
 msgstr "Включить ТЕСТОВЫЙ РЕЖИМ шлюза оплаты?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1155
@@ -6144,7 +6164,7 @@ msgstr "Показывать символ валюты"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1216
 msgctxt "settings"
-msgid "Include fee description in receipt?"
+msgid "Include plan description in receipt"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1225
@@ -6156,7 +6176,7 @@ msgstr "Сообщение \"спасибо за оплату\""
 #: includes/admin/settings/class-settings-bootstrap.php:1278
 #, fuzzy
 msgctxt "settings"
-msgid "Ask users to come back for abandoned payments?"
+msgid "Ask users to come back for abandoned payments"
 msgstr "Просить авторов вернуться к неоплаченным записям?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1289
@@ -6168,7 +6188,7 @@ msgstr "Когда запись помечается как неоплаченн
 #: includes/admin/settings/class-settings-bootstrap.php:1306
 #, fuzzy
 msgctxt "settings"
-msgid "Display email address fields publicly?"
+msgid "Display email address fields publicly"
 msgstr "Показывать адреса электронной почты на сайте?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1307
@@ -6320,71 +6340,71 @@ msgctxt "themes"
 msgid "Directory Themes"
 msgstr "Темы справочника"
 
-#: includes/admin/controllers/class-themes-admin.php:113
+#: includes/admin/controllers/class-themes-admin.php:106
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "Не удалось сменить активную тему на \"%s\"."
 
-#: includes/admin/controllers/class-themes-admin.php:156
+#: includes/admin/controllers/class-themes-admin.php:149
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr "Активная тема была сменена на \"%s\"."
 
-#: includes/admin/controllers/class-themes-admin.php:159
+#: includes/admin/controllers/class-themes-admin.php:152
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
 "to put your data on the theme. Below are fields we think are missing."
 msgstr ""
 
-#: includes/admin/controllers/class-themes-admin.php:170
+#: includes/admin/controllers/class-themes-admin.php:163
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Форма"
 
-#: includes/admin/controllers/class-themes-admin.php:178
+#: includes/admin/controllers/class-themes-admin.php:171
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Рекомендуемые поля успешно созданы."
 
-#: includes/admin/controllers/class-themes-admin.php:181
+#: includes/admin/controllers/class-themes-admin.php:174
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Тема успешно установлена."
 
-#: includes/admin/controllers/class-themes-admin.php:184
+#: includes/admin/controllers/class-themes-admin.php:177
 #, fuzzy
 msgctxt "themes"
 msgid "Theme was deleted successfully."
 msgstr "Тема успешно удалена."
 
-#: includes/admin/controllers/class-themes-admin.php:187
+#: includes/admin/controllers/class-themes-admin.php:180
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr "Не удалось удалить директорию темы - проверьте права доступа к файлам."
 
-#: includes/admin/controllers/class-themes-admin.php:240
+#: includes/admin/controllers/class-themes-admin.php:233
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Пожалуйста загрузите корректный файл темы."
 
-#: includes/admin/controllers/class-themes-admin.php:249
+#: includes/admin/controllers/class-themes-admin.php:242
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "Не удалось перемести \"%s\" во временную директорию."
 
-#: includes/admin/controllers/class-themes-admin.php:335
+#: includes/admin/controllers/class-themes-admin.php:328
 msgctxt "themes"
 msgid "Activate your <a>license key</a> to use this theme."
 msgstr ""
 
-#: includes/admin/controllers/class-themes-admin.php:378
+#: includes/admin/controllers/class-themes-admin.php:371
 #, fuzzy
 msgctxt "themes"
 msgid "Invalid theme ID"
 msgstr "Некорректный номер поля"
 
-#: includes/admin/controllers/class-themes-admin.php:384
+#: includes/admin/controllers/class-themes-admin.php:377
 #: includes/admin/upgrades/class-themes-updater.php:170
 msgctxt "themes"
 msgid "Could not update theme: %s"
@@ -6615,13 +6635,13 @@ msgid ""
 "download."
 msgstr "Ваш файл экспорта был успешно создан и готов к скачиванию."
 
-#: templates/admin/csv-export.tpl.php:170
+#: templates/admin/csv-export.tpl.php:171
 #, fuzzy
 msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "Скачать %s (%s)"
 
-#: templates/admin/csv-export.tpl.php:177
+#: templates/admin/csv-export.tpl.php:179
 msgctxt "admin csv-export"
 msgid ""
 "Click \"Cleanup\" once the file has been downloaded in order to remove all "
@@ -6630,27 +6650,27 @@ msgstr ""
 "Как только файл скачается, нажмите кнопку \"Очистить\" чтобы удалить все "
 "временные данные, созданные плагином во время подготовки экспортного файла."
 
-#: templates/admin/csv-export.tpl.php:178
+#: templates/admin/csv-export.tpl.php:180
 msgctxt "admin csv-export"
 msgid "Cleanup"
 msgstr "Очистить"
 
-#: templates/admin/csv-export.tpl.php:183
+#: templates/admin/csv-export.tpl.php:185
 msgctxt "admin csv-export"
 msgid "Export Canceled"
 msgstr "Экспорт прерван"
 
-#: templates/admin/csv-export.tpl.php:184
+#: templates/admin/csv-export.tpl.php:186
 msgctxt "admin csv-export"
 msgid "The export has been canceled."
 msgstr "Процесс экспорта был прекращён."
 
-#: templates/admin/csv-export.tpl.php:185
+#: templates/admin/csv-export.tpl.php:187
 msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "← Вернуться к экспорту CSV"
 
-#: includes/admin/csv-import.php:296
+#: includes/admin/csv-import.php:304
 #, fuzzy
 msgctxt "csv import"
 msgid ""
@@ -6720,27 +6740,22 @@ msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Детали плана"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:37
-msgctxt "listing metabox"
-msgid "Fee Plan"
-msgstr ""
-
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:46
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr ""
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:69
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:89
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:106
 #, fuzzy
 msgctxt "listing metabox"
 msgid "OK"
 msgstr "OK"
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:70
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:90
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:104
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:92
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Cancel"
@@ -6752,19 +6767,19 @@ msgctxt "listing metabox"
 msgid "Expires On"
 msgstr "Истекает"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:97
 #, fuzzy
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "Картинок"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:107
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Featured?"
 msgstr "Лента %ы"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:114
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:117
 #, fuzzy
 msgctxt "listing metabox"
 msgid "Is Recurring?"
@@ -6869,23 +6884,23 @@ msgctxt "tracking"
 msgid "What do you track?"
 msgstr "Что отслеживается?"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:165
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:171
 #, fuzzy
 msgctxt "manual-upgrade"
 msgid "Continue"
 msgstr "Далее"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:179
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:185
 msgctxt "manual-upgrade"
 msgid "Start Upgrade"
 msgstr "Начать обновление"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:181
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:187
 msgctxt "manual-upgrade"
 msgid "Pause Upgrade"
 msgstr "Поставить на паузу"
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:187
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:193
 #, fuzzy
 msgctxt "manual-upgrade"
 msgid ""
@@ -6895,7 +6910,7 @@ msgstr ""
 "Обновление успешно завершилось. Все функции плагина Справочник Услуг сейчас "
 "доступны."
 
-#: includes/admin/upgrades/class-manual-upgrade-helper.php:191
+#: includes/admin/upgrades/class-manual-upgrade-helper.php:197
 msgctxt "manual-upgrade"
 msgid "Go to \"Directory Admin\""
 msgstr "Перейти в \"Управление Справочником\""
@@ -6929,7 +6944,7 @@ msgstr ""
 #: includes/admin/upgrades/migrations/migration-18_0.php:207
 #, fuzzy
 msgctxt "installer"
-msgid "Migrating fee plans..."
+msgid "Migrating plans..."
 msgstr "Активация лицензии..."
 
 #: includes/admin/upgrades/migrations/migration-18_0.php:324
@@ -6969,7 +6984,7 @@ msgstr ""
 #: includes/admin/upgrades/migrations/migration-3_7.php:61
 #, fuzzy
 msgctxt "installer"
-msgid "Cleaning up listing fees information... %1$d/%2$d"
+msgid "Cleaning up plan information... %1$d/%2$d"
 msgstr "Очистка информации об оплате записи... %d / %d"
 
 #: includes/admin/upgrades/migrations/migration-3_7.php:119
@@ -6994,11 +7009,6 @@ msgctxt "installer"
 msgid "Listing upgrade to featured"
 msgstr "Сделать запись Особой"
 
-#: includes/installer.php:60
-msgctxt "installer"
-msgid "Default Fee"
-msgstr "Удалить тариф"
-
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:182
 msgctxt "listings-api"
 msgid "Featured Listing"
@@ -7014,18 +7024,18 @@ msgstr "Специальные платные функции"
 msgctxt "migrate-18"
 msgid ""
 "Business Directory <b>version 5.0</b> is changing how Featured Levels plugin "
-"works. We are leaving restricted features for fee plans, but removing the "
+"works. We are leaving restricted features for plans, but removing the "
 "confusing notion of a \"featured level\" that was limited to sticky listings."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:212
 msgctxt "migrate-18"
 msgid ""
-"We need to migrate your existing \"featured levels\" to fee plans for use by "
-"the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it "
-"easier to configure and manage your listings with restricted feature access. "
-"If you are unsure about what to do here, <support-link>contact support</"
-"support-link> and <cancel-link>cancel migration</cancel-link>."
+"We need to migrate your existing \"featured levels\" to plans for use by the "
+"upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier "
+"to configure and manage your listings with restricted feature access. If you "
+"are unsure about what to do here, <support-link>contact support</support-"
+"link> and <cancel-link>cancel migration</cancel-link>."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:214
@@ -7033,7 +7043,7 @@ msgctxt "migrate-18"
 msgid ""
 "Before we do the migration, we need to ask a few simple questions to move "
 "your data from the old \"featured level\" to the new \"restricted feature "
-"fee plan\" that is right for you."
+"plan\" that is right for you."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:259
@@ -7109,17 +7119,17 @@ msgstr "Статус записей по окончании импорта"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:246
 msgctxt "upgrade-18"
-msgid "Remove this (old) level, and leave the listing on the old fee plan."
+msgid "Remove this (old) level, and leave the listing on the old plan."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:249
 msgctxt "upgrade-18"
-msgid "May change \"sticky\" status depending on fee plan."
+msgid "May change \"sticky\" status depending on plan."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:249
 msgctxt "upgrade-18"
-msgid "Move listings with this level to existing fee plan."
+msgid "Move listings with this level to existing plan."
 msgstr ""
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:252
@@ -7130,7 +7140,7 @@ msgstr "Статус записей по окончании импорта"
 
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:252
 msgctxt "upgrade-18"
-msgid "Replace this level with a new fee plan."
+msgid "Replace this level with a new plan."
 msgstr ""
 
 #: includes/class-cpt-integration.php:15
@@ -7148,37 +7158,37 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Добавить запись"
 
-#: includes/models/class-listing.php:421
+#: includes/models/class-listing.php:430
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Дата окончания срока действия"
 
-#: includes/models/class-listing.php:430
+#: includes/models/class-listing.php:439
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Отказать в платеже"
 
-#: includes/models/class-listing.php:468
+#: includes/models/class-listing.php:477
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Срок действия записи истёк"
 
-#: includes/models/class-listing.php:668
+#: includes/models/class-listing.php:677
 #, fuzzy
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Тариф недоступен)"
 
-#: includes/models/class-listing.php:858
+#: includes/models/class-listing.php:867
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(периодически)"
 
-#: includes/models/class-listing.php:860
+#: includes/models/class-listing.php:869
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr ""
@@ -7316,7 +7326,7 @@ msgctxt "payment-gateways"
 msgid "Enable %s?"
 msgstr "Показать строку сортировки?"
 
-#: includes/class-payment-gateways.php:131
+#: includes/class-payment-gateways.php:133
 #, fuzzy
 msgctxt "payment-gateways"
 msgid ""
@@ -7327,7 +7337,7 @@ msgstr ""
 "воспользоваться пока не будет устранена следующие проблемы: <b>%s</b>. <br/> "
 "Проверьте <a href=\"%s\">настройки платежей</a>."
 
-#: includes/class-payment-gateways.php:133
+#: includes/class-payment-gateways.php:135
 msgctxt "payment-gateways"
 msgid "Please check the <link>payment settings</link>."
 msgstr ""
@@ -7343,13 +7353,19 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Код reCAPTCHA был введён неправильно."
 
-#: includes/class-wpbdp.php:467
+#: includes/class-wpbdp.php:463
+#, fuzzy
+msgctxt "listing image upload"
+msgid "Please select a plan before uploading images to the listing"
+msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
+
+#: includes/class-wpbdp.php:468
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Рубрики этой записи"
 
-#: includes/class-wpbdp.php:471
+#: includes/class-wpbdp.php:472
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "
@@ -7574,8 +7590,8 @@ msgstr ""
 #: includes/controllers/pages/class-submit-listing.php:824
 msgctxt "templates"
 msgid ""
-"<b>There are no Fee Plans available</b>, without a fee plan site users can't "
-"submit a listing. %s to create a fee plan"
+"<b>There are no Plans available</b>, without a plan site users can't submit "
+"a listing. %s to create a plan"
 msgstr ""
 
 #: includes/controllers/pages/class-submit-listing.php:838
@@ -7593,18 +7609,18 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1286
+#: includes/controllers/pages/class-submit-listing.php:1288
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Пожалуйста примите наши Условия и Положения."
 
-#: includes/controllers/pages/class-submit-listing.php:1300
+#: includes/controllers/pages/class-submit-listing.php:1302
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Я согласен с Условиями и Положениями"
 
-#: includes/helpers/functions/general.php:1362
+#: includes/helpers/functions/general.php:1366
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -7619,12 +7635,6 @@ msgstr "Рубрики не обнаружены."
 msgctxt "templates"
 msgid "Advanced Search"
 msgstr "Расширенный поиск"
-
-#: includes/payment.php:278 templates/renew-resume.tpl.php:34
-#, fuzzy
-msgctxt "templates"
-msgid "Return to fee selection"
-msgstr "Вернуться в справочник."
 
 #: templates/listing-sticky-tag.tpl.php:11
 #: templates/listing-sticky-tag.tpl.php:12
@@ -7642,22 +7652,15 @@ msgstr ""
 "\". Для удаления записи кликните на  кнопку \"Удалить\"."
 
 #: templates/parts/listing-buttons.tpl.php:15
-#: templates/parts/listing-buttons.tpl.php:49
 msgctxt "templates"
 msgid "Edit"
 msgstr "Изменить"
 
 #: templates/parts/listing-buttons.tpl.php:23
-#: templates/parts/listing-buttons.tpl.php:57
 #, fuzzy
 msgctxt "templates"
 msgid "Flag Listing"
 msgstr "Найти запись"
-
-#: templates/renew-listing-manage-subscription.tpl.php:2
-msgctxt "templates"
-msgid "Recurring Fee Management"
-msgstr "Управление периодический оплатой"
 
 #: templates/renew-listing.tpl.php:19
 #, fuzzy
@@ -7669,8 +7672,8 @@ msgstr "Вы приступаете к продлению вашей запис�
 #, fuzzy
 msgctxt "templates"
 msgid ""
-"Please select a fee option or click \"Do not renew my listing\" to remove "
-"your listing from the directory."
+"Please select a plan or click \"Do not renew my listing\" to remove your "
+"listing from the directory."
 msgstr ""
 "Пожалуйста выберите вариант оплаты. Или кликните на \"Не продлевать мою "
 "запись\" чтобы отказаться от продления записи."
@@ -7691,6 +7694,12 @@ msgstr "Не продлевать мою запись"
 msgctxt "templates"
 msgid "Continue to checkout"
 msgstr "Начальный платёж"
+
+#: templates/renew-resume.tpl.php:34
+#, fuzzy
+msgctxt "templates"
+msgid "Return to plan selection"
+msgstr "Вернуться в справочник."
 
 #: templates/search-form.tpl.php:3
 msgctxt "templates"
@@ -7799,8 +7808,9 @@ msgid "Your subscription was canceled."
 msgstr "Подписка / Бесплатный План"
 
 #: templates/manage-recurring.tpl.php:6
+#, fuzzy
 msgctxt "manage subscriptions"
-msgid "Subscription / Fee Plan"
+msgid "Subscription / Plan"
 msgstr "Подписка / Бесплатный План"
 
 #: includes/controllers/pages/class-manage-recurring.php:96
@@ -7837,8 +7847,9 @@ msgid "Could not remove listing from directory."
 msgstr "Не удалось удалить предыдущую директорию темы \"%s\"."
 
 #: templates/renew-listing-manage-subscription.tpl.php:6
+#, fuzzy
 msgctxt "renewal"
-msgid "Current Fee Details"
+msgid "Current Plan Details"
 msgstr "Детали текущего платежа"
 
 #: templates/renew-listing-manage-subscription.tpl.php:9
@@ -7873,7 +7884,7 @@ msgstr "Запись была удалена."
 #: templates/renew-resume.tpl.php:10
 #, fuzzy
 msgctxt "renewal"
-msgid "Renew Fee Resume"
+msgid "Renew Plan Resume"
 msgstr "Обновить лицензионный ключ"
 
 #: templates/renew-resume.tpl.php:15
@@ -7884,7 +7895,7 @@ msgstr "Вы приступаете к продлению вашей запис�
 
 #: templates/renew-resume.tpl.php:20
 msgctxt "renewal"
-msgid "In order to complete the renewal, please confirm fee selection."
+msgid "In order to complete the renewal, please confirm plan selection."
 msgstr ""
 
 #: includes/controllers/pages/class-renew-listing.php:150
@@ -7957,9 +7968,8 @@ msgstr "Рубрики этой записи"
 #: includes/controllers/pages/class-submit-listing.php:168
 msgctxt "submit listing"
 msgid ""
-"This listing can't be edited at this time because it has no fee plan "
-"associated. Please <a>edit the listing</a> on the backend and associate it "
-"to a fee plan."
+"This listing can't be edited at this time because it has no plan associated. "
+"Please <a>edit the listing</a> on the backend and associate it to a plan."
 msgstr ""
 
 #: includes/controllers/pages/class-submit-listing.php:174
@@ -7996,41 +8006,46 @@ msgstr ""
 "пожалуйста."
 
 #: includes/controllers/pages/class-submit-listing.php:870
-#: includes/controllers/pages/class-submit-listing.php:992
+#: includes/controllers/pages/class-submit-listing.php:996
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:893
+#: includes/controllers/pages/class-submit-listing.php:894
+msgctxt "submit listing"
+msgid "Current active plan is disabled. Please select another plan."
+msgstr ""
+
+#: includes/controllers/pages/class-submit-listing.php:896
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:895
+#: includes/controllers/pages/class-submit-listing.php:899
 #, fuzzy
 msgctxt "submit listing"
-msgid "Please choose a valid fee plan for your category selection."
+msgid "Please choose a valid plan for your category selection."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:1206
+#: includes/controllers/pages/class-submit-listing.php:1208
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/controllers/pages/class-submit-listing.php:1211
+#: includes/controllers/pages/class-submit-listing.php:1213
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/controllers/pages/class-submit-listing.php:1216
+#: includes/controllers/pages/class-submit-listing.php:1218
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1221
+#: includes/controllers/pages/class-submit-listing.php:1223
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -8040,7 +8055,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1161
+#: includes/controllers/pages/class-submit-listing.php:1163
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8454,29 +8469,30 @@ msgstr[0] "Разрешено изображений"
 msgstr[1] "Разрешено изображений"
 msgstr[2] "Разрешено изображений"
 
-#: includes/models/class-fee-plan.php:387
+#: includes/models/class-fee-plan.php:401
+#, fuzzy
 msgctxt "fees-api"
-msgid "Fee label is required."
-msgstr "Название тарифа обязательна."
+msgid "Plan label is required."
+msgstr "Метка поля обязательна."
 
-#: includes/models/class-fee-plan.php:393
+#: includes/models/class-fee-plan.php:407
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr "Срок действия тарифа должен быть меньше 10 лет (3650 дней)."
 
-#: includes/models/class-fee-plan.php:398
+#: includes/models/class-fee-plan.php:412
 msgctxt "fees-api"
 msgid ""
-"To set this fee as \"Recurring\" you must have a time for the listing to "
+"To set this plan as \"Recurring\" you must have a time for the listing to "
 "renew (e.g. 30 days). To avoid issues with the listing, please edit the "
-"<a>fee plan</a> appropriately."
+"<a>plan</a> appropriately."
 msgstr ""
 
-#: includes/models/class-fee-plan.php:401
+#: includes/models/class-fee-plan.php:415
 msgctxt "fees-api"
 msgid ""
-"To set this fee as \"Recurring\" you must set a price for your fee plan. To "
-"avoid issues with the listing, please edit the <a>fee plan</a> appropriately."
+"To set this plan as \"Recurring\" you must set a price for your plan. To "
+"avoid issues with the listing, please edit the <a>plan</a> appropriately."
 msgstr ""
 
 #: includes/models/class-payment.php:85
@@ -8551,17 +8567,17 @@ msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Неизвестная ошибка при загрузке файла."
 
-#: includes/utils.php:335
+#: includes/utils.php:384
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Ошибка при загрузке файла"
 
-#: includes/utils.php:359 includes/utils.php:366
+#: includes/utils.php:408 includes/utils.php:415
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Файл типа \"%s\" не допускается к загрузке"
 
-#: includes/utils.php:585
+#: includes/utils.php:634
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8669,30 +8685,30 @@ msgctxt "admin forms"
 msgid "required"
 msgstr "обязательно"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:124
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:127
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "Ссылка для продления (для копирования)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:124
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:127
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:138
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:141
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Послать уведомление о продлении автору по электронной почте"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:143
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:146
 #, fuzzy
 msgctxt "admin infometabox"
 msgid "Renew listing"
 msgstr "Продлить запись"
 
-#: templates/admin/themes-delete-confirm.tpl.php:3
+#: templates/admin/themes-delete-confirm.tpl.php:12
 msgctxt "themes admin"
 msgid "Are you sure you want to delete the directory theme \"%s\"?"
 msgstr "Вы уверены, что хотите удалить тему справочника \"%s\"?"
@@ -8921,9 +8937,10 @@ msgid "Cancel recurring payment"
 msgstr "Прекратить периодический платёж"
 
 #: templates/renew-listing-manage-subscription.tpl.php:4
+#, fuzzy
 msgctxt "renew"
 msgid ""
-"Because you are on a recurring fee plan you don't have to renew your listing "
+"Because you are on a recurring plan you don't have to renew your listing "
 "right now as this will be handled automatically when renewal comes."
 msgstr ""
 "Так как Вы находитесь на плане с периодическими платежами, то Вам нет "
@@ -8957,6 +8974,67 @@ msgstr "Некорректный электронный адрес."
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Далее"
+
+#, fuzzy
+#~ msgid "Fee Label"
+#~ msgstr "Название тарифа"
+
+#, fuzzy
+#~ msgid "Status: %s"
+#~ msgstr "Новый статус:"
+
+#, fuzzy
+#~ msgid "Add Listing Fee"
+#~ msgstr "Добавить тариф"
+
+#, fuzzy
+#~ msgid "Edit Listing Fee"
+#~ msgstr "Изменить запись"
+
+#, fuzzy
+#~ msgid "Fee Description"
+#~ msgstr "Описание"
+
+#, fuzzy
+#~ msgid "Add New Listing Fee"
+#~ msgstr "Добавить тариф"
+
+#, fuzzy
+#~ msgid "Order fees on the frontend by:"
+#~ msgstr "Сортировать тарифы:"
+
+#, fuzzy
+#~ msgid "Delete Form Field"
+#~ msgstr "Удалить поле формы"
+
+#, fuzzy
+#~ msgid "Delete Field"
+#~ msgstr "Удалить поле"
+
+#, fuzzy
+#~ msgid "← Return to \"Manage Options\""
+#~ msgstr "← Вернуться к \"Управлению Полями Формы\""
+
+#~ msgctxt "admin csv-import"
+#~ msgid "← Return to \"CSV Import\""
+#~ msgstr "← Вернуться к \"Импорту из CSV\""
+
+#, fuzzy
+#~ msgctxt "fees admin"
+#~ msgid "Fee Price"
+#~ msgstr "Цена"
+
+#~ msgctxt "form-fields admin"
+#~ msgid "Manage Theme Tags"
+#~ msgstr "Настроить метки темы"
+
+#~ msgctxt "installer"
+#~ msgid "Default Fee"
+#~ msgstr "Удалить тариф"
+
+#~ msgctxt "fees-api"
+#~ msgid "Fee label is required."
+#~ msgstr "Название тарифа обязательна."
 
 #, fuzzy
 #~ msgid "Payments are currently turned off."

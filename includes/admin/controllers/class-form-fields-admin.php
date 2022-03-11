@@ -287,7 +287,7 @@ class WPBDP_FormFieldsAdmin {
 	 *
 	 * @param object $field The field to delete
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 */
 	private function handle_field_delete( $field ) {
 
