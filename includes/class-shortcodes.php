@@ -251,7 +251,7 @@ class WPBDP__Shortcodes {
          * Example:
          *  `[businessdirectory-featured-listings items_per_page=5]`
          * @since 4.1.13
-		 * @since x.x  Added category attribute comment
+		 * @since 5.18  Added category attribute comment
          */
         $this->add( 'businessdirectory-featured-listings', array( &$this, 'sc_listings_featured' ) );
 
@@ -430,7 +430,7 @@ class WPBDP__Shortcodes {
 	 * @param array $atts Shortcode attributes.
 	 * @param array $query_args The query args used to search based on attributes.
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
 		$requested_categories = array();

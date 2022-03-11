@@ -313,7 +313,7 @@ class WPBDP__Utils {
  	 * )
 	 * @param int $post_id The optional post id to attatch the image to
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 *
 	 * @return int|false The attachement id
 	 */
