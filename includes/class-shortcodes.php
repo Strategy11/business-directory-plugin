@@ -512,7 +512,7 @@ class WPBDP__Shortcodes {
 			return;
 		}
 		$tags = $tag . $sep . $tags;
-
+		$tags = WPBDP__Utils::remove_orphan_characters( $tags, ',' );
 		$requested_tax = explode( $sep, $tags );
 	}
 

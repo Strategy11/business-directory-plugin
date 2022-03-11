@@ -28,6 +28,22 @@ class WPBDP__Utils {
         return $res;
     }
 
+	/**
+	 * Remove orphan characters from begining or end of a string.
+	 *
+	 * @param string $string The string.
+	 * @param string $character The string character.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public static function remove_orphan_characters( $string, $character ) {
+		$string = rtrim( $string, $character );
+		$string = ltrim( $string, $character );
+		return $string;
+	}
+
     /**
      * @since 5.0
      */
