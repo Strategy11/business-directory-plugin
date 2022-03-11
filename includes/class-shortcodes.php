@@ -507,13 +507,17 @@ class WPBDP__Shortcodes {
 		$types = ( 'tag' === $type ) ? 'tags' : 'categories';
 		$tag   = isset( $atts[ $type ] ) ? $atts[ $type ] : '';
 		$tags  = isset( $atts[ $types ] ) ? $atts[ $types ] : '';
-		$sep   = ( $tag || $tags ) ? ',' : false;
-		if ( ! $sep ) {
+		$tax   = '';
+		if ( ! $tag && ! $tags ) {
 			return;
 		}
-		$tags = $tag . $sep . $tags;
-		$tags = WPBDP__Utils::remove_orphan_characters( $tags, ',' );
-		$requested_tax = explode( $sep, $tags );
+
+		if ( $tag && $tags ) {
+			$tax = $tag . ',' . $tags;
+		} else {
+			$tax = $tag ? $tag : ( $tags ? $tags : '' );
+		}
+		$requested_tax = explode( ',', $tax );
 	}
 
     private function display_listings( $query_args, $args = array() ) {
