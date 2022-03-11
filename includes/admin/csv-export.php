@@ -10,7 +10,7 @@ require_once( WPBDP_INC . 'admin/helpers/csv/class-csv-exporter.php' );
 class WPBDP_Admin_CSVExport {
 
     public function __construct() {
-        add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
+        add_action( 'wpbdp_enqueue_admin_scripts', array( &$this, 'enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-csv-export', array( &$this, 'ajax_csv_export' ) );
     }
 

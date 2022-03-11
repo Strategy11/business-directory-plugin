@@ -342,8 +342,17 @@ class WPBDP_Listing {
      * @since 5.0
      */
     public function has_subscription() {
-        global $wpdb;
-        return absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND is_recurring = %d", $this->id, 1 ) ) ) > 0;
+		global $wpdb;
+		$query = $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d AND is_recurring = %d", $this->id, 1 );
+		$total = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'listing_subscription_' . $this->id,
+				'group'     => 'wpbdp_listings',
+				'query'     => $query,
+				'type'      => 'get_var',
+			)
+		);
+		return absint( $total ) > 0;
     }
 
     public function is_published() {
