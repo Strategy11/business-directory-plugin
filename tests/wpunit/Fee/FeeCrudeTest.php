@@ -73,7 +73,7 @@ class FeeCrudeTest extends WPUnitTestCase {
 				'images'               => 5,
 				'supported_categories' => 'all',
 				'pricing_model'        => 'flat',
-				'enabled'              => 1,
+				'enabled'              => true,
 			)
 		);
 		if ( ! is_wp_error( $result ) ) {

@@ -158,7 +158,7 @@ class WPBDP__Listing_Subscription {
             ),
             array( 'listing_id' => $this->listing_id )
         );
-
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
         do_action( 'wpbdp_listing_subscription_canceled', $this->listing_id );
     }
 
@@ -174,7 +174,7 @@ class WPBDP__Listing_Subscription {
             'subscription_id' => $this->subscription_id,
             'subscription_data' => serialize( $data )
         );
-
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
         return $wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $this->listing_id ) );
     }
 }

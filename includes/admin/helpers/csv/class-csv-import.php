@@ -877,9 +877,12 @@ class WPBDP_CSV_Import {
 
         // Make a copy of the file because wpbdp_media_upload() moves the original file.
         copy( $filepath, $filepath . '.backup' );
-        $media_id = wpbdp_media_upload( $filepath, true, true );
+		$upload = wpbdp_media_upload( $filepath, false, true );
+		if ( ! $upload ) {
+			return false;
+		}
+		$media_id = WPBDP__Utils::attach_image_to_media_library( $upload );
         rename( $filepath . '.backup', $filepath );
-
         return $media_id;
     }
 

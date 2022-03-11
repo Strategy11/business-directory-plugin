@@ -322,7 +322,7 @@ final class WPBDP__Fee_Plan {
 	 * This checks if the amount of the plan has been set or the pricing type.
 	 * For variable plans, we check and ensure the price total is greater than 0 to classify as paid.
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 *
 	 * @return bool
 	 */
