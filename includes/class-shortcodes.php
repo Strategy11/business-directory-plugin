@@ -507,17 +507,12 @@ class WPBDP__Shortcodes {
 		$types = ( 'tag' === $type ) ? 'tags' : 'categories';
 		$tag   = isset( $atts[ $type ] ) ? $atts[ $type ] : '';
 		$tags  = isset( $atts[ $types ] ) ? $atts[ $types ] : '';
-		$tax   = '';
 		if ( ! $tag && ! $tags ) {
 			return;
 		}
-
-		if ( $tag && $tags ) {
-			$tax = $tag . ',' . $tags;
-		} else {
-			$tax = $tag ? $tag : ( $tags ? $tags : '' );
-		}
-		$requested_tax = explode( ',', $tax );
+		$sep   = $tag && $tags ? ',' : '';
+		$tags  = $tag . $sep . $tags;
+		$requested_tax = explode( ',', $tags );
 	}
 
     private function display_listings( $query_args, $args = array() ) {
