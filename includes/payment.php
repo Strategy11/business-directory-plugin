@@ -150,22 +150,18 @@ class WPBDP_PaymentsAPI {
         if ( ! wpbdp_get_option( 'payment-abandonment' ) )
             return $views;
 
-        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
-        $now = current_time( 'timestamp' );
-
-        $within_pending = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold ), $now ), 'mysql' );
-        $within_abandonment = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold * 2 ), $now ), 'mysql' );
+		$params = $this->get_admin_view_count_params();
 
         $count_pending = $wpdb->get_var( $wpdb->prepare(
             "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at > %s AND ps.created_at <= %s AND ps.status = %s AND ps.payment_type = %s AND p.post_status IN ({$post_statuses})",
-            $within_abandonment,
-            $within_pending,
+            $params['within_abandonment'],
+			$params['within_pending'],
             'pending',
             'initial'
         ) );
         $count_abandoned = $wpdb->get_var( $wpdb->prepare(
             "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at <= %s AND ps.status = %s AND ps.payment_type = %s AND p.post_status IN ({$post_statuses})",
-            $within_abandonment,
+			$params['within_abandonment'],
             'pending',
             'initial'
         ) );
@@ -201,23 +197,18 @@ class WPBDP_PaymentsAPI {
 
         global $wpdb;
 
-        // TODO: move this code elsewhere since it is used in several places.
-        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
-        $now = current_time( 'timestamp' );
-
-        $within_pending = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold ), $now ), 'mysql' );
-        $within_abandonment = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold * 2 ), $now ), 'mysql' );
+		$params = $this->get_admin_view_count_params();
 
         $pieces['join'] .= " LEFT JOIN {$wpdb->prefix}wpbdp_payments ps ON {$wpdb->posts}.ID = ps.listing_id";
         $pieces['where'] .= $wpdb->prepare( ' AND ps.payment_type = %s AND ps.status = %s ', 'initial', 'pending' );
 
         switch ( $filter ) {
             case 'abandoned':
-                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_at <= %s ', $within_abandonment );
+                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_at <= %s ', $params['within_abandonment'] );
                 break;
 
             case 'pending-abandonment':
-                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_at > %s AND ps.created_at <= %s ', $within_abandonment, $within_pending );
+                $pieces['where'] .= $wpdb->prepare( ' AND ps.created_at > %s AND ps.created_at <= %s ', $params['within_abandonment'], $params['within_pending'] );
                 break;
         }
 
@@ -230,7 +221,7 @@ class WPBDP_PaymentsAPI {
     public function notify_abandoned_payments() {
         global $wpdb;
 
-        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
+		$threshold = $this->get_payment_abandonment_threshhold();
         $time_for_pending = wpbdp_format_time( strtotime( "-{$threshold} hours", current_time( 'timestamp' ) ), 'mysql' );
         $notified = get_option( 'wpbdp-payment-abandonment-notified', array() );
 
@@ -268,7 +259,33 @@ class WPBDP_PaymentsAPI {
         update_option( 'wpbdp-payment-abandonment-notified', $notified );
     }
 
+	/**
+	 * Get the payment abandonment threshold from the settings.
+	 *
+	 * @since x.x
+	 *
+	 * @return int
+	 */
+	private function get_payment_abandonment_threshhold() {
+		return max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
+	}
 
+	/**
+	 * Get the admin view count parameters based on settings.
+	 * This gets the parameters that the threshold queries will be based on.
+	 *
+	 * @since x.x
+	 *
+	 * @return array
+	 */
+	private function get_admin_view_count_params() {
+		$threshold = $this->get_payment_abandonment_threshhold();
+		$now       = current_time( 'timestamp' );
+
+		$within_pending     = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold ), $now ), 'mysql' );
+		$within_abandonment = wpbdp_format_time( strtotime( sprintf( '-%d hours', $threshold * 2 ), $now ), 'mysql' );
+		return compact( 'within_pending', 'within_abandonment' );
+	}
 
 	function _return_fee_list_button( $payment ) {
         if ( 'renewal' !== $payment->payment_type ) {
