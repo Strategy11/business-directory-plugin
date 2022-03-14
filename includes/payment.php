@@ -152,19 +152,38 @@ class WPBDP_PaymentsAPI {
 
 		$params = $this->get_admin_view_count_params();
 
-        $count_pending = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at > %s AND ps.created_at <= %s AND ps.status = %s AND ps.payment_type = %s AND p.post_status IN ({$post_statuses})",
-            $params['within_abandonment'],
-			$params['within_pending'],
-            'pending',
-            'initial'
-        ) );
-        $count_abandoned = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at <= %s AND ps.status = %s AND ps.payment_type = %s AND p.post_status IN ({$post_statuses})",
+		$pending_query = $wpdb->prepare(
+			"SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at > %s AND ps.created_at <= %s AND ps.status = %s AND ps.payment_type = %s AND p.post_status IN ({$post_statuses})",
 			$params['within_abandonment'],
-            'pending',
-            'initial'
-        ) );
+			$params['within_pending'],
+			'pending',
+			'initial'
+		);
+
+		$abandoned_query = $wpdb->prepare(
+			"SELECT COUNT(*) FROM {$wpdb->prefix}wpbdp_payments ps LEFT JOIN {$wpdb->posts} p ON p.ID = ps.listing_id WHERE ps.created_at <= %s AND ps.status = %s AND ps.payment_type = %s AND p.post_status IN ({$post_statuses})",
+			$params['within_abandonment'],
+			'pending',
+			'initial'
+		);
+
+		$count_pending = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'count_pending_' . wp_json_encode( $params ),
+				'group'     => 'wpbdp_payments',
+				'query'     => $pending_query,
+				'type'      => 'get_var',
+			)
+		);
+
+		$count_abandoned = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'count_abandoned_' . wp_json_encode( $params ),
+				'group'     => 'wpbdp_payments',
+				'query'     => $abandoned_query,
+				'type'      => 'get_var',
+			)
+		);
 
 		$filter = wpbdp_get_var( array( 'param' => 'wpbdmfilter' ), 'request' );
 		$url    = add_query_arg( 'wpbdmfilter', $filter, remove_query_arg( 'listing_status' ) );
