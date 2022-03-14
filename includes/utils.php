@@ -473,7 +473,7 @@ class WPBDP__Utils {
 	public static function validate_file_extension( $file, $allowed ) {
 		$filename = sanitize_file_name( wp_unslash( $_FILES[ $file ]['name'] ) );
 		$ext      = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
-		return in_array( $ext, $allowed );
+		return in_array( $ext, $allowed, true );
 	}
 }
 
