@@ -126,7 +126,7 @@ class WPBDP_PaymentsAPI {
             return $status;
         }
 
-        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
+        $threshold = $this->get_payment_abandonment_threshhold();
         $hours_elapsed = ( current_time( 'timestamp' ) - strtotime( $last_pending['created_at'] ) ) / ( 60 * 60 );
 
         if ( $hours_elapsed <= 0 )
@@ -241,7 +241,8 @@ class WPBDP_PaymentsAPI {
         global $wpdb;
 
 		$threshold = $this->get_payment_abandonment_threshhold();
-        $time_for_pending = wpbdp_format_time( strtotime( "-{$threshold} hours", current_time( 'timestamp' ) ), 'mysql' );
+		$params   = $this->get_admin_view_count_params();
+        $time_for_pending = $params['within_pending'];
         $notified = get_option( 'wpbdp-payment-abandonment-notified', array() );
 
         if ( ! is_array( $notified ) )
