@@ -66,7 +66,7 @@ class WPBDP_Fees_API {
 	 *
 	 * @param bool $paid Return paid plans or all plans. Set to true to check for plans that have a price greater than 0
 	 *
-	 * @since x.x
+	 * @since 5.18
 	 *
 	 * @return bool
 	 */

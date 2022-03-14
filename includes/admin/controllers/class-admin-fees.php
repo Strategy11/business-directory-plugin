@@ -235,18 +235,16 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	}
 
     function delete_fee() {
+		$nonce = array( 'nonce' => 'delete-fee' );
+		WPBDP_App_Helper::permission_check( 'manage_categories', $nonce );
+
 		$fee = $this->get_or_die();
 
-        list( $do, $html ) = $this->_confirm_action( array(
-            'cancel_url' => remove_query_arg( array( 'wpbdp-view', 'id' ) ),
-        ) );
+		if ( $fee->delete() ) {
+			wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
+		}
 
-        if ( $do && $fee->delete() ) {
-            wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
-            return $this->_redirect( 'index' );
-        }
-
-        return $html;
+		return $this->_redirect( 'index' );
     }
 
     function toggle_fee() {

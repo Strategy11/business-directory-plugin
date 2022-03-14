@@ -121,12 +121,14 @@ class WPBDP_FormFieldsAdmin {
 
 		$html  = '';
 		$html .= wpbdp_admin_header(
-			_x( 'Form Preview', 'form-fields admin', 'business-directory-plugin' ),
-			'formfields-preview',
 			array(
-				array(
-					'← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
-					esc_url( remove_query_arg( 'action' ) ),
+				'title'   => __( 'Form Preview', 'business-directory-plugin' ),
+				'id'      => 'formfields-preview',
+				'buttons' => array(
+					'back' => array(
+						'label' => '← ' . esc_html__( 'Go back', 'business-directory-plugin' ),
+						'url'   => remove_query_arg( 'action' ),
+					),
 				),
 			)
 		);
@@ -267,39 +269,41 @@ class WPBDP_FormFieldsAdmin {
 		// Check permission.
 		check_admin_referer( 'deletefield' );
 
-		global $wpdb;
-
 		$field = WPBDP_Form_Field::get( wpbdp_get_var( array( 'param' => 'id' ), 'request' ) );
 
 		if ( ! $field || $field->has_behavior_flag( 'no-delete' ) ) {
 			return;
 		}
 
-		if ( isset( $_POST['doit'] ) ) {
-			$this->check_permission( 'deletefield' );
-			$ret = $field->delete();
+		$this->check_permission( 'deletefield' );
+		$this->handle_field_delete( $field );
 
-			if ( is_wp_error( $ret ) ) {
-				$this->admin->messages[] = array( $ret->get_error_message(), 'error' );
-			} else {
-				$this->admin->messages[] = _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' );
+		$this->fields_table();
+	}
 
-				$quick_search_fields = wpbdp_get_option( 'quick-search-fields' );
-				$field_id            = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
-				$quick_search_fields = array_diff( $quick_search_fields, array( $field_id ) );
+	/**
+	 * Handle field delete.
+	 * This handles the re-usable action to delete a form field.
+	 *
+	 * @param object $field The field to delete
+	 *
+	 * @since 5.18
+	 */
+	private function handle_field_delete( $field ) {
 
-				wpbdp_set_option( 'quick-search-fields', $quick_search_fields );
-			}
+		$ret = $field->delete();
 
-			$this->fields_table();
-			return;
+		if ( is_wp_error( $ret ) ) {
+			wpbdp_admin_message( $ret->get_error_message(), 'error wpbdp-snackbar-notice' );
+		} else {
+			wpbdp_admin_message( _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' ), 'success wpbdp-snackbar-notice' );
+
+			$quick_search_fields = wpbdp_get_option( 'quick-search-fields' );
+			$field_id            = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
+			$quick_search_fields = array_diff( $quick_search_fields, array( $field_id ) );
+
+			wpbdp_set_option( 'quick-search-fields', $quick_search_fields );
 		}
-
-		wpbdp_render_page(
-			WPBDP_PATH . 'templates/admin/form-fields-confirm-delete.tpl.php',
-			array( 'field' => $field ),
-			true
-		);
 	}
 
 	/**

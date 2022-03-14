@@ -79,7 +79,6 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $args = array(
 			'admin_view'   => true, // Admin view shows all listings
 			'enabled'      => 'all',
-			'include_free' => true,
         );
 
         $this->items = wpbdp_get_fee_plans( $args );
@@ -164,16 +163,20 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		}
 		if ( 'free' !== $fee->tag ) {
             $actions['delete'] = sprintf(
-                '<a href="%s">%s</a>',
+				'<a href="%1$s" data-bdconfirm="%2$s">%3$s</a>',
                 esc_url(
-                    add_query_arg(
-                        array(
-							'wpbdp-view' => 'delete-fee',
-							'id'         => $fee->id,
-                        ),
-                        $admin_fees_url
-                    )
+					wp_nonce_url(
+						add_query_arg(
+							array(
+								'wpbdp-view' => 'delete-fee',
+								'id'         => $fee->id,
+							),
+							$admin_fees_url
+						),
+						'delete-fee'
+					)
                 ),
+				esc_attr__( 'Are you sure you want to do this?', 'business-directory-plugin' ),
                 esc_html__( 'Delete', 'business-directory-plugin' )
             );
         }
@@ -253,7 +256,8 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		}
 
 		$revenue = wpbdp_currency_format( $fee->total_revenue(), array( 'force_numeric' => true ) );
-		$column .= ' <br/><span class="wpbdp-tag">' . esc_html( $revenue ) . '</span>';
+		$title   = __( 'Total revenue earned from listings', 'business-directory-plugin' );
+		$column .= ' <br/><span class="wpbdp-tag wpbdp-tooltip" title="' . esc_attr( $title ) . '">' . esc_html( $revenue ) . '</span>';
 		return $column;
 	}
 
