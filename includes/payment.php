@@ -261,6 +261,9 @@ class WPBDP_PaymentsAPI {
                 continue;
 
             $payment = WPBDP_Payment::get( $data->id );
+			if ( ! $payment  ) {
+				continue;
+			}
 
             // Send e-mail.
             $replacements = array(
