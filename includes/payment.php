@@ -126,7 +126,7 @@ class WPBDP_PaymentsAPI {
             return $status;
         }
 
-        $threshold = $this->get_payment_abandonment_threshhold();
+		$threshold = $this->get_payment_abandonment_threshhold();
         $hours_elapsed = ( current_time( 'timestamp' ) - strtotime( $last_pending['created_at'] ) ) / ( 60 * 60 );
 
         if ( $hours_elapsed <= 0 )
