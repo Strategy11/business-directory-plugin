@@ -497,8 +497,8 @@ class WPBDP__Shortcodes {
 	 * Combine two shortcode attributes into one. The combination of the two is
 	 * saved in the first param.
 	 *
-	 * @param array $type The names of two shortcode atts to combine. ie. `category` and `categories`.
-	 * @param array $atts Shortcode attributes.
+	 * @param array $combine The names of two shortcode atts to combine. ie. `category` and `categories`.
+	 * @param array $atts    Shortcode attributes.
 	 *
 	 * @since x.x
 	 */
@@ -510,8 +510,8 @@ class WPBDP__Shortcodes {
 		$second         = isset( $atts[ $second ] ) ? $atts[ $second ] : '';
 		if ( $second !== '' ) {
 			// Combine with the extra parameter.
-			$sep             = $atts[ $first ] && $second ? ',' : '';
-			$atts[ $first ] .= $sep . $tags;
+			$atts[ $first ] .= $atts[ $first ] ? ',' : '';
+			$atts[ $first ] .= $second;
 		}
 	}
 
