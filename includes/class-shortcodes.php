@@ -298,9 +298,9 @@ class WPBDP__Shortcodes {
         $sc_atts = shortcode_atts(
             array(
                 'tag'            => '',
-                'tags'           => '',
+                'tags'           => '', // Deprecated.
                 'category'       => '',
-                'categories'     => '',
+                'categories'     => '', // Deprecated.
                 'operator'       => 'OR',
                 'author'         => '',
                 'menu'           => null,
@@ -433,20 +433,24 @@ class WPBDP__Shortcodes {
 	 * @since 5.18
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
-		$this->prep_taxonomy_atts( 'category', $atts );
+		$this->combine_shortcode_atts( array( 'category', 'categories' ), $atts );
 		if ( empty( $atts['category'] ) ) {
 			return;
 		}
 
+		$atts['category'] = explode( ',', $atts['category'] );
 		$categories = array();
 
 		foreach ( $atts['category'] as $cat ) {
+			$term = false;
 			if ( is_numeric( $cat ) ) {
-				$categories[] = $cat;
-				continue;
+				$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
 			}
 
-			$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+			if ( ! $term ) {
+				$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+			}
+
 			if ( $term ) {
 				$categories[] = $term->term_id;
 			}
@@ -475,7 +479,7 @@ class WPBDP__Shortcodes {
 	 * @since x.x
 	 */
 	private function process_tag_atts( $atts, &$query_args ) {
-		$this->prep_taxonomy_atts( 'tag', $atts );
+		$this->combine_shortcode_atts( array( 'tag', 'tags' ), $atts );
 		if ( empty( $atts['tag'] ) ) {
 			return;
 		}
@@ -484,28 +488,30 @@ class WPBDP__Shortcodes {
 			array(
 				'taxonomy' => WPBDP_TAGS_TAX,
 				'field'    => 'slug',
-				'terms'    => $atts['tag'],
+				'terms'    => explode( ',', $atts['tag'] ),
 			)
 		);
 	}
 
 	/**
-	 * Validate taxonomy attributes
+	 * Combine two shortcode attributes into one. The combination of the two is
+	 * saved in the first param.
 	 *
-	 * @param string $type The taxonomy type. Can either be `category` or `tag`.
+	 * @param array $type The names of two shortcode atts to combine. ie. `category` and `categories`.
 	 * @param array $atts Shortcode attributes.
 	 *
 	 * @since x.x
 	 */
-	private function prep_taxonomy_atts( $type, &$atts ) {
-		$types         = ( 'tag' === $type ) ? 'tags' : 'categories';
-		$atts[ $type ] = isset( $atts[ $type ] ) ? $atts[ $type ] : '';
-		$tags          = isset( $atts[ $types ] ) ? $atts[ $types ] : '';
-		if ( $tags ) {
+	private function combine_shortcode_atts( $combine, &$atts ) {
+		$first  = $combine[0];
+		$second = $combine[1];
+
+		$atts[ $first ] = isset( $atts[ $first ] ) ? $atts[ $first ] : '';
+		$second         = isset( $atts[ $second ] ) ? $atts[ $second ] : '';
+		if ( $second !== '' ) {
 			// Combine with the extra parameter.
-			$sep       = $all_tags && $tags ? ',' : '';
-			$atts[ $type ] .= $sep . $tags;
-			$atts[ $type ]  = explode( ',', $all_tags );
+			$sep             = $atts[ $first ] && $second ? ',' : '';
+			$atts[ $first ] .= $sep . $tags;
 		}
 	}
 
