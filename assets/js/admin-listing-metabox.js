@@ -16,6 +16,7 @@ jQuery( function( $ ) {
             }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
 
             $buttonPane.append($button);
+            $( instance.dpDiv ).find( 'button' ).addClass( 'button-primary' );
         }, 1 );
     };
 

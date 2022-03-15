@@ -8,7 +8,6 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 
 	function _enqueue_scripts() {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
-		wpbdp_enqueue_jquery_ui_style();
 		parent::_enqueue_scripts();
 	}
 
