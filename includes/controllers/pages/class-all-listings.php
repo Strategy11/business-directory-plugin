@@ -39,7 +39,7 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
             $q->max_num_pages = 1;
         }
         wpbdp_push_query( $q );
-		$should_have_menu = isset( $this->in_shortcode ) ? ! $this->in_shortcode : empty ( $args['tax_query'] );
+		$should_have_menu = isset( $this->in_shortcode ) ? ! $this->in_shortcode : empty( $args['tax_query'] );
 		$show_menu = isset( $this->menu ) ? $this->menu : $should_have_menu;
 
         $template_args = array( '_id' => $show_menu ? 'all_listings' : 'listings',

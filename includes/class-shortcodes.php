@@ -433,29 +433,27 @@ class WPBDP__Shortcodes {
 	 * @since 5.18
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
-		$requested_categories = array();
-
-		$this->validate_taxonomy_atts( 'category', $atts, $requested_categories );
-
-		if ( empty( $requested_categories ) ) {
+		$this->prep_taxonomy_atts( 'category', $atts );
+		if ( empty( $atts['category'] ) ) {
 			return;
 		}
 
 		$categories = array();
 
-		foreach ( $requested_categories as $cat ) {
-			$term = null;
-			if ( ! is_numeric( $cat ) ) {
-				$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+		foreach ( $atts['category'] as $cat ) {
+			if ( is_numeric( $cat ) ) {
+				$categories[] = $cat;
+				continue;
 			}
 
-			if ( ! $term && is_numeric( $cat ) ) {
-				$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
-			}
-
+			$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
 			if ( $term ) {
 				$categories[] = $term->term_id;
 			}
+		}
+
+		if ( empty( $categories ) ) {
+			return;
 		}
 
 		$query_args['tax_query'][] = array(
@@ -477,11 +475,8 @@ class WPBDP__Shortcodes {
 	 * @since x.x
 	 */
 	private function process_tag_atts( $atts, &$query_args ) {
-		$requested_tags = array();
-
-		$this->validate_taxonomy_atts( 'tag', $atts, $requested_tags );
-
-		if ( empty( $requested_tags ) ) {
+		$this->prep_taxonomy_atts( 'tag', $atts );
+		if ( empty( $atts['tag'] ) ) {
 			return;
 		}
 
@@ -489,7 +484,7 @@ class WPBDP__Shortcodes {
 			array(
 				'taxonomy' => WPBDP_TAGS_TAX,
 				'field'    => 'slug',
-				'terms'    => $requested_tags,
+				'terms'    => $atts['tag'],
 			)
 		);
 	}
@@ -499,20 +494,19 @@ class WPBDP__Shortcodes {
 	 *
 	 * @param string $type The taxonomy type. Can either be `category` or `tag`.
 	 * @param array $atts Shortcode attributes.
-	 * @param array $query_args The query args used to search based on attributes.
 	 *
 	 * @since x.x
 	 */
-	private function validate_taxonomy_atts( $type, $atts, &$requested_tax ) {
-		$types = ( 'tag' === $type ) ? 'tags' : 'categories';
-		$tag   = isset( $atts[ $type ] ) ? $atts[ $type ] : '';
-		$tags  = isset( $atts[ $types ] ) ? $atts[ $types ] : '';
-		if ( ! $tag && ! $tags ) {
-			return;
+	private function prep_taxonomy_atts( $type, &$atts ) {
+		$types         = ( 'tag' === $type ) ? 'tags' : 'categories';
+		$atts[ $type ] = isset( $atts[ $type ] ) ? $atts[ $type ] : '';
+		$tags          = isset( $atts[ $types ] ) ? $atts[ $types ] : '';
+		if ( $tags ) {
+			// Combine with the extra parameter.
+			$sep       = $all_tags && $tags ? ',' : '';
+			$atts[ $type ] .= $sep . $tags;
+			$atts[ $type ]  = explode( ',', $all_tags );
 		}
-		$sep   = $tag && $tags ? ',' : '';
-		$tags  = $tag . $sep . $tags;
-		$requested_tax = explode( ',', $tags );
 	}
 
     private function display_listings( $query_args, $args = array() ) {
