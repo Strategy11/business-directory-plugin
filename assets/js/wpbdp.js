@@ -113,6 +113,7 @@ jQuery(function( $ ) {
     var form_fields = {
         init: function() {
             var t = this;
+            
             $( '.wpbdp-form-field-type-date' ).each(function(i, v) {
                 t.configure_date_picker( $(v).find( 'input' ) );
             });
