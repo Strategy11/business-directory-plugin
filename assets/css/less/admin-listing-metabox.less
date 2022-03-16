@@ -4,6 +4,7 @@
  */
 
 @import 'admin-listing-timeline.less';
+@import 'colors.less';
 
 #BusinessDirectory_listinginfo .inside {
     margin: 0;
@@ -91,6 +92,19 @@ a dl {
     z-index: 100;
     right: 10px;
     font-size: 80%;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button {
+	text-shadow: none;
+	box-shadow: none;
+	border-radius: 3px;
+	background-color: @button !important;
+	border:1px solid @button !important;
+	color: @white !important;
+	&:hover, &:focus {
+		background: @button-hover !important;
+		border-color: @button-hover !important;
+	}
 }
 
 #listing-metabox-fees .listing-plan .admin-actions {
