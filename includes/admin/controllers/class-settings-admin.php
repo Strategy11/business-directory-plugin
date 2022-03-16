@@ -133,7 +133,8 @@ class WPBDP__Settings_Admin {
 	private function add_requirement( $setting ) {
 		$skip = array( 'payments-on' ); // Deprecated settings.
 
-		$setting['requirements'] = array_diff( (array) $setting['requirements'], $skip );
+		$setting['requirements'] = isset( $setting['requirements'] ) ? (array) $setting['requirements'] : array();
+		$setting['requirements'] = array_diff( $setting['requirements'], $skip );
 
 		if ( empty( $setting['requirements'] ) ) {
 			return;
@@ -243,7 +244,7 @@ class WPBDP__Settings_Admin {
         echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 
 		echo '<label>';
-		echo $this->checkbox_input_html( $setting, $value );
+		$this->checkbox_input_html( $setting, $value );
 
         echo $this->setting_input_desc( $setting );
 		echo '</label>';
@@ -260,7 +261,7 @@ class WPBDP__Settings_Admin {
 		echo '<div class="wpbd-switch-checkbox">';
 		echo '<label>';
 		echo '<span class="wpbd-toggle">';
-		echo $this->checkbox_input_html( $setting, $value );
+		$this->checkbox_input_html( $setting, $value );
 		echo '<span class="wpbd-toggle-slider"></span>';
 		echo '</span>';
 		echo '</label>';
@@ -275,14 +276,14 @@ class WPBDP__Settings_Admin {
 	 *
 	 * @since x.x
 	 *
-	 * @return string
+	 * @return void
 	 */
 	private function checkbox_input_html( $setting, $value ) {
 		$save = $this->checkbox_saved_value( $setting );
 		if ( 1 === $save ) {
 			$value = (bool) $value;
 		}
-		return '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
+		echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
 	}
 
 	/**
