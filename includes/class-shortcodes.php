@@ -298,9 +298,9 @@ class WPBDP__Shortcodes {
         $sc_atts = shortcode_atts(
             array(
                 'tag'            => '',
-                'tags'           => '',
+                'tags'           => '', // Deprecated.
                 'category'       => '',
-                'categories'     => '',
+                'categories'     => '', // Deprecated.
                 'operator'       => 'OR',
                 'author'         => '',
                 'menu'           => null,
@@ -319,19 +319,7 @@ class WPBDP__Shortcodes {
 
 		$this->process_category_atts( $sc_atts, $query_args );
 
-        if ( $sc_atts['tag'] || $sc_atts['tags'] ) {
-            $requested_tags = array();
-
-            if ( $sc_atts['tag'] )
-                $requested_tags = array_merge( $requested_tags, explode( ',', $sc_atts['tag'] ) );
-
-            if ( $sc_atts['tags'] )
-                $requested_tags = array_merge( $requested_tags, explode( ',', $sc_atts['tags'] ) );
-
-            $query_args['tax_query'][] = array( array( 'taxonomy' => WPBDP_TAGS_TAX,
-                                                     'field' => 'slug',
-                                                     'terms' => $requested_tags ) );
-        }
+		$this->process_tag_atts( $sc_atts, $query_args );
 
         if ( ! empty( $sc_atts['author'] ) ) {
             $u = false;
@@ -437,6 +425,7 @@ class WPBDP__Shortcodes {
 
 	/**
 	 * Process category query attributes.
+	 * This checks if the `category` or `categories` attributes are passed in the shortcode and includes them in the loop query.
 	 *
 	 * @param array $atts Shortcode attributes.
 	 * @param array $query_args The query args used to search based on attributes.
@@ -444,35 +433,31 @@ class WPBDP__Shortcodes {
 	 * @since 5.18
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
-		if ( ! isset( $atts['category'] ) && ! isset( $atts['categories'] ) ) {
+		$this->combine_shortcode_atts( array( 'category', 'categories' ), $atts );
+		if ( empty( $atts['category'] ) ) {
 			return;
 		}
 
-		$requested_categories = array();
-
-		if ( isset( $atts['category'] ) ) {
-			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['category'] ) );
-		}
-
-		if ( isset( $atts['categories'] ) ) {
-			$requested_categories = array_merge( $requested_categories, explode( ',', $atts['categories'] ) );
-		}
-
+		$atts['category'] = explode( ',', $atts['category'] );
 		$categories = array();
 
-		foreach ( $requested_categories as $cat ) {
-			$term = null;
-			if ( ! is_numeric( $cat ) ) {
-				$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
+		foreach ( $atts['category'] as $cat ) {
+			$term = false;
+			if ( is_numeric( $cat ) ) {
+				$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
 			}
 
-			if ( ! $term && is_numeric( $cat ) ) {
-				$term = get_term_by( 'id', $cat, WPBDP_CATEGORY_TAX );
+			if ( ! $term ) {
+				$term = get_term_by( 'slug', $cat, WPBDP_CATEGORY_TAX );
 			}
 
 			if ( $term ) {
 				$categories[] = $term->term_id;
 			}
+		}
+
+		if ( empty( $categories ) ) {
+			return;
 		}
 
 		$query_args['tax_query'][] = array(
@@ -482,6 +467,52 @@ class WPBDP__Shortcodes {
 				'terms'    => $categories,
 			)
 		);
+	}
+
+	/**
+	 * Process tag query attributes.
+	 * This checks if the `tag` or `tags` attributes are passed in the shortcode and includes them in the loop query.
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @param array $query_args The query args used to search based on attributes.
+	 *
+	 * @since x.x
+	 */
+	private function process_tag_atts( $atts, &$query_args ) {
+		$this->combine_shortcode_atts( array( 'tag', 'tags' ), $atts );
+		if ( empty( $atts['tag'] ) ) {
+			return;
+		}
+
+		$query_args['tax_query'][] = array(
+			array(
+				'taxonomy' => WPBDP_TAGS_TAX,
+				'field'    => 'slug',
+				'terms'    => explode( ',', $atts['tag'] ),
+			)
+		);
+	}
+
+	/**
+	 * Combine two shortcode attributes into one. The combination of the two is
+	 * saved in the first param.
+	 *
+	 * @param array $combine The names of two shortcode atts to combine. ie. `category` and `categories`.
+	 * @param array $atts    Shortcode attributes.
+	 *
+	 * @since x.x
+	 */
+	private function combine_shortcode_atts( $combine, &$atts ) {
+		$first  = $combine[0];
+		$second = $combine[1];
+
+		$atts[ $first ] = isset( $atts[ $first ] ) ? $atts[ $first ] : '';
+		$second         = isset( $atts[ $second ] ) ? $atts[ $second ] : '';
+		if ( $second !== '' ) {
+			// Combine with the extra parameter.
+			$atts[ $first ] .= $atts[ $first ] ? ',' : '';
+			$atts[ $first ] .= $second;
+		}
 	}
 
     private function display_listings( $query_args, $args = array() ) {
