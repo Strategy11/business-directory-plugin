@@ -254,14 +254,12 @@ class WPBDP__Settings_Admin {
 	public function setting_toggle_callback( $setting, $value ) {
 		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 
-		echo '<div class="wpbd-switch-checkbox">';
 		echo '<label>';
 		echo '<span class="wpbd-toggle">';
 		$this->checkbox_input_html( $setting, $value );
 		echo '<span class="wpbd-toggle-slider"></span>';
 		echo '</span>';
 		echo '</label>';
-		echo '</div>';
 	}
 
 	/**
