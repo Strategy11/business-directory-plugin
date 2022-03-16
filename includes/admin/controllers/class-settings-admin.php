@@ -246,7 +246,7 @@ class WPBDP__Settings_Admin {
 		echo '<label>';
 		$this->checkbox_input_html( $setting, $value );
 
-        echo $this->setting_input_desc( $setting );
+		echo $this->setting_input_desc( $setting );
 		echo '</label>';
 
 		echo $this->setting_tooltip( $setting['tooltip'] );
