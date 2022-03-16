@@ -187,8 +187,7 @@ class WPBDP__Settings_Admin {
 
 		if ( $setting['type'] !== 'checkbox' ) {
 			echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
-			echo $this->setting_tooltip( $setting['tooltip'] );
-			echo $this->setting_input_desc( $setting );
+			$this->setting_input_desc( $setting );
 		}
 
 		$this->close_grid_div( $setting );
@@ -243,9 +242,7 @@ class WPBDP__Settings_Admin {
 		echo $this->setting_input_label( $setting, 'span' );
 		echo '</label>';
 
-		echo $this->setting_tooltip( $setting['tooltip'] );
-
-		echo $this->setting_input_desc( $setting );
+		$this->setting_input_desc( $setting );
 	}
 
 	/**
@@ -259,6 +256,7 @@ class WPBDP__Settings_Admin {
 		$this->checkbox_input_html( $setting, $value );
 		echo '<span class="wpbd-toggle-slider"></span>';
 		echo '</span>';
+		$this->setting_input_desc( $setting, 'span' );
 		echo '</label>';
 	}
 
@@ -296,15 +294,18 @@ class WPBDP__Settings_Admin {
 			return '';
 		}
 
+		$tooltip = $this->setting_tooltip( $setting['tooltip'] );
+
 		if ( $tag === 'div' && ! empty( $setting['label_for'] ) ) {
 			return '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' .
 				'<label for="' . esc_attr( $setting['label_for'] ) . '">' .
 				wp_kses_post( $setting['name'] ) .
 				'</label>' .
+				$tooltip .
 				'</div>';
 		}
 
-		return '<' . $tag . ' class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' . wp_kses_post( $setting['name'] ) . '</' . $tag . '>';
+		return '<' . $tag . ' class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' . wp_kses_post( $setting['name'] ) . $tooltip . '</' . $tag . '>';
 	}
 
 	/**
@@ -314,13 +315,23 @@ class WPBDP__Settings_Admin {
 	 *
 	 * @since x.x
 	 *
-	 * @return string
+	 * @return void
 	 */
-	private function setting_input_desc( $setting ) {
+	private function setting_input_desc( $setting, $include_wrap = 'div' ) {
 		if ( empty( $setting['desc'] ) || $setting['type'] === 'education' ) {
-			return '';
+			return;
 		}
-		return '<div class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</div>';
+		if ( $include_wrap === 'div' ) {
+			echo '<div class="wpbdp-setting-description">';
+		} else {
+			echo '<' . esc_attr( $include_wrap ) . '>';
+		}
+
+		echo wp_kses_post( $setting['desc'] );
+
+		if ( $include_wrap ) {
+			echo '</' . esc_attr( $include_wrap ) . '>';
+		}
 	}
 
 	/**
