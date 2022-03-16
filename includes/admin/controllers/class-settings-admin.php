@@ -150,6 +150,8 @@ class WPBDP__Settings_Admin {
 	}
 
     public function setting_callback( $setting ) {
+		$this->add_grid_class( $setting );
+
         if ( 'callback' == $setting['type'] ) {
             if ( ! empty( $setting['callback'] ) && is_callable( $setting['callback'] ) ) {
                 $callback_html = call_user_func( $setting['callback'], $setting );
@@ -179,14 +181,13 @@ class WPBDP__Settings_Admin {
 		$this->add_requirement( $setting );
 		echo '>';
 
-		$this->add_grid_class( $setting );
-		$setting['class'] .= ' wpdb-' . $setting['type'];
+		$setting['class'] .= ' wpbd-' . $setting['type'];
 
 		echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
 		$this->open_grid_div( $setting, 'left' );
 
-		if ( $setting['type'] !== 'checkbox' ) {
-			echo $this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
+		if ( ! $this->show_label_with_input( $setting ) ) {
+			$this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
 			$this->setting_input_desc( $setting );
 		}
 
@@ -202,6 +203,17 @@ class WPBDP__Settings_Admin {
         echo '<span id="' . esc_attr( $setting['id'] ) . '"></span>';
         echo '</div>';
     }
+
+	/**
+	 * Some field types show the label with the input, like checkboxes and toggles in a grid.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function show_label_with_input( $setting ) {
+		return $setting['type'] === 'checkbox' || ( $setting['type'] === 'toggle' && strpos( $setting['class'], 'grid' ) === false );
+	}
 
     public function setting_tooltip( $tooltip = '' ) {
         if ( ! $tooltip ) {
@@ -239,7 +251,7 @@ class WPBDP__Settings_Admin {
 		echo '<label>';
 		$this->checkbox_input_html( $setting, $value );
 
-		echo $this->setting_input_label( $setting, 'span' );
+		$this->setting_input_label( $setting, 'span' );
 		echo '</label>';
 
 		$this->setting_input_desc( $setting );
@@ -252,11 +264,13 @@ class WPBDP__Settings_Admin {
 		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 
 		echo '<label>';
-		echo '<span class="wpbd-toggle">';
+		echo '<span class="wpbd-toggle-cont">';
 		$this->checkbox_input_html( $setting, $value );
 		echo '<span class="wpbd-toggle-slider"></span>';
 		echo '</span>';
-		$this->setting_input_desc( $setting, 'span' );
+		if ( $this->show_label_with_input( $setting ) ) {
+			$this->setting_input_label( $setting, 'span', 'wpbdp-setting-label' );
+		}
 		echo '</label>';
 	}
 
@@ -297,15 +311,16 @@ class WPBDP__Settings_Admin {
 		$tooltip = $this->setting_tooltip( $setting['tooltip'] );
 
 		if ( $tag === 'div' && ! empty( $setting['label_for'] ) ) {
-			return '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' .
+			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' .
 				'<label for="' . esc_attr( $setting['label_for'] ) . '">' .
 				wp_kses_post( $setting['name'] ) .
 				'</label>' .
 				$tooltip .
 				'</div>';
+			return;
 		}
 
-		return '<' . $tag . ' class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' . wp_kses_post( $setting['name'] ) . $tooltip . '</' . $tag . '>';
+		echo '<' . $tag . ' class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' . wp_kses_post( $setting['name'] ) . $tooltip . '</' . $tag . '>';
 	}
 
 	/**
