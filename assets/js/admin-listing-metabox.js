@@ -19,6 +19,7 @@ jQuery( function( $ ) {
         }, 1 );
     };
 
+    // Set the clicking of `Today` button t populate the input field
 	$.datepicker._gotoToday = function(id) {
 		var target = $(id);
 		var inst = this._getInst(target[0]);
