@@ -280,7 +280,8 @@ module.exports = function( grunt ) {
       'assets/css/less/admin-manual-upgrade.less',
       'assets/css/less/admin-csv-import.less',
       'assets/css/less/admin-export.less',
-      'assets/css/less/admin-listing-metabox.less'
+      'assets/css/less/admin-listing-metabox.less',
+      'assets/css/less/jquery-ui-styles.less'
     ],
     js: [
       'assets/js/*.js',

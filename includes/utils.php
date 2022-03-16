@@ -1172,7 +1172,7 @@ function wpbdp_render_user_field( $args = array() ) {
 function wpbdp_enqueue_jquery_ui_style() {
 	wp_enqueue_style(
 		'wpbdp-jquery-ui-css',
-		WPBDP_ASSETS_URL . 'vendor/ui-lightness/jquery-ui.css',
+		WPBDP_ASSETS_URL . 'css/jquery-ui-styles.min.css',
 		array(),
 		WPBDP_VERSION
 	);
