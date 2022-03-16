@@ -316,10 +316,6 @@ final class WPBDP__Settings__Bootstrap {
                 'desc'  => __( 'Allow Business Directory to anonymously collect information about your installed plugins, themes and WP version?', 'business-directory-plugin' ) .
 					' <a href="https://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">' . __( 'Learn more', 'business-directory-plugin' ) . '</a>',
                 'group' => 'misc/misc',
-				'grid_classes' => array(
-					'left'  => 'wpbdp8',
-					'right' => 'wpbdp4'
-				),
             )
         );
 
@@ -363,10 +359,6 @@ final class WPBDP__Settings__Bootstrap {
                 'type'  => 'toggle',
                 'name'  => _x( 'Disable advanced CPT integration', 'settings', 'business-directory-plugin' ),
                 'group' => 'general/advanced',
-				'grid_classes' => array(
-					'left'  => 'wpbdp8',
-					'right' => 'wpbdp4'
-				),
             )
         );
 
@@ -377,10 +369,6 @@ final class WPBDP__Settings__Bootstrap {
                 'name'  => _x( 'Disable frontend listing submission', 'settings', 'business-directory-plugin' ),
                 'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'business-directory-plugin' ),
                 'group' => 'general/advanced',
-				'grid_classes' => array(
-					'left'  => 'wpbdp8',
-					'right' => 'wpbdp4'
-				),
             )
         );
     }

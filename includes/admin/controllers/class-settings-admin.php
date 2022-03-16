@@ -196,6 +196,9 @@ class WPBDP__Settings_Admin {
 
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo apply_filters( 'wpbdp_admin_settings_render', $callback_html, $setting );
+		if ( $this->show_label_with_input( $setting ) ) {
+			$this->setting_input_desc( $setting );
+		}
 
 		$this->close_grid_div( $setting );
 		echo '</div>';
@@ -212,7 +215,7 @@ class WPBDP__Settings_Admin {
 	 * @return bool
 	 */
 	private function show_label_with_input( $setting ) {
-		return $setting['type'] === 'checkbox' || ( $setting['type'] === 'toggle' && strpos( $setting['class'], 'grid' ) === false );
+		return $setting['type'] === 'checkbox' || $setting['type'] === 'toggle';
 	}
 
     public function setting_tooltip( $tooltip = '' ) {
@@ -253,8 +256,6 @@ class WPBDP__Settings_Admin {
 
 		$this->setting_input_label( $setting, 'span' );
 		echo '</label>';
-
-		$this->setting_input_desc( $setting );
 	}
 
 	/**
@@ -268,9 +269,7 @@ class WPBDP__Settings_Admin {
 		$this->checkbox_input_html( $setting, $value );
 		echo '<span class="wpbd-toggle-slider"></span>';
 		echo '</span>';
-		if ( $this->show_label_with_input( $setting ) ) {
-			$this->setting_input_label( $setting, 'span', 'wpbdp-setting-label' );
-		}
+		$this->setting_input_label( $setting, 'span', 'wpbdp-setting-label' );
 		echo '</label>';
 	}
 
