@@ -313,6 +313,8 @@ class WPBDP__Assets {
 
 		$this->load_css();
 
+		wpbdp_enqueue_jquery_ui_style();
+
 		wp_enqueue_style(
 			'wpbdp-listing-admin-metabox',
 			WPBDP_ASSETS_URL . 'css/admin-listing-metabox.min.css',
