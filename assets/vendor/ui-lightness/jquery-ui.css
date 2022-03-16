@@ -446,10 +446,14 @@
     right: 0;
 }
 
-.ui-datepicker .ui-datepicker-next span,
 .ui-datepicker .ui-datepicker-prev span {
-    display: block;
+    background-position: -65px -192px;
 }
+
+.ui-datepicker .ui-datepicker-next span {
+    background-position: -96px -192px;
+}
+
 
 .ui-datepicker .ui-datepicker-prev {float: left;}
 .ui-datepicker .ui-datepicker-next {float: right;}
