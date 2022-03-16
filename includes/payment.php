@@ -112,44 +112,7 @@ class WPBDP_PaymentsAPI {
      * @since 3.5.8
      */
     public function notify_abandoned_payments() {
-        global $wpdb;
-
-        $threshold = max( 1, absint( wpbdp_get_option( 'payment-abandonment-threshold' ) ) );
-        $time_for_pending = wpbdp_format_time( strtotime( "-{$threshold} hours", current_time( 'timestamp' ) ), 'mysql' );
-        $notified = get_option( 'wpbdp-payment-abandonment-notified', array() );
-
-        if ( ! is_array( $notified ) )
-               $notified = array();
-
-        // For now, we only notify listings with pending INITIAL payments.
-        $to_notify = $wpdb->get_results(
-            $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s AND tag = %s AND created_at < %s ORDER BY created_at",
-                            'pending',
-                            'initial',
-                            $time_for_pending )
-        );
-
-        foreach ( $to_notify as &$data ) {
-            if ( in_array( $data->id, $notified ) )
-                continue;
-
-            $payment = WPBDP_Payment::get( $data->id );
-
-            // Send e-mail.
-            $replacements = array(
-                'listing' => get_the_title( $payment->get_listing_id() ),
-                'link' => sprintf( '<a href="%1$s">%1$s</a>', esc_url( $payment->get_checkout_url() ) )
-            );
-
-            $email = wpbdp_email_from_template( 'email-templates-payment-abandoned', $replacements );
-            $email->to[] = wpbusdirman_get_the_business_email( $payment->get_listing_id() );
-            $email->template = 'businessdirectory-email';
-            $email->send();
-
-            $notified[] = $data->id;
-        }
-
-        update_option( 'wpbdp-payment-abandonment-notified', $notified );
+        _deprecated_function( __METHOD__, '5.19' );
     }
 
 
