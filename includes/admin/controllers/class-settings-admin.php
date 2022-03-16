@@ -240,22 +240,66 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_checkbox_callback( $setting, $value ) {
-        $save = $this->checkbox_saved_value( $setting );
-		if ( 1 === $save ) {
-			$value = (bool) $value;
-		}
-
         echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
-		echo '<label>';
-        echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
 
-        if ( ! empty( $setting['desc'] ) ) {
-            echo wp_kses_post( $setting['desc'] );
-        }
+		echo '<label>';
+		echo $this->checkbox_input_html( $setting, $value );
+
+        echo $this->setting_input_desc( $setting );
 		echo '</label>';
 
 		echo $this->setting_tooltip( $setting['tooltip'] );
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function setting_toggle_callback( $setting, $value ) {
+		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
+
+		echo '<div class="wpbd-switch-checkbox">';
+		echo '<label>';
+		echo '<span class="wpbd-toggle">';
+		echo $this->checkbox_input_html( $setting, $value );
+		echo '<span class="wpbd-toggle-slider"></span>';
+		echo '</span>';
+		echo '</label>';
+		echo '</div>';
+	}
+
+	/**
+	 * Render checkbox input hmtl.
+	 *
+	 * @param array $setting The setting of the field.
+	 * @param int $value The input value.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function checkbox_input_html( $setting, $value ) {
+		$save = $this->checkbox_saved_value( $setting );
+		if ( 1 === $save ) {
+			$value = (bool) $value;
+		}
+		return '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
+	}
+
+	/**
+	 * Render settings input description.
+	 *
+	 * @param array $setting The setting of the field.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function setting_input_desc( $setting ) {
+		if ( empty( $setting['desc'] ) || $setting['type'] === 'education' ) {
+			return '';
+		}
+		return '<div class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</div>';
+	}
 
 	/**
 	 * Allow a check box to have a value other than 1.
