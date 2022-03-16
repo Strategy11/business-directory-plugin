@@ -448,32 +448,12 @@
 
 .ui-datepicker .ui-datepicker-next span,
 .ui-datepicker .ui-datepicker-prev span {
-    display: none;
+    display: block;
 }
 
 .ui-datepicker .ui-datepicker-prev {float: left;}
 .ui-datepicker .ui-datepicker-next {float: right;}
 
-.ui-datepicker .ui-datepicker-prev:before,
-.ui-datepicker .ui-datepicker-next:before {
-    font: normal 20px/34px 's11-fp';
-    padding-left: 7px;
-    color: #fff;
-    speak: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    width: 34px;
-    height: 34px;
-}
-
-.ui-datepicker .ui-datepicker-prev:before {content: '\e62a';}
-
-.ui-datepicker .ui-datepicker-next:before {content: '\e62d';}
-
-.ui-datepicker .ui-datepicker-prev-hover:before,
-.ui-datepicker .ui-datepicker-next-hover:before {
-    opacity: 0.7;
-}
 
 .ui-datepicker thead {
     color: #fff;
