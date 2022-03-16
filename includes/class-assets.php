@@ -290,18 +290,20 @@ class WPBDP__Assets {
 			$this->enqueue_admin_setting_resources();
 		}
 
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
 		wp_enqueue_style( 'thickbox' );
 
 		wp_enqueue_style( 'wpbdp-base-css' );
 
-		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp' . $min . '.js', array( 'jquery' ), WPBDP_VERSION, true );
 
-		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'jquery-ui-tooltip' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin' . $min . '.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'jquery-ui-tooltip' ), WPBDP_VERSION, true );
 		$this->global_localize( 'wpbdp-admin-js' );
 
-		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector' . $min . '.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 
         wp_enqueue_style( 'wpbdp-js-select2-css' );
 
@@ -380,15 +382,6 @@ class WPBDP__Assets {
 	 * @since x.x
 	 */
 	private function enqueue_admin_setting_resources() {
-		// Notifications JS
-		wp_enqueue_script(
-			'wpbdp-admin-notifications',
-			WPBDP_ASSETS_URL . 'js/admin-notifications.min.js',
-			array( 'jquery' ),
-			WPBDP_VERSION,
-			true
-		);
-
 		wp_enqueue_style( 'wpbdp-js-select2-css' );
 	}
 

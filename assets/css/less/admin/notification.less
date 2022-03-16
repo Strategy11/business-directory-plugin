@@ -1,11 +1,3 @@
-.wpbdp_notification_shadow() {
-	display: block;
-	background-color: @white;
-	border-radius: 7px;
-	box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
-	-webkit-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
-	-moz-box-shadow: 1px 2px 5px 0px rgba(179,175,175,0.75);
-}
 .wpbdp_notification_buttons() {
 	border-radius: 12px;
 	background-color: @text-color;
@@ -24,15 +16,12 @@
 
 .wpbdp-bell-notifications-list {
 	clear: both;
-	margin-top: 0;
+	margin: 0;
 	.notice, .wpbdp-upgrade-bar, .wpbdp-notice {
 		display: block !important;
 	}
 	.wpbdp-upgrade-bar {
 		margin-left: 0;
-	}
-	.notice {
-		margin: 0 auto;
 	}
 }
 
@@ -49,17 +38,19 @@
 	}
 }
 
-.wpbdp-bell-notification-icon {
-	.wpbdp_notification_shadow();
-	&:focus {
-		outline: 0;
-		.wpbdp_notification_shadow();
-	}
+.wpbdp-bell-notification-icon:focus {
+	outline: 0;
+	.wpbdp-shadow-box();
+}
+
+.wpbdp-bell-notification-icon,
+.wpbdp-bell-notifications li {
+	.wpbdp-shadow-box();
 }
 
 .wpbdp-bell-notifications {
 	position: fixed;
-	bottom: 75px;
+	bottom: 69px;
 	min-width: 20%;
 	right: 20px;
 	max-width: 400px;
@@ -67,7 +58,8 @@
 
 	li {
 		padding: 10px 25px;
-		.wpbdp_notification_shadow();
+		margin: 0 auto 4px;
+
 		.notice-dismiss {
 			right: 0;
 			top: 7px;
@@ -80,7 +72,7 @@
 	text-decoration: none;
 	display: block;
 	float: right;
-	margin-bottom: 15px;
+	margin-bottom: 4px;
 
 	&:hover {
 		color: @white;
@@ -90,10 +82,10 @@
 .wpbdp-snackbar {
 	min-width: 250px;
 	margin-left: -125px;
-	background-color: @modal-background-color;
+	background-color: @text-color;
 	color: @white;
 	text-align: center;
-	border-radius: 2px;
+	border-radius: 12px;
 	padding: 16px;
 	position: fixed;
 	z-index: 1;

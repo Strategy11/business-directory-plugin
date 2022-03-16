@@ -248,10 +248,164 @@ var WPBDP_associations_fieldtypes = {};
         }
     };
 
+	var WPBDPAdmin_Notifications = {
+		notificationContainer: null,
+		preAdminNotifications : null,
+		adminNotifications: null,
+		buttonNotification: null,
+		closeButton: null,
+
+		init: function() {
+			// Get the notification center
+			this.notificationContainer = $( '.wpbdp-bell-notifications' );
+
+			// Get all the notifications to display in the modal
+			this.preAdminNotifications = $( '.wpbdp-notice, .wpbdp-notice:hidden' );
+
+			// Notifications container
+			this.adminNotifications = this.notificationContainer.find( '.wpbdp-bell-notifications-list' );
+
+			// Get the notification button
+			this.buttonNotification = $( '.wpbdp-bell-notification-icon' );
+
+			// Get the close button
+			this.closeButton = $( '.wpbdp-bell-notifications-close' );
+
+			this.onClickNotifications();
+			this.initCloseNotifications();
+
+			this.parseNotifications();
+			this.handleDismissAction();
+		},
+
+		onClickNotifications: function() {
+			WPBDPAdmin_Notifications.buttonNotification.on( 'click', function(e) {
+				e.preventDefault();
+				WPBDPAdmin_Notifications.notificationContainer.toggleClass( 'hidden' );
+				WPBDPAdmin_Notifications.positionWithReview();
+			});
+		},
+
+		initCloseNotifications: function() {
+			WPBDPAdmin_Notifications.closeButton.on( 'click', function(e) {
+				e.preventDefault();
+				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
+			});
+		},
+
+		parseNotifications: function() {
+			if ( WPBDPAdmin_Notifications.preAdminNotifications.length < 1 ){
+				return true;
+			}
+			var notifications = [],
+			snackbars = [];
+			WPBDPAdmin_Notifications.preAdminNotifications.each( function() {
+				var notification = $(this);
+				if ( notification.hasClass( 'wpbdp-upgrade-bar' ) ) {
+					return false;
+				}
+				if ( notification.hasClass( 'wpbdp-notice' ) ) {
+					if ( notification.hasClass( 'wpbdp-snackbar-notice' ) ) {
+						snackbars.push( notification.html() );
+					} else {
+						notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
+					}
+				}
+				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
+					notification.remove();
+				}
+			});
+			notifications = WPBDPAdmin_Notifications.removeDuplicates( notifications );
+			snackbars = WPBDPAdmin_Notifications.removeDuplicates( snackbars );
+			WPBDPAdmin_Notifications.adminNotifications.append( notifications.join( ' ') );
+			if ( notifications.length > 0 ) {
+				$( '.wpbdp-bell-notification' ).show();
+				WPBDPAdmin_Notifications.notificationContainer.removeClass( 'hidden' );
+				WPBDPAdmin_Notifications.positionWithReview();
+			}
+			if ( snackbars.length > 0 ) {
+				snackbars.forEach( function( value, index, array ) {
+					WPBDPAdmin_Notifications.generateSnackBar( value );
+				});
+			}
+		},
+
+		/**
+		* Render the snack bar
+		*
+		* @param {string} notification
+		*/
+		generateSnackBar : function( notification ) {
+			var id = Date.now(),
+			container_id = 'wpbdp-snackbar-' + id;
+			var snackbar = $( '<div>', {
+				id: container_id,
+				class: 'wpbdp-snackbar'
+			});
+			snackbar.html( notification );
+			$( 'body' ).append(snackbar);
+			//setTimeout( function(){ snackbar.remove(); }, 2500);
+		},
+
+		removeDuplicates : function( arr ) {
+			var uniq = {};
+			arr.forEach( function( item ) { uniq[item] = true; } );
+			return Object.keys( uniq );
+		},
+
+		handleDismissAction : function() {
+			$( document ).on( 'click', '.wpbdp-bell-notifications-list .notice-dismiss', function( e ) {
+				e.preventDefault();
+				var $button = $( this ),
+				$notice = $button.parent( '.wpbdp-bell-notice' ),
+				dismissible_id = $button.data( 'dismissible-id' ),
+				nonce = $button.data( 'nonce' );
+
+				WPBDPAdmin_Notifications.dismissNotice( $notice, dismissible_id, nonce );
+			} );
+			$( document ).on( 'click', '.wpbdp-snackbar .notice-dismiss', function( e ) {
+				e.preventDefault();
+				var $button = $( this ),
+				$notice = $button.parent( '.wpbdp-bell-notice' ),
+				dismissible_id = $button.data( 'dismissible-id' ),
+				nonce = $button.data( 'nonce' );
+
+				WPBDPAdmin_Notifications.dismissNotice( $notice, dismissible_id, nonce );
+			} );
+		},
+
+		hideNotificationCenter : function() {
+			if ( WPBDPAdmin_Notifications.adminNotifications.find( 'li' ).length < 1 ) {
+				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
+				$( '.wpbdp-bell-notification' ).hide();
+			}
+		},
+
+		dismissNotice : function( $notice, notice_id, nonce ) {
+			$.post( ajaxurl, {
+				action: 'wpbdp_dismiss_notification',
+				id: notice_id,
+				nonce: nonce
+			}, function() {
+				$notice.fadeOut( 'fast', function(){ $notice.remove(); } );
+			} );
+		},
+
+		positionWithReview : function() {
+			if ( $( '.wpbdp-review-notice' ).length ) {
+				if ( WPBDPAdmin_Notifications.notificationContainer.hasClass( 'hidden' ) ) {
+					$( '.wpbdp-review-notice' ).css( 'right', WPBDPAdmin_Notifications.buttonNotification.width() + 40 + 'px' );
+				} else {
+					$( '.wpbdp-review-notice' ).css( 'right', WPBDPAdmin_Notifications.notificationContainer.width() + 40 + 'px' );
+				}
+			}
+		}
+	};
 
     $(document).ready(function(){
         WPBDPAdmin_FormFields.init();
 		WPBDPAdmin_Modal.init();
+		WPBDPAdmin_Notifications.init();
 
 		$( '.wpbdp-tooltip' ).tooltip({
 			tooltipClass: 'wpbdp-admin-tooltip-content'

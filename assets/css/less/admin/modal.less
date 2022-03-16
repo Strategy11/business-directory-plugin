@@ -1,8 +1,8 @@
 .wpbdp-admin-dialog {
-	background-color: @white;
+	.wpbdp-shadow-box();
+
 	z-index: 100;
 	padding: 0 !important;
-	border-radius: 12px;
 	max-width: 100% !important;
 
 	.inside:not(.empty) {
@@ -48,7 +48,7 @@
 }
 
 .wpbdp-modal-overlay {
-	background: @modal-background-color !important;
+	background: fade(@text-color, 70%) !important;
 	position: fixed;
 	width: 100%;
 	height: 100%;

@@ -55,8 +55,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'admin_menu', array( &$this, 'admin_menu_combine' ), 20 );
             add_action( 'admin_head', array( &$this, 'hide_menu' ) );
 
-			add_action( 'admin_footer', array( &$this, 'admin_footer' ) );
-
             // Enables reordering of admin menus.
             add_filter( 'custom_menu_order', '__return_true' );
 
@@ -97,6 +95,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			require_once WPBDP_INC . 'controllers/class-smtp.php';
 			WPBDP_SMTP_Controller::load_hooks();
+
+			require_once WPBDP_PATH . 'includes/admin/helpers/class-notices.php';
+			WPBDP_Admin_Notices::load_hooks();
 
             $this->listings   = new WPBDP_Admin_Listings();
             $this->csv_import = new WPBDP_CSVImportAdmin();
@@ -384,16 +385,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
             remove_submenu_page( 'wpbdp_admin', 'wpbdp_admin' );
         }
-
-		/**
-		 * Show admin notification icon in footer.
-		 */
-		public function admin_footer() {
-			if ( ! WPBDP_App_Helper::is_bd_page() ) {
-				return;
-			}
-			wpbdp_admin_notification_bell();
-		}
 
         /**
          * Combine submenus from post type and wpbdp_admin
