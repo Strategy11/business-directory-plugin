@@ -246,7 +246,10 @@ class WPBDP__Settings_Admin {
 		echo '<label>';
 		$this->checkbox_input_html( $setting, $value );
 
-		echo $this->setting_input_desc( $setting );
+		if ( ! empty( $setting['desc'] ) ) {
+			echo wp_kses_post( $setting['desc'] );
+		}
+
 		echo '</label>';
 
 		echo $this->setting_tooltip( $setting['tooltip'] );
@@ -258,14 +261,13 @@ class WPBDP__Settings_Admin {
 	public function setting_toggle_callback( $setting, $value ) {
 		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 
-		echo '<div class="wpbd-switch-checkbox">';
 		echo '<label>';
 		echo '<span class="wpbd-toggle">';
 		$this->checkbox_input_html( $setting, $value );
 		echo '<span class="wpbd-toggle-slider"></span>';
 		echo '</span>';
+		echo $this->setting_input_desc( $setting );
 		echo '</label>';
-		echo '</div>';
 	}
 
 	/**

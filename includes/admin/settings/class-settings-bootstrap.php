@@ -209,7 +209,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'require-login',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Require login to post listings', 'settings', 'business-directory-plugin' ),
                 'default' => 1,
                 'group'   => 'registration',
@@ -218,7 +218,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'    => 'enable-key-access',
-                'type'  => 'checkbox',
+                'type'  => 'toggle',
                 'name'  => _x( 'Allow anonymous users to edit/manage listings with an access key', 'settings', 'business-directory-plugin' ),
                 'group' => 'registration',
             )
@@ -265,7 +265,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'    => 'display-terms-and-conditions',
-                'type'  => 'checkbox',
+                'type'  => 'toggle',
                 'name'  => __( 'User Agreement', 'business-directory-plugin' ),
 				'desc'  => __( 'Display and require user agreement to Terms and Conditions', 'business-directory-plugin' ),
                 'group' => 'tos_settings',
@@ -447,7 +447,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'listing-renewal',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Turn on listing renewal option', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'listings/main',
@@ -456,7 +456,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'listing-link-in-new-tab',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Open detailed view of listing in new tab', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/main',
