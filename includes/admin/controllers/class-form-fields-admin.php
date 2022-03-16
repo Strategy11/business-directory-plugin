@@ -182,7 +182,7 @@ class WPBDP_FormFieldsAdmin {
 			$res   = $field->save();
 
 			if ( ! is_wp_error( $res ) ) {
-				$this->admin->messages[] = _x( 'Form fields updated.', 'form-fields admin', 'business-directory-plugin' );
+				wpbdp_admin_message( __( 'Form fields updated.', 'business-directory-plugin' ), 'success wpbdp-snackbar-notice' );
 				$this->fields_table();
 				return;
 			}
@@ -193,7 +193,7 @@ class WPBDP_FormFieldsAdmin {
 				$errmsg .= sprintf( '&#149; %s<br />', $err );
 			}
 
-			$this->admin->messages[] = array( $errmsg, 'error' );
+			wpbdp_admin_message( $errmsg, 'error wpbdp-snackbar-notice' );
 
 		} else {
 			$id    = wpbdp_get_var( array( 'param' => 'id' ) );
