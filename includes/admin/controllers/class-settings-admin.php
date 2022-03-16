@@ -108,7 +108,7 @@ class WPBDP__Settings_Admin {
 
             add_settings_field(
                 'wpbdp_settings[' . $args['id'] . ']',
-                $args['name'],
+                $args['name'] . $this->setting_tooltip( $args['tooltip'] ),
                 array( $this, 'setting_callback' ),
                 $subtab_group,
                 $section_group,
@@ -246,10 +246,8 @@ class WPBDP__Settings_Admin {
 		echo '<label>';
 		$this->checkbox_input_html( $setting, $value );
 
-		echo $this->setting_input_desc( $setting );
+		$this->setting_input_desc( $setting, 'span' );
 		echo '</label>';
-
-		echo $this->setting_tooltip( $setting['tooltip'] );
     }
 
 	/**
@@ -258,14 +256,13 @@ class WPBDP__Settings_Admin {
 	public function setting_toggle_callback( $setting, $value ) {
 		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 
-		echo '<div class="wpbd-switch-checkbox">';
 		echo '<label>';
 		echo '<span class="wpbd-toggle">';
 		$this->checkbox_input_html( $setting, $value );
 		echo '<span class="wpbd-toggle-slider"></span>';
 		echo '</span>';
+		$this->setting_input_desc( $setting, 'span' );
 		echo '</label>';
-		echo '</div>';
 	}
 
 	/**
@@ -293,13 +290,23 @@ class WPBDP__Settings_Admin {
 	 *
 	 * @since x.x
 	 *
-	 * @return string
+	 * @return void
 	 */
-	private function setting_input_desc( $setting ) {
+	private function setting_input_desc( $setting, $include_wrap = 'div' ) {
 		if ( empty( $setting['desc'] ) || $setting['type'] === 'education' ) {
-			return '';
+			return;
 		}
-		return '<div class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</div>';
+		if ( $include_wrap === 'div' ) {
+			echo '<div class="wpbdp-setting-description">';
+		} else {
+			echo '<' . esc_attr( $include_wrap ) . '>';
+		}
+
+		echo wp_kses_post( $setting['desc'] );
+
+		if ( $include_wrap ) {
+			echo '</' . esc_attr( $include_wrap ) . '>';
+		}
 	}
 
 	/**
