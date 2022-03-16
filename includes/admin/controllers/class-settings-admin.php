@@ -131,15 +131,21 @@ class WPBDP__Settings_Admin {
 	 * @since 5.9.1
 	 */
 	private function add_requirement( $setting ) {
-		if ( ! empty( $setting['requirements'] ) ) {
-			$reqs_info = array();
+		$skip = array( 'payments-on' ); // Deprecated settings.
 
-			foreach ( $setting['requirements'] as $r ) {
-				$reqs_info[] = array( $r, (bool) wpbdp_get_option( str_replace( '!', '', $r ) ) );
-			}
+		$setting['requirements'] = array_diff( (array) $setting['requirements'], $skip );
 
-			echo ' data-requirements="' . esc_attr( wp_json_encode( $reqs_info ) ) . '"';
+		if ( empty( $setting['requirements'] ) ) {
+			return;
 		}
+
+		$reqs_info = array();
+
+		foreach ( $setting['requirements'] as $r ) {
+			$reqs_info[] = array( $r, (bool) wpbdp_get_option( str_replace( '!', '', $r ) ) );
+		}
+
+		echo ' data-requirements="' . esc_attr( wp_json_encode( $reqs_info ) ) . '"';
 	}
 
     public function setting_callback( $setting ) {
@@ -290,7 +296,7 @@ class WPBDP__Settings_Admin {
 	 */
 	public function setting_hidden_callback( $setting, $value ) {
 		?>
-		<input type="hidden" value="<?php echo esc_attr( $value ); ?>" name="wpbdp_settings[<?php echo esc_attr( $setting['id'] ); ?>]"/>
+		<input type="hidden" value="<?php echo esc_attr( $value ); ?>" name="wpbdp_settings[<?php echo esc_attr( $setting['id'] ); ?>]" id="wpbdp-settings-<?php echo esc_attr( $setting['id'] ); ?>"/>
 		<?php
 	}
 
