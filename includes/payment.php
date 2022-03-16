@@ -240,9 +240,7 @@ class WPBDP_PaymentsAPI {
     public function notify_abandoned_payments() {
         global $wpdb;
 
-		$threshold = $this->get_payment_abandonment_threshhold();
 		$params   = $this->get_admin_view_count_params();
-        $time_for_pending = $params['within_pending'];
         $notified = get_option( 'wpbdp-payment-abandonment-notified', array() );
 
         if ( ! is_array( $notified ) )
@@ -253,7 +251,7 @@ class WPBDP_PaymentsAPI {
             $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpbdp_payments WHERE status = %s AND tag = %s AND created_at < %s ORDER BY created_at",
                             'pending',
                             'initial',
-                            $time_for_pending )
+                            $params['within_pending'] )
         );
 
         foreach ( $to_notify as &$data ) {
