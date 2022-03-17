@@ -6,7 +6,7 @@
 class WPBDP_Admin_Notices {
 
 	public static function load_hooks() {
-		add_action( 'admin_footer', array( __CLASS__, 'admin_footer' ) );
+		add_action( 'admin_footer', __CLASS__ . '::admin_footer' );
 	}
 
 	/**
