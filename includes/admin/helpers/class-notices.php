@@ -12,7 +12,7 @@ class WPBDP_Admin_Notices {
 	/**
 	 * Show admin notification icon in footer.
 	 */
-	public function admin_footer() {
+	public static function admin_footer() {
 		if ( ! WPBDP_App_Helper::is_bd_page() ) {
 			return;
 		}
