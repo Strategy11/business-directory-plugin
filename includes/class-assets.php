@@ -284,12 +284,6 @@ class WPBDP__Assets {
 		// Add admin body class for parent page class to avoid css conflicts.
 		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
 
-		// Prevent hiding notices on non-bd pages.
-		// The main parent function enqueue_admin_scripts is also called in other places the class-admin.php check_for_required_pages().
-		if ( WPBDP_App_Helper::is_bd_page() ) {
-			$this->enqueue_admin_setting_resources();
-		}
-
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
 		wp_enqueue_style( 'thickbox' );
@@ -302,6 +296,8 @@ class WPBDP__Assets {
 		$this->global_localize( 'wpbdp-admin-js' );
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
+
+		wp_enqueue_style( 'wpbdp-js-select2-css' );
 
 		/**
 		 * Load additional scripts or styles used only in BD plugin pages.
@@ -369,16 +365,6 @@ class WPBDP__Assets {
 				),
 			)
 		);
-	}
-
-	/**
-	 * Load admin resources that should not conflict with other pages.
-	 * These should only be loaded on the plugin pages.
-	 *
-	 * @since x.x
-	 */
-	private function enqueue_admin_setting_resources() {
-		wp_enqueue_style( 'wpbdp-js-select2-css' );
 	}
 
 	/**
