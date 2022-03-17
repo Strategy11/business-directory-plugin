@@ -94,7 +94,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'permalinks-no-id',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
 				'default' => true,
                 'name'    => _x( 'Remove listing ID from directory URLs?', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'Check this setting to remove the ID for better SEO.', 'settings', 'business-directory-plugin' ),
@@ -209,7 +209,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'require-login',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Require login to post listings', 'settings', 'business-directory-plugin' ),
                 'default' => 1,
                 'group'   => 'registration',
@@ -218,7 +218,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'    => 'enable-key-access',
-                'type'  => 'checkbox',
+                'type'  => 'toggle',
                 'name'  => _x( 'Allow anonymous users to edit/manage listings with an access key', 'settings', 'business-directory-plugin' ),
                 'group' => 'registration',
             )
@@ -265,7 +265,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'    => 'display-terms-and-conditions',
-                'type'  => 'checkbox',
+                'type'  => 'toggle',
                 'name'  => __( 'User Agreement', 'business-directory-plugin' ),
 				'desc'  => __( 'Display and require user agreement to Terms and Conditions', 'business-directory-plugin' ),
                 'group' => 'tos_settings',
@@ -290,7 +290,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'    => 'tracking-on',
-                'type'  => 'checkbox',
+                'type'  => 'toggle',
                 'name'  => __( 'Data Collection', 'business-directory-plugin' ),
                 'desc'  => __( 'Allow Business Directory to anonymously collect information about your installed plugins, themes and WP version?', 'business-directory-plugin' ) .
 					' <a href="https://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">' . __( 'Learn more', 'business-directory-plugin' ) . '</a>',
@@ -320,9 +320,9 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'    => 'quick-search-enable-performance-tricks',
-                'type'  => 'checkbox',
-                'name'  => _x( 'Enable high performance searches', 'settings', 'business-directory-plugin' ),
-                'desc'  => __( 'Enabling this sacrifices result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'business-directory-plugin' ),
+                'type'  => 'toggle',
+                'name'  => _x( 'Enable high performance search', 'settings', 'business-directory-plugin' ),
+				'tooltip' => __( 'Enabling this sacrifices result quality to improve speed. This is helpful if you\'re on shared hosting plans, where database performance is an issue.', 'business-directory-plugin' ),
                 'group' => 'search_settings',
             )
         );
@@ -335,7 +335,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'    => 'disable-cpt',
-                'type'  => 'checkbox',
+                'type'  => 'toggle',
                 'name'  => _x( 'Disable advanced CPT integration', 'settings', 'business-directory-plugin' ),
                 'group' => 'general/advanced',
             )
@@ -344,7 +344,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'    => 'disable-submit-listing',
-                'type'  => 'checkbox',
+                'type'  => 'toggle',
                 'name'  => _x( 'Disable frontend listing submission', 'settings', 'business-directory-plugin' ),
                 'desc'  => _x( 'Prevents the Submit Listing button from showing on the main UI, but allows a shortcode for submit listing to function on other pages.', 'settings', 'business-directory-plugin' ),
                 'group' => 'general/advanced',
@@ -447,7 +447,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'listing-renewal',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Turn on listing renewal option', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'listings/main',
@@ -456,7 +456,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'listing-link-in-new-tab',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Open detailed view of listing in new tab', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/main',
@@ -466,7 +466,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'enable-listing-flagging',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Include button to report listings', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/report',
@@ -475,7 +475,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'           => 'listing-flagging-register-users',
-                'type'         => 'checkbox',
+                'type'         => 'toggle',
                 'name'         => _x( 'Enable report listing for registered users only', 'settings', 'business-directory-plugin' ),
                 'default'      => true,
                 'group'        => 'listings/report',
@@ -497,7 +497,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'show-contact-form',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Include listing contact form on listing pages', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'Allows visitors to contact listing authors privately. Authors will receive the messages via email.', 'settings', 'business-directory-plugin' ),
                 'default' => true,
@@ -507,7 +507,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'           => 'contact-form-require-login',
-                'type'         => 'checkbox',
+                'type'         => 'toggle',
                 'name'         => _x( 'Require login for using the contact form', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'listings/contact',
@@ -559,7 +559,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'show-listings-under-categories',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Show listings under categories on main page', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/post_category',
@@ -725,7 +725,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'show-category-post-count',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Show category post count', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'listings/post_category',
@@ -734,7 +734,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'hide-empty-categories',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Hide empty categories', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/post_category',
@@ -743,7 +743,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'show-only-parent-categories',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Show only parent categories in category list', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/post_category',
@@ -793,7 +793,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'listings-sortbar-enabled',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Enable sort bar', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'listings/sorting',
@@ -899,7 +899,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'allow-images',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Allow images', 'settings', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'images/general',
@@ -1022,7 +1022,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'enforce-image-upload',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Enforce image upload on submit/edit', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'image/listings',
@@ -1141,7 +1141,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'           => 'payments-test-mode',
-                'type'         => 'checkbox',
+                'type'         => 'toggle',
                 'name'         => _x( 'Put payment gateways in test mode', 'settings', 'business-directory-plugin' ),
                 'default'      => true,
                 'group'        => 'payment/main',
@@ -1212,7 +1212,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'           => 'include-fee-description',
-                'type'         => 'checkbox',
+                'type'         => 'toggle',
                 'name'         => _x( 'Include plan description in receipt', 'settings', 'business-directory-plugin' ),
                 'default'      => false,
                 'group'        => 'payment/main',

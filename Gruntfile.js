@@ -81,7 +81,7 @@ module.exports = function( grunt ) {
       if ( ! _.isEmpty( less_config ) ) {
         grunt.config.set( 'less.' + id, {options: {cleancss: false, compress: true, strictImports: true}, files: less_config} );
         grunt.config.set( 'watch.' + id + '_less', {
-          files: [path.join(basedir, '**/*.less'), path.join(basedir, '**/*.css'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.css'), '!' + path.join(basedir, 'assets/vendor/**/*')],
+          files: [path.join(basedir, '**/*.less'), path.join(basedir, '**/**/*.less'), path.join(basedir, '**/*.css'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.css'), '!' + path.join(basedir, 'assets/vendor/**/*')],
           tasks: [ 'less:' + id ]
         } );
       }

@@ -108,7 +108,7 @@ class WPBDP__Settings_Admin {
 
             add_settings_field(
                 'wpbdp_settings[' . $args['id'] . ']',
-                $args['name'],
+                $args['name'] . $this->setting_tooltip( $args['tooltip'] ),
                 array( $this, 'setting_callback' ),
                 $subtab_group,
                 $section_group,
@@ -131,15 +131,22 @@ class WPBDP__Settings_Admin {
 	 * @since 5.9.1
 	 */
 	private function add_requirement( $setting ) {
-		if ( ! empty( $setting['requirements'] ) ) {
-			$reqs_info = array();
+		$skip = array( 'payments-on' ); // Deprecated settings.
 
-			foreach ( $setting['requirements'] as $r ) {
-				$reqs_info[] = array( $r, (bool) wpbdp_get_option( str_replace( '!', '', $r ) ) );
-			}
+		$setting['requirements'] = isset( $setting['requirements'] ) ? (array) $setting['requirements'] : array();
+		$setting['requirements'] = array_diff( $setting['requirements'], $skip );
 
-			echo ' data-requirements="' . esc_attr( wp_json_encode( $reqs_info ) ) . '"';
+		if ( empty( $setting['requirements'] ) ) {
+			return;
 		}
+
+		$reqs_info = array();
+
+		foreach ( $setting['requirements'] as $r ) {
+			$reqs_info[] = array( $r, (bool) wpbdp_get_option( str_replace( '!', '', $r ) ) );
+		}
+
+		echo ' data-requirements="' . esc_attr( wp_json_encode( $reqs_info ) ) . '"';
 	}
 
     public function setting_callback( $setting ) {
@@ -234,22 +241,73 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_checkbox_callback( $setting, $value ) {
-        $save = $this->checkbox_saved_value( $setting );
+        echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
+
+		echo '<label>';
+		$this->checkbox_input_html( $setting, $value );
+
+		$this->setting_input_desc( $setting, 'span' );
+		echo '</label>';
+    }
+
+	/**
+	 * @since x.x
+	 */
+	public function setting_toggle_callback( $setting, $value ) {
+		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
+
+		echo '<label>';
+		echo '<span class="wpbd-toggle-cont">';
+		$this->checkbox_input_html( $setting, $value );
+		echo '<span class="wpbd-toggle-slider"></span>';
+		echo '</span>';
+		$this->setting_input_desc( $setting, 'span' );
+		echo '</label>';
+	}
+
+	/**
+	 * Render checkbox input hmtl.
+	 *
+	 * @param array $setting The setting of the field.
+	 * @param int $value The input value.
+	 *
+	 * @since x.x
+	 *
+	 * @return void
+	 */
+	private function checkbox_input_html( $setting, $value ) {
+		$save = $this->checkbox_saved_value( $setting );
 		if ( 1 === $save ) {
 			$value = (bool) $value;
 		}
+		echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
+	}
 
-        echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
-		echo '<label>';
-        echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
+	/**
+	 * Render settings input description.
+	 *
+	 * @param array $setting The setting of the field.
+	 *
+	 * @since x.x
+	 *
+	 * @return void
+	 */
+	private function setting_input_desc( $setting, $include_wrap = 'div' ) {
+		if ( empty( $setting['desc'] ) || $setting['type'] === 'education' ) {
+			return;
+		}
+		if ( $include_wrap === 'div' ) {
+			echo '<div class="wpbdp-setting-description">';
+		} else {
+			echo '<' . esc_attr( $include_wrap ) . '>';
+		}
 
-        if ( ! empty( $setting['desc'] ) ) {
-            echo wp_kses_post( $setting['desc'] );
-        }
-		echo '</label>';
+		echo wp_kses_post( $setting['desc'] );
 
-		echo $this->setting_tooltip( $setting['tooltip'] );
-    }
+		if ( $include_wrap ) {
+			echo '</' . esc_attr( $include_wrap ) . '>';
+		}
+	}
 
 	/**
 	 * Allow a check box to have a value other than 1.
@@ -290,7 +348,7 @@ class WPBDP__Settings_Admin {
 	 */
 	public function setting_hidden_callback( $setting, $value ) {
 		?>
-		<input type="hidden" value="<?php echo esc_attr( $value ); ?>" name="wpbdp_settings[<?php echo esc_attr( $setting['id'] ); ?>]"/>
+		<input type="hidden" value="<?php echo esc_attr( $value ); ?>" name="wpbdp_settings[<?php echo esc_attr( $setting['id'] ); ?>]" id="wpbdp-settings-<?php echo esc_attr( $setting['id'] ); ?>"/>
 		<?php
 	}
 
