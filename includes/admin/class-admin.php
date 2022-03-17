@@ -698,14 +698,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$this->admin_notices();
 		}
 
-        function admin_notices() {
+		function admin_notices() {
 			if ( ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
-            if ( ! isset( $this->displayed_warnings ) ) {
-                $this->displayed_warnings = array();
-            }
+			if ( ! isset( $this->displayed_warnings ) ) {
+				$this->displayed_warnings = array();
+			}
 
             foreach ( $this->messages as $msg ) {
                 $msg_sha1 = sha1( is_array( $msg ) ? $msg[0] : $msg );

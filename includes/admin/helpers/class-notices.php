@@ -40,9 +40,7 @@ class WPBDP_Admin_Notices {
 
 	/**
 	 * Show the settings notice.
-	 * Renders settings notice in notification area. Adds extra wpbdp-notice to show in area.
-	 *
-	 * @link https://developer.wordpress.org/reference/functions/settings_errors/
+	 * Renders settings notice in notification area.
 	 *
 	 * @since x.x
 	 */
@@ -53,26 +51,9 @@ class WPBDP_Admin_Notices {
 		}
 
 		foreach ( $settings_errors as $key => $details ) {
-			if ( 'updated' === $details['type'] ) {
-				$details['type'] = 'success';
-			}
-
-			if ( in_array( $details['type'], array( 'error', 'success', 'warning', 'info' ), true ) ) {
-				$details['type'] = 'notice-' . $details['type'];
-			}
-
-			$css_id    = sprintf(
-				'setting-error-%s',
-				esc_attr( $details['code'] )
-			);
-			$css_class = sprintf(
-				'notice wpbdp-notice %s settings-error',
-				esc_attr( $details['type'] )
-			);
-
-			echo '<div id="' . esc_attr( $css_id ) . '" class="' . esc_attr( $css_class ) . '">';
-			echo '<p><strong>' . wp_kses_post( $details['message'] ) . '</strong></p>';
-			echo '</div>';
+			wpbdp_admin_message( $details['message'], $details['type'] );
 		}
+
+		wpbdp_admin_notices();
 	}
 }
