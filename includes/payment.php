@@ -108,14 +108,36 @@ class WPBDP_PaymentsAPI {
         return $html;
     }
 
+	/**
+	 * @since 3.5.8
+	 */
+	public function abandonment_status( $status, $listing_id ) {
+		_deprecated_function( __METHOD__, '5.19' );
+		return $status;
+	}
+
+	/**
+	 * @since 3.5.8
+	 */
+	public function abandonment_admin_views( $views, $post_statuses ) {
+		_deprecated_function( __METHOD__, '5.19' );
+		return $views;
+	}
+
+	/**
+	 * @since 3.5.8
+	 */
+	public function abandonment_admin_filter( $pieces, $filter = '' ) {
+		_deprecated_function( __METHOD__, '5.19' );
+		return $pieces;
+	}
+
     /**
      * @since 3.5.8
      */
     public function notify_abandoned_payments() {
         _deprecated_function( __METHOD__, '5.19' );
     }
-
-
 
 	function _return_fee_list_button( $payment ) {
         if ( 'renewal' !== $payment->payment_type ) {
