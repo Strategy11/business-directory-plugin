@@ -215,7 +215,7 @@ class WPBDP_FormFieldsAdmin {
 					'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '">',
 					$msg
 				);
-				wpbdp_admin_message( $msg, 'error dismissible' );
+				wpbdp_admin_message( $msg, 'notice-error is-dismissible' );
 			}
 
 			wpbdp_render_page(

@@ -260,7 +260,7 @@ var WPBDP_associations_fieldtypes = {};
 			this.notificationContainer = $( '.wpbdp-bell-notifications' );
 
 			// Get all the notifications to display in the modal
-			this.preAdminNotifications = $( '.wpbdp-notice:hidden' );
+			this.preAdminNotifications = $( '.notice:hidden' );
 
 			// Notifications container
 			this.adminNotifications = this.notificationContainer.find( '.wpbdp-bell-notifications-list' );
@@ -304,19 +304,17 @@ var WPBDP_associations_fieldtypes = {};
 			var notifications = [],
 			snackbars = [];
 			WPBDPAdmin_Notifications.preAdminNotifications.each( function() {
-				var notification = $(this);
+				var notification = $(this),
+					mainMsg = this.id === 'message';
 				if ( notification.hasClass( 'wpbdp-maintain-notice' ) ) {
 					return false;
 				}
-				if ( notification.hasClass( 'wpbdp-notice' ) ) {
-					if ( ! notification.hasClass( 'is-dismissible' ) && ! notification.hasClass( 'dismissible' ) ) {
-						snackbars.push( notification.html() );
-					} else {
+				if ( notification.hasClass( 'wpbdp-notice' ) || mainMsg ) {
+					if ( notification.hasClass( 'is-dismissible' ) && ! mainMsg ) {
 						notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
+					} else {
+						snackbars.push( notification.html() );
 					}
-				}
-				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
-					//notification.remove();
 				}
 			});
 			notifications = WPBDPAdmin_Notifications.removeDuplicates( notifications );

@@ -138,14 +138,14 @@ class WPBDP__Payment_Gateways {
                 $msg = str_replace( '<problems>', '<b>' . $errors . '</b>', $msg );
 				$msg = str_replace( array( '<link>', '</link>' ), array( '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">', '</a>' ), $msg );
 
-                wpbdp_admin_message( $msg, 'error dismissible' );
+                wpbdp_admin_message( $msg, 'notice-error is-dismissible' );
             }
         }
 
 		if ( ! $at_least_one_gateway && ( $is_plans || $is_payments ) ) {
 			$msg = __( 'You have paid plans but no payment gateway. Go to %1$sSettings - Payment%2$s to set up a gateway. Until you do this, only free plans will be available.', 'business-directory-plugin' );
 			$msg = sprintf( $msg, '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">', '</a>' );
-			wpbdp_admin_message( $msg, 'error dismissible' );
+			wpbdp_admin_message( $msg, 'notice-error is-dismissible' );
 		}
     }
 }

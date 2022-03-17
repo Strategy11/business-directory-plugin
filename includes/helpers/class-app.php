@@ -153,8 +153,7 @@ class WPBDP_App_Helper {
 	 * @return bool
 	 */
 	public static function is_bd_page() {
-		$is_post_page = self::is_bd_post_page();
-		if ( $is_post_page ) {
+		if ( self::is_bd_post_page() ) {
 			return true;
 		}
 
@@ -177,13 +176,15 @@ class WPBDP_App_Helper {
 	public static function is_bd_post_page() {
 		global $pagenow;
 
-		if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow && 'edit.php' !== $pagenow ) {
+		$is_tax  = 'term.php' === $pagenow ||'edit-tags.php' === $pagenow;
+		$is_post = 'post.php' === $pagenow || 'post-new.php' === $pagenow || 'edit.php' === $pagenow;
+		if ( ! $is_post && ! $is_tax ) {
 			return false;
 		}
 
 		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
 
-		if ( empty( $post_type ) ) {
+		if ( empty( $post_type ) && ! $is_tax ) {
 			$post_id   = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
 			$post      = get_post( $post_id );
 			$post_type = $post ? $post->post_type : '';

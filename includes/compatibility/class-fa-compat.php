@@ -46,7 +46,7 @@ class WPBDP_FA_Compat {
 				'<a class="wpbdp-notice-dismiss" href="' . esc_url( $plugin_url ) . '" data-dismissible-id="fontawesome" data-nonce="' . esc_attr( wp_create_nonce( 'dismiss notice fontawesome' ) ) . '">',
 				'</a>'
 			),
-			'notice-error dismissible',
+			'notice-error is-dismissible',
 			array( 'dismissible-id' => 'fontawesome' )
 		);
 	}

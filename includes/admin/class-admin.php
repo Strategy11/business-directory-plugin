@@ -86,6 +86,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
+			add_filter( 'admin_head-term.php', array( $this, 'maybe_highlight_menu' ) );
 
 			// Clear listing page cache.
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
@@ -702,14 +703,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
                 $this->displayed_warnings[] = $msg_sha1;
 
+				$class = 'updated';
+				$extra = array();
                 if ( is_array( $msg ) ) {
-                    $class = isset( $msg[1] ) ? $msg[1] : 'updated';
+                    $class = isset( $msg[1] ) ? $msg[1] : $class;
                     $text  = isset( $msg[0] ) ? $msg[0] : '';
-                    $extra = isset( $msg[2] ) && is_array( $msg[2] ) ? $msg[2] : array();
+                    $extra = isset( $msg[2] ) && is_array( $msg[2] ) ? $msg[2] : $extra;
                 } else {
-                    $class = 'updated';
                     $text  = $msg;
-                    $extra = array();
                 }
 
 				self::maybe_update_notice_classes( $class );

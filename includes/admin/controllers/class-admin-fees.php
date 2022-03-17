@@ -120,7 +120,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			}
 		} else {
 			foreach ( $result->get_error_messages() as $msg ) {
-				wpbdp_admin_message( $msg, 'error dismissible' );
+				wpbdp_admin_message( $msg, 'error' );
 			}
 		}
 
@@ -156,7 +156,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				'</a>',
 				$total_listings
 			),
-			'updated wpbdp-plan-updated dismissible'
+			'updated wpbdp-plan-updated is-dismissible'
 		);
 	}
 
