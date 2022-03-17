@@ -361,6 +361,32 @@ var WPBDP_associations_fieldtypes = {};
 		});
     });
 
+	// Dismissible Messages
+	var dismissNotice = function( $notice, $button ) {
+		$.post( ajaxurl, {
+			action: 'wpbdp_dismiss_notification',
+			id: $button.data( 'dismissible-id' ),
+			nonce: $button.data( 'nonce' )
+		}, function() {
+			$notice.fadeOut( 'fast', function(){
+				$notice.remove();
+				WPBDPAdmin_Notifications.hideNotificationCenter();
+			} );
+		} );
+	};
+
+	$( document ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
+		e.preventDefault();
+		var $button = $( this ),
+		$notice = $button.closest( '.wpbdp-notice' ),
+		link = $button.attr( 'href' );
+
+		if ( link ) {
+			window.open( link, '_blank').focus();
+		}
+		dismissNotice( $notice, $button );
+	});
+
 })(jQuery);
 
 
@@ -637,35 +663,6 @@ jQuery(function($) {
     });
 })(jQuery);
 // }}
-
-// Dismissible Messages
-(function($) {
-    $(function(){
-        var dismissNotice = function( $notice, $button ) {
-            $.post( ajaxurl, {
-                action: 'wpbdp_dismiss_notification',
-                id: $button.data( 'dismissible-id' ),
-                nonce: $button.data( 'nonce' )
-            }, function() {
-                $notice.fadeOut( 'fast', function(){ 
-                    $notice.remove();
-                } );
-            } );
-        };
-
-		$( document ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
-			e.preventDefault();
-			var $button = $( this ),
-				$notice = $button.closest( '.wpbdp-notice' ),
-				link = $button.attr( 'href' );
-
-			if ( link ) {
-				window.open( link, '_blank').focus();
-			}
-			dismissNotice( $notice, $button );
-		});
-	});
-})(jQuery);
 
 // Install addons
 function wpbdpAddons() {
