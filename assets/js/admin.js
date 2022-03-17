@@ -309,14 +309,14 @@ var WPBDP_associations_fieldtypes = {};
 					return false;
 				}
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {
-					if ( notification.hasClass( 'wpbdp-snackbar-notice' ) ) {
+					if ( ! notification.hasClass( 'is-dismissible' ) && ! notification.hasClass( 'dismissible' ) ) {
 						snackbars.push( notification.html() );
 					} else {
 						notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
 					}
 				}
 				if ( ! notification.hasClass( 'wpbdp-review-notice' ) ) {
-					notification.remove();
+					//notification.remove();
 				}
 			});
 			notifications = WPBDPAdmin_Notifications.removeDuplicates( notifications );

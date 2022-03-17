@@ -112,15 +112,15 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
 		if ( ! is_wp_error( $result ) ) {
 			if ( 'insert' === $mode ) {
-				wpbdp_admin_message( __( 'Plan added.', 'business-directory-plugin' ), 'wpbdp-snackbar-notice' );
+				wpbdp_admin_message( __( 'Plan added.', 'business-directory-plugin' ) );
 			} elseif ( $images_changed ) {
 				$this->show_update_listing_msg( $fee );
 			} else {
-				wpbdp_admin_message( __( 'Plan updated.', 'business-directory-plugin' ), 'wpbdp-snackbar-notice' );
+				wpbdp_admin_message( __( 'Plan updated.', 'business-directory-plugin' ) );
 			}
 		} else {
 			foreach ( $result->get_error_messages() as $msg ) {
-				wpbdp_admin_message( $msg, 'error' );
+				wpbdp_admin_message( $msg, 'error dismissible' );
 			}
 		}
 
@@ -156,7 +156,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				'</a>',
 				$total_listings
 			),
-			'updated wpbdp-plan-updated'
+			'updated wpbdp-plan-updated dismissible'
 		);
 	}
 

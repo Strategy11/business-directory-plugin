@@ -66,7 +66,7 @@ class WPBDP_Admin_Notices {
 				esc_attr( $details['code'] )
 			);
 			$css_class = sprintf(
-				'notice wpbdp-notice wpbdp-snackbar-notice %s settings-error is-dismissible',
+				'notice wpbdp-notice %s settings-error',
 				esc_attr( $details['type'] )
 			);
 

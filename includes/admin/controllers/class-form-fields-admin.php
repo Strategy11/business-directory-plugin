@@ -182,7 +182,7 @@ class WPBDP_FormFieldsAdmin {
 			$res   = $field->save();
 
 			if ( ! is_wp_error( $res ) ) {
-				wpbdp_admin_message( __( 'Form fields updated.', 'business-directory-plugin' ), 'success wpbdp-snackbar-notice' );
+				wpbdp_admin_message( __( 'Form fields updated.', 'business-directory-plugin' ), 'success' );
 				$this->fields_table();
 				return;
 			}
@@ -193,7 +193,7 @@ class WPBDP_FormFieldsAdmin {
 				$errmsg .= sprintf( '&#149; %s<br />', $err );
 			}
 
-			wpbdp_admin_message( $errmsg, 'error wpbdp-snackbar-notice' );
+			wpbdp_admin_message( $errmsg, 'error' );
 
 		} else {
 			$id    = wpbdp_get_var( array( 'param' => 'id' ) );
@@ -215,7 +215,7 @@ class WPBDP_FormFieldsAdmin {
 					'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '">',
 					$msg
 				);
-				wpbdp_admin_message( $msg, 'error' );
+				wpbdp_admin_message( $msg, 'error dismissible' );
 			}
 
 			wpbdp_render_page(
@@ -294,9 +294,9 @@ class WPBDP_FormFieldsAdmin {
 		$ret = $field->delete();
 
 		if ( is_wp_error( $ret ) ) {
-			wpbdp_admin_message( $ret->get_error_message(), 'error wpbdp-snackbar-notice' );
+			wpbdp_admin_message( $ret->get_error_message(), 'error' );
 		} else {
-			wpbdp_admin_message( _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' ), 'success wpbdp-snackbar-notice' );
+			wpbdp_admin_message( _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' ), 'success' );
 
 			$quick_search_fields = wpbdp_get_option( 'quick-search-fields' );
 			$field_id            = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
