@@ -250,7 +250,7 @@ var WPBDP_associations_fieldtypes = {};
 
 	var WPBDPAdmin_Notifications = {
 		notificationContainer: null,
-		preAdminNotifications : null,
+		preAdminNotifications: null,
 		adminNotifications: null,
 		buttonNotification: null,
 		closeButton: null,
@@ -273,13 +273,8 @@ var WPBDP_associations_fieldtypes = {};
 
 			this.onClickNotifications();
 			this.initCloseNotifications();
-			
-			// Small delay to first hide notifications with CSS.
-			setTimeout( function(){ 
-				WPBDPAdmin_Notifications.parseNotifications();
-				WPBDPAdmin_Notifications.handleDismissAction();
-			}, 200);
-			
+
+			WPBDPAdmin_Notifications.parseNotifications();
 		},
 
 		onClickNotifications: function() {
@@ -301,7 +296,8 @@ var WPBDP_associations_fieldtypes = {};
 				return true;
 			}
 			var notifications = [],
-			snackbars = [];
+				snackbars = [];
+
 			WPBDPAdmin_Notifications.preAdminNotifications.each( function() {
 				var notification = $(this),
 					mainMsg = this.id === 'message';
@@ -318,7 +314,7 @@ var WPBDP_associations_fieldtypes = {};
 				}
 			});
 
-			WPBDPAdmin_Notifications.adminNotifications.append( notifications.join( ' ') );
+			WPBDPAdmin_Notifications.adminNotifications.append( notifications.join( ' ' ) );
 			if ( notifications.length > 0 ) {
 				$( '.wpbdp-bell-notification' ).show();
 				WPBDPAdmin_Notifications.notificationContainer.removeClass( 'hidden' );
@@ -335,7 +331,7 @@ var WPBDP_associations_fieldtypes = {};
 		*
 		* @param {string} notification
 		*/
-		generateSnackBar : function( notification ) {
+		generateSnackBar: function( notification ) {
 			var id = Date.now(),
 			container_id = 'wpbdp-snackbar-' + id;
 			var snackbar = $( '<div>', {
@@ -343,46 +339,15 @@ var WPBDP_associations_fieldtypes = {};
 				class: 'wpbdp-snackbar'
 			});
 			snackbar.html( notification );
-			$( 'body' ).append(snackbar);
-			setTimeout( function(){ snackbar.remove(); }, 25000);
+			$( 'body' ).append( snackbar );
+			setTimeout( function(){ snackbar.remove(); }, 25000 );
 		},
 
-		handleDismissAction : function() {
-			$( document ).on( 'click', '.wpbdp-bell-notifications-list .notice-dismiss', function( e ) {
-				e.preventDefault();
-				var $button = $( this ),
-				$notice = $button.parent( '.wpbdp-bell-notice' ),
-				dismissible_id = $button.data( 'dismissible-id' ),
-				nonce = $button.data( 'nonce' );
-
-				WPBDPAdmin_Notifications.dismissNotice( $notice, dismissible_id, nonce );
-			} );
-			$( document ).on( 'click', '.wpbdp-snackbar .notice-dismiss', function( e ) {
-				e.preventDefault();
-				var $button = $( this ),
-				$notice = $button.parent( '.wpbdp-bell-notice' ),
-				dismissible_id = $button.data( 'dismissible-id' ),
-				nonce = $button.data( 'nonce' );
-
-				WPBDPAdmin_Notifications.dismissNotice( $notice, dismissible_id, nonce );
-			} );
-		},
-
-		hideNotificationCenter : function() {
+		hideNotificationCenter: function() {
 			if ( WPBDPAdmin_Notifications.adminNotifications.find( 'li' ).length < 1 ) {
 				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
 				$( '.wpbdp-bell-notification' ).hide();
 			}
-		},
-
-		dismissNotice : function( $notice, notice_id, nonce ) {
-			$.post( ajaxurl, {
-				action: 'wpbdp_dismiss_notification',
-				id: notice_id,
-				nonce: nonce
-			}, function() {
-				$notice.fadeOut( 'fast', function(){ $notice.remove(); } );
-			} );
 		}
 	};
 
@@ -688,7 +653,7 @@ jQuery(function($) {
             } );
         };
 
-		$( '#wpbody-content' ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
+		$( document ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
 			e.preventDefault();
 			var $button = $( this ),
 				$notice = $button.closest( '.wpbdp-notice' ),
