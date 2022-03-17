@@ -122,7 +122,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			}
 		} else {
 			foreach ( $result->get_error_messages() as $msg ) {
-				wpbdp_admin_message( $msg, 'error wpbdp-snackbar-notice' );
+				wpbdp_admin_message( $msg, 'error' );
 			}
 		}
 
@@ -137,7 +137,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
 		$total_listings = $fee->count_listings();
 		if ( ! $total_listings ) {
-			wpbdp_admin_message( $message, 'wpbdp-snackbar-notice' );
+			wpbdp_admin_message( $message );
 			return;
 		}
 
@@ -158,7 +158,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				'</a>',
 				$total_listings
 			),
-			'updated wpbdp-plan-updated wpbdp-snackbar-notice'
+			'updated wpbdp-plan-updated'
 		);
 	}
 
@@ -255,9 +255,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		if ( $enabled_plans > 1 || ! $fee->enabled ) {
 			$fee->enabled = ! $fee->enabled;
 			$fee->save();
-			wpbdp_admin_message( $fee->enabled ? _x( 'Plan enabled.', 'fees admin', 'business-directory-plugin' ) : _x( 'Plan disabled.', 'fees admin', 'business-directory-plugin' ), 'wpbdp-snackbar-notice' );
+			wpbdp_admin_message( $fee->enabled ? _x( 'Plan enabled.', 'fees admin', 'business-directory-plugin' ) : _x( 'Plan disabled.', 'fees admin', 'business-directory-plugin' ) );
 		} else {
-			wpbdp_admin_message( __( 'Cannot disable plan. At least one plan should be enabled', 'business-directory-plugin' ), 'error wpbdp-snackbar-notice' );
+			wpbdp_admin_message( __( 'Cannot disable plan. At least one plan should be enabled', 'business-directory-plugin' ), 'error' );
 		}
         return $this->_redirect( 'index' );
     }

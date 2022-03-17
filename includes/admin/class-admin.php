@@ -1256,7 +1256,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 					_x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
 					$installed_version
 				),
-				'notice-error wpbdp-snackbar-notice is-dismissible',
+				'notice-error is-dismissible',
 				array( 'dismissible-id' => 'server_requirements' ),
 			);
         }
@@ -1282,7 +1282,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 							'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
 							'</a>'
 						),
-						'notice-error wpbdp-snackbar-notice is-dismissible',
+						'notice-error is-dismissible',
 						array( 'dismissible-id' => 'registration_disabled' ),
 					);
 			}
