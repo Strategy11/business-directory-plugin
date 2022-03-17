@@ -305,7 +305,7 @@ var WPBDP_associations_fieldtypes = {};
 			snackbars = [];
 			WPBDPAdmin_Notifications.preAdminNotifications.each( function() {
 				var notification = $(this);
-				if ( notification.hasClass( 'wpbdp-upgrade-bar' ) ) {
+				if ( notification.hasClass( 'wpbdp-upgrade-bar' ) || notification.hasClass( 'wpbdp-install-notice' ) ) {
 					return false;
 				}
 				if ( notification.hasClass( 'wpbdp-notice' ) ) {

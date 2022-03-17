@@ -1118,7 +1118,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			);
 			$message .= '</p>';
 
-			$this->messages[] = array( $message, 'error' );
+			$this->messages[] = array( $message, 'error wpbdp-install-notice' );
         }
 
         /**
