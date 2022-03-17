@@ -44,7 +44,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
-            add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+            add_action( 'admin_notices', array( $this, 'prepare_admin_notices' ) );
             add_action( 'wp_ajax_wpbdp_dismiss_review', array( &$this, 'maybe_dismiss_review' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_scripts' ) );
@@ -675,24 +675,37 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $res->send();
         }
 
-        function admin_notices() {
+		/**
+		 * Prepare admin notices that should only be checked once.
+		 *
+		 * @since x.x
+		 */
+		public function prepare_admin_notices() {
 			if ( ! current_user_can( 'administrator' ) ) {
-                return;
-            }
+				return;
+			}
 
 			$this->upgrade_bar();
+
+			$this->check_server_requirements();
+			$this->check_setup();
+			$this->check_deprecation_warnings();
+
+			$this->maybe_request_review();
+
+			do_action( 'wpbdp_admin_notices' );
+
+			$this->admin_notices();
+		}
+
+        function admin_notices() {
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
 
             if ( ! isset( $this->displayed_warnings ) ) {
                 $this->displayed_warnings = array();
             }
-
-            $this->check_server_requirements();
-            $this->check_setup();
-            $this->check_deprecation_warnings();
-
-            $this->maybe_request_review();
-
-            do_action( 'wpbdp_admin_notices' );
 
             foreach ( $this->messages as $msg ) {
                 $msg_sha1 = sha1( is_array( $msg ) ? $msg[0] : $msg );
@@ -774,7 +787,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 			?>
-			<div class="wpbdp-notice wpbdp-upgrade-bar wpbdp-maintain-notice">
+			<div class="wpbdp-notice wpbdp-upgrade-bar wpbdp-inline-notice">
 				You're using Business Directory Plugin Lite. To unlock more features consider
 				<a href="<?php echo esc_url( wpbdp_admin_upgrade_link( 'upgrade-bar' ) ); ?>">
 					upgrading to premium.
@@ -1119,7 +1132,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			);
 			$message .= '</p>';
 
-			$this->messages[] = array( $message, 'error wpbdp-maintain-notice' );
+			$this->messages[] = array( $message, 'error wpbdp-inline-notice' );
         }
 
         /**

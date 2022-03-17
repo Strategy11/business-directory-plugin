@@ -286,7 +286,6 @@ var WPBDP_associations_fieldtypes = {};
 			WPBDPAdmin_Notifications.buttonNotification.on( 'click', function(e) {
 				e.preventDefault();
 				WPBDPAdmin_Notifications.notificationContainer.toggleClass( 'hidden' );
-				WPBDPAdmin_Notifications.positionWithReview();
 			});
 		},
 
@@ -306,7 +305,7 @@ var WPBDP_associations_fieldtypes = {};
 			WPBDPAdmin_Notifications.preAdminNotifications.each( function() {
 				var notification = $(this),
 					mainMsg = this.id === 'message';
-				if ( notification.hasClass( 'wpbdp-maintain-notice' ) ) {
+				if ( notification.hasClass( 'wpbdp-inline-notice' ) ) {
 					return false;
 				}
 				if ( notification.hasClass( 'wpbdp-notice' ) || mainMsg ) {
@@ -315,15 +314,14 @@ var WPBDP_associations_fieldtypes = {};
 					} else {
 						snackbars.push( notification.html() );
 					}
+					notification.remove();
 				}
 			});
-			notifications = WPBDPAdmin_Notifications.removeDuplicates( notifications );
-			snackbars = WPBDPAdmin_Notifications.removeDuplicates( snackbars );
+
 			WPBDPAdmin_Notifications.adminNotifications.append( notifications.join( ' ') );
 			if ( notifications.length > 0 ) {
 				$( '.wpbdp-bell-notification' ).show();
 				WPBDPAdmin_Notifications.notificationContainer.removeClass( 'hidden' );
-				WPBDPAdmin_Notifications.positionWithReview();
 			}
 			if ( snackbars.length > 0 ) {
 				snackbars.forEach( function( value, index, array ) {
@@ -347,12 +345,6 @@ var WPBDP_associations_fieldtypes = {};
 			snackbar.html( notification );
 			$( 'body' ).append(snackbar);
 			setTimeout( function(){ snackbar.remove(); }, 25000);
-		},
-
-		removeDuplicates : function( arr ) {
-			var uniq = {};
-			arr.forEach( function( item ) { uniq[item] = true; } );
-			return Object.keys( uniq );
 		},
 
 		handleDismissAction : function() {
@@ -391,16 +383,6 @@ var WPBDP_associations_fieldtypes = {};
 			}, function() {
 				$notice.fadeOut( 'fast', function(){ $notice.remove(); } );
 			} );
-		},
-
-		positionWithReview : function() {
-			if ( $( '.wpbdp-review-notice' ).length ) {
-				if ( WPBDPAdmin_Notifications.notificationContainer.hasClass( 'hidden' ) ) {
-					$( '.wpbdp-review-notice' ).css( 'right', WPBDPAdmin_Notifications.buttonNotification.width() + 40 + 'px' );
-				} else {
-					$( '.wpbdp-review-notice' ).css( 'right', WPBDPAdmin_Notifications.notificationContainer.width() + 40 + 'px' );
-				}
-			}
 		}
 	};
 

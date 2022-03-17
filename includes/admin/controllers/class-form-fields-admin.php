@@ -182,7 +182,7 @@ class WPBDP_FormFieldsAdmin {
 			$res   = $field->save();
 
 			if ( ! is_wp_error( $res ) ) {
-				wpbdp_admin_message( __( 'Form fields updated.', 'business-directory-plugin' ), 'success' );
+				$this->admin->messages[] = _x( 'Form fields updated.', 'form-fields admin', 'business-directory-plugin' );
 				$this->fields_table();
 				return;
 			}
@@ -193,7 +193,7 @@ class WPBDP_FormFieldsAdmin {
 				$errmsg .= sprintf( '&#149; %s<br />', $err );
 			}
 
-			wpbdp_admin_message( $errmsg, 'error' );
+			$this->admin->messages[] = array( $errmsg, 'error' );
 
 		} else {
 			$id    = wpbdp_get_var( array( 'param' => 'id' ) );
