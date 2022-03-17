@@ -54,9 +54,40 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
         return array(
             'table' => $table,
             'order_options' => $order_options,
-            'current_order' => wpbdp_get_option( 'fee-order' )
+			'current_order' => wpbdp_get_option( 'fee-order' ),
+			'gateways'      => $this->available_gateways(),
         );
     }
+
+	private function available_gateways() {
+		$modules = array(
+			array( 'stripe', 'stripe-payment-module', 'Stripe' ),
+			array( 'paypal', 'paypal-gateway-module', 'PayPal' ),
+			array( 'payfast', 'payfast-payment-module', 'PayFast' ),
+		);
+
+		$gateways    = array();
+		$modules_obj = wpbdp()->modules;
+		foreach ( $modules as $mod_info ) {
+			if ( ! $modules_obj->is_loaded( $mod_info[0] ) ) {
+				$mod_info['link'] = wpbdp_admin_upgrade_link( 'get-gateway', '/downloads/' . $mod_info[1] );
+				$mod_info['cta']  = __( 'Upgrade', 'business-directory-plugin' );
+				$gateways[]       = $mod_info;
+			}
+		}
+
+		if ( ! wpbdp_payments_possible() ) {
+			$gateways[] = array(
+				'',
+				'authorize-net-payment-module',
+				'Authorize.net',
+				'link' => admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ),
+				'cta'  => __( 'Set Up', 'business-directory-plugin' ),
+			);
+		}
+
+		return $gateways;
+	}
 
     function add_fee() {
         return $this->insert_or_update_fee( 'insert' );
