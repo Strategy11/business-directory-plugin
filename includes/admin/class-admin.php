@@ -773,7 +773,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 			?>
-			<div class="wpbdp-notice wpbdp-upgrade-bar">
+			<div class="wpbdp-notice wpbdp-upgrade-bar wpbdp-maintain-notice">
 				You're using Business Directory Plugin Lite. To unlock more features consider
 				<a href="<?php echo esc_url( wpbdp_admin_upgrade_link( 'upgrade-bar' ) ); ?>">
 					upgrading to premium.
@@ -1118,7 +1118,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			);
 			$message .= '</p>';
 
-			$this->messages[] = array( $message, 'error wpbdp-install-notice' );
+			$this->messages[] = array( $message, 'error wpbdp-maintain-notice' );
         }
 
         /**
