@@ -1170,12 +1170,7 @@ function wpbdp_render_user_field( $args = array() ) {
 }
 
 function wpbdp_enqueue_jquery_ui_style() {
-	wp_enqueue_style(
-		'wpbdp-jquery-ui-css',
-		WPBDP_ASSETS_URL . 'css/jquery-ui-styles.min.css',
-		array(),
-		WPBDP_VERSION
-	);
+	WPBDP__Assets::load_jquery_ui_style();
 }
 
 function wpbdp_buckwalter_arabic_transliteration( $content ) {

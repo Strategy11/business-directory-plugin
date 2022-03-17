@@ -393,4 +393,39 @@ class WPBDP__Assets {
 	public function register_installation_resources() {
 		wp_enqueue_script( 'wpbdp-admin-install-js', WPBDP_ASSETS_URL . 'js/admin-install.min.js', array( 'jquery' ), WPBDP_VERSION, true );
 	}
+
+	/**
+	 * Load Jquery UI Style.
+	 *
+	 * @since x.x
+	 */
+	public static function load_jquery_ui_style() {
+		$loaded = self::is_jquery_ui_css_loaded();
+		if ( ! is_admin() && $loaded ) {
+			return;
+		}
+		wp_enqueue_style(
+			'wpbdp-jquery-ui-css',
+			WPBDP_ASSETS_URL . 'css/jquery-ui-styles.min.css',
+			array(),
+			WPBDP_VERSION
+		);
+	}
+
+	/**
+	 * Check if Jquery UI CSS is loaded.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private static function is_jquery_ui_css_loaded() {
+		$possible_styles = array( 'jquery-ui', 'jquery-ui-css', 'jquery-theme' );
+		foreach ( $possible_styles as $style ) {
+			if ( wp_style_is( $style ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
