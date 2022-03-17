@@ -348,7 +348,7 @@ var WPBDP_associations_fieldtypes = {};
 			});
 			snackbar.html( notification );
 			$( 'body' ).append(snackbar);
-			setTimeout( function(){ snackbar.remove(); }, 2500);
+			setTimeout( function(){ snackbar.remove(); }, 3500);
 		},
 
 		removeDuplicates : function( arr ) {
