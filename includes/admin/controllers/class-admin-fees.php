@@ -112,11 +112,11 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
 		if ( ! is_wp_error( $result ) ) {
 			if ( 'insert' === $mode ) {
-				wpbdp_admin_message( __( 'Plan added.', 'business-directory-plugin' ) );
+				wpbdp_admin_message( __( 'Plan added.', 'business-directory-plugin' ), 'wpbdp-snackbar-notice' );
 			} elseif ( $images_changed ) {
 				$this->show_update_listing_msg( $fee );
 			} else {
-				wpbdp_admin_message( __( 'Plan updated.', 'business-directory-plugin' ) );
+				wpbdp_admin_message( __( 'Plan updated.', 'business-directory-plugin' ), 'wpbdp-snackbar-notice' );
 			}
 		} else {
 			foreach ( $result->get_error_messages() as $msg ) {

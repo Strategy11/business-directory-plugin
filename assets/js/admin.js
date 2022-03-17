@@ -260,7 +260,7 @@ var WPBDP_associations_fieldtypes = {};
 			this.notificationContainer = $( '.wpbdp-bell-notifications' );
 
 			// Get all the notifications to display in the modal
-			this.preAdminNotifications = $( '.wpbdp-notice, .wpbdp-notice:hidden' );
+			this.preAdminNotifications = $( '.wpbdp-notice:hidden' );
 
 			// Notifications container
 			this.adminNotifications = this.notificationContainer.find( '.wpbdp-bell-notifications-list' );
@@ -273,9 +273,13 @@ var WPBDP_associations_fieldtypes = {};
 
 			this.onClickNotifications();
 			this.initCloseNotifications();
-
-			this.parseNotifications();
-			this.handleDismissAction();
+			
+			// Small delay to first hide notifications with CSS.
+			setTimeout( function(){ 
+				WPBDPAdmin_Notifications.parseNotifications();
+				WPBDPAdmin_Notifications.handleDismissAction();
+			}, 200);
+			
 		},
 
 		onClickNotifications: function() {
