@@ -3,7 +3,7 @@ jQuery( function( $ ) {
     var _addNeverButton = function( instance ) {
         setTimeout( function() {
             var $buttonPane = $(instance.dpDiv).find( '.ui-datepicker-buttonpane' ),
-                $closeButton = $buttonPane.find( '.ui-datepicker-close' );
+				$closeButton = $buttonPane.find( '.ui-datepicker-close' );
 
             if ( $buttonPane.find( '.ui-datepicker-never' ).length > 0 )
                 return;
@@ -16,8 +16,7 @@ jQuery( function( $ ) {
                 },
             }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
 
-            $button.insertBefore( $closeButton );
-            //$buttonPane.append($button);
+			$button.insertBefore( $closeButton );
         }, 1 );
     };
 
