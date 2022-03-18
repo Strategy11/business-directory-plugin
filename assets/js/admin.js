@@ -340,6 +340,10 @@ var WPBDP_associations_fieldtypes = {};
 			});
 			snackbar.html( notification );
 			$( 'body' ).append( snackbar );
+			snackbar.find( '.notice-dismiss').on( 'click', function(e) {
+				e.preventDefault();
+				snackbar.fadeOut();
+			});
 			setTimeout( function(){ snackbar.remove(); }, 25000 );
 		},
 
