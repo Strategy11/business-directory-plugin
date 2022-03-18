@@ -6,34 +6,34 @@ final class WPBDP__Settings__Bootstrap {
 
     public static function register_initial_groups() {
 		wpbdp_register_settings_group( 'general', _x( 'General', 'settings', 'business-directory-plugin' ), '', array(
-			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-cog',
+			'icon' => 'cog',
 		) );
 
 		wpbdp_register_settings_group( 'listings', _x( 'Listings', 'settings', 'business-directory-plugin' ), '', array(
-			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-list',
+			'icon' => 'list',
 		) );
 		wpbdp_register_settings_group( 'listings/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'listings' );
 
 		wpbdp_register_settings_group( 'email', __( 'Email', 'business-directory-plugin' ), '', array(
-			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-email',
+			'icon' => 'email',
 		) );
 		wpbdp_register_settings_group( 'email/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'email' );
 
 		wpbdp_register_settings_group( 'payment', _x( 'Payment', 'settings', 'business-directory-plugin' ), '', array(
-			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-money',
+			'icon' => 'money',
 		) );
 		wpbdp_register_settings_group( 'payment/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'payment' );
 
 		wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ), '', array(
-			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-layout',
+			'icon' => 'layout',
 		) );
 
 		wpbdp_register_settings_group( 'modules', __( 'Module Settings', 'business-directory-plugin' ), '', array(
-			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-package',
+			'icon' => 'package',
 		) );
 
 		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ), '', array(
-			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-misc',
+			'icon' => 'misc',
 		) );
     }
 

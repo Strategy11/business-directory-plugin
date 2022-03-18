@@ -518,18 +518,18 @@ class WPBDP_Admin_Pages {
 	private static function get_admin_menu_icon( $menu_id, $menu_item ) {
 		$menu_icons = apply_filters( 'wpbdp_admin_menu_icons',
 			array(
-				'edit.php?post_type=wpbdp_listing' => 'wpbdp-admin-icon wpbdp-admin-icon-list',
-				'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' => 'wpbdp-admin-icon wpbdp-admin-icon-folder',
-				'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' => 'wpbdp-admin-icon wpbdp-admin-icon-tag',
-				'wpbdp-admin-fees' => 'wpbdp-admin-icon wpbdp-admin-icon-money',
-				'wpbdp_admin_formfields' => 'wpbdp-admin-icon wpbdp-admin-icon-clipboard',
-				'wpbdp_admin_csv' => 'wpbdp-admin-icon wpbdp-admin-icon-import',
+				'edit.php?post_type=wpbdp_listing'                                  => 'list',
+				'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' => 'folder',
+				'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing'      => 'tag',
+				'wpbdp-admin-fees'                                                  => 'money',
+				'wpbdp_admin_formfields'                                            => 'clipboard',
+				'wpbdp_admin_csv'                                                   => 'import',
 			)
 		);
 		if ( isset( $menu_icons[ $menu_id ] ) ) {
 			return $menu_icons[ $menu_id ];
 		}
-		return isset( $menu_item['icon'] ) ? $menu_item['icon'] : 'wpbdp-admin-icon wpbdp-admin-icon-archive';
+		return isset( $menu_item['icon'] ) ? $menu_item['icon'] : 'archive';
 	}
 
 	/**

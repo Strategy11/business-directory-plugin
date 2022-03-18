@@ -20,7 +20,13 @@
 			?>
 			<li class="wpbdp-nav-item">
 				<a class="<?php echo $active_tab === $tab_id ? 'active ' : ''; ?><?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( $link ); ?>" title="<?php echo esc_html( $tab['title'] ); ?>">
-					<span class="wpbdp-nav-item-icon <?php echo esc_attr( $tab['icon'] ); ?>"></span>
+					<span class="wpbdp-nav-item-icon <?php echo esc_attr( ( strpos( $tab['icon'], ' ' ) === false ? 'wpbdp-admin-icon-' : '' ) . $tab['icon'] ); ?>">
+						<?php
+						if ( strpos( $tab['icon'], ' ' ) === false ) {
+							echo file_get_contents( WPBDP_ASSETS_URL . 'images/icons/' . esc_attr( $tab['icon'] ) . '.svg' );
+						}
+						?>
+					</span>
 					<span class="wpbdp-nav-item-name"><?php echo esc_html( $tab['title'] ); ?></span>
 				</a>
 			</li>

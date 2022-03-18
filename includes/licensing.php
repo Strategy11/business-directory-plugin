@@ -201,7 +201,7 @@ class WPBDP_Licensing {
         $themes  = wp_list_filter( $this->items, array( 'item_type' => 'theme' ) );
 
         wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ), '', array(
-			'icon' => 'wpbdp-admin-icon wpbdp-admin-icon-key',
+			'icon' => 'key',
 		) );
         wpbdp_register_settings_group(
             'licenses/main',
