@@ -671,9 +671,26 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            update_user_meta( $user_id, 'wpbdp_notice_dismissed[' . $id . ']', true );
+			$dismissed = get_user_meta( $user_id, 'wpbdp_notice_dismissed', true );
+			if ( ! $dismissed || ! is_array( $dismissed ) ) {
+				$dismissed = array();
+			}
+			$dismissed[] = $id;
+			update_user_meta( $user_id, 'wpbdp_notice_dismissed', $dismissed );
+
             $res->send();
         }
+
+		/**
+		 * Get all dismissals from the same cell for better db performance.
+		 *
+		 * @since x.x
+		 */
+		private function is_notice_dismissed( $id, $user_id = 0 ) {
+			$user_id = $user_id ? $user_id : get_current_user_id();
+			$dismissed = get_user_meta( $user_id, 'wpbdp_notice_dismissed', true );
+			return in_array( $id, (array) $dismissed );
+		}
 
 		/**
 		 * Prepare admin notices that should only be checked once.
@@ -725,6 +742,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 } else {
                     $text  = $msg;
                 }
+
+				// Check if dismissed.
+				if ( ! empty( $extra['dismissible-id'] ) && $this->is_notice_dismissed( $extra['dismissible-id'] ) ) {
+					continue;
+				}
 
 				self::maybe_update_notice_classes( $class );
 
@@ -1201,18 +1223,16 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
             // Registration disabled message.
-			if ( wpbdp_get_option( 'require-login' )
-				&& ! get_option( 'users_can_register' )
-				&& ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
-					$this->messages[] = array(
-						sprintf(
-							__( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
-							'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
-							'</a>'
-						),
-						'notice-error is-dismissible',
-						array( 'dismissible-id' => 'registration_disabled' ),
-					);
+			if ( wpbdp_get_option( 'require-login' ) && ! get_option( 'users_can_register' ) ) {
+				$this->messages[] = array(
+					sprintf(
+						__( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
+						'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
+						'</a>'
+					),
+					'notice-error is-dismissible',
+					array( 'dismissible-id' => 'registration_disabled' ),
+				);
 			}
         }
 
