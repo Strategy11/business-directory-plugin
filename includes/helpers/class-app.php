@@ -176,7 +176,7 @@ class WPBDP_App_Helper {
 	public static function is_bd_post_page() {
 		global $pagenow;
 
-		$is_tax  = 'term.php' === $pagenow ||'edit-tags.php' === $pagenow;
+		$is_tax  = 'term.php' === $pagenow || 'edit-tags.php' === $pagenow;
 		$is_post = 'post.php' === $pagenow || 'post-new.php' === $pagenow || 'edit.php' === $pagenow;
 		if ( ! $is_post && ! $is_tax ) {
 			return false;

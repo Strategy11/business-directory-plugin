@@ -321,7 +321,7 @@ var WPBDP_associations_fieldtypes = {};
 			}
 			if ( snackbars.length > 0 ) {
 				snackbars.forEach( function( value, index, array ) {
-					WPBDPAdmin_Notifications.generateSnackBar( value );
+					WPBDPAdmin_Notifications.generateSnackBar( value, index );
 				});
 			}
 		},
@@ -331,20 +331,33 @@ var WPBDP_associations_fieldtypes = {};
 		*
 		* @param {string} notification
 		*/
-		generateSnackBar: function( notification ) {
-			var id = Date.now(),
+		generateSnackBar: function( notification, index ) {
+			var id = Date.now() + index,
 			container_id = 'wpbdp-snackbar-' + id;
 			var snackbar = $( '<div>', {
 				id: container_id,
 				class: 'wpbdp-snackbar'
 			});
 			snackbar.html( notification );
+			WPBDPAdmin_Notifications.positionSnackBar( snackbar );
 			$( 'body' ).append( snackbar );
 			snackbar.find( '.notice-dismiss').on( 'click', function(e) {
 				e.preventDefault();
 				snackbar.fadeOut();
 			});
 			setTimeout( function(){ snackbar.remove(); }, 25000 );
+		},
+
+		positionSnackBar: function( snackbar ) {
+			var snackBars = $( '.wpbdp-snackbar' ),
+				bottom = 0;
+			if ( snackBars.length < 1 ) {
+				return false;
+			}
+			snackBars.each( function() {
+				bottom += $( this ).height();
+			});
+			snackbar.css( 'bottom', ( ( bottom * 3 ) + 20 ) + 'px' );
 		},
 
 		hideNotificationCenter: function() {
