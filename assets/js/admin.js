@@ -350,14 +350,15 @@ var WPBDP_associations_fieldtypes = {};
 
 		positionSnackBar: function( snackbar ) {
 			var snackBars = $( '.wpbdp-snackbar' ),
-				bottom = 0;
+				bottom = 0,
+				offset = 15;
 			if ( snackBars.length < 1 ) {
 				return false;
 			}
 			snackBars.each( function() {
-				bottom += $( this ).height();
+				bottom += $( this ).height() + offset;
 			});
-			snackbar.css( 'bottom', ( ( bottom * 3 ) + 20 ) + 'px' );
+			snackbar.css( 'bottom', bottom * 2 + 'px' );
 		},
 
 		hideNotificationCenter: function() {
