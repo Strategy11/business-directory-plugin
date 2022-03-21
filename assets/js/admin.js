@@ -333,9 +333,9 @@ var WPBDP_associations_fieldtypes = {};
 		*/
 		generateSnackBar: function( notification ) {
 			var snackbar = $( '<div>', {
-				class: 'wpbdp-snackbar'
+				class: 'wpbdp-snackbar',
+				html: notification
 			});
-			snackbar.html( notification );
 			$( '#wpbdp-snackbar-notices' ).append( snackbar );
 			snackbar.find( '.notice-dismiss').on( 'click', function(e) {
 				e.preventDefault();
