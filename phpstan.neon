@@ -1,0 +1,32 @@
+parameters:
+	reportUnmatchedIgnoredErrors: false
+	bootstrapFiles:
+		- vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+		- stubs.php
+	excludePaths:
+		- */assets/*
+		- */vendor/*
+		- */vendors/*
+		- */languages/*
+		- */tests/*
+		- stubs.php
+	ignoreErrors:
+		- '#Call to an undefined method object::#'
+		- '#Access to an undefined property#'
+		- '#Call to (function is_callable|protected method)+#'
+		- '#Call to function compact\(\) contains possibly undefined variable#'
+		- '#Call to function compact\(\) contains undefined variable#'
+		- '#Cannot (call method|cast|assign offset)+#'
+		- '#no (typehint|value type|return type)+ specified.#'
+		- '#might not be defined.#'
+		- '#Function (apply_filters)+ invoked with#'
+		- '#Constant (COOKIEPATH|COOKIE_DOMAIN|COOKIEHASH|WP_PLUGIN_DIR|WP_PLUGIN_URL|WPINC)+ not found.#'
+		- '#Cannot access (offset|property)+#'
+		- '#Cannot (call method|cast|assign offset)+#'
+		- '#has no return type specified#'
+		- '#has no type specified#'
+		- '#with no type specified#'
+		- '#is not nullable.#'
+		- '#in isset\(\) does not exist.#'
+		- '#has no type specified.#'
+		- '#has invalid return type#'
