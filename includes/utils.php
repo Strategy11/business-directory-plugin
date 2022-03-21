@@ -403,11 +403,9 @@ class WPBDP__Utils {
 			return false;
 		}
 
-		if ( is_array( $constraints['mimetypes'] ) ) {
-			if ( ! in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
-				$error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
-				return false;
-			}
+		if ( is_array( $constraints['mimetypes'] ) && ! self::is_valid_file_type( $file, $constraints['mimetypes'] ) ) {
+			$error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
+			return false;
 		}
 
 		// We do not accept TIFF format. Compatibility issues.
@@ -432,7 +430,7 @@ class WPBDP__Utils {
 				'min-height' => 0,
 				'max-width' => 0,
 				'max-height' => 0,
-				'mimetypes' => null
+				'mimetypes'  => null,
 			),
 			$constraints
 		);
@@ -440,6 +438,33 @@ class WPBDP__Utils {
 		foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k ) {
 			$constraints[ $k ] = absint( $constraints[ $k ] );
 		}
+	}
+
+	/**
+	 * Check the file type and extension.
+	 *
+	 * @param array $file
+	 * @param array $constraints
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private static function is_valid_file_type( $file, $mimetypes ) {
+		$mime_allowed = in_array( strtolower( $file['type'] ), $mimetypes, true );
+		if ( ! $mime_allowed ) {
+			return false;
+		}
+
+		// If the keys are numeric, we don't have the extensions to check.
+		$check_extension = array_filter( array_keys( $mimetypes ), 'is_string' );
+		if ( empty( $check_extension ) ) {
+			return true;
+		}
+
+		$filename = sanitize_file_name( (string) wp_unslash( $file['name'] ) );
+		$matches  = wp_check_filetype( $filename, $mimetypes );
+		return ! empty( $matches['ext'] );
 	}
 
 	/**
