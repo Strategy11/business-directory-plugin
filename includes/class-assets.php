@@ -399,14 +399,13 @@ class WPBDP__Assets {
 	public static function load_datepicker() {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 
-		$loaded = self::is_jquery_ui_css_loaded();
-		if ( ! is_admin() && $loaded ) {
+		if ( self::is_jquery_ui_css_loaded() ) {
 			return;
 		}
 
 		wp_enqueue_style(
 			'jquery-theme',
-			WPBDP_ASSETS_URL . 'css/ui-lightness/jquery-ui.css',
+			WPBDP_ASSETS_URL . 'css/jquery-ui.css',
 			array(),
 			WPBDP_VERSION
 		);
