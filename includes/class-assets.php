@@ -140,8 +140,6 @@ class WPBDP__Assets {
             return;
         }
 
-        // TODO: Is it possible (and worth it) to figure out if we need the
-        // jquery-ui-datepicker script based on which fields are available?
         wp_register_script(
             'wpbdp-js',
             WPBDP_ASSETS_URL . 'js/wpbdp.min.js',
@@ -149,7 +147,6 @@ class WPBDP__Assets {
                 'jquery',
                 'breakpoints.js',
                 'jquery-ui-sortable',
-                'jquery-ui-datepicker',
             ),
             WPBDP_VERSION,
 			true
@@ -314,7 +311,7 @@ class WPBDP__Assets {
 
 		$this->load_css();
 
-		wpbdp_enqueue_jquery_ui_style();
+		self::load_datepicker();
 
 		wp_enqueue_style(
 			'wpbdp-listing-admin-metabox',
@@ -400,11 +397,13 @@ class WPBDP__Assets {
 	 *
 	 * @since x.x
 	 */
-	public static function load_jquery_ui_style() {
+	public static function load_datepicker() {
 		$loaded = self::is_jquery_ui_css_loaded();
 		if ( ! is_admin() && $loaded ) {
 			return;
 		}
+
+		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_style(
 			'jquery-theme',
 			WPBDP_ASSETS_URL . 'css/ui-lightness/jquery-ui.css',

@@ -1170,7 +1170,7 @@ function wpbdp_render_user_field( $args = array() ) {
 }
 
 function wpbdp_enqueue_jquery_ui_style() {
-	WPBDP__Assets::load_jquery_ui_style();
+	WPBDP__Assets::load_datepicker();
 }
 
 function wpbdp_buckwalter_arabic_transliteration( $content ) {

@@ -1,11 +1,11 @@
 @import 'colors.less';
 
 #ui-datepicker-div{
-    z-index:999999 !important;
+	z-index:999999 !important;
 }
 
 .wpbdp-datepicker.ui-datepicker {
-    display:none;
+	display:none;
 	min-width: 17em;
 	max-width: 19em;
 	background: #fff;
@@ -33,7 +33,7 @@
 		font-size: 0px;
 		&.ui-icon-circle-triangle-w {
 			transform: rotate(135deg);
-	  		-webkit-transform: rotate(135deg);
+			-webkit-transform: rotate(135deg);
 		}
 		&.ui-icon-circle-triangle-e {
 			transform: rotate(-45deg);
@@ -84,6 +84,8 @@
 	}
 
 	td {
+		width: 14.2%;
+
 		&.ui-datepicker-today{
 			background: var(--bd-main-color-20) !important;
 		}
@@ -95,6 +97,7 @@
 
 	td.ui-datepicker-current-day,
 	td .ui-state-hover,
+	td .ui-state-active,
 	thead {
 		background: var(--bd-main-color);
 		color: #fff;
