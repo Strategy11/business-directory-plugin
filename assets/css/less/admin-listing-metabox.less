@@ -94,21 +94,19 @@ a dl {
     font-size: 80%;
 }
 
-.ui-datepicker .ui-datepicker-buttonpane button {
-	text-shadow: none;
-	box-shadow: none;
-	border-radius: 3px;
-	background-color: @button !important;
-	border:1px solid @button !important;
-	color: @white !important;
-	&:hover, &:focus {
-		background: @button-hover !important;
-		border-color: @button-hover !important;
-	}
-}
+.wpbdp-datepicker.ui-datepicker {
+	--bd-main-color: @brand;
+	--bd-main-color-80: fade( @brand, 80% );
+	--bd-main-color-20: fade( @brand, 20% );
 
-.ui-datepicker .ui-widget-header, .ui-datepicker .ui-datepicker-header, .ui-datepicker td .ui-state-hover {
-    background: @brand !important;
+	.ui-datepicker-never {
+		float: none;
+	}
+	.ui-datepicker-close,
+	.ui-datepicker-current {
+		// Hide the "today" button
+		display: none;
+	}
 }
 
 #listing-metabox-fees .listing-plan .admin-actions {

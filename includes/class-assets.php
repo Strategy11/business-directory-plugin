@@ -209,6 +209,7 @@ class WPBDP__Assets {
 
 		$css = 'html{
 			--bd-main-color:' . $rootline_color . ';
+			--bd-main-color-80:' . $rootline_color . 'cc;
 			--bd-main-color-20:' . $rootline_color . '33;
 			--bd-main-color-8:' . $rootline_color . '14;
 			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) .'px;
@@ -405,8 +406,8 @@ class WPBDP__Assets {
 			return;
 		}
 		wp_enqueue_style(
-			'wpbdp-jquery-ui-css',
-			WPBDP_ASSETS_URL . 'css/jquery-ui-styles.min.css',
+			'jquery-theme',
+			WPBDP_ASSETS_URL . 'css/ui-lightness/jquery-ui.css',
 			array(),
 			WPBDP_VERSION
 		);
