@@ -87,10 +87,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         static $enqueued = false;
 
         if ( ! $enqueued ) {
-            if ( is_admin() ) {
-                wpbdp_enqueue_jquery_ui_style();
-                wp_enqueue_script( 'jquery-ui-datepicker' );
-            }
+			WPBDP__Assets::load_datepicker();
             $enqueued = true;
         }
 

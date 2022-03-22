@@ -1200,20 +1200,7 @@ function wpbdp_render_user_field( $args = array() ) {
 }
 
 function wpbdp_enqueue_jquery_ui_style() {
-    global $wp_scripts;
-
-	if ( is_object( $wp_scripts ) && isset( $wp_scripts->registered['jquery-ui-core'] ) ) {
-        $ui_version = $wp_scripts->registered['jquery-ui-core']->ver;
-    } else {
-        $ui_version = '1.8.21';
-    }
-
-    wp_enqueue_style(
-        'wpbdp-jquery-ui-css',
-        'https://ajax.googleapis.com/ajax/libs/jqueryui/' . $ui_version . '/themes/redmond/jquery-ui.css',
-        array(),
-        $ui_version
-    );
+	WPBDP__Assets::load_datepicker();
 }
 
 function wpbdp_buckwalter_arabic_transliteration( $content ) {
