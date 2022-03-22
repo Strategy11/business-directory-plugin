@@ -1,4 +1,5 @@
 @import 'colors.less';
+@light-border: fade( @gray, 50% );
 
 #ui-datepicker-div{
 	z-index:999999 !important;
@@ -6,8 +7,7 @@
 
 .wpbdp-datepicker.ui-datepicker {
 	display:none;
-	min-width: 17em;
-	max-width: 19em;
+	width: 19em;
 	background: #fff;
 	border: 1px solid @gray;
 	border-radius: 0;
@@ -78,6 +78,7 @@
 		display: block;
 		padding: 5px 0;
 		font-weight: normal;
+		border: none;
 	}
 
 	table {
@@ -86,14 +87,27 @@
 
 	td {
 		width: 14.2%;
+		padding: 0;
+		border: 1px solid @light-border;
 
-		&.ui-datepicker-today{
+		&.ui-datepicker-today {
 			background: var(--bd-main-color-20) !important;
+		}
+		&.ui-datepicker-other-month {
+			border: transparent;
 		}
 
 		.ui-state-highlight {
-			border-color: @gray;
+			border-color: @light-border;
 		}
+	}
+
+	tr:first-of-type td {
+		border-top: transparent;
+	}
+
+	tr:last-of-type td {
+		border-bottom: transparent;
 	}
 
 	td.ui-datepicker-current-day,
@@ -106,5 +120,11 @@
 
 	.ui-corner-all {
 		border-radius: 0;
+	}
+
+	// This is for the admin datepicker.
+	.ui-datepicker-buttonpane {
+		border-top: 1px solid @light-border;
+		margin-top: 0;
 	}
 }
