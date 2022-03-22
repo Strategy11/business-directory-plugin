@@ -2,8 +2,7 @@ jQuery( function( $ ) {
     // Datepicker for expiration date editing.
     var _addNeverButton = function( instance ) {
         setTimeout( function() {
-            var $buttonPane = $(instance.dpDiv).find( '.ui-datepicker-buttonpane' ),
-				$closeButton = $buttonPane.find( '.ui-datepicker-close' );
+            var $buttonPane = $(instance.dpDiv).find( '.ui-datepicker-buttonpane' );
 
             if ( $buttonPane.find( '.ui-datepicker-never' ).length > 0 )
                 return;
@@ -16,7 +15,7 @@ jQuery( function( $ ) {
                 },
             }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
 
-			$button.insertBefore( $closeButton );
+			$buttonPane.append($button);
         }, 1 );
     };
 

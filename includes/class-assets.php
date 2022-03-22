@@ -398,12 +398,13 @@ class WPBDP__Assets {
 	 * @since x.x
 	 */
 	public static function load_datepicker() {
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+
 		$loaded = self::is_jquery_ui_css_loaded();
 		if ( ! is_admin() && $loaded ) {
 			return;
 		}
 
-		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_style(
 			'jquery-theme',
 			WPBDP_ASSETS_URL . 'css/ui-lightness/jquery-ui.css',
