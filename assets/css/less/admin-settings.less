@@ -2,7 +2,7 @@
 	font-size: 14px;
 	padding: 0 0 6px;
 	color: @text-color;
-	opacity: 70%;
+	opacity: 80%;
 }
 
 .wpbdp-setting-tooltip {
@@ -141,24 +141,14 @@
     margin-bottom: 2px;
 }
 
-#wpbdp-admin-page-settings .wpbdp-expiration-notice-email-schedule-summary {
-    background: @gray;
-    font-size: 85%;
-    padding: 5px;
-}
-
 #wpbdp-admin-page-settings .wpbdp-settings-email {
     margin: 10px 0 0 0;
-    border: solid 1px @gray;
+    border: solid 1px @input-active;
+	border-radius: 4px;
     padding: 5px;
     background: #fff;
 
-    &.wpbdp-expiration-notice-email {
-        border-bottom: none;
-    }
-
     .short-preview, .wpbdp-settings-email-preview {
-        color: #999;
         font-size: 90%;
         height: 45px;
         cursor: pointer;
@@ -168,9 +158,9 @@
             margin: 0 0 10px 0;
         }
 
-        a.wpbdp-settings-email-edit-btn, .edit-toggle {
+		a.wpbdp-settings-email-edit-btn,
+		.edit-toggle {
             float: right;
-            color: #fff;
         }
 
         dl {

@@ -732,7 +732,7 @@ foreach ( $value as $i => $notice ) {
 
         ob_start();
 ?>
-<div class="wpbdp-expiration-notice-email-schedule-summary">
+<div class="wpbdp-expiration-notice-email-schedule-summary wpbdp-setting-description">
     <?php echo $summary; ?>
 </div>
 <?php

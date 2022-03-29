@@ -186,11 +186,12 @@
 @import 'admin-settings.less';
 
 /* Directory list-table */
-td.column-payment_status .status, td.column-sticky_status .status {
-    background: #444;
-    border-radius: 2px;
+table.wp-list-table td .tag,
+td.column-payment_status .status,
+td.column-sticky_status .status {
+    background: var(--bd-main-color-20);
+    border-radius: 4px;
     padding: 2px 5px;
-    color: @white;
     font-size: 90%;
 }
 
@@ -225,13 +226,8 @@ td.column-sticky_status .status.sticky {
 
 /* Form fields list table */
 table.wp-list-table td .tag {
-    background: #444;
-    border-radius: 2px;
-    padding: 2px 5px;
-    color: @white;
-    font-size: 90%;
-    margin-right: 2px;
-    display: inline-block;
+	margin-right: 2px;
+	display: inline-block;
 }
 
 table.wp-list-table.formfields {
@@ -249,24 +245,6 @@ table.wp-list-table.formfields {
     }
     tr:hover .wpbdp-drag-handle {
         visibility: visible;
-    }
-    .tag.private {
-        background: red;
-    }
-    .tag.privacy {
-        background: blue;
-    }
-    
-    .tag.required {
-        background: orange;
-    }
-    
-    .tag.in-excerpt {
-        background: green;
-    }
-    
-    .tag.in-listing {
-        background: green;
     }
     
     tr.wpbdp-draggable-highlight {
@@ -800,20 +778,28 @@ span.tag {
     .wpbdp-tag;
 }
 
-.wpbdp-tag, span.tag {
+.wpbdp-admin .wpbdp-tag,
+span.tag {
+	background: var(--bd-main-color-8);
+	color: @text-color;
+	border-radius: 4px;
+	opacity: 0.8;
+
     &.wpbdp-listing-attr-payment-completed {
         background: green;
+		color: @white;
     }
 
     &.wpbdp-listing-attr-payment-canceled,
     &.wpbdp-listing-attr-payment-failed {
         background: red;
+		color: @white;
     }
 
-    &.wpbdp-listing-attr-admin-posted,
     &.wpbdp-listing-attr-payment-on-hold,
     &.wpbdp-listing-attr-payment-refunded {
         background: orange;
+		color: @white;
     }
 
     &.wpbdp-listing-attr-post-status-pending {
@@ -848,7 +834,7 @@ body.post-type-wpbdp_listing,
 		}
 		thead, tfoot {
 			.manage-column, a {
-				color: @table-header-text-color;
+				color: fade( @text-color, 70% );
 				font-weight: 600;
 				font-size: 13px;
 			}
@@ -858,7 +844,7 @@ body.post-type-wpbdp_listing,
 				color: @link-active;
 			}
 			.row-actions .trash a, .row-actions .delete a {
-				color: @link-red;
+				color: @red;
 			}
 		}
 
