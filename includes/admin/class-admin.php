@@ -789,7 +789,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			_deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
+			//_deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
 			$classes = str_replace( $find, $replace, $classes );
 			$class   = implode( ' ', $classes );
 		}
