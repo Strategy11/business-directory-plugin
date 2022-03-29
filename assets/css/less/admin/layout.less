@@ -7,11 +7,18 @@
 	.wpbdp-menu-area {
 		width: 57px;
 	}
-	.wpbdp-nav-item a {
-		text-align: center;
-		padding-left: 0px;
-		padding-right: 0;
+	.wpbdp-nav-item {
+		a {
+			text-align: center;
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
+
+	.wpbdp-nav-item-icon {
+		margin: 0 auto;
+	}
+
 	.wpbdp-page-title {
 		padding-left: 10px !important;
 	}
@@ -21,9 +28,6 @@
 	}
 	.wpbdp-nav-toggle {
 		margin-left: 15px;
-		.wpbdp-nav-item-icon {
-			margin: 0;
-		}
 	}
 	.wpbdp-content-area {
 		margin-left: 57px;
@@ -32,9 +36,9 @@
 
 .wpbdp-admin-layout {
 	background-color: @background;
-	margin: 0px;
-	padding-top: 0px;
-	padding-left: 0px;
+	margin: 0;
+	padding-top: 0;
+	padding-left: 0;
 	display: inline-block;
 	width: 100%;
 	::before, ::after, * {
@@ -65,7 +69,7 @@
 	@media only screen and (max-width: 960px) {
 		height: 100%;
 		.wpbdp-menu-area {
-			padding: 9px 0px 37px 0;
+			padding: 9px 0 37px 0;
 		}
 		.wpbdp-nav-item a {
 			padding-left: 3px !important;
@@ -99,7 +103,7 @@
 
 		a {
 			display: flex;
-			padding: 15px;
+			padding: 15px 7px;
 			text-decoration: none;
 			color: @text-color;
 			align-items: center;
@@ -148,7 +152,7 @@
 	bottom: 0;
 	position: relative;
 	margin-top: 40px;
-	margin-left: 25px;
+	margin-left: 17px;
 	cursor: pointer;
 	font-size: 14px;
 	width: 200px;
@@ -163,7 +167,7 @@
 		}
 	}
 	.wpbdp-nav-item-icon {
-		margin-left: 0;
+		margin: 0;
 	}
 }
 .wpbdp-nav-tooltip {

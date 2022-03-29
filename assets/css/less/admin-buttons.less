@@ -1,12 +1,13 @@
 .wpbdp-admin-page {
 	.wpbdp-button-primary,
 	.wpbdp-button-secondary,
-	.ui-datepicker-buttonpane button {
+	.ui-datepicker-buttonpane button,
+	.button {
 		text-shadow: none;
 		box-shadow: none;
 		border-radius: 4px;
 		border:1px solid @button;
-		font-size: 1em;
+		font-size: 14px;
 		transition: all .2s ease;
 		height: 28px;
 		min-height: 28px;
@@ -15,33 +16,9 @@
 		min-width: 100px;
 		display: inline-block;
 		text-align: center;
-		padding: 2px 10px;
+		padding: 2px 15px;
 		text-decoration: none;
-	}
-
-	.add-new-h2,
-	.wpbdp-button-secondary,
-	.button-secondary,
-	.button {
-		background-color: @white;
-		border-color: @button;
-		color: @button-hover;
-		font-weight: 600;
-
-		&:hover {
-			background: @background;
-			color: @button;
-			box-shadow: none;
-		}
-		&:focus, &:active {
-			background-color: @white;
-		}
-		&:disabled {
-			background-color: @white;
-			border-color: @button;
-			color: @button-hover;
-			opacity: 0.5;
-		}
+		font-weight: 500;
 	}
 
 	.page-title-action,
@@ -65,6 +42,29 @@
 			background: @button !important;
 			border-color: @button !important;
 			color: @white !important;
+			opacity: 0.5;
+		}
+	}
+
+	.add-new-h2,
+	.wpbdp-button-secondary,
+	.button-secondary {
+		background-color: @white;
+		border-color: @button;
+		color: @button-hover;
+
+		&:hover {
+			background: @background;
+			color: @button;
+			box-shadow: none;
+		}
+		&:focus, &:active {
+			background-color: @white;
+		}
+		&:disabled {
+			background-color: @white;
+			border-color: @button;
+			color: @button-hover;
 			opacity: 0.5;
 		}
 	}
