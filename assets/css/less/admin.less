@@ -16,6 +16,7 @@
 @import 'admin-smtp.less';
 @import 'admin-modules.less';
 @import 'admin-notice-review.less';
+@import 'admin/notification.less';
 @import 'admin/modal.less';
 @import 'admin/switch.less';
 
@@ -44,6 +45,16 @@
 
 .wpbdp-error.error p:first-of-type {
 	flex: 1;
+}
+
+/* Reusable definitions */
+
+.wpbdp-shadow-box() {
+	background-color: @white;
+	border-radius: 12px;
+	box-shadow: 0px 24px 54px rgba(99, 111, 125, 0.2);
+	border: none;
+	display: block;
 }
 
 /* Education */

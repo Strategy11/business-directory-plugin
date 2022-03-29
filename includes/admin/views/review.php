@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 5.14.3
  */
 ?>
-<div class="notice notice-info is-dismissible wpbdp-review-notice">
+<div class="wpbdp-notice notice notice-info is-dismissible wpbdp-review-notice">
 	<div class="wpbdp-satisfied">
 		<p>
 			<?php echo esc_html( $title ); ?>
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
+<script>
 	jQuery( document ).ready( function( $ ) {
 		$( document ).on( 'click', '.wpbdp-dismiss-review-notice, .wpbdp-review-notice .notice-dismiss', function( event ) {
 
@@ -63,11 +63,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$( '.wpbdp-review-notice' ).remove();
 		} );
 
-		$( document ).on(' click', '.wpbdp-feedback-request button', function() {
+		$( document ).on( 'click', '.wpbdp-feedback-request button', function() {
 			wpbdpDismissReview( 'done' );
 		} );
 
-		$( '.show-wpbdp-feedback' ).click( function( e ) {
+		$( document ).on( 'click', '.show-wpbdp-feedback', function( e ) {
 			e.preventDefault();
 			var link = $( this ).data( 'link' );
 			var className = '.wpbdp-' + link + '-request';

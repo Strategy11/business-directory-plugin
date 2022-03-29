@@ -44,7 +44,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             add_action( 'admin_init', array( &$this, 'process_admin_action' ), 999 );
             add_action( 'admin_init', array( $this, 'register_listings_views' ) );
 
-            add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+            add_action( 'admin_notices', array( $this, 'prepare_admin_notices' ) );
             add_action( 'wp_ajax_wpbdp_dismiss_review', array( &$this, 'maybe_dismiss_review' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_scripts' ) );
@@ -86,6 +86,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
+			add_filter( 'admin_head-term.php', array( $this, 'maybe_highlight_menu' ) );
 
 			// Clear listing page cache.
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
@@ -95,6 +96,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			require_once WPBDP_INC . 'controllers/class-smtp.php';
 			WPBDP_SMTP_Controller::load_hooks();
+
+			require_once WPBDP_PATH . 'includes/admin/helpers/class-notices.php';
+			WPBDP_Admin_Notices::load_hooks();
 
             $this->listings   = new WPBDP_Admin_Listings();
             $this->csv_import = new WPBDP_CSVImportAdmin();
@@ -667,28 +671,58 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 return;
             }
 
-            update_user_meta( $user_id, 'wpbdp_notice_dismissed[' . $id . ']', true );
+			$dismissed = get_user_meta( $user_id, 'wpbdp_notice_dismissed', true );
+			if ( ! $dismissed || ! is_array( $dismissed ) ) {
+				$dismissed = array();
+			}
+			$dismissed[] = $id;
+			update_user_meta( $user_id, 'wpbdp_notice_dismissed', $dismissed );
+
             $res->send();
         }
 
-        function admin_notices() {
+		/**
+		 * Get all dismissals from the same cell for better db performance.
+		 *
+		 * @since x.x
+		 */
+		private function is_notice_dismissed( $id, $user_id = 0 ) {
+			$user_id = $user_id ? $user_id : get_current_user_id();
+			$dismissed = get_user_meta( $user_id, 'wpbdp_notice_dismissed', true );
+			return in_array( $id, (array) $dismissed );
+		}
+
+		/**
+		 * Prepare admin notices that should only be checked once.
+		 *
+		 * @since x.x
+		 */
+		public function prepare_admin_notices() {
 			if ( ! current_user_can( 'administrator' ) ) {
-                return;
-            }
+				return;
+			}
 
 			$this->upgrade_bar();
 
-            if ( ! isset( $this->displayed_warnings ) ) {
-                $this->displayed_warnings = array();
-            }
+			$this->check_server_requirements();
+			$this->check_setup();
+			$this->check_deprecation_warnings();
 
-            $this->check_server_requirements();
-            $this->check_setup();
-            $this->check_deprecation_warnings();
+			$this->maybe_request_review();
 
-            $this->maybe_request_review();
+			do_action( 'wpbdp_admin_notices' );
 
-            do_action( 'wpbdp_admin_notices' );
+			$this->admin_notices();
+		}
+
+		function admin_notices() {
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
+
+			if ( ! isset( $this->displayed_warnings ) ) {
+				$this->displayed_warnings = array();
+			}
 
             foreach ( $this->messages as $msg ) {
                 $msg_sha1 = sha1( is_array( $msg ) ? $msg[0] : $msg );
@@ -699,15 +733,20 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
                 $this->displayed_warnings[] = $msg_sha1;
 
+				$class = 'updated';
+				$extra = array();
                 if ( is_array( $msg ) ) {
-                    $class = isset( $msg[1] ) ? $msg[1] : 'updated';
+                    $class = isset( $msg[1] ) ? $msg[1] : $class;
                     $text  = isset( $msg[0] ) ? $msg[0] : '';
-                    $extra = isset( $msg[2] ) && is_array( $msg[2] ) ? $msg[2] : array();
+                    $extra = isset( $msg[2] ) && is_array( $msg[2] ) ? $msg[2] : $extra;
                 } else {
-                    $class = 'updated';
                     $text  = $msg;
-                    $extra = array();
                 }
+
+				// Check if dismissed.
+				if ( ! empty( $extra['dismissible-id'] ) && $this->is_notice_dismissed( $extra['dismissible-id'] ) ) {
+					continue;
+				}
 
 				self::maybe_update_notice_classes( $class );
 
@@ -750,7 +789,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			_deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
+			//_deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
 			$classes = str_replace( $find, $replace, $classes );
 			$class   = implode( ' ', $classes );
 		}
@@ -770,7 +809,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 			?>
-			<div class="wpbdp-notice wpbdp-upgrade-bar">
+			<div class="wpbdp-notice wpbdp-upgrade-bar wpbdp-inline-notice">
 				You're using Business Directory Plugin Lite. To unlock more features consider
 				<a href="<?php echo esc_url( wpbdp_admin_upgrade_link( 'upgrade-bar' ) ); ?>">
 					upgrading to premium.
@@ -1115,7 +1154,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			);
 			$message .= '</p>';
 
-			$this->messages[] = array( $message, 'error' );
+			$this->messages[] = array( $message, 'error wpbdp-inline-notice' );
         }
 
         /**
@@ -1184,18 +1223,16 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
             // Registration disabled message.
-			if ( wpbdp_get_option( 'require-login' )
-				&& ! get_option( 'users_can_register' )
-				&& ! get_user_meta( get_current_user_id(), 'wpbdp_notice_dismissed[registration_disabled]', true ) ) {
-					$this->messages[] = array(
-						sprintf(
-							__( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
-							'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
-							'</a>'
-						),
-						'notice-error is-dismissible',
-						array( 'dismissible-id' => 'registration_disabled' ),
-					);
+			if ( wpbdp_get_option( 'require-login' ) && ! get_option( 'users_can_register' ) ) {
+				$this->messages[] = array(
+					sprintf(
+						__( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
+						'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
+						'</a>'
+					),
+					'notice-error is-dismissible',
+					array( 'dismissible-id' => 'registration_disabled' ),
+				);
 			}
         }
 

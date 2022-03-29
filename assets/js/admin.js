@@ -248,15 +248,145 @@ var WPBDP_associations_fieldtypes = {};
         }
     };
 
+	var WPBDPAdmin_Notifications = {
+		notificationContainer: null,
+		preAdminNotifications: null,
+		adminNotifications: null,
+		buttonNotification: null,
+		closeButton: null,
+
+		init: function() {
+			// Get the notification center
+			this.notificationContainer = $( '.wpbdp-bell-notifications' );
+
+			// Get all the notifications to display in the modal
+			this.preAdminNotifications = $( '.notice:hidden' );
+
+			// Notifications container
+			this.adminNotifications = this.notificationContainer.find( '.wpbdp-bell-notifications-list' );
+
+			// Get the notification button
+			this.buttonNotification = $( '.wpbdp-bell-notification-icon' );
+
+			// Get the close button
+			this.closeButton = $( '.wpbdp-bell-notifications-close' );
+
+			this.onClickNotifications();
+			this.initCloseNotifications();
+
+			WPBDPAdmin_Notifications.parseNotifications();
+		},
+
+		onClickNotifications: function() {
+			WPBDPAdmin_Notifications.buttonNotification.on( 'click', function(e) {
+				e.preventDefault();
+				WPBDPAdmin_Notifications.notificationContainer.toggleClass( 'hidden' );
+			});
+		},
+
+		initCloseNotifications: function() {
+			WPBDPAdmin_Notifications.closeButton.on( 'click', function(e) {
+				e.preventDefault();
+				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
+			});
+		},
+
+		parseNotifications: function() {
+			if ( WPBDPAdmin_Notifications.preAdminNotifications.length < 1 ){
+				return true;
+			}
+			var notifications = [],
+				snackbars = [];
+
+			WPBDPAdmin_Notifications.preAdminNotifications.each( function() {
+				var notification = $(this),
+					mainMsg = this.id === 'message';
+				if ( notification.hasClass( 'wpbdp-inline-notice' ) ) {
+					return false;
+				}
+				if ( notification.hasClass( 'wpbdp-notice' ) || mainMsg ) {
+					if ( notification.hasClass( 'is-dismissible' ) && ! mainMsg ) {
+						notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
+					} else {
+						snackbars.push( notification.html() );
+					}
+					notification.remove();
+				}
+			});
+
+			WPBDPAdmin_Notifications.adminNotifications.append( notifications.join( ' ' ) );
+			if ( notifications.length > 0 ) {
+				$( '.wpbdp-bell-notification' ).show();
+				WPBDPAdmin_Notifications.notificationContainer.removeClass( 'hidden' );
+			}
+			if ( snackbars.length > 0 ) {
+				snackbars.forEach( function( value, index, array ) {
+					WPBDPAdmin_Notifications.generateSnackBar( value );
+				});
+			}
+		},
+
+		/**
+		* Render the snack bar
+		*
+		* @param {string} notification
+		*/
+		generateSnackBar: function( notification ) {
+			var snackbar = $( '<div>', {
+				class: 'wpbdp-snackbar',
+				html: notification
+			});
+			$( '#wpbdp-snackbar-notices' ).append( snackbar );
+			snackbar.find( '.notice-dismiss').on( 'click', function(e) {
+				e.preventDefault();
+				snackbar.fadeOut();
+			});
+			setTimeout( function(){ snackbar.remove(); }, 25000 );
+		},
+
+		hideNotificationCenter: function() {
+			if ( WPBDPAdmin_Notifications.adminNotifications.find( 'li' ).length < 1 ) {
+				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
+				$( '.wpbdp-bell-notification' ).hide();
+			}
+		}
+	};
 
     $(document).ready(function(){
         WPBDPAdmin_FormFields.init();
 		WPBDPAdmin_Modal.init();
+		WPBDPAdmin_Notifications.init();
 
 		$( '.wpbdp-tooltip' ).tooltip({
 			tooltipClass: 'wpbdp-admin-tooltip-content'
 		});
     });
+
+	// Dismissible Messages
+	var dismissNotice = function( $notice, $button ) {
+		$.post( ajaxurl, {
+			action: 'wpbdp_dismiss_notification',
+			id: $button.data( 'dismissible-id' ),
+			nonce: $button.data( 'nonce' )
+		}, function() {
+			$notice.fadeOut( 'fast', function(){
+				$notice.remove();
+				WPBDPAdmin_Notifications.hideNotificationCenter();
+			} );
+		} );
+	};
+
+	$( document ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
+		e.preventDefault();
+		var $button = $( this ),
+		$notice = $button.closest( '.wpbdp-notice' ),
+		link = $button.attr( 'href' );
+
+		if ( link ) {
+			window.open( link, '_blank').focus();
+		}
+		dismissNotice( $notice, $button );
+	});
 
 })(jQuery);
 
@@ -534,35 +664,6 @@ jQuery(function($) {
     });
 })(jQuery);
 // }}
-
-// Dismissible Messages
-(function($) {
-    $(function(){
-        var dismissNotice = function( $notice, $button ) {
-            $.post( ajaxurl, {
-                action: 'wpbdp_dismiss_notification',
-                id: $button.data( 'dismissible-id' ),
-                nonce: $button.data( 'nonce' )
-            }, function() {
-                $notice.fadeOut( 'fast', function(){ 
-                    $notice.remove();
-                } );
-            } );
-        };
-
-		$( '#wpbody-content' ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
-			e.preventDefault();
-			var $button = $( this ),
-				$notice = $button.closest( '.wpbdp-notice' ),
-				link = $button.attr( 'href' );
-
-			if ( link ) {
-				window.open( link, '_blank').focus();
-			}
-			dismissNotice( $notice, $button );
-		});
-	});
-})(jQuery);
 
 // Install addons
 function wpbdpAddons() {

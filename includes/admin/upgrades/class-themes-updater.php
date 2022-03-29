@@ -128,7 +128,7 @@ class WPBDP_Themes_Updater {
         if ( ! $update_info )
             return;
 
-        printf( '<div class="wpbdp-theme-update-info update-available" data-l10n-updating="%s" data-l10n-updated="%s">',
+        printf( '<div class="wpbdp-theme-update-info update-available wpbdp-inline-notice" data-l10n-updating="%s" data-l10n-updated="%s">',
                 _x( 'Updating theme...', 'themes', 'business-directory-plugin' ),
                 _x( 'Theme updated.', 'themes', 'business-directory-plugin' ) );
         echo '<div class="update-message">';
