@@ -19,13 +19,15 @@ WPBDP_Admin_Pages::show_tabs(
 		<h2 class="wpbdp-sub-section-title"><?php echo esc_html( ucfirst( $active_tab ) ); ?></h2>
 
 		<div class="wpbdp-content-area-header-actions">
-			<?php if ( ! $custom_form ) :
+			<?php
+			if ( ! $custom_form ) :
 				// Submit button shouldn't use 'submit' as name to avoid conflicts with
 				// actual properties of the parent form.
 				//
 				// See http://kangax.github.io/domlint/
 				submit_button( null, 'primary', 'save-changes' );
-			endif; ?>
+			endif;
+			?>
 		</div>
 	</div>
 	<div class="wpbdp-content-area-body">
@@ -36,8 +38,7 @@ WPBDP_Admin_Pages::show_tabs(
 				$n = 0;
 				foreach ( $subtabs as $subtab_id => $subtab ) :
 					$n++;
-				?>
-					<?php
+
 					$subtab_url = add_query_arg( 'tab', $active_tab );
 					$subtab_url = add_query_arg( 'subtab', $subtab_id, $subtab_url );
 					?>
@@ -50,55 +51,27 @@ WPBDP_Admin_Pages::show_tabs(
 		<?php endif; ?>
 
 		<?php WPBDP_Admin_Notices::settings_errors(); ?>
+
 		<?php if ( $active_subtab_description ) : ?>
 		<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo wp_kses_post( $active_subtab_description ); ?></p>
 		<?php endif; ?>
 
 		<?php
-			$_SERVER['REQUEST_URI'] = $original_uri;
+		$_SERVER['REQUEST_URI'] = $original_uri;
 
-			if ( ! $custom_form ) :
-				settings_fields( 'wpbdp_settings' );
-			endif;
+		if ( ! $custom_form ) :
+			settings_fields( 'wpbdp_settings' );
+		endif;
 
-			WPBDP_Admin_Pages::render_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
-			do_action( 'wpbdp_settings_subtab_' . $active_subtab );
+		WPBDP_Admin_Pages::render_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
+		do_action( 'wpbdp_settings_subtab_' . $active_subtab );
 
-			if ( ! $custom_form ) :
-				// Submit button shouldn't use 'submit' as name to avoid conflicts with
-				// actual properties of the parent form.
-				//
-				// See http://kangax.github.io/domlint/
-				submit_button( null, 'primary', 'save-changes' );
-			endif;
+		if ( ! $custom_form ) :
+			// Submit button shouldn't use 'submit'
+			submit_button( null, 'primary', 'save-changes' );
+			echo '</form>';
+		endif;
 		?>
-
-		<?php if ( ! $custom_form ) : ?>
-		</form>
-		<?php endif; ?>
 	</div>
 
-<?php
-WPBDP_Admin_Pages::show_tabs_footer();
-
-    /*
-<h3 class="nav-tab-wrapper">
-<?php if (isset($_REQUEST['settings-updated'])): ?>
-	<div class="updated fade">
-		<p><?php _e('Settings updated.', 'business-directory-plugin' ); ?></p>
-	</div>
-<?php endif; ?>
-</h3>
-	<?php if ($group->help_text): ?>
-		<p class="description"><?php echo $group->help_text; ?></p>
-	<?php endif; ?>
-<?php
-	echo wpbdp_admin_footer();
-?>
- */
-        // $reset_defaults = ( isset( $_GET['action'] ) && 'reset' == $_GET['action'] );
-        // if ( $reset_defaults ) {
-        //     echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-reset.tpl.php' );
-        //     return;
-        // }
-?>
+<?php WPBDP_Admin_Pages::show_tabs_footer(); ?>
