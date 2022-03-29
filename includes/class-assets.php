@@ -140,8 +140,6 @@ class WPBDP__Assets {
             return;
         }
 
-        // TODO: Is it possible (and worth it) to figure out if we need the
-        // jquery-ui-datepicker script based on which fields are available?
         wp_register_script(
             'wpbdp-js',
             WPBDP_ASSETS_URL . 'js/wpbdp.min.js',
@@ -149,7 +147,6 @@ class WPBDP__Assets {
                 'jquery',
                 'breakpoints.js',
                 'jquery-ui-sortable',
-                'jquery-ui-datepicker',
             ),
             WPBDP_VERSION,
 			true
@@ -315,7 +312,7 @@ class WPBDP__Assets {
 
 		$this->load_css();
 
-		wpbdp_enqueue_jquery_ui_style();
+		self::load_datepicker();
 
 		wp_enqueue_style(
 			'wpbdp-listing-admin-metabox',
@@ -394,5 +391,42 @@ class WPBDP__Assets {
 	 */
 	public function register_installation_resources() {
 		wp_enqueue_script( 'wpbdp-admin-install-js', WPBDP_ASSETS_URL . 'js/admin-install.min.js', array( 'jquery' ), WPBDP_VERSION, true );
+	}
+
+	/**
+	 * Load Jquery UI Style.
+	 *
+	 * @since x.x
+	 */
+	public static function load_datepicker() {
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+
+		if ( self::is_jquery_ui_css_loaded() ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'jquery-theme',
+			WPBDP_ASSETS_URL . 'css/jquery-ui.css',
+			array(),
+			WPBDP_VERSION
+		);
+	}
+
+	/**
+	 * Check if Jquery UI CSS is loaded.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private static function is_jquery_ui_css_loaded() {
+		$possible_styles = array( 'jquery-ui', 'jquery-ui-css', 'jquery-theme' );
+		foreach ( $possible_styles as $style ) {
+			if ( wp_style_is( $style ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

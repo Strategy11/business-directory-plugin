@@ -51,10 +51,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         wp_enqueue_script( 'wpbdp-checkout' );
 
-        // Required for the date picker.
-        wpbdp_enqueue_jquery_ui_style();
-        wp_enqueue_script( 'jquery-ui-datepicker' );
-
         // Required for textareas with HTML support via the WP Editor.
         // XXX: wp_enqueue_editor was added in WordPress 4.8.0.
         if ( function_exists( 'wp_enqueue_editor' ) ) {

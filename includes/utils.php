@@ -403,11 +403,9 @@ class WPBDP__Utils {
 			return false;
 		}
 
-		if ( is_array( $constraints['mimetypes'] ) ) {
-			if ( ! in_array( strtolower( $file['type'] ), $constraints['mimetypes'] ) ) {
-				$error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
-				return false;
-			}
+		if ( is_array( $constraints['mimetypes'] ) && ! self::is_valid_file_type( $file, $constraints['mimetypes'] ) ) {
+			$error_msg = sprintf( _x( 'File type "%s" is not allowed', 'utils', 'business-directory-plugin' ), $file['type'] );
+			return false;
 		}
 
 		// We do not accept TIFF format. Compatibility issues.
@@ -432,7 +430,7 @@ class WPBDP__Utils {
 				'min-height' => 0,
 				'max-width' => 0,
 				'max-height' => 0,
-				'mimetypes' => null
+				'mimetypes'  => null,
 			),
 			$constraints
 		);
@@ -440,6 +438,38 @@ class WPBDP__Utils {
 		foreach ( array( 'min-size', 'max-size', 'min-width', 'min-height', 'max-width', 'max-height' ) as $k ) {
 			$constraints[ $k ] = absint( $constraints[ $k ] );
 		}
+	}
+
+	/**
+	 * Check the file type and extension.
+	 *
+	 * @param array $file
+	 * @param array $constraints
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private static function is_valid_file_type( $file, $mimetypes ) {
+		// If this is a multidimensional array, flatten it.
+		if ( is_array( reset( $mimetypes ) ) ) {
+			$mimetypes = call_user_func_array( 'array_merge', $mimetypes );
+		}
+
+		$mime_allowed = in_array( strtolower( $file['type'] ), $mimetypes, true );
+		if ( ! $mime_allowed ) {
+			return false;
+		}
+
+		// If the keys are numeric, we don't have the extensions to check.
+		$check_extension = array_filter( array_keys( $mimetypes ), 'is_string' );
+		if ( empty( $check_extension ) ) {
+			return true;
+		}
+
+		$filename = sanitize_file_name( (string) wp_unslash( $file['name'] ) );
+		$matches  = wp_check_filetype( $filename, $mimetypes );
+		return ! empty( $matches['ext'] );
 	}
 
 	/**
@@ -1170,20 +1200,7 @@ function wpbdp_render_user_field( $args = array() ) {
 }
 
 function wpbdp_enqueue_jquery_ui_style() {
-    global $wp_scripts;
-
-	if ( is_object( $wp_scripts ) && isset( $wp_scripts->registered['jquery-ui-core'] ) ) {
-        $ui_version = $wp_scripts->registered['jquery-ui-core']->ver;
-    } else {
-        $ui_version = '1.8.21';
-    }
-
-    wp_enqueue_style(
-        'wpbdp-jquery-ui-css',
-        'https://ajax.googleapis.com/ajax/libs/jqueryui/' . $ui_version . '/themes/redmond/jquery-ui.css',
-        array(),
-        $ui_version
-    );
+	WPBDP__Assets::load_datepicker();
 }
 
 function wpbdp_buckwalter_arabic_transliteration( $content ) {
