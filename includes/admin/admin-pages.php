@@ -126,7 +126,7 @@ class WPBDP_Admin_Pages {
 		$views = self::add_taxonomy_nav( $views, $tax, array(
 			'title'       => __( 'Edit Tag', 'business-directory-plugin' ),
 			'taxonomy'    => 'wpbdp_tag',
-			'button_name' => __( 'Back To Tags', 'business-directory-plugin' ),
+			'button_name' => __( 'Back to Tags', 'business-directory-plugin' ),
 			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' ),
 		) );
 		return $views;

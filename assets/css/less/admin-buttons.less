@@ -1,8 +1,7 @@
 .wpbdp-admin-page {
 	.wpbdp-button-primary,
 	.wpbdp-button-secondary,
-	.ui-datepicker-buttonpane button,
-	.button {
+	.ui-datepicker-buttonpane button {
 		text-shadow: none;
 		box-shadow: none;
 		border-radius: 4px;
@@ -19,6 +18,30 @@
 		padding: 2px 15px;
 		text-decoration: none;
 		font-weight: 500;
+	}
+
+	.add-new-h2,
+	.wpbdp-button-secondary,
+	.button-secondary,
+	.button {
+		background-color: @white;
+		border-color: @button;
+		color: @button-hover;
+
+		&:hover {
+			background: @background;
+			color: @button;
+			box-shadow: none;
+		}
+		&:focus, &:active {
+			background-color: @white;
+		}
+		&:disabled {
+			background-color: @white;
+			border-color: @button;
+			color: @button-hover;
+			opacity: 0.5;
+		}
 	}
 
 	.page-title-action,
@@ -46,35 +69,9 @@
 		}
 	}
 
-	.add-new-h2,
-	.wpbdp-button-secondary,
-	.button-secondary {
-		background-color: @white;
-		border-color: @button;
-		color: @button-hover;
-
-		&:hover {
-			background: @background;
-			color: @button;
-			box-shadow: none;
-		}
-		&:focus, &:active {
-			background-color: @white;
-		}
-		&:disabled {
-			background-color: @white;
-			border-color: @button;
-			color: @button-hover;
-			opacity: 0.5;
-		}
-	}
-
 	.file-upload {
 		background-color: @white;
 		border-color: @button;
 		color: @button-hover;
-	}
-	.wpbdp-rounded-button {
-		border-radius: 10px;
 	}
 }

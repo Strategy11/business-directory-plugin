@@ -1,8 +1,3 @@
-.wpbdp-admin-page {
-	--dark-grey: rgba(40, 47, 54, .85);
-	--orange: #F15A24;
-}
-
 @import 'colors.less';
 @import 'common.less';
 @import 'fonts.less';
@@ -18,6 +13,9 @@
 @import 'admin/inputs.less';
 
 .wpbdp-admin-page {
+	--bd-main-color: @brand;
+	--bd-main-color-20: fade( @brand, 20% );
+	--bd-main-color-8: fade( @brand, 8% );
 	background-color: @white;
 
 	#wp-content-editor-tools {
@@ -422,9 +420,9 @@ body.taxonomy-wpbdp_category .column-id {
 /* -- WPBDP note messages. */
 .wpbdp-note {
     padding: 5px 10px;
-    background: #d7f5ff;
+    background: fade( @brand, 20% );
     margin: 5px 0 20px 0;
-    border: solid 1px #bad5df;
+    border: solid 1px @border-color;
     border-radius: 4px;
 }
 
@@ -881,12 +879,6 @@ body.post-type-wpbdp_listing,
 			color: @text-color;
 		}
 	}
-}
-
-#wpbdp-listing-form-preview {
-    padding: 25px;
-    border: 1px solid @gray;
-    background: @white;
 }
 
 .wpbdp-user-select .select2.select2-container {
