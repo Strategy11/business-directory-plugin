@@ -49,7 +49,7 @@ WPBDP_Admin_Pages::show_tabs(
 		</div>
 		<?php endif; ?>
 
-		<?php settings_errors(); ?>
+		<?php WPBDP_Admin_Notices::settings_errors(); ?>
 		<?php if ( $active_subtab_description ) : ?>
 		<p class="wpbdp-settings-subtab-description wpbdp-setting-description"><?php echo wp_kses_post( $active_subtab_description ); ?></p>
 		<?php endif; ?>

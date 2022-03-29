@@ -146,10 +146,11 @@ class WPBDP_Themes_Admin {
 
         switch ( $msg ) {
             case 1:
-                wpbdp_admin_message( sprintf( _x( 'Active theme changed to "%s".', 'themes', 'business-directory-plugin' ), $this->api->get_active_theme() ) );
+				$name = $this->api->get_active_theme_data( 'name' );
+				wpbdp_admin_message( sprintf( _x( 'Active theme changed to "%s".', 'themes', 'business-directory-plugin' ), $name ) );
 
                 if ( $missing_fields = $this->api->missing_suggested_fields( 'label' ) ) {
-                    $msg  = sprintf( _x( '%s requires that you tag your existing fields to match some places we want to put your data on the theme. Below are fields we think are missing.', 'themes', 'business-directory-plugin' ), $this->api->get_active_theme() );
+					$msg  = sprintf( _x( '%s requires that you tag your existing fields to match some places we want to put your data on the theme. Below are fields we think are missing.', 'themes', 'business-directory-plugin' ), $name );
                     $msg .= '<br />';
 
                     foreach ( $missing_fields as $mf ) {

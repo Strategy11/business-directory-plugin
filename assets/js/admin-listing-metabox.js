@@ -15,7 +15,7 @@ jQuery( function( $ ) {
                 },
             }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
 
-            $buttonPane.append($button);
+			$buttonPane.append($button);
         }, 1 );
     };
 
@@ -24,6 +24,8 @@ jQuery( function( $ ) {
         showButtonPanel: true,
         beforeShow: function( input, instance ) {
             _addNeverButton( instance );
+
+			$( '#ui-datepicker-div' ).addClass( 'wpbdp-datepicker' );
         },
         onChangeMonthYear: function( year, month, instance ) {
             _addNeverButton( instance );

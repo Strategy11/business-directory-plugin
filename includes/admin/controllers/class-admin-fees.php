@@ -194,7 +194,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				'</a>',
 				$total_listings
 			),
-			'updated wpbdp-plan-updated'
+			'updated wpbdp-plan-updated is-dismissible'
 		);
 	}
 
