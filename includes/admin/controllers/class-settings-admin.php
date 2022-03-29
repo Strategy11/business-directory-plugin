@@ -183,7 +183,7 @@ class WPBDP__Settings_Admin {
 
 		$setting['class'] .= ' wpbd-' . $setting['type'];
 
-		echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['class'] ) . '">';
+		echo '<div class="' . esc_attr( $setting['class'] ) . '">';
 		$this->open_grid_div( $setting, 'left' );
 
 		if ( ! $this->show_label_with_input( $setting ) ) {
@@ -310,7 +310,7 @@ class WPBDP__Settings_Admin {
 		$tooltip = $this->setting_tooltip( $setting['tooltip'] );
 
 		if ( $tag === 'div' && ! empty( $setting['label_for'] ) ) {
-			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' .
+			echo '<div class="' . esc_attr( $class ) . '">' .
 				'<label for="' . esc_attr( $setting['label_for'] ) . '">' .
 				wp_kses_post( $setting['name'] ) .
 				'</label>' .
@@ -319,7 +319,7 @@ class WPBDP__Settings_Admin {
 			return;
 		}
 
-		echo '<' . $tag . ' class="' . WPBDP_App_Helper::sanitize_html_classes( $class ) . '">' . wp_kses_post( $setting['name'] ) . $tooltip . '</' . $tag . '>';
+		echo '<' . $tag . ' class="' . esc_attr( $class ) . '">' . wp_kses_post( $setting['name'] ) . $tooltip . '</' . $tag . '>';
 	}
 
 	/**
@@ -452,7 +452,7 @@ class WPBDP__Settings_Admin {
 	 */
 	private function open_grid_div( $setting, $position = 'left' ) {
 		if ( $setting['grid_classes'] ) {
-			echo '<div class="' . WPBDP_App_Helper::sanitize_html_classes( $setting['grid_classes'][ $position ] ) . '">';
+			echo '<div class="' . esc_attr( $setting['grid_classes'][ $position ] ) . '">';
 		}
 	}
 

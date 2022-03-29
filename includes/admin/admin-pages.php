@@ -455,13 +455,12 @@ class WPBDP_Admin_Pages {
 		}
 
 		foreach ( (array) $wp_settings_fields[ $page ][ $section ] as $field ) {
-			$class = ' class="wpbdp-setting-row"';
-
+			$class = 'wpbdp-setting-row';
 			if ( ! empty( $field['args']['class'] ) ) {
-				$class = ' class="wpbdp-setting-row ' . WPBDP_App_Helper::sanitize_html_classes( $field['args']['class'] ) . '"';
+				$class .= ' ' . $field['args']['class'];
 			}
 
-			echo "<div{$class}>";
+			echo '<div class="' . esc_attr( $class ) . '">';
 			echo '<div class="wpbdp-setting-content">';
 			call_user_func( $field['callback'], $field['args'] );
 			echo '</div>';
