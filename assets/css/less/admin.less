@@ -2,17 +2,6 @@
 @import 'common.less';
 @import 'fonts.less';
 @import 'admin-buttons.less';
-
-/* Reusable definitions */
-
-.wpbdp-shadow-box() {
-	background-color: @white;
-	border-radius: 12px;
-	box-shadow: 0px 24px 54px rgba(99, 111, 125, 0.2);
-	border: none;
-	display: block;
-}
-
 @import 'admin-smtp.less';
 @import 'admin-modules.less';
 @import 'admin-notice-review.less';
@@ -51,9 +40,7 @@
 	.wpbdp-content-area-body a:not(.button):not(.button-primary):not(.button-secondary):not(.wpbdp-button-primary):not(.submitdelete):not(.wpbdp-delete-link):not(.delete-tag) {
 		color: @link-active;
 	}
-}
 
-.wpbdp-admin-page {
 	.required {
 		color: @text-color;
 	}
@@ -91,6 +78,16 @@
 
 .wpbdp-error.error p:first-of-type {
 	flex: 1;
+}
+
+/* Reusable definitions */
+
+.wpbdp-shadow-box() {
+	background-color: @white;
+	border-radius: 12px;
+	box-shadow: 0px 24px 54px rgba(99, 111, 125, 0.2);
+	border: none;
+	display: block;
 }
 
 /* Education */
@@ -355,11 +352,6 @@ table.wpbdp-debug-section tbody tr:nth-child(2n) {
 
 body.taxonomy-wpbdp_category .column-id {
     width: 74px;
-    &::before {
-        @media only screen and (max-width: 960px) {
-            display: none !important;
-        }
-    }
 }
 
 .transaction-status-container {
@@ -368,11 +360,6 @@ body.taxonomy-wpbdp_category .column-id {
 }
 
 /* -- Progress bar. -- */
-.wpbpd-progress-bar {
-}
-
-.wpbpd-progress-bar .progress-text {
-}
 
 .wpbdp-progress-bar .progress-bar {
     margin-left: 10px;
@@ -846,7 +833,7 @@ body.post-type-wpbdp_listing,
 		}
 
 		&.striped > tbody > :nth-child(odd) {
-			background-color: #FAFAFA;
+			background-color: fade( @brand, 4% );
 		}
 
 		&.widefat thead th,
