@@ -164,7 +164,7 @@ WPBDPAdmin_Tooltip = {};
 		},
 
 		layoutAdjustment: function() {
-			WPBDPAdmin_Tooltip.$layout_container.css( 'height', document.body.clientHeight );
+			WPBDPAdmin_Tooltip.$layout_container.css( 'min-height', document.getElementById( 'adminmenuwrap' ).offsetHeight );
 			if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
 				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
 			}
