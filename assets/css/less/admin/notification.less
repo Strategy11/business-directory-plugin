@@ -1,5 +1,12 @@
+.tooltip-box() {
+	background-color: @text-color;
+	color: @white !important;
+	border-radius: 8px;
+	padding: 16px;
+}
+
 .wpbdp_notification_buttons() {
-	border-radius: 12px;
+	border-radius: 8px;
 	background-color: @text-color;
 	color: @white;
 	padding: 5px 15px;
@@ -86,12 +93,10 @@
 }
 
 .wpbdp-snackbar {
+	.tooltip-box();
 	width: 100%;
 	position: relative;
-	background-color: @text-color;
 	box-sizing: border-box;
-	border-radius: 12px;
-	padding: 16px;
 	margin-bottom: 4px;
 	opacity: 0;
 	display: inline-block;
@@ -113,6 +118,55 @@
 
 .folded .wpbdp-snackbar {
 	left: 56px;
+}
+
+.wpbdp-nav-tooltip {
+	position: relative;
+	&::before {
+		.tooltip-box();
+		position: absolute;
+		top: 0;
+		left: 50px;
+		content: attr(title);
+		text-transform: none;
+		transition: all 0.5s ease;
+		width: 160px;
+		z-index: 200;
+	}
+
+	//Tooltip arrow
+	&::after {
+		position: absolute;
+		top: 20px;
+		left: 49px;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+		border-right: 5px solid @text-color;
+		content: " ";
+		font-size: 0;
+		line-height: 0;
+		margin-left: -4px;
+		width: 0;
+	}
+
+	//Setting up the transition
+	&::before,
+	&::after {
+		color: @white;
+		font-size: 12px;
+		opacity: 0;
+		pointer-events: none;
+		text-align: left;
+	}
+
+	//Triggering the transition
+	&:focus::before,
+	&:focus::after,
+	&:hover::before,
+	&:hover::after {
+		opacity: 1;
+		transition: all 0.75s ease;
+	}
 }
 
 @media screen and (max-width: 782px) {

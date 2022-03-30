@@ -1,5 +1,5 @@
 var WPBDP_associations_fieldtypes = {},
-WPBDPAdmin_Layout = {};
+WPBDPAdmin_Tooltip = {};
 
 (function($) {
 
@@ -135,98 +135,48 @@ WPBDPAdmin_Layout = {};
 		}
 	};
 
-    /**
-	 * Admin layout
+	/**
+	 * Menu tooltips
 	 */
-	window.WPBDPAdmin_Layout = {
-		$nav_toggle : null,
-		$layout_container : null,
-		$menu_items : null,
-		$menu_state : null,
-		$header : null,
+	window.WPBDPAdmin_Tooltip = {
+		$layout_container: null,
+		$menu_items: null,
+		$menu_state: null,
 
 		init: function() {
-			WPBDPAdmin_Layout.$nav_toggle = $( '.wpbdp-nav-toggle' );
-			WPBDPAdmin_Layout.$layout_container = $( '.wpbdp-admin-row' );
-			WPBDPAdmin_Layout.$menu_items = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-nav-item a' );
-			WPBDPAdmin_Layout.$header = WPBDPAdmin_Layout.$layout_container.find( '.wpbdp-content-area-header ' );
-			WPBDPAdmin_Layout.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
-			WPBDPAdmin_Layout.$nav_toggle.click( WPBDPAdmin_Layout.onNavToggle );
-			WPBDPAdmin_Layout.layoutAdjustment();
-			if ( WPBDPAdmin_Layout.$menu_state && WPBDPAdmin_Layout.$menu_state == 'minimized' ) {
-				WPBDPAdmin_Layout.$layout_container.addClass( 'minimized' );
-				WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
-			}
+			WPBDPAdmin_Tooltip.$layout_container = $( '.wpbdp-admin-row' );
+			WPBDPAdmin_Tooltip.$menu_items = WPBDPAdmin_Tooltip.$layout_container.find( '.wpbdp-nav-item a' );
+			WPBDPAdmin_Tooltip.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
+			$( '.wpbdp-nav-toggle' ).click( WPBDPAdmin_Tooltip.onNavToggle );
+			WPBDPAdmin_Tooltip.layoutAdjustment();
 		},
 
 		onNavToggle: function( e ) {
 			e.preventDefault();
-			WPBDPAdmin_Layout.$layout_container.toggleClass( 'minimized' );
-			if ( WPBDPAdmin_Layout.$layout_container.hasClass( 'minimized' ) ) {
+			WPBDPAdmin_Tooltip.$layout_container.toggleClass( 'minimized' );
+			if ( WPBDPAdmin_Tooltip.$layout_container.hasClass( 'minimized' ) ) {
 				window.localStorage.setItem( '_wpbdp_admin_menu', 'minimized' );
-				WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
+				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
 			} else {
 				window.localStorage.removeItem( '_wpbdp_admin_menu' );
-				WPBDPAdmin_Layout.$menu_items.removeClass( 'wpbdp-nav-tooltip' );
+				WPBDPAdmin_Tooltip.$menu_items.removeClass( 'wpbdp-nav-tooltip' );
 			}
 		},
 
-		layoutAdjustment : function() {
-			WPBDPAdmin_Layout.$layout_container.css( 'height', $( document ).height() );
+		layoutAdjustment: function() {
+			WPBDPAdmin_Tooltip.$layout_container.css( 'height', document.body.clientHeight );
 			if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
-				WPBDPAdmin_Layout.$menu_items.addClass( 'wpbdp-nav-tooltip' );
+				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
+			}
+
+			if ( WPBDPAdmin_Tooltip.$menu_state === 'minimized' ) {
+				WPBDPAdmin_Tooltip.$layout_container.addClass( 'minimized' );
+				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
 			}
 		}
 	};
 
-	/**
-	 * Tables handle checked states
-	 */
-	 var WPBDPAdmin_Tables = {
-		$bodyCheckboxes : null,
-		$selectAllCheckboxes : null,
-
-		init: function() {
-			WPBDPAdmin_Tables.$bodyCheckboxes = $( '.wpbdp-admin-page .wp-list-table tbody .check-column input[type="checkbox"]' );
-			WPBDPAdmin_Tables.$selectAllCheckboxes = $( '.wpbdp-admin-page .wp-list-table thead .check-column input[type="checkbox"], .wpbdp-admin-page .wp-list-table tfoot .check-column input[type="checkbox"]' );
-			WPBDPAdmin_Tables.checkBoxToggle();
-			WPBDPAdmin_Tables.selectAllChecked();
-		},
-
-		checkBoxToggle : function() {
-			WPBDPAdmin_Tables.$bodyCheckboxes.on( 'click', function(){
-				WPBDPAdmin_Tables.handleClick( $( this ) );
-			});
-		},
-
-		selectAllChecked : function() {
-			WPBDPAdmin_Tables.$selectAllCheckboxes.on( 'click',  function() {
-				var checked = $( this ).is( ':checked' );
-				WPBDPAdmin_Tables.$bodyCheckboxes.each( function() {
-					WPBDPAdmin_Tables.handleClick( $( this ), checked );
-				});
-			});
-		},
-
-		handleClick : function( checkbox, checked ) {
-			var $parent = checkbox.closest( 'tr' );
-			if ( typeof checked === 'undefined') {
-				checked = checkbox.is( ':checked' );
-			}
-			WPBDPAdmin_Tables.toggleClass( checked, $parent );
-		},
-
-		toggleClass : function( checked, $parent ) {
-			if ( checked ) {
-				$parent.addClass( 'wpbdp-row-selected' );
-			} else {
-				$parent.removeClass( 'wpbdp-row-selected' );
-			}
-		}
-	};
-
-	WPBDPAdmin_Layout.init();
-	WPBDPAdmin_Tables.init();
+	WPBDPAdmin_Tooltip.init();
 
     /* Form Fields */
     var WPBDPAdmin_FormFields = {

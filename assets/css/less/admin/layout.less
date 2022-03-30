@@ -29,9 +29,6 @@
 	.wpbdp-nav-toggle {
 		margin-left: 15px;
 	}
-	.wpbdp-content-area {
-		margin-left: 57px;
-	}
 }
 
 .wpbdp-admin-layout {
@@ -168,56 +165,6 @@
 	}
 	.wpbdp-nav-item-icon {
 		margin: 0;
-	}
-}
-.wpbdp-nav-tooltip {
-	position: relative;
-	&::before {
-		position: absolute;
-		top: 0;
-		left: 50px;
-		background-color: @tooltip-background;
-		border-radius: 5px;
-		color: @white;
-		content: attr(title);
-		padding: 1rem;
-		text-transform: none;
-		transition: all 0.5s ease;
-		width: 160px;
-	}
-
-	//Tooltip arrow
-	&::after {
-		position: absolute;
-		top: 20px;
-		left: 49px;
-		border-top: 5px solid transparent;
-		border-bottom: 5px solid transparent;
-		border-right: 5px solid @tooltip-background;
-		content: " ";
-		font-size: 0;
-		line-height: 0;
-		margin-left: -4px;
-		width: 0;
-	}
-	
-	//Setting up the transition
-	&::before,
-	&::after {
-		color: @white;
-		font-size: 12px;
-		opacity: 0;
-		pointer-events: none;
-		text-align: left;
-	}
-	
-	//Triggering the transition
-	&:focus::before,
-	&:focus::after,
-	&:hover::before,
-	&:hover::after {
-		opacity: 0.8;
-		transition: all 0.75s ease;
 	}
 }
 
