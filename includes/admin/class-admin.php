@@ -349,7 +349,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 );
             }
 
-			$label = '<span style="color:#fe5a1d">' . __( 'Modules', 'business-directory-plugin' ) . '</span>';
+			$label = '<span style="color:#1da867">' . __( 'Modules', 'business-directory-plugin' ) . '</span>';
 			add_submenu_page( $menu_id, __( 'Business Directory', 'business-directory-plugin' ) . ' | ' . __( 'Modules', 'business-directory-plugin' ), $label, 'install_plugins', 'wpbdp-addons', 'WPBDP_Show_Modules::list_addons' );
 
             do_action( 'wpbdp_admin_menu', $menu_id );
