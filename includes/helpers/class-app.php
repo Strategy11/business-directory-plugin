@@ -332,7 +332,7 @@ class WPBDP_App_Helper {
 	/**
 	 * @param int|array $atts
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private static function prep_logo_atts( $atts ) {
 		if ( ! is_array( $atts ) ) {

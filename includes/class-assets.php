@@ -393,7 +393,7 @@ class WPBDP__Assets {
 	/**
 	 * Load Jquery UI Style.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function load_datepicker() {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
@@ -413,7 +413,7 @@ class WPBDP__Assets {
 	/**
 	 * Check if Jquery UI CSS is loaded.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 *
 	 * @return bool
 	 */

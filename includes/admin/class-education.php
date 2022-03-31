@@ -53,7 +53,7 @@ class WPBDP_Admin_Education {
 	 *
 	 * @param array $tip The current tip.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 *
 	 * @return string
 	 */

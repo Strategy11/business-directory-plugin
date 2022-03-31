@@ -62,7 +62,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	/**
 	 * Get a list of gateways that aren't currently being used.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private function available_gateways() {
 		$modules = array(

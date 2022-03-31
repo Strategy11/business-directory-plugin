@@ -446,7 +446,7 @@ class WPBDP__Utils {
 	 * @param array $file
 	 * @param array $constraints
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 *
 	 * @return bool
 	 */
