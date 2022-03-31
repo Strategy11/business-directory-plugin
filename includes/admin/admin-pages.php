@@ -6,6 +6,8 @@
 class WPBDP_Admin_Pages {
 
 	/*
+	 * Register hooks for the CPT, category and tags page.
+	 *
 	 * @since x.x
 	 */
 	public static function load_hooks() {
@@ -15,15 +17,6 @@ class WPBDP_Admin_Pages {
 
 		add_filter( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
 
-		self::taxonomy_hooks();
-	}
-
-	/**
-	 * Register hooks for the category and tags page.
-	 *
-	 * @since x.x
-	 */
-	private static function taxonomy_hooks() {
 		// Categories and tags.
 		add_filter( 'views_edit-wpbdp_tag', 'WPBDP_Admin_Pages::add_tag_nav' );
 		add_filter( 'views_edit-wpbdp_category', 'WPBDP_Admin_Pages::add_category_nav' );
@@ -73,14 +66,14 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function add_category_nav( $views ) {
 		global $tax;
-		$views = self::add_taxonomy_nav( $views, $tax, array(
+		$atts = array(
 			'title'        => __( 'Categories', 'business-directory-plugin' ),
 			'taxonomy'     => 'wpbdp_category',
 			'button_name'  => __( 'Add New Category', 'business-directory-plugin' ),
 			'button_url'   => '#',
 			'button_class' => 'wpbdp-add-taxonomy-form',
-		) );
-		return $views;
+		);
+		return self::add_taxonomy_nav( $views, $tax, $atts );
 	}
 
 	/**
@@ -90,14 +83,14 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function add_tag_nav( $views ) {
 		global $tax;
-		$views = self::add_taxonomy_nav( $views, $tax, array(
+		$atts = array(
 			'title'        => __( 'Tags', 'business-directory-plugin' ),
 			'taxonomy'     => 'wpbdp_tag',
 			'button_name'  => __( 'Add New Tag', 'business-directory-plugin' ),
 			'button_url'   => '#',
 			'button_class' => 'wpbdp-add-taxonomy-form',
-		) );
-		return $views;
+		);
+		return self::add_taxonomy_nav( $views, $tax, $atts );
 	}
 
 	/**
@@ -107,13 +100,13 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function edit_category_nav( $views ) {
 		global $tax;
-		$views = self::add_taxonomy_nav( $views, $tax, array(
+		$atts = array(
 			'title'       => __( 'Edit Category', 'business-directory-plugin' ),
 			'taxonomy'    => 'wpbdp_category',
 			'button_name' => __( 'Back to Categories', 'business-directory-plugin' ),
 			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' ),
-		) );
-		return $views;
+		);
+		return self::add_taxonomy_nav( $views, $tax, $atts );
 	}
 
 	/**
@@ -123,13 +116,13 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function edit_tag_nav( $views ) {
 		global $tax;
-		$views = self::add_taxonomy_nav( $views, $tax, array(
+		$atts = array(
 			'title'       => __( 'Edit Tag', 'business-directory-plugin' ),
 			'taxonomy'    => 'wpbdp_tag',
 			'button_name' => __( 'Back to Tags', 'business-directory-plugin' ),
 			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' ),
-		) );
-		return $views;
+		);
+		return self::add_taxonomy_nav( $views, $tax, $atts );
 	}
 
 
@@ -172,14 +165,17 @@ class WPBDP_Admin_Pages {
 			'edit-wpbdp_category',
 			'edit-wpbdm-region',
 		);
+
 		$current_screen = get_current_screen();
 		if ( ! in_array( $current_screen->id, $active_screens, true ) ) {
 			return;
 		}
+
 		$tag_id = wpbdp_get_var( array( 'param' => 'tag_ID' ), 'get' );
 		if ( $tag_id ) {
 			return;
 		}
+
 		global $post_type, $taxonomy, $tax, $wp_list_table;
 		$search_param = wpbdp_get_var( array( 'param' => 's' ), 'request' );
 		if ( $search_param ) {
@@ -387,21 +383,6 @@ class WPBDP_Admin_Pages {
 	}
 
 	/**
-	 * Display the help section icon.
-	 *
-	 * @todo Is this being used? Not at the moment, but its to be menu with links to Knowledge base, contact support, etc.
-	 */
-	public static function help_section() {
-		?>
-		<div class="wpbdp-admin-info-centre">
-			<a class="wpbdp-admin-info-centre-icon" href="#">
-				<img src="<?php echo esc_url( WPBDP_ASSETS_URL . 'images/icons/help-circle.svg' ); ?>" width="60" height="60"/>
-			</a>
-		</div>
-		<?php
-	}
-
-	/**
 	 * Prints out all settings sections added to a particular settings page.
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/do_settings_sections/
@@ -537,23 +518,30 @@ class WPBDP_Admin_Pages {
 	 * @return string
 	 */
 	private static function get_active_tab() {
-		if ( WPBDP_App_Helper::is_bd_post_page() ) {
-			$taxonomy = wpbdp_get_var( array( 'param' => 'taxonomy' ) );
-			if ( ! $taxonomy ) {
-				return 'edit.php?post_type=wpbdp_listing';
-			}
-			return add_query_arg(
-				array(
-					'taxonomy' => $taxonomy,
-					'post_type' => 'wpbdp_listing'
-				), 'edit-tags.php' );
+		if (  ! WPBDP_App_Helper::is_bd_post_page() ) {
+			return wpbdp_get_var( array( 'param' => 'page' ) );
 		}
-		return wpbdp_get_var( array( 'param' => 'page' ) );
+
+		$taxonomy = wpbdp_get_var( array( 'param' => 'taxonomy' ) );
+		if ( ! $taxonomy ) {
+			return 'edit.php?post_type=wpbdp_listing';
+		}
+
+		return add_query_arg(
+			array(
+				'taxonomy' => $taxonomy,
+				'post_type' => 'wpbdp_listing'
+			),
+			'edit-tags.php'
+		);
 	}
 }
 
 WPBDP_Admin_Pages::load_hooks();
 
+/**
+ * @deprecated 6.0
+ */
 function wpbdp_admin_sidebar( $echo = false ) {
 	$page = wpbdp_render_page( WPBDP_PATH . 'templates/admin/sidebar.tpl.php', array(), $echo );
 

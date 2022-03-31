@@ -164,7 +164,10 @@ WPBDPAdmin_Tooltip = {};
 		},
 
 		layoutAdjustment: function() {
-			WPBDPAdmin_Tooltip.$layout_container.css( 'min-height', document.getElementById( 'adminmenuwrap' ).offsetHeight );
+			var menu = document.getElementById( 'adminmenuwrap' );
+			if ( menu !== null ) {
+				WPBDPAdmin_Tooltip.$layout_container.css( 'min-height', menu.offsetHeight );
+			}
 			if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
 				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
 			}
