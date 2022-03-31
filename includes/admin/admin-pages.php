@@ -138,6 +138,7 @@ class WPBDP_Admin_Pages {
 		$args = array(
 			'sub'        => $params['title'],
 			'active_tab' => 'edit-tags.php?taxonomy=' . $params['taxonomy'] . '&amp;post_type=wpbdp_listing',
+			'id'         => $params['taxonomy'],
 		);
 		if ( current_user_can( $tax->cap->edit_terms ) && isset( $params['button_name'] ) ) {
 			$args['buttons'] = array(
