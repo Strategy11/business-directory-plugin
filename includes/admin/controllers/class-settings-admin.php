@@ -862,7 +862,6 @@ foreach ( $value as $i => $notice ) {
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-page.tpl.php', compact( 'tabs', 'subtabs', 'active_tab', 'active_subtab', 'active_subtab_description', 'custom_form' ) );
     }
 
-
     public function settings_reset_defaults() {
 		if ( wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' ), 'reset defaults' ) ) {
             global $wpbdp;
