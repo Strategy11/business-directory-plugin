@@ -215,7 +215,7 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Some field types show the label with the input, like checkboxes and toggles in a grid.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 *
 	 * @return bool
 	 */
@@ -264,7 +264,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public function setting_toggle_callback( $setting, $value ) {
 		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
@@ -284,7 +284,7 @@ class WPBDP__Settings_Admin {
 	 * @param array $setting The setting of the field.
 	 * @param int $value The input value.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 *
 	 * @return void
 	 */
@@ -303,7 +303,7 @@ class WPBDP__Settings_Admin {
 	 * @param string $tag The element tag. Defaults to "label".
 	 * @param string $class The element tag class. Defaults to empty.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 *
 	 * @return string
 	 */
@@ -332,7 +332,7 @@ class WPBDP__Settings_Admin {
 	 *
 	 * @param array $setting The setting of the field.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 *
 	 * @return void
 	 */
@@ -444,7 +444,7 @@ class WPBDP__Settings_Admin {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private function add_grid_class( &$setting ) {
 		if ( $setting['grid_classes'] ) {
@@ -453,7 +453,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private function open_grid_div( $setting, $position = 'left' ) {
 		if ( $setting['grid_classes'] ) {
@@ -462,7 +462,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private function close_grid_div( $setting ) {
 		if ( $setting['grid_classes'] ) {
@@ -471,7 +471,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private function setting_input_text_html( $setting, $value ) {
 		echo '<input type="' . esc_attr( $setting['type'] ) . '" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';

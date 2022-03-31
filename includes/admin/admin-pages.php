@@ -1,14 +1,14 @@
 <?php
 
 /*
- * @since x.x
+ * @since 6.0
  */
 class WPBDP_Admin_Pages {
 
 	/*
 	 * Register hooks for the CPT, category and tags page.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function load_hooks() {
 		if ( ! is_admin() ) {
@@ -34,7 +34,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Add listing nav header to the post listing page.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function add_listings_nav( $views ) {
 		global $post_type_object;
@@ -62,7 +62,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Add listing category nav.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function add_category_nav( $views ) {
 		global $tax;
@@ -79,7 +79,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Add listing tags nav.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function add_tag_nav( $views ) {
 		global $tax;
@@ -96,7 +96,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Add listing category nav.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function edit_category_nav( $views ) {
 		global $tax;
@@ -112,7 +112,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Add listing tags nav.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function edit_tag_nav( $views ) {
 		global $tax;
@@ -130,7 +130,7 @@ class WPBDP_Admin_Pages {
 	 * Add taxonomy navigation.
 	 * Public function to be used in addons that have custom tags.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function add_taxonomy_nav( $views, $tax, $params = array() ) {
 		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
@@ -157,7 +157,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Search form for taxonomies.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function taxonomy_search_form( $active_tab, $id ) {
 		$active_screens = array(
@@ -201,7 +201,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Add info about category images.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function add_category_info() {
 		echo '<div class="form-field">';
@@ -212,7 +212,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Admin header.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function show_tabs( $args = array() ) {
 
@@ -270,7 +270,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Show action buttons at the top of the page.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private static function show_buttons( $buttons ) {
 		$button_class = 'wpbdp-button-primary';
@@ -293,14 +293,14 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Includes the end div for the tabs section.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function show_full_footer() {
 		self::show_tabs_footer( array( 'sub' => true ) );
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function show_tabs_footer( $args = array() ) {
 		if ( isset( $args['sub'] ) ) {
@@ -313,7 +313,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Admin title.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function show_title( $args = array() ) {
 		$title = isset( $args['title'] ) ? $args['title'] : '';
@@ -349,7 +349,7 @@ class WPBDP_Admin_Pages {
 	 * @param array $titles The titles as an array.
 	 * @param string $current_tab The current selected tab.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function show_tabbed_title( $titles, $current_tab = '' ) {
 		?>
@@ -364,7 +364,7 @@ class WPBDP_Admin_Pages {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private static function get_title( $title = '' ) {
 		if ( isset( $args['title'] ) ) {
@@ -389,7 +389,7 @@ class WPBDP_Admin_Pages {
 	 *
 	 * @param string $page
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function render_settings_sections( $page ) {
 		global $wp_settings_sections, $wp_settings_fields;
@@ -426,7 +426,7 @@ class WPBDP_Admin_Pages {
 	 * @param string $page
 	 * @param string $section
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function render_settings_fields( $page, $section ) {
 		global $wp_settings_fields;

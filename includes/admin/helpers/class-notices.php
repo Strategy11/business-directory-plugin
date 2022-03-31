@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @since x.x
+ * @since 6.0
  */
 class WPBDP_Admin_Notices {
 
@@ -22,7 +22,7 @@ class WPBDP_Admin_Notices {
 	/**
 	 * Admin floating notification bell.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function show_bell() {
 		?>
@@ -43,7 +43,7 @@ class WPBDP_Admin_Notices {
 	 * Show the settings notice.
 	 * Renders settings notice in notification area.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	public static function settings_errors() {
 		$settings_errors = get_settings_errors();

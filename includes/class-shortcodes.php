@@ -476,7 +476,7 @@ class WPBDP__Shortcodes {
 	 * @param array $atts Shortcode attributes.
 	 * @param array $query_args The query args used to search based on attributes.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private function process_tag_atts( $atts, &$query_args ) {
 		$this->combine_shortcode_atts( array( 'tag', 'tags' ), $atts );
@@ -500,7 +500,7 @@ class WPBDP__Shortcodes {
 	 * @param array $combine The names of two shortcode atts to combine. ie. `category` and `categories`.
 	 * @param array $atts    Shortcode attributes.
 	 *
-	 * @since x.x
+	 * @since 6.0
 	 */
 	private function combine_shortcode_atts( $combine, &$atts ) {
 		$first  = $combine[0];

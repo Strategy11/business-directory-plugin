@@ -395,7 +395,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Get the menu to piece together tabs.
 		 *
-		 * @since x.x
+		 * @since 6.0
 		 */
 		public function get_menu() {
 			return $this->menu;
@@ -442,7 +442,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * These are the pages that will be hidden from the combined tabs page.
 		 *
-		 * @since x.x
+		 * @since 6.0
 		 */
 		public function top_level_nav() {
 			return array(
@@ -479,7 +479,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * Since the top link points to the listings page, the menu name needs to change.
 		 * If we add a dashboard, this can be removed.
 		 *
-		 * @since x.x
+		 * @since 6.0
 		 */
 		private function change_menu_name( &$submenu ) {
 			foreach ( $submenu as $k => $menu ) {
@@ -771,7 +771,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Get all dismissals from the same cell for better db performance.
 		 *
-		 * @since x.x
+		 * @since 6.0
 		 */
 		private function is_notice_dismissed( $id, $user_id = 0 ) {
 			$user_id = $user_id ? $user_id : get_current_user_id();
@@ -782,7 +782,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Prepare admin notices that should only be checked once.
 		 *
-		 * @since x.x
+		 * @since 6.0
 		 */
 		public function prepare_admin_notices() {
 			if ( ! current_user_can( 'administrator' ) ) {
