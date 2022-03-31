@@ -518,7 +518,7 @@ class WPBDP_Admin_Pages {
 	 * @return string
 	 */
 	private static function get_active_tab() {
-		if (  ! WPBDP_App_Helper::is_bd_post_page() ) {
+		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 			return wpbdp_get_var( array( 'param' => 'page' ) );
 		}
 

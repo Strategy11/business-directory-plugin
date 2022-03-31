@@ -222,7 +222,7 @@ printf(
 				<input name="settings[append-images]"
 					type="checkbox"
 					value="1" checked="checked" />
-				<?php esc_html_e( 'Keep existing images', 'admin csv-import', 'business-directory-plugin' ); ?>
+				<?php esc_html_e( 'Keep existing images', 'business-directory-plugin' ); ?>
 			</label>
 			<div class="wpbdp-setting-description">
 				<?php esc_html_e( 'Appends new images while keeping current ones.', 'business-directory-plugin' ); ?>
