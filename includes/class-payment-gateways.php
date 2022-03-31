@@ -93,7 +93,7 @@ class WPBDP__Payment_Gateways {
                 array(
                     'id'           => $gateway->get_id(),
                     'name'         => sprintf( _x( 'Enable %s?', 'payment-gateways', 'business-directory-plugin' ), $gateway->get_title() ),
-                    'type'         => 'checkbox',
+                    'type'         => 'toggle',
                     'default'      => false,
                     'group'        => 'gateway_' . $gateway->get_id(),
                 )

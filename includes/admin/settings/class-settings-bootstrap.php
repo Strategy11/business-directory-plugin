@@ -898,7 +898,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'themes-button-style',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => __( 'Button style', 'business-directory-plugin' ),
                 'default' => 'theme',
                 'option'  => 'theme',
@@ -1006,7 +1006,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'use-thickbox',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'min'     => 0,
                 'step'    => 1,
                 'name'    => _x( 'Turn on thickbox/lightbox', 'settings', 'business-directory-plugin' ),
@@ -1044,7 +1044,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'thumbnail-crop',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Crop thumbnails to exact dimensions', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'When enabled images will match exactly the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'settings', 'business-directory-plugin' ),
                 'default' => false,

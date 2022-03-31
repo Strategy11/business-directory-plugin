@@ -160,6 +160,11 @@ class WPBDP__Settings_Admin {
             }
         } else {
             $value = wpbdp()->settings->get_option( $setting['id'] );
+			if ( empty( $setting['name'] ) && $this->show_label_with_input( $setting ) ) {
+				// Some checkbox settings have a description and no label.
+				$setting['name'] = $setting['desc'];
+				$setting['desc'] = '';
+			}
 
             ob_start();
 

@@ -18,6 +18,7 @@ WPBDP_Admin_Pages::show_tabs(
 	<?php esc_html_e( 'The following information can help our team debug possible problems with your setup.', 'business-directory-plugin' ); ?>
 </p>
 
+<?php if ( count( $debug_info ) > 1 ) : ?>
 <div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
 	<ul class="subsubsub wpbdp-sub-menu">
 		<?php foreach ( $debug_info as $section_id => &$section ) : ?>
@@ -25,9 +26,10 @@ WPBDP_Admin_Pages::show_tabs(
 		<?php endforeach; ?>
 	</ul>
 </div>
+<?php endif; ?>
 
 <?php foreach ( $debug_info as $section_id => &$section ) : ?>
-<table class="wpbdp-debug-section" data-id="<?php echo esc_attr( $section_id ); ?>" style="display: none;">
+<table class="wpbdp-debug-section wp-list-table striped" data-id="<?php echo esc_attr( $section_id ); ?>" style="<?php echo count( $debug_info ) > 1 ? 'display: none;' : ''; ?>">
 	<tbody>
 		<?php
 		foreach ( $section as $k => $v ) :

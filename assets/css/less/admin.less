@@ -277,20 +277,9 @@ table.wp-list-table.formfields {
 }
 
 /* Debug info */
-table.wpbdp-debug-section {
-    width: 90%;
-}
-
-table.wpbdp-debug-section tbody tr {
-    background: #efefef;
-}
 
 table.wpbdp-debug-section tbody tr td {
     padding: 3px 8px;
-}
-
-table.wpbdp-debug-section tbody tr:nth-child(2n) {
-    background: #f5f5f5;
 }
 
 /* Transactions admin */
@@ -619,19 +608,11 @@ body.taxonomy-wpbdp_category .column-id {
             padding-right: 20px;
             color: @red;
 
-            .wpbdp-warning-margin {
-                float: left;
-
-                .dashicons {
-                    width: 30px;
-                    height: 30px;
-                    font-size: 30px;
-                }
-            }
-
-            .wpbdp-warning-content {
-                margin-left: 50px;
-            }
+            .dashicons {
+				width: 20px;
+				height: 20px;
+				font-size: 20px;
+			}
         }
         
         #wpbdp-uninstall-reinstall-suggestion {
@@ -787,9 +768,7 @@ span.tag {
     }
 }
 
-body.post-type-wpbdp_listing,
-.wpbdp-admin-page-fees,
-.wpbdp-admin-page-formfields {
+.wpbdp-admin-page {
 	.wp-list-table {
 		border: 0;
 		box-shadow: none;
@@ -813,6 +792,10 @@ body.post-type-wpbdp_listing,
 
 		&.striped > tbody > :nth-child(odd) {
 			background-color: fade( @brand, 4% );
+		}
+
+		th {
+			text-align: left;
 		}
 
 		&.widefat thead th,
