@@ -709,32 +709,42 @@ class WPBDP_Admin_Listings {
 	 * @since 5.18
 	 */
 	public function ajax_assign_plan_to_listing() {
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			wp_send_json_error();
 		}
-		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
+
 		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ), 'post' );
 		$plan_id    = wpbdp_get_var( array( 'param' => 'plan_id' ), 'post' );
 		if ( ! $listing_id || ! $plan_id ) {
 			wp_send_json_error();
 		}
-		$listing = wpbdp_get_listing( $listing_id );
+
+		$listing      = wpbdp_get_listing( $listing_id );
 		$current_plan = $listing->get_fee_plan();
 
 		if ( ! $current_plan || (int) $current_plan->fee_id !== (int) $plan_id ) {
 			$listing->set_fee_plan( $plan_id );
 		}
-		$new_plan = $listing->get_fee_plan();
-		$fee = $new_plan->fee;
-		wp_send_json_success( array(
-			'id'        => $fee->id,
-			'label'     => $fee->label,
-			'amount'    => $fee->amount ? wpbdp_currency_format( $fee->amount ) : '',
-			'days'      => $fee->days,
-			'images'    => $fee->images,
-			'sticky'    => $fee->sticky,
-			'recurring' => $fee->recurring,
-		) );
+
+		$new_plan    = $listing->get_fee_plan();
+		$fee         = $new_plan->fee;
+		$expiration  = $fee->calculate_expiration_time();
+		$date_output = $expiration ? wpbdp_date_full_format( strtotime( $expiration ) ) : __( 'Never', 'business-directory-plugin' );
+
+		wp_send_json_success(
+			array(
+				'id'              => $fee->id,
+				'label'           => $fee->label,
+				'amount'          => $fee->amount ? wpbdp_currency_format( $fee->amount ) : '',
+				'days'            => $fee->days,
+				'expiration_date' => $expiration,
+				'formated_date'   => $date_output,
+				'images'          => $fee->images,
+				'sticky'          => $fee->sticky ? __( 'Yes', 'business-directory-plugin' ) : __( 'No', 'business-directory-plugin' ),
+				'recurring'       => $fee->recurring ? __( 'Yes', 'business-directory-plugin' ) : __( 'No', 'business-directory-plugin' ),
+			)
+		);
 	}
 
     public function _add_tag_cloud( $tags ) {

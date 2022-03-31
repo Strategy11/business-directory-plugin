@@ -346,9 +346,6 @@ class WPBDP__Assets {
 					esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ) ),
 					'{{plan_label}}'
 				),
-				'noExpiration'      => __( 'Never', 'business-directory-plugin' ),
-				'yes'               => __( 'Yes', 'business-directory-plugin' ),
-				'no'                => __( 'No', 'business-directory-plugin' ),
 			)
 		);
 
