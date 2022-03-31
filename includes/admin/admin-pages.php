@@ -235,9 +235,17 @@ class WPBDP_Admin_Pages {
 
 		$active_tab = $args['active_tab'];
 		$tabs       = $args['tabs'];
-		if ( empty( $tabs ) ) {
+		if ( $tabs === 'settings' ) {
+			$tabs = self::get_settings_tabs();
+		} elseif ( $tabs === 'content' || empty( $tabs ) ) {
 			$tabs = self::get_content_tabs();
 		}
+
+		/**
+		 * @since x.x
+		 */
+		$tabs = apply_filters( 'wpbdp_tab_content', $tabs, array( 'settings' => ! empty( $args['tabs'] ) ) );
+
 		$title = $args['title'];
 	?>
 	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?> <?php echo ! $args['show_nav'] ? 'wpbdp-admin-page-full-width' : ''; ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
@@ -448,6 +456,18 @@ class WPBDP_Admin_Pages {
 			echo '</div>';
 			echo '</div>';
 		}
+	}
+
+	/**
+	 * Use the settings groups as tabs.
+	 */
+	private static function get_settings_tabs() {
+		$all_groups = wpbdp()->settings->get_registered_groups();
+
+		// Filter out empty groups.
+		$all_groups = wp_list_filter( $all_groups, array( 'count' => 0 ), 'NOT' );
+
+		return wp_list_filter( $all_groups, array( 'type' => 'tab' ) );
 	}
 
 	private static function get_content_tabs() {

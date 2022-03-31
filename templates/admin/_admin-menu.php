@@ -14,7 +14,12 @@
 			} elseif ( strpos( $tab_id, '?' ) ) {
 				$link = admin_url( $tab_id );
 			} else {
-				$link = add_query_arg( 'tab', $tab_id );
+				$link = add_query_arg(
+					array(
+						'page' => 'wpbdp_settings',
+						'tab'  => $tab_id,
+					)
+				);
 			}
 
 			?>

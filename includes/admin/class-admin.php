@@ -445,7 +445,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @since 6.0
 		 */
 		public function top_level_nav() {
-			return array(
+			$top = array(
 				'wpbdp_settings',
 				'wpbdp-smtp',
 				$this->menu_id,
@@ -455,6 +455,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				'wpbdp-themes',
 				'wpbdp-debug-info', // Exclude from the tabs.
 			);
+
+			/**
+			 * @since x.x
+			 */
+			return apply_filters( 'wpbdp_top_level_nav', $top );
 		}
 
         /**
