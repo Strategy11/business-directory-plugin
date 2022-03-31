@@ -293,7 +293,7 @@ printf(
 	?>
 </p>
 
-<table class="wpbdp-csv-import-headers">
+<table class="wpbdp-csv-import-headers wp-list-table widefat striped fixed">
     <thead>
         <tr>
 			<th class="header-name"><?php esc_html_e( 'Header name/label', 'business-directory-plugin' ); ?></th>
