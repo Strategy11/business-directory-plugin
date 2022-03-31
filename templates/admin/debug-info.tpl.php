@@ -29,7 +29,7 @@ WPBDP_Admin_Pages::show_tabs(
 <?php endif; ?>
 
 <?php foreach ( $debug_info as $section_id => &$section ) : ?>
-<table class="wpbdp-debug-section wp-list-table striped" data-id="<?php echo esc_attr( $section_id ); ?>" style="<?php echo count( $debug_info ) > 1 ? 'display: none;' : ''; ?>">
+<table class="wpbdp-debug-section wp-list-table striped widefat fixed" data-id="<?php echo esc_attr( $section_id ); ?>" style="<?php echo count( $debug_info ) > 1 ? 'display: none;' : ''; ?>">
 	<tbody>
 		<?php
 		foreach ( $section as $k => $v ) :
