@@ -1,4 +1,547 @@
 <?php
+
+/*
+ * @since x.x
+ */
+class WPBDP_Admin_Pages {
+
+	/*
+	 * Register hooks for the CPT, category and tags page.
+	 *
+	 * @since x.x
+	 */
+	public static function load_hooks() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		add_filter( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
+
+		// Categories and tags.
+		add_filter( 'views_edit-wpbdp_tag', 'WPBDP_Admin_Pages::add_tag_nav' );
+		add_filter( 'views_edit-wpbdp_category', 'WPBDP_Admin_Pages::add_category_nav' );
+
+		// Category and tag edit page.
+		add_filter( 'wpbdp_tag_pre_edit_form', 'WPBDP_Admin_Pages::edit_tag_nav' );
+		add_filter( 'wpbdp_category_pre_edit_form', 'WPBDP_Admin_Pages::edit_category_nav' );
+
+		// Add search form.
+		add_action( 'wpbdp_admin_pages_show_tabs', 'WPBDP_Admin_Pages::taxonomy_search_form', 10, 2 );
+
+		add_action( 'wpbdp_category_add_form_fields', 'WPBDP_Admin_Pages::add_category_info', 9999 );
+	}
+
+	/**
+	 * Add listing nav header to the post listing page.
+	 *
+	 * @since x.x
+	 */
+	public static function add_listings_nav( $views ) {
+		global $post_type_object;
+		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
+
+		$args = array(
+			'sub'        => __( 'Listings', 'business-directory-plugin' ),
+			'active_tab' => 'edit.php?post_type=wpbdp_listing',
+		);
+
+		if ( current_user_can( $post_type_object->cap->create_posts ) ) {
+			$args['buttons'] = array(
+				'add_listing' => array(
+					'label' => __( 'Add New Listing', 'business-directory-plugin' ),
+					'url'   => esc_url( admin_url( 'post-new.php?post_type=wpbdp_listing' ) ),
+				),
+			);
+		}
+
+		self::show_tabs( $args );
+
+		return $views;
+	}
+
+	/**
+	 * Add listing category nav.
+	 *
+	 * @since x.x
+	 */
+	public static function add_category_nav( $views ) {
+		global $tax;
+		$atts = array(
+			'title'        => __( 'Categories', 'business-directory-plugin' ),
+			'taxonomy'     => 'wpbdp_category',
+			'button_name'  => __( 'Add New Category', 'business-directory-plugin' ),
+			'button_url'   => '#',
+			'button_class' => 'wpbdp-add-taxonomy-form',
+		);
+		return self::add_taxonomy_nav( $views, $tax, $atts );
+	}
+
+	/**
+	 * Add listing tags nav.
+	 *
+	 * @since x.x
+	 */
+	public static function add_tag_nav( $views ) {
+		global $tax;
+		$atts = array(
+			'title'        => __( 'Tags', 'business-directory-plugin' ),
+			'taxonomy'     => 'wpbdp_tag',
+			'button_name'  => __( 'Add New Tag', 'business-directory-plugin' ),
+			'button_url'   => '#',
+			'button_class' => 'wpbdp-add-taxonomy-form',
+		);
+		return self::add_taxonomy_nav( $views, $tax, $atts );
+	}
+
+	/**
+	 * Add listing category nav.
+	 *
+	 * @since x.x
+	 */
+	public static function edit_category_nav( $views ) {
+		global $tax;
+		$atts = array(
+			'title'       => __( 'Edit Category', 'business-directory-plugin' ),
+			'taxonomy'    => 'wpbdp_category',
+			'button_name' => __( 'Back to Categories', 'business-directory-plugin' ),
+			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' ),
+		);
+		return self::add_taxonomy_nav( $views, $tax, $atts );
+	}
+
+	/**
+	 * Add listing tags nav.
+	 *
+	 * @since x.x
+	 */
+	public static function edit_tag_nav( $views ) {
+		global $tax;
+		$atts = array(
+			'title'       => __( 'Edit Tag', 'business-directory-plugin' ),
+			'taxonomy'    => 'wpbdp_tag',
+			'button_name' => __( 'Back to Tags', 'business-directory-plugin' ),
+			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' ),
+		);
+		return self::add_taxonomy_nav( $views, $tax, $atts );
+	}
+
+
+	/**
+	 * Add taxonomy navigation.
+	 * Public function to be used in addons that have custom tags.
+	 *
+	 * @since x.x
+	 */
+	public static function add_taxonomy_nav( $views, $tax, $params = array() ) {
+		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
+
+		$args = array(
+			'sub'        => $params['title'],
+			'active_tab' => 'edit-tags.php?taxonomy=' . $params['taxonomy'] . '&amp;post_type=wpbdp_listing',
+		);
+		if ( current_user_can( $tax->cap->edit_terms ) && isset( $params['button_name'] ) ) {
+			$args['buttons'] = array(
+				'add_listing' => array(
+					'label' => $params['button_name'],
+					'url'   => $params['button_url'],
+					'class' => isset( $params['button_class'] ) ? $params['button_class'] : '',
+				),
+			);
+		}
+
+		self::show_tabs( $args );
+
+		return $views;
+	}
+
+	/**
+	 * Search form for taxonomies.
+	 *
+	 * @since x.x
+	 */
+	public static function taxonomy_search_form( $active_tab, $id ) {
+		$active_screens = array(
+			'edit-wpbdp_tag',
+			'edit-wpbdp_category',
+			'edit-wpbdm-region',
+		);
+
+		$current_screen = get_current_screen();
+		if ( ! in_array( $current_screen->id, $active_screens, true ) ) {
+			return;
+		}
+
+		$tag_id = wpbdp_get_var( array( 'param' => 'tag_ID' ), 'get' );
+		if ( $tag_id ) {
+			return;
+		}
+
+		global $post_type, $taxonomy, $tax, $wp_list_table;
+		$search_param = wpbdp_get_var( array( 'param' => 's' ), 'request' );
+		if ( $search_param ) {
+			echo '<span class="wpbdp-taxonomy-search-results">';
+			printf(
+				/* translators: %s: Search query. */
+				// phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+				__( 'Search results for: %s' ),
+				'<strong>' . esc_html( $search_param ) . '</strong>'
+			);
+			echo '</span>';
+		}
+		?>
+		<form class="search-form wp-clearfix" method="get">
+			<input type="hidden" name="taxonomy" value="<?php echo esc_attr( $taxonomy ); ?>" />
+			<input type="hidden" name="post_type" value="<?php echo esc_attr( $post_type ); ?>" />
+
+			<?php $wp_list_table->search_box( $tax->labels->search_items, 'tag' ); ?>
+		</form>
+		<?php
+	}
+
+	/**
+	 * Add info about category images.
+	 *
+	 * @since x.x
+	 */
+	public static function add_category_info() {
+		echo '<div class="form-field">';
+		WPBDP_Admin_Education::show_tip( 'categories' );
+		echo '</div>';
+	}
+
+	/**
+	 * Admin header.
+	 *
+	 * @since x.x
+	 */
+	public static function show_tabs( $args = array() ) {
+
+		$defaults = array(
+			'title'        => 'Business Directory', // Don't translate this.
+			'id'           => wpbdp_get_var( array( 'param' => 'page' ) ),
+			'tabs'         => array(),
+			'buttons'      => array(),
+			'active_tab'   => self::get_active_tab(),
+			'show_nav'     => true,
+			'tabbed_title' => false,
+			'titles'       => array(),
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$id = str_replace( array( 'wpbdp_', 'wpbdp-' ), '', $args['id'] );
+		$id = str_replace( array( 'admin-', 'admin_' ), '', $id );
+
+		$active_tab = $args['active_tab'];
+		$tabs       = $args['tabs'];
+		if ( empty( $tabs ) ) {
+			$tabs = self::get_content_tabs();
+		}
+		$title = $args['title'];
+	?>
+	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?> <?php echo ! $args['show_nav'] ? 'wpbdp-admin-page-full-width' : ''; ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
+		<div class="wpbdp-admin-row">
+			<?php if ( $args['show_nav'] ) : ?>
+				<?php include WPBDP_PATH . 'templates/admin/_admin-menu.php'; ?>
+			<?php endif; ?>
+			<div class="wpbdp-content-area">
+			<?php
+			wpbdp_admin_notices();
+			if ( ! isset( $args['sub'] ) ) {
+				return;
+			}
+			?>
+			<div class="wpbdp-content-area-header <?php echo $args['tabbed_title'] ? 'wpbdp-content-area-header-tabbed' : '' ?>">
+				<?php if ( $args['tabbed_title'] ) :
+					$current_tab = isset( $args['current_tab'] ) ? $args['current_tab'] : '';
+					self::show_tabbed_title( $args['titles'], $current_tab );
+				else : ?>
+				<h2 class="wpbdp-sub-section-title"><?php echo esc_html( $args['sub'] ); ?></h2>
+				<?php endif; ?>
+				<div class="wpbdp-content-area-header-actions">
+					<?php self::show_buttons( $args['buttons'] ); ?>
+				</div>
+			</div>
+			<div class="wpbdp-content-area-body">
+			<?php
+			do_action( 'wpbdp_admin_pages_show_tabs', $active_tab, $id );
+	}
+
+	/**
+	 * Show action buttons at the top of the page.
+	 *
+	 * @since x.x
+	 */
+	private static function show_buttons( $buttons ) {
+		$button_class = 'wpbdp-button-primary';
+		foreach ( $buttons as $id => $button ) {
+			if ( ! is_array( $button ) ) {
+				$button = array(
+					'url'   => $button,
+					'label' => $id,
+				);
+			}
+			?>
+			<a href="<?php echo esc_url( $button['url'] ); ?>" class="<?php echo esc_attr( $button_class . ( isset( $button['class'] ) ? ' ' . $button['class'] : '' ) ); ?>">
+				<?php echo esc_html( $button['label'] ); ?>
+			</a>
+			<?php
+			$button_class = 'wpbdp-button-secondary';
+		}
+	}
+
+	/**
+	 * Includes the end div for the tabs section.
+	 *
+	 * @since x.x
+	 */
+	public static function show_full_footer() {
+		self::show_tabs_footer( array( 'sub' => true ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public static function show_tabs_footer( $args = array() ) {
+		if ( isset( $args['sub'] ) ) {
+			echo '</div>'; // end wpbdp-content-area-body
+		}
+		echo '</div>'; // end wpbdp-content-area
+		echo '</div></div>'; // end wpbdp-admin & wpbdp-admin-row
+	}
+
+	/**
+	 * Admin title.
+	 *
+	 * @since x.x
+	 */
+	public static function show_title( $args = array() ) {
+		$title = isset( $args['title'] ) ? $args['title'] : '';
+		$title = self::get_title( $title );
+
+		$buttons = isset( $args['buttons'] ) ? $args['buttons'] : array();
+
+		?>
+		<h1 class="wpbdp-page-title">
+			<?php
+			WPBDP_App_Helper::show_logo(
+				array(
+					'round' => true,
+					'class' => 'wpbdp-logo-center',
+					'size'  => 35,
+				)
+			);
+			?>
+			<span class="title-text"><?php echo esc_html( $title ); ?></span>
+
+			<?php foreach ( $buttons as $label => $url ) : ?>
+				<a href="<?php echo esc_url( $url ); ?>" class="add-new-h2">
+					<?php echo esc_html( $label ); ?>
+				</a>
+			<?php endforeach; ?>
+		</h1>
+		<?php
+	}
+
+	/**
+	 * Admin tabbed title.
+	 *
+	 * @param array $titles The titles as an array.
+	 * @param string $current_tab The current selected tab.
+	 *
+	 * @since x.x
+	 */
+	public static function show_tabbed_title( $titles, $current_tab = '' ) {
+		?>
+		<div class="wpbdp-content-area-header-tabs">
+		<?php
+		foreach ( $titles as $key => $title ) : ?>
+			<a class="wpbdp-header-tab <?php echo $key === $current_tab ? 'wpbdp-header-tab-active' : ''; ?>" href="<?php echo esc_url( $title['url'] ); ?>"><?php echo esc_html( $title['name'] ); ?></a>
+		<?php endforeach;
+		?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private static function get_title( $title = '' ) {
+		if ( isset( $args['title'] ) ) {
+			$title = $args['title'];
+		}
+		if ( $title ) {
+			return $title;
+		}
+
+		if ( empty( $GLOBALS['title'] ) ) {
+			$title = get_admin_page_title();
+		} else {
+			$title = $GLOBALS['title'];
+		}
+		return $title;
+	}
+
+	/**
+	 * Prints out all settings sections added to a particular settings page.
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/do_settings_sections/
+	 *
+	 * @param string $page
+	 *
+	 * @since x.x
+	 */
+	public static function render_settings_sections( $page ) {
+		global $wp_settings_sections, $wp_settings_fields;
+
+		if ( ! isset( $wp_settings_sections[ $page ] ) ) {
+			return;
+		}
+
+		foreach ( (array) $wp_settings_sections[ $page ] as $section ) {
+			if ( $section['title'] ) {
+				echo '<div class="wpbdp-settings-form-title">';
+				echo '<h3>' . esc_html( $section['title'] ) . '</h3>';
+				echo '</div>';
+			}
+
+			if ( $section['callback'] ) {
+				call_user_func( $section['callback'], $section );
+			}
+
+			if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[ $page ] ) || ! isset( $wp_settings_fields[ $page ][ $section['id'] ] ) ) {
+				continue;
+			}
+			echo '<div class="form-table wpbdp-settings-form wpbdp-grid">';
+			self::render_settings_fields( $page, $section['id'] );
+			echo '</div>';
+		}
+	}
+
+	/**
+	 * Print out the settings fields for a particular settings section.
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/do_settings_fields/
+	 *
+	 * @param string $page
+	 * @param string $section
+	 *
+	 * @since x.x
+	 */
+	public static function render_settings_fields( $page, $section ) {
+		global $wp_settings_fields;
+
+		if ( ! isset( $wp_settings_fields[ $page ][ $section ] ) ) {
+			return;
+		}
+
+		foreach ( (array) $wp_settings_fields[ $page ][ $section ] as $field ) {
+			$class = 'wpbdp-setting-row';
+			if ( ! empty( $field['args']['class'] ) ) {
+				$class .= ' ' . $field['args']['class'];
+			}
+
+			echo '<div class="' . esc_attr( $class ) . '">';
+			echo '<div class="wpbdp-setting-content">';
+			call_user_func( $field['callback'], $field['args'] );
+			echo '</div>';
+			echo '</div>';
+		}
+	}
+
+	private static function get_content_tabs() {
+		global $wpbdp;
+
+		$menu = $wpbdp->admin->get_menu();
+		$tabs = array();
+
+		if ( empty( $menu ) ) {
+			return $tabs;
+		}
+
+		$exclude = $wpbdp->admin->top_level_nav();
+
+		foreach ( $menu as $id => $menu_item ) {
+			$requires = empty( $menu_item['capability'] ) ? 'administrator' : $menu_item['capability'];
+			if ( ! current_user_can( $requires ) || in_array( $id, $exclude ) ) {
+				continue;
+			}
+
+			$title = strip_tags( $menu_item['title'] );
+
+			// change_menu_name() changes the name here. This changes it back.
+			if ( $title === __( 'Directory Content', 'business-directory-plugin' ) ) {
+				$title = __( 'Listings', 'business-directory-plugin' );
+			}
+
+			$tabs[ $id ] = array(
+				'title' => str_replace(
+					__( 'Directory', 'business-directory-plugin' ) . ' ',
+					'',
+					$title
+				),
+				'icon'  => self::get_admin_menu_icon( $id, $menu_item ),
+			);
+		}
+
+		return $tabs;
+	}
+
+	/**
+	 * Set the admin menu icon with their corresponding inner locations.
+	 *
+	 * @param int   $menu_id The menu id.
+	 * @param array $menu_item The menu item as an array.
+	 *
+	 * @return string
+	 */
+	private static function get_admin_menu_icon( $menu_id, $menu_item ) {
+		$menu_icons = apply_filters( 'wpbdp_admin_menu_icons',
+			array(
+				'edit.php?post_type=wpbdp_listing'                                  => 'list',
+				'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' => 'folder',
+				'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing'      => 'tag',
+				'wpbdp-admin-fees'                                                  => 'money',
+				'wpbdp_admin_formfields'                                            => 'clipboard',
+				'wpbdp_admin_csv'                                                   => 'import',
+			)
+		);
+		if ( isset( $menu_icons[ $menu_id ] ) ) {
+			return $menu_icons[ $menu_id ];
+		}
+		return isset( $menu_item['icon'] ) ? $menu_item['icon'] : 'archive';
+	}
+
+	/**
+	 * Get the active tab
+	 *
+	 * @return string
+	 */
+	private static function get_active_tab() {
+		if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
+			return wpbdp_get_var( array( 'param' => 'page' ) );
+		}
+
+		$taxonomy = wpbdp_get_var( array( 'param' => 'taxonomy' ) );
+		if ( ! $taxonomy ) {
+			return 'edit.php?post_type=wpbdp_listing';
+		}
+
+		return add_query_arg(
+			array(
+				'taxonomy' => $taxonomy,
+				'post_type' => 'wpbdp_listing'
+			),
+			'edit-tags.php'
+		);
+	}
+}
+
+WPBDP_Admin_Pages::load_hooks();
+
+/**
+ * @deprecated 6.0
+ */
 function wpbdp_admin_sidebar( $echo = false ) {
 	$page = wpbdp_render_page( WPBDP_PATH . 'templates/admin/sidebar.tpl.php', array(), $echo );
 
@@ -9,11 +552,10 @@ function wpbdp_admin_sidebar( $echo = false ) {
 	return ! empty( $page );
 }
 
-function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = null ) {
+function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = true ) {
 	// For backwards compatibility.
 	if ( ! $args_or_title || ! is_array( $args_or_title ) ) {
 		$buttons = array();
-
 		if ( $h2items ) {
 			foreach ( $h2items as $item ) {
 				if ( isset( $item['label'] ) ) {
@@ -65,56 +607,42 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 
 	$args = wp_parse_args( $args_or_title, $defaults );
 
-    extract( $args );
-
 	$id = str_replace( array( 'wpbdp_', 'wpbdp-' ), '', $args['id'] );
 	$id = str_replace( array( 'admin-', 'admin_' ), '', $id );
 
 	if ( empty( $args['echo'] ) ) {
 		ob_start();
 	}
-?>
-<div class="wrap wpbdp-admin wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
-		<h1>
-			<?php WPBDP_App_Helper::show_logo( 55 ); ?>
-            <?php echo esc_html( $title ); ?>
 
-			<?php
-			$button_class = 'add-new-h2';
-			foreach ( $buttons as $id => $button ) :
-				if ( ! is_array( $button ) ) {
-					$button = array(
-						'url'   => $button,
-						'label' => $id,
-					);
-				}
-				?>
-				<a href="<?php echo esc_url( $button['url'] ); ?>" class="<?php echo esc_attr( $button_class . ( isset( $button['class'] ) ? ' ' . $button['class'] : '' ) ); ?>">
-					<?php echo esc_html( $button['label'] ); ?>
-				</a>
-				<?php
-			endforeach;
-			?>
-        </h1>
+	WPBDP_Admin_Pages::show_tabs(
+		array(
+			'id'           => $id,
+			'sub'          => $args['title'],
+			'buttons'      => isset( $args['buttons'] ) ? $args['buttons'] : array(),
+			'show_nav'     => $args['sidebar'],
+			'tabbed_title' => $args['tabbed_title'],
+			'titles'       => $args['titles'],
+			'current_tab'  => $args['current_tab'],
+			'full_width'   => $args['full_width'],
+		)
+	);
 
-		<?php $sidebar = $sidebar ? wpbdp_admin_sidebar( true ) : ''; ?>
-
-		<div class="wpbdp-admin-content <?php echo ! empty( $sidebar ) ? 'with-sidebar' : 'without-sidebar'; ?>">
-    <?php
-    if ( empty( $args['echo'] ) ) {
-        return ob_get_clean();
-    }
+	if ( empty( $args['echo'] ) ) {
+		return ob_get_clean();
+	}
 }
 
 /*
  * @param bool|string Use 'echo' or true to show the footer.
  */
 function wpbdp_admin_footer( $echo = false ) {
-	$footer = '</div><br class="clear" /></div>';
-    if ( ! $echo ) {
-        return $footer;
-    }
+	if ( ! $echo ) {
+		ob_start();
+	}
 
-	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	echo $footer;
+	WPBDP_Admin_Pages::show_tabs_footer();
+
+	if ( ! $echo ) {
+		return ob_get_clean();
+	}
 }

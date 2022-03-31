@@ -132,7 +132,7 @@ class WPBDP_FormFieldsAdmin {
 				),
 			)
 		);
-		$html .= '<div id="wpbdp-listing-form-preview">';
+		$html .= '<div id="wpbdp-submit-listing" class="wpbdp-listing-form-preview wpbdp-submit-page">';
 		$html .= wpbdp_admin_notices();
 		$html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
 

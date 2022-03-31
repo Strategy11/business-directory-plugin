@@ -129,10 +129,12 @@ class WPBDP__Settings {
             $args,
             array(
                 'title'  => $title,
-                'desc'   => ! empty( $args['desc'] ) ? $args['desc'] : '',
+                'desc'   => isset( $args['desc'] ) ? $args['desc'] : '',
                 'type'   => $group_type,
                 'parent' => $parent,
-                'count'  => 0
+                'count'  => 0,
+                'icon'   => isset( $args['icon'] ) ? $args['icon'] : 'archive',
+                'class'  => isset( $args['class'] ) ? $args['class'] : '',
             )
         );
     }
@@ -166,6 +168,8 @@ class WPBDP__Settings {
             'validator'    => false,
             'default'      => false,
             'on_update'    => false,
+            'class'        => '',
+            'grid_classes' => false,
             'dependencies' => array()
         ) );
 

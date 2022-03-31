@@ -43,11 +43,25 @@ class WPBDP_Admin_Education {
 		}
 
 		$message = wp_kses_post( $tip['tip'] );
-		$message .= '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">';
-		$message .= esc_html( $tip['cta'] );
-		$message .= '</a>';
+		$message .= self::render_cta( $tip );
 
 		self::show_tip_message( $message );
+	}
+
+	/**
+	 * Render the cta.
+	 *
+	 * @param array $tip The current tip.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public static function render_cta( $tip ) {
+		$cta = '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">';
+		$cta .= esc_html( $tip['cta'] );
+		$cta .= '</a>';
+		return $cta;
 	}
 
 	/**
@@ -55,13 +69,13 @@ class WPBDP_Admin_Education {
 	 */
 	public static function show_tip_message( $message ) {
 		?>
-		<p class="wpbdp-pro-tip">
+		<div class="wpbdp-pro-tip">
 			<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.00003L1 13H10L9 21L19 9.00003H10L11 1.00003Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			<?php
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $message; // already escaped.
 			?>
-		</p>
+		</div>
 		<?php
 	}
 
@@ -99,11 +113,14 @@ class WPBDP_Admin_Education {
 			'discounts' => array(
 				'requires' => 'discount-codes',
 				'tip'      => 'Offer discount & coupon codes to your paid listing customers.',
-				'cta'      => 'Upgrade to Pro.',
 			),
 			'migrator'  => array(
 				'requires' => 'migrate',
 				'tip'      => 'Need to export, backup, or move your directory settings and listings?',
+			),
+			'categories'  => array(
+				'requires' => 'categories',
+				'tip'      => 'Want to show a list of images for your categories?',
 			),
 			'install-premium'  => array(
 				'requires' => 'premium',
@@ -113,7 +130,7 @@ class WPBDP_Admin_Education {
 			),
 			'table'    => array(
 				'requires' => 'premium',
-				'tip'      => '<span style="max-width:70%;text-align:center"><img src="https://s3.amazonaws.com/bd-docs/pro/directory-layout-setting.png" style="max-width:100%;display:block;" alt="Directory listing layout setting" /> Show listings in a grid or table.</span>',
+				'tip'      => 'Show listings in a grid or table. <img src="' . esc_url( WPBDP_ASSETS_URL . 'images/premium-layout.svg' ) . '" alt="Directory listing layout setting" style="max-width:645px" />',
 			),
 		);
 		// TODO: Show maps and attachments.

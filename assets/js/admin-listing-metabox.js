@@ -87,7 +87,6 @@ jQuery( function( $ ) {
 			if ( $input.is('#wpbdp-listing-plan-select') && $input.val() ) {
 				var listing_id = $( 'input[name="post_ID"]' ).val();
 
-				
 				$.ajax(ajaxurl, {
 					data: {
 						action: 'wpbdp-assign-plan-to-listing',

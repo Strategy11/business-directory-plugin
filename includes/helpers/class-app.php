@@ -312,22 +312,43 @@ class WPBDP_App_Helper {
 	}
 
 	/**
+	 * @param array|int $atts
+	 *
 	 * @since 5.9.2
 	 */
-	public static function show_logo( $size ) {
-		echo self::kses( self::svg_logo( $size ), 'all' ); // WPCS: XSS ok.
+	public static function show_logo( $atts ) {
+		echo self::kses( self::svg_logo( $atts ), 'all' ); // WPCS: XSS ok.
 	}
 
 	/**
 	 * @since 5.9.2
 	 */
-	public static function svg_logo( $size = 18 ) {
-		$atts = array(
-			'height' => $size,
-			'width'  => $size,
+	public static function svg_logo( $atts = array() ) {
+		$atts = self::prep_logo_atts( $atts );
+
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" class="' . esc_attr( $atts['class'] ) . '" />';
+	}
+
+	/**
+	 * @param int|array $atts
+	 *
+	 * @since x.x
+	 */
+	private static function prep_logo_atts( $atts ) {
+		if ( ! is_array( $atts ) ) {
+			// For reverse compatibility, changing param from int to array.
+			$atts = array(
+				'size' => $atts,
+			);
+		}
+
+		$defaults   = array(
+			'class' => false,
+			'round' => false,
+			'size'  => 18,
 		);
 
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie.svg' ). '" width="' . esc_attr( $atts['width'] ) . '" height="' . esc_attr( $atts['height'] ) . '" />';
+		return wp_parse_args( $atts, $defaults );
 	}
 
 	/**

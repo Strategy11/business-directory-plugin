@@ -122,6 +122,7 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
             esc_attr( $field->get_label() ),
             $field->get_association()
         );
+		$html .= $field->is_required() ? ' *' : '';
         $html .= '<br/>';
         $html .= sprintf(
             '%s: %d',
@@ -149,12 +150,6 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
     public function column_tags( $field ) {
         $html = '';
-
-        $html .= sprintf(
-            '<span class="tag %s">%s</span>',
-            $field->is_required() ? 'required' : 'optional',
-            $field->is_required() ? _x( 'Required', 'form-fields admin', 'business-directory-plugin' ) : _x( 'Optional', 'form-fields admin', 'business-directory-plugin' )
-        );
 
         if ( $field->has_display_flag( 'private' ) ) {
             $html .= sprintf(

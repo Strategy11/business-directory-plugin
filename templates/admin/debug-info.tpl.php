@@ -1,21 +1,35 @@
-<?php wpbdp_admin_header( array( 'echo' => true ) ); ?>
+<?php
+WPBDP_Admin_Pages::show_tabs(
+	array(
+		'id'      => 'debug-info',
+		'sub'     => __( 'Debug', 'business-directory-plugin' ),
+		'buttons' => array(
+			'addfield'    => array(
+				'label' => __( 'Download Debug Information', 'business-directory-plugin' ),
+				'url'   => admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ),
+			),
+		),
+	)
+);
+?>
 
-<div id="wpbdp-admin-debug-info-page">
+<div id="wpbdp-admin-debug-info-page" class="wpbdp-admin-debug-info-page">
 <p>
 	<?php esc_html_e( 'The following information can help our team debug possible problems with your setup.', 'business-directory-plugin' ); ?>
 </p>
-<p style="text-align: right;">
-    <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Download Debug Information', 'business-directory-plugin' ); ?></a>
-</p>
 
-<h3 class="nav-tab-wrapper">
-<?php foreach ( $debug_info as $section_id => &$section ) : ?>
-	<a class="nav-tab" href="<?php echo esc_attr( $section_id ); ?>"><?php echo esc_html( $section['_title'] ); ?></a>
-<?php endforeach; ?>
-</h3>
+<?php if ( count( $debug_info ) > 1 ) : ?>
+<div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
+	<ul class="subsubsub wpbdp-sub-menu">
+		<?php foreach ( $debug_info as $section_id => &$section ) : ?>
+			<li><a class="current-nav" href="<?php echo esc_attr( $section_id ); ?>"><?php echo esc_html( $section['_title'] ); ?></a></li>
+		<?php endforeach; ?>
+	</ul>
+</div>
+<?php endif; ?>
 
 <?php foreach ( $debug_info as $section_id => &$section ) : ?>
-<table class="wpbdp-debug-section" data-id="<?php echo esc_attr( $section_id ); ?>" style="display: none;">
+<table class="wpbdp-debug-section wp-list-table striped widefat fixed" data-id="<?php echo esc_attr( $section_id ); ?>" style="<?php echo count( $debug_info ) > 1 ? 'display: none;' : ''; ?>">
 	<tbody>
 		<?php
 		foreach ( $section as $k => $v ) :
@@ -42,4 +56,4 @@
 <?php endforeach; ?>
 </div>
 
-<?php wpbdp_admin_footer( 'echo' ); ?>
+<?php echo wpbdp_admin_footer(); ?>

@@ -184,12 +184,17 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
                 'cost'        => floatval( wpbdp_get_option( 'featured-price' ) ),
             );
         }
+		echo wpbdp_admin_header(
+			array(
+				'title'   => __( 'Business Directory - Featured Levels Migration', 'business-directory-plugin' ),
+				'id'      => 'manual-upgrade',
+				'sidebar' => false,
+			)
+		);
 
         // Validate (in case data was POSTed).
         if ( $config = $this->_validate_config( $levels ) ) {
             $this->_update_db( $config );
-
-            echo wpbdp_admin_header( __( 'Business Directory - Featured Levels Migration', 'business-directory-plugin' ), 'manual-upgrade', null, false );
             echo _x( 'Featured Levels migration is complete.', 'migrate-18', 'business-directory-plugin' );
             echo '<br /><br />';
             echo '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin' ) ) . '" class="button button-secondary">' . _x( '← Return to Directory dashboard', 'upgrade-18', 'business-directory-plugin' ) . '</a>';
@@ -198,7 +203,6 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             return;
         }
 
-        echo wpbdp_admin_header( __( 'Business Directory - Featured Levels Migration', 'business-directory-plugin' ), 'manual-upgrade', null, false );
         echo '<div class="wpbdp-manual-upgrade-wrapper">';
 
         echo '<div id="wpbdp-manual-upgrade-18_0-config">';

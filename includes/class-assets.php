@@ -296,7 +296,7 @@ class WPBDP__Assets {
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector' . $min . '.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 
-        wp_enqueue_style( 'wpbdp-js-select2-css' );
+		wp_enqueue_style( 'wpbdp-js-select2-css' );
 
 		/**
 		 * Load additional scripts or styles used only in BD plugin pages.

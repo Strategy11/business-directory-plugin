@@ -1,14 +1,3 @@
-.wpdbp-wrap {
-	--darkest-grey: rgb(40, 47, 54);
-	--dark-grey: rgba(40, 47, 54, .85);
-	--medium-grey: rgba(40, 47, 54, .65);
-	--grey: rgba(40, 47, 54, .45);
-	--grey-border: rgba(40, 47, 54, .2);
-	--lightest-grey: rgb(250, 250, 250);
-	--green: rgb(63, 172, 37);
-	--orange: #F15A24;
-}
-
 @import 'colors.less';
 @import 'common.less';
 @import 'fonts.less';
@@ -16,9 +5,49 @@
 @import 'admin-smtp.less';
 @import 'admin-modules.less';
 @import 'admin-notice-review.less';
+@import 'admin/layout.less';
 @import 'admin/notification.less';
 @import 'admin/modal.less';
 @import 'admin/switch.less';
+@import 'admin/inputs.less';
+
+.wpbdp-admin-page {
+	--bd-main-color: @brand;
+	--bd-main-color-20: fade( @brand, 20% );
+	--bd-main-color-8: fade( @brand, 8% );
+	background-color: @white;
+
+	#wp-content-editor-tools {
+		background-color: transparent;
+	}
+
+	h1,
+	h2,
+	h3,
+	label {
+		color: fade( @text-color, 80%) ;
+	}
+
+	p,
+	.required {
+		color: @text-color;
+	}
+}
+
+.wpbdp-content-area-body a {
+	color: @link-active;
+}
+
+a.wpbdp-delete-link {
+	color: @red;
+}
+
+.wpbdp-admin-page-addons,
+.wpbdp-admin-page-themes {
+	&.wpbdp-admin-page {
+		background: @background;
+	}
+}
 
 .cf:before, .cf:after {
     content: " ";
@@ -61,7 +90,7 @@
 
 .wpbdp-pro-tip,
 .wpbdp-upgrade-bar {
-	background-color: rgba(227,230,243,.64);
+	background-color: @background;
 
 	a {
 		color: @brand;
@@ -72,9 +101,11 @@
 
 .wpbdp-pro-tip {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	border-radius: 6px;
 	padding: 11px 22px;
+	position: relative;
 
 	svg {
 		color: @brand;
@@ -83,6 +114,15 @@
 
 	a {
 		margin-left: 5px;
+	}
+	> img {
+		width: ~"calc(100% - 35px)";
+		margin: 10px 0 10px 35px;
+		~ a {
+			position: absolute;
+			right: 22px;
+			top: 11px;
+		}
 	}
 }
 
@@ -136,13 +176,6 @@
 @import 'admin-settings.less';
 
 /* Directory list-table */
-td.column-payment_status .status, td.column-sticky_status .status {
-    background: #444;
-    border-radius: 2px;
-    padding: 2px 5px;
-    color: @white;
-    font-size: 90%;
-}
 
 td.column-payment_status .status.ok {
     background: green;
@@ -174,81 +207,49 @@ td.column-sticky_status .status.sticky {
 }
 
 /* Form fields list table */
-table.wp-list-table td .tag {
-    background: #444;
-    border-radius: 2px;
-    padding: 2px 5px;
-    color: @white;
-    font-size: 90%;
-    margin-right: 2px;
-    display: inline-block;
+
+table.wp-list-table.formfields {
+    th.column-label {
+        width: 40%;
+    }
+    th.column-tags, td.column-tags {
+        width: 200px;
+    }
+    th.column-order, td.column-order  {
+        width: 65px;
+    }
+    td.column-order .wpbdp-drag-handle {
+        visibility: hidden;
+    }
+    tr:hover .wpbdp-drag-handle {
+        visibility: visible;
+    }
+    
+    tr.wpbdp-draggable-highlight {
+        height: 54px;
+    }
+    
+    tr.ui-sortable-helper {
+        background: @white;
+        border: 1px dashed #c1c1c1;
+    }
 }
 
-table.wp-list-table.formfields th.column-label {
-    width: 40%;
-}
-
-table.wp-list-table.formfields th.column-tags, table.wp-list-table.formfields td.column-tags {
-    width: 200px;
-}
-
-table.wp-list-table.formfields th.column-order, table.wp-list-table.formfields td.column-order  {
-    width: 55px;
-}
-
-table.wp-list-table.formfields td.column-order .wpbdp-drag-handle {
-    visibility: hidden;
-}
-
-/*table.wp-list-table.formfields tbody tr:hover {
-    cursor: move;
-}*/
-
-table.wp-list-table.formfields tr:hover .wpbdp-drag-handle {
-    visibility: visible;
-}
-
-table.wp-list-table.formfields .tag.private {
-    background: red;
-}
-
-table.wp-list-table.formfields .tag.privacy {
-    background: blue;
-}
-
-table.wp-list-table.formfields .tag.required {
-    background: orange;
-}
-
-table.wp-list-table.formfields .tag.in-excerpt {
-    background: green;
-}
-
-table.wp-list-table.formfields .tag.in-listing {
-    background: green;
-}
-
-table.wp-list-table.formfields tr.wpbdp-draggable-highlight {
-    height: 54px;
-}
-
-table.wp-list-table.formfields tr.ui-sortable-helper {
-    background: @white;
-    border: 1px dashed #c1c1c1;
-}
-
-#wpbdp-admin-page-field-form .iframe-confirm {
-    display: none;
-}
-
-#wpbdp-admin-page-field-form .iframe-confirm p {
-    font-size: 90%;
-}
-
-#wpbdp-admin-page-field-form .wpbdp-setting-description {
-    color: #666;
-    font-style: italic;
-    display: block;
+.wpbdp-admin-page-field-form {
+    .iframe-confirm {
+        display: none;
+        p {
+            font-size: 90%;
+        }
+    }
+    .wpbdp-setting-description {
+        color: #666;
+        font-style: italic;
+        display: block;
+    }
+    .wpbdp-pro-tip {
+        margin-top: 5px;
+    }
 }
 
 #wpbdp-settings-currency .wpbdp-setting-description {
@@ -273,23 +274,6 @@ table.wp-list-table.formfields tr.ui-sortable-helper {
             display: block;
         }
     }
-}
-
-/* Debug info */
-table.wpbdp-debug-section {
-    width: 90%;
-}
-
-table.wpbdp-debug-section tbody tr {
-    background: #efefef;
-}
-
-table.wpbdp-debug-section tbody tr td {
-    padding: 3px 8px;
-}
-
-table.wpbdp-debug-section tbody tr:nth-child(2n) {
-    background: #f5f5f5;
 }
 
 /* Transactions admin */
@@ -330,7 +314,7 @@ table.wpbdp-debug-section tbody tr:nth-child(2n) {
 }*/
 
 body.taxonomy-wpbdp_category .column-id {
-    width: 35px;
+    width: 74px;
 }
 
 .transaction-status-container {
@@ -339,11 +323,6 @@ body.taxonomy-wpbdp_category .column-id {
 }
 
 /* -- Progress bar. -- */
-.wpbpd-progress-bar {
-}
-
-.wpbpd-progress-bar .progress-text {
-}
 
 .wpbdp-progress-bar .progress-bar {
     margin-left: 10px;
@@ -366,9 +345,9 @@ body.taxonomy-wpbdp_category .column-id {
 /* -- WPBDP note messages. */
 .wpbdp-note {
     padding: 5px 10px;
-    background: #d7f5ff;
+    background: fade( @brand, 20% );
     margin: 5px 0 20px 0;
-    border: solid 1px #bad5df;
+    border: solid 1px @border-color;
     border-radius: 4px;
 }
 
@@ -387,10 +366,6 @@ body.taxonomy-wpbdp_category .column-id {
 
 .wpbdp-notice.dismissible {
     position: relative;
-}
-
-.tag.paymentstatus {
-    text-transform: capitalize;
 }
 
 .tag.paymentstatus.ok {
@@ -419,8 +394,6 @@ body.taxonomy-wpbdp_category .column-id {
 
 
 /* Payment Details. */
-.wpbdp-payment-details {
-}
 
 .wpbdp-payment-details .tag {
     float: right;
@@ -629,19 +602,11 @@ body.taxonomy-wpbdp_category .column-id {
             padding-right: 20px;
             color: @red;
 
-            .wpbdp-warning-margin {
-                float: left;
-
-                .dashicons {
-                    width: 30px;
-                    height: 30px;
-                    font-size: 30px;
-                }
-            }
-
-            .wpbdp-warning-content {
-                margin-left: 50px;
-            }
+            .dashicons {
+				width: 20px;
+				height: 20px;
+				font-size: 20px;
+			}
         }
         
         #wpbdp-uninstall-reinstall-suggestion {
@@ -732,7 +697,7 @@ body.taxonomy-wpbdp_category .column-id {
 }
 
 a.wpbdp-admin-delete-link {
-    color: #a00;
+    color: @red;
     text-decoration: none;
 
     &:hover {
@@ -746,20 +711,40 @@ span.tag {
     .wpbdp-tag;
 }
 
-.wpbdp-tag, span.tag {
+.wpbdp-admin .wpbdp-tag,
+span.tag,
+table.wp-list-table td .tag,
+td.column-payment_status .status,
+td.column-sticky_status .status {
+    background: var(--bd-main-color-20);
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-size: 90%;
+	color: @text-color;
+}
+
+table.wp-list-table td .tag {
+	margin-right: 2px;
+}
+
+.wpbdp-tag,
+span.tag {
+
     &.wpbdp-listing-attr-payment-completed {
         background: green;
+		color: @white;
     }
 
     &.wpbdp-listing-attr-payment-canceled,
     &.wpbdp-listing-attr-payment-failed {
         background: red;
+		color: @white;
     }
 
-    &.wpbdp-listing-attr-admin-posted,
     &.wpbdp-listing-attr-payment-on-hold,
     &.wpbdp-listing-attr-payment-refunded {
         background: orange;
+		color: @white;
     }
 
     &.wpbdp-listing-attr-post-status-pending {
@@ -777,25 +762,49 @@ span.tag {
     }
 }
 
-.wp-list-table td .wpbdp-tag {
-    display: inline-block;
-}
+.wpbdp-admin-page {
+	.wp-list-table {
+		border: 0;
+		box-shadow: none;
+		margin: 20px 0;
 
-body.post-type-wpbdp_listing {
+		thead, tfoot {
+			.manage-column, a {
+				color: fade( @text-color, 70% );
+				font-weight: 600;
+				font-size: 13px;
+			}
+		}
+		tbody {
+			a, .inline .button-link {
+				color: @link-active;
+			}
+			.row-actions .trash a, .row-actions .delete a {
+				color: @red;
+			}
+		}
 
-    .wp-list-table {
-        .wpbdp-tag {
-            font-size: 10px !important;
-            text-transform: none !important;
-        }
-    }
+		&.striped > tbody > :nth-child(odd) {
+			background-color: fade( @brand, 4% );
+		}
 
-}
+		th {
+			text-align: left;
+		}
 
-#wpbdp-listing-form-preview {
-    padding: 25px;
-    border: 1px solid @gray;
-    background: @white;
+		&.widefat thead th,
+		&.widefat thead td,
+		&.widefat tfoot th,
+		&.widefat tfoot td  {
+			border-color: #D4D5D7;
+		}
+	}
+	.subsubsub a {
+		color: @link-active;
+		&.current {
+			color: @text-color;
+		}
+	}
 }
 
 .wpbdp-user-select .select2.select2-container {

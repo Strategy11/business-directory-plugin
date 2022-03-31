@@ -32,7 +32,7 @@ class WPBDP__Settings_Admin {
         if ( false !== strstr( $hook, 'wpbdp_settings' ) ) {
             wp_enqueue_script(
                 'wpbdp-admin-settings',
-                WPBDP_ASSETS_URL . 'js/admin-settings.js',
+                WPBDP_ASSETS_URL . 'js/admin-settings.min.js',
                 array(),
                 WPBDP_VERSION,
 				true
@@ -108,7 +108,7 @@ class WPBDP__Settings_Admin {
 
             add_settings_field(
                 'wpbdp_settings[' . $args['id'] . ']',
-                $args['name'] . $this->setting_tooltip( $args['tooltip'] ),
+                $args['name'],
                 array( $this, 'setting_callback' ),
                 $subtab_group,
                 $section_group,
@@ -150,6 +150,8 @@ class WPBDP__Settings_Admin {
 	}
 
     public function setting_callback( $setting ) {
+		$this->add_grid_class( $setting );
+
         if ( 'callback' == $setting['type'] ) {
             if ( ! empty( $setting['callback'] ) && is_callable( $setting['callback'] ) ) {
                 $callback_html = call_user_func( $setting['callback'], $setting );
@@ -158,6 +160,11 @@ class WPBDP__Settings_Admin {
             }
         } else {
             $value = wpbdp()->settings->get_option( $setting['id'] );
+			if ( empty( $setting['name'] ) && $this->show_label_with_input( $setting ) ) {
+				// Some checkbox settings have a description and no label.
+				$setting['name'] = $setting['desc'];
+				$setting['desc'] = '';
+			}
 
             ob_start();
 
@@ -179,11 +186,42 @@ class WPBDP__Settings_Admin {
 		$this->add_requirement( $setting );
 		echo '>';
 
+		$setting['class'] .= ' wpbd-' . $setting['type'];
+
+		echo '<div class="' . esc_attr( $setting['class'] ) . '">';
+		$this->open_grid_div( $setting, 'left' );
+
+		if ( ! $this->show_label_with_input( $setting ) ) {
+			$this->setting_input_label( $setting, 'div', 'wpbdp-setting-label' );
+			$this->setting_input_desc( $setting );
+		}
+
+		$this->close_grid_div( $setting );
+		$this->open_grid_div( $setting, 'right' );
+
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo apply_filters( 'wpbdp_admin_settings_render', $callback_html, $setting );
+		if ( $this->show_label_with_input( $setting ) ) {
+			$this->setting_input_desc( $setting );
+		}
+
+		$this->close_grid_div( $setting );
+		echo '</div>';
+
         echo '<span id="' . esc_attr( $setting['id'] ) . '"></span>';
         echo '</div>';
     }
+
+	/**
+	 * Some field types show the label with the input, like checkboxes and toggles in a grid.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function show_label_with_input( $setting ) {
+		return $setting['type'] === 'checkbox' || $setting['type'] === 'toggle';
+	}
 
     public function setting_tooltip( $tooltip = '' ) {
         if ( ! $tooltip ) {
@@ -202,53 +240,28 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_text_callback( $setting, $value ) {
-        echo '<input type="text" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
-        }
+		$this->setting_input_text_html( $setting, $value );
     }
 
     public function setting_number_callback( $setting, $value ) {
-        echo '<input type="number" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
-
-        if ( isset( $setting['min'] ) ) {
-            echo 'min="' . $setting['min'] . '"';
-        }
-
-        if ( isset( $setting['step'] ) ) {
-            echo 'step="' . $setting['step'] . '"';
-        }
-
-        if ( isset( $setting['max'] ) ) {
-            echo 'max="' . $setting['max'] . '"';
-        }
-        echo '/>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
-        }
-    }
+		$this->setting_input_text_html( $setting, $value );
+	}
 
     public function setting_textarea_callback( $setting, $value ) {
         echo '<textarea id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '">';
         echo esc_textarea( $value );
         echo '</textarea>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
     }
 
-    public function setting_checkbox_callback( $setting, $value ) {
-        echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
+	public function setting_checkbox_callback( $setting, $value ) {
+		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="0" />';
 
 		echo '<label>';
 		$this->checkbox_input_html( $setting, $value );
 
-		$this->setting_input_desc( $setting, 'span' );
+		$this->setting_input_label( $setting, 'span' );
 		echo '</label>';
-    }
+	}
 
 	/**
 	 * @since x.x
@@ -261,7 +274,7 @@ class WPBDP__Settings_Admin {
 		$this->checkbox_input_html( $setting, $value );
 		echo '<span class="wpbd-toggle-slider"></span>';
 		echo '</span>';
-		$this->setting_input_desc( $setting, 'span' );
+		$this->setting_input_label( $setting, 'span', 'wpbdp-setting-label' );
 		echo '</label>';
 	}
 
@@ -281,6 +294,37 @@ class WPBDP__Settings_Admin {
 			$value = (bool) $value;
 		}
 		echo '<input type="checkbox" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $save ) . '" ' . checked( $value, $save, false ) . ' />';
+	}
+
+	/**
+	 * Render settings input label.
+	 *
+	 * @param array $setting The setting of the field.
+	 * @param string $tag The element tag. Defaults to "label".
+	 * @param string $class The element tag class. Defaults to empty.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function setting_input_label( $setting, $tag = 'label', $class = '' ) {
+		if ( empty( $setting['name'] ) ) {
+			return '';
+		}
+
+		$tooltip = $this->setting_tooltip( $setting['tooltip'] );
+
+		if ( $tag === 'div' && ! empty( $setting['label_for'] ) ) {
+			echo '<div class="' . esc_attr( $class ) . '">' .
+				'<label for="' . esc_attr( $setting['label_for'] ) . '">' .
+				wp_kses_post( $setting['name'] ) .
+				'</label>' .
+				$tooltip .
+				'</div>';
+			return;
+		}
+
+		echo '<' . $tag . ' class="' . esc_attr( $class ) . '">' . wp_kses_post( $setting['name'] ) . $tooltip . '</' . $tag . '>';
 	}
 
 	/**
@@ -335,10 +379,6 @@ class WPBDP__Settings_Admin {
             echo '</div>';
         }
         echo '</div>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
     }
 
 	/**
@@ -364,7 +404,7 @@ class WPBDP__Settings_Admin {
         echo '<div class="wpbdp-settings-multicheck-options wpbdp-grid">';
         $n = 0;
         foreach ( $setting['options'] as $option_value => $option_label ) {
-			echo '<div class="wpbdp-settings-multicheck-option wpbdp-half wpbdp-settings-multicheck-option-no-' . esc_attr( $n ) . '">';
+			echo '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . esc_attr( $n ) . '">';
 			echo '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
 			echo '<label for="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '">';
 			echo esc_html( $option_label );
@@ -375,18 +415,20 @@ class WPBDP__Settings_Admin {
         }
 
         echo '</div>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
     }
 
+	/**
+	 * Render the select dropdown.
+	 *
+	 * @param array $setting The setting of the current input.
+	 * @param string|array $value The selected value
+	 */
     public function setting_select_callback( $setting, $value ) {
         if ( empty( $setting['options'] ) ) {
             return;
         }
 
-        $multiple = ! empty( $setting['multiple'] ) && $setting['multiple'];
+		$multiple = ! empty( $setting['multiple'] ) && $setting['multiple'];
 
         echo '<select id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']' . ( $multiple ? '[]' : '' ) . '" ' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
         foreach ( $setting['options'] as $option_value => $option_label ) {
@@ -399,11 +441,58 @@ class WPBDP__Settings_Admin {
             echo '<option value="' . $option_value . '" ' . selected( $selected, true, false ) . '>' . $option_label . '</option>';
         }
         echo '</select>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function add_grid_class( &$setting ) {
+		if ( $setting['grid_classes'] ) {
+			$setting['class'] .= ' wpbdp-grid';
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function open_grid_div( $setting, $position = 'left' ) {
+		if ( $setting['grid_classes'] ) {
+			echo '<div class="' . esc_attr( $setting['grid_classes'][ $position ] ) . '">';
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function close_grid_div( $setting ) {
+		if ( $setting['grid_classes'] ) {
+			echo '</div>';
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function setting_input_text_html( $setting, $value ) {
+		echo '<input type="' . esc_attr( $setting['type'] ) . '" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
+
+		if ( ! empty( $setting['placeholder'] ) ) {
+			echo ' placeholder="' . esc_attr( $setting['placeholder'] ) . '"';
+		}
+
+		if ( isset( $setting['min'] ) ) {
+			echo ' min="' . $setting['min'] . '"';
+		}
+
+		if ( isset( $setting['step'] ) ) {
+			echo ' step="' . $setting['step'] . '"';
+		}
+
+		if ( isset( $setting['max'] ) ) {
+			echo ' max="' . $setting['max'] . '"';
+		}
+		echo '/>';
+	}
 
     public function setting_file_callback( $setting, $value ) {
         $html  = '';
@@ -454,10 +543,6 @@ class WPBDP__Settings_Admin {
 
     public function setting_url_callback( $setting, $value ) {
         echo '<input type="url" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
-        }
     }
 
     public function setting_color_callback( $setting, $value ) {
@@ -465,10 +550,6 @@ class WPBDP__Settings_Admin {
 		wp_enqueue_style( 'wp-color-picker' );
 
         echo '<input type="text" class="cpa-color-picker" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '"/>';
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . wp_kses_post( $setting['desc'] ) . '</span>';
-        }
     }
 
     public function setting_text_template_callback( $setting, $value ) {
@@ -516,10 +597,6 @@ class WPBDP__Settings_Admin {
             'email_body'    => $value['body'],
             'placeholders'  => ! empty( $setting['placeholders'] ) ? $setting['placeholders'] : array(),
         );
-
-        if ( ! empty( $setting['desc'] ) ) {
-            echo '<span class="wpbdp-setting-description">' . $setting['desc'] . '</span>';
-        }
 
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-email.tpl.php', $args );
     }
@@ -660,7 +737,7 @@ foreach ( $value as $i => $notice ) {
 
         ob_start();
 ?>
-<div class="wpbdp-expiration-notice-email-schedule-summary">
+<div class="wpbdp-expiration-notice-email-schedule-summary wpbdp-setting-description">
     <?php echo $summary; ?>
 </div>
 <?php

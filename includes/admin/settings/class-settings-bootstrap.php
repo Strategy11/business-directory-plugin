@@ -5,22 +5,36 @@
 final class WPBDP__Settings__Bootstrap {
 
     public static function register_initial_groups() {
-        wpbdp_register_settings_group( 'general', _x( 'General', 'settings', 'business-directory-plugin' ) );
+		wpbdp_register_settings_group( 'general', _x( 'General', 'settings', 'business-directory-plugin' ), '', array(
+			'icon' => 'cog',
+		) );
 
-        wpbdp_register_settings_group( 'listings', _x( 'Listings', 'settings', 'business-directory-plugin' ) );
-        wpbdp_register_settings_group( 'listings/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'listings' );
+		wpbdp_register_settings_group( 'listings', _x( 'Listings', 'settings', 'business-directory-plugin' ), '', array(
+			'icon' => 'list',
+		) );
+		wpbdp_register_settings_group( 'listings/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'listings' );
 
-        wpbdp_register_settings_group( 'email', __( 'Email', 'business-directory-plugin' ) );
-        wpbdp_register_settings_group( 'email/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'email' );
+		wpbdp_register_settings_group( 'email', __( 'Email', 'business-directory-plugin' ), '', array(
+			'icon' => 'email',
+		) );
+		wpbdp_register_settings_group( 'email/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'email' );
 
-        wpbdp_register_settings_group( 'payment', _x( 'Payment', 'settings', 'business-directory-plugin' ) );
-        wpbdp_register_settings_group( 'payment/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'payment' );
+		wpbdp_register_settings_group( 'payment', _x( 'Payment', 'settings', 'business-directory-plugin' ), '', array(
+			'icon' => 'money',
+		) );
+		wpbdp_register_settings_group( 'payment/main', _x( 'General Settings', 'settings', 'business-directory-plugin' ), 'payment' );
 
-        wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ) );
+		wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ), '', array(
+			'icon' => 'layout',
+		) );
 
-        wpbdp_register_settings_group( 'modules', __( 'Module Settings', 'business-directory-plugin' ) );
+		wpbdp_register_settings_group( 'modules', __( 'Module Settings', 'business-directory-plugin' ), '', array(
+			'icon' => 'package',
+		) );
 
-		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ) );
+		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ), '', array(
+			'icon' => 'misc',
+		) );
     }
 
     public static function register_initial_settings() {
@@ -96,8 +110,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'permalinks-no-id',
                 'type'    => 'toggle',
 				'default' => true,
-                'name'    => _x( 'Remove listing ID from directory URLs?', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'Check this setting to remove the ID for better SEO.', 'settings', 'business-directory-plugin' ),
+                'name'    => _x( 'Remove listing ID from URLs for better SEO', 'settings', 'business-directory-plugin' ),
                 'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'business-directory-plugin' ) . ' ' . _x( 'IMPORTANT: subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
                 'group'   => 'permalink_settings',
             )
@@ -124,7 +137,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'    => 'hide-recaptcha-loggedin',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Turn off reCAPTCHA for logged in users?', 'settings', 'business-directory-plugin' ),
+                'name'  => _x( 'Use reCAPTCHA only for logged-out users', 'settings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
             )
         );
@@ -189,6 +202,10 @@ final class WPBDP__Settings__Bootstrap {
                     'v3' => 'V3',
                 ),
                 'group'   => 'recaptcha',
+				'grid_classes' => array(
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
+				),
             )
         );
         wpbdp_register_setting(
@@ -202,6 +219,10 @@ final class WPBDP__Settings__Bootstrap {
                 'max'     => 1,
                 'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
                 'group'   => 'recaptcha',
+				'grid_classes' => array(
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
+				),
             )
         );
 
@@ -376,6 +397,7 @@ final class WPBDP__Settings__Bootstrap {
 				'attrs'    => array(
 					'data-text-fields' => wp_json_encode( $text_fields ),
 				),
+				'class'    => 'wpbdp-col-grid-2',
 			)
 		);
 	}
@@ -602,6 +624,10 @@ final class WPBDP__Settings__Bootstrap {
                 'default' => $admin ? $admin->ID : '1',
                 'desc'    => _x( 'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.', 'settings', 'business-directory-plugin' ),
                 'group'   => 'registration',
+				'grid_classes' => array(
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
+				),
             )
         );
 
@@ -808,6 +834,7 @@ final class WPBDP__Settings__Bootstrap {
                 'options'      => is_admin() ? wpbdp_sortbar_get_field_options() : array(),
                 'group'        => 'listings/sorting',
                 'requirements' => array( 'listings-sortbar-enabled' ),
+				'class'        => 'wpbdp-col-grid-2',
             )
         );
 
@@ -859,8 +886,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'show-directory-button',
                 'type'    => 'checkbox',
-                'name'    => _x( 'Show the "Directory" button.', 'settings', 'business-directory-plugin' ),
-                'desc'    => __( 'Show the "Directory" and "Return to Directory" button.', 'business-directory-plugin' ),
+                'name'    => __( 'Show the "Directory" and "Return to Directory" button', 'business-directory-plugin' ),
                 'default' => true,
                 'group'   => 'display_options',
             )
@@ -872,7 +898,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'themes-button-style',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => __( 'Button style', 'business-directory-plugin' ),
                 'default' => 'theme',
                 'option'  => 'theme',
@@ -914,6 +940,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Min Image File Size (KB)', 'settings', 'business-directory-plugin' ),
                 'default' => '0',
                 'group'   => 'images/general',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -925,6 +952,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Max Image File Size (KB)', 'settings', 'business-directory-plugin' ),
                 'default' => '10000',
                 'group'   => 'images/general',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -936,6 +964,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Min image width (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '0',
                 'group'   => 'images/general',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -947,6 +976,7 @@ final class WPBDP__Settings__Bootstrap {
                 'min'     => 0,
                 'step'    => 1,
                 'group'   => 'images/general',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -958,6 +988,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Max image width (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '500',
                 'group'   => 'images/general',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -969,12 +1000,13 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Max image height (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '500',
                 'group'   => 'images/general',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'      => 'use-thickbox',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'min'     => 0,
                 'step'    => 1,
                 'name'    => _x( 'Turn on thickbox/lightbox', 'settings', 'business-directory-plugin' ),
@@ -994,6 +1026,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Thumbnail width (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '150',
                 'group'   => 'image/thumbnails',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -1005,12 +1038,13 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'Thumbnail height (px)', 'settings', 'business-directory-plugin' ),
                 'default' => '150',
                 'group'   => 'image/thumbnails',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
             array(
                 'id'      => 'thumbnail-crop',
-                'type'    => 'checkbox',
+                'type'    => 'toggle',
                 'name'    => _x( 'Crop thumbnails to exact dimensions', 'settings', 'business-directory-plugin' ),
                 'desc'    => _x( 'When enabled images will match exactly the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'settings', 'business-directory-plugin' ),
                 'default' => false,
@@ -1184,6 +1218,7 @@ final class WPBDP__Settings__Bootstrap {
                 ),
                 'desc'         => self::gateway_description(),
                 'group'        => 'payment/main',
+				'class'        => 'wpbdp5',
             )
         );
         wpbdp_register_setting(
@@ -1193,6 +1228,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'         => _x( 'Currency Symbol', 'settings', 'business-directory-plugin' ),
                 'default'      => '$',
                 'group'        => 'payment/main',
+				'class'        => 'wpbdp5',
             )
         );
         wpbdp_register_setting(

@@ -142,8 +142,7 @@ class WPBDP_Licensing {
 	 */
 	public function show_validation_notice_under_plugin( $plugin_file, $plugin_data ) {
 		?>
-		<tr class="wpbdp-module-key-not-verified plugin-update-tr active">
-		<td colspan="4">
+		<div class="wpbdp-setting-row">
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>
 					<?php
@@ -156,8 +155,7 @@ class WPBDP_Licensing {
 					?>
 				</p>
 			</div>
-		</td>
-		</tr>
+		</div>
 		<?php
 	}
 
@@ -202,7 +200,9 @@ class WPBDP_Licensing {
 		$modules = $this->modules_array();
         $themes  = wp_list_filter( $this->items, array( 'item_type' => 'theme' ) );
 
-        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ) );
+        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ), '', array(
+			'icon' => 'key',
+		) );
         wpbdp_register_settings_group(
             'licenses/main',
             __( 'Licenses', 'business-directory-plugin' ),

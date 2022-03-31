@@ -30,24 +30,35 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 		ob_start();
 		call_user_func( array( $this->{$current_tab}, 'dispatch' ) );
 		$output = ob_get_clean();
+		$args = array(
+			'tabbed_title' => true,
+			'titles'       => array(
+				'csv_import' => array(
+					'url'  => esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&tab=csv_import' ) ),
+					'name' => __( 'Import', 'business-directory-plugin' ),
+				),
+				'csv_export' => array(
+					'url'  => esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&tab=csv_export' ) ),
+					'name' => __( 'Export', 'business-directory-plugin' )
+				),
+			),
+			'current_tab'  => $current_tab,
+		);
+		if ( 'csv_import' === $current_tab ) {
+			$args['buttons'] = array(
+				'example-csv' => array(
+					'label' => __( 'See an example CSV import file', 'business-directory-plugin' ),
+					'url'   => admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ),
+				),
+				'help'        => array(
+					'label' => __( 'Help', 'business-directory-plugin' ),
+					'url'   => '#help',
+				),
+			);
+		}
 
-        echo wpbdp_admin_header();
-        echo wpbdp_admin_notices();
-		?>
-
-        <?php if ( 'csv_import' == $current_tab ) : ?>
-        <div class="wpbdp-csv-import-top-buttons">
-            <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) ); ?>" class="button"><?php _ex( 'See an example CSV import file', 'admin csv-import', 'business-directory-plugin' ); ?></a>
-			<a href="#help" class="button"><?php esc_html_e( 'Help', 'business-directory-plugin' ); ?></a>
-        </div>
-        <?php endif; ?>
-
-
-        <h2 class="nav-tab-wrapper">
-            <a class="nav-tab <?php echo 'csv_import' == $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&tab=csv_import' ) ); ?>"><span class="dashicons dashicons-download"></span> <?php _ex( 'Import', 'admin csv', 'business-directory-plugin' ); ?></a>
-            <a class="nav-tab <?php echo 'csv_export' == $current_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&tab=csv_export' ) ); ?>"><span class="dashicons dashicons-upload"></span> <?php _ex( 'Export', 'admin csv', 'business-directory-plugin' ); ?></a>
-        </h2>
-		<?php
+		echo wpbdp_admin_header( $args );
+		echo wpbdp_admin_notices();
 		echo $output;
 		echo wpbdp_admin_footer();
 	}
