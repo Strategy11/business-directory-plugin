@@ -8,7 +8,6 @@
 @import 'admin/layout.less';
 @import 'admin/notification.less';
 @import 'admin/modal.less';
-@import 'admin/settings.less';
 @import 'admin/switch.less';
 @import 'admin/inputs.less';
 
@@ -25,25 +24,22 @@
 	h1,
 	h2,
 	h3,
+	label {
+		color: fade( @text-color, 80%) ;
+	}
+
 	p,
-	label {
-		color: @text-color;
-	}
-
-	h1,
-	h2,
-	h3,
-	label {
-		opacity: 0.8;
-	}
-
-	.wpbdp-content-area-body a:not(.button):not(.button-primary):not(.button-secondary):not(.wpbdp-button-primary):not(.submitdelete):not(.wpbdp-delete-link):not(.delete-tag) {
-		color: @link-active;
-	}
-
 	.required {
 		color: @text-color;
 	}
+}
+
+.wpbdp-content-area-body a {
+	color: @link-active;
+}
+
+a.wpbdp-delete-link {
+	color: @red;
 }
 
 .wpbdp-admin-page-addons,
@@ -180,14 +176,6 @@
 @import 'admin-settings.less';
 
 /* Directory list-table */
-table.wp-list-table td .tag,
-td.column-payment_status .status,
-td.column-sticky_status .status {
-    background: var(--bd-main-color-20);
-    border-radius: 4px;
-    padding: 2px 5px;
-    font-size: 90%;
-}
 
 td.column-payment_status .status.ok {
     background: green;
@@ -219,10 +207,6 @@ td.column-sticky_status .status.sticky {
 }
 
 /* Form fields list table */
-table.wp-list-table td .tag {
-	margin-right: 2px;
-	display: inline-block;
-}
 
 table.wp-list-table.formfields {
     th.column-label {
@@ -250,10 +234,6 @@ table.wp-list-table.formfields {
         border: 1px dashed #c1c1c1;
     }
 }
-
-/*table.wp-list-table.formfields tbody tr:hover {
-    cursor: move;
-}*/
 
 .wpbdp-admin-page-field-form {
     .iframe-confirm {
@@ -405,10 +385,6 @@ body.taxonomy-wpbdp_category .column-id {
     position: relative;
 }
 
-.tag.paymentstatus {
-    text-transform: capitalize;
-}
-
 .tag.paymentstatus.ok {
     background: green;
 }
@@ -435,8 +411,6 @@ body.taxonomy-wpbdp_category .column-id {
 
 
 /* Payment Details. */
-.wpbdp-payment-details {
-}
 
 .wpbdp-payment-details .tag {
     float: right;
@@ -748,7 +722,7 @@ body.taxonomy-wpbdp_category .column-id {
 }
 
 a.wpbdp-admin-delete-link {
-    color: #a00;
+    color: @red;
     text-decoration: none;
 
     &:hover {
@@ -763,11 +737,23 @@ span.tag {
 }
 
 .wpbdp-admin .wpbdp-tag,
-span.tag {
-	background: var(--bd-main-color-8);
+span.tag,
+table.wp-list-table td .tag,
+td.column-payment_status .status,
+td.column-sticky_status .status {
+    background: var(--bd-main-color-20);
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-size: 90%;
 	color: @text-color;
-	border-radius: 4px;
-	opacity: 0.8;
+}
+
+table.wp-list-table td .tag {
+	margin-right: 2px;
+}
+
+.wpbdp-tag,
+span.tag {
 
     &.wpbdp-listing-attr-payment-completed {
         background: green;
@@ -801,10 +787,6 @@ span.tag {
     }
 }
 
-.wp-list-table td .wpbdp-tag {
-    display: inline-block;
-}
-
 body.post-type-wpbdp_listing,
 .wpbdp-admin-page-fees,
 .wpbdp-admin-page-formfields {
@@ -812,10 +794,7 @@ body.post-type-wpbdp_listing,
 		border: 0;
 		box-shadow: none;
 		margin: 20px 0;
-		.wpbdp-tag {
-			font-size: 10px !important;
-			text-transform: none !important;
-		}
+
 		thead, tfoot {
 			.manage-column, a {
 				color: fade( @text-color, 70% );
