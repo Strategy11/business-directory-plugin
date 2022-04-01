@@ -431,12 +431,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             if ( current_user_can( 'administrator' ) ) {
                 remove_menu_page( 'edit.php?post_type=' . WPBDP_POST_TYPE );
+				remove_submenu_page( $menu_id, 'post-new.php?post_type=wpbdp_listing' );
             } else {
                 $this->maybe_restore_regions_submenu();
                 remove_menu_page( $menu_id );
             }
 
             remove_submenu_page( $menu_id, $menu_id );
+			$this->add_upgrade_menu();
         }
 
 		/**
@@ -460,6 +462,48 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			 * @since x.x
 			 */
 			return apply_filters( 'wpbdp_top_level_nav', $top );
+		}
+
+		/**
+		 * We use the global submenu, because we are adding an external link here.
+		 *
+		 * @since x.x
+		 */
+		private function add_upgrade_menu() {
+			if ( WPBDP_Admin_Education::is_installed( 'premium' ) || ! current_user_can( 'administrator' ) ) {
+				return;
+			}
+
+			global $submenu;
+			$submenu[ $this->menu_id ][] = array(
+				'<span class="wpbdp-upgrade-submenu">' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</span>',
+				'administrator',
+				wpbdp_admin_upgrade_link( 'admin-menu' )
+			);
+			add_action( 'admin_footer', array( &$this, 'highlight_menu' ) );
+		}
+
+		/**
+		 * Add class to parent container so we can style it.
+		 *
+		 * @since x.x
+		 */
+		public function highlight_menu() {
+			?>
+<style>
+.wpbdp-submenu-highlight{background: #1da867;}
+.wpbdp-submenu-highlight a span{color: #fff;font-weight: 600;font-size:12px;}
+</style>
+<script>
+	submenuItem = document.querySelector( '.wpbdp-upgrade-submenu' );
+	if ( null !== submenuItem ) {
+		li = submenuItem.parentNode.parentNode;
+		if ( li ) {
+			li.classList.add( 'wpbdp-submenu-highlight' );
+		}
+	}
+</script>
+			<?php
 		}
 
         /**

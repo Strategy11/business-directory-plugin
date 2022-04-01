@@ -60,7 +60,7 @@ WPBDPAdmin_Tooltip = {};
 				e.preventDefault();
 
 				// Get the heading from the content and move it.
-				var heading = form.find( 'h2' );
+				var heading = form.find( 'h2:first' );
 				heading.hide();
 				modal.find( 'h2' ).text( heading.text() );
 

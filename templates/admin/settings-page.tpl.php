@@ -31,7 +31,7 @@ WPBDP_Admin_Pages::show_tabs(
 		</div>
 	</div>
 	<div class="wpbdp-content-area-body">
-		<?php if ( count( $subtabs ) > 1 || 'modules' == $active_tab ) : ?>
+		<?php if ( count( $subtabs ) > 1 ) : ?>
 		<div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
 			<ul class="subsubsub wpbdp-sub-menu">
 				<?php
@@ -63,8 +63,12 @@ WPBDP_Admin_Pages::show_tabs(
 			settings_fields( 'wpbdp_settings' );
 		endif;
 
-		WPBDP_Admin_Pages::render_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
-		do_action( 'wpbdp_settings_subtab_' . $active_subtab );
+		if ( $active_subtab ) {
+			WPBDP_Admin_Pages::render_settings_sections( 'wpbdp_settings_subtab_' . $active_subtab );
+			do_action( 'wpbdp_settings_subtab_' . $active_subtab );
+		} else {
+			WPBDP_Admin_Pages::render_settings_sections( 'wpbdp_settings_subtab_' . $active_tab );
+		}
 
 		if ( ! $custom_form ) :
 			// Submit button shouldn't use 'submit'
