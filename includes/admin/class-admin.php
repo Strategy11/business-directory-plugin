@@ -431,6 +431,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             if ( current_user_can( 'administrator' ) ) {
                 remove_menu_page( 'edit.php?post_type=' . WPBDP_POST_TYPE );
+				remove_submenu_page( $menu_id, 'post-new.php?post_type=wpbdp_listing' );
             } else {
                 $this->maybe_restore_regions_submenu();
                 remove_menu_page( $menu_id );
