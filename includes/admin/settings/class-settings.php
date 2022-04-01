@@ -87,9 +87,19 @@ class WPBDP__Settings {
      * @since 5.0
      */
     public function register_group( $slug, $title = '', $parent = '', $args = array() ) {
+		if ( $parent === 'modules' ) {
+			// Remove the top-level modules menu.
+			$parent = '';
+		}
+
+		// Allow for later setting registration for a lower menu.
+		if ( $parent === 'misc' && ! isset( $this->groups[ $parent ] ) ) {
+			wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ), '', array( 'icon' => 'misc' ) );
+		}
+
         if ( $parent && ! isset( $this->groups[ $parent ] ) ) {
-            // throw new Exception( sprintf( 'Parent settings group does not exist: %s', $parent ) );
-            return false;
+			// throw new Exception( sprintf( 'Parent settings group does not exist: %s', $parent ) );
+			return false;
         }
 
 		/**

@@ -27,14 +27,6 @@ final class WPBDP__Settings__Bootstrap {
 		wpbdp_register_settings_group( 'appearance', _x( 'Appearance', 'settings', 'business-directory-plugin' ), '', array(
 			'icon' => 'layout',
 		) );
-
-		wpbdp_register_settings_group( 'modules', __( 'Module Settings', 'business-directory-plugin' ), '', array(
-			'icon' => 'package',
-		) );
-
-		wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ), '', array(
-			'icon' => 'misc',
-		) );
     }
 
     public static function register_initial_settings() {
@@ -43,7 +35,7 @@ final class WPBDP__Settings__Bootstrap {
         self::settings_email();
         self::settings_payment();
         self::settings_appearance();
-		self::settings_misc();
+		add_action( 'wpbdp_register_settings', __CLASS__ . '::settings_misc', 50 );
     }
 
     private static function settings_general() {
@@ -302,20 +294,6 @@ final class WPBDP__Settings__Bootstrap {
                 'placeholder'  => _x( 'Terms and Conditions text goes here', 'settings', 'business-directory-plugin' ),
                 'group'        => 'tos_settings',
                 'requirements' => array( 'display-terms-and-conditions' ),
-            )
-        );
-
-        // Tracking.
-		wpbdp_register_settings_group( 'misc/misc', __( 'Miscellaneous', 'business-directory-plugin' ), 'misc' );
-
-        wpbdp_register_setting(
-            array(
-                'id'    => 'tracking-on',
-                'type'  => 'toggle',
-                'name'  => __( 'Data Collection', 'business-directory-plugin' ),
-                'desc'  => __( 'Allow Business Directory to anonymously collect information about your installed plugins, themes and WP version?', 'business-directory-plugin' ) .
-					' <a href="https://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">' . __( 'Learn more', 'business-directory-plugin' ) . '</a>',
-                'group' => 'misc/misc',
             )
         );
 
@@ -1681,7 +1659,21 @@ final class WPBDP__Settings__Bootstrap {
 	/**
 	 * @since v5.9
 	 */
-	private static function settings_misc() {
+	public static function settings_misc() {
+		// Tracking.
+		wpbdp_register_settings_group( 'misc/misc', __( 'Miscellaneous', 'business-directory-plugin' ), 'misc' );
+
+		wpbdp_register_setting(
+			array(
+				'id'    => 'tracking-on',
+				'type'  => 'toggle',
+				'name'  => __( 'Data Collection', 'business-directory-plugin' ),
+				'desc'  => __( 'Allow Business Directory to anonymously collect information about your installed plugins, themes and WP version?', 'business-directory-plugin' ) .
+					' <a href="https://businessdirectoryplugin.com/what-we-track/" target="_blank" rel="noopener">' . __( 'Learn more', 'business-directory-plugin' ) . '</a>',
+				'group' => 'misc/misc',
+			)
+		);
+
 		self::uninstall_section();
 	}
 
