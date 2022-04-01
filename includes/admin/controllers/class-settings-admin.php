@@ -100,7 +100,7 @@ class WPBDP__Settings_Admin {
 			if ( isset( $groups[ $args['group'] ] ) ) {
 				switch ( $groups[ $args['group'] ]['type'] ) {
 					case 'subtab':
-					case 'tab';
+					case 'tab':
 						$subtab_group  = 'wpbdp_settings_subtab_' . $args['group'];
 						$section_group = $subtab_group;
                         break;
