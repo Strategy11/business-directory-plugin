@@ -15,20 +15,37 @@ class WPBDP_Admin_Pages {
 			return;
 		}
 
-		add_filter( 'views_edit-wpbdp_listing', 'WPBDP_Admin_Pages::add_listings_nav' );
+		add_filter( 'views_edit-wpbdp_listing', __CLASS__ . '::add_listings_nav' );
 
-		// Categories and tags.
-		add_filter( 'views_edit-wpbdp_tag', 'WPBDP_Admin_Pages::add_tag_nav' );
-		add_filter( 'views_edit-wpbdp_category', 'WPBDP_Admin_Pages::add_category_nav' );
-
-		// Category and tag edit page.
-		add_filter( 'wpbdp_tag_pre_edit_form', 'WPBDP_Admin_Pages::edit_tag_nav' );
-		add_filter( 'wpbdp_category_pre_edit_form', 'WPBDP_Admin_Pages::edit_category_nav' );
+		add_action( 'init', __CLASS__ . '::load_taxonomy_menus', 30 );
 
 		// Add search form.
-		add_action( 'wpbdp_admin_pages_show_tabs', 'WPBDP_Admin_Pages::taxonomy_search_form', 10, 2 );
+		add_action( 'wpbdp_admin_pages_show_tabs', __CLASS__ . '::taxonomy_search_form', 10, 2 );
 
-		add_action( 'wpbdp_category_add_form_fields', 'WPBDP_Admin_Pages::add_category_info', 9999 );
+		add_action( 'wpbdp_category_add_form_fields', __CLASS__ . '::add_category_info', 9999 );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public static function load_taxonomy_menus() {
+		foreach ( self::get_tax_types() as $tax_type ) {
+			// Listing page.
+			add_filter( 'views_edit-' . $tax_type, __CLASS__ . '::add_taxonomy_nav', 1 );
+
+			// Edit page.
+			add_filter( $tax_type . '_pre_edit_form', __CLASS__ . '::edit_tag_nav' );
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private static function get_tax_types() {
+		/**
+		 * @since x.x
+		 */
+		return apply_filters( 'wpbdp_tax_types', array( 'wpbdp_tag', 'wpbdp_category', 'wpbdm-region' ) );
 	}
 
 	/**
@@ -60,69 +77,15 @@ class WPBDP_Admin_Pages {
 	}
 
 	/**
-	 * Add listing category nav.
-	 *
-	 * @since 6.0
-	 */
-	public static function add_category_nav( $views ) {
-		global $tax;
-		$atts = array(
-			'title'        => __( 'Categories', 'business-directory-plugin' ),
-			'taxonomy'     => 'wpbdp_category',
-			'button_name'  => __( 'Add New Category', 'business-directory-plugin' ),
-			'button_url'   => '#',
-			'button_class' => 'wpbdp-add-taxonomy-form',
-		);
-		return self::add_taxonomy_nav( $views, $tax, $atts );
-	}
-
-	/**
-	 * Add listing tags nav.
-	 *
-	 * @since 6.0
-	 */
-	public static function add_tag_nav( $views ) {
-		global $tax;
-		$atts = array(
-			'title'        => __( 'Tags', 'business-directory-plugin' ),
-			'taxonomy'     => 'wpbdp_tag',
-			'button_name'  => __( 'Add New Tag', 'business-directory-plugin' ),
-			'button_url'   => '#',
-			'button_class' => 'wpbdp-add-taxonomy-form',
-		);
-		return self::add_taxonomy_nav( $views, $tax, $atts );
-	}
-
-	/**
-	 * Add listing category nav.
-	 *
-	 * @since 6.0
-	 */
-	public static function edit_category_nav( $views ) {
-		global $tax;
-		$atts = array(
-			'title'       => __( 'Edit Category', 'business-directory-plugin' ),
-			'taxonomy'    => 'wpbdp_category',
-			'button_name' => __( 'Back to Categories', 'business-directory-plugin' ),
-			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' ),
-		);
-		return self::add_taxonomy_nav( $views, $tax, $atts );
-	}
-
-	/**
 	 * Add listing tags nav.
 	 *
 	 * @since 6.0
 	 */
 	public static function edit_tag_nav( $views ) {
-		global $tax;
 		$atts = array(
-			'title'       => __( 'Edit Tag', 'business-directory-plugin' ),
-			'taxonomy'    => 'wpbdp_tag',
-			'button_name' => __( 'Back to Tags', 'business-directory-plugin' ),
-			'button_url'  => admin_url( 'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' ),
+			'edit'  => true,
 		);
-		return self::add_taxonomy_nav( $views, $tax, $atts );
+		return self::add_taxonomy_nav( $views, $atts );
 	}
 
 
@@ -132,20 +95,43 @@ class WPBDP_Admin_Pages {
 	 *
 	 * @since 6.0
 	 */
-	public static function add_taxonomy_nav( $views, $tax, $params = array() ) {
+	public static function add_taxonomy_nav( $views, $params = array() ) {
+		global $tax;
+
 		add_action( 'admin_footer', 'WPBDP_Admin_Pages::show_full_footer' );
 
+		// Prevent this from running a second time.
+		remove_filter( 'views_edit-' . $tax->name, __CLASS__ . '::add_taxonomy_nav', 1 );
+		remove_filter( $tax->name . '_pre_edit_form', __CLASS__ . '::edit_tag_nav' );
+
+		$editing    = isset( $params['edit'] );
+		$tax_name   = str_replace( 'Directory ', '', $tax->labels->all_items );
+		$all_url    = 'edit-tags.php?taxonomy=' . $tax->name . '&amp;post_type=wpbdp_listing';
+
+		if ( $editing ) {
+			$title      = $tax->labels->edit_item;
+			$button     = sprintf( __( 'Back to %s', 'business-directory-plugin' ), $tax_name );
+			$button_url = admin_url( $all_url );
+			$button_class = '';
+		} else {
+			$title      = $tax_name;
+			$button     = $tax->labels->add_new_item;
+			$button_url = '#';
+			$button_class = 'wpbdp-add-taxonomy-form';
+		}
+
 		$args = array(
-			'sub'        => $params['title'],
-			'active_tab' => 'edit-tags.php?taxonomy=' . $params['taxonomy'] . '&amp;post_type=wpbdp_listing',
-			'id'         => $params['taxonomy'],
+			'sub'        => $title,
+			'active_tab' => $all_url,
+			'id'         => $tax->name,
 		);
-		if ( current_user_can( $tax->cap->edit_terms ) && isset( $params['button_name'] ) ) {
+
+		if ( current_user_can( $tax->cap->edit_terms ) ) {
 			$args['buttons'] = array(
-				'add_listing' => array(
-					'label' => $params['button_name'],
-					'url'   => $params['button_url'],
-					'class' => isset( $params['button_class'] ) ? $params['button_class'] : '',
+				'add_new' => array(
+					'label' => $button,
+					'url'   => $button_url,
+					'class' => $button_class,
 				),
 			);
 		}
@@ -161,11 +147,10 @@ class WPBDP_Admin_Pages {
 	 * @since 6.0
 	 */
 	public static function taxonomy_search_form( $active_tab, $id ) {
-		$active_screens = array(
-			'edit-wpbdp_tag',
-			'edit-wpbdp_category',
-			'edit-wpbdm-region',
-		);
+		$active_screens = array();
+		foreach ( self::get_tax_types() as $tax_type ) {
+			$active_screens[] = 'edit-' . $tax_type;
+		}
 
 		$current_screen = get_current_screen();
 		if ( ! in_array( $current_screen->id, $active_screens, true ) ) {
@@ -183,8 +168,7 @@ class WPBDP_Admin_Pages {
 			echo '<span class="wpbdp-taxonomy-search-results">';
 			printf(
 				/* translators: %s: Search query. */
-				// phpcs:ignore WordPress.WP.I18n.MissingArgDomain
-				__( 'Search results for: %s' ),
+				__( 'Search results for: %s', 'business-directory-plugin' ),
 				'<strong>' . esc_html( $search_param ) . '</strong>'
 			);
 			echo '</span>';
