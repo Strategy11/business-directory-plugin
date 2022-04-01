@@ -604,7 +604,7 @@ class WPBDP_Listing {
             return $key;
 
         // Generate access key.
-        $new_key = sha1( sprintf( '%s%s%d', AUTH_KEY, uniqid( '', true ), rand( 1, 1000 ) ) );
+        $new_key = sha1( sprintf( '%s%s%d', $this->get_auth_key(), uniqid( '', true ), rand( 1, 1000 ) ) );
         if ( update_post_meta( $this->id, '_wpbdp[access_key]', $new_key ) )
             return $new_key;
     }
@@ -614,8 +614,15 @@ class WPBDP_Listing {
      */
     public function validate_access_key_hash( $hash ) {
         $key = $this->get_access_key();
-        return sha1( AUTH_KEY . $key ) == $hash;
+        return sha1( $this->get_auth_key() . $key ) == $hash;
     }
+
+    /**
+     * @since x.x
+     */
+	private function get_auth_key() {
+		return defined( 'AUTH_KEY' ) ? AUTH_KEY : '';
+	}
 
     public function get_author_meta( $meta ) {
         if ( ! $this->id )

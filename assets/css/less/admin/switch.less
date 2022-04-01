@@ -14,12 +14,12 @@
 		display: none !important;
 		
 		&:checked + .wpbd-toggle-slider {
-			background-color: fade( @brand, 25% );
-			outline-color: fade( @brand, 25% );
+			background-color: @brand;
+			outline-color: @brand;
 
 			&:before {
 				transform: translateX(17px);
-				background-color: @brand;
+				background-color: #fff;
 				outline-color: @brand;
 			}
 		}
@@ -39,8 +39,8 @@
 	bottom: 0;
 	transition: .4s;
 	border-radius: 30px;
-	background-color: transparent;
-	outline: 1px solid @text-color;
+	background-color: fade( @brand, 15% );
+	outline: 1px solid fade( @brand, 15% );
 
 	&:before {
 		border-radius: 50%;
@@ -51,9 +51,9 @@
 		left: 0;
 		top: 0;
 		transition: 0.3s;
-		background-color: transparent;
+		background-color: #fff;
+		outline: 1px solid fade( @brand, 15% );
 		box-shadow: 0 2px 6px rgba(41, 58, 82, 0.3);
-		outline: 1px solid @text-color;
 	}
 }
 

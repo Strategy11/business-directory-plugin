@@ -611,8 +611,24 @@ class WPBDP__Settings_Admin {
 		$html .= '<p>' . esc_html__( 'You\'re using Business Directory Plugin Lite. Enjoy!', 'business-directory-plugin' );
 		$html .= ' 🙂</p>';
 
+		$html .= $this->get_upgrade_message();
 		return $html;
 	}
+
+	/**
+	 * @since x.x
+	 */
+    private function get_upgrade_message() {
+        $html = '<div class="wpbdp_upgrade_to_pro">';
+        $html .= '<h3>' . esc_html__( 'Build more powerful directories', 'business-directory-plugin' ) . '</h3>';
+        $html .= '<p>' . esc_html__( 'Add category images, maps, filter by location, payment gateways, and more.', 'business-directory-plugin' ) . '</p>';
+        $html .= '<p><a href="' . esc_url( wpbdp_admin_upgrade_link( 'licenses_tab' ) ) . '" target="_blank" rel="noopener" class="button-primary">' . esc_html__( 'Upgrade Now', 'business-directory-plugin' ) . '</a></p>';
+        $html .= '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'licenses_purchased', 'knowledge-base/installation-guide/' ) ) . '">' . esc_html__( 'Already purchased?', 'business-directory-plugin' ) . '</a>';
+        $html .= '</div>';
+		$html .= '<style>#save-changes{display:none}</style>';
+
+        return $html;
+    }
 
 	/**
 	 * Use for non-settings.
