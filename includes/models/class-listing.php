@@ -617,9 +617,9 @@ class WPBDP_Listing {
         return sha1( $this->get_auth_key() . $key ) == $hash;
     }
 
-    /**
-     * @since x.x
-     */
+	/**
+	 * @since x.x
+	 */
 	private function get_auth_key() {
 		return defined( 'AUTH_KEY' ) ? AUTH_KEY : '';
 	}
