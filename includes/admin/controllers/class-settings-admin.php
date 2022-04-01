@@ -50,12 +50,13 @@ class WPBDP__Settings_Admin {
     }
 
     public function register_settings() {
-        $all_groups = wpbdp()->settings->get_registered_groups();
-        $non_tabs   = wp_list_filter( $all_groups, array( 'type' => 'tab' ), 'NOT' );
+		$groups   = wpbdp()->settings->get_registered_groups();
+		$no_child = array();
 
-        foreach ( $non_tabs as $group_id => $group ) {
+		foreach ( $groups as $group_id => $group ) {
             switch ( $group['type'] ) {
 				case 'subtab':
+					$no_child[ $group['parent'] ] = false;
 					add_settings_section(
                         'wpbdp_settings_subtab_' . $group_id,
                         '',
@@ -71,10 +72,15 @@ class WPBDP__Settings_Admin {
                         'wpbdp_settings_subtab_' . $group['parent']
 					);
                     break;
-				default:
-                    break;
+				case 'tab':
+					if ( ! isset( $no_child[ $group_id ] ) ) {
+						$no_child[ $group_id ] = true;
+					}
+					break;
             }
         }
+
+		$this->maybe_register_subtab( $no_child );
 
         foreach ( wpbdp()->settings->get_registered_settings() as $setting_id => $setting ) {
             $args = array_merge(
@@ -91,19 +97,20 @@ class WPBDP__Settings_Admin {
                 continue;
             }
 
-            if ( isset( $all_groups[ $args['group'] ] ) ) {
-                switch ( $all_groups[ $args['group'] ]['type'] ) {
+			if ( isset( $groups[ $args['group'] ] ) ) {
+				switch ( $groups[ $args['group'] ]['type'] ) {
 					case 'subtab':
+					case 'tab';
 						$subtab_group  = 'wpbdp_settings_subtab_' . $args['group'];
 						$section_group = $subtab_group;
                         break;
 					case 'section':
-						$subtab_group  = 'wpbdp_settings_subtab_' . $all_groups[ $args['group'] ]['parent'];
+						$subtab_group  = 'wpbdp_settings_subtab_' . $groups[ $args['group'] ]['parent'];
 						$section_group = $subtab_group . '_' . $args['group'];
                         break;
                 }
             } else {
-                wpbdp_debug_e( 'group not found: ', $args );
+				wpbdp_debug_e( 'group not found: ', $args );
             }
 
             add_settings_field(
@@ -116,6 +123,26 @@ class WPBDP__Settings_Admin {
             );
         }
     }
+
+	/**
+	 * If a settings section doesn't have subtabs, force one.
+	 *
+	 * @since x.x
+	 */
+	private function maybe_register_subtab( $no_child ) {
+		foreach ( $no_child as $group_id => $is_alone ) {
+			if ( ! $is_alone ) {
+				continue;
+			}
+
+			add_settings_section(
+                'wpbdp_settings_subtab_' . $group_id,
+                '',
+                '__return_false',
+                'wpbdp_settings_subtab_' . $group_id
+			);
+		}
+	}
 
     public function section_header_callback( $wp_section ) {
         return;
