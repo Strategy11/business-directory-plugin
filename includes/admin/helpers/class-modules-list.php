@@ -233,7 +233,7 @@ class WPBDP_Show_Modules {
 	public static function addon_upgrade_link( $addon, $upgrade_link ) {
 		?>
 		<a class="install-now button button-primary" href="<?php echo esc_url( $upgrade_link ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'Upgrade Now', 'business-directory-plugin' ); ?>">
-			<?php esc_html_e( 'Upgrade Now', 'business-directory-plugin' ); ?>
+			<?php esc_html_e( 'Upgrade', 'business-directory-plugin' ); ?>
 		</a>
 		<?php
 	}
