@@ -562,6 +562,8 @@ function wpbdp_get_server_value( $value ) {
  * @since 5.7.6
  *
  * @param array $args - Includes 'param' and 'sanitize'.
+ * 
+ * @return array|string
  */
 function wpbdp_get_var( $args, $type = 'get' ) {
     $defaults = array(
