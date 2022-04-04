@@ -26,7 +26,7 @@ class WPBDP_Admin_Pages {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0.1
 	 */
 	public static function load_taxonomy_menus() {
 		foreach ( self::get_tax_types() as $tax_type ) {
@@ -39,11 +39,11 @@ class WPBDP_Admin_Pages {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0.1
 	 */
 	private static function get_tax_types() {
 		/**
-		 * @since x.x
+		 * @since 6.0.1
 		 */
 		return apply_filters( 'wpbdp_tax_types', array( 'wpbdp_tag', 'wpbdp_category', 'wpbdm-region' ) );
 	}
@@ -226,7 +226,7 @@ class WPBDP_Admin_Pages {
 		}
 
 		/**
-		 * @since x.x
+		 * @since 6.0.1
 		 */
 		$tabs = apply_filters( 'wpbdp_tab_content', $tabs, array( 'settings' => ! empty( $args['tabs'] ) ) );
 

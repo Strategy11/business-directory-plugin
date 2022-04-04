@@ -459,7 +459,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			);
 
 			/**
-			 * @since x.x
+			 * @since 6.0.1
 			 */
 			return apply_filters( 'wpbdp_top_level_nav', $top );
 		}
@@ -467,7 +467,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * We use the global submenu, because we are adding an external link here.
 		 *
-		 * @since x.x
+		 * @since 6.0.1
 		 */
 		private function add_upgrade_menu() {
 			if ( WPBDP_Admin_Education::is_installed( 'premium' ) || ! current_user_can( 'administrator' ) ) {
@@ -486,7 +486,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Add class to parent container so we can style it.
 		 *
-		 * @since x.x
+		 * @since 6.0.1
 		 */
 		public function highlight_menu() {
 			?>

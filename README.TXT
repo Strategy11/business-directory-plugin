@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.9
-Stable tag: 6.0
+Stable tag: 6.0.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,15 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.0.1 =
+* Remove the licenses tab if it's not needed.
+* A few admin styling tweeks including toggles.
+* Fix: Admin settings weren't hiding conditionally.
+* Fix: There was a php warning showing when AUTH_KEY was missing.
+* Fix: Handle tags pages in a better way, using the new wpbdp_tax_types hook.
+* Fix: Prevent duplicate heading in taxonomy modal when another plugin adds a heading.
+* New: wpbdp_tab_content hook for adding content to the settings tabs.
+
 = 6.0 =
 * New: Updated the admin area for a more enjoyable experience. This also shortens the main nav to make it easier to find links.
 * New: Add toggles in admin settings for a more visual UI.
@@ -190,13 +199,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Hide the custom order column in the plans table if not using custom ordering.
 * Fix: Allow manual enable/disable of default plan.
 * Fix: PHP warning showing on license page on some sites.
-
-= 5.17 =
-* New: Simplify setting up plans. Now, there's no free vs paid mode. If paid plans are created, a gateway needs to be set up.
-* Add more caching to speed up page loading.
-* Fix: The category wasn't getting auto selected with only one category.
-* Fix: Some images weren't uploading in the admin settings or in social fields.
-* Fix: Images can now be removed from a listing if it is used in another listing too.
-* Add more helpful info if a BD theme is missing an Activate button.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

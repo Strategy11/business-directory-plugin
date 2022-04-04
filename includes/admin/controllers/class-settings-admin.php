@@ -127,7 +127,7 @@ class WPBDP__Settings_Admin {
 	/**
 	 * If a settings section doesn't have subtabs, force one.
 	 *
-	 * @since x.x
+	 * @since 6.0.1
 	 */
 	private function maybe_register_subtab( $no_child ) {
 		foreach ( $no_child as $group_id => $is_alone ) {
@@ -643,7 +643,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.0.1
 	 */
 	private function get_upgrade_message() {
 		$html = '<div class="wpbdp_upgrade_to_pro">';

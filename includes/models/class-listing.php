@@ -618,7 +618,7 @@ class WPBDP_Listing {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.0.1
 	 */
 	private function get_auth_key() {
 		return defined( 'AUTH_KEY' ) ? AUTH_KEY : '';
