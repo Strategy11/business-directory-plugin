@@ -657,6 +657,8 @@ class WPBDP_Listing {
 
     /**
      * @since 5.0
+     *
+     * @return false|object
      */
     public function get_fee_plan() {
         global $wpdb;

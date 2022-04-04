@@ -261,6 +261,9 @@ class WPBDP__Settings {
         return $this->settings;
     }
 
+    /**
+     * @return int|string|array
+     */
     public function get_option( $setting_id, $default = false ) {
         $default_provided = func_num_args() > 1;
 
@@ -301,8 +304,6 @@ class WPBDP__Settings {
                         break;
                     case 'multicheck':
                         $value = array();
-                        break;
-                    default:
                         break;
                 }
             }
