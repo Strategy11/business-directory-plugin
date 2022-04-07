@@ -28,7 +28,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				// Skip themes for now since they have another page.
 				continue;
 			}
-		?>
+
+			$plugin_key = str_replace( 'business-directory-', '', substr( $addon['plugin'], 0, strpos( $addon['plugin'], '/' ) ) );
+			$module = isset( $modules[ $plugin_key ] ) ? $modules[ $plugin_key ] : false;
+			?>
 			<div class="wpbdp-card plugin-card-<?php echo esc_attr( $slug ); ?> wpbdp-no-thumb wpbdp-addon-<?php echo esc_attr( $addon['status']['type'] ); ?>">
 				<?php if ( strtotime( $addon['released'] ) > strtotime( '-90 days' ) ) : ?>
 					<div class="wpbdp-ribbon">
@@ -68,6 +71,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<a href="<?php echo esc_url( $addon['docs'] ); ?>" target="_blank" aria-label="<?php esc_attr_e( 'View Docs', 'business-directory-plugin' ); ?>">
 								<?php esc_html_e( 'View Docs', 'business-directory-plugin' ); ?>
 							</a>
+
+							<?php if ( $module && ! empty( $module->settings_url ) ) { ?>
+							<a href="<?php echo esc_url( admin_url( $module->settings_url ) ); ?>" class="alignright">
+								<?php esc_html_e( 'Settings', 'business-directory-plugin' ); ?>
+							</a>
+							<?php } ?>
 						</div>
 					<?php } ?>
 				</div>
