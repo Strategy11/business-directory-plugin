@@ -22,7 +22,7 @@
                 <li><?php _ex( 'Remove ALL directory listings', 'uninstall', 'business-directory-plugin' ); ?></li>
                 <li><?php _ex( 'Remove ALL directory categories', 'uninstall', 'business-directory-plugin' ); ?></li>
                 <li><?php _ex( 'Remove ALL directory settings', 'uninstall', 'business-directory-plugin' ); ?></li>
-				<li><?php esc_html_e( 'Remove ALL module data (regions, maps, ratings, resrictions)', 'business-directory-plugin' ); ?></li>
+				<li><?php esc_html_e( 'Remove ALL module data (regions, maps, ratings, restrictions)', 'business-directory-plugin' ); ?></li>
                 <li><?php _ex( 'Deactivate the plugin from the file system', 'uninstall', 'business-directory-plugin' ); ?></li>
             </ul>
 
