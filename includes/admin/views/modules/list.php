@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</span>
 					<div class="<?php echo esc_attr( $addon['status']['type'] === 'active' ) ? 'wpbdp10' : 'wpbdp7'; ?>">
 						<h2 class="wpbdp-plugin-card-title">
-							<?php echo esc_html( str_replace( ' Module', '', $addon['title'] ) ); ?>
+							<?php echo esc_html( str_replace( ' Module', '', $addon['display_name'] ) ); ?>
 						</h2>
 						<p class="wpbdp-addon-status">
 							<?php echo esc_html( $addon['status']['label'] ); ?>

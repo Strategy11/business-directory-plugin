@@ -64,7 +64,7 @@ Create an easy directory with more functionality with extra add-ons.
 For a detailed list of features, please visit: [BusinessDirectoryPlugin.com](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
 * File Upload - Allow users to upload and manage attachments on listings. Include PDFs, text files, and images in business listings.
-* Featured Levels - Assign features to paid or sticky listing plans to give users incentive to upgrade.
+* Restrictions - Assign features to paid or sticky listing plans to give users incentive to upgrade.
 * ZIP Code Search - ZIP code/postal code radius and proximity searches supporting a number of countries.
 * Regions - Location based listing result filtering.
 * Ratings and Reviews - Create reviews with connections to each listing to rate listings (with Schema.org microformat). It's a WordPress review plugin!

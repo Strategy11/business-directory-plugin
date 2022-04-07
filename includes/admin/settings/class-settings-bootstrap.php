@@ -71,6 +71,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default'   => 'wpbdp_listing',
                 'group'     => 'permalink_settings',
                 'validator' => 'no-spaces,trim,required',
+				'class'     => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -78,11 +79,12 @@ final class WPBDP__Settings__Bootstrap {
                 'id'        => 'permalinks-category-slug',
                 'type'      => 'text',
                 'name'      => _x( 'Categories Slug', 'settings', 'business-directory-plugin' ),
-                'desc'      => _x( 'The slug can\'t be in use by another term. Avoid "category", for instance.', 'settings', 'business-directory-plugin' ),
+				'tooltip'   => _x( 'The slug can\'t be in use by another term. Avoid "category", for instance.', 'settings', 'business-directory-plugin' ),
                 'default'   => 'wpbdp_category',
                 'group'     => 'permalink_settings',
                 'taxonomy'  => WPBDP_CATEGORY_TAX,
                 'validator' => 'taxonomy_slug',
+				'class'     => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -90,11 +92,12 @@ final class WPBDP__Settings__Bootstrap {
                 'id'        => 'permalinks-tags-slug',
                 'type'      => 'text',
                 'name'      => _x( 'Tags Slug', 'settings', 'business-directory-plugin' ),
-                'desc'      => _x( 'The slug can\'t be in use by another term. Avoid "tag", for instance.', 'settings', 'business-directory-plugin' ),
+				'tooltip'   => _x( 'The slug can\'t be in use by another term. Avoid "tag", for instance.', 'settings', 'business-directory-plugin' ),
                 'default'   => 'wpbdp_tag',
                 'group'     => 'permalink_settings',
                 'taxonomy'  => WPBDP_TAGS_TAX,
                 'validator' => 'taxonomy_slug',
+				'class'     => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -172,6 +175,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'reCAPTCHA Public Key', 'settings', 'business-directory-plugin' ),
                 'default' => '',
                 'group'   => 'recaptcha',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -181,6 +185,7 @@ final class WPBDP__Settings__Bootstrap {
                 'name'    => _x( 'reCAPTCHA Private Key', 'settings', 'business-directory-plugin' ),
                 'default' => '',
                 'group'   => 'recaptcha',
+				'class'   => 'wpbdp-half',
             )
         );
         wpbdp_register_setting(
@@ -218,7 +223,14 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_settings_group( 'registration', _x( 'Registration', 'settings', 'business-directory-plugin' ), 'general', array( 'desc' => _x( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected. Please contact the membership plugin and ask them to support the WP standard 'redirect_to' query parameter.", 'settings', 'business-directory-plugin' ) ) );
+		wpbdp_register_settings_group(
+			'registration',
+			_x( 'Registration', 'settings', 'business-directory-plugin' ),
+			'general',
+			array(
+				'desc' => __( "We expect that a membership plugin supports the 'redirect_to' parameter for the URLs below to work. If the plugin does not support them, these settings will not function as expected.", 'business-directory-plugin' ),
+			)
+		);
         wpbdp_register_setting(
             array(
                 'id'      => 'require-login',
@@ -241,7 +253,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'          => 'login-url',
                 'type'        => 'text',
                 'name'        => _x( 'Login URL', 'settings', 'business-directory-plugin' ),
-                'desc'        => _x( 'Only enter this if using a membership plugin or custom login page', 'settings', 'business-directory-plugin' ),
+				'tooltip'     => _x( 'Only enter this if using a membership plugin or custom login page', 'settings', 'business-directory-plugin' ),
                 'placeholder' => _x( 'URL of your membership plugin\'s login page.', 'settings', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'registration',
@@ -252,7 +264,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'          => 'registration-url',
                 'type'        => 'text',
                 'name'        => _x( 'Registration URL', 'settings', 'business-directory-plugin' ),
-                'desc'        => _x( 'Only enter this if using a membership plugin or custom registration page.', 'settings', 'business-directory-plugin' ),
+				'tooltip'     => _x( 'Only enter this if using a membership plugin or custom registration page.', 'settings', 'business-directory-plugin' ),
                 'placeholder' => _x( 'URL of your membership plugin\'s registration page', 'settings', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'registration',
@@ -261,7 +273,7 @@ final class WPBDP__Settings__Bootstrap {
         wpbdp_register_setting(
             array(
                 'id'      => 'create-account-during-submit-mode',
-                'type'    => 'radio',
+				'type'    => 'select',
                 'name'    => _x( 'Allow users to create accounts during listing submit', 'settings', 'business-directory-plugin' ),
                 'default' => 'required',
                 'options' => array(
@@ -270,6 +282,10 @@ final class WPBDP__Settings__Bootstrap {
                     'required' => __( 'Yes, and make it required', 'business-directory-plugin' ),
                 ),
                 'group'   => 'registration',
+				'grid_classes' => array(
+					'left'  => 'wpbdp8',
+					'right' => 'wpbdp4'
+				),
             )
         );
 
@@ -596,12 +612,12 @@ final class WPBDP__Settings__Bootstrap {
         }
         wpbdp_register_setting(
             array(
-                'id'      => 'default-listing-author',
-                'name'    => __( 'Owner of anonymous listings', 'business-directory-plugin' ),
-                'type'    => 'text',
-                'default' => $admin ? $admin->ID : '1',
-                'desc'    => _x( 'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.', 'settings', 'business-directory-plugin' ),
-                'group'   => 'registration',
+				'id'          => 'default-listing-author',
+				'name'        => __( 'Owner of anonymous listings', 'business-directory-plugin' ),
+				'type'        => 'text',
+				'default'     => $admin ? $admin->ID : '1',
+ 				'tooltip'      => _x( 'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.', 'settings', 'business-directory-plugin' ),
+				'group'        => 'registration',
 				'grid_classes' => array(
 					'left'  => 'wpbdp8',
 					'right' => 'wpbdp4'
