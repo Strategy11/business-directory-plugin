@@ -1439,7 +1439,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                     return;
                 }
 
-                array_splice( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ], count( $submenu['edit.php?post_type=' . WPBDP_POST_TYPE ] ), 0, array( $submenu[ $parent_file ][ $directory_regions ] ) );
+				array_splice(
+					$submenu[ 'edit.php?post_type=' . WPBDP_POST_TYPE ],
+					count( $submenu[ 'edit.php?post_type=' . WPBDP_POST_TYPE ] ),
+					0,
+					array( $submenu[ $parent_file ][ $directory_regions ] )
+				);
             }
         }
 

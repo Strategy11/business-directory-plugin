@@ -38,9 +38,11 @@ class WPBDP__Admin__Variable_Pricing_Configurator extends WPBDP__WP_Taxonomy_Ter
 
     protected function element_after( $term, $depth  ) {
         $res  = '';
-        $res .= sprintf( '</td><td class="category-price-col"><input id="wpbdp-fee-form-fee-category" type="text" name="fee[pricing_details][%d]" class="category-price" value="%s" /></td>',
-                         $term->term_id,
-                         isset( $this->prices[ $term->term_id ] ) ? $this->prices[ $term->term_id ] : '0.0' );
+		$res .= sprintf(
+			'</td><td class="category-price-col"><input id="wpbdp-fee-form-fee-category" type="text" name="fee[pricing_details][%d]" class="category-price" value="%s" /></td>',
+			$term->term_id,
+			isset( $this->prices[ $term->term_id ] ) ? $this->prices[ $term->term_id ] : '0.0'
+		);
         $res .= '</tr>';
 
         return $res;

@@ -53,13 +53,8 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
-        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
         <exclude name="WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeOpenBracket" />
-        <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
-        <exclude name="Generic.Formatting.DisallowMultipleStatements.SameLine" />
         <exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
 
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />
