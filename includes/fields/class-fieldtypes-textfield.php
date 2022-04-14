@@ -32,7 +32,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
             return $tags;
         }
 
-        if (  is_array( $value ) ) {
+        if ( is_array( $value ) ) {
             return array_shift( $value );
         }
 
