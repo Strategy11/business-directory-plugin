@@ -172,7 +172,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             admin_url( 'admin-ajax.php' )
         );
 
-        $html .= '<div class="wpbdp-upload-widget"'. ( ! empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
+		$html .= '<div class="wpbdp-upload-widget"' . ( ! empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
         $html .= sprintf(
             '<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
             esc_attr( $field->get_id() ),
@@ -262,7 +262,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         $element = wpbdp_get_var( array( 'param' => 'element', 'default' => "listingfields[$field_id][0]" ), 'request' );
 
         $field = wpbdp_get_form_field( $field_id );
-		if ( ! $field || ! in_array( $field->get_field_type_id(), array( 'image', 'social-network') ) ) {
+		if ( ! $field || ! in_array( $field->get_field_type_id(), array( 'image', 'social-network' ), true ) ) {
             die;
         }
 

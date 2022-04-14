@@ -484,16 +484,18 @@ final class WPBDP {
 
         foreach ( $files as $i => $file ) {
             $image_error = '';
-            $attachment_id = wpbdp_media_upload( $file,
-                                                 true,
-                                                 true,
-                                                 array( 'image' => true,
-                                                        'min-size' => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
-                                                        'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
-                                                        'min-width' => wpbdp_get_option( 'image-min-width' ),
-                                                        'min-height' => wpbdp_get_option( 'image-min-height' )
-                                                     ),
-                                                 $image_error
+			$attachment_id = wpbdp_media_upload(
+				$file,
+				true,
+				true,
+				array(
+					'image'      => true,
+					'min-size'   => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
+					'max-size'   => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
+					'min-width'  => wpbdp_get_option( 'image-min-width' ),
+					'min-height' => wpbdp_get_option( 'image-min-height' ),
+				),
+				$image_error
 			); // TODO: handle errors.
 
 			if ( $image_error ) {

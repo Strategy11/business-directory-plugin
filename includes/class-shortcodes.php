@@ -36,9 +36,11 @@ class WPBDP__Shortcodes {
          * Example:
          *  `[businessdirectory]`
          */
-        $this->add( 'businessdirectory',
-                    array( &$this, 'sc_main' ),
-                    array( 'business-directory', 'WPBUSDIRMANUI' ) );
+		$this->add(
+			'businessdirectory',
+			array( &$this, 'sc_main' ),
+			array( 'business-directory', 'WPBUSDIRMANUI' )
+		);
 
         /*
          * WordPress Shortcode:
@@ -50,9 +52,11 @@ class WPBDP__Shortcodes {
          * Example:
          *  `[businessdirectory-submitlisting]`
          */
-        $this->add( 'businessdirectory-submit-listing',
-                    array( &$this, 'sc_submit_listing' ),
-                    array( 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' ) );
+		$this->add(
+			'businessdirectory-submit-listing',
+			array( &$this, 'sc_submit_listing' ),
+			array( 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' )
+		);
 
         /*
          * WordPress Shortcode:
@@ -64,9 +68,11 @@ class WPBDP__Shortcodes {
          * Example:
          *  `[businessdirectory-manage-listings]`
          */
-        $this->add( 'businessdirectory-manage-listings',
-                    array( &$this, 'sc_manage_listings' ),
-                    array( 'businessdirectory-managelistings', 'business-directory-manage-listings', 'businessdirectory-manage_listings', 'WPBUSDIRMANMANAGELISTING' ) );
+		$this->add(
+			'businessdirectory-manage-listings',
+			array( &$this, 'sc_manage_listings' ),
+			array( 'businessdirectory-managelistings', 'business-directory-manage-listings', 'businessdirectory-manage_listings', 'WPBUSDIRMANMANAGELISTING' )
+		);
 
         /*
          * WordPress Shortcode:
@@ -86,9 +92,11 @@ class WPBDP__Shortcodes {
          *    `[businessdirectory-listings tag="New" category="Dentists"]`
          *
          */
-        $this->add( 'businessdirectory-listings',
-                    array( &$this, 'sc_listings' ),
-                    array( 'WPBUSDIRMANVIEWLISTINGS', 'WPBUSDIRMANMVIEWLISTINGS', 'businessdirectory-view_listings', 'businessdirectory-viewlistings' ) );
+		$this->add(
+			'businessdirectory-listings',
+			array( &$this, 'sc_listings' ),
+			array( 'WPBUSDIRMANVIEWLISTINGS', 'WPBUSDIRMANMVIEWLISTINGS', 'businessdirectory-view_listings', 'businessdirectory-viewlistings' )
+		);
 
         /*
          * WordPress Shortcode: [businessdirectory-search], [business-directory-search]
@@ -99,9 +107,11 @@ class WPBDP__Shortcodes {
          * Example:
          *  `[businessdirectory-search]`
          */
-        $this->add( 'businessdirectory-search',
-                    array( &$this, 'sc_search' ),
-                    array( 'business-directory-search', 'businessdirectory_search', 'business-directory_search' ) );
+		$this->add(
+			'businessdirectory-search',
+			array( &$this, 'sc_search' ),
+			array( 'business-directory-search', 'businessdirectory_search', 'business-directory_search' )
+		);
 
         /*
          * WordPress Shortcode: [businessdirectory-featuredlistings]

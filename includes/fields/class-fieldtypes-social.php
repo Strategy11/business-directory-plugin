@@ -260,7 +260,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 
 			$social_icon = sprintf(
                 '<img src="%s" class="logo" alt="%s">',
-                WPBDP_ASSETS_URL . 'images/social/' .$type . '.svg',
+				WPBDP_ASSETS_URL . 'images/social/' . $type . '.svg',
                 $type
             );
 
@@ -326,7 +326,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
         $field_value[] = array_shift( $parts );
 
         foreach ( $parts as $pos => $val ) {
-            $field_value[ $field_keys[$pos] ] = $val;
+			$field_value[ $field_keys[ $pos ] ] = $val;
         }
 
         return $field_value;

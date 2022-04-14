@@ -1241,7 +1241,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $html .= '<label for="wpbdp-submit-listing-user_username">' . esc_html__( 'Username', 'business-directory-plugin' ) . '</label>';
         $html .= '</div>';
         $html .= '<div class="wpbdp-form-field-inner">';
-        $html .= '<input id="wpbdp-submit-listing-user_username" type="text" name="user_username" value="' . esc_attr( $form_username ) .'" />';
+		$html .= '<input id="wpbdp-submit-listing-user_username" type="text" name="user_username" value="' . esc_attr( $form_username ) . '" />';
         $html .= '</div>';
         $html .= '</div>';
 
@@ -1336,7 +1336,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             return '';
         }
 
-        return $this->sections_keys[$section_pos - 1];
+		return $this->sections_keys[ $section_pos - 1 ];
     }
 
     private function find_next_section( $section_id = null ) {
@@ -1351,7 +1351,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             return '';
         }
 
-        return $this->sections_keys[$section_pos + 1];
+		return $this->sections_keys[ $section_pos + 1 ];
     }
 
     public function should_validate_section( $section_id ) {

@@ -34,44 +34,44 @@ class WPBDP__Rewrite {
                 $category_slug = urlencode( wpbdp_get_option( 'permalinks-category-slug' ) );
                 $tags_slug = urlencode( wpbdp_get_option( 'permalinks-tags-slug' ) );
 
-                $rules['(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
+				$rules[ '(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
 
-                $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&feed=$matches[3]';
-                $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&feed=$matches[3]';
+				$rules[ '(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&feed=$matches[3]';
+				$rules[ '(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/(feed|rdf|rss|rss2|atom)/?$' ]      = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&feed=$matches[3]';
 
                 if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&paged=$matches[3]';
-                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]';
+					$rules[ '(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]&paged=$matches[3]';
+					$rules[ '(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$' ] = 'index.php?' . WPBDP_CATEGORY_TAX . '=$matches[2]';
                 } else {
-                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' . $page_id . '&_' . $category_slug . '=$matches[2]&paged=$matches[3]';
-                    $rules['(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $category_slug . '=$matches[2]';
+					$rules[ '(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?page_id=' . $page_id . '&_' . $category_slug . '=$matches[2]&paged=$matches[3]';
+					$rules[ '(' . $rewrite_base . ')/' . $category_slug . '/(.+?)/?$' ] = 'index.php?page_id=' . $page_id . '&_' . $category_slug . '=$matches[2]';
                 }
 
-                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&feed=$matches[3]';
-                $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&feed=$matches[3]';
+				$rules[ '(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&feed=$matches[3]';
+				$rules[ '(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&feed=$matches[3]';
 
 				if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-                    $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&paged=$matches[3]';
-                    $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]';
+					$rules[ '(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]&paged=$matches[3]';
+					$rules[ '(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$' ] = 'index.php?' . WPBDP_TAGS_TAX . '=$matches[2]';
                 } else {
-                    $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$'] = 'index.php?page_id=' .$page_id .'&_' . $tags_slug . '=$matches[2]&paged=$matches[3]';
-                    $rules['(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$'] = 'index.php?page_id=' . $page_id . '&_' . $tags_slug . '=$matches[2]';
+					$rules[ '(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?page_id=' . $page_id . '&_' . $tags_slug . '=$matches[2]&paged=$matches[3]';
+					$rules[ '(' . $rewrite_base . ')/' . $tags_slug . '/(.+?)$' ] = 'index.php?page_id=' . $page_id . '&_' . $tags_slug . '=$matches[2]';
                 }
 
                 if ( wpbdp_get_option( 'permalinks-no-id' ) ) {
                     if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-                        $rules['(' . $rewrite_base . ')/(.*)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]&feed=$matches[3]';
-                        $rules['(' . $rewrite_base . ')/(.*)/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]&feed=$matches[3]';
+						$rules[ '(' . $rewrite_base . ')/(.*)/feed/(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]&feed=$matches[3]';
+						$rules[ '(' . $rewrite_base . ')/(.*)/(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]&feed=$matches[3]';
 
-                        $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]';
+						$rules[ '(' . $rewrite_base . ')/(.*)/?$' ] = 'index.php?' . WPBDP_POST_TYPE . '=$matches[2]';
                     } else {
-                        $rules['(' . $rewrite_base . ')/(.*)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]';
+						$rules[ '(' . $rewrite_base . ')/(.*)/?$' ] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]';
                     }
                 } else {
                     if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-                        $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?p=$matches[2]&listing_slug=$matches[3]&post_type=' . WPBDP_POST_TYPE; // FIXME: post_type shouldn't be required. Fix Query_Integration too.
+						$rules[ '(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$' ] = 'index.php?p=$matches[2]&listing_slug=$matches[3]&post_type=' . WPBDP_POST_TYPE; // FIXME: post_type shouldn't be required. Fix Query_Integration too.
                     } else {
-                        $rules['(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$'] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]&listing_slug=$matches[3]';
+						$rules[ '(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$' ] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]&listing_slug=$matches[3]';
                     }
                 }
             }
@@ -98,8 +98,9 @@ class WPBDP__Rewrite {
     }
 
     public function _wp_loaded() {
-        if ($rules = get_option( 'rewrite_rules' )) {
-            foreach ($this->get_rewrite_rules() as $k => $v) {
+        $rules = get_option( 'rewrite_rules' );
+		if ( $rules ) {
+			foreach ( $this->get_rewrite_rules() as $k => $v ) {
 				if ( ! isset( $rules[ $k ] ) || $rules[ $k ] != $v ) {
                     global $wp_rewrite;
                     $wp_rewrite->flush_rules();

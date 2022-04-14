@@ -9,13 +9,17 @@
     <?php foreach ( $listings as $listing ) : ?>
     <tr>
         <td class="listing-title">
-			<b><?php if ( $listing->is_published() ) : ?>
-                <?php printf( '<a href="%s">%s</a>',
-                              esc_url( $listing->get_permalink() ),
-                              $listing->get_title() ); ?>
-			<?php else : ?>
-                <?php echo $listing->get_title(); ?>
-            <?php endif; ?></b>
+			<b><?php
+			if ( $listing->is_published() ) :
+				printf(
+					'<a href="%s">%s</a>',
+					esc_url( $listing->get_permalink() ),
+					$listing->get_title()
+				);
+			else :
+				echo $listing->get_title();
+			endif;
+			?></b>
         </td>
         <td class="subscription-details">
             <?php
@@ -29,11 +33,13 @@
                 $subscription_details = __( '%1$s each %2$s days. Next renewal is on %3$s.', 'business-directory-plugin' );
                 $subscription_details = sprintf( $subscription_details, $subscription_amount, $subscription_days, $subscription_expiration_date );
 
-                $cancel_url = add_query_arg( array(
-                    'action' => 'cancel-subscription',
-                    'listing' => $listing->get_id(),
-                    'nonce' => wp_create_nonce( 'cancel-subscription-' . $listing->get_id() ),
-                ) );
+                $cancel_url = add_query_arg(
+					array(
+						'action'  => 'cancel-subscription',
+						'listing' => $listing->get_id(),
+						'nonce'   => wp_create_nonce( 'cancel-subscription-' . $listing->get_id() ),
+					)
+				);
             ?>
             <b><?php echo $fee->fee_label; ?>:</b><br />
             <?php echo $subscription_details; ?><br />

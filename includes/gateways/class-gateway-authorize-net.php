@@ -100,8 +100,10 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
             $payment->gateway_tx_id = $response->transaction_id;
 
             if ( $response->held ) {
-                $error_msg = sprintf( _x( 'Payment is being held for review by the payment gateway. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
-                                          '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
+				$error_msg = sprintf(
+					_x( 'Payment is being held for review by the payment gateway. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
+					'(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' )
+				);
                 $payment->log( $error_msg );
             }
 
@@ -109,8 +111,10 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 
             return array( 'result' => 'success' );
         } elseif ( $response->error ) {
-            $error_msg = sprintf( _x( 'The payment gateway didn\'t accept the credit card or billing information. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
-                         '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
+			$error_msg = sprintf(
+				_x( 'The payment gateway didn\'t accept the credit card or billing information. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
+				'(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' )
+			);
             $payment->log( $error_msg );
             $payment->save();
 
@@ -118,8 +122,10 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         }
 
         // Payment failed for other reasons.
-        $error_msg = sprintf( _x( 'Payment was rejected. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
-                                  '(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' ) );
+		$error_msg = sprintf(
+			_x( 'Payment was rejected. The following reason was given: "%s".', 'authorize-net', 'business-directory-plugin' ),
+			'(' . $response->response_reason_code . ') ' . rtrim( $response->response_reason_text, '.' )
+		);
         $payment->status = 'failed';
         $payment->log( $error_msg );
         $payment->save();
@@ -161,10 +167,13 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         );
 
         if ( $recurring_item['amount'] != $total ) {
-            $subscription_args = array_merge( $subscription_args, array(
-                'trialAmount' => $total,
-                'trialOccurrences' => 1
-            ) );
+			$subscription_args = array_merge(
+				$subscription_args,
+				array(
+					'trialAmount'      => $total,
+					'trialOccurrences' => 1,
+				)
+			);
         }
 
         $arb = $this->get_authnet( 'ARB' );
@@ -215,30 +224,36 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
         $aim->setSandbox( $this->in_test_mode() );
 
         // Basic order info.
-        $aim->setFields( array(
-            'amount' => $args['amount'],
-            'description' => $args['description'],
-            'invoice_num' => $args['payment_id']
-        ) );
+		$aim->setFields(
+			array(
+				'amount'      => $args['amount'],
+				'description' => $args['description'],
+				'invoice_num' => $args['payment_id'],
+			)
+		);
 
         // Card info.
-        $aim->setFields( array(
-            'card_num' => $args['card_number'],
-            'exp_date' => sprintf( '%02d', $args['exp_month'] ) . substr( $args['exp_year'], 2 ),
-            'card_code' => $args['cvc']
-        ) );
+		$aim->setFields(
+			array(
+				'card_num'  => $args['card_number'],
+				'exp_date'  => sprintf( '%02d', $args['exp_month'] ) . substr( $args['exp_year'], 2 ),
+				'card_code' => $args['cvc'],
+			)
+		);
 
         // Billing info.
-        $aim->setFields( array(
-            'email' => ! empty( $args['email'] ) ? $args['email'] : '',
-            'first_name' => ! empty( $args['first_name'] ) ? $args['first_name'] : '',
-            'last_name' => ! empty( $args['last_name'] ) ? $args['last_name'] : '',
-            'address' => ! empty( $args['address'] ) ? $args['address'] : '',
-            'city' => ! empty( $args['city'] ) ? $args['city'] : '',
-            'state' => ! empty( $args['state'] ) ? $args['state'] : '',
-            'country' => ! empty( $args['country'] ) ? $args['country'] : '',
-            'zip' => ! empty( $args['zip'] ) ? $args['zip'] : ''
-        ) );
+		$aim->setFields(
+			array(
+				'email'      => ! empty( $args['email'] ) ? $args['email'] : '',
+				'first_name' => ! empty( $args['first_name'] ) ? $args['first_name'] : '',
+				'last_name'  => ! empty( $args['last_name'] ) ? $args['last_name'] : '',
+				'address'    => ! empty( $args['address'] ) ? $args['address'] : '',
+				'city'       => ! empty( $args['city'] ) ? $args['city'] : '',
+				'state'      => ! empty( $args['state'] ) ? $args['state'] : '',
+				'country'    => ! empty( $args['country'] ) ? $args['country'] : '',
+				'zip'        => ! empty( $args['zip'] ) ? $args['zip'] : ''
+			)
+		);
 
         $aim->setCustomField( 'payment_id', $args['payment_id'] );
         $aim->setCustomField( 'payment_key', $args['payment_key'] );

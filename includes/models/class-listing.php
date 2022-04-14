@@ -84,7 +84,7 @@ class WPBDP_Listing {
 
 	        if ( $get_ids ) {
 	            foreach ( $result as $i => $img ) {
-	                $result[$i] = $img->id;
+					$result[ $i ] = $img->id;
 	            }
 	        }
 
@@ -695,10 +695,13 @@ class WPBDP_Listing {
     public function update_plan( $plan = null, $args = array() ) {
         global $wpdb;
 
-        $args = wp_parse_args( $args, array(
-            'clear'       => 0, /* Whether to use old values (if available). */
-            'recalculate' => 1 /* Whether to recalculate the expiration or not */
-        ) );
+		$args = wp_parse_args(
+			$args,
+			array(
+				'clear'       => 0, /* Whether to use old values (if available). */
+				'recalculate' => 1 /* Whether to recalculate the expiration or not */
+			)
+		);
 
         $row = array();
 
@@ -867,10 +870,12 @@ class WPBDP_Listing {
      * @since 5.1.9
      */
     private function create_payment_from_plan( $payment_type, $plan ) {
-        $payment = new WPBDP_Payment( array(
-            'listing_id' => $this->id,
-            'payment_type' => $payment_type,
-        ) );
+		$payment = new WPBDP_Payment(
+			array(
+				'listing_id' => $this->id,
+				'payment_type' => $payment_type,
+			)
+		);
 
         if ( $plan->is_recurring ) {
             $item_description = sprintf( _x( 'Plan "%s" (recurring)', 'listing', 'business-directory-plugin' ), $plan->fee_label );
@@ -1009,10 +1014,13 @@ class WPBDP_Listing {
     }
 
     private static function parse_count_args( $args = array() ) {
-        $args = wp_parse_args( $args, array(
-            'post_status' => 'all',
-            'status' => 'all',
-        ) );
+		$args = wp_parse_args(
+			$args,
+			array(
+				'post_status' => 'all',
+				'status'      => 'all',
+			)
+		);
 
         if ( ! is_array( $args['post_status'] ) ) {
             if ( 'all' == $args['post_status'] ) {
@@ -1059,20 +1067,26 @@ class WPBDP_Listing {
         global $wpdb;
 
         $post_id = $wpdb->get_var(
-            $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
-            '_wpbdp[access_key]',
-            $key  )
+			$wpdb->prepare(
+				"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
+				'_wpbdp[access_key]',
+				$key
+			)
         );
 
         if ( ! $post_id ) {
             return false;
         }
 
-        return intval( $wpdb->get_var(
-            $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_value = %s",
-            $post_id,
-            $email  )
-        ) ) > 0;
+		return intval(
+			$wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_value = %s",
+					$post_id,
+					$email
+				)
+			)
+		) > 0;
     }
 
     /**
@@ -1084,8 +1098,14 @@ class WPBDP_Listing {
         if ( ! $sequence_id ) {
             global $wpdb;
 
-            $candidate = intval( $wpdb->get_var( $wpdb->prepare( "SELECT MAX(CAST(meta_value AS UNSIGNED INTEGER )) FROM {$wpdb->postmeta} WHERE meta_key = %s",
-                                                                 '_wpbdp[import_sequence_id]' ) ) );
+			$candidate = intval(
+				$wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT MAX(CAST(meta_value AS UNSIGNED INTEGER )) FROM {$wpdb->postmeta} WHERE meta_key = %s",
+						'_wpbdp[import_sequence_id]'
+					)
+				)
+			);
             $candidate++;
 
 			if ( false == add_post_meta( $this->id, '_wpbdp[import_sequence_id]', $candidate, true ) ) {

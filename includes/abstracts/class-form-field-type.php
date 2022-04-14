@@ -119,10 +119,12 @@ class WPBDP_Form_Field_Type {
                     break;
                 }
 
-                $value = sprintf( '<a href="%s" target=%s >%s</a>',
-                                  get_permalink( $post_id ),
-                                  wpbdp_get_option( 'listing-link-in-new-tab' ) ? '"_blank" rel="noopener"' : '"_self"',
-                                  esc_html( $value ) );
+				$value = sprintf(
+					'<a href="%s" target=%s >%s</a>',
+					get_permalink( $post_id ),
+					wpbdp_get_option( 'listing-link-in-new-tab' ) ? '"_blank" rel="noopener"' : '"_self"',
+					esc_html( $value )
+				);
                 break;
             case 'excerpt':
 				$value = apply_filters( 'get_the_excerpt', wpautop( $post->post_excerpt, true ), $post );

@@ -762,7 +762,7 @@ function wpbdp_admin_upgrade_link( $args, $page = '' ) {
 function wpbdp_ajaxurl( $overwrite = false ) {
     static $ajaxurl = false;
 
-    if ($overwrite || $ajaxurl === false) {
+	if ( $overwrite || $ajaxurl === false ) {
 		$url   = admin_url( 'admin-ajax.php' );
 		$parts = parse_url( $url );
 
@@ -787,7 +787,7 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
     $key = array_search( $value_, $array_ );
 
     if ( $key !== false ) {
-        unset( $array_[$key] );
+		unset( $array_[ $key ] );
     }
 
     return true;
