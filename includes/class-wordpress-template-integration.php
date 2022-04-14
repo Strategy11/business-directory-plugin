@@ -305,7 +305,7 @@ class WPBDP__WordPress_Template_Integration {
     }
 
 	public function _single_template( $template ) {
-        if (is_single() && get_post_type() == WPBDP_POST_TYPE) {
+		if ( is_single() && get_post_type() === WPBDP_POST_TYPE ) {
 			return wpbdp_locate_template( array( 'businessdirectory-single', 'wpbusdirman-single' ) );
         }
 
