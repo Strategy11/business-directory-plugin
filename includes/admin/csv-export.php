@@ -58,7 +58,7 @@ class WPBDP_Admin_CSVExport {
                     $export->advance();
                 }
             }
-        } catch (Exception $e) {
+		} catch ( Exception $e ) {
             $error = $e->getMessage();
         }
 

@@ -9,20 +9,23 @@ require_once( WPBDP_PATH . 'includes/widgets/class-listings-widget.php' );
 class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
 
     public function __construct() {
-        parent::__construct( _x( 'Business Directory - Featured Listings', 'widgets', 'business-directory-plugin' ),
-                             _x( 'Displays a list of the featured/sticky listings in the directory.', 'widgets', 'business-directory-plugin' ) );
+		parent::__construct(
+			_x( 'Business Directory - Featured Listings', 'widgets', 'business-directory-plugin' ),
+			_x( 'Displays a list of the featured/sticky listings in the directory.', 'widgets', 'business-directory-plugin' )
+		);
 
         $this->set_default_option_value( 'title', _x( 'Featured Listings', 'widgets', 'business-directory-plugin' ) );
     }
 
     protected function _form( $instance ) {
-        printf( '<p><input id="%s" name="%s" type="checkbox" value="1" %s /> <label for="%s">%s</label></p>',
-                $this->get_field_id( 'random_order' ),
-                $this->get_field_name( 'random_order' ),
-                ! empty( $instance['random_order'] ) ? 'checked="checked"' : '',
-                $this->get_field_id( 'random_order' ),
-                _x( 'Display listings in random order', 'widgets', 'business-directory-plugin' )
-              );
+		printf(
+			'<p><input id="%s" name="%s" type="checkbox" value="1" %s /> <label for="%s">%s</label></p>',
+			esc_attr( $this->get_field_id( 'random_order' ) ),
+			esc_attr( $this->get_field_name( 'random_order' ) ),
+			! empty( $instance['random_order'] ) ? 'checked="checked"' : '',
+			esc_attr( $this->get_field_id( 'random_order' ) ),
+			esc_html__( 'Display listings in random order', 'business-directory-plugin' )
+		);
     }
 
 	public function update( $new, $old ) {

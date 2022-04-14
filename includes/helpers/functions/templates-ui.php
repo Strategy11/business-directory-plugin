@@ -108,10 +108,13 @@ function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
     }
 
     // filter empty terms
-    if ( $args['hide_empty'] ) {
-        $terms = array_filter( $terms, function( $x ) {
-            return $x->count > 0;
-        } );
+	if ( $args['hide_empty'] ) {
+		$terms = array_filter(
+			$terms,
+			function( $x ) {
+				return $x->count > 0;
+			}
+		);
     }
 
     $html = '';
@@ -300,32 +303,32 @@ function wpbdp_main_links( $buttons = null ) {
 	$html          = array();
 	$current_page  = ( is_ssl() ? 'https://' : 'http://' ) . wpbdp_get_server_value( 'HTTP_HOST' ) . wpbdp_get_server_value( 'REQUEST_URI' );
 
-	if ( in_array( 'directory', $buttons ) ) {
+	if ( in_array( 'directory', $buttons, true ) ) {
 		$link = wpbdp_url( '/' );
 		if ( $current_page !== $link ) {
-			$html[] = '<a href="' . esc_url( $link ) .'" id="wpbdp-bar-show-directory-button" class="button wpbdp-button">' .
+			$html[] = '<a href="' . esc_url( $link ) . '" id="wpbdp-bar-show-directory-button" class="button wpbdp-button">' .
 				esc_html__( 'Directory', 'business-directory-plugin' ) .
 				'</a>';
 		}
 	}
 
-    if ( in_array( 'listings', $buttons ) ) {
+	if ( in_array( 'listings', $buttons, true ) ) {
 		$link = wpbdp_url( 'all_listings' );
 		if ( $current_page !== $link ) {
-			$html[] = '<a href="' . esc_url( $link ) .'" id="wpbdp-bar-view-listings-button" class="button wpbdp-button">' .
+			$html[] = '<a href="' . esc_url( $link ) . '" id="wpbdp-bar-view-listings-button" class="button wpbdp-button">' .
 				esc_html__( 'View All Listings', 'business-directory-plugin' ) .
 				'</a>';
 		}
     }
 
-    if ( in_array( 'manage', $buttons ) ) {
-		$html[] = '<a href="' . esc_url( wpbdp_url( 'manage_listings' ) ) .'" id="wpbdp-bar-manage-listing-button" class="button wpbdp-button">' .
+	if ( in_array( 'manage', $buttons, true ) ) {
+		$html[] = '<a href="' . esc_url( wpbdp_url( 'manage_listings' ) ) . '" id="wpbdp-bar-manage-listing-button" class="button wpbdp-button">' .
 			esc_html__( 'Manage Listings', 'business-directory-plugin' ) .
 			'</a>';
     }
 
-    if ( in_array( 'create', $buttons ) ) {
-        $html[] = '<a href="' . esc_url( wpbdp_url( 'submit_listing' ) ) .'" id="wpbdp-bar-submit-listing-button" class="button wpbdp-button">' .
+	if ( in_array( 'create', $buttons, true ) ) {
+		$html[] = '<a href="' . esc_url( wpbdp_url( 'submit_listing' ) ) . '" id="wpbdp-bar-submit-listing-button" class="button wpbdp-button">' .
 			esc_html__( 'Add Listing', 'business-directory-plugin' ) .
 			'</a>';
     }
