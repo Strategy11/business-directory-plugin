@@ -50,30 +50,6 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
             }
         }
 
-
-        // {{{ Quick search.
-        private function get_quick_search_fields() {
-            $fields = array();
-
-            foreach ( wpbdp_get_option( 'quick-search-fields', array() ) as $field_id ) {
-				$field = WPBDP_Form_Field::get( $field_id );
-                if ( $field ) {
-                    $fields[] = $field;
-                }
-            }
-
-            if ( ! $fields ) {
-                // Use default fields.
-                foreach ( wpbdp_get_form_fields() as $field ) {
-                    if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ) ) ) {
-                        $fields[] = $field;
-                    }
-                }
-            }
-
-            return $fields;
-        }
-
         /**
          * Performs a "quick search" for listings on the fields marked as quick-search fields in the plugin settings page.
          *
@@ -86,7 +62,6 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 			return array();
         }
 
-        // }}}
         /**
          * @deprecated since 5.0. Added back in 5.1.2 for compatibility with other plugins (#3178)
          */
@@ -101,6 +76,3 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
         }
 
     }
-
-}
-
