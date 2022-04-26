@@ -262,7 +262,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
     public function ajax_reset_plan() {
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
         if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) ) {
             wp_die();
@@ -324,7 +324,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
     public function ajax_sections() {
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
         if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) ) {
             $res->send_error( $msg );

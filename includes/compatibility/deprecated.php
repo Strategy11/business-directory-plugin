@@ -62,7 +62,7 @@ function wpbusdirman_the_listing_meta( $excerptorsingle ) {
     $fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
 
     foreach ( $fields as &$f ) {
-		if ( $excerptorsingle === 'excerpt' && ! $field->display_in( 'excerpt' ) ) {
+		if ( $excerptorsingle === 'excerpt' && ! $f->display_in( 'excerpt' ) ) {
             continue;
 		}
 
@@ -74,7 +74,7 @@ function wpbusdirman_the_listing_meta( $excerptorsingle ) {
 
 function wpbusdirman_display_excerpt( $deprecated = null ) {
 	_deprecated_function( __FUNCTION__, '', 'wpbusdirman_post_excerpt' );
-	echo wpbusdirman_post_excerpt( $deprecated );
+	echo wpbusdirman_post_excerpt();
 }
 
 function wpbusdirman_post_excerpt() {
@@ -292,7 +292,7 @@ function wpbdp_get_fee( $fee_id ) {
  * Finds fees available for one or more directory categories.
  *
  * @param int|array $categories term ID or array of term IDs
- * @return object|
+ * @return object
  * @since 3.0.3
  * @deprecated since 3.7. Use {@link wpbdp_get_fee_plans()} instead.
  */

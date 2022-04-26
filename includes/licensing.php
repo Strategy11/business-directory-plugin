@@ -419,7 +419,7 @@ class WPBDP_Licensing {
 
 	private function license_action( $item_type, $item_id, $action, $key = 0 ) {
         if ( ! in_array( $item_id, array_keys( $this->items ), true ) ) {
-            return new WP_Error( 'invalid-module', esc_html__( 'Invalid item ID', 'business-directory-plugin' ), $module );
+            return new WP_Error( 'invalid-module', esc_html__( 'Invalid item ID', 'business-directory-plugin' ) );
         }
 
         if ( 'deactivate' === $action ) {
@@ -935,7 +935,7 @@ class WPBDP_Licensing {
         }
 
 		$result   = $this->license_action( $item_type, $item_id, 'deactivate' );
-        $response = new WPBDP_Ajax_Response();
+        $response = new WPBDP_AJAX_Response();
 
         if ( is_wp_error( $result ) ) {
             $response->send_error( sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ) );

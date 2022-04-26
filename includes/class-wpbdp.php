@@ -435,7 +435,7 @@ final class WPBDP {
 
     // TODO: better validation.
     public function ajax_listing_submit_image_upload() {
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
         $listing_id = intval( $_REQUEST['listing_id'] );
 
@@ -541,7 +541,7 @@ final class WPBDP {
     }
 
     public function ajax_listing_submit_image_delete() {
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
 		$image_id   = wpbdp_get_var( array( 'param' => 'image_id', 'sanitize' => 'intval' ), 'request' );
 		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'intval' ), 'request' );

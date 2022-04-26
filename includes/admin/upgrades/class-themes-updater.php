@@ -155,7 +155,7 @@ class WPBDP_Themes_Updater {
 			wp_die();
 		}
 
-        $response = new WPBDP_Ajax_Response();
+        $response = new WPBDP_AJAX_Response();
 
         $theme = $this->themes_api->get_theme( $theme_id );
 

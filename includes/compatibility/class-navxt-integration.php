@@ -185,7 +185,7 @@ class WPBDP_NavXT_Integration {
             return;
 
         global $wp_query;
-        $term = get_term( $category_id, WPBDP_CATEGORY_TAX );
+        $term = get_term( $tag['term_id'], WPBDP_CATEGORY_TAX );
         $this->state['queried'] = $wp_query->get_queried_object();
 
         $wp_query->is_singular = false;

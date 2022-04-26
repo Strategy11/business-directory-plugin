@@ -96,7 +96,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		$payment    = WPBDP_Payment::objects()->get( $payment_id );
 		$text       = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ), 'post' ) );
 
-		$res = new WPBDP_Ajax_Response();
+		$res = new WPBDP_AJAX_Response();
 
 		if ( ! $payment || ! $text ) {
 			$res->send_error();
@@ -126,7 +126,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ) );
 		$note_key   = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ) ) );
 
-		$res = new WPBDP_Ajax_Response();
+		$res = new WPBDP_AJAX_Response();
 
 		$note = wpbdp_get_log( $note_key );
 		if ( 'payment.note' != $note->log_type || $payment_id != $note->object_id ) {

@@ -360,7 +360,7 @@ class WPBDP_Admin_Listings {
             }
         }
 
-        if ( count( WPBDP__Listing_flagging::get_flagging_meta( $listing->get_id() ) ) ) {
+        if ( count( WPBDP__Listing_Flagging::get_flagging_meta( $listing->get_id() ) ) ) {
             $attributes['reported'] = '<span class="wpbdp-tag wpbdp-listing-attr-reported">' . _x( 'Reported', 'admin listings', 'business-directory-plugin' ) . '</span>';
         }
 

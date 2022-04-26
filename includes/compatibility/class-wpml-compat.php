@@ -123,7 +123,7 @@ class WPBDP_WPML_Compat {
     /**
      * Add current language to the URL used in BD's ajax requests.
      *
-     * @param $ajax_url string  Default value for Ajax URL.
+     * @param string $ajax_url Default value for Ajax URL.
      *
      * @since 5.0.3
      */
@@ -324,6 +324,9 @@ class WPBDP_WPML_Compat {
 		}
 	}
 
+	/**
+	 * @param WP_Query $query
+	 */
     public function maybe_change_query( $query ) {
         if ( ! $query->wpbdp_is_main_page || empty( $query->query['page_id'] ) ) {
             return;

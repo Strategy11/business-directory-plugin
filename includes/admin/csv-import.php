@@ -56,14 +56,11 @@ class WPBDP_CSVImportAdmin {
             die();
         }
 
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
         try {
             $import = new WPBDP_CSV_Import( $import_id );
         } catch ( Exception $e ) {
-            if ( isset( $import ) && $import ) {
-                $import->cleanup();
-            }
             $res->send_error( $e->getMessage() );
         }
 
@@ -412,7 +409,7 @@ class WPBDP_CSVImportAdmin {
 	private function add_file_to_sources( $type, &$sources ) {
 		$file = wpbdp_get_var( array( 'param' => $type . '-file-local' ), 'post' );
 
-		if ( $file && $this->is_correct_type( $allowed_type[ $type ], $file ) ) {
+		if ( $file && $this->is_correct_type( $type, $file ) ) {
 			$this->files[ $type ] = $this->get_imports_dir() . DIRECTORY_SEPARATOR . basename( $file );
 
 			$sources[] = basename( $this->files[ $type ] );

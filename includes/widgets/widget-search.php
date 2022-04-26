@@ -79,6 +79,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 
         echo '</select>';
         echo '</p>';
+		return '';
     }
 
 	public function update( $new, $old ) {

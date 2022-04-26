@@ -212,7 +212,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          */
         public function ajax_create_main_page() {
             $nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
-			$res = new WPBDP_Ajax_Response();
+			$res = new WPBDP_AJAX_Response();
             if ( ! current_user_can( 'administrator' ) || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
 				$res->send_error();
             }
@@ -247,7 +247,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
          * @since 3.4.1
          */
         public function ajax_drip_subscribe() {
-            $res   = new WPBDP_Ajax_Response();
+            $res   = new WPBDP_AJAX_Response();
             $nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
 
             if ( ! get_option( 'wpbdp-show-drip-pointer' ) || ! wp_verify_nonce( $nonce, 'drip pointer subscribe' ) ) {
@@ -588,7 +588,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         }
 
         public function ajax_formfields_reorder() {
-            $response = new WPBDP_Ajax_Response();
+            $response = new WPBDP_AJAX_Response();
 
             if ( ! current_user_can( 'administrator' ) ) {
                 $response->send_error();
@@ -617,7 +617,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                 exit();
             }
 
-            $res = new WPBDP_Ajax_Response();
+            $res = new WPBDP_AJAX_Response();
             wpbdp_set_option( 'fee-order', $order );
             $res->send();
         }
@@ -625,7 +625,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
         public function ajax_fees_reorder() {
             global $wpdb;
 
-            $response = new WPBDP_Ajax_Response();
+            $response = new WPBDP_AJAX_Response();
 
             if ( ! current_user_can( 'administrator' ) ) {
                 $response->send_error();
@@ -656,7 +656,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             $nonce   = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
             $user_id = get_current_user_id();
 
-            $res = new WPBDP_Ajax_Response();
+            $res = new WPBDP_AJAX_Response();
 
             if ( ! $id || ! $nonce || ! $user_id || ! wp_verify_nonce( $nonce, 'dismiss notice ' . $id ) ) {
                 $res->send_error();
@@ -1256,7 +1256,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             if ( class_exists( 'WPBDP_RegionsAdmin' ) ) {
                 global $submenu;
 
-                $parent_file  = sprintf( 'wpbdp_admin', WPBDP_POST_TYPE );
+                $parent_file  = 'wpbdp_admin';
                 $submenu_file = 'edit-tags.php?taxonomy=%s&amp;post_type=%s';
                 $submenu_file = sprintf( $submenu_file, wpbdp_regions_taxonomy(), WPBDP_POST_TYPE );
 

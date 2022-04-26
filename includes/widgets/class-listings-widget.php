@@ -73,6 +73,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	public function form( $instance ) {
 		$instance = $this->instance_defaults( $instance );
 		require WPBDP_INC . 'views/widget/widget-settings.php';
+		return '';
 	}
 
 	/**
