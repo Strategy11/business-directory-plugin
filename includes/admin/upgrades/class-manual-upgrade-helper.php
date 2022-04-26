@@ -11,7 +11,7 @@ class WPBDP__Manual_Upgrade_Helper {
         $this->installer = $installer;
 
         $this->load_manual_upgrades();
-        $this->prepare_manual_upgrade_callbacks( $this->manual_upgrades );
+		$this->prepare_manual_upgrade_callbacks();
 
         add_action( 'admin_notices', array( &$this, 'upgrade_required_notice' ) );
         add_action( 'admin_menu', array( &$this, 'add_upgrade_page' ) );

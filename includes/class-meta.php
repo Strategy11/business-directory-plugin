@@ -98,7 +98,7 @@ class WPBDP__Meta {
 
         if ( $this->_do_wpseo ) {
 
-            remove_filter( 'wp_title', array( $this, '_meta_title' ), 10, 3 );
+			remove_filter( 'wp_title', array( $this, '_meta_title' ), 10 );
             add_filter( 'wp_title', array( $this, '_meta_title' ), 16, 3 );
             add_filter( 'pre_get_document_title', array( $this, '_meta_title' ), 16 );
 

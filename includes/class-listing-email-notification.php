@@ -94,7 +94,7 @@ class WPBDP__Listing_Email_Notification {
      * Remove action handlers used to send listing published notification.
      */
     public function try_to_remove_listing_published_notification_action() {
-        remove_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
+		remove_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX );
         remove_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), PHP_INT_MAX );
     }
 
@@ -338,7 +338,7 @@ class WPBDP__Listing_Email_Notification {
             }
 
             $owner = wpbusdirman_get_the_business_email( $listing->get_id() );
-            if ( ! empty( $payment ) ) {
+			if ( $payment ) {
                 $amount = $payment->amount;
             } else {
                 $plan   = $listing->get_fee_plan();

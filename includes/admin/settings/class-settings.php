@@ -432,28 +432,6 @@ class WPBDP__Settings {
         return false;
     }
 
-    /* emulates get_wpbusdirman_config_options() in version 2.0 until
-     * all deprecated code has been ported. */
-    public function pre_2_0_compat_get_config_options() {
-        $legacy_options = array();
-
-		foreach ( $this->pre_2_0_options() as $old_key => $new_key ) {
-			$setting_value = $this->get( $new_key );
-
-			if ( $new_key === 'paypal' || $new_key === '2checkout' ) {
-				$setting_value = ! $setting_value;
-			}
-
-            if ( $this->settings[ $new_key ]->type === 'boolean' ) {
-                $setting_value = $setting_value == true ? 'yes' : 'no';
-            }
-
-			$legacy_options[ $old_key ] = $setting_value;
-        }
-
-        return $legacy_options;
-    }
-
     /**
      * Resets settings to their default values. This includes ALL premium modules too, so use with care.
      */
@@ -586,117 +564,36 @@ class WPBDP__Settings {
         return $value;
     }
 
-    /* upgrade from old-style settings to new options */
-    public function pre_2_0_options() {
-        static $option_translations = array(
-            /* 'wpbusdirman_settings_config_25' => 'hide-buy-module-buttons',*/  /* removed in 2.0 */
-            'wpbusdirman_settings_config_26' => 'hide-tips',
-            'wpbusdirman_settings_config_27' => 'show-contact-form',
-            'wpbusdirman_settings_config_36' => 'show-comment-form',
-            'wpbusdirman_settings_config_34' => 'credit-author',
-            'wpbusdirman_settings_config_38' => 'listing-renewal',
-            'wpbusdirman_settings_config_39' => 'use-default-picture',
-            'wpbusdirman_settings_config_44' => 'show-listings-under-categories',
-            'wpbusdirman_settings_config_45' => 'override-email-blocking',
-            'wpbusdirman_settings_config_47' => 'deleted-status',
-            'wpbusdirman_settings_config_3' => 'require-login',
-            'wpbusdirman_settings_config_4' => 'login-url',
-            'wpbusdirman_settings_config_5' => 'registration-url',
-            'wpbusdirman_settings_config_1' => 'new-post-status',
-            'wpbusdirman_settings_config_19' => 'edit-post-status',
-            'wpbusdirman_settings_config_7' => 'categories-order-by',
-            'wpbusdirman_settings_config_8' => 'categories-sort',
-            'wpbusdirman_settings_config_9' => 'show-category-post-count',
-            'wpbusdirman_settings_config_10' => 'hide-empty-categories',
-            'wpbusdirman_settings_config_48' => 'show-only-parent-categories',
-            'wpbusdirman_settings_config_52' => 'listings-order-by',
-            'wpbusdirman_settings_config_53' => 'listings-sort',
-            'wpbusdirman_settings_config_6' => 'allow-images',
-            'wpbusdirman_settings_config_11' => 'show-thumbnail',
-            'wpbusdirman_settings_config_13' => 'image-max-filesize',
-            'wpbusdirman_settings_config_14' => 'image-min-filesize',
-            'wpbusdirman_settings_config_15' => 'image-max-width',
-            'wpbusdirman_settings_config_16' => 'image-max-height',
-            'wpbusdirman_settings_config_17' => 'thumbnail-width',
-            'wpbusdirman_settings_config_20' => 'currency',
-            'wpbusdirman_settings_config_12' => 'currency-symbol',
-            'wpbusdirman_settings_config_21' => 'payments-on',
-            'wpbusdirman_settings_config_22' => 'payments-test-mode',
-            'wpbusdirman_settings_config_37' => 'payment-message',
-            'wpbusdirman_settings_config_23' => 'googlecheckout-merchant',
-            'wpbusdirman_settings_config_24' => 'googlecheckout-seller',
-            'wpbusdirman_settings_config_40' => 'googlecheckout',
-            'wpbusdirman_settings_config_35' => 'paypal-business-email',
-            'wpbusdirman_settings_config_41' => 'paypal',
-            'wpbusdirman_settings_config_42' => '2checkout-seller',
-            'wpbusdirman_settings_config_43' => '2checkout',
-            'wpbusdirman_settings_config_31' => 'featured-on',
-            'wpbusdirman_settings_config_32' => 'featured-price',
-            'wpbusdirman_settings_config_33' => 'featured-description',
-            'wpbusdirman_settings_config_28' => 'recaptcha-public-key',
-            'wpbusdirman_settings_config_29' => 'recaptcha-private-key',
-            'wpbusdirman_settings_config_30' => 'recaptcha-on',
-            'wpbusdirman_settings_config_49' => 'permalinks-directory-slug',
-            'wpbusdirman_settings_config_50' => 'permalinks-category-slug',
-            'wpbusdirman_settings_config_51' => 'permalinks-tags-slug'
-        );
-        return $option_translations;
-    }
-
-    public function upgrade_options() {
-		if ( ! $this->settings ) {
-			$this->_register_settings();
-		}
-
-        $translations = $this->pre_2_0_options();
-
-		$old_options = get_option( 'wpbusdirman_settings_config' );
-		if ( $old_options ) {
-			foreach ( $old_options as $option ) {
-				$id    = strtolower( $option['id'] );
-				$type  = strtolower( $option['type'] );
-                $value = $option['std'];
-
-				if ( $type === 'titles' || $id === 'wpbusdirman_settings_config_25' || empty( $value ) ) {
-                    continue;
-				}
-
-				if ( $id === 'wpbusdirman_settings_config_40' ) {
-					$this->set( 'googlecheckout', $value === 'yes' ? false : true );
-				} elseif ( $id === 'wpbusdirman_settings_config_41' ) {
-					$this->set( 'paypal', $value === 'yes' ? false : true );
-				} elseif ( $id === 'wpbusdirman_settings_config_43' ) {
-					$this->set( '2checkout', $value === 'yes' ? false : true );
-				} else {
-					if ( ! isset( $this->settings[ $translations[ $id ] ] ) ) {
-						continue;
-					}
-
-					$newsetting = $this->settings[ $translations[ $id ] ];
-
-					switch ( $newsetting->type ) {
-                        case 'boolean':
-							$this->set( $newsetting->name, $value === 'yes' );
-                            break;
-                        case 'choice':
-                        case 'text':
-                        default:
-							$this->set( $newsetting->name, $value );
-                            break;
-                    }
-                }
-            }
-
-			delete_option( 'wpbusdirman_settings_config' );
-        }
-    }
-
     public function set_new_install_settings() {
         $this->set_option( 'show-manage-listings', true );
     }
 
+	/**
+	 * @deprecated 6.0.2
+	 */
+	public function pre_2_0_options() {
+		_deprecated_function( __METHOD__, '6.0.2' );
+		return array();
+	}
+
+	/**
+	 * @deprecated 6.0.2
+	 */
+	public function upgrade_options() {
+		_deprecated_function( __METHOD__, '6.0.2' );
+	}
+
+	/**
+	 * Emulates get_wpbusdirman_config_options() in version 2.0 until
+	 * all deprecated code has been ported.
+	 *
+	 * @deprecated 6.0.2
+	 */
+	public function pre_2_0_compat_get_config_options() {
+		_deprecated_function( __METHOD__, '6.0.2' );
+		return array();
+	}
 }
 
 // For backwards compat.
 class WPBDP_Settings extends WPBDP__Settings {}
-

@@ -12,7 +12,6 @@ parameters:
 		- stubs.php
 	ignoreErrors:
 		- '#Access to an undefined property#'
-		- '#Cannot (call method|cast|assign offset)+#'
 		- '#no (typehint|value type|return type)+ specified.#'
 		- '#might not be defined.#'
 		- '#Function (apply_filters)+ invoked with#'

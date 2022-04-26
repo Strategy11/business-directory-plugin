@@ -155,16 +155,21 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
     public function get_created_at_date() {
         $date = date_parse( $this->created_at );
-        extract( $date );
 
-        return compact( 'year', 'month', 'day' );
+		return array(
+			'year'  => $date['year'],
+			'month' => $date['month'],
+			'day'   => $date['day'],
+		);
     }
 
     public function get_created_at_time() {
         $date = date_parse( $this->created_at );
-        extract( $date );
 
-        return compact( 'hour', 'minute' );
+		return array(
+			'hour'   => $date['hour'],
+			'minute' => $date['minute'],
+		);
     }
 
     public function get_payer_details() {
@@ -345,14 +350,6 @@ class WPBDP_Payment extends WPBDP__DB__Model {
         $this->save();
     }
 
-    public function is_canceled() {
-        return $this->status == self::STATUS_CANCELED;
-    }
-
-    public function is_rejected() {
-        return $this->status == self::STATUS_REJECTED;
-    }
-
     public function has_been_processed() {
         return ! empty( $this->processed_by );
     }
@@ -402,6 +399,22 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	 */
 	public function show_payment_options() {
 		return ( $this->has_item_type( 'recurring_plan' ) || $this->amount > 0 );
+	}
+
+	/**
+	 * @deprecated 6.0.2
+	 */
+	public function is_canceled() {
+		_deprecated_function( __METHOD__, '6.0.2' );
+		return $this->status === 'canceled';
+	}
+
+	/**
+	 * @deprecated 6.0.2
+	 */
+	public function is_rejected() {
+		_deprecated_function( __METHOD__, '6.0.2' );
+		return false;
 	}
 }
 

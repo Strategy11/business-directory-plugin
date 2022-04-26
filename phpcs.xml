@@ -7,6 +7,7 @@
 	<exclude-pattern>node_modules/*</exclude-pattern>
     <exclude-pattern>themes/*</exclude-pattern> <!-- Remove me -->
     <exclude-pattern>includes/admin/upgrades/migrations/*</exclude-pattern>
+    <exclude-pattern>stubs.php</exclude-pattern>
 
     <arg value="s" />
 

@@ -13,6 +13,13 @@ define( 'YEAR_IN_SECONDS', 365 * DAY_IN_SECONDS );
 define( 'ABSPATH', realpath( __FILE__ . '/../../../../' ) );
 define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
 define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
+define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
+define( 'WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins' );
+define( 'WPINC', 'wp-includes' );
+define( 'PCLZIP_OPT_REMOVE_ALL_PATH', 77004 );
+define( 'PCLZIP_OPT_REMOVE_PATH', 77003 );
+define( 'PCLZIP_OPT_PATH', 77001 );
+define( 'PCLZIP_OPT_ADD_PATH', 77002 );
 
 define( 'WPBDP_POST_TYPE', 'wpbdp_listing' );
 define( 'WPBDP_CATEGORY_TAX', 'wpbdp_category' );
@@ -37,9 +44,29 @@ function wpbdp() {
 	return $instance;
 }
 
+abstract class AuthorizeNetRequest {
+	public function __construct( $api_login_id = false, $transaction_key = false ) {
+	}
+}
+
+class AuthorizeNetException extends Exception {
+}
+
+class AuthorizeNetARB extends AuthorizeNetRequest {
+}
+
+class AuthorizeNetAIM extends AuthorizeNetRequest {
+}
+
+class AuthorizeNet_Subscription {
+}
+
 /* Add-ons */
 
 function wpbdp_regions_taxonomy() {
+}
+
+function wpbdp_regions_api() {
 }
 
 class WPBDP_Addons {

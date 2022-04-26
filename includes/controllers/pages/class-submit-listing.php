@@ -940,11 +940,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * @since 5.10
 	 *
-	 * @return false|int - False if multiple categories.
+	 * @return void
 	 */
 	private function set_fixed_category_id() {
 		if ( $this->category_count !== false ) {
-			return $this->fixed_category;
+			return;
 		}
 
 		$this->category_count = (int) wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );

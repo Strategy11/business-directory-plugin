@@ -332,11 +332,11 @@ class WPBDP__Settings_Admin {
 	 *
 	 * @since 6.0
 	 *
-	 * @return string
+	 * @return void
 	 */
 	private function setting_input_label( $setting, $tag = 'label', $class = '' ) {
 		if ( empty( $setting['name'] ) ) {
-			return '';
+			return;
 		}
 
 		$tooltip = $this->setting_tooltip( $setting['tooltip'] );

@@ -14,22 +14,20 @@ function wpbdp_insert_log( $args = array() ) {
         'message' => '',
         'data' => null
     );
-    $args = wp_parse_args( $args, $defaults );
-    extract( $args );
+	$row = wp_parse_args( $args, $defaults );
 
-    if ( ! $object_type && false !== strstr( $log_type, '.' ) ) {
-        $parts = explode( '.', $log_type );
-        $object_type = $parts[0];
-    }
+	if ( ! $row['object_type'] && false !== strstr( $row['log_type'], '.' ) ) {
+		$parts = explode( '.', $row['log_type'] );
+		$row['object_type'] = $parts[0];
+	}
 
-    $object_id = absint( $object_id );
-    $message = trim( $message );
-    $data = $data ? serialize( $data ) : null;
+	$row['object_id'] = absint( $row['object_id'] );
+	$row['message']   = trim( $row['message'] );
+	$row['data']      = $row['data'] ? serialize( $row['data'] ) : null;
 
-    $row = compact( 'object_type', 'object_id', 'rel_object_id', 'created_at', 'log_type', 'actor', 'message', 'data' );
-
-    if ( ! $data )
-        unset( $row['data'] );
+	if ( ! $row['data'] ) {
+		unset( $row['data'] );
+	}
 
     global $wpdb;
     if ( ! $wpdb->insert( $wpdb->prefix . 'wpbdp_logs', $row ) )
@@ -39,7 +37,6 @@ function wpbdp_insert_log( $args = array() ) {
 
     return (object) $row;
 }
-
 
 /**
  * @since 5.0

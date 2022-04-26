@@ -363,9 +363,6 @@ class WPBDP_Admin_Pages {
 	 * @since 6.0
 	 */
 	private static function get_title( $title = '' ) {
-		if ( isset( $args['title'] ) ) {
-			$title = $args['title'];
-		}
 		if ( $title ) {
 			return $title;
 		}

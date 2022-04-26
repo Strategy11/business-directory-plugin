@@ -20,13 +20,17 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
     /**
      * WPBDP_FieldTypes_Select constructor.
      */
-    public function __construct() {
-        parent::__construct( esc_html__( 'Select List', 'business-directory-plugin' ) );
-    }
+	public function __construct( $name = '' ) {
+		if ( empty( $name ) ) {
+			$name = __( 'Select List', 'business-directory-plugin' );
+		}
+		parent::__construct( $name );
+	}
 
     public function get_id() {
         return 'select';
     }
+
     public function set_multiple( $val ) {
         $this->multiselect = (bool) $val;
     }

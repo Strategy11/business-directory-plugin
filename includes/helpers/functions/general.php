@@ -1110,7 +1110,7 @@ function wpbdp_locate_template( $template, $allow_override = true, $try_defaults
 		_deprecated_argument( __FUNCTION__, '5.13.2', 'Defaults are always checked here. Use $wpbdp->themes->template_has_override' );
 
 		// Temporary reverse compatibility: The BD folder was checked when it shouldn't be. Remove it.
-		if ( strpos( $template_path, WPBDP_TEMPLATES_PATH ) !== false ) {
+		if ( strpos( $template_file, WPBDP_TEMPLATES_PATH ) !== false ) {
 			$template_file = '';
 		}
 	} elseif ( ! $allow_override ) {

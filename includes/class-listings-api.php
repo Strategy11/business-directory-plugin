@@ -77,30 +77,13 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
         /**
          * Performs a "quick search" for listings on the fields marked as quick-search fields in the plugin settings page.
          *
-         * @uses WPBDP_ListingsAPI::get_quick_search_fields().
-         * @param string $keywords The string used for searching.
-         * @param mixed  $location Location information.
          * @return array The listing IDs.
          * @since 3.4
+		 * @deprecated 6.0
          */
-        public function quick_search( $keywords, $location = false ) {
-            $keywords = trim( $keywords );
-
-            if ( ! $keywords && ! $location ) {
-                return array();
-            }
-
-            require_once WPBDP_PATH . 'core/helpers/class-search-helper.php';
-
-            $args = array(
-                'query'    => $keywords,
-                'mode'     => 'quick-search',
-                'location' => $location,
-                'fields'   => $this->get_quick_search_fields(),
-            );
-
-            $helper = new WPBDP__Search_Helper( $args );
-            return $helper->get_posts();
+        public function quick_search() {
+			_deprecated_function( __METHOD__, '6.0' );
+			return array();
         }
 
         // }}}

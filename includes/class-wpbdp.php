@@ -250,8 +250,8 @@ final class WPBDP {
 	 * @since 5.13
 	 */
 	private function remove_translation_filters() {
-		remove_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10, 3 );
-		remove_filter( 'gettext_with_context', array( &$this, 'use_custom_context_strings' ), 10, 4 );
+		remove_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10 );
+		remove_filter( 'gettext_with_context', array( &$this, 'use_custom_context_strings' ), 10 );
 	}
 
 	/**

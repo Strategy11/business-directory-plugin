@@ -103,7 +103,7 @@ class WPBDP_Licensing {
 		}
 
 		$errors = $this->get_license_errors();
-		if ( empty( $errors ) ) {
+		if ( ! $errors ) {
 			return;
 		}
 
