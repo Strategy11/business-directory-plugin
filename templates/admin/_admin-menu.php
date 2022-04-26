@@ -5,6 +5,7 @@
 			'title' => $title,
 		)
 	);
+	$wp_filesystem = new WP_Filesystem_Direct( null );
 	?>
 	<ul class="wpbdp-nav-items">
 		<?php
@@ -27,8 +28,14 @@
 				<a class="<?php echo $active_tab === $tab_id ? 'active ' : ''; ?><?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( $link ); ?>" title="<?php echo esc_html( $tab['title'] ); ?>">
 					<span class="wpbdp-nav-item-icon <?php echo esc_attr( ( strpos( $tab['icon'], ' ' ) === false ? 'wpbdp-admin-icon-' : '' ) . $tab['icon'] ); ?>">
 						<?php
-						if ( strpos( $tab['icon'], ' ' ) === false ) {
-							echo file_get_contents( WPBDP_ASSETS_URL . 'images/icons/' . esc_attr( $tab['icon'] ) . '.svg' );
+						if ( ! empty( $tab['icon_url'] ) ) {
+							if ( ini_get( 'allow_url_fopen' ) ) {
+								echo $wp_filesystem->get_contents( $tab['icon_url'] );
+							} else {
+								echo '<img src="' . esc_url( $tab['icon_url'] ) . '" alt="' . esc_attr( $tab['icon'] ) . '" />';
+							}
+						} elseif ( strpos( $tab['icon'], ' ' ) === false ) {
+							echo $wp_filesystem->get_contents( esc_attr( $tab['icon'] ) );
 						}
 						?>
 					</span>

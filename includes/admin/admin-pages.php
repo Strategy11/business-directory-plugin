@@ -229,14 +229,17 @@ class WPBDP_Admin_Pages {
 		 * @since 6.0.1
 		 */
 		$tabs = apply_filters( 'wpbdp_tab_content', $tabs, array( 'settings' => ! empty( $args['tabs'] ) ) );
+		self::add_icon_url( $tabs );
 
 		$title = $args['title'];
 	?>
 	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?> <?php echo ! $args['show_nav'] ? 'wpbdp-admin-page-full-width' : ''; ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
 		<div class="wpbdp-admin-row">
-			<?php if ( $args['show_nav'] ) : ?>
-				<?php include WPBDP_PATH . 'templates/admin/_admin-menu.php'; ?>
-			<?php endif; ?>
+			<?php
+			if ( $args['show_nav'] ) {
+				include WPBDP_PATH . 'templates/admin/_admin-menu.php';
+			}
+			?>
 			<div class="wpbdp-content-area">
 			<?php
 			wpbdp_admin_notices();
@@ -515,6 +518,19 @@ class WPBDP_Admin_Pages {
 			return $menu_icons[ $menu_id ];
 		}
 		return isset( $menu_item['icon'] ) ? $menu_item['icon'] : 'archive';
+	}
+
+	/**
+	 * Use the icon string to get the icon url.
+	 *
+	 * @since x.x
+	 */
+	private static function add_icon_url( &$tabs ) {
+		foreach ( $tabs as $k => $tab ) {
+			if ( ! empty( $tab['icon'] ) && empty( $tab['icon_url'] ) ) {
+				$tabs[ $k ]['icon_url'] = WPBDP_ASSETS_URL . 'images/icons/' . $tab['icon'] . '.svg';
+			}
+		}
 	}
 
 	/**
