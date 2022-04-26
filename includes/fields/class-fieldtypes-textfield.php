@@ -32,7 +32,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
             return $tags;
         }
 
-        if (  is_array( $value ) ) {
+        if ( is_array( $value ) ) {
             return array_shift( $value );
         }
 
@@ -73,7 +73,7 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
     }
 
     public function process_field_settings( &$field ) {
-        $field->set_data( 'word_count', ( in_array( 'word_number', $field->get_validators() ) && isset( $_POST['field']['word_count'] ) ) ? intval( $_POST['field']['word_count'] ) : 0 );
+		$field->set_data( 'word_count', ( in_array( 'word_number', $field->get_validators(), true ) && isset( $_POST['field']['word_count'] ) ) ? intval( $_POST['field']['word_count'] ) : 0 );
     }
 
     /**

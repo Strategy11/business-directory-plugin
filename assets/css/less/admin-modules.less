@@ -5,12 +5,6 @@
 	grid-gap: 25px;
 }
 
-.wpbdp-addons,
-.wpbdp-addons h2,
-.wpbdp-addons h3 {
-	color: var(--dark-grey);
-}
-
 .wpbdp-addons h2 {
 	font-size: 17px;
 }
@@ -27,6 +21,7 @@
 	transition: opacity 1s;
 	background: #fff;
 	box-sizing: border-box;
+	position: relative;
 }
 
 .wpbdp-addons .wpbdp-card.wpbdp-addon-not-installed {
@@ -87,26 +82,27 @@
 }
 
 .wpbdp-ribbon {
-	-webkit-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	-o-transform: rotate(45deg);
-	transform: rotate(45deg);
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 	border: 25px solid transparent;
-	border-bottom: 25px solid var(--orange);
+	border-bottom: 25px solid @green;
+	color: @white;
 	position: absolute;
-	top: -31px;
-	right: -74px;
+	top: -19px;
+	left: -29px;
 	padding: 0px 10px;
 	width: 30px;
-	color: white;
 	font-family: sans-serif;
+	font-style: italic;
 	size: 11px;
 }
 
 .wpbdp-ribbon span {
 	position: absolute;
-	left: 25px;
+	left: -5px;
 	font-size: 15px;
 	top: 4px;
 }

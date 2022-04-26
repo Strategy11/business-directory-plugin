@@ -40,7 +40,7 @@ class WPBDP__Views__Request_Access_Keys extends WPBDP__View {
 
             if ( ! empty( $_POST['redirect_to'] ) ) {
                 $html .= '<p>';
-                $html .= '<a href="' . esc_url( wpbdp_get_var( array( 'param' => 'redirect_to' ), 'post' ) ) .'">';
+				$html .= '<a href="' . esc_url( wpbdp_get_var( array( 'param' => 'redirect_to' ), 'post' ) ) . '">';
                 $html .= _x( '← Return to previous page', 'request_access_keys', 'business-directory-plugin' );
                 $html .= '</a>';
                 $html .= '<p>';

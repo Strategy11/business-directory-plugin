@@ -1,4 +1,22 @@
-#wpbdp-admin-page-settings {
+.wpbdp-setting-description {
+	font-size: 14px;
+	padding: 0 0 6px;
+	color: @text-color;
+	opacity: 80%;
+}
+
+.wpbdp-setting-tooltip {
+	height: 18px;
+	width: 18px;
+	font-size: 18px;
+	line-height: 18px;
+	vertical-align: middle;
+	margin-right: 5px;
+	color: #666;
+	cursor: help;
+}
+
+.wpbdp-admin-page-settings {
     .nav-tab {
         &.tab-error {
             border-top: solid 1px red;
@@ -16,20 +34,6 @@
     .form-table tr > th > h3 {
         font-size: 1.2em;
         margin: 0 auto;
-    }
-
-    .wpbdp-setting-description {
-        color: #666;
-        font-style: italic;
-        display: block;
-    }
-
-    input[type="text"], input[type="url"], textarea {
-        width: 85%;
-    }
-
-    textarea {
-        min-height: 150px;
     }
 
     .wpbdp-license-key-activation-ui {
@@ -79,13 +83,12 @@
         }
     }
 
-    tr.wpbdp-setting-disabled {
+    .wpbdp-setting-disabled {
         display: none;
     }
 
     .wpbdp_upgrade_to_pro {
-        text-align: center;
-        margin-top: 80px;
+        margin-top: 60px;
     }
 }
 
@@ -137,24 +140,14 @@
     margin-bottom: 2px;
 }
 
-#wpbdp-admin-page-settings .wpbdp-expiration-notice-email-schedule-summary {
-    background: @gray;
-    font-size: 85%;
-    padding: 5px;
-}
-
 #wpbdp-admin-page-settings .wpbdp-settings-email {
     margin: 10px 0 0 0;
-    border: solid 1px @gray;
+    border: solid 1px @input-active;
+	border-radius: 4px;
     padding: 5px;
     background: #fff;
 
-    &.wpbdp-expiration-notice-email {
-        border-bottom: none;
-    }
-
     .short-preview, .wpbdp-settings-email-preview {
-        color: #999;
         font-size: 90%;
         height: 45px;
         cursor: pointer;
@@ -164,9 +157,9 @@
             margin: 0 0 10px 0;
         }
 
-        a.wpbdp-settings-email-edit-btn, .edit-toggle {
+		a.wpbdp-settings-email-edit-btn,
+		.edit-toggle {
             float: right;
-            color: #fff;
         }
 
         dl {
@@ -201,15 +194,6 @@
                 min-width: 0;
                 width: 20%;
             }
-        }
-
-        input[type="text"] {
-            width: 100%;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 150px;
         }
 
         .placeholders {
@@ -272,26 +256,28 @@
     }
 }
 
-#wpbdp-admin-page-settings {
-	.wpbdp-settings-type-checkbox input[type="checkbox"] {
-    	vertical-align: bottom;
+
+.wpbdp-settings-radio-options,
+.wpbdp-settings-multicheck-options.wpbdp-grid,
+.wpbdp-settings-multicheck-options {
+	grid-gap: 0;
+
+	.wpbdp-settings-radio-option, .wpbdp-settings-multicheck-option {
+		margin: 0 0 5px 0;
+
+		input[type="radio"], input[type="checkbox"] {
+			vertical-align: bottom;
+		}
 	}
 
-	.wpbdp-settings-radio-options,
-	.wpbdp-settings-multicheck-options {
-		grid-gap: 0;
+	& + .wpbdp-setting-description {
+		margin: 10px 0 0 0;
+	}
+}
 
-		.wpbdp-settings-radio-option, .wpbdp-settings-multicheck-option {
-			margin: 0 0 5px 0;
-
-			input[type="radio"], input[type="checkbox"] {
-				vertical-align: bottom;
-			}
-		}
-
-		& + .wpbdp-setting-description {
-			margin: 10px 0 0 0;
-		}
+.wpbd-checkbox {
+	.wpbdp-setting-description {
+		margin: 0 28px;
 	}
 }
 
@@ -307,7 +293,7 @@
 		float: left;
 		text-align: center;
 		margin-right: 1% !important;
-		width: 32%;
+		width: auto;
 		min-width: 173px;
 	}
 
@@ -316,13 +302,14 @@
 	}
 
 	label span {
-		border: 2px solid transparent;
+		border: 2px solid @border-color;
 		display: inline-block;
 		padding-bottom: 10px;
 		border-radius: 3px;
+        min-width: 176px;
 	}
 
 	input:checked + label span {
-		border-color: #4199FD;
+		border-color: @brand;
 	}
 }

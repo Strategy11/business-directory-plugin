@@ -15,12 +15,16 @@ class WPBDP__Views__Show_Tag extends WPBDP__View {
         if ( is_object( $term ) ) {
             $term->is_tag = true;
 
-            $html = $this->_render( 'tag',
-                                    array( 'title' => $term->name,
-                                           'term' => $term,
-                                           'query' => $wp_query,
-                                           'in_shortcode' => false ),
-                                    'page' );
+            $html = $this->_render(
+				'tag',
+				array(
+					'title'        => $term->name,
+					'term'         => $term,
+					'query'        => $wp_query,
+					'in_shortcode' => false,
+				),
+				'page'
+			);
         } else {
             $html = '';
         }

@@ -7,8 +7,7 @@ require_once WPBDP_PATH . 'includes/models/class-payment.php';
 class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 
 	function _enqueue_scripts() {
-		wp_enqueue_script( 'jquery-ui-datepicker' );
-		wpbdp_enqueue_jquery_ui_style();
+		WPBDP__Assets::load_datepicker();
 		parent::_enqueue_scripts();
 	}
 

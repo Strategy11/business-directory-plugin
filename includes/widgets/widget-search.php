@@ -114,7 +114,6 @@ class WPBDP_SearchWidget extends WP_Widget {
                     echo $field->render( null, 'search' );
                 }
             }
-
         } else {
 			?>
 			<div class="wpbdp-form-field">

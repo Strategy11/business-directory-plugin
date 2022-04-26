@@ -4,6 +4,7 @@
  */
 
 @import 'admin-listing-timeline.less';
+@import 'colors.less';
 
 #BusinessDirectory_listinginfo .inside {
     margin: 0;
@@ -93,6 +94,20 @@ a dl {
     font-size: 80%;
 }
 
+.wpbdp-datepicker.ui-datepicker {
+	--bd-main-color: @brand;
+	--bd-main-color-20: fade( @brand, 20% );
+
+	.ui-datepicker-never {
+		float: none;
+	}
+	.ui-datepicker-close,
+	.ui-datepicker-current {
+		// Hide the "today" button
+		display: none;
+	}
+}
+
 #listing-metabox-fees .listing-plan .admin-actions {
     margin-top: 10px;
     margin-left: 25px;
@@ -175,11 +190,8 @@ a dl {
     dl {
         margin: 0 0 20px 10px;
 
-        dt {
-        }
-
         dd {
-            margin-left: 30px;
+            margin-left: 5px;
         }
     }
 

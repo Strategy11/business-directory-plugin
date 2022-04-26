@@ -12,17 +12,17 @@
 
 <div id="wpbdp-uninstall-messages">
     <div id="wpbdp-uninstall-warning">
-        <div class="wpbdp-warning-margin">
-            <p><span class="dashicons dashicons-warning"></span></p>
-        </div>
         <div class="wpbdp-warning-content">
-            <p><?php _ex( 'Uninstalling Business Directory Plugin will do the following:', 'uninstall', 'business-directory-plugin' ); ?></p>
+			<p>
+				<span class="dashicons dashicons-warning"></span>
+				<?php _ex( 'Uninstalling Business Directory Plugin will do the following:', 'uninstall', 'business-directory-plugin' ); ?>
+			</p>
 
             <ul>
                 <li><?php _ex( 'Remove ALL directory listings', 'uninstall', 'business-directory-plugin' ); ?></li>
                 <li><?php _ex( 'Remove ALL directory categories', 'uninstall', 'business-directory-plugin' ); ?></li>
                 <li><?php _ex( 'Remove ALL directory settings', 'uninstall', 'business-directory-plugin' ); ?></li>
-                <li><?php _ex( 'Remove ALL premium module configuration data (regions, maps, ratings, featured levels)', 'uninstall', 'business-directory-plugin' ); ?></li>
+				<li><?php esc_html_e( 'Remove ALL module data (regions, maps, ratings, restrictions)', 'business-directory-plugin' ); ?></li>
                 <li><?php _ex( 'Deactivate the plugin from the file system', 'uninstall', 'business-directory-plugin' ); ?></li>
             </ul>
 
@@ -40,7 +40,7 @@
 				<?php
 				echo sprintf(
 					/* translators: %1$s: open link html, %2$s: close link html */
-					esc_html__( 'Go to %1$sPlugins->Installed Plugins%2$s', 'business-directory-plugin' ),
+					esc_html__( 'Go to %1$sPlugins > Installed Plugins%2$s', 'business-directory-plugin' ),
 					'<a href="' . esc_url( admin_url( 'plugins.php?plugin_status=active' ) ) . '">',
 					'</a>'
 				);
@@ -62,7 +62,7 @@
                 <?php
                 echo sprintf(
                     /* translators: %1$s: open link html, %2$s: close link html */
-                    esc_html__( 'You can reinstall the plugin again under %1$sPlugins->Add New%2$s', 'business-directory-plugin' ),
+                    esc_html__( 'You can reinstall the plugin again under %1$sPlugins > Add New%2$s', 'business-directory-plugin' ),
                     '<a href="' . esc_url( admin_url( 'plugin-install.php' ) ) . '">',
                     '</a>'
                 );

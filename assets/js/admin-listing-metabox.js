@@ -15,7 +15,7 @@ jQuery( function( $ ) {
                 },
             }).addClass( 'ui-datepicker-never ui-state-default ui-priority-primary ui-corner-all' );
 
-            $buttonPane.append($button);
+			$buttonPane.append($button);
         }, 1 );
     };
 
@@ -24,6 +24,8 @@ jQuery( function( $ ) {
         showButtonPanel: true,
         beforeShow: function( input, instance ) {
             _addNeverButton( instance );
+
+			$( '#ui-datepicker-div' ).addClass( 'wpbdp-datepicker' );
         },
         onChangeMonthYear: function( year, month, instance ) {
             _addNeverButton( instance );
@@ -32,30 +34,22 @@ jQuery( function( $ ) {
 
     var $metabox_tab = $('#wpbdp-listing-metabox-plan-info');
 
-    // Makes sure texts displayed inside the metabox are in sync with the settings.
-    var updateText = function( plan_data ) {
-        var plan_id = $( 'input[name="listing_plan[fee_id]"]').val();
-        var expiration = $('input[name="listing_plan[expiration_date]"]').val();
-        var images = $('input[name="listing_plan[fee_images]"]').val();
+	// Makes sure texts displayed inside the metabox are in sync with the settings.
+	var updateText = function( plan ) {
+		var images = $('input[name="listing_plan[fee_images]"]').val();
+		$('#wpbdp-listing-plan-prop-images').html(images);
 
-        if ( typeof plan_data === undefined ) {
-            var $plan = $('select#wpbdp-listing-plan-select').find('option[value="' + plan_id + '"]');
-            if ( $plan.length > 0) {
-                plan_data = $.parseJSON($plan.attr('data-plan-info'));
-            }
-        }
-        if ( plan_data ) {
-            $('#wpbdp-listing-plan-prop-label').html(
-                wpbdpListingMetaboxL10n.planDisplayFormat.replace('{{plan_id}}', plan_data.id)
-                                                         .replace('{{plan_label}}', plan_data.label));
-            $( '#wpbdp-listing-plan-prop-amount' ).html( plan_data.amount ? plan_data.amount : '-' );
-            $( '#wpbdp-listing-plan-prop-is_sticky' ).html( plan_data.sticky ? wpbdpListingMetaboxL10n.yes : wpbdpListingMetaboxL10n.no );
-            $( '#wpbdp-listing-plan-prop-is_recurring' ).html( plan_data.recurring ? wpbdpListingMetaboxL10n.yes : wpbdpListingMetaboxL10n.no );
-        }
-
-        $('#wpbdp-listing-plan-prop-expiration').html(expiration ? expiration : wpbdpListingMetaboxL10n.noExpiration);
-        $('#wpbdp-listing-plan-prop-images').html(images);
-    };
+		if ( plan ) {
+			$('#wpbdp-listing-plan-prop-label').html(
+				wpbdpListingMetaboxL10n.planDisplayFormat.replace('{{plan_id}}', plan.id)
+					.replace('{{plan_label}}', plan.label)
+			);
+			$( '#wpbdp-listing-plan-prop-amount' ).html( plan.amount ? plan.amount : '-' );
+			$( '#wpbdp-listing-plan-prop-is_sticky' ).html( plan.sticky );
+			$( '#wpbdp-listing-plan-prop-is_recurring' ).html( plan.recurring );
+			$( '#wpbdp-listing-plan-prop-expiration' ).html( plan.formated_date );
+		}
+	};
 
     // Properties editing.
     $metabox_tab.find('a.edit-value-toggle').click(function(e) {
@@ -93,7 +87,6 @@ jQuery( function( $ ) {
 			if ( $input.is('#wpbdp-listing-plan-select') && $input.val() ) {
 				var listing_id = $( 'input[name="post_ID"]' ).val();
 
-				
 				$.ajax(ajaxurl, {
 					data: {
 						action: 'wpbdp-assign-plan-to-listing',
@@ -114,8 +107,6 @@ jQuery( function( $ ) {
 					}
 				});
             }
-
-            updateText();
         }
 
         $editor.hide();

@@ -1,0 +1,188 @@
+.tooltip-box() {
+	background-color: @text-color;
+	color: @white !important;
+	border-radius: 8px;
+	padding: 16px;
+}
+
+.wpbdp_notification_buttons() {
+	border-radius: 8px;
+	background-color: @text-color;
+	color: @white;
+	padding: 5px 15px;
+}
+
+.post-type-wpbdp_listing .notice:not(.wpbdp-inline-notice),
+.wpbdp-admin-layout .notice:not(.wpbdp-inline-notice),
+.directory_page_wpbdp_settings .notice:not(.wpbdp-inline-notice),
+.wpbdp-admin-page .notice:not(.wpbdp-inline-notice) {
+	display: none;
+}
+
+.wpbdp-bell-notifications-list {
+	clear: both;
+	margin: 0;
+	li {
+		display: block !important;
+	}
+}
+
+.wpbdp-bell-notification {
+	display: none;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+
+	svg {
+		height: 48px;
+		width: 48px;
+		display: block;
+	}
+}
+
+.wpbdp-bell-notification-icon:focus {
+	outline: 0;
+	.wpbdp-shadow-box();
+}
+
+.wpbdp-bell-notification-icon,
+.wpbdp-bell-notifications li {
+	.wpbdp-shadow-box();
+}
+
+.wpbdp-bell-notifications {
+	position: fixed;
+	bottom: 69px;
+	min-width: 20%;
+	right: 20px;
+	max-width: 400px;
+	font-size: 13px;
+
+	li {
+		padding: 10px 25px;
+		margin: 0 auto 4px;
+
+		.notice-dismiss {
+			right: 0;
+			top: 7px;
+		}
+	}
+}
+
+.wpbdp-bell-notifications-close {
+	.wpbdp_notification_buttons();
+	text-decoration: none;
+	display: block;
+	float: right;
+	margin-bottom: 4px;
+
+	&:hover {
+		color: @white;
+	}
+}
+
+#wpbdp-snackbar-notices {
+	color: @white;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	left: 180px;
+	z-index: 1;
+	max-width: 500px;
+	min-width: 300px;
+}
+
+.wpbdp-snackbar {
+	.tooltip-box();
+	width: 100%;
+	position: relative;
+	box-sizing: border-box;
+	margin-bottom: 4px;
+	opacity: 0;
+	display: inline-block;
+	-webkit-animation: wpbdp-fade-in-out 10s linear forwards;
+	animation: wpbdp-fade-in-out 10s linear forwards;
+	p, a {
+		margin: 0;
+		color: @white !important;
+	}
+	p {
+		margin-right: 10px;
+	}
+	button {
+		&::before {
+			color: @white !important;
+		}
+	}
+}
+
+.folded .wpbdp-snackbar {
+	left: 56px;
+}
+
+.wpbdp-nav-tooltip {
+	position: relative;
+	&::before {
+		.tooltip-box();
+		position: absolute;
+		top: 0;
+		left: 50px;
+		content: attr(title);
+		text-transform: none;
+		transition: all 0.5s ease;
+		width: 160px;
+		z-index: 200;
+	}
+
+	//Tooltip arrow
+	&::after {
+		position: absolute;
+		top: 20px;
+		left: 49px;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+		border-right: 5px solid @text-color;
+		content: " ";
+		font-size: 0;
+		line-height: 0;
+		margin-left: -4px;
+		width: 0;
+	}
+
+	//Setting up the transition
+	&::before,
+	&::after {
+		color: @white;
+		font-size: 12px;
+		opacity: 0;
+		pointer-events: none;
+		text-align: left;
+	}
+
+	//Triggering the transition
+	&:focus::before,
+	&:focus::after,
+	&:hover::before,
+	&:hover::after {
+		opacity: 1;
+		transition: all 0.75s ease;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	.wpbdp-snackbar {
+		left: 10px;
+		max-width: 90%;
+	}
+}
+
+.keyframes( @name; @arguments ) {
+	@-moz-keyframes @name { @arguments(); }
+	@-webkit-keyframes @name { @arguments(); }
+	@keyframes @name { @arguments(); }
+}
+
+.keyframes( wpbdp-fade-in-out; {
+	2% { opacity: 1; }
+	100% { opacity: 1; }
+});

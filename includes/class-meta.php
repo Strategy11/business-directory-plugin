@@ -209,7 +209,7 @@ class WPBDP__Meta {
 
 				$post_title = get_the_title( $listing_id );
 
-                return $post_title . ' '.  $sep . ' ' . $title;
+				return $post_title . ' ' . $sep . ' ' . $title;
                 break;
 
             case 'main':

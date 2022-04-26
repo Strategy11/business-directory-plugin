@@ -42,9 +42,13 @@ class WPBDP__WP_Taxonomy_Term_List {
     }
 
     protected function walk( $parent_id = 0, $depth = 0 ) {
-        $terms = get_terms( array( 'taxonomy' => $this->args['taxonomy'],
-                                   'parent' => $parent_id,
-                                   'hide_empty' => $this->args['hide_empty'] ) );
+		$terms = get_terms(
+			array(
+				'taxonomy'   => $this->args['taxonomy'],
+				'parent'     => $parent_id,
+				'hide_empty' => $this->args['hide_empty'],
+			)
+		);
 
         if ( $terms && $this->args['anidate'] )
             $this->output .= '<ul>';

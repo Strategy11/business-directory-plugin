@@ -132,7 +132,7 @@ class WPBDP_FormFieldsAdmin {
 				),
 			)
 		);
-		$html .= '<div id="wpbdp-listing-form-preview">';
+		$html .= '<div id="wpbdp-submit-listing" class="wpbdp-listing-form-preview wpbdp-submit-page">';
 		$html .= wpbdp_admin_notices();
 		$html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
 
@@ -215,7 +215,7 @@ class WPBDP_FormFieldsAdmin {
 					'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '">',
 					$msg
 				);
-				wpbdp_admin_message( $msg, 'error' );
+				wpbdp_admin_message( $msg, 'notice-error is-dismissible', array( 'dismissible-id' => 'public_emails' ) );
 			}
 
 			wpbdp_render_page(
@@ -294,9 +294,9 @@ class WPBDP_FormFieldsAdmin {
 		$ret = $field->delete();
 
 		if ( is_wp_error( $ret ) ) {
-			wpbdp_admin_message( $ret->get_error_message(), 'error wpbdp-snackbar-notice' );
+			wpbdp_admin_message( $ret->get_error_message(), 'error' );
 		} else {
-			wpbdp_admin_message( _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' ), 'success wpbdp-snackbar-notice' );
+			wpbdp_admin_message( _x( 'Field deleted.', 'form-fields admin', 'business-directory-plugin' ), 'success' );
 
 			$quick_search_fields = wpbdp_get_option( 'quick-search-fields' );
 			$field_id            = wpbdp_get_var( array( 'param' => 'id' ), 'request' );

@@ -925,7 +925,6 @@ class WPBDP_Form_Field {
                             );
                             continue;
                         }
-
                     }
 
                     if ( is_string( $term_ ) ) {

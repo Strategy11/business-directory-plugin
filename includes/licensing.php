@@ -21,7 +21,6 @@ class WPBDP_Licensing {
 
         add_action( 'wpbdp_register_settings', array( &$this, 'register_settings' ) );
         add_filter( 'wpbdp_setting_type_license_key', array( $this, 'license_key_setting' ), 10, 2 );
-        add_filter( 'wpbdp_setting_type_no_licenses', array( $this, 'empty_license_notice' ), 10, 2 );
 
         add_action( 'wp_ajax_wpbdp_activate_license', array( &$this, 'ajax_activate_license' ) );
         add_action( 'wp_ajax_wpbdp_deactivate_license', array( &$this, 'ajax_deactivate_license' ) );
@@ -142,8 +141,7 @@ class WPBDP_Licensing {
 	 */
 	public function show_validation_notice_under_plugin( $plugin_file, $plugin_data ) {
 		?>
-		<tr class="wpbdp-module-key-not-verified plugin-update-tr active">
-		<td colspan="4">
+		<div class="wpbdp-setting-row">
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>
 					<?php
@@ -156,8 +154,7 @@ class WPBDP_Licensing {
 					?>
 				</p>
 			</div>
-		</td>
-		</tr>
+		</div>
 		<?php
 	}
 
@@ -202,28 +199,21 @@ class WPBDP_Licensing {
 		$modules = $this->modules_array();
         $themes  = wp_list_filter( $this->items, array( 'item_type' => 'theme' ) );
 
-        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ) );
-        wpbdp_register_settings_group(
+        if ( ! $modules && ! $themes ) {
+            return;
+        }
+
+		wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ), '', array( 'icon' => 'key' ) );
+
+		wpbdp_register_settings_group(
             'licenses/main',
             __( 'Licenses', 'business-directory-plugin' ),
             'licenses',
             array(
-				'desc'        => $this->get_settings_section_description(),
+				'desc'        => '',
 				'custom_form' => true,
             )
         );
-
-        if ( ! $modules && ! $themes ) {
-            wpbdp_register_setting(
-                array(
-                    'id'    => 'empty_license_notice',
-                    'name'  => '',
-                    'type'  => 'no_licenses',
-                    'group' => 'licenses/main',
-                )
-            );
-            return;
-        }
 
         if ( $modules ) {
             wpbdp_register_settings_group( 'licenses/modules', __( 'Modules', 'business-directory-plugin' ), 'licenses/main' );
@@ -260,25 +250,6 @@ class WPBDP_Licensing {
                 );
             }
         }
-    }
-
-    private function get_settings_section_description() {
-        if ( empty( $this->items ) ) {
-            return $this->get_upgrade_message();
-        }
-
-        return '';
-    }
-
-    private function get_upgrade_message() {
-        $html = '<div class="wpbdp_upgrade_to_pro">';
-        $html .= '<h2>' . esc_html__( 'Build more powerful directories', 'business-directory-plugin' ) . '</h2>';
-        $html .= '<p>' . esc_html__( 'Add category images, maps, filter by location, payment gateways, and more.', 'business-directory-plugin' ) . '</p>';
-        $html .= '<p><a href="' . esc_url( wpbdp_admin_upgrade_link( 'licenses_tab' ) ) . '" target="_blank" rel="noopener" class="button-primary">' . esc_html__( 'Upgrade Now', 'business-directory-plugin' ) . '</a></p>';
-        $html .= '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'licenses_purchased', 'knowledge-base/installation-guide/' ) ) . '">' . esc_html__( 'Already purchased?', 'business-directory-plugin' ) . '</a>';
-        $html .= '</div>';
-
-        return $html;
     }
 
     public function license_key_setting( $setting, $value ) {
@@ -325,10 +296,6 @@ class WPBDP_Licensing {
 		$html .= '</div>';
 		return $html;
 	}
-
-    public function empty_license_notice( $setting, $value ) {
-        return '';
-    }
 
     private function get_server_ip_address() {
         $ip_address = get_transient( 'wpbdp-server-ip-address' );

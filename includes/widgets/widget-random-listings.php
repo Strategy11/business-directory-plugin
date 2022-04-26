@@ -9,8 +9,10 @@ require_once( WPBDP_PATH . 'includes/widgets/class-listings-widget.php' );
 class WPBDP_RandomListingsWidget extends WPBDP_Listings_Widget {
 
     public function __construct() {
-        parent::__construct( _x( 'Business Directory - Random Listings', 'widgets', 'business-directory-plugin' ),
-                             _x( 'Displays a list of random listings from the Business Directory.', 'widgets', 'business-directory-plugin' ) );
+		parent::__construct(
+			_x( 'Business Directory - Random Listings', 'widgets', 'business-directory-plugin' ),
+			_x( 'Displays a list of random listings from the Business Directory.', 'widgets', 'business-directory-plugin' )
+		);
 
         $this->set_default_option_value( 'title', _x( 'Random Listings', 'widgets', 'business-directory-plugin' ) );
     }
@@ -36,7 +38,7 @@ class WPBDP_RandomListingsWidget extends WPBDP_Listings_Widget {
         $rand = array();
 
         foreach ( $keys as $key ) {
-            $rand[] = $posts[$key];
+			$rand[] = $posts[ $key ];
         }
 
         return $rand;

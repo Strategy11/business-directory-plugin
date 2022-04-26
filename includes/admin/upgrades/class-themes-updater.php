@@ -128,9 +128,11 @@ class WPBDP_Themes_Updater {
         if ( ! $update_info )
             return;
 
-        printf( '<div class="wpbdp-theme-update-info update-available" data-l10n-updating="%s" data-l10n-updated="%s">',
-                _x( 'Updating theme...', 'themes', 'business-directory-plugin' ),
-                _x( 'Theme updated.', 'themes', 'business-directory-plugin' ) );
+		printf(
+			'<div class="wpbdp-theme-update-info update-available wpbdp-inline-notice" data-l10n-updating="%s" data-l10n-updated="%s">',
+			_x( 'Updating theme...', 'themes', 'business-directory-plugin' ),
+			_x( 'Theme updated.', 'themes', 'business-directory-plugin' )
+		);
         echo '<div class="update-message">';
         $msg = _x( 'New version available (<b>%s</b>). <a>Update now.</a>', 'themes', 'business-directory-plugin' );
         $msg = sprintf( $msg, $update_info['latest'] );
@@ -171,8 +173,13 @@ class WPBDP_Themes_Updater {
 
         $this->themes_api->find_themes( true );
 
-        $response->add( 'html', wpbdp_render_page( WPBDP_PATH . 'templates/admin/themes-item.tpl.php',
-                                                   array( 'theme' => $this->themes_api->get_theme( $theme_id ) ) ) );
+		$response->add(
+			'html',
+			wpbdp_render_page(
+				WPBDP_PATH . 'templates/admin/themes-item.tpl.php',
+				array( 'theme' => $this->themes_api->get_theme( $theme_id ) )
+			)
+		);
         $response->set_message( _x( 'Theme was updated successfully.', 'themes', 'business-directory-plugin' ) );
         $response->send();
     }

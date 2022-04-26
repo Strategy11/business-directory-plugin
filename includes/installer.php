@@ -3,7 +3,7 @@
  * @package WPBDP
  */
 
-require_once ( WPBDP_PATH . 'includes/admin/upgrades/class-migration.php' );
+require_once WPBDP_PATH . 'includes/admin/upgrades/class-migration.php';
 
 /**
  * Installer for Business Directory Plugin.
@@ -275,7 +275,7 @@ class WPBDP_Installer {
     }
 
     public function show_installation_error( $exception ) {
-        require_once ( WPBDP_PATH . 'includes/admin/upgrades/class-installer-installation-error.php' );
+        require_once WPBDP_PATH . 'includes/admin/upgrades/class-installer-installation-error.php';
         new WPBDP__Installer__Installation_Error( $exception );
     }
 
@@ -320,7 +320,7 @@ class WPBDP_Installer {
             return false;
         }
 
-        require_once( WPBDP_PATH . 'includes/admin/upgrades/class-manual-upgrade-helper.php' );
+		require_once WPBDP_PATH . 'includes/admin/upgrades/class-manual-upgrade-helper.php';
 
         try {
             return new WPBDP__Manual_Upgrade_Helper( $this );
@@ -334,7 +334,7 @@ class WPBDP_Installer {
         if ( WPBDP_CATEGORY_TAX != $tax )
             return;
 
-        require_once ( WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-5_0.php' );
+        require_once WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-5_0.php';
         $m = new WPBDP__Migrations__5_0( $this );
         $m->process_term_split( $old_id );
     }

@@ -1,0 +1,80 @@
+.wpbdp-admin-dialog,
+.wpbdp-admin-page-settings,
+.wpbdp-admin-page-csv {
+	textarea,
+	select,
+	input[type="text"],
+	input[type="number"],
+	input[type="url"] {
+		width: 100%;
+		max-width: 100%;
+	}
+}
+
+.wpbdp-admin-page {
+	input[type="text"],
+	input[type="number"],
+	input[type="url"],
+	input[type="search"],
+	select,
+	textarea {
+		border-color: @input-active;
+		&:default {
+			border-color: @input-active;	
+		}
+		&::placeholder {
+			opacity: 0.5;
+		}
+		&:hover, &:active {
+			border-color: @input-hover;
+		}
+		&:disabled {
+			background-color: @background;
+			border-color: @input-active;
+			cursor: not-allowed;
+		}
+		&:invalid {
+			border-color: @input-invalid;
+		}
+		&.valid {
+			border-color: @input-valid;
+		}
+	}
+
+	textarea {
+		min-height: 150px;
+	}
+}
+.wpbdp-admin-page input[type="checkbox"] {
+	border-radius: 2px;
+}
+
+.wpbdp-admin-page input[type="checkbox"],
+.wpbdp-admin-page input[type="radio"] {
+	border-color: @input-active;
+	margin-right: 11px;
+	box-shadow: none;
+
+	&:hover, &:active {
+		border-color: @input-hover;
+	}
+	&:disabled {
+		background-color: @background;
+		border-color: @input-active;
+		cursor: not-allowed;
+	}
+	&:focus {
+		box-shadow: 0px 0px 0px 2px rgba(126, 146, 188, 0.25);
+	}
+	&:invalid {
+		border-color: @input-invalid;
+	}
+	&.valid {
+		border-color: @input-valid;
+	}
+}
+
+.wpbd-checkbox label {
+	font-weight: 500;
+	padding-bottom: 0;
+}

@@ -1,4 +1,5 @@
-var WPBDP_associations_fieldtypes = {};
+var WPBDP_associations_fieldtypes = {},
+WPBDPAdmin_Tooltip = {};
 
 (function($) {
 
@@ -6,6 +7,7 @@ var WPBDP_associations_fieldtypes = {};
 	var WPBDPAdmin_Modal = {
 		init: function() {
 			WPBDPAdmin_Modal.initConfirmModal();
+			WPBDPAdmin_Modal.initTaxonomyModal();
 		},
 
 		/**
@@ -34,13 +36,7 @@ var WPBDP_associations_fieldtypes = {};
 
 		getHtml : function() {
 			return '<div id="wpbdp-admin-modal" class="hidden settings-lite-cta">' +
-				'<div class="wpbdp-modal-top">' +
-					'<a href="#" class="dismiss alignright" title="Dismiss">' +
-						'<img src="' + wpbdp_global.assets + '/images/icons/close.svg" width="24" height="24"/>' +
-					'</a>' +
-					'<h2>' + wpbdp_global.confirm + '</h2>' +
-				'</div>' +
-				'<div class="inside"></div>' +
+				WPBDPAdmin_Modal.getHeaderHtml() +
 				'<div class="wpbdp-modal-bottom">' +
 					'<a href="#" class="dismiss-button" title="Dismiss">' + wpbdp_global.cancel + '</a>' +
 					'<a href="#" class="wpbdp-continue wpbdp-button-primary alignright">' + wpbdp_global.continue + '</a>' +
@@ -48,8 +44,52 @@ var WPBDP_associations_fieldtypes = {};
 			'</div>';
 		},
 
+		initTaxonomyModal : function() {
+			var modal,
+				form = $( '#addtag' ).closest( '.form-wrap' );
+
+			if ( ! form.length ) {
+				return;
+			}
+
+			$('.wpbdp-admin-page').append( WPBDPAdmin_Modal.getFormHtml() );
+
+			modal = WPBDPAdmin_Modal.initModal( '#wpbdp-add-taxonomy-form' );
+
+			$( document ).on( 'click', '.wpbdp-add-taxonomy-form', function( e ) {
+				e.preventDefault();
+
+				// Get the heading from the content and move it.
+				var heading = form.find( 'h2:first' );
+				heading.hide();
+				modal.find( 'h2' ).text( heading.text() );
+
+				modal.find('.inside').html( form );
+				modal.dialog( 'open' );
+			});
+		},
+
+		getFormHtml : function() {
+			return '<div id="wpbdp-add-taxonomy-form" class="hidden settings-lite-cta">' +
+				WPBDPAdmin_Modal.getHeaderHtml() +
+			'</div>';
+		},
+
+		getHeaderHtml : function() {
+			return '<div class="wpbdp-modal-top">' +
+				'<a href="#" class="dismiss alignright" title="Dismiss">' +
+					'<img src="' + wpbdp_global.assets + '/images/icons/close.svg" width="24" height="24"/>' +
+				'</a>' +
+				'<h2>' + wpbdp_global.confirm + '</h2>' +
+			'</div>' +
+			'<div class="inside"></div>';
+		},
+
 		initModal : function( id, width ) {
 			var $info = $( id );
+			if ( $info.length < 1 ) {
+				return false;
+			}
 
 			if ( typeof width === 'undefined' ) {
 				width = '550px';
@@ -72,6 +112,13 @@ var WPBDP_associations_fieldtypes = {};
 				},
 				close: function() {
 					$( '.ui-widget-overlay' ).removeClass( 'wpbdp-modal-overlay' );
+					$( '.spinner' ).css( 'visibility', 'hidden' );
+
+					this.removeAttribute( 'data-option-type' );
+					var optionType = document.getElementById( 'bulk-option-type' );
+					if ( optionType ) {
+						optionType.value = '';
+					}
 				}
 			});
 
@@ -87,6 +134,52 @@ var WPBDP_associations_fieldtypes = {};
 			$modal.on( 'click', 'a.dismiss, .dismiss-button', closeModal );
 		}
 	};
+
+	/**
+	 * Menu tooltips
+	 */
+	window.WPBDPAdmin_Tooltip = {
+		$layout_container: null,
+		$menu_items: null,
+		$menu_state: null,
+
+		init: function() {
+			WPBDPAdmin_Tooltip.$layout_container = $( '.wpbdp-admin-row' );
+			WPBDPAdmin_Tooltip.$menu_items = WPBDPAdmin_Tooltip.$layout_container.find( '.wpbdp-nav-item a' );
+			WPBDPAdmin_Tooltip.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
+			$( '.wpbdp-nav-toggle' ).click( WPBDPAdmin_Tooltip.onNavToggle );
+			WPBDPAdmin_Tooltip.layoutAdjustment();
+		},
+
+		onNavToggle: function( e ) {
+			e.preventDefault();
+			WPBDPAdmin_Tooltip.$layout_container.toggleClass( 'minimized' );
+			if ( WPBDPAdmin_Tooltip.$layout_container.hasClass( 'minimized' ) ) {
+				window.localStorage.setItem( '_wpbdp_admin_menu', 'minimized' );
+				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
+			} else {
+				window.localStorage.removeItem( '_wpbdp_admin_menu' );
+				WPBDPAdmin_Tooltip.$menu_items.removeClass( 'wpbdp-nav-tooltip' );
+			}
+		},
+
+		layoutAdjustment: function() {
+			var menu = document.getElementById( 'adminmenuwrap' );
+			if ( menu !== null ) {
+				WPBDPAdmin_Tooltip.$layout_container.css( 'min-height', menu.offsetHeight );
+			}
+			if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
+				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
+			}
+
+			if ( WPBDPAdmin_Tooltip.$menu_state === 'minimized' ) {
+				WPBDPAdmin_Tooltip.$layout_container.addClass( 'minimized' );
+				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
+			}
+		}
+	};
+
+	WPBDPAdmin_Tooltip.init();
 
     /* Form Fields */
     var WPBDPAdmin_FormFields = {
@@ -248,15 +341,145 @@ var WPBDP_associations_fieldtypes = {};
         }
     };
 
+	var WPBDPAdmin_Notifications = {
+		notificationContainer: null,
+		preAdminNotifications: null,
+		adminNotifications: null,
+		buttonNotification: null,
+		closeButton: null,
+
+		init: function() {
+			// Get the notification center
+			this.notificationContainer = $( '.wpbdp-bell-notifications' );
+
+			// Get all the notifications to display in the modal
+			this.preAdminNotifications = $( '.notice:hidden' );
+
+			// Notifications container
+			this.adminNotifications = this.notificationContainer.find( '.wpbdp-bell-notifications-list' );
+
+			// Get the notification button
+			this.buttonNotification = $( '.wpbdp-bell-notification-icon' );
+
+			// Get the close button
+			this.closeButton = $( '.wpbdp-bell-notifications-close' );
+
+			this.onClickNotifications();
+			this.initCloseNotifications();
+
+			WPBDPAdmin_Notifications.parseNotifications();
+		},
+
+		onClickNotifications: function() {
+			WPBDPAdmin_Notifications.buttonNotification.on( 'click', function(e) {
+				e.preventDefault();
+				WPBDPAdmin_Notifications.notificationContainer.toggleClass( 'hidden' );
+			});
+		},
+
+		initCloseNotifications: function() {
+			WPBDPAdmin_Notifications.closeButton.on( 'click', function(e) {
+				e.preventDefault();
+				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
+			});
+		},
+
+		parseNotifications: function() {
+			if ( WPBDPAdmin_Notifications.preAdminNotifications.length < 1 ){
+				return true;
+			}
+			var notifications = [],
+				snackbars = [];
+
+			WPBDPAdmin_Notifications.preAdminNotifications.each( function() {
+				var notification = $(this),
+					mainMsg = this.id === 'message';
+				if ( notification.hasClass( 'wpbdp-inline-notice' ) ) {
+					return false;
+				}
+				if ( notification.hasClass( 'wpbdp-notice' ) || mainMsg ) {
+					if ( notification.hasClass( 'is-dismissible' ) && ! mainMsg ) {
+						notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
+					} else {
+						snackbars.push( notification.html() );
+					}
+					notification.remove();
+				}
+			});
+
+			WPBDPAdmin_Notifications.adminNotifications.append( notifications.join( ' ' ) );
+			if ( notifications.length > 0 ) {
+				$( '.wpbdp-bell-notification' ).show();
+				WPBDPAdmin_Notifications.notificationContainer.removeClass( 'hidden' );
+			}
+			if ( snackbars.length > 0 ) {
+				snackbars.forEach( function( value, index, array ) {
+					WPBDPAdmin_Notifications.generateSnackBar( value );
+				});
+			}
+		},
+
+		/**
+		* Render the snack bar
+		*
+		* @param {string} notification
+		*/
+		generateSnackBar: function( notification ) {
+			var snackbar = $( '<div>', {
+				class: 'wpbdp-snackbar',
+				html: notification
+			});
+			$( '#wpbdp-snackbar-notices' ).append( snackbar );
+			snackbar.find( '.notice-dismiss').on( 'click', function(e) {
+				e.preventDefault();
+				snackbar.fadeOut();
+			});
+			setTimeout( function(){ snackbar.remove(); }, 25000 );
+		},
+
+		hideNotificationCenter: function() {
+			if ( WPBDPAdmin_Notifications.adminNotifications.find( 'li' ).length < 1 ) {
+				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
+				$( '.wpbdp-bell-notification' ).hide();
+			}
+		}
+	};
 
     $(document).ready(function(){
         WPBDPAdmin_FormFields.init();
 		WPBDPAdmin_Modal.init();
+		WPBDPAdmin_Notifications.init();
 
 		$( '.wpbdp-tooltip' ).tooltip({
 			tooltipClass: 'wpbdp-admin-tooltip-content'
 		});
     });
+
+	// Dismissible Messages
+	var dismissNotice = function( $notice, $button ) {
+		$.post( ajaxurl, {
+			action: 'wpbdp_dismiss_notification',
+			id: $button.data( 'dismissible-id' ),
+			nonce: $button.data( 'nonce' )
+		}, function() {
+			$notice.fadeOut( 'fast', function(){
+				$notice.remove();
+				WPBDPAdmin_Notifications.hideNotificationCenter();
+			} );
+		} );
+	};
+
+	$( document ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
+		e.preventDefault();
+		var $button = $( this ),
+		$notice = $button.closest( '.wpbdp-notice' ),
+		link = $button.attr( 'href' );
+
+		if ( link ) {
+			window.open( link, '_blank').focus();
+		}
+		dismissNotice( $notice, $button );
+	});
 
 })(jQuery);
 
@@ -344,20 +567,20 @@ jQuery(document).ready(function($){
     });
 
     /* Debug info page */
-    $('#wpbdp-admin-debug-info-page a.nav-tab').click(function(e){
+    $('.wpbdp-admin-page-debug-info a.current-nav').click(function(e){
         e.preventDefault();
 
-        $('#wpbdp-admin-debug-info-page a.nav-tab').not(this).removeClass('nav-tab-active');
+        $('.wpbdp-admin-page-debug-info a.current-nav').not(this).removeClass('current');
 
         var $selected_tab = $(this);
-        $selected_tab.addClass( 'nav-tab-active' );
+        $selected_tab.addClass( 'current' );
 
         $( '.wpbdp-debug-section' ).hide();
         $( '.wpbdp-debug-section[data-id="' + $(this).attr('href') + '"]' ).show();
     });
 
-    if ( $('#wpbdp-admin-debug-info-page a.nav-tab').length > 0 )
-        $('#wpbdp-admin-debug-info-page a.nav-tab').get(0).click();
+    if ( $('.wpbdp-admin-page-debug-info a.current-nav').length > 0 )
+        $('.wpbdp-admin-page-debug-info a.current-nav').get(0).click();
 
     /* Transactions */
     $( '.wpbdp-page-admin-transactions .column-actions a.details-link' ).click(function(e){
@@ -535,35 +758,6 @@ jQuery(function($) {
 })(jQuery);
 // }}
 
-// Dismissible Messages
-(function($) {
-    $(function(){
-        var dismissNotice = function( $notice, $button ) {
-            $.post( ajaxurl, {
-                action: 'wpbdp_dismiss_notification',
-                id: $button.data( 'dismissible-id' ),
-                nonce: $button.data( 'nonce' )
-            }, function() {
-                $notice.fadeOut( 'fast', function(){ 
-                    $notice.remove();
-                } );
-            } );
-        };
-
-		$( '#wpbody-content' ).on( 'click', '.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss', function( e ) {
-			e.preventDefault();
-			var $button = $( this ),
-				$notice = $button.closest( '.wpbdp-notice' ),
-				link = $button.attr( 'href' );
-
-			if ( link ) {
-				window.open( link, '_blank').focus();
-			}
-			dismissNotice( $notice, $button );
-		});
-	});
-})(jQuery);
-
 // Install addons
 function wpbdpAddons() {
 	function activateAddon( e ) {
@@ -582,7 +776,7 @@ function wpbdpAddons() {
 		var button = jQuery( clicked );
 		var plugin = button.attr( 'rel' );
 		var el = button.parent();
-		var message = el.parent().find( '.addon-status-label' );
+		var message = el.parent().find( '.wpbdp-addon-status' );
 
 		button.addClass( 'wpbdp-loading-button' );
 
@@ -858,7 +1052,8 @@ jQuery( function( $ ) {
  * Highlight Directory menu.
  */
 function wpbdpSelectSubnav() {
-        var wpbdpMenu = jQuery( '#toplevel_page_wpbdp_admin' );
-        jQuery( wpbdpMenu ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
-        jQuery( '#toplevel_page_wpbdp_admin a.wp-has-submenu' ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
+	var wpbdpMenu = jQuery( '#toplevel_page_wpbdp_admin' );
+	jQuery( wpbdpMenu ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
+	jQuery( '#toplevel_page_wpbdp_admin a.wp-has-submenu' ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
+	jQuery( '#toplevel_page_wpbdp_admin ul.wp-submenu-wrap li.wp-first-item' ).addClass( 'current' );
 }

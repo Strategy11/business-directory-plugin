@@ -29,7 +29,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
             $select .= sprintf(
                 '<label><input type="radio" name="field[x_date_format]" value="%s" %s />%s</label><br />',
                 $format,
-                checked ( $format, $current_format, false ),
+				checked( $format, $current_format, false ),
                 sprintf(
                     /* translators: %1$s: date format, %2$s: Date format example */
                     esc_html__( '%1$s (ex. %2$s)', 'business-directory-plugin' ),
@@ -87,10 +87,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
         static $enqueued = false;
 
         if ( ! $enqueued ) {
-            if ( is_admin() ) {
-                wpbdp_enqueue_jquery_ui_style();
-                wp_enqueue_script( 'jquery-ui-datepicker' );
-            }
+			WPBDP__Assets::load_datepicker();
             $enqueued = true;
         }
 
@@ -124,7 +121,9 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
             return null;
         }
 
-        $d = 0; $m = 0; $y = 0;
+		$d = 0;
+		$m = 0;
+		$y = 0;
 
         switch ( $format ) {
             case 'ddmmyy':

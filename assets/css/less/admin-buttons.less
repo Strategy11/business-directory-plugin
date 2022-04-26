@@ -1,34 +1,23 @@
 .wpbdp-admin-page {
-    .wpbdp-button {
-        &-primary, &-secondary {
-            text-shadow: none;
-            box-shadow: none;
-            border-radius: 30px;
-            border:1px solid @button !important;
-            font-size: 1em;
-            transition: all .2s ease;
-            height: 28px;
-            min-height: 28px;
-            outline: none;
-            line-height: 26px;
-            min-width: 100px;
-            display: inline-block;
-            text-align: center;
-            padding: 2px 10px;
-            text-decoration: none;
-        }
-	}
-
-	.page-title-action,
 	.wpbdp-button-primary,
-	.button-primary {
-		background-color: @button !important;
-		border-color: @button !important;
-		color: @white !important;
-		&:hover, &:focus {
-			background: @button-hover !important;
-			border-color: @button-hover !important;
-		}
+	.wpbdp-button-secondary,
+	.ui-datepicker-buttonpane button {
+		text-shadow: none;
+		box-shadow: none;
+		border-radius: 4px;
+		border:1px solid @button;
+		font-size: 14px;
+		transition: all .2s ease;
+		height: 28px;
+		min-height: 28px;
+		outline: none;
+		line-height: 22px;
+		min-width: 100px;
+		display: inline-block;
+		text-align: center;
+		padding: 2px 15px;
+		text-decoration: none;
+		font-weight: 500;
 	}
 
 	.add-new-h2,
@@ -36,13 +25,47 @@
 	.button-secondary,
 	.button {
 		background-color: @white;
-		border-color: @button !important;
+		border-color: @button;
 		color: @button-hover;
-		&:hover, &:focus {
-			border-color: @button-hover !important;
-			background: @button-hover !important;
-			color: @white;
+
+		&:hover {
+			background: @background;
+			color: @button;
 			box-shadow: none;
+		}
+		&:focus, &:active {
+			background-color: @white;
+		}
+		&:disabled {
+			background-color: @white;
+			border-color: @button;
+			color: @button-hover;
+			opacity: 0.5;
+		}
+	}
+
+	.page-title-action,
+	.wpbdp-datepicker.ui-datepicker .ui-datepicker-buttonpane button,
+	.wpbdp-button-primary,
+	.button-primary {
+		background-color: @button;
+		border-color: @button;
+		color: @white;
+		&:hover {
+			background: @button-hover;
+			border-color: @button-hover;
+			color: @white;
+		}
+		&:focus, &:active {
+			background: @button;
+			border-color: @button;
+			color: @white;
+		}
+		&:disabled {
+			background: @button !important;
+			border-color: @button !important;
+			color: @white !important;
+			opacity: 0.5;
 		}
 	}
 }

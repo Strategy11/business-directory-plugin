@@ -140,8 +140,6 @@ class WPBDP__Assets {
             return;
         }
 
-        // TODO: Is it possible (and worth it) to figure out if we need the
-        // jquery-ui-datepicker script based on which fields are available?
         wp_register_script(
             'wpbdp-js',
             WPBDP_ASSETS_URL . 'js/wpbdp.min.js',
@@ -149,7 +147,6 @@ class WPBDP__Assets {
                 'jquery',
                 'breakpoints.js',
                 'jquery-ui-sortable',
-                'jquery-ui-datepicker',
             ),
             WPBDP_VERSION,
 			true
@@ -211,8 +208,8 @@ class WPBDP__Assets {
 			--bd-main-color:' . $rootline_color . ';
 			--bd-main-color-20:' . $rootline_color . '33;
 			--bd-main-color-8:' . $rootline_color . '14;
-			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) .'px;
-			--bd-thumbnail-height:' . esc_attr( $thumbnail_height ) .'px;
+			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) . 'px;
+			--bd-thumbnail-height:' . esc_attr( $thumbnail_height ) . 'px;
 		}';
 
 		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $css ) );
@@ -284,20 +281,22 @@ class WPBDP__Assets {
 		// Add admin body class for parent page class to avoid css conflicts.
 		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
 
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 
 		wp_enqueue_style( 'thickbox' );
 
 		wp_enqueue_style( 'wpbdp-base-css' );
 
-		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp.min.js', array( 'jquery' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-frontend-js', WPBDP_ASSETS_URL . 'js/wpbdp' . $min . '.js', array( 'jquery' ), WPBDP_VERSION, true );
 
-		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin.min.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'jquery-ui-tooltip' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin' . $min . '.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'jquery-ui-tooltip' ), WPBDP_VERSION, true );
 		$this->global_localize( 'wpbdp-admin-js' );
 
-		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector.min.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
+		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector' . $min . '.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 
-        wp_enqueue_style( 'wpbdp-js-select2-css' );
+		wp_enqueue_style( 'wpbdp-js-select2-css' );
 
 		/**
 		 * Load additional scripts or styles used only in BD plugin pages.
@@ -313,7 +312,7 @@ class WPBDP__Assets {
 
 		$this->load_css();
 
-		wpbdp_enqueue_jquery_ui_style();
+		self::load_datepicker();
 
 		wp_enqueue_style(
 			'wpbdp-listing-admin-metabox',
@@ -347,9 +346,6 @@ class WPBDP__Assets {
 					esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp_view=edit-fee&id={{plan_id}}' ) ),
 					'{{plan_label}}'
 				),
-				'noExpiration'      => __( 'Never', 'business-directory-plugin' ),
-				'yes'               => __( 'Yes', 'business-directory-plugin' ),
-				'no'                => __( 'No', 'business-directory-plugin' ),
 			)
 		);
 
@@ -392,5 +388,42 @@ class WPBDP__Assets {
 	 */
 	public function register_installation_resources() {
 		wp_enqueue_script( 'wpbdp-admin-install-js', WPBDP_ASSETS_URL . 'js/admin-install.min.js', array( 'jquery' ), WPBDP_VERSION, true );
+	}
+
+	/**
+	 * Load Jquery UI Style.
+	 *
+	 * @since 6.0
+	 */
+	public static function load_datepicker() {
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+
+		if ( self::is_jquery_ui_css_loaded() ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'jquery-theme',
+			WPBDP_ASSETS_URL . 'css/jquery-ui.css',
+			array(),
+			WPBDP_VERSION
+		);
+	}
+
+	/**
+	 * Check if Jquery UI CSS is loaded.
+	 *
+	 * @since 6.0
+	 *
+	 * @return bool
+	 */
+	private static function is_jquery_ui_css_loaded() {
+		$possible_styles = array( 'jquery-ui', 'jquery-ui-css', 'jquery-theme' );
+		foreach ( $possible_styles as $style ) {
+			if ( wp_style_is( $style ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

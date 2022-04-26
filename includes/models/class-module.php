@@ -10,6 +10,7 @@ final class WPBDP__Module {
     public $title;
     public $id;
     public $version;
+    public $settings_url;
     public $required_bd_version;
 
     public $text_domain;
@@ -36,6 +37,7 @@ final class WPBDP__Module {
         $this->version = empty( $obj->version ) ? $plugin_data[1] : $obj->version;
         $this->text_domain = empty( $obj->text_domain ) ? $plugin_data[2] : $obj->text_domain;
         $this->text_domain_path = empty( $obj->domain_path ) ? $plugin_data[3] : $obj->domain_path;
+        $this->settings_url     = empty( $obj->settings_url ) ? '' : $obj->settings_url;
 
         if ( empty( $this->text_domain ) ) {
             $this->text_domain = 'wpbdp-' . $this->id;

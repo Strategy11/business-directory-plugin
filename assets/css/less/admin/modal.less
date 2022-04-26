@@ -1,8 +1,8 @@
 .wpbdp-admin-dialog {
-	background-color: @white;
+	.wpbdp-shadow-box();
+
 	z-index: 100;
 	padding: 0 !important;
-	border-radius: 12px;
 	max-width: 100% !important;
 
 	.inside:not(.empty) {
@@ -24,8 +24,35 @@
 		font-weight: 600;
 	}
 
+	.form-wrap {
+		padding: 10px 25px 25px;
+
+		p {
+			padding: 0 !important;
+		}
+
+		.inner-message {
+			margin-top: 2em;
+			margin-bottom: 2em;
+		}
+
+		input[type="submit"] {
+			float: right;
+		}
+
+		.term-description-wrap,
+		.term-slug-wrap,
+		select + p,
+		input + p,
+		.aioseo-taxonomy-upsell {
+			/* Hide the field descriptions */
+			display: none;
+		}
+	}
+
 	h2 {
 		margin: 0;
+		margin-right: 25px;
 	}
 
 	a {
@@ -48,7 +75,7 @@
 }
 
 .wpbdp-modal-overlay {
-	background: @modal-background-color !important;
+	background: fade(@text-color, 70%) !important;
 	position: fixed;
 	width: 100%;
 	height: 100%;

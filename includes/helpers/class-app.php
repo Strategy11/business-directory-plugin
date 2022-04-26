@@ -153,8 +153,7 @@ class WPBDP_App_Helper {
 	 * @return bool
 	 */
 	public static function is_bd_page() {
-		$is_post_page = self::is_bd_post_page();
-		if ( $is_post_page ) {
+		if ( self::is_bd_post_page() ) {
 			return true;
 		}
 
@@ -177,13 +176,15 @@ class WPBDP_App_Helper {
 	public static function is_bd_post_page() {
 		global $pagenow;
 
-		if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow && 'edit.php' !== $pagenow ) {
+		$is_tax  = 'term.php' === $pagenow || 'edit-tags.php' === $pagenow;
+		$is_post = 'post.php' === $pagenow || 'post-new.php' === $pagenow || 'edit.php' === $pagenow;
+		if ( ! $is_post && ! $is_tax ) {
 			return false;
 		}
 
 		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
 
-		if ( empty( $post_type ) ) {
+		if ( empty( $post_type ) && ! $is_tax ) {
 			$post_id   = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
 			$post      = get_post( $post_id );
 			$post_type = $post ? $post->post_type : '';
@@ -311,22 +312,43 @@ class WPBDP_App_Helper {
 	}
 
 	/**
+	 * @param array|int $atts
+	 *
 	 * @since 5.9.2
 	 */
-	public static function show_logo( $size ) {
-		echo self::kses( self::svg_logo( $size ), 'all' ); // WPCS: XSS ok.
+	public static function show_logo( $atts ) {
+		echo self::kses( self::svg_logo( $atts ), 'all' ); // WPCS: XSS ok.
 	}
 
 	/**
 	 * @since 5.9.2
 	 */
-	public static function svg_logo( $size = 18 ) {
-		$atts = array(
-			'height' => $size,
-			'width'  => $size,
+	public static function svg_logo( $atts = array() ) {
+		$atts = self::prep_logo_atts( $atts );
+
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" class="' . esc_attr( $atts['class'] ) . '" />';
+	}
+
+	/**
+	 * @param int|array $atts
+	 *
+	 * @since 6.0
+	 */
+	private static function prep_logo_atts( $atts ) {
+		if ( ! is_array( $atts ) ) {
+			// For reverse compatibility, changing param from int to array.
+			$atts = array(
+				'size' => $atts,
+			);
+		}
+
+		$defaults   = array(
+			'class' => false,
+			'round' => false,
+			'size'  => 18,
 		);
 
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie.svg' ). '" width="' . esc_attr( $atts['width'] ) . '" height="' . esc_attr( $atts['height'] ) . '" />';
+		return wp_parse_args( $atts, $defaults );
 	}
 
 	/**

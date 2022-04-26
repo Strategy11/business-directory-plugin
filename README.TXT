@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.9
-Stable tag: 5.18
+Stable tag: 6.0.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -64,7 +64,7 @@ Create an easy directory with more functionality with extra add-ons.
 For a detailed list of features, please visit: [BusinessDirectoryPlugin.com](https://businessdirectoryplugin.com/features/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)
 
 * File Upload - Allow users to upload and manage attachments on listings. Include PDFs, text files, and images in business listings.
-* Featured Levels - Assign features to paid or sticky listing plans to give users incentive to upgrade.
+* Restrictions - Assign features to paid or sticky listing plans to give users incentive to upgrade.
 * ZIP Code Search - ZIP code/postal code radius and proximity searches supporting a number of countries.
 * Regions - Location based listing result filtering.
 * Ratings and Reviews - Create reviews with connections to each listing to rate listings (with Schema.org microformat). It's a WordPress review plugin!
@@ -158,6 +158,26 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.0.1 =
+* Remove the licenses tab if it's not needed.
+* A few admin styling tweeks including toggles.
+* Fix: Admin settings weren't hiding conditionally.
+* Fix: There was a php warning showing when AUTH_KEY was missing.
+* Fix: Handle tags pages in a better way, using the new wpbdp_tax_types hook.
+* Fix: Prevent duplicate heading in taxonomy modal when another plugin adds a heading.
+* New: wpbdp_tab_content hook for adding content to the settings tabs.
+
+= 6.0 =
+* New: Updated the admin area for a more enjoyable experience. This also shortens the main nav to make it easier to find links.
+* New: Add toggles in admin settings for a more visual UI.
+* New: Allow businessdirectory-listings shortcode without setting a category, and remove the directory header when the shortcode is used directly in a page.
+* New: Update the datepicker styling for a more modern look.
+* New: Added a notification center to keep all notifications in one spot instead of filling the top of the page.
+* Include datepicker CSS in plugin instead of loading it from the jQuery CDN.
+* Fix: When creating a listing from the admin area, the expiration was not getting automatically set.
+* Fix: Don't use removed settings when checking conditional logic in admin area. This was causing some settings to never show.
+* Fix: When validating file mime type, check the file extension too.
+
 = 5.18 =
 * New: Allow setting category in the [businessdirectory-featured-listings] shortcode.
 * Rename "Fee Plan" to "Plan" since they can be free.
@@ -179,26 +199,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Hide the custom order column in the plans table if not using custom ordering.
 * Fix: Allow manual enable/disable of default plan.
 * Fix: PHP warning showing on license page on some sites.
-
-= 5.17 =
-* New: Simplify setting up plans. Now, there's no free vs paid mode. If paid plans are created, a gateway needs to be set up.
-* Add more caching to speed up page loading.
-* Fix: The category wasn't getting auto selected with only one category.
-* Fix: Some images weren't uploading in the admin settings or in social fields.
-* Fix: Images can now be removed from a listing if it is used in another listing too.
-* Add more helpful info if a BD theme is missing an Activate button.
-
-= 5.16.1 =
-* Fix: The message to create a page on install wasn't updating when it was successful.
-* Fix: Exclude admin test fees in the stats for the plan total amount collected.
-* Fix: Show '0.00' for free listings rather than 'Free'.
-* Fix: The Divi page builder was showing errors when editing listing pages.
-* Remove colons and use space instead after a label in a listing. Colons can be added manually using the wpbdp_display_field_label hook if desired.
-* Added wpbdp_display_field_wrapper_classes hook to add extra classes to a field wrapper.
-* Fix: Get rid of button styling on delete link so it shows as a red link instead of a button.
-* Fix: Make the featured banner work better by not pushing content around. Now it overlaps the image.
-* Add a bit more caching and a performance lift.
-* Fix: If a second page is added with the businessdirectory shortcode, use the most recent page. Also, ignore a page with the shortcode if it's in the trash.
-* Fix: The database upgrade wasn't always getting marked as complete, and was running multiple times.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

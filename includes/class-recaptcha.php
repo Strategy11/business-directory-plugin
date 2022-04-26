@@ -160,7 +160,6 @@ class WPBDP_reCAPTCHA {
             if ( isset( $js->score ) && $this->threshold < $js->score ) {
                 return true;
             }
-
         }
 
         return false;
@@ -246,7 +245,7 @@ JS;
      */
     public function add_recaptcha_to_submit( $submit_sections, $submit ) {
 		$current = wpbdp_current_view();
-        if ( 'submit_listing' === $current && ! wpbdp_get_option( 'recaptcha-for-submits' )  ) {
+        if ( 'submit_listing' === $current && ! wpbdp_get_option( 'recaptcha-for-submits' ) ) {
             return $submit_sections;
         }
 
@@ -280,7 +279,7 @@ JS;
         return $section;
     }
 
-    public function maybe_hide_recaptcha_section ( $submit_sections, $submit ) {
+    public function maybe_hide_recaptcha_section( $submit_sections, $submit ) {
         if ( 'v3' === $this->version && in_array( 'recaptcha', array_keys( $submit_sections ) ) ) {
             $submit_sections['recaptcha']['flags'][] = 'hidden';
         }

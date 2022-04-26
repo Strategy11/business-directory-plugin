@@ -43,7 +43,7 @@ jQuery(function($) {
         check_requirements: function( setting_id ) {
             var reqs     = this.requirements[ setting_id ];
             var $setting = $( '#wpbdp-settings-' + setting_id );
-            var $row     = $setting.parents( 'tr' );
+            var $row     = $setting.closest( '.wpbdp-setting-row' );
             var passes   = true;
 
             for ( var i = 0; i < reqs.length; i++ ) {
@@ -54,7 +54,7 @@ jQuery(function($) {
                 // Obtain updated value (if possible).
                 var $rel_setting = $( '#wpbdp-settings-' + req_name );
                 if ( $rel_setting.length > 0 ) {
-                    if ( $rel_setting.parents( 'tr' ).hasClass( 'wpbdp-setting-disabled' ) ) {
+                    if ( $rel_setting.closest( '.wpbdp-setting-row' ).hasClass( 'wpbdp-setting-disabled' ) ) {
                         value = false;
                     } else {
                         var $field = $rel_setting.find( '[name="wpbdp_settings[' + req_name + ']"]:checked, [name="wpbdp_settings[' + req_name + '][]"]:checked' );

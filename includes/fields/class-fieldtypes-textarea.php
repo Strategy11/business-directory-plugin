@@ -170,8 +170,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
                 $options .= $key . ':' . $val . ',';
                 continue;
             } elseif ( ! empty( $value ) && is_string( $value ) && (
-                ( '{' == $value[0] && '}' == $value[strlen( $value ) - 1] ) ||
-                ( '[' == $value[0] && ']' == $value[strlen( $value ) - 1] ) ||
+				( '{' == $value[0] && '}' == $value[ strlen( $value ) - 1 ] ) ||
+				( '[' == $value[0] && ']' == $value[ strlen( $value ) - 1 ] ) ||
                 preg_match( '/^\(?function ?\(/', $value ) ) ) {
 
                 $options .= $key . ':' . $value . ',';
@@ -417,7 +417,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             return $value;
         }
 
-        if ( $field->data( 'max_length' ) < 1  ) {
+		if ( $field->data( 'max_length' ) < 1 ) {
             return $value;
         }
 
@@ -437,9 +437,12 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             return $fields;
         }
 
-        $content_field = array_filter( $fields, function( $f ) {
-            return 'content' == $f->get_association();
-        } );
+		$content_field = array_filter(
+			$fields,
+			function( $f ) {
+				return 'content' === $f->get_association();
+			}
+		);
 
         $content_field = ! empty( $content_field ) ? $content_field : wpbdp_get_form_fields( array( 'association' => 'content') );
 
@@ -457,7 +460,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         foreach ( $fields as $k => $f ) {
             if ( 'excerpt' == $f->get_association() ) {
                 if ( 1 == $excerpt_override || ( 2 == $excerpt_override && empty( $f->value( $listing_id ) ) ) ) {
-                    unset( $fields[$k] );
+					unset( $fields[ $k ] );
                 }
             }
         }

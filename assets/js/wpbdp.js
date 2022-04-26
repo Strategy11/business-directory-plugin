@@ -130,7 +130,10 @@ jQuery(function( $ ) {
         configure_date_picker: function( $e ) {
             $e.datepicker({
                 dateFormat: $e.attr( 'data-date-format' ),
-                defaultDate: $e.val()
+                defaultDate: $e.val(),
+		        beforeShow: function() {
+					$( '#ui-datepicker-div' ).addClass( 'wpbdp-datepicker' );
+		        },
             });
         }
     };

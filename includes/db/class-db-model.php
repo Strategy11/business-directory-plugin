@@ -1,5 +1,5 @@
 <?php
-require_once ( WPBDP_PATH . 'includes/db/class-db-query-set.php' );
+require_once WPBDP_PATH . 'includes/db/class-db-query-set.php';
 
 class WPBDP__DB__Model {
 

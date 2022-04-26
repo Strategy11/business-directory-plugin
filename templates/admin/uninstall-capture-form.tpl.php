@@ -13,9 +13,7 @@ $reasons = array(
 <form id="wpbdp-uninstall-capture-form" action="<?php echo $action; ?>" method="post">
     <?php wp_nonce_field( 'uninstall bd' ); ?>
 
-    <p><?php _ex( 'We\'re sorry to see you leave. Could you take 10 seconds and answer one question for us to help us make the product better for everyone in the future?',
-                  'uninstall',
-                  'business-directory-plugin' ); ?></p>
+    <p><?php esc_html_e( 'We\'re sorry to see you leave. Could you take 10 seconds and answer one question for us to help us make the product better for everyone in the future?', 'business-directory-plugin' ); ?></p>
     <p><b><?php _ex( 'Why are you deleting Business Directory Plugin?', 'uninstall', 'business-directory-plugin' ); ?></b></p>
 
     <div class="wpbdp-validation-error no-reason wpbdp-hidden">

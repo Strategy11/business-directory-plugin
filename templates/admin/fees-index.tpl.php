@@ -1,15 +1,14 @@
 <?php
-    wpbdp_admin_header(
-		array(
-            'id'      => 'admin-fees',
-            'buttons' => array(
-                __( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
-            ),
-            'echo' => true,
-        )
-    );
-	?>
-    <?php wpbdp_admin_notices(); ?>
+WPBDP_Admin_Pages::show_tabs(
+	array(
+		'id'      => 'admin-fees',
+		'sub'     => __( 'Plans', 'business-directory-plugin' ),
+		'buttons' => array(
+			__( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
+		),
+	)
+);
+?>
 
     <?php if ( 'active' == $table->get_current_view() || 'all' == $table->get_current_view() ) : ?>
         <div class="fees-order">
@@ -45,70 +44,47 @@
         </div>
 
         <br class="clear" />
-        <?php endif; ?>
+	<?php endif; ?>
 
-        <?php $table->views(); ?>
-        <?php $table->display(); ?>
+	<?php $table->views(); ?>
+	<?php $table->display(); ?>
 
-        <hr />
-        <?php
-        $modules = array(
-            array( 'stripe', 'stripe-payment-module', 'Stripe' ),
-            array( 'paypal', 'paypal-gateway-module', 'PayPal' ),
-            array( 'payfast', 'payfast-payment-module', 'PayFast' ),
-        );
-
-        global $wpbdp;
-        ?>
-
-        <div class="purchase-gateways cf postbox">
-            <div class="inside">
-                <h2 class="aligncenter">
-                    <?php
-                    if ( ! wpbdp_payments_possible() ) {
-                        esc_html_e( 'Set up a payment gateway to charge a fee for listings', 'business-directory-plugin' );
-                    } else {
-                        esc_html_e( 'Add a payment gateway to increase conversion rates', 'business-directory-plugin' );
-                    }
-                    ?>
-                </h2>
-            </div>
-        <?php
-		$modules_obj = wpbdp()->modules;
-        foreach ( $modules as $mod_info ) :
-            if ( $modules_obj->is_loaded( $mod_info[0] ) ) {
-                continue;
-            }
-			?>
-        <div class="gateway inside <?php echo esc_attr( $mod_info[0] ); ?> <?php echo $modules_obj->is_loaded( $mod_info[0] ) ? 'installed' : ''; ?>">
-            <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?ref=wp" target="_blank" rel="noopener">
-                <img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/<?php echo esc_attr( $mod_info[1] ); ?>.png" class="gateway-logo">
-            </a><br/>
+	<div class="purchase-gateways cf">
+		<h3>
 			<?php
-			echo sprintf(
-                // translators: %s: payment gateway name */
-                esc_html__( 'Add the %s gateway as a payment option.', 'business-directory-plugin' ),
-                '<a href="https://businessdirectoryplugin.com/downloads/' . esc_attr( $mod_info[1] ) . '/?utm_campaign=liteplugin" target="_blank" rel="noopener">' . esc_html( $mod_info[2] ) . '</a>'
-            );
+			if ( ! wpbdp_payments_possible() ) {
+				esc_html_e( 'Set up a payment gateway to charge a fee for listings', 'business-directory-plugin' );
+			} else {
+				esc_html_e( 'Add a payment gateway to increase conversion rates', 'business-directory-plugin' );
+			}
 			?>
-            <p>
-                <a href="https://businessdirectoryplugin.com/downloads/<?php echo esc_attr( $mod_info[1] ); ?>/?utm_campaign=liteplugin" target="_blank" rel="noopener" class="button-primary">
-                    <?php esc_html_e( 'Upgrade', 'business-directory-plugin' ); ?>
-                </a>
-            </p>
-        </div>
+		</h3>
+		<div class="wpbdp-fee-gateway-list wpbdp-grid">
+        <?php
+		foreach ( $gateways as $mod_info ) :
+			$cols = floor( 12 / count( $gateways ) );
+			?>
+		<div class="gateway wpbdp<?php echo esc_attr( $cols ); ?>">
+			<a class="gateway-title" href="<?php echo esc_url( $mod_info['link'] ); ?>" target="_blank" rel="noopener">
+				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/modules/<?php echo esc_attr( $mod_info[1] ); ?>.svg" class="gateway-logo" />
+			</a>
+			<div class="gateway-description">
+				<?php
+				echo sprintf(
+					// translators: %s: payment gateway name */
+					esc_html__( 'Add %s as a payment option.', 'business-directory-plugin' ),
+					esc_html( $mod_info[2] )
+				);
+				?>
+			</div>
+			<p class="gateway-footer">
+				<a href="<?php echo esc_url( $mod_info['link'] ); ?>" target="_blank" rel="noopener" class="button-primary">
+					<?php echo esc_html( $mod_info['cta'] ); ?>
+				</a>
+			</p>
+		</div>
         <?php endforeach; ?>
-        <?php if ( ! wpbdp_payments_possible() ) : ?>
-        <div class="gateway">
-            <h3>Authorize.net</h3>
-            <?php esc_html_e( 'Set up Authorize.net as a payment option.', 'business-directory-plugin' ); ?>
-            <p>
-                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ); ?>" class="button-primary">
-                    <?php esc_html_e( 'Set Up', 'business-directory-plugin' ); ?>
-                </a>
-            </p>
-        </div>
-        <?php endif; ?>
-        </div>
+		</div>
+	</div>
 
-<?php wpbdp_admin_footer( 'echo' ); ?>
+<?php WPBDP_Admin_Pages::show_tabs_footer( array( 'sub' => true ) ); ?>

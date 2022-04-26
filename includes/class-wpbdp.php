@@ -28,7 +28,7 @@ final class WPBDP {
     }
 
     private function setup_constants() {
-        define( 'WPBDP_VERSION', '5.18' );
+        define( 'WPBDP_VERSION', '6.0.1' );
 
         define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
         define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -366,7 +366,7 @@ final class WPBDP {
 		$add_links = array();
 
 		if ( ! WPBDP_Admin_Education::is_installed( 'premium' ) ) {
-			$add_links[] = '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener"><b>' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</b></a>';
+			$add_links[] = '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener" style="color:#1da867" class="wpbdp-upgrade-link"><b>' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</b></a>';
 		}
 
 		$add_links['settings'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings' ) ) . '">' . esc_html__( 'Settings', 'business-directory-plugin' ) . '</a>';
@@ -484,16 +484,18 @@ final class WPBDP {
 
         foreach ( $files as $i => $file ) {
             $image_error = '';
-            $attachment_id = wpbdp_media_upload( $file,
-                                                 true,
-                                                 true,
-                                                 array( 'image' => true,
-                                                        'min-size' => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
-                                                        'max-size' => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
-                                                        'min-width' => wpbdp_get_option( 'image-min-width' ),
-                                                        'min-height' => wpbdp_get_option( 'image-min-height' )
-                                                     ),
-                                                 $image_error
+			$attachment_id = wpbdp_media_upload(
+				$file,
+				true,
+				true,
+				array(
+					'image'      => true,
+					'min-size'   => intval( wpbdp_get_option( 'image-min-filesize' ) ) * 1024,
+					'max-size'   => intval( wpbdp_get_option( 'image-max-filesize' ) ) * 1024,
+					'min-width'  => wpbdp_get_option( 'image-min-width' ),
+					'min-height' => wpbdp_get_option( 'image-min-height' ),
+				),
+				$image_error
 			); // TODO: handle errors.
 
 			if ( $image_error ) {

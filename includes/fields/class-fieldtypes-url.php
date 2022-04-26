@@ -126,7 +126,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $url = trim( sanitize_text_field( is_array( $input ) ? $input[0] : $input ) );
         $text = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
 
-        if ( $url && ! parse_url( $url, PHP_URL_SCHEME ) )
+		if ( $url && ! parse_url( $url, PHP_URL_SCHEME ) )
             $url = 'http://' . $url;
 
         return array( $url, $text );
@@ -161,10 +161,12 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
             'wpbdp-field-' . esc_attr( $field->get_id() ) . '-url',
             __( 'URL', 'business-directory-plugin' )
         );
-        $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" />',
-                          'wpbdp-field-' . esc_attr( $field->get_id() ),
-                          'listingfields[' . esc_attr( $field->get_id() ) . '][0]',
-                          esc_attr( $value[0] ) );
+        $html .= sprintf(
+			'<input type="text" id="%s" name="%s" value="%s" />',
+			'wpbdp-field-' . esc_attr( $field->get_id() ),
+			'listingfields[' . esc_attr( $field->get_id() ) . '][0]',
+			esc_attr( $value[0] )
+		);
         $html .= '</div>';
 
         $html .= '<div class="wpbdp-url-field-col wpbdp-half">';
@@ -173,10 +175,12 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
             'wpbdp-field-' . esc_attr( $field->get_id() ) . '-title',
             esc_html__( 'Link Text (optional)', 'business-directory-plugin' )
         );
-        $html .= sprintf( '<input type="text" id="%s" name="%s" value="%s" placeholder="" />',
-                          'wpbdp-field-' . esc_attr( $field->get_id() ) . '-title',
-                          'listingfields[' . esc_attr( $field->get_id() )    . '][1]',
-                          esc_attr( $value[1] ) );
+		$html .= sprintf(
+			'<input type="text" id="%s" name="%s" value="%s" placeholder="" />',
+			'wpbdp-field-' . esc_attr( $field->get_id() ) . '-title',
+			'listingfields[' . esc_attr( $field->get_id() ) . '][1]',
+			esc_attr( $value[1] )
+		);
         $html .= '</div>';
 
 		if ( strpos( $context, 'submit' ) !== false ) {

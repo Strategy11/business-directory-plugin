@@ -213,7 +213,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			)
 		);
 
-		$show_images       = in_array( 'images', $this->supports ) && isset( $instance['show_images'] ) && $instance['show_images'];
+		$show_images       = in_array( 'images', $this->supports, true ) && isset( $instance['show_images'] ) && $instance['show_images'];
 		$img_size          = $this->get_image_size( $instance );
 		$default_image     = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
 		$coming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
@@ -279,7 +279,6 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
 		$html_image    = $this->render_image( $listing, $args );
 		$fields        = sprintf( '<div class="wpbdp-listing-fields">%s</div>', $this->render_fields( $listing, $args['fields'] ) );
-
 		$template      = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
 		if ( ! empty( $html_image ) ) {
 			$template .= '<div class="wpbdp-listings-widget-thumb">%2$s</div>';
@@ -304,7 +303,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @return string
 	 */
 	private function render_image( $listing, $args ) {
-		$image_link    = '';
+		$image_link = '';
 		if ( $args['show_images'] ) {
 			$img_size = $args['img_size'];
 			if ( is_array( $img_size ) ) {
@@ -386,7 +385,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			return;
 		}
 
-		$img_style = '<style>#'. esc_attr( $this->id ) . ' .listing-image{';
+		$img_style = '<style>#' . esc_attr( $this->id ) . ' .listing-image{';
 		if ( $img_size[0] ) {
 			$img_style .= 'max-width:' . absint( $img_size[0] ) . 'px;';
 		}

@@ -1,5 +1,5 @@
 <?php
-wpbdp_admin_header( array( 'echo' => true ) );
+wpbdp_admin_header( array( 'echo' => true, 'sidebar' => false ) );
 wpbdp_admin_notices();
 ?>
 

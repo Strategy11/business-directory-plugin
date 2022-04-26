@@ -14,30 +14,32 @@
 		),
     );
 
-    echo wpbdp_admin_header( null, null, $buttons );
+	WPBDP_Admin_Pages::show_tabs(
+		array(
+			'id'      => 'formfields',
+			'sub'     => __( 'Form Fields', 'business-directory-plugin' ),
+			'buttons' => $buttons,
+		)
+	);
+?>
+<span class="howto wpbdp-settings-subtab-description wpbdp-setting-description">
+	<?php
+	esc_html_e(
+		'Create new fields, edit existing fields, change the field order and visibility.',
+		'business-directory-plugin'
+	);
 
-	wpbdp_admin_notices();
-
-    echo esc_html_x(
-        'Here, you can create new fields for your listings, edit or delete existing ones, change the order and visibility of the fields as well as configure special options for them.',
-        'form-fields admin',
-        'business-directory-plugin'
-    );
+	echo ' ';
+	printf(
+		/* translators: %1$s open link, %2$s close link */
+		esc_html__( 'Please see the %1$sForm Fields documentation%2$s for more details.', 'business-directory-plugin' ),
+		'<a href="https://businessdirectoryplugin.com/knowledge-base/manage-form-fields/" target="_blank" rel="noopener">',
+		'</a>'
+	);
     ?>
-               <br />
-    <?php
-    echo str_replace(
-        '<a>',
-        '<a href="https://businessdirectoryplugin.com/knowledge-base/manage-form-fields/" target="_blank" rel="noopener">',
-        _x(
-            'Please see the <a>Form Fields documentation</a> for more details.',
-            'form-fields admin',
-            'business-directory-plugin'
-        )
-    );
-    ?>
+</span>
 
-    <?php $table->views(); ?>
-    <?php $table->display(); ?>
+<?php $table->views(); ?>
+<?php $table->display(); ?>
 
 <?php echo wpbdp_admin_footer(); ?>
