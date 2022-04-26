@@ -504,7 +504,8 @@ class WPBDP_Admin_Pages {
 	 * @return string
 	 */
 	private static function get_admin_menu_icon( $menu_id, $menu_item ) {
-		$menu_icons = apply_filters( 'wpbdp_admin_menu_icons',
+		$menu_icons = apply_filters(
+			'wpbdp_admin_menu_icons',
 			array(
 				'edit.php?post_type=wpbdp_listing'                                  => 'list',
 				'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' => 'folder',

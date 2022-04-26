@@ -24,9 +24,7 @@ function _defaults_or( $defs, $key, $val ) {
 
 <p class="howto wpbdp-settings-subtab-description wpbdp-setting-description">
 <?php
-_ex( 'Here, you can import data into your directory using the CSV format.',
-     'admin csv-import',
-     'business-directory-plugin' );
+esc_html_e( 'Here, you can import data into your directory using the CSV format.', 'business-directory-plugin' );
 ?><br />
 <?php
 printf(
@@ -56,9 +54,11 @@ printf(
 				<?php if ( $files['csv'] ) : ?>
 				<div class="file-local-selection">
 					<?php
-					echo str_replace( '<a>',
-										'<a href="#" class="toggle-selection">',
-										_x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'business-directory-plugin' ) );
+					echo str_replace(
+						'<a>',
+						'<a href="#" class="toggle-selection">',
+						_x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'business-directory-plugin' )
+					);
 					?>
 
 					<ul>
@@ -85,9 +85,11 @@ printf(
 				<?php if ( $files['images'] ) : ?>
 				<div class="file-local-selection">
 					<?php
-					echo str_replace( '<a>',
-										'<a href="#" class="toggle-selection">',
-										_x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'business-directory-plugin' ) );
+					echo str_replace(
+						'<a>',
+						'<a href="#" class="toggle-selection">',
+						_x( '... or <a>select a file uploaded to the imports folder</a>', 'admin csv-import', 'business-directory-plugin' )
+					);
 					?>
 
 					<ul>

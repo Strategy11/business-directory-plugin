@@ -39,6 +39,10 @@ class WPBDP__Settings {
     }
 
     public function sanitize_settings( $input ) {
+        if ( empty( $input ) ) {
+            return $this->options;
+        }
+
         $on_admin = ! empty( $_POST['_wp_http_referer'] );
 
         $output = array_merge( $this->options, $input );
@@ -54,15 +58,13 @@ class WPBDP__Settings {
                 // XXX: maybe this should always be executed, not only admin side?
                 if ( $on_admin ) {
                     switch ( $setting['type'] ) {
-                    case 'multicheck':
-                        if ( is_array( $value ) ) {
-                            $input[ $setting_id ] = array_filter( $value, 'strlen' );
-                            $output[ $setting_id ] = array_filter( $value, 'strlen' );
-                        }
+						case 'multicheck':
+							if ( is_array( $value ) ) {
+								$input[ $setting_id ] = array_filter( $value, 'strlen' );
+								$output[ $setting_id ] = array_filter( $value, 'strlen' );
+							}
 
-                        break;
-                    default:
-                        break;
+							break;
                     }
                 }
 
@@ -116,19 +118,18 @@ class WPBDP__Settings {
         }
 
         switch ( count( $parents ) ) {
-        case 0:
-            $group_type = 'tab';
-            break;
-        case 1:
-            $group_type = 'subtab';
-            break;
-        case 2:
-            $group_type = 'section';
-            break;
-        default:
-            // throw new Exception( sprintf( 'Invalid # of parents in the tree for settings group "%s"', $slug ) );
-            return false;
-            break;
+			case 0:
+				$group_type = 'tab';
+				break;
+			case 1:
+				$group_type = 'subtab';
+				break;
+			case 2:
+				$group_type = 'section';
+				break;
+			default:
+				// throw new Exception( sprintf( 'Invalid # of parents in the tree for settings group "%s"', $slug ) );
+				return false;
         }
 
         if ( $parent ) {
@@ -169,19 +170,22 @@ class WPBDP__Settings {
             );
         }
 
-        $args = wp_parse_args( $args, array(
-            'id'           => '',
-            'name'         => '',
-            'type'         => 'text',
-            'group'        => 'general/main',
-            'desc'         => '',
-            'validator'    => false,
-            'default'      => false,
-            'on_update'    => false,
-            'class'        => '',
-            'grid_classes' => false,
-            'dependencies' => array()
-        ) );
+        $args = wp_parse_args(
+			$args,
+			array(
+				'id'           => '',
+				'name'         => '',
+				'type'         => 'text',
+				'group'        => 'general/main',
+				'desc'         => '',
+				'validator'    => false,
+				'default'      => false,
+				'on_update'    => false,
+				'class'        => '',
+				'grid_classes' => false,
+				'dependencies' => array()
+			)
+		);
 
 		if ( isset( $this->settings[ $args['id'] ] ) ) {
             return false;
@@ -395,10 +399,13 @@ class WPBDP__Settings {
     }
 
     public function get_dependencies( $args = array() ) {
-        $args = wp_parse_args( $args, array(
-            'setting' => null,
-            'type' => null
-        ) );
+		$args = wp_parse_args(
+			$args,
+			array(
+				'setting' => null,
+				'type'    => null,
+			)
+		);
         extract( $args );
 
         if ( $setting )
@@ -430,18 +437,18 @@ class WPBDP__Settings {
     public function pre_2_0_compat_get_config_options() {
         $legacy_options = array();
 
-        foreach ($this->pre_2_0_options() as $old_key => $new_key) {
+		foreach ( $this->pre_2_0_options() as $old_key => $new_key ) {
 			$setting_value = $this->get( $new_key );
 
 			if ( $new_key === 'paypal' || $new_key === '2checkout' ) {
 				$setting_value = ! $setting_value;
 			}
 
-            if ($this->settings[$new_key]->type == 'boolean') {
+            if ( $this->settings[ $new_key ]->type === 'boolean' ) {
                 $setting_value = $setting_value == true ? 'yes' : 'no';
             }
 
-            $legacy_options[$old_key] = $setting_value;
+			$legacy_options[ $old_key ] = $setting_value;
         }
 
         return $legacy_options;
@@ -495,65 +502,65 @@ class WPBDP__Settings {
 
         foreach ( $validators as $validator ) {
             switch ( $validator ) {
-            case 'trim':
-                $value = trim( $value );
-                break;
-            case 'no-spaces':
-                $value = trim( preg_replace( '/\s+/', '', $value ) );
-                break;
-            case 'required':
-                if ( is_array( $value ) ) {
-                    $value = array_filter( $value, 'strlen' );
-                }
+				case 'trim':
+					$value = trim( $value );
+					break;
+				case 'no-spaces':
+					$value = trim( preg_replace( '/\s+/', '', $value ) );
+					break;
+				case 'required':
+					if ( is_array( $value ) ) {
+						$value = array_filter( $value, 'strlen' );
+					}
 
-                if ( empty( $value ) ) {
-                    add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'business-directory-plugin' ), $setting['name'] ), 'error' );
-                    $has_error = true;
-                }
+					if ( empty( $value ) ) {
+						add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'business-directory-plugin' ), $setting['name'] ), 'error' );
+						$has_error = true;
+					}
 
-                break;
-            case 'taxonomy_slug':
-                // Don't use sanitize_title because it replaes unicode characters
-                // with octets and breaks the Rewrite Rules.
-                $value = trim( $value );
+					break;
+				case 'taxonomy_slug':
+					// Don't use sanitize_title because it replaes unicode characters
+					// with octets and breaks the Rewrite Rules.
+					$value = trim( $value );
 
-                if ( empty( $value ) ) {
-                    add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'business-directory-plugin' ), $setting['name'] ), 'error' );
-                    $has_error = true;
-					continue 2;
-                }
+					if ( empty( $value ) ) {
+						add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( '"%s" can not be empty.', 'settings', 'business-directory-plugin' ), $setting['name'] ), 'error' );
+						$has_error = true;
+						continue 2;
+					}
 
-				// Check for characters that will break the url.
-				$disallow = array( ' ', ',', '&' );
-				$stripped = str_replace( $disallow, '', $value );
-				if ( $stripped !== $value ) {
-					add_settings_error( 'wpbdp_settings', $setting_id, sprintf( __( '%s cannot include spaces, commas, or &', 'business-directory-plugin' ), $setting['name'] ), 'error' );
-					$has_error = true;
-					continue 2;
-				}
+					// Check for characters that will break the url.
+					$disallow = array( ' ', ',', '&' );
+					$stripped = str_replace( $disallow, '', $value );
+					if ( $stripped !== $value ) {
+						add_settings_error( 'wpbdp_settings', $setting_id, sprintf( __( '%s cannot include spaces, commas, or &', 'business-directory-plugin' ), $setting['name'] ), 'error' );
+						$has_error = true;
+						continue 2;
+					}
 
-                if ( ! empty( $setting ) && ! empty( $setting['taxonomy'] ) ) {
-                    foreach ( get_taxonomies( null, 'objects' ) as $taxonomy ) {
-                        if ( $taxonomy->rewrite && $taxonomy->rewrite['slug'] == $value && $taxonomy->name != $setting['taxonomy'] ) {
-                            add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( 'The slug "%s" is already in use for another taxonomy.', 'settings', 'business-directory-plugin' ), $value ), 'error' );
-                            $has_error = true;
-                        }
-                    }
-                }
+					if ( ! empty( $setting ) && ! empty( $setting['taxonomy'] ) ) {
+						foreach ( get_taxonomies( null, 'objects' ) as $taxonomy ) {
+							if ( $taxonomy->rewrite && $taxonomy->rewrite['slug'] == $value && $taxonomy->name != $setting['taxonomy'] ) {
+								add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( 'The slug "%s" is already in use for another taxonomy.', 'settings', 'business-directory-plugin' ), $value ), 'error' );
+								$has_error = true;
+							}
+						}
+					}
 
-                break;
-            default:
-                // TODO: How to handle errors to set $has_error = true?
-                if ( is_callable( $validator ) ) {
-                    if ( is_string( $validator ) ) {
-                        $value = call_user_func( $validator, $value );
-                    } else {
-                        $value = call_user_func( $validator, $value, $old_value, $setting );
-                    }
-                }
+					break;
+				default:
+					// TODO: How to handle errors to set $has_error = true?
+					if ( is_callable( $validator ) ) {
+						if ( is_string( $validator ) ) {
+							$value = call_user_func( $validator, $value );
+						} else {
+							$value = call_user_func( $validator, $value, $old_value, $setting );
+						}
+					}
 
-                break;
-            }
+					break;
+			}
         }
 
         return ( $has_error ? $old_value : $value );
@@ -645,7 +652,7 @@ class WPBDP__Settings {
 
 		$old_options = get_option( 'wpbusdirman_settings_config' );
 		if ( $old_options ) {
-            foreach ($old_options as $option) {
+			foreach ( $old_options as $option ) {
 				$id    = strtolower( $option['id'] );
 				$type  = strtolower( $option['type'] );
                 $value = $option['std'];
@@ -667,7 +674,7 @@ class WPBDP__Settings {
 
 					$newsetting = $this->settings[ $translations[ $id ] ];
 
-                    switch ($newsetting->type) {
+					switch ( $newsetting->type ) {
                         case 'boolean':
 							$this->set( $newsetting->name, $value === 'yes' );
                             break;
@@ -678,7 +685,6 @@ class WPBDP__Settings {
                             break;
                     }
                 }
-
             }
 
 			delete_option( 'wpbusdirman_settings_config' );

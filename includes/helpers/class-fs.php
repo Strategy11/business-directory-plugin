@@ -10,10 +10,14 @@ final class WPBDP_FS {
 
         $dir = wp_normalize_path( untrailingslashit( $dir ) );
 
-        $args = wp_parse_args( $args,
-                               array( 'recursive' => false,
-                                      'filter' => false,
-                                      'output' => 'path' ) );
+		$args = wp_parse_args(
+			$args,
+			array(
+				'recursive' => false,
+				'filter'    => false,
+				'output'    => 'path',
+			)
+		);
         extract( $args );
 
         if ( 'file' == $filter )
@@ -43,9 +47,11 @@ final class WPBDP_FS {
                 $item->size = absint( filesize( $path ) );
             }
 
-            $res = array_merge( $res,
-                                $passes ? array( $item ) : array(),
-                                $recursive && is_dir( $path ) ? self::ls( $path, $args ) : array() );
+			$res = array_merge(
+				$res,
+				$passes ? array( $item ) : array(),
+				$recursive && is_dir( $path ) ? self::ls( $path, $args ) : array()
+			);
         }
 
         closedir( $h );
@@ -108,8 +114,10 @@ final class WPBDP_FS {
             require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 
         if ( ! wp_is_writable( $destdir ) ) {
-            return new WP_Error( 'dest-not-writable',
-                                 sprintf( _x( 'Destination dir "%s" is not writable.', 'fs helper', 'business-directory-plugin' ), $destdir ) );
+			return new WP_Error(
+				'dest-not-writable',
+				sprintf( _x( 'Destination dir "%s" is not writable.', 'fs helper', 'business-directory-plugin' ), $destdir )
+			);
         }
 
         $normalized = basename( basename( strtolower( $zipfile ), '.zip' ), '.tmp' );
@@ -117,9 +125,11 @@ final class WPBDP_FS {
         $destdir = untrailingslashit( $destdir );
 
         $zip = new PclZip( $zipfile );
-        $files = $zip->extract( PCLZIP_OPT_PATH, $destdir,
-                                PCLZIP_OPT_REMOVE_PATH, $normalized,
-                                PCLZIP_OPT_ADD_PATH, $normalized );
+		$files = $zip->extract(
+			PCLZIP_OPT_PATH, $destdir,
+			PCLZIP_OPT_REMOVE_PATH, $normalized,
+			PCLZIP_OPT_ADD_PATH, $normalized
+		);
 
         // Filter '__MACOSX' dir if present.
         self::rmdir( $destdir . DIRECTORY_SEPARATOR . '__MACOSX' );

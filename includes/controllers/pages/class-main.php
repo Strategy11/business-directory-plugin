@@ -14,12 +14,12 @@ class WPBDP__Views__Main extends WPBDP__View {
 
         if ( current_user_can( 'administrator' ) && wpbdp_get_option( 'hide-empty-categories' ) &&
              wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=0' ) > 0 && wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=1' ) == 0 ) {
-            $msg = _x( 'You have "Hide Empty Categories" on and some categories that don\'t have listings in them. That means they won\'t show up on the front end of your site. If you didn\'t want that, click <a>here</a> to change the setting.',
-                       'templates',
-                       'business-directory-plugin' );
-            $msg = str_replace( '<a>',
-                                '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=listings#hide-empty-categories' ) ) . '">',
-                                $msg );
+			$msg = _x( 'You have "Hide Empty Categories" on and some categories that don\'t have listings in them. That means they won\'t show up on the front end of your site. If you didn\'t want that, click <a>here</a> to change the setting.', 'templates', 'business-directory-plugin' );
+			$msg = str_replace(
+				'<a>',
+				'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=listings#hide-empty-categories' ) ) . '">',
+				$msg
+			);
             $html .= wpbdp_render_msg( $msg );
         }
     }

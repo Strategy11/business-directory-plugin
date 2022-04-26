@@ -76,7 +76,7 @@ $flagging_options = WPBDP__Listing_Flagging::get_flagging_options();
                 <?php printf(
                     /* translators: %1$s: open link html, %2$s close link html */
                     esc_html__( 'Return to %1$slisting%2$s.', 'business-directory-plugin' ),
-                    '<a href="' . esc_url( $listing->get_permalink() ). '">',
+                    '<a href="' . esc_url( $listing->get_permalink() ) . '">',
                     '</a>'
                 );
                 ?>

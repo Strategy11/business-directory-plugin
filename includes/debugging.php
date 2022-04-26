@@ -55,10 +55,14 @@ class WPBDP_Debugging {
 			E_DEPRECATED => 'deprecated'
 		);
 
-		self::add_debug_msg( $errstr,
-							 isset( $errno_to_string[ $errno ] ) ? 'php-' . $errno_to_string[ $errno ] : 'php',
-							 array( 'file' => $file,
-							 		'line' => $line) );
+		self::add_debug_msg(
+			$errstr,
+			isset( $errno_to_string[ $errno ] ) ? 'php-' . $errno_to_string[ $errno ] : 'php',
+			array(
+				'file' => $file,
+				'line' => $line,
+			)
+		);
 	}
 
 	public static function debug_off() {
@@ -88,7 +92,7 @@ class WPBDP_Debugging {
 		echo '<div class="tab" id="wpbdp-debugging-tab-logging">';
 		echo '<table>';
 
-		foreach (self::$messages as $item) {
+		foreach ( self::$messages as $item ) {
 			$time = explode( ' ', $item['timestamp'] );
 
 			echo '<tr class="' . $item['type'] . '">';
@@ -98,7 +102,7 @@ class WPBDP_Debugging {
 			echo '<td class="type">' . $item['type'] . '</td>';
 			echo '<td class="message">' . $item['message'] . '</td>';
 
-			if ($item['context']) {
+			if ( $item['context'] ) {
 				echo '<td class="context">' . $item['context']['function'] . '</td>';
 				echo '<td class="file">' . basename( $item['context']['file'] ) . ':' . $item['context']['line'] . '</td>';
 			} else {
@@ -184,7 +188,7 @@ class WPBDP_Debugging {
 	/* API */
 
 	public static function debug() {
-		if (self::$debug) {
+		if ( self::$debug ) {
 			foreach ( func_get_args() as $var ) {
 				self::add_debug_msg( self::_var_dump( $var ), 'debug', debug_backtrace() );
 			}

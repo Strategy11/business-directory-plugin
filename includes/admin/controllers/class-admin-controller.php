@@ -38,7 +38,12 @@ class WPBDP__Admin__Controller {
 
     function _dispatch() {
 		if ( empty( $this->current_view ) ) {
-            $this->current_view = wpbdp_get_var( array( 'param' => 'wpbdp-view', 'default' => 'index' ) );
+			$this->current_view = wpbdp_get_var(
+				array(
+					'param'   => 'wpbdp-view',
+					'default' => 'index',
+				)
+			);
 		}
 
         $this->current_view = WPBDP_Utils::normalize( $this->current_view );

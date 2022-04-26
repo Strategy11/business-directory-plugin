@@ -8,11 +8,13 @@ if ( ! class_exists( 'WP_List_Table' ) )
 class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
     public function __construct() {
-        parent::__construct( array(
-            'singular' => _x( 'payment', 'payments admin', 'business-directory-plugin' ),
-            'plural' => _x( 'payments', 'payments admin', 'business-directory-plugin' ),
-            'ajax' => false
-        ) );
+        parent::__construct(
+			array(
+				'singular' => _x( 'payment', 'payments admin', 'business-directory-plugin' ),
+				'plural'   => _x( 'payments', 'payments admin', 'business-directory-plugin' ),
+				'ajax'     => false,
+			)
+		);
     }
 
     public function no_items() {
@@ -38,11 +40,13 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
         $views = array();
         foreach ( $views_ as $view_id => $view_data ) {
-            $views[ $view_id ] = sprintf( '<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
-                                          esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&status=' . $view_id ) ),
-										  $view_id == $this->get_current_view() ? 'current' : '',
-                                          $view_data[0],
-                                          number_format_i18n( $view_data[1] ) );
+            $views[ $view_id ] = sprintf(
+				'<a href="%s" class="%s">%s</a> <span class="count">(%s)</span></a>',
+				esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&status=' . $view_id ) ),
+				$view_id == $this->get_current_view() ? 'current' : '',
+				$view_data[0],
+				number_format_i18n( $view_data[1] )
+			);
         }
 
         return $views;

@@ -6,6 +6,7 @@
 	<exclude-pattern>vendors/*</exclude-pattern>
 	<exclude-pattern>node_modules/*</exclude-pattern>
     <exclude-pattern>themes/*</exclude-pattern> <!-- Remove me -->
+    <exclude-pattern>includes/admin/upgrades/migrations/*</exclude-pattern>
 
     <arg value="s" />
 
@@ -49,17 +50,11 @@
         <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
 
         <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
-        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
         <exclude name="WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeOpenBracket" />
-        <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound" />
         <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
-        <exclude name="Generic.Formatting.DisallowMultipleStatements.SameLine" />
         <exclude name="Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace" />
 
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />

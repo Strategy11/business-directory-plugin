@@ -17,12 +17,15 @@
     <?php
 	if ( $show_cancel_subscription_button ) :
 
-        $url = add_query_arg( array(
-            'wpbdp_view' => 'manage_recurring',
-            'action' => 'cancel-subscription',
-            'listing' => $listing->get_id(),
-            'nonce' => wp_create_nonce( 'cancel-subscription-' . $listing->get_id() ),
-        ), wpbdp_url( 'main' ) );
+		$url = add_query_arg(
+			array(
+				'wpbdp_view' => 'manage_recurring',
+				'action' => 'cancel-subscription',
+				'listing' => $listing->get_id(),
+				'nonce' => wp_create_nonce( 'cancel-subscription-' . $listing->get_id() ),
+			),
+			wpbdp_url( 'main' )
+		);
 
         $message = _x( 'However, if you want to cancel your subscription you can do that on <manage-recurring-link>the manage recurring payments page</manage-recurring-link>. When the renewal time comes you\'ll be able to change your settings again.', 'renew', 'business-directory-plugin' );
 

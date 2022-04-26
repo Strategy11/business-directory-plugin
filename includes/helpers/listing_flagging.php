@@ -102,7 +102,7 @@ class WPBDP__Listing_Flagging {
     }
 
     public static function remove_flagging( $listing_id, $meta_pos = 'all' ) {
-        if ( $meta_pos === 'all') {
+		if ( $meta_pos === 'all' ) {
             self::clear_flagging( $listing_id );
             return;
         }

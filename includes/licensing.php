@@ -203,10 +203,9 @@ class WPBDP_Licensing {
             return;
         }
 
-        wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ), '', array(
-			'icon' => 'key',
-		) );
-        wpbdp_register_settings_group(
+		wpbdp_register_settings_group( 'licenses', __( 'Licenses', 'business-directory-plugin' ), '', array( 'icon' => 'key' ) );
+
+		wpbdp_register_settings_group(
             'licenses/main',
             __( 'Licenses', 'business-directory-plugin' ),
             'licenses',

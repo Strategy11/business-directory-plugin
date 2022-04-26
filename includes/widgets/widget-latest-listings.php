@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'includes/widgets/class-listings-widget.php' );
+require_once WPBDP_PATH . 'includes/widgets/class-listings-widget.php';
 
 /**
  * Latest listings widget.
@@ -18,11 +18,15 @@ class WPBDP_LatestListingsWidget extends WPBDP_Listings_Widget {
     }
 
     public function get_listings( $instance ) {
-        return get_posts( array( 'post_type' => WPBDP_POST_TYPE,
-                                 'post_status' => 'publish',
-                                 'numberposts' => $this->get_field_value( $instance, 'number_of_listings' ),
-                                 'orderby' => 'date',
-                                 'suppress_filters' => false ) );
+        return get_posts(
+            array(
+				'post_type'        => WPBDP_POST_TYPE,
+				'post_status'      => 'publish',
+				'numberposts'      => $this->get_field_value( $instance, 'number_of_listings' ),
+				'orderby'          => 'date',
+				'suppress_filters' => false
+			)
+		);
     }
 
 }

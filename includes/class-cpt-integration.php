@@ -88,7 +88,7 @@ class WPBDP__CPT_Integration {
         add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
     }
 
-    public function _category_link( $link, $category, $taxonomy) {
+	public function _category_link( $link, $category, $taxonomy ) {
         if ( WPBDP_CATEGORY_TAX != $taxonomy ) {
             return $link;
         }
@@ -113,7 +113,7 @@ class WPBDP__CPT_Integration {
         return apply_filters( 'wpbdp_category_link', $link, $category );
     }
 
-    public function _tag_link( $link, $tag, $taxonomy) {
+	public function _tag_link( $link, $tag, $taxonomy ) {
         if ( WPBDP_TAGS_TAX != $taxonomy ) {
             return $link;
         }
@@ -221,9 +221,9 @@ class WPBDP__CPT_Integration {
         return $url;
     }
 
-    public function _allow_comments( $open, $post_id) {
+	public function _allow_comments( $open, $post_id ) {
         // comments on directory pages
-        if ($post_id == wpbdp_get_page_id( 'main' )) {
+        if ( $post_id == wpbdp_get_page_id( 'main' ) ) {
             return false;
         }
 

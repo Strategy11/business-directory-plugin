@@ -126,11 +126,14 @@ class WPBDP_SiteTracking {
             $data['environment']['mysql'] = $wpdb->get_var( 'SELECT @@version' );
             $data['environment']['server-software'] = wpbdp_get_server_value( 'SERVER_SOFTWARE' );
 
-            wp_remote_post( self::TRACKING_URL, array(
-                'method' => 'POST',
-                'blocking' => false,
-                'body' => $data
-            ) );
+			wp_remote_post(
+				self::TRACKING_URL,
+				array(
+					'method'   => 'POST',
+					'blocking' => false,
+					'body'     => $data
+				)
+			);
 
             set_transient( 'wpbdp-site_tracking_data', true, 7 * 60 * 60 * 24 );
 
@@ -154,14 +157,19 @@ class WPBDP_SiteTracking {
         if ( $reason < 0 || $reason > 4 )
             return;
 
-        wp_remote_post( self::TRACKING_URL, array(
-            'method' => 'POST',
-            'blocking' => true,
-            'body' => array( 'uninstall' => '1',
-                             'hash' => $hash,
-                             'reason' => $reason,
-                             'text' => $text )
-        ) );
+		wp_remote_post(
+			self::TRACKING_URL,
+			array(
+				'method'   => 'POST',
+				'blocking' => true,
+				'body'     => array(
+					'uninstall' => '1',
+					'hash'      => $hash,
+					'reason'    => $reason,
+					'text'      => $text,
+				)
+			)
+		);
     }
 
 	public static function handle_ajax_response() {

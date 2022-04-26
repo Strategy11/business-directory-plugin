@@ -9,8 +9,12 @@ wpbdp_admin_header(
 );
 ?>
 
-<p><?php printf( _x( 'Are you sure you want to delete the directory theme "%s"?', 'themes admin', 'business-directory-plugin' ),
-                 $theme->name ); ?></p>
+<p><?php
+printf(
+	_x( 'Are you sure you want to delete the directory theme "%s"?', 'themes admin', 'business-directory-plugin' ),
+	$theme->name
+);
+?></p>
 
 <form action="" method="post">
     <input type="hidden" name="theme_id" value="<?php echo $theme->id; ?>" />

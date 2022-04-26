@@ -208,8 +208,8 @@ class WPBDP__Assets {
 			--bd-main-color:' . $rootline_color . ';
 			--bd-main-color-20:' . $rootline_color . '33;
 			--bd-main-color-8:' . $rootline_color . '14;
-			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) .'px;
-			--bd-thumbnail-height:' . esc_attr( $thumbnail_height ) .'px;
+			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) . 'px;
+			--bd-thumbnail-height:' . esc_attr( $thumbnail_height ) . 'px;
 		}';
 
 		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $css ) );
