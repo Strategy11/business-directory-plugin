@@ -85,7 +85,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
 		<dt><?php esc_html_e( 'Expires on', 'business-directory-plugin' ); ?></dt>
         <dd>
             <span class="display-value" id="wpbdp-listing-plan-prop-expiration">
-                <?php echo ( $current_plan && $current_plan->expiration_date ) ? wpbdp_date_full_format( strtotime( $current_plan->expiration_date ) ) : ( $listing->get_fee_plan() ? 'Never' : '-' ); ?>
+                <?php echo ( $current_plan && $current_plan->expiration_date ) ? wpbdp_date( strtotime( $current_plan->expiration_date ) ) : ( $listing->get_fee_plan() ? 'Never' : '-' ); ?>
             </span>
 			<?php if ( ! $listing->has_subscription() ) : ?>
 				<a href="#" class="edit-value-toggle"><?php esc_html_e( 'Edit', 'business-directory-plugin' ); ?></a>
