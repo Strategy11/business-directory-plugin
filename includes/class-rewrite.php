@@ -146,7 +146,7 @@ class WPBDP__Rewrite {
             }
 
             if ( 'payments' == $wpbdpx ) {
-                require_once( WPBDP_PATH . 'includes/compatibility/class-wpbdpx-payments-compat.php' );
+                require_once WPBDP_PATH . 'includes/compatibility/class-wpbdpx-payments-compat.php';
                 $payments_compat = new WPBDP__WPBDPX_Payments_Compat();
                 $payments_compat->dispatch();
                 exit;

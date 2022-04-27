@@ -21,7 +21,7 @@ class WPBDP__Settings {
 
         // register_setting is not available on init in WordPress 4.3
         if ( ! function_exists( 'register_setting' ) && file_exists( ABSPATH . 'wp-admin/includes/plugin.php' ) ) {
-		    require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		    require_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
 
         register_setting( 'wpbdp_settings', 'wpbdp_settings', array( $this, 'sanitize_settings' ) );
@@ -32,7 +32,7 @@ class WPBDP__Settings {
 
     public function bootstrap() {
         // Add initial settings.
-        require_once( WPBDP_INC . 'admin/settings/class-settings-bootstrap.php' );
+        require_once WPBDP_INC . 'admin/settings/class-settings-bootstrap.php';
         WPBDP__Settings__Bootstrap::register_initial_groups();
         WPBDP__Settings__Bootstrap::register_initial_settings();
     }
@@ -377,9 +377,6 @@ class WPBDP__Settings {
      */
     public function add_setting( $section_key, $name, $label, $type = 'text', $default = null, $help_text = '', $args = array(), $validator = null, $callback = null ) {
 		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_setting' );
-        return;
-        $args_ = func_get_args();
-        wpbdp_debug_e( 'add setting called', $args_ );
     }
 
     /**
@@ -387,14 +384,6 @@ class WPBDP__Settings {
      */
     public function register_dep( $setting, $dep, $arg = null ) {
 		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_setting' );
-
-        return;
-        wpbdp_debug_e( 'register dep called' );
-
-        if ( ! isset( $this->deps[ $setting ] ) )
-            $this->deps[ $setting ] = array();
-
-        $this->deps[ $setting ][ $dep ] = $arg;
     }
 
     public function get_dependencies( $args = array() ) {

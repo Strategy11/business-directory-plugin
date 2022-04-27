@@ -4,9 +4,6 @@
  */
 class WPBDP__Views__Manage_Recurring extends WPBDP__View {
 
-    private $subscriptions = array();
-
-
     public function __construct() { }
 
     public function dispatch() {

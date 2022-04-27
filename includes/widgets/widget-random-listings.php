@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_PATH . 'includes/widgets/class-listings-widget.php' );
+require_once WPBDP_PATH . 'includes/widgets/class-listings-widget.php';
 
 /**
  * Random listings widget.

@@ -58,7 +58,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
             return false;
         }
 
-        require_once( $wp_editor_path );
+        require_once $wp_editor_path;
 
         if ( ! class_exists( '_WP_Editors' ) ) {
             return false;

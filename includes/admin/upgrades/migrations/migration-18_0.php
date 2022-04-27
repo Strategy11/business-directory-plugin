@@ -1,6 +1,6 @@
 <?php
 
-require_once( WPBDP_PATH . 'includes/utils.php' );
+require_once WPBDP_PATH . 'includes/utils.php';
 
 class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
@@ -89,7 +89,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
     }
 
     public function _migrate_email_notices( &$msg ) {
-        require_once( WPBDP_INC . 'admin/settings/class-settings-bootstrap.php' );
+        require_once WPBDP_INC . 'admin/settings/class-settings-bootstrap.php';
         $defaults = WPBDP__Settings__Bootstrap::get_default_expiration_notices();
 
         $notices = array();

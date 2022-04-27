@@ -585,7 +585,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
             $item     = $this->menu[ $plugin_page ];
             $slug     = $plugin_page;
-            $callback = isset( $item['callback'] ) ? $item['callback'] : false;
+			$callback = isset( $item['callback'] ) ? $item['callback'] : '';
 
             // Simple callback view are not processed here.
             if ( $callback && is_callable( $callback ) ) {

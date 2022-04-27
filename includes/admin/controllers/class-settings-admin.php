@@ -7,12 +7,6 @@
 
 class WPBDP__Settings_Admin {
 
-    /**
-     * Used to lookup sections by ID during the section callback execution.
-     */
-    private $sections_by_id = array();
-
-
     public function __construct() {
         add_action( 'admin_init', array( $this, 'register_settings' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -144,9 +138,7 @@ class WPBDP__Settings_Admin {
 		}
 	}
 
-    public function section_header_callback( $wp_section ) {
-        return;
-
+    public function section_header_callback( $section ) {
         if ( ! empty( $section['desc'] ) ) {
             echo '<p class="wpbdp-setting-description wpbdp-settings-section-description">';
             echo $section['desc'];
@@ -455,7 +447,7 @@ class WPBDP__Settings_Admin {
             return;
         }
 
-		$multiple = ! empty( $setting['multiple'] ) && $setting['multiple'];
+		$multiple = ! empty( $setting['multiple'] );
 
         echo '<select id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']' . ( $multiple ? '[]' : '' ) . '" ' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
         foreach ( $setting['options'] as $option_value => $option_label ) {
@@ -900,7 +892,7 @@ foreach ( $value as $i => $notice ) {
         }
 
         $active_subtab_description = ! empty( $all_groups[ $active_subtab ]['desc'] ) ? $all_groups[ $active_subtab ]['desc'] : '';
-        $custom_form               = ( ! empty( $all_groups[ $active_subtab ]['custom_form'] ) ) && $all_groups[ $active_subtab ]['custom_form'];
+		$custom_form               = ! empty( $all_groups[ $active_subtab ]['custom_form'] );
 
         echo wpbdp_render_page( WPBDP_PATH . 'templates/admin/settings-page.tpl.php', compact( 'tabs', 'subtabs', 'active_tab', 'active_subtab', 'active_subtab_description', 'custom_form' ) );
     }

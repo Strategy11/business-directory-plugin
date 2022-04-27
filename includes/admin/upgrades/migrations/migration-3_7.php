@@ -6,7 +6,7 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
         global $wpdb;
 
         // Try to disable incompatible modules.
-        include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
 
         if ( is_plugin_active( 'business-directory-regions/business-directory-regions.php' ) ) {
             deactivate_plugins( 'business-directory-regions/business-directory-regions.php' );

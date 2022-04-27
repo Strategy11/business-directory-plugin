@@ -240,16 +240,15 @@ class WPBDP_CSV_Import {
         switch ( $format ) {
             case '%': // As a percentage.
                 return round( 100 * $this->get_progress( 'f' ) );
-                break;
+
             case 'f': // As a fraction.
                 return round( $done / $total, 3 );
-                break;
+
             case 'n': // As # of items read.
                 return $done;
-                break;
+
             case 'r': // As # of items remaining.
                 return max( 0, $total - $done );
-                break;
         }
     }
 
@@ -520,12 +519,14 @@ class WPBDP_CSV_Import {
                 continue;
             }
 
-            if ( $t = term_exists( str_replace( '&', '&amp;', $c['name'] ), WPBDP_CATEGORY_TAX ) ) {
+			$term_name = str_replace( '&', '&amp;', $c['name'] );
+			$t         = term_exists( $term_name, WPBDP_CATEGORY_TAX );
+			if ( $t ) {
                 $c['term_id'] = $t['term_id'];
             } else {
-                $t = wp_insert_term( str_replace( '&amp;', '&', $c['name'] ), WPBDP_CATEGORY_TAX );
+				$t = wp_insert_term( $term_name, WPBDP_CATEGORY_TAX );
 
-                if ( is_array( $t ) && isset( $t['term_id'] ) ) {
+				if ( is_array( $t ) ) {
                     $c['term_id'] = $t['term_id'];
                 } elseif ( is_wp_error( $t ) ) {
                     $message = _x( 'Could not create listing category "<category-name>". The operation failed with the following error: <error-message>.', 'admin csv-import', 'business-directory-plugin' );
@@ -568,7 +569,6 @@ class WPBDP_CSV_Import {
                 continue;
             }
 
-			// $img = trim( $field_data );
             $img = array_pop( $field_data );
 
             if ( ! $img ) {
@@ -589,7 +589,8 @@ class WPBDP_CSV_Import {
 
         // Handle images.
         foreach ( $data['images'] as $filename ) {
-            if ( $img_id = $this->upload_image( $filename ) ) {
+			$img_id = $this->upload_image( $filename );
+			if ( $img_id ) {
                 $state->images[] = $img_id;
             }
         }
@@ -697,7 +698,8 @@ class WPBDP_CSV_Import {
         $meta['username']    = '';
 
         if ( $this->settings['assign-listings-to-user'] && $this->settings['default-user'] ) {
-            if ( $u = get_user_by( 'id', $this->settings['default-user'] ) ) {
+			$u = get_user_by( 'id', $this->settings['default-user'] );
+			if ( $u ) {
                 $meta['username'] = $u->user_login;
             }
         }
@@ -790,10 +792,6 @@ class WPBDP_CSV_Import {
                     if ( 'category' == $field->get_association() ) {
                         $this->prepare_categories( $value, $categories, $errors );
 
-					/* } else if ( 'tags' == $field->get_association() ) {
-                        $tags = array_map( 'trim', explode( $this->settings['category-separator'], $value ) );
-                        $fields[ $field->get_id() ] = $tags;
-					*/
                     } else {
                         $fields[ $field->get_id() ] = $field->convert_csv_input( $value, $this->settings );
                     }

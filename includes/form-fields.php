@@ -68,7 +68,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
             }
 
             $this->associations[ $association ]      = $name ? $name : $association;
-            $this->association_flags[ $association ] = is_array( $flags ) ? $flags : array( strval( $flags ) );
+			$this->association_flags[ $association ] = $flags;
 
             if ( ! isset( $this->association_field_types[ $association ] ) ) {
                 $this->association_field_types[ $association ] = array();
@@ -592,7 +592,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
         }
 
         public function validate_field( $field, $value, $validator, $args = array() ) {
-            $args['field-label'] = is_object( $field ) && $field ? apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) : __( 'Field', 'business-directory-plugin' );
+			$args['field-label'] = is_object( $field ) ? apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) : __( 'Field', 'business-directory-plugin' );
             $args['field']       = $field;
 
             return call_user_func( array( $this, $validator ), $value, $args );

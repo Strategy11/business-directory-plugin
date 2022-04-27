@@ -248,7 +248,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$user_id = get_current_user_id();
 		if ( $user_id ) {
-			$is_author = $listing->post_author === $user_id;
+			$is_author = (int) $listing->post_author === $user_id;
 			if ( $is_author ) {
 				return true;
 			}

@@ -6,7 +6,6 @@
 class WPBDP__Shortcodes {
 
     private $shortcodes = array();
-    private $output = array();
 
     public function __construct() {
         add_action( 'wpbdp_loaded', array( $this, 'register' ) );
@@ -871,8 +870,6 @@ class WPBDP__Shortcodes {
             _wpbdp_padded_count( $term );
             return $term->count;
         }
-
-        return '0';
     }
 
     public function sc_manage_listings( $atts, $content, $shortcode ) {

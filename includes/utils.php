@@ -3,11 +3,11 @@
  * @package WPBDP
  */
 
-require_once( WPBDP_INC . 'debugging.php' );
-require_once( WPBDP_INC . 'helpers/class-database-helper.php' );
-require_once( WPBDP_INC . 'helpers/class-email.php' );
-require_once( WPBDP_INC . 'compatibility/class-ajax-response.php' );
-require_once( WPBDP_INC . 'helpers/class-fs.php' );
+require_once WPBDP_INC . 'debugging.php';
+require_once WPBDP_INC . 'helpers/class-database-helper.php';
+require_once WPBDP_INC . 'helpers/class-email.php';
+require_once WPBDP_INC . 'compatibility/class-ajax-response.php';
+require_once WPBDP_INC . 'helpers/class-fs.php';
 
 class WPBDP_Utils {
 
@@ -935,8 +935,9 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
     if ( ( ! $setting && ! $file && ! $object ) || ( $setting && 'email_template' != $setting['type'] ) )
         return false;
 
-    if ( ! class_exists( 'WPBDP_Email' ) )
-        require_once( WPBDP_PATH . 'includes/helpers/class-email.php' );
+	if ( ! class_exists( 'WPBDP_Email' ) ) {
+		require_once WPBDP_PATH . 'includes/helpers/class-email.php';
+	}
 
     $placeholders = $setting ? ( isset( $setting['placeholders'] ) && is_array( $setting['placeholders'] ) ? $setting['placeholders'] : array() ) : array();
 

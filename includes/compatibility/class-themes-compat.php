@@ -2,10 +2,7 @@
 class WPBDP__Themes_Compat {
 
     private $theme = '';
-    private $theme_version = '';
     private $parent_theme = '';
-    private $parent_theme_version = '';
-
 
     public function __construct() {
         if ( wpbdp_get_option( 'disable-cpt' ) )
@@ -14,11 +11,9 @@ class WPBDP__Themes_Compat {
         $current_theme = wp_get_theme();
 
         $this->theme = strtolower( $current_theme->get_stylesheet() );
-        $this->theme_version = $current_theme->get( 'Version' );
 
         if ( $parent = $current_theme->parent() ) {
             $this->parent_theme = strtolower( $parent->get_stylesheet() );
-            $this->parent_theme_version = $parent->get( 'Version' );
         }
 
         add_action( 'wpbdp_after_dispatch', array( $this, 'add_workarounds' ) );

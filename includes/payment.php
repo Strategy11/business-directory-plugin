@@ -5,9 +5,9 @@
  * @package BDP/Includes/Views/Checkout
  */
 
-require_once( WPBDP_PATH . 'includes/models/class-payment.php' );
-require_once( WPBDP_INC . 'abstracts/class-payment-gateway.php' );
-require_once( WPBDP_PATH . 'includes/class-fees-api.php' );
+require_once WPBDP_PATH . 'includes/models/class-payment.php';
+require_once WPBDP_INC . 'abstracts/class-payment-gateway.php';
+require_once WPBDP_PATH . 'includes/class-fees-api.php';
 
 
 if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
@@ -67,7 +67,6 @@ class WPBDP_PaymentsAPI {
 			<?php } ?>
 			<?php
 			$bill_to  = '';
-
 			$bill_to .= ( $payment->payer_first_name || $payment->payer_last_name ) ? $payment->payer_first_name . ' ' . $payment->payer_last_name : $current_user->display_name;
 			$bill_to .= $payment->payer_data ? '<br />' . implode( '<br />', $payment->get_payer_address() ) : '';
 			$bill_to .= '<br />';
