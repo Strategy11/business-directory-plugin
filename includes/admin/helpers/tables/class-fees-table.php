@@ -248,7 +248,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 	 *
 	 * @since 5.15.3
 	 *
-	 * @return string
+	 * @return string|int
 	 */
 	public function column_listings( $fee ) {
 		$column = $fee->count_listings();

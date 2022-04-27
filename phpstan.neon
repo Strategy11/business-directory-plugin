@@ -15,3 +15,5 @@ parameters:
 		- '#no (typehint|value type|return type)+ specified.#'
 		- '#might not be defined.#'
 		- '#Function (apply_filters)+ invoked with#'
+		- '#Method PclZip::extract\(\) invoked with #'
+		- '#overridden property WP_List_Table::\$items#'

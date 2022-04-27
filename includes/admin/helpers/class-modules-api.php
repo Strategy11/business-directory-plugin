@@ -132,7 +132,7 @@ class WPBDP_Modules_API {
 
 	/**
 	 * @since 5.10
-	 * @return array
+	 * @return array|false
 	 */
 	protected function get_cached() {
 		$cache = get_option( $this->cache_key );

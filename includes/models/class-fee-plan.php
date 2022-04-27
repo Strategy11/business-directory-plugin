@@ -55,7 +55,7 @@ final class WPBDP__Fee_Plan {
         if ( property_exists( $this, $key ) ) {
             return false === empty( $this->{$key} );
         } else {
-            return null;
+            return false;
         }
     }
 

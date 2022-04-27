@@ -11,7 +11,7 @@ require_once WPBDP_PATH . 'includes/models/class-listing.php';
  * @param array  $args
  * @param bool   $error
  * @param string $context
- * @return null|WPBDP_Listing
+ * @return WPBDP_Listing|WP_Error|false
  *
  * @since 5.0
  */

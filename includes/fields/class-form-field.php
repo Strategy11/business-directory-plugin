@@ -980,10 +980,10 @@ class WPBDP_Form_Field {
     }
 
     /**
-     * Creates a WPBDP_FormField from a database record.
+     * Creates a WPBDP_Form_Field from a database record.
      *
      * @param int $id the database record ID.
-     * @return WPBDP_FormField a valid WPBDP_FormField if the record exists or null if not.
+     * @return WPBDP_Form_Field|null a valid WPBDP_Form_Field if the record exists or null if not.
      */
     public static function get( $id ) {
 

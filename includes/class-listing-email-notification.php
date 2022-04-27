@@ -322,7 +322,7 @@ class WPBDP__Listing_Email_Notification {
      * @param string $context   This parameter is not used.
      * @since 5.0.6
      */
-    public function listing_renewal_email( $listing, $payment = false, $context = '' ) {
+    public function listing_renewal_email( $listing, $payment = null, $context = '' ) {
         // Notify admin.
         if ( in_array( 'after_renewal', wpbdp_get_option( 'admin-notifications' ), true ) ) {
             $email = new WPBDP_Email();

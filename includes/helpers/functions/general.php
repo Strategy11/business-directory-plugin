@@ -811,11 +811,8 @@ function wpbdp_current_category_id() {
         return false;
     }
 
-    $term = $wp_query->get_queried_object();
-
-    // if ( ! is_object( $term ) ) {
-    // return false;
-    // }
+	/** @var WP_Query $wp_query */
+	$term = $wp_query->get_queried_object();
 
     return $term->term_id;
 }
@@ -840,6 +837,7 @@ function _wpbpd_current_category() {
     global $wp_query;
 
     if ( $wp_query->wpbdp_is_category ) {
+		/** @var WP_Query $wp_query */
         $term = $wp_query->get_queried_object();
     } else {
         $term = null;
@@ -871,6 +869,7 @@ function wpbdp_current_tag_id() {
         return false;
     }
 
+	/** @var WP_Query $wp_query */
     $term = $wp_query->get_queried_object();
     return $term->term_id;
 }
@@ -880,9 +879,7 @@ function wpbdp_current_action() {
 }
 
 // TODO: how to implement now with CPT? (themes-release)
-/**
- * @SuppressWarnings(PHPMD)
- */
+
 function wpbdp_current_listing_id() {
     return 0;
 }

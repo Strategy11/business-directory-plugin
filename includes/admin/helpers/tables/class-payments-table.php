@@ -1,11 +1,17 @@
 <?php
-if ( ! class_exists( 'WP_List_Table' ) )
-    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+if ( ! class_exists( 'WP_List_Table' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
+}
 
 /**
  * @since 5.0
  */
 class WPBDP__Admin__Payments_Table extends WP_List_Table {
+
+    /**
+     * @var WPBDP__DB__Query_Set $items
+     */
+    public $items;
 
     public function __construct() {
         parent::__construct(

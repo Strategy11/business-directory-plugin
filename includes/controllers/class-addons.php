@@ -106,7 +106,7 @@ class WPBDP_Addons_Controller {
 		$plugin = $installer->plugin_info();
 		if ( empty( $plugin ) ) {
 			return array(
-				'message' => 'Plugin was not installed. ' . $installer->result,
+				'message' => 'Plugin was not installed. ' . print_r( $installer->result, 1 ),
 				'success' => false,
 			);
 		}

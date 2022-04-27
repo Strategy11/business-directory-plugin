@@ -281,7 +281,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
  */
 class _WPBDP_Lightweight_Field_Display_Item {
 
-    private $field = null;
+    public $field = null;
     private $listing_id = 0;
     private $display = '';
 

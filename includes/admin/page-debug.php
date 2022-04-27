@@ -171,7 +171,7 @@ class WPBDP_Admin_Debug_Page {
             return;
         }
 
-        if ( 1 == wpbdp_get_var( array( 'param' => 'download' ) ) ) {
+		if ( 1 === (int) wpbdp_get_var( array( 'param' => 'download' ) ) ) {
                     header( 'Content-Description: File Transfer' );
                     header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
                     header( 'Content-Disposition: attachment; filename=wpbdp-debug-info.txt' );

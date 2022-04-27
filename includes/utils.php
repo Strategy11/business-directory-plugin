@@ -798,7 +798,7 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
  *
  * @param string $str the string to be searched
  * @param string $prefix the prefix to search for
- * @return TRUE if $str starts with $prefix or FALSE otherwise
+ * @return bool  true if $str starts with $prefix or FALSE otherwise
  * @since 3.0.3
  */
 function wpbdp_starts_with( $str, $prefix, $case_sensitive = true ) {

@@ -357,7 +357,7 @@ class WPBDP_Form_Field_Type {
     /**
      * Called after a field of this type is deleted.
 	 *
-     * @param object $field the deleted WPBDP_FormField object.
+     * @param object $field the deleted WPBDP_Form_Field object.
      */
     public function cleanup( &$field ) {
         if ( $field->get_association() == 'meta' ) {

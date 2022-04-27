@@ -51,7 +51,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	 * Adding a redirect here will cause an indefinite loop.
 	 */
 	public function details() {
-		if ( 1 == wpbdp_get_var( array( 'param' => 'message' ) ) ) {
+		if ( 1 === (int) wpbdp_get_var( array( 'param' => 'message' ) ) ) {
 			wpbdp_admin_message( _x( 'Payment details updated.', 'payments admin', 'business-directory-plugin' ) );
 		}
 

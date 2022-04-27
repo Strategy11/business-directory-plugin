@@ -256,6 +256,7 @@ class WPBDP__WordPress_Template_Integration {
 
         // If we have other posts besides the spoof, rewind and reset
         if ( $wp_query->post_count > 0 ) {
+			/** @var WP_Query $wp_query */
             $wp_query->rewind_posts();
             wp_reset_postdata();
         } elseif ( 0 === $wp_query->post_count ) {
