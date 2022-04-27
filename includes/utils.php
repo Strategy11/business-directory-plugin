@@ -813,14 +813,9 @@ function wpbdp_starts_with( $str, $prefix, $case_sensitive = true ) {
  * @since 3.1
  */
 function wpbdp_format_time( $time = null, $format = 'mysql', $time_is_date = false ) {
-    // TODO: add more formats
-    switch ( $format ) {
-        case 'mysql':
-            return date( 'Y-m-d H:i:s', $time );
-            break;
-        default:
-            break;
-    }
+	if ( $format === 'mysql' ) {
+		$time = date( 'Y-m-d H:i:s', $time );
+	}
 
     return $time;
 }
