@@ -202,8 +202,6 @@ final class WPBDP {
         $this->assets = new WPBDP__Assets();
         $this->widgets = new WPBDP__Widgets();
 
-		require_once WPBDP_PATH . 'includes/compatibility/class-divi-compat.php';
-
         // We need to ask for frontend requests first, because
         // wpbdp_is_request( 'admin' ) or is_admin() return true for ajax
         // requests made from the frontend.

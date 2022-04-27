@@ -7,7 +7,6 @@
 ?>
 
 <div id="<?php echo esc_attr( $listing_css_id ); ?>" class="<?php echo esc_attr( $listing_css_class ); ?>">
-    <?php wpbdp_get_return_link(); ?>
 	<?php wpbdp_x_part( 'parts/listing-title' ); ?>
     <?php
 	wpbdp_x_part(

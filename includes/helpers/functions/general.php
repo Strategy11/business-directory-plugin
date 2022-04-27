@@ -1335,7 +1335,7 @@ function wpbdp_get_return_link() {
     }
 
     if ( $msg ) {
-        echo '<p class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >&larr; ' . esc_html( $msg ) . '</a></p>';
+        echo '<span class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >&larr; ' . esc_html( $msg ) . '</a></span>';
     }
 
 }

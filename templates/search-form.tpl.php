@@ -1,6 +1,5 @@
 <div id="wpbdp-search-form-wrapper">
 
-<h3><?php echo esc_html_x( 'Find a listing', 'templates', 'business-directory-plugin' ); ?></h3>
 <form action="<?php echo esc_url( wpbdp_url( 'search' ) ); ?>" id="wpbdp-search-form" method="get">
     <input type="hidden" name="dosrch" value="1" />
     <input type="hidden" name="q" value="" />
