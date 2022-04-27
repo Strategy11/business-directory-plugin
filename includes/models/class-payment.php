@@ -402,18 +402,18 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	}
 
 	/**
-	 * @deprecated 6.0.2
+	 * @deprecated 6.1
 	 */
 	public function is_canceled() {
-		_deprecated_function( __METHOD__, '6.0.2' );
+		_deprecated_function( __METHOD__, '6.1' );
 		return $this->status === 'canceled';
 	}
 
 	/**
-	 * @deprecated 6.0.2
+	 * @deprecated 6.1
 	 */
 	public function is_rejected() {
-		_deprecated_function( __METHOD__, '6.0.2' );
+		_deprecated_function( __METHOD__, '6.1' );
 		return false;
 	}
 }
