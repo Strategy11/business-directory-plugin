@@ -32,6 +32,7 @@ if ( 'single' === $view || 'excerpt' === $view ) :
 		);
     endif;
 endif;
+
 if ( 'single' === $view ) :
 	if ( wpbdp_get_option( 'show-directory-button' ) ) :
 		ob_start();
