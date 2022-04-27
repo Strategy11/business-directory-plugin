@@ -59,30 +59,6 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
     return apply_filters( 'wpbdp_get_page_ids', $page_ids, $page_id );
 }
 
-function wpbdp_get_page_ids_from_cache( $cache, $page_id ) {
-	_deprecated_function( __FUNCTION__, '5.16.1' );
-
-    global $wpdb;
-
-    if ( ! is_array( $cache ) || empty( $cache[ $page_id ] ) ) {
-        return null;
-    }
-
-    // Validate the cached IDs.
-    $query  = _wpbdp_page_lookup_query( $page_id, true );
-    $query .= ' AND ID IN ( ' . implode( ',', array_map( 'intval', $cache[ $page_id ] ) ) . ' ) ';
-
-	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-    $count = intval( $wpdb->get_var( $query ) );
-
-    if ( $count != count( $cache[ $page_id ] ) ) {
-        wpbdp_debug( 'Page cache is invalid.' );
-        return null;
-    }
-
-    return $cache[ $page_id ];
-}
-
 function wpbdp_get_page_ids_with_query( $page_id ) {
     // Look up for pages.
     $q = _wpbdp_page_lookup_query( $page_id );
@@ -522,20 +498,6 @@ function _wpbdp_should_image_be_resized( $id, $args = array() ) {
 	return true;
 }
 
-/*
- * @since 2.1.7
- * @deprecated since 3.6.10. See {@link wpbdp_currency_format()}.
- */
-function wpbdp_format_currency( $amount, $decimals = 2, $currency = null ) {
-	_deprecated_function( __FUNCTION__, '3.6.10', 'wpbdp_currency_format' );
-
-    if ( $amount == 0.0 ) {
-        return '—';
-    }
-
-    return ( ! $currency ? wpbdp_get_option( 'currency-symbol' ) : $currency ) . ' ' . number_format( $amount, $decimals );
-}
-
 /**
  * @since 3.6.10
  */
@@ -811,11 +773,8 @@ function wpbdp_current_category_id() {
         return false;
     }
 
-    $term = $wp_query->get_queried_object();
-
-    // if ( ! is_object( $term ) ) {
-    // return false;
-    // }
+	/** @var WP_Query $wp_query */
+	$term = $wp_query->get_queried_object();
 
     return $term->term_id;
 }
@@ -840,6 +799,7 @@ function _wpbpd_current_category() {
     global $wp_query;
 
     if ( $wp_query->wpbdp_is_category ) {
+		/** @var WP_Query $wp_query */
         $term = $wp_query->get_queried_object();
     } else {
         $term = null;
@@ -871,6 +831,7 @@ function wpbdp_current_tag_id() {
         return false;
     }
 
+	/** @var WP_Query $wp_query */
     $term = $wp_query->get_queried_object();
     return $term->term_id;
 }
@@ -880,9 +841,7 @@ function wpbdp_current_action() {
 }
 
 // TODO: how to implement now with CPT? (themes-release)
-/**
- * @SuppressWarnings(PHPMD)
- */
+
 function wpbdp_current_listing_id() {
     return 0;
 }
@@ -1110,7 +1069,7 @@ function wpbdp_locate_template( $template, $allow_override = true, $try_defaults
 		_deprecated_argument( __FUNCTION__, '5.13.2', 'Defaults are always checked here. Use $wpbdp->themes->template_has_override' );
 
 		// Temporary reverse compatibility: The BD folder was checked when it shouldn't be. Remove it.
-		if ( strpos( $template_path, WPBDP_TEMPLATES_PATH ) !== false ) {
+		if ( strpos( $template_file, WPBDP_TEMPLATES_PATH ) !== false ) {
 			$template_file = '';
 		}
 	} elseif ( ! $allow_override ) {
@@ -1336,7 +1295,7 @@ function wpbdp_get_client_ip_address() {
  * @since 5.2.1
  */
 function wpbdp_delete_page_ids_cache() {
-	WPBDP__Utils::cache_delete_group( 'wpbdp_pages' );
+	WPBDP_Utils::cache_delete_group( 'wpbdp_pages' );
 	// Delete page transient cache for the main plugin pages.
 	delete_transient( 'wpbdp_page_ids_main' );
 	delete_transient( 'wpbdp_page_ids_add-listing' );

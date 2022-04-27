@@ -84,7 +84,9 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
         $this->items = wpbdp_get_fee_plans( $args );
     }
 
-    /** Rows **/
+	/**
+	 * @param object $item
+	 */
     public function single_row( $item ) {
 		$classes = 'fee';
 		if ( ! $item->enabled ) {
@@ -246,7 +248,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 	 *
 	 * @since 5.15.3
 	 *
-	 * @return string
+	 * @return string|int
 	 */
 	public function column_listings( $fee ) {
 		$column = $fee->count_listings();

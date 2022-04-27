@@ -6,9 +6,6 @@ class WPBDP__Migrations__2_0 extends WPBDP__Migration {
         global $wpdb;
         global $wpbdp;
 
-        $wpbdp->settings->upgrade_options();
-		wpbdp_log( 'WPBDP settings updated to 2.0-style' );
-
         // make directory-related metadata hidden
         $old_meta_keys = array(
             'termlength', 'image', 'listingfeeid', 'sticky', 'thumbnail', 'paymentstatus', 'buyerfirstname', 'buyerlastname',

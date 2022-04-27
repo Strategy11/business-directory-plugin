@@ -258,7 +258,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
     public function ajax_reset_plan() {
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
         if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) ) {
             wp_die();
@@ -320,7 +320,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
     public function ajax_sections() {
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
         if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) ) {
             $res->send_error( $msg );
@@ -940,11 +940,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * @since 5.10
 	 *
-	 * @return false|int - False if multiple categories.
+	 * @return void
 	 */
 	private function set_fixed_category_id() {
 		if ( $this->category_count !== false ) {
-			return $this->fixed_category;
+			return;
 		}
 
 		$this->category_count = (int) wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
@@ -1080,11 +1080,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     /**
      * @param array $images_  An array of images.
      * @param array $meta     An of metadata for images.
-	 * @param array $thumbnail_id  An integer containing listing featured image id.
      */
     public function sort_images( $images_, $meta ) {
         // Sort inside $meta first.
-        WPBDP__Utils::sort_by_property( $meta, 'order' );
+		WPBDP_Utils::sort_by_property( $meta, 'order' );
 		$meta = array_reverse( $meta, true );
 
         // Sort $images_ considering $meta.

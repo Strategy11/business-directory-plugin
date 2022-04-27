@@ -30,7 +30,7 @@ class WPBDP__ListingsWithNoFeePlanView {
      *       view's objects only, ignoring details about how that information is
      *       presented to the user.
      *
-     * @param $post_statuses_string     A comma separated list of Post statuses
+     * @param string $post_statuses_string A comma separated list of Post statuses
      *                                  ready to be used in a SQL query.
      *
      *                                  Example: "'draft', 'pending', 'private', 'publish'"

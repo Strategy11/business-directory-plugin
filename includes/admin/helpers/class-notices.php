@@ -47,12 +47,11 @@ class WPBDP_Admin_Notices {
 	 */
 	public static function settings_errors() {
 		$settings_errors = get_settings_errors();
-		if ( empty( $settings_errors ) ) {
-			return;
-		}
 
-		foreach ( $settings_errors as $key => $details ) {
-			wpbdp_admin_message( $details['message'], $details['type'] );
+		foreach ( $settings_errors as $details ) {
+			if ( is_array( $details ) ) {
+				wpbdp_admin_message( $details['message'], $details['type'] );
+			}
 		}
 
 		wpbdp_admin_notices();

@@ -11,8 +11,8 @@
  */
 class WPBDP_DataFormatter {
     /**
-     * @param $items
-     * @param $properties
+     * @param array $items
+     * @param array $properties
      * @return array
      */
     public function format_data( $items, $properties ) {

@@ -980,10 +980,10 @@ class WPBDP_Form_Field {
     }
 
     /**
-     * Creates a WPBDP_FormField from a database record.
+     * Creates a WPBDP_Form_Field from a database record.
      *
      * @param int $id the database record ID.
-     * @return WPBDP_FormField a valid WPBDP_FormField if the record exists or null if not.
+     * @return WPBDP_Form_Field|null a valid WPBDP_Form_Field if the record exists or null if not.
      */
     public static function get( $id ) {
 
@@ -1086,7 +1086,7 @@ class WPBDP_Form_Field {
  */
 class WPBDP_FormField extends WPBDP_Form_Field {
 	public function __construct( $attrs = array() ) {
-		_deprecated_function( __CLASS__, '3.4.2', 'WPBDP_Form_Field' );
+		_deprecated_constructor( __CLASS__, '3.4.2', 'WPBDP_Form_Field' );
 		parent::__construct( $attrs );
 	}
 }

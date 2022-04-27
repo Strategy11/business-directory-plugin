@@ -126,7 +126,6 @@ class WPBDP_Email {
     /**
      * Sends the email.
      *
-     * @param string $format allowed values are 'html', 'plain' or 'both'
      * @return boolean true on success, false otherwise
      */
     public function send() {

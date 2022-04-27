@@ -107,8 +107,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
         _WP_Editors::editor_settings( 'wpbdp-field-' . $field->get_id(), $settings );
 
         // We are interested in this editor's settings only.
-        remove_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100, 2 );
-        remove_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100, 2 );
+		remove_filter( 'tiny_mce_before_init', array( $this, 'capture_tinymce_settings' ), 100 );
+		remove_filter( 'quicktags_settings', array( $this, 'capture_quicktag_settings' ), 100 );
 
         // Removing _WP_Editors::editor_js if it was not previously configured
         // as a handler.

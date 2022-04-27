@@ -200,7 +200,7 @@ class WPBDP_Reviews {
 	 *
 	 * @since 5.14.3
 	 *
-	 * @return int $entries
+	 * @return float $entries
 	 */
 	private function calculate_entries( $entries ) {
 		if ( $entries <= 100 ) {

@@ -339,7 +339,7 @@ class WPBDP__Themes_Compat {
         remove_filter(
             'widget_display_callback',
             array( $this, 'theme_ultimatum_maybe_overwrite_ultimatum_widget_instance_settings' ),
-            10, 3
+			10
         );
     }
 

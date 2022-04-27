@@ -50,62 +50,20 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
             }
         }
 
-
-        // {{{ Quick search.
-        private function get_quick_search_fields() {
-            $fields = array();
-
-            foreach ( wpbdp_get_option( 'quick-search-fields', array() ) as $field_id ) {
-				$field = WPBDP_Form_Field::get( $field_id );
-                if ( $field ) {
-                    $fields[] = $field;
-                }
-            }
-
-            if ( ! $fields ) {
-                // Use default fields.
-                foreach ( wpbdp_get_form_fields() as $field ) {
-                    if ( in_array( $field->get_association(), array( 'title', 'excerpt', 'content' ) ) ) {
-                        $fields[] = $field;
-                    }
-                }
-            }
-
-            return $fields;
-        }
-
         /**
          * Performs a "quick search" for listings on the fields marked as quick-search fields in the plugin settings page.
          *
-         * @uses WPBDP_ListingsAPI::get_quick_search_fields().
-         * @param string $keywords The string used for searching.
-         * @param mixed  $location Location information.
          * @return array The listing IDs.
          * @since 3.4
+		 * @deprecated 6.0
          */
-        public function quick_search( $keywords, $location = false ) {
-            $keywords = trim( $keywords );
-
-            if ( ! $keywords && ! $location ) {
-                return array();
-            }
-
-            require_once WPBDP_PATH . 'core/helpers/class-search-helper.php';
-
-            $args = array(
-                'query'    => $keywords,
-                'mode'     => 'quick-search',
-                'location' => $location,
-                'fields'   => $this->get_quick_search_fields(),
-            );
-
-            $helper = new WPBDP__Search_Helper( $args );
-            return $helper->get_posts();
+        public function quick_search() {
+			_deprecated_function( __METHOD__, '6.0' );
+			return array();
         }
 
-        // }}}
         /**
-         * @deprecated since 5.0. Added back in 5.1.2 for compatibility with other plugins (#3178)
+         * @deprecated 5.0. Added back in 5.1.2 for compatibility with other plugins (#3178)
          */
         public function get_thumbnail_id( $listing_id ) {
 			_deprecated_function( __METHOD__, '5.0', 'WPBDP_Listing::get_thumbnail_id' );
@@ -118,6 +76,4 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
         }
 
     }
-
 }
-

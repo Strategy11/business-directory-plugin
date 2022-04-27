@@ -9,16 +9,16 @@
  */
 final class WPBDP__Fee_Plan {
 
-    private $id = 0;
+    public $id = 0;
 
     private $label       = '';
     private $description = '';
-    private $amount      = 0.0;
-    private $days        = 0;
-    private $images      = 0;
     private $enabled     = true;
 
-    private $sticky    = false;
+    public $amount     = 0.0;
+    public $days       = 0;
+    public $images     = 0;
+    public $sticky     = false;
     private $recurring = false;
 
     private $pricing_model   = 'flat';
@@ -55,7 +55,7 @@ final class WPBDP__Fee_Plan {
         if ( property_exists( $this, $key ) ) {
             return false === empty( $this->{$key} );
         } else {
-            return null;
+            return false;
         }
     }
 

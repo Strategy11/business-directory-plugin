@@ -11,7 +11,7 @@ require_once WPBDP_PATH . 'includes/models/class-listing.php';
  * @param array  $args
  * @param bool   $error
  * @param string $context
- * @return null|WPBDP_Listing
+ * @return WPBDP_Listing|WP_Error|false
  *
  * @since 5.0
  */
@@ -206,9 +206,9 @@ function wpbdp_get_listing( $listing_id ) {
 }
 
 /**
- * @param $email
- * @param int   $posts_per_page
- * @param int   $offset
+ * @param string $email
+ * @param int    $posts_per_page
+ * @param int    $offset
  * @return array
  *
  * @since 5.0.6

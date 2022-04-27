@@ -54,7 +54,7 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
 
         $html = wpbdp_x_render( 'listings', $template_args );
         wp_reset_postdata();
-        wpbdp_pop_query( $q );
+		wpbdp_pop_query();
 
         return $html;
     }

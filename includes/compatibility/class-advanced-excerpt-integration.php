@@ -16,7 +16,7 @@ class WPBDP_Advanced_Excerpt_Integration {
     }
 
     /**
-     * @param $page_types   A list of page types that are already skipped.
+     * @param array $page_types A list of page types that are already skipped.
      * @since 5.0.2
      */
     public function filter_skip_page_types( $page_types ) {

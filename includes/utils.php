@@ -9,7 +9,7 @@ require_once( WPBDP_INC . 'helpers/class-email.php' );
 require_once( WPBDP_INC . 'compatibility/class-ajax-response.php' );
 require_once( WPBDP_INC . 'helpers/class-fs.php' );
 
-class WPBDP__Utils {
+class WPBDP_Utils {
 
     /**
      * @since 5.2.1
@@ -234,10 +234,10 @@ class WPBDP__Utils {
 	/**
 	 * Check if value contains blank value or empty array
 	 *
-	 * @since v5.9
+	 * @since 5.9
 	 *
-	 * @param mixed $value - value to check
-	 * @param string
+	 * @param mixed  $value The value to check
+	 * @param string $empty
 	 *
 	 * @return boolean
 	 */
@@ -354,7 +354,7 @@ class WPBDP__Utils {
 	/**
 	 * Attempts to get the mimetype of a file.
 	 *
-	 * @param $file string  The path to a file.
+	 * @param string $file The path to a file.
 	 *
 	 * @since 5.16
 	 */
@@ -444,7 +444,7 @@ class WPBDP__Utils {
 	 * Check the file type and extension.
 	 *
 	 * @param array $file
-	 * @param array $constraints
+	 * @param array $mimetypes
 	 *
 	 * @since 6.0
 	 *
@@ -492,11 +492,11 @@ class WPBDP__Utils {
 }
 
 /**
- * @deprecated Use {@link WPBDP__Utils} instead.
+ * @deprecated Use {@link WPBDP_Utils} instead.
  */
-class WPBDP_Utils extends WPBDP__Utils {
+class WPBDP__Utils extends WPBDP_Utils {
 	public function __construct() {
-		_deprecated_function( __METHOD__, '', 'WPBDP__Utils' );
+		_deprecated_constructor( __CLASS__, '', 'WPBDP_Utils' );
 	}
 }
 
@@ -507,7 +507,7 @@ class WPBDP_Utils extends WPBDP__Utils {
  *
  * @since 3.4
  *
- * @param array $_FILES array
+ * @param array $files $_FILES array
  * @return array
  */
 function wpbdp_flatten_files_array( $files = array() ) {
@@ -675,18 +675,18 @@ function wpbdp_media_upload_check_env( &$error ) {
  * @since 2.1.6
  */
 function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = false, $constraints = array(), &$error_msg = null, $sideload = false ) {
-	return WPBDP__Utils::media_upload( $file_, $use_media_library, $check_image, $constraints, $error_msg, $sideload );
+	return WPBDP_Utils::media_upload( $file_, $use_media_library, $check_image, $constraints, $error_msg, $sideload );
 }
 
 /**
  * Attempts to get the mimetype of a file.
  *
- * @param $file string  The path to a file.
+ * @param string $file The path to a file.
  *
  * @since 5.0.5
  */
 function wpbdp_get_mimetype( $file ) {
-    return WPBDP__Utils::get_mimetype( $file );
+    return WPBDP_Utils::get_mimetype( $file );
 }
 
 /**
@@ -694,7 +694,7 @@ function wpbdp_get_mimetype( $file ) {
  * the www part of the domain.
  *
  * @since 2.1.5
- * @param $www  boolean     true to include the 'www' part,
+ * @param boolean $www true to include the 'www' part.
  */
 function wpbdp_get_current_domain( $www = true, $prefix = '' ) {
     $domain = wpbdp_get_server_value( 'HTTP_HOST' );
@@ -798,7 +798,7 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
  *
  * @param string $str the string to be searched
  * @param string $prefix the prefix to search for
- * @return TRUE if $str starts with $prefix or FALSE otherwise
+ * @return bool  true if $str starts with $prefix or FALSE otherwise
  * @since 3.0.3
  */
 function wpbdp_starts_with( $str, $prefix, $case_sensitive = true ) {
@@ -858,24 +858,13 @@ function wpbdp_scandir( $path, $args = array() ) {
 }
 
 /**
- * Recursively deletes a directory.
- *
- * @param string $path a directory.
- * @since 3.3
- * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
- */
-function wpbdp_rrmdir( $path ) {
-	_deprecated_function( __FUNCTION__, '3.6.10', 'WPBDP_FS::rmdir' );
-    return WPBDP_FS::rmdir( $path );
-}
-
-/**
  * Returns the name of a term.
  *
- * @param id|string $id_or_slug The term ID or slug (see `$field`).
- * @param string $taxonomy Taxonomy name. Defaults to `WPBDP_CATEGORY_TAX` (BD's category taxonomy).
- * @param string $field Field used for the term lookup. Defaults to "id".
- * @param boolean $escape Whether to escape the name before returning or not. Defaults to `True`.
+ * @param int|string $id_or_slug The term ID or slug (see `$field`).
+ * @param string     $taxonomy Taxonomy name. Defaults to `WPBDP_CATEGORY_TAX` (BD's category taxonomy).
+ * @param string     $field Field used for the term lookup. Defaults to "id".
+ * @param boolean    $escape Whether to escape the name before returning or not. Defaults to `True`.
+ *
  * @return string The term name (if found) or an empty string otherwise.
  * @since 3.3
  */

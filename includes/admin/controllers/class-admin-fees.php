@@ -223,7 +223,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			'post'
 		);
 		$fee     = wpbdp_get_fee_plan( $plan_id );
-		$res     = new WPBDP_Ajax_Response();
+		$res     = new WPBDP_AJAX_Response();
 		if ( ! $fee ) {
 			$res->send_error( __( 'Plan not found.', 'business-directory-plugin' ) );
 		}

@@ -368,8 +368,6 @@ class WPBDP_CSV_Import {
 
 	/**
 	 * @since 5.11
-	 *
-	 * @throws {Error}
 	 */
 	private function directory_path() {
 		$upload_dir = wp_upload_dir();
@@ -881,7 +879,7 @@ class WPBDP_CSV_Import {
 		if ( ! $upload ) {
 			return false;
 		}
-		$media_id = WPBDP__Utils::attach_image_to_media_library( $upload );
+		$media_id = WPBDP_Utils::attach_image_to_media_library( $upload );
         rename( $filepath . '.backup', $filepath );
         return $media_id;
     }

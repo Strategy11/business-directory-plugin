@@ -229,7 +229,7 @@ class WPBDP_App_Helper {
 	 */
 	public static function permission_nonce_error( $permission, $atts = array() ) {
 		if ( ! empty( $permission ) && ! current_user_can( $permission ) && ! current_user_can( 'administrator' ) ) {
-			return esc_html( 'You are not allowed to do that.', 'business-directory-plugin' );
+			return esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' );
 		}
 
 		$error = false;
@@ -241,7 +241,7 @@ class WPBDP_App_Helper {
 		$nonce_value = ( $_REQUEST && isset( $_REQUEST[ $nonce_name ] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_name ] ) ) : '';
 
 		if ( $_REQUEST && ( ! isset( $_REQUEST[ $nonce_name ] ) || ! wp_verify_nonce( $nonce_value, $atts['nonce'] ) ) ) {
-			$error = esc_html( 'You are not allowed to do that.', 'business-directory-plugin' );
+			$error = esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' );
 		}
 
 		return $error;

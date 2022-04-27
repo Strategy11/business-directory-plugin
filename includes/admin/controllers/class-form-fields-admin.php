@@ -315,6 +315,7 @@ class WPBDP_FormFieldsAdmin {
 		$field_id = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
 		$field = $this->api->get_field( $field_id );
 		if ( $field ) {
+			$action = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
 			$field->reorder( $action === 'fieldup' ? 1 : -1 );
 		}
 	}

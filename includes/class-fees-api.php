@@ -90,15 +90,6 @@ class WPBDP_Fees_API {
 	}
 
     /**
-     * @deprecated since 3.7.
-     */
-    public static function get_free_fee() {
-		_deprecated_function( __METHOD__, '3.7' );
-
-		return false;
-	}
-
-    /**
      * @deprecated since 3.7. See {@link wpbdp_get_fee_plans()}.
      */
     public function get_fees( $categories = null ) {

@@ -354,11 +354,11 @@ class WPBDP_Form_Field_Type {
         return apply_filters( 'wpbdp_field_schema_org', $schema, $field, $post_id );
     }
 
-    /**
-     * Called after a field of this type is deleted.
+	/**
+	 * Called after a field of this type is deleted.
 	 *
-     * @param object $field the deleted WPBDP_FormField object.
-     */
+	 * @param object $field the deleted WPBDP_Form_Field object.
+	 */
     public function cleanup( &$field ) {
         if ( $field->get_association() == 'meta' ) {
             global $wpdb;
@@ -524,7 +524,7 @@ class WPBDP_Form_Field_Type {
  */
 class WPBDP_FormFieldType extends WPBDP_Form_Field_Type {
 	public function __construct( $name = '' ) {
-		_deprecated_function( __CLASS__, '3.4.2', 'WPBDP_Form_Field_Type' );
+		_deprecated_constructor( __CLASS__, '3.4.2', 'WPBDP_Form_Field_Type' );
 		parent::__construct( $name );
 	}
 }

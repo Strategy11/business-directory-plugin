@@ -1,6 +1,6 @@
 <?php
 
-class WPBDP_FieldTypes_Phone_Number extends WPBDP_FieldTypes_Textfield {
+class WPBDP_FieldTypes_Phone_Number extends WPBDP_FieldTypes_TextField {
 
     public function __construct() {
     }

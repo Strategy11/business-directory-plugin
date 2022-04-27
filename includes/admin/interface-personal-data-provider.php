@@ -16,21 +16,16 @@ interface WPBDP_PersonalDataProviderInterface {
     public function get_page_size();
 
     /**
-     * @param $user
-     * @param $email_address
-     * @param $page
      * @return mixed
      */
     public function get_objects( $user, $email_address, $page );
 
     /**
-     * @param $objects
      * @return mixed
      */
     public function export_objects( $objects );
 
     /**
-     * @param $objects
      * @return mixed
      */
     public function erase_objects( $objects );

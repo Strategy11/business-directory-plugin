@@ -17,7 +17,7 @@ class WPBDP__Views__Show_Listing extends WPBDP__View {
         if ( isset( $_GET['v'] ) )
             $view = wpbdp_capture_action_array( 'wpbdp_listing_view_' . trim( $_GET['v'] ), array( $listing_id ) );*/
 
-        $html .= wpbdp_render_listing( null, 'single', false, true );
+		$html .= wpbdp_render_listing( null, 'single', false );
 
         return $html;
     }

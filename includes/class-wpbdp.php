@@ -250,8 +250,8 @@ final class WPBDP {
 	 * @since 5.13
 	 */
 	private function remove_translation_filters() {
-		remove_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10, 3 );
-		remove_filter( 'gettext_with_context', array( &$this, 'use_custom_context_strings' ), 10, 4 );
+		remove_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10 );
+		remove_filter( 'gettext_with_context', array( &$this, 'use_custom_context_strings' ), 10 );
 	}
 
 	/**
@@ -429,13 +429,13 @@ final class WPBDP {
      * @deprecated since 5.0. Remove when found, kept for backwards compat.
      */
     public function is_debug_on() {
-		_deprecated_function( __FUNCTION__, '5.0' );
+		_deprecated_function( __METHOD__, '5.0' );
         return false;
     }
 
     // TODO: better validation.
     public function ajax_listing_submit_image_upload() {
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
         $listing_id = intval( $_REQUEST['listing_id'] );
 
@@ -543,7 +543,7 @@ final class WPBDP {
     }
 
     public function ajax_listing_submit_image_delete() {
-        $res = new WPBDP_Ajax_Response();
+        $res = new WPBDP_AJAX_Response();
 
 		$image_id   = wpbdp_get_var( array( 'param' => 'image_id', 'sanitize' => 'intval' ), 'request' );
 		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'intval' ), 'request' );

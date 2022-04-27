@@ -155,12 +155,16 @@ class WPBDP__Query_Integration {
         }
     }
 
+	/**
+	 * @param WP_Query $query
+	 */
     public function pre_get_posts( &$query ) {
         $this->verify_unique_listing_url( $query );
         if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
             return;
         }
 
+		/** @var WP_Query $query */
         if ( ! $query->get( 'posts_per_page' ) ) {
             $query->set( 'posts_per_page', wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 );
         }
@@ -188,6 +192,10 @@ class WPBDP__Query_Integration {
         }
     }
 
+	/**
+	 * @param string[] $pieces
+	 * @param WP_Query $query
+	 */
     public function posts_clauses( $pieces, $query ) {
         global $wpdb;
 
@@ -361,6 +369,9 @@ class WPBDP__Query_Integration {
 		return $orderby;
     }
 
+	/**
+	 * @param WP_Query $query
+	 */
     private function verify_unique_listing_url( &$query ) {
         if ( ! wpbdp_get_option( 'permalinks-no-id' ) && ! empty( $query->query['listing_slug'] ) ) {
             $wpbdp_404_query = false;
@@ -391,6 +402,5 @@ class WPBDP__Query_Integration {
             }
         }
     }
-    // }}
 }
 
