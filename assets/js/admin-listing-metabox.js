@@ -82,32 +82,33 @@ jQuery( function( $ ) {
                 $input.prop('checked', prev_value);
             else
                 $input.val(prev_value);
-        } else {
+        } else if ( $input.is('#wpbdp-listing-plan-select') && $input.val() ) {
             // Plan changes are handled in a special way.
-			if ( $input.is('#wpbdp-listing-plan-select') && $input.val() ) {
-				var listing_id = $( 'input[name="post_ID"]' ).val();
+			var listing_id = $( 'input[name="post_ID"]' ).val();
 
-				$.ajax(ajaxurl, {
-					data: {
-						action: 'wpbdp-assign-plan-to-listing',
-						nonce: wpbdp_global.nonce,
-						listing_id: listing_id,
-						plan_id: $input.val()
-					},
-					type: 'POST',
-					dataType: 'json',
-					success: function(res) {
-						if ( res.success ) {
-                            var plan = res.data;
-							$metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
-							$metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
-							$metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
-                            updateText( plan );
-						}
+			$.ajax(ajaxurl, {
+				data: {
+					action: 'wpbdp-assign-plan-to-listing',
+					nonce: wpbdp_global.nonce,
+					listing_id: listing_id,
+					plan_id: $input.val()
+				},
+				type: 'POST',
+				dataType: 'json',
+				success: function(res) {
+					if ( res.success ) {
+						var plan = res.data;
+						$metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
+						$metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
+						$metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
+						updateText( plan );
 					}
-				});
-            }
-        }
+				}
+			});
+		} else {
+			// Handle updating other fields.
+			$display.html( $input.val() );
+		}
 
         $editor.hide();
         $display.show();
@@ -115,12 +116,6 @@ jQuery( function( $ ) {
     });
 
     $payments_tab = $('#wpbdp-listing-metabox-payments');
-
-    $payments_tab.mouseover( function () {
-        $( this ).find('.payment-delete-action').css( 'left', '0');
-    }).mouseout( function () {
-        $( this ).find('.payment-delete-action').css( 'left', '-9999em' );
-    });
 
     $payments_tab.find('a[name="delete-payments"]').click( function (e) {
         e.preventDefault();
