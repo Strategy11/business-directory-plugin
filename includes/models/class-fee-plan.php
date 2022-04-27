@@ -193,6 +193,7 @@ final class WPBDP__Fee_Plan {
     }
 
     /**
+	 * @param array $categories
      * @since 5.0
      */
     public function supports_category_selection( $categories = array() ) {
@@ -204,7 +205,7 @@ final class WPBDP__Fee_Plan {
             return true;
         }
 
-        if ( array_diff( $categories, $this->supported_categories ) ) {
+		if ( array_diff( (array) $categories, (array) $this->supported_categories ) ) {
             return false;
         }
 
