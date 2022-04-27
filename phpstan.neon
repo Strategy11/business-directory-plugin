@@ -2,7 +2,6 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 	bootstrapFiles:
 		- vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
-		- vendor/php-stubs/wordpress-seo-stubs/wordpress-seo-stubs.php
 		- stubs.php
 	excludePaths:
 		- */assets/*

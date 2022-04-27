@@ -234,10 +234,10 @@ class WPBDP__Utils {
 	/**
 	 * Check if value contains blank value or empty array
 	 *
-	 * @since v5.9
+	 * @since 5.9
 	 *
-	 * @param mixed $value - value to check
-	 * @param string
+	 * @param mixed  $value The value to check
+	 * @param string $empty
 	 *
 	 * @return boolean
 	 */
@@ -354,7 +354,7 @@ class WPBDP__Utils {
 	/**
 	 * Attempts to get the mimetype of a file.
 	 *
-	 * @param $file string  The path to a file.
+	 * @param string $file The path to a file.
 	 *
 	 * @since 5.16
 	 */
@@ -444,7 +444,7 @@ class WPBDP__Utils {
 	 * Check the file type and extension.
 	 *
 	 * @param array $file
-	 * @param array $constraints
+	 * @param array $mimetypes
 	 *
 	 * @since 6.0
 	 *
@@ -507,7 +507,7 @@ class WPBDP_Utils extends WPBDP__Utils {
  *
  * @since 3.4
  *
- * @param array $_FILES array
+ * @param array $files $_FILES array
  * @return array
  */
 function wpbdp_flatten_files_array( $files = array() ) {
@@ -681,7 +681,7 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
 /**
  * Attempts to get the mimetype of a file.
  *
- * @param $file string  The path to a file.
+ * @param string $file The path to a file.
  *
  * @since 5.0.5
  */
@@ -694,7 +694,7 @@ function wpbdp_get_mimetype( $file ) {
  * the www part of the domain.
  *
  * @since 2.1.5
- * @param $www  boolean     true to include the 'www' part,
+ * @param boolean $www true to include the 'www' part.
  */
 function wpbdp_get_current_domain( $www = true, $prefix = '' ) {
     $domain = wpbdp_get_server_value( 'HTTP_HOST' );
@@ -872,10 +872,11 @@ function wpbdp_rrmdir( $path ) {
 /**
  * Returns the name of a term.
  *
- * @param id|string $id_or_slug The term ID or slug (see `$field`).
- * @param string $taxonomy Taxonomy name. Defaults to `WPBDP_CATEGORY_TAX` (BD's category taxonomy).
- * @param string $field Field used for the term lookup. Defaults to "id".
- * @param boolean $escape Whether to escape the name before returning or not. Defaults to `True`.
+ * @param int|string $id_or_slug The term ID or slug (see `$field`).
+ * @param string     $taxonomy Taxonomy name. Defaults to `WPBDP_CATEGORY_TAX` (BD's category taxonomy).
+ * @param string     $field Field used for the term lookup. Defaults to "id".
+ * @param boolean    $escape Whether to escape the name before returning or not. Defaults to `True`.
+ *
  * @return string The term name (if found) or an empty string otherwise.
  * @since 3.3
  */

@@ -11,14 +11,14 @@
  */
 class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInterface {
     /**
-     * @var
+     * @var WPBDP_DataFormatter $data_formatter
      */
     private $data_formatter;
 
     /**
      * WPBDP_PaymentPersonalDataProvider constructor.
      *
-     * @param $data_formatter
+     * @param WPBDP_DataFormatter $data_formatter
      */
     public function __construct( $data_formatter ) {
         $this->data_formatter = $data_formatter;
@@ -32,9 +32,9 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
     }
 
     /**
-     * @param $user
-     * @param $email_address
-     * @param $page
+     * @param WP_User $user
+     * @param string  $email_address
+     * @param int     $page
      * @return array|mixed
      */
     public function get_objects( $user, $email_address, $page ) {
@@ -42,7 +42,7 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
     }
 
     /**
-     * @param $payment_transactions
+     * @param array $payment_transactions
      * @return array|mixed
      */
     public function export_objects( $payment_transactions ) {
@@ -66,7 +66,6 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
     }
 
     /**
-     * @param $payment_transaction
      * @return array
      */
     private function get_payment_transaction_properties( $payment_transaction ) {
@@ -77,7 +76,7 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
     }
 
     /**
-     * @param $payment_transactions
+     * @param array $payment_transactions
      * @return array|mixed
      */
     public function erase_objects( $payment_transactions ) {

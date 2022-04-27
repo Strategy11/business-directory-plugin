@@ -161,15 +161,11 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 
 	/**
-	 * [render description]
+	 * @param array  $items
+	 * @param array  $instance
+	 * @param string $html_class CSS class for each LI element.
 	 *
-	 * @param  [type] $items      [description]
-	 * @param  [type] $instance   [description]
-	 * @param  string $html_class CSS class for each LI element.
-	 *
-	 * @since  x.x
-	 *
-	 * @return string             HTML
+	 * @return string HTML
 	 */
 	protected function render( $items, $instance, $html_class = '' ) {
 		if ( empty( $items ) ) {

@@ -137,9 +137,6 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
         return $this->count() > 0;
     }
 
-    /**
-     * @implements
-     */
     public function getIterator() {
         return new ArrayIterator( $this->to_array() );
     }

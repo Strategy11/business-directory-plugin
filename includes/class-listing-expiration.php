@@ -116,7 +116,7 @@ class WPBDP__Listing_Expiration {
 		}
 
 		list( $count, $unit ) = explode( ' ', $period );
-		$count  = $count * 30;
+		$count  = (float) $count * 30;
 		$period = $plus . $count . ' days';
 	}
 

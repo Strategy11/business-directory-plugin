@@ -1070,7 +1070,7 @@ class WPBDP_Licensing {
 	 *
 	 * @todo change to new rest api.
 	 *
-	 * @param $item The module item.
+	 * @param array $item The module item.
 	 *
 	 * @since 5.17
 	 *

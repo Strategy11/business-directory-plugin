@@ -14,15 +14,15 @@ class WPBDP_PersonalDataEraser {
     /**
      * WPBDP_PersonalDataEraser constructor.
 	 *
-     * @param $data_eraser
+     * @param WPBDP_ListingsPersonalDataProvider $data_eraser
      */
     public function __construct( $data_eraser ) {
         $this->data_eraser = $data_eraser;
     }
 
     /**
-     * @param $email_address
-     * @param int $page
+     * @param string $email_address
+     * @param int    $page
      * @return array
      */
     public function erase_personal_data( $email_address, $page = 1 ) {
@@ -38,7 +38,6 @@ class WPBDP_PersonalDataEraser {
     }
 
     /**
-     * @param $objects
      * @return array
      */
     private function erase_objects( $objects ) {

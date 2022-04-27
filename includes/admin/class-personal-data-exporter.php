@@ -13,15 +13,15 @@ class WPBDP_PersonalDataExporter {
     /**
      * WPBDP_PersonalDataExporter constructor.
      *
-     * @param $data_exporter
+     * @param WPBDP_ListingsPersonalDataProvider $data_exporter
      */
     public function __construct( $data_exporter ) {
         $this->data_exporter = $data_exporter;
     }
 
     /**
-     * @param $email_address
-     * @param int           $page
+     * @param string $email_address
+     * @param int    $page
      * @return array
      */
     public function export_personal_data( $email_address, $page = 1 ) {
@@ -34,7 +34,6 @@ class WPBDP_PersonalDataExporter {
     }
 
     /**
-     * @param $objects
      * @return array
      */
     private function export_objects( $objects ) {

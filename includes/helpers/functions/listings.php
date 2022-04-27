@@ -206,9 +206,9 @@ function wpbdp_get_listing( $listing_id ) {
 }
 
 /**
- * @param $email
- * @param int   $posts_per_page
- * @param int   $offset
+ * @param string $email
+ * @param int    $posts_per_page
+ * @param int    $offset
  * @return array
  *
  * @since 5.0.6

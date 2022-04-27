@@ -1080,7 +1080,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
     /**
      * @param array $images_  An array of images.
      * @param array $meta     An of metadata for images.
-	 * @param array $thumbnail_id  An integer containing listing featured image id.
      */
     public function sort_images( $images_, $meta ) {
         // Sort inside $meta first.

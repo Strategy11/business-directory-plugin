@@ -327,9 +327,9 @@ class WPBDP__Listing_Search {
      * - A search term for that field.
      *
      * @since 4.0.12
-     * @param $node     The node that will be checked.
-     * @param $field_id The ID of the Form Field.
-     * @param $term     If provided and is not null, this function will return true
+     * @param array  $node     The node that will be checked.
+     * @param int    $field_id The ID of the Form Field.
+     * @param string $term     If provided and is not null, this function will return true
      *                  when both the Field ID and the search term match only.
      * @return boolean
      */

@@ -401,8 +401,8 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	/**
-	 * @param $type    string - 'csv' or 'image'
-	 * @param $sources array
+	 * @param string $type   'csv' or 'image'
+	 * @param array $sources
 	 *
 	 * @since 5.11
 	 */

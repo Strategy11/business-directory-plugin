@@ -16,3 +16,4 @@ node_modules/
 .site/
 _vvv/
 .composer.lock
+composer.lock

@@ -51,7 +51,7 @@ class WPBDP_Personal_Data_Privacy {
     }
 
     /**
-     * @param $exporters
+     * @param array $exporters
      * @return mixed
      */
     public function register_personal_data_exporters( $exporters ) {
@@ -84,8 +84,8 @@ class WPBDP_Personal_Data_Privacy {
     }
 
     /**
-     * @param $erasers
-     * @return mixed
+     * @param array $erasers
+     * @return array
      */
     public function register_personal_data_erasers( $erasers ) {
         $erasers['business-directory-plugin-listings'] = array(

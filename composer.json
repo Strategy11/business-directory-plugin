@@ -18,7 +18,6 @@
         "codeception/verify": "^2.1.1",
         "yoast/phpunit-polyfills": "^1.0",
         "php-stubs/wordpress-stubs": "^5.9",
-        "php-stubs/wordpress-seo-stubs": "^17.2",
         "phpstan/phpstan": "^1.4"
     }
 }

@@ -199,10 +199,10 @@ class WPBDP_Show_Modules {
 	 *
 	 * @since 5.10
 	 *
-	 * @param array $addon
-	 * @param string|false $license_type
-	 * @param string $plan_required
-	 * @param string $upgrade_link
+	 * @param array $atts includes $atts[addon]
+	 *                    string|false $atts[license_type]
+	 *                    $atts[plan_required]
+	 *                    $atts[upgrade_link]
 	 */
 	public static function show_conditional_action_button( $atts ) {
 		if ( is_callable( 'WPBDP_Addons::show_conditional_action_button' ) ) {

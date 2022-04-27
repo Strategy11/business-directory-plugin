@@ -88,6 +88,17 @@ namespace {
 
 	function icl_get_languages( $args = '' ) {
 	}
+
+	abstract class WPSEO_Option {
+	}
+
+	class WPSEO_Taxonomy_Meta extends WPSEO_Option {
+		public static function get_term_meta( $term, $taxonomy, $meta = null ) {
+		}
+	}
+
+	function wpseo_replace_vars( $string, $args, $omit = [] ) {
+	}
 }
 
 namespace WPMailSMTP {
