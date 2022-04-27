@@ -192,24 +192,25 @@ final class WPBDP__Fee_Plan {
         return $amount;
     }
 
-    /**
-     * @since 5.0
-     */
-    public function supports_category_selection( $categories = array() ) {
-        if ( ! $categories ) {
-            return true;
-        }
+	/**
+	 * @param array $categories
+	 * @since 5.0
+	 */
+	public function supports_category_selection( $categories = array() ) {
+		if ( ! $categories ) {
+			return true;
+		}
 
-        if ( is_string( $this->supported_categories ) && 'all' === $this->supported_categories ) {
-            return true;
-        }
+		if ( is_string( $this->supported_categories ) && 'all' === $this->supported_categories ) {
+			return true;
+		}
 
-        if ( array_diff( $categories, $this->supported_categories ) ) {
-            return false;
-        }
+		if ( array_diff( (array) $categories, (array) $this->supported_categories ) ) {
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
     public static function get_instance( $fee_id ) {
         global $wpdb;
