@@ -27,7 +27,7 @@
                 </div>
             </div>
             <?php endforeach; ?>
-            <span class="payment-delete-action" style="font-size: 13px; padding: 2px 0 0; position: relative; left: -9999em;">
+            <span class="payment-delete-action" style="font-size: 13px; padding: 2px 0 0;">
                 <a href="#" class="wpbdp-admin-delete-link" name="delete-payments" data-id="<?php echo $listing->get_id(); ?>">Delete payment history</a>
             </span>
         </div>

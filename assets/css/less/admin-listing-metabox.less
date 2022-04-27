@@ -180,35 +180,40 @@ a dl {
 
 }
 
+.wpbdp-listing-metabox-tab {
+	dl {
+		margin: 0;
+		display: grid;
+		grid-template-columns: max-content auto;
+        grid-gap: 8px;
+	}
+
+	dt {
+		grid-column-start: 1;
+        padding-left: 10px;
+	}
+
+	dd {
+		grid-column-start: 2;
+		font-weight: 500;
+		margin-left: 0;
+	}
+}
+
 #wpbdp-listing-metabox-plan-info {
     h4 {
-        margin: 0 0 5px 0;
+        margin: 5px 0;
         font-size: 85%;
         text-transform: uppercase;
     }
 
-    dl {
-        margin: 0 0 20px 10px;
-
-        dd {
-            margin-left: 5px;
-        }
-    }
-
-    .display-value {
-    }
-
     .value-editor {
         display: none;
-
-        .update-value, .cancel-edit {
-            font-size: 85%;
-        }
     }
 
     a.edit-value-toggle {
         margin: 0 0 0 10px;
-        font-size: 85%;
+        font-weight: normal;
     }
 
 }

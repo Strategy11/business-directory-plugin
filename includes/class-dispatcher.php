@@ -99,7 +99,7 @@ class WPBDP__Dispatcher {
 		}
 
         $handler = trim( $ajax_handler );
-        $handler = WPBDP__Utils::normalize( $handler );
+        $handler = WPBDP_Utils::normalize( $handler );
 
         $parts = explode( '__', $handler );
         $view_name = $parts[0];

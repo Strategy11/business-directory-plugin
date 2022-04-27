@@ -5,6 +5,9 @@
 			'title' => $title,
 		)
 	);
+
+	require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+	require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
 	$wp_filesystem = new WP_Filesystem_Direct( null );
 	?>
 	<ul class="wpbdp-nav-items">
