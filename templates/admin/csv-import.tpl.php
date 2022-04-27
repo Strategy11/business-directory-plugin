@@ -6,9 +6,9 @@
  */
 
 /**
- * @param $defs
- * @param $k
- * @param $v
+ * @param array  $defs
+ * @param string $k
+ * @param mixed $val
  * @return mixed
  */
 function _defaults_or( $defs, $key, $val ) {
