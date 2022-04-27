@@ -134,10 +134,10 @@ class WPBDP_PaymentsAPI {
 
     /**
      * @since 3.5.8
-	 * @deprecated 6.0.2
+	 * @deprecated 6.1
      */
     public function notify_abandoned_payments() {
-		_deprecated_function( __METHOD__, '6.0.2' );
+		_deprecated_function( __METHOD__, '6.1' );
     }
 
 	function _return_fee_list_button( $payment ) {

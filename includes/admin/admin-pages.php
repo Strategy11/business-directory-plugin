@@ -521,7 +521,7 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Use the icon string to get the icon url.
 	 *
-	 * @since x.x
+	 * @since 6.1
 	 */
 	private static function add_icon_url( &$tabs ) {
 		foreach ( $tabs as $k => $tab ) {

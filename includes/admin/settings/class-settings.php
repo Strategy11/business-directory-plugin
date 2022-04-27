@@ -568,28 +568,28 @@ class WPBDP__Settings {
     }
 
 	/**
-	 * @deprecated 6.0.2
+	 * @deprecated 6.1
 	 */
 	public function pre_2_0_options() {
-		_deprecated_function( __METHOD__, '6.0.2' );
+		_deprecated_function( __METHOD__, '6.1' );
 		return array();
 	}
 
 	/**
-	 * @deprecated 6.0.2
+	 * @deprecated 6.1
 	 */
 	public function upgrade_options() {
-		_deprecated_function( __METHOD__, '6.0.2' );
+		_deprecated_function( __METHOD__, '6.1' );
 	}
 
 	/**
 	 * Emulates get_wpbusdirman_config_options() in version 2.0 until
 	 * all deprecated code has been ported.
 	 *
-	 * @deprecated 6.0.2
+	 * @deprecated 6.1
 	 */
 	public function pre_2_0_compat_get_config_options() {
-		_deprecated_function( __METHOD__, '6.0.2' );
+		_deprecated_function( __METHOD__, '6.1' );
 		return array();
 	}
 }

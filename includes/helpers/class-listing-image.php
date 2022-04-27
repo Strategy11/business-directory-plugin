@@ -136,7 +136,7 @@ final class WPBDP_Listing_Image {
 	 * @param int $attachment_id The attachment id.
 	 * @param int $listing_id    The listing id.
 	 *
-	 * @since x.x
+	 * @since 6.1
 	 *
 	 * @return array
 	 */
