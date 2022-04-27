@@ -1086,7 +1086,7 @@ class WPBDP_Form_Field {
  */
 class WPBDP_FormField extends WPBDP_Form_Field {
 	public function __construct( $attrs = array() ) {
-		_deprecated_function( __CLASS__, '3.4.2', 'WPBDP_Form_Field' );
+		_deprecated_constructor( __CLASS__, '3.4.2', 'WPBDP_Form_Field' );
 		parent::__construct( $attrs );
 	}
 }

@@ -59,30 +59,6 @@ function wpbdp_get_page_ids( $page_id = 'main' ) {
     return apply_filters( 'wpbdp_get_page_ids', $page_ids, $page_id );
 }
 
-function wpbdp_get_page_ids_from_cache( $cache, $page_id ) {
-	_deprecated_function( __FUNCTION__, '5.16.1' );
-
-    global $wpdb;
-
-    if ( ! is_array( $cache ) || empty( $cache[ $page_id ] ) ) {
-        return null;
-    }
-
-    // Validate the cached IDs.
-    $query  = _wpbdp_page_lookup_query( $page_id, true );
-    $query .= ' AND ID IN ( ' . implode( ',', array_map( 'intval', $cache[ $page_id ] ) ) . ' ) ';
-
-	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-    $count = intval( $wpdb->get_var( $query ) );
-
-    if ( $count != count( $cache[ $page_id ] ) ) {
-        wpbdp_debug( 'Page cache is invalid.' );
-        return null;
-    }
-
-    return $cache[ $page_id ];
-}
-
 function wpbdp_get_page_ids_with_query( $page_id ) {
     // Look up for pages.
     $q = _wpbdp_page_lookup_query( $page_id );
@@ -520,20 +496,6 @@ function _wpbdp_should_image_be_resized( $id, $args = array() ) {
 	}
 
 	return true;
-}
-
-/*
- * @since 2.1.7
- * @deprecated since 3.6.10. See {@link wpbdp_currency_format()}.
- */
-function wpbdp_format_currency( $amount, $decimals = 2, $currency = null ) {
-	_deprecated_function( __FUNCTION__, '3.6.10', 'wpbdp_currency_format' );
-
-    if ( $amount == 0.0 ) {
-        return '—';
-    }
-
-    return ( ! $currency ? wpbdp_get_option( 'currency-symbol' ) : $currency ) . ' ' . number_format( $amount, $decimals );
 }
 
 /**
@@ -1333,7 +1295,7 @@ function wpbdp_get_client_ip_address() {
  * @since 5.2.1
  */
 function wpbdp_delete_page_ids_cache() {
-	WPBDP__Utils::cache_delete_group( 'wpbdp_pages' );
+	WPBDP_Utils::cache_delete_group( 'wpbdp_pages' );
 	// Delete page transient cache for the main plugin pages.
 	delete_transient( 'wpbdp_page_ids_main' );
 	delete_transient( 'wpbdp_page_ids_add-listing' );

@@ -643,7 +643,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
             }
 
             $handler = trim( wpbdp_get_var( array( 'param' => 'handler' ), 'request' ) );
-            $handler = WPBDP__Utils::normalize( $handler );
+			$handler = WPBDP_Utils::normalize( $handler );
 
             $parts         = explode( '__', $handler );
             $controller_id = $parts[0];

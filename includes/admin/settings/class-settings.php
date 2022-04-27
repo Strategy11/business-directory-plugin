@@ -13,7 +13,6 @@ class WPBDP__Settings {
 
     private $deps = array();
 
-
     public function __construct() {
         // Make sure our option exists.
         if ( false === ( $settings_opt = get_option( 'wpbdp_settings' ) ) ) {
@@ -596,4 +595,9 @@ class WPBDP__Settings {
 }
 
 // For backwards compat.
-class WPBDP_Settings extends WPBDP__Settings {}
+class WPBDP_Settings extends WPBDP__Settings {
+	public function __construct() {
+		_deprecated_constructor( __CLASS__, '5.0', 'WPBDP__Settings' );
+		parent::__construct();
+	}
+}

@@ -477,43 +477,6 @@ function wpbdp_the_listing_sort_options() {
 }
 
 /**
- * @deprecated since 2.2.1
- */
-function wpbdp_bar( $parts = array() ) {
-	_deprecated_function( __FUNCTION__, '2.2.1' );
-
-    $parts = wp_parse_args(
-        $parts, array(
-            'links'  => true,
-            'search' => false,
-        )
-    );
-
-    $html  = '<div class="wpbdp-bar cf">';
-    $html .= apply_filters( 'wpbdp_bar_before', '', $parts );
-
-    if ( $parts['links'] ) {
-        $html .= wpbdp_main_links();
-    }
-    if ( $parts['search'] ) {
-        $html .= wpbdp_search_form();
-    }
-
-    $html .= apply_filters( 'wpbdp_bar_after', '', $parts );
-    $html .= '</div>';
-
-    return $html;
-}
-
-/**
- * @deprecated since 2.2.1
- */
-function wpbdp_the_bar( $parts = array() ) {
-	_deprecated_function( __FUNCTION__, '2.2.1' );
-    echo wpbdp_bar( $parts );
-}
-
-/**
  * Displays the listing main image.
  *
  * @since 2.3

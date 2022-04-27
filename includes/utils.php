@@ -9,7 +9,7 @@ require_once( WPBDP_INC . 'helpers/class-email.php' );
 require_once( WPBDP_INC . 'compatibility/class-ajax-response.php' );
 require_once( WPBDP_INC . 'helpers/class-fs.php' );
 
-class WPBDP__Utils {
+class WPBDP_Utils {
 
     /**
      * @since 5.2.1
@@ -492,11 +492,11 @@ class WPBDP__Utils {
 }
 
 /**
- * @deprecated Use {@link WPBDP__Utils} instead.
+ * @deprecated Use {@link WPBDP_Utils} instead.
  */
-class WPBDP_Utils extends WPBDP__Utils {
+class WPBDP__Utils extends WPBDP_Utils {
 	public function __construct() {
-		_deprecated_function( __METHOD__, '', 'WPBDP__Utils' );
+		_deprecated_constructor( __CLASS__, '', 'WPBDP_Utils' );
 	}
 }
 
@@ -675,7 +675,7 @@ function wpbdp_media_upload_check_env( &$error ) {
  * @since 2.1.6
  */
 function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = false, $constraints = array(), &$error_msg = null, $sideload = false ) {
-	return WPBDP__Utils::media_upload( $file_, $use_media_library, $check_image, $constraints, $error_msg, $sideload );
+	return WPBDP_Utils::media_upload( $file_, $use_media_library, $check_image, $constraints, $error_msg, $sideload );
 }
 
 /**
@@ -686,7 +686,7 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
  * @since 5.0.5
  */
 function wpbdp_get_mimetype( $file ) {
-    return WPBDP__Utils::get_mimetype( $file );
+    return WPBDP_Utils::get_mimetype( $file );
 }
 
 /**
@@ -855,18 +855,6 @@ function wpbdp_scandir( $path, $args = array() ) {
 */
     return $res;
 //    return array_diff( scandir( $path ), array( '.', '..' ) );
-}
-
-/**
- * Recursively deletes a directory.
- *
- * @param string $path a directory.
- * @since 3.3
- * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
- */
-function wpbdp_rrmdir( $path ) {
-	_deprecated_function( __FUNCTION__, '3.6.10', 'WPBDP_FS::rmdir' );
-    return WPBDP_FS::rmdir( $path );
 }
 
 /**

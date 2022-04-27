@@ -1083,7 +1083,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
      */
     public function sort_images( $images_, $meta ) {
         // Sort inside $meta first.
-        WPBDP__Utils::sort_by_property( $meta, 'order' );
+		WPBDP_Utils::sort_by_property( $meta, 'order' );
 		$meta = array_reverse( $meta, true );
 
         // Sort $images_ considering $meta.

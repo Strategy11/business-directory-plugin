@@ -25,8 +25,9 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
         }
 
         // Update notify-admin email option.
-        if ( get_option( WPBDP_Settings::PREFIX . 'notify-admin', false ) )
-            update_option( WPBDP_Settings::PREFIX . 'admin-notifications', array( 'new-listing') );
+		if ( get_option( WPBDP__Settings::PREFIX . 'notify-admin', false ) ) {
+			update_option( WPBDP__Settings::PREFIX . 'admin-notifications', array( 'new-listing') );
+		}
 
         $this->request_manual_upgrade( 'upgrade_to_3_7_migrate_payments' );
     }
