@@ -354,11 +354,11 @@ class WPBDP_Form_Field_Type {
         return apply_filters( 'wpbdp_field_schema_org', $schema, $field, $post_id );
     }
 
-    /**
-     * Called after a field of this type is deleted.
+	/**
+	 * Called after a field of this type is deleted.
 	 *
-     * @param object $field the deleted WPBDP_Form_Field object.
-     */
+	 * @param object $field the deleted WPBDP_Form_Field object.
+	 */
     public function cleanup( &$field ) {
         if ( $field->get_association() == 'meta' ) {
             global $wpdb;

@@ -219,14 +219,6 @@ function wpbdp_bar( $parts = array() ) {
 }
 
 /**
- * @deprecated since 2.2.1
- */
-function wpbdp_the_bar( $parts = array() ) {
-	_deprecated_function( __FUNCTION__, '2.2.1' );
-    echo wpbdp_bar( $parts );
-}
-
-/**
  * Recursively deletes a directory.
  *
  * @param string $path a directory.
