@@ -71,8 +71,8 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
                 </select>
 
 				<p>
-                	<a href="#" class="update-value button"><?php esc_html_e( 'OK', 'business-directory-plugin' ); ?></a>
-                	<a href="#" class="cancel-edit button-cancel"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a>
+					<a href="#" class="update-value button"><?php esc_html_e( 'OK', 'business-directory-plugin' ); ?></a>
+					<a href="#" class="cancel-edit button-cancel"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a>
 				</p>
         </div>
         </dd>
