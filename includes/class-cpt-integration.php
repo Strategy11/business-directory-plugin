@@ -28,6 +28,7 @@ class WPBDP__CPT_Integration {
             'show_ui'      => true,
             'menu_icon'    => self::menu_icon(),
             'supports'     => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' ),
+			'show_in_rest' => true,
             'rewrite'      => array(
                 'slug'       => wpbdp_get_option( 'permalinks-directory-slug', WPBDP_POST_TYPE ),
                 'with_front' => true,
