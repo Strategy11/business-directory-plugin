@@ -209,6 +209,7 @@ class WPBDP_Show_Modules {
 			return WPBDP_Addons::show_conditional_action_button( $atts );
 		}
 
+		/** @phpstan-ignore-next-line */
 		if ( ! empty( $atts['addon']['status']['type'] ) && $atts['addon']['status']['type'] === 'installed' ) {
 			self::addon_activate_link( $atts['addon'] );
 		} else {

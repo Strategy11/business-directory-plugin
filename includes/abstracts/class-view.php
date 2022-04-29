@@ -61,7 +61,7 @@ class WPBDP__View {
         nocache_headers();
 
 		$template_404 = get_404_template();
-        if ( $template_404 ) {
+		if ( $template_404 ) {
             include $template_404;
         }
 

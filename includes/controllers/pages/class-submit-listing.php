@@ -872,6 +872,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $errors = array();
 
         if ( $should_validate && ! $category_field->validate( $categories, $errors ) ) {
+			/** @phpstan-ignore-next-line */
             foreach ( $errors as $e ) {
 				if ( ! isset( $this->messages['plan_selection'] ) ) {
 					$this->messages( $e, 'error', 'plan_selection' );
@@ -881,7 +882,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->prevent_save = true;
 		} elseif ( $categories && ! $plan_id ) {
 			$this->messages( __( 'Please choose a plan.', 'business-directory-plugin' ), 'error', 'plan_selection' );
-        } elseif ( $categories && $plan_id ) {
+		} elseif ( $categories ) {
             $plan = wpbdp_get_fee_plan( $plan_id );
 
             if ( ! $plan || ! $plan->enabled || ! $plan->supports_category_selection( $categories ) ) {

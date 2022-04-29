@@ -94,19 +94,18 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
         $notices = array();
 
-        if ( true ) {
-            if ( $email = get_option( 'wpbdp-listing-renewal-message', false ) ) {
-                $notices[] = array(
-                    'event' => 'expiration',
-                    'relative_time' => '0 days',
-                    'listings' => 'non-recurring',
-                    'subject' => $email['subject'],
-                    'body' => $email['body']
-                );
-            } else {
-                $notices[] = $defaults[1];
-            }
-        }
+		$email = get_option( 'wpbdp-listing-renewal-message', false );
+		if ( $email ) {
+			$notices[] = array(
+				'event' => 'expiration',
+				'relative_time' => '0 days',
+				'listings' => 'non-recurring',
+				'subject' => $email['subject'],
+				'body' => $email['body']
+			);
+		} else {
+			$notices[] = $defaults[1];
+		}
 
         if ( $t = get_option( 'wpbdp-renewal-email-threshold', false ) ) {
             if ( $email = get_option( 'wpbdp-renewal-pending-message' ) ) {
@@ -156,18 +155,17 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
         }
 
-        if ( true ) {
-            if ( $email = get_option( 'wpbdp-listing-autorenewal-message' ) ) {
-                $notices[] = array(
-                    'event'         => 'renewal',
-                    'listings'      => 'recurring',
-                    'subject'       => $email['subject'],
-                    'body'          => $email['body']
-                );
-            } else {
-                $notices[] = $defaults[4];
-            }
-        }
+		$email = get_option( 'wpbdp-listing-autorenewal-message' );
+		if ( $email ) {
+			$notices[] = array(
+				'event'         => 'renewal',
+				'listings'      => 'recurring',
+				'subject'       => $email['subject'],
+				'body'          => $email['body']
+			);
+		} else {
+			$notices[] = $defaults[4];
+		}
 
         // Clamp relative times to what we can handle.
         foreach ( $notices as &$notice ) {
@@ -374,10 +372,6 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
                 if ( $expiration = $free_plan->calculate_expiration_time() )
                     $new_plan['expiration_date'] = $expiration;
-
-                $recurring_data = $wpdb->get_var( $wpdb->prepare( "SELECT recurring_data FROM {$wpdb->prefix}wpbdp_listing_fees WHERE recurring_data IS NOT NULL AND listing_id = %d LIMIT 1", $listing_id ) );
-                if ( ! empty( $new_plan['is_recurring'] ) && $new_plan['is_recurring'] && $recurring_data )
-                    $new_plan['recurring_data'] = $recurring_data;
             }
 
             $wpdb->delete( $wpdb->prefix . 'wpbdp_listings', array( 'listing_id' => $listing_id ) );
@@ -442,7 +436,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
 
         foreach ( $fees as $fee ) {
             if ( $fee->recurring ) {
-				$x = wpbdp_get_fee( $fee->fee_id );
+				$x = wpbdp_get_fee_plan( $fee->fee_id );
 				if ( $x ) {
 					$price = $x->amount;
 				} else {
@@ -466,7 +460,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
                 $oldkey = isset( $key_translations[ $key ] ) ? $key_translations[ $key ] : $key;
 
                 if ( 'fee_price' == $key ) {
-					$x = wpbdp_get_fee( $fee->fee_id );
+					$x = wpbdp_get_fee_plan( $fee->fee_id );
 					if ( $x ) {
 						$fee->fee_price = $x->amount;
 					} else {
@@ -538,7 +532,8 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
         }
 
-        if ( $_ = wpbdp_get_fee( $fee['fee_id'] ) ) {
+		$_ = wpbdp_get_fee_plan( $fee['fee_id'] );
+        if ( $_ ) {
             $fee['is_sticky'] = $_->sticky;
 
             if ( 0 == $fee['fee_days'] )
