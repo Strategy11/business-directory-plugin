@@ -610,6 +610,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
             // Maybe loading one of the candidate files made the callback available.
+			/** @phpstan-ignore-next-line */
             if ( $callback && is_callable( $callback ) ) {
                 ob_start();
                 call_user_func( $callback );

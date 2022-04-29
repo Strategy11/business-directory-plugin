@@ -348,6 +348,9 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         return empty( $value[0] );
     }
 
+    /**
+     * @param array|mixed $value
+     */
     public function store_field_value( &$field, $post_id, $value ) {
         if ( ! is_array( $value ) && empty( $value ) ) {
             $value = null;
@@ -357,7 +360,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
             $value = null;
         }
 
-        if ( is_array( $value ) && ! empty( $value[1] ) ) {
+        if ( ! empty( $value[1] ) ) {
             $img               = get_post( $value[0] );
             $img->post_excerpt = $value[1];
             wp_update_post( $img );

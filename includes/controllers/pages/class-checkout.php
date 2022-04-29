@@ -59,6 +59,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
                 // Let's see if the checkout process changed the payment status to something we can no longer handle.
                 $this->fetch_payment();
 
+				/** @phpstan-ignore-next-line */
                 if ( ! $this->can_checkout() ) {
                     return $this->_redirect( $this->payment->checkout_url );
                 }

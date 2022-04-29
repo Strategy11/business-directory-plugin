@@ -164,7 +164,9 @@ class WPBDP__Manual_Upgrade_Helper {
             $output = ob_get_contents();
             ob_end_clean();
 
+			/** @phpstan-ignore-next-line */
             if ( ! $this->is_configured() ) {
+				// is_configured can change during the config_callback.
                 echo '<form action="" method="post">';
                 echo '<div class="wpbdp-manual-upgrade-configuration">';
                 echo $output;

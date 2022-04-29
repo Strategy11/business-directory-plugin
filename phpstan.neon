@@ -1,5 +1,5 @@
 parameters:
-	level: 3
+	level: 4
 	reportUnmatchedIgnoredErrors: false
 	bootstrapFiles:
 		- vendor/php-stubs/wordpress-stubs/wordpress-stubs.php

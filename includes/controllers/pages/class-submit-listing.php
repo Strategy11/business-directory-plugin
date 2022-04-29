@@ -906,7 +906,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     $this->listing->set_fee_plan( $plan );
                 }
             }
-        } elseif ( ! $categories && $this->skip_plan_selection ) {
+		} elseif ( $this->skip_plan_selection ) {
             $current_categories = $this->listing->get_categories( 'ids' );
 
             wp_set_post_terms( $this->listing->get_id(), $current_categories, WPBDP_CATEGORY_TAX, false );
