@@ -8,6 +8,9 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
         $this->listing = WPBDP_Listing::get( $post_id );
     }
 
+    /**
+	 * @return string
+	 */
     public function render() {
         $tabs = array();
         $tabs[] = array(
@@ -28,6 +31,9 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
         return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information.tpl.php', array( 'tabs' => $tabs ) );
     }
 
+	/**
+	 * @return string
+	 */
     private function plan_info_tab() {
         $vars = array(
             'plans' => wpbdp_get_fee_plans(),
@@ -38,6 +44,9 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
         return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information-plan.tpl.php', $vars );
     }
 
+	/**
+	 * @return string
+	 */
     private function payments_tab() {
         $vars = array(
             'payments' => $this->listing->get_latest_payments(),
@@ -46,6 +55,9 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
         return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information-payments.tpl.php', $vars );
     }
 
+	/**
+	 * @return string
+	 */
     private function other_tab() {
         $vars = array(
             'access_key' => $this->listing->get_access_key()
