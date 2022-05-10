@@ -11,11 +11,13 @@ class WPBDP__Listing_Timeline {
 
     private $listing = null;
 
-
     public function __construct( $listing_id ) {
         $this->listing = wpbdp_get_listing( $listing_id );
     }
 
+	/**
+	 * @return array
+	 */
     public function get_items() {
         $items = wpbdp_get_logs(
             array(
@@ -36,6 +38,9 @@ class WPBDP__Listing_Timeline {
         return $items;
     }
 
+	/**
+	 * @return string
+	 */
     public function render() {
         $items    = $this->get_items();
         $timeline = array();
@@ -64,6 +69,9 @@ class WPBDP__Listing_Timeline {
         return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-timeline.tpl.php', array( 'timeline' => $timeline ) );
     }
 
+	/**
+	 * @return bool
+	 */
     private function recreate_logs() {
         $post      = get_post( $this->listing->get_id() );
         $post_date = $post->post_date;
@@ -107,26 +115,41 @@ class WPBDP__Listing_Timeline {
         return true;
     }
 
+	/**
+	 * @return object
+	 */
     private function process_listing_created( $item ) {
         $item->html = _x( 'Listing created', 'listing timeline', 'business-directory-plugin' );
         return $item;
     }
 
+	/**
+	 * @return object
+	 */
     private function process_listing_expired( $item ) {
         $item->html = _x( 'Listing expired', 'listing timeline', 'business-directory-plugin' );
         return $item;
     }
 
+	/**
+	 * @return object
+	 */
     private function process_listing_renewal( $item ) {
         $item->html = __( 'Listing renewed', 'business-directory-plugin' );
         return $item;
     }
 
+	/**
+	 * @return object
+	 */
     private function process_listing_terms_and_conditions_accepted( $item ) {
         $item->html = _x( 'T&C acceptance date', 'listing timeline', 'business-directory-plugin' );
         return $item;
     }
 
+	/**
+	 * @return string
+	 */
     private function process_listing_payment( $item ) {
         $payment = WPBDP_Payment::objects()->get( $item->rel_object_id );
 

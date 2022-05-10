@@ -35,7 +35,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
     }
 
     function index() {
-        require_once( WPBDP_INC . 'admin/helpers/tables/class-fees-table.php' );
+		require_once WPBDP_INC . 'admin/helpers/tables/class-fees-table.php';
 
         $table = new WPBDP__Admin__Fees_Table();
         $table->prepare_items();

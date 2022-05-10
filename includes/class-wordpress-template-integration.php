@@ -40,7 +40,7 @@ class WPBDP__WordPress_Template_Integration {
 		if ( $allow_override ) {
 			add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 			$page_template = get_query_template( 'page', $this->get_template_alternatives() );
-			if ( $allow_override && $page_template ) {
+			if ( $page_template ) {
 				$template = $page_template;
 			}
 		}
@@ -117,10 +117,8 @@ class WPBDP__WordPress_Template_Integration {
         $classes[] = 'wpbdp-view-' . $view;
 
 		$theme = wp_get_theme();
-		if ( $theme ) {
-            $classes[] = 'wpbdp-wp-theme-' . $theme->get_stylesheet();
-            $classes[] = 'wpbdp-wp-theme-' . $theme->get_template();
-        }
+		$classes[] = 'wpbdp-wp-theme-' . $theme->get_stylesheet();
+		$classes[] = 'wpbdp-wp-theme-' . $theme->get_template();
 
         if ( wpbdp_is_taxonomy() ) {
             $classes[] = 'wpbdp-view-taxonomy';

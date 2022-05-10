@@ -367,10 +367,6 @@ class WPBDP_CSVImportAdmin {
 				array_merge( $settings, array( 'test-import' => ! empty( $_POST['test-import'] ) ) )
             );
         } catch ( Exception $e ) {
-            if ( $import ) {
-                $import->cleanup();
-            }
-
             $error  = _x( 'An error was detected while validating the CSV file for import. Please fix this before proceeding.', 'admin csv-import', 'business-directory-plugin' );
             $error .= '<br />';
 			$error .= '<b>' . esc_html( $e->getMessage() ) . '</b>';

@@ -34,7 +34,6 @@ class WPBDP_CSVExporter {
     private $columns  = array();
     private $listings = array(); // Listing IDs to be exported.
     private $exported = 0; // # of already exported listings.
-    private $images   = array();
 
     public function __construct( $settings, $workingdir = null, $listings = array() ) {
         global $wpdb;

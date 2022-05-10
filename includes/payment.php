@@ -5,9 +5,9 @@
  * @package BDP/Includes/Views/Checkout
  */
 
-require_once( WPBDP_PATH . 'includes/models/class-payment.php' );
-require_once( WPBDP_INC . 'abstracts/class-payment-gateway.php' );
-require_once( WPBDP_PATH . 'includes/class-fees-api.php' );
+require_once WPBDP_PATH . 'includes/models/class-payment.php';
+require_once WPBDP_INC . 'abstracts/class-payment-gateway.php';
+require_once WPBDP_PATH . 'includes/class-fees-api.php';
 
 
 if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
@@ -67,7 +67,6 @@ class WPBDP_PaymentsAPI {
 			<?php } ?>
 			<?php
 			$bill_to  = '';
-
 			$bill_to .= ( $payment->payer_first_name || $payment->payer_last_name ) ? $payment->payer_first_name . ' ' . $payment->payer_last_name : $current_user->display_name;
 			$bill_to .= $payment->payer_data ? '<br />' . implode( '<br />', $payment->get_payer_address() ) : '';
 			$bill_to .= '<br />';
@@ -134,10 +133,10 @@ class WPBDP_PaymentsAPI {
 
     /**
      * @since 3.5.8
-	 * @deprecated 6.0.2
+	 * @deprecated 6.1
      */
     public function notify_abandoned_payments() {
-		_deprecated_function( __METHOD__, '6.0.2' );
+		_deprecated_function( __METHOD__, '6.1' );
     }
 
 	function _return_fee_list_button( $payment ) {

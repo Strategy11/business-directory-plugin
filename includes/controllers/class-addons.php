@@ -50,7 +50,7 @@ class WPBDP_Addons_Controller {
 	 */
 	protected static function maybe_show_cred_form() {
 		if ( ! function_exists( 'request_filesystem_credentials' ) ) {
-			include_once( ABSPATH . 'wp-admin/includes/file.php' );
+			include_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
 		// Start output bufferring to catch the filesystem form if credentials are needed.

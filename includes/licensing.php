@@ -37,6 +37,7 @@ class WPBDP_Licensing {
 
 	/**
 	 * @since 5.10
+	 * @return array|string
 	 */
 	private function get_license_errors() {
 		if ( $this->licenses_errors !== 0 ) {
@@ -103,7 +104,7 @@ class WPBDP_Licensing {
 		}
 
 		$errors = $this->get_license_errors();
-		if ( ! $errors ) {
+		if ( ! is_array( $errors ) ) {
 			return;
 		}
 
@@ -441,13 +442,9 @@ class WPBDP_Licensing {
 			return $license;
 		}
 
-        if ( is_wp_error( $response ) ) {
-            return $response;
-        }
-
         $license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-        if ( ! is_object( $license_data ) || ! $license_data || ! isset( $license_data->license ) ) {
+		if ( ! is_object( $license_data ) || ! isset( $license_data->license ) ) {
             return new WP_Error( 'invalid-license', esc_html__( 'License key is invalid', 'business-directory-plugin' ) );
         }
 
@@ -471,7 +468,7 @@ class WPBDP_Licensing {
 	private function process_license_response( $response, $item_type, $item_id, $key ) {
 		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-		if ( is_object( $license_data ) && $license_data && isset( $license_data->license ) && 'valid' === $license_data->license ) {
+		if ( is_object( $license_data ) && isset( $license_data->license ) && 'valid' === $license_data->license ) {
 			return array(
 				'license_key'  => $key,
 				'status'       => 'valid',

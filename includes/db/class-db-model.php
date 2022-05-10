@@ -154,7 +154,6 @@ class WPBDP__DB__Model {
             return call_user_func( array( $this, 'set_' . $name ) );
 
         $this->set_attr( $name, $value );
-        // $this->_attrs[ $name ] = $value;
     }
 
     public function update( $fields = array() ) {
@@ -250,8 +249,9 @@ class WPBDP__DB__Model {
     public static function _objects( $classname ) {
         static $managers_per_class = array();
 
-        if ( ! isset( $managers_per_class[ $classname ] ) )
-            $managers_per_class[ $classname ] = new WPBDP__DB__Query_Set( $classname, false, true );
+		if ( ! isset( $managers_per_class[ $classname ] ) ) {
+			$managers_per_class[ $classname ] = new WPBDP__DB__Query_Set( $classname, false );
+		}
 
         return $managers_per_class[ $classname ];
     }
@@ -275,8 +275,10 @@ class WPBDP__DB__Model {
 
         $info                = array();
         $info['class']       = $classname;
-        $info['table']       = array( 'name' => isset( $cls_vars['table'] ) ? $wpdb->prefix . $cls_vars['table'] : $wpdb->prefix . strtolower( $classname ) . 's',
-                                      'columns' => array() );
+		$info['table']       = array(
+			'name'    => isset( $cls_vars['table'] ) ? $wpdb->prefix . $cls_vars['table'] : $wpdb->prefix . strtolower( $classname ) . 's',
+			'columns' => array(),
+		);
         $info['table_name']  = $info['table']['name'];
         $info['primary_key'] = isset( $cls_vars['primary_key'] ) ? $cls_vars['primary_key'] : 'id';
         $info['serialized']  = isset( $cls_vars['serialized'] ) ? $cls_vars['serialized'] : array();
@@ -295,6 +297,6 @@ class WPBDP__DB__Model {
 }
 
 // For backwards-compat.
-require_once( WPBDP_PATH . 'includes/compatibility/deprecated/class-db-model2.php' );
+require_once WPBDP_PATH . 'includes/compatibility/deprecated/class-db-model2.php';
 
 

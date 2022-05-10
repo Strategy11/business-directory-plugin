@@ -27,11 +27,6 @@ class WPBDP_Themes {
 
         $this->set_template_dirs();
 
-        // Keep settings controlling themes licenses in sync (Settings API <-> Themes API).
-        // FIXME: this should be removed once everything is handled by the Settings API + Licensing API, but we're not
-        // there yet.
-        $this->sync_settings();
-
         // Add some extra data to theme information.
         $this->add_theme_data();
 
@@ -454,28 +449,6 @@ class WPBDP_Themes {
         }
 
         return $info;
-    }
-
-    public function sync_settings() {
-        return;
-        $themes_data    = get_option( 'wpbdp-themes-licenses', array() );
-        $wpbdp_settings = get_option( 'wpbdp_settings', array() );
-
-        if ( $themes_data ) {
-            $changed = false;
-            foreach ( $themes_data as $theme_id => $theme_data ) {
-                if ( ! array_key_exists( 'license-key-theme-' . $theme_id, $wpbdp_settings ) ) {
-                    $changed = true;
-                    $wpbdp_settings[ 'license-key-theme-' . $theme_id ] = $theme_data['license'];
-                    update_option( 'wpbdp-license-status-theme-' . $theme_id, $theme_data['status'] );
-                }
-            }
-
-            if ( $changed ) {
-                update_option( 'wpbdp_settings', $wpbdp_settings );
-            }
-        }
-
     }
 
     function add_theme_data() {
@@ -977,6 +950,9 @@ class WPBDP_Themes {
         return $dest_dir;
     }
 
+	public function sync_settings() {
+		_deprecated_function( __METHOD__, '5.0' );
+	}
 }
 
 function wpbdp_x_render( $template_id, $vars = array(), $wrapper = '' ) {

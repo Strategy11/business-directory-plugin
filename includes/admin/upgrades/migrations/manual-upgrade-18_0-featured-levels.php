@@ -84,7 +84,6 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
                     break;
                 default:
                     return false;
-                break;
             }
         }
 

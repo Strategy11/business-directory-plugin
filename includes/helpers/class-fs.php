@@ -111,7 +111,7 @@ final class WPBDP_FS {
 
     static function unzip( $zipfile, $destdir ) {
         if ( ! class_exists( 'PclZip' ) )
-            require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+            require_once ABSPATH . 'wp-admin/includes/class-pclzip.php';
 
         if ( ! wp_is_writable( $destdir ) ) {
 			return new WP_Error(

@@ -51,25 +51,23 @@ function _wpbdp_padded_count( &$term, $return = false ) {
 
         $tree_ids = array_merge( array( $term->term_id ), get_term_children( $term->term_id, WPBDP_CATEGORY_TAX ) );
 
-        if ( $tree_ids ) {
-            $format = implode( ', ', array_fill( 0, count( $tree_ids ), '%d' ) );
-            $tt_ids = $wpdb->get_col(
-                $wpdb->prepare(
-                    "SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id IN ( $format ) AND taxonomy = %s",
-					array_merge( (array) $tree_ids, array( WPBDP_CATEGORY_TAX ) )
-				)
+		$format = implode( ', ', array_fill( 0, count( $tree_ids ), '%d' ) );
+		$tt_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id IN ( $format ) AND taxonomy = %s",
+				array_merge( (array) $tree_ids, array( WPBDP_CATEGORY_TAX ) )
+			)
+		);
+
+		if ( $tt_ids ) {
+			$format = implode( ', ', array_fill( 0, count( $tt_ids ), '%d' ) );
+			$query = $wpdb->prepare(
+				"SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN ( $format )",
+				array_merge( array( 'publish', WPBDP_POST_TYPE ), (array) $tt_ids )
 			);
 
-            if ( $tt_ids ) {
-                $format = implode( ', ', array_fill( 0, count( $tt_ids ), '%d' ) );
-                $query = $wpdb->prepare(
-                    "SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN ( $format )",
-					array_merge( array( 'publish', WPBDP_POST_TYPE ), (array) $tt_ids )
-                );
-
-                $count = intval( $wpdb->get_var( $query ) );
-            }
-        }
+			$count = intval( $wpdb->get_var( $query ) );
+		}
 
         $count = apply_filters( '_wpbdp_padded_count', $count, $term );
     }
@@ -653,7 +651,6 @@ class WPBDP_ListingFieldDisplayItem {
 
                 $this->html_ = $this->field->display( $this->listing_id, $this->display );
                 return $this->html_;
-                break;
 
             case 'html_value':
                 if ( $this->html_value_ ) {
@@ -662,7 +659,6 @@ class WPBDP_ListingFieldDisplayItem {
 
                 $this->html_value_ = $this->field->html_value( $this->listing_id );
                 return $this->html_value_;
-                break;
 
             case 'value':
                 if ( $this->value_ ) {
@@ -671,10 +667,6 @@ class WPBDP_ListingFieldDisplayItem {
 
                 $this->value_ = $this->field->value( $this->listing_id );
                 return $this->value_;
-                break;
-
-            default:
-                break;
         }
     }
 

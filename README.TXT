@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 5.9
-Stable tag: 6.0.1
+Stable tag: 6.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,15 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.1 =
+* IMPORTANT: Removed some code that has been deprecated for several years. Update carefully if you have old custom templates.
+* Show settings urls on the Modules page if the module provides it.
+* Add 6.0 tab formatting in admin listing metabox.
+* Rename "featured levels" to "restrictions".
+* Fix: Show menu image icons when allow_url_fopen is off.
+* Fix: The new expiration date wasn't showing until after a listing was saved in the admin area.
+* Fix: Some listings were getting an error when renewed.
+
 = 6.0.1 =
 * Remove the licenses tab if it's not needed.
 * A few admin styling tweeks including toggles.
@@ -194,10 +203,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: The default BD theme showed the listing title twice.
 * Fix: The default plan wasn't showing up when enabled when used with paid plans.
 * Fix: The spacing between some action buttons and the listing thumbnail were too small.
-
-= 5.17.1 =
-* Fix: Hide the custom order column in the plans table if not using custom ordering.
-* Fix: Allow manual enable/disable of default plan.
-* Fix: PHP warning showing on license page on some sites.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
