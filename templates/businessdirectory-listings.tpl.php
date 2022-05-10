@@ -26,14 +26,16 @@ $query = isset( $query ) ? $query : wpbdp_current_query();
 
         <?php wpbdp_the_listing_sort_options(); ?>
 
-		<?php if ( ! $query->have_posts() ) : ?>
-            <?php esc_html_e( 'No listings found.', 'business-directory-plugin' ); ?>
-		<?php else : ?>
+		<?php
+		if ( $query->have_posts() ) :
+			?>
             <div class="listings wpbdp-listings-list">
-				<?php while ( $query->have_posts() ) : $query->the_post(); ?>
-                    <?php wpbdp_render_listing( null, 'excerpt', 'echo' ); ?>
-                <?php endwhile; ?>
 				<?php
+				while ( $query->have_posts() ) {
+					$query->the_post();
+					wpbdp_render_listing( null, 'excerpt', 'echo' );
+				}
+
 				wpbdp_x_part(
 					'parts/pagination',
 					array(
@@ -42,7 +44,11 @@ $query = isset( $query ) ? $query : wpbdp_current_query();
 				);
 				?>
             </div>
-        <?php endif; ?>
+        	<?php
+		else :
+			esc_html_e( 'No listings found.', 'business-directory-plugin' );
+		endif;
+		?>
 
     </div>
 
