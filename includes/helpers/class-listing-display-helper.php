@@ -60,7 +60,7 @@ class WPBDP_Listing_Display_Helper {
 	 * Get needed parameters for full or partial listing.
 	 *
 	 * @since v5.9
-     * @return array
+	 * @return array
 	 */
 	public static function single_listing_vars( $include = array() ) {
 		global $post;
