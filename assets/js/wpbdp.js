@@ -15,6 +15,11 @@ jQuery(document).ready(function($){
         $( '.wpbdp-js-select2' ).selectWoo();
     }
 
+    // Move the featured badge to the theme h1.
+    var sticky = $( '.wpbdp-listing-single .wpbdp-sticky-tag' );
+    if ( sticky.length ) {
+        $( 'h1:first' ).append( sticky );
+    }
 
     /**
      * Handles flex behavior for main box columns.

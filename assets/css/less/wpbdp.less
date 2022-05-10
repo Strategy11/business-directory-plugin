@@ -112,9 +112,10 @@ form#wpbdmsearchform a.advanced-search-link {
     margin-right: 3px;
 }
 
-.listing-actions > span {
-    font-size: 11px;
-    margin-right: 10px;
+.listing-actions > span,
+.listing-actions > a {
+	font-size: 11px;
+	margin-left: 10px;
 }
 
 .wpbdp-listing .listing-details .field-value {
@@ -199,7 +200,7 @@ form#wpbdmsearchform a.advanced-search-link {
 	border-radius: 4px;
 	text-transform: uppercase;
 	font-weight: 600;
-	vertical-align: text-bottom;
+	vertical-align: middle;
 	display: inline-block;
 	font-size: 12px;
 }
@@ -237,17 +238,7 @@ form#wpbdmsearchform a.advanced-search-link {
 }
 
 .wpbdp-listing-single .listing-title {
-    margin-bottom: 7px;
-	position: relative;
-
-	h1, h2, h3 {
-		display: inline-block;
-	}
-}
-
-.wpbdp-listing-single .listing-title h2 {
-    clear: none;
-    margin: 0;
+    display: none; /* Prevent duplicate title with custom templates */
 }
 
 .wpbdp-listing-single .main-image {
@@ -550,9 +541,6 @@ table#wpbdp-manage-recurring a.cancel-subscription {
     margin-left: 10px;
 }
 
-#wpbdp-manage-recurring-cancel .cancel-instructions {
-}
-
 .wpbdp-cancel-subscription-form {
     .wpbdp-rounded-box;
 
@@ -570,9 +558,6 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 .wpbdp-cc-form h4 {
     margin: 0;
-}
-
-.wpbdp-cc-field {
 }
 
 .wpbdp-cc-field input {
@@ -874,7 +859,6 @@ a.wpbdp-button {
     display: inline-block;
     background: url('../../assets/images/drag-handle.png') 0 0;
     cursor: move;
-    float: left;
     margin: 5px 5px 0 0;
     vertical-align: middle;
 }
@@ -982,10 +966,6 @@ a.wpbdp-button {
         display: none;
     }
 
-    input[type="button"].wpbdp-show-on-mobile {
-        //padding: 1em 2em;
-    }
-
     .wpbdp-hide-on-mobile {
         display: none;
     }
@@ -1043,10 +1023,6 @@ a.wpbdp-button {
 
     .wpbdp-listing .listing-actions input {
         font-size: 70%;
-    }
-
-    .wpbdp-listing .listing-actions input.back-to-dir {
-        float: right;
     }
 
     .wpbdp-listing.wpbdp-listing-single .main-image {

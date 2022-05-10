@@ -1309,16 +1309,16 @@ function wpbdp_delete_page_ids_cache() {
  * @since 5.5.2
  */
 function wpbdp_get_return_link() {
-    $referer = ! empty( $_SERVER['HTTP_REFERER'] ) ? filter_var( wpbdp_get_server_value( 'HTTP_REFERER' ), FILTER_VALIDATE_URL ) : '';
+    $referer      = ! empty( $_SERVER['HTTP_REFERER'] ) ? filter_var( wpbdp_get_server_value( 'HTTP_REFERER' ), FILTER_VALIDATE_URL ) : '';
+	$msg          = '';
+	$referer_vars = array();
 
-    if ( ! $referer ) {
-        return;
-    }
-
-    $referer_vars = array();
-    $msg          = '';
-
-    wp_parse_str( wp_parse_url( $referer, PHP_URL_QUERY ), $referer_vars );
+	if ( $referer ) {
+		wp_parse_str( wp_parse_url( $referer, PHP_URL_QUERY ), $referer_vars );
+	} else {
+		$msg     = __( 'Return to Directory', 'business-directory-plugin' );
+		$referer = wpbdp_url( '/' );
+	}
 
     if ( $referer_vars && isset( $referer_vars['wpbdp_view'] ) ) {
         if ( 'search' === $referer_vars['wpbdp_view'] ) {
@@ -1335,7 +1335,7 @@ function wpbdp_get_return_link() {
     }
 
     if ( $msg ) {
-        echo '<p class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >&larr; ' . esc_html( $msg ) . '</a></p>';
+        echo '<span class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >' . esc_html( $msg ) . '</a></span>';
     }
 
 }

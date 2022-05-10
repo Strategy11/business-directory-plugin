@@ -32,13 +32,12 @@ if ( 'single' === $view || 'excerpt' === $view ) :
 		);
     endif;
 endif;
+
 if ( 'single' === $view ) :
 	if ( wpbdp_get_option( 'show-directory-button' ) ) :
-		$buttons .= sprintf(
-			'<span class="back-to-dir-buttons"><a href="%2$s" class="back-to-dir">%1$s</a></span>',
-			esc_html__( 'Return to Directory', 'business-directory-plugin' ),
-			esc_url( wpbdp_url( '/' ) )
-		);
+		ob_start();
+		wpbdp_get_return_link();
+		$buttons .= ob_get_clean();
 	endif;
 endif;
 
