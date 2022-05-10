@@ -60,11 +60,16 @@ class WPBDP_Listing_Display_Helper {
 	 * Get needed parameters for full or partial listing.
 	 *
 	 * @since v5.9
+     * @return array
 	 */
 	public static function single_listing_vars( $include = array() ) {
 		global $post;
 
-		$post_id = isset( $include['id'] ) ? $include['id'] : $post->ID;
+		$post_id    = isset( $include['id'] ) ? $include['id'] : $post->ID;
+		$is_listing = isset( $include['id'] ) || ( $post && $post->post_type === wpbdp()->get_post_type() );
+		if ( empty( $post_id ) || ! $is_listing ) {
+			return array();
+		}
 
 		$vars = array(
 			'listing_id' => $post_id,
@@ -199,12 +204,19 @@ class WPBDP_Listing_Display_Helper {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
     public static function fields_vars( $listing_id, $display ) {
         $all_fields     = wpbdp_get_form_fields();
         $display_fields = apply_filters_ref_array( 'wpbdp_render_listing_fields', array( &$all_fields, $listing_id, $display ) );
         $fields         = array();
+        $listing        = WPBDP_Listing::get( $listing_id );
+		if ( ! $listing ) {
+			return array();
+		}
 
-        $listing_cats = WPBDP_Listing::get( $listing_id )->get_categories( 'ids' );
+        $listing_cats = $listing->get_categories( 'ids' );
         foreach ( $display_fields as $field ) {
             if ( ! $field->validate_categories( $listing_cats ) ) {
                 continue;
