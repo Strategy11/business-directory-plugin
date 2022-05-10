@@ -19,6 +19,7 @@
             echo WPBDP_Listing_Display_Helper::excerpt();
 		}
 
+		/** @phpstan-ignore-next-line */
 		wpbdp_x_part(
 			'parts/pagination',
 			array(

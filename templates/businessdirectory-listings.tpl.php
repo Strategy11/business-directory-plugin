@@ -37,6 +37,7 @@ $query = isset( $query ) ? $query : wpbdp_current_query();
 					wpbdp_render_listing( null, 'excerpt', 'echo' );
 				}
 
+				/** @phpstan-ignore-next-line */
 				wpbdp_x_part(
 					'parts/pagination',
 					array(
