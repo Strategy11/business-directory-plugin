@@ -212,6 +212,9 @@ final class WPBDP__Fee_Plan {
 		return true;
 	}
 
+	/**
+	 * @return false|WPBDP__Fee_Plan
+	 */
     public static function get_instance( $fee_id ) {
         global $wpdb;
 

@@ -348,6 +348,9 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
         return empty( $value[0] );
     }
 
+    /**
+     * @param array|string $value
+     */
     public function store_field_value( &$field, $post_id, $value ) {
         if ( ! is_array( $value ) && empty( $value ) ) {
             $value = null;

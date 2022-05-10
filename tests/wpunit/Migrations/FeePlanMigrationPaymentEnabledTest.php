@@ -1,7 +1,7 @@
 <?php
 namespace Migrations;
 
-require_once( WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-18_5.php' );
+require_once WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-18_5.php';
 
 use Codeception\Util\Debug;
 use WPBDP\Tests\BaseMigrationTestCase;

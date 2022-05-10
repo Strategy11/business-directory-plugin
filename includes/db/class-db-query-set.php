@@ -7,16 +7,13 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
     private $db;
 
     private $model;
-    private $is_manager = false;
 
     private $query = array();
-    private $sql_query = '';
     private $executed = false;
 
     private $rows = array();
 
-
-    public function __construct( $model, $query = null, $is_manager = false ) {
+    public function __construct( $model, $query = null ) {
         global $wpdb;
 
         $this->db = $wpdb;
@@ -34,7 +31,6 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
                                   'fields' => ''
 			);
 		}
-        $this->is_manager = $is_manager;
     }
 
     public function get( $args = array() ) {

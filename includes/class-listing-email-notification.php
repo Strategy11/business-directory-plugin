@@ -134,12 +134,12 @@ class WPBDP__Listing_Email_Notification {
         return true;
     }
 
-    /**
-     * @param string $event             Event identifier.
-     * @param string $relative_time     Number of days before or after the event occurred.
-     * @param object $listing           An instance of WPBDP_Listing.
-     * @param bool   $force_resend      Whether to resend already sent notifications or not.
-     */
+	/**
+	 * @param string     $event         Event identifier.
+	 * @param string     $relative_time Number of days before or after the event occurred.
+	 * @param object|int $listing       An instance of WPBDP_Listing.
+	 * @param bool       $force_resend  Whether to resend already sent notifications or not.
+	 */
     public function send_notices( $event, $relative_time, $listing, $force_resend = false ) {
         $sent    = false;
         $listing = is_object( $listing ) ? $listing : wpbdp_get_listing( absint( $listing ) );

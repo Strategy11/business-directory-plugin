@@ -42,7 +42,6 @@ class WPBDP_Form_Field_Type {
      * @param object $field
      */
     public function setup_field( &$field ) {
-        return;
     }
 
     /**
@@ -396,7 +395,6 @@ class WPBDP_Form_Field_Type {
      * @return mixed WP_Error in case of error, anything else for success.
      */
     public function process_field_settings( &$field ) {
-        return;
     }
 
     /**

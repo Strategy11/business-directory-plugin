@@ -60,7 +60,8 @@ class WPBDP__View {
         status_header( 404 );
         nocache_headers();
 
-        if ( $template_404 = get_404_template() ) {
+		$template_404 = get_404_template();
+		if ( $template_404 ) {
             include $template_404;
         }
 
@@ -115,7 +116,7 @@ class WPBDP__View {
         }
 
         if ( $redirect_on_failure ) {
-			$redirect_query_args['redirect_to'] = urlencode(
+			$redirect_query_args['redirect_to'] = rawurlencode(
 				add_query_arg(
 					$redirect_query_args,
                     $wpbdp_view ? wpbdp_url( $wpbdp_view ) : apply_filters( 'the_permalink', get_permalink() )

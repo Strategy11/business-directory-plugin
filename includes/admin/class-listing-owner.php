@@ -146,7 +146,7 @@ class WPBDP__Admin__Listing_Owner {
 
         $users_count = count_users();
 
-        if ( isset( $users_count['total_users'] ) && $users_count['total_users'] > 100 ) {
+		if ( $users_count['total_users'] > 100 ) {
             return apply_filters( 'wpbdp_admin_listing_owner_mode', 'ajax' );
         }
 

@@ -504,12 +504,12 @@ class WPBDP_Admin_Pages {
 		$menu_icons = apply_filters(
 			'wpbdp_admin_menu_icons',
 			array(
-				'edit.php?post_type=wpbdp_listing'                                  => 'list',
+				'edit.php?post_type=wpbdp_listing' => 'list',
 				'edit-tags.php?taxonomy=wpbdp_category&amp;post_type=wpbdp_listing' => 'folder',
-				'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing'      => 'tag',
-				'wpbdp-admin-fees'                                                  => 'money',
-				'wpbdp_admin_formfields'                                            => 'clipboard',
-				'wpbdp_admin_csv'                                                   => 'import',
+				'edit-tags.php?taxonomy=wpbdp_tag&amp;post_type=wpbdp_listing' => 'tag',
+				'wpbdp-admin-fees'                 => 'money',
+				'wpbdp_admin_formfields'           => 'clipboard',
+				'wpbdp_admin_csv'                  => 'import',
 			)
 		);
 		if ( isset( $menu_icons[ $menu_id ] ) ) {
@@ -548,7 +548,7 @@ class WPBDP_Admin_Pages {
 
 		return add_query_arg(
 			array(
-				'taxonomy' => $taxonomy,
+				'taxonomy'  => $taxonomy,
 				'post_type' => 'wpbdp_listing'
 			),
 			'edit-tags.php'

@@ -274,10 +274,7 @@ class WPBDP__Listing_Search {
                     $termsq[] = array( $field_id, $k );
                 }
 
-                if ( $termsq ) {
-                    $subq[] = $termsq;
-                }
-
+				$subq[] = $termsq;
                 $subq[] = array( $field_id, $term );
 
                 $res[] = $subq;

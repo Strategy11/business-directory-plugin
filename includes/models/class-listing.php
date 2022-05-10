@@ -9,7 +9,6 @@ require_once WPBDP_PATH . 'includes/helpers/class-listing-image.php';
 class WPBDP_Listing {
 
     private $id = 0;
-    private $new = true;
 
     public function __construct( $id ) {
         $this->id = intval( $id );
@@ -193,10 +192,8 @@ class WPBDP_Listing {
         $images = $this->get_images( 'ids' );
 
         if ( ! $images ) {
-			if ( $thumbnail ) {
-				// Clear out previous value.
-				$this->set_thumbnail_id( 0 );
-			}
+			// Clear out previous value.
+			$this->set_thumbnail_id( 0 );
             return null;
         }
 
@@ -1205,7 +1202,6 @@ class WPBDP_Listing {
             return null;
 
         $l = new self( $id );
-        $l->new = false;
         return $l;
     }
 }

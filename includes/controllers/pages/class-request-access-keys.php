@@ -1,5 +1,5 @@
 <?php
-require_once( WPBDP_INC . 'abstracts/class-view.php' );
+require_once WPBDP_INC . 'abstracts/class-view.php';
 
 
 class WPBDP__Views__Request_Access_Keys extends WPBDP__View {

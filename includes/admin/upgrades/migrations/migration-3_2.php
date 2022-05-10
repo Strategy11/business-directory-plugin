@@ -70,7 +70,7 @@ class WPBDP__Migrations__3_2 extends WPBDP__Migration {
     }
 
     public function disable_regions_in_3_2_upgrade() {
-        require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
         if ( class_exists( 'WPBDP_RegionsPlugin' ) && version_compare( WPBDP_RegionsPlugin::VERSION, '1.1', '<' ) ) {
             deactivate_plugins( 'business-directory-regions/business-directory-regions.php', true );

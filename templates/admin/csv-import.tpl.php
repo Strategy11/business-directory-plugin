@@ -176,10 +176,12 @@ printf(
 				<label> <?php esc_html_e( 'Post status of new imported listings', 'business-directory-plugin' ); ?></label>
 			</div>
 			<select name="settings[post-status]">
-				<?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
-					<?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
-						<?php continue; ?>
-					<?php endif; ?>
+				<?php
+				foreach ( get_post_statuses() as $post_status => $post_status_label ) :
+					if ( ! in_array( $post_status, array( 'publish', 'pending' ), true ) ) :
+						continue;
+					endif;
+					?>
 					<option value="<?php echo esc_attr( $post_status ); ?>" <?php echo _defaults_or( $defaults, 'post-status', 'publish' ) == $post_status ? 'selected="selected"' : ''; ?>>
 						<?php echo esc_html( $post_status_label ); ?>
 					</option>
@@ -192,10 +194,12 @@ printf(
 			</div>
 			<select name="settings[existing-post-status]">
 				<option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'business-directory-plugin' ); ?></option>
-				<?php foreach ( get_post_statuses() as $post_status => $post_status_label ) : ?>
-					<?php if ( ! in_array( $post_status, array( 'publish', 'pending' ) ) ) : ?>
-						<?php continue; ?>
-					<?php endif; ?>
+				<?php
+				foreach ( get_post_statuses() as $post_status => $post_status_label ) :
+					if ( ! in_array( $post_status, array( 'publish', 'pending' ), true ) ) :
+						continue;
+					endif;
+					?>
 					<option value="<?php echo esc_attr( $post_status ); ?>" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == $post_status ? 'selected="selected"' : ''; ?>>
 						<?php echo esc_html( $post_status_label ); ?>
 					</option>

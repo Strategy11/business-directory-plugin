@@ -130,14 +130,11 @@ class WPBDP_Themes_Admin {
         switch ( $action ) {
             case 'theme-install':
                 return $this->theme_install();
-                break;
             case 'delete-theme':
                 return $this->theme_delete_confirm();
-                break;
             case 'theme-selection':
             default:
                 return $this->theme_selection();
-                break;
         }
     }
 

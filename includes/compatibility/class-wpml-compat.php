@@ -424,7 +424,7 @@ class WPBDP_WPML_Compat {
 
         $options = array_map( 'trim', explode( "\n", $options ) );
 
-        if ( ! $options || count( $value ) !== count( $options ) ) {
+		if ( count( $value ) !== count( $options ) ) {
             return $value;
         }
 

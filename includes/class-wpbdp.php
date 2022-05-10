@@ -220,10 +220,10 @@ final class WPBDP {
         if ( wpbdp_is_request( 'admin' ) ) {
             // Make sure WPBDP_Admin class file was loaded before instantiate. See #4346.
             if ( ! class_exists( 'WPBDP_Admin' ) ) {
-                require_once( WPBDP_INC . 'admin/class-admin.php' );
+                require_once WPBDP_INC . 'admin/class-admin.php';
             }
             if ( ! class_exists( 'WPBDP_Personal_Data_Privacy' ) ) {
-                require_once( WPBDP_INC . 'admin/class-personal-data-privacy.php' );
+                require_once WPBDP_INC . 'admin/class-personal-data-privacy.php';
             }
 
             $this->admin   = new WPBDP_Admin();
@@ -390,7 +390,6 @@ final class WPBDP {
             foreach ( array_keys( $this->shortcodes->get_shortcodes() ) as $shortcode ) {
                 if ( apply_filters( 'wpbdp_has_shortcode', wpbdp_has_shortcode( $post->post_content, $shortcode ), $post, $shortcode ) ) {
                     return true;
-                    break;
                 }
             }
         }

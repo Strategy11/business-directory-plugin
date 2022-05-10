@@ -91,7 +91,7 @@ class WPBDP__Meta {
             return;
         }
 
-        require_once( WPBDP_PATH . 'includes/class-page-meta.php' );
+        require_once WPBDP_PATH . 'includes/class-page-meta.php';
         $this->page_meta = new WPBDP_Page_Meta( $action );
 
 		$this->_do_wpseo = WPBDP_SEO::is_wp_seo_enabled();
@@ -138,17 +138,14 @@ class WPBDP__Meta {
             case 'submit_listing':
                 $view_title = esc_html__( 'Add Listing', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
-                break;
 
             case 'search':
 				$view_title = _x( 'Find a Listing', 'title', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
-                break;
 
             case 'all_listings':
                 $view_title = __( 'View All Listings', 'business-directory-plugin' );
                 return $this->_maybe_do_wpseo_title( $view_title, $title, $sep, $seplocation );
-                break;
 
             case 'show_tag':
                 $term = get_term_by(
@@ -170,8 +167,6 @@ class WPBDP__Meta {
                 }
 
                 return sprintf( _x( 'Listings tagged: %s', 'title', 'business-directory-plugin' ), $term->name ) . ' ' . $sep . ' ' . $title;
-
-                break;
 
             case 'show_category':
                 $term = get_term_by(
@@ -198,8 +193,6 @@ class WPBDP__Meta {
 
                 return $term->name . ' ' . $sep . ' ' . $title;
 
-                break;
-
             case 'show_listing':
                 $listing_id = wpbdp_get_post_by_id_or_slug(
                     get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) ),
@@ -210,13 +203,7 @@ class WPBDP__Meta {
 				$post_title = get_the_title( $listing_id );
 
 				return $post_title . ' ' . $sep . ' ' . $title;
-                break;
 
-            case 'main':
-                break;
-
-            default:
-                break;
         }
 
         return $title;

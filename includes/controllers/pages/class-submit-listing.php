@@ -248,7 +248,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$user_id = get_current_user_id();
 		if ( $user_id ) {
-			$is_author = $listing->post_author === $user_id;
+			$is_author = (int) $listing->post_author === $user_id;
 			if ( $is_author ) {
 				return true;
 			}
@@ -872,6 +872,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $errors = array();
 
         if ( $should_validate && ! $category_field->validate( $categories, $errors ) ) {
+			/** @phpstan-ignore-next-line */
             foreach ( $errors as $e ) {
 				if ( ! isset( $this->messages['plan_selection'] ) ) {
 					$this->messages( $e, 'error', 'plan_selection' );
@@ -881,7 +882,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->prevent_save = true;
 		} elseif ( $categories && ! $plan_id ) {
 			$this->messages( __( 'Please choose a plan.', 'business-directory-plugin' ), 'error', 'plan_selection' );
-        } elseif ( $categories && $plan_id ) {
+		} elseif ( $categories ) {
             $plan = wpbdp_get_fee_plan( $plan_id );
 
             if ( ! $plan || ! $plan->enabled || ! $plan->supports_category_selection( $categories ) ) {
@@ -905,7 +906,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
                     $this->listing->set_fee_plan( $plan );
                 }
             }
-        } elseif ( ! $categories && $this->skip_plan_selection ) {
+		} elseif ( $this->skip_plan_selection ) {
             $current_categories = $this->listing->get_categories( 'ids' );
 
             wp_set_post_terms( $this->listing->get_id(), $current_categories, WPBDP_CATEGORY_TAX, false );

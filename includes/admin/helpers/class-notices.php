@@ -49,9 +49,9 @@ class WPBDP_Admin_Notices {
 		$settings_errors = get_settings_errors();
 
 		foreach ( $settings_errors as $details ) {
-			if ( is_array( $details ) ) {
-				wpbdp_admin_message( $details['message'], $details['type'] );
-			}
+			// The WP docs on this are incorrect as of 2022-04-28.
+			/** @phpstan-ignore-next-line */
+			wpbdp_admin_message( $details['message'], $details['type'] );
 		}
 
 		wpbdp_admin_notices();

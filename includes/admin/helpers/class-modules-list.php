@@ -9,7 +9,7 @@ class WPBDP_Show_Modules {
 	 * @since 5.10
 	 */
 	public static function list_addons() {
-		$license_type     = '';
+		$license_type = '';
 
 		$addons = self::get_api_addons();
 		$errors = array();
@@ -57,18 +57,18 @@ class WPBDP_Show_Modules {
 	 */
 	protected static function fallback_plugin_list() {
 		$list = array(
-			'premium' => array(
+			'premium'    => array(
 				'title'   => 'Business Directory Premium',
 				'link'    => 'pricing/',
 				'docs'    => '',
 				'excerpt' => 'Enhance your basic Formidable forms with a plethora of Pro field types and features. Create advanced forms and data-driven applications in minutes.',
 			),
-			'paypal'         => array(
+			'paypal'     => array(
 				'title'   => 'PayPal Standard',
 				'link'    => 'downloads/paypal-gateway-module/',
 				'excerpt' => 'Automate your business by collecting instant payments from your clients. Collect information and send them on to PayPal.',
 			),
-			'googlemaps'  => array(
+			'googlemaps' => array(
 				'title'   => 'Google Maps',
 				'link'    => 'downloads/google-maps-module/',
 				'excerpt' => 'Allow users to display their physical location using Google Maps and their address field.',
@@ -209,6 +209,7 @@ class WPBDP_Show_Modules {
 			return WPBDP_Addons::show_conditional_action_button( $atts );
 		}
 
+		/** @phpstan-ignore-next-line */
 		if ( ! empty( $atts['addon']['status']['type'] ) && $atts['addon']['status']['type'] === 'installed' ) {
 			self::addon_activate_link( $atts['addon'] );
 		} else {

@@ -60,6 +60,7 @@ function wpbdp_get_log( $id ) {
 
 /**
  * @since 5.0
+ * @return array|null
  */
 function wpbdp_get_logs( $args = array() ) {
     $defaults = array(
