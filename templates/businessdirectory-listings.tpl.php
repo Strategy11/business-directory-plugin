@@ -31,6 +31,7 @@ $query = isset( $query ) ? $query : wpbdp_current_query();
 			?>
             <div class="listings wpbdp-listings-list">
 				<?php
+				/** @phpstan-ignore-next-line */
 				while ( $query->have_posts() ) {
 					$query->the_post();
 					wpbdp_render_listing( null, 'excerpt', 'echo' );
