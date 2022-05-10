@@ -144,13 +144,17 @@ class WPBDP__Admin__Listing_Owner {
             return apply_filters( 'wpbdp_admin_listing_owner_mode', $params['mode'] );
         }
 
-        $users_count = count_users();
+		if ( function_exists( 'get_user_count' ) ) {
+			// WP 6.0 or higher.
+			$user_count = get_user_count();
+		} else {
+			_deprecated_function( 'count_users', 'WP 6.0', 'WP 6.0+' );
+			$users      = count_users();
+			$user_count = $users['total_users'];
+		}
 
-		if ( $users_count['total_users'] > 100 ) {
-            return apply_filters( 'wpbdp_admin_listing_owner_mode', 'ajax' );
-        }
-
-        return apply_filters( 'wpbdp_admin_listing_owner_mode', 'inline' );
+		$mode = $user_count > 100 ? 'ajax' : 'inline';
+		return apply_filters( 'wpbdp_admin_listing_owner_mode', $mode );
     }
 
     /**
