@@ -148,7 +148,7 @@ class WPBDP__Admin__Listing_Owner {
 			// WP 6.0 or higher.
 			$user_count = get_user_count();
 		} else {
-			_deprecated_function( 'count_users', 'WP 6.0', 'Update to WP 6.0+' );
+			_deprecated_function( 'count_users', 'WP 6.0', 'WP 6.0+' );
 			$users      = count_users();
 			$user_count = $users['total_users'];
 		}
