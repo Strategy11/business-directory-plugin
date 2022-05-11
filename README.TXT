@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 5.9
-Stable tag: 6.1
+Tested up to: 6.0
+Stable tag: 6.2
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,12 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.2 =
+* New: Switched to using the H1s from the WordPress theme instead of hiding it and including it in the listing content. This resolves SEO conflicts, more closely matches your theme, and prevents future conflicts with new themes.
+* New: Use the block editor in the back-end for listings.
+* Replace count_users with get_user_count for better performance when eidting a listing on the back-end.
+* Fix: An error appeared when some widgets were used in non-listing pages.
+
 = 6.1 =
 * IMPORTANT: Removed some code that has been deprecated for several years. Update carefully if you have old custom templates.
 * Show settings urls on the Modules page if the module provides it.
