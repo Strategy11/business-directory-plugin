@@ -11,12 +11,14 @@ WPBDP_Admin_Pages::show_tabs(
     )
 );
 
+$this_tab   = isset( $tabs[ $active_tab ] ) ? $tabs[ $active_tab ] : $active_tab;
+$page_title = is_array( $this_tab ) && ! empty( $this_tab['title'] ) ? $this_tab['title'] : ucfirst( $active_tab );
 ?>
 	<?php if ( ! $custom_form ) : ?>
 	<form action="options.php" method="post">
 	<?php endif; ?>
 	<div class="wpbdp-content-area-header">
-		<h2 class="wpbdp-sub-section-title"><?php echo esc_html( ucfirst( $active_tab ) ); ?></h2>
+		<h2 class="wpbdp-sub-section-title"><?php echo esc_html( $page_title ); ?></h2>
 
 		<div class="wpbdp-content-area-header-actions">
 			<?php
