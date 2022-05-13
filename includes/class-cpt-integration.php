@@ -50,6 +50,7 @@ class WPBDP__CPT_Integration {
             'hierarchical' => true,
             'public'       => true,
             'rewrite'      => array( 'slug' => wpbdp_get_option( 'permalinks-category-slug', WPBDP_CATEGORY_TAX ) ),
+			'show_in_rest' => true,
         );
         register_taxonomy( WPBDP_CATEGORY_TAX, WPBDP_POST_TYPE, $cat_args );
 
@@ -62,6 +63,7 @@ class WPBDP__CPT_Integration {
             'hierarchical' => false,
             'public'       => true,
             'rewrite'      => array( 'slug' => wpbdp_get_option( 'permalinks-tags-slug', WPBDP_TAGS_TAX ) ),
+			'show_in_rest' => true,
         );
 
         $tags_slug = wpbdp_get_option( 'permalinks-tags-slug', WPBDP_TAGS_TAX );
