@@ -33,6 +33,10 @@
 	margin-left: 160px;
 }
 
+.wpbdp-listing .listing-details.wpbdp-no-thumb {
+	margin-left: 0;
+}
+
 .wpbdp-listing .address-info .address-label {
 	font-weight: bold;
 	display: block;

@@ -10,7 +10,7 @@
     <?php echo $images->main ? $images->main->html : $images->thumbnail->html; ?>
 <?php endif; ?>
 
-<div class="listing-details cf">
+<div class="listing-details cf<?php echo esc_attr( ( $images->main || $images->thumbnail ) ? '' : ' wpbdp-no-thumb' ); ?>">
     <?php foreach ( $fields->not( 'social' ) as $field ) : ?>
         <?php echo $field->html; ?>
     <?php endforeach; ?>
