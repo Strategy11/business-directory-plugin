@@ -290,7 +290,6 @@ module.exports = function( grunt ) {
   });
 
   // Premium modules.
-
   grunt.wpbdp.registerModule({path: '../business-directory-2checkout', js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../business-directory-attachments', js: ['resources/*.js'], i18n: true});
   grunt.wpbdp.registerModule({path: '../business-directory-categories', less: ['resources/*.css'], js: ['resources/*.js'], i18n: true});
