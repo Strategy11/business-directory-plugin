@@ -98,6 +98,10 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
         $listing_status  = $listing->get_status();
 
         if ( 'complete' === $listing_status ) {
+            if ( ! $listing->is_published() ) {
+                $buttons .= '<span>' . esc_html__( 'Pending', 'business-directory-plugin' ) . '</span> ';
+            }
+
             return $buttons;
         }
 
