@@ -276,7 +276,7 @@ class WPBDP_Listing_Display_Helper {
         // Main image.
 		$data_main = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large', false );
 
-        if ( $thumbnail_id && $show_bd_thumb ) {
+		if ( $thumbnail_id && $show_bd_thumb ) {
 			$pass_args['link']  = 'picture';
 			$pass_args['class'] = 'wpbdp-single-thumbnail';
 

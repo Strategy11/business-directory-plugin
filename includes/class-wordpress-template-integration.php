@@ -154,7 +154,7 @@ class WPBDP__WordPress_Template_Integration {
 	private function remove_theme_thumbnail() {
 		add_action( 'loop_start', array( &$this, 'set_thumbnail_visibility' ) );
 
-		// Support for themes that render the post-featured-image before $startup_hook.
+		// Support for themes that render the post-featured-image before loop_start.
 		add_filter( 'render_block_core/post-featured-image', array( &$this, 'remove_featured_image_block_thumb' ) );
 
 		// Support for the twentynineteen theme.

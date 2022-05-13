@@ -1065,10 +1065,10 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => __( 'Show Listing Thumbnail From', 'business-directory-plugin' ),
 				'default' => 'auto',
 				'options' => array(
-                    'auto'  => __( 'Business Directory Plugin', 'business-directory-plugin' ),
-                    'theme' => __( 'WordPress Theme', 'business-directory-plugin' ),
+					'auto'  => __( 'Business Directory Plugin', 'business-directory-plugin' ),
+					'theme' => __( 'WordPress Theme', 'business-directory-plugin' ),
 					'none'  => __( 'None', 'business-directory-plugin' ),
-                ),
+				),
 				'group'   => 'image/listings',
 			)
 		);
