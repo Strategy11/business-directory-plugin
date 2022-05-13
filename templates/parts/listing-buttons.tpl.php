@@ -6,9 +6,15 @@
  */
 
 $buttons = '';
+$status  = '';
 
 if ( 'single' === $view || 'excerpt' === $view ) :
 	if ( wpbdp_user_can( 'edit', $listing_id ) ) :
+		$listing_status = get_post_status( $listing_id );
+		if ( $listing_status !== 'publish' ) {
+			$status .= '<span>' . esc_html( ucfirst( $listing_status ) ) . '</span> ';
+		}
+
 		$buttons .= sprintf(
 			'<a class="wpbdp-button button edit-listing" href="%s" rel="nofollow">%s</a>',
 			wpbdp_url( 'edit_listing', $listing_id ),
@@ -41,6 +47,7 @@ if ( 'single' === $view ) :
 	endif;
 endif;
 
+$buttons .= $status;
 $buttons = apply_filters( 'wpbdp-listing-buttons', $buttons, $listing_id );
 if ( ! $buttons ) {
 	return;

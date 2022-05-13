@@ -6,7 +6,7 @@
  */
 
 ?>
-<div id="wpbdp-manage-listings-page" class="wpbdp-manage-listings-page businessdirectory-manage-listings businessdirectory wpbdp-page">
+<div id="wpbdp-manage-listings-page" class="wpbdp-manage-listings-page businessdirectory-manage-listings businessdirectory wpbdp-grid wpbdp-page">
     <?php
 	if ( $query->have_posts() ) :
 		?>
