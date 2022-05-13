@@ -1208,14 +1208,14 @@ function wpbdp_latest_listings( $n = 10, $before = '<ul>', $after = '</ul>', $be
 /**
  * @since 4.0
  */
-function wpbdp_the_listing_actions( $args = array() ) {
+function wpbdp_the_listing_actions() {
     echo wpbdp_listing_actions();
 }
 
 /**
  * @since 4.0
  */
-function wpbdp_listing_actions( $args = array() ) {
+function wpbdp_listing_actions() {
     return wpbdp_render(
         'parts/listing-buttons',
         array(
