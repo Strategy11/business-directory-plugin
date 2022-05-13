@@ -2,7 +2,7 @@
     <?php echo $images->thumbnail->html; ?>
 <?php endif; ?>
 
-<div class="listing-details">
+<div class="listing-details<?php echo esc_attr( $images->thumbnail ? '' : ' wpbdp-no-thumb' ); ?>">
     <?php foreach ( $fields->not( 'social' ) as $field ) : ?>
         <?php
 		$address = array( 'address', 'address2', 'city', 'state', 'country', 'zip' );

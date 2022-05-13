@@ -6,6 +6,11 @@ class WPBDP__WordPress_Template_Integration {
 
     private $displayed = false;
 
+	/**
+	 * @var int $post_id
+	 */
+	private $post_id = 0;
+
     public function __construct() {
         add_action( 'body_class', array( $this, 'add_basic_body_classes' ) );
         add_filter( 'body_class', array( &$this, 'add_advanced_body_classes' ), 10 );
@@ -20,6 +25,7 @@ class WPBDP__WordPress_Template_Integration {
 
         add_filter( 'template_include', array( $this, 'template_include' ), 20 );
         add_filter( 'post_class', array( $this, 'post_class' ), 10, 3 );
+		$this->remove_theme_thumbnail();
     }
 
     public function template_include( $template ) {
@@ -103,7 +109,6 @@ class WPBDP__WordPress_Template_Integration {
     }
 
     public function add_advanced_body_classes( $classes = array() ) {
-        global $wp_query;
         global $wpbdp;
 
         // FIXME: we need a better way to handle this, since it might be that a shortcode is being used and not something
@@ -142,6 +147,106 @@ class WPBDP__WordPress_Template_Integration {
 
         return $classes;
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function remove_theme_thumbnail() {
+		add_action( 'loop_start', array( &$this, 'set_thumbnail_visibility' ) );
+
+		// Support for themes that render the post-featured-image before loop_start.
+		add_filter( 'render_block_core/post-featured-image', array( &$this, 'remove_featured_image_block_thumb' ) );
+
+		// Support for the twentynineteen theme.
+		add_filter( 'twentynineteen_can_show_post_thumbnail', array( &$this, 'remove_twentynineteen_thumb' ) );
+	}
+
+	/**
+	 * Hide the featured image on single posts where the corresponding flag
+	 * was set in the backend.
+	 *
+	 * @since x.x
+	 */
+	public function set_thumbnail_visibility() {
+		/**
+		 * Remove the filters, if it's not the main query. This is the case,
+		 * if the current query is executed after the main query.
+		 */
+		if ( is_embed() || ! $this->should_remove_theme_thumbnail() ) {
+			remove_filter( 'get_post_metadata', array( &$this, 'hide_featured_image_in_the_loop' ) );
+			$this->post_id = 0;
+			return;
+		}
+
+		// Hide the featured image.
+		$this->post_id = get_the_ID();
+		add_filter( 'get_post_metadata', array( &$this, 'hide_featured_image_in_the_loop' ), 10, 3 );
+	}
+
+	/**
+	 * Set the thumbnail_id to false if in the loop, to make the WordPress
+	 * core believe there is no thumbnail/featured image.
+	 *
+	 * @param mixed $value given by the get_post_metadata filter
+	 * @param int $object_id
+	 * @param string $meta_key
+	 *
+	 * @return mixed
+	 * @see has_post_thumbnail()
+	 * @since x.x
+	 */
+	public function hide_featured_image_in_the_loop( $value, $object_id, $meta_key ) {
+		if ( '_thumbnail_id' === $meta_key && $object_id === $this->post_id && in_the_loop() ) {
+			return false;
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Prevent block rendering needed.
+	 *
+	 * If the featured image is marked hidden, we are in the main query and
+	 * the page is singular, the given block content is removed.
+	 *
+	 * @param string $block_content
+	 * @return string
+	 * @since x.x
+	 */
+	public function remove_featured_image_block_thumb( $block_content ) {
+		if ( $this->should_remove_theme_thumbnail() ) {
+			return '';
+		}
+
+		return $block_content;
+	}
+
+	/**
+	 * Support for the twentynineteen theme.
+	 *
+	 * @param bool $show_thumbnail
+	 * @return bool
+	 * @since x.x
+	 */
+	public function remove_twentynineteen_thumb( $show_thumbnail ) {
+		if ( $show_thumbnail && $this->should_remove_theme_thumbnail() ) {
+			return false;
+		}
+
+		return $show_thumbnail;
+	}
+
+	/**
+	 * @return bool
+	 * @since x.x
+	 */
+	private function should_remove_theme_thumbnail() {
+		if ( ! is_main_query() || ! is_singular( WPBDP_POST_TYPE ) ) {
+			return false;
+		}
+		$which_thumbnail = wpbdp_get_option( 'which-thumbnail' );
+		return $which_thumbnail !== 'theme';
+	}
 
     private function end_query() {
         global $wp_query;

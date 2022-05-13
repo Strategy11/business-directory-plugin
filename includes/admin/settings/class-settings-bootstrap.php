@@ -1060,6 +1060,21 @@ final class WPBDP__Settings__Bootstrap {
 
 		wpbdp_register_setting(
 			array(
+				'id'      => 'which-thumbnail',
+				'type'    => 'radio',
+				'name'    => __( 'Show Listing Thumbnail From', 'business-directory-plugin' ),
+				'default' => 'auto',
+				'options' => array(
+					'auto'  => __( 'Business Directory Plugin', 'business-directory-plugin' ),
+					'theme' => __( 'WordPress Theme', 'business-directory-plugin' ),
+					'none'  => __( 'None', 'business-directory-plugin' ),
+				),
+				'group'   => 'image/listings',
+			)
+		);
+
+		wpbdp_register_setting(
+			array(
 				'id'      => 'listing-main-image-default-size',
 				'type'    => 'select',
 				'name'    => _x( 'Default thumbnail image size', 'settings', 'business-directory-plugin' ),
