@@ -149,7 +149,7 @@ class WPBDP__WordPress_Template_Integration {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.2.1
 	 */
 	private function remove_theme_thumbnail() {
 		add_action( 'loop_start', array( &$this, 'set_thumbnail_visibility' ) );
@@ -165,7 +165,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * Hide the featured image on single posts where the corresponding flag
 	 * was set in the backend.
 	 *
-	 * @since x.x
+	 * @since 6.2.1
 	 */
 	public function set_thumbnail_visibility() {
 		/**
@@ -193,7 +193,7 @@ class WPBDP__WordPress_Template_Integration {
 	 *
 	 * @return mixed
 	 * @see has_post_thumbnail()
-	 * @since x.x
+	 * @since 6.2.1
 	 */
 	public function hide_featured_image_in_the_loop( $value, $object_id, $meta_key ) {
 		if ( '_thumbnail_id' === $meta_key && $object_id === $this->post_id && in_the_loop() ) {
@@ -211,7 +211,7 @@ class WPBDP__WordPress_Template_Integration {
 	 *
 	 * @param string $block_content
 	 * @return string
-	 * @since x.x
+	 * @since 6.2.1
 	 */
 	public function remove_featured_image_block_thumb( $block_content ) {
 		if ( $this->should_remove_theme_thumbnail() ) {
@@ -226,7 +226,7 @@ class WPBDP__WordPress_Template_Integration {
 	 *
 	 * @param bool $show_thumbnail
 	 * @return bool
-	 * @since x.x
+	 * @since 6.2.1
 	 */
 	public function remove_twentynineteen_thumb( $show_thumbnail ) {
 		if ( $show_thumbnail && $this->should_remove_theme_thumbnail() ) {
@@ -238,7 +238,7 @@ class WPBDP__WordPress_Template_Integration {
 
 	/**
 	 * @return bool
-	 * @since x.x
+	 * @since 6.2.1
 	 */
 	private function should_remove_theme_thumbnail() {
 		if ( ! is_main_query() || ! is_singular( WPBDP_POST_TYPE ) ) {
