@@ -256,8 +256,14 @@ class WPBDP_Listing_Display_Helper {
 			$pass_args['coming_soon'] = self::get_coming_soon_image();
 		}
 
+		$which_thumbnail   = wpbdp_get_option( 'which-thumbnail' );
+		$excerpt_thumbnail = wpbdp_get_option( 'show-thumbnail' );
+		$show_bd_thumb     = $which_thumbnail === 'auto' && $display === 'listing';
+
         // Thumbnail.
-        if ( wpbdp_get_option( 'show-thumbnail' ) ) {
+		if ( $display === 'listing' && ! $show_bd_thumb ) {
+			$vars['images']->thumbnail = false;
+		} elseif ( $excerpt_thumbnail ) {
 			$pass_args['link']  = 'listing';
 			$pass_args['class'] = 'wpbdmthumbs wpbdp-excerpt-thumbnail';
 
@@ -268,9 +274,9 @@ class WPBDP_Listing_Display_Helper {
         }
 
         // Main image.
-        $data_main    = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large', false );
+		$data_main = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large', false );
 
-        if ( $thumbnail_id ) {
+        if ( $thumbnail_id && $show_bd_thumb ) {
 			$pass_args['link']  = 'picture';
 			$pass_args['class'] = 'wpbdp-single-thumbnail';
 
