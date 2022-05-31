@@ -1399,7 +1399,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-            echo '<script>jQuery(document).ready(function(){wpbdpSelectSubnav();});</script>';
+            echo '<script>var wpbdpSelectNav = 1;</script>';
         }
 
 		/**
