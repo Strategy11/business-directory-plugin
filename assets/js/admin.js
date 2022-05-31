@@ -1,6 +1,16 @@
 var WPBDP_associations_fieldtypes = {},
 WPBDPAdmin_Tooltip = {};
 
+/*
+ * Highlight Directory menu.
+ */
+function wpbdpSelectSubnav() {
+	var wpbdpMenu = jQuery( '#toplevel_page_wpbdp_admin' );
+	jQuery( wpbdpMenu ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
+	jQuery( '#toplevel_page_wpbdp_admin a.wp-has-submenu' ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
+	jQuery( '#toplevel_page_wpbdp_admin ul.wp-submenu-wrap li.wp-first-item' ).addClass( 'current' );
+}
+
 (function($) {
 
 	/* Modals */
@@ -144,11 +154,18 @@ WPBDPAdmin_Tooltip = {};
 		$menu_state: null,
 
 		init: function() {
+			WPBDPAdmin_Tooltip.maybeHighlightMenu();
 			WPBDPAdmin_Tooltip.$layout_container = $( '.wpbdp-admin-row' );
 			WPBDPAdmin_Tooltip.$menu_items = WPBDPAdmin_Tooltip.$layout_container.find( '.wpbdp-nav-item a' );
 			WPBDPAdmin_Tooltip.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
 			$( '.wpbdp-nav-toggle' ).click( WPBDPAdmin_Tooltip.onNavToggle );
 			WPBDPAdmin_Tooltip.layoutAdjustment();
+		},
+
+		maybeHighlightMenu: function() {
+			if ( typeof wpbdpSelectNav !== 'undefined' ) {
+				wpbdpSelectSubnav();
+			}
 		},
 
 		onNavToggle: function( e ) {
@@ -1047,13 +1064,3 @@ jQuery( function( $ ) {
 		);
 	});
 });
-
-/*
- * Highlight Directory menu.
- */
-function wpbdpSelectSubnav() {
-	var wpbdpMenu = jQuery( '#toplevel_page_wpbdp_admin' );
-	jQuery( wpbdpMenu ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
-	jQuery( '#toplevel_page_wpbdp_admin a.wp-has-submenu' ).removeClass( 'wp-not-current-submenu' ).addClass( 'wp-has-current-submenu wp-menu-open' );
-	jQuery( '#toplevel_page_wpbdp_admin ul.wp-submenu-wrap li.wp-first-item' ).addClass( 'current' );
-}
