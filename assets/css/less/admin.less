@@ -32,6 +32,21 @@
 	.required {
 		color: @text-color;
 	}
+
+    .wp-pointer-content h3 {
+        color: #fff;
+        background: @brand;
+        border-color: @brand;
+
+        &:before {
+            color: #fff;
+        }
+    }
+
+    .wp-pointer-top .wp-pointer-arrow-inner,
+    .wp-pointer-undefined .wp-pointer-arrow-inner {
+        border-bottom-color: @brand;
+    }
 }
 
 .wpbdp-content-area-body a {
