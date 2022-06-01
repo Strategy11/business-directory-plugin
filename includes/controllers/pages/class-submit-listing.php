@@ -32,6 +32,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	protected $fixed_category = '';
 	protected $category_count  = false;
 
+	/**
+	 * @var bool $is_ajax
+	 */
+	protected $is_ajax = false;
+
     public function get_title() {
         return __( 'Add Listing', 'business-directory-plugin' );
     }
@@ -90,7 +95,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return $this->editing;
     }
 
-    public function dispatch() {
+    public function dispatch( $ajax_load = false ) {
+		$this->is_ajax = ! empty( $ajax_load );
+
         $msg = '';
         if ( ! $this->can_submit( $msg ) ) {
             return wpbdp_render_msg( $msg );
@@ -111,7 +118,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( $message ) {
                 return wpbdp_render_msg( $message );
             }
-        }
+        } elseif ( $this->should_use_ajax_load() ) {
+			// If we aren't already doing ajax, add a placeholder to be filled.
+			return $this->show_form_placeholder();
+		}
 
 		$this->find_or_create_listing();
 
@@ -178,6 +188,37 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
         return $this->show_form();
     }
+
+	/**
+	 * Load the new listing form with ajax when the page might be cached.
+	 *
+	 * @since x.x
+	 * @return bool
+	 */
+	private function should_use_ajax_load() {
+		$use_ajax = empty( $_POST ) && ! wp_doing_ajax() && ! $this->is_ajax;
+		if ( ! $use_ajax || is_user_logged_in() ) {
+			return false;
+		}
+
+		/**
+		 * @since x.x
+		 */
+		return apply_filters( 'wpbdp_ajax_load_form', $use_ajax );
+	}
+
+	/**
+	 * Show a placeholder and load the form with ajax to avoid page caching.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	private function show_form_placeholder() {
+		return '<div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page">
+    	<form action="" method="post" data-ajax-url="' . esc_url( wpbdp_ajax_url() ) . '" enctype="multipart/form-data">
+		</form>
+		</div>';
+	}
 
 	/**
 	 * @since x.x
@@ -337,6 +378,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 	}
 
+	/**
+	 * Avoid page caching by loading the form with ajax.
+	 * This is called when the page includes a placeholder.
+	 *
+	 * @since x.x
+	 */
+	public function ajax_load_form() {
+		$response = array(
+			'form' => $this->dispatch( 'ajax' ),
+		);
+
+		wp_send_json_success( $response );
+	}
+
     public function ajax_sections() {
         $res = new WPBDP_AJAX_Response();
 
@@ -469,7 +524,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 */
     private function find_or_create_listing() {
         $listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'absint', 'default' => 0 ), 'request' );
-		$editing    = $this->editing || wp_doing_ajax();
+
+		// Check if the same listing should be retrieved.
+		$editing = $this->editing || ( ! empty( $_POST ) && ! $this->is_ajax );
 
         if ( $listing_id && $editing && false !== get_post_status( $listing_id ) ) {
             $this->listing = wpbdp_get_listing( $listing_id );
