@@ -12,7 +12,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * @var object WPBDP_Listing
 	 */
-    protected $listing = null;
+	protected $listing = null;
 
     protected $sections      = array();
     protected $sections_keys = array();
@@ -95,7 +95,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return $this->editing;
     }
 
-    public function dispatch( $ajax_load = false ) {
+	public function dispatch( $ajax_load = false ) {
 		$this->is_ajax = ! empty( $ajax_load );
 
         $msg = '';
@@ -104,6 +104,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         }
 
 		$this->maybe_set_editing();
+
+		if ( $this->should_use_ajax_load() ) {
+			// If we aren't already doing ajax, add a placeholder to be filled later.
+			return $this->show_form_placeholder();
+		}
 
 		// At this point, 'editing' is only set if 'wpbdp_view' is 'edit_listing'.
         if ( $this->editing ) {
@@ -118,9 +123,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( $message ) {
                 return wpbdp_render_msg( $message );
             }
-        } elseif ( $this->should_use_ajax_load() ) {
-			// If we aren't already doing ajax, add a placeholder to be filled.
-			return $this->show_form_placeholder();
 		}
 
 		$this->find_or_create_listing();
@@ -196,7 +198,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * @return bool
 	 */
 	private function should_use_ajax_load() {
-		$use_ajax = empty( $_POST ) && ! wp_doing_ajax() && ! $this->is_ajax;
+		$use_ajax = empty( $_POST ) && ! wp_doing_ajax() && ! $this->is_ajax && ! $this->editing;
 		if ( ! $use_ajax || is_user_logged_in() ) {
 			return false;
 		}
@@ -522,19 +524,19 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * @return void
 	 */
-    private function find_or_create_listing() {
-        $listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'absint', 'default' => 0 ), 'request' );
+	private function find_or_create_listing() {
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'absint', 'default' => 0 ), 'request' );
 
 		// Check if the same listing should be retrieved.
 		$editing = $this->editing || ( ! empty( $_POST ) && ! $this->is_ajax );
 
-        if ( $listing_id && $editing && false !== get_post_status( $listing_id ) ) {
-            $this->listing = wpbdp_get_listing( $listing_id );
-        } else {
+		if ( $listing_id && $editing && false !== get_post_status( $listing_id ) ) {
+			$this->listing = wpbdp_get_listing( $listing_id );
+		} else {
 			$this->create_listing();
 		}
 		$this->is_listing_allowed( $listing_id );
-    }
+	}
 
 	/**
 	 * @since x.x
