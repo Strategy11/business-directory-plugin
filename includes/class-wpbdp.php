@@ -343,7 +343,7 @@ final class WPBDP {
     }
 
     private function load_textdomain() {
-        $languages_dir = trailingslashit( basename( WPBDP_PATH ) ) . 'languages';
+        $languages_dir = trailingslashit( basename( (string) WPBDP_PATH ) ) . 'languages';
         load_plugin_textdomain( 'business-directory-plugin', false, $languages_dir );
     }
 

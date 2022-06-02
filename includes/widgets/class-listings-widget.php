@@ -9,7 +9,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 
 	public function __construct( $name, $description = '' ) {
-		parent::__construct( false, $name, array( 'description' => $description ) );
+		parent::__construct( '', $name, array( 'description' => $description ) );
 		$this->defaults['title'] = str_replace( array( 'WPBDP', '_' ), array( '', ' ' ), get_class( $this ) );
 	}
 

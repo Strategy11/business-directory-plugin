@@ -45,7 +45,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
         }
 
         if ( is_numeric( $value ) ) {
-            wp_enqueue_script( 'linkedin', '//platform.linkedin.com/in.js', array(), 1, true );
+            wp_enqueue_script( 'linkedin', '//platform.linkedin.com/in.js', array(), '1', true );
 
             $html .= '<script type="IN/FollowCompany" data-id="' . intval( $value ) . '" data-counter="none"></script>';
             $html .= '</div>';

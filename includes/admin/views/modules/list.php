@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="wpbdp2 wpbdp-card-module-icon wpbdp-admin-module-icon ">
 						<img src="<?php echo esc_attr( $addon['icons']['1x'] ); ?>" alt="" />
 					</span>
-					<div class="<?php echo esc_attr( $addon['status']['type'] === 'active' ) ? 'wpbdp10' : 'wpbdp7'; ?>">
+					<div class="<?php echo esc_attr( $addon['status']['type'] === 'active' ? 'wpbdp10' : 'wpbdp7' ); ?>">
 						<h2 class="wpbdp-plugin-card-title">
 							<?php echo esc_html( str_replace( ' Module', '', $addon['display_name'] ) ); ?>
 						</h2>
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<?php echo esc_html( $addon['status']['label'] ); ?>
 						</p>
 					</div>
-					<div class="wpbdp-right <?php echo esc_attr( $addon['status']['type'] === 'active' ) ? 'wpbdp-hidden' : 'wpbdp3'; ?>">
+					<div class="wpbdp-right <?php echo esc_attr( $addon['status']['type'] === 'active' ? 'wpbdp-hidden' : 'wpbdp3' ); ?>">
 						<?php
 						$passing = array(
 							'addon'         => $addon,

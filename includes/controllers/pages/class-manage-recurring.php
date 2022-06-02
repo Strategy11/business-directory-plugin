@@ -30,8 +30,11 @@ class WPBDP__Views__Manage_Recurring extends WPBDP__View {
         }
 
         if ( ! $listing ) {
-            $message = _x( "The listing with id = <listing-id> doesn't exists.", 'manage subscription', 'business-directory-plugin' );
-            $message = str_replace( '<listing-id>', $listing_id, $message );
+            $message = sprintf(
+                /* translators: %d: the listing ID */
+                __( 'The listing with id %d does not exist.', 'business-directory-plugin' ),
+                $listing_id
+            );
 
             return wpbdp_render_msg( $message, 'error' );
         }

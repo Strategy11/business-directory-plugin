@@ -58,7 +58,7 @@ class WPBDP_Admin_Debug_Page {
                 if ( empty( $value ) ) {
                     $value = '';
                 } else {
-                    $value = print_r( $value, 1 );
+					$value = print_r( $value, true );
                 }
             }
 

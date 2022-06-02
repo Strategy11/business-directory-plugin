@@ -116,6 +116,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
         return $res;
     }
 
+	#[\ReturnTypeWillChange]
     public function getIterator() {
         return new ArrayIterator( $this->items_for_display() );
     }

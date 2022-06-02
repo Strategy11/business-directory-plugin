@@ -506,7 +506,7 @@ class WPBDP__Settings {
 					}
 
 					if ( ! empty( $setting ) && ! empty( $setting['taxonomy'] ) ) {
-						foreach ( get_taxonomies( null, 'objects' ) as $taxonomy ) {
+						foreach ( get_taxonomies( array(), 'objects' ) as $taxonomy ) {
 							if ( $taxonomy->rewrite && $taxonomy->rewrite['slug'] == $value && $taxonomy->name != $setting['taxonomy'] ) {
 								add_settings_error( 'wpbdp_settings', $setting_id, sprintf( _x( 'The slug "%s" is already in use for another taxonomy.', 'settings', 'business-directory-plugin' ), $value ), 'error' );
 								$has_error = true;

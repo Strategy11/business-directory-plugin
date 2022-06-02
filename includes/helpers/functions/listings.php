@@ -90,7 +90,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 
             if ( ! is_null( $slug_prefix ) && function_exists( '_truncate_post_slug' ) ) {
                 $slug_prefix          = intval( $slug_prefix ) + 1;
-                $listing['post_name'] = _truncate_post_slug( $listing['post_name'], 200 - strlen( $slug_prefix ) - 1 ) . '-' . $slug_prefix;
+                $listing['post_name'] = _truncate_post_slug( $listing['post_name'], 200 - strlen( (string) $slug_prefix ) - 1 ) . '-' . $slug_prefix;
 
                 $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s", $slug_prefix, $post_name_hash ) );
             }

@@ -8,7 +8,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 
     public function __construct() {
 		parent::__construct(
-			false,
+			'',
 			_x( 'Business Directory - Search', 'widgets', 'business-directory-plugin' ),
 			array(
 				'description' => _x( 'Displays a search form to look for Business Directory listings.', 'widgets', 'business-directory-plugin' )

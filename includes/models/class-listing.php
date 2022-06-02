@@ -626,7 +626,7 @@ class WPBDP_Listing {
             return '';
 
         $post = get_post( $this->id );
-        return get_the_author_meta( $meta, $post->post_author );
+        return get_the_author_meta( $meta, (int) $post->post_author );
     }
 
     /**

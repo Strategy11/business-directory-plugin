@@ -44,8 +44,8 @@ function wpbusdirman_post_extra_thumbnails() {
 				'<a class="thickbox" href="%s"><img class="wpbdmthumbs" src="%s" alt="%s" title="%s" border="0" /></a>',
 				esc_url( wp_get_attachment_url( $img->ID ) ),
 				esc_url( wp_get_attachment_thumb_url( $img->ID ) ),
-				esc_attr( the_title( null, null, false ) ),
-				esc_attr( the_title( null, null, false ) )
+				esc_attr( the_title( '', '', false ) ),
+				esc_attr( the_title( '', '', false ) )
 			);
 		}
 
@@ -115,7 +115,7 @@ function wpbusdirman_get_the_business_email( $post_id ) {
 
 	$author_email = '';
 	$post = get_post( $post_id );
-	$author_email = trim( get_the_author_meta( 'user_email', $post->post_author ) );
+	$author_email = trim( get_the_author_meta( 'user_email', (int) $post->post_author ) );
 
 	if ( empty( $author_email ) && ! empty( $email_field_value ) ) {
 		return $email_field_value;

@@ -281,7 +281,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
             }
         }
 
-        return $names ? join( $names, ', ' ) : '--';
+		return $names ? join( ', ', $names ) : '--';
     }
 
     public function column_attributes( $fee ) {

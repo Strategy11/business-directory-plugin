@@ -10,10 +10,9 @@
  * Class WPBDP_PersonalDataExporter
  */
 class WPBDP_PersonalDataExporter {
+
     /**
-     * WPBDP_PersonalDataExporter constructor.
-     *
-     * @param WPBDP_ListingsPersonalDataProvider $data_exporter
+     * @param object $data_exporter Can include WPBDP_PersonalDataExporter.
      */
     public function __construct( $data_exporter ) {
         $this->data_exporter = $data_exporter;
