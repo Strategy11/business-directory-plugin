@@ -8,8 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
 
-@ini_set( 'auto_detect_line_endings', true );
-
 /**
  * Replaces `WPBDP_CSVImporter` (from 2.1) and adds support for sequential imports.
  *
@@ -754,8 +752,11 @@ class WPBDP_CSV_Import {
                     $plan = wpbdp_get_fee_plan( $submitted_fee_id );
 
                     if ( ! $plan ) {
-                        $message = _x( 'There is no Plan with ID = <fee-id>', 'admin csv-import', 'business-directory-plugin' );
-                        $message = str_replace( '<fee-id>', $submitted_fee_id, $message );
+                        /* translators: %d: the plan id */
+                        $message = sprintf(
+                            __( 'There is no Plan with ID = %d', 'business-directory-plugin' ),
+                            $submitted_fee_id
+                        );
 
                         $errors[] = $message;
 

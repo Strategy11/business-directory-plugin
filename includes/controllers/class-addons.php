@@ -60,12 +60,12 @@ class WPBDP_Addons_Controller {
 		$method    = '';
 		$url       = add_query_arg( array( 'page' => 'wpbdp-settings' ), admin_url( 'admin.php' ) );
 		$url       = esc_url_raw( $url );
-		$creds     = request_filesystem_credentials( $url, $method, false, false, null );
+		$creds     = request_filesystem_credentials( $url, $method );
 
 		if ( false === $creds ) {
 			$show_form = true;
 		} elseif ( ! WP_Filesystem( $creds ) ) {
-			request_filesystem_credentials( $url, $method, true, false, null );
+			request_filesystem_credentials( $url, $method, true );
 			$show_form = true;
 		}
 
@@ -106,7 +106,7 @@ class WPBDP_Addons_Controller {
 		$plugin = $installer->plugin_info();
 		if ( empty( $plugin ) ) {
 			return array(
-				'message' => 'Plugin was not installed. ' . print_r( $installer->result, 1 ),
+				'message' => 'Plugin was not installed. ' . print_r( $installer->result, true ),
 				'success' => false,
 			);
 		}

@@ -99,6 +99,10 @@ namespace {
 
 	function wpseo_replace_vars( $string, $args, $omit = [] ) {
 	}
+
+	// Jetpack.
+	function sharing_display( $text = '', $echo = false ) {
+	}
 }
 
 namespace WPMailSMTP {

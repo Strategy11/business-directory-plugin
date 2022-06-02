@@ -18,6 +18,7 @@ class WPBDP_Debugging {
 			return;
 
 		// @ini_set( 'display_errors', '1' );
+		/** @phpstan-ignore-next-line */
 		set_error_handler( array( 'WPBDP_Debugging', '_php_error_handler' ) );
 
 		add_action( 'wp_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
@@ -97,7 +98,7 @@ class WPBDP_Debugging {
 
 			echo '<tr class="' . $item['type'] . '">';
 			echo '<td class="handle">&raquo;</td>';
-			echo '<td class="timestamp">' . date( 'H:i:s', $time[1] ) . '</td>';
+			echo '<td class="timestamp">' . date( 'H:i:s', (int) $time[1] ) . '</td>';
 
 			echo '<td class="type">' . $item['type'] . '</td>';
 			echo '<td class="message">' . $item['message'] . '</td>';

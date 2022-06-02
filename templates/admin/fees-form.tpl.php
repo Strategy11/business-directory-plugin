@@ -234,7 +234,7 @@ endif;
                     <label for="wpbdp-fee-form-fee-extra"><?php _ex( 'Extra amount (per category)', 'fees admin', 'business-directory-plugin' ); ?></label>
                 </th>
                 <td>
-                    <input id="wpbdp-fee-form-fee-extra" type="text" name="fee[pricing_details][extra]" value="<?php echo esc_attr( isset( $fee->pricing_details['extra'] ) ? floatval( $fee->pricing_details['extra'] ) : 0 ); ?>" />
+                    <input id="wpbdp-fee-form-fee-extra" type="text" name="fee[pricing_details][extra]" value="<?php echo isset( $fee->pricing_details['extra'] ) ? floatval( $fee->pricing_details['extra'] ) : 0; ?>" />
                 </td>
             </tr>
         </tbody>

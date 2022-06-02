@@ -217,7 +217,7 @@ class WPBDP_CSVImportAdmin {
                     echo str_replace( ',', ';', $value );
                     echo ',';
                 }
-                echo get_the_author_meta( 'user_login', $post->post_author );
+				echo get_the_author_meta( 'user_login', (int) $post->post_author );
                 $fee = wpbdp_get_listing( $post->ID )->get_fee_plan();
                 echo ',';
                 echo $fee ? $fee->fee_id : '';

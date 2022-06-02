@@ -402,7 +402,11 @@ class WPBDP_CSVExporter {
 						switch ( $field->get_association() ) {
 							case 'category':
 							case 'tags':
-								$value = wp_get_post_terms( $listing->get_id(), ( 'tags' == $field->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX ), 'fields=names' );
+								$value = wp_get_post_terms(
+									$listing->get_id(),
+									( 'tags' === $field->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX ),
+									array( 'fields' => 'names' )
+								);
 								$value = array_map( 'html_entity_decode', $value );
 								$value = implode( $this->settings['category-separator'], $value );
 							    break;

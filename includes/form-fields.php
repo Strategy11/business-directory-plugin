@@ -773,7 +773,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
                     break;
             }
 
-            if ( ! ctype_digit( $m ) || ! ctype_digit( $d ) || ! ctype_digit( $y ) || ! checkdate( $m, $d, $y ) ) {
+			if ( ! ctype_digit( $m ) || ! ctype_digit( $d ) || ! ctype_digit( $y ) || ! checkdate( (int) $m, (int) $d, (int) $y ) ) {
                 /* translators: %s: field label */
                 return WPBDP_ValidationError( ( ! empty( $args['messages']['invalid'] ) ) ? $args['messages']['invalid'] : sprintf( esc_html__( '%s must be a valid date.', 'business-directory-plugin' ), esc_html( $args['field-label'] ) ) );
             }

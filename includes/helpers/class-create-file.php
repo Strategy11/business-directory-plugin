@@ -23,7 +23,7 @@ class WPBDP_Create_File {
 		$this->error_message = isset( $atts['error_message'] ) ? $atts['error_message'] : '';
 		$this->uploads       = wp_upload_dir();
 		$this->set_new_file_path( $atts );
-		$this->chmod_dir  = defined( 'FS_CHMOD_DIR' ) ? FS_CHMOD_DIR : ( fileperms( ABSPATH ) & 0777 | 0755 );
+		$this->chmod_dir  = defined( 'FS_CHMOD_DIR' ) ? FS_CHMOD_DIR : ( fileperms( (string) ABSPATH ) & 0777 | 0755 );
 		$this->chmod_file = defined( 'FS_CHMOD_FILE' ) ? FS_CHMOD_FILE : ( fileperms( ABSPATH . 'index.php' ) & 0777 | 0644 );
 
 		$this->check_permission();
@@ -116,7 +116,7 @@ class WPBDP_Create_File {
 
 		$access_type = get_filesystem_method();
 		if ( $access_type === 'direct' ) {
-			$creds = request_filesystem_credentials( site_url() . '/wp-admin/', '', false, false, array() );
+			$creds = request_filesystem_credentials( site_url() . '/wp-admin/', '', false, '', array() );
 		} else {
 			$creds = $this->get_ftp_creds( $access_type );
 		}

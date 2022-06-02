@@ -120,7 +120,7 @@ class WPBDP_Listing_Display_Helper {
         $vars['listing']    = $listing;
         $vars['is_sticky']  = ( 'normal' != $listing->get_sticky_status() );
         $vars['sticky_tag'] = '';
-        $vars['title']      = the_title( null, null, false );
+		$vars['title']      = the_title( '', '', false );
 		$vars['title_type'] = apply_filters( 'wpbdp_heading_type', 'h1' );
 
         if ( $vars['is_sticky'] && ! empty( wpbdp_get_option( 'display-sticky-badge' ) ) ) {
@@ -319,8 +319,8 @@ class WPBDP_Listing_Display_Helper {
                 wp_get_attachment_image(
                     $image->id, 'wpbdp-thumb', false, array(
                         'class' => 'wpbdp-thumbnail size-thumbnail' . $crop_class,
-                        'alt'   => $image_caption ? $image_caption : the_title( null, null, false ),
-                        'title' => $image_caption ? $image_caption : the_title( null, null, false ),
+						'alt'   => $image_caption ? $image_caption : the_title( '', '', false ),
+						'title' => $image_caption ? $image_caption : the_title( '', '', false ),
                     )
                 )
             );

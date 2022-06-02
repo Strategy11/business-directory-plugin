@@ -74,7 +74,7 @@ class WPBDP_Utils {
             return false;
 
         global $wpdb;
-        $columns = wp_filter_object_list( $wpdb->get_results( "DESCRIBE {$table}" ), null, null, 'Field' );
+        $columns = wp_filter_object_list( $wpdb->get_results( "DESCRIBE {$table}" ), array(), 'and', 'Field' );
         return in_array( $col, $columns, true );
     }
 
@@ -94,12 +94,13 @@ class WPBDP_Utils {
 	 *
 	 * @since v5.9
 	 *
-	 * @param array  $args
-	 * @param string $args[string] $cache_key The unique name for this cache
-	 * @param string $args[group] The name of the cache group
-	 * @param string $args[query] If blank, don't run a db call
-	 * @param string $args[type] The wpdb function to use with this query
-	 * @param int    $args[time] When the cahce should expire
+	 * @param array  $args {
+	 *     @type string $cache_key The unique name for this cache
+	 *     @type string $group The name of the cache group
+	 *     @type string $query If blank, don't run a db call
+	 *     @type string $type The wpdb function to use with this query
+	 *     @type int    $time When the cahce should expire
+     * }
 	 *
 	 * @return mixed $results The cache or query results
 	 */
@@ -283,7 +284,7 @@ class WPBDP_Utils {
 		$file_id = self::get_file_id( $file_ );
 		if ( ! empty( $_FILES[ $file_id ]['name'] ) && is_array( $_FILES[ $file_id ]['name'] ) ) {
 			// Force an array of files to a single file.
-			$file_id = substr( sha1( rand() ), 0, 5 );
+			$file_id = substr( sha1( (string) rand() ), 0, 5 );
 			$_FILES[ $file_id ] = $file;
 		}
 
@@ -532,8 +533,8 @@ function wpbdp_flatten_files_array( $files = array() ) {
  * Returns properties and array values from objects or arrays, resp.
  *
  * @param array|object $dict
- * @param string $key Property name or array key.
- * @param mixed $default Optional. Defaults to `false`.
+ * @param string|int   $key Property name or array key.
+ * @param mixed        $default Optional. Defaults to `false`.
  */
 function wpbdp_getv( $dict, $key, $default = false ) {
 	$_dict = is_object( $dict ) ? (array) $dict : $dict;
@@ -563,7 +564,7 @@ function wpbdp_get_server_value( $value ) {
  *
  * @param array $args - Includes 'param' and 'sanitize'.
  *
- * @return array|string
+ * @return array|string|int|float|mixed
  */
 function wpbdp_get_var( $args, $type = 'get' ) {
     $defaults = array(
@@ -1158,7 +1159,7 @@ function wpbdp_render_user_field( $args = array() ) {
     if ( $users_query->get_total() <= 200 ) {
         $output = '<select class="' . esc_attr( $args['class'] ) . '" name="' . esc_attr( $args['name'] ) . '">';
 
-        foreach ( get_users( 'orderby=display_name' ) as $user ) {
+        foreach ( get_users( array( 'orderby' => 'display_name' ) ) as $user ) {
             $selected = $args['value'] == $user->ID ? ' selected="selected"' : '';
 
             $output .= '<option value="' . $user->ID . '"' . $selected . '>';
@@ -1180,7 +1181,7 @@ function wpbdp_render_user_field( $args = array() ) {
         $hidden_field_id = 'autocomplete-value-' . uniqid();
 
         $output = '<input class="wpbdp-user-autocomplete ' . esc_attr( $args['class'] ) . '" type="text" value="' . esc_attr( $text_value ) . '" data-hidden-field="' . $hidden_field_id . '" />';
-		$output .= '<input id="' . esc_attr( $hidden_field_id ) . '" name="' . esc_attr( $args['name'] ) . '" type="hidden" value="' . esc_attr( $hidden_value ) . '">';
+		$output .= '<input id="' . esc_attr( $hidden_field_id ) . '" name="' . esc_attr( $args['name'] ) . '" type="hidden" value="' . absint( $hidden_value ) . '">';
     }
 
     return $output;

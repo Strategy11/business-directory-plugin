@@ -295,14 +295,14 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 				echo '</div>';
 
 				echo '<script>';
-				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");', esc_js( $field_id ), esc_js( $media_id ), esc_js( $element ) );
+				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");', $field_id, esc_js( $media_id ), esc_js( $element ) );
 				echo '</script>';
             } else {
                 print wp_kses_post( $errors );
             }
         }
 
-        echo sprintf( '<script>document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>', esc_js( $field_id ) );
+        echo sprintf( '<script>document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>', $field_id );
 
         exit;
     }

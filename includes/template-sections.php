@@ -45,7 +45,8 @@ class _WPBDP_Template_Sections {
         $html = '<div class="comments">';
 
         ob_start();
-        comments_template( null, true );
+        comments_template( '', true );
+
         $html .= ob_get_clean();
 
         $html .= '</div>';

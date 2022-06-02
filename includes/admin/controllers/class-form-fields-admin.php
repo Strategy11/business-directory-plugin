@@ -196,7 +196,7 @@ class WPBDP_FormFieldsAdmin {
 			$this->admin->messages[] = array( $errmsg, 'error' );
 
 		} else {
-			$id    = wpbdp_get_var( array( 'param' => 'id' ) );
+			$id    = (int) wpbdp_get_var( array( 'param' => 'id' ) );
 			$field = $id ? WPBDP_Form_Field::get( $id ) : new WPBDP_Form_Field( array( 'display_flags' => array( 'excerpt', 'search', 'listing' ) ) );
 		}
 
@@ -269,7 +269,7 @@ class WPBDP_FormFieldsAdmin {
 		// Check permission.
 		check_admin_referer( 'deletefield' );
 
-		$field = WPBDP_Form_Field::get( wpbdp_get_var( array( 'param' => 'id' ), 'request' ) );
+		$field = WPBDP_Form_Field::get( (int) wpbdp_get_var( array( 'param' => 'id' ), 'request' ) );
 
 		if ( ! $field || $field->has_behavior_flag( 'no-delete' ) ) {
 			return;
