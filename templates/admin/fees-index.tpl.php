@@ -64,7 +64,7 @@ WPBDP_Admin_Pages::show_tabs(
 		foreach ( $gateways as $mod_info ) :
 			$cols = floor( 12 / count( $gateways ) );
 			?>
-		<div class="gateway wpbdp<?php echo esc_attr( $cols ); ?>">
+		<div class="gateway wpbdp<?php echo absint( $cols ); ?>">
 			<a class="gateway-title" href="<?php echo esc_url( $mod_info['link'] ); ?>" target="_blank" rel="noopener">
 				<img src="<?php echo esc_url( WPBDP_ASSETS_URL ); ?>images/modules/<?php echo esc_attr( $mod_info[1] ); ?>.svg" class="gateway-logo" />
 			</a>

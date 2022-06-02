@@ -8,8 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
 
-@ini_set( 'auto_detect_line_endings', true );
-
 /**
  * Replaces `WPBDP_CSVImporter` (from 2.1) and adds support for sequential imports.
  *
