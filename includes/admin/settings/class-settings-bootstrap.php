@@ -1036,14 +1036,14 @@ final class WPBDP__Settings__Bootstrap {
             )
         );
 
-        wpbdp_register_settings_group( 'image/listings', _x( 'Listings', 'settings', 'business-directory-plugin' ), 'appearance/image' );
+        wpbdp_register_settings_group( 'image/listings', __( 'Default Images', 'business-directory-plugin' ), 'appearance/image' );
         wpbdp_register_setting(
             array(
                 'id'      => 'enforce-image-upload',
                 'type'    => 'toggle',
-                'name'    => _x( 'Enforce image upload on submit/edit', 'settings', 'business-directory-plugin' ),
+                'name'    => __( 'Require images on submit/edit', 'business-directory-plugin' ),
                 'default' => false,
-                'group'   => 'image/listings',
+                'group'   => 'images/general',
             )
         );
 
@@ -1054,7 +1054,7 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => __( 'Show Thumbnail', 'business-directory-plugin' ),
 				'desc'    => _x( 'Excerpt view.', 'admin settings', 'business-directory-plugin' ),
 				'default' => true,
-				'group'   => 'image/listings',
+				'group'   => 'image/thumbnails',
 			)
 		);
 
@@ -1069,7 +1069,7 @@ final class WPBDP__Settings__Bootstrap {
 					'theme' => __( 'WordPress Theme', 'business-directory-plugin' ),
 					'none'  => __( 'None', 'business-directory-plugin' ),
 				),
-				'group'   => 'image/listings',
+				'group'   => 'image/thumbnails',
 			)
 		);
 
@@ -1081,7 +1081,7 @@ final class WPBDP__Settings__Bootstrap {
 				'default' => 'wpbdp-thumb',
 				'options' => is_admin() ? self::get_registered_image_sizes() : array(),
 				'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
-				'group'   => 'image/listings',
+				'group'   => 'image/thumbnails',
 			)
 		);
 

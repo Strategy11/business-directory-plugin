@@ -279,15 +279,21 @@ jQuery(function($) {
     // }}
 
     wpbdp.submit_listing.Handler = function( $submit ) {
+		var editField;
         this.$submit = $submit;
         this.$form = this.$submit.find( 'form' );
-        this.editing = ( this.$form.find( 'input[name="editing"]' ).val() == '1' );
-        this.$sections = this.$submit.find( '.wpbdp-submit-listing-section' );
-        this.skip_plan_selection = ( 1 === $( 'input[type="hidden"][name="skip_plan_selection"][value="1"]' ).length );
-
-        this.listing_id = this.$form.find( 'input[name="listing_id"]' ).val();
-        this.ajax_url = this.$form.attr( 'data-ajax-url' );
+		this.ajax_url = this.$form.attr( 'data-ajax-url' );
         this.doing_ajax = false;
+
+		editField = this.$form.find( 'input[name="editing"]' );
+		if ( editField.length === 0 ) {
+			// The placeholder form needs to be replaced.
+			this.loadForm();
+			this.editing = false;
+		} else {
+			this.editing = ( this.$form.find( 'input[name="editing"]' ).val() == '1' );
+			this.skip_plan_selection = ( 1 === $( 'input[type="hidden"][name="skip_plan_selection"][value="1"]' ).length );
+		}
 
         this.plan_handling();
 
@@ -361,6 +367,22 @@ jQuery(function($) {
                 callback.call( self, res.data );
             }, 'json' );
         },
+
+		// Load the form with ajax to avoid page caching.
+		loadForm: function() {
+			var self = this,
+				data = {
+					action: 'wpbdp_ajax',
+					handler: 'submit_listing__load_form'
+				};
+
+			
+			self.ajax( data, function( res ) {
+				if ( typeof res.form !== 'undefined' ) {
+					self.$submit.html( res.form );
+				}
+			} );
+		},
 
         plan_handling: function() {
             this.fee_helper = new wpbdp.submit_listing.Fee_Selection_Helper( this.$submit, this.editing );

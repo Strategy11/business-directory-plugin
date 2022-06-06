@@ -93,8 +93,8 @@ class WPBDP__View {
 			'listing'             => false,
         );
         $args     = wp_parse_args( $args, $defaults );
-        extract( $args );
 
+		$test = $args['test'];
         if ( ! $test && method_exists( $this, 'authenticate' ) ) {
             $test = array( $this, 'authenticate' );
         }
@@ -112,23 +112,23 @@ class WPBDP__View {
         }
 
         if ( is_user_logged_in() ) {
-            $redirect_on_failure = false;
+			$args['redirect_on_failure'] = false;
         }
 
-        if ( $redirect_on_failure ) {
-			$redirect_query_args['redirect_to'] = rawurlencode(
-				add_query_arg(
-					$redirect_query_args,
-                    $wpbdp_view ? wpbdp_url( $wpbdp_view ) : apply_filters( 'the_permalink', get_permalink() )
-				)
-            );
+		if ( ! $args['redirect_on_failure'] ) {
+			return wpbdp_render_msg( _x( 'Invalid credentials.', 'views', 'business-directory-plugin' ), 'error' );
+		}
 
-            $login_url = add_query_arg( $redirect_query_args, $login_url );
+		$args['redirect_query_args']['redirect_to'] = rawurlencode(
+			add_query_arg(
+				$args['redirect_query_args'],
+				$args['wpbdp_view'] ? wpbdp_url( $args['wpbdp_view'] ) : apply_filters( 'the_permalink', get_permalink() )
+			)
+		);
 
-            return $this->_redirect( $login_url );
-        } else {
-            return wpbdp_render_msg( _x( 'Invalid credentials.', 'views', 'business-directory-plugin' ), 'error' );
-        }
+		$login_url = add_query_arg( $args['redirect_query_args'], $args['login_url'] );
+
+		return $this->_redirect( $login_url );
     }
 
 	/**

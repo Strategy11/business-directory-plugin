@@ -9,7 +9,11 @@ require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php
 
 class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
-    protected $listing       = null;
+	/**
+	 * @var object WPBDP_Listing
+	 */
+	protected $listing = null;
+
     protected $sections      = array();
     protected $sections_keys = array();
 
@@ -27,6 +31,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 	protected $fixed_category = '';
 	protected $category_count  = false;
+
+	/**
+	 * @var bool $is_ajax
+	 */
+	protected $is_ajax = false;
 
     public function get_title() {
         return __( 'Add Listing', 'business-directory-plugin' );
@@ -86,12 +95,22 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return $this->editing;
     }
 
-    public function dispatch() {
+	public function dispatch( $ajax_load = false ) {
+		$this->is_ajax = ! empty( $ajax_load );
+
         $msg = '';
         if ( ! $this->can_submit( $msg ) ) {
             return wpbdp_render_msg( $msg );
         }
 
+		$this->maybe_set_editing();
+
+		if ( $this->should_use_ajax_load() ) {
+			// If we aren't already doing ajax, add a placeholder to be filled later.
+			return $this->show_form_placeholder();
+		}
+
+		// At this point, 'editing' is only set if 'wpbdp_view' is 'edit_listing'.
         if ( $this->editing ) {
             $message = '';
 
@@ -104,32 +123,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             if ( $message ) {
                 return wpbdp_render_msg( $message );
             }
-        }
+		}
 
-        $this->listing = $this->find_or_create_listing();
+		$this->find_or_create_listing();
 
-        $auth_parameters = array( 'wpbdp_view' => 'submit_listing' );
-
-        if ( $this->editing ) {
-            $auth_parameters = array(
-                'wpbdp_view'          => 'edit_listing',
-                'redirect_query_args' => array( 'listing_id' => $this->listing->get_id() ),
-            );
-        }
-
-        // Perform auth.
-        $this->_auth_required( $auth_parameters );
-
-        // Handle "Clear Form" request.
-		$reset = wpbdp_get_var( array( 'param' => 'reset' ), 'post' );
-        if ( 'reset' === $reset ) {
-            if ( ! $this->editing ) {
-                wp_delete_post( $this->listing->get_id(), true );
-                return $this->_redirect( wpbdp_url( 'submit_listing' ) );
-            }
-
-            return $this->_redirect( wpbdp_url( 'edit_listing', $this->listing->get_id() ) );
-        }
+		$this->maybe_reset_form();
 
         if ( ! $this->editing && 'auto-draft' !== get_post_status( $this->listing->get_id() ) ) {
 			$plan_id = absint( wpbdp_get_var( array( 'param' => 'listing_plan', 'default' => 0 ), 'post' ) );
@@ -190,14 +188,72 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             }
         }
 
-        if ( current_user_can( 'administrator' ) ) {
-            $this->messages( _x( 'You\'re logged in as admin, payment will be skipped.', 'submit listing', 'business-directory-plugin' ), 'notice', 'general' );
-        }
+        return $this->show_form();
+    }
 
-        $instructions = trim( wpbdp_get_option( 'submit-instructions' ) );
-        if ( $instructions ) {
-            $this->messages( $instructions, 'tip', 'general' );
-        }
+	/**
+	 * Load the new listing form with ajax when the page might be cached.
+	 *
+	 * @since x.x
+	 * @return bool
+	 */
+	private function should_use_ajax_load() {
+		$use_ajax = empty( $_POST ) && ! wp_doing_ajax() && ! $this->is_ajax && ! $this->editing;
+		if ( ! $use_ajax || is_user_logged_in() ) {
+			return false;
+		}
+
+		/**
+		 * @since x.x
+		 */
+		return apply_filters( 'wpbdp_ajax_load_form', $use_ajax );
+	}
+
+	/**
+	 * Show a placeholder and load the form with ajax to avoid page caching.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	private function show_form_placeholder() {
+		return '<div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page">
+    	<form action="" method="post" data-ajax-url="' . esc_url( wpbdp_ajax_url() ) . '" enctype="multipart/form-data">
+		</form>
+		</div>';
+	}
+
+	/**
+	 * @since x.x
+	 * @return string
+	 */
+	private function show_form() {
+		return wpbdp_render(
+			'submit-listing',
+			array(
+				'listing'  => $this->listing,
+				'sections' => $this->sections,
+				'messages' => $this->prepare_messages(),
+				'is_admin' => current_user_can( 'administrator' ),
+				'editing'  => $this->editing,
+				'submit'   => $this,
+			),
+			false
+		);
+	}
+
+	/**
+	 * @since x.x
+	 * @return array
+	 */
+	private function prepare_messages() {
+		if ( current_user_can( 'administrator' ) ) {
+			$this->messages( _x( 'You\'re logged in as admin, payment will be skipped.', 'submit listing', 'business-directory-plugin' ), 'notice', 'general' );
+		}
+
+		$instructions = trim( wpbdp_get_option( 'submit-instructions' ) );
+		if ( $instructions ) {
+			$this->messages( $instructions, 'tip', 'general' );
+		}
 
 		/**
 		 * Add custom validation when a listing form is submitted.
@@ -206,30 +262,35 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		 */
 		$this->messages = apply_filters( 'wpbdp_submit_validation_errors', $this->messages, compact( 'this' ) );
 
-        // Prepare $messages for template.
-        $messages = array();
-        foreach ( $this->messages as $context => $items ) {
-            $messages[ $context ] = '';
+		// Prepare $messages for template.
+		$messages = array();
+		foreach ( $this->messages as $context => $items ) {
+			$messages[ $context ] = '';
 
-            foreach ( $items as $i ) {
-                $messages[ $context ] .= sprintf( '<div class="wpbdp-msg %s">%s</div>', $i[1], $i[0] );
-            }
-        }
+			foreach ( $items as $i ) {
+				$messages[ $context ] .= sprintf( '<div class="wpbdp-msg %s">%s</div>', $i[1], $i[0] );
+			}
+		}
 
-		$html = wpbdp_render(
-            'submit-listing',
-            array(
-                'listing'  => $this->listing,
-                'sections' => $this->sections,
-                'messages' => $messages,
-                'is_admin' => current_user_can( 'administrator' ),
-                'editing'  => $this->editing,
-                'submit'   => $this,
-            ),
-			false
-        );
-        return $html;
-    }
+		return $messages;
+	}
+
+	/**
+	 * Handle "Clear Form" request.
+	 *
+	 * @since x.x
+	 */
+	private function maybe_reset_form() {
+		$reset = wpbdp_get_var( array( 'param' => 'reset' ), 'post' );
+		if ( 'reset' === $reset ) {
+			if ( ! $this->editing ) {
+				wp_delete_post( $this->listing->get_id(), true );
+				$this->_redirect( wpbdp_url( 'submit_listing' ) );
+			}
+
+			$this->_redirect( wpbdp_url( 'edit_listing', $this->listing->get_id() ) );
+		}
+	}
 
 	/**
 	 * Check if the user has permission to view the receipt.
@@ -264,7 +325,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             wp_die();
         }
 
-        $this->listing = $this->find_or_create_listing();
+		$this->find_or_create_listing();
 
         if ( ! $this->listing->has_fee_plan() ) {
             wp_die();
@@ -319,6 +380,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 	}
 
+	/**
+	 * Avoid page caching by loading the form with ajax.
+	 * This is called when the page includes a placeholder.
+	 *
+	 * @since x.x
+	 */
+	public function ajax_load_form() {
+		$response = array(
+			'form' => $this->dispatch( 'ajax' ),
+		);
+
+		wp_send_json_success( $response );
+	}
+
     public function ajax_sections() {
         $res = new WPBDP_AJAX_Response();
 
@@ -326,7 +401,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $res->send_error( $msg );
         }
 
-        $this->listing = $this->find_or_create_listing();
+		$this->find_or_create_listing();
 
         // Ignore 'save_listing' for AJAX requests in order to leave it as the final POST with all the data.
         if ( $this->saving() ) {
@@ -428,39 +503,88 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         return true;
     }
 
-    private function find_or_create_listing() {
-        $listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'absint', 'default' => 0 ), 'request' );
+	/**
+	 * Check if we should be editing, when not in edit mode. This happens
+	 * when the url to submit a new listing includes a listing id.
+	 *
+	 * @since x.x
+	 * @return void
+	 */
+	private function maybe_set_editing() {
+		if ( $this->editing ) {
+			return;
+		}
 
-        if ( $listing_id && false !== get_post_status( $listing_id ) ) {
-            $listing = wpbdp_get_listing( $listing_id );
-        } else {
-            $listing_id  = wp_insert_post(
-                array(
-                    'post_author' => $this->default_author(),
-                    'post_type'   => WPBDP_POST_TYPE,
-                    'post_status' => 'auto-draft',
-                    'post_title'  => '(no title)',
-                )
-            );
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'absint', 'default' => 0 ), 'request' );
+		$editing_id = wpbdp_get_var( array( 'param' => 'editing', 'sanitize' => 'absint', 'default' => 0 ), 'post' );
 
-            $listing = wpbdp_get_listing( $listing_id );
-			$listing->set_fee_plan( $this->single_plan() );
+		$this->editing = $listing_id && $editing_id;
+	}
 
-			$this->set_fixed_category_id();
-			if ( $this->fixed_category ) {
-				wp_set_post_terms( $listing_id, $this->fixed_category, WPBDP_CATEGORY_TAX, false );
-			}
-        }
+	/**
+	 * @return void
+	 */
+	private function find_or_create_listing() {
+		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id', 'sanitize' => 'absint', 'default' => 0 ), 'request' );
 
-        if ( ! $listing_id ) {
+		// Check if the same listing should be retrieved.
+		$editing = $this->editing || ( ! empty( $_POST ) && ! $this->is_ajax );
+
+		if ( $listing_id && $editing && false !== get_post_status( $listing_id ) ) {
+			$this->listing = wpbdp_get_listing( $listing_id );
+		} else {
+			$this->create_listing();
+		}
+		$this->is_listing_allowed( $listing_id );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function create_listing() {
+		$listing_id = wp_insert_post(
+			array(
+				'post_author' => $this->default_author(),
+				'post_type'   => WPBDP_POST_TYPE,
+				'post_status' => 'auto-draft',
+				'post_title'  => '(no title)',
+			)
+		);
+
+		if ( ! $listing_id ) {
             die();
         }
 
-		$editing_id    = wpbdp_get_var( array( 'param' => 'editing', 'sanitize' => 'absint', 'default' => 0 ), 'post' );
-		$this->editing = $this->editing || ! empty( $editing_id );
+		$listing = wpbdp_get_listing( $listing_id );
+		$listing->set_fee_plan( $this->single_plan() );
 
-        return $listing;
-    }
+		$this->set_fixed_category_id();
+		if ( $this->fixed_category ) {
+			wp_set_post_terms( $listing_id, $this->fixed_category, WPBDP_CATEGORY_TAX, false );
+		}
+
+		$this->listing = $listing;
+	}
+
+	/**
+	 * Check if the user has permission to edit the listing in url.
+	 *
+	 * @since x.x
+	 * @return void
+	 */
+	private function is_listing_allowed( $listing_id ) {
+		$auth_parameters = array( 'wpbdp_view' => 'submit_listing' );
+
+		if ( $this->editing ) {
+			$auth_parameters = array(
+				'wpbdp_view'          => 'edit_listing',
+				'redirect_query_args' => array( 'listing_id' => $listing_id ),
+			);
+		}
+
+		// Perform auth.
+		$this->_auth_required( $auth_parameters );
+	}
 
 	/**
 	 * Get the author id if logged in, or the default by id or login.
