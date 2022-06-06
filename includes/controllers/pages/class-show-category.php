@@ -12,40 +12,76 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
 
         $term = get_queried_object();
 
-        $searching = ( ! empty( $_GET ) && ! empty( $_GET['kw'] ) );
-
         $html = '';
 
         if ( is_object( $term ) ) {
-            $term->is_tag = false;
 
-            $html = $this->_render(
-                'category',
-                array(
-					'title'        => $term->name,
-                    'category'     => $term,
-                    'query'        => $wp_query,
-                    'in_shortcode' => false,
-                    'is_tag'       => false,
-                    'searching'    => $searching,
-                ),
-                $searching ? '' : 'page'
-            );
+			add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
+			add_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+
+			$html = $this->get_taxonomy_html( $term );
+
         }
 
         wpbdp_pop_query();
 
-        // if ( is_array( $category_id ) ) {
-        // $title = '';
-        // $category = null;
-        // } else {
-        // $category = get_term( $category_id, WPBDP_CATEGORY_TAX );
-        // $title = esc_attr( $category->name );
-        //
-        // if ( $in_listings_shortcode )
-        // $title = '';
-        // }
         return $html;
     }
 
+	/**
+	 * @since x.x
+	 * @return string
+	 */
+	protected function get_taxonomy_html( $term ) {
+		global $wp_query;
+
+		$searching    = ( ! empty( $_GET ) && ! empty( $_GET['kw'] ) );
+		$term->is_tag = false;
+
+		return $this->_render(
+			'category',
+			array(
+				'title'        => $term->name,
+				'category'     => $term,
+				'query'        => $wp_query,
+				'in_shortcode' => false,
+				'is_tag'       => false,
+				'searching'    => $searching,
+			),
+			$searching ? '' : 'page'
+		);
+	}
+
+	/**
+	 * Since the category page thinks it's a normal post, override the global post.
+	 * This would be better to change the category output, rather than using a "page".
+	 * See WPBDP__Dispatcher.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	public function set_tax_title( $title ) {
+		if ( in_the_loop() ) {
+			return $title;
+		}
+
+		$term = get_queried_object();
+		return is_object( $term ) ? $term->name : '';
+	}
+
+	/**
+	 * Prevent a post thumbnail from showing on the page before the loop.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	public function remove_tax_thumbnail( $thumbnail ) {
+		if ( in_the_loop() ) {
+			remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+
+			return $thumbnail;
+		}
+
+		return '';
+	}
 }
