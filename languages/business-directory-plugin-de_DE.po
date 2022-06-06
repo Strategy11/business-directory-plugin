@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-06-01 22:13:39+00:00\n"
+"POT-Creation-Date: 2022-06-06 22:19:11+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
@@ -343,7 +343,7 @@ msgid "Cannot disable plan. At least one plan should be enabled"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:187
-#: includes/controllers/pages/class-submit-listing.php:636
+#: includes/controllers/pages/class-submit-listing.php:638
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Eintrag Informationen"
@@ -422,7 +422,7 @@ msgstr ""
 "verwalten\" oder vom Branchenverzeichnis automatisch erstellen lassen."
 
 #: includes/admin/controllers/class-form-fields-admin.php:37
-#: includes/controllers/pages/class-submit-listing.php:966
+#: includes/controllers/pages/class-submit-listing.php:968
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "zu \"Formularfelder verwalten\""
@@ -473,7 +473,7 @@ msgstr "Tags Entwurf"
 
 #: includes/admin/controllers/class-form-fields-admin.php:348
 #: includes/form-fields.php:445
-#: includes/helpers/class-field-display-list.php:246
+#: includes/helpers/class-field-display-list.php:247
 #: templates/checkout-billing-form.tpl.php:75
 #, fuzzy
 msgid "Address"
@@ -657,10 +657,15 @@ msgstr "Aktiviere Lizenz"
 msgid "Hide notifications"
 msgstr "Email Erinnerung"
 
-#: includes/admin/helpers/csv/class-csv-import.php:675
+#: includes/admin/helpers/csv/class-csv-import.php:673
 #, fuzzy
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Eintrag zusenden (Initialbezahlung)"
+
+#. translators: %d: the plan id
+#: includes/admin/helpers/csv/class-csv-import.php:757
+msgid "There is no Plan with ID = %d"
+msgstr ""
 
 #. translators: %1$s: open link html, %2$s close link
 #: includes/admin/helpers/tables/class-fees-table.php:30
@@ -774,7 +779,7 @@ msgid "Missing tables: %s"
 msgstr "Nicht vorhandene Tabellen: %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1372
+#: includes/controllers/pages/class-submit-listing.php:1374
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:140
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -810,7 +815,7 @@ msgstr "%s ist ein Pflichtfeld."
 
 #: includes/admin/settings/class-settings-bootstrap.php:283
 #: includes/admin/settings/class-settings-bootstrap.php:297
-#: includes/controllers/pages/class-submit-listing.php:649
+#: includes/controllers/pages/class-submit-listing.php:651
 #, fuzzy
 msgid "Terms and Conditions"
 msgstr "Bedingungen und Konditionen"
@@ -1625,6 +1630,12 @@ msgstr "Ausstehend"
 msgid "Renew Listing"
 msgstr "Eintrag erneuern"
 
+#. translators: %d: the listing ID
+#: includes/controllers/pages/class-manage-recurring.php:35
+#, fuzzy
+msgid "The listing with id %d does not exist."
+msgstr "Eintragskategorie \"%s\" existiert nicht"
+
 #: includes/controllers/pages/class-renew-listing.php:36
 #, fuzzy
 msgid "That listing cannot yet be renewed."
@@ -1642,39 +1653,39 @@ msgstr "Dies ist nur eine Vorschau. Der Eintrag wurde bisher nicht publiziert."
 msgid "Add Listing"
 msgstr "Preispaket hinzufügen"
 
-#: includes/controllers/pages/class-submit-listing.php:682
+#: includes/controllers/pages/class-submit-listing.php:684
 #, fuzzy
 msgid "Listing Images"
 msgstr "Eintrag Bilder"
 
-#: includes/controllers/pages/class-submit-listing.php:750
+#: includes/controllers/pages/class-submit-listing.php:752
 msgid "Account Creation"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:949
+#: includes/controllers/pages/class-submit-listing.php:951
 #, fuzzy
 msgid "Go to \"Plans\""
 msgstr "zu \"Formularfelder verwalten\""
 
-#: includes/controllers/pages/class-submit-listing.php:1006
+#: includes/controllers/pages/class-submit-listing.php:1008
 #, fuzzy
 msgid "Please choose a plan."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/controllers/pages/class-submit-listing.php:1196
+#: includes/controllers/pages/class-submit-listing.php:1198
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1356
+#: includes/controllers/pages/class-submit-listing.php:1358
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1363
+#: includes/controllers/pages/class-submit-listing.php:1365
 #, fuzzy
 msgid "Username"
 msgstr "Benutzer"
 
-#: includes/controllers/pages/class-submit-listing.php:1385
+#: includes/controllers/pages/class-submit-listing.php:1387
 #, fuzzy
 msgid "Clear Form"
 msgstr "Zurücksetzen"
@@ -2156,12 +2167,12 @@ msgstr "Zurück zum Eintrag."
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: includes/utils.php:390
+#: includes/utils.php:391
 #, fuzzy
 msgid "File size (%1$s) exceeds maximum file size of %2$s"
 msgstr "Dateigröße (%s) hat das Maximum von %s erreicht"
 
-#: includes/utils.php:399
+#: includes/utils.php:400
 #, fuzzy
 msgid "File size (%1$s) is smaller than the minimum file size of %2$s"
 msgstr "Dateigröße (%s) hat das Maximum von %s erreicht"
@@ -2703,6 +2714,11 @@ msgstr ""
 #, fuzzy
 msgid "Recurring"
 msgstr "(wiederkehrend)"
+
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:153
+#, fuzzy
+msgid "Renew listing"
+msgstr "Eintrag erneuern"
 
 #: templates/admin/payments-details.tpl.php:5
 #, fuzzy
@@ -3515,6 +3531,247 @@ msgstr "Eintrag Löschen"
 #, fuzzy
 msgid "Continue to Payment"
 msgstr "Initialbezahlung"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/internationalized-plugin.php:11
+msgid "This is a dummy plugin"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:42
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:72
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:80
+#, fuzzy
+msgid "There was an error when reading this WXR file"
+msgstr "Beim hochladen der CSV-Datei ist ein Fehler aufgetreten."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:43
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:84
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:89
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:306
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:495
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:132
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:141
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:192
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:196
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:205
+msgid "Sorry, there has been an error."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:133
+msgid "The file does not exist, please try again."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:176
+msgid "All done."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:176
+msgid "Have fun!"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:177
+msgid "Remember to update the passwords and roles of imported users."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:197
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:213
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:238
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:264
+msgid "Assign Authors"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:265
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:267
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:277
+#, fuzzy
+msgid "Import Attachments"
+msgstr "Importeinstellungen"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:280
+msgid "Download and import file attachments"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:284
+msgid "Submit"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:297
+#, fuzzy
+msgid "Import author:"
+msgstr "Import Zusammenfassung"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:308
+msgid "or create new user with login name:"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:311
+msgid "as a new user:"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:319
+#, fuzzy
+msgid "assign posts to an existing user:"
+msgstr "Zuweisung"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:321
+#, fuzzy
+msgid "or assign posts to an existing user:"
+msgstr "Zuweisung"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:322
+#, fuzzy
+msgid "- Select -"
+msgstr "Liste auswählen"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:372
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:424
+#, fuzzy
+msgid "Failed to import category %s"
+msgstr "Leere Kategorien verbergen?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:467
+#, fuzzy
+msgid "Failed to import post tag %s"
+msgstr "Leere Kategorien verbergen?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:516
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:738
+#, fuzzy
+msgid "Failed to import %s %s"
+msgstr "Leere Kategorien verbergen?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:605
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:642
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:704
+#, fuzzy
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr "Leere Kategorien verbergen?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:869
+msgid "Menu item skipped due to missing menu slug"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:876
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:939
+msgid "Fetching attachments is not enabled"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:952
+#, fuzzy
+msgid "Invalid file type"
+msgstr "Ungültiger Formularfeld Typ"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:996
+msgid "Remote server did not respond"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1002
+msgid "Remote server returned error response %1$d %2$s"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1009
+msgid "Remote file is incorrect size"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1014
+msgid "Zero size file downloaded"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1020
+msgid "Remote file is too large, limit is %s"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1119
+#, fuzzy
+msgid "Import WordPress"
+msgstr "Import wird durchgeführt..."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1126
+msgid ""
+"A new version of this importer is available. Please update to version %s to "
+"ensure compatibility with newer export files."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1141
+msgid ""
+"Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import "
+"the posts, pages, comments, custom fields, categories, and tags into this "
+"site."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1142
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1216
+msgid ""
+"Import <strong>posts, pages, comments, custom fields, categories, and tags</"
+"strong> from a WordPress export file."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/themedir1/internationalized-theme/functions.php:7
+msgid "This is a dummy theme"
+msgstr ""
+
+#: vendor/wp-cli/wp-cli/php/utils-wp.php:230
+#, fuzzy
+msgid "Inactive Widgets"
+msgstr "Nur Aktiv"
+
+#: vendor/wp-cli/wp-cli/php/utils-wp.php:233
+msgid ""
+"Drag widgets here to remove them from the sidebar but keep their settings."
+msgstr ""
 
 #. Author URI of the plugin/theme
 #, fuzzy
@@ -6491,7 +6748,7 @@ msgstr ""
 "Der Import ist im <b>Testmodus</b>. es wird nichts in die Datenbank "
 "geschrieben."
 
-#: includes/admin/helpers/csv/class-csv-import.php:532
+#: includes/admin/helpers/csv/class-csv-import.php:530
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -6500,32 +6757,27 @@ msgstr ""
 "Die Kategorieauflistung \"<category-name>\" konnte nicht erstellt werden. "
 "Der Vorgang ist mit dem folgenden Fehler fehlgeschlagen: <error-message>."
 
-#: includes/admin/helpers/csv/class-csv-import.php:538
+#: includes/admin/helpers/csv/class-csv-import.php:536
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: includes/admin/helpers/csv/class-csv-import.php:730
+#: includes/admin/helpers/csv/class-csv-import.php:728
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Benutzername \"%s\" existiert nicht"
 
-#: includes/admin/helpers/csv/class-csv-import.php:757
-msgctxt "admin csv-import"
-msgid "There is no Plan with ID = <fee-id>"
-msgstr ""
-
-#: includes/admin/helpers/csv/class-csv-import.php:788
+#: includes/admin/helpers/csv/class-csv-import.php:789
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Benötigtes nicht vorhandenes Feld: %s"
 
-#: includes/admin/helpers/csv/class-csv-import.php:829
+#: includes/admin/helpers/csv/class-csv-import.php:830
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "Eintragskategorie \"%s\" existiert nicht"
 
-#: includes/admin/helpers/csv/class-csv-import.php:903
+#: includes/admin/helpers/csv/class-csv-import.php:904
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
@@ -7552,7 +7804,7 @@ msgstr ""
 "angezeigt. Wenn du das nicht möchtest, klicke <a>hier</a> um die "
 "Einstellungen zu ändern."
 
-#: includes/controllers/pages/class-submit-listing.php:493
+#: includes/controllers/pages/class-submit-listing.php:495
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -7561,27 +7813,27 @@ msgstr ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 
-#: includes/controllers/pages/class-submit-listing.php:495
+#: includes/controllers/pages/class-submit-listing.php:497
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:942
+#: includes/controllers/pages/class-submit-listing.php:944
 msgctxt "templates"
 msgid ""
 "<b>There are no Plans available</b>, without a plan site users can't submit "
 "a listing. %s to create a plan"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:956
+#: includes/controllers/pages/class-submit-listing.php:958
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:959
+#: includes/controllers/pages/class-submit-listing.php:961
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7589,12 +7841,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1406
+#: includes/controllers/pages/class-submit-listing.php:1408
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen."
 
-#: includes/controllers/pages/class-submit-listing.php:1420
+#: includes/controllers/pages/class-submit-listing.php:1422
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Ich akzeptiere die <a>AGB</a>s"
@@ -7746,12 +7998,7 @@ msgctxt "view:manage-listings"
 msgid "Please <a>login</a> to manage your listings."
 msgstr "Bitte <a>einloggen</a> um eine Nachricht an den Inhaber zu senden."
 
-#: includes/controllers/pages/class-manage-recurring.php:33
-msgctxt "manage subscription"
-msgid "The listing with id = <listing-id> doesn't exists."
-msgstr ""
-
-#: includes/controllers/pages/class-manage-recurring.php:42
+#: includes/controllers/pages/class-manage-recurring.php:45
 #, fuzzy
 msgctxt "manage subscriptions"
 msgid ""
@@ -7759,12 +8006,12 @@ msgid ""
 "invalid."
 msgstr "Sie sind nicht autorisiert um diesen Eintrag zu bearbeiten."
 
-#: includes/controllers/pages/class-manage-recurring.php:53
+#: includes/controllers/pages/class-manage-recurring.php:56
 msgctxt "manage subscriptions"
 msgid "Invalid subscription."
 msgstr "Ungültiges Abonnement."
 
-#: includes/controllers/pages/class-manage-recurring.php:76
+#: includes/controllers/pages/class-manage-recurring.php:79
 #, fuzzy
 msgctxt "manage subscriptions"
 msgid "Your subscription was canceled."
@@ -7776,7 +8023,7 @@ msgctxt "manage subscriptions"
 msgid "Subscription / Plan"
 msgstr "Abonnement / Preisplan"
 
-#: includes/controllers/pages/class-manage-recurring.php:93
+#: includes/controllers/pages/class-manage-recurring.php:96
 #, fuzzy
 msgctxt "manage listings"
 msgid "You are not on recurring payments for any of your listings."
@@ -7918,33 +8165,33 @@ msgctxt "submit listing"
 msgid "Something went wrong!"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:113
+#: includes/controllers/pages/class-submit-listing.php:118
 #, fuzzy
 msgctxt "submit listing"
 msgid "No listing ID was specified."
 msgstr "Ein Eintrag wurde bearbeitet."
 
-#: includes/controllers/pages/class-submit-listing.php:115
+#: includes/controllers/pages/class-submit-listing.php:120
 #, fuzzy
 msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "Kategorie für diesen Eintrag"
 
-#: includes/controllers/pages/class-submit-listing.php:160
+#: includes/controllers/pages/class-submit-listing.php:162
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no plan associated. "
 "Please <a>edit the listing</a> on the backend and associate it to a plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:166
+#: includes/controllers/pages/class-submit-listing.php:168
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:248
+#: includes/controllers/pages/class-submit-listing.php:250
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
@@ -7952,19 +8199,19 @@ msgstr ""
 "Du bist als Administrator eingeloggt. Alle Bezahlungsschritte werden "
 "übersprungen."
 
-#: includes/controllers/pages/class-submit-listing.php:631
+#: includes/controllers/pages/class-submit-listing.php:633
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Kategorien auswählen"
 
-#: includes/controllers/pages/class-submit-listing.php:631
+#: includes/controllers/pages/class-submit-listing.php:633
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Kategorien auswählen"
 
-#: includes/controllers/pages/class-submit-listing.php:939
+#: includes/controllers/pages/class-submit-listing.php:941
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -7972,47 +8219,47 @@ msgstr ""
 "Ihre Zahlung kann momentan nicht ausgeführt werden. Bitte versuchen Sie es "
 "später noch einmal."
 
-#: includes/controllers/pages/class-submit-listing.php:988
-#: includes/controllers/pages/class-submit-listing.php:1115
+#: includes/controllers/pages/class-submit-listing.php:990
+#: includes/controllers/pages/class-submit-listing.php:1117
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/controllers/pages/class-submit-listing.php:1013
+#: includes/controllers/pages/class-submit-listing.php:1015
 msgctxt "submit listing"
 msgid "Current active plan is disabled. Please select another plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1015
+#: includes/controllers/pages/class-submit-listing.php:1017
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1018
+#: includes/controllers/pages/class-submit-listing.php:1020
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
-#: includes/controllers/pages/class-submit-listing.php:1326
+#: includes/controllers/pages/class-submit-listing.php:1328
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/controllers/pages/class-submit-listing.php:1331
+#: includes/controllers/pages/class-submit-listing.php:1333
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/controllers/pages/class-submit-listing.php:1336
+#: includes/controllers/pages/class-submit-listing.php:1338
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1341
+#: includes/controllers/pages/class-submit-listing.php:1343
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -8023,7 +8270,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Eintrag zusenden (Initialbezahlung)"
 
-#: includes/controllers/pages/class-submit-listing.php:1281
+#: includes/controllers/pages/class-submit-listing.php:1283
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8535,22 +8782,22 @@ msgctxt "payments"
 msgid "Payment #%s"
 msgstr "Bezahlung #%d"
 
-#: includes/utils.php:276
+#: includes/utils.php:277
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Unbekannter Fehler beim Hochladen der Datei."
 
-#: includes/utils.php:384
+#: includes/utils.php:385
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Fehler während des Hochladens der Datei"
 
-#: includes/utils.php:407 includes/utils.php:413
+#: includes/utils.php:408 includes/utils.php:414
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Dateityp \"%s\" ist nicht erlaubt"
 
-#: includes/utils.php:666
+#: includes/utils.php:667
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8700,12 +8947,6 @@ msgstr ""
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Erneuerungsmail an Benutzer schicken"
-
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:152
-#, fuzzy
-msgctxt "admin infometabox"
-msgid "Renew listing"
-msgstr "Eintrag erneuern"
 
 #: templates/admin/themes-delete-confirm.tpl.php:14
 msgctxt "themes admin"
@@ -8951,46 +9192,6 @@ msgstr "Ungültiger Erneuerungszustand."
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Weiter"
-
-#, fuzzy
-#~ msgid "There was an error when reading this WXR file"
-#~ msgstr "Beim hochladen der CSV-Datei ist ein Fehler aufgetreten."
-
-#, fuzzy
-#~ msgid "Import Attachments"
-#~ msgstr "Importeinstellungen"
-
-#, fuzzy
-#~ msgid "Import author:"
-#~ msgstr "Import Zusammenfassung"
-
-#, fuzzy
-#~ msgid "assign posts to an existing user:"
-#~ msgstr "Zuweisung"
-
-#, fuzzy
-#~ msgid "or assign posts to an existing user:"
-#~ msgstr "Zuweisung"
-
-#, fuzzy
-#~ msgid "- Select -"
-#~ msgstr "Liste auswählen"
-
-#, fuzzy
-#~ msgid "Failed to import category %s"
-#~ msgstr "Leere Kategorien verbergen?"
-
-#, fuzzy
-#~ msgid "Invalid file type"
-#~ msgstr "Ungültiger Formularfeld Typ"
-
-#, fuzzy
-#~ msgid "Import WordPress"
-#~ msgstr "Import wird durchgeführt..."
-
-#, fuzzy
-#~ msgid "Inactive Widgets"
-#~ msgstr "Nur Aktiv"
 
 #~ msgctxt "title"
 #~ msgid "Find a Listing"

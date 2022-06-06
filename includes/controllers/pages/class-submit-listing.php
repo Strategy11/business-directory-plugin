@@ -194,7 +194,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Load the new listing form with ajax when the page might be cached.
 	 *
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return bool
 	 */
 	private function should_use_ajax_load() {
@@ -204,7 +204,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		/**
-		 * @since x.x
+		 * @since 6.2.2
 		 */
 		return apply_filters( 'wpbdp_ajax_load_form', $use_ajax );
 	}
@@ -212,7 +212,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Show a placeholder and load the form with ajax to avoid page caching.
 	 *
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return string
 	 */
 	private function show_form_placeholder() {
@@ -223,7 +223,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return string
 	 */
 	private function show_form() {
@@ -242,7 +242,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return array
 	 */
 	private function prepare_messages() {
@@ -278,7 +278,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Handle "Clear Form" request.
 	 *
-	 * @since x.x
+	 * @since 6.2.2
 	 */
 	private function maybe_reset_form() {
 		$reset = wpbdp_get_var( array( 'param' => 'reset' ), 'post' );
@@ -384,7 +384,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Avoid page caching by loading the form with ajax.
 	 * This is called when the page includes a placeholder.
 	 *
-	 * @since x.x
+	 * @since 6.2.2
 	 */
 	public function ajax_load_form() {
 		$response = array(
@@ -507,7 +507,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Check if we should be editing, when not in edit mode. This happens
 	 * when the url to submit a new listing includes a listing id.
 	 *
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return void
 	 */
 	private function maybe_set_editing() {
@@ -539,7 +539,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.2
 	 */
 	private function create_listing() {
 		$listing_id = wp_insert_post(
@@ -569,7 +569,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Check if the user has permission to edit the listing in url.
 	 *
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return void
 	 */
 	private function is_listing_allowed( $listing_id ) {

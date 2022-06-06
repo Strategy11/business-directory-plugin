@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 6.2.1
+Stable tag: 6.2.2
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,16 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.2.2 =
+* New: Show "draft" status on the manage listings page.
+* New: Apply grids to manage listings page so it matches the main list.
+* Fix: Prevent an issue with page caching reusing post IDs. Now, the new listing form is loaded with ajax when logged out with a new hook to turn it off: wpbdp_ajax_load_form.
+* Fix: Add more protection for editing listings by only those with permission.
+* Fix: The title of the first listing was showing instead of the category name on the category page.
+* Fix: The menu sidebar was too short on some admin pages.
+* Rearrange image settings to be more logical.
+* Removed the wpbdp_listings_expiration_check cron that was no longer being used.
+
 = 6.2.1 =
 * New: Added a setting to choose between the thumbnail from the theme, BD, or neither. This setting is under Appearance -> Images.
 * Fix: Categories and Tags were missing when editing from the admin area.

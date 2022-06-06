@@ -29,7 +29,7 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return string
 	 */
 	protected function get_taxonomy_html( $term ) {
@@ -57,7 +57,7 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
 	 * This would be better to change the category output, rather than using a "page".
 	 * See WPBDP__Dispatcher.
 	 *
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return string
 	 */
 	public function set_tax_title( $title ) {
@@ -72,7 +72,7 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
 	/**
 	 * Prevent a post thumbnail from showing on the page before the loop.
 	 *
-	 * @since x.x
+	 * @since 6.2.2
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
