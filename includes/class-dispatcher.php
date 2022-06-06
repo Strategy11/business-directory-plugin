@@ -156,7 +156,7 @@ class WPBDP__Dispatcher {
                 $classname = 'WPBDP__Views__' . implode( '_', array_map( 'ucfirst', explode( $explode, str_replace( $find, '', $f ) ) ) );
 
                 if ( ! class_exists( $classname ) )
-                    include( $path );
+                    include_once $path;
 
                 if ( ! class_exists( $classname ) )
                     continue;
