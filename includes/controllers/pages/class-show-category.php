@@ -14,7 +14,7 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
 
         $html = '';
 
-        if ( is_object( $term ) && ! empty( $term->term_id ) ) {
+        if ( is_object( $term ) ) {
 			$html = $this->get_taxonomy_html( $term );
         }
 
