@@ -77,12 +77,42 @@ class WPBDP__WordPress_Template_Integration {
 			return;
 		}
 
+		if ( $query->is_tax() ) {
+			add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
+			add_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+		}
+
         remove_filter( 'the_content', 'wpautop' );
 
 		// Run last so other hooks don't break our output.
         add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
+
+	/**
+	 * Since the category page thinks it's a normal post, override the global post.
+	 * This would be better to change the category output, rather than using a "page".
+	 * See WPBDP__Dispatcher.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	public function set_tax_title( $title ) {
+		remove_filter( 'the_title', array( &$this, 'set_tax_title' ) );
+		$term = get_queried_object();
+		return is_object( $term ) ? $term->name : $title;
+	}
+
+	/**
+	 * Prevent a post thumbnail from showing on the page before the loop.
+	 *
+	 * @since x.x
+	 * @return string
+	 */
+	public function remove_tax_thumbnail( $thumbnail ) {
+		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+		return '';
+	}
 
     public function display_view_in_content( $content = '' ) {
 		remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
