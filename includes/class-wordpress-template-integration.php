@@ -94,7 +94,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * This would be better to change the category output, rather than using a "page".
 	 * See WPBDP__Dispatcher.
 	 *
-	 * @since x.x
+	 * @since 6.2.3
 	 * @return string
 	 */
 	public function set_tax_title( $title ) {
@@ -106,7 +106,7 @@ class WPBDP__WordPress_Template_Integration {
 	/**
 	 * Prevent a post thumbnail from showing on the page before the loop.
 	 *
-	 * @since x.x
+	 * @since 6.2.3
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
