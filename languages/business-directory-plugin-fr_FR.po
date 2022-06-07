@@ -101,7 +101,7 @@ msgstr "Non, merci"
 #: includes/admin/class-admin.php:244
 msgid "You're all set. Visit your new %1$sBusiness Directory%2$s page."
 msgstr ""
-"Vous êtes prêt à visiter votre nouvelle page <a>Annuaire Professionnel</a>."
+"Vous êtes prêt à visiter votre nouvelle page %1$sAnnuaire Professionnel%2$s."
 
 #: includes/admin/class-admin.php:272
 msgid "Invalid email address."
@@ -164,7 +164,7 @@ msgid ""
 msgstr ""
 "Nous avons remarqué que vous vouliez que les utilisateurs du plugins "
 "s'enregistrent avant de poster des annonces, mais l'enregistrement pour "
-"votre site est actuellement désactivé. Allez [ici] et activez \"Tout le "
+"votre site est actuellement désactivé. Allez %1$sici%2$s et activez \"Tout le "
 "monde peut s'enregistrer\" pour être sûr que le plugin fonctionne "
 "correctement."
 
@@ -631,7 +631,7 @@ msgstr "Abonnement gratuit"
 
 #: includes/admin/helpers/tables/class-fees-table.php:227
 msgid "%1$s for %2$s"
-msgstr "%s (ex. %s)"
+msgstr "%1$s (ex. %2$s)"
 
 #: includes/admin/helpers/tables/class-fees-table.php:261
 msgid "Total revenue earned from listings"
@@ -1328,8 +1328,6 @@ msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
 msgstr ""
-"Bonne nouvelle ! Le plugin Business Directory s'intègre désormais au plugin "
-"officiel Font Awesome. %1$Installez Font Awesome maintenant%2$s."
 
 #: includes/class-wpbdp.php:627
 msgid ""
@@ -1345,7 +1343,7 @@ msgid ""
 "Awesome plugin. %1$sInstall Font Awesome now%2$s."
 msgstr ""
 "Bonnes nouvelles! Le plugin Business Directory s'intègre désormais au plugin "
-"officiel Font Awesome. %1$Installez Font Awesome maintenant%2$s."
+"officiel Font Awesome. %1$sInstallez Font Awesome maintenant%2$s."
 
 #: includes/compatibility/class-fa-compat.php:93
 msgid ""
@@ -1353,7 +1351,7 @@ msgid ""
 "%1$sInstall Font Awesome now%2$s"
 msgstr ""
 "Saviez-vous que vous pouvez utiliser des icônes dans les listes de "
-"répertoires et les champs personnalisés ? %1$Installer Font Awesome non%2$s"
+"répertoires et les champs personnalisés ? %1$sInstaller Font Awesome non%2$s"
 
 #: includes/compatibility/class-navxt-integration.php:208
 #: includes/widgets/widget-search.php:127
@@ -1671,7 +1669,7 @@ msgstr "Texte à afficher pour le champ social"
 msgid ""
 "Warning: Users can use this feature to get around your image limits in plans."
 msgstr ""
-"<b>Attention:</b> Les utilisateurs peuvent utiliser cette fonctionnalité "
+"Attention: Les utilisateurs peuvent utiliser cette fonctionnalité "
 "pour contourner les limitation d'images dans les formules payantes."
 
 #: includes/fields/class-fieldtypes-textarea.php:215
@@ -2790,7 +2788,7 @@ msgid ""
 "are %1$savailable for purchase%2$s."
 msgstr ""
 "Les %1$s Thèmes de l'annuaire %2$s sont des modèles prédéfinis pour le "
-"Plugin <i>Business Directory</i> afin de changer l'apparence de l'annuaire "
+"Plugin Business Directory afin de changer l'apparence de l'annuaire "
 "rapidement et facilement. Nous avons un certain nombre d'entre eux "
 "disponibles à l'achat %1$s ici %2$s."
 
@@ -4513,7 +4511,7 @@ msgid ""
 "IMPORTANT: subpages of the main directory page cannot be accesed while this "
 "setting is checked."
 msgstr ""
-"<strong> IMPORTANT :</strong> les sous-pages de la page principale de "
+"IMPORTANT: les sous-pages de la page principale de "
 "l'annuaire ne sont pas accessibles lorsque ce paramètre est coché."
 
 #: includes/admin/settings/class-settings-bootstrap.php:315
@@ -7348,7 +7346,7 @@ msgstr ""
 "Vous avez \"Caché les catégories vides\" et certaines catégories qui ne "
 "possèdent pas d'annonces. Cela signifie qu'elles ne seront pas visibles au "
 "utilisateurs, sur votre site. Si cela ne correspond pas à votre souhait, "
-"cliquez </a> ici <a> pour modifier le paramétrage."
+"cliquez <a>ici</a> pour modifier le paramétrage."
 
 #: includes/controllers/pages/class-submit-listing.php:495
 msgctxt "templates"
@@ -7914,7 +7912,7 @@ msgstr "Tout sélectionner"
 #: includes/fields/class-fieldtypes-image.php:41
 msgctxt "date field"
 msgid "Caption for %s is required."
-msgstr "Le pays est requis."
+msgstr ""
 
 #: includes/fields/class-fieldtypes-image.php:110
 #: includes/fields/class-fieldtypes-social.php:173
@@ -7974,7 +7972,7 @@ msgstr ""
 #: includes/fields/class-form-field.php:700
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
-msgstr "\" est un type de champ invalide pour cette association."
+msgstr "\"%s\" est un type de champ invalide pour cette association."
 
 #: includes/fields/class-form-field.php:745
 msgctxt "form-fields-api"
@@ -8336,7 +8334,7 @@ msgstr "%s. annonces importées."
 #: includes/payment.php:57
 msgctxt "payments"
 msgid "Payment #%s"
-msgstr "Paiement #%d"
+msgstr "Paiement #%s"
 
 #: includes/utils.php:277
 msgctxt "utils"

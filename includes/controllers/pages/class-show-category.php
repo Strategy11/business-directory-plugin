@@ -15,12 +15,7 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
         $html = '';
 
         if ( is_object( $term ) ) {
-
-			add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
-			add_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
-
 			$html = $this->get_taxonomy_html( $term );
-
         }
 
         wpbdp_pop_query();
@@ -50,38 +45,5 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
 			),
 			$searching ? '' : 'page'
 		);
-	}
-
-	/**
-	 * Since the category page thinks it's a normal post, override the global post.
-	 * This would be better to change the category output, rather than using a "page".
-	 * See WPBDP__Dispatcher.
-	 *
-	 * @since 6.2.2
-	 * @return string
-	 */
-	public function set_tax_title( $title ) {
-		if ( in_the_loop() ) {
-			return $title;
-		}
-
-		$term = get_queried_object();
-		return is_object( $term ) ? $term->name : '';
-	}
-
-	/**
-	 * Prevent a post thumbnail from showing on the page before the loop.
-	 *
-	 * @since 6.2.2
-	 * @return string
-	 */
-	public function remove_tax_thumbnail( $thumbnail ) {
-		if ( in_the_loop() ) {
-			remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
-
-			return $thumbnail;
-		}
-
-		return '';
 	}
 }
