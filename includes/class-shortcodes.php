@@ -585,7 +585,7 @@ class WPBDP__Shortcodes {
 
         $atts = shortcode_atts( array( 'number_of_listings' => wpbdp_get_option( 'listings-per-page' ) ), $atts );
         $atts['number_of_listings'] = max( 0, intval( $atts['number_of_listings'] ) );
-        $order_by = wpbdp_get_option( 'listings-order-by', 'date' );
+        $order_by = wpbdp_get_option( 'listings-order-by', 'title' );
         $order = wpbdp_get_option( 'listings-sort', 'ASC' );
 
         $q = $wpdb->prepare(

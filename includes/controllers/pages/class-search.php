@@ -81,7 +81,7 @@ class WPBDP__Views__Search extends WPBDP__View {
                 'posts_per_page'   => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
                 'paged'            => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
                 'post__in'         => $results ? $results : array( 0 ),
-                'orderby'          => wpbdp_get_option( 'listings-order-by', 'date' ),
+                'orderby'          => wpbdp_get_option( 'listings-order-by', 'title' ),
                 'order'            => wpbdp_get_option( 'listings-sort', 'ASC' ),
                 'wpbdp_main_query' => true,
             );
