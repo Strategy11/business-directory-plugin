@@ -68,7 +68,15 @@ class WPBDP__View {
         exit;
     }
 
-    final protected function _redirect( $url ) {
+    final protected function _redirect( $url, $args = array() ) {
+		if ( ! empty( $args['doing_ajax'] ) ) {
+			wp_send_json_success(
+				array(
+					'redirect' => $url,
+				)
+			);
+		}
+
         wp_redirect( $url );
         exit;
     }
@@ -91,6 +99,7 @@ class WPBDP__View {
             'wpbdp_view'          => '',
             'redirect_query_args' => array(),
 			'listing'             => false,
+            'doing_ajax'          => false,
         );
         $args     = wp_parse_args( $args, $defaults );
 
@@ -128,7 +137,7 @@ class WPBDP__View {
 
 		$login_url = add_query_arg( $args['redirect_query_args'], $args['login_url'] );
 
-		return $this->_redirect( $login_url );
+		return $this->_redirect( $login_url, $args );
     }
 
 	/**

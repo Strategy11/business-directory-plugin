@@ -143,7 +143,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				)->get();
 
 				if ( $possible_payment ) {
-					return $this->_redirect( $possible_payment->get_checkout_url() );
+					return $this->_redirect(
+						$possible_payment->get_checkout_url(),
+						array( 'doing_ajax' => $this->is_ajax )
+					);
 				}
 			}
 
@@ -282,14 +285,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 */
 	private function maybe_reset_form() {
 		$reset = wpbdp_get_var( array( 'param' => 'reset' ), 'post' );
-		if ( 'reset' === $reset ) {
-			if ( ! $this->editing ) {
-				wp_delete_post( $this->listing->get_id(), true );
-				$this->_redirect( wpbdp_url( 'submit_listing' ) );
-			}
-
-			$this->_redirect( wpbdp_url( 'edit_listing', $this->listing->get_id() ) );
+		if ( 'reset' !== $reset ) {
+			return;
 		}
+
+		if ( ! $this->editing ) {
+			wp_delete_post( $this->listing->get_id(), true );
+			$url = wpbdp_url( 'submit_listing' );
+		} else {
+			$url = wpbdp_url( 'edit_listing', $this->listing->get_id() );
+		}
+
+		$this->_redirect(
+			$url,
+			array( 'doing_ajax' => $this->is_ajax )
+		);
 	}
 
 	/**
@@ -581,6 +591,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				'redirect_query_args' => array( 'listing_id' => $listing_id ),
 			);
 		}
+		$auth_parameters['doing_ajax'] = $this->is_ajax;
 
 		// Perform auth.
 		$this->_auth_required( $auth_parameters );
@@ -1528,7 +1539,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
         $this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
 		if ( ! $this->editing && 'completed' != $payment->status ) {
 			$checkout_url = $payment->get_checkout_url();
-			return $this->_redirect( $checkout_url );
+			return $this->_redirect(
+				$checkout_url,
+				array( 'doing_ajax' => $this->is_ajax )
+			);
 		}
 
         delete_post_meta( $this->listing->get_id(), '_wpbdp_temp_listingfields' );
