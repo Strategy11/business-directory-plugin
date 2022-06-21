@@ -8,7 +8,7 @@ wpbdp_admin_header(
         'id'      => 'payments-details',
         'buttons' => array(
             'wpbdp_admin_payments' => array(
-                'label' => __( '← Return to "Payment History"', 'business-directory-plugin' ),
+                'label' => __( '← All Payments', 'business-directory-plugin' ),
                 'url'   => admin_url( 'admin.php?page=wpbdp_admin_payments' ),
             ),
         ),
@@ -23,7 +23,7 @@ if ( ! $payment || ! $payment->id ) {
 	?>
 	<h2><?php esc_html_e( 'Payment Not Found', 'business-directory-plugin' ); ?></h2>
 	<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments' ) ); ?>">
-		<?php esc_html_e( '← Return to "Payment History"', 'business-directory-plugin' ); ?>
+		<?php esc_html_e( '← All Payments', 'business-directory-plugin' ); ?>
 	</a>
 	<?php
 	wpbdp_admin_footer( 'echo' );

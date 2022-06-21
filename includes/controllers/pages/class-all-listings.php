@@ -15,7 +15,7 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
             'posts_per_page' => wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1,
             'post_status' => 'publish',
 			'paged'              => intval( $paged ),
-			'orderby'            => wpbdp_get_option( 'listings-order-by', 'date' ),
+			'orderby'            => wpbdp_get_option( 'listings-order-by', 'title' ),
 			'order'              => wpbdp_get_option( 'listings-sort', 'ASC' ),
             'wpbdp_main_query' => true,
             'wpbdp_in_shortcode' => true,

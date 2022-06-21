@@ -298,40 +298,6 @@ class WPBDP_Licensing {
 		return $html;
 	}
 
-    private function get_server_ip_address() {
-        $ip_address = get_transient( 'wpbdp-server-ip-address' );
-
-        if ( $ip_address ) {
-            return $ip_address;
-        }
-
-        $ip_address = $this->figure_out_server_ip_address();
-
-        if ( ! $ip_address ) {
-            $ip_address = '(unknown)';
-        }
-
-        set_transient( 'wpbdp-server-ip-address', $ip_address, HOUR_IN_SECONDS );
-
-        return $ip_address;
-    }
-
-    private function figure_out_server_ip_address() {
-        $response = wp_remote_get( 'https://httpbin.org/ip' );
-
-        if ( is_wp_error( $response ) ) {
-            return null;
-        }
-
-        $body = json_decode( wp_remote_retrieve_body( $response ) );
-
-        if ( ! isset( $body->origin ) ) {
-            return null;
-        }
-
-        return $body->origin;
-    }
-
     public function license_key_changed_callback( $setting, $new_value = '', $old_value = '' ) {
         if ( $new_value == $old_value ) {
             return;

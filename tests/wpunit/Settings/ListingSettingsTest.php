@@ -38,7 +38,7 @@ class ListingSettingsTest extends WPUnitTestCase {
 			'posts_per_page'  => $per_page,
 			'post_status'     => 'publish',
 			'paged'           => 1,
-			'orderby'         => wpbdp_get_option( 'listings-order-by', 'date' ),
+			'orderby'         => wpbdp_get_option( 'listings-order-by', 'title' ),
 			'order'           => wpbdp_get_option( 'listings-sort', 'ASC' ),
 		);
 

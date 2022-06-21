@@ -170,7 +170,7 @@ class WPBDP__Query_Integration {
         }
 
         if ( ! $query->get( 'orderby' ) ) {
-            $query->set( 'orderby', wpbdp_get_option( 'listings-order-by', 'date' ) );
+            $query->set( 'orderby', wpbdp_get_option( 'listings-order-by', 'title' ) );
         }
 
         if ( ! $query->get( 'order' ) ) {
@@ -213,37 +213,28 @@ class WPBDP__Query_Integration {
         }
 
         $pieces['fields'] .= $is_sticky_query ? ', ' . $is_sticky_query : '';
+        $order_by          = $query->get( 'orderby' );
+        $order             = $query->get( 'order' );
 
-        switch ( $query->get( 'orderby' ) ) {
+        switch ( $order_by ) {
 			case 'paid':
-				$pieces['fields'] .= ", (SELECT fee_price FROM {$wpdb->prefix}wpbdp_listings lp WHERE lp.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_plan_amount";
-				$pieces['orderby'] = 'wpbdp_plan_amount ' . $query->get( 'order' ) . ", {$wpdb->posts}.post_date DESC, " . $pieces['orderby'];
-
-                break;
 			case 'paid-title':
 				$pieces['fields'] .= ", (SELECT fee_price FROM {$wpdb->prefix}wpbdp_listings lp WHERE lp.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_plan_amount";
-				$pieces['orderby'] = 'wpbdp_plan_amount ' . $query->get( 'order' ) . ", {$wpdb->posts}.post_title ASC, " . $pieces['orderby'];
+				$next_order        = $order_by === 'paid' ? 'post_date DESC' : 'post_title ASC';
+				$pieces['orderby'] = 'wpbdp_plan_amount ' . $order . ", {$wpdb->posts}." . $next_order . ', ' . $pieces['orderby'];
 
-                break;
+				break;
 			case 'plan-order-date':
-				$plan_order = wpbdp_get_option( 'fee-order' );
-
-				if ( 'custom' == $plan_order['method'] ) {
-					$pieces['fields'] .= ", (SELECT po.weight FROM {$wpdb->prefix}wpbdp_plans po JOIN {$wpdb->prefix}wpbdp_listings pol ON po.id = pol.fee_id WHERE pol.listing_id = {$wpdb->posts}.ID ) AS wpbdp_plan_weight";
-					$pieces['orderby'] = "wpbdp_plan_weight DESC, {$wpdb->posts}.post_date " . $query->get( 'order' ) . ', ' . $pieces['orderby'];
-				}
-
-                break;
 			case 'plan-order-title':
 				$plan_order = wpbdp_get_option( 'fee-order' );
 
-				if ( 'custom' == $plan_order['method'] ) {
-					$pieces['fields'] .= ", (SELECT po.weight FROM {$wpdb->prefix}wpbdp_plans po JOIN {$wpdb->prefix}wpbdp_listings pol ON po.id = pol.fee_id WHERE pol.listing_id = {$wpdb->posts}.ID ) AS wpbdp_plan_weight";
-					$pieces['orderby'] = "wpbdp_plan_weight DESC, {$wpdb->posts}.post_title " . $query->get( 'order' ) . ', ' . $pieces['orderby'];
+				if ( 'custom' === $plan_order['method'] ) {
+					$next_order        = $order_by === 'plan-order-date' ? 'post_date' : 'post_title';
+					$pieces['fields'] .= ", (SELECT po.weight FROM {$wpdb->prefix}wpbdp_plans po JOIN {$wpdb->prefix}wpbdp_listings pol ON po.id = pol.fee_id";
+					$pieces['fields'] .= " WHERE pol.listing_id = {$wpdb->posts}.ID ) AS wpbdp_plan_weight";
+					$pieces['orderby'] = "wpbdp_plan_weight DESC, {$wpdb->posts}." . $next_order . ' ' . $order . ', ' . $pieces['orderby'];
 				}
 
-                break;
-			default:
                 break;
         }
 
