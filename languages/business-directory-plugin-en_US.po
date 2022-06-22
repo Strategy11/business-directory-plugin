@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-06-06 22:19:11+00:00\n"
+"POT-Creation-Date: 2022-06-22 18:41:02+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -219,7 +219,7 @@ msgid "Export"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-csv.php:50
-msgid "See an example CSV import file"
+msgid "See Example"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-csv.php:54
@@ -283,7 +283,7 @@ msgid "Cannot disable plan. At least one plan should be enabled"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:187
-#: includes/controllers/pages/class-submit-listing.php:638
+#: includes/controllers/pages/class-submit-listing.php:649
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr ""
@@ -352,7 +352,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/controllers/class-form-fields-admin.php:37
-#: includes/controllers/pages/class-submit-listing.php:968
+#: includes/controllers/pages/class-submit-listing.php:979
 msgid "Go to \"Form Fields\""
 msgstr ""
 
@@ -656,7 +656,7 @@ msgid "Missing tables: %s"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1374
+#: includes/controllers/pages/class-submit-listing.php:1385
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:140
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -688,7 +688,7 @@ msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:283
 #: includes/admin/settings/class-settings-bootstrap.php:297
-#: includes/controllers/pages/class-submit-listing.php:651
+#: includes/controllers/pages/class-submit-listing.php:662
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -1427,35 +1427,35 @@ msgstr ""
 msgid "Add Listing"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:684
+#: includes/controllers/pages/class-submit-listing.php:695
 msgid "Listing Images"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:752
+#: includes/controllers/pages/class-submit-listing.php:763
 msgid "Account Creation"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:951
+#: includes/controllers/pages/class-submit-listing.php:962
 msgid "Go to \"Plans\""
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1008
+#: includes/controllers/pages/class-submit-listing.php:1019
 msgid "Please choose a plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1198
+#: includes/controllers/pages/class-submit-listing.php:1209
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1358
+#: includes/controllers/pages/class-submit-listing.php:1369
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1365
+#: includes/controllers/pages/class-submit-listing.php:1376
 msgid "Username"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1387
+#: includes/controllers/pages/class-submit-listing.php:1398
 msgid "Clear Form"
 msgstr ""
 
@@ -1758,28 +1758,28 @@ msgstr ""
 msgid "Authorize"
 msgstr ""
 
-#: includes/licensing.php:390
+#: includes/licensing.php:356
 msgid "Invalid item ID"
 msgstr ""
 
-#: includes/licensing.php:403
+#: includes/licensing.php:369
 msgid "No license key provided"
 msgstr ""
 
-#: includes/licensing.php:448 includes/licensing.php:486
+#: includes/licensing.php:414 includes/licensing.php:452
 msgid "License key is invalid"
 msgstr ""
 
-#: includes/licensing.php:452
+#: includes/licensing.php:418
 msgid "Deactivation failed"
 msgstr ""
 
-#: includes/licensing.php:497
+#: includes/licensing.php:463
 msgid "The license key was revoked."
 msgstr ""
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:501
+#: includes/licensing.php:467
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory support"
 "%2$s and let them know your license is being reported as revoked by the "
@@ -1787,46 +1787,46 @@ msgid ""
 "with your report."
 msgstr ""
 
-#: includes/licensing.php:564
+#: includes/licensing.php:530
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:577
+#: includes/licensing.php:543
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:624
+#: includes/licensing.php:590
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
 "Business Directory servers. Please contact your webhost and ask them to add "
 "our IP address 52.0.78.177 to your allow list."
 msgstr ""
 
-#: includes/licensing.php:718
+#: includes/licensing.php:684
 msgid "Business Directory license key is missing."
 msgstr ""
 
-#: includes/licensing.php:719
+#: includes/licensing.php:685
 msgid "Business Directory license key has expired"
 msgstr ""
 
-#: includes/licensing.php:720
+#: includes/licensing.php:686
 msgid "Could not verify Business Directory license."
 msgstr ""
 
-#: includes/licensing.php:731
+#: includes/licensing.php:697
 msgid "Review license keys"
 msgstr ""
 
-#: includes/licensing.php:846
+#: includes/licensing.php:812
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:851
+#: includes/licensing.php:817
 msgid "Please enter a license key."
 msgstr ""
 
@@ -2316,7 +2316,7 @@ msgstr ""
 
 #: templates/admin/payments-details.tpl.php:11
 #: templates/admin/payments-details.tpl.php:26
-msgid "← Return to \"Payment History\""
+msgid "← All Payments"
 msgstr ""
 
 #: templates/admin/payments-details.tpl.php:24
@@ -3211,7 +3211,7 @@ msgstr ""
 msgid "Business Directory Team"
 msgstr ""
 
-#: includes/abstracts/class-view.php:119
+#: includes/abstracts/class-view.php:128
 msgctxt "views"
 msgid "Invalid credentials."
 msgstr ""
@@ -6802,34 +6802,34 @@ msgid ""
 "site. If you didn't want that, click <a>here</a> to change the setting."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:495
+#: includes/controllers/pages/class-submit-listing.php:505
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:497
+#: includes/controllers/pages/class-submit-listing.php:507
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:944
+#: includes/controllers/pages/class-submit-listing.php:955
 msgctxt "templates"
 msgid ""
 "<b>There are no Plans available</b>, without a plan site users can't submit "
 "a listing. %s to create a plan"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:958
+#: includes/controllers/pages/class-submit-listing.php:969
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:961
+#: includes/controllers/pages/class-submit-listing.php:972
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -6837,12 +6837,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1408
+#: includes/controllers/pages/class-submit-listing.php:1419
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1422
+#: includes/controllers/pages/class-submit-listing.php:1433
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr ""
@@ -7136,77 +7136,77 @@ msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:162
+#: includes/controllers/pages/class-submit-listing.php:165
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no plan associated. "
 "Please <a>edit the listing</a> on the backend and associate it to a plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:168
+#: includes/controllers/pages/class-submit-listing.php:171
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:250
+#: includes/controllers/pages/class-submit-listing.php:253
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:633
+#: includes/controllers/pages/class-submit-listing.php:644
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:633
+#: includes/controllers/pages/class-submit-listing.php:644
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:941
+#: includes/controllers/pages/class-submit-listing.php:952
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:990
-#: includes/controllers/pages/class-submit-listing.php:1117
+#: includes/controllers/pages/class-submit-listing.php:1001
+#: includes/controllers/pages/class-submit-listing.php:1128
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1015
+#: includes/controllers/pages/class-submit-listing.php:1026
 msgctxt "submit listing"
 msgid "Current active plan is disabled. Please select another plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1017
+#: includes/controllers/pages/class-submit-listing.php:1028
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1020
+#: includes/controllers/pages/class-submit-listing.php:1031
 msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1328
+#: includes/controllers/pages/class-submit-listing.php:1339
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1333
+#: includes/controllers/pages/class-submit-listing.php:1344
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1338
+#: includes/controllers/pages/class-submit-listing.php:1349
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1343
+#: includes/controllers/pages/class-submit-listing.php:1354
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7216,7 +7216,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1283
+#: includes/controllers/pages/class-submit-listing.php:1294
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -7521,19 +7521,19 @@ msgctxt "default category name"
 msgid "General"
 msgstr ""
 
-#: includes/licensing.php:537
+#: includes/licensing.php:503
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr ""
 
-#: includes/licensing.php:550
+#: includes/licensing.php:516
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. cURL was not found in your system"
 msgstr ""
 
-#: includes/licensing.php:552 includes/licensing.php:582
+#: includes/licensing.php:518 includes/licensing.php:548
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -7542,7 +7542,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:554 includes/licensing.php:584
+#: includes/licensing.php:520 includes/licensing.php:550
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -7550,47 +7550,47 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:556
+#: includes/licensing.php:522
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary"
 msgstr ""
 
-#: includes/licensing.php:586
+#: includes/licensing.php:552
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary."
 msgstr ""
 
-#: includes/licensing.php:622
+#: includes/licensing.php:588
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
-#: includes/licensing.php:868
+#: includes/licensing.php:834
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr ""
 
-#: includes/licensing.php:873
+#: includes/licensing.php:839
 msgctxt "licensing"
 msgid "License activated"
 msgstr ""
 
-#: includes/licensing.php:905
+#: includes/licensing.php:871
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr ""
 
-#: includes/licensing.php:907
+#: includes/licensing.php:873
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr ""
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1147
+#: includes/licensing.php:1113
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
