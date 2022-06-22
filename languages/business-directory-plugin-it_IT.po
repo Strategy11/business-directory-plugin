@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-06-06 22:19:11+00:00\n"
+"POT-Creation-Date: 2022-06-22 18:41:02+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -271,9 +271,8 @@ msgid "Export"
 msgstr "Esporta"
 
 #: includes/admin/controllers/class-admin-csv.php:50
-#, fuzzy
-msgid "See an example CSV import file"
-msgstr "Vedere un esempio di file di importazione CSV"
+msgid "See Example"
+msgstr ""
 
 #: includes/admin/controllers/class-admin-csv.php:54
 #: templates/admin/csv-import.tpl.php:291
@@ -345,7 +344,7 @@ msgid "Cannot disable plan. At least one plan should be enabled"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:187
-#: includes/controllers/pages/class-submit-listing.php:638
+#: includes/controllers/pages/class-submit-listing.php:649
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Informazioni sull'annuncio"
@@ -422,7 +421,7 @@ msgstr ""
 "automaticamente."
 
 #: includes/admin/controllers/class-form-fields-admin.php:37
-#: includes/controllers/pages/class-submit-listing.php:968
+#: includes/controllers/pages/class-submit-listing.php:979
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "Vai a \"Gestire i campi dei moduli\"."
@@ -779,7 +778,7 @@ msgid "Missing tables: %s"
 msgstr "Tabelle mancanti: %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1374
+#: includes/controllers/pages/class-submit-listing.php:1385
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:140
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -821,7 +820,7 @@ msgstr "Sì, e renderlo obbligatorio"
 
 #: includes/admin/settings/class-settings-bootstrap.php:283
 #: includes/admin/settings/class-settings-bootstrap.php:297
-#: includes/controllers/pages/class-submit-listing.php:651
+#: includes/controllers/pages/class-submit-listing.php:662
 #, fuzzy
 msgid "Terms and Conditions"
 msgstr "Termini e Condizioni"
@@ -1690,44 +1689,44 @@ msgstr "Questa è solo un'anteprima. L'Annuncio non è ancora stato pubblicato."
 msgid "Add Listing"
 msgstr "Aggiungi la quota di Donazione"
 
-#: includes/controllers/pages/class-submit-listing.php:684
+#: includes/controllers/pages/class-submit-listing.php:695
 #, fuzzy
 msgid "Listing Images"
 msgstr "Immagini annuncio"
 
-#: includes/controllers/pages/class-submit-listing.php:752
+#: includes/controllers/pages/class-submit-listing.php:763
 #, fuzzy
 msgid "Account Creation"
 msgstr "Creazione account"
 
-#: includes/controllers/pages/class-submit-listing.php:951
+#: includes/controllers/pages/class-submit-listing.php:962
 #, fuzzy
 msgid "Go to \"Plans\""
 msgstr "Nessun piano tariffario"
 
-#: includes/controllers/pages/class-submit-listing.php:1008
+#: includes/controllers/pages/class-submit-listing.php:1019
 #, fuzzy
 msgid "Please choose a plan."
 msgstr "(Si prega di scegliere un piano tariffario di cui sopra)"
 
-#: includes/controllers/pages/class-submit-listing.php:1198
+#: includes/controllers/pages/class-submit-listing.php:1209
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Qualcosa è andato storto. Si prega di controllare il modulo per eventuali "
 "errori, correggerli e ripresentarli di nuovo."
 
-#: includes/controllers/pages/class-submit-listing.php:1358
+#: includes/controllers/pages/class-submit-listing.php:1369
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Creare un account utente su questo sito"
 
-#: includes/controllers/pages/class-submit-listing.php:1365
+#: includes/controllers/pages/class-submit-listing.php:1376
 #, fuzzy
 msgid "Username"
 msgstr "Nome utente:"
 
-#: includes/controllers/pages/class-submit-listing.php:1387
+#: includes/controllers/pages/class-submit-listing.php:1398
 #, fuzzy
 msgid "Clear Form"
 msgstr "Cancella"
@@ -2097,33 +2096,33 @@ msgstr "Inserisci qui il codice di licenza"
 msgid "Authorize"
 msgstr "Carta di Credito"
 
-#: includes/licensing.php:390
+#: includes/licensing.php:356
 #, fuzzy
 msgid "Invalid item ID"
 msgstr "ID articolo non valido"
 
-#: includes/licensing.php:403
+#: includes/licensing.php:369
 #, fuzzy
 msgid "No license key provided"
 msgstr "Nessuna chiave di licenza fornita"
 
-#: includes/licensing.php:448 includes/licensing.php:486
+#: includes/licensing.php:414 includes/licensing.php:452
 #, fuzzy
 msgid "License key is invalid"
 msgstr "La chiave di licenza non è valida"
 
-#: includes/licensing.php:452
+#: includes/licensing.php:418
 #, fuzzy
 msgid "Deactivation failed"
 msgstr "Disattivazione fallita"
 
-#: includes/licensing.php:497
+#: includes/licensing.php:463
 #, fuzzy
 msgid "The license key was revoked."
 msgstr "La chiave di licenza è stata revocata."
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:501
+#: includes/licensing.php:467
 #, fuzzy
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory support"
@@ -2135,7 +2134,7 @@ msgstr ""
 "Business Directory</support-link> e fate loro sapere che la vostra licenza è "
 "stata segnalata come revocata dal software di licenza."
 
-#: includes/licensing.php:564
+#: includes/licensing.php:530
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -2144,7 +2143,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. Il collegamento non è riuscito con il seguente errore:"
 
-#: includes/licensing.php:577
+#: includes/licensing.php:543
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -2153,7 +2152,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. Si è verificato un problema nella stretta di mano SSL/TSL:"
 
-#: includes/licensing.php:624
+#: includes/licensing.php:590
 #, fuzzy
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
@@ -2165,31 +2164,31 @@ msgstr ""
 "support-link> e chiedi loro di aggiungere il tuo indirizzo IP <ip-"
 "address>alla whitelist."
 
-#: includes/licensing.php:718
+#: includes/licensing.php:684
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Chiave di licenza scaduta"
 
-#: includes/licensing.php:719
+#: includes/licensing.php:685
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Chiave di licenza scaduta"
 
-#: includes/licensing.php:720
+#: includes/licensing.php:686
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Aiuta a migliorare la directory aziendale"
 
-#: includes/licensing.php:731
+#: includes/licensing.php:697
 #, fuzzy
 msgid "Review license keys"
 msgstr "Rivedere le mie chiavi di licenza"
 
-#: includes/licensing.php:846
+#: includes/licensing.php:812
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:851
+#: includes/licensing.php:817
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "Per favore inserisci una chiave di licenza."
@@ -2821,8 +2820,8 @@ msgstr "Informazioni di Pagamento"
 #: templates/admin/payments-details.tpl.php:11
 #: templates/admin/payments-details.tpl.php:26
 #, fuzzy
-msgid "← Return to \"Payment History\""
-msgstr "← Ritorno alla \"Cronologia dei pagamenti\"."
+msgid "← All Payments"
+msgstr "Sottoscrizione"
 
 #: templates/admin/payments-details.tpl.php:24
 #, fuzzy
@@ -3929,7 +3928,7 @@ msgstr ""
 msgid "Business Directory Team"
 msgstr "Business Directory"
 
-#: includes/abstracts/class-view.php:119
+#: includes/abstracts/class-view.php:128
 msgctxt "views"
 msgid "Invalid credentials."
 msgstr "Credenziali non valide."
@@ -7858,7 +7857,7 @@ msgstr ""
 "anteriore del tuo sito. Se non l'hai voluto, clicca <a>qui</a> per "
 "modificare l'impostazione."
 
-#: includes/controllers/pages/class-submit-listing.php:495
+#: includes/controllers/pages/class-submit-listing.php:505
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -7867,7 +7866,7 @@ msgstr ""
 "<b>Vista non disponibile</b>. È stata selezionata l'impostazione "
 "\"Disattivare l'invio di annunci da frontend\"?"
 
-#: includes/controllers/pages/class-submit-listing.php:497
+#: includes/controllers/pages/class-submit-listing.php:507
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
@@ -7875,14 +7874,14 @@ msgstr ""
 "L'inserimento di un annuncio è stato disabilitato. Contattare "
 "l'amministratore per i dettagli."
 
-#: includes/controllers/pages/class-submit-listing.php:944
+#: includes/controllers/pages/class-submit-listing.php:955
 msgctxt "templates"
 msgid ""
 "<b>There are no Plans available</b>, without a plan site users can't submit "
 "a listing. %s to create a plan"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:958
+#: includes/controllers/pages/class-submit-listing.php:969
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
@@ -7891,7 +7890,7 @@ msgstr ""
 "Al momento non è disponibile l'invio di annunci. Contattare l'amministratore "
 "per i dettagli."
 
-#: includes/controllers/pages/class-submit-listing.php:961
+#: includes/controllers/pages/class-submit-listing.php:972
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7902,12 +7901,12 @@ msgstr ""
 "%s e crea un nuovo campo con questa associazione, o assegna questa "
 "associazione ad un campo esistente."
 
-#: includes/controllers/pages/class-submit-listing.php:1408
+#: includes/controllers/pages/class-submit-listing.php:1419
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Per favore è necessario accettare le condizioni d'uso."
 
-#: includes/controllers/pages/class-submit-listing.php:1422
+#: includes/controllers/pages/class-submit-listing.php:1433
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Accetto i <a>termini e le condizioni</a> d'uso"
@@ -8225,7 +8224,7 @@ msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "Non è possibile modificare questo annuncio."
 
-#: includes/controllers/pages/class-submit-listing.php:162
+#: includes/controllers/pages/class-submit-listing.php:165
 #, fuzzy
 msgctxt "submit listing"
 msgid ""
@@ -8236,7 +8235,7 @@ msgstr ""
 "piano tariffario associato. Si prega di <a>modificare l'annuncio</a> dal "
 "backend e di associarlo a un piano tariffario."
 
-#: includes/controllers/pages/class-submit-listing.php:168
+#: includes/controllers/pages/class-submit-listing.php:171
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
@@ -8245,45 +8244,45 @@ msgstr ""
 "Questo annuncio non può essere modificato in questo momento. Riprovare più "
 "tardi o contattare l'amministratore se il problema persiste."
 
-#: includes/controllers/pages/class-submit-listing.php:250
+#: includes/controllers/pages/class-submit-listing.php:253
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "Sei loggato come amministratore, il pagamento verrà saltato."
 
-#: includes/controllers/pages/class-submit-listing.php:633
+#: includes/controllers/pages/class-submit-listing.php:644
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Selezione della categoria"
 
-#: includes/controllers/pages/class-submit-listing.php:633
+#: includes/controllers/pages/class-submit-listing.php:644
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Selezione di categorie e piani"
 
-#: includes/controllers/pages/class-submit-listing.php:941
+#: includes/controllers/pages/class-submit-listing.php:952
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 "Non è possibile inviare un annuncio in questo momento. Per favore, riprova "
 "più tardi."
 
-#: includes/controllers/pages/class-submit-listing.php:990
-#: includes/controllers/pages/class-submit-listing.php:1117
+#: includes/controllers/pages/class-submit-listing.php:1001
+#: includes/controllers/pages/class-submit-listing.php:1128
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Per favore seleziona una categoria."
 
-#: includes/controllers/pages/class-submit-listing.php:1015
+#: includes/controllers/pages/class-submit-listing.php:1026
 msgctxt "submit listing"
 msgid "Current active plan is disabled. Please select another plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1017
+#: includes/controllers/pages/class-submit-listing.php:1028
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Scegli una categoria valida per il tuo piano."
 
-#: includes/controllers/pages/class-submit-listing.php:1020
+#: includes/controllers/pages/class-submit-listing.php:1031
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
@@ -8291,22 +8290,22 @@ msgstr ""
 "Si prega di scegliere un piano tariffario valido per la selezione della "
 "categoria."
 
-#: includes/controllers/pages/class-submit-listing.php:1328
+#: includes/controllers/pages/class-submit-listing.php:1339
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Inserisci il nome utente desiderato."
 
-#: includes/controllers/pages/class-submit-listing.php:1333
+#: includes/controllers/pages/class-submit-listing.php:1344
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Inserisci l'e-mail per il tuo nuovo account."
 
-#: includes/controllers/pages/class-submit-listing.php:1338
+#: includes/controllers/pages/class-submit-listing.php:1349
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Il nome utente scelto è già in uso. Per favore, usane un'altra."
 
-#: includes/controllers/pages/class-submit-listing.php:1343
+#: includes/controllers/pages/class-submit-listing.php:1354
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "L'indirizzo e-mail scelto per il tuo account è già in uso."
@@ -8316,7 +8315,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Annuncio presentato da admin. Pagamento saltato."
 
-#: includes/controllers/pages/class-submit-listing.php:1283
+#: includes/controllers/pages/class-submit-listing.php:1294
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8653,12 +8652,12 @@ msgctxt "default category name"
 msgid "General"
 msgstr "Generale"
 
-#: includes/licensing.php:537
+#: includes/licensing.php:503
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/licensing.php:550
+#: includes/licensing.php:516
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -8667,7 +8666,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. cURL non è stato trovato nel sistema."
 
-#: includes/licensing.php:552 includes/licensing.php:582
+#: includes/licensing.php:518 includes/licensing.php:548
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8680,7 +8679,7 @@ msgstr ""
 "recente di cURL e una versione di OpenSSL che supporta TLSv1.2 (la versione "
 "minima con supporto è OpenSSL 1.0.1.1c)."
 
-#: includes/licensing.php:554 includes/licensing.php:584
+#: includes/licensing.php:520 includes/licensing.php:550
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8692,7 +8691,7 @@ msgstr ""
 "sito web a interagire con i servizi utilizzando i più recenti standard di "
 "sicurezza."
 
-#: includes/licensing.php:556
+#: includes/licensing.php:522
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -8701,7 +8700,7 @@ msgstr ""
 "Contatta il tuo fornitore di hosting e chiedi loro di aggiornare il tuo "
 "sistema. Includere questo messaggio se necessario"
 
-#: includes/licensing.php:586
+#: includes/licensing.php:552
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -8710,33 +8709,33 @@ msgstr ""
 "Contatta il tuo fornitore di hosting e chiedi loro di aggiornare il tuo "
 "sistema. Includere questo messaggio se necessario."
 
-#: includes/licensing.php:622
+#: includes/licensing.php:588
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Il server ha restituito un errore 403 Forbidden error."
 
-#: includes/licensing.php:868
+#: includes/licensing.php:834
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossibile attivare la licenza: %s."
 
-#: includes/licensing.php:873
+#: includes/licensing.php:839
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licenza attivata"
 
-#: includes/licensing.php:905
+#: includes/licensing.php:871
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossibile disattivare la licenza: %s."
 
-#: includes/licensing.php:907
+#: includes/licensing.php:873
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licenza disattivata"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1147
+#: includes/licensing.php:1113
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -9260,6 +9259,14 @@ msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continua"
 
+#, fuzzy
+#~ msgid "See an example CSV import file"
+#~ msgstr "Vedere un esempio di file di importazione CSV"
+
+#, fuzzy
+#~ msgid "← Return to \"Payment History\""
+#~ msgstr "← Ritorno alla \"Cronologia dei pagamenti\"."
+
 #~ msgctxt "title"
 #~ msgid "Find a Listing"
 #~ msgstr "Trova un annuncio"
@@ -9612,10 +9619,6 @@ msgstr "Continua"
 #, fuzzy
 #~ msgid "Category Images"
 #~ msgstr "Categorie"
-
-#, fuzzy
-#~ msgid "PayPal Payments"
-#~ msgstr "Sottoscrizione"
 
 #, fuzzy
 #~ msgid "Google Maps"
