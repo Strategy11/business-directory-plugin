@@ -364,6 +364,9 @@ jQuery(function($) {
                 }
 
                 self.doing_ajax = false;
+				if ( res.data && res.data.redirect ) {
+					window.location.href = res.data.redirect;
+				}
                 callback.call( self, res.data );
             }, 'json' );
         },
