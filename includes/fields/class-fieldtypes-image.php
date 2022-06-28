@@ -201,17 +201,45 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
         $thumbnail_width = absint( wpbdp_get_option( 'thumbnail-width' ) );
 
+		/**
+		 * Set a different image size for uploaded files.
+		 *
+		 * @since x.x
+		 */
+		$thumbnail_width = apply_filters(
+			'wpbdp_img_width',
+			$thumbnail_width,
+			array(
+				'listing_id' => $post_id,
+				'img_id'     => $field_value[0],
+			)
+		);
+
         $img = wp_get_attachment_image_src( $img_id, 'large' );
 
         if ( ! $img ) {
             return '';
         }
 
+		/**
+		 * Set a different image size for uploaded files.
+		 *
+		 * @since x.x
+		 */
+		$img_size = apply_filters(
+			'wpbd_img_size',
+			'wpbdp-thumb',
+			array(
+				'listing_id' => $post_id,
+				'img_id'     => $field_value[0],
+			)
+		);
+
         $html  = '';
         $html .= '<br />';
         $html .= '<div class="listing-image" style="width: ' . $thumbnail_width . 'px;">';
         $html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" rel="noopener" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' ) . '>';
-        $html .= wp_get_attachment_image( $img_id, 'wpbdp-thumb', false, array( 'alt' => $caption ? $caption : esc_attr( $field->get_label() ) ) );
+        $html .= wp_get_attachment_image( $img_id, $img_size, false, array( 'alt' => $caption ? $caption : esc_attr( $field->get_label() ) ) );
         $html .= '</a>';
         $html .= $field->data( 'display_caption' ) ? '<br />' . $caption : '';
         $html .= '</div>';
