@@ -367,8 +367,27 @@ class WPBDP__Settings_Admin {
 
 		echo wp_kses_post( $setting['desc'] );
 
+		self::add_placeholders( $setting );
+
 		if ( $include_wrap ) {
 			echo '</' . esc_attr( $include_wrap ) . '>';
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function add_placeholders( $setting ) {
+		if ( empty( $setting['placeholders'] ) ) {
+			return;
+		}
+
+		echo '<br/>' . __( 'Valid placeholders:', 'business-directory-plugin' );
+		foreach ( $setting['placeholders'] as $pholder => $desc ) {
+			echo '<br/><span class="placeholder" data-placeholder="' . esc_attr( $pholder ) . '">';
+			echo '<span class="placeholder-code">[' . esc_html( $pholder ) . ']</span> - ';
+			echo '<span class="placeholder-description">' . esc_html( $desc ) . '</span>';
+			echo '</span>';
 		}
 	}
 
@@ -572,34 +591,10 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_text_template_callback( $setting, $value ) {
-        $original_description = $setting['desc'];
-        $placeholders         = isset( $setting['placeholders'] ) ? $setting['placeholders'] : array();
+		_deprecated_function( __METHOD__, '6.2.5' );
+		$setting['type'] = 'text';
 
-        if ( $placeholders ) {
-            foreach ( $placeholders as $pholder => $desc ) {
-                $placeholders[ $pholder ] = sprintf( '%s - %s', '[' . $pholder . ']', $desc );
-            }
-
-            $placeholders_text = implode( ', ', $placeholders ) . '.';
-        } else {
-            $placeholders_text = '';
-        }
-
-        if ( $setting['desc'] && $placeholders_text ) {
-            $setting['desc'] = $setting['desc'] . '<br/><br/>' . sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'business-directory-plugin' ), $placeholders_text );
-        } elseif ( $placeholders_text ) {
-            $settings['desc'] = $placeholders_text;
-        }
-
-        // TODO: this is a proxy for _setting_text (for now).
-        ob_start();
         $this->setting_text_callback( $setting, $value );
-        $html = ob_get_contents();
-        ob_end_clean();
-
-        $setting['desc'] = $original_description;
-
-        echo $html;
     }
 
     public function setting_email_template_callback( $setting, $value ) {
