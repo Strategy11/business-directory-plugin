@@ -189,10 +189,6 @@ class WPBDP__Settings_Admin {
 
             if ( method_exists( $this, 'setting_' . $setting['type'] . '_callback' ) ) {
                 call_user_func( array( $this, 'setting_' . $setting['type'] . '_callback' ), $setting, $value );
-				if ( method_exists( $this, 'change_setting_' . $setting['type'] . '_callback' ) ) {
-					// Change any settings here if needed.
-					$setting = call_user_func( array( $this, 'change_setting_' . $setting['type'] . '_callback' ), $setting );
-				}
             } else {
                 $this->setting_missing_callback( $setting, $value );
             }
@@ -576,40 +572,11 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_text_template_callback( $setting, $value ) {
-		$setting['type']         = 'text';
-		$setting['placeholders'] = array();
+		_deprecated_function( __METHOD__, '6.2.5' );
+		$setting['type'] = 'text';
 
         $this->setting_text_callback( $setting, $value );
     }
-
-	/**
-	 * Add all the placeholder options to the field description.
-	 *
-	 * @since x.x
-	 */
-	private function change_setting_text_template_callback( $setting ) {
-		$placeholders = isset( $setting['placeholders'] ) ? $setting['placeholders'] : array();
-
-        if ( ! $placeholders ) {
-			return $setting;
-		}
-
-		$placeholders_text = '';
-		foreach ( $placeholders as $pholder => $desc ) {
-			$placeholders_text .= '<br/><span class="placeholder" data-placeholder="' . esc_attr( $pholder ) . '">';
-			$placeholders_text .= '<span class="placeholder-code">[' . esc_html( $pholder ) . ']</span> - ';
-			$placeholders_text .= '<span class="placeholder-description">' . esc_html( $desc ) . '</span>';
-			$placeholders_text .= '</span>';
-		}
-
-		if ( $setting['desc'] ) {
-			$setting['desc'] .= '<br/>' . __( 'Valid placeholders:', 'business-directory-plugin' ) . $placeholders_text;
-		} else {
-			$setting['desc'] = $placeholders_text;
-		}
-
-		return $setting;
-	}
 
     public function setting_email_template_callback( $setting, $value ) {
         if ( ! is_array( $value ) ) {
