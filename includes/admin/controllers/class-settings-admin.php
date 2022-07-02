@@ -189,6 +189,10 @@ class WPBDP__Settings_Admin {
 
             if ( method_exists( $this, 'setting_' . $setting['type'] . '_callback' ) ) {
                 call_user_func( array( $this, 'setting_' . $setting['type'] . '_callback' ), $setting, $value );
+				if ( method_exists( $this, 'change_setting_' . $setting['type'] . '_callback' ) ) {
+					// Change any settings here if needed.
+					$setting = call_user_func( array( $this, 'change_setting_' . $setting['type'] . '_callback' ), $setting );
+				}
             } else {
                 $this->setting_missing_callback( $setting, $value );
             }
@@ -572,35 +576,40 @@ class WPBDP__Settings_Admin {
     }
 
     public function setting_text_template_callback( $setting, $value ) {
-        $original_description = $setting['desc'];
-        $placeholders         = isset( $setting['placeholders'] ) ? $setting['placeholders'] : array();
+		$setting['type']         = 'text';
+		$setting['placeholders'] = array();
 
-        if ( $placeholders ) {
-            foreach ( $placeholders as $pholder => $desc ) {
-                $placeholders[ $pholder ] = sprintf( '%s - %s', '[' . $pholder . ']', $desc );
-            }
-
-            $placeholders_text = implode( ', ', $placeholders ) . '.';
-        } else {
-            $placeholders_text = '';
-        }
-
-        if ( $setting['desc'] && $placeholders_text ) {
-            $setting['desc'] = $setting['desc'] . '<br/><br/>' . sprintf( _x( 'Valid placeholders: %s', 'admin settings', 'business-directory-plugin' ), $placeholders_text );
-        } elseif ( $placeholders_text ) {
-            $settings['desc'] = $placeholders_text;
-        }
-
-        // TODO: this is a proxy for _setting_text (for now).
-        ob_start();
         $this->setting_text_callback( $setting, $value );
-        $html = ob_get_contents();
-        ob_end_clean();
-
-        $setting['desc'] = $original_description;
-
-        echo $html;
     }
+
+	/**
+	 * Add all the placeholder options to the field description.
+	 *
+	 * @since x.x
+	 */
+	private function change_setting_text_template_callback( $setting ) {
+		$placeholders = isset( $setting['placeholders'] ) ? $setting['placeholders'] : array();
+
+        if ( ! $placeholders ) {
+			return $setting;
+		}
+
+		$placeholders_text = '';
+		foreach ( $placeholders as $pholder => $desc ) {
+			$placeholders_text .= '<br/><span class="placeholder" data-placeholder="' . esc_attr( $pholder ) . '">';
+			$placeholders_text .= '<span class="placeholder-code">[' . esc_html( $pholder ) . ']</span> - ';
+			$placeholders_text .= '<span class="placeholder-description">' . esc_html( $desc ) . '</span>';
+			$placeholders_text .= '</span>';
+		}
+
+		if ( $setting['desc'] ) {
+			$setting['desc'] .= '<br/>' . __( 'Valid placeholders:', 'business-directory-plugin' ) . $placeholders_text;
+		} else {
+			$setting['desc'] = $placeholders_text;
+		}
+
+		return $setting;
+	}
 
     public function setting_email_template_callback( $setting, $value ) {
         if ( ! is_array( $value ) ) {
