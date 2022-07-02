@@ -367,8 +367,27 @@ class WPBDP__Settings_Admin {
 
 		echo wp_kses_post( $setting['desc'] );
 
+		self::add_placeholders( $setting );
+
 		if ( $include_wrap ) {
 			echo '</' . esc_attr( $include_wrap ) . '>';
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function add_placeholders( $setting ) {
+		if ( empty( $setting['placeholders'] ) ) {
+			return;
+		}
+
+		echo '<br/>' . __( 'Valid placeholders:', 'business-directory-plugin' );
+		foreach ( $setting['placeholders'] as $pholder => $desc ) {
+			echo '<br/><span class="placeholder" data-placeholder="' . esc_attr( $pholder ) . '">';
+			echo '<span class="placeholder-code">[' . esc_html( $pholder ) . ']</span> - ';
+			echo '<span class="placeholder-description">' . esc_html( $desc ) . '</span>';
+			echo '</span>';
 		}
 	}
 
