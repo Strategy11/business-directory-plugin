@@ -227,7 +227,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		 * @since x.x
 		 */
 		$img_size = apply_filters(
-			'wpbd_img_size',
+			'wpbdp_img_size',
 			'wpbdp-thumb',
 			array(
 				'listing_id' => $post_id,
