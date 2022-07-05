@@ -229,6 +229,9 @@ class WPBDP_Admin_Pages {
 		 * @since 6.0.1
 		 */
 		$tabs = apply_filters( 'wpbdp_tab_content', $tabs, array( 'settings' => ! empty( $args['tabs'] ) ) );
+		if ( empty( $tabs ) ) {
+			return;
+		}
 		self::add_icon_url( $tabs );
 
 		$title = $args['title'];

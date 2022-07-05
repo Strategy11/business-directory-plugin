@@ -158,21 +158,33 @@ final class WPBDP {
 
         $this->fees = new WPBDP_Fees_API();
 
-        if ( $manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', array() ) ) {
-            if ( $this->installer->setup_manual_upgrade() ) {
-                add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
-                add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );
-
-                // XXX: Temporary fix to disable features until a pending Manual
-                // Upgrades have been performed.
-                //
-                // Ideally, these hooks would be registered later, making the following
-                // lines unnecessary.
-                remove_action( 'wp_footer', array( $this->themes, 'fee_specific_coloring' ), 999 );
-                remove_action( 'admin_notices', array( &$this->licensing, 'admin_notices' ) );
-
-                return;
+        if ( wpbdp_is_request( 'admin' ) ) {
+            // Make sure WPBDP_Admin class file was loaded before instantiate. See #4346.
+            if ( ! class_exists( 'WPBDP_Admin' ) ) {
+                require_once WPBDP_INC . 'admin/class-admin.php';
             }
+            if ( ! class_exists( 'WPBDP_Personal_Data_Privacy' ) ) {
+                require_once WPBDP_INC . 'admin/class-personal-data-privacy.php';
+            }
+
+            $this->admin   = new WPBDP_Admin();
+            $this->privacy = new WPBDP_Personal_Data_Privacy();
+        }
+
+		$manual_upgrade = get_option( 'wpbdp-manual-upgrade-pending', array() );
+		if ( $manual_upgrade && $this->installer->setup_manual_upgrade() ) {
+			add_shortcode( 'businessdirectory', array( $this, 'frontend_manual_upgrade_msg' ) );
+			add_shortcode( 'business-directory', array( $this, 'frontend_manual_upgrade_msg' ) );
+
+			// XXX: Temporary fix to disable features until a pending Manual
+			// Upgrades have been performed.
+			//
+			// Ideally, these hooks would be registered later, making the following
+			// lines unnecessary.
+			remove_action( 'wp_footer', array( $this->themes, 'fee_specific_coloring' ), 999 );
+			remove_action( 'admin_notices', array( &$this->licensing, 'admin_notices' ) );
+
+			return;
         }
 
         $this->modules->load_i18n();
@@ -213,19 +225,6 @@ final class WPBDP {
 
             $this->meta = new WPBDP__Meta();
             $this->recaptcha = new WPBDP_reCAPTCHA();
-        }
-
-        if ( wpbdp_is_request( 'admin' ) ) {
-            // Make sure WPBDP_Admin class file was loaded before instantiate. See #4346.
-            if ( ! class_exists( 'WPBDP_Admin' ) ) {
-                require_once WPBDP_INC . 'admin/class-admin.php';
-            }
-            if ( ! class_exists( 'WPBDP_Personal_Data_Privacy' ) ) {
-                require_once WPBDP_INC . 'admin/class-personal-data-privacy.php';
-            }
-
-            $this->admin   = new WPBDP_Admin();
-            $this->privacy = new WPBDP_Personal_Data_Privacy();
         }
 
 		$this->compat = new WPBDP_Compat();
