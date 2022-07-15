@@ -27,7 +27,7 @@ jQuery(function($) {
             this.field = this.field_wrapper.find( 'select, input[type="checkbox"], input[type="radio"]' );
 
             if ( ! this.field_type ) {
-                // This shouldn't happen.
+				// This shouldn't happen if the form has been loaded.
                 return;
             }
 
@@ -50,10 +50,6 @@ jQuery(function($) {
             this.skip_plan_selection = ( 1 === $( 'input[type="hidden"][name="skip_plan_selection"][value="1"]' ).length );
             if ( this.skip_plan_selection ) {
                 return;
-                // alert('skip plan');
-                // this.field.change( function() {
-                // } );
-                // return;
             }
 
             this.$plans_container = $( '.wpbdp-plan-selection-wrapper' );
@@ -383,6 +379,7 @@ jQuery(function($) {
 			self.ajax( data, function( res ) {
 				if ( typeof res.form !== 'undefined' ) {
 					self.$submit.html( res.form );
+					this.plan_handling(); // Trigger a plan reset.
 				}
 			} );
 		},
