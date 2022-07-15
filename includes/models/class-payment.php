@@ -31,6 +31,11 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     protected function prepare_row() {
         $row = parent::prepare_row();
 
+		// This doesn't get set in the parent.
+		if ( ! isset( $row['created_at'] ) && ! empty( $this->_attrs['created_at'] ) ) {
+			$row['created_at'] = $this->_attrs['created_at'];
+		}
+
         // Remove unnecessary columns.
         // FIXME: In the future we should not use WPBDP__DB__Model at all. See #2945.
         // FIXME: We also need to remove at least `created_on`, `processed_on` and `processed_by` which are not used anywhere.

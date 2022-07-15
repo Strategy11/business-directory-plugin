@@ -69,22 +69,15 @@ $hide_text_field = $payment->gateway && $payment->listing->has_subscription() ? 
                                 </div>
                                 <div class="wpbdp-admin-box-row">
                                     <label><?php esc_html_e( 'Date', 'business-directory-plugin' ); ?></label>
-									<input type="<?php echo esc_attr( $hide_text_field ); ?>" name="payment[created_at_date]" value="<?php echo esc_attr( date( 'Y-m-d', strtotime( $payment->created_at ) ) ); ?>" />
+									<input type="<?php echo esc_attr( $hide_text_field ); ?>" name="payment[created_at]" value="<?php echo esc_attr( date( 'Y-m-d H:i:s', strtotime( $payment->created_at ) ) ); ?>" />
 									<?php
 									if ( $hide_text_field === 'hidden' ) {
-										echo esc_html( date( 'Y-m-d', strtotime( $payment->created_at ) ) );
-									}
-									?>
-                                </div>
-                                <div class="wpbdp-admin-box-row">
-                                    <label><?php esc_html_e( 'Time', 'business-directory-plugin' ); ?></label>
-                                    <input type="<?php echo esc_attr( $hide_text_field ); ?>" maxlength="2" name="payment[created_at_time_hour]" value="<?php echo esc_attr( str_pad( $payment->created_at_time['hour'], 2, '0', STR_PAD_LEFT ) ); ?>" class="small-text" />
-									<?php echo $hide_text_field === 'hidden' ? '' : ':'; ?>
-                                    <input type="<?php echo esc_attr( $hide_text_field ); ?>" maxlength="2" name="payment[created_at_time_min]" value="<?php echo esc_attr( str_pad( $payment->created_at_time['minute'], 2, '0', STR_PAD_LEFT ) ); ?>" class="small-text" />
-									<?php
-									if ( $hide_text_field === 'hidden' ) {
-										echo esc_html( str_pad( $payment->created_at_time['hour'], 2, '0', STR_PAD_LEFT ) . ':' );
-										echo esc_html( str_pad( $payment->created_at_time['minute'], 2, '0', STR_PAD_LEFT ) );
+										echo esc_html(
+											date(
+												get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
+												strtotime( $payment->created_at )
+											)
+										);
 									}
 									?>
                                 </div>
