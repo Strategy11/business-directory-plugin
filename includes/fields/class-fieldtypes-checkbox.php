@@ -277,5 +277,14 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         return $search_res;
     }
 
+	/**
+	 * Don't count the hidden field value.
+	 *
+	 * @since x.x
+	 * @return bool
+	 */
+	public function is_empty_value( $value ) {
+		return empty( array_filter( (array) $value ) );
+	}
 }
 
