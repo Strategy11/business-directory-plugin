@@ -471,7 +471,10 @@ WPBDP.fileUpload = {
 						$( 'input[name="images_meta[' + v + '][order]"]' ).attr( 'value', no_images - i );
 
 						if ( 0 === i ) {
-							document.getElementById('_thumbnail_id').value = v;
+                            var thumb = document.getElementById('_thumbnail_id');
+                            if ( thumb !== null ) {
+                                thumb.value = v;
+                            }
 						}
                     } );
                 }
