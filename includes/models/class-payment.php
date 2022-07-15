@@ -33,7 +33,12 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
 		// This doesn't get set in the parent.
 		if ( ! isset( $row['created_at'] ) && ! empty( $this->_attrs['created_at'] ) ) {
-			$row['created_at'] = $this->_attrs['created_at'];
+			$created_at = $this->_attrs['created_at'];
+			$formatted  = date( 'Y-m-d H:i:s', strtotime( $created_at ) );
+			if ( $created_at === $formatted ) {
+				// Only save if the format is correct.
+				$row['created_at'] = $formatted;
+			}
 		}
 
         // Remove unnecessary columns.
