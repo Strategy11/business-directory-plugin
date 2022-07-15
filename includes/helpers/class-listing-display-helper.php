@@ -301,7 +301,11 @@ class WPBDP_Listing_Display_Helper {
         foreach ( $listing_images as $img_id ) {
 
             if ( $img_id == $thumbnail_id ) {
-                continue;
+				$skipped_thumb = $which_thumbnail === 'none' && $display === 'listing';
+				if ( ! $skipped_thumb ) {
+					// If the thumbnail won't be shown, include it in the gallery.
+					continue;
+				}
             }
 
             $data    = wp_get_attachment_image_src( $img_id, 'wpbdp-large', false );

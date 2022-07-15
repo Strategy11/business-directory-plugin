@@ -910,10 +910,11 @@ final class WPBDP__Settings__Bootstrap {
                 'type'    => 'number',
                 'min'     => 0,
                 'step'    => 1,
-                'name'    => _x( 'Min Image File Size (KB)', 'settings', 'business-directory-plugin' ),
+				'name'    => __( 'Min image file size (KB)', 'business-directory-plugin' ),
                 'default' => '0',
                 'group'   => 'images/general',
 				'class'   => 'wpbdp-half',
+				'requirements' => array( 'allow-images' ),
             )
         );
         wpbdp_register_setting(
@@ -922,10 +923,11 @@ final class WPBDP__Settings__Bootstrap {
                 'type'    => 'number',
                 'min'     => 0,
                 'step'    => 1,
-                'name'    => _x( 'Max Image File Size (KB)', 'settings', 'business-directory-plugin' ),
+				'name'    => __( 'Max image file size (KB)', 'business-directory-plugin' ),
                 'default' => '10000',
                 'group'   => 'images/general',
 				'class'   => 'wpbdp-half',
+				'requirements' => array( 'allow-images' ),
             )
         );
         wpbdp_register_setting(
@@ -938,6 +940,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default' => '0',
                 'group'   => 'images/general',
 				'class'   => 'wpbdp-half',
+				'requirements' => array( 'allow-images' ),
             )
         );
         wpbdp_register_setting(
@@ -950,6 +953,7 @@ final class WPBDP__Settings__Bootstrap {
                 'step'    => 1,
                 'group'   => 'images/general',
 				'class'   => 'wpbdp-half',
+				'requirements' => array( 'allow-images' ),
             )
         );
         wpbdp_register_setting(
@@ -962,6 +966,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default' => '500',
                 'group'   => 'images/general',
 				'class'   => 'wpbdp-half',
+				'requirements' => array( 'allow-images' ),
             )
         );
         wpbdp_register_setting(
@@ -974,6 +979,7 @@ final class WPBDP__Settings__Bootstrap {
                 'default' => '500',
                 'group'   => 'images/general',
 				'class'   => 'wpbdp-half',
+				'requirements' => array( 'allow-images' ),
             )
         );
         wpbdp_register_setting(
@@ -1039,9 +1045,8 @@ final class WPBDP__Settings__Bootstrap {
 		wpbdp_register_setting(
 			array(
 				'id'      => 'show-thumbnail',
-				'type'    => 'checkbox',
-				'name'    => __( 'Show Thumbnail', 'business-directory-plugin' ),
-				'desc'    => _x( 'Excerpt view.', 'admin settings', 'business-directory-plugin' ),
+				'type'    => 'toggle',
+				'name'    => __( 'Show thumbnail in excerpt', 'business-directory-plugin' ),
 				'default' => true,
 				'group'   => 'image/thumbnails',
 			)
@@ -1051,7 +1056,7 @@ final class WPBDP__Settings__Bootstrap {
 			array(
 				'id'      => 'which-thumbnail',
 				'type'    => 'radio',
-				'name'    => __( 'Show Listing Thumbnail From', 'business-directory-plugin' ),
+				'name'    => __( 'Show thumbnail in listing from:', 'business-directory-plugin' ),
 				'default' => 'auto',
 				'options' => array(
 					'auto'  => __( 'Business Directory Plugin', 'business-directory-plugin' ),
