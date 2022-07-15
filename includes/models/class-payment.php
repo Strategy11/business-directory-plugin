@@ -31,6 +31,8 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     protected function prepare_row() {
         $row = parent::prepare_row();
 
+		$this->save_created_at( $row );
+
         // Remove unnecessary columns.
         // FIXME: In the future we should not use WPBDP__DB__Model at all. See #2945.
         // FIXME: We also need to remove at least `created_on`, `processed_on` and `processed_by` which are not used anywhere.
@@ -40,6 +42,24 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 
         return $row;
     }
+
+	/**
+	 * Created_at isn't getting set by the parent during updates.
+	 *
+	 * @since x.x
+	 */
+	protected function save_created_at( &$row ) {
+		if ( isset( $row['created_at'] ) || empty( $this->_attrs['created_at'] ) ) {
+			return;
+		}
+
+		$created_at = $this->_attrs['created_at'];
+		$formatted  = date( 'Y-m-d H:i:s', strtotime( $created_at ) );
+		if ( $created_at === $formatted ) {
+			// Only save if the format is correct.
+			$row['created_at'] = $formatted;
+		}
+	}
 
     protected function before_save( $new = false ) {
         if ( ! $this->payment_key ) {
