@@ -72,14 +72,19 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             $css_classes[] = 'wpbdp-inner-checkbox-' . $i;
             $css_classes[] = 'wpbdp-inner-checkbox-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-            $html .= sprintf(
-                '<div class="%s"><label for="wpbdp-field-%5$d-%3$s"><input id="wpbdp-field-%5$d-%3$s" type="checkbox" name="%s" value="%s" %s/> %s</label></div>',
-                implode( ' ', $css_classes ),
-                $field_name,
-                $option_key,
-                in_array( $option_key, is_array( $value ) ? $value : array( $value ) ) ? 'checked="checked"' : '',
-                esc_attr( $label )
-            );
+			$html_id = 'wpbdp-field-' . $field->get_id() .'-' . $option_key;
+
+			$html .= '<div class="' . esc_attr( implode( ' ', $css_classes ) ) . '">';
+			$html .= '<label for="' . esc_attr( $html_id ) . '">';
+			$html .= '<input id="' . esc_attr( $html_id ) . '" type="checkbox" ';
+			$html .= 'name="' . esc_attr( $field_name ) . '" ';
+			$html .= 'value="' . esc_attr( $option_key ) . '" ';
+			if ( in_array( $option_key, is_array( $value ) ? $value : array( $value ) ) ) {
+				$html .= 'checked="checked"';
+			}
+			$html .= '/> ';
+			$html .= esc_attr( $label );
+			$html .= '</label></div>';
 
             $i++;
         }
