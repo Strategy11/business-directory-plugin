@@ -596,6 +596,7 @@ final class WPBDP__Settings__Bootstrap {
 				'default'     => '',
  				'tooltip'      => _x( 'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.', 'settings', 'business-directory-plugin' ),
 				'group'        => 'registration',
+                'requirements' => array( '!require-login' ),
 				'grid_classes' => array(
 					'left'  => 'wpbdp8',
 					'right' => 'wpbdp4'
