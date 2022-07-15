@@ -72,7 +72,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
             $css_classes[] = 'wpbdp-inner-checkbox-' . $i;
             $css_classes[] = 'wpbdp-inner-checkbox-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-			$html_id = 'wpbdp-field-' . $field->get_id() .'-' . $option_key;
+			$html_id = 'wpbdp-field-' . $field->get_id() . '-' . $option_key;
 
 			$html .= '<div class="' . esc_attr( implode( ' ', $css_classes ) ) . '">';
 			$html .= '<label for="' . esc_attr( $html_id ) . '">';
