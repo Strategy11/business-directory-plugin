@@ -610,7 +610,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$post_author = wpbdp_get_option( 'default-listing-author' );
 		if ( empty( $post_author ) ) {
-			$post_author = 1;
+			$post_author = $this->get_default_admin_user();
 		}
 
 		if ( is_numeric( $post_author ) ) {
@@ -624,6 +624,34 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		return $post_author;
+	}
+
+	/**
+	 * Find the ID of the admin email for this site.
+	 * If not found, get the first admin user as default.
+	 *
+	 * @since x.x
+	 * @return int
+	 */
+	private function get_default_admin_user() {
+		$admin = get_user_by( 'email', get_option( 'new_admin_email' ) );
+		if ( $admin ) {
+			return $admin->ID;
+		}
+
+		$admin_users = get_users(
+			array(
+				'fields' => array( 'ID' ),
+				'role'   => 'administrator',
+				'number' => 1,
+			)
+		);
+
+		if ( $admin_users ) {
+			$admin = $admin_users[0];
+		}
+
+		return $admin ? $admin->ID : 1;
 	}
 
     public function get_listing() {

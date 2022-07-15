@@ -587,25 +587,13 @@ final class WPBDP__Settings__Bootstrap {
                 'group'   => 'listings/main',
             )
         );
-        $admin = get_user_by( 'email', get_option( 'new_admin_email' ) );
-        if ( ! $admin ) {
-            $admin_users = get_users(
-                array(
-                    'fields' => array( 'ID' ),
-                    'role'   => 'administrator',
-                )
-            );
 
-            if ( $admin_users ) {
-                $admin = $admin_users[0];
-            }
-        }
         wpbdp_register_setting(
             array(
 				'id'          => 'default-listing-author',
 				'name'        => __( 'Owner of anonymous listings', 'business-directory-plugin' ),
 				'type'        => 'text',
-				'default'     => $admin ? $admin->ID : '1',
+				'default'     => '',
  				'tooltip'      => _x( 'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.', 'settings', 'business-directory-plugin' ),
 				'group'        => 'registration',
 				'grid_classes' => array(
