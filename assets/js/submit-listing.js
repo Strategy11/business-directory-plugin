@@ -379,7 +379,7 @@ jQuery(function($) {
 			self.ajax( data, function( res ) {
 				if ( typeof res.form !== 'undefined' ) {
 					self.$submit.html( res.form );
-                    this.plan_handling(); // Trigger a plan reset.
+					this.plan_handling(); // Trigger a plan reset.
 				}
 			} );
 		},
