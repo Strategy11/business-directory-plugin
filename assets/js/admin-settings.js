@@ -24,6 +24,7 @@ jQuery(function($) {
             });
 
             $.each( self.watch, function( setting_id, affected_settings ) {
+                setting_id = setting_id.replace( '!', '' );
                 $( '[name="wpbdp_settings[' + setting_id + ']"], [name="wpbdp_settings[' + setting_id + '][]"]' ).change(function(){
                     $.each( affected_settings, function(i, v) {
                         self.check_requirements( v );
@@ -62,7 +63,7 @@ jQuery(function($) {
                     }
                 }
 
-                passes = ( ( not && ! value ) || value );
+                passes = not ? ( not && ! value ) : value;
 
                 if ( ! passes ) {
                     break;
