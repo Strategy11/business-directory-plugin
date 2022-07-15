@@ -128,8 +128,9 @@ class WPBDP__Assets {
 
     public function enqueue_scripts() {
         $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-        wp_enqueue_style(
+		wp_enqueue_style(
             'wpbdp-widgets',
             WPBDP_ASSETS_URL . 'css/widgets.min.css',
             array(),
@@ -142,7 +143,7 @@ class WPBDP__Assets {
 
         wp_register_script(
             'wpbdp-js',
-            WPBDP_ASSETS_URL . 'js/wpbdp.min.js',
+			WPBDP_ASSETS_URL . 'js/wpbdp' . $min . '.js',
             array(
                 'jquery',
                 'breakpoints.js',

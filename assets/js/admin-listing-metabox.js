@@ -51,6 +51,14 @@ jQuery( function( $ ) {
 		}
 	};
 
+	// Hide the thumbnail box.
+	setTimeout(
+		function() {
+			document.querySelector( '.editor-post-featured-image' ).closest( '.components-panel__body' ).classList.add( 'hidden' );
+		},
+		3500
+	);
+
     // Properties editing.
     $metabox_tab.find('a.edit-value-toggle').click(function(e) {
         e.preventDefault();
