@@ -81,14 +81,15 @@ class WPBDP_Themes {
 
         $theme_name = str_replace( array( '-' ), array( '_' ), $theme->id );
 
-        $alternatives = array(
-			'wpbdp_themes__' . $theme_name . '_' . $fname,
-			'wpbdp_' . $theme_name . '_' . $fname,
-			$theme_name . '_' . $fname,
+        $alternatives = array();
+        $base = $theme_name . '_' . $fname;
+        $this->add_function_names( $base, $alternatives );
 
-			// Allow for themes with bd- prefix.
-			'wpbdp_themes__' . str_replace( 'bd_', '', $theme_name ) . '_' . $fname,
-		);
+        // Allow for themes with bd- prefix.
+        if ( strpos( $theme_name, 'bd_' ) === 0 ) {
+            $base = str_replace( 'bd_', '', $base );
+            $this->add_function_names( $base, $alternatives );
+        }
 
         foreach ( $alternatives as $alt ) {
             if ( function_exists( $alt ) ) {
@@ -96,6 +97,15 @@ class WPBDP_Themes {
                 return;
             }
         }
+    }
+
+    /**
+     * @since x.x
+     */
+    private function add_function_names( $base, &$alternatives ) {
+        $alternatives[] = 'wpbdp_themes__' . $base;
+		$alternatives[] = 'wpbdp_' . $base;
+		$alternatives[] = $base;
     }
 
     function load_theme_translation() {
