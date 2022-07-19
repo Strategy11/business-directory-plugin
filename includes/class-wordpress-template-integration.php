@@ -78,8 +78,7 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		if ( $query->is_tax() ) {
-			add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
-			add_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+			$this->prep_tax_head();
 		}
 
         remove_filter( 'the_content', 'wpautop' );
@@ -90,6 +89,17 @@ class WPBDP__WordPress_Template_Integration {
     }
 
 	/**
+	 * Prevent a listing title from being used as the category title.
+	 *
+	 * @since x.x
+	 */
+	public function prep_tax_head() {
+		add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
+		add_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+		add_filter( 'astra_featured_image_markup', array( &$this, 'remove_tax_thumbnail' ) );
+	}
+
+	/**
 	 * Since the category page thinks it's a normal post, override the global post.
 	 * This would be better to change the category output, rather than using a "page".
 	 * See WPBDP__Dispatcher.
@@ -98,6 +108,10 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function set_tax_title( $title ) {
+		if ( in_the_loop() && WPBDP__Themes_Compat::is_block_theme() ) {
+			return $title;
+		}
+
 		remove_filter( 'the_title', array( &$this, 'set_tax_title' ) );
 		$term = get_queried_object();
 		return is_object( $term ) ? $term->name : $title;
@@ -110,7 +124,19 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
-		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+		if ( WPBDP__Themes_Compat::is_block_theme() ) {
+			if ( in_the_loop() ) {
+				remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+
+				return $thumbnail;
+			}
+		} else {
+			remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+		}
+
+		// The caption shows in 2021 theme.
+		add_filter( 'wp_get_attachment_caption', '__return_false' );
+
 		return '';
 	}
 
