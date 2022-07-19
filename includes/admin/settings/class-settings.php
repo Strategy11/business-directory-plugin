@@ -272,27 +272,12 @@ class WPBDP__Settings {
 
         if ( array_key_exists( $setting_id, $this->options ) ) {
             $value = $this->options[ $setting_id ];
-        } else {
-            // Try old options.
-            $old_value = get_option( 'wpbdp-' . $setting_id, null );
-
-            if ( ! is_null( $old_value ) ) {
-                $value = $old_value;
-                $this->options[ $setting_id ] = $old_value;
-                update_option( 'wpbdp_settings', $this->options );
-
-                // delete_option( 'wpbdp-' . $setting_id );
-            } else {
-                if ( $default_provided ) {
-                    $value = $default;
-                } else {
-                    if ( ! empty( $this->settings[ $setting_id ] ) ) {
-                        $value = $this->settings[ $setting_id ]['default'];
-                    } else {
-                        $value = false;
-                    }
-                }
-            }
+        } elseif ( $default_provided ) {
+			$value = $default;
+		} elseif ( ! empty( $this->settings[ $setting_id ] ) ) {
+			$value = $this->settings[ $setting_id ]['default'];
+		} else {
+			$value = false;
         }
 
         $value = apply_filters( 'wpbdp_get_option', $value, $setting_id );
