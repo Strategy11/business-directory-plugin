@@ -630,7 +630,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Find the ID of the admin email for this site.
 	 * If not found, get the first admin user as default.
 	 *
-	 * @since x.x
+	 * @since 6.2.5
 	 * @return int
 	 */
 	private function get_default_admin_user() {

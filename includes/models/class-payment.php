@@ -46,7 +46,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	/**
 	 * Created_at isn't getting set by the parent during updates.
 	 *
-	 * @since x.x
+	 * @since 6.2.5
 	 */
 	protected function save_created_at( &$row ) {
 		if ( isset( $row['created_at'] ) || empty( $this->_attrs['created_at'] ) ) {

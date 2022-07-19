@@ -91,7 +91,7 @@ class WPBDP__WordPress_Template_Integration {
 	/**
 	 * Prevent a listing title from being used as the category title.
 	 *
-	 * @since x.x
+	 * @since 6.2.5
 	 */
 	public function prep_tax_head() {
 		add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
