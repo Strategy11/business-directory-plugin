@@ -15,6 +15,10 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
         $html = '';
 
         if ( is_object( $term ) ) {
+			if ( WPBDP__Themes_Compat::is_block_theme() ) {
+				global $wpbdp;
+				$wpbdp->template_integration->prep_tax_head();
+			}
 			$html = $this->get_taxonomy_html( $term );
         }
 
