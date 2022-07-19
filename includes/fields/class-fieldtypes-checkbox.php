@@ -280,7 +280,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 	/**
 	 * Don't count the hidden field value.
 	 *
-	 * @since x.x
+	 * @since 6.2.5
 	 * @return bool
 	 */
 	public function is_empty_value( $value ) {

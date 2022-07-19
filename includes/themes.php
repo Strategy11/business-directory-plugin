@@ -100,7 +100,7 @@ class WPBDP_Themes {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.2.5
 	 */
 	private function add_function_names( $base, &$alternatives ) {
 		$alternatives[] = 'wpbdp_themes__' . $base;

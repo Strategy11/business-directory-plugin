@@ -55,7 +55,7 @@ jQuery(function($) {
 
 
     // Payment receipt print.
-    $( 'document' ).on( 'click', '.wpbdp-payment-receipt-print', function(e) {
+    $( document ).on( 'click', '.wpbdp-payment-receipt-print', function(e) {
         e.preventDefault();
         PrintElem( $( '.wpbdp-payment-receipt' ) );
     });

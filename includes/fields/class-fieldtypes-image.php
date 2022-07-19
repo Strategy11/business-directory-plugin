@@ -204,7 +204,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		/**
 		 * Set a different image size for uploaded files.
 		 *
-		 * @since x.x
+		 * @since 6.2.5
 		 */
 		$thumbnail_width = apply_filters(
 			'wpbdp_img_width',
@@ -224,7 +224,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		/**
 		 * Set a different image size for uploaded files.
 		 *
-		 * @since x.x
+		 * @since 6.2.5
 		 */
 		$img_size = apply_filters(
 			'wpbdp_img_size',

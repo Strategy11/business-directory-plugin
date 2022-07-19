@@ -302,8 +302,9 @@ class WPBDP_Listing_Display_Helper {
 
             if ( $img_id == $thumbnail_id ) {
 				$skipped_thumb = $which_thumbnail === 'none' && $display === 'listing';
-				if ( ! $skipped_thumb && count( $listing_images ) > 1 ) {
-					// If the thumbnail won't be shown, include it in the gallery.
+				$include_thumb = $skipped_thumb && count( $listing_images ) > 1;
+				if ( ! $include_thumb ) {
+					// If the thumbnail was already shown, don't include it in the gallery.
 					continue;
 				}
             }

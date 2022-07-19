@@ -375,7 +375,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.5
 	 */
 	private function add_placeholders( $setting ) {
 		if ( empty( $setting['placeholders'] ) ) {
