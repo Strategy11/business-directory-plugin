@@ -122,9 +122,6 @@ class WPBDP__WordPress_Template_Integration {
 
         $html = wpbdp_current_view_output();
 
-        if ( ! is_404() )
-            $this->end_query();
-
         $this->displayed = true;
 
         return $html;
@@ -277,13 +274,6 @@ class WPBDP__WordPress_Template_Integration {
 		$which_thumbnail = wpbdp_get_option( 'which-thumbnail' );
 		return $which_thumbnail !== 'theme';
 	}
-
-    private function end_query() {
-        global $wp_query;
-
-        $wp_query->current_post = -1;
-        $wp_query->post_count   = 0;
-    }
 
 	public function _comments_template( $template ) {
         $is_single_listing = is_single() && get_post_type() == WPBDP_POST_TYPE;
