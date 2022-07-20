@@ -81,10 +81,8 @@ class WPBDP__WordPress_Template_Integration {
 			$this->prep_tax_head();
 		}
 
-        remove_filter( 'the_content', 'wpautop' );
-
 		// Run last so other hooks don't break our output.
-        add_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
+        add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
 
@@ -147,6 +145,10 @@ class WPBDP__WordPress_Template_Integration {
         }
 
         $html = wpbdp_current_view_output();
+
+		if ( is_tax() ) {
+            $this->end_query();
+		}
 
         $this->displayed = true;
 
@@ -300,6 +302,13 @@ class WPBDP__WordPress_Template_Integration {
 		$which_thumbnail = wpbdp_get_option( 'which-thumbnail' );
 		return $which_thumbnail !== 'theme';
 	}
+
+	private function end_query() {
+        global $wp_query;
+
+        $wp_query->current_post = -1;
+        $wp_query->post_count   = 0;
+    }
 
 	public function _comments_template( $template ) {
         $is_single_listing = is_single() && get_post_type() == WPBDP_POST_TYPE;
