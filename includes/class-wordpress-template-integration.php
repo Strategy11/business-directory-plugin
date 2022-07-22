@@ -143,7 +143,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * Some themes run the taxonomy title in the loop too.
 	 * Check our custom loop flag.
 	 *
-	 * @since x.x
+	 * @since 6.2.6
 	 * @return bool
 	 */
 	private function in_the_loop() {

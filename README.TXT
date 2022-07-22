@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 6.2.5
+Stable tag: 6.2.6
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,10 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.2.6 =
+* Fix: Fatal error on category pages when CPT integration was disabled.
+* Fix: Some themes (like Divi) showed repeat content on category pages.
+
 = 6.2.5 =
 * If thumbnails are turned off, and images are showing in a gallery with the listing, then show the thumbnail image there too.
 * Set payment date and time to read only if there's a subscription.
