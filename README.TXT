@@ -223,32 +223,4 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Prevent duplicate heading in taxonomy modal when another plugin adds a heading.
 * New: wpbdp_tab_content hook for adding content to the settings tabs.
 
-= 6.0 =
-* New: Updated the admin area for a more enjoyable experience. This also shortens the main nav to make it easier to find links.
-* New: Add toggles in admin settings for a more visual UI.
-* New: Allow businessdirectory-listings shortcode without setting a category, and remove the directory header when the shortcode is used directly in a page.
-* New: Update the datepicker styling for a more modern look.
-* New: Added a notification center to keep all notifications in one spot instead of filling the top of the page.
-* Include datepicker CSS in plugin instead of loading it from the jQuery CDN.
-* Fix: When creating a listing from the admin area, the expiration was not getting automatically set.
-* Fix: Don't use removed settings when checking conditional logic in admin area. This was causing some settings to never show.
-* Fix: When validating file mime type, check the file extension too.
-
-= 5.18 =
-* New: Allow setting category in the [businessdirectory-featured-listings] shortcode.
-* Rename "Fee Plan" to "Plan" since they can be free.
-* Add modal confirmation for deleting a field and plan.
-* Add compatibility with block themes and Twenty Twenty Two theme.
-* Make the listing expiration date read-only if there's an active subscription. This prevents issues since the data doesn't update the subscription.
-* Fix: Images weren't uploading during listing imports.
-* Fix: Only load the admin BD scripts on BD pages.
-* Fix: The image ordering wasn't saving in the front-end listing form.
-* Fix: When creating a listing from the admin area, set the image limits based on the newly selected plan.
-* Fix: Don't show the "free" label in the plans table for variable plans.
-* Fix: All selecting a new plan when editing a listing if the previously selected plan is disabled.
-* Fix: Don't delete a removed image if it's attached to another post type.
-* Fix: The default BD theme showed the listing title twice.
-* Fix: The default plan wasn't showing up when enabled when used with paid plans.
-* Fix: The spacing between some action buttons and the listing thumbnail were too small.
-
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
