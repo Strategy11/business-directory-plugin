@@ -43,6 +43,11 @@ class WPBDP__WordPress_Template_Integration {
 
 		$allow_override = apply_filters( 'wpbdp_allow_template_override', true );
 
+		if ( $wp_query->is_tax() ) {
+			// Force some themes to use the page template.
+			$wp_query->is_singular = true;
+		}
+
 		if ( $allow_override ) {
 			add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 			$page_template = get_query_template( 'page', $this->get_template_alternatives() );
@@ -94,7 +99,6 @@ class WPBDP__WordPress_Template_Integration {
 	public function prep_tax_head() {
 		add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
 		add_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
-		add_filter( 'astra_featured_image_markup', array( &$this, 'remove_tax_thumbnail' ) );
 	}
 
 	/**
@@ -106,7 +110,8 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function set_tax_title( $title ) {
-		if ( in_the_loop() && WPBDP__Themes_Compat::is_block_theme() ) {
+		if ( $this->in_the_loop() ) {
+			// If this is not a category, don't change it.
 			return $title;
 		}
 
@@ -122,15 +127,11 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
-		if ( WPBDP__Themes_Compat::is_block_theme() ) {
-			if ( in_the_loop() ) {
-				remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
-
-				return $thumbnail;
-			}
-		} else {
-			remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+		if ( $this->in_the_loop() ) {
+			return $thumbnail;
 		}
+
+		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
 
 		// The caption shows in 2021 theme.
 		add_filter( 'wp_get_attachment_caption', '__return_false' );
@@ -154,6 +155,18 @@ class WPBDP__WordPress_Template_Integration {
 
         return $html;
     }
+
+	/**
+	 * Some themes run the taxonomy title in the loop too.
+	 * Check our custom loop flag.
+	 *
+	 * @since x.x
+	 * @return bool
+	 */
+	private function in_the_loop() {
+		global $wp_query;
+		return $wp_query->wpbdp_in_the_loop;
+	}
 
     public function add_basic_body_classes( $classes = array() ) {
 		if ( 'theme' === wpbdp_get_option( 'themes-button-style' ) ) {
