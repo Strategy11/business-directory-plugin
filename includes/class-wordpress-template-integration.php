@@ -127,11 +127,11 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
+		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
+
 		if ( $this->in_the_loop() ) {
 			return $thumbnail;
 		}
-
-		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
 
 		// The caption shows in 2021 theme.
 		add_filter( 'wp_get_attachment_caption', '__return_false' );
@@ -148,7 +148,7 @@ class WPBDP__WordPress_Template_Integration {
         $html = wpbdp_current_view_output();
 
 		if ( is_tax() ) {
-            $this->end_query();
+			$this->end_query();
 		}
 
         $this->displayed = true;
@@ -317,11 +317,11 @@ class WPBDP__WordPress_Template_Integration {
 	}
 
 	private function end_query() {
-        global $wp_query;
+		global $wp_query;
 
-        $wp_query->current_post = -1;
-        $wp_query->post_count   = 0;
-    }
+		$wp_query->current_post = -1;
+		$wp_query->post_count   = 0;
+	}
 
 	public function _comments_template( $template ) {
         $is_single_listing = is_single() && get_post_type() == WPBDP_POST_TYPE;
