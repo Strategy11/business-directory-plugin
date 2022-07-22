@@ -15,7 +15,7 @@ class WPBDP__Query_Integration {
         add_action( 'parse_query', array( $this, 'set_query_flags' ), 50 );
         add_action( 'template_redirect', array( $this, 'set_404_flag' ), 0 );
 
-        add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 10, 1 );
+        add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 10 );
         add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
 
         // Core sorting options.
@@ -62,6 +62,7 @@ class WPBDP__Query_Integration {
         $query->wpbdp_is_tag       = false;
         $query->wpbdp_our_query    = false;
         $query->wpbdp_is_shortcode = false;
+        $query->wpbdp_in_the_loop  = false;
 
         // Is this a listing query?
         // FIXME: this results in false positives frequently.
@@ -78,7 +79,6 @@ class WPBDP__Query_Integration {
             $query->wpbdp_view        = 'show_category';
         }
 
-        // wpbdp_debug_e( $query );
         $tags_slug = wpbdp_get_option( 'permalinks-tags-slug' );
         if ( ! empty( $query->query_vars[ WPBDP_TAGS_TAX ] ) ) {
             $query->wpbdp_is_tag = true;
@@ -178,7 +178,8 @@ class WPBDP__Query_Integration {
         }
 
         if ( $query->wpbdp_is_category || $query->wpbdp_is_tag ) {
-            $current_post_types = $query->get( 'post_type' ) ? $query->get( 'post_type' ) : array();
+            $post_type = $query->get( 'post_type' );
+            $current_post_types = $post_type ? $post_type : array();
 
             if ( ! is_array( $current_post_types ) ) {
                 $current_post_types = array( $current_post_types );

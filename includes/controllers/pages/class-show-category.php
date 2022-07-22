@@ -15,7 +15,7 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
         $html = '';
 
         if ( is_object( $term ) ) {
-			if ( is_callable( 'WPBDP__Themes_Compat::s_block_theme' ) && WPBDP__Themes_Compat::is_block_theme() ) {
+			if ( is_callable( 'WPBDP__Themes_Compat::is_block_theme' ) && WPBDP__Themes_Compat::is_block_theme() ) {
 				// This isn't loaded when disable-cpt is on.
 				global $wpbdp;
 				$wpbdp->template_integration->prep_tax_head();
