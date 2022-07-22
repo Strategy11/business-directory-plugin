@@ -87,7 +87,7 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		// Run last so other hooks don't break our output.
-        add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
+		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
         remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
     }
 
@@ -139,6 +139,18 @@ class WPBDP__WordPress_Template_Integration {
 		return '';
 	}
 
+	/**
+	 * Some themes run the taxonomy title in the loop too.
+	 * Check our custom loop flag.
+	 *
+	 * @since x.x
+	 * @return bool
+	 */
+	private function in_the_loop() {
+		global $wp_query;
+		return $wp_query->wpbdp_in_the_loop;
+	}
+
     public function display_view_in_content( $content = '' ) {
 		remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
         if ( $this->displayed ) {
@@ -155,18 +167,6 @@ class WPBDP__WordPress_Template_Integration {
 
         return $html;
     }
-
-	/**
-	 * Some themes run the taxonomy title in the loop too.
-	 * Check our custom loop flag.
-	 *
-	 * @since x.x
-	 * @return bool
-	 */
-	private function in_the_loop() {
-		global $wp_query;
-		return $wp_query->wpbdp_in_the_loop;
-	}
 
     public function add_basic_body_classes( $classes = array() ) {
 		if ( 'theme' === wpbdp_get_option( 'themes-button-style' ) ) {
