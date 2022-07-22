@@ -9,6 +9,7 @@ if ( $query->have_posts() ) :
 		wpbdp_render_listing( null, 'excerpt', 'echo' );
 	}
 
+	/** @phpstan-ignore-next-line */
 	$wp_query->wpbdp_in_the_loop = false;
 
 	/** @phpstan-ignore-next-line */
