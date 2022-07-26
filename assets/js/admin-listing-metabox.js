@@ -54,7 +54,10 @@ jQuery( function( $ ) {
 	// Hide the thumbnail box.
 	setTimeout(
 		function() {
-			document.querySelector( '.editor-post-featured-image' ).closest( '.components-panel__body' ).classList.add( 'hidden' );
+            var featured = document.querySelector( '.editor-post-featured-image' );
+            if ( featured !== null ) {
+                featured.closest( '.components-panel__body' ).classList.add( 'hidden' );
+            }
 		},
 		3500
 	);

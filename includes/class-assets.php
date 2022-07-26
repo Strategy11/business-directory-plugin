@@ -332,7 +332,7 @@ class WPBDP__Assets {
 
 		wp_enqueue_script(
 			'wpbdp-admin-listing-metabox',
-			WPBDP_ASSETS_URL . 'js/admin-listing-metabox.min.js',
+			WPBDP_ASSETS_URL . 'js/admin-listing-metabox' . $min . '.js',
 			array( 'wpbdp-admin-js', 'jquery-ui-datepicker' ),
 			WPBDP_VERSION,
 			true
