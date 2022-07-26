@@ -152,7 +152,7 @@ class WPBDP__WordPress_Template_Integration {
 	}
 
     public function display_view_in_content( $content = '' ) {
-		remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 5 );
+		remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
         if ( $this->displayed ) {
             return '';
         }
