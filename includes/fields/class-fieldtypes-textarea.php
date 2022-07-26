@@ -325,52 +325,24 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
         if ( 'content' == $field->get_association() ) {
             if ( $field->data( 'allow_filters' ) ) {
-                // Prevent Jetpack sharing from appearing twice. (#2039)
-                $jetpack_hack = has_filter( 'the_content', 'sharing_display' );
-
-                if ( $jetpack_hack )
-                    remove_filter( 'the_content', 'sharing_display', 19 );
-
                 $value = apply_filters( 'the_content', $value );
-
-                if ( $jetpack_hack )
-                    add_filter( 'the_content', 'sharing_display', 19 );
             } else {
-                if ( $field->data( 'allow_shortcodes' ) ) {
-                    global $post;
-                    // Try to protect us from sortcodes messing things for us.
-                    $current_post = $post;
-
-                    $value = wpautop( $value );
-
-                    if ( wpbdp_get_option( 'disable-cpt' ) || in_array( wpbdp_current_view(), array( 'search', 'all_listings' ), true ) ) {
-                        $value = do_shortcode( shortcode_unautop( $value ) );
-                    }
-
-                    $post = $current_post;
-                } else {
-                    $value = wpautop( $value );
-                }
+				$value = wpautop( $value );
+				if ( $field->data( 'allow_shortcodes' ) ) {
+					$value = do_shortcode( shortcode_unautop( $value ) );
+				}
             }
         } elseif ( 'excerpt' == $field->get_association() ) {
             if ( $field->data( 'auto_excerpt' ) ) {
                 $value = $this->get_excerpt_value_from_post( $post_id );
             }
 
-            if ( $field->data( 'allow_shortcodes' ) ) {
-                global $post;
-                // Try to protect us from sortcodes messing things for us.
-                $current_post = $post;
-
-                $value = wpautop( $value );
-                $value = do_shortcode( shortcode_unautop( $value ) );
-
-                $post = $current_post;
-            } else {
-                if ( $field->data( 'allow_html' ) ) {
-                    $value = wpautop( $value );
-                }
-            }
+			if ( $field->data( 'allow_shortcodes' ) ) {
+				$value = wpautop( $value );
+				$value = do_shortcode( shortcode_unautop( $value ) );
+			} elseif ( $field->data( 'allow_html' ) ) {
+				$value = wpautop( $value );
+			}
 
             if ( ! $field->data( 'allow_html' ) ) {
                 $value = nl2br( $value );
