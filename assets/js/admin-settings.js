@@ -51,14 +51,18 @@ jQuery(function($) {
                 var req_name = reqs[ i ][0].replace( '!', '' );
                 var not      = ( -1 !== reqs[ i ][0].indexOf( '!' ) );
                 var value    = reqs[ i ][1];
+				var $field;
 
                 // Obtain updated value (if possible).
                 var $rel_setting = $( '#wpbdp-settings-' + req_name );
                 if ( $rel_setting.length > 0 ) {
                     if ( $rel_setting.closest( '.wpbdp-setting-row' ).hasClass( 'wpbdp-setting-disabled' ) ) {
                         value = false;
+					} else if ( $rel_setting.hasClass( 'wpbdp-settings-type-select' ) ) {
+						$field = $rel_setting.find( '[name="wpbdp_settings[' + req_name + ']"]' ).val();
+                        value = $field !== '';
                     } else {
-                        var $field = $rel_setting.find( '[name="wpbdp_settings[' + req_name + ']"]:checked, [name="wpbdp_settings[' + req_name + '][]"]:checked' );
+                        $field = $rel_setting.find( '[name="wpbdp_settings[' + req_name + ']"]:checked, [name="wpbdp_settings[' + req_name + '][]"]:checked' );
                         value = $field.length > 0;
                     }
                 }
