@@ -98,6 +98,19 @@ class WPBDP_Currency_Helper {
 	}
 
 	/**
+	 * Check the dropdown, then the custom currency option.
+	 *
+	 * @return string
+	 */
+	public static function get_currency_code() {
+		$code = wpbdp_get_option( 'currency', 'USD' );
+		if ( empty( $code ) ) {
+			$code = wpbdp_get_option( 'currency-code', 'USD' );
+		}
+		return trim( $code );
+	}
+
+	/**
 	 * @since x.x
 	 */
 	public static function get_currency( $code = '' ) {
