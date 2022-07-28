@@ -12,7 +12,7 @@ class WPBDP_Currency_Helper {
 	/**
 	 * @since x.x
 	 */
-	function currency_format( $amount, $args = array() ) {
+	public static function currency_format( $amount, $args = array() ) {
 		$defaults = array(
 			'decimals'      => false,
 			'force_numeric' => false,
@@ -34,10 +34,6 @@ class WPBDP_Currency_Helper {
 			$currency['symbol_right'] = strtoupper( $code );
 		}
 
-		if ( 'placeholder' === $amount ) {
-			$amount = number_format_i18n( $amount, $currency['decimals'] );
-		}
-
 		return self::format_amount_for_currency( $amount, $currency );
 	}
 
@@ -53,11 +49,15 @@ class WPBDP_Currency_Helper {
 			$currency = self::get_currency();
 		}
 
-		if ( is_string( $amount ) ) {
-			$amount = floatval( self::prepare_price( $amount, $currency ) );
+		if ( $amount === 'placeholder' ) {
+			$amount = '[amount]';
+		} else {
+			if ( is_string( $amount ) ) {
+				$amount = floatval( self::prepare_price( $amount, $currency ) );
+			}
+			$amount = number_format( $amount, $currency['decimals'], $currency['decimal_separator'], $currency['thousand_separator'] );
 		}
 
-		$amount       = number_format( $amount, $currency['decimals'], $currency['decimal_separator'], $currency['thousand_separator'] );
 		$left_symbol  = $currency['symbol_left'] . $currency['symbol_padding'];
 		$right_symbol = $currency['symbol_padding'] . $currency['symbol_right'];
 		$amount       = $left_symbol . $amount . $right_symbol;
