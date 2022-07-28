@@ -212,7 +212,7 @@ class WPBDP__Query_Integration {
 			return $posts;
 		}
 
-		remove_filter( 'posts_results', array( $this, 'check_child_page' ), 10, 2 );
+		remove_filter( 'posts_results', array( $this, 'check_child_page' ) );
 		if ( ! empty( $posts ) ) {
 			return $posts;
 		}
