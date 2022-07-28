@@ -31,7 +31,7 @@ class WPBDP_Currency_Helper {
 		}
 
 		if ( ! $currency['symbol_left'] && ! $currency['symbol_right'] ) {
-			$currency['symbol_right'] = strtoupper( $code );
+			$currency['symbol_right'] = strtoupper( $currency['code'] );
 		}
 
 		return self::format_amount_for_currency( $amount, $currency );
@@ -127,7 +127,7 @@ class WPBDP_Currency_Helper {
 
 			$currency = array(
 				'name'               => '',
-				'symbol_left'        => $symbol_position === 'left'  ? $currency_symbol : '',
+				'symbol_left'        => $symbol_position === 'left' ? $currency_symbol : '',
 				'symbol_right'       => $symbol_position === 'right' ? $currency_symbol : '',
 				'symbol_padding'     => ' ',
 				'thousand_separator' => ',',
@@ -165,7 +165,7 @@ class WPBDP_Currency_Helper {
 	/**
 	 * @since x.x
 	 */
-	public static function get_currencies( $currency = false ) {          
+	public static function get_currencies( $currency = false ) {
 		$currencies = array(
 			'AUD' => array(
 				'name' => __( 'Australian Dollar', 'business-directory-plugin' ),
