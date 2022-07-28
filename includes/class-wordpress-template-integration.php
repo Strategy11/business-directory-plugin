@@ -158,6 +158,7 @@ class WPBDP__WordPress_Template_Integration {
         }
 
         $html = wpbdp_current_view_output();
+		$this->after_content_processed( $html );
 
 		if ( is_tax() ) {
 			$this->end_query();
@@ -167,6 +168,22 @@ class WPBDP__WordPress_Template_Integration {
 
         return $html;
     }
+
+	/**
+	 * Allow themes and plugins to override the final content when needed.
+	 *
+	 * @since x.x
+	 */
+	private function after_content_processed( &$content ) {
+		if ( class_exists( 'Elementor\Plugin' ) ) {
+			$content = Elementor\Plugin::$instance->frontend->apply_builder_in_content( $content );
+		}
+
+		/**
+		 * @since x.x
+		 */
+		$content = apply_filters( 'wpbdp_the_content', $content );
+	}
 
     public function add_basic_body_classes( $classes = array() ) {
 		if ( 'theme' === wpbdp_get_option( 'themes-button-style' ) ) {
