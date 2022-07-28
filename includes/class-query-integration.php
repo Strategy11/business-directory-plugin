@@ -196,11 +196,17 @@ class WPBDP__Query_Integration {
             }
 
             $query->set( 'post_type', $current_post_types );
-        } elseif ( 'show_listing' === $query->wpbdp_view && $query->is_main_query() ) {
+		} elseif ( 'show_listing' === $query->wpbdp_view && $query->is_main_query() ) {
 			add_filter( 'posts_results', array( $this, 'check_child_page' ), 10, 2 );
 		}
     }
 
+	/**
+	 * If a listing wasn't found, check for a child page instead.
+	 *
+	 * @since x.x
+	 * @return array
+	 */
 	public function check_child_page( $posts, $query ) {
 		if ( ! $query->is_main_query() ) {
 			return $posts;
