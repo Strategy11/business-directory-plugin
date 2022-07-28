@@ -54,15 +54,7 @@ class WPBDP__Query_Integration {
             return;
         }
 
-        // Defaults.
-        $query->wpbdp_view         = '';
-        $query->wpbdp_is_main_page = false;
-        $query->wpbdp_is_listing   = false;
-        $query->wpbdp_is_category  = false;
-        $query->wpbdp_is_tag       = false;
-        $query->wpbdp_our_query    = false;
-        $query->wpbdp_is_shortcode = false;
-        $query->wpbdp_in_the_loop  = false;
+        $this->set_defaults_on_query( $query );
 
         // Is this a listing query?
         // FIXME: this results in false positives frequently.
@@ -110,6 +102,20 @@ class WPBDP__Query_Integration {
 
         do_action_ref_array( 'wpbdp_query_flags', array( $query ) );
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function set_defaults_on_query( &$query ) {
+		$query->wpbdp_view         = '';
+		$query->wpbdp_is_main_page = false;
+		$query->wpbdp_is_listing   = false;
+		$query->wpbdp_is_category  = false;
+		$query->wpbdp_is_tag       = false;
+		$query->wpbdp_our_query    = false;
+		$query->wpbdp_is_shortcode = false;
+		$query->wpbdp_in_the_loop  = false;
+	}
 
     /**
      * Uses the current query and the main query objects to determine if the current
@@ -190,8 +196,38 @@ class WPBDP__Query_Integration {
             }
 
             $query->set( 'post_type', $current_post_types );
-        }
+        } elseif ( 'show_listing' === $query->wpbdp_view && $query->is_main_query() ) {
+			add_filter( 'posts_results', array( $this, 'check_child_page' ), 10, 2 );
+		}
     }
+
+	public function check_child_page( $posts, $query ) {
+		if ( ! $query->is_main_query() ) {
+			return $posts;
+		}
+
+		remove_filter( 'posts_results', array( $this, 'check_child_page' ), 10, 2 );
+		if ( ! empty( $posts ) ) {
+			return $posts;
+		}
+
+		// Check for child page.
+		$is_page = get_posts(
+			array(
+				'post_parent' => wpbdp_get_page_id(),
+				'post_type'   => 'page',
+				'name'        => $query->query_vars['name'],
+			)
+		);
+
+		if ( $is_page ) {
+			global $wp_query;
+			$wp_query->found_posts = 1;
+			$this->set_defaults_on_query( $wp_query );
+			$posts = $is_page;
+		}
+		return $posts;
+	}
 
 	/**
 	 * @param string[] $pieces
