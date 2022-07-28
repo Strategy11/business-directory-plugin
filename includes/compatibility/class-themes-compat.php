@@ -3,6 +3,7 @@ class WPBDP__Themes_Compat {
 
     private $theme = '';
     private $parent_theme = '';
+	private $post_count = false;
 
     public function __construct() {
         if ( wpbdp_get_option( 'disable-cpt' ) )
@@ -45,7 +46,8 @@ class WPBDP__Themes_Compat {
 
     public function get_themes_with_fixes() {
         $themes_with_fixes = array(
-            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity', 'x', 'u-design', 'thesis',
+            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro',
+            'canvas', 'builder', 'divi', 'longevity', 'x', 'u-design', 'thesis',
             'takeawaywp',
             'foodiepro-2.1.8',
             'ultimatum',
@@ -197,6 +199,9 @@ class WPBDP__Themes_Compat {
             return;
         }
 
+        add_action( 'et_theme_builder_after_layout_opening_wrappers', array( &$this, 'theme_divi_clear_post' ) );
+        add_filter( 'et_core_page_resource_is_singular', '__return_false' );
+
         if ( 'et_full_width_page' != get_post_meta( wpbdp_get_page_id( 'main' ), '_et_pb_page_layout', true ) ) {
             return;
         }
@@ -204,6 +209,31 @@ class WPBDP__Themes_Compat {
         add_filter( 'body_class', array( $this, 'theme_divi_add_full_with_page_body_class' ) );
         add_filter( 'is_active_sidebar', array( $this, 'theme_divi_disable_sidebar' ), 999, 2 );
     }
+
+	/**
+	 * Trick Divi into thining there are no posts. If there are, the styling isn't
+	 * loaded.
+	 *
+	 * @since x.x
+	 */
+	public function theme_divi_clear_post() {
+		global $wp_query;
+		$this->post_count = $wp_query->post_count;
+		if ( $this->post_count ) {
+			$wp_query->post_count = 0;
+			add_action( 'et_theme_builder_before_layout_closing_wrappers', array( &$this, 'theme_divi_reset_post' ) );
+		}
+	}
+
+	/**
+	 * Reset the post count so they'll show.
+	 *
+	 * @since x.x
+	 */
+	public function theme_divi_reset_post() {
+		global $wp_query;
+		$wp_query->post_count = $this->post_count;
+	}
 
     public function theme_divi_add_full_with_page_body_class( $classes ) {
         $classes[] = 'et_full_width_page';
