@@ -161,7 +161,7 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 = 6.2.7 =
 * New: Add more currencies including a custom currency option. Simplify the settings for currencies.
 * New: Allow child pages to be created under the business-directory page.
-* Hide the directory slug setting wen it's not needed.
+* Hide the directory slug setting when it's not needed.
 * New: Add wpbdp_use_single hook to tell themes to use the category template page instead of the page template.
 * Better integration with Breadcrumbs NavXT: keep the home page link, prevent the BD page from showing twice with some settings, and use a link on the BD page.
 * Fix: Correctly process shortcodes and apply filters in content when the settings are on in the field.
