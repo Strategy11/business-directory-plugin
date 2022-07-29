@@ -45,7 +45,8 @@ class WPBDP__Themes_Compat {
 
     public function get_themes_with_fixes() {
         $themes_with_fixes = array(
-            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro', 'canvas', 'builder', 'Divi', 'longevity', 'x', 'u-design', 'thesis',
+            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro',
+            'canvas', 'builder', 'divi', 'longevity', 'x', 'u-design', 'thesis',
             'takeawaywp',
             'foodiepro-2.1.8',
             'ultimatum',
@@ -196,6 +197,9 @@ class WPBDP__Themes_Compat {
         if ( ! wpbdp_is_taxonomy() ) {
             return;
         }
+
+		// Divi don't need to load the single page template.
+		add_filter( 'wpbdp_use_single', '__return_false' );
 
         if ( 'et_full_width_page' != get_post_meta( wpbdp_get_page_id( 'main' ), '_et_pb_page_layout', true ) ) {
             return;

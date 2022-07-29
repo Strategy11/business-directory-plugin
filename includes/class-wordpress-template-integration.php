@@ -43,7 +43,12 @@ class WPBDP__WordPress_Template_Integration {
 
 		$allow_override = apply_filters( 'wpbdp_allow_template_override', true );
 
-		if ( $wp_query->is_tax() ) {
+		/**
+		 * Some themes work better without using the page template.
+		 *
+		 * @since x.x
+		 */
+		if ( $wp_query->is_tax() && apply_filters( 'wpbdp_use_single', true ) ) {
 			// Force some themes to use the page template.
 			$wp_query->is_singular = true;
 		}
