@@ -79,7 +79,7 @@ namespace {
 	/* Integrations */
 
 	class bcn_breadcrumb {
-		public function __construct( $title = '', $template = '', array $type = array(), $url = '', $id = NULL) {
+		public function __construct( $title = '', $template = '', array $type = array(), $url = '', $id = null, $linked = false ) {
 		}
 	}
 
