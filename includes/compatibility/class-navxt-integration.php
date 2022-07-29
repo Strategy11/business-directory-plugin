@@ -51,22 +51,11 @@ class WPBDP_NavXT_Integration {
     }
 
     function main_page_breadcrumb( $trail ) {
-        $last = $trail->trail[ count( $trail->trail ) - 1 ];
-
-        if ( method_exists( $last, 'get_types' ) ) {
-            $types = $last->get_types();
-        } else if ( $last ) {
-            $vars = get_object_vars( $last );
-            $types = (array) ( isset( $vars['type'] ) ? $vars['type'] : array() );
-        } else {
-            $types = array();
-        }
-
 		if ( $this->has_dir_page( $trail ) ) {
 			return;
 		}
 
-		if ( in_array( 'home', $types, true ) ) {
+		if ( $this->has_home_page( $trail ) ) {
 			$home = array_pop( $trail->trail );
 		}
 
@@ -86,6 +75,19 @@ class WPBDP_NavXT_Integration {
 			$trail->add( $home );
 		}
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function has_home_page( $trail ) {
+		$last = end( $trail->trail );
+
+		$types = array();
+		if ( method_exists( $last, 'get_types' ) ) {
+			$types = $last->get_types();
+		}
+		return in_array( 'home', $types, true );
+	}
 
 	/**
 	 * Check if BD is already included to avoid a duplicate.
