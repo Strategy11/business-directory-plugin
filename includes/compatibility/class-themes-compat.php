@@ -3,7 +3,6 @@ class WPBDP__Themes_Compat {
 
     private $theme = '';
     private $parent_theme = '';
-	private $post_count = false;
 
     public function __construct() {
         if ( wpbdp_get_option( 'disable-cpt' ) )
