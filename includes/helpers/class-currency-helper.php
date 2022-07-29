@@ -5,12 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @since x.x
+ * @since 6.2.7
  */
 class WPBDP_Currency_Helper {
 
 	/**
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	public static function currency_format( $amount, $args = array() ) {
 		$defaults = array(
@@ -38,7 +38,7 @@ class WPBDP_Currency_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.7
 	 *
 	 * @param string|float $amount The string could contain the currency symbol.
 	 * @param array|null   $currency
@@ -66,7 +66,7 @@ class WPBDP_Currency_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	public static function prepare_price( $price, $currency ) {
 		$price = trim( $price );
@@ -84,7 +84,7 @@ class WPBDP_Currency_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	private static function maybe_use_decimal( $amount, $currency ) {
 		if ( $currency['thousand_separator'] == '.' ) {
@@ -111,7 +111,7 @@ class WPBDP_Currency_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	public static function get_currency( $code = '' ) {
 		if ( empty( $code ) ) {
@@ -140,7 +140,7 @@ class WPBDP_Currency_Helper {
 		/**
 		 * Allow custom code to change the currency for different currencies per form.
 		 *
-		 * @since x.x
+		 * @since 6.2.7
 		 * @param array $currency  The currency information.
 		 */
 		$currency = apply_filters( 'wpbdp_currency', $currency );
@@ -163,7 +163,7 @@ class WPBDP_Currency_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	public static function get_currencies( $currency = false ) {
 		$currencies = array(
