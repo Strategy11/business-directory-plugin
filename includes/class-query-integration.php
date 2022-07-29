@@ -104,7 +104,7 @@ class WPBDP__Query_Integration {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	private function set_defaults_on_query( &$query ) {
 		$query->wpbdp_view         = '';
@@ -204,7 +204,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * If a listing wasn't found, check for a child page instead.
 	 *
-	 * @since x.x
+	 * @since 6.2.7
 	 * @return array
 	 */
 	public function check_child_page( $posts, $query ) {

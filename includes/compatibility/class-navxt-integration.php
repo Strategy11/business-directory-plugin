@@ -77,7 +77,7 @@ class WPBDP_NavXT_Integration {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	private function has_home_page( $trail ) {
 		$last = end( $trail->trail );
@@ -92,7 +92,7 @@ class WPBDP_NavXT_Integration {
 	/**
 	 * Check if BD is already included to avoid a duplicate.
 	 *
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	private function has_dir_page( $trail ) {
 		$page_id = wpbdp_get_page_id();

@@ -46,7 +46,7 @@ class WPBDP__WordPress_Template_Integration {
 		/**
 		 * Some themes work better without using the page template.
 		 *
-		 * @since x.x
+		 * @since 6.2.7
 		 */
 		if ( $wp_query->is_tax() && apply_filters( 'wpbdp_use_single', true ) ) {
 			// Force some themes to use the page template.
@@ -177,7 +177,7 @@ class WPBDP__WordPress_Template_Integration {
 	/**
 	 * Allow themes and plugins to override the final content when needed.
 	 *
-	 * @since x.x
+	 * @since 6.2.7
 	 */
 	private function after_content_processed( &$content ) {
 		if ( class_exists( 'Elementor\Plugin' ) ) {
@@ -185,7 +185,7 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		/**
-		 * @since x.x
+		 * @since 6.2.7
 		 */
 		$content = apply_filters( 'wpbdp_the_content', $content );
 	}
