@@ -62,6 +62,7 @@ final class WPBDP__Settings__Bootstrap {
                 'group'     => 'permalink_settings',
                 'validator' => 'no-spaces,trim,required',
 				'class'     => 'wpbdp-half',
+				'requirements' => array( 'disable-cpt' ),
             )
         );
         wpbdp_register_setting(
