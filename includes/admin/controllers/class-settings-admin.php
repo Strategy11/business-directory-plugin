@@ -22,11 +22,13 @@ class WPBDP__Settings_Admin {
     }
 
     public function enqueue_scripts( $hook ) {
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
         // strstr() until https://core.trac.wordpress.org/ticket/18857 is fixed.
         if ( false !== strstr( $hook, 'wpbdp_settings' ) ) {
             wp_enqueue_script(
                 'wpbdp-admin-settings',
-                WPBDP_ASSETS_URL . 'js/admin-settings.min.js',
+				WPBDP_ASSETS_URL . 'js/admin-settings' . $min . '.js',
                 array(),
                 WPBDP_VERSION,
 				true

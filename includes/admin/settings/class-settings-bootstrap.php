@@ -1182,39 +1182,23 @@ final class WPBDP__Settings__Bootstrap {
                 'type'         => 'select',
                 'name'         => _x( 'Currency Code', 'settings', 'business-directory-plugin' ),
                 'default'      => 'USD',
-                'options'      => array(
-                    'AUD' => _x( 'Australian Dollar (AUD)', 'admin settings', 'business-directory-plugin' ),
-                    'BRL' => _x( 'Brazilian Real (BRL)', 'admin settings', 'business-directory-plugin' ),
-                    'CAD' => _x( 'Canadian Dollar (CAD)', 'admin settings', 'business-directory-plugin' ),
-                    'CZK' => _x( 'Czech Koruna (CZK)', 'admin settings', 'business-directory-plugin' ),
-                    'DKK' => _x( 'Danish Krone (DKK)', 'admin settings', 'business-directory-plugin' ),
-                    'AED' => _x( 'United Arab Emirates Dirham (AED)', 'admin settings', 'business-directory-plugin' ),
-                    'EUR' => _x( 'Euro (EUR)', 'admin settings', 'business-directory-plugin' ),
-                    'HKD' => _x( 'Hong Kong Dollar (HKD)', 'admin settings', 'business-directory-plugin' ),
-                    'HUF' => _x( 'Hungarian Forint (HUF)', 'admin settings', 'business-directory-plugin' ),
-                    'ILS' => _x( 'Israeli New Shequel (ILS)', 'admin settings', 'business-directory-plugin' ),
-                    'JPY' => _x( 'Japanese Yen (JPY)', 'admin settings', 'business-directory-plugin' ),
-                    'MAD' => _x( 'Moroccan Dirham (MAD)', 'admin settings', 'business-directory-plugin' ),
-                    'MYR' => _x( 'Malasian Ringgit (MYR)', 'admin settings', 'business-directory-plugin' ),
-                    'MXN' => _x( 'Mexican Peso (MXN)', 'admin settings', 'business-directory-plugin' ),
-                    'NOK' => _x( 'Norwegian Krone (NOK)', 'admin settings', 'business-directory-plugin' ),
-                    'NZD' => _x( 'New Zealand Dollar (NZD)', 'admin settings', 'business-directory-plugin' ),
-                    'PHP' => _x( 'Philippine Peso (PHP)', 'admin settings', 'business-directory-plugin' ),
-                    'PLN' => _x( 'Polish Zloty (PLN)', 'admin settings', 'business-directory-plugin' ),
-                    'GBP' => _x( 'Pound Sterling (GBP)', 'admin settings', 'business-directory-plugin' ),
-                    'SGD' => _x( 'Singapore Dollar (SGD)', 'admin settings', 'business-directory-plugin' ),
-                    'SEK' => _x( 'Swedish Krona (SEK)', 'admin settings', 'business-directory-plugin' ),
-                    'CHF' => _x( 'Swiss Franc (CHF)', 'admin settings', 'business-directory-plugin' ),
-                    'TWD' => _x( 'Taiwan Dollar (TWD)', 'admin settings', 'business-directory-plugin' ),
-                    'THB' => _x( 'Thai Baht (THB)', 'admin settings', 'business-directory-plugin' ),
-                    'TRY' => _x( 'Turkish Lira (TRY)', 'admin settings', 'business-directory-plugin' ),
-                    'USD' => _x( 'U.S. Dollar (USD)', 'admin settings', 'business-directory-plugin' ),
-                ),
+                'options'      => WPBDP_Currency_Helper::list_currencies() + array( '' => '- ' . __( 'Custom', 'business-directory-plugin' ) . ' -' ),
                 'desc'         => self::gateway_description(),
                 'group'        => 'payment/main',
 				'class'        => 'wpbdp5',
             )
         );
+		wpbdp_register_setting(
+			array(
+				'id'           => 'currency-code',
+				'type'         => 'text',
+				'name'         => _x( 'Currency Code', 'settings', 'business-directory-plugin' ),
+				'default'      => '',
+				'group'        => 'payment/main',
+				'class'        => 'wpbdp5',
+				'requirements' => array( '!currency' ),
+			)
+		);
         wpbdp_register_setting(
             array(
                 'id'           => 'currency-symbol',
@@ -1223,20 +1207,23 @@ final class WPBDP__Settings__Bootstrap {
                 'default'      => '$',
                 'group'        => 'payment/main',
 				'class'        => 'wpbdp5',
+				'requirements' => array( '!currency' ),
             )
         );
         wpbdp_register_setting(
             array(
                 'id'           => 'currency-symbol-position',
-                'type'         => 'radio',
+                'type'         => 'select',
                 'name'         => _x( 'Currency symbol display', 'settings', 'business-directory-plugin' ),
                 'default'      => 'left',
+				'class'        => 'wpbdp5',
                 'options'      => array(
-                    'left'  => _x( 'Show currency symbol on the left', 'admin settings', 'business-directory-plugin' ),
-                    'right' => _x( 'Show currency symbol on the right', 'admin settings', 'business-directory-plugin' ),
-                    'none'  => _x( 'Do not show currency symbol', 'admin settings', 'business-directory-plugin' ),
+                    'left'  => __( 'On the left', 'business-directory-plugin' ),
+                    'right' => __( 'On the right', 'business-directory-plugin' ),
+                    'none'  => __( 'None', 'business-directory-plugin' ),
                 ),
                 'group'        => 'payment/main',
+				'requirements' => array( '!currency' ),
             )
         );
         wpbdp_register_setting(

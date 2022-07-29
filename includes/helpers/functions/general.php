@@ -502,52 +502,7 @@ function _wpbdp_should_image_be_resized( $id, $args = array() ) {
  * @since 3.6.10
  */
 function wpbdp_currency_format( $amount, $args = array() ) {
-    // We don't actually allow modification of the "format" string for now, but it could be useful in the future.
-    switch ( wpbdp_get_option( 'currency-symbol-position' ) ) {
-        case 'none':
-            $def_format = '[amount]';
-            break;
-        case 'right':
-            $def_format = '[amount] [symbol]';
-            break;
-        case 'left':
-        default:
-            $def_format = '[symbol] [amount]';
-            break;
-    }
-
-    $defaults = array(
-        'decimals'      => 2,
-        'force_numeric' => false,
-        'currency'      => wpbdp_get_option( 'currency' ),
-        'symbol'        => wpbdp_get_option( 'currency-symbol' ),
-        'format'        => $def_format,
-    );
-    $args     = wp_parse_args( $args, $defaults );
-    extract( $args );
-
-    if ( ! $force_numeric && $amount == '0' ) {
-        return __( 'Free', 'business-directory-plugin' );
-    }
-
-    if ( ! $symbol ) {
-        $symbol = strtoupper( $currency );
-    }
-
-    $number = ( 'placeholder' != $amount ? number_format_i18n( $amount, $decimals ) : '[amount]' );
-    $format = strtolower( $format );
-
-    if ( false === strpos( $format, '[amount]' ) ) {
-        $format .= ' [amount]';
-    }
-
-    $replacements = array(
-        '[currency]' => strtoupper( $currency ),
-        '[symbol]'   => $symbol,
-        '[amount]'   => $number,
-    );
-
-    return str_replace( array_keys( $replacements ), array_values( $replacements ), $format );
+	return WPBDP_Currency_Helper::currency_format( $amount, $args );
 }
 
 /**
