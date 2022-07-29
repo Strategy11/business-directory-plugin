@@ -20,37 +20,21 @@ class WPBDP_NavXT_Integration {
         global $wpbdp;
         $action = wpbdp_current_view();
 
-        switch ( $action ) {
-            case 'show_listing':
-                $this->doing = 'listing';
-                break;
+		$doing = array(
+			'show_listing'   => 'listing',
+			'show_category'  => 'category',
+			'show_tag'       => 'tag',
+			'edit_listing'   => 'edit',
+			'submit_listing' => 'submit',
+			'search'         => 'search',
+		);
 
-            case 'show_category':
-                $this->doing = 'category';
-                break;
+		if ( ! isset( $doing[ $action ] ) ) {
+			$this->doing = '';
+			return;
+		}
 
-            case 'show_tag':
-                $this->doing = 'tag';
-                break;
-
-            case 'edit_listing':
-                $this->doing = 'edit';
-                break;
-
-            case 'submit_listing':
-                $this->doing = 'submit';
-                break;
-
-            case 'search':
-                $this->doing = 'search';
-                break;
-
-            default:
-                $this->doing = '';
-        }
-
-        if ( ! $this->doing )
-            return;
+		$this->doing = $doing[ $action ];
 
         if ( method_exists( $this, 'before_' . $this->doing ) )
             call_user_func( array( $this, 'before_' . $this->doing ), $trail );
@@ -78,22 +62,45 @@ class WPBDP_NavXT_Integration {
             $types = array();
         }
 
-        if ( in_array( 'home', $types, true ) ) {
-            array_pop( $trail->trail );
-        }
+		if ( $this->has_dir_page( $trail ) ) {
+			return;
+		}
+
+		if ( in_array( 'home', $types, true ) ) {
+			$home = array_pop( $trail->trail );
+		}
 
 		$trail->add(
 			new bcn_breadcrumb(
 				get_the_title( wpbdp_get_page_id() ),
-				'',
+				null,
 				array(),
 				wpbdp_get_page_link(),
-				wpbdp_get_page_id()
+				wpbdp_get_page_id(),
+				true
 			)
 		);
+
+		// Include the home link first.
+		if ( isset( $home ) ) {
+			$trail->add( $home );
+		}
     }
 
-    // {{ Handlers.
+	/**
+	 * Check if BD is already included to avoid a duplicate.
+	 *
+	 * @since x.x
+	 */
+	private function has_dir_page( $trail ) {
+		$page_id = wpbdp_get_page_id();
+		foreach ( $trail->breadcrumbs as $link ) {
+			if ( $link->get_id() === (int) $page_id ) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     function before_listing( $trail ) {
         $listing_id = $this->get_current_listing_id();
@@ -207,7 +214,5 @@ class WPBDP_NavXT_Integration {
     function before_search( $trail ) {
 		$trail->add( new bcn_breadcrumb( __( 'Search', 'business-directory-plugin' ) ) );
     }
-
-    // }}
 
 }
