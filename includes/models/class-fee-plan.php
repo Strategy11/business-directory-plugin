@@ -23,9 +23,9 @@ final class WPBDP__Fee_Plan {
 
     private $pricing_model   = 'flat';
 
-    /**
-     * @var array $pricing_details Includes category id => price array for variable plans.
-     */
+	/**
+	 * @var array $pricing_details Includes category id => price array for variable plans.
+	 */
     private $pricing_details = array();
 
     private $supported_categories = 'all';
@@ -177,7 +177,7 @@ final class WPBDP__Fee_Plan {
      * @since 5.0
      */
     public function calculate_amount( $categories = array() ) {
-        $amount       = $this->amount;
+		$amount       = $this->amount;
         $pricing_info = $this->pricing_details;
 
 		if ( $this->pricing_model === 'variable' ) {
