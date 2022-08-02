@@ -246,9 +246,6 @@ class WPBDP__WordPress_Template_Integration {
 
 		// Support for themes that render the post-featured-image before loop_start.
 		add_filter( 'render_block_core/post-featured-image', array( &$this, 'remove_featured_image_block_thumb' ) );
-
-		// Support for the twentynineteen theme.
-		add_filter( 'twentynineteen_can_show_post_thumbnail', array( &$this, 'remove_twentynineteen_thumb' ) );
 	}
 
 	/**
@@ -312,25 +309,10 @@ class WPBDP__WordPress_Template_Integration {
 	}
 
 	/**
-	 * Support for the twentynineteen theme.
-	 *
-	 * @param bool $show_thumbnail
 	 * @return bool
 	 * @since 6.2.1
 	 */
-	public function remove_twentynineteen_thumb( $show_thumbnail ) {
-		if ( $show_thumbnail && $this->should_remove_theme_thumbnail() ) {
-			return false;
-		}
-
-		return $show_thumbnail;
-	}
-
-	/**
-	 * @return bool
-	 * @since 6.2.1
-	 */
-	private function should_remove_theme_thumbnail() {
+	public function should_remove_theme_thumbnail() {
 		if ( ! is_main_query() || ! is_singular( WPBDP_POST_TYPE ) ) {
 			return false;
 		}
