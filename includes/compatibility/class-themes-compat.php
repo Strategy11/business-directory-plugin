@@ -48,6 +48,7 @@ class WPBDP__Themes_Compat {
             'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro',
             'canvas', 'builder', 'divi', 'longevity', 'x', 'u-design', 'thesis',
             'takeawaywp',
+            'twentynineteen',
             'foodiepro-2.1.8',
             'ultimatum',
         );
@@ -293,6 +294,32 @@ class WPBDP__Themes_Compat {
         // page-fullwidth.php has a bug. It doesn't call the_post(), so we do it for them :/.
         add_action( 'wp_head', 'the_post', 999 );
     }
+
+    /**
+     * Fix the 2019 theme category page.
+     *
+     * @since x.x
+     */
+    public function theme_twentynineteen() {
+		add_filter( 'twentynineteen_can_show_post_thumbnail', array( &$this, 'remove_twentynineteen_thumb' ) );
+        add_filter( 'wpbdp_use_single', '__return_false' );
+    }
+
+    /**
+	 * Support for the twentynineteen theme.
+	 *
+	 * @param bool $show_thumbnail
+	 * @return bool
+	 * @since x.x
+	 */
+	public function remove_twentynineteen_thumb( $show_thumbnail ) {
+        global $wpbdp;
+		if ( $show_thumbnail && $wpbdp->template_integration->should_remove_theme_thumbnail() ) {
+			return false;
+		}
+
+		return $show_thumbnail;
+	}
 
     /**
      * @since 4.1.5
