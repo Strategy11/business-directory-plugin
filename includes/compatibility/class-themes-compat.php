@@ -296,12 +296,15 @@ class WPBDP__Themes_Compat {
     }
 
 	/**
-	 * Fix the 2019 theme category page.
+	 * Fix the 2019 theme.
 	 *
 	 * @since x.x
 	 */
 	public function theme_twentynineteen() {
+		// Set the thumbnail based on the settings.
 		add_filter( 'twentynineteen_can_show_post_thumbnail', array( &$this, 'remove_twentynineteen_thumb' ) );
+
+		// Fix the category page.
 		add_filter( 'wpbdp_use_single', '__return_false' );
 	}
 
