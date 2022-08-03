@@ -148,7 +148,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 		$payment->payment_items[] = array(
 			'type'        => 'plan',
 			'description' => sprintf( _x( 'Fee "%s" renewal.', 'listings', 'business-directory-plugin' ), $fee->label ),
-			'amount'      => $fee->calculate_amount( $this->listing->get_categories() ),
+			'amount'      => $fee->calculate_amount( $this->listing->get_categories( 'ids' ) ),
 			'fee_id'      => $fee->id,
 			'fee_days'    => $fee->days,
 			'fee_images'  => $fee->images,

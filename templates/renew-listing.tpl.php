@@ -29,7 +29,7 @@
                 array(
                     'plans'      => $plans,
                     'selected'   => $current_plan->fee_id,
-                    'categories' => $listing->get_categories(),
+					'categories' => $listing->get_categories( 'ids' ),
                 )
             );
             ?>

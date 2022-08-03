@@ -22,6 +22,10 @@ final class WPBDP__Fee_Plan {
     private $recurring = false;
 
     private $pricing_model   = 'flat';
+
+	/**
+	 * @var array $pricing_details Includes category id => price array for variable plans.
+	 */
     private $pricing_details = array();
 
     private $supported_categories = 'all';
@@ -173,21 +177,14 @@ final class WPBDP__Fee_Plan {
      * @since 5.0
      */
     public function calculate_amount( $categories = array() ) {
-        $amount       = 0.0;
+		$amount       = $this->amount;
         $pricing_info = $this->pricing_details;
 
-        switch ( $this->pricing_model ) {
-			case 'variable':
-				$amount = array_sum( wp_array_slice_assoc( $pricing_info, $categories ) );
-                break;
-			case 'extra':
-				$amount = $this->amount + ( $pricing_info['extra'] * count( $categories ) );
-                break;
-			case 'flat':
-			default:
-				$amount = $this->amount;
-                break;
-        }
+		if ( $this->pricing_model === 'variable' ) {
+			$amount = array_sum( wp_array_slice_assoc( $pricing_info, $categories ) );
+		} elseif ( $this->pricing_model === 'extra' ) {
+			$amount = $this->amount + ( $pricing_info['extra'] * count( $categories ) );
+		}
 
         return $amount;
     }
