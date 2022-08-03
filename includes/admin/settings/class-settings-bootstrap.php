@@ -1180,7 +1180,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'           => 'currency',
                 'type'         => 'select',
-                'name'         => _x( 'Currency Code', 'settings', 'business-directory-plugin' ),
+                'name'         => __( 'Currency', 'business-directory-plugin' ),
                 'default'      => 'USD',
                 'options'      => WPBDP_Currency_Helper::list_currencies() + array( '' => '- ' . __( 'Custom', 'business-directory-plugin' ) . ' -' ),
                 'desc'         => self::gateway_description(),
