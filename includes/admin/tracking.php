@@ -21,7 +21,7 @@ class WPBDP_SiteTracking {
             return;
 
 		if ( ! wp_next_scheduled( 'wpbdp_site_tracking' ) ) {
-            wp_schedule_event( current_time( 'timestamp' ), 'daily', 'wpbdp_site_tracking' );
+            wp_schedule_event( current_time( 'timestamp' ), 'weekly', 'wpbdp_site_tracking' );
         }
 
         add_action( 'wpbdp_site_tracking', array( $this, 'tracking' ) );
