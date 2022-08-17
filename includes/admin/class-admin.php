@@ -1276,7 +1276,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			global $wpbdp;
+			$wpbdp = wpbdp();
+			if ( empty( $wpbdp->assets ) ) {
+				$wpbdp->assets = new WPBDP__Assets();
+			}
 			$wpbdp->assets->enqueue_admin_scripts();
 			$wpbdp->assets->register_installation_resources();
 
