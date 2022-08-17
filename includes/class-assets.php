@@ -31,6 +31,7 @@ class WPBDP__Assets {
      * @since 3.4
      */
     public function register_common_scripts() {
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
         wp_register_script(
             'jquery-file-upload-iframe-transport',
@@ -50,7 +51,7 @@ class WPBDP__Assets {
 
         $this->maybe_register_script(
             'breakpoints.js',
-            WPBDP_ASSETS_URL . 'vendor/jquery-breakpoints/jquery-breakpoints.min.js',
+            WPBDP_ASSETS_URL . 'vendor/jquery-breakpoints/jquery-breakpoints' . $min . '.js',
             array( 'jquery' ),
             '0.0.11',
             true
@@ -68,7 +69,7 @@ class WPBDP__Assets {
         // Drag & Drop.
         wp_register_script(
             'wpbdp-dnd-upload',
-            WPBDP_ASSETS_URL . 'js/dnd-upload.min.js',
+            WPBDP_ASSETS_URL . 'js/dnd-upload' . $min . '.js',
             array( 'jquery-file-upload' ),
             WPBDP_VERSION,
 			true
