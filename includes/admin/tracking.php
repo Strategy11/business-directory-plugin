@@ -14,14 +14,14 @@ if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
  */
 class WPBDP_SiteTracking {
 
-    const TRACKING_URL = 'http://data.businessdirectoryplugin.com/tr/';
+    const TRACKING_URL = 'https://data.businessdirectoryplugin.com/tr/';
 
     public function __construct() {
         if ( ! wpbdp_get_option( 'tracking-on', false ) )
             return;
 
 		if ( ! wp_next_scheduled( 'wpbdp_site_tracking' ) ) {
-            wp_schedule_event( current_time( 'timestamp' ), 'daily', 'wpbdp_site_tracking' );
+            wp_schedule_event( current_time( 'timestamp' ), 'weekly', 'wpbdp_site_tracking' );
         }
 
         add_action( 'wpbdp_site_tracking', array( $this, 'tracking' ) );
@@ -45,9 +45,7 @@ class WPBDP_SiteTracking {
         wpbdp_log( 'Performing (scheduled) site tracking.' );
 
         $site_hash = $this->site_hash();
-        $data = get_transient( 'wpbdp-site_tracking_data' );
 
-		if ( ! $data ) {
             wpbdp_log( 'Gathering site tracking metrics.' );
 
             $data = array();
@@ -67,6 +65,8 @@ class WPBDP_SiteTracking {
 			if ( ! function_exists( 'get_plugin_data' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/admin.php';
 			}
+
+            $data['payments'] = $this->add_payment_info();
 
             $data['plugins'] = array();
             foreach ( get_option( 'active_plugins' ) as $path ) {
@@ -134,12 +134,22 @@ class WPBDP_SiteTracking {
 					'body'     => $data
 				)
 			);
-
-            set_transient( 'wpbdp-site_tracking_data', true, 7 * 60 * 60 * 24 );
-
-        }
-        // delete_transient( 'wpbdp-site_tracking_data' );
     }
+
+	/**
+	 * @since x.x
+	 */
+	private function add_payment_info() {
+		global $wpdb;
+
+		return $wpdb->get_results(
+			"SELECT gateway, SUM(amount) as amount, currency_code
+			FROM {$wpdb->prefix}wpbdp_payments
+			WHERE gateway_tx_id IS NOT NULL AND status = 'completed'
+			GROUP BY currency_code, gateway",
+			ARRAY_A
+		);
+	}
 
     /**
      * @since 3.5.2
