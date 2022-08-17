@@ -464,7 +464,13 @@ class WPBDP__Listing_Email_Notification {
                     'gateway'         => $payment->gateway,
                 )
             );
-            $email->to[]     = wpbusdirman_get_the_business_email( $listing->get_id() );
+
+			if ( $payment->payer_email ) {
+				$email->to[] = $payment->payer_email;
+			} else {
+				$email->to[] = wpbusdirman_get_the_business_email( $listing->get_id() );
+			}
+
             $email->template = 'businessdirectory-email';
 
             $email->send();
