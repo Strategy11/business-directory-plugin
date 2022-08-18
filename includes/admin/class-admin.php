@@ -1272,7 +1272,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
         /* Required pages check. */
         public function check_for_required_pages() {
-			if ( wpbdp_get_page_id( 'main' ) || ! current_user_can( 'administrator' ) ) {
+			if ( ! WPBDP_App_Helper::is_bd_page() || wpbdp_get_page_id( 'main' ) || ! current_user_can( 'administrator' ) ) {
 				return;
 			}
 
@@ -1280,7 +1280,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			if ( empty( $wpbdp->assets ) ) {
 				$wpbdp->assets = new WPBDP__Assets();
 			}
-			$wpbdp->assets->enqueue_admin_scripts();
 			$wpbdp->assets->register_installation_resources();
 
 			$message  = _x( '<b>Business Directory Plugin</b> requires a page with the <tt>[businessdirectory]</tt> shortcode to function properly.', 'admin', 'business-directory-plugin' );
@@ -1294,7 +1293,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			);
 			$message .= '</p>';
 
-			$this->messages[] = array( $message, 'error wpbdp-inline-notice' );
+			$this->messages[] = array(
+				$message,
+				'notice-error is-dismissible',
+				array( 'dismissible-id' => 'server_requirements' ),
+			);
         }
 
         /**
