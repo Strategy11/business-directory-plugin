@@ -997,7 +997,7 @@ final class WPBDP__Settings__Bootstrap {
         );
 
         wpbdp_register_settings_group( 'image/thumbnails', _x( 'Thumbnails', 'settings', 'business-directory-plugin' ), 'appearance/image' );
-        
+
 		wpbdp_register_setting(
 			array(
 				'id'      => 'show-thumbnail',
@@ -1064,7 +1064,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'      => 'thumbnail-crop',
                 'type'    => 'toggle',
                 'name'    => _x( 'Crop thumbnails to exact dimensions', 'settings', 'business-directory-plugin' ),
-                'tooltip' => __( 'Images will use the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'settings', 'business-directory-plugin' ),
+                'tooltip' => __( 'Images will use the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'image/thumbnails',
             )
