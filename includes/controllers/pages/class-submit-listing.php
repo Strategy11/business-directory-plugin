@@ -1535,7 +1535,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
             if ( ! empty( $this->data['account_details'] ) ) {
 				// Prevent conflicts with other plugins checking the captcha.
-				remove_action( 'registration_errors', 'gglcptch_register_check', 10, 1 );
+				remove_action( 'registration_errors', 'gglcptch_register_check' );
+				add_filter( 'wordfence_ls_require_captcha', '__return_false' );
 
                 $user_id = register_new_user( $this->data['account_details']['username'], $this->data['account_details']['email'] );
 
