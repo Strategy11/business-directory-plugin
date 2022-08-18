@@ -1534,6 +1534,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
             $this->listing->set_status( 'incomplete' );
 
             if ( ! empty( $this->data['account_details'] ) ) {
+				// Prevent conflicts with other plugins checking the captcha.
+				remove_action( 'registration_errors', 'gglcptch_register_check', 10, 1 );
+
                 $user_id = register_new_user( $this->data['account_details']['username'], $this->data['account_details']['email'] );
 
                 if ( is_wp_error( $user_id ) )
