@@ -274,7 +274,8 @@ class WPBDP_Listing_Display_Helper {
         }
 
         // Main image.
-		$data_main = wp_get_attachment_image_src( $thumbnail_id, 'wpbdp-large', false );
+		$main_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
+		$data_main = wp_get_attachment_image_src( $thumbnail_id, $main_size, false );
 
 		if ( $thumbnail_id && $show_bd_thumb ) {
 			$pass_args['link']  = 'picture';

@@ -506,18 +506,22 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 		$args = wp_parse_args( $args, $defaults );
 	}
 
-	$thumbnail_crop          = wpbdp_get_option( 'thumbnail-crop' );
-	$crop_class              = $thumbnail_crop ? ' wpbdp-thumbnail-cropped' : '';
     $image_img               = '';
     $image_link              = '';
     $image_title             = '';
     $listing_link_in_new_tab = '';
-    $image_classes           = 'wpbdp-thumbnail attachment-wpbdp-thumb ' . $args['class'] . $crop_class;
+	$image_classes           = 'attachment-wpbdp-thumb ' . $args['class'];
+	$image_size              = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
+	if ( $image_size === 'wpbdp-thumb' ) {
+		// If this size is set, using the gallery thumb settings.
+		$thumbnail_crop = wpbdp_get_option( 'thumbnail-crop' );
+		$crop_class     = $thumbnail_crop ? ' wpbdp-thumbnail-cropped' : '';
+		$image_classes  .= $crop_class . ' wpbdp-thumbnail';
+	}
 
 	if ( $main_image ) {
 		$image_title = get_post_meta( $main_image->ID, '_wpbdp_image_caption', true );
 
-		$image_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
 		$image_img  = wp_get_attachment_image(
 			$main_image->ID,
 			'uploaded' !== $image_size ? $image_size : '',
@@ -541,6 +545,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
             array(
                 'alt'   => $caption ? $caption : get_the_title( $listing_id ),
                 'title' => $caption ? $caption : get_the_title( $listing_id ),
+				'class' => $image_classes,
             )
         );
 	} elseif ( isset( $args['coming_soon'] ) ) {

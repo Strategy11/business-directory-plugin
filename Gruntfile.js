@@ -112,8 +112,8 @@ module.exports = function( grunt ) {
 			'**/*', '!**/*~', '!**/**.less', '!**/tests/**', '!**/**/less',
 			'!**/.*', '!**/phpcs.xml', '!**/phpunit.xml', '!**/composer.json',
 			'!**/package.json', '!**/package-lock.json', '!**/node_modules/**',
-			'!**/*.md', '!**/*.yml', '!**/zip-cli.php', '!**/stubs.php', '!**phpstan.**'
-
+			'!**/*.md', '!**/*.yml', '!**/zip-cli.php',
+			'!**/stubs.php', '!**phpstan.**'
 		]
       } );
 

@@ -990,60 +990,15 @@ final class WPBDP__Settings__Bootstrap {
                 'min'     => 0,
                 'step'    => 1,
                 'name'    => _x( 'Turn on thickbox/lightbox', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'Uncheck if it conflicts with other elements or plugins installed on your site', 'settings', 'business-directory-plugin' ),
+				'tooltip' => _x( 'Uncheck if it conflicts with other elements or plugins installed on your site', 'settings', 'business-directory-plugin' ),
                 'default' => false,
                 'group'   => 'images/general',
             )
         );
 
         wpbdp_register_settings_group( 'image/thumbnails', _x( 'Thumbnails', 'settings', 'business-directory-plugin' ), 'appearance/image' );
+        
         wpbdp_register_setting(
-            array(
-                'id'      => 'thumbnail-width',
-                'type'    => 'number',
-                'min'     => 0,
-                'step'    => 1,
-                'name'    => _x( 'Thumbnail width (px)', 'settings', 'business-directory-plugin' ),
-                'default' => '150',
-                'group'   => 'image/thumbnails',
-				'class'   => 'wpbdp-half',
-            )
-        );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'thumbnail-height',
-                'type'    => 'number',
-                'min'     => 0,
-                'step'    => 1,
-                'name'    => _x( 'Thumbnail height (px)', 'settings', 'business-directory-plugin' ),
-                'default' => '150',
-                'group'   => 'image/thumbnails',
-				'class'   => 'wpbdp-half',
-            )
-        );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'thumbnail-crop',
-                'type'    => 'toggle',
-                'name'    => _x( 'Crop thumbnails to exact dimensions', 'settings', 'business-directory-plugin' ),
-                'desc'    => _x( 'When enabled images will match exactly the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'settings', 'business-directory-plugin' ),
-                'default' => false,
-                'group'   => 'image/thumbnails',
-            )
-        );
-
-        wpbdp_register_settings_group( 'image/listings', __( 'Default Images', 'business-directory-plugin' ), 'appearance/image' );
-        wpbdp_register_setting(
-            array(
-                'id'      => 'enforce-image-upload',
-                'type'    => 'toggle',
-                'name'    => __( 'Require images on submit/edit', 'business-directory-plugin' ),
-                'default' => false,
-                'group'   => 'images/general',
-            )
-        );
-
-		wpbdp_register_setting(
 			array(
 				'id'      => 'show-thumbnail',
 				'type'    => 'toggle',
@@ -1072,13 +1027,59 @@ final class WPBDP__Settings__Bootstrap {
 			array(
 				'id'      => 'listing-main-image-default-size',
 				'type'    => 'select',
-				'name'    => _x( 'Default thumbnail image size', 'settings', 'business-directory-plugin' ),
+				'name'    => _x( 'Main thumbnail image size', 'settings', 'business-directory-plugin' ),
 				'default' => 'wpbdp-thumb',
 				'options' => is_admin() ? self::get_registered_image_sizes() : array(),
 				'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
 				'group'   => 'image/thumbnails',
 			)
 		);
+
+        wpbdp_register_setting(
+            array(
+                'id'      => 'thumbnail-width',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Gallery thumbnail width (px)', 'settings', 'business-directory-plugin' ),
+                'default' => '150',
+                'group'   => 'image/thumbnails',
+				'class'   => 'wpbdp-half',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+                'id'      => 'thumbnail-height',
+                'type'    => 'number',
+                'min'     => 0,
+                'step'    => 1,
+                'name'    => _x( 'Gallery thumbnail height (px)', 'settings', 'business-directory-plugin' ),
+                'default' => '150',
+                'group'   => 'image/thumbnails',
+				'class'   => 'wpbdp-half',
+            )
+        );
+        wpbdp_register_setting(
+            array(
+                'id'      => 'thumbnail-crop',
+                'type'    => 'toggle',
+                'name'    => _x( 'Crop thumbnails to exact dimensions', 'settings', 'business-directory-plugin' ),
+                'tooltip' => __( 'Images will use the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'settings', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'image/thumbnails',
+            )
+        );
+
+        wpbdp_register_settings_group( 'image/listings', __( 'Default Images', 'business-directory-plugin' ), 'appearance/image' );
+        wpbdp_register_setting(
+            array(
+                'id'      => 'enforce-image-upload',
+                'type'    => 'toggle',
+                'name'    => __( 'Require images on submit/edit', 'business-directory-plugin' ),
+                'default' => false,
+                'group'   => 'images/general',
+            )
+        );
 
         wpbdp_register_setting(
             array(
@@ -1631,9 +1632,16 @@ final class WPBDP__Settings__Bootstrap {
 
         global $_wp_additional_image_sizes;
 
-        $sizes = array( 'uploaded' => _x( 'Uploaded Image (no resize)', 'admin settings', 'business-directory-plugin' ) );
+        $sizes = array(
+			'uploaded'    => _x( 'Uploaded Image (no resize)', 'admin settings', 'business-directory-plugin' ),
+			'wpbdp-thumb' => __( 'Default (size set below)', 'business-directory-plugin' ),
+		);
 
         foreach ( get_intermediate_image_sizes() as $_size ) {
+			if ( $_size === 'wpbdp-thumb' ) {
+				continue;
+			}
+
             if ( in_array( $_size, array( 'thumbnail', 'medium', 'medium_large', 'large' ) ) ) {
                 $name   = 'WP ' . ucwords( str_replace( '_', ' ', $_size ) );
                 $width  = get_option( "{$_size}_size_w" );
@@ -1648,11 +1656,11 @@ final class WPBDP__Settings__Bootstrap {
             }
 
             $sizes[ $_size ] = sprintf(
-                '%s (%s x %s px %s) ',
+                '%s (%s x %s px%s) ',
                 $name,
                 $width,
                 $height == 9999 ? '*' : $height,
-                $crop ? _x( 'Cropped', 'settings', 'business-directory-plugin' ) : ''
+                $crop ? ' ' . _x( 'Cropped', 'settings', 'business-directory-plugin' ) : ''
             );
         }
 
