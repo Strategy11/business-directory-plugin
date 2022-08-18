@@ -104,66 +104,74 @@ final class WPBDP__Settings__Bootstrap {
 
         // reCAPTCHA.
         wpbdp_register_settings_group(
-            'recaptcha',
-            'reCAPTCHA',
+			'spam',
+			'SPAM',
             'general',
             array(
                 'desc' => str_replace( '<a>', '<a href="http://www.google.com/recaptcha" target="_blank" rel="noopener">', _x( 'Need API keys for reCAPTCHA? Get them <a>here</a>.', 'settings', 'business-directory-plugin' ) ),
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'    => 'recaptcha-on',
-                'type'  => 'checkbox',
-                'name'  => _x( 'Use reCAPTCHA for contact forms', 'settings', 'business-directory-plugin' ),
-                'group' => 'recaptcha',
-            )
-        );
-        wpbdp_register_setting(
-            array(
-                'id'    => 'hide-recaptcha-loggedin',
-                'type'  => 'checkbox',
-                'name'  => _x( 'Use reCAPTCHA only for logged-out users', 'settings', 'business-directory-plugin' ),
-                'group' => 'recaptcha',
-            )
-        );
+		wpbdp_register_settings_group( 'recaptcha', __( 'Use reCAPTCHA for:', 'business-directory-plugin' ), 'spam' );
+
         wpbdp_register_setting(
             array(
                 'id'    => 'recaptcha-for-submits',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Use reCAPTCHA for listing submits', 'settings', 'business-directory-plugin' ),
+                'name'  => __( 'Creating listings', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
+				'class' => 'wpbdp-half',
             )
         );
-        wpbdp_register_setting(
-            array(
-                'id'    => 'recaptcha-for-edits',
-                'type'  => 'checkbox',
-                'name'  => _x( 'Use reCAPTCHA for edit listings', 'settings', 'business-directory-plugin' ),
-                'group' => 'recaptcha',
-            )
-        );
-        wpbdp_register_setting(
-            array(
-                'id'    => 'recaptcha-for-flagging',
-                'type'  => 'checkbox',
-                'name'  => _x( 'Use reCAPTCHA for report listings', 'settings', 'business-directory-plugin' ),
-                'group' => 'recaptcha',
-            )
-        );
-        wpbdp_register_setting(
+		wpbdp_register_setting(
+			array(
+				'id'    => 'recaptcha-on',
+				'type'  => 'checkbox',
+				'name'  => __( 'Contact form submissions', 'business-directory-plugin' ),
+				'group' => 'recaptcha',
+				'class' => 'wpbdp-half',
+			)
+		);
+		wpbdp_register_setting(
+			array(
+				'id'    => 'recaptcha-for-edits',
+				'type'  => 'checkbox',
+				'name'  => __( 'Editing listings', 'business-directory-plugin' ),
+				'group' => 'recaptcha',
+				'class' => 'wpbdp-half',
+			)
+		);
+		wpbdp_register_setting(
             array(
                 'id'    => 'recaptcha-for-comments',
                 'type'  => 'checkbox',
-                'name'  => _x( 'Use reCAPTCHA for listing comments', 'settings', 'business-directory-plugin' ),
+                'name'  => __( 'Listing comments', 'business-directory-plugin' ),
                 'group' => 'recaptcha',
+				'class' => 'wpbdp-half',
             )
         );
+		wpbdp_register_setting(
+			array(
+				'id'    => 'recaptcha-for-flagging',
+				'type'  => 'checkbox',
+				'name'  => __( 'Reporting listings', 'business-directory-plugin' ),
+				'group' => 'recaptcha',
+				'class' => 'wpbdp-half',
+			)
+		);
+		wpbdp_register_setting(
+			array(
+				'id'    => 'hide-recaptcha-loggedin',
+				'type'  => 'checkbox',
+				'name'  => __( 'Logged-out users only', 'business-directory-plugin' ),
+				'group' => 'recaptcha',
+				'class' => 'wpbdp-half',
+			)
+		);
         wpbdp_register_setting(
             array(
                 'id'      => 'recaptcha-public-key',
                 'type'    => 'text',
-                'name'    => _x( 'reCAPTCHA Public Key', 'settings', 'business-directory-plugin' ),
+				'name'    => __( 'Site Key', 'business-directory-plugin' ),
                 'default' => '',
                 'group'   => 'recaptcha',
 				'class'   => 'wpbdp-half',
@@ -173,7 +181,7 @@ final class WPBDP__Settings__Bootstrap {
             array(
                 'id'      => 'recaptcha-private-key',
                 'type'    => 'text',
-                'name'    => _x( 'reCAPTCHA Private Key', 'settings', 'business-directory-plugin' ),
+				'name'    => __( 'Secret Key', 'business-directory-plugin' ),
                 'default' => '',
                 'group'   => 'recaptcha',
 				'class'   => 'wpbdp-half',
@@ -205,7 +213,7 @@ final class WPBDP__Settings__Bootstrap {
                 'min'     => 0,
                 'step'    => 0.1,
                 'max'     => 1,
-                'desc'    => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
+				'tooltip' => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
                 'group'   => 'recaptcha',
 				'grid_classes' => array(
 					'left'  => 'wpbdp8',
