@@ -998,7 +998,7 @@ final class WPBDP__Settings__Bootstrap {
 
         wpbdp_register_settings_group( 'image/thumbnails', _x( 'Thumbnails', 'settings', 'business-directory-plugin' ), 'appearance/image' );
         
-        wpbdp_register_setting(
+		wpbdp_register_setting(
 			array(
 				'id'      => 'show-thumbnail',
 				'type'    => 'toggle',
@@ -1030,7 +1030,7 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => _x( 'Main thumbnail image size', 'settings', 'business-directory-plugin' ),
 				'default' => 'wpbdp-thumb',
 				'options' => is_admin() ? self::get_registered_image_sizes() : array(),
-				'desc'    => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
+				'tooltip' => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
 				'group'   => 'image/thumbnails',
 			)
 		);
@@ -1134,7 +1134,7 @@ final class WPBDP__Settings__Bootstrap {
                 'id'          => 'sticky-image-link-to',
                 'type'        => 'url',
                 'name'        => _x( 'Featured Badge URL', 'settings', 'business-directory-plugin' ),
-                'desc'        => _x( 'Use this to set Featured Badge image as a link to a defined URL.', 'settings', 'business-directory-plugin' ),
+				'tooltip'     => _x( 'Use this to set Featured Badge image as a link to a defined URL.', 'settings', 'business-directory-plugin' ),
                 'placeholder' => __( 'URL', 'business-directory-plugin' ),
                 'default'     => '',
                 'group'       => 'image/listings',

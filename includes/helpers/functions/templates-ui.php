@@ -514,9 +514,8 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 	$image_size              = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
 	if ( $image_size === 'wpbdp-thumb' ) {
 		// If this size is set, using the gallery thumb settings.
-		$thumbnail_crop = wpbdp_get_option( 'thumbnail-crop' );
-		$crop_class     = $thumbnail_crop ? ' wpbdp-thumbnail-cropped' : '';
-		$image_classes  .= $crop_class . ' wpbdp-thumbnail';
+		$crop_class     = wpbdp_get_option( 'thumbnail-crop' ) ? ' wpbdp-thumbnail-cropped' : '';
+		$image_classes .= $crop_class . ' wpbdp-thumbnail';
 	}
 
 	if ( $main_image ) {
