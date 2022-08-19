@@ -22,6 +22,9 @@ $lost_password_url = add_query_arg( 'redirect_to', rawurlencode( $redirect_to ),
 
 $login_args             = isset( $login_args ) ? $login_args : array();
 $login_args['redirect'] = $redirect_to;
+
+// Allow login page protection from other plugins.
+do_action( 'login_enqueue_scripts' );
 ?>
 
 <div id="wpbdp-login-view">
