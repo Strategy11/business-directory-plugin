@@ -82,6 +82,8 @@ class WPBDP_Compat {
 	}
 
 	/**
+	 * Switch back to singular, since the current theme needs it.
+	 *
 	 * @since x.x
 	 */
 	public function yoast_force_page() {

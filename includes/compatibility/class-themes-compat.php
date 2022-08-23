@@ -43,21 +43,22 @@ class WPBDP__Themes_Compat {
         }
     }
 
-    public function get_themes_with_fixes() {
-        $themes_with_fixes = array(
-            'astra',
-            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro',
-            'canvas', 'builder', 'divi',
+	public function get_themes_with_fixes() {
+		$themes_with_fixes = array(
+			'astra',
+			'atahualpa', 'genesis', 'hmtpro5',
+			'customizr', 'customizr-pro',
+			'canvas', 'builder', 'divi',
 			'hello-elementor',
 			'longevity', 'x', 'u-design', 'thesis',
-            'takeawaywp',
+			'takeawaywp',
 			'twentynineteen',
-            'foodiepro-2.1.8',
-            'ultimatum',
-        );
+			'foodiepro-2.1.8',
+			'ultimatum',
+		);
 
-        return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
-    }
+		return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
+	}
 
     //
     // {{ Fixes for some themes.
