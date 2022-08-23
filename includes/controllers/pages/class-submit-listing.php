@@ -253,9 +253,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$this->messages( _x( 'You\'re logged in as admin, payment will be skipped.', 'submit listing', 'business-directory-plugin' ), 'notice', 'general' );
 		}
 
-		$instructions = trim( wpbdp_get_option( 'submit-instructions' ) );
-		if ( $instructions ) {
-			$this->messages( $instructions, 'tip', 'general' );
+		if ( $this->current_section === reset( $this->sections_keys ) ) {
+			// Show message on the first page.
+			$instructions = trim( wpbdp_get_option( 'submit-instructions' ) );
+			if ( $instructions ) {
+				$this->messages( $instructions, 'tip', 'general' );
+			}
 		}
 
 		/**
