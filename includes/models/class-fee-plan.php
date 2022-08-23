@@ -366,7 +366,7 @@ final class WPBDP__Fee_Plan {
             $this->pricing_details = array(
                 'extra' => floatval( $this->pricing_details['extra'] ),
             );
-        } else {
+        } elseif ( isset( $this->pricing_details['extra'] ) ) {
             unset( $this->pricing_details['extra'] );
         }
 
