@@ -63,7 +63,7 @@ jQuery( function( $ ) {
 	);
 
     // Properties editing.
-    $metabox_tab.find('a.edit-value-toggle').click(function(e) {
+	$metabox_tab.on( 'click', 'a.edit-value-toggle', function(e) {
         e.preventDefault();
 
         var $dd = $(this).parents('dd');
@@ -78,7 +78,7 @@ jQuery( function( $ ) {
         $display.hide();
         $editor.show();
     });
-    $metabox_tab.find('.value-editor a.update-value, .value-editor a.cancel-edit').click(function(e) {
+	$metabox_tab.on( 'click', '.value-editor a.update-value, .value-editor a.cancel-edit', function(e) {
         e.preventDefault();
 
         var $dd = $(this).parents('dd');
@@ -128,7 +128,7 @@ jQuery( function( $ ) {
 
     $payments_tab = $('#wpbdp-listing-metabox-payments');
 
-    $payments_tab.find('a[name="delete-payments"]').click( function (e) {
+	$payments_tab.on( 'click', 'a[name="delete-payments"]', function(e) {
         e.preventDefault();
         $.post( ajaxurl, { 'action': 'wpbdp-clear-payment-history', 'listing_id': $( this ).attr( 'data-id' ) }, function (res) {
             if ( ! res.success ) {

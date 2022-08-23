@@ -99,9 +99,8 @@ jQuery(function($) {
             error: function() { handleError(); }
         });
     };
-    
-    
-    $('form#wpbdp-csv-export-form').submit(function(e) {
+
+	$( document ).on( 'submit', 'form#wpbdp-csv-export-form', function(e) {
         e.preventDefault();
         
         var data = $(this).serialize() + '&action=wpbdp-csv-export&nonce=' + wpbdp_global.nonce;

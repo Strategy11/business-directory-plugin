@@ -15,9 +15,11 @@ class WPBDP_Admin_CSVExport {
     }
 
     public function enqueue_scripts() {
+        $min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
         wp_enqueue_script(
             'wpbdp-admin-export-js',
-            WPBDP_ASSETS_URL . 'js/admin-export.min.js',
+            WPBDP_ASSETS_URL . 'js/admin-export' . $min . '.js',
             array( 'wpbdp-admin-js' ),
             WPBDP_VERSION,
 			true

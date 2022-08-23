@@ -158,7 +158,7 @@ function wpbdpSelectSubnav() {
 			WPBDPAdmin_Tooltip.$layout_container = $( '.wpbdp-admin-row' );
 			WPBDPAdmin_Tooltip.$menu_items = WPBDPAdmin_Tooltip.$layout_container.find( '.wpbdp-nav-item a' );
 			WPBDPAdmin_Tooltip.$menu_state = window.localStorage.getItem( '_wpbdp_admin_menu' );
-			$( '.wpbdp-nav-toggle' ).click( WPBDPAdmin_Tooltip.onNavToggle );
+			$( document ).on( 'click', '.wpbdp-nav-toggle', WPBDPAdmin_Tooltip.onNavToggle );
 			WPBDPAdmin_Tooltip.layoutAdjustment();
 		},
 
@@ -205,15 +205,15 @@ function wpbdpSelectSubnav() {
 
         init: function() {
             WPBDPAdmin_FormFields.$f_association = $('form#wpbdp-formfield-form select#field-association');
-            WPBDPAdmin_FormFields.$f_association.change( WPBDPAdmin_FormFields.onAssociationChange );
+			$( document ).on( 'change', WPBDPAdmin_FormFields.$f_association, WPBDPAdmin_FormFields.onAssociationChange );
 
             WPBDPAdmin_FormFields.$f_fieldtype = $('form#wpbdp-formfield-form select#field-type');
-            WPBDPAdmin_FormFields.$f_fieldtype.change( WPBDPAdmin_FormFields.onFieldTypeChange );
+			$( document ).on( 'change', WPBDPAdmin_FormFields.$f_fieldtype, WPBDPAdmin_FormFields.onFieldTypeChange );
 
             WPBDPAdmin_FormFields.$f_validator = $( 'form#wpbdp-formfield-form select#field-validator' );
-            WPBDPAdmin_FormFields.$f_validator.change( WPBDPAdmin_FormFields.onFieldValidatorChange );
+			$( document ).on( 'change', WPBDPAdmin_FormFields.$f_validator, WPBDPAdmin_FormFields.onFieldValidatorChange );
 
-            $( '#wpbdp-fieldsettings .iframe-confirm a' ).click(function(e) {
+			$( '#wpbdp-fieldsettings' ).on( 'click', '.iframe-confirm a', function(e) {
                 e.preventDefault();
 
                 if ( $( this ).hasClass( 'yes' ) ) {
@@ -224,7 +224,7 @@ function wpbdpSelectSubnav() {
                 }
             });
 
-            $( '#wpbdp-fieldsettings input[name="field[allow_iframes]"]' ).change(function() {
+			$( '#wpbdp-fieldsettings' ).on( 'change', 'input[name="field[allow_iframes]"]', function() {
                 if ( $( this ).is(':checked') ) {
                     $( '.iframe-confirm' ).show();
                 } else {
@@ -232,7 +232,7 @@ function wpbdpSelectSubnav() {
                 }
             });
 
-            $( '#wpbdp-formfield-form input[name="field[display_flags][]"][value="search"]' ).change(function(){
+			$( '#wpbdp-formfield-form' ).on( 'change', 'input[name="field[display_flags][]"][value="search"]', function(){
                 $( '.if-display-in-search' ).toggle( $( this ).is( ':checked' ) );
             });
 
@@ -253,7 +253,7 @@ function wpbdpSelectSubnav() {
                 }
             });
 
-            $( '#wpbdp-formfield-form select[name="limit_categories"]' ).change( function(){
+			$( '#wpbdp-formfield-form' ).on( 'change', 'select[name="limit_categories"]', function(){
                 var form = $( this ).parents( 'form' ).find( '#limit-categories-list' );
                 if ( $( this ).val() === "1" ) {
                     form.removeClass( 'hidden' );
@@ -321,7 +321,7 @@ function wpbdpSelectSubnav() {
                 }
             });
 
-            $f_fieldtype.change();
+			$f_fieldtype.trigger( 'change' );
 
             if ( 0 <= [ 'title', 'content', 'category'].indexOf( association ) ) {
                 private_option.find( 'input' ).prop( 'disabled', true );
@@ -552,7 +552,7 @@ jQuery(document).ready(function($){
      * Admin bulk actions
      */
 
-    $('input#doaction, input#doaction2').click(function(e) {
+	$( document ).on( 'click', 'input#doaction, input#doaction2', function(e) {
         var action_name = ( 'doaction' == $(this).attr('id') ) ? 'action' : 'action2';
         var $selected_option = $('select[name="' + action_name + '"] option:selected');
         var action_val = $selected_option.val();
@@ -577,14 +577,9 @@ jQuery(document).ready(function($){
         return true;
     });
 
-    /* Form fields form preview */
-    $('.wpbdp-admin.wpbdp-page-formfields-preview form input[type="submit"]').click(function(e){
-        e.preventDefault();
-        alert('This form is just a preview. It doesn\'t work.');
-    });
 
     /* Debug info page */
-    $('.wpbdp-admin-page-debug-info a.current-nav').click(function(e){
+	$( '.wpbdp-admin-page-debug-info').on( 'click', 'a.current-nav', function(e){
         e.preventDefault();
 
         $('.wpbdp-admin-page-debug-info a.current-nav').not(this).removeClass('current');
@@ -596,11 +591,12 @@ jQuery(document).ready(function($){
         $( '.wpbdp-debug-section[data-id="' + $(this).attr('href') + '"]' ).show();
     });
 
-    if ( $('.wpbdp-admin-page-debug-info a.current-nav').length > 0 )
-        $('.wpbdp-admin-page-debug-info a.current-nav').get(0).click();
+	if ( $('.wpbdp-admin-page-debug-info a.current-nav').length > 0 ) {
+		$('.wpbdp-admin-page-debug-info a.current-nav').get(0).trigger( 'click' );
+	}
 
     /* Transactions */
-    $( '.wpbdp-page-admin-transactions .column-actions a.details-link' ).click(function(e){
+	$( '.wpbdp-page-admin-transactions' ).on( 'click', '.column-actions a.details-link', function(e){
         e.preventDefault();
         var $tr = $(this).parents('tr');
         var $details = $tr.find('div.more-details');
@@ -683,7 +679,7 @@ WPBDP_Admin.ProgressBar = function($item, settings) {
                 }
             } );
 
-            $( '#wpbdp-settings-currency select' ).change();
+			$( '#wpbdp-settings-currency select' ).trigger( 'change' );
         }
     };
 
@@ -705,7 +701,7 @@ jQuery(function($) {
     var $confirm_button = $( '#wpbdp-uninstall-proceed-btn' );
     var $form = $( '#wpbdp-uninstall-capture-form' );
 
-    $confirm_button.click(function(e) {
+	$( document ).on( 'click', $confirm_button, function(e) {
         e.preventDefault();
         $warnings.fadeOut( 'fast', function() {
             $form.fadeIn( 'fast' );
@@ -739,7 +735,7 @@ jQuery(function($) {
         return true;
     });
 
-    $( 'form#wpbdp-uninstall-capture-form input[name="uninstall[reason_id]"]' ).change(function(e) {
+	$( 'form#wpbdp-uninstall-capture-form' ).on( 'change', 'input[name="uninstall[reason_id]"]', function(e) {
         var val = $(this).val();
 
         if ( '0' == val ) {
@@ -942,7 +938,7 @@ jQuery( document ).ready( function( $ ) {
 // Some utilities for our admin forms.
 jQuery(function( $ ) {
 
-    $( '.wpbdp-js-toggle' ).change(function() {
+	$( document ).on( 'change', '.wpbdp-js-toggle', function() {
         var other_opts,
 			name = $(this).attr('name');
         var value = $(this).val();
@@ -994,7 +990,7 @@ jQuery(function( $ ) {
 // {{ Admin tab selectors.
 //
 jQuery(function($) {
-    $('.wpbdp-admin-tab-nav a').click(function(e) {
+	$('.wpbdp-admin-tab-nav').on( 'click', 'a', function(e) {
         e.preventDefault();
 
         var $others = $( this ).parents( 'ul' ).find( 'li a' );
@@ -1013,7 +1009,7 @@ jQuery(function($) {
     });
 
     $( '.wpbdp-admin-tab-nav' ).each(function(i, v) {
-        $(this).find('a:first').click();
+		$( this ).find( 'a:first' ).trigger( 'click' );
     });
 });
 //
