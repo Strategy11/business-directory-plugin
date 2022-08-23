@@ -692,16 +692,16 @@ final class WPBDP__Settings__Bootstrap {
 			)
 		);
 
-        wpbdp_register_setting(
-            array(
-                'id'      => 'submit-instructions',
-                'type'    => 'textarea',
-                'name'    => _x( 'Submit Listing instructions message', 'settings', 'business-directory-plugin' ),
-                'desc'    => __( 'This text is displayed on the first page of the Submit Listing process. You can use it for instructions about filling out the form or information to get started.', 'business-directory-plugin' ),
-                'default' => '',
-                'group'   => 'listings/strings',
-            )
-        );
+		wpbdp_register_setting(
+			array(
+				'id'      => 'submit-instructions',
+				'type'    => 'textarea',
+				'name'    => __( 'Submit listing instructions', 'business-directory-plugin' ),
+				'tooltip' => __( 'This text is displayed on the first page of the Submit Listing process. You can use it for instructions about filling out the form or information to get started.', 'business-directory-plugin' ),
+				'default' => '',
+				'group'   => 'listings/strings',
+			)
+		);
 
         wpbdp_register_setting(
             array(
