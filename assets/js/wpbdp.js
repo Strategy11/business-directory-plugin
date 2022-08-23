@@ -266,8 +266,11 @@ WPBDP.fileUpload = {
                     $( '#wpbdp-uploaded-images .wpbdp-image[data-imageid="' + res.data.imageId + '"]' ).fadeOut( function() {
                         $( this ).remove();
 
-                        if ( 1 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length )
-                            $( '#wpbdp-uploaded-images .wpbdp-image:first input[name="thumbnail_id"] ').attr( 'checked', 'checked' );
+						// Clear thumbnail after delete.
+						var thumbInput = $( '#wpbdp-listing-fields-images input#_thumbnail_id' );
+						if ( typeof thumbInput !== 'undefined' && ( parseInt( thumbInput.val() ) === res.data.imageId ) ) {
+							thumbInput.val( '' );
+						}
 
                         if ( ! t._admin_nonce ) {
                             t._slotsRemaining++;
