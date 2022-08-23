@@ -48,9 +48,12 @@ class WPBDP__WordPress_Template_Integration {
 		 *
 		 * @since 6.2.7
 		 */
-		if ( $wp_query->is_tax() && apply_filters( 'wpbdp_use_single', true ) ) {
+		if ( $wp_query->is_tax() && apply_filters( 'wpbdp_use_single', false ) ) {
 			// Force some themes to use the page template.
 			$wp_query->is_singular = true;
+
+			// Prevent a PHP error when WP gets confused.
+			add_filter( 'pre_get_shortlink', '__return_empty_string' );
 		}
 
 		if ( $allow_override ) {
