@@ -188,7 +188,7 @@ class WPBDP_NavXT_Integration {
 			return;
 		}
 
-        $tag = get_term_by( 'id', wpbdp_current_tag_id(), WPBDP_TAGS_TAX );
+		$tag = get_term_by( 'id', wpbdp_current_tag_id(), WPBDP_TAGS_TAX );
 		$this->before_tax( $tag );   
 	}
 
