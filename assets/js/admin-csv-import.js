@@ -173,7 +173,7 @@ jQuery(function( $ ) {
             $files.find( 'input[type="radio"]' ).prop( 'checked', false );
     });
 
-    $( '.wpbdp-page-csv-import .file-local-selection input[type="radio"]' ).change(function(e) {
+	$( '.wpbdp-page-csv-import' ).on( 'change', '.file-local-selection input[type="radio"]', function(e) {
         var sel = $(this).filter(':checked').val();
 
         if ( "" == sel ) {
@@ -188,23 +188,25 @@ jQuery(function( $ ) {
             $use_default_user_checkbox = $form.find( 'input.use-default-listing-user' ),
             $default_user_field;
 
-        $form.find( 'input.assign-listings-to-user').change(function(e){
+		$form.on( 'change', 'input.assign-listings-to-user', function(e){
             if ( $(this).is(':checked') ) {
                 $form.find( '.default-user-selection' ).show();
             } else {
                 $form.find( '.default-user-selection' ).hide();
             }
 
-            $use_default_user_checkbox.change();
-        }).change();
+			$use_default_user_checkbox.trigger( 'change' );
+		});
+		$( 'input.assign-listings-to-user' ).trigger( 'change' );
 
-        $use_default_user_checkbox.change(function(){
+		$( document ).on( 'change', $use_default_user_checkbox, function(){
             if ( $(this).is(':checked') ) {
                 $form.find( 'select.default-user, input.default-user' ).closest( 'tr' ).show();
             } else {
                 $form.find( 'select.default-user, input.default-user' ).closest( 'tr' ).hide();
             }
-        }).change();
+		});
+		$use_default_user_checkbox.trigger( 'change' );
 
         function update_textfield_value( event, ui ) {
             event.preventDefault();

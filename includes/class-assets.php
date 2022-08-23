@@ -81,6 +81,8 @@ class WPBDP__Assets {
     }
 
 	private function register_select2() {
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
         // Use Select2 styles and scripts from selectWoo https://woocommerce.wordpress.com/2017/08/08/selectwoo-an-accessible-replacement-for-select2/.
         wp_register_style(
             'wpbdp-js-select2-css',
@@ -91,7 +93,7 @@ class WPBDP__Assets {
 
         wp_register_script(
             'wpbdp-js-select2',
-            WPBDP_ASSETS_URL . 'vendor/selectWoo/js/selectWoo.full.min.js',
+			WPBDP_ASSETS_URL . 'vendor/selectWoo/js/selectWoo.full' . $min . '.js',
             array( 'jquery' ),
             '4.0.5',
 			true
