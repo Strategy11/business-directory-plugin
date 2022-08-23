@@ -43,22 +43,40 @@ class WPBDP__Themes_Compat {
         }
     }
 
-    public function get_themes_with_fixes() {
-        $themes_with_fixes = array(
-            'atahualpa', 'genesis', 'hmtpro5', 'customizr', 'customizr-pro',
-            'canvas', 'builder', 'divi', 'longevity', 'x', 'u-design', 'thesis',
-            'takeawaywp',
+	public function get_themes_with_fixes() {
+		$themes_with_fixes = array(
+			'astra',
+			'atahualpa', 'genesis', 'hmtpro5',
+			'customizr', 'customizr-pro',
+			'canvas', 'builder', 'divi',
+			'hello-elementor',
+			'longevity', 'x', 'u-design', 'thesis',
+			'takeawaywp',
 			'twentynineteen',
-            'foodiepro-2.1.8',
-            'ultimatum',
-        );
+			'foodiepro-2.1.8',
+			'ultimatum',
+		);
 
-        return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
-    }
+		return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
+	}
 
     //
     // {{ Fixes for some themes.
     //
+
+	/**
+	 * @since x.x
+	 */
+	public function theme_astra() {
+		if ( ! wpbdp_is_taxonomy() ) {
+			return;
+		}
+
+		$wpbdp = wpbdp();
+		if ( $wpbdp->template_integration ) {
+			add_filter( 'astra_featured_image_markup', array( $wpbdp->template_integration, 'remove_tax_thumbnail' ) );
+		}
+	}
 
     public function theme_genesis() {
         $is_listings_view = in_array( wpbdp_current_view(), array( 'all_listings', 'show_listing' ), true );
@@ -104,7 +122,7 @@ class WPBDP__Themes_Compat {
 
         $current_view = wpbdp_current_view();
 
-        if ( $current_view == 'show_listing' ) {
+		if ( $current_view === 'show_listing' ) {
             $this->theme_customizr_hide_post_thumb();
             $this->theme_customizr_disable_comments();
         }
@@ -113,6 +131,7 @@ class WPBDP__Themes_Compat {
             return;
         }
 
+		add_filter( 'wpbdp_use_single', '__return_true' );
         add_filter( 'tc_is_grid_enabled', '__return_false', 999 );
         add_filter( 'tc_show_excerpt', '__return_false', 999 );
         add_filter( 'tc_post_list_controller', '__return_true', 999 );
@@ -199,9 +218,6 @@ class WPBDP__Themes_Compat {
             return;
         }
 
-		// Divi don't need to load the single page template.
-		add_filter( 'wpbdp_use_single', '__return_false' );
-
         if ( 'et_full_width_page' != get_post_meta( wpbdp_get_page_id( 'main' ), '_et_pb_page_layout', true ) ) {
             return;
         }
@@ -218,6 +234,17 @@ class WPBDP__Themes_Compat {
     public function theme_divi_disable_sidebar( $is_active_sidebar, $index ) {
         return $index == 'sidebar-1' ? false : $is_active_sidebar;
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function theme_hello_elementor() {
+		if ( ! wpbdp_is_taxonomy() ) {
+			return;
+		}
+
+		add_filter( 'wpbdp_use_single', '__return_true' );
+	}
 
     public function theme_longevity() {
         if ( ! wpbdp_is_taxonomy() ) {
@@ -303,9 +330,6 @@ class WPBDP__Themes_Compat {
 	public function theme_twentynineteen() {
 		// Set the thumbnail based on the settings.
 		add_filter( 'twentynineteen_can_show_post_thumbnail', array( &$this, 'remove_twentynineteen_thumb' ) );
-
-		// Fix the category page.
-		add_filter( 'wpbdp_use_single', '__return_false' );
 	}
 
 	/**
