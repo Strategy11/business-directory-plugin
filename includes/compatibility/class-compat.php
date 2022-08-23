@@ -55,12 +55,39 @@ class WPBDP_Compat {
             require_once WPBDP_PATH . 'includes/compatibility/class-beaver-themer-compat.php';
 			new WPBDP_Beaver_Themer_Compat();
         }
+
+		// Yoast SEO.
+		if ( defined( 'WPSEO_VERSION' ) ) {
+			add_action( 'wp_head', array( &$this, 'yoast_maybe_force_taxonomy' ), 0 );
+		}
     }
 
     public function cpt_compat_mode() {
         require_once WPBDP_PATH . 'includes/compatibility/class-cpt-compat-mode.php';
         $nocpt = new WPBDP__CPT_Compat_Mode();
     }
+
+	/**
+	 * If the category page is using a page template for the current theme,
+	 * remove the singular flag momentarily.
+	 *
+	 * @since x.x
+	 */
+	public function yoast_maybe_force_taxonomy() {
+		global $wp_query;
+		if ( wpbdp_is_taxonomy() && $wp_query->is_singular ) {
+			$wp_query->is_singular = false;
+			add_action( 'wpseo_head', array( &$this, 'yoast_force_page' ), 9999 );
+		}
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function yoast_force_page() {
+		global $wp_query;
+		$wp_query->is_singular = true;
+	}
 
     // Work around WP bugs. {{{
     public function workarounds_for_wp_bugs() {
