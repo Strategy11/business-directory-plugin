@@ -193,7 +193,7 @@ class WPBDP_NavXT_Integration {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.2.8
 	 */
 	private function before_tax( $term ) {
 		if ( ! $term ) {
