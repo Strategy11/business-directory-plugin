@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 6.2.7
+Stable tag: 6.2.8
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,23 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.2.8 =
+* Move the page creation walkthrough to BD pages so the assets don't need to be loaded in the whole admin area.
+* Clean up the reCaptcha settings to make them more readable, and match the labels used by Google.
+* Rearrange the thumbnail settings, and make it more clear about what each thumbnail setting does.
+* Fix: The setting for the main thumbnail image size wasn't being used.
+* Fix: Use category template page for most themes. This fixes issues with SEO meta and showing category titles.
+* Fix: Hide disabled plans on renewal page too.
+* Fix: Send the payment completed email to the address on the payment page if it's different from the email in the listing.
+* Fix: Some sites were seeing a fatal error when upgrading.
+* Fix: Some recpatcha plugins (BWS and Wordfence) were conflicting on the login and registration pages in BD.
+* Fix: The admin menu icons didn't show when used with some SSL certificates.
+* Fix: An image wasn't always getting removed from listings in the back-end, if the image was removed and then the listing was saved.
+* Fix: Show the "Submit listing instructions" message on the first page only.
+* Fix: The NavXT Breadcrumbs for tag pages weren't showing up correctly.
+* Update a few deprecated jQuery warning messages.
+* Include total collected payment amounts in user tracking. This is 100% anonomous and does not include any payment details.
+
 = 6.2.7 =
 * New: Add more currencies including a custom currency option. Simplify the settings for currencies.
 * New: Allow child pages to be created under the business-directory page.
@@ -223,14 +240,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Show menu image icons when allow_url_fopen is off.
 * Fix: The new expiration date wasn't showing until after a listing was saved in the admin area.
 * Fix: Some listings were getting an error when renewed.
-
-= 6.0.1 =
-* Remove the licenses tab if it's not needed.
-* A few admin styling tweeks including toggles.
-* Fix: Admin settings weren't hiding conditionally.
-* Fix: There was a php warning showing when AUTH_KEY was missing.
-* Fix: Handle tags pages in a better way, using the new wpbdp_tax_types hook.
-* Fix: Prevent duplicate heading in taxonomy modal when another plugin adds a heading.
-* New: wpbdp_tab_content hook for adding content to the settings tabs.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

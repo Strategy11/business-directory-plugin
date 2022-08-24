@@ -65,7 +65,7 @@ class WPBDP__Themes_Compat {
     //
 
 	/**
-	 * @since x.x
+	 * @since 6.2.8
 	 */
 	public function theme_astra() {
 		if ( ! wpbdp_is_taxonomy() ) {
@@ -236,7 +236,7 @@ class WPBDP__Themes_Compat {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.2.8
 	 */
 	public function theme_hello_elementor() {
 		if ( ! wpbdp_is_taxonomy() ) {
@@ -325,7 +325,7 @@ class WPBDP__Themes_Compat {
 	/**
 	 * Fix the 2019 theme.
 	 *
-	 * @since x.x
+	 * @since 6.2.8
 	 */
 	public function theme_twentynineteen() {
 		// Set the thumbnail based on the settings.
@@ -337,7 +337,7 @@ class WPBDP__Themes_Compat {
 	 *
 	 * @param bool $show_thumbnail
 	 * @return bool
-	 * @since x.x
+	 * @since 6.2.8
 	 */
 	public function remove_twentynineteen_thumb( $show_thumbnail ) {
 		global $wpbdp;

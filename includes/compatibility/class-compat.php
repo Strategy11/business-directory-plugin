@@ -71,7 +71,7 @@ class WPBDP_Compat {
 	 * If the category page is using a page template for the current theme,
 	 * remove the singular flag momentarily.
 	 *
-	 * @since x.x
+	 * @since 6.2.8
 	 */
 	public function yoast_maybe_force_taxonomy() {
 		global $wp_query;
@@ -84,7 +84,7 @@ class WPBDP_Compat {
 	/**
 	 * Switch back to singular, since the current theme needs it.
 	 *
-	 * @since x.x
+	 * @since 6.2.8
 	 */
 	public function yoast_force_page() {
 		global $wp_query;

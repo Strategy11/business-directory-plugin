@@ -137,7 +137,7 @@ class WPBDP_SiteTracking {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.2.8
 	 */
 	private function add_payment_info() {
 		global $wpdb;
