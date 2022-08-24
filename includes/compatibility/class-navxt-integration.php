@@ -158,48 +158,54 @@ class WPBDP_NavXT_Integration {
         $this->main_page_breadcrumb( $trail );
     }
 
-    function before_category( $trail ) {
-        $term = _wpbpd_current_category();
+	function before_category() {
+		if ( ! apply_filters( 'wpbdp_use_single', false ) ) {
+			// If the template hasn't been changed, no override is needed.
+			return;
+		}
 
-        if ( ! $term ) {
-            return;
-        }
-
-        global $wp_query;
-
-        $this->state['queried'] = $wp_query->get_queried_object();
-
-        $wp_query->is_singular = false;
-        $wp_query->queried_object = $term;
-    }
+		$this->before_tax( _wpbpd_current_category() );
+	}
 
     function after_category( $trail ) {
-        if ( ! $this->state['queried'] ) {
+		$this->main_page_breadcrumb( $trail );
+
+		if ( empty( $this->state['queried'] ) ) {
             return;
         }
 
-        global $wp_query;
+		global $wp_query;
 
         $wp_query->queried_object = $this->state['queried'];
         $wp_query->is_singular = true;
         unset( $this->state['queried'] );
 
-        $this->main_page_breadcrumb( $trail );
     }
 
-    function before_tag( $trail ) {
-        $tag = get_term_by( 'slug', get_query_var( 'tag' ), WPBDP_TAGS_TAX );
+	function before_tag() {
+		if ( ! apply_filters( 'wpbdp_use_single', false ) ) {
+			// If the template hasn't bee changed, no override is needed.
+			return;
+		}
 
-        if ( ! $tag )
-            return;
+		$tag = get_term_by( 'id', wpbdp_current_tag_id(), WPBDP_TAGS_TAX );
+		$this->before_tax( $tag );
+	}
 
-        global $wp_query;
-        $term = get_term( $tag['term_id'], WPBDP_CATEGORY_TAX );
-        $this->state['queried'] = $wp_query->get_queried_object();
+	/**
+	 * @since x.x
+	 */
+	private function before_tax( $term ) {
+		if ( ! $term ) {
+			return;
+		}
 
-        $wp_query->is_singular = false;
-        $wp_query->queried_object = $tag;
-    }
+		global $wp_query;
+		$this->state['queried'] = $wp_query->get_queried_object();
+
+		$wp_query->is_singular = false;
+		$wp_query->queried_object = $term;
+	}
 
     function after_tag( $trail ) {
         $this->after_category( $trail );
