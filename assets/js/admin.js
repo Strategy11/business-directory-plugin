@@ -204,14 +204,14 @@ function wpbdpSelectSubnav() {
         $f_fieldtype: null,
 
         init: function() {
-            WPBDPAdmin_FormFields.$f_association = $('form#wpbdp-formfield-form select#field-association');
-			$( document ).on( 'change', WPBDPAdmin_FormFields.$f_association, WPBDPAdmin_FormFields.onAssociationChange );
+			var fieldForm = $( 'form#wpbdp-formfield-form' );
+            WPBDPAdmin_FormFields.$f_association = $( fieldForm ).find( 'select#field-association');
+			fieldForm.on( 'change', 'select#field-association', WPBDPAdmin_FormFields.onAssociationChange );
 
-            WPBDPAdmin_FormFields.$f_fieldtype = $('form#wpbdp-formfield-form select#field-type');
-			$( document ).on( 'change', WPBDPAdmin_FormFields.$f_fieldtype, WPBDPAdmin_FormFields.onFieldTypeChange );
+            WPBDPAdmin_FormFields.$f_fieldtype = $( fieldForm ).find( 'select#field-type');
+			fieldForm.on( 'change', 'select#field-type', WPBDPAdmin_FormFields.onFieldTypeChange );
 
-            WPBDPAdmin_FormFields.$f_validator = $( 'form#wpbdp-formfield-form select#field-validator' );
-			$( document ).on( 'change', WPBDPAdmin_FormFields.$f_validator, WPBDPAdmin_FormFields.onFieldValidatorChange );
+            fieldForm.on( 'change', 'select#field-validator', WPBDPAdmin_FormFields.onFieldValidatorChange );
 
 			$( '#wpbdp-fieldsettings' ).on( 'click', '.iframe-confirm a', function(e) {
                 e.preventDefault();
