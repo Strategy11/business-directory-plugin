@@ -109,7 +109,7 @@ class WPBDP__CPT_Integration {
                 '/%s/%s%s',
                 wpbdp_get_option( 'permalinks-category-slug' ),
                 $category->slug,
-                substr( $link, -1 ) === '/' ? '/' : '',
+                substr( $link, -1 ) === '/' ? '/' : ''
             )
         );
 
