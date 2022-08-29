@@ -52,16 +52,3 @@ jobs:
           cd "/tmp/wordpress/src/wp-content/plugins/${GITHUB_REPOSITORY#*/}"
           pwd
           php vendor/bin/codecept run wpunit
-  syntax-test:
-    if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
-    runs-on: ubuntu-latest
-    name: PHP 5.6 syntax
-    steps:
-      - uses: actions/checkout@v2
-
-      # get the PHP version
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: 5.6
-      - name: Check Syntax
-        run: find -L .  -path ./vendor -prune -o -path ./tests -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
