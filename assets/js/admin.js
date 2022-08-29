@@ -205,13 +205,13 @@ function wpbdpSelectSubnav() {
 
         init: function() {
 			var fieldForm = $( 'form#wpbdp-formfield-form' );
-            WPBDPAdmin_FormFields.$f_association = $( fieldForm ).find( 'select#field-association');
+			WPBDPAdmin_FormFields.$f_association = $( fieldForm ).find( 'select#field-association');
 			fieldForm.on( 'change', 'select#field-association', WPBDPAdmin_FormFields.onAssociationChange );
 
-            WPBDPAdmin_FormFields.$f_fieldtype = $( fieldForm ).find( 'select#field-type');
+			WPBDPAdmin_FormFields.$f_fieldtype = $( fieldForm ).find( 'select#field-type');
 			fieldForm.on( 'change', 'select#field-type', WPBDPAdmin_FormFields.onFieldTypeChange );
 
-            fieldForm.on( 'change', 'select#field-validator', WPBDPAdmin_FormFields.onFieldValidatorChange );
+			fieldForm.on( 'change', 'select#field-validator', WPBDPAdmin_FormFields.onFieldValidatorChange );
 
 			$( '#wpbdp-fieldsettings' ).on( 'click', '.iframe-confirm a', function(e) {
                 e.preventDefault();
