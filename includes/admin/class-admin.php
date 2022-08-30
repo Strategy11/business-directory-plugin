@@ -86,9 +86,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
 			add_filter( 'admin_head-term.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-directory_page_wpbdp-admin-fees', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-directory_page_wpbdp_admin_formfields', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-directory_page_wpbdp_admin_csv', array( $this, 'maybe_highlight_menu' ) );
 
 			// Clear listing page cache.
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
