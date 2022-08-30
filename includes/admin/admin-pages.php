@@ -240,7 +240,7 @@ class WPBDP_Admin_Pages {
 		<div class="wpbdp-admin-row">
 			<?php
 			if ( $args['show_nav'] ) {
-				if ( ! isset( $tabs['appearance'] ) ) {
+				if ( isset( $tabs['wpbdp-admin-fees'] ) ) {
 					// This is a content page.
 					echo '<script>var wpbdpSelectNav = 1;</script>';
 				}
