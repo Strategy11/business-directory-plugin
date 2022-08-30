@@ -267,7 +267,7 @@ class WPBDP_Utils {
 		}
 
 		if ( ! self::is_valid_upload( $file, $constraints, $error_msg ) ) {
-			return false;
+            return false;
 		}
 
 		if ( ! $use_media_library ) {
@@ -282,13 +282,13 @@ class WPBDP_Utils {
 		}
 
 		$file_id = self::get_file_id( $file_ );
-		if ( ! empty( $_FILES[ $file_id ]['name'] ) && is_array( $_FILES[ $file_id ]['name'] ) ) {
+		if ( ! $sideload && ! empty( $_FILES[ $file_id ]['name'] ) && is_array( $_FILES[ $file_id ]['name'] ) ) {
 			// Force an array of files to a single file.
 			$file_id = substr( sha1( (string) rand() ), 0, 5 );
 			$_FILES[ $file_id ] = $file;
 		}
 
-		$attachment_id = $sideload ? media_handle_sideload( $file_id, 0 ) : media_handle_upload( $file_id, 0 );
+		$attachment_id = $sideload ? media_handle_sideload( $file, 0 ) : media_handle_upload( $file_id, 0 );
 
 		if ( is_wp_error( $attachment_id ) ) {
 			$error_msg = $attachment_id->get_error_message();
