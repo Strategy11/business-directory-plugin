@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-08-24 14:49:40+00:00\n"
+"POT-Creation-Date: 2022-08-30 17:20:11+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -40,7 +40,7 @@ msgstr "Flervalslista"
 msgid "Selected"
 msgstr "Flervalslista"
 
-#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:482
+#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:486
 #: includes/admin/helpers/tables/class-fees-table.php:64
 #: includes/admin/settings/class-settings-bootstrap.php:677
 #: includes/admin/settings/class-settings-bootstrap.php:678
@@ -65,12 +65,12 @@ msgstr "Katalogtaggar"
 msgid "Search results for: %s"
 msgstr "Sökresultat"
 
-#: includes/admin/admin-pages.php:481 includes/admin/class-admin.php:536
+#: includes/admin/admin-pages.php:485 includes/admin/class-admin.php:533
 #, fuzzy
 msgid "Directory Content"
 msgstr "Katalogkategori"
 
-#: includes/admin/admin-pages.php:487 includes/admin/class-admin.php:309
+#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:306
 #: includes/admin/settings/class-settings-bootstrap.php:689
 #: includes/admin/settings/class-settings-bootstrap.php:690
 #: includes/helpers/class-app.php:93
@@ -78,7 +78,7 @@ msgstr "Katalogkategori"
 msgid "Directory"
 msgstr "Katalog"
 
-#: includes/admin/class-admin.php:198
+#: includes/admin/class-admin.php:195
 #, fuzzy
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -88,75 +88,75 @@ msgstr ""
 "från början i denna sanslöst fullmatade (och GRATIS) e-postkurs i 5 delar. "
 "Du får en premium-modul helt kostnadsfritt genom att bara registrera dig."
 
-#: includes/admin/class-admin.php:207
+#: includes/admin/class-admin.php:204
 #, fuzzy
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr "Vill du veta hemligheten bakom att bygga en grymt bra affärskatalog?"
 
-#: includes/admin/class-admin.php:209
+#: includes/admin/class-admin.php:206
 #, fuzzy
 msgid "Yes, please!"
 msgstr "Ja tack!"
 
-#: includes/admin/class-admin.php:211 includes/admin/tracking.php:233
+#: includes/admin/class-admin.php:208 includes/admin/tracking.php:233
 #, fuzzy
 msgid "No, thanks"
 msgstr "Nej tack."
 
-#: includes/admin/class-admin.php:244
+#: includes/admin/class-admin.php:241
 #, fuzzy
 msgid "You're all set. Visit your new %1$sBusiness Directory%2$s page."
 msgstr "Du är klar! Besök din nya <a>Business Directory</a> sida."
 
-#: includes/admin/class-admin.php:272
+#: includes/admin/class-admin.php:269
 #, fuzzy
 msgid "Invalid email address."
 msgstr "Ogiltig e-postadress."
 
-#: includes/admin/class-admin.php:308
+#: includes/admin/class-admin.php:305
 #, fuzzy
 msgid "Business Directory Admin"
 msgstr "Business Directory admin"
 
-#: includes/admin/class-admin.php:320 templates/admin/fees-index.tpl.php:5
+#: includes/admin/class-admin.php:317 templates/admin/fees-index.tpl.php:5
 #: templates/admin/home.tpl.php:65
 #, fuzzy
 msgid "Plans"
 msgstr "Avgiftsplan"
 
-#: includes/admin/class-admin.php:323 templates/admin/form-fields.tpl.php:20
+#: includes/admin/class-admin.php:320 templates/admin/form-fields.tpl.php:20
 #: templates/admin/home.tpl.php:60
 #, fuzzy
 msgid "Form Fields"
 msgstr "Formulärfält"
 
-#: includes/admin/class-admin.php:352 includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:349 includes/admin/class-admin.php:350
 #: includes/licensing.php:220
 #, fuzzy
 msgid "Modules"
 msgstr "(Alla moduler)"
 
-#: includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:350
 #, fuzzy
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin.php:479 includes/class-wpbdp.php:367
+#: includes/admin/class-admin.php:476 includes/class-wpbdp.php:367
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "Uppgradera till %s"
 
-#: includes/admin/class-admin.php:535 includes/class-cpt-integration.php:23
+#: includes/admin/class-admin.php:532 includes/class-cpt-integration.php:23
 #, fuzzy
 msgid "Directory Listings"
 msgstr "Directory Listings Slug"
 
-#: includes/admin/class-admin.php:1065
+#: includes/admin/class-admin.php:1062
 #, fuzzy
 msgid "Could not send renewal email."
 msgstr "Skicka e-post om förnyelse"
 
-#: includes/admin/class-admin.php:1199
+#: includes/admin/class-admin.php:1196
 #: includes/admin/helpers/tables/class-form-fields-table.php:129
 #: includes/admin/helpers/tables/class-payments-table.php:64
 #: templates/email/listing-added.tpl.php:7
@@ -166,13 +166,13 @@ msgstr "Skicka e-post om förnyelse"
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-admin.php:1201 includes/admin/class-admin.php:1209
+#: includes/admin/class-admin.php:1198 includes/admin/class-admin.php:1206
 #: includes/admin/settings/class-settings-bootstrap.php:715
 #, fuzzy
 msgid "Listing Count"
 msgstr "Annonsräknare"
 
-#: includes/admin/class-admin.php:1372
+#: includes/admin/class-admin.php:1369
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -572,6 +572,11 @@ msgstr "Redan installerad."
 #, fuzzy
 msgid "Delete"
 msgstr "Ta bort"
+
+#: includes/admin/controllers/class-settings-admin.php:705
+#, fuzzy
+msgid "Listing owner's name"
+msgstr "Annonsens författares användarnamn"
 
 #: includes/admin/controllers/class-themes-admin.php:44
 #, fuzzy
@@ -1163,6 +1168,17 @@ msgid_plural ""
 "to collect payments in this currency."
 msgstr[0] ""
 msgstr[1] ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:1346
+#, fuzzy
+msgid "Try listing email field first, then listing owner."
+msgstr "Försök med annonsens e-postfält först, därefter författarens e-post."
+
+#: includes/admin/settings/class-settings-bootstrap.php:1347
+#, fuzzy
+msgid "Try listing owner first and then listing email field."
+msgstr ""
+"Försök med författarens e-post först och därefter annonsens e-postfält."
 
 #: includes/admin/settings/class-settings-bootstrap.php:1368
 #, fuzzy
@@ -2769,7 +2785,7 @@ msgstr "Semikolonseparerad lista med annonsbilder (från ZIP-filen)."
 
 #: templates/admin/csv-import.tpl.php:348
 #, fuzzy
-msgid "Listing author's username"
+msgid "Listing owner's username"
 msgstr "Annonsens författares användarnamn"
 
 #: templates/admin/debug-info.tpl.php:5
@@ -4105,27 +4121,27 @@ msgctxt "views"
 msgid "Find A Listing"
 msgstr "Hitta en annons"
 
-#: includes/admin/class-admin.php:200
+#: includes/admin/class-admin.php:197
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "E-postadress:"
 
-#: includes/admin/class-admin.php:232
+#: includes/admin/class-admin.php:229
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin.php:553
+#: includes/admin/class-admin.php:550
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Meny utan titel"
 
-#: includes/admin/class-admin.php:898
+#: includes/admin/class-admin.php:895
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr "Avvisa denna notering."
 
-#: includes/admin/class-admin.php:1003 includes/admin/class-admin.php:1013
+#: includes/admin/class-admin.php:1000 includes/admin/class-admin.php:1010
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -4133,25 +4149,25 @@ msgid_plural "The listings have been updated."
 msgstr[0] "Annonsen har uppgraderats."
 msgstr[1] "Annonserna har uppgraderats."
 
-#: includes/admin/class-admin.php:1039
+#: includes/admin/class-admin.php:1036
 #, fuzzy
 msgctxt "admin"
 msgid "The plan was successfully assigned."
 msgstr "Avgiften tilldelades med framgång."
 
-#: includes/admin/class-admin.php:1049
+#: includes/admin/class-admin.php:1046
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "Annonsen har förnyats."
 msgstr[1] "Annonserna har förnyats."
 
-#: includes/admin/class-admin.php:1061
+#: includes/admin/class-admin.php:1058
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "E-postmeddelande om förnyelse skickat."
 
-#: includes/admin/class-admin.php:1074
+#: includes/admin/class-admin.php:1071
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -4159,18 +4175,18 @@ msgid_plural "Listing reports deleted."
 msgstr[0] "Utgångsdatum för annons"
 msgstr[1] "Utgångsdatum för annons"
 
-#: includes/admin/class-admin.php:1123
+#: includes/admin/class-admin.php:1120
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Åtkomstnyckel"
 
-#: includes/admin/class-admin.php:1125
+#: includes/admin/class-admin.php:1122
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1285
+#: includes/admin/class-admin.php:1282
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -4179,7 +4195,7 @@ msgstr ""
 "<b>Tillägget Business Directory</b> kräver att du lagt shortcoden "
 "<tt>[businessdirectory]</tt> på en sida för att fungera korrekt."
 
-#: includes/admin/class-admin.php:1287
+#: includes/admin/class-admin.php:1284
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -4188,12 +4204,12 @@ msgstr ""
 "Du kan skapa denna sida av dig själv eller låta Business Directory göra det "
 "åt dig automatiskt."
 
-#: includes/admin/class-admin.php:1292
+#: includes/admin/class-admin.php:1289
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Skapa nödvändiga sidor åt mig."
 
-#: includes/admin/class-admin.php:1349
+#: includes/admin/class-admin.php:1346
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -4252,18 +4268,18 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Skapa dessa obligatoriska fält för mig"
 
-#: includes/admin/class-admin.php:327
+#: includes/admin/class-admin.php:324
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Betalningshistorik"
 
-#: includes/admin/class-admin.php:330
+#: includes/admin/class-admin.php:327
 #, fuzzy
 msgctxt "admin menu"
 msgid "Import & Export"
 msgstr "Importera och exportera CSV"
 
-#: includes/admin/class-admin.php:333
+#: includes/admin/class-admin.php:330
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Debug"
@@ -5273,17 +5289,6 @@ msgstr ""
 "Annonser med avvaktande betalningar är markerade som övergivna efter denna "
 "tid. Du kan också <a>anpassa e-mejlet</a> användaren får."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1346
-msgctxt "admin settings"
-msgid "Try listing's email field first, then author's email."
-msgstr "Försök med annonsens e-postfält först, därefter författarens e-post."
-
-#: includes/admin/settings/class-settings-bootstrap.php:1347
-msgctxt "admin settings"
-msgid "Try author's email first and then listing's email field."
-msgstr ""
-"Försök med författarens e-post först och därefter annonsens e-postfält."
-
 #: includes/admin/settings/class-settings-bootstrap.php:1360
 msgctxt "admin settings"
 msgid "Plain (text/plain)"
@@ -5617,11 +5622,6 @@ msgstr "När ska den skickas?"
 msgctxt "settings"
 msgid "Site title (with link)"
 msgstr "Webbplatstitel (med länk)"
-
-#: includes/admin/controllers/class-settings-admin.php:705
-msgctxt "settings"
-msgid "Author's name"
-msgstr "Författarens namn"
 
 #: includes/admin/controllers/class-settings-admin.php:706
 msgctxt "settings"
@@ -9143,6 +9143,10 @@ msgstr "Skriv in din e-postadress"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Fortsätt "
+
+#~ msgctxt "settings"
+#~ msgid "Author's name"
+#~ msgstr "Författarens namn"
 
 #, fuzzy
 #~ msgctxt "settings"

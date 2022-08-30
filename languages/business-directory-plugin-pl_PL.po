@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-08-24 14:49:40+00:00\n"
+"POT-Creation-Date: 2022-08-30 17:20:11+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -48,7 +48,7 @@ msgid "Selected"
 msgstr "Lista Wyboru"
 
 # @ WPBDM
-#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:482
+#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:486
 #: includes/admin/helpers/tables/class-fees-table.php:64
 #: includes/admin/settings/class-settings-bootstrap.php:677
 #: includes/admin/settings/class-settings-bootstrap.php:678
@@ -77,13 +77,13 @@ msgid "Search results for: %s"
 msgstr "Wyniki wyszukiwania"
 
 # @ WPBDM
-#: includes/admin/admin-pages.php:481 includes/admin/class-admin.php:536
+#: includes/admin/admin-pages.php:485 includes/admin/class-admin.php:533
 #, fuzzy
 msgid "Directory Content"
 msgstr "Kategorie Katalogu"
 
 # @ WPBDM
-#: includes/admin/admin-pages.php:487 includes/admin/class-admin.php:309
+#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:306
 #: includes/admin/settings/class-settings-bootstrap.php:689
 #: includes/admin/settings/class-settings-bootstrap.php:690
 #: includes/helpers/class-app.php:93
@@ -92,7 +92,7 @@ msgid "Directory"
 msgstr "Katalog"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:198
+#: includes/admin/class-admin.php:195
 #, fuzzy
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -103,86 +103,86 @@ msgstr ""
 "darmowy moduł Premium tylko za zarejestrowanie się."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:207
+#: includes/admin/class-admin.php:204
 #, fuzzy
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr "Chcesz poznać tajemnice budowy niesamowitego katalogu firm?"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:209
+#: includes/admin/class-admin.php:206
 #, fuzzy
 msgid "Yes, please!"
 msgstr "Tak, proszę!"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:211 includes/admin/tracking.php:233
+#: includes/admin/class-admin.php:208 includes/admin/tracking.php:233
 #, fuzzy
 msgid "No, thanks"
 msgstr "Nie, dziękuję"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:244
+#: includes/admin/class-admin.php:241
 #, fuzzy
 msgid "You're all set. Visit your new %1$sBusiness Directory%2$s page."
 msgstr "Wszystko ustawione. Odwiedź swój nowy <a>Katalog Firm</a>."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:272
+#: includes/admin/class-admin.php:269
 #, fuzzy
 msgid "Invalid email address."
 msgstr "Nieprawidłowy adres e-mail"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:308
+#: includes/admin/class-admin.php:305
 #, fuzzy
 msgid "Business Directory Admin"
 msgstr "Katalog Firm Admin"
 
-#: includes/admin/class-admin.php:320 templates/admin/fees-index.tpl.php:5
+#: includes/admin/class-admin.php:317 templates/admin/fees-index.tpl.php:5
 #: templates/admin/home.tpl.php:65
 msgid "Plans"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:323 templates/admin/form-fields.tpl.php:20
+#: includes/admin/class-admin.php:320 templates/admin/form-fields.tpl.php:20
 #: templates/admin/home.tpl.php:60
 #, fuzzy
 msgid "Form Fields"
 msgstr "Pola formularza"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:352 includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:349 includes/admin/class-admin.php:350
 #: includes/licensing.php:220
 #, fuzzy
 msgid "Modules"
 msgstr "Zainstalowane moduły"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:350
 #, fuzzy
 msgid "Business Directory"
 msgstr "Katalog Firm"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:479 includes/class-wpbdp.php:367
+#: includes/admin/class-admin.php:476 includes/class-wpbdp.php:367
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "Podnieś status do %s"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:535 includes/class-cpt-integration.php:23
+#: includes/admin/class-admin.php:532 includes/class-cpt-integration.php:23
 #, fuzzy
 msgid "Directory Listings"
 msgstr "Slug Katalogu Firm"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1065
+#: includes/admin/class-admin.php:1062
 #, fuzzy
 msgid "Could not send renewal email."
 msgstr "Wysyłaj do użytkownika e-mail o odnowieniu "
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1199
+#: includes/admin/class-admin.php:1196
 #: includes/admin/helpers/tables/class-form-fields-table.php:129
 #: includes/admin/helpers/tables/class-payments-table.php:64
 #: templates/email/listing-added.tpl.php:7
@@ -193,14 +193,14 @@ msgid "ID"
 msgstr "ID"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1201 includes/admin/class-admin.php:1209
+#: includes/admin/class-admin.php:1198 includes/admin/class-admin.php:1206
 #: includes/admin/settings/class-settings-bootstrap.php:715
 #, fuzzy
 msgid "Listing Count"
 msgstr "Licznik ofert"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1372
+#: includes/admin/class-admin.php:1369
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -654,6 +654,12 @@ msgstr "Już zainstalowano."
 #, fuzzy
 msgid "Delete"
 msgstr "Usuń"
+
+# @ WPBDM
+#: includes/admin/controllers/class-settings-admin.php:705
+#, fuzzy
+msgid "Listing owner's name"
+msgstr "Autor oferty - Nazwa Użytkownika"
 
 #: includes/admin/controllers/class-themes-admin.php:44
 msgid "Themes"
@@ -1294,6 +1300,14 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:1346
+msgid "Try listing email field first, then listing owner."
+msgstr ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:1347
+msgid "Try listing owner first and then listing email field."
+msgstr ""
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:1368
@@ -3074,7 +3088,7 @@ msgstr "Lista rozdzielonych średnikami obrazów oferty (z pliku ZIP)"
 # @ WPBDM
 #: templates/admin/csv-import.tpl.php:348
 #, fuzzy
-msgid "Listing author's username"
+msgid "Listing owner's username"
 msgstr "Autor oferty - Nazwa Użytkownika"
 
 # @ WPBDM
@@ -4520,29 +4534,29 @@ msgid "Find A Listing"
 msgstr "Znajdź Firmę"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:200
+#: includes/admin/class-admin.php:197
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "Adres e-mail:"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:232
+#: includes/admin/class-admin.php:229
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Katalog Firm"
 
-#: includes/admin/class-admin.php:553
+#: includes/admin/class-admin.php:550
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:898
+#: includes/admin/class-admin.php:895
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1003 includes/admin/class-admin.php:1013
+#: includes/admin/class-admin.php:1000 includes/admin/class-admin.php:1010
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -4552,14 +4566,14 @@ msgstr[1] "Podniesiono status ofert."
 msgstr[2] "Podniesiono status ofert."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1039
+#: includes/admin/class-admin.php:1036
 #, fuzzy
 msgctxt "admin"
 msgid "The plan was successfully assigned."
 msgstr "Abonament został przypisany do oferty."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1049
+#: includes/admin/class-admin.php:1046
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -4568,13 +4582,13 @@ msgstr[1] "Odnowiono oferty."
 msgstr[2] "Odnowiono ofert."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1061
+#: includes/admin/class-admin.php:1058
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "Wysłano e-mail potwierdzający odnowienie."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1074
+#: includes/admin/class-admin.php:1071
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -4584,19 +4598,19 @@ msgstr[1] "Data zakończenia emisji oferty"
 msgstr[2] "Data zakończenia emisji oferty"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1123
+#: includes/admin/class-admin.php:1120
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Pola/Obrazy"
 
-#: includes/admin/class-admin.php:1125
+#: includes/admin/class-admin.php:1122
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1285
+#: includes/admin/class-admin.php:1282
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -4606,7 +4620,7 @@ msgstr ""
 "<tt>[businessdirectory]</tt> aby działać prawidłowo."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1287
+#: includes/admin/class-admin.php:1284
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -4616,12 +4630,12 @@ msgstr ""
 "automatycznie."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1292
+#: includes/admin/class-admin.php:1289
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Stwórz wymagane pola dla mnie"
 
-#: includes/admin/class-admin.php:1349
+#: includes/admin/class-admin.php:1346
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -4689,21 +4703,21 @@ msgid "Create these required fields for me"
 msgstr "Stwórz te wymagane pola dla mnie"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:327
+#: includes/admin/class-admin.php:324
 #, fuzzy
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Historia płatności"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:330
+#: includes/admin/class-admin.php:327
 #, fuzzy
 msgctxt "admin menu"
 msgid "Import & Export"
 msgstr "CSV Import"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:333
+#: includes/admin/class-admin.php:330
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Debug"
@@ -5856,16 +5870,6 @@ msgstr ""
 "tego czasu. Możesz także <a>wprowadzić zmiany w szablonie wiadomości e-mail</"
 "a> dostarczanym do użytkowników."
 
-#: includes/admin/settings/class-settings-bootstrap.php:1346
-msgctxt "admin settings"
-msgid "Try listing's email field first, then author's email."
-msgstr ""
-
-#: includes/admin/settings/class-settings-bootstrap.php:1347
-msgctxt "admin settings"
-msgid "Try author's email first and then listing's email field."
-msgstr ""
-
 #: includes/admin/settings/class-settings-bootstrap.php:1360
 msgctxt "admin settings"
 msgid "Plain (text/plain)"
@@ -6255,12 +6259,6 @@ msgstr ""
 msgctxt "settings"
 msgid "Site title (with link)"
 msgstr "Tytuł strony (z linkiem)"
-
-# @ WPBDM
-#: includes/admin/controllers/class-settings-admin.php:705
-msgctxt "settings"
-msgid "Author's name"
-msgstr "Nazwisko Autora"
 
 # @ WPBDM
 #: includes/admin/controllers/class-settings-admin.php:706
@@ -10314,6 +10312,11 @@ msgstr "Nieprawidłowy adres e-mail"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Kontynuacja"
+
+# @ WPBDM
+#~ msgctxt "settings"
+#~ msgid "Author's name"
+#~ msgstr "Nazwisko Autora"
 
 # @ WPBDM
 #, fuzzy

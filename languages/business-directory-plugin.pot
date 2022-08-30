@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 6.2.8\n"
+"Project-Id-Version: Business Directory Plugin 6.2.9\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2022-08-24 14:49:40+00:00\n"
+"POT-Creation-Date: 2022-08-30 17:20:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Selected"
 msgstr ""
 
-#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:482
+#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:486
 #: includes/admin/helpers/tables/class-fees-table.php:64
 #: includes/admin/settings/class-settings-bootstrap.php:677
 #: includes/admin/settings/class-settings-bootstrap.php:678
@@ -56,11 +56,11 @@ msgstr ""
 msgid "Search results for: %s"
 msgstr ""
 
-#: includes/admin/admin-pages.php:481 includes/admin/class-admin.php:536
+#: includes/admin/admin-pages.php:485 includes/admin/class-admin.php:533
 msgid "Directory Content"
 msgstr ""
 
-#: includes/admin/admin-pages.php:487 includes/admin/class-admin.php:309
+#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:306
 #: includes/admin/settings/class-settings-bootstrap.php:689
 #: includes/admin/settings/class-settings-bootstrap.php:690
 #: includes/helpers/class-app.php:93
@@ -68,68 +68,68 @@ msgstr ""
 msgid "Directory"
 msgstr ""
 
-#: includes/admin/class-admin.php:198
+#: includes/admin/class-admin.php:195
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
 "scratch in this ridiculously actionable (and FREE) 5-part email course."
 msgstr ""
 
-#: includes/admin/class-admin.php:207
+#: includes/admin/class-admin.php:204
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr ""
 
-#: includes/admin/class-admin.php:209
+#: includes/admin/class-admin.php:206
 msgid "Yes, please!"
 msgstr ""
 
-#: includes/admin/class-admin.php:211 includes/admin/tracking.php:233
+#: includes/admin/class-admin.php:208 includes/admin/tracking.php:233
 msgid "No, thanks"
 msgstr ""
 
-#: includes/admin/class-admin.php:244
+#: includes/admin/class-admin.php:241
 msgid "You're all set. Visit your new %1$sBusiness Directory%2$s page."
 msgstr ""
 
-#: includes/admin/class-admin.php:272
+#: includes/admin/class-admin.php:269
 msgid "Invalid email address."
 msgstr ""
 
-#: includes/admin/class-admin.php:308
+#: includes/admin/class-admin.php:305
 msgid "Business Directory Admin"
 msgstr ""
 
-#: includes/admin/class-admin.php:320 templates/admin/fees-index.tpl.php:5
+#: includes/admin/class-admin.php:317 templates/admin/fees-index.tpl.php:5
 #: templates/admin/home.tpl.php:65
 msgid "Plans"
 msgstr ""
 
-#: includes/admin/class-admin.php:323 templates/admin/form-fields.tpl.php:20
+#: includes/admin/class-admin.php:320 templates/admin/form-fields.tpl.php:20
 #: templates/admin/home.tpl.php:60
 msgid "Form Fields"
 msgstr ""
 
-#: includes/admin/class-admin.php:352 includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:349 includes/admin/class-admin.php:350
 #: includes/licensing.php:220
 msgid "Modules"
 msgstr ""
 
-#: includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:350
 msgid "Business Directory"
 msgstr ""
 
-#: includes/admin/class-admin.php:479 includes/class-wpbdp.php:367
+#: includes/admin/class-admin.php:476 includes/class-wpbdp.php:367
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: includes/admin/class-admin.php:535 includes/class-cpt-integration.php:23
+#: includes/admin/class-admin.php:532 includes/class-cpt-integration.php:23
 msgid "Directory Listings"
 msgstr ""
 
-#: includes/admin/class-admin.php:1065
+#: includes/admin/class-admin.php:1062
 msgid "Could not send renewal email."
 msgstr ""
 
-#: includes/admin/class-admin.php:1199
+#: includes/admin/class-admin.php:1196
 #: includes/admin/helpers/tables/class-form-fields-table.php:129
 #: includes/admin/helpers/tables/class-payments-table.php:64
 #: templates/email/listing-added.tpl.php:7
@@ -138,12 +138,12 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: includes/admin/class-admin.php:1201 includes/admin/class-admin.php:1209
+#: includes/admin/class-admin.php:1198 includes/admin/class-admin.php:1206
 #: includes/admin/settings/class-settings-bootstrap.php:715
 msgid "Listing Count"
 msgstr ""
 
-#: includes/admin/class-admin.php:1372
+#: includes/admin/class-admin.php:1369
 msgid ""
 "We noticed you want your Business Directory users to register before "
 "posting listings, but Registration for your site is currently disabled. Go "
@@ -483,6 +483,10 @@ msgstr ""
 #: templates/admin/themes-item.tpl.php:50
 #: templates/parts/listing-buttons.tpl.php:31
 msgid "Delete"
+msgstr ""
+
+#: includes/admin/controllers/class-settings-admin.php:705
+msgid "Listing owner's name"
 msgstr ""
 
 #: includes/admin/controllers/class-themes-admin.php:44
@@ -971,6 +975,14 @@ msgid_plural ""
 "to collect payments in this currency."
 msgstr[0] ""
 msgstr[1] ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:1346
+msgid "Try listing email field first, then listing owner."
+msgstr ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:1347
+msgid "Try listing owner first and then listing email field."
+msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1368
 msgid "Email Notifications"
@@ -2313,7 +2325,7 @@ msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr ""
 
 #: templates/admin/csv-import.tpl.php:348
-msgid "Listing author's username"
+msgid "Listing owner's username"
 msgstr ""
 
 #: templates/admin/debug-info.tpl.php:5
@@ -3420,87 +3432,87 @@ msgctxt "views"
 msgid "Find A Listing"
 msgstr ""
 
-#: includes/admin/class-admin.php:200
+#: includes/admin/class-admin.php:197
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr ""
 
-#: includes/admin/class-admin.php:232
+#: includes/admin/class-admin.php:229
 msgctxt "admin"
 msgid "Business Directory"
 msgstr ""
 
-#: includes/admin/class-admin.php:553
+#: includes/admin/class-admin.php:550
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:898
+#: includes/admin/class-admin.php:895
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr ""
 
-#: includes/admin/class-admin.php:1003 includes/admin/class-admin.php:1013
+#: includes/admin/class-admin.php:1000 includes/admin/class-admin.php:1010
 msgctxt "admin"
 msgid "The listing has been updated."
 msgid_plural "The listings have been updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-admin.php:1039
+#: includes/admin/class-admin.php:1036
 msgctxt "admin"
 msgid "The plan was successfully assigned."
 msgstr ""
 
-#: includes/admin/class-admin.php:1049
+#: includes/admin/class-admin.php:1046
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-admin.php:1061
+#: includes/admin/class-admin.php:1058
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1074
+#: includes/admin/class-admin.php:1071
 msgctxt "admin"
 msgid "Listing report deleted."
 msgid_plural "Listing reports deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-admin.php:1123
+#: includes/admin/class-admin.php:1120
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1125
+#: includes/admin/class-admin.php:1122
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1285
+#: includes/admin/class-admin.php:1282
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
 "<tt>[businessdirectory]</tt> shortcode to function properly."
 msgstr ""
 
-#: includes/admin/class-admin.php:1287
+#: includes/admin/class-admin.php:1284
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
 "you automatically."
 msgstr ""
 
-#: includes/admin/class-admin.php:1292
+#: includes/admin/class-admin.php:1289
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr ""
 
-#: includes/admin/class-admin.php:1349
+#: includes/admin/class-admin.php:1346
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP "
@@ -3553,17 +3565,17 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr ""
 
-#: includes/admin/class-admin.php:327
+#: includes/admin/class-admin.php:324
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr ""
 
-#: includes/admin/class-admin.php:330
+#: includes/admin/class-admin.php:327
 msgctxt "admin menu"
 msgid "Import & Export"
 msgstr ""
 
-#: includes/admin/class-admin.php:333
+#: includes/admin/class-admin.php:330
 msgctxt "admin menu"
 msgid "Debug"
 msgstr ""
@@ -4508,16 +4520,6 @@ msgid ""
 "can also <a>customize the email</a> users receive."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1346
-msgctxt "admin settings"
-msgid "Try listing's email field first, then author's email."
-msgstr ""
-
-#: includes/admin/settings/class-settings-bootstrap.php:1347
-msgctxt "admin settings"
-msgid "Try author's email first and then listing's email field."
-msgstr ""
-
 #: includes/admin/settings/class-settings-bootstrap.php:1360
 msgctxt "admin settings"
 msgid "Plain (text/plain)"
@@ -4834,11 +4836,6 @@ msgstr ""
 #: includes/admin/controllers/class-settings-admin.php:704
 msgctxt "settings"
 msgid "Site title (with link)"
-msgstr ""
-
-#: includes/admin/controllers/class-settings-admin.php:705
-msgctxt "settings"
-msgid "Author's name"
 msgstr ""
 
 #: includes/admin/controllers/class-settings-admin.php:706
