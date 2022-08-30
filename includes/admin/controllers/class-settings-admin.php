@@ -702,7 +702,7 @@ foreach ( $value as $i => $notice ) {
 		'placeholders'    =>
 			array(
 				'site'         => _x( 'Site title (with link)', 'settings', 'business-directory-plugin' ),
-				'author'       => _x( 'Author\'s name', 'settings', 'business-directory-plugin' ),
+				'author'       => __( 'Listing owner\'s name', 'business-directory-plugin' ),
 				'listing'      => _x( 'Listing\'s name (with link)', 'settings', 'business-directory-plugin' ),
 				'expiration'   => _x( 'Listing\'s expiration date', 'settings', 'business-directory-plugin' ),
                 'link'         => _x( 'Listing\'s renewal link, formatted with an anchor tag', 'settings', 'business-directory-plugin' ),

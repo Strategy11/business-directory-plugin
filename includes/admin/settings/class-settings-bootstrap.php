@@ -1343,8 +1343,8 @@ final class WPBDP__Settings__Bootstrap {
                 'desc'    => _x( 'This affects emails sent to listing owners via contact forms or when their listings expire.', 'settings', 'business-directory-plugin' ),
                 'default' => 'field',
                 'options' => array(
-                    'field' => _x( 'Try listing\'s email field first, then author\'s email.', 'admin settings', 'business-directory-plugin' ),
-                    'user'  => _x( 'Try author\'s email first and then listing\'s email field.', 'admin settings', 'business-directory-plugin' ),
+					'field' => __( 'Try listing email field first, then listing owner.', 'business-directory-plugin' ),
+					'user'  => __( 'Try listing owner first and then listing email field.', 'business-directory-plugin' ),
                 ),
                 'group'   => 'email/main/general',
             )
