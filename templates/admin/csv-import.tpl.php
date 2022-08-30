@@ -345,7 +345,7 @@ printf(
         </tr>
 		<tr class="<?php echo ( $i + 2 ) % 2 == 0 ? 'alt' : ''; ?>">
             <td class="header-name">username</td>
-			<td class="field-label"><?php esc_html_e( 'Listing author\'s username', 'business-directory-plugin' ); ?></td>
+			<td class="field-label"><?php esc_html_e( 'Listing owner\'s username', 'business-directory-plugin' ); ?></td>
             <td class="field-type">-</td>
             <td class="field-is-required"></td>
             <td class="field-is-multivalued"></td>
