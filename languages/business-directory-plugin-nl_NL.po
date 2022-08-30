@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-08-24 14:49:40+00:00\n"
+"POT-Creation-Date: 2022-08-30 17:20:11+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -38,7 +38,7 @@ msgstr "Selecteer lijst"
 msgid "Selected"
 msgstr "Selecteer lijst"
 
-#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:482
+#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:486
 #: includes/admin/helpers/tables/class-fees-table.php:64
 #: includes/admin/settings/class-settings-bootstrap.php:677
 #: includes/admin/settings/class-settings-bootstrap.php:678
@@ -63,12 +63,12 @@ msgstr "Register Categorieën"
 msgid "Search results for: %s"
 msgstr "Zoek resultaten"
 
-#: includes/admin/admin-pages.php:481 includes/admin/class-admin.php:536
+#: includes/admin/admin-pages.php:485 includes/admin/class-admin.php:533
 #, fuzzy
 msgid "Directory Content"
 msgstr "Register Categorie"
 
-#: includes/admin/admin-pages.php:487 includes/admin/class-admin.php:309
+#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:306
 #: includes/admin/settings/class-settings-bootstrap.php:689
 #: includes/admin/settings/class-settings-bootstrap.php:690
 #: includes/helpers/class-app.php:93
@@ -76,76 +76,76 @@ msgstr "Register Categorie"
 msgid "Directory"
 msgstr "Registers"
 
-#: includes/admin/class-admin.php:198
+#: includes/admin/class-admin.php:195
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
 "scratch in this ridiculously actionable (and FREE) 5-part email course."
 msgstr ""
 
-#: includes/admin/class-admin.php:207
+#: includes/admin/class-admin.php:204
 msgid "Want to know the Secrets of Building an Awesome Business Directory?"
 msgstr ""
 
-#: includes/admin/class-admin.php:209
+#: includes/admin/class-admin.php:206
 #, fuzzy
 msgid "Yes, please!"
 msgstr "Ja, graag!"
 
-#: includes/admin/class-admin.php:211 includes/admin/tracking.php:233
+#: includes/admin/class-admin.php:208 includes/admin/tracking.php:233
 #, fuzzy
 msgid "No, thanks"
 msgstr "Nee, dank je"
 
-#: includes/admin/class-admin.php:244
+#: includes/admin/class-admin.php:241
 msgid "You're all set. Visit your new %1$sBusiness Directory%2$s page."
 msgstr ""
 
-#: includes/admin/class-admin.php:272
+#: includes/admin/class-admin.php:269
 #, fuzzy
 msgid "Invalid email address."
 msgstr "Ongeld e-mail adres."
 
-#: includes/admin/class-admin.php:308
+#: includes/admin/class-admin.php:305
 #, fuzzy
 msgid "Business Directory Admin"
 msgstr "Business Directory instellingen"
 
-#: includes/admin/class-admin.php:320 templates/admin/fees-index.tpl.php:5
+#: includes/admin/class-admin.php:317 templates/admin/fees-index.tpl.php:5
 #: templates/admin/home.tpl.php:65
 msgid "Plans"
 msgstr ""
 
-#: includes/admin/class-admin.php:323 templates/admin/form-fields.tpl.php:20
+#: includes/admin/class-admin.php:320 templates/admin/form-fields.tpl.php:20
 #: templates/admin/home.tpl.php:60
 #, fuzzy
 msgid "Form Fields"
 msgstr "Formulier velden"
 
-#: includes/admin/class-admin.php:352 includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:349 includes/admin/class-admin.php:350
 #: includes/licensing.php:220
 msgid "Modules"
 msgstr ""
 
-#: includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:350
 #, fuzzy
 msgid "Business Directory"
 msgstr "Business Directory - Zoeken"
 
-#: includes/admin/class-admin.php:479 includes/class-wpbdp.php:367
+#: includes/admin/class-admin.php:476 includes/class-wpbdp.php:367
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "Opwaarderen tot %s"
 
-#: includes/admin/class-admin.php:535 includes/class-cpt-integration.php:23
+#: includes/admin/class-admin.php:532 includes/class-cpt-integration.php:23
 #, fuzzy
 msgid "Directory Listings"
 msgstr "Sorteer registraties (vermeldingen) op"
 
-#: includes/admin/class-admin.php:1065
+#: includes/admin/class-admin.php:1062
 msgid "Could not send renewal email."
 msgstr ""
 
-#: includes/admin/class-admin.php:1199
+#: includes/admin/class-admin.php:1196
 #: includes/admin/helpers/tables/class-form-fields-table.php:129
 #: includes/admin/helpers/tables/class-payments-table.php:64
 #: templates/email/listing-added.tpl.php:7
@@ -154,13 +154,13 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: includes/admin/class-admin.php:1201 includes/admin/class-admin.php:1209
+#: includes/admin/class-admin.php:1198 includes/admin/class-admin.php:1206
 #: includes/admin/settings/class-settings-bootstrap.php:715
 #, fuzzy
 msgid "Listing Count"
 msgstr "Aantal registraties"
 
-#: includes/admin/class-admin.php:1372
+#: includes/admin/class-admin.php:1369
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
 "listings, but Registration for your site is currently disabled. Go %1$shere"
@@ -543,6 +543,11 @@ msgstr ""
 #, fuzzy
 msgid "Delete"
 msgstr "Verwijder"
+
+#: includes/admin/controllers/class-settings-admin.php:705
+#, fuzzy
+msgid "Listing owner's name"
+msgstr "Naam auteur"
 
 #: includes/admin/controllers/class-themes-admin.php:44
 #, fuzzy
@@ -1115,6 +1120,16 @@ msgid_plural ""
 "to collect payments in this currency."
 msgstr[0] ""
 msgstr[1] ""
+
+#: includes/admin/settings/class-settings-bootstrap.php:1346
+#, fuzzy
+msgid "Try listing email field first, then listing owner."
+msgstr "Probeer eerst email veld, dan email van de auteur."
+
+#: includes/admin/settings/class-settings-bootstrap.php:1347
+#, fuzzy
+msgid "Try listing owner first and then listing email field."
+msgstr "Probeer eerst email van de auteur, dan email veld van registratie. "
 
 #: includes/admin/settings/class-settings-bootstrap.php:1368
 #, fuzzy
@@ -2570,7 +2585,7 @@ msgstr ""
 
 #: templates/admin/csv-import.tpl.php:348
 #, fuzzy
-msgid "Listing author's username"
+msgid "Listing owner's username"
 msgstr "Naam auteur"
 
 #: templates/admin/debug-info.tpl.php:5
@@ -3800,27 +3815,27 @@ msgctxt "views"
 msgid "Find A Listing"
 msgstr "Een registratie vinden"
 
-#: includes/admin/class-admin.php:200
+#: includes/admin/class-admin.php:197
 msgctxt "drip pointer"
 msgid "Email Address:"
 msgstr "Email Adres:"
 
-#: includes/admin/class-admin.php:232
+#: includes/admin/class-admin.php:229
 msgctxt "admin"
 msgid "Business Directory"
 msgstr ""
 
-#: includes/admin/class-admin.php:553
+#: includes/admin/class-admin.php:550
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:898
+#: includes/admin/class-admin.php:895
 msgctxt "admin"
 msgid "Dismiss this notice."
 msgstr ""
 
-#: includes/admin/class-admin.php:1003 includes/admin/class-admin.php:1013
+#: includes/admin/class-admin.php:1000 includes/admin/class-admin.php:1010
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -3828,24 +3843,24 @@ msgid_plural "The listings have been updated."
 msgstr[0] "De registratie / vermelding is bijgewerkt."
 msgstr[1] "De registraties / vermeldingen zijn bijgewerkt."
 
-#: includes/admin/class-admin.php:1039
+#: includes/admin/class-admin.php:1036
 msgctxt "admin"
 msgid "The plan was successfully assigned."
 msgstr ""
 
-#: includes/admin/class-admin.php:1049
+#: includes/admin/class-admin.php:1046
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-admin.php:1061
+#: includes/admin/class-admin.php:1058
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1074
+#: includes/admin/class-admin.php:1071
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -3853,36 +3868,36 @@ msgid_plural "Listing reports deleted."
 msgstr[0] "Registratie vernieuwing"
 msgstr[1] "Registratie vernieuwing"
 
-#: includes/admin/class-admin.php:1123
+#: includes/admin/class-admin.php:1120
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1125
+#: includes/admin/class-admin.php:1122
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1285
+#: includes/admin/class-admin.php:1282
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
 "<tt>[businessdirectory]</tt> shortcode to function properly."
 msgstr ""
 
-#: includes/admin/class-admin.php:1287
+#: includes/admin/class-admin.php:1284
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
 "you automatically."
 msgstr ""
 
-#: includes/admin/class-admin.php:1292
+#: includes/admin/class-admin.php:1289
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr ""
 
-#: includes/admin/class-admin.php:1349
+#: includes/admin/class-admin.php:1346
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -3938,18 +3953,18 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Creëer deze vereiste velden voor me"
 
-#: includes/admin/class-admin.php:327
+#: includes/admin/class-admin.php:324
 #, fuzzy
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Betaal instellingen"
 
-#: includes/admin/class-admin.php:330
+#: includes/admin/class-admin.php:327
 msgctxt "admin menu"
 msgid "Import & Export"
 msgstr ""
 
-#: includes/admin/class-admin.php:333
+#: includes/admin/class-admin.php:330
 msgctxt "admin menu"
 msgid "Debug"
 msgstr ""
@@ -4949,16 +4964,6 @@ msgid ""
 "can also <a>customize the email</a> users receive."
 msgstr ""
 
-#: includes/admin/settings/class-settings-bootstrap.php:1346
-msgctxt "admin settings"
-msgid "Try listing's email field first, then author's email."
-msgstr "Probeer eerst email veld, dan email van de auteur."
-
-#: includes/admin/settings/class-settings-bootstrap.php:1347
-msgctxt "admin settings"
-msgid "Try author's email first and then listing's email field."
-msgstr "Probeer eerst email van de auteur, dan email veld van registratie. "
-
 #: includes/admin/settings/class-settings-bootstrap.php:1360
 msgctxt "admin settings"
 msgid "Plain (text/plain)"
@@ -5298,11 +5303,6 @@ msgstr ""
 msgctxt "settings"
 msgid "Site title (with link)"
 msgstr "Site titel (met link)"
-
-#: includes/admin/controllers/class-settings-admin.php:705
-msgctxt "settings"
-msgid "Author's name"
-msgstr "Naam auteur"
 
 #: includes/admin/controllers/class-settings-admin.php:706
 msgctxt "settings"
@@ -8730,6 +8730,10 @@ msgstr ""
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Doorgaan"
+
+#~ msgctxt "settings"
+#~ msgid "Author's name"
+#~ msgstr "Naam auteur"
 
 #, fuzzy
 #~ msgctxt "settings"
