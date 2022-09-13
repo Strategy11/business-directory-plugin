@@ -8,7 +8,7 @@
 ?>
 
 <div class="listing-title">
-    <?php echo $fields->t_title->value; ?>
+    <h3><?php echo $fields->t_title->value; ?></h3>
 </div>
 
 <div class="excerpt-content wpbdp-hide-title">
