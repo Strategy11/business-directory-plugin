@@ -239,11 +239,11 @@ table.wp-list-table.formfields {
     tr:hover .wpbdp-drag-handle {
         visibility: visible;
     }
-    
+
     tr.wpbdp-draggable-highlight {
         height: 54px;
     }
-    
+
     tr.ui-sortable-helper {
         background: @white;
         border: 1px dashed #c1c1c1;
@@ -585,7 +585,7 @@ body.taxonomy-wpbdp_category .column-id {
         color: @red;
         margin: 0 0 10px 0;
     }
-    
+
     #wpbdp-uninstall-messages {
         #wpbdp-uninstall-warning,
         #wpbdp-uninstall-reinstall-suggestion {
@@ -605,7 +605,6 @@ body.taxonomy-wpbdp_category .column-id {
         #wpbdp-uninstall-warning {
             width: 60%;
             padding-right: 20px;
-            color: @red;
 
             .dashicons {
 				width: 20px;
@@ -613,7 +612,7 @@ body.taxonomy-wpbdp_category .column-id {
 				font-size: 20px;
 			}
         }
-        
+
         #wpbdp-uninstall-reinstall-suggestion {
             width: 40%;
             padding-left: 20px;
@@ -621,38 +620,32 @@ body.taxonomy-wpbdp_category .column-id {
         }
     }
 
-    #wpbdp-uninstall-capture-form {
-        display: none;
-    }
+	#wpbdp-uninstall-capture-form {
+		display: none;
 
-    #wpbdp-uninstall-capture-form .reasons {
-        margin-left: 15px;
-    }
+		.reason {
+			margin-bottom: 5px;
+		}
 
-    #wpbdp-uninstall-capture-form .reasons .reason {
-        margin-bottom: 5px;
-    }
+		.custom-reason {
+			display: none;
+		}
 
-    #wpbdp-uninstall-capture-form .custom-reason {
-        display: none;
-    }
+		textarea {
+			margin: 10px 0 0 0;
+			width: 50%;
+			min-height: 100px;
 
-    #wpbdp-uninstall-capture-form textarea {
-        margin: 10px 0 0 0;
-        width: 50%;
-        min-height: 100px;
-
-        &.invalid {
-            border-color: @red;
-        }
-    }
+			&.invalid {
+				border-color: @red;
+			}
+		}
+	}
 
     #wpbdp-uninstall-proceed-btn {
         margin-top: 20px;
         color: @red;
     }
-        
-
 }
 
 /* }} */
@@ -760,7 +753,7 @@ span.tag {
         background: @red;
         color: @white;
     }
-    
+
     &.wpbdp-listing-attr-reported {
         background: @red;
         color: @white;

@@ -26,10 +26,10 @@
                 <li><?php _ex( 'Deactivate the plugin from the file system', 'uninstall', 'business-directory-plugin' ); ?></li>
             </ul>
 
-            <p><?php _ex( 'ONLY do this if you are sure you\'re OK with LOSING ALL OF YOUR DATA.', 'uninstall', 'business-directory-plugin' ); ?></p>
+            <p><?php esc_html_e( 'ONLY do this if you want to DELETE ALL OF YOUR DATA.', 'business-directory-plugin' ); ?></p>
         </div>
 
-        <a id="wpbdp-uninstall-proceed-btn" class="button"><?php _ex( 'Yes, I want to uninstall', 'uninstall', 'business-directory-plugin' ); ?></a>
+        <a id="wpbdp-uninstall-proceed-btn" class="button"><?php esc_html_e( 'Yes, I want to uninstall', 'business-directory-plugin' ); ?></a>
     </div>
 
     <div id="wpbdp-uninstall-reinstall-suggestion">
