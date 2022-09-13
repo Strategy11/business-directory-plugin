@@ -326,7 +326,7 @@ class WPBDP_App_Helper {
 	public static function svg_logo( $atts = array() ) {
 		$atts = self::prep_logo_atts( $atts );
 
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" class="' . esc_attr( $atts['class'] ) . '" />';
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" class="' . esc_attr( $atts['class'] ) . '" alt="BD Plugin" />';
 	}
 
 	/**

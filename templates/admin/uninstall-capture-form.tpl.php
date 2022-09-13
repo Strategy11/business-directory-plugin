@@ -10,37 +10,27 @@ $reasons = array(
 );
 ?>
 
-<form id="wpbdp-uninstall-capture-form" action="<?php echo $action; ?>" method="post">
+<form id="wpbdp-uninstall-capture-form" action="<?php echo esc_attr( $action ); ?>" method="post">
     <?php wp_nonce_field( 'uninstall bd' ); ?>
 
     <p><?php esc_html_e( 'We\'re sorry to see you leave. Could you take 10 seconds and answer one question for us to help us make the product better for everyone in the future?', 'business-directory-plugin' ); ?></p>
-    <p><b><?php _ex( 'Why are you deleting Business Directory Plugin?', 'uninstall', 'business-directory-plugin' ); ?></b></p>
+	<p><b><?php esc_html_e( 'Why are you deleting Business Directory Plugin?', 'business-directory-plugin' ); ?></b></p>
 
-    <div class="wpbdp-validation-error no-reason wpbdp-hidden">
-        <?php _ex( 'Please choose an option.', 'uninstall', 'business-directory-plugin' ); ?>
-    </div>
+	<?php foreach ( $reasons as $r => $l ) : ?>
+	<div class="reason">
+		<label>
+			<input type="radio" name="uninstall[reason_id]" value="<?php echo esc_attr( (string) $r ); ?>" /> <?php echo esc_html( $l ); ?>
+		</label>
 
-    <div class="reasons">
-		<?php foreach ( $reasons as $r => $l ) : ?>
-        <div class="reason">
-            <label>
-                <input type="radio" name="uninstall[reason_id]" value="<?php echo $r; ?>" /> <?php echo $l; ?>
-            </label>
+		<?php if ( 0 == $r ) : ?>
+		<div class="custom-reason">
+			<textarea name="uninstall[reason_text]" placeholder="<?php esc_attr_e( 'Please tell us why are you deleting Business Directory Plugin.', 'business-directory-plugin' ); ?>"></textarea>
+		</div>
+		<?php endif; ?>
+	</div>
+	<?php endforeach; ?>
 
-			<?php if ( 0 == $r ) : ?>
-            <div class="custom-reason">
-                <textarea name="uninstall[reason_text]" placeholder="<?php _ex( 'Please tell us why are you deleting Business Directory Plugin.', 'uninstall', 'business-directory-plugin' ); ?>"></textarea>
-
-                <div class="wpbdp-validation-error no-reason-text wpbdp-hidden">
-                    <?php _ex( 'Please enter your reasons.', 'uninstall', 'business-directory-plugin' ); ?>
-                </div>
-            </div>
-            <?php endif; ?>
-        </div>
-        <?php endforeach; ?>
-    </div>
-
-    <p class="buttons">
-        <input type="submit" value="<?php _ex( 'Uninstall Plugin', 'uninstall', 'business-directory-plugin' ); ?>" class="button button-primary" />
+	<p>
+		<input type="submit" value="<?php esc_attr_e( 'Uninstall Plugin', 'business-directory-plugin' ); ?>" class="button button-primary" />
     </p>
 </form>
