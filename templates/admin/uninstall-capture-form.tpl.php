@@ -19,7 +19,7 @@ $reasons = array(
 	<?php foreach ( $reasons as $r => $l ) : ?>
 	<div class="reason">
 		<label>
-			<input type="radio" name="uninstall[reason_id]" value="<?php echo esc_attr( $r ); ?>" /> <?php echo esc_html( $l ); ?>
+			<input type="radio" name="uninstall[reason_id]" value="<?php echo esc_attr( (string) $r ); ?>" /> <?php echo esc_html( $l ); ?>
 		</label>
 
 		<?php if ( 0 == $r ) : ?>
