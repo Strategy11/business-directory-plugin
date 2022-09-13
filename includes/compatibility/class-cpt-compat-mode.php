@@ -5,6 +5,7 @@ class WPBDP__CPT_Compat_Mode {
     private $current_view = '';
     private $data = array();
 
+	private $page_title = '';
 
     public function __construct() {
         add_filter( 'wpbdp_current_view', array( $this, 'maybe_change_current_view' ) );
@@ -89,22 +90,13 @@ class WPBDP__CPT_Compat_Mode {
 
                 break;
         }
-
-        // wpbdp_debug_e( $wp_query, $this->current_view );
+		$this->set_title();
     }
 
     private function get_archive_query( $args ) {
         $args['wpbdp_main_query'] = true;
         $args['paged'] = get_query_var( 'paged' );
         $args['post_type'] = WPBDP_POST_TYPE;
-
-        // $args = wp_parse_args( $args, array(
-        //     'wpbdp_main_query' => true,
-        //     'paged' => get_query_var( 'paged' ),
-        //     'posts_per_page' => get_query_var( 'posts_per_page' ),
-        //     'order' => get_query_var( 'order' ),
-        //     'orderby' => get_query_var( 'orderby' ),
-        // ) );
 
         return new WP_Query( $args );
     }
@@ -124,5 +116,35 @@ class WPBDP__CPT_Compat_Mode {
         }
     }
 
+	/**
+	 * Change the main page title only.
+	 *
+	 * @since x.x
+	 */
+    public function get_title( $title, $id ) {
+		if ( ! $this->page_title ) {
+			return $title;
+		}
 
+		if ( is_main_query() && in_the_loop() && $id === (int) wpbdp_get_page_id( 'main' ) ) {
+			$title = $this->page_title;
+		}
+
+		return $title;
+    }
+
+	/**
+	 * Save the name for the page for later use.
+	 *
+	 * @since x.x
+	 */
+	private function set_title() {
+		add_filter( 'the_title', array( &$this, 'get_title' ), 10, 2 );
+		$object = get_queried_object();
+		if ( $this->current_view === 'show_listing' ) {
+			$this->page_title = $object->post_title;
+		} else {
+			$this->page_title = $object->name;
+		}
+	}
 }
