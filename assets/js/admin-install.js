@@ -3,7 +3,7 @@
     $( document ).on( 'click', 'a.wpbdp-create-main-page-button' ,function( e ) {
 		e.preventDefault();
 		var button = $( this ),
-			$msg = button.parents('div.wpbdp-notice'),
+			$msg = button.parents('.wpbdp-notice'),
 			nonce = button.attr('data-nonce');
 		$.ajax({
 			'url': ajaxurl,
