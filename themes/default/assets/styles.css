@@ -6,6 +6,10 @@
 	font-weight: bold;
 }
 
+.wpbdp-listing .listing-title h3 {
+	margin-bottom: 0;
+}
+
 .wpbdp-listing .listing-title a {
 	text-decoration: none;
 	font-weight: bold;
