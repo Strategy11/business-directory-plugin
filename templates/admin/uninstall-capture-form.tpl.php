@@ -25,10 +25,6 @@ $reasons = array(
 		<?php if ( 0 == $r ) : ?>
 		<div class="custom-reason">
 			<textarea name="uninstall[reason_text]" placeholder="<?php esc_attr_e( 'Please tell us why are you deleting Business Directory Plugin.', 'business-directory-plugin' ); ?>"></textarea>
-
-			<div class="wpbdp-validation-error no-reason-text wpbdp-hidden">
-				<?php esc_attr_e( 'Please enter your reasons.', 'business-directory-plugin' ); ?>
-			</div>
 		</div>
 		<?php endif; ?>
 	</div>
