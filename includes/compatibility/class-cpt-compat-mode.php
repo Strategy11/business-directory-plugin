@@ -121,17 +121,18 @@ class WPBDP__CPT_Compat_Mode {
 	 *
 	 * @since x.x
 	 */
-    public function get_title( $title, $id ) {
+	public function get_title( $title, $id ) {
 		if ( ! $this->page_title ) {
 			return $title;
 		}
 
-		if ( is_main_query() && in_the_loop() && $id === (int) wpbdp_get_page_id( 'main' ) ) {
+		$is_block = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+		if ( is_main_query() && ( in_the_loop() || $is_block ) && $id === (int) wpbdp_get_page_id( 'main' ) ) {
 			$title = $this->page_title;
 		}
 
 		return $title;
-    }
+	}
 
 	/**
 	 * Save the name for the page for later use.
