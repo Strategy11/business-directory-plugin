@@ -129,6 +129,9 @@ class WPBDP__CPT_Compat_Mode {
 		$is_block = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
 		if ( is_main_query() && ( in_the_loop() || $is_block ) && $id === (int) wpbdp_get_page_id( 'main' ) ) {
 			$title = $this->page_title;
+		} elseif ( function_exists( 'avia_title' ) ) {
+			// Change the main title in Enfold theme.
+			add_filter( 'avf_title_args', array( &$this, 'enfold_title' ), 10, 2 );
 		}
 
 		return $title;
@@ -147,5 +150,18 @@ class WPBDP__CPT_Compat_Mode {
 		} else {
 			$this->page_title = $object->name;
 		}
+	}
+
+	/**
+	 * Override the main title in the Enfold theme.
+	 * @param array $args
+	 * @param int   $id   The post id.
+	 * @since x.x
+	 */
+	public function enfold_title( $args, $id ) {
+		if ( $id === (int) wpbdp_get_page_id( 'main' ) ) {
+			$args['title'] = $this->page_title;
+		}
+		return $args;
 	}
 }
