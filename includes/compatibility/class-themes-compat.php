@@ -49,7 +49,7 @@ class WPBDP__Themes_Compat {
 			'atahualpa', 'genesis', 'hmtpro5',
 			'customizr', 'customizr-pro',
 			'canvas', 'builder', 'divi',
-            'enfold',
+			'enfold',
 			'hello-elementor',
 			'longevity', 'x', 'u-design', 'thesis',
 			'takeawaywp',
@@ -248,12 +248,12 @@ class WPBDP__Themes_Compat {
 	}
 
 	/**
-	 * Save the name for the page for later use.
+	 * Without this, the category name uses the last listing on the page.
 	 *
 	 * @since x.x
 	 */
 	public function theme_enfold_tax_title( $args, $id ) {
-		$object = get_queried_object();
+		$object        = get_queried_object();
 		$args['title'] = $object->name;
 		return $args;
 	}
