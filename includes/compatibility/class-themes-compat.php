@@ -49,6 +49,7 @@ class WPBDP__Themes_Compat {
 			'atahualpa', 'genesis', 'hmtpro5',
 			'customizr', 'customizr-pro',
 			'canvas', 'builder', 'divi',
+			'enfold',
 			'hello-elementor',
 			'longevity', 'x', 'u-design', 'thesis',
 			'takeawaywp',
@@ -234,6 +235,28 @@ class WPBDP__Themes_Compat {
     public function theme_divi_disable_sidebar( $is_active_sidebar, $index ) {
         return $index == 'sidebar-1' ? false : $is_active_sidebar;
     }
+
+	/**
+	 * @since x.x
+	 */
+	public function theme_enfold() {
+		if ( ! wpbdp_is_taxonomy() ) {
+			return;
+		}
+
+		add_filter( 'avf_title_args', array( &$this, 'theme_enfold_tax_title' ), 10, 2 );
+	}
+
+	/**
+	 * Without this, the category name uses the last listing on the page.
+	 *
+	 * @since x.x
+	 */
+	public function theme_enfold_tax_title( $args, $id ) {
+		$object        = get_queried_object();
+		$args['title'] = $object->name;
+		return $args;
+	}
 
 	/**
 	 * @since 6.2.8
