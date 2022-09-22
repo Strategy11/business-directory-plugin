@@ -292,11 +292,17 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			return;
 		}
 
-		if ( ! $this->editing ) {
-			wp_delete_post( $this->listing->get_id(), true );
-			$url = wpbdp_url( 'submit_listing' );
-		} else {
+		if ( $this->editing ) {
 			$url = wpbdp_url( 'edit_listing', $this->listing->get_id() );
+		} else {
+			$check_page = wpbdp_get_option( 'disable-submit-listing' );
+			wp_delete_post( $this->listing->get_id(), true );
+			if ( $check_page ) {
+				// If submit listing page is turned off, we need to know where to redirect.
+				$url = wpbdp_get_var( array( 'param' => '_wp_http_referer' ), 'post' );
+			} else {
+				$url = wpbdp_url( 'submit_listing' );
+			}
 		}
 
 		$this->_redirect(
