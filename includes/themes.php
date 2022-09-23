@@ -512,9 +512,9 @@ class WPBDP_Themes {
 
         if ( is_array( $official_themes ) ) {
             return $official_themes;
-        } else {
-            $official_themes = array();
-        }
+		}
+
+        $official_themes = array();
 
         $params = array(
             'tag'    => 'theme',

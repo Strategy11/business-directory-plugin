@@ -11,9 +11,7 @@ class WPBDP_Compat {
         $this->load_integrations();
 
         if ( wpbdp_get_option( 'disable-cpt' ) ) {
-
-            require_once WPBDP_PATH . 'includes/compatibility/class-cpt-compat-mode.php';
-            $nocpt = new WPBDP__CPT_Compat_Mode();
+			self::cpt_compat_mode();
         } else {
             require_once WPBDP_PATH . 'includes/compatibility/class-themes-compat.php';
             new WPBDP__Themes_Compat();
