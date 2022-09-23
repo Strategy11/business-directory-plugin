@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-08-30 17:20:11+00:00\n"
+"POT-Creation-Date: 2022-09-23 15:42:16+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -304,7 +304,7 @@ msgstr ""
 "activé"
 
 #: includes/admin/controllers/class-admin-listings.php:187
-#: includes/controllers/pages/class-submit-listing.php:680
+#: includes/controllers/pages/class-submit-listing.php:686
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Information sur l'annonce"
@@ -375,7 +375,7 @@ msgstr ""
 "formulaire\" ou laissez le plugin le faire pour vous automatiquement."
 
 #: includes/admin/controllers/class-form-fields-admin.php:37
-#: includes/controllers/pages/class-submit-listing.php:1010
+#: includes/controllers/pages/class-submit-listing.php:1016
 msgid "Go to \"Form Fields\""
 msgstr "Aller à \"Champs du formulaire\""
 
@@ -696,7 +696,7 @@ msgid "Missing tables: %s"
 msgstr "Tables manquantes : %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1416
+#: includes/controllers/pages/class-submit-listing.php:1422
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:148
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -777,7 +777,7 @@ msgstr "Oui, et le rendre requis"
 
 #: includes/admin/settings/class-settings-bootstrap.php:292
 #: includes/admin/settings/class-settings-bootstrap.php:306
-#: includes/controllers/pages/class-submit-listing.php:693
+#: includes/controllers/pages/class-submit-listing.php:699
 msgid "Terms and Conditions"
 msgstr "Conditions d'utilisation"
 
@@ -1671,37 +1671,37 @@ msgstr ""
 msgid "Add Listing"
 msgstr "Ajouter une annonce"
 
-#: includes/controllers/pages/class-submit-listing.php:726
+#: includes/controllers/pages/class-submit-listing.php:732
 msgid "Listing Images"
 msgstr "Images de l'annonce"
 
-#: includes/controllers/pages/class-submit-listing.php:794
+#: includes/controllers/pages/class-submit-listing.php:800
 msgid "Account Creation"
 msgstr "Création de compte"
 
-#: includes/controllers/pages/class-submit-listing.php:993
+#: includes/controllers/pages/class-submit-listing.php:999
 msgid "Go to \"Plans\""
 msgstr "Aller aux \"abonnements\""
 
-#: includes/controllers/pages/class-submit-listing.php:1050
+#: includes/controllers/pages/class-submit-listing.php:1056
 msgid "Please choose a plan."
 msgstr "Veuillez choisir un abonnement ci-dessus."
 
-#: includes/controllers/pages/class-submit-listing.php:1240
+#: includes/controllers/pages/class-submit-listing.php:1246
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Quelque chose s'est mal passé. Veuillez vérifier le formulaire, corriger les "
 "erreurs et soumettre à nouveau."
 
-#: includes/controllers/pages/class-submit-listing.php:1400
+#: includes/controllers/pages/class-submit-listing.php:1406
 msgid "Create a user account on this site"
 msgstr "Créer un compte utilisateur sur ce site"
 
-#: includes/controllers/pages/class-submit-listing.php:1407
+#: includes/controllers/pages/class-submit-listing.php:1413
 msgid "Username"
 msgstr "Nom d'utilisateur (login)"
 
-#: includes/controllers/pages/class-submit-listing.php:1429
+#: includes/controllers/pages/class-submit-listing.php:1435
 msgid "Clear Form"
 msgstr "Effacer le formulaire"
 
@@ -3079,6 +3079,23 @@ msgstr ""
 "Nous sommes désolés de vous voir partir. Pouvez-vous prendre 10 secondes et "
 "répondre à une question pour nous aider à améliorer notre plugin?"
 
+#: templates/admin/uninstall-capture-form.tpl.php:17
+#, fuzzy
+msgid "Why are you deleting Business Directory Plugin?"
+msgstr "Pourquoi voulez-vous désinstaller le plugin Business Directory?"
+
+#: templates/admin/uninstall-capture-form.tpl.php:27
+#, fuzzy
+msgid "Please tell us why are you deleting Business Directory Plugin."
+msgstr ""
+"Pourriez-vous nous dire pourquoi vous voulez désinstaller Business Directory "
+"Plugin."
+
+#: templates/admin/uninstall-capture-form.tpl.php:34
+#, fuzzy
+msgid "Uninstall Plugin"
+msgstr "Désinstaller le plugin"
+
 #: templates/admin/uninstall-complete.tpl.php:12
 msgid "Uninstall completed."
 msgstr "Désinstallation complète."
@@ -3092,6 +3109,17 @@ msgid "Remove ALL module data (regions, maps, ratings, restrictions)"
 msgstr ""
 "Supprimer toutes les données de configuration du module (régions, cartes, "
 "évaluations, restrictions)"
+
+#: templates/admin/uninstall-confirm.tpl.php:29
+#, fuzzy
+msgid "ONLY do this if you want to DELETE ALL OF YOUR DATA."
+msgstr ""
+"Ne faites cela que si vous êtes sûr de vous OK ! PERDRE TOUS VOS DONNÉES."
+
+#: templates/admin/uninstall-confirm.tpl.php:32
+#, fuzzy
+msgid "Yes, I want to uninstall"
+msgstr "Oui, je veux désinstaller"
 
 #. translators: %1$s: open link html, %2$s: close link html
 #: templates/admin/uninstall-confirm.tpl.php:43
@@ -7385,7 +7413,7 @@ msgstr ""
 "utilisateurs, sur votre site. Si cela ne correspond pas à votre souhait, "
 "cliquez <a>ici</a> pour modifier le paramétrage."
 
-#: includes/controllers/pages/class-submit-listing.php:508
+#: includes/controllers/pages/class-submit-listing.php:514
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -7394,7 +7422,7 @@ msgstr ""
 "<b>Aperçu non disponible</b>. Avez-vous coché le paramètre \"Désactiver la "
 "soumission de l'annonce publique ?\" ?"
 
-#: includes/controllers/pages/class-submit-listing.php:510
+#: includes/controllers/pages/class-submit-listing.php:516
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
@@ -7402,7 +7430,7 @@ msgstr ""
 "La soumission d'annonces a été désactivé. Contactez l'administrateur pour "
 "plus de détails."
 
-#: includes/controllers/pages/class-submit-listing.php:986
+#: includes/controllers/pages/class-submit-listing.php:992
 msgctxt "templates"
 msgid ""
 "<b>There are no Plans available</b>, without a plan site users can't submit "
@@ -7412,7 +7440,7 @@ msgstr ""
 "utilisateurs ne pourront pas soumettre des annonces. %s pour créer un "
 "abonnement"
 
-#: includes/controllers/pages/class-submit-listing.php:1000
+#: includes/controllers/pages/class-submit-listing.php:1006
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
@@ -7421,7 +7449,7 @@ msgstr ""
 "La soumission d'annonce n'est pas disponible pour le moment. Contactez "
 "l'administrateur pour plus de détails."
 
-#: includes/controllers/pages/class-submit-listing.php:1003
+#: includes/controllers/pages/class-submit-listing.php:1009
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7432,12 +7460,12 @@ msgstr ""
 "%s et créez un nouveau champ avec cette association, ou ajoutez cette "
 "association à un champ existant"
 
-#: includes/controllers/pages/class-submit-listing.php:1450
+#: includes/controllers/pages/class-submit-listing.php:1456
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Veuillez accepter les conditions d'utilisation."
 
-#: includes/controllers/pages/class-submit-listing.php:1464
+#: includes/controllers/pages/class-submit-listing.php:1470
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "J'accepte <a> Conditions générales </a>"
@@ -7774,64 +7802,64 @@ msgstr ""
 "Vous êtes connecté en tant qu'administrateur. Toutes les étapes de paiement "
 "seront passées."
 
-#: includes/controllers/pages/class-submit-listing.php:675
+#: includes/controllers/pages/class-submit-listing.php:681
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Sélection de la catégorie"
 
-#: includes/controllers/pages/class-submit-listing.php:675
+#: includes/controllers/pages/class-submit-listing.php:681
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Sélection Catégorie et abonnement"
 
-#: includes/controllers/pages/class-submit-listing.php:983
+#: includes/controllers/pages/class-submit-listing.php:989
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 "Impossible de soumettre une anonce en ce moment. Veuillez réessayer plus "
 "tard."
 
-#: includes/controllers/pages/class-submit-listing.php:1032
-#: includes/controllers/pages/class-submit-listing.php:1159
+#: includes/controllers/pages/class-submit-listing.php:1038
+#: includes/controllers/pages/class-submit-listing.php:1165
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Veuillez sélectionner une catégorie."
 
-#: includes/controllers/pages/class-submit-listing.php:1057
+#: includes/controllers/pages/class-submit-listing.php:1063
 msgctxt "submit listing"
 msgid "Current active plan is disabled. Please select another plan."
 msgstr ""
 "L'abonnement que vous avez choisi est désactivé. Merci d'en choisir un autre."
 
-#: includes/controllers/pages/class-submit-listing.php:1059
+#: includes/controllers/pages/class-submit-listing.php:1065
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Veuillez choisir une catégorie valide pour votre annonce."
 
-#: includes/controllers/pages/class-submit-listing.php:1062
+#: includes/controllers/pages/class-submit-listing.php:1068
 msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr ""
 "Merci de choisir un abonnement valable pour votre sélection de catégorie."
 
-#: includes/controllers/pages/class-submit-listing.php:1370
+#: includes/controllers/pages/class-submit-listing.php:1376
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Merci d'entrer votre nom d'utilisateur souhaité."
 
-#: includes/controllers/pages/class-submit-listing.php:1375
+#: includes/controllers/pages/class-submit-listing.php:1381
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Merci d'entrer votre e-mail pour votre nouveau compte."
 
-#: includes/controllers/pages/class-submit-listing.php:1380
+#: includes/controllers/pages/class-submit-listing.php:1386
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "Le nom d'utilisateur que vous avez choisi est déjà utilisé. Veuillez en "
 "utiliser un autre."
 
-#: includes/controllers/pages/class-submit-listing.php:1385
+#: includes/controllers/pages/class-submit-listing.php:1391
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7842,7 +7870,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Annonce soumis par un admin. Paiement sauté."
 
-#: includes/controllers/pages/class-submit-listing.php:1325
+#: includes/controllers/pages/class-submit-listing.php:1331
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8573,33 +8601,6 @@ msgctxt "uninstall"
 msgid "Other"
 msgstr "Autre"
 
-#: templates/admin/uninstall-capture-form.tpl.php:17
-msgctxt "uninstall"
-msgid "Why are you deleting Business Directory Plugin?"
-msgstr "Pourquoi voulez-vous désinstaller le plugin Business Directory?"
-
-#: templates/admin/uninstall-capture-form.tpl.php:20
-msgctxt "uninstall"
-msgid "Please choose an option."
-msgstr "Sélectionnez une option."
-
-#: templates/admin/uninstall-capture-form.tpl.php:32
-msgctxt "uninstall"
-msgid "Please tell us why are you deleting Business Directory Plugin."
-msgstr ""
-"Pourriez-vous nous dire pourquoi vous voulez désinstaller Business Directory "
-"Plugin."
-
-#: templates/admin/uninstall-capture-form.tpl.php:35
-msgctxt "uninstall"
-msgid "Please enter your reasons."
-msgstr "S'il vous plaît entrer vos raisons."
-
-#: templates/admin/uninstall-capture-form.tpl.php:44
-msgctxt "uninstall"
-msgid "Uninstall Plugin"
-msgstr "Désinstaller le plugin"
-
 #: templates/admin/uninstall-confirm.tpl.php:18
 msgctxt "uninstall"
 msgid "Uninstalling Business Directory Plugin will do the following:"
@@ -8625,17 +8626,6 @@ msgstr "Supprimez tous les paramètres du répertoire"
 msgctxt "uninstall"
 msgid "Deactivate the plugin from the file system"
 msgstr "Désactiver le plug-in du système de fichiers"
-
-#: templates/admin/uninstall-confirm.tpl.php:29
-msgctxt "uninstall"
-msgid "ONLY do this if you are sure you're OK with LOSING ALL OF YOUR DATA."
-msgstr ""
-"Ne faites cela que si vous êtes sûr de vous OK ! PERDRE TOUS VOS DONNÉES."
-
-#: templates/admin/uninstall-confirm.tpl.php:32
-msgctxt "uninstall"
-msgid "Yes, I want to uninstall"
-msgstr "Oui, je veux désinstaller"
 
 #: templates/admin/uninstall-confirm.tpl.php:36
 msgctxt "uninstall"
@@ -8785,6 +8775,14 @@ msgstr "Entrer votre adresse mail"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuer"
+
+#~ msgctxt "uninstall"
+#~ msgid "Please choose an option."
+#~ msgstr "Sélectionnez une option."
+
+#~ msgctxt "uninstall"
+#~ msgid "Please enter your reasons."
+#~ msgstr "S'il vous plaît entrer vos raisons."
 
 #~ msgctxt "settings"
 #~ msgid "Author's name"

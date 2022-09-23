@@ -16,7 +16,7 @@ jobs:
           - php: 7.3
             wordpress: 5.8
           - php: 7.4
-            wordpress: 5.8
+            wordpress: master
     name: PHP ${{ matrix.php }} tests in WP ${{ matrix.wordpress }}
     steps:
       - uses: actions/checkout@v2

@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 6.2.9
+Stable tag: 6.2.10
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -54,7 +54,7 @@ See all WordPress listing plugin [features](https://businessdirectoryplugin.com/
 * SEO Friendly using Yoast SEO, Rank Math, or All in One SEO
 * Quick-search and sorting bar for listings for simple directory searches
 * Advanced search screen with ability to show/hide fields available for search
-* Mobile-friendly, responsive support when installed with a responsive theme 
+* Mobile-friendly, responsive support when installed with a responsive theme
 * Multilingual directories with WPML
 * Integrates with popular plugins like NavXT Breadcrumbs and WP-PageNavi for easy use
 
@@ -158,6 +158,15 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.2.10 =
+* Use h3 tags in the excerpt listings for better accessibility.
+* Fix: Images uploaded with sideload were failing. This fixes migration imports.
+* Fix: The unistall process wasn't progressing past asking why.
+* Fix: After creating the required pages, hide the message.
+* Fix: Page titles weren't showing up correctly in the Enfold theme or when CPT integration was off.
+* Fix: The "Clear form" link on the submit listing page was redirecting to the wrong page when embedded with a shortcode.
+* Remove old deprecated businessdirectory-category.tpl.php template.
+
 = 6.2.9 =
 * Fix: A javascript timeout was preventing field types from getting set properly.
 * Fix: Highlight the menu in the sidebar for Content tabs more consistently.

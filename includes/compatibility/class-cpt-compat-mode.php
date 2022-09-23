@@ -121,7 +121,7 @@ class WPBDP__CPT_Compat_Mode {
 	 *
 	 * @param string $title The current title to show.
 	 * @param int    $id    The post id.
-	 * @since x.x
+	 * @since 6.2.10
 	 * @return string
 	 */
 	public function get_title( $title, $id ) {
@@ -143,7 +143,7 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Save the name for the page for later use.
 	 *
-	 * @since x.x
+	 * @since 6.2.10
 	 * @return void
 	 */
 	private function set_title() {
@@ -161,7 +161,7 @@ class WPBDP__CPT_Compat_Mode {
 	 *
 	 * @param array $args
 	 * @param int   $id   The post id.
-	 * @since x.x
+	 * @since 6.2.10
 	 * @return array
 	 */
 	public function enfold_title( $args, $id ) {
