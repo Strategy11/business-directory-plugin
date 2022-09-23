@@ -237,7 +237,7 @@ class WPBDP__Themes_Compat {
     }
 
 	/**
-	 * @since x.x
+	 * @since 6.2.10
 	 */
 	public function theme_enfold() {
 		if ( ! wpbdp_is_taxonomy() ) {
@@ -250,7 +250,7 @@ class WPBDP__Themes_Compat {
 	/**
 	 * Without this, the category name uses the last listing on the page.
 	 *
-	 * @since x.x
+	 * @since 6.2.10
 	 */
 	public function theme_enfold_tax_title( $args, $id ) {
 		$object        = get_queried_object();
