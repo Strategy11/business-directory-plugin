@@ -15,8 +15,8 @@ jobs:
         include:
           - php: 7.3
             wordpress: 5.8
-          - php: 7.4
-            wordpress: 5.8
+          - php: 8.0
+            wordpress: 6.1
     name: PHP ${{ matrix.php }} tests in WP ${{ matrix.wordpress }}
     steps:
       - uses: actions/checkout@v2
