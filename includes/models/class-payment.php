@@ -77,6 +77,8 @@ class WPBDP_Payment extends WPBDP__DB__Model {
                 $this->status = 'completed';
             }
         }
+        
+        $this->maybe_set_test_mode();
 
 		WPBDP_Utils::cache_delete_group( 'wpbdp_payments' );
     }
@@ -368,6 +370,19 @@ class WPBDP_Payment extends WPBDP__DB__Model {
     public function set_payment_method( $method ) {
         $this->gateway = $method;
         $this->save();
+    }
+
+    /**
+     * Check if payment gateway is in test mode and set the payment as testing if so
+     *
+     * @return void
+     */
+    public function maybe_set_test_mode() {
+        $testing_mode = wpbdp_get_option( 'payments-test-mode' );
+
+        if ( $testing_mode ) {
+            $this->is_test = true;
+        }
     }
 
     public function has_been_processed() {
