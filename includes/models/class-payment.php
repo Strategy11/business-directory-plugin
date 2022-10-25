@@ -77,8 +77,10 @@ class WPBDP_Payment extends WPBDP__DB__Model {
                 $this->status = 'completed';
             }
         }
-        
-        $this->maybe_set_test_mode();
+
+        if ( $new ) {
+            $this->maybe_set_test_mode();
+        }
 
 		WPBDP_Utils::cache_delete_group( 'wpbdp_payments' );
     }

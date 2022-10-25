@@ -84,7 +84,13 @@ $hide_text_field = $payment->gateway && $payment->listing->has_subscription() ? 
                                 <div class="wpbdp-admin-box-row">
                                     <label><?php esc_html_e( 'Gateway', 'business-directory-plugin' ); ?></label>
                                     <?php /* translators: Gateway: (Not yet set) */ ?>
-                                    <?php echo esc_html( $payment->gateway ? sprintf( '%s %s', $payment->gateway, $payment->is_test ? __( '- Test Mode', 'business-directory-plugin' ) : '' )  : sprintf( '%s %s', __( '(Not yet set)', 'business-directory-plugin' ), $payment->is_test ? __( '- Test Mode', 'business-directory-plugin' ) : '' ) ); ?>
+                                    <?php echo esc_html( $payment->gateway ? $payment->gateway : __( '(Not yet set)', 'business-directory-plugin' ) ); ?>
+                                    <?php
+                                        printf(
+                                            '<span class="wpbdp-payment-test-mode-label">%s</span>',
+                                            $payment->is_test ? esc_html__( '- Test Mode', 'business-directory-plugin' ) : ''
+                                        );
+                                    ?>
                                 </div>
 								<?php if ( $payment->gateway_tx_id && $payment->get_gateway_link() ) { ?>
 									<div class="wpbdp-admin-box-row">
