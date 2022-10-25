@@ -380,6 +380,8 @@ class WPBDP_Payment extends WPBDP__DB__Model {
      * @return void
      */
     public function maybe_set_test_mode() {
+        $this->is_test = false;
+
         $testing_mode = wpbdp_get_option( 'payments-test-mode' );
 
         if ( $testing_mode ) {
