@@ -9,7 +9,7 @@ class WPBDP__Views__Main extends WPBDP__View {
 			'hide_empty' => 0,
 		);
 		$cat_count = wp_count_terms( $term_args );
-        if ( (int) $cat_count === 0 ) {
+		if ( (int) $cat_count === 0 ) {
             if ( is_user_logged_in() && current_user_can( 'install_plugins' ) ) {
                 $html .= wpbdp_render_msg( _x( 'There are no categories assigned to the business directory yet. You need to assign some categories to the business directory. Only admins can see this message. Regular users are seeing a message that there are currently no listings in the directory. Listings cannot be added until you assign categories to the business directory.', 'templates', 'business-directory-plugin' ), 'error' );
             } else {
