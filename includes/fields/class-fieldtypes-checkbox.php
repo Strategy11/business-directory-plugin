@@ -25,13 +25,14 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
     public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
         $options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 
-        if ( $field->get_association() == 'tags' ) {
-            $tags    = get_terms(
-                WPBDP_TAGS_TAX, array(
+		if ( $field->get_association() === 'tags' ) {
+			$tags = get_terms(
+				array(
+					'taxonomy'   => WPBDP_TAGS_TAX,
 					'hide_empty' => false,
 					'fields'     => 'names',
-                )
-            );
+				)
+			);
 
 			if ( $tags && ! is_wp_error( $tags ) ) {
                 $options = array_unique( array_merge( $options, $tags ) );
@@ -150,12 +151,13 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
         $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();
 
         if ( 'tags' === $field->get_association() ) {
-            $tags = get_terms(
-                WPBDP_TAGS_TAX, array(
+			$tags = get_terms(
+				array(
+					'taxonomy'   => WPBDP_TAGS_TAX,
 					'hide_empty' => false,
 					'fields'     => 'names',
-                )
-            );
+				)
+			);
 
             foreach ( array_diff( $options, $tags ) as $option ) {
                 wp_insert_term( $option, WPBDP_TAGS_TAX );
@@ -200,20 +202,22 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
     }
 
     public function get_field_plain_value( &$field, $post_id ) {
-        $value = $field->value( $post_id );
+		$value = $field->value( $post_id );
+		$assoc = $field->get_association();
 
-        if ( $field->get_association() == 'category' || $field->get_association() == 'tags' ) {
-            $term_names = get_terms(
-                $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
-                array(
+		if ( $assoc === 'category' || $assoc === 'tags' ) {
+			$tax = $assoc === 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX;
+			$term_names = get_terms(
+				array(
+					'taxonomy'   => $tax,
 					'include'    => $value,
 					'hide_empty' => 0,
 					'fields'     => 'names',
-                )
-            );
+				)
+			);
 
             return join( ', ', $term_names );
-        } elseif ( $field->get_association() == 'meta' ) {
+        } elseif ( $assoc == 'meta' ) {
             return esc_attr( implode( ', ', $value ) );
         }
 

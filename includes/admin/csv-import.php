@@ -129,24 +129,25 @@ class WPBDP_CSVImportAdmin {
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         if ( $field ) {
-            if ( $field->get_association() == 'title' ) {
+			$assoc = $field->get_association();
+			if ( $assoc === 'title' ) {
 				/* translators: %s: Sample business name */
                 return sprintf( esc_html__( 'Business %s', 'business-directory-plugin' ), $letters[ rand( 0, strlen( $letters ) - 1 ) ] );
             }
 
-			if ( $field->get_association() === 'category' ) {
-                if ( $terms = get_terms( WPBDP_CATEGORY_TAX, 'number=5&hide_empty=0' ) ) {
-                    return $terms[ array_rand( $terms ) ]->name;
-                }
-				return '';
-            }
+			if ( $assoc === 'category' || $assoc === 'tags' ) {
+				$term_args = array(
+					'taxonomy'   => $assoc === 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
+					'hide_empty' => 0,
+					'number'     => 5,
+				);
 
-			if ( $field->get_association() === 'tags' ) {
-                if ( $terms = get_terms( WPBDP_TAGS_TAX, 'number=5&hide_empty=0' ) ) {
-                    return $terms[ array_rand( $terms ) ]->name;
-                }
+				$terms = get_terms( $term_args );
+				if ( $terms ) {
+					return $terms[ array_rand( $terms ) ]->name;
+				}
 				return '';
-            }
+			}
 
 			if ( $field->has_validator( 'url' ) ) {
                 return get_site_url();
