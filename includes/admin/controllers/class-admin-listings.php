@@ -752,15 +752,15 @@ class WPBDP_Admin_Listings {
             return $tags;
         }
 
-        $tags = get_terms(
-            WPBDP_TAGS_TAX,
-            array(
-                'number'     => 45,
-                'orderby'    => 'count',
-                'order'      => 'DESC',
-                'hide_empty' => false,
-            )
-        );
+		$tags = get_terms(
+			array(
+				'taxonomy'   => WPBDP_TAGS_TAX,
+				'number'     => 45,
+				'orderby'    => 'count',
+				'order'      => 'DESC',
+				'hide_empty' => false,
+			)
+		);
 
         return $tags;
 

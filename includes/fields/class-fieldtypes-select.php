@@ -84,12 +84,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $html = '';
 
 		if ( $field->get_association() === 'tags' && ! $options ) {
-            $tags    = get_terms(
-                WPBDP_TAGS_TAX, array(
-                    'hide_empty' => false,
-                    'fields'     => 'names',
-                )
-            );
+			$tags    = get_terms(
+				array(
+					'taxonomy'   => WPBDP_TAGS_TAX,
+					'hide_empty' => false,
+					'fields'     => 'names',
+				)
+			);
             $options = array_combine( $tags, $tags );
         }
 
@@ -299,12 +300,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
         $options = $options ? array_map( 'trim', explode( "\n", $options ) ) : array();
 
         if ( 'tags' === $field->get_association() ) {
-            $tags = get_terms(
-                WPBDP_TAGS_TAX, array(
-                    'hide_empty' => false,
-                    'fields'     => 'names',
-                )
-            );
+			$tags = get_terms(
+				array(
+					'taxonomy'   => WPBDP_TAGS_TAX,
+					'hide_empty' => false,
+					'fields'     => 'names',
+				)
+			);
 
             foreach ( array_diff( $options, $tags ) as $option ) {
                 wp_insert_term( $option, WPBDP_TAGS_TAX );
@@ -365,16 +367,14 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
             return '';
         }
 
-        if ( $field->get_association() == 'category' ) {
-            $args       = array(
-                'include'    => $value,
-                'hide_empty' => 0,
-                'fields'     => 'names',
-            );
-            $term_names = get_terms(
-                $field->get_association() == 'category' ? WPBDP_CATEGORY_TAX : WPBDP_TAGS_TAX,
-                $args
-            );
+        if ( $field->get_association() === 'category' ) {
+			$args       = array(
+				'taxonomy'   => WPBDP_CATEGORY_TAX,
+				'include'    => $value,
+				'hide_empty' => 0,
+				'fields'     => 'names',
+			);
+			$term_names = get_terms( $args );
             return join( ', ', $term_names );
         } elseif ( $field->get_association() == 'tags' ) {
             return join( ', ', $value );

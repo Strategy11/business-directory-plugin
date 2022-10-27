@@ -27,9 +27,10 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
         if ( $field->get_association() == 'tags' && ! $options ) {
             $tags    = get_terms(
-                WPBDP_TAGS_TAX, array(
-					'hide_empty' => false,
-					'fields'     => 'names',
+                array(
+                    'taxonomy'   => WPBDP_TAGS_TAX,
+                    'hide_empty' => false,
+                    'fields'     => 'names',
                 )
             );
             $options = array_combine( $tags, $tags );
@@ -119,9 +120,10 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
         if ( 'tags' === $field->get_association() ) {
             $tags = get_terms(
-                WPBDP_TAGS_TAX, array(
-					'hide_empty' => false,
-					'fields'     => 'names',
+                array(
+                    'taxonomy'   => WPBDP_TAGS_TAX,
+                    'hide_empty' => false,
+                    'fields'     => 'names',
                 )
             );
 
