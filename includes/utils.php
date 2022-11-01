@@ -454,7 +454,7 @@ class WPBDP_Utils {
 	private static function is_valid_file_type( $file, $mimetypes ) {
 		// If this is a multidimensional array, flatten it.
 		if ( is_array( reset( $mimetypes ) ) ) {
-            $mimetypes = array_values( $mimetypes );
+			$mimetypes = array_values( $mimetypes );
 			$mimetypes = call_user_func_array( 'array_merge', $mimetypes );
 		}
 
