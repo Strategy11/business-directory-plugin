@@ -40,15 +40,17 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
     <dl>
 		<dt><?php esc_html_e( 'Plan', 'business-directory-plugin' ); ?></dt>
         <dd>
-            <span class="display-value" id="wpbdp-listing-plan-prop-label">
+            <span class="display-value <?php echo $current_plan ? '' : 'wpbdp-hidden'; ?>" id="wpbdp-listing-plan-prop-label">
 				<?php if ( $current_plan ) : ?>
                     <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=edit-fee&id=' . $current_plan->fee_id ) ); ?>"><?php echo esc_html( $current_plan->fee_label ); ?></a>
 				<?php else : ?>
                     -
                 <?php endif; ?>
             </span>
-            <a href="#" class="edit-value-toggle"><?php _ex( 'Change plan', 'listing metabox', 'business-directory-plugin' ); ?></a>
-            <div class="value-editor">
+            <a href="#" class="edit-value-toggle <?php echo $current_plan ? '' : 'wpbdp-hidden'; ?>">
+                <?php _ex( 'Change plan', 'listing metabox', 'business-directory-plugin' ); ?>
+            </a>
+            <div class="value-editor" <?php echo $current_plan ? '' : 'style="display:block"'; ?>>
 				<input type="hidden" name="listing_plan[fee_id]" value="<?php echo esc_attr( $current_plan ? $current_plan->fee_id : '' ); ?>" />
                 <select name="" id="wpbdp-listing-plan-select">
                 <?php foreach ( $plans as $p ) : ?>
