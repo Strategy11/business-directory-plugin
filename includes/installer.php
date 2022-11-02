@@ -10,7 +10,7 @@ require_once WPBDP_PATH . 'includes/admin/upgrades/class-migration.php';
  */
 class WPBDP_Installer {
 
-    const DB_VERSION = '18.5';
+    const DB_VERSION = '18.7';
 
     private $installed_version = null;
 
@@ -128,6 +128,7 @@ class WPBDP_Installer {
             currency_code varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'USD',
             amount decimal(10,2) NOT NULL DEFAULT 0.00,
             status varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+            is_test boolean NULL,
             created_at datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
             processed_on timestamp NULL DEFAULT NULL,
             processed_by varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,

@@ -1,4 +1,4 @@
-# Copyright (C) 2013 
+# Copyright (C) 2013
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
@@ -4714,7 +4714,7 @@ msgstr "الكل"
 #: includes/admin/helpers/tables/class-payments-table.php:134
 #, fuzzy
 msgctxt "payments admin"
-msgid "View Payment History"
+msgid "View Payment"
 msgstr "سجل المدفوعات"
 
 #: includes/admin/controllers/class-form-fields-admin.php:185

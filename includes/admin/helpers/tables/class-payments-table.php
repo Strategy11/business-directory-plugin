@@ -126,13 +126,23 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
         return wpbdp_currency_format( $payment->amount );
     }
 
-    public function column_status( $payment ) {
-        return WPBDP_Payment::get_status_label( $payment->status );
-    }
+	public function column_status( $payment ) {
+		$class = 'wpbdp-tag wpbdp-listing-attr-payment-' . esc_attr( $payment->status );
+		$value = '<span class="' . esc_attr( $class ) . '">' .
+			WPBDP_Payment::get_status_label( $payment->status ) .
+			'</span>';
 
-    public function column_details( $payment ) {
-        return '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">' . _x( 'View Payment History', 'payments admin', 'business-directory-plugin' ) . '</a>';
-    }
+		if ( $payment->is_test ) {
+			$value .= ' <span class="wpbdp-tag wpbdp-test-payment">Test</span>';
+		}
+		return $value;
+	}
+
+	public function column_details( $payment ) {
+		return '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">' .
+			esc_html__( 'View Payment', 'business-directory-plugin' ) .
+			'</a>';
+	}
 
     public function column_listing( $payment ) {
         $listing = $payment->listing;
