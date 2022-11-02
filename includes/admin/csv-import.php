@@ -243,9 +243,8 @@ class WPBDP_CSVImportAdmin {
 		if ( count( $posts ) >= 1 ) {
 			foreach ( $posts as $post ) {
 				foreach ( $fields as $f ) {
-					$value = $f->plain_value( $post->ID );
-
-					$content .= str_replace( ',', ';', $value );
+					$value = $f->csv_value( $post->ID );
+					$content .= str_replace( array( ',', '"' ), array( ';', '""' ), $value );
 					$content .= ',';
 				}
 				$content .= get_the_author_meta( 'user_login', (int) $post->post_author );
