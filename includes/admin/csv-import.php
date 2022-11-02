@@ -182,7 +182,7 @@ class WPBDP_CSVImportAdmin {
 		echo '<p class="alignright"><a class="wpbdp-button-secondary wpbdp-example-csv">' .
 			esc_html__( 'Download Example', 'business-directory-plugin' ) .
 			'</a></p>';
-		echo '<h3 style="margin-top:1em">' .  __( 'Example CSV Import File', 'business-directory-plugin' ) . '</h3>';
+		echo '<h3 style="margin-top:1em">' . __( 'Example CSV Import File', 'business-directory-plugin' ) . '</h3>';
 
         echo '<textarea class="wpbdp-csv-import-example" rows="20">';
         echo $this->example_csv_content();
@@ -208,7 +208,7 @@ class WPBDP_CSVImportAdmin {
 		$charset  = get_option( 'blog_charset' );
 
 		header( 'Content-Type: text/csv; charset=' . $charset );
-		header( 'Content-Disposition: attachment; filename=' . $filename);
+		header( 'Content-Disposition: attachment; filename=' . $filename );
 
 		$f = fopen( 'php://output', 'w' );
 
