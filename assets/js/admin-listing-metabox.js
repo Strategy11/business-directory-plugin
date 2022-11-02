@@ -64,18 +64,18 @@ jQuery( function( $ ) {
 				var planPos, panel,
 					publishBtn = document.querySelector( '.edit-post-header__settings .is-primary' );
 
-				publishBtn.classList.add( 'wpbdp-error-btn' );
-				publishBtn.title = 'The Listing plan is required.';
-				panel = document.querySelector( '.interface-interface-skeleton__sidebar' );
-				if ( panel !== null ) {
+				if ( publishBtn !== null ) {
+					publishBtn.classList.add( 'wpbdp-error-btn' );
+					publishBtn.title = 'The Listing plan is required.';
+					panel = document.querySelector( '.interface-interface-skeleton__sidebar' );
 					planPos = document.getElementById( 'wpbdp-listing-plan' ).getBoundingClientRect();
 					panel.scrollTop = planPos.y;
-				}
 
-				// Clear the error warning.
-				$metabox_tab.on( 'change', 'input[name="listing_plan[fee_id]"]', function() {
-					publishBtn.classList.remove( 'wpbdp-error-btn' );
-				});
+					// Clear the error warning.
+					$metabox_tab.on( 'change', 'input[name="listing_plan[fee_id]"]', function() {
+						publishBtn.classList.remove( 'wpbdp-error-btn' );
+					});
+				}
 			}
 		},
 		3500
