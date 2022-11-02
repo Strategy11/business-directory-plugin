@@ -4428,7 +4428,7 @@ msgstr "Alle"
 
 #: includes/admin/helpers/tables/class-payments-table.php:134
 msgctxt "payments admin"
-msgid "View Payment History"
+msgid "View Payment"
 msgstr ""
 
 #: includes/admin/controllers/class-form-fields-admin.php:185

@@ -4682,7 +4682,7 @@ msgstr "Экспортировать всё"
 #: includes/admin/helpers/tables/class-payments-table.php:134
 #, fuzzy
 msgctxt "payments admin"
-msgid "View Payment History"
+msgid "View Payment"
 msgstr "История платежа"
 
 #: includes/admin/controllers/class-form-fields-admin.php:185

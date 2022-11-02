@@ -145,7 +145,7 @@ class WPBDP_SiteTracking {
 		return $wpdb->get_results(
 			"SELECT gateway, SUM(amount) as amount, currency_code
 			FROM {$wpdb->prefix}wpbdp_payments
-			WHERE gateway_tx_id IS NOT NULL AND status = 'completed'
+			WHERE gateway_tx_id IS NOT NULL AND status = 'completed' AND is_test != 1
 			GROUP BY currency_code, gateway",
 			ARRAY_A
 		);

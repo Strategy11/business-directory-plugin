@@ -306,7 +306,15 @@ final class WPBDP__Fee_Plan {
 
 		global $wpdb;
 
-		$query = $wpdb->prepare( "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments p LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON (l.listing_id = p.listing_id) WHERE p.status = %s AND l.fee_id = %d AND l.flags != %s", 'completed', $this->id, 'admin-posted' );
+		$query = $wpdb->prepare(
+            "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments p
+			LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON (l.listing_id = p.listing_id)
+            WHERE p.status = %s AND l.fee_id = %d AND l.flags != %s AND p.is_test != %d",
+			'completed',
+			$this->id,
+			'admin-posted',
+			1
+		);
 		$total = WPBDP_Utils::check_cache(
 			array(
 				'cache_key' => 'payments_complete_plan_' . $this->id,

@@ -5255,7 +5255,7 @@ msgstr "Wszystkie"
 #: includes/admin/helpers/tables/class-payments-table.php:134
 #, fuzzy
 msgctxt "payments admin"
-msgid "View Payment History"
+msgid "View Payment"
 msgstr "Historia płatności"
 
 # @ WPBDM
