@@ -66,7 +66,7 @@ class WPBDP_Admin_Pages {
 			$args['buttons'] = array(
 				'add_listing' => array(
 					'label' => __( 'Add New Listing', 'business-directory-plugin' ),
-					'url'   => esc_url( admin_url( 'post-new.php?post_type=wpbdp_listing' ) ),
+					'url'   => esc_url( wpbdp_url( 'submit_listing' ) ),
 				),
 			);
 		}

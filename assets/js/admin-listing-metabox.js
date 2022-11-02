@@ -58,6 +58,31 @@ jQuery( function( $ ) {
             if ( featured !== null ) {
                 featured.closest( '.components-panel__body' ).classList.add( 'hidden' );
             }
+
+			// If there's no plan selected, make it clear how to add it.
+			var selectedPlan = document.querySelector( 'input[name="listing_plan[fee_id]"]' );
+			if ( selectedPlan !== null && ! selectedPlan.value ) {
+				var planPos, panel,
+					publishBtn = document.querySelector( '.edit-post-header__settings .is-primary' );
+
+				if ( publishBtn !== null ) {
+					publishBtn.classList.add( 'wpbdp-error-btn' );
+					publishBtn.title = 'The Listing plan is required.';
+
+					// Auto scroll to the plan selector box.
+					panel = document.querySelector( '.interface-interface-skeleton__sidebar' );
+					planPos = document.getElementById( 'wpbdp-listing-plan' ).getBoundingClientRect();
+					if ( panel !== null ) {
+						panel.scrollTop = planPos.y;
+					}
+
+					// Clear the error warning.
+					$metabox_tab.on( 'change', 'input[name="listing_plan[fee_id]"]', function() {
+						publishBtn.classList.remove( 'wpbdp-error-btn' );
+						publishBtn.title = '';
+					});
+				}
+			}
 		},
 		3500
 	);
