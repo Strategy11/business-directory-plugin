@@ -138,9 +138,11 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 		return $value;
 	}
 
-    public function column_details( $payment ) {
-        return '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">' . __( 'View Payment', 'business-directory-plugin' ) . '</a>';
-    }
+	public function column_details( $payment ) {
+		return '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ) . '">' .
+			esc_html__( 'View Payment', 'business-directory-plugin' ) .
+			'</a>';
+	}
 
     public function column_listing( $payment ) {
         $listing = $payment->listing;

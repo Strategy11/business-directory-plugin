@@ -307,9 +307,9 @@ final class WPBDP__Fee_Plan {
 		global $wpdb;
 
 		$query = $wpdb->prepare(
-            "SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments p
+			"SELECT SUM(amount) FROM {$wpdb->prefix}wpbdp_payments p
 			LEFT JOIN {$wpdb->prefix}wpbdp_listings l ON (l.listing_id = p.listing_id)
-            WHERE p.status = %s AND l.fee_id = %d AND l.flags != %s AND p.is_test != %d",
+			WHERE p.status = %s AND l.fee_id = %d AND l.flags != %s AND p.is_test != %d",
 			'completed',
 			$this->id,
 			'admin-posted',
