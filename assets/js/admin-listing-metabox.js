@@ -74,6 +74,7 @@ jQuery( function( $ ) {
 					// Clear the error warning.
 					$metabox_tab.on( 'change', 'input[name="listing_plan[fee_id]"]', function() {
 						publishBtn.classList.remove( 'wpbdp-error-btn' );
+						publishBtn.title = '';
 					});
 				}
 			}
