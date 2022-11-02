@@ -157,6 +157,36 @@ jQuery(function( $ ) {
         }
     } );
 
+	// Import example page.
+	$( 'a.wpbdp-example-csv' ).on( 'click', function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				'action': 'wpbdp-example-csv',
+				'nonce': wpbdp_global.nonce
+			},
+			success: function( res ) {
+				var link = document.createElement( 'a' );
+				var fileData = ['\ufeff'+res];
+
+				var fileObject = new Blob( fileData, {
+					type: 'text/csv;charset=utf-8;'
+				});
+
+				var url = URL.createObjectURL( fileObject );
+				link.href = url;
+				link.download = 'bd-example.csv';
+
+				// Actually download CSV.
+				document.body.appendChild( link );
+				link.click();
+				document.body.removeChild( link );
+			}
+		});
+	});
+
     // Import progress page.
     if ( $( '#wpbdp-csv-import-state' ).length > 0 ) {
         var import_in_page = new csvimport.CSV_Import();

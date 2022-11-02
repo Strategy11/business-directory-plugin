@@ -52,7 +52,7 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 				),
 				'help'        => array(
 					'label' => __( 'Help', 'business-directory-plugin' ),
-					'url'   => '#help',
+					'url'   => admin_url( 'admin.php?page=wpbdp_admin_csv#help' ),
 				),
 			);
 		}
