@@ -3,6 +3,7 @@ if ( $theme->active ) {
 	$status = __( 'Active', 'business-directory-plugin' );
 } elseif ( ! $theme->can_be_activated && ! empty( $theme->license_status ) ) {
 	$status = ucfirst( $theme->license_status );
+	$status = $theme->license_status === 'invalid' ? __( 'Missing License', 'business-directory-plugin' ) : $status;
 } else {
 	$status = __( 'Inactive', 'business-directory-plugin' );
 }
