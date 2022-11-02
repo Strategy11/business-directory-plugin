@@ -288,12 +288,19 @@ printf(
 <hr />
 
 <div class="wpbdp-settings-form-title">
-	<h3 id="help"><?php esc_html_e( 'Help', 'business-directory-plugin' ); ?></h3>
+	<h3 id="help"><?php esc_html_e( 'CSV File Formatting', 'business-directory-plugin' ); ?></h3>
 </div>
+
+<p>
+	<?php
+	esc_html_e( 'The following are the header names to use in your CSV file for your current setup. The headers in your CSV file must EXACTLY match (case and punctuation) the names listed here. Fields such as categories or tags can appear multiple times in the file.', 'business-directory-plugin' );
+	?>
+</p>
+
 <p>
 	<?php
 	printf(
-		__( 'The following are the valid header names to be used in the CSV file. Multivalued fields (such as category or tags) can appear multiple times in the file. Click <a href="%s">"See an example CSV import file"</a> to see how an import file should look like.', 'business-directory-plugin' ),
+		__( '<a href="%s">See an example CSV import file</a> to see how your file should be formatted.', 'business-directory-plugin' ),
 		esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&action=example-csv' ) )
 	);
 	?>

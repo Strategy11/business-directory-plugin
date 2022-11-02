@@ -24,6 +24,7 @@ class WPBDP_CSVImportAdmin {
         add_action( 'wpbdp_enqueue_admin_scripts', array( &$this, 'enqueue_scripts' ) );
         add_action( 'wp_ajax_wpbdp-csv-import', array( &$this, 'ajax_csv_import' ) );
         add_action( 'wp_ajax_wpbdp-autocomplete-user', array( &$this, 'ajax_autocomplete_user' ) );
+		add_action( 'wp_ajax_wpbdp-example-csv', array( &$this, 'download_example_csv' ) );
     }
 
     function enqueue_scripts() {
@@ -178,71 +179,94 @@ class WPBDP_CSVImportAdmin {
     }
 
     private function example_csv() {
-		wpbdp_admin_header(
-			array(
-				'title'   => __( 'Example CSV Import File', 'business-directory-plugin' ),
-				'buttons' => array(
-					'return' => array(
-						'label' => __( 'Go Back', 'business-directory-plugin' ),
-						'url'   => remove_query_arg( 'action' ),
-					)
-				),
-				'echo'    => true,
-				'sidebar' => false,
-			)
-		);
+		echo '<p class="alignright"><a class="wpbdp-button-secondary wpbdp-example-csv">' .
+			esc_html__( 'Download Example', 'business-directory-plugin' ) .
+			'</a></p>';
+		echo '<h3 style="margin-top:1em">' . __( 'Example CSV Import File', 'business-directory-plugin' ) . '</h3>';
 
-        $posts = get_posts(
-            array(
-				'post_type'        => WPBDP_POST_TYPE,
-				'post_status'      => 'publish',
-				'numberposts'      => 10,
-				'suppress_filters' => false,
-            )
-        );
-
-        // echo sprintf('<input type="button" value="%s" />', _x('Copy CSV', 'admin csv-import', 'business-directory-plugin'));
-        echo '<textarea class="wpbdp-csv-import-example" rows="30">';
-
-        $fields = wpbdp_get_form_fields( array( 'field_type' => '-ratings' ) );
-
-        foreach ( $fields as $f ) {
-            echo $f->get_short_name() . ',';
-        }
-        echo 'username,fee_id';
-        echo "\n";
-
-        if ( count( $posts ) >= 5 ) {
-            foreach ( $posts as $post ) {
-                foreach ( $fields as $f ) {
-                    $value = $f->plain_value( $post->ID );
-
-                    echo str_replace( ',', ';', $value );
-                    echo ',';
-                }
-				echo get_the_author_meta( 'user_login', (int) $post->post_author );
-                $fee = wpbdp_get_listing( $post->ID )->get_fee_plan();
-                echo ',';
-                echo $fee ? $fee->fee_id : '';
-
-                echo "\n";
-            }
-        } else {
-            for ( $i = 0; $i < 5; $i++ ) {
-                foreach ( $fields as $f ) {
-                    echo sprintf( '"%s"', $this->example_data_for_field( $f, $f->get_short_name() ) );
-                    echo ',';
-                }
-
-                echo sprintf( '"%s"', $this->example_data_for_field( null, 'user' ) );
-                echo "\n";
-            }
-		}
-
+        echo '<textarea class="wpbdp-csv-import-example" rows="20">';
+        echo $this->example_csv_content();
         echo '</textarea>';
 
         echo wpbdp_admin_footer();
     }
+
+	/**
+	 * Generate a sample CS file for download.
+	 *
+	 * @since x.x
+	 * @return void
+	 */
+	public function download_example_csv() {
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error();
+		}
+
+		$filename = 'bd-example.csv';
+		$filepath = get_temp_dir() . $filename;
+		$charset  = get_option( 'blog_charset' );
+
+		header( 'Content-Type: text/csv; charset=' . $charset );
+		header( 'Content-Disposition: attachment; filename=' . $filename );
+
+		$f = fopen( 'php://output', 'w' );
+
+		fwrite( $f, $this->example_csv_content() );
+
+		exit;
+	}
+
+	/**
+	 * @since x.x
+	 * @return string
+	 */
+	private function example_csv_content() {
+		$content = '';
+		$fields  = wpbdp_get_form_fields( array( 'field_type' => '-ratings' ) );
+
+		foreach ( $fields as $f ) {
+			$content .= $f->get_short_name() . ',';
+		}
+		$content .= 'username,fee_id';
+		$content .= "\n";
+
+		$posts = get_posts(
+			array(
+				'post_type'        => WPBDP_POST_TYPE,
+				'post_status'      => 'publish',
+				'numberposts'      => 3,
+				'suppress_filters' => false,
+			)
+		);
+
+		if ( count( $posts ) >= 1 ) {
+			foreach ( $posts as $post ) {
+				foreach ( $fields as $f ) {
+					$value = $f->csv_value( $post->ID );
+					$content .= str_replace( array( ',', '"' ), array( ';', '""' ), $value );
+					$content .= ',';
+				}
+				$content .= get_the_author_meta( 'user_login', (int) $post->post_author );
+				$fee = wpbdp_get_listing( $post->ID )->get_fee_plan();
+				$content .= ',';
+				$content .= $fee ? $fee->fee_id : '';
+
+				$content .= "\n";
+			}
+		} else {
+			for ( $i = 0; $i < 5; $i++ ) {
+				foreach ( $fields as $f ) {
+					$content .= sprintf( '"%s"', $this->example_data_for_field( $f, $f->get_short_name() ) );
+					$content .= ',';
+				}
+
+				$content .= sprintf( '"%s"', $this->example_data_for_field( null, 'user' ) );
+				$content .= "\n";
+			}
+		}
+		return $content;
+	}
 
     private function get_imports_dir() {
         $upload_dir = wp_upload_dir();
