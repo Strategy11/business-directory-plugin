@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-09-23 15:42:16+00:00\n"
+"POT-Creation-Date: 2022-11-03 17:40:34+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -240,15 +240,14 @@ msgid "See Example"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-csv.php:54
-#: templates/admin/csv-import.tpl.php:291
 msgid "Help"
 msgstr "Aide"
 
 #: includes/admin/controllers/class-admin-fees.php:46
 #: includes/admin/helpers/tables/class-payments-table.php:67
 #: includes/admin/upgrades/migrations/manual-upgrade-18_0-featured-levels.php:276
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:79
-#: templates/admin/payments-details.tpl.php:121
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:81
+#: templates/admin/payments-details.tpl.php:124
 #: templates/email/listing-payment-completed.tpl.php:21
 #: templates/payment/payment_items.tpl.php:5
 msgid "Amount"
@@ -318,7 +317,7 @@ msgid "Listing Reports"
 msgstr "Une annonce expire"
 
 #: includes/admin/controllers/class-admin-listings.php:268
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:85
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:87
 msgid "Expires on"
 msgstr "Expire le"
 
@@ -328,7 +327,7 @@ msgstr "Attributs"
 
 #: includes/admin/controllers/class-admin-listings.php:339
 #: includes/helpers/class-listing-display-helper.php:137
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:116
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:118
 msgid "Featured"
 msgstr "En vedette"
 
@@ -345,15 +344,15 @@ msgid "Delete Listing"
 msgstr "Supprimer l'annonce"
 
 #: includes/admin/controllers/class-admin-listings.php:733
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:94
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 msgid "Never"
 msgstr "Jamais"
 
 #: includes/admin/controllers/class-admin-listings.php:744
 #: includes/admin/controllers/class-admin-listings.php:745
 #: includes/fields/class-fieldtypes-textarea.php:201
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:119
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:126
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:121
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:128
 msgid "Yes"
 msgstr "Oui"
 
@@ -361,8 +360,8 @@ msgstr "Oui"
 #: includes/admin/controllers/class-admin-listings.php:745
 #: includes/admin/settings/class-settings-bootstrap.php:279
 #: includes/fields/class-fieldtypes-textarea.php:200
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:119
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:126
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:121
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:128
 msgid "No"
 msgstr "Non"
 
@@ -428,24 +427,24 @@ msgid "Address 2"
 msgstr "Complément d'adresse"
 
 #: includes/admin/controllers/class-form-fields-admin.php:350
-#: templates/admin/payments-details.tpl.php:172
+#: templates/admin/payments-details.tpl.php:175
 #: templates/checkout-billing-form.tpl.php:87
 msgid "City"
 msgstr "Ville"
 
 #: includes/admin/controllers/class-form-fields-admin.php:351
-#: templates/admin/payments-details.tpl.php:168
+#: templates/admin/payments-details.tpl.php:171
 msgid "State"
 msgstr "Région"
 
 #: includes/admin/controllers/class-form-fields-admin.php:352
-#: templates/admin/payments-details.tpl.php:164
+#: templates/admin/payments-details.tpl.php:167
 #: templates/checkout-billing-form.tpl.php:102
 msgid "Country"
 msgstr "Pays"
 
 #: includes/admin/controllers/class-form-fields-admin.php:353
-#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:176
+#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:179
 msgid "ZIP Code"
 msgstr "Code postal"
 
@@ -512,7 +511,7 @@ msgstr "Déjà installé ?"
 #: includes/admin/helpers/tables/class-form-fields-table.php:105
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:19
 #: templates/admin/payments-note.tpl.php:14
-#: templates/admin/themes-item.tpl.php:50
+#: templates/admin/themes-item.tpl.php:51
 #: templates/parts/listing-buttons.tpl.php:31
 msgid "Delete"
 msgstr "Effacer"
@@ -527,28 +526,28 @@ msgid "Themes"
 msgstr "Thèmes"
 
 #. translators: %s: Sample business name
-#: includes/admin/csv-import.php:134
+#: includes/admin/csv-import.php:136
 msgid "Business %s"
 msgstr "Professionnel %s"
 
-#: includes/admin/csv-import.php:182
+#: includes/admin/csv-import.php:183
+msgid "Download Example"
+msgstr ""
+
+#: includes/admin/csv-import.php:185
 msgid "Example CSV Import File"
 msgstr "Exemple de fichier d'import CSV"
 
-#: includes/admin/csv-import.php:185
-msgid "Go Back"
-msgstr "Revenir en arrière"
-
-#: includes/admin/csv-import.php:333 includes/helpers/class-app.php:232
+#: includes/admin/csv-import.php:358 includes/helpers/class-app.php:232
 #: includes/helpers/class-app.php:244
 msgid "You are not allowed to do that."
 msgstr "Vous n'êtes pas autorisé·e à faire cela."
 
-#: includes/admin/csv-import.php:426
+#: includes/admin/csv-import.php:451
 msgid "There was an error uploading the file:"
 msgstr "Il y a eu une erreur lors du téléversement du fichier CSV :"
 
-#: includes/admin/csv-import.php:431
+#: includes/admin/csv-import.php:456
 msgid "Please upload the correct file type."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 
@@ -582,7 +581,7 @@ msgstr "Non installé"
 
 #: includes/admin/helpers/class-modules-list.php:226
 #: includes/controllers/class-smtp.php:317
-#: templates/admin/themes-item.tpl.php:58
+#: templates/admin/themes-item.tpl.php:59
 msgid "Activate"
 msgstr "Activer"
 
@@ -658,19 +657,24 @@ msgstr "Défaut"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:31
 #: includes/fields/class-fieldtypes-social.php:135
-#: templates/admin/csv-import.tpl.php:307
+#: templates/admin/csv-import.tpl.php:314
 msgid "Type"
 msgstr "Type"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:88
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:91
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:108
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:93
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:110
 msgid "Edit"
 msgstr "Editer"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:104
 msgid "Are you sure you want to delete that field?"
 msgstr "Etes-vous sûr de vouloir effacer ce champ?"
+
+#: includes/admin/helpers/tables/class-payments-table.php:143
+#, fuzzy
+msgid "View Payment"
+msgstr "Voir le Paiement"
 
 #: includes/admin/page-debug.php:40
 msgid "Plugin Settings"
@@ -685,9 +689,9 @@ msgid "Plugin Info"
 msgstr "Informations du plugin"
 
 #: includes/admin/page-debug.php:159
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:74
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:97
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:112
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:76
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:99
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:114
 msgid "OK"
 msgstr "OK"
 
@@ -697,7 +701,7 @@ msgstr "Tables manquantes : %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
 #: includes/controllers/pages/class-submit-listing.php:1422
-#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:148
+#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
 msgid "Email"
@@ -1315,9 +1319,9 @@ msgstr ""
 "faire mieux ?"
 
 #: includes/class-assets.php:195
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:75
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:98
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:113
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:77
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:100
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:115
 #: templates/admin/settings-email.tpl.php:103
 #: templates/admin/settings-reset.tpl.php:8
 #: templates/admin/themes-delete-confirm.tpl.php:25
@@ -1740,39 +1744,39 @@ msgstr "Sélectionnez un média"
 msgid "Select List"
 msgstr "Sélectionnez une annonce"
 
-#: includes/fields/class-fieldtypes-select.php:116
+#: includes/fields/class-fieldtypes-select.php:117
 msgid "-- Choose One --"
 msgstr "-- Choisissez --"
 
-#: includes/fields/class-fieldtypes-select.php:143
+#: includes/fields/class-fieldtypes-select.php:144
 msgid "-- Choose Terms --"
 msgstr "-- Choisissez les conditions --"
 
-#: includes/fields/class-fieldtypes-select.php:209
+#: includes/fields/class-fieldtypes-select.php:210
 msgid "— None —"
 msgstr "— Aucun —"
 
-#: includes/fields/class-fieldtypes-select.php:266
+#: includes/fields/class-fieldtypes-select.php:267
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 "Options du champ (pour sélectionner des annonces, des boutons radio et cases "
 "à cocher)."
 
-#: includes/fields/class-fieldtypes-select.php:266
+#: includes/fields/class-fieldtypes-select.php:267
 #: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
 #: templates/admin/fees-form.tpl.php:58
 msgid "required"
 msgstr "requis"
 
-#: includes/fields/class-fieldtypes-select.php:268
+#: includes/fields/class-fieldtypes-select.php:269
 msgid "One option per line"
 msgstr "Une option par ligne"
 
-#: includes/fields/class-fieldtypes-select.php:278
+#: includes/fields/class-fieldtypes-select.php:279
 msgid "Allow empty selection on search?"
 msgstr "Permettre la sélection vide sur la recherche?"
 
-#: includes/fields/class-fieldtypes-select.php:296
+#: includes/fields/class-fieldtypes-select.php:297
 msgid "Field list of options is required."
 msgstr "La liste des options est requise."
 
@@ -1851,7 +1855,7 @@ msgstr "Catégorie d'annonce"
 msgid "Short Description"
 msgstr "Brève description"
 
-#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:120
+#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:123
 msgid "Description"
 msgstr "Description"
 
@@ -1895,7 +1899,7 @@ msgstr "Validateur de nombre de mots"
 msgid "Telephone Number Validator"
 msgstr "Validateur de numéro de téléphone"
 
-#: includes/form-fields.php:595 templates/admin/csv-import.tpl.php:306
+#: includes/form-fields.php:595 templates/admin/csv-import.tpl.php:313
 msgid "Field"
 msgstr "Champ"
 
@@ -2233,27 +2237,37 @@ msgstr ""
 "hébergeur et lui demander d'ajouter notre adresse IP<ip-address> à votre "
 "liste d'autorisation."
 
-#: includes/licensing.php:684
+#: includes/licensing.php:645
+msgid "Download Premium"
+msgstr ""
+
+#: includes/licensing.php:695
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Clé de licence manquante."
 
-#: includes/licensing.php:685
+#: includes/licensing.php:696
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Clé de licence expirée"
 
-#: includes/licensing.php:686
+#: includes/licensing.php:697
 msgid "Could not verify Business Directory license."
 msgstr "Impossible de vérifier la licence de l'annuaire professionnel."
 
-#: includes/licensing.php:697
+#: includes/licensing.php:698
+msgid ""
+"You have modules installed, but Business Directory Premium is missing. "
+"Install this plugin for extra features and easy license management."
+msgstr ""
+
+#: includes/licensing.php:709
 msgid "Review license keys"
 msgstr "Renouveller la clé de licence"
 
-#: includes/licensing.php:812
+#: includes/licensing.php:824
 msgid "Missing data. Please reload this page and try again."
 msgstr "Données manquantes. Veuillez recharger cette page et réessayer."
 
-#: includes/licensing.php:817
+#: includes/licensing.php:829
 msgid "Please enter a license key."
 msgstr "S'il vous plaît entrer une clé de licence."
 
@@ -2536,38 +2550,44 @@ msgstr ""
 msgid "Disable email notifications during import"
 msgstr "Désactiver les notifications par e-mail durant l'importation"
 
+#: templates/admin/csv-import.tpl.php:291
+#, fuzzy
+msgid "CSV File Formatting"
+msgstr "Paramètres des fichiers CSV"
+
 #: templates/admin/csv-import.tpl.php:296
 msgid ""
-"The following are the valid header names to be used in the CSV file. "
-"Multivalued fields (such as category or tags) can appear multiple times in "
-"the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> to see "
-"how an import file should look like."
+"The following are the header names to use in your CSV file for your current "
+"setup. The headers in your CSV file must EXACTLY match (case and "
+"punctuation) the names listed here. Fields such as categories or tags can "
+"appear multiple times in the file."
 msgstr ""
-"Voici les noms d'en-tête pouvant être utilisées dans le fichier CSV. Champs "
-"à valeurs multiples (tels que catégorie ou tags) peuvent apparaître "
-"plusieurs fois dans le fichier. Cliquez sur <a href=\"%s\">\"Voir un exemple "
-"d'un fichier CSV d'importation \" </a> afin de voir à quoi un fichier "
-"d'importation devrait ressembler."
 
-#: templates/admin/csv-import.tpl.php:305
+#: templates/admin/csv-import.tpl.php:303
+msgid ""
+"<a href=\"%s\">See an example CSV import file</a> to see how your file "
+"should be formatted."
+msgstr ""
+
+#: templates/admin/csv-import.tpl.php:312
 msgid "Header name/label"
 msgstr "Titre/Etiquette de l'en-tête"
 
-#: templates/admin/csv-import.tpl.php:308
+#: templates/admin/csv-import.tpl.php:315
 msgid "Required?"
 msgstr "Requis ?"
 
-#: templates/admin/csv-import.tpl.php:309
+#: templates/admin/csv-import.tpl.php:316
 msgid "Multivalued?"
 msgstr "Valeurs multiples ?"
 
-#: templates/admin/csv-import.tpl.php:341
+#: templates/admin/csv-import.tpl.php:348
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr ""
 "Liste séparée de la cotation des images par un point-virgule (à partir du "
 "fichier ZIP)"
 
-#: templates/admin/csv-import.tpl.php:348
+#: templates/admin/csv-import.tpl.php:355
 #, fuzzy
 msgid "Listing owner's username"
 msgstr "Nom d'utilisateur de l'auteur de l'annonce"
@@ -2775,12 +2795,12 @@ msgstr "Dernière date de renouvellement"
 msgid "Plan"
 msgstr "Abonnement"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:123
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:125
 #: templates/plan-selection-plan.tpl.php:41
 msgid "Recurring"
 msgstr "Récurrent"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:153
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:155
 #, fuzzy
 msgid "Renew listing"
 msgstr "Renouveler l'annonce"
@@ -2808,7 +2828,7 @@ msgid "Overview"
 msgstr "Aperçu"
 
 #: templates/admin/payments-details.tpl.php:52
-#: templates/admin/payments-details.tpl.php:91
+#: templates/admin/payments-details.tpl.php:94
 msgid "Payment ID"
 msgstr "ID de paiement"
 
@@ -2829,59 +2849,63 @@ msgstr "Passerelle"
 msgid "(Not yet set)"
 msgstr "(Pas encore inscrit)"
 
-#: templates/admin/payments-details.tpl.php:102
+#: templates/admin/payments-details.tpl.php:89
+msgid "- Test Mode"
+msgstr ""
+
+#: templates/admin/payments-details.tpl.php:105
 msgid "Delete Payment"
 msgstr "Supprimer le paiement"
 
-#: templates/admin/payments-details.tpl.php:104
+#: templates/admin/payments-details.tpl.php:107
 msgid "Save Payment"
 msgstr "Enregistrer le paiement"
 
-#: templates/admin/payments-details.tpl.php:115
+#: templates/admin/payments-details.tpl.php:118
 msgid "Details"
 msgstr "Détails"
 
-#: templates/admin/payments-details.tpl.php:119
+#: templates/admin/payments-details.tpl.php:122
 msgid "Item Type"
 msgstr "Type d'élément"
 
-#: templates/admin/payments-details.tpl.php:132
+#: templates/admin/payments-details.tpl.php:135
 #: templates/payment/payment_items.tpl.php:23
 msgid "Total"
 msgstr "Total"
 
-#: templates/admin/payments-details.tpl.php:143
+#: templates/admin/payments-details.tpl.php:146
 msgid "Customer Details"
 msgstr "Détails du client"
 
-#: templates/admin/payments-details.tpl.php:153
+#: templates/admin/payments-details.tpl.php:156
 #: templates/checkout-billing-form.tpl.php:17
 msgid "First Name"
 msgstr "Prénom"
 
-#: templates/admin/payments-details.tpl.php:158
+#: templates/admin/payments-details.tpl.php:161
 #: templates/checkout-billing-form.tpl.php:22
 msgid "Last Name"
 msgstr "Nom"
 
-#: templates/admin/payments-details.tpl.php:180
+#: templates/admin/payments-details.tpl.php:183
 msgid "Address Line 1"
 msgstr "Adresse ligne 1"
 
-#: templates/admin/payments-details.tpl.php:184
+#: templates/admin/payments-details.tpl.php:187
 #: templates/checkout-billing-form.tpl.php:81
 msgid "Address Line 2"
 msgstr "Adresse ligne 2"
 
-#: templates/admin/payments-details.tpl.php:193
+#: templates/admin/payments-details.tpl.php:196
 msgid "Notes & Log"
 msgstr "Notes et registre"
 
-#: templates/admin/payments-details.tpl.php:198
+#: templates/admin/payments-details.tpl.php:201
 msgid "No notes."
 msgstr "Pas de notes."
 
-#: templates/admin/payments-details.tpl.php:218
+#: templates/admin/payments-details.tpl.php:221
 msgid "Add Note"
 msgstr "Ajouter une note"
 
@@ -3038,20 +3062,25 @@ msgstr "Archive du Thème Business Directory (Fichier zip)"
 msgid "Upload"
 msgstr "Téléverser"
 
-#: templates/admin/themes-item.tpl.php:7
+#: templates/admin/themes-item.tpl.php:6
+#, fuzzy
+msgid "Missing License"
+msgstr "Durée de l'annonce"
+
+#: templates/admin/themes-item.tpl.php:8
 msgid "Inactive"
 msgstr "Inactif"
 
-#: templates/admin/themes-item.tpl.php:17
+#: templates/admin/themes-item.tpl.php:18
 msgid "Updating theme..."
 msgstr "Mise à jour du thème..."
 
-#: templates/admin/themes-item.tpl.php:17
+#: templates/admin/themes-item.tpl.php:18
 msgid "Theme updated."
 msgstr "Thème mis à jour."
 
 #. translators: %1$s is opening <a> tag, %2$s is closing </a> tag
-#: templates/admin/themes-item.tpl.php:22
+#: templates/admin/themes-item.tpl.php:23
 msgid "New version available. %1$sUpdate now.%2$s"
 msgstr "Nouvelle version disponible. %1$s Mettre à jour maintenant. %2$s"
 
@@ -4381,11 +4410,6 @@ msgctxt "payments admin"
 msgid "All"
 msgstr "Tous"
 
-#: includes/admin/helpers/tables/class-payments-table.php:134
-msgctxt "payments admin"
-msgid "View Payment"
-msgstr "Voir l'historique des paiements"
-
 #: includes/admin/controllers/class-form-fields-admin.php:185
 msgctxt "form-fields admin"
 msgid "Form fields updated."
@@ -4482,31 +4506,31 @@ msgctxt "form-fields admin"
 msgid "In Listing"
 msgstr "Dans l'annonce"
 
-#: includes/fields/class-fieldtypes-checkbox.php:97
+#: includes/fields/class-fieldtypes-checkbox.php:98
 msgctxt "form-fields admin"
 msgid "Select All"
 msgstr "Tout sélectionner"
 
-#: includes/fields/class-fieldtypes-checkbox.php:115
-#: includes/fields/class-fieldtypes-radiobutton.php:90
+#: includes/fields/class-fieldtypes-checkbox.php:116
+#: includes/fields/class-fieldtypes-radiobutton.php:91
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 "Options de champ (pour les listes de sélection, les boutons radio et les "
 "cases à cocher)."
 
-#: includes/fields/class-fieldtypes-checkbox.php:127
+#: includes/fields/class-fieldtypes-checkbox.php:128
 msgctxt "form-fields admin"
 msgid "Include \"Select all\"?"
 msgstr "Inclure l'option \"Tout Sélectionner\" ?"
 
-#: includes/fields/class-fieldtypes-checkbox.php:131
+#: includes/fields/class-fieldtypes-checkbox.php:132
 msgctxt "form-fields admin"
 msgid "Display \"Select all\" option among options above."
 msgstr "Afficher l'option \"Tout Sélectionner\" parmi les options ci-dessus."
 
-#: includes/fields/class-fieldtypes-checkbox.php:147
-#: includes/fields/class-fieldtypes-radiobutton.php:117
+#: includes/fields/class-fieldtypes-checkbox.php:148
+#: includes/fields/class-fieldtypes-radiobutton.php:118
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "La liste des options est obligatoire."
@@ -6350,17 +6374,17 @@ msgctxt "admin csv-export"
 msgid "← Return to CSV Export"
 msgstr "←Retourner vers l'export CSV"
 
-#: includes/admin/csv-import.php:176
+#: includes/admin/csv-import.php:178
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Peu importe"
 
-#: includes/admin/csv-import.php:347
+#: includes/admin/csv-import.php:372
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 
-#: includes/admin/csv-import.php:372
+#: includes/admin/csv-import.php:397
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -6369,7 +6393,7 @@ msgstr ""
 "Une erreur a été décelée lors de la validation du fichier CSV pour "
 "l'importation. Merci de résoudre ce problème avant de continuer."
 
-#: includes/admin/csv-import.php:381
+#: includes/admin/csv-import.php:406
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
@@ -6586,7 +6610,7 @@ msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr "Importation des listes"
 
-#: templates/admin/csv-import.tpl.php:334
+#: templates/admin/csv-import.tpl.php:341
 msgctxt "admin csv-import"
 msgid ""
 "Fee ID (integer) associated to a listing. Use this column when adding or "
@@ -6595,7 +6619,7 @@ msgstr ""
 "ID de frais (entier) associé à une annonce. Utilisez cette colonne lors de "
 "l'ajout ou la mise à jour annonces provenant de sources externes."
 
-#: templates/admin/csv-import.tpl.php:355
+#: templates/admin/csv-import.tpl.php:362
 msgctxt "admin csv-import"
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -6603,7 +6627,7 @@ msgstr ""
 "ID interne de séquence utilisé pour permettre l'annonce des mises à jour "
 "provenant de sources externes."
 
-#: templates/admin/csv-import.tpl.php:362
+#: templates/admin/csv-import.tpl.php:369
 msgctxt "admin csv-import"
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -6613,7 +6637,7 @@ msgstr ""
 "colonne lors de l'ajout ou la mise à jour annonces provenant de sources "
 "externes."
 
-#: includes/admin/csv-import.php:303
+#: includes/admin/csv-import.php:328
 msgctxt "csv import"
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
@@ -6651,12 +6675,12 @@ msgctxt "listing metabox"
 msgid "Plan Details"
 msgstr "Détails de l'abonnement"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:50
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:51
 msgctxt "listing metabox"
 msgid "Change plan"
 msgstr "Changer d'abonnement"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:103
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:105
 msgctxt "listing metabox"
 msgid "# of images"
 msgstr "# des images"
@@ -7381,7 +7405,7 @@ msgctxt "templates"
 msgid "Send Message to listing owner"
 msgstr "Envoyer un message au propriétaire de l'annonce"
 
-#: includes/controllers/pages/class-main.php:9
+#: includes/controllers/pages/class-main.php:14
 msgctxt "templates"
 msgid ""
 "There are no categories assigned to the business directory yet. You need to "
@@ -7396,12 +7420,12 @@ msgstr ""
 "peuvent ajouter leur annonce pour le moment. Les annonces ne peuvent pas "
 "être ajoutées tant que vous n'avez pas attribué des catégories à l'annuaire."
 
-#: includes/controllers/pages/class-main.php:11
+#: includes/controllers/pages/class-main.php:16
 msgctxt "templates"
 msgid "There are currently no listings in the directory."
 msgstr "Il n'y a actuellement aucune annonce dans l'annuaire."
 
-#: includes/controllers/pages/class-main.php:23
+#: includes/controllers/pages/class-main.php:28
 msgctxt "templates"
 msgid ""
 "You have \"Hide Empty Categories\" on and some categories that don't have "
@@ -7865,7 +7889,7 @@ msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
 "L'adresse e-mail que vous avez choisie pour votre compte est déjà utilisée."
 
-#: includes/models/class-payment.php:282
+#: includes/models/class-payment.php:286
 msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Annonce soumis par un admin. Paiement sauté."
@@ -7969,7 +7993,7 @@ msgstr ""
 "Ce champ de formulaire ne peut pas être supprimé car il est nécessaire pour "
 "que le plugin fonctionne."
 
-#: includes/fields/class-fieldtypes-checkbox.php:51
+#: includes/fields/class-fieldtypes-checkbox.php:52
 msgctxt "checkbox form field"
 msgid "Select all"
 msgstr "Tout sélectionner"
@@ -8266,28 +8290,28 @@ msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Le serveur a renvoyé une erreur 403 Forbidden."
 
-#: includes/licensing.php:834
+#: includes/licensing.php:846
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossible d'activer la licence: %s."
 
-#: includes/licensing.php:839
+#: includes/licensing.php:851
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licence activée"
 
-#: includes/licensing.php:871
+#: includes/licensing.php:883
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossible de désactiver la licence: %s."
 
-#: includes/licensing.php:873
+#: includes/licensing.php:885
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licence désactivée"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1113
+#: includes/licensing.php:1125
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -8308,19 +8332,19 @@ msgid_plural "%d images allowed."
 msgstr[0] "%d Image autorisée."
 msgstr[1] "%d Images autorisées."
 
-#: includes/models/class-fee-plan.php:402
+#: includes/models/class-fee-plan.php:410
 msgctxt "fees-api"
 msgid "Plan label is required."
 msgstr "Le titre du plan est requis."
 
-#: includes/models/class-fee-plan.php:408
+#: includes/models/class-fee-plan.php:416
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr ""
 "La durée des frais d'annonce doit être un nombre inférieur à 10 ans (3650 "
 "jours)."
 
-#: includes/models/class-fee-plan.php:413
+#: includes/models/class-fee-plan.php:421
 msgctxt "fees-api"
 msgid ""
 "To set this plan as \"Recurring\" you must have a time for the listing to "
@@ -8331,7 +8355,7 @@ msgstr ""
 "durée à l'annonce à renouveler (ex: 30 jours). Pour éviter les erreurs avec "
 "les annonces, merci d'éditer <a>l'abonnement</a> de manière appropriée."
 
-#: includes/models/class-fee-plan.php:416
+#: includes/models/class-fee-plan.php:424
 msgctxt "fees-api"
 msgid ""
 "To set this plan as \"Recurring\" you must set a price for your plan. To "
@@ -8341,57 +8365,57 @@ msgstr ""
 "plan. Pour éviter des erreurs avec les annonces, merci d'éditer "
 "<a>l'abonnement</a> de manière appropriée."
 
-#: includes/models/class-payment.php:105
+#: includes/models/class-payment.php:109
 msgctxt "payment"
 msgid "Payment status changed from \"%1$s\" to \"%2$s\"."
 msgstr "L'état de paiement a changé de \"%1$s\" à \"%2$s\"."
 
-#: includes/models/class-payment.php:153
+#: includes/models/class-payment.php:157
 msgctxt "payment"
 msgid "Initial payment (\"%s\")"
 msgstr "Paiement Initial"
 
-#: includes/models/class-payment.php:156
+#: includes/models/class-payment.php:160
 msgctxt "payment"
 msgid "Renewal payment (\"%s\")"
 msgstr "Renouvellement Paiement (\"%s\")"
 
-#: includes/models/class-payment.php:390
+#: includes/models/class-payment.php:403
 msgctxt "payment"
 msgid "Pending"
 msgstr "En attente"
 
-#: includes/models/class-payment.php:391
+#: includes/models/class-payment.php:404
 msgctxt "payment"
 msgid "Failed"
 msgstr "Échoué"
 
-#: includes/models/class-payment.php:392
+#: includes/models/class-payment.php:405
 msgctxt "payment"
 msgid "Completed"
 msgstr "Terminé"
 
-#: includes/models/class-payment.php:393
+#: includes/models/class-payment.php:406
 msgctxt "payment"
 msgid "Canceled"
 msgstr "Annulé"
 
-#: includes/models/class-payment.php:394
+#: includes/models/class-payment.php:407
 msgctxt "payment"
 msgid "On Hold"
 msgstr "En attente"
 
-#: includes/models/class-payment.php:395
+#: includes/models/class-payment.php:408
 msgctxt "payment"
 msgid "Refunded"
 msgstr "Remboursé"
 
-#: includes/models/class-payment.php:168
+#: includes/models/class-payment.php:172
 msgctxt "payment summary"
 msgid "%s. Admin Posted."
 msgstr "%s. Administrateur publié."
 
-#: includes/models/class-payment.php:170
+#: includes/models/class-payment.php:174
 msgctxt "payment summary"
 msgid "%s. Imported Listing."
 msgstr "%s. annonces importées."
@@ -8416,7 +8440,7 @@ msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Le type de fichier \"%s\" n'est pas autorisé"
 
-#: includes/utils.php:667
+#: includes/utils.php:668
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
@@ -8556,17 +8580,17 @@ msgstr ""
 "Si vous avez des questions, merci de poster un commentaire sur le <a>forum "
 "de support</a> et nous donnerons une réponse dans les 24h."
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:133
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:135
 msgctxt "admin infometabox"
 msgid "Renewal url (copy & paste)"
 msgstr "URL de renouvellement (copier-coller)"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:133
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:135
 msgctxt "admin infometabox"
 msgid "Get renewal URL"
 msgstr "Obtenir l'URL de renouvellement de l'annonce"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:147
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:149
 msgctxt "admin infometabox"
 msgid "Send renewal e-mail"
 msgstr "Envoyer un e-mail de renouvellement à l'utilisateur"
@@ -8775,6 +8799,25 @@ msgstr "Entrer votre adresse mail"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuer"
+
+#~ msgid "Go Back"
+#~ msgstr "Revenir en arrière"
+
+#~ msgid ""
+#~ "The following are the valid header names to be used in the CSV file. "
+#~ "Multivalued fields (such as category or tags) can appear multiple times "
+#~ "in the file. Click <a href=\"%s\">\"See an example CSV import file\"</a> "
+#~ "to see how an import file should look like."
+#~ msgstr ""
+#~ "Voici les noms d'en-tête pouvant être utilisées dans le fichier CSV. "
+#~ "Champs à valeurs multiples (tels que catégorie ou tags) peuvent "
+#~ "apparaître plusieurs fois dans le fichier. Cliquez sur <a href=\"%s\">"
+#~ "\"Voir un exemple d'un fichier CSV d'importation \" </a> afin de voir à "
+#~ "quoi un fichier d'importation devrait ressembler."
+
+#~ msgctxt "payments admin"
+#~ msgid "View Payment"
+#~ msgstr "Voir l'historique des paiements"
 
 #~ msgctxt "uninstall"
 #~ msgid "Please choose an option."

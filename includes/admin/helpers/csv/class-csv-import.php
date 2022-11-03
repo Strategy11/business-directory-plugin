@@ -118,7 +118,7 @@ class WPBDP_CSV_Import {
             $this->current_line = $file->key();
             $this->processed_lines++;
 
-            if ( ! $line_data || ( count( $line_data ) == 1 && empty( $line_data[0] ) ) ) {
+            if ( count( $line_data ) < 2 && empty( $line_data[0] ) ) {
                 continue;
             }
 
