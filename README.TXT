@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 6.2.10
+Stable tag: 6.3
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,14 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3 =
+* New: New payments made in test mode will now show as test payments. Any new test payments will be excluded from the plan stats.
+* New: The sample CSV file for imports can now be downloaded to use as a template.
+* New: Use the front-end form to submit listings for admins too.
+* New: When editing a listing in the admin area without a plan selected, make it clear that the plan is missing and automatically scroll to the plan setting.
+* Fix: Resolve the PHP 8 error when uploading some attachments.
+* Fix: When a BD theme is installed without a license, show a more clear message instead of "Invalid".
+
 = 6.2.10 =
 * Use h3 tags in the excerpt listings for better accessibility.
 * Fix: Images uploaded with sideload were failing. This fixes migration imports.
@@ -221,9 +229,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 = 6.2.4 =
 * Fix: Redirect to the login page from the new listing form when logging in is required.
 * Fix: The listings weren't showing alphabetically in new installations, if the sorting settings hadn't been updated.
-
-= 6.2.3 =
-* Fix: Category pages on non-block themes were using the category in the wrong places.
-* Fix: The French translation has some issues that were causing errors.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

@@ -194,7 +194,7 @@ class WPBDP_CSVImportAdmin {
 	/**
 	 * Generate a sample CS file for download.
 	 *
-	 * @since x.x
+	 * @since 5.3
 	 * @return void
 	 */
 	public function download_example_csv() {
@@ -218,7 +218,7 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 5.3
 	 * @return string
 	 */
 	private function example_csv_content() {
