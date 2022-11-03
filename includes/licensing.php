@@ -611,15 +611,20 @@ class WPBDP_Licensing {
 		$page = wpbdp_get_var( array( 'param' => 'page' ) );
 
 		$is_settings = in_array( $pagenow, array( 'admin.php', 'edit.php' ) ) && 'wpbdp_settings' === $page;
-		if ( $is_settings ) {
+		if ( $is_settings || empty( $this->items ) ) {
             return;
         }
 
         $expired = false;
         $invalid = false;
 
+		$has_premium = false;
+
         foreach ( $this->items as $item ) {
             $status = $this->get_license_status( '', $item['id'], $item['item_type'] );
+			if ( $item['id'] === 'business-directory-premium' ) {
+				$has_premium = true;
+			}
 
 			if ( 'expired' === $status ) {
 				$expired = true;
@@ -634,6 +639,12 @@ class WPBDP_Licensing {
 			$this->show_notice( 'missing_licenses' );
 		} elseif ( ! empty( $this->get_license_errors() ) ) {
 			$this->show_notice( 'license_status_error' );
+		} elseif ( ! $has_premium ) {
+			// There are add-ons without Premium.
+			$content = '<a href="https://businessdirectoryplugin.com/account/downloads/" target="_blank" class="wpbdp-button-primary">' .
+				__( 'Download Premium', 'business-directory-plugin' ) .
+				'</a>';
+			$this->show_notice( 'missing_premium', $content );
 		}
     }
 
@@ -654,16 +665,16 @@ class WPBDP_Licensing {
 		<div id="wpbdp-licensing-issues-warning" class="<?php echo esc_attr( $class ); ?>" data-dismissible-id="<?php echo esc_attr( $notice_id ); ?>" data-nonce="<?php echo esc_attr( $nonce ); ?>">
 			<p>
 				<b><?php echo esc_html( $this->license_notice( $notice_id ) ); ?></b>
-				<span>
-					<?php
-					if ( empty( $content ) ) {
-						$this->link_to_license_page();
-					} else {
-						echo wp_kses_post( $content );
-					}
-					?>
-				</span>
 			</p>
+			<div>
+				<?php
+				if ( empty( $content ) ) {
+					$this->link_to_license_page();
+				} else {
+					echo wp_kses_post( $content );
+				}
+				?>
+			</div>
 		</div>
 		<?php
 	}
@@ -684,6 +695,7 @@ class WPBDP_Licensing {
 			'missing_licenses'     => __( 'Business Directory license key is missing.', 'business-directory-plugin' ),
 			'expired_licenses'     => __( 'Business Directory license key has expired', 'business-directory-plugin' ),
 			'license_status_error' => __( 'Could not verify Business Directory license.', 'business-directory-plugin' ),
+			'missing_premium'      => __( 'You have modules installed, but Business Directory Premium is missing. Install this plugin for extra features and easy license management.', 'business-directory-plugin' ),
 		);
 	}
 
