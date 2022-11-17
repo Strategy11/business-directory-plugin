@@ -407,7 +407,7 @@ function wpbdpSelectSubnav() {
 			}
 			var notifications = [],
 				snackbars = [];
-				
+
 			WPBDPAdmin_Notifications.preAdminNotifications.each( function() {
 				var notification = $(this),
 					mainMsg = this.id === 'message';
