@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 6.3
+Stable tag: 6.3.1
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,10 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.1 =
+* Update: The "Add New Listing" button on the backend was redirecting to the front end, but now it remains in the backend.
+* Fix: The Download Premium notice stays dismissed after the click.
+
 = 6.3 =
 * New: New payments made in test mode will now show as test payments. Any new test payments will be excluded from the plan stats.
 * New: The sample CSV file for imports can now be downloaded to use as a template.

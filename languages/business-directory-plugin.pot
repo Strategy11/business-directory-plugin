@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 6.3\n"
+"Project-Id-Version: Business Directory Plugin 6.3.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2022-11-03 17:41:56+00:00\n"
+"POT-Creation-Date: 2022-11-18 17:04:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1214,7 +1214,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:361
+#: includes/class-assets.php:363
 msgid ""
 "Preview is only available after you've saved the first draft. This is due "
 "to how WordPress stores the data."
@@ -2463,7 +2463,7 @@ msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #: templates/admin/fees-index.tpl.php:75
-#. translators: %s: payment gateway name
+#. translators: %s: payment gateway name */
 msgid "Add %s as a payment option."
 msgstr ""
 

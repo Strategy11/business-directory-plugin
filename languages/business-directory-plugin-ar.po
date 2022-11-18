@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-11-03 17:40:34+00:00\n"
+"POT-Creation-Date: 2022-11-18 17:04:10+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -177,8 +177,8 @@ msgstr "عدد الإعلانات"
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
-"listings, but Registration for your site is currently disabled. Go %1$shere"
-"%2$s and check \"Anyone can register\"."
+"listings, but Registration for your site is currently disabled. Go "
+"%1$shere%2$s and check \"Anyone can register\"."
 msgstr ""
 "لاحظنا أنك تريد من أعضاء دليل الأعمال التسجيل قبل نشر الإعلانات، ولكنك حاليا "
 "تعطل التسجيل في موقعك. إذهب [هنا] واختر \"السماح بالتسجيل\" لجعل دليل "
@@ -1439,7 +1439,7 @@ msgstr "متابعة"
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:361
+#: includes/class-assets.php:363
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
@@ -2371,10 +2371,10 @@ msgstr "لم يتم تقديم أي مفتاح الترخيص"
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
 #: includes/licensing.php:467
 msgid ""
-"If you think this is a mistake, please contact %1$sBusiness Directory support"
-"%2$s and let them know your license is being reported as revoked by the "
-"licensing software. Please include the email address you used to purchase "
-"with your report."
+"If you think this is a mistake, please contact %1$sBusiness Directory "
+"support%2$s and let them know your license is being reported as revoked by "
+"the licensing software. Please include the email address you used to "
+"purchase with your report."
 msgstr ""
 
 #: includes/licensing.php:530
@@ -2914,7 +2914,7 @@ msgstr ""
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
-#. translators: %s: payment gateway name
+#. translators: %s: payment gateway name */
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
@@ -4749,10 +4749,11 @@ msgstr "تم تحديث الاستمارة."
 #: includes/admin/controllers/class-form-fields-admin.php:208
 msgctxt "form-fields admin"
 msgid ""
-"<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
-"\" setting is disabled, display settings below will not be honored and this "
-"field will not be displayed on the frontend. If you want e-mail addresses to "
-"show on the frontend, you can <a>enable public display of e-mails</a>."
+"<b>Important</b>: Since the \"<a>Display email address fields publicly?</"
+"a>\" setting is disabled, display settings below will not be honored and "
+"this field will not be displayed on the frontend. If you want e-mail "
+"addresses to show on the frontend, you can <a>enable public display of e-"
+"mails</a>."
 msgstr ""
 "<b>هام</b>: نظرا لأن إعدادات \"<a>عرض حقول عنوان البريد الإلكتروني للعموم؟</"
 "a>\" معطلة، عرض الإعدادات أدناه لن يتم إظهاره ولن يتم عرض هذا الحقل على "
@@ -7660,8 +7661,8 @@ msgid ""
 "won't be available until the following problems are fixed: <problems>."
 msgstr ""
 "البوابة <b>%s</b> مفعلة ولكن لم يتم إعدادها بشكل صحيح. البوابة لن تكون "
-"متوفرة حتى يتم إصلاح المشاكل التالية <b>%s</b>.<br/> تحقق من <a href=\"%s"
-"\">إعدادات دفع</a> ."
+"متوفرة حتى يتم إصلاح المشاكل التالية <b>%s</b>.<br/> تحقق من <a "
+"href=\"%s\">إعدادات دفع</a> ."
 
 #: includes/class-payment-gateways.php:135
 msgctxt "payment-gateways"
@@ -9239,8 +9240,9 @@ msgstr "متابعة"
 #~ "to see how an import file should look like."
 #~ msgstr ""
 #~ "فيما يلي أسماء رؤوس صالحة لاستخدامها في ملف CSV. يمكن أن تظهر حقول متعددة "
-#~ "القيم (مثل تصنيف أو وسوم) عدة مرات في الملف. إضغط فوق <a href=\"%s\">"
-#~ "\"انظر مثال لملف استيراد CSV\"</a> لمعرفة كيف يجب أن يبدو ملف الاستيراد."
+#~ "القيم (مثل تصنيف أو وسوم) عدة مرات في الملف. إضغط فوق <a "
+#~ "href=\"%s\">\"انظر مثال لملف استيراد CSV\"</a> لمعرفة كيف يجب أن يبدو ملف "
+#~ "الاستيراد."
 
 #, fuzzy
 #~ msgctxt "payments admin"

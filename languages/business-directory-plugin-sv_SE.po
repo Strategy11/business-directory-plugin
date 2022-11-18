@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2022-11-03 17:40:34+00:00\n"
+"POT-Creation-Date: 2022-11-18 17:04:10+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -176,8 +176,8 @@ msgstr "Annonsräknare"
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
-"listings, but Registration for your site is currently disabled. Go %1$shere"
-"%2$s and check \"Anyone can register\"."
+"listings, but Registration for your site is currently disabled. Go "
+"%1$shere%2$s and check \"Anyone can register\"."
 msgstr ""
 "Vi har märkt att du vill att dina användare ska registrera sig innan de kan "
 "skapa annonser, men registreringen är avstängd på din webbplats. Gå [hit] "
@@ -1449,7 +1449,7 @@ msgstr "Fortsätt "
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:361
+#: includes/class-assets.php:363
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
@@ -2374,10 +2374,10 @@ msgstr "Ingen licensnyckel angiven"
 #: includes/licensing.php:467
 #, fuzzy
 msgid ""
-"If you think this is a mistake, please contact %1$sBusiness Directory support"
-"%2$s and let them know your license is being reported as revoked by the "
-"licensing software. Please include the email address you used to purchase "
-"with your report."
+"If you think this is a mistake, please contact %1$sBusiness Directory "
+"support%2$s and let them know your license is being reported as revoked by "
+"the licensing software. Please include the email address you used to "
+"purchase with your report."
 msgstr ""
 "Det ser ut som om din server inte är auktoriserad att ställa frågor till "
 "Business Directorys servers. Vänligen kontakta <support-link>Business "
@@ -2944,7 +2944,7 @@ msgstr ""
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
-#. translators: %s: payment gateway name
+#. translators: %s: payment gateway name */
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
@@ -4772,10 +4772,11 @@ msgstr "Formulärfält uppdateras."
 #: includes/admin/controllers/class-form-fields-admin.php:208
 msgctxt "form-fields admin"
 msgid ""
-"<b>Important</b>: Since the \"<a>Display email address fields publicly?</a>"
-"\" setting is disabled, display settings below will not be honored and this "
-"field will not be displayed on the frontend. If you want e-mail addresses to "
-"show on the frontend, you can <a>enable public display of e-mails</a>."
+"<b>Important</b>: Since the \"<a>Display email address fields publicly?</"
+"a>\" setting is disabled, display settings below will not be honored and "
+"this field will not be displayed on the frontend. If you want e-mail "
+"addresses to show on the frontend, you can <a>enable public display of e-"
+"mails</a>."
 msgstr ""
 "<b>Viktigt:</b> Eftersom \"<a>Visa e-postadressfält offentligt</a>\" är "
 "inaktiverat, kommer visningsinställningarna nedan inte att godtas och detta "
