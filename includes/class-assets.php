@@ -278,14 +278,16 @@ class WPBDP__Assets {
 			_deprecated_argument( __FUNCTION__, '5.17.2', 'Loading admin scripts can no longer be forced. Use the wpbdp_is_bd_page hook instead.' );
 		}
 
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		if ( ! WPBDP_App_Helper::is_bd_page() ) {
+			wp_enqueue_script( 'wpbdp-wp-admin-js', WPBDP_ASSETS_URL . 'js/wp-admin' . $min . '.js', array( 'jquery' ), WPBDP_VERSION, true );
+
 			return;
 		}
 
 		// Add admin body class for parent page class to avoid css conflicts.
 		add_filter( 'admin_body_class', array( &$this, 'add_body_class' ) );
-
-		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_style( 'wpbdp-admin', WPBDP_ASSETS_URL . 'css/admin.min.css', array(), WPBDP_VERSION );
 

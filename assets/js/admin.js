@@ -416,6 +416,12 @@ function wpbdpSelectSubnav() {
 				}
 				if ( notification.hasClass( 'wpbdp-notice' ) || mainMsg ) {
 					if ( notification.hasClass( 'is-dismissible' ) && ! mainMsg ) {
+						if ( this.dataset.dismissibleId === 'missing_premium' ) {
+							notification.find( '.notice-dismiss' ).attr( {
+								'data-dismissible-id': this.dataset.dismissibleId,
+								'data-nonce': this.dataset.nonce,
+							} );
+						}
 						notifications.push( '<li class="wpbdp-bell-notice ' + this.classList + '">' + notification.html() + '</li>' );
 					} else {
 						snackbars.push( notification.html() );
@@ -474,15 +480,15 @@ function wpbdpSelectSubnav() {
 
 	// Dismissible Messages
 	var dismissNotice = function( $notice, $button ) {
+		$notice.fadeOut( 'fast', function () {
+			$notice.remove();
+			WPBDPAdmin_Notifications.hideNotificationCenter();
+		} );
+
 		$.post( ajaxurl, {
 			action: 'wpbdp_dismiss_notification',
 			id: $button.data( 'dismissible-id' ),
 			nonce: $button.data( 'nonce' )
-		}, function() {
-			$notice.fadeOut( 'fast', function(){
-				$notice.remove();
-				WPBDPAdmin_Notifications.hideNotificationCenter();
-			} );
 		} );
 	};
 
