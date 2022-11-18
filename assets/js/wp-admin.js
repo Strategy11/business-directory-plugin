@@ -16,7 +16,7 @@
 				window.open( link, '_blank' ).focus();
 			}
 
-			dismissNotice( $notice, $button );
+			wpbdpDismissNotice( $notice, $button );
 		}
 	);
 
@@ -25,7 +25,7 @@
 	 *
 	 * @param {HTMLElement} $notice The notice element.
 	 */
-	var dismissNotice = function ( $notice ) {
+	var wpbdpDismissNotice = function ( $notice ) {
 		const id = $notice.data( 'dismissible-id' );
 
 		if ( ! id || id !== 'missing_premium' ) {
