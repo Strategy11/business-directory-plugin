@@ -23,14 +23,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="wrap">
 
 	<div id="the-list" class="wpbdp-addons">
-		<?php foreach ( $addons as $slug => $addon ) {
+		<?php
+		foreach ( $addons as $slug => $addon ) {
 			if ( strpos( $addon['title'], 'Theme' ) ) {
 				// Skip themes for now since they have another page.
 				continue;
 			}
 
 			$plugin_key = str_replace( 'business-directory-', '', substr( $addon['plugin'], 0, strpos( $addon['plugin'], '/' ) ) );
-			$module = isset( $modules[ $plugin_key ] ) ? $modules[ $plugin_key ] : false;
+			$module     = isset( $modules[ $plugin_key ] ) ? $modules[ $plugin_key ] : false;
 			?>
 			<div class="wpbdp-card plugin-card-<?php echo esc_attr( $slug ); ?> wpbdp-no-thumb wpbdp-addon-<?php echo esc_attr( $addon['status']['type'] ); ?>">
 				<?php if ( strtotime( $addon['released'] ) > strtotime( '-90 days' ) ) : ?>

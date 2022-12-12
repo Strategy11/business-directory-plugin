@@ -4,16 +4,16 @@
  */
 class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
-    function __construct() {
-        parent::__construct();
-        $this->api = $this->wpbdp->fees;
-    }
+	function __construct() {
+		parent::__construct();
+		$this->api = $this->wpbdp->fees;
+	}
 
-    /**
-     * @override
-     */
-    function _enqueue_scripts() {
-        switch ( $this->current_view ) {
+	/**
+	 * @override
+	 */
+	function _enqueue_scripts() {
+		switch ( $this->current_view ) {
 			case 'add-fee':
 			case 'edit-fee':
 				wp_enqueue_style( 'wp-color-picker' );
@@ -28,19 +28,20 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				);
 
 				break;
-        }
+		}
 
-        if ( ! in_array( $this->current_view, array( 'add-fee', 'edit-fee' ), true ) )
-            return;
-    }
+		if ( ! in_array( $this->current_view, array( 'add-fee', 'edit-fee' ), true ) ) {
+			return;
+		}
+	}
 
-    function index() {
+	function index() {
 		require_once WPBDP_INC . 'admin/helpers/tables/class-fees-table.php';
 
-        $table = new WPBDP__Admin__Fees_Table();
-        $table->prepare_items();
+		$table = new WPBDP__Admin__Fees_Table();
+		$table->prepare_items();
 
-        $order_options = array();
+		$order_options = array();
 		$labels        = array(
 			'label'  => _x( 'Label', 'fees order', 'business-directory-plugin' ),
 			'amount' => __( 'Amount', 'business-directory-plugin' ),
@@ -49,16 +50,16 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			'custom' => _x( 'Custom Order', 'fees order', 'business-directory-plugin' ),
 		);
 		foreach ( $labels as $k => $l ) {
-            $order_options[ $k ] = $l;
-        }
+			$order_options[ $k ] = $l;
+		}
 
-        return array(
-            'table' => $table,
-            'order_options' => $order_options,
+		return array(
+			'table'         => $table,
+			'order_options' => $order_options,
 			'current_order' => wpbdp_get_option( 'fee-order' ),
 			'gateways'      => $this->available_gateways(),
-        );
-    }
+		);
+	}
 
 	/**
 	 * Get a list of gateways that aren't currently being used.
@@ -95,21 +96,21 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		return $gateways;
 	}
 
-    function add_fee() {
-        return $this->insert_or_update_fee( 'insert' );
-    }
+	function add_fee() {
+		return $this->insert_or_update_fee( 'insert' );
+	}
 
-    function edit_fee() {
-        return $this->insert_or_update_fee( 'update' );
-    }
+	function edit_fee() {
+		return $this->insert_or_update_fee( 'update' );
+	}
 
-    private function insert_or_update_fee( $mode ) {
+	private function insert_or_update_fee( $mode ) {
 		if ( ! empty( $_POST ) ) {
 			$nonce = array( 'nonce' => 'wpbdp-fees' );
 			WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
 		}
 
-        if ( ! empty( $_POST['fee'] ) ) {
+		if ( ! empty( $_POST['fee'] ) ) {
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$posted_values = stripslashes_deep( $_POST['fee'] );
 			$posted_values = $this->sanitize_posted_values( $posted_values );
@@ -122,29 +123,29 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				'post'
 			);
 			if ( 0 === intval( $cat_limit ) ) {
-                $posted_values['supported_categories'] = 'all';
+				$posted_values['supported_categories'] = 'all';
 			}
 
 			if ( ! isset( $posted_values['sticky'] ) ) {
-                $posted_values['sticky'] = 0;
+				$posted_values['sticky'] = 0;
 			}
 
 			if ( ! isset( $posted_values['recurring'] ) ) {
-                $posted_values['recurring'] = 0;
+				$posted_values['recurring'] = 0;
 			}
 			$images = (int) $posted_values['images'];
-        } else {
-            $posted_values = array();
-			$images = false;
-        }
+		} else {
+			$posted_values = array();
+			$images        = false;
+		}
 
 		if ( 'insert' === $mode ) {
-            $fee = new WPBDP__Fee_Plan( $posted_values );
+			$fee            = new WPBDP__Fee_Plan( $posted_values );
 			$images_changed = false;
-        } else {
-			$fee = $this->get_or_die();
+		} else {
+			$fee            = $this->get_or_die();
 			$images_changed = $images !== false && (int) $fee->images !== $images;
-        }
+		}
 
 		if ( ! $posted_values ) {
 			return array( 'fee' => $fee );
@@ -170,8 +171,8 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			}
 		}
 
-        return array( 'fee' => $fee );
-    }
+		return array( 'fee' => $fee );
+	}
 
 	/**
 	 * @since 5.15.3
@@ -190,7 +191,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				'plan_id' => $fee->id,
 				'nonce'   => wp_create_nonce( 'wpbdp_ajax' ),
 				'action'  => 'wpbdp_admin_ajax',
-				'handler' => 'fees__update_listing_plan'
+				'handler' => 'fees__update_listing_plan',
 			)
 		);
 
@@ -286,7 +287,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		return $fee;
 	}
 
-    function delete_fee() {
+	function delete_fee() {
 		$nonce = array( 'nonce' => 'delete-fee' );
 		WPBDP_App_Helper::permission_check( 'manage_categories', $nonce );
 
@@ -297,10 +298,10 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		}
 
 		return $this->_redirect( 'index' );
-    }
+	}
 
-    function toggle_fee() {
-		$fee = $this->get_or_die();
+	function toggle_fee() {
+		$fee           = $this->get_or_die();
 		$enabled_plans = WPBDP_Fees_API::get_enabled_plans();
 		if ( $enabled_plans > 1 || ! $fee->enabled ) {
 			$fee->enabled = ! $fee->enabled;
@@ -309,7 +310,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		} else {
 			wpbdp_admin_message( __( 'Cannot disable plan. At least one plan should be enabled', 'business-directory-plugin' ), 'error' );
 		}
-        return $this->_redirect( 'index' );
-    }
+		return $this->_redirect( 'index' );
+	}
 
 }

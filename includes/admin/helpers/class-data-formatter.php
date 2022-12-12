@@ -10,22 +10,22 @@
  * Class WPBDP_DataFormatter
  */
 class WPBDP_DataFormatter {
-    /**
-     * @param array $items
-     * @param array $properties
-     * @return array
-     */
-    public function format_data( $items, $properties ) {
-        $data = array();
-        foreach ( $items as $key => $name ) {
-            if ( empty( $properties[ $key ] ) ) {
-                continue;
-            }
-            $data[] = array(
-                'name'  => $name,
-                'value' => $properties[ $key ],
-            );
-        }
-        return $data;
-    }
+	/**
+	 * @param array $items
+	 * @param array $properties
+	 * @return array
+	 */
+	public function format_data( $items, $properties ) {
+		$data = array();
+		foreach ( $items as $key => $name ) {
+			if ( empty( $properties[ $key ] ) ) {
+				continue;
+			}
+			$data[] = array(
+				'name'  => $name,
+				'value' => $properties[ $key ],
+			);
+		}
+		return $data;
+	}
 }

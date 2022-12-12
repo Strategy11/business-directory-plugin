@@ -4,46 +4,46 @@ WPBDP_Admin_Pages::show_tabs(
 		'id'      => 'admin-fees',
 		'sub'     => __( 'Plans', 'business-directory-plugin' ),
 		'buttons' => array(
-			__( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) )
+			__( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ),
 		),
 	)
 );
 ?>
 
-    <?php if ( 'active' == $table->get_current_view() || 'all' == $table->get_current_view() ) : ?>
-        <div class="fees-order">
-            <form>
-            <input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
-            <?php wp_nonce_field( 'change fees order' ); ?>
-            <select name="fee_order[method]">
-            <?php foreach ( $order_options as $k => $l ) : ?>
-            <option value="<?php echo esc_attr( $k ); ?>" <?php echo $k == $current_order['method'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
-            <?php endforeach; ?>
-            </select>
+	<?php if ( 'active' == $table->get_current_view() || 'all' == $table->get_current_view() ) : ?>
+		<div class="fees-order">
+			<form>
+			<input type="hidden" name="action" value="wpbdp-admin-fees-set-order" />
+			<?php wp_nonce_field( 'change fees order' ); ?>
+			<select name="fee_order[method]">
+			<?php foreach ( $order_options as $k => $l ) : ?>
+			<option value="<?php echo esc_attr( $k ); ?>" <?php echo $k == $current_order['method'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
+			<?php endforeach; ?>
+			</select>
 
-            <select name="fee_order[order]" style="<?php echo ( 'custom' == $current_order['method'] ) ? 'display: none;' : ''; ?>">
-            <?php
-            foreach ( array(
+			<select name="fee_order[order]" style="<?php echo ( 'custom' == $current_order['method'] ) ? 'display: none;' : ''; ?>">
+			<?php
+			foreach ( array(
 				'asc'  => __( '↑ Ascending', 'business-directory-plugin' ),
 				'desc' => __( '↓ Descending', 'business-directory-plugin' ),
 			) as $o => $l ) :
 				?>
-                <option value="<?php echo esc_attr( $o ); ?>" <?php echo $o == $current_order['order'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
-            <?php endforeach; ?>
-            </select>
+				<option value="<?php echo esc_attr( $o ); ?>" <?php echo $o == $current_order['order'] ? 'selected="selected"' : ''; ?> ><?php echo esc_html( $l ); ?></option>
+			<?php endforeach; ?>
+			</select>
 
 			<a class="button-secondary fee-order-submit">
 				<?php esc_html_e( 'Save front-end order', 'business-directory-plugin' ); ?>
 			</a>
 
-            <?php if ( 'custom' == $current_order['method'] ) : ?>
-            <span><?php esc_html_e( 'Drag and drop to re-order plans.', 'business-directory-plugin' ); ?></span>
-            <?php endif; ?>
+			<?php if ( 'custom' == $current_order['method'] ) : ?>
+			<span><?php esc_html_e( 'Drag and drop to re-order plans.', 'business-directory-plugin' ); ?></span>
+			<?php endif; ?>
 
-            </form>
-        </div>
+			</form>
+		</div>
 
-        <br class="clear" />
+		<br class="clear" />
 	<?php endif; ?>
 
 	<?php $table->views(); ?>
@@ -60,7 +60,7 @@ WPBDP_Admin_Pages::show_tabs(
 			?>
 		</h3>
 		<div class="wpbdp-fee-gateway-list wpbdp-grid">
-        <?php
+		<?php
 		foreach ( $gateways as $mod_info ) :
 			$cols = floor( 12 / count( $gateways ) );
 			?>
@@ -83,7 +83,7 @@ WPBDP_Admin_Pages::show_tabs(
 				</a>
 			</p>
 		</div>
-        <?php endforeach; ?>
+		<?php endforeach; ?>
 		</div>
 	</div>
 

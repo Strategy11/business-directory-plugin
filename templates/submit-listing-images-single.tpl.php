@@ -2,9 +2,9 @@
 $is_thumbnail = isset( $is_thumbnail ) ? $is_thumbnail : false;
 
 if ( isset( $image ) && is_object( $image ) ) {
-    $image_id = $image->id;
-    $weight = $image->weight;
-    $caption = $image->caption;
+	$image_id = $image->id;
+	$weight   = $image->weight;
+	$caption  = $image->caption;
 }
 
 $delete_link = add_query_arg(
@@ -22,12 +22,12 @@ $delete_link = wp_nonce_url( $delete_link, 'delete-listing-' . $listing_id . '-i
 	<span class="wpbdp-drag-handle"></span>
 	<input type="hidden" name="images_meta[<?php echo esc_attr( $image_id ); ?>][order]" value="<?php echo esc_attr( isset( $weight ) ? $weight : 0 ); ?>" />
 
-    <div class="wpbdp-image-img">
-        <?php echo wp_get_attachment_image( $image_id, 'wpbdp-thumb' ); ?>
-    </div>
+	<div class="wpbdp-image-img">
+		<?php echo wp_get_attachment_image( $image_id, 'wpbdp-thumb' ); ?>
+	</div>
 
-    <div class="wpbdp-image-extra">
-        <input type="text" name="images_meta[<?php echo esc_attr( $image_id ); ?>][caption]" value="<?php echo ( isset( $caption ) ? esc_attr( $caption ) : '' ); ?>" placeholder="<?php esc_attr_e( 'Image caption or description', 'business-directory-plugin' ); ?>" />
+	<div class="wpbdp-image-extra">
+		<input type="text" name="images_meta[<?php echo esc_attr( $image_id ); ?>][caption]" value="<?php echo ( isset( $caption ) ? esc_attr( $caption ) : '' ); ?>" placeholder="<?php esc_attr_e( 'Image caption or description', 'business-directory-plugin' ); ?>" />
 		<a href="<?php echo esc_url( $delete_link ); ?>" class="wpbdp-image-delete-link">
 			<?php esc_html_e( 'Delete image', 'business-directory-plugin' ); ?>
 		</a>
@@ -35,5 +35,5 @@ $delete_link = wp_nonce_url( $delete_link, 'delete-listing-' . $listing_id . '-i
 		<span class="wpbdp_thumbnail_indicator">
 			<?php esc_html_e( 'Thumbnail image', 'business-directory-plugin' ); ?>
 		</span>
-    </div>
+	</div>
 </div>

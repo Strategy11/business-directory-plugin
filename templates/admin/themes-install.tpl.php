@@ -4,7 +4,7 @@ wpbdp_admin_header(
 		'title'   => __( 'Upload Directory Theme', 'business-directory-plugin' ),
 		'id'      => 'themes-install',
 		'echo'    => true,
-		'sidebar' => false
+		'sidebar' => false,
 	)
 );
 wpbdp_admin_notices();
@@ -21,23 +21,23 @@ printf(
 </p>
 
 <form action="" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="wpbdp-action" value="upload-theme" />
-    <?php wp_nonce_field( 'upload theme zip' ); ?>
+	<input type="hidden" name="wpbdp-action" value="upload-theme" />
+	<?php wp_nonce_field( 'upload theme zip' ); ?>
 
-    <table class="form-table">
-        <tbody>
-            <tr>
-                <th>
-                    <?php esc_html_e( 'Business Directory Theme archive (ZIP file)', 'business-directory-plugin' ); ?>
-                </th>
-                <td>
-                    <input type="file" name="themezip" />
-                </td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="form-table">
+		<tbody>
+			<tr>
+				<th>
+					<?php esc_html_e( 'Business Directory Theme archive (ZIP file)', 'business-directory-plugin' ); ?>
+				</th>
+				<td>
+					<input type="file" name="themezip" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <?php submit_button( esc_html__( 'Upload', 'business-directory-plugin' ), 'primary', 'begin-theme-upload' ); ?>
+	<?php submit_button( esc_html__( 'Upload', 'business-directory-plugin' ), 'primary', 'begin-theme-upload' ); ?>
 </form>
 
 <?php wpbdp_admin_footer( 'echo' ); ?>

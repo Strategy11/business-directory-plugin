@@ -10,7 +10,7 @@
  */
 class WPBDP_FA_Compat {
 
- 	/*
+	/*
 	 * @since 5.15.3
 	 */
 	public function __construct() {

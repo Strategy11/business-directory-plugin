@@ -30,7 +30,7 @@ if ( 'single' === $view || 'excerpt' === $view ) :
 			wpbdp_url( 'delete_listing', $listing_id ),
 			esc_html__( 'Delete', 'business-directory-plugin' )
 		);
-    endif;
+	endif;
 endif;
 
 if ( 'single' === $view ) :

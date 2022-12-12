@@ -75,8 +75,14 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	}
 
 	public function payment_delete() {
-		$payment_id = wpbdp_get_var( array( 'param' => 'payment-id', 'sanitize' => 'absint' ), 'request' );
-		$nonce = array( 'nonce' => 'payment-' . $payment_id );
+		$payment_id = wpbdp_get_var(
+			array(
+				'param'    => 'payment-id',
+				'sanitize' => 'absint',
+			),
+			'request'
+		);
+		$nonce      = array( 'nonce' => 'payment-' . $payment_id );
 		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
 
 		$payment = WPBDP_Payment::objects()->get( $payment_id );
@@ -91,9 +97,23 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		WPBDP_App_Helper::permission_check( 'edit_posts' );
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
-		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ), 'post' );
+		$payment_id = wpbdp_get_var(
+			array(
+				'param'    => 'payment_id',
+				'sanitize' => 'absint',
+			),
+			'post'
+		);
 		$payment    = WPBDP_Payment::objects()->get( $payment_id );
-		$text       = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ), 'post' ) );
+		$text       = trim(
+			wpbdp_get_var(
+				array(
+					'param'    => 'note',
+					'sanitize' => 'sanitize_textarea_field',
+				),
+				'post'
+			)
+		);
 
 		$res = new WPBDP_AJAX_Response();
 
@@ -122,8 +142,20 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		$nonce = array( 'nonce' => 'wpbdp_ajax' );
 		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
 
-		$payment_id = wpbdp_get_var( array( 'param' => 'payment_id', 'sanitize' => 'absint' ) );
-		$note_key   = trim( wpbdp_get_var( array( 'param' => 'note', 'sanitize' => 'sanitize_textarea_field' ) ) );
+		$payment_id = wpbdp_get_var(
+			array(
+				'param'    => 'payment_id',
+				'sanitize' => 'absint',
+			)
+		);
+		$note_key   = trim(
+			wpbdp_get_var(
+				array(
+					'param'    => 'note',
+					'sanitize' => 'sanitize_textarea_field',
+				)
+			)
+		);
 
 		$res = new WPBDP_AJAX_Response();
 
@@ -147,7 +179,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	 */
 	private function handle_payment_not_found_redirect( $payment ) {
 		if ( ! $payment ) {
-            // Not found.
+			// Not found.
 			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details' ) ) );
 			exit;
 		}

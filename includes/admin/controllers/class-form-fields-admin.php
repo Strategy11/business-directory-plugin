@@ -86,10 +86,28 @@ class WPBDP_FormFieldsAdmin {
 	public static function _render_field_settings() {
 		$api = wpbdp_formfields_api();
 
-		$association = wpbdp_get_var( array( 'param' => 'association', 'default' => false ), 'request' );
-		$field_type  = wpbdp_get_var( array( 'param' => 'field_type', 'default' => false ), 'request' );
+		$association = wpbdp_get_var(
+			array(
+				'param'   => 'association',
+				'default' => false,
+			),
+			'request'
+		);
+		$field_type  = wpbdp_get_var(
+			array(
+				'param'   => 'field_type',
+				'default' => false,
+			),
+			'request'
+		);
 		$field_type  = $api->get_field_type( $field_type );
-		$field_id    = wpbdp_get_var( array( 'param' => 'field_id', 'default' => 0 ), 'request' );
+		$field_id    = wpbdp_get_var(
+			array(
+				'param'   => 'field_id',
+				'default' => 0,
+			),
+			'request'
+		);
 
 		$response = array(
 			'ok'   => false,
@@ -204,19 +222,19 @@ class WPBDP_FormFieldsAdmin {
 			return;
 		}
 
-			if ( ! wpbdp_get_option( 'override-email-blocking' ) && $field->has_validator( 'email' ) && ( $field->display_in( 'excerpt' ) || $field->display_in( 'listing' ) ) ) {
-				$msg = _x(
-					'<b>Important</b>: Since the "<a>Display email address fields publicly?</a>" setting is disabled, display settings below will not be honored and this field will not be displayed on the frontend. If you want e-mail addresses to show on the frontend, you can <a>enable public display of e-mails</a>.',
-					'form-fields admin',
-					'business-directory-plugin'
-				);
-				$msg = str_replace(
-					'<a>',
-					'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '">',
-					$msg
-				);
-				wpbdp_admin_message( $msg, 'notice-error is-dismissible', array( 'dismissible-id' => 'public_emails' ) );
-			}
+		if ( ! wpbdp_get_option( 'override-email-blocking' ) && $field->has_validator( 'email' ) && ( $field->display_in( 'excerpt' ) || $field->display_in( 'listing' ) ) ) {
+			$msg = _x(
+				'<b>Important</b>: Since the "<a>Display email address fields publicly?</a>" setting is disabled, display settings below will not be honored and this field will not be displayed on the frontend. If you want e-mail addresses to show on the frontend, you can <a>enable public display of e-mails</a>.',
+				'form-fields admin',
+				'business-directory-plugin'
+			);
+			$msg = str_replace(
+				'<a>',
+				'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '">',
+				$msg
+			);
+			wpbdp_admin_message( $msg, 'notice-error is-dismissible', array( 'dismissible-id' => 'public_emails' ) );
+		}
 
 			wpbdp_render_page(
 				WPBDP_PATH . 'templates/admin/form-fields-addoredit.tpl.php',
@@ -241,7 +259,7 @@ class WPBDP_FormFieldsAdmin {
 	 */
 	private function hidden_fields_for_type( $field ) {
 		$mapping = $field->get_association();
-		$fields = array(
+		$fields  = array(
 			'limit_categories' => array( 'title', 'category' ),
 			'private_field'    => array( 'title', 'category', 'content' ),
 		);
@@ -313,7 +331,7 @@ class WPBDP_FormFieldsAdmin {
 		$this->check_permission( 'movefield' );
 
 		$field_id = wpbdp_get_var( array( 'param' => 'id' ), 'request' );
-		$field = $this->api->get_field( $field_id );
+		$field    = $this->api->get_field( $field_id );
 		if ( $field ) {
 			$action = wpbdp_get_var( array( 'param' => 'action' ), 'request' );
 			$field->reorder( $action === 'fieldup' ? 1 : -1 );

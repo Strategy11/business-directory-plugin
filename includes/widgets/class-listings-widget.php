@@ -112,18 +112,21 @@ class WPBDP_Listings_Widget extends WP_Widget {
 
 		$svg_args = array(
 			'svg'   => array(
-				'class' => true,
-				'aria-hidden' => true,
+				'class'           => true,
+				'aria-hidden'     => true,
 				'aria-labelledby' => true,
-				'role' => true,
-				'xmlns' => true,
-				'width' => true,
-				'height' => true,
-				'viewbox' => true, // <= Must be lower case!
+				'role'            => true,
+				'xmlns'           => true,
+				'width'           => true,
+				'height'          => true,
+				'viewbox'         => true, // <= Must be lower case!
 			),
 			'g'     => array( 'fill' => true ),
 			'title' => array( 'title' => true ),
-			'path'  => array( 'd' => true, 'fill' => true,  ),
+			'path'  => array(
+				'd'    => true,
+				'fill' => true,
+			),
 		);
 
 		$allowed_tags = array_merge( $kses_defaults, $svg_args );
@@ -281,7 +284,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		} else {
 			$args['html_class'] .= ' wpbdp-listings-widget-item-without-thumbnail';
 		}
-		$template      .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s %4$s</div></li>';
+		$template     .= '<div class="wpbdp-listings-widget-item--title-and-content">%3$s %4$s</div></li>';
 		$args['image'] = $html_image;
 		$output        = sprintf( $template, esc_attr( $args['html_class'] ), $html_image, $listing_title, $fields );
 		return apply_filters( 'wpbdp_listing_widget_item', $this->escape_content( $output ), $args );
