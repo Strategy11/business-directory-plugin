@@ -1,5 +1,5 @@
 <?php
-    _ex( 'A new listing has been submitted to the directory. Listing details can be found below.', 'emails', 'business-directory-plugin' );
+	_ex( 'A new listing has been submitted to the directory. Listing details can be found below.', 'emails', 'business-directory-plugin' );
 ?>
 
 ----
@@ -14,25 +14,27 @@
 
 <?php _ex( 'Admin URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>
 
-<?php $categories = array();
+<?php
+$categories = array();
 foreach ( $listing->get_categories() as $category ) :
-    $categories[] = $category->name;
-endforeach; ?>
+	$categories[] = $category->name;
+endforeach;
+?>
 <?php echo esc_html( _n( 'Category', 'Categories', count( $listing->get_categories() ), 'business-directory-plugin' ) ); ?>: <?php echo esc_html( implode( ' / ', $categories ) ); ?>
 
 
 <?php
-$name = $listing->get_author_meta( 'user_login' );
-$email = $listing->get_author_meta( 'user_email' );
+$name        = $listing->get_author_meta( 'user_login' );
+$email       = $listing->get_author_meta( 'user_email' );
 $author_text = _x( 'Posted By', 'notify email', 'business-directory-plugin' ) . ': ';
 
 if ( $name && $email ) :
-    echo $author_text . $name . ' &lt;' . $email . '&gt;';
+	echo $author_text . $name . ' &lt;' . $email . '&gt;';
 elseif ( $name ) :
-    echo $author_text . $name;
+	echo $author_text . $name;
 elseif ( $email ) :
-    echo $author_text . '&lt;' . $email . '&gt;';
+	echo $author_text . '&lt;' . $email . '&gt;';
 else :
-    echo $author_text . _x( 'Annonymous User', 'notify email', 'business-directory-plugin' );
+	echo $author_text . _x( 'Annonymous User', 'notify email', 'business-directory-plugin' );
 endif;
 ?>

@@ -1,14 +1,14 @@
 <?php
 $args = array(
-    'field_name'  => ! isset( $field_name ) ? 'listing_plan' : $field_name,
-    'categories'  => ! isset( $categories ) ? array() : $categories,
-    'selected'    => ! empty( $selected ) ? $selected : 0,
-    'plans_count' => count( $plans ),
-    'echo'        => true
+	'field_name'  => ! isset( $field_name ) ? 'listing_plan' : $field_name,
+	'categories'  => ! isset( $categories ) ? array() : $categories,
+	'selected'    => ! empty( $selected ) ? $selected : 0,
+	'plans_count' => count( $plans ),
+	'echo'        => true,
 );
 
 if ( 1 === $args['plans_count'] ) {
-    $args['display_only'] = true;
+	$args['display_only'] = true;
 }
 ?>
 <div class="wpbdp-plan-selection-list">

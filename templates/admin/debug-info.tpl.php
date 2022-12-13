@@ -4,7 +4,7 @@ WPBDP_Admin_Pages::show_tabs(
 		'id'      => 'debug-info',
 		'sub'     => __( 'Debug', 'business-directory-plugin' ),
 		'buttons' => array(
-			'addfield'    => array(
+			'addfield' => array(
 				'label' => __( 'Download Debug Information', 'business-directory-plugin' ),
 				'url'   => admin_url( 'admin.php?page=wpbdp-debug-info&download=1' ),
 			),
@@ -36,10 +36,10 @@ WPBDP_Admin_Pages::show_tabs(
 			if ( wpbdp_starts_with( $k, '_' ) ) {
 				continue;
 			}
-            ?>
+			?>
 		<tr>
 			<th scope="row"><?php echo esc_attr( $k ); ?></th>
-            <td>
+			<td>
 				<?php
 				if ( is_array( $v ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -48,7 +48,7 @@ WPBDP_Admin_Pages::show_tabs(
 					echo esc_attr( $v );
 				}
 				?>
-            </td>
+			</td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>

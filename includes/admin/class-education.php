@@ -23,14 +23,14 @@ class WPBDP_Admin_Education {
 
 		$cta = ' <a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">' . esc_html( $tip['cta'] ) . '</a>';
 
-        wpbdp_register_setting(
-            array(
-                'id'      => $id,
-				'desc'    => wp_kses_post( $tip['tip'] ) . $cta,
-                'type'    => 'education',
-                'group'   => $group,
-            )
-        );
+		wpbdp_register_setting(
+			array(
+				'id'    => $id,
+				'desc'  => wp_kses_post( $tip['tip'] ) . $cta,
+				'type'  => 'education',
+				'group' => $group,
+			)
+		);
 	}
 
 	/**
@@ -42,7 +42,7 @@ class WPBDP_Admin_Education {
 			return;
 		}
 
-		$message = wp_kses_post( $tip['tip'] );
+		$message  = wp_kses_post( $tip['tip'] );
 		$message .= self::render_cta( $tip );
 
 		self::show_tip_message( $message );
@@ -58,7 +58,7 @@ class WPBDP_Admin_Education {
 	 * @return string
 	 */
 	public static function render_cta( $tip ) {
-		$cta = '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">';
+		$cta  = '<a href="' . esc_url( $tip['link'] ) . '" target="_blank" rel="noopener">';
 		$cta .= esc_html( $tip['cta'] );
 		$cta .= '</a>';
 		return $cta;
@@ -84,51 +84,51 @@ class WPBDP_Admin_Education {
 	 */
 	private static function tips() {
 		return array(
-			'zip'     => array(
+			'zip'             => array(
 				'requires' => 'zipcodesearch',
 				'tip'      => 'Search listings by ZIP/postal code and distance.',
 				'cta'      => 'Upgrade to Pro.',
 			),
-			'abc'     => array(
+			'abc'             => array(
 				'requires' => 'premium',
 				'tip'      => 'Add ABC filtering to get listings by the first letter.',
 			),
-			'abandon' => array(
+			'abandon'         => array(
 				'requires' => 'premium',
 				'tip'      => 'Want to ask users to come back for abandoned payments?',
 			),
-			'maps'    => array(
+			'maps'            => array(
 				'requires' => 'googlemaps',
 				'tip'      => 'Add Google Maps to your directory listings.',
 				'cta'      => 'Upgrade to Pro.',
 			),
-			'ratings' => array(
+			'ratings'         => array(
 				'requires' => 'ratings',
 				'tip'      => 'Add more value to listings with visitors reviews and ratings.',
 			),
-			'attachments' => array(
+			'attachments'     => array(
 				'requires' => 'attachments',
 				'tip'      => 'Want to allow file uploads with listing submissions?',
 			),
-			'discounts' => array(
+			'discounts'       => array(
 				'requires' => 'discount-codes',
 				'tip'      => 'Offer discount & coupon codes to your paid listing customers.',
 			),
-			'migrator'  => array(
+			'migrator'        => array(
 				'requires' => 'migrate',
 				'tip'      => 'Need to export, backup, or move your directory settings and listings?',
 			),
-			'categories'  => array(
+			'categories'      => array(
 				'requires' => 'categories',
 				'tip'      => 'Want to show a list of images for your categories?',
 			),
-			'install-premium'  => array(
+			'install-premium' => array(
 				'requires' => 'premium',
 				'tip'      => 'Install modules with one click, get table listings, abandonment emails, and more.',
 				'link'     => wpbdp_admin_upgrade_link( 'install-modules', '/account/downloads/' ),
 				'cta'      => 'Download Now.',
 			),
-			'table'    => array(
+			'table'           => array(
 				'requires' => 'premium',
 				'tip'      => 'Show listings in a grid or table. <img src="' . esc_url( WPBDP_ASSETS_URL . 'images/premium-layout.svg' ) . '" alt="Directory listing layout setting" style="max-width:645px" />',
 			),

@@ -5,28 +5,28 @@
 
 class WPBDP__Views__Show_Category extends WPBDP__View {
 
-    public function dispatch() {
-        global $wp_query;
+	public function dispatch() {
+		global $wp_query;
 
-        wpbdp_push_query( $wp_query );
+		wpbdp_push_query( $wp_query );
 
-        $term = get_queried_object();
+		$term = get_queried_object();
 
-        $html = '';
+		$html = '';
 
-        if ( is_object( $term ) ) {
+		if ( is_object( $term ) ) {
 			if ( is_callable( 'WPBDP__Themes_Compat::is_block_theme' ) && WPBDP__Themes_Compat::is_block_theme() ) {
 				// This isn't loaded when disable-cpt is on.
 				global $wpbdp;
 				$wpbdp->template_integration->prep_tax_head();
 			}
 			$html = $this->get_taxonomy_html( $term );
-        }
+		}
 
-        wpbdp_pop_query();
+		wpbdp_pop_query();
 
-        return $html;
-    }
+		return $html;
+	}
 
 	/**
 	 * @since 6.2.2

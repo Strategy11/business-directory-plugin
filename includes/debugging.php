@@ -1,12 +1,12 @@
 <?php
 class WPBDP_Debugging {
 
-	private static $debug = false;
+	private static $debug    = false;
 	private static $messages = array();
 
 	public static function is_debug_on() {
-	    return self::$debug;
-    }
+		return self::$debug;
+	}
 
 	public static function debug_on() {
 		self::$debug = true;
@@ -14,8 +14,9 @@ class WPBDP_Debugging {
 		error_reporting( E_ALL | E_DEPRECATED );
 
 		// Disable our debug util for AJAX requests in order to be able to see the errors.
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
+		}
 
 		// @ini_set( 'display_errors', '1' );
 		/** @phpstan-ignore-next-line */
@@ -29,31 +30,31 @@ class WPBDP_Debugging {
 	}
 
 	public static function _enqueue_scripts() {
-        wp_enqueue_script(
-            'wpbdp-debugging-js',
-            WPBDP_ASSETS_URL . 'js/debug.min.js',
-            array( 'jquery' ),
-            WPBDP_VERSION,
-            true
-        );
+		wp_enqueue_script(
+			'wpbdp-debugging-js',
+			WPBDP_ASSETS_URL . 'js/debug.min.js',
+			array( 'jquery' ),
+			WPBDP_VERSION,
+			true
+		);
 
-        wp_enqueue_style(
-            'wpbdp-debugging-styles',
-            WPBDP_ASSETS_URL . 'css/debug.min.css',
-            array(),
-            WPBDP_VERSION
-        );
+		wp_enqueue_style(
+			'wpbdp-debugging-styles',
+			WPBDP_ASSETS_URL . 'css/debug.min.css',
+			array(),
+			WPBDP_VERSION
+		);
 	}
 
 	public static function _php_error_handler( $errno, $errstr, $file, $line, $context ) {
 		static $errno_to_string = array(
-			E_ERROR => 'error',
-			E_WARNING => 'warning',
-			E_NOTICE => 'notice',
-			E_USER_ERROR => 'user-error',
+			E_ERROR        => 'error',
+			E_WARNING      => 'warning',
+			E_NOTICE       => 'notice',
+			E_USER_ERROR   => 'user-error',
 			E_USER_WARNING => 'user-warning',
-			E_USER_NOTICE => 'user-notice',
-			E_DEPRECATED => 'deprecated'
+			E_USER_NOTICE  => 'user-notice',
+			E_DEPRECATED   => 'deprecated',
 		);
 
 		self::add_debug_msg(
@@ -147,23 +148,29 @@ class WPBDP_Debugging {
 			return array();
 		}
 
-		$context = array( 'class' => '', 'file' => '', 'function' => '', 'line' => '' );
+		$context = array(
+			'class'    => '',
+			'file'     => '',
+			'function' => '',
+			'line'     => '',
+		);
 
 		foreach ( $stack as $i => &$item ) {
-			if ( ( isset( $item['class'] ) && $item['class'] == 'WPBDP_Debugging' ) || ( isset( $item['file'] ) && $item['file'] == __FILE__ ) )
+			if ( ( isset( $item['class'] ) && $item['class'] == 'WPBDP_Debugging' ) || ( isset( $item['file'] ) && $item['file'] == __FILE__ ) ) {
 				continue;
+			}
 
 			if ( isset( $item['function'] ) && in_array( $item['function'], array( 'wpbdp_log', 'wpbdp_debug', 'wpbdp_log_deprecated' ) ) ) {
-				$context['file'] = $item['file'];
-				$context['line'] = $item['line'];
+				$context['file']     = $item['file'];
+				$context['line']     = $item['line'];
 				$context['function'] = $item['function'];
 
-				$i2 = current( $stack );
+				$i2                  = current( $stack );
 				$context['function'] = $i2['function'];
 				break;
 			} else {
-				$context['file'] = $item['file'];
-				$context['line'] = $item['line'];
+				$context['file']  = $item['file'];
+				$context['line']  = $item['line'];
 				$context['stack'] = $stack;
 			}
 		}
@@ -172,16 +179,18 @@ class WPBDP_Debugging {
 	}
 
 	private static function add_debug_msg( $msg, $type = 'debug', $context = null ) {
-		self::$messages[] = array( 'timestamp' => microtime(),
-								   'message' => $msg,
-								   'type' => $type,
-								   'context' => wpbdp_starts_with( $type, 'php', false ) ? $context : self::_extract_context( $context ),
-								 );
+		self::$messages[] = array(
+			'timestamp' => microtime(),
+			'message'   => $msg,
+			'type'      => $type,
+			'context'   => wpbdp_starts_with( $type, 'php', false ) ? $context : self::_extract_context( $context ),
+		);
 	}
 
 	private static function _var_dump( $var ) {
-		if ( is_bool( $var ) || is_int( $var ) || ( is_string( $var ) && empty( $var ) ) )
+		if ( is_bool( $var ) || is_int( $var ) || ( is_string( $var ) && empty( $var ) ) ) {
 			return var_export( $var, true );
+		}
 
 		return print_r( $var, true );
 	}
