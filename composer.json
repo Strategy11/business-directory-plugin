@@ -24,7 +24,6 @@
 		"phpstan/phpstan": "^1.4",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
 		"automattic/vipwpcs": "^2.3",
-		"sirbrillig/phpcs-variable-analysis": "^2.11",
 		"wp-coding-standards/wpcs": "^2.3"
 	},
 	"config": {
