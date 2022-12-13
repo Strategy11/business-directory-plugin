@@ -1,7 +1,5 @@
 <?xml version="1.0" ?>
 <ruleset name="Business Directory Plugin PHP Coding Standards Rules">
-	<config name="minimum_supported_wp_version" value="5.8" />
-
 	<rule ref="WordPress-Core">
 		<type>error</type>
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
