@@ -17,7 +17,19 @@ class WPBDP__Themes_Compat {
 			$this->parent_theme = strtolower( $parent->get_stylesheet() );
 		}
 
+		$this->maybe_add_wokaournds();
+
 		add_action( 'wpbdp_after_dispatch', array( $this, 'add_workarounds' ) );
+	}
+
+	/**
+	 * Add workarounds that are needed to run some functionality before
+	 * the BD dispatcher.
+	 *
+	 * @since x.x
+	 */
+	public function maybe_add_wokaournds() {
+		$this->add_themes_method( '_maybe_resolve' );
 	}
 
 	public function add_workarounds() {
@@ -27,6 +39,17 @@ class WPBDP__Themes_Compat {
 			return;
 		}
 
+		$this->add_themes_method();
+	}
+
+	/**
+	 * Add a specific method for themes with fixes.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $callback_suffix
+	 */
+	public function add_themes_method( $callback_suffix = '' ) {
 		$themes_with_fixes = $this->get_themes_with_fixes();
 		$themes_to_try     = array( $this->theme, $this->parent_theme );
 
@@ -42,8 +65,8 @@ class WPBDP__Themes_Compat {
 			$t = WPBDP_Utils::normalize( $t );
 			$t = str_replace( '-', '_', $t );
 
-			if ( method_exists( $this, 'theme_' . $t ) ) {
-				call_user_func( array( $this, 'theme_' . $t ) );
+			if ( method_exists( $this, 'theme_' . $t . $callback_suffix ) ) {
+				call_user_func( array( $this, 'theme_' . $t . $callback_suffix ) );
 			}
 		}
 	}
@@ -261,6 +284,15 @@ class WPBDP__Themes_Compat {
 	}
 
 	/**
+	 * Resolve theme compatibilities for specific situations in the Enfold.
+	 *
+	 * @since x.x
+	 */
+	public function theme_enfold_maybe_resolve() {
+		$this->theme_enfold_maybe_add_single_title();
+	}
+
+	/**
 	 * Without this, the category name uses the last listing on the page.
 	 *
 	 * @since 6.2.10
@@ -269,6 +301,19 @@ class WPBDP__Themes_Compat {
 		$object        = get_queried_object();
 		$args['title'] = $object->name;
 		return $args;
+	}
+
+	/**
+	 * Display the BD-plugin title if Enfold header is disabled.
+	 *
+	 * @since x.x
+	 */
+	public function theme_enfold_maybe_add_single_title() {
+		$header_settings = avia_header_setting();
+
+		if ( $header_settings['header_title_bar'] === 'breadcrumbs_only' || $header_settings['header_title_bar'] === 'hidden_title_bar' ) {
+				add_filter( 'wpbdp_force_show_listing_title', '__return_true' );
+		}
 	}
 
 	/**
@@ -463,5 +508,3 @@ class WPBDP__Themes_Compat {
 		return ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() );
 	}
 }
-
-
