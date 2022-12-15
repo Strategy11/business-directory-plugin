@@ -297,6 +297,7 @@ class WPBDP__Themes_Compat {
 	 * @since x.x
 	 */
 	public function theme_enfold_maybe_add_single_title() {
+		/** @phpstan-ignore-next-line */
 		$header_settings = avia_header_setting();
 
 		if ( $header_settings['header_title_bar'] === 'breadcrumbs_only' || $header_settings['header_title_bar'] === 'hidden_title_bar' ) {
