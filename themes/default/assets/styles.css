@@ -6,6 +6,10 @@
 	font-weight: bold;
 }
 
+.wpbdp-listing .listing-title.show-listing-title {
+	display: block;
+}
+
 .wpbdp-listing .listing-title h3 {
 	margin-bottom: 0;
 }
