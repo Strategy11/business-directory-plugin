@@ -123,6 +123,15 @@ class WPBDP_Listing_Display_Helper {
 		$vars['title']      = the_title( '', '', false );
 		$vars['title_type'] = apply_filters( 'wpbdp_heading_type', 'h1' );
 
+		/**
+		 * Filters base variables passed to a template.
+		 *
+		 * @since x.x
+		 *
+		 * @param array $vars Array of variables passed to a template.
+		 */
+		$vars = apply_filters( 'wpbdp_template_basic_vars', $vars );
+
 		if ( $vars['is_sticky'] && ! empty( wpbdp_get_option( 'display-sticky-badge' ) ) ) {
 			$img_src = self::get_sticky_image();
 			if ( $img_src ) {
