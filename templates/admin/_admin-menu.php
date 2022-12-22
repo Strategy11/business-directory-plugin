@@ -32,13 +32,7 @@
 					<span class="wpbdp-nav-item-icon <?php echo esc_attr( ( strpos( $tab['icon'], ' ' ) === false ? 'wpbdp-admin-icon-' : '' ) . $tab['icon'] ); ?>">
 						<?php
 						if ( ! empty( $tab['icon_url'] ) ) {
-							$img = '';
-							if ( ini_get( 'allow_url_fopen' ) ) {
-								echo $img = $wp_filesystem->get_contents( $tab['icon_url'] );
-							}
-							if ( ! $img ) {
-								echo '<img src="' . esc_url( $tab['icon_url'] ) . '" alt="' . esc_attr( $tab['icon'] ) . '" />';
-							}
+							echo '<img src="' . esc_url( $tab['icon_url'] ) . '" alt="' . esc_attr( $tab['icon'] ) . '" />';
 						} elseif ( strpos( $tab['icon'], ' ' ) === false ) {
 							echo $wp_filesystem->get_contents( esc_attr( $tab['icon'] ) );
 						}
