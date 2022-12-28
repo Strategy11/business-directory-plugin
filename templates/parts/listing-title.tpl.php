@@ -4,11 +4,16 @@
  *
  * @package BDP/Templates/parts
  */
-
-$force_show_title = apply_filters( 'wpbdp_force_show_listing_title', false );
 ?>
-<?php if ( $title_type !== 'h1' || $force_show_title ) : ?>
-	<?php $class_name = $force_show_title ? ' show-listing-title' : ''; ?>
+<?php if ( $title_type !== 'h1' ) : ?>
+	<?php
+		$class_name = 'listing-title';
+
+		if ( $title_type === true ) {
+			$title_type = 'h1';
+			$class_name .= ' show-listing-title';
+		}
+	?>
 	<div class="<?php echo esc_attr( 'listing-title' . $class_name ); ?>">
 		<<?php echo esc_attr( $title_type ); ?>><?php echo esc_html( $title ); ?></<?php echo esc_attr( $title_type ); ?>>
 <?php endif; ?>
@@ -17,6 +22,6 @@ $force_show_title = apply_filters( 'wpbdp_force_show_listing_title', false );
 	<?php echo $sticky_tag; ?>
 <?php endif; ?>
 
-<?php if ( $title_type !== 'h1' || $force_show_title ) : ?>
+<?php if ( $title_type !== 'h1' ) : ?>
 	</div>
 <?php endif; ?>

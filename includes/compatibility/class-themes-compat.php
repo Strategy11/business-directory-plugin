@@ -16,8 +16,7 @@ class WPBDP__Themes_Compat {
             $this->parent_theme = strtolower( $parent->get_stylesheet() );
         }
 
-		$this->maybe_add_wokaournds();
-
+		add_action( 'wpbdp_before_dispatch', array( $this, 'add_workarounds_before_dispatch' ) );
 		add_action( 'wpbdp_after_dispatch', array( $this, 'add_workarounds' ) );
 	}
 
@@ -27,8 +26,8 @@ class WPBDP__Themes_Compat {
 	 *
 	 * @since x.x
 	 */
-	public function maybe_add_wokaournds() {
-		$this->add_themes_method( '_maybe_resolve' );
+	public function add_workarounds_before_dispatch() {
+		$this->add_themes_method( '_before_dispatch' );
 	}
 
 	public function add_workarounds() {
@@ -272,11 +271,9 @@ class WPBDP__Themes_Compat {
 	}
 
 	/**
-	 * Resolve theme compatibilities for specific situations in the Enfold.
-	 *
 	 * @since x.x
 	 */
-	public function theme_enfold_maybe_resolve() {
+	public function theme_enfold_before_dispatch() {
 		$this->theme_enfold_maybe_add_single_title();
 	}
 
@@ -301,7 +298,7 @@ class WPBDP__Themes_Compat {
 		$header_settings = avia_header_setting();
 
 		if ( $header_settings['header_title_bar'] === 'breadcrumbs_only' || $header_settings['header_title_bar'] === 'hidden_title_bar' ) {
-				add_filter( 'wpbdp_force_show_listing_title', '__return_true' );
+			add_filter( 'wpbdp_heading_type', '__return_true' );
 		}
 	}
 
