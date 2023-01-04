@@ -5,89 +5,89 @@
 
 class WPBDP__Settings {
 
-    const PREFIX = 'wpbdp-';
+	const PREFIX = 'wpbdp-';
 
-    private $groups = array();
-    private $settings = array();
-    private $options = array();
+	private $groups   = array();
+	private $settings = array();
+	private $options  = array();
 
-    private $deps = array();
+	private $deps = array();
 
-    public function __construct() {
-        // Make sure our option exists.
-        if ( false === ( $settings_opt = get_option( 'wpbdp_settings' ) ) ) {
-            add_option( 'wpbdp_settings', array() );
-        }
+	public function __construct() {
+		// Make sure our option exists.
+		if ( false === ( $settings_opt = get_option( 'wpbdp_settings' ) ) ) {
+			add_option( 'wpbdp_settings', array() );
+		}
 
-        // register_setting is not available on init in WordPress 4.3
-        if ( ! function_exists( 'register_setting' ) && file_exists( ABSPATH . 'wp-admin/includes/plugin.php' ) ) {
-		    require_once ABSPATH . 'wp-admin/includes/plugin.php';
-        }
+		// register_setting is not available on init in WordPress 4.3
+		if ( ! function_exists( 'register_setting' ) && file_exists( ABSPATH . 'wp-admin/includes/plugin.php' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 
-        register_setting( 'wpbdp_settings', 'wpbdp_settings', array( $this, 'sanitize_settings' ) );
+		register_setting( 'wpbdp_settings', 'wpbdp_settings', array( $this, 'sanitize_settings' ) );
 
-        // Cache current values.
-        $this->options = is_array( $settings_opt ) ? $settings_opt : array();
-    }
+		// Cache current values.
+		$this->options = is_array( $settings_opt ) ? $settings_opt : array();
+	}
 
-    public function bootstrap() {
-        // Add initial settings.
-        require_once WPBDP_INC . 'admin/settings/class-settings-bootstrap.php';
-        WPBDP__Settings__Bootstrap::register_initial_groups();
-        WPBDP__Settings__Bootstrap::register_initial_settings();
-    }
+	public function bootstrap() {
+		// Add initial settings.
+		require_once WPBDP_INC . 'admin/settings/class-settings-bootstrap.php';
+		WPBDP__Settings__Bootstrap::register_initial_groups();
+		WPBDP__Settings__Bootstrap::register_initial_settings();
+	}
 
-    public function sanitize_settings( $input ) {
-        if ( empty( $input ) ) {
-            return $this->options;
-        }
+	public function sanitize_settings( $input ) {
+		if ( empty( $input ) ) {
+			return $this->options;
+		}
 
-        $on_admin = ! empty( $_POST['_wp_http_referer'] );
+		$on_admin = ! empty( $_POST['_wp_http_referer'] );
 
-        $output = array_merge( $this->options, $input );
+		$output = array_merge( $this->options, $input );
 
-        // Validate each setting.
-        foreach ( $input as $setting_id => $value ) {
-            $output[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize', $value, $setting_id );
-            $output[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize_' . $setting_id, $input[ $setting_id ], $setting_id );
+		// Validate each setting.
+		foreach ( $input as $setting_id => $value ) {
+			$output[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize', $value, $setting_id );
+			$output[ $setting_id ] = apply_filters( 'wpbdp_settings_sanitize_' . $setting_id, $input[ $setting_id ], $setting_id );
 
-            if ( ! empty( $this->settings[ $setting_id ] ) ) {
-                $setting = $this->settings[ $setting_id ];
+			if ( ! empty( $this->settings[ $setting_id ] ) ) {
+				$setting = $this->settings[ $setting_id ];
 
-                // XXX: maybe this should always be executed, not only admin side?
-                if ( $on_admin ) {
-                    switch ( $setting['type'] ) {
+				// XXX: maybe this should always be executed, not only admin side?
+				if ( $on_admin ) {
+					switch ( $setting['type'] ) {
 						case 'multicheck':
 							if ( is_array( $value ) ) {
-								$input[ $setting_id ] = array_filter( $value, 'strlen' );
+								$input[ $setting_id ]  = array_filter( $value, 'strlen' );
 								$output[ $setting_id ] = array_filter( $value, 'strlen' );
 							}
 
 							break;
-                    }
-                }
+					}
+				}
 
-                if ( ! empty( $setting['on_update'] ) && is_callable( $setting['on_update'] ) ) {
-                    call_user_func( $setting['on_update'], $setting, $input[ $setting_id ], ! empty( $this->options[ $setting_id ] ) ? $this->options[ $setting_id ] : null );
-                }
-            }
+				if ( ! empty( $setting['on_update'] ) && is_callable( $setting['on_update'] ) ) {
+					call_user_func( $setting['on_update'], $setting, $input[ $setting_id ], ! empty( $this->options[ $setting_id ] ) ? $this->options[ $setting_id ] : null );
+				}
+			}
 
-            // XXX: Settings hasn't been stored into the database yet here.
-            do_action( 'wpbdp_setting_updated', $setting_id, $output[ $setting_id ], $value );
-            do_action( "wpbdp_setting_updated_{$setting_id}", $output[ $setting_id ], $value, $setting_id );
-        }
+			// XXX: Settings hasn't been stored into the database yet here.
+			do_action( 'wpbdp_setting_updated', $setting_id, $output[ $setting_id ], $value );
+			do_action( "wpbdp_setting_updated_{$setting_id}", $output[ $setting_id ], $value, $setting_id );
+		}
 
-        $this->options = $output;
+		$this->options = $output;
 
-        return $this->options;
-    }
+		return $this->options;
+	}
 
-    /**
-     * Register a setings group within the Settings API.
+	/**
+	 * Register a setings group within the Settings API.
 	 *
-     * @since 5.0
-     */
-    public function register_group( $slug, $title = '', $parent = '', $args = array() ) {
+	 * @since 5.0
+	 */
+	public function register_group( $slug, $title = '', $parent = '', $args = array() ) {
 		if ( $parent === 'modules' ) {
 			// Remove the top-level modules menu.
 			$parent = '';
@@ -98,25 +98,25 @@ class WPBDP__Settings {
 			wpbdp_register_settings_group( 'misc', __( 'Miscellaneous', 'business-directory-plugin' ), '', array( 'icon' => 'misc' ) );
 		}
 
-        if ( $parent && ! isset( $this->groups[ $parent ] ) ) {
+		if ( $parent && ! isset( $this->groups[ $parent ] ) ) {
 			// throw new Exception( sprintf( 'Parent settings group does not exist: %s', $parent ) );
 			return false;
-        }
+		}
 
 		/**
 		 * @since 5.7.6
 		 */
 		do_action( 'wpbdp_register_group', compact( 'slug', 'title', 'parent' ) );
 
-        $parents = array();
-        $parent_ = $parent;
+		$parents = array();
+		$parent_ = $parent;
 
 		while ( $parent_ ) {
-            $parents[] = $parent_;
-            $parent_ = $this->groups[ $parent_ ]['parent'];
-        }
+			$parents[] = $parent_;
+			$parent_   = $this->groups[ $parent_ ]['parent'];
+		}
 
-        switch ( count( $parents ) ) {
+		switch ( count( $parents ) ) {
 			case 0:
 				$group_type = 'tab';
 				break;
@@ -129,47 +129,47 @@ class WPBDP__Settings {
 			default:
 				// throw new Exception( sprintf( 'Invalid # of parents in the tree for settings group "%s"', $slug ) );
 				return false;
-        }
+		}
 
-        if ( $parent ) {
-            $this->groups[ $parent ]['count'] += 1;
-        }
+		if ( $parent ) {
+			$this->groups[ $parent ]['count'] += 1;
+		}
 
-        $this->groups[ $slug ] = array_merge(
-            $args,
-            array(
-                'title'  => $title,
-                'desc'   => isset( $args['desc'] ) ? $args['desc'] : '',
-                'type'   => $group_type,
-                'parent' => $parent,
-                'count'  => 0,
-                'icon'   => isset( $args['icon'] ) ? $args['icon'] : 'archive',
-                'class'  => isset( $args['class'] ) ? $args['class'] : '',
-            )
-        );
-    }
+		$this->groups[ $slug ] = array_merge(
+			$args,
+			array(
+				'title'  => $title,
+				'desc'   => isset( $args['desc'] ) ? $args['desc'] : '',
+				'type'   => $group_type,
+				'parent' => $parent,
+				'count'  => 0,
+				'icon'   => isset( $args['icon'] ) ? $args['icon'] : 'archive',
+				'class'  => isset( $args['class'] ) ? $args['class'] : '',
+			)
+		);
+	}
 
-    /**
-     * Register a setting within the Settings API.
+	/**
+	 * Register a setting within the Settings API.
 	 *
-     * @since 5.0
-     */
-    public function register_setting( $id_or_args, $name = '', $type = 'text', $group = '', $args = array() ) {
-        if ( is_array( $id_or_args ) ) {
-            $args = $id_or_args;
-        } else {
-            $args = array_merge(
-                $args,
-                array(
-                    'id'    => $id_or_args,
-                    'name'  => $name,
-                    'type'  => $type,
-                    'group' => $group
-                )
-            );
-        }
+	 * @since 5.0
+	 */
+	public function register_setting( $id_or_args, $name = '', $type = 'text', $group = '', $args = array() ) {
+		if ( is_array( $id_or_args ) ) {
+			$args = $id_or_args;
+		} else {
+			$args = array_merge(
+				$args,
+				array(
+					'id'    => $id_or_args,
+					'name'  => $name,
+					'type'  => $type,
+					'group' => $group,
+				)
+			);
+		}
 
-        $args = wp_parse_args(
+		$args = wp_parse_args(
 			$args,
 			array(
 				'id'           => '',
@@ -182,37 +182,37 @@ class WPBDP__Settings {
 				'on_update'    => false,
 				'class'        => '',
 				'grid_classes' => false,
-				'dependencies' => array()
+				'dependencies' => array(),
 			)
 		);
 
 		if ( isset( $this->settings[ $args['id'] ] ) ) {
-            return false;
-        }
+			return false;
+		}
 
-        if ( 'silent' != $args['type'] && ! isset( $this->groups[ $args['group'] ] ) ) {
-            // throw new Exception( sprintf( 'Invalid settings group "%s" for setting "%s".', $args['group'], $args['id'] ) );
-            return false;
-        }
+		if ( 'silent' != $args['type'] && ! isset( $this->groups[ $args['group'] ] ) ) {
+			// throw new Exception( sprintf( 'Invalid settings group "%s" for setting "%s".', $args['group'], $args['id'] ) );
+			return false;
+		}
 
-        if ( 'number' == $args['type'] ) {
-            add_filter( 'wpbdp_settings_sanitize_' . $args['id'], array( $this, 'validate_number_setting' ), 10, 2 );
-        } elseif ( 'text' === $args['type'] || 'radio' === $args['type'] ) {
-        	add_filter( 'wpbdp_settings_sanitize_' . $args['id'], 'sanitize_text_field' );
-        } elseif ( 'textarea' === $args['type'] ) {
-        	add_filter( 'wpbdp_settings_sanitize_' . $args['id'], 'wp_kses_post' );
-        }
+		if ( 'number' == $args['type'] ) {
+			add_filter( 'wpbdp_settings_sanitize_' . $args['id'], array( $this, 'validate_number_setting' ), 10, 2 );
+		} elseif ( 'text' === $args['type'] || 'radio' === $args['type'] ) {
+			add_filter( 'wpbdp_settings_sanitize_' . $args['id'], 'sanitize_text_field' );
+		} elseif ( 'textarea' === $args['type'] ) {
+			add_filter( 'wpbdp_settings_sanitize_' . $args['id'], 'wp_kses_post' );
+		}
 
 		$this->settings[ $args['id'] ] = $args;
 
-        if ( 'silent' != $args['type'] ) {
-            $this->groups[ $args['group'] ]['count'] += 1;
-        }
+		if ( 'silent' != $args['type'] ) {
+			$this->groups[ $args['group'] ]['count'] += 1;
+		}
 
-        if ( ! empty( $args['validator'] ) ) {
-            add_filter( 'wpbdp_settings_sanitize_' . $args['id'], array( $this, 'validate_setting' ), 10, 2 );
-        }
-    }
+		if ( ! empty( $args['validator'] ) ) {
+			add_filter( 'wpbdp_settings_sanitize_' . $args['id'], array( $this, 'validate_setting' ), 10, 2 );
+		}
+	}
 
 	/**
 	 * Deregister a group if it has no settings.
@@ -256,122 +256,122 @@ class WPBDP__Settings {
 		}
 	}
 
-    public function get_registered_groups() {
-        return $this->groups;
-    }
+	public function get_registered_groups() {
+		return $this->groups;
+	}
 
-    public function get_registered_settings() {
-        return $this->settings;
-    }
+	public function get_registered_settings() {
+		return $this->settings;
+	}
 
-    /**
-     * @return int|string|array
-     */
-    public function get_option( $setting_id, $default = false ) {
-        $default_provided = func_num_args() > 1;
+	/**
+	 * @return int|string|array
+	 */
+	public function get_option( $setting_id, $default = false ) {
+		$default_provided = func_num_args() > 1;
 
-        if ( array_key_exists( $setting_id, $this->options ) ) {
-            $value = $this->options[ $setting_id ];
-        } elseif ( $default_provided ) {
+		if ( array_key_exists( $setting_id, $this->options ) ) {
+			$value = $this->options[ $setting_id ];
+		} elseif ( $default_provided ) {
 			$value = $default;
 		} elseif ( ! empty( $this->settings[ $setting_id ] ) ) {
 			$value = $this->settings[ $setting_id ]['default'];
 		} else {
 			$value = false;
-        }
+		}
 
-        $value = apply_filters( 'wpbdp_get_option', $value, $setting_id );
-        $value = apply_filters( 'wpbdp_get_option_' . $setting_id, $value );
+		$value = apply_filters( 'wpbdp_get_option', $value, $setting_id );
+		$value = apply_filters( 'wpbdp_get_option_' . $setting_id, $value );
 
-        // Sanitize the value (if empty) based on setting type.
-        if ( empty( $value ) ) {
-            if ( $setting = $this->get_setting( $setting_id ) ) {
-                switch ( $setting['type'] ) {
-                    case 'checkbox':
-                        $value = (int) $value;
-                        break;
-                    case 'multicheck':
-                        $value = array();
-                        break;
-                }
-            }
-        }
+		// Sanitize the value (if empty) based on setting type.
+		if ( empty( $value ) ) {
+			if ( $setting = $this->get_setting( $setting_id ) ) {
+				switch ( $setting['type'] ) {
+					case 'checkbox':
+						$value = (int) $value;
+						break;
+					case 'multicheck':
+						$value = array();
+						break;
+				}
+			}
+		}
 
 		if ( is_string( $value ) ) {
 			// Trim the value so we don't have to do it everywhere else.
 			$value = trim( $value );
 		}
 
-        return $value;
-    }
+		return $value;
+	}
 
-    public function set_option( $setting_id, $value = null ) {
-        $old = get_option( 'wpbdp_settings', array() );
-        $old[ $setting_id ] = $value;
-        update_option( 'wpbdp_settings', $old );
-    }
+	public function set_option( $setting_id, $value = null ) {
+		$old                = get_option( 'wpbdp_settings', array() );
+		$old[ $setting_id ] = $value;
+		update_option( 'wpbdp_settings', $old );
+	}
 
 	/**
 	 * @since 5.9.1
 	 */
-    public function delete_option( $setting_id ) {
-        $this->set_option( $setting_id );
-    }
+	public function delete_option( $setting_id ) {
+		$this->set_option( $setting_id );
+	}
 
-    /**
-     * @deprecated 5.0. Use {@link WPBDP__Settings::register_group()}.
-     */
-    public function add_group( $slug, $name, $help_text = '' ) {
+	/**
+	 * @deprecated 5.0. Use {@link WPBDP__Settings::register_group()}.
+	 */
+	public function add_group( $slug, $name, $help_text = '' ) {
 		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_group' );
 
-        if ( ! isset( $this->groups[ $slug ] ) ) {
-            $this->register_group( $slug, $name, '', array( 'desc' => $help_text ) );
-        }
+		if ( ! isset( $this->groups[ $slug ] ) ) {
+			$this->register_group( $slug, $name, '', array( 'desc' => $help_text ) );
+		}
 
-        return $slug;
-    }
+		return $slug;
+	}
 
-    /**
-     * @deprecated 5.0. Use {@link WPBDP__Settings::register_group()}.
-     */
+	/**
+	 * @deprecated 5.0. Use {@link WPBDP__Settings::register_group()}.
+	 */
 	public function add_section( $group_slug, $slug, $name, $help_text = '' ) {
 		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_group' );
 
-        $tab = $group_slug;
-        $subtab = $group_slug . '/main';
+		$tab    = $group_slug;
+		$subtab = $group_slug . '/main';
 
-        if ( ! isset( $this->groups[ $subtab ] ) ) {
-            $this->register_group( $subtab, _x( 'General Settings', 'settings', 'business-directory-plugin' ), $tab );
-        }
+		if ( ! isset( $this->groups[ $subtab ] ) ) {
+			$this->register_group( $subtab, _x( 'General Settings', 'settings', 'business-directory-plugin' ), $tab );
+		}
 
-        $this->register_group( "{$subtab}:{$slug}", $name, $subtab, array( 'desc' => $help_text ) );
+		$this->register_group( "{$subtab}:{$slug}", $name, $subtab, array( 'desc' => $help_text ) );
 
-        return "{$subtab}:{$slug}";
-    }
+		return "{$subtab}:{$slug}";
+	}
 
-    /**
-     * @deprecated 5.0. Use {@link WPBDP__Settings::register_setting()}.
-     */
-    public function add_core_setting() {
+	/**
+	 * @deprecated 5.0. Use {@link WPBDP__Settings::register_setting()}.
+	 */
+	public function add_core_setting() {
 		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_setting' );
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * @deprecated 5.0. Use {@link WPBDP__Settings::register_setting()}.
-     */
-    public function add_setting( $section_key, $name, $label, $type = 'text', $default = null, $help_text = '', $args = array(), $validator = null, $callback = null ) {
+	/**
+	 * @deprecated 5.0. Use {@link WPBDP__Settings::register_setting()}.
+	 */
+	public function add_setting( $section_key, $name, $label, $type = 'text', $default = null, $help_text = '', $args = array(), $validator = null, $callback = null ) {
 		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_setting' );
-    }
+	}
 
-    /**
-     * @deprecated 5.0. Specify dependencies while registering the setting using {@link WPBDP__Settings::register_setting()}.
-     */
-    public function register_dep( $setting, $dep, $arg = null ) {
+	/**
+	 * @deprecated 5.0. Specify dependencies while registering the setting using {@link WPBDP__Settings::register_setting()}.
+	 */
+	public function register_dep( $setting, $dep, $arg = null ) {
 		_deprecated_function( __METHOD__, '5.0', 'WPBDP__Settings::register_setting' );
-    }
+	}
 
-    public function get_dependencies( $args = array() ) {
+	public function get_dependencies( $args = array() ) {
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -379,80 +379,83 @@ class WPBDP__Settings {
 				'type'    => null,
 			)
 		);
-        extract( $args );
+		extract( $args );
 
-        if ( $setting )
-            return isset( $this->deps[ $setting ] ) ? $this->deps[ $setting ] : array();
+		if ( $setting ) {
+			return isset( $this->deps[ $setting ] ) ? $this->deps[ $setting ] : array();
+		}
 
-        if ( $type ) {
-            $res = array();
+		if ( $type ) {
+			$res = array();
 
-            foreach ( $this->deps as $s => $deps ) {
-                foreach ( $deps as $d => $a ) {
-                    if ( $type == $d )
-                        $res[ $s ] = $a;
-                }
-            }
-        }
+			foreach ( $this->deps as $s => $deps ) {
+				foreach ( $deps as $d => $a ) {
+					if ( $type == $d ) {
+						$res[ $s ] = $a;
+					}
+				}
+			}
+		}
 
-        return $res;
-    }
+		return $res;
+	}
 
-    public function get_setting( $name ) {
-        if ( isset( $this->settings[ $name ] ) )
-            return $this->settings[ $name ];
+	public function get_setting( $name ) {
+		if ( isset( $this->settings[ $name ] ) ) {
+			return $this->settings[ $name ];
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * Resets settings to their default values. This includes ALL premium modules too, so use with care.
-     */
-    public function reset_defaults() {
-        $options = $this->options;
+	/**
+	 * Resets settings to their default values. This includes ALL premium modules too, so use with care.
+	 */
+	public function reset_defaults() {
+		$options = $this->options;
 
-        foreach ( $options as $option_id => $option_value ) {
-            if ( preg_match( '/^license-key-/', $option_id ) ) {
-                continue;
-            }
+		foreach ( $options as $option_id => $option_value ) {
+			if ( preg_match( '/^license-key-/', $option_id ) ) {
+				continue;
+			}
 
-            unset( $this->options[ $option_id ] );
-        }
+			unset( $this->options[ $option_id ] );
+		}
 
-        update_option( 'wpbdp_settings', $this->options );
-    }
+		update_option( 'wpbdp_settings', $this->options );
+	}
 
-    public function validate_setting( $value, $setting_id ) {
-        $on_admin = ! empty( $_POST['_wp_http_referer'] );
-        if ( ! $on_admin ) {
-            return $value;
-        }
+	public function validate_setting( $value, $setting_id ) {
+		$on_admin = ! empty( $_POST['_wp_http_referer'] );
+		if ( ! $on_admin ) {
+			return $value;
+		}
 
-        if ( ! empty( $this->settings[ $setting_id ] ) ) {
-            $setting = $this->get_setting( $setting_id );
+		if ( ! empty( $this->settings[ $setting_id ] ) ) {
+			$setting = $this->get_setting( $setting_id );
 
-            if ( is_string( $setting['validator'] ) ) {
-                $validators = explode( ',', $setting['validator'] );
-            } else if ( is_callable( $setting['validator'] ) ) {
-                $validators = array( $setting['validator'] );
-            } else if ( is_array( $setting['validator'] ) ) {
-                $validators = $setting['validator'];
-            }
-        } else {
-            $setting    = null;
-            $validators = array();
-        }
+			if ( is_string( $setting['validator'] ) ) {
+				$validators = explode( ',', $setting['validator'] );
+			} elseif ( is_callable( $setting['validator'] ) ) {
+				$validators = array( $setting['validator'] );
+			} elseif ( is_array( $setting['validator'] ) ) {
+				$validators = $setting['validator'];
+			}
+		} else {
+			$setting    = null;
+			$validators = array();
+		}
 
-        if ( isset( $this->options[ $setting_id ] ) ) {
-            $old_value = $this->options[ $setting_id ];
-        } else {
-            $old_value = null;
-        }
+		if ( isset( $this->options[ $setting_id ] ) ) {
+			$old_value = $this->options[ $setting_id ];
+		} else {
+			$old_value = null;
+		}
 
-        $has_error = false;
+		$has_error = false;
 
-        foreach ( $validators as $validator ) {
-            switch ( $validator ) {
+		foreach ( $validators as $validator ) {
+			switch ( $validator ) {
 				case 'trim':
 					$value = trim( $value );
 					break;
@@ -512,34 +515,34 @@ class WPBDP__Settings {
 
 					break;
 			}
-        }
+		}
 
-        return ( $has_error ? $old_value : $value );
-    }
+		return ( $has_error ? $old_value : $value );
+	}
 
-    public function validate_number_setting( $value, $setting_id ) {
-        $setting = $this->get_setting( $setting_id );
+	public function validate_number_setting( $value, $setting_id ) {
+		$setting = $this->get_setting( $setting_id );
 
-        if ( ! $setting ) {
-            return $value;
-        }
+		if ( ! $setting ) {
+			return $value;
+		}
 
-        if ( ! empty( $setting['step'] ) && is_int( $setting['step'] ) ) {
-            $value = intval( $value );
-        } else {
-            $value = floatval( $value );
-        }
+		if ( ! empty( $setting['step'] ) && is_int( $setting['step'] ) ) {
+			$value = intval( $value );
+		} else {
+			$value = floatval( $value );
+		}
 
-        // Min and max.
-        $value = ( array_key_exists( 'min', $setting ) && $value < $setting['min'] ) ? $setting['min'] : $value;
-        $value = ( array_key_exists( 'max', $setting ) && $value > $setting['max'] ) ? $setting['max'] : $value;
+		// Min and max.
+		$value = ( array_key_exists( 'min', $setting ) && $value < $setting['min'] ) ? $setting['min'] : $value;
+		$value = ( array_key_exists( 'max', $setting ) && $value > $setting['max'] ) ? $setting['max'] : $value;
 
-        return $value;
-    }
+		return $value;
+	}
 
-    public function set_new_install_settings() {
-        $this->set_option( 'show-manage-listings', true );
-    }
+	public function set_new_install_settings() {
+		$this->set_option( 'show-manage-listings', true );
+	}
 
 	/**
 	 * @deprecated 6.1

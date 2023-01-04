@@ -2,10 +2,10 @@
 
 class WPBDP_Admin_Debug_Page {
 
-    public function __construct() {
+	public function __construct() {
 		add_action( 'admin_init', array( &$this, 'handle_download' ) );
 		add_filter( 'debug_information', array( &$this, 'register_debug_information' ) );
-    }
+	}
 
 	public function register_debug_information( $debug_info ) {
 		$basic = $this->get_basic_debug();
@@ -30,21 +30,21 @@ class WPBDP_Admin_Debug_Page {
 		return $debug_info;
 	}
 
-    public function dispatch( $plain = false ) {
+	public function dispatch( $plain = false ) {
 
 		$debug_info = array();
 
-        // BD options
-        $blacklisted                     = array( 'authorize-net-transaction-key', 'authorize-net-login-id', 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
-		$partial_block = array( 'secret-key', 'publishable-key', 'private-key', 'public-key', 'license-key' );
-        $debug_info['options']['_title'] = __( 'Plugin Settings', 'business-directory-plugin' );
+		// BD options
+		$blacklisted                     = array( 'authorize-net-transaction-key', 'authorize-net-login-id', 'googlecheckout-merchant', 'paypal-business-email', 'wpbdp-2checkout-seller', 'recaptcha-public-key', 'recaptcha-private-key' );
+		$partial_block                   = array( 'secret-key', 'publishable-key', 'private-key', 'public-key', 'license-key' );
+		$debug_info['options']['_title'] = __( 'Plugin Settings', 'business-directory-plugin' );
 
-        $settings_api = wpbdp_settings_api();
-        $all_settings = $settings_api->get_registered_settings();
-        foreach ( $all_settings as $s ) {
-            if ( in_array( $s['id'], $blacklisted ) ) {
-                continue;
-            }
+		$settings_api = wpbdp_settings_api();
+		$all_settings = $settings_api->get_registered_settings();
+		foreach ( $all_settings as $s ) {
+			if ( in_array( $s['id'], $blacklisted ) ) {
+				continue;
+			}
 
 			foreach ( $partial_block as $blockme ) {
 				if ( strpos( $s['id'], $blockme ) !== false ) {
@@ -52,61 +52,61 @@ class WPBDP_Admin_Debug_Page {
 				}
 			}
 
-            $value = wpbdp_get_option( $s['id'] );
+			$value = wpbdp_get_option( $s['id'] );
 
-            if ( is_array( $value ) ) {
-                if ( empty( $value ) ) {
-                    $value = '';
-                } else {
+			if ( is_array( $value ) ) {
+				if ( empty( $value ) ) {
+					$value = '';
+				} else {
 					$value = print_r( $value, true );
-                }
-            }
+				}
+			}
 
-            $debug_info['options'][ $s['id'] ] = $value;
-        }
-        $debug_info['options'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['options'], 'options' );
+			$debug_info['options'][ $s['id'] ] = $value;
+		}
+		$debug_info['options'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['options'], 'options' );
 
-        // environment info
-        $debug_info['environment']['_title']            = __( 'Environment', 'business-directory-plugin' );
+		// environment info
+		$debug_info['environment']['_title'] = __( 'Environment', 'business-directory-plugin' );
 
-        $debug_info['environment'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['environment'], 'environment' );
+		$debug_info['environment'] = apply_filters( 'wpbdp_debug_info_section', $debug_info['environment'], 'environment' );
 
 		if ( count( $debug_info['environment'] ) === 1 ) {
 			unset( $debug_info['environment'] );
 		}
 
-        $debug_info = apply_filters( 'wpbdp_debug_info', $debug_info );
+		$debug_info = apply_filters( 'wpbdp_debug_info', $debug_info );
 
-        if ( $plain ) {
-            foreach ( $debug_info as &$section ) {
-                foreach ( $section as $k => $v ) {
-                    if ( $k == '_title' ) {
-                        printf( '== %s ==', esc_html( $v ) );
-                        print PHP_EOL;
-                        continue;
-                    }
+		if ( $plain ) {
+			foreach ( $debug_info as &$section ) {
+				foreach ( $section as $k => $v ) {
+					if ( $k == '_title' ) {
+						printf( '== %s ==', esc_html( $v ) );
+						print PHP_EOL;
+						continue;
+					}
 
-                    if ( is_array( $v ) ) {
-                        if ( isset( $v['exclude'] ) && $v['exclude'] ) {
-                            continue;
-                        }
+					if ( is_array( $v ) ) {
+						if ( isset( $v['exclude'] ) && $v['exclude'] ) {
+							continue;
+						}
 
-                        if ( ! empty( $v['html'] ) && empty( $v['value'] ) ) {
-                            continue;
-                        }
-                    }
+						if ( ! empty( $v['html'] ) && empty( $v['value'] ) ) {
+							continue;
+						}
+					}
 
 					printf( '%-33s = %s', esc_html( $k ), is_array( $v ) ? esc_html( $v['value'] ) : esc_html( $v ) );
-                    print PHP_EOL;
-                }
+					print PHP_EOL;
+				}
 
-                print PHP_EOL . PHP_EOL;
-            }
-            return;
-        }
+				print PHP_EOL . PHP_EOL;
+			}
+			return;
+		}
 
-        wpbdp_render_page( WPBDP_PATH . 'templates/admin/debug-info.tpl.php', array( 'debug_info' => $debug_info ), true );
-    }
+		wpbdp_render_page( WPBDP_PATH . 'templates/admin/debug-info.tpl.php', array( 'debug_info' => $debug_info ), true );
+	}
 
 	private function get_basic_debug() {
 		global $wpbdp;
@@ -163,28 +163,28 @@ class WPBDP_Admin_Debug_Page {
 		return $status;
 	}
 
-    public function handle_download() {
-        global $pagenow;
+	public function handle_download() {
+		global $pagenow;
 
-        if ( ! current_user_can( 'administrator' ) || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
-             || 'wpbdp-debug-info' !== wpbdp_get_var( array( 'param' => 'page' ) ) ) {
-            return;
-        }
+		if ( ! current_user_can( 'administrator' ) || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
+			 || 'wpbdp-debug-info' !== wpbdp_get_var( array( 'param' => 'page' ) ) ) {
+			return;
+		}
 
 		if ( 1 === (int) wpbdp_get_var( array( 'param' => 'download' ) ) ) {
-                    header( 'Content-Description: File Transfer' );
-                    header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
-                    header( 'Content-Disposition: attachment; filename=wpbdp-debug-info.txt' );
-                    header( 'Pragma: no-cache' );
-                    $this->dispatch( true );
-                    exit;
-        }
-    }
+					header( 'Content-Description: File Transfer' );
+					header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ), true );
+					header( 'Content-Disposition: attachment; filename=wpbdp-debug-info.txt' );
+					header( 'Pragma: no-cache' );
+					$this->dispatch( true );
+					exit;
+		}
+	}
 
 	/**
 	 * @deprecated since 5.9.1
 	 */
-    public function ajax_ssl_test() {
+	public function ajax_ssl_test() {
 		_deprecated_function( __METHOD__, '5.9.1' );
-    }
+	}
 }

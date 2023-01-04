@@ -12,10 +12,11 @@
  * @return mixed
  */
 function _defaults_or( $defs, $key, $val ) {
-    if ( array_key_exists( $key, $defs ) )
-        return $defs[ $key ];
+	if ( array_key_exists( $key, $defs ) ) {
+		return $defs[ $key ];
+	}
 
-    return $val;
+	return $val;
 }
 ?>
 <div class="wpbdp-page-csv-import wpbdp-clearfix wpbdp-admin-page-settings">
@@ -25,7 +26,8 @@ function _defaults_or( $defs, $key, $val ) {
 <p class="howto wpbdp-settings-subtab-description wpbdp-setting-description">
 <?php
 esc_html_e( 'Here, you can import data into your directory using the CSV format.', 'business-directory-plugin' );
-?><br />
+?>
+<br />
 <?php
 printf(
 	// translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
@@ -37,7 +39,7 @@ printf(
 </p>
 
 <form id="wpbdp-csv-import-form" action="" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="action" value="do-import" />
+	<input type="hidden" name="action" value="do-import" />
 	<?php wp_nonce_field( 'do-import' ); ?>
 
 	<div class="wpbdp-settings-form-title">
@@ -107,7 +109,7 @@ printf(
 				<?php endif; ?>
 			</div>
 		</div>
-    </div>
+	</div>
 
 	<div class="wpbdp-settings-form-title">
 		<h3><?php esc_html_e( 'CSV File Settings', 'business-directory-plugin' ); ?></h3>
@@ -165,7 +167,7 @@ printf(
 				aria-required="true"
 				value="<?php echo esc_attr( _defaults_or( $defaults, 'category-separator', ';' ) ); ?>" />
 		</div>
-    </div>
+	</div>
 
 	<div class="wpbdp-settings-form-title">
 		<h3><?php esc_html_e( 'Import settings', 'business-directory-plugin' ); ?></h3>
@@ -255,7 +257,19 @@ printf(
 			</div>
 			<span class="wpbdp-setting-description"><?php esc_html_e( 'This user will be used if the username column is not present in the CSV file.', 'business-directory-plugin' ); ?></span>
 			<label>
-				<?php echo wpbdp_render_user_field( array( 'class' => 'default-user', 'name' => 'settings[default-user]', 'value' => _defaults_or( $defaults, 'default-user', '' ) ) ); ?>
+				<?php
+				echo wpbdp_render_user_field(
+					array(
+						'class' => 'default-user',
+						'name'  => 'settings[default-user]',
+						'value' => _defaults_or(
+							$defaults,
+							'default-user',
+							''
+						),
+					)
+				);
+				?>
 			</label>
 		</div>
 		<div class="wpbdp-setting-row">
@@ -277,12 +291,12 @@ printf(
 				<?php esc_html_e( 'Disable email notifications during import', 'business-directory-plugin' ); ?>
 			</label>
 		</div>
-    </div>
+	</div>
 
-    <p class="submit">
+	<p class="submit">
 		<?php submit_button( _x( 'Test Import', 'admin csv-import', 'business-directory-plugin' ), 'secondary', 'test-import', false ); ?>
 		<?php submit_button( _x( 'Import Listings', 'admin csv-import', 'business-directory-plugin' ), 'primary', 'do-import', false ); ?>
-    </p>
+	</p>
 </form>
 
 <hr />
@@ -307,71 +321,71 @@ printf(
 </p>
 
 <table class="wpbdp-csv-import-headers wp-list-table widefat striped fixed">
-    <thead>
-        <tr>
+	<thead>
+		<tr>
 			<th class="header-name"><?php esc_html_e( 'Header name/label', 'business-directory-plugin' ); ?></th>
 			<th class="field-label"><?php esc_html_e( 'Field', 'business-directory-plugin' ); ?></th>
 			<th class="field-type"><?php esc_html_e( 'Type', 'business-directory-plugin' ); ?></th>
 			<th class="field-is-required"><?php esc_html_e( 'Required?', 'business-directory-plugin' ); ?></th>
 			<th class="field-is-multivalued"><?php esc_html_e( 'Multivalued?', 'business-directory-plugin' ); ?></th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php $i = 0; foreach ( wpbdp_get_form_fields() as $field ) : ?>
-        <?php
+		</tr>
+	</thead>
+	<tbody>
+	<?php $i = 0; foreach ( wpbdp_get_form_fields() as $field ) : ?>
+		<?php
 		if ( 'custom' === $field->get_association() ) {
 			continue;
 		}
-        ?>
-        <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
-            <td class="header-name"><?php echo esc_html( $field->get_short_name() ); ?></td>
-            <td class="field-label"><?php echo esc_html( $field->get_label() ); ?></td>
-            <td class="field-type"><?php echo esc_html( $field->get_field_type()->get_name() ); ?></td>
-            <td class="field-is-required"><?php echo $field->is_required() ? 'X' : ''; ?></td>
-            <td class="field-is-multivalued">
+		?>
+		<tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
+			<td class="header-name"><?php echo esc_html( $field->get_short_name() ); ?></td>
+			<td class="field-label"><?php echo esc_html( $field->get_label() ); ?></td>
+			<td class="field-type"><?php echo esc_html( $field->get_field_type()->get_name() ); ?></td>
+			<td class="field-is-required"><?php echo $field->is_required() ? 'X' : ''; ?></td>
+			<td class="field-is-multivalued">
 				<?php echo ( $field->get_association() === 'category' || $field->get_association() === 'tags' ) || ( $field->get_field_type_id() === 'checkbox' || $field->get_field_type_id() === 'multiselect' ) ? 'X' : ''; ?>
-            </td>
-        </tr>
+			</td>
+		</tr>
 		<?php
 		$i++;
 	endforeach;
 	?>
-        <tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
-            <td class="header-name">fee_id</td>
-            <td class="field-label"><?php _ex( 'Fee ID (integer) associated to a listing. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
-            <td class="field-type">-</td>
-            <td class="field-is-required"></td>
-            <td class="field-is-multivalued"></td>
-        </tr>
+		<tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
+			<td class="header-name">fee_id</td>
+			<td class="field-label"><?php _ex( 'Fee ID (integer) associated to a listing. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
+			<td class="field-type">-</td>
+			<td class="field-is-required"></td>
+			<td class="field-is-multivalued"></td>
+		</tr>
 		<tr class="<?php echo ( $i + 1 ) % 2 == 0 ? 'alt' : ''; ?>">
-            <td class="header-name">images</td>
-            <td class="field-label"><?php esc_html_e( 'Semicolon separated list of listing images (from the ZIP file)', 'business-directory-plugin' ); ?></td>
-            <td class="field-type">-</td>
-            <td class="field-is-required"></td>
-            <td class="field-is-multivalued">X</td>
-        </tr>
+			<td class="header-name">images</td>
+			<td class="field-label"><?php esc_html_e( 'Semicolon separated list of listing images (from the ZIP file)', 'business-directory-plugin' ); ?></td>
+			<td class="field-type">-</td>
+			<td class="field-is-required"></td>
+			<td class="field-is-multivalued">X</td>
+		</tr>
 		<tr class="<?php echo ( $i + 2 ) % 2 == 0 ? 'alt' : ''; ?>">
-            <td class="header-name">username</td>
+			<td class="header-name">username</td>
 			<td class="field-label"><?php esc_html_e( 'Listing owner\'s username', 'business-directory-plugin' ); ?></td>
-            <td class="field-type">-</td>
-            <td class="field-is-required"></td>
-            <td class="field-is-multivalued"></td>
-        </tr>
+			<td class="field-type">-</td>
+			<td class="field-is-required"></td>
+			<td class="field-is-multivalued"></td>
+		</tr>
 		<tr class="<?php echo ( $i + 3 ) % 2 == 0 ? 'alt' : ''; ?>">
-            <td class="header-name">sequence_id</td>
-            <td class="field-label"><?php _ex( 'Internal Sequence ID used to allow listing updates from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
-            <td class="field-type">-</td>
-            <td class="field-is-required"></td>
-            <td class="field-is-multivalued"></td>
-        </tr>
+			<td class="header-name">sequence_id</td>
+			<td class="field-label"><?php _ex( 'Internal Sequence ID used to allow listing updates from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
+			<td class="field-type">-</td>
+			<td class="field-is-required"></td>
+			<td class="field-is-multivalued"></td>
+		</tr>
 		<tr class="<?php echo ( $i + 4 ) % 2 == 0 ? 'alt' : ''; ?>">
-            <td class="header-name">expires_on</td>
-            <td class="field-label"><?php _ex( 'Date of listing expiration formatted as YYYY-MM-DD. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
-            <td class="field-type">-</td>
-            <td class="field-is-required"></td>
-            <td class="field-is-multivalued"></td>
-        </tr>
-    </tbody>
+			<td class="header-name">expires_on</td>
+			<td class="field-label"><?php _ex( 'Date of listing expiration formatted as YYYY-MM-DD. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
+			<td class="field-type">-</td>
+			<td class="field-is-required"></td>
+			<td class="field-is-multivalued"></td>
+		</tr>
+	</tbody>
 </table>
 
 </div>

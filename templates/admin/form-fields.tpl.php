@@ -1,5 +1,5 @@
 <?php
-    $buttons = array(
+	$buttons = array(
 		'addfield'    => array(
 			'label' => __( 'Add New Form Field', 'business-directory-plugin' ),
 			'url'   => wp_nonce_url( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=addfield' ), 'editfield' ),
@@ -12,7 +12,7 @@
 			'label' => __( 'Manage Theme Tags', 'business-directory-plugin' ),
 			'url'   => admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
 		),
-    );
+	);
 
 	WPBDP_Admin_Pages::show_tabs(
 		array(
@@ -21,7 +21,7 @@
 			'buttons' => $buttons,
 		)
 	);
-?>
+	?>
 <span class="howto wpbdp-settings-subtab-description wpbdp-setting-description">
 	<?php
 	esc_html_e(
@@ -36,7 +36,7 @@
 		'<a href="https://businessdirectoryplugin.com/knowledge-base/manage-form-fields/" target="_blank" rel="noopener">',
 		'</a>'
 	);
-    ?>
+	?>
 </span>
 
 <?php $table->views(); ?>

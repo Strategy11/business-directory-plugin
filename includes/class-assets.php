@@ -12,92 +12,92 @@
  */
 class WPBDP__Assets {
 
-    public function __construct() {
-        add_action( 'wp_enqueue_scripts', array( $this, 'register_common_scripts' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'register_common_scripts' ) );
+	public function __construct() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_common_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_common_scripts' ) );
 
-        // Scripts & styles.
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_css_override' ), 9999, 0 );
+		// Scripts & styles.
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_css_override' ), 9999, 0 );
 
 		// Admin
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-    }
+	}
 
-    /**
-     * Registers scripts and styles that can be used either by frontend or backend code.
-     * The scripts are just registered, not enqueued.
-     *
-     * @since 3.4
-     */
-    public function register_common_scripts() {
+	/**
+	 * Registers scripts and styles that can be used either by frontend or backend code.
+	 * The scripts are just registered, not enqueued.
+	 *
+	 * @since 3.4
+	 */
+	public function register_common_scripts() {
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-        wp_register_script(
-            'jquery-file-upload-iframe-transport',
-            WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.iframe-transport.js',
-            array(),
+		wp_register_script(
+			'jquery-file-upload-iframe-transport',
+			WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.iframe-transport.js',
+			array(),
 			'10.32.0',
 			true
-        );
+		);
 
-        wp_register_script(
-            'jquery-file-upload',
-            WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.fileupload.js',
-            array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' ),
+		wp_register_script(
+			'jquery-file-upload',
+			WPBDP_ASSETS_URL . 'vendor/jQuery-File-Upload/js/jquery.fileupload.js',
+			array( 'jquery', 'jquery-ui-widget', 'jquery-file-upload-iframe-transport' ),
 			'10.32.0',
 			true
-        );
+		);
 
-        $this->maybe_register_script(
-            'breakpoints.js',
-            WPBDP_ASSETS_URL . 'vendor/jquery-breakpoints/jquery-breakpoints' . $min . '.js',
-            array( 'jquery' ),
-            '0.0.11',
-            true
-        );
-
-        // Views.
-        wp_register_script(
-            'wpbdp-checkout',
-            WPBDP_ASSETS_URL . 'js/checkout.js',
-            array( 'wpbdp-js' ),
-            WPBDP_VERSION,
+		$this->maybe_register_script(
+			'breakpoints.js',
+			WPBDP_ASSETS_URL . 'vendor/jquery-breakpoints/jquery-breakpoints' . $min . '.js',
+			array( 'jquery' ),
+			'0.0.11',
 			true
-        );
+		);
 
-        // Drag & Drop.
-        wp_register_script(
-            'wpbdp-dnd-upload',
-            WPBDP_ASSETS_URL . 'js/dnd-upload' . $min . '.js',
-            array( 'jquery-file-upload' ),
-            WPBDP_VERSION,
+		// Views.
+		wp_register_script(
+			'wpbdp-checkout',
+			WPBDP_ASSETS_URL . 'js/checkout.js',
+			array( 'wpbdp-js' ),
+			WPBDP_VERSION,
 			true
-        );
+		);
 
-        $this->register_select2();
+		// Drag & Drop.
+		wp_register_script(
+			'wpbdp-dnd-upload',
+			WPBDP_ASSETS_URL . 'js/dnd-upload' . $min . '.js',
+			array( 'jquery-file-upload' ),
+			WPBDP_VERSION,
+			true
+		);
+
+		$this->register_select2();
 
 		wp_register_style( 'wpbdp-base-css', WPBDP_ASSETS_URL . 'css/wpbdp.min.css', array(), WPBDP_VERSION );
-    }
+	}
 
 	private function register_select2() {
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-        // Use Select2 styles and scripts from selectWoo https://woocommerce.wordpress.com/2017/08/08/selectwoo-an-accessible-replacement-for-select2/.
-        wp_register_style(
-            'wpbdp-js-select2-css',
-            WPBDP_ASSETS_URL . 'vendor/selectWoo/css/selectWoo.min.css',
-            array(),
-            '4.0.5'
-        );
+		// Use Select2 styles and scripts from selectWoo https://woocommerce.wordpress.com/2017/08/08/selectwoo-an-accessible-replacement-for-select2/.
+		wp_register_style(
+			'wpbdp-js-select2-css',
+			WPBDP_ASSETS_URL . 'vendor/selectWoo/css/selectWoo.min.css',
+			array(),
+			'4.0.5'
+		);
 
-        wp_register_script(
-            'wpbdp-js-select2',
+		wp_register_script(
+			'wpbdp-js-select2',
 			WPBDP_ASSETS_URL . 'vendor/selectWoo/js/selectWoo.full' . $min . '.js',
-            array( 'jquery' ),
-            '4.0.5',
+			array( 'jquery' ),
+			'4.0.5',
 			true
-        );
+		);
 	}
 
 	/**
@@ -109,78 +109,78 @@ class WPBDP__Assets {
 		wp_enqueue_style( 'wpbdp-js-select2-css' );
 	}
 
-    private function maybe_register_script( $handle, $src, $deps, $ver, $in_footer = false ) {
-        $scripts = wp_scripts();
+	private function maybe_register_script( $handle, $src, $deps, $ver, $in_footer = false ) {
+		$scripts = wp_scripts();
 
-        if ( isset( $scripts->registered[ $handle ] ) ) {
-            $registered_script = $scripts->registered[ $handle ];
-        } else {
-            $registered_script = null;
-        }
+		if ( isset( $scripts->registered[ $handle ] ) ) {
+			$registered_script = $scripts->registered[ $handle ];
+		} else {
+			$registered_script = null;
+		}
 
-        if ( $registered_script && version_compare( $registered_script->ver, $ver, '>=' ) ) {
-            return;
-        }
+		if ( $registered_script && version_compare( $registered_script->ver, $ver, '>=' ) ) {
+			return;
+		}
 
-        if ( $registered_script ) {
-            wp_deregister_script( $handle );
-        }
+		if ( $registered_script ) {
+			wp_deregister_script( $handle );
+		}
 
-        wp_register_script( $handle, $src, $deps, $ver, $in_footer );
-    }
+		wp_register_script( $handle, $src, $deps, $ver, $in_footer );
+	}
 
-    public function enqueue_scripts() {
-        $enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
-		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	public function enqueue_scripts() {
+		$enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
+		$min                        = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_style(
-            'wpbdp-widgets',
-            WPBDP_ASSETS_URL . 'css/widgets.min.css',
-            array(),
-            WPBDP_VERSION
-        );
+			'wpbdp-widgets',
+			WPBDP_ASSETS_URL . 'css/widgets.min.css',
+			array(),
+			WPBDP_VERSION
+		);
 
-        if ( ! $enqueue_scripts_and_styles ) {
-            return;
-        }
+		if ( ! $enqueue_scripts_and_styles ) {
+			return;
+		}
 
-        wp_register_script(
-            'wpbdp-js',
+		wp_register_script(
+			'wpbdp-js',
 			WPBDP_ASSETS_URL . 'js/wpbdp' . $min . '.js',
-            array(
-                'jquery',
-                'breakpoints.js',
-                'jquery-ui-sortable',
-            ),
-            WPBDP_VERSION,
+			array(
+				'jquery',
+				'breakpoints.js',
+				'jquery-ui-sortable',
+			),
+			WPBDP_VERSION,
 			true
-        );
+		);
 
 		$this->global_localize( 'wpbdp-js' );
 
-        wp_enqueue_script( 'wpbdp-dnd-upload' );
+		wp_enqueue_script( 'wpbdp-dnd-upload' );
 
-        if ( wpbdp_get_option( 'use-thickbox' ) ) {
-            add_thickbox();
-        }
+		if ( wpbdp_get_option( 'use-thickbox' ) ) {
+			add_thickbox();
+		}
 
-        wp_enqueue_style( 'wpbdp-base-css' );
-        wp_enqueue_script( 'wpbdp-js' );
+		wp_enqueue_style( 'wpbdp-base-css' );
+		wp_enqueue_script( 'wpbdp-js' );
 
 		$this->load_css();
 
-        do_action( 'wpbdp_enqueue_scripts' );
+		do_action( 'wpbdp_enqueue_scripts' );
 
-        // enable legacy css (should be removed in a future release) XXX
-        if ( _wpbdp_template_mode( 'single' ) == 'template' || _wpbdp_template_mode( 'category' ) == 'template' ) {
-            wp_enqueue_style(
-                'wpbdp-legacy-css',
-                WPBDP_ASSETS_URL . 'css/wpbdp-legacy.min.css',
-                array(),
-                WPBDP_VERSION
-            );
-        }
-    }
+		// enable legacy css (should be removed in a future release) XXX
+		if ( _wpbdp_template_mode( 'single' ) == 'template' || _wpbdp_template_mode( 'category' ) == 'template' ) {
+			wp_enqueue_style(
+				'wpbdp-legacy-css',
+				WPBDP_ASSETS_URL . 'css/wpbdp-legacy.min.css',
+				array(),
+				WPBDP_VERSION
+			);
+		}
+	}
 
 	/**
 	 * @since 5.9.2
@@ -199,10 +199,10 @@ class WPBDP__Assets {
 		wp_localize_script( $script, 'wpbdp_global', $global );
 	}
 
-    public function load_css() {
-		$rootline_color    = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
-		$thumbnail_width   = wpbdp_get_option( 'thumbnail-width' );
-		$thumbnail_height  = wpbdp_get_option( 'thumbnail-height' );
+	public function load_css() {
+		$rootline_color   = sanitize_hex_color( wpbdp_get_option( 'rootline-color' ) );
+		$thumbnail_width  = wpbdp_get_option( 'thumbnail-width' );
+		$thumbnail_height = wpbdp_get_option( 'thumbnail-height' );
 
 		if ( ! $rootline_color ) {
 			$rootline_color = '#569AF6';
@@ -217,29 +217,29 @@ class WPBDP__Assets {
 		}';
 
 		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $css ) );
-    }
+	}
 
-    /**
-     * @since 3.5.3
-     */
-    public function enqueue_css_override() {
-        $stylesheet_dir     = trailingslashit( get_stylesheet_directory() );
-        $stylesheet_dir_uri = trailingslashit( get_stylesheet_directory_uri() );
-        $template_dir       = trailingslashit( get_template_directory() );
-        $template_dir_uri   = trailingslashit( get_template_directory_uri() );
+	/**
+	 * @since 3.5.3
+	 */
+	public function enqueue_css_override() {
+		$stylesheet_dir     = trailingslashit( get_stylesheet_directory() );
+		$stylesheet_dir_uri = trailingslashit( get_stylesheet_directory_uri() );
+		$template_dir       = trailingslashit( get_template_directory() );
+		$template_dir_uri   = trailingslashit( get_template_directory_uri() );
 
-        $folders_uris = array(
-            array( trailingslashit( WP_PLUGIN_DIR ), trailingslashit( WP_PLUGIN_URL ) ),
-            array( $stylesheet_dir, $stylesheet_dir_uri ),
-            array( $stylesheet_dir . 'css/', $stylesheet_dir_uri . 'css/' ),
-        );
+		$folders_uris = array(
+			array( trailingslashit( WP_PLUGIN_DIR ), trailingslashit( WP_PLUGIN_URL ) ),
+			array( $stylesheet_dir, $stylesheet_dir_uri ),
+			array( $stylesheet_dir . 'css/', $stylesheet_dir_uri . 'css/' ),
+		);
 
-        if ( $template_dir != $stylesheet_dir ) {
-            $folders_uris[] = array( $template_dir, $template_dir_uri );
-            $folders_uris[] = array( $template_dir . 'css/', $template_dir_uri . 'css/' );
-        }
+		if ( $template_dir != $stylesheet_dir ) {
+			$folders_uris[] = array( $template_dir, $template_dir_uri );
+			$folders_uris[] = array( $template_dir . 'css/', $template_dir_uri . 'css/' );
+		}
 
-        $filenames = array(
+		$filenames = array(
 			'wpbdp.css',
 			'wpbusdirman.css',
 			'wpbdp_custom_style.css',
@@ -248,31 +248,31 @@ class WPBDP__Assets {
 			'wpbdm_custom_styles.css',
 		);
 
-        $n = 0;
-        foreach ( $folders_uris as $folder_uri ) {
-            list( $dir, $uri ) = $folder_uri;
+		$n = 0;
+		foreach ( $folders_uris as $folder_uri ) {
+			list( $dir, $uri ) = $folder_uri;
 
-            foreach ( $filenames as $f ) {
-                if ( file_exists( $dir . $f ) ) {
-                    wp_enqueue_style(
-                        'wpbdp-custom-' . $n,
-                        $uri . $f,
-                        array(),
-                        WPBDP_VERSION
-                    );
-                    $n++;
-                }
-            }
-        }
-    }
+			foreach ( $filenames as $f ) {
+				if ( file_exists( $dir . $f ) ) {
+					wp_enqueue_style(
+						'wpbdp-custom-' . $n,
+						$uri . $f,
+						array(),
+						WPBDP_VERSION
+					);
+					$n++;
+				}
+			}
+		}
+	}
 
-    /**
-     * Load resources on admin page
-     *
-     * @param bool $force Force reloading the resources.
+	/**
+	 * Load resources on admin page
+	 *
+	 * @param bool $force Force reloading the resources.
 	 *
 	 * @since 5.18 Deprecate the $force parameter to not load on non BD pages.
-     */
+	 */
 	public function enqueue_admin_scripts( $force = false ) {
 		if ( $force === true ) {
 			_deprecated_argument( __FUNCTION__, '5.17.2', 'Loading admin scripts can no longer be forced. Use the wpbdp_is_bd_page hook instead.' );

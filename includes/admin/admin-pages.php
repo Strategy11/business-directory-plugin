@@ -83,7 +83,7 @@ class WPBDP_Admin_Pages {
 	 */
 	public static function edit_tag_nav( $views ) {
 		$atts = array(
-			'edit'  => true,
+			'edit' => true,
 		);
 		return self::add_taxonomy_nav( $views, $atts );
 	}
@@ -104,19 +104,19 @@ class WPBDP_Admin_Pages {
 		remove_filter( 'views_edit-' . $tax->name, __CLASS__ . '::add_taxonomy_nav', 1 );
 		remove_filter( $tax->name . '_pre_edit_form', __CLASS__ . '::edit_tag_nav' );
 
-		$editing    = isset( $params['edit'] );
-		$tax_name   = str_replace( 'Directory ', '', $tax->labels->all_items );
-		$all_url    = 'edit-tags.php?taxonomy=' . $tax->name . '&amp;post_type=wpbdp_listing';
+		$editing  = isset( $params['edit'] );
+		$tax_name = str_replace( 'Directory ', '', $tax->labels->all_items );
+		$all_url  = 'edit-tags.php?taxonomy=' . $tax->name . '&amp;post_type=wpbdp_listing';
 
 		if ( $editing ) {
-			$title      = $tax->labels->edit_item;
-			$button     = sprintf( __( 'Back to %s', 'business-directory-plugin' ), $tax_name );
-			$button_url = admin_url( $all_url );
+			$title        = $tax->labels->edit_item;
+			$button       = sprintf( __( 'Back to %s', 'business-directory-plugin' ), $tax_name );
+			$button_url   = admin_url( $all_url );
 			$button_class = '';
 		} else {
-			$title      = $tax_name;
-			$button     = $tax->labels->add_new_item;
-			$button_url = '#';
+			$title        = $tax_name;
+			$button       = $tax->labels->add_new_item;
+			$button_url   = '#';
 			$button_class = 'wpbdp-add-taxonomy-form';
 		}
 
@@ -235,7 +235,7 @@ class WPBDP_Admin_Pages {
 		self::add_icon_url( $tabs );
 
 		$title = $args['title'];
-	?>
+		?>
 	<div class="wrap wpbdp-admin wpbdp-admin-layout wpbdp-admin-page wpbdp-admin-page-<?php echo esc_attr( $id ); ?> <?php echo ! $args['show_nav'] ? 'wpbdp-admin-page-full-width' : ''; ?>" id="wpbdp-admin-page-<?php echo esc_attr( $id ); ?>">
 		<div class="wpbdp-admin-row">
 			<?php
@@ -254,11 +254,13 @@ class WPBDP_Admin_Pages {
 				return;
 			}
 			?>
-			<div class="wpbdp-content-area-header <?php echo $args['tabbed_title'] ? 'wpbdp-content-area-header-tabbed' : '' ?>">
-				<?php if ( $args['tabbed_title'] ) :
+			<div class="wpbdp-content-area-header <?php echo $args['tabbed_title'] ? 'wpbdp-content-area-header-tabbed' : ''; ?>">
+				<?php
+				if ( $args['tabbed_title'] ) :
 					$current_tab = isset( $args['current_tab'] ) ? $args['current_tab'] : '';
 					self::show_tabbed_title( $args['titles'], $current_tab );
-				else : ?>
+				else :
+					?>
 				<h2 class="wpbdp-sub-section-title"><?php echo esc_html( $args['sub'] ); ?></h2>
 				<?php endif; ?>
 				<div class="wpbdp-content-area-header-actions">
@@ -358,9 +360,11 @@ class WPBDP_Admin_Pages {
 		?>
 		<div class="wpbdp-content-area-header-tabs">
 		<?php
-		foreach ( $titles as $key => $title ) : ?>
+		foreach ( $titles as $key => $title ) :
+			?>
 			<a class="wpbdp-header-tab <?php echo $key === $current_tab ? 'wpbdp-header-tab-active' : ''; ?>" href="<?php echo esc_url( $title['url'] ); ?>"><?php echo esc_html( $title['name'] ); ?></a>
-		<?php endforeach;
+			<?php
+		endforeach;
 		?>
 		</div>
 		<?php
@@ -556,7 +560,7 @@ class WPBDP_Admin_Pages {
 		return add_query_arg(
 			array(
 				'taxonomy'  => $taxonomy,
-				'post_type' => 'wpbdp_listing'
+				'post_type' => 'wpbdp_listing',
 			),
 			'edit-tags.php'
 		);

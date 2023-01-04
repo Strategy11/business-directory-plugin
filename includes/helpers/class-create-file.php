@@ -13,8 +13,8 @@ class WPBDP_Create_File {
 	public $error_message;
 	public $uploads;
 	private $new_file_path;
-	public $chmod_dir = 0755;
-	public $chmod_file = 0644;
+	public $chmod_dir       = 0755;
+	public $chmod_file      = 0644;
 	private $has_permission = false;
 
 	public function __construct( $atts ) {
@@ -102,7 +102,7 @@ class WPBDP_Create_File {
 
 		$next_dir = '';
 		foreach ( $dir_names as $dir ) {
-			$next_dir      .= '/' . $dir;
+			$next_dir     .= '/' . $dir;
 			$needed_dirs[] = $this->uploads['basedir'] . $next_dir;
 		}
 

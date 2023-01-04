@@ -2,7 +2,7 @@
 
 <div class="error" id="exporterror" style="display: none;"><p>
 <?php
-    esc_html_e( 'An unknown error occurred during the export. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.', 'business-directory-plugin' ); ?>
+	esc_html_e( 'An unknown error occurred during the export. Please make sure you have enough free disk space and memory available to PHP. Check your error logs for details.', 'business-directory-plugin' ); ?>
 </p></div>
 
 <div class="step-1">
@@ -190,7 +190,7 @@ echo str_replace(
 </div>
 
 <div class="step-3">
-	<h2><?php _ex( 'Export Complete', 'admin csv-export', 'business-directory-plugin' ) ?></h2>
+	<h2><?php _ex( 'Export Complete', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
 	<p><?php _ex( 'Your export file has been successfully created and it is now ready for download.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
 	<div class="download-link">
 		<a href="" class="button button-primary">
@@ -210,7 +210,7 @@ echo str_replace(
 </div>
 
 <div class="canceled-export">
-	<h2><?php _ex( 'Export Canceled', 'admin csv-export', 'business-directory-plugin' ) ?></h2>
+	<h2><?php _ex( 'Export Canceled', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
 	<p><?php _ex( 'The export has been canceled.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
 	<p><a href="" class="button"><?php _ex( '← Return to CSV Export', 'admin csv-export', 'business-directory-plugin' ); ?></a></p>
 </div>

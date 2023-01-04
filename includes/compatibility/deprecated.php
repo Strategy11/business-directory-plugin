@@ -10,7 +10,7 @@ define( 'WPBUSDIRMAN_TEMPLATES_PATH', WPBDP_PATH . '/includes/compatibility/temp
 function wpbusdirman_the_listing_meta( $excerptorsingle ) {
 	_deprecated_function( __FUNCTION__, '' );
 
-	$html = '';
+	$html   = '';
 	$fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
 
 	foreach ( $fields as &$f ) {
@@ -29,16 +29,17 @@ function wpbusdirman_post_extra_thumbnails() {
 
 	$html = '';
 
-	$listing = WPBDP_Listing::get( get_the_ID() );
+	$listing      = WPBDP_Listing::get( get_the_ID() );
 	$thumbnail_id = $listing->get_thumbnail_id();
-	$images = $listing->get_images();
+	$images       = $listing->get_images();
 
 	if ( $images ) {
 		$html .= '<div class="extrathumbnails">';
 
 		foreach ( $images as $img ) {
-			if ($img->ID == $thumbnail_id)
+			if ( $img->ID == $thumbnail_id ) {
 				continue;
+			}
 
 			$html .= sprintf(
 				'<a class="thickbox" href="%s"><img class="wpbdmthumbs" src="%s" alt="%s" title="%s" border="0" /></a>',
@@ -114,7 +115,7 @@ function wpbusdirman_get_the_business_email( $post_id ) {
 	}
 
 	$author_email = '';
-	$post = get_post( $post_id );
+	$post         = get_post( $post_id );
 	$author_email = trim( get_the_author_meta( 'user_email', (int) $post->post_author ) );
 
 	if ( empty( $author_email ) && ! empty( $email_field_value ) ) {
@@ -195,27 +196,28 @@ function wpbdp_format_currency( $amount, $decimals = 2, $currency = null ) {
 function wpbdp_bar( $parts = array() ) {
 	_deprecated_function( __FUNCTION__, '2.2.1' );
 
-    $parts = wp_parse_args(
-        $parts, array(
-            'links'  => true,
-            'search' => false,
-        )
-    );
+	$parts = wp_parse_args(
+		$parts,
+		array(
+			'links'  => true,
+			'search' => false,
+		)
+	);
 
-    $html  = '<div class="wpbdp-bar cf">';
-    $html .= apply_filters( 'wpbdp_bar_before', '', $parts );
+	$html  = '<div class="wpbdp-bar cf">';
+	$html .= apply_filters( 'wpbdp_bar_before', '', $parts );
 
-    if ( $parts['links'] ) {
-        $html .= wpbdp_main_links();
-    }
-    if ( $parts['search'] ) {
-        $html .= wpbdp_search_form();
-    }
+	if ( $parts['links'] ) {
+		$html .= wpbdp_main_links();
+	}
+	if ( $parts['search'] ) {
+		$html .= wpbdp_search_form();
+	}
 
-    $html .= apply_filters( 'wpbdp_bar_after', '', $parts );
-    $html .= '</div>';
+	$html .= apply_filters( 'wpbdp_bar_after', '', $parts );
+	$html .= '</div>';
 
-    return $html;
+	return $html;
 }
 
 /**
@@ -227,5 +229,5 @@ function wpbdp_bar( $parts = array() ) {
  */
 function wpbdp_rrmdir( $path ) {
 	_deprecated_function( __FUNCTION__, '3.6.10', 'WPBDP_FS::rmdir' );
-    return WPBDP_FS::rmdir( $path );
+	return WPBDP_FS::rmdir( $path );
 }

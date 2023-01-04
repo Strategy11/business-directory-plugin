@@ -28,15 +28,15 @@
 
 // Do not allow direct access to this file.
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 if ( ! defined( 'WPBDP_PLUGIN_FILE' ) ) {
-    define( 'WPBDP_PLUGIN_FILE', __FILE__ );
+	define( 'WPBDP_PLUGIN_FILE', __FILE__ );
 }
 
 if ( ! class_exists( 'WPBDP' ) ) {
-    require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/class-wpbdp.php';
+	require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/class-wpbdp.php';
 }
 
 /**
@@ -45,13 +45,13 @@ if ( ! class_exists( 'WPBDP' ) ) {
  * @return WPBDP
  */
 function wpbdp() {
-    static $instance = null;
+	static $instance = null;
 
-    if ( is_null( $instance ) ) {
-        $instance = new WPBDP();
-    }
+	if ( is_null( $instance ) ) {
+		$instance = new WPBDP();
+	}
 
-    return $instance;
+	return $instance;
 }
 
 

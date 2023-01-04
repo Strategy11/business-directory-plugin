@@ -16,8 +16,8 @@ class WPBDP_Show_Modules {
 
 		if ( isset( $addons['error'] ) ) {
 			include_once dirname( __FILE__ ) . '/class-modules-api.php';
-			$api    = new WPBDP_Modules_API();
-			$errors = $api->get_error_from_response( $addons );
+			$api          = new WPBDP_Modules_API();
+			$errors       = $api->get_error_from_response( $addons );
 			$license_type = isset( $addons['error']['type'] ) ? $addons['error']['type'] : '';
 			unset( $addons['error'] );
 		}

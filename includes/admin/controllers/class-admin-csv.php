@@ -30,7 +30,7 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 		ob_start();
 		call_user_func( array( $this->{$current_tab}, 'dispatch' ) );
 		$output = ob_get_clean();
-		$args = array(
+		$args   = array(
 			'tabbed_title' => true,
 			'titles'       => array(
 				'csv_import' => array(
@@ -39,7 +39,7 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 				),
 				'csv_export' => array(
 					'url'  => esc_url( admin_url( 'admin.php?page=wpbdp_admin_csv&tab=csv_export' ) ),
-					'name' => __( 'Export', 'business-directory-plugin' )
+					'name' => __( 'Export', 'business-directory-plugin' ),
 				),
 			),
 			'current_tab'  => $current_tab,

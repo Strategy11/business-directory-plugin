@@ -7,16 +7,16 @@
 
 ?>
 <div id="wpbdp-manage-listings-page" class="wpbdp-manage-listings-page businessdirectory-manage-listings businessdirectory wpbdp-grid wpbdp-page">
-    <?php
+	<?php
 	if ( $query->have_posts() ) :
 		?>
-        <p><?php esc_html_e( 'Your current listings are shown below.', 'business-directory-plugin' ); ?></p>
-        <?php
+		<p><?php esc_html_e( 'Your current listings are shown below.', 'business-directory-plugin' ); ?></p>
+		<?php
 		/** @phpstan-ignore-next-line */
 		while ( $query->have_posts() ) {
-            $query->the_post();
+			$query->the_post();
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo WPBDP_Listing_Display_Helper::excerpt();
+			echo WPBDP_Listing_Display_Helper::excerpt();
 		}
 
 		/** @phpstan-ignore-next-line */

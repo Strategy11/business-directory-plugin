@@ -4,15 +4,17 @@
 
 <?php if ( $has_recurring ) : ?>
 <div class="wpbdp-msg error">
-<?php esc_html_e( 'Your listing is associated to a recurring payment. If you don\'t cancel the recurring payment before deleting the listing, you might be charged for additional periods even though your listing won\'t be available.', 'business-directory-plugin' ); ?>
+	<?php esc_html_e( 'Your listing is associated to a recurring payment. If you don\'t cancel the recurring payment before deleting the listing, you might be charged for additional periods even though your listing won\'t be available.', 'business-directory-plugin' ); ?>
 <br />
-<b><?php
-echo str_replace(
-	'<a>',
-	'<a href="' . esc_url( add_query_arg( 'wpbdp_view', 'manage_recurring', wpbdp_get_page_link( 'main' ) ) ) . '">',
-	_x( 'Please visit <a>Manage recurring payments</a> to review your current recurring payments.', 'delete listing', 'business-directory-plugin' )
-);
-?></b>
+<b>
+	<?php
+	echo str_replace(
+		'<a>',
+		'<a href="' . esc_url( add_query_arg( 'wpbdp_view', 'manage_recurring', wpbdp_get_page_link( 'main' ) ) ) . '">',
+		_x( 'Please visit <a>Manage recurring payments</a> to review your current recurring payments.', 'delete listing', 'business-directory-plugin' )
+	);
+	?>
+	</b>
 </div>
 <?php endif; ?>
 
