@@ -110,6 +110,10 @@
 			&:focus {
 				box-shadow: none;
 			}
+
+			img {
+				filter: brightness(0) saturate(100%) invert(26%) sepia(47%) saturate(298%) hue-rotate(171deg) brightness(92%) contrast(89%);
+			}
 		}
 
 		.active {
@@ -118,6 +122,10 @@
 
 			.wpbdp-admin-icon {
 				background-color: @link-active;
+			}
+
+			img {
+				filter: brightness(0) saturate(100%) invert(58%) sepia(10%) saturate(1197%) hue-rotate(183deg) brightness(97%) contrast(87%);
 			}
 		}
 
@@ -130,7 +138,7 @@
 .wpbdp-nav-item-icon {
 	margin: 0 10px;
 	display: inline-block;
-	opacity: .7;
+	opacity: 0.8;
 	width: 24px;
 	height: 24px;
 }
