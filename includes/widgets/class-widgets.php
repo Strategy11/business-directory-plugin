@@ -4,11 +4,11 @@
  */
 class WPBDP__Widgets {
 
-    public function __construct() {
-        add_action( 'widgets_init', array( $this, 'register_widgets' ) );
-    }
+	public function __construct() {
+		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
+	}
 
-    public function register_widgets() {
+	public function register_widgets() {
 		include_once WPBDP_INC . 'widgets/widget-featured-listings.php';
 		register_widget( 'WPBDP_FeaturedListingsWidget' );
 
@@ -20,6 +20,6 @@ class WPBDP__Widgets {
 
 		include_once WPBDP_INC . 'widgets/widget-search.php';
 		register_widget( 'WPBDP_SearchWidget' );
-    }
+	}
 
 }

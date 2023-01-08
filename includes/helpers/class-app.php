@@ -185,7 +185,12 @@ class WPBDP_App_Helper {
 		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
 
 		if ( empty( $post_type ) && ! $is_tax ) {
-			$post_id   = wpbdp_get_var( array( 'param' => 'post', 'sanitize' => 'absint' ) );
+			$post_id   = wpbdp_get_var(
+				array(
+					'param'    => 'post',
+					'sanitize' => 'absint',
+				)
+			);
 			$post      = get_post( $post_id );
 			$post_type = $post ? $post->post_type : '';
 		}
@@ -207,7 +212,7 @@ class WPBDP_App_Helper {
 			'nonce_name'   => '_wpnonce',
 			'nonce'        => '',
 		);
-		$atts = array_merge( $defaults, $atts );
+		$atts     = array_merge( $defaults, $atts );
 
 		$permission_error = self::permission_nonce_error( $permission, $atts );
 		if ( $permission_error !== false ) {
@@ -272,7 +277,7 @@ class WPBDP_App_Helper {
 				$icon = explode( ' ', $icon );
 				$icon = reset( $icon );
 			}
-			$icon  = '<svg class="wpbdpsvg' . esc_attr( $class ) . '"' . $html_atts . '>
+			$icon = '<svg class="wpbdpsvg' . esc_attr( $class ) . '"' . $html_atts . '>
 				<use xlink:href="#' . esc_attr( $icon ) . '" />
 			</svg>';
 		}
@@ -342,7 +347,7 @@ class WPBDP_App_Helper {
 			);
 		}
 
-		$defaults   = array(
+		$defaults = array(
 			'class' => false,
 			'round' => false,
 			'size'  => 18,
@@ -463,14 +468,14 @@ class WPBDP_App_Helper {
 				'title' => true,
 			),
 			'rect'       => array(
-				'class'  => true,
-				'fill'   => true,
-				'height' => true,
-				'width'  => true,
-				'x'      => true,
-				'y'      => true,
-				'rx'     => true,
-				'stroke' => true,
+				'class'          => true,
+				'fill'           => true,
+				'height'         => true,
+				'width'          => true,
+				'x'              => true,
+				'y'              => true,
+				'rx'             => true,
+				'stroke'         => true,
 				'stroke-opacity' => true,
 				'stroke-width'   => true,
 			),
@@ -499,7 +504,7 @@ class WPBDP_App_Helper {
 				'fill'    => true,
 			),
 			'use'        => array(
-				'href'   => true,
+				'href'       => true,
 				'xlink:href' => true,
 			),
 			'ul'         => $allow_class,

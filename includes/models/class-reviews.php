@@ -124,7 +124,7 @@ class WPBDP_Reviews {
 		$entries = $this->calculate_entries( $entries );
 		$name    = $user->first_name;
 
-		$title   = sprintf(
+		$title = sprintf(
 			/* translators: %s: User name, %2$d: number of entries */
 			esc_html__( 'Congratulations %1$s! You have collected %2$d listings.', 'business-directory-plugin' ),
 			esc_html( $name ),
@@ -152,7 +152,7 @@ class WPBDP_Reviews {
 			wp_die();
 		}
 
-		$dismissed           = wpbdp_get_var(
+		$dismissed = wpbdp_get_var(
 			array(
 				'param'   => 'link',
 				'default' => 'no',

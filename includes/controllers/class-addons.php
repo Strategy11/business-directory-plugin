@@ -93,7 +93,13 @@ class WPBDP_Addons_Controller {
 	protected static function install_addon() {
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-		$download_url = wpbdp_get_var( array( 'param' => 'plugin', 'sanitize' => 'esc_url_raw' ), 'post' );
+		$download_url = wpbdp_get_var(
+			array(
+				'param'    => 'plugin',
+				'sanitize' => 'esc_url_raw',
+			),
+			'post'
+		);
 
 		// Create the plugin upgrader with our custom skin.
 		require_once WPBDP_INC . 'models/class-installer-skin.php';
@@ -124,7 +130,13 @@ class WPBDP_Addons_Controller {
 		global $hook_suffix;
 		set_current_screen();
 
-		$plugin = wpbdp_get_var( array( 'param' => 'plugin', 'sanitize' => 'sanitize_text_field' ), 'post' );
+		$plugin = wpbdp_get_var(
+			array(
+				'param'    => 'plugin',
+				'sanitize' => 'sanitize_text_field',
+			),
+			'post'
+		);
 		self::maybe_activate_addon( $plugin );
 
 		// Send back a response.

@@ -1,1 +1,1 @@
-<?php echo $payment_page; ?>
+<?php echo $payment_page;

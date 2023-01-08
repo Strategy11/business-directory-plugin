@@ -7,10 +7,10 @@
 	<div id="wpbusdirmancats">
 		<div style="clear:both;"></div>
 		<ul>
-            <?php
+			<?php
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            print wpbusdirman_post_list_categories();
-            ?>
+			print wpbusdirman_post_list_categories();
+			?>
 		</ul>
 	</div>
 	<br style="clear: both;" />

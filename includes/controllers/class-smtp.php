@@ -308,9 +308,9 @@ class WPBDP_SMTP_Controller {
 		$step['plugin'] = $this->output_data['pro_plugin_installed'] ? $this->config['pro_plugin'] : $this->config['lite_plugin'];
 
 		if ( $this->output_data['plugin_activated'] ) {
-			$step['icon']          = 'wpbdp-step-complete-icon';
-			$step['button_text']   = __( 'WP Mail SMTP Installed & Activated', 'business-directory-plugin' );
-			$step['button_class']  = 'grey disabled';
+			$step['icon']         = 'wpbdp-step-complete-icon';
+			$step['button_text']  = __( 'WP Mail SMTP Installed & Activated', 'business-directory-plugin' );
+			$step['button_class'] = 'grey disabled';
 		} else {
 			$step['button_text']   = __( 'Activate WP Mail SMTP', 'business-directory-plugin' );
 			$step['button_class']  = 'wpbdp-activate-addon';

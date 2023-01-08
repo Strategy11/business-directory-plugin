@@ -9,99 +9,99 @@
  */
 class WPBDP__Query_Integration {
 
-    public function __construct() {
-        add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+	public function __construct() {
+		add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
 
-        add_action( 'parse_query', array( $this, 'set_query_flags' ), 50 );
-        add_action( 'template_redirect', array( $this, 'set_404_flag' ), 0 );
+		add_action( 'parse_query', array( $this, 'set_query_flags' ), 50 );
+		add_action( 'template_redirect', array( $this, 'set_404_flag' ), 0 );
 
-        add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 10 );
-        add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
+		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 10 );
+		add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
 
-        // Core sorting options.
-        add_filter( 'wpbdp_listing_sort_options', array( &$this, 'sortbar_sort_options' ) );
-        add_filter( 'wpbdp_query_fields', array( &$this, 'sortbar_query_fields' ) );
-        add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
-    }
+		// Core sorting options.
+		add_filter( 'wpbdp_listing_sort_options', array( &$this, 'sortbar_sort_options' ) );
+		add_filter( 'wpbdp_query_fields', array( &$this, 'sortbar_query_fields' ) );
+		add_filter( 'wpbdp_query_orderby', array( &$this, 'sortbar_orderby' ) );
+	}
 
-    public function add_query_vars( $vars ) {
-        array_push( $vars, 'listing' );
-        array_push( $vars, 'category_id' ); // TODO: are we really using this var?
-        array_push( $vars, 'category' );
-        array_push( $vars, 'wpbdpx' );
-        array_push( $vars, 'wpbdp-listener' );
-        array_push( $vars, 'region' );
-        array_push( $vars, 'wpbdp_view' );
-        array_push( $vars, 'listing_slug' );
+	public function add_query_vars( $vars ) {
+		array_push( $vars, 'listing' );
+		array_push( $vars, 'category_id' ); // TODO: are we really using this var?
+		array_push( $vars, 'category' );
+		array_push( $vars, 'wpbdpx' );
+		array_push( $vars, 'wpbdp-listener' );
+		array_push( $vars, 'region' );
+		array_push( $vars, 'wpbdp_view' );
+		array_push( $vars, 'listing_slug' );
 
-        if ( wpbdp_get_option( 'disable-cpt' ) ) {
-            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-directory-slug' ) );
-            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-category-slug' ) );
-            array_push( $vars, '_' . wpbdp_get_option( 'permalinks-tags-slug' ) );
-        }
+		if ( wpbdp_get_option( 'disable-cpt' ) ) {
+			array_push( $vars, '_' . wpbdp_get_option( 'permalinks-directory-slug' ) );
+			array_push( $vars, '_' . wpbdp_get_option( 'permalinks-category-slug' ) );
+			array_push( $vars, '_' . wpbdp_get_option( 'permalinks-tags-slug' ) );
+		}
 
-        return $vars;
-    }
+		return $vars;
+	}
 
-    public function set_query_flags( $query ) {
-        if ( is_admin() ) {
-            return;
-        }
+	public function set_query_flags( $query ) {
+		if ( is_admin() ) {
+			return;
+		}
 
-        $main_query = ( ! $query->is_main_query() && isset( $query->query_vars['wpbdp_main_query'] ) && $query->query_vars['wpbdp_main_query'] ) || $query->is_main_query();
+		$main_query = ( ! $query->is_main_query() && isset( $query->query_vars['wpbdp_main_query'] ) && $query->query_vars['wpbdp_main_query'] ) || $query->is_main_query();
 
-        if ( ! $main_query ) {
-            return;
-        }
+		if ( ! $main_query ) {
+			return;
+		}
 
-        $this->set_defaults_on_query( $query );
+		$this->set_defaults_on_query( $query );
 
-        // Is this a listing query?
-        // FIXME: this results in false positives frequently.
-        $types = ( ! empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
-        if ( $query->is_single && in_array( WPBDP_POST_TYPE, $types ) && count( $types ) < 2 ) {
-            $query->wpbdp_is_listing = true;
-            $query->wpbdp_view       = 'show_listing';
-        }
+		// Is this a listing query?
+		// FIXME: this results in false positives frequently.
+		$types = ( ! empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
+		if ( $query->is_single && in_array( WPBDP_POST_TYPE, $types ) && count( $types ) < 2 ) {
+			$query->wpbdp_is_listing = true;
+			$query->wpbdp_view       = 'show_listing';
+		}
 
-        // Is this a category query?
-        $category_slug = wpbdp_get_option( 'permalinks-category-slug' );
-        if ( ! empty( $query->query_vars[ WPBDP_CATEGORY_TAX ] ) ) {
-            $query->wpbdp_is_category = true;
-            $query->wpbdp_view        = 'show_category';
-        }
+		// Is this a category query?
+		$category_slug = wpbdp_get_option( 'permalinks-category-slug' );
+		if ( ! empty( $query->query_vars[ WPBDP_CATEGORY_TAX ] ) ) {
+			$query->wpbdp_is_category = true;
+			$query->wpbdp_view        = 'show_category';
+		}
 
-        $tags_slug = wpbdp_get_option( 'permalinks-tags-slug' );
-        if ( ! empty( $query->query_vars[ WPBDP_TAGS_TAX ] ) ) {
-            $query->wpbdp_is_tag = true;
-            $query->wpbdp_view   = 'show_tag';
-        }
+		$tags_slug = wpbdp_get_option( 'permalinks-tags-slug' );
+		if ( ! empty( $query->query_vars[ WPBDP_TAGS_TAX ] ) ) {
+			$query->wpbdp_is_tag = true;
+			$query->wpbdp_view   = 'show_tag';
+		}
 
-        if ( $this->is_main_page( $query ) ) {
-            $query->wpbdp_is_main_page = true;
-        }
+		if ( $this->is_main_page( $query ) ) {
+			$query->wpbdp_is_main_page = true;
+		}
 
-        if ( ! $query->wpbdp_view ) {
-            if ( $query->get( 'wpbdp_view' ) ) {
-                $query->wpbdp_view = $query->get( 'wpbdp_view' );
-            } elseif ( $query->wpbdp_is_main_page ) {
-                $query->wpbdp_view = 'main';
-            }
-        }
+		if ( ! $query->wpbdp_view ) {
+			if ( $query->get( 'wpbdp_view' ) ) {
+				$query->wpbdp_view = $query->get( 'wpbdp_view' );
+			} elseif ( $query->wpbdp_is_main_page ) {
+				$query->wpbdp_view = 'main';
+			}
+		}
 
-        $query->wpbdp_our_query = ( $query->wpbdp_is_listing || $query->wpbdp_is_category || $query->wpbdp_is_tag );
+		$query->wpbdp_our_query = ( $query->wpbdp_is_listing || $query->wpbdp_is_category || $query->wpbdp_is_tag );
 
-        if ( ! empty( $query->query_vars['wpbdp_main_query'] ) ) {
-            $query->wpbdp_our_query = true;
-        }
+		if ( ! empty( $query->query_vars['wpbdp_main_query'] ) ) {
+			$query->wpbdp_our_query = true;
+		}
 
-        // Normalize view name.
-        if ( ! empty( $query->wpbdp_view ) ) {
-            $query->wpbdp_view = WPBDP_Utils::normalize( $query->wpbdp_view );
-        }
+		// Normalize view name.
+		if ( ! empty( $query->wpbdp_view ) ) {
+			$query->wpbdp_view = WPBDP_Utils::normalize( $query->wpbdp_view );
+		}
 
-        do_action_ref_array( 'wpbdp_query_flags', array( $query ) );
-    }
+		do_action_ref_array( 'wpbdp_query_flags', array( $query ) );
+	}
 
 	/**
 	 * @since 6.2.7
@@ -117,89 +117,89 @@ class WPBDP__Query_Integration {
 		$query->wpbdp_in_the_loop  = false;
 	}
 
-    /**
-     * Uses the current query and the main query objects to determine if the current
-     * request is for plugin's main page.
-     *
-     * FIXME: Can we make this more robust?
-     *
-     * @since 5.1.8
-     */
-    private function is_main_page( $query ) {
-        global $wp_query;
+	/**
+	 * Uses the current query and the main query objects to determine if the current
+	 * request is for plugin's main page.
+	 *
+	 * FIXME: Can we make this more robust?
+	 *
+	 * @since 5.1.8
+	 */
+	private function is_main_page( $query ) {
+		global $wp_query;
 
-        if ( ! $wp_query->is_page ) {
-            return false;
-        }
+		if ( ! $wp_query->is_page ) {
+			return false;
+		}
 
-        $plugin_page_ids = array_map( 'absint', wpbdp_get_page_ids() );
+		$plugin_page_ids = array_map( 'absint', wpbdp_get_page_ids() );
 
-        if ( in_array( (int) $wp_query->get_queried_object_id(), $plugin_page_ids, true ) ) {
-            return true;
-        }
+		if ( in_array( (int) $wp_query->get_queried_object_id(), $plugin_page_ids, true ) ) {
+			return true;
+		}
 
-        if ( in_array( (int) $query->get_queried_object_id(), $plugin_page_ids, true ) ) {
-            return true;
-        }
+		if ( in_array( (int) $query->get_queried_object_id(), $plugin_page_ids, true ) ) {
+			return true;
+		}
 
-        if ( in_array( (int) $query->get( 'page_id' ), $plugin_page_ids, true ) ) {
-            return true;
-        }
+		if ( in_array( (int) $query->get( 'page_id' ), $plugin_page_ids, true ) ) {
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public function set_404_flag() {
-        global $wp_query;
+	public function set_404_flag() {
+		global $wp_query;
 
-        if ( ! $wp_query->wpbdp_our_query ) {
-            return;
-        }
+		if ( ! $wp_query->wpbdp_our_query ) {
+			return;
+		}
 
-        if ( 'show_listing' == $wp_query->wpbdp_view && empty( $wp_query->posts ) ) {
-            $wp_query->is_404 = true;
-        }
-    }
+		if ( 'show_listing' == $wp_query->wpbdp_view && empty( $wp_query->posts ) ) {
+			$wp_query->is_404 = true;
+		}
+	}
 
 	/**
 	 * @param WP_Query $query
 	 */
-    public function pre_get_posts( &$query ) {
-        $this->verify_unique_listing_url( $query );
-        if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
-            return;
-        }
+	public function pre_get_posts( &$query ) {
+		$this->verify_unique_listing_url( $query );
+		if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
+			return;
+		}
 
 		/** @var WP_Query $query */
-        if ( ! $query->get( 'posts_per_page' ) ) {
-            $query->set( 'posts_per_page', wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 );
-        }
+		if ( ! $query->get( 'posts_per_page' ) ) {
+			$query->set( 'posts_per_page', wpbdp_get_option( 'listings-per-page' ) > 0 ? wpbdp_get_option( 'listings-per-page' ) : -1 );
+		}
 
-        if ( ! $query->get( 'orderby' ) ) {
-            $query->set( 'orderby', wpbdp_get_option( 'listings-order-by', 'title' ) );
-        }
+		if ( ! $query->get( 'orderby' ) ) {
+			$query->set( 'orderby', wpbdp_get_option( 'listings-order-by', 'title' ) );
+		}
 
-        if ( ! $query->get( 'order' ) ) {
-            $query->set( 'order', wpbdp_get_option( 'listings-sort', 'ASC' ) );
-        }
+		if ( ! $query->get( 'order' ) ) {
+			$query->set( 'order', wpbdp_get_option( 'listings-sort', 'ASC' ) );
+		}
 
-        if ( $query->wpbdp_is_category || $query->wpbdp_is_tag ) {
-            $post_type = $query->get( 'post_type' );
-            $current_post_types = $post_type ? $post_type : array();
+		if ( $query->wpbdp_is_category || $query->wpbdp_is_tag ) {
+			$post_type          = $query->get( 'post_type' );
+			$current_post_types = $post_type ? $post_type : array();
 
-            if ( ! is_array( $current_post_types ) ) {
-                $current_post_types = array( $current_post_types );
-            }
+			if ( ! is_array( $current_post_types ) ) {
+				$current_post_types = array( $current_post_types );
+			}
 
-            if ( ! in_array( WPBDP_POST_TYPE, $current_post_types ) ) {
-                $current_post_types [] = WPBDP_POST_TYPE;
-            }
+			if ( ! in_array( WPBDP_POST_TYPE, $current_post_types ) ) {
+				$current_post_types [] = WPBDP_POST_TYPE;
+			}
 
-            $query->set( 'post_type', $current_post_types );
+			$query->set( 'post_type', $current_post_types );
 		} elseif ( 'show_listing' === $query->wpbdp_view && $query->is_main_query() ) {
 			add_filter( 'posts_results', array( $this, 'check_child_page' ), 10, 2 );
 		}
-    }
+	}
 
 	/**
 	 * If a listing wasn't found, check for a child page instead.
@@ -239,27 +239,27 @@ class WPBDP__Query_Integration {
 	 * @param string[] $pieces
 	 * @param WP_Query $query
 	 */
-    public function posts_clauses( $pieces, $query ) {
-        global $wpdb;
+	public function posts_clauses( $pieces, $query ) {
+		global $wpdb;
 
-        if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
-            return $pieces;
-        }
+		if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
+			return $pieces;
+		}
 
-        $pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
+		$pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
-        // Sticky listings.
-        $is_sticky_query = "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
+		// Sticky listings.
+		$is_sticky_query = "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
 
-        if ( in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
-            $is_sticky_query = '';
-        }
+		if ( in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
+			$is_sticky_query = '';
+		}
 
-        $pieces['fields'] .= $is_sticky_query ? ', ' . $is_sticky_query : '';
-        $order_by          = $query->get( 'orderby' );
-        $order             = $query->get( 'order' );
+		$pieces['fields'] .= $is_sticky_query ? ', ' . $is_sticky_query : '';
+		$order_by          = $query->get( 'orderby' );
+		$order             = $query->get( 'order' );
 
-        switch ( $order_by ) {
+		switch ( $order_by ) {
 			case 'paid':
 			case 'paid-title':
 				$pieces['fields'] .= ", (SELECT fee_price FROM {$wpdb->prefix}wpbdp_listings lp WHERE lp.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_plan_amount";
@@ -278,59 +278,59 @@ class WPBDP__Query_Integration {
 					$pieces['orderby'] = "wpbdp_plan_weight DESC, {$wpdb->posts}." . $next_order . ' ' . $order . ', ' . $pieces['orderby'];
 				}
 
-                break;
-        }
+				break;
+		}
 
-        $pieces['fields']         = apply_filters( 'wpbdp_query_fields', $pieces['fields'] );
-        $pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $is_sticky_query ? 'wpbdp_is_sticky DESC' : '' ) );
-        $pieces['orderby']        = ( $pieces['custom_orderby'] ? $pieces['custom_orderby'] . ', ' : '' ) . $pieces['orderby'];
+		$pieces['fields']         = apply_filters( 'wpbdp_query_fields', $pieces['fields'] );
+		$pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $is_sticky_query ? 'wpbdp_is_sticky DESC' : '' ) );
+		$pieces['orderby']        = ( $pieces['custom_orderby'] ? $pieces['custom_orderby'] . ', ' : '' ) . $pieces['orderby'];
 
-        return $pieces;
-    }
+		return $pieces;
+	}
 
-    // {{ Sort bar.
-    public function sortbar_sort_options( $options ) {
-        $sortbar_fields = wpbdp_sortbar_get_field_options();
-        $sortbar        = wpbdp_get_option( 'listings-sortbar-fields' );
+	// {{ Sort bar.
+	public function sortbar_sort_options( $options ) {
+		$sortbar_fields = wpbdp_sortbar_get_field_options();
+		$sortbar        = wpbdp_get_option( 'listings-sortbar-fields' );
 
-        // Using the default argument for wpbdp_get_option does not work,
-        // because a non-array value may already be stored in the settings array.
-        if ( ! is_array( $sortbar ) ) {
-            $sortbar = array();
-        }
+		// Using the default argument for wpbdp_get_option does not work,
+		// because a non-array value may already be stored in the settings array.
+		if ( ! is_array( $sortbar ) ) {
+			$sortbar = array();
+		}
 
-        foreach ( $sortbar as $field_id ) {
-            if ( ! array_key_exists( $field_id, $sortbar_fields ) ) {
-                continue;
-            }
-            $options[ 'field-' . $field_id ] = array( $sortbar_fields[ $field_id ], '', 'ASC' );
-        }
+		foreach ( $sortbar as $field_id ) {
+			if ( ! array_key_exists( $field_id, $sortbar_fields ) ) {
+				continue;
+			}
+			$options[ 'field-' . $field_id ] = array( $sortbar_fields[ $field_id ], '', 'ASC' );
+		}
 
-        return $options;
-    }
+		return $options;
+	}
 
-    public function sortbar_query_fields( $fields ) {
-        global $wpdb;
+	public function sortbar_query_fields( $fields ) {
+		global $wpdb;
 
-        $sort = wpbdp_get_current_sort_option();
+		$sort = wpbdp_get_current_sort_option();
 
-        if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) ) {
-            return $fields;
-        }
+		if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) ) {
+			return $fields;
+		}
 
-        $sname = str_replace( 'field-', '', $sort->option );
-        $q     = '';
+		$sname = str_replace( 'field-', '', $sort->option );
+		$q     = '';
 
-        switch ( $sname ) {
+		switch ( $sname ) {
 			case 'user_login':
 				$q = "(SELECT user_login FROM {$wpdb->users} WHERE {$wpdb->users}.ID = {$wpdb->posts}.post_author) AS user_login";
-                break;
+				break;
 			case 'user_registered':
 				$q = "(SELECT user_registered FROM {$wpdb->users} WHERE {$wpdb->users}.ID = {$wpdb->posts}.post_author) AS user_registered";
-                break;
+				break;
 			case 'date':
 			case 'modified':
-                break;
+				break;
 			default:
 				$field = wpbdp_get_form_field( $sname );
 
@@ -339,37 +339,37 @@ class WPBDP__Query_Integration {
 				}
 
 				$q = $wpdb->prepare( "(SELECT {$wpdb->postmeta}.meta_value FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s) AS field_{$sname}", '_wpbdp[fields][' . $field->get_id() . ']' );
-                break;
-        }
+				break;
+		}
 
-        if ( $q ) {
-            return $fields . ', ' . $q;
-        } else {
+		if ( $q ) {
+			return $fields . ', ' . $q;
+		} else {
 			return $fields;
-        }
-    }
+		}
+	}
 
-    public function sortbar_orderby( $orderby ) {
-        global $wpdb;
+	public function sortbar_orderby( $orderby ) {
+		global $wpdb;
 
-        $sort = wpbdp_get_current_sort_option();
+		$sort = wpbdp_get_current_sort_option();
 
-        if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) ) {
-            return $orderby;
-        }
+		if ( ! $sort || ! in_array( str_replace( 'field-', '', $sort->option ), wpbdp_get_option( 'listings-sortbar-fields' ) ) ) {
+			return $orderby;
+		}
 
-        $sname = str_replace( 'field-', '', $sort->option );
-        $qn    = '';
+		$sname = str_replace( 'field-', '', $sort->option );
+		$qn    = '';
 
-        switch ( $sname ) {
+		switch ( $sname ) {
 			case 'user_login':
 			case 'user_registered':
 				$qn = $sname;
-                break;
+				break;
 			case 'date':
 			case 'modified':
 				$qn = "{$wpdb->posts}.post_{$sname}";
-                break;
+				break;
 			default:
 				$field = wpbdp_get_form_field( $sname );
 
@@ -393,48 +393,48 @@ class WPBDP__Query_Integration {
 					$qn .= ' +0';
 				}
 
-                break;
-        }
+				break;
+		}
 
-        if ( $qn && $qn !== $orderby ) {
+		if ( $qn && $qn !== $orderby ) {
 			$orderby = $orderby . ( $orderby ? ', ' : '' ) . $qn . ' ' . $sort->order;
-        }
+		}
 
 		return $orderby;
-    }
+	}
 
 	/**
 	 * @param WP_Query $query
 	 */
-    private function verify_unique_listing_url( &$query ) {
-        if ( ! wpbdp_get_option( 'permalinks-no-id' ) && ! empty( $query->query['listing_slug'] ) ) {
-            $wpbdp_404_query = false;
-            if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
-                if ( 'show_listing' == $query->wpbdp_view ) {
-                    if ( $query->query['listing_slug'] !== get_post_field( 'post_name', $query->query['p'] ) ) {
-                        unset( $query->query['p'] );
-                        unset( $query->query['post_type'] );
-                        $wpbdp_404_query = true;
-                    }
-                }
-            }
+	private function verify_unique_listing_url( &$query ) {
+		if ( ! wpbdp_get_option( 'permalinks-no-id' ) && ! empty( $query->query['listing_slug'] ) ) {
+			$wpbdp_404_query = false;
+			if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
+				if ( 'show_listing' == $query->wpbdp_view ) {
+					if ( $query->query['listing_slug'] !== get_post_field( 'post_name', $query->query['p'] ) ) {
+						unset( $query->query['p'] );
+						unset( $query->query['post_type'] );
+						$wpbdp_404_query = true;
+					}
+				}
+			}
 
-            $dir_slug = '_' . wpbdp_get_option( 'permalinks-directory-slug' );
+			$dir_slug = '_' . wpbdp_get_option( 'permalinks-directory-slug' );
 
 			if ( 'main' === $query->wpbdp_view && ! empty( $query->query[ $dir_slug ] ) ) {
 				if ( $query->query['listing_slug'] !== get_post_field( 'post_name', $query->query[ $dir_slug ] ) ) {
 					unset( $query->query['page_id'] );
 					unset( $query->query[ $dir_slug ] );
-                    $wpbdp_404_query = true;
-                }
-            }
+					$wpbdp_404_query = true;
+				}
+			}
 
-            if ( $wpbdp_404_query ) {
-                $query->query( $query->query );
-                $query->set_404();
+			if ( $wpbdp_404_query ) {
+				$query->query( $query->query );
+				$query->set_404();
 				status_header( 404 );
-            }
-        }
-    }
+			}
+		}
+	}
 }
 

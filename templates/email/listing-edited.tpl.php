@@ -5,7 +5,7 @@
  * @package BDP/Templates/Email/Listing Edited
  */
 
-    echo esc_attr_x( 'A listing in the directory has been edited recently. Listing details can be found below.', 'emails', 'business-directory-plugin' );
+	echo esc_attr_x( 'A listing in the directory has been edited recently. Listing details can be found below.', 'emails', 'business-directory-plugin' );
 ?>
 
 ----
@@ -23,7 +23,7 @@
 <?php
 $categories = array();
 foreach ( $listing->get_categories() as $category ) :
-    $categories[] = $category->name;
+	$categories[] = $category->name;
 endforeach;
 ?>
 <?php echo esc_attr( _n( 'Category', 'Categories', count( $listing->get_categories() ), 'business-directory-plugin' ) ); ?>: <?php echo esc_attr( implode( ' / ', $categories ) ); ?>

@@ -1,6 +1,6 @@
 <?php
 
-include_once 'class-show-category.php';
+require_once 'class-show-category.php';
 
 class WPBDP__Views__Show_Tag extends WPBDP__Views__Show_Category {
 

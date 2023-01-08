@@ -8,7 +8,7 @@
 
 <div id="<?php echo esc_attr( $listing_css_id ); ?>" class="<?php echo esc_attr( $listing_css_class ); ?>">
 	<?php wpbdp_x_part( 'parts/listing-title' ); ?>
-    <?php
+	<?php
 	wpbdp_x_part(
 		'parts/listing-buttons',
 		array(

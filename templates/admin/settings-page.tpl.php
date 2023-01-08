@@ -1,14 +1,14 @@
 <?php
-$original_uri = wpbdp_get_server_value( 'REQUEST_URI' );
+$original_uri           = wpbdp_get_server_value( 'REQUEST_URI' );
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'tab', 'subtab' ) );
 
 WPBDP_Admin_Pages::show_tabs(
-    array(
+	array(
 		'title'      => __( 'Directory Settings', 'business-directory-plugin' ),
 		'echo'       => true,
 		'tabs'       => $tabs,
 		'active_tab' => $active_tab,
-    )
+	)
 );
 
 $this_tab   = isset( $tabs[ $active_tab ] ) ? $tabs[ $active_tab ] : $active_tab;
