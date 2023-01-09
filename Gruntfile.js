@@ -312,6 +312,7 @@ module.exports = function( grunt ) {
 
   
   // Themes
+  grunt.wpbdp.registerModule({path: './themes/default', less: ['assets/*.css'], js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/business-card', less: ['assets/*.css'], js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/elegant-business', less: ['assets/*.css'], js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/modern-business', less: ['assets/*.css'], js: [], i18n: true});

@@ -1,6 +1,6 @@
 .wpbdp-listing .listing-title {
 	border: none;
-	border-bottom: 1px solid #044F8D;
+	border-bottom: 1px solid #044f8d;
 	font-size: 115%;
 	margin-bottom: 8px;
 	font-weight: bold;
@@ -57,5 +57,5 @@
 }
 
 .wpbdp-view-show_listing h3 {
-    font-size: 28px;
+	font-size: 28px;
 }
