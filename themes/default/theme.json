@@ -7,7 +7,7 @@
     "author_url": "https://businessdirectoryplugin.com",
     "requires": "4.0",
     "assets": {
-        "css": [ "styles.css" ],
+        "css": [ "styles.min.css" ],
         "js": []
     },
     "suggested_fields": [ "address", "zip", "phone", "website" ]
