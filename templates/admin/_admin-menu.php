@@ -5,11 +5,8 @@
 			'title' => $title,
 		)
 	);
-
-	require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
-	require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
-	$wp_filesystem = new WP_Filesystem_Direct( null );
 	?>
+
 	<ul class="wpbdp-nav-items">
 		<?php
 		foreach ( $tabs as $tab_id => $tab ) :
@@ -32,14 +29,12 @@
 					<span class="wpbdp-nav-item-icon <?php echo esc_attr( ( strpos( $tab['icon'], ' ' ) === false ? 'wpbdp-admin-icon-' : '' ) . $tab['icon'] ); ?>">
 						<?php
 						if ( ! empty( $tab['icon_url'] ) ) {
-							$img = '';
-							if ( ini_get( 'allow_url_fopen' ) ) {
-								echo $img = $wp_filesystem->get_contents( $tab['icon_url'] );
-							}
-							if ( ! $img ) {
-								echo '<img src="' . esc_url( $tab['icon_url'] ) . '" alt="' . esc_attr( $tab['icon'] ) . '" />';
-							}
+							echo '<img src="' . esc_url( $tab['icon_url'] ) . '" alt="' . esc_attr( $tab['icon'] ) . '" />';
 						} elseif ( strpos( $tab['icon'], ' ' ) === false ) {
+							require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+							require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+							$wp_filesystem = new WP_Filesystem_Direct( null );
+
 							echo $wp_filesystem->get_contents( esc_attr( $tab['icon'] ) );
 						}
 						?>
