@@ -14,7 +14,7 @@
 			$class_name .= ' show-listing-title';
 		}
 	?>
-	<div class="<?php echo esc_attr( 'listing-title' . $class_name ); ?>">
+	<div class="<?php echo esc_attr( $class_name ); ?>">
 		<<?php echo esc_attr( $title_type ); ?>><?php echo esc_html( $title ); ?></<?php echo esc_attr( $title_type ); ?>>
 <?php endif; ?>
 
