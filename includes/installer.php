@@ -91,7 +91,7 @@ class WPBDP_Installer {
             shortname varchar(255) NOT NULL DEFAULT '',
             tag varchar(255) NOT NULL DEFAULT '',
             KEY field_type (field_type)
-        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;";
 
 		$schema['plans'] = "CREATE TABLE {$wpdb->prefix}wpbdp_plans (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
@@ -109,7 +109,7 @@ class WPBDP_Installer {
             description TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             extra_data longblob NULL,
             tag varchar(255) NOT NULL DEFAULT ''
-        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;";
 
 		$schema['payments'] = "CREATE TABLE {$wpdb->prefix}wpbdp_payments (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
@@ -135,7 +135,7 @@ class WPBDP_Installer {
             processed_by varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
             KEY listing_id (listing_id),
             KEY status (status)
-        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;";
 
 		$schema['listings'] = "CREATE TABLE {$wpdb->prefix}wpbdp_listings (
             listing_id bigint(20) PRIMARY KEY,
@@ -150,7 +150,7 @@ class WPBDP_Installer {
             subscription_data longblob NULL,
             listing_status varchar(255) NOT NULL DEFAULT 'unknown',
             flags varchar(255) NOT NULL DEFAULT ''
-        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;";
 
 		$schema['logs'] = "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
@@ -162,7 +162,7 @@ class WPBDP_Installer {
             actor varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             message text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             data longblob NULL
-        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
+        ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;";
 
 		return apply_filters( 'wpbdp_database_schema', $schema );
 	}
