@@ -103,6 +103,10 @@ namespace {
 	// Jetpack.
 	function sharing_display( $text = '', $echo = false ) {
 	}
+
+	// Enfold theme
+	function avia_header_setting( $single_val = false ) {
+	}
 }
 
 namespace WPMailSMTP {

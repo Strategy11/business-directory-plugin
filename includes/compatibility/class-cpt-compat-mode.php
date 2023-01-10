@@ -139,6 +139,7 @@ class WPBDP__CPT_Compat_Mode {
 		} elseif ( function_exists( 'avia_title' ) ) {
 			// Change the main title in Enfold theme.
 			add_filter( 'avf_title_args', array( &$this, 'enfold_title' ), 10, 2 );
+			$this->enfold_maybe_add_single_title();
 		}
 
 		return $title;
@@ -173,5 +174,18 @@ class WPBDP__CPT_Compat_Mode {
 			$args['title'] = $this->page_title;
 		}
 		return $args;
+	}
+
+	/**
+	 * Display the BD-plugin title if Enfold header is disabled.
+	 *
+	 * @since x.x
+	 */
+	public function enfold_maybe_add_single_title() {
+		$header_settings = avia_header_setting();
+
+		if ( $header_settings['header_title_bar'] === 'breadcrumbs_only' || $header_settings['header_title_bar'] === 'hidden_title_bar' ) {
+				add_filter( 'wpbdp_heading_type', '__return_true' );
+		}
 	}
 }
