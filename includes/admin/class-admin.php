@@ -515,16 +515,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$cpt_menu   = 'edit.php?post_type=' . WPBDP_POST_TYPE;
 			$admin_menu = $this->menu_id;
 
-			$current_user = wp_get_current_user();
-			$roles        = $current_user->roles;
-			$role         = ! empty( $roles ) && is_array( $roles ) ? array_shift( $roles ) : '';
-
-			if ( isset( $submenu[ $cpt_menu ] ) && ( isset( $submenu[ $admin_menu ] ) || $role === 'editor' ) ) {
+			if ( isset( $submenu[ $cpt_menu ] ) && isset( $submenu[ $admin_menu ] ) ) {
 				$this->change_menu_name( $submenu[ $cpt_menu ] );
-
-				$submenu[ $admin_menu ] = isset( $submenu[ $admin_menu ] ) ?
-					array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] ) :
-					$submenu[ $cpt_menu ];
+				$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
 			}
 		}
 
