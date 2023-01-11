@@ -515,9 +515,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$cpt_menu   = 'edit.php?post_type=' . WPBDP_POST_TYPE;
 			$admin_menu = $this->menu_id;
 
-			if ( isset( $submenu[ $cpt_menu ] ) && isset( $submenu[ $admin_menu ] ) ) {
+			if ( isset( $submenu[ $cpt_menu ] ) ) {
 				$this->change_menu_name( $submenu[ $cpt_menu ] );
-				$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
+
+				if ( isset( $submenu[ $admin_menu ] ) ) {
+					$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
+					return;
+				}
+
+				$submenu[ $admin_menu ] = $submenu[ $cpt_menu ];
 			}
 		}
 
