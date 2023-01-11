@@ -516,7 +516,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$admin_menu = $this->menu_id;
 
 			$current_user = wp_get_current_user();
-			$roles        = $current_user instanceof WP_User ? $current_user->roles : [];
+			$roles        = $current_user->roles;
 			$role         = ! empty( $roles ) && is_array( $roles ) ? array_shift( $roles ) : '';
 
 			if ( isset( $submenu[ $cpt_menu ] ) && ( isset( $submenu[ $admin_menu ] ) || $role === 'editor' ) ) {
