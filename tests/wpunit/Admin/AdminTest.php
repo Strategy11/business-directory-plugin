@@ -22,22 +22,42 @@ class AdminTest extends WPUnitTestCase {
 	 */
 	protected $tester;
 
-	public function testAdminMenuCombine() {
-		$this->tester->wantToTest( 'Admin Menu Combine' );
+	/**
+	 * WPBDP_Admin instance.
+	 *
+	 * @var \WPBDP_Admin
+	 */
+	private $admin;
 
-		$instance = new WPBDP_Admin();
+	/**
+	 * User id.
+	 *
+	 * @var int
+	 */
+	protected static $user_id;
 
-		$user_id = $factory->user->create(
+	public static function wpSetUpBeforeClass( $factory ) {
+		static::$user_id = $factory->user->create(
 			[
 				'role' => 'administrator',
 			]
 		);
+	}
 
-		wp_set_current_user( $user_id );
-		$instance->admin_menu_combine();
+	public function setUp() : void {
+		parent::setUp();
+
+		$this->admin = new WPBDP_Admin();
+	}
+
+	public function testAdminMenuCombine() {
+		$this->tester->wantToTest( 'Admin Menu Combine' );
+
+		wp_set_current_user( static::$user_id );
+		$this->admin->admin_menu_combine();
 
 		global $submenu;
-		$menu_id = $instance->get_menu_id();
+		$menu_id = $this->admin->get_menu_id();
 
 		$this->assertNotFalse( $submenu[ $menu_id ] );
 	}
@@ -45,12 +65,10 @@ class AdminTest extends WPUnitTestCase {
 	public function testAdminMenuCombineNoUser() {
 		$this->tester->wantToTest( 'Admin Menu Combine No User' );
 
-		$instance = new WPBDP_Admin();
-
-		$instance->admin_menu_combine();
+		$this->admin->admin_menu_combine();
 
 		global $submenu;
-		$menu_id = $instance->get_menu_id();
+		$menu_id = $this->admin->get_menu_id();
 
 		$this->assertFalse( $submenu[ $menu_id ] );
 	}
