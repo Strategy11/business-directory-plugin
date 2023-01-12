@@ -390,6 +390,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		/**
+		 * Get the menu id.
+		 *
+		 * @since 6.0
+		 */
+		public function get_menu_id() {
+			return $this->menu_id;
+		}
+
+		/**
 		 * Get the menu to piece together tabs.
 		 *
 		 * @since 6.0
