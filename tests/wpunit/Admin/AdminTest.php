@@ -36,7 +36,7 @@ class AdminTest extends WPUnitTestCase {
 	 */
 	protected static $user_id;
 
-	public static function set_up_before_class( $factory ) {
+	public static function setUpBeforeClass( $factory ) {
 		self::$user_id = $factory->user->create(
 			[
 				'role' => 'administrator',
@@ -44,12 +44,6 @@ class AdminTest extends WPUnitTestCase {
 		);
 
 		static::$instance = new WPBDP_Admin();
-	}
-
-	public static function tear_down_after_class() {
-		parent::tear_down_after_class();
-
-		static::$instance = null;
 	}
 
 	public function testAdminMenuCombine() {
