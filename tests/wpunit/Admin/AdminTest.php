@@ -57,10 +57,10 @@ class AdminTest extends WPUnitTestCase {
 
 		wp_set_current_user( self::$user_id );
 
-		$this->instance->admin_menu_combine();
+		static::$instance->admin_menu_combine();
 
 		global $submenu;
-		$menu_id = $this->instance->get_menu_id();
+		$menu_id = static::$instance->get_menu_id();
 
 		$this->assertNotFalse( $submenu[ $menu_id ] );
 	}
@@ -68,10 +68,10 @@ class AdminTest extends WPUnitTestCase {
 	public function testAdminMenuCombineNoUser() {
 		$this->tester->wantToTest( 'Admin Menu Combine No User' );
 
-		$this->instance->admin_menu_combine();
+		static::$instance->admin_menu_combine();
 
 		global $submenu;
-		$menu_id = $this->instance->get_menu_id();
+		$menu_id = static::$instance->get_menu_id();
 
 		$this->assertFalse( $submenu[ $menu_id ] );
 	}
