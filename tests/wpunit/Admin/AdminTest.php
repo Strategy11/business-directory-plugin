@@ -36,7 +36,7 @@ class AdminTest extends WPUnitTestCase {
 	 */
 	protected static $user_id;
 
-	public static function setUpBeforeClass( $factory ) {
+	public static function wpSetUpBeforeClass( $factory ) {
 		self::$user_id = $factory->user->create(
 			[
 				'role' => 'administrator',
