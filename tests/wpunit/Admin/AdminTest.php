@@ -30,7 +30,7 @@ class AdminTest extends WPUnitTestCase {
 	private static $admin;
 
 	/**
-	 * User id.
+	 * User ID.
 	 *
 	 * @var int
 	 */
@@ -70,7 +70,7 @@ class AdminTest extends WPUnitTestCase {
 		global $submenu;
 		$submenu   = [];
 
-		// Add WPBDP listing post type to $submen
+		// Add WPBDP listing post type to $submenu.
 		$cpt_menu  = 'edit.php?post_type=' . WPBDP_POST_TYPE;
 		$submenu[$cpt_menu] = [
 			5 => [
