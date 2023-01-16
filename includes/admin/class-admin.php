@@ -31,6 +31,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		private $menu_id                   = 'wpbdp_admin';
 		private $current_controller        = null;
 		private $current_controller_output = '';
+		private $minimum_role              = 'edit_posts';
 
 		private $dropdown_users_args_stack = array();
 
@@ -295,7 +296,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		function admin_menu() {
 			add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ), 20 );
 
-			if ( ! current_user_can( 'manage_categories' ) ) {
+			if ( ! current_user_can( $this->minimum_role ) ) {
 				return;
 			}
 
@@ -304,7 +305,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_menu_page(
 				__( 'Business Directory Admin', 'business-directory-plugin' ),
 				__( 'Directory', 'business-directory-plugin' ),
-				'manage_categories',
+				$this->minimum_role,
 				$menu_id,
 				current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
 				WPBDP__CPT_Integration::menu_icon(),
@@ -327,8 +328,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				'title' => _x( 'Import & Export', 'admin menu', 'business-directory-plugin' ),
 			);
 			$menu['wpbdp-debug-info']       = array(
-				'title'    => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
-				'callback' => array( &$this->debug_page, 'dispatch' ),
+				'title'      => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
+				'callback'   => array( &$this->debug_page, 'dispatch' ),
+				'capability' => $this->minimum_role,
 			);
 
 			$this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
@@ -364,9 +366,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				if ( ! isset( $this->menu[ $menu_item[2] ] ) ) {
 					$new = array(
 						$menu_item[2] => array(
-							'title' => $menu_item[0],
+							'title'      => $menu_item[0],
+							'capability' => $menu_item[1],
 						),
 					);
+
 					// Add in front of the existing nav items.
 					if ( strpos( $menu_item[2], 'post_type' ) ) {
 						$prepend = $prepend + $new;
@@ -435,7 +439,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			remove_submenu_page( $menu_id, 'wpbdp-debug-info' ); // This page isn't used anymore.
 
-			if ( current_user_can( 'administrator' ) ) {
+			if ( current_user_can( $this->minimum_role ) ) {
 				remove_menu_page( 'edit.php?post_type=' . WPBDP_POST_TYPE );
 				remove_submenu_page( $menu_id, 'post-new.php?post_type=wpbdp_listing' );
 			} else {
@@ -524,15 +528,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$cpt_menu   = 'edit.php?post_type=' . WPBDP_POST_TYPE;
 			$admin_menu = $this->menu_id;
 
-			if ( isset( $submenu[ $cpt_menu ] ) ) {
+			if ( isset( $submenu[ $cpt_menu ] ) && isset( $submenu[ $admin_menu ] ) ) {
 				$this->change_menu_name( $submenu[ $cpt_menu ] );
-
-				if ( isset( $submenu[ $admin_menu ] ) ) {
-					$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
-					return;
-				}
-
-				$submenu[ $admin_menu ] = $submenu[ $cpt_menu ];
+				$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
 			}
 		}
 
