@@ -6,8 +6,10 @@
 namespace Admin;
 
 use WPBDP__CPT_Integration;
+use WPBDP_Themes;
 use WPBDP_Admin;
 use WPBDP\Tests\WPUnitTestCase;
+use WPBDP;
 use Codeception\Util\Debug;
 
 /**
@@ -64,16 +66,6 @@ class AdminTest extends WPUnitTestCase {
 		static::$menu_id = static::$admin->get_menu_id();
 	}
 
-	public static function set_up() {
-		parent::set_up();
-
-		global $wp_actions;
-		remove_all_actions( 'init' );
-		remove_all_actions( 'admin_menu' );
-		remove_all_actions( 'admin_head' );
-		$wp_actions = [];
-	}
-
 	public function testMenuExistsAsAdmin() {
 		$this->tester->wantToTest( 'Admin Menu Exists As Admin' );
 		$this->wpbdp_admin_menu_exists( static::$admin_user_id );
@@ -89,20 +81,34 @@ class AdminTest extends WPUnitTestCase {
 		$this->wpbdp_listing_post_type_at_top_level_exists( static::$admin_user_id );
 	}
 
+	public function testCombineListingPostTypeAndWPBDP_Admin() {
+		global $submenu;
+		$original_submenu = $submenu;
+
+		wp_set_current_user( static::$editor_user_id );
+		static::$admin->admin_menu();
+		static::$admin->hide_menu();
+
+		$submenu = $original_submenu;
+	}
+
 	public function testSubmenusExistAsAdmin() {
 		global $submenu;
 		$original_submenu = $submenu;
 
 		wp_set_current_user( static::$admin_user_id );
+		set_current_screen( 'index.php' );
+		$this->assertTrue( is_admin() );
 
-		do_action( 'init' );
-		do_action( 'admin_menu' );
-		do_action( 'admin_head' );
+		$themes = new WPBDP_Themes();
+
+		static::$admin->admin_menu();
+		static::$admin->hide_menu();
 
 		$this->assertEquals( 'wpbdp_settings', $submenu[ static::$menu_id ][2][2] );
 		$this->assertEquals( 'wpbdp_admin_payments', $submenu[ static::$menu_id ][5][2] );
 		$this->assertEquals( 'wpbdp-addons', $submenu[ static::$menu_id ][8][2] );
-		// $this->assertEquals( 'wpbdp-themes', $submenu[ static::$menu_id ] );
+		$this->assertEquals( 'wpbdp-themes', $submenu[ static::$menu_id ][9][2] );
 
 		$submenu = $original_submenu;
 	}
@@ -112,9 +118,8 @@ class AdminTest extends WPUnitTestCase {
 		$original_submenu = $submenu;
 
 		wp_set_current_user( $user_id );
-
-		do_action( 'admin_menu' );
-		do_action( 'admin_head' );
+		static::$admin->admin_menu();
+		static::$admin->hide_menu();
 
 		$this->assertArrayHasKey( static::$menu_id, $submenu );
 
@@ -126,9 +131,5 @@ class AdminTest extends WPUnitTestCase {
 		global $menu;
 
 		wp_set_current_user( $user_id );
-
-		do_action( 'init' );
-		do_action( 'admin_menu' );
-		do_action( 'admin_head' );
 	}
 }
