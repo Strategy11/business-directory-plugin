@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 6.0
-Stable tag: 6.3.1
+Tested up to: 6.1.1
+Stable tag: 6.3.2
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,15 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.2 =
+* Update: Editor role can manage Business Directory Plugin.
+* Update: Editor, Author, and Contributor roles can see a better design now.
+* Fix: The editor role gets two links in the menu and one gives a 404 error.
+* Fix: BD timing out due to images/icons.
+* Fix: Displaying listing titles when a theme disables the single-page title fixed.
+* Fix: The default theme styles aren't minified.
+* Dev/update: All PHP codes are beautified.
+
 = 6.3.1 =
 * Update: The "Add New Listing" button on the backend was redirecting to the front end, but now it remains in the backend.
 * Fix: The Download Premium notice stays dismissed after the click.
