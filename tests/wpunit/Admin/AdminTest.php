@@ -13,7 +13,7 @@ use Codeception\Util\Debug;
 /**
  * Tests for the Admin.
  *
- * @since x.x
+ * @since 6.3.2
  */
 class AdminTest extends WPUnitTestCase {
 

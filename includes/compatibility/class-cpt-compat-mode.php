@@ -179,7 +179,7 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Display the BD-plugin title if Enfold header is disabled.
 	 *
-	 * @since x.x
+	 * @since 6.3.2
 	 */
 	public function enfold_maybe_add_single_title() {
 		$header_settings = avia_header_setting();
