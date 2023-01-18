@@ -1,10 +1,10 @@
 === Business Directory Plugin - Easy Listing Directories for WordPress ===
-Contributors: businessdirectoryplugin
+Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 6.0
-Stable tag: 6.3.1
+Tested up to: 6.1.1
+Stable tag: 6.3.2
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,15 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.2 =
+* Update: Users with the Editor role can manage listings in the admin area.
+* New: The default theme styles are now minified.
+* Fix: Editors, Authors, and Contributors see the navigation sidebar now.
+* Fix: Editors were getting an extra link in the admin menu that led to a 404 page.
+* Fix: On some sites, admin pages were timing out when loading the menu icons.
+* Fix: Listing titles were not always showing in the Enfold theme.
+* Dev/update: All PHP codes are beautified.
+
 = 6.3.1 =
 * Update: The "Add New Listing" button on the backend was redirecting to the front end, but now it remains in the backend.
 * Fix: The Download Premium notice stays dismissed after the click.

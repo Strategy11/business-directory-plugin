@@ -25,7 +25,7 @@ class WPBDP__Themes_Compat {
 	 * Add workarounds that are needed to run some functionality before
 	 * the BD dispatcher.
 	 *
-	 * @since x.x
+	 * @since 6.3.2
 	 */
 	public function add_workarounds_before_dispatch() {
 		$this->add_themes_method( '_before_dispatch' );
@@ -44,7 +44,7 @@ class WPBDP__Themes_Compat {
 	/**
 	 * Add a specific method for themes with fixes.
 	 *
-	 * @since x.x
+	 * @since 6.3.2
 	 *
 	 * @param string $callback_suffix
 	 */
@@ -283,7 +283,7 @@ class WPBDP__Themes_Compat {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.3.2
 	 */
 	public function theme_enfold_before_dispatch() {
 		$this->theme_enfold_maybe_add_single_title();
@@ -303,7 +303,7 @@ class WPBDP__Themes_Compat {
 	/**
 	 * Display the BD-plugin title if Enfold header is disabled.
 	 *
-	 * @since x.x
+	 * @since 6.3.2
 	 */
 	public function theme_enfold_maybe_add_single_title() {
 		$header_settings = avia_header_setting();

@@ -126,7 +126,7 @@ class WPBDP_Listing_Display_Helper {
 		/**
 		 * Filters base variables passed to a template.
 		 *
-		 * @since x.x
+		 * @since 6.3.2
 		 *
 		 * @param array $vars Array of variables passed to a template.
 		 */
