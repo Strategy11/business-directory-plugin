@@ -3,7 +3,7 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 6.1
+Tested up to: 6.1.1
 Stable tag: 6.3.1
 License: GPLv2 or later
 
@@ -214,5 +214,24 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 = 6.2.6 =
 * Fix: Fatal error on category pages when CPT integration was disabled.
 * Fix: Some themes (like Divi) showed repeat content on category pages.
+
+= 6.2.5 =
+* If thumbnails are turned off, and images are showing in a gallery with the listing, then show the thumbnail image there too.
+* Set payment date and time to read only if there's a subscription.
+* On Auth.net checkout page, place exp month and year in same line.
+* Optimize loading time for sites with a lot of users, but no user matching the admin email address for the site.
+* Add new hooks to change image sizes for images from fields: wpbdp_img_width and wpbdp_img_size
+* Fix: Save the payment date if it's changed manually.
+* Fix: Some themes were showing no content for a single listing.
+* Fix: Show the correct category name in Block themes too.
+* Fix: Save the thumbnail and save reordering images from the admin area.
+* Fix: Correctly show validation messages for a required checkbox.
+* Fix: Allow the same value to by used in multiple checkbox fields.
+* Fix: Some sites were getting an error during the database upgrade process.
+* Fix: Show the current variable plan price for logged out users.
+
+= 6.2.4 =
+* Fix: Redirect to the login page from the new listing form when logging in is required.
+* Fix: The listings weren't showing alphabetically in new installations, if the sorting settings hadn't been updated.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
