@@ -5,11 +5,9 @@
 
 namespace Admin;
 
-use WPBDP__CPT_Integration;
 use WPBDP_Themes;
 use WPBDP_Admin;
 use WPBDP\Tests\WPUnitTestCase;
-use WPBDP;
 use Codeception\Util\Debug;
 
 /**
@@ -62,6 +60,7 @@ class AdminTest extends WPUnitTestCase {
 			require_once WPBDP_INC . 'admin/class-admin.php';
 		}
 
+		set_current_screen( 'index.php' );
 		static::$admin = new WPBDP_Admin();
 		static::$menu_id = static::$admin->get_menu_id();
 	}
@@ -81,27 +80,27 @@ class AdminTest extends WPUnitTestCase {
 		$this->wpbdp_listing_post_type_at_top_level_exists( static::$admin_user_id );
 	}
 
+	public function testListingPostTypeDoesNotExistAtTopLevelAsEditor() {
+		$this->tester->wantToTest( 'Listing Post Type Does Not Exist At Top Level As Admin' );
+		$this->wpbdp_listing_post_type_at_top_level_exists( static::$editor_user_id );
+	}
+
+	// Todo:
+	// Find a way to check the custom post type as a top-level menu and write a test for the admin_menu_combine method.
 	public function testCombineListingPostTypeAndWPBDP_Admin() {
-		global $submenu;
-		$original_submenu = $submenu;
-
-		wp_set_current_user( static::$editor_user_id );
-		static::$admin->admin_menu();
-		static::$admin->hide_menu();
-
-		$submenu = $original_submenu;
+		$this->tester->wantToTest( 'Combine Listing Post Type And WPBDP_Admin' );
 	}
 
 	public function testSubmenusExistAsAdmin() {
+		$this->tester->wantToTest( 'Submenus Exist As Admin' );
+
 		global $submenu;
 		$original_submenu = $submenu;
 
 		wp_set_current_user( static::$admin_user_id );
-		set_current_screen( 'index.php' );
 		$this->assertTrue( is_admin() );
 
 		$themes = new WPBDP_Themes();
-
 		static::$admin->admin_menu();
 		static::$admin->hide_menu();
 
@@ -126,10 +125,8 @@ class AdminTest extends WPUnitTestCase {
 		$submenu = $original_submenu;
 	}
 
+	// Todo:
+	// Find a way to check the custom post type as a top-level menu.
 	protected function wpbdp_listing_post_type_at_top_level_exists( $user_id ) {
-		global $submenu;
-		global $menu;
-
-		wp_set_current_user( $user_id );
 	}
 }
