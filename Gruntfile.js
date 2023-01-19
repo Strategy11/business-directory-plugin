@@ -275,7 +275,6 @@ module.exports = function( grunt ) {
     less: [
       'assets/css/less/debug.less',
       'assets/css/less/widgets.less',
-      'assets/css/less/wpbdp-legacy.less',
       'assets/css/less/wpbdp.less',
       'assets/css/less/admin.less',
       'assets/css/less/admin-manual-upgrade.less',
