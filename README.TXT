@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.1.1
-Stable tag: 6.3.2
+Stable tag: 6.3.3
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,10 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.3 =
+* Fix: Listing titles were not always showing.
+* Fix: Resolve some CSS issues on the single page.
+
 = 6.3.2 =
 * Update: Users with the Editor role can manage listings in the admin area.
 * New: The default theme styles are now minified.
