@@ -281,7 +281,8 @@ module.exports = function( grunt ) {
       'assets/css/less/admin-manual-upgrade.less',
       'assets/css/less/admin-csv-import.less',
       'assets/css/less/admin-export.less',
-      'assets/css/less/admin-listing-metabox.less'
+      'assets/css/less/admin-listing-metabox.less',
+	  'themes/default/assets/styles.css'
     ],
     js: [
       'assets/js/*.js',
@@ -312,7 +313,6 @@ module.exports = function( grunt ) {
 
   
   // Themes
-  grunt.wpbdp.registerModule({path: './themes/default', less: ['assets/*.css'], js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/business-card', less: ['assets/*.css'], js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/elegant-business', less: ['assets/*.css'], js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/modern-business', less: ['assets/*.css'], js: [], i18n: true});
