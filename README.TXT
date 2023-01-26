@@ -161,6 +161,7 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 = 6.3.3 =
 * Fix: Listing titles were not always showing.
 * Fix: Resolve some CSS issues on the single page.
+* Fix: The menu height when the admin menu is short.
 
 = 6.3.2 =
 * Update: Users with the Editor role can manage listings in the admin area.
