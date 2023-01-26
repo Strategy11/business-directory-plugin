@@ -183,7 +183,8 @@ function wpbdpSelectSubnav() {
 		layoutAdjustment: function() {
 			var menu = document.getElementById( 'adminmenuback' );
 			if ( menu !== null ) {
-				WPBDPAdmin_Tooltip.$layout_container.css( 'min-height', menu.offsetHeight + menu.style.bottom );
+				/* #adminmenuback has a negative bottom position */
+				WPBDPAdmin_Tooltip.$layout_container.css( 'min-height', ( menu.offsetHeight + menu.style.bottom ) + 'px' );
 			}
 			if ( window.matchMedia( 'screen and (max-width: 768px)' ).matches ) {
 				WPBDPAdmin_Tooltip.$menu_items.addClass( 'wpbdp-nav-tooltip' );
