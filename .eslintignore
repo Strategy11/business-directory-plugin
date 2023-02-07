@@ -1,0 +1,10 @@
+.github/*
+.vscode/*
+**/node_modules/**
+**/vendor/**
+**/vendors/**
+assets/**/*min*
+bin/*
+languages/*
+themes/**/*min*
+Gruntfile.js

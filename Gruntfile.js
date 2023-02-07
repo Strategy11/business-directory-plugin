@@ -82,7 +82,13 @@ module.exports = function( grunt ) {
         grunt.config.set( 'less.' + id, {options: {cleancss: false, compress: true, strictImports: true}, files: less_config} );
         grunt.config.set( 'watch.' + id + '_less', {
           files: [path.join(basedir, '**/*.less'), path.join(basedir, '**/**/*.less'), path.join(basedir, '**/*.css'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.css'), '!' + path.join(basedir, 'assets/vendor/**/*')],
-          tasks: [ 'less:' + id ]
+          tasks: [ 'less:' + id ],
+          options: {
+            livereload: {
+              host: 'localhost',
+              port: 35729,
+            }
+          }
         } );
       }
 
@@ -310,7 +316,7 @@ module.exports = function( grunt ) {
   // Custom modules.
   grunt.wpbdp.registerModule({path: '../business-directory-migrate', less: [], js: ['js/*.js'], i18n: true});
 
-  
+
   // Themes
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/business-card', less: ['assets/*.css'], js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/elegant-business', less: ['assets/*.css'], js: [], i18n: true});
