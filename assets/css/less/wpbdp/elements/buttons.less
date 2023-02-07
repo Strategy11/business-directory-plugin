@@ -1,0 +1,33 @@
+body .wpbdp-page,
+body .wpbdp-single,
+body .wpbdp-excerpt {
+
+	input[type="submit"],
+	input.submit,
+	a.wpbdp-button,
+	.wpbdp-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid @border-main;
+		border-radius: 4px;
+		padding: 15px 22px;
+		margin: 0;
+		background-color: @white;
+		color: @color-primary;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1;
+		letter-spacing: 1px;
+		transition: background-color 0.3s ease-in-out;
+		cursor: pointer;
+	}
+
+	input[type="submit"]:hover,
+	input.submit:hover,
+	a.wpbdp-button:hover,
+	.wpbdp-button:hover {
+		background-color: @color-primary;
+		color: @white;
+	}
+}
