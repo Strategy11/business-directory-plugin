@@ -1,0 +1,50 @@
+#wpbdp-search-page.wpbdp-modal {
+
+	.wpbdp-modal-content {
+		padding-bottom: 111px;
+	}
+
+	.title {
+		margin: 0 0 43px;
+		line-height: 1;
+	}
+
+	.wpbdp-form-fields {
+		display: grid;
+		grid-template-columns: repeat(2, 2fr);
+		grid-column-gap: 30px;
+	}
+
+	.wpbdp-form-field {
+
+		&:not(.textarea) {
+			grid-column: span 1;
+		}
+
+		&.textarea {
+			grid-column: span 2;
+		}
+	}
+
+	form > p {
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		justify-content: center;
+		gap: 27px;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 111px;
+		border-bottom-right-radius: @border-radius-modal;
+		border-bottom-left-radius: @border-radius-modal;
+		margin: 0;
+		background-color: @bg-modal-footer;
+
+		input[type="submit"],
+		.reset {
+			min-width: 223px;
+		}
+	}
+}
