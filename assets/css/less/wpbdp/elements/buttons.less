@@ -1,0 +1,56 @@
+body .wpbdp-page,
+body .wpbdp-single,
+body .wpbdp-excerpt {
+
+	input[type="submit"],
+	input.submit,
+	a.wpbdp-button,
+	.wpbdp-button,
+	a.reset {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid;
+		border-radius: 4px;
+		padding: 19px 40px;
+		margin: 0;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1;
+		letter-spacing: 1px;
+		transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
+		cursor: pointer;
+	}
+
+	a.wpbdp-button,
+	.wpbdp-button,
+	a.reset {
+		border-color: @border-main;
+		background-color: transparent;
+		color: @color-primary;
+	}
+
+	a.wpbdp-button:hover,
+	.wpbdp-button:hover {
+		background-color: @color-primary;
+		color: @white;
+	}
+
+	a.reset:hover {
+		border-color: @bg-danger;
+		background-color: @bg-danger;
+		color: darken(@bg-danger, 30%);
+	}
+
+	input[type="submit"],
+	input.submit {
+		border-color: @color-primary;
+		background-color: @color-primary;
+		color: @white;
+	}
+
+	input[type="submit"]:hover,
+	input.submit:hover {
+		background-color: @color-primary--hover;
+	}
+}
