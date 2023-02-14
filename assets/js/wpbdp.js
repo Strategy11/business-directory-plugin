@@ -500,3 +500,56 @@ WPBDP.fileUpload = {
 } )( jQuery );
 
 // }}
+
+/**
+ * Advanced Search Modal.
+ *
+ * @since x.x
+ */
+( function ( $ ) {
+	$html = $( 'html' );
+	$body = $( 'body' );
+
+	$( '.advanced-search-link' ).on( 'click', function(event) {
+		event.preventDefault();
+
+		$searchPage = $( '#wpbdp-search-page' );
+
+		if ( $searchPage.length > 0 ) {
+			$searchPage.toggleClass( 'wpbdp-open' );
+
+			if ( $searchPage.hasClass('wpbdp-open') ) {
+				$html.css( 'overflow', 'hidden' );
+				$body.css( 'overflow', 'hidden' );
+			} else {
+				$html.css( 'overflow', '' );
+				$body.css( 'overflow', '' );
+			}
+
+			return;
+		}
+
+		$body.append( '<div class="wpbdp-loader-wrapper"><span class="wpbdp-spinner"></span></div>' );
+
+		$.ajax( wpbdp_global.ajaxurl, {
+			data: {
+				action: "wpbdp_ajax",
+				handler: "search__get_search_content",
+			},
+			type: "POST",
+			success: function ( response ) {
+				$( response.data ).addClass( 'wpbdp-modal wpbdp-open' ).appendTo( 'body' );
+				$html.css( 'overflow', 'hidden' );
+				$body.css( 'overflow', 'hidden' );
+				$body.find( '.wpbdp-loader-wrapper' ).remove();
+			}
+		});
+	} );
+
+	$( document ).on( 'click', '.wpbdp-modal-close', function() {
+		$( '.wpbdp-modal' ).removeClass( 'wpbdp-open' );
+		$html.css( 'overflow', '' );
+		$body.css( 'overflow', '' );
+	} );
+
+} )( jQuery );
