@@ -1,0 +1,14 @@
+.github/*
+.vscode/*
+**/node_modules/**
+**/vendor/**
+**/vendors/**
+assets/**/*min*
+bin/*
+languages/*
+themes/**/*min*
+*.php
+composer.lock
+package-lock.json
+Gruntfile.js
+assets/js/wpbdp.js
