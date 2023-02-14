@@ -1,0 +1,75 @@
+.wpbdp-modal {
+	display: none !important;
+
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 9999;
+
+	&.wpbdp-open {
+		display: flex !important;
+	}
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: -1;
+		background-color: rgba(45, 48, 51, 0.4);
+	}
+
+	.wpbdp-modal-content {
+		position: relative;
+		width: 883px;
+		max-width: 90%;
+		height: 905px;
+		max-height: 90%;
+		border-radius: @border-radius-modal;
+		padding: 50px 3px;
+		background-color: @white;
+	}
+
+	.wpbdp-modal-scrollbar {
+		overflow-x: hidden;
+		max-height: 100%;
+		padding: 0 37px;
+
+		&::-webkit-scrollbar-track {
+			background-color: #fff;
+		}
+
+		&::-webkit-scrollbar {
+			width: 6px;
+			background-color: #fff;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			border-radius: 12px;
+			background-color: #e3e3e3;
+			-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
+		}
+
+		-ms-overflow-style: auto;
+		scrollbar-color: #ccc #fff;
+		scrollbar-width: thin;
+	}
+
+	.wpbdp-modal-close {
+		position: absolute;
+		top: 30px;
+		right: 40px;
+		cursor: pointer;
+
+		&::before {
+			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%233F4B5B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E%0A");
+		}
+	}
+}
