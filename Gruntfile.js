@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const glob = require('glob');
 const _ = require('underscore');
+let lessDestFiles = [];
 
 module.exports = function( grunt ) {
 	grunt.config.set('compress.version', '');
@@ -79,10 +80,16 @@ module.exports = function( grunt ) {
       }
 
       if ( ! _.isEmpty( less_config ) ) {
-        grunt.config.set( 'less.' + id, {options: {cleancss: false, compress: true, strictImports: true}, files: less_config} );
+        grunt.config.set( 'less.' + id, {options: {cleancss: false, compress: true, strictImports: true, plugins : [ new (require('less-plugin-autoprefix'))({browsers : [ "last 2 versions" ]}) ]}, files: less_config} );
         grunt.config.set( 'watch.' + id + '_less', {
           files: [path.join(basedir, '**/*.less'), path.join(basedir, '**/**/*.less'), path.join(basedir, '**/*.css'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.css'), '!' + path.join(basedir, 'assets/vendor/**/*')],
           tasks: [ 'less:' + id ]
+        } );
+
+		lessDestFiles = [...lessDestFiles, ...Object.keys(less_config)];
+        grunt.config.set( 'watch.livereload', {
+			options: { livereload: true },
+			files: lessDestFiles,
         } );
       }
 
@@ -275,7 +282,6 @@ module.exports = function( grunt ) {
     less: [
       'assets/css/less/debug.less',
       'assets/css/less/widgets.less',
-      'assets/css/less/wpbdp-legacy.less',
       'assets/css/less/wpbdp.less',
       'assets/css/less/admin.less',
       'assets/css/less/admin-manual-upgrade.less',
@@ -311,7 +317,7 @@ module.exports = function( grunt ) {
   // Custom modules.
   grunt.wpbdp.registerModule({path: '../business-directory-migrate', less: [], js: ['js/*.js'], i18n: true});
 
-  
+
   // Themes
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/business-card', less: ['assets/*.css'], js: [], i18n: true});
   grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/elegant-business', less: ['assets/*.css'], js: [], i18n: true});
