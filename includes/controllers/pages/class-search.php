@@ -145,4 +145,15 @@ class WPBDP__Views__Search extends WPBDP__View {
 		global $wp_query;
 		return $wp_query->found_posts;
 	}
+
+	/**
+	 * Get adnvaced search modal content.
+	 *
+	 * @since x.x
+	 */
+	public function ajax_get_search_content() {
+		$html = $this->dispatch();
+
+		wp_send_json_success( $html );
+	}
 }
