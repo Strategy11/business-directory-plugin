@@ -1,8 +1,16 @@
-<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo $_class; ?>">
-	<?php if ( ! $form_only ) : ?>
+<?php $modal_classes = wp_doing_ajax() ? ' wpbdp-modal' : ''; ?>
+
+<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo $_class . $modal_class; ?>">
+	<?php if ( wp_doing_ajax() ) : ?>
+	<div class="wpbdp-modal-content">
+		<div class="wpbdp-modal-scrollbar">
+			<span class="wpbdp-modal-close"></span>
+	<?php endif; ?>
+
+	<?php if ( ! wp_doing_ajax() && ! $form_only ) : ?>
 		<div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
 	<?php endif; ?>
-	<h2 class="title"><?php esc_html_e( 'Search', 'business-directory-plugin' ); ?></h2>
+	<h2 class="title"><?php esc_html_e( 'Advanced Search', 'business-directory-plugin' ); ?></h2>
 
 	<?php if ( 'none' === $search_form_position || 'above' === $search_form_position ) : ?>
 		<?php echo $search_form; ?>
@@ -33,5 +41,10 @@
 
 	<?php if ( 'below' === $search_form_position ) : ?>
 		<?php echo $search_form; ?>
+	<?php endif; ?>
+
+	<?php if ( wp_doing_ajax() ) : ?>
+		</div>
+	</div>
 	<?php endif; ?>
 </div>
