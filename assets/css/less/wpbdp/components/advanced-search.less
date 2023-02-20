@@ -36,15 +36,51 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		height: 111px;
+		min-height: 111px;
 		border-bottom-right-radius: @border-radius-modal;
 		border-bottom-left-radius: @border-radius-modal;
+		padding: 15px 30px;
 		margin: 0;
 		background-color: @bg-modal-footer;
 
 		input[type="submit"],
 		.reset {
 			min-width: 223px;
+		}
+	}
+
+	.wpbdp-search-filter.ratings .inner {
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+
+		select {
+			margin-left: 8px;
+		}
+	}
+}
+
+.wpbdp-page-small,
+.wpbdp-page-tiny {
+
+	#wpbdp-search-page.wpbdp-modal {
+
+		.wpbdp-modal-content {
+			padding-bottom: 160px;
+		}
+
+		.wpbdp-modal-scrollbar {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		.wpbdp-form-field {
+			grid-column: span 2;
+		}
+
+		form > p {
+			flex-direction: column;
+			gap: 10px;
 		}
 	}
 }

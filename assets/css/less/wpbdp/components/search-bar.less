@@ -47,7 +47,7 @@
 		}
 
 		&:only-of-type input {
-			border-right: 0;
+			border-right-width: 0;
 		}
 
 		input {
@@ -122,6 +122,79 @@
 
 			&:hover {
 				background-color: transparent;
+			}
+		}
+	}
+
+	/* Small View */
+	&.wpbdp-main-box-small,
+	&.wpbdp-main-box-tiny {
+		/* Main Box Layout */
+		.main-fields {
+			margin-bottom: 30px;
+
+			form {
+				flex-direction: column;
+				gap: 30px;
+
+				.search-fields {
+					.box-row {
+						flex-direction: column;
+						gap: 30px;
+					}
+				}
+
+				.submit-btn {
+					flex-direction: column;
+
+					input[type="submit"] {
+						order: unset;
+					}
+				}
+			}
+		}
+
+		/* Search Input */
+		.box-col {
+			input {
+				border-radius: @border-radius-main;
+				border-width: 1px;
+			}
+		}
+
+		/* Advanced Search Button */
+		.advanced-search-link {
+			border: 1px solid @border-main;
+			border-radius: @border-radius-main;
+			height: 56px;
+			font-size: @font-size-body;
+			transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
+
+			&:hover {
+				background-color: @color-primary;
+				color: @white;
+			}
+
+			&::before {
+				display: none;
+			}
+		}
+
+		/* Search Button */
+		.submit-btn {
+			&::after {
+				display: none;
+			}
+
+			input[type="submit"] {
+				font-size: @font-size-body;
+				width: 100%;
+				background-color: @color-primary;
+				color: @white;
+			}
+
+			input[type="submit"]:hover {
+				background-color: @color-primary--hover;
 			}
 		}
 	}
