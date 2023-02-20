@@ -143,9 +143,9 @@ function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
 		$item_html .= '</a>';
 
 		if ( $args['show_count'] ) {
-			$count_str  = ' (' . intval( $term->count ) . ')';
+			$count_str  = intval( $term->count );
 			$count_str  = apply_filters( 'wpbdp_categories_item_count_str', $count_str, $term );
-			$item_html .= $count_str;
+			$item_html .= '<span class="wpbdp-category-count">' . $count_str . ' ' . __( 'listings', 'business-directory-plugin' ) . '</span>';
 		}
 
 		$item_html = apply_filters( 'wpbdp_categories_list_item', $item_html, $term );
@@ -329,7 +329,7 @@ function wpbdp_main_links( $buttons = null ) {
 
 	if ( in_array( 'create', $buttons, true ) ) {
 		$html[] = '<a href="' . esc_url( wpbdp_url( 'submit_listing' ) ) . '" id="wpbdp-bar-submit-listing-button" class="button wpbdp-button">' .
-			esc_html__( 'Add Listing', 'business-directory-plugin' ) .
+			esc_html__( '+ Add Listing', 'business-directory-plugin' ) .
 			'</a>';
 	}
 
