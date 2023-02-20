@@ -2,6 +2,7 @@
 
 <div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo $_class . $modal_class; ?>">
 	<?php if ( wp_doing_ajax() ) : ?>
+	<div class="wpbdp-modal-overlay"></div>
 	<div class="wpbdp-modal-content">
 		<div class="wpbdp-modal-scrollbar">
 			<span class="wpbdp-modal-close"></span>
