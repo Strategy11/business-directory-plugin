@@ -538,7 +538,7 @@ WPBDP.fileUpload = {
 			},
 			type: "POST",
 			success: function ( response ) {
-				$( response.data ).addClass( 'wpbdp-modal wpbdp-open' ).appendTo( 'body' );
+				$( response.data ).addClass( 'wpbdp-modal wpbdp-open' ).appendTo( '.wpbdp-page' );
 				$html.css( 'overflow', 'hidden' );
 				$body.css( 'overflow', 'hidden' );
 				$body.find( '.wpbdp-loader-wrapper' ).remove();
@@ -546,7 +546,7 @@ WPBDP.fileUpload = {
 		});
 	} );
 
-	$( document ).on( 'click', '.wpbdp-modal-close', function() {
+	$( document ).on( 'click', '.wpbdp-modal-close, .wpbdp-modal-overlay', function() {
 		$( '.wpbdp-modal' ).removeClass( 'wpbdp-open' );
 		$html.css( 'overflow', '' );
 		$body.css( 'overflow', '' );
