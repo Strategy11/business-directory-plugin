@@ -14,7 +14,7 @@
 			if ( $editing ) {
 				esc_html_e( 'Edit Listing', 'business-directory-plugin' );
 			} else {
-				esc_html_e( 'Add Listing', 'business-directory-plugin' );
+				esc_html_e( '+ Add Listing', 'business-directory-plugin' );
 			}
 			?>
 		</h3>
