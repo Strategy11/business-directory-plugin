@@ -53,4 +53,17 @@ body .wpbdp-excerpt {
 	input.submit:hover {
 		background-color: @color-primary--hover;
 	}
+
+	/* Small View */
+	&[class$="small"],
+	&[class$="tiny"] {
+
+		input[type="submit"],
+		input.submit,
+		a.wpbdp-button,
+		.wpbdp-button,
+		a.reset {
+			width: 100%;
+		}
+	}
 }
