@@ -1,0 +1,10 @@
+.github/
+.wordpress-org/
+assets/vendor/
+assets/**/*min*
+node_modules/
+themes/**/*min*
+vendor/
+vendors/
+/*.js
+/*.cjs

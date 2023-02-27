@@ -15,6 +15,8 @@ package.json export-ignore
 phpcs.xml export-ignore
 phpmd.xml export-ignore
 phpunit.xml export-ignore
+.stylelintignore export-ignore
+.stylelintrc.js export-ignore
 *.md export-ignore
 *.yml export-ignore
 tests export-ignore
