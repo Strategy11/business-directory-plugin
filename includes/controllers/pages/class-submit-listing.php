@@ -38,7 +38,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	protected $is_ajax = false;
 
 	public function get_title() {
-		return __( '+ Add Listing', 'business-directory-plugin' );
+		return __( 'Add Listing', 'business-directory-plugin' );
 	}
 
 	/**
