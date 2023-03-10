@@ -45,3 +45,20 @@
 		transform: scale(1);
 	}
 }
+
+
+/* Skeleton */
+.wpbdp-skeleton {
+	opacity: 0.7;
+	animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+	0% {
+		background-color: @bg-skeleton-loading-start;
+	}
+
+	100% {
+		background-color: @bg-skeleton-loading-end;
+	}
+}
