@@ -1,0 +1,187 @@
+/**
+ * Submit Listing.
+ *
+ * Page and General Styles.
+ */
+
+#wpbdp-submit-listing.wpbdp-submit-page {
+	margin: auto;
+
+	h3 {
+		font-size: @font-size-h2;
+		line-height: @line-height-h2;
+	}
+
+	/* Submit listing section */
+	.wpbdp-submit-listing-section {
+		display: block;
+		margin-top: 10px;
+
+		&.hidden {
+			display: none;
+		}
+	}
+
+	.wpbdp-submit-listing-section-content {
+
+		h4 {
+			margin: 0 0 10px 0;
+		}
+
+		ul.category-list {
+			margin-bottom: 10px;
+		}
+	}
+
+	/* Upload section */
+	.wpbdp-upload-widget {
+		max-height: 50px;
+	}
+
+	/* Listing form actions */
+	.wpbdp-submit-listing-form-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 27px;
+		margin-top: 43px;
+		text-align: center;
+
+		.wpbdp-button {
+			min-width: 223px;
+		}
+	}
+
+	/* Change plan button */
+	#change-plan-link {
+		border-color: @color-primary;
+		margin-top: 30px;
+		background-color: @bg-dropdown;
+
+		a {
+			margin-left: 5px;
+		}
+	}
+
+	/* Small View */
+	&.wpbdp-submit-page-small,
+	&.wpbdp-submit-page-tiny {
+
+		.wpbdp-grid {
+			grid-gap: 25px 0;
+
+			& > * {
+				grid-column: span 12;
+			}
+		}
+
+		.wpbdp-submit-listing-form-actions {
+			flex-direction: column;
+
+			.wpbdp-button {
+				min-width: unset;
+			}
+		}
+	}
+}
+
+textarea.wpbdp-submit-listing-tos {
+	min-height: 100px;
+}
+
+#wpbdp-submit-listing-account-details {
+	margin: 10px 0 0 0;
+
+	input[type="password"] {
+		display: inline-block;
+		width: 70%;
+	}
+
+	.wpbdp-password-strength-meter {
+		width: 20%;
+		border: 1px solid;
+		padding: 4px;
+		text-align: center;
+		float: right;
+
+		&.strength-0 {
+			border-color: #e35b5b;
+			background-color: #f1adad;
+		}
+
+		&.strength-2 {
+			border-color: #f78b53;
+			background-color: #fbc5a9;
+		}
+
+		&.strength-3 {
+			border-color: #ffc733;
+			background-color: #ffe399;
+		}
+
+		&.strength-4 {
+			border-color: #83c373;
+			background-color: #c1e1b9;
+		}
+	}
+}
+
+@media only screen and (max-width: 450px) {
+
+	.wpbdp-form-field.wpbdp-form-field-type-url .wpbdp-url-field-col {
+		grid-column: span 12 / span 12;
+	}
+
+	.wpbdp-submit-rootline {
+
+		.wpbdp-rootline-section {
+
+			&:not(.wpbdp-submit-section-current),
+			.wpbdp-rootline-bar {
+				display: none;
+			}
+
+			&.wpbdp-submit-checked .wpbdp-rootline-circle {
+
+				.wpbdp-rootline-checkmark {
+					display: none;
+				}
+
+				.wpbdp-rootline-counter span {
+					display: initial;
+				}
+			}
+		}
+	}
+}
+
+.wpbdp-form-field-type-image .wpbdp-image {
+	border: none;
+}
+
+.wpbdp-submit-listing-section {
+
+	h3,
+	.wpbdp-recaptcha {
+		margin-top: 40px;
+	}
+}
+
+
+.wpbdp-submit-listing-section-header {
+	display: none;
+}
+
+.wpbdp-with-button-styles {
+
+	.select2-container {
+
+		.select2-selection {
+			border-color: @color-text--60;
+		}
+
+		.select2-results__option--highlighted[data-selected] {
+			background-color: @color-primary;
+		}
+	}
+}
