@@ -27,6 +27,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 >
 	<div class="wpbdp-plan-details">
 		<div class="wpbdp-plan-label"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $plan->label, $plan ) ); ?></div>
+		<span class="wpbdp-plan-price-amount"><?php echo esc_html( wpbdp_currency_format( $plan->calculate_amount( $categories ) ) ); ?></span>
 
 		<?php if ( $description ) : ?>
 			<div class="wpbdp-plan-description"><?php echo wp_kses_post( wpautop( $description ) ); ?></div>
@@ -57,9 +58,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 		</ul>
 	</div><!-- .wpbdp-plan-details -->
 
-	<div class="wpbdp-plan-price">
-		<span class="wpbdp-plan-price-amount"><?php echo esc_html( wpbdp_currency_format( $plan->calculate_amount( $categories ) ) ); ?></span>
-
+	<div class="wpbdp-plan-action">
 		<?php if ( ! $display_only ) : ?>
 			<input
 				type="radio"
