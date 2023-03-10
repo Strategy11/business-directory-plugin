@@ -1,0 +1,180 @@
+/**
+ * Submit Listing.
+ *
+ * Done Section.
+ */
+
+.wpbdp-submit-listing-section_done {
+
+	& > h3 {
+		margin-top: 0;
+		margin-bottom: 20px;
+		font-size: @font-size-h2;
+		line-height: @line-height-h2;
+	}
+
+	& > p {
+		margin-top: 5px;
+		margin-bottom: 0;
+
+		&:last-child {
+			margin-top: 30px;
+		}
+	}
+
+	#wpbdp-checkout-confirmation-receipt {
+		border: 1px solid @border-main;
+		border-radius: @border-radius-main;
+		padding: 45px 50px;
+		margin-top: 40px;
+
+		h4 {
+			margin-top: 0;
+			margin-bottom: 30px;
+			font-size: 24px;
+			line-height: @line-height-h2;
+		}
+
+		.wpbdp-payment-receipt-header {
+			display: grid;
+			align-items: center;
+			gap: 5px 10px;
+			grid-template-areas:
+				"heading status"
+				"date date";
+			grid-auto-columns: max-content;
+			margin-bottom: 30px;
+
+			h4 {
+				grid-area: heading;
+				margin-bottom: 0;
+				line-height: 1;
+			}
+
+			.wpbdp-payment-status {
+				grid-area: status;
+				border-radius: 2px;
+				padding: 5px 12px;
+				background-color: @bg-gray-blue;
+				color: @color-text--60;
+				font-size: 12px;
+			}
+
+			.wpbdp-payment-receipt-date {
+				grid-area: date;
+				color: @color-text--60;
+				font-size: 14px;
+			}
+		}
+
+		.wpbdp-payment-receipt-details {
+			margin-bottom: 30px;
+
+			dl {
+				margin: 0;
+
+				dt {
+					font-size: 18px;
+					font-weight: 500;
+				}
+
+				dd {
+					margin: 0;
+					margin-bottom: 20px;
+					color: @color-text;
+					font-size: @font-size-body;
+					font-weight: 400;
+					line-height: @line-height-body;
+
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+
+		.wpbdp-checkout-invoice {
+			margin-bottom: 30px;
+
+			table {
+				border-radius: 2px;
+				padding: 20px 30px;
+				background-color: #f7f8fb;
+			}
+		}
+
+		.wpbdp-payment-receipt-print {
+			margin-top: 20px;
+		}
+	}
+}
+
+/* Small views */
+.wpbdp-submit-page-small {
+
+	.wpbdp-submit-listing-section_done {
+
+		#wpbdp-checkout-confirmation-receipt {
+			padding: 30px;
+		}
+	}
+}
+
+.wpbdp-submit-page-tiny {
+
+	.wpbdp-submit-listing-section_done {
+
+		#wpbdp-checkout-confirmation-receipt {
+			padding: 20px 15px;
+
+			.wpbdp-checkout-invoice {
+
+				table {
+					display: block;
+					padding: 10px;
+
+					thead,
+					tbody,
+					tfoot {
+						display: block;
+
+						tr {
+							display: grid;
+							grid-template-columns: 1fr;
+							grid-auto-columns: max-content;
+						}
+
+						td {
+							padding-top: 0;
+							padding-bottom: 0;
+						}
+					}
+
+					thead {
+
+						th:last-child {
+							display: none;
+						}
+					}
+
+					tbody {
+
+						tr {
+							border-bottom: 1px dashed @border-main;
+							padding-top: 10px;
+							padding-bottom: 10px;
+
+							&:last-child {
+								border-bottom: 0;
+							}
+						}
+					}
+				}
+			}
+
+			.wpbdp-payment-receipt-print {
+				margin-top: 0;
+			}
+		}
+	}
+}
