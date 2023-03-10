@@ -1,0 +1,79 @@
+/* stylelint-disable selector-class-pattern */
+.wpbdp-grid {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-gap: 25px 32px;
+
+	> * {
+		grid-column: span 12;
+	}
+}
+
+/* One column */
+.wpbdp12,
+.wpbdp-full {
+	grid-column: span 12;
+	width: 100% !important;
+}
+
+/* Two columns */
+.wpbdp-col-grid-2 .wpbdp-grid > div,
+.wpbdp6,
+.wpbdp-half {
+	grid-column: span 6;
+}
+
+/* Three columns */
+.wpbdp-col-grid-3 .wpbdp-grid > div,
+.wpbdp4 {
+	grid-column: span 4;
+}
+
+/* Four columns */
+.wpbdp3 {
+	grid-column: span 3;
+}
+
+/* Six column */
+.wpbdp2 {
+	grid-column: span 2;
+}
+
+/* Twelve column */
+.wpbdp1 {
+	grid-column: span 1;
+}
+
+.wpbdp5 {
+	grid-column: span 5;
+}
+
+.wpbdp7 {
+	grid-column: span 7;
+}
+
+.wpbdp8 {
+	grid-column: span 8;
+}
+
+.wpbdp9 {
+	grid-column: span 9;
+}
+
+.wpbdp10 {
+	grid-column: span 10;
+}
+
+.wpbdp11 {
+	grid-column: span 11;
+}
+
+.wpbdp_first {
+	grid-column-start: 1;
+}
+
+.wpbdp_last {
+	justify-content: end;
+	grid-row-start: span 100;
+	grid-column-end: -1;
+}
