@@ -1,0 +1,115 @@
+.wpbdp-checkout-section {
+    margin: 0 0 1.5em 0;
+    padding: 0.7em 1.2em;
+    border: solid 1px #efefef;
+
+    &.wpbdp-checkout-errors {
+        padding: 0;
+        border: none;
+    }
+
+    h3 {
+        margin: 0 0 1.0em 0;
+        padding: 0;
+    }
+}
+
+.wpbdp-checkout-gateway-selection {
+    label {
+        margin: 0 10px 0 0;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        input, img {
+            vertical-align: middle;
+        }
+        img {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.wpbdp-billing-detail-field {
+    margin: 0 0 1.5em 0;
+    font-size: 95%;
+
+    &.wpbdp-required label:after {
+        content: ' *';
+        color: @red;
+    }
+}
+
+.wpbdp-exp-field {
+	select {
+		width: auto;
+	}
+}
+
+.wpbdp-exp-slash {
+	padding: 0 5px;
+}
+
+.wpbdp-payment-receipt {
+    border: 1px solid @gray;
+    padding: 1.0em 1.5em;
+    margin: 1.5em 0;
+    font-size: 90%;
+
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wpbdp-payment-receipt-date {
+        color: #666;
+    }
+
+    .wpbdp-payment-status {
+        float: right;
+    }
+
+    .wpbdp-payment-receipt-details {
+        margin: 1.5em 0.5em;
+
+        dl {
+            margin: 0;
+            padding: 0;
+
+            dt {
+                margin: 0;
+                padding: 0;
+                float: left;
+                min-width: 50%;
+            }
+
+            dd {
+                margin: 0 0 5px 50%;
+                padding: 0;
+            }
+        }
+    }
+
+    .wpbdp-payment-receipt-print {
+        margin: 1.5em 0 0 0;
+    }
+}
+
+.wpbdp-checkout-invoice {
+    table.wpbdp-payment-items-table {
+        th, td {
+            font-size: 95%;
+        }
+
+        tr.item td:first-of-type {
+            width: 80%;
+        }
+
+        .item-fee-description {
+            margin-left: 10px;
+            font-size: 85%;
+            max-width: 90%;
+        }
+    }
+}

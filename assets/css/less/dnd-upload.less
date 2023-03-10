@@ -1,0 +1,92 @@
+.wpbdp-dnd-area {
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    width: 100%;
+
+	&.dragging {
+		background: #efefef;
+	}
+
+	p {
+		margin: 0;
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	p.dnd-message {
+		font-size: 24px;
+		line-height: 24px;
+	}
+
+	.dnd-area-inside {
+		letter-spacing: 1px;
+		margin: 54px auto 38px;
+		text-align: center;
+	}
+
+	.dnd-area-inside-working {
+		text-align: center;
+		margin: 50px auto 38px;
+
+		span {
+			font-weight: bold;
+		}
+	}
+
+	.dnd-area-inside-error {
+		color: #900000;
+		text-align: center;
+		margin: 50px 25px;
+	}
+
+	.upload-button {
+		position: relative;
+		overflow: hidden;
+
+		a {
+			text-decoration: none;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+
+		input {
+			margin: 0;
+			padding: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			border: none !important;
+			z-index: -1;
+		}
+	}
+}
+
+.area-and-conditions {
+    #image-upload-dnd-area {
+        box-sizing: border-box;
+        background-color: rgba(86, 154, 246, 0.08);
+		background-color: var(--bd-main-color-8);
+        border-color: var(--bd-main-color-20);
+        border-radius: 4px;
+
+        .dnd-buttons a{
+            letter-spacing: initial;
+        }
+    }
+}
+
+#image-upload-conditions {
+    font-size: 12px;
+    margin-bottom: 6px;
+	opacity: 0.8;
+}
+
+#image-slots-available {
+    float: right;
+}
