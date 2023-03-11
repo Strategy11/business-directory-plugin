@@ -63,7 +63,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 			return $this->_redirect( $payment->get_checkout_url() );
 		}
 
-		if ( $this->plan->is_recurring && $this->listing->has_subscription() ) {
+		if ( $this->plan->is_recurring && $this->listing->has_subscription() && $status !== 'expired' ) {
 			return $this->render_manage_subscription_page( $this->listing, $this->plan );
 		}
 
