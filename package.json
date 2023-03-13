@@ -7,6 +7,7 @@
 		"@wordpress/eslint-plugin": "^13.10.0",
 		"@wordpress/prettier-config": "^2.9.0",
 		"@wordpress/stylelint-config": "^21.9.0",
+		"cypress": "^12.7.0",
 		"eslint": "^8.33.0",
 		"eslint-plugin-jsdoc": "^39.8.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
@@ -30,6 +31,7 @@
 		"underscore": "^1.13.6"
 	},
 	"scripts": {
+		"cypress:open": "node_modules/.bin/cypress open",
 		"format": "npm-run-all --parallel format:*",
 		"format:css": "stylelint \"**/*.less\" --fix --custom-syntax postcss-less",
 		"format:js": "eslint --fix .",

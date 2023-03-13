@@ -7,6 +7,8 @@
 .wordpress-org export-ignore
 composer.lock export-ignore
 composer.json export-ignore
+cypress export-ignore
+cypress.config.js export-ignore
 Gruntfile.js export-ignore
 /assets/css/less/ export-ignore
 node_modules export-ignore

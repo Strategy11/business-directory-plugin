@@ -1,5 +1,6 @@
 .github/*
 .vscode/*
+cypress
 **/node_modules/**
 **/vendor/**
 **/vendors/**
