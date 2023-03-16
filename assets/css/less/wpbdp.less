@@ -1,15 +1,20 @@
+/**
+ * Main Frontend File
+ *
+ * Includes all frontend style elements.
+ */
+
 // Abstracts
-@variables-dir: "./wpbdp/abstracts/variables";
+@variables-dir: "front-end/abstracts/variables";
 @import "@{variables-dir}/box.less";
-@import "@{variables-dir}/typography.less";
-@import "./colors.less";
+@import "colors.less";
 
 // Base
-@base-dir: "./wpbdp/base";
+@base-dir: "front-end/base";
 @import "@{base-dir}/base.less";
 
 // Helpers
-@helpers-dir: "./wpbdp/helpers";
+@helpers-dir: "front-end/helpers";
 @import "@{helpers-dir}/utils.less";
 
 // TODO: The following code needs to be reorganized or redesigned in future PRs.
