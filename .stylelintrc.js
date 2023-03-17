@@ -155,11 +155,13 @@ const animation = [
 const other = [ 'box-shadow', 'opacity', 'transform', 'cursor', 'float' ];
 
 module.exports = {
-	extends: '@wordpress/stylelint-config',
-	plugins: [ 'stylelint-order' ],
+	extends: [
+		'@wordpress/stylelint-config',
+		'stylelint-config-recommended-less',
+	],
+	plugins: [ 'stylelint-order', 'stylelint-less' ],
+	customSyntax: 'postcss-less',
 	rules: {
-		'at-rule-no-unknown': null,
-		'no-descending-specificity': null,
 		'function-url-quotes': null,
 		'no-invalid-position-at-import-rule': null,
 		'order/order': [ 'custom-properties', 'declarations' ],
