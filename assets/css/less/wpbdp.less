@@ -6,6 +6,7 @@
 
 // Abstracts
 @variables-dir: "front-end/abstracts/variables";
+@import "@{variables-dir}/typography.less";
 @import "@{variables-dir}/box.less";
 @import "colors.less";
 
@@ -16,6 +17,14 @@
 // Helpers
 @helpers-dir: "front-end/helpers";
 @import "@{helpers-dir}/utils.less";
+
+// Elements
+@elements-dir: "front-end/elements";
+@import "@{elements-dir}/buttons.less";
+@import "@{elements-dir}/forms.less";
+@import "@{elements-dir}/alerts.less";
+@import "@{elements-dir}/loaders.less";
+@import "@{elements-dir}/modal.less";
 
 // TODO: The following code needs to be reorganized or redesigned in future PRs.
 @import "common.less";
@@ -447,36 +456,9 @@ form#wpbdmsearchform a.advanced-search-link {
 	clear: none;
 }
 
-@import "form-fields.less";
 @import "checkout.less";
 @import "submit-listing.less";
 @import "login.less";
-
-/* error and status messages */
-.wpbdp-msg {
-	box-sizing: border-box;
-	border: 1px solid rgba(63, 75, 91, 0.2);
-	border-radius: 4px;
-	padding: 10px 12px;
-	margin: 5px 0;
-	background: #fef7d3;
-	color: rgba(63, 75, 91, 0.6);
-	font-size: 14px;
-
-	ul {
-		margin: 0;
-
-		li {
-			list-style-position: inside;
-		}
-	}
-}
-
-.wpbdp-msg.error,
-.wpbdp-msg.wpbdp-error {
-	background: @red;
-	color: #fff;
-}
 
 .wpbdp-submit-page table.fee-options {
 	width: 100%;
@@ -738,83 +720,6 @@ body.business-directory #TB_secondLine {
 
 .wpbdp-main-links {
 	text-align: right;
-}
-
-/*
- * Buttons
- */
-a.wpbdp-button {
-	white-space: nowrap;
-}
-
-.wpbdp-main-links .button,
-.wpbdp-main-links-large .button {
-	display: inline-block;
-	margin: 0 3px 6px;
-	font-size: 15px;
-}
-
-.wpbdp-main-links .button:first-child {
-	margin-left: 0;
-}
-
-.wpbdp-main-links .button:last-child {
-	margin-right: 0;
-}
-
-.wpbdp-main-links-tiny .wpbdp-main-links .button {
-	width: 100%;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	margin: 0 0 4px;
-}
-
-.wpbdp-main-links-small .button {
-	width: 100%;
-	margin: 0 0 4px;
-	text-align: center;
-}
-
-.wpbdp-main-links-small .wpbdp-main-links-2-buttons .button {
-	width: 49%;
-}
-
-.wpbdp-main-links-small .wpbdp-main-links-2-buttons .button:first-child {
-	margin-right: 1%;
-}
-
-.wpbdp-with-button-styles {
-
-	.wpbdp-checkout-submit input[type="submit"],
-	.wpbdp-ratings-reviews input[type="submit"],
-	.wpbdp-main-box input[type="submit"],
-	.listing-actions a.wpbdp-button,
-	.wpbdp-button {
-		border: 1px solid @default-color;
-		border-color: var(--bd-main-color);
-		background: @default-color;
-		background: var(--bd-main-color) !important;
-
-		&:hover {
-			background: var(--bd-main-color);
-			opacity: 0.8;
-		}
-	}
-
-	.wpbdp-main-links-tiny .wpbdp-main-links .button {
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-
-	.wpbdp-main-links-small .button {
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-
-	.wpbdp-main-links-medium .wpbdp-main-links .button {
-		padding-top: 8px;
-		padding-bottom: 8px;
-	}
 }
 
 /*
