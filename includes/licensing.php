@@ -587,7 +587,11 @@ class WPBDP_Licensing {
 	private function unauthorized_message() {
 		$message  = '<strong>' . _x( 'The server returned a 403 Forbidden error.', 'licensing', 'business-directory-plugin' ) . '</strong>';
 		$message .= '<br/><br/>';
-		$message .= __( 'It looks like your server is not authorized to make outgoing requests to Business Directory servers. Please contact your webhost and ask them to add our IP address 52.0.78.177 to your allow list.', 'business-directory-plugin' );
+		$message .= __( 'It looks like your server is not authorized to make outgoing requests to Business Directory servers.', 'business-directory-plugin' );
+		$link     = wpbdp_admin_upgrade_link( 'unauthorized', 'knowledge-base/installation-guide/#troubleshooting' );
+		$message .= ' <a href="' . esc_url( $link ) . '" target="_blank" rel="noopener">';
+		$message .= __( 'Learn more', 'business-directory-plugin' );
+		$message .= '</a>';
 
 		// The javascript handler already adds a dot at the end.
 		$message = rtrim( $message, '.' );

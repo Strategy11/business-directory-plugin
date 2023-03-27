@@ -1,0 +1,27 @@
+/**
+ * Helpers
+ *
+ * Contains utility classes to assist with common tasks.
+ */
+
+// Clearfix
+.wpbdp-cf::before,
+.wpbdp-cf::after,
+.wpbdp-clearfix::before,
+.wpbdp-clearfix::after,
+.cf::before,
+.cf::after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+
+.wpbdp-cf::after,
+.wpbdp-clearfix::after,
+.cf::after {
+	clear: both;
+}
+
+// Hidden helper class
+.wpbdp-hidden {
+	display: none;
+}
