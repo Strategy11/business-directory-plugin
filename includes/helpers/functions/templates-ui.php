@@ -145,7 +145,8 @@ function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
 		if ( $args['show_count'] ) {
 			$count_str  = intval( $term->count );
 			$count_str  = apply_filters( 'wpbdp_categories_item_count_str', $count_str, $term );
-			$item_html .= '<span class="wpbdp-category-count">' . $count_str . ' ' . __( 'listings', 'business-directory-plugin' ) . '</span>';
+			$category_text = _n( '%s listing', '%s listings', $count_str, 'business-directory-plugin' );
+			$item_html .= '<span class="wpbdp-category-count">' . sprintf( $category_text, $count_str ) . '</span>';
 		}
 
 		$item_html = apply_filters( 'wpbdp_categories_list_item', $item_html, $term );
