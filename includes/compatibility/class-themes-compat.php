@@ -29,6 +29,7 @@ class WPBDP__Themes_Compat {
 	 */
 	public function add_workarounds_before_dispatch() {
 		$this->add_themes_method( '_before_dispatch' );
+		$this->set_title();
 	}
 
 	public function add_workarounds() {
@@ -94,6 +95,43 @@ class WPBDP__Themes_Compat {
 		);
 
 		return apply_filters( 'wpbdp_themes_with_fixes_list', $themes_with_fixes );
+	}
+
+	/**
+	 * Set Title.
+     *
+	 * This method is used to fix or specify compatibilities by setting the title
+     * of the post.
+     *
+	 * @since x.x
+	 */
+	private function set_title() {
+		$is_block = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+
+		if ( $is_block ) {
+			add_filter( 'the_title', array( $this, 'change_title' ), 99999, 2 );
+		}
+	}
+
+	/**
+	 * Change Title.
+     *
+	 * This method is used to change the WordPress title.
+     *
+	 * @since x.x
+	 *
+	 * @param string $post_title The post title.
+	 * @param string $post_id    The post ID.
+	 * @return string The post title.
+	 */
+	public function change_title( $post_title, $post_id ) {
+		$queried_object = get_queried_object();
+
+		if ( 'show_region' === wpbdp_current_view() ) {
+			$post_title = $queried_object->name;
+		}
+
+		return $post_title;
 	}
 
 	//
