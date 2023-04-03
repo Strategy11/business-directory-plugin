@@ -160,15 +160,20 @@ class WPBDP__WordPress_Template_Integration {
 	}
 
 	public function display_view_in_content( $content = '' ) {
-		remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
-		if ( $this->displayed ) {
+		$is_tax = is_tax();
+
+		if ( ! $is_tax ) {
+			remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
+		}
+
+		if ( $this->displayed && ! $is_tax ) {
 			return '';
 		}
 
 		$html = wpbdp_current_view_output();
 		$this->after_content_processed( $html );
 
-		if ( is_tax() ) {
+		if ( $is_tax ) {
 			$this->end_query();
 		}
 
