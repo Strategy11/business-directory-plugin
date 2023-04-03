@@ -126,7 +126,6 @@ class WPBDP__WordPress_Template_Integration {
 			return $title;
 		}
 
-		remove_filter( 'the_title', array( &$this, 'set_tax_title' ) );
 		$term = get_queried_object();
 		return is_object( $term ) ? $term->name : $title;
 	}
