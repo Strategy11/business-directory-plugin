@@ -137,8 +137,6 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
-		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
-
 		if ( $this->in_the_loop() ) {
 			return $thumbnail;
 		}
