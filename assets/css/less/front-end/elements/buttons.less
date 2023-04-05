@@ -41,43 +41,35 @@ body .wpbdp-excerpt {
 // when the "Button Style Enabled" option enabled.
 .wpbdp-with-button-styles {
 
-	input[type="submit"],
-	input.submit,
-	a.wpbdp-button,
-	.wpbdp-button,
-	#change-plan-link {
-		border: 1px solid var(--bd-main-color);
-		background-color: var(--bd-main-color);
+	.wpbdp-checkout-submit input[type="submit"],
+	.wpbdp-ratings-reviews input[type="submit"],
+	.wpbdp-main-box input[type="submit"],
+	.listing-actions a.wpbdp-button,
+	.wpbdp-button {
+		border: 1px solid var(--bd-main-color) !important;
+		background-color: var(--bd-main-color) !important;
 		color: @white;
 		text-decoration: none;
+
+		&:hover {
+			background-color: var(--bd-main-color) !important;
+			opacity: 0.8;
+		}
 	}
 
-	a.reset {
-		border: 1px solid @bg-danger;
-		background-color: @bg-danger;
-		color: darken(@bg-danger, 30%);
+	.wpbdp-main-links-tiny .wpbdp-main-links .button {
+		padding-top: 10px;
+		padding-bottom: 10px;
 	}
 
-	input[type="submit"]:hover,
-	input.submit:hover,
-	a.wpbdp-button:hover,
-	.wpbdp-button:hover,
-	#change-plan-link:hover,
-	a.reset:hover {
-		opacity: 0.8;
+	.wpbdp-main-links-small .button {
+		padding-top: 10px;
+		padding-bottom: 10px;
 	}
 
-	// Disabled buttons
-	input[type="submit"]:disabled,
-	input.submit:disabled,
-	a.wpbdp-button:disabled,
-	.wpbdp-button:disabled,
-	a.reset:disabled {
-		border-color: @bg-gray;
-		background-color: @bg-gray;
-		color: @color-text--60;
-		opacity: 0.8;
-		cursor: not-allowed;
+	.wpbdp-main-links-medium .wpbdp-main-links .button {
+		padding-top: 8px;
+		padding-bottom: 8px;
 	}
 }
 
