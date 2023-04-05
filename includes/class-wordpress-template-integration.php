@@ -113,7 +113,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * @since 6.2.5
 	 */
 	public function prep_tax_head() {
-		if ( WPBDP__Themes_Compat::is_block_theme() ) {
+		if ( ! WPBDP__Themes_Compat::is_block_theme() ) {
 			add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
 		}
 
