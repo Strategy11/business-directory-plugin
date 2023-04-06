@@ -113,6 +113,13 @@
 			font-family: inherit;
 		}
 
+		.wpbdp-button,
+		input[type="submit"] {
+			color: var(--wp--preset--color--background);
+			background-color: var(--wp--preset--color--primary);
+			text-decoration: none;
+		}
+
 		/* Big buttons */
 		.wpbdp-submit-listing-form-actions .wpbdp-button,
 		.wpbdp-submit.wpbdp-button,
@@ -120,5 +127,9 @@
 			padding: ~'calc(0.5em + 2px) calc(1.5em + 2px)';
 			font-size: var(--wp--preset--font-size--medium);
 		}
+	}
+
+	.wpbdp-button {
+		color: var(--wp--preset--color--background);
 	}
 }
