@@ -390,10 +390,6 @@ form#wpbdmsearchform a.advanced-search-link {
 	margin-left: 50%;
 }
 
-.wpbdp-main-links a {
-	margin-right: 15px;
-}
-
 .wpbdp-bar .left {
 	text-align: center;
 	float: left;
@@ -716,8 +712,43 @@ body.business-directory #TB_secondLine {
 	display: block;
 }
 
+// Search Box Main Links.
 .wpbdp-main-links {
-	text-align: right;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 15px;
+
+	.button,
+	.wpbdp-link {
+		font-size: @font-size-md;
+		white-space: nowrap;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	&-small,
+	&-tiny {
+
+		.button,
+		.wpbdp-link {
+			order: 2;
+			margin: 0 0 4px;
+			text-align: center;
+		}
+
+		#wpbdp-bar-submit-listing-button {
+			order: 1;
+			width: 100%;
+		}
+	}
 }
 
 /*
