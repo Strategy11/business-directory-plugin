@@ -273,19 +273,19 @@ function wpbdp_main_links( $buttons = null ) {
 		// Use defaults.
 		$buttons = array();
 
-		if ( true ) {
+		if ( wpbdp_get_option( 'show-directory-button' ) ) {
 			$buttons[] = 'directory';
 		}
 
-		if ( true ) {
+		if ( wpbdp_get_option( 'show-view-listings' ) ) {
 			$buttons[] = 'listings';
 		}
 
-		if ( true ) {
+		if ( wpbdp_get_option( 'show-submit-listing' ) ) {
 			$buttons[] = 'create';
 		}
 
-		if ( true && is_user_logged_in() ) {
+		if ( wpbdp_get_option( 'show-manage-listings' ) && is_user_logged_in() ) {
 			$buttons[] = 'manage';
 		}
 	}
