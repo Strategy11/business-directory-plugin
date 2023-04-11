@@ -1,66 +1,15 @@
+/* stylelint-disable no-descending-specificity */
+
 /**
  * Buttons Element Styles
  *
  * This file includes the styles for the buttons element in the plugin.
  */
 
-// This overrides the WP theme button styling
-// when the "Button Style Enabled" option enabled.
-.wpbdp-with-button-styles {
-
-	a.wpbdp-button,
-	.wpbdp-button,
-	a.reset,
-	#change-plan-link {
-		border: 1px solid @border-main;
-		background-color: transparent;
-		color: var(--bd-main-color);
-	}
-
-	a.wpbdp-button:hover,
-	.wpbdp-button:hover {
-		background-color: var(--bd-main-color);
-		color: @white;
-	}
-
-	a.reset:hover {
-		border-color: @bg-danger;
-		background-color: @bg-danger;
-		color: darken(@bg-danger, 30%);
-	}
-
-	input[type="submit"],
-	input.submit {
-		border-color: var(--bd-main-color);
-		background-color: var(--bd-main-color);
-		color: @white;
-	}
-
-	input[type="submit"]:hover,
-	input.submit:hover,
-	#wpbdp-submit-listing-submit-btn:hover {
-		opacity: 0.8;
-	}
-
-	// Disabled buttons
-	input[type="submit"]:disabled,
-	input.submit:disabled,
-	a.wpbdp-button:disabled,
-	.wpbdp-button:disabled,
-	a.reset:disabled {
-		border-color: @bg-gray;
-		background-color: @bg-gray;
-		color: @color-text--60;
-		opacity: 0.8;
-		cursor: not-allowed;
-	}
-}
-
 body .wpbdp-page,
 body .wpbdp-single,
 body .wpbdp-excerpt {
 
-	/* stylelint-disable-next-line no-descending-specificity */
 	input[type="submit"],
 	input.submit,
 	a.wpbdp-button,
@@ -85,5 +34,49 @@ body .wpbdp-excerpt {
 		a.reset {
 			width: 100%;
 		}
+	}
+}
+
+// This overrides the WP theme button styling
+// when the "Button Style Enabled" option enabled.
+.wpbdp-with-button-styles {
+
+	.wpbdp-checkout-submit input[type="submit"],
+	.wpbdp-ratings-reviews input[type="submit"],
+	.wpbdp-main-box input[type="submit"],
+	.listing-actions a.wpbdp-button,
+	.wpbdp-button {
+		border: 1px solid var(--bd-main-color) !important;
+		background-color: var(--bd-main-color) !important;
+		color: @white !important;
+		text-decoration: none !important;
+
+		&:hover {
+			background-color: var(--bd-main-color) !important;
+			opacity: 0.8;
+		}
+	}
+
+	.wpbdp-button-secondary {
+		border: 1px solid var(--bd-main-color) !important;
+		padding: ~"calc(0.2em + 2px) calc(1em + 2px)";
+		background-color: transparent !important;
+		color: var(--bd-main-color) !important;
+		text-decoration: none !important;
+	}
+
+	.wpbdp-main-links-tiny .wpbdp-main-links .button {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.wpbdp-main-links-small .button {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.wpbdp-main-links-medium .wpbdp-main-links .button {
+		padding-top: 8px;
+		padding-bottom: 8px;
 	}
 }

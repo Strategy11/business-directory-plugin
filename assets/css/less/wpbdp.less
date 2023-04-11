@@ -23,8 +23,6 @@
 @import "@{elements-dir}/buttons.less";
 @import "@{elements-dir}/forms.less";
 @import "@{elements-dir}/alerts.less";
-@import "@{elements-dir}/loaders.less";
-@import "@{elements-dir}/modal.less";
 
 // TODO: The following code needs to be reorganized or redesigned in future PRs.
 @import "common.less";
@@ -112,7 +110,7 @@ form#wpbdmsearchform a.advanced-search-link {
 .wpbdp-with-button-styles .wpbdp-listing .listing-actions .wpbdp-button.delete-listing,
 .listing-actions .delete-listing,
 .listing-actions a.delete-listing {
-	border-color: transparent;
+	border-color: transparent !important;
 	background-color: transparent !important;
 	color: @red !important;
 }
@@ -390,10 +388,6 @@ form#wpbdmsearchform a.advanced-search-link {
 	padding: 0 !important;
 	margin: 0;
 	margin-left: 50%;
-}
-
-.wpbdp-main-links a {
-	margin-right: 15px;
 }
 
 .wpbdp-bar .left {
@@ -718,8 +712,43 @@ body.business-directory #TB_secondLine {
 	display: block;
 }
 
+// Search Box Main Links.
 .wpbdp-main-links {
-	text-align: right;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 15px;
+
+	.button,
+	.wpbdp-link {
+		font-size: @font-size-md;
+		white-space: nowrap;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	&-small,
+	&-tiny {
+
+		.button,
+		.wpbdp-link {
+			order: 2;
+			margin: 0 0 4px;
+			text-align: center;
+		}
+
+		#wpbdp-bar-submit-listing-button {
+			order: 1;
+			width: 100%;
+		}
+	}
 }
 
 /*
