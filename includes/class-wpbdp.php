@@ -240,6 +240,7 @@ final class WPBDP {
 	public function translation_filters() {
 		add_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10, 3 );
 		add_filter( 'gettext_with_context', array( &$this, 'use_custom_context_strings' ), 10, 4 );
+		add_filter( 'ngettext', array( &$this, 'use_custom_n_strings' ), 10, 5 );
 	}
 
 	/**
@@ -277,6 +278,16 @@ final class WPBDP {
 	 */
 	public function use_custom_context_strings( $translation, $text, $context, $domain ) {
 		return $this->use_custom_strings( $translation, $text, $domain );
+	}
+
+	/**
+	 * Translate _n() strings.
+	 *
+	 * @since x.x
+	 */
+	public function use_custom_n_strings( $translation, $single, $plural, $number, $domain ) {
+		$translation = $this->use_custom_strings( $translation, $single, $domain );
+		return $this->use_custom_strings( $translation, $plural, $domain );
 	}
 
 	/**

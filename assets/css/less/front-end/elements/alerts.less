@@ -1,0 +1,30 @@
+/**
+ * Alerts Element Styles
+ *
+ * This file includes the styles for the alerts element in the plugin.
+ */
+
+.wpbdp-msg {
+	border: 1px solid @border-main;
+	border-radius: @border-radius-main;
+	padding: 19px 25px;
+	margin: 30px 0;
+	background-color: @bg-warning;
+	color: @color-text--60;
+	font-size: @font-size-md;
+	line-height: @line-height-body;
+
+	&.error,
+	&.wpbdp-error {
+		background-color: @bg-danger;
+		color: @red;
+	}
+
+	ul {
+		margin: 0;
+
+		li {
+			list-style-position: inside;
+		}
+	}
+}
