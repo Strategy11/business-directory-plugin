@@ -13,9 +13,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: 8.0
+          - php: 7.4
             wordpress: 5.8
-          - php: 8.0
+          - php: 7.4
             wordpress: master
     name: PHP ${{ matrix.php }} tests in WP ${{ matrix.wordpress }}
     steps:
