@@ -1,0 +1,140 @@
+/* stylelint-disable no-descending-specificity */
+
+/**
+ * Search Box Component Styles
+ *
+ * This file includes the styles for the search box component.
+ */
+
+.wpbdp-main-box {
+	display: flex;
+	flex-direction: column;
+
+	// Layout styles
+	.main-fields {
+		margin-bottom: 10px;
+
+		form {
+			display: flex;
+			gap: 10px;
+
+			.search-fields {
+				flex: 1;
+
+				.box-row {
+					display: flex;
+					gap: 10px;
+
+					.box-col {
+						flex: 1;
+					}
+				}
+			}
+
+			.submit-btn {
+				display: flex;
+				gap: 10px;
+			}
+		}
+	}
+
+	// Input styles
+	.box-col {
+
+		input {
+			min-height: @min-height-search-box-input;
+			margin: 0 !important;
+		}
+	}
+
+	// Advanced Search Button styles
+	.advanced-search-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-left: @padding-advanced-search-button;
+		padding-right: @padding-advanced-search-button;
+		background-color: @border-main;
+		transition: opacity 0.24s ease-out;
+
+		&:hover {
+			opacity: 0.8;
+		}
+
+		svg {
+
+			path {
+				stroke: @color-black;
+			}
+		}
+	}
+
+	/**
+	 * Small & Tiny Search Box Views.
+	 *
+	 * Styles for compact search box component views.
+	 */
+	&-small,
+	&-tiny {
+
+		// Search Box Layout Styles for Small and Tiny Views.
+		.main-fields {
+
+			form {
+				flex-direction: column;
+				gap: 20px;
+
+				.search-fields {
+
+					.box-row {
+						flex-direction: column;
+						gap: 20px;
+					}
+				}
+			}
+		}
+	}
+}
+
+// Search Box Links.
+.wpbdp-main-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 15px;
+
+	&-container {
+		margin: 10px 0;
+	}
+
+	.button,
+	.wpbdp-link {
+		font-size: @font-size-md;
+		white-space: nowrap;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	&-small,
+	&-tiny {
+
+		.button,
+		.wpbdp-link {
+			order: 2;
+			margin: 0 0 4px;
+			text-align: center;
+		}
+
+		#wpbdp-bar-submit-listing-button {
+			order: 1;
+			width: 100%;
+		}
+	}
+}

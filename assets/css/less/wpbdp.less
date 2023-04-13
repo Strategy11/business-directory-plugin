@@ -23,10 +23,20 @@
 @import "@{elements-dir}/buttons.less";
 @import "@{elements-dir}/forms.less";
 @import "@{elements-dir}/alerts.less";
+@import "@{elements-dir}/loaders.less";
+@import "@{elements-dir}/modal.less";
+
+// Components
+@components-dir: "front-end/components";
+@import "@{components-dir}/search/search-box.less";
+@import "@{components-dir}/search/advanced-search.less";
+
+// Compatibility
+@compatibility-dir: "front-end/compatibility";
+@import "@{compatibility-dir}/wordpress-default-themes.less";
 
 // TODO: The following code needs to be reorganized or redesigned in future PRs.
 @import "common.less";
-@import "wordpress-default-themes.less";
 @import "datepicker.less";
 
 /*
@@ -48,43 +58,6 @@ form#wpbdmsearchform .wpbdmsearchbutton {
 form#wpbdmsearchform a.advanced-search-link {
 	display: block;
 	font-size: 70%;
-}
-
-#wpbdp-search-form {
-	padding-left: 10px;
-}
-
-#wpbdp-search-form .wpbdp-search-filter {
-	margin-bottom: 10px;
-	clear: both;
-}
-
-#wpbdp-search-form .wpbdp-search-filter > .wpbdp-search-field-label {
-	display: block;
-	width: 40%;
-	float: left;
-}
-
-#wpbdp-search-form .wpbdp-search-filter > div.field {
-	display: block;
-	width: 60%;
-	padding-left: 5px;
-	margin-left: 40%;
-}
-
-#wpbdp-search-form .wpbdp-search-filter > div.field > input[type="text"] {
-	box-sizing: border-box;
-	width: 90%;
-}
-
-#wpbdp-search-form .wpbdp-search-filter > div.field > select {
-	box-sizing: border-box;
-	width: 90%;
-}
-
-#wpbdp-search-form input[type="submit"] {
-	margin: auto;
-	float: none;
 }
 
 .wpbdp-pagination {
@@ -589,15 +562,6 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 /* }} */
 
-/* {{ Mobile CSS. */
-a.wpbdp-show-on-mobile,
-input[type="button"].wpbdp-show-on-mobile,
-.wpbdp-show-on-mobile {
-	display: none;
-}
-
-/* }} */
-
 /* {{ Some fixes for Thickbox on BD pages. */
 
 body.business-directory #TB_ImageOff .screen-reader-text,
@@ -647,108 +611,10 @@ body.business-directory #TB_secondLine {
 /* }} */
 
 /* Main search box. {{ */
-
-.wpbdp-main-box,
-.wpbdp-main-box .box-row,
-.wpbdp-main-box .box-col {
-	box-sizing: border-box;
-	width: 100%;
-}
-
-.wpbdp-main-box {
-	margin: 10px 0 20px 0;
-}
-
-.wpbdp-main-box .box-col {
-	margin-bottom: 4px;
-}
-
-.wpbdp-main-box .box-col input {
-	box-sizing: border-box;
-	width: 100%;
-	min-width: 150px;
-}
-
 // Cover vertical aligning text.
 .distance-field-wrapper .box-row {
 	display: flex;
 	align-items: center;
-}
-
-.wpbdp-main-box .submit-btn input[type="submit"] {
-	margin-top: 0;
-}
-
-.wpbdp-main-box .advanced-search-link {
-	display: block;
-	border: none;
-	font-size: 11px;
-	text-align: right;
-	text-decoration: none;
-	box-shadow: none;
-}
-
-.wpbdp-main-box .search-fields .box-row,
-.wpbdp-main-box .main-fields.box-row form {
-	display: flex;
-	gap: 5px;
-	width: 100%;
-}
-
-.wpbdp-main-box .submit-btn {
-	width: 22%;
-	min-width: 150px;
-}
-
-.wpbdp-main-box-tiny .submit-btn,
-.wpbdp-main-box-small .submit-btn {
-	width: 100%;
-}
-
-.wpbdp-main-box-tiny .search-fields .box-row,
-.wpbdp-main-box-tiny .main-fields.box-row form,
-.wpbdp-main-box-small .search-fields .box-row,
-.wpbdp-main-box-small .main-fields.box-row form {
-	display: block;
-}
-
-// Search Box Main Links.
-.wpbdp-main-links {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: flex-end;
-	gap: 15px;
-
-	.button,
-	.wpbdp-link {
-		font-size: @font-size-md;
-		white-space: nowrap;
-
-		&:first-child {
-			margin-left: 0;
-		}
-
-		&:last-child {
-			margin-right: 0;
-		}
-	}
-
-	&-small,
-	&-tiny {
-
-		.button,
-		.wpbdp-link {
-			order: 2;
-			margin: 0 0 4px;
-			text-align: center;
-		}
-
-		#wpbdp-bar-submit-listing-button {
-			order: 1;
-			width: 100%;
-		}
-	}
 }
 
 /*
@@ -837,10 +703,6 @@ body.business-directory #TB_secondLine {
 	}
 }
 
-.wpbdp-hidden {
-	display: none;
-}
-
 .wpbdp-form-field-association-category .wpbdp-form-field-checkbox-item.disabled,
 .wpbdp-form-field-association-category .wpbdp-form-field-radio-item.disabled {
 	opacity: 0.65;
@@ -916,18 +778,6 @@ body.business-directory #TB_secondLine {
 
 @media screen and (max-width: 560px) {
 
-	.wpbdp-show-on-mobile {
-		display: inline !important;
-	}
-
-	input[type="button"].wpbdp-hide-on-mobile {
-		display: none;
-	}
-
-	.wpbdp-hide-on-mobile {
-		display: none;
-	}
-
 	.wpbdp-bar form.wpbdp-search-form {
 
 		/* width: 49%;*/
@@ -944,19 +794,6 @@ body.business-directory #TB_secondLine {
 	.wpbdp-bar form.wpbdp-search-form input[type="text"] {
 		padding: 4px 0;
 		margin: 0 0 2px 0;
-	}
-
-	.wpbdp-main-box .search-fields .box-row,
-	.wpbdp-main-box .main-fields.box-row form {
-		display: block;
-	}
-
-	.wpbdp-main-box .submit-btn {
-		width: 100%;
-	}
-
-	.wpbdp-main-links .button {
-		width: 100%;
 	}
 
 	.wpbdp-listing.wpbdp-listing {

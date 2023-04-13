@@ -404,7 +404,7 @@ WPBDP.fileUpload = {
                         }
                     }
                 );
-   
+
                 image_frame.on( 'close', function() {
                     // On close, get selections and save to the hidden input
                     // plus other AJAX stuff to refresh the image preview
@@ -427,7 +427,7 @@ WPBDP.fileUpload = {
                         } else {
                             errors = ( 'undefined' !== typeof res.data.errors ) ? res.data.errors : false;
                         }
-    
+
                         if ( errors ) {
                             var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( errors );
                             $( res.data.errorElement ).prepend( errorMsg );
@@ -440,7 +440,7 @@ WPBDP.fileUpload = {
 
                             if ( ! res.data.inputElement ) {
                                 return;
-                                
+
                             }
 
                             var $input = $('input[name="' + res.data.inputElement + '"]');
@@ -449,12 +449,12 @@ WPBDP.fileUpload = {
                             var $preview = $input.siblings('.preview');
                             $preview.find('img').remove();
                             $preview.prepend( res.data.html );
-                            
+
                             $preview.siblings().hide();
                             $preview.show();
                             return;
                         }
-    
+
                         $( '#current-images-header' ).hide();
                         $( res.data.previewElement ).append( res.data.html );
                     });
@@ -538,7 +538,14 @@ WPBDP.fileUpload = {
 			},
 			type: "POST",
 			success: function ( response ) {
-				$( response.data ).addClass( 'wpbdp-modal wpbdp-open' ).appendTo( '.wpbdp-page' );
+				$( response.data )
+					.addClass( 'wpbdp-modal wpbdp-open' )
+					.attr('data-breakpoints', '{"small": [0,560], "medium": [560,780], "large": [780,999999]}')
+					.attr('data-breakpoints-class-prefix', 'wpbdp-modal')
+					.appendTo( $body );
+
+				Reusables.Breakpoints.scan( $body );
+
 				$html.css( 'overflow', 'hidden' );
 				$body.css( 'overflow', 'hidden' );
 				$body.find( '.wpbdp-loader-wrapper' ).remove();

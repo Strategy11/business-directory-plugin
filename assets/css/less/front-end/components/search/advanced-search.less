@@ -1,0 +1,97 @@
+/* stylelint-disable no-descending-specificity */
+
+/**
+ * Advanced Search Component Styles
+ *
+ * This file includes the styles for the advanced search component.
+ */
+
+// Modal Advanced Search
+#wpbdp-search-page.wpbdp-modal {
+
+	.wpbdp-modal-content {
+		padding-bottom: 111px;
+	}
+
+	.title {
+		margin: 0 0 43px;
+		line-height: 1;
+	}
+
+	.wpbdp-form-fields {
+		display: grid;
+		grid-template-columns: repeat(2, 2fr);
+		grid-column-gap: 30px;
+	}
+
+	.wpbdp-form-field {
+
+		&:not(.textarea) {
+			grid-column: span 1;
+		}
+
+		&.textarea {
+			grid-column: span 2;
+		}
+	}
+
+	// Modal Footer.
+	form > p {
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		justify-content: center;
+		gap: 25px;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		min-height: 111px;
+		border-bottom-right-radius: @border-radius-modal;
+		border-bottom-left-radius: @border-radius-modal;
+		padding: 15px 30px;
+		margin: 0;
+		background-color: @bg-modal-footer;
+
+		.reset {
+			color: @red;
+			text-decoration: underline;
+		}
+	}
+
+	.wpbdp-search-filter.ratings .inner {
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+
+		select {
+			margin-left: 8px;
+		}
+	}
+
+	/**
+	 * Small & Tiny Modal Advanced Search Views.
+	 *
+	 * Styles for compact modal advanced search component views.
+	 */
+	&-small,
+	&-tiny {
+
+		.wpbdp-modal-scrollbar {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		.wpbdp-form-field {
+
+			&:not(.textarea) {
+				grid-column: span 2;
+			}
+		}
+
+		input.wpbdp-submit,
+		.reset {
+			width: auto;
+		}
+	}
+}

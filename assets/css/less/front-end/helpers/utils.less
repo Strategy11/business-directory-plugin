@@ -21,7 +21,26 @@
 	clear: both;
 }
 
-// Hidden helper class
+// Toggle Visibility Helper Classes
 .wpbdp-hidden {
 	display: none;
+}
+
+.wpbdp-hidden-force {
+	display: none !important;
+}
+
+.wpbdp-show-on-mobile {
+	display: none !important;
+
+	@media (max-width: 560px) {
+		display: inline !important;
+	}
+}
+
+@media (max-width: 560px) {
+
+	.wpbdp-hide-on-mobile {
+		display: none !important;
+	}
 }

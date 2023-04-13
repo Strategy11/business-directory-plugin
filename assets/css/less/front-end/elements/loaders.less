@@ -1,0 +1,73 @@
+/**
+ * Loaders Element Styles
+ *
+ * This file includes the styles for the loaders element in the plugin.
+ */
+
+// Loader
+.wpbdp-loader-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 9999;
+	background-color: rgba(45, 48, 51, 0.4);
+}
+
+.wpbdp-spinner {
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	margin: 100px auto;
+	background-color: @color-text;
+	-webkit-animation: sk-scaleout 1s infinite ease-in-out;
+	animation: sk-scaleout 1s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-scaleout {
+
+	0% {
+		-webkit-transform: scale(0);
+	}
+
+	100% {
+		opacity: 0;
+		-webkit-transform: scale(1);
+	}
+}
+
+@keyframes sk-scaleout {
+
+	0% {
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+
+	100% {
+		opacity: 0;
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+}
+
+
+/* Skeleton */
+.wpbdp-skeleton {
+	animation: skeleton-loading 1s linear infinite alternate;
+	opacity: 0.7;
+}
+
+@keyframes skeleton-loading {
+
+	0% {
+		background-color: @bg-skeleton-loading-start;
+	}
+
+	100% {
+		background-color: @bg-skeleton-loading-end;
+	}
+}
