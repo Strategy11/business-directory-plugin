@@ -653,7 +653,7 @@ class WPBDP_CSV_Import {
 			}
 		}
 
-		if ( is_array( $state->images ) && ! empty( $state->images[0] ) ) {
+		if ( is_array( $state->images ) && ! empty( $state->images ) && ! empty( $state->images[0] ) ) {
 			$listing->set_thumbnail_id( $state->images[0] );
 		}
 
