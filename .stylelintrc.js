@@ -162,6 +162,7 @@ module.exports = {
 	plugins: [ 'stylelint-order', 'stylelint-less' ],
 	customSyntax: 'postcss-less',
 	rules: {
+		'selector-class-pattern': null,
 		'function-url-quotes': null,
 		'no-invalid-position-at-import-rule': null,
 		'order/order': [ 'custom-properties', 'declarations' ],
