@@ -17,6 +17,7 @@
 		form {
 			display: flex;
 			gap: 10px;
+			margin: 0 !important;
 
 			.search-fields {
 				flex: 1;
@@ -65,6 +66,57 @@
 
 			path {
 				stroke: @color-black;
+			}
+		}
+	}
+
+	// Zipcode Search styles
+
+	// TODO: After updating to the new design and releasing a new version,
+	//       we can transfer the Zipcode codes to the ZIP Search add-on.
+	//       Currently, due to the codes being production-ready,
+	//       these codes are available here.
+
+	&#wpbdp-main-box .wpbdp-zipcodesearch-search-unit {
+
+		.distance-field-wrapper {
+			display: block !important;
+			position: relative;
+
+			& > .box-row {
+				gap: 0;
+			}
+
+			.distance-field {
+				width: 100% !important;
+			}
+
+			.unit-label {
+				display: block !important;
+				position: absolute;
+				top: 50%;
+				right: 15px;
+				width: unset !important;
+				// We don't use a variable here because this code will be moved to
+				// the ZIP Search add-on.
+				// TODO: Remove the above comment after moving the code to the
+				// 		 ZIP Search add-on.
+				color: rgba(63, 75, 91, 0.6);
+				font-size: 80%;
+				line-height: 1;
+				transform: translateY(-50%);
+				white-space: nowrap;
+				user-select: none;
+			}
+		}
+	}
+
+	&-medium {
+
+		.main-fields form .search-fields .box-row {
+
+			.box-col.main-input + .wpbdp-zipcodesearch-search-unit {
+				flex-grow: 1.4;
 			}
 		}
 	}
