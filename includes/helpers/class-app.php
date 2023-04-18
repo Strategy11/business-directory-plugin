@@ -538,16 +538,12 @@ class WPBDP_App_Helper {
 				'"button' . $append,
 				' button' . $append,
 				'wpbdp-button button ',
-				'submit-next-button wpbdp-button',
-				'submit-back-button wpbdp-button',
 				'"wpbdp-button"'
 			),
 			array(
 				'"' . esc_attr( $button_class . $append ),
 				' ' . esc_attr( $button_class . $append ),
 				'wpbdp-button ' . esc_attr( $button_class ) . ' ',
-				'submit-next-button wpbdp-button ' . esc_attr( $button_class ),
-				'submit-back-button wpbdp-button ' . esc_attr( $button_class ),
 				'"' . esc_attr( $button_class . $append ) . '"',
 			),
 			$content
