@@ -1059,6 +1059,8 @@ function wpbdp_render( $template, $vars = array(), $allow_override = true ) {
 	$content = wpbdp_render_page( wpbdp_locate_template( $template, $allow_override ), $vars, false );
 	$content = apply_filters( "wpbdp_render_{$template_name}", $content );
 
+	WPBDP_App_Helper::add_theme_button_class( $content );
+
 	if ( isset( $vars['echo'] ) ) {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $content;

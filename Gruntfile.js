@@ -120,7 +120,7 @@ module.exports = function( grunt ) {
 			'!**/.*', '!**/phpcs.xml', '!**/phpunit.xml', '!**/composer.json',
 			'!**/package.json', '!**/package-lock.json', '!**/node_modules/**',
 			'!**/*.md', '!**/*.yml', '!**/zip-cli.php',
-      '!**/vendor/**',
+			'!**/vendor/**',
 			'!**/stubs.php', '!**phpstan.**'
 		]
       } );

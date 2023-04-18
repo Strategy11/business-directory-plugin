@@ -15,7 +15,7 @@
 		?>
 		<div class="wpbdp-submit-listing-form-actions wpbdp-full">
 		<?php if ( ! empty( $section['prev_section'] ) ) : ?>
-			<button class="submit-back-button wpbdp-button" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
+			<button class="submit-back-button wpbdp-button wpbdp-button-secondary" data-previous-section="<?php echo esc_attr( $section['prev_section'] ); ?>"><?php esc_html_e( 'Back', 'business-directory-plugin' ); ?></button>
 			<?php
 		endif;
 
