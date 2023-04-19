@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const glob = require('glob');
 const _ = require('underscore');
+const lessAutoPrefix = require('less-plugin-autoprefix');
 let lessDestFiles = [];
 
 module.exports = function( grunt ) {
@@ -80,7 +81,20 @@ module.exports = function( grunt ) {
       }
 
       if ( ! _.isEmpty( less_config ) ) {
-        grunt.config.set( 'less.' + id, {options: {cleancss: false, compress: true, strictImports: true, plugins : [ new (require('less-plugin-autoprefix'))({browsers : [ "last 2 versions" ]}) ]}, files: less_config} );
+        grunt.config.set( 'less.' + id, {
+					options: {
+						cleancss: false,
+						compress: true,
+						strictImports: true,
+						plugins: [
+							new lessAutoPrefix({
+								browsers: [ 'last 2 versions' ]
+							})
+						]
+					},
+					files: less_config
+				} );
+
         grunt.config.set( 'watch.' + id + '_less', {
           files: [path.join(basedir, '**/*.less'), path.join(basedir, '**/**/*.less'), path.join(basedir, '**/*.css'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.css'), '!' + path.join(basedir, 'assets/vendor/**/*')],
           tasks: [ 'less:' + id ]
@@ -120,7 +134,7 @@ module.exports = function( grunt ) {
 			'!**/.*', '!**/phpcs.xml', '!**/phpunit.xml', '!**/composer.json',
 			'!**/package.json', '!**/package-lock.json', '!**/node_modules/**',
 			'!**/*.md', '!**/*.yml', '!**/zip-cli.php',
-      '!**/vendor/**',
+			'!**/vendor/**',
 			'!**/stubs.php', '!**phpstan.**'
 		]
       } );

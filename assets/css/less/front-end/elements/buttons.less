@@ -23,6 +23,13 @@ body .wpbdp-excerpt {
 		white-space: nowrap;
 	}
 
+	input[type="submit"],
+	input.submit,
+	a.wpbdp-button,
+	.wpbdp-button {
+		text-decoration: none;
+	}
+
 	// View: Small, and Tiny
 	&[class$="small"],
 	&[class$="tiny"] {
@@ -37,14 +44,26 @@ body .wpbdp-excerpt {
 	}
 }
 
+body .wpbdp-page .wpbdp-button.et_pb_button,
+body .wpbdp-button.et_pb_button {
+	// Fix the hover on the Divi button.
+	display: inline-block;
+
+	&:after {
+		line-height: inherit;
+	}
+}
+
 // This overrides the WP theme button styling
 // when the "Button Style Enabled" option enabled.
 .wpbdp-with-button-styles {
 
 	.wpbdp-checkout-submit input[type="submit"],
 	.wpbdp-ratings-reviews input[type="submit"],
+	.comment-form input[type="submit"],
 	.wpbdp-main-box input[type="submit"],
 	.listing-actions a.wpbdp-button,
+	.wpbdp-button-secondary,
 	.wpbdp-button {
 		border: 1px solid var(--bd-main-color) !important;
 		background-color: var(--bd-main-color) !important;
@@ -57,26 +76,15 @@ body .wpbdp-excerpt {
 		}
 	}
 
-	.wpbdp-button-secondary {
-		border: 1px solid var(--bd-main-color) !important;
-		padding: ~"calc(0.2em + 2px) calc(1em + 2px)";
+	.wpbdp-button-secondary,
+	.wpbdp-button-secondary:hover {
 		background-color: transparent !important;
 		color: var(--bd-main-color) !important;
-		text-decoration: none !important;
 	}
 
-	.wpbdp-main-links-tiny .wpbdp-main-links .button {
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-
-	.wpbdp-main-links-small .button {
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-
-	.wpbdp-main-links-medium .wpbdp-main-links .button {
-		padding-top: 8px;
-		padding-bottom: 8px;
+	.wpbdp-main-links-container .button,
+	.wpbdp-main-links-container .wpbdp-main-links .button {
+		padding-top: 6px;
+		padding-bottom: 6px;
 	}
 }

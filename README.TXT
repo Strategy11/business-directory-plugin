@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.1.1
-Stable tag: 6.3.3
+Stable tag: 6.3.4
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,16 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.4 =
+* New: Add 'wpbdp_button_class' hook for adding a button class to match existing buttons.
+* New: Better match Divi buttons out of the box.
+* Fix: Resolve a conflict with RankMath.
+* Fix: Expired listings on recurring plans was not renewable.
+* Fix: The Claim Listings settings link made following links unclickable.
+* Fix: Icons now work with URL fields.
+* Fix: Strings with 'listings' that are translated with _n can now be customized.
+* Refactor the CSS for base elements.
+
 = 6.3.3 =
 * Fix: Listing titles were not always showing.
 * Fix: Resolve some CSS issues on the single page.

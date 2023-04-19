@@ -328,7 +328,7 @@ function wpbdp_main_links( $buttons = null ) {
 	}
 
 	if ( in_array( 'create', $buttons, true ) ) {
-		$html[] = '<a href="' . esc_url( wpbdp_url( 'submit_listing' ) ) . '" id="wpbdp-bar-submit-listing-button" class="button wpbdp-button-secondary">' .
+		$html[] = '<a href="' . esc_url( wpbdp_url( 'submit_listing' ) ) . '" id="wpbdp-bar-submit-listing-button" class="button wpbdp-button wpbdp-button-secondary">' .
 			esc_html__( 'Add Listing', 'business-directory-plugin' ) .
 			'</a>';
 	}
