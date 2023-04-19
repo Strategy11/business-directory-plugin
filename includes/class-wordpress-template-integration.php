@@ -60,7 +60,12 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		if ( $allow_override ) {
+			if ( WPBDP__Themes_Compat::is_block_theme() && is_tax() ) {
+				add_filter( 'render_block', array( $this, 'block_theme_set_tax_title' ), 10, 2 );
+			}
+
 			add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
+
 			$page_template = get_query_template( 'page', $this->get_template_alternatives() );
 			if ( $page_template ) {
 				$template = $page_template;
@@ -108,7 +113,10 @@ class WPBDP__WordPress_Template_Integration {
 	 * @since 6.2.5
 	 */
 	public function prep_tax_head() {
-		add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
+		if ( ! WPBDP__Themes_Compat::is_block_theme() ) {
+			add_filter( 'the_title', array( &$this, 'set_tax_title' ) );
+		}
+
 		add_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
 	}
 
@@ -126,9 +134,37 @@ class WPBDP__WordPress_Template_Integration {
 			return $title;
 		}
 
-		remove_filter( 'the_title', array( &$this, 'set_tax_title' ) );
 		$term = get_queried_object();
 		return is_object( $term ) ? $term->name : $title;
+	}
+
+	/**
+	 * Since the term page thinks it's a normal post, replaces the post title in the post-title block
+	 * with the taxonomy term name when the block is part of a query loop.
+	 *
+	 * This function is a filter callback for the 'render_block' hook.
+	 *
+	 * @see WPBDP__Dispatcher.
+	 *
+	 * @since x.x
+	 * @param string $block_content The content of the block to be rendered.
+	 * @param array  $block         The block object containing the block's attributes and settings.
+	 * @return string The modified block content with the taxonomy term name as the post title, if applicable.
+	 */
+	public function block_theme_set_tax_title( $block_content, $block ) {
+		// Check if it's a post title block.
+		if ( $block['blockName'] === 'core/post-title' ) {
+			$term = get_queried_object();
+
+			if ( is_object( $term ) ) {
+				$title = $term->name;
+
+				// Modify the block content with the title.
+				$block_content = preg_replace( '/(<h\d[^>]*>)(.*?)(<\/h\d>)/', '$1' . $title . '$3', $block_content );
+			}
+		}
+
+		return $block_content;
 	}
 
 	/**
@@ -138,8 +174,6 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
-		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
-
 		if ( $this->in_the_loop() ) {
 			return $thumbnail;
 		}
@@ -163,15 +197,20 @@ class WPBDP__WordPress_Template_Integration {
 	}
 
 	public function display_view_in_content( $content = '' ) {
-		remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
-		if ( $this->displayed ) {
+		$is_tax = is_tax();
+
+		if ( ! $is_tax ) {
+			remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
+		}
+
+		if ( $this->displayed && ! $is_tax ) {
 			return '';
 		}
 
 		$html = wpbdp_current_view_output();
 		$this->after_content_processed( $html );
 
-		if ( is_tax() ) {
+		if ( $is_tax ) {
 			$this->end_query();
 		}
 
@@ -396,4 +435,3 @@ class WPBDP__WordPress_Template_Integration {
 		_deprecated_function( __METHOD__, '6.1' );
 	}
 }
-
