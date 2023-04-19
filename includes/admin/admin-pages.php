@@ -225,6 +225,8 @@ class WPBDP_Admin_Pages {
 			$tabs = self::get_content_tabs();
 		}
 
+		self::maybe_move_tab( $tabs, $args );
+
 		/**
 		 * @since 6.0.1
 		 */
@@ -240,7 +242,7 @@ class WPBDP_Admin_Pages {
 		<div class="wpbdp-admin-row">
 			<?php
 			if ( $args['show_nav'] ) {
-				if ( isset( $tabs['wpbdp-admin-fees'] ) ) {
+				if ( isset( $tabs['wpbdp_admin_csv'] ) ) {
 					// This is a content page.
 					echo '<script>var wpbdpSelectNav = 1;</script>';
 				}
@@ -501,6 +503,46 @@ class WPBDP_Admin_Pages {
 		}
 
 		return $tabs;
+	}
+
+	/**
+	 * Move form fields and plans links to settings.
+	 *
+	 * @since x.x
+	 * @param array $tabs
+	 * @param array $args
+	 * @return void
+	 */
+	private static function maybe_move_tab( &$tabs, $args ) {
+		$is_settings = ! empty( $args['tabs'] );
+
+		// Move links from content to settings.
+		$add = array(
+			'wpbdp_admin_formfields' => array(
+				'icon'     => 'clipboard',
+				'title'    => __( 'Form Fields', 'business-directory-plugin' ),
+				'type'     => 'tab',
+				'position' => 2,
+			),
+			'wpbdp-admin-fees'       => array(
+				'icon'     => 'money',
+				'title'    => __( 'Plans', 'business-directory-plugin' ),
+				'type'     => 'tab',
+				'position' => 4,
+			),
+		);
+
+		foreach ( $add as $id => $link ) {
+			if ( $is_settings ) {
+				// Move the link earlier in the tabs array.
+				$position = $link['position'];
+				$tabs = array_slice( $tabs, 0, $position, true ) +
+					array( $id => $link ) +
+					array_slice( $tabs, $position, count( $tabs ) - $position, true );
+			} else {
+				unset( $tabs[ $id ] );
+			}
+		}
 	}
 
 	/**
