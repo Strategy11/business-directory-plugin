@@ -1150,7 +1150,6 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 *
 	 * @since x.x
 	 * @param string $msg
-	 * @return string|void
 	 */
 	private function die_or_return( $msg ) {
 		if ( $this->is_ajax ) {
