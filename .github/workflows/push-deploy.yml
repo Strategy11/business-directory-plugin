@@ -11,7 +11,8 @@ jobs:
     - uses: actions/checkout@master
     - run: "composer install --no-dev"
     - name: WordPress Plugin Deploy
-      uses: 10up/action-wordpress-plugin-deploy@stable
+      # Switch this back to @stable after https://github.com/10up/action-wordpress-plugin-deploy/issues/116
+      uses: 10up/action-wordpress-plugin-deploy@develop
       env:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
