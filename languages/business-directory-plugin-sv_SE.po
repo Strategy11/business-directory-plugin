@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-04-18 22:06:17+00:00\n"
+"POT-Creation-Date: 2023-04-20 00:05:59+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -784,7 +784,7 @@ msgid "Missing tables: %s"
 msgstr "Saknade tabeller:%s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1484
+#: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -1812,24 +1812,24 @@ msgstr "Avgiftsplan"
 msgid "Please choose a plan."
 msgstr "(Vänligen välj en avgiftsplan ovan)"
 
-#: includes/controllers/pages/class-submit-listing.php:1289
+#: includes/controllers/pages/class-submit-listing.php:1304
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/controllers/pages/class-submit-listing.php:1468
+#: includes/controllers/pages/class-submit-listing.php:1483
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/controllers/pages/class-submit-listing.php:1475
+#: includes/controllers/pages/class-submit-listing.php:1490
 #, fuzzy
 msgid "Username"
 msgstr "Användarnamn:"
 
-#: includes/controllers/pages/class-submit-listing.php:1497
+#: includes/controllers/pages/class-submit-listing.php:1512
 #, fuzzy
 msgid "Clear Form"
 msgstr "Rensa"
@@ -7854,12 +7854,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1518
+#: includes/controllers/pages/class-submit-listing.php:1533
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/controllers/pages/class-submit-listing.php:1532
+#: includes/controllers/pages/class-submit-listing.php:1547
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
@@ -8223,7 +8223,7 @@ msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Det går inte att registrera en annons just nu. Försök igen senare."
 
 #: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1200
+#: includes/controllers/pages/class-submit-listing.php:1215
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en kategori."
@@ -8244,22 +8244,22 @@ msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/controllers/pages/class-submit-listing.php:1435
+#: includes/controllers/pages/class-submit-listing.php:1450
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/controllers/pages/class-submit-listing.php:1440
+#: includes/controllers/pages/class-submit-listing.php:1455
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/controllers/pages/class-submit-listing.php:1445
+#: includes/controllers/pages/class-submit-listing.php:1460
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/controllers/pages/class-submit-listing.php:1450
+#: includes/controllers/pages/class-submit-listing.php:1465
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
@@ -8269,7 +8269,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Notering skickas in av admin. Betalning hoppas över."
 
-#: includes/controllers/pages/class-submit-listing.php:1382
+#: includes/controllers/pages/class-submit-listing.php:1397
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

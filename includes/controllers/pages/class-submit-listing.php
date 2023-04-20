@@ -1148,7 +1148,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * If ajax is running, the message won't show if we use wp_die().
 	 *
-	 * @since x.x
+	 * @since 6.3.4
 	 * @param string $msg
 	 */
 	private function die_or_return( $msg ) {
