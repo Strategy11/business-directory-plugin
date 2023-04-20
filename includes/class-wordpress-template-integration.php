@@ -146,7 +146,7 @@ class WPBDP__WordPress_Template_Integration {
 	 *
 	 * @see WPBDP__Dispatcher.
 	 *
-	 * @since x.x
+	 * @since 6.3.4
 	 * @param string $block_content The content of the block to be rendered.
 	 * @param array  $block         The block object containing the block's attributes and settings.
 	 * @return string The modified block content with the taxonomy term name as the post title, if applicable.

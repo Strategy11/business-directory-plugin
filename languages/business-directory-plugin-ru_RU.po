@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-04-18 22:06:17+00:00\n"
+"POT-Creation-Date: 2023-04-20 00:05:59+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -791,7 +791,7 @@ msgid "Missing tables: %s"
 msgstr "Отсутствующие таблицы: %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1484
+#: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -1797,19 +1797,19 @@ msgstr "Перейти в раздел \"Управление / Форма\""
 msgid "Please choose a plan."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:1289
+#: includes/controllers/pages/class-submit-listing.php:1304
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1468
+#: includes/controllers/pages/class-submit-listing.php:1483
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1475
+#: includes/controllers/pages/class-submit-listing.php:1490
 msgid "Username"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1497
+#: includes/controllers/pages/class-submit-listing.php:1512
 #, fuzzy
 msgid "Clear Form"
 msgstr "Очистить форму"
@@ -7902,12 +7902,12 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1518
+#: includes/controllers/pages/class-submit-listing.php:1533
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Пожалуйста примите наши Условия и Положения."
 
-#: includes/controllers/pages/class-submit-listing.php:1532
+#: includes/controllers/pages/class-submit-listing.php:1547
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -8280,7 +8280,7 @@ msgstr ""
 "пожалуйста."
 
 #: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1200
+#: includes/controllers/pages/class-submit-listing.php:1215
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
@@ -8302,24 +8302,24 @@ msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:1435
+#: includes/controllers/pages/class-submit-listing.php:1450
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/controllers/pages/class-submit-listing.php:1440
+#: includes/controllers/pages/class-submit-listing.php:1455
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Пожалуйста введите Ваше имя."
 
-#: includes/controllers/pages/class-submit-listing.php:1445
+#: includes/controllers/pages/class-submit-listing.php:1460
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1450
+#: includes/controllers/pages/class-submit-listing.php:1465
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -8329,7 +8329,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1382
+#: includes/controllers/pages/class-submit-listing.php:1397
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."

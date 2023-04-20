@@ -166,6 +166,8 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: The Claim Listings settings link made following links unclickable.
 * Fix: Icons now work with URL fields.
 * Fix: Strings with 'listings' that are translated with _n can now be customized.
+* Fix: Fail more gracefully when a CSV file fails to upload.
+* Fix: Fail more gracefully when a logged out user has no available plans.
 * Refactor the CSS for base elements.
 
 = 6.3.3 =
