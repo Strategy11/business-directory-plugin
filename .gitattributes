@@ -7,6 +7,7 @@
 .* export-ignore
 .wordpress-org export-ignore
 *.lock export-ignore
+package-lock.json export-ignore
 composer.json export-ignore
 Gruntfile.js export-ignore
 /assets/css/less/ export-ignore
@@ -14,7 +15,9 @@ node_modules export-ignore
 package.json export-ignore
 phpcs.xml export-ignore
 phpmd.xml export-ignore
+phpstan.neon export-ignore
 phpunit.xml export-ignore
 *.md export-ignore
 *.yml export-ignore
+stubs.php export-ignore
 tests export-ignore
