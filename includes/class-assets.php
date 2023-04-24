@@ -133,11 +133,13 @@ class WPBDP__Assets {
 		$enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
 		$min                        = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		$this->maybe_enqueue_widget_css();
+		$this->maybe_enqueue_widget_css( $enqueue_scripts_and_styles );
 
 		if ( ! $enqueue_scripts_and_styles ) {
 			return;
 		}
+
+		$this->load_theme_css();
 
 		wp_register_script(
 			'wpbdp-js',
@@ -187,9 +189,10 @@ class WPBDP__Assets {
 	 * Only load the widget CSS if a widget is active.
 	 *
 	 * @since x.x
+	 * @param bool $is_bd_page Whether the current page is a BD page.
 	 * @return void
 	 */
-	private function maybe_enqueue_widget_css() {
+	private function maybe_enqueue_widget_css( $is_bd_page ) {
 		wp_register_style(
 			'wpbdp-widgets',
 			WPBDP_ASSETS_URL . 'css/widgets.min.css',
@@ -197,18 +200,39 @@ class WPBDP__Assets {
 			WPBDP_VERSION
 		);
 
-		// Workaround for widgets missing enqueue 'wpbdp-widgets'.
+		if ( $is_bd_page ) {
+			wp_enqueue_style( 'wpbdp-widgets' );
+			return;
+		}
+
+		// Workaround for widgets missing enqueue 'wpbdp-widgets' or to include css in header.
 		$check_widgets = array(
 			'WPBDP_Region_Search_Widget',
 			'WPBDP_ZIPSearchWidget',
+			'WPBDP_FeaturedListingsWidget',
+			'WPBDP_LatestListingsWidget',
+			'WPBDP_RandomListingsWidget',
+			'WPBDP_SearchWidget',
 		);
 
 		foreach ( $check_widgets as $widget ) {
 			if ( is_active_widget( false, false, strtolower( $widget ) ) ) {
+				$this->load_theme_css();
 				wp_enqueue_style( 'wpbdp-widgets' );
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Load the theme CSS if we're on a BD page or a widget is included.
+	 *
+	 * @since x.x
+	 * @return void
+	 */
+	private function load_theme_css() {
+		global $wpbdp;
+		add_action( 'wp_enqueue_scripts', array( &$wpbdp->themes, 'enqueue_theme_scripts' ), 999 );
 	}
 
 	/**
