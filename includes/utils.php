@@ -838,25 +838,13 @@ function wpbdp_scandir( $path, $args = array() ) {
 	if ( ! is_dir( $path ) ) {
 		return array();
 	}
-	/*
-	$defaults = array(
-		'filter' => false
-	);
-	$args = wp_parse_args( $args, $defaults );
-	extract( $args );
 
-	$filter = is_array( $filter ) ? $filter : ( $filter ? (array) $filter : false );*/
-	$res = array_diff( scandir( $path ), array( '.', '..' ) );
-
-	/*    foreach ( $res as $i => &$r ) {
-		$r = untrailingslashit( $path ) . '/' . $r;
-
-		if ( $filter && ( ( ! in_array( 'dir', $filter ) && is_dir( $r ) ) || ( ! in_array( 'file', $filter ) && is_file( $r ) ) ) )
-			unset( $res[ $i ] );
+	$files = scandir( $path );
+	if ( empty( $files ) ) {
+		return array();
 	}
-	*/
-	return $res;
-	//    return array_diff( scandir( $path ), array( '.', '..' ) );
+
+	return array_diff( $files, array( '.', '..' ) );
 }
 
 /**

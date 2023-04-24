@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-01-26 19:09:36+00:00\n"
+"POT-Creation-Date: 2023-04-20 00:05:59+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -130,7 +130,7 @@ msgstr "Modules"
 msgid "Business Directory"
 msgstr "Annuaire Professionnel"
 
-#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:367
+#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:378
 msgid "Upgrade to Premium"
 msgstr "Mettre à jour vers la version Premium"
 
@@ -383,8 +383,8 @@ msgid "Form Preview"
 msgstr "Aperçu du formulaire"
 
 #: includes/admin/controllers/class-form-fields-admin.php:147
-#: includes/helpers/functions/general.php:1284
-#: includes/helpers/functions/general.php:1289
+#: includes/helpers/functions/general.php:1286
+#: includes/helpers/functions/general.php:1291
 msgid "Go back"
 msgstr "Revenir en arrière"
 
@@ -700,7 +700,7 @@ msgid "Missing tables: %s"
 msgstr "Tables manquantes : %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1484
+#: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -1157,6 +1157,7 @@ msgstr ""
 "plugins installés, thèmes et versions de Worpdress ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1691
+#: includes/licensing.php:593
 msgid "Learn more"
 msgstr "En savoir plus"
 
@@ -1266,7 +1267,7 @@ msgstr "Nouveau"
 msgid "View Docs"
 msgstr "Voir la documentation"
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:370
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:381
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -1318,7 +1319,7 @@ msgstr ""
 "Pourriez-vous prendre une minute et nous faire savoir ce que nous pouvons "
 "faire mieux ?"
 
-#: includes/class-assets.php:195
+#: includes/class-assets.php:201
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:77
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:100
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:115
@@ -1329,15 +1330,15 @@ msgstr ""
 msgid "Cancel"
 msgstr "Annuler"
 
-#: includes/class-assets.php:196
+#: includes/class-assets.php:202
 msgid "Continue"
 msgstr "Continuer"
 
-#: includes/class-assets.php:197
+#: includes/class-assets.php:203
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
-#: includes/class-assets.php:363
+#: includes/class-assets.php:369
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
 "how WordPress stores the data."
@@ -1434,11 +1435,11 @@ msgstr ""
 "%1$sParamètres - Paiement%2$s pour configurer une passerelle. Jusqu'à ce que "
 "vous fassiez cela, seuls les plans gratuits seront disponibles."
 
-#: includes/class-wpbdp.php:596
+#: includes/class-wpbdp.php:607
 msgid "Could not find listing ID"
 msgstr "Impossible de trouver l'identifiant de l'annonce"
 
-#: includes/class-wpbdp.php:603
+#: includes/class-wpbdp.php:614
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
@@ -1446,17 +1447,17 @@ msgstr ""
 "Impossible de vérifier la demande de téléchargement d'image. Si le problème "
 "persiste, contactez l'administrateur du site."
 
-#: includes/class-wpbdp.php:616 includes/fields/class-fieldtypes-image.php:394
+#: includes/class-wpbdp.php:627 includes/fields/class-fieldtypes-image.php:394
 msgid "Could not find image ID"
 msgstr "Impossible de trouver l'identifiant de l'image"
 
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
 msgstr ""
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1691,21 +1692,21 @@ msgstr "Aller aux \"abonnements\""
 msgid "Please choose a plan."
 msgstr "Veuillez choisir un abonnement ci-dessus."
 
-#: includes/controllers/pages/class-submit-listing.php:1289
+#: includes/controllers/pages/class-submit-listing.php:1304
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Quelque chose s'est mal passé. Veuillez vérifier le formulaire, corriger les "
 "erreurs et soumettre à nouveau."
 
-#: includes/controllers/pages/class-submit-listing.php:1468
+#: includes/controllers/pages/class-submit-listing.php:1483
 msgid "Create a user account on this site"
 msgstr "Créer un compte utilisateur sur ce site"
 
-#: includes/controllers/pages/class-submit-listing.php:1475
+#: includes/controllers/pages/class-submit-listing.php:1490
 msgid "Username"
 msgstr "Nom d'utilisateur (login)"
 
-#: includes/controllers/pages/class-submit-listing.php:1497
+#: includes/controllers/pages/class-submit-listing.php:1512
 msgid "Clear Form"
 msgstr "Effacer le formulaire"
 
@@ -2131,7 +2132,7 @@ msgstr "U.S. Dollar (USD)"
 msgid "Uruguayan Peso"
 msgstr ""
 
-#: includes/helpers/functions/general.php:1274
+#: includes/helpers/functions/general.php:1276
 msgid "Return to Directory"
 msgstr "Retourner vers l'annuaire"
 
@@ -2227,47 +2228,47 @@ msgstr ""
 "TLS :"
 
 #: includes/licensing.php:590
+#, fuzzy
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
-"Business Directory servers. Please contact your webhost and ask them to add "
-"our IP address 52.0.78.177 to your allow list."
+"Business Directory servers."
 msgstr ""
 "Il semble que votre serveur ne soit pas autorisé à envoyer des requêtes "
 "sortantes aux serveurs de l'annuaire professionnel. Veuillez contacter votre "
 "hébergeur et lui demander d'ajouter notre adresse IP<ip-address> à votre "
 "liste d'autorisation."
 
-#: includes/licensing.php:645
+#: includes/licensing.php:649
 msgid "Download Premium"
 msgstr ""
 
-#: includes/licensing.php:695
+#: includes/licensing.php:699
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Clé de licence manquante."
 
-#: includes/licensing.php:696
+#: includes/licensing.php:700
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Clé de licence expirée"
 
-#: includes/licensing.php:697
+#: includes/licensing.php:701
 msgid "Could not verify Business Directory license."
 msgstr "Impossible de vérifier la licence de l'annuaire professionnel."
 
-#: includes/licensing.php:698
+#: includes/licensing.php:702
 msgid ""
 "You have modules installed, but Business Directory Premium is missing. "
 "Install this plugin for extra features and easy license management."
 msgstr ""
 
-#: includes/licensing.php:709
+#: includes/licensing.php:713
 msgid "Review license keys"
 msgstr "Renouveller la clé de licence"
 
-#: includes/licensing.php:824
+#: includes/licensing.php:828
 msgid "Missing data. Please reload this page and try again."
 msgstr "Données manquantes. Veuillez recharger cette page et réessayer."
 
-#: includes/licensing.php:829
+#: includes/licensing.php:833
 msgid "Please enter a license key."
 msgstr "S'il vous plaît entrer une clé de licence."
 
@@ -2300,7 +2301,7 @@ msgstr "Imprimer le reçu"
 msgid "Return to plan selection"
 msgstr "Retourner vers la sélection d'abonnement"
 
-#: includes/themes.php:929
+#: includes/themes.php:930
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Le fichier ZIP n'est pas un fichier de thème valide."
 
@@ -2712,7 +2713,7 @@ msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 "Ajouter une passerelle de paiement pour augmenter les taux de conversion"
 
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 #: templates/admin/fees-index.tpl.php:75
 msgid "Add %s as a payment option."
 msgstr "Ajouter %s comme une option de paiement."
@@ -3560,6 +3561,268 @@ msgstr "Soumettre l'annonce"
 #: templates/submit-listing-section.tpl.php:32
 msgid "Continue to Payment"
 msgstr "Continuer le paiement"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/internationalized-plugin.php:11
+msgid "This is a dummy plugin"
+msgstr "Ceci est un plugin factice"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:42
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:72
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:80
+msgid "There was an error when reading this WXR file"
+msgstr "Il y a eu une erreur lors de la lecture du fichier CSV"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:43
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
+msgstr ""
+"Les détails sont indiqués ci-dessus. L'importateur va maintenant réessayer "
+"avec un analyseur différent..."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:84
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:89
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:306
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:495
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+"Cela ne semble pas être un fichier WXR, numéro de version WXR manquant/"
+"invalide"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:132
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:141
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:192
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:196
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:205
+msgid "Sorry, there has been an error."
+msgstr "Désolé, il y a eu une erreur."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:133
+msgid "The file does not exist, please try again."
+msgstr "Le fichier n'existe pas, veuillez réessayer."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:176
+msgid "All done."
+msgstr "Terminé."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:176
+msgid "Have fun!"
+msgstr "Amusez-vous bien !"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:177
+msgid "Remember to update the passwords and roles of imported users."
+msgstr ""
+"N'oubliez pas de mettre à jour les mots de passe et les rôles des "
+"utilisateurs importés."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:197
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
+"Le fichier d'exportation est introuvable à <code>%s</code>. Il est probable "
+"que cela soit dû à un problème d'autorisations."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:213
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+"Ce fichier WXR (version %s) n'est peut-être pas pris en charge par cette "
+"version de l'importateur. Veuillez envisager la mise à jour."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:238
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+"Impossible d'importer l'auteur %s. Leurs articles seront attribués à "
+"l'utilisateur actuel."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:264
+msgid "Assign Authors"
+msgstr "Assigner les auteurs"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:265
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
+msgstr ""
+"Pour faciliter la modification et l'enregistrement du contenu importé, vous "
+"pouvez réaffecter l'auteur de l'élément importé à un utilisateur existant de "
+"ce site. Par exemple, vous pouvez importer toutes les entrées en tant "
+"qu'entrées <code>admin</code>."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:267
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+"Si un nouvel utilisateur est créé par WordPress, un nouveau mot de passe "
+"sera généré aléatoirement et le rôle du nouvel utilisateur sera défini comme "
+"%s. Il sera nécessaire de modifier manuellement les détails du nouvel "
+"utilisateur."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:277
+msgid "Import Attachments"
+msgstr "Importer les pièces jointes"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:280
+msgid "Download and import file attachments"
+msgstr "Télécharger et importer les pièces jointes"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:284
+msgid "Submit"
+msgstr "Soumettre"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:297
+msgid "Import author:"
+msgstr "Importer l'auteur :"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:308
+msgid "or create new user with login name:"
+msgstr "ou créer un nouvel utilisateur avec comme login :"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:311
+msgid "as a new user:"
+msgstr "comme un nouvel utilisateur :"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:319
+msgid "assign posts to an existing user:"
+msgstr "assigner les articles à un utilisateur :"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:321
+msgid "or assign posts to an existing user:"
+msgstr "ou assigner les articles à un utilisateur existant :"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:322
+msgid "- Select -"
+msgstr "- Sélectionnez -"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:372
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+"Impossible de créer un nouvel utilisateur pour %s. Leurs articles seront "
+"attribués à l'utilisateur courant."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:424
+msgid "Failed to import category %s"
+msgstr "Impossible d'importer la catégorie %s"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:467
+msgid "Failed to import post tag %s"
+msgstr "Impossible d'importer les étiquettes de l'article %s"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:516
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:738
+msgid "Failed to import %s %s"
+msgstr "Impossible d'importer %s %s"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:605
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr "Impossible d'importer %s : Type d'article invalide %s"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:642
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr "%s %s existe déjà."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:704
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr "Echec d'importation %s &#8220;%s&#8221;"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:869
+msgid "Menu item skipped due to missing menu slug"
+msgstr "Élément de menu ignoré en raison d'un slug de menu manquant"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:876
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr "Élément de menu ignoré en raison d'un slug de menu non valide : %s"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:939
+msgid "Fetching attachments is not enabled"
+msgstr "La récupération des pièces jointes n'est pas activée"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:952
+msgid "Invalid file type"
+msgstr "Type de fichier invalide"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:996
+msgid "Remote server did not respond"
+msgstr "Le serveur distant n'a pas répondu"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1002
+msgid "Remote server returned error response %1$d %2$s"
+msgstr "Le serveur distant a renvoyé une réponse d'erreur %1$d %2$s"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1009
+msgid "Remote file is incorrect size"
+msgstr "Le fichier distant a une taille incorrecte"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1014
+msgid "Zero size file downloaded"
+msgstr "Fichier de taille nulle téléchargé"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1020
+msgid "Remote file is too large, limit is %s"
+msgstr "Le fichier distant est trop volumineux, la limite est %s"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1119
+msgid "Import WordPress"
+msgstr "Importer WordPress"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1126
+msgid ""
+"A new version of this importer is available. Please update to version %s to "
+"ensure compatibility with newer export files."
+msgstr ""
+"Une nouvelle version de cet importateur est disponible. Veuillez mettre à "
+"jour vers la version %s pour assurer la compatibilité avec les nouveaux "
+"fichiers d'exportation."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1141
+msgid ""
+"Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import "
+"the posts, pages, comments, custom fields, categories, and tags into this "
+"site."
+msgstr ""
+"Salut ! Téléversez votre fichier WordPress eXtended RSS (WXR) et nous "
+"importerons les publications, les pages, les commentaires, les champs "
+"personnalisés, les catégories et les étiquettes sur ce site."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1142
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr ""
+"Choisissez un fichier WXR (.xml) à téléverser, puis cliquez sur Téléverser "
+"le fichier et importer."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1216
+msgid ""
+"Import <strong>posts, pages, comments, custom fields, categories, and tags</"
+"strong> from a WordPress export file."
+msgstr ""
+"Importer <strong> des articles, commentaires, champs personnalisés, "
+"catégories et étiquettes</strong> depuis un fichier d'export WordPress."
+
+#: vendor/lucatume/wp-browser/src/data/themedir1/internationalized-theme/functions.php:7
+msgid "This is a dummy theme"
+msgstr "Ceci est un thème factice"
+
+#: vendor/wp-cli/wp-cli/php/utils-wp.php:230
+msgid "Inactive Widgets"
+msgstr "Widgets inactifs"
+
+#: vendor/wp-cli/wp-cli/php/utils-wp.php:233
+msgid ""
+"Drag widgets here to remove them from the sidebar but keep their settings."
+msgstr ""
+"Faites glisser les widgets ici pour les supprimer de la barre latérale tout "
+"en conservant leurs paramètres."
 
 #. Author URI of the plugin/theme
 msgid "https://businessdirectoryplugin.com"
@@ -4655,13 +4918,13 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:775
-#: includes/helpers/functions/general.php:1199
+#: includes/helpers/functions/general.php:1201
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Date d'ajout"
 
 #: includes/admin/settings/class-settings-bootstrap.php:776
-#: includes/helpers/functions/general.php:1200
+#: includes/helpers/functions/general.php:1202
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Date de dernière modification"
@@ -4877,12 +5140,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Images téléversée (non redimensionnées)"
 
-#: includes/helpers/functions/general.php:1197
+#: includes/helpers/functions/general.php:1199
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utilisateur"
 
-#: includes/helpers/functions/general.php:1198
+#: includes/helpers/functions/general.php:1200
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Date d'enregistrement de l'utilisateur"
@@ -5909,17 +6172,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Le thème a été mis à jour avec succès."
 
-#: includes/themes.php:937
+#: includes/themes.php:938
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossible de créer le répertoire de thèmes."
 
-#: includes/themes.php:948
+#: includes/themes.php:949
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossible de supprimer le dossier de thème précédent \"%s\"."
 
-#: includes/themes.php:956
+#: includes/themes.php:957
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Impossible de déplacer le nouveau thème dans le dossier à thèmes."
@@ -6964,19 +7227,19 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Le CAPTCHA a échoué."
 
-#: includes/class-wpbdp.php:462
+#: includes/class-wpbdp.php:473
 msgctxt "listing image upload"
 msgid "Please select a plan before uploading images to the listing"
 msgstr ""
 "Veuillez choisir un abonnement avant de téléverser des images pour cette "
 "annonce"
 
-#: includes/class-wpbdp.php:467
+#: includes/class-wpbdp.php:478
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Impossible de télécharger d'images pour cette annonce."
 
-#: includes/class-wpbdp.php:471
+#: includes/class-wpbdp.php:482
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "
@@ -7223,17 +7486,17 @@ msgstr ""
 "%s et créez un nouveau champ avec cette association, ou ajoutez cette "
 "association à un champ existant"
 
-#: includes/controllers/pages/class-submit-listing.php:1518
+#: includes/controllers/pages/class-submit-listing.php:1533
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Veuillez accepter les conditions d'utilisation."
 
-#: includes/controllers/pages/class-submit-listing.php:1532
+#: includes/controllers/pages/class-submit-listing.php:1547
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "J'accepte <a> Conditions générales </a>"
 
-#: includes/helpers/functions/general.php:1280
+#: includes/helpers/functions/general.php:1282
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Revenir aux résultats"
@@ -7583,7 +7846,7 @@ msgstr ""
 "tard."
 
 #: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1200
+#: includes/controllers/pages/class-submit-listing.php:1215
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Veuillez sélectionner une catégorie."
@@ -7605,24 +7868,24 @@ msgid "Please choose a valid plan for your category selection."
 msgstr ""
 "Merci de choisir un abonnement valable pour votre sélection de catégorie."
 
-#: includes/controllers/pages/class-submit-listing.php:1435
+#: includes/controllers/pages/class-submit-listing.php:1450
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Merci d'entrer votre nom d'utilisateur souhaité."
 
-#: includes/controllers/pages/class-submit-listing.php:1440
+#: includes/controllers/pages/class-submit-listing.php:1455
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Merci d'entrer votre e-mail pour votre nouveau compte."
 
-#: includes/controllers/pages/class-submit-listing.php:1445
+#: includes/controllers/pages/class-submit-listing.php:1460
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "Le nom d'utilisateur que vous avez choisi est déjà utilisé. Veuillez en "
 "utiliser un autre."
 
-#: includes/controllers/pages/class-submit-listing.php:1450
+#: includes/controllers/pages/class-submit-listing.php:1465
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7633,7 +7896,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Annonce soumis par un admin. Paiement sauté."
 
-#: includes/controllers/pages/class-submit-listing.php:1382
+#: includes/controllers/pages/class-submit-listing.php:1397
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8029,28 +8292,28 @@ msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Le serveur a renvoyé une erreur 403 Forbidden."
 
-#: includes/licensing.php:846
+#: includes/licensing.php:850
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossible d'activer la licence: %s."
 
-#: includes/licensing.php:851
+#: includes/licensing.php:855
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licence activée"
 
-#: includes/licensing.php:883
+#: includes/licensing.php:887
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossible de désactiver la licence: %s."
 
-#: includes/licensing.php:885
+#: includes/licensing.php:889
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licence désactivée"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1125
+#: includes/licensing.php:1129
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -8538,211 +8801,6 @@ msgstr "Entrer votre adresse mail"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Continuer"
-
-#~ msgid "This is a dummy plugin"
-#~ msgstr "Ceci est un plugin factice"
-
-#~ msgid "There was an error when reading this WXR file"
-#~ msgstr "Il y a eu une erreur lors de la lecture du fichier CSV"
-
-#~ msgid ""
-#~ "Details are shown above. The importer will now try again with a different "
-#~ "parser..."
-#~ msgstr ""
-#~ "Les détails sont indiqués ci-dessus. L'importateur va maintenant "
-#~ "réessayer avec un analyseur différent..."
-
-#~ msgid ""
-#~ "This does not appear to be a WXR file, missing/invalid WXR version number"
-#~ msgstr ""
-#~ "Cela ne semble pas être un fichier WXR, numéro de version WXR manquant/"
-#~ "invalide"
-
-#~ msgid "Sorry, there has been an error."
-#~ msgstr "Désolé, il y a eu une erreur."
-
-#~ msgid "The file does not exist, please try again."
-#~ msgstr "Le fichier n'existe pas, veuillez réessayer."
-
-#~ msgid "All done."
-#~ msgstr "Terminé."
-
-#~ msgid "Have fun!"
-#~ msgstr "Amusez-vous bien !"
-
-#~ msgid "Remember to update the passwords and roles of imported users."
-#~ msgstr ""
-#~ "N'oubliez pas de mettre à jour les mots de passe et les rôles des "
-#~ "utilisateurs importés."
-
-#~ msgid ""
-#~ "The export file could not be found at <code>%s</code>. It is likely that "
-#~ "this was caused by a permissions problem."
-#~ msgstr ""
-#~ "Le fichier d'exportation est introuvable à <code>%s</code>. Il est "
-#~ "probable que cela soit dû à un problème d'autorisations."
-
-#~ msgid ""
-#~ "This WXR file (version %s) may not be supported by this version of the "
-#~ "importer. Please consider updating."
-#~ msgstr ""
-#~ "Ce fichier WXR (version %s) n'est peut-être pas pris en charge par cette "
-#~ "version de l'importateur. Veuillez envisager la mise à jour."
-
-#~ msgid ""
-#~ "Failed to import author %s. Their posts will be attributed to the current "
-#~ "user."
-#~ msgstr ""
-#~ "Impossible d'importer l'auteur %s. Leurs articles seront attribués à "
-#~ "l'utilisateur actuel."
-
-#~ msgid "Assign Authors"
-#~ msgstr "Assigner les auteurs"
-
-#~ msgid ""
-#~ "To make it easier for you to edit and save the imported content, you may "
-#~ "want to reassign the author of the imported item to an existing user of "
-#~ "this site. For example, you may want to import all the entries as "
-#~ "<code>admin</code>s entries."
-#~ msgstr ""
-#~ "Pour faciliter la modification et l'enregistrement du contenu importé, "
-#~ "vous pouvez réaffecter l'auteur de l'élément importé à un utilisateur "
-#~ "existant de ce site. Par exemple, vous pouvez importer toutes les entrées "
-#~ "en tant qu'entrées <code>admin</code>."
-
-#~ msgid ""
-#~ "If a new user is created by WordPress, a new password will be randomly "
-#~ "generated and the new user&#8217;s role will be set as %s. Manually "
-#~ "changing the new user&#8217;s details will be necessary."
-#~ msgstr ""
-#~ "Si un nouvel utilisateur est créé par WordPress, un nouveau mot de passe "
-#~ "sera généré aléatoirement et le rôle du nouvel utilisateur sera défini "
-#~ "comme %s. Il sera nécessaire de modifier manuellement les détails du "
-#~ "nouvel utilisateur."
-
-#~ msgid "Import Attachments"
-#~ msgstr "Importer les pièces jointes"
-
-#~ msgid "Download and import file attachments"
-#~ msgstr "Télécharger et importer les pièces jointes"
-
-#~ msgid "Submit"
-#~ msgstr "Soumettre"
-
-#~ msgid "Import author:"
-#~ msgstr "Importer l'auteur :"
-
-#~ msgid "or create new user with login name:"
-#~ msgstr "ou créer un nouvel utilisateur avec comme login :"
-
-#~ msgid "as a new user:"
-#~ msgstr "comme un nouvel utilisateur :"
-
-#~ msgid "assign posts to an existing user:"
-#~ msgstr "assigner les articles à un utilisateur :"
-
-#~ msgid "or assign posts to an existing user:"
-#~ msgstr "ou assigner les articles à un utilisateur existant :"
-
-#~ msgid "- Select -"
-#~ msgstr "- Sélectionnez -"
-
-#~ msgid ""
-#~ "Failed to create new user for %s. Their posts will be attributed to the "
-#~ "current user."
-#~ msgstr ""
-#~ "Impossible de créer un nouvel utilisateur pour %s. Leurs articles seront "
-#~ "attribués à l'utilisateur courant."
-
-#~ msgid "Failed to import category %s"
-#~ msgstr "Impossible d'importer la catégorie %s"
-
-#~ msgid "Failed to import post tag %s"
-#~ msgstr "Impossible d'importer les étiquettes de l'article %s"
-
-#~ msgid "Failed to import %s %s"
-#~ msgstr "Impossible d'importer %s %s"
-
-#~ msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
-#~ msgstr "Impossible d'importer %s : Type d'article invalide %s"
-
-#~ msgid "%s &#8220;%s&#8221; already exists."
-#~ msgstr "%s %s existe déjà."
-
-#~ msgid "Failed to import %s &#8220;%s&#8221;"
-#~ msgstr "Echec d'importation %s &#8220;%s&#8221;"
-
-#~ msgid "Menu item skipped due to missing menu slug"
-#~ msgstr "Élément de menu ignoré en raison d'un slug de menu manquant"
-
-#~ msgid "Menu item skipped due to invalid menu slug: %s"
-#~ msgstr "Élément de menu ignoré en raison d'un slug de menu non valide : %s"
-
-#~ msgid "Fetching attachments is not enabled"
-#~ msgstr "La récupération des pièces jointes n'est pas activée"
-
-#~ msgid "Invalid file type"
-#~ msgstr "Type de fichier invalide"
-
-#~ msgid "Remote server did not respond"
-#~ msgstr "Le serveur distant n'a pas répondu"
-
-#~ msgid "Remote server returned error response %1$d %2$s"
-#~ msgstr "Le serveur distant a renvoyé une réponse d'erreur %1$d %2$s"
-
-#~ msgid "Remote file is incorrect size"
-#~ msgstr "Le fichier distant a une taille incorrecte"
-
-#~ msgid "Zero size file downloaded"
-#~ msgstr "Fichier de taille nulle téléchargé"
-
-#~ msgid "Remote file is too large, limit is %s"
-#~ msgstr "Le fichier distant est trop volumineux, la limite est %s"
-
-#~ msgid "Import WordPress"
-#~ msgstr "Importer WordPress"
-
-#~ msgid ""
-#~ "A new version of this importer is available. Please update to version %s "
-#~ "to ensure compatibility with newer export files."
-#~ msgstr ""
-#~ "Une nouvelle version de cet importateur est disponible. Veuillez mettre à "
-#~ "jour vers la version %s pour assurer la compatibilité avec les nouveaux "
-#~ "fichiers d'exportation."
-
-#~ msgid ""
-#~ "Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll "
-#~ "import the posts, pages, comments, custom fields, categories, and tags "
-#~ "into this site."
-#~ msgstr ""
-#~ "Salut ! Téléversez votre fichier WordPress eXtended RSS (WXR) et nous "
-#~ "importerons les publications, les pages, les commentaires, les champs "
-#~ "personnalisés, les catégories et les étiquettes sur ce site."
-
-#~ msgid ""
-#~ "Choose a WXR (.xml) file to upload, then click Upload file and import."
-#~ msgstr ""
-#~ "Choisissez un fichier WXR (.xml) à téléverser, puis cliquez sur "
-#~ "Téléverser le fichier et importer."
-
-#~ msgid ""
-#~ "Import <strong>posts, pages, comments, custom fields, categories, and "
-#~ "tags</strong> from a WordPress export file."
-#~ msgstr ""
-#~ "Importer <strong> des articles, commentaires, champs personnalisés, "
-#~ "catégories et étiquettes</strong> depuis un fichier d'export WordPress."
-
-#~ msgid "This is a dummy theme"
-#~ msgstr "Ceci est un thème factice"
-
-#~ msgid "Inactive Widgets"
-#~ msgstr "Widgets inactifs"
-
-#~ msgid ""
-#~ "Drag widgets here to remove them from the sidebar but keep their settings."
-#~ msgstr ""
-#~ "Faites glisser les widgets ici pour les supprimer de la barre latérale "
-#~ "tout en conservant leurs paramètres."
 
 #~ msgid "Go Back"
 #~ msgstr "Revenir en arrière"

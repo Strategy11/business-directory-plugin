@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-01-26 19:09:36+00:00\n"
+"POT-Creation-Date: 2023-04-20 00:05:59+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -141,7 +141,7 @@ msgstr "(Alla moduler)"
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:367
+#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:378
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "Uppgradera till %s"
@@ -423,8 +423,8 @@ msgid "Form Preview"
 msgstr "Förhandsgranska formulär"
 
 #: includes/admin/controllers/class-form-fields-admin.php:147
-#: includes/helpers/functions/general.php:1284
-#: includes/helpers/functions/general.php:1289
+#: includes/helpers/functions/general.php:1286
+#: includes/helpers/functions/general.php:1291
 #, fuzzy
 msgid "Go back"
 msgstr "Nej, gå tillbaka"
@@ -784,7 +784,7 @@ msgid "Missing tables: %s"
 msgstr "Saknade tabeller:%s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1484
+#: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -1266,6 +1266,7 @@ msgstr ""
 "teman och WP version?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1691
+#: includes/licensing.php:593
 msgid "Learn more"
 msgstr ""
 
@@ -1379,7 +1380,7 @@ msgstr ""
 msgid "View Docs"
 msgstr "Visa"
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:370
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:381
 #, fuzzy
 msgid "Settings"
 msgstr "Inställningar"
@@ -1428,7 +1429,7 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:195
+#: includes/class-assets.php:201
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:77
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:100
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:115
@@ -1440,16 +1441,16 @@ msgstr ""
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: includes/class-assets.php:196
+#: includes/class-assets.php:202
 #, fuzzy
 msgid "Continue"
 msgstr "Fortsätt "
 
-#: includes/class-assets.php:197
+#: includes/class-assets.php:203
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:363
+#: includes/class-assets.php:369
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
@@ -1546,12 +1547,12 @@ msgid ""
 "to set up a gateway. Until you do this, only free plans will be available."
 msgstr ""
 
-#: includes/class-wpbdp.php:596
+#: includes/class-wpbdp.php:607
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Det gick inte att kontakta licensservern"
 
-#: includes/class-wpbdp.php:603
+#: includes/class-wpbdp.php:614
 #, fuzzy
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
@@ -1560,12 +1561,12 @@ msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/class-wpbdp.php:616 includes/fields/class-fieldtypes-image.php:394
+#: includes/class-wpbdp.php:627 includes/fields/class-fieldtypes-image.php:394
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Det gick inte att uppdatera tema:%s"
 
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1573,7 +1574,7 @@ msgstr ""
 "Business Directorys funktioner är för närvarande avaktiverade på grund av "
 "att pluginet behöver <a> en manuell uppgradering</a>."
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1811,24 +1812,24 @@ msgstr "Avgiftsplan"
 msgid "Please choose a plan."
 msgstr "(Vänligen välj en avgiftsplan ovan)"
 
-#: includes/controllers/pages/class-submit-listing.php:1289
+#: includes/controllers/pages/class-submit-listing.php:1304
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/controllers/pages/class-submit-listing.php:1468
+#: includes/controllers/pages/class-submit-listing.php:1483
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/controllers/pages/class-submit-listing.php:1475
+#: includes/controllers/pages/class-submit-listing.php:1490
 #, fuzzy
 msgid "Username"
 msgstr "Användarnamn:"
 
-#: includes/controllers/pages/class-submit-listing.php:1497
+#: includes/controllers/pages/class-submit-listing.php:1512
 #, fuzzy
 msgid "Clear Form"
 msgstr "Rensa"
@@ -2299,7 +2300,7 @@ msgstr "US-dollar (USD)"
 msgid "Uruguayan Peso"
 msgstr ""
 
-#: includes/helpers/functions/general.php:1274
+#: includes/helpers/functions/general.php:1276
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Återgå till Directory."
@@ -2405,48 +2406,47 @@ msgstr ""
 #, fuzzy
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
-"Business Directory servers. Please contact your webhost and ask them to add "
-"our IP address 52.0.78.177 to your allow list."
+"Business Directory servers."
 msgstr ""
 "Det ser ut som om din server inte är auktoriserad att ställa frågor till "
 "Business Directorys servers. Vänligen kontakta <support-link>Business "
 "Directory support</support-link> och be dem vitlista din IP-adress."
 
-#: includes/licensing.php:645
+#: includes/licensing.php:649
 msgid "Download Premium"
 msgstr ""
 
-#: includes/licensing.php:695
+#: includes/licensing.php:699
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Licensnyckel har upphört"
 
-#: includes/licensing.php:696
+#: includes/licensing.php:700
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Licensnyckel har upphört"
 
-#: includes/licensing.php:697
+#: includes/licensing.php:701
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Hjälp oss förbättra Business Directory"
 
-#: includes/licensing.php:698
+#: includes/licensing.php:702
 msgid ""
 "You have modules installed, but Business Directory Premium is missing. "
 "Install this plugin for extra features and easy license management."
 msgstr ""
 
-#: includes/licensing.php:709
+#: includes/licensing.php:713
 #, fuzzy
 msgid "Review license keys"
 msgstr "Granska mina licensnycklar"
 
-#: includes/licensing.php:824
+#: includes/licensing.php:828
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:829
+#: includes/licensing.php:833
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "Skriv in licensnyckel"
@@ -2484,7 +2484,7 @@ msgstr "Skriv ut kvitto"
 msgid "Return to plan selection"
 msgstr "Återvänd till annons"
 
-#: includes/themes.php:929
+#: includes/themes.php:930
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "ZIP-filen är inte en giltig BD temafil."
@@ -2944,7 +2944,7 @@ msgstr ""
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
@@ -3908,6 +3908,248 @@ msgstr "Färdigställ annons"
 #, fuzzy
 msgid "Continue to Payment"
 msgstr "Fortsätt till betalning"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/internationalized-plugin.php:11
+msgid "This is a dummy plugin"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:42
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:72
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:80
+#, fuzzy
+msgid "There was an error when reading this WXR file"
+msgstr "Det uppstod ett fel vid överföringen av CSV-filen."
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:43
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:84
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:89
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:306
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/parsers.php:495
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:132
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:141
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:192
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:196
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:205
+msgid "Sorry, there has been an error."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:133
+msgid "The file does not exist, please try again."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:176
+msgid "All done."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:176
+msgid "Have fun!"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:177
+msgid "Remember to update the passwords and roles of imported users."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:197
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:213
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:238
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:264
+msgid "Assign Authors"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:265
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:267
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:277
+#, fuzzy
+msgid "Import Attachments"
+msgstr "Importera inställningar"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:280
+msgid "Download and import file attachments"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:284
+msgid "Submit"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:297
+#, fuzzy
+msgid "Import author:"
+msgstr "import Sammanfattning"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:308
+msgid "or create new user with login name:"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:311
+msgid "as a new user:"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:319
+#, fuzzy
+msgid "assign posts to an existing user:"
+msgstr "Tilldela annons till användare?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:321
+#, fuzzy
+msgid "or assign posts to an existing user:"
+msgstr "Tilldela annons till användare?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:322
+#, fuzzy
+msgid "- Select -"
+msgstr "Flervalslista"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:372
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:424
+#, fuzzy
+msgid "Failed to import category %s"
+msgstr "Dölj tomma kategorier?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:467
+#, fuzzy
+msgid "Failed to import post tag %s"
+msgstr "Dölj tomma kategorier?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:516
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:738
+#, fuzzy
+msgid "Failed to import %s %s"
+msgstr "Dölj tomma kategorier?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:605
+#, fuzzy
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr "Dölj tomma kategorier?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:642
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:704
+#, fuzzy
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr "Dölj tomma kategorier?"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:869
+msgid "Menu item skipped due to missing menu slug"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:876
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:939
+msgid "Fetching attachments is not enabled"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:952
+#, fuzzy
+msgid "Invalid file type"
+msgstr "Ogiltig formulärfält typ"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:996
+msgid "Remote server did not respond"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1002
+msgid "Remote server returned error response %1$d %2$s"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1009
+msgid "Remote file is incorrect size"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1014
+msgid "Zero size file downloaded"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1020
+msgid "Remote file is too large, limit is %s"
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1119
+#, fuzzy
+msgid "Import WordPress"
+msgstr "Import pågår"
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1126
+msgid ""
+"A new version of this importer is available. Please update to version %s to "
+"ensure compatibility with newer export files."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1141
+msgid ""
+"Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import "
+"the posts, pages, comments, custom fields, categories, and tags into this "
+"site."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1142
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/plugins/wordpress-importer/wordpress-importer.php:1216
+msgid ""
+"Import <strong>posts, pages, comments, custom fields, categories, and tags</"
+"strong> from a WordPress export file."
+msgstr ""
+
+#: vendor/lucatume/wp-browser/src/data/themedir1/internationalized-theme/functions.php:7
+msgid "This is a dummy theme"
+msgstr ""
+
+#: vendor/wp-cli/wp-cli/php/utils-wp.php:230
+#, fuzzy
+msgid "Inactive Widgets"
+msgstr "Aktiv"
+
+#: vendor/wp-cli/wp-cli/php/utils-wp.php:233
+msgid ""
+"Drag widgets here to remove them from the sidebar but keep their settings."
+msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://businessdirectoryplugin.com"
@@ -5032,13 +5274,13 @@ msgid "Author"
 msgstr "Författare"
 
 #: includes/admin/settings/class-settings-bootstrap.php:775
-#: includes/helpers/functions/general.php:1199
+#: includes/helpers/functions/general.php:1201
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum inlagd"
 
 #: includes/admin/settings/class-settings-bootstrap.php:776
-#: includes/helpers/functions/general.php:1200
+#: includes/helpers/functions/general.php:1202
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Senast ändrad"
@@ -5271,12 +5513,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Ladda upp bilder"
 
-#: includes/helpers/functions/general.php:1197
+#: includes/helpers/functions/general.php:1199
 msgctxt "admin settings"
 msgid "User"
 msgstr "Användare"
 
-#: includes/helpers/functions/general.php:1198
+#: includes/helpers/functions/general.php:1200
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Användarens registreringsdatum"
@@ -6300,17 +6542,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Temat har uppdaterats."
 
-#: includes/themes.php:937
+#: includes/themes.php:938
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Det gick inte att skapa temakatalogen."
 
-#: includes/themes.php:948
+#: includes/themes.php:949
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Det gick inte att ta bort tidigare temakatalogen \"%s\"."
 
-#: includes/themes.php:956
+#: includes/themes.php:957
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Det gick inte att flytta det nya temat till temakatalogen."
@@ -7368,18 +7610,18 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "reCAPTCHA angavs inte korrekt"
 
-#: includes/class-wpbdp.php:462
+#: includes/class-wpbdp.php:473
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Välj en kategori för din annons."
 
-#: includes/class-wpbdp.php:467
+#: includes/class-wpbdp.php:478
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Fler bilder kan inte laddas upp för denna annons."
 
-#: includes/class-wpbdp.php:471
+#: includes/class-wpbdp.php:482
 #, fuzzy
 msgctxt "listing image upload"
 msgid ""
@@ -7612,17 +7854,17 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1518
+#: includes/controllers/pages/class-submit-listing.php:1533
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/controllers/pages/class-submit-listing.php:1532
+#: includes/controllers/pages/class-submit-listing.php:1547
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
 
-#: includes/helpers/functions/general.php:1280
+#: includes/helpers/functions/general.php:1282
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -7981,7 +8223,7 @@ msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Det går inte att registrera en annons just nu. Försök igen senare."
 
 #: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1200
+#: includes/controllers/pages/class-submit-listing.php:1215
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en kategori."
@@ -8002,22 +8244,22 @@ msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/controllers/pages/class-submit-listing.php:1435
+#: includes/controllers/pages/class-submit-listing.php:1450
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/controllers/pages/class-submit-listing.php:1440
+#: includes/controllers/pages/class-submit-listing.php:1455
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/controllers/pages/class-submit-listing.php:1445
+#: includes/controllers/pages/class-submit-listing.php:1460
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/controllers/pages/class-submit-listing.php:1450
+#: includes/controllers/pages/class-submit-listing.php:1465
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
@@ -8027,7 +8269,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Notering skickas in av admin. Betalning hoppas över."
 
-#: includes/controllers/pages/class-submit-listing.php:1382
+#: includes/controllers/pages/class-submit-listing.php:1397
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8421,28 +8663,28 @@ msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Servern returnerade ett 403 Forbidden fel."
 
-#: includes/licensing.php:846
+#: includes/licensing.php:850
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Det gick inte att aktivera licens:%s."
 
-#: includes/licensing.php:851
+#: includes/licensing.php:855
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licens aktiverad"
 
-#: includes/licensing.php:883
+#: includes/licensing.php:887
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Det gick inte att inaktivera licens:%s."
 
-#: includes/licensing.php:885
+#: includes/licensing.php:889
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "﻿Licensnyckel avaktiverad"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1125
+#: includes/licensing.php:1129
 #, fuzzy
 msgctxt "deprecation"
 msgid ""
@@ -8917,58 +9159,6 @@ msgstr "Skriv in din e-postadress"
 msgctxt "send-access-keys"
 msgid "Continue"
 msgstr "Fortsätt "
-
-#, fuzzy
-#~ msgid "There was an error when reading this WXR file"
-#~ msgstr "Det uppstod ett fel vid överföringen av CSV-filen."
-
-#, fuzzy
-#~ msgid "Import Attachments"
-#~ msgstr "Importera inställningar"
-
-#, fuzzy
-#~ msgid "Import author:"
-#~ msgstr "import Sammanfattning"
-
-#, fuzzy
-#~ msgid "assign posts to an existing user:"
-#~ msgstr "Tilldela annons till användare?"
-
-#, fuzzy
-#~ msgid "or assign posts to an existing user:"
-#~ msgstr "Tilldela annons till användare?"
-
-#, fuzzy
-#~ msgid "- Select -"
-#~ msgstr "Flervalslista"
-
-#, fuzzy
-#~ msgid "Failed to import category %s"
-#~ msgstr "Dölj tomma kategorier?"
-
-#, fuzzy
-#~ msgid "Failed to import post tag %s"
-#~ msgstr "Dölj tomma kategorier?"
-
-#, fuzzy
-#~ msgid "Failed to import %s %s"
-#~ msgstr "Dölj tomma kategorier?"
-
-#, fuzzy
-#~ msgid "Failed to import %s &#8220;%s&#8221;"
-#~ msgstr "Dölj tomma kategorier?"
-
-#, fuzzy
-#~ msgid "Invalid file type"
-#~ msgstr "Ogiltig formulärfält typ"
-
-#, fuzzy
-#~ msgid "Import WordPress"
-#~ msgstr "Import pågår"
-
-#, fuzzy
-#~ msgid "Inactive Widgets"
-#~ msgstr "Aktiv"
 
 #, fuzzy
 #~ msgid ""

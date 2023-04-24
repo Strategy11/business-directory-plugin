@@ -18,9 +18,13 @@
 	input[type="search"],
 	select,
 	textarea {
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
 		border-color: @input-active;
+
 		&:default {
-			border-color: @input-active;	
+			border-color: @input-active;
 		}
 		&::placeholder {
 			opacity: 0.5;

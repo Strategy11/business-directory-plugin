@@ -518,4 +518,35 @@ class WPBDP_App_Helper {
 	public static function minimize_code( $html ) {
 		return str_replace( array( "\r\n", "\n", "\t" ), '', $html );
 	}
+
+	/**
+	 * Let themes add their own button class to the buttons.
+	 *
+	 * @since 6.3.4
+	 * @param string $content
+	 * @return void
+	 */
+	public static function add_theme_button_class( &$content ) {
+		$append       = ' wpbdp-button';
+		$button_class = apply_filters( 'wpbdp_button_class', 'button' );
+		if ( $button_class === 'button' ) {
+			return;
+		}
+
+		$content = str_replace(
+			array(
+				'"button' . $append,
+				' button' . $append,
+				'wpbdp-button button ',
+				'"wpbdp-button"'
+			),
+			array(
+				'"' . esc_attr( $button_class . $append ),
+				' ' . esc_attr( $button_class . $append ),
+				'wpbdp-button ' . esc_attr( $button_class ) . ' ',
+				'"' . esc_attr( $button_class . $append ) . '"',
+			),
+			$content
+		);
+	}
 }

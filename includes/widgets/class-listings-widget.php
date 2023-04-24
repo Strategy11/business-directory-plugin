@@ -138,6 +138,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Render the widget
 	 */
 	public function widget( $args, $instance ) {
+		wp_enqueue_style( 'wpbdp-widgets' );
+
 		extract( $args );
 
 		$title    = apply_filters( 'widget_title', $this->get_field_value( $instance, 'title' ) );

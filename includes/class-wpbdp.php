@@ -28,7 +28,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.3.3' );
+		define( 'WPBDP_VERSION', '6.3.4' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -283,7 +283,7 @@ final class WPBDP {
 	/**
 	 * Translate _n() strings.
 	 *
-	 * @since x.x
+	 * @since 6.3.4
 	 */
 	public function use_custom_n_strings( $translation, $single, $plural, $number, $domain ) {
 		$translation = $this->use_custom_strings( $translation, $single, $domain );

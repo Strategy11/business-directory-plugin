@@ -262,6 +262,22 @@ class WPBDP__Themes_Compat {
 		add_filter( 'is_active_sidebar', array( $this, 'theme_divi_disable_sidebar' ), 999, 2 );
 	}
 
+	/**
+	 * @since 6.3.4
+	 */
+	public function theme_divi_before_dispatch() {
+		add_filter( 'wpbdp_button_class', array( $this, 'theme_divi_button_class' ) );
+	}
+
+	/**
+	 * @since 6.3.4
+	 * @param string $class
+	 * @return string
+	 */
+	public function theme_divi_button_class( $class ) {
+		return $class . ' et_pb_button';
+	}
+
 	public function theme_divi_add_full_with_page_body_class( $classes ) {
 		$classes[] = 'et_full_width_page';
 		return $classes;

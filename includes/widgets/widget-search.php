@@ -91,6 +91,8 @@ class WPBDP_SearchWidget extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
+		wp_enqueue_style( 'wpbdp-widgets' );
+
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 

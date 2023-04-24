@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<br/>
 			<?php esc_html_e( 'Are you enjoying Business Directory Plugin?', 'business-directory-plugin' ); ?>
 		</p>
-		<a href="#" class="wpbdp_reverse_button wpbdp_animate_bg show-wpbdp-feedback wpbdp-button-secondary" data-link="feedback">
+		<a href="#" class="wpbdp_animate_bg show-wpbdp-feedback wpbdp-button-secondary" data-link="feedback">
 			<?php esc_html_e( 'Not Really', 'business-directory-plugin' ); ?>
 		</a>
 		<a href="#" class="wpbdp_animate_bg show-wpbdp-feedback wpbdp-button-primary" data-link="review">
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p>- Steph Wells<br/>
 			<span><?php esc_html_e( 'Co-Founder and CTO of Business Directory Plugin', 'business-directory-plugin' ); ?><span>
 		</p>
-		<a href="#" class="wpbdp-dismiss-review-notice wpbdp_reverse_button wpbdp-button-secondary" data-link="no" target="_blank" rel="noopener noreferrer">
+		<a href="#" class="wpbdp-dismiss-review-notice wpbdp-button-secondary" data-link="no" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'No thanks, maybe later', 'business-directory-plugin' ); ?>
 		</a>
 		<a href="https://wordpress.org/support/plugin/business-directory-plugin/reviews/?filter=5#new-post" class="wpbdp-dismiss-review-notice wpbdp-review-out wpbdp-button-primary" data-link="yes" target="_blank" rel="noopener">
