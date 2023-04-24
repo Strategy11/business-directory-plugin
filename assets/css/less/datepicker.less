@@ -1,5 +1,4 @@
 @import 'colors.less';
-@light-border: fade( @gray, 50% );
 
 #ui-datepicker-div{
 	z-index:999999 !important;
@@ -9,7 +8,7 @@
 	display:none;
 	width: 19em;
 	background: #fff;
-	border: 1px solid @gray;
+	border: 1px solid @color-neutral-300;
 	border-radius: 0;
 	padding: 0;
 
@@ -47,7 +46,7 @@
 		width: 1.8em;
 		height: 100%;
 		top: 2px;
-		
+
 		span {
 			display: block;
 			position: absolute;
@@ -83,12 +82,13 @@
 
 	table {
 		margin: 0;
+		border: none;
 	}
 
 	td {
 		width: 14.2%;
 		padding: 0;
-		border: 1px solid @light-border;
+		border: 1px solid @color-neutral-100;
 
 		&.ui-datepicker-today {
 			background: var(--bd-main-color-20) !important;
@@ -98,7 +98,7 @@
 		}
 
 		.ui-state-highlight {
-			border-color: @light-border;
+			border-color: @color-neutral-100;
 		}
 	}
 
@@ -124,7 +124,7 @@
 
 	// This is for the admin datepicker.
 	.ui-datepicker-buttonpane {
-		border-top: 1px solid @light-border;
+		border-top: 1px solid @color-neutral-100;
 		margin-top: 0;
 	}
 }
