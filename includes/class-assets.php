@@ -133,12 +133,7 @@ class WPBDP__Assets {
 		$enqueue_scripts_and_styles = apply_filters( 'wpbdp_should_enqueue_scripts_and_styles', wpbdp()->is_plugin_page() );
 		$min                        = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style(
-			'wpbdp-widgets',
-			WPBDP_ASSETS_URL . 'css/widgets.min.css',
-			array(),
-			WPBDP_VERSION
-		);
+		$this->maybe_enqueue_widget_css();
 
 		if ( ! $enqueue_scripts_and_styles ) {
 			return;
@@ -185,6 +180,34 @@ class WPBDP__Assets {
 		// Live reload server will be started with the watch task per target.
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && in_array( $_SERVER['REMOTE_ADDR'], [ '127.0.0.1', '::1' ] ) ) {
 			wp_enqueue_script( 'livereload', 'http://localhost:35729/livereload.js?snipver=1', [], WPBDP_VERSION, true );
+		}
+	}
+
+	/**
+	 * Only load the widget CSS if a widget is active.
+	 *
+	 * @since x.x
+	 * @return void
+	 */
+	private function maybe_enqueue_widget_css() {
+		wp_register_style(
+			'wpbdp-widgets',
+			WPBDP_ASSETS_URL . 'css/widgets.min.css',
+			array(),
+			WPBDP_VERSION
+		);
+
+		// Workaround for widgets missing enqueue 'wpbdp-widgets'.
+		$check_widgets = array(
+			'WPBDP_Region_Search_Widget',
+			'WPBDP_ZIPSearchWidget',
+		);
+
+		foreach ( $check_widgets as $widget ) {
+			if ( is_active_widget( false, false, strtolower( $widget ) ) ) {
+				wp_enqueue_style( 'wpbdp-widgets' );
+				break;
+			}
 		}
 	}
 
