@@ -36,7 +36,6 @@ class WPBDP_Themes {
 
 		$this->load_theme_translation();
 
-		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_theme_scripts' ), 999 );
 		add_filter( 'wpbdp_form_field_display', array( &$this, 'field_theme_override' ), 999, 4 );
 		add_action( 'wp_footer', array( $this, 'fee_specific_coloring' ), 999 );
 
@@ -125,7 +124,7 @@ class WPBDP_Themes {
 		return load_textdomain( 'wpbdp-' . $theme->id, $mofile );
 	}
 
-	function enqueue_theme_scripts() {
+	public function enqueue_theme_scripts() {
 		$theme = $this->get_active_theme_data();
 		$css   = array_filter( (array) $theme->assets->css );
 		$js    = array_filter( (array) $theme->assets->js );
