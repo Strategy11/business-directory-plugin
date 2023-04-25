@@ -507,25 +507,17 @@ WPBDP.fileUpload = {
  * @since x.x
  */
 ( function ( $ ) {
+    var openClass = 'wpbdp-has-modal';
 	$html = $( 'html' );
 	$body = $( 'body' );
 
 	$( '.wpbdp-advanced-search-link' ).on( 'click', function(event) {
 		event.preventDefault();
 
-		$searchPage = $( '#wpbdp-search-page' );
+		$searchPage = $( '.wpbdp-search-page.wpbdp-modal' );
 
 		if ( $searchPage.length > 0 ) {
-			$searchPage.toggleClass( 'wpbdp-open' );
-
-			if ( $searchPage.hasClass('wpbdp-open') ) {
-				$html.css( 'overflow', 'hidden' );
-				$body.css( 'overflow', 'hidden' );
-			} else {
-				$html.css( 'overflow', '' );
-				$body.css( 'overflow', '' );
-			}
-
+			$html.toggleClass( openClass );
 			return;
 		}
 
@@ -533,30 +525,54 @@ WPBDP.fileUpload = {
 
 		$.ajax( wpbdp_global.ajaxurl, {
 			data: {
-				action: "wpbdp_ajax",
-				handler: "search__get_search_content",
-			},
-			type: "POST",
-			success: function ( response ) {
+                action: 'wpbdp_ajax',
+                handler: 'search__get_search_content',
+            },
+			type: 'POST',
+			success: function( response ) {
 				$( response.data )
-					.addClass( 'wpbdp-modal wpbdp-open' )
-					.attr('data-breakpoints', '{"small": [0,560], "medium": [560,780], "large": [780,999999]}')
-					.attr('data-breakpoints-class-prefix', 'wpbdp-modal')
+					.addClass( 'wpbdp-modal' )
 					.appendTo( $body );
 
-				Reusables.Breakpoints.scan( $body );
+				addCurrentSearch();
 
-				$html.css( 'overflow', 'hidden' );
-				$body.css( 'overflow', 'hidden' );
+				$html.addClass( openClass );
 				$body.find( '.wpbdp-loader-wrapper' ).remove();
 			}
 		});
 	} );
 
+	function addCurrentSearch() {
+		var data, showReset,
+			searchTerms = document.getElementById( 'wpdbp-searched-terms' );
+		if ( ! searchTerms ) {
+			return;
+		}
+
+		// Pass along the current search.
+		data = searchTerms.getAttribute( 'data-search-terms' );
+		data = JSON.parse( data );
+		for ( var key in data ) {
+			if ( data.hasOwnProperty( key ) ) {
+				var input = $( '[name="listingfields[' + key + ']"]' );
+				if ( input.length > 0 ) {
+					input.val( data[ key ] );
+					showReset = true;
+				}
+			}
+		}
+		if ( showReset ) {
+			$( '.wpbdp-modal .reset' ).show();
+		}
+	}
+
 	$( document ).on( 'click', '.wpbdp-modal-close, .wpbdp-modal-overlay', function() {
-		$( '.wpbdp-modal' ).removeClass( 'wpbdp-open' );
-		$html.css( 'overflow', '' );
-		$body.css( 'overflow', '' );
+		$html.removeClass( openClass );
+	} );
+
+	$( document ).on( 'click', '#wpbdp-search-form .reset', function(e) {
+		e.preventDefault();
+		$( '#wpbdp-search-form [name^="listingfields"]' ).val('');
 	} );
 
 } )( jQuery );
