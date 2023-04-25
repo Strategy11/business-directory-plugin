@@ -1,14 +1,13 @@
-<?php $modal_classes = wp_doing_ajax() ? ' wpbdp-modal' : ''; ?>
+<?php $_class .= wp_doing_ajax() ? ' wpbdp-modal' : ''; ?>
 
-<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo $_class . $modal_class; ?>">
+<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo esc_attr( $_class ); ?>">
 	<?php if ( wp_doing_ajax() ) : ?>
 	<div class="wpbdp-modal-overlay"></div>
 	<div class="wpbdp-modal-content">
 		<div class="wpbdp-modal-scrollbar">
 			<span class="wpbdp-modal-close"></span>
-	<?php endif; ?>
 
-	<?php if ( ! wp_doing_ajax() && ! $form_only ) : ?>
+	<?php elseif ( ! $form_only ) : ?>
 		<div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
 	<?php endif; ?>
 	<h2 class="title"><?php esc_html_e( 'Advanced Search', 'business-directory-plugin' ); ?></h2>
