@@ -49,24 +49,15 @@
 	}
 
 	// Advanced Search Button styles
-	.advanced-search-link {
+	.wpbdp-advanced-search-link {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding-left: @padding-advanced-search-button;
-		padding-right: @padding-advanced-search-button;
-		background-color: @border-main;
-		transition: opacity 0.24s ease-out;
+		padding-left: @padding-md;
+		padding-right: @padding-md;
 
-		&:hover {
-			opacity: 0.8;
-		}
-
-		svg {
-
-			path {
-				stroke: @color-neutral-950;
-			}
+		svg path {
+			stroke: currentColor;
 		}
 	}
 

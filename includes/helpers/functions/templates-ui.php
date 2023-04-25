@@ -372,7 +372,7 @@ function wpbdp_search_form() {
 		esc_attr__( 'Search Listings', 'business-directory-plugin' )
 	);
 	$html .= sprintf(
-		'<a href="%s" class="advanced-search-link">%s</a>',
+		'<a href="%s" class="wpbdp-advanced-search-link">%s</a>',
 		esc_url( wpbdp_url( 'search' ) ),
 		_x( 'Advanced Search', 'templates', 'business-directory-plugin' )
 	);

@@ -404,7 +404,7 @@ WPBDP.fileUpload = {
                         }
                     }
                 );
-   
+
                 image_frame.on( 'close', function() {
                     // On close, get selections and save to the hidden input
                     // plus other AJAX stuff to refresh the image preview
@@ -427,7 +427,7 @@ WPBDP.fileUpload = {
                         } else {
                             errors = ( 'undefined' !== typeof res.data.errors ) ? res.data.errors : false;
                         }
-    
+
                         if ( errors ) {
                             var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( errors );
                             $( res.data.errorElement ).prepend( errorMsg );
@@ -440,7 +440,7 @@ WPBDP.fileUpload = {
 
                             if ( ! res.data.inputElement ) {
                                 return;
-                                
+
                             }
 
                             var $input = $('input[name="' + res.data.inputElement + '"]');
@@ -449,12 +449,12 @@ WPBDP.fileUpload = {
                             var $preview = $input.siblings('.preview');
                             $preview.find('img').remove();
                             $preview.prepend( res.data.html );
-                            
+
                             $preview.siblings().hide();
                             $preview.show();
                             return;
                         }
-    
+
                         $( '#current-images-header' ).hide();
                         $( res.data.previewElement ).append( res.data.html );
                     });
@@ -510,7 +510,7 @@ WPBDP.fileUpload = {
 	$html = $( 'html' );
 	$body = $( 'body' );
 
-	$( '.advanced-search-link' ).on( 'click', function(event) {
+	$( '.wpbdp-advanced-search-link' ).on( 'click', function(event) {
 		event.preventDefault();
 
 		$searchPage = $( '#wpbdp-search-page' );
