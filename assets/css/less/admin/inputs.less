@@ -18,7 +18,6 @@
 	input[type="search"],
 	select,
 	textarea {
-		width: 100%;
 		max-width: 100%;
 		box-sizing: border-box;
 		border-color: @input-active;
@@ -47,6 +46,17 @@
 
 	textarea {
 		min-height: 150px;
+	}
+
+	.form-table {
+		input[type="text"],
+		input[type="number"],
+		input[type="url"],
+		input[type="search"],
+		select,
+		textarea {
+			width: 100%;
+		}
 	}
 }
 .wpbdp-admin-page input[type="checkbox"] {
