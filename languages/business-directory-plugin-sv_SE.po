@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-04-20 00:05:59+00:00\n"
+"POT-Creation-Date: 2023-04-25 21:04:43+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1429,7 +1429,7 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:201
+#: includes/class-assets.php:248
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:77
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:100
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:115
@@ -1441,16 +1441,16 @@ msgstr ""
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: includes/class-assets.php:202
+#: includes/class-assets.php:249
 #, fuzzy
 msgid "Continue"
 msgstr "Fortsätt "
 
-#: includes/class-assets.php:203
+#: includes/class-assets.php:250
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:369
+#: includes/class-assets.php:416
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
@@ -1595,7 +1595,7 @@ msgid ""
 msgstr ""
 
 #: includes/compatibility/class-navxt-integration.php:228
-#: includes/widgets/widget-search.php:129
+#: includes/widgets/widget-search.php:131
 #: templates/admin/payments-index.tpl.php:18
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:26
 #: templates/search.tpl.php:5
@@ -2484,7 +2484,7 @@ msgstr "Skriv ut kvitto"
 msgid "Return to plan selection"
 msgstr "Återvänd till annons"
 
-#: includes/themes.php:930
+#: includes/themes.php:929
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "ZIP-filen är inte en giltig BD temafil."
@@ -2567,7 +2567,7 @@ msgstr "Miniatyr bredd (px)"
 msgid "Fields To Show"
 msgstr ""
 
-#: includes/widgets/class-listings-widget.php:191
+#: includes/widgets/class-listings-widget.php:193
 #, fuzzy
 msgid "There are currently no listings to show."
 msgstr "Det finns inga annonser för närvarande i registret."
@@ -6542,17 +6542,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Temat har uppdaterats."
 
-#: includes/themes.php:938
+#: includes/themes.php:937
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Det gick inte att skapa temakatalogen."
 
-#: includes/themes.php:949
+#: includes/themes.php:948
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Det gick inte att ta bort tidigare temakatalogen \"%s\"."
 
-#: includes/themes.php:957
+#: includes/themes.php:956
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Det gick inte att flytta det nya temat till temakatalogen."

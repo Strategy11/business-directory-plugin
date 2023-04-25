@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-04-20 00:05:59+00:00\n"
+"POT-Creation-Date: 2023-04-25 21:04:43+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1319,7 +1319,7 @@ msgstr ""
 "Pourriez-vous prendre une minute et nous faire savoir ce que nous pouvons "
 "faire mieux ?"
 
-#: includes/class-assets.php:201
+#: includes/class-assets.php:248
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:77
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:100
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:115
@@ -1330,15 +1330,15 @@ msgstr ""
 msgid "Cancel"
 msgstr "Annuler"
 
-#: includes/class-assets.php:202
+#: includes/class-assets.php:249
 msgid "Continue"
 msgstr "Continuer"
 
-#: includes/class-assets.php:203
+#: includes/class-assets.php:250
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
-#: includes/class-assets.php:369
+#: includes/class-assets.php:416
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
 "how WordPress stores the data."
@@ -1482,7 +1482,7 @@ msgstr ""
 "répertoires et les champs personnalisés ? %1$sInstaller Font Awesome non%2$s"
 
 #: includes/compatibility/class-navxt-integration.php:228
-#: includes/widgets/widget-search.php:129
+#: includes/widgets/widget-search.php:131
 #: templates/admin/payments-index.tpl.php:18
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:26
 #: templates/search.tpl.php:5
@@ -2301,7 +2301,7 @@ msgstr "Imprimer le reçu"
 msgid "Return to plan selection"
 msgstr "Retourner vers la sélection d'abonnement"
 
-#: includes/themes.php:930
+#: includes/themes.php:929
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Le fichier ZIP n'est pas un fichier de thème valide."
 
@@ -2376,7 +2376,7 @@ msgstr "Position des miniature (mobile) :"
 msgid "Fields To Show"
 msgstr "Champs à afficher"
 
-#: includes/widgets/class-listings-widget.php:191
+#: includes/widgets/class-listings-widget.php:193
 msgid "There are currently no listings to show."
 msgstr "Il n'y a actuellement aucune annonce dans l'annuaire."
 
@@ -6172,17 +6172,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Le thème a été mis à jour avec succès."
 
-#: includes/themes.php:938
+#: includes/themes.php:937
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossible de créer le répertoire de thèmes."
 
-#: includes/themes.php:949
+#: includes/themes.php:948
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossible de supprimer le dossier de thème précédent \"%s\"."
 
-#: includes/themes.php:957
+#: includes/themes.php:956
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Impossible de déplacer le nouveau thème dans le dossier à thèmes."

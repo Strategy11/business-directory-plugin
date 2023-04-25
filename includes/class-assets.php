@@ -188,7 +188,7 @@ class WPBDP__Assets {
 	/**
 	 * Only load the widget CSS if a widget is active.
 	 *
-	 * @since x.x
+	 * @since 6.3.5
 	 * @param bool $is_bd_page Whether the current page is a BD page.
 	 * @return void
 	 */
@@ -227,7 +227,7 @@ class WPBDP__Assets {
 	/**
 	 * Load the theme CSS if we're on a BD page or a widget is included.
 	 *
-	 * @since x.x
+	 * @since 6.3.5
 	 * @return void
 	 */
 	private function load_theme_css() {

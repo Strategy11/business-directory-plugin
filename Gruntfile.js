@@ -146,6 +146,7 @@ module.exports = function( grunt ) {
 			  basedir + '/classes/class-wpbdp-premium-module.php',
 			  basedir + '/includes/models/*module.php',
 			  basedir + '/theme.json',
+        basedir + '/themes/no_theme/theme.json',
 			  basedir + '/themes/default/theme.json'
 		  ],
 		  overwrite: true,

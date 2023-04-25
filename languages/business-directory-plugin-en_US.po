@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v5.7.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-04-20 00:05:59+00:00\n"
+"POT-Creation-Date: 2023-04-25 21:04:43+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -1200,7 +1200,7 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:201
+#: includes/class-assets.php:248
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:77
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:100
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:115
@@ -1211,15 +1211,15 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: includes/class-assets.php:202
+#: includes/class-assets.php:249
 msgid "Continue"
 msgstr ""
 
-#: includes/class-assets.php:203
+#: includes/class-assets.php:250
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:369
+#: includes/class-assets.php:416
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
 "how WordPress stores the data."
@@ -1347,7 +1347,7 @@ msgid ""
 msgstr ""
 
 #: includes/compatibility/class-navxt-integration.php:228
-#: includes/widgets/widget-search.php:129
+#: includes/widgets/widget-search.php:131
 #: templates/admin/payments-index.tpl.php:18
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:26
 #: templates/search.tpl.php:5
@@ -2094,7 +2094,7 @@ msgstr ""
 msgid "Return to plan selection"
 msgstr ""
 
-#: includes/themes.php:930
+#: includes/themes.php:929
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr ""
 
@@ -2166,7 +2166,7 @@ msgstr ""
 msgid "Fields To Show"
 msgstr ""
 
-#: includes/widgets/class-listings-widget.php:191
+#: includes/widgets/class-listings-widget.php:193
 msgid "There are currently no listings to show."
 msgstr ""
 
@@ -5678,17 +5678,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr ""
 
-#: includes/themes.php:938
+#: includes/themes.php:937
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: includes/themes.php:949
+#: includes/themes.php:948
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: includes/themes.php:957
+#: includes/themes.php:956
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""
