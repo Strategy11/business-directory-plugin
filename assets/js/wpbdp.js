@@ -525,9 +525,9 @@ WPBDP.fileUpload = {
 
 		$.ajax( wpbdp_global.ajaxurl, {
 			data: {
-                action: 'wpbdp_ajax',
-                handler: 'search__get_search_content',
-            },
+				action: 'wpbdp_ajax',
+				handler: 'search__get_search_content',
+			},
 			type: 'POST',
 			success: function( response ) {
 				$( response.data )
