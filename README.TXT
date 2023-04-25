@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.1.1
-Stable tag: 6.3.4
+Stable tag: 6.3.5
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,11 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.5 =
+* Hide content that might be added by other plugins on BD admin pages.
+* Fix: Only load widget and BD theme CSS when needed.
+* Fix: Revert a change from previous release that shows the URL instead of label.
+
 = 6.3.4 =
 * New: Add 'wpbdp_button_class' hook for adding a button class to match existing buttons.
 * New: Better match Divi buttons out of the box.
