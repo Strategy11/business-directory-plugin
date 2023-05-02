@@ -129,7 +129,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function set_tax_title( $title ) {
-		if ( $this->in_the_loop() ) {
+		if ( ! $this->in_the_loop() ) {
 			// If this is not a category, don't change it.
 			return $title;
 		}
