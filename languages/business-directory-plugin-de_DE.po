@@ -7800,7 +7800,7 @@ msgstr "Sie haben keine Nachricht erstellt"
 #: includes/controllers/pages/class-listing-contact.php:290
 msgctxt "contact-message"
 msgid "Your message has been sent."
-msgstr "Dein Eintrag wurde gelöscht."
+msgstr "Deine Nachricht wurde gesendet."
 
 #: includes/controllers/pages/class-listing-contact.php:312
 msgctxt "contact-message"
