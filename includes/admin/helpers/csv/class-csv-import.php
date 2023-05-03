@@ -108,10 +108,7 @@ class WPBDP_CSV_Import {
 				break;
 			}
 
-			$line = $this->get_current_line( $file );
-
-			// We can't use fgetcsv() directly due to https://bugs.php.net/bug.php?id=46569.
-			$line_data = str_getcsv( $line, $this->settings['csv-file-separator'] );
+			$line_data = $this->get_current_line( $file );
 
 			$file->next();
 			$n++;
@@ -128,7 +125,7 @@ class WPBDP_CSV_Import {
 				foreach ( $errors as $e ) {
 					$this->errors[] = array(
 						'line'    => $this->current_line,
-						'content' => $line,
+						'content' => $line_data,
 						'error'   => $e,
 					);
 				}
@@ -144,7 +141,7 @@ class WPBDP_CSV_Import {
 				foreach ( $result->get_error_messages() as $e ) {
 					$this->errors[] = array(
 						'line'    => $this->current_line,
-						'content' => $line,
+						'content' => $line_data,
 						'error'   => $e,
 					);
 				}
@@ -167,15 +164,10 @@ class WPBDP_CSV_Import {
 	}
 	private function get_current_line( $file ) {
 		$line = $file->current();
-		$line = implode( $this->settings['csv-file-separator'], $line );
 		if ( empty( $line ) ) {
-			return '';
+			return [];
 		}
-
-		$converted_line = $this->maybe_convert_encoding( $line );
-
-		// Some code to circumvent limitations in str_getcsv() while PHP #46569 is fixed.
-		return str_replace( '\n', "\n", $converted_line );
+		return $line;
 	}
 
 	private function maybe_convert_encoding( $line ) {
