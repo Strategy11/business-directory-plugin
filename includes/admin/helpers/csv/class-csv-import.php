@@ -162,12 +162,12 @@ class WPBDP_CSV_Import {
 
 	private function get_csv_file() {
 		$file = new SplFileObject( $this->csv_file );
-
+		$file->setFlags( SplFileObject::READ_CSV );
 		return $file;
 	}
 	private function get_current_line( $file ) {
 		$line = $file->current();
-
+		$line = implode( $this->settings['csv-file-separator'], $line );
 		if ( empty( $line ) ) {
 			return '';
 		}
