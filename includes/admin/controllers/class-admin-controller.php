@@ -14,6 +14,7 @@ class WPBDP__Admin__Controller {
 		$this->controller_id = str_replace( 'wpbdp__admin__', '', WPBDP_Utils::normalize( get_class( $this ) ) );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _enqueue_scripts() {
 		if ( file_exists( WPBDP_PATH . 'assets/js/admin-' . $this->controller_id . '.js' ) ) {
 			wp_enqueue_script(
@@ -26,6 +27,7 @@ class WPBDP__Admin__Controller {
 		}
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _ajax_dispatch() {
 		$handler       = trim( wpbdp_get_var( array( 'param' => 'handler' ), 'request' ) );
 		$parts         = explode( '__', $handler );
@@ -66,7 +68,7 @@ class WPBDP__Admin__Controller {
 			$template = WPBDP_PATH . 'templates/admin/' . $this->controller_id . '-' . $this->current_view . '.tpl.php';
 
 			if ( ! file_exists( $template ) ) {
-				$output = json_encode( $result );
+				$output = wp_json_encode( $result );
 			} else {
 				$output = wpbdp_render_page( $template, $result );
 			}

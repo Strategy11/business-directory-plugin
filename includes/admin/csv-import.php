@@ -139,7 +139,7 @@ class WPBDP_CSVImportAdmin {
 			$assoc = $field->get_association();
 			if ( $assoc === 'title' ) {
 				/* translators: %s: Sample business name */
-				return sprintf( esc_html__( 'Business %s', 'business-directory-plugin' ), $letters[ rand( 0, strlen( $letters ) - 1 ) ] );
+				return sprintf( esc_html__( 'Business %s', 'business-directory-plugin' ), $letters[ wp_rand( 0, strlen( $letters ) - 1 ) ] );
 			}
 
 			if ( $assoc === 'category' || $assoc === 'tags' ) {
@@ -161,9 +161,9 @@ class WPBDP_CSVImportAdmin {
 			} elseif ( $field->has_validator( 'email' ) ) {
 				return get_option( 'admin_email' );
 			} elseif ( $field->has_validator( 'integer_number' ) ) {
-				return rand( 0, 100 );
+				return wp_rand( 0, 100 );
 			} elseif ( $field->has_validator( 'decimal_number' ) ) {
-				return rand( 0, 100 ) / 100.0;
+				return wp_rand( 0, 100 ) / 100.0;
 			} elseif ( $field->has_validator( 'date_' ) ) {
 				return date( 'd/m/Y' );
 			} elseif ( $field->get_field_type()->get_id() == 'multiselect' || $field->get_field_type()->get_id() == 'checkbox' ) {
@@ -216,8 +216,10 @@ class WPBDP_CSVImportAdmin {
 		header( 'Content-Type: text/csv; charset=' . $charset );
 		header( 'Content-Disposition: attachment; filename=' . $filename );
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen
 		$f = fopen( 'php://output', 'w' );
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fwrite
 		fwrite( $f, $this->example_csv_content() );
 
 		exit;

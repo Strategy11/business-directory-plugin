@@ -282,7 +282,7 @@ class WPBDP_Licensing {
 	}
 
 	private function license_box( $atts, $value, $tooltip_msg ) {
-		$licensing_info_attr = json_encode( $atts );
+		$licensing_info_attr = wp_json_encode( $atts );
 
 		$html  = '';
 		$html .= '<div class="wpbdp-license-key-activation-ui wpbdp-license-status-' . esc_attr( $atts['status'] ) . '" data-licensing="' . esc_attr( $licensing_info_attr ) . '">';
@@ -372,7 +372,7 @@ class WPBDP_Licensing {
 		$request = array(
 			'edd_action' => $action . '_license',
 			'license'    => $key,
-			'item_name'  => urlencode( $this->items[ $item_id ]['name'] ),
+			'item_name'  => rawurlencode( $this->items[ $item_id ]['name'] ),
 			'url'        => home_url(),
 		);
 
@@ -475,6 +475,11 @@ class WPBDP_Licensing {
 		return new WP_Error( 'revoked-license', $message );
 	}
 
+	/**
+	 * phpcs:disable WordPress.WP.AlternativeFunctions
+	 *
+	 * @todo Replace curl with wp_remote_get.
+	 */
 	private function handle_failed_license_request( $response ) {
 		if ( ! function_exists( 'curl_init' ) ) {
 			return $this->curl_missing_error();
@@ -491,6 +496,8 @@ class WPBDP_Licensing {
 		$error_message = curl_error( $ch );
 
 		curl_close( $ch );
+
+		// phpcs:enable
 
 		$error_id = 'request-failed';
 
@@ -744,7 +751,7 @@ class WPBDP_Licensing {
 		$this->licenses = $this->get_licenses_status();
 		update_option( 'wpbdp_licenses', $this->licenses );
 
-		set_site_transient( 'wpbdp-license-check-time', current_time( 'timestamp' ), WEEK_IN_SECONDS );
+		set_site_transient( 'wpbdp-license-check-time', time(), WEEK_IN_SECONDS );
 	}
 
 	public function get_licenses_status() {
@@ -900,7 +907,7 @@ class WPBDP_Licensing {
 
 		$updates = get_option( 'wpbdp_updates' );
 
-		$due = current_time( 'timestamp' ) - DAY_IN_SECONDS;
+		$due = time() - DAY_IN_SECONDS;
 
 		$needs_refresh = false === $updates || $force_refresh || $updates['last'] < $due;
 
@@ -985,7 +992,7 @@ class WPBDP_Licensing {
 			}
 		}
 
-		$updates['last'] = current_time( 'timestamp' );
+		$updates['last'] = time();
 		update_option( 'wpbdp_updates', $updates, false );
 		update_option( 'wpbdp_licenses', $this->licenses );
 
@@ -1036,7 +1043,7 @@ class WPBDP_Licensing {
 				$transient->response[ $wp_name ] = $updates[ $item_key ];
 			}
 
-			$transient->last_checked        = current_time( 'timestamp' );
+			$transient->last_checked        = time();
 			$transient->checked[ $wp_name ] = $module['version'];
 		}
 

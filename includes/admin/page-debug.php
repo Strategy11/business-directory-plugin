@@ -58,6 +58,7 @@ class WPBDP_Admin_Debug_Page {
 				if ( empty( $value ) ) {
 					$value = '';
 				} else {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 					$value = print_r( $value, true );
 				}
 			}

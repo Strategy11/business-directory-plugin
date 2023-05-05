@@ -9,6 +9,8 @@
 		<exclude name="WordPress.VIP.RestrictedFunctions.wp_remote_get_wp_remote_get" />
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda" />
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
+		<exclude name="WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode" />
 
 		<!-- High Priority -->
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotValidated" />
@@ -17,6 +19,7 @@
 		<exclude name="WordPress.Security.EscapeOutput" />
 		<exclude name="PSR2.Files.ClosingTag.NotAllowed" />
 		<exclude name="WordPress.DB.PreparedSQL.NotPrepared" />
+		<exclude name="WordPress.DateTime.CurrentTimeTimestamp.Requested" />
 
 		<!-- Fast -->
 		<exclude name="Generic.PHP.LowerCaseConstant.Found" />
@@ -27,17 +30,29 @@
 		<exclude name="Squiz.Commenting.FunctionCommentThrowTag.Missing" />
 		<exclude name="PSR2.Classes.PropertyDeclaration.VarUsed" />
 		<exclude name="WordPress.DateTime.RestrictedFunctions.date_date" />
+		<exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound" />
 
 		<!-- Temporary exclusions -->
 		<exclude name="WordPress.PHP.DontExtract.extract_extract" />
 		<exclude name="WordPress.Security.NonceVerification.Missing" />
+		<exclude name="WordPress.Security.NonceVerification.Recommended" />
 		<exclude name="WordPress.DB.PreparedSQL.InterpolatedNotPrepared" />
+		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching" />
+		<exclude name="WordPress.DB.DirectDatabaseQuery.DirectQuery" />
 		<exclude name="Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure" />
 		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
 		<exclude name="WordPress.WhiteSpace.PrecisionAlignment.Found" />
 		<exclude name="WordPress.PHP.StrictComparisons.LooseComparison" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
 		<exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
+		<exclude name="WordPress.PHP.StrictInArray.MissingTrueStrict" />
+		<exclude name="WordPress.PHP.NoSilencedErrors.Discouraged" />
+		<exclude name="Squiz.PHP.CommentedOutCode.Found" />
+		<exclude name="WordPress.WP.PostsPerPage.posts_per_page_posts_per_page" />
+		<exclude name="WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize" />
+		<exclude name="WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize" />
+		<exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
+		<exclude name="PSR2.Classes.PropertyDeclaration.Underscore" />
 
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
@@ -53,6 +68,7 @@
 		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeEnd" />
 		<exclude name="Squiz.PHP.EmbeddedPhp.NoSemicolon" />
 
+		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.Found" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
 		<exclude name="WordPress.Arrays.CommaAfterArrayItem" />
 		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed" />
@@ -94,5 +110,6 @@
 	<exclude-pattern>node_modules/*</exclude-pattern>
 	<exclude-pattern>themes/*</exclude-pattern> <!-- Remove me -->
 	<exclude-pattern>includes/admin/upgrades/migrations/*</exclude-pattern>
+	<exclude-pattern>includes/compatibility/deprecated/*</exclude-pattern>
 	<exclude-pattern>stubs.php</exclude-pattern>
 </ruleset>

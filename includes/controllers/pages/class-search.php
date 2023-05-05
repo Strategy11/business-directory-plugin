@@ -87,6 +87,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 			);
 			$args    = apply_filters( 'wpbdp_search_query_posts_args', $args, $search );
 
+			// phpcs:ignore WordPress.WP.DiscouragedFunctions.query_posts_query_posts
 			query_posts( $args );
 			wpbdp_push_query( $GLOBALS['wp_query'] );
 		}
@@ -130,6 +131,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 		);
 
 		if ( $searching ) {
+			// phpcs:ignore WordPress.WP.DiscouragedFunctions.wp_reset_query_wp_reset_query
 			wp_reset_query();
 			wpbdp_pop_query();
 		}

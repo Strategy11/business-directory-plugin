@@ -91,6 +91,7 @@ class WPBDP__CPT_Integration {
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _category_link( $link, $category, $taxonomy ) {
 		if ( WPBDP_CATEGORY_TAX != $taxonomy ) {
 			return $link;
@@ -116,6 +117,7 @@ class WPBDP__CPT_Integration {
 		return apply_filters( 'wpbdp_category_link', $link, $category );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _tag_link( $link, $tag, $taxonomy ) {
 		if ( WPBDP_TAGS_TAX != $taxonomy ) {
 			return $link;
@@ -141,12 +143,14 @@ class WPBDP__CPT_Integration {
 		return apply_filters( 'wpbdp_tag_link', $link, $tag );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _post_link( $link, $post = null, $leavename = false ) {
 		if ( WPBDP_POST_TYPE != get_post_type( $post ) ) {
 			return $link;
 		}
 
-		if ( $querystring = parse_url( $link, PHP_URL_QUERY ) ) {
+		$querystring = wp_parse_url( $link, PHP_URL_QUERY );
+		if ( $querystring ) {
 			$querystring = '?' . $querystring;
 		} else {
 			$querystring = '';
@@ -180,6 +184,7 @@ class WPBDP__CPT_Integration {
 		return apply_filters( 'wpbdp_listing_link', $link, $post->ID );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _short_link( $shortlink, $id = 0, $context = 'post', $allow_slugs = true ) {
 		if ( 'post' !== $context || WPBDP_POST_TYPE != get_post_type( $id ) ) {
 			return $shortlink;
@@ -189,6 +194,7 @@ class WPBDP__CPT_Integration {
 		return $this->_post_link( $shortlink, $post );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _post_link_qtranslate( $url, $post ) {
 		if ( is_admin() || ! function_exists( 'qtrans_convertURL' ) ) {
 			return $url;
@@ -211,6 +217,7 @@ class WPBDP__CPT_Integration {
 		return $url;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _preview_post_link( $url, $post = null ) {
 		if ( is_null( $post ) && isset( $GLOBALS['post'] ) ) {
 			$post = $GLOBALS['post'];
@@ -229,6 +236,7 @@ class WPBDP__CPT_Integration {
 		return $url;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _allow_comments( $open, $post_id ) {
 		// comments on directory pages
 		if ( $post_id == wpbdp_get_page_id( 'main' ) ) {
@@ -390,6 +398,7 @@ class WPBDP__CPT_Integration {
             </path>
             </svg>';
 
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		return 'data:image/svg+xml;base64,' . base64_encode( $icon );
 	}
 }

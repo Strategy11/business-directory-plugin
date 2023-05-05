@@ -30,9 +30,9 @@ class WPBDP__Rewrite {
 
 				$rewrite_base = str_replace( 'index.php/', '', rtrim( str_replace( trailingslashit( $home_url ), '', $page_link ), '/' ) );
 
-				$dir_slug      = urlencode( wpbdp_get_option( 'permalinks-directory-slug' ) );
-				$category_slug = urlencode( wpbdp_get_option( 'permalinks-category-slug' ) );
-				$tags_slug     = urlencode( wpbdp_get_option( 'permalinks-tags-slug' ) );
+				$dir_slug      = rawurlencode( wpbdp_get_option( 'permalinks-directory-slug' ) );
+				$category_slug = rawurlencode( wpbdp_get_option( 'permalinks-category-slug' ) );
+				$tags_slug     = rawurlencode( wpbdp_get_option( 'permalinks-tags-slug' ) );
 
 				$rules[ '(' . $rewrite_base . ')/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?page_id=' . $page_id . '&paged=$matches[2]';
 
@@ -97,6 +97,7 @@ class WPBDP__Rewrite {
 		return $rules;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _wp_loaded() {
 		$rules = get_option( 'rewrite_rules' );
 		if ( $rules ) {
@@ -110,6 +111,7 @@ class WPBDP__Rewrite {
 		}
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _rewrite_rules( $rules ) {
 		$newrules = $this->get_rewrite_rules();
 		return $newrules + $rules;
@@ -119,6 +121,7 @@ class WPBDP__Rewrite {
 	 * Workaround for issue WP bug #16373.
 	 * See http://wordpress.stackexchange.com/questions/51530/rewrite-rules-problem-when-rule-includes-homepage-slug.
 	 */
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _redirect_canonical( $redirect_url, $requested_url ) {
 		global $wp_query;
 
@@ -133,6 +136,7 @@ class WPBDP__Rewrite {
 		return $redirect_url;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _template_redirect() {
 		global $wp_query;
 
@@ -172,7 +176,7 @@ class WPBDP__Rewrite {
 					break;
 			}
 
-			wp_redirect( add_query_arg( 'wpbdp_view', $newview, remove_query_arg( 'action' ) ) );
+			wp_safe_redirect( add_query_arg( 'wpbdp_view', $newview, remove_query_arg( 'action' ) ) );
 			exit();
 		}
 	}

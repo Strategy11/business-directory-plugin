@@ -602,6 +602,7 @@ function wpbdp_experimental( $feature ) {
 	global $wpbdp_development;
 
 	if ( file_exists( WPBDP_PATH . 'experimental' ) ) {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$file_overrides = explode( ',', trim( file_get_contents( WPBDP_PATH . 'experimental' ) ) );
 	}
 
@@ -882,7 +883,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
 
 	$plan_ids = WPBDP_Utils::check_cache(
 		array(
-			'cache_key' => json_encode( $args ),
+			'cache_key' => wp_json_encode( $args ),
 			'group'     => 'wpbdp_plans',
 			'query'     => $query,
 			'type'      => 'get_col',

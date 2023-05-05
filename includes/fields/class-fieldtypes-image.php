@@ -274,6 +274,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		return is_array( $value ) ? $value[0] : '';
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _ajax_file_field_upload() {
 		$field_id   = absint(
 			wpbdp_get_var(
@@ -357,6 +358,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		exit;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _ajax_media_field_select() {
 		$field_id   = absint(
 			wpbdp_get_var(

@@ -4,14 +4,14 @@
  */
 class WPBDP__WP_Taxonomy_Term_List {
 
-	static $_n = 0;
+	static $n = 0;
 
 	protected $args   = array();
 	protected $output = null;
 
 
 	public function __construct( $args = array() ) {
-		self::$_n++;
+		self::$n++;
 
 		$defaults = array(
 			'taxonomy'         => WPBDP_CATEGORY_TAX,
@@ -66,7 +66,7 @@ class WPBDP__WP_Taxonomy_Term_List {
 	}
 
 	protected function id_for( $term ) {
-		return 'wpbdp-wp-tt-list-' . self::$_n . '-item-' . $term->term_id;
+		return 'wpbdp-wp-tt-list-' . self::$n . '-item-' . $term->term_id;
 	}
 
 	protected function element( $term, $depth ) {

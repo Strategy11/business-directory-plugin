@@ -81,7 +81,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 	}
 
 	if ( ! empty( $listing['post_title'] ) && empty( $listing['post_name'] ) ) {
-		$listing['post_name'] = sanitize_title( trim( strip_tags( $listing['post_title'] ) ) );
+		$listing['post_name'] = sanitize_title( trim( wp_strip_all_tags( $listing['post_title'] ) ) );
 
 		// We use a faster slug algorithm for CSV imports.
 		if ( 'csv-import' == $context ) {

@@ -36,7 +36,7 @@ class WPBDP__Views__Login extends WPBDP__View {
 		$login_url = trim( wpbdp_get_option( 'login-url' ) );
 
 		if ( $login_url ) {
-			return $this->_redirect( add_query_arg( 'redirect_to', urlencode( $redirect_to ), $login_url ) );
+			return $this->_redirect( add_query_arg( 'redirect_to', rawurlencode( $redirect_to ), $login_url ) );
 		}
 
 		$method = wpbdp_get_var( array( 'param' => 'method' ), 'post' );
@@ -65,7 +65,7 @@ class WPBDP__Views__Login extends WPBDP__View {
 		$params = array(
 			'redirect_to'            => $redirect_to,
 			'access_key_enabled'     => $key_access_enabled,
-			'request_access_key_url' => add_query_arg( 'redirect_to', urlencode( $redirect_to ), wpbdp_url( 'request_access_keys' ) ),
+			'request_access_key_url' => add_query_arg( 'redirect_to', rawurlencode( $redirect_to ), wpbdp_url( 'request_access_keys' ) ),
 			'errors'                 => $errors,
 		);
 

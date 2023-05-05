@@ -30,6 +30,7 @@ final class WPBDP_FS {
 		$res = array();
 		$h   = opendir( $dir );
 
+		// phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 		while ( false !== ( $entry = readdir( $h ) ) ) {
 			if ( '.' == $entry || '..' == $entry ) {
 				continue;

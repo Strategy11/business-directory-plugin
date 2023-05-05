@@ -7,7 +7,7 @@ $container_class    = ! empty( $container_class ) ? $container_class : '';
 $setting_name       = ! empty( $setting_name ) ? $setting_name : '';
 $email_subject      = ! empty( $email_subject ) ? $email_subject : __( 'Untitled', 'business-directory-plugin' );
 $email_body         = ! empty( $email_body ) ? $email_body : '';
-$email_body_display = strip_tags( $email_body );
+$email_body_display = wp_strip_all_tags( $email_body );
 if ( strlen( $email_body_display ) > 200 ) {
 	$email_body_display = substr( $email_body_display, 0, 200 ) . '...';
 }
@@ -100,7 +100,7 @@ echo $before_container;
 			echo $before_buttons;
 			?>
 			<!-- <a href="#" class="button preview-email"><?php esc_attr_e( 'Preview email', 'business-directory-plugin' ); ?></a> -->
-			<a href="#" class="button cancel"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a> 
+			<a href="#" class="button cancel"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a>
 			<input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Save Changes', 'business-directory-plugin' ); ?>" />
 			<?php
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

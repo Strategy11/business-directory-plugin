@@ -11,6 +11,7 @@ class WPBDP_Debugging {
 	public static function debug_on() {
 		self::$debug = true;
 
+		// phpcs:ignore
 		error_reporting( E_ALL | E_DEPRECATED );
 
 		// Disable our debug util for AJAX requests in order to be able to see the errors.
@@ -20,7 +21,7 @@ class WPBDP_Debugging {
 
 		// @ini_set( 'display_errors', '1' );
 		/** @phpstan-ignore-next-line */
-		set_error_handler( array( 'WPBDP_Debugging', '_php_error_handler' ) );
+		set_error_handler( array( 'WPBDP_Debugging', '_php_error_handler' ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler
 
 		add_action( 'wp_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( 'WPBDP_Debugging', '_enqueue_scripts' ) );
@@ -29,6 +30,7 @@ class WPBDP_Debugging {
 		add_action( 'wp_footer', array( 'WPBDP_Debugging', '_debug_bar_footer' ), 99999 );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public static function _enqueue_scripts() {
 		wp_enqueue_script(
 			'wpbdp-debugging-js',
@@ -46,6 +48,7 @@ class WPBDP_Debugging {
 		);
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public static function _php_error_handler( $errno, $errstr, $file, $line, $context ) {
 		static $errno_to_string = array(
 			E_ERROR        => 'error',
@@ -74,6 +77,7 @@ class WPBDP_Debugging {
 		remove_action( 'wp_footer', array( 'WPBDP_Debugging', '_debug_bar_footer' ), 99999 );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public static function _debug_bar_footer() {
 		if ( ! self::$debug ) {
 			return;
@@ -143,7 +147,7 @@ class WPBDP_Debugging {
 		echo '</div>';
 	}
 
-	private static function _extract_context( $stack ) {
+	private static function extract_context( $stack ) {
 		if ( ! is_array( $stack ) || empty( $stack ) ) {
 			return array();
 		}
@@ -183,15 +187,17 @@ class WPBDP_Debugging {
 			'timestamp' => microtime(),
 			'message'   => $msg,
 			'type'      => $type,
-			'context'   => wpbdp_starts_with( $type, 'php', false ) ? $context : self::_extract_context( $context ),
+			'context'   => wpbdp_starts_with( $type, 'php', false ) ? $context : self::extract_context( $context ),
 		);
 	}
 
-	private static function _var_dump( $var ) {
+	private static function var_dump( $var ) {
 		if ( is_bool( $var ) || is_int( $var ) || ( is_string( $var ) && empty( $var ) ) ) {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
 			return var_export( $var, true );
 		}
 
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		return print_r( $var, true );
 	}
 
@@ -200,7 +206,8 @@ class WPBDP_Debugging {
 	public static function debug() {
 		if ( self::$debug ) {
 			foreach ( func_get_args() as $var ) {
-				self::add_debug_msg( self::_var_dump( $var ), 'debug', debug_backtrace() );
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+				self::add_debug_msg( self::var_dump( $var ), 'debug', debug_backtrace() );
 			}
 		}
 	}
@@ -209,13 +216,14 @@ class WPBDP_Debugging {
 		$ret = '';
 
 		foreach ( func_get_args() as $arg ) {
-			$ret .= self::_var_dump( $arg ) . "\n";
+			$ret .= self::var_dump( $arg ) . "\n";
 		}
 
 		wp_die( sprintf( '<pre>%s</pre>', $ret ), '' );
 	}
 
 	public static function log( $msg, $type = 'info' ) {
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 		self::add_debug_msg( $msg, sprintf( 'log-%s', $type ), debug_backtrace() );
 	}
 

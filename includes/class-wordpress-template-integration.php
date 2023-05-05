@@ -373,6 +373,7 @@ class WPBDP__WordPress_Template_Integration {
 		$wp_query->post_count   = 0;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _comments_template( $template ) {
 		$is_single_listing = is_single() && get_post_type() == WPBDP_POST_TYPE;
 		$is_main_page      = get_post_type() == 'page' && get_the_ID() == wpbdp_get_page_id( 'main' );
@@ -398,6 +399,7 @@ class WPBDP__WordPress_Template_Integration {
 		return $template;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _single_template( $template ) {
 		if ( is_single() && get_post_type() === WPBDP_POST_TYPE ) {
 			return wpbdp_locate_template( array( 'businessdirectory-single', 'wpbusdirman-single' ) );

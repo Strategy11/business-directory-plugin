@@ -652,7 +652,6 @@ class WPBDP__Settings_Admin {
 	 * @since 5.9
 	 */
 	public function setting_none_callback() {
-		return;
 	}
 
 	/**
@@ -907,11 +906,12 @@ class WPBDP__Settings_Admin {
 				),
 				$url
 			);
-			wp_redirect( $url );
+			wp_safe_redirect( $url );
 			exit();
 		}
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _ajax_file_upload() {
 		$setting_id = wpbdp_get_var( array( 'param' => 'setting_id' ), 'request' );
 		$nonce      = wpbdp_get_var( array( 'param' => 'nonce' ), 'request' );

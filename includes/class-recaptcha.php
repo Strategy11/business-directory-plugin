@@ -46,6 +46,7 @@ class WPBDP_reCAPTCHA {
 		}
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _enqueue_js_api() {
 		global $wpbdp;
 
@@ -165,6 +166,7 @@ class WPBDP_reCAPTCHA {
 		return false;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _recaptcha_in_comments( $field ) {
 		global $wpbdp;
 
@@ -187,6 +189,7 @@ class WPBDP_reCAPTCHA {
 		return $html;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _check_comment_recaptcha( $comment_data ) {
 		$post_id = isset( $comment_data['comment_post_ID'] ) ? $comment_data['comment_post_ID'] : 0;
 
@@ -207,20 +210,24 @@ class WPBDP_reCAPTCHA {
 		return $comment_data;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _comment_relative_redirect( $location, $comment ) {
 		if ( is_null( $this->comment_error ) ) {
 			return $location;
 		}
 
 		$location  = substr( $location, 0, strpos( $location, '#' ) );
-		$location  = add_query_arg( 'wre', urlencode( base64_encode( $comment->comment_ID ) ), $location );
+		$location  = add_query_arg( 'wre', rawurlencode( base64_encode( $comment->comment_ID ) ), $location );
 		$location .= '#commentform';
 
 		return $location;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _restore_comment_fields() {
-		$wre        = wpbdp_get_var( array( 'param' => 'wre' ) );
+		$wre = wpbdp_get_var( array( 'param' => 'wre' ) );
+
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 		$comment_id = $wre ? absint( base64_decode( urldecode( $wre ) ) ) : 0;
 
 		if ( ! $comment_id ) {

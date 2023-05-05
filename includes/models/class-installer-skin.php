@@ -71,7 +71,7 @@ class WPBDP_Installer_Skin extends WP_Upgrader_Skin {
 				$message = $errors->get_error_data();
 				$errors  = $error . ' ' . $message;
 			}
-			echo json_encode(
+			echo wp_json_encode(
 				array(
 					'error'   => $errors,
 					'message' => $errors,

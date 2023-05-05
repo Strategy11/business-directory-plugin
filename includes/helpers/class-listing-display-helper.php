@@ -50,7 +50,7 @@ class WPBDP_Listing_Display_Helper {
 		$html  = '';
 		$html .= wpbdp_x_render( 'single', $vars );
 		$html .= '<script type="application/ld+json">';
-		$html .= json_encode( self::schema_org( $vars ) );
+		$html .= wp_json_encode( self::schema_org( $vars ) );
 		$html .= '</script>';
 
 		return $html;

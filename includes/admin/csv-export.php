@@ -47,6 +47,7 @@ class WPBDP_Admin_CSVExport {
 			if ( ! isset( $_REQUEST['state'] ) ) {
 				$export = new WPBDP_CSVExporter( array_merge( wpbdp_get_var( array( 'param' => 'settings' ), 'request' ), array() ) );
 			} else {
+				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 				$state = json_decode( base64_decode( wpbdp_get_var( array( 'param' => 'state' ), 'request' ) ), true );
 				if ( ! $state || ! is_array( $state ) || empty( $state['workingdir'] ) ) {
 					$error = _x( 'Could not decode export state information.', 'admin csv-export', 'business-directory-plugin' );
@@ -68,7 +69,7 @@ class WPBDP_Admin_CSVExport {
 
 		$response             = array();
 		$response['error']    = $error;
-		$response['state']    = $state ? base64_encode( json_encode( $state ) ) : null;
+		$response['state']    = $state ? base64_encode( wp_json_encode( $state ) ) : null;
 		$response['count']    = $state ? count( $state['listings'] ) : 0;
 		$response['exported'] = $state ? $state['exported'] : 0;
 		$response['filesize'] = $state ? size_format( $state['filesize'] ) : 0;
@@ -76,7 +77,7 @@ class WPBDP_Admin_CSVExport {
 		$response['fileurl']  = $state ? ( $state['done'] ? $export->get_file_url() : '' ) : '';
 		$response['filename'] = $state ? ( $state['done'] ? basename( $export->get_file_url() ) : '' ) : '';
 
-		echo json_encode( $response );
+		echo wp_json_encode( $response );
 
 		die();
 	}

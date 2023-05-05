@@ -66,7 +66,7 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
 						'expiration_date' => $p->calculate_expiration_time( $listing->get_expiration_time() ),
 					);
 					?>
-					<option value="<?php echo esc_attr( $p->id ); ?>" <?php selected( $p->id, $current_plan ? $current_plan->fee_id : 0 ); ?> data-plan-info="<?php echo esc_attr( json_encode( $plan_info ) ); ?>">
+					<option value="<?php echo esc_attr( $p->id ); ?>" <?php selected( $p->id, $current_plan ? $current_plan->fee_id : 0 ); ?> data-plan-info="<?php echo esc_attr( wp_json_encode( $plan_info ) ); ?>">
 						<?php echo esc_html( $p->label ); ?>
 					</option>
 				<?php endforeach; ?>

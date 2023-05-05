@@ -232,7 +232,7 @@ if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
 			}
 
 			$('#wpadminbar').pointer({
-				'content': <?php echo json_encode( $content ); ?>,
+				'content': <?php echo wp_json_encode( $content ); ?>,
 				'position': { 'edge': 'top', 'align': 'center' },
 				'buttons': function(event, t) {
 					var do_not_track = $('<a id="wpbdp-pointer-b2" class="button" style="margin-right: 5px;"><?php esc_html_e( 'No, thanks', 'business-directory-plugin' ); ?></a>');

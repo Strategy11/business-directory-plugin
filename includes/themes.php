@@ -215,6 +215,7 @@ class WPBDP_Themes {
 		echo '</style>';
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _normalize_asset_name( $a ) {
 		$a = strtolower( $a );
 		$a = str_replace( ' ', '_', $a );
@@ -381,6 +382,7 @@ class WPBDP_Themes {
 		return $missing;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _get_theme_info( $d ) {
 		$d = trailingslashit( $d );
 
@@ -390,6 +392,7 @@ class WPBDP_Themes {
 			return false;
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$manifest = (array) json_decode( file_get_contents( $manifest_file ) );
 		if ( ! $manifest ) {
 			return false;
@@ -481,15 +484,16 @@ class WPBDP_Themes {
 		}
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	private function _is_core_theme( $theme ) {
 		if ( in_array( $theme->id, array( 'no_theme', 'default' ), true ) ) {
 			return true;
 		}
 
-		return $this->_is_premium_theme( $theme ) ? false : true;
+		return $this->is_premium_theme( $theme ) ? false : true;
 	}
 
-	private function _is_premium_theme( $theme ) {
+	private function is_premium_theme( $theme ) {
 		$official_themes = $this->_get_official_themes();
 
 		if ( ! $official_themes ) {

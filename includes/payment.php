@@ -139,6 +139,7 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 			_deprecated_function( __METHOD__, '6.1' );
 		}
 
+		// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 		function _return_fee_list_button( $payment ) {
 			if ( 'renewal' !== $payment->payment_type ) {
 				return;
@@ -165,7 +166,8 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 				)
 			);
 
-			wp_redirect( $url );
+			wp_safe_redirect( $url );
+			exit;
 		}
 
 		public function check_listing_payment_status( $status, $listing ) {

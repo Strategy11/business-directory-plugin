@@ -354,7 +354,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 						'Authorization' => $auth_header,
 						'Content-Type'  => 'application/json',
 					),
-					'body'      => json_encode(
+					'body'      => wp_json_encode(
 						array(
 							'url'        => $listener_url,
 							'eventTypes' => array(

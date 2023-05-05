@@ -299,7 +299,7 @@ class WPBDP_CSV_Import {
 
 		if ( $images_file && file_exists( $images_file ) ) {
 			$dest = $this->working_dir . DIRECTORY_SEPARATOR . 'images.zip';
-			if ( ! copy( $images_file, $dest ) ) { // XXX: maybe move?
+			if ( ! copy( $images_file, $dest ) ) {
 				throw new Exception( 'Could not copy images ZIP file to working directory' );
 			}
 
@@ -468,6 +468,7 @@ class WPBDP_CSV_Import {
 			throw new Exception( 'XXX' );
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$state = unserialize( file_get_contents( $this->state_file ) );
 
 		foreach ( self::$PERSISTENT as $key ) {
@@ -488,6 +489,7 @@ class WPBDP_CSV_Import {
 			$state[ $key ] = $this->{$key};
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
 		if ( false === file_put_contents( $this->state_file, serialize( $state ) ) ) {
 			throw new Exception( 'Could not write persistent data' );
 		}
@@ -858,7 +860,7 @@ class WPBDP_CSV_Import {
 	 */
 	private function prepare_category_name( $csv_category ) {
 		$csv_category = str_replace( "\n", '-', $csv_category );
-		$csv_category = strip_tags( $csv_category );
+		$csv_category = wp_strip_all_tags( $csv_category );
 		$csv_category = str_replace( array( '"', "'" ), '', $csv_category );
 		return str_replace( '& ', '&amp; ', $csv_category );
 	}

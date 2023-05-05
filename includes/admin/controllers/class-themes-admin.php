@@ -106,7 +106,7 @@ class WPBDP_Themes_Admin {
 			wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'business-directory-plugin' ), $theme_id ) );
 		}
 
-		wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
 		exit;
 	}
 
@@ -257,7 +257,7 @@ class WPBDP_Themes_Admin {
 			return;
 		}
 
-		wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=3' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=3' ) );
 		exit;
 	}
 
@@ -285,7 +285,7 @@ class WPBDP_Themes_Admin {
 
 		// Cancel. Return to themes page.
 		if ( empty( $_POST['delete-theme'] ) ) {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes' ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=wpbdp-themes' ) );
 			exit;
 		}
 
@@ -314,9 +314,9 @@ class WPBDP_Themes_Admin {
 		}
 
 		if ( $removed ) {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=4&deleted=' . $theme_id ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=4&deleted=' . $theme_id ) );
 		} else {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
 		}
 
 		exit;

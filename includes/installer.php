@@ -33,7 +33,7 @@ class WPBDP_Installer {
 		if ( $this->installed_version ) {
 			wpbdp_log( 'WPBDP is already installed.' );
 			$this->_update();
-		} elseif ( $this->_table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
+		} elseif ( $this->table_exists( "{$wpdb->prefix}wpbdp_form_fields" ) ) {
 			wpbdp_log( 'New installation. Creating default form fields.' );
 			global $wpbdp;
 
@@ -179,7 +179,7 @@ class WPBDP_Installer {
 		}
 	}
 
-	private function _table_exists( $table_name ) {
+	private function table_exists( $table_name ) {
 		global $wpdb;
 
 		$result = $wpdb->get_var( "SHOW TABLES LIKE '" . $table_name . "'" );
@@ -187,6 +187,7 @@ class WPBDP_Installer {
 		return strcasecmp( $result, $table_name ) === 0;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _update() {
 		// remove deprecated option, but make sure its value is preserved
 		delete_option( 'wpbusdirman_db_version' );

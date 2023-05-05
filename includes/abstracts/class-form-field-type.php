@@ -177,7 +177,7 @@ class WPBDP_Form_Field_Type {
 
 		switch ( $field->get_association() ) {
 			case 'title':
-				$update_post['post_title'] = trim( strip_tags( $value ) );
+				$update_post['post_title'] = trim( wp_strip_all_tags( $value ) );
 				break;
 			case 'excerpt':
 				$update_post['post_excerpt'] = $value;

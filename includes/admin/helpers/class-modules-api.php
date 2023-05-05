@@ -60,7 +60,7 @@ class WPBDP_Modules_API {
 	public function get_api_info() {
 		$url = $this->api_url();
 		if ( ! empty( $this->license ) ) {
-			$url .= '?l=' . urlencode( base64_encode( $this->license ) );
+			$url .= '?l=' . rawurlencode( base64_encode( $this->license ) );
 		}
 
 		$addons = $this->get_cached();
@@ -157,7 +157,7 @@ class WPBDP_Modules_API {
 	protected function set_cached( $addons ) {
 		$data = array(
 			'timeout' => strtotime( $this->cache_timeout, current_time( 'timestamp' ) ),
-			'value'   => json_encode( $addons ),
+			'value'   => wp_json_encode( $addons ),
 			'version' => WPBDP_VERSION,
 		);
 

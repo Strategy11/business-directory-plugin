@@ -6,6 +6,7 @@ require_once WPBDP_PATH . 'includes/models/class-payment.php';
  */
 class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _enqueue_scripts() {
 		WPBDP__Assets::load_datepicker();
 		parent::_enqueue_scripts();
@@ -70,7 +71,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		$payment->update( $data );
 		$payment->save();
 
-		wp_redirect( esc_url_raw( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id . '&message=1' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id . '&message=1' ) );
 		exit;
 	}
 
@@ -89,7 +90,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		$this->handle_payment_not_found_redirect( $payment );
 		$payment->delete();
 
-		wp_redirect( esc_url_raw( admin_url( 'admin.php?page=wpbdp_admin_payments&message=payment_delete' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=wpbdp_admin_payments&message=payment_delete' ) );
 		exit;
 	}
 
@@ -180,7 +181,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	private function handle_payment_not_found_redirect( $payment ) {
 		if ( ! $payment ) {
 			// Not found.
-			wp_redirect( esc_url_raw( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details' ) ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details' ) );
 			exit;
 		}
 	}

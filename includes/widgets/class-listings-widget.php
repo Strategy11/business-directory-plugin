@@ -65,6 +65,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		return array();
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	protected function _form( $instance ) { }
 
 	/**
@@ -81,7 +82,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 */
 	public function update( $new, $old ) {
 		$instance                       = $old;
-		$instance['title']              = strip_tags( $new['title'] );
+		$instance['title']              = wp_strip_all_tags( $new['title'] );
 		$instance['number_of_listings'] = max( intval( $new['number_of_listings'] ), 1 );
 		$instance['show_images']        = ! empty( $new['show_images'] ) ? 1 : 0;
 		$instance['fields']             = ! empty( $new['fields'] ) ? array_map( 'sanitize_text_field', wp_unslash( $new['fields'] ) ) : array();

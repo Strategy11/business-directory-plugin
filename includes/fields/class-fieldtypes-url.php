@@ -132,7 +132,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 		$url  = trim( sanitize_text_field( is_array( $input ) ? $input[0] : $input ) );
 		$text = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
 
-		if ( $url && ! parse_url( $url, PHP_URL_SCHEME ) ) {
+		if ( $url && ! wp_parse_url( $url, PHP_URL_SCHEME ) ) {
 			$url = 'http://' . $url;
 		}
 

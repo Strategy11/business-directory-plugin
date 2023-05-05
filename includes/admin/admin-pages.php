@@ -483,7 +483,7 @@ class WPBDP_Admin_Pages {
 				continue;
 			}
 
-			$title = strip_tags( $menu_item['title'] );
+			$title = wp_strip_all_tags( $menu_item['title'] );
 
 			// change_menu_name() changes the name here. This changes it back.
 			if ( $title === __( 'Directory Content', 'business-directory-plugin' ) ) {

@@ -332,6 +332,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		return $field_value;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _enqueue_scripts() {
 		_deprecated_function( __METHOD__, '5.15.4' );
 	}

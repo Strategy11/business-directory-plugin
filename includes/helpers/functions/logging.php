@@ -23,7 +23,9 @@ function wpbdp_insert_log( $args = array() ) {
 
 	$row['object_id'] = absint( $row['object_id'] );
 	$row['message']   = trim( $row['message'] );
-	$row['data']      = $row['data'] ? serialize( $row['data'] ) : null;
+
+	// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+	$row['data'] = $row['data'] ? serialize( $row['data'] ) : null;
 
 	if ( ! $row['data'] ) {
 		unset( $row['data'] );

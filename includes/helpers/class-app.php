@@ -118,7 +118,7 @@ class WPBDP_App_Helper {
 		$defaults = self::default_strings();
 		$default  = isset( $defaults[ $name ] ) ? $defaults[ $name ] : false;
 		$label    = wpbdp_get_option( $name . '-label', $default );
-		$label    = strip_tags( $label );
+		$label    = wp_strip_all_tags( $label );
 		return $label;
 	}
 

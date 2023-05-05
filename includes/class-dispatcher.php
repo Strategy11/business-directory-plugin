@@ -20,6 +20,7 @@ class WPBDP__Dispatcher {
 		add_action( 'wp_ajax_nopriv_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _lookup_current_view( $wp ) {
 		if ( is_admin() ) {
 			return;
@@ -63,6 +64,7 @@ class WPBDP__Dispatcher {
 		wpbdp_debug( '[Dispatching Details] view = ' . $this->current_view . ', is_main_page = ' . $wp_query->wpbdp_is_main_page );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _execute_view( $template ) {
 		global $wp_query;
 
@@ -87,6 +89,7 @@ class WPBDP__Dispatcher {
 		return $template;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _enqueue_view_scripts() {
 		if ( ! $this->current_view_obj ) {
 			return;
@@ -98,6 +101,7 @@ class WPBDP__Dispatcher {
 	/**
 	 * @since 5.0
 	 */
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _ajax_dispatch() {
 		$ajax_handler = wpbdp_get_var( array( 'param' => 'handler' ), 'request' );
 		if ( empty( $ajax_handler ) ) {

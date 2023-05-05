@@ -88,6 +88,7 @@ class WPBDP_Utils {
 		}
 
 		global $wpdb;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange
 		$wpdb->query( "ALTER TABLE {$table} DROP COLUMN {$col}" );
 	}
 
@@ -133,7 +134,7 @@ class WPBDP_Utils {
 			$results = self::get_all_ids( $args );
 		} elseif ( 'get_associative_results' === $type ) {
 			global $wpdb;
-			$results = $wpdb->get_results( $query, OBJECT_K ); // WPCS: unprepared SQL ok.
+			$results = $wpdb->get_results( $query, OBJECT_K );
 		} else {
 			global $wpdb;
 			if ( $args['return'] === 'array' ) {
@@ -286,7 +287,7 @@ class WPBDP_Utils {
 		$file_id = self::get_file_id( $file_ );
 		if ( ! $sideload && ! empty( $_FILES[ $file_id ]['name'] ) && is_array( $_FILES[ $file_id ]['name'] ) ) {
 			// Force an array of files to a single file.
-			$file_id            = substr( sha1( (string) rand() ), 0, 5 );
+			$file_id            = substr( sha1( (string) wp_rand() ), 0, 5 );
 			$_FILES[ $file_id ] = $file;
 		}
 
@@ -770,7 +771,7 @@ function wpbdp_ajaxurl( $overwrite = false ) {
 
 	if ( $overwrite || $ajaxurl === false ) {
 		$url   = admin_url( 'admin-ajax.php' );
-		$parts = parse_url( $url );
+		$parts = wp_parse_url( $url );
 
 		$domain = wpbdp_get_current_domain();
 
@@ -1022,7 +1023,7 @@ function wpbdp_admin_pointer( $selector, $title, $content_ = '',
 //<![CDATA[
 jQuery(function( $ ) {
 		var wpbdp_pointer = $( '<?php echo $selector; ?>' ).pointer({
-			'content': <?php echo json_encode( $content ); ?>,
+			'content': <?php echo wp_json_encode( $content ); ?>,
 			'position': { 'edge': '<?php echo isset( $options['edge'] ) ? $options['edge'] : 'top'; ?>',
 						  'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
 			'buttons': function( e, t ) {
@@ -1096,11 +1097,13 @@ if ( ! function_exists( 'str_getcsv' ) ) {
 	function str_getcsv( $input, $delimiter = ',', $enclosure = '"' ) {
 		$file = tmpfile();
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fwrite
 		fwrite( $file, $input );
 		fseek( $file, 0 );
 
 		$res = fgetcsv( $file, 0, $delimiter, $enclosure );
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
 		fclose( $file );
 
 		return $res;

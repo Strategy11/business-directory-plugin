@@ -47,7 +47,7 @@ class WPBDP_AJAX_Response {
 			$response['message'] = $this->message;
 		}
 
-		print json_encode( $response );
+		print wp_json_encode( $response );
 		wp_die();
 	}
 }

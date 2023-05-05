@@ -84,7 +84,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 
 	public function update( $new, $old ) {
 		$instance                  = $old;
-		$instance['title']         = strip_tags( $new['title'] );
+		$instance['title']         = wp_strip_all_tags( $new['title'] );
 		$instance['form_mode']     = wpbdp_getv( $new, 'form_mode', 'basic' );
 		$instance['search_fields'] = wpbdp_getv( $new, 'search_fields', array() );
 		return $instance;

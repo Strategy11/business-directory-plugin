@@ -17,6 +17,7 @@ class WPBDP_FeaturedListingsWidget extends WPBDP_Listings_Widget {
 		$this->set_default_option_value( 'title', _x( 'Featured Listings', 'widgets', 'business-directory-plugin' ) );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	protected function _form( $instance ) {
 		printf(
 			'<p><input id="%s" name="%s" type="checkbox" value="1" %s /> <label for="%s">%s</label></p>',

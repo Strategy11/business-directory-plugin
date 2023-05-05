@@ -129,7 +129,7 @@ class WPBDP_Email {
 	 * @return boolean true on success, false otherwise
 	 */
 	public function send() {
-		$this->subject = preg_replace( '/[\n\r]/', '', strip_tags( html_entity_decode( $this->subject ) ) );
+		$this->subject = preg_replace( '/[\n\r]/', '', wp_strip_all_tags( html_entity_decode( $this->subject ) ) );
 		$this->subject = apply_filters( 'wpbdp_maybe_encode_email_subject', $this->subject );
 		$this->from    = preg_replace( '/[\n\r]/', '', $this->from ? $this->from : sprintf( '%s <%s>', get_option( 'blogname' ), get_option( 'admin_email' ) ) );
 		$this->to      = preg_replace( '/[\n\r]/', '', $this->to );
@@ -138,13 +138,15 @@ class WPBDP_Email {
 			return false;
 		}
 		if ( $this->template ) {
-			if ( $html_ = wpbdp_render(
+			$html_ = wpbdp_render(
 				$this->template,
 				array(
 					'subject' => $this->subject,
 					'body'    => $this->html,
 				)
-			) ) {
+			);
+
+			if ( $html_ ) {
 				$this->html = $html_;
 			}
 		}

@@ -652,7 +652,7 @@ class WPBDP_Listing {
 		}
 
 		// Generate access key.
-		$new_key = sha1( sprintf( '%s%s%d', $this->get_auth_key(), uniqid( '', true ), rand( 1, 1000 ) ) );
+		$new_key = sha1( sprintf( '%s%s%d', $this->get_auth_key(), uniqid( '', true ), wp_rand( 1, 1000 ) ) );
 		if ( update_post_meta( $this->id, '_wpbdp[access_key]', $new_key ) ) {
 			return $new_key;
 		}

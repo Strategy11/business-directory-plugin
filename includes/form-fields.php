@@ -269,12 +269,12 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
 				if ( $associations_in ) {
 					$format = implode( ', ', array_fill( 0, count( $associations_in ), '%s' ) );
-					$where .= $wpdb->prepare( " AND ( association IN ( $format ) ) ", $associations_in );
+					$where .= " AND ( association IN ( $format ) ) ";
 				}
 
 				if ( $associations_not_in ) {
 					$format = implode( ', ', array_fill( 0, count( $associations_not_in ), '%s' ) );
-					$where .= $wpdb->prepare( " AND ( association NOT IN ( $format ) ) ", $associations_not_in );
+					$where .= " AND ( association NOT IN ( $format ) ) ";
 				}
 
 				// $where .= $wpdb->prepare( " AND ( association = %s ) ", $args['association'] );
@@ -296,12 +296,12 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
 				if ( $field_types_in ) {
 					$format = implode( ', ', array_fill( 0, count( $field_types_in ), '%s' ) );
-					$where .= $wpdb->prepare( " AND ( field_type IN ( $format ) ) ", $field_types_in );
+					$where .= " AND ( field_type IN ( $format ) ) ";
 				}
 
 				if ( $field_types_not_in ) {
 					$format = implode( ', ', array_fill( 0, count( $field_types_not_in ), '%s' ) );
-					$where .= $wpdb->prepare( " AND ( field_type NOT IN ( $format ) ) ", $field_types_not_in );
+					$where .= " AND ( field_type NOT IN ( $format ) ) ";
 				}
 			}
 
@@ -329,7 +329,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
 			$ids = WPBDP_Utils::check_cache(
 				array(
-					'cache_key' => json_encode( array_filter( $args ) ) . '.' . $one,
+					'cache_key' => wp_json_encode( array_filter( $args ) ) . '.' . $one,
 					'group'     => 'wpbdp_form_fields',
 					'query'     => $sql,
 					'type'      => 'get_col',
@@ -500,6 +500,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 			return $shortnames;
 		}
 
+		// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 		public function _calculate_short_names() {
 			$fields = $this->get_fields();
 			$names  = array();

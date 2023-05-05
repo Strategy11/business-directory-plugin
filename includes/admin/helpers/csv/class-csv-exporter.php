@@ -202,6 +202,7 @@ class WPBDP_CSVExporter {
 
 		// Write header as first line.
 		if ( $this->exported === 0 ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fwrite
 			fwrite( $csvfile, $this->prepare_header( $this->header() ) );
 		}
 
@@ -210,12 +211,14 @@ class WPBDP_CSVExporter {
 		foreach ( $nextlistings as $listing_id ) {
 			if ( $data = $this->extract_data( $listing_id ) ) {
 				$content = implode( $this->settings['csv-file-separator'], $data );
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fwrite
 				fwrite( $csvfile, $this->prepare_content( $content ) );
 			}
 
 			$this->exported++;
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
 		fclose( $csvfile );
 
 		if ( $this->is_done() ) {
@@ -236,6 +239,7 @@ class WPBDP_CSVExporter {
 	}
 
 	protected function get_csvfile( $path ) {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fopen
 		return fopen( $path, 'a' );
 	}
 

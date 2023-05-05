@@ -77,7 +77,7 @@ class WPBDP__View {
 			);
 		}
 
-		wp_redirect( $url );
+		wp_safe_redirect( $url );
 		exit;
 	}
 

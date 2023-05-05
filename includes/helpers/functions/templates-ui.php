@@ -63,7 +63,8 @@ function _wpbdp_padded_count( &$term, $return = false ) {
 			$format = implode( ', ', array_fill( 0, count( $tt_ids ), '%d' ) );
 			$query  = $wpdb->prepare(
 				"SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN ( $format )",
-				array_merge( array( 'publish', WPBDP_POST_TYPE ), (array) $tt_ids )
+				'publish',
+				WPBDP_POST_TYPE
 			);
 
 			$count = intval( $wpdb->get_var( $query ) );
@@ -137,7 +138,7 @@ function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
 
 		$item_html  = '';
 		$item_html .= '<a href="' . apply_filters( 'wpbdp_categories_term_link', esc_url( get_term_link( $term ) ) ) . '" ';
-		$item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label">';
+		$item_html .= 'title="' . esc_attr( wp_strip_all_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label">';
 
 		$item_html .= esc_attr( $term->name );
 		$item_html .= '</a>';

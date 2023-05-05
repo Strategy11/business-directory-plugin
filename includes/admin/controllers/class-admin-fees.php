@@ -12,6 +12,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	/**
 	 * @override
 	 */
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	function _enqueue_scripts() {
 		switch ( $this->current_view ) {
 			case 'add-fee':

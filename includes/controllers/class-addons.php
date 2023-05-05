@@ -22,7 +22,7 @@ class WPBDP_Addons_Controller {
 		self::download_and_activate();
 
 		// Send back a response.
-		echo json_encode( __( 'Your plugin has been installed. Please reload the page to see more options.', 'business-directory-plugin' ) );
+		echo wp_json_encode( __( 'Your plugin has been installed. Please reload the page to see more options.', 'business-directory-plugin' ) );
 		wp_die();
 	}
 
@@ -112,6 +112,7 @@ class WPBDP_Addons_Controller {
 		$plugin = $installer->plugin_info();
 		if ( empty( $plugin ) ) {
 			return array(
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				'message' => 'Plugin was not installed. ' . print_r( $installer->result, true ),
 				'success' => false,
 			);
@@ -140,7 +141,7 @@ class WPBDP_Addons_Controller {
 		self::maybe_activate_addon( $plugin );
 
 		// Send back a response.
-		echo json_encode( __( 'Your plugin has been activated. Please reload the page to see more options.', 'business-directory-plugin' ) );
+		echo wp_json_encode( __( 'Your plugin has been activated. Please reload the page to see more options.', 'business-directory-plugin' ) );
 		wp_die();
 	}
 
@@ -159,7 +160,7 @@ class WPBDP_Addons_Controller {
 			// Ignore the invalid header message that shows with nested plugins.
 			if ( $activate->get_error_code() !== 'no_plugin_header' ) {
 				if ( wp_doing_ajax() ) {
-					echo json_encode( array( 'error' => $activate->get_error_message() ) );
+					echo wp_json_encode( array( 'error' => $activate->get_error_message() ) );
 					wp_die();
 				}
 				return array(
@@ -179,7 +180,7 @@ class WPBDP_Addons_Controller {
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
 		if ( ! current_user_can( 'activate_plugins' ) || ! isset( $_POST['plugin'] ) ) {
-			echo json_encode( true );
+			echo wp_json_encode( true );
 			wp_die();
 		}
 	}

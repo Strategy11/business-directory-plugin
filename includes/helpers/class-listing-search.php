@@ -32,7 +32,7 @@ class WPBDP__Listing_Search {
 		}
 
 		if ( ! $this->original_parts ) {
-			$this->_traverse_tree( $this->tree );
+			$this->traverse_tree( $this->tree );
 			$this->original_parts = $this->parts;
 		}
 	}
@@ -90,7 +90,7 @@ class WPBDP__Listing_Search {
 		$this->tree = self::tree_simplify( $this->tree );
 
 		// Prepare query template.
-		$this->query_template = $this->_traverse_tree( $this->tree );
+		$this->query_template = $this->traverse_tree( $this->tree );
 
 		// Build query.
 		$query_pieces = array(
@@ -157,8 +157,9 @@ class WPBDP__Listing_Search {
 
 	}
 
-	private function _traverse_tree( $tree ) {
+	private function traverse_tree( $tree ) {
 		if ( is_array( $tree ) && 2 == count( $tree ) && is_numeric( $tree[0] ) ) {
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 			$key = md5( serialize( $tree ) );
 
 			if ( ! isset( $this->parts[ $key ] ) ) {
@@ -177,7 +178,7 @@ class WPBDP__Listing_Search {
 
 		foreach ( $args as $x ) {
 			$res .= ' ' . strtoupper( $head ) . ' ';
-			$res .= $this->_traverse_tree( $x );
+			$res .= $this->traverse_tree( $x );
 		}
 
 		$res .= ')';
@@ -355,6 +356,6 @@ class WPBDP__Listing_Search {
 			return '( 1=1 )';
 		}
 
-		return $this->_traverse_tree( $this->tree );
+		return $this->traverse_tree( $this->tree );
 	}
 }

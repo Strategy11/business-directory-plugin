@@ -1248,6 +1248,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				// Drop tables.
 				$tables = array_keys( $installer->get_database_schema() );
 				foreach ( $tables as &$table ) {
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange
 					$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}wpbdp_{$table}" );
 				}
 

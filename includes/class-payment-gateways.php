@@ -37,6 +37,7 @@ class WPBDP__Payment_Gateways {
 		}
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _execute_listener() {
 		$listener_id = wpbdp_get_var( array( 'param' => 'wpbdp-listener' ) );
 		if ( ! $listener_id ) {
@@ -86,6 +87,7 @@ class WPBDP__Payment_Gateways {
 		return count( $this->get_available_gateways() ) > 0;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _add_gateway_settings( $api ) {
 		foreach ( $this->gateways as $gateway ) {
 			wpbdp_register_settings_group( 'gateway_' . $gateway->get_id(), $gateway->get_title(), 'payment', array( 'desc' => $gateway->get_settings_text() ) );
@@ -108,6 +110,7 @@ class WPBDP__Payment_Gateways {
 		}
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _admin_warnings() {
 		$page        = wpbdp_get_var( array( 'param' => 'page' ) );
 		$page_tab    = wpbdp_get_var( array( 'param' => 'tab' ) );

@@ -86,7 +86,7 @@ class WPBDP_Themes_Updater {
 	private function get_latest_version( $theme ) {
 		$request  = array(
 			'edd_action' => 'get_version',
-			'item_name'  => urlencode( ! empty( $theme->edd_name ) ? $theme->edd_name : $theme->name ),
+			'item_name'  => rawurlencode( ! empty( $theme->edd_name ) ? $theme->edd_name : $theme->name ),
 			'url'        => home_url(),
 			'license'    => $theme->license_key,
 		);

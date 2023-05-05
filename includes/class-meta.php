@@ -14,6 +14,7 @@ class WPBDP__Meta {
 		}
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _rss_feed() {
 		$current_view = wpbdp_current_view();
 
@@ -98,19 +99,23 @@ class WPBDP__Meta {
 		return $title;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _meta_keywords() {
 		_deprecated_function( __METHOD__, '6.1' );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _meta_rel_canonical() {
 		_deprecated_function( __METHOD__, '6.1' );
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _meta_title( $title = '' ) {
 		_deprecated_function( __METHOD__, '6.1' );
 		return $title;
 	}
 
+	// phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 	public function _meta_setup() {
 		_deprecated_function( __METHOD__, '6.1' );
 	}

@@ -94,7 +94,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 		if ( wpbdp_get_option( 'contact-form-require-login' ) && ! is_user_logged_in() ) {
 			$error_msg = str_replace(
 				'<a>',
-				'<a href="' . esc_url( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
+				'<a href="' . esc_url( add_query_arg( 'redirect_to', rawurlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
 				_x( 'Please <a>log in</a> to be able to send messages to the listing owner.', 'contact form', 'business-directory-plugin' )
 			);
 			return false;
@@ -112,7 +112,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 	}
 
 	private function update_contacts( $listing_id ) {
-		$today = date( 'Ymd', current_time( 'timestamp' ) );
+		$today = date( 'Ymd', time() );
 		if ( max( 0, intval( wpbdp_get_option( 'contact-form-daily-limit' ) ) ) ) {
 			$data = get_post_meta( $listing_id, '_wpbdp_contact_limit', true );
 
@@ -180,7 +180,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 	}
 
 	private function validate_submit_status( $data, $daily_limit, &$error_msg ) {
-		$today = date( 'Ymd', current_time( 'timestamp' ) );
+		$today = date( 'Ymd', time() );
 
 		if ( ! $data || ! is_array( $data ) ) {
 			$data = array(
@@ -275,7 +275,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 			'email'       => $this->email,
 			'phone'       => $this->phone,
 			'message'     => $this->message,
-			'date'        => date_i18n( __( 'l F j, Y \a\t g:i a', 'business-directory-plugin' ), current_time( 'timestamp' ) ),
+			'date'        => date_i18n( __( 'l F j, Y \a\t g:i a', 'business-directory-plugin' ), time() ),
 			'access_key'  => wpbdp_get_listing( $listing_id )->get_access_key(),
 		);
 		$email           = wpbdp_email_from_template( 'email-templates-contact', $replacements );
