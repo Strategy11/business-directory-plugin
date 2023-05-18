@@ -159,10 +159,9 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 == Changelog ==
 = 6.3.6 =
-* Fix: Pagination style.
-* Fix: Detail page layout.
-* Fix: Listing titles in taxonomy pages and in sidebar.
-* Fix: German translation for "Your message has been sent".
+Fix: Listing titles in taxonomy pages were showing in the sidebar
+Fix: The admin listing tables had misaligned pagination
+Fix: The fields on the contact form were not using consistent sizing
 
 = 6.3.5 =
 * Hide content that might be added by other plugins on BD admin pages.
