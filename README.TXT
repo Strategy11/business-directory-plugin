@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 6.1.1
-Stable tag: 6.3.5
+Tested up to: 6.2
+Stable tag: 6.3.6
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,12 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.6 =
+* Fix: Pagination style.
+* Fix: Detail page layout.
+* Fix: Listing titles in taxonomy pages and in sidebar.
+* Fix: German translation for "Your message has been sent".
+
 = 6.3.5 =
 * Hide content that might be added by other plugins on BD admin pages.
 * Fix: Only load widget and BD theme CSS when needed.
@@ -260,9 +266,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Allow the same value to by used in multiple checkbox fields.
 * Fix: Some sites were getting an error during the database upgrade process.
 * Fix: Show the current variable plan price for logged out users.
-
-= 6.2.4 =
-* Fix: Redirect to the login page from the new listing form when logging in is required.
-* Fix: The listings weren't showing alphabetically in new installations, if the sorting settings hadn't been updated.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
