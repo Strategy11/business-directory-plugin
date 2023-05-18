@@ -159,9 +159,9 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 == Changelog ==
 = 6.3.6 =
-Fix: Listing titles in taxonomy pages were showing in the sidebar
-Fix: The admin listing tables had misaligned pagination
-Fix: The fields on the contact form were not using consistent sizing
+* Fix: Listing titles in taxonomy pages were showing in the sidebar
+* Fix: The admin listing tables had misaligned pagination
+* Fix: The fields on the contact form were not using consistent sizing
 * Fix: German translation for "Your message has been sent".
 
 = 6.3.5 =
