@@ -11,8 +11,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	private $items            = array();
 	private $displayed_fields = array();
 	private $names_to_ids     = array();
-
-
+	private $has_excerpt     = false;
 	public function __construct( $listing_id, $display, $fields = array() ) {
 		$this->listing_id = $listing_id;
 		$this->display    = $display;
@@ -52,6 +51,10 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		// if( $f->display_in( $this->display ) )
 		//     $this->displayed_fields[] = $field_id;
 
+		if ( $f->get_tag() === 'excerpt' ) {
+			$this->has_excerpt = true;
+		}
+
 		$this->displayed_fields[]                   = $field_id;
 		$this->items[ $field_id ]                   = new _WPBDP_Lightweight_Field_Display_Item( $f, $this->listing_id, $this->display );
 		$this->names_to_ids[ $f->get_short_name() ] = $field_id;
@@ -60,6 +63,10 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 
 	public function freeze() {
 		$this->frozen = true;
+	}
+
+	public function has_excerpt() {
+		return $this->has_excerpt;
 	}
 
 	public function not( $filter ) {

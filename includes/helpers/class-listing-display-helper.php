@@ -96,7 +96,7 @@ class WPBDP_Listing_Display_Helper {
 			}
 			$vars['listing_css_class'] .= ' with-image';
 		}
-
+		$vars['listing_has_excerpt'] = $vars['fields']->has_excerpt();
 		$vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post_id );
 		$vars = apply_filters( 'wpbdp_single_template_vars', $vars, $post_id );
 
