@@ -140,6 +140,9 @@ class WPBDP__CPT_Compat_Mode {
 			// Change the main title in Enfold theme.
 			add_filter( 'avf_title_args', array( &$this, 'enfold_title' ), 10, 2 );
 			$this->enfold_maybe_add_single_title();
+		} elseif ( function_exists( 'presscore_get_page_title' ) ) {
+			// Change the main title in the7 theme.
+			add_filter( 'presscore_get_page_title', array( &$this, 'the7_title' ), 10, 2 );
 		}
 
 		return $title;
@@ -187,5 +190,16 @@ class WPBDP__CPT_Compat_Mode {
 		if ( $header_settings['header_title_bar'] === 'breadcrumbs_only' || $header_settings['header_title_bar'] === 'hidden_title_bar' ) {
 				add_filter( 'wpbdp_heading_type', '__return_true' );
 		}
+	}
+
+	/**
+	 * Override the main title in the 7 theme.
+	 *
+	 * @param string $title
+	 * @since 6.2.10
+	 * @return string
+	 */
+	public function the7_title( $title ) {
+		return $this->page_title;
 	}
 }
