@@ -113,7 +113,7 @@ class WPBDP_Compat {
 
 		return $clauses;
 	}
-	function wp_fusion_skip_auto_login( $skip_auto_login ) {
+	public function wp_fusion_skip_auto_login( $skip_auto_login ) {
 		if ( $_REQUEST['action'] === 'wpbdp_ajax' && $_REQUEST['handler'] === 'checkout__load_gateway' ) {
 			return true;
 		}
