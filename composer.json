@@ -34,7 +34,5 @@
 	"scripts": {
 		"format": "phpcbf --standard=phpcs.xml --report-summary --report-source",
 		"lint": "phpcs --standard=phpcs.xml",
-		"format-f": "phpcbf --standard=phpcs.xml --report-summary --report-source includes/controllers/pages/class-submit-listing.php",
-		"lint-f": "phpcs --standard=phpcs.xml includes/controllers/pages/class-submit-listing.php"
 	}
 }
