@@ -10,8 +10,8 @@ parameters:
 		- */vendors/*
 		- */languages/*
 		- */tests/*
-		- */node_modules/*
 		- stubs.php
+		- */node_modules/*
 	ignoreErrors:
 		- '#Access to an undefined property#'
 		- '#no (typehint|value type|return type)+ specified.#'
