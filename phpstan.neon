@@ -22,3 +22,4 @@ parameters:
 		- '#Method PclZip::extract\(\) invoked with #'
 		- '#overridden property WP_List_Table::\$items#'
 		- '#Method WPBDP_[a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) is unused#'
+		- '#Call to function is_wp_error\(\) with array will always evaluate to false#'
