@@ -10,6 +10,7 @@ parameters:
 		- */vendors/*
 		- */languages/*
 		- */tests/*
+		- */node_modules/*
 		- stubs.php
 	ignoreErrors:
 		- '#Access to an undefined property#'
