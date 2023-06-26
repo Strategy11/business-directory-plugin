@@ -317,7 +317,6 @@ WPBDP.fileUpload = {
                     $( '#noslots-message' ).show();
                     $( '#image-upload-dnd-area' ).addClass('error');
                     $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
-                    $( '.image-upload-wrapper .error').remove();
                 },
                 validate: function( data ) {
                     $( '.image-upload-wrapper .error').remove();
