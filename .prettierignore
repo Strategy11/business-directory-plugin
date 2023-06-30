@@ -12,3 +12,4 @@ composer.lock
 package-lock.json
 Gruntfile.js
 assets/js/wpbdp.js
+assets/js/packages
