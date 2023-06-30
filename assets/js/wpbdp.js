@@ -275,7 +275,7 @@ WPBDP.fileUpload = {
                         if ( ! t._admin_nonce ) {
                             t._slotsRemaining++;
                             $( '#image-slots-remaining' ).text( t._slotsRemaining );
-							if(t._slotsRemaining < t._slots){
+							if ( t._slotsRemaining < t._slots ) {
 								$( '#image-upload-dnd-area' ).show();
 							}
                         }
