@@ -26,6 +26,10 @@ class WPBDP_Admin_Notices {
 	 */
 	public static function show_bell() {
 		?>
+		<div class="wpbdp-bell-notifications hidden">
+			<a href="#" class="wpbdp-bell-notifications-close"><?php esc_html_e( 'Hide notifications', 'business-directory-plugin' ); ?></a>
+			<ul class="wpbdp-bell-notifications-list"></ul>
+		</div>
 		<div id="wpbdp-snackbar-notices"></div>
 		<?php
 	}

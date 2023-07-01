@@ -135,10 +135,17 @@ class S11FloatingLinks {
 		// Create the icon button element
 		this.iconButtonElement = document.createElement( 'div' );
 		this.iconButtonElement.classList.add( 's11-floating-links-logo-icon' );
-		this.iconButtonElement.innerHTML = this.options.logoIcon.trim();
+
+		// Create the svg wrapper element
+		this.logoSvgWrapperElement = document.createElement( 'span' );
+		this.logoSvgWrapperElement.classList.add( 's11-svg-wrapper');
+		this.logoSvgWrapperElement.innerHTML = this.options.logoIcon.trim();
+
+		// Append the svg wrapper to the icon button element
+		this.iconButtonElement.appendChild( this.logoSvgWrapperElement );
 
 		// Define close icon
-		const closeIcon = `
+		this.closeIcon = `
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 32 32">
 				<path fill="#1D2939" d="M23.625 21.957c.47.467.47 1.225 0 1.693a1.205 1.205 0 0 1-1.699 0l-5.915-5.937-5.958 5.935c-.47.467-1.23.467-1.7 0a1.194 1.194 0 0 1 0-1.693l5.96-5.933-5.961-5.979a1.194 1.194 0 0 1 0-1.693 1.205 1.205 0 0 1 1.699 0l5.96 5.982 5.957-5.935a1.205 1.205 0 0 1 1.7 0 1.194 1.194 0 0 1 0 1.693l-5.96 5.932 5.917 5.935Z"/>
 			</svg>
@@ -150,7 +157,7 @@ class S11FloatingLinks {
 			this.toggleFade( this.navMenuElement );
 
 			// Switch the icon of the icon button element
-			this.switchIconButton( closeIcon );
+			this.switchIconButton( this.closeIcon );
 		});
 
 		// Append the icon button to the wrapper element
@@ -169,11 +176,11 @@ class S11FloatingLinks {
 		this.iconButtonElement.classList.toggle( 's11-show-close-icon' );
 
 		if ( this.iconButtonElement.classList.contains( 's11-show-close-icon' ) ) {
-			this.iconButtonElement.innerHTML = closeIcon.trim();
+			this.logoSvgWrapperElement.innerHTML = closeIcon.trim();
 			return;
 		}
 
-		this.iconButtonElement.innerHTML = this.options.logoIcon.trim();
+		this.logoSvgWrapperElement.innerHTML = this.options.logoIcon.trim();
 	}
 
 	/**

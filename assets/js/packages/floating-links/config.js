@@ -139,5 +139,8 @@ const links = s11FloatingLinksData.proIsInstalled
 	? proVersionLinks
 	: freeVersionLinks;
 
-// Trigger the 's11_floating_links_set_config' action, passing the links and options
-wp.hooks.doAction( 's11_floating_links_set_config', { links, options } );
+// We need jQuery here because BD bell notifications created by jQuery.
+jQuery( document ).ready(function () {
+	// Trigger the 's11_floating_links_set_config' action, passing the links and options
+	wp.hooks.doAction( 's11_floating_links_set_config', { links, options } );
+});

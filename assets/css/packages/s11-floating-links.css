@@ -24,6 +24,7 @@
 }
 
 .s11-floating-links-logo-icon {
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -149,6 +150,37 @@
 		opacity: 0;
 		transform: translateY(20px);
 	}
+}
+
+/* Notifications */
+.s11-notifications-count {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 18px;
+	color: #fff;
+	background: #FF3C3C;
+	z-index: 9;
+}
+
+.s11-floating-links-logo-icon .s11-notifications-count {
+	top: 0;
+	right: 0;
+}
+
+.s11-show-close-icon .s11-notifications-count {
+	display: none;
+}
+
+.s11-notifications-icon .s11-notifications-count {
+    bottom: 13px;
+    right: -6px
 }
 
 /* Breakpoints */

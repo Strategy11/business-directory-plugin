@@ -1,21 +1,16 @@
 /**
- * Class representing showing notifications.
+ * Class representing the functionality to show notifications.
  *
  * @class S11FLNotifications
  */
 class S11FLNotifications {
 
 	/**
-	 * Create a new S11FloatingLinksNotifications instance.
-	 * Set up floating links and configurations if WordPress notice elements are present.
+	 * Create a new S11FLNotifications instance.
 	 *
 	 * @constructor
 	 */
 	constructor() {
-		if ( ! this.getWpNoticeElements() ) {
-			return;
-		}
-
 		wp.hooks.addAction( 's11_floating_links_init', 'S11FloatingLinks', ( S11FloatingLinks ) => {
 			this.floatingLinks = S11FloatingLinks;
 			this.initComponent();
@@ -23,70 +18,88 @@ class S11FLNotifications {
 	}
 
 	/**
-	 * Retrieves WordPress notice elements and stores them in a property of the instance.
-	 * If there are no such elements, the method returns false. Otherwise, it returns true.
-	 *
-	 * @memberof S11FLNotifications
-	 *
-	 * @returns {boolean} Whether any WordPress notice elements were found.
-	 */
-	getWpNoticeElements() {
-		const allNoticeElements = Array.from( document.querySelectorAll( '.notice') );
-		// Filter ':hidden' notices
-		this.wpNoticeElements = allNoticeElements.filter( ( el ) => el.offsetParent === null );
-
-		return this.wpNoticeElements.length > 0;
-	}
-
-	/**
-	 * Initialize the S11FLNotifications component.
+	 * Initializes the S11FLNotifications component by setting up the notifications and creating the necessary DOM elements.
 	 * This involves setting up the notifications, creating the required DOM elements.
 	 *
 	 * @memberof S11FLNotifications
 	 */
 	initComponent() {
-		// Prepare the notifications based on the WordPress notice elements.
-		this.setNotifications();
-
-		// Set the reference to the notifications icon element.
+		// Set the references to the necessary DOM elements
 		this.setIconElement();
+		this.setWrapperElement();
+		this.setNoticeElements();
+		this.setCount();
+		this.setDismissButtons();
+		this.setHideButton();
 
-		// Create the wrapper, list, and count elements, and append them to the relevant parent elements.
-		this.createWrapper();
-		this.createList();
+		// Create and append the count element
 		this.createCount();
+
+		// Add event listeners for user interaction
+		this.addClickEventListener();
 	}
 
 	/**
-	 * Create a wrapper element, and append it to the Floating Links wrapper element.
+	 * Retrieves and sets the reference to the notifications icon element.
 	 *
 	 * @memberof S11FLNotifications
 	 */
-	createWrapper() {
-		// Create the wrapper element
-		this.wrapperElement = document.createElement( 'div' );
-		this.wrapperElement.classList.add( 's11-notifications', 's11-hidden' );
-
-		// Add the wrapper to the Floating Links wrapper element
-		this.floatingLinks.wrapperElement.appendChild( this.wrapperElement );
+	setIconElement() {
+		const navMenuElement = this.floatingLinks.navMenuElement;
+		this.iconElement = navMenuElement.querySelector( '.s11-notifications-icon' );
 	}
 
 	/**
-	 * Create a list element, and append it to the wrapper element.
+	 * Retrieves and sets the reference to the wrapper element. Also modifies the element's classList.
 	 *
 	 * @memberof S11FLNotifications
 	 */
-	createList() {
-		// Create the list element
-		this.listElement = document.createElement( 'ul' );
-		this.listElement.classList.add( 's11-notifications-list' );
-
-		// Append the list element to the wrapper element
-		this.wrapperElement.appendChild( this.listElement );
+	setWrapperElement() {
+		this.wrapperElement = document.querySelector( '.wpbdp-bell-notifications' );
+		this.wrapperElement.classList.add( 's11-fadeout' );
+		this.wrapperElement.classList.remove( 'hidden' );
 	}
 
 	/**
-	 * Create a count element, and add it to the icon element.
+	 * Retrieves and sets the reference to the notice elements within the wrapper element.
+	 *
+	 * @memberof S11FLNotifications
+	 */
+	setNoticeElements() {
+		this.noticeElements = this.wrapperElement.querySelectorAll( '.wpbdp-bell-notice' );
+	}
+
+	/**
+	 * Counts the notice elements and sets the count property.
+	 *
+	 * @memberof S11FLNotifications
+	 */
+	setCount() {
+		this.count = this.noticeElements.length;
+	}
+
+	/**
+	 * Retrieves and sets the reference to the dismiss buttons within the wrapper element.
+	 *
+	 * @memberof S11FLNotifications
+	 */
+	setDismissButtons() {
+		this.dismissButtonElements = this.wrapperElement.querySelectorAll(
+			'.wpbdp-notice.is-dismissible > .notice-dismiss, .wpbdp-notice .wpbdp-notice-dismiss'
+		);
+	}
+
+	/**
+	 * Retrieves and sets the reference to the hide button within the wrapper element.
+	 *
+	 * @memberof S11FLNotifications
+	 */
+	setHideButton() {
+		this.hideButtonElement = this.wrapperElement.querySelector( '.wpbdp-bell-notifications-close' );
+	}
+
+	/**
+	 * Creates a count element and adds it to the icon element. Also creates a clone and adds it to another icon element.
 	 *
 	 * @memberof S11FLNotifications
 	 */
@@ -100,57 +113,45 @@ class S11FLNotifications {
 		this.floatingLinks.iconButtonElement.appendChild( this.countElement );
 
 		// Create a copy of the count element
-		const countElementCopy = this.countElement.cloneNode( true );
-		this.iconElement.appendChild( countElementCopy );
+		const countElementClone = this.countElement.cloneNode( true );
+		this.iconElement.appendChild( countElementClone );
 	}
 
 	/**
-	 * Retrieve and set the reference to the notifications icon element.
+	 * Adds click event listeners to the icon element, dismiss buttons, and hide button
 	 *
 	 * @memberof S11FLNotifications
 	 */
-	setIconElement() {
-		this.iconElement = this.floatingLinks.navMenuElement.querySelector( '.s11-notifications-icon' );
-	}
+	addClickEventListener() {
+		this.iconElement.addEventListener( 'click', ( event ) => {
+			event.preventDefault();
 
-	/**
-     * Process the WordPress notice elements, and store them in the notifications array.
-     * Invalid or inline notices are not processed.
-     *
-     * @memberof S11FLNotifications
-     */
-	setNotifications() {
-		this.notifications = []
-
-		this.wpNoticeElements.forEach( ( noticeElement ) => {
-			const mainMessage = noticeElement.id === 'message';
-			const isValidNotice =
-				( noticeElement.classList.contains( 'wpbdp-notice' ) || mainMessage ) &&
-				! noticeElement.classList.contains( 'wpbdp-inline-notice' );
-
-			if ( ! isValidNotice ) {
-				return;
-			}
-
-			// Add the processed notice to the notifications array if it is dismissible and not the main message
-			if ( noticeElement.classList.contains( 'is-dismissible' ) && ! mainMessage ) {
-				// If the notification is for missing premium, make the notification dismissible
-				if ( noticeElement.dataset.dismissibleId === 'missing_premium' ) {
-					const dismissElement = notificationElement.querySelector( '.notice-dismiss' );
-					dismissElement.setAttribute( 'data-dismissible-id', this.dataset.dismissibleId );
-					dismissElement.setAttribute( 'data-nonce', this.dataset.nonce );
-				}
-
-				// Convert the noticeElement to a string with the necessary classes and HTML, and add it to the notifications array
-				this.notifications.push( `<li class="s11-notifications-notice ${noticeElement.classList}">${noticeElement.innerHTML}</li>` );
-			}
-
-			// Remove the original notice element from the DOM
-			noticeElement.remove();
+			this.floatingLinks.toggleFade( this.wrapperElement );
+			this.floatingLinks.toggleFade( this.floatingLinks.navMenuElement );
+			this.floatingLinks.switchIconButton( this.floatingLinks.closeIcon );
 		});
 
-		// Set the count of notifications
-		this.count = this.notifications.length;
+		this.dismissButtonElements.forEach( ( dismissButton ) => {
+			dismissButton.addEventListener( 'click', ( event ) => {
+				const countElements = this.floatingLinks.wrapperElement.querySelectorAll( '.s11-notifications-count' );
+				this.count--;
+
+				if ( this.count === 0 ) {
+					this.iconElement.remove();
+					this.floatingLinks.iconButtonElement.querySelector( '.s11-notifications-count' ).remove();
+					this.floatingLinks.toggleFade( this.wrapperElement );
+				}
+
+				countElements.forEach( ( countElement ) => {
+					countElement.textContent = this.count;
+				});
+			});
+		});
+
+		this.hideButtonElement.addEventListener( 'click', ( event ) => {
+			event.preventDefault();
+			this.floatingLinks.toggleFade( this.wrapperElement );
+		});
 	}
 }
 

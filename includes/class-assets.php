@@ -512,7 +512,7 @@ class WPBDP__Assets {
 		wp_enqueue_script( 's11-floating-links', $plugin_url . '/js/packages/floating-links/s11-floating-links.js', array(), $version, true );
 
 		// Enqueue the config script.
-		wp_enqueue_script( 's11-floating-links-config', $plugin_url . '/js/packages/floating-links/config.js', array( 'wp-i18n' ), $version, true );
+		wp_enqueue_script( 's11-floating-links-config', $plugin_url . '/js/packages/floating-links/config.js', array( 'wp-i18n', 'wpbdp-admin-js' ), $version, true );
 		wp_set_script_translations( 's11-floating-links-config', 's11-' );
 		$floating_links_data = array(
 			'proIsInstalled' => WPBDP_Admin_Education::is_installed( 'premium' ),
