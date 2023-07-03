@@ -65,6 +65,11 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		$this->frozen = true;
 	}
 
+	/**
+	 * Check if fields has the excerpt field.
+     *
+	 * @return bool
+	 */
 	public function has_excerpt() {
 		return $this->has_excerpt;
 	}
