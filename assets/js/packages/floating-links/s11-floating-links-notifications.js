@@ -104,6 +104,11 @@ class S11FLNotifications {
 	 * @memberof S11FLNotifications
 	 */
 	createCount() {
+		if ( this.count < 1 ) {
+			this.iconElement.remove();
+			return;
+		}
+
 		// Create the count element
 		this.countElement = document.createElement( 'span' );
 		this.countElement.classList.add( 's11-notifications-count' );
@@ -123,7 +128,7 @@ class S11FLNotifications {
 	 * @memberof S11FLNotifications
 	 */
 	addClickEventListener() {
-		this.iconElement.addEventListener( 'click', ( event ) => {
+		this.iconElement?.addEventListener( 'click', ( event ) => {
 			event.preventDefault();
 
 			this.floatingLinks.toggleFade( this.wrapperElement );
