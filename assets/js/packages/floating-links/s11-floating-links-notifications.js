@@ -14,6 +14,9 @@ class S11FLNotifications {
 		wp.hooks.addAction( 's11_floating_links_init', 'S11FloatingLinks', ( S11FloatingLinks ) => {
 			this.floatingLinks = S11FloatingLinks;
 			this.initComponent();
+
+			// Trigger the 's11_floating_links_notifications_init' action
+			wp.hooks.doAction( 's11_floating_links_notifications_init', this );
 		});
 	}
 
@@ -56,7 +59,7 @@ class S11FLNotifications {
 	 */
 	setWrapperElement() {
 		this.wrapperElement = document.querySelector( '.wpbdp-bell-notifications' );
-		this.wrapperElement.classList.add( 's11-fadeout' );
+		this.wrapperElement.classList.add( 's11-fadein', 's11-visible' );
 		this.wrapperElement.classList.remove( 'hidden' );
 	}
 
@@ -131,6 +134,7 @@ class S11FLNotifications {
 		this.iconElement?.addEventListener( 'click', ( event ) => {
 			event.preventDefault();
 
+			this.wrapperElement.classList.toggle( 's11-visible' );
 			this.floatingLinks.toggleFade( this.wrapperElement );
 			this.floatingLinks.toggleFade( this.floatingLinks.navMenuElement );
 			this.floatingLinks.switchIconButton( this.floatingLinks.closeIcon );
@@ -144,6 +148,7 @@ class S11FLNotifications {
 				if ( this.count === 0 ) {
 					this.iconElement.remove();
 					this.floatingLinks.iconButtonElement.querySelector( '.s11-notifications-count' ).remove();
+					this.wrapperElement.classList.remove( 's11-visible' );
 					this.floatingLinks.toggleFade( this.wrapperElement );
 				}
 
@@ -156,6 +161,7 @@ class S11FLNotifications {
 		this.hideButtonElement.addEventListener( 'click', ( event ) => {
 			event.preventDefault();
 			this.floatingLinks.toggleFade( this.wrapperElement );
+			this.wrapperElement.classList.remove( 's11-visible' );
 		});
 	}
 }

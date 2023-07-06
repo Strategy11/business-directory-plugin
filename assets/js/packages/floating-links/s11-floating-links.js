@@ -11,6 +11,7 @@ class S11FloatingLinks {
 	 * @constructor
 	 */
 	constructor() {
+		// Hook into the floating links config
 		wp.hooks.addAction( 's11_floating_links_set_config', 'S11FloatingLinks', ({ links, options }) => {
 			this.validateInputs( links, options );
 
@@ -19,8 +20,13 @@ class S11FloatingLinks {
 
 			this.initComponent();
 
-			// Trigger the 's11_floating_links_init' action, passing the links and options
+			// Trigger the 's11_floating_links_init' action
 			wp.hooks.doAction( 's11_floating_links_init', this );
+		});
+
+		// Hook into the floating links notifications
+		wp.hooks.addAction( 's11_floating_links_notifications_init', 'S11FloatingLinks', ( S11FLNotifications ) => {
+			this.notificationsElement = S11FLNotifications.wrapperElement;
 		});
 	}
 
@@ -156,6 +162,12 @@ class S11FloatingLinks {
 			// Toggle the navigation menu element
 			this.toggleFade( this.navMenuElement );
 
+			// Hide the notifications element
+			if ( this.notificationsElement.classList.contains( 's11-fadein' ) && this.navMenuElement.classList.contains( 's11-fadein' ) ) {
+				this.notificationsElement.classList.remove( 's11-visible' );
+				this.toggleFade( this.notificationsElement );
+			}
+
 			// Switch the icon of the icon button element
 			this.switchIconButton( this.closeIcon );
 		});
@@ -237,16 +249,25 @@ class S11FloatingLinks {
 	addScrollEventListener() {
 		window.addEventListener( 'scroll', () => {
 			const currentScrollPosition = window.scrollY || document.documentElement.scrollTop;
+			const isNotificationsVisisble = this.notificationsElement.classList.contains( 's11-visible' );
 
 			if ( currentScrollPosition < this.lastScrollPosition ) {
 				// When scrolling up show the Floating Links
 				if ( ! this.wrapperElement.classList.contains( 's11-fadein' ) ) {
 					this.toggleFade( this.wrapperElement );
 				}
+				// When scrolling up show the Floating Links Notifications
+				if ( isNotificationsVisisble && ! this.notificationsElement.classList.contains( 's11-fadein' ) ) {
+					this.toggleFade( this.notificationsElement );
+				}
 			} else {
 				// When scrolling down hide the Floating Links
 				if ( ! this.wrapperElement.classList.contains( 's11-fadeout' ) ) {
 					this.toggleFade( this.wrapperElement );
+				}
+				// When scrolling down hide the Floating Links Notfications
+				if ( isNotificationsVisisble && ! this.notificationsElement.classList.contains( 's11-fadeout' ) ) {
+					this.toggleFade( this.notificationsElement );
 				}
 			}
 
