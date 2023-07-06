@@ -275,6 +275,9 @@ WPBDP.fileUpload = {
                         if ( ! t._admin_nonce ) {
                             t._slotsRemaining++;
                             $( '#image-slots-remaining' ).text( t._slotsRemaining );
+							if ( t._slotsRemaining < t._slots ) {
+								$( '#image-upload-dnd-area' ).show();
+							}
                         }
 
                         if ( ( t._admin_nonce && 0 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length ) || ( ! t._admin_nonce && t._slotsRemaining == t._slots ) )
@@ -314,7 +317,6 @@ WPBDP.fileUpload = {
                     $( '#noslots-message' ).show();
                     $( '#image-upload-dnd-area' ).addClass('error');
                     $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
-                    $( '.image-upload-wrapper .error').remove();
                 },
                 validate: function( data ) {
                     $( '.image-upload-wrapper .error').remove();
