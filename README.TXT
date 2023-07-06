@@ -159,7 +159,7 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 == Changelog ==
 = 6.3.7 =
-* Fix: Listing titles in taxonomy pages with the7 theme.
+* Fix: Listing titles in taxonomy pages with The7 theme.
 * Fix: Image sorting with Classic editor plugin.
 * Fix: Image upload bug while editing the listing.
 * Fix: Show the correct number of allowed images to upload after changing the plan in admin meta boxes.
