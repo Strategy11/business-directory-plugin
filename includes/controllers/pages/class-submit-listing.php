@@ -1061,7 +1061,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		// Returns null if value isn't posted.
 		$categories      = $category_field->value_from_POST();
-		$should_validate = ! empty( $_POST ) && ! empty( $_POST ['current_section'] ) && $_POST ['current_section'] === 'plan_selection';
+		$should_validate = wpbdp_get_var( array( 'param' => 'current_section' ), 'post' ) === 'plan_selection';
 
 		if ( $this->editing ) {
 			$this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
