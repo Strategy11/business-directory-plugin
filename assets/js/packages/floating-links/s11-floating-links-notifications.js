@@ -30,8 +30,6 @@ class S11FLNotifications {
 		// Set the references to the necessary DOM elements
 		this.setIconElement();
 		this.setWrapperElement();
-		this.setNoticeElements();
-		this.setCount();
 		this.setDismissButtons();
 		this.setHideButton();
 
@@ -59,8 +57,16 @@ class S11FLNotifications {
 	 */
 	setWrapperElement() {
 		this.wrapperElement = document.querySelector( '.wpbdp-bell-notifications' );
-		this.wrapperElement.classList.add( 's11-fadein', 's11-visible' );
 		this.wrapperElement.classList.remove( 'hidden' );
+
+		this.setNoticeElements();
+		this.setCount();
+
+		if ( this.count < 1 ) {
+			this.wrapperElement.classList.add( 's11-fadeout' );
+		} else {
+			this.wrapperElement.classList.add( 's11-fadein', 's11-visible' );
+		}
 	}
 
 	/**
@@ -109,6 +115,7 @@ class S11FLNotifications {
 	createCount() {
 		if ( this.count < 1 ) {
 			this.iconElement.remove();
+
 			return;
 		}
 
