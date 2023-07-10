@@ -60,7 +60,7 @@ module.exports = function( grunt ) {
 							cwd: basedir,
 							domainPath: domainPath.replace(basedir, ''),
 							potFilename: textDomain + '.pot',
-							exclude: ['vendors/.*'],
+							exclude: ['vendors/.*','vendor/.*'],
 							updatePoFiles: true
 						}
 					};
