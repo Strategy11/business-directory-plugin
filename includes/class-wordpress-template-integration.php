@@ -224,6 +224,10 @@ class WPBDP__WordPress_Template_Integration {
 			return '';
 		}
 
+		if ( $this->displayed && $is_tax ) {
+			return $content;
+		}
+
 		$html = wpbdp_current_view_output();
 		$this->after_content_processed( $html );
 
