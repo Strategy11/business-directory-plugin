@@ -220,12 +220,11 @@ class WPBDP__WordPress_Template_Integration {
 			remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 		}
 
-		if ( $this->displayed && ! $is_tax ) {
+		if ( $this->displayed ) {
+			if ( $is_tax ) {
+				return $content;
+			}
 			return '';
-		}
-
-		if ( $this->displayed && $is_tax ) {
-			return $content;
 		}
 
 		$html = wpbdp_current_view_output();
