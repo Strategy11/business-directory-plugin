@@ -1,35 +1,25 @@
-<?php $modal_classes = wp_doing_ajax() ? ' wpbdp-modal' : ''; ?>
+<?php if ( wp_doing_ajax() ) : ?>
+	<div class="wpbdp-search-page businessdirectory-search wpbdp-page wpbdp-modal <?php echo esc_attr( $_class ); ?>">
+		<div class="wpbdp-modal-overlay"></div>
+		<div class="wpbdp-modal-content">
+			<div class="wpbdp-modal-scrollbar">
+				<span class="wpbdp-modal-close"></span>
+				<h2 class="title"><?php esc_html_e( 'Advanced Search', 'business-directory-plugin' ); ?></h2>
+				<?php echo $search_form; ?>
+			</div>
+		</div>
+	</div>
+<?php endif; ?>
 
-<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo $_class . $modal_class; ?>">
-	<?php if ( wp_doing_ajax() ) : ?>
-	<div class="wpbdp-modal-overlay"></div>
-	<div class="wpbdp-modal-content">
-		<div class="wpbdp-modal-scrollbar">
-			<span class="wpbdp-modal-close"></span>
-	<?php endif; ?>
+<?php if ( $searching ) : ?>
+	<div id="wpbdp-search-page" class="wpbdp-search-page businessdirectory-search businessdirectory wpbdp-page <?php echo esc_attr( $_class ); ?>">
+		<?php echo wpbdp_main_box(); ?>
 
-	<?php if ( ! wp_doing_ajax() && ! $form_only ) : ?>
-		<div class="wpbdp-bar cf"><?php wpbdp_the_main_links(); ?></div>
-	<?php endif; ?>
-	<h2 class="title"><?php esc_html_e( 'Advanced Search', 'business-directory-plugin' ); ?></h2>
-
-	<?php if ( 'none' === $search_form_position || 'above' === $search_form_position ) : ?>
-		<?php echo $search_form; ?>
-	<?php endif; ?>
-
-	<?php if ( $searching ) : ?>
-		<h3><?php echo esc_html__( 'Search Results', 'business-directory-plugin' ) . ' (' . esc_html( $count ) . ')'; ?>
-		<?php if ( 'none' === $search_form_position ) : ?>
+		<h3>
 			<?php
-			$return_url = wpbdp_get_var( array( 'param' => 'return_url' ), 'request' );
-			if ( empty( $return_url ) ) :
-				$return_url = wpbdp_get_page_link( 'search' );
-			endif;
+			echo esc_html__( 'Search Results', 'business-directory-plugin' ) .
+			' (' . esc_html( $count ) . ')';
 			?>
-			<a class="wpbdp-no-bold wpbdp-smaller" href="<?php echo esc_url( $return_url ); ?>">
-				<?php esc_html_e( 'Search Again', 'business-directory-plugin' ); ?>
-			</a>
-		<?php endif; ?>
 		</h3>
 		<?php if ( $results ) : ?>
 			<div class="search-results">
@@ -38,14 +28,8 @@
 		<?php else : ?>
 			<p><?php esc_html_e( 'No listings found.', 'business-directory-plugin' ); ?></p>
 		<?php endif; ?>
-	<?php endif; ?>
 
-	<?php if ( 'below' === $search_form_position ) : ?>
-		<?php echo $search_form; ?>
-	<?php endif; ?>
-
-	<?php if ( wp_doing_ajax() ) : ?>
-		</div>
+		<?php $searched = array_filter( (array) wpbdp_get_var( array( 'param' => 'listingfields' ) ) ); ?>
+		<span id="wpdbp-searched-terms" data-search-terms="<?php echo esc_attr( wp_json_encode( $searched ) ); ?>"></span>
 	</div>
-	<?php endif; ?>
-</div>
+<?php endif; ?>

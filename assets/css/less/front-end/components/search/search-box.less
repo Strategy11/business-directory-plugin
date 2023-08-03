@@ -1,0 +1,180 @@
+/* stylelint-disable no-descending-specificity */
+
+/**
+ * Search Box Component Styles
+ *
+ * This file includes the styles for the search box component.
+ */
+
+.wpbdp-main-box {
+	display: flex;
+	flex-direction: column;
+
+	// Layout styles
+	.main-fields {
+		margin-bottom: 10px;
+
+		form {
+			display: flex;
+			gap: 10px;
+			margin: 0 !important;
+
+			.search-fields {
+				flex: 1;
+
+				.box-row {
+					display: flex;
+					gap: 10px;
+
+					.box-col {
+						flex: 1;
+					}
+				}
+			}
+
+			.submit-btn {
+				display: flex;
+				gap: 10px;
+			}
+		}
+	}
+
+	// Input styles
+	.box-col {
+
+		input {
+			min-height: @min-height-search-box-input;
+			margin: 0 !important;
+		}
+	}
+
+	// Advanced Search Button styles
+	.wpbdp-advanced-search-link {
+		display: flex;
+		align-items: center;
+
+		svg path {
+			stroke: currentColor;
+		}
+	}
+
+	// Zipcode Search styles
+
+	// TODO: After updating to the new design and releasing a new version,
+	//       we can transfer the Zipcode codes to the ZIP Search add-on.
+	//       Currently, due to the codes being production-ready,
+	//       these codes are available here.
+
+	&#wpbdp-main-box .wpbdp-zipcodesearch-search-unit {
+
+		.distance-field-wrapper {
+			display: block !important;
+			position: relative;
+
+			& > .box-row {
+				gap: 0;
+			}
+
+			.distance-field {
+				width: 100% !important;
+			}
+
+			.unit-label {
+				display: block !important;
+				position: absolute;
+				top: 50%;
+				right: 15px;
+				width: unset !important;
+				// We don't use a variable here because this code will be moved to
+				// the ZIP Search add-on.
+				// TODO: Remove the above comment after moving the code to the
+				// 		 ZIP Search add-on.
+				color: rgba(63, 75, 91, 0.6);
+				font-size: 80%;
+				line-height: 1;
+				transform: translateY(-50%);
+				white-space: nowrap;
+				user-select: none;
+			}
+		}
+	}
+
+	&-medium {
+
+		.main-fields form .search-fields .box-row {
+
+			.box-col.main-input + .wpbdp-zipcodesearch-search-unit {
+				flex-grow: 1.4;
+			}
+		}
+	}
+
+	/**
+	 * Small & Tiny Search Box Views.
+	 *
+	 * Styles for compact search box component views.
+	 */
+	&-small,
+	&-tiny {
+
+		// Search Box Layout Styles for Small and Tiny Views.
+		.main-fields {
+
+			form {
+				flex-direction: column;
+				gap: 20px;
+
+				.search-fields {
+
+					.box-row {
+						flex-direction: column;
+						gap: 20px;
+					}
+				}
+			}
+		}
+	}
+}
+
+// Search Box Links.
+.wpbdp-main-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 15px;
+
+	&-container {
+		margin: 10px 0;
+	}
+
+	.button,
+	.wpbdp-link {
+		font-size: @font-size-md;
+		white-space: nowrap;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	&-small,
+	&-tiny {
+
+		.button,
+		.wpbdp-link {
+			order: 2;
+			margin: 0 0 4px;
+			text-align: center;
+		}
+
+		#wpbdp-bar-submit-listing-button {
+			order: 1;
+			width: 100%;
+		}
+	}
+}

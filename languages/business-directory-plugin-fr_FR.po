@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin v5.7.3\n"
+"Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-01-26 19:09:36+00:00\n"
+"POT-Creation-Date: 2023-07-07 14:13:17+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -130,7 +130,7 @@ msgstr "Modules"
 msgid "Business Directory"
 msgstr "Annuaire Professionnel"
 
-#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:367
+#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:378
 msgid "Upgrade to Premium"
 msgstr "Mettre à jour vers la version Premium"
 
@@ -383,8 +383,8 @@ msgid "Form Preview"
 msgstr "Aperçu du formulaire"
 
 #: includes/admin/controllers/class-form-fields-admin.php:147
-#: includes/helpers/functions/general.php:1284
-#: includes/helpers/functions/general.php:1289
+#: includes/helpers/functions/general.php:1286
+#: includes/helpers/functions/general.php:1291
 msgid "Go back"
 msgstr "Revenir en arrière"
 
@@ -700,7 +700,7 @@ msgid "Missing tables: %s"
 msgstr "Tables manquantes : %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1484
+#: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -1157,6 +1157,7 @@ msgstr ""
 "plugins installés, thèmes et versions de Worpdress ?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1691
+#: includes/licensing.php:593
 msgid "Learn more"
 msgstr "En savoir plus"
 
@@ -1266,7 +1267,7 @@ msgstr "Nouveau"
 msgid "View Docs"
 msgstr "Voir la documentation"
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:370
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:381
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -1318,7 +1319,7 @@ msgstr ""
 "Pourriez-vous prendre une minute et nous faire savoir ce que nous pouvons "
 "faire mieux ?"
 
-#: includes/class-assets.php:195
+#: includes/class-assets.php:248
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:77
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:100
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:115
@@ -1329,15 +1330,15 @@ msgstr ""
 msgid "Cancel"
 msgstr "Annuler"
 
-#: includes/class-assets.php:196
+#: includes/class-assets.php:249
 msgid "Continue"
 msgstr "Continuer"
 
-#: includes/class-assets.php:197
+#: includes/class-assets.php:250
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
-#: includes/class-assets.php:363
+#: includes/class-assets.php:416
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
 "how WordPress stores the data."
@@ -1434,11 +1435,11 @@ msgstr ""
 "%1$sParamètres - Paiement%2$s pour configurer une passerelle. Jusqu'à ce que "
 "vous fassiez cela, seuls les plans gratuits seront disponibles."
 
-#: includes/class-wpbdp.php:596
+#: includes/class-wpbdp.php:607
 msgid "Could not find listing ID"
 msgstr "Impossible de trouver l'identifiant de l'annonce"
 
-#: includes/class-wpbdp.php:603
+#: includes/class-wpbdp.php:614
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
@@ -1446,17 +1447,17 @@ msgstr ""
 "Impossible de vérifier la demande de téléchargement d'image. Si le problème "
 "persiste, contactez l'administrateur du site."
 
-#: includes/class-wpbdp.php:616 includes/fields/class-fieldtypes-image.php:394
+#: includes/class-wpbdp.php:627 includes/fields/class-fieldtypes-image.php:394
 msgid "Could not find image ID"
 msgstr "Impossible de trouver l'identifiant de l'image"
 
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
 msgstr ""
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1481,7 +1482,7 @@ msgstr ""
 "répertoires et les champs personnalisés ? %1$sInstaller Font Awesome non%2$s"
 
 #: includes/compatibility/class-navxt-integration.php:228
-#: includes/widgets/widget-search.php:129
+#: includes/widgets/widget-search.php:131
 #: templates/admin/payments-index.tpl.php:18
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:26
 #: templates/search.tpl.php:5
@@ -1691,21 +1692,21 @@ msgstr "Aller aux \"abonnements\""
 msgid "Please choose a plan."
 msgstr "Veuillez choisir un abonnement ci-dessus."
 
-#: includes/controllers/pages/class-submit-listing.php:1289
+#: includes/controllers/pages/class-submit-listing.php:1304
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Quelque chose s'est mal passé. Veuillez vérifier le formulaire, corriger les "
 "erreurs et soumettre à nouveau."
 
-#: includes/controllers/pages/class-submit-listing.php:1468
+#: includes/controllers/pages/class-submit-listing.php:1483
 msgid "Create a user account on this site"
 msgstr "Créer un compte utilisateur sur ce site"
 
-#: includes/controllers/pages/class-submit-listing.php:1475
+#: includes/controllers/pages/class-submit-listing.php:1490
 msgid "Username"
 msgstr "Nom d'utilisateur (login)"
 
-#: includes/controllers/pages/class-submit-listing.php:1497
+#: includes/controllers/pages/class-submit-listing.php:1512
 msgid "Clear Form"
 msgstr "Effacer le formulaire"
 
@@ -2131,7 +2132,7 @@ msgstr "U.S. Dollar (USD)"
 msgid "Uruguayan Peso"
 msgstr ""
 
-#: includes/helpers/functions/general.php:1274
+#: includes/helpers/functions/general.php:1276
 msgid "Return to Directory"
 msgstr "Retourner vers l'annuaire"
 
@@ -2227,47 +2228,47 @@ msgstr ""
 "TLS :"
 
 #: includes/licensing.php:590
+#, fuzzy
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
-"Business Directory servers. Please contact your webhost and ask them to add "
-"our IP address 52.0.78.177 to your allow list."
+"Business Directory servers."
 msgstr ""
 "Il semble que votre serveur ne soit pas autorisé à envoyer des requêtes "
 "sortantes aux serveurs de l'annuaire professionnel. Veuillez contacter votre "
 "hébergeur et lui demander d'ajouter notre adresse IP<ip-address> à votre "
 "liste d'autorisation."
 
-#: includes/licensing.php:645
+#: includes/licensing.php:649
 msgid "Download Premium"
 msgstr ""
 
-#: includes/licensing.php:695
+#: includes/licensing.php:699
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Clé de licence manquante."
 
-#: includes/licensing.php:696
+#: includes/licensing.php:700
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Clé de licence expirée"
 
-#: includes/licensing.php:697
+#: includes/licensing.php:701
 msgid "Could not verify Business Directory license."
 msgstr "Impossible de vérifier la licence de l'annuaire professionnel."
 
-#: includes/licensing.php:698
+#: includes/licensing.php:702
 msgid ""
 "You have modules installed, but Business Directory Premium is missing. "
 "Install this plugin for extra features and easy license management."
 msgstr ""
 
-#: includes/licensing.php:709
+#: includes/licensing.php:713
 msgid "Review license keys"
 msgstr "Renouveller la clé de licence"
 
-#: includes/licensing.php:824
+#: includes/licensing.php:828
 msgid "Missing data. Please reload this page and try again."
 msgstr "Données manquantes. Veuillez recharger cette page et réessayer."
 
-#: includes/licensing.php:829
+#: includes/licensing.php:833
 msgid "Please enter a license key."
 msgstr "S'il vous plaît entrer une clé de licence."
 
@@ -2375,7 +2376,7 @@ msgstr "Position des miniature (mobile) :"
 msgid "Fields To Show"
 msgstr "Champs à afficher"
 
-#: includes/widgets/class-listings-widget.php:191
+#: includes/widgets/class-listings-widget.php:193
 msgid "There are currently no listings to show."
 msgstr "Il n'y a actuellement aucune annonce dans l'annuaire."
 
@@ -2712,7 +2713,7 @@ msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 "Ajouter une passerelle de paiement pour augmenter les taux de conversion"
 
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 #: templates/admin/fees-index.tpl.php:75
 msgid "Add %s as a payment option."
 msgstr "Ajouter %s comme une option de paiement."
@@ -4655,13 +4656,13 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:775
-#: includes/helpers/functions/general.php:1199
+#: includes/helpers/functions/general.php:1201
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Date d'ajout"
 
 #: includes/admin/settings/class-settings-bootstrap.php:776
-#: includes/helpers/functions/general.php:1200
+#: includes/helpers/functions/general.php:1202
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Date de dernière modification"
@@ -4877,12 +4878,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Images téléversée (non redimensionnées)"
 
-#: includes/helpers/functions/general.php:1197
+#: includes/helpers/functions/general.php:1199
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utilisateur"
 
-#: includes/helpers/functions/general.php:1198
+#: includes/helpers/functions/general.php:1200
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Date d'enregistrement de l'utilisateur"
@@ -6964,19 +6965,19 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Le CAPTCHA a échoué."
 
-#: includes/class-wpbdp.php:462
+#: includes/class-wpbdp.php:473
 msgctxt "listing image upload"
 msgid "Please select a plan before uploading images to the listing"
 msgstr ""
 "Veuillez choisir un abonnement avant de téléverser des images pour cette "
 "annonce"
 
-#: includes/class-wpbdp.php:467
+#: includes/class-wpbdp.php:478
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Impossible de télécharger d'images pour cette annonce."
 
-#: includes/class-wpbdp.php:471
+#: includes/class-wpbdp.php:482
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "
@@ -7223,17 +7224,17 @@ msgstr ""
 "%s et créez un nouveau champ avec cette association, ou ajoutez cette "
 "association à un champ existant"
 
-#: includes/controllers/pages/class-submit-listing.php:1518
+#: includes/controllers/pages/class-submit-listing.php:1533
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Veuillez accepter les conditions d'utilisation."
 
-#: includes/controllers/pages/class-submit-listing.php:1532
+#: includes/controllers/pages/class-submit-listing.php:1547
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "J'accepte <a> Conditions générales </a>"
 
-#: includes/helpers/functions/general.php:1280
+#: includes/helpers/functions/general.php:1282
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Revenir aux résultats"
@@ -7583,7 +7584,7 @@ msgstr ""
 "tard."
 
 #: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1200
+#: includes/controllers/pages/class-submit-listing.php:1215
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Veuillez sélectionner une catégorie."
@@ -7605,24 +7606,24 @@ msgid "Please choose a valid plan for your category selection."
 msgstr ""
 "Merci de choisir un abonnement valable pour votre sélection de catégorie."
 
-#: includes/controllers/pages/class-submit-listing.php:1435
+#: includes/controllers/pages/class-submit-listing.php:1450
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Merci d'entrer votre nom d'utilisateur souhaité."
 
-#: includes/controllers/pages/class-submit-listing.php:1440
+#: includes/controllers/pages/class-submit-listing.php:1455
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Merci d'entrer votre e-mail pour votre nouveau compte."
 
-#: includes/controllers/pages/class-submit-listing.php:1445
+#: includes/controllers/pages/class-submit-listing.php:1460
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 "Le nom d'utilisateur que vous avez choisi est déjà utilisé. Veuillez en "
 "utiliser un autre."
 
-#: includes/controllers/pages/class-submit-listing.php:1450
+#: includes/controllers/pages/class-submit-listing.php:1465
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7633,7 +7634,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Annonce soumis par un admin. Paiement sauté."
 
-#: includes/controllers/pages/class-submit-listing.php:1382
+#: includes/controllers/pages/class-submit-listing.php:1397
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8029,28 +8030,28 @@ msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Le serveur a renvoyé une erreur 403 Forbidden."
 
-#: includes/licensing.php:846
+#: includes/licensing.php:850
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr "Impossible d'activer la licence: %s."
 
-#: includes/licensing.php:851
+#: includes/licensing.php:855
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licence activée"
 
-#: includes/licensing.php:883
+#: includes/licensing.php:887
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossible de désactiver la licence: %s."
 
-#: includes/licensing.php:885
+#: includes/licensing.php:889
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licence désactivée"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1125
+#: includes/licensing.php:1129
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "

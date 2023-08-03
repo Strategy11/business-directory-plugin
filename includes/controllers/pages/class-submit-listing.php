@@ -1035,7 +1035,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 					)
 				);
 			}
-			wp_die( wp_kses_post( $msg ) );
+			return $this->die_or_return( $msg );
 		}
 
 		$msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
@@ -1056,12 +1056,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$category_field = wpbdp_get_form_fields( 'association=category&unique=1' );
 
 		if ( empty( $category_field ) ) {
-			wp_die( wp_kses_post( $msg ) );
+			return $this->die_or_return( $msg );
 		}
 
 		// Returns null if value isn't posted.
 		$categories      = $category_field->value_from_POST();
-		$should_validate = ! empty( $_POST ) && ( ! empty( $categories ) || $categories !== null );
+		$should_validate = wpbdp_get_var( array( 'param' => 'current_section' ), 'post' ) === 'plan_selection';
 
 		if ( $this->editing ) {
 			$this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
@@ -1143,6 +1143,21 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$category_count      = $this->category_count;
 		$selected_categories = $this->fixed_category ? $this->fixed_category : $this->get_selected_category( $categories );
 		return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'category_count', 'plans', 'selected_categories', 'selected_plan' ) );
+	}
+
+	/**
+	 * If ajax is running, the message won't show if we use wp_die().
+	 *
+	 * @since 6.3.4
+	 * @param string $msg
+	 */
+	private function die_or_return( $msg ) {
+		if ( $this->is_ajax ) {
+			// Show a message when the plans are missing.
+			return $msg;
+		}
+
+		wp_die( wp_kses_post( $msg ) );
 	}
 
 	/**

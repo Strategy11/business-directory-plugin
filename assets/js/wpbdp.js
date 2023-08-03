@@ -275,6 +275,9 @@ WPBDP.fileUpload = {
                         if ( ! t._admin_nonce ) {
                             t._slotsRemaining++;
                             $( '#image-slots-remaining' ).text( t._slotsRemaining );
+							if ( t._slotsRemaining < t._slots ) {
+								$( '#image-upload-dnd-area' ).show();
+							}
                         }
 
                         if ( ( t._admin_nonce && 0 == $( '#wpbdp-uploaded-images .wpbdp-image' ).length ) || ( ! t._admin_nonce && t._slotsRemaining == t._slots ) )
@@ -314,7 +317,6 @@ WPBDP.fileUpload = {
                     $( '#noslots-message' ).show();
                     $( '#image-upload-dnd-area' ).addClass('error');
                     $( '#image-upload-dnd-area .dnd-area-inside-error' ).show();
-                    $( '.image-upload-wrapper .error').remove();
                 },
                 validate: function( data ) {
                     $( '.image-upload-wrapper .error').remove();
@@ -404,7 +406,7 @@ WPBDP.fileUpload = {
                         }
                     }
                 );
-   
+
                 image_frame.on( 'close', function() {
                     // On close, get selections and save to the hidden input
                     // plus other AJAX stuff to refresh the image preview
@@ -427,7 +429,7 @@ WPBDP.fileUpload = {
                         } else {
                             errors = ( 'undefined' !== typeof res.data.errors ) ? res.data.errors : false;
                         }
-    
+
                         if ( errors ) {
                             var errorMsg = $( '<div>' ).addClass('wpbdp-msg error').html( errors );
                             $( res.data.errorElement ).prepend( errorMsg );
@@ -440,7 +442,7 @@ WPBDP.fileUpload = {
 
                             if ( ! res.data.inputElement ) {
                                 return;
-                                
+
                             }
 
                             var $input = $('input[name="' + res.data.inputElement + '"]');
@@ -449,12 +451,12 @@ WPBDP.fileUpload = {
                             var $preview = $input.siblings('.preview');
                             $preview.find('img').remove();
                             $preview.prepend( res.data.html );
-                            
+
                             $preview.siblings().hide();
                             $preview.show();
                             return;
                         }
-    
+
                         $( '#current-images-header' ).hide();
                         $( res.data.previewElement ).append( res.data.html );
                     });
@@ -474,10 +476,10 @@ WPBDP.fileUpload = {
 						$( 'input[name="images_meta[' + v + '][order]"]' ).attr( 'value', no_images - i );
 
 						if ( 0 === i ) {
-                            var thumb = document.getElementById('_thumbnail_id');
-                            if ( thumb !== null ) {
-                                thumb.value = v;
-                            }
+							var thumb = $('input[name="_thumbnail_id"]');
+							if ( thumb.length > 0) {
+								thumb.val(v) ;
+							}
 						}
                     } );
                 }
@@ -507,25 +509,17 @@ WPBDP.fileUpload = {
  * @since x.x
  */
 ( function ( $ ) {
+    var openClass = 'wpbdp-has-modal';
 	$html = $( 'html' );
 	$body = $( 'body' );
 
-	$( '.advanced-search-link' ).on( 'click', function(event) {
+	$( '.wpbdp-advanced-search-link' ).on( 'click', function(event) {
 		event.preventDefault();
 
-		$searchPage = $( '#wpbdp-search-page' );
+		$searchPage = $( '.wpbdp-search-page.wpbdp-modal' );
 
 		if ( $searchPage.length > 0 ) {
-			$searchPage.toggleClass( 'wpbdp-open' );
-
-			if ( $searchPage.hasClass('wpbdp-open') ) {
-				$html.css( 'overflow', 'hidden' );
-				$body.css( 'overflow', 'hidden' );
-			} else {
-				$html.css( 'overflow', '' );
-				$body.css( 'overflow', '' );
-			}
-
+			$html.toggleClass( openClass );
 			return;
 		}
 
@@ -533,23 +527,69 @@ WPBDP.fileUpload = {
 
 		$.ajax( wpbdp_global.ajaxurl, {
 			data: {
-				action: "wpbdp_ajax",
-				handler: "search__get_search_content",
+				action: 'wpbdp_ajax',
+				handler: 'search__get_search_content',
 			},
-			type: "POST",
-			success: function ( response ) {
-				$( response.data ).addClass( 'wpbdp-modal wpbdp-open' ).appendTo( '.wpbdp-page' );
-				$html.css( 'overflow', 'hidden' );
-				$body.css( 'overflow', 'hidden' );
+			type: 'POST',
+			success: function( response ) {
+				$( response.data )
+					.addClass( 'wpbdp-modal' )
+					.appendTo( $body );
+
+				addCurrentSearch();
+
+				$html.addClass( openClass );
 				$body.find( '.wpbdp-loader-wrapper' ).remove();
 			}
 		});
 	} );
 
+	function addCurrentSearch() {
+		var data, showReset,
+			searchTerms = document.getElementById( 'wpdbp-searched-terms' );
+		if ( ! searchTerms ) {
+			return;
+		}
+
+		// Pass along the current search.
+		data = searchTerms.getAttribute( 'data-search-terms' );
+		data = JSON.parse( data );
+		for ( var key in data ) {
+			if ( data.hasOwnProperty( key ) ) {
+				var input = $( '[name="listingfields[' + key + ']"]' );
+				if ( input.length > 0 ) {
+					input.val( data[ key ] );
+					showReset = true;
+				}
+			}
+		}
+		if ( showReset ) {
+			$( '.wpbdp-modal .reset' ).show();
+		}
+	}
+
 	$( document ).on( 'click', '.wpbdp-modal-close, .wpbdp-modal-overlay', function() {
-		$( '.wpbdp-modal' ).removeClass( 'wpbdp-open' );
-		$html.css( 'overflow', '' );
-		$body.css( 'overflow', '' );
+		$html.removeClass( openClass );
 	} );
 
+	$( document ).on( 'click', '#wpbdp-search-form .reset', function(e) {
+		e.preventDefault();
+		$( '#wpbdp-search-form [name^="listingfields"]' ).val('');
+	} );
+
+} )( jQuery );
+
+/**
+ * Zipcode Search
+ *
+ * @since x.x
+ */
+// TODO: After updating to the new design and releasing a new version,
+//       we can transfer the Zipcode codes to the ZIP Search add-on.
+//       Currently, due to the codes being production-ready,
+//       these codes are available here.
+( function ( $ ) {
+	$('.wpbdp-zipcodesearch-search-unit').find('.unit-label').on('click', function(e) {
+		$(this).parent().find('input').focus();
+	});
 } )( jQuery );

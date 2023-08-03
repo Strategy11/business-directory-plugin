@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin v5.7.3\n"
+"Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-01-26 19:09:36+00:00\n"
+"POT-Creation-Date: 2023-07-07 14:13:17+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Business Directory"
 msgstr "Business Directory - Zoeken"
 
-#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:367
+#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:378
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "Opwaarderen tot %s"
@@ -400,8 +400,8 @@ msgid "Form Preview"
 msgstr "Formulier voorvertoning"
 
 #: includes/admin/controllers/class-form-fields-admin.php:147
-#: includes/helpers/functions/general.php:1284
-#: includes/helpers/functions/general.php:1289
+#: includes/helpers/functions/general.php:1286
+#: includes/helpers/functions/general.php:1291
 msgid "Go back"
 msgstr ""
 
@@ -747,7 +747,7 @@ msgid "Missing tables: %s"
 msgstr "Missende tabellen: %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1484
+#: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:33
 #: templates/listing-flagging-form.tpl.php:39
@@ -1210,6 +1210,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1691
+#: includes/licensing.php:593
 msgid "Learn more"
 msgstr ""
 
@@ -1315,7 +1316,7 @@ msgstr ""
 msgid "View Docs"
 msgstr "Bekijk "
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:370
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:381
 #, fuzzy
 msgid "Settings"
 msgstr "Instellingen"
@@ -1364,7 +1365,7 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:195
+#: includes/class-assets.php:248
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:77
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:100
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:115
@@ -1376,16 +1377,16 @@ msgstr ""
 msgid "Cancel"
 msgstr "Gecancelled"
 
-#: includes/class-assets.php:196
+#: includes/class-assets.php:249
 #, fuzzy
 msgid "Continue"
 msgstr "Doorgaan"
 
-#: includes/class-assets.php:197
+#: includes/class-assets.php:250
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:363
+#: includes/class-assets.php:416
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
 "how WordPress stores the data."
@@ -1478,27 +1479,27 @@ msgid ""
 "to set up a gateway. Until you do this, only free plans will be available."
 msgstr ""
 
-#: includes/class-wpbdp.php:596
+#: includes/class-wpbdp.php:607
 msgid "Could not find listing ID"
 msgstr ""
 
-#: includes/class-wpbdp.php:603
+#: includes/class-wpbdp.php:614
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:616 includes/fields/class-fieldtypes-image.php:394
+#: includes/class-wpbdp.php:627 includes/fields/class-fieldtypes-image.php:394
 msgid "Could not find image ID"
 msgstr ""
 
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
 msgstr ""
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1517,7 +1518,7 @@ msgid ""
 msgstr ""
 
 #: includes/compatibility/class-navxt-integration.php:228
-#: includes/widgets/widget-search.php:129
+#: includes/widgets/widget-search.php:131
 #: templates/admin/payments-index.tpl.php:18
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:26
 #: templates/search.tpl.php:5
@@ -1728,20 +1729,20 @@ msgstr "Ga naar \"instellen formulier velden\""
 msgid "Please choose a plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1289
+#: includes/controllers/pages/class-submit-listing.php:1304
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1468
+#: includes/controllers/pages/class-submit-listing.php:1483
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1475
+#: includes/controllers/pages/class-submit-listing.php:1490
 #, fuzzy
 msgid "Username"
 msgstr "Gebruiker"
 
-#: includes/controllers/pages/class-submit-listing.php:1497
+#: includes/controllers/pages/class-submit-listing.php:1512
 #, fuzzy
 msgid "Clear Form"
 msgstr "Leegmaken"
@@ -2163,7 +2164,7 @@ msgstr ""
 msgid "Uruguayan Peso"
 msgstr ""
 
-#: includes/helpers/functions/general.php:1274
+#: includes/helpers/functions/general.php:1276
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Terug naar Registers"
@@ -2255,44 +2256,43 @@ msgstr ""
 #: includes/licensing.php:590
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
-"Business Directory servers. Please contact your webhost and ask them to add "
-"our IP address 52.0.78.177 to your allow list."
+"Business Directory servers."
 msgstr ""
 
-#: includes/licensing.php:645
+#: includes/licensing.php:649
 msgid "Download Premium"
 msgstr ""
 
-#: includes/licensing.php:695
+#: includes/licensing.php:699
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Zoeken"
 
-#: includes/licensing.php:696
+#: includes/licensing.php:700
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Zoeken"
 
-#: includes/licensing.php:697
+#: includes/licensing.php:701
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Business Directory instellingen"
 
-#: includes/licensing.php:698
+#: includes/licensing.php:702
 msgid ""
 "You have modules installed, but Business Directory Premium is missing. "
 "Install this plugin for extra features and easy license management."
 msgstr ""
 
-#: includes/licensing.php:709
+#: includes/licensing.php:713
 msgid "Review license keys"
 msgstr ""
 
-#: includes/licensing.php:824
+#: includes/licensing.php:828
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:829
+#: includes/licensing.php:833
 msgid "Please enter a license key."
 msgstr ""
 
@@ -2407,7 +2407,7 @@ msgstr "Miniatuur breedte (px)"
 msgid "Fields To Show"
 msgstr ""
 
-#: includes/widgets/class-listings-widget.php:191
+#: includes/widgets/class-listings-widget.php:193
 msgid "There are currently no listings to show."
 msgstr ""
 
@@ -2735,7 +2735,7 @@ msgstr ""
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
@@ -4715,13 +4715,13 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:775
-#: includes/helpers/functions/general.php:1199
+#: includes/helpers/functions/general.php:1201
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum ingediend"
 
 #: includes/admin/settings/class-settings-bootstrap.php:776
-#: includes/helpers/functions/general.php:1200
+#: includes/helpers/functions/general.php:1202
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr ""
@@ -4949,12 +4949,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Beelden uploaden"
 
-#: includes/helpers/functions/general.php:1197
+#: includes/helpers/functions/general.php:1199
 msgctxt "admin settings"
 msgid "User"
 msgstr "Gebruiker"
 
-#: includes/helpers/functions/general.php:1198
+#: includes/helpers/functions/general.php:1200
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Gebruikers registratie datum"
@@ -7027,18 +7027,18 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr ""
 
-#: includes/class-wpbdp.php:462
+#: includes/class-wpbdp.php:473
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Login vereist om Registratie te creëren?"
 
-#: includes/class-wpbdp.php:467
+#: includes/class-wpbdp.php:478
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr ""
 
-#: includes/class-wpbdp.php:471
+#: includes/class-wpbdp.php:482
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "
@@ -7245,18 +7245,18 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1518
+#: includes/controllers/pages/class-submit-listing.php:1533
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Ga s.v.p. akkoord met de voorwaarden"
 
-#: includes/controllers/pages/class-submit-listing.php:1532
+#: includes/controllers/pages/class-submit-listing.php:1547
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Ik ben akkoord met de voorwaarden"
 
-#: includes/helpers/functions/general.php:1280
+#: includes/helpers/functions/general.php:1282
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -7608,7 +7608,7 @@ msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 
 #: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1200
+#: includes/controllers/pages/class-submit-listing.php:1215
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr ""
@@ -7628,22 +7628,22 @@ msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1435
+#: includes/controllers/pages/class-submit-listing.php:1450
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1440
+#: includes/controllers/pages/class-submit-listing.php:1455
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1445
+#: includes/controllers/pages/class-submit-listing.php:1460
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1450
+#: includes/controllers/pages/class-submit-listing.php:1465
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -7653,7 +7653,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1382
+#: includes/controllers/pages/class-submit-listing.php:1397
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8015,28 +8015,28 @@ msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
-#: includes/licensing.php:846
+#: includes/licensing.php:850
 msgctxt "licensing"
 msgid "Could not activate license: %s."
 msgstr ""
 
-#: includes/licensing.php:851
+#: includes/licensing.php:855
 msgctxt "licensing"
 msgid "License activated"
 msgstr ""
 
-#: includes/licensing.php:883
+#: includes/licensing.php:887
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr ""
 
-#: includes/licensing.php:885
+#: includes/licensing.php:889
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr ""
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1125
+#: includes/licensing.php:1129
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -8536,6 +8536,10 @@ msgstr "Doorgaan"
 
 #, fuzzy
 #~ msgid "Failed to import %s %s"
+#~ msgstr "Verberg lege categorieën"
+
+#, fuzzy
+#~ msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
 #~ msgstr "Verberg lege categorieën"
 
 #, fuzzy

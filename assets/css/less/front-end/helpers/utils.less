@@ -1,0 +1,59 @@
+/**
+ * Helpers
+ *
+ * Contains utility classes to assist with common tasks.
+ */
+
+// Clearfix
+.wpbdp-cf::before,
+.wpbdp-cf::after,
+.wpbdp-clearfix::before,
+.wpbdp-clearfix::after,
+.cf::before,
+.cf::after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+
+.wpbdp-cf::after,
+.wpbdp-clearfix::after,
+.cf::after {
+	clear: both;
+}
+
+// Screen Reader Only.
+.wpbdp-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+// Toggle Visibility Helper Classes
+.wpbdp-hidden {
+	display: none;
+}
+
+.wpbdp-hidden-force {
+	display: none !important;
+}
+
+.wpbdp-show-on-mobile {
+	display: none !important;
+
+	@media (max-width: 560px) {
+		display: inline !important;
+	}
+}
+
+@media (max-width: 560px) {
+
+	.wpbdp-hide-on-mobile {
+		display: none !important;
+	}
+}

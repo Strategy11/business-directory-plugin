@@ -28,7 +28,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.3.3' );
+		define( 'WPBDP_VERSION', '6.3.7' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -240,6 +240,7 @@ final class WPBDP {
 	public function translation_filters() {
 		add_filter( 'gettext', array( &$this, 'use_custom_strings' ), 10, 3 );
 		add_filter( 'gettext_with_context', array( &$this, 'use_custom_context_strings' ), 10, 4 );
+		add_filter( 'ngettext', array( &$this, 'use_custom_n_strings' ), 10, 5 );
 	}
 
 	/**
@@ -277,6 +278,16 @@ final class WPBDP {
 	 */
 	public function use_custom_context_strings( $translation, $text, $context, $domain ) {
 		return $this->use_custom_strings( $translation, $text, $domain );
+	}
+
+	/**
+	 * Translate _n() strings.
+	 *
+	 * @since 6.3.4
+	 */
+	public function use_custom_n_strings( $translation, $single, $plural, $number, $domain ) {
+		$translation = $this->use_custom_strings( $translation, $single, $domain );
+		return $this->use_custom_strings( $translation, $plural, $domain );
 	}
 
 	/**

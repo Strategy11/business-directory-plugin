@@ -1,0 +1,228 @@
+/* stylelint-disable no-descending-specificity */
+
+/**
+ * WordPress Default Theme Enhancements.
+ *
+ * This file contains style improvements specific to the default WP themes.
+ */
+
+// 2023, 2022 themes.
+.wpbdp-wp-theme-twentytwentythree,
+.wpbdp-wp-theme-twentytwentytwo {
+
+	.wpbdp-page {
+
+		input[type="text"],
+		input[type="email"],
+		input[type="url"],
+		input[type="password"],
+		input[type="search"],
+		input[type="number"],
+		input[type="tel"],
+		input[type="date"],
+		input[type="month"],
+		input[type="week"],
+		input[type="time"],
+		input[type="datetime"],
+		input[type="submit"],
+		select,
+		textarea {
+			max-width: 100%;
+			padding: @padding-input-wp-current-themes;
+			font-family: inherit;
+			font-size: inherit;
+		}
+	}
+
+	.wpbdp-button,
+	.wpbdp-page input[type="submit"],
+	.wpbdp-advanced-search-link {
+		border-width: 1px;
+		background-color: var(--wp--preset--color--primary);
+		color: var(--wp--preset--color--background);
+		text-decoration: none;
+
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+
+	.wpbdp-submit-listing-form-actions .wpbdp-button,
+	.wpbdp-submit.wpbdp-button {
+		padding: ~'calc(0.5em + 2px) calc(1.5em + 2px)';
+		font-size: var(--wp--preset--font-size--medium);
+	}
+
+	.wpbdp-button-secondary {
+		border: 1px solid;
+		background-color: transparent;
+		text-decoration: none;
+		transition: opacity 0.24s ease-out;
+
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+
+	.wpbdp-main-links {
+
+		.wpbdp-button-secondary {
+			padding: ~"calc(0.2em + 2px) calc(1em + 2px)";
+		}
+
+		.wpbdp-link,
+		.wpbdp-button-secondary {
+			margin: 0;
+			font-size: var(--wp--preset--font-size--small);
+		}
+	}
+}
+
+// 2023 theme.
+.wpbdp-wp-theme-twentytwentythree {
+
+	.wpbdp-button,
+	.wpbdp-page input[type="submit"] {
+		color: var(--wp--preset--color--contrast);
+	}
+
+	.wpbdp-button-secondary {
+		border-color: var(--wp--preset--color--secondary);
+		color: var(--wp--preset--color--contrast);
+	}
+
+
+}
+
+// 2022 theme.
+.wpbdp-wp-theme-twentytwentytwo {
+
+	.wpbdp-button-secondary {
+		border-color: var(--wp--preset--color--primary);
+		color: var(--wp--preset--color--primary);
+	}
+}
+
+// 2021, 2020, 2019 themes.
+.wpbdp-wp-theme-twentytwentyone,
+.wpbdp-wp-theme-twentytwenty,
+.wpbdp-wp-theme-twentynineteen {
+
+	.wpbdp-main-box {
+
+		.submit-btn input[type="submit"] {
+			padding: 16px 12px;
+			font-size: 14px;
+		}
+
+		.box-col {
+
+			.distance-field {
+
+				input {
+					min-width: 70px;
+				}
+			}
+
+			.unit-label {
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+// 2021 theme.
+.wpbdp-wp-theme-twentytwentyone {
+
+	.wpbdp-search-page.wpbdp-modal {
+
+		.wpbdp-form-field .field.inner .zipcode-search-zip {
+
+			& ~ .wpbdp-display-block {
+
+				input[type="radio"] {
+					vertical-align: middle;
+				}
+			}
+		}
+	}
+}
+
+// 2020 theme.
+.wpbdp-wp-theme-twentytwenty {
+
+	.wpbdp-page:not(.wpbdp-modal) {
+		max-width: 69rem !important;
+	}
+
+	.wpbdp-main-links .wpbdp-button,
+	.box-col.submit-btn input,
+	.listing-actions {
+		font-size: 1.1rem;
+	}
+
+	.wpbdp-listing-excerpt {
+		font-size: 1.8rem;
+	}
+
+	.wpbdp-listing .social-fields {
+
+		.social-field.facebook,
+		.social-field.instagram {
+			margin-top: -5px;
+			vertical-align: top;
+		}
+	}
+}
+
+// 2019 theme.
+.wpbdp-wp-theme-twentynineteen {
+
+	.wpbdp-main-box {
+
+		.box-col {
+
+			.unit-label {
+				font-size: 16px;
+
+				@media screen and (min-width: 1900px) {
+					font-size: 20px;
+				}
+			}
+		}
+	}
+
+	.wpbdp-listing .social-fields {
+
+		.twitter.twitter-handle {
+			vertical-align: text-top;
+		}
+	}
+}
+
+// 2017 theme.
+.wpbdp-wp-theme-twentyseventeen {
+
+	.single-featured-image-header {
+		display: none;
+	}
+
+	.wpbdp-listing {
+
+		.social-fields .twitter.twitter-handle {
+			vertical-align: text-top;
+			padding-top: 1px;
+		}
+	}
+}
+
+// 2016 theme.
+.wpbdp-wp-theme-twentysixteen {
+
+	.wpbdp-listing .social-fields {
+
+		.social-field.linkedin {
+			vertical-align: text-top;
+		}
+	}
+}

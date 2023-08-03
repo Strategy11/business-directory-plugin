@@ -1,0 +1,122 @@
+/* stylelint-disable no-descending-specificity */
+
+/**
+ * Advanced Search Component Styles
+ *
+ * This file includes the styles for the advanced search component.
+ */
+
+#wpbdp-search-form-wrapper {
+	clear: both; /* When shown after a table or columns */
+}
+
+// Advanced Search.
+.wpbdp-search-page {
+
+	.wpbdp-form-fields {
+		display: grid;
+		grid-template-columns: repeat(2, 2fr);
+		grid-column-gap: @padding-lg;
+	}
+
+	.wpbdp-form-field {
+
+		&:not(.textarea) {
+			grid-column: span 1;
+		}
+
+		&.textarea {
+			grid-column: span 2;
+		}
+
+		.field.inner {
+
+			input,
+			textarea,
+			select {
+				margin-bottom: 0;
+			}
+
+			textarea,
+			select {
+				width: 100%;
+			}
+
+			.zipcode-search-zip {
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	&.wpbdp-modal {
+
+		.wpbdp-modal-content {
+			padding-bottom: 95px;
+		}
+
+		.title {
+			margin: 0 0 @padding-xl;
+			line-height: 1;
+		}
+
+		// Modal Footer.
+		form > p {
+			display: flex;
+			flex-direction: row-reverse;
+			align-items: center;
+			justify-content: center;
+			gap: @padding-lg;
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			min-height: 95px;
+			border-bottom-right-radius: @border-radius-modal;
+			border-bottom-left-radius: @border-radius-modal;
+			padding: @padding-lg;
+			margin: 0;
+			background-color: @color-neutral-100;
+
+			.reset {
+				display: none;
+				color: @red;
+				text-decoration: underline;
+			}
+		}
+
+		.wpbdp-search-filter.ratings .inner {
+			display: flex;
+			align-items: center;
+			white-space: nowrap;
+
+			select {
+				margin-left: 8px;
+			}
+		}
+
+		/**
+		* Small & Tiny Modal Advanced Search Views.
+		*
+		* Styles for compact modal advanced search component views.
+		*/
+		@media (max-width: 560px) {
+
+			.wpbdp-modal-scrollbar {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+
+			.wpbdp-form-field {
+
+				&:not(.textarea) {
+					grid-column: span 2;
+				}
+			}
+
+			input.wpbdp-submit,
+			.reset {
+				width: auto;
+			}
+		}
+	}
+}

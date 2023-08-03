@@ -121,7 +121,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 			'search',
 			array(
 				'search_form'          => $search_form,
-				'search_form_position' => wpbdp_get_option( 'search-form-in-results' ),
+				'search_form_position' => wpbdp_get_option( 'search-form-in-results' ), // Deprecated.
 				'fields'               => $fields,
 				'searching'            => $searching,
 				'results'              => $results,

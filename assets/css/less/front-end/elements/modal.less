@@ -1,3 +1,21 @@
+/**
+ * Modal Element Styles
+ *
+ * This file includes the styles for the modal element in the plugin.
+ */
+
+.wpbdp-has-modal {
+	overflow: hidden;
+
+	body {
+		overflow: hidden;
+	}
+
+	.wpbdp-modal {
+		display: flex !important;
+	}
+}
+
 .wpbdp-modal {
 	display: none !important;
 
@@ -10,10 +28,6 @@
 	bottom: 0;
 	left: 0;
 	z-index: 9999;
-
-	&.wpbdp-open {
-		display: flex !important;
-	}
 
 	.wpbdp-modal-overlay {
 		position: absolute;
@@ -32,14 +46,14 @@
 		height: 905px;
 		max-height: 82%;
 		border-radius: @border-radius-modal;
-		padding: 50px 3px;
+		padding: @padding-xl 3px;
 		background-color: @white;
 	}
 
 	.wpbdp-modal-scrollbar {
 		overflow-x: hidden;
 		max-height: 100%;
-		padding: 0 37px;
+		padding: 0 calc( @padding-xl - 3px );
 
 		&::-webkit-scrollbar-track {
 			background-color: #fff;
@@ -63,12 +77,19 @@
 
 	.wpbdp-modal-close {
 		position: absolute;
-		top: 30px;
-		right: 40px;
+		top: 32px;
+		right: @padding-xl;
+		transition: opacity 0.24s ease-out;
 		cursor: pointer;
 
 		&::before {
-			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%233F4B5B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E%0A");
+			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E%0A");
+			opacity: 0.75;
+			display: block;
+		}
+
+		&:hover {
+			opacity: 0.7;
 		}
 	}
 }

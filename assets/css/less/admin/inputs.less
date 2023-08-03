@@ -18,9 +18,12 @@
 	input[type="search"],
 	select,
 	textarea {
+		max-width: 100%;
+		box-sizing: border-box;
 		border-color: @input-active;
+
 		&:default {
-			border-color: @input-active;	
+			border-color: @input-active;
 		}
 		&::placeholder {
 			opacity: 0.5;
@@ -43,6 +46,17 @@
 
 	textarea {
 		min-height: 150px;
+	}
+
+	.form-table {
+		input[type="text"],
+		input[type="number"],
+		input[type="url"],
+		input[type="search"],
+		select,
+		textarea {
+			width: 100%;
+		}
 	}
 }
 .wpbdp-admin-page input[type="checkbox"] {
