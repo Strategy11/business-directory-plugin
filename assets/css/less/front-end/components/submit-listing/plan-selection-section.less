@@ -9,9 +9,9 @@
 }
 
 .wpbdp-plan-selection-list {
-	display: grid;
+	display: flex;
 	gap: 25px;
-	grid-template-columns: repeat(auto-fill, minmax(266px, 1fr));
+	justify-content: center;
 
 	.wpbdp-plan {
 		display: flex;
@@ -52,7 +52,7 @@
 
 	.wpbdp-plan-action {
 		margin-top: 23px;
-
+		align-self: flex-end;
 		input[type="radio"] {
 			display: none;
 		}
