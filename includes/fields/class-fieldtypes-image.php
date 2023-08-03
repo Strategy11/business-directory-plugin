@@ -439,9 +439,12 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		}
 
 		if ( is_array( $value ) && ! empty( $value[1] ) ) {
-			$img               = get_post( $value[0] );
-			$img->post_excerpt = $value[1];
-			wp_update_post( $img );
+			wp_update_post(
+				array(
+					'ID'           => $value[0],
+					'post_excerpt' => $value[1],
+				)
+			);
 		}
 
 		parent::store_field_value( $field, $post_id, $value );

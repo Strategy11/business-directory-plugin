@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 4.8
 Requires PHP: 5.6
-Tested up to: 6.1.1
-Stable tag: 6.3.4
+Tested up to: 6.2.2
+Stable tag: 6.3.7
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,23 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.7 =
+* Fix: Listing titles in taxonomy pages with The7 theme.
+* Fix: Image sorting with Classic editor plugin.
+* Fix: Image upload bug while editing the listing.
+* Fix: Show the correct number of allowed images to upload after changing the plan in admin meta boxes.
+
+= 6.3.6 =
+* Fix: Listing titles in taxonomy pages were showing in the sidebar
+* Fix: The admin listing tables had misaligned pagination
+* Fix: The fields on the contact form were not using consistent sizing
+* Fix: German translation for "Your message has been sent".
+
+= 6.3.5 =
+* Hide content that might be added by other plugins on BD admin pages.
+* Fix: Only load widget and BD theme CSS when needed.
+* Fix: Revert a change from previous release that shows the URL instead of label.
+
 = 6.3.4 =
 * New: Add 'wpbdp_button_class' hook for adding a button class to match existing buttons.
 * New: Better match Divi buttons out of the box.
@@ -240,24 +257,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 = 6.2.6 =
 * Fix: Fatal error on category pages when CPT integration was disabled.
 * Fix: Some themes (like Divi) showed repeat content on category pages.
-
-= 6.2.5 =
-* If thumbnails are turned off, and images are showing in a gallery with the listing, then show the thumbnail image there too.
-* Set payment date and time to read only if there's a subscription.
-* On Auth.net checkout page, place exp month and year in same line.
-* Optimize loading time for sites with a lot of users, but no user matching the admin email address for the site.
-* Add new hooks to change image sizes for images from fields: wpbdp_img_width and wpbdp_img_size
-* Fix: Save the payment date if it's changed manually.
-* Fix: Some themes were showing no content for a single listing.
-* Fix: Show the correct category name in Block themes too.
-* Fix: Save the thumbnail and save reordering images from the admin area.
-* Fix: Correctly show validation messages for a required checkbox.
-* Fix: Allow the same value to by used in multiple checkbox fields.
-* Fix: Some sites were getting an error during the database upgrade process.
-* Fix: Show the current variable plan price for logged out users.
-
-= 6.2.4 =
-* Fix: Redirect to the login page from the new listing form when logging in is required.
-* Fix: The listings weren't showing alphabetically in new installations, if the sorting settings hadn't been updated.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

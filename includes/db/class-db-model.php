@@ -169,7 +169,7 @@ class WPBDP__DB__Model {
 		}
 
 		if ( method_exists( $this, 'set_' . $name ) ) {
-			return call_user_func( array( $this, 'set_' . $name ) );
+			call_user_func( array( $this, 'set_' . $name ) );
 		}
 
 		$this->set_attr( $name, $value );
