@@ -1,0 +1,133 @@
+/**
+ * Submit Listing.
+ *
+ * Fields Section.
+ */
+
+.wpbdp-submit-listing-section-listing_fields {
+
+	.wpbdp-form-field {
+		margin-bottom: 0;
+	}
+
+	&.has-error {
+
+		.wpbdp-form-field-label {
+			position: relative;
+		}
+	}
+
+	.wpbdp-form-field-label,
+	.sublabel {
+		margin-bottom: 5px;
+		font-size: 15px;
+	}
+
+	.sublabel {
+		color: @color-text--60;
+	}
+
+	.wpbdp-form-field-description {
+		margin-top: -7px;
+		margin-bottom: 5px;
+		color: @color-text--60;
+		font-size: 12px;
+	}
+
+	.wpbdp-form-field-required-indicator {
+		margin-left: 2px;
+		margin-right: 2px;
+		color: @red;
+	}
+
+	a.reset {
+		max-width: 200px;
+		margin-top: 8px;
+	}
+}
+
+.wpbdp-form-field-type-select:not(.wpbdp-form-field-association-category) {
+
+	&.wpbdp-form-field-association-region {
+
+		&.wpbdp-regions-hidden {
+			display: none;
+			visibility: hidden;
+		}
+	}
+}
+
+/* Form field validation */
+.wpbdp-form-field-label {
+
+	.wpbdp-form-field-validation-error-wrapper {
+		position: absolute;
+		bottom: 40%;
+		left: -10px;
+		z-index: 1;
+		border-radius: 6px;
+		padding: 5px 0;
+		visibility: hidden;
+	}
+
+	&:hover {
+
+		.wpbdp-form-field-validation-error-wrapper {
+			visibility: visible;
+		}
+	}
+}
+
+.wpbdp-form-field-validation-error-wrapper {
+	margin: 15px 0;
+
+	.wpbdp-form-field-validation-errors {
+		position: relative;
+		border: 1px solid @red;
+		border-radius: @border-radius-main;
+		padding: 4px 10px;
+		margin: 0 12px 3px 6px;
+		background: @white;
+		color: @color-text;
+		font-size: 12px;
+		line-height: @line-height-body;
+
+		&::after,
+		&::before {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 12px;
+			width: 0;
+			height: 0;
+			border: solid transparent;
+			pointer-events: none;
+		}
+
+		&::after {
+			border-width: 4px;
+			border-color: transparent;
+			border-top-color: @white;
+			margin-left: -4px;
+		}
+
+		&::before {
+			border-width: 5px;
+			border-color: transparent;
+			border-top-color: @red;
+			margin-left: -5px;
+		}
+	}
+
+	.wpbdp-form-field {
+		margin: 0;
+	}
+
+	& + label {
+		color: @red;
+	}
+}
+
+.wpbdp-editor-area {
+	height: 422px;
+}

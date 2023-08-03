@@ -1,35 +1,41 @@
-/**
- * Main Frontend File
- *
- * Includes all frontend style elements.
- */
-
-// Abstracts
+/* Abstracts */
 @variables-dir: "front-end/abstracts/variables";
-@import "@{variables-dir}/typography.less";
+@import "@{variables-dir}/colors.less";
 @import "@{variables-dir}/box.less";
-@import "colors.less";
+@import "@{variables-dir}/typography.less";
 
-// Base
+/* Mixins */
+@mixins-dir: "front-end/abstracts/mixins";
+@import "@{mixins-dir}/mixins.less";
+
+/* Base */
 @base-dir: "front-end/base";
 @import "@{base-dir}/base.less";
 
-// Helpers
+/* Helpers */
 @helpers-dir: "front-end/helpers";
+@import "@{helpers-dir}/grid.less";
 @import "@{helpers-dir}/utils.less";
 
-// Elements
+/* Elements */
 @elements-dir: "front-end/elements";
 @import "@{elements-dir}/buttons.less";
-@import "@{elements-dir}/forms.less";
 @import "@{elements-dir}/alerts.less";
-@import "@{elements-dir}/loaders.less";
+@import "@{elements-dir}/forms.less";
 @import "@{elements-dir}/modal.less";
+@import "@{elements-dir}/loaders.less";
+@import "@{elements-dir}/tables.less";
 
-// Components
+/* Components */
 @components-dir: "front-end/components";
-@import "@{components-dir}/search/search-box.less";
+@import "@{components-dir}/search/search-bar.less";
 @import "@{components-dir}/search/advanced-search.less";
+@import "@{components-dir}/submit-listing/rootline.less";
+@import "@{components-dir}/submit-listing/submit-listing.less";
+@import "@{components-dir}/submit-listing/plan-selection-section.less";
+@import "@{components-dir}/submit-listing/listing-fields-section.less";
+@import "@{components-dir}/submit-listing/listing-images-section.less";
+@import "@{components-dir}/submit-listing/listing-done-section.less";
 
 // Compatibility
 @compatibility-dir: "front-end/compatibility";
@@ -667,7 +673,7 @@ body.business-directory #TB_secondLine {
 	width: 6px;
 	height: 10px;
 	margin: 5px 5px 0 0;
-	background: url("../../assets/images/drag-handle.png") 0 0;
+	background: url("../../images/drag-handle.png") 0 0;
 	cursor: move;
 	vertical-align: middle;
 }
