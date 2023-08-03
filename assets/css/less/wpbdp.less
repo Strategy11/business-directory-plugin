@@ -1,24 +1,24 @@
 /* Abstracts */
-@variables-dir: "./wpbdp/abstracts/variables";
+@variables-dir: "front-end/abstracts/variables";
 @import "@{variables-dir}/colors.less";
 @import "@{variables-dir}/box.less";
 @import "@{variables-dir}/typography.less";
 
 /* Mixins */
-@mixins-dir: "./wpbdp/abstracts/mixins";
+@mixins-dir: "front-end/abstracts/mixins";
 @import "@{mixins-dir}/mixins.less";
 
 /* Base */
-@base-dir: "./wpbdp/base";
+@base-dir: "front-end/base";
 @import "@{base-dir}/base.less";
 
 /* Helpers */
-@helpers-dir: "./wpbdp/helpers";
+@helpers-dir: "front-end/helpers";
 @import "@{helpers-dir}/grid.less";
 @import "@{helpers-dir}/utils.less";
 
 /* Elements */
-@elements-dir: "./wpbdp/elements";
+@elements-dir: "front-end/elements";
 @import "@{elements-dir}/buttons.less";
 @import "@{elements-dir}/alerts.less";
 @import "@{elements-dir}/forms.less";
@@ -27,9 +27,7 @@
 @import "@{elements-dir}/tables.less";
 
 /* Components */
-@components-dir: "./wpbdp/components";
-//@import "@{components-dir}/search-bar.less";
-//@import "@{components-dir}/advanced-search.less";
+@components-dir: "front-end/components";
 @import "@{components-dir}/search/search-bar.less";
 @import "@{components-dir}/search/advanced-search.less";
 @import "@{components-dir}/submit-listing/rootline.less";
@@ -675,7 +673,7 @@ body.business-directory #TB_secondLine {
 	width: 6px;
 	height: 10px;
 	margin: 5px 5px 0 0;
-	background: url("../../assets/images/drag-handle.png") 0 0;
+	background: url("../../images/drag-handle.png") 0 0;
 	cursor: move;
 	vertical-align: middle;
 }

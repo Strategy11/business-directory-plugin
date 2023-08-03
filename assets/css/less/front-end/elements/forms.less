@@ -23,135 +23,107 @@
 	select,
 	.select2 .select2-selection {
 		width: 100%;
-	}
-}
-
-// Form Fields Styles.
-.wpbdp-form-field,
-#wpbdp-checkout-form-fields {
-	margin-bottom: @padding-lg;
-
-	label {
-
-		.wpbdp-form-field-required-indicator {
-			margin-left: 2px;
-			margin-right: 2px;
-			color: @red;
-		}
-	}
-
-	// Label Description.
-	.wpbdp-form-field-description,
-	.wpbdp-description {
-		display: block;
-		font-size: 80%;
-		opacity: 0.75;
-	}
-
-	&.wpbdp-form-field-has-description {
-
-		.wpbdp-form-field-label {
-			margin-bottom: 0;
-		}
-
-		.wpbdp-form-field-description {
-			margin-bottom: 3px;
-		}
-	}
-
-	&.wpbdp-form-field-type-social-network {
-
-		.preview {
-			margin-bottom: 20px;
-
-			img {
-				display: inline;
-			}
-
-			a.delete {
-				display: none;
-				margin-left: 20px;
-				color: @red;
-				vertical-align: top;
-				font-size: 90%;
-			}
-
-			&:hover {
-
-				a.delete {
-					display: inline;
-				}
-			}
-		}
-
-		.wpbdp-social-type-field {
-
-			.sublabel {
-				display: block;
-			}
-		}
-
-		.wpbdp-upload-widget {
-			max-height: 50px;
-		}
-	}
-}
-
-#wpbdp-checkout-form-fields {
-
-	.exp_month,
-	.exp_year {
-		max-width: 45%;
-	}
-}
-
-// Form Validation.
-.wpbdp-form-field-validation-error-wrapper {
-	margin: 15px 0;
-
-	.wpbdp-form-field-validation-errors {
-		position: relative;
-		border: 1px solid @red;
+		height: 48px;
+		border: 1px solid @border-main;
 		border-radius: @border-radius-main;
-		padding: 4px 10px;
-		margin: @margin-form-field-with-error;
-		background: @white;
-		color: @color-neutral-800;
-		font-size: @font-size-sm;
-		line-height: @line-height-body;
+		padding: 10px 17px;
+		margin: 0;
+		background-color: @white;
+		color: @color-text;
+		font-size: 17px;
+		line-height: 1.2;
+		transition: border-color 0.3s ease-out;
+	}
 
-		&::after,
-		&::before {
-			content: "";
-			position: absolute;
-			top: 100%;
-			left: 12px;
-			width: 0;
-			height: 0;
-			border: solid transparent;
-			pointer-events: none;
+	textarea {
+		min-height: 120px;
+	}
+
+	select,
+	.select2 .select2-selection {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' fill='none' viewBox='0 0 14 8'%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' d='m1 1 6 6 6-6'/%3E%3C/svg%3E%0A") !important;
+		background-size: 12px 6px !important;
+		background-position: right 15px center !important;
+		background-repeat: no-repeat !important;
+		appearance: none !important;
+		cursor: pointer;
+	}
+
+	.select2 {
+		max-width: 100%;
+
+		.select2-selection {
+			display: flex;
+			align-items: center;
+			border-color: @border-main !important;
 		}
 
-		&::after {
-			border-width: 4px;
-			border-color: transparent;
-			border-top-color: @white;
-			margin-left: -4px;
-		}
-
-		&::before {
-			border-width: 5px;
-			border-color: transparent;
-			border-top-color: @red;
-			margin-left: -5px;
+		/* stylelint-disable-next-line selector-class-pattern */
+		.select2-selection__arrow {
+			display: none;
 		}
 	}
 
-	.wpbdp-form-field {
-		margin: 0;
+	input[type="email"]:focus,
+	input[type="number"]:focus,
+	input[type="password"]:focus,
+	input[type="search"]:focus,
+	input[type="tel"]:focus,
+	input[type="text"]:focus,
+	input[type="url"]:focus,
+	textarea:focus,
+	select:focus,
+	.select2 .select2-selection:focus {
+		border-color: @color-primary !important;
+		outline: 0;
+		box-shadow: 0 1px 5px @box-shadow;
+	}
+
+	input[type="email"]::placeholder,
+	input[type="number"]::placeholder,
+	input[type="password"]::placeholder,
+	input[type="search"]::placeholder,
+	input[type="tel"]::placeholder,
+	input[type="text"]::placeholder,
+	input[type="url"]::placeholder,
+	textarea::placeholder {
+		color: @color-text--60;
+		font-size: 16px;
+		line-height: 1.2;
+	}
+
+	label,
+	.wpbdp-form-field-label {
+		margin-bottom: 11px;
+		color: @color-text;
+		font-weight: 400;
+		line-height: @line-height-body;
 	}
 
 	& + label {
 		color: @red;
+	}
+	.wpbdp-form-field-validation-error-wrapper + label {
+		color: @red;
+	}
+	.wpbdp-form-field {
+		margin-bottom: 23px;
+	}
+	/* Attachment Input */
+	input[type="file"]::file-selector-button {
+		border: 0;
+		border-radius: 3px;
+		padding: 5px 10px;
+		background-color: @bg-gray;
+		color: @color-text;
+		font-size: @font-size-body;
+		font-weight: 400;
+		line-height: @line-height-body;
+		transition: background-color 0.24s ease-out, color 0.24s ease-out, border-color 0.24s ease-out;
+		cursor: pointer;
+	}
+
+	input[type="file"]::file-selector-button:hover {
+		background-color: darken(@bg-gray, 7%);
 	}
 }
