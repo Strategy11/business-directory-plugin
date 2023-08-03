@@ -1,6 +1,7 @@
 parameters:
 	level: 5
 	reportUnmatchedIgnoredErrors: false
+	treatPhpDocTypesAsCertain: false
 	bootstrapFiles:
 		- vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
 		- stubs.php
@@ -11,6 +12,8 @@ parameters:
 		- */languages/*
 		- */tests/*
 		- stubs.php
+		- */node_modules/*
+		- includes/compatibility/deprecated/*
 	ignoreErrors:
 		- '#Access to an undefined property#'
 		- '#no (typehint|value type|return type)+ specified.#'
