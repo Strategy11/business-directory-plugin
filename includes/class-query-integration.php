@@ -249,7 +249,7 @@ class WPBDP__Query_Integration {
 		$pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
 		// Sticky listings.
-		$is_sticky_query = "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
+		$is_sticky_query = " IFNULL((SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1),0) AS wpbdp_is_sticky";
 
 		if ( in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
 			$is_sticky_query = '';
