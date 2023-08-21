@@ -58,6 +58,11 @@ class WPBDP_Compat {
 		if ( defined( 'WPSEO_VERSION' ) ) {
 			add_action( 'wp_head', array( &$this, 'yoast_maybe_force_taxonomy' ), 0 );
 		}
+		// WP Fusion and WooCommerce Invalid nonce.
+		if ( defined( 'WP_FUSION_VERSION' ) && class_exists( 'WooCommerce' ) ) {
+			add_filter(
+                 'wpf_skip_auto_login', array( $this , 'wp_fusion_skip_auto_login'), 20 );
+		}
 	}
 
 	public function cpt_compat_mode() {
@@ -109,4 +114,16 @@ class WPBDP_Compat {
 		return $clauses;
 	}
 
+	/**
+	 * Skip WP Fusion auto login .
+	 *
+	 * @param bool $skip_auto_login skip auto login.
+	 * @return bool
+	 */
+	public function wp_fusion_skip_auto_login( $skip_auto_login ) {
+		if ( $skip_auto_login || ( 'wpbdp_ajax' === wpbdp_get_var( array( 'param' => 'action' ) ) && 'checkout__load_gateway' === wpbdp_get_var( array( 'param' => 'handler' ) ) ) ) {
+			return true;
+		}
+		return $skip_auto_login;
+	}
 }
