@@ -78,6 +78,7 @@ class WPBDP_Modules_API {
 				'user-agent' => $agent . '; ' . get_bloginfo( 'url' ),
 			)
 		);
+		/* @phpstan-ignore-next-line */
 		if ( is_array( $response ) && ! is_wp_error( $response ) ) {
 			$addons = $response['body'];
 			if ( ! empty( $addons ) ) {

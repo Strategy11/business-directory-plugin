@@ -105,11 +105,11 @@ echo wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', fa
 		<dt><?php _ex( '# of images', 'listing metabox', 'business-directory-plugin' ); ?></dt>
 		<dd>
 			<span class="display-value" id="wpbdp-listing-plan-prop-images">
-				<?php echo $current_plan ? $current_plan->fee_images : '-'; ?>
+				<?php echo $current_plan ? $current_plan->fee->images : '-'; ?>
 			</span>
 			<a href="#" class="edit-value-toggle"><?php esc_html_e( 'Edit', 'business-directory-plugin' ); ?></a>
 			<div class="value-editor">
-				<input type="text" name="listing_plan[fee_images]" value="<?php echo $current_plan ? $current_plan->fee_images : 0; ?>" size="2" />
+				<input type="text" name="listing_plan[fee_images]" value="<?php echo $current_plan ? $current_plan->fee->images : 0; ?>" size="2" />
 
 				<a href="#" class="update-value button"><?php esc_html_e( 'OK', 'business-directory-plugin' ); ?></a>
 				<a href="#" class="cancel-edit button-cancel"><?php esc_html_e( 'Cancel', 'business-directory-plugin' ); ?></a>
