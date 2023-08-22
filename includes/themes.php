@@ -334,7 +334,7 @@ class WPBDP_Themes {
 	/**
 	 * Retrieves theme information for the current active theme.
 	 *
-	 * @return object
+	 * @return object|string|boolean
 	 */
 	function get_active_theme_data( $key = null ) {
 		$active = $this->get_active_theme();
