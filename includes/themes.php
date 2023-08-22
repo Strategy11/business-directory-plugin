@@ -977,7 +977,7 @@ class WPBDP_Themes {
 	 */
 	public function update_bd_admin_notice() {
 		$class = 'notice notice-warning';
-		$message = __( 'Please update business directory plugin to latest version.', 'wpbdp-business-card' );
+		$message = __( 'Please update business directory plugin to latest version.', 'business-directory-plugin' );
 
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 	}
