@@ -43,6 +43,11 @@ class WPBDP_Themes {
 			require_once WPBDP_PATH . 'includes/admin/controllers/class-themes-admin.php';
 			$this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
 		}
+
+		$theme_requires = $this->get_active_theme_data( 'requires' );
+		if ( defined( 'WPBDP_VERSION' ) && $theme_requires && version_compare( WPBDP_VERSION, $theme_requires, '<' ) ) {
+			add_action( 'admin_notices', array( $this,'update_bd_admin_notice' ) );
+		}
 	}
 
 	/**
@@ -963,6 +968,18 @@ class WPBDP_Themes {
 
 	public function sync_settings() {
 		_deprecated_function( __METHOD__, '5.0' );
+	}
+
+	/**
+	 * Shows admin notice to update the plugin.
+	 *
+	 * @returns {void}
+	 */
+	public function update_bd_admin_notice() {
+		$class = 'notice notice-warning';
+		$message = __( 'Please update business directory plugin to latest version.', 'wpbdp-business-card' );
+
+		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
 	}
 }
 
