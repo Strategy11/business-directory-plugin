@@ -50,7 +50,7 @@ $media_action = add_query_arg(
 			<div class="dnd-area-inside-working" style="display: none;">
 				<p>
 				<?php
-				echo sprintf(
+				printf(
 					// translators: %s is the number of uploaded files.
 					esc_html__( 'Uploading %s file(s)... Please wait.', 'business-directory-plugin' ),
 					'<span>0</span>'

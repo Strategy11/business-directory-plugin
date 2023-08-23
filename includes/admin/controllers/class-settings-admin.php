@@ -451,7 +451,7 @@ class WPBDP__Settings_Admin {
 			echo '</label>';
 			echo '</div>';
 
-			$n++;
+			++$n;
 		}
 
 		echo '</div>';
@@ -959,14 +959,14 @@ class WPBDP__Settings_Admin {
 				echo '</div>';
 
 				echo '<script>';
-				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload("%s", %d, "%s");', $setting_id, $media_id, $element );
+				printf( 'window.parent.WPBDP.fileUpload.finishUpload("%s", %d, "%s");', $setting_id, $media_id, $element );
 				echo '</script>';
 			} else {
 				print $errors;
 			}
 		}
 
-		echo sprintf( '<script>window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', $setting_id, 30 );
+		printf( '<script>window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', $setting_id, 30 );
 
 		exit;
 	}

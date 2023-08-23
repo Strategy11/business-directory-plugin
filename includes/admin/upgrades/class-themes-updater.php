@@ -28,7 +28,7 @@ class WPBDP_Themes_Updater {
 			}
 
 			if ( $this->get_update_info( $theme_id ) ) {
-				$count++;
+				++$count;
 			}
 		}
 

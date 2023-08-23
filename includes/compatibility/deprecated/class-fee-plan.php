@@ -35,4 +35,3 @@ class WPBDP_Fee_Plan {
 		return wpbdp_get_fee_plan( 'free' );
 	}
 }
-

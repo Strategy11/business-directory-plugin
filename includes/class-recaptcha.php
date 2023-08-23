@@ -111,7 +111,7 @@ class WPBDP_reCAPTCHA {
 			$html .= '</div>';
 		}
 
-		$this->current_id++;
+		++$this->current_id;
 
 		return $html;
 	}
@@ -198,7 +198,7 @@ class WPBDP_reCAPTCHA {
 			$this->comment_error = true;
 			add_filter(
 				'pre_comment_approved',
-				function( $a ) {
+				function ( $a ) {
 					return 'spam';
 				}
 			);
@@ -297,9 +297,7 @@ JS;
 		}
 
 		return true;
-
 	}
-
 }
 
 
@@ -322,4 +320,3 @@ function wpbdp_recaptcha( $name = '' ) {
 function wpbdp_recaptcha_check_answer( &$error_msg = null ) {
 	return wpbdp()->recaptcha->verify( $error_msg );
 }
-

@@ -80,6 +80,4 @@ class WPBDP_Admin_CSVExport {
 
 		die();
 	}
-
 }
-

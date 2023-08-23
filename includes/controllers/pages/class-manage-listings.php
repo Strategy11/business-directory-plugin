@@ -84,7 +84,6 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 		}
 
 		return false;
-
 	}
 
 	/**

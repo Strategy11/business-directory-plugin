@@ -146,7 +146,7 @@ class WPBDP_Licensing {
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>
 					<?php
-					echo sprintf(
+					printf(
 						/* translators: %1%s: opening <a> tag, %2$s: closing </a> tag */
 						esc_html__( 'The license key could not be verified. Please %1$scheck your license%2$s to get updates.', 'business-directory-plugin' ),
 						'<strong><a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '">',

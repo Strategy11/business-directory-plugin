@@ -56,5 +56,4 @@ class WPBDP__Views__Main extends WPBDP__View {
 
 		return $html;
 	}
-
 }

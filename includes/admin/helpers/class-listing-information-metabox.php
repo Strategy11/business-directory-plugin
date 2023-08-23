@@ -66,5 +66,4 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
 		);
 		return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information-other.tpl.php', $vars );
 	}
-
 }

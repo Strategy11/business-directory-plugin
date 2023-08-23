@@ -1006,10 +1006,16 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
 	return $email;
 }
 
-function wpbdp_admin_pointer( $selector, $title, $content_ = '',
-							  $primary_button = false, $primary_action = '',
-							  $secondary_button = false, $secondary_action = '',
-							  $options = array() ) {
+function wpbdp_admin_pointer(
+    $selector,
+    $title,
+    $content_ = '',
+    $primary_button = false,
+    $primary_action = '',
+    $secondary_button = false,
+    $secondary_action = '',
+    $options = array()
+) {
 	if ( ! current_user_can( 'administrator' ) || ( get_bloginfo( 'version' ) < '3.3' ) ) {
 		return;
 	}
@@ -1024,7 +1030,7 @@ jQuery(function( $ ) {
 		var wpbdp_pointer = $( '<?php echo $selector; ?>' ).pointer({
 			'content': <?php echo json_encode( $content ); ?>,
 			'position': { 'edge': '<?php echo isset( $options['edge'] ) ? $options['edge'] : 'top'; ?>',
-						  'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
+							'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
 			'buttons': function( e, t ) {
 				<?php if ( ! $secondary_button ) : ?>
 				var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
@@ -1087,7 +1093,6 @@ class WPBDP_NoopObject {
 	public function __call( $name, $args = array() ) {
 		return false;
 	}
-
 }
 
 // For compat with PHP < 5.3
@@ -1138,12 +1143,10 @@ function wpbdp_detect_encoding( $content ) {
 		// XXX: mb_detect_encoding() can't detect UTF-16* encodings
 		// See documentation for mb_detect_order()
 		return mb_detect_encoding( $content, $encodings, true );
-	} else {
-		if ( ! function_exists( 'iconv' ) ) {
+	} elseif ( ! function_exists( 'iconv' ) ) {
 			return 'UTF-8';
 		} else {
-			return wpbdp_mb_detect_encoding( $content, $encodings );
-		}
+		return wpbdp_mb_detect_encoding( $content, $encodings );
 	}
 }
 

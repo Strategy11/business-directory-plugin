@@ -667,9 +667,9 @@ class WPBDP_Admin_Listings {
 						'sep1'              => '–',
 						'renewlisting'      => _x( 'Renew listings', 'admin actions', 'business-directory-plugin' ),
 						'change-to-expired' => _x( 'Set listings as "Expired"', 'admin actions', 'business-directory-plugin' ),
-										  /*
-										   Disabled as per https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3279. */
-										  /*'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'business-directory-plugin' ),*/
+											/*
+											Disabled as per https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3279. */
+											/*'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'business-directory-plugin' ),*/
 					);
 
 					if ( wpbdp_get_option( 'enable-key-access' ) ) {
@@ -682,14 +682,14 @@ class WPBDP_Admin_Listings {
 					echo '<script>';
 
 					foreach ( $bulk_actions as $action => $text ) {
-						echo sprintf(
+						printf(
 							'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
 							'action',
 							'listing-' . $action,
 							esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
 							$text
 						);
-						echo sprintf(
+						printf(
 							'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
 							'action2',
 							'listing-' . $action,
@@ -709,7 +709,7 @@ class WPBDP_Admin_Listings {
 		// XXX: this is kind of hacky but is the best we can do atm, there aren't hooks to change add links
 		if ( current_user_can( 'contributor' ) && isset( $_GET['post_type'] ) && $_GET['post_type'] == WPBDP_POST_TYPE ) {
 			echo '<script>';
-			echo sprintf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', wpbdp_get_page_link( 'add-listing' ) );
+			printf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', wpbdp_get_page_link( 'add-listing' ) );
 			echo '</script>';
 		}
 	}
@@ -792,7 +792,6 @@ class WPBDP_Admin_Listings {
 		);
 
 		return $tags;
-
 	}
 
 	/**

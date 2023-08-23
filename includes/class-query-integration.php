@@ -437,4 +437,3 @@ class WPBDP__Query_Integration {
 		}
 	}
 }
-

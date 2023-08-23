@@ -49,4 +49,3 @@ class WPBDP_Database_Helper {
 		return $collate ? $collate : 'utf8_general_ci';
 	}
 }
-

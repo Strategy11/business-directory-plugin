@@ -29,7 +29,7 @@ class WPBDP_Listing_Display_Helper {
 		$vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
 		$vars = apply_filters( 'wpbdp_excerpt_template_vars', $vars, $post->ID );
 
-		$n++;
+		++$n;
 
 		$pre_content = '';
 		if ( $n === 1 ) {
@@ -437,7 +437,6 @@ class WPBDP_Listing_Display_Helper {
 
 		return $schema;
 	}
-
 }
 
 /**

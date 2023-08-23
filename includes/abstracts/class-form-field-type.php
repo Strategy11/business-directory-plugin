@@ -517,7 +517,6 @@ class WPBDP_Form_Field_Type {
 
 		return $name;
 	}
-
 }
 
 /**

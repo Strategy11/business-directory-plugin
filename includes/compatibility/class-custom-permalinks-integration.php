@@ -24,4 +24,3 @@ class WPBDP_Custom_Permalink_Integration {
 		return apply_filters( 'page_link', $page_link, $page_id );
 	}
 }
-

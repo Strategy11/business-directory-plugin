@@ -347,7 +347,7 @@ printf(
 			</td>
 		</tr>
 		<?php
-		$i++;
+		++$i;
 	endforeach;
 	?>
 		<tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">

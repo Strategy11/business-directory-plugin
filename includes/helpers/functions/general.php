@@ -278,7 +278,7 @@ function wpbdp_get_parent_catids( $catid ) {
 	$parent_categories = wpbdp_get_parent_categories( $catid );
 	array_walk(
 		$parent_categories,
-		function( &$x ) {
+		function ( &$x ) {
 			$x = intval( $x->term_id );
 		}
 	);
@@ -1294,7 +1294,6 @@ function wpbdp_get_return_link() {
 	if ( $msg ) {
 		echo '<span class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >' . esc_html( $msg ) . '</a></span>';
 	}
-
 }
 
 /**

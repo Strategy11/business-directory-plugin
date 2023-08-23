@@ -13,7 +13,7 @@ class WPBDP_App_Helper {
 	}
 
 	public static function plugin_path() {
-		return dirname( dirname( dirname( __FILE__ ) ) );
+		return dirname( dirname( __DIR__ ) );
 	}
 
 	/**
@@ -538,7 +538,7 @@ class WPBDP_App_Helper {
 				'"button' . $append,
 				' button' . $append,
 				'wpbdp-button button ',
-				'"wpbdp-button"'
+				'"wpbdp-button"',
 			),
 			array(
 				'"' . esc_attr( $button_class . $append ),

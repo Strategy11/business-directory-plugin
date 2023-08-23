@@ -6,7 +6,7 @@
 
 <?php _ex( 'Payment ID', 'notify email', 'business-directory-plugin' ); ?>: 
 	<?php
-	echo sprintf(
+	printf(
 		'<a href="%s">%s</a>',
 		esc_url( admin_url( 'admin.php?page=wpbdp_admin_payments&wpbdp-view=details&payment-id=' . $payment->id ) ),
 		esc_html( $payment->id )

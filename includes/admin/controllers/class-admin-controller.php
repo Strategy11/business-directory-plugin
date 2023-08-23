@@ -101,5 +101,4 @@ class WPBDP__Admin__Controller {
 
 		return array( false, wpbdp_render_page( WPBDP_PATH . 'templates/admin/confirm-page.tpl.php', $args ) );
 	}
-
 }

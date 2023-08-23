@@ -318,5 +318,4 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		$html = '<span class="wpbdp-tag">' . implode( '</span><span class="wpbdp-tag">', $tags ) . '</span>';
 		return $html;
 	}
-
 }

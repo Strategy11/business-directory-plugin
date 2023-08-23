@@ -177,5 +177,4 @@ class WPBDP_FormFieldsTable extends WP_List_Table {
 
 		return $html;
 	}
-
 }

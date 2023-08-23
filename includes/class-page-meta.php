@@ -79,5 +79,4 @@ class WPBDP_Page_Meta {
 	}
 
 	// }}
-
 }

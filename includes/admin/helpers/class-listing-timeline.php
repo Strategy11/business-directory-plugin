@@ -187,5 +187,4 @@ class WPBDP__Listing_Timeline {
 
 		return $item;
 	}
-
 }

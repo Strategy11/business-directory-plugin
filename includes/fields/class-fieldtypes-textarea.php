@@ -347,12 +347,10 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 			if ( ! $field->data( 'allow_html' ) ) {
 				$value = nl2br( $value );
 			}
-		} else {
-			if ( $field->data( 'allow_html' ) ) {
+		} elseif ( $field->data( 'allow_html' ) ) {
 				$value = wpautop( $value );
 			} else {
-				$value = nl2br( $value );
-			}
+			$value = nl2br( $value );
 		}
 
 		return $value;
@@ -411,7 +409,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
 		$content_field = array_filter(
 			$fields,
-			function( $f ) {
+			function ( $f ) {
 				return 'content' === $f->get_association();
 			}
 		);
@@ -439,6 +437,4 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
 		return $fields;
 	}
-
 }
-

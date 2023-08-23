@@ -671,5 +671,4 @@ final class WPBDP {
 	public function get_db_version() {
 		return $this->_db_version;
 	}
-
 }

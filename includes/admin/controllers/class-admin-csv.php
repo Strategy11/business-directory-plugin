@@ -62,6 +62,4 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 		echo $output;
 		echo wpbdp_admin_footer();
 	}
-
 }
-

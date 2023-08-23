@@ -49,5 +49,4 @@ class WPBDP__Admin__Variable_Pricing_Configurator extends WPBDP__WP_Taxonomy_Ter
 
 		return $res;
 	}
-
 }

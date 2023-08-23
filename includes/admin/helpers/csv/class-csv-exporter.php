@@ -213,7 +213,7 @@ class WPBDP_CSVExporter {
 				fwrite( $csvfile, $this->prepare_content( $content ) );
 			}
 
-			$this->exported++;
+			++$this->exported;
 		}
 
 		fclose( $csvfile );

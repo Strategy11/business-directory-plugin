@@ -23,7 +23,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 			$title = _x( 'Search the Business Directory', 'widgets', 'business-directory-plugin' );
 		}
 
-		echo sprintf(
+		printf(
 			'<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
 			esc_attr( $this->get_field_id( 'title' ) ),
 			esc_html_x( 'Title:', 'widgets', 'business-directory-plugin' ),
@@ -35,7 +35,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 
 		echo _x( 'Form Style:', 'widgets', 'business-directory-plugin' );
 		echo '<br/>';
-		echo sprintf(
+		printf(
 			'<input id="%s" name="%s" type="radio" value="%s" %s/> <label for="%s">%s</label>',
 			esc_attr( $this->get_field_id( 'use_basic_form' ) ),
 			esc_attr( $this->get_field_name( 'form_mode' ) ),
@@ -45,7 +45,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 			esc_html_x( 'Basic', 'widgets', 'business-directory-plugin' )
 		);
 		echo '&nbsp;&nbsp;';
-		echo sprintf(
+		printf(
 			'<input id="%s" name="%s" type="radio" value="%s" %s/> <label for="%s">%s</label>',
 			esc_attr( $this->get_field_id( 'use_advanced_form' ) ),
 			esc_attr( $this->get_field_name( 'form_mode' ) ),
@@ -136,5 +136,4 @@ class WPBDP_SearchWidget extends WP_Widget {
 
 		wp_enqueue_style( 'wpbdp-base-css' );
 	}
-
 }

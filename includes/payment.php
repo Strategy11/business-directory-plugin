@@ -181,7 +181,6 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 
 			return 'pending';
 		}
-
-	}
+}
 
 }

@@ -40,7 +40,7 @@ if ( $validation_errors ) :
 
 	<p class="wpbdp-form-field">
 		<label for="wpbdp-contact-form-message"><?php esc_html_e( 'Message', 'business-directory-plugin' ); ?></label> <textarea id="wpbdp-contact-form-message" name="commentauthormessage" rows="4" class="intextarea">
-																  <?php
+																	<?php
 																	echo esc_textarea(
 																		wpbdp_get_var(
 																			array(

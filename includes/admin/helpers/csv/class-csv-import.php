@@ -114,9 +114,9 @@ class WPBDP_CSV_Import {
 			$line_data = str_getcsv( $line, $this->settings['csv-file-separator'] );
 
 			$file->next();
-			$n++;
+			++$n;
 			$this->current_line = $file->key();
-			$this->processed_lines++;
+			++$this->processed_lines;
 
 			if ( count( $line_data ) < 2 && empty( $line_data[0] ) ) {
 				continue;
@@ -133,7 +133,7 @@ class WPBDP_CSV_Import {
 					);
 				}
 
-				$this->rejected++;
+				++$this->rejected;
 				continue;
 			}
 
@@ -149,11 +149,11 @@ class WPBDP_CSV_Import {
 					);
 				}
 
-				$this->rejected++;
+				++$this->rejected;
 				continue;
 			}
 
-			$this->imported++;
+			++$this->imported;
 		}
 
 		$file = null;
@@ -358,7 +358,7 @@ class WPBDP_CSV_Import {
 		foreach ( $files as $file ) {
 			$uploaded_type = strtolower( pathinfo( $file['filename'], PATHINFO_EXTENSION ) );
 			if ( ! in_array( $uploaded_type, $allowed, true ) ) {
-				 @unlink( $file['filename'] );
+				@unlink( $file['filename'] );
 			}
 		}
 	}

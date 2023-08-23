@@ -205,5 +205,4 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
 		return $css_classes;
 	}
-
 }

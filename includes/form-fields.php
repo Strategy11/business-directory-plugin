@@ -804,7 +804,6 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 				/* translators: %1$s: field label, %2$d: max word count */
 				return WPBDP_ValidationError( sprintf( esc_html__( '%1$s must have less than %2$d words.', 'business-directory-plugin' ), esc_attr( $args['field-label'] ), $word_count ) );
 			}
-
 		}
 
 		private function any_of( $value, $args = array() ) {
@@ -812,7 +811,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 				$args,
 				array(
 					'values'    => array(),
-					'formatter' => function( $x ) {
+					'formatter' => function ( $x ) {
 						return join( ',', $x );
 					},
 				)
@@ -848,8 +847,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 				);
 			}
 		}
-
-	}
+}
 
 }
 

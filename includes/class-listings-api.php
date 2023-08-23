@@ -74,6 +74,5 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 
 			return 0;
 		}
-
-	}
+}
 }

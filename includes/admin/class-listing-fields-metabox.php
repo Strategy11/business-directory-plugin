@@ -86,4 +86,3 @@ class WPBDP_Admin_Listing_Fields_Metabox {
 		return $instance->render();
 	}
 }
-

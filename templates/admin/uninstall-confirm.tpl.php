@@ -38,7 +38,7 @@
 		<ul>
 			<li>
 				<?php
-				echo sprintf(
+				printf(
 					/* translators: %1$s: open link html, %2$s: close link html */
 					esc_html__( 'Go to %1$sPlugins > Installed Plugins%2$s', 'business-directory-plugin' ),
 					'<a href="' . esc_url( admin_url( 'plugins.php?plugin_status=active' ) ) . '">',
@@ -60,7 +60,7 @@
 			<li><?php esc_html_e( 'The plugin is now removed, but your data is still present inside of your database.', 'business-directory-plugin' ); ?></li>
 			<li>
 				<?php
-				echo sprintf(
+				printf(
 					/* translators: %1$s: open link html, %2$s: close link html */
 					esc_html__( 'You can reinstall the plugin again under %1$sPlugins > Add New%2$s', 'business-directory-plugin' ),
 					'<a href="' . esc_url( admin_url( 'plugin-install.php' ) ) . '">',

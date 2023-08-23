@@ -8,7 +8,7 @@
 	<?php else : ?>
 		<p><?php esc_html_e( 'You do not currently have any listings in the directory.', 'business-directory-plugin' ); ?></p>
 		<?php
-		echo sprintf(
+		printf(
 			'<a href="%s">%s</a>.',
 			esc_url( wpbdp_get_page_link( 'main' ) ),
 			esc_html__( 'Return to directory', 'business-directory-plugin' )

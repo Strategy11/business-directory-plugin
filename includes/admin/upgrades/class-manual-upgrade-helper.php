@@ -270,4 +270,3 @@ class WPBDP__Manual_Upgrade_Helper {
 		return empty( $this->manual_upgrades );
 	}
 }
-

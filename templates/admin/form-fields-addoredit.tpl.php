@@ -145,8 +145,8 @@ wpbdp_admin_notices();
 				<td>
 					<label>
 						<input name="field[validators][]"
-							   value="required"
-							   type="checkbox" <?php echo $field->is_required() ? 'checked="checked"' : ''; ?>/> <?php _ex( 'This field is required.', 'form-fields admin', 'business-directory-plugin' ); ?>
+								value="required"
+								type="checkbox" <?php echo $field->is_required() ? 'checked="checked"' : ''; ?>/> <?php _ex( 'This field is required.', 'form-fields admin', 'business-directory-plugin' ); ?>
 					</label>
 				</td>
 			</tr>
@@ -210,8 +210,8 @@ wpbdp_admin_notices();
 				<td>
 					<label>
 						<input name="field[display_flags][]"
-							   value="private"
-							   type="checkbox" <?php echo $field->display_in( 'private' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this field to admin users only in the edit listing view.', 'form-fields admin', 'business-directory-plugin' ); ?>
+								value="private"
+								type="checkbox" <?php echo $field->display_in( 'private' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this field to admin users only in the edit listing view.', 'form-fields admin', 'business-directory-plugin' ); ?>
 					</label>
 				</td>
 			</tr>
@@ -222,8 +222,8 @@ wpbdp_admin_notices();
 				<td>
 					<label>
 						<input name="field[display_flags][]"
-							   value="excerpt"
-							   type="checkbox" <?php echo $field->display_in( 'excerpt' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this value in post excerpt view.', 'form-fields admin', 'business-directory-plugin' ); ?>
+								value="excerpt"
+								type="checkbox" <?php echo $field->display_in( 'excerpt' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this value in post excerpt view.', 'form-fields admin', 'business-directory-plugin' ); ?>
 					</label>
 				</td>
 			</tr>
@@ -234,8 +234,8 @@ wpbdp_admin_notices();
 				<td>
 					<label>
 						<input name="field[display_flags][]"
-							   value="listing"
-							   type="checkbox" <?php echo $field->display_in( 'listing' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this value in the listing view.', 'form-fields admin', 'business-directory-plugin' ); ?>
+								value="listing"
+								type="checkbox" <?php echo $field->display_in( 'listing' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Display this value in the listing view.', 'form-fields admin', 'business-directory-plugin' ); ?>
 					</label>
 				</td>
 			</tr>
@@ -246,8 +246,8 @@ wpbdp_admin_notices();
 				<td>
 					<label>
 						<input name="field[display_flags][]"
-							   value="search"
-							   type="checkbox" <?php echo $field->display_in( 'search' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Include this field in the search form.', 'form-fields admin', 'business-directory-plugin' ); ?>
+								value="search"
+								type="checkbox" <?php echo $field->display_in( 'search' ) ? 'checked="checked"' : ''; ?>/> <?php _ex( 'Include this field in the search form.', 'form-fields admin', 'business-directory-plugin' ); ?>
 					</label>
 				</td>
 			</tr>
@@ -258,8 +258,8 @@ wpbdp_admin_notices();
 				<td>
 					<label>
 						<input name="field[validators][]"
-							   value="required-in-search"
-							   type="checkbox" <?php echo in_array( 'required-in-search', $field->get_validators() ) ? 'checked="checked"' : ''; ?>/>
+								value="required-in-search"
+								type="checkbox" <?php echo in_array( 'required-in-search', $field->get_validators() ) ? 'checked="checked"' : ''; ?>/>
 						<?php esc_html_e( 'Require this field on the Advanced Search screen.', 'business-directory-plugin' ); ?>
 					</label>
 				</td>
@@ -294,9 +294,9 @@ wpbdp_admin_notices();
 			<td>
 				<label>
 					<input name="field[display_flags][]"
-						   value="privacy"
-						   type="checkbox" <?php echo ( $field->is_privacy_field() || $field->has_display_flag( 'privacy' ) ) ? 'checked="checked"' : ''; ?>
-						   <?php echo $field->is_privacy_field() ? 'disabled' : ''; ?>
+							value="privacy"
+							type="checkbox" <?php echo ( $field->is_privacy_field() || $field->has_display_flag( 'privacy' ) ) ? 'checked="checked"' : ''; ?>
+							<?php echo $field->is_privacy_field() ? 'disabled' : ''; ?>
 					/> <?php _ex( 'Add this field when exporting or deleting user\'s personal data.', 'form-fields admin', 'business-directory-plugin' ); ?>
 				</label>
 			</td>

@@ -1005,4 +1005,3 @@ function wpbdp_add_template_dir( $dir_or_file ) {
 	global $wpbdp;
 	return $wpbdp->themes->add_template_dir( $dir_or_file );
 }
-

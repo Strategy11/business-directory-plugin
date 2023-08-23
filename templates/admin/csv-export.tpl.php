@@ -195,7 +195,7 @@ echo str_replace(
 	<div class="download-link">
 		<a href="" class="button button-primary">
 			<?php
-			echo sprintf(
+			printf(
 				_x( 'Download %1$s (%2$s)', 'admin csv-export', 'business-directory-plugin' ),
 				'<span class="filename"></span>',
 				'<span class="filesize"></span>'

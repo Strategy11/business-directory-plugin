@@ -793,7 +793,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$weight = count( $order ) - 1;
 			foreach ( $order as $fee_id ) {
 				$wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => $fee_id ) );
-				$weight--;
+				--$weight;
 			}
 
 			$response->send();

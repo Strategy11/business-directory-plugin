@@ -312,5 +312,4 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		}
 		return $this->_redirect( 'index' );
 	}
-
 }

@@ -218,7 +218,6 @@ class WPBDP_Debugging {
 	public static function log( $msg, $type = 'info' ) {
 		self::add_debug_msg( $msg, sprintf( 'log-%s', $type ), debug_backtrace() );
 	}
-
 }
 
 function wpbdp_log( $msg, $type = 'info' ) {
@@ -238,4 +237,3 @@ function wpbdp_debug_e() {
 	$args = func_get_args();
 	call_user_func_array( array( 'WPBDP_Debugging', 'debug_e' ), $args );
 }
-
