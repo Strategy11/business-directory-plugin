@@ -31,7 +31,7 @@
 		}
 	},
 	"scripts": {
-		"format": "phpcbf --standard=WordPress --report-summary --report-source",
-		"lint": "phpcs --standard=WordPress"
+		"format": "phpcbf --standard=phpcs.xml --report-summary --report-source",
+		"lint": "phpcs --standard=phpcs.xml"
 	}
 }
