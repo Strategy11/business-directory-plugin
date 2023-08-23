@@ -54,7 +54,6 @@
 		<exclude name="Squiz.PHP.EmbeddedPhp.NoSemicolon" />
 
 		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
-		<exclude name="WordPress.Arrays.CommaAfterArrayItem" />
 		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed" />
 		<exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited" />
 		<exclude name="Squiz.Scope.MethodScope.Missing" />
