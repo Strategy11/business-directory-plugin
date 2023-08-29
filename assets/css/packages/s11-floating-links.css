@@ -9,8 +9,8 @@
 
 .s11-floating-links {
 	position: fixed;
-	right: 48px;
-	bottom: 48px;
+	right: 20px;
+	bottom: 20px;
 	z-index: 1000;
 	display: none;
 	flex-direction: column;
