@@ -13,6 +13,8 @@ class WPBDP__Views__Search extends WPBDP__View {
 
 	public function dispatch() {
 		$searching = ( ! empty( $_GET ) && ( ! empty( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
+		$handler =  wpbdp_get_var( array( 'param' => 'handler' ), 'post' );
+		$wpbdp_ajax_search_modal =  isset( $handler ) && 'search__get_search_content' === $handler;
 		$searching = apply_filters( 'wpbdp_searching_request', $searching );
 		$search    = null;
 		$redirect  = ! $searching && isset( $_GET['kw'] ) && 'none' === wpbdp_get_option( 'search-form-in-results' );
@@ -57,7 +59,9 @@ class WPBDP__Views__Search extends WPBDP__View {
 		$fields      = '<div class="wpbdp-form-fields">';
 		foreach ( $form_fields as &$field ) {
 			$field_value = null;
-
+			if( $wpbdp_ajax_search_modal ){
+				$field_value = $field->value_from_POST();
+			}
 			if ( $search ) {
 				$terms = $search->get_original_search_terms_for_field( $field );
 
