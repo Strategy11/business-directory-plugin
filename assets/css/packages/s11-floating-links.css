@@ -18,6 +18,10 @@
 	gap: 16px;
 }
 
+.s11-svg-wrapper {
+	display: flex;
+}
+
 .s11-floating-links.s11-fadein,
 .s11-floating-links.s11-fading {
 	display: flex;
