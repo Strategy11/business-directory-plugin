@@ -55,13 +55,13 @@ class WPBDP__Views__Search extends WPBDP__View {
 			}
 		}
 
+		if( $wpbdp_ajax_search_modal ){
+			$search = WPBDP__Listing_Search::from_request( $_POST );
+		}
 		$search_form = '';
 		$fields      = '<div class="wpbdp-form-fields">';
 		foreach ( $form_fields as &$field ) {
 			$field_value = null;
-			if( $wpbdp_ajax_search_modal ){
-				$field_value = $field->value_from_POST();
-			}
 			if ( $search ) {
 				$terms = $search->get_original_search_terms_for_field( $field );
 
