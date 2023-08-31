@@ -2229,3 +2229,8 @@ function wpbdp_add_template_dir( $dir_or_file ) {
 	global $wpbdp;
 	return $wpbdp->themes->add_template_dir( $dir_or_file );
 }
+
+function wpbdp_admin_message( $msg, $kind = '', $extra = array() ) {
+	global $wpbdp;
+	$wpbdp->admin->messages[] = ( $kind || $extra ) ? array( $msg, $kind, $extra ) : $msg;
+}
