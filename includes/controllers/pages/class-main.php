@@ -17,9 +17,9 @@ class WPBDP__Views__Main extends WPBDP__View {
 			}
 		}
 
-		if ( current_user_can( 'administrator' ) && wpbdp_get_option( 'hide-empty-categories' ) ) {
+		if ( current_user_is_admin() && wpbdp_get_option( 'hide-empty-categories' ) ) {
 			$has_cats  = (float) $cat_count > 0;
-			$empty_cat = (float) wp_count_terms( WPBDP_CATEGORY_TAX, 'hide_empty=1' ) == 0;
+			$empty_cat = (float) wp_count_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => true ) ) == 0;
 
 			if ( ! $has_cats || ! $empty_cat ) {
 				return;
