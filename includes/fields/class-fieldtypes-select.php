@@ -116,7 +116,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			if ( ( 'submit' === $context || 'search' === $context ) && ! $this->is_multiple() ) {
 				$args['show_option_none'] = esc_html__( '-- Choose One --', 'business-directory-plugin' );
 
-				$terms_count = (int) wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
+				$terms_count = (int) wp_count_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => false ) );
 
 				if ( 'submit' == $context ) {
 					$args['option_none_value'] = '';
