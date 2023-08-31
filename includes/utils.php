@@ -3,7 +3,7 @@
  * @package WPBDP
  */
 
-require_once WPBDP_INC . 'helpers/functions/debug.php';
+require_once WPBDP_INC . 'debugging.php';
 require_once WPBDP_INC . 'helpers/class-database-helper.php';
 require_once WPBDP_INC . 'helpers/class-email.php';
 require_once WPBDP_INC . 'compatibility/class-ajax-response.php';
