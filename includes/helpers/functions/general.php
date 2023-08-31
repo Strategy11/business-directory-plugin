@@ -344,7 +344,7 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 			break;
 		case 'edit':
 		case 'delete':
-			$res = user_can( $user_id, 'administrator' );
+			$res = user_can( $user_id, 'manage_options' );
 			$res = $res || ( $user_id && $post->post_author && $post->post_author == $user_id );
 			$res = $res || ( ! $user_id && wpbdp_get_option( 'enable-key-access' ) );
 			break;
@@ -897,7 +897,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
 			if ( $categories && ! $plan->supports_category_selection( $categories ) ) {
 				continue;
 			}
-			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'administrator' ) ) {
+			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'manage_options' ) ) {
 				continue;
 			}
 			$plans[] = $plan;
@@ -1308,4 +1308,13 @@ function wpbdp_users_dropdown() {
 	}
 
 	return $res;
+}
+
+/**
+ * Check if user is admin.
+ *
+ * @return bool Whether user is admin.
+ */
+function current_user_is_admin() {
+ 	return current_user_can( 'manage_options' );
 }
