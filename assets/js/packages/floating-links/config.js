@@ -6,6 +6,14 @@
  */
 
 ( ( wp ) => {
+
+	/**
+	 * Global variables
+	 *
+	 * Varraibles: s11FloatingLinksData
+	 */
+	const { proIsInstalled, navLinks } = s11FloatingLinksData;
+
 	/**
 	 * WordPress dependencies
 	 */
@@ -50,19 +58,19 @@
 		{
 			title: __( 'Upgrade', 'business-directory-plugin' ),
 			icon: upgradeIcon,
-			url: 'https://businessdirectoryplugin.com/lite-upgrade/',
+			url: navLinks.freeVersion.upgrade,
 			openInNewTab: true,
 		},
 		{
 			title: __( 'Support', 'business-directory-plugin' ),
 			icon: supportIcon,
-			url: 'https://wordpress.org/support/plugin/business-directory-plugin/',
+			url: navLinks.freeVersion.support,
 			openInNewTab: true,
 		},
 		{
 			title: __( 'Documentation', 'business-directory-plugin' ),
 			icon: documentationIcon,
-			url: 'https://businessdirectoryplugin.com/get-help/',
+			url: navLinks.freeVersion.documentation,
 			openInNewTab: true,
 		},
 		{
@@ -81,7 +89,7 @@
 		{
 			title: __( 'Support & Docs', 'business-directory-plugin' ),
 			icon: supportIcon,
-			url: 'https://businessdirectoryplugin.com/get-help/',
+			url: navLinks.proVersion.support_and_docs,
 			openInNewTab: true,
 		},
 		{
@@ -97,10 +105,11 @@
 	 * Define options
 	 */
 	const options = {
-		hoverColor: '#3F4B5B',
-		bgHoverColor: '#EAEDF1',
+		color: 'rgba(60,75,93,0.8)',
+		hoverColor: '#3C4B5D',
+		bgHoverColor: 'rgba(109,135,185,0.07)',
 		logoIcon: `
-		<svg width="31" height="40" viewBox="0 0 31 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg width="35" height="46" viewBox="0 0 31 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path fill-rule="evenodd" clip-rule="evenodd" d="M23.695 27.5657C25.6806 27.1617 27.2711 26.2678 28.7502 24.6364C27.4433 26.9799 25.7262 27.788 23.695 27.5657ZM7.30346 27.5657C5.31784 27.1617 3.72731 26.2678 2.24316 24.6364C3.55509 26.9799 5.27225 27.788 7.30346 27.5657Z" fill="#566982"/>
 			<path fill-rule="evenodd" clip-rule="evenodd" d="M10.3279 26.389C6.94428 26.6314 2.11699 23.5658 1.44836 21.1718C1.23562 20.4092 2.00049 20.2779 2.66405 20.5052C5.32336 21.4345 7.79019 21.4042 10.2469 22.0355C12.1515 22.5254 12.9011 26.2021 10.3279 26.389Z" fill="#3F4B5B"/>
 			<path fill-rule="evenodd" clip-rule="evenodd" d="M20.6717 26.3889C24.0503 26.6313 28.8826 23.5657 29.5513 21.1717C29.764 20.4091 28.9941 20.2778 28.3356 20.5051C25.6813 21.4344 23.2094 21.4041 20.7578 22.0354C18.8431 22.5253 18.0985 26.202 20.6717 26.3889Z" fill="#3F4B5B"/>
@@ -136,7 +145,7 @@
 	};
 
 	// Determine the appropriate links and initialize the S11FloatingLinks class
-	const links = s11FloatingLinksData.proIsInstalled
+	const links = proIsInstalled
 		? proVersionLinks
 		: freeVersionLinks;
 

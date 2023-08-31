@@ -22,6 +22,11 @@
 	display: flex;
 }
 
+.s11-svg-wrapper svg {
+	fill: currentColor;
+	color: var(--floating-links-color);
+}
+
 .s11-floating-links.s11-fadein,
 .s11-floating-links.s11-fading {
 	display: flex;
@@ -97,7 +102,7 @@
 .s11-floating-links-nav-text {
 	font-size: 0.875rem;
 	line-height: 1.25rem;
-	color: #1D2939;
+	color: var(--floating-links-color);
 	font-weight: 500;
 	z-index: 2;
 	transition: color 240ms ease-out;

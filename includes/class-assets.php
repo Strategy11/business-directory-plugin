@@ -503,10 +503,6 @@ class WPBDP__Assets {
 			// If any required parameters are missing, exit early.
 			return;
 		}
-
-		// Enqueue the Floating Links styles.
-		wp_enqueue_style( 's11-floating-links', $plugin_url . '/css/packages/s11-floating-links.css', array(), $version );
-
 		// Enqueue the Floating Links scripts.
 		wp_enqueue_script( 's11-floating-links-notifications', $plugin_url . '/js/packages/floating-links/s11-floating-links-notifications.js', array(), $version, true );
 		wp_enqueue_script( 's11-floating-links', $plugin_url . '/js/packages/floating-links/s11-floating-links.js', array(), $version, true );
@@ -515,7 +511,17 @@ class WPBDP__Assets {
 		wp_enqueue_script( 's11-floating-links-config', $plugin_url . '/js/packages/floating-links/config.js', array( 'wp-i18n', 'wpbdp-admin-js' ), $version, true );
 		wp_set_script_translations( 's11-floating-links-config', 's11-' );
 		$floating_links_data = array(
-			'proIsInstalled' => WPBDP_Admin_Education::is_installed( 'premium' ),
+			'navLinks'         => array(
+				'freeVersion' => array(
+					'upgrade'       => wpbdp_admin_upgrade_link( 'floating-links' ),
+					'support'       => 'https://wordpress.org/support/plugin/business-directory-plugin/',
+					'documentation' => wpbdp_admin_upgrade_link( 'floating-links', 'get-help/' ),
+				),
+				'proVersion'  => array(
+					'support_and_docs' => wpbdp_admin_upgrade_link( 'floating-links', 'get-help/' ),
+				),
+			),
+			'proIsInstalled'   => WPBDP_Admin_Education::is_installed( 'premium' ),
 		);
 		wp_localize_script( 's11-floating-links-config', 's11FloatingLinksData', $floating_links_data );
 	}

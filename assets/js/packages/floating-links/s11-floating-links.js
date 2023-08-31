@@ -153,7 +153,7 @@ class S11FloatingLinks {
 		// Define close icon
 		this.closeIcon = `
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 32 32">
-				<path fill="#1D2939" d="M23.625 21.957c.47.467.47 1.225 0 1.693a1.205 1.205 0 0 1-1.699 0l-5.915-5.937-5.958 5.935c-.47.467-1.23.467-1.7 0a1.194 1.194 0 0 1 0-1.693l5.96-5.933-5.961-5.979a1.194 1.194 0 0 1 0-1.693 1.205 1.205 0 0 1 1.699 0l5.96 5.982 5.957-5.935a1.205 1.205 0 0 1 1.7 0 1.194 1.194 0 0 1 0 1.693l-5.96 5.932 5.917 5.935Z"/>
+				<path fill="currentColor" d="M23.625 21.957c.47.467.47 1.225 0 1.693a1.205 1.205 0 0 1-1.699 0l-5.915-5.937-5.958 5.935c-.47.467-1.23.467-1.7 0a1.194 1.194 0 0 1 0-1.693l5.96-5.933-5.961-5.979a1.194 1.194 0 0 1 0-1.693 1.205 1.205 0 0 1 1.699 0l5.96 5.982 5.957-5.935a1.205 1.205 0 0 1 1.7 0 1.194 1.194 0 0 1 0 1.693l-5.96 5.932 5.917 5.935Z"/>
 			</svg>
 		`;
 
@@ -281,10 +281,12 @@ class S11FloatingLinks {
 	 * @memberof S11FloatingLinks
 	 */
 	setCSSVariables() {
-		const hoverColor = this.options?.hoverColor ? this.options.hoverColor : '#4199FD';
-		const bgHoverColor = this.options?.bgHoverColor ? this.options.bgHoverColor : '#F5FAFF';
+		const color = this.options?.color ? this.options.color : 'rgba(60,75,93,0.8)';
+		const hoverColor = this.options?.hoverColor ? this.options.hoverColor : '#3C4B5D';
+		const bgHoverColor = this.options?.bgHoverColor ? this.options.bgHoverColor : 'rgba(109,135,185,0.07)';
 
 		// Set the CSS variables on the wrapper element
+		this.wrapperElement.style.setProperty( '--floating-links-color', color );
 		this.wrapperElement.style.setProperty( '--floating-links-hover-color', hoverColor );
 		this.wrapperElement.style.setProperty( '--floating-links-bg-hover-color', bgHoverColor );
 	}
