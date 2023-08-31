@@ -57,7 +57,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 	}
 
 	public function remove_expired_listings_title_links( $value, $listing_id, $field ) {
-		if ( 'title' !== $field->get_association() || current_user_can( 'administrator' ) ) {
+		if ( 'title' !== $field->get_association() || current_user_is_admin() ) {
 			return $value;
 		}
 
@@ -72,7 +72,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 	}
 
 	public function maybe_remove_listing_buttons( $res, $listing_id, $user_id ) {
-		if ( current_user_can( 'administrator' ) ) {
+		if ( current_user_is_admin() ) {
 			return $res;
 		}
 
