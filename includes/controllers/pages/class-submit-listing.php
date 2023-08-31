@@ -78,7 +78,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				'categoriesPlaceholderTxt' => _x( 'Click this field to add categories', 'submit listing', 'business-directory-plugin' ),
 				'completeListingTxt'       => _x( 'Complete Listing', 'submit listing', 'business-directory-plugin' ),
 				'continueToPaymentTxt'     => _x( 'Continue to Payment', 'submit listing', 'business-directory-plugin' ),
-				'isAdmin'                  => current_user_can( 'administrator' ),
+				'isAdmin'                  => current_user_is_admin(),
 				'waitAMoment'              => _x( 'Please wait a moment!', 'submit listing', 'business-directory-plugin' ),
 				'somethingWentWrong'       => _x( 'Something went wrong!', 'submit listing', 'business-directory-plugin' ),
 			)
@@ -165,7 +165,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		if ( $this->editing && ! $this->listing->has_fee_plan() ) {
-			if ( current_user_can( 'administrator' ) ) {
+			if ( current_user_is_admin() ) {
 				return wpbdp_render_msg(
 					str_replace(
 						'<a>',
@@ -244,7 +244,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				'listing'  => $this->listing,
 				'sections' => $this->sections,
 				'messages' => $this->prepare_messages(),
-				'is_admin' => current_user_can( 'administrator' ),
+				'is_admin' => current_user_is_admin(),
 				'editing'  => $this->editing,
 				'submit'   => $this,
 			),
@@ -257,7 +257,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * @return array
 	 */
 	private function prepare_messages() {
-		if ( current_user_can( 'administrator' ) ) {
+		if ( current_user_is_admin() ) {
 			$this->messages( _x( 'You\'re logged in as admin, payment will be skipped.', 'submit listing', 'business-directory-plugin' ), 'notice', 'general' );
 		}
 
@@ -327,7 +327,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * @return bool
 	 */
 	private function can_view_receipt() {
-		if ( current_user_can( 'administrator' ) ) {
+		if ( current_user_is_admin() ) {
 			return true;
 		}
 
@@ -462,7 +462,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 					'listing'  => $this->listing,
 					'section'  => $section,
 					'messages' => $messages_html,
-					'is_admin' => current_user_can( 'administrator' ),
+					'is_admin' => current_user_is_admin(),
 					'submit'   => $this,
 					'editing'  => $this->editing,
 				)
@@ -524,7 +524,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		if ( 'submit_listing' === wpbdp_current_view() && wpbdp_get_option( 'disable-submit-listing' ) ) {
-			if ( current_user_can( 'administrator' ) ) {
+			if ( current_user_is_admin() ) {
 				$msg = _x( '<b>View not available</b>. Do you have the "Disable Frontend Listing Submission?" setting checked?', 'templates', 'business-directory-plugin' );
 			} else {
 				$msg = _x( 'Listing submission has been disabled. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
@@ -1022,7 +1022,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		if ( ! $plans && ! $this->editing ) {
 			$msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
-			if ( current_user_can( 'administrator' ) ) {
+			if ( current_user_is_admin() ) {
 				$msg .= '<br><br>';
 				$msg .= _x( '<b>There are no Plans available</b>, without a plan site users can\'t submit a listing. %s to create a plan', 'templates', 'business-directory-plugin' );
 
@@ -1040,7 +1040,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
 
-		if ( current_user_can( 'administrator' ) ) {
+		if ( current_user_is_admin() ) {
 			$msg = _x( '<b>View not available</b>, there is no "Category" association field. %s and create a new field with this association, or assign this association to an existing field', 'templates', 'business-directory-plugin' );
 
 			$msg = sprintf(
@@ -1168,7 +1168,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			return;
 		}
 
-		$this->category_count = (int) wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
+		$this->category_count = (int) wp_count_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => false ) );
 
 		if ( 1 !== $this->category_count ) {
 			return;
@@ -1650,7 +1650,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 			$payment->context = is_admin() ? 'admin-submit' : 'submit';
 			$payment->save();
-			if ( current_user_can( 'administrator' ) ) {
+			if ( current_user_is_admin() ) {
 				$payment->process_as_admin();
 				$this->listing->set_flag( 'admin-posted' );
 			}
