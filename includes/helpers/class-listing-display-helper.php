@@ -442,5 +442,7 @@ class WPBDP_Listing_Display_Helper {
 /**
  * @since 4.0
  */
+/* This class is ????. */
+// phpcs:ignore
 class _WPBDP_Listing_Display_Image {
 }
