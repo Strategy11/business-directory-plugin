@@ -98,22 +98,21 @@ class WPBDP_Form_Field {
 			// $options [ $k ] = $term->name;
 			// }
 			// $this->field_data['options'] = $options;
-		} else {
+		} elseif ( isset( $attrs['field_data'] ) && isset( $attrs['field_data']['options'] ) ) {
 			// handle some special extra data from previous BD versions
 			// TODO: this is not needed anymore since the 3.2 upgrade routine
-			if ( isset( $attrs['field_data'] ) && isset( $attrs['field_data']['options'] ) ) {
+
 				$options = array();
 
 				foreach ( $attrs['field_data']['options'] as $option_value ) {
-					if ( is_array( $option_value ) ) {
-						$options[ $option_value[0] ] = $option_value[1];
+				if ( is_array( $option_value ) ) {
+					$options[ $option_value[0] ] = $option_value[1];
 					} else {
-						$options[ $option_value ] = $option_value;
+					$options[ $option_value ] = $option_value;
 					}
 				}
 
 				$this->field_data['options'] = $options;
-			}
 		}
 
 		$this->type->setup_field( $this );
@@ -577,7 +576,7 @@ class WPBDP_Form_Field {
 			return '';
 		}
 
-		if ( $this->has_display_flag( 'private' ) && ! current_user_can( 'administrator' ) ) {
+		if ( $this->has_display_flag( 'private' ) && ! current_user_is_admin() ) {
 			return '';
 		}
 
@@ -611,7 +610,7 @@ class WPBDP_Form_Field {
 			return '';
 		}
 
-		if ( $this->has_display_flag( 'private' ) && ! current_user_can( 'administrator' ) ) {
+		if ( $this->has_display_flag( 'private' ) && ! current_user_is_admin() ) {
 			return '';
 		}
 
@@ -1083,6 +1082,7 @@ class WPBDP_Form_Field {
 /**
  * @deprecated Since 3.4.2. Use {@link WPBDP_Form_Field} instead.
  */
+// phpcs:ignore
 class WPBDP_FormField extends WPBDP_Form_Field {
 	public function __construct( $attrs = array() ) {
 		_deprecated_constructor( __CLASS__, '3.4.2', 'WPBDP_Form_Field' );
