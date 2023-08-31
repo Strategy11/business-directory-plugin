@@ -118,7 +118,7 @@ if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
 				$data['taxonomies'][ $tax->name ] = array(
 					'name'  => $tax->name,
 					'label' => $tax->label,
-					'terms' => intval( wp_count_terms( $tax->name, array( 'hide_empty' => 0 ) ) ),
+					'terms' => intval( wp_count_terms( array( 'taxonomy' => $tax->name, 'hide_empty' => 0 ) ) ),
 				);
 			}
 
