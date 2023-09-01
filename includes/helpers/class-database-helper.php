@@ -9,10 +9,6 @@
  * @since 4.1.8
  */
 
-function wpbdp_database_helper() {
-	return new WPBDP_Database_Helper( $GLOBALS['wpdb'] );
-}
-
 class WPBDP_Database_Helper {
 
 	private $db;
@@ -48,4 +44,9 @@ class WPBDP_Database_Helper {
 
 		return $collate ? $collate : 'utf8_general_ci';
 	}
+}
+/* not sure where to move this */
+// phpcs:ignore
+function wpbdp_database_helper() {
+	return new WPBDP_Database_Helper( $GLOBALS['wpdb'] );
 }
