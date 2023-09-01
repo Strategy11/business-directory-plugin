@@ -49,7 +49,7 @@ class WPBDP_CSVImportAdmin {
 	function ajax_csv_import() {
 		global $wpbdp;
 
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			die();
 		}
 
