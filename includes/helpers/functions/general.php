@@ -1324,7 +1324,7 @@ function current_user_is_admin() {
  *
  * @return bool Whether user has the role.
  */
-function current_user_has_role( $role ){
+function current_user_has_role( $role ) {
 	$user = wp_get_current_user();
 	return in_array( $role, $user->roles );
 }
