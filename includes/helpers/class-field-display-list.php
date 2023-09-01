@@ -291,6 +291,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 /**
  * @since 4.0
  */
+// phpcs:ignore
 class _WPBDP_Lightweight_Field_Display_Item {
 
 	public $field       = null;
