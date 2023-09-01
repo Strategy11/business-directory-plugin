@@ -665,6 +665,7 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 /*
  * @param bool|string Use 'echo' or true to show the footer.
  */
+ // phpcs:ignore
 function wpbdp_admin_footer( $echo = false ) {
 	if ( ! $echo ) {
 		ob_start();
