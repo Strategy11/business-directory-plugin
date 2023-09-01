@@ -233,7 +233,7 @@ class WPBDP_App_Helper {
 	 * @return false|string The permission message or false if allowed
 	 */
 	public static function permission_nonce_error( $permission, $atts = array() ) {
-		if ( ! empty( $permission ) && ! current_user_can( $permission ) && ! current_user_can( 'administrator' ) ) {
+		if ( ! empty( $permission ) && ! current_user_can( $permission ) && ! current_user_can( 'manage_options' ) ) {
 			return esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' );
 		}
 
