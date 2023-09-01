@@ -1320,6 +1320,16 @@ function current_user_is_admin() {
 }
 
 /**
+ * Check if user has specific role.
+ *
+ * @return bool Whether user has the role.
+ */
+function current_user_has_role( $role ){
+	$user = wp_get_current_user();
+	return in_array( $role, $user->roles );
+}
+
+/**
  * Restructures multidimensional $_FILES arrays into one key-based array per file.
  * Single-file arrays are returned as an array of one item for consistency.
  *
