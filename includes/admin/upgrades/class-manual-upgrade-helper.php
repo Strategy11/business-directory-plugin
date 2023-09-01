@@ -81,7 +81,7 @@ class WPBDP__Manual_Upgrade_Helper {
 			return;
 		}
 
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
@@ -109,7 +109,7 @@ class WPBDP__Manual_Upgrade_Helper {
 			'options.php',
 			__( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
 			__( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
-			'administrator',
+			'manage_options',
 			'wpbdp-upgrade-page',
 			array( &$this, 'upgrade_page' )
 		);
@@ -208,7 +208,7 @@ class WPBDP__Manual_Upgrade_Helper {
 	/* Ajax Handlers */
 
 	public function handle_ajax() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
