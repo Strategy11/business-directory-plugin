@@ -42,7 +42,7 @@ class WPBDP_Themes_Admin {
 			$slug,
 			_x( 'Directory Themes', 'themes', 'business-directory-plugin' ),
 			__( 'Themes', 'business-directory-plugin' ) . $count_html,
-			'administrator',
+			'manage_options',
 			'wpbdp-themes',
 			array( &$this, 'dispatch' )
 		);
@@ -92,7 +92,7 @@ class WPBDP_Themes_Admin {
 	}
 
 	function set_active_theme() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_is_admin() ) {
 			wp_die();
 		}
 
@@ -111,7 +111,7 @@ class WPBDP_Themes_Admin {
 	}
 
 	function create_suggested_fields() {
-		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ) ), 'create_suggested_fields' ) ) {
+		if ( ! current_user_is_admin() || ! wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ) ), 'create_suggested_fields' ) ) {
 			wp_die();
 		}
 
@@ -224,7 +224,7 @@ class WPBDP_Themes_Admin {
 	function upload_theme() {
 		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
-		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'upload theme zip' ) ) {
+		if ( ! current_user_is_admin() || ! wp_verify_nonce( $nonce, 'upload theme zip' ) ) {
 			wp_die();
 		}
 
@@ -292,7 +292,7 @@ class WPBDP_Themes_Admin {
 		$theme_id = wpbdp_get_var( array( 'param' => 'theme_id' ), 'post' );
 		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
-		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'delete theme ' . $theme_id ) ) {
+		if ( ! current_user_is_admin() || ! wp_verify_nonce( $nonce, 'delete theme ' . $theme_id ) ) {
 			wp_die();
 		}
 
@@ -362,7 +362,7 @@ class WPBDP_Themes_Admin {
 		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 		$theme_id = wpbdp_get_var( array( 'param' => 'theme' ), 'request' );
 
-		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'update theme ' . $theme_id ) ) {
+		if ( ! current_user_is_admin() || ! wp_verify_nonce( $nonce, 'update theme ' . $theme_id ) ) {
 			die();
 		}
 
