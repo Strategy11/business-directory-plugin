@@ -375,8 +375,8 @@ class WPBDP_Admin_Listings {
 	// }}}
 	// {{{ List views.
 	function listing_views( $views ) {
-		if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
-			if ( current_user_can( 'contributor' ) && isset( $views['mine'] ) ) {
+		if ( ! current_user_is_admin() && ! current_user_has_role( 'editor' ) ) {
+			if ( current_user_has_role( 'contributor' ) && isset( $views['mine'] ) ) {
 				return array( $views['mine'] );
 			}
 
@@ -492,7 +492,7 @@ class WPBDP_Admin_Listings {
 			return $actions;
 		}
 
-		if ( current_user_can( 'contributor' ) && ! current_user_can( 'administrator' ) ) {
+		if ( current_user_has_role( 'contributor' ) && ! current_user_is_admin() ) {
 			if ( wpbdp_user_can( 'edit', $post->ID ) ) {
 				$actions['edit'] = sprintf(
 					'<a href="%s">%s</a>',
@@ -506,7 +506,7 @@ class WPBDP_Admin_Listings {
 			}
 		}
 
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_is_admin() ) {
 			return $actions;
 		}
 
@@ -652,7 +652,7 @@ class WPBDP_Admin_Listings {
 	}
 
 	public function _add_bulk_actions() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_is_admin() ) {
 			return;
 		}
 
@@ -707,7 +707,7 @@ class WPBDP_Admin_Listings {
 	public function _fix_new_links() {
 		// 'contributors' should still use the frontend to add listings (editors, authors and admins are allowed to add things directly)
 		// XXX: this is kind of hacky but is the best we can do atm, there aren't hooks to change add links
-		if ( current_user_can( 'contributor' ) && isset( $_GET['post_type'] ) && $_GET['post_type'] == WPBDP_POST_TYPE ) {
+		if ( current_user_has_role( 'contributor' ) && isset( $_GET['post_type'] ) && $_GET['post_type'] == WPBDP_POST_TYPE ) {
 			echo '<script>';
 			printf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', wpbdp_get_page_link( 'add-listing' ) );
 			echo '</script>';
