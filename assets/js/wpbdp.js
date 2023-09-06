@@ -526,7 +526,6 @@ WPBDP.fileUpload = {
 		$body.append( '<div class="wpbdp-loader-wrapper"><span class="wpbdp-spinner"></span></div>' );
 		var search = location.search.substring(1);
 		var qs = parse_query_string(search);
-		console.log(qs);
 		qs.action = "wpbdp_ajax";
 		qs.handler = "search__get_search_content";
 		$.ajax( wpbdp_global.ajaxurl, {
@@ -537,7 +536,7 @@ WPBDP.fileUpload = {
 					.addClass( 'wpbdp-modal' )
 					.appendTo( $body );
 
-				//addCurrentSearch();
+				showResetBtn();
 
 				$html.addClass( openClass );
 				$body.find( '.wpbdp-loader-wrapper' ).remove();
@@ -545,7 +544,7 @@ WPBDP.fileUpload = {
 		});
 	} );
 
-	function addCurrentSearch() {
+	function showResetBtn() {
 		var data, showReset,
 			searchTerms = document.getElementById( 'wpdbp-searched-terms' );
 		if ( ! searchTerms ) {
@@ -559,7 +558,6 @@ WPBDP.fileUpload = {
 			if ( data.hasOwnProperty( key ) ) {
 				var input = $( '[name="listingfields[' + key + ']"]' );
 				if ( input.length > 0 ) {
-					//input.val( data[ key ] );
 					showReset = true;
 				}
 			}
@@ -575,7 +573,9 @@ WPBDP.fileUpload = {
 
 	$( document ).on( 'click', '#wpbdp-search-form .reset', function(e) {
 		e.preventDefault();
-		$( '#wpbdp-search-form [name^="listingfields"]' ).val('');
+		$( '#wpbdp-search-form [name^="listingfields"][type!="radio"][type!="checkbox"]' ).val('');
+		$( '#wpbdp-search-form [type="radio"]' ).attr('checked', false);
+		$( '#wpbdp-search-form [type="checkbox"]' ).attr('checked', false);
 	} );
 
 } )( jQuery );
