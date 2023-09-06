@@ -9,3 +9,4 @@ languages/*
 themes/**/*min*
 Gruntfile.js
 assets/js/wpbdp.js
+assets/js/packages

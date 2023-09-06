@@ -353,6 +353,9 @@ class WPBDP__Assets {
 		wp_enqueue_script( 'wpbdp-admin-js', WPBDP_ASSETS_URL . 'js/admin' . $min . '.js', array( 'jquery', 'thickbox', 'jquery-ui-sortable', 'jquery-ui-dialog', 'jquery-ui-tooltip' ), WPBDP_VERSION, true );
 		$this->global_localize( 'wpbdp-admin-js' );
 
+		// Enqueue Floating Links.
+		self::enqueue_floating_links( WPBDP_ASSETS_URL, WPBDP_VERSION );
+
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector' . $min . '.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 
 		wp_enqueue_style( 'wpbdp-js-select2-css' );
@@ -484,5 +487,42 @@ class WPBDP__Assets {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Handles Floating Links' scripts and styles enqueueing.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $plugin_url URL of the plugin.
+	 * @param string $version Current version of the plugin.
+	 * @return void
+	 */
+	private static function enqueue_floating_links( $plugin_url, $version ) {
+		if ( ! $plugin_url || ! $version ) {
+			// If any required parameters are missing, exit early.
+			return;
+		}
+		// Enqueue the Floating Links scripts.
+		wp_enqueue_script( 's11-floating-links-notifications', $plugin_url . '/js/packages/floating-links/s11-floating-links-notifications.js', array(), $version, true );
+		wp_enqueue_script( 's11-floating-links', $plugin_url . '/js/packages/floating-links/s11-floating-links.js', array(), $version, true );
+
+		// Enqueue the config script.
+		wp_enqueue_script( 's11-floating-links-config', $plugin_url . '/js/packages/floating-links/config.js', array( 'wp-i18n', 'wpbdp-admin-js' ), $version, true );
+		wp_set_script_translations( 's11-floating-links-config', 's11-' );
+		$floating_links_data = array(
+			'navLinks'         => array(
+				'freeVersion' => array(
+					'upgrade'       => wpbdp_admin_upgrade_link( 'floating-links' ),
+					'support'       => 'https://wordpress.org/support/plugin/business-directory-plugin/',
+					'documentation' => wpbdp_admin_upgrade_link( 'floating-links', 'get-help/' ),
+				),
+				'proVersion'  => array(
+					'support_and_docs' => wpbdp_admin_upgrade_link( 'floating-links', 'get-help/' ),
+				),
+			),
+			'proIsInstalled'   => WPBDP_Admin_Education::is_installed( 'premium' ),
+		);
+		wp_localize_script( 's11-floating-links-config', 's11FloatingLinksData', $floating_links_data );
 	}
 }
