@@ -44,7 +44,7 @@ class WPBDP_Themes {
 			$this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
 		}
 
-		$this->check_theme_requiered_version();
+		$this->check_theme_required_version();
 	}
 
 	/**
@@ -972,7 +972,7 @@ class WPBDP_Themes {
 	 *
 	 * @returns {void}
 	 */
-	private function check_theme_requiered_version() {
+	private function check_theme_required_version() {
 		$theme_requires = $this->get_active_theme_data()->requires;
 		if ( defined( 'WPBDP_VERSION' ) && $theme_requires && version_compare( WPBDP_VERSION, $theme_requires, '<' ) ) {
 			add_action( 'admin_notices', array( $this,'update_bd_admin_notice' ) );
@@ -984,7 +984,7 @@ class WPBDP_Themes {
 	 * @returns {void}
 	 */
 	public function update_bd_admin_notice() {
-		wpbdp_admin_message( __( 'Please update business directory plugin to latest version.', 'business-directory-plugin' ) );
+		wpbdp_admin_message( __( 'Please update Business Directory Plugin to latest version.', 'business-directory-plugin' ) );
 	}
 }
 
