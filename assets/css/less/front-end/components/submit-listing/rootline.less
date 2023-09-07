@@ -22,6 +22,7 @@
 			height: 1px;
 			margin-left: calc(50% + 25px);
 			background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 50%, @color-primary 50%);
+			background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, var(--bd-main-color) 50%);
 			background-size: 10px;
 			background-position: bottom;
 			background-repeat: repeat-x;
@@ -43,6 +44,7 @@
 			width: 48px;
 			height: 48px;
 			border: 1px solid @color-primary;
+			border-color: var(--bd-main-color);
 			border-radius: 48px;
 			color: @color-black;
 			font-size: 20px;
@@ -68,12 +70,14 @@
 			/* Checked rootline circle */
 			.wpbdp-rootline-circle {
 				background: @color-primary;
+				background: var(--bd-main-color);
 				color: #fff;
 			}
 
 			/* Checked rootline name */
 			.wpbdp-rootline-section-name {
 				color: @color-text;
+				opacity: 1;
 			}
 
 			/* Current section */
@@ -88,6 +92,31 @@
 
 				.wpbdp-rootline-counter span {
 					display: none;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 450px) {
+
+	.wpbdp-submit-rootline {
+
+		.wpbdp-rootline-section {
+
+			&:not(.wpbdp-submit-section-current),
+			.wpbdp-rootline-bar {
+				display: none;
+			}
+
+			&.wpbdp-submit-checked .wpbdp-rootline-circle {
+
+				.wpbdp-rootline-checkmark {
+					display: none;
+				}
+
+				.wpbdp-rootline-counter span {
+					display: initial;
 				}
 			}
 		}

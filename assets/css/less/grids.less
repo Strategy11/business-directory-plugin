@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-auto-rows: max-content;
-    grid-gap: @padding-lg 4%;
+    grid-gap: @padding-lg min(@padding-lg, 4%);
 
     > * {
         grid-column: span 12 / span 12;
@@ -77,6 +77,10 @@
 	.wpbdp-grid > .wpbdp-listing {
 		grid-column: 1 / span 12 !important;
 	}
+}
+
+.wpbdp-grid > .wpbdp-form-field {
+	margin: 0;
 }
 
 @media only screen and (max-width: 600px) {

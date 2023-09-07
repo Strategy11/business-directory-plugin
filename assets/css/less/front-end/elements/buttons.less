@@ -13,9 +13,7 @@ body .wpbdp-excerpt {
 	input[type="submit"],
 	input.submit,
 	a.wpbdp-button,
-	.wpbdp-button,
-	a.reset,
-	#change-plan-link {
+	.wpbdp-button {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -31,9 +29,7 @@ body .wpbdp-excerpt {
 		white-space: nowrap;
 	}
 	a.wpbdp-button,
-	.wpbdp-button,
-	a.reset,
-	#change-plan-link {
+	.wpbdp-button {
 		border-color: @border-main;
 		background-color: transparent;
 		color: @color-primary;
@@ -43,12 +39,6 @@ body .wpbdp-excerpt {
 	.wpbdp-button:hover {
 		background-color: @color-primary;
 		color: @white;
-	}
-
-	a.reset:hover {
-		border-color: @bg-danger;
-		background-color: @bg-danger;
-		color: darken(@bg-danger, 30%);
 	}
 
 	input[type="submit"],
@@ -78,8 +68,7 @@ body .wpbdp-excerpt {
 	input[type="submit"]:disabled,
 	input.submit:disabled,
 	a.wpbdp-button:disabled,
-	.wpbdp-button:disabled,
-	a.reset:disabled {
+	.wpbdp-button:disabled {
 		border-color: @bg-gray;
 		background-color: @bg-gray;
 		color: @color-text--60;
@@ -94,8 +83,7 @@ body .wpbdp-excerpt {
 		input[type="submit"],
 		input.submit,
 		a.wpbdp-button,
-		.wpbdp-button,
-		a.reset {
+		.wpbdp-button {
 			width: 100%;
 		}
 	}
@@ -126,7 +114,7 @@ body .wpbdp-button.et_pb_button {
 		background-color: var(--bd-main-color) !important;
 		color: @white !important;
 		text-decoration: none !important;
-		width: 100%;
+
 		&:hover {
 			background-color: var(--bd-main-color) !important;
 			opacity: 0.8;
