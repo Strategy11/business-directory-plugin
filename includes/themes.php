@@ -43,6 +43,8 @@ class WPBDP_Themes {
 			require_once WPBDP_PATH . 'includes/admin/controllers/class-themes-admin.php';
 			$this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
 		}
+
+		$this->check_theme_required_version();
 	}
 
 	/**
@@ -963,6 +965,26 @@ class WPBDP_Themes {
 
 	public function sync_settings() {
 		_deprecated_function( __METHOD__, '5.0' );
+	}
+
+	/**
+	 * Check current theme requires plugin version and show admin notice if it doesn't meet the requirement  .
+	 *
+	 * @returns {void}
+	 */
+	private function check_theme_required_version() {
+		$theme_requires = $this->get_active_theme_data()->requires;
+		if ( defined( 'WPBDP_VERSION' ) && $theme_requires && version_compare( WPBDP_VERSION, $theme_requires, '<' ) ) {
+			add_action( 'admin_notices', array( $this,'update_bd_admin_notice' ) );
+		}
+	}
+	/**
+	 * Shows admin notice to update the plugin.
+	 *
+	 * @returns {void}
+	 */
+	public function update_bd_admin_notice() {
+		wpbdp_admin_message( __( 'Please update Business Directory Plugin to latest version.', 'business-directory-plugin' ) );
 	}
 }
 
