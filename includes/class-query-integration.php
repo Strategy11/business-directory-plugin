@@ -249,13 +249,11 @@ class WPBDP__Query_Integration {
 		$pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
 		// Sticky listings.
-		$is_sticky_query = " IFNULL((SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1),0) AS wpbdp_is_sticky";
-
+		$sticky_ids_str = $this->get_sticky_listing_ids();
 		if ( in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
-			$is_sticky_query = '';
+			$sticky_ids_str = '';
 		}
 
-		$pieces['fields'] .= $is_sticky_query ? ', ' . $is_sticky_query : '';
 		$order_by          = $query->get( 'orderby' );
 		$order             = $query->get( 'order' );
 
@@ -282,10 +280,24 @@ class WPBDP__Query_Integration {
 		}
 
 		$pieces['fields']         = apply_filters( 'wpbdp_query_fields', $pieces['fields'] );
-		$pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $is_sticky_query ? 'wpbdp_is_sticky DESC' : '' ) );
+		$pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $sticky_ids_str ? "FIELD(wp_posts.ID,{$sticky_ids_str}) DESC" : '' ) );
 		$pieces['orderby']        = ( $pieces['custom_orderby'] ? $pieces['custom_orderby'] . ', ' : '' ) . $pieces['orderby'];
-
 		return $pieces;
+	}
+
+	/**
+	 * Select all sticky listing ids and return thim in string comma seperated.
+	 *
+	 * @return string listing ids
+	 */
+	private function get_sticky_listing_ids() {
+		global $wpdb;
+		$results = $wpdb->get_results( "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings  WHERE is_sticky=1" );
+		if ( empty( $results ) ) {
+			return '';
+		}
+		$results = array_column( $results, 'listing_id' );
+		return implode( ',', $results );
 	}
 
 	// {{ Sort bar.
