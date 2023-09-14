@@ -249,9 +249,9 @@ class WPBDP__Query_Integration {
 		$pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
 		// Sticky listings.
-		$sticky_ids_str = $this->get_sticky_listing_ids();
-		if ( in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
-			$sticky_ids_str = '';
+		$sticky_ids_str = '';
+		if ( ! in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
+			$sticky_ids_str = $this->get_sticky_listing_ids();
 		}
 
 		$order_by          = $query->get( 'orderby' );
@@ -292,11 +292,15 @@ class WPBDP__Query_Integration {
 	 */
 	private function get_sticky_listing_ids() {
 		global $wpdb;
-		$results = $wpdb->get_results( "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings  WHERE is_sticky=1" );
-		if ( empty( $results ) ) {
-			return '';
-		}
-		$results = array_column( $results, 'listing_id' );
+		$query = "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings  WHERE is_sticky=1";
+		$results = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'sticky_listing_idss',
+				'group'     => 'wpbdp_sticky',
+				'query'     => $query,
+				'type'      => 'get_col',
+			)
+		);
 		return implode( ',', $results );
 	}
 
