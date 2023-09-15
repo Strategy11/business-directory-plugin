@@ -42,7 +42,6 @@ final class WPBDP {
 	public $compat;
 	public $rewrite;
 
-
 	public function __construct() {
 		$this->_db_version = get_option( 'wpbdp-db-version', null );
 		if ( $this->_db_version === null ) {
