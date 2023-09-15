@@ -308,7 +308,7 @@ class WPBDP__Query_Integration {
 		$results = WPBDP_Utils::check_cache(
 			array(
 				'cache_key' => 'sticky_listing_idss',
-				'group'     => 'wpbdp_sticky',
+				'group'     => 'wpbdp_listings',
 				'query'     => $query,
 				'type'      => 'get_col',
 			)
