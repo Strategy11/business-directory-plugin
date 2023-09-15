@@ -248,12 +248,7 @@ class WPBDP__Query_Integration {
 
 		$pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
-		// Sticky listings.
-		$is_sticky_query = "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
-
-		if ( in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
-			$is_sticky_query = '';
-		}
+		$is_sticky_query = $this->get_sticky_query();
 
 		$pieces['fields'] .= $is_sticky_query ? ', ' . $is_sticky_query : '';
 		$order_by          = $query->get( 'orderby' );
@@ -286,6 +281,24 @@ class WPBDP__Query_Integration {
 		$pieces['orderby']        = ( $pieces['custom_orderby'] ? $pieces['custom_orderby'] . ', ' : '' ) . $pieces['orderby'];
 
 		return $pieces;
+	}
+
+	/**
+	 * Don't include the sticky query on the single listing page.
+	 * This was causing 404 errors on some sites. See business-directory-premium/issues/172
+	 *
+	 * @return string
+	 */
+	private function get_sticky_query() {
+		global $wpdb;
+
+		$current_view = wpbdp_current_view();
+
+		if ( ! $current_view || in_array( $current_view, wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
+			return '';
+		}
+
+		return "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
 	}
 
 	// {{ Sort bar.
