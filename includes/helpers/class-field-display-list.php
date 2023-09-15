@@ -224,11 +224,11 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	//
 
 	public function helper__address() {
-		$address  = trim( $this->t_address->value );
-		$address2 = trim( $this->t_address2->value );
-		$city     = trim( $this->t_city->value );
-		$state    = trim( $this->t_state->value );
-		$country  = trim( $this->t_country->value );
+		$address  = $this->t_address->value ? trim( $this->t_address->value ) : '';
+		$address2 = $this->t_address2->value ? trim( $this->t_address2->value ) : '';
+		$city     = $this->t_city->value ? trim( $this->t_city->value ) : '';
+		$state    = $this->t_state->value ? trim( $this->t_state->value ) : '';
+		$country  = $this->t_country->value ? trim( $this->t_country->value ) : '';
 		$zip      = trim( is_array( $this->t_zip->value ) ? $this->t_zip->value['zip'] : $this->t_zip->value );
 
 		$first_line = $address;
