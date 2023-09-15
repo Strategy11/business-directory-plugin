@@ -334,7 +334,7 @@ class _WPBDP_Lightweight_Field_Display_Item {
 	}
 
 	public function __get( $key ) {
-		$k = "${key}_";
+		$k = "{$key}_";
 
 		if ( isset( $this->{$k} ) ) {
 			return $this->{$k};
