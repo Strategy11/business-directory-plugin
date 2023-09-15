@@ -164,6 +164,9 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Some sites were getting 404 errors on the single listing page.
 * Fix: In Avada theme, listings were showing twice.
 * Fix: A few updates for PHP 8.2 deprecation messages.
+* Fix: When using a checkbox for categories, it wasn't being correctly required when submiting a new listing.
+* Fix: CSV import was failing when there was an 'enter' in a field.
+* Fix: A conflict with the Custom Start Date plugin with Woocommerce was causing an "Invalid Nonce" error.
 
 = 6.3.7 =
 * Fix: Listing titles in taxonomy pages with The7 theme.
