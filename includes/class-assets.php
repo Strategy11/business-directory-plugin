@@ -492,7 +492,7 @@ class WPBDP__Assets {
 	/**
 	 * Handles Floating Links' scripts and styles enqueueing.
 	 *
-	 * @since x.x
+	 * @since 6.3.8
 	 *
 	 * @param string $plugin_url URL of the plugin.
 	 * @param string $version Current version of the plugin.
