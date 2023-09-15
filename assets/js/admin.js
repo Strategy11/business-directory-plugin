@@ -363,8 +363,6 @@ function wpbdpSelectSubnav() {
 		notificationContainer: null,
 		preAdminNotifications: null,
 		adminNotifications: null,
-		buttonNotification: null,
-		closeButton: null,
 
 		init: function() {
 			// Get the notification center
@@ -376,30 +374,7 @@ function wpbdpSelectSubnav() {
 			// Notifications container
 			this.adminNotifications = this.notificationContainer.find( '.wpbdp-bell-notifications-list' );
 
-			// Get the notification button
-			this.buttonNotification = $( '.wpbdp-bell-notification-icon' );
-
-			// Get the close button
-			this.closeButton = $( '.wpbdp-bell-notifications-close' );
-
-			this.onClickNotifications();
-			this.initCloseNotifications();
-
 			WPBDPAdmin_Notifications.parseNotifications();
-		},
-
-		onClickNotifications: function() {
-			WPBDPAdmin_Notifications.buttonNotification.on( 'click', function(e) {
-				e.preventDefault();
-				WPBDPAdmin_Notifications.notificationContainer.toggleClass( 'hidden' );
-			});
-		},
-
-		initCloseNotifications: function() {
-			WPBDPAdmin_Notifications.closeButton.on( 'click', function(e) {
-				e.preventDefault();
-				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
-			});
 		},
 
 		parseNotifications: function() {
@@ -434,7 +409,6 @@ function wpbdpSelectSubnav() {
 			WPBDPAdmin_Notifications.adminNotifications.append( notifications.join( ' ' ) );
 			if ( notifications.length > 0 ) {
 				$( '.wpbdp-bell-notification' ).show();
-				WPBDPAdmin_Notifications.notificationContainer.removeClass( 'hidden' );
 			}
 			if ( snackbars.length > 0 ) {
 				snackbars.forEach( function( value, index, array ) {
@@ -460,13 +434,6 @@ function wpbdpSelectSubnav() {
 			});
 			setTimeout( function(){ snackbar.remove(); }, 25000 );
 		},
-
-		hideNotificationCenter: function() {
-			if ( WPBDPAdmin_Notifications.adminNotifications.find( 'li' ).length < 1 ) {
-				WPBDPAdmin_Notifications.notificationContainer.addClass( 'hidden' );
-				$( '.wpbdp-bell-notification' ).hide();
-			}
-		}
 	};
 
     $(document).ready(function(){
@@ -483,7 +450,6 @@ function wpbdpSelectSubnav() {
 	var dismissNotice = function( $notice, $button ) {
 		$notice.fadeOut( 'fast', function () {
 			$notice.remove();
-			WPBDPAdmin_Notifications.hideNotificationCenter();
 		} );
 
 		$.post( ajaxurl, {

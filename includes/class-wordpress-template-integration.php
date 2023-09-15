@@ -213,6 +213,13 @@ class WPBDP__WordPress_Template_Integration {
 		return $wp_query->wpbdp_in_the_loop;
 	}
 
+	/**
+	 * Since the term page thinks it's a normal post, replaces the post content
+	 * with the BD listings of the taxonomy.
+	 *
+	 * @param string $content The content to be rendered.
+	 * @return string
+	 */
 	public function display_view_in_content( $content = '' ) {
 		$is_tax = is_tax();
 
@@ -220,7 +227,10 @@ class WPBDP__WordPress_Template_Integration {
 			remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 		}
 
-		if ( $this->displayed && ! $is_tax ) {
+		if ( $this->displayed ) {
+			if ( $is_tax ) {
+				return $content;
+			}
 			return '';
 		}
 
