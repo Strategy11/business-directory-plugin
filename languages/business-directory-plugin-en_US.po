@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-07-07 14:13:17+00:00\n"
+"POT-Creation-Date: 2023-09-15 18:33:17+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Business Directory"
 msgstr ""
 
-#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:378
+#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:403
 msgid "Upgrade to Premium"
 msgstr ""
 
@@ -305,7 +305,7 @@ msgid "Attributes"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:339
-#: includes/helpers/class-listing-display-helper.php:146
+#: includes/helpers/class-listing-display-helper.php:145
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:118
 msgid "Featured"
 msgstr ""
@@ -394,7 +394,7 @@ msgstr ""
 
 #: includes/admin/controllers/class-form-fields-admin.php:366
 #: includes/form-fields.php:445
-#: includes/helpers/class-field-display-list.php:259
+#: includes/helpers/class-field-display-list.php:271
 #: templates/checkout-billing-form.tpl.php:75
 msgid "Address"
 msgstr ""
@@ -560,12 +560,12 @@ msgstr ""
 msgid "Hide notifications"
 msgstr ""
 
-#: includes/admin/helpers/csv/class-csv-import.php:674
+#: includes/admin/helpers/csv/class-csv-import.php:667
 msgid "Listing imported by admin. Payment skipped."
 msgstr ""
 
 #. translators: %d: the plan id
-#: includes/admin/helpers/csv/class-csv-import.php:758
+#: includes/admin/helpers/csv/class-csv-import.php:751
 msgid "There is no Plan with ID = %d"
 msgstr ""
 
@@ -1155,7 +1155,7 @@ msgstr ""
 msgid "View Docs"
 msgstr ""
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:381
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:406
 msgid "Settings"
 msgstr ""
 
@@ -1219,7 +1219,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:416
+#: includes/class-assets.php:419
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
 "how WordPress stores the data."
@@ -1308,27 +1308,27 @@ msgid ""
 "to set up a gateway. Until you do this, only free plans will be available."
 msgstr ""
 
-#: includes/class-wpbdp.php:607
+#: includes/class-wpbdp.php:632
 msgid "Could not find listing ID"
 msgstr ""
 
-#: includes/class-wpbdp.php:614
+#: includes/class-wpbdp.php:639
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:627 includes/fields/class-fieldtypes-image.php:394
+#: includes/class-wpbdp.php:652 includes/fields/class-fieldtypes-image.php:394
 msgid "Could not find image ID"
 msgstr ""
 
-#: includes/class-wpbdp.php:659
+#: includes/class-wpbdp.php:684
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
 msgstr ""
 
-#: includes/class-wpbdp.php:666
+#: includes/class-wpbdp.php:691
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -2094,8 +2094,12 @@ msgstr ""
 msgid "Return to plan selection"
 msgstr ""
 
-#: includes/themes.php:929
+#: includes/themes.php:931
 msgid "ZIP file is not a valid Business Directory theme file."
+msgstr ""
+
+#: includes/themes.php:987
+msgid "Please update Business Directory Plugin to latest version."
 msgstr ""
 
 #: includes/utils.php:393
@@ -5450,17 +5454,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr ""
 
-#: includes/themes.php:937
+#: includes/themes.php:939
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: includes/themes.php:948
+#: includes/themes.php:950
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: includes/themes.php:956
+#: includes/themes.php:958
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""
@@ -5662,34 +5666,34 @@ msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
 
-#: includes/admin/helpers/csv/class-csv-import.php:530
+#: includes/admin/helpers/csv/class-csv-import.php:523
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
 "with the following error: <error-message>."
 msgstr ""
 
-#: includes/admin/helpers/csv/class-csv-import.php:536
+#: includes/admin/helpers/csv/class-csv-import.php:529
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr ""
 
-#: includes/admin/helpers/csv/class-csv-import.php:729
+#: includes/admin/helpers/csv/class-csv-import.php:722
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr ""
 
-#: includes/admin/helpers/csv/class-csv-import.php:790
+#: includes/admin/helpers/csv/class-csv-import.php:783
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr ""
 
-#: includes/admin/helpers/csv/class-csv-import.php:831
+#: includes/admin/helpers/csv/class-csv-import.php:824
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr ""
 
-#: includes/admin/helpers/csv/class-csv-import.php:905
+#: includes/admin/helpers/csv/class-csv-import.php:898
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr ""
@@ -6427,17 +6431,17 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr ""
 
-#: includes/class-wpbdp.php:473
+#: includes/class-wpbdp.php:498
 msgctxt "listing image upload"
 msgid "Please select a plan before uploading images to the listing"
 msgstr ""
 
-#: includes/class-wpbdp.php:478
+#: includes/class-wpbdp.php:503
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr ""
 
-#: includes/class-wpbdp.php:482
+#: includes/class-wpbdp.php:507
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "

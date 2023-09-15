@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-07-07 14:13:17+00:00\n"
+"POT-Creation-Date: 2023-09-15 18:33:17+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -154,7 +154,7 @@ msgstr "(Tutti i moduli)"
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:378
+#: includes/admin/class-admin.php:489 includes/class-wpbdp.php:403
 msgid "Upgrade to Premium"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgid "Attributes"
 msgstr "Attributi"
 
 #: includes/admin/controllers/class-admin-listings.php:339
-#: includes/helpers/class-listing-display-helper.php:146
+#: includes/helpers/class-listing-display-helper.php:145
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:118
 #, fuzzy
 msgid "Featured"
@@ -471,7 +471,7 @@ msgstr "Tags"
 
 #: includes/admin/controllers/class-form-fields-admin.php:366
 #: includes/form-fields.php:445
-#: includes/helpers/class-field-display-list.php:259
+#: includes/helpers/class-field-display-list.php:271
 #: templates/checkout-billing-form.tpl.php:75
 #, fuzzy
 msgid "Address"
@@ -664,12 +664,12 @@ msgstr "Attiva"
 msgid "Hide notifications"
 msgstr "Notifiche di posta elettronica"
 
-#: includes/admin/helpers/csv/class-csv-import.php:674
+#: includes/admin/helpers/csv/class-csv-import.php:667
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Elenco importato da admin. Pagamento saltato."
 
 #. translators: %d: the plan id
-#: includes/admin/helpers/csv/class-csv-import.php:758
+#: includes/admin/helpers/csv/class-csv-import.php:751
 #, fuzzy
 msgid "There is no Plan with ID = %d"
 msgstr "Non esiste un piano tariffario con ID = <fee-id>"
@@ -1403,7 +1403,7 @@ msgstr ""
 msgid "View Docs"
 msgstr "Vedi"
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:381
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:406
 #, fuzzy
 msgid "Settings"
 msgstr "Impostazioni"
@@ -1473,7 +1473,7 @@ msgstr "Continua"
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:416
+#: includes/class-assets.php:419
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
@@ -1571,23 +1571,23 @@ msgid ""
 "to set up a gateway. Until you do this, only free plans will be available."
 msgstr ""
 
-#: includes/class-wpbdp.php:607
+#: includes/class-wpbdp.php:632
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/class-wpbdp.php:614
+#: includes/class-wpbdp.php:639
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:627 includes/fields/class-fieldtypes-image.php:394
+#: includes/class-wpbdp.php:652 includes/fields/class-fieldtypes-image.php:394
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Non è stato possibile aggiornare il tema: %s"
 
-#: includes/class-wpbdp.php:659
+#: includes/class-wpbdp.php:684
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1595,7 +1595,7 @@ msgstr ""
 "Le funzioni della directory sono disattivate in questo momento perché è in "
 "attesa di un <a>aggiornamento manuale</a>."
 
-#: includes/class-wpbdp.php:666
+#: includes/class-wpbdp.php:691
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -2514,10 +2514,15 @@ msgstr "Stampa ricevuta"
 msgid "Return to plan selection"
 msgstr "Ritorno alla selezione del piano tariffario"
 
-#: includes/themes.php:929
+#: includes/themes.php:931
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Il file ZIP non è un file tema BD valido."
+
+#: includes/themes.php:987
+#, fuzzy
+msgid "Please update Business Directory Plugin to latest version."
+msgstr "Business Directory Plugin"
 
 #: includes/utils.php:393
 #, fuzzy
@@ -6397,17 +6402,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Il tema è stato aggiornato con successo."
 
-#: includes/themes.php:937
+#: includes/themes.php:939
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossibile creare una directory dei temi."
 
-#: includes/themes.php:948
+#: includes/themes.php:950
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossibile rimuovere la directory al tema precedente \"%s\"."
 
-#: includes/themes.php:956
+#: includes/themes.php:958
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Non è stato possibile spostare un nuovo tema nella directory dei temi."
@@ -6631,7 +6636,7 @@ msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
 "L'importazione è in \"modalità test\". Non verrà inserito nulla nel database."
 
-#: includes/admin/helpers/csv/class-csv-import.php:530
+#: includes/admin/helpers/csv/class-csv-import.php:523
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -6640,27 +6645,27 @@ msgstr ""
 "Impossibile creare la categoria di Annunci \"<category-name>\". L'operazione "
 "non è riuscita per il seguente errore: <error-message>."
 
-#: includes/admin/helpers/csv/class-csv-import.php:536
+#: includes/admin/helpers/csv/class-csv-import.php:529
 msgctxt "admin csv-import"
 msgid "Could not create listing category \"%s\""
 msgstr "Impossibile creare la categoria \"%s\""
 
-#: includes/admin/helpers/csv/class-csv-import.php:729
+#: includes/admin/helpers/csv/class-csv-import.php:722
 msgctxt "admin csv-import"
 msgid "Username \"%s\" does not exist"
 msgstr "Nome Utente \"%s\" non esiste"
 
-#: includes/admin/helpers/csv/class-csv-import.php:790
+#: includes/admin/helpers/csv/class-csv-import.php:783
 msgctxt "admin csv-import"
 msgid "Missing required field: %s"
 msgstr "Campo obbligatorio mancante: %s"
 
-#: includes/admin/helpers/csv/class-csv-import.php:831
+#: includes/admin/helpers/csv/class-csv-import.php:824
 msgctxt "admin csv-import"
 msgid "Listing category \"%s\" does not exist"
 msgstr "La categoria \"%s\" non esiste"
 
-#: includes/admin/helpers/csv/class-csv-import.php:905
+#: includes/admin/helpers/csv/class-csv-import.php:898
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "La stringa <string>non poteva essere convertita in una data valida."
@@ -7477,18 +7482,18 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Il punteggio di convalida reCAPTCHA non è riuscito."
 
-#: includes/class-wpbdp.php:473
+#: includes/class-wpbdp.php:498
 #, fuzzy
 msgctxt "listing image upload"
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Si prega di selezionare il motivo per segnalare questo annuncio:"
 
-#: includes/class-wpbdp.php:478
+#: includes/class-wpbdp.php:503
 msgctxt "listing image upload"
 msgid "Can not upload any more images for this listing."
 msgstr "Non è possibile caricare altre immagini per questo annuncio."
 
-#: includes/class-wpbdp.php:482
+#: includes/class-wpbdp.php:507
 #, fuzzy
 msgctxt "listing image upload"
 msgid ""
