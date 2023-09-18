@@ -276,7 +276,7 @@ class WPBDP__Query_Integration {
 		}
 
 		$pieces['fields']         = apply_filters( 'wpbdp_query_fields', $pieces['fields'] );
-		$pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $sticky_ids_str ? "FIELD(wp_posts.ID,{$sticky_ids_str}) DESC" : '' ) );
+		$pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $sticky_ids_str ? "FIELD({$wpdb->posts}.ID,{$sticky_ids_str}) DESC" : '' ) );
 		$pieces['orderby']        = ( $pieces['custom_orderby'] ? $pieces['custom_orderby'] . ', ' : '' ) . $pieces['orderby'];
 		return $pieces;
 	}
