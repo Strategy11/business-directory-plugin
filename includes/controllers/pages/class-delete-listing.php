@@ -30,8 +30,7 @@ class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 		);
 
 		// Check if user has permission to delete listing.
-		$has_permission = wpbdp_user_can( 'delete', $listing_id );
-		if ( ! $has_permission ) {
+		if ( ! wpbdp_user_can( 'delete', $listing_id ) ) {
 			return wpbdp_render_msg( __( 'You don\'t have permission to delete this listing.', 'business-directory-plugin' ) );
 		}
 
