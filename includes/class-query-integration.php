@@ -242,13 +242,14 @@ class WPBDP__Query_Integration {
 	public function posts_clauses( $pieces, $query ) {
 		global $wpdb;
 
-		if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
+		$skip_query = empty( $query->query_vars['wpbdp_shortcode'] ) && empty( $query->wpbdp_our_query );
+		if ( is_admin() || $skip_query ) {
 			return $pieces;
 		}
 
 		$pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
-		$sticky_ids_str = $this->get_sticky_query();
+		$sticky_ids_str = $this->get_sticky_query( $query );
 
 		$order_by          = $query->get( 'orderby' );
 		$order             = $query->get( 'order' );
@@ -285,12 +286,21 @@ class WPBDP__Query_Integration {
 	 * Don't include the sticky query on the single listing page.
 	 * This was causing 404 errors on some sites. See business-directory-premium/issues/172
 	 *
+	 * @param WP_Query $query The current query.
+	 *
 	 * @return string
 	 */
-	private function get_sticky_query() {
+	private function get_sticky_query( $query ) {
 		$current_view = wpbdp_current_view();
 
-		if ( ! $current_view || in_array( $current_view, wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
+		if ( $current_view && in_array( $current_view, wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
+			return '';
+		}
+
+		// Only add the query if this is a listing query.
+		$is_cat       = ! empty( $query->query['wpbdp_category'] );
+		$is_shortcode = ! empty( $query->query['wpbdp_shortcode'] );
+		if ( ! $current_view && ! $is_cat && ! $is_shortcode ) {
 			return '';
 		}
 
