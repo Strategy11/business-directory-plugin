@@ -17,9 +17,13 @@
 .directory_page_wpbdp_settings .notice:not(.wpbdp-inline-notice),
 
 /* Hide stuff from other plugins that are missing the notice class. */
-.wpbdp-menu-area .wpbdp-page-title ~ div:not(.wpbdp-inline-notice):not(.wpbdp-nav-items):not(.wpbdp-nav-toggle),
 .wpbdp-admin-page .notice:not(.wpbdp-inline-notice) {
 	display: none;
+}
+
+/* Hide elements that don't belong in the menu area. */
+.wpbdp-menu-area .wpbdp-page-title ~ div:not(.wpbdp-inline-notice):not(.wpbdp-nav-items):not(.wpbdp-nav-toggle) {
+	display: none !important;
 }
 
 .wpbdp-bell-notifications-list {
