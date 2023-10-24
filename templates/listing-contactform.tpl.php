@@ -27,31 +27,33 @@ if ( $validation_errors ) :
 	<div class="wpbdp-grid">
 	<?php if ( ! $current_user ) : ?>
 		<p class="wpbdp-form-field wpbdp-half">
-			<label for="wpbdp-contact-form-name"><?php esc_html_e( 'Name', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-name" type="text" class="intextbox" name="commentauthorname" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) ); ?>" required />
+			<label for="wpbdp-contact-form-name"><?php esc_html_e( 'Name', 'business-directory-plugin' ); ?></label>
+			<input id="wpbdp-contact-form-name" type="text" class="intextbox" name="commentauthorname" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) ); ?>" required />
 		</p>
 		<p class="wpbdp-form-field wpbdp-half">
-			<label for="wpbdp-contact-form-email"><?php esc_html_e( 'Email', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-email" type="text" class="intextbox" name="commentauthoremail" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthoremail' ), 'post' ) ); ?>" required />
+			<label for="wpbdp-contact-form-email"><?php esc_html_e( 'Email', 'business-directory-plugin' ); ?></label>
+			<input id="wpbdp-contact-form-email" type="text" class="intextbox" name="commentauthoremail" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthoremail' ), 'post' ) ); ?>" required />
 		</p>
 	<?php endif; ?>
 
 	<p class="wpbdp-form-field">
-		<label for="wpbdp-contact-form-phone"><?php esc_html_e( 'Phone Number', 'business-directory-plugin' ); ?></label> <input id="wpbdp-contact-form-phone" type="tel" class="intextbox" name="commentauthorphone" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorphone' ), 'post' ) ); ?>" />
+		<label for="wpbdp-contact-form-phone"><?php esc_html_e( 'Phone Number', 'business-directory-plugin' ); ?></label>
+		<input id="wpbdp-contact-form-phone" type="tel" class="intextbox" name="commentauthorphone" value="<?php echo esc_attr( wpbdp_get_var( array( 'param' => 'commentauthorphone' ), 'post' ) ); ?>" />
 	</p>
 
 	<p class="wpbdp-form-field">
-		<label for="wpbdp-contact-form-message"><?php esc_html_e( 'Message', 'business-directory-plugin' ); ?></label> <textarea id="wpbdp-contact-form-message" name="commentauthormessage" rows="4" class="intextarea">
-																  <?php
-																	echo esc_textarea(
-																		wpbdp_get_var(
-																			array(
-																				'param'    => 'commentauthormessage',
-																				'sanitize' => 'sanitize_textarea_field',
-																			),
-																			'post'
-																		)
-																	);
-																	?>
-		</textarea>
+		<label for="wpbdp-contact-form-message"><?php esc_html_e( 'Message', 'business-directory-plugin' ); ?></label>
+		<textarea id="wpbdp-contact-form-message" name="commentauthormessage" rows="4" class="intextarea"><?php
+			echo esc_textarea(
+				wpbdp_get_var(
+					array(
+						'param'    => 'commentauthormessage',
+						'sanitize' => 'sanitize_textarea_field',
+					),
+					'post'
+				)
+			);
+		?></textarea>
 	</p>
 
 	<?php do_action( 'wpbdp_contact_form_extra_fields' ); ?>
