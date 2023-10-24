@@ -17,6 +17,31 @@ final class WPBDP {
 	 */
 	public $fee_colors = array();
 
+	public $form_fields;
+	public $formfields; // deprecated.
+	public $cpt_integration;
+	public $licensing;
+	public $modules;
+	public $themes;
+	public $installer;
+	public $fees;
+	public $payment_gateways;
+	public $listings;
+	public $payments;
+	public $cron;
+	public $listing_expiration;
+	public $listing_email_notification;
+	public $assets;
+	public $widgets;
+	public $query_integration;
+	public $dispatcher;
+	public $shortcodes;
+	public $template_integration;
+	public $meta;
+	public $recaptcha;
+	public $compat;
+	public $rewrite;
+
 	public function __construct() {
 		$this->_db_version = get_option( 'wpbdp-db-version', null );
 		if ( $this->_db_version === null ) {
@@ -28,7 +53,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.3.7' );
+		define( 'WPBDP_VERSION', '6.3.9' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );

@@ -416,7 +416,7 @@ class WPBDP_Admin_Listings {
 					),
 					admin_url( 'edit.php' )
 				)
-			) . "' class='{$current_class}'>${status_label} <span class='count'>({$count})</span></a>";
+			) . "' class='{$current_class}'>{$status_label} <span class='count'>({$count})</span></a>";
 		}
 
 		if ( wpbdp_get_option( 'enable-listing-flagging' ) ) {

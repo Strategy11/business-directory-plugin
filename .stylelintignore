@@ -8,3 +8,5 @@ vendor/
 vendors/
 /*.js
 /*.cjs
+assets/css/packages/
+
