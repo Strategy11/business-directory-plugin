@@ -203,7 +203,9 @@ wpbdp_admin_notices();
 					</div>
 				</td>
 			</tr>
-			<tr id="wpbdp_private_field" class="<?php echo in_array( 'private_field', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
+			<tr id="wpbdp_private_field"
+				class="<?php echo ( in_array( 'private_field', $hidden_fields, true ) && ! $field->display_in( 'private' ) ) ? 'wpbdp-hidden' : ''; ?>"
+				>
 				<th scope="row">
 					<label> <?php _ex( 'Show this field to admin users only?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
 				</th>
@@ -251,7 +253,9 @@ wpbdp_admin_notices();
 					</label>
 				</td>
 			</tr>
-			<tr class="if-display-in-search <?php echo in_array( 'search', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
+			<tr class="if-display-in-search
+				<?php echo ( in_array( 'search', $hidden_fields, true ) && ! in_array( 'required-in-search', $field->get_validators(), true ) ) ? ' wpbdp-hidden' : ''; ?>
+				">
 				<th scope="row">
 					<label> <?php _ex( 'Is this field required for searching?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
 				</th>
@@ -269,7 +273,7 @@ wpbdp_admin_notices();
 				do_action( 'wpbdp_admin_listing_field_section_visibility', $field, $hidden_fields );
 			} else {
 				?>
-				<tr class="<?php echo in_array( 'nolabel', $hidden_fields, true ) ? 'wpbdp-hidden' : ''; ?>">
+				<tr class="<?php echo ( in_array( 'nolabel', $hidden_fields, true ) && ! $field->has_display_flag( 'nolabel' ) ) ? 'wpbdp-hidden' : ''; ?>">
 					<th scope="row">
 						<label> <?php _ex( 'Hide this field\'s label?', 'form-fields admin', 'business-directory-plugin' ); ?></label>
 					</th>
