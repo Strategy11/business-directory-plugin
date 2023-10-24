@@ -241,7 +241,7 @@ class WPBDP_Listing_Display_Helper {
 		$list->freeze();
 		return array(
 			'fields'              => $list,
-			'listing_has_excerpt' => $list->has_excerpt()
+			'listing_has_excerpt' => $list->has_excerpt(),
 		);
 	}
 

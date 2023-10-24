@@ -572,7 +572,6 @@ WPBDP_Admin_Pages::load_hooks();
 /**
  * @deprecated 6.0
  */
- // phpcs:ignore
 function wpbdp_admin_sidebar( $echo = false ) {
 	$page = wpbdp_render_page( WPBDP_PATH . 'templates/admin/sidebar.tpl.php', array(), $echo );
 
@@ -583,7 +582,6 @@ function wpbdp_admin_sidebar( $echo = false ) {
 	return ! empty( $page );
 }
 
- // phpcs:ignore
 function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array(), $sidebar = true ) {
 	// For backwards compatibility.
 	if ( ! $args_or_title || ! is_array( $args_or_title ) ) {
@@ -667,7 +665,6 @@ function wpbdp_admin_header( $args_or_title = null, $id = null, $h2items = array
 /*
  * @param bool|string Use 'echo' or true to show the footer.
  */
- // phpcs:ignore
 function wpbdp_admin_footer( $echo = false ) {
 	if ( ! $echo ) {
 		ob_start();

@@ -975,7 +975,7 @@ class WPBDP_Themes {
 	private function check_theme_required_version() {
 		$theme_requires = $this->get_active_theme_data()->requires;
 		if ( defined( 'WPBDP_VERSION' ) && $theme_requires && version_compare( WPBDP_VERSION, $theme_requires, '<' ) ) {
-			add_action( 'admin_notices', array( $this,'update_bd_admin_notice' ) );
+			add_action( 'admin_notices', array( $this, 'update_bd_admin_notice' ) );
 		}
 	}
 	/**

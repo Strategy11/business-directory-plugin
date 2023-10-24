@@ -317,7 +317,6 @@ function WPBDP_ValidationError( $msg, $stop_validation = false ) {
  * @since 2.3
  * @see WPBDP_FieldValidation::validate_value()
  */
-// phpcs:ignore
 function wpbdp_validate_value( $value, $validator, $args = array() ) {
 	$validation = WPBDP_FieldValidation::instance();
 	return $validation->validate_value( $value, $validator, $args );

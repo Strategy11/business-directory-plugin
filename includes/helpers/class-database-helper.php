@@ -46,7 +46,6 @@ class WPBDP_Database_Helper {
 	}
 }
 
-// phpcs:ignore
 function wpbdp_database_helper() {
 	return new WPBDP_Database_Helper( $GLOBALS['wpdb'] );
 }

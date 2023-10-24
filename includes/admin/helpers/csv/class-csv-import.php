@@ -166,7 +166,7 @@ class WPBDP_CSV_Import {
 	private function get_current_line( $file ) {
 		$line = $file->current();
 		if ( empty( $line ) ) {
-			return [];
+			return array();
 		}
 		return $line;
 	}

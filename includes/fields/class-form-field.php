@@ -105,10 +105,10 @@ class WPBDP_Form_Field {
 			$options = array();
 
 			foreach ( $attrs['field_data']['options'] as $option_value ) {
-			if ( is_array( $option_value ) ) {
-				$options[ $option_value[0] ] = $option_value[1];
+				if ( is_array( $option_value ) ) {
+					$options[ $option_value[0] ] = $option_value[1];
 				} else {
-				$options[ $option_value ] = $option_value;
+					$options[ $option_value ] = $option_value;
 				}
 			}
 

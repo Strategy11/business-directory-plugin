@@ -256,6 +256,5 @@ if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
 	</script>
 			<?php
 		}
-}
-
+	}
 }

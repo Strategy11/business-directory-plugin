@@ -1130,7 +1130,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$has_categories = $categories || $this->listing->get_categories( 'ids' );
 			if ( $this->listing->get_fee_plan() && $has_categories ) {
 				return $this->section_render( 'submit-listing-plan-selection-complete' );
-				}
+			}
 
 			$this->prevent_save = true;
 		}

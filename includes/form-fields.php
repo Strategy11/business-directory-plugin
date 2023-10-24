@@ -560,7 +560,6 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
  * @since 2.3
  * @see WPBDP_FormFields::find_fields()
  */
-// phpcs:ignore
 function &wpbdp_get_form_fields( $args = array() ) {
 	global $wpdb;
 	global $wpbdp;
@@ -582,7 +581,6 @@ function &wpbdp_get_form_fields( $args = array() ) {
  * @since 2.3
  * @see WPBDP_FormFields::get_field()
  */
-// phpcs:ignore
 function wpbdp_get_form_field( $id ) {
 	global $wpbdp;
 	return $wpbdp->formfields->get_field( $id );

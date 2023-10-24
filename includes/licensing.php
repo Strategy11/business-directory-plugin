@@ -1115,7 +1115,6 @@ class WPBDP_Licensing {
  * @since 3.4.2
  * @deprecated since 5.0.
  */
-// phpcs:ignore
 function wpbdp_licensing_register_module( $name, $file_, $version ) {
 	_deprecated_function( __FUNCTION__, '5.0' );
 
@@ -1138,7 +1137,6 @@ function wpbdp_licensing_register_module( $name, $file_, $version ) {
  *
  * @since 5.0.1
  */
-// phpcs:ignore
 function wpbdp_compat_register_old_modules() {
 	global $wpbdp_compat_modules_registry;
 
@@ -1174,6 +1172,5 @@ function wpbdp_compat_register_old_modules() {
 		);
 	}
 }
-/* we need to move this to another file but i don't know what is the best location for it */
-// phpcs:ignore
+
 add_action( 'wpbdp_licensing_before_updates_check', 'wpbdp_compat_register_old_modules' );
