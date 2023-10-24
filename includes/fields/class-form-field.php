@@ -102,17 +102,17 @@ class WPBDP_Form_Field {
 			// handle some special extra data from previous BD versions
 			// TODO: this is not needed anymore since the 3.2 upgrade routine
 
-				$options = array();
+			$options = array();
 
-				foreach ( $attrs['field_data']['options'] as $option_value ) {
-				if ( is_array( $option_value ) ) {
-					$options[ $option_value[0] ] = $option_value[1];
-					} else {
-					$options[ $option_value ] = $option_value;
-					}
+			foreach ( $attrs['field_data']['options'] as $option_value ) {
+			if ( is_array( $option_value ) ) {
+				$options[ $option_value[0] ] = $option_value[1];
+				} else {
+				$options[ $option_value ] = $option_value;
 				}
+			}
 
-				$this->field_data['options'] = $options;
+			$this->field_data['options'] = $options;
 		}
 
 		$this->type->setup_field( $this );

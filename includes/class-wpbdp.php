@@ -59,7 +59,7 @@ final class WPBDP {
 		require_once WPBDP_INC . 'licensing.php';
 
 		require_once WPBDP_INC . 'form-fields.php';
-		require_once WPBDP_INC . 'form-fields-validation.php';
+		require_once WPBDP_INC . 'models/form-fields-validation.php';
 		require_once WPBDP_INC . 'payment.php';
 		require_once WPBDP_PATH . 'includes/class-payment-gateways.php';
 		require_once WPBDP_INC . 'installer.php';

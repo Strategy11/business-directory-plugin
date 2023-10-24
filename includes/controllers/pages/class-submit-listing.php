@@ -1125,8 +1125,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			}
 		} elseif ( $this->skip_plan_selection && ! $this->category_specific_fields ) {
 
-				$this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
-			} else {
+			$this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
+		} else {
 			$has_categories = $categories || $this->listing->get_categories( 'ids' );
 			if ( $this->listing->get_fee_plan() && $has_categories ) {
 				return $this->section_render( 'submit-listing-plan-selection-complete' );

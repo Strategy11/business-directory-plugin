@@ -630,7 +630,9 @@ function wpbdp_thumbnail_html( $args ) {
 	);
 }
 
-/* This class is not used iam not sure if it is used in plugin modules. */
+/**
+ * Is this class used?
+ */
 // phpcs:ignore
 class WPBDP_ListingFieldDisplayItem {
 	private $listing_id = 0;

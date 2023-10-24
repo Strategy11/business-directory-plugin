@@ -295,8 +295,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 				);
 			}
 		}
-}
-
+	}
 }
 
 // phpcs:ignore
