@@ -327,8 +327,10 @@ class WPBDP__Shortcodes {
 
 		$this->validate_attributes( $sc_atts, $atts );
 
-		$query_args                   = array();
-		$query_args['items_per_page'] = intval( $sc_atts['items_per_page'] );
+		$query_args = array(
+			'items_per_page'  => intval( $sc_atts['items_per_page'] ),
+			'wpbdp_shortcode' => true,
+		);
 
 		$this->process_category_atts( $sc_atts, $query_args );
 
@@ -375,6 +377,7 @@ class WPBDP__Shortcodes {
 			array(
 				'orderby' => 'date',
 				'order'   => 'DESC',
+				'wpbdp_shortcode' => true,
 			),
 			$sc_atts
 		);
