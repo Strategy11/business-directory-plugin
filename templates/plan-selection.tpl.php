@@ -16,7 +16,7 @@ if ( 1 === $args['plans_count'] ) {
 	foreach ( $plans as $plan ) {
 		$args['plan'] = $plan;
 
-		$args['disabled'] = $plan->recurring && current_user_is_admin();
+		$args['disabled'] = $plan->recurring && wpbdp_user_is_admin();
 
 		wpbdp_render( 'plan-selection-plan', $args );
 	}

@@ -1313,20 +1313,24 @@ function wpbdp_users_dropdown() {
 /**
  * Check if user is admin.
  *
+ * @since x.x
+ *
  * @return bool Whether user is admin.
  */
-function current_user_is_admin() {
- 	return current_user_can( 'manage_options' );
+function wpbdp_user_is_admin() {
+	return current_user_can( 'manage_options' );
 }
 
 /**
  * Check if user has specific role.
  *
+ * @since x.x
+ *
  * @return bool Whether user has the role.
  */
-function current_user_has_role( $role ) {
+function wpbdp_user_has_role( $role ) {
 	$user = wp_get_current_user();
-	return in_array( $role, $user->roles );
+	return in_array( $role, $user->roles, true );
 }
 
 /**
@@ -1840,7 +1844,7 @@ function wpbdp_admin_pointer(
 	$secondary_action = '',
 	$options = array()
 ) {
-	if ( ! current_user_is_admin() || ( get_bloginfo( 'version' ) < '3.3' ) ) {
+	if ( ! wpbdp_user_is_admin() || ( get_bloginfo( 'version' ) < '3.3' ) ) {
 		return;
 	}
 
@@ -2238,11 +2242,6 @@ function wpbdp_x_part( $template_id, $vars = array() ) {
 function wpbdp_add_template_dir( $dir_or_file ) {
 	global $wpbdp;
 	return $wpbdp->themes->add_template_dir( $dir_or_file );
-}
-
-function wpbdp_admin_message( $msg, $kind = '', $extra = array() ) {
-	global $wpbdp;
-	$wpbdp->admin->messages[] = ( $kind || $extra ) ? array( $msg, $kind, $extra ) : $msg;
 }
 
 /**

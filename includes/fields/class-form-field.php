@@ -576,7 +576,7 @@ class WPBDP_Form_Field {
 			return '';
 		}
 
-		if ( $this->has_display_flag( 'private' ) && ! current_user_is_admin() ) {
+		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
 			return '';
 		}
 
@@ -610,7 +610,7 @@ class WPBDP_Form_Field {
 			return '';
 		}
 
-		if ( $this->has_display_flag( 'private' ) && ! current_user_is_admin() ) {
+		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
 			return '';
 		}
 

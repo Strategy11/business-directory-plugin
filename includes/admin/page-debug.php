@@ -166,7 +166,7 @@ class WPBDP_Admin_Debug_Page {
 	public function handle_download() {
 		global $pagenow;
 
-		if ( ! current_user_is_admin() || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
+		if ( ! wpbdp_user_is_admin() || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
 			|| 'wpbdp-debug-info' !== wpbdp_get_var( array( 'param' => 'page' ) ) ) {
 			return;
 		}

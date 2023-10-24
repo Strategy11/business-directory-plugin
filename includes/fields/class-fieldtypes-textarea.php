@@ -348,8 +348,8 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 				$value = nl2br( $value );
 			}
 		} elseif ( $field->data( 'allow_html' ) ) {
-				$value = wpautop( $value );
-			} else {
+			$value = wpautop( $value );
+		} else {
 			$value = nl2br( $value );
 		}
 

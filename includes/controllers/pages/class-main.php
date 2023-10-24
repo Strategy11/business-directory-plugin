@@ -17,7 +17,7 @@ class WPBDP__Views__Main extends WPBDP__View {
 			}
 		}
 
-		if ( current_user_is_admin() && wpbdp_get_option( 'hide-empty-categories' ) ) {
+		if ( wpbdp_user_is_admin() && wpbdp_get_option( 'hide-empty-categories' ) ) {
 			$has_cats  = (float) $cat_count > 0;
 			$empty_cat = (float) wp_count_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => true ) ) == 0;
 
