@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-09-15 18:33:17+00:00\n"
+"POT-Creation-Date: 2023-10-25 14:45:12+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -454,7 +454,7 @@ msgstr "Numéro de fax"
 
 #: includes/admin/controllers/class-form-fields-admin.php:373
 #: includes/fields/class-fieldtypes-phone-number.php:13
-#: templates/listing-contactform.tpl.php:38
+#: templates/listing-contactform.tpl.php:40
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
@@ -702,7 +702,7 @@ msgstr "Tables manquantes : %s"
 #: includes/admin/settings/class-settings-bootstrap.php:13
 #: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
-#: templates/listing-contactform.tpl.php:33
+#: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
 msgid "Email"
 msgstr "Email"
@@ -1612,6 +1612,11 @@ msgstr "Payer maintenant"
 #: includes/controllers/pages/class-checkout.php:181
 msgid "Complete"
 msgstr "Completer"
+
+#: includes/controllers/pages/class-delete-listing.php:34
+#, fuzzy
+msgid "You don't have permission to delete this listing."
+msgstr "Vous ne pouvez pas éditer cette annonce."
 
 #. translators: %1$s: listing name, %2$s: open link html, %3$s close link html
 #: includes/controllers/pages/class-flag-listing.php:56
@@ -2731,7 +2736,7 @@ msgstr "Ajouter un champ de formulaire"
 msgid "Maximum number of words"
 msgstr "Nombre maximum de mots"
 
-#: templates/admin/form-fields-addoredit.tpl.php:263
+#: templates/admin/form-fields-addoredit.tpl.php:267
 msgid "Require this field on the Advanced Search screen."
 msgstr "Rendre ce champ obligatoire lors de recherches avancée."
 
@@ -3350,11 +3355,11 @@ msgstr ""
 msgid "Access Key"
 msgstr "Clés d'accès"
 
-#: templates/listing-contactform.tpl.php:42
+#: templates/listing-contactform.tpl.php:45
 msgid "Message"
 msgstr "Message"
 
-#: templates/listing-contactform.tpl.php:67
+#: templates/listing-contactform.tpl.php:69
 msgid "Send"
 msgstr "Envoyer"
 
@@ -4467,86 +4472,86 @@ msgctxt "form-fields admin"
 msgid "Click to add categories to the selection."
 msgstr "Cliquez pour ajouter des catégories à la sélection."
 
-#: templates/admin/form-fields-addoredit.tpl.php:208
+#: templates/admin/form-fields-addoredit.tpl.php:210
 msgctxt "form-fields admin"
 msgid "Show this field to admin users only?"
 msgstr "Montrer ce champ uniquement aux administrateurs ?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:214
+#: templates/admin/form-fields-addoredit.tpl.php:216
 msgctxt "form-fields admin"
 msgid "Display this field to admin users only in the edit listing view."
 msgstr ""
 "Afficher ce champ uniquement aux administrateurs dans la vue d'édition de "
 "l'annonce."
 
-#: templates/admin/form-fields-addoredit.tpl.php:220
+#: templates/admin/form-fields-addoredit.tpl.php:222
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr "Montrer cette valeur dans l'extrait de l'annonce ?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:226
+#: templates/admin/form-fields-addoredit.tpl.php:228
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr "Afficher cette valeur dans l'extrait de l'annonce."
 
-#: templates/admin/form-fields-addoredit.tpl.php:232
+#: templates/admin/form-fields-addoredit.tpl.php:234
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr "Montrer cette valeur dans la vue de l'annonce ?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:238
+#: templates/admin/form-fields-addoredit.tpl.php:240
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr "Afficher cette valeur dans la vue de l'annonce."
 
-#: templates/admin/form-fields-addoredit.tpl.php:244
+#: templates/admin/form-fields-addoredit.tpl.php:246
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr "Inclure ce champ dans le formulaire de recherche ?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:250
+#: templates/admin/form-fields-addoredit.tpl.php:252
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr "Inclure ce champ dans le formulaire de recherche."
 
-#: templates/admin/form-fields-addoredit.tpl.php:256
+#: templates/admin/form-fields-addoredit.tpl.php:260
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "Ce champ est-il requis pour la recherche ?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:274
+#: templates/admin/form-fields-addoredit.tpl.php:278
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr "Cacher le titre de ce champ ?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:280
+#: templates/admin/form-fields-addoredit.tpl.php:284
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr "Cacher le titre de ce champ lorsqu'il est affiché."
 
-#: templates/admin/form-fields-addoredit.tpl.php:288
+#: templates/admin/form-fields-addoredit.tpl.php:292
 msgctxt "form-fields admin"
 msgid "Field privacy options"
 msgstr "Options de confidentialité des champs"
 
-#: templates/admin/form-fields-addoredit.tpl.php:292
+#: templates/admin/form-fields-addoredit.tpl.php:296
 msgctxt "form-fields admin"
 msgid "This field contains sensitive or private information?"
 msgstr "Ce champ contient-il des données sensibles ou privées ?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:300
+#: templates/admin/form-fields-addoredit.tpl.php:304
 msgctxt "form-fields admin"
 msgid "Add this field when exporting or deleting user's personal data."
 msgstr ""
 "Ajouter ce champ lors de l'export ou la suppression des données personnelles "
 "de l'utilisateur."
 
-#: templates/admin/form-fields-addoredit.tpl.php:309
+#: templates/admin/form-fields-addoredit.tpl.php:313
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "Mettre à jour le champ"
 
-#: templates/admin/form-fields-addoredit.tpl.php:311
+#: templates/admin/form-fields-addoredit.tpl.php:315
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "Ajouter un champ"
@@ -7072,7 +7077,7 @@ msgstr ""
 "La vérification prend habituellement quelques minutes. Cette page sera "
 "automatiquement actualisée s'il y a une mise à jour."
 
-#: includes/controllers/pages/class-delete-listing.php:36
+#: includes/controllers/pages/class-delete-listing.php:41
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Votre annonce a été effacée."
