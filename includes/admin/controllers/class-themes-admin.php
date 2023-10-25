@@ -103,7 +103,8 @@ class WPBDP_Themes_Admin {
 		}
 
 		if ( ! $this->api->set_active_theme( $theme_id ) ) {
-			wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'business-directory-plugin' ), $theme_id ) );
+			wp_die(
+				esc_html( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'business-directory-plugin' ), $theme_id ) ) );
 		}
 
 		wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
@@ -328,7 +329,12 @@ class WPBDP_Themes_Admin {
 		}
 
 		echo '<div class="wpbdp-theme-license-required-row">';
-		echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) . '">', _x( 'Activate your <a>license key</a> to use this theme.', 'themes', 'business-directory-plugin' ) );
+		printf(
+			/* translators: %1$s is the opening <a> tag, %2$s is the closing </a> tag */
+			esc_html__( 'Activate your %1$slicense key%2$s to use this theme.', 'business-directory-plugin' ),
+			'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) . '">',
+			'</a>'
+		);
 		echo '</div>';
 	}
 

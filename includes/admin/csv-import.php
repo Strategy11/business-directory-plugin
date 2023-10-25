@@ -191,7 +191,7 @@ class WPBDP_CSVImportAdmin {
 		echo '<h3 style="margin-top:1em">' . __( 'Example CSV Import File', 'business-directory-plugin' ) . '</h3>';
 
 		echo '<textarea class="wpbdp-csv-import-example" rows="20">';
-		echo $this->example_csv_content();
+		echo esc_html( $this->example_csv_content() );
 		echo '</textarea>';
 
 		echo wpbdp_admin_footer();

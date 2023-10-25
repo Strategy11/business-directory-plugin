@@ -212,7 +212,8 @@ class WPBDP_Themes {
 
 		echo '<style>';
 		foreach ( $wpbdp->fee_colors as $id => $color ) {
-			echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . $id . '{ background-color: ' . esc_attr( $color ) . '}';
+			echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . esc_html( $id ) .
+				'{ background-color: ' . esc_attr( $color ) . '}';
 		}
 		echo '</style>';
 	}
@@ -1020,7 +1021,7 @@ function wpbdp_x_part( $template_id, $vars = array() ) {
 	if ( ! $echo ) {
 		return $part;
 	}
-	echo $part;
+	echo $part; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 function wpbdp_add_template_dir( $dir_or_file ) {

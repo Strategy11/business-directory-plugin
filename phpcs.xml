@@ -77,10 +77,10 @@
 	</rule>
 
 	<rule ref="WordPress.Security.EscapeOutput">
-        <properties>
-            <property name="customAutoEscapedFunctions" type="array" value="wpbdp_sanitize_value,wpbdp_get_server_value"/>
-        </properties>
-    </rule>
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array" value="wpbdp_sanitize_value,wpbdp_get_server_value,wpbdp_render_page,wpbdp_admin_footer,wpbdp_render"/>
+		</properties>
+	</rule>
 
 	<!-- Check for cross-version support for PHP 5.6 and higher. -->
 	<config name="testVersion" value="5.6-" />
