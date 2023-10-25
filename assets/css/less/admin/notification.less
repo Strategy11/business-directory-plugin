@@ -12,18 +12,31 @@
 	padding: 5px 15px;
 }
 
-.post-type-wpbdp_listing .notice:not(.wpbdp-inline-notice),
-.wpbdp-admin-layout .notice:not(.wpbdp-inline-notice),
-.directory_page_wpbdp_settings .notice:not(.wpbdp-inline-notice),
-
 /* Hide stuff from other plugins that are missing the notice class. */
-.wpbdp-admin-page .notice:not(.wpbdp-inline-notice) {
-	display: none;
+.wpbdp-admin-page,
+.post-type-wpbdp_listing,
+.wpbdp-admin-layout,
+.directory_page_wpbdp_settings  {
+	.update:not(.wpbdp-inline-notice),
+	.notice:not(.wpbdp-inline-notice) {
+		display: none;
+	}
 }
 
-/* Hide elements that don't belong in the menu area. */
+/* Hide elements that don't belong in the menu area, but have inline important. */
+.wpbdp-admin-page .updated[style*="display:block !important"],
+.wpbdp-admin-page .notice[style*="display:block !important"]:not(.wpbdp-inline-notice),
 .wpbdp-menu-area .wpbdp-page-title ~ div:not(.wpbdp-inline-notice):not(.wpbdp-nav-items):not(.wpbdp-nav-toggle) {
 	display: none !important;
+	visibility: hidden;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	border: none;
+
+	* {
+		display: none;
+	}
 }
 
 .wpbdp-bell-notifications-list {
