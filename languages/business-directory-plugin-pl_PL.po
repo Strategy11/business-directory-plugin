@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-09-15 18:33:17+00:00\n"
+"POT-Creation-Date: 2023-10-25 14:45:12+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -584,7 +584,7 @@ msgstr "Numer karty kredytowej:"
 # @ WPBDM
 #: includes/admin/controllers/class-form-fields-admin.php:373
 #: includes/fields/class-fieldtypes-phone-number.php:13
-#: templates/listing-contactform.tpl.php:38
+#: templates/listing-contactform.tpl.php:40
 #, fuzzy
 msgid "Phone Number"
 msgstr "Telefon"
@@ -894,7 +894,7 @@ msgstr "Oferty otagowane: %s"
 #: includes/admin/settings/class-settings-bootstrap.php:13
 #: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
-#: templates/listing-contactform.tpl.php:33
+#: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
 #, fuzzy
 msgid "Email"
@@ -1906,6 +1906,12 @@ msgstr ""
 #, fuzzy
 msgid "Complete"
 msgstr "Zakończona"
+
+# @ WPBDM
+#: includes/controllers/pages/class-delete-listing.php:34
+#, fuzzy
+msgid "You don't have permission to delete this listing."
+msgstr "Kategorie dla tej oferty"
 
 # @ WPBDM
 #. translators: %1$s: listing name, %2$s: open link html, %3$s close link html
@@ -3283,7 +3289,7 @@ msgid "Maximum number of words"
 msgstr "Liczba obrazów:"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:263
+#: templates/admin/form-fields-addoredit.tpl.php:267
 #, fuzzy
 msgid "Require this field on the Advanced Search screen."
 msgstr "Dołącz to pole do formularza wyszukiwania"
@@ -4021,13 +4027,13 @@ msgid "Access Key"
 msgstr "Pola/Obrazy"
 
 # @ WPBDM
-#: templates/listing-contactform.tpl.php:42
+#: templates/listing-contactform.tpl.php:45
 #, fuzzy
 msgid "Message"
 msgstr "Wiadomość"
 
 # @ WPBDM
-#: templates/listing-contactform.tpl.php:67
+#: templates/listing-contactform.tpl.php:69
 #, fuzzy
 msgid "Send"
 msgstr "Wyślij"
@@ -5380,98 +5386,98 @@ msgctxt "form-fields admin"
 msgid "Click to add categories to the selection."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:208
+#: templates/admin/form-fields-addoredit.tpl.php:210
 msgctxt "form-fields admin"
 msgid "Show this field to admin users only?"
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:214
+#: templates/admin/form-fields-addoredit.tpl.php:216
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Display this field to admin users only in the edit listing view."
 msgstr "Wyświetlanie tej wartości w widoku oferty."
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:220
+#: templates/admin/form-fields-addoredit.tpl.php:222
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr "Pokazać wartość pola w wyciągu z wpisu?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:226
+#: templates/admin/form-fields-addoredit.tpl.php:228
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr "Wyświetlanie wartości pola w wyciągu z wpisu."
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:232
+#: templates/admin/form-fields-addoredit.tpl.php:234
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr "Pokazywać tą wartość w widoku oferty?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:238
+#: templates/admin/form-fields-addoredit.tpl.php:240
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr "Wyświetlanie tej wartości w widoku oferty."
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:244
+#: templates/admin/form-fields-addoredit.tpl.php:246
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr "Dołączyć to pole do formularza wyszukiwania?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:250
+#: templates/admin/form-fields-addoredit.tpl.php:252
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr "Dołącz to pole do formularza wyszukiwania"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:256
+#: templates/admin/form-fields-addoredit.tpl.php:260
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "Czy pole jest wymagane?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:274
+#: templates/admin/form-fields-addoredit.tpl.php:278
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr "Ukryć etykiety pól?"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:280
+#: templates/admin/form-fields-addoredit.tpl.php:284
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr "Ukryj etykiety pól, kiedy pola są wyświetlane."
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:288
+#: templates/admin/form-fields-addoredit.tpl.php:292
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field privacy options"
 msgstr "Opcje wyświetlania pola"
 
-#: templates/admin/form-fields-addoredit.tpl.php:292
+#: templates/admin/form-fields-addoredit.tpl.php:296
 msgctxt "form-fields admin"
 msgid "This field contains sensitive or private information?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:300
+#: templates/admin/form-fields-addoredit.tpl.php:304
 msgctxt "form-fields admin"
 msgid "Add this field when exporting or deleting user's personal data."
 msgstr ""
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:309
+#: templates/admin/form-fields-addoredit.tpl.php:313
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "Aktualizacja pola"
 
 # @ WPBDM
-#: templates/admin/form-fields-addoredit.tpl.php:311
+#: templates/admin/form-fields-addoredit.tpl.php:315
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "Dodaj Pole "
@@ -8422,7 +8428,7 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/controllers/pages/class-delete-listing.php:36
+#: includes/controllers/pages/class-delete-listing.php:41
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Twoja oferta została usunięta."

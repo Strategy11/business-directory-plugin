@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 4.8
 Requires PHP: 5.6
 Tested up to: 6.3.1
-Stable tag: 6.3.9
+Stable tag: 6.3.10
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,13 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.10 =
+* New: Add more detail in the Recaptcha validation message for editors or higher for help debugging. Any error code and V3 score will be shown.
+* Security: It was possible for a logged in "contributor" user to delete an admin listing.
+* Fix: Sticky listings weren't showing at the top when shown using a shortcode or a category page.
+* Fix: Sticky listings were always in the same order, regardless of settings
+* Fix: If a private field is switched to a type that doesn't have privacy options, show the option so it can be turned off.
+
 = 6.3.8 =
 * New: Add quick links to support and docs in the admin notification area.
 * New: When sorting by rating, consider the rating count in addition to the average so listings with more ratings will be higher if they have the same average.
@@ -222,19 +229,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * New: When editing a listing in the admin area without a plan selected, make it clear that the plan is missing and automatically scroll to the plan setting.
 * Fix: Resolve the PHP 8 error when uploading some attachments.
 * Fix: When a BD theme is installed without a license, show a more clear message instead of "Invalid".
-
-= 6.2.10 =
-* Use h3 tags in the excerpt listings for better accessibility.
-* Fix: Images uploaded with sideload were failing. This fixes migration imports.
-* Fix: The unistall process wasn't progressing past asking why.
-* Fix: After creating the required pages, hide the message.
-* Fix: Page titles weren't showing up correctly in the Enfold theme or when CPT integration was off.
-* Fix: The "Clear form" link on the submit listing page was redirecting to the wrong page when embedded with a shortcode.
-* Remove old deprecated businessdirectory-category.tpl.php template.
-
-= 6.2.9 =
-* Fix: A javascript timeout was preventing field types from getting set properly.
-* Fix: Highlight the menu in the sidebar for Content tabs more consistently.
-* Fix: Replace old references to "author" with "listing owner".
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
