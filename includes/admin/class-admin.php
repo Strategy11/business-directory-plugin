@@ -91,10 +91,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			// Clear listing page cache.
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
 
-			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
-
-			require_once WPBDP_INC . 'controllers/class-smtp.php';
 			WPBDP_SMTP_Controller::load_hooks();
 
 			require_once WPBDP_PATH . 'includes/admin/helpers/class-notices.php';

@@ -35,6 +35,82 @@ if ( ! defined( 'WPBDP_PLUGIN_FILE' ) ) {
 	define( 'WPBDP_PLUGIN_FILE', __FILE__ );
 }
 
+// if __autoload is active, put it on the spl_autoload stack
+if ( is_array( spl_autoload_functions() ) && in_array( '__autoload', spl_autoload_functions(), true ) ) {
+	spl_autoload_register( '__autoload' );
+}
+
+// Add the autoloader
+spl_autoload_register( 'wpbdp_dir_autoloader' );
+
+/**
+ * @since x.x
+ * @return void
+ */
+function wpbdp_dir_autoloader( $class_name ) {
+	// Only load Wpbdp classes here
+	if ( ! preg_match( '/^wpbdp.+$/', strtolower( $class_name ) ) ) {
+		return;
+	}
+
+	wpbdp_class_autoloader( $class_name, dirname( __FILE__ ) );
+}
+
+/**
+ * Autoload the BD classes
+ *
+ * @since x.x
+ *
+ * @return void
+ */
+function wpbdp_class_autoloader( $class_name, $filepath ) {
+	$deprecated        = array();
+	$is_deprecated     = in_array( $class_name, $deprecated, true ) || preg_match( '/^.+Deprecate/', $class_name );
+	$original_filepath = $filepath;
+	$class_name        = str_replace(
+		array( '___', '__', '_', 'WPBDP' ),
+		array( '-', '-', '-', 'Wpbdp' ),
+		$class_name
+	);
+
+	$filepath .= '/includes/';
+
+	if ( preg_match( '/^WpbdpStrp.+$/', $class_name ) ) {
+		$filepath .= 'gateways/stripe/';
+	} elseif ( strpos( 'Admin', $class_name ) ) {
+		$filepath .= 'admin/';
+	}
+
+	if ( $is_deprecated ) {
+		$filepath .= 'compatibility/deprecated/';
+	} else {
+		if ( preg_match( '/^.+Helper$/', $class_name ) ) {
+			$filepath .= 'helpers/';
+		} elseif ( preg_match( '/^.+Controller$/', $class_name ) ) {
+			$filepath .= 'controllers/';
+			if ( ! file_exists( $filepath . $class_name . '.php' ) && strpos( $class_name, 'Views' ) ) {
+				$filepath .= 'pages/';
+			}
+		} elseif ( strpos( $class_name, 'Field' ) && ! file_exists( $filepath . $class_name . '.php' ) ) {
+			$filepath .= 'fields/';
+		} else {
+			$filepath .= 'models/';
+		}
+	}
+
+	if ( file_exists( $filepath . $class_name . '.php' ) ) {
+		require $filepath . $class_name . '.php';
+		return;
+	}
+
+	// Try to load the class with the old naming convention ie class-addons.php.
+	$class_name = str_replace( 'wpbdp', 'class', strtolower( $class_name ) );
+	$filepath  .= $class_name . '.php';
+	if ( file_exists( $filepath ) ) {
+		require $filepath;
+	}
+}
+
 if ( ! class_exists( 'WPBDP' ) ) {
 	require_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/class-wpbdp.php';
 }

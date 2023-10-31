@@ -1,5 +1,4 @@
 <?php
-require_once WPBDP_INC . 'models/class-fee-plan.php';
 
 if ( ! class_exists( 'WPBDP_Fees_API' ) ) {
 
