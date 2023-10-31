@@ -66,6 +66,4 @@ final class WPBDP__Module {
 
 		throw new Exception( 'Invalid method called!' );
 	}
-
 }
-

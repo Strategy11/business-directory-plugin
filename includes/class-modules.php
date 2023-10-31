@@ -1,5 +1,4 @@
 <?php
-require_once WPBDP_PATH . 'includes/models/class-module.php';
 
 // FIXME: replace all module support with branch issue/2708 before release.
 class WPBDP__Modules {
