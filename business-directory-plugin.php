@@ -35,12 +35,7 @@ if ( ! defined( 'WPBDP_PLUGIN_FILE' ) ) {
 	define( 'WPBDP_PLUGIN_FILE', __FILE__ );
 }
 
-// if __autoload is active, put it on the spl_autoload stack
-if ( is_array( spl_autoload_functions() ) && in_array( '__autoload', spl_autoload_functions(), true ) ) {
-	spl_autoload_register( '__autoload' );
-}
-
-// Add the autoloader
+// Add the autoloader.
 spl_autoload_register( 'wpbdp_dir_autoloader' );
 
 /**
@@ -64,7 +59,7 @@ function wpbdp_dir_autoloader( $class_name ) {
  * @return void
  */
 function wpbdp_class_autoloader( $class_name, $filepath ) {
-	$deprecated        = array();
+	$deprecated        = array( 'WPBDP_DB_Model2', 'WPBDP_DB_Entity_Error_List' );
 	$is_deprecated     = in_array( $class_name, $deprecated, true ) || preg_match( '/^.+Deprecate/', $class_name );
 	$original_filepath = $filepath;
 	$class_name        = str_replace(
