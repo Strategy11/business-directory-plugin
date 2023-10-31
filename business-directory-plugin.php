@@ -69,15 +69,13 @@ function wpbdp_class_autoloader( $class_name, $filepath ) {
 	$original_filepath = $filepath;
 	$class_name        = str_replace(
 		array( '___', '__', '_', 'WPBDP' ),
-		array( '-', '-', '-', 'Wpbdp' ),
+		array( '-', '-', '-', 'class' ),
 		$class_name
 	);
 
 	$filepath .= '/includes/';
 
-	if ( preg_match( '/^WpbdpStrp.+$/', $class_name ) ) {
-		$filepath .= 'gateways/stripe/';
-	} elseif ( strpos( 'Admin', $class_name ) ) {
+	if ( strpos( 'Admin', $class_name ) ) {
 		$filepath .= 'admin/';
 	}
 
@@ -98,14 +96,13 @@ function wpbdp_class_autoloader( $class_name, $filepath ) {
 		}
 	}
 
-	if ( file_exists( $filepath . $class_name . '.php' ) ) {
-		require $filepath . $class_name . '.php';
+	if ( file_exists( $filepath . strtolower( $class_name ) . '.php' ) ) {
+		require $filepath . strtolower( $class_name ) . '.php';
 		return;
 	}
 
-	// Try to load the class with the old naming convention ie class-addons.php.
-	$class_name = str_replace( 'wpbdp', 'class', strtolower( $class_name ) );
-	$filepath  .= $class_name . '.php';
+	// Fallback to camelcase.
+	$filepath .= $class_name . '.php';
 	if ( file_exists( $filepath ) ) {
 		require $filepath;
 	}
