@@ -1310,3 +1310,12 @@ function wpbdp_users_dropdown() {
 
 	return $res;
 }
+
+/**
+ * Is this used?
+ *
+ * @since 4.1.8
+ */
+function wpbdp_database_helper() {
+	return new WPBDP_Database_Helper( $GLOBALS['wpdb'] );
+}

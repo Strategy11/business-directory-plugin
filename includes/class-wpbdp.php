@@ -89,8 +89,6 @@ final class WPBDP {
 		require_once WPBDP_INC . 'installer.php';
 
 		require_once WPBDP_INC . 'class-cron.php';
-
-		require_once WPBDP_INC . 'helpers/class-currency-helper.php';
 		require_once WPBDP_INC . 'admin/settings/class-settings.php';
 
 		require_once WPBDP_INC . 'helpers/functions/general.php';
