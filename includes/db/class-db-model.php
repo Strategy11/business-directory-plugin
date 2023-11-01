@@ -325,8 +325,3 @@ class WPBDP__DB__Model {
 	}
 
 }
-
-// For backwards-compat.
-require_once WPBDP_PATH . 'includes/compatibility/deprecated/class-db-model2.php';
-
-
