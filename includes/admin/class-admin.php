@@ -114,6 +114,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			require_once WPBDP_INC . 'admin/controllers/class-settings-admin.php';
 			$this->settings_admin = new WPBDP__Settings_Admin();
 
+			WPBDPStrpHooksController::load_hooks();
+
 			add_action( 'wpbdp_settings_subtab_uninstall', array( $this, 'uninstall_plugin' ) );
 
 			if ( wpbdp_get_option( 'tracking-on' ) ) {

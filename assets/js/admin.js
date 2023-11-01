@@ -1003,3 +1003,50 @@ jQuery( function( $ ) {
 		);
 	});
 });
+
+/**
+ * Build an element.
+ *
+ * @since x.x Accept a string as one of `children` to append a text node inside the element.
+ *
+ * @param {String} type Element tag name.
+ * @param {Object} args The args.
+ * @return {Object}
+ */
+function wpbdpTag( type, args = {}) {
+	const output = document.createElement( type );
+
+	if ( 'string' === typeof args ) {
+		// Support passing just a string to a tag for simple text elements.
+		output.textContent = args;
+		return output;
+	}
+
+	const { id, className, children, child, text, data } = args;
+
+	if ( id ) {
+		output.id = id;
+	}
+	if ( className ) {
+		output.className = className;
+	}
+	if ( children ) {
+		children.forEach( child => {
+			if ( 'string' === typeof child ) {
+				output.appendChild( document.createTextNode( child ) );
+			} else {
+				output.appendChild( child )
+			}
+		} );
+	} else if ( child ) {
+		output.appendChild( child );
+	} else if ( text ) {
+		output.textContent = text;
+	}
+	if ( data ) {
+		Object.keys( data ).forEach( function( dataKey ) {
+			output.setAttribute( 'data-' + dataKey, data[dataKey] );
+		});
+	}
+	return output;
+}

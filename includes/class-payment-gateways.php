@@ -24,8 +24,8 @@ class WPBDP__Payment_Gateways {
 		$gateways = array();
 
 		// Add Authorize.net by default.
-		require_once WPBDP_PATH . 'includes/gateways/class-gateway-authorize-net.php';
-		$gateways[] = new WPBDP__Gateway__Authorize_Net();
+		require_once WPBDP_PATH . 'includes/gateways/class-stripe-gateway.php';
+        $gateways[] = new WPBDPStripeGateway();
 
 		// Allow modules to add gateways.
 		$gateways = apply_filters( 'wpbdp_payment_gateways', $gateways );
