@@ -58,14 +58,14 @@ class WPBDPStrpConnectHelper {
 	 * @return bool
 	 */
 	private static function user_landed_on_the_return_url() {
-		return isset( $_GET['wpbdp_stripe_connect_return'] );
+		return isset( $_GET['frm_stripe_connect_return'] );
 	}
 
 	/**
 	 * @return bool
 	 */
 	private static function user_landed_on_the_oauth_return_url() {
-		return isset( $_GET['wpbdp_stripe_connect_return_oauth'] );
+		return isset( $_GET['frm_stripe_connect_return_oauth'] );
 	}
 
 	/**
@@ -106,7 +106,7 @@ class WPBDPStrpConnectHelper {
 		$additional_body = array(
 			'password'              => self::generate_client_password( $mode ),
 			'user_id'               => get_current_user_id(),
-			'wpbdp_strp_connect_mode' => $mode,
+			'frm_strp_connect_mode' => $mode,
 		);
 		$data            = self::post_to_connect_server( 'initialize', $additional_body );
 
@@ -146,8 +146,8 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function post_to_connect_server( $action, $additional_body = array() ) {
 		$body    = array(
-			'wpbdp_strp_connect_action' => $action,
-			'wpbdp_strp_connect_mode'   => WPBDPStrpAppHelper::active_mode(),
+			'frm_strp_connect_action' => $action,
+			'frm_strp_connect_mode'   => WPBDPStrpAppHelper::active_mode(),
 		);
 		$body    = array_merge( $body, $additional_body );
 		$url     = self::get_url_to_connect_server();
@@ -279,7 +279,7 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function disconnect() {
 		$additional_body = array(
-			'wpbdp_strp_connect_mode' => self::get_mode_value_from_post(),
+			'frm_strp_connect_mode' => self::get_mode_value_from_post(),
 		);
 		return self::post_with_authenticated_body( 'disconnect', $additional_body );
 	}
@@ -320,7 +320,7 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function handle_reauth() {
 		$additional_body = array(
-			'wpbdp_strp_connect_mode' => self::get_mode_value_from_post(),
+			'frm_strp_connect_mode' => self::get_mode_value_from_post(),
 		);
 		$data            = self::post_with_authenticated_body( 'reauth', $additional_body );
 
@@ -379,7 +379,7 @@ class WPBDPStrpConnectHelper {
 		$body = array(
 			'server_password'       => get_option( self::get_server_side_token_option_name( $mode ) ),
 			'client_password'       => get_option( self::get_client_side_token_option_name( $mode ) ),
-			'wpbdp_strp_connect_mode' => $mode,
+			'frm_strp_connect_mode' => $mode,
 		);
 		$data = self::post_to_connect_server( 'oauth_account_status', $body );
 
@@ -404,7 +404,6 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function set_stripe_details_as_submitted( $mode ) {
 		update_option( self::get_stripe_details_submitted_option_name( $mode ), true, 'no' );
-		WPBDPStrpAppController::install();
 	}
 
 	/**
@@ -431,7 +430,7 @@ class WPBDPStrpConnectHelper {
 		$additional_body = array(
 			'password'              => self::generate_client_password( $mode ),
 			'user_id'               => get_current_user_id(),
-			'wpbdp_strp_connect_mode' => $mode,
+			'frm_strp_connect_mode' => $mode,
 		);
 
 		delete_option( 'wpbdp_stripe_lite_last_verify_attempt' ); // Clear the transient so it doesn't fail.
@@ -461,7 +460,7 @@ class WPBDPStrpConnectHelper {
 			$mode = 'test';
 		}
 		$additional_body = array(
-			'wpbdp_strp_connect_mode' => $mode,
+			'frm_strp_connect_mode' => $mode,
 		);
 		$data            = self::post_with_authenticated_body( 'account_status', $additional_body );
 		$success         = false !== $data && ! empty( $data->details_submitted );
@@ -508,7 +507,7 @@ class WPBDPStrpConnectHelper {
 		$site_url = preg_replace( '/:[0-9]+/', '', $site_url );    // remove port from url (mostly helpful in development)
 		$site_url = self::strip_lang_from_url( $site_url );
 
-		// $password is either a Pro license or a uuid (See FrmUsage::uuid).
+		// $password is either a Pro license or a uuid (See WPBDP_SiteTracking::uuid).
 		return array(
 			'Authorization' => 'Basic ' . base64_encode( $site_url . ':' . $password ),
 		);
@@ -547,6 +546,7 @@ class WPBDPStrpConnectHelper {
 	 * @return string|false
 	 */
 	private static function maybe_get_pro_license() {
+		return false; // TODO.
 		if ( FrmAppHelper::pro_is_installed() ) {
 			$pro_license = FrmAddonsController::get_pro_license();
 			if ( $pro_license ) {
@@ -562,8 +562,8 @@ class WPBDPStrpConnectHelper {
 	 * @return string
 	 */
 	private static function get_uuid() {
-		$usage = new FrmUsage();
-		return $usage->uuid();
+		$usage = new WPBDP_SiteTracking();
+		return $usage->site_hash();
 	}
 
 	/**
@@ -579,16 +579,7 @@ class WPBDPStrpConnectHelper {
 	 */
 	public static function render_stripe_connect_settings_container() {
 		self::register_settings_scripts();
-		?>
-			<tr>
-				<td>
-					<?php esc_html_e( 'Connection Status', 'business-directory-plugin' ); ?>
-				</td>
-				<td>
-					<div id="wpbdp_strp_settings_container"></div>
-				</td>
-			</tr>
-		<?php
+		echo '<div id="wpbdp_strp_settings_container"></div>';
 	}
 
 	/**
@@ -898,8 +889,8 @@ class WPBDPStrpConnectHelper {
 		}
 
 		$site_identifier = wpbdp_get_var( array( 'param' => 'site_identifier' ), 'post' );
-		$usage           = new FrmUsage();
-		$uuid            = $usage->uuid();
+		$usage           = new WPBDP_SiteTracking();
+		$uuid            = $usage->site_hash();
 
 		update_option( $option_name, time() );
 

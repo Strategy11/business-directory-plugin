@@ -58,11 +58,11 @@
 	}
 
 	function handleConnectWithOauth( trigger ) {
-		trigger.classList.add( 'wpbdp_loading_button' );
+		trigger.classList.add( 'wpbdp-loading-button' );
 		strpSettingsAjaxRequest(
 			'wpbdp_stripe_connect_oauth',
 			function( data ) {
-				if ( 'undefined' !== typeof data.redirect_url ) {
+				if ( 'undefined' !== typeof data.redirect_url && data.redirect_url ) {
 					window.location = data.redirect_url;
 				} else {
 					renderStripeConnectSettingsButton();
@@ -76,7 +76,7 @@
 		var data = {
 			action: action,
 			testMode: testMode,
-			nonce: wpbdpGlobal.nonce
+			nonce: wpbdp_global.nonce
 		};
 		postAjax( data, success );
 	}

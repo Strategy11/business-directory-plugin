@@ -10,22 +10,14 @@ class WPBDPStrpHooksController {
 	 */
 	public static function load_hooks() {
 		// Actions.
-		add_action( 'wpbdp_entry_form', 'WPBDPStrpAuth::add_hidden_token_field' );
-		add_action( 'wpbdp_enqueue_form_scripts', 'WPBDPStrpActionsController::maybe_load_scripts' );
+		//add_action( 'wpbdp_entry_form', 'WPBDPStrpAuth::add_hidden_token_field' );
+		//add_action( 'wpbdp_enqueue_form_scripts', 'WPBDPStrpActionsController::maybe_load_scripts' );
 		add_action( 'init', 'WPBDPStrpConnectHelper::check_for_stripe_connect_webhooks' );
 
 		// Filters.
-		add_filter( 'wpbdp_saved_errors', 'WPBDPStrpAppController::maybe_add_payment_error', 10, 2 );
-		add_filter( 'wpbdp_filter_final_form', 'WPBDPStrpAuth::maybe_show_message' );
+		//add_filter( 'wpbdp_saved_errors', 'WPBDPStrpAppController::maybe_add_payment_error', 10, 2 );
+		//add_filter( 'wpbdp_filter_final_form', 'WPBDPStrpAuth::maybe_show_message' );
 		//add_filter( 'wpbdp_setup_edit_entry_vars', 'WPBDPStrpAppController::maybe_delete_pay_entry', 20, 2 );
-
-		// This filter flags the Pro credit card field that Stripe is enabled.
-		add_filter(
-			'wpbdp_pro_show_card_callback',
-			function() {
-				return 'WPBDPStrpActionsController::show_card';
-			}
-		);
 
 		// Stripe link.
 		//add_filter( 'wpbdp_form_classes', 'WPBDPStrpLinkController::add_form_classes' );
@@ -35,8 +27,6 @@ class WPBDPStrpHooksController {
 	 * @return void
 	 */
 	public static function load_admin_hooks() {
-		// Actions.
-		add_action( 'wpbdp_after_uninstall', 'WPBDPStrpAppController::uninstall' );
 
 		// Filters.
 		add_filter( 'wpbdp_pay_action_defaults', 'WPBDPStrpActionsController::add_action_defaults' );

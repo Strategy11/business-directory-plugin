@@ -143,15 +143,15 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	public function get_settings() {
 		return array(
 			array(
+				'id'   => 'connect',
+				'name' => '',
+				'type' => 'strp_connect',
+			),
+			array(
 				'id'      => 'checkout-title',
 				'name'    => __( 'Checkout Window Title', 'business-directory-plugin' ),
 				'type'    => 'text',
 				'default' => '',
-			),
-			array(
-				'id'   => 'connect',
-				'name' => __( 'Connect', 'business-directory-plugin' ),
-				'type' => 'strp_connect',
 			),
 			array(
 				'id'      => 'processing_message',
@@ -179,7 +179,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @since x.x
 	 */
 	public function connect_setting( $setting, $value ) {
-		include_once WPBDP_PATH . 'includes/gateways/stripe/helpers/WPBDPStrpConnectHelper.php';
 		WPBDPStrpConnectHelper::render_stripe_connect_settings_container();
 	}
 

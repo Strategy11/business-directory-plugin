@@ -70,7 +70,9 @@ function wpbdp_class_autoloader( $class_name, $filepath ) {
 
 	$filepath .= '/includes/';
 
-	if ( strpos( 'Admin', $class_name ) ) {
+	if ( strpos( $class_name, 'Strp' ) ) {
+		$filepath .= 'gateways/stripe/';
+	} elseif ( strpos( $class_name, 'Admin' ) ) {
 		$filepath .= 'admin/';
 	}
 
@@ -91,8 +93,9 @@ function wpbdp_class_autoloader( $class_name, $filepath ) {
 		}
 	}
 
-	if ( file_exists( $filepath . strtolower( $class_name ) . '.php' ) ) {
-		require $filepath . strtolower( $class_name ) . '.php';
+	$filename = strtolower( $class_name ) . '.php';
+	if ( file_exists( $filepath . $filename ) ) {
+		require $filepath . $filename;
 		return;
 	}
 

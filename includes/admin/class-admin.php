@@ -15,7 +15,6 @@ require_once WPBDP_PATH . 'includes/admin/class-listing-owner.php';
 require_once WPBDP_PATH . 'includes/admin/class-listing-fields-metabox.php';
 require_once WPBDP_PATH . 'includes/admin/page-debug.php';
 require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-controller.php';
-require_once WPBDP_PATH . 'includes/admin/tracking.php';
 require_once WPBDP_PATH . 'includes/admin/class-listings-with-no-fee-plan-view.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/class-modules-list.php';
 
@@ -109,8 +108,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			require_once WPBDP_INC . 'admin/controllers/class-settings-admin.php';
 			$this->settings_admin = new WPBDP__Settings_Admin();
-
-			WPBDPStrpHooksController::load_hooks();
 
 			add_action( 'wpbdp_settings_subtab_uninstall', array( $this, 'uninstall_plugin' ) );
 

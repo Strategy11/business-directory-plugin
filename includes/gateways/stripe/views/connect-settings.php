@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="wpbdp-nope" style="color:#B94A48">&#10008;</span>
 				<?php esc_html_e( 'Not connected!', 'business-directory-plugin' ); ?>
 			</strong>
-			<br/><br/>
+			<br/>
 			<a id="wpbdp_reauth_stripe" class="button-primary wpbdp-button-primary" href="#">
 				<?php WPBDPStrpConnectHelper::stripe_icon(); ?> &nbsp;
 				<?php esc_html_e( 'Finish Stripe Setup', 'business-directory-plugin' ); ?>
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php } ?>
 		<a id="wpbdp_disconnect_stripe" href="#" style="font-size:13px"><?php esc_html_e( 'Disconnect', 'business-directory-plugin' ); ?></a>
 	<?php } else { ?>
-		<br/><br/>
+		<br/>
 		<a id="wpbdp_connect_with_oauth" class="button-primary wpbdp-button-primary">
 			<?php WPBDPStrpConnectHelper::stripe_icon(); ?> &nbsp;
 			<?php esc_html_e( 'Connect to Stripe', 'business-directory-plugin' ); ?>
