@@ -166,7 +166,7 @@ class WPBDP_SMTP_Controller {
 					<li>%3$s %5$s</li>
 					<li>%3$s %6$s</li>
 					<li>%3$s %7$s</li>
-				</ul>			
+				</ul>
 			</section>',
 			esc_url( WPBDP_ASSETS_URL . 'images/smtp-screenshot-tnail.png' ),
 			esc_attr__( 'WP Mail SMTP screenshot', 'business-directory-plugin' ),
@@ -213,9 +213,9 @@ class WPBDP_SMTP_Controller {
 					<h2>%2$s</h2>
 					<p>%3$s</p>
 					<span><a rel="%4$s" class="button button-primary wpbdp-button-primary %5$s" aria-label="%6$s">%7$s</a></span>
-				</div>		
+				</div>
 			</section>',
-			WPBDP_App_Helper::kses( $icon, array( 'a', 'i', 'span', 'use', 'svg' ) ), // WPCS: XSS ok.
+			WPBDP_App_Helper::kses( $icon, array( 'a', 'i', 'span', 'use', 'svg' ) ), // phpcs:ignore WordPress.Security.EscapeOutput
 			esc_html( $label ),
 			esc_html__( 'Install WP Mail SMTP from the WordPress.org plugin repository.', 'business-directory-plugin' ),
 			esc_attr( $step['plugin'] ),
@@ -257,10 +257,10 @@ class WPBDP_SMTP_Controller {
 					<h2>%3$s</h2>
 					<p>%4$s</p>
 					<span><a href="%5$s" class="button button-primary wpbdp-button-primary %6$s">%7$s</a></span>
-				</div>		
+				</div>
 			</section>',
 			esc_attr( $step['section_class'] ),
-			WPBDP_App_Helper::kses( $icon, array( 'a', 'i', 'span', 'use', 'svg' ) ), // WPCS: XSS ok.
+			WPBDP_App_Helper::kses( $icon, array( 'a', 'i', 'span', 'use', 'svg' ) ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			esc_html__( 'Set Up WP Mail SMTP', 'business-directory-plugin' ),
 			esc_html__( 'Select and configure your mailer.', 'business-directory-plugin' ),
 			esc_url( admin_url( $this->config['smtp_settings'] ) ),

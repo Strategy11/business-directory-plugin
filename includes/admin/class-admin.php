@@ -903,9 +903,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				if ( ! empty( $extra['dismissible-id'] ) ) {
 					printf(
 						'<button type="button" class="notice-dismiss" data-dismissible-id="%s" data-nonce="%s"><span class="screen-reader-text">%s</span></button>',
-						$extra['dismissible-id'],
-						wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ),
-						_x( 'Dismiss this notice.', 'admin', 'business-directory-plugin' )
+						esc_attr( $extra['dismissible-id'] ),
+						esc_attr( wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ) ),
+						esc_html__( 'Dismiss this notice.', 'business-directory-plugin' )
 					);
 				}
 

@@ -63,7 +63,7 @@ class WPBDP_Form_Field {
 		$this->type        = is_object( $attrs['field_type'] ) ? $attrs['field_type'] : WPBDP_FormFields::instance()->get_field_type( $attrs['field_type'] );
 
 		if ( ! $this->type ) {
-			throw new Exception( _x( 'Invalid form field type', 'form-fields-api', 'business-directory-plugin' ) );
+			throw new Exception( esc_html_x( 'Invalid form field type', 'form-fields-api', 'business-directory-plugin' ) );
 		}
 
 		/*

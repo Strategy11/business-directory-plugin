@@ -60,7 +60,7 @@ class WPBDP_Installer {
 			);
 			$fee->save();
 		} else {
-			throw new Exception( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" );
+			throw new Exception( esc_html( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" ) );
 		}
 
 		update_option( 'wpbdp-db-version', self::DB_VERSION );
@@ -233,7 +233,7 @@ class WPBDP_Installer {
 		$file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
 
 		if ( ! file_exists( $file ) ) {
-			throw new Exception( "Can't load migration class: $file." );
+			throw new Exception( esc_html( "Can't load migration class: $file." ) );
 		}
 
 		require_once $file;

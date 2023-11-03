@@ -33,7 +33,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 		);
 		echo '<p>';
 
-		echo _x( 'Form Style:', 'widgets', 'business-directory-plugin' );
+		echo esc_html_x( 'Form Style:', 'widgets', 'business-directory-plugin' );
 		echo '<br/>';
 		printf(
 			'<input id="%s" name="%s" type="radio" value="%s" %s/> <label for="%s">%s</label>',

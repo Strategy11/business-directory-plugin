@@ -18,7 +18,7 @@
 
 <?php esc_attr_e( 'URL', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->is_published() ? $listing->get_permalink() : __( '(not published yet)', 'business-directory-plugin' ) ); ?>
 
-<?php echo esc_attr_x( 'Admin URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo esc_attr( wpbdp_get_edit_post_link( $listing->get_id() ) ); ?>
+<?php esc_attr_e( 'Admin URL', 'business-directory-plugin' ); ?>: <?php echo esc_attr( wpbdp_get_edit_post_link( $listing->get_id() ) ); ?>
 
 <?php
 $categories = array();

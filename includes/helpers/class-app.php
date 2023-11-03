@@ -283,7 +283,8 @@ class WPBDP_App_Helper {
 		}
 
 		if ( $echo ) {
-			echo $icon; // WPCS: XSS ok.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $icon;
 		} else {
 			return $icon;
 		}
@@ -322,7 +323,8 @@ class WPBDP_App_Helper {
 	 * @since 5.9.2
 	 */
 	public static function show_logo( $atts ) {
-		echo self::kses( self::svg_logo( $atts ), 'all' ); // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo self::kses( self::svg_logo( $atts ), 'all' );
 	}
 
 	/**

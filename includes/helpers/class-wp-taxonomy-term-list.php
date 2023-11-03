@@ -39,6 +39,7 @@ class WPBDP__WP_Taxonomy_Term_List {
 	}
 
 	public function display() {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $this->output();
 	}
 

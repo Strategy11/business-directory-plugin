@@ -1076,6 +1076,7 @@ function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
 	}
 	$msg = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses_post( $msg ) . '</div>';
 	if ( $echo ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $msg;
 	}
 
@@ -1166,6 +1167,7 @@ function wpbdp_latest_listings( $n = 10, $before = '<ul>', $after = '</ul>', $be
  * @since 4.0
  */
 function wpbdp_the_listing_actions() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_listing_actions();
 }
 

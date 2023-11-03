@@ -243,12 +243,12 @@ class WPBDP_reCAPTCHA {
 			return;
 		}
 
-		echo <<<JS
-        <script>//<![CDATA[
-            jQuery( '#comment' ).val( "{$comment->comment_content}" );
+		?>
+		<script>//<![CDATA[
+            jQuery( '#comment' ).val( '<?php esc_js( $comment->comment_content ); ?>' );
         //}}>
         </script>
-JS;
+		<?php
 	}
 
 	/**

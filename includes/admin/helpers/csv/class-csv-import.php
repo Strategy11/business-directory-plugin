@@ -424,7 +424,9 @@ class WPBDP_CSV_Import {
 
 		foreach ( $required_fields as $rf ) {
 			if ( ! in_array( $rf->get_short_name(), $fields_in_header, true ) ) {
-				throw new Exception( sprintf( 'Required header column "%s" missing', $rf->get_short_name() ) );
+				throw new Exception(
+					sprintf( 'Required header column "%s" missing', esc_html( $rf->get_short_name() ) )
+				);
 			}
 		}
 

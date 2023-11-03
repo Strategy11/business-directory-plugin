@@ -270,7 +270,7 @@ class WPBDP_Admin_Listings {
 			// Insert category and expiration date after title.
 			if ( 'title' == $c_key ) {
 				$new_columns['title']           = $c_label;
-				$new_columns['category']        = _x( 'Categories', 'admin', 'business-directory-plugin' );
+				$new_columns['category']        = __( 'Categories', 'business-directory-plugin' );
 				$new_columns['expiration_date'] = __( 'Expires on', 'business-directory-plugin' );
 				continue;
 			}

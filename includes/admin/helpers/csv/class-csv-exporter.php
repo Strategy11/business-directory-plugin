@@ -106,8 +106,13 @@ class WPBDP_CSVExporter {
 				if ( is_dir( $csvexportsdir ) ) {
 					$this->workingdir = $csvexportsdir . '/';
 				} else {
-					$direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'business-directory-plugin' );
-					throw new Exception( sprintf( _x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'business-directory-plugin' ), $direrror ) );
+					$direrror = esc_html_x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'business-directory-plugin' );
+					throw new Exception(
+						sprintf(
+							esc_html_x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'business-directory-plugin' ),
+							$direrror
+						)
+					);
 				}
 			}
 		} else {

@@ -20,7 +20,7 @@ class WPBDP__Access_Keys_Sender {
 			$message = _x( '<email-address> is not a valid e-mail address.', 'access keys sender', 'business-directory-plugin' );
 			$message = str_replace( '<email-address>', esc_html( $email_address ), $message );
 
-			throw new Exception( $message );
+			throw new Exception( esc_html( $message ) );
 		}
 
 		$listings = $this->find_listings_by_email_address( $email_address );
@@ -29,7 +29,7 @@ class WPBDP__Access_Keys_Sender {
 			$message = _x( 'There are no listings associated to e-mail address <email-address>.', 'access keys sender', 'business-directory-plugin' );
 			$message = str_replace( '<email-address>', esc_html( $email_address ), $message );
 
-			throw new Exception( $message );
+			throw new Exception( esc_html( $message ) );
 		}
 
 		return $this->send_access_keys_for_listings( $listings, $email_address );
@@ -50,7 +50,7 @@ class WPBDP__Access_Keys_Sender {
 			$message = _x( 'An error occurred while sending the access keys for e-mail address <email-address>. Please try again.', 'access keys sender', 'business-directory-plugin' );
 			$message = str_replace( '<email-address>', esc_html( $email_address ), $message );
 
-			throw new Exception( $message );
+			throw new Exception( esc_html( $message ) );
 		}
 
 		return true;
