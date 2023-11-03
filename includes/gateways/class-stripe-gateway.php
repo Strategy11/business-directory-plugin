@@ -101,16 +101,9 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	private function set_stripe_info() {
-		//require_once trailingslashit( dirname( plugin_dir_path( __FILE__ ) ) ) . 'vendors/stripe-php/init.php';
+		WPBDPStrpApiHelper::initialize_api();
 
-		\Stripe\Stripe::setAppInfo(
-			'WordPress Business Directory Stripe Module',
-			'1.0', // TODO: BD version.
-			'https://businessdirectoryplugin.com/'
-		);
-
-		\Stripe\Stripe::setApiVersion( '2020-08-27' );
-		\Stripe\Stripe::setApiKey( $this->get_secret_key() );
+		// \Stripe\Stripe::setApiVersion( '2020-08-27' ); // TODO.
 	}
 
 	/**
@@ -706,8 +699,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 			$payment->save();
 		}
-
-		return;
 	}
 
 	private function maybe_create_listing_subscription( $invoice ) {
@@ -779,10 +770,13 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		foreach ( $possible_customer_ids as $sid ) {
 			try {
-				$customer = \Stripe\Customer::retrieve( $sid );
+				$customer = WPBDPStrpApiHelper::get_customer( array( 'customer_id' => $sid ) );
 
 				if ( ! $customer || ( isset( $customer->deleted ) && $customer->deleted ) ) {
 					$customer = null;
+				} else {
+					// TODO: check if this is a decoy.
+					continue;
 				}
 			} catch ( Exception $e ) {
 				$customer = null;

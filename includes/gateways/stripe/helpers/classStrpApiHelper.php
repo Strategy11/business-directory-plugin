@@ -70,10 +70,11 @@ class WPBDPStrpApiHelper {
 	 * @return object|string
 	 */
 	public static function get_customer( $options = array() ) {
-		$user_id   = ! empty( $options['user_id'] ) ? $options['user_id'] : get_current_user_id();
-		$meta_name = WPBDPStrpAppHelper::get_customer_id_meta_name();
+		$customer_id = ! empty( $options['customer_id'] ) ? $options['customer_id'] : false;
+		$user_id     = ! empty( $options['user_id'] ) ? $options['user_id'] : get_current_user_id();
+		$meta_name   = WPBDPStrpAppHelper::get_customer_id_meta_name();
 
-		if ( $user_id ) {
+		if ( $user_id && empty( $customer_id ) ) {
 			$customer_id = get_user_meta( $user_id, $meta_name, true );
 			if ( ! isset( $options['email'] ) ) {
 				$user_info = get_userdata( $user_id );
