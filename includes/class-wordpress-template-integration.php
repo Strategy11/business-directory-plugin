@@ -63,9 +63,10 @@ class WPBDP__WordPress_Template_Integration {
 			if ( WPBDP__Themes_Compat::is_block_theme() && is_tax() ) {
 				add_filter( 'render_block', array( $this, 'block_theme_set_tax_title' ), 10, 2 );
 				add_filter( 'render_block', array( $this, 'block_theme_remove_tax_featured_image' ), 10, 2 );
+				$this->setup_tax_hooks();
+			} else {
+				add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 			}
-
-			add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 
 			$page_template = get_query_template( 'page', $this->get_template_alternatives() );
 			if ( $page_template ) {
@@ -106,6 +107,23 @@ class WPBDP__WordPress_Template_Integration {
 		// Run last so other hooks don't break our output.
 		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 		remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
+	}
+
+	/**
+	 * Replace the content correctly on taxonomies in WP 6.4+.
+	 *
+	 * @since x.x
+	 * @return void
+	 */
+	public function setup_tax_hooks() {
+		if ( ! is_tax( WPBDP_CATEGORY_TAX ) && ! is_tax( WPBDP_TAGS_TAX ) ) {
+			return;
+		}
+
+		$this->prep_tax_head();
+
+		// Run last so other hooks don't break our output.
+		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 	}
 
 	/**
@@ -187,6 +205,7 @@ class WPBDP__WordPress_Template_Integration {
 
 		return $block_content;
 	}
+
 	/**
 	 * Prevent a post thumbnail from showing on the page before the loop.
 	 *
