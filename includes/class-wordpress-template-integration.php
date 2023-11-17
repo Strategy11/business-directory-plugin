@@ -116,7 +116,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return void
 	 */
 	public function setup_tax_hooks() {
-		if ( ! is_tax( WPBDP_CATEGORY_TAX ) && ! is_tax( WPBDP_TAGS_TAX ) ) {
+		if ( ! wpbdp_is_taxonomy() ) {
 			return;
 		}
 
