@@ -84,6 +84,9 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 </div>
 <a href="#" class="wpbdp-payment-receipt-print button wpbdp-button" ><?php esc_html_e( 'Print Receipt', 'business-directory-plugin' ); ?></a>
 
+<a href="<?php echo esc_url( wpbdp_url( 'edit_listing', $payment->listing_id ) ); ?>" class="wpbdp-payment-receipt-listing">
+	<?php esc_html_e( 'Edit listing', 'business-directory-plugin' ); ?>
+</a>
 			<?php
 			do_action( 'wpbdp_after_render_receipt', $payment );
 			return ob_get_clean();
