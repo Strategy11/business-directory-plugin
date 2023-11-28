@@ -53,11 +53,32 @@ class WPBDP_Themes {
 	 * @since 5.13.2
 	 */
 	private function set_template_dirs() {
-		// Theme BD template dir is priority 1.
+		$this->add_wp_theme_dir();
+
+		// Theme BD template dir is priority 2.
 		$theme                     = $this->get_active_theme_data();
 		$this->template_dirs['bd'] = $theme->path . 'templates/';
 
 		$this->add_core_template_dir();
+	}
+
+	/**
+	 * Get the paths from locate_template() in WordPress core.
+	 */
+	private function add_wp_theme_dir() {
+		$stylesheet_path = get_stylesheet_directory();
+		$template_path   = get_template_directory();
+		$is_child_theme  = $stylesheet_path !== $template_path;
+
+		$bd_folder = '/business-directory/';
+
+		// WP theme template dir is priority 1.
+		$this->template_dirs['wp'] = $stylesheet_path . $bd_folder;
+
+		if ( $is_child_theme ) {
+			// Check the parent theme.
+			$this->template_dirs['wp-parent'] = $template_path . $bd_folder;
+		}
 	}
 
 	/**
@@ -620,12 +641,8 @@ class WPBDP_Themes {
 		}
 
 		array_push( $this->cache['template_vars_stack'], $vars );
-		extract( $vars );
 
-		ob_start();
-		include $path;
-		$html = ob_get_contents();
-		ob_end_clean();
+		$html = wpbdp_render_page( $path, $vars );
 
 		if ( isset( $__template__['blocks'] ) && is_array( $__template__['blocks'] ) ) {
 			$template_meta['blocks'] = array_merge( $__template__['blocks'], $template_meta['blocks'] );
@@ -864,6 +881,18 @@ class WPBDP_Themes {
 		}
 	}
 
+	/**
+	 * Find the template file in the theme, core, or custom location.
+	 *
+	 *
+	 * @used-by wpbdp_render()
+	 * @used-by wpbdp_x_render()
+	 * @used-by wpbdp_x_part()
+	 *
+	 * @param string $id Template name.
+	 *
+	 * @return string|bool Path to template file or false if not found.
+	 */
 	public function locate_template( $id ) {
 		$id = str_replace( '.tpl.php', '', $id );
 
@@ -872,24 +901,26 @@ class WPBDP_Themes {
 		}
 
 		$filename = str_replace( ' ', '-', $id ) . '.tpl.php';
-		$path     = locate_template( 'business-directory/' . $filename );
+		$path     = false;
 
 		// Find the template.
 		foreach ( $this->template_dirs as $p ) {
-			if ( empty( $path ) && file_exists( $p . $filename ) ) {
+			if ( file_exists( $p . $filename ) ) {
 				$path = $p . $filename;
 			}
 
+			if ( empty( $path ) ) {
+				continue;
+			}
+
+			/**
+			 * Allow override since the order isn't the most dependable indicator.
+			 *
+			 * @since 5.9.2
+			 */
+			$path = apply_filters( 'wpbdp_use_template_' . $id, $path );
 			if ( $path ) {
-				/**
-				 * Allow override since the order isn't the most dependable indicator.
-				 *
-				 * @since 5.9.2
-				 */
-				$path = apply_filters( 'wpbdp_use_template_' . $id, $path );
-				if ( $path ) {
-					break;
-				}
+				break;
 			}
 		}
 
