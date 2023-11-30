@@ -420,7 +420,7 @@ class WPBDP__Settings_Admin {
 				checked( $option_value, $value, false ) .
 				' id="wpbdp-settings-' . esc_attr( $setting['id'] . '-radio-' . $option_value ) . '" />';
 			echo '<label for="wpbdp-settings-' . esc_attr( $setting['id'] . '-radio-' . $option_value ) . '">';
-			echo esc_attr( $option_label );
+			echo esc_html( $option_label );
 			echo '</label>';
 			echo '</div>';
 		}
@@ -520,8 +520,8 @@ class WPBDP__Settings_Admin {
 	 * @since 6.0
 	 */
 	private function setting_input_text_html( $setting, $value ) {
-		echo '<input type="' . esc_attr( $setting['type'] ) . '" id="' . esc_attr( $setting['id'] ) .
-			'" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '"';
+		echo '<input type="' . esc_attr( $setting['type'] ) . '" id="' . esc_attr( $setting['id'] ) . '"' .
+			' name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '"';
 
 		if ( ! empty( $setting['placeholder'] ) ) {
 			echo ' placeholder="' . esc_attr( $setting['placeholder'] ) . '"';

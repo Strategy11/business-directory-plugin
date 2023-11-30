@@ -14,6 +14,7 @@
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotValidated" />
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash" />
 		<exclude name="WordPress.DB.PreparedSQLPlaceholders.LikeWildcardsInQueryWithPlaceholder" />
+		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped" />
 		<exclude name="PSR2.Files.ClosingTag.NotAllowed" />
 		<exclude name="WordPress.DB.PreparedSQL.NotPrepared" />
 

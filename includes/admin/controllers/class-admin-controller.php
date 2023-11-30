@@ -65,7 +65,7 @@ class WPBDP__Admin__Controller {
 			$template = WPBDP_PATH . 'templates/admin/' . $this->controller_id . '-' . $this->current_view . '.tpl.php';
 
 			if ( ! file_exists( $template ) ) {
-				echo esc_html( json_encode( $result ) );
+				echo wp_json_encode( $result );
 			} else {
 				echo wpbdp_render_page( $template, $result );
 			}

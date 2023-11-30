@@ -194,7 +194,7 @@ wpbdp_admin_notices();
 								?>
 								<div class="wpbdp-category-item">
 									<label>
-										<input type="checkbox" name="field[supported_categories][]" value="<?php echo esc_attr( $category->term_id ); ?>" <?php checked( in_array( (int) $category->term_id, $supported_categories ) ); ?>>
+										<input type="checkbox" name="field[supported_categories][]" value="<?php echo absint( $category->term_id ); ?>" <?php checked( in_array( (int) $category->term_id, $supported_categories ) ); ?>>
 										<?php echo esc_html( $category->name ); ?>
 									</label>
 								</div>
@@ -204,7 +204,7 @@ wpbdp_admin_notices();
 							?>
 							<select name="field[supported_categories][]" multiple="multiple" placeholder="<?php esc_html_e( 'Click to add categories to the selection.', 'business-directory-plugin' ); ?>">
 								<?php foreach ( $all_categories as $category ) : ?>
-									<option value="<?php echo esc_attr( $category->term_id ); ?>" <?php selected( in_array( (int) $category->term_id, $supported_categories ) ); ?>>
+									<option value="<?php echo absint( $category->term_id ); ?>" <?php selected( in_array( (int) $category->term_id, $supported_categories ) ); ?>>
 										<?php echo esc_html( $category->name ); ?>
 									</option>
 								<?php endforeach; ?>

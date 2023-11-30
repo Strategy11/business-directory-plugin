@@ -290,8 +290,8 @@ printf(
 			</div>
 			<select name="settings[batch-size]">
 				<?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ) : ?>
-					<option value="<?php echo esc_attr( $batch_size ); ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>>
-						<?php echo esc_html( $batch_size ); ?>
+					<option value="<?php echo absint( $batch_size ); ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>>
+						<?php echo absint( $batch_size ); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>
