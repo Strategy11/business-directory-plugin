@@ -696,14 +696,14 @@ class WPBDP_Admin_Listings {
 						printf(
 							'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
 							'action',
-							'listing-' . esc_html( $action ),
+							'listing-' . esc_attr( $action ),
 							esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
 							esc_html( $text )
 						);
 						printf(
 							'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
 							'action2',
-							'listing-' . esc_html( $action ),
+							'listing-' . esc_attr( $action ),
 							esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
 							esc_html( $text )
 						);
@@ -718,9 +718,10 @@ class WPBDP_Admin_Listings {
 	public function _fix_new_links() {
 		// 'contributors' should still use the frontend to add listings (editors, authors and admins are allowed to add things directly)
 		// XXX: this is kind of hacky but is the best we can do atm, there aren't hooks to change add links
-		if ( wpbdp_user_has_role( 'contributor' ) && isset( $_GET['post_type'] ) && $_GET['post_type'] == WPBDP_POST_TYPE ) {
+		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
+		if ( wpbdp_user_has_role( 'contributor' ) && $post_type === WPBDP_POST_TYPE ) {
 			echo '<script>';
-			printf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', esc_html( wpbdp_get_page_link( 'add-listing' ) ) );
+			printf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', esc_url_raw( wpbdp_get_page_link( 'add-listing' ) ) );
 			echo '</script>';
 		}
 	}

@@ -359,7 +359,7 @@ function wpbdp_search_form() {
 	$html  = '';
 	$html .= sprintf(
 		'<form id="wpbdmsearchform" action="%s" method="GET" class="wpbdp-search-form">',
-		esc_attr( wpbdp_url( 'search' ) )
+		esc_url( wpbdp_url( 'search' ) )
 	);
 	$html .= '<input type="hidden" name="wpbdp_view" value="search" />';
 

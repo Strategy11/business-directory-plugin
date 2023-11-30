@@ -132,7 +132,7 @@ wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', false, 
 
 	<ul class="wpbdp-listing-metabox-renewal-actions">
 		<li>
-			<a href="#" class="button button-small" onclick="window.prompt('<?php esc_html_e( 'Renewal url (copy & paste)', 'business-directory-plugin' ); ?>', '<?php echo esc_url_raw( $listing->get_renewal_url() ); ?>'); return false;"><?php esc_html_e( 'Get renewal URL', 'business-directory-plugin' ); ?></a>
+			<a href="#" class="button button-small" onclick="window.prompt('<?php esc_attr_e( 'Renewal url (copy & paste)', 'business-directory-plugin' ); ?>', '<?php echo esc_url_raw( $listing->get_renewal_url() ); ?>'); return false;"><?php esc_html_e( 'Get renewal URL', 'business-directory-plugin' ); ?></a>
 			<a class="button button-small" href="
 			<?php
 			echo esc_url(
