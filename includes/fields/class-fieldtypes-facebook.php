@@ -3,7 +3,7 @@
 class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
 
 	public function __construct() {
-		parent::__construct( _x( 'Social Site (Facebook page)', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( __( 'Facebook follow', 'business-directory-plugin' ) );
 	}
 
 	public function get_id() {
