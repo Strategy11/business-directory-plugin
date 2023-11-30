@@ -332,7 +332,6 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 			} else {
 				$res = true;
 			}
-			// return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
 			break;
 		case 'flagging':
 			if ( wpbdp_get_option( 'listing-flagging-register-users' ) ) {
@@ -344,7 +343,7 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 			break;
 		case 'edit':
 		case 'delete':
-			$res = user_can( $user_id, 'manage_options' );
+			$res = user_can( $user_id, 'edit_others_posts' );
 			$res = $res || ( $user_id && $post->post_author && $post->post_author == $user_id );
 			$res = $res || ( ! $user_id && wpbdp_get_option( 'enable-key-access' ) );
 			break;
