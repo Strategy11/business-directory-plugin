@@ -19,7 +19,7 @@ printf(
 </p>
 
 <form action="" method="post">
-	<input type="hidden" name="theme_id" value="<?php echo $theme->id; ?>" />
+	<input type="hidden" name="theme_id" value="<?php echo esc_attr( $theme->id ); ?>" />
 	<input type="hidden" name="dodelete" value="1" />
 	<input type="hidden" name="wpbdp-action" value="delete-theme" />
 	<?php wp_nonce_field( 'delete theme ' . $theme->id ); ?>

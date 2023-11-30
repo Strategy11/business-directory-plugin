@@ -135,17 +135,23 @@
 			</tr>
 			<tr class="form-field limit-categories">
 				<th scope="row">
-					<label for="wpbdp-fee-form-fee-category-policy"><?php _ex( 'Plan Category Policy:', 'fees admin', 'business-directory-plugin' ); ?></label>
+					<label for="wpbdp-fee-form-fee-category-policy">
+						<?php esc_html_e( 'Plan Category Policy:', 'business-directory-plugin' ); ?>
+					</label>
 				</th>
 				<td>
 					<select id="wpbdp-fee-form-fee-category-policy"
 							name="limit_categories">
-						<option value="0"><?php _ex( 'Plan applies to all categories', 'fees admin', 'business-directory-plugin' ); ?></option>
-						<option value="1" <?php selected( is_array( $fee->supported_categories ), true ); ?> ><?php _ex( 'Plan applies to only certain categories', 'fees admin', 'business-directory-plugin' ); ?></option>
+						<option value="0"><?php esc_html_e( 'Plan applies to all categories', 'business-directory-plugin' ); ?></option>
+						<option value="1" <?php selected( is_array( $fee->supported_categories ), true ); ?> >
+							<?php esc_html_e( 'Plan applies to only certain categories', 'business-directory-plugin' ); ?>
+						</option>
 					</select>
 
 					<div id="limit-categories-list" class="<?php echo is_array( $fee->supported_categories ) ? '' : 'hidden'; ?>">
-						<p><span class="description"><?php _ex( 'Limit plan to the following categories:', 'fees admin', 'business-directory-plugin' ); ?></span></p>
+						<p><span class="description">
+							<?php esc_html_e( 'Limit plan to the following categories:', 'business-directory-plugin' ); ?>
+						</span></p>
 <?php
 $all_categories       = get_terms(
 	array(
@@ -161,7 +167,7 @@ if ( count( $all_categories ) <= 30 ) :
 		?>
 	<div class="wpbdp-category-item">
 		<label>
-			<input type="checkbox" name="fee[supported_categories][]" value="<?php echo $category->term_id; ?>" <?php checked( in_array( (int) $category->term_id, $supported_categories, true ) ); ?>>
+			<input type="checkbox" name="fee[supported_categories][]" value="<?php echo esc_attr( $category->term_id ); ?>" <?php checked( in_array( (int) $category->term_id, $supported_categories, true ) ); ?>>
 			<?php echo esc_html( $category->name ); ?>
 		</label>
 	</div>
@@ -169,9 +175,11 @@ if ( count( $all_categories ) <= 30 ) :
 	endforeach;
 else :
 	?>
-	<select name="fee[supported_categories][]" multiple="multiple" placeholder="<?php _ex( 'Click to add categories to the selection.', 'fees admin', 'business-directory-plugin' ); ?>">
+	<select name="fee[supported_categories][]" multiple="multiple" placeholder="<?php esc_attr_e( 'Click to add categories to the selection.', 'business-directory-plugin' ); ?>">
 	<?php foreach ( $all_categories as $category ) : ?>
-	<option value="<?php echo $category->term_id; ?>" <?php selected( in_array( (int) $category->term_id, $supported_categories, true ) ); ?>><?php echo esc_html( $category->name ); ?></option>
+	<option value="<?php echo esc_attr( $category->term_id ); ?>" <?php selected( in_array( (int) $category->term_id, $supported_categories, true ) ); ?>>
+		<?php echo esc_html( $category->name ); ?>
+	</option>
 	<?php endforeach; ?>
 	</select>
 	<?php
@@ -183,7 +191,7 @@ endif;
 		</tbody>
 	</table>
 
-	<h2><?php _ex( 'Pricing', 'fees admin', 'business-directory-plugin' ); ?></h2>
+	<h2><?php esc_html_e( 'Pricing', 'business-directory-plugin' ); ?></h2>
 
 	<?php WPBDP_Admin_Education::show_tip( 'discounts' ); ?>
 
@@ -191,33 +199,46 @@ endif;
 		<tbody>
 			<tr class="form-field pricing-info">
 				<th scope="row">
-					<label for="wpbdp-fee-form-pricing-model-flat"><?php _ex( 'Pricing model', 'fees admin', 'business-directory-plugin' ); ?>
+					<label for="wpbdp-fee-form-pricing-model-flat">
+						<?php esc_html_e( 'Pricing model', 'business-directory-plugin' ); ?>
+					</label>
 				</th>
 				<td>
 					<div class="pricing-options">
-						<label><input id="wpbdp-fee-form-pricing-model-flat" type="radio" name="fee[pricing_model]" value="flat" <?php checked( $fee->pricing_model, 'flat' ); ?> /> <?php _ex( 'Flat price', 'fees admin', 'business-directory-plugin' ); ?></label>
-						<label><input id="wpbdp-fee-form-pricing-model-variable" type="radio" name="fee[pricing_model]" value="variable" <?php checked( $fee->pricing_model, 'variable' ); ?> /> <?php _ex( 'Different price for different categories', 'fees admin', 'business-directory-plugin' ); ?></label>
-						<label><input id="wpbdp-fee-form-pricing-model-extra" type="radio" name="fee[pricing_model]" value="extra" <?php checked( $fee->pricing_model, 'extra' ); ?> /> <?php _ex( 'Base price plus an extra amount per category', 'fees admin', 'business-directory-plugin' ); ?></label>
+						<label>
+							<input id="wpbdp-fee-form-pricing-model-flat" type="radio" name="fee[pricing_model]" value="flat" <?php checked( $fee->pricing_model, 'flat' ); ?> />
+							<?php esc_html_e( 'Flat price', 'business-directory-plugin' ); ?>
+						</label>
+						<label>
+							<input id="wpbdp-fee-form-pricing-model-variable" type="radio" name="fee[pricing_model]" value="variable" <?php checked( $fee->pricing_model, 'variable' ); ?> />
+							<?php esc_html_e( 'Different price for different categories', 'business-directory-plugin' ); ?>
+						</label>
+						<label>
+							<input id="wpbdp-fee-form-pricing-model-extra" type="radio" name="fee[pricing_model]" value="extra" <?php checked( $fee->pricing_model, 'extra' ); ?> />
+							<?php esc_html_e( 'Base price plus an extra amount per category', 'business-directory-plugin' ); ?>
+						</label>
 					</div>
 				</td>
 			</tr>
 			<tr class="form-field fee-pricing-details pricing-details-flat pricing-details-extra <?php echo ( 'flat' === $fee->pricing_model || 'extra' === $fee->pricing_model ) ? '' : 'hidden'; ?>">
 				<th scope="row">
-					<label for="wpbdp-fee-form-fee-price"><?php _ex( 'Plan Price', 'fees admin', 'business-directory-plugin' ); ?></label>
+					<label for="wpbdp-fee-form-fee-price">
+						<?php esc_html_e( 'Plan Price', 'business-directory-plugin' ); ?>
+					</label>
 				</th>
 				<td>
-					<input id="wpbdp-fee-form-fee-price" type="text" name="fee[amount]" value="<?php echo $fee->amount; ?>" />
+					<input id="wpbdp-fee-form-fee-price" type="text" name="fee[amount]" value="<?php echo esc_attr( $fee->amount ); ?>" />
 				</td>
 			</tr>
 			<tr class="form-field fee-pricing-details pricing-details-variable <?php echo 'variable' === $fee->pricing_model ? '' : 'hidden'; ?>">
 				<th scope="row">
-					<label><?php _ex( 'Prices per category', 'fees admin', 'business-directory-plugin' ); ?></label>
+					<label><?php esc_html_e( 'Prices per category', 'business-directory-plugin' ); ?></label>
 				</th>
 				<td>
 					<table>
 						<thead>
 						<th><?php esc_html_e( 'Category', 'business-directory-plugin' ); ?></th>
-						<th><?php _ex( 'Price', 'fees admin', 'business-directory-plugin' ); ?></th>
+						<th><?php esc_html_e( 'Price', 'business-directory-plugin' ); ?></th>
 						</thead>
 						<tbody>
 							<?php
@@ -231,7 +252,7 @@ endif;
 			</tr>
 			<tr class="form-field fee-pricing-details pricing-details-extra <?php echo 'extra' === $fee->pricing_model ? '' : 'hidden'; ?>">
 				<th scope="row">
-					<label for="wpbdp-fee-form-fee-extra"><?php _ex( 'Extra amount (per category)', 'fees admin', 'business-directory-plugin' ); ?></label>
+					<label for="wpbdp-fee-form-fee-extra"><?php esc_html_e( 'Extra amount (per category)', 'business-directory-plugin' ); ?></label>
 				</th>
 				<td>
 					<input id="wpbdp-fee-form-fee-extra" type="text" name="fee[pricing_details][extra]" value="<?php echo isset( $fee->pricing_details['extra'] ) ? floatval( $fee->pricing_details['extra'] ) : 0; ?>" />

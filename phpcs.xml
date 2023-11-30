@@ -78,7 +78,7 @@
 
 	<rule ref="WordPress.Security.EscapeOutput">
 		<properties>
-			<property name="customAutoEscapedFunctions" type="array" value="wpbdp_sanitize_value,wpbdp_get_server_value,wpbdp_render_page,wpbdp_admin_footer,wpbdp_render,wpbdp_render_msg"/>
+			<property name="customAutoEscapedFunctions" type="array" value="wpbdp_sanitize_value,wpbdp_get_server_value,wpbdp_render_page,wpbdp_admin_footer,wpbdp_render,wpbdp_render_msg,wp_nonce_url"/>
 		</properties>
 	</rule>
 

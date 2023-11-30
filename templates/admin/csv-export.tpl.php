@@ -24,19 +24,19 @@ echo str_replace(
 <form id="wpbdp-csv-export-form" action="" method="POST">
 
 	<div class="wpbdp-settings-form-title">
-		<h3><?php _ex( 'Export settings', 'admin csv-export', 'business-directory-plugin' ); ?></h3>
+		<h3><?php esc_html_e( 'Export settings', 'business-directory-plugin' ); ?></h3>
 	</div>
 	<div class="form-table wpbdp-settings-form wpbdp-grid">
 		<div class="wpbdp-setting-row">
 			<div class="wpbdp-setting-label">
 				<label for="wpbdp-listing-status">
-					<?php _ex( 'Which listings to export?', 'admin csv-export', 'business-directory-plugin' ); ?>
+					<?php esc_html_e( 'Which listings to export?', 'business-directory-plugin' ); ?>
 				</label>
 			</div>
 			<select name="settings[listing_status]" id="wpbdp-listing-status">
 				<option value="all"><?php esc_html_e( 'All', 'business-directory-plugin' ); ?></option>
-				<option value="publish"><?php _ex( 'Active Only', 'admin csv-export', 'business-directory-plugin' ); ?></option>
-				<option value="publish+draft"><?php _ex( 'Active + Pending Renewal', 'admin csv-export', 'business-directory-plugin' ); ?></option>
+				<option value="publish"><?php esc_html_e( 'Active Only', 'business-directory-plugin' ); ?></option>
+				<option value="publish+draft"><?php esc_html_e( 'Active + Pending Renewal', 'business-directory-plugin' ); ?></option>
 			</select>
 		</div>
 		<div class="wpbdp-setting-row wpdb-checkbox">
@@ -44,7 +44,7 @@ echo str_replace(
 				<input name="settings[export-images]"
 					type="checkbox"
 					value="1" />
-				<?php _ex( 'Export images', 'admin csv-export', 'business-directory-plugin' ); ?>
+				<?php esc_html_e( 'Export images', 'business-directory-plugin' ); ?>
 			</label>
 			<div class="wpbdp-setting-description">
 				<?php esc_html_e( 'Create a ZIP file with both a CSV file and listing images.', 'business-directory-plugin' ); ?>
@@ -59,7 +59,7 @@ echo str_replace(
 					<input name="settings[generate-sequence-ids]"
 						type="checkbox"
 						value="1" />
-					<?php _ex( 'Include unique IDs for each listing (sequence_id column).', 'admin csv-export', 'business-directory-plugin' ); ?>
+					<?php esc_html_e( 'Include unique IDs for each listing (sequence_id column).', 'business-directory-plugin' ); ?>
 				</label>
 				<span class="wpbdp-setting-description">
 					<?php esc_html_e( 'If you plan to re-import the listings into your directory and don\'t want new ones created, select this option!', 'business-directory-plugin' ); ?>
@@ -72,7 +72,7 @@ echo str_replace(
 						type="checkbox"
 						value="1"
 						checked="checked" />
-					<?php _ex( 'Author information (username)', 'admin csv-export', 'business-directory-plugin' ); ?>
+					<?php esc_html_e( 'Author information (username)', 'business-directory-plugin' ); ?>
 				</label>
 			</div>
 
@@ -82,7 +82,7 @@ echo str_replace(
 						type="checkbox"
 						value="1"
 						checked="checked" />
-					<?php _ex( 'Listing expiration date', 'admin csv-export', 'business-directory-plugin' ); ?>
+					<?php esc_html_e( 'Listing expiration date', 'business-directory-plugin' ); ?>
 				</label>
 			</div>
 
@@ -91,7 +91,7 @@ echo str_replace(
 					<input name="settings[include-created-date]"
 						type="checkbox"
 						value="1" />
-						<?php _ex( 'Listing created date', 'admin csv-export', 'business-directory-plugin' ); ?>
+						<?php esc_html_e( 'Listing created date', 'business-directory-plugin' ); ?>
 				</label>
 			</div>
 
@@ -100,7 +100,7 @@ echo str_replace(
 					<input name="settings[include-modified-date]"
 						type="checkbox"
 						value="1" />
-					<?php _ex( 'Listing last updated date', 'admin csv-export', 'business-directory-plugin' ); ?>
+					<?php esc_html_e( 'Listing last updated date', 'business-directory-plugin' ); ?>
 				</label>
 			</div>
 
@@ -109,7 +109,7 @@ echo str_replace(
 					<input name="settings[include-tos-acceptance-date]"
 						type="checkbox"
 						value="1" />
-					<?php _ex( 'Listing T&C acceptance date', 'admin csv-export', 'business-directory-plugin' ); ?>
+					<?php esc_html_e( 'Listing T&C acceptance date', 'business-directory-plugin' ); ?>
 				</label>
 			</div>
 		</div>
@@ -122,7 +122,7 @@ echo str_replace(
 		<div class="wpbdp-setting-row form-required">
 			<div class="wpbdp-setting-label">
 				<label for="settings[target-os]">
-					<?php _ex( 'What operating system will you use to edit the CSV file?', 'admin csv-export', 'business-directory-plugin' ); ?> *
+					<?php esc_html_e( 'What operating system will you use to edit the CSV file?', 'business-directory-plugin' ); ?> *
 				</label>
 			</div>
 			<div class="wpbdp-setting-description">
@@ -134,7 +134,7 @@ echo str_replace(
 					aria-required="true"
 					value="windows"
 					checked="checked" />
-				<?php _ex( 'Windows', 'admin csv-export', 'business-directory-plugin' ); ?>
+				<?php esc_html_e( 'Windows', 'business-directory-plugin' ); ?>
 			</label>
 			<br />
 			<label>
@@ -142,7 +142,7 @@ echo str_replace(
 					type="radio"
 					aria-required="true"
 					value="macos" />
-				<?php _ex( 'macOS', 'admin csv-export', 'business-directory-plugin' ); ?>
+				<?php esc_html_e( 'macOS', 'business-directory-plugin' ); ?>
 			</label>
 		</div>
 		<div class="wpbdp-setting-row form-required wpbdp6">
@@ -156,7 +156,7 @@ echo str_replace(
 		</div>
 		<div class="wpbdp-setting-row form-required wpbdp6">
 			<div class="wpbdp-setting-label">
-				<label><?php _ex( 'Category Separator', 'admin csv-export', 'business-directory-plugin' ); ?> *</label>
+				<label><?php esc_html_e( 'Category Separator', 'business-directory-plugin' ); ?> *</label>
 			</div>
 			<input name="settings[category-separator]"
 				type="text"
@@ -172,31 +172,31 @@ echo str_replace(
 </div>
 
 <div class="step-2">
-	<h2><?php _ex( 'Export in Progress...', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
-	<p><?php _ex( 'Your export file is being prepared. Please <u>do not leave</u> this page until the export finishes.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
+	<h2><?php esc_html_e( 'Export in Progress...', 'business-directory-plugin' ); ?></h2>
+	<p><?php esc_html_e( 'Your export file is being prepared. Please <u>do not leave</u> this page until the export finishes.', 'business-directory-plugin' ); ?></p>
 
 	<dl>
-		<dt><?php _ex( 'No. of listings:', 'admin csv-export', 'business-directory-plugin' ); ?></dt>
+		<dt><?php esc_html_e( 'No. of listings:', 'business-directory-plugin' ); ?></dt>
 		<dd class="listings">?</dd>
-		<dt><?php _ex( 'Approximate export file size:', 'admin csv-export', 'business-directory-plugin' ); ?></dt>
-		<dd class="size">?</dd> 
+		<dt><?php esc_html_e( 'Approximate export file size:', 'business-directory-plugin' ); ?></dt>
+		<dd class="size">?</dd>
 	</dl>
 
 	<div class="export-progress"></div>
 
 	<p class="submit">
-		<a href="#" class="cancel-import button"><?php _ex( 'Cancel Export', 'admin csv-export', 'business-directory-plugin' ); ?></a>
+		<a href="#" class="cancel-import button"><?php esc_html_e( 'Cancel Export', 'business-directory-plugin' ); ?></a>
 	</p>
 </div>
 
 <div class="step-3">
-	<h2><?php _ex( 'Export Complete', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
-	<p><?php _ex( 'Your export file has been successfully created and it is now ready for download.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
+	<h2><?php esc_html_e( 'Export Complete', 'business-directory-plugin' ); ?></h2>
+	<p><?php esc_html_e( 'Your export file has been successfully created and it is now ready for download.', 'business-directory-plugin' ); ?></p>
 	<div class="download-link">
 		<a href="" class="button button-primary">
 			<?php
 			printf(
-				_x( 'Download %1$s (%2$s)', 'admin csv-export', 'business-directory-plugin' ),
+				esc_html_x( 'Download %1$s (%2$s)', 'admin csv-export', 'business-directory-plugin' ),
 				'<span class="filename"></span>',
 				'<span class="filesize"></span>'
 			);
@@ -204,15 +204,15 @@ echo str_replace(
 		</a>
 	</div>
 	<div class="cleanup-link wpbdp-note">
-		<p><?php _ex( 'Click "Cleanup" once the file has been downloaded in order to remove all temporary data created by Business Directory during the export process.', 'admin csv-export', 'business-directory-plugin' ); ?><br />
-		<a href="" class="button"><?php _ex( 'Cleanup', 'admin csv-export', 'business-directory-plugin' ); ?></a></p>
-	</div>    
+		<p><?php esc_html_e( 'Click "Cleanup" once the file has been downloaded in order to remove all temporary data created by Business Directory during the export process.', 'business-directory-plugin' ); ?><br />
+		<a href="" class="button"><?php esc_html_e( 'Cleanup', 'business-directory-plugin' ); ?></a></p>
+	</div>
 </div>
 
 <div class="canceled-export">
-	<h2><?php _ex( 'Export Canceled', 'admin csv-export', 'business-directory-plugin' ); ?></h2>
-	<p><?php _ex( 'The export has been canceled.', 'admin csv-export', 'business-directory-plugin' ); ?></p>
-	<p><a href="" class="button"><?php _ex( '← Return to CSV Export', 'admin csv-export', 'business-directory-plugin' ); ?></a></p>
+	<h2><?php esc_html_e( 'Export Canceled', 'business-directory-plugin' ); ?></h2>
+	<p><?php esc_html_e( 'The export has been canceled.', 'business-directory-plugin' ); ?></p>
+	<p><a href="" class="button"><?php esc_html_e( '← Return to CSV Export', 'business-directory-plugin' ); ?></a></p>
 </div>
 
 </div>

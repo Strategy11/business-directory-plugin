@@ -15,15 +15,15 @@
 		<div class="wpbdp-warning-content">
 			<p>
 				<span class="dashicons dashicons-warning"></span>
-				<?php _ex( 'Uninstalling Business Directory Plugin will do the following:', 'uninstall', 'business-directory-plugin' ); ?>
+				<?php esc_html_e( 'Uninstalling Business Directory Plugin will do the following:', 'business-directory-plugin' ); ?>
 			</p>
 
 			<ul>
-				<li><?php _ex( 'Remove ALL directory listings', 'uninstall', 'business-directory-plugin' ); ?></li>
-				<li><?php _ex( 'Remove ALL directory categories', 'uninstall', 'business-directory-plugin' ); ?></li>
-				<li><?php _ex( 'Remove ALL directory settings', 'uninstall', 'business-directory-plugin' ); ?></li>
+				<li><?php esc_html_e( 'Remove ALL directory listings', 'business-directory-plugin' ); ?></li>
+				<li><?php esc_html_e( 'Remove ALL directory categories', 'business-directory-plugin' ); ?></li>
+				<li><?php esc_html_e( 'Remove ALL directory settings', 'business-directory-plugin' ); ?></li>
 				<li><?php esc_html_e( 'Remove ALL module data (regions, maps, ratings, restrictions)', 'business-directory-plugin' ); ?></li>
-				<li><?php _ex( 'Deactivate the plugin from the file system', 'uninstall', 'business-directory-plugin' ); ?></li>
+				<li><?php esc_html_e( 'Deactivate the plugin from the file system', 'business-directory-plugin' ); ?></li>
 			</ul>
 
 			<p><?php esc_html_e( 'ONLY do this if you want to DELETE ALL OF YOUR DATA.', 'business-directory-plugin' ); ?></p>
@@ -33,7 +33,7 @@
 	</div>
 
 	<div id="wpbdp-uninstall-reinstall-suggestion">
-		<p><?php _ex( 'If you just need to reinstall the plugin, please do the following:', 'uninstall', 'business-directory-plugin' ); ?></p>
+		<p><?php esc_html_e( 'If you just need to reinstall the plugin, please do the following:', 'business-directory-plugin' ); ?></p>
 
 		<ul>
 			<li>

@@ -14,9 +14,9 @@
 </div>
 
 <form id="wpbdp-checkout-form" action="" method="POST">
-	<input type="hidden" name="payment" value="<?php echo $payment->payment_key; ?>" />
+	<input type="hidden" name="payment" value="<?php echo esc_attr( $payment->payment_key ); ?>" />
 	<input type="hidden" name="action" value="do_checkout" />
-	<input type="hidden" name="_wpnonce" value="<?php echo $nonce; ?>" />
+	<input type="hidden" name="_wpnonce" value="<?php echo esc_attr( $nonce ); ?>" />
 
 	<?php echo $checkout_form_top; ?>
 
@@ -43,7 +43,7 @@
 		<!-- end .wpbdp-checkout-gateway-selection -->
 	<?php endif; ?>
 
-	<div id="wpbdp-checkout-form-fields" class="wpbdp-payment-gateway-<?php echo $chosen_gateway->get_id(); ?>-form-fields">
+	<div id="wpbdp-checkout-form-fields" class="wpbdp-payment-gateway-<?php echo esc_attr( $chosen_gateway->get_id() ); ?>-form-fields">
 		<?php echo $checkout_form; ?>
 	</div>
 
