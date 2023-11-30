@@ -27,7 +27,7 @@ endforeach;
 $name        = $listing->get_author_meta( 'user_login' );
 $email       = $listing->get_author_meta( 'user_email' );
 
-echo esc_html_x( 'Posted By', 'notify email', 'business-directory-plugin' ) . ': ';
+esc_html_e( 'Posted By', 'business-directory-plugin' ) . ': ';
 if ( $name && $email ) :
 	echo esc_html( $name ) . ' &lt;' . esc_html( $email ) . '&gt;';
 elseif ( $name ) :

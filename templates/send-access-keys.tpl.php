@@ -8,5 +8,5 @@
 		<input type="text" name="email" id="wpbdp-listing-email">
 	</div>
 
-	<p><input class="submit" type="submit" value="<?php esc_html_e( 'Continue', 'business-directory-plugin' ); ?>" /></p>
+	<p><input class="submit" type="submit" value="<?php esc_attr_e( 'Continue', 'business-directory-plugin' ); ?>" /></p>
 </form>

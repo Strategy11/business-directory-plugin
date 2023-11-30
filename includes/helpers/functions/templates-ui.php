@@ -343,7 +343,7 @@ function wpbdp_main_links( $buttons = null ) {
 	$html          = implode( ' ', $html );
 
 	$content  = '<div class="wpbdp-main-links-container" data-breakpoints=\'{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}\' data-breakpoints-class-prefix="wpbdp-main-links">';
-	$content .= '<div class="wpbdp-main-links wpbdp-main-links-' . esc_attr( $buttons_count ) . '-buttons">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
+	$content .= '<div class="wpbdp-main-links wpbdp-main-links-' . absint( $buttons_count ) . '-buttons">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
 	$content .= '</div>';
 
 	return $content;

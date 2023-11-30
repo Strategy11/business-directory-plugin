@@ -347,7 +347,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 				echo '<script>';
 				printf(
 					'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");',
-					esc_attr( $field_id ),
+					absint( $field_id ),
 					esc_js( $media_id ),
 					esc_js( $element )
 				);
@@ -359,7 +359,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
 		printf(
 			'<script>document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>',
-			esc_attr( $field_id )
+			absint( $field_id )
 		);
 
 		exit;

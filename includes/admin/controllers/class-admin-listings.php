@@ -301,7 +301,11 @@ class WPBDP_Admin_Listings {
 	function listing_column_category( $post_id ) {
 		$terms = wp_get_post_terms( $post_id, WPBDP_CATEGORY_TAX );
 		foreach ( $terms as $i => $term ) {
-			printf( '<a href="%s">%s</a>', esc_url( get_term_link( $term->term_id, WPBDP_CATEGORY_TAX ), $term->name ) );
+			printf(
+				'<a href="%s">%s</a>',
+				esc_url( get_term_link( $term->term_id, WPBDP_CATEGORY_TAX ) ),
+				esc_html( $term->name )
+			);
 
 			if ( ( $i + 1 ) != count( $terms ) ) {
 				echo ', ';

@@ -23,7 +23,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
 		echo '<ul class="wpbdp-admin-tab-nav subsubsub">';
 		echo '<li><a href="#wpbdp-listing-fields-fields">' . esc_html_x( 'Fields', 'admin', 'business-directory-plugin' ) . '</a> | </li>';
 		echo '<li><a href="#wpbdp-listing-fields-images">';
-		echo '<span class="with-image-count ' . ( $image_count > 0 ? '' : ' hidden' ) . '">' . sprintf( esc_html_x( 'Images (%s)', 'admin', 'business-directory-plugin' ), '<span>' . esc_html( $image_count ) . '</span>' ) . '</span>';
+		echo '<span class="with-image-count ' . ( $image_count > 0 ? '' : ' hidden' ) . '">' . sprintf( esc_html_x( 'Images (%s)', 'admin', 'business-directory-plugin' ), '<span>' . absint( $image_count ) . '</span>' ) . '</span>';
 		echo '<span class="no-image-count' . ( $image_count > 0 ? ' hidden' : '' ) . '">' . esc_html_x( 'Images', 'admin', 'business-directory-plugin' ) . '</span>';
 		echo '</a></li>';
 		echo '</ul>';
