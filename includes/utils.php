@@ -1095,3 +1095,313 @@ class WPBDP_NoopObject {
 		return false;
 	}
 }
+
+// For compat with PHP < 5.3
+if ( ! function_exists( 'str_getcsv' ) ) {
+
+	function str_getcsv( $input, $delimiter = ',', $enclosure = '"' ) {
+		$file = tmpfile();
+
+		fwrite( $file, $input );
+		fseek( $file, 0 );
+
+		$res = fgetcsv( $file, 0, $delimiter, $enclosure );
+
+		fclose( $file );
+
+		return $res;
+	}
+}
+
+/**
+ * @since 4.0.5dev
+ */
+function wpbdp_detect_encoding( $content ) {
+	static $encodings = array(
+		'UTF-8',
+		'UTF-16LE',
+		'ASCII',
+		'ISO-8859-1',
+		'ISO-8859-2',
+		'ISO-8859-3',
+		'ISO-8859-4',
+		'ISO-8859-5',
+		'ISO-8859-6',
+		'ISO-8859-7',
+		'ISO-8859-8',
+		'ISO-8859-9',
+		'ISO-8859-10',
+		'ISO-8859-13',
+		'ISO-8859-14',
+		'ISO-8859-15',
+		'ISO-8859-16',
+		'Windows-1251',
+		'Windows-1252',
+		'Windows-1254',
+	);
+
+	if ( function_exists( 'mb_detect_encoding' ) ) {
+		// XXX: mb_detect_encoding() can't detect UTF-16* encodings
+		// See documentation for mb_detect_order()
+		return mb_detect_encoding( $content, $encodings, true );
+	} elseif ( ! function_exists( 'iconv' ) ) {
+		return 'UTF-8';
+	} else {
+		return wpbdp_mb_detect_encoding( $content, $encodings );
+	}
+}
+
+/**
+ * Taken from http://php.net/manual/en/function.mb-detect-encoding.php#113983
+ *
+ * @since 4.0.5dev
+ */
+function wpbdp_mb_detect_encoding( $content, $encodings ) {
+	foreach ( $encodings as $encoding ) {
+		$sample = iconv( $encoding, $encoding, $content );
+		if ( md5( $sample ) == md5( $content ) ) {
+			return $encoding;
+		}
+	}
+
+	return false;
+}
+
+function wpbdp_render_user_field( $args = array() ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'class' => '',
+			'name'  => 'user',
+			'value' => null,
+		)
+	);
+
+	$users_query = new WP_User_Query(
+		array(
+			'count_total' => true,
+			'fields'      => 'ID',
+			'number'      => 200,
+		)
+	);
+
+	if ( $users_query->get_total() <= 200 ) {
+		$output = '<select class="' . esc_attr( $args['class'] ) . '" name="' . esc_attr( $args['name'] ) . '">';
+
+		foreach ( get_users( array( 'orderby' => 'display_name' ) ) as $user ) {
+			$selected = $args['value'] == $user->ID ? ' selected="selected"' : '';
+
+			$output .= '<option value="' . $user->ID . '"' . $selected . '>';
+			$output .= "{$user->display_name} ({$user->user_login})";
+			$output .= '</option>';
+		}
+
+		$output .= '</select>';
+	} else {
+		if ( $args['value'] ) {
+			$user         = get_user_by( 'ID', $args['value'] );
+			$text_value   = "{$user->display_name} ({$user->user_login})";
+			$hidden_value = $user->ID;
+		} else {
+			$text_value   = '';
+			$hidden_value = 0;
+		}
+
+		$hidden_field_id = 'autocomplete-value-' . uniqid();
+
+		$output  = '<input class="wpbdp-user-autocomplete ' . esc_attr( $args['class'] ) . '" type="text" value="' . esc_attr( $text_value ) . '" data-hidden-field="' . $hidden_field_id . '" />';
+		$output .= '<input id="' . esc_attr( $hidden_field_id ) . '" name="' . esc_attr( $args['name'] ) . '" type="hidden" value="' . absint( $hidden_value ) . '">';
+	}
+
+	return $output;
+}
+
+function wpbdp_enqueue_jquery_ui_style() {
+	WPBDP__Assets::load_datepicker();
+}
+
+function wpbdp_buckwalter_arabic_transliteration( $content ) {
+	$arabic_characters = array(
+		'ء',
+		'آ',
+		'أ',
+		'ؤ',
+		'إ',
+		'ئ',
+		'ا',
+		'ب',
+		'ة',
+		'ت',
+		'ث',
+		'ج',
+		'ح',
+		'خ',
+		'د',
+		'ذ',
+		'ر',
+		'ز',
+		'س',
+		'ش',
+		'ص',
+		'ض',
+		'ط',
+		'ظ',
+		'ع',
+		'غ',
+		'ـ',
+		'ف',
+		'ق',
+		'ك',
+		'ل',
+		'م',
+		'ن',
+		'ه',
+		'و',
+		'ى',
+		'ي',
+		'ً',
+		'ٌ',
+		'ٍ',
+		'َ',
+		'ُ',
+		'ِ',
+		'ّ',
+		'ْ',
+		'ٰ',
+		'ٱ',
+	);
+
+	$english_characters = array(
+		'\'',
+		'|',
+		'O', // replaced '>' with 'O' as suggested in http://www.qamus.org/transliteration.htm
+		'W', // replaced '&' with 'W'
+		'I', // replaced '<' with 'I'
+		'}',
+		'A',
+		'b',
+		'p',
+		't',
+		'v',
+		'j',
+		'H',
+		'x',
+		'd',
+		'*',
+		'r',
+		'z',
+		's',
+		'$',
+		'S',
+		'D',
+		'T',
+		'Z',
+		'E',
+		'g',
+		'_',
+		'f',
+		'q',
+		'k',
+		'l',
+		'm',
+		'n',
+		'h',
+		'w',
+		'Y',
+		'y',
+		'F',
+		'N',
+		'K',
+		'a',
+		'u',
+		'i',
+		'~',
+		'o',
+		'`',
+		'{',
+	);
+
+	return str_replace( $arabic_characters, $english_characters, $content );
+}
+
+/**
+ * The function was originally developed as an static method in
+ * WPBDP_Form_Field_Type. It has always rendered values as given, indirectly
+ * expecting them to be already escaped with `esc_attr`.
+ *
+ * If you decide to use `esc_attr` inside the function, make sure to check
+ * all places where the function is called, to avoid scaping values twice.
+ *
+ * @since 4.1.10
+ */
+function wpbdp_html_attributes( $attrs, $exceptions = array(), $echo = false ) {
+	$html = '';
+
+	foreach ( $attrs as $k => $v ) {
+		if ( in_array( $k, $exceptions, true ) ) {
+			continue;
+		}
+
+		$html .= sprintf( '%s="%s" ', esc_attr( $k ), esc_attr( $v ) );
+	}
+
+	if ( ! $echo ) {
+		return $html;
+	}
+
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo $html;
+}
+
+/**
+ * @since 4.1.11
+ */
+function wpbdp_table_exists( $table_name ) {
+	global $wpdb;
+
+	$result = $wpdb->get_var( "SHOW TABLES LIKE '" . $table_name . "'" );
+
+	return strcasecmp( $result, $table_name ) === 0;
+}
+
+/**
+ * @since 5.0.5
+ */
+function wpbdp_column_exists( $table_name, $column_name ) {
+	global $wpdb;
+
+	$display_errors = $wpdb->hide_errors();
+	$result         = $wpdb->get_col( sprintf( 'SELECT %s FROM %s LIMIT 1', $column_name, $table_name ) );
+	$wpdb->show_errors( $display_errors );
+
+	return empty( $wpdb->last_error );
+}
+
+/**
+ * @since 5.0
+ */
+function wpbdp_is_request( $type ) {
+	switch ( $type ) {
+		case 'admin':
+			return is_admin();
+		case 'ajax':
+			return defined( 'DOING_AJAX' ) && DOING_AJAX;
+		case 'cron':
+			return defined( 'DOING_CRON' ) && DOING_CRON;
+		case 'frontend':
+			return ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) );
+	}
+}
+
+/**
+ * @since 5.0
+ */
+function wpbdp_deprecation_warning( $msg = '' ) {
+	global $wpbdp_deprecation_warnings;
+
+	if ( ! isset( $wpbdp_deprecation_warnings ) ) {
+		$wpbdp_deprecation_warnings = array();
+	}
+
+	$wpbdp_deprecation_warnings[] = $msg;
+}
