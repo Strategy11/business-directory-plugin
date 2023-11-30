@@ -401,7 +401,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 					);
 				}
 
-				throw new Exception( $msg );
+				throw new Exception( esc_html( $msg ) );
 			}
 		}
 

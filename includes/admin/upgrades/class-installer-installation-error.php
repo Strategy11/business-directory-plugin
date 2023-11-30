@@ -21,7 +21,7 @@ class WPBDP__Installer__Installation_Error {
 
 		printf(
 			/* translators: %1$s is the contact link, %2$s is the closing tag for the link */
-			esc_html__( 'Please %1%scontact customer support%2$s.', 'business-directory-plugin' ),
+			esc_html__( 'Please %1$scontact customer support%2$s.', 'business-directory-plugin' ),
 			'<a href="https://businessdirectoryplugin.com/contact/">',
 			'</a>'
 		);

@@ -171,7 +171,7 @@ abstract class WPBDP__Payment_Gateway {
 	}
 
 	public function cancel_subscription( $listing, $subscription ) {
-		$message = esc_html__( "There was an unexpected error trying to cancel your subscription. Please contact the website's administrator mentioning this problem. The administrator should be able to cancel your subscription contacting the payment processor directly.", 'business-directory-plugin' );
-		throw new Exception( $message );
+		$message = __( "There was an unexpected error trying to cancel your subscription. Please contact the website's administrator mentioning this problem. The administrator should be able to cancel your subscription contacting the payment processor directly.", 'business-directory-plugin' );
+		throw new Exception( esc_html( $message ) );
 	}
 }

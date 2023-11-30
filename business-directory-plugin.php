@@ -48,7 +48,7 @@ function wpbdp_dir_autoloader( $class_name ) {
 		return;
 	}
 
-	wpbdp_class_autoloader( $class_name, dirname( __FILE__ ) );
+	wpbdp_class_autoloader( $class_name, __DIR__ );
 }
 
 /**
@@ -76,19 +76,17 @@ function wpbdp_class_autoloader( $class_name, $filepath ) {
 
 	if ( $is_deprecated ) {
 		$filepath .= 'compatibility/deprecated/';
-	} else {
-		if ( preg_match( '/^.+Helper$/', $class_name ) ) {
-			$filepath .= 'helpers/';
-		} elseif ( preg_match( '/^.+Controller$/', $class_name ) ) {
-			$filepath .= 'controllers/';
-			if ( ! file_exists( $filepath . $class_name . '.php' ) && strpos( $class_name, 'Views' ) ) {
-				$filepath .= 'pages/';
-			}
-		} elseif ( strpos( $class_name, 'Field' ) && ! file_exists( $filepath . $class_name . '.php' ) ) {
-			$filepath .= 'fields/';
-		} else {
-			$filepath .= 'models/';
+	} elseif ( preg_match( '/^.+Helper$/', $class_name ) ) {
+		$filepath .= 'helpers/';
+	} elseif ( preg_match( '/^.+Controller$/', $class_name ) ) {
+		$filepath .= 'controllers/';
+		if ( ! file_exists( $filepath . $class_name . '.php' ) && strpos( $class_name, 'Views' ) ) {
+			$filepath .= 'pages/';
 		}
+	} elseif ( strpos( $class_name, 'Field' ) && ! file_exists( $filepath . $class_name . '.php' ) ) {
+		$filepath .= 'fields/';
+	} else {
+		$filepath .= 'models/';
 	}
 
 	if ( file_exists( $filepath . strtolower( $class_name ) . '.php' ) ) {
