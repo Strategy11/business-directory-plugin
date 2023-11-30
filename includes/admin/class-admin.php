@@ -757,6 +757,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		public function ajax_fees_set_order() {
+			WPBDP_App_Helper::permission_check( 'edit_posts' );
+
 			$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 			$order = wpbdp_get_var( array( 'param' => 'fee_order' ), 'post' );
 
@@ -788,7 +790,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$weight = count( $order ) - 1;
 			foreach ( $order as $fee_id ) {
-				$wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => $fee_id ) );
+				$wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => absint( $fee_id ) ) );
 				$weight--;
 			}
 
