@@ -307,7 +307,9 @@ form#wpbdmsearchform a.advanced-search-link {
 .single-wpbdp_listing .social-fields,
 .wpbdp-listing .social-fields {
 	margin: 20px 0;
-	vertical-align: top;
+	display: flex;
+    align-items: center;
+	gap: 10px;
 }
 
 .social-field-link,
@@ -315,8 +317,6 @@ form#wpbdmsearchform a.advanced-search-link {
 .wpbdp-listing .social-field {
 	display: inline-block;
 	height: 20px;
-	margin-right: 10px;
-	vertical-align: text-top;
 
 	iframe {
 		margin-bottom: 0;
@@ -327,17 +327,20 @@ form#wpbdmsearchform a.advanced-search-link {
 	}
 
 	.social-icon {
-		display: inline-block;
+		display: inline-flex;
 		background-color: transparent;
 		color: #1a1a1a;
 	}
 
 	.social-text {
 		font-size: 90%;
+		line-height: 1;
 	}
 
 	a {
 		box-shadow: none;
+		display: flex;
+		align-items: center;
 
 		img {
 			width: auto;

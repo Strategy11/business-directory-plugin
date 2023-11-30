@@ -45,7 +45,3 @@ class WPBDP_Database_Helper {
 		return $collate ? $collate : 'utf8_general_ci';
 	}
 }
-
-function wpbdp_database_helper() {
-	return new WPBDP_Database_Helper( $GLOBALS['wpdb'] );
-}

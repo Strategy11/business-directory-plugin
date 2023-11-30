@@ -722,6 +722,11 @@ class WPBDP_Admin_Listings {
 	}
 
 	public function ajax_clear_payment_history() {
+		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		if ( ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
+			wp_send_json_error( array( 'error' => __( 'Invalid nonce.', 'business-directory-plugin' ) ) );
+		}
+
 		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ), 'post' );
 
 		if ( ! $listing_id ) {

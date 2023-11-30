@@ -277,7 +277,6 @@ class WPBDP_SMTP_Controller {
 	 * @return array Step data.
 	 */
 	protected function get_data_step_install() {
-		require_once WPBDP_PATH . 'includes/models/class-install-plugin.php';
 
 		$lite_plugin = new WPBDP_Install_Plugin( array( 'plugin_file' => $this->config['lite_plugin'] ) );
 		$pro_plugin  = new WPBDP_Install_Plugin( array( 'plugin_file' => $this->config['pro_plugin'] ) );

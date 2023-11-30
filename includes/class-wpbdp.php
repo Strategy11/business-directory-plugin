@@ -53,7 +53,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.3.9' );
+		define( 'WPBDP_VERSION', '6.3.10' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -90,8 +90,6 @@ final class WPBDP {
 		require_once WPBDP_INC . 'installer.php';
 
 		require_once WPBDP_INC . 'class-cron.php';
-
-		require_once WPBDP_INC . 'helpers/class-currency-helper.php';
 		require_once WPBDP_INC . 'admin/settings/class-settings.php';
 
 		require_once WPBDP_INC . 'helpers/functions/general.php';

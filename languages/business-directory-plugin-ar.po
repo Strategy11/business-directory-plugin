@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-09-15 18:33:17+00:00\n"
+"POT-Creation-Date: 2023-10-25 14:45:12+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -508,7 +508,7 @@ msgstr "رقم الفاكس"
 
 #: includes/admin/controllers/class-form-fields-admin.php:373
 #: includes/fields/class-fieldtypes-phone-number.php:13
-#: templates/listing-contactform.tpl.php:38
+#: templates/listing-contactform.tpl.php:40
 #, fuzzy
 msgid "Phone Number"
 msgstr "رقم الهاتف"
@@ -786,7 +786,7 @@ msgstr "الجداول المفقودة: %s"
 #: includes/admin/settings/class-settings-bootstrap.php:13
 #: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
-#: templates/listing-contactform.tpl.php:33
+#: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
 #, fuzzy
 msgid "Email"
@@ -1727,6 +1727,11 @@ msgstr ""
 #, fuzzy
 msgid "Complete"
 msgstr "إكتمل"
+
+#: includes/controllers/pages/class-delete-listing.php:34
+#, fuzzy
+msgid "You don't have permission to delete this listing."
+msgstr "التصنيفات لهذا الإعلان"
 
 #. translators: %1$s: listing name, %2$s: open link html, %3$s close link html
 #: includes/controllers/pages/class-flag-listing.php:56
@@ -2935,7 +2940,7 @@ msgstr "أضف حقل الاستمارة"
 msgid "Maximum number of words"
 msgstr "عدد الصور:"
 
-#: templates/admin/form-fields-addoredit.tpl.php:263
+#: templates/admin/form-fields-addoredit.tpl.php:267
 #, fuzzy
 msgid "Require this field on the Advanced Search screen."
 msgstr "تضمين هذا الحقل في نموذج البحث."
@@ -3596,12 +3601,12 @@ msgstr ""
 msgid "Access Key"
 msgstr "مفتاح الوصول"
 
-#: templates/listing-contactform.tpl.php:42
+#: templates/listing-contactform.tpl.php:45
 #, fuzzy
 msgid "Message"
 msgstr "الرسالة"
 
-#: templates/listing-contactform.tpl.php:67
+#: templates/listing-contactform.tpl.php:69
 #, fuzzy
 msgid "Send"
 msgstr "أرسل"
@@ -4813,85 +4818,85 @@ msgctxt "form-fields admin"
 msgid "Click to add categories to the selection."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:208
+#: templates/admin/form-fields-addoredit.tpl.php:210
 msgctxt "form-fields admin"
 msgid "Show this field to admin users only?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:214
+#: templates/admin/form-fields-addoredit.tpl.php:216
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Display this field to admin users only in the edit listing view."
 msgstr "عرض هذه القيمة في مشاهدة الإعلان."
 
-#: templates/admin/form-fields-addoredit.tpl.php:220
+#: templates/admin/form-fields-addoredit.tpl.php:222
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr "إظهار هذه القيمة في مشاهدة المقتطفات؟"
 
-#: templates/admin/form-fields-addoredit.tpl.php:226
+#: templates/admin/form-fields-addoredit.tpl.php:228
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr "عرض هذه القيمة في مشاهدة مقتطفات المقالة."
 
-#: templates/admin/form-fields-addoredit.tpl.php:232
+#: templates/admin/form-fields-addoredit.tpl.php:234
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr "إظهار هذه القيمة في مشاهدة الإعلان؟"
 
-#: templates/admin/form-fields-addoredit.tpl.php:238
+#: templates/admin/form-fields-addoredit.tpl.php:240
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr "عرض هذه القيمة في مشاهدة الإعلان."
 
-#: templates/admin/form-fields-addoredit.tpl.php:244
+#: templates/admin/form-fields-addoredit.tpl.php:246
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr "تضمين هذا الحقل في نموذج البحث؟"
 
-#: templates/admin/form-fields-addoredit.tpl.php:250
+#: templates/admin/form-fields-addoredit.tpl.php:252
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr "تضمين هذا الحقل في نموذج البحث."
 
-#: templates/admin/form-fields-addoredit.tpl.php:256
+#: templates/admin/form-fields-addoredit.tpl.php:260
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "هل هذا الحقل مطلوب؟"
 
-#: templates/admin/form-fields-addoredit.tpl.php:274
+#: templates/admin/form-fields-addoredit.tpl.php:278
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr "إخفاء تسمية هذا الحقل؟"
 
-#: templates/admin/form-fields-addoredit.tpl.php:280
+#: templates/admin/form-fields-addoredit.tpl.php:284
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr "إخفاء تسمية هذا الحقل عند عرضه."
 
-#: templates/admin/form-fields-addoredit.tpl.php:288
+#: templates/admin/form-fields-addoredit.tpl.php:292
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field privacy options"
 msgstr "خيارات عرض الحقل"
 
-#: templates/admin/form-fields-addoredit.tpl.php:292
+#: templates/admin/form-fields-addoredit.tpl.php:296
 msgctxt "form-fields admin"
 msgid "This field contains sensitive or private information?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:300
+#: templates/admin/form-fields-addoredit.tpl.php:304
 msgctxt "form-fields admin"
 msgid "Add this field when exporting or deleting user's personal data."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:309
+#: templates/admin/form-fields-addoredit.tpl.php:313
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "تحديث الحقل"
 
-#: templates/admin/form-fields-addoredit.tpl.php:311
+#: templates/admin/form-fields-addoredit.tpl.php:315
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "إضافة حقل"
@@ -7546,7 +7551,7 @@ msgid ""
 "refresh if there's an update."
 msgstr ""
 
-#: includes/controllers/pages/class-delete-listing.php:36
+#: includes/controllers/pages/class-delete-listing.php:41
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "تم حذف إعلانك."

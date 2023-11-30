@@ -304,17 +304,33 @@ class WPBDP__Query_Integration {
 			return '';
 		}
 
-		return $this->get_sticky_listing_ids();
+		return $this->get_sticky_listing_ids( $query );
 	}
 
 	/**
-	 * Select all sticky listing ids and return thim in string comma seperated.
+	 * Select all sticky listing ids and return thim in string comma separated.
+	 * Return in the opposite order they will be displayed.
+	 *
+	 * @param WP_Query $query The current query.
 	 *
 	 * @return string listing ids
 	 */
-	private function get_sticky_listing_ids() {
+	private function get_sticky_listing_ids( $query ) {
 		global $wpdb;
-		$query = "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings  WHERE is_sticky=1";
+
+		$order_by  = $query->get( 'orderby' );
+		$order     = $query->get( 'order' );
+		$join_sort = in_array( $order_by, array( 'title', 'date', 'modified', 'author' ), true );
+
+		$query = "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings";
+		if ( $join_sort ) {
+			$query .= " JOIN {$wpdb->posts} p ON p.ID = {$wpdb->prefix}wpbdp_listings.listing_id";
+		}
+		$query .= ' WHERE is_sticky=1';
+		if ( $join_sort ) {
+			$query .= " ORDER BY p.post_{$order_by} {$order}";
+		}
+
 		$results = WPBDP_Utils::check_cache(
 			array(
 				'cache_key' => 'sticky_listing_idss',
@@ -323,6 +339,15 @@ class WPBDP__Query_Integration {
 				'type'      => 'get_col',
 			)
 		);
+
+		if ( 'rand' === $order_by ) {
+			// If the order is random, shuffle the results.
+			shuffle( $results );
+		} else {
+			// Otherwise, reverse the order since it will be "DESC" in the query.
+			$results = array_reverse( $results );
+		}
+
 		return implode( ',', $results );
 	}
 

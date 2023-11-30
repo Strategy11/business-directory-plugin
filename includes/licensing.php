@@ -813,10 +813,8 @@ class WPBDP_Licensing {
 	}
 
 	public function ajax_activate_license() {
-		$nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
-		if ( ! wp_verify_nonce( $nonce, 'license activation' ) ) {
-			wp_die();
-		}
+		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		check_ajax_referer( 'license activation', 'nonce' );
 
 		$setting_id = wpbdp_get_var( array( 'param' => 'setting' ), 'post' );
 		$key        = wpbdp_get_var( array( 'param' => 'license_key' ), 'post' );
@@ -866,10 +864,8 @@ class WPBDP_Licensing {
 	}
 
 	public function ajax_deactivate_license() {
-		$nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
-		if ( ! wp_verify_nonce( $nonce, 'license activation' ) ) {
-			wp_die();
-		}
+		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		check_ajax_referer( 'license activation', 'nonce' );
 
 		$setting_id = wpbdp_get_var( array( 'param' => 'setting' ), 'post' );
 		$key        = wpbdp_get_var( array( 'param' => 'license_key' ), 'post' );

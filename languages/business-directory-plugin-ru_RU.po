@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2023-09-15 18:33:17+00:00\n"
+"POT-Creation-Date: 2023-10-25 14:45:12+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -518,7 +518,7 @@ msgstr "Номер факса"
 
 #: includes/admin/controllers/class-form-fields-admin.php:373
 #: includes/fields/class-fieldtypes-phone-number.php:13
-#: templates/listing-contactform.tpl.php:38
+#: templates/listing-contactform.tpl.php:40
 #, fuzzy
 msgid "Phone Number"
 msgstr "Номер телефона"
@@ -793,7 +793,7 @@ msgstr "Отсутствующие таблицы: %s"
 #: includes/admin/settings/class-settings-bootstrap.php:13
 #: includes/controllers/pages/class-submit-listing.php:1499
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
-#: templates/listing-contactform.tpl.php:33
+#: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
 #, fuzzy
 msgid "Email"
@@ -1709,6 +1709,11 @@ msgstr ""
 #, fuzzy
 msgid "Complete"
 msgstr "Завершено"
+
+#: includes/controllers/pages/class-delete-listing.php:34
+#, fuzzy
+msgid "You don't have permission to delete this listing."
+msgstr "Рубрики этой записи"
 
 #. translators: %1$s: listing name, %2$s: open link html, %3$s close link html
 #: includes/controllers/pages/class-flag-listing.php:56
@@ -2918,7 +2923,7 @@ msgstr "Добавить поле формы"
 msgid "Maximum number of words"
 msgstr "Количество изображений:"
 
-#: templates/admin/form-fields-addoredit.tpl.php:263
+#: templates/admin/form-fields-addoredit.tpl.php:267
 #, fuzzy
 msgid "Require this field on the Advanced Search screen."
 msgstr "Включите чтобы можно было использовать это поле в форме поиска."
@@ -3578,12 +3583,12 @@ msgstr ""
 msgid "Access Key"
 msgstr "Поля и Изображения записи"
 
-#: templates/listing-contactform.tpl.php:42
+#: templates/listing-contactform.tpl.php:45
 #, fuzzy
 msgid "Message"
 msgstr "Сообщение"
 
-#: templates/listing-contactform.tpl.php:67
+#: templates/listing-contactform.tpl.php:69
 #, fuzzy
 msgid "Send"
 msgstr "Отправить"
@@ -4780,12 +4785,12 @@ msgctxt "form-fields admin"
 msgid "Click to add categories to the selection."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:208
+#: templates/admin/form-fields-addoredit.tpl.php:210
 msgctxt "form-fields admin"
 msgid "Show this field to admin users only?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:214
+#: templates/admin/form-fields-addoredit.tpl.php:216
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Display this field to admin users only in the edit listing view."
@@ -4793,76 +4798,76 @@ msgstr ""
 "Включите чтобы показывать значение этого поля на странице полной информации "
 "о записи."
 
-#: templates/admin/form-fields-addoredit.tpl.php:220
+#: templates/admin/form-fields-addoredit.tpl.php:222
 msgctxt "form-fields admin"
 msgid "Show this value in excerpt view?"
 msgstr "Показать это поле в составе цитаты?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:226
+#: templates/admin/form-fields-addoredit.tpl.php:228
 msgctxt "form-fields admin"
 msgid "Display this value in post excerpt view."
 msgstr "Включите чтобы показать это поле в составе цитаты."
 
-#: templates/admin/form-fields-addoredit.tpl.php:232
+#: templates/admin/form-fields-addoredit.tpl.php:234
 msgctxt "form-fields admin"
 msgid "Show this value in listing view?"
 msgstr "Показать это поле в полном виде?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:238
+#: templates/admin/form-fields-addoredit.tpl.php:240
 msgctxt "form-fields admin"
 msgid "Display this value in the listing view."
 msgstr ""
 "Включите чтобы показывать значение этого поля на странице полной информации "
 "о записи."
 
-#: templates/admin/form-fields-addoredit.tpl.php:244
+#: templates/admin/form-fields-addoredit.tpl.php:246
 msgctxt "form-fields admin"
 msgid "Include this field in the search form?"
 msgstr "Включить в форму поиска?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:250
+#: templates/admin/form-fields-addoredit.tpl.php:252
 msgctxt "form-fields admin"
 msgid "Include this field in the search form."
 msgstr "Включите чтобы можно было использовать это поле в форме поиска."
 
-#: templates/admin/form-fields-addoredit.tpl.php:256
+#: templates/admin/form-fields-addoredit.tpl.php:260
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Is this field required for searching?"
 msgstr "Обязательное поле?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:274
+#: templates/admin/form-fields-addoredit.tpl.php:278
 msgctxt "form-fields admin"
 msgid "Hide this field's label?"
 msgstr "Скрыть метку этого поля?"
 
-#: templates/admin/form-fields-addoredit.tpl.php:280
+#: templates/admin/form-fields-addoredit.tpl.php:284
 msgctxt "form-fields admin"
 msgid "Hide this field's label when displaying it."
 msgstr "Включите чтобы при отображении этого поля скрыть его метку."
 
-#: templates/admin/form-fields-addoredit.tpl.php:288
+#: templates/admin/form-fields-addoredit.tpl.php:292
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Field privacy options"
 msgstr "Параметры отображения поля"
 
-#: templates/admin/form-fields-addoredit.tpl.php:292
+#: templates/admin/form-fields-addoredit.tpl.php:296
 msgctxt "form-fields admin"
 msgid "This field contains sensitive or private information?"
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:300
+#: templates/admin/form-fields-addoredit.tpl.php:304
 msgctxt "form-fields admin"
 msgid "Add this field when exporting or deleting user's personal data."
 msgstr ""
 
-#: templates/admin/form-fields-addoredit.tpl.php:309
+#: templates/admin/form-fields-addoredit.tpl.php:313
 msgctxt "form-fields admin"
 msgid "Update Field"
 msgstr "Сохранить поле"
 
-#: templates/admin/form-fields-addoredit.tpl.php:311
+#: templates/admin/form-fields-addoredit.tpl.php:315
 msgctxt "form-fields admin"
 msgid "Add Field"
 msgstr "Добавить поле"
@@ -7519,7 +7524,7 @@ msgid ""
 "refresh if there's an update."
 msgstr ""
 
-#: includes/controllers/pages/class-delete-listing.php:36
+#: includes/controllers/pages/class-delete-listing.php:41
 msgctxt "delete listing"
 msgid "Your listing has been deleted."
 msgstr "Запись была удалена."

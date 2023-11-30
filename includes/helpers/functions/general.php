@@ -1644,3 +1644,12 @@ function wpbdp_deprecation_warning( $msg = '' ) {
 
 	$wpbdp_deprecation_warnings[] = $msg;
 }
+
+/**
+ * Is this used?
+ *
+ * @since 4.1.8
+ */
+function wpbdp_database_helper() {
+	return new WPBDP_Database_Helper( $GLOBALS['wpdb'] );
+}

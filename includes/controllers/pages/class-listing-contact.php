@@ -217,7 +217,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 			$html .= '<div class="wpbdp-hide-on-mobile contact-form-wrapper">';
 		}
 
-		$html .= '<h3>' . esc_html_x( 'Send Message to listing owner', 'templates', 'business-directory-plugin' ) . '</h3>';
+		$html .= '<h3>' . esc_html__( 'Send Message', 'business-directory-plugin' ) . '</h3>';
 
 		$form = '';
 

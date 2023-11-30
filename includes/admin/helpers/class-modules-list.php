@@ -61,7 +61,7 @@ class WPBDP_Show_Modules {
 				'title'   => 'Business Directory Premium',
 				'link'    => 'pricing/',
 				'docs'    => '',
-				'excerpt' => 'Enhance your basic Formidable forms with a plethora of Pro field types and features. Create advanced forms and data-driven applications in minutes.',
+				'excerpt' => '',
 			),
 			'paypal'     => array(
 				'title'   => 'PayPal Standard',

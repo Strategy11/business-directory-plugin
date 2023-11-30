@@ -18,7 +18,6 @@ require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-controller.php
 require_once WPBDP_PATH . 'includes/admin/tracking.php';
 require_once WPBDP_PATH . 'includes/admin/class-listings-with-no-fee-plan-view.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/class-modules-list.php';
-require_once WPBDP_PATH . 'includes/models/class-reviews.php';
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -91,10 +90,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			// Clear listing page cache.
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
 
-			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
-
-			require_once WPBDP_INC . 'controllers/class-smtp.php';
 			WPBDP_SMTP_Controller::load_hooks();
 
 			require_once WPBDP_PATH . 'includes/admin/helpers/class-notices.php';
@@ -761,6 +757,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		public function ajax_fees_set_order() {
+			WPBDP_App_Helper::permission_check( 'edit_posts' );
+
 			$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 			$order = wpbdp_get_var( array( 'param' => 'fee_order' ), 'post' );
 
@@ -792,7 +790,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$weight = count( $order ) - 1;
 			foreach ( $order as $fee_id ) {
-				$wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => $fee_id ) );
+				$wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => absint( $fee_id ) ) );
 				--$weight;
 			}
 

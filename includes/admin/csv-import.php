@@ -47,11 +47,9 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	function ajax_csv_import() {
-		global $wpbdp;
+		WPBDP_App_Helper::permission_check( 'manage_options' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			die();
-		}
+		global $wpbdp;
 
 		$import_id = wpbdp_get_var(
 			array(
@@ -103,6 +101,8 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	public function ajax_autocomplete_user() {
+		WPBDP_App_Helper::permission_check( 'edit_posts' );
+
 		$term  = wpbdp_get_var( array( 'param' => 'term' ), 'request' );
 		$users = get_users( array( 'search' => "*{$term}*" ) );
 

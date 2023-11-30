@@ -28,7 +28,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 	 * WPBDP_FieldTypes_Social constructor.
 	 */
 	public function __construct() {
-		parent::__construct( _x( 'Social Site (Other)', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( _x( 'Social Site (Any)', 'form-fields api', 'business-directory-plugin' ) );
 	}
 
 	public function get_id() {
@@ -136,6 +136,12 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 			);
 
 			foreach ( $this->social_types as $type ) {
+				$sanitized_type = sanitize_title_with_dashes( $type );
+				$label          = $type;
+				if ( strpos( $type, 'Twitter' ) !== false ) {
+					$sanitized_type = 'x-twitter';
+					$label          = __( 'X (formerly Twitter)', 'business-directory-plugin' );
+				}
 				$css_classes = array(
 					'wpbdp-inner-social-field-option',
 					'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) ),
@@ -149,7 +155,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 					'listingfields[' . $field->get_id() . '][type]',
 					$type,
 					( ! empty( $value['type'] ) && $type === $value['type'] ) ? 'checked="checked"' : '',
-					'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( strtolower( $type ) ) . '"></i> ' . esc_html( $type )
+					'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( $sanitized_type ) . '"></i> ' . esc_html( $label )
 				);
 			}
 
@@ -275,6 +281,9 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 			$icon .= '</span>';
 		}
 
+		if ( $text === 'Twitter' ) {
+			$text = __( 'X (formerly Twitter)', 'business-directory-plugin' );
+		}
 		$text = '<span class="social-text">' . esc_html( $text ) . '</span>';
 
 		switch ( $field->data( 'display_order' ) ) {

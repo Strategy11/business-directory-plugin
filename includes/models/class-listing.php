@@ -3,8 +3,6 @@
  * @package WPBDP\Listing
  * @since 3.4
  */
-require_once WPBDP_PATH . 'includes/models/class-payment.php';
-require_once WPBDP_PATH . 'includes/models/class-listing-subscription.php';
 require_once WPBDP_PATH . 'includes/helpers/class-listing-image.php';
 class WPBDP_Listing {
 
