@@ -1,9 +1,9 @@
-<h3><?php _ex( 'Manage Recurring Payments', 'manage recurring', 'business-directory-plugin' ); ?></h3>
+<h3><?php esc_html_e( 'Manage Recurring Payments', 'business-directory-plugin' ); ?></h3>
 
 <table id="wpbdp-manage-recurring">
 	<thead>
-		<th class="listing-title"><?php _ex( 'Listing', 'manage recurring', 'business-directory-plugin' ); ?></th>
-		<th class="subscription-details"><?php _ex( 'Subscription / Plan', 'manage subscriptions', 'business-directory-plugin' ); ?></th>
+		<th class="listing-title"><?php esc_html_e( 'Listing', 'business-directory-plugin' ); ?></th>
+		<th class="subscription-details"><?php esc_html_e( 'Subscription / Plan', 'business-directory-plugin' ); ?></th>
 	</thead>
 	<tbody>
 	<?php foreach ( $listings as $listing ) : ?>
@@ -15,10 +15,10 @@
 				printf(
 					'<a href="%s">%s</a>',
 					esc_url( $listing->get_permalink() ),
-					$listing->get_title()
+					esc_html( $listing->get_title() )
 				);
 			else :
-				echo $listing->get_title();
+				echo esc_html( $listing->get_title() );
 			endif;
 			?>
 			</b>
@@ -45,7 +45,7 @@
 			?>
 			<b><?php echo $fee->fee_label; ?>:</b><br />
 			<?php echo $subscription_details; ?><br />
-			<a href="<?php echo esc_url( $cancel_url ); ?>" class="cancel-subscription"><?php _ex( 'Cancel recurring payment', 'manage recurring', 'business-directory-plugin' ); ?></a>
+			<a href="<?php echo esc_url( $cancel_url ); ?>" class="cancel-subscription"><?php esc_html_e( 'Cancel recurring payment', 'business-directory-plugin' ); ?></a>
 		</td>
 	</tr>
 	<?php endforeach; ?>

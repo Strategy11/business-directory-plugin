@@ -151,7 +151,7 @@ class WPBDP__WordPress_Template_Integration {
 		if ( ! in_the_loop() ) {
 			return $title;
 		}
-		remove_filter( 'the_title', array(&$this, 'set_tax_title') );
+		remove_filter( 'the_title', array( &$this, 'set_tax_title' ) );
 		$term = get_queried_object();
 		return is_object( $term ) ? $term->name : $title;
 	}
@@ -213,7 +213,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
-		remove_filter( 'post_thumbnail_html', array(&$this, 'remove_tax_thumbnail') );
+		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
 		// The caption shows in 2021 theme.
 		add_filter( 'wp_get_attachment_caption', '__return_false' );
 

@@ -22,7 +22,7 @@ wpbdp_admin_notices();
 <p class="howto">
 <?php
 
-echo sprintf(
+printf(
 	// translators: %1$s is opening <a> tag, %2$s is closing </a> tag
 	esc_html__( '%1$sDirectory Themes%2$s change the look of the directory. A number of them are %1$savailable for purchase%2$s.', 'business-directory-plugin' ),
 	'<a href="https://businessdirectoryplugin.com/premium-themes/" target="_blank" rel="noopener">',

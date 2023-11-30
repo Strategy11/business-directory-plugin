@@ -26,7 +26,7 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 
 			if ( ! $payment ) {
 				$message = __( "We couldn't find a payment associated with the given subscription.", 'business-directory-plugin' );
-				throw new Exception( $message );
+				throw new Exception( esc_html( $message ) );
 			}
 
 			$gateway = $GLOBALS['wpbdp']->payment_gateways->get( $payment->gateway );
@@ -34,7 +34,7 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 			if ( ! $gateway ) {
 				$message = __( 'The payment gateway "<payment-gateway>" is not available.', 'business-directory-plugin' );
 				$message = str_replace( '<payment-gateway>', $gateway, $message );
-				throw new Exception( $message );
+				throw new Exception( esc_html( $message ) );
 			}
 
 			$gateway->cancel_subscription( $listing, $subscription );
@@ -52,10 +52,12 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 <div id="wpbdp-payment-receipt" class="wpbdp-payment-receipt">
 
 	<div class="wpbdp-payment-receipt-header">
-		<h4><?php printf( _x( 'Payment #%s', 'payments', 'business-directory-plugin' ), $payment->id ); ?></h4>
-		<span class="wpbdp-payment-receipt-date"><?php echo date( 'Y-m-d H:i', strtotime( $payment->created_at ) ); ?></span>
+		<h4><?php printf( esc_html__( 'Payment #%s', 'business-directory-plugin' ), esc_attr( $payment->id ) ); ?></h4>
+		<span class="wpbdp-payment-receipt-date"><?php echo esc_html( date( 'Y-m-d H:i', strtotime( $payment->created_at ) ) ); ?></span>
 
-		<span class="wpbdp-tag wpbdp-payment-status wpbdp-payment-status-<?php echo $payment->status; ?>"><?php echo WPBDP_Payment::get_status_label( $payment->status ); ?></span>
+		<span class="wpbdp-tag wpbdp-payment-status wpbdp-payment-status-<?php echo esc_attr( $payment->status ); ?>">
+			<?php echo esc_html( WPBDP_Payment::get_status_label( $payment->status ) ); ?>
+		</span>
 	</div>
 	<div class="wpbdp-payment-receipt-details">
 		<dl>
@@ -72,14 +74,14 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 			if ( ! empty( str_replace( '<br />', '', $bill_to ) ) ) {
 				?>
 				<dt><?php esc_html_e( 'Bill To:', 'business-directory-plugin' ); ?></dt>
-				<dd><?php echo $bill_to; ?></dd>
+				<dd><?php echo wp_kses_post( $bill_to ); ?></dd>
 				<?php
 			}
 			?>
 		</dl>
 	</div>
 
-			<?php echo $this->render_invoice( $payment ); ?>
+			<?php echo $this->render_invoice( $payment ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 
 </div>
 <a href="#" class="wpbdp-payment-receipt-print button wpbdp-button" ><?php esc_html_e( 'Print Receipt', 'business-directory-plugin' ); ?></a>
@@ -182,7 +184,6 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 
 			return 'pending';
 		}
-
-	}
+}
 
 }

@@ -168,7 +168,7 @@ class WPBDP_Admin_Pages {
 			echo '<span class="wpbdp-taxonomy-search-results">';
 			printf(
 				/* translators: %s: Search query. */
-				__( 'Search results for: %s', 'business-directory-plugin' ),
+				esc_html__( 'Search results for: %s', 'business-directory-plugin' ),
 				'<strong>' . esc_html( $search_param ) . '</strong>'
 			);
 			echo '</span>';

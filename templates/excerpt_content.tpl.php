@@ -1,5 +1,5 @@
 <?php if ( $images->thumbnail ) : ?>
-	<?php echo $images->thumbnail->html; ?>
+	<?php echo $images->thumbnail->html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 <?php endif; ?>
 
 <div class="listing-details<?php echo esc_attr( $images->thumbnail ? '' : ' wpbdp-no-thumb' ); ?>">
@@ -16,7 +16,7 @@
 		</div>
 			<?php endif; ?>
 		<?php else : ?>
-			<?php echo $field->html; ?>
+			<?php echo $field->html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php endif; ?>
 	<?php endforeach; ?>
 
@@ -24,6 +24,6 @@
 	$social = $fields->filter( 'social' );
 	?>
 	<?php if ( $social && $social->html ) : ?>
-	<div class="social-fields cf"><?php echo $social->html; ?></div>
+	<div class="social-fields cf"><?php echo $social->html; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 	<?php endif; ?>
 </div>

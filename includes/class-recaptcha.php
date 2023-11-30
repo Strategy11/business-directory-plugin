@@ -111,7 +111,7 @@ class WPBDP_reCAPTCHA {
 			$html .= '</div>';
 		}
 
-		$this->current_id++;
+		++$this->current_id;
 
 		return $html;
 	}
@@ -209,7 +209,7 @@ class WPBDP_reCAPTCHA {
 			$this->comment_error = true;
 			add_filter(
 				'pre_comment_approved',
-				function( $a ) {
+				function ( $a ) {
 					return 'spam';
 				}
 			);
@@ -243,12 +243,12 @@ class WPBDP_reCAPTCHA {
 			return;
 		}
 
-		echo <<<JS
-        <script>//<![CDATA[
-            jQuery( '#comment' ).val( "{$comment->comment_content}" );
+		?>
+		<script>//<![CDATA[
+            jQuery( '#comment' ).val( '<?php esc_js( $comment->comment_content ); ?>' );
         //}}>
         </script>
-JS;
+		<?php
 	}
 
 	/**
@@ -309,11 +309,8 @@ JS;
 		}
 
 		return true;
-
 	}
-
 }
-
 
 /**
  * Displays a reCAPTCHA field using the configured settings.
@@ -334,4 +331,3 @@ function wpbdp_recaptcha( $name = '' ) {
 function wpbdp_recaptcha_check_answer( &$error_msg = null ) {
 	return wpbdp()->recaptcha->verify( $error_msg );
 }
-

@@ -80,7 +80,6 @@ class WPBDP_Personal_Data_Privacy {
 		);
 
 		return apply_filters( 'wpbdp_modules_personal_data_exporters', $exporters );
-
 	}
 
 	/**

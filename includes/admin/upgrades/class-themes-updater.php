@@ -28,7 +28,7 @@ class WPBDP_Themes_Updater {
 			}
 
 			if ( $this->get_update_info( $theme_id ) ) {
-				$count++;
+				++$count;
 			}
 		}
 
@@ -151,23 +151,27 @@ class WPBDP_Themes_Updater {
 
 		printf(
 			'<div class="wpbdp-theme-update-info update-available wpbdp-inline-notice" data-l10n-updating="%s" data-l10n-updated="%s">',
-			_x( 'Updating theme...', 'themes', 'business-directory-plugin' ),
-			_x( 'Theme updated.', 'themes', 'business-directory-plugin' )
+			esc_html_x( 'Updating theme...', 'themes', 'business-directory-plugin' ),
+			esc_html_x( 'Theme updated.', 'themes', 'business-directory-plugin' )
 		);
 		echo '<div class="update-message">';
-		$msg = _x( 'New version available (<b>%s</b>). <a>Update now.</a>', 'themes', 'business-directory-plugin' );
-		$msg = sprintf( $msg, $update_info['latest'] );
-		$msg = str_replace( '<a>', '<a href="#" data-theme-id="' . $theme->id . '" data-nonce="' . wp_create_nonce( 'update theme ' . $theme->id ) . '" class="update-link">', $msg );
-		echo $msg;
-		echo '</div>';
 
+		printf(
+			// translators: %1$s the new version number, %2$s opening link tag, %3$s closing link tag
+			esc_html__( 'New version available (%1$s). %2$sUpdate now.%3$s', 'business-directory-plugin' ),
+			'<b>' . esc_html( $update_info['latest'] ) . '</b>',
+			'<a href="#" data-theme-id="' . esc_attr( $theme->id ) . '" data-nonce="' . esc_attr( wp_create_nonce( 'update theme ' . $theme->id ) ) . '" class="update-link">',
+			'</a>'
+		);
+
+		echo '</div>';
 		echo '</div>';
 	}
 
 	// Theme update process. {{
 
 	public function _update_theme() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die();
 		}
 

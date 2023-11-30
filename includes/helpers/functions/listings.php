@@ -252,4 +252,3 @@ function wpbdp_get_listings_by_email( $email, $posts_per_page = -1, $offset = 0 
 
 	return $post_ids;
 }
-

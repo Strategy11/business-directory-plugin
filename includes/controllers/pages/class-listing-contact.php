@@ -315,5 +315,4 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 		$html .= sprintf( '<p><a href="%s">%s</a></p>', get_permalink( $listing_id ), _x( 'Return to listing.', 'contact-message', 'business-directory-plugin' ) );
 		return $html;
 	}
-
 }

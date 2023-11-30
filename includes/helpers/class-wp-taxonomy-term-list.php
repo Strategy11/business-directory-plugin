@@ -11,7 +11,7 @@ class WPBDP__WP_Taxonomy_Term_List {
 
 
 	public function __construct( $args = array() ) {
-		self::$_n++;
+		++self::$_n;
 
 		$defaults = array(
 			'taxonomy'         => WPBDP_CATEGORY_TAX,
@@ -39,6 +39,7 @@ class WPBDP__WP_Taxonomy_Term_List {
 	}
 
 	public function display() {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $this->output();
 	}
 
@@ -113,5 +114,4 @@ class WPBDP__WP_Taxonomy_Term_List {
 	protected function element_after( $term, $depth ) {
 		return $this->args['after'];
 	}
-
 }

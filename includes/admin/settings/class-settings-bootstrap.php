@@ -1504,11 +1504,11 @@ final class WPBDP__Settings__Bootstrap {
 					'subject' => '[[site-title]] Payment completed for "[listing]"',
 					'body'    => '
         Dear Customer,
-        
+
         We have verified with [gateway] your payment for the listing "[listing]".
 
         Details:
-        
+
         [payment_details]
 
         If you have any issues, please contact us directly by hitting reply to this
@@ -1552,7 +1552,7 @@ final class WPBDP__Settings__Bootstrap {
 				'name'      => __( 'Renewal and expiration', 'business-directory-plugin' ),
 				'default'   => self::get_default_expiration_notices(),
 				'group'     => 'email_templates',
-				'validator' => array( __class__, 'validate_expiration_notices' ),
+				'validator' => array( __CLASS__, 'validate_expiration_notices' ),
 			)
 		);
 	}
@@ -1700,7 +1700,7 @@ final class WPBDP__Settings__Bootstrap {
 	 * @since v5.9
 	 */
 	private static function uninstall_section() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
@@ -1721,6 +1721,5 @@ final class WPBDP__Settings__Bootstrap {
 				'group' => 'uninstall',
 			)
 		);
-
 	}
 }

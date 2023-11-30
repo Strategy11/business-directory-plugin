@@ -93,7 +93,6 @@ class WPBDP__Admin__Listing_Owner {
 		);
 
 		return $this->render( $params );
-
 	}
 
 	/**

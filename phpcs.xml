@@ -14,7 +14,7 @@
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotValidated" />
 		<exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash" />
 		<exclude name="WordPress.DB.PreparedSQLPlaceholders.LikeWildcardsInQueryWithPlaceholder" />
-		<exclude name="WordPress.Security.EscapeOutput" />
+		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped" />
 		<exclude name="PSR2.Files.ClosingTag.NotAllowed" />
 		<exclude name="WordPress.DB.PreparedSQL.NotPrepared" />
 
@@ -38,6 +38,7 @@
 		<exclude name="WordPress.PHP.StrictComparisons.LooseComparison" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
 		<exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
+		<exclude name="Universal.Files.SeparateFunctionsFromOO.Mixed" />
 
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
@@ -54,7 +55,6 @@
 		<exclude name="Squiz.PHP.EmbeddedPhp.NoSemicolon" />
 
 		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
-		<exclude name="WordPress.Arrays.CommaAfterArrayItem" />
 		<exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed" />
 		<exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited" />
 		<exclude name="Squiz.Scope.MethodScope.Missing" />
@@ -74,6 +74,12 @@
 			<property name="text_domain" type="array">
 				<element value="business-directory-plugin" />
 			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Security.EscapeOutput">
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array" value="wpbdp_sanitize_value,wpbdp_get_server_value,wpbdp_render_page,wpbdp_admin_footer,wpbdp_render,wpbdp_render_msg,wp_nonce_url"/>
 		</properties>
 	</rule>
 

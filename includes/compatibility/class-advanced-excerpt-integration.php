@@ -23,4 +23,3 @@ class WPBDP_Advanced_Excerpt_Integration {
 		return array_merge( array( WPBDP_CATEGORY_TAX, WPBDP_TAGS_TAX ), $page_types );
 	}
 }
-

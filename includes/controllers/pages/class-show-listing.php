@@ -21,5 +21,4 @@ class WPBDP__Views__Show_Listing extends WPBDP__View {
 
 		return $html;
 	}
-
 }

@@ -7,7 +7,7 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 			die();
 		}
 
-		if ( current_user_can( 'administrator' ) ) {
+		if ( wpbdp_user_is_admin() ) {
 			return true;
 		}
 
@@ -29,5 +29,4 @@ class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 
 		return false;
 	}
-
 }

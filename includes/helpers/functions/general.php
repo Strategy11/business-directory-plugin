@@ -278,7 +278,7 @@ function wpbdp_get_parent_catids( $catid ) {
 	$parent_categories = wpbdp_get_parent_categories( $catid );
 	array_walk(
 		$parent_categories,
-		function( &$x ) {
+		function ( &$x ) {
 			$x = intval( $x->term_id );
 		}
 	);
@@ -344,7 +344,7 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 			break;
 		case 'edit':
 		case 'delete':
-			$res = user_can( $user_id, 'administrator' );
+			$res = user_can( $user_id, 'manage_options' );
 			$res = $res || ( $user_id && $post->post_author && $post->post_author == $user_id );
 			$res = $res || ( ! $user_id && wpbdp_get_option( 'enable-key-access' ) );
 			break;
@@ -897,7 +897,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
 			if ( $categories && ! $plan->supports_category_selection( $categories ) ) {
 				continue;
 			}
-			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'administrator' ) ) {
+			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'manage_options' ) ) {
 				continue;
 			}
 			$plans[] = $plan;
@@ -1076,6 +1076,7 @@ function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
 	}
 	$msg = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses_post( $msg ) . '</div>';
 	if ( $echo ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $msg;
 	}
 
@@ -1166,6 +1167,7 @@ function wpbdp_latest_listings( $n = 10, $before = '<ul>', $after = '</ul>', $be
  * @since 4.0
  */
 function wpbdp_the_listing_actions() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_listing_actions();
 }
 
@@ -1294,7 +1296,6 @@ function wpbdp_get_return_link() {
 	if ( $msg ) {
 		echo '<span class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >' . esc_html( $msg ) . '</a></span>';
 	}
-
 }
 
 /**
@@ -1309,6 +1310,17 @@ function wpbdp_users_dropdown() {
 	}
 
 	return $res;
+}
+
+/**
+ * Check if user is admin.
+ *
+ * @since x.x
+ *
+ * @return bool Whether user is admin.
+ */
+function wpbdp_user_is_admin() {
+	return current_user_can( 'manage_options' );
 }
 
 /**

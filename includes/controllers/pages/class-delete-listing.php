@@ -64,6 +64,4 @@ class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 			)
 		);
 	}
-
 }
-

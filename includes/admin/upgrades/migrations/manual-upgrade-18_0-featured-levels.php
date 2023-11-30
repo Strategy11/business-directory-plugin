@@ -194,7 +194,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
         // Validate (in case data was POSTed).
         if ( $config = $this->_validate_config( $levels ) ) {
             $this->_update_db( $config );
-            echo _x( 'Featured Levels migration is complete.', 'migrate-18', 'business-directory-plugin' );
+            esc_html_e( 'Featured Levels migration is complete.', 'business-directory-plugin' );
             echo '<br /><br />';
             echo '<a href="' . esc_url( admin_url( 'edit.php?post_type=' . WPBDP_POST_TYPE ) ) . '" class="button button-secondary">' . _x( '← Return to Directory dashboard', 'upgrade-18', 'business-directory-plugin' ) . '</a>';
             echo wpbdp_admin_footer();
@@ -210,11 +210,11 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
         echo $this->_fee_form();
         echo '</div>';
 
-        _ex( 'Business Directory <b>version 5.0</b> is changing how Featured Levels plugin works. We are leaving restricted features for plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'migrate-18', 'business-directory-plugin' );
+        esc_html_e( 'Business Directory <b>version 5.0</b> is changing how Featured Levels plugin works. We are leaving restricted features for plans, but removing the confusing notion of a "featured level" that was limited to sticky listings.', 'business-directory-plugin' );
         echo '<br />';
-        _ex( 'We need to migrate your existing "featured levels" to plans for use by the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier to configure and manage your listings with restricted feature access. If you are unsure about what to do here, <support-link>contact support</support-link> and <cancel-link>cancel migration</cancel-link>.', 'migrate-18', 'business-directory-plugin' );
+        esc_html_e( 'We need to migrate your existing "featured levels" to plans for use by the upgrade. YOUR DATA WILL NOT BE LOST HERE! Our new setup will make it easier to configure and manage your listings with restricted feature access. If you are unsure about what to do here, <support-link>contact support</support-link> and <cancel-link>cancel migration</cancel-link>.', 'business-directory-plugin' );
         echo '<br /><br />';
-        _ex( 'Before we do the migration, we need to ask a few simple questions to move your data from the old "featured level" to the new "restricted feature plan" that is right for you.', 'migrate-18', 'business-directory-plugin' );
+        esc_html_e( 'Before we do the migration, we need to ask a few simple questions to move your data from the old "featured level" to the new "restricted feature plan" that is right for you.', 'business-directory-plugin' );
 
         // Compute listing counts.
         foreach ( array_keys( $levels ) as $level_id ) {
@@ -259,7 +259,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
             if ( $fee_options ) :
                 echo '<div class="option-configuration option-move" >';
-                echo _x( 'Move to: ', 'migrate-18', 'business-directory-plugin' );
+                esc_html_e( 'Move to: ', 'business-directory-plugin' );
                 echo '<select name="level[' . $level_id . '][move_to]">';
                 echo $fee_options;
                 echo '</select>';
@@ -341,7 +341,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
 
         echo '<div class="wpbdp-notice error"><p>';
         echo '<strong>';
-        echo _x( 'Business Directory Plugin - Featured Levels migration required.', 'migrate-18', 'business-directory-plugin' );
+        esc_html_e( 'Business Directory Plugin - Featured Levels migration required.', 'business-directory-plugin' );
         echo '</strong><br />';
         echo str_replace(
             '<a>',

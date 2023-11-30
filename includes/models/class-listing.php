@@ -81,7 +81,7 @@ class WPBDP_Listing {
 		if ( $result && $sorted ) {
 			uasort(
 				$result,
-				function( $x, $y ) {
+				function ( $x, $y ) {
 					return $y->weight - $x->weight;
 				}
 			);
@@ -465,7 +465,6 @@ class WPBDP_Listing {
 		}
 
 		return true;
-
 	}
 
 	public function publish() {
@@ -1162,7 +1161,7 @@ class WPBDP_Listing {
 					)
 				)
 			);
-			$candidate++;
+			++$candidate;
 
 			if ( false == add_post_meta( $this->id, '_wpbdp[import_sequence_id]', $candidate, true ) ) {
 				$sequence_id = 0;

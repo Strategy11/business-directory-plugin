@@ -95,7 +95,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			$classes .= ' free-fee';
 		}
 
-		echo '<tr class="' . $classes . '">';
+		echo '<tr class="' . esc_attr( $classes ) . '">';
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}
@@ -318,5 +318,4 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		$html = '<span class="wpbdp-tag">' . implode( '</span><span class="wpbdp-tag">', $tags ) . '</span>';
 		return $html;
 	}
-
 }

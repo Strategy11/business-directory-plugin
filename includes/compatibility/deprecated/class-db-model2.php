@@ -48,10 +48,8 @@ class WPBDP_DB_Model2 {
 		$table = $wpdb->prefix . 'wpbdp_' . $this->table;
 
 		if ( isset( $this->attrs['id'] ) && $this->attrs['id'] ) {
-		} else {
-			if ( ! isset( $row['created_at'] ) && $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$table} LIKE %s", 'created_at' ) ) ) {
+		} elseif ( ! isset( $row['created_at'] ) && $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$table} LIKE %s", 'created_at' ) ) ) {
 				$row['created_at'] = current_time( 'mysql' );
-			}
 		}
 
 		if ( $wpdb->get_col( $wpdb->prepare( "SHOW COLUMNS FROM {$table} LIKE %s", 'updated_at' ) ) ) {
@@ -272,12 +270,10 @@ class WPBDP_DB_Model2 {
 		}
 
 		return array_map(
-			function( $x ) use ( $classname ) {
+			function ( $x ) use ( $classname ) {
 				return new $classname( $x );
 			},
 			$wpdb->get_results( $query, ARRAY_A )
 		);
 	}
-
-
 }

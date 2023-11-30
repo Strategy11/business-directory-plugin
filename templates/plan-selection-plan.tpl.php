@@ -14,15 +14,15 @@ $description = $plan->description ? apply_filters( 'wpbdp_plan_description_for_d
 $description = apply_filters( 'wpbdp_fee_selection_fee_description', $description, $plan );
 ?>
 	<div class="wpbdp-plan wpbdp-plan-<?php echo esc_attr( $plan->id ); ?> wpbdp-plan-info-box wpbdp-clearfix <?php echo $display_only ? 'display-only ' : ''; ?><?php echo $disabled ? 'wpbdp-plan-disabled' : ''; ?>"
-		 data-id="<?php echo esc_attr( $plan->id ); ?>"
-		 data-disabled="<?php echo absint( $disabled ? 1 : 0 ); ?>"
-		 data-recurring="<?php echo absint( $plan->recurring ? 1 : 0 ); ?>"
-		 data-free-text="<?php echo esc_attr( wpbdp_currency_format( 0.0 ) ); ?>"
-		 data-categories="<?php echo esc_attr( implode( ',', (array) $plan->supported_categories ) ); ?>"
-		 data-pricing-model="<?php echo esc_attr( $plan->pricing_model ); ?>"
-		 data-amount="<?php echo esc_attr( $plan->amount ); ?>"
-		 data-amount-format="<?php echo esc_attr( wpbdp_currency_format( 'placeholder' ) ); ?>"
-		 data-pricing-details="<?php echo esc_attr( wp_json_encode( $plan->pricing_details ) ); ?>" >
+		data-id="<?php echo esc_attr( $plan->id ); ?>"
+		data-disabled="<?php echo absint( $disabled ? 1 : 0 ); ?>"
+		data-recurring="<?php echo absint( $plan->recurring ? 1 : 0 ); ?>"
+		data-free-text="<?php echo esc_attr( wpbdp_currency_format( 0.0 ) ); ?>"
+		data-categories="<?php echo esc_attr( implode( ',', (array) $plan->supported_categories ) ); ?>"
+		data-pricing-model="<?php echo esc_attr( $plan->pricing_model ); ?>"
+		data-amount="<?php echo esc_attr( $plan->amount ); ?>"
+		data-amount-format="<?php echo esc_attr( wpbdp_currency_format( 'placeholder' ) ); ?>"
+		data-pricing-details="<?php echo esc_attr( wp_json_encode( $plan->pricing_details ) ); ?>" >
 		<div class="wpbdp-plan-details">
 		<div class="wpbdp-plan-label"><?php echo esc_html( apply_filters( 'wpbdp_category_fee_selection_label', $plan->label, $plan ) ); ?></div>
 

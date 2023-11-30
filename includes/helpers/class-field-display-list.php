@@ -243,7 +243,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 			'<br />',
 			array_filter(
 				array( $first_line, $second_line, $third_line, $country ),
-				function( $line ) {
+				function ( $line ) {
 					return ! empty( $line );
 				}
 			)
@@ -303,6 +303,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 /**
  * @since 4.0
  */
+// phpcs:ignore
 class _WPBDP_Lightweight_Field_Display_Item {
 
 	public $field       = null;
@@ -368,7 +369,4 @@ class _WPBDP_Lightweight_Field_Display_Item {
 		$this->{$k} = $v;
 		return $v;
 	}
-
 }
-
-

@@ -72,6 +72,4 @@ class WPBDP_DB_Entity_Error_List {
 	public function __toString() {
 		return implode( "\n", $this->messages() );
 	}
-
-
 }

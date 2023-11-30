@@ -137,8 +137,8 @@ class WPBDP_FormFieldsAdmin {
 	private function preview_form() {
 		require_once WPBDP_INC . 'controllers/pages/class-submit-listing.php';
 
-		$html  = '';
-		$html .= wpbdp_admin_header(
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpbdp_admin_header(
 			array(
 				'title'   => __( 'Form Preview', 'business-directory-plugin' ),
 				'id'      => 'formfields-preview',
@@ -150,21 +150,23 @@ class WPBDP_FormFieldsAdmin {
 				),
 			)
 		);
-		$html .= '<div id="wpbdp-submit-listing" class="wpbdp-listing-form-preview wpbdp-submit-page">';
-		$html .= wpbdp_admin_notices();
-		$html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
+		echo '<div id="wpbdp-submit-listing" class="wpbdp-listing-form-preview wpbdp-submit-page">';
+		echo wpbdp_admin_notices(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
 
 		require_once WPBDP_INC . 'helpers/class-dummy-listing.php';
 		$listing = new WPBDP__Dummy_Listing();
 		do_action( 'wpbdp_preview_form_setup_listing', $listing );
 
-		$html .= WPBDP__Views__Submit_Listing::preview_form( $listing );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo WPBDP__Views__Submit_Listing::preview_form( $listing );
 
-		$html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_after_preview' );
-		$html .= '</div>';
-		$html .= wpbdp_admin_footer();
-
-		echo $html;
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpbdp_capture_action( 'wpbdp_admin_form_fields_after_preview' );
+		echo '</div>';
+		echo wpbdp_admin_footer();
 	}
 
 	/* field list */

@@ -51,6 +51,5 @@ class WPBDP_CategoryFormInputWalker extends Walker {
 				$output .= '</div>';
 				break;
 		}
-
 	}
 }

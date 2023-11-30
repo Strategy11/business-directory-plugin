@@ -131,7 +131,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * Load the pointer box if it hasn't yet been dismissed.
 		 */
 		private function add_pointers() {
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				return;
 			}
 
@@ -213,7 +213,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		public function ajax_create_main_page() {
 			$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 			$res   = new WPBDP_AJAX_Response();
-			if ( ! current_user_can( 'administrator' ) || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
+			if ( ! wpbdp_user_is_admin() || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
 				$res->send_error();
 			}
 
@@ -303,7 +303,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				__( 'Directory', 'business-directory-plugin' ),
 				$this->minimum_role,
 				$menu_id,
-				current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
+				wpbdp_user_is_admin() ? array( &$this, 'main_menu' ) : '',
 				WPBDP__CPT_Integration::menu_icon(),
 				20
 			);
@@ -476,7 +476,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @since 6.0.1
 		 */
 		private function add_upgrade_menu() {
-			if ( WPBDP_Admin_Education::is_installed( 'premium' ) || ! current_user_can( 'administrator' ) ) {
+			if ( WPBDP_Admin_Education::is_installed( 'premium' ) || ! wpbdp_user_is_admin() ) {
 				return;
 			}
 
@@ -737,7 +737,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		public function ajax_formfields_reorder() {
 			$response = new WPBDP_AJAX_Response();
 
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				$response->send_error();
 			}
 
@@ -776,7 +776,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$response = new WPBDP_AJAX_Response();
 
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				$response->send_error();
 			}
 
@@ -791,7 +791,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$weight = count( $order ) - 1;
 			foreach ( $order as $fee_id ) {
 				$wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => absint( $fee_id ) ) );
-				$weight--;
+				--$weight;
 			}
 
 			$response->send();
@@ -843,7 +843,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @since 6.0
 		 */
 		public function prepare_admin_notices() {
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				return;
 			}
 
@@ -861,7 +861,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		function admin_notices() {
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				return;
 			}
 
@@ -901,9 +901,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				if ( ! empty( $extra['dismissible-id'] ) ) {
 					printf(
 						'<button type="button" class="notice-dismiss" data-dismissible-id="%s" data-nonce="%s"><span class="screen-reader-text">%s</span></button>',
-						$extra['dismissible-id'],
-						wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ),
-						_x( 'Dismiss this notice.', 'admin', 'business-directory-plugin' )
+						esc_attr( $extra['dismissible-id'] ),
+						esc_attr( wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ) ),
+						esc_html__( 'Dismiss this notice.', 'business-directory-plugin' )
 					);
 				}
 
@@ -989,7 +989,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$listings_api = wpbdp_listings_api();
 
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				exit;
 			}
 
@@ -1288,7 +1288,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		/* Required pages check. */
 		public function check_for_required_pages() {
-			if ( ! WPBDP_App_Helper::is_bd_page() || wpbdp_get_page_id( 'main' ) || ! current_user_can( 'administrator' ) ) {
+			if ( ! WPBDP_App_Helper::is_bd_page() || wpbdp_get_page_id( 'main' ) || ! wpbdp_user_is_admin() ) {
 				return;
 			}
 

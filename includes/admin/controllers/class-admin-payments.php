@@ -182,5 +182,4 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 			exit;
 		}
 	}
-
 }

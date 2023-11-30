@@ -279,5 +279,4 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 
 		return $field->data( 'date_format' );
 	}
-
 }

@@ -111,9 +111,9 @@ class WPBDP_CSV_Import {
 			$line_data = $this->get_current_line( $file );
 
 			$file->next();
-			$n++;
+			++$n;
 			$this->current_line = $file->key();
-			$this->processed_lines++;
+			++$this->processed_lines;
 
 			if ( count( $line_data ) < 2 && empty( $line_data[0] ) ) {
 				continue;
@@ -130,7 +130,7 @@ class WPBDP_CSV_Import {
 					);
 				}
 
-				$this->rejected++;
+				++$this->rejected;
 				continue;
 			}
 
@@ -146,11 +146,11 @@ class WPBDP_CSV_Import {
 					);
 				}
 
-				$this->rejected++;
+				++$this->rejected;
 				continue;
 			}
 
-			$this->imported++;
+			++$this->imported;
 		}
 
 		$file = null;
@@ -166,7 +166,7 @@ class WPBDP_CSV_Import {
 	private function get_current_line( $file ) {
 		$line = $file->current();
 		if ( empty( $line ) ) {
-			return [];
+			return array();
 		}
 		return $line;
 	}
@@ -351,7 +351,7 @@ class WPBDP_CSV_Import {
 		foreach ( $files as $file ) {
 			$uploaded_type = strtolower( pathinfo( $file['filename'], PATHINFO_EXTENSION ) );
 			if ( ! in_array( $uploaded_type, $allowed, true ) ) {
-				 @unlink( $file['filename'] );
+				@unlink( $file['filename'] );
 			}
 		}
 	}
@@ -424,7 +424,9 @@ class WPBDP_CSV_Import {
 
 		foreach ( $required_fields as $rf ) {
 			if ( ! in_array( $rf->get_short_name(), $fields_in_header, true ) ) {
-				throw new Exception( sprintf( 'Required header column "%s" missing', $rf->get_short_name() ) );
+				throw new Exception(
+					sprintf( 'Required header column "%s" missing', esc_html( $rf->get_short_name() ) )
+				);
 			}
 		}
 

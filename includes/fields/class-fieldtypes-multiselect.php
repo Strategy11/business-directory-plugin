@@ -49,4 +49,3 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
 		return parent::process_field_settings( $field );
 	}
 }
-

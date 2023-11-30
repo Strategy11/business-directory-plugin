@@ -221,7 +221,6 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		$html = '<div class="wpbdp-grid">' . $html . '</div>';
 
 		return $html;
-
 	}
 
 	public function get_supported_associations() {

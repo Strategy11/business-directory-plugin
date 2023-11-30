@@ -87,7 +87,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 			$html .= esc_attr( $label );
 			$html .= '</label></div>';
 
-			$i++;
+			++$i;
 		}
 
 		if ( '1' == $field->data( 'allow_select_all' ) ) {
@@ -291,4 +291,3 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 		return empty( array_filter( (array) $value ) );
 	}
 }
-

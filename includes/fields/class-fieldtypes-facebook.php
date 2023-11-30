@@ -49,6 +49,4 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
 
 		return $html;
 	}
-
 }
-

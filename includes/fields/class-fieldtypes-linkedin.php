@@ -63,5 +63,4 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 		$html .= '</div>';
 		return $html;
 	}
-
 }

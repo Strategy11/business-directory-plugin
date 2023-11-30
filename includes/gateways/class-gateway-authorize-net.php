@@ -394,18 +394,17 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 			if ( ! $response->isOk() ) {
 				$msg = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'business-directory-plugin' );
 
-				if ( current_user_can( 'administrator' ) ) {
+				if ( wpbdp_user_is_admin() ) {
 					$msg = sprintf(
 						__( 'An error occurred while trying to cancel Authorize.net subscription with ID %s. You can try again later or cancel subscription from gateway dashboard.', 'business-directory-plugin' ),
 						$susc_id
 					);
 				}
 
-				throw new Exception( $msg );
+				throw new Exception( esc_html( $msg ) );
 			}
 		}
 
 		$subscription->cancel();
 	}
-
 }
