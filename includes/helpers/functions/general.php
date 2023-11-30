@@ -1324,18 +1324,6 @@ function wpbdp_user_is_admin() {
 }
 
 /**
- * Check if user has specific role.
- *
- * @since x.x
- *
- * @return bool Whether user has the role.
- */
-function wpbdp_user_has_role( $role ) {
-	$user = wp_get_current_user();
-	return in_array( $role, $user->roles, true );
-}
-
-/**
  * Is this used?
  *
  * @since 4.1.8
