@@ -193,9 +193,12 @@ module.exports = function( grunt ) {
 			src: [
 				basedir + '/*.php',
 				basedir + '/**/*.php',
-				basedir + '/*.js',
 				basedir + '/**/*.js',
+				'!' + basedir + '/**/*.min.js',
+				'!' + basedir + '/Gruntfile.js',
 				basedir + '/!node_modules/**',
+				basedir + '/!vendor/**',
+				basedir + '/!vendors/**',
 				basedir + '/!translations/**',
 				basedir + '/!languages/**',
 				basedir + '/!tests/**'

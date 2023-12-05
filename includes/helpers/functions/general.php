@@ -1314,7 +1314,7 @@ function wpbdp_users_dropdown() {
 /**
  * Check if user is admin.
  *
- * @since x.x
+ * @since 6.3.11
  *
  * @return bool Whether user is admin.
  */
