@@ -112,7 +112,7 @@ class WPBDP__WordPress_Template_Integration {
 	/**
 	 * Replace the content correctly on taxonomies in WP 6.4+.
 	 *
-	 * @since x.x
+	 * @since 6.3.11
 	 * @return void
 	 */
 	public function setup_tax_hooks() {
