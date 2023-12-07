@@ -205,14 +205,21 @@ class WPBDP_App_Helper {
 	 * @since 5.11.2
 	 *
 	 * @param string $permission
+	 * @param array  $atts
+	 *
+	 * @return void
 	 */
-	public static function permission_check( $permission, $atts = array() ) {
+	public static function permission_check( $permission = '', $atts = array() ) {
 		$defaults = array(
 			'show_message' => '',
 			'nonce_name'   => '_wpnonce',
 			'nonce'        => '',
 		);
 		$atts     = array_merge( $defaults, $atts );
+
+		if ( empty( $permission ) ) {
+			$permission = wpbdp_backend_minimim_role();
+		}
 
 		$permission_error = self::permission_nonce_error( $permission, $atts );
 		if ( $permission_error !== false ) {
@@ -233,7 +240,7 @@ class WPBDP_App_Helper {
 	 * @return false|string The permission message or false if allowed
 	 */
 	public static function permission_nonce_error( $permission, $atts = array() ) {
-		if ( ! empty( $permission ) && ! current_user_can( $permission ) && ! current_user_can( 'manage_options' ) ) {
+		if ( ! empty( $permission ) && ! current_user_can( $permission ) && ! wpbdp_user_is_admin() ) {
 			return esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' );
 		}
 

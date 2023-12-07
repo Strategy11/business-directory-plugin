@@ -237,7 +237,7 @@ class WPBDP__Admin__Listing_Owner {
 	}
 
 	public function ajax_autocomplete_users() {
-		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		WPBDP_App_Helper::permission_check();
 
 		global $wpdb;
 

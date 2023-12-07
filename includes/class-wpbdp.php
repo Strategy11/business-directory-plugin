@@ -570,7 +570,7 @@ final class WPBDP {
 			$res->add( 'uploadErrors', $error_msg );
 		}
 
-		$res->add( 'is_admin', current_user_can( 'manage_options' ) );
+		$res->add( 'is_admin', wpbdp_user_is_admin() );
 		$res->add( 'slots_available', $slots_available );
 		$res->add( 'attachmentIds', $attachments );
 		$res->add( 'html', $html );
@@ -675,7 +675,7 @@ final class WPBDP {
 	public function frontend_manual_upgrade_msg() {
 		wp_enqueue_style( 'wpbdp-base-css' );
 
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( wpbdp_user_is_admin() ) {
 			return wpbdp_render_msg(
 				str_replace(
 					'<a>',
