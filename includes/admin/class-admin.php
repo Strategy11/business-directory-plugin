@@ -291,7 +291,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		function admin_menu() {
 			add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ), 20 );
 
-			if ( ! wpbdp_user_can_create() ) {
+			if ( ! wpbdp_user_can_access_backend() ) {
 				return;
 			}
 
@@ -434,7 +434,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			remove_submenu_page( $menu_id, 'wpbdp-debug-info' ); // This page isn't used anymore.
 
-			if ( wpbdp_user_can_create() ) {
+			if ( wpbdp_user_can_access_backend() ) {
 				remove_menu_page( 'edit.php?post_type=' . WPBDP_POST_TYPE );
 				remove_submenu_page( $menu_id, 'post-new.php?post_type=wpbdp_listing' );
 			} else {

@@ -205,7 +205,7 @@ class WPBDP_CSVImportAdmin {
 	 */
 	public function download_example_csv() {
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
-		if ( ! wpbdp_user_can_create() ) {
+		if ( ! wpbdp_user_can_access_backend() ) {
 			wp_send_json_error();
 		}
 

@@ -8,7 +8,7 @@ class WPBDP__Views__Show_Listing extends WPBDP__View {
 		}
 
 		$html = '';
-		if ( 'publish' != get_post_status( get_the_ID() ) && wpbdp_user_can_create() ) {
+		if ( 'publish' != get_post_status( get_the_ID() ) && wpbdp_user_can_access_backend() ) {
 			$html .= wpbdp_render_msg( __( 'This is just a preview. The listing has not been published yet.', 'business-directory-plugin' ) );
 		}
 

@@ -1107,7 +1107,7 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
 		'post_type' => WPBDP_POST_TYPE,
 		'p'         => $listing_id,
 	);
-	if ( ! wpbdp_user_can_create() ) {
+	if ( ! wpbdp_user_can_access_backend() ) {
 		$args['post_status'] = 'publish';
 	}
 
@@ -1324,6 +1324,7 @@ function wpbdp_user_is_admin() {
 
 /**
  * Check if user can edit listings.
+ * Defaults to edit_others_posts capability for editors.
  *
  * @since x.x
  *
@@ -1335,12 +1336,13 @@ function wpbdp_user_can_edit() {
 
 /**
  * Check if user can create listings and edit their own.
+ * Defaults to edit_posts capability for contributors.
  *
  * @since x.x
  *
  * @return bool
  */
-function wpbdp_user_can_create() {
+function wpbdp_user_can_access_backend() {
 	return current_user_can( wpbdp_backend_minimim_role() );
 }
 

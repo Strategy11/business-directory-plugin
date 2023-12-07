@@ -387,7 +387,7 @@ class WPBDP_Admin_Listings {
 	// {{{ List views.
 	function listing_views( $views ) {
 		if ( ! wpbdp_user_can_edit() ) {
-			if ( wpbdp_user_can_create() && isset( $views['mine'] ) ) {
+			if ( wpbdp_user_can_access_backend() && isset( $views['mine'] ) ) {
 				return array( $views['mine'] );
 			}
 
@@ -503,7 +503,7 @@ class WPBDP_Admin_Listings {
 			return $actions;
 		}
 
-		if ( wpbdp_user_can_create() && ! wpbdp_user_is_admin() ) {
+		if ( wpbdp_user_can_access_backend() && ! wpbdp_user_is_admin() ) {
 			if ( wpbdp_user_can( 'edit', $post->ID ) ) {
 				$actions['edit'] = sprintf(
 					'<a href="%s">%s</a>',
@@ -722,7 +722,7 @@ class WPBDP_Admin_Listings {
 	 */
 	public function _fix_new_links() {
 		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
-		if ( ! wpbdp_user_can_create() && $post_type === WPBDP_POST_TYPE ) {
+		if ( ! wpbdp_user_can_access_backend() && $post_type === WPBDP_POST_TYPE ) {
 			echo '<script>';
 			printf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', esc_url_raw( wpbdp_get_page_link( 'add-listing' ) ) );
 			echo '</script>';
@@ -759,7 +759,7 @@ class WPBDP_Admin_Listings {
 	 */
 	public function ajax_assign_plan_to_listing() {
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
-		if ( ! wpbdp_user_can_create() ) {
+		if ( ! wpbdp_user_can_access_backend() ) {
 			wp_send_json_error();
 		}
 

@@ -57,7 +57,7 @@ class WPBDP_Admin_Listing_Fields_Metabox {
 	}
 
 	private function listing_images() {
-		if ( ! wpbdp_user_can_create() ) {
+		if ( ! wpbdp_user_can_access_backend() ) {
 			return;
 		}
 
