@@ -1179,13 +1179,13 @@ class WPBDP_Listing {
 	public function get_flags() {
 		global $wpdb;
 
-		$flags = trim( $wpdb->get_var( $wpdb->prepare( "SELECT flags FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) ) );
+		$flags = $wpdb->get_var( $wpdb->prepare( "SELECT flags FROM {$wpdb->prefix}wpbdp_listings WHERE listing_id = %d", $this->id ) );
 
 		if ( ! $flags ) {
 			return array();
 		}
 
-		return explode( ',', $flags );
+		return explode( ',', trim( $flags ) );
 	}
 
 	/**

@@ -4,6 +4,8 @@
  */
 class WPBDP__Admin__Metaboxes__Listing_Information {
 
+	public $listing;
+
 	public function __construct( $post_id ) {
 		$this->listing = WPBDP_Listing::get( $post_id );
 	}

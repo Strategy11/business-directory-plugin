@@ -9,6 +9,7 @@ class WPBDP__Admin__Variable_Pricing_Configurator extends WPBDP__WP_Taxonomy_Ter
 	private $categories = array();
 	private $prices     = array();
 
+	public $pricing_model;
 
 	function __construct( $args ) {
 		parent::__construct( $args );
