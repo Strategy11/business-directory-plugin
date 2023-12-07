@@ -1351,7 +1351,7 @@ function wpbdp_user_can_access_backend() {
  *
  * @since x.x
  *
- * @return bool
+ * @return string
  */
 function wpbdp_backend_minimim_role() {
 	/**
