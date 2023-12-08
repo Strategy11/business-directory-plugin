@@ -20,7 +20,7 @@ class WPBDP__Manual_Upgrade__18_0__Featured_Levels {
             'options.php',
             __( 'Business Directory - Featured Levels Migration', 'business-directory-plugin' ),
             __( 'Business Directory - Featured Levels Migration', 'business-directory-plugin' ),
-            'administrator',
+            'manage_options',
             'wpbdp_migration_18_0_featured_levels',
             array( &$this, 'migration_page' )
         );
