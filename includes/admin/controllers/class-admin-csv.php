@@ -5,6 +5,10 @@
  */
 class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 
+	public $csv_import;
+
+	public $csv_export;
+
 	public function __construct() {
 		parent::__construct();
 

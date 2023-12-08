@@ -4,6 +4,8 @@
  */
 class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
+	public $api;
+
 	function __construct() {
 		parent::__construct();
 		$this->api = $this->wpbdp->fees;

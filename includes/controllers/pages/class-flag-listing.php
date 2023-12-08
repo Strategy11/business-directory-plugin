@@ -14,7 +14,6 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
 	private $listing    = null;
 	private $errors     = array();
 
-
 	public function dispatch() {
 		if ( ! wpbdp_get_option( 'enable-listing-flagging' ) ) {
 			exit;

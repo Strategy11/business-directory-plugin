@@ -12,6 +12,8 @@ require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php
  */
 class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 
+	protected $listing;
+
 	public function dispatch() {
 		$listing_id    = intval( wpbdp_get_var( array( 'param' => 'listing_id' ), 'request' ) );
 		$this->listing = WPBDP_Listing::get( $listing_id );

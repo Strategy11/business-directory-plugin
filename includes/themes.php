@@ -22,6 +22,8 @@ class WPBDP_Themes {
 
 	private $folder_name = 'businessdirectory-themes';
 
+	public $admin;
+
 	function __construct() {
 		$this->find_themes();
 

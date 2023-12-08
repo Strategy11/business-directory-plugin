@@ -4,6 +4,8 @@
  */
 class WPBDP__Admin__Metaboxes__Listing_Flagging {
 
+	public $listing;
+
 	public function __construct( $post_id ) {
 		$this->listing = wpbdp_get_listing( $post_id );
 	}

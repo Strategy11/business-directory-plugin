@@ -22,7 +22,7 @@ jobs:
       - name: "💽  Installing PHP, Composer, CS2PR"
         uses: shivammathur/setup-php@2.10.0
         with:
-          php-version: '7.4'
+          php-version: '8.2'
           coverage: none
           ini-values: display_errors = on, error_reporting = E_ALL
           tools: phpstan, composer

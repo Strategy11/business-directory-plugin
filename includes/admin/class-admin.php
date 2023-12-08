@@ -35,6 +35,19 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		public $messages = array();
 
+		public $listings;
+
+		public $csv_import;
+
+		public $csv_export;
+
+		public $debug_page;
+
+		public $settings_admin;
+
+		public $site_tracking;
+
+		public $displayed_warnings = array();
 
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'handle_actions' ) );
@@ -862,10 +875,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		function admin_notices() {
 			if ( ! wpbdp_user_is_admin() ) {
 				return;
-			}
-
-			if ( ! isset( $this->displayed_warnings ) ) {
-				$this->displayed_warnings = array();
 			}
 
 			foreach ( $this->messages as $msg ) {

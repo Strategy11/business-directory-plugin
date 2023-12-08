@@ -4,6 +4,10 @@
  */
 class WPBDP_FormFieldsAdmin {
 
+	public $api;
+
+	public $admin;
+
 	public function __construct() {
 		$this->api   = wpbdp_formfields_api();
 		$this->admin = wpbdp()->admin;

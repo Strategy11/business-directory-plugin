@@ -41,6 +41,8 @@ final class WPBDP {
 	public $recaptcha;
 	public $compat;
 	public $rewrite;
+	public $admin;
+	public $privacy;
 
 	public function __construct() {
 		$this->_db_version = get_option( 'wpbdp-db-version', null );

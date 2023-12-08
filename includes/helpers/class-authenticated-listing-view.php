@@ -2,6 +2,8 @@
 
 class WPBDP__Authenticated_Listing_View extends WPBDP__View {
 
+	protected $listing;
+
 	protected function authenticate() {
 		if ( ! $this->listing ) {
 			die();
