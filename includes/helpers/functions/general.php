@@ -896,7 +896,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
 			if ( $categories && ! $plan->supports_category_selection( $categories ) ) {
 				continue;
 			}
-			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'manage_options' ) ) {
+			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! wpbdp_user_is_admin() ) {
 				continue;
 			}
 			$plans[] = $plan;
@@ -1107,7 +1107,7 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
 		'post_type' => WPBDP_POST_TYPE,
 		'p'         => $listing_id,
 	);
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! wpbdp_user_can_access_backend() ) {
 		$args['post_status'] = 'publish';
 	}
 
@@ -1320,6 +1320,49 @@ function wpbdp_users_dropdown() {
  */
 function wpbdp_user_is_admin() {
 	return current_user_can( 'manage_options' );
+}
+
+/**
+ * Check if user can edit listings.
+ * Defaults to edit_others_posts capability for editors.
+ *
+ * @since x.x
+ *
+ * @return bool
+ */
+function wpbdp_user_can_edit() {
+	return current_user_can( 'edit_others_posts' );
+}
+
+/**
+ * Check if user can create listings and edit their own.
+ * Defaults to edit_posts capability for contributors.
+ *
+ * @since x.x
+ *
+ * @return bool
+ */
+function wpbdp_user_can_access_backend() {
+	return current_user_can( wpbdp_backend_minimim_role() );
+}
+
+/**
+ * Check if user has backend access.
+ *
+ * @since x.x
+ *
+ * @return string
+ */
+function wpbdp_backend_minimim_role() {
+	/**
+	 * Filter the minimum role required to access the backend.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $role The minimum role required to access the backend.
+	 * @return string
+	 */
+	return apply_filters( 'wpbdp_minimum_backend_role', 'edit_posts' );
 }
 
 /**

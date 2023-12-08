@@ -163,7 +163,7 @@ class WPBDP_reCAPTCHA {
 				return true;
 			}
 
-			if ( current_user_can( 'edit_others_posts' ) ) {
+			if ( wpbdp_user_can_edit() ) {
 				// Show the score to site editors.
 				$error_msg .= ' ' . esc_html( $js['score'] );
 			}

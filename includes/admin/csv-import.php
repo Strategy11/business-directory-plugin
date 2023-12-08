@@ -101,7 +101,7 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	public function ajax_autocomplete_user() {
-		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		WPBDP_App_Helper::permission_check();
 
 		$term  = wpbdp_get_var( array( 'param' => 'term' ), 'request' );
 		$users = get_users( array( 'search' => "*{$term}*" ) );
@@ -205,7 +205,7 @@ class WPBDP_CSVImportAdmin {
 	 */
 	public function download_example_csv() {
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! wpbdp_user_can_access_backend() ) {
 			wp_send_json_error();
 		}
 

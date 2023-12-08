@@ -171,7 +171,7 @@ class WPBDP_Themes_Updater {
 	// Theme update process. {{
 
 	public function _update_theme() {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! wpbdp_user_is_admin() ) {
 			wp_die();
 		}
 

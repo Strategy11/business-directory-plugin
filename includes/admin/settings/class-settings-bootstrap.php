@@ -1700,7 +1700,7 @@ final class WPBDP__Settings__Bootstrap {
 	 * @since v5.9
 	 */
 	private static function uninstall_section() {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! wpbdp_user_is_admin() ) {
 			return;
 		}
 
