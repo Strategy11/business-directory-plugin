@@ -13,7 +13,8 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
 	private $plan       = null;
 	private $payment_id = 0;
-	public $listing     = null;
+
+	protected $listing = null;
 
 	public function dispatch() {
 		global $wpdb;
