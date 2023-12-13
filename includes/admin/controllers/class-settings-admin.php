@@ -420,7 +420,7 @@ class WPBDP__Settings_Admin {
 				checked( $option_value, $value, false ) .
 				' id="wpbdp-settings-' . esc_attr( $setting['id'] . '-radio-' . $option_value ) . '" />';
 			echo '<label for="wpbdp-settings-' . esc_attr( $setting['id'] . '-radio-' . $option_value ) . '">';
-			echo esc_html( $option_label );
+			echo wp_kses_post( $option_label );
 			echo '</label>';
 			echo '</div>';
 		}
