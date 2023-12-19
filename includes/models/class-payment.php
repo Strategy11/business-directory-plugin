@@ -169,9 +169,9 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 		}
 
 		if ( 'admin-submit' == $this->context ) {
-			$summary = sprintf( _x( '%s. Admin Posted.', 'payment summary', 'business-directory-plugin' ), $summary );
+			$summary = sprintf( __( '%s. Admin Posted.', 'business-directory-plugin' ), $summary );
 		} elseif ( 'csv-import' == $this->context ) {
-			$summary = sprintf( _x( '%s. Imported Listing.', 'payment summary', 'business-directory-plugin' ), $summary );
+			$summary = sprintf( __( '%s. Imported Listing.', 'business-directory-plugin' ), $summary );
 		}
 
 		return $summary;
