@@ -31,7 +31,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 						'<a>',
 						'<a href="' . esc_url( remove_query_arg( 'listing' ) ) . '">',
 						sprintf(
-							_x( 'You\'re seeing payments related to listing: "%1$s" (ID #%2$d). <a>Click here</a> to see all payments.', 'payments admin', 'business-directory-plugin' ),
+							__( 'You\'re seeing payments related to listing: "%1$s" (ID #%2$d). <a>Click here</a> to see all payments.', 'business-directory-plugin' ),
 							esc_html( $listing->get_title() ),
 							esc_html( $listing->get_id() )
 						)

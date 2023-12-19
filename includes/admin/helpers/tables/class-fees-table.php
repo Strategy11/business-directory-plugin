@@ -223,7 +223,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			$amount = wpbdp_currency_format( $fee->amount );
 			$extra  = wpbdp_currency_format( $fee->pricing_details['extra'] );
 
-			return sprintf( _x( '%1$s + %2$s per category', 'fees admin', 'business-directory-plugin' ), $amount, $extra );
+			return sprintf( __( '%1$s + %2$s per category', 'business-directory-plugin' ), $amount, $extra );
 		}
 
 		$amount = $fee->amount ? wpbdp_currency_format( $fee->amount ) : '';
