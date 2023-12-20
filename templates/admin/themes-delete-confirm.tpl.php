@@ -12,7 +12,7 @@ wpbdp_admin_header(
 <p>
 <?php
 printf(
-	_x( 'Are you sure you want to delete the directory theme "%s"?', 'themes admin', 'business-directory-plugin' ),
+	__( 'Are you sure you want to delete the directory theme "%s"?', 'business-directory-plugin' ),
 	$theme->name
 );
 ?>

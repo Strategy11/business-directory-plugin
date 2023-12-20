@@ -845,7 +845,7 @@ class WPBDP_Licensing {
 
 			$response = array(
 				'success' => false,
-				'error'   => sprintf( _x( 'Could not activate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ),
+				'error'   => sprintf( __( 'Could not activate license: %s.', 'business-directory-plugin' ), $result->get_error_message() ),
 			);
 		} else {
 			$response = array(

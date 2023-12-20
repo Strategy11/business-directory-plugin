@@ -174,7 +174,7 @@ class WPBDP__Manual_Upgrade_Helper {
 				echo '<form action="" method="post">';
 				echo '<div class="wpbdp-manual-upgrade-configuration">';
 				echo $output;
-				echo '<div class="cf"><input type="submit" class="right button button-primary" value="' . _x( 'Continue', 'manual-upgrade', 'business-directory-plugin' ) . '"/></div>';
+				echo '<div class="cf"><input type="submit" class="right button button-primary" value="' . esc_attr__( 'Continue', 'business-directory-plugin' ) . '"/></div>';
 				echo '</div>';
 				echo '</form>';
 			}

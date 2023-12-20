@@ -109,7 +109,7 @@ class WPBDP_CSVExporter {
 					$direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'business-directory-plugin' );
 					throw new Exception(
 						sprintf(
-							esc_html_x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'business-directory-plugin' ),
+							esc_html__( 'Error while creating a temporary directory for CSV export: %s', 'business-directory-plugin' ),
 							esc_html( $direrror )
 						)
 					);

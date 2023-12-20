@@ -362,7 +362,7 @@ class WPBDP_Admin_Listings {
 				if ( $latest_payment && $latest_payment->status ) {
 					$attributes['payment']  = '<span class="wpbdp-tag wpbdp-listing-attr-payment-' . esc_attr( $latest_payment->status ) . '">';
 					$attributes['payment'] .= sprintf(
-						esc_html_x( 'Payment %s', 'admin listings', 'business-directory-plugin' ),
+						esc_html__( 'Payment %s', 'business-directory-plugin' ),
 						esc_html( $latest_payment->get_status_label( $latest_payment->status ) )
 					);
 					$attributes['payment'] .= '</span>';

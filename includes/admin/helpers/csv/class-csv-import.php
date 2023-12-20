@@ -528,7 +528,7 @@ class WPBDP_CSV_Import {
 
 					$errors[] = $message;
 				} else {
-					$errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'business-directory-plugin' ), $c['name'] );
+					$errors[] = sprintf( __( 'Could not create listing category "%s"', 'business-directory-plugin' ), $c['name'] );
 				}
 			}
 
@@ -721,7 +721,7 @@ class WPBDP_CSV_Import {
 				case 'username':
 					if ( $this->settings['assign-listings-to-user'] && $value ) {
 						if ( ! username_exists( $value ) ) {
-							$errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $value );
+							$errors[] = sprintf( __( 'Username "%s" does not exist', 'business-directory-plugin' ), $value );
 						} else {
 							$meta['username'] = $value;
 						}
@@ -782,7 +782,7 @@ class WPBDP_CSV_Import {
 					}
 
 					if ( $field->is_required() && $field->is_empty_value( $value ) ) {
-						$errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'business-directory-plugin' ), $column );
+						$errors[] = sprintf( __( 'Missing required field: %s', 'business-directory-plugin' ), $column );
 						break;
 					}
 
@@ -823,7 +823,7 @@ class WPBDP_CSV_Import {
 			}
 
 			if ( ! $this->settings['create-missing-categories'] ) {
-				$errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $csv_category );
+				$errors[] = sprintf( __( 'Listing category "%s" does not exist', 'business-directory-plugin' ), $csv_category );
 				continue;
 			}
 

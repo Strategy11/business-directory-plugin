@@ -738,12 +738,12 @@ class WPBDP__Settings_Admin {
 		}
 
 		if ( 'renewal' == $event ) {
-			$summary = sprintf( _x( 'Sent when a listing (%s) is renewed.', 'expiration notices', 'business-directory-plugin' ), $recurring_modifier );
+			$summary = sprintf( __( 'Sent when a listing (%s) is renewed.', 'business-directory-plugin' ), $recurring_modifier );
 		}
 
 		if ( 'expiration' == $event ) {
 			if ( '0 days' == $relative_time ) {
-				$summary = sprintf( _x( 'Sent when a listing (%s) expires.', 'expiration notices', 'business-directory-plugin' ), $recurring_modifier );
+				$summary = sprintf( __( 'Sent when a listing (%s) expires.', 'business-directory-plugin' ), $recurring_modifier );
 			} else {
 				$relative_time_parts  = explode( ' ', $relative_time );
 				$relative_time_number = (int) trim( str_replace( array( '+', '-' ), '', $relative_time_parts[0] ) );
@@ -763,10 +763,10 @@ class WPBDP__Settings_Admin {
 
 				if ( $relative_time[0] == '+' ) {
 					/* translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g. non-recuring only) */
-					$summary = sprintf( _x( 'Sent %1$s before a listing (%2$s) expires.', 'expiration notices', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
+					$summary = sprintf( __( 'Sent %1$s before a listing (%2$s) expires.', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
 				} else {
 					/* translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g. non-recuring only) */
-					$summary = sprintf( _x( 'Sent %1$s after a listing (%2$s) expires.', 'expiration notices', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
+					$summary = sprintf( __( 'Sent %1$s after a listing (%2$s) expires.', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
 				}
 			}
 		}
