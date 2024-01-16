@@ -261,15 +261,87 @@ class WPBDP__Assets {
 			$rootline_color = '#569AF6';
 		}
 
-		$css = 'html{
-			--bd-main-color:' . $rootline_color . ';
-			--bd-main-color-20:' . $rootline_color . '33;
-			--bd-main-color-8:' . $rootline_color . '14;
-			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) . 'px;
-			--bd-thumbnail-height:' . esc_attr( $thumbnail_height ) . 'px;
-		}';
+		$css_vars = array(
+			'--bd-main-color'       => $rootline_color,
+			'--bd-main-color-20'    => $rootline_color . '33',
+			'--bd-main-color-8'     => $rootline_color . '14',
+			'--bd-thumbnail-width'  => $thumbnail_width . 'px',
+			'--bd-thumbnail-height' => $thumbnail_height . 'px',
+		);
+
+		$this->add_default_theme_css( $css_vars );
+
+		$css = 'html{';
+		foreach ( $css_vars as $var => $value ) {
+			$css .= esc_attr( $var ) . ':' . esc_attr( $value ) . ';';
+		}
+		$css .= '}';
+
+		if ( isset( $css_vars['--bd-button-padding-left'] ) ) {
+			// Workaround to only add the padding when defined to avoid overriding the theme padding.
+			$css .= '.wpbdp-with-button-styles .wpbdp-checkout-submit input[type="submit"],
+			.wpbdp-with-button-styles .wpbdp-ratings-reviews input[type="submit"],
+			.wpbdp-with-button-styles .comment-form input[type="submit"],
+			.wpbdp-with-button-styles .wpbdp-main-box input[type="submit"],
+			.wpbdp-with-button-styles .listing-actions a.wpbdp-button,
+			.wpbdp-with-button-styles .wpbdp-button-secondary,
+			.wpbdp-with-button-styles .wpbdp-button{
+				padding-left: ' . esc_attr( $css_vars['--bd-button-padding-left'] ) . ';
+				padding-right: ' . esc_attr( $css_vars['--bd-button-padding-left'] ) . ';
+			}';
+		}
 
 		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $css ) );
+	}
+
+	/**
+	 * Get settings from the theme.json file and add them to the CSS variables.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $css_vars The CSS variables.
+	 * @return void
+	 */
+	private function add_default_theme_css( &$css_vars ) {
+		$settings = wp_get_global_styles();
+
+		if ( isset( $settings['color']['text'] ) ) {
+			$css_vars['--bd-text-color'] = $settings['color']['text'];
+		}
+
+		if ( isset( $settings['color']['background'] ) ) {
+			$css_vars['--bd-bg-color'] = $settings['color']['background'];
+		}
+
+		if ( empty( $settings['elements']['button'] ) ) {
+			return;
+		}
+		$button = $settings['elements']['button'];
+
+		if ( isset( $button['color']['text'] ) ) {
+			$css_vars['--bd-button-text-color'] = $button['color']['text'];
+		}
+
+		if ( isset( $button['color']['background'] ) ) {
+			$css_vars['--bd-button-bg-color'] = $button['color']['background'];
+		}
+
+		if ( isset( $css_vars['--bd-button-bg-color'] ) && $css_vars['--bd-main-color'] === '#569AF6' ) {
+			// If default color, use theme button color.
+			$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
+		}
+
+		// elements.button.spacing.padding.left
+		// elements.button.spacing.padding.top
+		if ( isset( $button['spacing']['padding'] ) ) {
+			$padding = $button['spacing']['padding'];
+			if ( isset( $padding['left'] ) ) {
+				$css_vars['--bd-button-padding-left'] = $padding['left'];
+			}
+			if ( isset( $padding['top'] ) ) {
+				$css_vars['--bd-button-padding-top'] = $padding['top'];
+			}
+		}
 	}
 
 	/**

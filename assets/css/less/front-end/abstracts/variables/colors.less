@@ -5,10 +5,15 @@
 @color-primary: #569af6;
 @color-primary--20: rgba(86, 154, 246, 0.2);
 @color-primary--hover: darken(@color-primary, 12%);
-@color-text: #3F4B5B;
+@color-text: var( --bd-text-color, #3F4B5B );
 @color-text--60: rgba(63, 75, 91, 0.6);
 @color-black: #161619;
 @color-gold: #ffba33;
+@color-bg: var( --bd-bg-color, @color-neutral-100 );
+
+/* Buttons */
+@btn-text: var( --bd-button-text-color, #fff );
+@btn-bg: var( --bd-button-bg-color, --bd-main-color );
 
 /* Background */
 @bg-warning: #fef7d3;

@@ -28,17 +28,18 @@ body .wpbdp-excerpt {
 		cursor: pointer;
 		white-space: nowrap;
 	}
+
 	a.wpbdp-button,
 	.wpbdp-button {
 		border-color: @border-main;
 		background-color: transparent;
-		color: @color-primary;
+		color: @btn-bg;
 	}
 
 	a.wpbdp-button:hover,
 	.wpbdp-button:hover {
-		background-color: @color-primary;
-		color: @white;
+		background-color: @btn-bg;
+		color: @btn-text;
 	}
 
 	input[type="submit"],
@@ -52,8 +53,8 @@ body .wpbdp-excerpt {
 	input.submit,
 	.submit-next-button,
 	#wpbdp-submit-listing-submit-btn {
-		border-color: @color-primary;
-		background-color: @color-primary;
+		border-color: @btn-bg;
+		background-color: @btn-bg;
 		color: @white;
 	}
 
@@ -127,9 +128,10 @@ body .wpbdp-button.et_pb_button {
 		color: var(--bd-main-color) !important;
 	}
 
+	#wpbdp-search-form .wpbdp-button,
 	.wpbdp-main-links-container .button,
 	.wpbdp-main-links-container .wpbdp-main-links .button {
-		padding-top: 6px;
-		padding-bottom: 6px;
+		padding-top: @btn-padding-top;
+		padding-bottom: @btn-padding-top;
 	}
 }
