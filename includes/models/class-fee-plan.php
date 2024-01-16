@@ -438,7 +438,6 @@ final class WPBDP__Fee_Plan {
 	private function sanitize_category( $category_id ) {
 		$category = get_term( absint( $category_id ), WPBDP_CATEGORY_TAX );
 		return $category && ! is_wp_error( $category );
-
 	}
 }
 

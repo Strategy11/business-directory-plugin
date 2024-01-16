@@ -125,7 +125,7 @@ final class WPBDP_FS {
 		if ( ! wp_is_writable( $destdir ) ) {
 			return new WP_Error(
 				'dest-not-writable',
-				sprintf( _x( 'Destination dir "%s" is not writable.', 'fs helper', 'business-directory-plugin' ), $destdir )
+				sprintf( __( 'Destination dir "%s" is not writable.', 'business-directory-plugin' ), $destdir )
 			);
 		}
 
@@ -233,5 +233,4 @@ final class WPBDP_FS {
 
 		return true;
 	}
-
 }

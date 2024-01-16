@@ -12,9 +12,8 @@ echo wpbdp_admin_header();
 	<h4><?php printf( _x( 'Welcome to Business Directory Plugin. You are using %s.', 'admin home', 'business-directory-plugin' ), '<span class="version">' . wpbdp_get_version() . '</span>' ); ?></h4>
 	<p>
 	<?php
-	_ex(
+	esc_html_e(
 		'Thanks for choosing us.  There\'s a lot you probably want to get done, so let\'s jump right in!',
-		'admin home',
 		'business-directory-plugin'
 	);
 	?>

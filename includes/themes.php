@@ -22,6 +22,8 @@ class WPBDP_Themes {
 
 	private $folder_name = 'businessdirectory-themes';
 
+	public $admin;
+
 	function __construct() {
 		$this->find_themes();
 
@@ -43,6 +45,8 @@ class WPBDP_Themes {
 			require_once WPBDP_PATH . 'includes/admin/controllers/class-themes-admin.php';
 			$this->admin = new WPBDP_Themes_Admin( $this, wpbdp()->licensing );
 		}
+
+		$this->check_theme_required_version();
 	}
 
 	/**
@@ -210,7 +214,8 @@ class WPBDP_Themes {
 
 		echo '<style>';
 		foreach ( $wpbdp->fee_colors as $id => $color ) {
-			echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . $id . '{ background-color: ' . esc_attr( $color ) . '}';
+			echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . esc_html( $id ) .
+				'{ background-color: ' . esc_attr( $color ) . '}';
 		}
 		echo '</style>';
 	}
@@ -964,6 +969,26 @@ class WPBDP_Themes {
 	public function sync_settings() {
 		_deprecated_function( __METHOD__, '5.0' );
 	}
+
+	/**
+	 * Check current theme requires plugin version and show admin notice if it doesn't meet the requirement  .
+	 *
+	 * @returns {void}
+	 */
+	private function check_theme_required_version() {
+		$theme_requires = $this->get_active_theme_data()->requires;
+		if ( defined( 'WPBDP_VERSION' ) && $theme_requires && version_compare( WPBDP_VERSION, $theme_requires, '<' ) ) {
+			add_action( 'admin_notices', array( $this, 'update_bd_admin_notice' ) );
+		}
+	}
+	/**
+	 * Shows admin notice to update the plugin.
+	 *
+	 * @returns {void}
+	 */
+	public function update_bd_admin_notice() {
+		wpbdp_admin_message( __( 'Please update Business Directory Plugin to latest version.', 'business-directory-plugin' ) );
+	}
 }
 
 function wpbdp_x_render( $template_id, $vars = array(), $wrapper = '' ) {
@@ -998,11 +1023,10 @@ function wpbdp_x_part( $template_id, $vars = array() ) {
 	if ( ! $echo ) {
 		return $part;
 	}
-	echo $part;
+	echo $part; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 function wpbdp_add_template_dir( $dir_or_file ) {
 	global $wpbdp;
 	return $wpbdp->themes->add_template_dir( $dir_or_file );
 }
-

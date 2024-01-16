@@ -572,6 +572,7 @@ class WPBDP__Settings {
 }
 
 // For backwards compat.
+// phpcs:ignore
 class WPBDP_Settings extends WPBDP__Settings {
 	public function __construct() {
 		_deprecated_constructor( __CLASS__, '5.0', 'WPBDP__Settings' );

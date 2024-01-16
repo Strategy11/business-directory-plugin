@@ -11,8 +11,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	private $items            = array();
 	private $displayed_fields = array();
 	private $names_to_ids     = array();
-
-
+	private $has_excerpt     = false;
 	public function __construct( $listing_id, $display, $fields = array() ) {
 		$this->listing_id = $listing_id;
 		$this->display    = $display;
@@ -52,6 +51,10 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		// if( $f->display_in( $this->display ) )
 		//     $this->displayed_fields[] = $field_id;
 
+		if ( $f->get_tag() === 'excerpt' ) {
+			$this->has_excerpt = true;
+		}
+
 		$this->displayed_fields[]                   = $field_id;
 		$this->items[ $field_id ]                   = new _WPBDP_Lightweight_Field_Display_Item( $f, $this->listing_id, $this->display );
 		$this->names_to_ids[ $f->get_short_name() ] = $field_id;
@@ -60,6 +63,15 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 
 	public function freeze() {
 		$this->frozen = true;
+	}
+
+	/**
+	 * Check if fields has the excerpt field.
+     *
+	 * @return bool
+	 */
+	public function has_excerpt() {
+		return $this->has_excerpt;
 	}
 
 	public function not( $filter ) {
@@ -212,11 +224,11 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	//
 
 	public function helper__address() {
-		$address  = trim( $this->t_address->value );
-		$address2 = trim( $this->t_address2->value );
-		$city     = trim( $this->t_city->value );
-		$state    = trim( $this->t_state->value );
-		$country  = trim( $this->t_country->value );
+		$address  = $this->t_address->value ? trim( $this->t_address->value ) : '';
+		$address2 = $this->t_address2->value ? trim( $this->t_address2->value ) : '';
+		$city     = $this->t_city->value ? trim( $this->t_city->value ) : '';
+		$state    = $this->t_state->value ? trim( $this->t_state->value ) : '';
+		$country  = $this->t_country->value ? trim( $this->t_country->value ) : '';
 		$zip      = trim( is_array( $this->t_zip->value ) ? $this->t_zip->value['zip'] : $this->t_zip->value );
 
 		$first_line = $address;
@@ -231,7 +243,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 			'<br />',
 			array_filter(
 				array( $first_line, $second_line, $third_line, $country ),
-				function( $line ) {
+				function ( $line ) {
 					return ! empty( $line );
 				}
 			)
@@ -291,6 +303,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 /**
  * @since 4.0
  */
+// phpcs:ignore
 class _WPBDP_Lightweight_Field_Display_Item {
 
 	public $field       = null;
@@ -322,7 +335,7 @@ class _WPBDP_Lightweight_Field_Display_Item {
 	}
 
 	public function __get( $key ) {
-		$k = "${key}_";
+		$k = "{$key}_";
 
 		if ( isset( $this->{$k} ) ) {
 			return $this->{$k};
@@ -356,7 +369,4 @@ class _WPBDP_Lightweight_Field_Display_Item {
 		$this->{$k} = $v;
 		return $v;
 	}
-
 }
-
-

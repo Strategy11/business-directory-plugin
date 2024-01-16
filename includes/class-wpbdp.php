@@ -17,6 +17,33 @@ final class WPBDP {
 	 */
 	public $fee_colors = array();
 
+	public $form_fields;
+	public $formfields; // deprecated.
+	public $cpt_integration;
+	public $licensing;
+	public $modules;
+	public $themes;
+	public $installer;
+	public $fees;
+	public $payment_gateways;
+	public $listings;
+	public $payments;
+	public $cron;
+	public $listing_expiration;
+	public $listing_email_notification;
+	public $assets;
+	public $widgets;
+	public $query_integration;
+	public $dispatcher;
+	public $shortcodes;
+	public $template_integration;
+	public $meta;
+	public $recaptcha;
+	public $compat;
+	public $rewrite;
+	public $admin;
+	public $privacy;
+
 	public function __construct() {
 		$this->_db_version = get_option( 'wpbdp-db-version', null );
 		if ( $this->_db_version === null ) {
@@ -28,7 +55,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.3.7' );
+		define( 'WPBDP_VERSION', '6.3.11' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -59,13 +86,12 @@ final class WPBDP {
 		require_once WPBDP_INC . 'licensing.php';
 
 		require_once WPBDP_INC . 'form-fields.php';
+		require_once WPBDP_INC . 'models/form-fields-validation.php';
 		require_once WPBDP_INC . 'payment.php';
 		require_once WPBDP_PATH . 'includes/class-payment-gateways.php';
 		require_once WPBDP_INC . 'installer.php';
 
 		require_once WPBDP_INC . 'class-cron.php';
-
-		require_once WPBDP_INC . 'helpers/class-currency-helper.php';
 		require_once WPBDP_INC . 'admin/settings/class-settings.php';
 
 		require_once WPBDP_INC . 'helpers/functions/general.php';
@@ -470,12 +496,12 @@ final class WPBDP {
 		$slots_available = 0;
 		$plan            = $listing->get_fee_plan();
 		if ( ! $plan ) {
-			return $res->send_error( _x( 'Please select a plan before uploading images to the listing', 'listing image upload', 'business-directory-plugin' ) );
+			return $res->send_error( __( 'Please select a plan before uploading images to the listing', 'business-directory-plugin' ) );
 		}
 
 		$slots_available = absint( $plan->fee_images ) - absint( $_POST['images_count'] );
 		if ( 0 >= $slots_available ) {
-			return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'business-directory-plugin' ) );
+			return $res->send_error( __( 'Can not upload any more images for this listing.', 'business-directory-plugin' ) );
 		} elseif ( $slots_available < count( $files ) ) {
 			return $res->send_error(
 				sprintf(
@@ -546,7 +572,7 @@ final class WPBDP {
 			$res->add( 'uploadErrors', $error_msg );
 		}
 
-		$res->add( 'is_admin', current_user_can( 'administrator' ) );
+		$res->add( 'is_admin', wpbdp_user_is_admin() );
 		$res->add( 'slots_available', $slots_available );
 		$res->add( 'attachmentIds', $attachments );
 		$res->add( 'html', $html );
@@ -651,7 +677,7 @@ final class WPBDP {
 	public function frontend_manual_upgrade_msg() {
 		wp_enqueue_style( 'wpbdp-base-css' );
 
-		if ( current_user_can( 'administrator' ) ) {
+		if ( wpbdp_user_is_admin() ) {
 			return wpbdp_render_msg(
 				str_replace(
 					'<a>',
@@ -671,5 +697,4 @@ final class WPBDP {
 	public function get_db_version() {
 		return $this->_db_version;
 	}
-
 }

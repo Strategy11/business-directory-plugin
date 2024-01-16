@@ -110,8 +110,8 @@ class WPBDP__View {
 
 		if ( is_callable( $test ) ) {
 			$passes = call_user_func( $test );
-		} elseif ( 'administrator' == $test ) {
-			$passes = current_user_can( 'administrator' );
+		} elseif ( 'administrator' == $test || 'manage_options' === $test ) {
+			$passes = wpbdp_user_is_admin();
 		} else {
 			$passes = is_user_logged_in() && $this->is_listing_owner( $args['listing'] );
 		}

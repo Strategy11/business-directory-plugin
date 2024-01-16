@@ -95,7 +95,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			$classes .= ' free-fee';
 		}
 
-		echo '<tr class="' . $classes . '">';
+		echo '<tr class="' . esc_attr( $classes ) . '">';
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}
@@ -223,7 +223,7 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 			$amount = wpbdp_currency_format( $fee->amount );
 			$extra  = wpbdp_currency_format( $fee->pricing_details['extra'] );
 
-			return sprintf( _x( '%1$s + %2$s per category', 'fees admin', 'business-directory-plugin' ), $amount, $extra );
+			return sprintf( __( '%1$s + %2$s per category', 'business-directory-plugin' ), $amount, $extra );
 		}
 
 		$amount = $fee->amount ? wpbdp_currency_format( $fee->amount ) : '';
@@ -318,5 +318,4 @@ class WPBDP__Admin__Fees_Table extends WP_List_Table {
 		$html = '<span class="wpbdp-tag">' . implode( '</span><span class="wpbdp-tag">', $tags ) . '</span>';
 		return $html;
 	}
-
 }

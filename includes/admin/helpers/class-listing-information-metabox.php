@@ -4,6 +4,8 @@
  */
 class WPBDP__Admin__Metaboxes__Listing_Information {
 
+	public $listing;
+
 	public function __construct( $post_id ) {
 		$this->listing = WPBDP_Listing::get( $post_id );
 	}
@@ -66,5 +68,4 @@ class WPBDP__Admin__Metaboxes__Listing_Information {
 		);
 		return wpbdp_render_page( WPBDP_PATH . 'templates/admin/metaboxes-listing-information-other.tpl.php', $vars );
 	}
-
 }

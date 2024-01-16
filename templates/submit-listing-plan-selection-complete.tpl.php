@@ -7,7 +7,7 @@ $categories = wp_get_post_terms( $listing->get_id(), WPBDP_CATEGORY_TAX, array( 
 	<ul class="category-list">
 	<?php foreach ( $categories as $cat_id ) : ?>
 		<?php $category = get_term( $cat_id, WPBDP_CATEGORY_TAX ); ?>
-		<li><?php echo $category->name; ?></li>
+		<li><?php echo esc_html( $category->name ); ?></li>
 	<?php endforeach; ?>
 	</ul>
 <?php endif; ?>
@@ -32,12 +32,12 @@ $categories = wp_get_post_terms( $listing->get_id(), WPBDP_CATEGORY_TAX, array( 
 
 <div id="change-plan-link" class="wpbdp-clearfix">
 	<span class="dashicons dashicons-update"></span>
-	<a href="#"><?php _ex( 'Change category/plan', 'listing submit', 'business-directory-plugin' ); ?></a>
+	<a href="#"><?php esc_html_e( 'Change category/plan', 'business-directory-plugin' ); ?></a>
 </div>
 
 <script>
 jQuery(function($) {
-	var amount = <?php echo $plan->calculate_amount( $categories ); ?>;
+	var amount = <?php echo esc_attr( $plan->calculate_amount( $categories ) ); ?>;
 
 	if ( wpbdpSubmitListingL10n.isAdmin || amount == 0.0 ) {
 		$( '#wpbdp-submit-listing-submit-btn' ).val( wpbdpSubmitListingL10n.completeListingTxt );

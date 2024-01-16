@@ -184,7 +184,6 @@ class WPBDP_NavXT_Integration {
 		$wp_query->queried_object = $this->state['queried'];
 		$wp_query->is_singular    = true;
 		unset( $this->state['queried'] );
-
 	}
 
 	function before_tag() {
@@ -227,5 +226,4 @@ class WPBDP_NavXT_Integration {
 	function before_search( $trail ) {
 		$trail->add( new bcn_breadcrumb( __( 'Search', 'business-directory-plugin' ) ) );
 	}
-
 }

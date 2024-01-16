@@ -18,7 +18,6 @@ require_once WPBDP_PATH . 'includes/admin/controllers/class-admin-controller.php
 require_once WPBDP_PATH . 'includes/admin/tracking.php';
 require_once WPBDP_PATH . 'includes/admin/class-listings-with-no-fee-plan-view.php';
 require_once WPBDP_PATH . 'includes/admin/helpers/class-modules-list.php';
-require_once WPBDP_PATH . 'includes/models/class-reviews.php';
 
 if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
@@ -31,12 +30,24 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		private $menu_id                   = 'wpbdp_admin';
 		private $current_controller        = null;
 		private $current_controller_output = '';
-		private $minimum_role              = 'edit_posts';
 
 		private $dropdown_users_args_stack = array();
 
 		public $messages = array();
 
+		public $listings;
+
+		public $csv_import;
+
+		public $csv_export;
+
+		public $debug_page;
+
+		public $settings_admin;
+
+		public $site_tracking;
+
+		public $displayed_warnings = array();
 
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'handle_actions' ) );
@@ -91,10 +102,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			// Clear listing page cache.
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
 
-			require_once WPBDP_PATH . 'includes/controllers/class-addons.php';
 			WPBDP_Addons_Controller::load_hooks();
-
-			require_once WPBDP_INC . 'controllers/class-smtp.php';
 			WPBDP_SMTP_Controller::load_hooks();
 
 			require_once WPBDP_PATH . 'includes/admin/helpers/class-notices.php';
@@ -135,7 +143,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * Load the pointer box if it hasn't yet been dismissed.
 		 */
 		private function add_pointers() {
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				return;
 			}
 
@@ -217,7 +225,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		public function ajax_create_main_page() {
 			$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 			$res   = new WPBDP_AJAX_Response();
-			if ( ! current_user_can( 'administrator' ) || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
+			if ( ! wpbdp_user_is_admin() || ! $nonce || ! wp_verify_nonce( $nonce, 'create main page' ) ) {
 				$res->send_error();
 			}
 
@@ -296,7 +304,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		function admin_menu() {
 			add_action( 'admin_menu', array( &$this, 'maybe_add_themes_update_count' ), 20 );
 
-			if ( ! current_user_can( $this->minimum_role ) ) {
+			if ( ! wpbdp_user_can_access_backend() ) {
 				return;
 			}
 
@@ -305,9 +313,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_menu_page(
 				__( 'Business Directory Admin', 'business-directory-plugin' ),
 				__( 'Directory', 'business-directory-plugin' ),
-				$this->minimum_role,
+				wpbdp_backend_minimim_role(),
 				$menu_id,
-				current_user_can( 'administrator' ) ? array( &$this, 'main_menu' ) : '',
+				wpbdp_user_is_admin() ? array( &$this, 'main_menu' ) : '',
 				WPBDP__CPT_Integration::menu_icon(),
 				20
 			);
@@ -330,7 +338,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$menu['wpbdp-debug-info']       = array(
 				'title'      => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
 				'callback'   => array( &$this->debug_page, 'dispatch' ),
-				'capability' => $this->minimum_role,
+				'capability' => wpbdp_backend_minimim_role(),
 			);
 
 			$this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
@@ -342,7 +350,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 					$menu_id,
 					$item_data['title'],
 					$item_data['label'],
-					( empty( $item_data['capability'] ) ? 'administrator' : $item_data['capability'] ),
+					( empty( $item_data['capability'] ) ? 'manage_options' : $item_data['capability'] ),
 					$item_slug,
 					array( $this, 'menu_dispatch' )
 				);
@@ -439,7 +447,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			remove_submenu_page( $menu_id, 'wpbdp-debug-info' ); // This page isn't used anymore.
 
-			if ( current_user_can( $this->minimum_role ) ) {
+			if ( wpbdp_user_can_access_backend() ) {
 				remove_menu_page( 'edit.php?post_type=' . WPBDP_POST_TYPE );
 				remove_submenu_page( $menu_id, 'post-new.php?post_type=wpbdp_listing' );
 			} else {
@@ -480,14 +488,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @since 6.0.1
 		 */
 		private function add_upgrade_menu() {
-			if ( WPBDP_Admin_Education::is_installed( 'premium' ) || ! current_user_can( 'administrator' ) ) {
+			if ( WPBDP_Admin_Education::is_installed( 'premium' ) || ! wpbdp_user_is_admin() ) {
 				return;
 			}
 
 			global $submenu;
 			$submenu[ $this->menu_id ][] = array(
 				'<span class="wpbdp-upgrade-submenu">' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</span>',
-				'administrator',
+				'manage_options',
 				wpbdp_admin_upgrade_link( 'admin-menu' ),
 			);
 			add_action( 'admin_footer', array( &$this, 'highlight_menu' ) );
@@ -741,7 +749,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		public function ajax_formfields_reorder() {
 			$response = new WPBDP_AJAX_Response();
 
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				$response->send_error();
 			}
 
@@ -761,6 +769,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		public function ajax_fees_set_order() {
+			WPBDP_App_Helper::permission_check();
+
 			$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 			$order = wpbdp_get_var( array( 'param' => 'fee_order' ), 'post' );
 
@@ -778,7 +788,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$response = new WPBDP_AJAX_Response();
 
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				$response->send_error();
 			}
 
@@ -792,8 +802,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$weight = count( $order ) - 1;
 			foreach ( $order as $fee_id ) {
-				$wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => $fee_id ) );
-				$weight--;
+				$wpdb->update( $wpdb->prefix . 'wpbdp_plans', array( 'weight' => $weight ), array( 'id' => absint( $fee_id ) ) );
+				--$weight;
 			}
 
 			$response->send();
@@ -845,7 +855,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @since 6.0
 		 */
 		public function prepare_admin_notices() {
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				return;
 			}
 
@@ -863,12 +873,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		function admin_notices() {
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				return;
-			}
-
-			if ( ! isset( $this->displayed_warnings ) ) {
-				$this->displayed_warnings = array();
 			}
 
 			foreach ( $this->messages as $msg ) {
@@ -903,9 +909,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				if ( ! empty( $extra['dismissible-id'] ) ) {
 					printf(
 						'<button type="button" class="notice-dismiss" data-dismissible-id="%s" data-nonce="%s"><span class="screen-reader-text">%s</span></button>',
-						$extra['dismissible-id'],
-						wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ),
-						_x( 'Dismiss this notice.', 'admin', 'business-directory-plugin' )
+						esc_attr( $extra['dismissible-id'] ),
+						esc_attr( wp_create_nonce( 'dismiss notice ' . $extra['dismissible-id'] ) ),
+						esc_html__( 'Dismiss this notice.', 'business-directory-plugin' )
 					);
 				}
 
@@ -991,7 +997,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$listings_api = wpbdp_listings_api();
 
-			if ( ! current_user_can( 'administrator' ) ) {
+			if ( ! wpbdp_user_is_admin() ) {
 				exit;
 			}
 
@@ -1290,7 +1296,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		/* Required pages check. */
 		public function check_for_required_pages() {
-			if ( ! WPBDP_App_Helper::is_bd_page() || wpbdp_get_page_id( 'main' ) || ! current_user_can( 'administrator' ) ) {
+			if ( ! WPBDP_App_Helper::is_bd_page() || wpbdp_get_page_id( 'main' ) || ! wpbdp_user_is_admin() ) {
 				return;
 			}
 

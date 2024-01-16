@@ -1,10 +1,10 @@
 === Business Directory Plugin - Easy Listing Directories for WordPress ===
 Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
-Requires at least: 4.8
+Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 6.2.2
-Stable tag: 6.3.7
+Tested up to: 6.4.1
+Stable tag: 6.3.11
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,37 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.3.11 =
+* New: Allow editors to edit listings from front-end.
+* New: Update Twitter logo to X.
+* New: Add edit listing link on payment confirmation page. This is espeically helpful after a listing was claimed.
+* Security: The payment history on a listing could be cleared by non-admins.
+* Security hardening: Check nonce and user role with all back-end ajax calls.
+* Rename a few social site settings to make them more clear.
+* Improve the layout of social icons.
+* Switch from using roles to capabilities. Now a custom role could have access by using the 'manage_posts' and 'edit_others_posts' capabilities.
+* Change the wording above the contact form so it makes sense for any directory type.
+* Hide more admin notices from other plugins. This was confusing when it looked like the notice was from BD.
+* Fix: WP 6.4 compatibility. The category page lost its content with some themes.
+* Code: Start autoloading more classes for lower baseline memory usage.
+
+= 6.3.10 =
+* New: Add more detail in the Recaptcha validation message for editors or higher for help debugging. Any error code and V3 score will be shown.
+* Security: It was possible for a logged in "contributor" user to delete an admin listing.
+* Fix: Sticky listings weren't showing at the top when shown using a shortcode or a category page.
+* Fix: Sticky listings were always in the same order, regardless of settings
+* Fix: If a private field is switched to a type that doesn't have privacy options, show the option so it can be turned off.
+
+= 6.3.8 =
+* New: Add quick links to support and docs in the admin notification area.
+* New: When sorting by rating, consider the rating count in addition to the average so listings with more ratings will be higher if they have the same average.
+* Fix: Some sites were getting 404 errors on the single listing page.
+* Fix: In Avada theme, listings were showing twice.
+* Fix: A few updates for PHP 8.2 deprecation messages.
+* Fix: When using a checkbox for categories, it wasn't being correctly required when submiting a new listing.
+* Fix: CSV import was failing when there was an 'enter' in a field.
+* Fix: A conflict with the Custom Start Date plugin with Woocommerce was causing an "Invalid Nonce" error.
+
 = 6.3.7 =
 * Fix: Listing titles in taxonomy pages with The7 theme.
 * Fix: Image sorting with Classic editor plugin.
@@ -204,58 +235,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 = 6.3.1 =
 * Update: The "Add New Listing" button on the backend was redirecting to the front end, but now it remains in the backend.
 * Fix: The Download Premium notice stays dismissed after the click.
-
-= 6.3 =
-* New: New payments made in test mode will now show as test payments. Any new test payments will be excluded from the plan stats.
-* New: The sample CSV file for imports can now be downloaded to use as a template.
-* New: Use the front-end form to submit listings for admins too.
-* New: When editing a listing in the admin area without a plan selected, make it clear that the plan is missing and automatically scroll to the plan setting.
-* Fix: Resolve the PHP 8 error when uploading some attachments.
-* Fix: When a BD theme is installed without a license, show a more clear message instead of "Invalid".
-
-= 6.2.10 =
-* Use h3 tags in the excerpt listings for better accessibility.
-* Fix: Images uploaded with sideload were failing. This fixes migration imports.
-* Fix: The unistall process wasn't progressing past asking why.
-* Fix: After creating the required pages, hide the message.
-* Fix: Page titles weren't showing up correctly in the Enfold theme or when CPT integration was off.
-* Fix: The "Clear form" link on the submit listing page was redirecting to the wrong page when embedded with a shortcode.
-* Remove old deprecated businessdirectory-category.tpl.php template.
-
-= 6.2.9 =
-* Fix: A javascript timeout was preventing field types from getting set properly.
-* Fix: Highlight the menu in the sidebar for Content tabs more consistently.
-* Fix: Replace old references to "author" with "listing owner".
-
-= 6.2.8 =
-* Move the page creation walkthrough to BD pages so the assets don't need to be loaded in the whole admin area.
-* Clean up the reCaptcha settings to make them more readable, and match the labels used by Google.
-* Rearrange the thumbnail settings, and make it more clear about what each thumbnail setting does.
-* Fix: The setting for the main thumbnail image size wasn't being used.
-* Fix: Use category template page for most themes. This fixes issues with SEO meta and showing category titles.
-* Fix: Hide disabled plans on renewal page too.
-* Fix: Send the payment completed email to the address on the payment page if it's different from the email in the listing.
-* Fix: Some sites were seeing a fatal error when upgrading.
-* Fix: Some recpatcha plugins (BWS and Wordfence) were conflicting on the login and registration pages in BD.
-* Fix: The admin menu icons didn't show when used with some SSL certificates.
-* Fix: An image wasn't always getting removed from listings in the back-end, if the image was removed and then the listing was saved.
-* Fix: Show the "Submit listing instructions" message on the first page only.
-* Fix: The NavXT Breadcrumbs for tag pages weren't showing up correctly.
-* Update a few deprecated jQuery warning messages.
-* Include total collected payment amounts in user tracking. This is 100% anonomous and does not include any payment details.
-
-= 6.2.7 =
-* New: Add more currencies including a custom currency option. Simplify the settings for currencies.
-* New: Allow child pages to be created under the main page.
-* Hide the main slug setting when it's not needed.
-* New: Add wpbdp_use_single hook to tell themes to use the category template page instead of the page template.
-* Better integration with Breadcrumbs NavXT: keep the home page link, prevent the BD page from showing twice with some settings, and use a link on the BD page.
-* Fix: Correctly process shortcodes and apply filters in content when the settings are on in the field.
-* Fix: The Elementor page content wasn't able to override the BD content.
-* Fix: Load Divi styling on category pages too.
-
-= 6.2.6 =
-* Fix: Fatal error on category pages when CPT integration was disabled.
-* Fix: Some themes (like Divi) showed repeat content on category pages.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

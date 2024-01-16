@@ -11,7 +11,7 @@
 class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 
 	public function __construct() {
-		parent::__construct( _x( 'Social Site (LinkedIn profile)', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( __( 'LinkedIn profile', 'business-directory-plugin' ) );
 	}
 
 	public function get_id() {
@@ -63,5 +63,4 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 		$html .= '</div>';
 		return $html;
 	}
-
 }

@@ -55,6 +55,4 @@ class WPBDP__WPBDPX_Payments_Compat {
 		$gateway->process_postback();
 		exit;
 	}
-
 }
-

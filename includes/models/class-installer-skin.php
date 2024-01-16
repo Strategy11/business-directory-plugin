@@ -96,5 +96,4 @@ class WPBDP_Installer_Skin extends WP_Upgrader_Skin {
 	 * @param mixed  ...$args Optional text replacements.
 	 */
 	public function feedback( $string, ...$args ) {}
-
 }

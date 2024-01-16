@@ -82,5 +82,4 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
 	public function get_field_csv_value( &$field, $post_id ) {
 		return sanitize_text_field( $this->get_field_plain_value( $field, $post_id ) );
 	}
-
 }

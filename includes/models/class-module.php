@@ -26,7 +26,7 @@ final class WPBDP__Module {
 
 		foreach ( array( 'file', 'id' ) as $required_prop ) {
 			if ( ! isset( $obj->{$required_prop} ) ) {
-				throw new Exception( sprintf( '%s is not a valid Business Directory module!', get_class( $obj ) ) );
+				throw new Exception( sprintf( '%s is not a valid Business Directory module!', esc_html( get_class( $obj ) ) ) );
 			}
 
 			$this->{$required_prop} = $obj->{$required_prop};
@@ -66,6 +66,4 @@ final class WPBDP__Module {
 
 		throw new Exception( 'Invalid method called!' );
 	}
-
 }
-

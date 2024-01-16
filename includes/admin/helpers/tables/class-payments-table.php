@@ -159,5 +159,4 @@ class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
 		return '<a href="' . esc_url( $listing->get_admin_edit_link() ) . '">' . esc_html( $listing->get_title() ) . '</a>';
 	}
-
 }

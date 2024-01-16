@@ -4,7 +4,6 @@
  */
 
 require_once WPBDP_INC . 'debugging.php';
-require_once WPBDP_INC . 'helpers/class-database-helper.php';
 require_once WPBDP_INC . 'helpers/class-email.php';
 require_once WPBDP_INC . 'compatibility/class-ajax-response.php';
 require_once WPBDP_INC . 'helpers/class-fs.php';
@@ -496,16 +495,6 @@ class WPBDP_Utils {
 }
 
 /**
- * @deprecated Use {@link WPBDP_Utils} instead.
- */
-class WPBDP__Utils extends WPBDP_Utils {
-	public function __construct() {
-		_deprecated_constructor( __CLASS__, '', 'WPBDP_Utils' );
-	}
-}
-
-
-/**
  * Restructures multidimensional $_FILES arrays into one key-based array per file.
  * Single-file arrays are returned as an array of one item for consistency.
  *
@@ -579,13 +568,13 @@ function wpbdp_get_var( $args, $type = 'get' ) {
 	$args     = wp_parse_args( $args, $defaults );
 	$value    = $args['default'];
 	if ( $type === 'get' ) {
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$value = isset( $_GET[ $args['param'] ] ) ? wp_unslash( $_GET[ $args['param'] ] ) : $value;
 	} elseif ( $type === 'post' ) {
-        // phpcs:ignore Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$value = isset( $_POST[ $args['param'] ] ) ? wp_unslash( $_POST[ $args['param'] ] ) : $value;
 	} else {
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$value = isset( $_REQUEST[ $args['param'] ] ) ? wp_unslash( $_REQUEST[ $args['param'] ] ) : $value;
 	}
 
@@ -651,10 +640,10 @@ function wpbdp_php_ini_size_to_bytes( $val ) {
 	switch ( $unit ) {
 		case 'G':
 			$size *= 1024;
-			// no break
+		// no break
 		case 'M':
 			$size *= 1024;
-			// no break
+		// no break
 		case 'K':
 			$size *= 1024;
 	}
@@ -1006,11 +995,17 @@ function wpbdp_email_from_template( $setting_or_file, $replacements = array(), $
 	return $email;
 }
 
-function wpbdp_admin_pointer( $selector, $title, $content_ = '',
-							  $primary_button = false, $primary_action = '',
-							  $secondary_button = false, $secondary_action = '',
-							  $options = array() ) {
-	if ( ! current_user_can( 'administrator' ) || ( get_bloginfo( 'version' ) < '3.3' ) ) {
+function wpbdp_admin_pointer(
+	$selector,
+	$title,
+	$content_ = '',
+	$primary_button = false,
+	$primary_action = '',
+	$secondary_button = false,
+	$secondary_action = '',
+	$options = array()
+) {
+	if ( ! wpbdp_user_is_admin() || ( get_bloginfo( 'version' ) < '3.3' ) ) {
 		return;
 	}
 
@@ -1018,46 +1013,56 @@ function wpbdp_admin_pointer( $selector, $title, $content_ = '',
 	$content .= '<h3>' . $title . '</h3>';
 	$content .= '<p>' . $content_ . '</p>';
 	?>
-<script>
-//<![CDATA[
-jQuery(function( $ ) {
-		var wpbdp_pointer = $( '<?php echo $selector; ?>' ).pointer({
-			'content': <?php echo json_encode( $content ); ?>,
-			'position': { 'edge': '<?php echo isset( $options['edge'] ) ? $options['edge'] : 'top'; ?>',
-						  'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
-			'buttons': function( e, t ) {
-				<?php if ( ! $secondary_button ) : ?>
-				var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
-				<?php else : ?>
-				var b = $( '<a id="wpbdp-pointer-b2" class="button" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
-				<?php endif; ?>
-				return b;
-			}
-		}).pointer('open');
+	<script>
+		//<![CDATA[
+		jQuery(function( $ ) {
+			var wpbdp_pointer = $( '<?php echo $selector; ?>' ).pointer({
+				'content': <?php echo json_encode( $content ); ?>,
+				'position': { 'edge': '<?php echo isset( $options['edge'] ) ? $options['edge'] : 'top'; ?>',
+					'align': '<?php echo isset( $options['align'] ) ? $options['align'] : 'center'; ?>' },
+				'buttons': function( e, t ) {
+					<?php if ( ! $secondary_button ) : ?>
+					var b = $( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
+					<?php else : ?>
+					var b = $( '<a id="wpbdp-pointer-b2" class="button" style="margin-right: 15px;">' + '<?php echo $secondary_button; ?>' + '</a>' );
+					<?php endif; ?>
+					return b;
+				}
+			}).pointer('open');
 
-		<?php if ( $secondary_button ) : ?>
-		$( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
-		$( '#wpbdp-pointer-b2' ).click(function(e) {
-			e.preventDefault();
-			<?php if ( $secondary_action ) : ?>
+			<?php if ( $secondary_button ) : ?>
+			$( '#wpbdp-pointer-b2' ).before( '<a id="wpbdp-pointer-b1" class="button button-primary">' + '<?php echo $primary_button; ?>' + '</a>' );
+			$( '#wpbdp-pointer-b2' ).click(function(e) {
+				e.preventDefault();
+				<?php if ( $secondary_action ) : ?>
 				<?php echo $secondary_action; ?>
+				<?php endif; ?>
+				wpbdp_pointer.pointer( 'close' );
+			});
 			<?php endif; ?>
-			wpbdp_pointer.pointer( 'close' );
-		});
-		<?php endif; ?>
 
-		$( '#wpbdp-pointer-b1' ).click(function(e) {
-			e.preventDefault();
-			<?php if ( $primary_action ) : ?>
+			$( '#wpbdp-pointer-b1' ).click(function(e) {
+				e.preventDefault();
+				<?php if ( $primary_action ) : ?>
 				<?php echo $primary_action; ?>
-			<?php endif; ?>
-			wpbdp_pointer.pointer( 'close' );
-		});
+				<?php endif; ?>
+				wpbdp_pointer.pointer( 'close' );
+			});
 
-});
-//]]>
-</script>
+		});
+		//]]>
+	</script>
 	<?php
+}
+
+/**
+ * @deprecated Use {@link WPBDP_Utils} instead.
+ */
+// phpcs:ignore
+class WPBDP__Utils extends WPBDP_Utils {
+	public function __construct() {
+		_deprecated_constructor( __CLASS__, '', 'WPBDP_Utils' );
+	}
 }
 
 /**
@@ -1067,6 +1072,8 @@ jQuery(function( $ ) {
  *
  * @since 3.4dev
  */
+/* This class is not used i am not sure if it is used by other modules. */
+// phpcs:ignore
 class WPBDP_NoopObject {
 
 	public function __construct() {
@@ -1087,7 +1094,6 @@ class WPBDP_NoopObject {
 	public function __call( $name, $args = array() ) {
 		return false;
 	}
-
 }
 
 // For compat with PHP < 5.3
@@ -1138,12 +1144,10 @@ function wpbdp_detect_encoding( $content ) {
 		// XXX: mb_detect_encoding() can't detect UTF-16* encodings
 		// See documentation for mb_detect_order()
 		return mb_detect_encoding( $content, $encodings, true );
+	} elseif ( ! function_exists( 'iconv' ) ) {
+		return 'UTF-8';
 	} else {
-		if ( ! function_exists( 'iconv' ) ) {
-			return 'UTF-8';
-		} else {
-			return wpbdp_mb_detect_encoding( $content, $encodings );
-		}
+		return wpbdp_mb_detect_encoding( $content, $encodings );
 	}
 }
 

@@ -15,7 +15,7 @@ class WPBDP_Show_Modules {
 		$errors = array();
 
 		if ( isset( $addons['error'] ) ) {
-			include_once dirname( __FILE__ ) . '/class-modules-api.php';
+			include_once __DIR__ . '/class-modules-api.php';
 			$api          = new WPBDP_Modules_API();
 			$errors       = $api->get_error_from_response( $addons );
 			$license_type = isset( $addons['error']['type'] ) ? $addons['error']['type'] : '';
@@ -32,7 +32,7 @@ class WPBDP_Show_Modules {
 	 * @since 5.10
 	 */
 	protected static function get_api_addons() {
-		include_once dirname( __FILE__ ) . '/class-modules-api.php';
+		include_once __DIR__ . '/class-modules-api.php';
 		$api    = new WPBDP_Modules_API();
 		$addons = $api->get_api_info();
 
@@ -61,7 +61,7 @@ class WPBDP_Show_Modules {
 				'title'   => 'Business Directory Premium',
 				'link'    => 'pricing/',
 				'docs'    => '',
-				'excerpt' => 'Enhance your basic Formidable forms with a plethora of Pro field types and features. Create advanced forms and data-driven applications in minutes.',
+				'excerpt' => '',
 			),
 			'paypal'     => array(
 				'title'   => 'PayPal Standard',

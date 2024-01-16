@@ -12,6 +12,8 @@ require_once WPBDP_PATH . 'includes/helpers/class-authenticated-listing-view.php
  */
 class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 
+	protected $listing;
+
 	public function dispatch() {
 		$listing_id    = intval( wpbdp_get_var( array( 'param' => 'listing_id' ), 'request' ) );
 		$this->listing = WPBDP_Listing::get( $listing_id );
@@ -28,6 +30,11 @@ class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 				),
 			)
 		);
+
+		// Check if user has permission to delete listing.
+		if ( ! wpbdp_user_can( 'delete', $listing_id ) ) {
+			return wpbdp_render_msg( __( 'You don\'t have permission to delete this listing.', 'business-directory-plugin' ) );
+		}
 
 		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 
@@ -59,6 +66,4 @@ class WPBDP__Views__Delete_Listing extends WPBDP__Authenticated_Listing_View {
 			)
 		);
 	}
-
 }
-

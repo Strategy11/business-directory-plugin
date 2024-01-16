@@ -23,8 +23,7 @@
 		"php-stubs/wordpress-stubs": "^5.9",
 		"phpstan/phpstan": "^1.4",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-		"automattic/vipwpcs": "^2.3",
-		"wp-coding-standards/wpcs": "^2.3"
+		"wp-coding-standards/wpcs": "^3.0"
 	},
 	"config": {
 		"allow-plugins": {

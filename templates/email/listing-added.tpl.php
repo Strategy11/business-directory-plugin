@@ -1,5 +1,5 @@
 <?php
-	_ex( 'A new listing has been submitted to the directory. Listing details can be found below.', 'emails', 'business-directory-plugin' );
+	esc_html_e( 'A new listing has been submitted to the directory. Listing details can be found below.', 'business-directory-plugin' );
 ?>
 
 ----
@@ -12,7 +12,7 @@
 
 <?php esc_html_e( 'URL', 'business-directory-plugin' ); ?>: <?php echo esc_html( $listing->is_published() ? $listing->get_permalink() : get_preview_post_link( $listing->get_id() ) ); ?>
 
-<?php _ex( 'Admin URL', 'notify email', 'business-directory-plugin' ); ?>: <?php echo wpbdp_get_edit_post_link( $listing->get_id() ); ?>
+<?php esc_html_e( 'Admin URL', 'business-directory-plugin' ); ?>: <?php echo esc_url_raw( wpbdp_get_edit_post_link( $listing->get_id() ) ); ?>
 
 <?php
 $categories = array();
@@ -26,15 +26,15 @@ endforeach;
 <?php
 $name        = $listing->get_author_meta( 'user_login' );
 $email       = $listing->get_author_meta( 'user_email' );
-$author_text = _x( 'Posted By', 'notify email', 'business-directory-plugin' ) . ': ';
 
+esc_html_e( 'Posted By', 'business-directory-plugin' ) . ': ';
 if ( $name && $email ) :
-	echo $author_text . $name . ' &lt;' . $email . '&gt;';
+	echo esc_html( $name ) . ' &lt;' . esc_html( $email ) . '&gt;';
 elseif ( $name ) :
-	echo $author_text . $name;
+	echo esc_html( $name );
 elseif ( $email ) :
-	echo $author_text . '&lt;' . $email . '&gt;';
+	echo '&lt;' . esc_html( $email ) . '&gt;';
 else :
-	echo $author_text . _x( 'Annonymous User', 'notify email', 'business-directory-plugin' );
+	echo esc_html_x( 'Annonymous User', 'notify email', 'business-directory-plugin' );
 endif;
 ?>

@@ -8,6 +8,4 @@ class WPBDP__Views__Edit_Listing extends WPBDP__Views__Submit_Listing {
 		parent::__construct( $args );
 		$this->editing = true;
 	}
-
 }
-

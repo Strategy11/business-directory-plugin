@@ -3,7 +3,7 @@
 class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 
 	public function __construct() {
-		parent::__construct( _x( 'Social Site (Twitter handle)', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( __( 'X / Twitter follow', 'business-directory-plugin' ) );
 	}
 
 	public function get_id() {
@@ -64,7 +64,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 		$html .= '<div class="social-field twitter twitter-handle">';
 		$html .= sprintf(
 			'<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="%s" data-lang="%s">Follow @%s</a>',
-			$value,
+			esc_attr( $value ),
 			! empty( $field->data( 'show_count' ) ) ? 'true' : 'false',
 			substr( get_bloginfo( 'language' ), 0, 2 ),
 			$value
@@ -93,6 +93,4 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 	public function process_field_settings( &$field ) {
 		$field->set_data( 'show_count', isset( $_POST['field']['show_count'] ) ? (bool) intval( $_POST['field']['show_count'] ) : false );
 	}
-
 }
-

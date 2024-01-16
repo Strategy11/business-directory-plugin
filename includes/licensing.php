@@ -146,7 +146,7 @@ class WPBDP_Licensing {
 			<div class="update-message notice inline notice-warning notice-alt">
 				<p>
 					<?php
-					echo sprintf(
+					printf(
 						/* translators: %1%s: opening <a> tag, %2$s: closing </a> tag */
 						esc_html__( 'The license key could not be verified. Please %1$scheck your license%2$s to get updates.', 'business-directory-plugin' ),
 						'<strong><a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=licenses' ) ) . '">',
@@ -606,7 +606,7 @@ class WPBDP_Licensing {
 	 * @since 5.16 Chaged to only show notice to administrators.
 	 */
 	public function admin_notices() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! wpbdp_user_is_admin() ) {
 			return;
 		}
 
@@ -813,10 +813,8 @@ class WPBDP_Licensing {
 	}
 
 	public function ajax_activate_license() {
-		$nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
-		if ( ! wp_verify_nonce( $nonce, 'license activation' ) ) {
-			wp_die();
-		}
+		WPBDP_App_Helper::permission_check();
+		check_ajax_referer( 'license activation', 'nonce' );
 
 		$setting_id = wpbdp_get_var( array( 'param' => 'setting' ), 'post' );
 		$key        = wpbdp_get_var( array( 'param' => 'license_key' ), 'post' );
@@ -847,7 +845,7 @@ class WPBDP_Licensing {
 
 			$response = array(
 				'success' => false,
-				'error'   => sprintf( _x( 'Could not activate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ),
+				'error'   => sprintf( __( 'Could not activate license: %s.', 'business-directory-plugin' ), $result->get_error_message() ),
 			);
 		} else {
 			$response = array(
@@ -866,10 +864,8 @@ class WPBDP_Licensing {
 	}
 
 	public function ajax_deactivate_license() {
-		$nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'post' );
-		if ( ! wp_verify_nonce( $nonce, 'license activation' ) ) {
-			wp_die();
-		}
+		WPBDP_App_Helper::permission_check();
+		check_ajax_referer( 'license activation', 'nonce' );
 
 		$setting_id = wpbdp_get_var( array( 'param' => 'setting' ), 'post' );
 		$key        = wpbdp_get_var( array( 'param' => 'license_key' ), 'post' );
@@ -1172,4 +1168,5 @@ function wpbdp_compat_register_old_modules() {
 		);
 	}
 }
+
 add_action( 'wpbdp_licensing_before_updates_check', 'wpbdp_compat_register_old_modules' );

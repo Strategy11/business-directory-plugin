@@ -14,7 +14,6 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
 	private $listing    = null;
 	private $errors     = array();
 
-
 	public function dispatch() {
 		if ( ! wpbdp_get_option( 'enable-listing-flagging' ) ) {
 			exit;
@@ -137,10 +136,8 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
 			if ( ! $report['reason'] ) {
 				$this->errors[] = esc_html__( 'You must select the reason to report this listing as inappropriate.', 'business-directory-plugin' );
 			}
-		} else {
-			if ( ! $report['comments'] ) {
+		} elseif ( ! $report['comments'] ) {
 				$this->errors[] = esc_html__( 'You must enter the reason to report this listing as inappropriate.', 'business-directory-plugin' );
-			}
 		}
 
 		if ( ! $report['name'] ) {
@@ -157,5 +154,4 @@ class WPBDP__Views__Flag_Listing extends WPBDP__View {
 
 		return $report;
 	}
-
 }

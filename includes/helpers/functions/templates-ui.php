@@ -32,6 +32,7 @@ function wpbdp_directory_categories() {
  * @uses wpbdp_directory_categories().
  */
 function wpbdp_the_directory_categories() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_directory_categories();
 }
 
@@ -109,7 +110,7 @@ function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
 	if ( $args['hide_empty'] ) {
 		$terms = array_filter(
 			$terms,
-			function( $x ) {
+			function ( $x ) {
 				return $x->count > 0;
 			}
 		);
@@ -248,6 +249,7 @@ function wpbdp_list_categories( $args = array() ) {
 	$html = apply_filters( 'wpbdp_categories_list', $html );
 
 	if ( $args['echo'] ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $html;
 	}
 
@@ -341,7 +343,7 @@ function wpbdp_main_links( $buttons = null ) {
 	$html          = implode( ' ', $html );
 
 	$content  = '<div class="wpbdp-main-links-container" data-breakpoints=\'{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}\' data-breakpoints-class-prefix="wpbdp-main-links">';
-	$content .= '<div class="wpbdp-main-links wpbdp-main-links-' . $buttons_count . '-buttons">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
+	$content .= '<div class="wpbdp-main-links wpbdp-main-links-' . absint( $buttons_count ) . '-buttons">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
 	$content .= '</div>';
 
 	return $content;
@@ -349,6 +351,7 @@ function wpbdp_main_links( $buttons = null ) {
 
 
 function wpbdp_the_main_links( $buttons = null ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_main_links( $buttons );
 }
 
@@ -356,12 +359,12 @@ function wpbdp_search_form() {
 	$html  = '';
 	$html .= sprintf(
 		'<form id="wpbdmsearchform" action="%s" method="GET" class="wpbdp-search-form">',
-		wpbdp_url( 'search' )
+		esc_url( wpbdp_url( 'search' ) )
 	);
 	$html .= '<input type="hidden" name="wpbdp_view" value="search" />';
 
 	if ( ! wpbdp_rewrite_on() ) {
-		$html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', wpbdp_get_page_id( 'main' ) );
+		$html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', esc_attr( wpbdp_get_page_id( 'main' ) ) );
 	}
 
 	$html .= '<label for="wpbdp-keyword-field" style="display:none;">Keywords:</label>';
@@ -383,11 +386,13 @@ function wpbdp_search_form() {
 
 function wpbdp_the_search_form() {
 	if ( wpbdp_get_option( 'show-search-listings' ) ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wpbdp_search_form();
 	}
 }
 
 function wpbdp_the_listing_excerpt() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_render_listing( null, 'excerpt' );
 }
 
@@ -473,6 +478,7 @@ function wpbdp_get_listing_sort_links( $sort_options ) {
 }
 
 function wpbdp_the_listing_sort_options() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_listing_sort_options();
 }
 
@@ -630,6 +636,10 @@ function wpbdp_thumbnail_html( $args ) {
 	);
 }
 
+/**
+ * Is this class used?
+ */
+// phpcs:ignore
 class WPBDP_ListingFieldDisplayItem {
 	private $listing_id = 0;
 	private $display    = '';
@@ -715,6 +725,7 @@ class WPBDP_ListingFieldDisplayItem {
  * @since 5.0
  */
 function wpbdp_the_main_box( $args = array() ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput
 	echo wpbdp_main_box( $args = array() );
 }
 

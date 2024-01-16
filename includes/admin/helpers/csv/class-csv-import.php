@@ -111,9 +111,9 @@ class WPBDP_CSV_Import {
 			$line_data = $this->get_current_line( $file );
 
 			$file->next();
-			$n++;
+			++$n;
 			$this->current_line = $file->key();
-			$this->processed_lines++;
+			++$this->processed_lines;
 
 			if ( count( $line_data ) < 2 && empty( $line_data[0] ) ) {
 				continue;
@@ -130,7 +130,7 @@ class WPBDP_CSV_Import {
 					);
 				}
 
-				$this->rejected++;
+				++$this->rejected;
 				continue;
 			}
 
@@ -146,11 +146,11 @@ class WPBDP_CSV_Import {
 					);
 				}
 
-				$this->rejected++;
+				++$this->rejected;
 				continue;
 			}
 
-			$this->imported++;
+			++$this->imported;
 		}
 
 		$file = null;
@@ -166,7 +166,7 @@ class WPBDP_CSV_Import {
 	private function get_current_line( $file ) {
 		$line = $file->current();
 		if ( empty( $line ) ) {
-			return [];
+			return array();
 		}
 		return $line;
 	}
@@ -351,7 +351,7 @@ class WPBDP_CSV_Import {
 		foreach ( $files as $file ) {
 			$uploaded_type = strtolower( pathinfo( $file['filename'], PATHINFO_EXTENSION ) );
 			if ( ! in_array( $uploaded_type, $allowed, true ) ) {
-				 @unlink( $file['filename'] );
+				@unlink( $file['filename'] );
 			}
 		}
 	}
@@ -424,7 +424,9 @@ class WPBDP_CSV_Import {
 
 		foreach ( $required_fields as $rf ) {
 			if ( ! in_array( $rf->get_short_name(), $fields_in_header, true ) ) {
-				throw new Exception( sprintf( 'Required header column "%s" missing', $rf->get_short_name() ) );
+				throw new Exception(
+					sprintf( 'Required header column "%s" missing', esc_html( $rf->get_short_name() ) )
+				);
 			}
 		}
 
@@ -526,7 +528,7 @@ class WPBDP_CSV_Import {
 
 					$errors[] = $message;
 				} else {
-					$errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'business-directory-plugin' ), $c['name'] );
+					$errors[] = sprintf( __( 'Could not create listing category "%s"', 'business-directory-plugin' ), $c['name'] );
 				}
 			}
 
@@ -719,7 +721,7 @@ class WPBDP_CSV_Import {
 				case 'username':
 					if ( $this->settings['assign-listings-to-user'] && $value ) {
 						if ( ! username_exists( $value ) ) {
-							$errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $value );
+							$errors[] = sprintf( __( 'Username "%s" does not exist', 'business-directory-plugin' ), $value );
 						} else {
 							$meta['username'] = $value;
 						}
@@ -780,7 +782,7 @@ class WPBDP_CSV_Import {
 					}
 
 					if ( $field->is_required() && $field->is_empty_value( $value ) ) {
-						$errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'business-directory-plugin' ), $column );
+						$errors[] = sprintf( __( 'Missing required field: %s', 'business-directory-plugin' ), $column );
 						break;
 					}
 
@@ -821,7 +823,7 @@ class WPBDP_CSV_Import {
 			}
 
 			if ( ! $this->settings['create-missing-categories'] ) {
-				$errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $csv_category );
+				$errors[] = sprintf( __( 'Listing category "%s" does not exist', 'business-directory-plugin' ), $csv_category );
 				continue;
 			}
 

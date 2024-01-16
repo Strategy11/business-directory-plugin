@@ -242,20 +242,15 @@ class WPBDP__Query_Integration {
 	public function posts_clauses( $pieces, $query ) {
 		global $wpdb;
 
-		if ( is_admin() || ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
+		$skip_query = empty( $query->query_vars['wpbdp_shortcode'] ) && empty( $query->wpbdp_our_query );
+		if ( is_admin() || $skip_query ) {
 			return $pieces;
 		}
 
 		$pieces = apply_filters( 'wpbdp_query_clauses', $pieces, $query );
 
-		// Sticky listings.
-		$is_sticky_query = "(SELECT is_sticky FROM {$wpdb->prefix}wpbdp_listings wls WHERE wls.listing_id = {$wpdb->posts}.ID LIMIT 1) AS wpbdp_is_sticky";
+		$sticky_ids_str = $this->get_sticky_query( $query );
 
-		if ( in_array( wpbdp_current_view(), wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
-			$is_sticky_query = '';
-		}
-
-		$pieces['fields'] .= $is_sticky_query ? ', ' . $is_sticky_query : '';
 		$order_by          = $query->get( 'orderby' );
 		$order             = $query->get( 'order' );
 
@@ -282,10 +277,78 @@ class WPBDP__Query_Integration {
 		}
 
 		$pieces['fields']         = apply_filters( 'wpbdp_query_fields', $pieces['fields'] );
-		$pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $is_sticky_query ? 'wpbdp_is_sticky DESC' : '' ) );
+		$pieces['custom_orderby'] = apply_filters( 'wpbdp_query_orderby', ( $sticky_ids_str ? "FIELD({$wpdb->posts}.ID,{$sticky_ids_str}) DESC" : '' ) );
 		$pieces['orderby']        = ( $pieces['custom_orderby'] ? $pieces['custom_orderby'] . ', ' : '' ) . $pieces['orderby'];
-
 		return $pieces;
+	}
+
+	/**
+	 * Don't include the sticky query on the single listing page.
+	 * This was causing 404 errors on some sites. See business-directory-premium/issues/172
+	 *
+	 * @param WP_Query $query The current query.
+	 *
+	 * @return string
+	 */
+	private function get_sticky_query( $query ) {
+		$current_view = wpbdp_current_view();
+
+		if ( $current_view && in_array( $current_view, wpbdp_get_option( 'prevent-sticky-on-directory-view' ), true ) ) {
+			return '';
+		}
+
+		// Only add the query if this is a listing query.
+		$is_cat       = ! empty( $query->query['wpbdp_category'] );
+		$is_shortcode = ! empty( $query->query['wpbdp_shortcode'] );
+		if ( ! $current_view && ! $is_cat && ! $is_shortcode ) {
+			return '';
+		}
+
+		return $this->get_sticky_listing_ids( $query );
+	}
+
+	/**
+	 * Select all sticky listing ids and return thim in string comma separated.
+	 * Return in the opposite order they will be displayed.
+	 *
+	 * @param WP_Query $query The current query.
+	 *
+	 * @return string listing ids
+	 */
+	private function get_sticky_listing_ids( $query ) {
+		global $wpdb;
+
+		$order_by  = $query->get( 'orderby' );
+		$order     = $query->get( 'order' );
+		$join_sort = in_array( $order_by, array( 'title', 'date', 'modified', 'author' ), true );
+
+		$query = "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings";
+		if ( $join_sort ) {
+			$query .= " JOIN {$wpdb->posts} p ON p.ID = {$wpdb->prefix}wpbdp_listings.listing_id";
+		}
+		$query .= ' WHERE is_sticky=1';
+		if ( $join_sort ) {
+			$query .= " ORDER BY p.post_{$order_by} {$order}";
+		}
+
+		$results = WPBDP_Utils::check_cache(
+			array(
+				'cache_key' => 'sticky_listing_idss',
+				'group'     => 'wpbdp_listings',
+				'query'     => $query,
+				'type'      => 'get_col',
+			)
+		);
+
+		if ( 'rand' === $order_by ) {
+			// If the order is random, shuffle the results.
+			shuffle( $results );
+		} else {
+			// Otherwise, reverse the order since it will be "DESC" in the query.
+			$results = array_reverse( $results );
+		}
+
+		return implode( ',', $results );
 	}
 
 	// {{ Sort bar.
@@ -437,4 +500,3 @@ class WPBDP__Query_Integration {
 		}
 	}
 }
-

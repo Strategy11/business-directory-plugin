@@ -70,7 +70,10 @@ printf(
 						</label></li>
 						<?php endforeach; ?>
 						<li>
-							<label><input type="radio" name="csv-file-local" value="" class="dismiss" /> <?php _ex( '(Upload new file)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+							<label>
+								<input type="radio" name="csv-file-local" value="" class="dismiss" />
+								<?php esc_html_e( '(Upload new file)', 'business-directory-plugin' ); ?>
+							</label>
 						</li>
 					</ul>
 				</div>
@@ -102,7 +105,10 @@ printf(
 						</label></li>
 						<?php endforeach; ?>
 						<li>
-							<label><input type="radio" name="images-file-local" value="" class="dismiss" /> <?php _ex( '(Upload new file)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+							<label>
+								<input type="radio" name="images-file-local" value="" class="dismiss" />
+								<?php esc_html_e( '(Upload new file)', 'business-directory-plugin' ); ?>
+							</label>
 						</li>
 					</ul>
 				</div>
@@ -127,14 +133,14 @@ printf(
 						aria-required="true"
 						value=","
 						<?php echo $column_separator == ',' ? 'checked="checked"' : ''; ?>/>
-					<?php _ex( 'Comma (,)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+					<?php esc_html_e( 'Comma (,)', 'business-directory-plugin' ); ?></label>
 				<br />
 				<label><input name="settings[csv-file-separator]"
 						type="radio"
 						aria-required="true"
 						value=";"
 						<?php echo $column_separator == ';' ? 'checked="checked"' : ''; ?>/>
-					<?php _ex( 'Semicolon (;)', 'admin csv-import', 'business-directory-plugin' ); ?></label>
+					<?php esc_html_e( 'Semicolon (;)', 'business-directory-plugin' ); ?></label>
 				<br />
 				<label><input name="settings[csv-file-separator]"
 						type="radio"
@@ -195,7 +201,9 @@ printf(
 				<label> <?php esc_html_e( 'Post status of existing imported listings', 'business-directory-plugin' ); ?></label>
 			</div>
 			<select name="settings[existing-post-status]">
-				<option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>><?php _ex( 'Preserve existing status', 'admin csv-import', 'business-directory-plugin' ); ?></option>
+				<option value="preserve_status" <?php echo _defaults_or( $defaults, 'existing-post-status', 'preserve_status' ) == 'preserve_status' ? 'selected="selected"' : ''; ?>>
+					<?php esc_html_e( 'Preserve existing status', 'business-directory-plugin' ); ?>
+				</option>
 				<?php
 				foreach ( get_post_statuses() as $post_status => $post_status_label ) :
 					if ( ! in_array( $post_status, array( 'publish', 'pending' ), true ) ) :
@@ -248,7 +256,8 @@ printf(
 			<label><input
 					type="checkbox"
 					class="use-default-listing-user"
-					value="1" <?php echo _defaults_or( $defaults, 'default-user', '' ) ? 'checked="checked"' : ''; ?> /> <?php _ex( 'Select a default user to be used if the username column is not present in the CSV file.', 'admin csv-import', 'business-directory-plugin' ); ?>
+					value="1" <?php echo _defaults_or( $defaults, 'default-user', '' ) ? 'checked="checked"' : ''; ?> />
+					<?php esc_html_e( 'Select a default user to be used if the username column is not present in the CSV file.', 'business-directory-plugin' ); ?>
 			</label>
 		</div>
 		<div class="wpbdp-setting-row default-user-selection">
@@ -276,10 +285,14 @@ printf(
 			<div class="wpbdp-setting-label">
 				<label> <?php esc_html_e( 'Number of listings imported on every cycle', 'business-directory-plugin' ); ?></label>
 			</div>
-			<div class="wpbdp-setting-description"><?php esc_html_e( 'If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'business-directory-plugin' ); ?></div>
+			<div class="wpbdp-setting-description">
+				<?php esc_html_e( 'If you are having trouble importing listings due to memory problems, try reducing the import batch size to 5 or 1 and then re-attempt. This will result in a longer batch import time, but will increase the chance of success on shared hosting platforms and other resource-constrained servers.', 'business-directory-plugin' ); ?>
+			</div>
 			<select name="settings[batch-size]">
 				<?php foreach ( array( 40, 30, 20, 15, 10, 5, 1 ) as $batch_size ) : ?>
-					<option value="<?php echo $batch_size; ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>><?php echo $batch_size; ?></option>
+					<option value="<?php echo absint( $batch_size ); ?>" <?php echo _defaults_or( $defaults, 'batch-size', 40 ) == $batch_size ? 'selected="selected"' : ''; ?>>
+						<?php echo absint( $batch_size ); ?>
+					</option>
 				<?php endforeach; ?>
 			</select>
 		</div>
@@ -347,12 +360,12 @@ printf(
 			</td>
 		</tr>
 		<?php
-		$i++;
+		++$i;
 	endforeach;
 	?>
 		<tr class="<?php echo $i % 2 == 0 ? 'alt' : ''; ?>">
 			<td class="header-name">fee_id</td>
-			<td class="field-label"><?php _ex( 'Fee ID (integer) associated to a listing. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
+			<td class="field-label"><?php esc_html_e( 'Fee ID (integer) associated to a listing. Use this column when adding or updating listings from external sources.', 'business-directory-plugin' ); ?></td>
 			<td class="field-type">-</td>
 			<td class="field-is-required"></td>
 			<td class="field-is-multivalued"></td>
@@ -373,14 +386,14 @@ printf(
 		</tr>
 		<tr class="<?php echo ( $i + 3 ) % 2 == 0 ? 'alt' : ''; ?>">
 			<td class="header-name">sequence_id</td>
-			<td class="field-label"><?php _ex( 'Internal Sequence ID used to allow listing updates from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
+			<td class="field-label"><?php esc_html_e( 'Internal Sequence ID used to allow listing updates from external sources.', 'business-directory-plugin' ); ?></td>
 			<td class="field-type">-</td>
 			<td class="field-is-required"></td>
 			<td class="field-is-multivalued"></td>
 		</tr>
 		<tr class="<?php echo ( $i + 4 ) % 2 == 0 ? 'alt' : ''; ?>">
 			<td class="header-name">expires_on</td>
-			<td class="field-label"><?php _ex( 'Date of listing expiration formatted as YYYY-MM-DD. Use this column when adding or updating listings from external sources.', 'admin csv-import', 'business-directory-plugin' ); ?></td>
+			<td class="field-label"><?php esc_html_e( 'Date of listing expiration formatted as YYYY-MM-DD. Use this column when adding or updating listings from external sources.', 'business-directory-plugin' ); ?></td>
 			<td class="field-type">-</td>
 			<td class="field-is-required"></td>
 			<td class="field-is-multivalued"></td>

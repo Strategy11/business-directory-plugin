@@ -234,7 +234,7 @@ class WPBDP__Listing_Email_Notification {
 			$admin_email = new WPBDP_Email();
 
 			// translators: [%s] is the name of the blog.
-			$admin_email->subject = sprintf( _x( '[%s] New listing notification', 'notify email', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
+			$admin_email->subject = sprintf( __( '[%s] New listing notification', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
 			$admin_email->to[]    = get_bloginfo( 'admin_email' );
 
 			if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
@@ -302,7 +302,7 @@ class WPBDP__Listing_Email_Notification {
 		$email = new WPBDP_Email();
 
 		// translators: [%s] is the name of the blog.
-		$email->subject = sprintf( _x( '[%s] Listing edit notification', 'notify email', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
+		$email->subject = sprintf( __( '[%s] Listing edit notification', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
 		$email->to[]    = get_bloginfo( 'admin_email' );
 
 		if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
@@ -373,7 +373,7 @@ class WPBDP__Listing_Email_Notification {
 			$admin_email = new WPBDP_Email();
 
 			// translators: %s is the name of the blog.
-			$admin_email->subject = sprintf( _x( '[%s] Reported listing notification', 'notify email', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
+			$admin_email->subject = sprintf( __( '[%s] Reported listing notification', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
 			$admin_email->to[]    = get_bloginfo( 'admin_email' );
 
 			if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
@@ -420,7 +420,7 @@ class WPBDP__Listing_Email_Notification {
 			$admin_email = new WPBDP_Email();
 
 			// translators: [%s] is the name of the blog.
-			$admin_email->subject = sprintf( _x( '[%s] New payment notification', 'notify email', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
+			$admin_email->subject = sprintf( __( '[%s] New payment notification', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
 			$admin_email->to[]    = get_bloginfo( 'admin_email' );
 
 			if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {

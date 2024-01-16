@@ -29,7 +29,7 @@ class WPBDP_Listing_Display_Helper {
 		$vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
 		$vars = apply_filters( 'wpbdp_excerpt_template_vars', $vars, $post->ID );
 
-		$n++;
+		++$n;
 
 		$pre_content = '';
 		if ( $n === 1 ) {
@@ -96,7 +96,6 @@ class WPBDP_Listing_Display_Helper {
 			}
 			$vars['listing_css_class'] .= ' with-image';
 		}
-
 		$vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post_id );
 		$vars = apply_filters( 'wpbdp_single_template_vars', $vars, $post_id );
 
@@ -240,8 +239,10 @@ class WPBDP_Listing_Display_Helper {
 
 		$list = new WPBDP_Field_Display_List( $listing_id, $display, $fields );
 		$list->freeze();
-
-		return array( 'fields' => $list );
+		return array(
+			'fields'              => $list,
+			'listing_has_excerpt' => $list->has_excerpt(),
+		);
 	}
 
 	private static function images_vars( $listing_id, $display ) {
@@ -437,11 +438,13 @@ class WPBDP_Listing_Display_Helper {
 
 		return $schema;
 	}
-
 }
 
 /**
+ * Is this class used?
+ *
  * @since 4.0
  */
+// phpcs:ignore
 class _WPBDP_Listing_Display_Image {
 }

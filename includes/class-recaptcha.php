@@ -111,7 +111,7 @@ class WPBDP_reCAPTCHA {
 			$html .= '</div>';
 		}
 
-		$this->current_id++;
+		++$this->current_id;
 
 		return $html;
 	}
@@ -150,14 +150,25 @@ class WPBDP_reCAPTCHA {
 			return false;
 		}
 
-		$js = json_decode( $res['body'] );
+		$js = json_decode( $res['body'], true );
 
-		if ( $js && isset( $js->success ) && $js->success ) {
+		// If there's an error message, show it.
+		if ( ! empty( $js['error-codes'] ) && is_array( $js['error-codes'] ) ) {
+			$error_msg .= ' ' . esc_html( implode( ', ', $js['error-codes'] ) );
+			return false;
+		}
+
+		if ( $js && isset( $js['success'] ) && $js['success'] ) {
 			if ( 'v2' === $this->version ) {
 				return true;
 			}
 
-			if ( isset( $js->score ) && $this->threshold < $js->score ) {
+			if ( wpbdp_user_can_edit() ) {
+				// Show the score to site editors.
+				$error_msg .= ' ' . esc_html( $js['score'] );
+			}
+
+			if ( isset( $js['score'] ) && $this->threshold < $js['score'] ) {
 				return true;
 			}
 		}
@@ -198,7 +209,7 @@ class WPBDP_reCAPTCHA {
 			$this->comment_error = true;
 			add_filter(
 				'pre_comment_approved',
-				function( $a ) {
+				function ( $a ) {
 					return 'spam';
 				}
 			);
@@ -232,12 +243,12 @@ class WPBDP_reCAPTCHA {
 			return;
 		}
 
-		echo <<<JS
-        <script>//<![CDATA[
-            jQuery( '#comment' ).val( "{$comment->comment_content}" );
+		?>
+		<script>//<![CDATA[
+            jQuery( '#comment' ).val( '<?php esc_js( $comment->comment_content ); ?>' );
         //}}>
         </script>
-JS;
+		<?php
 	}
 
 	/**
@@ -263,6 +274,7 @@ JS;
 	 */
 	public function submit_recaptcha_html( $section, $submit ) {
 		if ( $submit->saving() && $submit->should_validate_section( 'recaptcha' ) ) {
+			$error_msg = '';
 			if ( ! $this->verify( $error_msg ) ) {
 				$submit->messages( $error_msg, 'error', 'v2' === $this->version ? 'recaptcha' : 'general' );
 				$submit->prevent_save();
@@ -297,11 +309,8 @@ JS;
 		}
 
 		return true;
-
 	}
-
 }
-
 
 /**
  * Displays a reCAPTCHA field using the configured settings.
@@ -322,4 +331,3 @@ function wpbdp_recaptcha( $name = '' ) {
 function wpbdp_recaptcha_check_answer( &$error_msg = null ) {
 	return wpbdp()->recaptcha->verify( $error_msg );
 }
-

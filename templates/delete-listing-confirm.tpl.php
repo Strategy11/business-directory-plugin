@@ -8,10 +8,11 @@
 <br />
 <b>
 	<?php
-	echo str_replace(
-		'<a>',
+	printf(
+		// translators: %1$s start link, %2$s closing link tag.
+		esc_html__( 'Please visit %1$sManage recurring payments%2$s to review your current recurring payments.', 'business-directory-plugin' ),
 		'<a href="' . esc_url( add_query_arg( 'wpbdp_view', 'manage_recurring', wpbdp_get_page_link( 'main' ) ) ) . '">',
-		_x( 'Please visit <a>Manage recurring payments</a> to review your current recurring payments.', 'delete listing', 'business-directory-plugin' )
+		'</a>'
 	);
 	?>
 	</b>
@@ -20,7 +21,7 @@
 
 <form class="confirm-form" action="" method="post">
 <p>
-<?php printf( _x( 'You are about to remove your listing "%s" from the directory.', 'delete listing', 'business-directory-plugin' ), $listing->get_title() ); ?><br />
+<?php printf( esc_html_x( 'You are about to remove your listing "%s" from the directory.', 'delete listing', 'business-directory-plugin' ), esc_html( $listing->get_title() ) ); ?><br />
 <b><?php esc_html_e( 'Are you sure you want to do this?', 'business-directory-plugin' ); ?></b>
 </p>
 
