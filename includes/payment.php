@@ -84,8 +84,8 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 			<?php echo $this->render_invoice( $payment ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 
 </div>
-<a href="#" class="wpbdp-payment-receipt-print button wpbdp-button" ><?php esc_html_e( 'Print Receipt', 'business-directory-plugin' ); ?></a>
-
+<a href="#" class="wpbdp-payment-receipt-print"><?php esc_html_e( 'Print Receipt', 'business-directory-plugin' ); ?></a>
+&nbsp;
 <a href="<?php echo esc_url( wpbdp_url( 'edit_listing', $payment->listing_id ) ); ?>" class="wpbdp-payment-receipt-listing">
 	<?php esc_html_e( 'Go to your listing', 'business-directory-plugin' ); ?>
 </a>

@@ -29,7 +29,7 @@ switch ( $payment->status ) :
 		esc_html_e( 'Your payment is awaiting verification by the gateway.', 'business-directory-plugin' );
 		echo '</p>';
 		wpbdp_render_msg(
-			_x( 'Verification usually takes some minutes. This page will automatically refresh if there\'s an update.', 'checkout', 'business-directory-plugin' ),
+			_x( 'Verification usually takes 1-2 minutes. This page will automatically refresh when there\'s an update.', 'checkout', 'business-directory-plugin' ),
 			'status',
 			'echo'
 		);
