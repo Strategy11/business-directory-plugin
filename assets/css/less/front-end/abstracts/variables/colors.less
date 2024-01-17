@@ -2,9 +2,9 @@
 @import "@{admin-dir}/colors.less";
 
 /* Color */
-@color-primary: #569af6;
-@color-primary--20: rgba(86, 154, 246, 0.2);
-@color-primary--hover: darken(@color-primary, 12%);
+@color-primary: var(--bd-main-color, #569af6);
+@color-primary--20: var(--bd-main-color-20, rgba(86, 154, 246, 0.2));
+@color-primary--8: var(--bd-main-color-8, rgba(86, 154, 246, 0.08));
 @color-text: var( --bd-text-color, #3F4B5B );
 @color-text--60: rgba(63, 75, 91, 0.6);
 @color-gold: #ffba33;
@@ -20,7 +20,6 @@
 @bg-gray: #ededed;
 @bg-gray-blue: #eef3f8;
 @bg-dropdown: rgba(65, 153, 253, 0.1);
-@bg-upload-box: rgba(86, 154, 246, 0.08);
 @bg-modal-footer: #f4f4f4;
 
 /* Border */
@@ -30,5 +29,3 @@
 /* Shadow */
 @box-shadow: rgba(42, 57, 75, 0.15);
 @box-shadow-light: rgba(42, 57, 75, 0.05);
-
-
