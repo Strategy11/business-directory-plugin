@@ -18,35 +18,34 @@ body .wpbdp-excerpt {
 		align-items: center;
 		justify-content: center;
 		border: 1px solid;
+		border-color: @btn-bg;
 		margin: 0;
-		font-size: 16px;
 		font-weight: 500;
+		text-decoration: none;
 		line-height: 1;
-		text-transform: uppercase;
-		letter-spacing: 1px;
 		transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
 		cursor: pointer;
 		white-space: nowrap;
+
+		/* Disable Buttons */
+		&:disabled {
+			border-color: @bg-gray;
+			background-color: @bg-gray;
+			color: @color-text--60;
+			opacity: 0.8;
+			cursor: not-allowed;
+		}
 	}
 
 	a.wpbdp-button,
 	.wpbdp-button {
-		border-color: @border-main;
 		background-color: transparent;
 		color: @btn-bg;
-	}
 
-	a.wpbdp-button:hover,
-	.wpbdp-button:hover {
-		background-color: @btn-bg;
-		color: @btn-text;
-	}
-
-	input[type="submit"],
-	input.submit,
-	a.wpbdp-button,
-	.wpbdp-button {
-		text-decoration: none;
+		&:hover {
+			background-color: @btn-bg;
+			color: @btn-text;
+		}
 	}
 
 	input[type="submit"],
@@ -55,30 +54,14 @@ body .wpbdp-excerpt {
 	#wpbdp-submit-listing-submit-btn {
 		border-color: @btn-bg;
 		background-color: @btn-bg;
-		color: @white;
-	}
+		color: @btn-text;
 
-	input[type="submit"]:hover,
-	input.submit:hover,
-	.submit-next-button:hover,
-	#wpbdp-submit-listing-submit-btn:hover {
-		background-color: @color-primary--hover;
-	}
-
-	/* Disable Buttons */
-	input[type="submit"]:disabled,
-	input.submit:disabled,
-	a.wpbdp-button:disabled,
-	.wpbdp-button:disabled {
-		border-color: @bg-gray;
-		background-color: @bg-gray;
-		color: @color-text--60;
-		opacity: 0.8;
-		cursor: not-allowed;
+		&:hover {
+			opacity: .9;
+		}
 	}
 
 	/* Small View */
-	&[class$="small"],
 	&[class$="tiny"] {
 
 		input[type="submit"],
@@ -128,6 +111,7 @@ body .wpbdp-button.et_pb_button {
 		color: var(--bd-main-color) !important;
 	}
 
+	.wpbdp-submit-page .wpbdp-button,
 	#wpbdp-search-form .wpbdp-button,
 	.wpbdp-main-links-container .button,
 	.wpbdp-main-links-container .wpbdp-main-links .button {

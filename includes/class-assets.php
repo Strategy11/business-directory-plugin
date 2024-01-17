@@ -291,6 +291,12 @@ class WPBDP__Assets {
 			}';
 		}
 
+		if ( isset( $css_vars['--bd-button-font-size'] ) ) {
+			$css .= 'a.wpbdp-button, .wpbdp-button{
+				font-size: ' . esc_attr( $css_vars['--bd-button-font-size'] ) . ';
+			}';
+		}
+
 		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $css ) );
 	}
 
@@ -328,6 +334,10 @@ class WPBDP__Assets {
 				// If default color, use theme button color.
 				$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
 			}
+		}
+
+		if ( isset( $button['typeography']['fontSize'] ) ) {
+			$css_vars['--bd-button-font-size'] = $button['typeography']['fontSize'];
 		}
 
 		if ( isset( $button['spacing']['padding'] ) ) {
