@@ -43,7 +43,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 						$value = $field->value_from_GET();
 
 						if ( ! $value || $field->is_empty_value( $value ) ) {
-							$validation_errors[] = sprintf( _x( '"%s" is required.', 'search', 'business-directory-plugin' ), $field->get_label() );
+							$validation_errors[] = sprintf( __( '%s is required.', 'business-directory-plugin' ), $field->get_label() );
 						}
 					}
 				}
