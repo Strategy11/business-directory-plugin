@@ -14,7 +14,7 @@ $description = $plan->description ? apply_filters( 'wpbdp_plan_description_for_d
 $description = apply_filters( 'wpbdp_fee_selection_fee_description', $description, $plan );
 ?>
 <div
-	class="wpbdp-plan wpbdp-plan-<?php echo esc_attr( $plan->id ); ?> wpbdp-plan-info-box wpbdp-clearfix <?php echo $display_only ? 'display-only ' : ''; ?><?php echo $disabled ? 'wpbdp-plan-disabled' : ''; ?>"
+	class="wpbdp-plan wpbdp-plan-<?php echo esc_attr( $plan->id ); ?> wpbdp-plan-info-box <?php echo $display_only ? 'display-only ' : ''; ?><?php echo $disabled ? 'wpbdp-plan-disabled' : ''; ?>"
 	data-id="<?php echo esc_attr( $plan->id ); ?>"
 	data-disabled="<?php echo absint( $disabled ? 1 : 0 ); ?>"
 	data-recurring="<?php echo absint( $plan->recurring ? 1 : 0 ); ?>"
@@ -39,7 +39,6 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 					<span class="wpbdp-plan-duration-amount">
 						<?php echo esc_html( $plan->days ); ?>
 					</span>
-
 					<span class="wpbdp-plan-duration-period"><?php esc_html_e( 'days', 'business-directory-plugin' ); ?></span>
 
 					<?php if ( $plan->recurring ) : ?>
@@ -55,6 +54,12 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 			<?php foreach ( $plan->get_feature_list() as $feature ) : ?>
 				<li><?php echo esc_html( $feature ); ?></li>
 			<?php endforeach; ?>
+
+			<?php if ( ! empty( $plan->extra_data['private'] ) ) : ?>
+				<li class="wpbdp-plan-private-msg">
+					(<?php esc_html_e( 'Private plan', 'business-directory-plugin' ); ?>)
+				</li>
+		<?php endif; ?>
 		</ul>
 	</div><!-- .wpbdp-plan-details -->
 
@@ -78,13 +83,7 @@ $description = apply_filters( 'wpbdp_fee_selection_fee_description', $descriptio
 
 	<?php if ( $disabled ) : ?>
 		<div class="wpbdp-msg wpbdp-plan-disabled-msg wpbdp-full">
-			<?php esc_html_e( 'This plan can\'t be used for admin submits. For a recurring plan to work, end users need to pay for it using a supported gateway.', 'business-directory-plugin' ); ?>
-		</div>
-	<?php endif; ?>
-
-	<?php if ( ! empty( $plan->extra_data['private'] ) ) : ?>
-		<div class="wpbdp-plan-private-msg wpbdp-full">
-			(<?php esc_html_e( 'Private plan', 'business-directory-plugin' ); ?>)
+			<?php esc_html_e( 'This plan is not for admin submits. A recurring plan must be paid for using a supported gateway.', 'business-directory-plugin' ); ?>
 		</div>
 	<?php endif; ?>
 </div>

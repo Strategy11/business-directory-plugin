@@ -324,15 +324,12 @@ class WPBDP__Assets {
 
 		if ( isset( $button['color']['background'] ) ) {
 			$css_vars['--bd-button-bg-color'] = $button['color']['background'];
+			if ( $css_vars['--bd-main-color'] === '#569AF6' ) {
+				// If default color, use theme button color.
+				$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
+			}
 		}
 
-		if ( isset( $css_vars['--bd-button-bg-color'] ) && $css_vars['--bd-main-color'] === '#569AF6' ) {
-			// If default color, use theme button color.
-			$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
-		}
-
-		// elements.button.spacing.padding.left
-		// elements.button.spacing.padding.top
 		if ( isset( $button['spacing']['padding'] ) ) {
 			$padding = $button['spacing']['padding'];
 			if ( isset( $padding['left'] ) ) {

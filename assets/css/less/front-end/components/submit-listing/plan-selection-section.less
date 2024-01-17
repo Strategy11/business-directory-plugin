@@ -5,7 +5,7 @@
  */
 
 .wpbdp-plan-selection-with-tip {
-	margin-top: 24px;
+	margin-top: @padding-lg;
 }
 
 .wpbdp-plan-selection-list {
@@ -23,8 +23,9 @@
 		border: 1px solid @border-main;
 		border-radius: @border-radius-main;
 		padding: @padding-lg;
+		gap: @padding-md;
 		text-align: center;
-		min-width: 20%;
+		min-width: max(20%, 175px);
 		max-width: 500px;
 
 		& > * {
@@ -33,21 +34,17 @@
 	}
 
 	.wpbdp-plan-label {
-		color: @color-text;
 		font-size: 17px;
 		font-weight: 500;
-		line-height: @line-height;
 	}
 
 	.wpbdp-plan-price-amount {
-		color: @color-text;
 		font-size: @font-size-h2;
 		font-weight: 700;
-		line-height: @line-height;
 	}
 
 	.wpbdp-plan-feature-list {
-		margin-top: 25px;
+		margin-top: @padding-lg;
 		color: @color-text;
 		font-size: @font-size-body;
 		font-weight: 400;
@@ -55,7 +52,6 @@
 	}
 
 	.wpbdp-plan-action {
-		margin-top: 23px;
 		align-self: flex-end;
 		input[type="radio"] {
 			display: none;
@@ -81,7 +77,7 @@
 .category_list_item() {
 	font-size: 10px;
 	margin: 0 5px 0 0;
-	padding: 1px 6px;
+	padding: 1px @padding-sm;
 	border-radius: @border-radius-main;
 	background: @default-color;
 	background: var(--bd-main-color);
@@ -118,10 +114,10 @@
 
 		label {
 			cursor: pointer;
-			margin-top: 15px;
+			margin-top: @padding-md;
 			font-size: 20px;
 			display: block;
-			padding: 6px 12px;
+			padding: 6px @padding-md;
 		}
 
 		input[type=radio] {
@@ -129,11 +125,15 @@
 		}
 	}
 
-	.wpbdp-plan-price-amount,
 	.wpbdp-plan-label {
-		font-size: 1.1em;
-		font-weight: bold;
-		margin-bottom: 10px;
+		font-weight: 500;
+	}
+
+	.wpbdp-plan-price-amount {
+		font-size: 125%;
+		font-weight: 600;
+		display: block;
+		margin-bottom: @padding-md;
 	}
 
 	.wpbdp-plan-feature-list {
@@ -154,10 +154,13 @@
 		clear: both;
 	}
 
+	+ .wpbdp-plan-disabled {
+		display: none !important;
+	}
+
 	.wpbdp-plan-private-msg {
 		width: 100%;
 		display: inline-block;
-		text-align: right;
 	}
 }
 
@@ -177,11 +180,11 @@
 
         .wpbdp-plan-label {
             font-size: 1.5em;
-            margin-bottom: 5px;
+            margin-bottom: @padding-sm;
         }
 
         .wpbdp-plan-description {
-            margin-bottom: 5px;
+            margin-bottom: @padding-sm;
         }
     }
 	a.wpbdp-button,
