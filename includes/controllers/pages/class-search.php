@@ -13,8 +13,10 @@ class WPBDP__Views__Search extends WPBDP__View {
 
 	public function dispatch() {
 		$searching = ( ! empty( $_GET ) && ( ! empty( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
-		$handler = wpbdp_get_var( array( 'param' => 'handler' ), 'post' );
-		$wpbdp_ajax_search_modal = isset( $handler ) && 'search__get_search_content' === $handler;
+
+		$handler      = wpbdp_get_var( array( 'param' => 'handler' ), 'post' );
+		$search_modal = 'search__get_search_content' === $handler;
+
 		$searching = apply_filters( 'wpbdp_searching_request', $searching );
 		$search    = null;
 		$redirect  = ! $searching && isset( $_GET['kw'] ) && 'none' === wpbdp_get_option( 'search-form-in-results' );
@@ -55,8 +57,12 @@ class WPBDP__Views__Search extends WPBDP__View {
 			}
 		}
 
-		if ( $wpbdp_ajax_search_modal ) {
+		if ( $search_modal ) {
 			$search = WPBDP__Listing_Search::from_request( $_POST );
+			$fallback = false;
+		} else {
+			// Show search form on the page if not in a modal and not searching.
+			$fallback = ! $searching;
 		}
 		$search_form = '';
 		$fields      = '<div class="wpbdp-form-fields">';
@@ -131,6 +137,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 				'results'              => $results,
 				'form_only'            => isset( $this->form_only ) ? $this->form_only : false,
 				'count'                => $this->get_count(),
+				'fallback'             => $fallback,
 			)
 		);
 
