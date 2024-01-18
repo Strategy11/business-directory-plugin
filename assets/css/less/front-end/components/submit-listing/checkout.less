@@ -1,7 +1,7 @@
 .wpbdp-checkout-section {
     margin: 0 0 1.5em 0;
     padding: 0.7em 1.2em;
-    border: solid 1px #efefef;
+    border: solid 1px @color-neutral-300;
 
     &.wpbdp-checkout-errors {
         padding: 0;
@@ -16,7 +16,8 @@
 
 .wpbdp-checkout-gateway-selection {
     label {
-        margin: 0 10px 0 0;
+        margin: 0 @padding-md 0;
+        text-wrap: nowrap;
 
         &:last-child {
             margin-right: 0;
@@ -26,7 +27,7 @@
             vertical-align: middle;
         }
         img {
-            margin-bottom: 10px;
+            margin-bottom: @padding-md;
         }
     }
 }
