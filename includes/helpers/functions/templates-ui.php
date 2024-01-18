@@ -752,5 +752,9 @@ function wpbdp_main_box( $args = null ) {
 	$template_vars = array_merge( $template_vars, $args );
 
 	$html = wpbdp_x_render( apply_filters( 'wpbdp_main_box_template_name', 'main-box' ), $template_vars );
+	// Add BD field styling to the extra fields like zip.
+	if ( $args['in_shortcode'] ) {
+		$html = str_replace( '"box-col ', '"wpbdp-form-field box-col wpbdp-widget-field ', $html );
+	}
 	return $html;
 }
