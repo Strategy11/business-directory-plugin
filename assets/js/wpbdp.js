@@ -589,11 +589,6 @@ WPBDP.fileUpload = {
 //       we can transfer the Zipcode codes to the ZIP Search add-on.
 //       Currently, due to the codes being production-ready,
 //       these codes are available here.
-( function ( $ ) {
-	$('.wpbdp-zipcodesearch-search-unit').find('.unit-label').on('click', function(e) {
-		$(this).parent().find('input').focus();
-	});
-} )( jQuery );
 function parse_query_string(query) {
 	var vars = query.split("&");
 	var query_string = {};
