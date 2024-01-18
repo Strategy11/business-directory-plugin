@@ -371,7 +371,7 @@ function wpbdp_search_form() {
 	$html .= '<input type="hidden" name="dosrch" value="1" />';
 	$html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
 	$html .= sprintf(
-		'<input id="wpbdmsearchsubmit" class="submit wpbdp-button wpbdp-submit" type="submit" value="%s" />',
+		'<input id="wpbdmsearchsubmit" class="submit button wpbdp-button wpbdp-submit" type="submit" value="%s" />',
 		esc_attr__( 'Search Listings', 'business-directory-plugin' )
 	);
 	$html .= sprintf(

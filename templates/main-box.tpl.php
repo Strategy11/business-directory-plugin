@@ -27,7 +27,7 @@
 		</div>
 
 		<div class="box-col submit-btn">
-			<input type="submit" value="<?php echo esc_attr_x( 'Find Listings', 'main box', 'business-directory-plugin' ); ?>" class="wpbdp-button button"/>
+			<input type="submit" value="<?php echo esc_attr_x( 'Find Listings', 'main box', 'business-directory-plugin' ); ?>" class="wpbdp-button"/>
 
 			<a class="wpbdp-advanced-search-link" title="<?php esc_attr_e( 'Advanced Search', 'business-directory-plugin' ); ?>" href="<?php echo esc_url( $search_url ); ?>">
 				<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">

@@ -977,6 +977,8 @@ function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
 	$html = ob_get_contents();
 	ob_end_clean();
 
+	WPBDP_App_Helper::add_theme_button_class( $html );
+
 	if ( $echo_output ) {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $html;

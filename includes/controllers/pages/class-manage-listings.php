@@ -106,7 +106,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 
 		$is_pending_payment = ( 'pending_payment' === $listing_status );
 		$buttons            = sprintf(
-			'<a class="wpbdp-button button renew-listing" href="%s" %s >%s</a>',
+			'<a class="button wpbdp-button renew-listing" href="%s" %s >%s</a>',
 			$is_pending_payment ? esc_url( $listing->get_payment_url() ) : esc_url( $listing->get_renewal_url() ),
 			'target="_blank" rel="noopener"',
 			$is_pending_payment ? esc_html__( 'Pay Now', 'business-directory-plugin' ) : esc_html__( 'Renew Listing', 'business-directory-plugin' )

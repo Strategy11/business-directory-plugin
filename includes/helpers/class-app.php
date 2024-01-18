@@ -530,6 +530,7 @@ class WPBDP_App_Helper {
 
 	/**
 	 * Let themes add their own button class to the buttons.
+	 * Expects "button wpbdp-button" to avoid adding the class twice.
 	 *
 	 * @since 6.3.4
 	 * @param string $content
@@ -544,14 +545,18 @@ class WPBDP_App_Helper {
 
 		$content = str_replace(
 			array(
-				'"button' . $append,
-				' button' . $append,
+				'"button' . $append . '"',
+				' button' . $append . ' ',
+				' button' . $append . '"',
+				'"button' . $append . ' ',
 				'wpbdp-button button ',
 				'"wpbdp-button"',
 			),
 			array(
-				'"' . esc_attr( $button_class . $append ),
-				' ' . esc_attr( $button_class . $append ),
+				'"' . esc_attr( $button_class . $append ) . '"',
+				' ' . esc_attr( $button_class . $append ) . ' ',
+				' ' . esc_attr( $button_class . $append ) . '"',
+				'"' . esc_attr( $button_class . $append ) . ' ',
 				'wpbdp-button ' . esc_attr( $button_class ) . ' ',
 				'"' . esc_attr( $button_class . $append ) . '"',
 			),
