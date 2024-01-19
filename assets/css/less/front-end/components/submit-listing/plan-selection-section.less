@@ -80,8 +80,8 @@
 	padding: 1px @padding-sm;
 	border-radius: @border-radius-main;
 	background: @default-color;
-	background: var(--bd-main-color);
-	color: #fff;
+	background: @btn-bg;
+	color: @btn-text;
 	font-weight: 700;
 	text-align: center;
 	white-space: nowrap;
@@ -196,8 +196,8 @@
 			}
 
 			input[type=radio]:checked + label {
-				color: #fff !important;
-				background: var(--bd-main-color) !important;
+				color: @btn-text !important;
+				background: @btn-bg !important;
 			}
 		}
 	}

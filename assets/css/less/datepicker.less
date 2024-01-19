@@ -16,8 +16,8 @@
 
 	.ui-widget-header,
 	.ui-datepicker-header {
-		background: var(--bd-main-color);
-		color: #fff;
+		background: @btn-bg;
+		color: @btn-text;
 		opacity: 80%;
 	}
 
@@ -89,7 +89,7 @@
 		border: 1px solid @color-neutral-100;
 
 		&.ui-datepicker-today {
-			background: var(--bd-main-color-20) !important;
+			background: @color-primary--20 !important;
 		}
 		&.ui-datepicker-other-month {
 			border: transparent;
@@ -112,8 +112,8 @@
 	td .ui-state-hover,
 	td .ui-state-active,
 	thead {
-		background: var(--bd-main-color);
-		color: #fff;
+		background: @btn-bg;
+		color: @btn-text;
 	}
 
 	.ui-corner-all {

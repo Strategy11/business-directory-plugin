@@ -333,6 +333,10 @@ class WPBDP__Assets {
 			if ( $css_vars['--bd-main-color'] === '#569AF6' ) {
 				// If default color, use theme button color.
 				$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
+			} else {
+				// If the color is set, use it as the button background.
+				$css_vars['--bd-button-bg-color'] = $css_vars['--bd-main-color'];
+				$css_vars['--bd-button-text-color'] = '#fff';
 			}
 		}
 
