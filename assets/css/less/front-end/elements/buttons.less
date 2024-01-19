@@ -94,13 +94,13 @@ body .wpbdp-button.et_pb_button {
 	.listing-actions a.wpbdp-button,
 	.wpbdp-button-secondary,
 	.wpbdp-button {
-		border: 1px solid var(--bd-main-color) !important;
-		background-color: var(--bd-main-color) !important;
-		color: @white !important;
+		border: 1px solid @btn-bg !important;
+		background-color: @btn-bg !important;
+		color: @btn-text !important;
 		text-decoration: none !important;
 
 		&:hover {
-			background-color: var(--bd-main-color) !important;
+			background-color: @btn-bg !important;
 			opacity: 0.8;
 		}
 	}
@@ -111,12 +111,30 @@ body .wpbdp-button.et_pb_button {
 		color: var(--bd-main-color) !important;
 	}
 
-	.wpbdp-checkout-submit .wpbdp-button,
-	.wpbdp-submit-page .wpbdp-button,
-	#wpbdp-search-form .wpbdp-button,
-	.wpbdp-main-links-container .button,
-	.wpbdp-main-links-container .wpbdp-main-links .button {
-		padding-top: @btn-padding-top;
-		padding-bottom: @btn-padding-top;
+	.wpbdp-main-box {
+		input[type=submit].wpbdp-button {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+
+	.wpbdp-main-box-tiny,
+	.wpbdp-main-box-small,
+	.wpbdp-checkout-submit,
+	.wpbdp-submit-page,
+	#wpbdp-search-form {
+
+		.wpbdp-button {
+			padding-top: @btn-padding-top;
+			padding-bottom: @btn-padding-top;
+		}
+	}
+
+	.wpbdp-main-links-container,
+	.wpbdp-main-links-container .wpbdp-main-links {
+		.button {
+			padding-top: @btn-padding-top;
+			padding-bottom: @btn-padding-top;
+		}
 	}
 }

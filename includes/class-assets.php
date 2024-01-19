@@ -271,7 +271,7 @@ class WPBDP__Assets {
 
 		$this->add_default_theme_css( $css_vars );
 
-		$css = 'html{';
+		$css = 'html,body{';
 		foreach ( $css_vars as $var => $value ) {
 			$css .= esc_attr( $var ) . ':' . esc_attr( $value ) . ';';
 		}
