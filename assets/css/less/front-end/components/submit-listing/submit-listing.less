@@ -7,15 +7,10 @@
 #wpbdp-submit-listing.wpbdp-submit-page {
 	margin: auto;
 
-	h3 {
-		font-size: @font-size-h2;
-		line-height: @line-height;
-	}
-
 	/* Submit listing section */
 	.wpbdp-submit-listing-section {
 		display: block;
-		margin-top: 10px;
+		margin-top: @padding-md;
 
 		&.hidden {
 			display: none;
@@ -25,11 +20,11 @@
 	.wpbdp-submit-listing-section-content {
 
 		h4 {
-			margin: 0 0 10px 0;
+			margin: 0 0 @padding-md 0;
 		}
 
 		ul.category-list {
-			margin-bottom: 10px;
+			margin-bottom: @padding-md;
 		}
 	}
 
@@ -44,7 +39,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: @padding-lg;
-		margin-top: @padding-xl;
+		margin-top: @padding-lg;
 		text-align: center;
 
 		.wpbdp-button {
@@ -58,7 +53,7 @@
 		text-align: center;
 
 		a {
-			margin-left: 5px;
+			margin-left: @padding-sm;
 		}
 	}
 
@@ -67,7 +62,7 @@
 	&.wpbdp-submit-page-tiny {
 
 		.wpbdp-grid {
-			grid-gap: 25px 0;
+			grid-gap: @padding-lg 0;
 
 			& > * {
 				grid-column: span 12;
@@ -88,7 +83,7 @@ textarea.wpbdp-submit-listing-tos {
 }
 
 #wpbdp-submit-listing-account-details {
-	margin: 10px 0 0 0;
+	margin: @padding-md 0 0 0;
 
 	input[type="password"] {
 		display: inline-block;
