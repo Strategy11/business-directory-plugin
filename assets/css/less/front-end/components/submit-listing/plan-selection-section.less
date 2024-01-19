@@ -34,7 +34,7 @@
 	}
 
 	.wpbdp-plan-label {
-		font-size: 17px;
+		font-size: 105%;
 		font-weight: 500;
 	}
 
@@ -108,23 +108,6 @@
 
 .wpbdp-plan-info-box {
 
-	.wpbdp-plan-price {
-		width: 40%;
-		text-align: center;
-
-		label {
-			cursor: pointer;
-			margin-top: @padding-md;
-			font-size: 20px;
-			display: block;
-			padding: 6px @padding-md;
-		}
-
-		input[type=radio] {
-			display: none;
-		}
-	}
-
 	.wpbdp-plan-label {
 		font-weight: 500;
 	}
@@ -164,41 +147,15 @@
 	}
 }
 
-.wpbdp-plan-selection-wrapper {
-    &.wpbdp-size-tiny {
-        .wpbdp-plan-duration, .wpbdp-plan-details, .wpbdp-plan-price {
-            width: 100%;
-        }
-
-        .wpbdp-plan-duration-amount, .wpbdp-plan-duration-period {
-            display: inline;
-        }
-
-        .wpbdp-plan-details {
-            padding: 0 0 4pt;
-        }
-
-        .wpbdp-plan-label {
-            font-size: 1.5em;
-            margin-bottom: @padding-sm;
-        }
-
-        .wpbdp-plan-description {
-            margin-bottom: @padding-sm;
-        }
-    }
-}
 .wpbdp-with-button-styles {
 	.wpbdp-plan-info-box {
-		.wpbdp-plan-price {
-			input[type=radio] + label {
-				.wpbdp-reverse-btn();
-			}
+		input[type=radio] + label {
+			.wpbdp-reverse-btn();
+		}
 
-			input[type=radio]:checked + label {
-				color: @btn-text !important;
-				background: @btn-bg !important;
-			}
+		input[type=radio]:checked + label {
+			color: @btn-text !important;
+			background: @btn-bg !important;
 		}
 	}
 }
@@ -207,3 +164,23 @@
 	display: none; /* Hide disabled plans on renewal page. */
 }
 
+/* Deprecated */
+.wpbdp-plan-info-box {
+
+	.wpbdp-plan-price {
+		width: 40%;
+		text-align: center;
+
+		label {
+			cursor: pointer;
+			margin-top: @padding-md;
+			font-size: 20px;
+			display: block;
+			padding: 6px @padding-md;
+		}
+
+		input[type=radio] {
+			display: none;
+		}
+	}
+}
