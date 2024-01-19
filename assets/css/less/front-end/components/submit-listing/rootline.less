@@ -4,9 +4,11 @@
  * Rootline.
  */
 
+@rootline-size: 48px;
+
 .wpbdp-submit-rootline {
 	display: flex;
-	margin: 30px auto 40px;
+	margin: @padding-lg auto @padding-xl;
 	text-align: center;
 	overflow: hidden;
 
@@ -16,11 +18,11 @@
 		/* Rootline bar */
 		.wpbdp-rootline-bar {
 			position: relative;
-			top: 24px;
-			width: calc(100% - 48px);
+			top: calc( @rootline-size / 2 );
+			width: calc(100% - @rootline-size);
 			max-width: 100%;
 			height: 1px;
-			margin-left: calc(50% + 25px);
+			margin-left: calc(50% + (@rootline-size / 2) + 1px);
 			background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 50%, @color-primary 50%);
 			background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, var(--bd-main-color) 50%);
 			background-size: 10px;
@@ -41,14 +43,14 @@
 			align-items: center;
 			justify-content: center;
 			z-index: 1;
-			width: 48px;
-			height: 48px;
+			width: @rootline-size;
+			height: @rootline-size;
 			border: 1px solid @color-primary;
 			border-color: @btn-bg;
-			border-radius: 48px;
+			border-radius: 50%;
 			color: @color-text;
 			font-size: 20px;
-			font-weight: 700;
+			font-weight: 600;
 
 			svg {
 				fill: none;
@@ -58,7 +60,7 @@
 		/* Rootline name */
 		.wpbdp-rootline-section-name {
 			max-width: 130px;
-			margin: 13px auto 0;
+			margin: @padding-md auto 0;
 			opacity: .6;
 			font-size: @font-size-sm;
 			text-transform: uppercase;
