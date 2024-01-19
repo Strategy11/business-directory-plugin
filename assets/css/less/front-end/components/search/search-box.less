@@ -12,11 +12,11 @@
 
 	// Layout styles
 	.main-fields {
-		margin-bottom: 10px;
+		margin-bottom: @padding-md;
 
 		form {
 			display: flex;
-			gap: 10px;
+			gap: @padding-md;
 			margin: 0 !important;
 
 			.search-fields {
@@ -24,7 +24,7 @@
 
 				.box-row {
 					display: flex;
-					gap: 10px;
+					gap: @padding-md;
 
 					.box-col {
 						flex: 1;
@@ -34,7 +34,7 @@
 
 			.submit-btn {
 				display: flex;
-				gap: 10px;
+				gap: @padding-md;
 			}
 		}
 	}
@@ -121,17 +121,9 @@
 		// Search Box Layout Styles for Small and Tiny Views.
 		.main-fields {
 
+			.search-fields .box-row,
 			form {
 				flex-direction: column;
-				gap: 20px;
-
-				.search-fields {
-
-					.box-row {
-						flex-direction: column;
-						gap: 20px;
-					}
-				}
 			}
 		}
 	}
@@ -143,10 +135,10 @@
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: flex-end;
-	gap: 15px;
+	gap: @padding-md;
 
 	&-container {
-		margin: 10px 0;
+		margin: @padding-md 0;
 	}
 
 	.button,
