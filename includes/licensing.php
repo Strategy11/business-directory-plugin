@@ -827,13 +827,13 @@ class WPBDP_Licensing {
 			wp_send_json( $response );
 		}
 
+		// Store the new license key. This clears stored information about the license.
+		wpbdp_set_option( 'license-key-' . $item_type . '-' . $item_id, $key );
+
 		if ( ! $key ) {
 			$response['error'] = esc_html__( 'Please enter a license key.', 'business-directory-plugin' );
 			wp_send_json( $response );
 		}
-
-		// Store the new license key. This clears stored information about the license.
-		wpbdp_set_option( 'license-key-' . $item_type . '-' . $item_id, $key );
 
 		$result = $this->license_action( $item_type, $item_id, 'activate', $key );
 
