@@ -579,6 +579,18 @@ function wpbdp_pop_query() {
 }
 
 /**
+ * @since x.x
+ */
+function wpbdp_array_filter( $value ) {
+	return array_filter(
+		$value,
+		function( $item ) {
+			return strlen( $item ) > 0;
+		}
+	);
+}
+
+/**
  * @since 3.5.8
  */
 function wpbdp_current_query() {

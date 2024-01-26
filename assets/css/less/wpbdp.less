@@ -749,7 +749,12 @@ body.business-directory #TB_secondLine {
 	.select2-search {
 
 		.select2-search__field {
+			min-height: 0;
 			font-size: @font-size-sm;
+
+			&:focus {
+				box-shadow: none;
+			}
 		}
 	}
 }
