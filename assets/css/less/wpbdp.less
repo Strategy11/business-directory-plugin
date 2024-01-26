@@ -59,7 +59,7 @@ form#wpbdmsearchform input {
 }
 
 form#wpbdmsearchform .wpbdmsearchbutton {
-	margin-top: 5px;
+	margin-top: @padding-sm;
 }
 
 form#wpbdmsearchform a.wpbdp-advanced-search-link {
@@ -68,7 +68,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 }
 
 .wpbdp-pagination {
-	margin: 25px 0 0 0;
+	margin: @padding-lg 0 0 0;
 }
 
 .wpbdp-pagination .next {
@@ -76,15 +76,17 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 }
 
 /* listing views */
-.listing-actions form {
-	display: inline;
-	padding: 0;
-	margin: 0;
-}
+.listing-actions {
+	form {
+		display: inline;
+		padding: 0;
+		margin: 0;
+	}
 
-.listing-actions input {
-	margin: 0 0 5px;
-	font-size: 80%;
+	input {
+		margin: 0 0 @padding-sm;
+		font-size: 80%;
+	}
 }
 
 .wpbdp-with-button-styles .wpbdp-listing .listing-actions .wpbdp-button.delete-listing,
@@ -95,33 +97,26 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 	color: @red !important;
 }
 
-.listing-actions a.button {
-	padding: 5px 10px;
-	margin-right: 3px;
-	font-size: @font-size-sm;
-	text-decoration: none;
-}
-
 .listing-actions > span,
 .listing-actions > a {
-	margin-left: 10px;
+	margin-left: @padding-md;
 	font-size: @font-size-sm;
+
+	&:first-child {
+		margin-left: 0;
+	}
 }
 
 .wpbdp-listing .listing-details .field-value {
 	width: 100%;
-	margin-bottom: 10px;
+	margin-bottom: @padding-md;
 	float: none;
-}
-
-.wpbdmsingledetails .singledetailsview .field-value {
-	margin-bottom: 10px;
 }
 
 .field-value label,
 .field-value .field-label {
-	padding-right: 5px;
-	color: #444;
+	padding-right: @padding-sm;
+	color: @color-text;
 	font-weight: 700;
 }
 
@@ -131,7 +126,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 
 /* listing view > excerpt */
 .wpbdp-listing-excerpt {
-	padding: 10px;
+	padding: @padding-md;
 
 	.wpbdp-hide-title .listing-details .wpbdp-field-title,
 	.wpbdp-hide-title .listing-details .wpbdp-field-name {
@@ -151,16 +146,16 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 }
 
 .wpbdp-listing-excerpt .listing-actions {
-	margin-top: 15px;
+	margin-top: @padding-md;
 }
 
 /* listing views > single */
 .wpbdp-listing-single .listing-actions {
-	margin-bottom: 25px;
+	margin-bottom: @padding-lg;
 }
 
 .wpbdp-listing-single.sticky {
-	margin-top: 30px;
+	margin-top: @padding-lg;
 	position: relative;
 }
 
@@ -188,9 +183,9 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 
 .wpbdp-sticky-tag {
 	display: inline-block;
-	border-radius: 4px;
-	padding: 6px 15px;
-	margin: 0 15px;
+	border-radius: @border-radius-main;
+	padding: @padding-sm @padding-md;
+	margin: 0 @padding-md;
 	background: @btn-bg;
 	color: @btn-text;
 	font-size: @font-size-sm;
@@ -206,7 +201,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 .wpbdp-listing-excerpt {
 
 	.wpbdp-sticky-tag {
-		margin-top: 10px;
+		margin-top: @padding-md;
 		margin-right: 0;
 		float: right;
 	}
@@ -241,8 +236,8 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 }
 
 .wpbdp-listing-single .main-image {
-	padding: 5px;
-	margin-left: 10px;
+	padding: @padding-sm;
+	margin-left: @padding-md;
 	float: right;
 
 	a {
@@ -256,7 +251,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 
 .single-wpbdp_listing .extra-images,
 .wpbdp-listing-single .extra-images {
-	margin-top: 10px;
+	margin-top: @padding-md;
 	clear: both;
 
 	ul {
@@ -266,8 +261,8 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 
 		li {
 			display: inline-block;
-			margin-bottom: 5px;
-			margin-left: 5px;
+			margin-bottom: @padding-sm;
+			margin-left: @padding-sm;
 			list-style-type: none;
 
 			img {
@@ -309,7 +304,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 	.social-icon {
 		display: inline-flex;
 		background-color: transparent;
-		color: #1a1a1a;
+		color: @color-text;
 	}
 
 	.social-text {
@@ -337,25 +332,25 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 	&.icon_first {
 
 		.social-icon {
-			margin-right: 5px;
+			margin-right: @padding-sm;
 		}
 	}
 
 	&.text_first {
 
 		.social-text {
-			margin-right: 5px;
+			margin-right: @padding-sm;
 		}
 	}
 
 }
 
 .wpbdp-listing-contact-form {
-	padding-top: 20px;
-	margin-top: 20px;
+	padding-top: @padding-lg;
+	margin-top: @padding-lg;
 
 	#wpbdp-contact-form-recaptcha {
-		margin-bottom: 20px;
+		margin-bottom: @padding-lg;
 	}
 }
 
@@ -365,7 +360,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 
 /* listing comments form */
 .wpbdp-listing .comments {
-	margin-top: 20px;
+	margin-top: @padding-lg;
 }
 
 /* pages toolbar */
@@ -387,7 +382,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 
 /* sort options */
 .wpbdp-listings-sort-options {
-	margin: 5px 0 10px;
+	margin: @padding-sm 0 @padding-md;
 	font-size: 90%;
 
 	label {
@@ -395,7 +390,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 	}
 
 	select {
-		margin: 0 4px;
+		margin: 0 @padding-sm;
 	}
 }
 
@@ -406,7 +401,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 }
 
 .wpbdp-categories {
-	padding: 20px;
+	padding: @padding-lg;
 	margin: 0;
 }
 
@@ -418,7 +413,7 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 .wpbdp-categories .cat-item {
 	box-sizing: border-box;
 	width: 50%;
-	margin: 0 0 20px;
+	margin: 0 0 @padding-lg;
 	float: left;
 }
 
@@ -466,7 +461,8 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 }
 
 .wpbdp-submit-page table.fee-options td.fee-description {
-	color: #666;
+	color: @color-text;
+	opacity: .8;
 	font-size: 90%;
 }
 
@@ -484,20 +480,23 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 	color: @red;
 }
 
-#wpbdp-delete-listing-page form.confirm-form {
-	margin-top: 30px;
-}
+#wpbdp-delete-listing-page {
+	form.confirm-form {
+		margin-top: @padding-lg;
+	}
 
-#wpbdp-delete-listing-page input.delete-listing-confirm {
-	margin-right: 20px;
-	background: @red;
+	input.delete-listing-confirm {
+		margin-right: @padding-md;
+		--bd-button-bg-color: @red;
+		--bd-button-text-color: #fff;
+	}
 }
 
 .wpbdp-scroll-box {
 	max-height: 250px;
 	border: 1px solid @color-neutral-300;
-	padding: 10px;
-	margin: 30px 0;
+	padding: @padding-md;
+	margin: @padding-lg 0;
 	overflow: auto;
 }
 
@@ -521,7 +520,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 }
 
 #wpbdp-manage-recurring-cancel dl dd {
-	margin-left: 10px;
+	margin-left: @padding-md;
 }
 
 .wpbdp-cancel-subscription-form {
@@ -550,7 +549,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 .wpbdp-cc-field label {
 	display: block;
-	padding-right: 10px;
+	padding-right: @padding-md;
 	font-weight: 700;
 	text-align: right;
 }
@@ -559,7 +558,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 
 /* {{ Billing information form. */
 #wpbdp-billing-information .billing-info-section h4 {
-	margin: 10px 0 5px 0;
+	margin: @padding-md 0 @padding-sm 0;
 }
 
 #wpbdp-billing-information .billing-info-section table {
@@ -573,7 +572,7 @@ table#wpbdp-manage-recurring a.cancel-subscription {
 }
 
 #wpbdp-billing-information .form-buttons {
-	margin: 15px 0;
+	margin: @padding-lg 0;
 }
 
 /* }} */
@@ -721,14 +720,14 @@ body.business-directory #TB_secondLine {
 
 	.select2-selection {
 		border-radius: 0;
-		padding-left: 5px;
+		padding-left: @padding-sm;
 	}
 
 	ul.select2-selection__rendered {
 
 		li.select2-selection__choice {
 			border: none;
-			border-radius: 3px;
+			border-radius: @border-radius-main;
 			padding: 1px 6px;
 			font-size: @font-size-sm;
 			font-weight: 400;
@@ -736,13 +735,13 @@ body.business-directory #TB_secondLine {
 			vertical-align: baseline;
 
 			.select2-selection__choice__remove {
-				margin-right: 5px;
+				margin-right: @padding-sm;
 			}
 		}
 
 		li.select2-selection__choice,
 		li.select2-search--inline {
-			margin: 5px 5px 0 0;
+			margin: @padding-sm @padding-sm 0 0;
 		}
 	}
 
@@ -760,7 +759,7 @@ body.business-directory #TB_secondLine {
 	textarea {
 		width: 90%;
 		min-height: 150px;
-		margin-bottom: 10px;
+		margin-bottom: @padding-lg;
 	}
 }
 
@@ -840,6 +839,7 @@ body.business-directory #TB_secondLine {
 		display: block;
 	}
 
+	.wpbdp-submit-page.step-images #image-upload-conditions,
 	.wpbdp-submit-page.step-images #image-upload-dnd-area {
 		width: 100% !important;
 		font-size: 90%;
@@ -848,12 +848,6 @@ body.business-directory #TB_secondLine {
 
 	.wpbdp-submit-page.step-images .dnd-area-inside-error {
 		margin-top: 30px;
-	}
-
-	.wpbdp-submit-page.step-images #image-upload-conditions {
-		width: 100% !important;
-		font-size: 90%;
-		float: none !important;
 	}
 
 	.wpbdp-submit-page.step-images #image-upload-conditions dl {
@@ -877,5 +871,4 @@ body.business-directory #TB_secondLine {
 	.wpbdp-submit-page.step-images .wpbdp-image img {
 		max-width: 50%;
 	}
-
 }

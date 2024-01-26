@@ -34,7 +34,7 @@
 }
 
 .wpbdp-listing .listing-details {
-	margin-left: 160px;
+	margin-left: calc(150px + 24px);
 }
 
 .wpbdp-listing .listing-details.wpbdp-no-thumb {

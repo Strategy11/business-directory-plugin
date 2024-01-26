@@ -1,7 +1,7 @@
 .wpbdp-checkout-section {
-    margin: 0 0 1.5em 0;
-    padding: 0.7em 1.2em;
-    border: solid 1px @color-neutral-300;
+    margin: 0 0 @padding-lg;
+    padding: @padding-lg;
+    border: 1px solid @color-neutral-300;
 
     &.wpbdp-checkout-errors {
         padding: 0;
@@ -9,9 +9,13 @@
     }
 
     h3 {
-        margin: 0 0 1.0em 0;
+        margin: 0 0 @padding-lg 0;
         padding: 0;
     }
+}
+
+.wpbdp-grid > h3 {
+    margin-bottom: 0;
 }
 
 .wpbdp-checkout-gateway-selection {
@@ -33,8 +37,7 @@
 }
 
 .wpbdp-billing-detail-field {
-    margin: 0 0 1.5em 0;
-    font-size: 95%;
+    margin: 0 0 @padding-lg;
 
     &.wpbdp-required label:after {
         content: ' *';
