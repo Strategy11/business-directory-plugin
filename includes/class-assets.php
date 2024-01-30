@@ -303,7 +303,7 @@ class WPBDP__Assets {
 	/**
 	 * Get settings from the theme.json file and add them to the CSS variables.
 	 *
-	 * @since x.x
+	 * @since 6.4
 	 *
 	 * @param array $css_vars The CSS variables.
 	 * @return void

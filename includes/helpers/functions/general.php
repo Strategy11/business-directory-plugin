@@ -579,7 +579,7 @@ function wpbdp_pop_query() {
 }
 
 /**
- * @since x.x
+ * @since 6.4
  */
 function wpbdp_array_filter( $value ) {
 	return array_filter(
@@ -1340,7 +1340,7 @@ function wpbdp_user_is_admin() {
  * Check if user can edit listings.
  * Defaults to edit_others_posts capability for editors.
  *
- * @since x.x
+ * @since 6.4
  *
  * @return bool
  */
@@ -1352,7 +1352,7 @@ function wpbdp_user_can_edit() {
  * Check if user can create listings and edit their own.
  * Defaults to edit_posts capability for contributors.
  *
- * @since x.x
+ * @since 6.4
  *
  * @return bool
  */
@@ -1363,7 +1363,7 @@ function wpbdp_user_can_access_backend() {
 /**
  * Check if user has backend access.
  *
- * @since x.x
+ * @since 6.4
  *
  * @return string
  */
@@ -1371,7 +1371,7 @@ function wpbdp_backend_minimim_role() {
 	/**
 	 * Filter the minimum role required to access the backend.
 	 *
-	 * @since x.x
+	 * @since 6.4
 	 *
 	 * @param string $role The minimum role required to access the backend.
 	 * @return string

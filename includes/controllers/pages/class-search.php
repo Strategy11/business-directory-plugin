@@ -160,7 +160,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 	/**
 	 * Get adnvaced search modal content.
 	 *
-	 * @since x.x
+	 * @since 6.4
 	 */
 	public function ajax_get_search_content() {
 		$html = $this->dispatch();

@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 6.4.1
-Stable tag: 6.3.11
+Tested up to: 6.4.2
+Stable tag: 6.4
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,15 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4 =
+* New: Update the front-end search and create listing appearance.
+* New: Use colors and styles from block themes for buttons.
+* New: Add a plan selection layout when submitting a listing.
+* New: Add wpbdp_minimum_backend_role hook to override the default 'manage_options' role required for access to the admin area.
+* Fix: The listing appearance option was showing as HTML.
+* Fix: Updates for better PHP 8.2 compatibility.
+* Fix: Russian characters were causing fatal errors in some cases.
+
 = 6.3.11 =
 * New: Allow editors to edit listings from front-end.
 * New: Update Twitter logo to X.
@@ -222,18 +231,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Listing titles were not always showing.
 * Fix: Resolve some CSS issues on the single page.
 * Fix: The BD sidebar didn't fill the page in cases where the WP admin nav was short.
-
-= 6.3.2 =
-* Update: Users with the Editor role can manage listings in the admin area.
-* New: The default theme styles are now minified.
-* Fix: Editors, Authors, and Contributors see the navigation sidebar now.
-* Fix: Editors were getting an extra link in the admin menu that led to a 404 page.
-* Fix: On some sites, admin pages were timing out when loading the menu icons.
-* Fix: Listing titles were not always showing in the Enfold theme.
-* Dev/update: All PHP codes are beautified.
-
-= 6.3.1 =
-* Update: The "Add New Listing" button on the backend was redirecting to the front end, but now it remains in the backend.
-* Fix: The Download Premium notice stays dismissed after the click.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
