@@ -507,7 +507,7 @@ WPBDP.fileUpload = {
 /**
  * Advanced Search Modal.
  *
- * @since x.x
+ * @since 6.4
  */
 ( function ( $ ) {
     var openClass = 'wpbdp-has-modal';
@@ -584,7 +584,7 @@ WPBDP.fileUpload = {
 /**
  * Zipcode Search
  *
- * @since x.x
+ * @since 6.4
  */
 // TODO: After updating to the new design and releasing a new version,
 //       we can transfer the Zipcode codes to the ZIP Search add-on.
