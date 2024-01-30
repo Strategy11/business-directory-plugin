@@ -314,17 +314,14 @@ final class WPBDP__Settings__Bootstrap {
 
 		// Search.
 		wpbdp_register_settings_group( 'search_settings', __( 'Searching', 'business-directory-plugin' ), 'listings' );
+
+		// Deprecated.
 		wpbdp_register_setting(
 			array(
 				'id'      => 'search-form-in-results',
-				'type'    => 'radio',
-				'name'    => __( 'Display advanced search form', 'business-directory-plugin' ),
+				'type'    => 'hidden',
+				'class'   => 'hidden',
 				'default' => 'above',
-				'options' => array(
-					'above' => _x( 'Above results', 'admin settings', 'business-directory-plugin' ),
-					'below' => _x( 'Below results', 'admin settings', 'business-directory-plugin' ),
-					'none'  => _x( 'Don\'t show with results', 'admin settings', 'business-directory-plugin' ),
-				),
 				'group'   => 'search_settings',
 			)
 		);

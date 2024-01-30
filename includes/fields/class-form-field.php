@@ -539,6 +539,7 @@ class WPBDP_Form_Field {
 		} else {
 			$this->validation_errors[] = $error;
 		}
+		$this->validation_errors = array_unique( $this->validation_errors );
 	}
 
 	public function validate_categories( $categories = array() ) {

@@ -371,13 +371,13 @@ function wpbdp_search_form() {
 	$html .= '<input type="hidden" name="dosrch" value="1" />';
 	$html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
 	$html .= sprintf(
-		'<input id="wpbdmsearchsubmit" class="submit wpbdp-button wpbdp-submit" type="submit" value="%s" />',
+		'<input id="wpbdmsearchsubmit" class="submit button wpbdp-button wpbdp-submit" type="submit" value="%s" />',
 		esc_attr__( 'Search Listings', 'business-directory-plugin' )
 	);
 	$html .= sprintf(
-		'<a href="%s" class="advanced-search-link">%s</a>',
+		'<a href="%s" class="wpbdp-advanced-search-link">%s</a>',
 		esc_url( wpbdp_url( 'search' ) ),
-		esc_html_x( 'Advanced Search', 'templates', 'business-directory-plugin' )
+		esc_html__( 'Advanced Search', 'business-directory-plugin' )
 	);
 	$html .= '</form>';
 
@@ -752,5 +752,9 @@ function wpbdp_main_box( $args = null ) {
 	$template_vars = array_merge( $template_vars, $args );
 
 	$html = wpbdp_x_render( apply_filters( 'wpbdp_main_box_template_name', 'main-box' ), $template_vars );
+	// Add BD field styling to the extra fields like zip.
+	if ( $args['in_shortcode'] ) {
+		$html = str_replace( '"box-col ', '"wpbdp-form-field box-col wpbdp-widget-field ', $html );
+	}
 	return $html;
 }

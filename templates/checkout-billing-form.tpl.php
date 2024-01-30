@@ -9,7 +9,7 @@ $show_details_section       = ! isset( $show_details_section );
 
 	<div class="wpbdp-billing-detail-field wpbdp-required wpbdp-form-field">
 		<label><?php esc_html_e( 'Email Address', 'business-directory-plugin' ); ?></label>
-		<span class="wpbdp-description  wpbdp-form-field-description"><?php esc_html_e( 'We will send a receipt to this e-mail address.', 'business-directory-plugin' ); ?></span>
+		<span class="wpbdp-description wpbdp-form-field-description"><?php esc_html_e( 'We will send a receipt to this email address.', 'business-directory-plugin' ); ?></span>
 		<input type="text" name="payer_email" value="<?php echo ! empty( $data['payer_email'] ) ? esc_attr( $data['payer_email'] ) : ''; ?>" />
 	</div>
 

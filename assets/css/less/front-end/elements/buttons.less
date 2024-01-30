@@ -13,32 +13,61 @@ body .wpbdp-excerpt {
 	input[type="submit"],
 	input.submit,
 	a.wpbdp-button,
-	.wpbdp-button,
-	a.reset,
-	#change-plan-link {
+	.wpbdp-button {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
+		border: 1px solid;
+		border-color: @btn-bg;
+		margin-top: 0;
+		margin-bottom: 0;
+		font-weight: 500;
+		text-decoration: none;
+		line-height: 1;
+		transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
 		cursor: pointer;
 		white-space: nowrap;
+
+		/* Disable Buttons */
+		&:disabled {
+			border-color: @bg-gray;
+			background-color: @bg-gray;
+			opacity: 0.6;
+			cursor: not-allowed;
+		}
+	}
+
+	a.wpbdp-button,
+	.wpbdp-button {
+		background-color: transparent;
+		color: @btn-bg;
+
+		&:hover {
+			background-color: @btn-bg;
+			color: @btn-text;
+		}
 	}
 
 	input[type="submit"],
 	input.submit,
-	a.wpbdp-button,
-	.wpbdp-button {
-		text-decoration: none;
+	.submit-next-button,
+	#wpbdp-submit-listing-submit-btn {
+		border-color: @btn-bg;
+		background-color: @btn-bg;
+		color: @btn-text;
+
+		&:hover {
+			opacity: .9;
+		}
 	}
 
-	// View: Small, and Tiny
-	&[class$="small"],
+	/* Small View */
 	&[class$="tiny"] {
 
 		input[type="submit"],
 		input.submit,
 		a.wpbdp-button,
-		.wpbdp-button,
-		a.reset {
+		.wpbdp-button {
 			width: 100%;
 		}
 	}
@@ -65,13 +94,13 @@ body .wpbdp-button.et_pb_button {
 	.listing-actions a.wpbdp-button,
 	.wpbdp-button-secondary,
 	.wpbdp-button {
-		border: 1px solid var(--bd-main-color) !important;
-		background-color: var(--bd-main-color) !important;
-		color: @white !important;
+		border: 1px solid @btn-bg !important;
+		background-color: @btn-bg !important;
+		color: @btn-text !important;
 		text-decoration: none !important;
 
 		&:hover {
-			background-color: var(--bd-main-color) !important;
+			background-color: @btn-bg !important;
 			opacity: 0.8;
 		}
 	}
@@ -79,12 +108,35 @@ body .wpbdp-button.et_pb_button {
 	.wpbdp-button-secondary,
 	.wpbdp-button-secondary:hover {
 		background-color: transparent !important;
-		color: var(--bd-main-color) !important;
+		color: @btn-bg !important;
 	}
 
-	.wpbdp-main-links-container .button,
-	.wpbdp-main-links-container .wpbdp-main-links .button {
-		padding-top: 6px;
-		padding-bottom: 6px;
+	.wpbdp-main-box {
+		.wpbdp-button {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+
+	.wpbdp-page,
+	.wpbdp-listing-contact-form,
+	.wpbdp-main-box-tiny,
+	.wpbdp-main-box-small,
+	.wpbdp-checkout-submit,
+	.wpbdp-submit-page,
+	.wpbdp-search-page {
+
+		.wpbdp-button {
+			padding-top: @btn-padding-top;
+			padding-bottom: @btn-padding-top;
+		}
+	}
+
+	.wpbdp-main-links-container,
+	.wpbdp-main-links-container .wpbdp-main-links {
+		.button {
+			padding-top: @btn-padding-top;
+			padding-bottom: @btn-padding-top;
+		}
 	}
 }

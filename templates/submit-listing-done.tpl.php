@@ -4,15 +4,17 @@
  *
  * @package WPBDP/Templates
  */
-
 ?>
-<h3><?php echo esc_html_x( 'Submission Received', 'templates', 'business-directory-plugin' ); ?></h3>
+
+<div class="wpbdp-submit-page wpbdp-page" data-breakpoints='{"tiny": [0,475], "small": [475,660], "medium": [660,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-submit-page">
+	<div class="wpbdp-submit-listing-section wpbdp-submit-listing-section_done">
+		<h3><?php echo esc_html_x( 'Submission Received', 'templates', 'business-directory-plugin' ); ?></h3>
 
 <?php if ( ! $editing ) : ?>
 	<p><?php echo esc_html_x( 'Your listing has been submitted.', 'templates', 'business-directory-plugin' ); ?></p>
 	<?php if ( $payment && $payment->amount > 0.0 ) : ?>
 		<p>
-		<?php echo esc_html( wpbdp_get_option( 'payment-message' ) ); ?>
+			<?php echo esc_html( wpbdp_get_option( 'payment-message' ) ); ?>
 		</p>
 		<div id="wpbdp-checkout-confirmation-receipt">
 			<?php
@@ -35,3 +37,5 @@
 		<?php endif; ?>
 		<a href="<?php echo esc_url( wpbdp_get_page_link( 'main' ) ); ?>"><?php esc_html_e( 'Return to directory', 'business-directory-plugin' ); ?></a>
 	</p>
+	</div>
+</div>

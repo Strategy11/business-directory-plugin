@@ -23,8 +23,8 @@
 	<?php do_action( 'wpbdp_after_search_fields' ); ?>
 
 	<p>
-		<input type="submit" class="wpbdp-submit wpbdp-button submit" value="<?php esc_attr_e( 'Search', 'business-directory-plugin' ); ?>" />
-		<a href="<?php echo esc_url( wpbdp_get_page_link( 'search' ) ); ?>" class="reset"><?php esc_html_e( 'Clear', 'business-directory-plugin' ); ?></a>
+		<input type="submit" class="wpbdp-submit button wpbdp-button submit" value="<?php esc_attr_e( 'Search', 'business-directory-plugin' ); ?>" />
+		<a href="#" class="reset"><?php esc_html_e( 'Clear', 'business-directory-plugin' ); ?></a>
 	</p>
 </form>
 

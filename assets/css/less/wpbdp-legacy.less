@@ -3,18 +3,18 @@
 .wpbdmthumbs {	padding:4px; -moz-box-shadow: 0 5px 5px #dddddd;
 	-webkit-box-shadow: 0 5px 5px #dddddd;margin-right:5px;
 }
-	
-#wpbdmentry .viewlistingsbutton, 
+
+#wpbdmentry .viewlistingsbutton,
 #wpbdmentry .submitlistingbutton,
-#wpbdmentry .editlistingbutton, 
+#wpbdmentry .editlistingbutton,
 #wpbdmentry .deletelistingbutton,
 #wpbdmentry .exitnowbutton,
 #wpbdmentry .insubmitbutton,
 #wpbdmlistings .vieweditbutton input,
 .vieweditbutton a, .vieweditbutton input,
-.viewlistingsbutton, 
+.viewlistingsbutton,
 .submitlistingbutton,
-.editlistingbutton, 
+.editlistingbutton,
 .deletelistingbutton,
 .exitnowbutton,
 .insubmitbutton {
@@ -77,7 +77,7 @@ ul#wpbusdirmanpaymentoptionslist { margin-left:20px; }
 #wpbusdirmanpaymentoptionslist li { margin-left:20px; list-style-type:none;margin:3px 0px; }
 
 #wpbdmlistings { list-style:none;width:100%; }
-		
+
 .wpbdmodd {background:#eeeeee;border-bottom:1px dotted #dddddd;}
 .wpbdmeven {border:0;border-bottom:1px dotted #dddddd;}
 .wpbdmoddsticky {background:#FFF0CF;border-bottom:1px solid #B37800;}
@@ -89,6 +89,9 @@ ul#wpbusdirmanpaymentoptionslist { margin-left:20px; }
 .wpbdmsingleimages img { max-width:375px;height:auto; 	-moz-box-shadow: 0 5px 5px #dddddd;
 	-webkit-box-shadow: 0 5px 5px #dddddd;}
 .wpbdmsingledetails { float:left;margin-left:10px;width:50%;padding:10px;}
+.wpbdmsingledetails .singledetailsview .field-value {
+	margin-bottom: 10px;
+}
 
 .paymentheader { background:#f2f2f2; padding:5px; color:#666666;}
 .paymentbuttondiv {padding:10px;  margin-bottom:10px;}
@@ -97,7 +100,7 @@ ul#wpbusdirmanpaymentoptionslist { margin-left:20px; }
 
 .featuredlisting { 	width: 126px;
 	float:right; }
-	
+
 #wpbusdirmancontent { clear:both; padding:10px; background:#ffffff;}
 
 select { margin-bottom:15px; }
@@ -186,3 +189,39 @@ textarea  { margin-bottom:15px; }
 	cursor: pointer;
 }
 
+#wpbdp-submit-listing.wpbdp-submit-page {
+
+	.wpbdp-submit-listing-section {
+		margin: 10px 0 0 0;
+		display: block;
+
+		&.collapsed {
+			.collapse-indicator {
+				&.expanded {
+					display: none;
+				}
+
+				&.collapsed {
+					display: inline;
+				}
+			}
+
+			.wpbdp-submit-listing-section-content {
+				display: none;
+			}
+		}
+
+		&.hidden {
+			display: none;
+		}
+	}
+
+	.wpbdp-submit-listing-section-messages {
+		margin: 0 0 12px 0;
+	}
+
+	.wpbdp-form-field-inner {
+		padding: 0;
+		width: 100%;
+	}
+}

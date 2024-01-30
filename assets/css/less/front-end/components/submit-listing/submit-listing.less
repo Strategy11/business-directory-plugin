@@ -1,0 +1,150 @@
+/**
+ * Submit Listing.
+ *
+ * Page and General Styles.
+ */
+
+#wpbdp-submit-listing.wpbdp-submit-page {
+	margin: auto;
+
+	/* Submit listing section */
+	.wpbdp-submit-listing-section {
+		display: block;
+		margin-top: @padding-md;
+
+		&.hidden {
+			display: none;
+		}
+	}
+
+	.wpbdp-submit-listing-section-content {
+
+		h4 {
+			margin: 0 0 @padding-md 0;
+		}
+
+		ul.category-list {
+			margin-bottom: @padding-md;
+		}
+	}
+
+	/* Upload section */
+	.wpbdp-upload-widget {
+		max-height: 50px;
+	}
+
+	/* Listing form actions */
+	.wpbdp-submit-listing-form-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: @padding-lg;
+		margin-top: @padding-lg;
+		text-align: center;
+	}
+
+	/* Change plan button */
+	#change-plan-link {
+		margin-top: @padding-md;
+		text-align: center;
+
+		a {
+			margin-left: @padding-sm;
+		}
+	}
+
+	/* Small View */
+	&.wpbdp-submit-page-tiny {
+
+		.wpbdp-grid {
+			grid-gap: @padding-lg 0;
+
+			& > * {
+				grid-column: span 12;
+			}
+		}
+	}
+}
+
+textarea.wpbdp-submit-listing-tos {
+	min-height: 100px;
+}
+
+#wpbdp-submit-listing-account-details {
+	margin: @padding-md 0 0 0;
+
+	input[type="password"] {
+		display: inline-block;
+		width: 70%;
+	}
+
+	.wpbdp-password-strength-meter {
+		width: 20%;
+		border: 1px solid;
+		padding: 4px;
+		text-align: center;
+		float: right;
+
+		&.strength-0 {
+			border-color: #e35b5b;
+			background-color: #f1adad;
+		}
+
+		&.strength-2 {
+			border-color: #f78b53;
+			background-color: #fbc5a9;
+		}
+
+		&.strength-3 {
+			border-color: #ffc733;
+			background-color: #ffe399;
+		}
+
+		&.strength-4 {
+			border-color: #83c373;
+			background-color: #c1e1b9;
+		}
+	}
+}
+
+@media only screen and (max-width: 450px) {
+
+	.wpbdp-form-field.wpbdp-form-field-type-url .wpbdp-url-field-col {
+		grid-column: span 12 / span 12;
+	}
+}
+
+.wpbdp-form-field-type-image .wpbdp-image {
+	border: none;
+}
+
+.wpbdp-submit-listing-section {
+
+	h3,
+	.wpbdp-recaptcha {
+		margin-top: 40px;
+	}
+}
+
+// Remove this after checking existing themes.
+.wpbdp-submit-listing-section-header {
+	display: none;
+}
+
+.wpbdp-with-button-styles {
+
+	.submit-back-button.wpbdp-button {
+		.wpbdp-reverse-btn();
+	}
+
+	.select2-container {
+
+		.select2-selection {
+			border-color: @border-main;
+		}
+
+		.select2-results__option--highlighted[data-selected] {
+			background-color: @color-primary;
+		}
+	}
+}

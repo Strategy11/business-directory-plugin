@@ -176,7 +176,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 				$value = array( $value );
 			}
 
-			$value = implode( "\t", array_filter( $value, 'strlen' ) );
+			$value = implode( "\t", wpbdp_array_filter( $value ) );
 		}
 
 		parent::store_field_value( $field, $post_id, $value );

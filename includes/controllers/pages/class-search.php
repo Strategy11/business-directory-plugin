@@ -13,6 +13,10 @@ class WPBDP__Views__Search extends WPBDP__View {
 
 	public function dispatch() {
 		$searching = ( ! empty( $_GET ) && ( ! empty( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
+
+		$handler      = wpbdp_get_var( array( 'param' => 'handler' ), 'post' );
+		$search_modal = 'search__get_search_content' === $handler;
+
 		$searching = apply_filters( 'wpbdp_searching_request', $searching );
 		$search    = null;
 		$redirect  = ! $searching && isset( $_GET['kw'] ) && 'none' === wpbdp_get_option( 'search-form-in-results' );
@@ -39,7 +43,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 						$value = $field->value_from_GET();
 
 						if ( ! $value || $field->is_empty_value( $value ) ) {
-							$validation_errors[] = sprintf( _x( '"%s" is required.', 'search', 'business-directory-plugin' ), $field->get_label() );
+							$validation_errors[] = sprintf( __( '%s is required.', 'business-directory-plugin' ), $field->get_label() );
 						}
 					}
 				}
@@ -53,11 +57,17 @@ class WPBDP__Views__Search extends WPBDP__View {
 			}
 		}
 
+		if ( $search_modal ) {
+			$search = WPBDP__Listing_Search::from_request( $_POST );
+			$fallback = false;
+		} else {
+			// Show search form on the page if not in a modal and not searching.
+			$fallback = ! $searching;
+		}
 		$search_form = '';
-		$fields      = '';
+		$fields      = '<div class="wpbdp-form-fields">';
 		foreach ( $form_fields as &$field ) {
 			$field_value = null;
-
 			if ( $search ) {
 				$terms = $search->get_original_search_terms_for_field( $field );
 
@@ -68,6 +78,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 
 			$fields .= $field->render( $field->convert_input( $field_value ), 'search' );
 		}
+		$fields .= '</div>';
 
 		// Allow [businessdirectory-search] shortcode to render form only filling current search fields.
 		if ( ! empty( $this->in_shortcode ) ) {
@@ -120,12 +131,13 @@ class WPBDP__Views__Search extends WPBDP__View {
 			'search',
 			array(
 				'search_form'          => $search_form,
-				'search_form_position' => wpbdp_get_option( 'search-form-in-results' ),
+				'search_form_position' => wpbdp_get_option( 'search-form-in-results' ), // Deprecated.
 				'fields'               => $fields,
 				'searching'            => $searching,
 				'results'              => $results,
 				'form_only'            => isset( $this->form_only ) ? $this->form_only : false,
 				'count'                => $this->get_count(),
+				'fallback'             => $fallback,
 			)
 		);
 
@@ -143,5 +155,16 @@ class WPBDP__Views__Search extends WPBDP__View {
 	private function get_count() {
 		global $wp_query;
 		return $wp_query->found_posts;
+	}
+
+	/**
+	 * Get adnvaced search modal content.
+	 *
+	 * @since x.x
+	 */
+	public function ajax_get_search_content() {
+		$html = $this->dispatch();
+
+		wp_send_json_success( $html );
 	}
 }

@@ -1,4 +1,4 @@
-<div id="wpbdp-delete-listing-page">
+<div id="wpbdp-delete-listing-page" class="wpbdp-page">
 
 <h3><?php esc_html_e( 'Delete Listing', 'business-directory-plugin' ); ?></h3>
 

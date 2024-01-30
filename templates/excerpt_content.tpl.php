@@ -24,6 +24,6 @@
 	$social = $fields->filter( 'social' );
 	?>
 	<?php if ( $social && $social->html ) : ?>
-	<div class="social-fields cf"><?php echo $social->html; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+	<div class="social-fields wpbdp-flex"><?php echo $social->html; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 	<?php endif; ?>
 </div>

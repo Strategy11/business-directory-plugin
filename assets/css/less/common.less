@@ -1,5 +1,5 @@
 .wpbdp-rounded-box() {
-    padding: 15px 10px 10px;
+    padding: @padding-md 10px 10px;
     border-radius: 2px;
 
     p:last-child {
@@ -10,14 +10,14 @@
 .wpbdp-reverse-btn() {
 	background: transparent !important;
 	border: 1px solid @default-color;
-	border-color: var(--bd-main-color);
+	border-color: @btn-bg;
 	color: @default-color;
-	color: var(--bd-main-color) !important;
+	color: @btn-bg !important;
 
 	&:hover {
 		background: @default-color;
-		background: var(--bd-main-color) !important;
-		color: #fff !important;
+		background: @btn-bg !important;
+		color: @btn-text !important;
 	}
 }
 
@@ -80,7 +80,6 @@
         -moz-animation: spin 2s linear infinite;
         -o-animation: spin 2s linear infinite;
         animation: spin 2s linear infinite;
-        
     }
     &.wpbdp_visible_spinner {
         margin-bottom: 10px;
