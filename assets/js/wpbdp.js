@@ -13,6 +13,7 @@ jQuery(function( $ ) {
 jQuery(document).ready(function($){
     if ( $( '.wpbdp-js-select2' ).length > 0 && $.fn.selectWoo ) {
         $( '.wpbdp-js-select2' ).selectWoo();
+		document.body.classList.add( 'wpbdp-has-select2' );
     }
 
     // Move the featured badge to the theme h1.

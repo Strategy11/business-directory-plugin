@@ -39,6 +39,7 @@ jQuery(function($) {
                 setTimeout(function() {
                     if ( this.field_type === 'select2' && $.fn.selectWoo ) {
                         self.field.selectWoo({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
+                        document.body.classList.add( 'wpbdp-has-select2' );
                     }
                 } );
             }
@@ -375,7 +376,6 @@ jQuery(function($) {
 					handler: 'submit_listing__load_form'
 				};
 
-			
 			self.ajax( data, function( res ) {
 				if ( typeof res.form !== 'undefined' ) {
 					self.$submit.html( res.form );
