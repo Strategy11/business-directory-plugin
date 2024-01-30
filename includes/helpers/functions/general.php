@@ -584,7 +584,7 @@ function wpbdp_pop_query() {
 function wpbdp_array_filter( $value ) {
 	return array_filter(
 		$value,
-		function( $item ) {
+		function ( $item ) {
 			return strlen( $item ) > 0;
 		}
 	);

@@ -114,7 +114,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 	}
 
 	public function date_to_storage_format( &$field, $value ) {
-		if ( '' === $value ) {
+		if ( '' === $value || null === $value ) {
 			return '';
 		}
 
