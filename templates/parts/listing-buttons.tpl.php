@@ -46,7 +46,7 @@ if ( ! $buttons ) {
 	return;
 }
 ?>
-<div class="listing-actions wpbdp-cf wpbdp-clear wpbdp-flex">
+<div class="listing-actions wpbdp-clear wpbdp-flex">
 	<?php
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo $buttons;
