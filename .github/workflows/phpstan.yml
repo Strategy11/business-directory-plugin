@@ -10,7 +10,7 @@ on:
 name: PHPStan Code Analysis
 jobs:
   phpstan:
-    if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
+    if: contains(github.event.pull_request.labels.*.name, 'run analysis')
     name: PHPStan
 
     runs-on: ubuntu-latest
