@@ -1,8 +1,8 @@
 === Business Directory Plugin - Easy Listing Directories for WordPress ===
 Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
-Requires at least: 5.2
-Requires PHP: 5.6
+Requires at least: 5.9
+Requires PHP: 7.0
 Tested up to: 6.4.2
 Stable tag: 6.4
 License: GPLv2 or later

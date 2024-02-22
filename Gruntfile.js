@@ -143,6 +143,7 @@ module.exports = function( grunt ) {
 		grunt.config.set( 'replace.setversion-' + id, {
 			src: [
 				basedir + '/business-directory-' + id + '.php',
+				basedir + '/includes/class-' + id + '.php',
 				basedir + '/includes/class-wpbdp.php',
 				basedir + '/classes/class-wpbdp-premium-module.php',
 				basedir + '/includes/models/*module.php',
