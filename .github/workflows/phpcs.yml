@@ -10,7 +10,7 @@ on:
 name: Inspections
 jobs:
   runPHPCSInspection:
-    if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
+    if: contains(github.event.pull_request.labels.*.name, 'run analysis')
     name: Run PHPCS inspection
     runs-on: ubuntu-latest
     steps:
