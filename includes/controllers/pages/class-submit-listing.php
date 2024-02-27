@@ -1127,9 +1127,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 			$this->data['previous_categories'] = $this->listing->get_categories( 'ids' );
 		} else {
-			$has_categories = $categories || $this->listing->get_categories( 'ids' );
-			if ( $this->listing->get_fee_plan() && $has_categories ) {
-				return $this->section_render( 'submit-listing-plan-selection-complete' );
+			$completed_plan_page = $this->show_plan_selection_complete( $categories, $category_field );
+			if ( $completed_plan_page ) {
+				return $completed_plan_page;
 			}
 
 			$this->prevent_save = true;
@@ -1141,6 +1141,32 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$category_count      = $this->category_count;
 		$selected_categories = $this->fixed_category ? $this->fixed_category : $this->get_selected_category( $categories );
 		return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'category_count', 'plans', 'selected_categories', 'selected_plan' ) );
+	}
+
+	/**
+	 * Show the plan selection page when there is only one plan.
+	 * Force it when the change plan link was clicked.
+	 *
+	 * @since x.x
+	 *
+	 * @param array           $categories
+	 * @param WPBDP_FormField $category_field
+	 *
+	 * @return array|bool
+	 */
+	private function show_plan_selection_complete( $categories, $category_field ) {
+		$has_categories = $categories || $this->listing->get_categories( 'ids' );
+		if ( ! $has_categories ) {
+			return false;
+		}
+
+		// Show the selection page again if changing the plan.
+		$reseting_plan = wpbdp_get_var( array( 'param' => 'handler' ), 'post' ) === 'submit_listing__reset_plan';
+		if ( $reseting_plan || ! $this->listing->get_fee_plan() ) {
+			return false;
+		}
+
+		return $this->section_render( 'submit-listing-plan-selection-complete', compact( 'category_field' ) );
 	}
 
 	/**
