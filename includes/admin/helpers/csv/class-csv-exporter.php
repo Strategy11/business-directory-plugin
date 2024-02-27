@@ -453,9 +453,22 @@ class WPBDP_CSVExporter {
 				$value = strval( $value );
 			}
 
-			$data[ $column_name ] = '"' . str_replace( '"', '""', $value ) . '"';
+			$data[ $column_name ] = $this->escaped_string( $value );
 		}
 
 		return $data;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param string $str
+	 *
+	 * @return string
+	 */
+	private function escaped_string( $str ) {
+		$str = str_replace( array( '\r\n', '\n' ), "\n", $str );
+		$str = '"' . str_replace( '"', '""', $str ) . '"';
+		return $str;
 	}
 }
