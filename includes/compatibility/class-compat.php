@@ -61,7 +61,7 @@ class WPBDP_Compat {
 		// WP Fusion and WooCommerce Invalid nonce.
 		if ( defined( 'WP_FUSION_VERSION' ) && class_exists( 'WooCommerce' ) ) {
 			add_filter(
-                 'wpf_skip_auto_login', array( $this , 'wp_fusion_skip_auto_login'), 20 );
+                'wpf_skip_auto_login', array( $this, 'wp_fusion_skip_auto_login' ), 20 );
 		}
 	}
 

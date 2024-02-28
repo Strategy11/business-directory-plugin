@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: https://businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 6.3.10
+ * Version: 6.4
  * Author: Business Directory Team
  * Author URI: https://businessdirectoryplugin.com
  * Text Domain: business-directory-plugin
@@ -39,7 +39,7 @@ if ( ! defined( 'WPBDP_PLUGIN_FILE' ) ) {
 spl_autoload_register( 'wpbdp_dir_autoloader' );
 
 /**
- * @since x.x
+ * @since 6.3.11
  * @return void
  */
 function wpbdp_dir_autoloader( $class_name ) {
@@ -48,13 +48,13 @@ function wpbdp_dir_autoloader( $class_name ) {
 		return;
 	}
 
-	wpbdp_class_autoloader( $class_name, dirname( __FILE__ ) );
+	wpbdp_class_autoloader( $class_name, __DIR__ );
 }
 
 /**
  * Autoload the BD classes
  *
- * @since x.x
+ * @since 6.3.11
  *
  * @return void
  */
@@ -78,19 +78,17 @@ function wpbdp_class_autoloader( $class_name, $filepath ) {
 
 	if ( $is_deprecated ) {
 		$filepath .= 'compatibility/deprecated/';
-	} else {
-		if ( preg_match( '/^.+Helper$/', $class_name ) ) {
-			$filepath .= 'helpers/';
-		} elseif ( preg_match( '/^.+Controller$/', $class_name ) ) {
-			$filepath .= 'controllers/';
-			if ( ! file_exists( $filepath . $class_name . '.php' ) && strpos( $class_name, 'Views' ) ) {
-				$filepath .= 'pages/';
-			}
-		} elseif ( strpos( $class_name, 'Field' ) && ! file_exists( $filepath . $class_name . '.php' ) ) {
-			$filepath .= 'fields/';
-		} else {
-			$filepath .= 'models/';
+	} elseif ( preg_match( '/^.+Helper$/', $class_name ) ) {
+		$filepath .= 'helpers/';
+	} elseif ( preg_match( '/^.+Controller$/', $class_name ) ) {
+		$filepath .= 'controllers/';
+		if ( ! file_exists( $filepath . $class_name . '.php' ) && strpos( $class_name, 'Views' ) ) {
+			$filepath .= 'pages/';
 		}
+	} elseif ( strpos( $class_name, 'Field' ) && ! file_exists( $filepath . $class_name . '.php' ) ) {
+		$filepath .= 'fields/';
+	} else {
+		$filepath .= 'models/';
 	}
 
 	$filename = strtolower( $class_name ) . '.php';

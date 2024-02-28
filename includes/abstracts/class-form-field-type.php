@@ -517,12 +517,12 @@ class WPBDP_Form_Field_Type {
 
 		return $name;
 	}
-
 }
 
 /**
  * @deprecated Since 3.4.2. Use {@link WPBDP_Form_Field_Type} instead.
  */
+// phpcs:ignore
 class WPBDP_FormFieldType extends WPBDP_Form_Field_Type {
 	public function __construct( $name = '' ) {
 		_deprecated_constructor( __CLASS__, '3.4.2', 'WPBDP_Form_Field_Type' );

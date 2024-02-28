@@ -1,0 +1,186 @@
+/**
+ * Submit Listing.
+ *
+ * Plan Selection Section.
+ */
+
+.wpbdp-plan-selection-with-tip {
+	margin-top: @padding-lg;
+}
+
+.wpbdp-plan-selection-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: @padding-lg;
+	justify-content: center;
+
+	.wpbdp-plan {
+		display: flex;
+		flex-wrap: wrap;
+		flex: 1;
+		justify-content: center;
+		position: relative;
+		border: 1px solid @border-main;
+		border-radius: @border-radius-main;
+		padding: @padding-lg;
+		gap: @padding-md;
+		text-align: center;
+		min-width: max(20%, 175px);
+		max-width: 500px;
+
+		& > * {
+			flex-basis: 100%;
+		}
+	}
+
+	.wpbdp-plan-label {
+		font-size: 105%;
+		font-weight: 500;
+	}
+
+	.wpbdp-plan-price-amount {
+		font-size: @font-size-h2;
+		font-weight: 700;
+	}
+
+	.wpbdp-plan-feature-list {
+		margin-top: @padding-lg;
+		color: @color-text;
+		font-size: @font-size-body;
+		font-weight: 400;
+		line-height: @line-height;
+	}
+
+	.wpbdp-plan-action {
+		align-self: flex-end;
+		input[type="radio"] {
+			display: none;
+		}
+
+		.wpbdp-button {
+			width: 100%;
+		}
+	}
+
+	.wpbdp-msg {
+		display: flex;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: 0;
+	}
+}
+
+.category_list_item() {
+	font-size: 10px;
+	margin: 0 5px 0 0;
+	padding: 1px @padding-sm;
+	border-radius: @border-radius-main;
+	background: @default-color;
+	background: @btn-bg;
+	color: @btn-text;
+	font-weight: 700;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border: none;
+}
+
+.wpbdp-submit-listing-section-plan_selection {
+	ul.category-list {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+
+		li {
+			.category_list_item();
+			display: inline;
+		}
+	}
+
+	.wpbdp_continue_to_fields_action {
+		text-align: right;
+	}
+}
+
+.wpbdp-plan-info-box {
+
+	.wpbdp-plan-label {
+		font-weight: 500;
+	}
+
+	.wpbdp-plan-price-amount {
+		font-size: 125%;
+		font-weight: 600;
+		display: block;
+		margin-bottom: @padding-md;
+	}
+
+	.wpbdp-plan-feature-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.wpbdp-plan-details p {
+		margin: 0;
+	}
+
+	.wpbdp-plan-feature-list li {
+		list-style-position: inside;
+		margin: 0;
+	}
+	.wpbdp-plan-disabled-msg {
+		clear: both;
+	}
+
+	+ .wpbdp-plan-disabled {
+		display: none !important;
+	}
+
+	.wpbdp-plan-private-msg {
+		width: 100%;
+		display: inline-block;
+	}
+}
+
+.wpbdp-with-button-styles {
+	.wpbdp-plan-info-box {
+		input[type=radio] + label {
+			.wpbdp-reverse-btn();
+		}
+
+		input[type=radio]:checked + label {
+			color: @btn-text !important;
+			background: @btn-bg !important;
+		}
+	}
+}
+
+#wpbdp-renewlisting-form .wpbdp-plan-disabled {
+	display: none; /* Hide disabled plans on renewal page. */
+}
+
+/* Deprecated */
+.wpbdp-plan-info-box {
+
+	.wpbdp-plan-price {
+		width: 40%;
+		text-align: center;
+
+		label {
+			cursor: pointer;
+			margin-top: @padding-md;
+			font-size: 20px;
+			display: block;
+			padding: 6px @padding-md;
+		}
+
+		input[type=radio] {
+			display: none;
+		}
+	}
+}

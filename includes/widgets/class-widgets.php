@@ -21,5 +21,4 @@ class WPBDP__Widgets {
 		include_once WPBDP_INC . 'widgets/widget-search.php';
 		register_widget( 'WPBDP_SearchWidget' );
 	}
-
 }

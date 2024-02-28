@@ -203,21 +203,18 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 
 	public function render_form( $listing_id = 0, $validation_errors = array() ) {
 		$listing_id = absint( $listing_id );
-
-		if ( ! $listing_id || ! apply_filters( 'wpbdp_show_contact_form', wpbdp_get_option( 'show-contact-form' ), $listing_id ) ) {
+		if ( ! $this->should_show_form( $listing_id ) ) {
 			return '';
 		}
 
-		$html = '';
-
-		$html .= '<div class="wpbdp-listing-contact-form">';
+		$html = '<div class="wpbdp-listing-contact-form">';
 
 		if ( ! $_POST ) {
-			$html .= '<div><a href="#wpbdp-contact-me" id="wpbdp-contact-me" class="wpbdp-show-on-mobile send-message-button wpbdp-button button" rel="nofollow">' . _x( 'Contact listing owner', 'templates', 'business-directory-plugin' ) . '</a></div>';
+			$html .= '<div><a href="#wpbdp-contact-me" id="wpbdp-contact-me" class="wpbdp-show-on-mobile send-message-button button wpbdp-button" rel="nofollow">' . _x( 'Contact listing owner', 'templates', 'business-directory-plugin' ) . '</a></div>';
 			$html .= '<div class="wpbdp-hide-on-mobile contact-form-wrapper">';
 		}
 
-		$html .= '<h3>' . esc_html_x( 'Send Message to listing owner', 'templates', 'business-directory-plugin' ) . '</h3>';
+		$html .= '<h3>' . esc_html__( 'Send Message', 'business-directory-plugin' ) . '</h3>';
 
 		$form = '';
 
@@ -247,6 +244,24 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 		$html .= '</div>';
 
 		return $html;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param int $listing_id
+	 *
+	 * @return bool True if the form should be shown.
+	 */
+	private function should_show_form( $listing_id ) {
+		if ( ! $listing_id ) {
+			return false;
+		}
+
+		// Check if the listing has an email address to send the message to.
+		$listing_email = wpbusdirman_get_the_business_email( $listing_id );
+		$show_form     = $listing_email && wpbdp_get_option( 'show-contact-form' );
+		return (bool) apply_filters( 'wpbdp_show_contact_form', $show_form, $listing_id );
 	}
 
 	public function dispatch() {
@@ -315,5 +330,4 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 		$html .= sprintf( '<p><a href="%s">%s</a></p>', get_permalink( $listing_id ), _x( 'Return to listing.', 'contact-message', 'business-directory-plugin' ) );
 		return $html;
 	}
-
 }

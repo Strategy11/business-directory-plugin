@@ -36,5 +36,4 @@ class WPBDP__Dummy_Listing {
 
 		return $result;
 	}
-
 }

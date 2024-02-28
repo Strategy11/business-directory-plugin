@@ -9,7 +9,7 @@
 			<div class="wpbdp-rootline-circle">
 				<div class="wpbdp-rootline-counter">
 				<?php if ( $checked && ! $current ) : ?>
-					<svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4473 1.22559L6.44727 12.2256L1.44727 7.22559" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					<svg width="19" height="14" viewBox="0 0 19 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.4473 1.22559L6.44727 12.2256L1.44727 7.22559" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 				<?php endif; ?>
 				<span><?php echo absint( $id + 1 ); ?></span>
 				</div>

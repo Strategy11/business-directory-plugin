@@ -50,7 +50,6 @@ class WPBDP__Admin__Controller {
 		$this->current_view = WPBDP_Utils::normalize( $this->current_view );
 
 		$result = false;
-		$output = '';
 
 		$callback = ( false !== strpos( $this->current_view, '-' ) ? str_replace( '-', '_', $this->current_view ) : $this->current_view );
 
@@ -66,17 +65,16 @@ class WPBDP__Admin__Controller {
 			$template = WPBDP_PATH . 'templates/admin/' . $this->controller_id . '-' . $this->current_view . '.tpl.php';
 
 			if ( ! file_exists( $template ) ) {
-				$output = json_encode( $result );
+				echo wp_json_encode( $result );
 			} else {
-				$output = wpbdp_render_page( $template, $result );
+				echo wpbdp_render_page( $template, $result );
 			}
 		} else {
-			$output = $result;
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $result;
 		}
 
 		$_SERVER['REQUEST_URI'] = $orig_uri;
-
-		echo $output;
 	}
 
 	function _redirect( $view_or_url ) {
@@ -101,5 +99,4 @@ class WPBDP__Admin__Controller {
 
 		return array( false, wpbdp_render_page( WPBDP_PATH . 'templates/admin/confirm-page.tpl.php', $args ) );
 	}
-
 }

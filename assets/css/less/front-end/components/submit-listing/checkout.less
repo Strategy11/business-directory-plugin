@@ -1,7 +1,7 @@
 .wpbdp-checkout-section {
-    margin: 0 0 1.5em 0;
-    padding: 0.7em 1.2em;
-    border: solid 1px #efefef;
+    margin: 0 0 @padding-lg;
+    padding: @padding-lg;
+    border: 1px solid @color-neutral-300;
 
     &.wpbdp-checkout-errors {
         padding: 0;
@@ -9,14 +9,19 @@
     }
 
     h3 {
-        margin: 0 0 1.0em 0;
+        margin: 0 0 @padding-lg 0;
         padding: 0;
     }
 }
 
+.wpbdp-grid > h3 {
+    margin-bottom: 0;
+}
+
 .wpbdp-checkout-gateway-selection {
     label {
-        margin: 0 10px 0 0;
+        margin: 0 @padding-md 0 0;
+        text-wrap: nowrap;
 
         &:last-child {
             margin-right: 0;
@@ -26,14 +31,13 @@
             vertical-align: middle;
         }
         img {
-            margin-bottom: 10px;
+            margin-bottom: @padding-md;
         }
     }
 }
 
 .wpbdp-billing-detail-field {
-    margin: 0 0 1.5em 0;
-    font-size: 95%;
+    margin: 0 0 @padding-lg;
 
     &.wpbdp-required label:after {
         content: ' *';
@@ -52,9 +56,9 @@
 }
 
 .wpbdp-payment-receipt {
-    border: 1px solid @gray;
-    padding: 1.0em 1.5em;
-    margin: 1.5em 0;
+    border: 1px solid @color-neutral-300;
+    padding: @padding-md @padding-lg;
+    margin: @padding-lg 0;
     font-size: 90%;
 
     h4 {
@@ -63,7 +67,7 @@
     }
 
     .wpbdp-payment-receipt-date {
-        color: #666;
+        opacity: .8;
     }
 
     .wpbdp-payment-status {
@@ -71,7 +75,7 @@
     }
 
     .wpbdp-payment-receipt-details {
-        margin: 1.5em 0.5em;
+        margin: @padding-lg @padding-sm;
 
         dl {
             margin: 0;

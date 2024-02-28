@@ -66,5 +66,5 @@ if ( $validation_errors ) :
 	}
 	?>
 
-	<input type="submit" class="wpbdp-button button wpbdp-submit submit" value="<?php esc_attr_e( 'Send', 'business-directory-plugin' ); ?>" />
+	<input type="submit" class="button wpbdp-button wpbdp-submit submit" value="<?php esc_attr_e( 'Send', 'business-directory-plugin' ); ?>" />
 </form>

@@ -81,16 +81,20 @@ class WPBDP__Manual_Upgrade_Helper {
 			return;
 		}
 
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! wpbdp_user_is_admin() ) {
 			return;
 		}
 
 		print '<div class="error"><p>';
 		print '<strong>' . __( 'Business Directory - Manual Upgrade Required', 'business-directory-plugin' ) . '</strong>';
 		print '<br />';
-		_e( 'Business Directory features are currently disabled because the plugin needs to perform a manual upgrade before continuing.', 'business-directory-plugin' );
+		esc_html_e( 'Business Directory features are currently disabled because the plugin needs to perform a manual upgrade before continuing.', 'business-directory-plugin' );
 		print '<br /><br />';
-		printf( '<a class="button button-primary" href="%s">%s</a>', admin_url( 'admin.php?page=wpbdp-upgrade-page' ), __( 'Perform Manual Upgrade', 'business-directory-plugin' ) );
+		printf(
+			'<a class="button button-primary" href="%s">%s</a>',
+			esc_url( admin_url( 'admin.php?page=wpbdp-upgrade-page' ) ),
+			esc_html__( 'Perform Manual Upgrade', 'business-directory-plugin' )
+		);
 		print '</p></div>';
 	}
 
@@ -109,7 +113,7 @@ class WPBDP__Manual_Upgrade_Helper {
 			'options.php',
 			__( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
 			__( 'Business Directory - Manual Upgrade', 'business-directory-plugin' ),
-			'administrator',
+			'manage_options',
 			'wpbdp-upgrade-page',
 			array( &$this, 'upgrade_page' )
 		);
@@ -170,7 +174,7 @@ class WPBDP__Manual_Upgrade_Helper {
 				echo '<form action="" method="post">';
 				echo '<div class="wpbdp-manual-upgrade-configuration">';
 				echo $output;
-				echo '<div class="cf"><input type="submit" class="right button button-primary" value="' . _x( 'Continue', 'manual-upgrade', 'business-directory-plugin' ) . '"/></div>';
+				echo '<div class="cf"><input type="submit" class="right button button-primary" value="' . esc_attr__( 'Continue', 'business-directory-plugin' ) . '"/></div>';
 				echo '</div>';
 				echo '</form>';
 			}
@@ -179,24 +183,24 @@ class WPBDP__Manual_Upgrade_Helper {
 		if ( $this->is_configured() ) {
 			echo '<div class="step-upgrade">';
 			echo '<p>';
-			_e( 'Business Directory features are currently disabled because the plugin needs to perform a manual upgrade before it can be used.', 'business-directory-plugin' );
+			esc_html_e( 'Business Directory features are currently disabled because the plugin needs to perform a manual upgrade before it can be used.', 'business-directory-plugin' );
 			echo '<br />';
-			_e( 'Click "Start Upgrade" and wait until the process finishes.', 'business-directory-plugin' );
+			esc_html_e( 'Click "Start Upgrade" and wait until the process finishes.', 'business-directory-plugin' );
 			echo '</p>';
 			echo '<p>';
-			echo '<a href="#" class="start-upgrade button button-primary">' . _x( 'Start Upgrade', 'manual-upgrade', 'business-directory-plugin' ) . '</a>';
+			echo '<a href="#" class="start-upgrade button button-primary">' . esc_html_x( 'Start Upgrade', 'manual-upgrade', 'business-directory-plugin' ) . '</a>';
 			echo ' ';
-			echo '<a href="#" class="pause-upgrade button">' . _x( 'Pause Upgrade', 'manual-upgrade', 'business-directory-plugin' ) . '</a>';
+			echo '<a href="#" class="pause-upgrade button">' . esc_html_x( 'Pause Upgrade', 'manual-upgrade', 'business-directory-plugin' ) . '</a>';
 			echo '</p>';
 			echo '<textarea id="manual-upgrade-progress" rows="20" style="width: 90%; font-family: courier, monospaced; font-size: 12px;" readonly="readonly"></textarea>';
 			echo '</div>';
 
 			echo '<div class="step-done" style="display: none;">';
-			echo '<p>' . _x( 'The upgrade was successfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'business-directory-plugin' ) . '</p>';
+			echo '<p>' . esc_html_x( 'The upgrade was successfully performed. Business Directory Plugin is now available.', 'manual-upgrade', 'business-directory-plugin' ) . '</p>';
 			printf(
 				'<a href="%s" class="button button-primary">%s</a>',
 				esc_url( admin_url( 'edit.php?post_type=wpbdp_listing' ) ),
-				_x( 'Go to "Directory Admin"', 'manual-upgrade', 'business-directory-plugin' )
+				esc_html_x( 'Go to "Directory Admin"', 'manual-upgrade', 'business-directory-plugin' )
 			);
 			echo '</div>';
 		}
@@ -208,7 +212,7 @@ class WPBDP__Manual_Upgrade_Helper {
 	/* Ajax Handlers */
 
 	public function handle_ajax() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! wpbdp_user_is_admin() ) {
 			return;
 		}
 
@@ -270,4 +274,3 @@ class WPBDP__Manual_Upgrade_Helper {
 		return empty( $this->manual_upgrades );
 	}
 }
-

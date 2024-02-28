@@ -155,7 +155,14 @@ jQuery( function( $ ) {
 
 	$payments_tab.on( 'click', 'a[name="delete-payments"]', function(e) {
         e.preventDefault();
-        $.post( ajaxurl, { 'action': 'wpbdp-clear-payment-history', 'listing_id': $( this ).attr( 'data-id' ) }, function (res) {
+        $.post(
+            ajaxurl,
+            {
+                'action': 'wpbdp-clear-payment-history',
+                'listing_id': $( this ).attr( 'data-id' ),
+                'nonce': wpbdp_global.nonce
+            },
+            function (res) {
             if ( ! res.success ) {
                 if ( res.data.error )
                     $('#wpbdp-listing-payment-message').addClass('error').html(res.data.error).fadeIn();

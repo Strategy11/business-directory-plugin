@@ -71,5 +71,4 @@ class WPBDP__Views__Login extends WPBDP__View {
 
 		return $this->_render( 'login', $params );
 	}
-
 }

@@ -1,0 +1,127 @@
+/**
+ * Submit Listing.
+ *
+ * Rootline.
+ */
+
+@rootline-size: 48px;
+
+.wpbdp-submit-rootline {
+	display: flex;
+	margin: @padding-lg auto @padding-xl;
+	text-align: center;
+	overflow: hidden;
+
+	.wpbdp-rootline-section {
+		width: 100%;
+
+		/* Rootline bar */
+		.wpbdp-rootline-bar {
+			position: relative;
+			top: calc( @rootline-size / 2 );
+			width: calc(100% - @rootline-size);
+			max-width: 100%;
+			height: 1px;
+			margin-left: calc(50% + (@rootline-size / 2) + 1px);
+			background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 50%, @color-primary 50%);
+			background-image: linear-gradient(to left, rgba(255,255,255,0) 50%, var(--bd-main-color) 50%);
+			background-size: 10px;
+			background-position: bottom;
+			background-repeat: repeat-x;
+		}
+
+		&:last-of-type {
+
+			.wpbdp-rootline-bar {
+				background-image: none;
+			}
+		}
+
+		/* Rootline circle */
+		.wpbdp-rootline-circle {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 1;
+			width: @rootline-size;
+			height: @rootline-size;
+			border: 1px solid @color-primary;
+			border-color: @btn-bg;
+			border-radius: 50%;
+			color: @color-text;
+			font-size: 20px;
+			font-weight: 600;
+
+			svg {
+				fill: none;
+			}
+		}
+
+		/* Rootline name */
+		.wpbdp-rootline-section-name {
+			max-width: 130px;
+			margin: @padding-md auto 0;
+			opacity: .6;
+			font-size: @font-size-sm;
+			text-transform: uppercase;
+		}
+
+		/* Checked rootline item */
+		&.wpbdp-submit-checked {
+
+			/* Checked rootline circle */
+			.wpbdp-rootline-circle {
+				background: @color-primary;
+				background: @btn-bg;
+				color: @btn-text;
+			}
+
+			/* Checked rootline name */
+			.wpbdp-rootline-section-name {
+				color: @color-text;
+				opacity: 1;
+			}
+
+			/* Current section */
+			&.wpbdp-submit-section-current {
+
+				+ .wpbdp-rootline-section svg,
+				svg {
+					display: none;
+				}
+			}
+
+			&:not(.wpbdp-submit-section-current) {
+
+				.wpbdp-rootline-counter span {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 450px) {
+
+	.wpbdp-submit-rootline {
+
+		.wpbdp-rootline-section {
+
+			&:not(.wpbdp-submit-section-current),
+			.wpbdp-rootline-bar {
+				display: none;
+			}
+
+			&.wpbdp-submit-checked .wpbdp-rootline-circle {
+
+				.wpbdp-rootline-checkmark {
+					display: none;
+				}
+
+				.wpbdp-rootline-counter span {
+					display: initial;
+				}
+			}
+		}
+	}
+}

@@ -70,7 +70,7 @@ WPBDP_Admin_Pages::show_tabs(
 			</a>
 			<div class="gateway-description">
 				<?php
-				echo sprintf(
+				printf(
 					// translators: %s: payment gateway name */
 					esc_html__( 'Add %s as a payment option.', 'business-directory-plugin' ),
 					esc_html( $mod_info[2] )

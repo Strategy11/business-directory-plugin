@@ -198,8 +198,4 @@ class WPBDP__Dispatcher {
 	public function current_view_output() {
 		return $this->output;
 	}
-
-
 }
-
-

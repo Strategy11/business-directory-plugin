@@ -93,7 +93,6 @@ class WPBDP__Admin__Listing_Owner {
 		);
 
 		return $this->render( $params );
-
 	}
 
 	/**
@@ -238,6 +237,8 @@ class WPBDP__Admin__Listing_Owner {
 	}
 
 	public function ajax_autocomplete_users() {
+		WPBDP_App_Helper::permission_check();
+
 		global $wpdb;
 
 		$request = wp_unslash( $_REQUEST );

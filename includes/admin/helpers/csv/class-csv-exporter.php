@@ -107,7 +107,12 @@ class WPBDP_CSVExporter {
 					$this->workingdir = $csvexportsdir . '/';
 				} else {
 					$direrror = _x( 'Could not create a temporary directory for handling this CSV export.', 'admin csv-export', 'business-directory-plugin' );
-					throw new Exception( sprintf( _x( 'Error while creating a temporary directory for CSV export: %s', 'admin csv-export', 'business-directory-plugin' ), $direrror ) );
+					throw new Exception(
+						sprintf(
+							esc_html__( 'Error while creating a temporary directory for CSV export: %s', 'business-directory-plugin' ),
+							esc_html( $direrror )
+						)
+					);
 				}
 			}
 		} else {
@@ -213,7 +218,7 @@ class WPBDP_CSVExporter {
 				fwrite( $csvfile, $this->prepare_content( $content ) );
 			}
 
-			$this->exported++;
+			++$this->exported;
 		}
 
 		fclose( $csvfile );
@@ -448,9 +453,22 @@ class WPBDP_CSVExporter {
 				$value = strval( $value );
 			}
 
-			$data[ $column_name ] = '"' . str_replace( '"', '""', $value ) . '"';
+			$data[ $column_name ] = $this->escaped_string( $value );
 		}
 
 		return $data;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param string $str
+	 *
+	 * @return string
+	 */
+	private function escaped_string( $str ) {
+		$str = str_replace( array( '\r\n', '\n' ), "\n", $str );
+		$str = '"' . str_replace( '"', '""', $str ) . '"';
+		return $str;
 	}
 }

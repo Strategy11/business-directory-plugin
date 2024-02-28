@@ -63,9 +63,10 @@ class WPBDP__WordPress_Template_Integration {
 			if ( WPBDP__Themes_Compat::is_block_theme() && is_tax() ) {
 				add_filter( 'render_block', array( $this, 'block_theme_set_tax_title' ), 10, 2 );
 				add_filter( 'render_block', array( $this, 'block_theme_remove_tax_featured_image' ), 10, 2 );
+				$this->setup_tax_hooks();
+			} else {
+				add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 			}
-
-			add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 
 			$page_template = get_query_template( 'page', $this->get_template_alternatives() );
 			if ( $page_template ) {
@@ -109,6 +110,23 @@ class WPBDP__WordPress_Template_Integration {
 	}
 
 	/**
+	 * Replace the content correctly on taxonomies in WP 6.4+.
+	 *
+	 * @since 6.3.11
+	 * @return void
+	 */
+	public function setup_tax_hooks() {
+		if ( ! wpbdp_is_taxonomy() ) {
+			return;
+		}
+
+		$this->prep_tax_head();
+
+		// Run last so other hooks don't break our output.
+		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
+	}
+
+	/**
 	 * Prevent a listing title from being used as the category title.
 	 *
 	 * @since 6.2.5
@@ -133,7 +151,7 @@ class WPBDP__WordPress_Template_Integration {
 		if ( ! in_the_loop() ) {
 			return $title;
 		}
-		remove_filter( 'the_title', array(&$this, 'set_tax_title') );
+		remove_filter( 'the_title', array( &$this, 'set_tax_title' ) );
 		$term = get_queried_object();
 		return is_object( $term ) ? $term->name : $title;
 	}
@@ -187,6 +205,7 @@ class WPBDP__WordPress_Template_Integration {
 
 		return $block_content;
 	}
+
 	/**
 	 * Prevent a post thumbnail from showing on the page before the loop.
 	 *
@@ -194,7 +213,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
-		remove_filter( 'post_thumbnail_html', array(&$this, 'remove_tax_thumbnail') );
+		remove_filter( 'post_thumbnail_html', array( &$this, 'remove_tax_thumbnail' ) );
 		// The caption shows in 2021 theme.
 		add_filter( 'wp_get_attachment_caption', '__return_false' );
 

@@ -323,7 +323,6 @@ class WPBDP__CPT_Integration {
 		}
 
 		return $check;
-
 	}
 
 	/**

@@ -168,7 +168,7 @@ class WPBDP_Admin_Pages {
 			echo '<span class="wpbdp-taxonomy-search-results">';
 			printf(
 				/* translators: %s: Search query. */
-				__( 'Search results for: %s', 'business-directory-plugin' ),
+				esc_html__( 'Search results for: %s', 'business-directory-plugin' ),
 				'<strong>' . esc_html( $search_param ) . '</strong>'
 			);
 			echo '</span>';
@@ -478,12 +478,16 @@ class WPBDP_Admin_Pages {
 		$exclude = $wpbdp->admin->top_level_nav();
 
 		foreach ( $menu as $id => $menu_item ) {
-			$requires = empty( $menu_item['capability'] ) ? 'administrator' : $menu_item['capability'];
-			if ( ! current_user_can( $requires ) || in_array( $id, $exclude ) ) {
+			if ( empty( $menu_item['capability'] ) ) {
+				$allowed = wpbdp_user_is_admin();
+			} else {
+				$allowed = current_user_can( $menu_item['capability'] );
+			}
+			if ( ! $allowed || in_array( $id, $exclude ) ) {
 				continue;
 			}
 
-			$title = strip_tags( $menu_item['title'] );
+			$title = wp_strip_all_tags( $menu_item['title'] );
 
 			// change_menu_name() changes the name here. This changes it back.
 			if ( $title === __( 'Directory Content', 'business-directory-plugin' ) ) {

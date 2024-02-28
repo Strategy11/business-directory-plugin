@@ -63,5 +63,4 @@ class WPBDP__Views__All_Listings extends WPBDP__View {
 
 		return $html;
 	}
-
 }

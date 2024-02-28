@@ -278,7 +278,7 @@ function wpbdp_get_parent_catids( $catid ) {
 	$parent_categories = wpbdp_get_parent_categories( $catid );
 	array_walk(
 		$parent_categories,
-		function( &$x ) {
+		function ( &$x ) {
 			$x = intval( $x->term_id );
 		}
 	);
@@ -332,7 +332,6 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 			} else {
 				$res = true;
 			}
-			// return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
 			break;
 		case 'flagging':
 			if ( wpbdp_get_option( 'listing-flagging-register-users' ) ) {
@@ -344,7 +343,7 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 			break;
 		case 'edit':
 		case 'delete':
-			$res = user_can( $user_id, 'administrator' );
+			$res = user_can( $user_id, 'edit_others_posts' );
 			$res = $res || ( $user_id && $post->post_author && $post->post_author == $user_id );
 			$res = $res || ( ! $user_id && wpbdp_get_option( 'enable-key-access' ) );
 			break;
@@ -577,6 +576,18 @@ function wpbdp_push_query( &$q ) {
 function wpbdp_pop_query() {
 	global $wpbdp;
 	return array_pop( $wpbdp->_query_stack );
+}
+
+/**
+ * @since 6.4
+ */
+function wpbdp_array_filter( $value ) {
+	return array_filter(
+		$value,
+		function ( $item ) {
+			return strlen( $item ) > 0;
+		}
+	);
 }
 
 /**
@@ -897,7 +908,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
 			if ( $categories && ! $plan->supports_category_selection( $categories ) ) {
 				continue;
 			}
-			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'administrator' ) ) {
+			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! wpbdp_user_is_admin() ) {
 				continue;
 			}
 			$plans[] = $plan;
@@ -977,6 +988,8 @@ function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
 	include $template;
 	$html = ob_get_contents();
 	ob_end_clean();
+
+	WPBDP_App_Helper::add_theme_button_class( $html );
 
 	if ( $echo_output ) {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -1076,6 +1089,7 @@ function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
 	}
 	$msg = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses_post( $msg ) . '</div>';
 	if ( $echo ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $msg;
 	}
 
@@ -1107,7 +1121,7 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
 		'post_type' => WPBDP_POST_TYPE,
 		'p'         => $listing_id,
 	);
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! wpbdp_user_can_access_backend() ) {
 		$args['post_status'] = 'publish';
 	}
 
@@ -1166,6 +1180,7 @@ function wpbdp_latest_listings( $n = 10, $before = '<ul>', $after = '</ul>', $be
  * @since 4.0
  */
 function wpbdp_the_listing_actions() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_listing_actions();
 }
 
@@ -1294,7 +1309,6 @@ function wpbdp_get_return_link() {
 	if ( $msg ) {
 		echo '<span class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >' . esc_html( $msg ) . '</a></span>';
 	}
-
 }
 
 /**
@@ -1309,6 +1323,60 @@ function wpbdp_users_dropdown() {
 	}
 
 	return $res;
+}
+
+/**
+ * Check if user is admin.
+ *
+ * @since 6.3.11
+ *
+ * @return bool Whether user is admin.
+ */
+function wpbdp_user_is_admin() {
+	return current_user_can( 'manage_options' );
+}
+
+/**
+ * Check if user can edit listings.
+ * Defaults to edit_others_posts capability for editors.
+ *
+ * @since 6.4
+ *
+ * @return bool
+ */
+function wpbdp_user_can_edit() {
+	return current_user_can( 'edit_others_posts' );
+}
+
+/**
+ * Check if user can create listings and edit their own.
+ * Defaults to edit_posts capability for contributors.
+ *
+ * @since 6.4
+ *
+ * @return bool
+ */
+function wpbdp_user_can_access_backend() {
+	return current_user_can( wpbdp_backend_minimim_role() );
+}
+
+/**
+ * Check if user has backend access.
+ *
+ * @since 6.4
+ *
+ * @return string
+ */
+function wpbdp_backend_minimim_role() {
+	/**
+	 * Filter the minimum role required to access the backend.
+	 *
+	 * @since 6.4
+	 *
+	 * @param string $role The minimum role required to access the backend.
+	 * @return string
+	 */
+	return apply_filters( 'wpbdp_minimum_backend_role', 'edit_posts' );
 }
 
 /**

@@ -39,7 +39,7 @@ $page_title = is_array( $this_tab ) && ! empty( $this_tab['title'] ) ? $this_tab
 				<?php
 				$n = 0;
 				foreach ( $subtabs as $subtab_id => $subtab ) :
-					$n++;
+					++$n;
 
 					$subtab_url = add_query_arg( 'tab', $active_tab );
 					$subtab_url = add_query_arg( 'subtab', $subtab_id, $subtab_url );

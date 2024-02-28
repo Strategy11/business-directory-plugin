@@ -63,7 +63,7 @@ class WPBDP_Form_Field {
 		$this->type        = is_object( $attrs['field_type'] ) ? $attrs['field_type'] : WPBDP_FormFields::instance()->get_field_type( $attrs['field_type'] );
 
 		if ( ! $this->type ) {
-			throw new Exception( _x( 'Invalid form field type', 'form-fields-api', 'business-directory-plugin' ) );
+			throw new Exception( esc_html_x( 'Invalid form field type', 'form-fields-api', 'business-directory-plugin' ) );
 		}
 
 		/*
@@ -98,22 +98,21 @@ class WPBDP_Form_Field {
 			// $options [ $k ] = $term->name;
 			// }
 			// $this->field_data['options'] = $options;
-		} else {
+		} elseif ( isset( $attrs['field_data'] ) && isset( $attrs['field_data']['options'] ) ) {
 			// handle some special extra data from previous BD versions
 			// TODO: this is not needed anymore since the 3.2 upgrade routine
-			if ( isset( $attrs['field_data'] ) && isset( $attrs['field_data']['options'] ) ) {
-				$options = array();
 
-				foreach ( $attrs['field_data']['options'] as $option_value ) {
-					if ( is_array( $option_value ) ) {
-						$options[ $option_value[0] ] = $option_value[1];
-					} else {
-						$options[ $option_value ] = $option_value;
-					}
+			$options = array();
+
+			foreach ( $attrs['field_data']['options'] as $option_value ) {
+				if ( is_array( $option_value ) ) {
+					$options[ $option_value[0] ] = $option_value[1];
+				} else {
+					$options[ $option_value ] = $option_value;
 				}
-
-				$this->field_data['options'] = $options;
 			}
+
+			$this->field_data['options'] = $options;
 		}
 
 		$this->type->setup_field( $this );
@@ -205,7 +204,7 @@ class WPBDP_Form_Field {
 				break;
 			}
 
-			$n++;
+			++$n;
 		}
 
 		return $shortname;
@@ -540,6 +539,7 @@ class WPBDP_Form_Field {
 		} else {
 			$this->validation_errors[] = $error;
 		}
+		$this->validation_errors = array_unique( $this->validation_errors );
 	}
 
 	public function validate_categories( $categories = array() ) {
@@ -577,7 +577,7 @@ class WPBDP_Form_Field {
 			return '';
 		}
 
-		if ( $this->has_display_flag( 'private' ) && ! current_user_can( 'administrator' ) ) {
+		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
 			return '';
 		}
 
@@ -611,7 +611,7 @@ class WPBDP_Form_Field {
 			return '';
 		}
 
-		if ( $this->has_display_flag( 'private' ) && ! current_user_can( 'administrator' ) ) {
+		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
 			return '';
 		}
 
@@ -1078,12 +1078,12 @@ class WPBDP_Form_Field {
 	public function is_privacy_field() {
 		return in_array( $this->get_tag(), self::$default_tags );
 	}
-
 }
 
 /**
  * @deprecated Since 3.4.2. Use {@link WPBDP_Form_Field} instead.
  */
+// phpcs:ignore
 class WPBDP_FormField extends WPBDP_Form_Field {
 	public function __construct( $attrs = array() ) {
 		_deprecated_constructor( __CLASS__, '3.4.2', 'WPBDP_Form_Field' );

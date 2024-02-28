@@ -180,8 +180,8 @@ class WPBDP__Assets {
 
 		// Enable `grunt-contrib-watch` livereload.
 		// Live reload server will be started with the watch task per target.
-		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && in_array( $_SERVER['REMOTE_ADDR'], [ '127.0.0.1', '::1' ] ) ) {
-			wp_enqueue_script( 'livereload', 'http://localhost:35729/livereload.js?snipver=1', [], WPBDP_VERSION, true );
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && in_array( $_SERVER['REMOTE_ADDR'], array( '127.0.0.1', '::1' ) ) ) {
+			wp_enqueue_script( 'livereload', 'http://localhost:35729/livereload.js?snipver=1', array(), WPBDP_VERSION, true );
 		}
 	}
 
@@ -261,15 +261,98 @@ class WPBDP__Assets {
 			$rootline_color = '#569AF6';
 		}
 
-		$css = 'html{
-			--bd-main-color:' . $rootline_color . ';
-			--bd-main-color-20:' . $rootline_color . '33;
-			--bd-main-color-8:' . $rootline_color . '14;
-			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) . 'px;
-			--bd-thumbnail-height:' . esc_attr( $thumbnail_height ) . 'px;
-		}';
+		$css_vars = array(
+			'--bd-main-color'       => $rootline_color,
+			'--bd-main-color-20'    => $rootline_color . '33',
+			'--bd-main-color-8'     => $rootline_color . '14',
+			'--bd-thumbnail-width'  => $thumbnail_width . 'px',
+			'--bd-thumbnail-height' => $thumbnail_height . 'px',
+		);
+
+		$this->add_default_theme_css( $css_vars );
+
+		$css = 'html,body{';
+		foreach ( $css_vars as $var => $value ) {
+			$css .= esc_attr( $var ) . ':' . esc_attr( $value ) . ';';
+		}
+		$css .= '}';
+
+		if ( isset( $css_vars['--bd-button-padding-left'] ) ) {
+			// Workaround to only add the padding when defined to avoid overriding the theme padding.
+			$css .= '.wpbdp-with-button-styles .wpbdp-checkout-submit input[type="submit"],
+			.wpbdp-with-button-styles .wpbdp-ratings-reviews input[type="submit"],
+			.wpbdp-with-button-styles .comment-form input[type="submit"],
+			.wpbdp-with-button-styles .wpbdp-main-box input[type="submit"],
+			.wpbdp-with-button-styles .listing-actions a.wpbdp-button,
+			.wpbdp-with-button-styles .wpbdp-button-secondary,
+			.wpbdp-with-button-styles .wpbdp-button{
+				padding-left: ' . esc_attr( $css_vars['--bd-button-padding-left'] ) . ';
+				padding-right: ' . esc_attr( $css_vars['--bd-button-padding-left'] ) . ';
+			}';
+		}
+
+		if ( isset( $css_vars['--bd-button-font-size'] ) ) {
+			$css .= 'a.wpbdp-button, .wpbdp-button{
+				font-size: ' . esc_attr( $css_vars['--bd-button-font-size'] ) . ';
+			}';
+		}
 
 		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $css ) );
+	}
+
+	/**
+	 * Get settings from the theme.json file and add them to the CSS variables.
+	 *
+	 * @since 6.4
+	 *
+	 * @param array $css_vars The CSS variables.
+	 * @return void
+	 */
+	private function add_default_theme_css( &$css_vars ) {
+		$settings = wp_get_global_styles();
+
+		if ( isset( $settings['color']['text'] ) ) {
+			$css_vars['--bd-text-color'] = $settings['color']['text'];
+		}
+
+		if ( isset( $settings['color']['background'] ) ) {
+			$css_vars['--bd-bg-color'] = $settings['color']['background'];
+		}
+
+		if ( empty( $settings['elements']['button'] ) ) {
+			return;
+		}
+		$button = $settings['elements']['button'];
+
+		if ( isset( $button['color']['text'] ) ) {
+			$css_vars['--bd-button-text-color'] = $button['color']['text'];
+		}
+
+		if ( isset( $button['color']['background'] ) ) {
+			$css_vars['--bd-button-bg-color'] = $button['color']['background'];
+			if ( $css_vars['--bd-main-color'] === '#569AF6' ) {
+				// If default color, use theme button color.
+				$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
+			} else {
+				// If the color is set, use it as the button background.
+				$css_vars['--bd-button-bg-color'] = $css_vars['--bd-main-color'];
+				$css_vars['--bd-button-text-color'] = '#fff';
+			}
+		}
+
+		if ( isset( $button['typeography']['fontSize'] ) ) {
+			$css_vars['--bd-button-font-size'] = $button['typeography']['fontSize'];
+		}
+
+		if ( isset( $button['spacing']['padding'] ) ) {
+			$padding = $button['spacing']['padding'];
+			if ( isset( $padding['left'] ) ) {
+				$css_vars['--bd-button-padding-left'] = $padding['left'];
+			}
+			if ( isset( $padding['top'] ) ) {
+				$css_vars['--bd-button-padding-top'] = $padding['top'];
+			}
+		}
 	}
 
 	/**
@@ -313,7 +396,7 @@ class WPBDP__Assets {
 						array(),
 						WPBDP_VERSION
 					);
-					$n++;
+					++$n;
 				}
 			}
 		}

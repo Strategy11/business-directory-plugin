@@ -5,8 +5,12 @@
  */
 
 // Font Sizes
-@font-size-sm: 12px;
-@font-size-md: 14px;
+@font-size-sm: var( --wp--preset--font-size--small, 12px );
+@font-size-md: var( --wp--preset--font-size--medium, 14px );
 
 // Line Heights
-@line-height-body: 1.8;
+@line-height: 1.8;
+
+/* Font Size */
+@font-size-body: @font-size-md;
+@font-size-h2: var(--wp--preset--font-size--x-large, 32px );

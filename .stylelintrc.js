@@ -165,6 +165,7 @@ module.exports = {
 		'selector-class-pattern': null,
 		'function-url-quotes': null,
 		'no-invalid-position-at-import-rule': null,
+		'selector-class-pattern': null,
 		'order/order': [ 'custom-properties', 'declarations' ],
 		'order/properties-order': [
 			...content,

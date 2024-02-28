@@ -28,6 +28,4 @@ class WPBDP_LatestListingsWidget extends WPBDP_Listings_Widget {
 			)
 		);
 	}
-
 }
-

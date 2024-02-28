@@ -73,7 +73,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 				esc_attr( $label ),
 				$field->get_id()
 			);
-			$i++;
+			++$i;
 		}
 
 		return $html;
@@ -171,7 +171,4 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
 		return strval( $value );
 	}
-
-
 }
-

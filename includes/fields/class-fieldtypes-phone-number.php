@@ -32,6 +32,4 @@ class WPBDP_FieldTypes_Phone_Number extends WPBDP_FieldTypes_TextField {
 
 		return parent::store_field_value( $field, $post_id, $value );
 	}
-
 }
-

@@ -1,10 +1,10 @@
 === Business Directory Plugin - Easy Listing Directories for WordPress ===
 Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
-Requires at least: 4.8
-Requires PHP: 5.6
-Tested up to: 6.3.1
-Stable tag: 6.3.10
+Requires at least: 5.9
+Requires PHP: 7.0
+Tested up to: 6.4.2
+Stable tag: 6.4
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,29 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4 =
+* New: Update the front-end search and create listing appearance.
+* New: Use colors and styles from block themes for buttons.
+* New: Add a plan selection layout when submitting a listing.
+* New: Add wpbdp_minimum_backend_role hook to override the default 'manage_options' role required for access to the admin area.
+* Fix: The listing appearance option was showing as HTML.
+* Fix: Updates for better PHP 8.2 compatibility.
+* Fix: Russian characters were causing fatal errors in some cases.
+
+= 6.3.11 =
+* New: Allow editors to edit listings from front-end.
+* New: Update Twitter logo to X.
+* New: Add edit listing link on payment confirmation page. This is espeically helpful after a listing was claimed.
+* Security: The payment history on a listing could be cleared by non-admins.
+* Security hardening: Check nonce and user role with all back-end ajax calls.
+* Rename a few social site settings to make them more clear.
+* Improve the layout of social icons.
+* Switch from using roles to capabilities. Now a custom role could have access by using the 'manage_posts' and 'edit_others_posts' capabilities.
+* Change the wording above the contact form so it makes sense for any directory type.
+* Hide more admin notices from other plugins. This was confusing when it looked like the notice was from BD.
+* Fix: WP 6.4 compatibility. The category page lost its content with some themes.
+* Code: Start autoloading more classes for lower baseline memory usage.
+
 = 6.3.10 =
 * New: Add more detail in the Recaptcha validation message for editors or higher for help debugging. Any error code and V3 score will be shown.
 * Security: It was possible for a logged in "contributor" user to delete an admin listing.
@@ -208,26 +231,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Listing titles were not always showing.
 * Fix: Resolve some CSS issues on the single page.
 * Fix: The BD sidebar didn't fill the page in cases where the WP admin nav was short.
-
-= 6.3.2 =
-* Update: Users with the Editor role can manage listings in the admin area.
-* New: The default theme styles are now minified.
-* Fix: Editors, Authors, and Contributors see the navigation sidebar now.
-* Fix: Editors were getting an extra link in the admin menu that led to a 404 page.
-* Fix: On some sites, admin pages were timing out when loading the menu icons.
-* Fix: Listing titles were not always showing in the Enfold theme.
-* Dev/update: All PHP codes are beautified.
-
-= 6.3.1 =
-* Update: The "Add New Listing" button on the backend was redirecting to the front end, but now it remains in the backend.
-* Fix: The Download Premium notice stays dismissed after the click.
-
-= 6.3 =
-* New: New payments made in test mode will now show as test payments. Any new test payments will be excluded from the plan stats.
-* New: The sample CSV file for imports can now be downloaded to use as a template.
-* New: Use the front-end form to submit listings for admins too.
-* New: When editing a listing in the admin area without a plan selected, make it clear that the plan is missing and automatically scroll to the plan setting.
-* Fix: Resolve the PHP 8 error when uploading some attachments.
-* Fix: When a BD theme is installed without a license, show a more clear message instead of "Invalid".
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

@@ -43,5 +43,4 @@ class WPBDP_RandomListingsWidget extends WPBDP_Listings_Widget {
 
 		return $rand;
 	}
-
 }

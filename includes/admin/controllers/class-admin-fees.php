@@ -4,6 +4,8 @@
  */
 class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
+	public $api;
+
 	function __construct() {
 		parent::__construct();
 		$this->api = $this->wpbdp->fees;
@@ -107,7 +109,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	private function insert_or_update_fee( $mode ) {
 		if ( ! empty( $_POST ) ) {
 			$nonce = array( 'nonce' => 'wpbdp-fees' );
-			WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+			WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role(), $nonce );
 		}
 
 		if ( ! empty( $_POST['fee'] ) ) {
@@ -213,7 +215,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * @since 5.15.3
 	 */
 	public function ajax_update_listing_plan() {
-		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		WPBDP_App_Helper::permission_check();
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
 		$plan_id = wpbdp_get_var(
@@ -294,7 +296,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		$fee = $this->get_or_die();
 
 		if ( $fee->delete() ) {
-			wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
+			wpbdp_admin_message( sprintf( __( 'Plan "%s" deleted.', 'business-directory-plugin' ), $fee->label ) );
 		}
 
 		return $this->_redirect( 'index' );
@@ -312,5 +314,4 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		}
 		return $this->_redirect( 'index' );
 	}
-
 }

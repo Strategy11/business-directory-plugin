@@ -21,7 +21,7 @@
 }
 
 .wpbdp-listing .wpbdp-button {
-	padding: 0.74375em 0.775em 0.68125em;
+	padding: .7em 1em;
 }
 
 .wpbdp-listing .listing-thumbnail {
@@ -34,7 +34,7 @@
 }
 
 .wpbdp-listing .listing-details {
-	margin-left: 160px;
+	margin-left: calc(150px + 24px);
 }
 
 .wpbdp-listing .listing-details.wpbdp-no-thumb {

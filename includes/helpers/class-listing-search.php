@@ -154,7 +154,6 @@ class WPBDP__Listing_Search {
 		// wpbdp_debug_e($this->query);
 
 		$this->results = $wpdb->get_col( $this->query );
-
 	}
 
 	private function _traverse_tree( $tree ) {

@@ -22,6 +22,8 @@ class WPBDP_Themes {
 
 	private $folder_name = 'businessdirectory-themes';
 
+	public $admin;
+
 	function __construct() {
 		$this->find_themes();
 
@@ -212,7 +214,8 @@ class WPBDP_Themes {
 
 		echo '<style>';
 		foreach ( $wpbdp->fee_colors as $id => $color ) {
-			echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . $id . '{ background-color: ' . esc_attr( $color ) . '}';
+			echo '.wpbdp-listing-excerpt.wpbdp-listing-plan-id-' . esc_html( $id ) .
+				'{ background-color: ' . esc_attr( $color ) . '}';
 		}
 		echo '</style>';
 	}
@@ -975,7 +978,7 @@ class WPBDP_Themes {
 	private function check_theme_required_version() {
 		$theme_requires = $this->get_active_theme_data()->requires;
 		if ( defined( 'WPBDP_VERSION' ) && $theme_requires && version_compare( WPBDP_VERSION, $theme_requires, '<' ) ) {
-			add_action( 'admin_notices', array( $this,'update_bd_admin_notice' ) );
+			add_action( 'admin_notices', array( $this, 'update_bd_admin_notice' ) );
 		}
 	}
 	/**
@@ -1020,11 +1023,10 @@ function wpbdp_x_part( $template_id, $vars = array() ) {
 	if ( ! $echo ) {
 		return $part;
 	}
-	echo $part;
+	echo $part; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 function wpbdp_add_template_dir( $dir_or_file ) {
 	global $wpbdp;
 	return $wpbdp->themes->add_template_dir( $dir_or_file );
 }
-

@@ -59,8 +59,8 @@ class WPBDP__Settings {
 					switch ( $setting['type'] ) {
 						case 'multicheck':
 							if ( is_array( $value ) ) {
-								$input[ $setting_id ]  = array_filter( $value, 'strlen' );
-								$output[ $setting_id ] = array_filter( $value, 'strlen' );
+								$input[ $setting_id ]  = wpbdp_array_filter( $value );
+								$output[ $setting_id ] = wpbdp_array_filter( $value );
 							}
 
 							break;
@@ -464,7 +464,7 @@ class WPBDP__Settings {
 					break;
 				case 'required':
 					if ( is_array( $value ) ) {
-						$value = array_filter( $value, 'strlen' );
+						$value = wpbdp_array_filter( $value );
 					}
 
 					if ( empty( $value ) ) {
@@ -572,6 +572,7 @@ class WPBDP__Settings {
 }
 
 // For backwards compat.
+// phpcs:ignore
 class WPBDP_Settings extends WPBDP__Settings {
 	public function __construct() {
 		_deprecated_constructor( __CLASS__, '5.0', 'WPBDP__Settings' );

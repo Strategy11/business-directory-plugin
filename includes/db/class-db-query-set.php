@@ -240,5 +240,4 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 		$query = "SELECT $distinct $fields FROM $table $join $where $groupby $orderby $limits";
 		return $query;
 	}
-
 }

@@ -132,6 +132,7 @@ module.exports = function( grunt ) {
 					src: [
 						'**/*', '!**/*~', '!**/**.less', '!**/tests/**', '!**/**/less',
 						'!**/.*', '!**/phpcs.xml', '!**/phpunit.xml', '!**/composer.json',
+						'!**/composer.lock',
 						'!**/package.json', '!**/package-lock.json', '!**/node_modules/**',
 						'!**/*.md', '!**/*.yml', '!**/zip-cli.php',
 						'!**/vendor/**',
@@ -142,6 +143,7 @@ module.exports = function( grunt ) {
 		grunt.config.set( 'replace.setversion-' + id, {
 			src: [
 				basedir + '/business-directory-' + id + '.php',
+				basedir + '/includes/class-' + id + '.php',
 				basedir + '/includes/class-wpbdp.php',
 				basedir + '/classes/class-wpbdp-premium-module.php',
 				basedir + '/includes/models/*module.php',
@@ -192,7 +194,12 @@ module.exports = function( grunt ) {
 			src: [
 				basedir + '/*.php',
 				basedir + '/**/*.php',
+				basedir + '/**/*.js',
+				'!' + basedir + '/**/*.min.js',
+				'!' + basedir + '/Gruntfile.js',
 				basedir + '/!node_modules/**',
+				basedir + '/!vendor/**',
+				basedir + '/!vendors/**',
 				basedir + '/!translations/**',
 				basedir + '/!languages/**',
 				basedir + '/!tests/**'

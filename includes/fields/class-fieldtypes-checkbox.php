@@ -87,7 +87,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 			$html .= esc_attr( $label );
 			$html .= '</label></div>';
 
-			$i++;
+			++$i;
 		}
 
 		if ( '1' == $field->data( 'allow_select_all' ) ) {
@@ -176,7 +176,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 				$value = array( $value );
 			}
 
-			$value = implode( "\t", array_filter( $value, 'strlen' ) );
+			$value = implode( "\t", wpbdp_array_filter( $value ) );
 		}
 
 		parent::store_field_value( $field, $post_id, $value );
@@ -291,4 +291,3 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 		return empty( array_filter( (array) $value ) );
 	}
 }
-

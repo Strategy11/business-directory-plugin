@@ -13,6 +13,7 @@ jQuery(function( $ ) {
 jQuery(document).ready(function($){
     if ( $( '.wpbdp-js-select2' ).length > 0 && $.fn.selectWoo ) {
         $( '.wpbdp-js-select2' ).selectWoo();
+		document.body.classList.add( 'wpbdp-has-select2' );
     }
 
     // Move the featured badge to the theme h1.
@@ -104,7 +105,7 @@ jQuery(document).ready(function($){
 
     $( '.wpbdp-listing-contact-form .send-message-button' ).on( 'click', function() {
 		$( this ).removeClass( 'wpbdp-show-on-mobile' ).hide();
-		$( '.wpbdp-listing-contact-form .contact-form-wrapper' ).show();
+		$( '.wpbdp-listing-contact-form .contact-form-wrapper' ).removeClass( 'wpbdp-hide-on-mobile' );
     });
 
     $( '.wpbdp-listings-sort-options select' ).on( 'change', function(e) {
@@ -502,3 +503,111 @@ WPBDP.fileUpload = {
 } )( jQuery );
 
 // }}
+
+/**
+ * Advanced Search Modal.
+ *
+ * @since 6.4
+ */
+( function ( $ ) {
+    var openClass = 'wpbdp-has-modal';
+	$html = $( 'html' );
+	$body = $( 'body' );
+
+	$( '.wpbdp-advanced-search-link' ).on( 'click', function(event) {
+		event.preventDefault();
+
+		$searchPage = $( '.wpbdp-search-page.wpbdp-modal' );
+
+		if ( $searchPage.length > 0 ) {
+			$html.toggleClass( openClass );
+			return;
+		}
+
+		$body.append( '<div class="wpbdp-loader-wrapper"><span class="wpbdp-spinner"></span></div>' );
+		var search = location.search.substring(1);
+		var qs = parse_query_string(search);
+		qs.action = "wpbdp_ajax";
+		qs.handler = "search__get_search_content";
+		$.ajax( wpbdp_global.ajaxurl, {
+			data: qs,
+			type: 'POST',
+			success: function( response ) {
+				$( response.data )
+					.addClass( 'wpbdp-modal' )
+					.appendTo( $body );
+
+				showResetBtn();
+
+				$html.addClass( openClass );
+				$body.find( '.wpbdp-loader-wrapper' ).remove();
+			}
+		});
+	} );
+
+	function showResetBtn() {
+		var data, showReset,
+			searchTerms = document.getElementById( 'wpdbp-searched-terms' );
+		if ( ! searchTerms ) {
+			return;
+		}
+
+		// Pass along the current search.
+		data = searchTerms.getAttribute( 'data-search-terms' );
+		data = JSON.parse( data );
+		for ( var key in data ) {
+			if ( data.hasOwnProperty( key ) ) {
+				var input = $( '[name="listingfields[' + key + ']"]' );
+				if ( input.length > 0 ) {
+					showReset = true;
+				}
+			}
+		}
+		if ( showReset ) {
+			$( '.wpbdp-modal .reset' ).show();
+		}
+	}
+
+	$( document ).on( 'click', '.wpbdp-modal-close, .wpbdp-modal-overlay', function() {
+		$html.removeClass( openClass );
+	} );
+
+	$( document ).on( 'click', '#wpbdp-search-form .reset', function(e) {
+		e.preventDefault();
+		$( '#wpbdp-search-form [name^="listingfields"][type!="radio"][type!="checkbox"]' ).val('');
+		$( '#wpbdp-search-form [type="radio"]' ).attr('checked', false);
+		$( '#wpbdp-search-form [type="checkbox"]' ).attr('checked', false);
+	} );
+
+} )( jQuery );
+
+/**
+ * Zipcode Search
+ *
+ * @since 6.4
+ */
+// TODO: After updating to the new design and releasing a new version,
+//       we can transfer the Zipcode codes to the ZIP Search add-on.
+//       Currently, due to the codes being production-ready,
+//       these codes are available here.
+function parse_query_string(query) {
+	var vars = query.split("&");
+	var query_string = {};
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split("=");
+		var key = decodeURIComponent(pair.shift());
+		var value = decodeURIComponent(pair.join("="));
+		// If first entry with this name
+		if (typeof query_string[key] === "undefined") {
+			query_string[key] = value;
+			// If second entry with this name
+		} else if (typeof query_string[key] === "string") {
+			var arr = [query_string[key], value];
+			query_string[key] = arr;
+			// If third or later entry with this name
+		} else {
+			query_string[key].push(value);
+		}
+	}
+	return query_string;
+}

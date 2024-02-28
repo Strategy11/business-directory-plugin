@@ -29,7 +29,7 @@ class WPBDP_Listing_Display_Helper {
 		$vars = apply_filters( 'wpbdp_listing_template_vars', $vars, $post->ID );
 		$vars = apply_filters( 'wpbdp_excerpt_template_vars', $vars, $post->ID );
 
-		$n++;
+		++$n;
 
 		$pre_content = '';
 		if ( $n === 1 ) {
@@ -241,7 +241,7 @@ class WPBDP_Listing_Display_Helper {
 		$list->freeze();
 		return array(
 			'fields'              => $list,
-			'listing_has_excerpt' => $list->has_excerpt()
+			'listing_has_excerpt' => $list->has_excerpt(),
 		);
 	}
 
@@ -438,11 +438,13 @@ class WPBDP_Listing_Display_Helper {
 
 		return $schema;
 	}
-
 }
 
 /**
+ * Is this class used?
+ *
  * @since 4.0
  */
+// phpcs:ignore
 class _WPBDP_Listing_Display_Image {
 }

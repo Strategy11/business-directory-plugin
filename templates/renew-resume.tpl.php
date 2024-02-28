@@ -22,6 +22,7 @@
 
 <div class="wpbdp-payment-invoice">
 	<?php
+	// phpcs:ignore WordPress.Security.EscapeOutput
 	echo $invoice_resume;
 	?>
 </div>

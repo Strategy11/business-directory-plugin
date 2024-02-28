@@ -5,6 +5,10 @@
  */
 class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 
+	public $csv_import;
+
+	public $csv_export;
+
 	public function __construct() {
 		parent::__construct();
 
@@ -57,11 +61,9 @@ class WPBDP__Admin__Csv extends WPBDP__Admin__Controller {
 			);
 		}
 
-		echo wpbdp_admin_header( $args );
-		echo wpbdp_admin_notices();
-		echo $output;
+		echo wpbdp_admin_header( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpbdp_admin_notices(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wpbdp_admin_footer();
 	}
-
 }
-
