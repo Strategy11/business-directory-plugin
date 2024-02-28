@@ -9,7 +9,7 @@ $categories = wp_get_post_terms( $listing->get_id(), WPBDP_CATEGORY_TAX, array( 
 		<?php $category = get_term( $cat_id, WPBDP_CATEGORY_TAX ); ?>
 		<li>
 			<?php echo esc_html( $category->name ); ?>
-			<input type="hidden" name="listingfields[<?php echo absint( $category_field->get_id() ); ?>][]" value="<?php echo esc_attr( $category->term_id ); ?>" />
+			<input type="hidden" name="listingfields[<?php echo absint( $category_field->get_id() ); ?>][]" value="<?php echo absint( $category->term_id ); ?>" />
 		</li>
 	<?php endforeach; ?>
 	</ul>
@@ -29,7 +29,7 @@ $categories = wp_get_post_terms( $listing->get_id(), WPBDP_CATEGORY_TAX, array( 
 				)
 			);
 			?>
-			<input type="hidden" name="listing_plan" value="<?php echo esc_attr( $plan->id ); ?>" />
+			<input type="hidden" name="listing_plan" value="<?php echo absint( $plan->id ); ?>" />
 		</div>
 	</div>
 </div>
