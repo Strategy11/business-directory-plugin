@@ -11,9 +11,6 @@
 class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	public function __construct() {
-		add_action( 'wp_ajax_stripe_manual_integration', array( $this, 'process_manual_integration' ) );
-		add_action( 'wp_ajax_nopriv_stripe_manual_integration', array( $this, 'process_manual_integration' ) );
-
 		add_action( 'wp_ajax_stripe_verify_payment', array( $this, 'stripe_verify_payment' ) );
 		add_action( 'wp_ajax_nopriv_stripe_verify_payment', array( $this, 'stripe_verify_payment' ) );
 
@@ -31,11 +28,11 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	public function get_logo() {
-		return wpbdp_render_page( dirname( dirname( __FILE__ ) ) . '/templates/stripe-credit-cards-logo.tpl.php' );
+		return wpbdp_render_page( dirname( __DIR__ ) . '/templates/stripe-credit-cards-logo.tpl.php' );
 	}
 
 	/**
-	 * @param string $currency
+	 * @param string $currency Currency code.
 	 */
 	public function supports_currency( $currency ) {
 		// List taken from https://stripe.com/docs/currencies#charge-currencies.
@@ -74,32 +71,25 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		);
 	}
 
+	/**
+	 * @since x.x
+	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'stripe', 'https://js.stripe.com/v3/', array(), '3' );
-		if ( $this->get_option( 'use-custom-form' ) ) {
-			wp_enqueue_script( 'wpbdp-stripe-custom-form' );
+		wp_enqueue_script( 'stripe', 'https://js.stripe.com/v3/', array(), '3', false );
+		wp_enqueue_script( 'wpbdp-stripe-checkout' );
 
-			wp_localize_script(
-				'wpbdp-stripe-custom-form',
-				'wpbdp_checkout_stripe_js',
-				array(
-					'publishable_key' => $this->get_publishable_key(),
-					'ajaxurl'         => admin_url( 'admin-ajax.php' ),
-				)
-			);
-		} else {
-			wp_enqueue_script( 'wpbdp-stripe-checkout' );
-
-			wp_localize_script(
-				'wpbdp-stripe-checkout',
-				'wpbdp_checkout_stripe_js',
-				array(
-					'stripeNotAvailable' => __( 'Stripe gateway is not currently available. Please reload this page or select another gateway (if available).', 'business-directory-plugin' ),
-				)
-			);
-		}
+		wp_localize_script(
+			'wpbdp-stripe-checkout',
+			'wpbdp_checkout_stripe_js',
+			array(
+				'stripeNotAvailable' => __( 'Stripe gateway is not currently available. Please reload this page or select another gateway (if available).', 'wpbdp-stripe' ),
+			)
+		);
 	}
 
+	/**
+	 * @since x.x
+	 */
 	private function set_stripe_info() {
 		WPBDPStrpApiHelper::initialize_api();
 
@@ -122,8 +112,11 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	/**
 	 * Override this in the individual gateway class.
 	 *
-	 * @param WPBDP_Payment $payment
 	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment Payment object.
+	 *
+	 * @return string
 	 */
 	public function get_payment_link( $payment ) {
 		$url = 'https://dashboard.stripe.com/';
@@ -154,12 +147,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 				'default' => __( 'This payment may take several days to finish processing.', 'business-directory-plugin' ),
 			),
 			array(
-				'id'      => 'use-custom-form',
-				'name'    => __( 'Use a custom form instead of a "Stripe Checkout" button?', 'business-directory-plugin' ),
-				'type'    => 'checkbox',
-				'default' => false,
-			),
-			array(
 				'id'      => 'billing-address-check',
 				'name'    => __( 'Verify billing address during checkout?', 'business-directory-plugin' ),
 				'type'    => 'checkbox',
@@ -176,64 +163,10 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @param array $form
-	 */
-	public function validate_form( $form ) {
-		$errors = array();
-		if ( ! $this->get_option( 'use-custom-form' ) ) {
-			return $errors;
-		}
-
-		$required = array( 'payer_email', 'payer_name' );
-
-		if ( $this->get_option( 'billing-address-check' ) ) {
-			$required = array_merge( $required, array( 'payer_address', 'payer_city', 'payer_zip', 'payer_state', 'payer_country' ) );
-		}
-
-		foreach ( $required as $req_field ) {
-			$field_value = isset( $form[ $req_field ] ) ? $form[ $req_field ] : '';
-
-			if ( ! $field_value ) {
-				/* translators: %s is the field name */
-				$errors[ $req_field ] = sprintf( __( 'This field is required (%s).', 'business-directory-plugin' ), $req_field );
-			}
-		}
-
-		if ( $errors ) {
-			echo wp_json_encode(
-				[
-					'error' => implode( '<br/>', $errors ),
-				]
-			);
-			wp_die();
-		}
-
-		return $errors;
-	}
-
-	/**
-	 * @param WPBDP_Payment $payment
-	 * @param array         $errors
+	 * @param WPBDP_Payment $payment Payment object.
+	 * @param array         $errors  Errors.
 	 */
 	public function render_form( $payment, $errors = array() ) {
-		if ( $this->get_option( 'use-custom-form' ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$post = (array) stripslashes_deep( $_POST );
-			$data = array();
-			if ( isset( $post['form'] ) ) {
-				parse_str( (string) $post['form'], $data );
-			}
-
-			return wpbdp_render_page(
-				trailingslashit( dirname( plugin_dir_path( __FILE__ ) ) ) . '/templates/stripe-checkout-billing-form.tpl.php',
-				array(
-					'ajaxURL'        => $payment->get_checkout_url(),
-					'verify_address' => $this->get_option( 'billing-address-check' ),
-					'data'           => $data,
-				)
-			);
-		}
-
 		$stripe = $this->configure_stripe( $payment );
 
 		$content = '<div class="wpbdp-msg wpbdp-error stripe-errors" style="display:none;">';
@@ -250,14 +183,14 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @param WPBDP_Payment $payment
+	 * @param WPBDP_Payment $payment Payment object.
 	 */
 	private function configure_stripe( $payment ) {
 		$this->set_stripe_info();
 
 		$stripe = array(
 			'key'            => $this->get_publishable_key(),
-			'amount'         => round( $payment->amount * 100, 0 ),
+			'amount'         => $this->formated_amount( $payment->amount ),
 			'name'           => empty( $this->get_option( 'checkout-title' ) ) ? get_bloginfo( 'name' ) : $this->get_option( 'checkout-title' ),
 			'description'    => $payment->summary,
 			'currency'       => strtolower( $payment->currency_code ),
@@ -267,7 +200,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			'paymentId'      => $payment->id,
 		);
 
-		$session = $this->get_stripe_session( $payment );
+		$session = $this->create_stripe_session( $payment );
 
 		if ( is_wp_error( $session ) ) {
 			$stripe['sessionId']    = false;
@@ -285,132 +218,25 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return $stripe;
 	}
 
-	public function process_manual_integration() {
-		$post = (object) stripslashes_deep( $this->get_posted_json() );
-
-		$form = array();
-		if ( isset( $post->form ) ) {
-			parse_str( $post->form, $form );
-		}
-
-		if ( ! $form ) {
-			echo wp_json_encode(
-				array(
-					'error' => __( 'Invalid request.', 'business-directory-plugin' ),
-				)
-			);
-			wp_die();
-		}
-
-		$payment = wpbdp_get_payment( array( 'payment_key' => $form['payment'] ) );
-
-		if ( ! $payment ) {
-			echo wp_json_encode(
-				array(
-					'error' => __( 'Payment was not generated.', 'business-directory-plugin' ),
-				)
-			);
-			wp_die();
-		}
-
-		$this->set_stripe_info();
-
-		$payment_method_id = ! empty( $post->payment_method_id ) ? $post->payment_method_id : '';
-		$payment_intent_id = ! empty( $post->payment_intent_id ) ? $post->payment_intent_id : '';
-		try {
-			if ( ! $payment->has_item_type( 'recurring_plan' ) ) {
-				if ( ! empty( $payment_method_id ) ) {
-					// Create the PaymentIntent.
-					$intent = \Stripe\PaymentIntent::create(
-						array(
-							'payment_method'      => $payment_method_id,
-							'amount'              => round( $payment->amount * 100, 0 ),
-							'currency'            => strtolower( $payment->currency_code ),
-							'confirmation_method' => 'manual',
-							'confirm'             => true,
-						)
-					);
-				}
-				if ( ! empty( $payment_intent_id ) ) {
-					$intent = \Stripe\PaymentIntent::retrieve( $payment_intent_id );
-					$intent->confirm();
-				}
-			} else {
-				if ( empty( $payment_intent_id ) && ! empty( $payment_method_id ) ) {
-					$this->save_payer_address_from_form( $payment, $form );
-					$customer = $this->get_stripe_customer( $payment );
-
-					if ( ! $customer ) {
-						echo wp_json_encode(
-							array(
-								'error' => __( 'Stripe Customer couldn\'t be retrieved.', 'business-directory-plugin' ),
-							)
-						);
-						wp_die();
-					}
-
-					$plan = $this->get_stripe_plan( $payment );
-
-					if ( ! $plan ) {
-						echo wp_json_encode(
-							array(
-								'error' => __( 'Stripe Customer couldn\'t be retrieved.', 'business-directory-plugin' ),
-							)
-						);
-						wp_die();
-					}
-
-					$payment_method = \Stripe\PaymentMethod::retrieve( $payment_method_id );
-					$payment_method->attach(
-						array(
-							'customer' => $customer->id,
-						)
-					);
-
-					$payment->status = 'pending';
-					$payment->save();
-
-					$subscription = \Stripe\Subscription::create(
-						array(
-							'customer'               => $customer->id,
-							'default_payment_method' => $payment_method->id,
-							'payment_behavior'       => 'allow_incomplete',
-							'items'                  => array(
-								array(
-									'plan' => $plan->id,
-								),
-							),
-							'metadata'               => array(
-								'wpbdp_payment_id' => $payment->id,
-							),
-						)
-					);
-
-					$invoice = \Stripe\Invoice::retrieve( $subscription->latest_invoice );
-					$intent  = \Stripe\PaymentIntent::retrieve( $invoice->payment_intent );
-				}
-				if ( ! empty( $payment_intent_id ) ) {
-					$intent = \Stripe\PaymentIntent::retrieve(
-						$payment_intent_id
-					);
-				}
-			}
-		} catch ( Exception $e ) {
-			echo wp_json_encode(
-				array(
-					'error' => $e->getMessage(),
-				)
-			);
-			wp_die();
-		}
-		$this->generatePaymentResponse( $payment, $intent );
+	/**
+	 * Return a json error and die.
+	 *
+	 * @param string $error Error message.
+	 * @return void
+	 */
+	private function handle_exception( $error ) {
+		echo wp_json_encode(
+			array(
+				'error' => $error,
+			)
+		);
 		wp_die();
 	}
 
 	public function process_payment( $payment ) {
 		$token        = wpbdp_get_var( array( 'param' => 'stripeToken' ), 'post' );
 		$stripe_email = wpbdp_get_var( array( 'param' => 'stripeEmail' ), 'post' );
-		if ( ! $token || ( ! $this->get_option( 'use-custom-form' ) && ! $stripe_email ) ) {
+		if ( ! $token || ! $stripe_email ) {
 			return array(
 				'result' => 'failure',
 				'error'  => __( 'No Stripe token was generated.', 'business-directory-plugin' ),
@@ -418,32 +244,32 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 		// Use token.
 		$this->set_stripe_info();
-		if ( ! $this->get_option( 'use-custom-form' ) ) {
-			$payment->payer_first_name      = wpbdp_get_var( array( 'param' => 'stripeBillingName' ), 'post' );
-			$payment->payer_email           = $stripe_email;
-			$payment->payer_data['address'] = wpbdp_get_var( array( 'param' => 'stripeBillingAddressLine1' ), 'post' );
-			$payment->payer_data['state']   = wpbdp_get_var( array( 'param' => 'stripeBillingAddressState' ), 'post' );
-			$payment->payer_data['city']    = wpbdp_get_var( array( 'param' => 'stripeBillingAddressCity' ), 'post' );
-			$payment->payer_data['country'] = wpbdp_get_var( array( 'param' => 'stripeBillingAddressCountry' ), 'post' );
-			$payment->payer_data['zip']     = wpbdp_get_var( array( 'param' => 'stripeBillingAddressZip' ), 'post' );
-		}
+		$payment->payer_first_name      = wpbdp_get_var( array( 'param' => 'stripeBillingName' ), 'post' );
+		$payment->payer_email           = $stripe_email;
+		$payment->payer_data['address'] = wpbdp_get_var( array( 'param' => 'stripeBillingAddressLine1' ), 'post' );
+		$payment->payer_data['state']   = wpbdp_get_var( array( 'param' => 'stripeBillingAddressState' ), 'post' );
+		$payment->payer_data['city']    = wpbdp_get_var( array( 'param' => 'stripeBillingAddressCity' ), 'post' );
+		$payment->payer_data['country'] = wpbdp_get_var( array( 'param' => 'stripeBillingAddressCountry' ), 'post' );
+		$payment->payer_data['zip']     = wpbdp_get_var( array( 'param' => 'stripeBillingAddressZip' ), 'post' );
+
 		try {
 			if ( ! $payment->has_item_type( 'recurring_plan' ) ) {
 				// Regular payment.
 				$charge = \Stripe\Charge::create(
 					array(
-						'amount'      => round( $payment->amount * 100, 0 ),
+						'amount'      => $this->formated_amount( $payment->amount ),
 						'currency'    => strtolower( $payment->currency_code ),
 						'source'      => $token,
 						'description' => $payment->summary,
 					)
 				);
+
 				$payment->gateway_tx_id = $charge->id;
 				$payment->status        = 'completed';
 				$payment->save();
 			} else {
 				// Subscription.
-				$item = $payment->find_item( 'recurring_plan' );
+				$item     = $payment->find_item( 'recurring_plan' );
 				$response = array(
 					'result' => 'failure',
 				);
@@ -498,7 +324,11 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 				'result' => 'failure',
 				'error'  => $message,
 			);
-		} catch ( Exception $e ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
+		} catch ( Exception $e ) {
+			return array(
+				'result' => 'failure',
+				'error'  => $e->getMessage(),
+			);
 		}
 
 		return array( 'result' => 'failure' );
@@ -528,7 +358,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		*/
 		if ( $intent->status === 'succeeded' ) {
 			if ( ! $payment->has_item_type( 'recurring_plan' ) ) {
-				$payment->status = 'completed';
+				$payment->status        = 'completed';
 				$payment->gateway_tx_id = $intent->id;
 				$this->save_payer_address( $payment, $intent->charges->data[0]->billing_details );
 				$payment->save();
@@ -542,7 +372,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			// Invalid status.
 			$payment->status = 'failed';
 			$payment->save();
-			echo wp_json_encode( [ 'error' => 'Invalid PaymentIntent status' ], 500 );
+			echo wp_json_encode( array( 'error' => 'Invalid PaymentIntent status' ), 500 );
 		}
 		wp_die();
 	}
@@ -561,6 +391,9 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		wp_die();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function process_postback() {
 		$json = $this->get_posted_json();
 
@@ -570,11 +403,11 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		$this->set_stripe_info();
 
-		@header( 'HTTP/1.1 200 OK' );
 		try {
+			header( 'HTTP/1.1 200 OK' );
 			$event = \Stripe\Event::retrieve( $json->id );
 		} catch ( Exception $e ) {
-			wp_die( $e->getMessage() );
+			wp_die( esc_html( $e->getMessage() ) );
 		}
 
 		$invoice = $event->data->object;
@@ -604,8 +437,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 					if ( $subscription ) {
 						$parent_payment = $subscription->get_parent_payment();
 					}
-
-					$this->maybe_remove_session_data( $invoice, $parent_payment );
 				}
 
 				$this->process_payment_succeeded( $subscription, $parent_payment, $invoice );
@@ -624,9 +455,14 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	/**
 	 * @since x.x
+	 *
+	 * @throws Exception If the response is not valid.
 	 */
 	private function get_posted_json() {
-		$input = @file_get_contents( 'php://input' );
+		$input = file_get_contents( 'php://input' );
+		if ( false === $input ) {
+			throw new Exception( 'Invalid input' );
+		}
 		return json_decode( $input );
 	}
 
@@ -688,17 +524,20 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			return;
 		}
 
-		$charge = $event->object->charges->data[0];
+		$payment->gateway = $this->get_id();
+		$payment->status  = 'completed';
 
-		if ( $charge ) {
+		if ( ! empty( $event->object->charges ) && ! empty( $event->object->charges->data[0] ) ) {
+			$charge = $event->object->charges->data[0];
 			$this->save_payer_address( $payment, $charge->billing_details );
 
-			$payment->gateway       = $this->get_id();
 			$payment->gateway_tx_id = $charge->id;
-			$payment->status        = 'completed';
-
-			$payment->save();
+		} elseif ( ! empty( $event->object->latest_charge ) ) {
+			// Fallback to get the charge id from the invoice.
+			$payment->gateway_tx_id = $event->object->latest_charge;
 		}
+
+		$payment->save();
 	}
 
 	private function maybe_create_listing_subscription( $invoice ) {
@@ -758,7 +597,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$subscription->record_payment( $payment );
 
 		return $subscription;
-
 	}
 
 	private function get_stripe_customer( $payment, $create = true ) {
@@ -767,19 +605,27 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$user_ids              = $this->get_possible_user_ids( $payment );
 		$possible_customer_ids = $user_ids['possible_customer_ids'];
 		$user_ids              = $user_ids['user_ids'];
+		$this_user             = 0;
 
-		foreach ( $possible_customer_ids as $sid ) {
+		foreach ( $possible_customer_ids as $uid => $sid ) {
 			try {
 				$customer = WPBDPStrpApiHelper::get_customer( array( 'customer_id' => $sid ) );
 
-				if ( ! $customer || ( isset( $customer->deleted ) && $customer->deleted ) ) {
+				if ( ! $customer || ! is_object( $customer ) || ( isset( $customer->deleted ) && $customer->deleted ) ) {
 					$customer = null;
-				} else {
-					// TODO: check if this is a decoy.
-					continue;
 				}
 			} catch ( Exception $e ) {
 				$customer = null;
+			}
+
+			if ( $customer ) {
+				$this_user = $uid;
+				break;
+			}
+
+			if ( $uid ) {
+				// Remove the user meta if the customer doesn't exist.
+				delete_user_meta( $uid, $this->customer_meta_name() );
 			}
 		}
 
@@ -787,20 +633,24 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			return $customer;
 		}
 
-		foreach ( $user_ids as $uid ) {
-			delete_user_meta( $uid, '_wpbdp_stripe_customer_id' );
-		}
-
 		if ( ! $create ) {
 			return $customer;
 		}
 
-		$customer = \Stripe\Customer::create( $this->new_customer_data( $payment ) );
+		try {
+			$customer = \Stripe\Customer::create( $this->new_customer_data( $payment ) );
+		} catch ( Exception $e ) {
+			$customer = null;
+		}
 		if ( $customer ) {
 			$this->set_listing_stripe_customer( $payment->listing_id, $customer->id );
 
-			foreach ( $user_ids as $uid ) {
-				update_user_meta( $uid, '_wpbdp_stripe_customer_id', $customer->id );
+			if ( ! $this_user ) {
+				$this_user = reset( $user_ids );
+			}
+
+			if ( $this_user ) {
+				update_user_meta( $this_user, $this->customer_meta_name(), $customer->id );
 			}
 		}
 
@@ -808,43 +658,76 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
+	 * Return the user ids in order of priority.
+	 * The customer ID will include the last used payment method, so use carefully.
+	 *
 	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment Payment object.
+	 * @return array
 	 */
 	private function get_possible_user_ids( $payment ) {
-		$user_ids                = array();
-		$possible_customer_ids   = array();
-		$possible_customer_ids[] = get_post_meta( $payment->listing_id, '_wpbdp_stripe_customer_id', true );
-
-		$post = get_post( $payment->listing_id );
-		if ( $post->post_author ) {
-			$default_author = wpbdp_get_option( 'default-listing-author' );
-			if ( $default_author !== $post->post_author ) {
-				$possible_customer_ids[] = get_user_meta( $post->post_author, '_wpbdp_stripe_customer_id', true );
-				$user_ids[]              = $post->post_author;
-
-				$user = get_user_by( 'email', $payment->payer_email );
-				if ( $user && $user->ID !== $post->post_author ) {
-					$possible_customer_ids[] = get_user_meta( $user->ID, '_wpbdp_stripe_customer_id', true );
-					$user_ids[]              = $user->ID;
-				}
-			}
+		$user_ids = array();
+		if ( is_user_logged_in() ) {
+			// The default user is only allowed here.
+			$user_ids[] = get_current_user_id();
 		}
 
+		$default_author = (int) wpbdp_get_option( 'default-listing-author' );
+		$post           = get_post( $payment->listing_id );
+		if ( empty( $user_ids ) && $post->post_author && $default_author && $default_author !== (int) $post->post_author ) {
+			$user_ids[] = $post->post_author;
+		}
+
+		$possible_customer_ids   = array();
+		$possible_customer_ids[] = get_post_meta( $payment->listing_id, $this->customer_meta_name(), true );
+
+		$user_ids = array_filter( array_unique( $user_ids ) );
+		foreach ( $user_ids as $user_id ) {
+			$possible_customer_ids[ $user_id ] = get_user_meta( $user_id, $this->customer_meta_name(), true );
+		}
 		$possible_customer_ids = array_filter( array_unique( $possible_customer_ids ) );
-		$user_ids              = array_filter( array_unique( $user_ids ) );
 
 		return compact( 'user_ids', 'possible_customer_ids' );
+	}
+
+	/**
+	 * The name of the post or user meta, depending on test or live mode.
+	 *
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function customer_meta_name() {
+		return '_wpbdp_stripe_customer_id' . ( $this->in_test_mode() ? '_test' : '' );
 	}
 
 	/**
 	 * @since x.x
 	 */
 	private function new_customer_data( $payment ) {
-		$details  = $payment->get_payer_details();
+		$details = $payment->get_payer_details();
+		if ( is_user_logged_in() ) {
+			// Use the account email instead of the email on the listing if logged in.
+			$user             = wp_get_current_user();
+			$details['email'] = $user->user_email;
+			if ( empty( $details['first_name'] ) ) {
+				$details['first_name'] = $user->user_firstname;
+			}
+			if ( empty( $details['last_name'] ) ) {
+				$details['last_name'] = $user->user_lastname;
+			}
+			if ( empty( $details['first_name'] ) ) {
+				$details['first_name'] = $user->display_name;
+			}
+		}
+
 		$new_customer = array(
 			'email'   => $details['email'],
 			'address' => array(),
+			'name'    => trim( $details['first_name'] . ' ' . $details['last_name'] ),
 		);
+
 		$fill = array( 'city', 'state', 'country', 'postal_code' => 'zip' );
 		foreach ( $fill as $k => $f ) {
 			if ( is_numeric( $k ) ) {
@@ -861,14 +744,14 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	private function set_listing_stripe_customer( $listing_id, $customer_id ) {
 		if ( $listing_id && ! empty( $customer_id ) ) {
-			update_post_meta( $listing_id, '_wpbdp_stripe_customer_id', $customer_id );
+			update_post_meta( $listing_id, $this->customer_meta_name(), $customer_id );
 		}
 	}
 
 	private function get_session_parameters( $payment ) {
 		$parameters = array(
 			'billing_address_collection' => $this->get_option( 'billing-address-check' ) ? 'required' : 'auto',
-			'payment_method_types'       => [ 'card' ],
+			'payment_method_types'       => array( 'card' ),
 			'client_reference_id'        => $payment->id,
 			'success_url'                => $payment->get_return_url(),
 			'cancel_url'                 => $payment->get_cancel_url(),
@@ -878,6 +761,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		if ( $payment->has_item_type( 'recurring_plan' ) ) {
 			$plan = $this->get_stripe_plan( $payment );
+
 			$parameters['subscription_data'] = array(
 				'items'    => array(
 					array(
@@ -893,7 +777,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 				array(
 					'name'        => esc_attr( get_bloginfo( 'name' ) ),
 					'description' => $payment->summary,
-					'amount'      => round( $payment->amount * 100, 0 ),
+					'amount'      => $this->formated_amount( $payment->amount ),
 					'currency'    => strtolower( $payment->currency_code ),
 					'quantity'    => 1,
 				),
@@ -930,12 +814,13 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	private function get_recurring_plan_fingerprint( $recurring, $payment ) {
 		$params = array(
-			'amount'         => round( $recurring['amount'] * 100, 0 ),
+			'amount'         => $this->formated_amount( $recurring['amount'] ),
 			'currency'       => strtolower( $payment->currency_code ),
 			'interval'       => 'day',
 			'interval_count' => intval( $recurring['fee_days'] ),
 		);
 
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 		return hash( 'crc32b', serialize( $params ) );
 	}
 
@@ -957,13 +842,14 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			'interval_count' => intval( $plan->interval_count ),
 		);
 
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 		return hash( 'crc32b', serialize( $params ) );
 	}
 
 	private function create_stripe_plan( $id, $recurring, $payment ) {
 		return \Stripe\Plan::create(
 			array(
-				'amount'         => round( $recurring['amount'] * 100, 0 ),
+				'amount'         => $this->formated_amount( $recurring['amount'] ),
 				'currency'       => strtolower( $payment->currency_code ),
 				'interval'       => 'day',
 				'interval_count' => $recurring['fee_days'],
@@ -982,7 +868,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			return;
 		}
 
-		$customer_id = $session->customer;
+		$customer_id   = $session->customer;
 		$pending_items = (array) get_option( 'wpbdm-stripe-pending-items', array() );
 
 		if ( $pending_items ) {
@@ -1004,9 +890,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		update_option( 'wpbdm-stripe-pending-items', $pending_items );
-
-		return;
-
 	}
 
 	private function is_valid_discount( $discount, $pending_discount ) {
@@ -1015,17 +898,17 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			if ( ! $discount_item ) {
 				return false;
 			}
+
+			if ( (int) $this->formated_amount( $discount['amount'] ) !== $discount_item->amount ) {
+				$discount_item->delete();
+				return false;
+			}
+
+			if ( time() - $discount_item->date > HOUR_IN_SECONDS ) {
+				$discount_item->delete();
+				return false;
+			}
 		} catch ( Exception $e ) {
-			return false;
-		}
-
-		if ( (int) round( $discount['amount'] * 100, 0 ) !== $discount_item->amount ) {
-			$discount_item->delete();
-			return false;
-		}
-
-		if ( current_time( 'timestamp' ) - $discount_item->date > HOUR_IN_SECONDS ) {
-			$discount_item->delete();
 			return false;
 		}
 
@@ -1041,26 +924,32 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		try {
-			$discount_item = \Stripe\InvoiceItem::create(
-				array(
-					'amount'      => round( $discount['amount'] * 100, 0 ),
-					'currency'    => $payment->currency_code,
-					'customer'    => $customer_id,
-					'description' => $discount['description'],
-				)
-			);
+			if ( $payment->has_item_type( 'recurring_plan' ) ) {
+				$discount_item = \Stripe\InvoiceItem::create(
+					array(
+						'amount'      => $this->formated_amount( $discount['amount'] ),
+						'currency'    => $payment->currency_code,
+						'customer'    => $customer_id,
+						'description' => $discount['description'],
+					)
+				);
+			} else {
+				$discount_item = '';
+			}
 		} catch ( Exception $e ) {
 			return '';
 		}
 
 		return $discount_item;
-
 	}
 
 	/**
-	 * @param WPBDP_Listing               $listing
-	 * @param WPBDP__Listing_Subscription $subscription
 	 * @since x.x
+	 *
+	 * @param WPBDP_Listing               $listing      Listing object.
+	 * @param WPBDP__Listing_Subscription $subscription Subscription object.
+	 *
+	 * @throws Exception If the subscription can't be canceled.
 	 */
 	public function cancel_subscription( $listing, $subscription ) {
 		$this->set_stripe_info();
@@ -1074,7 +963,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 				throw new Exception( $message );
 			}
 
-			if ( current_user_can( 'administrator' ) ) {
+			if ( current_user_can( 'manage_options' ) ) {
 				$cancel = $sub->cancel();
 			} else {
 				$customer = $this->get_stripe_customer( $subscription->get_parent_payment(), false );
@@ -1086,8 +975,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			}
 		} catch ( Exception $e ) {
 			$message = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'business-directory-plugin' );
-			throw new Exception( $message . ' ' . esc_html( $e->getMessage() ) );
-			$cancel = false;
+			$cancel  = false;
+			throw new Exception( esc_html( $message . ' ' . $e->getMessage() ) );
 		}
 
 		if ( $cancel && ( $cancel->status === 'canceled' || $cancel->cancel_at_period_end == true ) ) {
@@ -1103,15 +992,19 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @return array|false The payment if found otherwise false.
 	 */
 	public function verify_transaction( $payment ) {
-		$events = \Stripe\Event::all(
-			array(
-				'type'    => 'checkout.session.completed',
-				'created' => array(
-					// Check for events created in the last 24 hours.
-					'gte' => time() - 24 * 60 * 60,
-				),
-			)
-		);
+		try {
+			$events = \Stripe\Event::all(
+				array(
+					'type'    => 'checkout.session.completed',
+					'created' => array(
+						// Check for events created in the last 24 hours.
+						'gte' => time() - 24 * 60 * 60,
+					),
+				)
+			);
+		} catch ( Exception $e ) {
+			return false;
+		}
 
 		$completed = array_filter(
 			$events->data,
@@ -1139,91 +1032,19 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$payment->payer_data['zip']     = $billing_details->address->postal_code;
 	}
 
-	// ToDo: Integrate this with save_payer_address function.
-	public function save_payer_address_from_form( &$payment, $form ) {
-		$payment->payer_first_name      = $form['payer_name'];
-		$payment->payer_email           = $form['payer_email'];
-
-		$fields = array( 'address', 'state', 'city', 'country', 'zip' );
-		foreach ( $fields as $f ) {
-			$payment->payer_data[ $f ] = isset( $form[ 'payer_' . $f ] ) ? $form[ 'payer_' . $f ] : '';
-		}
-	}
-
-	private function get_stripe_session( $payment ) {
-		$active_sessions = get_option( 'wpbdm-stripe-active-sessions', array() );
-
-		if ( empty( $active_sessions ) || ! array_key_exists( $payment->id, $active_sessions ) ) {
-			return $this->create_stripe_session( $payment );
-		}
-
-		if ( current_time( 'timestamp' ) - $active_sessions[ $payment->id ]['date'] > DAY_IN_SECONDS ) {
-			unset( $active_sessions[ $payment->id ] );
-			update_option( 'wpbdm-stripe-active-sessions', $active_sessions );
-
-			return $this->create_stripe_session( $payment );
-		}
-
-		try {
-			$session = \Stripe\Checkout\Session::retrieve( $active_sessions[ $payment->id ]['session_id'] );
-
-			if ( empty( $session->id ) ) {
-				unset( $active_sessions[ $payment->id ] );
-				update_option( 'wpbdm-stripe-active-sessions', $active_sessions );
-
-				return $this->create_stripe_session( $payment );
-			}
-		} catch ( Exception $e ) {
-			return new WP_Error( 'stripe_no_session', $e->getMessage() );
-		}
-
-		return $session;
-	}
-
 	private function create_stripe_session( $payment ) {
 		$payment->gateway = $this->get_id();
 
 		try {
 			$session = \Stripe\Checkout\Session::create( $this->get_session_parameters( $payment ) );
-
 			if ( empty( $session->id ) ) {
 				return new WP_Error( 'stripe_no_session', $session );
 			}
-
-			$this->update_active_sessions( $payment, $session );
 		} catch ( Exception $e ) {
 			return new WP_Error( 'stripe_no_session', $e->getMessage() );
 		}
 
 		return $session;
-	}
-
-	private function maybe_remove_session_data( $invoice, $parent_payment ) {
-		$pending_items = get_option( 'wpbdm-stripe-pending-items', array() );
-		if ( $pending_items && isset( $invoice->customer ) && array_key_exists( $invoice->customer, $pending_items ) ) {
-			unset( $pending_items[ $invoice->customer ] );
-
-			update_option( 'wpbdm-stripe-pending-items', $pending_items );
-		}
-
-		$active_sessions = get_option( 'wpbdm-stripe-active-sessions', array() );
-		if ( $active_sessions && $parent_payment && array_key_exists( $parent_payment->id, $active_sessions ) ) {
-			unset( $active_sessions[ $parent_payment->id ] );
-
-			update_option( 'wpbdm-stripe-active-sessions', $active_sessions );
-		}
-	}
-
-	private function update_active_sessions( $payment, $session ) {
-		$active_sessions = get_option( 'wpbdm-stripe-active-sessions', array() );
-
-		$active_sessions[ $payment->id ] = array(
-			'customer_id' => $session->customer,
-			'session_id'  => $session->id,
-			'date'        => current_time( 'timestamp' ),
-		);
-
-		update_option( 'wpbdm-stripe-active-sessions', $active_sessions );
 	}
 
 	public function remove_expired_invoice_items() {
@@ -1239,7 +1060,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$items         = array();
 
 		foreach ( $pending_items as $customer_id => $data ) {
-			if ( current_time( 'timestamp' ) - $data['date'] < HOUR_IN_SECONDS ) {
+			if ( time() - $data['date'] < HOUR_IN_SECONDS ) {
 				$items[ $customer_id ] = $data;
 				continue;
 			}
@@ -1259,6 +1080,15 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		update_option( 'wpbdm-stripe-pending-items', $items );
+	}
 
+	/**
+	 * @since x.x
+	 *
+	 * @param float $amount Amount to be formatted.
+	 * @return float
+	 */
+	private function formated_amount( $amount ) {
+		return round( $amount * 100, 0 );
 	}
 }
