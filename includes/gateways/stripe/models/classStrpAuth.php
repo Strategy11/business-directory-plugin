@@ -57,8 +57,9 @@ class WPBDPStrpAuth {
 		if ( $intent_is_processing ) {
 			// Append an additional processing message to the end of the success message.
 			$filter = function( $message ) {
-				$stripe_settings = WPBDPStrpAppHelper::get_settings();
-				$message        .= '<p>' . esc_html( $stripe_settings->settings->processing_message ) . '</p>';
+				$message .= '<p>' .
+					esc_html__( 'This payment may take several days to finish processing.', 'business-directory-plugin' ) .
+					'</p>';
 				return $message;
 			};
 			add_filter( 'wpbdp_content', $filter );

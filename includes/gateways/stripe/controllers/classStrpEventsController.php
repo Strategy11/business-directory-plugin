@@ -32,8 +32,15 @@ class WPBDPStrpEventsController {
 
 		if ( ! $payment && $this->status === 'refunded' ) {
 			// If the refunded payment doesn't exist, stop here.
-			WPBDPStrpLog::log_message( 'Stripe Webhook Message', 'No action taken. The refunded payment does not exist' );
-			echo json_encode(
+			wpbdp_insert_log(
+				array(
+					'log_type' => 'payment.get',
+					'message'  => 'Stripe Webhook Message',
+					'data'     => array( 'response' => 'No action taken. The refunded payment does not exist.' ),
+				)
+			);
+
+			echo wp_json_encode(
 				array(
 					'response' => 'no payment exists',
 					'success'  => false,
@@ -71,7 +78,7 @@ class WPBDPStrpEventsController {
 
 			$u = $wpbdp_payment->update( $payment->id, $payment_values );
 
-			echo json_encode(
+			echo wp_json_encode(
 				array(
 					'response' => 'Payment ' . $payment->id . ' was updated',
 					'success'  => true,
@@ -176,8 +183,15 @@ class WPBDPStrpEventsController {
 	private function prepare_from_invoice() {
 		if ( empty( $this->invoice->subscription ) ) {
 			// This isn't a subscription.
-			WPBDPStrpLog::log_message( 'Stripe Webhook Message', 'No action taken since this is not a subscription.' );
-			echo json_encode(
+			wpbdp_insert_log(
+				array(
+					'log_type' => 'subscription.get',
+					'message'  => 'Stripe Webhook Message',
+					'data'     => array( 'response' => 'No action taken since this is not a subscription.' ),
+				)
+			);
+
+			echo wp_json_encode(
 				array(
 					'response' => 'Invoice missing',
 					'success'  => false,
@@ -227,8 +241,16 @@ class WPBDPStrpEventsController {
 		$sub     = $wpbdp_sub->get_one_by( $sub_id, 'sub_id' );
 		if ( ! $sub ) {
 			// If this isn't an existing subscription, it must be a charge for another site/plugin
-			WPBDPStrpLog::log_message( 'Stripe Webhook Message', 'No action taken since there is not a matching subscription for ' . $sub_id );
-			echo json_encode(
+			wpbdp_insert_log(
+				array(
+					'log_type'  => 'subscription.get',
+					'object_id' => $sub_id,
+					'message'   => 'Stripe Webhook Message',
+					'data'      => array( 'response' => 'No action taken since there is not a matching subscription for ' . $sub_id ),
+				)
+			);
+
+			echo wp_json_encode(
 				array(
 					'response' => 'Invoice missing',
 					'success'  => false,

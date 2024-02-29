@@ -140,13 +140,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 				'default' => '',
 			),
 			array(
-				'id'      => 'processing_message',
-				'name'    => __( 'Processing Message', 'business-directory-plugin' ),
-				'type'    => 'textarea',
-				'desc'    => __( 'The text used to notify users that a payment is still processing and will not be finalized for several days', 'business-directory-plugin' ),
-				'default' => __( 'This payment may take several days to finish processing.', 'business-directory-plugin' ),
-			),
-			array(
 				'id'      => 'billing-address-check',
 				'name'    => __( 'Verify billing address during checkout?', 'business-directory-plugin' ),
 				'type'    => 'checkbox',

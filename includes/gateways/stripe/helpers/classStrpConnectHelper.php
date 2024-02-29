@@ -247,7 +247,6 @@ class WPBDPStrpConnectHelper {
 	 * @return string
 	 */
 	private static function get_url_to_connect_server() {
-		return 'http://stripe.local/';
 		return 'https://api.businessdirectoryplugin.com/';
 	}
 
@@ -417,14 +416,14 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @return string|false
+	 * @return string|void
 	 */
 	private static function get_oauth_redirect_url() {
 		$mode = self::get_mode_value_from_post();
 
 		if ( self::get_account_id( $mode ) ) {
-			// do not allow for initialize if there is already a configured account id
-			return false;
+			// Do not allow for initialize if there is already a configured account id.
+			wp_send_json_error( array( 'message' => 'Cannot initialize another account' ) );
 		}
 
 		$additional_body = array(
@@ -433,11 +432,12 @@ class WPBDPStrpConnectHelper {
 			'frm_strp_connect_mode' => $mode,
 		);
 
-		delete_option( 'wpbdp_stripe_lite_last_verify_attempt' ); // Clear the transient so it doesn't fail.
+		// Clear the transient so it doesn't fail.
+		delete_option( 'wpbdp_stripe_lite_last_verify_attempt' );
 		$data = self::post_to_connect_server( 'oauth_request', $additional_body );
 
 		if ( is_string( $data ) ) {
-			return false;
+			wp_send_json_error( array( 'message' => wp_strip_all_tags( $data ) ) );
 		}
 
 		if ( ! empty( $data->password ) ) {
@@ -445,7 +445,11 @@ class WPBDPStrpConnectHelper {
 		}
 
 		if ( ! is_object( $data ) || empty( $data->redirect_url ) ) {
-			return false;
+			$error = 'No redirect url in response.';
+			if ( is_string( $data ) ) {
+				$error .= ' ' . wp_strip_all_tags( $data );
+			}
+			wp_send_json_error( array( 'message' => $error ) );
 		}
 
 		return $data->redirect_url;
@@ -579,7 +583,10 @@ class WPBDPStrpConnectHelper {
 	 */
 	public static function render_stripe_connect_settings_container() {
 		self::register_settings_scripts();
-		echo '<div id="wpbdp_strp_settings_container"></div>';
+		?>
+		<div id="wpbdp_strp_settings_container"></div>
+		<div id="wpbdp_strp_connect_error" class="wpbdp-hidden"></div>
+		<?php
 	}
 
 	/**
@@ -690,7 +697,13 @@ class WPBDPStrpConnectHelper {
 		}
 		if ( is_string( $response ) ) {
 			self::$latest_error_from_stripe_connect = $response;
-			WPBDPStrpLog::log_message( 'Stripe Connect Error', $response );
+			wpbdp_insert_log(
+				array(
+					'log_type' => 'stripe.connect',
+					'message'  => 'Stripe Connect Error',
+					'data'     => array( 'response' => wp_strip_all_tags( $response ) ),
+				)
+			);
 		} else {
 			self::$latest_error_from_stripe_connect = '';
 		}

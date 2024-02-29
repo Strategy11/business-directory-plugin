@@ -68,20 +68,28 @@
 					renderStripeConnectSettingsButton();
 				}
 			},
-			isTriggerInTestMode( trigger )
+			isTriggerInTestMode( trigger ),
+			function( data ) {
+				const messageEle = document.getElementById( 'wpbdp_strp_connect_error' );
+				if ( messageEle ) {
+					messageEle.innerHTML = data.message;
+					messageEle.classList.remove( 'wpbdp-hidden' );
+				}
+				renderStripeConnectSettingsButton();
+			}
 		);
 	}
 
-	function strpSettingsAjaxRequest( action, success, testMode ) {
+	function strpSettingsAjaxRequest( action, success, testMode, fail ) {
 		var data = {
 			action: action,
 			testMode: testMode,
 			nonce: wpbdp_global.nonce
 		};
-		postAjax( data, success );
+		postAjax( data, success, fail );
 	}
 
-	function postAjax( data, success ) {
+	function postAjax( data, success, fail ) {
 		var xmlHttp, params;
 
 		xmlHttp = new XMLHttpRequest();
@@ -103,6 +111,8 @@
 							response.data = {};
 						}
 						success( response.data );
+					} else if ( fail ) {
+						fail( response.data );
 					}
 				}
 			}
