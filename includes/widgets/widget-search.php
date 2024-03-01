@@ -23,6 +23,8 @@ class WPBDP_SearchWidget extends WP_Widget {
 			$title = _x( 'Search the Business Directory', 'widgets', 'business-directory-plugin' );
 		}
 
+		$instance = $this->instance_defaults( $instance );
+
 		printf(
 			'<p><label for="%s">%s</label> <input class="widefat" id="%s" name="%s" type="text" value="%s" /></p>',
 			esc_attr( $this->get_field_id( 'title' ) ),
@@ -40,7 +42,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 			esc_attr( $this->get_field_id( 'use_basic_form' ) ),
 			esc_attr( $this->get_field_name( 'form_mode' ) ),
 			'basic',
-			wpbdp_getv( $instance, 'form_mode', 'basic' ) === 'basic' ? 'checked="checked"' : '',
+			$instance['form_mode'] === 'basic' ? 'checked="checked"' : '',
 			esc_attr( $this->get_field_id( 'use_basic_form' ) ),
 			esc_html_x( 'Basic', 'widgets', 'business-directory-plugin' )
 		);
@@ -50,7 +52,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 			esc_attr( $this->get_field_id( 'use_advanced_form' ) ),
 			esc_attr( $this->get_field_name( 'form_mode' ) ),
 			'advanced',
-			wpbdp_getv( $instance, 'form_mode', 'basic' ) === 'advanced' ? 'checked="checked"' : '',
+			$instance['form_mode'] === 'advanced' ? 'checked="checked"' : '',
 			esc_attr( $this->get_field_id( 'use_advanced_form' ) ),
 			esc_html_x( 'Advanced', 'widgets', 'business-directory-plugin' )
 		);
@@ -60,45 +62,83 @@ class WPBDP_SearchWidget extends WP_Widget {
 		echo esc_html_x( 'Search Fields (advanced mode):', 'widgets', 'business-directory-plugin' ) . '<br/>';
 		echo ' <span class="description">' . esc_html_x( 'Display the following fields in the form.', 'widgets', 'business-directory-plugin' ) . '</span>';
 
-		$instance_fields = wpbdp_getv( $instance, 'search_fields', array() );
-
-		$api = wpbdp_formfields_api();
-
-		printf( '<select name="%s[]" multiple="multiple">', esc_attr( $this->get_field_name( 'search_fields' ) ) );
-
-		foreach ( $api->get_fields() as $field ) {
-			if ( $field->display_in( 'search' ) ) {
-				printf(
-					'<option value="%s" %s>%s</option>',
-					esc_attr( $field->get_id() ),
-					( ! $instance_fields || in_array( $field->get_id(), $instance_fields ) ) ? 'selected="selected"' : '',
-					esc_html( $field->get_label() )
-				);
-			}
-		}
-
-		echo '</select>';
+		self::show_search_field_selector( $instance );
 		echo '</p>';
 		return '';
 	}
 
+	/**
+	 * @since x.x
+	 *
+	 * @param array $instance
+	 *
+	 * @return void
+	 */
+	private function show_search_field_selector( $instance ) {
+		$api = wpbdp_formfields_api();
+
+		printf(
+			'<select name="%s[]" multiple="multiple">',
+			esc_attr( $this->get_field_name( 'search_fields' ) )
+		);
+
+		foreach ( $api->get_fields() as $field ) {
+			if ( ! $field->display_in( 'search' ) ) {
+				continue;
+			}
+
+			printf(
+				'<option value="%s" %s>%s</option>',
+				esc_attr( $field->get_id() ),
+				( ! $instance['search_fields'] || in_array( $field->get_id(), $instance['search_fields'] ) ) ? 'selected="selected"' : '',
+				esc_html( $field->get_label() )
+			);
+		}
+
+		echo '</select>';
+	}
+
 	public function update( $new, $old ) {
 		$instance                  = $old;
-		$instance['title']         = strip_tags( $new['title'] );
+		$instance['title']         = wp_strip_all_tags( $new['title'] );
 		$instance['form_mode']     = wpbdp_getv( $new, 'form_mode', 'basic' );
 		$instance['search_fields'] = wpbdp_getv( $new, 'search_fields', array() );
 		return $instance;
 	}
 
+	/**
+	 * Default Form Settings.
+	 *
+	 * @since  x.x
+	 *
+	 * @return array
+	 */
+	protected function defaults() {
+		return array(
+			'title'         => '',
+			'search_fields' => array(),
+			'form_mode'     => 'basic',
+		);
+	}
+
+	/**
+	 * Instance defaults
+	 *
+	 * @return array
+	 */
+	protected function instance_defaults( $instance ) {
+		return array_merge( $this->defaults(), $instance );
+	}
+
 	public function widget( $args, $instance ) {
+		$instance = $this->instance_defaults( $instance );
 		wp_enqueue_style( 'wpbdp-widgets' );
 
-		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
-		echo $before_widget;
+		echo $args['before_widget'];
 		if ( ! empty( $title ) ) {
-			echo $before_title . $title . $after_title;
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
 		printf( '<form action="%s" method="get">', esc_attr( wpbdp_url( '/' ) ) );
@@ -110,7 +150,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 		echo '<input type="hidden" name="wpbdp_view" value="search" />';
 		echo '<input type="hidden" name="dosrch" value="1" />';
 
-		if ( wpbdp_getv( $instance, 'form_mode', 'basic' ) === 'advanced' ) {
+		if ( $instance['form_mode'] === 'advanced' && ! empty( $instance['search_fields'] ) ) {
 			$fields_api = wpbdp_formfields_api();
 
 			foreach ( $fields_api->get_fields() as $field ) {
@@ -132,7 +172,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 		</form>
 		<?php
 
-		echo $after_widget;
+		echo $args['after_widget'];
 
 		wp_enqueue_style( 'wpbdp-base-css' );
 	}
