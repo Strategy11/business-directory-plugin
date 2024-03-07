@@ -9,6 +9,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WPBDPStrpLinkController {
 
 	/**
+	 * Get the Stripe redirect url.
+	 *
+	 * @return void
+	 */
+	public static function redirect_to_checkout() {
+		$new_session = wpbdp_get_var( array( 'param' => 'session' ) );
+		if ( ! $new_session ) {
+			wp_die();
+		}
+
+		// TODO: Verify info for the session.
+		$url = WPBDPStrpConnectHelper::send_to_checkout( $new_session );
+		if ( ! $url ) {
+			wp_send_json_error( array( 'message' => 'Unable to create a checkout session.' ) );
+		}
+
+		wp_send_json_success( array( 'url' => $url ) );
+	}
+
+	/**
 	 * Process the form input and call handle_one_time_stripe_link_return_url if all of the required data is being submitted.
 	 *
 	 * @since x.x
@@ -62,7 +82,7 @@ class WPBDPStrpLinkController {
 			die();
 		}
 
-		$intent = WPBDPStrpAppHelper::call_stripe_helper_class( 'get_intent', $intent_id );
+		$intent = WPBDPStrpApiHelper::get_intent( $intent_id );
 		if ( ! is_object( $intent ) ) {
 			$redirect_helper->handle_error( 'intent_does_not_exist' );
 			die();
@@ -92,12 +112,6 @@ class WPBDPStrpLinkController {
 
 		$redirect_helper->set_entry_id( $entry->id );
 
-		$action = WPBDPStrpActionsController::get_stripe_link_action( $entry->form_id );
-		if ( ! $action ) {
-			$redirect_helper->handle_error( 'no_stripe_link_action' );
-			die();
-		}
-
 		if ( 'succeeded' !== $intent->status ) {
 			if ( 'processing' === $intent->status ) {
 				//WPBDPStrpPaymentsController::change_payment_status( $payment, 'processing' );
@@ -125,7 +139,6 @@ class WPBDPStrpLinkController {
 		self::maybe_update_intent( $intent, $action, $entry );
 
 		$wpbdp_payment->update( $payment->id, $new_payment_values );
-		WPBDPStrpActionsController::trigger_payment_status_change( compact( 'status', 'payment' ) );
 
 		$redirect_helper->handle_success( $entry, isset( $charge ) ? $charge->id : '' );
 		die();
@@ -150,7 +163,7 @@ class WPBDPStrpLinkController {
 			'value' => $action->post_content['description'],
 		);
 		$new_values = array( 'description' => WPBDPStrpAppHelper::process_shortcodes( $shortcode_atts ) );
-		WPBDPStrpAppHelper::call_stripe_helper_class( 'update_intent', $intent->id, $new_values );
+		WPBDPStrpApiHelper::update_intent( $intent->id, $new_values );
 	}
 
 	/**
@@ -175,7 +188,7 @@ class WPBDPStrpLinkController {
 		}
 
 		// Verify the setup intent.
-		$setup_intent = WPBDPStrpAppHelper::call_stripe_helper_class( 'get_setup_intent', $setup_id );
+		$setup_intent = WPBDPStrpApiHelper::get_setup_intent( $setup_id );
 		if ( ! is_object( $setup_intent ) ) {
 			$redirect_helper->handle_error( 'intent_does_not_exist' );
 			die();
@@ -196,13 +209,6 @@ class WPBDPStrpLinkController {
 
 		$redirect_helper->set_entry_id( $entry->id );
 
-		// Verify it's an action with Stripe link enabled.
-		$action = WPBDPStrpActionsController::get_stripe_link_action( $entry->form_id );
-		if ( ! is_object( $action ) ) {
-			$redirect_helper->handle_error( 'no_stripe_link_action' );
-			die();
-		}
-
 		$customer_id       = $setup_intent->customer;
 		$payment_method_id = self::get_link_payment_method( $setup_intent );
 		if ( ! $payment_method_id ) {
@@ -215,32 +221,30 @@ class WPBDPStrpLinkController {
 		$new_charge = array(
 			'customer'               => $customer_id,
 			'default_payment_method' => $payment_method_id,
-			'plan' => WPBDPStrpSubscriptionHelper::get_plan_from_atts(
+			'plan'                   => WPBDPStrpSubscriptionHelper::get_plan_from_atts(
 				array(
-					'action' => $action,
+					//'action' => $action,
 					'amount' => $amount,
 				)
 			),
 			'expand'           => array( 'latest_invoice.charge' ),
 		);
 
-		if ( ! WPBDPStrpPaymentTypeHandler::should_use_automatic_payment_methods( $action ) ) {
-			$new_charge['payment_settings'] = array(
-				'payment_method_types' => WPBDPStrpPaymentTypeHandler::get_payment_method_types( $action ),
-			);
-		}
+		$new_charge['payment_settings'] = array(
+			'payment_method_types' => array( 'card' ),
+		);
 
 		$atts = array(
 			'action' => $action,
 			'entry'  => $entry,
 		);
 
-		$trial_end = WPBDPStrpActionsController::get_trial_end_time( $atts );
+		$trial_end = false; // WPBDPStrpActionsController::get_trial_end_time( $atts );
 		if ( $trial_end ) {
 			$new_charge['trial_end'] = $trial_end;
 		}
 
-		$subscription = WPBDPStrpAppHelper::call_stripe_helper_class( 'create_subscription', $new_charge );
+		$subscription = WPBDPStrpApiHelper::create_subscription( $new_charge );
 		$subscription = WPBDPStrpSubscriptionHelper::maybe_create_missing_plan_and_create_subscription( $subscription, $new_charge, $action, $amount );
 
 		if ( ! is_object( $subscription ) ) {
@@ -279,7 +283,6 @@ class WPBDPStrpLinkController {
 		if ( $customer_has_been_charged ) {
 			// Set the payment to complete.
 			$status = 'complete';
-			WPBDPStrpActionsController::trigger_payment_status_change( compact( 'status', 'payment' ) );
 
 			// Update the next billing date.
 			$next_bill_date = gmdate( 'Y-m-d' );
@@ -361,8 +364,7 @@ class WPBDPStrpLinkController {
 
 		if ( ! $is_setup_intent ) {
 			// Update the amount and set the customer before confirming the payment.
-			WPBDPStrpAppHelper::call_stripe_helper_class(
-				'update_intent',
+			WPBDPStrpApiHelper::update_intent(
 				$intent_id,
 				array(
 					'amount'   => $amount,
@@ -408,7 +410,7 @@ class WPBDPStrpLinkController {
 		$is_setup_intent = 0 === strpos( $intent_id, 'seti_' );
 
 		$function_name = $is_setup_intent ? 'get_setup_intent' : 'get_intent';
-		$intent        = WPBDPStrpAppHelper::call_stripe_helper_class( $function_name, $intent_id );
+		$intent        = WPBDPStrpApiHelper::$function_name( $intent_id );
 
 		if ( ! $intent || $intent->client_secret !== $client_secret ) {
 			return false;
@@ -441,21 +443,5 @@ class WPBDPStrpLinkController {
 
 		$meta_value = json_encode( compact( 'referer' ) );
 		// EntryMeta::add_entry_meta( $entry_id, 0, '', $meta_value ); // TODO
-	}
-
-	/**
-	 * Flag a form with the wpbdp_stripe_link_form class so it is identifiable when initializing in JavaScript.
-	 *
-	 * @since x.x
-	 *
-	 * @param stdClass $form
-	 * @return void
-	 */
-	public static function add_form_classes( $form ) {
-		if ( false === WPBDPStrpActionsController::get_stripe_link_action( $form->id ) ) {
-			return;
-		}
-
-		echo ' wpbdp_stripe_link_form ';
 	}
 }

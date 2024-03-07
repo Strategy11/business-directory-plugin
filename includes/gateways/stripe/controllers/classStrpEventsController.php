@@ -24,7 +24,7 @@ class WPBDPStrpEventsController {
 		}
 
 		$wpbdp_payment = new WPBDPStrpPayment();
-		$payment     = false;
+		$payment       = false;
 
 		if ( $this->charge ) {
 			$payment = $wpbdp_payment->get_one_by( $this->charge, 'receipt_id' );
@@ -49,54 +49,42 @@ class WPBDPStrpEventsController {
 			return;
 		}
 
-		$run_triggers = false;
-
 		if ( ! $payment ) {
-			$payment      = $this->prepare_from_invoice();
-			$run_triggers = true;
-		} elseif ( $payment->status !== $this->status ) {
-			if ( $this->should_skip_status_update_for_first_recurring_payment( $payment ) ) {
-				return;
-			}
-
-			$payment_values    = (array) $payment;
-			$is_partial_refund = $this->is_partial_refund();
-
-			if ( $is_partial_refund ) {
-				$this->set_partial_refund( $payment_values );
-				$amount_refunded = number_format( $this->invoice->amount_refunded / 100, 2 );
-				// translators: %s: The amount of money that was refunded.
-				$note = sprintf( __( 'Payment partially refunded %s', 'business-directory-plugin' ), $amount_refunded );
-			} else {
-				$payment_values['status'] = $this->status;
-				$payment->status          = $this->status;
-				// translators: %s: The status of the payment.
-				$note = sprintf( __( 'Payment %s', 'business-directory-plugin' ), $payment_values['status'] );
-			}
-
-			WPBDPStrpAppHelper::add_note_to_payment( $payment_values, $note );
-
-			$u = $wpbdp_payment->update( $payment->id, $payment_values );
-
-			echo wp_json_encode(
-				array(
-					'response' => 'Payment ' . $payment->id . ' was updated',
-					'success'  => true,
-				)
-			);
-			if ( ! $is_partial_refund ) {
-				$run_triggers = true;
-			}
+			$this->prepare_from_invoice();
+			return;
 		}
 
-		if ( $run_triggers && $payment && $payment->action_id ) {
-			WPBDPStrpActionsController::trigger_payment_status_change(
-				array(
-					'status'  => $this->status,
-					'payment' => $payment,
-				)
-			);
+		if ( $payment->status === $this->status ||
+			$this->should_skip_status_update_for_first_recurring_payment( $payment )
+			) {
+			return;
 		}
+
+		$payment_values    = (array) $payment;
+		$is_partial_refund = $this->is_partial_refund();
+
+		if ( $is_partial_refund ) {
+			$this->set_partial_refund( $payment_values );
+			$amount_refunded = number_format( $this->invoice->amount_refunded / 100, 2 );
+			// translators: %s: The amount of money that was refunded.
+			$note = sprintf( __( 'Payment partially refunded %s', 'business-directory-plugin' ), $amount_refunded );
+		} else {
+			$payment_values['status'] = $this->status;
+			$payment->status          = $this->status;
+			// translators: %s: The status of the payment.
+			$note = sprintf( __( 'Payment %s', 'business-directory-plugin' ), $payment_values['status'] );
+		}
+
+		WPBDPStrpAppHelper::add_note_to_payment( $payment_values, $note );
+
+		$u = $wpbdp_payment->update( $payment->id, $payment_values );
+
+		echo wp_json_encode(
+			array(
+				'response' => 'Payment ' . $payment->id . ' was updated',
+				'success'  => true,
+			)
+		);
 	}
 
 	/**
@@ -180,6 +168,20 @@ class WPBDPStrpEventsController {
 		}
 	}
 
+	/**
+	 * @param string $status
+	 * @return bool
+	 */
+	private function subscription_canceled( $status = 'canceled' ) {
+		$sub = $this->get_subscription( $this->invoice->id );
+		if ( ! $sub ) {
+			return false;
+		}
+
+		$sub->cancel();
+		return true;
+	}
+
 	private function prepare_from_invoice() {
 		if ( empty( $this->invoice->subscription ) ) {
 			// This isn't a subscription.
@@ -216,6 +218,8 @@ class WPBDPStrpEventsController {
 			$wpbdp_payment->update( $payment->id, $payment_values );
 			$payment_id = $payment->id;
 		} else {
+			$payment_values['test'] = $this->event->livemode ? 0 : 1;
+
 			// If this isn't the first, create a new payment.
 			$payment_id = $wpbdp_payment->create( $payment_values );
 		}
@@ -237,10 +241,10 @@ class WPBDPStrpEventsController {
 	}
 
 	private function get_subscription( $sub_id ) {
-		$wpbdp_sub = new WPBDPStrpSubscription();
-		$sub     = $wpbdp_sub->get_one_by( $sub_id, 'sub_id' );
+		$wpbdp_sub = new WPBDP__Listing_Subscription( 0, $sub_id );
+		$sub       = $wpbdp_sub->get_one_by( $sub_id, 'sub_id' );
 		if ( ! $sub ) {
-			// If this isn't an existing subscription, it must be a charge for another site/plugin
+			// If this isn't an existing subscription, it must be a charge for another site/plugin.
 			wpbdp_insert_log(
 				array(
 					'log_type'  => 'subscription.get',

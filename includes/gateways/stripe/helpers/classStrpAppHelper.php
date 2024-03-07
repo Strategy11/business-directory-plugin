@@ -11,6 +11,11 @@ class WPBDPStrpAppHelper {
 	private static $settings;
 
 	/**
+	 * @var string
+	 */
+	public static $gateway_id = 'stripe';
+
+	/**
 	 * @return string
 	 */
 	public static function plugin_path() {
@@ -18,31 +23,10 @@ class WPBDPStrpAppHelper {
 	}
 
 	/**
-	 * @param string $function
-	 * @param array  ...$params
-	 * @return mixed
-	 */
-	public static function call_stripe_helper_class( $function, ...$params ) {
-		if ( self::should_use_stripe_connect() ) {
-			if ( is_callable( "WPBDPStrpConnectApiHelper::$function" ) ) {
-				return WPBDPStrpConnectApiHelper::$function( ...$params );
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * @return bool true if we're using connect (versus the legacy integration).
-	 */
-	public static function should_use_stripe_connect() {
-		return WPBDPStrpConnectHelper::stripe_connect_is_setup();
-	}
-
-	/**
 	 * @return bool true if either connect or the legacy integration is set up.
 	 */
 	public static function stripe_is_configured() {
-		return self::call_stripe_helper_class( 'initialize_api' );
+		return WPBDPStrpApiHelper::initialize_api();
 	}
 
 	/**
@@ -105,5 +89,25 @@ class WPBDPStrpAppHelper {
 			$user_id = get_current_user_id();
 		}
 		return $user_id;
+	}
+
+	public static function get_payment_class() {
+		$payment = wpbdp_get_payment( $checkout->data->object->client_reference_id );
+		if ( ! $payment || 'completed' == $payment->status ) {
+			return;
+		}
+
+		$payment->gateway = self::$gateway_id;
+		$payment->status  = 'completed';
+
+		if ( ! empty( $event->object->charges ) && ! empty( $event->object->charges->data[0] ) ) {
+			$charge = $event->object->charges->data[0];
+			$payment->gateway_tx_id = $charge->id;
+		} elseif ( ! empty( $event->object->latest_charge ) ) {
+			// Fallback to get the charge id from the invoice.
+			$payment->gateway_tx_id = $event->object->latest_charge;
+		}
+
+		$payment->save();
 	}
 }

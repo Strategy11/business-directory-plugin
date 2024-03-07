@@ -661,7 +661,7 @@ class WPBDPStrpConnectHelper {
 		$data    = self::post_with_authenticated_body( 'get_customer', compact( 'options' ) );
 		$success = false !== $data;
 		if ( ! $success ) {
-			return ! empty( self::$latest_error_from_stripe_connect ) ? self::$latest_error_from_stripe_connect : false;
+			return self::latest_error_message();
 		}
 		if ( empty( $data->customer_id ) ) {
 			return false;
@@ -711,6 +711,13 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
+	 * @return string|false
+	 */
+	private static function latest_error_message() {
+		return self::$latest_error_from_stripe_connect ? self::$latest_error_from_stripe_connect : false;
+	}
+
+	/**
 	 * @param array $new_charge
 	 * @return mixed
 	 */
@@ -718,6 +725,18 @@ class WPBDPStrpConnectHelper {
 		$data    = self::post_with_authenticated_body( 'create_intent', compact( 'new_charge' ) );
 		$success = false !== $data;
 		if ( ! $success ) {
+			return false;
+		}
+		return $data;
+	}
+
+	/**
+	 * @param string $charge_id
+	 * @return mixed
+	 */
+	public static function get_charge( $charge_id ) {
+		$data = self::post_with_authenticated_body( 'get_charge', compact( 'charge_id' ) );
+		if ( ! $data ) {
 			return false;
 		}
 		return $data;
@@ -743,8 +762,9 @@ class WPBDPStrpConnectHelper {
 			return $data;
 		}
 
-		if ( isset( self::$latest_error_from_stripe_connect ) && 0 === strpos( self::$latest_error_from_stripe_connect, 'No such plan: ' ) ) {
-			return self::$latest_error_from_stripe_connect;
+		$error = self::latest_error_message();
+		if ( 0 === strpos( $error, 'No such plan: ' ) ) {
+			return $error;
 		}
 
 		return false;
@@ -787,7 +807,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $event_id
-	 * @return object|false
+	 * @return object|false|string
 	 */
 	public static function get_event( $event_id ) {
 		$event = wp_cache_get( $event_id, 'wpbdp_strp' );
@@ -796,8 +816,8 @@ class WPBDPStrpConnectHelper {
 		}
 
 		$event = self::post_with_authenticated_body( 'get_event', compact( 'event_id' ) );
-		if ( false === $event || empty( $event->event ) ) {
-			return false;
+		if ( ! $event || empty( $event->event ) ) {
+			return self::latest_error_message();
 		}
 
 		wp_cache_set( $event_id, $event->event, 'wpbdp_strp' );
@@ -841,6 +861,20 @@ class WPBDPStrpConnectHelper {
 		$data    = self::post_with_authenticated_body( 'update_intent', compact( 'intent_id', 'data' ) );
 		$success = false !== $data;
 		return $success;
+	}
+
+	/**
+	 * Create a session for a Stripe checkout and get the page url.
+	 *
+	 * @param string $new_session
+	 * @return string|false
+	 */
+	public static function send_to_checkout( $new_session ) {
+		$data = self::post_with_authenticated_body( 'send_to_checkout', compact( 'new_session' ) );
+		if ( false === $data || empty( $data->url ) ) {
+			return false;
+		}
+		return $data->url;
 	}
 
 	/**

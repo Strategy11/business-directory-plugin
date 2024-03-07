@@ -89,7 +89,7 @@ class WPBDPStrpSubscriptionHelper {
 			$amount                         = $action->post_content['amount'];
 			$action->post_content['amount'] = number_format( ( $amount / 100 ), 2, '.', '' );
 			$plan_opts                      = self::prepare_plan_options( $action->post_content );
-			$plan_id                        = self::maybe_create_plan( $plan_opts );
+			$plan_id                        = WPBDPStrpConnectHelper::maybe_create_plan( $plan_opts );
 		}
 		return $plan_id;
 	}
@@ -101,7 +101,7 @@ class WPBDPStrpSubscriptionHelper {
 	 * @return array
 	 */
 	public static function prepare_plan_options( $settings ) {
-		$amount              = WPBDPStrpActionsController::prepare_amount( $settings['amount'], $settings );
+		$amount              = self::prepare_amount( $settings['amount'], $settings );
 		$default_description = number_format( ( $amount / 100 ), 2 ) . '/' . $settings['interval'];
 		$plan_opts           = array(
 			'amount'         => $amount,
@@ -115,20 +115,32 @@ class WPBDPStrpSubscriptionHelper {
 			$plan_opts['trial_period_days'] = self::get_trial_with_default( $settings['trial_interval_count'] );
 		}
 
-		$plan_opts['id'] = WPBDPStrpActionsController::create_plan_id( $settings );
+		$plan_opts['id'] = self::create_plan_id( $settings );
 
 		return $plan_opts;
 	}
 
 	/**
-	 * @since 3.0 This was moved from WPBDPStrpActionsController.
+	 * Include settings in the plan description in order to make sure the correct plan is used.
 	 *
-	 * @param array $plan
-	 * @return mixed
+	 * @param array $settings
+	 * @return string
 	 */
-	public static function maybe_create_plan( $plan ) {
-		WPBDPStrpAppHelper::call_stripe_helper_class( 'initialize_api' );
-		return WPBDPStrpAppHelper::call_stripe_helper_class( 'maybe_create_plan', $plan );
+	public static function create_plan_id( $settings ) {
+		$amount = self::prepare_amount( $settings['amount'], $settings );
+		$id     = sanitize_title_with_dashes( $settings['description'] ) . '_' . $amount . '_' . $settings['interval_count'] . $settings['interval'] . '_' . $settings['currency'];
+		return $id;
+	}
+
+	/**
+	 * Convert the amount from 10.00 to 1000.
+	 *
+	 * @param mixed $amount
+	 * @param array $atts
+	 * @return string
+	 */
+	public static function prepare_amount( $amount, $atts = array() ) {
+		return number_format( $amount, 2, '', '' );
 	}
 
 	/**
@@ -168,7 +180,7 @@ class WPBDPStrpSubscriptionHelper {
 		// The full error message looks like "No such plan: '_399_1month_usd".
 		$action->post_content['plan_id'] = '';
 		$charge_data['plan']             = self::get_plan_from_atts( compact( 'action', 'amount' ) );
-		$subscription                    = WPBDPStrpAppHelper::call_stripe_helper_class( 'create_subscription', $charge_data );
+		$subscription                    = WPBDPStrpApiHelper::create_subscription( $charge_data );
 		return $subscription;
 	}
 }

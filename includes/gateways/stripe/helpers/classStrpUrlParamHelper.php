@@ -61,7 +61,7 @@ class WPBDPStrpUrlParamHelper {
 		}
 
 		$intent_function_name = $is_setup_intent ? 'get_setup_intent' : 'get_intent';
-		$intent               = WPBDPStrpAppHelper::call_stripe_helper_class( $intent_function_name, $intent_id );
+		$intent               = WPBDPStrpApiHelper::$intent_function_name( $intent_id );
 
 		if ( ! $intent || ! self::verify_client_secret( $intent, $is_setup_intent ) ) {
 			return;

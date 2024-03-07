@@ -20,7 +20,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	public function get_id() {
-		return 'stripe';
+		return WPBDPStrpAppHelper::$gateway_id;
 	}
 
 	public function get_title() {
@@ -28,7 +28,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	public function get_logo() {
-		return wpbdp_render_page( dirname( __DIR__ ) . '/templates/stripe-credit-cards-logo.tpl.php' );
+		return wpbdp_render( 'payment/stripe-credit-cards-logo' );
 	}
 
 	/**
@@ -160,17 +160,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @param array         $errors  Errors.
 	 */
 	public function render_form( $payment, $errors = array() ) {
-		$stripe = $this->configure_stripe( $payment );
-
 		$content = '<div class="wpbdp-msg wpbdp-error stripe-errors" style="display:none;">';
-		if ( ! $stripe['sessionId'] ) {
-			$content .= $stripe['sessionError'] ? $stripe['sessionError'] : __( 'There was an error while configuring Stripe gateway', 'business-directory-plugin' );
-		}
-
 		$content .= '</div>';
-
-		$custom_script = '<script id="wpbdp-stripe-checkout-configuration" type="text/javascript" data-configuration="%s"></script>';
-		$content      .= sprintf( $custom_script, esc_attr( (string) wp_json_encode( $stripe ) ) );
 
 		return $content;
 	}
@@ -305,18 +296,21 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 				$subscription->record_payment( $payment );
 			}
 			return array( 'result' => 'success' );
-		} catch ( \Stripe\Exception\CardException $e ) {
+		/*
+		}
+		//catch ( \Stripe\Exception\CardException $e ) {
 			return array(
 				'result' => 'failure',
 				'error'  => __( 'Your payment was declined (due to incorrect credit card information).', 'business-directory-plugin' ),
 			);
-		} catch ( \Stripe\Exception\InvalidRequestException $e ) {
+		//} catch ( \Stripe\Exception\InvalidRequestException $e ) {
 			$message = __( 'Invalid request: <error-message>.', 'business-directory-plugin' );
 			$message = str_replace( '<error-message>', $e->getMessage(), $message );
 			return array(
 				'result' => 'failure',
 				'error'  => $message,
 			);
+		*/
 		} catch ( Exception $e ) {
 			return array(
 				'result' => 'failure',
@@ -388,20 +382,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @return void
 	 */
 	public function process_postback() {
-		$json = $this->get_posted_json();
-
-		if ( ! isset( $json->id ) ) {
-			wp_die( 'Not a valid Stripe notification' );
-		}
-
-		$this->set_stripe_info();
-
-		try {
-			header( 'HTTP/1.1 200 OK' );
-			$event = \Stripe\Event::retrieve( $json->id );
-		} catch ( Exception $e ) {
-			wp_die( esc_html( $e->getMessage() ) );
-		}
+		// TODO: TRansfer me.
 
 		$invoice = $event->data->object;
 
@@ -437,11 +418,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 				break;
 			case 'payment_intent.succeeded':
 				$this->process_payment_intent( $event->data );
-				break;
-			case 'customer.subscription.deleted':
-				if ( $subscription ) {
-					$subscription->cancel();
-				}
 				break;
 		}
 	}
@@ -558,30 +534,13 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			}
 		}
 
-		if ( ! $charge ) {
-
-			try {
-				$subscription   = \Stripe\Subscription::retrieve( $invoice->subscription );
-				$payment_method = \Stripe\PaymentMethod::retrieve( $subscription->default_payment_method );
-			} catch ( Exception $e ) {
-				$subscription   = null;
-				$payment_method = null;
-			}
-
-			if ( $payment_method ) {
-				$this->save_payer_address( $payment, $payment_method->billing_details );
-			}
-		}
-
 		$payment->gateway       = $this->get_id();
 		$payment->gateway_tx_id = $invoice->id;
 		$payment->status        = 'completed';
-
 		$payment->save();
 
 		$this->set_listing_stripe_customer( $payment->listing_id, $invoice->customer );
 		$subscription = $payment->get_listing()->get_subscription();
-
 		if ( ! $subscription ) {
 			return null;
 		}
@@ -780,6 +739,9 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return $parameters;
 	}
 
+	/**
+	 * @return object
+	 */
 	private function get_stripe_plan( $payment ) {
 		$recurring = $payment->find_item( 'recurring_plan' );
 
@@ -818,13 +780,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	private function try_to_get_stripe_plan_with_id( $id ) {
-		try {
-			$plan = \Stripe\Plan::retrieve( $id );
-		} catch ( Exception $e ) {
-			$plan = null;
-		}
-
-		return $plan;
+		// TODO: Send more data in case plan doesn't exist.
+		return WPBDPStrpConnectHelper::maybe_create_plan( array( 'plan_id' => $id ) );
 	}
 
 	private function get_stripe_plan_fingerprint( $plan ) {
@@ -839,19 +796,21 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return hash( 'crc32b', serialize( $params ) );
 	}
 
+	/**
+	 * @return object
+	 */
 	private function create_stripe_plan( $id, $recurring, $payment ) {
-		return \Stripe\Plan::create(
-			array(
-				'amount'         => $this->formated_amount( $recurring['amount'] ),
-				'currency'       => strtolower( $payment->currency_code ),
-				'interval'       => 'day',
-				'interval_count' => $recurring['fee_days'],
-				'product'        => array(
-					'name' => $recurring['description'],
-				),
-				'id'             => $id,
-			)
+		$plan = array(
+			'amount'         => $this->formated_amount( $recurring['amount'] ),
+			'currency'       => strtolower( $payment->currency_code ),
+			'interval'       => 'day',
+			'interval_count' => $recurring['fee_days'],
+			'product'        => array(
+				'name' => $recurring['description'],
+			),
+			'id'             => $id,
 		);
+		WPBDPStrpConnectHelper::create_plan( $plan );
 	}
 
 	private function maybe_configure_stripe_discount( $payment, $session = null ) {
@@ -941,78 +900,13 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 *
 	 * @param WPBDP_Listing               $listing      Listing object.
 	 * @param WPBDP__Listing_Subscription $subscription Subscription object.
-	 *
-	 * @throws Exception If the subscription can't be canceled.
 	 */
 	public function cancel_subscription( $listing, $subscription ) {
-		$this->set_stripe_info();
-
-		try {
-			$sub = \Stripe\Subscription::retrieve( $subscription->get_subscription_id() );
-			if ( ! $sub ) {
-				/* translators: %1$s is the listing ID */
-				$message = sprintf( __( 'An error occurred while trying to get customer information for listing with ID #%1$s. Please try again later or contact the site administrator.', 'business-directory-plugin' ), $listing->get_id() );
-
-				throw new Exception( $message );
-			}
-
-			if ( current_user_can( 'manage_options' ) ) {
-				$cancel = $sub->cancel();
-			} else {
-				$customer = $this->get_stripe_customer( $subscription->get_parent_payment(), false );
-				if ( is_object( $customer ) && $sub->customer == $customer->id ) {
-					$cancel = $sub->cancel();
-				} else {
-					$cancel = false;
-				}
-			}
-		} catch ( Exception $e ) {
-			$message = __( 'An error occurred while trying to cancel your subscription. Please try again later or contact the site administrator.', 'business-directory-plugin' );
-			$cancel  = false;
-			throw new Exception( esc_html( $message . ' ' . $e->getMessage() ) );
-		}
-
-		if ( $cancel && ( $cancel->status === 'canceled' || $cancel->cancel_at_period_end == true ) ) {
+		$cancel = WPBDPStrpApiHelper::cancel_subscription( $subscription->get_subscription_id() );
+		if ( $cancel ) {
 			// Mark as canceled in BD.
 			$subscription->cancel();
 		}
-	}
-
-	/**
-	 * @param object $payment Payment object.
-	 *
-	 * @throws \Stripe\Exception\ApiErrorException Stripe api error.
-	 * @return array|false The payment if found otherwise false.
-	 */
-	public function verify_transaction( $payment ) {
-		try {
-			$events = \Stripe\Event::all(
-				array(
-					'type'    => 'checkout.session.completed',
-					'created' => array(
-						// Check for events created in the last 24 hours.
-						'gte' => time() - 24 * 60 * 60,
-					),
-				)
-			);
-		} catch ( Exception $e ) {
-			return false;
-		}
-
-		$completed = array_filter(
-			$events->data,
-			function ( $event ) use ( $payment ) {
-				if ( $event->data->object->payment_intent === $payment->id ) {
-					return true;
-				}
-			}
-		);
-
-		if ( ! empty( $completed ) ) {
-			return $completed;
-		}
-
-		return false;
 	}
 
 	public function save_payer_address( &$payment, $billing_details ) {

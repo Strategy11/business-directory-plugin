@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * This file exists for backward compatibility with the Payments Submodule.
- * Without these functions the Authorize.Net add on will trigger fatal errors.
+ * The majority of Stripe Connect logic lies in WPBDPStrpConnectHelper
+ * The purpose of this Adapter is to mirror WPBDPStrpAppHelper's interface
  */
 class WPBDPStrpApiHelper {
 
@@ -17,14 +17,11 @@ class WPBDPStrpApiHelper {
 	}
 
 	/**
-	 * The payments submodule calls this function.
-	 * This function exists so subscriptions can be cancelled when Authorize.Net is active.
-	 *
 	 * @param string $sub_id
 	 * @return bool
 	 */
 	public static function cancel_subscription( $sub_id ) {
-		if ( current_user_can( 'administrator' ) ) {
+		if ( current_user_can( 'manage_options' ) ) {
 			$customer_id = false;
 		} else {
 			$user_id  = get_current_user_id();
@@ -38,10 +35,7 @@ class WPBDPStrpApiHelper {
 	}
 
 	/**
-	 * The payments submodule calls this function.
-	 * This function exists so payments can be refunded when Authorize.Net is active.
-	 *
-	 * @param int $payment_id
+	 * @param string $payment_id
 	 * @return bool
 	 */
 	public static function refund_payment( $payment_id ) {
@@ -70,11 +64,12 @@ class WPBDPStrpApiHelper {
 	 * @return object|string
 	 */
 	public static function get_customer( $options = array() ) {
-		$customer_id = ! empty( $options['customer_id'] ) ? $options['customer_id'] : false;
-		$user_id     = ! empty( $options['user_id'] ) ? $options['user_id'] : get_current_user_id();
-		$meta_name   = WPBDPStrpAppHelper::get_customer_id_meta_name();
+		$user_id   = ! empty( $options['user_id'] ) ? $options['user_id'] : get_current_user_id();
+		$meta_name = WPBDPStrpAppHelper::get_customer_id_meta_name();
 
-		if ( $user_id && empty( $customer_id ) ) {
+		$customer_id_error_message = '';
+
+		if ( $user_id ) {
 			$customer_id = get_user_meta( $user_id, $meta_name, true );
 			if ( ! isset( $options['email'] ) ) {
 				$user_info = get_userdata( $user_id );
@@ -196,7 +191,7 @@ class WPBDPStrpApiHelper {
 	 * Create a setup intent for a Stripe link recurring payment.
 	 * This is called when a form is loaded.
 	 *
-	 * @since x.x
+	 * @since 6.5, introduced in v3.0 of the Stripe add on.
 	 *
 	 * @param string      $customer_id Customer ID beginning with cus_.
 	 * @param array|false $payment_method_types If false the types will defaults to array( 'card', 'link' ).
@@ -209,7 +204,7 @@ class WPBDPStrpApiHelper {
 	/**
 	 * Get a setup intent (used for Stripe link recurring payments).
 	 *
-	 * @since x.x
+	 * @since 6.5, introduced in v3.0 of the Stripe add on.
 	 *
 	 * @param string $setup_id
 	 * @return object|string|false

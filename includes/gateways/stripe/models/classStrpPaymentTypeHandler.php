@@ -14,33 +14,6 @@ class WPBDPStrpPaymentTypeHandler {
 	private static $types_by_action_id = array();
 
 	/**
-	 * When no payment method types are added, default to automatic.
-	 *
-	 * @since x.x
-	 *
-	 * @param WP_Post $action
-	 * @return bool
-	 */
-	public static function should_use_automatic_payment_methods( $action ) {
-		return ! self::get_payment_method_types( $action );
-	}
-
-	/**
-	 * Get the payment method types for a target Stripe action.
-	 *
-	 * @since x.x
-	 *
-	 * @param WP_Post $action
-	 * @return string[] An empty array is treated as automatic.
-	 */
-	public static function get_payment_method_types( $action ) {
-		if ( ! isset( self::$types_by_action_id[ $action->ID ] ) ) {
-			self::$types_by_action_id[ $action->ID ] = self::get_filtered_payment_method_types( $action );
-		}
-		return self::$types_by_action_id[ $action->ID ];
-	}
-
-	/**
 	 * @since x.x
 	 *
 	 * @param WP_Post $action

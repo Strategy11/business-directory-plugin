@@ -13,77 +13,11 @@ class WPBDPStrpAuth {
 	private static $form_ids = array();
 
 	/**
-	 * If returning from Stripe to authorize a payment, show the message.
-	 * This is used for 3D secure and for Stripe link.
-	 *
-	 * @since x.x
-	 *
-	 * @param string $html Form HTML that gets filtered through wpbdp_filter_final_form.
-	 * @return string
-	 */
-	public static function maybe_show_message( $html ) {
-		$link_error = wpbdp_get_var( array( 'param' => 'wpbdp_link_error' ) );
-		if ( $link_error ) {
-			$message = '<div class="wpbdp_error_style">' . self::get_message_for_stripe_link_code( $link_error ) . '</div>';
-			self::insert_error_message( $message, $html );
-			return $html;
-		}
-
-		$form_id = self::check_html_for_form_id_match( $html );
-		if ( false === $form_id ) {
-			return $html;
-		}
-
-		$details = WPBDPStrpUrlParamHelper::get_details_for_form( $form_id );
-		if ( ! is_array( $details ) ) {
-			return $html;
-		}
-
-		$atts    = array(
-			'entry'  => $details['entry'],
-		);
-		self::prepare_success_atts( $atts );
-
-		$intent  = $details['intent'];
-		$payment = $details['payment'];
-
-		if ( self::intent_has_failed_status( $intent ) ) {
-			$message = '<div class="wpbdp_error_style">' . $intent->last_payment_error->message . '</div>';
-			self::insert_error_message( $message, $html );
-			return $html;
-		}
-
-		$intent_is_processing = 'processing' === $intent->status;
-		if ( $intent_is_processing ) {
-			// Append an additional processing message to the end of the success message.
-			$filter = function( $message ) {
-				$message .= '<p>' .
-					esc_html__( 'This payment may take several days to finish processing.', 'business-directory-plugin' ) .
-					'</p>';
-				return $message;
-			};
-			add_filter( 'wpbdp_content', $filter );
-		}
-
-		ob_start();
-		// run_success_action( $atts );
-		$message = ob_get_contents();
-		ob_end_clean();
-
-		// Clean up the filter we added above so no other success messages get altered if there are multiple forms.
-		if ( $intent_is_processing && isset( $filter ) ) {
-			remove_filter( 'wpbdp_content', $filter );
-		}
-
-		return $message;
-	}
-
-	/**
 	 * @param string|int $form_id
 	 * @return array|false
 	 */
 	private static function check_request_params( $form_id ) {
-		if ( ! WPBDPStrpAppHelper::stripe_is_configured() ) {
+		if ( ! WPBDPStrpApiHelper::initialize_api() ) {
 			return false;
 		}
 
@@ -119,37 +53,6 @@ class WPBDPStrpAuth {
 	}
 
 	/**
-	 * Translate an error code into a readable message for the front end.
-	 * WPBDPStrpLinkRedirectHelper uses these codes to redirect errors that are then handled in self::maybe_show_message.
-	 *
-	 * @since x.x
-	 *
-	 * @param string $code
-	 * @return string
-	 */
-	private static function get_message_for_stripe_link_code( $code ) {
-		switch ( $code ) {
-			case 'intent_does_not_exist':
-				return __( 'Payment intent does not exist.', 'business-directory-plugin' );
-			case 'unable_to_verify':
-				return __( 'Unable to verify payment intent.', 'business-directory-plugin' );
-			case 'did_not_complete':
-				return __( 'Payment did not complete.', 'business-directory-plugin' );
-			case 'no_payment_record':
-				return __( 'Unable to find record of payment.', 'business-directory-plugin' );
-			case 'no_entry_found':
-				return __( 'This form submission does not exist.', 'business-directory-plugin' );
-			case 'no_stripe_link_action':
-				return __( 'This form is not configured for Stripe link payments.', 'business-directory-plugin' );
-			case 'create_subscription_failed':
-				return __( 'Something went wrong when trying to create a subscription.', 'business-directory-plugin' );
-			case 'payment_failed':
-				return __( 'Payment was not successfully processed.', 'business-directory-plugin' );
-		}
-		return '';
-	}
-
-	/**
 	 * Add the parameters the receiving functions are expecting.
 	 *
 	 * @since x.x
@@ -162,59 +65,6 @@ class WPBDPStrpAuth {
 		$atts['entry_id']    = $atts['entry']->id;
 		$opt                 = 'success_action';
 		$atts['conf_method'] = ! empty( $atts['form']->options[ $opt ] ) ? $atts['form']->options[ $opt ] : 'message';
-	}
-
-	/**
-	 * Insert a message/error where the form styling will be applied.
-	 *
-	 * @since x.x
-	 */
-	private static function insert_error_message( $message, &$form ) {
-		$add_after = '<fieldset>';
-		$pos = strpos( $form, $add_after );
-		if ( $pos !== false ) {
-			$form = substr_replace( $form, $add_after . $message, $pos, strlen( $add_after ) );
-		}
-	}
-
-	/**
-	 * Include the token if going between pages.
-	 *
-	 * @param object $form The form being submitted.
-	 * @return void
-	 */
-	public static function add_hidden_token_field( $form ) {
-		$intents = self::get_payment_intents( 'wpbdpintent' . $form->id );
-		if ( ! empty( $intents ) ) {
-			self::update_intent_pricing( $form->id, $intents );
-		} else {
-			$intents = self::maybe_create_intents( $form->id );
-		}
-
-		self::include_intents_in_form( $intents, $form );
-	}
-
-	/**
-	 * Include hidden fields with payment intent IDs in the form.
-	 *
-	 * @since x.x
-	 *
-	 * @param array    $intents
-	 * @param stdClass $form
-	 * @return void
-	 */
-	private static function include_intents_in_form( $intents, $form ) {
-		foreach ( $intents as $intent ) {
-			if ( is_array( $intent ) ) {
-				$id     = $intent['id'];
-				$action = $intent['action'];
-			} else {
-				$id     = $intent;
-				$action = '';
-			}
-
-			echo '<input type="hidden" name="wpbdpintent' . esc_attr( $form->id ) . '[]" value="' . esc_attr( $id ) . '" data-action="' . esc_attr( $action ) . '" />';
-		}
 	}
 
 	/**
@@ -236,50 +86,6 @@ class WPBDPStrpAuth {
 	}
 
 	/**
-	 * Update pricing before authorizing.
-	 *
-	 * @since x.x
-	 *
-	 * @return void
-	 */
-	public static function update_intent_ajax() {
-		check_ajax_referer( 'wpbdp_strp_ajax', 'nonce' );
-
-		if ( empty( $_POST['form'] ) ) {
-			wp_die();
-		}
-
-		$form = json_decode( stripslashes( $_POST['form'] ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		if ( ! is_array( $form ) ) {
-			wp_die();
-		}
-
-		self::format_form_data( $form );
-
-		$form_id = absint( $form['form_id'] );
-		$intents = isset( $form[ 'wpbdpintent' . $form_id ] ) ? $form[ 'wpbdpintent' . $form_id ] : array();
-
-		if ( empty( $intents ) ) {
-			wp_die();
-		}
-
-		if ( ! is_array( $intents ) ) {
-			$intents = array( $intents );
-		} else {
-			foreach ( $intents as $k => $intent ) {
-				if ( is_array( $intent ) && isset( $intent[ $k ] ) ) {
-					$intents[ $k ] = $intent[ $k ];
-				}
-			}
-		}
-
-		$_POST = $form;
-		self::update_intent_pricing( $form_id, $intents );
-
-		wp_die();
-	}
-
-	/**
 	 * Update pricing on page turn and non-ajax validation.
 	 *
 	 * @since x.x
@@ -293,15 +99,14 @@ class WPBDPStrpAuth {
 			return;
 		}
 
-		$actions = WPBDPStrpActionsController::get_actions_before_submit( $form_id );
-		if ( empty( $actions ) || empty( $intents ) ) {
+		if ( empty( $intents ) ) {
 			return;
 		}
 
 		$form = ''; // TODO Form::getOne( $form_id );
 
 		try {
-			if ( ! WPBDPStrpAppHelper::call_stripe_helper_class( 'initialize_api' ) ) {
+			if ( ! WPBDPStrpApiHelper::initialize_api() ) {
 				return;
 			}
 		} catch ( Exception $e ) {
@@ -316,7 +121,8 @@ class WPBDPStrpAuth {
 				continue;
 			}
 
-			$saved     = WPBDPStrpAppHelper::call_stripe_helper_class( 'get_intent', $intent_id );
+			$saved     = WPBDPStrpApiHelper::get_intent( $intent_id );
+			/*
 			foreach ( $actions as $action ) {
 				if ( $saved->metadata->action != $action->ID ) {
 					continue;
@@ -339,8 +145,9 @@ class WPBDPStrpAuth {
 					continue;
 				}
 
-				WPBDPStrpAppHelper::call_stripe_helper_class( 'update_intent', $intent_id, array( 'amount' => $amount ) );
+				WPBDPStrpApiHelper::update_intent( $intent_id, array( 'amount' => $amount ) );
 			}
+			*/
 		}
 	}
 
@@ -421,13 +228,14 @@ class WPBDPStrpAuth {
 			return $intents;
 		}
 
-		if ( ! WPBDPStrpAppHelper::call_stripe_helper_class( 'initialize_api' ) ) {
+		if ( ! WPBDPStrpApiHelper::initialize_api() ) {
 			// Stripe is not configured, so don't create intents.
 			return $intents;
 		}
 
+		/*
 		$actions = WPBDPStrpActionsController::get_actions_before_submit( $form_id );
-		self::add_amount_to_actions( $form_id, $actions );
+		//self::add_amount_to_actions( $form_id, $actions );
 
 		foreach ( $actions as $action ) {
 			if ( is_array( $details ) && self::intent_has_failed_status( $details['intent'] ) ) {
@@ -455,6 +263,7 @@ class WPBDPStrpAuth {
 				'action' => $action->ID,
 			);
 		}
+		*/
 
 		return $intents;
 	}
@@ -473,8 +282,9 @@ class WPBDPStrpAuth {
 			$amount = 100; // Create the intent when the form loads.
 		}
 
+		$payment_method_types = array( 'card' );
+
 		if ( 'recurring' === $action->post_content['type'] ) {
-			$payment_method_types = WPBDPStrpPaymentTypeHandler::get_payment_method_types( $action );
 			return self::create_setup_intent( $payment_method_types );
 		}
 
@@ -482,16 +292,10 @@ class WPBDPStrpAuth {
 			'amount'   => $amount,
 			'currency' => $action->post_content['currency'],
 			'metadata' => array( 'action' => $action->ID ),
+			'payment_method_types' => $payment_method_types,
 		);
 
-		if ( WPBDPStrpPaymentTypeHandler::should_use_automatic_payment_methods( $action ) ) {
-			$new_charge['automatic_payment_methods'] = array( 'enabled' => true );
-		} else {
-			$payment_method_types               = WPBDPStrpPaymentTypeHandler::get_payment_method_types( $action );
-			$new_charge['payment_method_types'] = $payment_method_types;
-		}
-
-		return WPBDPStrpAppHelper::call_stripe_helper_class( 'create_intent', $new_charge );
+		return WPBDPStrpApiHelper::create_intent( $new_charge );
 	}
 
 	/**
@@ -508,42 +312,12 @@ class WPBDPStrpAuth {
 		);
 
 		// We need to add a customer to support subscriptions with link.
-		$customer = WPBDPStrpAppHelper::call_stripe_helper_class( 'get_customer', $payment_info );
+		$customer = WPBDPStrpApiHelper::get_customer( $payment_info );
 		if ( ! is_object( $customer ) ) {
 			return false;
 		}
 
-		return WPBDPStrpAppHelper::call_stripe_helper_class( 'create_setup_intent', $customer->id, $payment_method_types );
-	}
-
-	/**
-	 * @since x.x
-	 *
-	 * @param string|int $form_id
-	 * @param array      $actions
-	 * @return void
-	 */
-	private static function add_amount_to_actions( $form_id, &$actions ) {
-		if ( empty( $actions ) ) {
-			return;
-		}
-		$form = ''; // TODO Form::getOne( $form_id );
-
-		foreach ( $actions as $k => $action ) {
-			$amount = self::get_amount_before_submit( compact( 'action', 'form' ) );
-			$actions[ $k ]->post_content['amount'] = $amount;
-		}
-	}
-
-	/**
-	 * @since x.x
-	 *
-	 * @param array $atts
-	 * @return string
-	 */
-	private static function get_amount_before_submit( $atts ) {
-		$amount = $atts['action']->post_content['amount'];
-		return WPBDPStrpActionsController::prepare_amount( $atts['action']->post_content['amount'], $atts );
+		return WPBDPStrpApiHelper::create_setup_intent( $customer->id, $payment_method_types );
 	}
 
 	/**
