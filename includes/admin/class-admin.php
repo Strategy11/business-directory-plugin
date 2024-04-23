@@ -1262,6 +1262,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				delete_option( 'wpbusdirman_db_version' );
 				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'wpbdp%' ) );
 
+				// Delete transients.
+				delete_transient( 'wpbdp-official-themes' );
+
 				// Clear scheduled hooks.
 				wp_clear_scheduled_hook( 'wpbdp_hourly_events' );
 				wp_clear_scheduled_hook( 'wpbdp_daily_events' );
