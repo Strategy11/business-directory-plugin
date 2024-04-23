@@ -525,7 +525,7 @@ class WPBDP_Themes {
 			'number' => 10,
 		);
 
-		$url = add_query_arg( $params, 'http://businessdirectoryplugin.com/edd-api/v2/products/' );
+		$url = add_query_arg( $params, 'https://businessdirectoryplugin.com/edd-api/v2/products/' );
 
 		$response = wp_remote_get(
 			$url,
