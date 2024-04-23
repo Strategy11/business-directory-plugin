@@ -292,7 +292,8 @@ class WPBDP_Admin_Listings {
 
 	function listing_column( $column, $post_id ) {
 		if ( ! method_exists( $this, 'listing_column_' . $column ) ) {
-			return do_action( 'wpbdp_admin_directory_column_' . $column, $post_id );
+			do_action( 'wpbdp_admin_directory_column_' . $column, $post_id );
+			return;
 		}
 
 		call_user_func( array( &$this, 'listing_column_' . $column ), $post_id );
