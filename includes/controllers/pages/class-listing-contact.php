@@ -247,7 +247,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.1
 	 *
 	 * @param int $listing_id
 	 *

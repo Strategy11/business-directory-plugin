@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2024-01-30 20:19:41+00:00\n"
+"POT-Creation-Date: 2024-04-23 17:07:54+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -189,7 +189,7 @@ msgstr "ID"
 msgid "Listing Count"
 msgstr "Elenco luoghi"
 
-#: includes/admin/class-admin.php:1396
+#: includes/admin/class-admin.php:1399
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -382,45 +382,45 @@ msgstr "Scade il"
 msgid "Attributes"
 msgstr "Attributi"
 
-#: includes/admin/controllers/class-admin-listings.php:323
-#: includes/admin/controllers/class-admin-listings.php:782
+#: includes/admin/controllers/class-admin-listings.php:324
+#: includes/admin/controllers/class-admin-listings.php:783
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 #, fuzzy
 msgid "Never"
 msgstr "Mai"
 
-#: includes/admin/controllers/class-admin-listings.php:349
+#: includes/admin/controllers/class-admin-listings.php:350
 #: includes/helpers/class-listing-display-helper.php:145
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:118
 #, fuzzy
 msgid "Featured"
 msgstr "In evidenza"
 
-#: includes/admin/controllers/class-admin-listings.php:365
+#: includes/admin/controllers/class-admin-listings.php:366
 #: templates/admin/payments-details.tpl.php:5
 #, fuzzy
 msgid "Payment %s"
 msgstr "Pagamento #%s"
 
-#: includes/admin/controllers/class-admin-listings.php:511
+#: includes/admin/controllers/class-admin-listings.php:512
 #: includes/class-cpt-integration.php:19
 #: includes/compatibility/class-navxt-integration.php:223
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
 msgstr "Modifica Annuncio"
 
-#: includes/admin/controllers/class-admin-listings.php:516
+#: includes/admin/controllers/class-admin-listings.php:517
 #: templates/delete-listing-confirm.tpl.php:3
 msgid "Delete Listing"
 msgstr "Elimina Annuncio"
 
-#: includes/admin/controllers/class-admin-listings.php:735
+#: includes/admin/controllers/class-admin-listings.php:736
 #, fuzzy
 msgid "Invalid nonce."
 msgstr "Invalid nonce ricevuto."
 
-#: includes/admin/controllers/class-admin-listings.php:793
 #: includes/admin/controllers/class-admin-listings.php:794
+#: includes/admin/controllers/class-admin-listings.php:795
 #: includes/fields/class-fieldtypes-textarea.php:201
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:121
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:128
@@ -428,8 +428,8 @@ msgstr "Invalid nonce ricevuto."
 msgid "Yes"
 msgstr "Si"
 
-#: includes/admin/controllers/class-admin-listings.php:793
 #: includes/admin/controllers/class-admin-listings.php:794
+#: includes/admin/controllers/class-admin-listings.php:795
 #: includes/admin/settings/class-settings-bootstrap.php:279
 #: includes/fields/class-fieldtypes-textarea.php:200
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:121
@@ -943,7 +943,7 @@ msgid "Missing tables: %s"
 msgstr "Tabelle mancanti: %s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1497
+#: includes/controllers/pages/class-submit-listing.php:1523
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
@@ -1453,7 +1453,7 @@ msgstr ""
 "temi e sulla versione WP?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1688
-#: includes/licensing.php:593
+#: includes/licensing.php:594
 msgid "Learn more"
 msgstr ""
 
@@ -1887,7 +1887,7 @@ msgid ""
 msgstr ""
 
 #: includes/compatibility/class-navxt-integration.php:227
-#: includes/widgets/widget-search.php:131
+#: includes/widgets/widget-search.php:171
 #: templates/admin/payments-index.tpl.php:18
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:26
 #: templates/search.tpl.php:8
@@ -2054,12 +2054,12 @@ msgstr "Inserisci il tuo nome."
 msgid "Please enter your email."
 msgstr "Inserisci il tuo indirizzo email \".\"."
 
-#: includes/controllers/pages/class-listing-contact.php:220
+#: includes/controllers/pages/class-listing-contact.php:217
 #, fuzzy
 msgid "Send Message"
 msgstr "Messaggio"
 
-#: includes/controllers/pages/class-listing-contact.php:278
+#: includes/controllers/pages/class-listing-contact.php:293
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \a\\t g:i a"
 
@@ -2124,24 +2124,24 @@ msgstr "Nessun piano tariffario"
 msgid "Please choose a plan."
 msgstr "(Si prega di scegliere un piano tariffario di cui sopra)"
 
-#: includes/controllers/pages/class-submit-listing.php:1302
+#: includes/controllers/pages/class-submit-listing.php:1328
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Qualcosa è andato storto. Si prega di controllare il modulo per eventuali "
 "errori, correggerli e ripresentarli di nuovo."
 
-#: includes/controllers/pages/class-submit-listing.php:1481
+#: includes/controllers/pages/class-submit-listing.php:1507
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Creare un account utente su questo sito"
 
-#: includes/controllers/pages/class-submit-listing.php:1488
+#: includes/controllers/pages/class-submit-listing.php:1514
 #, fuzzy
 msgid "Username"
 msgstr "Nome utente:"
 
-#: includes/controllers/pages/class-submit-listing.php:1510
+#: includes/controllers/pages/class-submit-listing.php:1536
 #, fuzzy
 msgid "Clear Form"
 msgstr "Cancella"
@@ -2603,23 +2603,23 @@ msgstr "ID articolo non valido"
 msgid "No license key provided"
 msgstr "Nessuna chiave di licenza fornita"
 
-#: includes/licensing.php:414 includes/licensing.php:452
+#: includes/licensing.php:415 includes/licensing.php:453
 #, fuzzy
 msgid "License key is invalid"
 msgstr "La chiave di licenza non è valida"
 
-#: includes/licensing.php:418
+#: includes/licensing.php:419
 #, fuzzy
 msgid "Deactivation failed"
 msgstr "Disattivazione fallita"
 
-#: includes/licensing.php:463
+#: includes/licensing.php:464
 #, fuzzy
 msgid "The license key was revoked."
 msgstr "La chiave di licenza è stata revocata."
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:467
+#: includes/licensing.php:468
 #, fuzzy
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory "
@@ -2631,7 +2631,7 @@ msgstr ""
 "Business Directory</support-link> e fate loro sapere che la vostra licenza è "
 "stata segnalata come revocata dal software di licenza."
 
-#: includes/licensing.php:530
+#: includes/licensing.php:531
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -2640,7 +2640,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. Il collegamento non è riuscito con il seguente errore:"
 
-#: includes/licensing.php:543
+#: includes/licensing.php:544
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -2649,7 +2649,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. Si è verificato un problema nella stretta di mano SSL/TSL:"
 
-#: includes/licensing.php:590
+#: includes/licensing.php:591
 #, fuzzy
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
@@ -2660,46 +2660,46 @@ msgstr ""
 "support-link> e chiedi loro di aggiungere il tuo indirizzo IP <ip-"
 "address>alla whitelist."
 
-#: includes/licensing.php:649
+#: includes/licensing.php:650
 msgid "Download Premium"
 msgstr ""
 
-#: includes/licensing.php:699
+#: includes/licensing.php:700
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Chiave di licenza scaduta"
 
-#: includes/licensing.php:700
+#: includes/licensing.php:701
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Chiave di licenza scaduta"
 
-#: includes/licensing.php:701
+#: includes/licensing.php:702
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Aiuta a migliorare la directory aziendale"
 
-#: includes/licensing.php:702
+#: includes/licensing.php:703
 msgid ""
 "You have modules installed, but Business Directory Premium is missing. "
 "Install this plugin for extra features and easy license management."
 msgstr ""
 
-#: includes/licensing.php:713
+#: includes/licensing.php:714
 #, fuzzy
 msgid "Review license keys"
 msgstr "Rivedere le mie chiavi di licenza"
 
-#: includes/licensing.php:826
+#: includes/licensing.php:827
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:834
+#: includes/licensing.php:835
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "Per favore inserisci una chiave di licenza."
 
-#: includes/licensing.php:848
+#: includes/licensing.php:849
 #, fuzzy
 msgid "Could not activate license: %s."
 msgstr "Impossibile attivare la licenza: %s."
@@ -2859,12 +2859,12 @@ msgstr "Vai al tuo annuncio"
 msgid "Return to plan selection"
 msgstr "Ritorno alla selezione del piano tariffario"
 
-#: includes/themes.php:934
+#: includes/themes.php:899
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Il file ZIP non è un file tema BD valido."
 
-#: includes/themes.php:990
+#: includes/themes.php:955
 #, fuzzy
 msgid "Please update Business Directory Plugin to latest version."
 msgstr "Business Directory Plugin"
@@ -5163,7 +5163,7 @@ msgstr ""
 msgid "Current Images"
 msgstr "Immagini attuali"
 
-#: templates/submit-listing-plan-selection-complete.tpl.php:35
+#: templates/submit-listing-plan-selection-complete.tpl.php:39
 #, fuzzy
 msgid "Change category/plan"
 msgstr "Cambia categoria/piano"
@@ -5266,7 +5266,7 @@ msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr "Non è stato possibile inviare i dati di accesso."
 
-#: includes/admin/class-admin.php:1309
+#: includes/admin/class-admin.php:1312
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -5275,7 +5275,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> richiede una pagina con il codice di scelta "
 "rapida <tt>[businessdirectory]</tt> per funzionare correttamente."
 
-#: includes/admin/class-admin.php:1311
+#: includes/admin/class-admin.php:1314
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -5284,12 +5284,12 @@ msgstr ""
 "È possibile creare la pagina da soli o lasciare che Business Directory "
 "faccia questo per voi automaticamente."
 
-#: includes/admin/class-admin.php:1316
+#: includes/admin/class-admin.php:1319
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crea le pagine richieste per me"
 
-#: includes/admin/class-admin.php:1373
+#: includes/admin/class-admin.php:1376
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -5498,40 +5498,40 @@ msgstr ""
 "fine di determinare le caratteristiche disponibili per questo elenco, così "
 "come la gestione dei rinnovi."
 
-#: includes/admin/controllers/class-admin-listings.php:353
+#: includes/admin/controllers/class-admin-listings.php:354
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "Ricorrente"
 
-#: includes/admin/controllers/class-admin-listings.php:357
+#: includes/admin/controllers/class-admin-listings.php:358
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Gratis"
 
-#: includes/admin/controllers/class-admin-listings.php:361
+#: includes/admin/controllers/class-admin-listings.php:362
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment Not Found"
 msgstr "Informazioni di Pagamento"
 
-#: includes/admin/controllers/class-admin-listings.php:374
+#: includes/admin/controllers/class-admin-listings.php:375
 msgctxt "admin listings"
 msgid "Reported"
 msgstr "Segnalato"
 
-#: includes/admin/controllers/class-admin-listings.php:751
+#: includes/admin/controllers/class-admin-listings.php:752
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
 "La cronologia dei pagamenti dell'annuncio è stata cancellata con successo"
 
-#: includes/admin/controllers/class-admin-listings.php:334
+#: includes/admin/controllers/class-admin-listings.php:335
 #, fuzzy
 msgctxt "listing attribute"
 msgid "No Plan"
 msgstr "Nessun piano tariffario"
 
-#: includes/admin/controllers/class-admin-listings.php:453
+#: includes/admin/controllers/class-admin-listings.php:454
 msgctxt "listing status"
 msgid "Reported"
 msgstr "Segnalato"
@@ -5581,42 +5581,42 @@ msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Abbandonato"
 
-#: includes/admin/controllers/class-admin-listings.php:527
+#: includes/admin/controllers/class-admin-listings.php:528
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Visualizza Pagamenti"
 
-#: includes/admin/controllers/class-admin-listings.php:532
+#: includes/admin/controllers/class-admin-listings.php:533
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Visualizza pagamento"
 
-#: includes/admin/controllers/class-admin-listings.php:675
+#: includes/admin/controllers/class-admin-listings.php:676
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Pubblicare gli annunci"
 
-#: includes/admin/controllers/class-admin-listings.php:676
+#: includes/admin/controllers/class-admin-listings.php:677
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Segnare come \"Recensione in sospeso\"."
 
-#: includes/admin/controllers/class-admin-listings.php:677
+#: includes/admin/controllers/class-admin-listings.php:678
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr "Nascondi dall'elenco (contrassegnare come \"Bozza\")"
 
-#: includes/admin/controllers/class-admin-listings.php:679
+#: includes/admin/controllers/class-admin-listings.php:680
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Rinnovare gli elenchi"
 
-#: includes/admin/controllers/class-admin-listings.php:680
+#: includes/admin/controllers/class-admin-listings.php:681
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Set listings come \"Scaduto\"."
 
-#: includes/admin/controllers/class-admin-listings.php:687
+#: includes/admin/controllers/class-admin-listings.php:688
 msgctxt "admin actions"
 msgid "Send access keys"
 msgstr "Inviare i tasti di accesso"
@@ -7186,17 +7186,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Il tema è stato aggiornato con successo."
 
-#: includes/themes.php:942
+#: includes/themes.php:907
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossibile creare una directory dei temi."
 
-#: includes/themes.php:953
+#: includes/themes.php:918
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossibile rimuovere la directory al tema precedente \"%s\"."
 
-#: includes/themes.php:961
+#: includes/themes.php:926
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Non è stato possibile spostare un nuovo tema nella directory dei temi."
@@ -7788,17 +7788,17 @@ msgctxt "contact-message"
 msgid "You did not enter a message."
 msgstr "Non hai inserito un messaggio."
 
-#: includes/controllers/pages/class-listing-contact.php:290
+#: includes/controllers/pages/class-listing-contact.php:305
 msgctxt "contact-message"
 msgid "Your message has been sent."
 msgstr "Il tuo messaggio è stato spedito."
 
-#: includes/controllers/pages/class-listing-contact.php:312
+#: includes/controllers/pages/class-listing-contact.php:327
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr "C'è stato un problema. Il tuo messaggio non è stato inviato"
 
-#: includes/controllers/pages/class-listing-contact.php:315
+#: includes/controllers/pages/class-listing-contact.php:330
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Torna all'annuncio."
@@ -7817,7 +7817,7 @@ msgstr ""
 "Questo modulo di contatto è temporaneamente disabilitato. Per favore, "
 "riprova più tardi."
 
-#: includes/controllers/pages/class-listing-contact.php:216
+#: includes/controllers/pages/class-listing-contact.php:213
 msgctxt "templates"
 msgid "Contact listing owner"
 msgstr "Contatta il proprietario"
@@ -7899,12 +7899,12 @@ msgstr ""
 "%s e crea un nuovo campo con questa associazione, o assegna questa "
 "associazione ad un campo esistente."
 
-#: includes/controllers/pages/class-submit-listing.php:1531
+#: includes/controllers/pages/class-submit-listing.php:1557
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Per favore è necessario accettare le condizioni d'uso."
 
-#: includes/controllers/pages/class-submit-listing.php:1545
+#: includes/controllers/pages/class-submit-listing.php:1571
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Accetto i <a>termini e le condizioni</a> d'uso"
@@ -8217,7 +8217,7 @@ msgstr ""
 "più tardi."
 
 #: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1213
+#: includes/controllers/pages/class-submit-listing.php:1239
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Per favore seleziona una categoria."
@@ -8240,22 +8240,22 @@ msgstr ""
 "Si prega di scegliere un piano tariffario valido per la selezione della "
 "categoria."
 
-#: includes/controllers/pages/class-submit-listing.php:1448
+#: includes/controllers/pages/class-submit-listing.php:1474
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Inserisci il nome utente desiderato."
 
-#: includes/controllers/pages/class-submit-listing.php:1453
+#: includes/controllers/pages/class-submit-listing.php:1479
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Inserisci l'e-mail per il tuo nuovo account."
 
-#: includes/controllers/pages/class-submit-listing.php:1458
+#: includes/controllers/pages/class-submit-listing.php:1484
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Il nome utente scelto è già in uso. Per favore, usane un'altra."
 
-#: includes/controllers/pages/class-submit-listing.php:1463
+#: includes/controllers/pages/class-submit-listing.php:1489
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "L'indirizzo e-mail scelto per il tuo account è già in uso."
@@ -8265,7 +8265,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Annuncio presentato da admin. Pagamento saltato."
 
-#: includes/controllers/pages/class-submit-listing.php:1395
+#: includes/controllers/pages/class-submit-listing.php:1421
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8578,12 +8578,12 @@ msgctxt "default category name"
 msgid "General"
 msgstr "Generale"
 
-#: includes/licensing.php:503
+#: includes/licensing.php:504
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/licensing.php:516
+#: includes/licensing.php:517
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
@@ -8592,7 +8592,7 @@ msgstr ""
 "Non è stato possibile stabilire una connessione con il server di Business "
 "Directory. cURL non è stato trovato nel sistema."
 
-#: includes/licensing.php:518 includes/licensing.php:548
+#: includes/licensing.php:519 includes/licensing.php:549
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8605,7 +8605,7 @@ msgstr ""
 "recente di cURL e una versione di OpenSSL che supporta TLSv1.2 (la versione "
 "minima con supporto è OpenSSL 1.0.1.1c)."
 
-#: includes/licensing.php:520 includes/licensing.php:550
+#: includes/licensing.php:521 includes/licensing.php:551
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8617,7 +8617,7 @@ msgstr ""
 "sito web a interagire con i servizi utilizzando i più recenti standard di "
 "sicurezza."
 
-#: includes/licensing.php:522
+#: includes/licensing.php:523
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -8626,7 +8626,7 @@ msgstr ""
 "Contatta il tuo fornitore di hosting e chiedi loro di aggiornare il tuo "
 "sistema. Includere questo messaggio se necessario"
 
-#: includes/licensing.php:552
+#: includes/licensing.php:553
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
@@ -8635,28 +8635,28 @@ msgstr ""
 "Contatta il tuo fornitore di hosting e chiedi loro di aggiornare il tuo "
 "sistema. Includere questo messaggio se necessario."
 
-#: includes/licensing.php:588
+#: includes/licensing.php:589
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Il server ha restituito un errore 403 Forbidden error."
 
-#: includes/licensing.php:853
+#: includes/licensing.php:854
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licenza attivata"
 
-#: includes/licensing.php:883
+#: includes/licensing.php:884
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossibile disattivare la licenza: %s."
 
-#: includes/licensing.php:885
+#: includes/licensing.php:886
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licenza disattivata"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1125
+#: includes/licensing.php:1128
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -8845,32 +8845,32 @@ msgctxt "widgets"
 msgid "Search the Business Directory"
 msgstr "Ricerca nella Business Directory"
 
-#: includes/widgets/widget-search.php:29
+#: includes/widgets/widget-search.php:31
 msgctxt "widgets"
 msgid "Title:"
 msgstr "Titolo:"
 
-#: includes/widgets/widget-search.php:36
+#: includes/widgets/widget-search.php:38
 msgctxt "widgets"
 msgid "Form Style:"
 msgstr "Stile del modulo:"
 
-#: includes/widgets/widget-search.php:45
+#: includes/widgets/widget-search.php:47
 msgctxt "widgets"
 msgid "Basic"
 msgstr "Base"
 
-#: includes/widgets/widget-search.php:55
+#: includes/widgets/widget-search.php:57
 msgctxt "widgets"
 msgid "Advanced"
 msgstr "Avanzate"
 
-#: includes/widgets/widget-search.php:60
+#: includes/widgets/widget-search.php:62
 msgctxt "widgets"
 msgid "Search Fields (advanced mode):"
 msgstr "Campi di ricerca (modalità avanzata):"
 
-#: includes/widgets/widget-search.php:61
+#: includes/widgets/widget-search.php:63
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Visualizzare i seguenti campi nel modulo."

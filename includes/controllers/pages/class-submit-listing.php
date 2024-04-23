@@ -1147,7 +1147,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Show the plan selection page when there is only one plan.
 	 * Force it when the change plan link was clicked.
 	 *
-	 * @since x.x
+	 * @since 6.4.1
 	 *
 	 * @param array           $categories
 	 * @param WPBDP_FormField $category_field
