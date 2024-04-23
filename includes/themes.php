@@ -467,7 +467,7 @@ class WPBDP_Themes {
 
 	function add_theme_data() {
 		foreach ( $this->themes as &$t ) {
-			$t->is_core_theme = $this->_is_core_theme( $t );
+			$t->is_core_theme = $this->is_core_theme( $t );
 
 			if ( ! $t->is_core_theme ) {
 				wpbdp()->licensing->add_item(
@@ -478,84 +478,49 @@ class WPBDP_Themes {
 						'version'   => $t->version,
 					)
 				);
-				// $t->license_key = wpbdp_get_option( 'license-key-theme-' . $t->id );
-				// $t->license_status = get_option( 'wpbdp-license-status-theme-' . $t->id );
 			}
 
 			$t->active = ( $t->id == $this->get_active_theme() );
 		}
 	}
 
-	private function _is_core_theme( $theme ) {
+	/**
+	 * @param object $theme
+	 *
+	 * @return bool
+	 */
+	private function is_core_theme( $theme ) {
 		if ( in_array( $theme->id, array( 'no_theme', 'default' ), true ) ) {
 			return true;
 		}
 
-		return $this->_is_premium_theme( $theme ) ? false : true;
+		return ! $this->is_premium_theme( $theme->name );
 	}
 
-	private function _is_premium_theme( $theme ) {
-		$official_themes = $this->_get_official_themes();
+	/**
+	 * @param string $theme_name
+	 *
+	 * @return bool
+	 */
+	private function is_premium_theme( $theme_name ) {
+		include_once __DIR__ . '/admin/helpers/class-modules-api.php';
+		$api    = new WPBDP_Modules_API();
+		$addons = $api->get_api_info();
 
-		if ( ! $official_themes ) {
+		if ( ! $addons ) {
 			// Assume it's a premium theme until information can be verified.
 			return true;
-		} else {
-			foreach ( $this->_get_official_themes() as $official_theme ) {
-				if ( $theme->name == $official_theme->name ) {
+		}
+
+		foreach ( $addons as $addon ) {
+			if ( is_array( $addon ) && in_array( 'Theme', $addon['categories'], true ) ) {
+				if ( $theme_name == $addon['title'] ) {
 					return true;
 				}
 			}
 		}
 
 		return false;
-	}
-
-	private function _get_official_themes() {
-		$official_themes = get_transient( 'wpbdp-official-themes' );
-
-		if ( is_array( $official_themes ) ) {
-			return $official_themes;
-		}
-
-		$official_themes = array();
-
-		$params = array(
-			'tag'    => 'theme',
-			'number' => 10,
-		);
-
-		$url = add_query_arg( $params, 'http://businessdirectoryplugin.com/edd-api/v2/products/' );
-
-		$response = wp_remote_get(
-			$url,
-			array(
-				'timeout'   => 15,
-				'sslverify' => false,
-			)
-		);
-
-		if ( is_wp_error( $response ) ) {
-			set_transient( 'wpbdp-official-themes', array(), HOUR_IN_SECONDS );
-			return array();
-		}
-
-		$response_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-		if ( ! isset( $response_data->products ) || ! is_array( $response_data->products ) ) {
-			set_transient( 'wpbdp-official-themes', array(), HOUR_IN_SECONDS );
-			return array();
-		}
-
-		foreach ( $response_data->products as $product ) {
-			$official_themes[] = (object) array(
-				'name' => $product->info->title,
-			);
-		}
-
-		set_transient( 'wpbdp-official-themes', $official_themes, WEEK_IN_SECONDS );
-
-		return $official_themes;
 	}
 
 	/**

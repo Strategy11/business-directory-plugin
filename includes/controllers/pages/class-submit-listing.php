@@ -1467,7 +1467,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			)
 		);
 
-		if ( $this->should_validate_section( 'account_creation' ) && ( $this->saving() && 'required' == $mode ) || $form_create ) {
+		if ( ( $this->should_validate_section( 'account_creation' ) && ( $this->saving() && 'required' == $mode ) ) || $form_create ) {
 			$error = false;
 
 			if ( ! $form_username ) {

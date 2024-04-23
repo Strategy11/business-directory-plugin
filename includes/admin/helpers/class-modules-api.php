@@ -69,7 +69,7 @@ class WPBDP_Modules_API {
 		}
 
 		// We need to know the version number to allow different downloads.
-		$agent = 'business-directory-plugin/' . WPBDP_VERSION;
+		$agent = 'Business Directory/' . WPBDP_VERSION;
 
 		$response = wp_remote_get(
 			$url,
