@@ -372,8 +372,9 @@ class WPBDP_Licensing {
 		$request = array(
 			'edd_action' => $action . '_license',
 			'license'    => $key,
-			'item_name'  => urlencode( $this->items[ $item_id ]['name'] ),
-			'url'        => home_url(),
+			'item_name'  => rawurlencode( $this->items[ $item_id ]['name'] ),
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+			'url'        => home_url() . '?l=' . rawurlencode( base64_encode( $key ) ),
 		);
 
 		// Call the licensing server.
@@ -1094,8 +1095,10 @@ class WPBDP_Licensing {
 	}
 
 	function user_agent_header() {
-		$user_agent = 'WordPress %s / Business Directory Plugin %s';
-		$user_agent = sprintf( $user_agent, get_bloginfo( 'version' ), WPBDP_VERSION );
+		$user_agent = 'Business Directory/' . WPBDP_VERSION;
+		$user_agent .= ' WordPress/' . get_bloginfo( 'version' );
+		$user_agent .= '; ' . get_bloginfo( 'url' );
+
 		return $user_agent;
 	}
 
