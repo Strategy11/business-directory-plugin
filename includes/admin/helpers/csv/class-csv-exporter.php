@@ -460,7 +460,7 @@ class WPBDP_CSVExporter {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.1
 	 *
 	 * @param string $str
 	 *

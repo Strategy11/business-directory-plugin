@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2024-01-30 20:19:41+00:00\n"
+"POT-Creation-Date: 2024-04-23 17:07:54+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -204,7 +204,7 @@ msgid "Listing Count"
 msgstr "Licznik ofert"
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1396
+#: includes/admin/class-admin.php:1399
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -437,15 +437,15 @@ msgid "Attributes"
 msgstr "Atrybuty pola"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:323
-#: includes/admin/controllers/class-admin-listings.php:782
+#: includes/admin/controllers/class-admin-listings.php:324
+#: includes/admin/controllers/class-admin-listings.php:783
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 #, fuzzy
 msgid "Never"
 msgstr "nigdy"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:349
+#: includes/admin/controllers/class-admin-listings.php:350
 #: includes/helpers/class-listing-display-helper.php:145
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:118
 #, fuzzy
@@ -453,14 +453,14 @@ msgid "Featured"
 msgstr "Status wyróżnienia (naklejka)"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:365
+#: includes/admin/controllers/class-admin-listings.php:366
 #: templates/admin/payments-details.tpl.php:5
 #, fuzzy
 msgid "Payment %s"
 msgstr "Płatność #%d"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:511
+#: includes/admin/controllers/class-admin-listings.php:512
 #: includes/class-cpt-integration.php:19
 #: includes/compatibility/class-navxt-integration.php:223
 #: templates/submit-listing.tpl.php:15
@@ -468,19 +468,19 @@ msgid "Edit Listing"
 msgstr "Edycja Firmy"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:516
+#: includes/admin/controllers/class-admin-listings.php:517
 #: templates/delete-listing-confirm.tpl.php:3
 msgid "Delete Listing"
 msgstr "Usuń Ofertę"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:735
+#: includes/admin/controllers/class-admin-listings.php:736
 #, fuzzy
 msgid "Invalid nonce."
 msgstr "Niewłaściwe ID płatności"
 
-#: includes/admin/controllers/class-admin-listings.php:793
 #: includes/admin/controllers/class-admin-listings.php:794
+#: includes/admin/controllers/class-admin-listings.php:795
 #: includes/fields/class-fieldtypes-textarea.php:201
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:121
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:128
@@ -488,8 +488,8 @@ msgid "Yes"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:793
 #: includes/admin/controllers/class-admin-listings.php:794
+#: includes/admin/controllers/class-admin-listings.php:795
 #: includes/admin/settings/class-settings-bootstrap.php:279
 #: includes/fields/class-fieldtypes-textarea.php:200
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:121
@@ -1053,7 +1053,7 @@ msgstr "Oferty otagowane: %s"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1497
+#: includes/controllers/pages/class-submit-listing.php:1523
 #: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
@@ -1579,7 +1579,7 @@ msgstr ""
 "szblonów, pluginów i wersji WP?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1688
-#: includes/licensing.php:593
+#: includes/licensing.php:594
 msgid "Learn more"
 msgstr ""
 
@@ -2043,7 +2043,7 @@ msgstr ""
 
 # @ WPBDM
 #: includes/compatibility/class-navxt-integration.php:227
-#: includes/widgets/widget-search.php:131
+#: includes/widgets/widget-search.php:171
 #: templates/admin/payments-index.tpl.php:18
 #: templates/deprecated/search.tpl.php:8 templates/search-form.tpl.php:26
 #: templates/search.tpl.php:8
@@ -2220,13 +2220,13 @@ msgid "Please enter your email."
 msgstr "Proszę wprowadzić Imię"
 
 # @ WPBDM
-#: includes/controllers/pages/class-listing-contact.php:220
+#: includes/controllers/pages/class-listing-contact.php:217
 #, fuzzy
 msgid "Send Message"
 msgstr "Wiadomość"
 
 # @ default
-#: includes/controllers/pages/class-listing-contact.php:278
+#: includes/controllers/pages/class-listing-contact.php:293
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \\a\\t g:i a"
 
@@ -2300,20 +2300,20 @@ msgstr "Przejdź do \"Zarządzanie polami formularza\""
 msgid "Please choose a plan."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
-#: includes/controllers/pages/class-submit-listing.php:1302
+#: includes/controllers/pages/class-submit-listing.php:1328
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1481
+#: includes/controllers/pages/class-submit-listing.php:1507
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1488
+#: includes/controllers/pages/class-submit-listing.php:1514
 msgid "Username"
 msgstr ""
 
 # @ WPBDM
-#: includes/controllers/pages/class-submit-listing.php:1510
+#: includes/controllers/pages/class-submit-listing.php:1536
 #, fuzzy
 msgid "Clear Form"
 msgstr "Wyczyść"
@@ -2834,25 +2834,25 @@ msgid "No license key provided"
 msgstr "Nie wprowadzono klucz licencji"
 
 # @ WPBDM
-#: includes/licensing.php:414 includes/licensing.php:452
+#: includes/licensing.php:415 includes/licensing.php:453
 #, fuzzy
 msgid "License key is invalid"
 msgstr "Niewłaściwy Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:418
+#: includes/licensing.php:419
 #, fuzzy
 msgid "Deactivation failed"
 msgstr "Błąd Deaktywacji"
 
 # @ WPBDM
-#: includes/licensing.php:463
+#: includes/licensing.php:464
 #, fuzzy
 msgid "The license key was revoked."
 msgstr "Nie wprowadzono klucz licencji"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:467
+#: includes/licensing.php:468
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory "
 "support%2$s and let them know your license is being reported as revoked by "
@@ -2860,70 +2860,70 @@ msgid ""
 "purchase with your report."
 msgstr ""
 
-#: includes/licensing.php:530
+#: includes/licensing.php:531
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
 "server. The connection failed with the following error:"
 msgstr ""
 
-#: includes/licensing.php:543
+#: includes/licensing.php:544
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
 "server. A problem occurred in the SSL/TSL handshake:"
 msgstr ""
 
-#: includes/licensing.php:590
+#: includes/licensing.php:591
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
 "Business Directory servers."
 msgstr ""
 
-#: includes/licensing.php:649
+#: includes/licensing.php:650
 msgid "Download Premium"
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:699
+#: includes/licensing.php:700
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Katalog firm - wygasł Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:700
+#: includes/licensing.php:701
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Katalog firm - wygasł Klucz Licencji"
 
 # @ WPBDM
-#: includes/licensing.php:701
+#: includes/licensing.php:702
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Pomóż doskonalić Katalog Firm"
 
-#: includes/licensing.php:702
+#: includes/licensing.php:703
 msgid ""
 "You have modules installed, but Business Directory Premium is missing. "
 "Install this plugin for extra features and easy license management."
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:713
+#: includes/licensing.php:714
 #, fuzzy
 msgid "Review license keys"
 msgstr "Odśwież Klucz Licencji"
 
-#: includes/licensing.php:826
+#: includes/licensing.php:827
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:834
+#: includes/licensing.php:835
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/licensing.php:848
+#: includes/licensing.php:849
 #, fuzzy
 msgid "Could not activate license: %s."
 msgstr "Nie możemy aktywować Licencji: %s."
@@ -3101,13 +3101,13 @@ msgid "Return to plan selection"
 msgstr "Powrót do oferty."
 
 # @ WPBDM
-#: includes/themes.php:934
+#: includes/themes.php:899
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/themes.php:990
+#: includes/themes.php:955
 #, fuzzy
 msgid "Please update Business Directory Plugin to latest version."
 msgstr "Plugin Katalog Firm"
@@ -5587,7 +5587,7 @@ msgid "Current Images"
 msgstr "Aktualne obrazy"
 
 # @ WPBDM
-#: templates/submit-listing-plan-selection-complete.tpl.php:35
+#: templates/submit-listing-plan-selection-complete.tpl.php:39
 #, fuzzy
 msgid "Change category/plan"
 msgstr "Kategoria Odnowiona"
@@ -5711,7 +5711,7 @@ msgid "The access keys couldn't be sent."
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1309
+#: includes/admin/class-admin.php:1312
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -5721,7 +5721,7 @@ msgstr ""
 "<tt>[businessdirectory]</tt> aby działać prawidłowo."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1311
+#: includes/admin/class-admin.php:1314
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -5731,12 +5731,12 @@ msgstr ""
 "automatycznie."
 
 # @ WPBDM
-#: includes/admin/class-admin.php:1316
+#: includes/admin/class-admin.php:1319
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Stwórz wymagane pola dla mnie"
 
-#: includes/admin/class-admin.php:1373
+#: includes/admin/class-admin.php:1376
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -5978,44 +5978,44 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:353
+#: includes/admin/controllers/class-admin-listings.php:354
 #, fuzzy
 msgctxt "admin listings"
 msgid "Recurring"
 msgstr "(powtarzające się)"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:357
+#: includes/admin/controllers/class-admin-listings.php:358
 #, fuzzy
 msgctxt "admin listings"
 msgid "Free"
 msgstr "Tryb Bezpłatny"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:361
+#: includes/admin/controllers/class-admin-listings.php:362
 #, fuzzy
 msgctxt "admin listings"
 msgid "Payment Not Found"
 msgstr "Informacje o abonamencie"
 
-#: includes/admin/controllers/class-admin-listings.php:374
+#: includes/admin/controllers/class-admin-listings.php:375
 msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:751
+#: includes/admin/controllers/class-admin-listings.php:752
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:334
+#: includes/admin/controllers/class-admin-listings.php:335
 #, fuzzy
 msgctxt "listing attribute"
 msgid "No Plan"
 msgstr "Zapłacone"
 
-#: includes/admin/controllers/class-admin-listings.php:453
+#: includes/admin/controllers/class-admin-listings.php:454
 msgctxt "listing status"
 msgid "Reported"
 msgstr ""
@@ -6080,54 +6080,54 @@ msgid "Abandoned"
 msgstr "Porzucone"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:527
+#: includes/admin/controllers/class-admin-listings.php:528
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payments"
 msgstr "Płatność"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:532
+#: includes/admin/controllers/class-admin-listings.php:533
 #, fuzzy
 msgctxt "admin actions"
 msgid "View Payment"
 msgstr "Płatność"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:675
+#: includes/admin/controllers/class-admin-listings.php:676
 #, fuzzy
 msgctxt "admin actions"
 msgid "Publish listings"
 msgstr "Publikuj Ofertę"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:676
+#: includes/admin/controllers/class-admin-listings.php:677
 #, fuzzy
 msgctxt "admin actions"
 msgid "Mark as \"Pending Review\""
 msgstr "Oczekujące"
 
-#: includes/admin/controllers/class-admin-listings.php:677
+#: includes/admin/controllers/class-admin-listings.php:678
 msgctxt "admin actions"
 msgid "Hide from directory (mark as \"Draft\")"
 msgstr ""
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:679
+#: includes/admin/controllers/class-admin-listings.php:680
 #, fuzzy
 msgctxt "admin actions"
 msgid "Renew listings"
 msgstr "Odnów Ofertę"
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:680
+#: includes/admin/controllers/class-admin-listings.php:681
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
 msgstr "Upłynął okres ważności oferty."
 
 # @ WPBDM
-#: includes/admin/controllers/class-admin-listings.php:687
+#: includes/admin/controllers/class-admin-listings.php:688
 #, fuzzy
 msgctxt "admin actions"
 msgid "Send access keys"
@@ -7929,19 +7929,19 @@ msgid "Theme was updated successfully."
 msgstr "Import zakończony pełnym sukcesem."
 
 # @ WPBDM
-#: includes/themes.php:942
+#: includes/themes.php:907
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Nie można utworzyć katalogu wpbdp-csv-eksport."
 
 # @ WPBDM
-#: includes/themes.php:953
+#: includes/themes.php:918
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/themes.php:961
+#: includes/themes.php:926
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Nie masz aktualnie ofert w katalogu."
@@ -8606,19 +8606,19 @@ msgid "You did not enter a message."
 msgstr "Nie wpisałeś wiadomości."
 
 # @ WPBDM
-#: includes/controllers/pages/class-listing-contact.php:290
+#: includes/controllers/pages/class-listing-contact.php:305
 msgctxt "contact-message"
 msgid "Your message has been sent."
 msgstr "Twoja oferta została usunięta."
 
 # @ WPBDM
-#: includes/controllers/pages/class-listing-contact.php:312
+#: includes/controllers/pages/class-listing-contact.php:327
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr "Wystąpił problem. Twoja wiadomość nie została wysłana"
 
 # @ WPBDM
-#: includes/controllers/pages/class-listing-contact.php:315
+#: includes/controllers/pages/class-listing-contact.php:330
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Powrót do oferty."
@@ -8639,7 +8639,7 @@ msgstr ""
 "Ten formularz kontaktu jest chwilowo wyłączony. Możesz spróbować pózniej."
 
 # @ WPBDM
-#: includes/controllers/pages/class-listing-contact.php:216
+#: includes/controllers/pages/class-listing-contact.php:213
 msgctxt "templates"
 msgid "Contact listing owner"
 msgstr "Skontaktuj się z właścicielem oferty"
@@ -8714,13 +8714,13 @@ msgid ""
 msgstr ""
 
 # @ WPBDM
-#: includes/controllers/pages/class-submit-listing.php:1531
+#: includes/controllers/pages/class-submit-listing.php:1557
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Musisz zaakceptować nasze warunki i regulamin korzystania z serwisu."
 
 # @ WPBDM
-#: includes/controllers/pages/class-submit-listing.php:1545
+#: includes/controllers/pages/class-submit-listing.php:1571
 #, fuzzy
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
@@ -9088,7 +9088,7 @@ msgstr ""
 
 # @ WPBDM
 #: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1213
+#: includes/controllers/pages/class-submit-listing.php:1239
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
@@ -9112,25 +9112,25 @@ msgid "Please choose a valid plan for your category selection."
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: includes/controllers/pages/class-submit-listing.php:1448
+#: includes/controllers/pages/class-submit-listing.php:1474
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Proszę wprowadzić Imię"
 
 # @ WPBDM
-#: includes/controllers/pages/class-submit-listing.php:1453
+#: includes/controllers/pages/class-submit-listing.php:1479
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Proszę wprowadzić Imię"
 
-#: includes/controllers/pages/class-submit-listing.php:1458
+#: includes/controllers/pages/class-submit-listing.php:1484
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1463
+#: includes/controllers/pages/class-submit-listing.php:1489
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -9142,7 +9142,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Prześlij ofertę"
 
-#: includes/controllers/pages/class-submit-listing.php:1395
+#: includes/controllers/pages/class-submit-listing.php:1421
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -9478,19 +9478,19 @@ msgid "General"
 msgstr "Główna"
 
 # @ WPBDM
-#: includes/licensing.php:503
+#: includes/licensing.php:504
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Nie można połączyć z serwerem danych licencji"
 
-#: includes/licensing.php:516
+#: includes/licensing.php:517
 msgctxt "licensing"
 msgid ""
 "It was not possible to establish a connection with Business Directory's "
 "server. cURL was not found in your system"
 msgstr ""
 
-#: includes/licensing.php:518 includes/licensing.php:548
+#: includes/licensing.php:519 includes/licensing.php:549
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -9499,7 +9499,7 @@ msgid ""
 "1.0.1c)."
 msgstr ""
 
-#: includes/licensing.php:520 includes/licensing.php:550
+#: includes/licensing.php:521 includes/licensing.php:551
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -9507,45 +9507,45 @@ msgid ""
 "services using the latest security standards."
 msgstr ""
 
-#: includes/licensing.php:522
+#: includes/licensing.php:523
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary"
 msgstr ""
 
-#: includes/licensing.php:552
+#: includes/licensing.php:553
 msgctxt "licensing"
 msgid ""
 "Please contact your hosting provider and ask them to upgrade your system. "
 "Include this message if necessary."
 msgstr ""
 
-#: includes/licensing.php:588
+#: includes/licensing.php:589
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr ""
 
 # @ WPBDM
-#: includes/licensing.php:853
+#: includes/licensing.php:854
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licencja została aktywowana"
 
 # @ WPBDM
-#: includes/licensing.php:883
+#: includes/licensing.php:884
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Nie możemy deaktywować Licencji: %s."
 
 # @ WPBDM
-#: includes/licensing.php:885
+#: includes/licensing.php:886
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licencja deaktywowana"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1125
+#: includes/licensing.php:1128
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
@@ -9754,37 +9754,37 @@ msgid "Search the Business Directory"
 msgstr "Przeszukaj Katalog Firm "
 
 # @ WPBDM
-#: includes/widgets/widget-search.php:29
+#: includes/widgets/widget-search.php:31
 msgctxt "widgets"
 msgid "Title:"
 msgstr "Tytuł:"
 
 # @ WPBDM
-#: includes/widgets/widget-search.php:36
+#: includes/widgets/widget-search.php:38
 msgctxt "widgets"
 msgid "Form Style:"
 msgstr "Styl Formularza:"
 
 # @ WPBDM
-#: includes/widgets/widget-search.php:45
+#: includes/widgets/widget-search.php:47
 msgctxt "widgets"
 msgid "Basic"
 msgstr "Prosty"
 
 # @ WPBDM
-#: includes/widgets/widget-search.php:55
+#: includes/widgets/widget-search.php:57
 msgctxt "widgets"
 msgid "Advanced"
 msgstr "Zaawansowany"
 
 # @ WPBDM
-#: includes/widgets/widget-search.php:60
+#: includes/widgets/widget-search.php:62
 msgctxt "widgets"
 msgid "Search Fields (advanced mode):"
 msgstr "Pola wyszukiwania"
 
 # @ WPBDM
-#: includes/widgets/widget-search.php:61
+#: includes/widgets/widget-search.php:63
 msgctxt "widgets"
 msgid "Display the following fields in the form."
 msgstr "Wyświetl poniższe pola w formularzu."

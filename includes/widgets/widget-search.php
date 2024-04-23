@@ -68,7 +68,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.1
 	 *
 	 * @param array $instance
 	 *
