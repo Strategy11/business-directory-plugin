@@ -513,10 +513,8 @@ class WPBDP_Themes {
 		}
 
 		foreach ( $addons as $addon ) {
-			if ( is_array( $addon ) && in_array( 'Theme', $addon['categories'], true ) ) {
-				if ( $theme_name == $addon['title'] ) {
-					return true;
-				}
+			if ( is_array( $addon ) && ! empty( $addon['title'] ) && $theme_name == $addon['title'] ) {
+				return true;
 			}
 		}
 
