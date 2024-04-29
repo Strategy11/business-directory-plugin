@@ -5,22 +5,11 @@
 actor: WpunitTester
 modules:
     enabled:
-        - WPDb
         - WPLoader
         - \Helper\Wpunit
     config:
-        WPDb:
-            dsn: 'mysql:host=localhost;dbname=wordpress_tests'
-            user: 'root'
-            password: 'root'
-            dump: 'tests/_data/dump.sql'
-            populate: true #import the dump before the tests
-            cleanup: false #do not import the dump between tests
-            url: 'https://qa.businessdirectoryplugin.com/'
-            urlReplacement: true #replace the hardcoded dump URL with the one above
-            tablePrefix: 'wpl_'
         WPLoader:
-            loadOnly: true # Only load WordPress, do not install it
+            loadOnly: false
             multisite: false
             wpRootFolder: "/tmp/wordpress/src/"
             dbName: "wordpress_tests"
