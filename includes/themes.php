@@ -513,7 +513,7 @@ class WPBDP_Themes {
 		}
 
 		foreach ( $addons as $addon ) {
-			if ( is_array( $addon ) && ! empty( $addon['title'] ) && $theme_name == $addon['title'] ) {
+			if ( is_array( $addon ) && ! empty( $addon['title'] ) && strtolower( $theme_name ) === strtolower( $addon['title'] ) ) {
 				return true;
 			}
 		}

@@ -20,7 +20,7 @@ modules:
             urlReplacement: true #replace the hardcoded dump URL with the one above
             tablePrefix: 'wpl_'
         WPLoader:
-            loadOnly: false
+            loadOnly: true # Only load WordPress, do not install it
             multisite: false
             wpRootFolder: "/tmp/wordpress/src/"
             dbName: "wordpress_tests"
@@ -30,7 +30,7 @@ modules:
             tablePrefix: "wpl_"
             domain: "https://qa.businessdirectoryplugin.com/"
             adminEmail: "admin@businessdirectory.com"
-            title: "Test"        
+            title: "Test"
             plugins: ['business-directory-plugin/business-directory-plugin.php']
             activatePlugins: ['business-directory-plugin/business-directory-plugin.php']
             bootstrapActions:
