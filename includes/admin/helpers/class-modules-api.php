@@ -326,6 +326,7 @@ class WPBDP_Modules_API {
 		} else {
 			delete_option( $this->cache_key );
 		}
+		delete_option( 'wpbdp_updates' );
 		$this->done_running();
 	}
 

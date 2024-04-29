@@ -1264,6 +1264,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 				// Delete transients.
 				delete_transient( 'wpbdp-official-themes' );
+				delete_transient( 'wpbdp-themes-updates' );
 
 				// Clear scheduled hooks.
 				wp_clear_scheduled_hook( 'wpbdp_hourly_events' );
