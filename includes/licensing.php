@@ -897,7 +897,7 @@ class WPBDP_Licensing {
 
 		$updates = get_option( 'wpbdp_updates' );
 
-		$due = current_time( 'timestamp' ) - DAY_IN_SECONDS;
+		$due = time() - DAY_IN_SECONDS;
 
 		$needs_refresh = false === $updates || $force_refresh || $updates['last'] < $due;
 
@@ -927,6 +927,50 @@ class WPBDP_Licensing {
 			$licenses[ $item['id'] ] = $license;
 		}
 
+		$body = $this->batch_get_plugins( $args );
+
+		$updates      = array();
+		$save_updates = true;
+		foreach ( $this->items as $item ) {
+			foreach ( $body as $item_information ) {
+				if ( is_array( $item_information ) ) {
+					$save_updates = false;
+					$updates      = $this->prepare_api_response( $item, $body, $updates, $licenses );
+				} elseif ( is_object( $item_information ) ) {
+					$updates = $this->prepare_batch_response( $item, $body, $updates );
+				}
+			}
+		}
+
+		$updates['last'] = time();
+
+		if ( $save_updates ) {
+			// We don't need to save again if this is coming from the standard API.
+			update_option( 'wpbdp_updates', $updates, false );
+			update_option( 'wpbdp_licenses', $this->licenses );
+		}
+
+		return $updates;
+	}
+
+	/**
+	 * Get the plugin information from the plugin list API or
+	 * the deprecated bulk API for multiple license keys.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $args The arguments to send to the API.
+	 *
+	 * @return array
+	 */
+	private function batch_get_plugins( $args ) {
+		$license = $this->filter_to_one_license( $args['licenses'] );
+		if ( $license !== true ) {
+			// If there's only one license, we can get all the information in one request.
+			$version_info = $this->get_plugin_api_info( $license );
+			return $version_info;
+		}
+
 		$request = wp_remote_get(
 			self::STORE_URL,
 			array(
@@ -954,37 +998,109 @@ class WPBDP_Licensing {
 			}
 		}
 
-		$updates = array();
-		foreach ( $this->items as $item ) {
+		return $body;
+	}
+
+	/**
+	 * If there's only one (or no) license, we can get all the information
+	 * in one request.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $licenses All licenses saved to this site.
+	 *
+	 * @return string|bool
+	 */
+	private function filter_to_one_license( $licenses ) {
+		$licenses = array_filter( array_unique( $licenses ) );
+		if ( count( $licenses ) < 2 ) {
+			// If there's only one license, we can get all the information in one request.
+			return reset( $licenses );
+		}
+		return true;
+	}
+
+	/**
+	 * Handle the response from the plugin updates list API.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $item     The BD add-on module to check.
+	 * @param array $body     The response from the API.
+	 * @param array $updates  The information to return to the WP updater.
+	 * @param array $licenses All licenses saved to this site.
+	 *
+	 * @return array
+	 */
+	private function prepare_api_response( $item, $body, $updates, $licenses ) {
+		foreach ( $body as $addon ) {
+			if ( ! is_array( $addon ) || empty( $addon['name'] ) ) {
+				continue;
+			}
+
+			$addon = (object) $addon;
+			if ( trim( $addon->name ) !== trim( $item['name'] ) || empty( $addon->package ) ) {
+				continue;
+			}
+
 			$item_key = $item['item_type'] . '-' . $item['id'];
 
-			foreach ( $body as $item_information ) {
-				if ( trim( $item_information->name ) !== trim( $item['name'] ) || empty( $item_information->license ) ) {
-					continue;
-				}
+			$addon->expires             = isset( $addon->expires ) ? gmdate( 'Y-m-d H:i:s', $addon->expires ) : '';
+			$updates[ $item_key ]       = $addon;
+			$updates[ $item_key ]->slug = $item['id'];
 
-				$updates[ $item_key ]       = $item_information;
-				$updates[ $item_key ]->slug = $item['id'];
-
-				// Update the license status too.
-				if ( $item['id'] === $this->premium_id() ) {
-					// Handle premium from it's own updater.
-					continue;
-				}
-
-				$this->licenses[ $item_key ] = array(
-					'license_key'  => $item_information->license,
-					'status'       => $item_information->license_status,
-					'expires'      => isset( $item_information->expires ) ? $item_information->expires : '',
-					'last_checked' => time(),
-					'bundle'       => $item['item_type'] === 'module' && $item_information->bundle,
-				);
+			if ( $item['id'] === $this->premium_id() ) {
+				// Handle premium from it's own updater.
+				continue;
 			}
+
+			$this->licenses[ $item_key ] = array(
+				'license_key'  => $this->filter_to_one_license( $licenses ),
+				'status'       => $addon->code,
+				// Convert data to match the format returned by batch_get_plugins.
+				'expires'      => $addon->expires,
+				'last_checked' => time(),
+			);
 		}
 
-		$updates['last'] = current_time( 'timestamp' );
-		update_option( 'wpbdp_updates', $updates, false );
-		update_option( 'wpbdp_licenses', $this->licenses );
+		return $updates;
+	}
+
+	/**
+	 * Handle the response from 'batch_get_version' endpoint.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $item    The BD add-on module to check.
+	 * @param array $body    The response from the API.
+	 * @param array $updates The information to return to the WP updater.
+	 *
+	 * @return array
+	 */
+	private function prepare_batch_response( $item, $body, $updates ) {
+		$item_key = $item['item_type'] . '-' . $item['id'];
+
+		foreach ( $body as $item_information ) {
+			if ( trim( $item_information->name ) !== trim( $item['name'] ) || empty( $item_information->license ) ) {
+				continue;
+			}
+
+			$updates[ $item_key ]       = $item_information;
+			$updates[ $item_key ]->slug = $item['id'];
+
+			// Update the license status too.
+			if ( $item['id'] === $this->premium_id() ) {
+				// Handle premium from it's own updater.
+				continue;
+			}
+
+			$this->licenses[ $item_key ] = array(
+				'license_key'  => $item_information->license,
+				'status'       => $item_information->license_status,
+				'expires'      => isset( $item_information->expires ) ? $item_information->expires : '',
+				'last_checked' => time(),
+			);
+		}
 
 		return $updates;
 	}
@@ -1033,7 +1149,7 @@ class WPBDP_Licensing {
 				$transient->response[ $wp_name ] = $updates[ $item_key ];
 			}
 
-			$transient->last_checked        = current_time( 'timestamp' );
+			$transient->last_checked        = time();
 			$transient->checked[ $wp_name ] = $module['version'];
 		}
 
@@ -1041,30 +1157,51 @@ class WPBDP_Licensing {
 	}
 
 	/**
-	 * Get item version.
-	 * Get the update information of an item.
-	 *
-	 * @todo change to new rest api.
+	 * Get item version for the plugin info popup on plugins page.
 	 *
 	 * @param array $item The module item.
 	 *
 	 * @since 5.17
 	 *
-	 * @return mixed
+	 * @return object|bool
 	 */
 	private function get_item_version( $item ) {
-		$http_args = array(
-			'timeout'   => 15,
-			'sslverify' => false,
-			'body'      => array(
-				'edd_action' => 'get_version',
-				'item_name'  => $item['name'],
-				'license'    => wpbdp_get_option( 'license-key-' . $item['item_type'] . '-' . $item['id'] ),
-				'url'        => home_url(),
-			),
-		);
-		$request   = wp_remote_post( self::STORE_URL, $http_args );
-		return $request;
+		$version_info = $this->get_plugin_api_info();
+
+		foreach ( $version_info as $plugin ) {
+			if ( ! is_array( $plugin ) || strpos( $plugin['plugin'], $item['id'] ) === false ) {
+				continue;
+			}
+
+			$plugin['sections'] = array(
+				'description' => $plugin['excerpt'],
+				'changelog'   => $plugin['changelog'],
+			);
+			$plugin['author']   = '<a href="' . esc_url( self::STORE_URL ) . '">Business Directory Team</a>';
+			$plugin['homepage'] = self::STORE_URL;
+
+			return (object) $plugin;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get plugin API info.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $license The license key.
+	 *
+	 * @return array
+	 */
+	private function get_plugin_api_info( $license = null ) {
+		if ( empty( $license ) ) {
+			$license = null;
+		}
+		include_once __DIR__ . '/admin/helpers/class-modules-api.php';
+		$api = new WPBDP_Modules_API( $license );
+		return $api->get_api_info();
 	}
 
 	/**
@@ -1081,14 +1218,8 @@ class WPBDP_Licensing {
 		}
 
 		$request = $this->get_item_version( $item );
-
-		if ( ! is_wp_error( $request ) ) {
-			$request = json_decode( wp_remote_retrieve_body( $request ) );
-
-			if ( $request && is_object( $request ) && isset( $request->sections ) ) {
-				$request->sections = maybe_unserialize( $request->sections );
-				$data              = $request;
-			}
+		if ( $request ) {
+			$data = $request;
 		}
 
 		return $data;
