@@ -1227,7 +1227,7 @@ class WPBDP_Licensing {
 	}
 
 	function user_agent_header() {
-		$user_agent = 'Business Directory/' . WPBDP_VERSION;
+		$user_agent  = 'Business Directory/' . WPBDP_VERSION;
 		$user_agent .= ' WordPress/' . get_bloginfo( 'version' );
 		$user_agent .= '; ' . get_bloginfo( 'url' );
 

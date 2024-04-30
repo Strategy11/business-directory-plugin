@@ -124,7 +124,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 	$listing = apply_filters( 'wpbpd_save_listing_data', $listing, $context );
 	extract( $listing );
 
-	$adding  = ( empty( $listing_id ) );
+	$adding  = empty( $listing_id );
 	$editing = ! $adding;
 
 	$post = array(

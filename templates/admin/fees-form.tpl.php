@@ -46,11 +46,11 @@
 							value="<?php echo absint( $fee->days ); ?>"
 							style="width: 80px;"
 							name="fee[days]"
-							<?php echo ( absint( $fee->days ) === 0 ) ? 'disabled="disabled"' : ''; ?>
+							<?php echo absint( $fee->days ) === 0 ? 'disabled="disabled"' : ''; ?>
 					/>
 					<?php esc_html_e( 'days', 'business-directory-plugin' ); ?>
 					<br />
-					<input type="radio" id="wpbdp-fee-form-days-0" name="_days" value="0" <?php echo ( absint( $fee->days ) === 0 ) ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days-0"><?php esc_html_e( 'run listing forever', 'business-directory-plugin' ); ?>
+					<input type="radio" id="wpbdp-fee-form-days-0" name="_days" value="0" <?php echo absint( $fee->days ) === 0 ? 'checked="checked"' : ''; ?>/> <label for="wpbdp-fee-form-days-0"><?php esc_html_e( 'run listing forever', 'business-directory-plugin' ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
@@ -80,7 +80,7 @@
 								type="checkbox"
 								value="1"
 								<?php echo ! empty( $fee->extra_data['private'] ) ? 'checked="checked"' : ''; ?>
-								<?php echo ( 'free' === $fee->tag ) ? 'disabled="disabled"' : ''; ?>
+								<?php echo 'free' === $fee->tag ? 'disabled="disabled"' : ''; ?>
 						/>
 					</label>
 				</td>
@@ -97,7 +97,7 @@
 								type="checkbox"
 								value="1"
 								<?php echo $fee->recurring ? 'checked="checked"' : ''; ?>
-								<?php echo ( 'free' === $fee->tag ) ? 'disabled="disabled"' : ''; ?>
+								<?php echo 'free' === $fee->tag ? 'disabled="disabled"' : ''; ?>
 						/>
 						<span class="description"><?php esc_html_e( 'Should the listing auto-renew at the end of the listing term?', 'business-directory-plugin' ); ?></span>
 					</label>
@@ -116,7 +116,7 @@
 							type="checkbox"
 							value="1"
 							<?php echo $fee->sticky ? 'checked="checked"' : ''; ?>
-							<?php echo ( 'free' === $fee->tag ) ? 'disabled="disabled"' : ''; ?>
+							<?php echo 'free' === $fee->tag ? 'disabled="disabled"' : ''; ?>
 					/>
 					<label for="wpbdp-fee-form-fee-sticky"><span class="description"><?php esc_html_e( 'This floats the listing to the top of search results and browsing the directory when the user buys this plan.', 'business-directory-plugin' ); ?></span></label>
 				</td>
@@ -220,7 +220,7 @@ endif;
 					</div>
 				</td>
 			</tr>
-			<tr class="form-field fee-pricing-details pricing-details-flat pricing-details-extra <?php echo ( 'flat' === $fee->pricing_model || 'extra' === $fee->pricing_model ) ? '' : 'hidden'; ?>">
+			<tr class="form-field fee-pricing-details pricing-details-flat pricing-details-extra <?php echo 'flat' === $fee->pricing_model || 'extra' === $fee->pricing_model ? '' : 'hidden'; ?>">
 				<th scope="row">
 					<label for="wpbdp-fee-form-fee-price">
 						<?php esc_html_e( 'Plan Price', 'business-directory-plugin' ); ?>

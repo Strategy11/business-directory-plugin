@@ -21,7 +21,7 @@ class WPBDP__Listing_Flagging {
 	}
 
 	public static function is_flagged( $listing_id ) {
-		return ( 1 == get_post_meta( $listing_id, '_wpbdp_flagged', true ) );
+		return 1 == get_post_meta( $listing_id, '_wpbdp_flagged', true );
 	}
 
 	public static function user_has_flagged( $listing_id, $user_id ) {

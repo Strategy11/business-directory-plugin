@@ -186,7 +186,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
 			if ( strlen( $format_ ) != strlen( $value_ ) ) {
 				/* translators: %1$s: field label, %2$s: format */
-				return WPBDP_ValidationError( ( ! empty( $args['messages']['incorrect_format'] ) ) ? $args['messages']['incorrect_format'] : sprintf( esc_html__( '%1$s must be in the format %2$s.', 'business-directory-plugin' ), esc_html( $args['field-label'] ), esc_html( $format ) ) );
+				return WPBDP_ValidationError( ! empty( $args['messages']['incorrect_format'] ) ? $args['messages']['incorrect_format'] : sprintf( esc_html__( '%1$s must be in the format %2$s.', 'business-directory-plugin' ), esc_html( $args['field-label'] ), esc_html( $format ) ) );
 			}
 
 			$d = '0';
@@ -225,7 +225,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
 			if ( ! ctype_digit( $m ) || ! ctype_digit( $d ) || ! ctype_digit( $y ) || ! checkdate( (int) $m, (int) $d, (int) $y ) ) {
 				/* translators: %s: field label */
-				return WPBDP_ValidationError( ( ! empty( $args['messages']['invalid'] ) ) ? $args['messages']['invalid'] : sprintf( esc_html__( '%s must be a valid date.', 'business-directory-plugin' ), esc_html( $args['field-label'] ) ) );
+				return WPBDP_ValidationError( ! empty( $args['messages']['invalid'] ) ? $args['messages']['invalid'] : sprintf( esc_html__( '%s must be a valid date.', 'business-directory-plugin' ), esc_html( $args['field-label'] ) ) );
 			}
 		}
 

@@ -11,7 +11,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	private $items            = array();
 	private $displayed_fields = array();
 	private $names_to_ids     = array();
-	private $has_excerpt     = false;
+	private $has_excerpt      = false;
 	public function __construct( $listing_id, $display, $fields = array() ) {
 		$this->listing_id = $listing_id;
 		$this->display    = $display;
@@ -236,7 +236,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		$second_line = $address2;
 
 		$third_line  = $city;
-		$third_line .= ( $city && $state ) ? ', ' . $state : $state;
+		$third_line .= $city && $state ? ', ' . $state : $state;
 		$third_line .= $zip ? ' ' . $zip : '';
 
 		return implode(

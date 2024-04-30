@@ -909,7 +909,7 @@ class WPBDP_Form_Field {
 				break;
 			case 'tags':
 			case 'category':
-				$query = ( 'tags' == $this->get_association() && is_string( $query ) ) ? explode( ',', $query ) : $query;
+				$query = 'tags' == $this->get_association() && is_string( $query ) ? explode( ',', $query ) : $query;
 				$query = is_array( $query ) ? $query : array( $query );
 				$query = array_diff( array_map( 'trim', $query ), array( -1, 0, '' ) );
 

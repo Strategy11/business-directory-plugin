@@ -534,8 +534,8 @@ class WPBDP__Settings {
 		}
 
 		// Min and max.
-		$value = ( array_key_exists( 'min', $setting ) && $value < $setting['min'] ) ? $setting['min'] : $value;
-		$value = ( array_key_exists( 'max', $setting ) && $value > $setting['max'] ) ? $setting['max'] : $value;
+		$value = array_key_exists( 'min', $setting ) && $value < $setting['min'] ? $setting['min'] : $value;
+		$value = array_key_exists( 'max', $setting ) && $value > $setting['max'] ? $setting['max'] : $value;
 
 		return $value;
 	}

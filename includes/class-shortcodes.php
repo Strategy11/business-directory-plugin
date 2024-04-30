@@ -323,7 +323,7 @@ class WPBDP__Shortcodes {
 		);
 
 		if ( ! is_null( $sc_atts['menu'] ) ) {
-			$sc_atts['menu'] = ( 1 === $sc_atts['menu'] || 'true' === $sc_atts['menu'] ) ? true : false;
+			$sc_atts['menu'] = 1 === $sc_atts['menu'] || 'true' === $sc_atts['menu'];
 		}
 
 		$this->validate_attributes( $sc_atts, $atts );
@@ -376,8 +376,8 @@ class WPBDP__Shortcodes {
 
 		return $this->display_listings(
 			array(
-				'orderby' => 'date',
-				'order'   => 'DESC',
+				'orderby'         => 'date',
+				'order'           => 'DESC',
 				'wpbdp_shortcode' => true,
 			),
 			$sc_atts

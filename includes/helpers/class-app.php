@@ -250,7 +250,7 @@ class WPBDP_App_Helper {
 		}
 
 		$nonce_name  = $atts['nonce_name'];
-		$nonce_value = ( $_REQUEST && isset( $_REQUEST[ $nonce_name ] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_name ] ) ) : '';
+		$nonce_value = $_REQUEST && isset( $_REQUEST[ $nonce_name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_name ] ) ) : '';
 
 		if ( $_REQUEST && ( ! isset( $_REQUEST[ $nonce_name ] ) || ! wp_verify_nonce( $nonce_value, $atts['nonce'] ) ) ) {
 			$error = esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' );

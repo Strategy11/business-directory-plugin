@@ -366,7 +366,7 @@ class WPBDP_Themes {
 		global $wpbdp;
 		global $wpdb;
 
-		$key = ( ! $key ) ? 'tag' : $key;
+		$key = ! $key ? 'tag' : $key;
 
 		$missing             = array();
 		$suggested_fields    = array_filter( (array) $this->get_active_theme_data( 'suggested_fields' ) );

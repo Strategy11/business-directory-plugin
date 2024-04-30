@@ -389,7 +389,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		// Maybe skip plan selection?
 		if ( $this->skip_plan_payment ) {
-			$this->skip_plan_selection = ( 1 === count( $this->get_available_plans() ) );
+			$this->skip_plan_selection = 1 === count( $this->get_available_plans() );
 		}
 
 		$this->current_section = wpbdp_get_var(
@@ -452,7 +452,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$sections = array();
 		foreach ( $this->sections as $section ) {
-			$messages = ( ! empty( $this->messages[ $section['id'] ] ) ) ? $this->messages[ $section['id'] ] : array();
+			$messages = ! empty( $this->messages[ $section['id'] ] ) ? $this->messages[ $section['id'] ] : array();
 
 			$messages_html = '';
 			foreach ( $messages as $i ) {
@@ -1515,7 +1515,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$html .= ' <label for="wpbdp-submit-listing-create_account">' . esc_html__( 'Create a user account on this site', 'business-directory-plugin' ) . '</label>';
 		}
 
-		$html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( ( 'optional' == $mode && ! $form_create ) ? 'wpbdp-hidden' : '' ) . '">';
+		$html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( 'optional' == $mode && ! $form_create ? 'wpbdp-hidden' : '' ) . '">';
 
 		$html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
 		$html .= '<div class="wpbdp-form-field-label">';
@@ -1776,8 +1776,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Change plan if not the same as for listing.
 	 * Update the plan in the payment.
-	 *
-	 *
+     *
 	 * @since 5.17
 	 *
 	 * @param object $new_plan The new selected plan to assign to the listing.

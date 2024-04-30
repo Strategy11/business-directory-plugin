@@ -36,7 +36,7 @@ final class WPBDP_FS {
 			}
 
 			$path   = $dir . DIRECTORY_SEPARATOR . $entry;
-			$passes = $filter ? ( (bool) call_user_func( $filter, $path ) ) : true;
+			$passes = $filter ? (bool) call_user_func( $filter, $path ) : true;
 
 			if ( is_dir( $path ) ) {
 				$path = wp_normalize_path( trailingslashit( $path ) );

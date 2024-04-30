@@ -303,7 +303,6 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render checkbox input hmtl.
 	 *
-	 *
 	 * @since 6.0
 	 *
 	 * @param array $setting The setting of the field.
@@ -321,7 +320,6 @@ class WPBDP__Settings_Admin {
 
 	/**
 	 * Render settings input label.
-	 *
 	 *
 	 * @since 6.0
 	 *
@@ -356,7 +354,6 @@ class WPBDP__Settings_Admin {
 
 	/**
 	 * Render settings input description.
-	 *
 	 *
 	 * @since 6.0
 	 *

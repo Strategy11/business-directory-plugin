@@ -276,10 +276,10 @@ class WPBDP_Installer {
 
 	public function get_pending_migrations() {
 		$current_version = strval( $this->installed_version );
-		$current_version = ( false === strpos( $current_version, '.' ) ) ? $current_version . '.0' : $current_version;
+		$current_version = false === strpos( $current_version, '.' ) ? $current_version . '.0' : $current_version;
 
 		$latest_version = strval( self::DB_VERSION );
-		$latest_version = ( false === strpos( $latest_version, '.' ) ) ? $latest_version . '.0' : $latest_version;
+		$latest_version = false === strpos( $latest_version, '.' ) ? $latest_version . '.0' : $latest_version;
 
 		$migrations = array();
 

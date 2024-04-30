@@ -308,7 +308,7 @@ class WPBDP_Admin_Listings {
 				esc_html( $term->name )
 			);
 
-			if ( ( $i + 1 ) != count( $terms ) ) {
+			if ( $i + 1 != count( $terms ) ) {
 				echo ', ';
 			}
 		}
@@ -418,7 +418,7 @@ class WPBDP_Admin_Listings {
 
 			$count = number_format_i18n( $count );
 
-			$current_class                         = ( ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ) ? 'current' : '';
+			$current_class                         = ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ? 'current' : '';
 			$views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg(
 				array( 'post_status', 'author', 'all_posts', 'wpbdmfilter' ),
 				add_query_arg(

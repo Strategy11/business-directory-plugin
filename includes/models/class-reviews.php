@@ -62,7 +62,7 @@ class WPBDP_Reviews {
 			$dismissed = false;
 		}
 
-		$week_ago = ( $this->review_status['time'] + WEEK_IN_SECONDS ) <= time();
+		$week_ago = $this->review_status['time'] + WEEK_IN_SECONDS <= time();
 
 		if ( empty( $dismissed ) && $week_ago ) {
 			$this->review();
@@ -161,7 +161,7 @@ class WPBDP_Reviews {
 		);
 
 		$review['time']      = time();
-		$review['dismissed'] = ( 'done' === $dismissed ) ? true : 'later';
+		$review['dismissed'] = 'done' === $dismissed ? true : 'later';
 		$review['asked']     = isset( $review['asked'] ) ? $review['asked'] + 1 : 1;
 
 		$this->update_user_meta( $user_id, $review );

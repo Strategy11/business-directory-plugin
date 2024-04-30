@@ -532,7 +532,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 			foreach ( $fields_order as $i => $field_id ) {
 				$wpdb->update(
 					$wpdb->prefix . 'wpbdp_form_fields',
-					array( 'weight' => ( $total - $i ) ),
+					array( 'weight' => $total - $i ),
 					array( 'id' => $field_id )
 				);
 			}

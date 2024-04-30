@@ -859,8 +859,8 @@ function wpbdp_get_fee_plans( $args = array() ) {
 
 	$order = wpbdp_get_option( 'fee-order' );
 	if ( $order ) {
-		$defaults['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
-		$defaults['order']   = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
+		$defaults['orderby'] = 'custom' == $order['method'] ? 'weight' : $order['method'];
+		$defaults['order']   = 'custom' == $order['method'] ? 'DESC' : $order['order'];
 	}
 
 	$args = wp_parse_args( $args, $defaults );

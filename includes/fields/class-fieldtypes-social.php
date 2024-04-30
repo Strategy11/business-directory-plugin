@@ -60,7 +60,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 			$content .= sprintf(
 				'<option value="%s" %s>%s</option>',
 				$order,
-				( $field && $field->data( 'display_order' ) === $order ) ? 'selected' : '',
+				$field && $field->data( 'display_order' ) === $order ? 'selected' : '',
 				$text
 			);
 		}
@@ -155,7 +155,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 					implode( ' ', $css_classes ),
 					'listingfields[' . $field->get_id() . '][type]',
 					$type,
-					( ! empty( $value['type'] ) && $type === $value['type'] ) ? 'checked="checked"' : '',
+					! empty( $value['type'] ) && $type === $value['type'] ? 'checked="checked"' : '',
 					'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( $sanitized_type ) . '"></i> ' . esc_html( $label )
 				);
 			}
@@ -204,7 +204,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 				admin_url( 'admin-ajax.php' )
 			);
 
-			$show_it     = ( ! empty( $value['type'] ) && 'Other' === $value['type'] ) ? '' : ' style="display:none"';
+			$show_it     = ! empty( $value['type'] ) && 'Other' === $value['type'] ? '' : ' style="display:none"';
 			$icon_input .= '<div class="wpbdp-upload-widget" ' . $show_it . '>';
 			$icon_input .= sprintf(
 				'<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',

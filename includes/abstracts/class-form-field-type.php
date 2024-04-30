@@ -259,7 +259,7 @@ class WPBDP_Form_Field_Type {
 					'<label for="%s">%s</label>',
 					'wpbdp-field-' . esc_attr( $field->get_id() ),
 					wp_kses_post( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) .
-					( ( $field->has_validator( 'required' ) && 'widget' !== $render_context ) ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
+					( $field->has_validator( 'required' ) && 'widget' !== $render_context ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
 				);
 
 				$html .= '</div>';

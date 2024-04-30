@@ -21,7 +21,7 @@ WPBDP_Admin_Pages::show_tabs(
 			<?php endforeach; ?>
 			</select>
 
-			<select name="fee_order[order]" style="<?php echo ( 'custom' == $current_order['method'] ) ? 'display: none;' : ''; ?>">
+			<select name="fee_order[order]" style="<?php echo 'custom' == $current_order['method'] ? 'display: none;' : ''; ?>">
 			<?php
 			foreach ( array(
 				'asc'  => __( '↑ Ascending', 'business-directory-plugin' ),

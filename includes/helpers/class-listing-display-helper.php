@@ -18,7 +18,7 @@ class WPBDP_Listing_Display_Helper {
 		global $post;
 
 		$vars = array();
-		$vars = array_merge( $vars, array( 'even_or_odd' => ( ( $n & 1 ) ? 'odd' : 'even' ) ) );
+		$vars = array_merge( $vars, array( 'even_or_odd' => ( $n & 1 ? 'odd' : 'even' ) ) );
 		$vars = array_merge( $vars, self::basic_vars( $post->ID ) );
 		$vars = array_merge( $vars, self::fields_vars( $post->ID, 'excerpt' ) );
 		$vars = array_merge( $vars, self::images_vars( $post->ID, 'excerpt' ) );

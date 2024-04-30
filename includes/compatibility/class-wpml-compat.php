@@ -123,7 +123,6 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Add current language to the URL used in BD's ajax requests.
 	 *
-	 *
 	 * @since 5.0.3
 	 *
 	 * @param string $ajax_url Default value for Ajax URL.

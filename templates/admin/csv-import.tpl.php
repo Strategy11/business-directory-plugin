@@ -225,12 +225,12 @@ printf(
 			</div>
 				<label><input name="settings[create-missing-categories]"
 						type="radio"
-						value="1" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ) ? 'checked="checked"' : ''; ?> />
+						value="1" <?php echo _defaults_or( $defaults, 'create-missing-categories', 1 ) == 1 ? 'checked="checked"' : ''; ?> />
 					<?php esc_html_e( 'Auto-create categories', 'business-directory-plugin' ); ?>
 				</label><br/>
 				<label><input name="settings[create-missing-categories]"
 						type="radio"
-						value="0" <?php echo ( _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ) ? 'checked="checked"' : ''; ?> />
+						value="0" <?php echo _defaults_or( $defaults, 'create-missing-categories', 1 ) == 0 ? 'checked="checked"' : ''; ?> />
 					<?php esc_html_e( 'Generate errors when a category is not found', 'business-directory-plugin' ); ?>
 				</label>
 		</div>

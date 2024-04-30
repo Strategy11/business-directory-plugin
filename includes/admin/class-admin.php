@@ -699,7 +699,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$output = $this->current_controller_output;
 
 			if ( $output ) {
-				return print( $output );
+				return print $output;
 			}
 
 			global $plugin_page;
@@ -1508,6 +1508,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 	function wpbdp_admin_message( $msg, $kind = '', $extra = array() ) {
 		global $wpbdp;
-		$wpbdp->admin->messages[] = ( $kind || $extra ) ? array( $msg, $kind, $extra ) : $msg;
+		$wpbdp->admin->messages[] = $kind || $extra ? array( $msg, $kind, $extra ) : $msg;
 	}
 }

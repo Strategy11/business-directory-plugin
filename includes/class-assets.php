@@ -339,7 +339,7 @@ class WPBDP__Assets {
 				$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
 			} else {
 				// If the color is set, use it as the button background.
-				$css_vars['--bd-button-bg-color'] = $css_vars['--bd-main-color'];
+				$css_vars['--bd-button-bg-color']   = $css_vars['--bd-main-color'];
 				$css_vars['--bd-button-text-color'] = '#fff';
 			}
 		}
@@ -599,7 +599,7 @@ class WPBDP__Assets {
 		wp_enqueue_script( 's11-floating-links-config', $plugin_url . '/js/packages/floating-links/config.js', array( 'wp-i18n', 'wpbdp-admin-js' ), $version, true );
 		wp_set_script_translations( 's11-floating-links-config', 's11-' );
 		$floating_links_data = array(
-			'navLinks'         => array(
+			'navLinks'       => array(
 				'freeVersion' => array(
 					'upgrade'       => wpbdp_admin_upgrade_link( 'floating-links' ),
 					'support'       => 'https://wordpress.org/support/plugin/business-directory-plugin/',
@@ -609,7 +609,7 @@ class WPBDP__Assets {
 					'support_and_docs' => wpbdp_admin_upgrade_link( 'floating-links', 'get-help/' ),
 				),
 			),
-			'proIsInstalled'   => WPBDP_Admin_Education::is_installed( 'premium' ),
+			'proIsInstalled' => WPBDP_Admin_Education::is_installed( 'premium' ),
 		);
 		wp_localize_script( 's11-floating-links-config', 's11FloatingLinksData', $floating_links_data );
 	}
