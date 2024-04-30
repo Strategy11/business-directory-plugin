@@ -258,7 +258,7 @@ class WPBDP_FormFieldsAdmin {
 
 	/**
 	 * Get a list of field settings that should be hidden.
-     *
+	 *
 	 * @since 5.8.3
 	 *
 	 * @param object $field WPBDP_Form_Field
@@ -308,7 +308,7 @@ class WPBDP_FormFieldsAdmin {
 	/**
 	 * Handle field delete.
 	 * This handles the re-usable action to delete a form field.
-     *
+	 *
 	 * @since 5.18
 	 *
 	 * @param object $field The field to delete

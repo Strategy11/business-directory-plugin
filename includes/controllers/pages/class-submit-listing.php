@@ -1776,7 +1776,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Change plan if not the same as for listing.
 	 * Update the plan in the payment.
-     *
+	 *
 	 * @since 5.17
 	 *
 	 * @param object $new_plan The new selected plan to assign to the listing.

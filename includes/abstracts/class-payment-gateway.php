@@ -121,6 +121,11 @@ abstract class WPBDP__Payment_Gateway {
 		return 'form' === $this->get_integration_method() || $payment->amount === '0.00';
 	}
 
+	/**
+	 * @param object $payment
+	 *
+	 * @return void
+	 */
 	public function save_billing_data( $payment ) {
 		$form = $_POST;
 

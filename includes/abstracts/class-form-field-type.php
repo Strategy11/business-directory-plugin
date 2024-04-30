@@ -221,7 +221,7 @@ class WPBDP_Form_Field_Type {
 					'<div class="wpbdp-search-filter %s %s" %s>',
 					esc_attr( $field->get_field_type()->get_id() ),
 					esc_attr( implode( ' ', $field->get_css_classes( $render_context ) ) ),
-					$this->html_attributes( $field->html_attributes )
+					self::html_attributes( $field->html_attributes )
 				);
 				$html .= '<div class="wpbdp-search-field-label">';
 				$html .= sprintf(
@@ -244,7 +244,7 @@ class WPBDP_Form_Field_Type {
 				break;
 
 			default: // includes submit and edit
-				$html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
+				$html_attributes = self::html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
 
 				$html .= sprintf(
 					'<div class="%s" %s>',
@@ -396,7 +396,7 @@ class WPBDP_Form_Field_Type {
 	 *
 	 * @param object $field the field being saved.
 	 *
-	 * @return mixed WP_Error in case of error, anything else for success.
+	 * @return void|mixed WP_Error in case of error, anything else for success.
 	 */
 	public function process_field_settings( &$field ) {
 	}

@@ -351,7 +351,7 @@ final class WPBDP {
 
 	/**
 	 * Check if this is a BD plugin.
-     *
+	 *
 	 * @since 5.12.1
 	 * @deprecated 5.13.2
 	 *

@@ -22,3 +22,5 @@ parameters:
 		- '#Method PclZip::extract\(\) invoked with #'
 		- '#overridden property WP_List_Table::\$items#'
 		- '#Method WPBDP_[a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) is unused#'
+		- '#Use more strict comparison#'
+		- 'Only booleans are allowed#'
