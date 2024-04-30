@@ -19,8 +19,7 @@ jobs:
       - name: Install Composer
         uses: php-actions/composer@v6
         with:
-          php_version: "7.0"
-          version: 1
+          php_version: "8.2"
       - name: Check PHPCS
         run: composer phpcs
       - name: Run PHPCS Fixer
