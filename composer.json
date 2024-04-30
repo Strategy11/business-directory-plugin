@@ -10,8 +10,6 @@
 	"require-dev": {
 		"antecedent/patchwork": "^2.0",
 		"lucatume/wp-browser": "*",
-		"ext-mysqli": "*",
-		"ext-zip": "*",
 		"codeception/module-asserts": "^3",
 		"codeception/module-phpbrowser": "^3",
 		"codeception/module-webdriver": "^3",
@@ -36,7 +34,9 @@
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		},
 		"platform": {
-            "php": "8.2"
+            "php": "8.2",
+			"ext-mysqli": "8.2",
+			"ext-zip": "8.2"
         }
 	},
 	"scripts": {
