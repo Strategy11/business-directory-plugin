@@ -1,6 +1,7 @@
 <?php
 /**
  * @package WPBDP\FieldTypes\Date
+ *
  * @since 3.6.5
  */
 class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {

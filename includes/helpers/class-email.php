@@ -126,7 +126,7 @@ class WPBDP_Email {
 	/**
 	 * Sends the email.
 	 *
-	 * @return boolean true on success, false otherwise
+	 * @return bool true on success, false otherwise
 	 */
 	public function send() {
 		$this->subject = preg_replace( '/[\n\r]/', '', strip_tags( html_entity_decode( $this->subject ) ) );

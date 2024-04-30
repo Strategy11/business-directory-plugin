@@ -265,7 +265,7 @@ class WPBDP__Settings {
 	}
 
 	/**
-	 * @return int|string|array
+	 * @return array|int|string
 	 */
 	public function get_option( $setting_id, $default = false ) {
 		$default_provided = func_num_args() > 1;

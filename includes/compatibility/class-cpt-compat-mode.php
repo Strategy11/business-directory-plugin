@@ -123,9 +123,11 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Change the main page title only.
 	 *
+	 * @since 6.2.10
+	 *
 	 * @param string $title The current title to show.
 	 * @param int    $id    The post id.
-	 * @since 6.2.10
+	 *
 	 * @return string
 	 */
 	public function get_title( $title, $id ) {
@@ -152,6 +154,7 @@ class WPBDP__CPT_Compat_Mode {
 	 * Save the name for the page for later use.
 	 *
 	 * @since 6.2.10
+	 *
 	 * @return void
 	 */
 	private function set_title() {
@@ -167,9 +170,11 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Override the main title in the Enfold theme.
 	 *
+	 * @since 6.2.10
+	 *
 	 * @param array $args
 	 * @param int   $id   The post id.
-	 * @since 6.2.10
+	 *
 	 * @return array
 	 */
 	public function enfold_title( $args, $id ) {
@@ -195,8 +200,10 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Override the main title in the 7 theme.
 	 *
-	 * @param string $title
 	 * @since 6.2.10
+	 *
+	 * @param string $title
+	 *
 	 * @return string
 	 */
 	public function the7_title( $title ) {

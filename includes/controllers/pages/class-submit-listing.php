@@ -33,7 +33,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	protected $category_count = false;
 
 	/**
-	 * @var bool $is_ajax
+	 * @var bool
 	 */
 	protected $is_ajax = false;
 
@@ -206,6 +206,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Load the new listing form with ajax when the page might be cached.
 	 *
 	 * @since 6.2.2
+	 *
 	 * @return bool
 	 */
 	private function should_use_ajax_load() {
@@ -224,6 +225,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Show a placeholder and load the form with ajax to avoid page caching.
 	 *
 	 * @since 6.2.2
+	 *
 	 * @return string
 	 */
 	private function show_form_placeholder() {
@@ -235,6 +237,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 	/**
 	 * @since 6.2.2
+	 *
 	 * @return string
 	 */
 	private function show_form() {
@@ -254,6 +257,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 	/**
 	 * @since 6.2.2
+	 *
 	 * @return array
 	 */
 	private function prepare_messages() {
@@ -541,6 +545,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * when the url to submit a new listing includes a listing id.
 	 *
 	 * @since 6.2.2
+	 *
 	 * @return void
 	 */
 	private function maybe_set_editing() {
@@ -624,6 +629,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Check if the user has permission to edit the listing in url.
 	 *
 	 * @since 6.2.2
+	 *
 	 * @return void
 	 */
 	private function is_listing_allowed( $listing_id ) {
@@ -675,6 +681,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * If not found, get the first admin user as default.
 	 *
 	 * @since 6.2.5
+	 *
 	 * @return int
 	 */
 	private function get_default_admin_user() {
@@ -1173,6 +1180,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * If ajax is running, the message won't show if we use wp_die().
 	 *
 	 * @since 6.3.4
+	 *
 	 * @param string $msg
 	 */
 	private function die_or_return( $msg ) {
@@ -1758,7 +1766,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 *
 	 * @since 5.10
 	 *
-	 * @return null|object
+	 * @return object|null
 	 */
 	private function get_plan_for_listing() {
 		$listing = $this->listing;
@@ -1769,9 +1777,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Change plan if not the same as for listing.
 	 * Update the plan in the payment.
 	 *
-	 * @param object $new_plan The new selected plan to assign to the listing.
 	 *
 	 * @since 5.17
+	 *
+	 * @param object $new_plan The new selected plan to assign to the listing.
 	 */
 	private function maybe_update_listing_plan( $new_plan ) {
 		$current_plan = $this->get_plan_for_listing();
@@ -1785,7 +1794,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 *
 	 * @since 5.10
 	 *
-	 * @return null|object
+	 * @return object|null
 	 */
 	private function single_plan() {
 		$plans = $this->get_available_plans();

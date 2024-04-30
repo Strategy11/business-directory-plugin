@@ -12,7 +12,7 @@ class WPBDP_Modules_API {
 	/**
 	 * The number of days an add-on is new.
 	 *
-	 * @var int $new_days
+	 * @var int
 	 */
 	protected $new_days = 90;
 
@@ -41,6 +41,7 @@ class WPBDP_Modules_API {
 
 	/**
 	 * @since 5.10
+	 *
 	 * @return string
 	 */
 	public function get_license() {
@@ -58,6 +59,7 @@ class WPBDP_Modules_API {
 
 	/**
 	 * @since 5.10
+	 *
 	 * @return string
 	 */
 	public function get_cache_key() {
@@ -66,6 +68,7 @@ class WPBDP_Modules_API {
 
 	/**
 	 * @since 5.10
+	 *
 	 * @return array
 	 */
 	public function get_api_info() {
@@ -332,6 +335,7 @@ class WPBDP_Modules_API {
 
 	/**
 	 * @since 5.10
+	 *
 	 * @return array
 	 */
 	public function error_for_license() {
@@ -345,6 +349,7 @@ class WPBDP_Modules_API {
 
 	/**
 	 * @since 5.10
+	 *
 	 * @return array
 	 */
 	public function get_error_from_response( $addons = array() ) {
@@ -371,6 +376,7 @@ class WPBDP_Modules_API {
 	 * @since x.x
 	 *
 	 * @param array $addon
+	 *
 	 * @return bool
 	 */
 	protected function is_new( $addon ) {

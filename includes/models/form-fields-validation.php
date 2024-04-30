@@ -310,12 +310,14 @@ function WPBDP_ValidationError( $msg, $stop_validation = false ) {
 /**
  * Validates a value against a given validator.
  *
+ * @since 2.3
+ * @see WPBDP_FieldValidation::validate_value()
+ *
  * @param mixed  $value
  * @param string $validator one of the registered validators.
  * @param array  $args optional arguments to be passed to the validator.
- * @return boolean True if value validates, False otherwise.
- * @since 2.3
- * @see WPBDP_FieldValidation::validate_value()
+ *
+ * @return bool True if value validates, False otherwise.
  */
 function wpbdp_validate_value( $value, $validator, $args = array() ) {
 	$validation = WPBDP_FieldValidation::instance();

@@ -28,3 +28,5 @@ jobs:
           php-version: 7.0
       - name: Check Syntax
         run: find -L .  -path ./vendor -prune -o -path ./tests -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+      - name: Run PHPCS Fixer
+        run: composer phpcsfixer

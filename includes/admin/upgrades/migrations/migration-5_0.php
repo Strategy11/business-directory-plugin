@@ -4,7 +4,7 @@ class WPBDP__Migrations__5_0 extends WPBDP__Migration {
 
     /**
      * This upgrade routine takes care of the term splitting feature that is going to be introduced in WP 4.2.
-	 *
+     *
      * @since 3.6.4
      */
     public function migrate() {
@@ -68,7 +68,7 @@ class WPBDP__Migrations__5_0 extends WPBDP__Migration {
 
     /**
      * Use this function to update BD references of a pre-split term ID to use the new term ID.
-	 *
+     *
      * @since 3.6.4
      */
     public function process_term_split( $old_id = 0 ) {

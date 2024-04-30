@@ -63,9 +63,9 @@ if ( ! class_exists( 'WPBDP_Fees_API' ) ) {
 		 * Check if there are enabled plans.
 		 * This does a count for all enabled plans regardless of the amount.
 		 *
-		 * @param bool $paid Return paid plans or all plans. Set to true to check for plans that have a price greater than 0
-		 *
 		 * @since 5.18
+		 *
+		 * @param bool $paid Return paid plans or all plans. Set to true to check for plans that have a price greater than 0
 		 *
 		 * @return bool
 		 */

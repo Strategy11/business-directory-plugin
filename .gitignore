@@ -17,3 +17,6 @@ node_modules/
 _vvv/
 .composer.lock
 composer.lock
+
+# PHP CS Fixer
+.php-cs-fixer.cache

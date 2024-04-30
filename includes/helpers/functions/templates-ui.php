@@ -10,6 +10,7 @@
  * The list is actually produced by {@link wpbdp_list_categories()}.
  *
  * @return string HTML output.
+ *
  * @uses wpbdp_list_categories().
  */
 function wpbdp_directory_categories() {
@@ -38,6 +39,7 @@ function wpbdp_the_directory_categories() {
 
 /**
  * @since 2.3
+ *
  * @access private
  */
 function _wpbdp_padded_count( &$term, $return = false ) {
@@ -82,6 +84,7 @@ function _wpbdp_padded_count( &$term, $return = false ) {
 
 /**
  * @since 2.3
+ *
  * @access private
  */
 function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
@@ -207,10 +210,12 @@ function _wpbdp_get_terms_from_args( $args ) {
  *      'echo' (boolean) default is False - If True, the list will be printed in addition to returned by this function.
  *      'no_items_msg' (string) default is "No listing categories found." - Message to display when no categories are found.
  *
- * @param string|array $args array of arguments to be used while creating the list.
- * @return string HTML output.
  * @since 2.3
  * @see wpbdp_directory_categories()
+ *
+ * @param array|string $args array of arguments to be used while creating the list.
+ *
+ * @return string HTML output.
  */
 function wpbdp_list_categories( $args = array() ) {
 	$args = wp_parse_args(
@@ -257,7 +262,8 @@ function wpbdp_list_categories( $args = array() ) {
 }
 
 /**
- * @param string|array $buttons buttons to be displayed in wpbdp_main_box()
+ * @param array|string $buttons buttons to be displayed in wpbdp_main_box()
+ *
  * @return string
  */
 function wpbdp_main_links( $buttons = null ) {

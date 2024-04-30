@@ -171,10 +171,10 @@ class WPBDP_Reviews {
 	/**
 	 * Update user meta.
 	 *
+	 * @since 5.14.3
+	 *
 	 * @param int   $user_id The user id.
 	 * @param array $review The review.
-	 *
-	 * @since 5.14.3
 	 */
 	private function update_user_meta( $user_id, $review ) {
 		update_user_meta( $user_id, $this->option_name, $review );
@@ -183,11 +183,11 @@ class WPBDP_Reviews {
 	/**
 	 * Get user meta.
 	 *
-	 * @param int $user_id The user id.
-	 *
 	 * @since 5.14.3
 	 *
-	 * @return bool|array
+	 * @param int $user_id The user id.
+	 *
+	 * @return array|bool
 	 */
 	private function get_user_meta( $user_id ) {
 		return get_user_meta( $user_id, $this->option_name, true );
@@ -196,9 +196,9 @@ class WPBDP_Reviews {
 	/**
 	 * Calculate and round off the entries to whole numbers.
 	 *
-	 * @param int $entries The total number of listings.
-	 *
 	 * @since 5.14.3
+	 *
+	 * @param int $entries The total number of listings.
 	 *
 	 * @return float $entries
 	 */

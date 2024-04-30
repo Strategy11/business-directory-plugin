@@ -8,12 +8,13 @@
 require_once WPBDP_PATH . 'includes/models/class-listing.php';
 
 /**
+ * @since 5.0
+ *
  * @param array  $args
  * @param bool   $error
  * @param string $context
- * @return WPBDP_Listing|WP_Error|false
  *
- * @since 5.0
+ * @return false|WP_Error|WPBDP_Listing
  */
 function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 	// TODO: how to support edits without rewriting everything? i.e. if $args has a listing ID but not all fields or
@@ -208,12 +209,13 @@ function wpbdp_get_listing( $listing_id ) {
 }
 
 /**
+ * @since 5.0.6
+ *
  * @param string $email
  * @param int    $posts_per_page
  * @param int    $offset
- * @return array
  *
- * @since 5.0.6
+ * @return array
  */
 function wpbdp_get_listings_by_email( $email, $posts_per_page = -1, $offset = 0 ) {
 	global $wpdb;

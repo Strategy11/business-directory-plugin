@@ -67,7 +67,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 
 	/**
 	 * Check if fields has the excerpt field.
-     *
+	 *
 	 * @return bool
 	 */
 	public function has_excerpt() {

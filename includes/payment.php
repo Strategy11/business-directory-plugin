@@ -97,9 +97,11 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 		/**
 		 * Renders an invoice table for a given payment.
 		 *
-		 * @param WPBDP_Payment $payment
-		 * @return string HTML output.
 		 * @since 3.4
+		 *
+		 * @param WPBDP_Payment $payment
+		 *
+		 * @return string HTML output.
 		 */
 		public function render_invoice( &$payment ) {
 			$html  = '';

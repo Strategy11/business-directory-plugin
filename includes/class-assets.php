@@ -189,7 +189,9 @@ class WPBDP__Assets {
 	 * Only load the widget CSS if a widget is active.
 	 *
 	 * @since 6.3.5
+	 *
 	 * @param bool $is_bd_page Whether the current page is a BD page.
+	 *
 	 * @return void
 	 */
 	private function maybe_enqueue_widget_css( $is_bd_page ) {
@@ -228,6 +230,7 @@ class WPBDP__Assets {
 	 * Load the theme CSS if we're on a BD page or a widget is included.
 	 *
 	 * @since 6.3.5
+	 *
 	 * @return void
 	 */
 	private function load_theme_css() {
@@ -306,6 +309,7 @@ class WPBDP__Assets {
 	 * @since 6.4
 	 *
 	 * @param array $css_vars The CSS variables.
+	 *
 	 * @return void
 	 */
 	private function add_default_theme_css( &$css_vars ) {
@@ -405,9 +409,9 @@ class WPBDP__Assets {
 	/**
 	 * Load resources on admin page
 	 *
-	 * @param bool $force Force reloading the resources.
-	 *
 	 * @since 5.18 Deprecate the $force parameter to not load on non BD pages.
+	 *
+	 * @param bool $force Force reloading the resources.
 	 */
 	public function enqueue_admin_scripts( $force = false ) {
 		if ( $force === true ) {
@@ -512,9 +516,9 @@ class WPBDP__Assets {
 	 * Add admin body class.
 	 * This will be used a wrapper for admin css classes to prevent conflicts with other page styles.
 	 *
-	 * @param string $admin_body_classes The current admin body classes.
-	 *
 	 * @since 5.14.3
+	 *
+	 * @param string $admin_body_classes The current admin body classes.
 	 *
 	 * @return string $admin_body_classes The body class with the added plugin class.
 	 */
@@ -579,6 +583,7 @@ class WPBDP__Assets {
 	 *
 	 * @param string $plugin_url URL of the plugin.
 	 * @param string $version Current version of the plugin.
+	 *
 	 * @return void
 	 */
 	private static function enqueue_floating_links( $plugin_url, $version ) {

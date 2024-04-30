@@ -315,8 +315,9 @@ class WPBDP_reCAPTCHA {
 /**
  * Displays a reCAPTCHA field using the configured settings.
  *
- * @return string HTML for the reCAPTCHA field.
  * @since 3.4.2
+ *
+ * @return string HTML for the reCAPTCHA field.
  */
 function wpbdp_recaptcha( $name = '' ) {
 	return wpbdp()->recaptcha->render( $name );
@@ -325,8 +326,9 @@ function wpbdp_recaptcha( $name = '' ) {
 /**
  * Validates reCAPTCHA input.
  *
- * @return boolean TRUE if validation succeeded, FALSE otherwise.
  * @since 3.4.2
+ *
+ * @return bool TRUE if validation succeeded, FALSE otherwise.
  */
 function wpbdp_recaptcha_check_answer( &$error_msg = null ) {
 	return wpbdp()->recaptcha->verify( $error_msg );

@@ -1,6 +1,7 @@
 <?php
 /**
  * @package WPBDP\FieldTypes\TextArea
+ *
  * @since 4.0
  */
 class WPBDP__Shortcodes {
@@ -445,10 +446,10 @@ class WPBDP__Shortcodes {
 	 * Process category query attributes.
 	 * This checks if the `category` or `categories` attributes are passed in the shortcode and includes them in the loop query.
 	 *
+	 * @since 5.18
+	 *
 	 * @param array $atts Shortcode attributes.
 	 * @param array $query_args The query args used to search based on attributes.
-	 *
-	 * @since 5.18
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
 		$this->combine_shortcode_atts( array( 'category', 'categories' ), $atts );
@@ -491,10 +492,10 @@ class WPBDP__Shortcodes {
 	 * Process tag query attributes.
 	 * This checks if the `tag` or `tags` attributes are passed in the shortcode and includes them in the loop query.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $atts Shortcode attributes.
 	 * @param array $query_args The query args used to search based on attributes.
-	 *
-	 * @since 6.0
 	 */
 	private function process_tag_atts( $atts, &$query_args ) {
 		$this->combine_shortcode_atts( array( 'tag', 'tags' ), $atts );
@@ -515,10 +516,10 @@ class WPBDP__Shortcodes {
 	 * Combine two shortcode attributes into one. The combination of the two is
 	 * saved in the first param.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $combine The names of two shortcode atts to combine. ie. `category` and `categories`.
 	 * @param array $atts    Shortcode attributes.
-	 *
-	 * @since 6.0
 	 */
 	private function combine_shortcode_atts( $combine, &$atts ) {
 		$first  = $combine[0];

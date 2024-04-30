@@ -128,7 +128,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 	 * Convert input to a URL with http.
 	 *
 	 * @param WPBDP_Form_Field $field Field object.
-	 * @param string|array     $input Values from url field.
+	 * @param array|string     $input Values from url field.
 	 *
 	 * @return array
 	 */

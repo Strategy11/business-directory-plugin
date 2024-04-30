@@ -30,12 +30,13 @@ class WPBDP__ListingsWithNoFeePlanView {
 	 *       view's objects only, ignoring details about how that information is
 	 *       presented to the user.
 	 *
+	 * @since 5.1.6
+	 *
 	 * @param string $post_statuses_string A comma separated list of Post statuses
 	 *                                  ready to be used in a SQL query.
 	 *
 	 *                                  Example: "'draft', 'pending', 'private', 'publish'"
 	 *                                  Could be used as: `... IN ($post_statuses_string)`
-	 * @since 5.1.6
 	 */
 	public function count_listings( $post_statuses_string ) {
 		$post_statuses = explode( ',', str_replace( "'", '', $post_statuses_string ) );

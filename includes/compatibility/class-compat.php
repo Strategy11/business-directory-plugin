@@ -118,6 +118,7 @@ class WPBDP_Compat {
 	 * Skip WP Fusion auto login .
 	 *
 	 * @param bool $skip_auto_login skip auto login.
+	 *
 	 * @return bool
 	 */
 	public function wp_fusion_skip_auto_login( $skip_auto_login ) {

@@ -383,6 +383,7 @@ class WPBDP_Form_Field_Type {
 	 *
 	 * @param object $field might be NULL if field is new or the field that is being edited.
 	 * @param string $association field association.
+	 *
 	 * @return string the HTML output.
 	 */
 	public function render_field_settings( &$field = null, $association = null ) {
@@ -394,6 +395,7 @@ class WPBDP_Form_Field_Type {
 	 * It should be used by field types to store any field type specific configuration.
 	 *
 	 * @param object $field the field being saved.
+	 *
 	 * @return mixed WP_Error in case of error, anything else for success.
 	 */
 	public function process_field_settings( &$field ) {
@@ -453,10 +455,10 @@ class WPBDP_Form_Field_Type {
 	 * Field label display wrapper.
 	 * Used to render the field label.
 	 *
+	 * @since 5.15.3
+	 *
 	 * @param string $label The field label.
 	 * @param array $atts includes $atts['field'] - The field object of the label.
-	 *
-	 * @since 5.15.3
 	 *
 	 * @return string
 	 */

@@ -259,9 +259,10 @@ class WPBDP_FormFieldsAdmin {
 	/**
 	 * Get a list of field settings that should be hidden.
 	 *
-	 * @param object $field WPBDP_Form_Field
 	 *
 	 * @since 5.8.3
+	 *
+	 * @param object $field WPBDP_Form_Field
 	 */
 	private function hidden_fields_for_type( $field ) {
 		$mapping = $field->get_association();
@@ -309,9 +310,10 @@ class WPBDP_FormFieldsAdmin {
 	 * Handle field delete.
 	 * This handles the re-usable action to delete a form field.
 	 *
-	 * @param object $field The field to delete
 	 *
 	 * @since 5.18
+	 *
+	 * @param object $field The field to delete
 	 */
 	private function handle_field_delete( $field ) {
 

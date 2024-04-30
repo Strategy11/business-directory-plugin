@@ -3,6 +3,7 @@
  * Exporter for Listings personal data.
  *
  * @package BDP/Admin
+ *
  * @since 5.5
  */
 
@@ -12,7 +13,7 @@
 class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderInterface {
 
 	/**
-	 * @var WPBDP_DataFormatter $data_formatter
+	 * @var WPBDP_DataFormatter
 	 */
 	private $data_formatter;
 
@@ -24,9 +25,9 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
 	}
 
 	/**
-	 * @return int
-	 *
 	 * @since 5.4
+	 *
+	 * @return int
 	 */
 	public function get_page_size() {
 		return 10;
@@ -36,6 +37,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
 	 * @param WP_User $user
 	 * @param string  $email_address
 	 * @param int     $page
+	 *
 	 * @return array
 	 */
 	public function get_objects( $user, $email_address, $page ) {
@@ -73,6 +75,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
 
 	/**
 	 * @param int $listing_id
+	 *
 	 * @return mixed
 	 */
 	private function get_listing_properties( $listing_id ) {
@@ -99,6 +102,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
 
 	/**
 	 * @param array $listing_ids
+	 *
 	 * @return array
 	 */
 	public function export_objects( $listing_ids ) {
@@ -132,6 +136,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
 
 	/**
 	 * @param int $media_id
+	 *
 	 * @return array
 	 */
 	private function get_media_properties( $media_id ) {
@@ -142,6 +147,7 @@ class WPBDP_ListingsPersonalDataProvider implements WPBDP_PersonalDataProviderIn
 
 	/**
 	 * @param array $listings
+	 *
 	 * @return array
 	 */
 	public function erase_objects( $listings ) {

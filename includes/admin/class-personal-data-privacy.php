@@ -3,6 +3,7 @@
  * Personal Data Privacy
  *
  * @package BDP/Includes/Admin/Personal Data Privacy
+ *
  * @since 5.5
  */
 
@@ -52,6 +53,7 @@ class WPBDP_Personal_Data_Privacy {
 
 	/**
 	 * @param array $exporters
+	 *
 	 * @return mixed
 	 */
 	public function register_personal_data_exporters( $exporters ) {
@@ -84,6 +86,7 @@ class WPBDP_Personal_Data_Privacy {
 
 	/**
 	 * @param array $erasers
+	 *
 	 * @return array
 	 */
 	public function register_personal_data_erasers( $erasers ) {

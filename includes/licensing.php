@@ -37,6 +37,7 @@ class WPBDP_Licensing {
 
 	/**
 	 * @since 5.10
+	 *
 	 * @return array|string
 	 */
 	private function get_license_errors() {
@@ -1009,7 +1010,7 @@ class WPBDP_Licensing {
 	 *
 	 * @param array $licenses All licenses saved to this site.
 	 *
-	 * @return string|bool
+	 * @return bool|string
 	 */
 	private function filter_to_one_license( $licenses ) {
 		$licenses = array_filter( array_unique( $licenses ) );
@@ -1159,11 +1160,11 @@ class WPBDP_Licensing {
 	/**
 	 * Get item version for the plugin info popup on plugins page.
 	 *
-	 * @param array $item The module item.
-	 *
 	 * @since 5.17
 	 *
-	 * @return object|bool
+	 * @param array $item The module item.
+	 *
+	 * @return bool|object
 	 */
 	private function get_item_version( $item ) {
 		$version_info = $this->get_plugin_api_info();

@@ -292,7 +292,8 @@ class WPBDP_Themes {
 	 * Changes the active theme.
 	 *
 	 * @param string $theme_id
-	 * @return boolean True if theme was changed successfully, False otherwise.
+	 *
+	 * @return bool True if theme was changed successfully, False otherwise.
 	 */
 	function set_active_theme( $theme_id = '' ) {
 		if ( ! $theme_id ) {
@@ -639,9 +640,8 @@ class WPBDP_Themes {
 	 * Searches for block and block variable customization metadata in the first 8kiB
 	 * of a template file (core or custom).
 	 *
-	 * @link http://docs.businessdirectoryplugin.com/themes/customization.html#block-and-block-variable-customization
-	 *
 	 * @since 5.0
+	 * @link http://docs.businessdirectoryplugin.com/themes/customization.html#block-and-block-variable-customization
 	 *
 	 * @param string $template_path Path to the template file.
 	 *

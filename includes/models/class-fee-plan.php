@@ -24,7 +24,7 @@ final class WPBDP__Fee_Plan {
 	private $pricing_model = 'flat';
 
 	/**
-	 * @var array $pricing_details Includes category id => price array for variable plans.
+	 * @var array Includes category id => price array for variable plans.
 	 */
 	private $pricing_details = array();
 
@@ -190,8 +190,9 @@ final class WPBDP__Fee_Plan {
 	}
 
 	/**
-	 * @param array $categories
 	 * @since 5.0
+	 *
+	 * @param array $categories
 	 */
 	public function supports_category_selection( $categories = array() ) {
 		if ( ! $categories ) {

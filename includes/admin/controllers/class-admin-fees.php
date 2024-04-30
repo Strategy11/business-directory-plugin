@@ -240,9 +240,10 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * Update the listing images.
 	 * This updates all listings that have the same fee id.
 	 *
-	 * @param object $fee The fee
 	 *
 	 * @since 5.15.3
+	 *
+	 * @param object $fee The fee
 	 */
 	private function update_listing_images( $fee ) {
 		global $wpdb;

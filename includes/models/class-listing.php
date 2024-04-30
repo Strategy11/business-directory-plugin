@@ -1,6 +1,7 @@
 <?php
 /**
  * @package WPBDP\Listing
+ *
  * @since 3.4
  */
 require_once WPBDP_PATH . 'includes/helpers/class-listing-image.php';
@@ -119,7 +120,7 @@ class WPBDP_Listing {
 	 * Sets listing images.
 	 *
 	 * @param array $images array of image IDs.
-	 * @param boolean $append if TRUE images will be appended without clearing previous ones.
+	 * @param bool  $append If TRUE images will be appended without clearing previous ones.
 	 */
 	public function set_images( $images = array(), $append = false ) {
 		if ( ! $append ) {
@@ -190,7 +191,7 @@ class WPBDP_Listing {
 	 *
 	 * @since 5.1.7
 	 *
-	 * @return null|object Post     An attachment of this listing.
+	 * @return object|null Post An attachment of this listing.
 	 */
 	public function get_thumbnail() {
 		$thumbnail = $this->get_saved_thumbnail();

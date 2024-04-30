@@ -35,7 +35,6 @@ class PlanListingTest extends WPUnitTestCase {
 	/**
 	 * Initialize the gateway.
 	 * Set up Auth net gateway but disable it.
-	 *
 	 */
 	private function init_gateway() {
 		wpbdp_set_option( 'payments-test-mode', true );

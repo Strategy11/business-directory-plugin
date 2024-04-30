@@ -16,9 +16,10 @@ class WPBDP_Custom_Permalink_Integration {
 	}
 
 	/**
+	 * @since 5.1.10
+	 *
 	 * @param string $page_link Current Page Link.
 	 * @param int    $page_id   Current Page ID.
-	 * @since 5.1.10
 	 */
 	public function wpbdp_cp_base_url( $page_link, $page_id ) {
 		return apply_filters( 'page_link', $page_link, $page_id );

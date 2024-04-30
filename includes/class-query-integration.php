@@ -1,7 +1,8 @@
 <?php
 /**
- * @since 4.0
  * @package BDP/Includes/Query Integration
+ *
+ * @since 4.0
  */
 
 /**
@@ -205,6 +206,7 @@ class WPBDP__Query_Integration {
 	 * If a listing wasn't found, check for a child page instead.
 	 *
 	 * @since 6.2.7
+	 *
 	 * @return array
 	 */
 	public function check_child_page( $posts, $query ) {

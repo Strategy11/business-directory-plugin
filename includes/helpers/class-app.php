@@ -129,7 +129,7 @@ class WPBDP_App_Helper {
 	 *
 	 * @param string $page The name of the page to check
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function is_admin_page( $page = 'wpbdp_settings' ) {
 		global $pagenow;
@@ -312,6 +312,7 @@ class WPBDP_App_Helper {
 	 * @since 5.9.2
 	 *
 	 * @param array $atts
+	 *
 	 * @return string
 	 */
 	public static function array_to_html_params( $atts ) {
@@ -325,9 +326,9 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * @param array|int $atts
-	 *
 	 * @since 5.9.2
+	 *
+	 * @param array|int $atts
 	 */
 	public static function show_logo( $atts ) {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -344,9 +345,9 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * @param int|array $atts
-	 *
 	 * @since 6.0
+	 *
+	 * @param array|int $atts
 	 */
 	private static function prep_logo_atts( $atts ) {
 		if ( ! is_array( $atts ) ) {
@@ -522,6 +523,7 @@ class WPBDP_App_Helper {
 
 	/**
 	 * @since 5.16
+	 *
 	 * @return string
 	 */
 	public static function minimize_code( $html ) {
@@ -533,7 +535,9 @@ class WPBDP_App_Helper {
 	 * Expects "button wpbdp-button" to avoid adding the class twice.
 	 *
 	 * @since 6.3.4
+	 *
 	 * @param string $content
+	 *
 	 * @return void
 	 */
 	public static function add_theme_button_class( &$content ) {

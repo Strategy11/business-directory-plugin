@@ -3,6 +3,7 @@
  * Exports all personal data the plugin has for the given email address.
  *
  * @package BDP\Admin
+ *
  * @since 5.5
  */
 
@@ -21,6 +22,7 @@ class WPBDP_PersonalDataExporter {
 	/**
 	 * @param string $email_address
 	 * @param int    $page
+	 *
 	 * @return array
 	 */
 	public function export_personal_data( $email_address, $page = 1 ) {
