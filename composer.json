@@ -9,16 +9,18 @@
 	},
 	"require-dev": {
 		"antecedent/patchwork": "^2.0",
-		"lucatume/wp-browser": "^4",
+		"lucatume/wp-browser": "*",
+		"ext-mysqli": "*",
+		"ext-zip": "*",
 		"codeception/module-asserts": "^3",
 		"codeception/module-phpbrowser": "^3",
 		"codeception/module-webdriver": "^3",
 		"codeception/module-db": "^3",
 		"codeception/module-filesystem": "^3",
-		"codeception/module-cli": "^2",
-		"codeception/util-universalframework": "^1.0",
-		"codeception/specify": "^2",
-		"codeception/verify": "^3",
+		"codeception/module-cli": "*",
+		"codeception/util-universalframework": "*",
+		"codeception/specify": "*",
+		"codeception/verify": "*",
 		"yoast/phpunit-polyfills": "^2",
 		"php-stubs/wordpress-stubs": "^6",
 		"phpstan/phpstan": "^1.4",
@@ -32,7 +34,10 @@
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
-		}
+		},
+		"platform": {
+            "php": "8.2"
+        }
 	},
 	"scripts": {
 		"format": "vendor/bin/phpcbf --standard=phpcs.xml --report-summary --report-source",

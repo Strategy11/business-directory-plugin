@@ -27,7 +27,7 @@ $page_title = is_array( $this_tab ) && ! empty( $this_tab['title'] ) ? $this_tab
 				// actual properties of the parent form.
 				//
 				// See http://kangax.github.io/domlint/
-				submit_button( null, 'primary', 'save-changes' );
+				submit_button( '', 'primary', 'save-changes' );
 			endif;
 			?>
 		</div>
@@ -74,7 +74,7 @@ $page_title = is_array( $this_tab ) && ! empty( $this_tab['title'] ) ? $this_tab
 
 		if ( ! $custom_form ) :
 			// Submit button shouldn't use 'submit'
-			submit_button( null, 'primary', 'save-changes' );
+			submit_button( '', 'primary', 'save-changes' );
 		endif;
 		?>
 	</div>
