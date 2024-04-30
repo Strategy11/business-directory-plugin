@@ -18,13 +18,11 @@ jobs:
         uses: actions/checkout@master
       - name: Install Composer
         uses: php-actions/composer@v6
+        with:
+          php_version: "7.0"
       - name: Check PHPCS
         run: composer phpcs
       - name: Run PHPCS Fixer
         run: composer phpcsfixer
-      # get the PHP version
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.0
       - name: Check Syntax
         run: find -L .  -path ./vendor -prune -o -path ./tests -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
