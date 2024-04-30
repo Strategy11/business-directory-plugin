@@ -35,8 +35,8 @@
 		}
 	},
 	"scripts": {
-		"format": "phpcbf --standard=phpcs.xml --report-summary --report-source",
-		"lint": "phpcs --standard=phpcs.xml",
+		"format": "vendor/bin/phpcbf --standard=phpcs.xml --report-summary --report-source",
+		"lint": "vendor/bin/phpcs -p -s -v -n . --standard=phpcs.xml --extensions=php",
 		"phpcsfixer": "vendor/bin/php-cs-fixer fix --dry-run --verbose"
 	}
 }

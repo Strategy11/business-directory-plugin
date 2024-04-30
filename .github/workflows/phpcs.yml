@@ -17,11 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Check PHPCS
-        run: |
-          export PHPCS_DIR=/home/runner/.composer/vendor/bin
-          composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
-          composer global require --dev wp-coding-standards/wpcs:"^3.0"
-          $PHPCS_DIR/phpcs -p -s -v -n . --standard=phpcs.xml --extensions=php
+        run: composer phpcs
       # get the PHP version
       - uses: shivammathur/setup-php@v2
         with:
