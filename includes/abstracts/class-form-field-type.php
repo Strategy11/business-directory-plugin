@@ -396,7 +396,7 @@ class WPBDP_Form_Field_Type {
 	 *
 	 * @param object $field the field being saved.
 	 *
-	 * @return void|mixed WP_Error in case of error, anything else for success.
+	 * @return mixed|void WP_Error in case of error, anything else for success.
 	 */
 	public function process_field_settings( &$field ) {
 	}
