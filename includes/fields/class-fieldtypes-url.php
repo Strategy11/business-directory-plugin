@@ -124,17 +124,22 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 		return is_array( $value ) ? $value[0] : $value;
 	}
 
+	/**
+	 * Convert input to a URL with http.
+	 *
+	 * @param WPBDP_Form_Field $field Field object.
+	 * @param string|array     $input Values from url field.
+	 *
+	 * @return array
+	 */
 	public function convert_input( &$field, $input ) {
-		if ( $input === null ) {
+		if ( empty( $input ) ) {
 			return array( '', '' );
 		}
 
-		$url  = trim( sanitize_text_field( is_array( $input ) ? $input[0] : $input ) );
+		// Adds the http protocol if it's missing.
+		$url  = esc_url_raw( is_array( $input ) ? trim( $input[0] ) : $input );
 		$text = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
-
-		if ( $url && ! parse_url( $url, PHP_URL_SCHEME ) ) {
-			$url = 'http://' . $url;
-		}
 
 		return array( $url, $text );
 	}
