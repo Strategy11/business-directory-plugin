@@ -70,7 +70,7 @@ msgstr "Ergebnisse durchsuchen"
 #: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:554
 #, fuzzy
 msgid "Directory Content"
-msgstr "Verzeichnis Kategorie"
+msgstr "Verzeichnisinhalt"
 
 #: includes/admin/admin-pages.php:497 includes/admin/class-admin.php:315
 #: includes/admin/settings/class-settings-bootstrap.php:686
@@ -149,7 +149,7 @@ msgstr "Branchenverzeichnis"
 #: includes/admin/class-admin.php:497 includes/class-wpbdp.php:405
 #, fuzzy
 msgid "Upgrade to Premium"
-msgstr "Aktualisieren auf %s"
+msgstr "Auf Premium aktualisieren"
 
 #: includes/admin/class-admin.php:553 includes/class-cpt-integration.php:23
 #, fuzzy
@@ -199,23 +199,23 @@ msgstr ""
 #: includes/admin/class-listing-owner.php:91
 #, fuzzy
 msgid "Please select a user"
-msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
+msgstr "Bitte wählen Sie einen Benutzer"
 
 #: includes/admin/class-listing-owner.php:89
 #: includes/admin/controllers/class-admin-listings.php:223
 #, fuzzy
 msgid "Listing Owner"
-msgstr "Ein Eintrag läuft aus."
+msgstr ""
 
 #: includes/admin/class-listings-personal-data-provider.php:60
 #, fuzzy
 msgid "Listing ID"
-msgstr "Einträge"
+msgstr "Listen-ID"
 
 #: includes/admin/class-listings-personal-data-provider.php:113
 #, fuzzy
 msgid "Image URL"
-msgstr "Bild"
+msgstr "Bild-URL"
 
 #: includes/admin/class-listings-personal-data-provider.php:127
 #, fuzzy
@@ -237,7 +237,7 @@ msgstr "Transaktion"
 #: includes/admin/class-payment-personal-data-provider.php:54
 #, fuzzy
 msgid "Payer Email"
-msgstr "Deine E-mail"
+msgstr "E-Mail des Zahlers"
 
 #: includes/admin/class-payment-personal-data-provider.php:63
 #, fuzzy
@@ -305,7 +305,7 @@ msgstr "Bilder"
 #: includes/admin/helpers/class-modules-list.php:238
 #, fuzzy
 msgid "Upgrade"
-msgstr "Aktualisieren auf %s"
+msgstr "Aktualisieren"
 
 #: includes/admin/controllers/class-admin-fees.php:94
 msgid "Set Up"
@@ -363,7 +363,7 @@ msgstr "Eintrag Titel:"
 #: includes/admin/controllers/class-admin-listings.php:213
 #, fuzzy
 msgid "Listing Reports"
-msgstr "Ein Eintrag läuft aus."
+msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:273
 #: includes/admin/settings/class-settings-bootstrap.php:440
@@ -597,7 +597,7 @@ msgstr ""
 #: includes/admin/helpers/class-modules-list.php:237
 #, fuzzy
 msgid "Upgrade Now"
-msgstr "Aktualisieren auf %s"
+msgstr "Aktualisieren"
 
 #: includes/admin/controllers/class-settings-admin.php:646
 #, fuzzy
@@ -637,7 +637,7 @@ msgstr "Senden nachdem der Eintrag eingestellt wurde."
 #: includes/admin/controllers/class-settings-admin.php:746
 #, fuzzy
 msgid "Sent when a listing (%s) expires."
-msgstr "Ein Eintrag läuft aus."
+msgstr ""
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
@@ -1775,7 +1775,7 @@ msgstr ""
 #: includes/class-wpbdp.php:500
 #, fuzzy
 msgid "Please select a plan before uploading images to the listing"
-msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
+msgstr ""
 
 #: includes/class-wpbdp.php:505
 #, fuzzy
@@ -1972,7 +1972,7 @@ msgstr "Sie sind nicht autorisiert um diesen Eintrag zu bearbeiten."
 #: includes/controllers/pages/class-flag-listing.php:137
 #, fuzzy
 msgid "You must select the reason to report this listing as inappropriate."
-msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
+msgstr ""
 
 #: includes/controllers/pages/class-flag-listing.php:140
 #, fuzzy
@@ -2057,7 +2057,7 @@ msgstr "zu \"Formularfelder verwalten\""
 #: includes/controllers/pages/class-submit-listing.php:1098
 #, fuzzy
 msgid "Please choose a plan."
-msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
+msgstr "Bitte wähle eine Preisoption"
 
 #: includes/controllers/pages/class-submit-listing.php:1336
 msgid "Please check the form for errors, correct them and submit again."
@@ -3281,7 +3281,7 @@ msgstr "Status der importierten Einträge"
 #: templates/admin/csv-import.tpl.php:206
 #, fuzzy
 msgid "Preserve existing status"
-msgstr "Einträge"
+msgstr ""
 
 #: templates/admin/csv-import.tpl.php:223
 #, fuzzy
@@ -3868,7 +3868,7 @@ msgstr "Der Eintrag wurde aktualisiert"
 #: templates/admin/metaboxes-listing-flagging.tpl.php:42
 #, fuzzy
 msgid "Clear listing reports."
-msgstr "Ein Eintrag läuft aus."
+msgstr ""
 
 #: templates/admin/metaboxes-listing-information-other.tpl.php:3
 #, fuzzy
@@ -3890,7 +3890,7 @@ msgstr "verfügbare Bilder:"
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:13
 #, fuzzy
 msgid "Listing status"
-msgstr "Einträge"
+msgstr ""
 
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:18
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:33
@@ -4683,7 +4683,7 @@ msgstr ""
 #: templates/listing-flagging-form.tpl.php:57
 #, fuzzy
 msgid "Please select the reason to report this listing:"
-msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
+msgstr ""
 
 #: templates/listing-flagging-form.tpl.php:65
 #, fuzzy
@@ -5447,7 +5447,7 @@ msgstr "Eintrag erneuern"
 #, fuzzy
 msgctxt "admin actions"
 msgid "Set listings as \"Expired\""
-msgstr "Ein Eintrag läuft aus."
+msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:688
 #, fuzzy
@@ -7187,7 +7187,7 @@ msgstr "Eintrag Bilder"
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing expired"
-msgstr "Ein Eintrag läuft aus."
+msgstr ""
 
 #: includes/admin/helpers/class-listing-timeline.php:147
 msgctxt "listing timeline"
@@ -7203,7 +7203,7 @@ msgstr ""
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing imported"
-msgstr "Ein Eintrag läuft aus."
+msgstr ""
 
 #: includes/admin/helpers/class-listing-timeline.php:169
 #, fuzzy
@@ -7494,7 +7494,7 @@ msgstr "Bezahlung zurückweisen"
 #, fuzzy
 msgctxt "listing"
 msgid "Listing expired"
-msgstr "Ein Eintrag läuft aus."
+msgstr ""
 
 #: includes/models/class-listing.php:735
 #, fuzzy
@@ -8098,7 +8098,7 @@ msgstr ""
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
-msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
+msgstr "Bitte wähle eine Kategorie"
 
 #: includes/controllers/pages/class-submit-listing.php:1105
 msgctxt "submit listing"
@@ -8114,7 +8114,7 @@ msgstr ""
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
-msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
+msgstr "Bitte wähle eine Preisoption für die Kategorie"
 
 #: includes/controllers/pages/class-submit-listing.php:1482
 #, fuzzy
@@ -8912,10 +8912,6 @@ msgstr "Link um Abos zu verwalten"
 #~ msgid "Number of images:"
 #~ msgstr "Anzahl der Bilder:"
 
-#~ msgctxt "manage recurring"
-#~ msgid "Listing"
-#~ msgstr "Einträge"
-
 #~ msgctxt "send-access-keys"
 #~ msgid "Continue"
 #~ msgstr "Weiter"
@@ -8992,11 +8988,6 @@ msgstr "Link um Abos zu verwalten"
 #~ msgctxt "payments admin"
 #~ msgid "View Payment"
 #~ msgstr "Bezahlhistorie"
-
-#, fuzzy
-#~ msgctxt "uninstall"
-#~ msgid "Please choose an option."
-#~ msgstr "Bitte wähle eine Preisoption für die Kategorie \"%s\""
 
 #, fuzzy
 #~ msgctxt "uninstall"
@@ -9373,20 +9364,10 @@ msgstr "Link um Abos zu verwalten"
 #~ msgid "Duration"
 #~ msgstr "Zeitraum"
 
-#~ msgctxt "fees admin"
-#~ msgid "%d image"
-#~ msgid_plural "%d images"
-#~ msgstr[0] "%d Bild"
-#~ msgstr[1] "%d Bilder"
-
 #, fuzzy
 #~ msgctxt "settings"
 #~ msgid "Enqueue Business Directory's FontAwesome styles?"
 #~ msgstr "Branchenverzeichnis - letzte Einträge"
-
-#~ msgctxt "widgets"
-#~ msgid "Thumbnails"
-#~ msgstr "Thumbnails"
 
 #~ msgctxt "widgets"
 #~ msgid "Leave blank for automatic width."
@@ -9668,16 +9649,6 @@ msgstr "Link um Abos zu verwalten"
 #~ msgctxt "widgets"
 #~ msgid "Search"
 #~ msgstr "Suche"
-
-#, fuzzy
-#~ msgctxt "fees admin"
-#~ msgid "Listing"
-#~ msgstr "Einträge"
-
-#, fuzzy
-#~ msgctxt "listing metabox"
-#~ msgid "Listing"
-#~ msgstr "Einträge"
 
 #~ msgctxt "templates"
 #~ msgid "Search Listings"
