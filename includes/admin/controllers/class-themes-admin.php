@@ -11,9 +11,7 @@ class WPBDP_Themes_Admin {
 	function __construct( &$api, $licensing ) {
 		$this->api             = $api;
 		$this->licensing       = $licensing;
-		$this->outdated_themes = $this->find_outdated_themes();
 
-		add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
 		add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
 		add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
 
@@ -30,9 +28,12 @@ class WPBDP_Themes_Admin {
 	}
 
 	function admin_menu( $slug ) {
+		$this->outdated_themes = $this->find_outdated_themes();
+
 		$count = count( $this->outdated_themes );
 
 		if ( $count ) {
+			add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
 			$count_html = ' <span class="update-plugins"><span class="plugin-count">' . number_format_i18n( $count ) . '</span></span>';
 		} else {
 			$count_html = '';
@@ -365,6 +366,10 @@ class WPBDP_Themes_Admin {
 	// Theme update process. {{
 
 	public function _update_theme() {
+		if ( empty( $this->outdated_themes ) ) {
+			$this->outdated_themes = $this->find_outdated_themes();
+		}
+
 		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 		$theme_id = wpbdp_get_var( array( 'param' => 'theme' ), 'request' );
 
