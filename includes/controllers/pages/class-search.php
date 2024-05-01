@@ -58,7 +58,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 		}
 
 		if ( $search_modal ) {
-			$search = WPBDP__Listing_Search::from_request( $_POST );
+			$search   = WPBDP__Listing_Search::from_request( $_POST );
 			$fallback = false;
 		} else {
 			// Show search form on the page if not in a modal and not searching.

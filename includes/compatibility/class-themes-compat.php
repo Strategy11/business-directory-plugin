@@ -271,7 +271,9 @@ class WPBDP__Themes_Compat {
 
 	/**
 	 * @since 6.3.4
+	 *
 	 * @param string $class
+	 *
 	 * @return string
 	 */
 	public function theme_divi_button_class( $class ) {
@@ -431,9 +433,11 @@ class WPBDP__Themes_Compat {
 	/**
 	 * Support for the twentynineteen theme.
 	 *
-	 * @param bool $show_thumbnail
-	 * @return bool
 	 * @since 6.2.8
+	 *
+	 * @param bool $show_thumbnail
+	 *
+	 * @return bool
 	 */
 	public function remove_twentynineteen_thumb( $show_thumbnail ) {
 		global $wpbdp;

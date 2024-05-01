@@ -351,10 +351,10 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Admin tabbed title.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $titles The titles as an array.
 	 * @param string $current_tab The current selected tab.
-	 *
-	 * @since 6.0
 	 */
 	public static function show_tabbed_title( $titles, $current_tab = '' ) {
 		?>
@@ -389,11 +389,10 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Prints out all settings sections added to a particular settings page.
 	 *
+	 * @since 6.0
 	 * @link https://developer.wordpress.org/reference/functions/do_settings_sections/
 	 *
 	 * @param string $page
-	 *
-	 * @since 6.0
 	 */
 	public static function render_settings_sections( $page ) {
 		global $wp_settings_sections, $wp_settings_fields;
@@ -425,12 +424,11 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Print out the settings fields for a particular settings section.
 	 *
+	 * @since 6.0
 	 * @link https://developer.wordpress.org/reference/functions/do_settings_fields/
 	 *
 	 * @param string $page
 	 * @param string $section
-	 *
-	 * @since 6.0
 	 */
 	public static function render_settings_fields( $page, $section ) {
 		global $wp_settings_fields;

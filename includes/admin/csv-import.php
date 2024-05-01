@@ -201,6 +201,7 @@ class WPBDP_CSVImportAdmin {
 	 * Generate a sample CS file for download.
 	 *
 	 * @since 5.3
+	 *
 	 * @return void
 	 */
 	public function download_example_csv() {
@@ -225,6 +226,7 @@ class WPBDP_CSVImportAdmin {
 
 	/**
 	 * @since 5.3
+	 *
 	 * @return string
 	 */
 	private function example_csv_content() {
@@ -429,10 +431,10 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	/**
+	 * @since 5.11
+	 *
 	 * @param string $type   'csv' or 'image'
 	 * @param array $sources
-	 *
-	 * @since 5.11
 	 */
 	private function add_file_to_sources( $type, &$sources ) {
 		$file = wpbdp_get_var( array( 'param' => $type . '-file-local' ), 'post' );

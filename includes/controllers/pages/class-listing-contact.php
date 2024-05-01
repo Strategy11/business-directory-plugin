@@ -2,8 +2,9 @@
 /**
  * Listing contact page.
  *
- * @since 3.4
  * @package WPBDP/Views/Listing contact
+ *
+ * @since 3.4
  */
 
 /**

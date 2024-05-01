@@ -131,14 +131,14 @@ wpbdp_admin_notices();
 						<option value=""><?php esc_html_e( 'No validation', 'business-directory-plugin' ); ?></option>
 						<?php foreach ( $validators as $key => $name ) : ?>
 							<?php
-							$disable_validator = ( 'url' == $field->get_field_type_id() && 'url' != $key ) ? true : false;
+							$disable_validator = 'url' == $field->get_field_type_id() && 'url' != $key;
 							?>
 						<option value="<?php echo esc_attr( $key ); ?>" <?php echo in_array( $key, $field->get_validators(), true ) ? 'selected="selected"' : ''; ?> <?php echo $disable_validator ? 'disabled="disabled"' : ''; ?> ><?php echo $name; ?></option>
 						<?php endforeach; ?>
 					</select>
 				</td>
 			</tr>
-			<tr id="wpbdp_word_count" style="<?php echo ( in_array( 'word_number', $field->get_validators() ) && in_array( $field->get_field_type()->get_id(), array( 'textfield', 'textarea' ) ) ) ? '' : 'display: none'; ?>">
+			<tr id="wpbdp_word_count" style="<?php echo in_array( 'word_number', $field->get_validators() ) && in_array( $field->get_field_type()->get_id(), array( 'textfield', 'textarea' ) ) ? '' : 'display: none'; ?>">
 				<th scope="row">
 					<label><?php esc_html_e( 'Maximum number of words', 'business-directory-plugin' ); ?></label>
 				</th>
@@ -216,7 +216,7 @@ wpbdp_admin_notices();
 				</td>
 			</tr>
 			<tr id="wpbdp_private_field"
-				class="<?php echo ( in_array( 'private_field', $hidden_fields, true ) && ! $field->display_in( 'private' ) ) ? 'wpbdp-hidden' : ''; ?>"
+				class="<?php echo in_array( 'private_field', $hidden_fields, true ) && ! $field->display_in( 'private' ) ? 'wpbdp-hidden' : ''; ?>"
 				>
 				<th scope="row">
 					<label> <?php esc_html_e( 'Show this field to admin users only?', 'business-directory-plugin' ); ?></label>
@@ -266,7 +266,7 @@ wpbdp_admin_notices();
 				</td>
 			</tr>
 			<tr class="if-display-in-search
-				<?php echo ( in_array( 'search', $hidden_fields, true ) && ! in_array( 'required-in-search', $field->get_validators(), true ) ) ? ' wpbdp-hidden' : ''; ?>
+				<?php echo in_array( 'search', $hidden_fields, true ) && ! in_array( 'required-in-search', $field->get_validators(), true ) ? ' wpbdp-hidden' : ''; ?>
 				">
 				<th scope="row">
 					<label> <?php esc_html_e( 'Is this field required for searching?', 'business-directory-plugin' ); ?></label>
@@ -285,7 +285,7 @@ wpbdp_admin_notices();
 				do_action( 'wpbdp_admin_listing_field_section_visibility', $field, $hidden_fields );
 			} else {
 				?>
-				<tr class="<?php echo ( in_array( 'nolabel', $hidden_fields, true ) && ! $field->has_display_flag( 'nolabel' ) ) ? 'wpbdp-hidden' : ''; ?>">
+				<tr class="<?php echo in_array( 'nolabel', $hidden_fields, true ) && ! $field->has_display_flag( 'nolabel' ) ? 'wpbdp-hidden' : ''; ?>">
 					<th scope="row">
 						<label> <?php esc_html_e( 'Hide this field\'s label?', 'business-directory-plugin' ); ?></label>
 					</th>
@@ -311,7 +311,7 @@ wpbdp_admin_notices();
 				<label>
 					<input name="field[display_flags][]"
 							value="privacy"
-							type="checkbox" <?php echo ( $field->is_privacy_field() || $field->has_display_flag( 'privacy' ) ) ? 'checked="checked"' : ''; ?>
+							type="checkbox" <?php echo $field->is_privacy_field() || $field->has_display_flag( 'privacy' ) ? 'checked="checked"' : ''; ?>
 							<?php echo $field->is_privacy_field() ? 'disabled' : ''; ?>
 					/> <?php esc_html_e( 'Add this field when exporting or deleting user\'s personal data.', 'business-directory-plugin' ); ?>
 				</label>

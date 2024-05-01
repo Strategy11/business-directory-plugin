@@ -186,7 +186,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
 			if ( strlen( $format_ ) != strlen( $value_ ) ) {
 				/* translators: %1$s: field label, %2$s: format */
-				return WPBDP_ValidationError( ( ! empty( $args['messages']['incorrect_format'] ) ) ? $args['messages']['incorrect_format'] : sprintf( esc_html__( '%1$s must be in the format %2$s.', 'business-directory-plugin' ), esc_html( $args['field-label'] ), esc_html( $format ) ) );
+				return WPBDP_ValidationError( ! empty( $args['messages']['incorrect_format'] ) ? $args['messages']['incorrect_format'] : sprintf( esc_html__( '%1$s must be in the format %2$s.', 'business-directory-plugin' ), esc_html( $args['field-label'] ), esc_html( $format ) ) );
 			}
 
 			$d = '0';
@@ -225,7 +225,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 
 			if ( ! ctype_digit( $m ) || ! ctype_digit( $d ) || ! ctype_digit( $y ) || ! checkdate( (int) $m, (int) $d, (int) $y ) ) {
 				/* translators: %s: field label */
-				return WPBDP_ValidationError( ( ! empty( $args['messages']['invalid'] ) ) ? $args['messages']['invalid'] : sprintf( esc_html__( '%s must be a valid date.', 'business-directory-plugin' ), esc_html( $args['field-label'] ) ) );
+				return WPBDP_ValidationError( ! empty( $args['messages']['invalid'] ) ? $args['messages']['invalid'] : sprintf( esc_html__( '%s must be a valid date.', 'business-directory-plugin' ), esc_html( $args['field-label'] ) ) );
 			}
 		}
 
@@ -310,12 +310,14 @@ function WPBDP_ValidationError( $msg, $stop_validation = false ) {
 /**
  * Validates a value against a given validator.
  *
+ * @since 2.3
+ * @see WPBDP_FieldValidation::validate_value()
+ *
  * @param mixed  $value
  * @param string $validator one of the registered validators.
  * @param array  $args optional arguments to be passed to the validator.
- * @return boolean True if value validates, False otherwise.
- * @since 2.3
- * @see WPBDP_FieldValidation::validate_value()
+ *
+ * @return bool True if value validates, False otherwise.
  */
 function wpbdp_validate_value( $value, $validator, $args = array() ) {
 	$validation = WPBDP_FieldValidation::instance();

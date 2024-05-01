@@ -123,9 +123,9 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Add current language to the URL used in BD's ajax requests.
 	 *
-	 * @param string $ajax_url Default value for Ajax URL.
-	 *
 	 * @since 5.0.3
+	 *
+	 * @param string $ajax_url Default value for Ajax URL.
 	 */
 	public function filter_ajax_url( $ajax_url ) {
 		$lang = $this->get_current_language();

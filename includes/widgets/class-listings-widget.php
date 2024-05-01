@@ -101,9 +101,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Escape content and allow svg in the content.
 	 * This is mainly becuase some of the fields, like the ratings, use svg.
 	 *
-	 * @param string $content The text to filter.
-	 *
 	 * @since 5.15
+	 *
+	 * @param string $content The text to filter.
 	 *
 	 * @return string
 	 */
@@ -183,9 +183,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Render empty message
 	 *
-	 * @param string $html_class - the html class to append to the view
-	 *
 	 * @since  x.x
+	 *
+	 * @param string $html_class - the html class to append to the view
 	 *
 	 * @return string
 	 */
@@ -196,11 +196,11 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Render the widget
 	 *
+	 * @since 5.15
+	 *
 	 * @param array $items - the widget items
 	 * @param array $instance - the settings instance
 	 * @param string $html_class - the html class to append to the view
-	 *
-	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -231,10 +231,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Generate the thumbnail position classes.
 	 *
+	 * @since 5.15
+	 *
 	 * @param string $thumbnail_position - the thumbnail position ( left, right )
 	 * @param string $device - the device being used ( desktop, mobile )
-	 *
-	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -251,7 +251,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * @since 5.15
 	 *
-	 * @return string|array
+	 * @return array|string
 	 */
 	private function get_image_size( $instance ) {
 		$width  = isset( $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : 0;
@@ -268,10 +268,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Render item for widget.
 	 *
+	 * @since 5.15
+	 *
 	 * @param WP_Post $post The current listing post.
 	 * @param array $args The view arguments.
-	 *
-	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -296,10 +296,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Render the listing image.
 	 * Depending on the settings, this will return the listing image or the default image or none.
 	 *
+	 * @since  x.x
+	 *
 	 * @param object $listing The listing object.
 	 * @param array $args The view arguments.
-	 *
-	 * @since  x.x
 	 *
 	 * @return string
 	 */
@@ -335,10 +335,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Render fields.
 	 * Render the field items in the widget.
 	 *
+	 * @since 5.15
+	 *
 	 * @param object $listing The listing object.
 	 * @param array $allowed_fields The field ids to show.
-	 *
-	 * @since 5.15
 	 *
 	 * @return string
 	 */

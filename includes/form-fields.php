@@ -107,8 +107,9 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 		/**
 		 * Returns associations marked with the given flags.
 		 *
-		 * @param string|array $flags flags to be checked
-		 * @param boolean      $any if True associations marked with any (and not all) of the flags will also be returned
+		 * @param array|string $flags flags to be checked
+		 * @param bool         $any if True associations marked with any (and not all) of the flags will also be returned
+		 *
 		 * @return array
 		 */
 		public function &get_associations_with_flag( $flags, $any = false ) {
@@ -531,7 +532,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 			foreach ( $fields_order as $i => $field_id ) {
 				$wpdb->update(
 					$wpdb->prefix . 'wpbdp_form_fields',
-					array( 'weight' => ( $total - $i ) ),
+					array( 'weight' => $total - $i ),
 					array( 'id' => $field_id )
 				);
 			}

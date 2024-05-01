@@ -249,11 +249,12 @@ class WPBDP__CPT_Integration {
 	/**
 	 * Specify custom bulk actions messages for WPBDP post type.
 	 *
+	 * @since 5.5.11
+	 *
 	 * @param  array $bulk_messages Array of messages.
 	 * @param  array $bulk_counts Array of how many objects were updated.
-	 * @return array
 	 *
-	 * @since 5.5.11
+	 * @return array
 	 */
 	public function bulk_post_updated_messages( $bulk_messages, $bulk_counts ) {
 		$bulk_messages[ WPBDP_POST_TYPE ] = array(
@@ -273,7 +274,6 @@ class WPBDP__CPT_Integration {
 	}
 
 	/**
-	 *
 	 * @since 5.5.11
 	 */
 	public function pre_listing_delete( $check, $post ) {

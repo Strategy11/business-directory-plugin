@@ -18,7 +18,7 @@ class WPBDP_Listing_Display_Helper {
 		global $post;
 
 		$vars = array();
-		$vars = array_merge( $vars, array( 'even_or_odd' => ( ( $n & 1 ) ? 'odd' : 'even' ) ) );
+		$vars = array_merge( $vars, array( 'even_or_odd' => ( $n & 1 ? 'odd' : 'even' ) ) );
 		$vars = array_merge( $vars, self::basic_vars( $post->ID ) );
 		$vars = array_merge( $vars, self::fields_vars( $post->ID, 'excerpt' ) );
 		$vars = array_merge( $vars, self::images_vars( $post->ID, 'excerpt' ) );
@@ -60,6 +60,7 @@ class WPBDP_Listing_Display_Helper {
 	 * Get needed parameters for full or partial listing.
 	 *
 	 * @since v5.9
+	 *
 	 * @return array
 	 */
 	public static function single_listing_vars( $include = array() ) {
@@ -354,6 +355,7 @@ class WPBDP_Listing_Display_Helper {
 	 * Gets sticky image url.
 	 *
 	 * @since 5.12
+	 *
 	 * @return string
 	 */
 	private static function get_sticky_image() {
@@ -364,6 +366,7 @@ class WPBDP_Listing_Display_Helper {
 	 * Gets coming soon image url.
 	 *
 	 * @since 5.12
+	 *
 	 * @return string
 	 */
 	public static function get_coming_soon_image() {
@@ -374,6 +377,7 @@ class WPBDP_Listing_Display_Helper {
 	 * Gets image url from setting.
 	 *
 	 * @since 5.12
+	 *
 	 * @return string
 	 */
 	private static function get_image_option( $option ) {

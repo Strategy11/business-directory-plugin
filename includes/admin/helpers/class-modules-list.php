@@ -53,6 +53,7 @@ class WPBDP_Show_Modules {
 	 * If the API is unable to connect, show something on the addons page
 	 *
 	 * @since 5.10
+	 *
 	 * @return array
 	 */
 	protected static function fallback_plugin_list() {

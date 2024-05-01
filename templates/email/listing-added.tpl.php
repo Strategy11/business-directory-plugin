@@ -24,8 +24,8 @@ endforeach;
 
 
 <?php
-$name        = $listing->get_author_meta( 'user_login' );
-$email       = $listing->get_author_meta( 'user_email' );
+$name  = $listing->get_author_meta( 'user_login' );
+$email = $listing->get_author_meta( 'user_email' );
 
 esc_html_e( 'Posted By', 'business-directory-plugin' ) . ': ';
 if ( $name && $email ) :

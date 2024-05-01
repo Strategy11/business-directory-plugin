@@ -6,7 +6,7 @@
  */
 
 if ( ! isset( $extra_images ) ) {
-	$extra_images = ( isset( $images ) && $images->extra ) ? $images->extra : false;
+	$extra_images = isset( $images ) && $images->extra ? $images->extra : false;
 }
 
 if ( ! $extra_images ) {

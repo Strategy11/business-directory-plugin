@@ -2,8 +2,9 @@
 /**
  * Represents a single field from the database. This class can not be instantiated directly.
  *
- * @since 2.3
  * @package WPBDP/Views/Includes/Fields/Form Field
+ *
+ * @since 2.3
  */
 
 /**
@@ -356,7 +357,8 @@ class WPBDP_Form_Field {
 	 * Returns field-type specific configuration options for this field.
 	 *
 	 * @param string $key configuration key name
-	 * @return mixed|array if $key is ommitted an array of all key/values will be returned
+	 *
+	 * @return array|mixed if $key is ommitted an array of all key/values will be returned
 	 */
 	public function data( $key = null, $default = null ) {
 		if ( ! $key ) {
@@ -372,6 +374,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @param string $key configuration key name.
 	 * @param mixed  $value data value.
+	 *
 	 * @return mixed data value.
 	 */
 	public function set_data( $key, $value = null ) {
@@ -389,6 +392,7 @@ class WPBDP_Form_Field {
 	 * Returns this field's raw value for the given post.
 	 *
 	 * @param int|object $post_id post ID or object.
+	 *
 	 * @return mixed
 	 */
 	public function value( $post_id, $raw = false ) {
@@ -410,6 +414,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @param int|object $post_id post ID or object.
 	 * @param string     $display_context The display context. Defaults to 'listing'.
+	 *
 	 * @return string valid HTML.
 	 */
 	public function html_value( $post_id, $display_context = 'listing' ) {
@@ -438,6 +443,7 @@ class WPBDP_Form_Field {
 	 * Returns this field's value as plain text. Useful for emails or cooperation between modules.
 	 *
 	 * @param int|object $post_id post ID or object.
+	 *
 	 * @return string
 	 */
 	public function plain_value( $post_id ) {
@@ -457,6 +463,7 @@ class WPBDP_Form_Field {
 	 * Converts input from forms to a value useful for this field.
 	 *
 	 * @param mixed $input form input.
+	 *
 	 * @return mixed
 	 */
 	public function convert_input( $input = null ) {
@@ -529,9 +536,9 @@ class WPBDP_Form_Field {
 	}
 
 	/**
-	 * @param array|string $error
-	 *
 	 * @since 5.16
+	 *
+	 * @param array|string $error
 	 */
 	public function add_validation_error( $error ) {
 		if ( is_array( $error ) ) {
@@ -564,6 +571,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @param int|object $post_id post ID or object
 	 * @param string     $display_context the display context. defaults to 'listing'.
+	 *
 	 * @return string
 	 */
 	public function display( $post_id, $display_context = 'listing' ) {
@@ -598,6 +606,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @param mixed  $value the value to be displayed. defaults to null.
 	 * @param string $display_context the rendering context. defaults to 'submit'.
+	 *
 	 * @return string
 	 */
 	public function render( $value = null, $display_context = 'submit', &$extra = null, $field_settings = array() ) {
@@ -900,7 +909,7 @@ class WPBDP_Form_Field {
 				break;
 			case 'tags':
 			case 'category':
-				$query = ( 'tags' == $this->get_association() && is_string( $query ) ) ? explode( ',', $query ) : $query;
+				$query = 'tags' == $this->get_association() && is_string( $query ) ? explode( ',', $query ) : $query;
 				$query = is_array( $query ) ? $query : array( $query );
 				$query = array_diff( array_map( 'trim', $query ), array( -1, 0, '' ) );
 
@@ -983,6 +992,7 @@ class WPBDP_Form_Field {
 	 * Creates a WPBDP_Form_Field from a database record.
 	 *
 	 * @param int $id the database record ID.
+	 *
 	 * @return WPBDP_Form_Field|null a valid WPBDP_Form_Field if the record exists or null if not.
 	 */
 	public static function get( $id ) {
@@ -1071,9 +1081,9 @@ class WPBDP_Form_Field {
 	}
 
 	/**
-	 * @return bool
-	 *
 	 * @since 5.5
+	 *
+	 * @return bool
 	 */
 	public function is_privacy_field() {
 		return in_array( $this->get_tag(), self::$default_tags );

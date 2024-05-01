@@ -245,7 +245,7 @@ class WPBDP__DB__Model {
 		$pk    = self::get_model_info( $this, 'primary_key' );
 		$where = array( $pk => $this->_attrs[ $pk ] );
 
-		$res = ( false !== $wpdb->delete( self::get_model_info( $this, 'table_name' ), $where ) );
+		$res = false !== $wpdb->delete( self::get_model_info( $this, 'table_name' ), $where );
 
 		if ( $res ) {
 			$this->after_delete();

@@ -51,9 +51,9 @@ class WPBDP_Admin_Education {
 	/**
 	 * Render the cta.
 	 *
-	 * @param array $tip The current tip.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $tip The current tip.
 	 *
 	 * @return string
 	 */
@@ -137,9 +137,9 @@ class WPBDP_Admin_Education {
 	}
 
 	/**
-	 * @param string $id
-	 *
 	 * @since 5.9.1
+	 *
+	 * @param string $id
 	 *
 	 * @return array
 	 */

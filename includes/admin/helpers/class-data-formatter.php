@@ -3,6 +3,7 @@
  * Formats data from a list of properties in format expected by the Data Exporter API.
  *
  * @package BDP/Admin
+ *
  * @since 5.5
  */
 
@@ -13,6 +14,7 @@ class WPBDP_DataFormatter {
 	/**
 	 * @param array $items
 	 * @param array $properties
+	 *
 	 * @return array
 	 */
 	public function format_data( $items, $properties ) {

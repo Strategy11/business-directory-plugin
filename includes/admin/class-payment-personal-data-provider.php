@@ -3,6 +3,7 @@
  * Exporter for Payment personal data.
  *
  * @package BDP/Admin
+ *
  * @since 5.5
  */
 
@@ -11,7 +12,7 @@
  */
 class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInterface {
 	/**
-	 * @var WPBDP_DataFormatter $data_formatter
+	 * @var WPBDP_DataFormatter
 	 */
 	private $data_formatter;
 
@@ -35,6 +36,7 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
 	 * @param WP_User $user
 	 * @param string  $email_address
 	 * @param int     $page
+	 *
 	 * @return array|mixed
 	 */
 	public function get_objects( $user, $email_address, $page ) {
@@ -43,6 +45,7 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
 
 	/**
 	 * @param array $payment_transactions
+	 *
 	 * @return array|mixed
 	 */
 	public function export_objects( $payment_transactions ) {
@@ -77,6 +80,7 @@ class WPBDP_PaymentPersonalDataProvider implements WPBDP_PersonalDataProviderInt
 
 	/**
 	 * @param array $payment_transactions
+	 *
 	 * @return array|mixed
 	 */
 	public function erase_objects( $payment_transactions ) {

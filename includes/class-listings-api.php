@@ -53,9 +53,10 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 		/**
 		 * Performs a "quick search" for listings on the fields marked as quick-search fields in the plugin settings page.
 		 *
-		 * @return array The listing IDs.
 		 * @since 3.4
 		 * @deprecated 6.0
+		 *
+		 * @return array The listing IDs.
 		 */
 		public function quick_search() {
 			_deprecated_function( __METHOD__, '6.0' );

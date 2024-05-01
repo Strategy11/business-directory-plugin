@@ -303,10 +303,10 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render checkbox input hmtl.
 	 *
-	 * @param array $setting The setting of the field.
-	 * @param int $value The input value.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $setting The setting of the field.
+	 * @param int   $value   The input value.
 	 *
 	 * @return void
 	 */
@@ -321,11 +321,11 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render settings input label.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $setting The setting of the field.
 	 * @param string $tag The element tag. Defaults to "label".
 	 * @param string $class The element tag class. Defaults to empty.
-	 *
-	 * @since 6.0
 	 *
 	 * @return void
 	 */
@@ -355,9 +355,9 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render settings input description.
 	 *
-	 * @param array $setting The setting of the field.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $setting The setting of the field.
 	 *
 	 * @return void
 	 */
@@ -466,8 +466,8 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render the select dropdown.
 	 *
-	 * @param array $setting The setting of the current input.
-	 * @param string|array $value The selected value
+	 * @param array        $setting The setting of the current input.
+	 * @param array|string $value   The selected value
 	 */
 	public function setting_select_callback( $setting, $value ) {
 		if ( empty( $setting['options'] ) ) {

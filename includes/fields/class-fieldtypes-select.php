@@ -229,7 +229,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 				'<option value="%s" class="%s" %s>%s</option>',
 				esc_attr( $option_data['value'] ),
 				esc_attr( 'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ) ),
-				$this->html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
+				self::html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
 				esc_html( $option_data['label'] )
 			);
 		}

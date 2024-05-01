@@ -70,8 +70,9 @@ class WPBDP_Installer {
 	 * Builds the SQL queries (without running them) used to create all of the required database tables for BD.
 	 * Calls the `wpbdp_database_schema` filter that allows plugins to modify the schema.
 	 *
-	 * @return array An associative array of (non prefixed)table => SQL items.
 	 * @since 3.3
+	 *
+	 * @return array An associative array of (non prefixed)table => SQL items.
 	 */
 	public function get_database_schema() {
 		global $wpdb;
@@ -275,10 +276,10 @@ class WPBDP_Installer {
 
 	public function get_pending_migrations() {
 		$current_version = strval( $this->installed_version );
-		$current_version = ( false === strpos( $current_version, '.' ) ) ? $current_version . '.0' : $current_version;
+		$current_version = false === strpos( $current_version, '.' ) ? $current_version . '.0' : $current_version;
 
 		$latest_version = strval( self::DB_VERSION );
-		$latest_version = ( false === strpos( $latest_version, '.' ) ) ? $latest_version . '.0' : $latest_version;
+		$latest_version = false === strpos( $latest_version, '.' ) ? $latest_version . '.0' : $latest_version;
 
 		$migrations = array();
 

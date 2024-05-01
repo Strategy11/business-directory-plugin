@@ -9,7 +9,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 class WPBDP__Admin__Payments_Table extends WP_List_Table {
 
 	/**
-	 * @var WPBDP__DB__Query_Set $items
+	 * @var WPBDP__DB__Query_Set
 	 */
 	public $items;
 

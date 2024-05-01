@@ -36,7 +36,7 @@ switch ( $payment->status ) :
 		break;
 	default:
 		wp_die();
-endswitch
+endswitch;
 ?>
 
 <?php if ( 'canceled' != $payment->status ) : ?>

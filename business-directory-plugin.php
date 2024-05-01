@@ -40,6 +40,7 @@ spl_autoload_register( 'wpbdp_dir_autoloader' );
 
 /**
  * @since 6.3.11
+ *
  * @return void
  */
 function wpbdp_dir_autoloader( $class_name ) {

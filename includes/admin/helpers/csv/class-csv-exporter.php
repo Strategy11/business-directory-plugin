@@ -359,7 +359,7 @@ class WPBDP_CSVExporter {
 								continue;
 							}
 
-							$this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+							$this->images_archive = ! isset( $this->images_archive ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
 							if ( $success = $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
 								$images[] = basename( $img_path );
 							}
@@ -439,7 +439,7 @@ class WPBDP_CSVExporter {
 										break;
 									}
 
-									$this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+									$this->images_archive = ! isset( $this->images_archive ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
 									if ( $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
 										$value = sprintf( '%s,%s', $value, basename( $img_path ) );
 									}

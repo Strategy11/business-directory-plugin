@@ -289,8 +289,9 @@ function wpbdp_get_parent_catids( $catid ) {
 /**
  * Checks if permalinks are enabled.
  *
- * @return boolean
  * @since 2.1
+ *
+ * @return bool
  */
 function wpbdp_rewrite_on() {
 	global $wp_rewrite;
@@ -300,11 +301,13 @@ function wpbdp_rewrite_on() {
 /**
  * Checks if a given user can perform some action to a listing.
  *
- * @param string       $action the action to be checked. available actions are 'view', 'edit', 'delete' and 'upgrade-to-sticky'
- * @param (object|int) $listing_id the listing ID. if null, the current post ID will be used
- * @param int          $user_id the user ID. if null, the current user will be used
- * @return boolean
  * @since 2.1
+ *
+ * @param string       $action the action to be checked. available actions are 'view', 'edit', 'delete' and 'upgrade-to-sticky'
+ * @param (int|object) $listing_id the listing ID. if null, the current post ID will be used
+ * @param int          $user_id the user ID. if null, the current user will be used
+ *
+ * @return bool
  */
 function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 	$listing_id = $listing_id ? ( is_object( $listing_id ) ? $listing_id->ID : intval( $listing_id ) ) : get_the_ID();
@@ -396,22 +399,22 @@ function wpbdp_get_current_sort_option() {
 /**
  * Maybe resize image.
  *
- * @param int   $id   The media attachment id.
- * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
- *
  * @since 2.1.6
  * @since 5.14.3 The second parameter is added.
+ *
+ * @param int   $id   The media attachment id.
+ * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
  */
 function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 
 	/**
 	 * Add filter to allow user to skin image resizing.
 	 *
+	 * @since 5.14.3
+	 *
 	 * @param bool  $resize Whether to resize the image or not.
 	 * @param int   $id     The media attachment id.
 	 * @param array $args   Optional. An array of width and height in pixels and crop as a boolean.
-	 *
-	 * @since 5.14.3
 	 */
 	$resize_image = apply_filters( 'wpbdp_resize_image_if_needed', true, $id, $args );
 	if ( ! $resize_image ) {
@@ -445,10 +448,10 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
  * This checks against the image dimensions and the database image settings.
  * If the dimensions are the same or smaller than what is saved, we skip the resize.
  *
+ * @since 5.14.3
+ *
  * @param int   $id   The media attachment id.
  * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
- *
- * @since 5.14.3
  *
  * @return bool
  */
@@ -856,8 +859,8 @@ function wpbdp_get_fee_plans( $args = array() ) {
 
 	$order = wpbdp_get_option( 'fee-order' );
 	if ( $order ) {
-		$defaults['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
-		$defaults['order']   = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
+		$defaults['orderby'] = 'custom' == $order['method'] ? 'weight' : $order['method'];
+		$defaults['order']   = 'custom' == $order['method'] ? 'DESC' : $order['order'];
 	}
 
 	$args = wp_parse_args( $args, $defaults );
@@ -1112,6 +1115,7 @@ function _wpbdp_template_mode( $template ) {
  *
  * @param mixed  $listing_id listing object or listing id to display.
  * @param string $view 'single' for single view or 'excerpt' for summary view.
+ *
  * @return string HTML output.
  */
 function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = false ) {
@@ -1222,9 +1226,11 @@ function wpbdp_sortbar_get_field_options() {
 /**
  * Returns the admin edit link for the listing.
  *
- * @param int $listing_id the listing ID
- * @return string The admin edit link for the listing (if available).
  * @since 5.1.3
+ *
+ * @param int $listing_id the listing ID
+ *
+ * @return string The admin edit link for the listing (if available).
  */
 function wpbdp_get_edit_post_link( $listing_id ) {
 	if ( ! $post = get_post( $listing_id ) ) {
@@ -1374,6 +1380,7 @@ function wpbdp_backend_minimim_role() {
 	 * @since 6.4
 	 *
 	 * @param string $role The minimum role required to access the backend.
+	 *
 	 * @return string
 	 */
 	return apply_filters( 'wpbdp_minimum_backend_role', 'edit_posts' );

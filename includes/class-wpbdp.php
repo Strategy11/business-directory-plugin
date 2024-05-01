@@ -341,6 +341,7 @@ final class WPBDP {
 	 * @deprecated 5.13.2
 	 *
 	 * @param  array $plugins
+	 *
 	 * @return array $plugins
 	 */
 	public function run_ajax_compat_mode( $plugins ) {
@@ -351,12 +352,12 @@ final class WPBDP {
 	/**
 	 * Check if this is a BD plugin.
 	 *
-	 * @param string $plugin
-	 *
 	 * @since 5.12.1
 	 * @deprecated 5.13.2
 	 *
-	 * @return boolean
+	 * @param string $plugin
+	 *
+	 * @return bool
 	 */
 	private function keep_only_bd_plugins( $plugin ) {
 		_deprecated_function( __METHOD__, '5.13.2' );

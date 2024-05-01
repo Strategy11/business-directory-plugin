@@ -90,7 +90,7 @@ class WPBDP_SearchWidget extends WP_Widget {
 			printf(
 				'<option value="%s" %s>%s</option>',
 				esc_attr( $field->get_id() ),
-				( ! $instance['search_fields'] || in_array( $field->get_id(), $instance['search_fields'] ) ) ? 'selected="selected"' : '',
+				! $instance['search_fields'] || in_array( $field->get_id(), $instance['search_fields'] ) ? 'selected="selected"' : '',
 				esc_html( $field->get_label() )
 			);
 		}

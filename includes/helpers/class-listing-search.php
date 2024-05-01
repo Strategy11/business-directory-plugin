@@ -323,11 +323,13 @@ class WPBDP__Listing_Search {
 	 * - A search term for that field.
 	 *
 	 * @since 4.0.12
+	 *
 	 * @param array  $node     The node that will be checked.
 	 * @param int    $field_id The ID of the Form Field.
 	 * @param string $term     If provided and is not null, this function will return true
 	 *                  when both the Field ID and the search term match only.
-	 * @return boolean
+	 *
+	 * @return bool
 	 */
 	private static function is_field_node( $node, $field_id, $term = null ) {
 		if ( ! is_array( $node ) || 2 != count( $node ) || ! isset( $node[0] ) || ! isset( $node[1] ) ) {
