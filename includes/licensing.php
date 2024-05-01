@@ -901,14 +901,6 @@ class WPBDP_Licensing {
 		$due = time() - DAY_IN_SECONDS;
 
 		$needs_refresh = false === $updates || $force_refresh || $updates['last'] < $due;
-
-		foreach ( $this->items as $item ) {
-			if ( ! isset( $updates[ $item['item_type'] . '-' . $item['id'] ] ) ) {
-				$needs_refresh = true;
-				break;
-			}
-		}
-
 		if ( ! $needs_refresh ) {
 			return $updates;
 		}
@@ -958,7 +950,7 @@ class WPBDP_Licensing {
 	 * Get the plugin information from the plugin list API or
 	 * the deprecated bulk API for multiple license keys.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @param array $args The arguments to send to the API.
 	 *
@@ -1006,7 +998,7 @@ class WPBDP_Licensing {
 	 * If there's only one (or no) license, we can get all the information
 	 * in one request.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @param array $licenses All licenses saved to this site.
 	 *
@@ -1024,7 +1016,7 @@ class WPBDP_Licensing {
 	/**
 	 * Handle the response from the plugin updates list API.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @param array $item     The BD add-on module to check.
 	 * @param array $body     The response from the API.
@@ -1070,7 +1062,7 @@ class WPBDP_Licensing {
 	/**
 	 * Handle the response from 'batch_get_version' endpoint.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @param array $item    The BD add-on module to check.
 	 * @param array $body    The response from the API.
@@ -1190,7 +1182,7 @@ class WPBDP_Licensing {
 	/**
 	 * Get plugin API info.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @param string $license The license key.
 	 *

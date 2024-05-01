@@ -138,7 +138,7 @@ class WPBDP_Modules_API {
 	/**
 	 * Prevent multiple requests from running at the same time.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @return bool
 	 */
@@ -150,7 +150,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @return void
 	 */
@@ -165,7 +165,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @return void
 	 */
@@ -180,7 +180,7 @@ class WPBDP_Modules_API {
 	 * Only allow one site in the network to make the api request at a time.
 	 * If there is a license for the request, run individually.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @return bool
 	 */
@@ -189,7 +189,7 @@ class WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @return string
 	 */
@@ -265,7 +265,7 @@ class WPBDP_Modules_API {
 	/**
 	 * Get the cache for the network if multisite.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @return mixed
 	 */
@@ -304,7 +304,7 @@ class WPBDP_Modules_API {
 	/**
 	 * If the last check was a a rate limit, we'll need to check again sooner.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @param array $addons
 	 *
@@ -373,7 +373,7 @@ class WPBDP_Modules_API {
 	/**
 	 * Check if an add-on is new.
 	 *
-	 * @since x.x
+	 * @since 6.4.2
 	 *
 	 * @param array $addon
 	 *

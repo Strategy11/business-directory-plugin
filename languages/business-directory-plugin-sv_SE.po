@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2024-04-23 17:07:54+00:00\n"
+"POT-Creation-Date: 2024-05-01 20:47:08+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "This field is required (%s)."
 msgstr "Detta fält är obligatoriskt."
 
-#: includes/abstracts/class-payment-gateway.php:174
+#: includes/abstracts/class-payment-gateway.php:179
 msgid ""
 "There was an unexpected error trying to cancel your subscription. Please "
 "contact the website's administrator mentioning this problem. The "
@@ -30,17 +30,17 @@ msgid ""
 "payment processor directly."
 msgstr ""
 
-#: includes/abstracts/class-view.php:33
+#: includes/abstracts/class-view.php:34
 #, fuzzy
 msgid "Select"
 msgstr "Flervalslista"
 
-#: includes/abstracts/class-view.php:36
+#: includes/abstracts/class-view.php:37
 #, fuzzy
 msgid "Selected"
 msgstr "Flervalslista"
 
-#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:494
+#: includes/admin/admin-pages.php:61 includes/admin/admin-pages.php:492
 #: includes/admin/helpers/tables/class-fees-table.php:64
 #: includes/admin/settings/class-settings-bootstrap.php:674
 #: includes/admin/settings/class-settings-bootstrap.php:675
@@ -65,16 +65,16 @@ msgstr "Katalogtaggar"
 msgid "Search results for: %s"
 msgstr "Sökresultat"
 
-#: includes/admin/admin-pages.php:493 includes/admin/class-admin.php:554
+#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:554
 #, fuzzy
 msgid "Directory Content"
 msgstr "Katalogkategori"
 
-#: includes/admin/admin-pages.php:499 includes/admin/class-admin.php:315
+#: includes/admin/admin-pages.php:497 includes/admin/class-admin.php:315
 #: includes/admin/settings/class-settings-bootstrap.php:686
 #: includes/admin/settings/class-settings-bootstrap.php:687
 #: includes/helpers/class-app.php:93
-#: includes/helpers/functions/templates-ui.php:312
+#: includes/helpers/functions/templates-ui.php:318
 msgid "Directory"
 msgstr "Katalog"
 
@@ -131,7 +131,7 @@ msgid "Form Fields"
 msgstr "Formulärfält"
 
 #: includes/admin/class-admin.php:359 includes/admin/class-admin.php:360
-#: includes/licensing.php:220
+#: includes/licensing.php:221
 #, fuzzy
 msgid "Modules"
 msgstr "(Alla moduler)"
@@ -141,7 +141,7 @@ msgstr "(Alla moduler)"
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin.php:497 includes/class-wpbdp.php:404
+#: includes/admin/class-admin.php:497 includes/class-wpbdp.php:405
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "Uppgradera till %s"
@@ -177,7 +177,7 @@ msgstr "ID"
 msgid "Listing Count"
 msgstr "Annonsräknare"
 
-#: includes/admin/class-admin.php:1399
+#: includes/admin/class-admin.php:1400
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -189,56 +189,56 @@ msgstr ""
 "och klicka i \"Vem som helst kan registrera sig\" för att säkerställa att BD "
 "fungerar som det ska."
 
-#: includes/admin/class-listing-owner.php:62
-#: includes/admin/class-listing-owner.php:89
+#: includes/admin/class-listing-owner.php:64
+#: includes/admin/class-listing-owner.php:91
 #, fuzzy
 msgid "Please select a user"
 msgstr "Välj en kategori."
 
-#: includes/admin/class-listing-owner.php:87
+#: includes/admin/class-listing-owner.php:89
 #: includes/admin/controllers/class-admin-listings.php:223
 #, fuzzy
 msgid "Listing Owner"
 msgstr "Annonsen förfallit."
 
-#: includes/admin/class-listings-personal-data-provider.php:58
+#: includes/admin/class-listings-personal-data-provider.php:60
 #, fuzzy
 msgid "Listing ID"
 msgstr "Annons"
 
-#: includes/admin/class-listings-personal-data-provider.php:109
+#: includes/admin/class-listings-personal-data-provider.php:113
 #, fuzzy
 msgid "Image URL"
 msgstr "Bild"
 
-#: includes/admin/class-listings-personal-data-provider.php:123
+#: includes/admin/class-listings-personal-data-provider.php:127
 #, fuzzy
 msgid "Business Directory Listings"
 msgstr "Business Directory Inställningar"
 
-#: includes/admin/class-listings-personal-data-provider.php:157
+#: includes/admin/class-listings-personal-data-provider.php:163
 #, fuzzy
 msgid ""
 "An unknown error occurred while trying to delete information for listing "
 "{listing_id}."
 msgstr "Ett fel uppstod när försök gjordes att radera detta fält."
 
-#: includes/admin/class-payment-personal-data-provider.php:50
+#: includes/admin/class-payment-personal-data-provider.php:53
 #, fuzzy
 msgid "Payment Transaction"
 msgstr "Transaktioner"
 
-#: includes/admin/class-payment-personal-data-provider.php:51
+#: includes/admin/class-payment-personal-data-provider.php:54
 #, fuzzy
 msgid "Payer Email"
 msgstr "﻿Din E-post"
 
-#: includes/admin/class-payment-personal-data-provider.php:60
+#: includes/admin/class-payment-personal-data-provider.php:63
 #, fuzzy
 msgid "Listing Payments Information"
 msgstr "Migrerar betalningsinformation."
 
-#: includes/admin/class-payment-personal-data-provider.php:92
+#: includes/admin/class-payment-personal-data-provider.php:96
 #, fuzzy
 msgid ""
 "An unknown error occurred while trying to delete listing payment information "
@@ -296,7 +296,7 @@ msgid "Images"
 msgstr "Bilder"
 
 #: includes/admin/controllers/class-admin-fees.php:83
-#: includes/admin/helpers/class-modules-list.php:237
+#: includes/admin/helpers/class-modules-list.php:238
 #, fuzzy
 msgid "Upgrade"
 msgstr "Uppgradera till %s"
@@ -345,7 +345,7 @@ msgid "Cannot disable plan. At least one plan should be enabled"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:187
-#: includes/controllers/pages/class-submit-listing.php:721
+#: includes/controllers/pages/class-submit-listing.php:728
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Information om annons"
@@ -383,7 +383,7 @@ msgid "Never"
 msgstr "Aldrig"
 
 #: includes/admin/controllers/class-admin-listings.php:350
-#: includes/helpers/class-listing-display-helper.php:145
+#: includes/helpers/class-listing-display-helper.php:146
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:118
 #, fuzzy
 msgid "Featured"
@@ -450,7 +450,7 @@ msgstr ""
 "låta Business Directory göra det åt dig automatiskt."
 
 #: includes/admin/controllers/class-form-fields-admin.php:41
-#: includes/controllers/pages/class-submit-listing.php:1051
+#: includes/controllers/pages/class-submit-listing.php:1058
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "Gå till \"Hantera formulärfält\""
@@ -461,8 +461,8 @@ msgid "Form Preview"
 msgstr "Förhandsgranska formulär"
 
 #: includes/admin/controllers/class-form-fields-admin.php:151
-#: includes/helpers/functions/general.php:1301
-#: includes/helpers/functions/general.php:1306
+#: includes/helpers/functions/general.php:1307
+#: includes/helpers/functions/general.php:1312
 #, fuzzy
 msgid "Go back"
 msgstr "Nej, gå tillbaka"
@@ -500,7 +500,7 @@ msgid "Tags"
 msgstr "Tagg"
 
 #: includes/admin/controllers/class-form-fields-admin.php:372
-#: includes/form-fields.php:445
+#: includes/form-fields.php:446
 #: includes/helpers/class-field-display-list.php:271
 #: templates/checkout-billing-form.tpl.php:75
 #, fuzzy
@@ -533,7 +533,7 @@ msgid "Country"
 msgstr "Land"
 
 #: includes/admin/controllers/class-form-fields-admin.php:377
-#: includes/form-fields.php:453 templates/admin/payments-details.tpl.php:179
+#: includes/form-fields.php:454 templates/admin/payments-details.tpl.php:179
 msgid "ZIP Code"
 msgstr "Postnummer"
 
@@ -560,7 +560,7 @@ msgid "Twitter"
 msgstr "Twitter"
 
 #: includes/admin/controllers/class-form-fields-admin.php:382
-#: includes/form-fields.php:411
+#: includes/form-fields.php:412
 #, fuzzy
 msgid "Website"
 msgstr "Webbplats"
@@ -589,7 +589,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/controllers/class-settings-admin.php:645
-#: includes/admin/helpers/class-modules-list.php:236
+#: includes/admin/helpers/class-modules-list.php:237
 #, fuzzy
 msgid "Upgrade Now"
 msgstr "Uppgradera till %s"
@@ -674,13 +674,13 @@ msgstr "Återkommande och icke återkommande annonser"
 msgid "When to send?"
 msgstr "När ska den skickas?"
 
-#: includes/admin/controllers/class-themes-admin.php:44
+#: includes/admin/controllers/class-themes-admin.php:45
 #, fuzzy
 msgid "Themes"
 msgstr "Teman"
 
 #. translators: %1$s is the opening <a> tag, %2$s is the closing </a> tag
-#: includes/admin/controllers/class-themes-admin.php:334
+#: includes/admin/controllers/class-themes-admin.php:335
 #, fuzzy
 msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr "Aktivera din <a>licensnyckel</a> för att använda detta tema."
@@ -700,7 +700,7 @@ msgstr ""
 msgid "Example CSV Import File"
 msgstr "Exempel CSV-importfilen"
 
-#: includes/admin/csv-import.php:334
+#: includes/admin/csv-import.php:336
 #, fuzzy
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
@@ -711,17 +711,17 @@ msgstr ""
 "fungera. Servern använder \"%s\", men denna väg verkar inte vara skrivbar. "
 "Rådgör med din värd."
 
-#: includes/admin/csv-import.php:363 includes/helpers/class-app.php:244
+#: includes/admin/csv-import.php:365 includes/helpers/class-app.php:244
 #: includes/helpers/class-app.php:256
 msgid "You are not allowed to do that."
 msgstr ""
 
-#: includes/admin/csv-import.php:456
+#: includes/admin/csv-import.php:458
 #, fuzzy
 msgid "There was an error uploading the file:"
 msgstr "Det uppstod ett fel vid överföringen av CSV-filen."
 
-#: includes/admin/csv-import.php:461
+#: includes/admin/csv-import.php:463
 #, fuzzy
 msgid "Please upload the correct file type."
 msgstr "Vänligen ladda upp eller välj en CSV-fil."
@@ -737,30 +737,30 @@ msgstr "Vänligen ladda upp eller välj en CSV-fil."
 msgid "Listing"
 msgstr "Annons"
 
-#: includes/admin/helpers/class-listing-timeline.php:138
+#: includes/admin/helpers/class-listing-timeline.php:139
 #: includes/class-listings-api.php:33
 #, fuzzy
 msgid "Listing renewed"
 msgstr "Annonsen har förnyats."
 
-#: includes/admin/helpers/class-modules-list.php:182
+#: includes/admin/helpers/class-modules-list.php:183
 #, fuzzy
 msgid "Installed"
 msgstr "Installerat"
 
-#: includes/admin/helpers/class-modules-list.php:187
+#: includes/admin/helpers/class-modules-list.php:188
 #: includes/admin/helpers/tables/class-fees-table.php:299
 #: templates/admin/themes-item.tpl.php:3
 #, fuzzy
 msgid "Active"
 msgstr "Aktiv"
 
-#: includes/admin/helpers/class-modules-list.php:192
+#: includes/admin/helpers/class-modules-list.php:193
 #, fuzzy
 msgid "Not Installed"
 msgstr "Ej installerad"
 
-#: includes/admin/helpers/class-modules-list.php:226
+#: includes/admin/helpers/class-modules-list.php:227
 #: includes/controllers/class-smtp-controller.php:316
 #: templates/admin/themes-item.tpl.php:59
 #, fuzzy
@@ -876,14 +876,14 @@ msgid "Disabled"
 msgstr "Inaktiverad"
 
 #: includes/admin/helpers/tables/class-fees-table.php:303
-#: includes/helpers/functions/templates-ui.php:439
+#: includes/helpers/functions/templates-ui.php:445
 #, fuzzy
 msgid "Default"
 msgstr "Standardavgift"
 
 #: includes/admin/helpers/tables/class-form-fields-table.php:31
-#: includes/fields/class-fieldtypes-social.php:135
-#: templates/admin/csv-import.tpl.php:341
+#: includes/fields/class-fieldtypes-social.php:136
+#: templates/admin/csv-import.tpl.php:342
 #, fuzzy
 msgid "Type"
 msgstr "Typ"
@@ -932,8 +932,8 @@ msgid "Missing tables: %s"
 msgstr "Saknade tabeller:%s"
 
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1523
-#: includes/form-fields.php:428 templates/admin/payments-details.tpl.php:151
+#: includes/controllers/pages/class-submit-listing.php:1531
+#: includes/form-fields.php:429 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
 #, fuzzy
@@ -1018,7 +1018,7 @@ msgstr "Ja, och att det krävs"
 
 #: includes/admin/settings/class-settings-bootstrap.php:292
 #: includes/admin/settings/class-settings-bootstrap.php:306
-#: includes/controllers/pages/class-submit-listing.php:734
+#: includes/controllers/pages/class-submit-listing.php:741
 #, fuzzy
 msgid "Terms and Conditions"
 msgstr "Villkor"
@@ -1267,8 +1267,8 @@ msgid "Coming Soon image"
 msgstr ""
 
 #: includes/admin/settings/class-settings-bootstrap.php:1143
-#: includes/fields/class-fieldtypes-social.php:89
-#: includes/fields/class-fieldtypes-url.php:170
+#: includes/fields/class-fieldtypes-social.php:90
+#: includes/fields/class-fieldtypes-url.php:175
 #: templates/email/listing-added.tpl.php:13
 #: templates/email/listing-edited.tpl.php:19
 #: templates/email/listing-reported.tpl.php:13
@@ -1427,7 +1427,7 @@ msgstr ""
 "teman och WP version?"
 
 #: includes/admin/settings/class-settings-bootstrap.php:1688
-#: includes/licensing.php:594
+#: includes/licensing.php:595
 msgid "Learn more"
 msgstr ""
 
@@ -1490,7 +1490,7 @@ msgid "Directory Manual Upgrade"
 msgstr "Business Directory - Manuell uppgradering"
 
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:177
-#: includes/class-assets.php:249 templates/send-access-keys.tpl.php:11
+#: includes/class-assets.php:252 templates/send-access-keys.tpl.php:11
 #: templates/submit-listing/extra-sections.tpl.php:6
 #, fuzzy
 msgid "Continue"
@@ -1510,7 +1510,7 @@ msgstr "Klicka på \"Börja uppgradera\" och vänta tills processen är klar."
 
 #. translators: %1$s the new version number, %2$s opening link tag, %3$s
 #. closing link tag
-#: includes/admin/upgrades/class-themes-updater.php:161
+#: includes/admin/upgrades/class-themes-updater.php:164
 #, fuzzy
 msgid "New version available (%1$s). %2$sUpdate now.%3$s"
 msgstr "Ny version tillgänglig <b>(%s).</b> <a>Uppdatera nu.</a>"
@@ -1611,7 +1611,7 @@ msgstr ""
 msgid "View Docs"
 msgstr "Visa"
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:407
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:408
 #, fuzzy
 msgid "Settings"
 msgstr "Inställningar"
@@ -1660,7 +1660,7 @@ msgid ""
 "what we can do better?"
 msgstr ""
 
-#: includes/class-assets.php:248
+#: includes/class-assets.php:251
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:77
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:100
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:115
@@ -1672,11 +1672,11 @@ msgstr ""
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: includes/class-assets.php:250
+#: includes/class-assets.php:253
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-assets.php:502
+#: includes/class-assets.php:506
 #, fuzzy
 msgid ""
 "Preview is only available after you've saved the first draft. This is due to "
@@ -1694,7 +1694,7 @@ msgid "View Listing"
 msgstr "Visa annons"
 
 #: includes/class-cpt-integration.php:22
-#: includes/helpers/functions/templates-ui.php:375
+#: includes/helpers/functions/templates-ui.php:381
 #: templates/main-box.tpl.php:23
 msgid "Search Listings"
 msgstr "Sök annonser"
@@ -1724,7 +1724,7 @@ msgid "Directory Tag"
 msgstr "Katalogtag"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:261
+#: includes/class-cpt-integration.php:262
 #, fuzzy
 msgid "%s listing updated."
 msgid_plural "%s listings updated."
@@ -1732,14 +1732,14 @@ msgstr[0] "En annons är redigerad."
 msgstr[1] "En annons är redigerad."
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:263
+#: includes/class-cpt-integration.php:264
 msgid "%s listing not updated, somebody is editing it."
 msgid_plural "%s listings not updated, somebody is editing them."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:265
+#: includes/class-cpt-integration.php:266
 #, fuzzy
 msgid "%s listing permanently deleted."
 msgid_plural "%s listings permanently deleted."
@@ -1747,7 +1747,7 @@ msgstr[0] "Utgångsdatum för annons"
 msgstr[1] "Utgångsdatum för annons"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:267
+#: includes/class-cpt-integration.php:268
 #, fuzzy
 msgid "%s listing moved to the Trash."
 msgid_plural "%s listings moved to the Trash."
@@ -1755,7 +1755,7 @@ msgstr[0] "Inga annonser funna i papperskorgen"
 msgstr[1] "Inga annonser funna i papperskorgen"
 
 #. translators: %s: listing count
-#: includes/class-cpt-integration.php:269
+#: includes/class-cpt-integration.php:270
 #, fuzzy
 msgid "%s listing restored from the Trash."
 msgid_plural "%s listings restored from the Trash."
@@ -1780,13 +1780,13 @@ msgid "[%s] Listing edit notification"
 msgstr "[%s] Notifiering om annonsändring"
 
 #. translators: %s is the name of the blog.
-#: includes/class-listing-email-notification.php:376
+#: includes/class-listing-email-notification.php:377
 #, fuzzy
 msgid "[%s] Reported listing notification"
 msgstr "[%s] Notifiering om ny annons"
 
 #. translators: [%s] is the name of the blog.
-#: includes/class-listing-email-notification.php:423
+#: includes/class-listing-email-notification.php:424
 #, fuzzy
 msgid "[%s] New payment notification"
 msgstr "[%s] Notifiering om ny annons"
@@ -1802,22 +1802,22 @@ msgid ""
 "to set up a gateway. Until you do this, only free plans will be available."
 msgstr ""
 
-#: includes/class-wpbdp.php:499
+#: includes/class-wpbdp.php:500
 #, fuzzy
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Välj en kategori för din annons."
 
-#: includes/class-wpbdp.php:504
+#: includes/class-wpbdp.php:505
 #, fuzzy
 msgid "Can not upload any more images for this listing."
 msgstr "Fler bilder kan inte laddas upp för denna annons."
 
-#: includes/class-wpbdp.php:633
+#: includes/class-wpbdp.php:634
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Det gick inte att kontakta licensservern"
 
-#: includes/class-wpbdp.php:640
+#: includes/class-wpbdp.php:641
 #, fuzzy
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
@@ -1826,12 +1826,12 @@ msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/class-wpbdp.php:653 includes/fields/class-fieldtypes-image.php:402
+#: includes/class-wpbdp.php:654 includes/fields/class-fieldtypes-image.php:402
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Det gick inte att uppdatera tema:%s"
 
-#: includes/class-wpbdp.php:685
+#: includes/class-wpbdp.php:686
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1839,7 +1839,7 @@ msgstr ""
 "Business Directorys funktioner är för närvarande avaktiverade på grund av "
 "att pluginet behöver <a> en manuell uppgradering</a>."
 
-#: includes/class-wpbdp.php:692
+#: includes/class-wpbdp.php:693
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -1973,7 +1973,7 @@ msgid "Go to SMTP settings"
 msgstr "Gå till din annons."
 
 #: includes/controllers/pages/class-all-listings.php:6
-#: includes/helpers/functions/templates-ui.php:321
+#: includes/helpers/functions/templates-ui.php:327
 msgid "View All Listings"
 msgstr "Visa alla annonser"
 
@@ -2024,12 +2024,12 @@ msgstr "Fyll i ditt namn"
 msgid "Please enter your email."
 msgstr "Fyll i ditt namn"
 
-#: includes/controllers/pages/class-listing-contact.php:217
+#: includes/controllers/pages/class-listing-contact.php:218
 #, fuzzy
 msgid "Send Message"
 msgstr "﻿Meddelande"
 
-#: includes/controllers/pages/class-listing-contact.php:293
+#: includes/controllers/pages/class-listing-contact.php:294
 msgid "l F j, Y \\a\\t g:i a"
 msgstr "l F j, Y \\a\\t g:i en"
 
@@ -2069,63 +2069,63 @@ msgstr ""
 "Detta är enbart en förhandsgranskning, annonsen har inte publicerats ännu."
 
 #: includes/controllers/pages/class-submit-listing.php:41
-#: includes/helpers/functions/templates-ui.php:334
+#: includes/helpers/functions/templates-ui.php:340
 #: templates/submit-listing.tpl.php:17
 #, fuzzy
 msgid "Add Listing"
 msgstr "Lägg till annonsavgift"
 
-#: includes/controllers/pages/class-submit-listing.php:767
+#: includes/controllers/pages/class-submit-listing.php:774
 #, fuzzy
 msgid "Listing Images"
 msgstr "Annonsbilder"
 
-#: includes/controllers/pages/class-submit-listing.php:835
+#: includes/controllers/pages/class-submit-listing.php:842
 #, fuzzy
 msgid "Account Creation"
 msgstr "Konto skapas"
 
-#: includes/controllers/pages/class-submit-listing.php:1034
+#: includes/controllers/pages/class-submit-listing.php:1041
 #, fuzzy
 msgid "Go to \"Plans\""
 msgstr "Avgiftsplan"
 
-#: includes/controllers/pages/class-submit-listing.php:1091
+#: includes/controllers/pages/class-submit-listing.php:1098
 #, fuzzy
 msgid "Please choose a plan."
 msgstr "(Vänligen välj en avgiftsplan ovan)"
 
-#: includes/controllers/pages/class-submit-listing.php:1328
+#: includes/controllers/pages/class-submit-listing.php:1336
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Något gick fel. Vänligen kontrollera formuläret för fel, rätta till dem och "
 "skicka igen."
 
-#: includes/controllers/pages/class-submit-listing.php:1507
+#: includes/controllers/pages/class-submit-listing.php:1515
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Skapa ett användarkonto på denna webbplats"
 
-#: includes/controllers/pages/class-submit-listing.php:1514
+#: includes/controllers/pages/class-submit-listing.php:1522
 #, fuzzy
 msgid "Username"
 msgstr "Användarnamn:"
 
-#: includes/controllers/pages/class-submit-listing.php:1536
+#: includes/controllers/pages/class-submit-listing.php:1544
 #, fuzzy
 msgid "Clear Form"
 msgstr "Rensa"
 
 #. translators: %1$s: date format, %2$s: Date format example
-#: includes/fields/class-fieldtypes-date.php:36
+#: includes/fields/class-fieldtypes-date.php:37
 #, fuzzy
 msgid "%1$s (ex. %2$s)"
 msgstr "%s (ex.%s)"
 
 #. translators: %1$s: Field label, %2$s: Accepted date format
 #. translators: %1$s: field label, %2$s: format
-#: includes/fields/class-fieldtypes-date.php:76
+#: includes/fields/class-fieldtypes-date.php:77
 #: includes/models/form-fields-validation.php:189
 #, fuzzy
 msgid "%1$s must be in the format %2$s."
@@ -2133,7 +2133,7 @@ msgstr "%s måste vara i formatet %s."
 
 #. translators: %s Field label
 #. translators: %s: field label
-#: includes/fields/class-fieldtypes-date.php:82
+#: includes/fields/class-fieldtypes-date.php:83
 #: includes/models/form-fields-validation.php:228
 #, fuzzy
 msgid "%s must be a valid date."
@@ -2215,22 +2215,22 @@ msgstr "Tillåt tomt urval på sök?"
 msgid "Field list of options is required."
 msgstr "Lista på alternativ krävs."
 
-#: includes/fields/class-fieldtypes-social.php:69
+#: includes/fields/class-fieldtypes-social.php:70
 #, fuzzy
 msgid "Field Display Order"
 msgstr "Fältvisningsalternativ"
 
-#: includes/fields/class-fieldtypes-social.php:109
+#: includes/fields/class-fieldtypes-social.php:110
 #, fuzzy
 msgid "Text"
 msgstr "Textruta"
 
-#: includes/fields/class-fieldtypes-social.php:117
+#: includes/fields/class-fieldtypes-social.php:118
 msgid "Text to be displayed for social field"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-social.php:143
-#: includes/fields/class-fieldtypes-social.php:285
+#: includes/fields/class-fieldtypes-social.php:144
+#: includes/fields/class-fieldtypes-social.php:286
 msgid "X (formerly Twitter)"
 msgstr ""
 
@@ -2266,7 +2266,7 @@ msgstr "Öppna länk i ny flik/fönster?"
 msgid "Use rel=\"nofollow\" when displaying the link?"
 msgstr "Använd rel = \"nofollow\" vid visning av länken?"
 
-#: includes/fields/class-fieldtypes-url.php:184
+#: includes/fields/class-fieldtypes-url.php:189
 #, fuzzy
 msgid "Link Text (optional)"
 msgstr "Länktext (valfritt):"
@@ -2301,31 +2301,31 @@ msgstr "Inläggstaggar"
 msgid "Post Metadata"
 msgstr "Metainformation"
 
-#: includes/form-fields.php:376
+#: includes/form-fields.php:377
 #, fuzzy
 msgid "Listing Title"
 msgstr "Annonsrubrik:"
 
-#: includes/form-fields.php:385
+#: includes/form-fields.php:386
 #, fuzzy
 msgid "Listing Category"
 msgstr "Annonsens titel"
 
-#: includes/form-fields.php:394
+#: includes/form-fields.php:395
 #, fuzzy
 msgid "Short Description"
 msgstr "Kort Verksamhetsbeskrivning"
 
-#: includes/form-fields.php:402 templates/admin/payments-details.tpl.php:123
+#: includes/form-fields.php:403 templates/admin/payments-details.tpl.php:123
 #, fuzzy
 msgid "Description"
 msgstr "Beskrivning"
 
-#: includes/form-fields.php:420
+#: includes/form-fields.php:421
 msgid "Phone"
 msgstr ""
 
-#: includes/form-fields.php:437
+#: includes/form-fields.php:438
 #, fuzzy
 msgid "Listing Tags"
 msgstr "Annonsbilder"
@@ -2346,159 +2346,159 @@ msgstr ""
 msgid "Free"
 msgstr "Gratis"
 
-#: includes/helpers/class-currency-helper.php:171
+#: includes/helpers/class-currency-helper.php:173
 #, fuzzy
 msgid "Australian Dollar"
 msgstr "Australiensiska dollar (AUD)"
 
-#: includes/helpers/class-currency-helper.php:180
+#: includes/helpers/class-currency-helper.php:182
 msgid "Bangladeshi Taka"
 msgstr ""
 
-#: includes/helpers/class-currency-helper.php:189
+#: includes/helpers/class-currency-helper.php:191
 #, fuzzy
 msgid "Brazilian Real"
 msgstr "Brasilianska real (BRL)"
 
-#: includes/helpers/class-currency-helper.php:198
+#: includes/helpers/class-currency-helper.php:200
 #, fuzzy
 msgid "Canadian Dollar"
 msgstr "Kanadensiska dollar (CAD)"
 
-#: includes/helpers/class-currency-helper.php:207
+#: includes/helpers/class-currency-helper.php:209
 msgid "Chinese Renminbi Yuan"
 msgstr ""
 
-#: includes/helpers/class-currency-helper.php:216
+#: includes/helpers/class-currency-helper.php:218
 #, fuzzy
 msgid "Czech Koruna"
 msgstr "Tjeckisk krona (CZK)"
 
-#: includes/helpers/class-currency-helper.php:225
+#: includes/helpers/class-currency-helper.php:227
 #, fuzzy
 msgid "Danish Krone"
 msgstr "Dansk krona (DKK)"
 
-#: includes/helpers/class-currency-helper.php:234
+#: includes/helpers/class-currency-helper.php:236
 msgid "Euro"
 msgstr ""
 
-#: includes/helpers/class-currency-helper.php:243
+#: includes/helpers/class-currency-helper.php:245
 #, fuzzy
 msgid "Hong Kong Dollar"
 msgstr "Hong Kong Dollar (HKD)"
 
-#: includes/helpers/class-currency-helper.php:252
+#: includes/helpers/class-currency-helper.php:254
 #, fuzzy
 msgid "Hungarian Forint"
 msgstr "Ungerska forint (HUF)"
 
-#: includes/helpers/class-currency-helper.php:261
+#: includes/helpers/class-currency-helper.php:263
 msgid "Indian Rupee"
 msgstr ""
 
-#: includes/helpers/class-currency-helper.php:270
+#: includes/helpers/class-currency-helper.php:272
 #, fuzzy
 msgid "Israeli New Sheqel"
 msgstr "Israeliska New Shequel (ILS)"
 
-#: includes/helpers/class-currency-helper.php:279
+#: includes/helpers/class-currency-helper.php:281
 #, fuzzy
 msgid "Japanese Yen"
 msgstr "Japanska yen (JPY)"
 
-#: includes/helpers/class-currency-helper.php:288
+#: includes/helpers/class-currency-helper.php:290
 #, fuzzy
 msgid "Malaysian Ringgit"
 msgstr "Malaysanesisk ringgit (MYR)"
 
-#: includes/helpers/class-currency-helper.php:297
+#: includes/helpers/class-currency-helper.php:299
 #, fuzzy
 msgid "Mexican Peso"
 msgstr "Mexikanska peso (MXN)"
 
-#: includes/helpers/class-currency-helper.php:306
+#: includes/helpers/class-currency-helper.php:308
 #, fuzzy
 msgid "Moroccan Dirham"
 msgstr "Marockanska Dirham (MAD)"
 
-#: includes/helpers/class-currency-helper.php:315
+#: includes/helpers/class-currency-helper.php:317
 #, fuzzy
 msgid "Norwegian Krone"
 msgstr "Norska kronor (NOK)"
 
-#: includes/helpers/class-currency-helper.php:324
+#: includes/helpers/class-currency-helper.php:326
 #, fuzzy
 msgid "New Zealand Dollar"
 msgstr "Nyzeeländsk dollar (NZD)"
 
-#: includes/helpers/class-currency-helper.php:333
+#: includes/helpers/class-currency-helper.php:335
 msgid "Pakistani Rupee"
 msgstr ""
 
-#: includes/helpers/class-currency-helper.php:342
+#: includes/helpers/class-currency-helper.php:344
 #, fuzzy
 msgid "Philippine Peso"
 msgstr "Filippinsk peso (PHP)"
 
-#: includes/helpers/class-currency-helper.php:351
+#: includes/helpers/class-currency-helper.php:353
 #, fuzzy
 msgid "Polish Zloty"
 msgstr "Polska zloty (PLN)"
 
-#: includes/helpers/class-currency-helper.php:360
+#: includes/helpers/class-currency-helper.php:362
 #, fuzzy
 msgid "Pound Sterling"
 msgstr "Brittiska pund (GBP)"
 
-#: includes/helpers/class-currency-helper.php:369
+#: includes/helpers/class-currency-helper.php:371
 #, fuzzy
 msgid "Singapore Dollar"
 msgstr "Singapore dollar (SGD)"
 
-#: includes/helpers/class-currency-helper.php:378
+#: includes/helpers/class-currency-helper.php:380
 msgid "South African Rand"
 msgstr ""
 
-#: includes/helpers/class-currency-helper.php:387
+#: includes/helpers/class-currency-helper.php:389
 msgid "Sri Lankan Rupee"
 msgstr ""
 
-#: includes/helpers/class-currency-helper.php:396
+#: includes/helpers/class-currency-helper.php:398
 #, fuzzy
 msgid "Swedish Krona"
 msgstr "Svenska kronor (SEK)"
 
-#: includes/helpers/class-currency-helper.php:405
+#: includes/helpers/class-currency-helper.php:407
 #, fuzzy
 msgid "Swiss Franc"
 msgstr "Schweiziska franc (CHF)"
 
-#: includes/helpers/class-currency-helper.php:414
+#: includes/helpers/class-currency-helper.php:416
 #, fuzzy
 msgid "Taiwan New Dollar"
 msgstr "Taiwanesiska dollar (TWD)"
 
-#: includes/helpers/class-currency-helper.php:423
+#: includes/helpers/class-currency-helper.php:425
 #, fuzzy
 msgid "Thai Baht"
 msgstr "Thailändska baht (THB)"
 
-#: includes/helpers/class-currency-helper.php:432
+#: includes/helpers/class-currency-helper.php:434
 #, fuzzy
 msgid "Turkish Liras"
 msgstr "Turkiska Lira (TRY)"
 
-#: includes/helpers/class-currency-helper.php:441
+#: includes/helpers/class-currency-helper.php:443
 msgid "United Arab Emirates Dirham"
 msgstr ""
 
-#: includes/helpers/class-currency-helper.php:450
+#: includes/helpers/class-currency-helper.php:452
 #, fuzzy
 msgid "U.S. Dollar"
 msgstr "US-dollar (USD)"
 
-#: includes/helpers/class-currency-helper.php:459
+#: includes/helpers/class-currency-helper.php:461
 msgid "Uruguayan Peso"
 msgstr ""
 
@@ -2507,22 +2507,22 @@ msgstr ""
 msgid "Destination dir \"%s\" is not writable."
 msgstr "Destination dir \"%s\" är inte skrivbar."
 
-#: includes/helpers/functions/general.php:1291
+#: includes/helpers/functions/general.php:1297
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Återgå till Directory."
 
-#: includes/helpers/functions/listings.php:80
+#: includes/helpers/functions/listings.php:81
 #, fuzzy
 msgid "Untitled Listing"
 msgstr "Redigera annons"
 
-#: includes/helpers/functions/templates-ui.php:328
+#: includes/helpers/functions/templates-ui.php:334
 #, fuzzy
 msgid "Manage Listings"
 msgstr "Hantera betalda annonser"
 
-#: includes/helpers/functions/templates-ui.php:380
+#: includes/helpers/functions/templates-ui.php:386
 #: templates/main-box.tpl.php:32 templates/main-box.tpl.php:36
 #: templates/search.tpl.php:22
 #, fuzzy
@@ -2535,58 +2535,58 @@ msgid "Default Plan"
 msgstr "Standardavgift"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:151
+#: includes/licensing.php:152
 msgid ""
 "The license key could not be verified. Please %1$scheck your license%2$s to "
 "get updates."
 msgstr ""
 
-#: includes/licensing.php:207 includes/licensing.php:211
+#: includes/licensing.php:208 includes/licensing.php:212
 msgid "Licenses"
 msgstr "Licenser"
 
 #. translators: %s: item type.
-#: includes/licensing.php:268
+#: includes/licensing.php:269
 msgid "%s will not get updates until license is reauthorized."
 msgstr ""
 
-#: includes/licensing.php:289
+#: includes/licensing.php:290
 #, fuzzy
 msgid "Enter License Key here"
 msgstr "Ange licensnyckel här"
 
-#: includes/licensing.php:290
+#: includes/licensing.php:291
 #, fuzzy
 msgid "Authorize"
 msgstr "Authorize.net"
 
-#: includes/licensing.php:356
+#: includes/licensing.php:357
 #, fuzzy
 msgid "Invalid item ID"
 msgstr "Ogiltigt objekt-ID"
 
-#: includes/licensing.php:369
+#: includes/licensing.php:370
 #, fuzzy
 msgid "No license key provided"
 msgstr "Ingen licensnyckel angiven"
 
-#: includes/licensing.php:415 includes/licensing.php:453
+#: includes/licensing.php:416 includes/licensing.php:454
 #, fuzzy
 msgid "License key is invalid"
 msgstr "Licensnyckel är ogiltig"
 
-#: includes/licensing.php:419
+#: includes/licensing.php:420
 #, fuzzy
 msgid "Deactivation failed"
 msgstr "Deaktivering misslyckades"
 
-#: includes/licensing.php:464
+#: includes/licensing.php:465
 #, fuzzy
 msgid "The license key was revoked."
 msgstr "Ingen licensnyckel angiven"
 
 #. translators: %1%s: opening <a> tag, %2$s: closing </a> tag
-#: includes/licensing.php:468
+#: includes/licensing.php:469
 #, fuzzy
 msgid ""
 "If you think this is a mistake, please contact %1$sBusiness Directory "
@@ -2598,7 +2598,7 @@ msgstr ""
 "Business Directorys servers. Vänligen kontakta <support-link>Business "
 "Directory support</support-link> och be dem vitlista din IP-adress."
 
-#: includes/licensing.php:531
+#: includes/licensing.php:532
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -2607,7 +2607,7 @@ msgstr ""
 "Det var inte möjligt att upprätta en anslutning med Business Directory "
 "server. Anslutningen misslyckades med följande fel:"
 
-#: includes/licensing.php:544
+#: includes/licensing.php:545
 #, fuzzy
 msgid ""
 "It was not possible to establish a connection with the Business Directory "
@@ -2616,7 +2616,7 @@ msgstr ""
 "Det var inte möjligt att etablera en kontakt med Business Directorys server. "
 "Ett problem inträffade i SSL/TSL handskakning:"
 
-#: includes/licensing.php:591
+#: includes/licensing.php:592
 #, fuzzy
 msgid ""
 "It looks like your server is not authorized to make outgoing requests to "
@@ -2626,46 +2626,46 @@ msgstr ""
 "Business Directorys servers. Vänligen kontakta <support-link>Business "
 "Directory support</support-link> och be dem vitlista din IP-adress."
 
-#: includes/licensing.php:650
+#: includes/licensing.php:651
 msgid "Download Premium"
 msgstr ""
 
-#: includes/licensing.php:700
+#: includes/licensing.php:701
 #, fuzzy
 msgid "Business Directory license key is missing."
 msgstr "Business Directory - Licensnyckel har upphört"
 
-#: includes/licensing.php:701
+#: includes/licensing.php:702
 #, fuzzy
 msgid "Business Directory license key has expired"
 msgstr "Business Directory - Licensnyckel har upphört"
 
-#: includes/licensing.php:702
+#: includes/licensing.php:703
 #, fuzzy
 msgid "Could not verify Business Directory license."
 msgstr "Hjälp oss förbättra Business Directory"
 
-#: includes/licensing.php:703
+#: includes/licensing.php:704
 msgid ""
 "You have modules installed, but Business Directory Premium is missing. "
 "Install this plugin for extra features and easy license management."
 msgstr ""
 
-#: includes/licensing.php:714
+#: includes/licensing.php:715
 #, fuzzy
 msgid "Review license keys"
 msgstr "Granska mina licensnycklar"
 
-#: includes/licensing.php:827
+#: includes/licensing.php:828
 msgid "Missing data. Please reload this page and try again."
 msgstr ""
 
-#: includes/licensing.php:835
+#: includes/licensing.php:836
 #, fuzzy
 msgid "Please enter a license key."
 msgstr "Skriv in licensnyckel"
 
-#: includes/licensing.php:849
+#: includes/licensing.php:850
 #, fuzzy
 msgid "Could not activate license: %s."
 msgstr "Det gick inte att aktivera licens:%s."
@@ -2726,7 +2726,7 @@ msgid "Telephone Number Validator"
 msgstr "Heltal Validator"
 
 #: includes/models/form-fields-validation.php:43
-#: templates/admin/csv-import.tpl.php:340
+#: templates/admin/csv-import.tpl.php:341
 #, fuzzy
 msgid "Field"
 msgstr "Fält"
@@ -2818,27 +2818,27 @@ msgstr "Skriv ut kvitto"
 msgid "Go to your listing"
 msgstr "Gå till din annons."
 
-#: includes/payment.php:150
+#: includes/payment.php:152
 #, fuzzy
 msgid "Return to plan selection"
 msgstr "Återvänd till annons"
 
-#: includes/themes.php:899
+#: includes/themes.php:897
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "ZIP-filen är inte en giltig BD temafil."
 
-#: includes/themes.php:955
+#: includes/themes.php:953
 #, fuzzy
 msgid "Please update Business Directory Plugin to latest version."
 msgstr "Business Directory Plugin"
 
-#: includes/utils.php:392
+#: includes/utils.php:396
 #, fuzzy
 msgid "File size (%1$s) exceeds maximum file size of %2$s"
 msgstr "Filstorlek (%s) överskrider maximal filstorlek på %s"
 
-#: includes/utils.php:401
+#: includes/utils.php:405
 #, fuzzy
 msgid "File size (%1$s) is smaller than the minimum file size of %2$s"
 msgstr "Filstorlek (%s) är sämre än den minifilstiorleken på%s"
@@ -3018,7 +3018,7 @@ msgid "Listing T&C acceptance date"
 msgstr "Annons skapad"
 
 #: templates/admin/csv-export.tpl.php:119
-#: templates/admin/csv-import.tpl.php:121
+#: templates/admin/csv-import.tpl.php:122
 #, fuzzy
 msgid "CSV File Settings"
 msgstr "Inställningar för CSV-fil"
@@ -3052,13 +3052,13 @@ msgid "macOS"
 msgstr "MacOS"
 
 #: templates/admin/csv-export.tpl.php:150
-#: templates/admin/csv-import.tpl.php:157
+#: templates/admin/csv-import.tpl.php:158
 #, fuzzy
 msgid "Image Separator"
 msgstr "Bildavgränsare"
 
 #: templates/admin/csv-export.tpl.php:159
-#: templates/admin/csv-import.tpl.php:168
+#: templates/admin/csv-import.tpl.php:169
 #, fuzzy
 msgid "Category Separator"
 msgstr "Kategoriavgränsare"
@@ -3261,13 +3261,13 @@ msgstr "Rad"
 msgid "Warning"
 msgstr "Varning"
 
-#: templates/admin/csv-import.tpl.php:28
+#: templates/admin/csv-import.tpl.php:29
 #, fuzzy
 msgid "Here, you can import data into your directory using the CSV format."
 msgstr "Här kan du importera data till din katalog med hjälp av CSV-format."
 
 #. translators: %1$s is a opening <a> tag, %2$s is a closing </a> tag.
-#: templates/admin/csv-import.tpl.php:34
+#: templates/admin/csv-import.tpl.php:35
 #, fuzzy
 msgid ""
 "We strongly recommend reading our %1$sCSV import documentation%2$s first to "
@@ -3276,97 +3276,97 @@ msgstr ""
 "Vi rekommenderar starkt att du läser vår <a>CSV import dokumentation</a> "
 "först för att hjälpa dig att göra saker i rätt ordning."
 
-#: templates/admin/csv-import.tpl.php:46
+#: templates/admin/csv-import.tpl.php:47
 #, fuzzy
 msgid "Import Files"
 msgstr "Importera filer"
 
-#: templates/admin/csv-import.tpl.php:51
+#: templates/admin/csv-import.tpl.php:52
 #, fuzzy
 msgid "CSV File"
 msgstr "CSV Fil"
 
-#: templates/admin/csv-import.tpl.php:75 templates/admin/csv-import.tpl.php:110
+#: templates/admin/csv-import.tpl.php:76 templates/admin/csv-import.tpl.php:111
 #, fuzzy
 msgid "(Upload new file)"
 msgstr "(Ladda upp ny fil)"
 
-#: templates/admin/csv-import.tpl.php:85
+#: templates/admin/csv-import.tpl.php:86
 #, fuzzy
 msgid "ZIP file containing images"
 msgstr "ZIP-fil som innehåller bilder"
 
-#: templates/admin/csv-import.tpl.php:127
+#: templates/admin/csv-import.tpl.php:128
 #, fuzzy
 msgid "Column Separator"
 msgstr "Kolumnavgränsare"
 
-#: templates/admin/csv-import.tpl.php:136
+#: templates/admin/csv-import.tpl.php:137
 #, fuzzy
 msgid "Comma (,)"
 msgstr "Komma (,)"
 
-#: templates/admin/csv-import.tpl.php:143
+#: templates/admin/csv-import.tpl.php:144
 #, fuzzy
 msgid "Semicolon (;)"
 msgstr "Semikolon (;)"
 
-#: templates/admin/csv-import.tpl.php:150
+#: templates/admin/csv-import.tpl.php:151
 #, fuzzy
 msgid "TAB"
 msgstr "Tab"
 
-#: templates/admin/csv-import.tpl.php:179
+#: templates/admin/csv-import.tpl.php:180
 #, fuzzy
 msgid "Import settings"
 msgstr "Importera inställningar"
 
-#: templates/admin/csv-import.tpl.php:184
+#: templates/admin/csv-import.tpl.php:185
 #, fuzzy
 msgid "Post status of new imported listings"
 msgstr "Status av importerade annonser"
 
-#: templates/admin/csv-import.tpl.php:201
+#: templates/admin/csv-import.tpl.php:202
 #, fuzzy
 msgid "Post status of existing imported listings"
 msgstr "Status av importerade annonser"
 
-#: templates/admin/csv-import.tpl.php:205
+#: templates/admin/csv-import.tpl.php:206
 #, fuzzy
 msgid "Preserve existing status"
 msgstr "Annonsstatus"
 
-#: templates/admin/csv-import.tpl.php:222
+#: templates/admin/csv-import.tpl.php:223
 #, fuzzy
 msgid "Missing categories handling"
 msgstr "Hantera saknade kategorier"
 
-#: templates/admin/csv-import.tpl.php:228
+#: templates/admin/csv-import.tpl.php:229
 #, fuzzy
 msgid "Auto-create categories"
 msgstr "Autoskapa kategorier"
 
-#: templates/admin/csv-import.tpl.php:233
+#: templates/admin/csv-import.tpl.php:234
 #, fuzzy
 msgid "Generate errors when a category is not found"
 msgstr "Generera fel när en kategori inte hittas"
 
-#: templates/admin/csv-import.tpl.php:241
+#: templates/admin/csv-import.tpl.php:242
 #, fuzzy
 msgid "Keep existing images"
 msgstr "Behåll befintliga bilder."
 
-#: templates/admin/csv-import.tpl.php:244
+#: templates/admin/csv-import.tpl.php:245
 #, fuzzy
 msgid "Appends new images while keeping current ones."
 msgstr "Lägger till nya bilder och behåller de existerande."
 
-#: templates/admin/csv-import.tpl.php:252
+#: templates/admin/csv-import.tpl.php:253
 #, fuzzy
 msgid "Assign listings to a user"
 msgstr "Tilldela annons till användare?"
 
-#: templates/admin/csv-import.tpl.php:260
+#: templates/admin/csv-import.tpl.php:261
 #, fuzzy
 msgid ""
 "Select a default user to be used if the username column is not present in "
@@ -3375,12 +3375,12 @@ msgstr ""
 "Välj en standardanvändare som används om användarkolumnen inte finns i CSV-"
 "filen."
 
-#: templates/admin/csv-import.tpl.php:265
+#: templates/admin/csv-import.tpl.php:266
 #, fuzzy
 msgid "Default listing user"
 msgstr "standardanvändare"
 
-#: templates/admin/csv-import.tpl.php:267
+#: templates/admin/csv-import.tpl.php:268
 #, fuzzy
 msgid ""
 "This user will be used if the username column is not present in the CSV file."
@@ -3388,12 +3388,12 @@ msgstr ""
 "Denna användare kommer att användas om användarkolumnen inte finns i CSV-"
 "filen."
 
-#: templates/admin/csv-import.tpl.php:286
+#: templates/admin/csv-import.tpl.php:287
 #, fuzzy
 msgid "Number of listings imported on every cycle"
 msgstr "Antal annonser att visa:"
 
-#: templates/admin/csv-import.tpl.php:289
+#: templates/admin/csv-import.tpl.php:290
 msgid ""
 "If you are having trouble importing listings due to memory problems, try "
 "reducing the import batch size to 5 or 1 and then re-attempt. This will "
@@ -3401,17 +3401,17 @@ msgid ""
 "success on shared hosting platforms and other resource-constrained servers."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:304
+#: templates/admin/csv-import.tpl.php:305
 #, fuzzy
 msgid "Disable email notifications during import"
 msgstr "Inaktivera e-postmeddelanden vid import?"
 
-#: templates/admin/csv-import.tpl.php:318
+#: templates/admin/csv-import.tpl.php:319
 #, fuzzy
 msgid "CSV File Formatting"
 msgstr "Inställningar för CSV-fil"
 
-#: templates/admin/csv-import.tpl.php:323
+#: templates/admin/csv-import.tpl.php:324
 msgid ""
 "The following are the header names to use in your CSV file for your current "
 "setup. The headers in your CSV file must EXACTLY match (case and "
@@ -3419,28 +3419,28 @@ msgid ""
 "appear multiple times in the file."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:330
+#: templates/admin/csv-import.tpl.php:331
 msgid ""
 "<a href=\"%s\">See an example CSV import file</a> to see how your file "
 "should be formatted."
 msgstr ""
 
-#: templates/admin/csv-import.tpl.php:339
+#: templates/admin/csv-import.tpl.php:340
 #, fuzzy
 msgid "Header name/label"
 msgstr "Rubriknamn / etikett"
 
-#: templates/admin/csv-import.tpl.php:342
+#: templates/admin/csv-import.tpl.php:343
 #, fuzzy
 msgid "Required?"
 msgstr "Obligatoriskt?"
 
-#: templates/admin/csv-import.tpl.php:343
+#: templates/admin/csv-import.tpl.php:344
 #, fuzzy
 msgid "Multivalued?"
 msgstr "Fler värden?"
 
-#: templates/admin/csv-import.tpl.php:368
+#: templates/admin/csv-import.tpl.php:369
 #, fuzzy
 msgid ""
 "Fee ID (integer) associated to a listing. Use this column when adding or "
@@ -3449,17 +3449,17 @@ msgstr ""
 "Annonsens utgångsdatum formateras som ÅÅÅÅ-MM-DD. Använd den här kolumnen "
 "när du lägger till eller uppdaterar listor från externa källor."
 
-#: templates/admin/csv-import.tpl.php:375
+#: templates/admin/csv-import.tpl.php:376
 #, fuzzy
 msgid "Semicolon separated list of listing images (from the ZIP file)"
 msgstr "Semikolonseparerad lista med annonsbilder (från ZIP-filen)."
 
-#: templates/admin/csv-import.tpl.php:382
+#: templates/admin/csv-import.tpl.php:383
 #, fuzzy
 msgid "Listing owner's username"
 msgstr "Annonsens författares användarnamn"
 
-#: templates/admin/csv-import.tpl.php:389
+#: templates/admin/csv-import.tpl.php:390
 #, fuzzy
 msgid ""
 "Internal Sequence ID used to allow listing updates from external sources."
@@ -3467,7 +3467,7 @@ msgstr ""
 "Intern sekvens ID som används för att tillåta notering uppdateringar från "
 "externa källor."
 
-#: templates/admin/csv-import.tpl.php:396
+#: templates/admin/csv-import.tpl.php:397
 #, fuzzy
 msgid ""
 "Date of listing expiration formatted as YYYY-MM-DD. Use this column when "
@@ -4128,11 +4128,11 @@ msgstr "Lägg till anteckning"
 msgid "Search Payments:"
 msgstr "Sök betalning:"
 
-#: templates/admin/privacy-policy.tpl.php:12
+#: templates/admin/privacy-policy.tpl.php:13
 msgid "Suggested text:"
 msgstr ""
 
-#: templates/admin/privacy-policy.tpl.php:12
+#: templates/admin/privacy-policy.tpl.php:13
 msgid ""
 "When you submit a directory listing, the content of the listing and its "
 "metadata are retained indefinitely. All users can see, edit or delete the "
@@ -4140,20 +4140,20 @@ msgid ""
 "administrators can also see and edit that information."
 msgstr ""
 
-#: templates/admin/privacy-policy.tpl.php:13
+#: templates/admin/privacy-policy.tpl.php:14
 msgid ""
 "Website visitors can see the contact name, website URL, phone number, "
 "address and other information included in your submission to describe the "
 "directory listing."
 msgstr ""
 
-#: templates/admin/privacy-policy.tpl.php:14
+#: templates/admin/privacy-policy.tpl.php:15
 #, fuzzy
 msgid "Payment Information"
 msgstr "Avgiftsinformation"
 
 #. translators: %s is a link with the URL of the current site.
-#: templates/admin/privacy-policy.tpl.php:20
+#: templates/admin/privacy-policy.tpl.php:21
 msgid ""
 "If you pay to post a directory listing entering your credit card and billing "
 "information directly on %s, the credit card information won't be stored but "
@@ -5091,7 +5091,7 @@ msgstr ""
 msgid "Business Directory Team"
 msgstr "Business Directory"
 
-#: includes/abstracts/class-view.php:128
+#: includes/abstracts/class-view.php:129
 msgctxt "views"
 msgid "Invalid credentials."
 msgstr "Ogiltiga uppgifter."
@@ -5161,7 +5161,7 @@ msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1312
+#: includes/admin/class-admin.php:1313
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -5170,7 +5170,7 @@ msgstr ""
 "<b>Tillägget Business Directory</b> kräver att du lagt shortcoden "
 "<tt>[businessdirectory]</tt> på en sida för att fungera korrekt."
 
-#: includes/admin/class-admin.php:1314
+#: includes/admin/class-admin.php:1315
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -5179,12 +5179,12 @@ msgstr ""
 "Du kan skapa denna sida av dig själv eller låta Business Directory göra det "
 "åt dig automatiskt."
 
-#: includes/admin/class-admin.php:1319
+#: includes/admin/class-admin.php:1320
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Skapa nödvändiga sidor åt mig."
 
-#: includes/admin/class-admin.php:1376
+#: includes/admin/class-admin.php:1377
 msgctxt "admin"
 msgid ""
 "<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> "
@@ -5260,7 +5260,7 @@ msgctxt "admin menu"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: includes/admin/class-listings-with-no-fee-plan-view.php:58
+#: includes/admin/class-listings-with-no-fee-plan-view.php:59
 #, fuzzy
 msgctxt "listings view"
 msgid "No Plan"
@@ -5430,47 +5430,47 @@ msgctxt "listing status"
 msgid "Reported"
 msgstr ""
 
-#: includes/models/class-listing.php:1038
+#: includes/models/class-listing.php:1039
 msgctxt "listing status"
 msgid "Unknown"
 msgstr "Okänd"
 
-#: includes/models/class-listing.php:1039
+#: includes/models/class-listing.php:1040
 msgctxt "listing status"
 msgid "Legacy"
 msgstr "Legat"
 
-#: includes/models/class-listing.php:1040
+#: includes/models/class-listing.php:1041
 msgctxt "listing status"
 msgid "Incomplete"
 msgstr "Ofullständig"
 
-#: includes/models/class-listing.php:1041
+#: includes/models/class-listing.php:1042
 msgctxt "listing status"
 msgid "Pending Payment"
 msgstr "Väntar på betalning."
 
-#: includes/models/class-listing.php:1042
+#: includes/models/class-listing.php:1043
 msgctxt "listing status"
 msgid "Complete"
 msgstr "Genomförd"
 
-#: includes/models/class-listing.php:1043
+#: includes/models/class-listing.php:1044
 msgctxt "listing status"
 msgid "Pending Upgrade"
 msgstr "Väntar på uppgradering"
 
-#: includes/models/class-listing.php:1044
+#: includes/models/class-listing.php:1045
 msgctxt "listing status"
 msgid "Expired"
 msgstr "Utgången"
 
-#: includes/models/class-listing.php:1045
+#: includes/models/class-listing.php:1046
 msgctxt "listing status"
 msgid "Pending Renewal"
 msgstr "Inväntar förnyelse"
 
-#: includes/models/class-listing.php:1046
+#: includes/models/class-listing.php:1047
 msgctxt "listing status"
 msgid "Abandoned"
 msgstr "Övergiven"
@@ -5865,13 +5865,13 @@ msgid "Author"
 msgstr "Författare"
 
 #: includes/admin/settings/class-settings-bootstrap.php:772
-#: includes/helpers/functions/general.php:1216
+#: includes/helpers/functions/general.php:1220
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum inlagd"
 
 #: includes/admin/settings/class-settings-bootstrap.php:773
-#: includes/helpers/functions/general.php:1217
+#: includes/helpers/functions/general.php:1221
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Senast ändrad"
@@ -6098,12 +6098,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Ladda upp bilder"
 
-#: includes/helpers/functions/general.php:1214
+#: includes/helpers/functions/general.php:1218
 msgctxt "admin settings"
 msgid "User"
 msgstr "Användare"
 
-#: includes/helpers/functions/general.php:1215
+#: includes/helpers/functions/general.php:1219
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Användarens registreringsdatum"
@@ -6868,17 +6868,17 @@ msgctxt "settings"
 msgid "The slug \"%s\" is already in use for another taxonomy."
 msgstr "Sluggen “%s” används redan för en annan taxonomi."
 
-#: includes/licensing.php:238
+#: includes/licensing.php:239
 msgctxt "settings"
 msgid "Themes"
 msgstr "Teman"
 
-#: includes/licensing.php:290 includes/licensing.php:291
+#: includes/licensing.php:291 includes/licensing.php:292
 msgctxt "settings"
 msgid "Please wait..."
 msgstr "Vänligen vänta..."
 
-#: includes/licensing.php:291
+#: includes/licensing.php:292
 #, fuzzy
 msgctxt "settings"
 msgid "Deauthorize"
@@ -6972,22 +6972,22 @@ msgid_plural "%d months after expiration"
 msgstr[0] "%d månad efter förfallodatum"
 msgstr[1] "%d månader efter förfallodatum"
 
-#: includes/admin/controllers/class-themes-admin.php:43
+#: includes/admin/controllers/class-themes-admin.php:44
 msgctxt "themes"
 msgid "Directory Themes"
 msgstr "Directory Teman"
 
-#: includes/admin/controllers/class-themes-admin.php:107
+#: includes/admin/controllers/class-themes-admin.php:108
 msgctxt "themes"
 msgid "Could not change the active theme to \"%s\"."
 msgstr "Kunde inte ändra det aktiva temat till \"%s\"."
 
-#: includes/admin/controllers/class-themes-admin.php:153
+#: includes/admin/controllers/class-themes-admin.php:154
 msgctxt "themes"
 msgid "Active theme changed to \"%s\"."
 msgstr "Aktiverat tema ändrat till \"%s\"."
 
-#: includes/admin/controllers/class-themes-admin.php:156
+#: includes/admin/controllers/class-themes-admin.php:157
 msgctxt "themes"
 msgid ""
 "%s requires that you tag your existing fields to match some places we want "
@@ -6996,79 +6996,79 @@ msgstr ""
 "%s kräver att du taggar dina befintliga fält för att matcha några platser vi "
 "vill sätta dina data på temat. Nedan finns fält som vi tycker saknas."
 
-#: includes/admin/controllers/class-themes-admin.php:167
+#: includes/admin/controllers/class-themes-admin.php:168
 msgctxt "themes"
 msgid "Map My Fields"
 msgstr "Mappa min fält"
 
-#: includes/admin/controllers/class-themes-admin.php:175
+#: includes/admin/controllers/class-themes-admin.php:176
 msgctxt "themes"
 msgid "Suggested fields created successfully."
 msgstr "Föreslagna fält skapats."
 
-#: includes/admin/controllers/class-themes-admin.php:178
+#: includes/admin/controllers/class-themes-admin.php:179
 msgctxt "themes"
 msgid "Theme installed successfully."
 msgstr "Temat har installerats med framgång."
 
-#: includes/admin/controllers/class-themes-admin.php:181
+#: includes/admin/controllers/class-themes-admin.php:182
 msgctxt "themes"
 msgid "Theme was deleted successfully."
 msgstr "Temat är borttaget."
 
-#: includes/admin/controllers/class-themes-admin.php:184
+#: includes/admin/controllers/class-themes-admin.php:185
 msgctxt "themes"
 msgid "Could not delete theme directory. Check permissions."
 msgstr "Det gick inte att ta bort tema katalog. Kontrollera behörigheterna."
 
-#: includes/admin/controllers/class-themes-admin.php:237
+#: includes/admin/controllers/class-themes-admin.php:238
 msgctxt "themes"
 msgid "Please upload a valid theme file."
 msgstr "Vänligen ladda upp en giltig temafil."
 
-#: includes/admin/controllers/class-themes-admin.php:246
+#: includes/admin/controllers/class-themes-admin.php:247
 msgctxt "themes"
 msgid "Could not move \"%s\" to a temporary directory."
 msgstr "Det gick inte att flytta \"%s\" till en tillfällig katalog."
 
-#: includes/admin/controllers/class-themes-admin.php:380
+#: includes/admin/controllers/class-themes-admin.php:385
 #, fuzzy
 msgctxt "themes"
 msgid "Invalid theme ID"
 msgstr "Ogiltigt objekt-ID"
 
-#: includes/admin/controllers/class-themes-admin.php:386
-#: includes/admin/upgrades/class-themes-updater.php:199
+#: includes/admin/controllers/class-themes-admin.php:391
+#: includes/admin/upgrades/class-themes-updater.php:202
 msgctxt "themes"
 msgid "Could not update theme: %s"
 msgstr "Det gick inte att uppdatera tema:%s"
 
-#: includes/admin/upgrades/class-themes-updater.php:154
+#: includes/admin/upgrades/class-themes-updater.php:157
 msgctxt "themes"
 msgid "Updating theme..."
 msgstr "Uppdaterar ditt tema"
 
-#: includes/admin/upgrades/class-themes-updater.php:155
+#: includes/admin/upgrades/class-themes-updater.php:158
 msgctxt "themes"
 msgid "Theme updated."
 msgstr "Tema uppdateras."
 
-#: includes/admin/upgrades/class-themes-updater.php:211
+#: includes/admin/upgrades/class-themes-updater.php:214
 msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Temat har uppdaterats."
 
-#: includes/themes.php:907
+#: includes/themes.php:905
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Det gick inte att skapa temakatalogen."
 
-#: includes/themes.php:918
+#: includes/themes.php:916
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Det gick inte att ta bort tidigare temakatalogen \"%s\"."
 
-#: includes/themes.php:926
+#: includes/themes.php:924
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Det gick inte att flytta det nya temat till temakatalogen."
@@ -7114,12 +7114,12 @@ msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Oavsett"
 
-#: includes/admin/csv-import.php:377
+#: includes/admin/csv-import.php:379
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Vänligen ladda upp eller välj en CSV-fil."
 
-#: includes/admin/csv-import.php:402
+#: includes/admin/csv-import.php:404
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -7128,7 +7128,7 @@ msgstr ""
 "Ett fel upptäcktes vid valideringen av CSV-filen för import. Vänligen "
 "åtgärda detta innan du fortsätter."
 
-#: includes/admin/csv-import.php:411
+#: includes/admin/csv-import.php:413
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr "Import är i \"testläge\". Ingenting kommer att införas i databasen."
@@ -7147,17 +7147,17 @@ msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "Tråden <string> kunde inte omvandlas till ett giltigt datum."
 
-#: templates/admin/csv-import.tpl.php:62 templates/admin/csv-import.tpl.php:96
+#: templates/admin/csv-import.tpl.php:63 templates/admin/csv-import.tpl.php:97
 msgctxt "admin csv-import"
 msgid "... or <a>select a file uploaded to the imports folder</a>"
 msgstr "... eller <a>välj en fil som laddats upp till import-mappen</a>"
 
-#: templates/admin/csv-import.tpl.php:310
+#: templates/admin/csv-import.tpl.php:311
 msgctxt "admin csv-import"
 msgid "Test Import"
 msgstr "Testimport"
 
-#: templates/admin/csv-import.tpl.php:311
+#: templates/admin/csv-import.tpl.php:312
 msgctxt "admin csv-import"
 msgid "Import Listings"
 msgstr "Importera annonser"
@@ -7172,33 +7172,33 @@ msgctxt "listing metabox"
 msgid "Access Key"
 msgstr "Åtkomstnyckel"
 
-#: includes/admin/helpers/class-listing-timeline.php:122
+#: includes/admin/helpers/class-listing-timeline.php:123
 msgctxt "listing timeline"
 msgid "Listing created"
 msgstr "Annons skapad"
 
-#: includes/admin/helpers/class-listing-timeline.php:130
+#: includes/admin/helpers/class-listing-timeline.php:131
 msgctxt "listing timeline"
 msgid "Listing expired"
 msgstr "Annonsen förfallit."
 
-#: includes/admin/helpers/class-listing-timeline.php:146
+#: includes/admin/helpers/class-listing-timeline.php:147
 msgctxt "listing timeline"
 msgid "T&C acceptance date"
 msgstr ""
 
-#: includes/admin/helpers/class-listing-timeline.php:164
+#: includes/admin/helpers/class-listing-timeline.php:165
 msgctxt "listing timeline"
 msgid "Paid as admin"
 msgstr ""
 
-#: includes/admin/helpers/class-listing-timeline.php:166
+#: includes/admin/helpers/class-listing-timeline.php:167
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Listing imported"
 msgstr "Annonsen förfallit."
 
-#: includes/admin/helpers/class-listing-timeline.php:168
+#: includes/admin/helpers/class-listing-timeline.php:169
 #, fuzzy
 msgctxt "listing timeline"
 msgid "Initial Payment"
@@ -7467,35 +7467,35 @@ msgctxt "listing"
 msgid "Add New Listing"
 msgstr "Lägg till ny annons"
 
-#: includes/models/class-listing.php:451
+#: includes/models/class-listing.php:452
 #, fuzzy
 msgctxt "listing"
 msgid "Listing has no registered payments"
 msgstr "Utgångsdatum för annons"
 
-#: includes/models/class-listing.php:460
+#: includes/models/class-listing.php:461
 #, fuzzy
 msgctxt "listing"
 msgid "Can't delete payment"
 msgstr "Ta bort betalning"
 
-#: includes/models/class-listing.php:508
+#: includes/models/class-listing.php:509
 msgctxt "listing"
 msgid "Listing expired"
 msgstr "Annonsen förfallit."
 
-#: includes/models/class-listing.php:734
+#: includes/models/class-listing.php:735
 msgctxt "listing"
 msgid "(Unavailable Plan)"
 msgstr "(Avgiftsplan inte tillgänglig)"
 
-#: includes/models/class-listing.php:933
+#: includes/models/class-listing.php:934
 #, fuzzy
 msgctxt "listing"
 msgid "Plan \"%s\" (recurring)"
 msgstr "(återkommande)"
 
-#: includes/models/class-listing.php:935
+#: includes/models/class-listing.php:936
 msgctxt "listing"
 msgid "Plan \"%s\""
 msgstr "Plan ”%s”"
@@ -7535,7 +7535,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "reCAPTCHA angavs inte korrekt"
 
-#: includes/class-wpbdp.php:508
+#: includes/class-wpbdp.php:509
 #, fuzzy
 msgctxt "listing image upload"
 msgid ""
@@ -7629,54 +7629,54 @@ msgctxt "delete listing"
 msgid "You are about to remove your listing \"%s\" from the directory."
 msgstr "Du är på väg att ta bort din annons \"%s\" från registret."
 
-#: includes/controllers/pages/class-listing-contact.php:67
+#: includes/controllers/pages/class-listing-contact.php:68
 msgctxt "contact-message"
 msgid "Please enter your name."
 msgstr "Fyll i ditt namn"
 
-#: includes/controllers/pages/class-listing-contact.php:71
+#: includes/controllers/pages/class-listing-contact.php:72
 msgctxt "contact-message"
 msgid "Please enter a valid email."
 msgstr "Fyll i en giltig e-mailadress."
 
-#: includes/controllers/pages/class-listing-contact.php:75
+#: includes/controllers/pages/class-listing-contact.php:76
 #, fuzzy
 msgctxt "contact-message"
 msgid "Please enter a valid phone number."
 msgstr "Fyll i en giltig e-mailadress."
 
-#: includes/controllers/pages/class-listing-contact.php:79
+#: includes/controllers/pages/class-listing-contact.php:80
 msgctxt "contact-message"
 msgid "You did not enter a message."
 msgstr "Du har inte skrivit ett meddelande."
 
-#: includes/controllers/pages/class-listing-contact.php:305
+#: includes/controllers/pages/class-listing-contact.php:306
 msgctxt "contact-message"
 msgid "Your message has been sent."
 msgstr "Ditt meddelande har skickats."
 
-#: includes/controllers/pages/class-listing-contact.php:327
+#: includes/controllers/pages/class-listing-contact.php:328
 msgctxt "contact-message"
 msgid "There was a problem encountered. Your message has not been sent"
 msgstr "Ett problem uppstod. Ditt meddelande har inte skickats"
 
-#: includes/controllers/pages/class-listing-contact.php:330
+#: includes/controllers/pages/class-listing-contact.php:331
 msgctxt "contact-message"
 msgid "Return to listing."
 msgstr "Återvänd till annons"
 
-#: includes/controllers/pages/class-listing-contact.php:98
+#: includes/controllers/pages/class-listing-contact.php:99
 msgctxt "contact form"
 msgid "Please <a>log in</a> to be able to send messages to the listing owner."
 msgstr ""
 "Vänligen <a>logga in</a> för att kunna skicka meddelanden till annonsägaren."
 
-#: includes/controllers/pages/class-listing-contact.php:197
+#: includes/controllers/pages/class-listing-contact.php:198
 msgctxt "contact form"
 msgid "This contact form is temporarily disabled. Please try again later."
 msgstr "Detta kontaktformulär är tillfälligt inaktiverat. Försök igen senare."
 
-#: includes/controllers/pages/class-listing-contact.php:213
+#: includes/controllers/pages/class-listing-contact.php:214
 msgctxt "templates"
 msgid "Contact listing owner"
 msgstr "Kontakta annonsägaren"
@@ -7713,7 +7713,7 @@ msgstr ""
 "av din webbplats. Om du inte vill det, klicka <a>här för</a> att ändra "
 "inställningen."
 
-#: includes/controllers/pages/class-submit-listing.php:528
+#: includes/controllers/pages/class-submit-listing.php:532
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -7722,27 +7722,27 @@ msgstr ""
 "<b>Vyn inte tillgänglig.</b> Har du \"Inaktivera inlämning av annons på "
 "framsidan?\"-inställningen markerad?"
 
-#: includes/controllers/pages/class-submit-listing.php:530
+#: includes/controllers/pages/class-submit-listing.php:534
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1027
+#: includes/controllers/pages/class-submit-listing.php:1034
 msgctxt "templates"
 msgid ""
 "<b>There are no Plans available</b>, without a plan site users can't submit "
 "a listing. %s to create a plan"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1041
+#: includes/controllers/pages/class-submit-listing.php:1048
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1044
+#: includes/controllers/pages/class-submit-listing.php:1051
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>, there is no \"Category\" association field. %s "
@@ -7750,23 +7750,23 @@ msgid ""
 "an existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1557
+#: includes/controllers/pages/class-submit-listing.php:1565
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Vänligen godkänn villkoren"
 
-#: includes/controllers/pages/class-submit-listing.php:1571
+#: includes/controllers/pages/class-submit-listing.php:1579
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
 
-#: includes/helpers/functions/general.php:1297
+#: includes/helpers/functions/general.php:1303
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Återgå till katalogen"
 
-#: includes/helpers/functions/templates-ui.php:226
+#: includes/helpers/functions/templates-ui.php:231
 msgctxt "templates"
 msgid "No listing categories found."
 msgstr "Inga kategorier hittades."
@@ -8049,64 +8049,64 @@ msgstr ""
 "Denna annons kan inte redigeras just nu. Vänligen försök igen om en lite "
 "stund eller kontakta administratören om problemet kvarstår."
 
-#: includes/controllers/pages/class-submit-listing.php:261
+#: includes/controllers/pages/class-submit-listing.php:265
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "Du är inloggad som administratör, alla betalningssteg hoppas över."
 
-#: includes/controllers/pages/class-submit-listing.php:716
+#: includes/controllers/pages/class-submit-listing.php:723
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Val av kategori"
 
-#: includes/controllers/pages/class-submit-listing.php:716
+#: includes/controllers/pages/class-submit-listing.php:723
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Val av kategori och avgiftsplan"
 
-#: includes/controllers/pages/class-submit-listing.php:1024
+#: includes/controllers/pages/class-submit-listing.php:1031
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr "Det går inte att registrera en annons just nu. Försök igen senare."
 
-#: includes/controllers/pages/class-submit-listing.php:1073
-#: includes/controllers/pages/class-submit-listing.php:1239
+#: includes/controllers/pages/class-submit-listing.php:1080
+#: includes/controllers/pages/class-submit-listing.php:1247
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Välj en kategori."
 
-#: includes/controllers/pages/class-submit-listing.php:1098
+#: includes/controllers/pages/class-submit-listing.php:1105
 msgctxt "submit listing"
 msgid "Current active plan is disabled. Please select another plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1100
+#: includes/controllers/pages/class-submit-listing.php:1107
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Välj en giltig kategori för din plan."
 
-#: includes/controllers/pages/class-submit-listing.php:1103
+#: includes/controllers/pages/class-submit-listing.php:1110
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr "Välj en avgiftsplan för ditt kategorival."
 
-#: includes/controllers/pages/class-submit-listing.php:1474
+#: includes/controllers/pages/class-submit-listing.php:1482
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Fyll i ditt önskade användarnamn."
 
-#: includes/controllers/pages/class-submit-listing.php:1479
+#: includes/controllers/pages/class-submit-listing.php:1487
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Fyll i e-postadressen för ditt nya konto."
 
-#: includes/controllers/pages/class-submit-listing.php:1484
+#: includes/controllers/pages/class-submit-listing.php:1492
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Användarnamnet upptaget, var vänlig försök med ett annat."
 
-#: includes/controllers/pages/class-submit-listing.php:1489
+#: includes/controllers/pages/class-submit-listing.php:1497
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "E-postadressen du valt för ditt konto används redan."
@@ -8116,7 +8116,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Notering skickas in av admin. Betalning hoppas över."
 
-#: includes/controllers/pages/class-submit-listing.php:1421
+#: includes/controllers/pages/class-submit-listing.php:1429
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8127,12 +8127,12 @@ msgctxt "form-fields api"
 msgid "Checkbox"
 msgstr "Kryssruta"
 
-#: includes/fields/class-fieldtypes-date.php:9
+#: includes/fields/class-fieldtypes-date.php:10
 msgctxt "form-fields api"
 msgid "Date Field"
 msgstr "Datumfält"
 
-#: includes/fields/class-fieldtypes-date.php:45
+#: includes/fields/class-fieldtypes-date.php:46
 msgctxt "form-fields api"
 msgid "Date Format"
 msgstr "Datumformat"
@@ -8162,7 +8162,7 @@ msgctxt "form-fields api"
 msgid "Radio button"
 msgstr "Radioknapp"
 
-#: includes/fields/class-fieldtypes-social.php:31
+#: includes/fields/class-fieldtypes-social.php:32
 #, fuzzy
 msgctxt "form-fields api"
 msgid "Social Site (Any)"
@@ -8183,7 +8183,7 @@ msgctxt "form-fields api"
 msgid "Format 01/31/1969"
 msgstr "Format 01/31/1969"
 
-#: includes/fields/class-form-field.php:755
+#: includes/fields/class-form-field.php:764
 msgctxt "form-fields api"
 msgid ""
 "This form field can't be deleted because it is required for the plugin to "
@@ -8205,32 +8205,32 @@ msgid "Caption for %s is required."
 msgstr "Land krävs."
 
 #: includes/fields/class-fieldtypes-image.php:110
-#: includes/fields/class-fieldtypes-social.php:179
+#: includes/fields/class-fieldtypes-social.php:180
 msgctxt "form-fields-api"
 msgid "Remove"
 msgstr "Ta bort"
 
-#: includes/fields/class-form-field.php:66
+#: includes/fields/class-form-field.php:67
 msgctxt "form-fields-api"
 msgid "Invalid form field type"
 msgstr "Ogiltig formulärfält typ"
 
-#: includes/fields/class-form-field.php:632
+#: includes/fields/class-form-field.php:641
 msgctxt "form-fields-api"
 msgid "Field label is required."
 msgstr "Fältetikett krävs"
 
-#: includes/fields/class-form-field.php:636
+#: includes/fields/class-form-field.php:645
 msgctxt "form-fields-api"
 msgid "Field label max length is 255 characters."
 msgstr ""
 
-#: includes/fields/class-form-field.php:640
+#: includes/fields/class-form-field.php:649
 msgctxt "form-fields-api"
 msgid "Field description max length is 255 characters."
 msgstr ""
 
-#: includes/fields/class-form-field.php:651
+#: includes/fields/class-form-field.php:660
 msgctxt "form-fields-api"
 msgid ""
 "You can't change from %2$s field type to the one you wanted--the types are "
@@ -8238,14 +8238,14 @@ msgid ""
 "delete this current field and create a NEW field of type %1$s instead."
 msgstr ""
 
-#: includes/fields/class-form-field.php:654
+#: includes/fields/class-form-field.php:663
 msgctxt "form-fields-api"
 msgid ""
 "<strong>WARNING</strong>: If you delete this field, the data from it in "
 "existing listings will be deleted as well."
 msgstr ""
 
-#: includes/fields/class-form-field.php:690
+#: includes/fields/class-form-field.php:699
 msgctxt "form-fields-api"
 msgid ""
 "There can only be one field with association \"%s\". Please select another "
@@ -8254,17 +8254,17 @@ msgstr ""
 "Det kan bara finnas ett fält med associationen \"%s\". Välj en annan "
 "association."
 
-#: includes/fields/class-form-field.php:700
+#: includes/fields/class-form-field.php:709
 msgctxt "form-fields-api"
 msgid "\"%s\" is an invalid field type for this association."
 msgstr "\"%s\" är en ogiltig fälttyp för denna association."
 
-#: includes/fields/class-form-field.php:745
+#: includes/fields/class-form-field.php:754
 msgctxt "form-fields-api"
 msgid "Invalid field ID"
 msgstr "Ogiltigt fält-ID"
 
-#: includes/fields/class-form-field.php:770
+#: includes/fields/class-form-field.php:779
 msgctxt "form-fields-api"
 msgid "An error occurred while trying to delete this field."
 msgstr "Ett fel uppstod när försök gjordes att radera detta fält."
@@ -8389,7 +8389,7 @@ msgstr ""
 "Ett fel inträffade när åtkomstnycklarna skickades till din e-postadress. "
 "Vänligen försök igen."
 
-#: includes/helpers/functions/templates-ui.php:409
+#: includes/helpers/functions/templates-ui.php:415
 msgctxt "templates sort"
 msgid "Sort By:"
 msgstr "Sortering:"
@@ -8420,12 +8420,12 @@ msgctxt "default category name"
 msgid "General"
 msgstr "Allmän"
 
-#: includes/licensing.php:504
+#: includes/licensing.php:505
 msgctxt "licensing"
 msgid "Could not contact licensing server"
 msgstr "Det gick inte att kontakta licensservern"
 
-#: includes/licensing.php:517
+#: includes/licensing.php:518
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8435,7 +8435,7 @@ msgstr ""
 "Det var inte möjligt att etablera en kontakt med Business Directorys server. "
 "Ett problem inträffade i SSL/TSL handskakning:"
 
-#: includes/licensing.php:519 includes/licensing.php:549
+#: includes/licensing.php:520 includes/licensing.php:550
 msgctxt "licensing"
 msgid ""
 "To ensure the security of our systems and adhere to industry best practices, "
@@ -8448,7 +8448,7 @@ msgstr ""
 "version av OpenSSL som stöder TLSv1.2 (minsta version med support är OpenSSL "
 "1.0.1c)."
 
-#: includes/licensing.php:521 includes/licensing.php:551
+#: includes/licensing.php:522 includes/licensing.php:552
 msgctxt "licensing"
 msgid ""
 "Upgrading your system will not only allow you to communicate with Business "
@@ -8460,7 +8460,7 @@ msgstr ""
 "webbplats för att interagera med tjänster som använder de senaste "
 "säkerhetsstandarderna."
 
-#: includes/licensing.php:523
+#: includes/licensing.php:524
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8470,7 +8470,7 @@ msgstr ""
 "Kontakta ditt webbhotell och be dem att uppgradera ditt system. Inkludera "
 "detta meddelande om nödvändigt."
 
-#: includes/licensing.php:553
+#: includes/licensing.php:554
 #, fuzzy
 msgctxt "licensing"
 msgid ""
@@ -8480,28 +8480,28 @@ msgstr ""
 "Kontakta ditt webbhotell och be dem att uppgradera ditt system. Inkludera "
 "detta meddelande om nödvändigt."
 
-#: includes/licensing.php:589
+#: includes/licensing.php:590
 msgctxt "licensing"
 msgid "The server returned a 403 Forbidden error."
 msgstr "Servern returnerade ett 403 Forbidden fel."
 
-#: includes/licensing.php:854
+#: includes/licensing.php:855
 msgctxt "licensing"
 msgid "License activated"
 msgstr "Licens aktiverad"
 
-#: includes/licensing.php:884
+#: includes/licensing.php:885
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Det gick inte att inaktivera licens:%s."
 
-#: includes/licensing.php:886
+#: includes/licensing.php:887
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "﻿Licensnyckel avaktiverad"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1128
+#: includes/licensing.php:1252
 #, fuzzy
 msgctxt "deprecation"
 msgid ""
@@ -8523,18 +8523,18 @@ msgid_plural "%d images allowed."
 msgstr[0] "%d bild tillåten."
 msgstr[1] "%d bilder tillåtna."
 
-#: includes/models/class-fee-plan.php:410
+#: includes/models/class-fee-plan.php:411
 #, fuzzy
 msgctxt "fees-api"
 msgid "Plan label is required."
 msgstr "Fältetikett krävs"
 
-#: includes/models/class-fee-plan.php:416
+#: includes/models/class-fee-plan.php:417
 msgctxt "fees-api"
 msgid "Fee listing duration must be a number less than 10 years (3650 days)."
 msgstr "Avgiftens varaktighet måste vara ett tal mindre än 10 år (3650 dagar)."
 
-#: includes/models/class-fee-plan.php:421
+#: includes/models/class-fee-plan.php:422
 msgctxt "fees-api"
 msgid ""
 "To set this plan as \"Recurring\" you must have a time for the listing to "
@@ -8542,7 +8542,7 @@ msgid ""
 "<a>plan</a> appropriately."
 msgstr ""
 
-#: includes/models/class-fee-plan.php:424
+#: includes/models/class-fee-plan.php:425
 msgctxt "fees-api"
 msgid ""
 "To set this plan as \"Recurring\" you must set a price for your plan. To "
@@ -8595,22 +8595,22 @@ msgctxt "payment"
 msgid "Refunded"
 msgstr "Återbetalad"
 
-#: includes/utils.php:278
+#: includes/utils.php:280
 msgctxt "utils"
 msgid "Unkown error while uploading file."
 msgstr "Okänt fel uppstod när filen laddades upp."
 
-#: includes/utils.php:386
+#: includes/utils.php:390
 msgctxt "utils"
 msgid "Error while uploading file"
 msgstr "Okänt fel uppstod när filen laddades upp."
 
-#: includes/utils.php:409 includes/utils.php:415
+#: includes/utils.php:413 includes/utils.php:419
 msgctxt "utils"
 msgid "File type \"%s\" is not allowed"
 msgstr "Filtyp \"%s\" är inte tillåten"
 
-#: includes/utils.php:661
+#: includes/utils.php:666
 msgctxt "utils"
 msgid ""
 "POSTed data exceeds PHP config. maximum. See \"post_max_size\" directive."
