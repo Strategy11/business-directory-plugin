@@ -34,11 +34,11 @@
 		"format": "npm-run-all --parallel format:*",
 		"format:css": "stylelint \"**/*.less\" --fix --custom-syntax postcss-less",
 		"format:js": "eslint --fix .",
-		"format:php": "composer format",
+		"format:php": "composer phpcbf",
 		"lint": "npm-run-all --parallel lint:*",
 		"lint:css": "stylelint \"**/*.less\" --custom-syntax postcss-less",
 		"lint:js": "eslint .",
-		"lint:php": "composer lint"
+		"lint:php": "composer phpcs"
 	},
 	"repository": {
 		"type": "git",

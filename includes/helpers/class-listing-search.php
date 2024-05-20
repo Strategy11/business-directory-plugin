@@ -235,7 +235,7 @@ class WPBDP__Listing_Search {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.3
 	 *
 	 * @param array $request Unsanitized request data.
 	 * @param array $res     The array to which the search query will be added.
@@ -272,7 +272,7 @@ class WPBDP__Listing_Search {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.3
 	 *
 	 * @param array $request Unsanitized request data.
 	 * @param array $res     The array to which the search query will be added.
