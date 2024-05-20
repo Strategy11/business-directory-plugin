@@ -157,7 +157,11 @@ class WPBDP__Listing_Search {
 	}
 
 	private function _traverse_tree( $tree ) {
-		if ( is_array( $tree ) && 2 == count( $tree ) && is_numeric( $tree[0] ) ) {
+		if ( ! is_array( $tree ) ) {
+			return '';
+		}
+
+		if ( 2 == count( $tree ) && is_numeric( $tree[0] ) ) {
 			$key = md5( serialize( $tree ) );
 
 			if ( ! isset( $this->parts[ $key ] ) ) {
@@ -205,19 +209,29 @@ class WPBDP__Listing_Search {
 		return array( $alias, $reused );
 	}
 
+	/**
+	 * @param array $request Unsanitized request data.
+	 */
 	public static function from_request( $request = array() ) {
 		return new self( self::parse_request( $request ), $request );
 	}
 
+	/**
+	 * @param array $request Unsanitized request data.
+	 *
+	 * @return array
+	 */
 	public static function parse_request( $request = array() ) {
 		$res = array();
 
 		// Quick search.
 		if ( ! empty( $request['kw'] ) ) {
+			$kw = $request['kw'];
+			wpbdp_sanitize_value( 'sanitize_text_field', $kw );
 			if ( wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ) {
-				$request['kw'] = array( trim( $request['kw'] ) );
+				$kw = array( trim( $kw ) );
 			} else {
-				$request['kw'] = explode( ' ', trim( $request['kw'] ) );
+				$kw = explode( ' ', trim( $kw ) );
 			}
 
 			$fields = array();
@@ -232,7 +246,7 @@ class WPBDP__Listing_Search {
 
 			$res[] = 'and';
 
-			foreach ( $request['kw'] as $k ) {
+			foreach ( $kw as $k ) {
 				$subq = array( 'or' );
 
 				foreach ( $fields as $field ) {
@@ -249,6 +263,8 @@ class WPBDP__Listing_Search {
 				if ( ! $term ) {
 					continue;
 				}
+				$field_id = intval( $field_id );
+				$term     = sanitize_text_field( $term );
 
 				$search_terms = array();
 
