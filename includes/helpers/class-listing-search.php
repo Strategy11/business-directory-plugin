@@ -224,82 +224,100 @@ class WPBDP__Listing_Search {
 	public static function parse_request( $request = array() ) {
 		$res = array();
 
-		// Quick search.
 		if ( ! empty( $request['kw'] ) ) {
-			$kw = $request['kw'];
-			wpbdp_sanitize_value( 'sanitize_text_field', $kw );
-			$kw = urldecode( $kw );
-			if ( wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ) {
-				$kw = array( trim( $kw ) );
-			} else {
-				$kw = explode( ' ', trim( $kw ) );
-			}
-
-			$fields = array();
-
-			foreach ( self::get_quick_search_fields_ids() as $field_id ) {
-				$field = wpbdp_get_form_field( $field_id );
-
-				if ( $field ) {
-					$fields[] = $field;
-				}
-			}
-
-			$res[] = 'and';
-
-			foreach ( $kw as $k ) {
-				$subq = array( 'or' );
-
-				foreach ( $fields as $field ) {
-					$subq[] = array( $field->get_id(), $k );
-				}
-
-				$res[] = $subq;
-			}
+			self::parse_quick_search( $request, $res );
 		} elseif ( ! empty( $request['listingfields'] ) ) {
-			// Regular search.
-			$res[] = 'and';
-
-			foreach ( $request['listingfields'] as $field_id => $term ) {
-				if ( ! $term ) {
-					continue;
-				}
-				$field_id = intval( $field_id );
-				wpbdp_sanitize_value( 'sanitize_text_field', $term );
-				wpbdp_sanitize_value( 'urldecode', $term );
-
-				$search_terms = array();
-
-				if ( is_string( $term ) ) {
-					$search_terms = array_filter(
-						explode( ' ', trim( $term ) ),
-						function ( $t ) {
-							return strlen( $t ) >= 2;
-						}
-					);
-				}
-
-				if ( count( $search_terms ) < 2 ) {
-					$res[] = array( $field_id, $term );
-					continue;
-				}
-
-				$subq   = array( 'or' );
-				$termsq = array( 'and' );
-
-				foreach ( $search_terms as $k ) {
-					$termsq[] = array( $field_id, $k );
-				}
-
-				$subq[] = $termsq;
-				$subq[] = array( $field_id, $term );
-
-				$res[] = $subq;
-			}
+			self::parse_advanced_search( $request, $res );
 		}
 
 		$res = apply_filters( 'wpbdp_listing_search_parse_request', $res, $request );
 		return $res;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param array $request Unsanitized request data.
+	 * @param array $res     The array to which the search query will be added.
+	 *
+	 * @return void
+	 */
+	private static function parse_quick_search( $request, &$res ) {
+		$kw = $request['kw'];
+		wpbdp_sanitize_value( 'sanitize_text_field', $kw );
+		$kw = trim( urldecode( $kw ) );
+		$kw = wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ? array( $kw ) : explode( ' ', $kw );
+
+		$fields = array();
+
+		foreach ( self::get_quick_search_fields_ids() as $field_id ) {
+			$field = wpbdp_get_form_field( $field_id );
+
+			if ( $field ) {
+				$fields[] = $field;
+			}
+		}
+
+		$res[] = 'and';
+
+		foreach ( $kw as $k ) {
+			$subq = array( 'or' );
+
+			foreach ( $fields as $field ) {
+				$subq[] = array( $field->get_id(), $k );
+			}
+
+			$res[] = $subq;
+		}
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param array $request Unsanitized request data.
+	 * @param array $res     The array to which the search query will be added.
+	 *
+	 * @return void
+	 */
+	private static function parse_advanced_search( $request, &$res ) {
+		$res[] = 'and';
+
+		foreach ( $request['listingfields'] as $field_id => $term ) {
+			if ( ! $term ) {
+				continue;
+			}
+			$field_id = intval( $field_id );
+			wpbdp_sanitize_value( 'sanitize_text_field', $term );
+			wpbdp_sanitize_value( 'urldecode', $term );
+
+			$search_terms = array();
+
+			if ( is_string( $term ) ) {
+				$search_terms = array_filter(
+					explode( ' ', trim( $term ) ),
+					function ( $t ) {
+						return strlen( $t ) >= 2;
+					}
+				);
+			}
+
+			if ( count( $search_terms ) < 2 ) {
+				$res[] = array( $field_id, $term );
+				continue;
+			}
+
+			$subq   = array( 'or' );
+			$termsq = array( 'and' );
+
+			foreach ( $search_terms as $k ) {
+				$termsq[] = array( $field_id, $k );
+			}
+
+			$subq[] = $termsq;
+			$subq[] = array( $field_id, $term );
+
+			$res[] = $subq;
+		}
 	}
 
 	/**
