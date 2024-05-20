@@ -66,7 +66,7 @@ class WPBDP__Listing_Search {
 		$quick_search_fields_ids = self::get_quick_search_fields_ids();
 
 		if ( in_array( $field->get_id(), $quick_search_fields_ids, true ) && isset( $this->original_request['kw'] ) ) {
-			return array( $this->original_request['kw'] );
+			return array( urldecode( $this->original_request['kw'] ) );
 		}
 
 		return $this->terms_for_field( $field );
@@ -228,6 +228,7 @@ class WPBDP__Listing_Search {
 		if ( ! empty( $request['kw'] ) ) {
 			$kw = $request['kw'];
 			wpbdp_sanitize_value( 'sanitize_text_field', $kw );
+			$kw = urldecode( $kw );
 			if ( wpbdp_get_option( 'quick-search-enable-performance-tricks' ) ) {
 				$kw = array( trim( $kw ) );
 			} else {
@@ -264,7 +265,8 @@ class WPBDP__Listing_Search {
 					continue;
 				}
 				$field_id = intval( $field_id );
-				$term     = sanitize_text_field( $term );
+				wpbdp_sanitize_value( 'sanitize_text_field', $term );
+				wpbdp_sanitize_value( 'urldecode', $term );
 
 				$search_terms = array();
 
