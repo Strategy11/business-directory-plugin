@@ -460,6 +460,9 @@ class WPBDP_CSVExporter {
 	}
 
 	/**
+	 * Escape a " in a csv with another ".
+	 * Escape the = to prevent execution of functions.
+	 *
 	 * @since 6.4.1
 	 *
 	 * @param string $str
@@ -467,6 +470,15 @@ class WPBDP_CSVExporter {
 	 * @return string
 	 */
 	private function escaped_string( $str ) {
+		if ( ! is_string( $str ) ) {
+			return $str;
+		}
+
+		if ( '=' === $str[0] ) {
+			// Escape the = to prevent vulnerability.
+			$str = "'" . $str;
+		}
+
 		$str = str_replace( array( '\r\n', '\n' ), "\n", $str );
 		$str = '"' . str_replace( '"', '""', $str ) . '"';
 		return $str;
