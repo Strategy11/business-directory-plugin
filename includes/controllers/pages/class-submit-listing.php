@@ -229,6 +229,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * @return string
 	 */
 	private function show_form_placeholder() {
+		// This might not be needed, but we don't know for sure at this point.
+		global $wpbdp;
+		$wpbdp->assets->enqueue_select2();
+
 		return '<div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page">
     	<form action="" method="post" data-ajax-url="' . esc_url( wpbdp_ajax_url() ) . '" enctype="multipart/form-data">
 		</form>
