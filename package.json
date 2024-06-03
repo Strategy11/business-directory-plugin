@@ -38,7 +38,8 @@
 		"lint": "npm-run-all --parallel lint:*",
 		"lint:css": "stylelint \"**/*.less\" --custom-syntax postcss-less",
 		"lint:js": "eslint .",
-		"lint:php": "composer phpcs"
+		"lint:php": "composer phpcs",
+		"watch": "grunt watch"
 	},
 	"repository": {
 		"type": "git",
