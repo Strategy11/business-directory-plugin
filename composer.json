@@ -9,6 +9,7 @@
 	},
 	"require-dev": {
 		"antecedent/patchwork": "^2.0",
+		"lucatume/wp-browser": "*",
 		"codeception/module-asserts": "^3",
 		"codeception/module-phpbrowser": "^3",
 		"codeception/module-webdriver": "^3",
@@ -39,7 +40,8 @@
             "php": "8.0",
 			"ext-mysqli": "8.0",
 			"ext-zip": "8.0"
-        }
+        },
+		"sort-packages": true
 	},
 	"scripts": {
 		"phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml --report-summary --report-source",
