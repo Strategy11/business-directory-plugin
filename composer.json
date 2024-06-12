@@ -21,7 +21,9 @@
 		"codeception/verify": "*",
 		"yoast/phpunit-polyfills": "^2",
 		"php-stubs/wordpress-stubs": "^6",
-		"phpstan/phpstan": "^1.4",
+		"phpstan/phpstan": "^1.10",
+		"phpstan/phpstan-strict-rules": "^1.5",
+        "phpstan/extension-installer": "^1.3",
 		"dealerdirect/phpcodesniffer-composer-installer": "^1",
 		"wp-coding-standards/wpcs": "^3.0",
 		"automattic/vipwpcs": "^3.0",
@@ -31,7 +33,8 @@
 	},
 	"config": {
 		"allow-plugins": {
-			"dealerdirect/phpcodesniffer-composer-installer": true
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
 		},
 		"platform": {
             "php": "8.2",
@@ -42,6 +45,7 @@
 	"scripts": {
 		"phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml --report-summary --report-source",
 		"phpcs": "vendor/bin/phpcs -p -s -v -n . --standard=phpcs.xml --extensions=php",
-		"phpcsfixer": "vendor/bin/php-cs-fixer fix --dry-run --verbose"
+		"phpcsfixer": "vendor/bin/php-cs-fixer fix --dry-run --verbose",
+		"phpstan": "vendor/bin/phpstan analyze ./ --memory-limit=2G"
 	}
 }

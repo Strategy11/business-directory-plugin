@@ -45,7 +45,7 @@ final class WPBDP_FS {
 			$item = $path;
 
 			if ( 'all' == $output || 'details' == $output ) {
-				$item       = new StdClass();
+				$item       = new stdClass();
 				$item->path = $path;
 				$item->type = is_dir( $path ) ? 'dir' : ( is_link( $path ) ? 'link' : 'file' );
 				$item->size = absint( filesize( $path ) );

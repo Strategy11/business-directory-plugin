@@ -14,6 +14,8 @@ class WPBDP_CSVExporter {
 
 	const BATCH_SIZE = 20;
 
+	public $images_archive;
+
 	private $settings = array(
 		'target-os'             => 'windows',
 		'csv-file-separator'    => ',',
@@ -359,7 +361,7 @@ class WPBDP_CSVExporter {
 								continue;
 							}
 
-							$this->images_archive = ! isset( $this->images_archive ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+							$this->images_archive = empty( $this->images_archive ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
 							if ( $success = $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
 								$images[] = basename( $img_path );
 							}
@@ -401,7 +403,7 @@ class WPBDP_CSVExporter {
 					$value = get_post_meta( $post_id, '_wpbdp_tos_acceptance_date', true );
 					break;
 				default:
-					$value = $this->get_field_value( $column_obj );
+					$value = $this->get_field_value( $column_obj, $listing );
 			}
 
 			if ( ! is_string( $value ) && ! is_array( $value ) ) {
@@ -417,7 +419,7 @@ class WPBDP_CSVExporter {
 	/**
 	 * @since x.x
 	 */
-	private function get_field_value( $field ) {
+	private function get_field_value( $field, $listing ) {
 		if ( ! is_object( $field ) ) {
 			return '';
 		}
@@ -457,7 +459,7 @@ class WPBDP_CSVExporter {
 						break;
 					}
 
-					$this->images_archive = ! isset( $this->images_archive ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+					$this->images_archive = empty( $this->images_archive ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
 					if ( $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
 						$value = sprintf( '%s,%s', $value, basename( $img_path ) );
 					}

@@ -278,7 +278,7 @@ class WPBDP_Listing_Display_Helper {
 			$pass_args['link']  = 'listing';
 			$pass_args['class'] = 'wpbdmthumbs wpbdp-excerpt-thumbnail';
 
-			$thumb       = new StdClass();
+			$thumb       = new stdClass();
 			$thumb->html = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
 
 			$vars['images']->thumbnail = $thumb;
@@ -310,7 +310,7 @@ class WPBDP_Listing_Display_Helper {
 			$data          = wp_get_attachment_image_src( $img_id, 'wpbdp-large', false );
 			$image_caption = get_post_meta( $img_id, '_wpbdp_image_caption', true );
 
-			$image         = new StdClass();
+			$image         = new stdClass();
 			$image->id     = $img_id;
 			$image->url    = $data[0];
 			$image->width  = $data[1];
@@ -349,7 +349,7 @@ class WPBDP_Listing_Display_Helper {
 		$pass_args['link']  = 'picture';
 		$pass_args['class'] = 'wpbdp-single-thumbnail';
 
-		$main_image         = new StdClass();
+		$main_image         = new stdClass();
 		$main_image->id     = $thumbnail_id;
 		$main_image->html   = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
 		$main_image->url    = $data_main[0];

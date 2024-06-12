@@ -223,6 +223,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$default_image     = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
 		$coming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
 		$fields            = is_array( $instance['fields'] ) ? $instance['fields'] : array();
+		$html              = array();
 		foreach ( $items as $post ) {
 			$html[] = $this->render_item( $post, compact( 'show_images', 'img_size', 'default_image', 'coming_soon_image', 'html_class', 'fields' ) );
 		}

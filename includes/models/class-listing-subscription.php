@@ -5,6 +5,7 @@ class WPBDP__Listing_Subscription {
 	private $listing_id        = 0;
 	private $subscription_id   = '';
 
+	public $data = array();
 
 	public function __construct( $listing_id = 0, $subscription_id = '' ) {
 		$listing_id      = absint( $listing_id );

@@ -386,7 +386,7 @@ function wpbdp_get_current_sort_option() {
 		$order = substr( $sort, 0, 1 ) == '-' ? 'DESC' : 'ASC';
 		$sort  = ltrim( $sort, '-' );
 
-		$obj         = new StdClass();
+		$obj         = new stdClass();
 		$obj->option = $sort;
 		$obj->order  = $order;
 

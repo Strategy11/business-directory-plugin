@@ -1,5 +1,5 @@
 parameters:
-	level: 1
+	level: 2
 	reportUnmatchedIgnoredErrors: false
 	treatPhpDocTypesAsCertain: false
 	bootstrapFiles:
@@ -14,13 +14,17 @@ parameters:
 		- stubs.php
 		- */node_modules/*
 		- includes/compatibility/deprecated/*
+	strictRules:
+		disallowedLooseComparison: false
+		booleansInConditions: false
+		requireParentConstructorCall: false
+		strictCalls: false
+		noVariableVariables: false
 	ignoreErrors:
-		- '#Access to an undefined property#'
-		- '#no (typehint|value type|return type)+ specified.#'
+		- '#no (return type)+ specified.#'
 		- '#might not be defined.#'
-		- '#Function (apply_filters)+ invoked with#'
 		- '#Method PclZip::extract\(\) invoked with #'
 		- '#overridden property WP_List_Table::\$items#'
 		- '#Method WPBDP_[a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) is unused#'
 		- '#Use more strict comparison#'
-		- '#Only booleans are allowed#'
+		- '#Access to an undefined property (AuthorizeNet_Subscription|object|WP_Query)#'

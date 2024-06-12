@@ -18,7 +18,7 @@ class WPBDP__Views__Listing_Contact extends WPBDP__View {
 	private $email   = '';
 	private $phone   = '';
 	private $message = '';
-
+	public $listing_id = 0;
 
 	private function prepare_input() {
 		$this->name    = trim( wpbdp_get_var( array( 'param' => 'commentauthorname' ), 'post' ) );

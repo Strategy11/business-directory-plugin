@@ -12,6 +12,8 @@
  */
 class WPBDP_PersonalDataEraser {
 
+	public $data_eraser;
+
 	/**
 	 * @param object $data_eraser
 	 */

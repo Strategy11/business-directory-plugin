@@ -38,6 +38,9 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
 		return $settings;
 	}
 
+	/**
+	 * @return WP_Error|void
+	 */
 	public function process_field_settings( &$field ) {
 		if ( ! array_key_exists( 'x_size', $_POST['field'] ) ) {
 			return;

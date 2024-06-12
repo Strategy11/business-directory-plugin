@@ -556,6 +556,7 @@ class WPBDP_CSV_Import {
 		}
 
 		// Handle fields.
+		$fields = $data['fields'];
 		foreach ( $fields as $field_id => $field_data ) {
 			$f = wpbdp_get_form_field( $field_id );
 

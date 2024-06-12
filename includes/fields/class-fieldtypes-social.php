@@ -73,6 +73,9 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return WP_Error|void
+	 */
 	public function process_field_settings( &$field ) {
 		$order = isset( $_POST['field']['display_order'] ) ? sanitize_text_field( wp_unslash( $_POST['field']['display_order'] ) ) : 'icon_first';
 		$field->set_data( 'display_order', $order );

@@ -375,7 +375,7 @@ class WPBDP_Form_Field {
 	 * @param string $key configuration key name.
 	 * @param mixed  $value data value.
 	 *
-	 * @return mixed data value.
+	 * @return void
 	 */
 	public function set_data( $key, $value = null ) {
 		$this->field_data[ $key ] = $value;
@@ -746,6 +746,7 @@ class WPBDP_Form_Field {
 		}
 
 		$this->clear_field_cache();
+		return true;
 	}
 
 	/**

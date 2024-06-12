@@ -4,6 +4,8 @@
  */
 class WPBDP__CPT_Integration {
 
+	public $id;
+
 	public function __construct() {
 		$this->register_post_type();
 	}

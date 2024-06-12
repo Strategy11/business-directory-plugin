@@ -7,6 +7,7 @@ class WPBDP_FormFieldsAdmin {
 	public $api;
 
 	public $admin;
+	public $messages = array();
 
 	public function __construct() {
 		$this->api   = wpbdp_formfields_api();

@@ -106,6 +106,7 @@ class WPBDP_CSVImportAdmin {
 		$term  = wpbdp_get_var( array( 'param' => 'term' ), 'request' );
 		$users = get_users( array( 'search' => "*{$term}*" ) );
 
+		$return = array();
 		foreach ( $users as $user ) {
 			$return[] = array(
 				'label' => "{$user->display_name} ({$user->user_login})",

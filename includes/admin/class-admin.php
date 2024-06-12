@@ -49,6 +49,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		public $displayed_warnings = array();
 
+		public $post_install_migration;
+
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'handle_actions' ) );
 

@@ -69,6 +69,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 			}
 		}
 
+		$vars                         = array();
 		$vars['_bar']                 = false;
 		$vars['errors']               = $this->errors;
 		$vars['invoice']              = wpbdp()->payments->render_invoice( $this->payment );
@@ -96,7 +97,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
 		// Lightweight object used to pass checkout state to modules.
 		// Eventually, we might want to pass $this directly with a better get/set interface.
-		$checkout          = new StdClass();
+		$checkout          = new stdClass();
 		$checkout->payment = $this->payment;
 		$checkout->gateway = $this->gateway;
 		$checkout->errors  = array();

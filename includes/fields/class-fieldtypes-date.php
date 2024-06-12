@@ -51,6 +51,9 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return WP_Error|void
+	 */
 	public function process_field_settings( &$field ) {
 		if ( ! isset( $_POST['field']['x_date_format'] ) ) {
 			return;

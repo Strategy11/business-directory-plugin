@@ -190,6 +190,8 @@ function wpbdp_prep_listing_args( $args ) {
 	if ( empty( $listing['post_author'] ) ) {
 		$listing['post_author'] = get_current_user_id();
 	}
+
+	return $listing;
 }
 
 /**

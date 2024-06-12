@@ -11,6 +11,7 @@
 class WPBDP_WPML_Compat {
 
 	private $wpml;
+	public $workaround = false;
 
 	public function __construct() {
 		$this->wpml = $GLOBALS['sitepress'];
@@ -234,11 +235,7 @@ class WPBDP_WPML_Compat {
 			return;
 		}
 
-		if ( ! isset( $this->workaround ) ) {
-			$this->workaround = true;
-		} else {
-			$this->workaround = ! $this->workaround;
-		}
+		$this->workaround = ! $this->workaround;
 
 		if ( $this->workaround ) {
 			// Magic here.

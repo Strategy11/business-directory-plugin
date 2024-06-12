@@ -107,6 +107,9 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( array( array( $label, $content ) ) );
 	}
 
+	/**
+	 * @return WP_Error|void
+	 */
 	public function process_field_settings( &$field ) {
 		if ( ! array_key_exists( 'x_options', $_POST['field'] ) ) {
 			return;
