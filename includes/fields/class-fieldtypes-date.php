@@ -52,7 +52,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 	}
 
 	/**
-	 * @return WP_Error|void
+	 * @return void|WP_Error
 	 */
 	public function process_field_settings( &$field ) {
 		if ( ! isset( $_POST['field']['x_date_format'] ) ) {

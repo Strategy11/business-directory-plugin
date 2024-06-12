@@ -62,7 +62,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 	}
 
 	/**
-	 * @return WP_Error|void
+	 * @return void|WP_Error
 	 */
 	public function process_field_settings( &$field ) {
 		if ( array_key_exists( 'x_display_caption', $_POST['field'] ) ) {

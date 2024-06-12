@@ -258,7 +258,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 	}
 
 	/**
-	 * @return WP_Error|void
+	 * @return void|WP_Error
 	 */
 	public function process_field_settings( &$field ) {
 		$field->set_data( 'allow_html', isset( $_POST['field']['allow_html'] ) ? (bool) intval( $_POST['field']['allow_html'] ) : false );

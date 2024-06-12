@@ -39,7 +39,7 @@ class WPBDP_FieldTypes_MultiSelect extends WPBDP_FieldTypes_Select {
 	}
 
 	/**
-	 * @return WP_Error|void
+	 * @return void|WP_Error
 	 */
 	public function process_field_settings( &$field ) {
 		if ( ! array_key_exists( 'x_size', $_POST['field'] ) ) {

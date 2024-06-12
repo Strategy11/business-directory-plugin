@@ -94,7 +94,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 	/**
 	 * @since 5.5.10
 	 *
-	 * @return WP_Error|void
+	 * @return void|WP_Error
 	 */
 	public function process_field_settings( &$field ) {
 		$field->set_data( 'show_count', isset( $_POST['field']['show_count'] ) ? (bool) intval( $_POST['field']['show_count'] ) : false );
