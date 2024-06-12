@@ -245,7 +245,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 			);
 
 			if ( $one == true ) {
-				$args['unique'] = $one == true;
+				$args['unique'] = true;
 			}
 
 			extract( $args );
