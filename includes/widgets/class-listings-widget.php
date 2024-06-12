@@ -190,7 +190,11 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @return string
 	 */
 	private function render_empty_widget( $html_class ) {
-		return sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', esc_attr( $html_class ), esc_html__( 'There are currently no listings to show.', 'business-directory-plugin' ) );
+		return sprintf(
+			'<li class="wpbdp-empty-widget %s">%s</li>',
+			esc_attr( $html_class ),
+			esc_html__( 'There are currently no listings to show.', 'business-directory-plugin' )
+		);
 	}
 
 	/**
@@ -277,7 +281,11 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 */
 	private function render_item( $post, $args ) {
 		$listing       = wpbdp_get_listing( $post->ID );
-		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
+		$listing_title = sprintf(
+			'<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>',
+			esc_url( $listing->get_permalink() ),
+			esc_html( $listing->get_title() )
+		);
 		$html_image    = $this->render_image( $listing, $args );
 		$fields        = sprintf( '<div class="wpbdp-listing-fields">%s</div>', $this->render_fields( $listing, $args['fields'] ) );
 		$template      = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
@@ -321,7 +329,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			} elseif ( $args['default_image'] ) {
 				$class      = "attachment-$img_size size-$img_size listing-image";
 				$image_link = '<a href="' . esc_url( $permalink ) . '">' .
-					'<img src="' . esc_url( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" alt="' . esc_attr( $listing->get_title() ) . '" loading="lazy" />' .
+					'<img src="' . esc_url( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" ' .
+					'alt="' . esc_attr( $listing->get_title() ) . '" loading="lazy" />' .
 					'</a>';
 			} else {
 				// For image spacing.

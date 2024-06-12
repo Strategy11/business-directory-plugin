@@ -26,7 +26,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 			$login_msg = _x( 'Please <a>login</a> to manage your listings.', 'view:manage-listings', 'business-directory-plugin' );
 			$login_msg = str_replace(
 				'<a>',
-				'<a href="' . esc_attr( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
+				'<a href="' . esc_url( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
 				$login_msg
 			);
 			return $login_msg;

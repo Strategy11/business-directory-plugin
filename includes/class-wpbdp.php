@@ -402,7 +402,9 @@ final class WPBDP {
 		$add_links = array();
 
 		if ( ! WPBDP_Admin_Education::is_installed( 'premium' ) ) {
-			$add_links[] = '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener" style="color:#1da867" class="wpbdp-upgrade-link"><b>' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</b></a>';
+			$add_links[] = '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener" style="color:#1da867" class="wpbdp-upgrade-link">' .
+				'<b>' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</b>' .
+				'</a>';
 		}
 
 		$add_links['settings'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings' ) ) . '">' . esc_html__( 'Settings', 'business-directory-plugin' ) . '</a>';

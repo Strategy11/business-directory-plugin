@@ -228,7 +228,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 			return $res;
 		}
 
-		public function &find_fields( $args = array(), $one = false ) {
+		public function &find_fields( $args = array(), $one = false ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 			global $wpdb;
 			$res = array();
 
@@ -245,7 +245,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 			);
 
 			if ( $one == true ) {
-				$args['unique'] = true;
+				$args['unique'] = $one == true;
 			}
 
 			extract( $args );
@@ -277,8 +277,6 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					$format = implode( ', ', array_fill( 0, count( $associations_not_in ), '%s' ) );
 					$where .= $wpdb->prepare( " AND ( association NOT IN ( $format ) ) ", $associations_not_in );
 				}
-
-				// $where .= $wpdb->prepare( " AND ( association = %s ) ", $args['association'] );
 			}
 
 			if ( $args['field_type'] ) {
@@ -343,18 +341,12 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
 			foreach ( $ids as $id ) {
 				$field = WPBDP_Form_Field::get( $id );
-				if ( $field ) {
-					if ( ! in_array( $field->get_association(), array_keys( $this->associations ), true ) ) {
-						continue;
-					}
-
+				if ( $field && in_array( $field->get_association(), array_keys( $this->associations ), true ) ) {
 					$res[] = $field;
 				}
 			}
 
-			$res = $unique ? ( $res ? $res[0] : null ) : $res;
-
-			return $res;
+			return $unique ? ( $res ? $res[0] : null ) : $res;
 		}
 
 		public function get_missing_required_fields() {

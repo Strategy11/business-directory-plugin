@@ -25,61 +25,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 
 	$args = apply_filters( 'wpbdp_save_listing_args', $args, $error, $context );
 
-	$listing                = array();
-	$listing['listing_id']  = ! empty( $args['listing_id'] ) ? absint( $args['listing_id'] ) : 0;
-	$listing['sequence_id'] = ! empty( $args['sequence_id'] ) ? $args['sequence_id'] : '';
-
-	// Basic post info.
-	$listing['post_title']   = ! empty( $args['post_title'] ) ? $args['post_title'] : '';
-	$listing['post_content'] = ! empty( $args['post_content'] ) ? $args['post_content'] : '';
-	$listing['post_excerpt'] = ! empty( $args['post_excerpt'] ) ? $args['post_excerpt'] : '';
-	$listing['post_author']  = ( ! empty( $args['post_author'] ) ? absint( $args['post_author'] ) : ( ! empty( $args['user_id'] ) ? $args['user_id'] : 0 ) );
-	$listing['post_name']    = ! empty( $args['post_name'] ) ? $args['post_name'] : '';
-	$listing['post_status']  = ! empty( $args['post_status'] ) ? $args['post_status'] : ( $listing['listing_id'] ? wpbdp_get_option( 'edit-post-status' ) : 'pending' );
-
-	// Fields.
-	$listing['fields'] = ! empty( $args['fields'] ) ? $args['fields'] : array();
-	foreach ( array_keys( $listing['fields'] ) as $field_id ) {
-		$field_obj = wpbdp_get_form_field( $field_id );
-
-		if ( ! $field_obj ) {
-			unset( $listing['fields'][ $field_id ] );
-			continue;
-		}
-
-		$field_assoc = $field_obj->get_association();
-		if ( in_array( $field_assoc, array( 'title', 'excerpt', 'content' ) ) ) {
-			if ( empty( $listing[ 'post_' . $field_assoc ] ) ) {
-				$listing[ 'post_' . $field_assoc ] = $listing['fields'][ $field_id ];
-			}
-
-			unset( $listing['fields'][ $field_id ] );
-		}
-	}
-
-	// Images.
-	$listing['images'] = ! empty( $args['images'] ) ? $args['images'] : array();
-	$append_images     = ! empty( $args['append_images'] );
-
-	// Categories.
-	$listing['categories'] = ! empty( $args['categories'] ) ? $args['categories'] : array();
-	$append_categories     = false;
-
-	// Plan.
-	$listing['plan_id'] = ! empty( $args['plan_id'] ) ? absint( $args['plan_id'] ) : 0;
-
-	// Expiration date.
-	$listing['expiration_date'] = '';
-	if ( ! empty( $args['expiration_date'] ) ) {
-		$listing['expiration_date'] = $args['expiration_date'];
-	} elseif ( ! empty( $args['expires_on'] ) ) {
-		$listing['expiration_date'] = $args['expires_on'];
-	}
-
-	// Sanitize everything.
-	if ( empty( $listing['post_title'] ) ) {
-		$listing['post_title'] = __( 'Untitled Listing', 'business-directory-plugin' );
-	}
+	$listing = wpbdp_prep_listing_args( $args );
 
 	if ( ! empty( $listing['post_title'] ) && empty( $listing['post_name'] ) ) {
 		$listing['post_name'] = sanitize_title( trim( strip_tags( $listing['post_title'] ) ) );
@@ -96,29 +42,6 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s", $slug_prefix, $post_name_hash ) );
 			}
 		}
-	}
-
-	if ( empty( $listing['post_author'] ) ) {
-		$listing['post_author'] = get_current_user_id();
-
-		// TODO: maybe add this behavior again?
-		// if ( 0 == $post_author ) {
-		// Create user.
-		// if ( $email_field = wpbdp_get_form_fields( array( 'validators' => 'email', 'unique' => 1 ) ) ) {
-		// $email = $state->fields[ $email_field->get_id() ];
-		//
-		// if ( email_exists( $email ) ) {
-		// $post_author = get_user_by( 'email', $email );
-		// $post_author = $post_author->ID;
-		// } else {
-		// $post_author = wp_insert_user( array(
-		// 'user_login' => 'guest_' . wp_generate_password( 5, false, false ),
-		// 'user_email' => $email,
-		// 'user_pass' => wp_generate_password()
-		// ) );
-		// }
-		// }
-		// }
 	}
 
 	$listing = apply_filters( 'wpbpd_save_listing_data', $listing, $context );
@@ -149,7 +72,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 
 	$listing_obj = wpbdp_get_listing( $listing_id );
 	$listing_obj->set_categories( $categories );
-	$listing_obj->set_images( $images, $append_images );
+	$listing_obj->set_images( $images, ! empty( $args['append_images'] ) );
 
 	foreach ( $fields as $field_id => $field_value ) {
 		$field = wpbdp_get_form_field( $field_id );
@@ -202,6 +125,74 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 }
 
 /**
+ * This function is not intended to be used publically.
+ *
+ * @since x.x
+ *
+ * @param array $args
+ *
+ * @return array
+ */
+function wpbdp_prep_listing_args( $args ) {
+	$listing                = array();
+	$listing['listing_id']  = ! empty( $args['listing_id'] ) ? absint( $args['listing_id'] ) : 0;
+	$listing['sequence_id'] = ! empty( $args['sequence_id'] ) ? $args['sequence_id'] : '';
+
+	// Basic post info.
+	$listing['post_title']   = ! empty( $args['post_title'] ) ? $args['post_title'] : '';
+	$listing['post_content'] = ! empty( $args['post_content'] ) ? $args['post_content'] : '';
+	$listing['post_excerpt'] = ! empty( $args['post_excerpt'] ) ? $args['post_excerpt'] : '';
+	$listing['post_author']  = ( ! empty( $args['post_author'] ) ? absint( $args['post_author'] ) : ( ! empty( $args['user_id'] ) ? $args['user_id'] : 0 ) );
+	$listing['post_name']    = ! empty( $args['post_name'] ) ? $args['post_name'] : '';
+	$listing['post_status']  = ! empty( $args['post_status'] ) ? $args['post_status'] : ( $listing['listing_id'] ? wpbdp_get_option( 'edit-post-status' ) : 'pending' );
+
+	// Fields.
+	$listing['fields'] = ! empty( $args['fields'] ) ? $args['fields'] : array();
+	foreach ( array_keys( $listing['fields'] ) as $field_id ) {
+		$field_obj = wpbdp_get_form_field( $field_id );
+
+		if ( ! $field_obj ) {
+			unset( $listing['fields'][ $field_id ] );
+			continue;
+		}
+
+		$field_assoc = $field_obj->get_association();
+		if ( in_array( $field_assoc, array( 'title', 'excerpt', 'content' ) ) ) {
+			if ( empty( $listing[ 'post_' . $field_assoc ] ) ) {
+				$listing[ 'post_' . $field_assoc ] = $listing['fields'][ $field_id ];
+			}
+
+			unset( $listing['fields'][ $field_id ] );
+		}
+	}
+
+	// Images.
+	$listing['images'] = ! empty( $args['images'] ) ? $args['images'] : array();
+
+	// Categories.
+	$listing['categories'] = ! empty( $args['categories'] ) ? $args['categories'] : array();
+
+	// Plan.
+	$listing['plan_id'] = ! empty( $args['plan_id'] ) ? absint( $args['plan_id'] ) : 0;
+
+	// Expiration date.
+	$listing['expiration_date'] = '';
+	if ( ! empty( $args['expiration_date'] ) ) {
+		$listing['expiration_date'] = $args['expiration_date'];
+	} elseif ( ! empty( $args['expires_on'] ) ) {
+		$listing['expiration_date'] = $args['expires_on'];
+	}
+
+	if ( empty( $listing['post_title'] ) ) {
+		$listing['post_title'] = __( 'Untitled Listing', 'business-directory-plugin' );
+	}
+
+	if ( empty( $listing['post_author'] ) ) {
+		$listing['post_author'] = get_current_user_id();
+	}
+}
+
+/**
  * @since 5.0
  */
 function wpbdp_get_listing( $listing_id ) {
@@ -236,7 +227,12 @@ function wpbdp_get_listings_by_email( $email, $posts_per_page = -1, $offset = 0 
 		$field_id = $email_field->get_id();
 		$post_ids = array_merge(
 			$post_ids,
-			$wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND LOWER(meta_value) = %s", '_wpbdp[fields][' . $field_id . ']', strtolower( $email ) ) )
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND LOWER(meta_value) = %s", '_wpbdp[fields][' . $field_id . ']',
+					strtolower( $email )
+				)
+			)
 		);
 	}
 

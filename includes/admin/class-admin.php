@@ -92,12 +92,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
 			add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
-			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-post-new.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-term.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-post-new.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-term.php', array( $this, 'maybe_highlight_menu' ) );
 
 			// Clear listing page cache.
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
@@ -1374,8 +1374,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$this->messages[] = array(
 				sprintf(
-					_x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
-					$installed_version
+					_x(
+						'Business Directory Plugin requires PHP 5.6 or later, but your server is running version %s. Please ask your provider to upgrade in order to prevent any issues with the plugin.',
+						'admin',
+						'business-directory-plugin'
+					),
+					'<strong>' . $installed_version . '</strong>'
 				),
 				'notice-error is-dismissible',
 				array( 'dismissible-id' => 'server_requirements' ),
@@ -1397,7 +1401,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			if ( wpbdp_get_option( 'require-login' ) && ! get_option( 'users_can_register' ) ) {
 				$this->messages[] = array(
 					sprintf(
-						__( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
+						__(
+							'We noticed you want your Business Directory users to register before posting listings, but registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".',
+							'business-directory-plugin'
+						),
 						'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
 						'</a>'
 					),
@@ -1428,6 +1435,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'wpbdp_admin_directory_filter', array( $view, 'filter_query_pieces' ), 10, 2 );
 		}
 
+		/**
+		 * @return void
+		 */
 		public function maybe_highlight_menu() {
 			if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 				return;

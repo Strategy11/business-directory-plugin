@@ -80,6 +80,7 @@ final class WPBDP_FS {
 			}
 		}
 
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 		return ( is_dir( $path ) ? @rmdir( $path ) : @unlink( $path ) );
 	}
 

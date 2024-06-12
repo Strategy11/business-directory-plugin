@@ -1,5 +1,6 @@
 <?php
 
+// phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.NotAbsolutePath
 require_once 'class-show-category.php';
 
 class WPBDP__Views__Show_Tag extends WPBDP__Views__Show_Category {

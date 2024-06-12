@@ -180,7 +180,8 @@ class WPBDP__Assets {
 
 		// Enable `grunt-contrib-watch` livereload.
 		// Live reload server will be started with the watch task per target.
-		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && in_array( $_SERVER['REMOTE_ADDR'], array( '127.0.0.1', '::1' ) ) ) {
+		$ip = wpbdp_get_server_value( 'REMOTE_ADDR' );
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && in_array( $ip, array( '127.0.0.1', '::1' ) ) ) {
 			wp_enqueue_script( 'livereload', 'http://localhost:35729/livereload.js?snipver=1', array(), WPBDP_VERSION, true );
 		}
 	}

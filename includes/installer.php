@@ -153,7 +153,15 @@ class WPBDP_Installer {
             flags varchar(255) NOT NULL DEFAULT ''
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-		$schema['logs'] = "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
+		$schema['logs'] = $this->logs_schema();
+
+		return apply_filters( 'wpbdp_database_schema', $schema );
+	}
+
+	private function logs_schema() {
+		global $wpdb;
+
+		return "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             object_id bigint(20) NULL DEFAULT 0,
             rel_object_id bigint(20) NULL DEFAULT 0,
@@ -164,8 +172,6 @@ class WPBDP_Installer {
             message text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             data longblob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
-
-		return apply_filters( 'wpbdp_database_schema', $schema );
 	}
 
 	public function update_database_schema() {

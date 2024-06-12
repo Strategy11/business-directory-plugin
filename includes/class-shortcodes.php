@@ -104,7 +104,9 @@ class WPBDP__Shortcodes {
 		 * Used for: Shows the Advanced Search Screen on any single page.
 		 * Parameters:
 		 *  - form_only   Display search form only even after search is performed. Default is 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
-		 *  - return_url  After the search is performed, when no results are found, a "Return to Search" link is shown with this parameter as target. Default value is the URL of the Advanced Search screen. (Allowed Values: Any valid URL or 'auto' to mean the URL of the page where the shortcode is being used.)
+		 *  - return_url  After the search is performed, when no results are found, a "Return to Search" link is shown
+		 *                with this parameter as target. Default value is the URL of the Advanced Search screen.
+		 *                (Allowed Values: Any valid URL or 'auto' to mean the URL of the page where the shortcode is being used.)
 		 * Example:
 		 *  `[businessdirectory-search]`
 		 */
@@ -400,6 +402,7 @@ class WPBDP__Shortcodes {
 
 		return $this->display_listings(
 			array(
+				// phpcs:ignore WordPressVIPMinimum.Performance.OrderByRand
 				'orderby' => 'rand',
 			),
 			$sc_atts
@@ -981,20 +984,7 @@ class WPBDP__Shortcodes {
 
 	public function validate_attributes( &$sc_atts, $atts = array() ) {
 
-		if ( ! empty( $atts['pagination'] ) ) {
-			switch ( strtolower( $atts['pagination'] ) ) {
-				case '1':
-				case 'true':
-				case 'yes':
-					$sc_atts['pagination'] = true;
-					break;
-				case '0':
-				case 'false':
-				case 'no':
-				default:
-					$sc_atts['pagination'] = false;
-			}
-		}
+		$this->set_pagination_attribute( $atts, $sc_atts );
 
 		// Backward compatibility for `limit` parameter
 		if ( ! empty( $sc_atts['limit'] ) ) {
@@ -1011,6 +1001,28 @@ class WPBDP__Shortcodes {
 
 		if ( isset( $sc_atts['pagination'] ) && ! $sc_atts['pagination'] ) {
 			$sc_atts['items_per_page'] = -1;
+		}
+	}
+
+	/**
+	 * @return void
+	 */
+	private function set_pagination_attribute( $atts, &$sc_atts ) {
+		if ( empty( $atts['pagination'] ) ) {
+			return;
+		}
+
+		switch ( strtolower( $atts['pagination'] ) ) {
+			case '1':
+			case 'true':
+			case 'yes':
+				$sc_atts['pagination'] = true;
+				break;
+			case '0':
+			case 'false':
+			case 'no':
+			default:
+				$sc_atts['pagination'] = false;
 		}
 	}
 

@@ -229,15 +229,14 @@ class WPBDP_FormFieldsAdmin {
 		}
 
 		if ( ! wpbdp_get_option( 'override-email-blocking' ) && $field->has_validator( 'email' ) && ( $field->display_in( 'excerpt' ) || $field->display_in( 'listing' ) ) ) {
-			$msg = _x(
-				'<b>Important</b>: Since the "<a>Display email address fields publicly?</a>" setting is disabled, display settings below will not be honored and this field will not be displayed on the frontend. If you want e-mail addresses to show on the frontend, you can <a>enable public display of e-mails</a>.',
-				'form-fields admin',
-				'business-directory-plugin'
-			);
-			$msg = str_replace(
-				'<a>',
+			$msg = sprintf(
+				_x(
+					'Important: Since "display email address fields publicly" is off, this field will not be displayed on the frontend. If you want email addresses to show on the frontend, you can %1$senable public display of emails%2$s.',
+					'form-fields admin',
+					'business-directory-plugin'
+				),
 				'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '">',
-				$msg
+				'</a>'
 			);
 			wpbdp_admin_message( $msg, 'notice-error is-dismissible', array( 'dismissible-id' => 'public_emails' ) );
 		}

@@ -22,7 +22,13 @@ WPBDP_Admin_Pages::show_tabs(
 <div class="wpbdp-settings-tab-subtabs wpbdp-clearfix">
 	<ul class="subsubsub wpbdp-sub-menu">
 		<?php foreach ( $debug_info as $section_id => &$section ) : ?>
-			<li><a class="current-nav" href="<?php echo esc_attr( $section_id ); ?>"><?php echo esc_html( $section['_title'] ); ?></a></li>
+			<li>
+				<a class="current-nav"
+					href="<?php echo esc_attr( $section_id ); // phpcs:ignore WordPressVIPMinimum.Security.ProperEscapingFunction.hrefSrcEscUrl ?>"
+					>
+					<?php echo esc_html( $section['_title'] ); ?>
+				</a>
+			</li>
 		<?php endforeach; ?>
 	</ul>
 </div>
@@ -38,14 +44,14 @@ WPBDP_Admin_Pages::show_tabs(
 			}
 			?>
 		<tr>
-			<th scope="row"><?php echo esc_attr( $k ); ?></th>
+			<th scope="row"><?php echo esc_html( $k ); ?></th>
 			<td>
 				<?php
 				if ( is_array( $v ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo isset( $v['html'] ) ? $v['html'] : esc_attr( $v['value'] );
+					echo isset( $v['html'] ) ? $v['html'] : esc_html( $v['value'] );
 				} else {
-					echo esc_attr( $v );
+					echo esc_html( $v );
 				}
 				?>
 			</td>

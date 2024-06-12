@@ -77,7 +77,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 		return explode( ',', $input );
 	}
 
-	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		$options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 		$value   = is_array( $value ) ? $value : array( $value );
 
@@ -186,32 +186,64 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			return $html;
 		}
 
-			$html .= sprintf(
-				'<select id="%s" name="%s" %s class="%s %s" %s>',
-				'wpbdp-field-' . $field->get_id(),
-				'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
-				$this->is_multiple() ? 'multiple="multiple"' : '',
-				'inselect',
-				$field->is_required() ? 'required' : '',
-				$this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : ''
-			);
+		$html = $this->start_select_html( $field );
 
 		if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
 			$html .= '<option value="-1"> </option>';
 		}
 
-			$show_empty_option = $field->data( 'show_empty_option', null );
+		$html .= $this->add_empty_option( $field );
+		$html .= $this->add_options_to_field( $options, $value, $field );
+		$html .= '</select>';
+
+		return $html;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function start_select_html( $field ) {
+		return sprintf(
+			'<select id="%s" name="%s" %s class="%s %s" %s>',
+			'wpbdp-field-' . $field->get_id(),
+			'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
+			$this->is_multiple() ? 'multiple="multiple"' : '',
+			'inselect',
+			$field->is_required() ? 'required' : '',
+			$this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : ''
+		);
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function add_empty_option( $field ) {
+		$show_empty_option = $field->data( 'show_empty_option', null );
 
 		if ( is_null( $show_empty_option ) ) {
 			$show_empty_option = ! $field->has_validator( 'required' );
 		}
 
+		$html = '';
 		if ( $show_empty_option ) {
 			$default_label      = __( '— None —', 'business-directory-plugin' );
 			$empty_option_label = $field->data( 'empty_option_label', $default_label );
 			$html              .= '<option value="">' . esc_html( $empty_option_label ) . '</option>';
 		}
+		return $html;
+	}
 
+	/**
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function add_options_to_field( $options, $value, $field ) {
+		$html = '';
 		foreach ( $options as $option => $label ) {
 			$option_data = array(
 				'label'      => $label,
@@ -233,9 +265,6 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 				esc_html( $option_data['label'] )
 			);
 		}
-
-			$html .= '</select>';
-
 		return $html;
 	}
 

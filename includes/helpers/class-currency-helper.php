@@ -167,7 +167,7 @@ class WPBDP_Currency_Helper {
 	/**
 	 * @since 6.2.7
 	 */
-	public static function get_currencies( $currency = false ) {
+	public static function get_currencies( $currency = false ) { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		$currencies = array(
 			'AUD' => array(
 				'name'               => __( 'Australian Dollar', 'business-directory-plugin' ),

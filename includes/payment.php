@@ -171,6 +171,7 @@ if ( ! class_exists( 'WPBDP_PaymentsAPI' ) ) {
 			);
 
 			wp_redirect( $url );
+			exit;
 		}
 
 		public function check_listing_payment_status( $status, $listing ) {

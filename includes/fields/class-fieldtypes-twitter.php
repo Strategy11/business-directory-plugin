@@ -69,7 +69,11 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 			substr( get_bloginfo( 'language' ), 0, 2 ),
 			$value
 		);
-		$html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+		$html .= '<script>' .
+			'!function(d,s,id){' .
+			'var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";' .
+			'fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");' .
+			'</script>';
 		$html .= '</div>';
 
 		return $html;

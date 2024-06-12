@@ -29,6 +29,7 @@
 		<exclude name="WordPress.DateTime.RestrictedFunctions.date_date" />
 
 		<!-- Temporary exclusions -->
+		<exclude name="Generic.PHP.NoSilencedErrors.Forbidden" />
 		<exclude name="WordPress.PHP.DontExtract.extract_extract" />
 		<exclude name="WordPress.Security.NonceVerification.Missing" />
 		<exclude name="WordPress.DB.PreparedSQL.InterpolatedNotPrepared" />
@@ -82,6 +83,52 @@
 			<property name="customAutoEscapedFunctions" type="array" value="wpbdp_sanitize_value,wpbdp_get_server_value,wpbdp_render_page,wpbdp_admin_footer,wpbdp_render,wpbdp_render_msg,wp_nonce_url"/>
 		</properties>
 	</rule>
+
+	<rule ref="WordPressVIPMinimum">
+		<exclude name="WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout" />
+		<exclude name="WordPressVIPMinimum.Variables.RestrictedVariables.user_meta__wpdb__users" />
+		<exclude name="WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink" />
+		<exclude name="WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_fwrite" />
+		<exclude name="WordPressVIPMinimum.Functions.RestrictedFunctions.term_exists_term_exists" />
+	</rule>
+
+	<!-- Treat these warnings as errors -->
+	<rule ref="Generic.Formatting.MultipleStatementAlignment.NotSameWarning">
+		<severity>8</severity>
+		<type>error</type>
+	</rule>
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned">
+		<severity>8</severity>
+		<type>error</type>
+	</rule>
+
+	<!-- Add some rules from the Slevomat Coding Standard -->
+	<rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
+
+	<rule ref="SlevomatCodingStandard.Files.LineLength">
+		<properties>
+			<property name="lineLengthLimit" value="250" />
+		</properties>
+		<exclude-pattern>tests/*</exclude-pattern>
+		<exclude-pattern>templates/*</exclude-pattern>
+		<exclude-pattern>views/*</exclude-pattern>
+	</rule>
+
+	<rule ref="SlevomatCodingStandard.Functions.FunctionLength">
+		<properties>
+			<property name="maxLinesLength" value="100" />
+		</properties>
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+
+	<!-- Set rules for Cognitive Complexity -->
+	<rule ref="SlevomatCodingStandard.Complexity.Cognitive">
+		<properties>
+			<property name="warningThreshold" value="32" />
+			<property name="errorThreshold" value="10" />
+		</properties>
+	</rule>
+	<rule ref="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh"/>
 
 	<!-- Check for cross-version support for PHP 7 and higher. -->
 	<config name="testVersion" value="7.0-" />

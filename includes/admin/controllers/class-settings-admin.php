@@ -451,7 +451,11 @@ class WPBDP__Settings_Admin {
 		$n = 0;
 		foreach ( $setting['options'] as $option_value => $option_label ) {
 			echo '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . absint( $n ) . '">';
-			echo '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
+			echo '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" ' .
+				'id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" ' .
+				'value="' . esc_attr( $option_value ) . '" ' .
+				checked( in_array( $option_value, $value ), true, false ) .
+				' />';
 			echo '<label for="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '">';
 			echo esc_html( $option_label );
 			echo '</label>';
@@ -586,7 +590,11 @@ class WPBDP__Settings_Admin {
 	}
 
 	public function setting_url_callback( $setting, $value ) {
-		echo '<input type="url" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
+		echo '<input type="url" id="' . esc_attr( $setting['id'] ) . '" ' .
+			'name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" ' .
+			'value="' . esc_attr( $value ) . '" ' .
+			'placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" ' .
+			'/>';
 	}
 
 	public function setting_color_callback( $setting, $value ) {
@@ -795,13 +803,28 @@ class WPBDP__Settings_Admin {
 				foreach ( array( '+', '-' ) as $sign ) {
 					switch ( $unit ) {
 						case 'days':
-							$label = sprintf( '+' == $sign ? _nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 						case 'weeks':
-							$label = sprintf( '+' == $sign ? _nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 						case 'months':
-							$label = sprintf( '+' == $sign ? _nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 					}
 

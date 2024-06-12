@@ -285,24 +285,10 @@ class WPBDP_Listing_Display_Helper {
 		}
 
 		// Main image.
-		$main_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
-		$data_main = wp_get_attachment_image_src( $thumbnail_id, $main_size, false );
-
+		$vars['images']->main = false;
 		if ( $thumbnail_id && $show_bd_thumb ) {
-			$pass_args['link']  = 'picture';
-			$pass_args['class'] = 'wpbdp-single-thumbnail';
-
-			$main_image         = new StdClass();
-			$main_image->id     = $thumbnail_id;
-			$main_image->html   = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
-			$main_image->url    = $data_main[0];
-			$main_image->width  = $data_main[1];
-			$main_image->height = $data_main[2];
-		} else {
-			$main_image = false;
+			$vars['images']->main = self::get_main_image( $listing_id, $thumbnail_id, $pass_args, $display );
 		}
-
-		$vars['images']->main = $main_image;
 
 		// Other images.
 		$listing_images = $listing->get_images( 'ids', true );
@@ -349,6 +335,27 @@ class WPBDP_Listing_Display_Helper {
 		}
 
 		return $vars;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return object
+	 */
+	private static function get_main_image( $listing_id, $thumbnail_id, $pass_args, $display ) {
+		$main_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
+		$data_main = wp_get_attachment_image_src( $thumbnail_id, $main_size, false );
+
+		$pass_args['link']  = 'picture';
+		$pass_args['class'] = 'wpbdp-single-thumbnail';
+
+		$main_image         = new StdClass();
+		$main_image->id     = $thumbnail_id;
+		$main_image->html   = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
+		$main_image->url    = $data_main[0];
+		$main_image->width  = $data_main[1];
+		$main_image->height = $data_main[2];
+		return $main_image;
 	}
 
 	/**

@@ -24,7 +24,8 @@ class WPBDP__Listing_Expiration {
 
 		$listings = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT p.ID FROM {$wpdb->posts} p JOIN {$wpdb->prefix}wpbdp_listings l ON l.listing_id = p.ID WHERE p.post_type = %s AND p.post_status != %s AND l.expiration_date IS NOT NULL AND l.expiration_date < %s AND l.listing_status NOT IN (%s, %s)",
+				"SELECT p.ID FROM {$wpdb->posts} p JOIN {$wpdb->prefix}wpbdp_listings l ON l.listing_id = p.ID " .
+				'WHERE p.post_type = %s AND p.post_status != %s AND l.expiration_date IS NOT NULL AND l.expiration_date < %s AND l.listing_status NOT IN (%s, %s)',
 				WPBDP_POST_TYPE,
 				'auto-draft',
 				current_time( 'mysql' ),

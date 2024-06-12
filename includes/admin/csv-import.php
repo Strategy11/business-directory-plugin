@@ -325,12 +325,12 @@ class WPBDP_CSVImportAdmin {
 		$import_dir = $this->get_imports_dir();
 
 		if ( $import_dir && ! is_dir( $import_dir ) ) {
-			@mkdir( $import_dir, 0777 );
+			wp_mkdir_p( $import_dir );
 		}
 
 		$files = array();
 
-		if ( ! $import_dir || ! is_dir( $import_dir ) || ! is_writable( $import_dir ) ) {
+		if ( ! $import_dir || ! is_dir( $import_dir ) || ! wp_is_writable( $import_dir ) ) {
 			wpbdp_admin_message(
 				sprintf(
 					__(
