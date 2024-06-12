@@ -8,23 +8,6 @@
  */
 class WPBDP_Payment extends WPBDP__DB__Model {
 
-	public $id;
-	public $listing_id;
-	public $payment_key;
-	public $payment_type;
-	public $payment_items;
-	public $payer_email;
-	public $payer_first_name;
-	public $payer_last_name;
-	public $payer_data;
-	public $gateway;
-	public $gateway_data;
-	public $status;
-	public $amount;
-	public $context;
-	public $is_test;
-	public $created_at;
-
 	public static $serialized = array( 'payment_items', 'payer_data', 'data' );
 
 	private $old_status = '';
