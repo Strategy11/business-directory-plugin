@@ -20,7 +20,7 @@ modules:
             urlReplacement: true #replace the hardcoded dump URL with the one above
             tablePrefix: 'wpl_'
         WPLoader:
-            loadOnly: false
+            loadOnly: true
             multisite: false
             wpRootFolder: "/tmp/wordpress/src/"
             dbName: "wordpress_tests"
