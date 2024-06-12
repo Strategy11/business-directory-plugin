@@ -36,9 +36,9 @@
 			"phpstan/extension-installer": true
 		},
 		"platform": {
-            "php": "8.2",
-			"ext-mysqli": "8.2",
-			"ext-zip": "8.2"
+            "php": "8.0",
+			"ext-mysqli": "8.0",
+			"ext-zip": "8.0"
         }
 	},
 	"scripts": {

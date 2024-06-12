@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: 8.2
+          - php: 8.0
             wordpress: master
           - php: 7.4
             wordpress: 5.8
