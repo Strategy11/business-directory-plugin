@@ -1139,7 +1139,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.4
 	 */
 	private function show_no_plans_error() {
 		$msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
@@ -1160,7 +1160,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.4
 	 */
 	private function show_no_categories_error() {
 		$msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'business-directory-plugin' );

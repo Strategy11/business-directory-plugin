@@ -593,7 +593,7 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 /**
  * This function isn't intended to be used publically.
  *
- * @since x.x
+ * @since 6.4.4
  *
  * @return void
  */
