@@ -9,14 +9,15 @@ on:
 jobs:
   build-test:
     if: contains(github.event.pull_request.labels.*.name, 'run analysis')
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
           - php: 7.4
-            wordpress: master
-          - php: 7.4
             wordpress: 5.8
+          - php: 7.4
+            wordpress: master
+
     name: PHP ${{ matrix.php }} tests in WP ${{ matrix.wordpress }}
     steps:
       - uses: actions/checkout@v3.5.0

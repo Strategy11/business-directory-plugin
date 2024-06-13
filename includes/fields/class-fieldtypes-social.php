@@ -81,7 +81,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		$field->set_data( 'display_order', $order );
 	}
 
-	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) { // phpcs:ignore SlevomatCodingStandard
 		if ( 'search' === $context ) {
 			return '';
 		}
@@ -126,107 +126,105 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		$html .= '</div>';
 
 		$html .= '<div class="wpbdp-social-type-field wpbdp-grid">';
-		$html .= $this->icon_input( $field, $value, $context, $extra );
+
+		$icon_input = sprintf(
+			'<input type="hidden" name="listingfields[%1$s][type]" value="">
+            <input type="hidden" name="listingfields[%1$s][social-icon]" value="">',
+			$field->get_id()
+		);
+
+		if ( 'text_only' !== $field->data( 'display_order' ) ) {
+			$icon_input = sprintf(
+				'<label><span class="sublabel">%s</span></label>',
+				esc_html__( 'Type', 'business-directory-plugin' )
+			);
+
+			foreach ( $this->social_types as $type ) {
+				$sanitized_type = sanitize_title_with_dashes( $type );
+				$label          = $type;
+				if ( strpos( $type, 'Twitter' ) !== false ) {
+					$sanitized_type = 'x-twitter';
+					$label          = __( 'X (formerly Twitter)', 'business-directory-plugin' );
+				}
+				$css_classes = array(
+					'wpbdp-inner-social-field-option',
+					'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) ),
+					'wpbdp-half',
+				);
+
+				$icon_input .= sprintf(
+					'<div class="%2$s"><label><input id="wpbdp-field-%1$s-%4$s" type="radio" name="%3$s" value="%4$s" %5$s /> %6$s</label></div>',
+					$field->get_id(),
+					implode( ' ', $css_classes ),
+					'listingfields[' . $field->get_id() . '][type]',
+					$type,
+					! empty( $value['type'] ) && $type === $value['type'] ? 'checked="checked"' : '',
+					'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( $sanitized_type ) . '"></i> ' . esc_html( $label )
+				);
+			}
+
+			$icon = ! empty( $value['social-icon'] ) ? $value['social-icon'] : 0;
+
+			$icon_input .= sprintf(
+				'<input type="hidden" name="listingfields[%d][social-icon]" value="%s" />',
+				$field->get_id(),
+				$icon
+			);
+
+			$icon_input .= '<div class="preview"' . ( ! $icon ? ' style="display: none;"' : '' ) . '>';
+			if ( $icon ) {
+				$icon_input .= wp_get_attachment_image( $icon, 'wpbdp-thumb', false );
+			}
+
+			$icon_input .= sprintf(
+				'<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
+				$field->get_id(),
+				'listingfields[' . $field->get_id() . '][social-icon]',
+				_x( 'Remove', 'form-fields-api', 'business-directory-plugin' )
+			);
+
+			$icon_input .= '</div>';
+
+			$listing_id = 0;
+			if ( 'submit' === $context ) {
+				$listing_id = $extra->get_id();
+			} elseif ( is_admin() ) {
+				global $post;
+				if ( ! empty( $post ) && WPBDP_POST_TYPE === $post->post_type ) {
+					$listing_id = $post->ID;
+				}
+			}
+
+			$nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
+			$ajax_url = add_query_arg(
+				array(
+					'action'     => 'wpbdp-file-field-upload',
+					'field_id'   => $field->get_id(),
+					'element'    => 'listingfields[' . $field->get_id() . '][social-icon]',
+					'nonce'      => $nonce,
+					'listing_id' => $listing_id,
+				),
+				admin_url( 'admin-ajax.php' )
+			);
+
+			$show_it     = ! empty( $value['type'] ) && 'Other' === $value['type'] ? '' : ' style="display:none"';
+			$icon_input .= '<div class="wpbdp-upload-widget" ' . $show_it . '>';
+			$icon_input .= sprintf(
+				'<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
+				esc_attr( $field->get_id() ),
+				esc_attr( $field->get_id() ),
+				esc_url( $ajax_url )
+			);
+			$icon_input .= '</div>';
+		}
+
+		$html .= $icon_input;
+
 		$html .= '</div>';
 
 		$html = '<div class="wpbdp-grid">' . $html . '</div>';
 
 		return $html;
-	}
-
-	private function icon_input( $field, $value, $context, $extra ) {
-		if ( 'text_only' === $field->data( 'display_order' ) ) {
-			return sprintf(
-				'<input type="hidden" name="listingfields[%1$s][type]" value="">
-				<input type="hidden" name="listingfields[%1$s][social-icon]" value="">',
-				$field->get_id()
-			);
-		}
-
-		$icon_input = sprintf(
-			'<label><span class="sublabel">%s</span></label>',
-			esc_html__( 'Type', 'business-directory-plugin' )
-		);
-
-		foreach ( $this->social_types as $type ) {
-			$sanitized_type = sanitize_title_with_dashes( $type );
-			$label          = $type;
-			if ( strpos( $type, 'Twitter' ) !== false ) {
-				$sanitized_type = 'x-twitter';
-				$label          = __( 'X (formerly Twitter)', 'business-directory-plugin' );
-			}
-			$css_classes = array(
-				'wpbdp-inner-social-field-option',
-				'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) ),
-				'wpbdp-half',
-			);
-
-			$icon_input .= sprintf(
-				'<div class="%2$s"><label><input id="wpbdp-field-%1$s-%4$s" type="radio" name="%3$s" value="%4$s" %5$s /> %6$s</label></div>',
-				$field->get_id(),
-				implode( ' ', $css_classes ),
-				'listingfields[' . $field->get_id() . '][type]',
-				$type,
-				! empty( $value['type'] ) && $type === $value['type'] ? 'checked="checked"' : '',
-				'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( $sanitized_type ) . '"></i> ' . esc_html( $label )
-			);
-		}
-
-		$icon = ! empty( $value['social-icon'] ) ? $value['social-icon'] : 0;
-
-		$icon_input .= sprintf(
-			'<input type="hidden" name="listingfields[%d][social-icon]" value="%s" />',
-			$field->get_id(),
-			$icon
-		);
-
-		$icon_input .= '<div class="preview"' . ( ! $icon ? ' style="display: none;"' : '' ) . '>';
-		if ( $icon ) {
-			$icon_input .= wp_get_attachment_image( $icon, 'wpbdp-thumb', false );
-		}
-
-		$icon_input .= sprintf(
-			'<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(%d, \'%s\');">%s</a>',
-			$field->get_id(),
-			'listingfields[' . $field->get_id() . '][social-icon]',
-			_x( 'Remove', 'form-fields-api', 'business-directory-plugin' )
-		);
-
-		$icon_input .= '</div>';
-
-		$listing_id = 0;
-		if ( 'submit' === $context ) {
-			$listing_id = $extra->get_id();
-		} elseif ( is_admin() ) {
-			global $post;
-			if ( ! empty( $post ) && WPBDP_POST_TYPE === $post->post_type ) {
-				$listing_id = $post->ID;
-			}
-		}
-
-		$nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
-		$ajax_url = add_query_arg(
-			array(
-				'action'     => 'wpbdp-file-field-upload',
-				'field_id'   => $field->get_id(),
-				'element'    => 'listingfields[' . $field->get_id() . '][social-icon]',
-				'nonce'      => $nonce,
-				'listing_id' => $listing_id,
-			),
-			admin_url( 'admin-ajax.php' )
-		);
-
-		$show_it     = ! empty( $value['type'] ) && 'Other' === $value['type'] ? '' : ' style="display:none"';
-		$icon_input .= '<div class="wpbdp-upload-widget" ' . $show_it . '>';
-		$icon_input .= sprintf(
-			'<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
-			esc_attr( $field->get_id() ),
-			esc_attr( $field->get_id() ),
-			esc_url( $ajax_url )
-		);
-		$icon_input .= '</div>';
-
-		return $icon_input;
 	}
 
 	public function get_supported_associations() {
