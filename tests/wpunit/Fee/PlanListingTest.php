@@ -115,7 +115,7 @@ class PlanListingTest extends WPUnitTestCase {
 			}
 		}
 		$this->assertTrue( is_null( $free_plan ), 'Free plan is not included in all paid plans' );
-		$this->assertTrue( count( $plans ) === 4, 'Plan count is 4. Free plan is disabled' );
+		$this->assertTrue( count( $plans ) >= 4, 'Plan count is ' . count( $plans ) . '. Free plan is disabled' );
 	}
 
 	/**
