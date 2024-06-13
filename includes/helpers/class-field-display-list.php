@@ -13,13 +13,6 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	private $names_to_ids     = array();
 	private $has_excerpt      = false;
 
-	public $t_address;
-	public $t_address2;
-	public $t_city;
-	public $t_state;
-	public $t_country;
-	public $t_zip;
-
 	public function __construct( $listing_id, $display, $fields = array() ) {
 		$this->listing_id = $listing_id;
 		$this->display    = $display;
@@ -317,7 +310,6 @@ class _WPBDP_Lightweight_Field_Display_Item {
 	public $field       = null;
 	private $listing_id = 0;
 	private $display    = '';
-	public $id          = 0;
 
 	private $html_  = null;
 	private $value_ = null;
