@@ -346,7 +346,8 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 				}
 			}
 
-			return $unique ? ( $res ? $res[0] : null ) : $res;
+			$res = $unique ? ( $res ? $res[0] : null ) : $res;
+			return $res;
 		}
 
 		public function get_missing_required_fields() {
