@@ -375,7 +375,7 @@ class WPBDP_Form_Field {
 	 * @param string $key configuration key name.
 	 * @param mixed  $value data value.
 	 *
-	 * @return mixed data value.
+	 * @return void
 	 */
 	public function set_data( $key, $value = null ) {
 		$this->field_data[ $key ] = $value;
@@ -632,7 +632,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @return mixed True if successfully created, WP_Error in the other case
 	 */
-	public function save() {
+	public function save() { // phpcs:ignore SlevomatCodingStandard.Complexity
 		global $wpdb;
 
 		$api = wpbdp_formfields_api();
@@ -657,7 +657,11 @@ class WPBDP_Form_Field {
 			if ( $orig_type != $new_type ) {
 				if ( 'url' == $new_type || 'image' == $new_type || 'url' == $orig_type || 'image' == $orig_type ) {
 					$this->type = WPBDP_FormFields::instance()->get_field_type( $orig_type );
-					$error_msg  = _x( 'You can\'t change from %2$s field type to the one you wanted--the types are incompatible internally. If you want to switch to a field of type %1$s, delete this current field and create a NEW field of type %1$s instead.', 'form-fields-api', 'business-directory-plugin' );
+					$error_msg  = _x(
+						'You can\'t change from %2$s field type to the one you wanted--the types are incompatible internally. If you want to switch to a field of type %1$s, delete this current field and create a NEW field of type %1$s instead.',
+						'form-fields-api',
+						'business-directory-plugin'
+					);
 
 					if ( WPBDP_Listing::count_listings() ) {
 						$error_msg .= '<br/><br/>' . _x( '<strong>WARNING</strong>: If you delete this field, the data from it in existing listings will be deleted as well.', 'form-fields-api', 'business-directory-plugin' );
@@ -742,6 +746,7 @@ class WPBDP_Form_Field {
 		}
 
 		$this->clear_field_cache();
+		return true;
 	}
 
 	/**
@@ -877,7 +882,7 @@ class WPBDP_Form_Field {
 	/**
 	 * @since 5.0
 	 */
-	public function configure_search( $query, &$search ) {
+	public function configure_search( $query, &$search ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		global $wpdb;
 
 		// Check if the search has been short-circuited.

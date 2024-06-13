@@ -9,8 +9,8 @@ class WPBDP_Themes_Admin {
 	private $outdated_themes = array();
 
 	function __construct( &$api, $licensing ) {
-		$this->api             = $api;
-		$this->licensing       = $licensing;
+		$this->api       = $api;
+		$this->licensing = $licensing;
 
 		add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
 		add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
@@ -315,12 +315,8 @@ class WPBDP_Themes_Admin {
 			$removed = WPBDP_FS::rmdir( $path );
 		}
 
-		if ( $removed ) {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=4&deleted=' . $theme_id ) );
-		} else {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
-		}
-
+		$message = $removed ? 4 : 5;
+		wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=' . $message . '&deleted=' . $theme_id ) );
 		exit;
 	}
 

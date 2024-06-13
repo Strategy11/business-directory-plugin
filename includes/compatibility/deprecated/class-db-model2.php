@@ -173,7 +173,7 @@ class WPBDP_DB_Model2 {
 		throw new Exception( 'find() method not implemented.' );
 	}
 
-	protected static function _find( $id, $args = array(), $table = '', $classname = '' ) {
+	protected static function _find( $id, $args = array(), $table = '', $classname = '' ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		if ( ! $table || ! $classname || ! class_exists( $classname ) ) {
 			throw new Exception( 'Please provide a table and class name.' );
 		}

@@ -39,6 +39,9 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		if ( array_key_exists( 'x_open_in_new_window', $_POST['field'] ) ) {
 			$open_in_new_window = (bool) intval( $_POST['field']['x_open_in_new_window'] );

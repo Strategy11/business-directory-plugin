@@ -425,7 +425,7 @@ class WPBDP__Settings {
 		update_option( 'wpbdp_settings', $this->options );
 	}
 
-	public function validate_setting( $value, $setting_id ) {
+	public function validate_setting( $value, $setting_id ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		$on_admin = ! empty( $_POST['_wp_http_referer'] );
 		if ( ! $on_admin ) {
 			return $value;

@@ -202,7 +202,7 @@ wpbdp_admin_notices();
 							endforeach;
 						else :
 							?>
-							<select name="field[supported_categories][]" multiple="multiple" placeholder="<?php esc_html_e( 'Click to add categories to the selection.', 'business-directory-plugin' ); ?>">
+							<select name="field[supported_categories][]" multiple="multiple" placeholder="<?php esc_attr_e( 'Click to add categories to the selection.', 'business-directory-plugin' ); ?>">
 								<?php foreach ( $all_categories as $category ) : ?>
 									<option value="<?php echo absint( $category->term_id ); ?>" <?php selected( in_array( (int) $category->term_id, $supported_categories ) ); ?>>
 										<?php echo esc_html( $category->name ); ?>

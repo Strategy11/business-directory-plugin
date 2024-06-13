@@ -77,7 +77,10 @@ class WPBDP__WP_Taxonomy_Term_List {
 
 		switch ( $this->args['input'] ) {
 			case 'checkbox':
-				$res .= '<input type="checkbox" class="term-cb" name="' . $this->args['input_name'] . '[]" value="' . $term->term_id . '" id="' . $this->id_for( $term ) . '" ' . checked( in_array( $term->term_id, $this->args['selected'], true ), true, false ) . '/>';
+				$res .= '<input type="checkbox" class="term-cb" name="' . $this->args['input_name'] . '[]" ' .
+					'value="' . $term->term_id . '" id="' . $this->id_for( $term ) . '" ' .
+					checked( in_array( $term->term_id, $this->args['selected'], true ), true, false ) .
+					'/>';
 				break;
 			case 'radio':
 				$res .= '<input type="radio" class="term-cb" name="' . $this->args['input_name'] . '" value="' . $term->term_id . '" id="' . $this->id_for( $term ) . '" />';

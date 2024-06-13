@@ -425,7 +425,7 @@ class WPBDP_Themes {
 			array( 'thumbnails', 'array', array() ),
 		);
 
-		$info = new StdClass();
+		$info = new stdClass();
 
 		foreach ( $theme_keys as $i ) {
 			list( $k, $type, $default ) = $i;
@@ -436,10 +436,6 @@ class WPBDP_Themes {
 				case 'email':
 				case 'url':
 					$value = is_string( $value ) ? $value : strval( $value );
-					break;
-
-				case 'int':
-					$value = is_numeric( $value ) ? intval( $value ) : null;
 					break;
 
 				case 'array':

@@ -12,6 +12,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	private $displayed_fields = array();
 	private $names_to_ids     = array();
 	private $has_excerpt      = false;
+
 	public function __construct( $listing_id, $display, $fields = array() ) {
 		$this->listing_id = $listing_id;
 		$this->display    = $display;

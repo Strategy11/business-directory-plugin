@@ -129,6 +129,7 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 			if ( function_exists( 'filter_var' ) ) {
 				$valid = filter_var( $value, FILTER_VALIDATE_EMAIL );
 			} else {
+				// phpcs:ignore SlevomatCodingStandard.Files.LineLength
 				$valid = (bool) preg_match( '/^(?!(?>\x22?(?>\x22\x40|\x5C?[\x00-\x7F])\x22?){255,})(?!(?>\x22?\x5C?[\x00-\x7F]\x22?){65,}@)(?>[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+|(?>\x22(?>[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|\x5C[\x00-\x7F])*\x22))(?>\.(?>[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+|(?>\x22(?>[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|\x5C[\x00-\x7F])*\x22)))*@(?>(?>(?!.*[^.]{64,})(?>(?>xn--)?[a-z0-9]+(?>-[a-z0-9]+)*\.){0,126}(?>xn--)?[a-z0-9]+(?>-[a-z0-9]+)*)|(?:\[(?>(?>IPv6:(?>(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){7})|(?>(?!(?:.*[a-f0-9][:\]]){8,})(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,6})?::(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,6})?)))|(?>(?>IPv6:(?>(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){5}:)|(?>(?!(?:.*[a-f0-9]:){6,})(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,4})?::(?>[a-f0-9]{1,4}(?>:[a-f0-9]{1,4}){0,4}:)?)))?(?>25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(?>\.(?>25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}))\]))$/isD', $value );
 			}
 
@@ -185,8 +186,16 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 			$value_  = str_replace( array( '/', '.', '-' ), '', $value );
 
 			if ( strlen( $format_ ) != strlen( $value_ ) ) {
-				/* translators: %1$s: field label, %2$s: format */
-				return WPBDP_ValidationError( ! empty( $args['messages']['incorrect_format'] ) ? $args['messages']['incorrect_format'] : sprintf( esc_html__( '%1$s must be in the format %2$s.', 'business-directory-plugin' ), esc_html( $args['field-label'] ), esc_html( $format ) ) );
+				return WPBDP_ValidationError(
+					! empty( $args['messages']['incorrect_format'] ) ?
+					$args['messages']['incorrect_format'] :
+					sprintf(
+						/* translators: %1$s: field label, %2$s: format */
+						esc_html__( '%1$s must be in the format %2$s.', 'business-directory-plugin' ),
+						esc_html( $args['field-label'] ),
+						esc_html( $format )
+					)
+				);
 			}
 
 			$d = '0';
@@ -232,8 +241,15 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 		/* Image Caption Validator */
 		private function caption_( $value, $args = array() ) {
 			if ( $args['caption_required'] && empty( $value[1] ) ) {
-				/* translators: %s: field label */
-				return WPBDP_ValidationError( ! empty( $args['messages']['caption_required'] ) ? $args['messages']['caption_required'] : sprintf( esc_html__( 'Caption for %s is required.', 'business-directory-plugin' ), esc_html( $args['field-label'] ) ) );
+				return WPBDP_ValidationError(
+					! empty( $args['messages']['caption_required'] ) ?
+					$args['messages']['caption_required'] :
+					sprintf(
+						/* translators: %s: field label */
+						esc_html__( 'Caption for %s is required.', 'business-directory-plugin' ),
+						esc_html( $args['field-label'] )
+					)
+				);
 			}
 		}
 

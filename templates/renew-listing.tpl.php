@@ -12,7 +12,7 @@
 
 	<?php if ( isset( $payment ) && $payment ) : ?>
 		<form action="<?php echo esc_url( $payment->get_checkout_url() ); ?>" method="POST">
-		<input type="submit" name="go-to-checkout" value="<?php echo esc_html_x( 'Proceed to Checkout', 'renewal', 'business-directory-plugin' ); ?>" />
+		<input type="submit" name="go-to-checkout" value="<?php echo esc_attr_x( 'Proceed to Checkout', 'renewal', 'business-directory-plugin' ); ?>" />
 		</form>
 	<?php else : ?>
 		<p>
@@ -34,12 +34,12 @@
 			);
 			?>
 
-			<p><input type="submit" class="submit" name="go-to-checkout" value="<?php echo esc_html_x( 'Continue', 'templates', 'business-directory-plugin' ); ?>" /></p>
+			<p><input type="submit" class="submit" name="go-to-checkout" value="<?php echo esc_attr_x( 'Continue', 'templates', 'business-directory-plugin' ); ?>" /></p>
 
 			<div class="do-not-renew-listing">
 				<p><?php echo esc_html_x( 'Clicking the button below will cause your listing to be permanently removed from the directory.', 'renewal', 'business-directory-plugin' ); ?></p>
 
-				<input type="submit" class="submit" name="cancel-renewal" value="<?php echo esc_html_x( 'Do not renew my listing', 'templates', 'business-directory-plugin' ); ?>" />
+				<input type="submit" class="submit" name="cancel-renewal" value="<?php echo esc_attr_x( 'Do not renew my listing', 'templates', 'business-directory-plugin' ); ?>" />
 			</div>
 		</form>
 	<?php endif; ?>

@@ -106,6 +106,7 @@ class WPBDP_CSVImportAdmin {
 		$term  = wpbdp_get_var( array( 'param' => 'term' ), 'request' );
 		$users = get_users( array( 'search' => "*{$term}*" ) );
 
+		$return = array();
 		foreach ( $users as $user ) {
 			$return[] = array(
 				'label' => "{$user->display_name} ({$user->user_login})",
@@ -325,12 +326,12 @@ class WPBDP_CSVImportAdmin {
 		$import_dir = $this->get_imports_dir();
 
 		if ( $import_dir && ! is_dir( $import_dir ) ) {
-			@mkdir( $import_dir, 0777 );
+			wp_mkdir_p( $import_dir );
 		}
 
 		$files = array();
 
-		if ( ! $import_dir || ! is_dir( $import_dir ) || ! is_writable( $import_dir ) ) {
+		if ( ! $import_dir || ! is_dir( $import_dir ) || ! wp_is_writable( $import_dir ) ) {
 			wpbdp_admin_message(
 				sprintf(
 					__(

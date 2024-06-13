@@ -97,12 +97,25 @@ final class WPBDP__Settings__Bootstrap {
 				'type'    => 'toggle',
 				'default' => true,
 				'name'    => _x( 'Remove listing ID from URLs for better SEO', 'settings', 'business-directory-plugin' ),
-				'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'business-directory-plugin' ) . ' ' . _x( 'IMPORTANT: subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
+				'tooltip' => _x( 'Prior to 3.5.1, we included the ID in the listing URL, like "/business-directory/1809/listing-title".', 'settings', 'business-directory-plugin' ) . ' ' .
+					_x( 'IMPORTANT: subpages of the main directory page cannot be accesed while this setting is checked.', 'admin settings', 'business-directory-plugin' ),
 				'group'   => 'permalink_settings',
 			)
 		);
 
-		// reCAPTCHA.
+		self::register_spam_settings();
+		self::register_registration_settings();
+		self::register_terms();
+		self::register_search_settings();
+		self::register_advanced_settings();
+	}
+
+	/**
+	 * ReCAPTCHA settings.
+	 *
+	 * @return void
+	 */
+	private static function register_spam_settings() {
 		wpbdp_register_settings_group(
 			'spam',
 			'SPAM',
@@ -187,6 +200,11 @@ final class WPBDP__Settings__Bootstrap {
 				'class'   => 'wpbdp-half',
 			)
 		);
+
+		self::register_recaptcha_version_settings();
+	}
+
+	private static function register_recaptcha_version_settings() {
 		wpbdp_register_setting(
 			array(
 				'id'           => 'recaptcha-version',
@@ -213,7 +231,11 @@ final class WPBDP__Settings__Bootstrap {
 				'min'          => 0,
 				'step'         => 0.1,
 				'max'          => 1,
-				'tooltip'      => _x( 'reCAPTCHA v3 returns a score (1.0 is very likely a good interaction, 0.0 is very likely a bot). Based on the score, you can take variable action in the context of your site. You can set here the score threshold, scores under this value will result in reCAPTCHA validation error.', 'settings', 'business-directory-plugin' ),
+				'tooltip'      => _x(
+					'reCAPTCHA v3 returns a score (1.0 is likely a good interaction, 0.0 is likely a bot). Scores under the score threshold will result in reCAPTCHA validation error.',
+					'settings',
+					'business-directory-plugin'
+				),
 				'group'        => 'recaptcha',
 				'grid_classes' => array(
 					'left'  => 'wpbdp8',
@@ -221,7 +243,9 @@ final class WPBDP__Settings__Bootstrap {
 				),
 			)
 		);
+	}
 
+	private static function register_registration_settings() {
 		wpbdp_register_settings_group(
 			'registration',
 			_x( 'Registration', 'settings', 'business-directory-plugin' ),
@@ -287,7 +311,9 @@ final class WPBDP__Settings__Bootstrap {
 				),
 			)
 		);
+	}
 
+	private static function register_terms() {
 		// Terms & Conditions.
 		wpbdp_register_settings_group( 'tos_settings', __( 'Terms and Conditions', 'business-directory-plugin' ), 'listings/main' );
 		wpbdp_register_setting(
@@ -311,8 +337,9 @@ final class WPBDP__Settings__Bootstrap {
 				'requirements' => array( 'display-terms-and-conditions' ),
 			)
 		);
+	}
 
-		// Search.
+	private static function register_search_settings() {
 		wpbdp_register_settings_group( 'search_settings', __( 'Searching', 'business-directory-plugin' ), 'listings' );
 
 		// Deprecated.
@@ -339,8 +366,9 @@ final class WPBDP__Settings__Bootstrap {
 		);
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'zip', 'search_settings' );
+	}
 
-		// Advanced settings.
+	private static function register_advanced_settings() {
 		wpbdp_register_settings_group( 'general/advanced', _x( 'Advanced', 'settings', 'business-directory-plugin' ), 'general' );
 
 		wpbdp_register_setting(
@@ -401,7 +429,11 @@ final class WPBDP__Settings__Bootstrap {
 		}
 
 		$too_many_fields  = '<span class="text-fields-warning wpbdp-note" style="display: none;">';
-		$too_many_fields .= _x( 'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.', 'admin settings', 'business-directory-plugin' );
+		$too_many_fields .= _x(
+			'You have selected a textarea field to be included in quick searches. Searches involving those fields are very expensive and could result in timeouts and/or general slowness.',
+			'admin settings',
+			'business-directory-plugin'
+		);
 		$too_many_fields .= '</span>';
 
 		$no_fields = '<p><strong>' . __( 'If no fields are selected, the following fields will be searched in Quick Searches:', 'business-directory-plugin' ) . ' ' . esc_html( implode( ', ', $default_fields ) ) . '.</strong></p>';
@@ -506,6 +538,15 @@ final class WPBDP__Settings__Bootstrap {
 			)
 		);
 
+		self::register_contact_settings();
+		self::register_misc_settings();
+		self::register_status_settings();
+		self::register_strings_settings();
+		self::register_category_settings();
+		self::register_sorting_settings();
+	}
+
+	private static function register_contact_settings() {
 		wpbdp_register_setting(
 			array(
 				'id'      => 'show-contact-form',
@@ -553,12 +594,19 @@ final class WPBDP__Settings__Bootstrap {
 				'requirements' => array( 'show-contact-form' ),
 			)
 		);
+	}
+
+	private static function register_misc_settings() {
 		wpbdp_register_setting(
 			array(
 				'id'      => 'allow-comments-in-listings',
 				'type'    => 'radio',
 				'name'    => _x( 'Include comment form on listing pages?', 'settings', 'business-directory-plugin' ),
-				'desc'    => __( 'Business Directory Plugin uses the standard WordPress comments. Most themes allow for comments on posts, not pages. Some themes handle both. Since the directory is displayed on a page, we need a theme that can handle both. Use the 2nd option if you want to allow comments on listings. If that doesn\'t work, try the 3rd option.', 'business-directory-plugin' ),
+				'desc'    => __(
+					// phpcs:ignore SlevomatCodingStandard.Files.LineLength
+					'Business Directory Plugin uses the standard WordPress comments. Most themes allow for comments on posts, not pages. Some themes handle both. Since the directory is displayed on a page, we need a theme that can handle both. Use the 2nd option if you want to allow comments on listings. If that doesn\'t work, try the 3rd option.',
+					'business-directory-plugin'
+				),
 				'default' => 'allow-comments-and-insert-template',
 				'options' => array(
 					'do-not-allow-comments'              => _x( 'Do not include comments in listings', 'admin settings', 'business-directory-plugin' ),
@@ -600,7 +648,11 @@ final class WPBDP__Settings__Bootstrap {
 				'name'         => __( 'Owner of anonymous listings', 'business-directory-plugin' ),
 				'type'         => 'text',
 				'default'      => '',
-				'tooltip'      => _x( 'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.', 'settings', 'business-directory-plugin' ),
+				'tooltip'      => _x(
+					'The user ID or login of an existing user account. If login is not required to submit listings, this user will own them. A site admin or another user that will not a be posting a listing is best.',
+					'settings',
+					'business-directory-plugin'
+				),
 				'group'        => 'registration',
 				'requirements' => array( '!require-login' ),
 				'grid_classes' => array(
@@ -609,7 +661,9 @@ final class WPBDP__Settings__Bootstrap {
 				),
 			)
 		);
+	}
 
+	private static function register_status_settings() {
 		wpbdp_register_setting(
 			array(
 				'id'      => 'new-post-status',
@@ -651,7 +705,9 @@ final class WPBDP__Settings__Bootstrap {
 				'group'   => 'listings/main',
 			)
 		);
+	}
 
+	private static function register_strings_settings() {
 		wpbdp_register_settings_group( 'listings/strings', __( 'Message Defaults', 'business-directory-plugin' ), 'listings/main' );
 		wpbdp_register_setting(
 			array(
@@ -699,7 +755,9 @@ final class WPBDP__Settings__Bootstrap {
 				'group'   => 'listings/strings',
 			)
 		);
+	}
 
+	private static function register_category_settings() {
 		wpbdp_register_setting(
 			array(
 				'id'      => 'categories-order-by',
@@ -754,7 +812,9 @@ final class WPBDP__Settings__Bootstrap {
 				'group'   => 'listings/post_category',
 			)
 		);
+	}
 
+	private static function register_sorting_settings() {
 		$msg = _x( 'Plan Custom Order can be changed under <a>Plans</a>', 'admin settings', 'business-directory-plugin' );
 		$msg = str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ) . '">', $msg );
 		wpbdp_register_setting(
@@ -828,7 +888,11 @@ final class WPBDP__Settings__Bootstrap {
 				'id'           => 'show-submit-listing',
 				'type'         => 'checkbox',
 				'name'         => _x( 'Show the "Submit listing" button', 'settings', 'business-directory-plugin' ),
-				'desc'         => _x( 'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)', 'settings', 'business-directory-plugin' ),
+				'desc'         => _x(
+					'Hides the button used by the main UI to allow listing submission, but does not shut off the use of the link for submitting listings (allows you to customize the submit listing button on your own)',
+					'settings',
+					'business-directory-plugin'
+				),
 				'default'      => true,
 				'group'        => 'display_options',
 				'requirements' => array( '!disable-submit-listing' ),
@@ -898,9 +962,24 @@ final class WPBDP__Settings__Bootstrap {
 
 		WPBDP_Admin_Education::add_tip_in_settings( 'table', 'themes' );
 
-		// Image.
+		self::register_image_settings();
+		self::register_thumbnail_settings();
+		self::register_default_image_settings();
+	}
+
+	private static function register_image_settings() { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		wpbdp_register_settings_group( 'appearance/image', __( 'Images', 'business-directory-plugin' ), 'appearance' );
-		wpbdp_register_settings_group( 'images/general', _x( 'Image Settings', 'settings', 'business-directory-plugin' ), 'appearance/image', array( 'desc' => 'Any changes to these settings will affect new listings only.  Existing listings will not be affected.  If you wish to change existing listings, you will need to re-upload the image(s) on that listing after changing things here.' ) );
+		wpbdp_register_settings_group(
+			'images/general',
+			_x( 'Image Settings', 'settings', 'business-directory-plugin' ),
+			'appearance/image',
+			array(
+				'desc' => 'Any changes to these settings will affect new listings only. ' .
+					'Existing listings will not be affected.  If you wish to change existing listings, ' .
+					'you will need to re-upload the image(s) on that listing after changing things here.',
+			)
+		);
+
 		wpbdp_register_setting(
 			array(
 				'id'      => 'allow-images',
@@ -1000,7 +1079,9 @@ final class WPBDP__Settings__Bootstrap {
 				'group'   => 'images/general',
 			)
 		);
+	}
 
+	private static function register_thumbnail_settings() {
 		wpbdp_register_settings_group( 'image/thumbnails', _x( 'Thumbnails', 'settings', 'business-directory-plugin' ), 'appearance/image' );
 
 		wpbdp_register_setting(
@@ -1035,7 +1116,12 @@ final class WPBDP__Settings__Bootstrap {
 				'name'    => _x( 'Main thumbnail image size', 'settings', 'business-directory-plugin' ),
 				'default' => 'wpbdp-thumb',
 				'options' => is_admin() ? self::get_registered_image_sizes() : array(),
-				'tooltip' => _x( 'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.', 'settings', 'business-directory-plugin' ),
+				'tooltip' => _x(
+					// phpcs:ignore SlevomatCodingStandard.Files.LineLength
+					'This indicates the size of the thumbnail to be used both in excerpt and detail views. For CROPPED image size values, we use the EXACT size defined. For all other values, we preserve the aspect ratio of the image and use the width as the starting point.',
+					'settings',
+					'business-directory-plugin'
+				),
 				'group'   => 'image/thumbnails',
 			)
 		);
@@ -1069,12 +1155,18 @@ final class WPBDP__Settings__Bootstrap {
 				'id'      => 'thumbnail-crop',
 				'type'    => 'toggle',
 				'name'    => _x( 'Crop thumbnails to exact dimensions', 'settings', 'business-directory-plugin' ),
-				'tooltip' => __( 'Images will use the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.', 'business-directory-plugin' ),
+				'tooltip' => __(
+					// phpcs:ignore SlevomatCodingStandard.Files.LineLength
+					'Images will use the dimensions above but part of the image may be cropped out. If disabled, image thumbnails will be resized to match the specified width and their height will be adjusted proportionally. Depending on the uploaded images, thumbnails may have different heights.',
+					'business-directory-plugin'
+				),
 				'default' => false,
 				'group'   => 'image/thumbnails',
 			)
 		);
+	}
 
+	private static function register_default_image_settings() {
 		wpbdp_register_settings_group( 'image/listings', __( 'Default Images', 'business-directory-plugin' ), 'appearance/image' );
 		wpbdp_register_setting(
 			array(
@@ -1310,7 +1402,15 @@ final class WPBDP__Settings__Bootstrap {
 				'id'           => 'payment-abandonment-threshold',
 				'type'         => 'number',
 				'name'         => _x( 'Listing abandonment threshold (hours)', 'settings', 'business-directory-plugin' ),
-				'desc'         => str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '#email-templates-payment-abandoned">', _x( 'Listings with pending payments are marked as abandoned after this time. You can also <a>customize the email</a> users receive.', 'admin settings', 'business-directory-plugin' ) ),
+				'desc'         => sprintf(
+					_x(
+						'Listings with pending payments are marked as abandoned after this time. You can also %1$scustomize the email%2$s users receive.',
+						'settings',
+						'business-directory-plugin'
+					),
+					'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '#email-templates-payment-abandoned">',
+					'</a>'
+				),
 				'default'      => '24',
 				'min'          => 0,
 				'step'         => 1,
@@ -1351,7 +1451,11 @@ final class WPBDP__Settings__Bootstrap {
 				'id'      => 'listing-email-content-type',
 				'type'    => 'radio',
 				'name'    => _x( 'Email Content-Type header', 'settings', 'business-directory-plugin' ),
-				'desc'    => _x( 'Use this setting to control the format of the emails explicitly. Some plugins for email do not correctly support Content Type unless explicitly set, you can do that here. If you\'re unsure, try "HTML", "Plain" and then "Both".', 'settings', 'business-directory-plugin' ),
+				'desc'    => _x(
+					'Use this setting to control the format of the emails explicitly. Some plugins for email do not correctly support Content Type unless explicitly set, you can do that here. If you\'re unsure, try "HTML", "Plain" and then "Both".',
+					'settings',
+					'business-directory-plugin'
+				),
 				'default' => 'html',
 				'options' => array(
 					'plain' => _x( 'Plain (text/plain)', 'admin settings', 'business-directory-plugin' ),
@@ -1390,6 +1494,11 @@ final class WPBDP__Settings__Bootstrap {
 			)
 		);
 
+		self::register_default_emails();
+		self::register_deprecated_settings();
+	}
+
+	private static function register_default_emails() {
 		$settings_url = admin_url( 'admin.php?page=wpbdp_settings&tab=email&subtab=email_templates' );
 		$description  = __( 'You can modify the text template used for most of these emails in the <templates-link>Templates</templates-link> tab.', 'business-directory-plugin' );
 		$description  = str_replace( '<templates-link>', '<a href="' . $settings_url . '">', $description );
@@ -1491,6 +1600,10 @@ final class WPBDP__Settings__Bootstrap {
 			)
 		);
 
+		self::register_default_payment_email();
+	}
+
+	private static function register_default_payment_email() {
 		wpbdp_register_setting(
 			array(
 				'id'           => 'email-templates-payment-completed',
@@ -1526,7 +1639,9 @@ final class WPBDP__Settings__Bootstrap {
 				'group'        => 'email_templates',
 			)
 		);
+	}
 
+	private static function register_deprecated_settings() {
 		// Deprecated setting.
 		wpbdp_register_setting(
 			array(
@@ -1579,7 +1694,9 @@ final class WPBDP__Settings__Bootstrap {
 			'relative_time' => '-5 days', /* renewal-reminder-threshold */
 			'listings'      => 'both',
 			'subject'       => '[[site-title]] [listing] - Expiration reminder',
-			'body'          => "Dear Customer\nWe've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. Please remember you can still renew it here: [link].",
+			'body'          => "Dear Customer\n" .
+				"We've noticed that you haven't renewed your listing \"[listing]\" for category [category] at [site] and just wanted to remind you that it expired on [expiration]. " .
+				'Please remember you can still renew it here: [link].',
 		);
 		/* listing-autorenewal-notice, recurring only, controlled by the send-autorenewal-expiration-notice setting */
 		$notices[] = array(
@@ -1587,7 +1704,9 @@ final class WPBDP__Settings__Bootstrap {
 			'relative_time' => '+5 days', /*  renewal-email-threshold, def: 5 days */
 			'listings'      => 'recurring',
 			'subject'       => '[[site-title]] [listing] - Renewal reminder',
-			'body'          => "Hey [author],\n\nThis is just to remind you that your listing [listing] is going to be renewed on [expiration] for another period.\nIf you want to review or cancel your subscriptions please visit [link].\n\nIf you have any questions, contact us at [site].",
+			'body'          => "Hey [author],\n\nThis is just to remind you that your listing [listing] is going to be renewed on [expiration] for another period.\n" .
+				"If you want to review or cancel your subscriptions please visit [link].\n\n" .
+				'If you have any questions, contact us at [site].',
 		);
 		/* listing-autorenewal-message, after IPN notification of renewal of recurring */
 		$notices[] = array(
@@ -1642,6 +1761,7 @@ final class WPBDP__Settings__Bootstrap {
 			'wpbdp-thumb' => __( 'Default (size set below)', 'business-directory-plugin' ),
 		);
 
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 		foreach ( get_intermediate_image_sizes() as $_size ) {
 			if ( $_size === 'wpbdp-thumb' ) {
 				continue;

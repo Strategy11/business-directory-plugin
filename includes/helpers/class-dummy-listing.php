@@ -21,7 +21,7 @@ class WPBDP__Dummy_Listing {
 	}
 
 	public function get_fee_plan() {
-		$result                  = new StdClass();
+		$result                  = new stdClass();
 		$result->listing_id      = 0;
 		$result->fee_id          = $this->plan->id;
 		$result->fee_price       = $this->plan->amount;

@@ -403,7 +403,11 @@ class WPBDP__Query_Integration {
 					break;
 				}
 
-				$q = $wpdb->prepare( "(SELECT {$wpdb->postmeta}.meta_value FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s) AS field_{$sname}", '_wpbdp[fields][' . $field->get_id() . ']' );
+				$q = $wpdb->prepare(
+					"(SELECT {$wpdb->postmeta}.meta_value FROM {$wpdb->postmeta} " .
+					"WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s) AS field_{$sname}",
+					'_wpbdp[fields][' . $field->get_id() . ']'
+				);
 				break;
 		}
 

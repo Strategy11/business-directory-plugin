@@ -303,6 +303,7 @@ class WPBDP_App_Helper {
 	 * @since 5.9.2
 	 */
 	public static function include_svg() {
+		// phpcs:ignore WordPressVIPMinimum.Files.IncludingNonPHPFile, WordPressVIPMinimum.Files.IncludingFile.NotAbsolutePath
 		include_once self::plugin_path() . '/assets/images/icons.svg';
 	}
 
@@ -341,7 +342,9 @@ class WPBDP_App_Helper {
 	public static function svg_logo( $atts = array() ) {
 		$atts = self::prep_logo_atts( $atts );
 
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" class="' . esc_attr( $atts['class'] ) . '" alt="BD Plugin" />';
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" ' .
+			'width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" ' .
+			'class="' . esc_attr( $atts['class'] ) . '" alt="BD Plugin" />';
 	}
 
 	/**
@@ -402,7 +405,7 @@ class WPBDP_App_Helper {
 	/**
 	 * @since 5.9.2
 	 */
-	private static function safe_html() {
+	private static function safe_html() { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		$allow_class = array(
 			'class' => true,
 			'id'    => true,

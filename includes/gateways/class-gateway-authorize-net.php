@@ -153,8 +153,7 @@ class WPBDP__Gateway__Authorize_Net extends WPBDP__Payment_Gateway {
 		// First, make sure we have a webhook endpoint to handle notifications.
 		// $this->setup_webhooks();
 
-		// TODO: Stop ignoring this.
-		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.timezone_change_date_default_timezone_set
+		// phpcs:ignore WordPress.DateTime.RestrictedFunctions
 		@date_default_timezone_set( 'America/Denver' );
 
 		$total          = $payment->amount;

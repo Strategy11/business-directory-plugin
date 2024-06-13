@@ -1062,7 +1062,9 @@ class WPBDP_Listing {
 
 		$query_post_statuses    = "'" . implode( "','", $post_status ) . "'";
 		$query_listing_statuses = "'" . implode( "','", $status ) . "'";
-		$query                  = "SELECT COUNT(*) FROM {$wpdb->posts} p JOIN {$wpdb->prefix}wpbdp_listings l ON p.ID = l.listing_id WHERE p.post_type = %s AND p.post_status IN ({$query_post_statuses}) AND l.listing_status IN ({$query_listing_statuses})";
+		$query                  = "SELECT COUNT(*) FROM {$wpdb->posts} p " .
+			"JOIN {$wpdb->prefix}wpbdp_listings l ON p.ID = l.listing_id " .
+			"WHERE p.post_type = %s AND p.post_status IN ({$query_post_statuses}) AND l.listing_status IN ({$query_listing_statuses})";
 		$query                  = $wpdb->prepare( $query, WPBDP_POST_TYPE );
 
 		return absint( $wpdb->get_var( $query ) );

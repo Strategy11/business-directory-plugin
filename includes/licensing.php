@@ -287,9 +287,16 @@ class WPBDP_Licensing {
 
 		$html  = '';
 		$html .= '<div class="wpbdp-license-key-activation-ui wpbdp-license-status-' . esc_attr( $atts['status'] ) . '" data-licensing="' . esc_attr( $licensing_info_attr ) . '">';
-		$html .= '<input type="text" id="' . esc_attr( $atts['setting'] ) . '" class="wpbdp-license-key-input" name="wpbdp_settings[' . esc_attr( $atts['setting'] ) . ']" value="' . esc_attr( $value ) . '" ' . ( 'valid' === $atts['status'] ? 'readonly="readonly"' : '' ) . ' placeholder="' . esc_attr__( 'Enter License Key here', 'business-directory-plugin' ) . '"/>';
-		$html .= '<input type="button" value="' . esc_attr__( 'Authorize', 'business-directory-plugin' ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button button-primary wpbdp-license-key-activate-btn" />';
-		$html .= '<input type="button" value="' . esc_attr( _x( 'Deauthorize', 'settings', 'business-directory-plugin' ) ) . '" data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" class="button wpbdp-license-key-deactivate-btn" />';
+		$html .= '<input type="text" id="' . esc_attr( $atts['setting'] ) . '" class="wpbdp-license-key-input" ' .
+			'name="wpbdp_settings[' . esc_attr( $atts['setting'] ) . ']" value="' . esc_attr( $value ) . '" ' .
+			( 'valid' === $atts['status'] ? 'readonly="readonly"' : '' ) .
+			' placeholder="' . esc_attr__( 'Enter License Key here', 'business-directory-plugin' ) . '"/>';
+		$html .= '<input type="button" value="' . esc_attr__( 'Authorize', 'business-directory-plugin' ) . '" ' .
+			'data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" ' .
+			'class="button button-primary wpbdp-license-key-activate-btn" />';
+		$html .= '<input type="button" value="' . esc_attr( _x( 'Deauthorize', 'settings', 'business-directory-plugin' ) ) . '" ' .
+			'data-working-msg="' . esc_attr( _x( 'Please wait...', 'settings', 'business-directory-plugin' ) ) . '" ' .
+			'class="button wpbdp-license-key-deactivate-btn" />';
 		if ( $tooltip_msg ) {
 			$html .= '<span class="wpbdp-setting-description">' . esc_html( $tooltip_msg ) . '</span>';
 		}
@@ -466,7 +473,11 @@ class WPBDP_Licensing {
 		$message .= '<br/><br/>';
 		$message .= sprintf(
 			/* translators: %1%s: opening <a> tag, %2$s: closing </a> tag */
-			esc_html__( 'If you think this is a mistake, please contact %1$sBusiness Directory support%2$s and let them know your license is being reported as revoked by the licensing software. Please include the email address you used to purchase with your report.', 'business-directory-plugin' ),
+			esc_html__(
+				// phpcs:ignore SlevomatCodingStandard.Files.LineLength
+				'If you think this is a mistake, please contact %1$sBusiness Directory support%2$s and let them know your license is being reported as revoked by the licensing software. Please include the email address you used to purchase with your report.',
+				'business-directory-plugin'
+			),
 			'<a href="https://businessdirectoryplugin.com/contact">',
 			'</a>'
 		);
@@ -515,13 +526,12 @@ class WPBDP_Licensing {
 	 * @since 5.10
 	 */
 	private function curl_missing_error() {
-		$message  = '<strong>' . _x( "It was not possible to establish a connection with Business Directory's server. cURL was not found in your system", 'licensing', 'business-directory-plugin' ) . '</strong>';
-		$message .= '<br/><br/>';
-		$message .= _x( 'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).', 'licensing', 'business-directory-plugin' );
-		$message .= '<br/><br/>';
-		$message .= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'business-directory-plugin' );
-		$message .= '<br/><br/>';
-		$message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necessary', 'licensing', 'business-directory-plugin' );
+		$message  = '<strong>' .
+			_x( "It was not possible to establish a connection with Business Directory's server. cURL was not found in your system", 'licensing', 'business-directory-plugin' ) .
+			'</strong>';
+
+		$message .= $this->curl_error_message();
+
 		return new WP_Error( 'request-failed', $message );
 	}
 
@@ -529,7 +539,9 @@ class WPBDP_Licensing {
 	 * @since 5.10
 	 */
 	private function curl_connection_error( $error_number, $error_message ) {
-		$message  = '<strong>' . __( 'It was not possible to establish a connection with the Business Directory server. The connection failed with the following error:', 'business-directory-plugin' ) . '</strong>';
+		$message  = '<strong>' .
+			__( 'It was not possible to establish a connection with the Business Directory server. The connection failed with the following error:', 'business-directory-plugin' ) .
+			'</strong>';
 		$message .= '<br/><br/>';
 		$message .= '<code>curl: (' . esc_html( $error_number ) . ') ' . esc_html( $error_message ) . '</code>';
 		$message .= '<br/><br/>';
@@ -542,14 +554,33 @@ class WPBDP_Licensing {
 	 * @since 5.10
 	 */
 	private function ssl_curl_error( $error_number, $error_message ) {
-		$message = '<strong>' . __( 'It was not possible to establish a connection with the Business Directory server. A problem occurred in the SSL/TSL handshake:', 'business-directory-plugin' ) . '</strong>';
+		$message = '<strong>' .
+			__( 'It was not possible to establish a connection with the Business Directory server. A problem occurred in the SSL/TSL handshake:', 'business-directory-plugin' ) .
+			'</strong>';
 
 		$message .= '<br/><br/>';
 		$message .= '<code>curl: (' . esc_html( $error_number ) . ') ' . esc_html( $error_message ) . '</code>';
+
+		$message .= $this->curl_error_message();
+
+		return $message;
+	}
+
+	private function curl_error_message() {
+		$message  = '<br/><br/>';
+		$message .= _x(
+			// phpcs:ignore SlevomatCodingStandard.Files.LineLength
+			'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).',
+			'licensing',
+			'business-directory-plugin'
+		);
 		$message .= '<br/><br/>';
-		$message .= _x( 'To ensure the security of our systems and adhere to industry best practices, we require that your server uses a recent version of cURL and a version of OpenSSL that supports TLSv1.2 (minimum version with support is OpenSSL 1.0.1c).', 'licensing', 'business-directory-plugin' );
-		$message .= '<br/><br/>';
-		$message .= _x( 'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.', 'licensing', 'business-directory-plugin' );
+		$message .= _x(
+			// phpcs:ignore SlevomatCodingStandard.Files.LineLength
+			'Upgrading your system will not only allow you to communicate with Business Directory servers but also help you prepare your website to interact with services using the latest security standards.',
+			'licensing',
+			'business-directory-plugin'
+		);
 		$message .= '<br/><br/>';
 		$message .= _x( 'Please contact your hosting provider and ask them to upgrade your system. Include this message if necessary.', 'licensing', 'business-directory-plugin' );
 
@@ -701,7 +732,10 @@ class WPBDP_Licensing {
 			'missing_licenses'     => __( 'Business Directory license key is missing.', 'business-directory-plugin' ),
 			'expired_licenses'     => __( 'Business Directory license key has expired', 'business-directory-plugin' ),
 			'license_status_error' => __( 'Could not verify Business Directory license.', 'business-directory-plugin' ),
-			'missing_premium'      => __( 'You have modules installed, but Business Directory Premium is missing. Install this plugin for extra features and easy license management.', 'business-directory-plugin' ),
+			'missing_premium'      => __(
+				'You have modules installed, but Business Directory Premium is missing. Install this plugin for extra features and easy license management.',
+				'business-directory-plugin'
+			),
 		);
 	}
 
@@ -1247,9 +1281,14 @@ function wpbdp_licensing_register_module( $name, $file_, $version ) {
 		$wpbdp_compat_modules_registry = array();
 	}
 
-	// TODO: Use numbered placeholders with sprintf or named placeholders with str_replace.
-	/* translators: "<module-name>" version <version-number> is not... */
-	wpbdp_deprecation_warning( sprintf( _x( '"%1$s" version %2$s is not compatible with Business Directory Plugin 5.0. Please update this module to the latest available version.', 'deprecation', 'business-directory-plugin' ), '<strong>' . esc_html( $name ) . '</strong>', '<strong>' . $version . '</strong>' ) );
+	wpbdp_deprecation_warning(
+		sprintf(
+			/* translators: "<module-name>" version <version-number> is not... */
+			_x( '"%1$s" version %2$s is not compatible with Business Directory Plugin 5.0. Please update this module to the latest available version.', 'deprecation', 'business-directory-plugin' ),
+			'<strong>' . esc_html( $name ) . '</strong>',
+			'<strong>' . $version . '</strong>'
+		)
+	);
 	$wpbdp_compat_modules_registry[] = array( $name, $file_, $version );
 
 	return false;

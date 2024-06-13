@@ -12,6 +12,8 @@
  */
 class WPBDP_PersonalDataExporter {
 
+	public $data_exporter;
+
 	/**
 	 * @param object $data_exporter Can include WPBDP_PersonalDataExporter.
 	 */

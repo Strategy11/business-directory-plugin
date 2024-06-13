@@ -386,7 +386,7 @@ function wpbdp_get_current_sort_option() {
 		$order = substr( $sort, 0, 1 ) == '-' ? 'DESC' : 'ASC';
 		$sort  = ltrim( $sort, '-' );
 
-		$obj         = new StdClass();
+		$obj         = new stdClass();
 		$obj->option = $sort;
 		$obj->order  = $order;
 
@@ -1206,7 +1206,8 @@ function wpbdp_sortbar_get_field_options() {
 	$options = array();
 
 	foreach ( wpbdp_get_form_fields() as $field ) {
-		if ( in_array( $field->get_field_type_id(), array( 'image', 'social-network', 'multiselect', 'checkbox', 'url' ) ) || in_array( $field->get_association(), array( 'category', 'tags', 'regions' ) ) ) {
+		$is_sortable = in_array( $field->get_field_type_id(), array( 'image', 'social-network', 'multiselect', 'checkbox', 'url' ) );
+		if ( $is_sortable || in_array( $field->get_association(), array( 'category', 'tags', 'regions' ) ) ) {
 			continue;
 		}
 

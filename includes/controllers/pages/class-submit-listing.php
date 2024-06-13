@@ -95,7 +95,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		return $this->editing;
 	}
 
-	public function dispatch( $ajax_load = false ) {
+	public function dispatch( $ajax_load = false ) { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		$this->is_ajax = ! empty( $ajax_load );
 
 		$msg = '';
@@ -170,13 +170,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 					str_replace(
 						'<a>',
 						'<a href="' . esc_url( $this->listing->get_admin_edit_link() ) . '">',
-						_x( 'This listing can\'t be edited at this time because it has no plan associated. Please <a>edit the listing</a> on the backend and associate it to a plan.', 'submit listing', 'business-directory-plugin' )
+						_x(
+							'This listing can\'t be edited at this time because it has no plan associated. Please <a>edit the listing</a> on the backend and associate it to a plan.',
+							'submit listing',
+							'business-directory-plugin'
+						)
 					),
 					'error'
 				);
 			}
 
-			return wpbdp_render_msg( _x( 'This listing can\'t be edited at this time. Please try again later or contact the admin if the problem persists.', 'submit listing', 'business-directory-plugin' ), 'error' );
+			return wpbdp_render_msg(
+				_x( 'This listing can\'t be edited at this time. Please try again later or contact the admin if the problem persists.', 'submit listing', 'business-directory-plugin' ),
+				'error'
+			);
 		}
 
 		$this->configure();
@@ -522,7 +529,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		if ( is_object( $post ) ) {
 			// Submit shortcode is exempt from restrictions.
-			$submit_shortcodes = array( 'businessdirectory-submit-listing', 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' );
+			$submit_shortcodes = array(
+				'businessdirectory-submit-listing', 'businessdirectory-submitlisting',
+				'business-directory-submitlisting', 'business-directory-submit-listing',
+				'WPBUSDIRMANADDLISTING',
+			);
 
 			foreach ( $submit_shortcodes as $test_shortcode ) {
 				if ( has_shortcode( $post->post_content, $test_shortcode ) ) {
@@ -724,7 +735,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		if ( $this->can_edit_plan_or_categories() && ! $this->skip_plan_and_category() ) {
 			$sections['plan_selection'] = array(
-				'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'business-directory-plugin' ) : _x( 'Category & plan selection', 'submit listing', 'business-directory-plugin' ),
+				'title' => $this->skip_plan_selection ?
+					_x( 'Category selection', 'submit listing', 'business-directory-plugin' ) :
+					_x( 'Category & plan selection', 'submit listing', 'business-directory-plugin' ),
 			);
 		}
 
@@ -1026,48 +1039,19 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		return array( $result, $output );
 	}
 
-	private function plan_selection() {
+	private function plan_selection() { // phpcs:ignore SlevomatCodingStandard.Complexity
 		global $wpbdp;
 
 		$plans = $this->get_available_plans();
 
 		if ( ! $plans && ! $this->editing ) {
-			$msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
-			if ( wpbdp_user_is_admin() ) {
-				$msg .= '<br><br>';
-				$msg .= _x( '<b>There are no Plans available</b>, without a plan site users can\'t submit a listing. %s to create a plan', 'templates', 'business-directory-plugin' );
-
-				$msg = sprintf(
-					$msg,
-					sprintf(
-						'<a href="%s">%s</a>',
-						esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ),
-						esc_html__( 'Go to "Plans"', 'business-directory-plugin' )
-					)
-				);
-			}
-			return $this->die_or_return( $msg );
-		}
-
-		$msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
-
-		if ( wpbdp_user_is_admin() ) {
-			$msg = _x( '<b>View not available</b>, there is no "Category" association field. %s and create a new field with this association, or assign this association to an existing field', 'templates', 'business-directory-plugin' );
-
-			$msg = sprintf(
-				$msg,
-				sprintf(
-					'<a href="%s">%s</a>',
-					esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields' ) ),
-					esc_html__( 'Go to "Form Fields"', 'business-directory-plugin' )
-				)
-			);
+			return $this->show_no_plans_error();
 		}
 
 		$category_field = wpbdp_get_form_fields( 'association=category&unique=1' );
 
 		if ( empty( $category_field ) ) {
-			return $this->die_or_return( $msg );
+			return $this->show_no_categories_error();
 		}
 
 		// Returns null if value isn't posted.
@@ -1152,6 +1136,51 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$category_count      = $this->category_count;
 		$selected_categories = $this->fixed_category ? $this->fixed_category : $this->get_selected_category( $categories );
 		return $this->section_render( 'submit-listing-plan-selection', compact( 'category_field', 'category_count', 'plans', 'selected_categories', 'selected_plan' ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function show_no_plans_error() {
+		$msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
+		if ( wpbdp_user_is_admin() ) {
+			$msg .= '<br><br>';
+			$msg .= _x( '<b>There are no Plans available</b>, without a plan site users can\'t submit a listing. %s to create a plan', 'templates', 'business-directory-plugin' );
+
+			$msg = sprintf(
+				$msg,
+				sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ),
+					esc_html__( 'Go to "Plans"', 'business-directory-plugin' )
+				)
+			);
+		}
+		return $this->die_or_return( $msg );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function show_no_categories_error() {
+		$msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
+		if ( wpbdp_user_is_admin() ) {
+			$msg = _x(
+				'View not available, there is no "Category" association field. %s and create a new field with this association, or assign this association to an existing field',
+				'templates',
+				'business-directory-plugin'
+			);
+
+			$msg = sprintf(
+				$msg,
+				sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields' ) ),
+					esc_html__( 'Go to "Form Fields"', 'business-directory-plugin' )
+				)
+			);
+		}
+		return $this->die_or_return( $msg );
 	}
 
 	/**
