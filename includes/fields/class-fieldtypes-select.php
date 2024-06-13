@@ -200,7 +200,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.4
 	 *
 	 * @return string
 	 */
@@ -217,7 +217,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.4
 	 *
 	 * @return string
 	 */
@@ -238,7 +238,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.4
 	 *
 	 * @return string
 	 */

@@ -338,7 +338,7 @@ class WPBDP_Listing_Display_Helper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.4
 	 *
 	 * @return object
 	 */

@@ -417,7 +417,7 @@ class WPBDP_CSVExporter {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.4
 	 */
 	private function get_field_value( $field, $listing ) {
 		if ( ! is_object( $field ) ) {

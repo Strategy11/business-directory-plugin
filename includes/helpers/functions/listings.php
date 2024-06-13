@@ -127,7 +127,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 /**
  * This function is not intended to be used publically.
  *
- * @since x.x
+ * @since 6.4.4
  *
  * @param array $args
  *

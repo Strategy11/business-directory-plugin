@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.5.3
-Stable tag: 6.4.3
+Tested up to: 6.5.4
+Stable tag: 6.4.4
 License: GPLv2 or later
 
 The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,11 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.4 =
+* Fix: Security fix for potential CSV injection. Credit to Wordfence for the report.
+* Fix: When logged out, the autocomplete dropdowns didn't always have styling.
+* Code: Changes for code readibility and easier maintance with higher standard requirements.
+
 = 6.4.3 =
 * Fix: Security fix for searching.
 * Fix: After a quick search with two words, don't include a "+" in the advanced search.
@@ -218,11 +223,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: When using a checkbox for categories, it wasn't being correctly required when submiting a new listing.
 * Fix: CSV import was failing when there was an 'enter' in a field.
 * Fix: A conflict with the Custom Start Date plugin with Woocommerce was causing an "Invalid Nonce" error.
-
-= 6.3.7 =
-* Fix: Listing titles in taxonomy pages with The7 theme.
-* Fix: Image sorting with Classic editor plugin.
-* Fix: Image upload bug while editing the listing.
-* Fix: Show the correct number of allowed images to upload after changing the plan in admin meta boxes.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
