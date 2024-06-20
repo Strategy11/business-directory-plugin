@@ -621,7 +621,7 @@ class WPBDP_Listing {
 	 */
 	public function get_payment_url() {
 		$payment = $this->get_latest_payment();
-		return $payment !== null ? $payment->get_checkout_url() : null;
+		return is_object( $payment ) && method_exists( $payment, 'get_checkout_url' ) ? $payment->get_checkout_url() : null;
 	}
 
 	/**
