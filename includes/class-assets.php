@@ -527,12 +527,10 @@ class WPBDP__Assets {
 		if ( WPBDP_App_Helper::is_bd_page() ) {
 			$admin_body_classes .= ' wpbdp-admin-page';
 
-			// Hide expiration/renewal options, when renewal is OFF.
+			// Append 'no-renewal' class if listing renewals are turned off.
 			if( ! wpbdp_get_option( 'listing-renewal' ) ){
 				$admin_body_classes .= ' no-renewal';
-
 			}
-
 		}
 
 		return $admin_body_classes;
