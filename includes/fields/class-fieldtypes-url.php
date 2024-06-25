@@ -141,7 +141,8 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 		}
 
 		// Adds the http protocol if it's missing.
-		$url  = esc_url_raw( is_array( $input ) ? trim( $input[0] ) : $input );
+		$url_raw = esc_url_raw( is_array( $input ) ? trim( $input[0] ) : $input );
+		$url = is_ssl() ? str_replace( 'http://', 'https://', $url_raw ) : $url_raw;
 		$text = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
 
 		return array( $url, $text );
