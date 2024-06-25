@@ -528,7 +528,7 @@ class WPBDP__Assets {
 			$admin_body_classes .= ' wpbdp-admin-page';
 
 			// Append 'no-renewal' class if listing renewals are turned off.
-			if( ! wpbdp_get_option( 'listing-renewal' ) ){
+			if ( ! wpbdp_get_option( 'listing-renewal' ) ) {
 				$admin_body_classes .= ' no-renewal';
 			}
 		}
