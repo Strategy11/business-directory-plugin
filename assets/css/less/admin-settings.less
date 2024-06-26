@@ -258,11 +258,10 @@
     }
 }
 
-/* Using the ID selector is necessary because there is no class-based identifier for this settings */
-.wpbdp-no-renewal #wpbdp-settings-admin-notifications .wpbdp-settings-multicheck-option-no-2,
-.wpbdp-no-renewal #wpbdp-settings-admin-notifications .wpbdp-settings-multicheck-option-no-3,
-.wpbdp-no-renewal #wpbdp-settings-user-notifications .wpbdp-settings-multicheck-option-no-3 {
-    display: none;
+.wpbdp-no-renewal .wpbdp-settings-multicheck-options {
+    .wpbdp-renewal, .wpbdp-after_renewal, .wpbdp-listing-expires {
+        display: none;
+    }
 }
 
 .wpbdp-settings-radio-options,
