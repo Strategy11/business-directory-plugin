@@ -445,11 +445,11 @@ class WPBDP__Settings_Admin {
 
 		$value = (array) $value;
 
-		$html = '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" value="" />';
+		$html  = '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" value="" />';
 		$html .= '<div class="wpbdp-settings-multicheck-options wpbdp-grid">';
-		$n = 0;
+		$n     = 0;
 		foreach ( $setting['options'] as $option_value => $option_label ) {
-			$html .= '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . absint( $n ) .' wpbdp-'. esc_attr( $option_value ) . '">';
+			$html .= '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . absint( $n ) . ' wpbdp-' . esc_attr( $option_value ) . '">';
 			$html .= '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" ' .
 				'id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" ' .
 				'value="' . esc_attr( $option_value ) . '" ' .
