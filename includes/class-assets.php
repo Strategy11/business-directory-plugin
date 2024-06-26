@@ -525,7 +525,12 @@ class WPBDP__Assets {
 	 */
 	public function add_body_class( $admin_body_classes ) {
 		if ( WPBDP_App_Helper::is_bd_page() ) {
-			$admin_body_classes = ' wpbdp-admin-page';
+			$admin_body_classes .= ' wpbdp-admin-page';
+
+			// Append 'wpbdp-no-renewal' class if listing renewals are turned off.
+			if ( ! wpbdp_get_option( 'listing-renewal' ) ) {
+				$admin_body_classes .= ' wpbdp-no-renewal';
+			}
 		}
 
 		return $admin_body_classes;
