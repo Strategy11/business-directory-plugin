@@ -36,7 +36,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
 		// twitter fields are rendered as normal textfields
 		global $wpbdp;
-		return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
+		return $wpbdp->form_fields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
 	}
 
 	public function get_supported_associations() {

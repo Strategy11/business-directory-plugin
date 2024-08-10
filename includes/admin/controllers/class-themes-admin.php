@@ -120,7 +120,7 @@ class WPBDP_Themes_Admin {
 		$missing = $this->api->missing_suggested_fields();
 
 		global $wpbdp;
-		$wpbdp->formfields->create_default_fields( $missing );
+		$wpbdp->form_fields->create_default_fields( $missing );
 
 		wp_safe_redirect( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ) );
 		exit;

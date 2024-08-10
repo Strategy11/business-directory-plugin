@@ -167,7 +167,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
 		if ( $context == 'search' ) {
 			global $wpbdp;
-			return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value[1], $context, $extra, $field_settings );
+			return $wpbdp->form_fields->get_field_type( 'textfield' )->render_field_inner( $field, $value[1], $context, $extra, $field_settings );
 		}
 
 		$html  = '';

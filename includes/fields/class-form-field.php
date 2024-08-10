@@ -695,7 +695,7 @@ class WPBDP_Form_Field {
 
 		// enforce association constraints
 		global $wpbdp;
-		$flags = $wpbdp->formfields->get_association_flags( $this->association );
+		$flags = $wpbdp->form_fields->get_association_flags( $this->association );
 
 		if ( in_array( 'unique', $flags ) ) {
 			if ( $otherfields = wpbdp_get_form_fields( 'association=' . $this->association ) ) {
@@ -709,7 +709,7 @@ class WPBDP_Form_Field {
 			$this->add_validator( 'required' );
 		}
 
-		if ( ! in_array( $this->type->get_id(), (array) $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
+		if ( ! in_array( $this->type->get_id(), (array) $wpbdp->form_fields->get_association_field_types( $this->association ) ) ) {
 			return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'business-directory-plugin' ), $this->type->get_name() ) );
 		}
 
@@ -760,7 +760,7 @@ class WPBDP_Form_Field {
 		}
 
 		global $wpbdp;
-		$flags = $wpbdp->formfields->get_association_flags( $this->association );
+		$flags = $wpbdp->form_fields->get_association_flags( $this->association );
 
 		if ( in_array( 'required', $flags ) ) {
 			$otherfields = wpbdp_get_form_fields( array( 'association' => $this->association ) );

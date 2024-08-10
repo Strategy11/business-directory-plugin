@@ -26,7 +26,7 @@ class WPBDP_FormFieldsAdmin {
 			return;
 		}
 
-		if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
+		if ( $missing = $wpbdp->form_fields->get_missing_required_fields() ) {
 			if ( count( $missing ) > 1 ) {
 				$message = sprintf( _x( '<b>Business Directory Plugin</b> requires fields with the following associations in order to work correctly: <b>%s</b>.', 'admin', 'business-directory-plugin' ), join( ', ', $missing ) );
 			} else {
@@ -349,8 +349,8 @@ class WPBDP_FormFieldsAdmin {
 
 		global $wpbdp;
 
-		if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
-			$wpbdp->formfields->create_default_fields( $missing );
+		if ( $missing = $wpbdp->form_fields->get_missing_required_fields() ) {
+			$wpbdp->form_fields->create_default_fields( $missing );
 			$this->admin->messages[] = _x( 'Required fields created successfully.', 'form-fields admin', 'business-directory-plugin' );
 		}
 
@@ -361,7 +361,7 @@ class WPBDP_FormFieldsAdmin {
 		global $wpbdp;
 
 		// Before starting, check if we need to update tags.
-		$wpbdp->formfields->maybe_correct_tags();
+		$wpbdp->form_fields->maybe_correct_tags();
 
 		$special_tags = array(
 			'title'    => __( 'Title', 'business-directory-plugin' ),
