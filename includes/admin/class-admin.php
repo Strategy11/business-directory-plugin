@@ -763,7 +763,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			global $wpbdp;
 
-			if ( ! $wpbdp->formfields->set_fields_order( $order ) ) {
+			if ( ! $wpbdp->form_fields->set_fields_order( $order ) ) {
 				$response->send_error();
 			}
 
