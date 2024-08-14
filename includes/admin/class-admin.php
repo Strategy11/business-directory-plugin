@@ -203,9 +203,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                                     subscribe: "%d" } );';
 
 			$content  = '';
-			$content .= __( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course.', 'business-directory-plugin' ) . '<br /><br />';
+			$content .= esc_html__( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course.', 'business-directory-plugin' ) . '<br /><br />';
 			$content .= '<label>';
-			$content .= '<b>' . _x( 'Email Address:', 'drip pointer', 'business-directory-plugin' ) . '</b>';
+			$content .= '<b>' . esc_html__( 'Email', 'business-directory-plugin' ) . '</b>';
 			$content .= '<br />';
 			$content .= '<input type="text" id="wpbdp-drip-pointer-email" value="' . esc_attr( $current_user->user_email ) . '" />';
 			$content .= '</label>';
