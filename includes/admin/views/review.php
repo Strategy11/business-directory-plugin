@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="wpbdp-feedback-request hidden">
 		<p><?php esc_html_e( 'Sorry to hear you aren\'t enjoying building with Business Directory Plugin. We would love a chance to improve. Could you take a minute and let us know what we can do better?', 'business-directory-plugin' ); ?></p>
 
-		<div id="wpbdpapi-feedback" class="wpbdpapi-form" data-url="https://services.strategy11.com/wp-json/frm/v2/forms/bd-feedback?return=html&exclude_script=jquery">
+		<div id="wpbdpapi-feedback" class="wpbdpapi-form" data-url="https://feedback.strategy11.com/wp-json/frm/v2/forms/bd-feedback?return=html&exclude_script=jquery">
 			<span class="wpbdp-wait wpbdp_visible_spinner"></span>
 		</div>
 	</div>
