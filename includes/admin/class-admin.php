@@ -212,7 +212,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			wpbdp_admin_pointer(
 				'#wpadminbar',
-				__( 'Want to know the Secrets of Building an Awesome Business Directory?', 'business-directory-plugin' ),
+				__( 'Want to know the secrets of building an awesome business directory?', 'business-directory-plugin' ),
 				$content,
 				__( 'Yes, please!', 'business-directory-plugin' ),
 				sprintf( $js, 1 ),
@@ -285,17 +285,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$current_user = wp_get_current_user();
 
 			$response = wp_remote_post(
-				'https://strategy1137274.activehosted.com/proc.php?jsonp=true',
+				'https://feedback.strategy11.com/wp-json/frm/v2/entries',
 				array(
 					'body' => array(
-						'firstname' => $current_user->first_name,
-						'email'     => $email,
-						'u'         => '15',
-						'f'         => '15',
-						'act'       => 'sub',
-						'c'         => 0,
-						'm'         => 0,
-						'v'         => '2',
+						'bd-firstname1' => $current_user->first_name,
+						'bd-email-1'    => $email,
+						'form_id'       => 'bd-plugin-course',
 					),
 				)
 			);
