@@ -16,7 +16,6 @@ node_modules/
 .site/
 _vvv/
 .idea/
-.idea/**
 
 # PHP CS Fixer
 .php-cs-fixer.cache
