@@ -561,7 +561,7 @@ function &wpbdp_get_form_fields( $args = array() ) {
 	$fields = array();
 
 	if ( $wpbdp->get_db_version() ) {
-		$fields = $wpbdp->formfields->find_fields( $args );
+		$fields = $wpbdp->form_fields->find_fields( $args );
 	}
 
 	if ( ! $fields ) {
@@ -577,5 +577,5 @@ function &wpbdp_get_form_fields( $args = array() ) {
  */
 function wpbdp_get_form_field( $id ) {
 	global $wpbdp;
-	return $wpbdp->formfields->get_field( $id );
+	return $wpbdp->form_fields->get_field( $id );
 }

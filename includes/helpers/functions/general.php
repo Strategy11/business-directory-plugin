@@ -218,7 +218,7 @@ function wpbdp_register_setting( $args ) {
 
 function wpbdp_formfields_api() {
 	global $wpbdp;
-	return $wpbdp->formfields;
+	return $wpbdp->form_fields;
 }
 
 function wpbdp_get_formfield( $id ) {

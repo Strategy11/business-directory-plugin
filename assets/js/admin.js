@@ -237,7 +237,7 @@ function wpbdpSelectSubnav() {
                 $( '.if-display-in-search' ).toggle( $( this ).is( ':checked' ) );
             });
 
-            $('table.formfields tbody').sortable({
+            $('.wpbdp-admin-page-formfields .wp-list-table tbody').sortable({
                 placeholder: 'wpbdp-draggable-highlight',
                 handle: '.wpbdp-drag-handle',
                 axis: 'y',
@@ -477,7 +477,7 @@ function wpbdpSelectSubnav() {
 jQuery(document).ready(function($){
 
     // {{ Manage Fees.
-    $('.wpbdp-admin-page-fees .wp-list-table.fees tbody').sortable({
+    $('.wpbdp-admin-page-fees .wp-list-table tbody').sortable({
         placeholder: 'wpbdp-draggable-highlight',
         handle: '.wpbdp-drag-handle',
         axis: 'y',

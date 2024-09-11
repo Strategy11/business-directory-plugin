@@ -433,7 +433,7 @@ class WPBDP_CSV_Import {
 		$this->header = array();
 
 		global $wpbdp;
-		$short_names = $wpbdp->formfields->get_short_names();
+		$short_names = $wpbdp->form_fields->get_short_names();
 		foreach ( $fields_in_header as $short_name ) {
 			$field_id = 0;
 

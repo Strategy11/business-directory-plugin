@@ -38,15 +38,22 @@
         color: #fff;
         background: @brand;
         border-color: @brand;
+        padding-top: 10px;
 
         &:before {
-            color: #fff;
+            color: @brand;
+            background-color: #fff;
+            top: calc(50% - 16px);
         }
     }
 
     .wp-pointer-top .wp-pointer-arrow-inner,
     .wp-pointer-undefined .wp-pointer-arrow-inner {
         border-bottom-color: @brand;
+    }
+
+    #wpbdp-drip-pointer-email {
+        width: 100%;
     }
 }
 
@@ -224,7 +231,7 @@ td.column-sticky_status .status.sticky {
 
 /* Form fields list table */
 
-table.wp-list-table.formfields {
+.wpbdp-admin-page-formfields table.wp-list-table {
     th.column-label {
         width: 40%;
     }

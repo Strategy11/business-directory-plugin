@@ -73,7 +73,7 @@ class WPUnitTestCase extends WPTestCase {
 		global $wpbdp;
 		$this->installer->install();
 		$this->create_users();
-		$wpbdp->formfields->create_default_fields();
+		$wpbdp->form_fields->create_default_fields();
 		$wpbdp->settings->set_new_install_settings();
 		$this->maybe_create_default_fee();
 		$this->maybe_create_dummy_listings();
