@@ -23,7 +23,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 		// render textareas as textfields when searching
 		if ( $context == 'search' ) {
 			global $wpbdp;
-			return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
+			return $wpbdp->form_fields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
 		}
 
 		// @since 5.5.12

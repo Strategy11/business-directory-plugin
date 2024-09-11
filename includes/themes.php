@@ -313,7 +313,7 @@ class WPBDP_Themes {
 
 		if ( $ok ) {
 			global $wpbdp;
-			$wpbdp->formfields->maybe_correct_tags();
+			$wpbdp->form_fields->maybe_correct_tags();
 		}
 
 		return $ok;
@@ -375,7 +375,7 @@ class WPBDP_Themes {
 		$missing_tags = array_diff( $suggested_fields, $current_fields_tags );
 
 		foreach ( $missing_tags as $mt ) {
-			$info = $wpbdp->formfields->get_default_fields( $mt );
+			$info = $wpbdp->form_fields->get_default_fields( $mt );
 
 			if ( ! $info ) {
 				continue;

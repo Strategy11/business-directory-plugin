@@ -7,13 +7,13 @@ Tested up to: 6.5.4
 Stable tag: 6.4.4
 License: GPLv2 or later
 
-The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
+The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
 
 == Description ==
 
 Business Directory Plugin is the perfect solution for professionals who are looking for a simple directory website builder for WordPress! If you're not tech savvy, no worries. You can quickly get started by installing this simple plugin. It doesn't require any developer knowledge whatsoever on your end.
 
-== The Best Business Directory Plugin for WordPress ==
+== Business Directory Plugin for WordPress ==
 You've found the most popular, versatile, and easy to use WordPress directory plugin available. Increase interaction on your WordPress site, improve customer retention and add a generate revenue with our WordPress business directory plugin!
 
 Our easy WordPress directory plugin allows you to take the listings you want and build a local directory, simple directory of providers, a real estate listings site, a Yellow-Pages directory, a Yelp clone with review sections, an address book directory, a book review site (like Goodreads), and much more.

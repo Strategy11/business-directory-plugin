@@ -40,7 +40,7 @@ class WPBDP_Installer {
 			// Create default category.
 			wp_insert_term( _x( 'General', 'default category name', 'business-directory-plugin' ), WPBDP_CATEGORY_TAX );
 
-			$wpbdp->formfields->create_default_fields();
+			$wpbdp->form_fields->create_default_fields();
 			$wpbdp->settings->set_new_install_settings();
 
 			add_option( 'wpbdp-show-drip-pointer', 1 );

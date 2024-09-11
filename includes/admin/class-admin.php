@@ -203,16 +203,16 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                                     subscribe: "%d" } );';
 
 			$content  = '';
-			$content .= __( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course.', 'business-directory-plugin' ) . '<br /><br />';
+			$content .= esc_html__( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course.', 'business-directory-plugin' ) . '<br /><br />';
 			$content .= '<label>';
-			$content .= '<b>' . _x( 'Email Address:', 'drip pointer', 'business-directory-plugin' ) . '</b>';
+			$content .= '<b>' . esc_html__( 'Email', 'business-directory-plugin' ) . '</b>';
 			$content .= '<br />';
 			$content .= '<input type="text" id="wpbdp-drip-pointer-email" value="' . esc_attr( $current_user->user_email ) . '" />';
 			$content .= '</label>';
 
 			wpbdp_admin_pointer(
 				'#wpadminbar',
-				__( 'Want to know the Secrets of Building an Awesome Business Directory?', 'business-directory-plugin' ),
+				__( 'Want to know the secrets of building an awesome business directory?', 'business-directory-plugin' ),
 				$content,
 				__( 'Yes, please!', 'business-directory-plugin' ),
 				sprintf( $js, 1 ),
@@ -285,17 +285,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$current_user = wp_get_current_user();
 
 			$response = wp_remote_post(
-				'https://strategy1137274.activehosted.com/proc.php?jsonp=true',
+				'https://feedback.strategy11.com/wp-json/frm/v2/entries',
 				array(
 					'body' => array(
-						'firstname' => $current_user->first_name,
-						'email'     => $email,
-						'u'         => '15',
-						'f'         => '15',
-						'act'       => 'sub',
-						'c'         => 0,
-						'm'         => 0,
-						'v'         => '2',
+						'bd-firstname1' => $current_user->first_name,
+						'bd-email-1'    => $email,
+						'form_id'       => 'bd-plugin-course',
 					),
 				)
 			);
@@ -763,7 +758,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			global $wpbdp;
 
-			if ( ! $wpbdp->formfields->set_fields_order( $order ) ) {
+			if ( ! $wpbdp->form_fields->set_fields_order( $order ) ) {
 				$response->send_error();
 			}
 
