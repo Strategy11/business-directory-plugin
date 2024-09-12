@@ -19,10 +19,11 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		'Youtube',
 		'Pinterest',
 		'Instagram',
+		'Tiktok',
 		'Tumblr',
-		'reddit',
-		'Other',
+		'Reddit',
 		'Flickr',
+		'Other',
 	);
 
 	/**
