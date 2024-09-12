@@ -22,3 +22,4 @@ phpunit.xml export-ignore
 *.yml export-ignore
 stubs.php export-ignore
 tests export-ignore
+.idea export-ignore
