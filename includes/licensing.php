@@ -526,7 +526,7 @@ class WPBDP_Licensing {
 	 * @since 5.10
 	 */
 	private function curl_missing_error() {
-		$message  = '<strong>' .
+		$message = '<strong>' .
 			_x( "It was not possible to establish a connection with Business Directory's server. cURL was not found in your system", 'licensing', 'business-directory-plugin' ) .
 			'</strong>';
 
