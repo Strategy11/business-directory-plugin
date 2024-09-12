@@ -586,7 +586,7 @@ class WPBDP_Themes {
 		extract( $vars );
 
 		ob_start();
-		include_once $path;
+		include $path;
 		$html = ob_get_contents();
 		ob_end_clean();
 
