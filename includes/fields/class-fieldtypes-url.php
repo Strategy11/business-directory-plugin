@@ -144,7 +144,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
         $has_protocol = str_contains( $raw_url, 'http://' ) || str_contains( $raw_url, 'https://' );
 
         // Check if the URL has a protocol, if not, add https.
-        if ( ! $has_protocol ) {
+        if ( ! empty( $raw_url ) && ! $has_protocol ) {
             $raw_url = 'https://' . $raw_url;
         }
 
