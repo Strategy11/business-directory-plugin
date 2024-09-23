@@ -793,7 +793,7 @@ class WPBDP_Listing {
 
 		$row['listing_id'] = $this->id;
 
-		if ( ! empty( $row['is_sticky'] ) ) {
+		if ( ! isset( $row['is_sticky'] ) ) {
 			$row['is_sticky'] = (int) $row['is_sticky'];
 		}
 
