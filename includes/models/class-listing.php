@@ -548,18 +548,18 @@ class WPBDP_Listing {
 
 	public function notify( $kind = 'save', &$extra = null ) {
 		// if ( in_array( $kind, array( 'save', 'edit', 'new' ), true ) )
-		//     $this->save();
+		// $this->save();
 		//
 		// switch ( $kind ) {
-		//     case 'save':
-		//         break;
+		// case 'save':
+		// break;
 		//
-		//     case 'edit':
-		//         do_action_ref_array( 'wpbdp_edit_listing', array( &$this, &$extra ) );
-		//         break;
+		// case 'edit':
+		// do_action_ref_array( 'wpbdp_edit_listing', array( &$this, &$extra ) );
+		// break;
 		//
-		//     default:
-		//         break;
+		// default:
+		// break;
 		// }
 	}
 
@@ -792,7 +792,10 @@ class WPBDP_Listing {
 		}
 
 		$row['listing_id'] = $this->id;
-		$row['is_sticky']  = (int) $row['is_sticky'];
+
+		if ( isset( $row['is_sticky'] ) ) {
+			$row['is_sticky'] = (int) $row['is_sticky'];
+		}
 
 		if ( $args['recalculate'] ) {
 			if ( ! $plan || ! array_key_exists( 'expiration_date', $plan ) ) {
