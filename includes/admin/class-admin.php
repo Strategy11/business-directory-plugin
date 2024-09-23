@@ -939,7 +939,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			//_deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
+			// _deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
 			$classes = str_replace( $find, $replace, $classes );
 			$class   = implode( ' ', $classes );
 		}
@@ -1075,6 +1075,20 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 						break;
 					}
 
+					$all_notices      = wpbdp_get_option( 'expiration-notices' );
+					$recurring_notice = false;
+
+					foreach ( $all_notices as $notice ) {
+						if ( ( 'recurring' === $notice['listings'] ) ) {
+							$recurring_notice = true;
+						}
+					}
+
+					if ( $listing->is_recurring() && ! $recurring_notice ) {
+						$this->messages[] = array( __( 'No renewal emails found.', 'business-directory-plugin' ), 'error' );
+						break;
+					}
+
 					$this->messages[] = array( __( 'Could not send renewal email.', 'business-directory-plugin' ), 'error' );
 
 					break;
@@ -1140,7 +1154,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			// TODO: Redirect and show messages on page load.
 			// if ( wp_redirect( remove_query_arg( array( 'action', 'post', 'wpbdmaction' ) ) ) ) {
-			//     exit();
+			// exit();
 			// }
 		}
 
