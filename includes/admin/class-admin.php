@@ -1081,6 +1081,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 					foreach ( $all_notices as $notice ) {
 						if ( 'recurring' === $notice['listings'] ) {
 							$recurring_notice = true;
+							break;
 						}
 					}
 
