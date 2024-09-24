@@ -14,6 +14,7 @@ class WPBDP__Dispatcher {
 	public function __construct() {
 		add_action( 'wp', array( $this, '_lookup_current_view' ) );
 		add_action( 'template_redirect', array( $this, '_execute_view' ), 11 );
+		add_action( 'template_redirect', array( $this, 'maybe_redirect_from_draft_listings' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_view_scripts' ) );
 
 		add_action( 'wp_ajax_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
@@ -86,6 +87,48 @@ class WPBDP__Dispatcher {
 
 		return $template;
 	}
+
+	/**
+     * Redirect from draft listings to the main directory page.
+     *
+     * @since x.x.x
+     *
+     * @return void
+     */
+    public function maybe_redirect_from_draft_listings() {
+        global $wp_query, $post, $wpdb;
+
+        if ( $post !== NULL ) {
+            return;
+        }
+
+        $vars = $wp_query->query_vars;
+
+        if ( ! isset( $vars['post_type'] ) || $vars['post_type'] !== WPBDP_POST_TYPE ) {
+            return;
+        }
+
+        // We run a custom query here because we want to check for draft/pending listings and WP_Query doesn't return them.
+        $post = $wpdb->get_results(
+            $wpdb->prepare(
+                "
+                SELECT * FROM $wpdb->posts
+                WHERE post_type = %s
+                AND post_name = %s
+                AND post_status IN ('draft', 'pending')
+                ",
+                WPBDP_POST_TYPE,
+                $vars['name'],
+            )
+        );
+
+        if ( empty( $post ) ) {
+            return;
+        }
+
+        wp_redirect( add_query_arg( 'inactive_listing', true, wpbdp_url() ) );
+        exit;
+    }
 
 	public function _enqueue_view_scripts() {
 		if ( ! $this->current_view_obj ) {
