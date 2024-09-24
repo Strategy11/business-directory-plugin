@@ -96,33 +96,27 @@ class WPBDP__Dispatcher {
      * @return void
      */
     public function maybe_redirect_from_draft_listings() {
-        global $wp_query, $post, $wpdb;
+        global $wp_query;
 
-        if ( $post !== NULL ) {
+        if ( ! is_404() ) {
             return;
         }
 
-        $vars = $wp_query->query_vars;
+        $query_vars = $wp_query->query_vars;
 
-        if ( ! isset( $vars['post_type'] ) || $vars['post_type'] !== WPBDP_POST_TYPE ) {
+        if ( ! isset( $query_vars['post_type'] ) || $query_vars['post_type'] !== WPBDP_POST_TYPE ) {
             return;
         }
 
-        // We run a custom query here because we want to check for draft/pending listings and WP_Query doesn't return them.
-        $post = $wpdb->get_results(
-            $wpdb->prepare(
-                "
-                SELECT * FROM $wpdb->posts
-                WHERE post_type = %s
-                AND post_name = %s
-                AND post_status IN ('draft', 'pending')
-                ",
-                WPBDP_POST_TYPE,
-                $vars['name'],
+        $queried_posts = get_posts(
+            array(
+                'post_type'   => WPBDP_POST_TYPE,
+                'name'        => $query_vars['name'],
+                'post_status' => array( 'draft', 'pending' ),
             )
         );
 
-        if ( empty( $post ) ) {
+        if ( empty( $queried_posts ) ) {
             return;
         }
 
