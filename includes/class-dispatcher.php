@@ -88,7 +88,7 @@ class WPBDP__Dispatcher {
 		return $template;
 	}
 
-	/**
+    /**
      * Redirect from draft listings to the main directory page.
      *
      * @since x.x.x
