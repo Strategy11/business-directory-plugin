@@ -91,7 +91,7 @@ class WPBDP__Dispatcher {
     /**
      * Redirect from draft listings to the main directory page.
      *
-     * @since x.x.x
+     * @since x.x
      *
      * @return void
      */
