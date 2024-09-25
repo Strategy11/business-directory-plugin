@@ -9,7 +9,7 @@
 <div id="wpbdp-main-box" class="wpbdp-main-box" data-breakpoints='{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}' data-breakpoints-class-prefix="wpbdp-main-box">
 <?php
     if ( isset( $_GET['inactive_listing'] ) && (int) $_GET['inactive_listing'] === 1 ) {
-	echo wpbdp_render_msg( _x( 'The listing you are trying to access is currently inactive or no longer available.', 'inactive-listing', 'business-directory-plugin' ), 'notice' );
+	echo wpbdp_render_msg( __( 'The listing you are trying to access is currently inactive or no longer available.', 'business-directory-plugin' ), 'notice' );
     }
 ?>
 
