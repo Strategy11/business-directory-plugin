@@ -14,6 +14,7 @@ class WPBDP__Dispatcher {
 	public function __construct() {
 		add_action( 'wp', array( $this, '_lookup_current_view' ) );
 		add_action( 'template_redirect', array( $this, '_execute_view' ), 11 );
+		add_action( 'template_redirect', array( $this, 'maybe_redirect_from_draft_listings' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_view_scripts' ) );
 
 		add_action( 'wp_ajax_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
@@ -86,6 +87,42 @@ class WPBDP__Dispatcher {
 
 		return $template;
 	}
+
+    /**
+     * Redirect from draft listings to the main directory page.
+     *
+     * @since x.x
+     *
+     * @return void
+     */
+    public function maybe_redirect_from_draft_listings() {
+        global $wp_query;
+
+        if ( ! is_404() ) {
+            return;
+        }
+
+        $query_vars = $wp_query->query_vars;
+
+        if ( ! isset( $query_vars['post_type'] ) || $query_vars['post_type'] !== WPBDP_POST_TYPE ) {
+            return;
+        }
+
+        $queried_posts = get_posts(
+            array(
+                'post_type'   => WPBDP_POST_TYPE,
+                'name'        => $query_vars['name'],
+                'post_status' => array( 'draft', 'pending' ),
+            )
+        );
+
+        if ( empty( $queried_posts ) ) {
+            return;
+        }
+
+        wp_redirect( add_query_arg( 'inactive_listing', true, wpbdp_url() ) );
+        exit;
+    }
 
 	public function _enqueue_view_scripts() {
 		if ( ! $this->current_view_obj ) {
