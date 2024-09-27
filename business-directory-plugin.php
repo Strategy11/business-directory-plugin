@@ -121,6 +121,11 @@ function wpbdp() {
 	return $instance;
 }
 
+add_filter(
+    'ssb_the_content_priority', function () {
+        return 1000;
+}, 1);
+
 
 // For backwards compatibility.
 $GLOBALS['wpbdp'] = wpbdp();
