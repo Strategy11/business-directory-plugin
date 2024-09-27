@@ -14,6 +14,11 @@ class WPBDP__WordPress_Template_Integration {
 	public function __construct() {
 		add_action( 'body_class', array( $this, 'add_basic_body_classes' ) );
 		add_filter( 'body_class', array( &$this, 'add_advanced_body_classes' ), 10 );
+        // TODO: Move this to a better place before merge.
+        add_filter(
+            'addtoany_content_priority', function () {
+            return 1000;
+        }, 98);
 
 		if ( wpbdp_get_option( 'disable-cpt' ) ) {
 			add_filter( 'comments_template', array( &$this, '_comments_template' ) );
@@ -105,7 +110,7 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		// Run last so other hooks don't break our output.
-		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
+		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 998 );
 		remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 	}
 
@@ -124,7 +129,7 @@ class WPBDP__WordPress_Template_Integration {
 		$this->prep_tax_head();
 
 		// Run last so other hooks don't break our output.
-		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
+		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 997 );
 	}
 
 	/**
