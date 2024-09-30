@@ -121,12 +121,6 @@ function wpbdp() {
 	return $instance;
 }
 
-// Increase the priority value for AddToAny widgets.
-add_filter(
-    'addtoany_content_priority', function () {
-    return 1000;
-}, 100);
-
 // Increase the priority value for Social Share Buttons widgets.
 add_filter(
     'ssb_the_content_priority', function () {
