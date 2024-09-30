@@ -14,11 +14,6 @@ class WPBDP__WordPress_Template_Integration {
 	public function __construct() {
 		add_action( 'body_class', array( $this, 'add_basic_body_classes' ) );
 		add_filter( 'body_class', array( &$this, 'add_advanced_body_classes' ), 10 );
-        // TODO: Move this to a better place before merge.
-        add_filter(
-            'addtoany_content_priority', function () {
-            return 1000;
-        }, 98);
 
 		if ( wpbdp_get_option( 'disable-cpt' ) ) {
 			add_filter( 'comments_template', array( &$this, '_comments_template' ) );
