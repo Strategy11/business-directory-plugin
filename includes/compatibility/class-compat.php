@@ -132,7 +132,7 @@ class WPBDP_Compat {
     /**
      * Adjust the priority of the addtoany_content_priority filter.
      * 
-     * @return bool
+     * @return void
      */
     private function priority_adjustment() {
         // AddToAny Social Share
