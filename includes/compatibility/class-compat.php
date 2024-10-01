@@ -138,7 +138,7 @@ class WPBDP_Compat {
         // AddToAny Social Share
         add_filter(
             'addtoany_content_priority', function () {
-            return 1000;
+            return 1100;
         }, 100);
     }
 }

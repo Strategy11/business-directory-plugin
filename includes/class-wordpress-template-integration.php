@@ -105,7 +105,7 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		// Run last so other hooks don't break our output.
-		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 998 );
+		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 		remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 	}
 
@@ -124,7 +124,7 @@ class WPBDP__WordPress_Template_Integration {
 		$this->prep_tax_head();
 
 		// Run last so other hooks don't break our output.
-		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 997 );
+		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 	}
 
 	/**
@@ -250,6 +250,11 @@ class WPBDP__WordPress_Template_Integration {
 		$is_tax = is_tax();
 
 		if ( ! $is_tax ) {
+            // This filter is added because of an issue with remove_filter. 
+            // See: https://github.com/Strategy11/business-directory-plugin/pull/400
+            add_filter( 'the_content', fn( $content ) => $content, 1000 );
+
+            // Remove the non-tax filter.
 			remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 		}
 
