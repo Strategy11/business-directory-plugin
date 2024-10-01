@@ -252,7 +252,13 @@ class WPBDP__WordPress_Template_Integration {
 		if ( ! $is_tax ) {
             // This filter is added because of an issue with remove_filter. 
             // See: https://github.com/Strategy11/business-directory-plugin/pull/400
-            add_filter( 'the_content', fn( $content ) => $content, 1000 );
+            add_filter( 
+                'the_content', 
+                function ( $content ) {
+                    return $content;
+                }, 
+                1000 
+            );
 
             // Remove the non-tax filter.
 			remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
