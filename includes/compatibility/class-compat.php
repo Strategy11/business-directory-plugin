@@ -9,6 +9,7 @@ class WPBDP_Compat {
 	public function __construct() {
 		$this->workarounds_for_wp_bugs();
 		$this->load_integrations();
+        $this->priority_adjustment();
 
 		if ( wpbdp_get_option( 'disable-cpt' ) ) {
 			self::cpt_compat_mode();
@@ -127,4 +128,17 @@ class WPBDP_Compat {
 		}
 		return $skip_auto_login;
 	}
+
+    /**
+     * Adjust the priority of the addtoany_content_priority filter.
+     * 
+     * @return void
+     */
+    private function priority_adjustment() {
+        // AddToAny Social Share
+        add_filter(
+            'addtoany_content_priority', function () {
+            return 1100;
+        }, 100);
+    }
 }
