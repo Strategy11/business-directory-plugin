@@ -39,14 +39,14 @@ endif;
 		</div>
 		<div class="report-reasons">
 			<?php 
-                esc_html_e( 'Selected Option: ', 'business-directory-plugin' );
-                echo esc_html( $value['reason'] ); 
-            ?>
+				esc_html_e( 'Selected Option: ', 'business-directory-plugin' );
+				echo esc_html( $value['reason'] ); 
+			?>
 			<br/>
 			<?php
 			if ( ! empty( $value['comments'] ) ) :
-                esc_html_e( 'Additional Info: ', 'business-directory-plugin' ); 
-                echo esc_html( $value['comments'] );
+				esc_html_e( 'Additional Info: ', 'business-directory-plugin' ); 
+				echo esc_html( $value['comments'] );
 			endif;
 			?>
 		</div>
