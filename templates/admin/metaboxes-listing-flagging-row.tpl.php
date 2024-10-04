@@ -38,11 +38,15 @@ endif;
 			<?php echo esc_html( date_i18n( get_option( 'date_format' ) . ' @ ' . get_option( 'time_format' ), $value['date'] ) ); ?>
 		</div>
 		<div class="report-reasons">
-			<?php esc_html_e( 'Selected Option: ', 'business-directory-plugin' ) . esc_html( $value['reason'] ); ?>
+			<?php 
+				esc_html_e( 'Selected Option: ', 'business-directory-plugin' );
+				echo esc_html( $value['reason'] ); 
+			?>
 			<br/>
 			<?php
 			if ( ! empty( $value['comments'] ) ) :
-				esc_html_e( 'Additional Info: ', 'business-directory-plugin' ) . esc_html( $value['comments'] );
+				esc_html_e( 'Additional Info: ', 'business-directory-plugin' ); 
+				echo esc_html( $value['comments'] );
 			endif;
 			?>
 		</div>
