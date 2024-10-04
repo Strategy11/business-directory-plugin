@@ -3,6 +3,7 @@
  * Interface Personal Data Provider implementations.
  *
  * @package BDP\Admin|Interface data Provider
+ *
  * @since 5.5
  */
 

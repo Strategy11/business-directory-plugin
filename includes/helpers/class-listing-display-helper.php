@@ -18,7 +18,7 @@ class WPBDP_Listing_Display_Helper {
 		global $post;
 
 		$vars = array();
-		$vars = array_merge( $vars, array( 'even_or_odd' => ( ( $n & 1 ) ? 'odd' : 'even' ) ) );
+		$vars = array_merge( $vars, array( 'even_or_odd' => ( $n & 1 ? 'odd' : 'even' ) ) );
 		$vars = array_merge( $vars, self::basic_vars( $post->ID ) );
 		$vars = array_merge( $vars, self::fields_vars( $post->ID, 'excerpt' ) );
 		$vars = array_merge( $vars, self::images_vars( $post->ID, 'excerpt' ) );
@@ -60,6 +60,7 @@ class WPBDP_Listing_Display_Helper {
 	 * Get needed parameters for full or partial listing.
 	 *
 	 * @since v5.9
+	 *
 	 * @return array
 	 */
 	public static function single_listing_vars( $include = array() ) {
@@ -277,31 +278,17 @@ class WPBDP_Listing_Display_Helper {
 			$pass_args['link']  = 'listing';
 			$pass_args['class'] = 'wpbdmthumbs wpbdp-excerpt-thumbnail';
 
-			$thumb       = new StdClass();
+			$thumb       = new stdClass();
 			$thumb->html = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
 
 			$vars['images']->thumbnail = $thumb;
 		}
 
 		// Main image.
-		$main_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
-		$data_main = wp_get_attachment_image_src( $thumbnail_id, $main_size, false );
-
+		$vars['images']->main = false;
 		if ( $thumbnail_id && $show_bd_thumb ) {
-			$pass_args['link']  = 'picture';
-			$pass_args['class'] = 'wpbdp-single-thumbnail';
-
-			$main_image         = new StdClass();
-			$main_image->id     = $thumbnail_id;
-			$main_image->html   = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
-			$main_image->url    = $data_main[0];
-			$main_image->width  = $data_main[1];
-			$main_image->height = $data_main[2];
-		} else {
-			$main_image = false;
+			$vars['images']->main = self::get_main_image( $listing_id, $thumbnail_id, $pass_args, $display );
 		}
-
-		$vars['images']->main = $main_image;
 
 		// Other images.
 		$listing_images = $listing->get_images( 'ids', true );
@@ -323,7 +310,7 @@ class WPBDP_Listing_Display_Helper {
 			$data          = wp_get_attachment_image_src( $img_id, 'wpbdp-large', false );
 			$image_caption = get_post_meta( $img_id, '_wpbdp_image_caption', true );
 
-			$image         = new StdClass();
+			$image         = new stdClass();
 			$image->id     = $img_id;
 			$image->url    = $data[0];
 			$image->width  = $data[1];
@@ -351,9 +338,31 @@ class WPBDP_Listing_Display_Helper {
 	}
 
 	/**
+	 * @since 6.4.4
+	 *
+	 * @return object
+	 */
+	private static function get_main_image( $listing_id, $thumbnail_id, $pass_args, $display ) {
+		$main_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
+		$data_main = wp_get_attachment_image_src( $thumbnail_id, $main_size, false );
+
+		$pass_args['link']  = 'picture';
+		$pass_args['class'] = 'wpbdp-single-thumbnail';
+
+		$main_image         = new stdClass();
+		$main_image->id     = $thumbnail_id;
+		$main_image->html   = wpbdp_listing_thumbnail( $listing_id, $pass_args, $display );
+		$main_image->url    = $data_main[0];
+		$main_image->width  = $data_main[1];
+		$main_image->height = $data_main[2];
+		return $main_image;
+	}
+
+	/**
 	 * Gets sticky image url.
 	 *
 	 * @since 5.12
+	 *
 	 * @return string
 	 */
 	private static function get_sticky_image() {
@@ -364,6 +373,7 @@ class WPBDP_Listing_Display_Helper {
 	 * Gets coming soon image url.
 	 *
 	 * @since 5.12
+	 *
 	 * @return string
 	 */
 	public static function get_coming_soon_image() {
@@ -374,6 +384,7 @@ class WPBDP_Listing_Display_Helper {
 	 * Gets image url from setting.
 	 *
 	 * @since 5.12
+	 *
 	 * @return string
 	 */
 	private static function get_image_option( $option ) {

@@ -97,8 +97,8 @@ function wpbusdirman_post_list_categories() {
 /**
  * TODO: There doesn't seem to be a replacement for this deprecated function.
  *
- * @deprecated
  * @since 2.3
+ * @deprecated
  */
 function wpbusdirman_get_the_business_email( $post_id ) {
 	// _deprecated_function( __FUNCTION__, '2.3' );
@@ -128,10 +128,12 @@ function wpbusdirman_get_the_business_email( $post_id ) {
 /**
  * Finds a fee by its ID. The special ID of 0 is reserved for the "free fee".
  *
- * @param int $fee_id fee ID
- * @return object a fee object or NULL if nothing is found
  * @since 3.0.3
  * @deprecated since 3.7. Use {@link wpbdp_get_fee_plan()} instead.
+ *
+ * @param int $fee_id fee ID
+ *
+ * @return object a fee object or NULL if nothing is found
  */
 function wpbdp_get_fee( $fee_id ) {
 	_deprecated_function( __FUNCTION__, '3.7', 'wpbdp_get_fee_plan' );
@@ -223,9 +225,10 @@ function wpbdp_bar( $parts = array() ) {
 /**
  * Recursively deletes a directory.
  *
- * @param string $path a directory.
  * @since 3.3
  * @deprecated since 3.6.10. Use {@link WPBDP_FS::rmdir} instead.
+ *
+ * @param string $path a directory.
  */
 function wpbdp_rrmdir( $path ) {
 	_deprecated_function( __FUNCTION__, '3.6.10', 'WPBDP_FS::rmdir' );

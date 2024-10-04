@@ -3,6 +3,7 @@
  * Erases all personal data the plugin has for the given email address.
  *
  * @package BDP\Admin
+ *
  * @since 5.5
  */
 
@@ -10,6 +11,8 @@
  * Class WPBDP_PersonalDataEraser
  */
 class WPBDP_PersonalDataEraser {
+
+	public $data_eraser;
 
 	/**
 	 * @param object $data_eraser
@@ -21,6 +24,7 @@ class WPBDP_PersonalDataEraser {
 	/**
 	 * @param string $email_address
 	 * @param int    $page
+	 *
 	 * @return array
 	 */
 	public function erase_personal_data( $email_address, $page = 1 ) {

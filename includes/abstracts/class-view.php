@@ -2,8 +2,9 @@
 /**
  * View API/class.
  *
- * @since 5.0
  * @package BDP/Includes
+ *
+ * @since 5.0
  */
 
 /**

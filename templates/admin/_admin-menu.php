@@ -25,7 +25,7 @@
 
 			?>
 			<li class="wpbdp-nav-item">
-				<a class="<?php echo $active_tab === $tab_id ? 'active ' : ''; ?><?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( $link ); ?>" title="<?php echo esc_html( $tab['title'] ); ?>">
+				<a class="<?php echo $active_tab === $tab_id ? 'active ' : ''; ?><?php echo sanitize_html_class( apply_filters( 'wpbdp_settings_tab_css', '', $tab_id ) ); ?>" href="<?php echo esc_url( $link ); ?>" title="<?php echo esc_attr( $tab['title'] ); ?>">
 					<span class="wpbdp-nav-item-icon <?php echo esc_attr( ( strpos( $tab['icon'], ' ' ) === false ? 'wpbdp-admin-icon-' : '' ) . $tab['icon'] ); ?>">
 						<?php
 						if ( ! empty( $tab['icon_url'] ) ) {

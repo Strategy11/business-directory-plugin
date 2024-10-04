@@ -9,11 +9,9 @@ class WPBDP_Themes_Admin {
 	private $outdated_themes = array();
 
 	function __construct( &$api, $licensing ) {
-		$this->api             = $api;
-		$this->licensing       = $licensing;
-		$this->outdated_themes = $this->find_outdated_themes();
+		$this->api       = $api;
+		$this->licensing = $licensing;
 
-		add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
 		add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
 		add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
 
@@ -30,9 +28,12 @@ class WPBDP_Themes_Admin {
 	}
 
 	function admin_menu( $slug ) {
+		$this->outdated_themes = $this->find_outdated_themes();
+
 		$count = count( $this->outdated_themes );
 
 		if ( $count ) {
+			add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
 			$count_html = ' <span class="update-plugins"><span class="plugin-count">' . number_format_i18n( $count ) . '</span></span>';
 		} else {
 			$count_html = '';
@@ -119,7 +120,7 @@ class WPBDP_Themes_Admin {
 		$missing = $this->api->missing_suggested_fields();
 
 		global $wpbdp;
-		$wpbdp->formfields->create_default_fields( $missing );
+		$wpbdp->form_fields->create_default_fields( $missing );
 
 		wp_safe_redirect( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ) );
 		exit;
@@ -314,12 +315,8 @@ class WPBDP_Themes_Admin {
 			$removed = WPBDP_FS::rmdir( $path );
 		}
 
-		if ( $removed ) {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=4&deleted=' . $theme_id ) );
-		} else {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
-		}
-
+		$message = $removed ? 4 : 5;
+		wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=' . $message . '&deleted=' . $theme_id ) );
 		exit;
 	}
 
@@ -365,6 +362,10 @@ class WPBDP_Themes_Admin {
 	// Theme update process. {{
 
 	public function _update_theme() {
+		if ( empty( $this->outdated_themes ) ) {
+			$this->outdated_themes = $this->find_outdated_themes();
+		}
+
 		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 		$theme_id = wpbdp_get_var( array( 'param' => 'theme' ), 'request' );
 

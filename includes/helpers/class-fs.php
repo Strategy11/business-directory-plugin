@@ -36,7 +36,7 @@ final class WPBDP_FS {
 			}
 
 			$path   = $dir . DIRECTORY_SEPARATOR . $entry;
-			$passes = $filter ? ( (bool) call_user_func( $filter, $path ) ) : true;
+			$passes = $filter ? (bool) call_user_func( $filter, $path ) : true;
 
 			if ( is_dir( $path ) ) {
 				$path = wp_normalize_path( trailingslashit( $path ) );
@@ -45,7 +45,7 @@ final class WPBDP_FS {
 			$item = $path;
 
 			if ( 'all' == $output || 'details' == $output ) {
-				$item       = new StdClass();
+				$item       = new stdClass();
 				$item->path = $path;
 				$item->type = is_dir( $path ) ? 'dir' : ( is_link( $path ) ? 'link' : 'file' );
 				$item->size = absint( filesize( $path ) );
@@ -80,6 +80,7 @@ final class WPBDP_FS {
 			}
 		}
 
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 		return ( is_dir( $path ) ? @rmdir( $path ) : @unlink( $path ) );
 	}
 

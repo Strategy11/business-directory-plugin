@@ -101,6 +101,7 @@ class WPBDP__Rewrite {
 			foreach ( $this->get_rewrite_rules() as $k => $v ) {
 				if ( ! isset( $rules[ $k ] ) || $rules[ $k ] != $v ) {
 					global $wp_rewrite;
+					// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 					$wp_rewrite->flush_rules();
 					return;
 				}

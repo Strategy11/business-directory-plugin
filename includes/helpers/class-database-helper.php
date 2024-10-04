@@ -4,9 +4,8 @@
  *
  * Originally copied from Another WordPress Classifieds Plugin
  *
- * @link https://github.com/drodenbaugh/awpcp/blob/0fac103e4b6761860653677eef5d2825693c4ba9/another-wordpress-classifieds-plugin/includes/db/class-database-helper.php
- *
  * @since 4.1.8
+ * @link https://github.com/drodenbaugh/awpcp/blob/0fac103e4b6761860653677eef5d2825693c4ba9/another-wordpress-classifieds-plugin/includes/db/class-database-helper.php
  */
 
 class WPBDP_Database_Helper {

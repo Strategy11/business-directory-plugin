@@ -128,7 +128,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 		$settings['select_all'][] = _x( 'Include "Select all"?', 'form-fields admin', 'business-directory-plugin' );
 
 		$content  = '<label>';
-		$content .= '<input name="field[allow_select_all]" value="1" type="checkbox" ' . ( ( $field && '1' == $field->data( 'allow_select_all' ) ) ? 'checked="checked"' : '' ) . '/>';
+		$content .= '<input name="field[allow_select_all]" value="1" type="checkbox" ' . ( $field && '1' == $field->data( 'allow_select_all' ) ? 'checked="checked"' : '' ) . '/>';
 		$content .= _x( 'Display "Select all" option among options above.', 'form-fields admin', 'business-directory-plugin' );
 		$content .= '</label>';
 
@@ -137,6 +137,9 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		if ( ! isset( $_POST['field']['x_options'] ) ) {
 			return;
@@ -285,6 +288,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 	 * Don't count the hidden field value.
 	 *
 	 * @since 6.2.5
+	 *
 	 * @return bool
 	 */
 	public function is_empty_value( $value ) {

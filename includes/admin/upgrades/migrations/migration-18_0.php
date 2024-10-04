@@ -475,6 +475,7 @@ class WPBDP__Migrations__18_0 extends WPBDP__Migration {
             }
         }
 
+        $res               = array();
         $res['listing_id'] = $listing_id;
         $res['fee_id'] = $choices['fee_id'][0]; // Use the first fee id.
         $res['fee_days'] = in_array( -1, $choices['fee_days'] ) ? 0 : max( $choices['fee_days'] );

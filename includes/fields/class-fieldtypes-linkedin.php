@@ -28,7 +28,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 
 		$field_settings['placeholder'] = _x( 'You can add your Company ID or profile URL here.', 'form-fields api', 'business-directory-plugin' );
 
-		return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
+		return $wpbdp->form_fields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
 	}
 
 	public function get_supported_associations() {

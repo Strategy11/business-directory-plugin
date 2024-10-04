@@ -129,7 +129,7 @@ class WPBDP_App_Helper {
 	 *
 	 * @param string $page The name of the page to check
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function is_admin_page( $page = 'wpbdp_settings' ) {
 		global $pagenow;
@@ -250,7 +250,7 @@ class WPBDP_App_Helper {
 		}
 
 		$nonce_name  = $atts['nonce_name'];
-		$nonce_value = ( $_REQUEST && isset( $_REQUEST[ $nonce_name ] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_name ] ) ) : '';
+		$nonce_value = $_REQUEST && isset( $_REQUEST[ $nonce_name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_name ] ) ) : '';
 
 		if ( $_REQUEST && ( ! isset( $_REQUEST[ $nonce_name ] ) || ! wp_verify_nonce( $nonce_value, $atts['nonce'] ) ) ) {
 			$error = esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' );
@@ -303,6 +303,7 @@ class WPBDP_App_Helper {
 	 * @since 5.9.2
 	 */
 	public static function include_svg() {
+		// phpcs:ignore WordPressVIPMinimum.Files.IncludingNonPHPFile, WordPressVIPMinimum.Files.IncludingFile.NotAbsolutePath
 		include_once self::plugin_path() . '/assets/images/icons.svg';
 	}
 
@@ -312,6 +313,7 @@ class WPBDP_App_Helper {
 	 * @since 5.9.2
 	 *
 	 * @param array $atts
+	 *
 	 * @return string
 	 */
 	public static function array_to_html_params( $atts ) {
@@ -325,9 +327,9 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * @param array|int $atts
-	 *
 	 * @since 5.9.2
+	 *
+	 * @param array|int $atts
 	 */
 	public static function show_logo( $atts ) {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -340,13 +342,15 @@ class WPBDP_App_Helper {
 	public static function svg_logo( $atts = array() ) {
 		$atts = self::prep_logo_atts( $atts );
 
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" class="' . esc_attr( $atts['class'] ) . '" alt="BD Plugin" />';
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" ' .
+			'width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" ' .
+			'class="' . esc_attr( $atts['class'] ) . '" alt="BD Plugin" />';
 	}
 
 	/**
-	 * @param int|array $atts
-	 *
 	 * @since 6.0
+	 *
+	 * @param array|int $atts
 	 */
 	private static function prep_logo_atts( $atts ) {
 		if ( ! is_array( $atts ) ) {
@@ -401,7 +405,7 @@ class WPBDP_App_Helper {
 	/**
 	 * @since 5.9.2
 	 */
-	private static function safe_html() {
+	private static function safe_html() { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		$allow_class = array(
 			'class' => true,
 			'id'    => true,
@@ -522,6 +526,7 @@ class WPBDP_App_Helper {
 
 	/**
 	 * @since 5.16
+	 *
 	 * @return string
 	 */
 	public static function minimize_code( $html ) {
@@ -533,7 +538,9 @@ class WPBDP_App_Helper {
 	 * Expects "button wpbdp-button" to avoid adding the class twice.
 	 *
 	 * @since 6.3.4
+	 *
 	 * @param string $content
+	 *
 	 * @return void
 	 */
 	public static function add_theme_button_class( &$content ) {

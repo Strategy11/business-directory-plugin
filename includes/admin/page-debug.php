@@ -30,7 +30,7 @@ class WPBDP_Admin_Debug_Page {
 		return $debug_info;
 	}
 
-	public function dispatch( $plain = false ) {
+	public function dispatch( $plain = false ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 
 		$debug_info = array();
 

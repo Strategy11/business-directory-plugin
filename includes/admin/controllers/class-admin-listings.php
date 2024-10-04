@@ -174,7 +174,10 @@ class WPBDP_Admin_Listings {
 		}
 
 		if ( ! $listing->has_fee_plan() ) {
-			wpbdp_admin_message( _x( 'This listing doesn\'t have a plan assigned. This is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'business-directory-plugin' ), 'error' );
+			wpbdp_admin_message(
+				_x( 'This listing doesn\'t have a plan assigned. This is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'business-directory-plugin' ),
+				'error'
+			);
 		}
 	}
 
@@ -292,7 +295,8 @@ class WPBDP_Admin_Listings {
 
 	function listing_column( $column, $post_id ) {
 		if ( ! method_exists( $this, 'listing_column_' . $column ) ) {
-			return do_action( 'wpbdp_admin_directory_column_' . $column, $post_id );
+			do_action( 'wpbdp_admin_directory_column_' . $column, $post_id );
+			return;
 		}
 
 		call_user_func( array( &$this, 'listing_column_' . $column ), $post_id );
@@ -301,13 +305,18 @@ class WPBDP_Admin_Listings {
 	function listing_column_category( $post_id ) {
 		$terms = wp_get_post_terms( $post_id, WPBDP_CATEGORY_TAX );
 		foreach ( $terms as $i => $term ) {
+			$term_link = get_term_link( $term->term_id, WPBDP_CATEGORY_TAX );
+			if ( is_wp_error( $term_link ) ) {
+				continue;
+			}
+
 			printf(
 				'<a href="%s">%s</a>',
-				esc_url( get_term_link( $term->term_id, WPBDP_CATEGORY_TAX ) ),
+				esc_url( $term_link ),
 				esc_html( $term->name )
 			);
 
-			if ( ( $i + 1 ) != count( $terms ) ) {
+			if ( $i + 1 != count( $terms ) ) {
 				echo ', ';
 			}
 		}
@@ -417,7 +426,7 @@ class WPBDP_Admin_Listings {
 
 			$count = number_format_i18n( $count );
 
-			$current_class                         = ( ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ) ? 'current' : '';
+			$current_class                         = ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ? 'current' : '';
 			$views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg(
 				array( 'post_status', 'author', 'all_posts', 'wpbdmfilter' ),
 				add_query_arg(
@@ -434,7 +443,17 @@ class WPBDP_Admin_Listings {
 			global $wpdb;
 
 			$post_statuses_string = "'publish', 'draft', 'pending'";
-			$count                = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses_string}) AND pm.meta_key = %s AND pm.meta_value = %d", WPBDP_POST_TYPE, '_wpbdp_flagged', 1 ) ) );
+			$count                = absint(
+				$wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT COUNT(p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id " .
+						"WHERE p.post_type = %s AND p.post_status IN ({$post_statuses_string}) AND pm.meta_key = %s AND pm.meta_value = %d",
+						WPBDP_POST_TYPE,
+						'_wpbdp_flagged',
+						1
+					)
+				)
+			);
 
 			if ( $count > 0 ) {
 				$status            = wpbdp_get_var( array( 'param' => 'listing_status' ), 'request' );

@@ -221,7 +221,7 @@ class WPBDP_Form_Field_Type {
 					'<div class="wpbdp-search-filter %s %s" %s>',
 					esc_attr( $field->get_field_type()->get_id() ),
 					esc_attr( implode( ' ', $field->get_css_classes( $render_context ) ) ),
-					$this->html_attributes( $field->html_attributes )
+					self::html_attributes( $field->html_attributes )
 				);
 				$html .= '<div class="wpbdp-search-field-label">';
 				$html .= sprintf(
@@ -244,7 +244,7 @@ class WPBDP_Form_Field_Type {
 				break;
 
 			default: // includes submit and edit
-				$html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
+				$html_attributes = self::html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
 
 				$html .= sprintf(
 					'<div class="%s" %s>',
@@ -259,7 +259,7 @@ class WPBDP_Form_Field_Type {
 					'<label for="%s">%s</label>',
 					'wpbdp-field-' . esc_attr( $field->get_id() ),
 					wp_kses_post( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) .
-					( ( $field->has_validator( 'required' ) && 'widget' !== $render_context ) ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
+					( $field->has_validator( 'required' ) && 'widget' !== $render_context ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
 				);
 
 				$html .= '</div>';
@@ -383,6 +383,7 @@ class WPBDP_Form_Field_Type {
 	 *
 	 * @param object $field might be NULL if field is new or the field that is being edited.
 	 * @param string $association field association.
+	 *
 	 * @return string the HTML output.
 	 */
 	public function render_field_settings( &$field = null, $association = null ) {
@@ -394,7 +395,8 @@ class WPBDP_Form_Field_Type {
 	 * It should be used by field types to store any field type specific configuration.
 	 *
 	 * @param object $field the field being saved.
-	 * @return mixed WP_Error in case of error, anything else for success.
+	 *
+	 * @return void|WP_Error WP_Error in case of error, anything else for success.
 	 */
 	public function process_field_settings( &$field ) {
 	}
@@ -453,10 +455,10 @@ class WPBDP_Form_Field_Type {
 	 * Field label display wrapper.
 	 * Used to render the field label.
 	 *
+	 * @since 5.15.3
+	 *
 	 * @param string $label The field label.
 	 * @param array $atts includes $atts['field'] - The field object of the label.
-	 *
-	 * @since 5.15.3
 	 *
 	 * @return string
 	 */

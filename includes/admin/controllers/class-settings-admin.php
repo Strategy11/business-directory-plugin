@@ -303,10 +303,10 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render checkbox input hmtl.
 	 *
-	 * @param array $setting The setting of the field.
-	 * @param int $value The input value.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $setting The setting of the field.
+	 * @param int   $value   The input value.
 	 *
 	 * @return void
 	 */
@@ -321,11 +321,11 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render settings input label.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $setting The setting of the field.
 	 * @param string $tag The element tag. Defaults to "label".
 	 * @param string $class The element tag class. Defaults to empty.
-	 *
-	 * @since 6.0
 	 *
 	 * @return void
 	 */
@@ -355,9 +355,9 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render settings input description.
 	 *
-	 * @param array $setting The setting of the field.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $setting The setting of the field.
 	 *
 	 * @return void
 	 */
@@ -445,29 +445,32 @@ class WPBDP__Settings_Admin {
 
 		$value = (array) $value;
 
-		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" value="" />';
-
-		echo '<div class="wpbdp-settings-multicheck-options wpbdp-grid">';
-		$n = 0;
+		$html  = '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" value="" />';
+		$html .= '<div class="wpbdp-settings-multicheck-options wpbdp-grid">';
+		$n     = 0;
 		foreach ( $setting['options'] as $option_value => $option_label ) {
-			echo '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . absint( $n ) . '">';
-			echo '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
-			echo '<label for="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '">';
-			echo esc_html( $option_label );
-			echo '</label>';
-			echo '</div>';
-
+			$html .= '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . absint( $n ) . ' wpbdp-' . esc_attr( $option_value ) . '">';
+			$html .= '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" ' .
+				'id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" ' .
+				'value="' . esc_attr( $option_value ) . '" ' .
+				checked( in_array( $option_value, $value ), true, false ) .
+				' />';
+			$html .= '<label for="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '">';
+			$html .= esc_html( $option_label );
+			$html .= '</label>';
+			$html .= '</div>';
 			++$n;
 		}
+		$html .= '</div>';
 
-		echo '</div>';
+		echo $html;
 	}
 
 	/**
 	 * Render the select dropdown.
 	 *
-	 * @param array $setting The setting of the current input.
-	 * @param string|array $value The selected value
+	 * @param array        $setting The setting of the current input.
+	 * @param array|string $value   The selected value
 	 */
 	public function setting_select_callback( $setting, $value ) {
 		if ( empty( $setting['options'] ) ) {
@@ -586,7 +589,11 @@ class WPBDP__Settings_Admin {
 	}
 
 	public function setting_url_callback( $setting, $value ) {
-		echo '<input type="url" id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
+		echo '<input type="url" id="' . esc_attr( $setting['id'] ) . '" ' .
+			'name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" ' .
+			'value="' . esc_attr( $value ) . '" ' .
+			'placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" ' .
+			'/>';
 	}
 
 	public function setting_color_callback( $setting, $value ) {
@@ -795,13 +802,28 @@ class WPBDP__Settings_Admin {
 				foreach ( array( '+', '-' ) as $sign ) {
 					switch ( $unit ) {
 						case 'days':
-							$label = sprintf( '+' == $sign ? _nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 						case 'weeks':
-							$label = sprintf( '+' == $sign ? _nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 						case 'months':
-							$label = sprintf( '+' == $sign ? _nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 					}
 

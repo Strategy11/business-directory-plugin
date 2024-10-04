@@ -1,6 +1,7 @@
 <?php
 /**
  * @package WPBDP\FieldTypes\TextArea
+ *
  * @since 4.0
  */
 class WPBDP__Shortcodes {
@@ -103,7 +104,9 @@ class WPBDP__Shortcodes {
 		 * Used for: Shows the Advanced Search Screen on any single page.
 		 * Parameters:
 		 *  - form_only   Display search form only even after search is performed. Default is 0. (Allowed values: To disable: 0, false, no. To enable: 1, true, yes)
-		 *  - return_url  After the search is performed, when no results are found, a "Return to Search" link is shown with this parameter as target. Default value is the URL of the Advanced Search screen. (Allowed Values: Any valid URL or 'auto' to mean the URL of the page where the shortcode is being used.)
+		 *  - return_url  After the search is performed, when no results are found, a "Return to Search" link is shown
+		 *                with this parameter as target. Default value is the URL of the Advanced Search screen.
+		 *                (Allowed Values: Any valid URL or 'auto' to mean the URL of the page where the shortcode is being used.)
 		 * Example:
 		 *  `[businessdirectory-search]`
 		 */
@@ -322,7 +325,7 @@ class WPBDP__Shortcodes {
 		);
 
 		if ( ! is_null( $sc_atts['menu'] ) ) {
-			$sc_atts['menu'] = ( 1 === $sc_atts['menu'] || 'true' === $sc_atts['menu'] ) ? true : false;
+			$sc_atts['menu'] = 1 === $sc_atts['menu'] || 'true' === $sc_atts['menu'];
 		}
 
 		$this->validate_attributes( $sc_atts, $atts );
@@ -375,8 +378,8 @@ class WPBDP__Shortcodes {
 
 		return $this->display_listings(
 			array(
-				'orderby' => 'date',
-				'order'   => 'DESC',
+				'orderby'         => 'date',
+				'order'           => 'DESC',
 				'wpbdp_shortcode' => true,
 			),
 			$sc_atts
@@ -399,6 +402,7 @@ class WPBDP__Shortcodes {
 
 		return $this->display_listings(
 			array(
+				// phpcs:ignore WordPressVIPMinimum.Performance.OrderByRand
 				'orderby' => 'rand',
 			),
 			$sc_atts
@@ -445,10 +449,10 @@ class WPBDP__Shortcodes {
 	 * Process category query attributes.
 	 * This checks if the `category` or `categories` attributes are passed in the shortcode and includes them in the loop query.
 	 *
+	 * @since 5.18
+	 *
 	 * @param array $atts Shortcode attributes.
 	 * @param array $query_args The query args used to search based on attributes.
-	 *
-	 * @since 5.18
 	 */
 	private function process_category_atts( $atts, &$query_args ) {
 		$this->combine_shortcode_atts( array( 'category', 'categories' ), $atts );
@@ -491,10 +495,10 @@ class WPBDP__Shortcodes {
 	 * Process tag query attributes.
 	 * This checks if the `tag` or `tags` attributes are passed in the shortcode and includes them in the loop query.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $atts Shortcode attributes.
 	 * @param array $query_args The query args used to search based on attributes.
-	 *
-	 * @since 6.0
 	 */
 	private function process_tag_atts( $atts, &$query_args ) {
 		$this->combine_shortcode_atts( array( 'tag', 'tags' ), $atts );
@@ -515,10 +519,10 @@ class WPBDP__Shortcodes {
 	 * Combine two shortcode attributes into one. The combination of the two is
 	 * saved in the first param.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $combine The names of two shortcode atts to combine. ie. `category` and `categories`.
 	 * @param array $atts    Shortcode attributes.
-	 *
-	 * @since 6.0
 	 */
 	private function combine_shortcode_atts( $combine, &$atts ) {
 		$first  = $combine[0];
@@ -980,20 +984,7 @@ class WPBDP__Shortcodes {
 
 	public function validate_attributes( &$sc_atts, $atts = array() ) {
 
-		if ( ! empty( $atts['pagination'] ) ) {
-			switch ( strtolower( $atts['pagination'] ) ) {
-				case '1':
-				case 'true':
-				case 'yes':
-					$sc_atts['pagination'] = true;
-					break;
-				case '0':
-				case 'false':
-				case 'no':
-				default:
-					$sc_atts['pagination'] = false;
-			}
-		}
+		$this->set_pagination_attribute( $atts, $sc_atts );
 
 		// Backward compatibility for `limit` parameter
 		if ( ! empty( $sc_atts['limit'] ) ) {
@@ -1010,6 +1001,28 @@ class WPBDP__Shortcodes {
 
 		if ( isset( $sc_atts['pagination'] ) && ! $sc_atts['pagination'] ) {
 			$sc_atts['items_per_page'] = -1;
+		}
+	}
+
+	/**
+	 * @return void
+	 */
+	private function set_pagination_attribute( $atts, &$sc_atts ) {
+		if ( empty( $atts['pagination'] ) ) {
+			return;
+		}
+
+		switch ( strtolower( $atts['pagination'] ) ) {
+			case '1':
+			case 'true':
+			case 'yes':
+				$sc_atts['pagination'] = true;
+				break;
+			case '0':
+			case 'false':
+			case 'no':
+			default:
+				$sc_atts['pagination'] = false;
 		}
 	}
 

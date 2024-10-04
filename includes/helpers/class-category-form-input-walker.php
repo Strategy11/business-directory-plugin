@@ -39,6 +39,7 @@ class WPBDP_CategoryFormInputWalker extends Walker {
 			case 'radio':
 			default:
 				$this->selected = is_array( $this->selected ) ? $this->selected[0] : $this->selected;
+
 				$class   = $this->field->is_required() ? 'inradio required' : 'inradio';
 				$output .= '<div class="wpbdm-form-field-radio-item">';
 				$output .= '<label for="' . esc_attr( $html_id ) . '">';

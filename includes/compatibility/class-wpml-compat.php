@@ -11,6 +11,7 @@
 class WPBDP_WPML_Compat {
 
 	private $wpml;
+	public $workaround = false;
 
 	public function __construct() {
 		$this->wpml = $GLOBALS['sitepress'];
@@ -123,9 +124,9 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Add current language to the URL used in BD's ajax requests.
 	 *
-	 * @param string $ajax_url Default value for Ajax URL.
-	 *
 	 * @since 5.0.3
+	 *
+	 * @param string $ajax_url Default value for Ajax URL.
 	 */
 	public function filter_ajax_url( $ajax_url ) {
 		$lang = $this->get_current_language();
@@ -234,11 +235,7 @@ class WPBDP_WPML_Compat {
 			return;
 		}
 
-		if ( ! isset( $this->workaround ) ) {
-			$this->workaround = true;
-		} else {
-			$this->workaround = ! $this->workaround;
-		}
+		$this->workaround = ! $this->workaround;
 
 		if ( $this->workaround ) {
 			// Magic here.

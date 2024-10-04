@@ -14,6 +14,8 @@ class WPBDP_CSVExporter {
 
 	const BATCH_SIZE = 20;
 
+	public $images_archive;
+
 	private $settings = array(
 		'target-os'             => 'windows',
 		'csv-file-separator'    => ',',
@@ -312,7 +314,7 @@ class WPBDP_CSVExporter {
 		return $out;
 	}
 
-	private function extract_data( $post_id ) {
+	private function extract_data( $post_id ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		$listing = wpbdp_get_listing( $post_id );
 
 		if ( ! $listing ) {
@@ -359,7 +361,7 @@ class WPBDP_CSVExporter {
 								continue;
 							}
 
-							$this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+							$this->images_archive = empty( $this->images_archive ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
 							if ( $success = $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
 								$images[] = basename( $img_path );
 							}
@@ -401,52 +403,7 @@ class WPBDP_CSVExporter {
 					$value = get_post_meta( $post_id, '_wpbdp_tos_acceptance_date', true );
 					break;
 				default:
-					if ( is_object( $column_obj ) ) {
-						$field = $column_obj;
-
-						switch ( $field->get_association() ) {
-							case 'category':
-							case 'tags':
-								$value = wp_get_post_terms(
-									$listing->get_id(),
-									( 'tags' === $field->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX ),
-									array( 'fields' => 'names' )
-								);
-								$value = array_map( 'html_entity_decode', $value );
-								$value = implode( $this->settings['category-separator'], $value );
-								break;
-							case 'meta':
-							default:
-								$value = $field->csv_value( $listing->get_id() );
-
-								if ( 'image' === $field->get_field_type_id() && $this->settings['export-images'] ) {
-									$image_id = $field->plain_value( $listing->get_id() );
-
-									if ( empty( $image_id ) ) {
-										break;
-									}
-
-									$img_meta = wp_get_attachment_metadata( $image_id );
-
-									if ( empty( $img_meta['file'] ) ) {
-										break;
-									}
-
-									$upload_dir = wp_upload_dir();
-									$img_path   = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
-
-									if ( ! is_readable( $img_path ) ) {
-										break;
-									}
-
-									$this->images_archive = ( ! isset( $this->images_archive ) ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
-									if ( $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
-										$value = sprintf( '%s,%s', $value, basename( $img_path ) );
-									}
-								}
-								break;
-						}
-					}
+					$value = $this->get_field_value( $column_obj, $listing );
 			}
 
 			if ( ! is_string( $value ) && ! is_array( $value ) ) {
@@ -460,13 +417,78 @@ class WPBDP_CSVExporter {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.4
+	 */
+	private function get_field_value( $field, $listing ) {
+		if ( ! is_object( $field ) ) {
+			return '';
+		}
+
+		switch ( $field->get_association() ) {
+			case 'category':
+			case 'tags':
+				$value = wp_get_post_terms(
+					$listing->get_id(),
+					( 'tags' === $field->get_association() ? WPBDP_TAGS_TAX : WPBDP_CATEGORY_TAX ),
+					array( 'fields' => 'names' )
+				);
+				$value = array_map( 'html_entity_decode', $value );
+				$value = implode( $this->settings['category-separator'], $value );
+				break;
+			case 'meta':
+			default:
+				$value = $field->csv_value( $listing->get_id() );
+
+				if ( 'image' === $field->get_field_type_id() && $this->settings['export-images'] ) {
+					$image_id = $field->plain_value( $listing->get_id() );
+
+					if ( empty( $image_id ) ) {
+						break;
+					}
+
+					$img_meta = wp_get_attachment_metadata( $image_id );
+
+					if ( empty( $img_meta['file'] ) ) {
+						break;
+					}
+
+					$upload_dir = wp_upload_dir();
+					$img_path   = realpath( $upload_dir['basedir'] . DIRECTORY_SEPARATOR . $img_meta['file'] );
+
+					if ( ! is_readable( $img_path ) ) {
+						break;
+					}
+
+					$this->images_archive = empty( $this->images_archive ) ? $this->get_pclzip_instance( $this->workingdir . 'images.zip' ) : $this->images_archive;
+					if ( $this->images_archive->add( $img_path, PCLZIP_OPT_REMOVE_ALL_PATH ) ) {
+						$value = sprintf( '%s,%s', $value, basename( $img_path ) );
+					}
+				}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Escape a " in a csv with another ".
+	 * Escape the = to prevent execution of functions.
+	 *
+	 * @since 6.4.1
 	 *
 	 * @param string $str
 	 *
 	 * @return string
 	 */
 	private function escaped_string( $str ) {
+		if ( ! is_string( $str ) ) {
+			return $str;
+		}
+
+		if ( '=' === $str[0] ) {
+			// Escape the = to prevent vulnerability.
+			$str = "'" . $str;
+		}
+
 		$str = str_replace( array( '\r\n', '\n' ), "\n", $str );
 		$str = '"' . str_replace( '"', '""', $str ) . '"';
 		return $str;

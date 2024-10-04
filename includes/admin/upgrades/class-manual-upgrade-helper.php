@@ -6,6 +6,8 @@ class WPBDP__Manual_Upgrade_Helper {
 	private $manual_upgrades = array();
 	private $callback;
 	private $config_callback = null;
+	public $current_version;
+	public $current_upgrade;
 
 	public function __construct( $installer ) {
 		$this->installer = $installer;

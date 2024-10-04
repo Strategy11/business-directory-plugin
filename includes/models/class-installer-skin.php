@@ -62,7 +62,7 @@ class WPBDP_Installer_Skin extends WP_Upgrader_Skin {
 	 *
 	 * @since 5.9.2
 	 *
-	 * @param string|object $errors The WP Error object of errors with the install process.
+	 * @param object|string $errors The WP Error object of errors with the install process.
 	 */
 	public function error( $errors ) {
 		if ( ! empty( $errors ) ) {

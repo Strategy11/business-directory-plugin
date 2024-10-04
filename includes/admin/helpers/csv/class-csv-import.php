@@ -433,7 +433,7 @@ class WPBDP_CSV_Import {
 		$this->header = array();
 
 		global $wpbdp;
-		$short_names = $wpbdp->formfields->get_short_names();
+		$short_names = $wpbdp->form_fields->get_short_names();
 		foreach ( $fields_in_header as $short_name ) {
 			$field_id = 0;
 
@@ -483,14 +483,14 @@ class WPBDP_CSV_Import {
 			$state[ $key ] = $this->{$key};
 		}
 
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 		if ( false === file_put_contents( $this->state_file, serialize( $state ) ) ) {
 			throw new Exception( 'Could not write persistent data' );
 		}
 	}
 
 	private function import_row( $data ) {
-		global $wpdb;
-		global $wpbdp;
+		global $wpdb, $wpbdp;
 
 		if ( $this->settings['test-import'] ) {
 			return;
@@ -556,6 +556,7 @@ class WPBDP_CSV_Import {
 		}
 
 		// Handle fields.
+		$fields = $data['fields'];
 		foreach ( $fields as $field_id => $field_data ) {
 			$f = wpbdp_get_form_field( $field_id );
 
@@ -589,7 +590,21 @@ class WPBDP_CSV_Import {
 			}
 		}
 
-		// Insert or update listing.
+		$listing = $this->insert_or_update_listing( $state, $data, $meta, $listing_id );
+
+		$error = $this->get_listing_error( $listing, $errors );
+		if ( $error ) {
+			return $error;
+		}
+
+		$this->save_acceptance_date( $listing, $data, $meta );
+		$this->save_thumbnail( $listing, $state );
+		$this->add_payment_log( $listing );
+
+		return $listing->get_id();
+	}
+
+	private function insert_or_update_listing( $state, $data, $meta, $listing_id ) {
 		$listing_data                  = (array) $state;
 		$listing_data['listing_id']    = $listing_id;
 		$listing_data['append_images'] = $this->settings['append-images'];
@@ -621,6 +636,10 @@ class WPBDP_CSV_Import {
 
 		$listing = wpbdp_save_listing( $listing_data, true, 'csv-import' );
 
+		return $listing;
+	}
+
+	private function get_listing_error( $listing, $errors ) {
 		if ( is_wp_error( $listing ) ) {
 			$errors = array_merge( $errors, $listing->get_error_messages() );
 		}
@@ -635,6 +654,10 @@ class WPBDP_CSV_Import {
 			return $error;
 		}
 
+		return false;
+	}
+
+	private function save_acceptance_date( $listing, $data, $meta ) {
 		if ( ! empty( $data['terms_and_conditions_acceptance_date'] ) ) {
 			update_post_meta( $listing->get_id(), '_wpbdp_tos_acceptance_date', $data['terms_and_conditions_acceptance_date'] );
 			if ( empty( $meta['sequence_id'] ) ) {
@@ -647,11 +670,15 @@ class WPBDP_CSV_Import {
 				);
 			}
 		}
+	}
 
+	private function save_thumbnail( $listing, $state ) {
 		if ( ! empty( $state->images ) && ! empty( $state->images[0] ) ) {
 			$listing->set_thumbnail_id( $state->images[0] );
 		}
+	}
 
+	private function add_payment_log( $listing ) {
 		$payment = $listing->get_latest_payment();
 
 		// A payment record created in the last minute means the plan of an existing
@@ -670,11 +697,9 @@ class WPBDP_CSV_Import {
 				)
 			);
 		}
-
-		return $listing->get_id();
 	}
 
-	private function sanitize_and_validate_row( $data ) {
+	private function sanitize_and_validate_row( $data ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		global $wpbdp;
 
 		$errors = array();
@@ -875,6 +900,7 @@ class WPBDP_CSV_Import {
 			return false;
 		}
 		$media_id = WPBDP_Utils::attach_image_to_media_library( $upload );
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 		rename( $filepath . '.backup', $filepath );
 		return $media_id;
 	}

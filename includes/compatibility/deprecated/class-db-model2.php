@@ -19,7 +19,7 @@ class WPBDP_DB_Model2 {
 
 	public function fill( $data = array() ) {
 		foreach ( $data as $k => $v ) {
-			$this->attrs[ $k ] = ( in_array( $k, $this->serialized, true ) && $v ) ? maybe_unserialize( $v ) : $v;
+			$this->attrs[ $k ] = in_array( $k, $this->serialized, true ) && $v ? maybe_unserialize( $v ) : $v;
 		}
 	}
 
@@ -79,7 +79,7 @@ class WPBDP_DB_Model2 {
 
 		global $wpdb;
 		$table = $wpdb->prefix . 'wpbdp_' . $this->table;
-		return ( false !== $wpdb->delete( $table, array( 'id' => $this->attrs['id'] ) ) );
+		return false !== $wpdb->delete( $table, array( 'id' => $this->attrs['id'] ) );
 	}
 
 	private function insert( $validate = true ) {
@@ -173,7 +173,7 @@ class WPBDP_DB_Model2 {
 		throw new Exception( 'find() method not implemented.' );
 	}
 
-	protected static function _find( $id, $args = array(), $table = '', $classname = '' ) {
+	protected static function _find( $id, $args = array(), $table = '', $classname = '' ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		if ( ! $table || ! $classname || ! class_exists( $classname ) ) {
 			throw new Exception( 'Please provide a table and class name.' );
 		}
@@ -205,7 +205,7 @@ class WPBDP_DB_Model2 {
 				break;
 		}
 
-		$single = ( ! $single && isset( $args['_single'] ) && true == $args['_single'] ) ? true : $single;
+		$single = ! $single && isset( $args['_single'] ) && true == $args['_single'] ? true : $single;
 		$order  = isset( $args['_order'] ) ? $args['_order'] : '';
 		$limit  = isset( $args['_limit'] ) ? $args['_limit'] : '';
 		$extra  = isset( $args['_query_extra'] ) ? $args['_query_extra'] : array();

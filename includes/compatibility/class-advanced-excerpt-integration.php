@@ -16,8 +16,9 @@ class WPBDP_Advanced_Excerpt_Integration {
 	}
 
 	/**
-	 * @param array $page_types A list of page types that are already skipped.
 	 * @since 5.0.2
+	 *
+	 * @param array $page_types A list of page types that are already skipped.
 	 */
 	public function filter_skip_page_types( $page_types ) {
 		return array_merge( array( WPBDP_CATEGORY_TAX, WPBDP_TAGS_TAX ), $page_types );

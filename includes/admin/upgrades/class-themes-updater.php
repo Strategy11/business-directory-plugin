@@ -1,11 +1,14 @@
 <?php
-
+/**
+ * @deprecated 6.4.2
+ */
 class WPBDP_Themes_Updater {
 
 	private $themes_api;
-
+	public $data = array();
 
 	public function __construct( &$themes_api ) {
+		_deprecated_function( 'WPBDP_Themes_Updater', '6.4.2', 'WPBDP_Licensing' );
 		$this->themes_api = $themes_api;
 
 		$this->check_for_updates();

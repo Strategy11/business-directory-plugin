@@ -30,6 +30,7 @@ class WPBDP__Views__Show_Category extends WPBDP__View {
 
 	/**
 	 * @since 6.2.2
+	 *
 	 * @return string
 	 */
 	protected function get_taxonomy_html( $term ) {

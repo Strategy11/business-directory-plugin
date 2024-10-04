@@ -107,8 +107,9 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 		/**
 		 * Returns associations marked with the given flags.
 		 *
-		 * @param string|array $flags flags to be checked
-		 * @param boolean      $any if True associations marked with any (and not all) of the flags will also be returned
+		 * @param array|string $flags flags to be checked
+		 * @param bool         $any if True associations marked with any (and not all) of the flags will also be returned
+		 *
 		 * @return array
 		 */
 		public function &get_associations_with_flag( $flags, $any = false ) {
@@ -227,7 +228,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 			return $res;
 		}
 
-		public function &find_fields( $args = array(), $one = false ) {
+		public function &find_fields( $args = array(), $one = false ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 			global $wpdb;
 			$res = array();
 
@@ -276,8 +277,6 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 					$format = implode( ', ', array_fill( 0, count( $associations_not_in ), '%s' ) );
 					$where .= $wpdb->prepare( " AND ( association NOT IN ( $format ) ) ", $associations_not_in );
 				}
-
-				// $where .= $wpdb->prepare( " AND ( association = %s ) ", $args['association'] );
 			}
 
 			if ( $args['field_type'] ) {
@@ -342,17 +341,12 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 
 			foreach ( $ids as $id ) {
 				$field = WPBDP_Form_Field::get( $id );
-				if ( $field ) {
-					if ( ! in_array( $field->get_association(), array_keys( $this->associations ), true ) ) {
-						continue;
-					}
-
+				if ( $field && in_array( $field->get_association(), array_keys( $this->associations ), true ) ) {
 					$res[] = $field;
 				}
 			}
 
 			$res = $unique ? ( $res ? $res[0] : null ) : $res;
-
 			return $res;
 		}
 
@@ -531,7 +525,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 			foreach ( $fields_order as $i => $field_id ) {
 				$wpdb->update(
 					$wpdb->prefix . 'wpbdp_form_fields',
-					array( 'weight' => ( $total - $i ) ),
+					array( 'weight' => $total - $i ),
 					array( 'id' => $field_id )
 				);
 			}
@@ -567,7 +561,7 @@ function &wpbdp_get_form_fields( $args = array() ) {
 	$fields = array();
 
 	if ( $wpbdp->get_db_version() ) {
-		$fields = $wpbdp->formfields->find_fields( $args );
+		$fields = $wpbdp->form_fields->find_fields( $args );
 	}
 
 	if ( ! $fields ) {
@@ -583,5 +577,5 @@ function &wpbdp_get_form_fields( $args = array() ) {
  */
 function wpbdp_get_form_field( $id ) {
 	global $wpbdp;
-	return $wpbdp->formfields->get_field( $id );
+	return $wpbdp->form_fields->get_field( $id );
 }

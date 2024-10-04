@@ -39,9 +39,10 @@ class WPBDP_Utils {
 	}
 
 	/**
+	 * @since 5.2.1
+	 *
 	 * @param array $left   Entry to compare.
 	 * @param array $right  Entry to compare.
-	 * @since 5.2.1
 	 */
 	public static function sort_by_property_callback( $left, $right ) {
 		self::get_sort_value( $left );
@@ -96,6 +97,7 @@ class WPBDP_Utils {
 	 * @since v5.9
 	 *
 	 * @param array  $args {
+	 *
 	 *     @type string $cache_key The unique name for this cache
 	 *     @type string $group The name of the cache group
 	 *     @type string $query If blank, don't run a db call
@@ -241,7 +243,7 @@ class WPBDP_Utils {
 	 * @param mixed  $value The value to check
 	 * @param string $empty
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function is_empty_value( $value, $empty = '' ) {
 		return ( is_array( $value ) && empty( $value ) ) || $value === $empty;
@@ -308,16 +310,18 @@ class WPBDP_Utils {
 	 * Attach an image to a media library after upload from `wp_handle_upload` or `wp_handle_sideload`.
 	 * This is used to include an image into the media library and does not resize the image after import.
 	 *
-	 * @param array $file_data (
+	 * @since 5.18
+	 *
+	 * @param array $file_data {
+	 *
 	 *     @type string $file Filename of the newly-uploaded file.
 	 *     @type string $url  URL of the newly-uploaded file.
 	 *     @type string $type Mime type of the newly-uploaded file.
-	 * )
+	 * }
+	 *
 	 * @param int $post_id The optional post id to attatch the image to
 	 *
-	 * @since 5.18
-	 *
-	 * @return int|false The attachement id
+	 * @return false|int The attachement id
 	 */
 	public static function attach_image_to_media_library( $file_data, $post_id = 0 ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -356,9 +360,9 @@ class WPBDP_Utils {
 	/**
 	 * Attempts to get the mimetype of a file.
 	 *
-	 * @param string $file The path to a file.
-	 *
 	 * @since 5.16
+	 *
+	 * @param string $file The path to a file.
 	 */
 	public static function get_mimetype( $file ) {
 		$mime_type = null;
@@ -445,10 +449,10 @@ class WPBDP_Utils {
 	/**
 	 * Check the file type and extension.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $file
 	 * @param array $mimetypes
-	 *
-	 * @since 6.0
 	 *
 	 * @return bool
 	 */
@@ -501,6 +505,7 @@ class WPBDP_Utils {
  * @since 3.4
  *
  * @param array $files $_FILES array
+ *
  * @return array
  */
 function wpbdp_flatten_files_array( $files = array() ) {
@@ -527,7 +532,7 @@ function wpbdp_flatten_files_array( $files = array() ) {
  * Returns properties and array values from objects or arrays, resp.
  *
  * @param array|object $dict
- * @param string|int   $key Property name or array key.
+ * @param int|string   $key     Property name or array key.
  * @param mixed        $default Optional. Defaults to `false`.
  */
 function wpbdp_getv( $dict, $key, $default = false ) {
@@ -558,7 +563,7 @@ function wpbdp_get_server_value( $value ) {
  *
  * @param array $args - Includes 'param' and 'sanitize'.
  *
- * @return array|string|int|float|mixed
+ * @return array|float|int|mixed|string
  */
 function wpbdp_get_var( $args, $type = 'get' ) {
 	$defaults = array(
@@ -676,9 +681,9 @@ function wpbdp_media_upload( $file_, $use_media_library = true, $check_image = f
 /**
  * Attempts to get the mimetype of a file.
  *
- * @param string $file The path to a file.
- *
  * @since 5.0.5
+ *
+ * @param string $file The path to a file.
  */
 function wpbdp_get_mimetype( $file ) {
 	return WPBDP_Utils::get_mimetype( $file );
@@ -689,7 +694,8 @@ function wpbdp_get_mimetype( $file ) {
  * the www part of the domain.
  *
  * @since 2.1.5
- * @param boolean $www true to include the 'www' part.
+ *
+ * @param bool $www true to include the 'www' part.
  */
 function wpbdp_get_current_domain( $www = true, $prefix = '' ) {
 	$domain = wpbdp_get_server_value( 'HTTP_HOST' );
@@ -792,10 +798,12 @@ function wpbdp_array_remove_value( &$array_, &$value_ ) {
 /**
  * Checks if a given string starts with another string.
  *
+ * @since 3.0.3
+ *
  * @param string $str the string to be searched
  * @param string $prefix the prefix to search for
+ *
  * @return bool  true if $str starts with $prefix or FALSE otherwise
- * @since 3.0.3
  */
 function wpbdp_starts_with( $str, $prefix, $case_sensitive = true ) {
 	if ( ! $case_sensitive ) {
@@ -819,9 +827,11 @@ function wpbdp_format_time( $time = null, $format = 'mysql', $time_is_date = fal
 /**
  * Returns the contents of a directory (ignoring . and .. special files).
  *
- * @param string $path a directory.
- * @return array list of files within the directory.
  * @since 3.3
+ *
+ * @param string $path a directory.
+ *
+ * @return array list of files within the directory.
  */
 function wpbdp_scandir( $path, $args = array() ) {
 	if ( ! is_dir( $path ) ) {
@@ -839,13 +849,14 @@ function wpbdp_scandir( $path, $args = array() ) {
 /**
  * Returns the name of a term.
  *
+ * @since 3.3
+ *
  * @param int|string $id_or_slug The term ID or slug (see `$field`).
  * @param string     $taxonomy Taxonomy name. Defaults to `WPBDP_CATEGORY_TAX` (BD's category taxonomy).
  * @param string     $field Field used for the term lookup. Defaults to "id".
- * @param boolean    $escape Whether to escape the name before returning or not. Defaults to `True`.
+ * @param bool       $escape Whether to escape the name before returning or not. Defaults to `True`.
  *
  * @return string The term name (if found) or an empty string otherwise.
- * @since 3.3
  */
 function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $field = 'id', $escape = true ) {
 	$term = get_term_by(

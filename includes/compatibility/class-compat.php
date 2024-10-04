@@ -9,6 +9,7 @@ class WPBDP_Compat {
 	public function __construct() {
 		$this->workarounds_for_wp_bugs();
 		$this->load_integrations();
+        $this->priority_adjustment();
 
 		if ( wpbdp_get_option( 'disable-cpt' ) ) {
 			self::cpt_compat_mode();
@@ -39,7 +40,7 @@ class WPBDP_Compat {
 			new WPBDP_Custom_Permalink_Integration();
 		}
 
-		if ( class_exists( 'acf' ) && 'Bold Move' === wp_get_theme()->Name ) {
+		if ( class_exists( 'acf' ) && 'Bold Move' === wp_get_theme()->get( 'Name' ) ) {
 			require_once WPBDP_PATH . 'includes/compatibility/class-acf-boldmove-compat.php';
 			new WPBDP_ACF_Compat();
 		}
@@ -118,6 +119,7 @@ class WPBDP_Compat {
 	 * Skip WP Fusion auto login .
 	 *
 	 * @param bool $skip_auto_login skip auto login.
+	 *
 	 * @return bool
 	 */
 	public function wp_fusion_skip_auto_login( $skip_auto_login ) {
@@ -126,4 +128,17 @@ class WPBDP_Compat {
 		}
 		return $skip_auto_login;
 	}
+
+    /**
+     * Adjust the priority of the addtoany_content_priority filter.
+     * 
+     * @return void
+     */
+    private function priority_adjustment() {
+        // AddToAny Social Share
+        add_filter(
+            'addtoany_content_priority', function () {
+            return 1100;
+        }, 100);
+    }
 }

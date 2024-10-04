@@ -201,7 +201,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			$message . ' ' .
 			sprintf(
 				__( '%1$sClick here to update image limits%2$s of %3$s existing listings.', 'business-directory-plugin' ),
-				'<a class="wpbdp-update-plan-listings wpbdp-admin-ajax" data-confirm="' . esc_attr__( 'Update listing image limits?', 'business-directory-plugin' ) . '" data-target=".wpbdp-plan-updated" data-ajax="' . esc_attr( $data ) . '" href="#">',
+				'<a class="wpbdp-update-plan-listings wpbdp-admin-ajax" ' .
+					'data-confirm="' . esc_attr__( 'Update listing image limits?', 'business-directory-plugin' ) . '" ' .
+					'data-target=".wpbdp-plan-updated" data-ajax="' . esc_attr( $data ) . '" href="#">',
 				'</a>',
 				$total_listings
 			),
@@ -240,9 +242,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * Update the listing images.
 	 * This updates all listings that have the same fee id.
 	 *
-	 * @param object $fee The fee
-	 *
 	 * @since 5.15.3
+	 *
+	 * @param object $fee The fee
 	 */
 	private function update_listing_images( $fee ) {
 		global $wpdb;

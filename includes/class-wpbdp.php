@@ -55,7 +55,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.4' );
+		define( 'WPBDP_VERSION', '6.4.4' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -228,7 +228,7 @@ final class WPBDP {
 		do_action( 'wpbdp_modules_loaded' );
 
 		do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
-		do_action( 'wpbdp_register_fields', $this->formfields );
+		do_action( 'wpbdp_register_fields', $this->form_fields );
 		do_action( 'wpbdp_modules_init' );
 
 		$this->listings = new WPBDP_Listings_API();
@@ -343,6 +343,7 @@ final class WPBDP {
 	 * @deprecated 5.13.2
 	 *
 	 * @param  array $plugins
+	 *
 	 * @return array $plugins
 	 */
 	public function run_ajax_compat_mode( $plugins ) {
@@ -353,12 +354,12 @@ final class WPBDP {
 	/**
 	 * Check if this is a BD plugin.
 	 *
-	 * @param string $plugin
-	 *
 	 * @since 5.12.1
 	 * @deprecated 5.13.2
 	 *
-	 * @return boolean
+	 * @param string $plugin
+	 *
+	 * @return bool
 	 */
 	private function keep_only_bd_plugins( $plugin ) {
 		_deprecated_function( __METHOD__, '5.13.2' );
@@ -403,7 +404,9 @@ final class WPBDP {
 		$add_links = array();
 
 		if ( ! WPBDP_Admin_Education::is_installed( 'premium' ) ) {
-			$add_links[] = '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener" style="color:#1da867" class="wpbdp-upgrade-link"><b>' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</b></a>';
+			$add_links[] = '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener" style="color:#1da867" class="wpbdp-upgrade-link">' .
+				'<b>' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</b>' .
+				'</a>';
 		}
 
 		$add_links['settings'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings' ) ) . '">' . esc_html__( 'Settings', 'business-directory-plugin' ) . '</a>';

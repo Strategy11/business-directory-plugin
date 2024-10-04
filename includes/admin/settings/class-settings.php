@@ -265,7 +265,7 @@ class WPBDP__Settings {
 	}
 
 	/**
-	 * @return int|string|array
+	 * @return array|int|string
 	 */
 	public function get_option( $setting_id, $default = false ) {
 		$default_provided = func_num_args() > 1;
@@ -425,7 +425,7 @@ class WPBDP__Settings {
 		update_option( 'wpbdp_settings', $this->options );
 	}
 
-	public function validate_setting( $value, $setting_id ) {
+	public function validate_setting( $value, $setting_id ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		$on_admin = ! empty( $_POST['_wp_http_referer'] );
 		if ( ! $on_admin ) {
 			return $value;
@@ -534,8 +534,8 @@ class WPBDP__Settings {
 		}
 
 		// Min and max.
-		$value = ( array_key_exists( 'min', $setting ) && $value < $setting['min'] ) ? $setting['min'] : $value;
-		$value = ( array_key_exists( 'max', $setting ) && $value > $setting['max'] ) ? $setting['max'] : $value;
+		$value = array_key_exists( 'min', $setting ) && $value < $setting['min'] ? $setting['min'] : $value;
+		$value = array_key_exists( 'max', $setting ) && $value > $setting['max'] ? $setting['max'] : $value;
 
 		return $value;
 	}

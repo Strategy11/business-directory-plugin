@@ -137,7 +137,7 @@ class WPBDP__Listing_Email_Notification {
 	/**
 	 * @param string     $event         Event identifier.
 	 * @param string     $relative_time Number of days before or after the event occurred.
-	 * @param object|int $listing       An instance of WPBDP_Listing.
+	 * @param int|object $listing       An instance of WPBDP_Listing.
 	 * @param bool       $force_resend  Whether to resend already sent notifications or not.
 	 */
 	public function send_notices( $event, $relative_time, $listing, $force_resend = false ) {
@@ -317,10 +317,11 @@ class WPBDP__Listing_Email_Notification {
 	/**
 	 * Sent when a listing is renewed.
 	 *
+	 * @since 5.0.6
+	 *
 	 * @param object $listing   An instance of WPBDP_Listing.
 	 * @param object $payment   A payment object.
 	 * @param string $context   This parameter is not used.
-	 * @since 5.0.6
 	 */
 	public function listing_renewal_email( $listing, $payment = null, $context = '' ) {
 		// Notify admin.

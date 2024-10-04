@@ -33,7 +33,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	protected $category_count = false;
 
 	/**
-	 * @var bool $is_ajax
+	 * @var bool
 	 */
 	protected $is_ajax = false;
 
@@ -95,7 +95,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		return $this->editing;
 	}
 
-	public function dispatch( $ajax_load = false ) {
+	public function dispatch( $ajax_load = false ) { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		$this->is_ajax = ! empty( $ajax_load );
 
 		$msg = '';
@@ -170,13 +170,20 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 					str_replace(
 						'<a>',
 						'<a href="' . esc_url( $this->listing->get_admin_edit_link() ) . '">',
-						_x( 'This listing can\'t be edited at this time because it has no plan associated. Please <a>edit the listing</a> on the backend and associate it to a plan.', 'submit listing', 'business-directory-plugin' )
+						_x(
+							'This listing can\'t be edited at this time because it has no plan associated. Please <a>edit the listing</a> on the backend and associate it to a plan.',
+							'submit listing',
+							'business-directory-plugin'
+						)
 					),
 					'error'
 				);
 			}
 
-			return wpbdp_render_msg( _x( 'This listing can\'t be edited at this time. Please try again later or contact the admin if the problem persists.', 'submit listing', 'business-directory-plugin' ), 'error' );
+			return wpbdp_render_msg(
+				_x( 'This listing can\'t be edited at this time. Please try again later or contact the admin if the problem persists.', 'submit listing', 'business-directory-plugin' ),
+				'error'
+			);
 		}
 
 		$this->configure();
@@ -206,6 +213,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Load the new listing form with ajax when the page might be cached.
 	 *
 	 * @since 6.2.2
+	 *
 	 * @return bool
 	 */
 	private function should_use_ajax_load() {
@@ -224,9 +232,14 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Show a placeholder and load the form with ajax to avoid page caching.
 	 *
 	 * @since 6.2.2
+	 *
 	 * @return string
 	 */
 	private function show_form_placeholder() {
+		// This might not be needed, but we don't know for sure at this point.
+		global $wpbdp;
+		$wpbdp->assets->enqueue_select2();
+
 		return '<div id="wpbdp-submit-listing" class="wpbdp-submit-page wpbdp-page">
     	<form action="" method="post" data-ajax-url="' . esc_url( wpbdp_ajax_url() ) . '" enctype="multipart/form-data">
 		</form>
@@ -235,6 +248,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 	/**
 	 * @since 6.2.2
+	 *
 	 * @return string
 	 */
 	private function show_form() {
@@ -254,6 +268,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 	/**
 	 * @since 6.2.2
+	 *
 	 * @return array
 	 */
 	private function prepare_messages() {
@@ -385,7 +400,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		// Maybe skip plan selection?
 		if ( $this->skip_plan_payment ) {
-			$this->skip_plan_selection = ( 1 === count( $this->get_available_plans() ) );
+			$this->skip_plan_selection = 1 === count( $this->get_available_plans() );
 		}
 
 		$this->current_section = wpbdp_get_var(
@@ -448,7 +463,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$sections = array();
 		foreach ( $this->sections as $section ) {
-			$messages = ( ! empty( $this->messages[ $section['id'] ] ) ) ? $this->messages[ $section['id'] ] : array();
+			$messages = ! empty( $this->messages[ $section['id'] ] ) ? $this->messages[ $section['id'] ] : array();
 
 			$messages_html = '';
 			foreach ( $messages as $i ) {
@@ -514,7 +529,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		if ( is_object( $post ) ) {
 			// Submit shortcode is exempt from restrictions.
-			$submit_shortcodes = array( 'businessdirectory-submit-listing', 'businessdirectory-submitlisting', 'business-directory-submitlisting', 'business-directory-submit-listing', 'WPBUSDIRMANADDLISTING' );
+			$submit_shortcodes = array(
+				'businessdirectory-submit-listing', 'businessdirectory-submitlisting',
+				'business-directory-submitlisting', 'business-directory-submit-listing',
+				'WPBUSDIRMANADDLISTING',
+			);
 
 			foreach ( $submit_shortcodes as $test_shortcode ) {
 				if ( has_shortcode( $post->post_content, $test_shortcode ) ) {
@@ -541,6 +560,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * when the url to submit a new listing includes a listing id.
 	 *
 	 * @since 6.2.2
+	 *
 	 * @return void
 	 */
 	private function maybe_set_editing() {
@@ -624,6 +644,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Check if the user has permission to edit the listing in url.
 	 *
 	 * @since 6.2.2
+	 *
 	 * @return void
 	 */
 	private function is_listing_allowed( $listing_id ) {
@@ -675,6 +696,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * If not found, get the first admin user as default.
 	 *
 	 * @since 6.2.5
+	 *
 	 * @return int
 	 */
 	private function get_default_admin_user() {
@@ -713,7 +735,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		if ( $this->can_edit_plan_or_categories() && ! $this->skip_plan_and_category() ) {
 			$sections['plan_selection'] = array(
-				'title' => $this->skip_plan_selection ? _x( 'Category selection', 'submit listing', 'business-directory-plugin' ) : _x( 'Category & plan selection', 'submit listing', 'business-directory-plugin' ),
+				'title' => $this->skip_plan_selection ?
+					_x( 'Category selection', 'submit listing', 'business-directory-plugin' ) :
+					_x( 'Category & plan selection', 'submit listing', 'business-directory-plugin' ),
 			);
 		}
 
@@ -1015,48 +1039,19 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		return array( $result, $output );
 	}
 
-	private function plan_selection() {
+	private function plan_selection() { // phpcs:ignore SlevomatCodingStandard.Complexity
 		global $wpbdp;
 
 		$plans = $this->get_available_plans();
 
 		if ( ! $plans && ! $this->editing ) {
-			$msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
-			if ( wpbdp_user_is_admin() ) {
-				$msg .= '<br><br>';
-				$msg .= _x( '<b>There are no Plans available</b>, without a plan site users can\'t submit a listing. %s to create a plan', 'templates', 'business-directory-plugin' );
-
-				$msg = sprintf(
-					$msg,
-					sprintf(
-						'<a href="%s">%s</a>',
-						esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ),
-						esc_html__( 'Go to "Plans"', 'business-directory-plugin' )
-					)
-				);
-			}
-			return $this->die_or_return( $msg );
-		}
-
-		$msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
-
-		if ( wpbdp_user_is_admin() ) {
-			$msg = _x( '<b>View not available</b>, there is no "Category" association field. %s and create a new field with this association, or assign this association to an existing field', 'templates', 'business-directory-plugin' );
-
-			$msg = sprintf(
-				$msg,
-				sprintf(
-					'<a href="%s">%s</a>',
-					esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields' ) ),
-					esc_html__( 'Go to "Form Fields"', 'business-directory-plugin' )
-				)
-			);
+			return $this->show_no_plans_error();
 		}
 
 		$category_field = wpbdp_get_form_fields( 'association=category&unique=1' );
 
 		if ( empty( $category_field ) ) {
-			return $this->die_or_return( $msg );
+			return $this->show_no_categories_error();
 		}
 
 		// Returns null if value isn't posted.
@@ -1144,10 +1139,55 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
 	/**
+	 * @since 6.4.4
+	 */
+	private function show_no_plans_error() {
+		$msg = _x( 'Can not submit a listing at this moment. Please try again later.', 'submit listing', 'business-directory-plugin' );
+		if ( wpbdp_user_is_admin() ) {
+			$msg .= '<br><br>';
+			$msg .= _x( '<b>There are no Plans available</b>, without a plan site users can\'t submit a listing. %s to create a plan', 'templates', 'business-directory-plugin' );
+
+			$msg = sprintf(
+				$msg,
+				sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees' ) ),
+					esc_html__( 'Go to "Plans"', 'business-directory-plugin' )
+				)
+			);
+		}
+		return $this->die_or_return( $msg );
+	}
+
+	/**
+	 * @since 6.4.4
+	 */
+	private function show_no_categories_error() {
+		$msg = _x( 'Listing submission is not available at the moment. Contact the administrator for details.', 'templates', 'business-directory-plugin' );
+		if ( wpbdp_user_is_admin() ) {
+			$msg = _x(
+				'View not available, there is no "Category" association field. %s and create a new field with this association, or assign this association to an existing field',
+				'templates',
+				'business-directory-plugin'
+			);
+
+			$msg = sprintf(
+				$msg,
+				sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( admin_url( 'admin.php?page=wpbdp_admin_formfields' ) ),
+					esc_html__( 'Go to "Form Fields"', 'business-directory-plugin' )
+				)
+			);
+		}
+		return $this->die_or_return( $msg );
+	}
+
+	/**
 	 * Show the plan selection page when there is only one plan.
 	 * Force it when the change plan link was clicked.
 	 *
-	 * @since x.x
+	 * @since 6.4.1
 	 *
 	 * @param array           $categories
 	 * @param WPBDP_FormField $category_field
@@ -1173,6 +1213,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * If ajax is running, the message won't show if we use wp_die().
 	 *
 	 * @since 6.3.4
+	 *
 	 * @param string $msg
 	 */
 	private function die_or_return( $msg ) {
@@ -1467,7 +1508,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			)
 		);
 
-		if ( $this->should_validate_section( 'account_creation' ) && ( $this->saving() && 'required' == $mode ) || $form_create ) {
+		if ( ( $this->should_validate_section( 'account_creation' ) && ( $this->saving() && 'required' == $mode ) ) || $form_create ) {
 			$error = false;
 
 			if ( ! $form_username ) {
@@ -1507,7 +1548,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$html .= ' <label for="wpbdp-submit-listing-create_account">' . esc_html__( 'Create a user account on this site', 'business-directory-plugin' ) . '</label>';
 		}
 
-		$html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( ( 'optional' == $mode && ! $form_create ) ? 'wpbdp-hidden' : '' ) . '">';
+		$html .= '<div id="wpbdp-submit-listing-account-details" class="' . ( 'optional' == $mode && ! $form_create ? 'wpbdp-hidden' : '' ) . '">';
 
 		$html .= '<div class="wpbdp-form-field wpbdp-form-field-type-textfield">';
 		$html .= '<div class="wpbdp-form-field-label">';
@@ -1758,7 +1799,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 *
 	 * @since 5.10
 	 *
-	 * @return null|object
+	 * @return object|null
 	 */
 	private function get_plan_for_listing() {
 		$listing = $this->listing;
@@ -1769,9 +1810,9 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Change plan if not the same as for listing.
 	 * Update the plan in the payment.
 	 *
-	 * @param object $new_plan The new selected plan to assign to the listing.
-	 *
 	 * @since 5.17
+	 *
+	 * @param object $new_plan The new selected plan to assign to the listing.
 	 */
 	private function maybe_update_listing_plan( $new_plan ) {
 		$current_plan = $this->get_plan_for_listing();
@@ -1785,7 +1826,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 *
 	 * @since 5.10
 	 *
-	 * @return null|object
+	 * @return object|null
 	 */
 	private function single_plan() {
 		$plans = $this->get_available_plans();

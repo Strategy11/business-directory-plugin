@@ -11,6 +11,7 @@ class WPBDP_Debugging {
 	public static function debug_on() {
 		self::$debug = true;
 
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
 		error_reporting( E_ALL | E_DEPRECATED );
 
 		// Disable our debug util for AJAX requests in order to be able to see the errors.

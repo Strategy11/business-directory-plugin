@@ -76,9 +76,9 @@ class WPBDP__Modules {
 	/**
 	 * Get module information.
 	 *
-	 * @param string $module_id The module id.
-	 *
 	 * @since 5.16
+	 *
+	 * @param string $module_id The module id.
 	 *
 	 * @return bool|object Returns false if module is not loaded. Returns an object if loaded
 	 */

@@ -26,7 +26,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 			$login_msg = _x( 'Please <a>login</a> to manage your listings.', 'view:manage-listings', 'business-directory-plugin' );
 			$login_msg = str_replace(
 				'<a>',
-				'<a href="' . esc_attr( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
+				'<a href="' . esc_url( add_query_arg( 'redirect_to', urlencode( apply_filters( 'the_permalink', get_permalink() ) ), wpbdp_url( 'login' ) ) ) . '">',
 				$login_msg
 			);
 			return $login_msg;
@@ -105,10 +105,16 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 		}
 
 		$is_pending_payment = ( 'pending_payment' === $listing_status );
-		$buttons            = sprintf(
-			'<a class="button wpbdp-button renew-listing" href="%s" %s >%s</a>',
-			$is_pending_payment ? esc_url( $listing->get_payment_url() ) : esc_url( $listing->get_renewal_url() ),
-			'target="_blank" rel="noopener"',
+		$payment_url        = $listing->get_payment_url();
+		$show_button        = ! $is_pending_payment || $payment_url;
+
+		if ( ! $show_button ) {
+			return $buttons;
+		}
+
+		$buttons = sprintf(
+			'<a class="button wpbdp-button renew-listing" href="%s" target="_blank" rel="noopener">%s</a>',
+			$is_pending_payment ? esc_url( $payment_url ) : esc_url( $listing->get_renewal_url() ),
 			$is_pending_payment ? esc_html__( 'Pay Now', 'business-directory-plugin' ) : esc_html__( 'Renew Listing', 'business-directory-plugin' )
 		) . $buttons;
 

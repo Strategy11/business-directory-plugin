@@ -3,17 +3,17 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.4.2
-Stable tag: 6.4
+Tested up to: 6.5.4
+Stable tag: 6.4.4
 License: GPLv2 or later
 
-The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
+The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
 
 == Description ==
 
 Business Directory Plugin is the perfect solution for professionals who are looking for a simple directory website builder for WordPress! If you're not tech savvy, no worries. You can quickly get started by installing this simple plugin. It doesn't require any developer knowledge whatsoever on your end.
 
-== The Best Business Directory Plugin for WordPress ==
+== Business Directory Plugin for WordPress ==
 You've found the most popular, versatile, and easy to use WordPress directory plugin available. Increase interaction on your WordPress site, improve customer retention and add a generate revenue with our WordPress business directory plugin!
 
 Our easy WordPress directory plugin allows you to take the listings you want and build a local directory, simple directory of providers, a real estate listings site, a Yellow-Pages directory, a Yelp clone with review sections, an address book directory, a book review site (like Goodreads), and much more.
@@ -158,6 +158,32 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.4 =
+* Fix: Security fix for potential CSV injection. Credit to Wordfence for the report.
+* Fix: When logged out, the autocomplete dropdowns didn't always have styling.
+* Code: Changes for code readibility and easier maintance with higher standard requirements.
+
+= 6.4.3 =
+* Fix: Security fix for searching.
+* Fix: After a quick search with two words, don't include a "+" in the advanced search.
+
+= 6.4.2 =
+* Fix: Reduce the number of API calls to speed up admin area and reduce throttling.
+* Fix: In URL fields, use WordPress functions to handle auto adding the http if missing for more reliability.
+* Code: Improve code consistency for doc blocks and phpcs.
+
+= 6.4.1 =
+* Increase minimum PHP version required to 7.0
+* The minimum WordPress version required is now 5.9
+* New: If a listing doesn't have an email address, don't show the contact form since we have nowhere to send the notification
+* Fix: The contact form on a listing wasn't showing on mobile screens
+* Fix: The drag handle wasn't showing for ordering plans in the admin area
+* Fix: Exported files were showing /n for line breaks with WYSIWYG editor
+* Fix: In some cases, the category was required twice when going back and forth between pages when creating or editing a listing
+* Fix: Only use advanced search in the widget if fields are selected
+* Fix: Set defaults to avoid errors if nothing is selected in a widget
+* Performance: Cut out an extra API call to fetch themes in the admin area
+
 = 6.4 =
 * New: Update the front-end search and create listing appearance.
 * New: Use colors and styles from block themes for buttons.
@@ -197,39 +223,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: When using a checkbox for categories, it wasn't being correctly required when submiting a new listing.
 * Fix: CSV import was failing when there was an 'enter' in a field.
 * Fix: A conflict with the Custom Start Date plugin with Woocommerce was causing an "Invalid Nonce" error.
-
-= 6.3.7 =
-* Fix: Listing titles in taxonomy pages with The7 theme.
-* Fix: Image sorting with Classic editor plugin.
-* Fix: Image upload bug while editing the listing.
-* Fix: Show the correct number of allowed images to upload after changing the plan in admin meta boxes.
-
-= 6.3.6 =
-* Fix: Listing titles in taxonomy pages were showing in the sidebar
-* Fix: The admin listing tables had misaligned pagination
-* Fix: The fields on the contact form were not using consistent sizing
-* Fix: German translation for "Your message has been sent".
-
-= 6.3.5 =
-* Hide content that might be added by other plugins on BD admin pages.
-* Fix: Only load widget and BD theme CSS when needed.
-* Fix: Revert a change from previous release that shows the URL instead of label.
-
-= 6.3.4 =
-* New: Add 'wpbdp_button_class' hook for adding a button class to match existing buttons.
-* New: Better match Divi buttons out of the box.
-* Fix: Resolve a conflict with RankMath.
-* Fix: Expired listings on recurring plans was not renewable.
-* Fix: The Claim Listings settings link made following links unclickable.
-* Fix: Icons now work with URL fields.
-* Fix: Strings with 'listings' that are translated with _n can now be customized.
-* Fix: Fail more gracefully when a CSV file fails to upload.
-* Fix: Fail more gracefully when a logged out user has no available plans.
-* Refactor the CSS for base elements.
-
-= 6.3.3 =
-* Fix: Listing titles were not always showing.
-* Fix: Resolve some CSS issues on the single page.
-* Fix: The BD sidebar didn't fill the page in cases where the WP admin nav was short.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

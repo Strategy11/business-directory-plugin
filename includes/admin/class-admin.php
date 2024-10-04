@@ -48,6 +48,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		public $displayed_warnings = array();
 
+		public $post_install_migration;
+
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'handle_actions' ) );
 
@@ -91,12 +93,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_action( 'current_screen', array( $this, 'admin_view_dispatch' ), 9999 );
 			add_action( 'wp_ajax_wpbdp_admin_ajax', array( $this, 'admin_ajax_dispatch' ), 9999 );
 
-			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-post-new.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
-			add_filter( 'admin_head-term.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-post-new.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-post.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-edit.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-edit-tags.php', array( $this, 'maybe_highlight_menu' ) );
+			add_action( 'admin_head-term.php', array( $this, 'maybe_highlight_menu' ) );
 
 			// Clear listing page cache.
 			add_filter( 'pre_delete_post', array( $this, 'before_delete_post' ), 10, 2 );
@@ -200,16 +202,16 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
                                     subscribe: "%d" } );';
 
 			$content  = '';
-			$content .= __( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course.', 'business-directory-plugin' ) . '<br /><br />';
+			$content .= esc_html__( 'Find out how to create a compelling, thriving business directory from scratch in this ridiculously actionable (and FREE) 5-part email course.', 'business-directory-plugin' ) . '<br /><br />';
 			$content .= '<label>';
-			$content .= '<b>' . _x( 'Email Address:', 'drip pointer', 'business-directory-plugin' ) . '</b>';
+			$content .= '<b>' . esc_html__( 'Email', 'business-directory-plugin' ) . '</b>';
 			$content .= '<br />';
 			$content .= '<input type="text" id="wpbdp-drip-pointer-email" value="' . esc_attr( $current_user->user_email ) . '" />';
 			$content .= '</label>';
 
 			wpbdp_admin_pointer(
 				'#wpadminbar',
-				__( 'Want to know the Secrets of Building an Awesome Business Directory?', 'business-directory-plugin' ),
+				__( 'Want to know the secrets of building an awesome business directory?', 'business-directory-plugin' ),
 				$content,
 				__( 'Yes, please!', 'business-directory-plugin' ),
 				sprintf( $js, 1 ),
@@ -282,17 +284,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$current_user = wp_get_current_user();
 
 			$response = wp_remote_post(
-				'https://strategy1137274.activehosted.com/proc.php?jsonp=true',
+				'https://feedback.strategy11.com/wp-json/frm/v2/entries',
 				array(
 					'body' => array(
-						'firstname' => $current_user->first_name,
-						'email'     => $email,
-						'u'         => '15',
-						'f'         => '15',
-						'act'       => 'sub',
-						'c'         => 0,
-						'm'         => 0,
-						'v'         => '2',
+						'bd-firstname1' => $current_user->first_name,
+						'bd-email-1'    => $email,
+						'form_id'       => 'bd-plugin-course',
 					),
 				)
 			);
@@ -698,7 +695,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$output = $this->current_controller_output;
 
 			if ( $output ) {
-				return print( $output );
+				return print $output;
 			}
 
 			global $plugin_page;
@@ -760,7 +757,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			global $wpbdp;
 
-			if ( ! $wpbdp->formfields->set_fields_order( $order ) ) {
+			if ( ! $wpbdp->form_fields->set_fields_order( $order ) ) {
 				$response->send_error();
 			}
 
@@ -941,7 +938,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			//_deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
+			// _deprecated_function( __METHOD__, '5.15.3', 'The classes in an admin notice are outdated: ' . $class );
 			$classes = str_replace( $find, $replace, $classes );
 			$class   = implode( ' ', $classes );
 		}
@@ -1077,6 +1074,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 						break;
 					}
 
+					if ( $listing->is_recurring() && ! $this->recurring_renewal_notices() ) {
+						$this->messages[] = array( __( 'No renewal emails found.', 'business-directory-plugin' ), 'error' );
+						break;
+					}
+
 					$this->messages[] = array( __( 'Could not send renewal email.', 'business-directory-plugin' ), 'error' );
 
 					break;
@@ -1099,6 +1101,27 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			$_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id', 'flagging_user' ), wpbdp_get_server_value( 'REQUEST_URI' ) );
+		}
+
+		/**
+		 * Check if there are any recurring renewal notices.
+		 *
+		 * @since x.x.x
+		 *
+		 * @return bool
+		 */
+		private function recurring_renewal_notices() {
+			$all_notices      = wpbdp_get_option( 'expiration-notices' );
+			$recurring_notice = false;
+
+			foreach ( $all_notices as $notice ) {
+				if ( 'recurring' === $notice['listings'] ) {
+					$recurring_notice = true;
+					break;
+				}
+			}
+
+			return $recurring_notice;
 		}
 
 		private function send_access_keys( $posts ) {
@@ -1142,7 +1165,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			// TODO: Redirect and show messages on page load.
 			// if ( wp_redirect( remove_query_arg( array( 'action', 'post', 'wpbdmaction' ) ) ) ) {
-			//     exit();
+			// exit();
 			// }
 		}
 
@@ -1261,6 +1284,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				delete_option( 'wpbusdirman_db_version' );
 				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'wpbdp%' ) );
 
+				// Delete transients.
+				delete_transient( 'wpbdp-official-themes' );
+				delete_transient( 'wpbdp-themes-updates' );
+
 				// Clear scheduled hooks.
 				wp_clear_scheduled_hook( 'wpbdp_hourly_events' );
 				wp_clear_scheduled_hook( 'wpbdp_daily_events' );
@@ -1369,8 +1396,12 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$this->messages[] = array(
 				sprintf(
-					_x( '<strong>Business Directory Plugin</strong> requires <strong>PHP 5.6</strong> or later, but your server is running version <strong>%s</strong>. Please ask your provider to upgrade in order to prevent any issues with the plugin.', 'admin', 'business-directory-plugin' ),
-					$installed_version
+					_x(
+						'Business Directory Plugin requires PHP 5.6 or later, but your server is running version %s. Please ask your provider to upgrade in order to prevent any issues with the plugin.',
+						'admin',
+						'business-directory-plugin'
+					),
+					'<strong>' . $installed_version . '</strong>'
 				),
 				'notice-error is-dismissible',
 				array( 'dismissible-id' => 'server_requirements' ),
@@ -1392,7 +1423,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			if ( wpbdp_get_option( 'require-login' ) && ! get_option( 'users_can_register' ) ) {
 				$this->messages[] = array(
 					sprintf(
-						__( 'We noticed you want your Business Directory users to register before posting listings, but Registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".', 'business-directory-plugin' ),
+						__(
+							'We noticed you want your Business Directory users to register before posting listings, but registration for your site is currently disabled. Go %1$shere%2$s and check "Anyone can register".',
+							'business-directory-plugin'
+						),
 						'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
 						'</a>'
 					),
@@ -1423,6 +1457,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			add_filter( 'wpbdp_admin_directory_filter', array( $view, 'filter_query_pieces' ), 10, 2 );
 		}
 
+		/**
+		 * @return void
+		 */
 		public function maybe_highlight_menu() {
 			if ( ! WPBDP_App_Helper::is_bd_post_page() ) {
 				return;
@@ -1503,6 +1540,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 	function wpbdp_admin_message( $msg, $kind = '', $extra = array() ) {
 		global $wpbdp;
-		$wpbdp->admin->messages[] = ( $kind || $extra ) ? array( $msg, $kind, $extra ) : $msg;
+		$wpbdp->admin->messages[] = $kind || $extra ? array( $msg, $kind, $extra ) : $msg;
 	}
 }

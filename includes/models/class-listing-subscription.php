@@ -5,6 +5,7 @@ class WPBDP__Listing_Subscription {
 	private $listing_id        = 0;
 	private $subscription_id   = '';
 
+	public $data = array();
 
 	public function __construct( $listing_id = 0, $subscription_id = '' ) {
 		$listing_id      = absint( $listing_id );
@@ -91,7 +92,7 @@ class WPBDP__Listing_Subscription {
 
 			if ( ! empty( $args['gateway_tx_id'] ) ) {
 				$p_id      = $args['gateway_tx_id'];
-				$p_gateway = ( empty( $args['gateway'] ) && $parent_payment ) ? $parent_payment->gateway : $args['gateway'];
+				$p_gateway = empty( $args['gateway'] ) && $parent_payment ? $parent_payment->gateway : $args['gateway'];
 				$payment   = WPBDP_Payment::objects()->get(
 					array(
 						'gateway_tx_id' => $p_id,
@@ -121,7 +122,7 @@ class WPBDP__Listing_Subscription {
 			$payment->payer_data       = $parent_payment->payer_data;
 			$payment->currency_code    = $parent_payment->currency_code;
 			$payment->status           = 'completed';
-			$payment->gateway          = ( ! $payment->gateway ) ? $parent_payment->gateway : $payment->gateway;
+			$payment->gateway          = ! $payment->gateway ? $parent_payment->gateway : $payment->gateway;
 
 			if ( $item = $parent_payment->find_item( 'recurring_plan' ) ) {
 				$payment->payment_items[] = $item;

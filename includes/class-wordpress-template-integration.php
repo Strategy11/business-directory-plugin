@@ -7,7 +7,7 @@ class WPBDP__WordPress_Template_Integration {
 	private $displayed = false;
 
 	/**
-	 * @var int $post_id
+	 * @var int
 	 */
 	private $post_id = 0;
 
@@ -113,6 +113,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * Replace the content correctly on taxonomies in WP 6.4+.
 	 *
 	 * @since 6.3.11
+	 *
 	 * @return void
 	 */
 	public function setup_tax_hooks() {
@@ -145,6 +146,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * See WPBDP__Dispatcher.
 	 *
 	 * @since 6.2.3
+	 *
 	 * @return string
 	 */
 	public function set_tax_title( $title ) {
@@ -161,11 +163,12 @@ class WPBDP__WordPress_Template_Integration {
 	 *
 	 * This function is a filter callback for the 'render_block' hook.
 	 *
+	 * @since 6.3.4
 	 * @see WPBDP__Dispatcher.
 	 *
-	 * @since 6.3.4
 	 * @param string $block_content The content of the block to be rendered.
 	 * @param array  $block         The block object containing the block's attributes and settings.
+	 *
 	 * @return string The modified block content with the taxonomy term name as the post title, if applicable.
 	 */
 	public function block_theme_remove_tax_featured_image( $block_content, $block ) {
@@ -183,11 +186,12 @@ class WPBDP__WordPress_Template_Integration {
 	 *
 	 * This function is a filter callback for the 'render_block' hook.
 	 *
+	 * @since 6.3.4
 	 * @see WPBDP__Dispatcher.
 	 *
-	 * @since 6.3.4
 	 * @param string $block_content The content of the block to be rendered.
 	 * @param array  $block         The block object containing the block's attributes and settings.
+	 *
 	 * @return string The modified block content with the taxonomy term name as the post title, if applicable.
 	 */
 	public function block_theme_set_tax_title( $block_content, $block ) {
@@ -210,6 +214,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * Prevent a post thumbnail from showing on the page before the loop.
 	 *
 	 * @since 6.2.3
+	 *
 	 * @return string
 	 */
 	public function remove_tax_thumbnail( $thumbnail ) {
@@ -225,6 +230,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * Check our custom loop flag.
 	 *
 	 * @since 6.2.6
+	 *
 	 * @return bool
 	 */
 	private function in_the_loop() {
@@ -237,12 +243,24 @@ class WPBDP__WordPress_Template_Integration {
 	 * with the BD listings of the taxonomy.
 	 *
 	 * @param string $content The content to be rendered.
+	 *
 	 * @return string
 	 */
 	public function display_view_in_content( $content = '' ) {
 		$is_tax = is_tax();
 
 		if ( ! $is_tax ) {
+            // This filter is added because of an issue with remove_filter. 
+            // See: https://github.com/Strategy11/business-directory-plugin/pull/400
+            add_filter( 
+                'the_content', 
+                function ( $content ) {
+                    return $content;
+                }, 
+                1000 
+            );
+
+            // Remove the non-tax filter.
 			remove_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 		}
 
@@ -366,13 +384,14 @@ class WPBDP__WordPress_Template_Integration {
 	 * Set the thumbnail_id to false if in the loop, to make the WordPress
 	 * core believe there is no thumbnail/featured image.
 	 *
+	 * @since 6.2.1
+	 * @see has_post_thumbnail()
+	 *
 	 * @param mixed $value given by the get_post_metadata filter
 	 * @param int $object_id
 	 * @param string $meta_key
 	 *
 	 * @return mixed
-	 * @see has_post_thumbnail()
-	 * @since 6.2.1
 	 */
 	public function hide_featured_image_in_the_loop( $value, $object_id, $meta_key ) {
 		if ( '_thumbnail_id' === $meta_key && $object_id === $this->post_id && in_the_loop() ) {
@@ -388,9 +407,11 @@ class WPBDP__WordPress_Template_Integration {
 	 * If the featured image is marked hidden, we are in the main query and
 	 * the page is singular, the given block content is removed.
 	 *
-	 * @param string $block_content
-	 * @return string
 	 * @since 6.2.1
+	 *
+	 * @param string $block_content
+	 *
+	 * @return string
 	 */
 	public function remove_featured_image_block_thumb( $block_content ) {
 		if ( $this->should_remove_theme_thumbnail() ) {
@@ -401,8 +422,9 @@ class WPBDP__WordPress_Template_Integration {
 	}
 
 	/**
-	 * @return bool
 	 * @since 6.2.1
+	 *
+	 * @return bool
 	 */
 	public function should_remove_theme_thumbnail() {
 		if ( ! is_main_query() || ! is_singular( WPBDP_POST_TYPE ) ) {

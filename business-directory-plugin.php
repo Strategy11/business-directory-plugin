@@ -3,7 +3,7 @@
  * Plugin Name: Business Directory Plugin
  * Plugin URI: https://businessdirectoryplugin.com
  * Description: Provides the ability to maintain a free or paid business directory on your WordPress powered site.
- * Version: 6.4
+ * Version: 6.4.4
  * Author: Business Directory Team
  * Author URI: https://businessdirectoryplugin.com
  * Text Domain: business-directory-plugin
@@ -40,6 +40,7 @@ spl_autoload_register( 'wpbdp_dir_autoloader' );
 
 /**
  * @since 6.3.11
+ *
  * @return void
  */
 function wpbdp_dir_autoloader( $class_name ) {
@@ -122,6 +123,12 @@ function wpbdp() {
 
 	return $instance;
 }
+
+// Increase the priority value for Social Share Buttons widgets.
+add_filter(
+    'ssb_the_content_priority', function () {
+        return 1100;
+}, 100);
 
 
 // For backwards compatibility.

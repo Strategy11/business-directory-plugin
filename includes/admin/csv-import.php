@@ -106,6 +106,7 @@ class WPBDP_CSVImportAdmin {
 		$term  = wpbdp_get_var( array( 'param' => 'term' ), 'request' );
 		$users = get_users( array( 'search' => "*{$term}*" ) );
 
+		$return = array();
 		foreach ( $users as $user ) {
 			$return[] = array(
 				'label' => "{$user->display_name} ({$user->user_login})",
@@ -201,6 +202,7 @@ class WPBDP_CSVImportAdmin {
 	 * Generate a sample CS file for download.
 	 *
 	 * @since 5.3
+	 *
 	 * @return void
 	 */
 	public function download_example_csv() {
@@ -225,6 +227,7 @@ class WPBDP_CSVImportAdmin {
 
 	/**
 	 * @since 5.3
+	 *
 	 * @return string
 	 */
 	private function example_csv_content() {
@@ -323,12 +326,12 @@ class WPBDP_CSVImportAdmin {
 		$import_dir = $this->get_imports_dir();
 
 		if ( $import_dir && ! is_dir( $import_dir ) ) {
-			@mkdir( $import_dir, 0777 );
+			wp_mkdir_p( $import_dir );
 		}
 
 		$files = array();
 
-		if ( ! $import_dir || ! is_dir( $import_dir ) || ! is_writable( $import_dir ) ) {
+		if ( ! $import_dir || ! is_dir( $import_dir ) || ! wp_is_writable( $import_dir ) ) {
 			wpbdp_admin_message(
 				sprintf(
 					__(
@@ -429,10 +432,10 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	/**
+	 * @since 5.11
+	 *
 	 * @param string $type   'csv' or 'image'
 	 * @param array $sources
-	 *
-	 * @since 5.11
 	 */
 	private function add_file_to_sources( $type, &$sources ) {
 		$file = wpbdp_get_var( array( 'param' => $type . '-file-local' ), 'post' );

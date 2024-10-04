@@ -51,9 +51,9 @@ class WPBDP_Admin_Education {
 	/**
 	 * Render the cta.
 	 *
-	 * @param array $tip The current tip.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $tip The current tip.
 	 *
 	 * @return string
 	 */
@@ -70,6 +70,7 @@ class WPBDP_Admin_Education {
 	public static function show_tip_message( $message ) {
 		?>
 		<div class="wpbdp-pro-tip">
+			<?php // phpcs:ignore SlevomatCodingStandard.Files.LineLength ?>
 			<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.00003L1 13H10L9 21L19 9.00003H10L11 1.00003Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			<?php
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -137,9 +138,9 @@ class WPBDP_Admin_Education {
 	}
 
 	/**
-	 * @param string $id
-	 *
 	 * @since 5.9.1
+	 *
+	 * @param string $id
 	 *
 	 * @return array
 	 */

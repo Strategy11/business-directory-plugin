@@ -11,7 +11,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 		return _x( 'Find A Listing', 'views', 'business-directory-plugin' );
 	}
 
-	public function dispatch() {
+	public function dispatch() { // phpcs:ignore SlevomatCodingStandard
 		$searching = ( ! empty( $_GET ) && ( ! empty( $_GET['kw'] ) || ! empty( $_GET['dosrch'] ) ) );
 
 		$handler      = wpbdp_get_var( array( 'param' => 'handler' ), 'post' );
@@ -33,10 +33,11 @@ class WPBDP__Views__Search extends WPBDP__View {
 		);
 
 		if ( $searching ) {
-			$_GET = stripslashes_deep( $_GET );
+			$url_vars = stripslashes_deep( $_GET );
+			wpbdp_sanitize_value( 'sanitize_text_field', $url_vars );
 
 			$validation_errors = array();
-			if ( ! empty( $_GET['dosrch'] ) ) {
+			if ( ! empty( $url_vars['dosrch'] ) ) {
 				// Validate fields that are required.
 				foreach ( $form_fields as $field ) {
 					if ( $field->has_validator( 'required-in-search' ) ) {
@@ -50,7 +51,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 			}
 
 			if ( ! $validation_errors ) {
-				$search = WPBDP__Listing_Search::from_request( $_GET );
+				$search = WPBDP__Listing_Search::from_request( $url_vars );
 				$search->execute();
 			} else {
 				$searching = false;
@@ -58,7 +59,7 @@ class WPBDP__Views__Search extends WPBDP__View {
 		}
 
 		if ( $search_modal ) {
-			$search = WPBDP__Listing_Search::from_request( $_POST );
+			$search   = WPBDP__Listing_Search::from_request( $_POST );
 			$fallback = false;
 		} else {
 			// Show search form on the page if not in a modal and not searching.

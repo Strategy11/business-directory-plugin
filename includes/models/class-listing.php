@@ -1,6 +1,7 @@
 <?php
 /**
  * @package WPBDP\Listing
+ *
  * @since 3.4
  */
 require_once WPBDP_PATH . 'includes/helpers/class-listing-image.php';
@@ -119,7 +120,7 @@ class WPBDP_Listing {
 	 * Sets listing images.
 	 *
 	 * @param array $images array of image IDs.
-	 * @param boolean $append if TRUE images will be appended without clearing previous ones.
+	 * @param bool  $append If TRUE images will be appended without clearing previous ones.
 	 */
 	public function set_images( $images = array(), $append = false ) {
 		if ( ! $append ) {
@@ -190,7 +191,7 @@ class WPBDP_Listing {
 	 *
 	 * @since 5.1.7
 	 *
-	 * @return null|object Post     An attachment of this listing.
+	 * @return object|null Post An attachment of this listing.
 	 */
 	public function get_thumbnail() {
 		$thumbnail = $this->get_saved_thumbnail();
@@ -547,18 +548,18 @@ class WPBDP_Listing {
 
 	public function notify( $kind = 'save', &$extra = null ) {
 		// if ( in_array( $kind, array( 'save', 'edit', 'new' ), true ) )
-		//     $this->save();
+		// $this->save();
 		//
 		// switch ( $kind ) {
-		//     case 'save':
-		//         break;
+		// case 'save':
+		// break;
 		//
-		//     case 'edit':
-		//         do_action_ref_array( 'wpbdp_edit_listing', array( &$this, &$extra ) );
-		//         break;
+		// case 'edit':
+		// do_action_ref_array( 'wpbdp_edit_listing', array( &$this, &$extra ) );
+		// break;
 		//
-		//     default:
-		//         break;
+		// default:
+		// break;
 		// }
 	}
 
@@ -620,7 +621,7 @@ class WPBDP_Listing {
 	 */
 	public function get_payment_url() {
 		$payment = $this->get_latest_payment();
-		return $payment->get_checkout_url();
+		return is_object( $payment ) && method_exists( $payment, 'get_checkout_url' ) ? $payment->get_checkout_url() : '';
 	}
 
 	/**
@@ -791,7 +792,10 @@ class WPBDP_Listing {
 		}
 
 		$row['listing_id'] = $this->id;
-		$row['is_sticky']  = (int) $row['is_sticky'];
+
+		if ( isset( $row['is_sticky'] ) ) {
+			$row['is_sticky'] = (int) $row['is_sticky'];
+		}
 
 		if ( $args['recalculate'] ) {
 			if ( ! $plan || ! array_key_exists( 'expiration_date', $plan ) ) {
@@ -1061,7 +1065,9 @@ class WPBDP_Listing {
 
 		$query_post_statuses    = "'" . implode( "','", $post_status ) . "'";
 		$query_listing_statuses = "'" . implode( "','", $status ) . "'";
-		$query                  = "SELECT COUNT(*) FROM {$wpdb->posts} p JOIN {$wpdb->prefix}wpbdp_listings l ON p.ID = l.listing_id WHERE p.post_type = %s AND p.post_status IN ({$query_post_statuses}) AND l.listing_status IN ({$query_listing_statuses})";
+		$query                  = "SELECT COUNT(*) FROM {$wpdb->posts} p " .
+			"JOIN {$wpdb->prefix}wpbdp_listings l ON p.ID = l.listing_id " .
+			"WHERE p.post_type = %s AND p.post_status IN ({$query_post_statuses}) AND l.listing_status IN ({$query_listing_statuses})";
 		$query                  = $wpdb->prepare( $query, WPBDP_POST_TYPE );
 
 		return absint( $wpdb->get_var( $query ) );
