@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.5.4
-Stable tag: 6.4.4
+Tested up to: 6.6.3
+Stable tag: 6.4.5
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,10 +158,20 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.5 =
+* Added a redirect mechanism for expired listings. If a guest visits an expired listing they will be redirected to the main directory page and a message will be shown.
+* Added TikTok to the social media form fields
+* Added a new admin notice when a renewal notice is manually being sent but there is no recurring email template for that
+* Fix: Bug with form field order when site language was not English
+* Fix: Compatibility issues with newer PHP version
+* Fix: Bug with AddToAny and Social Share Buttons widget not showing on listing pages
+
 = 6.4.4 =
 * Fix: Security fix for potential CSV injection. Credit to Wordfence for the report.
 * Fix: When logged out, the autocomplete dropdowns didn't always have styling.
 * Code: Changes for code readibility and easier maintance with higher standard requirements.
+* Changed the URL field so if the value doesn't have either http:// or https:// in that case https:// will be included by default.
+* Fix: Bug where the expiration email templates were showing with the expiration emails deactivated
 
 = 6.4.3 =
 * Fix: Security fix for searching.
@@ -213,15 +223,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Sticky listings weren't showing at the top when shown using a shortcode or a category page.
 * Fix: Sticky listings were always in the same order, regardless of settings
 * Fix: If a private field is switched to a type that doesn't have privacy options, show the option so it can be turned off.
-
-= 6.3.8 =
-* New: Add quick links to support and docs in the admin notification area.
-* New: When sorting by rating, consider the rating count in addition to the average so listings with more ratings will be higher if they have the same average.
-* Fix: Some sites were getting 404 errors on the single listing page.
-* Fix: In Avada theme, listings were showing twice.
-* Fix: A few updates for PHP 8.2 deprecation messages.
-* Fix: When using a checkbox for categories, it wasn't being correctly required when submiting a new listing.
-* Fix: CSV import was failing when there was an 'enter' in a field.
-* Fix: A conflict with the Custom Start Date plugin with Woocommerce was causing an "Invalid Nonce" error.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

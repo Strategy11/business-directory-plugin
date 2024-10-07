@@ -1107,7 +1107,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Check if there are any recurring renewal notices.
 		 *
-		 * @since x.x.x
+		 * @since 6.4.5.x
 		 *
 		 * @return bool
 		 */
