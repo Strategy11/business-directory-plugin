@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 5.9
 Requires PHP: 7.0
 Tested up to: 6.6.3
-Stable tag: 6.4.5
+Stable tag: 6.4.6
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,7 +158,7 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
-= 6.4.5 =
+= 6.4.6 =
 * Added a redirect mechanism for expired listings. If a guest visits an expired listing they will be redirected to the main directory page and a message will be shown.
 * Added TikTok to the social media form fields
 * Added a new admin notice when a renewal notice is manually being sent but there is no recurring email template for that
