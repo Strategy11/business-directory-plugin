@@ -525,7 +525,7 @@ function wpbdp_date( $timestamp ) {
 /**
  * @since 3.5.3
  */
-function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post' ) {
+function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post', $allow_empty = true ) {
 	if ( 'slug' === $try_first ) {
 		$strategies = array( 'post_name', 'ID' );
 	} else {
@@ -544,7 +544,8 @@ function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $
 				'group'     => 'wpbdp_listings',
 				'query'     => $q,
 				'type'      => 'get_var',
-			)
+			),
+			$allow_empty
 		);
 		$listing_id = intval( $listing_id );
 
