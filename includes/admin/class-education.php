@@ -211,17 +211,8 @@ class WPBDP_Admin_Education {
 	 */
 	private static function has_access_to( $module ) {
 		$licenses = get_option( 'wpbdp_licenses', array() );
-
-		if ( ! is_array( $licenses ) || ! isset( $licenses[ 'module-business-directory-' . $module ] ) ) {
-			return false;
-		}
-
-		$license = $licenses[ 'module-business-directory-' . $module ];
-
-		if ( ! is_array( $license ) || ! isset( $license['status'] ) || $license['status'] !== 'valid' ) {
-			return false;
-		}
-
-		return true;
+		$license  = isset( $licenses[ 'module-business-directory-' . $module ] ) ? $licenses[ 'module-business-directory-' . $module ] : null;
+	
+		return is_array( $license ) && isset( $license['status'] ) && $license['status'] === 'valid';
 	}
 }
