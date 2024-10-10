@@ -201,13 +201,17 @@ class WPBDP_Admin_Education {
 	 */
 	private static function has_access_to( $module ) {
 		$licenses = get_option( 'wpbdp_licenses', array() );
+		
 		if ( ! isset( $licenses[ 'module-business-directory-' . $module ] ) ) {
 			return false;
 		}
+
 		$license = $licenses[ 'module-business-directory-' . $module ];
+
 		if ( ! isset( $license['status'] ) || $license['status'] !== 'valid' ) {
 			return false;
 		}
+
 		return true;
 	}
 }
