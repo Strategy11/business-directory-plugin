@@ -144,7 +144,9 @@ class WPBDP_Utils {
 			}
 		}
 
-		self::set_cache( $args['cache_key'], $results, $args['group'], $args['time'] );
+		if ( ! empty( $results ) ) {
+			self::set_cache( $args['cache_key'], $results, $args['group'], $args['time'] );
+		}
 
 		return $results;
 	}
