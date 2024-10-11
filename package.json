@@ -3,10 +3,14 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "",
+	"resolutions": {
+		"braces": "^3.0.3",
+		"shelljs": "^0.8.5"
+	},
 	"devDependencies": {
 		"@wordpress/eslint-plugin": "^13.10.0",
 		"@wordpress/prettier-config": "^2.9.0",
-		"@wordpress/stylelint-config": "^21.9.0",
+		"@wordpress/stylelint-config": "^23.1.0",
 		"eslint": "^8.33.0",
 		"eslint-plugin-jsdoc": "^39.8.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
@@ -21,16 +25,18 @@
 		"grunt-wp-i18n": "^1.0.3",
 		"less-plugin-autoprefix": "^2.0.0",
 		"npm-run-all": "^4.1.5",
-		"postcss": "^8.4.21",
+		"postcss": "^8.4.47",
 		"postcss-less": "^6.0.0",
 		"prettier": "npm:wp-prettier@^2.6.2",
-		"stylelint": "^14.16.1",
-		"stylelint-config-recommended-less": "^1.0.4",
-		"stylelint-less": "^1.0.6",
+		"stylelint": "^16.9.0",
+		"stylelint-config-recommended-less": "^3.0.1",
+		"stylelint-less": "^3.0.1",
 		"stylelint-order": "^6.0.1",
-		"underscore": "^1.13.6"
+		"underscore": "^1.13.6",
+		"npm-force-resolutions": "^0.0.10"
 	},
 	"scripts": {
+		"preinstall": "npx npm-force-resolutions",
 		"format": "npm-run-all --parallel format:*",
 		"format:css": "stylelint \"**/*.less\" --fix --custom-syntax postcss-less",
 		"format:js": "eslint --fix .",
