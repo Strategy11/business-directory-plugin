@@ -17,6 +17,9 @@ class WPBDP__Dispatcher {
 		add_action( 'template_redirect', array( $this, 'maybe_redirect_from_draft_listings' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_view_scripts' ) );
 
+		// Login redirect, run early to be overwritten by membership plugins.
+		add_filter( 'login_redirect', array( $this, 'login_redirect' ), 12, 3 );
+
 		add_action( 'wp_ajax_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
 		add_action( 'wp_ajax_nopriv_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
 	}
@@ -86,6 +89,27 @@ class WPBDP__Dispatcher {
 		do_action( 'wpbdp_after_dispatch' );
 
 		return $template;
+	}
+
+	/**
+	 * Redirect the user after logging in.
+	 *
+	 * @return void
+	 */
+	public function login_redirect( $redirect_to, $requested_redirect_to, $user ) {
+		// Prevent redirection if option is disabled or user is admin.
+		if ( ! wpbdp_get_option( 'login-redirect' ) || ( ! is_wp_error( $user ) && user_can( $user, 'manage_options' ) ) ) {
+			return admin_url();
+		}
+
+		$url = wpbdp_url();
+
+		// Fail if there is no directory page.
+		if ( ! $url || ! is_string( $url ) || strlen( $url ) < 1 ) {
+			return $redirect_to;
+		}
+
+		return $url;
 	}
 
     /**
