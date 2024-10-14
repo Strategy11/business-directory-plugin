@@ -97,6 +97,10 @@ class WPBDP__Dispatcher {
 	 * @return void
 	 */
 	public function login_redirect( $redirect_to ) {
+		if ( ! wpbdp_get_option( 'login-redirect' ) ) {
+			return $redirect_to;
+		}
+
 		$url = wpbdp_url();
 
 		// Fail if there is no directory page.

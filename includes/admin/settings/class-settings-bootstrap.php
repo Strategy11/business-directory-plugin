@@ -273,7 +273,7 @@ final class WPBDP__Settings__Bootstrap {
 		);
 		wpbdp_register_setting(
 			array(
-				'id'    => 'login-redirect-url',
+				'id'    => 'login-redirect',
 				'type'  => 'toggle',
 				'name'  => _x( 'Redirect users to the main directory page when logging in', 'settings', 'business-directory-plugin' ),
 				'group' => 'registration',
