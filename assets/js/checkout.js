@@ -47,7 +47,37 @@ jQuery(function($) {
                 self.working = false;
 
                 $( window ).trigger( 'wpbdp-payment-gateway-loaded', gateway_id );
+
+                const submitButtonSelector = $( '.wpbdp-checkout-submit input[type="submit"]:visible' );
+
+                if ( 'stripe' === gateway_id ) {
+                    submitButtonSelector.on( 'click', self.sendToStripe );
+                } else {
+                    submitButtonSelector.off( 'click', self.sendToStripe );
+                }
             } );
+        },
+
+        sendToStripe: function( event ) {
+            if ( 'stripe' !== $( 'form#wpbdp-checkout-form [name="gateway"]:checked' ).val() ) {
+                return false;
+            }
+
+            event.preventDefault();
+            self.working = true;
+
+            var url = wpbdp_global.ajaxurl;
+            $.post( url, { action: 'wpbdpstrpsession', _wpnonce: self.nonce }, function( res ) {
+                self.working = false;
+                if ( res.success ) {
+                    window.location = res.url;
+                } else {
+                    // TODO: show the error on the page.
+                    alert( res.message );
+                }
+            } );
+
+            return false;
         }
     };
 
