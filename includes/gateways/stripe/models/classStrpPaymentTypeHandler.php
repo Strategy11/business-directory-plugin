@@ -41,7 +41,7 @@ class WPBDPStrpPaymentTypeHandler {
 		);
 
 		if ( ! is_array( $payment_method_types ) ) {
-			_doing_it_wrong( __FUNCTION__, 'Payment method types should be an array or the string "automatic". All other values are invalid.', '3.1' );
+			_doing_it_wrong( __FUNCTION__, 'Payment method types should be an array. All other values are invalid.', '3.1' );
 			$payment_method_types = array(); // Fallback to automatic when an invalid value is used.
 		}
 
