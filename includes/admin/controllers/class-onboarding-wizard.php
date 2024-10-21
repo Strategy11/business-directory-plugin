@@ -86,14 +86,7 @@ final class WPBDP_Onboarding_Wizard {
 	 *
 	 * @var string
 	 */
-	private static $view_path = '';
-
-	/**
-	 * Upgrade URL.
-	 *
-	 * @var string
-	 */
-	private static $upgrade_link = '';
+	private $view_path = '';
 
 	/**
 	 * Initialize hooks for template page only.
@@ -181,24 +174,14 @@ final class WPBDP_Onboarding_Wizard {
 	 */
 	public function maybe_load_page() {
 		if ( $this->is_onboarding_wizard_page() ) {
+			$this->view_path = WPBDP_PATH . 'includes/admin/views/onboarding-wizard/';
+
 			add_action( 'admin_menu', array( $this, 'menu' ), 99 );
-			add_action( 'admin_init', array( $this, 'assign_properties' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ), 15 );
+			add_action( 'wpbdp_enqueue_admin_scripts', array( $this, 'enqueue_assets' ), 15 );
 			add_action( 'admin_head', array( $this, 'remove_menu' ) );
 
 			add_filter( 'admin_body_class', array( $this, 'add_admin_body_classes' ), 999 );
 		}
-	}
-
-	/**
-	 * Initializes class properties with essential values for operation.
-	 *
-	 * @since x.x
-	 *
-	 * @return void
-	 */
-	public function assign_properties() {
-		self::$view_path = WPBDP_PATH . 'includes/admin/views/onboarding-wizard/';
 	}
 
 	/**
@@ -239,21 +222,15 @@ final class WPBDP_Onboarding_Wizard {
 		}
 
 		// Include SVG images for icons.
-		FrmAppHelper::include_svg();
+		WPBDP_App_Helper::include_svg();
 
-		$view_path        = self::get_view_path();
-		$available_addons = self::get_available_addons();
-		$upgrade_link     = self::get_upgrade_link();
-		$addons_count     = FrmAddonsController::get_addons_count();
-		$license_key      = base64_decode( rawurldecode( FrmAppHelper::get_param( 'key', '', 'request', 'sanitize_text_field' ) ) );
-		$pro_is_installed = FrmAppHelper::pro_is_installed();
+		$view_path        = $this->get_view_path();
+		$pro_is_installed = WPBDP_Admin_Education::is_installed( 'premium' );
 
 		// Note: Add step parts in order.
 		$step_parts = array(
 			'consent-tracking' => 'steps/consent-tracking-step.php',
-			'install-addons'   => 'steps/install-addons-step.php',
 			'success'          => 'steps/success-step.php',
-			'unsuccessful'     => 'steps/unsuccessful-step.php',
 		);
 
 		include $view_path . 'index.php';
@@ -266,20 +243,15 @@ final class WPBDP_Onboarding_Wizard {
 	 *
 	 * @return void
 	 */
-	public static function ajax_consent_tracking() {
+	public function ajax_consent_tracking() {
 		// Check permission and nonce.
-		FrmAppHelper::permission_check( wpbdp_backend_minimim_role() );
-		check_ajax_referer( 'frm_ajax', 'nonce' );
+		WPBDP_App_Helper::permission_check();
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
-		// Update Settings.
-		$frm_settings = FrmAppHelper::get_settings();
-		$frm_settings->update_setting( 'tracking', true, 'rest_sanitize_boolean' );
+		update_option( 'wpbdp-show-tracking-pointer', 0, 'no' );
+		wpbdp_set_option( 'tracking-on', true );
 
-		// Remove the 'FrmProSettingsController::store' action to avoid PHP errors during AJAX call.
-		remove_action( 'frm_store_settings', 'FrmProSettingsController::store' );
-		$frm_settings->store();
-
-		self::subscribe_to_active_campaign();
+		$this->subscribe_to_active_campaign();
 
 		// Send response.
 		wp_send_json_success();
@@ -292,59 +264,23 @@ final class WPBDP_Onboarding_Wizard {
 	 *
 	 * @return void
 	 */
-	private static function subscribe_to_active_campaign() {
+	private function subscribe_to_active_campaign() {
 		$user = wp_get_current_user();
+
 		if ( empty( $user->user_email ) ) {
 			return;
 		}
 
 		wp_remote_post(
-			'https://sandbox.formidableforms.com/api/wp-admin/admin-ajax.php?action=frm_forms_preview&form=subscribe-onboarding',
+			'https://feedback.strategy11.com/wp-json/frm/v2/entries',
 			array(
-				'body' => http_build_query(
-					array(
-						'form_key'      => 'subscribe-onboarding',
-						'frm_action'    => 'create',
-						'form_id'       => 5,
-						'item_key'      => '',
-						'item_meta[0]'  => '',
-						'item_meta[15]' => $user->user_email,
-					)
+				'body' => array(
+					'bd-firstname1' => $user->first_name,
+					'bd-email-1'    => $user->user_email,
+					'form_id'       => 'bd-plugin-course',
 				),
 			)
 		);
-	}
-
-	/**
-	 * Handle AJAX request to set up usage data for the Onboarding Wizard.
-	 *
-	 * @since x.x
-	 *
-	 * @return void
-	 */
-	public static function setup_usage_data() {
-		// Check permission and nonce.
-		FrmAppHelper::permission_check( wpbdp_backend_minimim_role() );
-		check_ajax_referer( 'frm_ajax', 'nonce' );
-
-		// Retrieve the current usage data.
-		$usage_data = self::get_usage_data();
-
-		$fields_to_update = array(
-			'allows_tracking'  => 'rest_sanitize_boolean',
-			'installed_addons' => 'sanitize_text_field',
-			'processed_steps'  => 'sanitize_text_field',
-			'completed_steps'  => 'rest_sanitize_boolean',
-		);
-
-		foreach ( $fields_to_update as $field => $sanitize_callback ) {
-			if ( isset( $_POST[ $field ] ) ) {
-				$usage_data[ $field ] = FrmAppHelper::get_post_param( $field, '', $sanitize_callback );
-			}
-		}
-
-		update_option( self::USAGE_DATA_OPTION, $usage_data );
-		wp_send_json_success();
 	}
 
 	/**
@@ -355,26 +291,13 @@ final class WPBDP_Onboarding_Wizard {
 	 * @return void
 	 */
 	public function enqueue_assets() {
-		$plugin_url      = FrmAppHelper::plugin_url();
-		$version         = FrmAppHelper::plugin_version();
-		$js_dependencies = array(
-			'wp-i18n',
-			// This prevents a console error "wp.hooks is undefined" in WP versions older than 5.7.
-			'wp-hooks',
-			'formidable_dom',
-		);
-
-		// Enqueue styles that needed.
-		wp_enqueue_style( 'formidable-admin' );
-		wp_enqueue_style( 'formidable-grids' );
-
 		// Register and enqueue Onboarding Wizard style.
-		wp_register_style( self::PAGE_SLUG, $plugin_url . '/css/admin/onboarding-wizard.css', array(), $version );
+		wp_register_style( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/css/admin/onboarding-wizard.css', array(), WPBDP_VERSION );
 		wp_enqueue_style( self::PAGE_SLUG );
 
 		// Register and enqueue Onboarding Wizard script.
-		wp_register_script( self::PAGE_SLUG, $plugin_url . '/js/onboarding-wizard.js', $js_dependencies, $version, true );
-		wp_localize_script( self::PAGE_SLUG, 'frmOnboardingWizardVars', self::get_js_variables() );
+		wp_register_script( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/js/onboarding-wizard.js', array( 'wp-i18n' ), WPBDP_VERSION, true );
+		wp_localize_script( self::PAGE_SLUG, 'wpbdpOnboardingWizardVars', $this->get_js_variables() );
 		wp_enqueue_script( self::PAGE_SLUG );
 
 		/**
@@ -382,9 +305,7 @@ final class WPBDP_Onboarding_Wizard {
 		 *
 		 * @since x.x
 		 */
-		do_action( 'frm_onboarding_wizard_enqueue_assets' );
-
-		FrmAppHelper::dequeue_extra_global_scripts();
+		do_action( 'wpbdp_onboarding_wizard_enqueue_assets' );
 	}
 
 	/**
@@ -394,7 +315,7 @@ final class WPBDP_Onboarding_Wizard {
 	 *
 	 * @return array
 	 */
-	private static function get_js_variables() {
+	private function get_js_variables() {
 		return array(
 			'INITIAL_STEP' => self::INITIAL_STEP,
 		);
@@ -409,7 +330,7 @@ final class WPBDP_Onboarding_Wizard {
 	 * @return void
 	 */
 	public function remove_menu() {
-		remove_submenu_page( 'formidable', self::PAGE_SLUG );
+		remove_submenu_page( 'wpbdp_admin', self::PAGE_SLUG );
 	}
 
 	/**
@@ -423,7 +344,7 @@ final class WPBDP_Onboarding_Wizard {
 	 * @return string Updated list of body classes, including the newly added classes.
 	 */
 	public function add_admin_body_classes( $classes ) {
-		return $classes . ' frm-admin-full-screen';
+		return $classes . ' s11-admin-full-screen';
 	}
 
 	/**
@@ -454,7 +375,7 @@ final class WPBDP_Onboarding_Wizard {
 	 * @return bool True if the current page is the Onboarding Wizard page, false otherwise.
 	 */
 	public function is_onboarding_wizard_page() {
-		return FrmAppHelper::is_admin_page( self::PAGE_SLUG );
+		return WPBDP_App_Helper::is_admin_page( self::PAGE_SLUG );
 	}
 
 	/**
@@ -467,7 +388,7 @@ final class WPBDP_Onboarding_Wizard {
 			return true;
 		}
 
-		update_option( self::REDIRECT_STATUS_OPTION, FrmAppHelper::plugin_version(), 'no' );
+		update_option( self::REDIRECT_STATUS_OPTION, WPBDP_VERSION, 'no' );
 		return false;
 	}
 
@@ -492,46 +413,14 @@ final class WPBDP_Onboarding_Wizard {
 	}
 
 	/**
-	 * Get the list of add-ons available for installation.
-	 *
-	 * @since x.x
-	 *
-	 * @return array A list of add-ons.
-	 */
-	public static function get_available_addons() {
-		return self::$available_addons;
-	}
-
-	/**
-	 * Set the list of add-ons available for installation.
-	 *
-	 * @since x.x
-	 *
-	 * @return void
-	 */
-	private static function set_available_addons() {
-	}
-
-	/**
 	 * Get the path to the Onboarding Wizard views.
 	 *
 	 * @since x.x
 	 *
 	 * @return string Path to views.
 	 */
-	public static function get_view_path() {
-		return self::$view_path;
-	}
-
-	/**
-	 * Get the upgrade link.
-	 *
-	 * @since x.x
-	 *
-	 * @return string URL for upgrading accounts.
-	 */
-	public static function get_upgrade_link() {
-		return self::$upgrade_link;
+	public function get_view_path() {
+		return $this->view_path;
 	}
 
 	/**
