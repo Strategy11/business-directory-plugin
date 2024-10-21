@@ -107,7 +107,7 @@ class WPBDP_Utils {
 	 *
 	 * @return mixed $results The cache or query results
 	 */
-	public static function check_cache( $args ) {
+	public static function check_cache( $args, $allow_empty = true ) {
 		$defaults = array(
 			'cache_key' => '',
 			'group'     => '',
@@ -144,7 +144,9 @@ class WPBDP_Utils {
 			}
 		}
 
-		self::set_cache( $args['cache_key'], $results, $args['group'], $args['time'] );
+		if ( $allow_empty || ! empty( $results ) ) {
+			self::set_cache( $args['cache_key'], $results, $args['group'], $args['time'] );
+		}
 
 		return $results;
 	}

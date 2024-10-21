@@ -160,8 +160,18 @@ class WPBDP_Admin_Education {
 			return array();
 		}
 
-		$is_any_upgrade = $tip['cta'] === 'Upgrade Now.' || $tip['cta'] === 'Upgrade to Premium';
-		if ( $has_premium && $is_any_upgrade ) {
+		$upgrade_labels = array( 
+			'Upgrade Now.', 
+			'Upgrade to Premium', 
+			'Upgrade to Pro.',
+		);
+
+		$is_any_upgrade = in_array( $tip['cta'], $upgrade_labels, true );
+
+		$is_premium_cta = $is_any_upgrade && $has_premium;
+		$is_pro_cta     = $is_any_upgrade && self::has_access_to( $tip['requires'] );
+
+		if ( $is_premium_cta || $is_pro_cta ) {
 			$tip['cta']  = 'Install Now.';
 			$tip['link'] = admin_url( 'admin.php?page=wpbdp-addons' );
 		}
@@ -190,5 +200,19 @@ class WPBDP_Admin_Education {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Checks if the user has access to a module
+	 *
+	 * @param string $module
+	 * 
+	 * @return bool
+	 */
+	private static function has_access_to( $module ) {
+		$licenses = get_option( 'wpbdp_licenses', array() );
+		$license  = isset( $licenses[ 'module-business-directory-' . $module ] ) ? $licenses[ 'module-business-directory-' . $module ] : null;
+	
+		return is_array( $license ) && isset( $license['status'] ) && $license['status'] === 'valid';
 	}
 }
