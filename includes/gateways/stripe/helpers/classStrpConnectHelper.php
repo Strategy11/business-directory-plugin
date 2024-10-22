@@ -115,11 +115,11 @@ class WPBDPStrpConnectHelper {
 		}
 
 		if ( ! empty( $data->password ) ) {
-			update_option( self::get_server_side_token_option_name( $mode ), $data->password, 'no' );
+			update_option( self::get_server_side_token_option_name( $mode ), $data->password, false );
 		}
 
 		if ( ! empty( $data->account_id ) ) {
-			update_option( self::get_account_id_option_name( $mode ), $data->account_id, 'no' );
+			update_option( self::get_account_id_option_name( $mode ), $data->account_id, false );
 		}
 
 		return $data;
@@ -133,7 +133,7 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function generate_client_password( $mode ) {
 		$client_password = wp_generate_password();
-		update_option( self::get_client_side_token_option_name( $mode ), $client_password, 'no' );
+		update_option( self::get_client_side_token_option_name( $mode ), $client_password, false );
 		return $client_password;
 	}
 
@@ -383,7 +383,7 @@ class WPBDPStrpConnectHelper {
 		$data = self::post_to_connect_server( 'oauth_account_status', $body );
 
 		if ( is_object( $data ) && ! empty( $data->account_id ) ) {
-			update_option( self::get_account_id_option_name( $mode ), $data->account_id, 'no' );
+			update_option( self::get_account_id_option_name( $mode ), $data->account_id, false );
 
 			if ( ! empty( $data->details_submitted ) ) {
 				self::set_stripe_details_as_submitted( $mode );
@@ -402,7 +402,7 @@ class WPBDPStrpConnectHelper {
 	 * @return void
 	 */
 	private static function set_stripe_details_as_submitted( $mode ) {
-		update_option( self::get_stripe_details_submitted_option_name( $mode ), true, 'no' );
+		update_option( self::get_stripe_details_submitted_option_name( $mode ), true, false );
 	}
 
 	/**
@@ -441,7 +441,7 @@ class WPBDPStrpConnectHelper {
 		}
 
 		if ( ! empty( $data->password ) ) {
-			update_option( self::get_server_side_token_option_name( $mode ), $data->password, 'no' );
+			update_option( self::get_server_side_token_option_name( $mode ), $data->password, false );
 		}
 
 		if ( ! is_object( $data ) || empty( $data->redirect_url ) ) {
@@ -940,7 +940,7 @@ class WPBDPStrpConnectHelper {
 		$usage           = new WPBDP_SiteTracking();
 		$uuid            = $usage->site_hash();
 
-		update_option( $option_name, time() );
+		update_option( $option_name, time(), false );
 
 		if ( $site_identifier === $uuid ) {
 			wp_send_json_success();
