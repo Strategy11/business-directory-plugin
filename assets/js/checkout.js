@@ -66,6 +66,8 @@ jQuery(function($) {
             event.preventDefault();
             self.working = true;
 
+            // TODO: It looks like this is trying to trigger redirect_to_checkout in the Link Controller.
+            // TODO: It seems to expect a session variable in $_POST though.
             var url = wpbdp_global.ajaxurl;
             $.post( url, { action: 'wpbdpstrpsession', _wpnonce: self.nonce }, function( res ) {
                 self.working = false;

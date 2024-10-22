@@ -186,7 +186,7 @@ class WPBDPStrpConnectHelper {
 	 * @return void
 	 */
 	private static function try_to_extend_server_timeout( $timeout ) {
-		if ( ! ini_get( 'safe_mode' ) ) {
+		if ( function_exists( 'set_time_limit' ) ) {
 			set_time_limit( $timeout + 10 );
 		}
 	}
@@ -870,6 +870,7 @@ class WPBDPStrpConnectHelper {
 	 * @return string|false
 	 */
 	public static function send_to_checkout( $new_session ) {
+		// TODO It looks like this endpoint does not exist yet.
 		$data = self::post_with_authenticated_body( 'send_to_checkout', compact( 'new_session' ) );
 		if ( false === $data || empty( $data->url ) ) {
 			return false;
