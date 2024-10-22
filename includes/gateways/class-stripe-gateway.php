@@ -239,6 +239,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		try {
 			if ( ! $payment->has_item_type( 'recurring_plan' ) ) {
 				// Regular payment.
+				// TODO: \Stripe\ does not exist. We need to update this.
 				$charge = \Stripe\Charge::create(
 					array(
 						'amount'      => $this->formated_amount( $payment->amount ),
@@ -524,6 +525,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		if ( $invoice->charge ) {
 
 			try {
+				// TODO: \Stripe\ does not exist. We need to update this.
 				$charge = \Stripe\Charge::retrieve( $invoice->charge );
 			} catch ( Exception $e ) {
 				$charge = null;
@@ -590,6 +592,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		try {
+			// TODO: Stripe does not exist. We need to update this.
 			$customer = \Stripe\Customer::create( $this->new_customer_data( $payment ) );
 		} catch ( Exception $e ) {
 			$customer = null;
@@ -846,6 +849,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	private function is_valid_discount( $discount, $pending_discount ) {
 		try {
+			// TODO: \Stripe\ does not exist. We need to update this.
 			$discount_item = \Stripe\InvoiceItem::retrieve( $pending_discount['item_id'] );
 			if ( ! $discount_item ) {
 				return false;
@@ -877,6 +881,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		try {
 			if ( $payment->has_item_type( 'recurring_plan' ) ) {
+				// TODO: \Stripe\ does not exist. We need to update this.
 				$discount_item = \Stripe\InvoiceItem::create(
 					array(
 						'amount'      => $this->formated_amount( $discount['amount'] ),
@@ -923,6 +928,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$payment->gateway = $this->get_id();
 
 		try {
+			// TODO: \Stripe\ does not exist. We need to update this.
+			// TODO We need a new Stripe Connect endpoint for creating sessions.
 			$session = \Stripe\Checkout\Session::create( $this->get_session_parameters( $payment ) );
 			if ( empty( $session->id ) ) {
 				return new WP_Error( 'stripe_no_session', $session );
@@ -953,6 +960,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			}
 
 			try {
+				// TODO: \Stripe\ does not exist. We need to update this.
+				// TODO: The Stripe Connect endpoint has no invoice item retrieve endpoint.
 				$expired_item = \Stripe\InvoiceItem::retrieve( $data['item_id'] );
 			} catch ( Exception $e ) {
 				$expired_item = null;
