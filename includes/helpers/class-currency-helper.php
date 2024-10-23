@@ -57,7 +57,7 @@ class WPBDP_Currency_Helper {
 				$amount = floatval( self::prepare_price( $amount, $currency ) );
 			}
 			if ( is_null( $amount ) ) {
-				$amount = 0;
+				$amount = 0.0;
 			}
 			$amount = number_format( $amount, $currency['decimals'], $currency['decimal_separator'], $currency['thousand_separator'] );
 		}
