@@ -419,7 +419,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 	 * @override
 	 */
 	public static function objects() {
-		return parent::_objects( get_class() );
+		return parent::_objects( __CLASS__ );
 	}
 
 	/**
