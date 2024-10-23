@@ -132,7 +132,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				$this->site_tracking = new WPBDP_SiteTracking();
 			}
 
+			require_once WPBDP_INC . 'admin/controllers/class-onboarding-wizard.php';
 			$this->onboarding_wizard = new WPBDP_Onboarding_Wizard();
+
 			$this->onboarding_wizard->load_admin_hooks();
 		}
 

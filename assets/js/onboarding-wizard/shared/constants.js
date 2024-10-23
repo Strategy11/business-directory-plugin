@@ -1,6 +1,6 @@
 export const { INITIAL_STEP, proIsIncluded } =  window.frmOnboardingWizardVars;
 
-export const PREFIX = 'frm-onboarding';
+export const PREFIX = 'wpbdp-onboarding';
 export const WELCOME_STEP_ID = `${PREFIX}-welcome-step`;
 
 export const STEPS = {

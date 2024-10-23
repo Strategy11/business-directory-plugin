@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Onboarding Wizard Controller class.
  *

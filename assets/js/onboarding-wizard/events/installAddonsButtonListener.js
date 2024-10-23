@@ -31,7 +31,7 @@ function addInstallAddonsButtonEvents() {
  * @return {void}
  */
 const onInstallAddonsButtonClick = async( event ) => {
-	const addons = document.querySelectorAll( '.frm-option-box.frm-checked:not(.frm-disabled)' );
+	const addons = document.querySelectorAll( '.wpbdp-option-box.wpbdp-checked:not(.wpbdp-disabled)' );
 	const { installedAddons } = getState();
 	const installAddonsButton = event.currentTarget;
 
