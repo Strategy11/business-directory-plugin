@@ -4,6 +4,10 @@
  * This file includes all CSS rules specifically for the Onboarding Wizard page.
  */
 
+html.wp-toolbar {
+	padding: 0;
+}
+
 .wpbdp-admin-full-screen {
 	#adminmenumain,
 	#wpadminbar,
@@ -25,148 +29,162 @@
 	}
 }
 
-/**
- * Page General Styles
- *
- * Defines the basic typography and layout styles for the Onboarding Wizard page.
- */
-html.wp-toolbar {
-	padding: 0;
-}
-
 #wpbdp-onboarding-wizard-page {
 	position: relative;
-	background-color: var( --grey-50 );
+	text-align: center;
+	background-color: @color-neutral-50;
 	overflow: hidden;
-}
 
-#wpbdp-onboarding-wizard-page * {
-	box-sizing: border-box;
+	&,
+	&::before,
+	&::after,
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	&[data-current-step='success'] #wpbdp-onboarding-return-dashboard {
+		display: none;
+	}
 }
 
 #wpbdp-onboarding-container {
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	min-height: 100vh;
-	padding: var( --gap-xl );
+	padding: 36px;
 	z-index: 2;
 }
 
 #wpbdp-onboarding-return-dashboard {
-	color: var( --grey-400 );
+	color: @color-neutral-400;
 	font-weight: 500;
-	margin-top: var( --gap-lg );
-}
+	margin-top: 32px;
 
-#wpbdp-onboarding-return-dashboard:hover {
-	color: var( --grey-500 );
-}
-
-#wpbdp-onboarding-wizard-page[data-current-step='success']
-	#wpbdp-onboarding-return-dashboard {
-	display: none;
-}
-
-#wpbdp-onboarding-wizard-page .wpbdp-onboarding-logo {
-	width: 60px;
-	height: auto;
-}
-
-#wpbdp-onboarding-wizard-page .wpbdp-dropdown-menu {
-	position: static !important;
-	transform: none !important;
-	border: 0;
-	box-shadow: none;
-	width: 100%;
-	max-height: unset;
-}
-
-.dropdown.show .wpbdp-dropdown-toggle .wpbdpsvg {
-	transform: rotate( 180deg );
-}
-
-/* NOTE: The changes below were implemented to align with the distinct tooltip style observed in the "Install Formidable Add-ons" step */
-.tooltip-inner {
-	max-width: 295px;
-	background-color: #545f6e;
-	padding: var( --gap-xs ) var( --gap-sm );
-	border-radius: var( --small-radius );
-}
-
-.bs-tooltip-top .arrow::before {
-	border-top-color: #545f6e;
-}
-
-.bs-tooltip-bottom .arrow::before {
-	border-bottom-color: #545f6e;
+	&:hover {
+		color: @color-neutral-500;
+	}
 }
 
 /* Rootline */
-.wpbdp-rootline {
+.wpbdp-onboarding-rootline {
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: calc( 3 * var( --gap-xl ) );
+	gap: 120px;
 	padding: 0;
-	margin: 0 0 var( --gap-lg );
+	margin: 0 0 32px;
+
+	&::before {
+		content: '';
+		position: absolute;
+		width: calc( 100% - 32px );
+		border: 1px solid @color-neutral-300;
+		z-index: 1;
+	}
+
+	.wpbdp-onboarding-rootline-item {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 16px;
+		height: 16px;
+		background-color: #F9FAFB;
+		border: 2px solid #D0D5DD;
+		outline: 4px solid #F9FAFB;
+		border-radius: 100%;
+		padding: 0;
+		margin: 0;
+		z-index: 2;
+	}
+
+	.wpbdp-onboarding-rootline-item.wpbdp-completed-step {
+		background-color: @color-neutral-500;
+		border-color: @color-neutral-500;
+	}
+
+	.wpbdp-onboarding-rootline-item.wpbdp-current {
+		background-color: #fff;
+		border-color: @default-color;
+	}
+
+	.wpbdp-onboarding-rootline-item .wpbdpsvg {
+		color: #fff;
+	}
+
+	.wpbdp-onboarding-rootline-item:not( .wpbdp-completed-step ) .wpbdpsvg {
+		display: none;
+	}
 }
 
-.wpbdp-rootline::before {
-	content: '';
-	position: absolute;
-	width: calc( 100% - 32px );
-	border: 1px solid var( --grey-300 );
-	z-index: 1;
-}
-
-.wpbdp-rootline-item {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 16px;
-	height: 16px;
-	background-color: var( --grey-50 );
-	border: 2px solid var( --grey-300 );
-	outline: 4px solid var( --grey-50 );
-	border-radius: 100%;
-	padding: 0;
-	margin: 0;
-	z-index: 2;
-}
-
-.wpbdp-rootline-item.wpbdp-completed-step {
-	background-color: var( --grey-500 );
-	border-color: var( --grey-500 );
-}
-
-.wpbdp-rootline-item.wpbdp-current {
+.wpbdp-card-box {
+	max-width: 524px;
 	background-color: #fff;
-	border-color: var( --primary-500 );
+	border-radius: 16px;
+	padding: 40px;
+	border: 1px solid #EAECF0;
+	box-shadow: 0px 1.88298px 3.76596px -0.941489px rgba(16, 24, 40, 0.1), 0px 0.941489px 1.88298px -0.941489px rgba(16, 24, 40, 0.06);
 }
 
-.wpbdp-rootline-item .wpbdpsvg {
-	color: #fff;
+.wpbdp-card-box.wpbdp-has-progress-bar {
+	position: relative;
+	overflow: hidden;
+	border-radius: 16px;
 }
 
-.wpbdp-rootline-item:not( .wpbdp-completed-step ) .wpbdpsvg {
-	display: none;
+.wpbdp-card-box-progress-bar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 8px;
+	background-color: @input-hover;
 }
 
-/**
- * Install Formidable Add-ons Step Styles
- *
- * Provides styles for when the Onboarding Wizard page is displayed Install Formidable Add-ons step.
- */
-.wpbdp-cta-green .wpbdp-banner-title {
-	color: var( --success-900 );
+.wpbdp-card-box-progress-bar > span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 33%;
+	background-color: @default-color;
 }
 
-.wpbdp-cta-green .wpbdp-banner-text,
-.wpbdp-cta-green .wpbdp-banner-text a {
-	color: var( --success-800 );
+.wpbdp-card-box-header  {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 16px;
 }
 
-.wpbdp-cta-green .wpbdp-banner-text a {
-	text-decoration: underline;
+.wpbdp-card-box.wpbdp-has-progress-bar .wpbdp-card-box-header {
+	margin-top: 8px;
+}
+
+.wpbdp-card-box-content > :last-child {
+	margin-bottom: 0;
+}
+
+.wpbdp-card-box-footer {
+	display: flex;
+	justify-content: end;
+	gap: 16px;
+	margin-top: 32px;
+}
+
+.wpbdp-card-box-title {
+	font-size: 20px !important;
+	font-weight: 600 !important;
+	margin-bottom: 8px;
+}
+
+.wpbdp-card-box-text {
+	font-size: 16px !important;
+	color: @color-neutral-500 !important;
+	margin-top: 0 !important;
 }

@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php WPBDP_App_Helper::show_logo( 60 ); ?>
 	</div>
 
-	<div class="wpbdp-card-box-content wpbdp-mt-md">
-		<h2 class="wpbdp-card-box-title wpbdp-mb-sm"><?php esc_html_e( 'Never miss an important update', 'business-directory-plugin' ); ?></h2>
+	<div class="wpbdp-card-box-content">
+		<h2 class="wpbdp-card-box-title"><?php esc_html_e( 'Never miss an important update', 'business-directory-plugin' ); ?></h2>
 		<p class="wpbdp-card-box-text">
 			<?php esc_html_e( 'Get key updates, tips, and occasional offers to enhance your WordPress experience. Opt in and help us improve compatibility with your site!', 'business-directory-plugin' ); ?>
 		</p>
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	// );
 	?>
 
-	<div class="dropdown wpbdp-mt-lg">
+	<div class="dropdown">
 		<div id="wpbdp-onboarding-consent-tracking-list" class="wpbdp-dropdown-toggle wpbdp-cursor-pointer" data-toggle="dropdown">
 			<span class="wpbdp_bstooltip" data-placement="right">
 				<?php esc_html_e( 'Allow Formidable Forms to', 'business-directory-plugin' ); ?>
