@@ -1,0 +1,172 @@
+/**
+ * Onboardin Wizard Page Styles
+ *
+ * This file includes all CSS rules specifically for the Onboarding Wizard page.
+ */
+
+.wpbdp-admin-full-screen {
+	#adminmenumain,
+	#wpadminbar,
+	#adminmenuback,
+	#adminmenuwrap,
+	#wpfooter,
+	.wpbdp-notice {
+		display: none;
+	}
+
+	#wpcontent,
+	&.auto-fold #wpcontent {
+		margin: 0;
+		padding: 0;
+	}
+
+	&.appearance_page_starter-templates #wpbody-content {
+		padding: 0;
+	}
+}
+
+/**
+ * Page General Styles
+ *
+ * Defines the basic typography and layout styles for the Onboarding Wizard page.
+ */
+html.wp-toolbar {
+	padding: 0;
+}
+
+#wpbdp-onboarding-wizard-page {
+	position: relative;
+	background-color: var( --grey-50 );
+	overflow: hidden;
+}
+
+#wpbdp-onboarding-wizard-page * {
+	box-sizing: border-box;
+}
+
+#wpbdp-onboarding-container {
+	position: relative;
+	min-height: 100vh;
+	padding: var( --gap-xl );
+	z-index: 2;
+}
+
+#wpbdp-onboarding-return-dashboard {
+	color: var( --grey-400 );
+	font-weight: 500;
+	margin-top: var( --gap-lg );
+}
+
+#wpbdp-onboarding-return-dashboard:hover {
+	color: var( --grey-500 );
+}
+
+#wpbdp-onboarding-wizard-page[data-current-step='success']
+	#wpbdp-onboarding-return-dashboard {
+	display: none;
+}
+
+#wpbdp-onboarding-wizard-page .wpbdp-onboarding-logo {
+	width: 60px;
+	height: auto;
+}
+
+#wpbdp-onboarding-wizard-page .wpbdp-dropdown-menu {
+	position: static !important;
+	transform: none !important;
+	border: 0;
+	box-shadow: none;
+	width: 100%;
+	max-height: unset;
+}
+
+.dropdown.show .wpbdp-dropdown-toggle .wpbdpsvg {
+	transform: rotate( 180deg );
+}
+
+/* NOTE: The changes below were implemented to align with the distinct tooltip style observed in the "Install Formidable Add-ons" step */
+.tooltip-inner {
+	max-width: 295px;
+	background-color: #545f6e;
+	padding: var( --gap-xs ) var( --gap-sm );
+	border-radius: var( --small-radius );
+}
+
+.bs-tooltip-top .arrow::before {
+	border-top-color: #545f6e;
+}
+
+.bs-tooltip-bottom .arrow::before {
+	border-bottom-color: #545f6e;
+}
+
+/* Rootline */
+.wpbdp-rootline {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: calc( 3 * var( --gap-xl ) );
+	padding: 0;
+	margin: 0 0 var( --gap-lg );
+}
+
+.wpbdp-rootline::before {
+	content: '';
+	position: absolute;
+	width: calc( 100% - 32px );
+	border: 1px solid var( --grey-300 );
+	z-index: 1;
+}
+
+.wpbdp-rootline-item {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 16px;
+	height: 16px;
+	background-color: var( --grey-50 );
+	border: 2px solid var( --grey-300 );
+	outline: 4px solid var( --grey-50 );
+	border-radius: 100%;
+	padding: 0;
+	margin: 0;
+	z-index: 2;
+}
+
+.wpbdp-rootline-item.wpbdp-completed-step {
+	background-color: var( --grey-500 );
+	border-color: var( --grey-500 );
+}
+
+.wpbdp-rootline-item.wpbdp-current {
+	background-color: #fff;
+	border-color: var( --primary-500 );
+}
+
+.wpbdp-rootline-item .wpbdpsvg {
+	color: #fff;
+}
+
+.wpbdp-rootline-item:not( .wpbdp-completed-step ) .wpbdpsvg {
+	display: none;
+}
+
+/**
+ * Install Formidable Add-ons Step Styles
+ *
+ * Provides styles for when the Onboarding Wizard page is displayed Install Formidable Add-ons step.
+ */
+.wpbdp-cta-green .wpbdp-banner-title {
+	color: var( --success-900 );
+}
+
+.wpbdp-cta-green .wpbdp-banner-text,
+.wpbdp-cta-green .wpbdp-banner-text a {
+	color: var( --success-800 );
+}
+
+.wpbdp-cta-green .wpbdp-banner-text a {
+	text-decoration: underline;
+}
