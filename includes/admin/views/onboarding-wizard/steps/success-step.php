@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
 ?>
-<section id="wpbdp-onboarding-success-step" class="wpbdp-onboarding-step wpbdp-card-box frmcenter frm_hidden" data-step-name="<?php echo esc_attr( $step ); ?>">
+<section id="wpbdp-onboarding-success-step" class="wpbdp-onboarding-step wpbdp-card-box wpbdp-hidden" data-step-name="<?php echo esc_attr( $step ); ?>">
 	<div class="wpbdp-card-box-header">
 	<?php WPBDP_App_Helper::show_logo( 60 ); ?>
 	</div>

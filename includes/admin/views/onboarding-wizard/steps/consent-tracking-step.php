@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
 ?>
-<section id="wpbdp-onboarding-consent-tracking-step" class="wpbdp-onboarding-step wpbdp-card-box frmcenter wpbdp-current" data-step-name="<?php echo esc_attr( $step ); ?>">
+<section id="wpbdp-onboarding-consent-tracking-step" class="wpbdp-onboarding-step wpbdp-card-box wpbdp-current" data-step-name="<?php echo esc_attr( $step ); ?>">
 	<div class="wpbdp-card-box-header">
 		<?php WPBDP_App_Helper::show_logo( 60 ); ?>
 	</div>
@@ -36,16 +36,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="dropdown wpbdp-mt-lg">
 		<div id="wpbdp-onboarding-consent-tracking-list" class="wpbdp-dropdown-toggle wpbdp-cursor-pointer" data-toggle="dropdown">
-			<span class="frm_bstooltip" data-placement="right">
+			<span class="wpbdp_bstooltip" data-placement="right">
 				<?php esc_html_e( 'Allow Formidable Forms to', 'business-directory-plugin' ); ?>
 			</span>
 
-			<?php // FrmAppHelper::icon_by_class( 'frmfont frm_arrowdown6_icon frm_svg13', array( 'aria-hidden' => 'true' ) ); ?>
+			<?php // FrmAppHelper::icon_by_class( 'frmfont wpbdp_arrowdown6_icon wpbdp_svg13', array( 'aria-hidden' => 'true' ) ); ?>
 		</div>
 
 		<div class="wpbdp-dropdown-menu wpbdp-mt-sm" aria-labelledby="wpbdp-onboarding-consent-tracking-list">
 			<div class="wpbdp-flex wpbdp-gap-xs wpbdp-items-center wpbdp-py-sm">
-				<span><?php // FrmAppHelper::icon_by_class( 'frmfont frm_user_icon frm_svg15', array( 'aria-hidden' => 'true' ) ); ?></span>
+				<span><?php // FrmAppHelper::icon_by_class( 'frmfont wpbdp_user_icon wpbdp_svg15', array( 'aria-hidden' => 'true' ) ); ?></span>
 
 				<div class="wpbdp-flex-col wpbdp-gap-2xs wpbdp-ml-2xs">
 					<h4 class="wpbdp-flex wpbdp-gap-xs wpbdp-items-center wpbdp-text-sm wpbdp-font-medium wpbdp-text-grey-700 wpbdp-m-0">
@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="wpbdp-flex wpbdp-gap-xs wpbdp-items-center wpbdp-py-sm">
-				<span><?php // FrmAppHelper::icon_by_class( 'frmfont frm_sample_form_icon frm_svg15', array( 'aria-hidden' => 'true' ) ); ?></span>
+				<span><?php // FrmAppHelper::icon_by_class( 'frmfont wpbdp_sample_form_icon wpbdp_svg15', array( 'aria-hidden' => 'true' ) ); ?></span>
 
 				<div class="wpbdp-flex-col wpbdp-gap-2xs wpbdp-ml-2xs">
 					<h4 class="wpbdp-flex wpbdp-gap-xs wpbdp-items-center wpbdp-text-sm wpbdp-font-medium wpbdp-text-grey-700 wpbdp-m-0">
@@ -85,7 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="wpbdp-flex wpbdp-gap-xs wpbdp-items-center wpbdp-py-sm">
-				<span><?php // FrmAppHelper::icon_by_class( 'frmfont frm_puzzle_icon_thin frm_svg15', array( 'aria-hidden' => 'true' ) ); ?></span>
+				<span><?php // FrmAppHelper::icon_by_class( 'frmfont wpbdp_puzzle_icon_thin wpbdp_svg15', array( 'aria-hidden' => 'true' ) ); ?></span>
 
 				<div class="wpbdp-flex-col wpbdp-gap-2xs wpbdp-ml-2xs">
 					<h4 class="wpbdp-flex wpbdp-gap-xs wpbdp-items-center wpbdp-text-sm wpbdp-font-medium wpbdp-text-grey-700 wpbdp-m-0">
@@ -96,7 +96,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="wpbdp-flex wpbdp-gap-xs wpbdp-items-center wpbdp-py-sm">
-				<span><?php // FrmAppHelper::icon_by_class( 'frmfont wpbdp-field-colors-style frm_svg20', array( 'aria-hidden' => 'true' ) ); ?></span>
+				<span><?php // FrmAppHelper::icon_by_class( 'frmfont wpbdp-field-colors-style wpbdp_svg20', array( 'aria-hidden' => 'true' ) ); ?></span>
 
 				<div class="wpbdp-flex-col wpbdp-gap-2xs wpbdp-ml-2xs">
 					<h4 class="wpbdp-flex wpbdp-gap-xs wpbdp-items-center wpbdp-text-sm wpbdp-font-medium wpbdp-text-grey-700 wpbdp-m-0">

@@ -182,6 +182,7 @@ final class WPBDP_Onboarding_Wizard {
 			add_action( 'admin_head', array( $this, 'remove_menu' ) );
 
 			add_filter( 'admin_body_class', array( $this, 'add_admin_body_classes' ), 999 );
+			add_filter( 'wpbdp_enqueue_floating_links', '__return_false' );
 		}
 	}
 
@@ -293,13 +294,13 @@ final class WPBDP_Onboarding_Wizard {
 	 */
 	public function enqueue_assets() {
 		// Register and enqueue Onboarding Wizard style.
-		wp_register_style( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/css/admin/onboarding-wizard.css', array(), WPBDP_VERSION );
-		wp_enqueue_style( self::PAGE_SLUG );
+		// wp_register_style( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/css/admin/onboarding-wizard.css', array(), WPBDP_VERSION );
+		// wp_enqueue_style( self::PAGE_SLUG );
 
 		// Register and enqueue Onboarding Wizard script.
-		wp_register_script( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/js/onboarding-wizard.js', array( 'wp-i18n' ), WPBDP_VERSION, true );
-		wp_localize_script( self::PAGE_SLUG, 'wpbdpOnboardingWizardVars', $this->get_js_variables() );
-		wp_enqueue_script( self::PAGE_SLUG );
+		// wp_register_script( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/js/onboarding-wizard.js', array( 'wp-i18n' ), WPBDP_VERSION, true );
+		// wp_localize_script( self::PAGE_SLUG, 'wpbdpOnboardingWizardVars', $this->get_js_variables() );
+		// wp_enqueue_script( self::PAGE_SLUG );
 
 		/**
 		 * Fires after the Onboarding Wizard enqueue assets.
@@ -345,7 +346,7 @@ final class WPBDP_Onboarding_Wizard {
 	 * @return string Updated list of body classes, including the newly added classes.
 	 */
 	public function add_admin_body_classes( $classes ) {
-		return $classes . ' s11-admin-full-screen';
+		return $classes . ' wpbdp-admin-full-screen';
 	}
 
 	/**
