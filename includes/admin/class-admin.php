@@ -51,6 +51,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		public $post_install_migration;
 
+		public $onboarding_wizard;
+
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'handle_actions' ) );
 
@@ -129,6 +131,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			if ( wpbdp_get_option( 'tracking-on' ) ) {
 				$this->site_tracking = new WPBDP_SiteTracking();
 			}
+
+			require_once WPBDP_INC . 'admin/controllers/class-onboarding-wizard.php';
+			$this->onboarding_wizard = new WPBDP_Onboarding_Wizard();
+			$this->onboarding_wizard->load_admin_hooks();
 		}
 
 		public function init_scripts( $force = false ) {
