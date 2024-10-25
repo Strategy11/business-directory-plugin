@@ -293,9 +293,7 @@ final class WPBDP_Onboarding_Wizard {
 	 * @return void
 	 */
 	public function enqueue_assets() {
-		// Register and enqueue Onboarding Wizard style.
-		// wp_register_style( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/css/admin/onboarding-wizard.css', array(), WPBDP_VERSION );
-		// wp_enqueue_style( self::PAGE_SLUG );
+		wp_enqueue_style( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/css/onboarding-wizard.min.css', array(), WPBDP_VERSION );
 
 		// Register and enqueue Onboarding Wizard script.
 		// wp_register_script( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/js/onboarding-wizard.js', array( 'wp-i18n' ), WPBDP_VERSION, true );
