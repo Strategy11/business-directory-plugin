@@ -14,13 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div id="wpbdp-onboarding-wizard-page" class="wrap wpbdp-admin-plugin-landing" data-current-step="consent-tracking">
 	<div id="wpbdp-onboarding-container">
 		<ul id="wpbdp-onboarding-rootline" class="wpbdp-onboarding-rootline">
-			<li class="wpbdp-onboarding-rootline-item" data-step="consent-tracking">
+			<li class="wpbdp-onboarding-rootline-item wpbdp-completed-step" data-step="consent-tracking">
 				<?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-checkmark-icon', array( 'aria-hidden' => 'true' ) ); ?>
 			</li>
-			<li class="wpbdp-onboarding-rootline-item" data-step="install-addons">
-				<?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-checkmark-icon', array( 'aria-hidden' => 'true' ) ); ?>
-			</li>
-			<li class="wpbdp-onboarding-rootline-item" data-step="success">
+			<li class="wpbdp-onboarding-rootline-item wpbdp-current" data-step="success">
 				<?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-checkmark-icon', array( 'aria-hidden' => 'true' ) ); ?>
 			</li>
 		</ul>

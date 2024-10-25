@@ -21,18 +21,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</p>
 	</div>
 
-	<?php
-	// FrmOnboardingWizardHelper::print_footer(
-	//  array(
-	//      'primary-button-text'      => __( 'Allow & Continue', 'business-directory-plugin' ),
-	//      'primary-button-id'        => 'wpbdp-onboarding-consent-tracking',
-	//      'primary-button-with-icon' => true,
-	//      'secondary-button-text'    => __( 'Skip', 'business-directory-plugin' ),
-	//      'footer-class'             => 'wpbdp-justify-center',
-	//      'display-back-button'      => false,
-	//  )
-	// );
-	?>
+	<div class="wpbdp-card-box-footer">
+		<a href="#" class="button button-secondary wpbdp-button-secondary wpbdp-button-large wpbdp-onboarding-skip-step">
+			<?php esc_html_e( 'Skip', 'business-directory-plugin' ); ?>
+		</a>
+
+		<a href="#" class="button button-primary wpbdp-button-primary wpbdp-button-large">
+			<?php
+			esc_html_e( 'Allow & Continue', 'business-directory-plugin' );
+			WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-arrowup1-icon', array( 'aria-hidden' => 'true' ) );
+			?>
+		</a>
+	</div>
 
 	<div class="dropdown">
 		<div id="wpbdp-onboarding-consent-tracking-list" class="wpbdp-dropdown-toggle wpbdp-cursor-pointer" data-toggle="dropdown">
