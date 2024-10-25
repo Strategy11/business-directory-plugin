@@ -613,6 +613,7 @@ class WPBDP__Settings_Admin {
 	/**
 	 * @param array $setting
 	 * @param mixed $value
+	 *
 	 * @return void
 	 */
 	public function setting_email_template_callback( $setting, $value ) {
