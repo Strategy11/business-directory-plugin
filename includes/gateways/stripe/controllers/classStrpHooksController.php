@@ -10,6 +10,10 @@ class WPBDPStrpHooksController {
 	 */
 	public static function load_hooks() {
 		add_action( 'init', 'WPBDPStrpConnectHelper::check_for_stripe_connect_webhooks' );
+
+		if ( is_admin() ) {
+			self::load_admin_hooks();
+		}
 	}
 
 	/**
