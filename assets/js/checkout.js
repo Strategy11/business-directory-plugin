@@ -66,6 +66,7 @@ jQuery(function($) {
             event.preventDefault();
             self.working = true;
 
+            // TODO improve this. This would query for anything with [data-configuration] at the moment.
             const configuration = $.parseJSON( document.querySelector( '[data-configuration]' ).dataset.configuration );
             const stripe        = Stripe( configuration.key, { stripeAccount: configuration.accountId } );
 
@@ -74,7 +75,7 @@ jQuery(function($) {
                 // available to this file, so you can provide it as parameter here
                 // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
                 sessionId: configuration.sessionId
-            }).then(function (result) {
+            }).then(function ( result ) {
                 // If `redirectToCheckout` fails due to a browser or network
                 // error, display the localized error message to your customer
                 // using `result.error.message`.
