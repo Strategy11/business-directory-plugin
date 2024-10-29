@@ -558,13 +558,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$this_user             = 0;
 
 		foreach ( $possible_customer_ids as $uid => $sid ) {
-			try {
-				$customer = WPBDPStrpApiHelper::get_customer( array( 'customer_id' => $sid ) );
-
-				if ( ! $customer || ! is_object( $customer ) || ( isset( $customer->deleted ) && $customer->deleted ) ) {
-					$customer = null;
-				}
-			} catch ( Exception $e ) {
+			$customer = WPBDPStrpApiHelper::get_customer( array( 'customer_id' => $sid ) );
+			if ( ! is_object( $customer ) || ! empty( $customer->deleted ) ) {
 				$customer = null;
 			}
 
