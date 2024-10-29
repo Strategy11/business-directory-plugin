@@ -810,15 +810,24 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
+	 * @param string $plan_id
+	 * @return object|false
+	 */
+	public static function get_plan( $plan_id ) {
+		$plan = self::post_with_authenticated_body( 'get_plan', compact( 'plan_id' ) );
+		return is_object( $plan ) ? $plan : false;
+	}
+
+	/**
 	 * @param array $plan
-	 * @return string|false
+	 * @return object|false
 	 */
 	public static function maybe_create_plan( $plan ) {
 		$data = self::post_with_authenticated_body( 'maybe_create_plan', compact( 'plan' ) );
 		if ( false === $data || empty( $data->plan_id ) ) {
 			return false;
 		}
-		return $data->plan_id;
+		return $data;
 	}
 
 	/**

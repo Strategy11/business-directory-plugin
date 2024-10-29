@@ -269,10 +269,12 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 					$balance = ( $payment->amount - $item['amount'] ) * 100;
 				}
 				if ( $balance != 0.0 ) {
+					// TODO This needs to use Stripe Connect.
 					$customer->account_balance = $balance;
 					$customer->save();
 				}
 
+				// TODO: This needs to use Stripe Connect.
 				$response = $customer->subscriptions->create(
 					array(
 						'plan'     => $plan->id,
@@ -749,8 +751,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		foreach ( array( $previous_id, $plan_id ) as $id ) {
 			$plan = $this->try_to_get_stripe_plan_with_id( $id );
-
-			if ( is_null( $plan ) ) {
+			if ( ! is_object( $plan ) ) {
 				continue;
 			}
 
@@ -776,11 +777,18 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return hash( 'crc32b', serialize( $params ) );
 	}
 
+	/**
+	 * @param string $id
+	 * @return object|false
+	 */
 	private function try_to_get_stripe_plan_with_id( $id ) {
-		// TODO: Send more data in case plan doesn't exist.
-		return WPBDPStrpConnectHelper::maybe_create_plan( array( 'plan_id' => $id ) );
+		return WPBDPStrpConnectHelper::get_plan( $id );
 	}
 
+	/**
+	 * @param stdClass $plan
+	 * @return string
+	 */
 	private function get_stripe_plan_fingerprint( $plan ) {
 		$params = array(
 			'amount'         => floatval( $plan->amount ),
