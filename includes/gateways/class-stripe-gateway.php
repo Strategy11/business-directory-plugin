@@ -173,8 +173,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @param WPBDP_Payment $payment Payment object.
 	 */
 	private function configure_stripe( $payment ) {
-		// $this->set_stripe_info();
-
 		$stripe = array(
 			'key'       => $this->get_publishable_key(),
 			'accountId' => WPBDPStrpConnectHelper::get_account_id(),
@@ -224,7 +222,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			);
 		}
 		// Use token.
-		// $this->set_stripe_info();
 		$payment->payer_first_name      = wpbdp_get_var( array( 'param' => 'stripeBillingName' ), 'post' );
 		$payment->payer_email           = $stripe_email;
 		$payment->payer_data['address'] = wpbdp_get_var( array( 'param' => 'stripeBillingAddressLine1' ), 'post' );
@@ -939,8 +936,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		if ( ! $pending_items ) {
 			return;
 		}
-
-		// $this->set_stripe_info();
 
 		$pending_items = is_array( $pending_items ) ? $pending_items : array( $pending_items );
 		$items         = array();
