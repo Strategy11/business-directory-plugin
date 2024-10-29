@@ -176,16 +176,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		// $this->set_stripe_info();
 
 		$stripe = array(
-			'key'            => $this->get_publishable_key(),
-			'amount'         => $this->formated_amount( $payment->amount ),
-			'name'           => empty( $this->get_option( 'checkout-title' ) ) ? get_bloginfo( 'name' ) : $this->get_option( 'checkout-title' ),
-			'description'    => $payment->summary,
-			'currency'       => strtolower( $payment->currency_code ),
-			'billingAddress' => $this->get_option( 'billing-address-check' ) ? true : false,
-			'label'          => __( 'Pay now via Stripe', 'business-directory-plugin' ),
-			'locale'         => 'auto',
-			'paymentId'      => $payment->id,
-			'accountId'      => WPBDPStrpConnectHelper::get_account_id(),
+			'key'       => $this->get_publishable_key(),
+			'accountId' => WPBDPStrpConnectHelper::get_account_id(),
 		);
 
 		$session = $this->create_stripe_session( $payment );
@@ -200,9 +192,9 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$stripe['sessionId'] = $session->id;
 
 		// TODO Uncomment this. This is just commented out to reduce complexity.
-//		if ( $payment->has_item_type( 'discount_code' ) ) {
-//			$this->maybe_configure_stripe_discount( $payment, $session );
-//		}
+		if ( $payment->has_item_type( 'discount_code' ) ) {
+			$this->maybe_configure_stripe_discount( $payment, $session );
+		}
 
 		return $stripe;
 	}
