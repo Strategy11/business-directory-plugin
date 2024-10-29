@@ -23,13 +23,6 @@ class WPBDPStrpAppHelper {
 	}
 
 	/**
-	 * @return bool true if either connect or the legacy integration is set up.
-	 */
-	public static function stripe_is_configured() {
-		return WPBDPStrpApiHelper::initialize_api();
-	}
-
-	/**
 	 * If test mode is running, save the id somewhere else
 	 *
 	 * @return string
@@ -76,38 +69,5 @@ class WPBDPStrpAppHelper {
 			'p'
 		);
 		*/
-	}
-
-	/**
-	 * Set a user id for current payment if a user is logged in.
-	 *
-	 * @return int
-	 */
-	public static function get_user_id_for_current_payment() {
-		$user_id = 0;
-		if ( is_user_logged_in() ) {
-			$user_id = get_current_user_id();
-		}
-		return $user_id;
-	}
-
-	public static function get_payment_class() {
-		$payment = wpbdp_get_payment( $checkout->data->object->client_reference_id );
-		if ( ! $payment || 'completed' == $payment->status ) {
-			return;
-		}
-
-		$payment->gateway = self::$gateway_id;
-		$payment->status  = 'completed';
-
-		if ( ! empty( $event->object->charges ) && ! empty( $event->object->charges->data[0] ) ) {
-			$charge = $event->object->charges->data[0];
-			$payment->gateway_tx_id = $charge->id;
-		} elseif ( ! empty( $event->object->latest_charge ) ) {
-			// Fallback to get the charge id from the invoice.
-			$payment->gateway_tx_id = $event->object->latest_charge;
-		}
-
-		$payment->save();
 	}
 }

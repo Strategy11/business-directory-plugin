@@ -10,13 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WPBDPStrpApiHelper {
 
 	/**
-	 * @return bool
-	 */
-	public static function initialize_api() {
-		return WPBDPStrpConnectHelper::stripe_connect_is_setup();
-	}
-
-	/**
 	 * @param string $sub_id
 	 * @return bool
 	 */
