@@ -64,10 +64,13 @@ jQuery(function($) {
             }
 
             event.preventDefault();
-            self.working = true;
 
-            // TODO improve this. This would query for anything with [data-configuration] at the moment.
-            const configuration = $.parseJSON( document.querySelector( '[data-configuration]' ).dataset.configuration );
+            const configurationElement = document.querySelector( 'form#wpbdp-checkout-form [data-configuration]' );
+            if ( ! configurationElement ) {
+                return false;
+            }
+
+            const configuration = $.parseJSON( configurationElement.dataset.configuration );
             const stripe        = Stripe( configuration.key, { stripeAccount: configuration.accountId } );
 
             stripe.redirectToCheckout({
