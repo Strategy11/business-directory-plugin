@@ -66,18 +66,19 @@ jQuery(function($) {
             event.preventDefault();
             self.working = true;
 
-            // TODO: It looks like this is trying to trigger redirect_to_checkout in the Link Controller.
-            // TODO: It seems to expect a session variable in $_POST though.
-            var url = wpbdp_global.ajaxurl;
-            $.post( url, { action: 'wpbdpstrpsession', _wpnonce: self.nonce }, function( res ) {
-                self.working = false;
-                if ( res.success ) {
-                    window.location = res.url;
-                } else {
-                    // TODO: show the error on the page.
-                    alert( res.message );
-                }
-            } );
+            const configuration = $.parseJSON( document.querySelector( '[data-configuration]' ).dataset.configuration );
+            const stripe        = Stripe( configuration.key, { stripeAccount: configuration.accountId } );
+
+            stripe.redirectToCheckout({
+                // Make the id field from the Checkout Session creation API response
+                // available to this file, so you can provide it as parameter here
+                // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+                sessionId: configuration.sessionId
+            }).then(function (result) {
+                // If `redirectToCheckout` fails due to a browser or network
+                // error, display the localized error message to your customer
+                // using `result.error.message`.
+            });
 
             return false;
         }

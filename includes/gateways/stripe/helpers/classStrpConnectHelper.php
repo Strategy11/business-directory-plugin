@@ -843,16 +843,15 @@ class WPBDPStrpConnectHelper {
 	/**
 	 * Create a session for a Stripe checkout and get the page url.
 	 *
-	 * @param string $new_session
-	 * @return string|false
+	 * @param string $session New session data.
+	 * @return object|false
 	 */
-	public static function send_to_checkout( $new_session ) {
-		// TODO It looks like this endpoint does not exist yet.
-		$data = self::post_with_authenticated_body( 'send_to_checkout', compact( 'new_session' ) );
-		if ( false === $data || empty( $data->url ) ) {
+	public static function create_checkout_session( $session ) {
+		$data = self::post_with_authenticated_body( 'create_checkout_session', compact( 'session' ) );
+		if ( false === $data || ! is_object( $data ) ) {
 			return false;
 		}
-		return $data->url;
+		return $data;
 	}
 
 	/**

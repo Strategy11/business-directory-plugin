@@ -88,15 +88,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @since x.x
-	 */
-	private function set_stripe_info() {
-		WPBDPStrpApiHelper::initialize_api();
-
-		// \Stripe\Stripe::setApiVersion( '2020-08-27' ); // TODO.
-	}
-
-	/**
 	 * @return string
 	 */
 	private function get_publishable_key() {
@@ -105,6 +96,9 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return $this->in_test_mode() ? $test : $live;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function get_integration_method() {
 		return 'direct';
 	}
@@ -160,8 +154,17 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @param array         $errors  Errors.
 	 */
 	public function render_form( $payment, $errors = array() ) {
+		$stripe = $this->configure_stripe( $payment );
+
 		$content = '<div class="wpbdp-msg wpbdp-error stripe-errors" style="display:none;">';
+		if ( ! $stripe['sessionId'] ) {
+			$content .= $stripe['sessionError'] ? $stripe['sessionError'] : __( 'There was an error while configuring Stripe gateway', 'wpbdp-stripe' );
+		}
+
 		$content .= '</div>';
+
+		$custom_script = '<script id="wpbdp-stripe-checkout-configuration" type="text/javascript" data-configuration="%s"></script>';
+		$content      .= sprintf( $custom_script, esc_attr( (string) wp_json_encode( $stripe ) ) );
 
 		return $content;
 	}
@@ -170,7 +173,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @param WPBDP_Payment $payment Payment object.
 	 */
 	private function configure_stripe( $payment ) {
-		$this->set_stripe_info();
+		// $this->set_stripe_info();
 
 		$stripe = array(
 			'key'            => $this->get_publishable_key(),
@@ -182,6 +185,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			'label'          => __( 'Pay now via Stripe', 'business-directory-plugin' ),
 			'locale'         => 'auto',
 			'paymentId'      => $payment->id,
+			'accountId'      => WPBDPStrpConnectHelper::get_account_id(),
 		);
 
 		$session = $this->create_stripe_session( $payment );
@@ -195,9 +199,10 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		$stripe['sessionId'] = $session->id;
 
-		if ( $payment->has_item_type( 'discount_code' ) ) {
-			$this->maybe_configure_stripe_discount( $payment, $session );
-		}
+		// TODO Uncomment this. This is just commented out to reduce complexity.
+//		if ( $payment->has_item_type( 'discount_code' ) ) {
+//			$this->maybe_configure_stripe_discount( $payment, $session );
+//		}
 
 		return $stripe;
 	}
@@ -227,7 +232,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			);
 		}
 		// Use token.
-		$this->set_stripe_info();
+		// $this->set_stripe_info();
 		$payment->payer_first_name      = wpbdp_get_var( array( 'param' => 'stripeBillingName' ), 'post' );
 		$payment->payer_email           = $stripe_email;
 		$payment->payer_data['address'] = wpbdp_get_var( array( 'param' => 'stripeBillingAddressLine1' ), 'post' );
@@ -927,15 +932,10 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	private function create_stripe_session( $payment ) {
 		$payment->gateway = $this->get_id();
 
-		try {
-			// TODO: \Stripe\ does not exist. We need to update this.
-			// TODO We need a new Stripe Connect endpoint for creating sessions.
-			$session = \Stripe\Checkout\Session::create( $this->get_session_parameters( $payment ) );
-			if ( empty( $session->id ) ) {
-				return new WP_Error( 'stripe_no_session', $session );
-			}
-		} catch ( Exception $e ) {
-			return new WP_Error( 'stripe_no_session', $e->getMessage() );
+		$session = WPBDPStrpConnectHelper::create_checkout_session( $this->get_session_parameters( $payment ) );
+
+		if ( false === $session ) {
+			return new WP_Error( 'stripe_no_session', 'Failed to create checkout session' );
 		}
 
 		return $session;
@@ -948,7 +948,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			return;
 		}
 
-		$this->set_stripe_info();
+		// $this->set_stripe_info();
 
 		$pending_items = is_array( $pending_items ) ? $pending_items : array( $pending_items );
 		$items         = array();
