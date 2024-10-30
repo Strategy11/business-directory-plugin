@@ -17,12 +17,12 @@ class WPBDPStrpApiHelper {
 		if ( current_user_can( 'manage_options' ) ) {
 			$customer_id = false;
 		} else {
-			$user_id  = get_current_user_id();
-			$customer = self::get_customer_by_id( $user_id );
-			if ( ! is_object( $customer ) ) {
+			$user_id     = get_current_user_id();
+			// TODO: $this->customer_meta_name is in class-stripe-gateway. This isn't functional yet.
+		//	$customer_id = get_user_meta( $user_id, $this->customer_meta_name(), true );
+			if ( ! $customer_id || ! WPBDPStrpConnectHelper::validate_customer( $customer_id ) ) {
 				return false;
 			}
-			$customer_id = $customer->id;
 		}
 		return WPBDPStrpConnectHelper::cancel_subscription( $sub_id, $customer_id );
 	}

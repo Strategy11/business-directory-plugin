@@ -189,7 +189,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		$stripe['sessionId'] = $session->id;
 
-		// TODO Uncomment this. This is just commented out to reduce complexity.
 		if ( $payment->has_item_type( 'discount_code' ) ) {
 			$this->maybe_configure_stripe_discount( $payment, $session );
 		}
@@ -847,24 +846,26 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		update_option( 'wpbdm-stripe-pending-items', $pending_items );
 	}
 
+	/**
+	 * @param array $discount
+	 * @param array $pending_discount
+	 * @return bool
+	 */
 	private function is_valid_discount( $discount, $pending_discount ) {
-		try {
-			// TODO: \Stripe\ does not exist. We need to update this.
-			$discount_item = \Stripe\InvoiceItem::retrieve( $pending_discount['item_id'] );
-			if ( ! $discount_item ) {
-				return false;
-			}
+		$discount_item = WPBDPStrpConnectHelper::retrieve_invoice_item( $pending_discount['item_id'] );
+		if ( ! is_object( $discount_item ) ) {
+			return false;
+		}
 
-			if ( (int) $this->formated_amount( $discount['amount'] ) !== $discount_item->amount ) {
-				$discount_item->delete();
-				return false;
-			}
+		if ( (int) $this->formated_amount( $discount['amount'] ) !== $discount_item->amount ) {
+			// TODO: We need a new "delete invoice item" endpoint.
+			$discount_item->delete();
+			return false;
+		}
 
-			if ( time() - $discount_item->date > HOUR_IN_SECONDS ) {
-				$discount_item->delete();
-				return false;
-			}
-		} catch ( Exception $e ) {
+		if ( time() - $discount_item->date > HOUR_IN_SECONDS ) {
+			// TODO: We need a new "delete invoice item" endpoint.
+			$discount_item->delete();
 			return false;
 		}
 
@@ -887,7 +888,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 					'description' => $discount['description'],
 				)
 			);
-			error_log( 'Discount Item: ' . print_r( $discount_item, true ) );
 			if ( ! $discount_item ) {
 				$discount_item = '';
 			}

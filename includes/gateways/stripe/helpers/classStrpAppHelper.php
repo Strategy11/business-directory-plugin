@@ -23,19 +23,6 @@ class WPBDPStrpAppHelper {
 	}
 
 	/**
-	 * If test mode is running, save the id somewhere else
-	 *
-	 * @return string
-	 */
-	public static function get_customer_id_meta_name() {
-		$meta_name = '_wpbdp_stripe_customer_id';
-		if ( 'test' === self::active_mode() ) {
-			$meta_name .= '_test';
-		}
-		return $meta_name;
-	}
-
-	/**
 	 * @return string
 	 *
 	 * @psalm-return 'live'|'test'
