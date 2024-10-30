@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<li class="wpbdp-onboarding-rootline-item wpbdp-completed-step" data-step="consent-tracking">
 				<?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-checkmark-icon', array( 'aria-hidden' => 'true' ) ); ?>
 			</li>
-			<li class="wpbdp-onboarding-rootline-item wpbdp-current" data-step="success">
+			<li class="wpbdp-onboarding-rootline-item wpbdp-completed-step" data-step="success">
 				<?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-checkmark-icon', array( 'aria-hidden' => 'true' ) ); ?>
 			</li>
 		</ul>
