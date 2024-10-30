@@ -32,6 +32,7 @@ html.wp-toolbar {
 	background-color: @color-neutral-50;
 	margin: 0;
 	overflow: hidden;
+	color: @color-neutral-500;
 
 	&,
 	&::before,
@@ -180,6 +181,46 @@ html.wp-toolbar {
 				vertical-align: middle;
 				transform: rotate( 90deg );
 				margin-left: 8px;
+			}
+		}
+
+		.wpbdp-card-box-permission {
+			margin-top: 32px;
+
+			.wpbdpsvg {
+				width: 13px;
+				height: 13px;
+				vertical-align: middle;
+				margin-left: 6px;
+			}
+
+			.wpbdp-card-box-permission-item {
+				display: flex;
+				gap: 12px;
+				align-items: center;
+				text-align: left;
+				padding-top: 16px;
+				padding-bottom: 16px;
+
+				.wpbdpsvg {
+					width: 15px;
+					height: 15px;
+					vertical-align: middle;
+					margin-left: 6px;
+				}
+
+				h4 {
+					color: @color-neutral-900;
+					margin: 0 0 4px;
+				}
+			}
+
+			.wpbdp-collapsible {
+				cursor: pointer;
+			}
+
+			.wpbdp-collapsible-content {
+				margin-top: 16px;
 			}
 		}
 	}
