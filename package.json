@@ -8,6 +8,8 @@
 		"shelljs": "^0.8.5"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.22.5",
+		"@babel/preset-env": "^7.22.5",
 		"@wordpress/eslint-plugin": "^13.10.0",
 		"@wordpress/prettier-config": "^2.9.0",
 		"@wordpress/stylelint-config": "^23.1.0",
@@ -15,6 +17,7 @@
 		"eslint-plugin-jsdoc": "^39.8.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"grunt": "^1.6.1",
+		"grunt-babel": "^8.0.0",
 		"grunt-contrib-clean": "^2.0.1",
 		"grunt-contrib-compress": "^2.0.0",
 		"grunt-contrib-less": "^3.0.0",
