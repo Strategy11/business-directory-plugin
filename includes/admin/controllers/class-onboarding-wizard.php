@@ -106,7 +106,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Performs a safe redirect to the welcome screen when the plugin is activated.
 	 * On single activation, we will redirect immediately.
-	 * When activating multiple plugins, the redirect is delayed until a Formidable page is loaded.
+	 * When activating multiple plugins, the redirect is delayed until a BD page is loaded.
 	 *
 	 * @return void
 	 */
@@ -148,7 +148,7 @@ final class WPBDP_Onboarding_Wizard {
 		}
 
 		if ( self::TRANSIENT_MULTI_VALUE === $transient_value && ! WPBDP_App_Helper::is_bd_page() ) {
-			// For multi-activations we want to only redirect when a user loads a Formidable page.
+			// For multi-activations we want to only redirect when a user loads a BD page.
 			return;
 		}
 
@@ -322,7 +322,7 @@ final class WPBDP_Onboarding_Wizard {
 	}
 
 	/**
-	 * Remove the Onboarding Wizard submenu page from the formidable parent menu
+	 * Remove the Onboarding Wizard submenu page from the bD parent menu
 	 * since it is not necessary to show that link there.
 	 *
 	 * @since x.x
