@@ -913,29 +913,12 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * Update a setup intent (used for Stripe link recurring payments).
-	 *
-	 * @since x.x
-	 *
-	 * @param array  $data
+	 * @param array $data
 	 * @return object|false
 	 */
-	public static function create_invoice_item( $data ) {
-		$invoice_item = self::post_with_authenticated_body( 'create_invoice_item', compact( 'data' ) );
-		return is_object( $invoice_item ) ? $invoice_item : false;
-	}
-
-	/**
-	 * Update a setup intent (used for Stripe link recurring payments).
-	 *
-	 * @since x.x
-	 *
-	 * @param string $item_id
-	 * @return object|false
-	 */
-	public static function retrieve_invoice_item( $item_id ) {
-		$invoice_item = self::post_with_authenticated_body( 'retrieve_invoice_item', compact( 'item_id' ) );
-		return is_object( $invoice_item ) ? $invoice_item : false;
+	public static function create_coupon( $data ) {
+		$result = self::post_with_authenticated_body( 'create_coupon', compact( 'data' ) );
+		return is_object( $result ) ? $result : false;
 	}
 
 	/**

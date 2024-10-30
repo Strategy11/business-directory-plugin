@@ -11,11 +11,11 @@
 class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	public function __construct() {
+		// Actions.
 		add_action( 'wp_ajax_stripe_verify_payment', array( $this, 'stripe_verify_payment' ) );
 		add_action( 'wp_ajax_nopriv_stripe_verify_payment', array( $this, 'stripe_verify_payment' ) );
 
-		add_action( 'wpbdp_hourly_events', array( $this, 'remove_expired_invoice_items' ) );
-
+		// Filters.
 		add_filter( 'wpbdp_setting_type_strp_connect', array( &$this, 'connect_setting' ), 20, 2 );
 	}
 
@@ -188,10 +188,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		$stripe['sessionId'] = $session->id;
-
-		if ( $payment->has_item_type( 'discount_code' ) ) {
-			$this->maybe_configure_stripe_discount( $payment, $session );
-		}
 
 		return $stripe;
 	}
@@ -720,6 +716,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 					'wpbdp_payment_id' => $payment->id,
 				),
 			);
+			$parameters['discounts'] = $this->get_discounts( $payment );
 		} else {
 			$parameters['line_items'] = array(
 				array(
@@ -733,6 +730,40 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		return $parameters;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment Payment object.
+	 * @return array
+	 */
+	private function get_discounts( $payment ) {
+		if ( ! $payment->has_item_type( 'discount_code' ) ) {
+			return array();
+		}
+
+		$discount = $payment->find_item( 'discount_code' );
+		if ( ! $discount ) {
+			return array();
+		}
+
+		$coupon = WPBDPStrpConnectHelper::create_coupon(
+			array(
+				'amount_off' => abs( (int) $this->formated_amount( $discount['amount'] ) ),
+				'currency'   => $payment->currency_code,
+				'duration'   => 'once',
+			)
+		);
+		if ( ! is_object( $coupon ) ) {
+			return array();
+		}
+
+		return array(
+			array(
+				'coupon' => $coupon->id,
+			),
+		);
 	}
 
 	/**
@@ -815,89 +846,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		WPBDPStrpConnectHelper::create_plan( $plan );
 	}
 
-	private function maybe_configure_stripe_discount( $payment, $session = null ) {
-		$discount = $payment->find_item( 'discount_code' );
-
-		if ( ! $discount ) {
-			return;
-		}
-
-		$customer_id   = $session->customer;
-		$pending_items = (array) get_option( 'wpbdm-stripe-pending-items', array() );
-
-		if ( $pending_items ) {
-
-			if ( array_key_exists( $customer_id, $pending_items ) && $this->is_valid_discount( $discount, $pending_items[ $customer_id ] ) ) {
-				return;
-			}
-
-			unset( $pending_items[ $customer_id ] );
-		}
-
-		$discount_item = $this->set_stripe_discount( $payment, $customer_id );
-
-		if ( $discount_item ) {
-			$pending_items[ $customer_id ] = array(
-				'item_id' => $discount_item->id,
-				'date'    => $discount_item->date,
-			);
-		}
-
-		update_option( 'wpbdm-stripe-pending-items', $pending_items );
-	}
-
-	/**
-	 * @param array $discount
-	 * @param array $pending_discount
-	 * @return bool
-	 */
-	private function is_valid_discount( $discount, $pending_discount ) {
-		$discount_item = WPBDPStrpConnectHelper::retrieve_invoice_item( $pending_discount['item_id'] );
-		if ( ! is_object( $discount_item ) ) {
-			return false;
-		}
-
-		if ( (int) $this->formated_amount( $discount['amount'] ) !== $discount_item->amount ) {
-			// TODO: We need a new "delete invoice item" endpoint.
-			$discount_item->delete();
-			return false;
-		}
-
-		if ( time() - $discount_item->date > HOUR_IN_SECONDS ) {
-			// TODO: We need a new "delete invoice item" endpoint.
-			$discount_item->delete();
-			return false;
-		}
-
-		return true;
-	}
-
-	private function set_stripe_discount( $payment, $customer_id ) {
-		$discount = $payment->find_item( 'discount_code' );
-
-		if ( ! $discount ) {
-			return null;
-		}
-
-		if ( $payment->has_item_type( 'recurring_plan' ) ) {
-			$discount_item = WPBDPStrpConnectHelper::create_invoice_item(
-				array(
-					'amount'      => $this->formated_amount( $discount['amount'] ),
-					'currency'    => $payment->currency_code,
-					'customer'    => $customer_id,
-					'description' => $discount['description'],
-				)
-			);
-			if ( ! $discount_item ) {
-				$discount_item = '';
-			}
-		} else {
-			$discount_item = '';
-		}
-
-		return $discount_item;
-	}
-
 	/**
 	 * @since x.x
 	 *
@@ -932,41 +880,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		return $session;
-	}
-
-	public function remove_expired_invoice_items() {
-		$pending_items = get_option( 'wpbdm-stripe-pending-items', array() );
-
-		if ( ! $pending_items ) {
-			return;
-		}
-
-		$pending_items = is_array( $pending_items ) ? $pending_items : array( $pending_items );
-		$items         = array();
-
-		foreach ( $pending_items as $customer_id => $data ) {
-			if ( time() - $data['date'] < HOUR_IN_SECONDS ) {
-				$items[ $customer_id ] = $data;
-				continue;
-			}
-
-			try {
-				// TODO: \Stripe\ does not exist. We need to update this.
-				// TODO: The Stripe Connect endpoint has no invoice item retrieve endpoint.
-				$expired_item = \Stripe\InvoiceItem::retrieve( $data['item_id'] );
-			} catch ( Exception $e ) {
-				$expired_item = null;
-			}
-
-			if ( $expired_item ) {
-				$expired_item->delete();
-				continue;
-			}
-
-			$items[ $customer_id ] = $data;
-		}
-
-		update_option( 'wpbdm-stripe-pending-items', $items );
 	}
 
 	/**
