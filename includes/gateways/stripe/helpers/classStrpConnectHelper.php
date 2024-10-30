@@ -911,6 +911,19 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
+	 * Update a setup intent (used for Stripe link recurring payments).
+	 *
+	 * @since x.x
+	 *
+	 * @param array  $data
+	 * @return object|false
+	 */
+	public static function create_invoice_item( $data ) {
+		$invoice_item = self::post_with_authenticated_body( 'create_invoice_item', compact( 'data' ) );
+		return is_object( $invoice_item ) ? $invoice_item : false;
+	}
+
+	/**
 	 * Verify a site identifier is a match.
 	 */
 	public static function verify() {

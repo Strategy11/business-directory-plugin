@@ -558,8 +558,11 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$this_user             = 0;
 
 		foreach ( $possible_customer_ids as $uid => $sid ) {
-			$customer = WPBDPStrpApiHelper::get_customer( array( 'customer_id' => $sid ) );
-			if ( ! is_object( $customer ) || ! empty( $customer->deleted ) ) {
+			$customer_id = WPBDPStrpConnectHelper::get_customer_id( array( 'customer_id' => $sid ) );
+			if ( false !== $customer_id ) {
+				$customer     = new stdClass();
+				$customer->id = $customer_id;
+			} else {
 				$customer = null;
 			}
 
@@ -868,7 +871,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return true;
 	}
 
-
 	private function set_stripe_discount( $payment, $customer_id ) {
 		$discount = $payment->find_item( 'discount_code' );
 
@@ -876,22 +878,21 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			return null;
 		}
 
-		try {
-			if ( $payment->has_item_type( 'recurring_plan' ) ) {
-				// TODO: \Stripe\ does not exist. We need to update this.
-				$discount_item = \Stripe\InvoiceItem::create(
-					array(
-						'amount'      => $this->formated_amount( $discount['amount'] ),
-						'currency'    => $payment->currency_code,
-						'customer'    => $customer_id,
-						'description' => $discount['description'],
-					)
-				);
-			} else {
+		if ( $payment->has_item_type( 'recurring_plan' ) ) {
+			$discount_item = WPBDPStrpConnectHelper::create_invoice_item(
+				array(
+					'amount'      => $this->formated_amount( $discount['amount'] ),
+					'currency'    => $payment->currency_code,
+					'customer'    => $customer_id,
+					'description' => $discount['description'],
+				)
+			);
+			error_log( 'Discount Item: ' . print_r( $discount_item, true ) );
+			if ( ! $discount_item ) {
 				$discount_item = '';
 			}
-		} catch ( Exception $e ) {
-			return '';
+		} else {
+			$discount_item = '';
 		}
 
 		return $discount_item;
