@@ -695,19 +695,6 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @param array $new_charge
-	 * @return mixed
-	 */
-	public static function create_intent( $new_charge ) {
-		$data    = self::post_with_authenticated_body( 'create_intent', compact( 'new_charge' ) );
-		$success = false !== $data;
-		if ( ! $success ) {
-			return false;
-		}
-		return $data;
-	}
-
-	/**
 	 * @param string $charge_id
 	 * @return mixed
 	 */
@@ -756,14 +743,6 @@ class WPBDPStrpConnectHelper {
 		$data     = self::post_with_authenticated_body( 'cancel_subscription', compact( 'sub_id', 'customer_id' ) );
 		$canceled = false !== $data;
 		return $canceled;
-	}
-
-	/**
-	 * @param string $payment_id
-	 * @return mixed
-	 */
-	public static function get_intent( $payment_id ) {
-		return self::post_with_authenticated_body( 'get_intent', compact( 'payment_id' ) );
 	}
 
 	/**
@@ -841,17 +820,6 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @param string $intent_id
-	 * @param array  $data
-	 * @return bool
-	 */
-	public static function update_intent( $intent_id, $data ) {
-		$data    = self::post_with_authenticated_body( 'update_intent', compact( 'intent_id', 'data' ) );
-		$success = false !== $data;
-		return $success;
-	}
-
-	/**
 	 * Create a session for a Stripe checkout and get the page url.
 	 *
 	 * @param string $session New session data.
@@ -874,42 +842,6 @@ class WPBDPStrpConnectHelper {
 			return array();
 		}
 		return $data->event_ids;
-	}
-
-	/**
-	 * Create a setup intent for a Stripe link recurring payment.
-	 * This is called when a form is loaded.
-	 *
-	 * @since x.x
-	 *
-	 * @param string      $customer_id
-	 * @param array|false $payment_method_types
-	 * @return object|string|false
-	 */
-	public static function create_setup_intent( $customer_id, $payment_method_types = false ) {
-		$charge_data = array( 'customer' => $customer_id );
-
-		if ( $payment_method_types ) {
-			$charge_data['payment_method_types'] = $payment_method_types;
-		} elseif ( false === $payment_method_types ) {
-			$charge_data['payment_method_types'] = array( 'card', 'link' );
-		} else {
-			$charge_data['automatic_payment_methods'] = array( 'enabled' => true );
-		}
-
-		return self::post_with_authenticated_body( 'create_setup_intent', compact( 'charge_data' ) );
-	}
-
-	/**
-	 * Get a setup intent (used for Stripe link recurring payments).
-	 *
-	 * @since x.x
-	 *
-	 * @param string $setup_id
-	 * @return object|string|false
-	 */
-	public static function get_setup_intent( $setup_id ) {
-		return self::post_with_authenticated_body( 'get_setup_intent', compact( 'setup_id' ) );
 	}
 
 	/**
