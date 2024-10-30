@@ -820,6 +820,17 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
+	 * @return array
+	 */
+	public static function get_unprocessed_event_ids() {
+		$data = self::post_with_authenticated_body( 'get_unprocessed_event_ids' );
+		if ( false === $data || empty( $data->event_ids ) ) {
+			return array();
+		}
+		return $data->event_ids;
+	}
+
+	/**
 	 * Create a session for a Stripe checkout and get the page url.
 	 *
 	 * @param string $session New session data.
@@ -831,17 +842,6 @@ class WPBDPStrpConnectHelper {
 			return false;
 		}
 		return $data;
-	}
-
-	/**
-	 * @return array
-	 */
-	public static function get_unprocessed_event_ids() {
-		$data = self::post_with_authenticated_body( 'get_unprocessed_event_ids' );
-		if ( false === $data || empty( $data->event_ids ) ) {
-			return array();
-		}
-		return $data->event_ids;
 	}
 
 	/**
