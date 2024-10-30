@@ -10,6 +10,7 @@
 /**
  * Class WPBDP__View
  */
+#[\AllowDynamicProperties]
 class WPBDP__View {
 
 	public function __construct( $args = null ) {
