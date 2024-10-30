@@ -585,22 +585,22 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			return $customer;
 		}
 
-		try {
-			// TODO: Stripe does not exist. We need to update this.
-			$customer = \Stripe\Customer::create( $this->new_customer_data( $payment ) );
-		} catch ( Exception $e ) {
-			$customer = null;
+		$customer_id = WPBDPStrpConnectHelper::get_customer_id( $this->new_customer_data( $payment ) );
+		if ( false === $customer_id ) {
+			return null;
 		}
-		if ( $customer ) {
-			$this->set_listing_stripe_customer( $payment->listing_id, $customer->id );
 
-			if ( ! $this_user ) {
-				$this_user = reset( $user_ids );
-			}
+		$customer     = new stdClass();
+		$customer->id = $customer_id;
 
-			if ( $this_user ) {
-				update_user_meta( $this_user, $this->customer_meta_name(), $customer->id );
-			}
+		$this->set_listing_stripe_customer( $payment->listing_id, $customer->id );
+
+		if ( ! $this_user ) {
+			$this_user = reset( $user_ids );
+		}
+
+		if ( $this_user ) {
+			update_user_meta( $this_user, $this->customer_meta_name(), $customer->id );
 		}
 
 		return $customer;
