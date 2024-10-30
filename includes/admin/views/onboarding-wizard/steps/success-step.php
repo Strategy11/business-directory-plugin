@@ -11,9 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<section id="wpbdp-onboarding-success-step" class="wpbdp-onboarding-step wpbdp-card-box wpbdp-current" data-step-name="<?php echo esc_attr( $step ); ?>">
+<section id="wpbdp-onboarding-success-step" class="wpbdp-onboarding-step wpbdp-card-box wpbdp-hidden" data-step-name="<?php echo esc_attr( $step ); ?>">
 	<div class="wpbdp-card-box-header">
-		<?php WPBDP_App_Helper::show_logo( 60 ); ?>
+		<?php
+		WPBDP_App_Helper::show_logo(
+			array(
+				'size'  => 60,
+				'round' => true,
+			)
+		);
+		?>
 	</div>
 
 	<div class="wpbdp-card-box-content">

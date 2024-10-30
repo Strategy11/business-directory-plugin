@@ -11,9 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<section id="wpbdp-onboarding-consent-tracking-step" class="wpbdp-onboarding-step wpbdp-card-box wpbdp-hidden" data-step-name="<?php echo esc_attr( $step ); ?>">
+<section id="wpbdp-onboarding-consent-tracking-step" class="wpbdp-onboarding-step wpbdp-card-box wpbdp-current" data-step-name="<?php echo esc_attr( $step ); ?>">
 	<div class="wpbdp-card-box-header">
-		<?php WPBDP_App_Helper::show_logo( 60 ); ?>
+		<?php
+		WPBDP_App_Helper::show_logo(
+			array(
+				'size'  => 60,
+				'round' => true,
+			)
+		);
+		?>
 	</div>
 
 	<div class="wpbdp-card-box-content">
@@ -70,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="wpbdp-card-box-permission-item">
-				<span><?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-puzzle-icon-thin', array( 'aria-hidden' => 'true' ) ); ?></span>
+				<span><?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-puzzle-icon-thin-icon', array( 'aria-hidden' => 'true' ) ); ?></span>
 
 				<div class="wpbdp-card-box-permission-item-content">
 					<h4><?php esc_html_e( 'View Basic Plugin Info', 'business-directory-plugin' ); ?></h4>
@@ -79,7 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="wpbdp-card-box-permission-item">
-				<span><?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-field-colors-style', array( 'aria-hidden' => 'true' ) ); ?></span>
+				<span><?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-field-colors-style-icon wpbdp-svg20', array( 'aria-hidden' => 'true' ) ); ?></span>
 
 				<div class="wpbdp-card-box-permission-item-content">
 					<h4><?php esc_html_e( 'View Plugins & Themes List', 'business-directory-plugin' ); ?></h4>
