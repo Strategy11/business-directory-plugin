@@ -116,6 +116,9 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return $url . 'payments/' . $payment->gateway_tx_id;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_settings() {
 		return array(
 			array(
@@ -146,8 +149,12 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
+	 * Render required HTML to support Stripe payments.
+	 *
 	 * @param WPBDP_Payment $payment Payment object.
 	 * @param array         $errors  Errors.
+	 *
+	 * @return string
 	 */
 	public function render_form( $payment, $errors = array() ) {
 		$stripe = $this->configure_stripe( $payment );
@@ -159,14 +166,18 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		$content .= '</div>';
 
-		$custom_script = '<script id="wpbdp-stripe-checkout-configuration" type="text/javascript" data-configuration="%s"></script>';
+		$custom_script = '<script id="wpbdp-stripe-checkout-configuration" data-configuration="%s"></script>';
 		$content      .= sprintf( $custom_script, esc_attr( (string) wp_json_encode( $stripe ) ) );
 
 		return $content;
 	}
 
 	/**
+	 * Get Stripe variables for front end JS.
+	 *
 	 * @param WPBDP_Payment $payment Payment object.
+	 *
+	 * @return array
 	 */
 	private function configure_stripe( $payment ) {
 		$stripe = array(
@@ -525,6 +536,10 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	/**
 	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment Payment object.
+	 *
+	 * @return array
 	 */
 	private function new_customer_data( $payment ) {
 		$details = $payment->get_payer_details();
@@ -569,6 +584,11 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 	}
 
+	/**
+	 * @param WPBDP_Payment $payment Payment object.
+	 *
+	 * @return array
+	 */
 	private function get_session_parameters( $payment ) {
 		$parameters = array(
 			'billing_address_collection' => $this->get_option( 'billing-address-check' ) ? 'required' : 'auto',
@@ -644,6 +664,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
+	 * @param WPBDP_Payment $payment Payment object.
 	 * @return object
 	 */
 	private function get_stripe_plan( $payment ) {
@@ -670,6 +691,12 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return $this->create_stripe_plan( $plan_id, $recurring, $payment );
 	}
 
+	/**
+	 * @param array         $recurring Recurring plan data.
+	 * @param WPBDP_Payment $payment   Payment object.
+	 *
+	 * @return string
+	 */
 	private function get_recurring_plan_fingerprint( $recurring, $payment ) {
 		$params = array(
 			'amount'         => $this->formated_amount( $recurring['amount'] ),

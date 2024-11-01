@@ -65,7 +65,7 @@ jQuery(function($) {
 
             event.preventDefault();
 
-            const configurationElement = document.querySelector( 'form#wpbdp-checkout-form [data-configuration]' );
+            const configurationElement = document.querySelector( 'form#wpbdp-checkout-form #wpbdp-stripe-checkout-configuration' );
             if ( ! configurationElement ) {
                 return false;
             }
