@@ -29,8 +29,9 @@
 
 	function handleStripeDisconnectClick( trigger ) {
 		const testMode = isTriggerInTestMode( trigger );
-		const spinner  = wpbdpTag( 'span', { className: 'wpbdp-wait wpbdp_visible_spinner' } );
 
+		const spinner = document.createElement( 'span' );
+		spinner.className = 'wpbdp-wait wpbdp_visible_spinner';
 		spinner.style.margin = 0; // The default 20px margin causes the spinner to look bad.
 		trigger.replaceWith( spinner );
 
