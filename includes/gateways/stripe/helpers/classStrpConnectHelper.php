@@ -456,8 +456,7 @@ class WPBDPStrpConnectHelper {
 	 * @return bool
 	 */
 	public static function stripe_connect_is_setup( $mode = 'auto' ) {
-		// TODO: Update this. This isn't a valid check.
-		return wpbdp_get_option( 'payments-test-mode' );
+		return get_option( self::get_stripe_details_submitted_option_name( $mode ) );
 	}
 
 	/**
