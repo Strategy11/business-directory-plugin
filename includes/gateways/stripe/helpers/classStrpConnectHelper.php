@@ -456,11 +456,13 @@ class WPBDPStrpConnectHelper {
 	 * @return bool
 	 */
 	public static function stripe_connect_is_setup( $mode = 'auto' ) {
+		// TODO: Update this. This isn't a valid check.
 		return wpbdp_get_option( 'payments-test-mode' );
 	}
 
 	/**
 	 * @param mixed $response
+	 *
 	 * @return bool
 	 */
 	private static function validate_response( $response ) {
@@ -499,6 +501,7 @@ class WPBDPStrpConnectHelper {
 	 * If it is active, use the WPML "absolute home" URL which is not modified.
 	 *
 	 * @param string $url
+	 *
 	 * @return string
 	 */
 	private static function maybe_fix_wpml_url( $url ) {
@@ -707,16 +710,6 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @param string $payment_id
-	 * @return bool
-	 */
-	public static function refund_payment( $payment_id ) {
-		$data     = self::post_with_authenticated_body( 'refund_payment', compact( 'payment_id' ) );
-		$refunded = is_object( $data );
-		return $refunded;
-	}
-
-	/**
 	 * @param array $new_charge
 	 * @return mixed
 	 */
@@ -792,6 +785,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $plan_id
+	 *
 	 * @return object|false
 	 */
 	public static function get_plan( $plan_id ) {
@@ -801,18 +795,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param array $plan
-	 * @return object|false
-	 */
-	public static function maybe_create_plan( $plan ) {
-		$data = self::post_with_authenticated_body( 'maybe_create_plan', compact( 'plan' ) );
-		if ( false === $data || empty( $data->plan_id ) ) {
-			return false;
-		}
-		return $data;
-	}
-
-	/**
-	 * @param array $plan
+	 *
 	 * @return mixed
 	 */
 	public static function create_plan( $plan ) {
@@ -834,6 +817,7 @@ class WPBDPStrpConnectHelper {
 	 * Create a session for a Stripe checkout and get the page url.
 	 *
 	 * @param string $session New session data.
+	 *
 	 * @return object|false
 	 */
 	public static function create_checkout_session( $session ) {
