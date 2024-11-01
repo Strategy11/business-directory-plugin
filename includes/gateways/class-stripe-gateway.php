@@ -11,10 +11,6 @@
 class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	public function __construct() {
-		// Actions.
-		add_action( 'wp_ajax_stripe_verify_payment', array( $this, 'stripe_verify_payment' ) );
-		add_action( 'wp_ajax_nopriv_stripe_verify_payment', array( $this, 'stripe_verify_payment' ) );
-
 		// Filters.
 		add_filter( 'wpbdp_setting_type_strp_connect', array( &$this, 'connect_setting' ), 20, 2 );
 	}
@@ -250,20 +246,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		wp_die();
 	}
 
-	public function stripe_verify_payment() {
-		$post = stripslashes_deep( $this->get_posted_json() );
-
-		$payment  = wpbdp_get_payment( $post->payment_id );
-		$response = array( 'payment_id' => $post->payment_id );
-
-		if ( 'completed' === $payment->status ) {
-			$response['success'] = true;
-		}
-
-		echo wp_json_encode( $response );
-		wp_die();
-	}
-
 	/**
 	 * @return void
 	 */
@@ -366,6 +348,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			return;
 		}
 
+		// TODO: The function verify_transaction does not appear to exist.
 		$checkout = $this->verify_transaction( $event->object );
 
 		if ( ! $checkout ) {
@@ -764,6 +747,10 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		$payment->payer_data['zip']     = $billing_details->address->postal_code;
 	}
 
+	/**
+	 * @param WPBDP_Payment $payment Payment object.
+	 * @return object|WP_Error
+	 */
 	private function create_stripe_session( $payment ) {
 		$payment->gateway = $this->get_id();
 
