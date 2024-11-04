@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php esc_html_e( 'Skip', 'business-directory-plugin' ); ?>
 		</a>
 
-		<a href="#" class="button button-primary wpbdp-button-primary wpbdp-button-large">
+		<a href="#" id="wpbdp-onboarding-consent-tracking" class="button button-primary wpbdp-button-primary wpbdp-button-large">
 			<?php
 			esc_html_e( 'Allow & Continue', 'business-directory-plugin' );
 			WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-arrowup1-icon', array( 'aria-hidden' => 'true' ) );

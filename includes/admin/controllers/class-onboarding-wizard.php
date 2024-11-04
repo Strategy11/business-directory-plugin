@@ -167,6 +167,8 @@ final class WPBDP_Onboarding_Wizard {
 	 * @return void
 	 */
 	public function maybe_load_page() {
+		add_action( 'wp_ajax_wpbdp_onboarding_consent_tracking', array( $this, 'ajax_consent_tracking' ) );
+
 		if ( $this->is_onboarding_wizard_page() ) {
 			$this->view_path = WPBDP_PATH . 'includes/admin/views/onboarding-wizard/';
 

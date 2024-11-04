@@ -23,6 +23,8 @@ function addCollapsibleEvents() {
  * @return {void}
  */
 const onCollapsibleClick = ( event ) => {
+	event.preventDefault();
+
 	const collapsible = event.currentTarget;
 	collapsible.classList.toggle( OPEN_CLASS );
 

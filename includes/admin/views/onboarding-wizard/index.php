@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div id="wpbdp-onboarding-wizard-page" class="wrap wpbdp-admin-plugin-landing frm-hide-js" data-current-step="consent-tracking">
+<div id="wpbdp-onboarding-wizard-page" class="wrap wpbdp-admin-plugin-landing wpbdp-hide-js" data-current-step="consent-tracking">
 	<div id="wpbdp-onboarding-container">
 		<ul id="wpbdp-onboarding-rootline" class="wpbdp-onboarding-rootline">
 			<li class="wpbdp-onboarding-rootline-item" data-step="consent-tracking">

@@ -3,6 +3,7 @@
  */
 import { getQueryParam, navigateToStep } from '../utils';
 import addCollapsibleEvents from './collapsibleListener';
+import addConsentTrackingButtonEvents from './consentTrackingButtonListener';
 import addSkipStepButtonEvents from './skipStepButtonListener';
 
 /**
@@ -13,6 +14,7 @@ import addSkipStepButtonEvents from './skipStepButtonListener';
 export function addEventListeners() {
 	addSkipStepButtonEvents();
 	addCollapsibleEvents();
+	addConsentTrackingButtonEvents();
 }
 
 /**
