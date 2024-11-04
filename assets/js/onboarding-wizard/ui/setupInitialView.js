@@ -2,7 +2,7 @@
  * Internal dependencies
  */
 import { getElements } from '../elements';
-import { STEPS } from '../shared';
+import { HIDE_JS_CLASS, STEPS } from '../shared';
 import { getQueryParam, removeQueryParam, navigateToStep } from '../utils';
 
 /**
@@ -59,7 +59,8 @@ function clearOnboardingQueryParams() {
  * @return {void}
  */
 function fadeInPageElements() {
-	const { container } = getElements();
+	const { onboardingWizardPage, container } = getElements();
 
-	new frmAnimate( container ).fadeIn();
+	onboardingWizardPage.classList.remove( HIDE_JS_CLASS );
+	container.classList.toggle( 'wpbdp-fadein-up' );
 }
