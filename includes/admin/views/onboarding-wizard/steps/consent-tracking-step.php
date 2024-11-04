@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?>
 		</span>
 
-		<div class="wpbdp-collapsible-content">
+		<div class="wpbdp-collapsible-content wpbdp-hidden">
 			<div class="wpbdp-card-box-permission-item">
 				<span><?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-user-icon', array( 'aria-hidden' => 'true' ) ); ?></span>
 

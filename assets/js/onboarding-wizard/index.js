@@ -11,4 +11,4 @@ import initializeOnboardingWizard from './initializeOnboardingWizard';
 domReady( () => {
 	// Initialize the Onboarding Wizard
 	initializeOnboardingWizard();
-});
+} );
