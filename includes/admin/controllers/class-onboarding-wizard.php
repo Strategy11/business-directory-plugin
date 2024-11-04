@@ -69,13 +69,6 @@ final class WPBDP_Onboarding_Wizard {
 	const INITIAL_STEP = 'consent-tracking';
 
 	/**
-	 * Option name to store usage data.
-	 *
-	 * @var string
-	 */
-	const USAGE_DATA_OPTION = 'wpbdp_onboarding_usage_data';
-
-	/**
 	 * Holds the URL to access the Onboarding Wizard's page.
 	 *
 	 * @var string
@@ -227,7 +220,6 @@ final class WPBDP_Onboarding_Wizard {
 		WPBDP_App_Helper::include_svg();
 
 		$view_path        = $this->get_view_path();
-		$pro_is_installed = WPBDP_Admin_Education::is_installed( 'premium' );
 
 		// Note: Add step parts in order.
 		$step_parts = array(
@@ -421,17 +413,6 @@ final class WPBDP_Onboarding_Wizard {
 	 */
 	public function get_view_path() {
 		return $this->view_path;
-	}
-
-	/**
-	 * Retrieves the current Onboarding Wizard usage data, returning an empty array if none exists.
-	 *
-	 * @since x.x
-	 *
-	 * @return array Current usage data.
-	 */
-	public static function get_usage_data() {
-		return get_option( self::USAGE_DATA_OPTION, array() );
 	}
 
 	/**
