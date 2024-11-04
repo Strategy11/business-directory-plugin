@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 import { getQueryParam, navigateToStep } from '../utils';
+import addCollapsibleEvents from './collapsibleListener';
 import addSkipStepButtonEvents from './skipStepButtonListener';
 
 /**
@@ -10,8 +11,8 @@ import addSkipStepButtonEvents from './skipStepButtonListener';
  * @return {void}
  */
 export function addEventListeners() {
-	// Add event handling for the "Skip" and "Back" buttons
 	addSkipStepButtonEvents();
+	addCollapsibleEvents();
 }
 
 /**
