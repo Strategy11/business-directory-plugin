@@ -18,7 +18,7 @@ module.exports = function( grunt ) {
 			this.registered[ id ] = config;
 
 			var less_config    = {};
-			var babel_config   = {};
+			var uglify_config  = {};
 			var makepot_config = {};
 			var potomo_config  = {};
 
@@ -41,7 +41,7 @@ module.exports = function( grunt ) {
 			if ( ! _.isEmpty( config.js ) ) {
 				config.js.forEach(function(g) {
 					glob.sync( path.join( basedir, g ), {ignore: ['../**/**.min.js', '**/*.min.js']} ).forEach(function(f) {
-						babel_config[ f.replace( '.js', '.min.js' ) ] = f;
+						uglify_config[ f.replace( '.js', '.min.js' ) ] = f;
 					});
 				});
 			}
@@ -107,31 +107,11 @@ module.exports = function( grunt ) {
 				} );
 			}
 
-			if ( ! _.isEmpty( babel_config ) ) {
-				var babelFiles = Object.keys( babel_config ).map( function( dest ) {
-					return {
-						src: babel_config[dest],
-						dest: dest
-					};
-				} );
-
-				grunt.config.set( 'babel.' + id, {
-					options: {
-						sourceMap: false,
-						presets: [ '@babel/preset-env', {
-							targets: {
-								browsers: [ '> 0.25%, not dead' ]
-							}
-						}],
-						minified: true, // Enable minification
-						comments: false // Remove comments
-					},
-					files: babelFiles
-				} );
-
+			if ( ! _.isEmpty( uglify_config ) ) {
+				grunt.config.set( 'uglify.' + id, {options: { mangle: false }, files: uglify_config} );
 				grunt.config.set( 'watch.' + id + '_js', {
 					files: [path.join(basedir, '**/*.js'), '!' + path.join(basedir, 'vendors/**/*'), '!' + path.join(basedir, '**/*.min.js'), '!' + path.join(basedir, 'assets/vendor/**/*')],
-					tasks: [ 'babel:' + id ]
+					tasks: [ 'uglify:' + id ]
 				} );
 			}
 
@@ -237,20 +217,23 @@ module.exports = function( grunt ) {
 
 	var config = {
 		pkg: grunt.file.readJSON('package.json'),
-		less: {},
-		babel: {},
-		replace: {},
-		compress: {}
+		less: {
+		},
+		uglify: {
+		},
+	replace: {},
+		compress: {
+		}
 	};
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-wp-i18n');
 	grunt.loadNpmTasks('grunt-potomo');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-text-replace');
-	grunt.loadNpmTasks('grunt-babel');
 
 	grunt.initConfig( config );
 
@@ -273,8 +256,8 @@ module.exports = function( grunt ) {
 			grunt.task.run('less:' + t);
 		}
 
-		if ( 'undefined' != typeof grunt.config.get( 'babel.' + t ) ) {
-			grunt.task.run('babel:' + t);
+		if ( 'undefined' != typeof grunt.config.get( 'uglify.' + t ) ) {
+			grunt.task.run('uglify:' + t);
 		}
 	});
 
@@ -333,7 +316,6 @@ module.exports = function( grunt ) {
 		],
 		js: [
 			'assets/js/*.js',
-			'assets/js/onboarding-wizard/index.js',
 			'assets/vendor/jquery-breakpoints/jquery-breakpoints.js',
 		],
 		i18n: {textDomain: 'business-directory-plugin', domainPath: 'languages/'}
@@ -358,6 +340,7 @@ module.exports = function( grunt ) {
 
 	// Custom modules.
 	grunt.wpbdp.registerModule({path: '../business-directory-migrate', less: [], js: ['js/*.js'], i18n: true});
+
 
 	// Themes
 	grunt.wpbdp.registerModule({path: '../../businessdirectory-themes/business-card', less: ['assets/*.css'], js: [], i18n: true});
