@@ -107,7 +107,7 @@ class WPBDPStrpEventsController {
 	 */
 	private function last_attempt_to_process_event_is_too_recent( $event_id ) {
 		$last_process_attempt = get_transient( 'wpbdp_last_process_' . $event_id );
-		return is_numeric( $last_process_attempt ) && $last_process_attempt > ( time() - 60 );
+		return is_numeric( $last_process_attempt ) && $last_process_attempt > ( time() - 60 ); // phpcs:ignore SlevomatCodingStandard.PHP.UselessParentheses.UselessParentheses
 	}
 
 	/**

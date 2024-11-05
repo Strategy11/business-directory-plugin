@@ -18,8 +18,10 @@ class WPBDPStrpApiHelper {
 			$customer_id = false;
 		} else {
 			$user_id     = get_current_user_id();
-			// TODO: $this->customer_meta_name is in class-stripe-gateway. This isn't functional yet.
-		//	$customer_id = get_user_meta( $user_id, $this->customer_meta_name(), true );
+			$test_mode   = wpbdp_get_option( 'payments-test-mode' );
+			$meta_name   = '_wpbdp_stripe_customer_id' . ( $test_mode ? '_test' : '' );
+			$customer_id = get_user_meta( $user_id, $meta_name, true );
+
 			if ( ! $customer_id || ! WPBDPStrpConnectHelper::validate_customer( $customer_id ) ) {
 				return false;
 			}
