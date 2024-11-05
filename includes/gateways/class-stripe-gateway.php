@@ -642,7 +642,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 	}
 
-	public function save_payer_address( &$payment, $billing_details ) {
+	public function save_payer_address( $payment, $billing_details ) {
 		$payment->payer_first_name      = $billing_details->name;
 		$payment->payer_email           = $billing_details->email;
 		$payment->payer_data['address'] = $billing_details->address->line1 . ( $billing_details->address->line2 ? ', ' . $billing_details->address->line2 : '' );

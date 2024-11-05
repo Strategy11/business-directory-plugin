@@ -214,15 +214,8 @@ class WPBDPStrpEventsController {
 		}
 
 		if ( $this->invoice->charge ) {
-
-			try {
-				// TODO: \Stripe\ does not exist. We need to update this.
-				$charge = \Stripe\Charge::retrieve( $this->invoice->charge );
-			} catch ( Exception $e ) {
-				$charge = null;
-			}
-
-			if ( $charge ) {
+			$charge = WPBDPStrpConnectHelper::get_charge( $this->invoice->charge );
+			if ( is_object( $charge ) ) {
 				$this->save_payer_address( $payment, $charge->billing_details );
 			}
 		}
@@ -279,5 +272,15 @@ class WPBDPStrpEventsController {
 		}
 
 		$payment->save();
+	}
+
+	private function save_payer_address( $payment, $billing_details ) {
+		$payment->payer_first_name      = $billing_details->name;
+		$payment->payer_email           = $billing_details->email;
+		$payment->payer_data['address'] = $billing_details->address->line1 . ( $billing_details->address->line2 ? ', ' . $billing_details->address->line2 : '' );
+		$payment->payer_data['state']   = $billing_details->address->state;
+		$payment->payer_data['city']    = $billing_details->address->city;
+		$payment->payer_data['country'] = $billing_details->address->country;
+		$payment->payer_data['zip']     = $billing_details->address->postal_code;
 	}
 }
