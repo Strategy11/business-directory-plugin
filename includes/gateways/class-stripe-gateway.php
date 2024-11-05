@@ -73,14 +73,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'stripe', 'https://js.stripe.com/v3/', array(), '3', false );
 		wp_enqueue_script( 'wpbdp-stripe-checkout' );
-
-		wp_localize_script(
-			'wpbdp-stripe-checkout',
-			'wpbdp_checkout_stripe_js',
-			array(
-				'stripeNotAvailable' => __( 'Stripe gateway is not currently available. Please reload this page or select another gateway (if available).', 'wpbdp-stripe' ),
-			)
-		);
 	}
 
 	/**
