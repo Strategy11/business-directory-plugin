@@ -129,6 +129,7 @@ class WPBDPStrpConnectHelper {
 	 * Generate a new client password for authenticating with Connect Service and save it locally as an option.
 	 *
 	 * @param string $mode 'live' or 'test'.
+	 *
 	 * @return string the client password.
 	 */
 	private static function generate_client_password( $mode ) {
@@ -138,10 +139,10 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @return array|string
-	 *
 	 * @param string $action
 	 * @param array  $additional_body
+	 *
+	 * @return array|string
 	 * @return object|string
 	 */
 	private static function post_to_connect_server( $action, $additional_body = array() ) {
@@ -193,6 +194,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $mode either 'auto', 'live', or 'test'.
+	 *
 	 * @return string either _test or _live.
 	 */
 	private static function get_active_mode_option_name_suffix( $mode = 'auto' ) {
@@ -205,6 +207,7 @@ class WPBDPStrpConnectHelper {
 	/**
 	 * @param string $key 'account_id', 'client_password', 'server_password', 'details_submitted'.
 	 * @param string $mode either 'auto', 'live', or 'test'.
+	 *
 	 * @return string
 	 */
 	private static function get_strp_connect_option_name( $key, $mode = 'auto' ) {
@@ -213,6 +216,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $mode either 'auto', 'live', or 'test'.
+	 *
 	 * @return string
 	 */
 	private static function get_account_id_option_name( $mode = 'auto' ) {
@@ -221,6 +225,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $mode either 'auto', 'live', or 'test'.
+	 *
 	 * @return string
 	 */
 	private static function get_client_side_token_option_name( $mode = 'auto' ) {
@@ -229,6 +234,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $mode either 'auto', 'live', or 'test'.
+	 *
 	 * @return string
 	 */
 	private static function get_server_side_token_option_name( $mode = 'auto' ) {
@@ -237,6 +243,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $mode either 'auto', 'live', or 'test'.
+	 *
 	 * @return string
 	 */
 	private static function get_stripe_details_submitted_option_name( $mode = 'auto' ) {
@@ -376,6 +383,7 @@ class WPBDPStrpConnectHelper {
 	 * On a successful account status check, set details_submitted option.
 	 *
 	 * @param string $mode 'live' or 'test'.
+	 *
 	 * @return void
 	 */
 	private static function set_stripe_details_as_submitted( $mode ) {
@@ -453,6 +461,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $mode
+	 *
 	 * @return bool
 	 */
 	public static function stripe_connect_is_setup( $mode = 'auto' ) {
@@ -526,7 +535,7 @@ class WPBDPStrpConnectHelper {
 	 * Get a Pro license when Pro is active.
 	 * Otherwise we'll use a uuid to support Lite.
 	 *
-	 * @return string|false
+	 * @return false|string
 	 */
 	private static function maybe_get_pro_license() {
 		return false; // TODO.
@@ -551,6 +560,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param bool $connected
+	 *
 	 * @return string
 	 */
 	private static function get_url_for_stripe_settings( $connected ) {
@@ -594,6 +604,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @todo I can probably remove this.
+	 *
 	 * @return void
 	 */
 	public static function stripe_icon() {
@@ -626,7 +637,8 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $mode
-	 * @return string|bool
+	 *
+	 * @return bool|string
 	 */
 	public static function get_account_id( $mode = 'auto' ) {
 		return get_option( self::get_account_id_option_name( $mode ) );
@@ -634,7 +646,8 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param array $options
-	 * @return string|false
+	 *
+	 * @return false|string
 	 */
 	public static function get_customer_id( $options ) {
 		$data    = self::post_with_authenticated_body( 'get_customer', compact( 'options' ) );
@@ -650,6 +663,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $customer_id
+	 *
 	 * @return bool
 	 */
 	public static function validate_customer( $customer_id ) {
@@ -661,7 +675,7 @@ class WPBDPStrpConnectHelper {
 	 * @param string $action
 	 * @param array  $additional_body
 	 *
-	 * @return object|false
+	 * @return false|object
 	 */
 	private static function post_with_authenticated_body( $action, $additional_body = array() ) {
 		$body     = array_merge( self::get_standard_authenticated_body(), $additional_body );
@@ -690,7 +704,7 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @return string|false
+	 * @return false|string
 	 */
 	private static function latest_error_message() {
 		return self::$latest_error_from_stripe_connect ? self::$latest_error_from_stripe_connect : false;
@@ -698,6 +712,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $charge_id
+	 *
 	 * @return mixed
 	 */
 	public static function get_charge( $charge_id ) {
@@ -710,6 +725,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param array $new_charge
+	 *
 	 * @return mixed
 	 */
 	public static function create_subscription( $new_charge ) {
@@ -728,7 +744,8 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string       $sub_id
-	 * @param string|false $customer_id if specified, this will enforce a customer id match (bypassed for users with administrator permission).
+	 * @param false|string $customer_id if specified, this will enforce a customer id match (bypassed for users with administrator permission).
+	 *
 	 * @return bool
 	 */
 	public static function cancel_subscription( $sub_id, $customer_id = false ) {
@@ -739,7 +756,8 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $event_id
-	 * @return object|false|string
+	 *
+	 * @return false|object|string
 	 */
 	public static function get_event( $event_id ) {
 		$event = wp_cache_get( $event_id, 'wpbdp_strp' );
@@ -769,6 +787,7 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param string $event_id
+	 *
 	 * @return mixed
 	 */
 	public static function process_event( $event_id ) {
@@ -778,7 +797,7 @@ class WPBDPStrpConnectHelper {
 	/**
 	 * @param string $plan_id
 	 *
-	 * @return object|false
+	 * @return false|object
 	 */
 	public static function get_plan( $plan_id ) {
 		$plan = self::post_with_authenticated_body( 'get_plan', compact( 'plan_id' ) );
@@ -810,7 +829,7 @@ class WPBDPStrpConnectHelper {
 	 *
 	 * @param string $session New session data.
 	 *
-	 * @return object|false
+	 * @return false|object
 	 */
 	public static function create_checkout_session( $session ) {
 		$data = self::post_with_authenticated_body( 'create_checkout_session', compact( 'session' ) );
@@ -822,7 +841,8 @@ class WPBDPStrpConnectHelper {
 
 	/**
 	 * @param array $data
-	 * @return object|false
+	 *
+	 * @return false|object
 	 */
 	public static function create_coupon( $data ) {
 		$result = self::post_with_authenticated_body( 'create_coupon', compact( 'data' ) );

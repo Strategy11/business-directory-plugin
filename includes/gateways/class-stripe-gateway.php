@@ -201,6 +201,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * Return a json error and die.
 	 *
 	 * @param string $error Error message.
+	 *
 	 * @return void
 	 */
 	private function handle_exception( $error ) {
@@ -289,6 +290,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @since x.x
 	 *
 	 * @param WPBDP_Payment $payment Payment object.
+	 *
 	 * @return array
 	 */
 	private function get_possible_user_ids( $payment ) {
@@ -426,6 +428,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @since x.x
 	 *
 	 * @param WPBDP_Payment $payment Payment object.
+	 *
 	 * @return array
 	 */
 	private function get_discounts( $payment ) {
@@ -458,6 +461,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	/**
 	 * @param WPBDP_Payment $payment Payment object.
+	 *
 	 * @return object
 	 */
 	private function get_stripe_plan( $payment ) {
@@ -504,7 +508,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	/**
 	 * @param string $id
-	 * @return object|false
+	 *
+	 * @return false|object
 	 */
 	private function try_to_get_stripe_plan_with_id( $id ) {
 		return WPBDPStrpConnectHelper::get_plan( $id );
@@ -512,6 +517,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	/**
 	 * @param stdClass $plan
+	 *
 	 * @return string
 	 */
 	private function get_stripe_plan_fingerprint( $plan ) {
@@ -559,6 +565,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	/**
 	 * @param WPBDP_Payment $payment Payment object.
+	 *
 	 * @return object|WP_Error
 	 */
 	private function create_stripe_session( $payment ) {
@@ -577,6 +584,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @since x.x
 	 *
 	 * @param float $amount Amount to be formatted.
+	 *
 	 * @return float
 	 */
 	private function formated_amount( $amount ) {

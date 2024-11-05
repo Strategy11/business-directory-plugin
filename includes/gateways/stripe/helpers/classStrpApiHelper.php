@@ -11,6 +11,7 @@ class WPBDPStrpApiHelper {
 
 	/**
 	 * @param string $sub_id
+	 *
 	 * @return bool
 	 */
 	public static function cancel_subscription( $sub_id ) {

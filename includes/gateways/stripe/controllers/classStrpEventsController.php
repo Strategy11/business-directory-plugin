@@ -61,6 +61,7 @@ class WPBDPStrpEventsController {
 	 * @since x.x
 	 *
 	 * @param array<string> $event_ids
+	 *
 	 * @return void
 	 */
 	private function process_event_ids( $event_ids ) {
@@ -86,6 +87,7 @@ class WPBDPStrpEventsController {
 	 * @since x.x
 	 *
 	 * @param string $event_id
+	 *
 	 * @return bool True if the event should be skipped.
 	 */
 	private function should_skip_event( $event_id ) {
@@ -103,6 +105,7 @@ class WPBDPStrpEventsController {
 
 	/**
 	 * @param string $event_id
+	 *
 	 * @return bool
 	 */
 	private function last_attempt_to_process_event_is_too_recent( $event_id ) {
@@ -114,6 +117,7 @@ class WPBDPStrpEventsController {
 	 * @since x.x
 	 *
 	 * @param string $event_id
+	 *
 	 * @return void
 	 */
 	private function count_failed_event( $event_id ) {
@@ -140,6 +144,7 @@ class WPBDPStrpEventsController {
 	 * @since x.x
 	 *
 	 * @param string $event_id
+	 *
 	 * @return void
 	 */
 	private function track_handled_event( $event_id ) {
