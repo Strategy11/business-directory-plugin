@@ -211,6 +211,9 @@ class WPBDPStrpEventsController {
 		}
 	}
 
+	/**
+	 * @return object|null
+	 */
 	private function maybe_create_listing_subscription() {
 		foreach ( $this->invoice->lines->data as $invoice_item ) {
 			if ( 'subscription' === $invoice_item->type ) {
@@ -219,7 +222,7 @@ class WPBDPStrpEventsController {
 			}
 		}
 
-		if ( ! $payment ) {
+		if ( empty( $payment ) ) {
 			return null;
 		}
 
