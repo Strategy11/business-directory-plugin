@@ -234,7 +234,7 @@ class WPBDPStrpEventsController {
 		}
 
 		$payment->gateway       = 'stripe';
-		$payment->gateway_tx_id = $invoice->id;
+		$payment->gateway_tx_id = $this->invoice->id;
 		$payment->status        = 'completed';
 		$payment->save();
 
@@ -307,8 +307,6 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
-	 * @param object $payment Payment object.
-	 *
 	 * @return array|false The payment if found otherwise false.
 	 */
 	private function verify_transaction() {

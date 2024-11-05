@@ -406,7 +406,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 					'wpbdp_payment_id' => $payment->id,
 				),
 			);
-			$parameters['discounts'] = $this->get_discounts( $payment );
+			$parameters['discounts']         = $this->get_discounts( $payment );
 		} else {
 			$parameters['line_items'] = array(
 				array(
@@ -527,7 +527,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @return object
+	 * @return mixed
 	 */
 	private function create_stripe_plan( $id, $recurring, $payment ) {
 		$plan = array(
@@ -540,7 +540,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			),
 			'id'             => $id,
 		);
-		WPBDPStrpConnectHelper::create_plan( $plan );
+		return WPBDPStrpConnectHelper::create_plan( $plan );
 	}
 
 	/**

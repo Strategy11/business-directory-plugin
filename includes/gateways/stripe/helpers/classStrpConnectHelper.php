@@ -738,24 +738,6 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @return object|false
-	 */
-	public static function get_customer_subscriptions() {
-		$user_id     = get_current_user_id();
-		// TODO: This function needs to be updated to use the BD customer id logic.
-		// I'm not sure if this function is required for BD though.
-		//$meta_name   = WPBDPStrpAppHelper::get_customer_id_meta_name();
-		//$customer_id = get_user_meta( $user_id, $meta_name, true );
-		$data        = self::post_with_authenticated_body( 'get_customer_subscriptions', compact( 'customer_id' ) );
-
-		if ( false === $data ) {
-			return false;
-		}
-
-		return $data->subscriptions;
-	}
-
-	/**
 	 * @param string $event_id
 	 * @return object|false|string
 	 */
