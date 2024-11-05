@@ -172,6 +172,16 @@ class WPBDPStrpEventsController {
 			$parent_payment = null;
 		}
 
+		if ( class_exists( 'FrmLog' ) ) {
+			$log = new FrmLog();
+			$log->add(
+				array(
+					'title'   => 'Processing BD Stripe Event',
+					'content' => print_r( $this->event, true ),
+				)
+			);
+		}
+
 		switch ( $this->event->type ) {
 			case 'invoice.payment_failed':
 				if ( $parent_payment && 'stripe' === $parent_payment->gateway ) {
@@ -255,24 +265,20 @@ class WPBDPStrpEventsController {
 		return '_wpbdp_stripe_customer_id' . ( $test_mode ? '_test' : '' );
 	}
 
+	/**
+	 * @return void
+	 */
 	private function process_payment_intent() {
 		$event = $this->event->data;
 
+		// TODO: I don't think the API is returning confirmation_method yet.
 		if ( empty( $event->object->id ) || 'manual' === $event->object->confirmation_method ) {
 			return;
 		}
 
-		// TODO: The function verify_transaction does not appear to exist.
-		$checkout = $this->verify_transaction( $event->object );
+		$payment = wpbdp_get_payment( $this->invoice->client_reference_id );
 
-		if ( ! $checkout ) {
-			return;
-		}
-
-		$checkout = array_shift( $checkout );
-		$payment  = wpbdp_get_payment( $checkout->data->object->client_reference_id );
-
-		if ( ! $payment || 'completed' == $payment->status ) {
+		if ( ! $payment || 'completed' === $payment->status ) {
 			return;
 		}
 
