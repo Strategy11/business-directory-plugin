@@ -135,9 +135,15 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 	/**
 	 * @since x.x
+	 *
+	 * @return string
 	 */
 	public function connect_setting( $setting, $value ) {
+		ob_start();
 		WPBDPStrpConnectHelper::render_stripe_connect_settings_container();
+		$html = ob_get_clean();
+
+		return is_string( $html ) ? $html : '';
 	}
 
 	/**
