@@ -219,46 +219,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		return json_decode( $input );
 	}
 
-	/**
-	 * @since x.x
-	 */
-	private function process_payment_succeeded( $subscription, $parent_payment, $invoice ) {
-		if ( ! $parent_payment || $this->get_id() !== $parent_payment->gateway ) {
-			return;
-		}
-
-		$today = gmdate( 'Y-n-d', strtotime( $parent_payment->created_at ) ) == gmdate( 'Y-n-d', $invoice->created );
-
-		// Is this the first payment?
-		if ( $today ) {
-			$parent_payment->gateway_tx_id = $invoice->charge;
-			$parent_payment->gateway       = $this->get_id();
-			$parent_payment->save();
-			return;
-		}
-
-		$exists = WPBDP_Payment::objects()->get(
-			array(
-				'gateway_tx_id' => $invoice->charge,
-				'gateway'       => $this->get_id(),
-			)
-		);
-
-		if ( $exists ) {
-			return;
-		}
-
-		// An installment.
-		$subscription->record_payment(
-			array(
-				'amount'        => $invoice->total / 100.0,
-				'gateway_tx_id' => $invoice->charge,
-				'created_at'    => gmdate( 'Y-m-d H:i:s', $invoice->created ),
-			)
-		);
-		$subscription->renew();
-	}
-
 	private function get_stripe_customer( $payment, $create = true ) {
 		$customer = null;
 

@@ -202,7 +202,7 @@ class WPBDPStrpEventsController {
 					}
 				}
 
-				$this->process_payment_succeeded( $subscription, $parent_payment, $invoice );
+				$this->process_payment_succeeded( $subscription, $parent_payment );
 
 				break;
 			case 'payment_intent.succeeded':
@@ -349,5 +349,50 @@ class WPBDPStrpEventsController {
 		$payment->payer_data['city']    = $billing_details->address->city;
 		$payment->payer_data['country'] = $billing_details->address->country;
 		$payment->payer_data['zip']     = $billing_details->address->postal_code;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param WPBDP__Listing_Subscription $subscription
+	 * @param object                       $parent_payment
+	 *
+	 * @return void
+	 */
+	private function process_payment_succeeded( $subscription, $parent_payment ) {
+		if ( ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
+			return;
+		}
+
+		$invoice = $this->invoice;
+		$today   = gmdate( 'Y-n-d', strtotime( $parent_payment->created_at ) ) === gmdate( 'Y-n-d', $invoice->created );
+
+		// Is this the first payment?
+		if ( $today ) {
+			$parent_payment->gateway_tx_id = $invoice->charge;
+			$parent_payment->gateway       = 'stripe';
+			$parent_payment->save();
+			return;
+		}
+
+		$exists = WPBDP_Payment::objects()->get(
+			array(
+				'gateway_tx_id' => $invoice->charge,
+				'gateway'       => 'stripe',
+			)
+		);
+		if ( $exists ) {
+			return;
+		}
+
+		// An installment.
+		$subscription->record_payment(
+			array(
+				'amount'        => $invoice->total / 100.0,
+				'gateway_tx_id' => $invoice->charge,
+				'created_at'    => gmdate( 'Y-m-d H:i:s', $invoice->created ),
+			)
+		);
+		$subscription->renew();
 	}
 }
