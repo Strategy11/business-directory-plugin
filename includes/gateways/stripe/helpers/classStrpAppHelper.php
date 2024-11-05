@@ -6,11 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WPBDPStrpAppHelper {
 
 	/**
-	 * @var WPBDPStrpSettings|null
-	 */
-	private static $settings;
-
-	/**
 	 * @var string
 	 */
 	public static $gateway_id = 'stripe';
