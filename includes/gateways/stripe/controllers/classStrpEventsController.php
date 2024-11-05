@@ -271,12 +271,17 @@ class WPBDPStrpEventsController {
 	private function process_payment_intent() {
 		$event = $this->event->data;
 
-		// TODO: I don't think the API is returning confirmation_method yet.
-		if ( empty( $event->object->id ) || 'manual' === $event->object->confirmation_method ) {
+		if ( empty( $this->invoice->id ) || 'manual' === $this->invoice->confirmation_method ) {
 			return;
 		}
 
-		$payment = wpbdp_get_payment( $this->invoice->client_reference_id );
+		$checkout = $this->verify_transaction();
+		if ( ! $checkout ) {
+			return;
+		}
+
+		$checkout = array_shift( $checkout );
+		$payment  = wpbdp_get_payment( $checkout->data->object->client_reference_id );
 
 		if ( ! $payment || 'completed' === $payment->status ) {
 			return;
@@ -285,17 +290,65 @@ class WPBDPStrpEventsController {
 		$payment->gateway = 'stripe';
 		$payment->status  = 'completed';
 
-		if ( ! empty( $event->object->charges ) && ! empty( $event->object->charges->data[0] ) ) {
-			$charge = $event->object->charges->data[0];
+		if ( ! empty( $this->invoice->charges ) && ! empty( $this->invoice->charges->data[0] ) ) {
+			$charge = $this->invoice->charges->data[0];
 			$this->save_payer_address( $payment, $charge->billing_details );
 
 			$payment->gateway_tx_id = $charge->id;
-		} elseif ( ! empty( $event->object->latest_charge ) ) {
+		} elseif ( ! empty( $this->invoice->latest_charge ) ) {
 			// Fallback to get the charge id from the invoice.
-			$payment->gateway_tx_id = $event->object->latest_charge;
+			$payment->gateway_tx_id = $this->invoice->latest_charge;
 		}
 
 		$payment->save();
+	}
+
+	/**
+	 * @param object $payment Payment object.
+	 *
+	 * @return array|false The payment if found otherwise false.
+	 */
+	private function verify_transaction() {
+		$payment = $this->invoice;
+
+		$events = WPBDPStrpConnectHelper::get_events(
+			array(
+				'type'    => 'checkout.session.completed',
+				'created' => array(
+					// Check for events created in the last 24 hours.
+					'gte' => time() - 24 * 60 * 60,
+				),
+			)
+		);
+
+		if ( class_exists( 'FrmLog' ) ) {
+			$log = new FrmLog();
+			$log->add(
+				array(
+					'title'   => 'Verifying BD Stripe transaction',
+					'content' => print_r( $events, true ),
+				)
+			);
+		}
+
+		if ( ! is_array( $events ) ) {
+			return false;
+		}
+
+		$completed = array_filter(
+			$events->data,
+			function ( $event ) use ( $payment ) {
+				if ( $event->data->object->payment_intent === $payment->id ) {
+					return true;
+				}
+			}
+		);
+
+		if ( ! empty( $completed ) ) {
+			return $completed;
+		}
+
+		return false;
 	}
 
 	private function save_payer_address( $payment, $billing_details ) {

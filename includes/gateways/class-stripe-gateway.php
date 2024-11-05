@@ -214,49 +214,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		wp_die();
 	}
 
-	private function generatePaymentResponse( $payment, $intent = null ) {
-		$payment->gateway = $this->get_id();
-
-		if ( $intent->status === 'requires_source_action' && $intent->next_action->type === 'use_stripe_sdk' ) {
-			$payment->save();
-			// Tell the client to handle the action.
-			wp_send_json(
-				array(
-					'requires_action'              => true,
-					'payment_intent_client_secret' => $intent->client_secret,
-					'is_recurring_payment'         => 'automatic' === $intent->confirmation_method && $payment->has_item_type( 'recurring_plan' ),
-				),
-				200
-			);
-
-			wp_die();
-		}
-
-		/*
-		The payment didn’t need any additional actions and completed!
-		Handle post-payment fulfillment.
-		*/
-		if ( $intent->status === 'succeeded' ) {
-			if ( ! $payment->has_item_type( 'recurring_plan' ) ) {
-				$payment->status        = 'completed';
-				$payment->gateway_tx_id = $intent->id;
-				$this->save_payer_address( $payment, $intent->charges->data[0]->billing_details );
-				$payment->save();
-			}
-			echo wp_json_encode(
-				array(
-					'payment_id' => $payment->id,
-				)
-			);
-		} else {
-			// Invalid status.
-			$payment->status = 'failed';
-			$payment->save();
-			echo wp_json_encode( array( 'error' => 'Invalid PaymentIntent status' ), 500 );
-		}
-		wp_die();
-	}
-
 	/**
 	 * @since x.x
 	 *
@@ -640,16 +597,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			// Mark as canceled in BD.
 			$subscription->cancel();
 		}
-	}
-
-	public function save_payer_address( $payment, $billing_details ) {
-		$payment->payer_first_name      = $billing_details->name;
-		$payment->payer_email           = $billing_details->email;
-		$payment->payer_data['address'] = $billing_details->address->line1 . ( $billing_details->address->line2 ? ', ' . $billing_details->address->line2 : '' );
-		$payment->payer_data['state']   = $billing_details->address->state;
-		$payment->payer_data['city']    = $billing_details->address->city;
-		$payment->payer_data['country'] = $billing_details->address->country;
-		$payment->payer_data['zip']     = $billing_details->address->postal_code;
 	}
 
 	/**

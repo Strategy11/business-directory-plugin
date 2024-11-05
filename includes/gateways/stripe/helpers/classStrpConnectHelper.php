@@ -775,6 +775,17 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
+	 * @return array|false
+	 */
+	public static function get_events( $data ) {
+		$result = self::post_with_authenticated_body( 'get_events', compact( 'data' ) );
+		if ( ! is_object( $result ) || empty( $result->events ) ) {
+			return false;
+		}
+		return $result->events;
+	}
+
+	/**
 	 * @param string $event_id
 	 * @return mixed
 	 */
