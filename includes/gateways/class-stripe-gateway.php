@@ -159,7 +159,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		$content = '<div class="wpbdp-msg wpbdp-error stripe-errors" style="display:none;">';
 		if ( ! $stripe['sessionId'] ) {
-			$content .= $stripe['sessionError'] ? $stripe['sessionError'] : __( 'There was an error while configuring Stripe gateway', 'wpbdp-stripe' );
+			$content .= $stripe['sessionError'] ? $stripe['sessionError'] : __( 'There was an error while configuring Stripe gateway', 'business-directory-plugin' );
 		}
 
 		$content .= '</div>';
