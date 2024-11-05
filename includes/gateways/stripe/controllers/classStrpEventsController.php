@@ -321,22 +321,12 @@ class WPBDPStrpEventsController {
 			)
 		);
 
-		if ( class_exists( 'FrmLog' ) ) {
-			$log = new FrmLog();
-			$log->add(
-				array(
-					'title'   => 'Verifying BD Stripe transaction',
-					'content' => print_r( $events, true ),
-				)
-			);
-		}
-
 		if ( ! is_array( $events ) ) {
 			return false;
 		}
 
 		$completed = array_filter(
-			$events->data,
+			$events,
 			function ( $event ) use ( $payment ) {
 				if ( $event->data->object->payment_intent === $payment->id ) {
 					return true;
