@@ -416,17 +416,4 @@ final class WPBDP_Onboarding_Wizard {
 	public function get_view_path() {
 		return $this->view_path;
 	}
-
-	/**
-	 * Validates if the Onboarding Wizard page is being displayed.
-	 *
-	 * @since x.x
-	 * @deprecated x.x
-	 *
-	 * @return bool True if the Onboarding Wizard page is displayed, false otherwise.
-	 */
-	public static function is_onboarding_wizard_displayed() {
-		_deprecated_function( __METHOD__, 'x.x' );
-		return get_transient( self::TRANSIENT_NAME ) === self::TRANSIENT_VALUE;
-	}
 }
