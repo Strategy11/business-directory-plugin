@@ -16,100 +16,6 @@ class WPBDPStrpEventsController {
 	private $status;
 
 	/**
-	 * @return void
-	 */
-	private function set_payment_status() {
-		if ( $this->status === 'refunded' ) {
-			$this->charge = $this->invoice->id;
-		}
-
-		$wpbdp_payment = new WPBDPStrpPayment();
-		$payment       = false;
-
-		if ( $this->charge ) {
-			$payment = $wpbdp_payment->get_one_by( $this->charge, 'receipt_id' );
-		}
-
-		if ( ! $payment && $this->status === 'refunded' ) {
-			// If the refunded payment doesn't exist, stop here.
-			wpbdp_insert_log(
-				array(
-					'log_type' => 'payment.get',
-					'message'  => 'Stripe Webhook Message',
-					'data'     => array( 'response' => 'No action taken. The refunded payment does not exist.' ),
-				)
-			);
-
-			echo wp_json_encode(
-				array(
-					'response' => 'no payment exists',
-					'success'  => false,
-				)
-			);
-			return;
-		}
-
-		if ( ! $payment ) {
-			$this->prepare_from_invoice();
-			return;
-		}
-
-		if ( $payment->status === $this->status ||
-			$this->should_skip_status_update_for_first_recurring_payment( $payment )
-			) {
-			return;
-		}
-
-		$payment_values    = (array) $payment;
-		$is_partial_refund = $this->is_partial_refund();
-
-		if ( $is_partial_refund ) {
-			$this->set_partial_refund( $payment_values );
-			$amount_refunded = number_format( $this->invoice->amount_refunded / 100, 2 );
-			// translators: %s: The amount of money that was refunded.
-			$note = sprintf( __( 'Payment partially refunded %s', 'business-directory-plugin' ), $amount_refunded );
-		} else {
-			$payment_values['status'] = $this->status;
-			$payment->status          = $this->status;
-			// translators: %s: The status of the payment.
-			$note = sprintf( __( 'Payment %s', 'business-directory-plugin' ), $payment_values['status'] );
-		}
-
-		WPBDPStrpAppHelper::add_note_to_payment( $payment_values, $note );
-
-		$u = $wpbdp_payment->update( $payment->id, $payment_values );
-
-		echo wp_json_encode(
-			array(
-				'response' => 'Payment ' . $payment->id . ' was updated',
-				'success'  => true,
-			)
-		);
-	}
-
-	/**
-	 * Skip updating the payment object for the first recurring payment.
-	 * This is to prevent double notifications because the first recurring payment creates an invoice and that invoice triggers the payment events.
-	 *
-	 * @since x.x
-	 *
-	 * @param stdClass $payment
-	 * @return bool
-	 */
-	private function should_skip_status_update_for_first_recurring_payment( $payment ) {
-		if ( ! in_array( $this->event->type, array( 'payment_intent.succeeded', 'payment_intent.payment_failed' ), true ) ) {
-			return false;
-		}
-
-		if ( empty( $payment->sub_id ) ) {
-			// Only skip for subscriptions. This is because subscription events create an invoice, and the status change events trigger for the invoice as well.
-			return false;
-		}
-
-		return $this->is_first_payment( $payment );
-	}
-
-	/**
 	 * Tell Stripe Connect API that the request came through by flushing early before processing.
 	 * Flushing early allows the API to end the request earlier.
 	 *
@@ -136,196 +42,6 @@ class WPBDPStrpEventsController {
 		ob_end_flush();
 		@ob_flush();
 		flush();
-	}
-
-	/**
-	 * When a customer is deleted in Stripe, remove the link to a user.
-	 *
-	 * @since x.x
-	 * @return void
-	 */
-	private function reset_customer() {
-		global $wpdb;
-		$customer_id = $this->invoice->id;
-		if ( empty( $customer_id ) ) {
-			return;
-		}
-		$wpdb->query(
-			$wpdb->prepare(
-				"DELETE FROM $wpdb->usermeta WHERE meta_value = %s AND meta_key LIKE %s",
-				$customer_id,
-				'_wpbdp_stripe_customer_id%'
-			)
-		);
-	}
-
-	/**
-	 * @return void
-	 */
-	private function maybe_subscription_canceled() {
-		if ( $this->invoice->cancel_at_period_end == true ) {
-			$this->subscription_canceled( 'future_cancel' );
-		}
-	}
-
-	/**
-	 * @param string $status
-	 * @return bool
-	 */
-	private function subscription_canceled( $status = 'canceled' ) {
-		$sub = $this->get_subscription( $this->invoice->id );
-		if ( ! $sub ) {
-			return false;
-		}
-
-		$sub->cancel();
-		return true;
-	}
-
-	private function prepare_from_invoice() {
-		if ( empty( $this->invoice->subscription ) ) {
-			// This isn't a subscription.
-			wpbdp_insert_log(
-				array(
-					'log_type' => 'subscription.get',
-					'message'  => 'Stripe Webhook Message',
-					'data'     => array( 'response' => 'No action taken since this is not a subscription.' ),
-				)
-			);
-
-			echo wp_json_encode(
-				array(
-					'response' => 'Invoice missing',
-					'success'  => false,
-				)
-			);
-			return false;
-		}
-
-		$sub = $this->get_subscription( $this->invoice->subscription );
-		if ( ! $sub ) {
-			return false;
-		}
-
-		$payment        = $this->get_payment_for_sub( $sub->id );
-		$payment_values = (array) $payment;
-		$this->set_payment_values( $payment_values );
-
-		$wpbdp_payment = new WPBDPStrpPayment();
-
-		if ( $this->is_first_payment( $payment ) ) {
-			// The first payment for the subscription needs to be updated with the receipt id.
-			$wpbdp_payment->update( $payment->id, $payment_values );
-			$payment_id = $payment->id;
-		} else {
-			$payment_values['test'] = $this->event->livemode ? 0 : 1;
-
-			// If this isn't the first, create a new payment.
-			$payment_id = $wpbdp_payment->create( $payment_values );
-		}
-
-		$this->update_next_bill_date( $sub, $payment_values );
-
-		$payment = $wpbdp_payment->get_one( $payment_id );
-		return $payment;
-	}
-
-	/**
-	 * @since x.x
-	 *
-	 * @param stdClass $payment
-	 * @return bool
-	 */
-	private function is_first_payment( $payment ) {
-		return ! $payment->receipt_id || 0 === strpos( $payment->receipt_id, 'pi_' );
-	}
-
-	private function get_subscription( $sub_id ) {
-		$wpbdp_sub = new WPBDP__Listing_Subscription( 0, $sub_id );
-		$sub       = $wpbdp_sub->get_one_by( $sub_id, 'sub_id' );
-		if ( ! $sub ) {
-			// If this isn't an existing subscription, it must be a charge for another site/plugin.
-			wpbdp_insert_log(
-				array(
-					'log_type'  => 'subscription.get',
-					'object_id' => $sub_id,
-					'message'   => 'Stripe Webhook Message',
-					'data'      => array( 'response' => 'No action taken since there is not a matching subscription for ' . $sub_id ),
-				)
-			);
-
-			echo wp_json_encode(
-				array(
-					'response' => 'Invoice missing',
-					'success'  => false,
-				)
-			);
-		}
-
-		return $sub;
-	}
-
-	private function get_payment_for_sub( $sub_id ) {
-		$wpbdp_payment = new WPBDPStrpPayment();
-		return $wpbdp_payment->get_one_by( $sub_id, 'sub_id' );
-	}
-
-	/**
-	 * @param array $payment_values
-	 * @return void
-	 */
-	private function set_payment_values( &$payment_values ) {
-		$payment_values['begin_date']  = gmdate( 'Y-m-d' );
-		$payment_values['expire_date'] = '0000-00-00';
-
-		foreach ( $this->invoice->lines->data as $line ) {
-			$payment_values['amount']      = number_format( ( $line->amount / 100 ), 2, '.', '' );
-			$payment_values['begin_date']  = gmdate( 'Y-m-d', $line->period->start );
-			$payment_values['expire_date'] = gmdate( 'Y-m-d', $line->period->end );
-		}
-
-		$payment_values['receipt_id']  = $this->charge ? $this->charge : __( 'None', 'business-directory-plugin' );
-		$payment_values['status']      = $this->status;
-		$payment_values['meta_value']  = array();
-		$payment_values['created_at']  = current_time( 'mysql', 1 );
-
-		WPBDPStrpAppHelper::add_note_to_payment( $payment_values );
-	}
-
-	/**
-	 * @param object $sub
-	 * @param array  $payment
-	 * @return void
-	 */
-	private function update_next_bill_date( $sub, $payment ) {
-		$wpbdp_sub = new WPBDPStrpSubscription();
-		if ( $payment['status'] === 'complete' ) {
-			$wpbdp_sub->update( $sub->id, array( 'next_bill_date' => $payment['expire_date'] ) );
-		} elseif ( $payment['status'] === 'refunded' ) {
-			$wpbdp_sub->update( $sub->id, array( 'next_bill_date' => $payment['begin_date'] ) );
-		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	private function is_partial_refund() {
-		$partial = false;
-		if ( $this->status === 'refunded' ) {
-			$amount          = $this->invoice->amount;
-			$amount_refunded = $this->invoice->amount_refunded;
-			$partial         = $amount != $amount_refunded;
-		}
-		return $partial;
-	}
-
-	/**
-	 * @param array $payment_values
-	 * @return void
-	 */
-	private function set_partial_refund( &$payment_values ) {
-		$payment_values['amount'] = $this->invoice->amount - $this->invoice->amount_refunded;
-		$payment_values['amount'] = number_format( $payment_values['amount'] / 100, 2 );
 	}
 
 	/**
@@ -447,28 +163,121 @@ class WPBDPStrpEventsController {
 	 */
 	private function handle_event() {
 		$this->invoice = $this->event->data->object;
-		$this->charge  = isset( $this->invoice->charge ) ? $this->invoice->charge : false;
-		if ( ! $this->charge && $this->invoice->object === 'payment_intent' ) {
-			$this->charge = $this->invoice->id;
+
+		try {
+			$subscription   = new WPBDP__Listing_Subscription( 0, isset( $this->invoice->subscription ) ? $this->invoice->subscription : 0 );
+			$parent_payment = $subscription->get_parent_payment();
+		} catch ( Exception $e ) {
+			$subscription   = null;
+			$parent_payment = null;
 		}
 
-		$events = array(
-			'payment_intent.succeeded'      => 'complete',
-			'payment_intent.payment_failed' => 'failed',
-			'invoice.payment_succeeded'     => 'complete',
-			'invoice.payment_failed'        => 'failed',
-			'charge.refunded'               => 'refunded',
-		);
+		switch ( $this->event->type ) {
+			case 'invoice.payment_failed':
+				if ( $parent_payment && 'stripe' === $parent_payment->gateway ) {
 
-		if ( isset( $events[ $this->event->type ] ) ) {
-			$this->status = $events[ $this->event->type ];
-			$this->set_payment_status();
-		} elseif ( $this->event->type === 'customer.deleted' ) {
-			$this->reset_customer();
-		} elseif ( $this->event->type === 'customer.subscription.deleted' ) {
-			$this->subscription_canceled();
-		} elseif ( $this->event->type === 'customer.subscription.updated' ) {
-			$this->maybe_subscription_canceled();
+					$cancel = WPBDPStrpApiHelper::cancel_subscription( $subscription->get_subscription_id() );
+					if ( $cancel ) {
+						// Mark as canceled in BD.
+						$subscription->cancel();
+					}
+				}
+				break;
+			case 'invoice.payment_succeeded':
+				if ( ! $subscription ) {
+					$subscription = $this->maybe_create_listing_subscription();
+
+					if ( $subscription ) {
+						$parent_payment = $subscription->get_parent_payment();
+					}
+				}
+
+				$this->process_payment_succeeded( $subscription, $parent_payment, $invoice );
+
+				break;
+			case 'payment_intent.succeeded':
+				$this->process_payment_intent();
+				break;
 		}
+	}
+
+	private function maybe_create_listing_subscription() {
+		foreach ( $this->invoice->lines->data as $invoice_item ) {
+			if ( 'subscription' === $invoice_item->type ) {
+				$payment = wpbdp_get_payment( $invoice_item->metadata->wpbdp_payment_id );
+				break;
+			}
+		}
+
+		if ( ! $payment ) {
+			return null;
+		}
+
+		if ( $this->invoice->charge ) {
+
+			try {
+				// TODO: \Stripe\ does not exist. We need to update this.
+				$charge = \Stripe\Charge::retrieve( $this->invoice->charge );
+			} catch ( Exception $e ) {
+				$charge = null;
+			}
+
+			if ( $charge ) {
+				$this->save_payer_address( $payment, $charge->billing_details );
+			}
+		}
+
+		$payment->gateway       = $this->get_id();
+		$payment->gateway_tx_id = $invoice->id;
+		$payment->status        = 'completed';
+		$payment->save();
+
+		$this->set_listing_stripe_customer( $payment->listing_id, $this->invoice->customer );
+		$subscription = $payment->get_listing()->get_subscription();
+		if ( ! $subscription ) {
+			return null;
+		}
+
+		$subscription->set_subscription_id( $this->invoice->subscription );
+		$subscription->record_payment( $payment );
+
+		return $subscription;
+	}
+
+	private function process_payment_intent() {
+		$event = $this->event->data;
+
+		if ( empty( $event->object->id ) || 'manual' === $event->object->confirmation_method ) {
+			return;
+		}
+
+		// TODO: The function verify_transaction does not appear to exist.
+		$checkout = $this->verify_transaction( $event->object );
+
+		if ( ! $checkout ) {
+			return;
+		}
+
+		$checkout = array_shift( $checkout );
+		$payment  = wpbdp_get_payment( $checkout->data->object->client_reference_id );
+
+		if ( ! $payment || 'completed' == $payment->status ) {
+			return;
+		}
+
+		$payment->gateway = $this->get_id();
+		$payment->status  = 'completed';
+
+		if ( ! empty( $event->object->charges ) && ! empty( $event->object->charges->data[0] ) ) {
+			$charge = $event->object->charges->data[0];
+			$this->save_payer_address( $payment, $charge->billing_details );
+
+			$payment->gateway_tx_id = $charge->id;
+		} elseif ( ! empty( $event->object->latest_charge ) ) {
+			// Fallback to get the charge id from the invoice.
+			$payment->gateway_tx_id = $event->object->latest_charge;
+		}
+
+		$payment->save();
 	}
 }

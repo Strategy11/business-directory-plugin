@@ -258,50 +258,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @return void
-	 */
-	public function process_postback() {
-		// TODO: TRansfer me.
-
-		$invoice = $event->data->object;
-
-		try {
-			$subscription   = new WPBDP__Listing_Subscription( 0, isset( $invoice->subscription ) ? $invoice->subscription : 0 );
-			$parent_payment = $subscription->get_parent_payment();
-		} catch ( Exception $e ) {
-			$subscription   = null;
-			$parent_payment = null;
-		}
-
-		switch ( $event->type ) {
-			case 'invoice.payment_failed':
-				if ( $parent_payment && $this->get_id() === $parent_payment->gateway ) {
-					try {
-						$this->cancel_subscription( wpbdp_get_listing( $parent_payment->listing_id ), $subscription );
-					} catch ( Exception $e ) {
-						$subscription->cancel();
-					}
-				}
-				break;
-			case 'invoice.payment_succeeded':
-				if ( ! $subscription ) {
-					$subscription = $this->maybe_create_listing_subscription( $invoice );
-
-					if ( $subscription ) {
-						$parent_payment = $subscription->get_parent_payment();
-					}
-				}
-
-				$this->process_payment_succeeded( $subscription, $parent_payment, $invoice );
-
-				break;
-			case 'payment_intent.succeeded':
-				$this->process_payment_intent( $event->data );
-				break;
-		}
-	}
-
-	/**
 	 * @since x.x
 	 *
 	 * @throws Exception If the response is not valid.
@@ -352,84 +308,6 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			)
 		);
 		$subscription->renew();
-	}
-
-	private function process_payment_intent( $event ) {
-		if ( empty( $event->object->id ) || 'manual' === $event->object->confirmation_method ) {
-			return;
-		}
-
-		// TODO: The function verify_transaction does not appear to exist.
-		$checkout = $this->verify_transaction( $event->object );
-
-		if ( ! $checkout ) {
-			return;
-		}
-
-		$checkout = array_shift( $checkout );
-		$payment  = wpbdp_get_payment( $checkout->data->object->client_reference_id );
-
-		if ( ! $payment || 'completed' == $payment->status ) {
-			return;
-		}
-
-		$payment->gateway = $this->get_id();
-		$payment->status  = 'completed';
-
-		if ( ! empty( $event->object->charges ) && ! empty( $event->object->charges->data[0] ) ) {
-			$charge = $event->object->charges->data[0];
-			$this->save_payer_address( $payment, $charge->billing_details );
-
-			$payment->gateway_tx_id = $charge->id;
-		} elseif ( ! empty( $event->object->latest_charge ) ) {
-			// Fallback to get the charge id from the invoice.
-			$payment->gateway_tx_id = $event->object->latest_charge;
-		}
-
-		$payment->save();
-	}
-
-	private function maybe_create_listing_subscription( $invoice ) {
-		foreach ( $invoice->lines->data as $invoice_item ) {
-			if ( 'subscription' === $invoice_item->type ) {
-				$payment = wpbdp_get_payment( $invoice_item->metadata->wpbdp_payment_id );
-				break;
-			}
-		}
-
-		if ( ! $payment ) {
-			return null;
-		}
-
-		if ( $invoice->charge ) {
-
-			try {
-				// TODO: \Stripe\ does not exist. We need to update this.
-				$charge = \Stripe\Charge::retrieve( $invoice->charge );
-			} catch ( Exception $e ) {
-				$charge = null;
-			}
-
-			if ( $charge ) {
-				$this->save_payer_address( $payment, $charge->billing_details );
-			}
-		}
-
-		$payment->gateway       = $this->get_id();
-		$payment->gateway_tx_id = $invoice->id;
-		$payment->status        = 'completed';
-		$payment->save();
-
-		$this->set_listing_stripe_customer( $payment->listing_id, $invoice->customer );
-		$subscription = $payment->get_listing()->get_subscription();
-		if ( ! $subscription ) {
-			return null;
-		}
-
-		$subscription->set_subscription_id( $invoice->subscription );
-		$subscription->record_payment( $payment );
-
-		return $subscription;
 	}
 
 	private function get_stripe_customer( $payment, $create = true ) {
