@@ -410,9 +410,10 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 			);
 			$parameters['discounts']         = $this->get_discounts( $payment );
 		} else {
+			$checkout_title           = $this->get_option( 'checkout-title' );
 			$parameters['line_items'] = array(
 				array(
-					'name'        => esc_attr( get_bloginfo( 'name' ) ),
+					'name'        => esc_attr( $checkout_title ? $checkout_title : get_bloginfo( 'name' ) ),
 					'description' => $payment->summary,
 					'amount'      => $this->formated_amount( $payment->amount ),
 					'currency'    => strtolower( $payment->currency_code ),
