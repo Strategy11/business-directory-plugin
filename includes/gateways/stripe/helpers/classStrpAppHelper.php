@@ -56,7 +56,7 @@ class WPBDPStrpAppHelper {
 		$free_license_type = 'lite';
 		$stripe_product_id = 1934;
 
-		include_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/class-modules-api.php';
+		include_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/admin/helpers/class-modules-api.php';
 
 		$api    = new WPBDP_Modules_API();
 		$addons = $api->get_api_info();
