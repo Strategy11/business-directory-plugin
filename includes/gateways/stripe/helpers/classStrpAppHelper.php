@@ -31,10 +31,8 @@ class WPBDPStrpAppHelper {
 	 *
 	 * @return void
 	 */
-	public static function fee_education( $medium = 'tip' ) {
-		$license_type = self::get_license_type();
-
-		if ( in_array( $license_type, array( 'elite', 'pro' ), true ) ) {
+	public static function fee_education() {
+		if ( ! self::license_includes_stripe_fees() ) {
 			return;
 		}
 
@@ -50,27 +48,16 @@ class WPBDPStrpAppHelper {
 	/**
 	 * @since x.x
 	 *
-	 * @return string
+	 * @return bool
 	 */
-	public static function get_license_type() {
-		$free_license_type = 'lite';
-		$stripe_product_id = 1934;
-
+	public static function license_includes_stripe_fees() {
 		include_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/admin/helpers/class-modules-api.php';
 
-		$api    = new WPBDP_Modules_API();
-		$addons = $api->get_api_info();
+		$api               = new WPBDP_Modules_API();
+		$addons            = $api->get_api_info();
+		$stripe_product_id = 1934;
 
-		if ( ! isset( $addons[ $stripe_product_id ] ) ) {
-			return $free_license_type;
-		}
-
-		$addon = $addons[ $stripe_product_id ];
-		if ( ! isset( $addon['type'] ) ) {
-			return $free_license_type;
-		}
-
-		return isset( $addon['type'] ) ? strtolower( $addon['type'] ) : $free_license_type;
+		return ! isset( $addons[ $stripe_product_id ] ) || empty( $addons[ $stripe_product_id ]['package'] );
 	}
 
 	/**
