@@ -597,8 +597,6 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @todo I can probably remove this.
-	 *
 	 * @return void
 	 */
 	public static function stripe_icon() {
