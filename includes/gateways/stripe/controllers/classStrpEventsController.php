@@ -257,20 +257,8 @@ class WPBDPStrpEventsController {
 
 	private function set_listing_stripe_customer( $listing_id, $customer_id ) {
 		if ( $listing_id && ! empty( $customer_id ) ) {
-			update_post_meta( $listing_id, $this->customer_meta_name(), $customer_id );
+			update_post_meta( $listing_id, WPBDPStrpAppHelper::customer_meta_name(), $customer_id );
 		}
-	}
-
-	/**
-	 * The name of the post or user meta, depending on test or live mode.
-	 *
-	 * @since x.x
-	 *
-	 * @return string
-	 */
-	private function customer_meta_name() {
-		$test_mode = wpbdp_get_option( 'payments-test-mode' );
-		return '_wpbdp_stripe_customer_id' . ( $test_mode ? '_test' : '' );
 	}
 
 	/**

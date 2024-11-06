@@ -326,7 +326,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @return string
 	 */
 	private function customer_meta_name() {
-		return '_wpbdp_stripe_customer_id' . ( $this->in_test_mode() ? '_test' : '' );
+		return WPBDPStrpAppHelper::customer_meta_name();
 	}
 
 	/**

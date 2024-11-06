@@ -52,4 +52,14 @@ class WPBDPStrpAppHelper {
 		);
 		*/
 	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public static function customer_meta_name() {
+		$test_mode = wpbdp_get_option( 'payments-test-mode' );
+		return '_wpbdp_stripe_customer_id' . ( $test_mode ? '_test' : '' );
+	}
 }

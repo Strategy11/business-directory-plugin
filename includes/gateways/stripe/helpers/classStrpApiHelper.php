@@ -19,8 +19,7 @@ class WPBDPStrpApiHelper {
 			$customer_id = false;
 		} else {
 			$user_id     = get_current_user_id();
-			$test_mode   = wpbdp_get_option( 'payments-test-mode' );
-			$meta_name   = '_wpbdp_stripe_customer_id' . ( $test_mode ? '_test' : '' );
+			$meta_name   = WPBDPStrpAppHelper::customer_meta_name();
 			$customer_id = get_user_meta( $user_id, $meta_name, true );
 
 			if ( ! $customer_id || ! WPBDPStrpConnectHelper::validate_customer( $customer_id ) ) {
