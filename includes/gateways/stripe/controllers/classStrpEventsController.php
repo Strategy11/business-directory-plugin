@@ -181,7 +181,7 @@ class WPBDPStrpEventsController {
 			case 'invoice.payment_failed':
 				if ( $parent_payment && 'stripe' === $parent_payment->gateway ) {
 
-					$cancel = WPBDPStrpApiHelper::cancel_subscription( $subscription->get_subscription_id() );
+					$cancel = WPBDPStrpConnectHelper::cancel_subscription( $subscription->get_subscription_id(), false );
 					if ( $cancel ) {
 						// Mark as canceled in BD.
 						$subscription->cancel();
