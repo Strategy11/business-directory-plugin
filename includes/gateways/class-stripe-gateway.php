@@ -140,6 +140,8 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 */
 	public function connect_setting( $setting, $value ) {
 		ob_start();
+		WPBDPStrpAppHelper::fee_education( 'settings' );
+
 		WPBDPStrpConnectHelper::render_stripe_connect_settings_container();
 		$html = ob_get_clean();
 

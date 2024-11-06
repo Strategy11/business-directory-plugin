@@ -32,25 +32,45 @@ class WPBDPStrpAppHelper {
 	 * @return void
 	 */
 	public static function fee_education( $medium = 'tip' ) {
-		$license_type = ''; // TODO
-		if ( in_array( $license_type, array( 'elite', 'business' ), true ) ) {
+		$license_type = self::get_license_type();
+
+		if ( in_array( $license_type, array( 'elite', 'pro' ), true ) ) {
 			return;
 		}
 
-		/*
-		show_tip(
-			array(
-				'link'  => array(
-					'content' => 'stripe-fee',
-					'medium'  => $medium,
-				),
-				'tip'   => 'Pay as you go pricing: 3% fee per-transaction + Stripe fees.',
-				'call'  => __( 'Upgrade to save on fees.', 'business-directory-plugin' ),
-				'class' => 'wpbdp-light-tip',
-			),
-			'p'
+		WPBDP_Admin_Education::show_tip_message(
+			esc_html__( 'Pay as you go pricing: 3% fee per-transaction + Stripe fees.', 'business-directory-plugin' )
+			. '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'stripe-fees' ) ) . '" target="_blank" rel="noopener" style="margin-left: auto;">' . esc_html__( 'Upgrade to save on fees.', 'business-directory-plugin' ) . '</a>'
 		);
-		*/
+
+		// Add some padding below the tip so it isn't right against the Stripe buttons.
+		echo '<br>';
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	public static function get_license_type() {
+		$free_license_type = 'lite';
+		$stripe_product_id = 1934;
+
+		include_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/class-modules-api.php';
+
+		$api    = new WPBDP_Modules_API();
+		$addons = $api->get_api_info();
+
+		if ( ! isset( $addons[ $stripe_product_id ] ) ) {
+			return $free_license_type;
+		}
+
+		$addon = $addons[ $stripe_product_id ];
+		if ( ! isset( $addon['type'] ) ) {
+			return $free_license_type;
+		}
+
+		return isset( $addon['type'] ) ? strtolower( $addon['type'] ) : $free_license_type;
 	}
 
 	/**
