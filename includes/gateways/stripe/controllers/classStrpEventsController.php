@@ -177,16 +177,6 @@ class WPBDPStrpEventsController {
 			$parent_payment = null;
 		}
 
-		if ( class_exists( 'FrmLog' ) ) {
-			$log = new FrmLog();
-			$log->add(
-				array(
-					'title'   => 'Processing BD Stripe Event',
-					'content' => print_r( $this->event, true ),
-				)
-			);
-		}
-
 		switch ( $this->event->type ) {
 			case 'invoice.payment_failed':
 				if ( $parent_payment && 'stripe' === $parent_payment->gateway ) {
