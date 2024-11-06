@@ -538,14 +538,8 @@ class WPBDPStrpConnectHelper {
 	 * @return false|string
 	 */
 	private static function maybe_get_pro_license() {
-		return false; // TODO.
-		if ( FrmAppHelper::pro_is_installed() ) {
-			$pro_license = FrmAddonsController::get_pro_license();
-			if ( $pro_license ) {
-				$password = $pro_license;
-			}
-		}
-		return ! empty( $password ) ? $password : false;
+		$license = wpbdp_get_option( 'license-key-module-business-directory-premium' );
+		return is_string( $license ) ? $license : false;
 	}
 
 	/**
