@@ -31,4 +31,4 @@ jobs:
         run: composer install
 
       - name: "🧪 Test"
-        run: phpstan analyze ./
+        run: vendor/bin/phpstan analyze ./
