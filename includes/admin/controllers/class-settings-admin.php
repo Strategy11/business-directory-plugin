@@ -610,10 +610,16 @@ class WPBDP__Settings_Admin {
 		$this->setting_text_callback( $setting, $value );
 	}
 
+	/**
+	 * @param array $setting
+	 * @param mixed $value
+	 *
+	 * @return void
+	 */
 	public function setting_email_template_callback( $setting, $value ) {
 		if ( ! is_array( $value ) ) {
 			$value = array(
-				'subject' => $setting['default']['subject'],
+				'subject' => is_array( $setting['default'] ) && isset( $setting['default']['subject'] ) ? $setting['default']['subject'] : '',
 				'body'    => $value,
 			);
 		}

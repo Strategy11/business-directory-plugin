@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.6.3
-Stable tag: 6.4.6
+Tested up to: 6.6.2
+Stable tag: 6.4.7
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,13 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.7 =
+* New: A new option was added to set a redirect URL for the login process. Now the users can be redirected to any page after logging in.
+* Fix: Issue with the caching mechanism for listings when using Elementor
+* Fix: 2 PHP notices when using PHP 8.4
+* Fix: A PHP warning on the email templates page
+* Fix: The label for the upgrade button now shows "Install Now" if the user already has access to the add-on
+
 = 6.4.6 =
 * Added a redirect mechanism for expired listings. If a guest visits an expired listing they will be redirected to the main directory page and a message will be shown.
 * Added TikTok to the social media form fields
@@ -216,12 +223,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Hide more admin notices from other plugins. This was confusing when it looked like the notice was from BD.
 * Fix: WP 6.4 compatibility. The category page lost its content with some themes.
 * Code: Start autoloading more classes for lower baseline memory usage.
-
-= 6.3.10 =
-* New: Add more detail in the Recaptcha validation message for editors or higher for help debugging. Any error code and V3 score will be shown.
-* Security: It was possible for a logged in "contributor" user to delete an admin listing.
-* Fix: Sticky listings weren't showing at the top when shown using a shortcode or a category page.
-* Fix: Sticky listings were always in the same order, regardless of settings
-* Fix: If a private field is switched to a type that doesn't have privacy options, show the option so it can be turned off.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
