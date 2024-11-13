@@ -386,6 +386,16 @@ final class WPBDP {
 	}
 
 	public function plugin_activation() {
+		require_once WPBDP_INC . 'admin/controllers/class-onboarding-wizard.php';
+
+		if ( get_transient( WPBDP_Onboarding_Wizard::TRANSIENT_NAME ) !== 'no' ) {
+			set_transient(
+				WPBDP_Onboarding_Wizard::TRANSIENT_NAME,
+				WPBDP_Onboarding_Wizard::TRANSIENT_VALUE,
+				60
+			);
+		}
+
 		add_action( 'shutdown', 'flush_rewrite_rules' );
 		wpbdp_delete_page_ids_cache();
 	}

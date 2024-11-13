@@ -307,6 +307,7 @@ module.exports = function( grunt ) {
 			'assets/css/less/widgets.less',
 			'assets/css/less/wpbdp.less',
 			'assets/css/less/admin.less',
+			'assets/css/less/onboarding-wizard.less',
 			'assets/css/less/admin-manual-upgrade.less',
 			'assets/css/less/admin-csv-import.less',
 			'assets/css/less/admin-export.less',
