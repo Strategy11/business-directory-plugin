@@ -405,6 +405,91 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		/**
+		 * @since x.x
+		 *
+		 * @return void
+		 */
+		private function maybe_add_black_friday_submenu_item() {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
+			$is_black_friday = self::is_black_friday();
+			$is_cyber_monday = self::is_cyber_monday();
+
+			if ( ! $is_black_friday && ! $is_cyber_monday ) {
+				return;
+			}
+
+			$black_friday_menu_label = $is_black_friday ? __( 'Black Friday!', 'business-directory-plugin' ) : __( 'Cyber Monday!', 'business-directory-plugin' );
+			$black_friday_menu_label = '<span class="frm-orange-text">' . esc_html( $black_friday_menu_label ) . '</span>';
+
+			global $submenu;
+			$submenu[ $this->menu_id ][] = array(
+				$black_friday_menu_label,
+				'manage_options',
+				wpbdp_admin_upgrade_link( 
+					array( 
+						'medium'  => 'black-friday-submenu', 
+						'content' => 'black-friday-submenu',
+					), 
+					'black-friday' ),
+			);
+		}
+
+		/**
+		 * Black Friday sale is from November 25 to 29.
+		 *
+		 * @since x.x
+		 *
+		 * @return bool
+		 */
+		private function is_black_friday() {
+			return $this->within_sale_date_range( '2024-11-25', '2024-11-29' );
+		}
+
+		/**
+		 * Cyber Monday sale rules from November 30 to December 4.
+		 *
+		 * @since x.x
+		 *
+		 * @return bool
+		 */
+		private function is_cyber_monday() {
+			return $this->within_sale_date_range( '2024-11-30', '2024-12-04' );
+		}
+
+		/**
+		 * Check if the current time is within a sale date range.
+		 * Our sales are based on Eastern Time, so we use New York's timezone.
+		 *
+		 * @since x.x
+		 *
+		 * @param string $from The beginning of the date range. Y-m-d format is expected.
+		 * @param string $to   The end of the date range. Y-m-d format is expected.
+		 * @return bool
+		 */
+		private function within_sale_date_range( $from, $to ) {
+			$date  = new DateTime( 'now', new DateTimeZone( 'America/New_York' ) );
+			$today = $date->format( 'Y-m-d' );
+
+			return $today >= $from && $today <= $to;
+		}
+
+		/**
+		 * Redirect to Black Friday sales page when the menu item is clicked.
+		 *
+		 * @since x.x
+		 *
+		 * @return void
+		 */
+		public function redirect_blackfriday() {
+			//phpcs:ignore
+			wp_redirect('https://businessdirectoryplugin.com/black-friday/?utm_source=WordPress&utm_medium=black-friday-submenu&utm_campaign=liteplugin&utm_content=black-friday-submenu');
+			die();
+		}
+
+		/**
 		 * Get the menu id.
 		 *
 		 * @since 6.0
@@ -460,6 +545,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			remove_submenu_page( $menu_id, $menu_id );
 			$this->add_upgrade_menu();
+			$this->maybe_add_black_friday_submenu_item();
 		}
 
 		/**
