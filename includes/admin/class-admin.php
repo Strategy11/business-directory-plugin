@@ -422,7 +422,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			$black_friday_menu_label = $is_black_friday ? __( 'Black Friday!', 'business-directory-plugin' ) : __( 'Cyber Monday!', 'business-directory-plugin' );
-			$black_friday_menu_label = '<span class="frm-orange-text">' . esc_html( $black_friday_menu_label ) . '</span>';
+			$black_friday_menu_label = '<span class="wpbdp-orange-text">' . esc_html( $black_friday_menu_label ) . '</span>';
 
 			global $submenu;
 			$submenu[ $this->menu_id ][] = array(
