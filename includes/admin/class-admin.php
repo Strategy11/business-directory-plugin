@@ -433,7 +433,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 						'medium'  => 'black-friday-submenu', 
 						'content' => 'black-friday-submenu',
 					), 
-					'black-friday' ),
+					'black-friday' 
+				),
 			);
 		}
 
