@@ -478,19 +478,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		/**
-		 * Redirect to Black Friday sales page when the menu item is clicked.
-		 *
-		 * @since x.x
-		 *
-		 * @return void
-		 */
-		public function redirect_blackfriday() {
-			//phpcs:ignore
-			wp_redirect('https://businessdirectoryplugin.com/black-friday/?utm_source=WordPress&utm_medium=black-friday-submenu&utm_campaign=liteplugin&utm_content=black-friday-submenu');
-			die();
-		}
-
-		/**
 		 * Get the menu id.
 		 *
 		 * @since 6.0
