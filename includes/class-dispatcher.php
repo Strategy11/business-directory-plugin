@@ -99,7 +99,7 @@ class WPBDP__Dispatcher {
 	public function login_redirect( $redirect_to, $requested_redirect_to, $user ) {
 		// Prevent redirection if option is disabled or user is admin.
 		if ( ! wpbdp_get_option( 'login-redirect' ) || ( ! is_wp_error( $user ) && user_can( $user, 'manage_options' ) ) ) {
-			return admin_url();
+			return $redirect_to;
 		}
 
 		$url = wpbdp_url();
