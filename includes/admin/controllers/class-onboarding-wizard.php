@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Handles the Onboarding Wizard page in the admin area.
  *
- * @since x.x
+ * @since 6.4.8
  */
 final class WPBDP_Onboarding_Wizard {
 
@@ -85,7 +85,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Initialize hooks for template page only.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 */
 	public function load_admin_hooks() {
 		$this->set_page_url();
@@ -162,7 +162,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Initializes the Onboarding Wizard setup if on its designated admin page.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return void
 	 */
@@ -184,7 +184,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Add Onboarding Wizard menu item to sidebar and define index page.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return void
 	 */
@@ -208,7 +208,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Renders the Onboarding Wizard page in the WordPress admin area.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return void
 	 */
@@ -235,7 +235,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Handle AJAX request to setup the "Never miss an important update" step.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return void
 	 */
@@ -256,7 +256,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * When the user consents to receiving news of updates, subscribe their email to ActiveCampaign.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return void
 	 */
@@ -282,7 +282,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Enqueues the Onboarding Wizard page scripts and styles.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return void
 	 */
@@ -297,7 +297,7 @@ final class WPBDP_Onboarding_Wizard {
 		/**
 		 * Fires after the Onboarding Wizard enqueue assets.
 		 *
-		 * @since x.x
+		 * @since 6.4.8
 		 */
 		do_action( 'wpbdp_onboarding_wizard_enqueue_assets' );
 	}
@@ -305,7 +305,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Get the Onboarding Wizard JS variables as an array.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return array
 	 */
@@ -319,7 +319,7 @@ final class WPBDP_Onboarding_Wizard {
 	 * Remove the Onboarding Wizard submenu page from the bD parent menu
 	 * since it is not necessary to show that link there.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return void
 	 */
@@ -332,7 +332,7 @@ final class WPBDP_Onboarding_Wizard {
 	 *
 	 * The function appends a custom class to the existing admin body classes, enabling full-screen mode for the admin interface.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @param string $classes Existing body classes.
 	 *
@@ -345,7 +345,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Checks if the Onboarding Wizard was skipped during the plugin's installation.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return bool True if the Onboarding Wizard was skipped, false otherwise.
 	 */
@@ -356,7 +356,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Marks the Onboarding Wizard as skipped to prevent automatic redirects to the wizard.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return void
 	 */
@@ -367,7 +367,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Check if the current page is the Onboarding Wizard page.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return bool True if the current page is the Onboarding Wizard page, false otherwise.
 	 */
@@ -392,7 +392,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Get the path to the Onboarding Wizard views.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return string Path to views.
 	 */
@@ -412,7 +412,7 @@ final class WPBDP_Onboarding_Wizard {
 	/**
 	 * Get the path to the Onboarding Wizard views.
 	 *
-	 * @since x.x
+	 * @since 6.4.8
 	 *
 	 * @return string Path to views.
 	 */
