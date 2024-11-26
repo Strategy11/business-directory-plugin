@@ -467,6 +467,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 *
 		 * @param string $from The beginning of the date range. Y-m-d format is expected.
 		 * @param string $to   The end of the date range. Y-m-d format is expected.
+		 *
 		 * @return bool
 		 */
 		private function within_sale_date_range( $from, $to ) {
