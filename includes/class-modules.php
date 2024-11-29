@@ -47,15 +47,8 @@ class WPBDP__Modules {
 	 * @return bool
 	 */
 	private function should_unload_stripe_module() {
-		global $wp_filter;
-		if ( ! isset( $wp_filter['wpbdp_load_modules'] ) || empty( $wp_filter['wpbdp_load_modules']->callbacks ) ) {
-			// No modules found.
-			return false;
-		}
-
-		$callbacks = $wp_filter['wpbdp_load_modules']->callbacks;
-		if ( ! isset( $callbacks[10] ) || empty( $callbacks[10]['WPBDP__Stripe::load'] ) ) {
-			// Stripe module (add-on) not found.
+		if ( ! has_action( 'wpbdp_load_modules', array( 'WPBDP__Stripe', 'load' ) ) ) {
+			// Stripe module (add-on) not found, nothing to unload.
 			return false;
 		}
 
@@ -105,8 +98,7 @@ class WPBDP__Modules {
 	 * @return void
 	 */
 	private function unload_stripe_addon() {
-		global $wp_filter;
-		unset( $wp_filter['wpbdp_load_modules']->callbacks[10]['WPBDP__Stripe::load'] );
+		remove_action( 'wpbdp_load_modules', array( 'WPBDP__Stripe', 'load' ), 10 );
 	}
 
 	/**
