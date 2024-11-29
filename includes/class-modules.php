@@ -93,7 +93,7 @@ class WPBDP__Modules {
 			if ( ! empty( $settings[ $key ] ) ) {
 				return true;
 			}
-		}	
+		}
 
 		return false;
 	}

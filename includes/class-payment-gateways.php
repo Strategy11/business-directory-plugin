@@ -23,9 +23,11 @@ class WPBDP__Payment_Gateways {
 	public function load_gateways() {
 		$gateways = array();
 
-		// Add Authorize.net by default.
-		require_once WPBDP_PATH . 'includes/gateways/class-stripe-gateway.php';
-        $gateways[] = new WPBDPStripeGateway();
+		// Add Stripe by default, if the add-on is not already configured.
+		if ( $this->should_include_stripe_lite_gateway() ) {
+			require_once WPBDP_PATH . 'includes/gateways/class-stripe-gateway.php';
+			$gateways[] = new WPBDPStripeGateway();
+		}
 
 		// Allow modules to add gateways.
 		$gateways = apply_filters( 'wpbdp_payment_gateways', $gateways );
@@ -35,6 +37,32 @@ class WPBDP__Payment_Gateways {
 
 			$this->gateways[ $gateway->get_id() ] = $gateway;
 		}
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function should_include_stripe_lite_gateway() {
+		$settings = get_option( 'wpbdp_settings' );
+		if ( ! is_array( $settings ) ) {
+			return true;
+		}
+
+		$keys = array(
+			'stripe-test-publishable-key',
+			'stripe-test-secret-key',
+			'stripe-live-publishable-key',
+			'stripe-live-secret-key',
+		);
+		foreach ( $keys as $key ) {
+			if ( ! empty( $settings[ $key ] ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public function _execute_listener() {
