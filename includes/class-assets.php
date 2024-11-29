@@ -442,7 +442,9 @@ class WPBDP__Assets {
 		$this->global_localize( 'wpbdp-admin-js' );
 
 		// Enqueue Floating Links.
-		self::enqueue_floating_links( WPBDP_ASSETS_URL, WPBDP_VERSION );
+		if ( apply_filters( 'wpbdp_enqueue_floating_links', true ) ) {
+			self::enqueue_floating_links( WPBDP_ASSETS_URL, WPBDP_VERSION );
+		}
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector' . $min . '.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 

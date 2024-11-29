@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.9
 Requires PHP: 7.0
-Tested up to: 6.6.3
-Stable tag: 6.4.6
+Tested up to: 6.7.1
+Stable tag: 6.4.8
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,16 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.8 =
+* Fix: Issue with the redirect chain for the new login redirect feature
+
+= 6.4.7 =
+* New: A new option was added to set a redirect URL for the login process. Now the users can be redirected to any page after logging in.
+* Fix: Issue with the caching mechanism for listings when using Elementor
+* Fix: 2 PHP notices when using PHP 8.4
+* Fix: A PHP warning on the email templates page
+* Fix: The label for the upgrade button now shows "Install Now" if the user already has access to the add-on
+
 = 6.4.6 =
 * Added a redirect mechanism for expired listings. If a guest visits an expired listing they will be redirected to the main directory page and a message will be shown.
 * Added TikTok to the social media form fields
@@ -202,26 +212,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: The listing appearance option was showing as HTML.
 * Fix: Updates for better PHP 8.2 compatibility.
 * Fix: Russian characters were causing fatal errors in some cases.
-
-= 6.3.11 =
-* New: Allow editors to edit listings from front-end.
-* New: Update Twitter logo to X.
-* New: Add edit listing link on payment confirmation page. This is espeically helpful after a listing was claimed.
-* Security: The payment history on a listing could be cleared by non-admins.
-* Security hardening: Check nonce and user role with all back-end ajax calls.
-* Rename a few social site settings to make them more clear.
-* Improve the layout of social icons.
-* Switch from using roles to capabilities. Now a custom role could have access by using the 'manage_posts' and 'edit_others_posts' capabilities.
-* Change the wording above the contact form so it makes sense for any directory type.
-* Hide more admin notices from other plugins. This was confusing when it looked like the notice was from BD.
-* Fix: WP 6.4 compatibility. The category page lost its content with some themes.
-* Code: Start autoloading more classes for lower baseline memory usage.
-
-= 6.3.10 =
-* New: Add more detail in the Recaptcha validation message for editors or higher for help debugging. Any error code and V3 score will be shown.
-* Security: It was possible for a logged in "contributor" user to delete an admin listing.
-* Fix: Sticky listings weren't showing at the top when shown using a shortcode or a category page.
-* Fix: Sticky listings were always in the same order, regardless of settings
-* Fix: If a private field is switched to a type that doesn't have privacy options, show the option so it can be turned off.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
