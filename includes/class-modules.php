@@ -11,6 +11,10 @@ class WPBDP__Modules {
 	}
 
 	private function register_modules() {
+		if ( $this->should_unload_stripe_module() ) {
+			$this->unload_stripe_addon();
+		}
+
 		// Allow modules to register themselves with this class.
 		do_action( 'wpbdp_load_modules', $this );
 
@@ -33,6 +37,68 @@ class WPBDP__Modules {
 				$this->valid[] = $mod->id;
 			}
 		}
+	}
+
+	/**
+	 * If Stripe Connect is set-up (in BD Lite), unload the Stripe module (the add-on).
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function should_unload_stripe_module() {
+		if ( ! has_action( 'wpbdp_load_modules', array( 'WPBDP__Stripe', 'load' ) ) ) {
+			// Stripe module (add-on) not found, nothing to unload.
+			return false;
+		}
+
+		$connect_test_is_setup = WPBDPStrpConnectHelper::stripe_connect_is_setup( 'test' );
+		$connect_live_is_setup = WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' );
+
+		if ( $connect_test_is_setup && $connect_live_is_setup ) {
+			// Always unload if both Stripe Connect modes are connected.
+			return true;
+		}
+
+		return ! $this->stripe_api_keys_are_set();
+	}
+
+	/**
+	 * Check if Stripe API keys are set in BD Lite settings.
+	 * If any are set, Stripe Lite will not load and we'll fallback on the Stripe module (add-on).
+	 *
+	 * @since x.x
+	 *
+	 * @return bool True if API keys are defined using the Stripe module.
+	 */
+	private function stripe_api_keys_are_set() {
+		$settings = get_option( 'wpbdp_settings' );
+		if ( ! is_array( $settings ) ) {
+			return false;
+		}
+
+		$keys = array(
+			'stripe-test-publishable-key',
+			'stripe-test-secret-key',
+			'stripe-live-publishable-key',
+			'stripe-live-secret-key',
+		);
+		foreach ( $keys as $key ) {
+			if ( ! empty( $settings[ $key ] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return void
+	 */
+	private function unload_stripe_addon() {
+		remove_action( 'wpbdp_load_modules', array( 'WPBDP__Stripe', 'load' ), 10 );
 	}
 
 	/**

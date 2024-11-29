@@ -47,7 +47,44 @@ jQuery(function($) {
                 self.working = false;
 
                 $( window ).trigger( 'wpbdp-payment-gateway-loaded', gateway_id );
+
+                const submitButtonSelector = $( '.wpbdp-checkout-submit input[type="submit"]:visible' );
+
+                if ( 'stripe' === gateway_id ) {
+                    submitButtonSelector.on( 'click', self.sendToStripe );
+                } else {
+                    submitButtonSelector.off( 'click', self.sendToStripe );
+                }
             } );
+        },
+
+        sendToStripe: function( event ) {
+            if ( 'stripe' !== $( 'form#wpbdp-checkout-form [name="gateway"]:checked' ).val() ) {
+                return false;
+            }
+
+            event.preventDefault();
+
+            const configurationElement = document.getElementById( 'wpbdp-stripe-checkout-configuration' );
+            if ( ! configurationElement ) {
+                return false;
+            }
+
+            const configuration = $.parseJSON( configurationElement.dataset.configuration );
+            const stripe        = Stripe( configuration.key, { stripeAccount: configuration.accountId } );
+
+            stripe.redirectToCheckout({
+                // Make the id field from the Checkout Session creation API response
+                // available to this file, so you can provide it as parameter here
+                // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+                sessionId: configuration.sessionId
+            }).then(function ( result ) {
+                // If `redirectToCheckout` fails due to a browser or network
+                // error, display the localized error message to your customer
+                // using `result.error.message`.
+            });
+
+            return false;
         }
     };
 

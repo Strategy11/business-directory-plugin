@@ -36,6 +36,8 @@ namespace {
 
 	define( 'AUTH_KEY', '' );
 
+	define( 'ICL_PLUGIN_INACTIVE', false );
+
 	function wpbdp() {
 		static $instance = null;
 
