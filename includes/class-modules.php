@@ -11,6 +11,10 @@ class WPBDP__Modules {
 	}
 
 	private function register_modules() {
+		if ( $this->should_unload_stripe_module() ) {
+			$this->unload_stripe_addon();
+		}
+
 		// Allow modules to register themselves with this class.
 		do_action( 'wpbdp_load_modules', $this );
 
@@ -33,6 +37,75 @@ class WPBDP__Modules {
 				$this->valid[] = $mod->id;
 			}
 		}
+	}
+
+	/**
+	 * If Stripe Connect is set-up (in BD Lite), unload the Stripe module (the add-on).
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function should_unload_stripe_module() {
+		global $wp_filter;
+		if ( ! isset( $wp_filter['wpbdp_load_modules'] ) || empty( $wp_filter['wpbdp_load_modules']->callbacks ) ) {
+			// No modules found.
+			return false;
+		}
+
+		$callbacks = $wp_filter['wpbdp_load_modules']->callbacks;
+		if ( ! isset( $callbacks[10] ) || empty( $callbacks[10]['WPBDP__Stripe::load'] ) ) {
+			// Stripe module (add-on) not found.
+			return false;
+		}
+
+		$connect_test_is_setup = WPBDPStrpConnectHelper::stripe_connect_is_setup( 'test' );
+		$connect_live_is_setup = WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' );
+
+		if ( $connect_test_is_setup && $connect_live_is_setup ) {
+			// Always unload if both Stripe Connect modes are connected.
+			return true;
+		}
+
+		return ! $this->stripe_api_keys_are_set();
+	}
+
+	/**
+	 * Check if Stripe API keys are set in BD Lite settings.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool True if API keys are defined using the Stripe module.
+	 */
+	private function stripe_api_keys_are_set() {
+		$settings = get_option( 'wpbdp_settings' );
+		if ( ! is_array( $settings ) ) {
+			return false;
+		}
+
+		$keys = array(
+			'stripe-test-publishable-key',
+			'stripe-test-secret-key',
+			'stripe-live-publishable-key',
+			'stripe-live-secret-key',
+		);
+		foreach ( $keys as $key ) {
+			if ( ! empty( $settings[ $key ] ) ) {
+				return true;
+			}
+		}	
+
+		return false;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return void
+	 */
+	private function unload_stripe_addon() {
+		global $wp_filter;
+		unset( $wp_filter['wpbdp_load_modules']->callbacks[10]['WPBDP__Stripe::load'] );
 	}
 
 	/**

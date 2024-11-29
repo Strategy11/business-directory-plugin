@@ -20,8 +20,6 @@ class WPBDPStrpConnectHelper {
 	public static function check_for_stripe_connect_webhooks() {
 		if ( wp_doing_ajax() ) {
 			self::check_for_stripe_connect_ajax_actions();
-		} elseif ( self::user_landed_on_the_return_url() ) {
-			self::redirect();
 		} elseif ( self::user_landed_on_the_oauth_return_url() ) {
 			self::redirect_oauth();
 		}
@@ -52,13 +50,6 @@ class WPBDPStrpConnectHelper {
 		}
 
 		self::$function();
-	}
-
-	/**
-	 * @return bool
-	 */
-	private static function user_landed_on_the_return_url() {
-		return isset( $_GET['frm_stripe_connect_return'] );
 	}
 
 	/**
@@ -274,12 +265,6 @@ class WPBDPStrpConnectHelper {
 			'server_password' => get_option( self::get_server_side_token_option_name( $mode ) ),
 			'client_password' => get_option( self::get_client_side_token_option_name( $mode ) ),
 		);
-	}
-
-	private static function redirect() {
-		$connected = self::check_server_for_connected_account_status();
-		header( 'Location: ' . self::get_url_for_stripe_settings( $connected ), true, 302 );
-		exit;
 	}
 
 	private static function redirect_oauth() {
