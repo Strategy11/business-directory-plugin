@@ -311,9 +311,7 @@ class WPBDPStrpEventsController {
 		$completed = array_filter(
 			$events,
 			function ( $event ) use ( $payment ) {
-				if ( $event->data->object->payment_intent === $payment->id ) {
-					return true;
-				}
+				return isset( $event->data->object->payment_intent ) && $event->data->object->payment_intent === $payment->id;
 			}
 		);
 
