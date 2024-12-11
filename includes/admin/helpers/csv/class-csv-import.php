@@ -135,7 +135,10 @@ class WPBDP_CSV_Import {
 			}
 
 			$result = $this->import_row( $listing_data );
-			@set_time_limit( 0 );
+
+			if ( function_exists( 'set_time_limit' ) ) {
+				@set_time_limit( 0 );
+			}
 
 			if ( is_wp_error( $result ) ) {
 				foreach ( $result->get_error_messages() as $e ) {
