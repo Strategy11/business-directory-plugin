@@ -56,7 +56,7 @@ class WPBDPStrpConnectHelper {
 	 * @return bool
 	 */
 	private static function user_landed_on_the_oauth_return_url() {
-		return isset( $_GET['frm_stripe_connect_return_oauth'] );
+		return isset( $_GET['wpbdp_stripe_connect_return_oauth'] );
 	}
 
 	/**
@@ -81,8 +81,8 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function post_to_connect_server( $action, $additional_body = array() ) {
 		$body    = array(
-			'frm_strp_connect_action' => $action,
-			'frm_strp_connect_mode'   => WPBDPStrpAppHelper::active_mode(),
+			'wpbdp_strp_connect_action' => $action,
+			'wpbdp_strp_connect_mode'   => WPBDPStrpAppHelper::active_mode(),
 		);
 		$body    = array_merge( $body, $additional_body );
 		$url     = self::get_url_to_connect_server();
@@ -218,7 +218,7 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function disconnect() {
 		$additional_body = array(
-			'frm_strp_connect_mode' => self::get_mode_value_from_post(),
+			'wpbdp_strp_connect_mode' => self::get_mode_value_from_post(),
 		);
 		return self::post_with_authenticated_body( 'disconnect', $additional_body );
 	}
@@ -237,7 +237,7 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function handle_reauth() {
 		$additional_body = array(
-			'frm_strp_connect_mode' => self::get_mode_value_from_post(),
+			'wpbdp_strp_connect_mode' => self::get_mode_value_from_post(),
 		);
 		$data            = self::post_with_authenticated_body( 'reauth', $additional_body );
 
@@ -288,9 +288,9 @@ class WPBDPStrpConnectHelper {
 		}
 
 		$body = array(
-			'server_password'       => get_option( self::get_server_side_token_option_name( $mode ) ),
-			'client_password'       => get_option( self::get_client_side_token_option_name( $mode ) ),
-			'frm_strp_connect_mode' => $mode,
+			'server_password'         => get_option( self::get_server_side_token_option_name( $mode ) ),
+			'client_password'         => get_option( self::get_client_side_token_option_name( $mode ) ),
+			'wpbdp_strp_connect_mode' => $mode,
 		);
 		$data = self::post_to_connect_server( 'oauth_account_status', $body );
 
@@ -340,9 +340,9 @@ class WPBDPStrpConnectHelper {
 		}
 
 		$additional_body = array(
-			'password'              => self::generate_client_password( $mode ),
-			'user_id'               => get_current_user_id(),
-			'frm_strp_connect_mode' => $mode,
+			'password'                => self::generate_client_password( $mode ),
+			'user_id'                 => get_current_user_id(),
+			'wpbdp_strp_connect_mode' => $mode,
 		);
 
 		// Clear the transient so it doesn't fail.
@@ -377,7 +377,7 @@ class WPBDPStrpConnectHelper {
 			$mode = 'test';
 		}
 		$additional_body = array(
-			'frm_strp_connect_mode' => $mode,
+			'wpbdp_strp_connect_mode' => $mode,
 		);
 		$data            = self::post_with_authenticated_body( 'account_status', $additional_body );
 		$success         = false !== $data && ! empty( $data->details_submitted );
