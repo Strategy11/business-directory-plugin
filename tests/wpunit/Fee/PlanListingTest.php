@@ -40,9 +40,6 @@ class PlanListingTest extends WPUnitTestCase {
 		wpbdp_set_option( 'payments-test-mode', true );
 		wpbdp_set_option( 'stripe', 0 );
 		$this->assertFalse( 1 === wpbdp_get_option( 'stripe' ), 'Gateway Disabled' );
-		// Random details for testing purposes. We won't attempt a charge, we just need to enable payments.
-		wpbdp_set_option( 'stripe-login-id', '7h6MbLNyn9qb' );
-		wpbdp_set_option( 'stripe-transaction-key', '98GHnS594xy32V7d' );
 	}
 
 	/**
