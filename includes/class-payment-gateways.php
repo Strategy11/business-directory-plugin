@@ -21,12 +21,13 @@ class WPBDP__Payment_Gateways {
 	}
 
 	/**
+	 * Load all payment gateways.
+	 *
 	 * @return void
 	 */
 	public function load_gateways() {
 		$gateways = array();
 
-		// Add Stripe by default, if the module is not already configured.
 		if ( $this->should_include_stripe_lite_gateway() ) {
 			require_once WPBDP_PATH . 'includes/gateways/class-stripe-gateway.php';
 			$gateways[] = new WPBDPStripeGateway();
@@ -79,6 +80,7 @@ class WPBDP__Payment_Gateways {
 	}
 
 	/**
+	 * Add Stripe by default, if the module is not already configured.
 	 * Avoid including the Stripe Lite module if the Stripe module is already configured.
 	 * This is to avoid Stripe conflicts with Stripe Lite when the Stripe module is active.
 	 *
