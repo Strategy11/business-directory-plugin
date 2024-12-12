@@ -12,13 +12,6 @@ class WPBDPStrpAppHelper {
 
 	/**
 	 * @return string
-	 */
-	public static function plugin_path() {
-		return WPBDP_PATH . 'includes/gateways/stripe/';
-	}
-
-	/**
-	 * @return string
 	 *
 	 * @psalm-return 'live'|'test'
 	 */
