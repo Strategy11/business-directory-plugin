@@ -20,6 +20,9 @@ class WPBDP__Payment_Gateways {
 		add_action( 'wpbdp_admin_notices', array( $this, '_admin_warnings' ) );
 	}
 
+	/**
+	 * @return void
+	 */
 	public function load_gateways() {
 		$gateways = array();
 
@@ -27,6 +30,11 @@ class WPBDP__Payment_Gateways {
 		if ( $this->should_include_stripe_lite_gateway() ) {
 			require_once WPBDP_PATH . 'includes/gateways/class-stripe-gateway.php';
 			$gateways[] = new WPBDPStripeGateway();
+		}
+
+		if ( self::should_include_authorize_net_gateway() ) {
+			require_once WPBDP_PATH . 'includes/gateways/class-gateway-authorize-net.php';
+			$gateways[] = new WPBDP__Gateway__Authorize_Net();
 		}
 
 		// Allow modules to add gateways.
@@ -37,6 +45,41 @@ class WPBDP__Payment_Gateways {
 
 			$this->gateways[ $gateway->get_id() ] = $gateway;
 		}
+	}
+
+	/**
+	 * Include Authorize.Net, if it is already configured.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function should_include_authorize_net_gateway() {
+		$settings = get_option( 'wpbdp_settings' );
+		if ( ! is_array( $settings ) ) {
+			$include_authorize_net = false;
+		} else {
+			$keys = array(
+				'authorize-net-login-id',
+				'authorize-net-transaction-key',
+			);
+			$include_authorize_net = false;
+			foreach ( $keys as $key ) {
+				if ( ! empty( $settings[ $key ] ) ) {
+					$include_authorize_net = true;
+					break;
+				}
+			}
+		}
+
+		/**
+		 * Allow flexibility so users can still opt into Authorize.Net even though it is hidden by default.
+		 *
+		 * @since x.x
+		 *
+		 * @param bool $include_authorize_net Whether to include the Authorize.Net gateway.
+		 */
+		return (bool) apply_filters( 'wpbdp_include_authorize_net_gateway', $include_authorize_net );
 	}
 
 	/**
