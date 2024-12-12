@@ -494,6 +494,7 @@ class WPBDPStrpConnectHelper {
 	 */
 	public static function render_stripe_connect_settings_container() {
 		self::register_settings_scripts();
+		WPBDP_App_Helper::include_svg();
 		?>
 		<div id="wpbdp_strp_settings_container"></div>
 		<div id="wpbdp_strp_connect_error" class="wpbdp-hidden"></div>

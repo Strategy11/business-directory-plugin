@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</span>
 	<?php if ( $account_id ) { ?>
 		<?php if ( $connected ) { ?>
-			<?php // icon_by_class( 'wpbdpfont wpbdp_checkmark_icon wpbdp-yes' ); ?>
+			<?php WPBDP_App_Helper::icon_by_class( 'wpbdpfont wpbdp-checkmark-icon', array( 'aria-hidden' => 'true', 'style' => 'color: #1da867' ) ); ?>
 			<?php esc_html_e( 'Connected', 'business-directory-plugin' ); ?>
 			&nbsp; &nbsp;
 		<?php } else { ?>
