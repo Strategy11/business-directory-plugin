@@ -74,9 +74,6 @@ jQuery(function($) {
             const stripe        = Stripe( configuration.key, { stripeAccount: configuration.accountId } );
 
             stripe.redirectToCheckout({
-                // Make the id field from the Checkout Session creation API response
-                // available to this file, so you can provide it as parameter here
-                // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
                 sessionId: configuration.sessionId
             }).then(function ( result ) {
                 // If `redirectToCheckout` fails due to a browser or network
