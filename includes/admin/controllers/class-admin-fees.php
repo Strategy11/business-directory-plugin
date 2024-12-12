@@ -86,7 +86,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			}
 		}
 
-		if ( ! WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' ) ) {
+		if ( ! $modules_obj->is_loaded( 'stripe' ) && ! WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' ) ) {
 			array_unshift(
 				$gateways,
 				array(
