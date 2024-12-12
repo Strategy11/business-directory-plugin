@@ -283,7 +283,7 @@ class WPBDPStrpConnectHelper {
 		}
 
 		if ( self::get_account_id( $mode ) ) {
-			// do not allow for initialize if there is already a configured account id
+			// Do not allow for initialize if there is already a configured account id.
 			return false;
 		}
 
@@ -299,6 +299,14 @@ class WPBDPStrpConnectHelper {
 
 			if ( ! empty( $data->details_submitted ) ) {
 				self::set_stripe_details_as_submitted( $mode );
+			}
+
+			// Enable Stripe when we successfully connect if it is not already enabled.
+			// This is required because we redirect after connecting, and the toggle is
+			// never saved.
+			$wpbdp_settings = new WPBDP__Settings();
+			if ( ! $wpbdp_settings->get_option( 'stripe' ) ) {
+				$wpbdp_settings->set_option( 'stripe', '1' );
 			}
 
 			return true;
