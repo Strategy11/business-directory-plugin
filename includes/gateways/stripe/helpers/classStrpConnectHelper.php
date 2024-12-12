@@ -20,7 +20,7 @@ class WPBDPStrpConnectHelper {
 	public static function check_for_stripe_connect_webhooks() {
 		if ( wp_doing_ajax() ) {
 			self::check_for_stripe_connect_ajax_actions();
-		} elseif ( self::user_landed_on_the_oauth_return_url() ) {
+		} elseif ( self::user_landed_on_the_oauth_return_url() && wpbdp_user_can_access_backend() ) {
 			self::redirect_oauth();
 		}
 	}
@@ -34,13 +34,13 @@ class WPBDPStrpConnectHelper {
 
 		if ( ! $action || 0 !== strpos( $action, $prefix ) ) {
 			if ( 'wpbdp_strp_connect_get_settings_button' === $action ) {
-				WPBDP_App_Helper::permission_check( 'wpbdp_change_settings' );
+				WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role() );
 				self::render_settings();
 			}
 			return;
 		}
 
-		WPBDP_App_Helper::permission_check( 'wpbdp_change_settings' );
+		WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role() );
 
 		$action   = str_replace( $prefix, '', $action );
 		$function = 'handle_' . $action;
