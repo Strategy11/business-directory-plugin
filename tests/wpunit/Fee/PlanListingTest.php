@@ -77,8 +77,6 @@ class PlanListingTest extends WPUnitTestCase {
 		$this->assertTrue( 1 === wpbdp_get_option( 'authorize-net' ), 'Gateway Enabled' );
 		$payments_on = wpbdp_payments_possible();
 
-		$this->markTestSkipped( 'TODO: This is failing now with Stripe Lite. What needs to update?' );
-
 		$this->assertTrue( $payments_on, 'Payments Enabled' );
 
 		$plans = wpbdp_get_fee_plans();
