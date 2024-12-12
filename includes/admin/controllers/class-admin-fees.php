@@ -67,10 +67,11 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * Get a list of gateways that aren't currently being used.
 	 *
 	 * @since 6.0
+	 *
+	 * @return array
 	 */
 	private function available_gateways() {
 		$modules = array(
-			array( 'stripe', 'stripe-payment-module', 'Stripe' ),
 			array( 'paypal', 'paypal-gateway-module', 'PayPal' ),
 			array( 'payfast', 'payfast-payment-module', 'PayFast' ),
 		);
@@ -83,6 +84,19 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 				$mod_info['cta']  = __( 'Upgrade', 'business-directory-plugin' );
 				$gateways[]       = $mod_info;
 			}
+		}
+
+		if ( ! WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' ) ) {
+			array_unshift(
+				$gateways,
+				array(
+					'stripe',
+					'stripe-payment-module',
+					'Stripe',
+					'link' => admin_url( 'admin.php?page=wpbdp_settings&tab=payment&subtab=gateway_stripe' ),
+					'cta'  => __( 'Set Up', 'business-directory-plugin' ),
+				)
+			);
 		}
 
 		if ( ! wpbdp_payments_possible() ) {
