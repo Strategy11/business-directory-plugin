@@ -34,13 +34,13 @@ class WPBDPStrpConnectHelper {
 
 		if ( ! $action || 0 !== strpos( $action, $prefix ) ) {
 			if ( 'wpbdp_strp_connect_get_settings_button' === $action ) {
-				WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role() );
+				WPBDP_App_Helper::permission_check( wpbdp_backend_minimum_role() );
 				self::render_settings();
 			}
 			return;
 		}
 
-		WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role() );
+		WPBDP_App_Helper::permission_check( wpbdp_backend_minimum_role() );
 
 		$action   = str_replace( $prefix, '', $action );
 		$function = 'handle_' . $action;
