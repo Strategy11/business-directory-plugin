@@ -32,7 +32,7 @@ class WPBDP__Payment_Gateways {
 			$gateways[] = new WPBDPStripeGateway();
 		}
 
-		if ( self::should_include_authorize_net_gateway() ) {
+		if ( $this->should_include_authorize_net_gateway() ) {
 			require_once WPBDP_PATH . 'includes/gateways/class-gateway-authorize-net.php';
 			$gateways[] = new WPBDP__Gateway__Authorize_Net();
 		}
@@ -48,7 +48,8 @@ class WPBDP__Payment_Gateways {
 	}
 
 	/**
-	 * Include Authorize.Net, if it is already configured.
+	 * Include Authorize.Net, only if it is already configured.
+	 * There is a filter as well, so it can also be enabled using a code snippet.
 	 *
 	 * @since x.x
 	 *
@@ -59,17 +60,12 @@ class WPBDP__Payment_Gateways {
 		if ( ! is_array( $settings ) ) {
 			$include_authorize_net = false;
 		} else {
-			$keys = array(
-				'authorize-net-login-id',
-				'authorize-net-transaction-key',
+			$include_authorize_net = $this->settings_key_exists(
+				array(
+					'authorize-net-login-id',
+					'authorize-net-transaction-key',
+				)
 			);
-			$include_authorize_net = false;
-			foreach ( $keys as $key ) {
-				if ( ! empty( $settings[ $key ] ) ) {
-					$include_authorize_net = true;
-					break;
-				}
-			}
 		}
 
 		/**
@@ -96,24 +92,37 @@ class WPBDP__Payment_Gateways {
 			return true;
 		}
 
+		return ! $this->settings_key_exists(
+			array(
+				'stripe-test-publishable-key',
+				'stripe-test-secret-key',
+				'stripe-live-publishable-key',
+				'stripe-live-secret-key',
+			)
+		);
+	}
+
+	/**
+	 * Check if at least one of the keys specified has a value in settings.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $keys
+	 * @return bool
+	 */
+	private function settings_key_exists( $keys ) {
 		$settings = get_option( 'wpbdp_settings' );
 		if ( ! is_array( $settings ) ) {
-			return true;
+			return false;
 		}
 
-		$keys = array(
-			'stripe-test-publishable-key',
-			'stripe-test-secret-key',
-			'stripe-live-publishable-key',
-			'stripe-live-secret-key',
-		);
 		foreach ( $keys as $key ) {
 			if ( ! empty( $settings[ $key ] ) ) {
-				return false;
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	public function _execute_listener() {
