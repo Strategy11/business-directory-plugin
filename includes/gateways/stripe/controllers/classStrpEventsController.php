@@ -12,8 +12,6 @@ class WPBDPStrpEventsController {
 
 	private $event;
 	private $invoice;
-	private $charge;
-	private $status;
 
 	/**
 	 * Tell Stripe Connect API that the request came through by flushing early before processing.
