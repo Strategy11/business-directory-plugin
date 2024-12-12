@@ -108,6 +108,7 @@ class WPBDP__Payment_Gateways {
 	 * @since x.x
 	 *
 	 * @param array $keys
+	 *
 	 * @return bool
 	 */
 	private function settings_key_exists( $keys ) {
