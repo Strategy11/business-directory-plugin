@@ -99,16 +99,6 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			);
 		}
 
-		if ( ! wpbdp_payments_possible() ) {
-			$gateways[] = array(
-				'',
-				'authorize-net-payment-module',
-				'Authorize.net',
-				'link' => admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ),
-				'cta'  => __( 'Set Up', 'business-directory-plugin' ),
-			);
-		}
-
 		return $gateways;
 	}
 
