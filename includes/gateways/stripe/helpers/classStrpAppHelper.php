@@ -22,6 +22,8 @@ class WPBDPStrpAppHelper {
 	/**
 	 * Add education about Stripe fees.
 	 *
+	 * @since x.x
+	 *
 	 * @return void
 	 */
 	public static function fee_education() {
@@ -39,9 +41,11 @@ class WPBDPStrpAppHelper {
 	}
 
 	/**
+	 * Licenses without access to the Stripe module will have Stripe fees applied.
+	 *
 	 * @since x.x
 	 *
-	 * @return bool
+	 * @return bool True if the user does not have access to the Stripe module.
 	 */
 	public static function license_includes_stripe_fees() {
 		include_once dirname( WPBDP_PLUGIN_FILE ) . '/includes/admin/helpers/class-modules-api.php';
