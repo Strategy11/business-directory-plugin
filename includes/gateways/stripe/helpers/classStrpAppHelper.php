@@ -11,7 +11,11 @@ class WPBDPStrpAppHelper {
 	public static $gateway_id = 'stripe';
 
 	/**
-	 * @return string
+	 * Return the active mode to use for Stripe based on the global Payments settings.
+	 *
+	 * @since x.x
+	 *
+	 * @return string Ether 'live' or 'test'.
 	 *
 	 * @psalm-return 'live'|'test'
 	 */
