@@ -91,10 +91,8 @@
 	}
 
 	function postAjax( data, success, fail ) {
-		let xmlHttp, params;
-
-		xmlHttp = new XMLHttpRequest();
-		params = typeof data === 'string' ? data : Object.keys( data ).map(
+		const xmlHttp = new XMLHttpRequest();
+		const params = typeof data === 'string' ? data : Object.keys( data ).map(
 			function( k ) {
 				return encodeURIComponent( k ) + '=' + encodeURIComponent( data[ k ]);
 			}
