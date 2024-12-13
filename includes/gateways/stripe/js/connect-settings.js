@@ -7,7 +7,7 @@
 	}
 
 	function renderStripeConnectSettingsButton() {
-		var container = document.getElementById( 'wpbdp_strp_settings_container' );
+		const container = document.getElementById( 'wpbdp_strp_settings_container' );
 		if ( null !== container ) {
 			postAjax(
 				{
@@ -82,7 +82,7 @@
 	}
 
 	function strpSettingsAjaxRequest( action, success, testMode, fail ) {
-		var data = {
+		const data = {
 			action: action,
 			testMode: testMode,
 			nonce: wpbdp_global.nonce
@@ -91,7 +91,7 @@
 	}
 
 	function postAjax( data, success, fail ) {
-		var xmlHttp, params;
+		let xmlHttp, params;
 
 		xmlHttp = new XMLHttpRequest();
 		params = typeof data === 'string' ? data : Object.keys( data ).map(
@@ -102,7 +102,7 @@
 
 		xmlHttp.open( 'post', ajaxurl, true );
 		xmlHttp.onreadystatechange = function() {
-			var response;
+			let response;
 			if ( xmlHttp.readyState > 3 && xmlHttp.status == 200 ) {
 				response = xmlHttp.responseText;
 				if ( response !== '' ) {
