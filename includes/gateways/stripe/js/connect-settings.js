@@ -97,41 +97,39 @@
 	}
 
 	/**
-	 * @param {object|string} data
+	 * @param {object} data
 	 * @param {function} success
 	 * @param {function|undefined} fail
-	 * @return {XMLHttpRequest}
+	 * @return {void}
 	 */
 	function postAjax( data, success, fail ) {
-		const xmlHttp = new XMLHttpRequest();
-		const params = typeof data === 'string' ? data : Object.keys( data ).map(
-			function( k ) {
-				return encodeURIComponent( k ) + '=' + encodeURIComponent( data[ k ]);
+		fetch(
+			ajaxurl,
+			{
+				method: 'POST',
+				headers: {
+					'X-Requested-With': 'XMLHttpRequest',
+					'Content-type': 'application/x-www-form-urlencoded'
+				},
+				body: new URLSearchParams( data ).toString()
 			}
-		).join( '&' );
-
-		xmlHttp.open( 'post', ajaxurl, true );
-		xmlHttp.onreadystatechange = function() {
-			let response;
-			if ( xmlHttp.readyState > 3 && xmlHttp.status == 200 ) {
-				response = xmlHttp.responseText;
-				if ( response !== '' ) {
-					response = JSON.parse( response );
-					if ( response.success ) {
-						if ( 'undefined' === typeof response.data ) {
-							response.data = {};
-						}
-						success( response.data );
-					} else if ( fail ) {
-						fail( response.data );
-					}
+		)
+		.then( response => response.json() )
+		.then( response => {
+			if ( response.success ) {
+				if ( typeof response.data === 'undefined' ) {
+					response.data = {};
 				}
+				success( response.data );
+			} else if ( fail ) {
+				fail( response.data );
 			}
-		};
-		xmlHttp.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
-		xmlHttp.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' );
-		xmlHttp.send( params );
-		return xmlHttp;
+		})
+		.catch(error => {
+			if ( fail ) {
+				fail({ message: error.message });
+			}
+		});
 	}
 
 	function isTriggerInTestMode( trigger ) {
