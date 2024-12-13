@@ -43,6 +43,8 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * Check for incomplete webhooks and process them.
+	 *
 	 * @return void
 	 */
 	public function process_connect_events() {
@@ -56,6 +58,8 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * For every incomplete webhook, try to process events.
+	 *
 	 * @since x.x
 	 *
 	 * @param array<string> $event_ids
@@ -82,6 +86,8 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * Skip any event that has already been completed or failed too many times.
+	 *
 	 * @since x.x
 	 *
 	 * @param string $event_id
@@ -102,6 +108,8 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * Skip trying to process any events that were just attempted in the last 60 seconds.
+	 *
 	 * @param string $event_id
 	 *
 	 * @return bool
@@ -112,6 +120,9 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * If an event fails, track the failure and try again later.
+	 * If the failure count exceeds the limit, the event will be skipped.
+	 *
 	 * @since x.x
 	 *
 	 * @param string $event_id
@@ -162,6 +173,8 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * Handle the current event in the queue and update payment records.
+	 *
 	 * @return void
 	 */
 	private function handle_event() {
@@ -249,6 +262,8 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * Triggered when processing payment_intent.succeeded events.
+	 *
 	 * @return void
 	 */
 	private function process_payment_intent() {
@@ -287,6 +302,8 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * Check recent events for a payment intent match.
+	 *
 	 * @return array|false The payment if found otherwise false.
 	 */
 	private function verify_transaction() {
@@ -340,6 +357,8 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * Triggered when the invoice.payment_succeeded events are processed.
+	 *
 	 * @since x.x
 	 *
 	 * @param WPBDP__Listing_Subscription $subscription
