@@ -58,6 +58,14 @@ jQuery(function($) {
             } );
         },
 
+        /**
+         * Handle when the checkout submit button is clicked when the Stripe gateway is selected.
+         *
+         * @since x.x
+         *
+         * @param {Event} event
+         * @return {bool}
+         */
         sendToStripe: function( event ) {
             if ( 'stripe' !== $( 'form#wpbdp-checkout-form [name="gateway"]:checked' ).val() ) {
                 return false;

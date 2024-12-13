@@ -93,6 +93,9 @@ class WPBDP__Modules {
 	}
 
 	/**
+	 * Prevent the Stripe module (add-on) from loading.
+	 * This is called Stripe Lite is configured, to prevent conflicts with having two stripe gateways.
+	 *
 	 * @since x.x
 	 *
 	 * @return void
