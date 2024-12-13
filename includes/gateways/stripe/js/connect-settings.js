@@ -81,6 +81,12 @@
 		);
 	}
 
+	/**
+	 * @param {string} action
+	 * @param {function} success
+	 * @param {number} testMode
+	 * @param {function|undefined} fail
+	 */
 	function strpSettingsAjaxRequest( action, success, testMode, fail ) {
 		const data = {
 			action: action,
@@ -90,6 +96,12 @@
 		postAjax( data, success, fail );
 	}
 
+	/**
+	 * @param {object|string} data
+	 * @param {function} success
+	 * @param {function|undefined} fail
+	 * @return {XMLHttpRequest}
+	 */
 	function postAjax( data, success, fail ) {
 		const xmlHttp = new XMLHttpRequest();
 		const params = typeof data === 'string' ? data : Object.keys( data ).map(
