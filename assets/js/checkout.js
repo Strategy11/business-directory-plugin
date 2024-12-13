@@ -84,9 +84,8 @@ jQuery(function($) {
             stripe.redirectToCheckout({
                 sessionId: configuration.sessionId
             }).then(function ( result ) {
-                // If `redirectToCheckout` fails due to a browser or network
-                // error, display the localized error message to your customer
-                // using `result.error.message`.
+                // If `redirectToCheckout` fails due to a browser or network error
+                console.error( 'Error with Stripe checkout: ' + result.error.message );
             });
 
             return false;
