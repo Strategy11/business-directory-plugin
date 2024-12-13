@@ -344,6 +344,7 @@ class WPBDPStrpEventsController {
 	 *
 	 * @param object $payment
 	 * @param object $billing_details
+	 *
 	 * @return void
 	 */
 	private function save_payer_address( $payment, $billing_details ) {
