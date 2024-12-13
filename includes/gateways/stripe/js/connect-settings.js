@@ -103,35 +103,23 @@
 	 * @return {void}
 	 */
 	function postAjax( data, success, fail ) {
-		fetch(
-			ajaxurl,
-			{
-				method: 'POST',
-				headers: {
-					'X-Requested-With': 'XMLHttpRequest',
-					'Content-type': 'application/x-www-form-urlencoded'
-				},
-				body: new URLSearchParams( data ).toString()
-			}
-		)
+		fetch( ajaxurl, {
+			method: 'POST',
+			body: new URLSearchParams( data )
+		})
 		.then( response => response.json() )
 		.then( response => {
 			if ( response.success ) {
-				if ( typeof response.data === 'undefined' ) {
-					response.data = {};
-				}
-				success( response.data );
+				success( response.data || {} );
 			} else if ( fail ) {
 				fail( response.data );
 			}
 		})
-		.catch(
-			error => {
-				if ( fail ) {
-					fail({ message: error.message });
-				}
+		.catch( error => {
+			if ( fail ) {
+				fail({ message: error.message });
 			}
-		);
+		});
 	}
 
 	function isTriggerInTestMode( trigger ) {
