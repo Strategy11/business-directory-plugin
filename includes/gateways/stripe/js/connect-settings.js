@@ -125,11 +125,13 @@
 				fail( response.data );
 			}
 		})
-		.catch(error => {
-			if ( fail ) {
-				fail({ message: error.message });
+		.catch(
+			error => {
+				if ( fail ) {
+					fail({ message: error.message });
+				}
 			}
-		});
+		);
 	}
 
 	function isTriggerInTestMode( trigger ) {
