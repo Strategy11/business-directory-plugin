@@ -1389,6 +1389,17 @@ function wpbdp_backend_minimim_role() {
 }
 
 /**
+ * Alias for wpbdp_backend_minimim_role without the typo.
+ *
+ * @since x.x
+ *
+ * @return string
+ */
+function wpbdp_backend_minimum_role() {
+	return wpbdp_backend_minimim_role();
+}
+
+/**
  * Is this used?
  *
  * @since 4.1.8

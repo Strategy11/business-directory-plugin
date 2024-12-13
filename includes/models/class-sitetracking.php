@@ -35,7 +35,7 @@ if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
 			$hash = get_option( 'wpbdp-site_tracking_hash', '' );
 
 			if ( ! $hash ) {
-				$hash = sha1( site_url() );
+				$hash = sha1( uniqid() . site_url() );
 				update_option( 'wpbdp-site_tracking_hash', $hash, 'no' );
 			}
 
