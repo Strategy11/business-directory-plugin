@@ -62,9 +62,11 @@ class WPBDPStrpAppHelper {
 	}
 
 	/**
+	 * Get the key used for customer meta based on the current mode.
+	 *
 	 * @since x.x
 	 *
-	 * @return string
+	 * @return string Either _wpbdp_stripe_customer_id or _wpbdp_stripe_customer_id_test.
 	 */
 	public static function customer_meta_name() {
 		$test_mode = wpbdp_get_option( 'payments-test-mode' );
