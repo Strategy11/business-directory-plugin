@@ -320,6 +320,15 @@ class WPBDPStrpEventsController {
 		return false;
 	}
 
+	/**
+	 * Sync the name, email, and address info from the event to the payment object.
+	 *
+	 * @since x.x
+	 *
+	 * @param object $payment
+	 * @param object $billing_details
+	 * @return void
+	 */
 	private function save_payer_address( $payment, $billing_details ) {
 		$payment->payer_first_name      = $billing_details->name;
 		$payment->payer_email           = $billing_details->email;
