@@ -71,6 +71,8 @@ class PlanListingTest extends WPUnitTestCase {
 	 */
 	private function test_with_gateway_enabled() {
 		wpbdp_set_option( 'stripe', 1 );
+		// Add the option even though payments are not actually functional.
+		update_option( 'wpbdp_strp_details_submitted_live', 1 );
 		$this->assertTrue( 1 === wpbdp_get_option( 'stripe' ), 'Gateway Enabled' );
 		$payments_on = wpbdp_payments_possible();
 
