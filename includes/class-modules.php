@@ -60,20 +60,8 @@ class WPBDP__Modules {
 			return true;
 		}
 
-		return ! $this->stripe_api_keys_are_set();
-	}
-
-	/**
-	 * Check if Stripe API keys are set in BD Lite settings.
-	 * If any are set, Stripe Lite will not load and we'll fallback on the Stripe module (add-on).
-	 *
-	 * @since x.x
-	 *
-	 * @return bool True if API keys are defined using the Stripe module.
-	 */
-	private function stripe_api_keys_are_set() {
 		$settings = new WPBDP__Settings();
-		return $settings->legacy_stripe_settings_exist();
+		return ! $settings->legacy_stripe_settings_exist();
 	}
 
 	/**
