@@ -607,7 +607,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		return array(
-			_x( 'Live Strip payments are not connected.', 'stripe', 'business-directory-plugin' )
+			_x( 'Live Stripe payments are not connected.', 'stripe', 'business-directory-plugin' )
 		);
 	}
 }
