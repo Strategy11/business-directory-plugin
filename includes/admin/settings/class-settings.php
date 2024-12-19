@@ -545,6 +545,43 @@ class WPBDP__Settings {
 	}
 
 	/**
+	 * Check if at least one of the keys specified has a value in settings.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $keys
+	 *
+	 * @return bool
+	 */
+	public function any_setting_exists( $keys ) {
+		foreach ( $keys as $key ) {
+			if ( ! empty( $this->options[ $key ] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if Stripe API keys are set in BD Lite settings.
+	 * If any are set, Stripe Lite will not load and we'll fallback on the Stripe module (add-on).
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public function legacy_stripe_settings_exist() {
+		$keys = array(
+			'stripe-test-publishable-key',
+			'stripe-test-secret-key',
+			'stripe-live-publishable-key',
+			'stripe-live-secret-key',
+		);
+		return $this->any_setting_exists( $keys );
+	}
+
+	/**
 	 * @deprecated 6.1
 	 */
 	public function pre_2_0_options() {

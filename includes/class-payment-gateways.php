@@ -20,12 +20,23 @@ class WPBDP__Payment_Gateways {
 		add_action( 'wpbdp_admin_notices', array( $this, '_admin_warnings' ) );
 	}
 
+	/**
+	 * Load all payment gateways.
+	 *
+	 * @return void
+	 */
 	public function load_gateways() {
 		$gateways = array();
 
-		// Add Authorize.net by default.
-		require_once WPBDP_PATH . 'includes/gateways/class-gateway-authorize-net.php';
-		$gateways[] = new WPBDP__Gateway__Authorize_Net();
+		if ( $this->should_include_stripe_lite_gateway() ) {
+			require_once WPBDP_PATH . 'includes/gateways/class-stripe-gateway.php';
+			$gateways[] = new WPBDPStripeGateway();
+		}
+
+		if ( $this->should_include_authorize_net_gateway() ) {
+			require_once WPBDP_PATH . 'includes/gateways/class-gateway-authorize-net.php';
+			$gateways[] = new WPBDP__Gateway__Authorize_Net();
+		}
 
 		// Allow modules to add gateways.
 		$gateways = apply_filters( 'wpbdp_payment_gateways', $gateways );
@@ -35,6 +46,51 @@ class WPBDP__Payment_Gateways {
 
 			$this->gateways[ $gateway->get_id() ] = $gateway;
 		}
+	}
+
+	/**
+	 * Include Authorize.Net, only if it is already configured.
+	 * There is a filter as well, so it can also be enabled using a code snippet.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function should_include_authorize_net_gateway() {
+		$settings              = new WPBDP__Settings();
+		$keys                  = array(
+			'authorize-net-login-id',
+			'authorize-net-transaction-key',
+		);
+		$include_authorize_net = $settings->any_setting_exists( $keys );
+
+		/**
+		 * Allow flexibility so users can still opt into Authorize.Net even though it is hidden by default.
+		 *
+		 * @since x.x
+		 *
+		 * @param bool $include_authorize_net Whether to include the Authorize.Net gateway.
+		 */
+		return (bool) apply_filters( 'wpbdp_include_authorize_net_gateway', $include_authorize_net );
+	}
+
+	/**
+	 * Add Stripe by default, if the module is not already configured.
+	 * Avoid including the Stripe Lite module if the Stripe module is already configured.
+	 * This is to avoid Stripe conflicts with Stripe Lite when the Stripe module is active.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function should_include_stripe_lite_gateway() {
+		if ( ! class_exists( 'WPBDP__Stripe__Gateway' ) ) {
+			// Always include if the BD module is not installed.
+			return true;
+		}
+
+		$settings = new WPBDP__Settings();
+		return $settings->legacy_stripe_settings_exist();
 	}
 
 	public function _execute_listener() {
