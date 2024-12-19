@@ -593,4 +593,21 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	private function formated_amount( $amount ) {
 		return round( $amount * 100, 0 );
 	}
+
+	/**
+	 * Confirm settings are valid.
+	 *
+	 * @since x.x
+	 *
+	 * @return array<string> Error messages.
+	 */
+	public function validate_settings() {
+		if ( WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' ) ) {
+			return array();
+		}
+
+		return array(
+			_x( 'Live Strip payments are not connected.', 'stripe', 'business-directory-plugin' )
+		);
+	}
 }
