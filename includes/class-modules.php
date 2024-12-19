@@ -72,24 +72,8 @@ class WPBDP__Modules {
 	 * @return bool True if API keys are defined using the Stripe module.
 	 */
 	private function stripe_api_keys_are_set() {
-		$settings = get_option( 'wpbdp_settings' );
-		if ( ! is_array( $settings ) ) {
-			return false;
-		}
-
-		$keys = array(
-			'stripe-test-publishable-key',
-			'stripe-test-secret-key',
-			'stripe-live-publishable-key',
-			'stripe-live-secret-key',
-		);
-		foreach ( $keys as $key ) {
-			if ( ! empty( $settings[ $key ] ) ) {
-				return true;
-			}
-		}
-
-		return false;
+		$settings = new WPBDP__Settings();
+		return $settings->legacy_stripe_settings_exist();
 	}
 
 	/**

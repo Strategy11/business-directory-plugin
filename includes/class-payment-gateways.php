@@ -57,17 +57,12 @@ class WPBDP__Payment_Gateways {
 	 * @return bool
 	 */
 	private function should_include_authorize_net_gateway() {
-		$settings = get_option( 'wpbdp_settings' );
-		if ( ! is_array( $settings ) ) {
-			$include_authorize_net = false;
-		} else {
-			$include_authorize_net = $this->settings_key_exists(
-				array(
-					'authorize-net-login-id',
-					'authorize-net-transaction-key',
-				)
-			);
-		}
+		$settings              = new WPBDP__Settings();
+		$keys                  = array(
+			'authorize-net-login-id',
+			'authorize-net-transaction-key',
+		);
+		$include_authorize_net = $settings->any_setting_exists( $keys );
 
 		/**
 		 * Allow flexibility so users can still opt into Authorize.Net even though it is hidden by default.
@@ -94,38 +89,8 @@ class WPBDP__Payment_Gateways {
 			return true;
 		}
 
-		return ! $this->settings_key_exists(
-			array(
-				'stripe-test-publishable-key',
-				'stripe-test-secret-key',
-				'stripe-live-publishable-key',
-				'stripe-live-secret-key',
-			)
-		);
-	}
-
-	/**
-	 * Check if at least one of the keys specified has a value in settings.
-	 *
-	 * @since x.x
-	 *
-	 * @param array $keys
-	 *
-	 * @return bool
-	 */
-	private function settings_key_exists( $keys ) {
-		$settings = get_option( 'wpbdp_settings' );
-		if ( ! is_array( $settings ) ) {
-			return false;
-		}
-
-		foreach ( $keys as $key ) {
-			if ( ! empty( $settings[ $key ] ) ) {
-				return true;
-			}
-		}
-
-		return false;
+		$settings = new WPBDP__Settings();
+		return $settings->legacy_stripe_settings_exist();
 	}
 
 	public function _execute_listener() {
