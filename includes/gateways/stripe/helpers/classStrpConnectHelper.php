@@ -485,7 +485,15 @@ class WPBDPStrpConnectHelper {
 	 */
 	private static function get_uuid() {
 		$usage = new WPBDP_SiteTracking();
-		return $usage->site_hash();
+		$hash  = $usage->site_hash();
+
+		// Make sure that the hash cannot be guessed if it was in the legacy format.
+		if ( $hash === sha1( site_url() ) ) {
+			delete_option( 'wpbdp-site_tracking_hash' );
+			$hash = $usage->site_hash();
+		}
+
+		return $hash;
 	}
 
 	/**
