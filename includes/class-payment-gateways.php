@@ -224,9 +224,6 @@ class WPBDP__Payment_Gateways {
 			return;
 		}
 
-		// New issue: How do we get people to transition seamlessly. Right now, needing to
-		// first removing your API keys, then save, adds an extra step.
-
 		$stripe_plugin_exists = is_callable( array( 'WPBDP__Stripe', 'load' ) );
 
 		if ( $stripe_plugin_exists ) {
