@@ -130,6 +130,8 @@ final class WPBDP {
 		}
 
 		require_once WPBDP_INC . 'helpers/class-access-keys-sender.php';
+
+		WPBDPStrpHooksController::load_hooks();
 	}
 
 	/**
