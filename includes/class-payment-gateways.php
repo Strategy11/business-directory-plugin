@@ -164,15 +164,21 @@ class WPBDP__Payment_Gateways {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	public function _admin_warnings() {
 		$page        = wpbdp_get_var( array( 'param' => 'page' ) );
 		$page_tab    = wpbdp_get_var( array( 'param' => 'tab' ) );
 		$is_settings = 'wpbdp_settings' === $page;
 		$is_plans    = 'wpbdp-admin-fees' === $page;
 		$is_payments = ( $is_settings && 'payment' === $page_tab );
+
 		if ( ! $is_settings && ! $is_plans ) {
 			return;
 		}
+
+		$this->maybe_show_stripe_cta();
 
 		// Check if there are premium fees.
 		if ( ! WPBDP_Fees_API::has_paid_plans() ) {
@@ -203,5 +209,55 @@ class WPBDP__Payment_Gateways {
 			$msg = sprintf( $msg, '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ) ) . '">', '</a>' );
 			wpbdp_admin_message( $msg, 'notice-error is-dismissible', array( 'dismissible-id' => 'no_gateway' ) );
 		}
+	}
+
+	/**
+	 * Maybe show a message to recommend users to switch to Stripe Connect.
+	 *
+	 * @since x.x
+	 *
+	 * @return void
+	 */
+	private function maybe_show_stripe_cta() {
+		if ( WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' ) ) {
+			// Already connected. No need to show a message.
+			return;
+		}
+
+		// New issue: How do we get people to transition seamlessly. Right now, needing to
+		// first removing your API keys, then save, adds an extra step.
+
+		$stripe_plugin_exists = is_callable( array( 'WPBDP__Stripe', 'load' ) );
+
+		if ( $stripe_plugin_exists ) {
+			$settings            = new WPBDP__Settings();
+			$legacy_keys_are_set = $settings->legacy_stripe_settings_exist();
+		} else {
+			$legacy_keys_are_set = false;
+		}
+
+		$url = admin_url( 'admin.php?page=wpbdp_settings&tab=payment&subtab=gateway_stripe' );
+
+		if ( $legacy_keys_are_set ) {
+			// 1. The legacy keys are being used. We want to recommend people to switch to Stripe Connect.
+			$msg = esc_html__( 'Stripe API keys will no longer be supported. We recommend that you %1$sSwitch to Stripe Connect%2$s as soon as possible.', 'business-directory-plugin' );
+			$msg = sprintf( $msg, '<a href="' . esc_url( $url ) . '">', '</a>' );
+			$msg .= '<br><br>';
+			$msg .= sprintf(
+				esc_html__( '%1$sNote:%2$s You need to first remove your API keys and save before the new buttons will appear.', 'business-directory-plugin' ),
+				'<b>',
+				'</b>'
+			);
+		} else {
+			// 2. The Stripe legacy keys are not in use. We want to recommend people to try out the new Stripe Lite/Stripe Connect option.
+			$msg = esc_html__( 'Try out the new %1$sStripe Connect%2$s payment gateway!', 'business-directory-plugin' );
+			$msg = sprintf( $msg, '<a href="' . esc_url( $url ) . '">', '</a>' );
+
+			if ( WPBDPStrpAppHelper::license_includes_stripe_fees() ) {
+				$msg .= ' ' . esc_html__( 'Payments are now available for free users with a 3% application fee.', 'business-directory-plugin' );
+			}
+		}
+
+		wpbdp_admin_message( $msg, 'notice-error is-dismissible', array( 'dismissible-id' => 'use_stripe_connect' ) );
 	}
 }
