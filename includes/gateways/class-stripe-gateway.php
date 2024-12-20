@@ -602,12 +602,14 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @return array<string> Error messages.
 	 */
 	public function validate_settings() {
-		if ( WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' ) ) {
+		$mode = WPBDPStrpAppHelper::active_mode();
+
+		if ( WPBDPStrpConnectHelper::stripe_connect_is_setup( $mode ) ) {
 			return array();
 		}
 
 		return array(
-			_x( 'Live Stripe payments are not connected.', 'stripe', 'business-directory-plugin' ),
+			_x( 'Stripe payments are not connected.', 'stripe', 'business-directory-plugin' ),
 		);
 	}
 }
