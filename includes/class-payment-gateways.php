@@ -237,8 +237,8 @@ class WPBDP__Payment_Gateways {
 
 		if ( $legacy_keys_are_set ) {
 			// 1. The legacy keys are being used. We want to recommend people to switch to Stripe Connect.
-			$msg = esc_html__( 'Stripe API keys will no longer be supported. We recommend that you %1$sSwitch to Stripe Connect%2$s as soon as possible.', 'business-directory-plugin' );
-			$msg = sprintf( $msg, '<a href="' . esc_url( $url ) . '">', '</a>' );
+			$msg  = esc_html__( 'Stripe API keys will no longer be supported. We recommend that you %1$sSwitch to Stripe Connect%2$s as soon as possible.', 'business-directory-plugin' );
+			$msg  = sprintf( $msg, '<a href="' . esc_url( $url ) . '">', '</a>' );
 			$msg .= '<br><br>';
 			$msg .= sprintf(
 				esc_html__( '%1$sNote:%2$s You need to first remove your API keys and save before the new buttons will appear.', 'business-directory-plugin' ),
