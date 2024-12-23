@@ -17,7 +17,7 @@ class WPBDPStrpEventsController {
 	 * Tell Stripe Connect API that the request came through by flushing early before processing.
 	 * Flushing early allows the API to end the request earlier.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return void
 	 */
@@ -60,7 +60,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * For every incomplete webhook, try to process events.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param array<string> $event_ids
 	 *
@@ -88,7 +88,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * Skip any event that has already been completed or failed too many times.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param string $event_id
 	 *
@@ -123,7 +123,7 @@ class WPBDPStrpEventsController {
 	 * If an event fails, track the failure and try again later.
 	 * If the failure count exceeds the limit, the event will be skipped.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param string $event_id
 	 *
@@ -150,7 +150,7 @@ class WPBDPStrpEventsController {
 	 * Track an event to no longer process.
 	 * This is called for successful events, and also for failed events after a number of retries.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param string $event_id
 	 *
@@ -340,7 +340,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * Sync the name, email, and address info from the event to the payment object.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param object $payment
 	 * @param object $billing_details
@@ -360,7 +360,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * Triggered when the invoice.payment_succeeded events are processed.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param WPBDP__Listing_Subscription $subscription
 	 * @param object                       $parent_payment

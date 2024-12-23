@@ -68,7 +68,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.9
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'stripe', 'https://js.stripe.com/v3/', array(), '3', false );
@@ -94,7 +94,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	/**
 	 * Override this in the individual gateway class.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param WPBDP_Payment $payment Payment object.
 	 *
@@ -134,7 +134,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return string
 	 */
@@ -216,7 +216,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @throws Exception If the response is not valid.
 	 */
@@ -289,7 +289,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * Return the user ids in order of priority.
 	 * The customer ID will include the last used payment method, so use carefully.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param WPBDP_Payment $payment Payment object.
 	 *
@@ -323,7 +323,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	/**
 	 * The name of the post or user meta, depending on test or live mode.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return string
 	 */
@@ -332,7 +332,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param WPBDP_Payment $payment Payment object.
 	 *
@@ -428,7 +428,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param WPBDP_Payment $payment Payment object.
 	 *
@@ -553,7 +553,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param WPBDP_Listing               $listing      Listing object.
 	 * @param WPBDP__Listing_Subscription $subscription Subscription object.
@@ -584,7 +584,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param float $amount Amount to be formatted.
 	 *
@@ -597,7 +597,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	/**
 	 * Confirm settings are valid.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return array<string> Error messages.
 	 */

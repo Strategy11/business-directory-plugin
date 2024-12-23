@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 5.9
 Requires PHP: 7.0
 Tested up to: 6.7.1
-Stable tag: 6.4.8
+Stable tag: 6.4.9
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -159,6 +159,9 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 == Changelog ==
 = 6.4.8 =
+* New: Added Stripe payment gateway
+
+= 6.4.8 =
 * Fix: Issue with the redirect chain for the new login redirect feature
 
 = 6.4.7 =
@@ -203,14 +206,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Only use advanced search in the widget if fields are selected
 * Fix: Set defaults to avoid errors if nothing is selected in a widget
 * Performance: Cut out an extra API call to fetch themes in the admin area
-
-= 6.4 =
-* New: Update the front-end search and create listing appearance.
-* New: Use colors and styles from block themes for buttons.
-* New: Add a plan selection layout when submitting a listing.
-* New: Add wpbdp_minimum_backend_role hook to override the default 'manage_options' role required for access to the admin area.
-* Fix: The listing appearance option was showing as HTML.
-* Fix: Updates for better PHP 8.2 compatibility.
-* Fix: Russian characters were causing fatal errors in some cases.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

@@ -61,7 +61,7 @@ jQuery(function($) {
         /**
          * Handle when the checkout submit button is clicked when the Stripe gateway is selected.
          *
-         * @since x.x
+         * @since 6.4.9
          *
          * @param {Event} event
          * @return {bool}

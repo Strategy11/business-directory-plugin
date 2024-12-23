@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2024-11-26 13:56:39+00:00\n"
+"POT-Creation-Date: 2024-12-23 09:57:37+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -76,12 +76,12 @@ msgstr "Tags directory"
 msgid "Search results for: %s"
 msgstr "Risultati di ricerca"
 
-#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:632
+#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:631
 #, fuzzy
 msgid "Directory Content"
 msgstr "Categoria della Directory"
 
-#: includes/admin/admin-pages.php:497 includes/admin/class-admin.php:318
+#: includes/admin/admin-pages.php:497 includes/admin/class-admin.php:317
 #: includes/admin/settings/class-settings-bootstrap.php:750
 #: includes/admin/settings/class-settings-bootstrap.php:751
 #: includes/helpers/class-app.php:93
@@ -89,7 +89,7 @@ msgstr "Categoria della Directory"
 msgid "Directory"
 msgstr "Directory"
 
-#: includes/admin/class-admin.php:212
+#: includes/admin/class-admin.php:211
 #, fuzzy
 msgid ""
 "Find out how to create a compelling, thriving business directory from "
@@ -99,7 +99,7 @@ msgstr ""
 "questo ridicolmente praticabile (e GRATUITO) corso di e-mail in 5 parti. "
 "Ottieni un modulo premium GRATUITO solo per la registrazione."
 
-#: includes/admin/class-admin.php:214
+#: includes/admin/class-admin.php:213
 #: includes/admin/settings/class-settings-bootstrap.php:13
 #: includes/controllers/pages/class-submit-listing.php:1564
 #: includes/form-fields.php:422 templates/admin/payments-details.tpl.php:151
@@ -109,95 +109,96 @@ msgstr ""
 msgid "Email"
 msgstr "Email:"
 
-#: includes/admin/class-admin.php:221
+#: includes/admin/class-admin.php:220
 #, fuzzy
 msgid "Want to know the secrets of building an awesome business directory?"
 msgstr ""
 "Vuoi conoscere i segreti della costruzione di un'impressionante directory "
 "aziendale?"
 
-#: includes/admin/class-admin.php:223
+#: includes/admin/class-admin.php:222
 #, fuzzy
 msgid "Yes, please!"
 msgstr "Sì, per favore!"
 
-#: includes/admin/class-admin.php:225 includes/admin/tracking.php:238
+#: includes/admin/class-admin.php:224
+#: includes/models/class-sitetracking.php:238
 #, fuzzy
 msgid "No, thanks"
 msgstr "No, Grazie"
 
-#: includes/admin/class-admin.php:258
+#: includes/admin/class-admin.php:257
 #, fuzzy
 msgid "You're all set. Visit your new %1$sBusiness Directory%2$s page."
 msgstr "Sei a posto. Visita la tua nuova pagina <a>Business Directory</a>."
 
-#: includes/admin/class-admin.php:286
+#: includes/admin/class-admin.php:285
 #, fuzzy
 msgid "Invalid email address."
 msgstr "Indirizzo e-mail non valido."
 
-#: includes/admin/class-admin.php:317
+#: includes/admin/class-admin.php:316
 #, fuzzy
 msgid "Business Directory Admin"
 msgstr "Business Directory Admin"
 
-#: includes/admin/class-admin.php:329 templates/admin/fees-index.tpl.php:5
+#: includes/admin/class-admin.php:328 templates/admin/fees-index.tpl.php:5
 #: templates/admin/home.tpl.php:64
 #, fuzzy
 msgid "Plans"
 msgstr "Piano tariffario"
 
-#: includes/admin/class-admin.php:332 templates/admin/form-fields.tpl.php:20
+#: includes/admin/class-admin.php:331 templates/admin/form-fields.tpl.php:20
 #: templates/admin/home.tpl.php:59
 #, fuzzy
 msgid "Form Fields"
 msgstr "campi del modulo"
 
-#: includes/admin/class-admin.php:362 includes/admin/class-admin.php:363
+#: includes/admin/class-admin.php:361 includes/admin/class-admin.php:362
 #: includes/licensing.php:221
 #, fuzzy
 msgid "Modules"
 msgstr "(Tutti i moduli)"
 
-#: includes/admin/class-admin.php:363
+#: includes/admin/class-admin.php:362
 #: includes/admin/controllers/class-onboarding-wizard.php:200
 #, fuzzy
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin.php:424
+#: includes/admin/class-admin.php:423
 msgid "Black Friday!"
 msgstr ""
 
-#: includes/admin/class-admin.php:424
+#: includes/admin/class-admin.php:423
 msgid "Cyber Monday!"
 msgstr ""
 
-#: includes/admin/class-admin.php:575 includes/class-wpbdp.php:416
+#: includes/admin/class-admin.php:574 includes/class-wpbdp.php:418
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: includes/admin/class-admin.php:631 includes/class-cpt-integration.php:25
+#: includes/admin/class-admin.php:630 includes/class-cpt-integration.php:25
 #, fuzzy
 msgid "Directory Listings"
 msgstr "Elenco Slug Annuncio"
 
-#: includes/admin/class-admin.php:992
+#: includes/admin/class-admin.php:991
 #, fuzzy
 msgid "Dismiss this notice."
 msgstr "Rimuovi questo avviso."
 
-#: includes/admin/class-admin.php:1160
+#: includes/admin/class-admin.php:1159
 #, fuzzy
 msgid "No renewal emails found."
 msgstr "Nessun annuncio trovato."
 
-#: includes/admin/class-admin.php:1164
+#: includes/admin/class-admin.php:1163
 #, fuzzy
 msgid "Could not send renewal email."
 msgstr "Inviare l'e-mail di rinnovo"
 
-#: includes/admin/class-admin.php:1319
+#: includes/admin/class-admin.php:1318
 #: includes/admin/helpers/tables/class-form-fields-table.php:129
 #: includes/admin/helpers/tables/class-payments-table.php:69
 #: templates/email/listing-added.tpl.php:7
@@ -207,13 +208,13 @@ msgstr "Inviare l'e-mail di rinnovo"
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-admin.php:1321 includes/admin/class-admin.php:1329
+#: includes/admin/class-admin.php:1320 includes/admin/class-admin.php:1328
 #: includes/admin/settings/class-settings-bootstrap.php:778
 #, fuzzy
 msgid "Listing Count"
 msgstr "Elenco luoghi"
 
-#: includes/admin/class-admin.php:1508
+#: includes/admin/class-admin.php:1507
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -327,52 +328,52 @@ msgstr "Importo"
 msgid "Images"
 msgstr "Immagini"
 
-#: includes/admin/controllers/class-admin-fees.php:83
+#: includes/admin/controllers/class-admin-fees.php:84
 #: includes/admin/helpers/class-modules-list.php:238
 #, fuzzy
 msgid "Upgrade"
 msgstr "Avviare l'aggiornamento"
 
-#: includes/admin/controllers/class-admin-fees.php:94
+#: includes/admin/controllers/class-admin-fees.php:97
 msgid "Set Up"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-fees.php:164
+#: includes/admin/controllers/class-admin-fees.php:168
 #, fuzzy
 msgid "Plan added."
 msgstr "Aggiunto il piano tariffario."
 
-#: includes/admin/controllers/class-admin-fees.php:168
-#: includes/admin/controllers/class-admin-fees.php:183
+#: includes/admin/controllers/class-admin-fees.php:172
+#: includes/admin/controllers/class-admin-fees.php:187
 #, fuzzy
 msgid "Plan updated."
 msgstr "Piano tariffario aggiornato."
 
-#: includes/admin/controllers/class-admin-fees.php:203
+#: includes/admin/controllers/class-admin-fees.php:207
 msgid "%1$sClick here to update image limits%2$s of %3$s existing listings."
 msgstr ""
 
-#: includes/admin/controllers/class-admin-fees.php:205
+#: includes/admin/controllers/class-admin-fees.php:209
 #, fuzzy
 msgid "Update listing image limits?"
 msgstr "Mantenere le immagini dell'elenco esistenti?"
 
-#: includes/admin/controllers/class-admin-fees.php:233
+#: includes/admin/controllers/class-admin-fees.php:237
 #, fuzzy
 msgid "Plan not found."
 msgstr "Piano tariffario aggiornato."
 
-#: includes/admin/controllers/class-admin-fees.php:237
+#: includes/admin/controllers/class-admin-fees.php:241
 #, fuzzy
 msgid "Plan listings updated."
 msgstr "Piano tariffario aggiornato."
 
-#: includes/admin/controllers/class-admin-fees.php:301
+#: includes/admin/controllers/class-admin-fees.php:305
 #, fuzzy
 msgid "Plan \"%s\" deleted."
 msgstr "Canone \"%s\" soppresso."
 
-#: includes/admin/controllers/class-admin-fees.php:315
+#: includes/admin/controllers/class-admin-fees.php:319
 msgid "Cannot disable plan. At least one plan should be enabled"
 msgstr ""
 
@@ -815,32 +816,32 @@ msgstr ""
 "Errore durante la creazione di una directory temporanea per l'esportazione "
 "CSV: %s"
 
-#: includes/admin/helpers/csv/class-csv-import.php:531
+#: includes/admin/helpers/csv/class-csv-import.php:534
 #, fuzzy
 msgid "Could not create listing category \"%s\""
 msgstr "Impossibile creare la categoria \"%s\""
 
-#: includes/admin/helpers/csv/class-csv-import.php:696
+#: includes/admin/helpers/csv/class-csv-import.php:699
 msgid "Listing imported by admin. Payment skipped."
 msgstr "Elenco importato da admin. Pagamento saltato."
 
-#: includes/admin/helpers/csv/class-csv-import.php:749
+#: includes/admin/helpers/csv/class-csv-import.php:752
 #, fuzzy
 msgid "Username \"%s\" does not exist"
 msgstr "Nome Utente \"%s\" non esiste"
 
 #. translators: %d: the plan id
-#: includes/admin/helpers/csv/class-csv-import.php:778
+#: includes/admin/helpers/csv/class-csv-import.php:781
 #, fuzzy
 msgid "There is no Plan with ID = %d"
 msgstr "Non esiste un piano tariffario con ID = <fee-id>"
 
-#: includes/admin/helpers/csv/class-csv-import.php:810
+#: includes/admin/helpers/csv/class-csv-import.php:813
 #, fuzzy
 msgid "Missing required field: %s"
 msgstr "Campo obbligatorio mancante: %s"
 
-#: includes/admin/helpers/csv/class-csv-import.php:851
+#: includes/admin/helpers/csv/class-csv-import.php:854
 #, fuzzy
 msgid "Listing category \"%s\" does not exist"
 msgstr "La categoria \"%s\" non esiste"
@@ -1455,11 +1456,6 @@ msgstr "Disinstalla"
 msgid "%s cannot include spaces, commas, or &"
 msgstr ""
 
-#: includes/admin/tracking.php:245
-#, fuzzy
-msgid "Allow Tracking"
-msgstr "Consenti il monitoraggio"
-
 #: includes/admin/upgrades/class-installer-installation-error.php:15
 msgid "Business Directory - Installation Failed"
 msgstr "Business Directory - Installazione non riuscita"
@@ -1629,7 +1625,7 @@ msgstr ""
 msgid "View Docs"
 msgstr "Vedi"
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:420
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:422
 #, fuzzy
 msgid "Settings"
 msgstr "Impostazioni"
@@ -1897,39 +1893,59 @@ msgstr "[%s] Notifica nuovo Annuncio"
 msgid "%s Feed"
 msgstr "%s Mangimi"
 
-#: includes/class-payment-gateways.php:146
+#: includes/class-payment-gateways.php:208
 msgid ""
 "You have paid plans but no payment gateway. Go to %1$sSettings - Payment%2$s "
 "to set up a gateway. Until you do this, only free plans will be available."
 msgstr ""
 
-#: includes/class-wpbdp.php:512
+#: includes/class-payment-gateways.php:240
+msgid ""
+"Stripe API keys will no longer be supported. We recommend that you "
+"%1$sSwitch to Stripe Connect%2$s as soon as possible."
+msgstr ""
+
+#: includes/class-payment-gateways.php:244
+msgid ""
+"%1$sNote:%2$s You need to first remove your API keys and save before the new "
+"buttons will appear."
+msgstr ""
+
+#: includes/class-payment-gateways.php:250
+msgid "Try out the new %1$sStripe Connect%2$s payment gateway!"
+msgstr ""
+
+#: includes/class-payment-gateways.php:254
+msgid "Payments are now available for free users with a 3% application fee."
+msgstr ""
+
+#: includes/class-wpbdp.php:514
 #, fuzzy
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Si prega di selezionare il motivo per segnalare questo annuncio:"
 
-#: includes/class-wpbdp.php:517
+#: includes/class-wpbdp.php:519
 #, fuzzy
 msgid "Can not upload any more images for this listing."
 msgstr "Non è possibile caricare altre immagini per questo annuncio."
 
-#: includes/class-wpbdp.php:646
+#: includes/class-wpbdp.php:648
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/class-wpbdp.php:653
+#: includes/class-wpbdp.php:655
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:666 includes/fields/class-fieldtypes-image.php:405
+#: includes/class-wpbdp.php:668 includes/fields/class-fieldtypes-image.php:405
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Non è stato possibile aggiornare il tema: %s"
 
-#: includes/class-wpbdp.php:698
+#: includes/class-wpbdp.php:700
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1937,7 +1953,7 @@ msgstr ""
 "Le funzioni della directory sono disattivate in questo momento perché è in "
 "attesa di un <a>aggiornamento manuale</a>."
 
-#: includes/class-wpbdp.php:705
+#: includes/class-wpbdp.php:707
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -2445,6 +2461,62 @@ msgid ""
 "%s. You can try again later or cancel subscription from gateway dashboard."
 msgstr ""
 
+#: includes/gateways/class-stripe-gateway.php:23
+msgid "Stripe"
+msgstr ""
+
+#: includes/gateways/class-stripe-gateway.php:123
+msgid "Checkout Window Title"
+msgstr ""
+
+#: includes/gateways/class-stripe-gateway.php:129
+msgid "Verify billing address during checkout?"
+msgstr ""
+
+#: includes/gateways/class-stripe-gateway.php:164
+#, fuzzy
+msgid "There was an error while configuring Stripe gateway"
+msgstr "C'è stato un errore nel caricare il file CSV."
+
+#: includes/gateways/stripe/helpers/classStrpAppHelper.php:39
+msgid "Pay as you go pricing: 3% fee per-transaction + Stripe fees."
+msgstr ""
+
+#: includes/gateways/stripe/helpers/classStrpAppHelper.php:40
+#, fuzzy
+msgid "Upgrade to save on fees."
+msgstr "Avviare l'aggiornamento"
+
+#: includes/gateways/stripe/helpers/classStrpConnectHelper.php:530
+msgid "TEST"
+msgstr ""
+
+#: includes/gateways/stripe/helpers/classStrpConnectHelper.php:530
+msgid "LIVE"
+msgstr ""
+
+#: includes/gateways/stripe/views/connect-settings.php:21
+msgid "Connected"
+msgstr ""
+
+#: includes/gateways/stripe/views/connect-settings.php:27
+#, fuzzy
+msgid "Not connected!"
+msgstr "Informazioni di Pagamento"
+
+#: includes/gateways/stripe/views/connect-settings.php:32
+#, fuzzy
+msgid "Finish Stripe Setup"
+msgstr "Inizio Importazione"
+
+#: includes/gateways/stripe/views/connect-settings.php:38
+msgid "Disconnect"
+msgstr ""
+
+#: includes/gateways/stripe/views/connect-settings.php:45
+msgid "Connect to Stripe"
+msgstr ""
+
 #: includes/helpers/class-currency-helper.php:25
 msgid "Free"
 msgstr "Gratis"
@@ -2776,6 +2848,11 @@ msgstr "%s. Annuncio importato"
 #: includes/models/class-reviews.php:129
 msgid "Congratulations %1$s! You have collected %2$d listings."
 msgstr ""
+
+#: includes/models/class-sitetracking.php:245
+#, fuzzy
+msgid "Allow Tracking"
+msgstr "Consenti il monitoraggio"
 
 #: includes/models/form-fields-validation.php:29
 #, fuzzy
@@ -5273,59 +5350,59 @@ msgctxt "views"
 msgid "Find A Listing"
 msgstr "Trova un annuncio"
 
-#: includes/admin/class-admin.php:246
+#: includes/admin/class-admin.php:245
 msgctxt "admin"
 msgid "Business Directory"
 msgstr "Business Directory"
 
-#: includes/admin/class-admin.php:649
+#: includes/admin/class-admin.php:648
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Menu senza titolo"
 
-#: includes/admin/class-admin.php:1097 includes/admin/class-admin.php:1107
+#: includes/admin/class-admin.php:1096 includes/admin/class-admin.php:1106
 msgctxt "admin"
 msgid "The listing has been updated."
 msgid_plural "The listings have been updated."
 msgstr[0] "L'Annuncio è stato aggiornato."
 msgstr[1] "Gli annunci  sono stati aggiornati."
 
-#: includes/admin/class-admin.php:1133
+#: includes/admin/class-admin.php:1132
 #, fuzzy
 msgctxt "admin"
 msgid "The plan was successfully assigned."
 msgstr "Il canone è stata assegnato con successo."
 
-#: includes/admin/class-admin.php:1143
+#: includes/admin/class-admin.php:1142
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "L'Annuncio è stato rinnovato."
 msgstr[1] "Gli annunci sono stati rinnovati."
 
-#: includes/admin/class-admin.php:1155
+#: includes/admin/class-admin.php:1154
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "E-mail di rinnovo inviata."
 
-#: includes/admin/class-admin.php:1173
+#: includes/admin/class-admin.php:1172
 msgctxt "admin"
 msgid "Listing report deleted."
 msgid_plural "Listing reports deleted."
 msgstr[0] "La segnalazione per l'Annuncio è stata cancellata."
 msgstr[1] "Le segnalazioni per gli Annunci sono state cancellate."
 
-#: includes/admin/class-admin.php:1243
+#: includes/admin/class-admin.php:1242
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Dati  di accesso inviati."
 
-#: includes/admin/class-admin.php:1245
+#: includes/admin/class-admin.php:1244
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr "Non è stato possibile inviare i dati di accesso."
 
-#: includes/admin/class-admin.php:1417
+#: includes/admin/class-admin.php:1416
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -5334,7 +5411,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> richiede una pagina con il codice di scelta "
 "rapida <tt>[businessdirectory]</tt> per funzionare correttamente."
 
-#: includes/admin/class-admin.php:1419
+#: includes/admin/class-admin.php:1418
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -5343,12 +5420,12 @@ msgstr ""
 "È possibile creare la pagina da soli o lasciare che Business Directory "
 "faccia questo per voi automaticamente."
 
-#: includes/admin/class-admin.php:1424
+#: includes/admin/class-admin.php:1423
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crea le pagine richieste per me"
 
-#: includes/admin/class-admin.php:1481
+#: includes/admin/class-admin.php:1480
 #, fuzzy
 msgctxt "admin"
 msgid ""
@@ -5404,18 +5481,18 @@ msgctxt "admin"
 msgid "Create these required fields for me"
 msgstr "Crea questi campi obbligatori per me"
 
-#: includes/admin/class-admin.php:336
+#: includes/admin/class-admin.php:335
 msgctxt "admin menu"
 msgid "Payment History"
 msgstr "Cronologia pagamenti"
 
-#: includes/admin/class-admin.php:339
+#: includes/admin/class-admin.php:338
 #, fuzzy
 msgctxt "admin menu"
 msgid "Import & Export"
 msgstr "Importa/esporta CSV"
 
-#: includes/admin/class-admin.php:342
+#: includes/admin/class-admin.php:341
 msgctxt "admin menu"
 msgid "Debug"
 msgstr "Debug"
@@ -5457,13 +5534,13 @@ msgctxt "fees order"
 msgid "Custom Order"
 msgstr "Ordine Personalizzato"
 
-#: includes/admin/controllers/class-admin-fees.php:313
+#: includes/admin/controllers/class-admin-fees.php:317
 #, fuzzy
 msgctxt "fees admin"
 msgid "Plan enabled."
 msgstr "Canone disattivato."
 
-#: includes/admin/controllers/class-admin-fees.php:313
+#: includes/admin/controllers/class-admin-fees.php:317
 #, fuzzy
 msgctxt "fees admin"
 msgid "Plan disabled."
@@ -7317,7 +7394,7 @@ msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""
 "L'importazione è in \"modalità test\". Non verrà inserito nulla nel database."
 
-#: includes/admin/helpers/csv/class-csv-import.php:525
+#: includes/admin/helpers/csv/class-csv-import.php:528
 msgctxt "admin csv-import"
 msgid ""
 "Could not create listing category \"<category-name>\". The operation failed "
@@ -7326,7 +7403,7 @@ msgstr ""
 "Impossibile creare la categoria di Annunci \"<category-name>\". L'operazione "
 "non è riuscita per il seguente errore: <error-message>."
 
-#: includes/admin/helpers/csv/class-csv-import.php:926
+#: includes/admin/helpers/csv/class-csv-import.php:929
 msgctxt "admin csv-import"
 msgid "The string <string> couldn't be converted into a valid date."
 msgstr "La stringa <string>non poteva essere convertita in una data valida."
@@ -7412,27 +7489,6 @@ msgstr "Cestino"
 msgctxt "contact email"
 msgid "Message:"
 msgstr "Messaggio:"
-
-#: includes/admin/tracking.php:212
-msgctxt "tracking"
-msgid "Help Improve Business Directory"
-msgstr "Aiuta a migliorare la directory aziendale"
-
-#: includes/admin/tracking.php:214
-msgctxt "tracking"
-msgid ""
-"Can Business Directory keep track of your theme, plugins, and other non-"
-"personal, non-identifying information to help us in testing the plugin for "
-"future releases?"
-msgstr ""
-"Può la Business Directory tenere traccia del tuo tema, dei plugin e di altre "
-"informazioni non personali e non identificabili per aiutarci a testare il "
-"plugin per le versioni future?"
-
-#: includes/admin/tracking.php:216
-msgctxt "tracking"
-msgid "What do you track?"
-msgstr "Cosa traccia?"
 
 #: includes/admin/upgrades/class-manual-upgrade-helper.php:193
 msgctxt "manual-upgrade"
@@ -7692,12 +7748,12 @@ msgctxt "post type"
 msgid "Add New Listing"
 msgstr "Aggiungi Nuovo Annuncio"
 
-#: includes/class-payment-gateways.php:95
+#: includes/class-payment-gateways.php:151
 msgctxt "payment-gateways"
 msgid "Enable %s?"
 msgstr "Attivare %s?"
 
-#: includes/class-payment-gateways.php:133
+#: includes/class-payment-gateways.php:195
 msgctxt "payment-gateways"
 msgid ""
 "The <gateway> gateway is enabled but not properly configured. The gateway "
@@ -7707,7 +7763,7 @@ msgstr ""
 "non sarà disponibile fino a quando i seguenti problemi  non saranno stati "
 "risolti: <problems>."
 
-#: includes/class-payment-gateways.php:135
+#: includes/class-payment-gateways.php:197
 msgctxt "payment-gateways"
 msgid "Please check the <link>payment settings</link>."
 msgstr "Si prega di controllare le <link>impostazioni di pagamento</link>."
@@ -7722,7 +7778,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Il punteggio di convalida reCAPTCHA non è riuscito."
 
-#: includes/class-wpbdp.php:521
+#: includes/class-wpbdp.php:523
 #, fuzzy
 msgctxt "listing image upload"
 msgid ""
@@ -8546,6 +8602,11 @@ msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "Elenco #%d"
 
+#: includes/gateways/class-stripe-gateway.php:612
+msgctxt "stripe"
+msgid "Stripe payments are not connected."
+msgstr ""
+
 #: includes/helpers/class-access-keys-sender.php:20
 msgctxt "access keys sender"
 msgid "<email-address> is not a valid e-mail address."
@@ -8750,6 +8811,27 @@ msgstr "In attesa"
 msgctxt "payment"
 msgid "Refunded"
 msgstr "Rimborsato"
+
+#: includes/models/class-sitetracking.php:212
+msgctxt "tracking"
+msgid "Help Improve Business Directory"
+msgstr "Aiuta a migliorare la directory aziendale"
+
+#: includes/models/class-sitetracking.php:214
+msgctxt "tracking"
+msgid ""
+"Can Business Directory keep track of your theme, plugins, and other non-"
+"personal, non-identifying information to help us in testing the plugin for "
+"future releases?"
+msgstr ""
+"Può la Business Directory tenere traccia del tuo tema, dei plugin e di altre "
+"informazioni non personali e non identificabili per aiutarci a testare il "
+"plugin per le versioni future?"
+
+#: includes/models/class-sitetracking.php:216
+msgctxt "tracking"
+msgid "What do you track?"
+msgstr "Cosa traccia?"
 
 #: includes/utils.php:282
 msgctxt "utils"
@@ -13714,10 +13796,6 @@ msgstr "No, torna ai miei abbonamenti"
 #~ msgstr "Il tuo abbonamento è stato cancellato."
 
 #, fuzzy
-#~ msgid "Upgrade to %s"
-#~ msgstr "Avviare l'aggiornamento"
-
-#, fuzzy
 #~ msgid "Manual Configuration"
 #~ msgstr "Esporta Configurazione"
 
@@ -18664,10 +18742,6 @@ msgstr "No, torna ai miei abbonamenti"
 #~ msgctxt "send-access-keys"
 #~ msgid "Continue"
 #~ msgstr "Continua"
-
-#, fuzzy
-#~ msgid "There was an error when reading this WXR file"
-#~ msgstr "C'è stato un errore nel caricare il file CSV."
 
 #, fuzzy
 #~ msgid "or assign posts to an existing user:"

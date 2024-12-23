@@ -547,7 +547,7 @@ class WPBDP__Settings {
 	/**
 	 * Check if at least one of the keys specified has a value in settings.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @param array $keys
 	 *
@@ -567,7 +567,7 @@ class WPBDP__Settings {
 	 * Check if Stripe API keys are set in BD Lite settings.
 	 * If any are set, Stripe Lite will not load and we'll fallback on the Stripe module (add-on).
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return bool
 	 */

@@ -8,7 +8,7 @@ class WPBDPStrpConnectHelper {
 	/**
 	 * Track the latest error when calling stripe connect.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @var string|null
 	 */
@@ -224,7 +224,7 @@ class WPBDPStrpConnectHelper {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return bool
 	 */

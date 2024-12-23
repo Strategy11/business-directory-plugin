@@ -1391,7 +1391,7 @@ function wpbdp_backend_minimim_role() {
 /**
  * Alias for wpbdp_backend_minimim_role without the typo.
  *
- * @since x.x
+ * @since 6.4.9
  *
  * @return string
  */

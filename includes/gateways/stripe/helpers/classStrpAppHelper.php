@@ -13,7 +13,7 @@ class WPBDPStrpAppHelper {
 	/**
 	 * Return the active mode to use for Stripe based on the global Payments settings.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return string Ether 'live' or 'test'.
 	 *
@@ -26,7 +26,7 @@ class WPBDPStrpAppHelper {
 	/**
 	 * Add education about Stripe fees.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return void
 	 */
@@ -47,7 +47,7 @@ class WPBDPStrpAppHelper {
 	/**
 	 * Licenses without access to the Stripe module will have Stripe fees applied.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return bool True if the user does not have access to the Stripe module.
 	 */
@@ -64,7 +64,7 @@ class WPBDPStrpAppHelper {
 	/**
 	 * Get the key used for customer meta based on the current mode.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return string Either _wpbdp_stripe_customer_id or _wpbdp_stripe_customer_id_test.
 	 */
