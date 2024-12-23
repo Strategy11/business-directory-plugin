@@ -52,7 +52,7 @@ class WPBDP__Payment_Gateways {
 	 * Include Authorize.Net, only if it is already configured.
 	 * There is a filter as well, so it can also be enabled using a code snippet.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return bool
 	 */
@@ -67,7 +67,7 @@ class WPBDP__Payment_Gateways {
 		/**
 		 * Allow flexibility so users can still opt into Authorize.Net even though it is hidden by default.
 		 *
-		 * @since x.x
+		 * @since 6.4.9
 		 *
 		 * @param bool $include_authorize_net Whether to include the Authorize.Net gateway.
 		 */
@@ -79,7 +79,7 @@ class WPBDP__Payment_Gateways {
 	 * Avoid including the Stripe Lite module if the Stripe module is already configured.
 	 * This is to avoid Stripe conflicts with Stripe Lite when the Stripe module is active.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return bool
 	 */
@@ -214,7 +214,7 @@ class WPBDP__Payment_Gateways {
 	/**
 	 * Maybe show a message to recommend users to switch to Stripe Connect.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return void
 	 */

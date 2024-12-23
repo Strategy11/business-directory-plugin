@@ -42,7 +42,7 @@ class WPBDP__Modules {
 	/**
 	 * If Stripe Connect is set-up (in BD Lite), unload the Stripe module (the add-on).
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return bool
 	 */
@@ -68,7 +68,7 @@ class WPBDP__Modules {
 	 * Prevent the Stripe module (add-on) from loading.
 	 * This is called Stripe Lite is configured, to prevent conflicts with having two stripe gateways.
 	 *
-	 * @since x.x
+	 * @since 6.4.9
 	 *
 	 * @return void
 	 */
