@@ -42,7 +42,7 @@ See all WordPress listing plugin [features](https://businessdirectoryplugin.com/
 * Fully customizable form fields to submit listings
 * Upload images per listing, allow restricted numbers of images based on plan
 * Lots of image options: drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
-* Accept paid or free listings with Authorize.net
+* Accept paid or free listings with Stripe
 * Full support for recurring payments
 * Allow for featured/sticky listings for an upgrade fee
 * Widgets for Featured, Latest and Random listings, and a Search widget.
