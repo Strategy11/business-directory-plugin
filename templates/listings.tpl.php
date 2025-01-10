@@ -15,20 +15,20 @@ wpbdp_the_listing_sort_options();
 	 * 
 	 * @since x.x
 	 */
-	$wrapper_pagination = apply_filters( 'wpbdp_listings_wrapper_pagination', true );
+	$display_pagination_in_listings_wrapper = apply_filters( 'wpbdp_display_pagination_in_listings_wrapper', true );
 
 	wpbdp_x_part(
 		'parts/listings-loop',
 		array(
-			'query'              => $query,
-			'wrapper_pagination' => $wrapper_pagination,
+			'query'                                  => $query,
+			'display_pagination_in_listings_wrapper' => $display_pagination_in_listings_wrapper,
 		)
 	);
 	?>
 </div>
 <?php
 
-if ( ! $wrapper_pagination ) {
+if ( ! $display_pagination_in_listings_wrapper ) {
 	/** @phpstan-ignore-next-line */
 	wpbdp_x_part(
 		'parts/pagination',
