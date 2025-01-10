@@ -12,13 +12,15 @@ if ( $query->have_posts() ) :
 	/** @phpstan-ignore-next-line */
 	$wp_query->wpbdp_in_the_loop = false;
 
-	/** @phpstan-ignore-next-line */
-	wpbdp_x_part(
-		'parts/pagination',
-		array(
-			'query' => $query,
-		)
-	);
+	if ( $wrapper_pagination ) :
+		/** @phpstan-ignore-next-line */
+		wpbdp_x_part(
+			'parts/pagination',
+			array(
+				'query' => $query,
+			)
+		);
+	endif;
 else :
 	?>
 	<span class="no-listings">

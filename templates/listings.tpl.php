@@ -10,11 +10,30 @@ wpbdp_the_listing_sort_options();
 
 <div id="wpbdp-listings-list" class="listings wpbdp-listings-list list wpbdp-grid <?php echo esc_attr( apply_filters( 'wpbdp_listings_class', '' ) ); ?>">
 	<?php
+	/**
+	 * Filters whether to display the pagination in the listings wrapper or outside of it.
+	 * 
+	 * @since x.x
+	 */
+	$wrapper_pagination = apply_filters( 'wpbdp_listings_wrapper_pagination', true );
+
 	wpbdp_x_part(
 		'parts/listings-loop',
 		array(
-			'query' => $query,
+			'query'              => $query,
+			'wrapper_pagination' => $wrapper_pagination,
 		)
 	);
 	?>
 </div>
+<?php
+
+if ( ! $wrapper_pagination ) {
+	/** @phpstan-ignore-next-line */
+	wpbdp_x_part(
+		'parts/pagination',
+		array(
+			'query' => $query,
+		)
+	);
+}
