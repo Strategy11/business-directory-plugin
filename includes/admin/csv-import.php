@@ -38,6 +38,19 @@ class WPBDP_CSVImportAdmin {
 			true
 		);
 
+		$max_file_size = ini_get( 'upload_max_filesize' );
+
+		$inline_data = array( 
+			'maxFileSize' => wp_convert_hr_to_bytes( $max_file_size ),
+			'error_label' => sprintf( __( 'The file exceeds the maximum file size of %s', 'business-directory-plugin' ), $max_file_size ),
+		);
+
+		wp_add_inline_script(
+			'wpbdp-admin-import-js',
+			'window.wpbdp_admin_import = ' . wp_json_encode( $inline_data ) . ';',
+			'before'
+		);
+
 		wp_enqueue_style(
 			'wpbdp-admin-import-css',
 			WPBDP_ASSETS_URL . 'css/admin-csv-import.min.css',
