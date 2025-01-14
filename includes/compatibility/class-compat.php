@@ -64,6 +64,11 @@ class WPBDP_Compat {
 			add_filter(
                 'wpf_skip_auto_login', array( $this, 'wp_fusion_skip_auto_login' ), 20 );
 		}
+
+		// Delete Elementor element caching for shortcodes.
+		if ( class_exists( 'Elementor\Core\Base\Document' ) ) {
+			add_action( 'template_redirect', array( $this, 'prevent_shortcodes_elementor_element_cache' ) );
+		}
 	}
 
 	public function cpt_compat_mode() {
@@ -127,6 +132,28 @@ class WPBDP_Compat {
 			return true;
 		}
 		return $skip_auto_login;
+	}
+
+	/**
+	 * Checks if the current post content has a BD shortcode and deletes the Elementor cache.
+	 * 
+	 * @since x.x
+	 *
+	 * @return void
+	 */
+	public function prevent_shortcodes_elementor_element_cache() {
+		global $post, $wpbdp;
+
+		if ( ! $post ) {
+			return;
+		}
+
+		$cache_key  = Elementor\Core\Base\Document::CACHE_META_KEY;
+		$shortcodes = get_shortcode_regex( array_keys( $wpbdp->shortcodes->get_shortcodes() ) );
+
+		if ( preg_match( "/$shortcodes/", $post->post_content ) ) {
+		    delete_post_meta( $post->ID, $cache_key );
+		}
 	}
 
     /**
