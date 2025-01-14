@@ -149,14 +149,10 @@ class WPBDP_Compat {
 		}
 
 		$cache_key  = Elementor\Core\Base\Document::CACHE_META_KEY;
-		$shortcodes = array_keys( $wpbdp->shortcodes->get_shortcodes() );
+		$shortcodes = get_shortcode_regex( array_keys( $wpbdp->shortcodes->get_shortcodes() ) );
 
-		foreach ( $shortcodes as $shortcode ) {
-			if ( has_shortcode( $post->post_content, $shortcode ) ) {
-				delete_post_meta( $post->ID, $cache_key );
-			}
-
-			break;
+		if ( preg_match( "/$shortcodes/", $post->post_content ) ) {
+		    delete_post_meta( $post->ID, $cache_key );
 		}
 	}
 
