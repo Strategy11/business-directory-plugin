@@ -117,3 +117,9 @@ namespace WPMailSMTP {
 		}
 	}
 }
+
+namespace Elementor\Core\Base {
+	class Document {
+		public const CACHE_META_KEY = '_elementor_element_cache';
+	}	
+}

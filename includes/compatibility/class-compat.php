@@ -148,7 +148,7 @@ class WPBDP_Compat {
 			return;
 		}
 
-		$cache_key = Elementor\Core\Base\Document::CACHE_META_KEY;
+		$cache_key  = Elementor\Core\Base\Document::CACHE_META_KEY;
 		$shortcodes = array_keys( $wpbdp->shortcodes->get_shortcodes() );
 
 		foreach ( $shortcodes as $shortcode ) {
