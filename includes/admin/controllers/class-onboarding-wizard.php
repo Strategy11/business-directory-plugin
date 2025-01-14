@@ -221,7 +221,7 @@ final class WPBDP_Onboarding_Wizard {
 		// Include SVG images for icons.
 		WPBDP_App_Helper::include_svg();
 
-		$view_path        = $this->get_view_path();
+		$view_path = $this->get_view_path();
 
 		// Note: Add step parts in order.
 		$step_parts = array(
