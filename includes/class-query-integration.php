@@ -200,6 +200,28 @@ class WPBDP__Query_Integration {
 		} elseif ( 'show_listing' === $query->wpbdp_view && $query->is_main_query() ) {
 			add_filter( 'posts_results', array( $this, 'check_child_page' ), 10, 2 );
 		}
+
+		add_filter( 'posts_orderby', array( $this, 'remove_spaces_from_order_by' ), 10, 2 );
+	}
+
+	/**
+	 * Filter the posts orderby clause to remove spaces for improved sorting.
+	 * 
+	 * @since x.x
+	 *
+	 * @param string   $orderby - The orderby clause.
+	 * @param WP_Query $query - The current query object.
+	 *
+	 * @return string
+	 */
+	public function remove_spaces_from_order_by( $orderby, $query ) {
+		if ( ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
+			return $orderby;
+		}
+
+		$field = explode( ' ', $orderby )[0];
+		
+		return "REPLACE({$field}, ' ', '') " . $query->get( 'order', 'ASC' );
 	}
 
 	/**
