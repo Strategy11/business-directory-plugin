@@ -45,11 +45,7 @@ class WPBDP_CSVImportAdmin {
 			'error_label' => sprintf( __( 'The file exceeds the maximum file size of %s', 'business-directory-plugin' ), $max_file_size ),
 		);
 
-		wp_add_inline_script(
-			'wpbdp-admin-import-js',
-			'window.wpbdp_admin_import = ' . wp_json_encode( $inline_data ) . ';',
-			'before'
-		);
+		wp_localize_script( 'wpbdp-admin-import-js', 'wpbdp_admin_import', $inline_data );
 
 		wp_enqueue_style(
 			'wpbdp-admin-import-css',
