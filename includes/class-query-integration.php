@@ -221,8 +221,8 @@ class WPBDP__Query_Integration {
 		}
 
 		$field = explode( ' ', $orderby )[0];
-		
-		return "REPLACE({$field}, ' ', '') " . $query->get( 'order', 'ASC' );
+
+		return $this->get_space_replace( $field, $query->get( 'order', 'ASC' ) );
 	}
 
 	/**
@@ -489,10 +489,24 @@ class WPBDP__Query_Integration {
 		}
 
 		if ( $qn && $qn !== $orderby ) {
-			$orderby = $orderby . ( $orderby ? ', ' : '' ) . "REPLACE({$qn}, ' ', '') " . ' ' . $sort->order;
+			$orderby = $orderby . ( $orderby ? ', ' : '' ) . $this->get_space_replace( $qn, $sort->order );
 		}
 
 		return $orderby;
+	}
+
+	/**
+	 * Return the space removal string for the given field and order.
+	 * 
+	 * @since x.x
+	 *
+	 * @param string $field - The field to remove spaces from.
+	 * @param string $order - The order to apply.
+	 * 
+	 * @return string
+	 */
+	private function get_space_replace( $field, $order ) {
+		return "REPLACE({$field}, ' ', '') " . ' ' . $order;
 	}
 
 	/**
