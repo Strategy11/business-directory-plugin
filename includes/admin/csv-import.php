@@ -38,6 +38,14 @@ class WPBDP_CSVImportAdmin {
 			true
 		);
 
+		wp_enqueue_script(
+			'wpbdp-admin-import-validation-js',
+			WPBDP_ASSETS_URL . 'js/admin-csv-import-validation' . $min . '.js',
+			array(),
+			WPBDP_VERSION,
+			true
+		);
+
 		$max_file_size = ini_get( 'upload_max_filesize' );
 
 		$import_meta_data = array( 
@@ -45,7 +53,7 @@ class WPBDP_CSVImportAdmin {
 			'error_label' => sprintf( __( 'The file exceeds the maximum file size of %s', 'business-directory-plugin' ), $max_file_size ),
 		);
 
-		wp_localize_script( 'wpbdp-admin-import-js', 'wpbdp_admin_import', $import_meta_data );
+		wp_localize_script( 'wpbdp-admin-import-validation-js', 'wpbdp_admin_import', $import_meta_data );
 
 		wp_enqueue_style(
 			'wpbdp-admin-import-css',
