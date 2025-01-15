@@ -489,7 +489,7 @@ class WPBDP__Query_Integration {
 		}
 
 		if ( $qn && $qn !== $orderby ) {
-			$orderby = "REPLACE({$qn}, ' ', '') " . $sort->order;
+			$orderby = $orderby . ( $orderby ? ', ' : '' ) . "REPLACE({$qn}, ' ', '') " . ' ' . $sort->order;
 		}
 
 		return $orderby;
