@@ -201,6 +201,7 @@ class WPBDP__Query_Integration {
 			add_filter( 'posts_results', array( $this, 'check_child_page' ), 10, 2 );
 		}
 
+		// Remove spaces from orderby in the default query.
 		add_filter( 'posts_orderby', array( $this, 'remove_spaces_from_order_by' ), 10, 2 );
 	}
 
@@ -488,7 +489,7 @@ class WPBDP__Query_Integration {
 		}
 
 		if ( $qn && $qn !== $orderby ) {
-			$orderby = $orderby . ( $orderby ? ', ' : '' ) . $qn . ' ' . $sort->order;
+			$orderby = "REPLACE({$qn}, ' ', '') " . $sort->order;
 		}
 
 		return $orderby;
