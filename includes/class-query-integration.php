@@ -216,7 +216,7 @@ class WPBDP__Query_Integration {
 	 * @return string
 	 */
 	public function remove_spaces_from_order_by( $orderby, $query ) {
-		if ( ! isset( $query->wpbdp_our_query ) || ! $query->wpbdp_our_query ) {
+		if ( empty( $query->wpbdp_our_query ) ) {
 			return $orderby;
 		}
 
@@ -506,7 +506,7 @@ class WPBDP__Query_Integration {
 	 * @return string
 	 */
 	private function get_space_replace( $field, $order ) {
-		return "REPLACE({$field}, ' ', '') " . ' ' . $order;
+		return "REPLACE( {$field}, ' ', '' ) " . ' ' . $order;
 	}
 
 	/**
