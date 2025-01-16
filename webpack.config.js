@@ -16,7 +16,7 @@ const config = {
 		'admin-csv-import': './assets/js/admin-csv-import/index.js',
 	},
 	output: {
-		filename: '[name].js',
+		filename: '[name].min.js',
 		path: path.resolve( __dirname, 'assets/js' ),
 	},
 	module: {
