@@ -32,7 +32,7 @@ class WPBDP_CSVImportAdmin {
 
 		wp_enqueue_script(
 			'wpbdp-admin-import-js',
-			WPBDP_ASSETS_URL . 'js/admin-csv-import.js',
+			WPBDP_ASSETS_URL . 'js/admin-csv-import' . $min . '.js',
 			array( 'wpbdp-admin-js', 'jquery-ui-autocomplete' ),
 			WPBDP_VERSION,
 			true

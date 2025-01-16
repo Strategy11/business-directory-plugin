@@ -6,7 +6,7 @@ import domReady from '@wordpress/dom-ready';
 /**
  * Internal dependencies
  */
-import initializeCsvImportValidation from './initializeCsvImportValidation';
+import initializeCsvImportValidation from './admin-csv-import/initializeCsvImportValidation';
 
 domReady( () => {
 	initializeCsvImportValidation();

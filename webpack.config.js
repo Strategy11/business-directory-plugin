@@ -13,7 +13,7 @@ const config = {
 	},
 	entry: {
 		'onboarding-wizard': './assets/js/onboarding-wizard/index.js',
-		'admin-csv-import': './assets/js/admin-csv-import/index.js',
+		'admin-csv-import': './assets/js/admin-csv-import.js',
 	},
 	output: {
 		filename: '[name].min.js',
