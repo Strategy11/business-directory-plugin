@@ -116,7 +116,7 @@ class WPBDP_Form_Field_Type {
 	 *
 	 * @param WPBDP_Form_Field_Type $field The field object.
 	 * 
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function get_field_selected_value( &$field ) {
 		// phpcs:ignore
