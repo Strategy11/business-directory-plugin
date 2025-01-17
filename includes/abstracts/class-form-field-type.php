@@ -126,7 +126,7 @@ class WPBDP_Form_Field_Type {
 			return null;
 		}
 
-		$post_id = ! empty( $listing_id ) ? intval( $listing_param ) : intval( $post_param );
+		$post_id = ! empty( $listing_param ) ? intval( $listing_param ) : intval( $post_param );
 		$value   = get_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true );
 
 		if ( false === $value ) {
