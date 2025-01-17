@@ -119,15 +119,15 @@ class WPBDP_Form_Field_Type {
 	 * @return string|null
 	 */
 	public function get_field_selected_value( &$field ) {
-		// phpcs:ignore
-		if ( empty( $_GET['listing_id'] ) && empty( $_GET['post'] ) ) {
+		$listing_param = wpbdp_get_var( array( 'param' => 'listing_id' ), 'get' );
+		$post_param    = wpbdp_get_var( array( 'param' => 'post' ), 'get' );
+
+		if ( empty( $listing_param ) && empty( $post_param ) ) {
 			return null;
 		}
 
-		// phpcs:ignore
-		$post_id = ! empty( $_GET['listing_id'] ) ? intval( $_GET['listing_id'] ) : intval( $_GET['post'] );
-
-		$value = get_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true );
+		$post_id = ! empty( $listing_id ) ? intval( $listing_param ) : intval( $post_param );
+		$value   = get_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true );
 
 		if ( false === $value ) {
 			return null;
