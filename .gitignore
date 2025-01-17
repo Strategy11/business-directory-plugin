@@ -16,6 +16,7 @@ node_modules/
 .site/
 _vvv/
 .idea/
+.vscode/
 *.js.LICENSE.txt
 *.js.map
 
