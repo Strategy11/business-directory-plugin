@@ -52,8 +52,10 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 			return $html;
 		}
 
-		$html = '';
-		$i    = 1;
+		$html     = '';
+		$i        = 1;
+		$selected = $this->get_field_selected_value( $field );
+
 		foreach ( $options as $option => $label ) {
 			$css_classes   = array();
 			$css_classes[] = 'wpbdp-inner-field-option';
@@ -64,12 +66,17 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 			$css_classes[] = 'wpbdp-inner-radio-' . $i;
 			$css_classes[] = 'wpbdp-inner-radio-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
+			$checked = '';
+
+			if ( $selected === $option || $value === $option ) {
+				$checked = 'checked="checked"';
+			}
+
 			$html .= sprintf(
-				'<div class="%1%s"><label for="wpbdp-field-%6$d-%5$s"><input id="wpbdp-field-%6$d-%5$s" type="radio" name="%2$s" value="%3$s" %4$s /> %5$s</label></div>',
+				'<div class="%1$s"><label for="wpbdp-field-%5$d-%4$s"><input id="wpbdp-field-%5$d-%4$s" type="radio" name="%2$s" value="%4$s" %3$s /> %4$s</label></div>',
 				implode( ' ', $css_classes ),
 				'listingfields[' . $field->get_id() . ']',
-				$option,
-				$value == $option ? 'checked="checked"' : '',
+				$checked,
 				esc_attr( $label ),
 				$field->get_id()
 			);
@@ -77,6 +84,12 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 		}
 
 		return $html;
+	}
+
+	public function store_field_value( &$field, $post_id, $value ) {
+		$this->store_field_selected_value( $field, $post_id, $value );
+
+		parent::store_field_value( $field, $post_id, $value );
 	}
 
 	public function get_supported_associations() {

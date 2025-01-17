@@ -109,6 +109,33 @@ class WPBDP_Form_Field_Type {
 		return $value;
 	}
 
+	/**
+	 * Retrieve the option name for the selected value.
+	 * 
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field_Type $field The field object.
+	 * 
+	 * @return null|string
+	 */
+	public function get_field_selected_value( &$field ) {
+		// phpcs:ignore
+		if ( empty( $_GET['listing_id'] ) && empty( $_GET['post'] ) ) {
+			return null;
+		}
+
+		// phpcs:ignore
+		$post_id = ! empty( $_GET['listing_id'] ) ? intval( $_GET['listing_id'] ) : intval( $_GET['post'] );
+
+		$value = get_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true );
+
+		if ( false === $value ) {
+			return null;
+		}
+
+		return $value;
+	}
+
 	public function get_field_html_value( &$field, $post_id ) {
 		$post = get_post( $post_id );
 
@@ -200,6 +227,29 @@ class WPBDP_Form_Field_Type {
 
 		if ( count( $update_post ) > 1 ) {
 			wp_update_post( $update_post );
+		}
+	}
+
+	/**
+	 * Store the selected value for the field.
+	 * 
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field_Type $field   The field object.
+	 * @param int|string            $post_id The post ID.
+	 * @param string                $value   The value to store.
+	 * 
+	 * @return void
+	 */
+	protected function store_field_selected_value( &$field, $post_id, $value ) {
+		if ( ! method_exists( $field, 'data' ) ) {
+			return;
+		}
+
+		$option = array_search( $value, $field->data()['options'], true );
+
+		if ( false !== $option ) {
+			update_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', $option );
 		}
 	}
 
