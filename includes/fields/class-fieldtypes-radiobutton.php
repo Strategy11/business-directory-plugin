@@ -86,6 +86,17 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 		return $html;
 	}
 
+	/**
+	 * Extend the parent method to store the selected value.
+	 * 
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field_Type $field
+	 * @param int|string $post_id
+	 * @param string $value
+	 * 
+	 * @return void
+	 */
 	public function store_field_value( &$field, $post_id, $value ) {
 		$this->store_field_selected_value( $field, $post_id, $value );
 
