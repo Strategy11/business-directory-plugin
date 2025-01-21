@@ -13,7 +13,7 @@ wpbdp_the_listing_sort_options();
 	/**
 	 * Filters whether to display the pagination in the listings wrapper or outside of it.
 	 * 
-	 * @since x.x
+	 * @since 6.4.10
 	 */
 	$display_pagination_in_listings_wrapper = apply_filters( 'wpbdp_display_pagination_in_listings_wrapper', true );
 

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2024-12-23 09:57:37+00:00\n"
+"POT-Creation-Date: 2025-01-21 17:24:54+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -656,20 +656,25 @@ msgstr "Thèmes"
 msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr "Activer votre <a>numéro de licence</a> pour utiliser ce thème."
 
+#: includes/admin/csv-import.php:45
+#, fuzzy
+msgid "The file exceeds the maximum file size of %s"
+msgstr "La taille du fichier (%1$s) excède la taille maximale permise de %2$s"
+
 #. translators: %s: Sample business name
-#: includes/admin/csv-import.php:143
+#: includes/admin/csv-import.php:152
 msgid "Business %s"
 msgstr "Professionnel %s"
 
-#: includes/admin/csv-import.php:190
+#: includes/admin/csv-import.php:199
 msgid "Download Example"
 msgstr ""
 
-#: includes/admin/csv-import.php:192
+#: includes/admin/csv-import.php:201
 msgid "Example CSV Import File"
 msgstr "Exemple de fichier d'import CSV"
 
-#: includes/admin/csv-import.php:337
+#: includes/admin/csv-import.php:346
 #, fuzzy
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
@@ -681,16 +686,16 @@ msgstr ""
 "Votre serveur utilise \"%s\", mais ce chemin ne semble pas être accessible "
 "en écriture. Veuillez consulter votre administrateur d'hébergement."
 
-#: includes/admin/csv-import.php:366 includes/helpers/class-app.php:244
+#: includes/admin/csv-import.php:375 includes/helpers/class-app.php:244
 #: includes/helpers/class-app.php:256
 msgid "You are not allowed to do that."
 msgstr "Vous n'êtes pas autorisé·e à faire cela."
 
-#: includes/admin/csv-import.php:459
+#: includes/admin/csv-import.php:468
 msgid "There was an error uploading the file:"
 msgstr "Il y a eu une erreur lors du téléversement du fichier CSV :"
 
-#: includes/admin/csv-import.php:464
+#: includes/admin/csv-import.php:473
 msgid "Please upload the correct file type."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 
@@ -2147,13 +2152,13 @@ msgstr "-- Choisissez les conditions --"
 msgid "— None —"
 msgstr "— Aucun —"
 
-#: includes/fields/class-fieldtypes-select.php:296
+#: includes/fields/class-fieldtypes-select.php:300
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 "Options du champ (pour sélectionner des annonces, des boutons radio et cases "
 "à cocher)."
 
-#: includes/fields/class-fieldtypes-select.php:296
+#: includes/fields/class-fieldtypes-select.php:300
 #: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
 #: templates/admin/fees-form.tpl.php:58
 #: templates/admin/form-fields-addoredit.tpl.php:29
@@ -2162,15 +2167,15 @@ msgstr ""
 msgid "required"
 msgstr "requis"
 
-#: includes/fields/class-fieldtypes-select.php:298
+#: includes/fields/class-fieldtypes-select.php:302
 msgid "One option per line"
 msgstr "Une option par ligne"
 
-#: includes/fields/class-fieldtypes-select.php:308
+#: includes/fields/class-fieldtypes-select.php:312
 msgid "Allow empty selection on search?"
 msgstr "Permettre la sélection vide sur la recherche?"
 
-#: includes/fields/class-fieldtypes-select.php:329
+#: includes/fields/class-fieldtypes-select.php:333
 msgid "Field list of options is required."
 msgstr "La liste des options est requise."
 
@@ -4340,7 +4345,7 @@ msgstr "Obtenir les informations de debogage"
 
 #: templates/businessdirectory-listings.tpl.php:57
 #: templates/deprecated/search.tpl.php:23
-#: templates/parts/listings-loop.tpl.php:25 templates/search.tpl.php:44
+#: templates/parts/listings-loop.tpl.php:27 templates/search.tpl.php:44
 msgid "No listings found."
 msgstr "Aucune annonce trouvée."
 
@@ -5460,7 +5465,7 @@ msgid "Select All"
 msgstr "Tout sélectionner"
 
 #: includes/fields/class-fieldtypes-checkbox.php:116
-#: includes/fields/class-fieldtypes-radiobutton.php:91
+#: includes/fields/class-fieldtypes-radiobutton.php:115
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
@@ -5478,7 +5483,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr "Afficher l'option \"Tout Sélectionner\" parmi les options ci-dessus."
 
 #: includes/fields/class-fieldtypes-checkbox.php:151
-#: includes/fields/class-fieldtypes-radiobutton.php:121
+#: includes/fields/class-fieldtypes-radiobutton.php:145
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "La liste des options est obligatoire."
@@ -6892,17 +6897,17 @@ msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "Téléchargement %1$s (%2$s)"
 
-#: includes/admin/csv-import.php:185
+#: includes/admin/csv-import.php:194
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Peu importe"
 
-#: includes/admin/csv-import.php:380
+#: includes/admin/csv-import.php:389
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 
-#: includes/admin/csv-import.php:405
+#: includes/admin/csv-import.php:414
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -6911,7 +6916,7 @@ msgstr ""
 "Une erreur a été décelée lors de la validation du fichier CSV pour "
 "l'importation. Merci de résoudre ce problème avant de continuer."
 
-#: includes/admin/csv-import.php:414
+#: includes/admin/csv-import.php:423
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""

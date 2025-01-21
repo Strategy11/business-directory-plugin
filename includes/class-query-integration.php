@@ -208,7 +208,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Filter the posts orderby clause to remove spaces for improved sorting.
 	 * 
-	 * @since x.x
+	 * @since 6.4.10
 	 *
 	 * @param string   $orderby - The orderby clause.
 	 * @param WP_Query $query - The current query object.
@@ -498,7 +498,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Return the space removal string for the given field and order.
 	 * 
-	 * @since x.x
+	 * @since 6.4.10
 	 *
 	 * @param string $field - The field to remove spaces from.
 	 * @param string $order - The order to apply.
