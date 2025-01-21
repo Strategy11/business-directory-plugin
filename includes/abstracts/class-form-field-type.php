@@ -112,7 +112,7 @@ class WPBDP_Form_Field_Type {
 	/**
 	 * Retrieve the option name for the selected value.
 	 * 
-	 * @since x.x
+	 * @since 6.4.10
 	 *
 	 * @param WPBDP_Form_Field_Type $field The field object.
 	 * 
@@ -229,7 +229,7 @@ class WPBDP_Form_Field_Type {
 	/**
 	 * Store the selected value for the field.
 	 * 
-	 * @since x.x
+	 * @since 6.4.10
 	 *
 	 * @param WPBDP_Form_Field_Type $field   The field object.
 	 * @param int|string            $post_id The post ID.

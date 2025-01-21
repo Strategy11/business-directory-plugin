@@ -1,15 +1,15 @@
-# Copyright (C) 2024 Business Directory Team
+# Copyright (C) 2025 Business Directory Team
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 6.4.9\n"
+"Project-Id-Version: Business Directory Plugin 6.4.10\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2024-12-23 09:57:37+00:00\n"
+"POT-Creation-Date: 2025-01-21 17:24:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
@@ -601,36 +601,40 @@ msgstr ""
 msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr ""
 
-#: includes/admin/csv-import.php:143
+#: includes/admin/csv-import.php:45
+msgid "The file exceeds the maximum file size of %s"
+msgstr ""
+
+#: includes/admin/csv-import.php:152
 #. translators: %s: Sample business name
 msgid "Business %s"
 msgstr ""
 
-#: includes/admin/csv-import.php:190
+#: includes/admin/csv-import.php:199
 msgid "Download Example"
 msgstr ""
 
-#: includes/admin/csv-import.php:192
+#: includes/admin/csv-import.php:201
 msgid "Example CSV Import File"
 msgstr ""
 
-#: includes/admin/csv-import.php:337
+#: includes/admin/csv-import.php:346
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
 "imports to function properly. Your server is using \"%s\" but this path "
 "does not seem to be writable. Please consult with your host."
 msgstr ""
 
-#: includes/admin/csv-import.php:366 includes/helpers/class-app.php:244
+#: includes/admin/csv-import.php:375 includes/helpers/class-app.php:244
 #: includes/helpers/class-app.php:256
 msgid "You are not allowed to do that."
 msgstr ""
 
-#: includes/admin/csv-import.php:459
+#: includes/admin/csv-import.php:468
 msgid "There was an error uploading the file:"
 msgstr ""
 
-#: includes/admin/csv-import.php:464
+#: includes/admin/csv-import.php:473
 msgid "Please upload the correct file type."
 msgstr ""
 
@@ -1924,11 +1928,11 @@ msgstr ""
 msgid "— None —"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:296
+#: includes/fields/class-fieldtypes-select.php:300
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:296
+#: includes/fields/class-fieldtypes-select.php:300
 #: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
 #: templates/admin/fees-form.tpl.php:58
 #: templates/admin/form-fields-addoredit.tpl.php:29
@@ -1937,15 +1941,15 @@ msgstr ""
 msgid "required"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:298
+#: includes/fields/class-fieldtypes-select.php:302
 msgid "One option per line"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:308
+#: includes/fields/class-fieldtypes-select.php:312
 msgid "Allow empty selection on search?"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:329
+#: includes/fields/class-fieldtypes-select.php:333
 msgid "Field list of options is required."
 msgstr ""
 
@@ -3814,7 +3818,7 @@ msgstr ""
 
 #: templates/businessdirectory-listings.tpl.php:57
 #: templates/deprecated/search.tpl.php:23
-#: templates/parts/listings-loop.tpl.php:25 templates/search.tpl.php:44
+#: templates/parts/listings-loop.tpl.php:27 templates/search.tpl.php:44
 msgid "No listings found."
 msgstr ""
 
@@ -4830,7 +4834,7 @@ msgid "Select All"
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:116
-#: includes/fields/class-fieldtypes-radiobutton.php:91
+#: includes/fields/class-fieldtypes-radiobutton.php:115
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
@@ -4846,7 +4850,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:151
-#: includes/fields/class-fieldtypes-radiobutton.php:121
+#: includes/fields/class-fieldtypes-radiobutton.php:145
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr ""
@@ -6152,24 +6156,24 @@ msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr ""
 
-#: includes/admin/csv-import.php:185
+#: includes/admin/csv-import.php:194
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr ""
 
-#: includes/admin/csv-import.php:380
+#: includes/admin/csv-import.php:389
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr ""
 
-#: includes/admin/csv-import.php:405
+#: includes/admin/csv-import.php:414
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
 "this before proceeding."
 msgstr ""
 
-#: includes/admin/csv-import.php:414
+#: includes/admin/csv-import.php:423
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""

@@ -137,7 +137,7 @@ class WPBDP_Compat {
 	/**
 	 * Checks if the current post content has a BD shortcode and deletes the Elementor cache.
 	 * 
-	 * @since x.x
+	 * @since 6.4.10
 	 *
 	 * @return void
 	 */

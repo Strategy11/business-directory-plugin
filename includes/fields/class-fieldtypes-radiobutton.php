@@ -89,7 +89,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	/**
 	 * Extend the parent method to store the selected value.
 	 * 
-	 * @since x.x
+	 * @since 6.4.10
 	 *
 	 * @param WPBDP_Form_Field_Type $field
 	 * @param int|string $post_id

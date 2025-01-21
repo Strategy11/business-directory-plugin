@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 6.7.1
-Stable tag: 6.4.9
+Stable tag: 6.4.10
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,7 +158,14 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
-= 6.4.8 =
+= 6.4.10 =
+* New: Filter to control whether the pagination is loaded in the listings wrapper or outside of it
+* New: Import file size validation
+* Enhancement: Improved sorting to exclude whitespaces
+* Fix: Prevent Elementor Element Caching on our shortcodes
+* Fix: WPML translation issue with Multiselect or Radio field types
+
+= 6.4.9 =
 * New: Added Stripe payment gateway
 
 = 6.4.8 =
@@ -194,17 +201,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Reduce the number of API calls to speed up admin area and reduce throttling.
 * Fix: In URL fields, use WordPress functions to handle auto adding the http if missing for more reliability.
 * Code: Improve code consistency for doc blocks and phpcs.
-
-= 6.4.1 =
-* Increase minimum PHP version required to 7.0
-* The minimum WordPress version required is now 5.9
-* New: If a listing doesn't have an email address, don't show the contact form since we have nowhere to send the notification
-* Fix: The contact form on a listing wasn't showing on mobile screens
-* Fix: The drag handle wasn't showing for ordering plans in the admin area
-* Fix: Exported files were showing /n for line breaks with WYSIWYG editor
-* Fix: In some cases, the category was required twice when going back and forth between pages when creating or editing a listing
-* Fix: Only use advanced search in the widget if fields are selected
-* Fix: Set defaults to avoid errors if nothing is selected in a widget
-* Performance: Cut out an extra API call to fetch themes in the admin area
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
