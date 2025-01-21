@@ -17,6 +17,8 @@ node_modules/
 _vvv/
 .idea/
 .vscode/
+*.js.LICENSE.txt
+*.js.map
 
 # PHP CS Fixer
 .php-cs-fixer.cache

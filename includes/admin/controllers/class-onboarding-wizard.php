@@ -221,7 +221,7 @@ final class WPBDP_Onboarding_Wizard {
 		// Include SVG images for icons.
 		WPBDP_App_Helper::include_svg();
 
-		$view_path        = $this->get_view_path();
+		$view_path = $this->get_view_path();
 
 		// Note: Add step parts in order.
 		$step_parts = array(
@@ -290,7 +290,7 @@ final class WPBDP_Onboarding_Wizard {
 		wp_enqueue_style( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/css/onboarding-wizard.min.css', array(), WPBDP_VERSION );
 
 		// Register and enqueue Onboarding Wizard script.
-		wp_register_script( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/js/onboarding-wizard.js', array( 'wp-i18n' ), WPBDP_VERSION, true );
+		wp_register_script( self::PAGE_SLUG, WPBDP_ASSETS_URL . '/js/onboarding-wizard.min.js', array( 'wp-i18n' ), WPBDP_VERSION, true );
 		wp_localize_script( self::PAGE_SLUG, 'wpbdpOnboardingWizardVars', $this->get_js_variables() );
 		wp_enqueue_script( self::PAGE_SLUG );
 
