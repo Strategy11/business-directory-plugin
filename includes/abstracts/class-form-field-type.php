@@ -238,7 +238,7 @@ class WPBDP_Form_Field_Type {
 	 * @return void
 	 */
 	protected function store_field_selected_value( &$field, $post_id, $value ) {
-		if ( ! method_exists( $field, 'data' ) ) {
+		if ( ! method_exists( $field, 'data' ) || empty( $field->data()['options'] ) ) {
 			return;
 		}
 
