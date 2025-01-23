@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 6.7.1
-Stable tag: 6.4.10
+Stable tag: 6.4.11
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,9 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.11 =
+* A bug with the front end listing submission form
+
 = 6.4.10 =
 * New: Filter to control whether the pagination is loaded in the listings wrapper or outside of it
 * New: Import file size validation
@@ -196,10 +199,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 = 6.4.3 =
 * Fix: Security fix for searching.
 * Fix: After a quick search with two words, don't include a "+" in the advanced search.
-
-= 6.4.2 =
-* Fix: Reduce the number of API calls to speed up admin area and reduce throttling.
-* Fix: In URL fields, use WordPress functions to handle auto adding the http if missing for more reliability.
-* Code: Improve code consistency for doc blocks and phpcs.
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
