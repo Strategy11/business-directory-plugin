@@ -88,6 +88,8 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 					'listingfields[' . $field->get_id() . ']',
 					$option,
 					$checked,
+					esc_attr( $label ),
+					$field->get_id()
 				);
 			}
 
