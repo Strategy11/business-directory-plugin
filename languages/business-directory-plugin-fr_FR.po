@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-28 14:01:51+00:00\n"
+"POT-Creation-Date: 2025-01-28 14:25:46+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -656,25 +656,25 @@ msgstr "Thèmes"
 msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr "Activer votre <a>numéro de licence</a> pour utiliser ce thème."
 
-#: includes/admin/csv-import.php:45
+#: includes/admin/csv-import.php:43
 #, fuzzy
 msgid "The file exceeds the maximum file size of %s"
 msgstr "La taille du fichier (%1$s) excède la taille maximale permise de %2$s"
 
 #. translators: %s: Sample business name
-#: includes/admin/csv-import.php:152
+#: includes/admin/csv-import.php:150
 msgid "Business %s"
 msgstr "Professionnel %s"
 
-#: includes/admin/csv-import.php:199
+#: includes/admin/csv-import.php:197
 msgid "Download Example"
 msgstr ""
 
-#: includes/admin/csv-import.php:201
+#: includes/admin/csv-import.php:199
 msgid "Example CSV Import File"
 msgstr "Exemple de fichier d'import CSV"
 
-#: includes/admin/csv-import.php:346
+#: includes/admin/csv-import.php:344
 #, fuzzy
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
@@ -686,16 +686,16 @@ msgstr ""
 "Votre serveur utilise \"%s\", mais ce chemin ne semble pas être accessible "
 "en écriture. Veuillez consulter votre administrateur d'hébergement."
 
-#: includes/admin/csv-import.php:375 includes/helpers/class-app.php:244
+#: includes/admin/csv-import.php:373 includes/helpers/class-app.php:244
 #: includes/helpers/class-app.php:256
 msgid "You are not allowed to do that."
 msgstr "Vous n'êtes pas autorisé·e à faire cela."
 
-#: includes/admin/csv-import.php:468
+#: includes/admin/csv-import.php:466
 msgid "There was an error uploading the file:"
 msgstr "Il y a eu une erreur lors du téléversement du fichier CSV :"
 
-#: includes/admin/csv-import.php:473
+#: includes/admin/csv-import.php:471
 msgid "Please upload the correct file type."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 
@@ -6897,17 +6897,17 @@ msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "Téléchargement %1$s (%2$s)"
 
-#: includes/admin/csv-import.php:194
+#: includes/admin/csv-import.php:192
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Peu importe"
 
-#: includes/admin/csv-import.php:389
+#: includes/admin/csv-import.php:387
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Veuillez uploader ou sélectionner un fichier CSV."
 
-#: includes/admin/csv-import.php:414
+#: includes/admin/csv-import.php:412
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -6916,7 +6916,7 @@ msgstr ""
 "Une erreur a été décelée lors de la validation du fichier CSV pour "
 "l'importation. Merci de résoudre ce problème avant de continuer."
 
-#: includes/admin/csv-import.php:423
+#: includes/admin/csv-import.php:421
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr ""

@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 6.7.1
-Stable tag: 6.4.12
+Stable tag: 6.4.13
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,9 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.13 =
+* Fix: Enqueue error for csv import
+
 = 6.4.12 =
 * Fix: Bug with the non-meta multiselect and radio buttons listing fields
 * Fix: Bug with the "Start Import" button

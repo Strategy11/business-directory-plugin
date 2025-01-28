@@ -41,6 +41,10 @@ module.exports = function( grunt ) {
 			if ( ! _.isEmpty( config.js ) ) {
 				config.js.forEach(function(g) {
 					glob.sync( path.join( basedir, g ), {ignore: ['../**/**.min.js', '**/*.min.js']} ).forEach(function(f) {
+						// Skip admin-csv-import.js files
+						if (f.includes('admin-csv-import.js')) {
+							return;
+						}
 						uglify_config[ f.replace( '.js', '.min.js' ) ] = f;
 					});
 				});
