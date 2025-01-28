@@ -251,7 +251,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			$option_data = array(
 				'label'      => $label,
 				'attributes' => array(),
-				'value'      => esc_attr( $option ),
+				'value'      => $option,
 			);
 
 			if (
@@ -264,22 +264,14 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
 			$option_data = apply_filters( 'wpbdp_form_field_select_option', $option_data, $field );
 
-			if ( $this->is_multiple() && $field->get_association() == 'meta' ) {
-				$html .= sprintf(
-					'<option value="%3$s" class="%1$s" %2$s>%3$s</option>',
-					esc_attr( 'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ) ),
-					self::html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
-					esc_html( $option_data['label'] )
-				);
-			} else {
-				$html .= sprintf(
-					'<option value="%s" class="%s" %s>%s</option>',
-					esc_attr( $option_data['value'] ),
-					esc_attr( 'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ) ),
-					self::html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
-					esc_html( $option_data['label'] )
-				);
-			}
+			$html .= sprintf(
+				'<option value="%s" class="%s" %s>%s</option>',
+				// phpcs:ignore
+				$this->is_multiple() && $field->get_association() == 'meta' ? esc_attr( $option_data['label'] ) : esc_attr( $option_data['value'] ),
+				esc_attr( 'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ) ),
+				self::html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
+				esc_html( $option_data['label'] )
+			);
 		}
 		return $html;
 	}
