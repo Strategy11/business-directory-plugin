@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-28 14:01:51+00:00\n"
+"POT-Creation-Date: 2025-01-28 14:25:46+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -713,27 +713,27 @@ msgstr "Teman"
 msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr "Aktivera din <a>licensnyckel</a> för att använda detta tema."
 
-#: includes/admin/csv-import.php:45
+#: includes/admin/csv-import.php:43
 #, fuzzy
 msgid "The file exceeds the maximum file size of %s"
 msgstr "Filstorlek (%s) överskrider maximal filstorlek på %s"
 
 #. translators: %s: Sample business name
-#: includes/admin/csv-import.php:152
+#: includes/admin/csv-import.php:150
 #, fuzzy
 msgid "Business %s"
 msgstr "Affärs%s"
 
-#: includes/admin/csv-import.php:199
+#: includes/admin/csv-import.php:197
 msgid "Download Example"
 msgstr ""
 
-#: includes/admin/csv-import.php:201
+#: includes/admin/csv-import.php:199
 #, fuzzy
 msgid "Example CSV Import File"
 msgstr "Exempel CSV-importfilen"
 
-#: includes/admin/csv-import.php:346
+#: includes/admin/csv-import.php:344
 #, fuzzy
 msgid ""
 "A valid temporary directory with write permissions is required for CSV "
@@ -744,17 +744,17 @@ msgstr ""
 "fungera. Servern använder \"%s\", men denna väg verkar inte vara skrivbar. "
 "Rådgör med din värd."
 
-#: includes/admin/csv-import.php:375 includes/helpers/class-app.php:244
+#: includes/admin/csv-import.php:373 includes/helpers/class-app.php:244
 #: includes/helpers/class-app.php:256
 msgid "You are not allowed to do that."
 msgstr ""
 
-#: includes/admin/csv-import.php:468
+#: includes/admin/csv-import.php:466
 #, fuzzy
 msgid "There was an error uploading the file:"
 msgstr "Det uppstod ett fel vid överföringen av CSV-filen."
 
-#: includes/admin/csv-import.php:473
+#: includes/admin/csv-import.php:471
 #, fuzzy
 msgid "Please upload the correct file type."
 msgstr "Vänligen ladda upp eller välj en CSV-fil."
@@ -7246,17 +7246,17 @@ msgctxt "admin csv-export"
 msgid "Download %1$s (%2$s)"
 msgstr "Ladda ner%s (%s)"
 
-#: includes/admin/csv-import.php:194
+#: includes/admin/csv-import.php:192
 msgctxt "admin csv-import"
 msgid "Whatever"
 msgstr "Oavsett"
 
-#: includes/admin/csv-import.php:389
+#: includes/admin/csv-import.php:387
 msgctxt "admin csv-import"
 msgid "Please upload or select a CSV file."
 msgstr "Vänligen ladda upp eller välj en CSV-fil."
 
-#: includes/admin/csv-import.php:414
+#: includes/admin/csv-import.php:412
 msgctxt "admin csv-import"
 msgid ""
 "An error was detected while validating the CSV file for import. Please fix "
@@ -7265,7 +7265,7 @@ msgstr ""
 "Ett fel upptäcktes vid valideringen av CSV-filen för import. Vänligen "
 "åtgärda detta innan du fortsätter."
 
-#: includes/admin/csv-import.php:423
+#: includes/admin/csv-import.php:421
 msgctxt "admin csv-import"
 msgid "Import is in \"test mode\". Nothing will be inserted into the database."
 msgstr "Import är i \"testläge\". Ingenting kommer att införas i databasen."
