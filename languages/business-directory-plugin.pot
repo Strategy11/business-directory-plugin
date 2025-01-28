@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 6.4.11\n"
+"Project-Id-Version: Business Directory Plugin 6.4.12\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2025-01-23 18:45:38+00:00\n"
+"POT-Creation-Date: 2025-01-28 14:01:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1928,11 +1928,11 @@ msgstr ""
 msgid "— None —"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:300
+#: includes/fields/class-fieldtypes-select.php:304
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:300
+#: includes/fields/class-fieldtypes-select.php:304
 #: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
 #: templates/admin/fees-form.tpl.php:58
 #: templates/admin/form-fields-addoredit.tpl.php:29
@@ -1941,15 +1941,15 @@ msgstr ""
 msgid "required"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:302
+#: includes/fields/class-fieldtypes-select.php:306
 msgid "One option per line"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:312
+#: includes/fields/class-fieldtypes-select.php:316
 msgid "Allow empty selection on search?"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:333
+#: includes/fields/class-fieldtypes-select.php:337
 msgid "Field list of options is required."
 msgstr ""
 
@@ -4834,7 +4834,7 @@ msgid "Select All"
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:116
-#: includes/fields/class-fieldtypes-radiobutton.php:115
+#: includes/fields/class-fieldtypes-radiobutton.php:119
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
@@ -4850,7 +4850,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr ""
 
 #: includes/fields/class-fieldtypes-checkbox.php:151
-#: includes/fields/class-fieldtypes-radiobutton.php:145
+#: includes/fields/class-fieldtypes-radiobutton.php:149
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr ""

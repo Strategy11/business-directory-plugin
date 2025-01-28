@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-21 17:24:54+00:00\n"
+"POT-Creation-Date: 2025-01-28 14:01:51+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2308,14 +2308,14 @@ msgstr "-- Scegli i termini --"
 msgid "— None —"
 msgstr "- Nessuno -"
 
-#: includes/fields/class-fieldtypes-select.php:300
+#: includes/fields/class-fieldtypes-select.php:304
 #, fuzzy
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 "Opzioni di campo (per elenchi di selezione, pulsanti di selezione e caselle "
 "di controllo)."
 
-#: includes/fields/class-fieldtypes-select.php:300
+#: includes/fields/class-fieldtypes-select.php:304
 #: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
 #: templates/admin/fees-form.tpl.php:58
 #: templates/admin/form-fields-addoredit.tpl.php:29
@@ -2325,16 +2325,16 @@ msgstr ""
 msgid "required"
 msgstr "richiesto"
 
-#: includes/fields/class-fieldtypes-select.php:302
+#: includes/fields/class-fieldtypes-select.php:306
 msgid "One option per line"
 msgstr ""
 
-#: includes/fields/class-fieldtypes-select.php:312
+#: includes/fields/class-fieldtypes-select.php:316
 #, fuzzy
 msgid "Allow empty selection on search?"
 msgstr "Consenti la selezione vuota nella ricerca?"
 
-#: includes/fields/class-fieldtypes-select.php:333
+#: includes/fields/class-fieldtypes-select.php:337
 #, fuzzy
 msgid "Field list of options is required."
 msgstr "È necessario disporre di un campo di opzioni."
@@ -5895,7 +5895,7 @@ msgid "Select All"
 msgstr "Seleziona tutto"
 
 #: includes/fields/class-fieldtypes-checkbox.php:116
-#: includes/fields/class-fieldtypes-radiobutton.php:115
+#: includes/fields/class-fieldtypes-radiobutton.php:119
 msgctxt "form-fields admin"
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
@@ -5913,7 +5913,7 @@ msgid "Display \"Select all\" option among options above."
 msgstr "Visualizza l'opzione \"Seleziona tutto\" tra le opzioni di cui sopra."
 
 #: includes/fields/class-fieldtypes-checkbox.php:151
-#: includes/fields/class-fieldtypes-radiobutton.php:145
+#: includes/fields/class-fieldtypes-radiobutton.php:149
 msgctxt "form-fields admin"
 msgid "Field list of options is required."
 msgstr "È necessario disporre di un campo di opzioni."
