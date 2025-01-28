@@ -28,3 +28,4 @@ parameters:
 		- '#Method WPBDP_[a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) is unused#'
 		- '#Use more strict comparison#'
 		- '#Access to an undefined property (AuthorizeNet_Subscription|object|WP_Query|WPBDP_Payment|WPBDP_Field_Display_List|_WPBDP_Lightweight_Field_Display_Item)#'
+		- '#Call to an undefined method WPBDP_Form_Field_Type::get_association\(\)#'

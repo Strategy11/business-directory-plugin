@@ -73,13 +73,15 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 			}
 
 			$html .= sprintf(
-				'<div class="%1$s"><label for="wpbdp-field-%5$d-%4$s"><input id="wpbdp-field-%5$d-%4$s" type="radio" name="%2$s" value="%4$s" %3$s /> %4$s</label></div>',
+				'<div class="%1$s"><label for="wpbdp-field-%6$d-%5$s"><input id="wpbdp-field-%6$d-%5$s" type="radio" name="%2$s" value="%3$s" %4$s /> %5$s</label></div>',
 				implode( ' ', $css_classes ),
 				'listingfields[' . $field->get_id() . ']',
+				$field->get_association() === 'meta' ? esc_attr( $label ) : $option,
 				$checked,
 				esc_attr( $label ),
 				$field->get_id()
 			);
+
 			++$i;
 		}
 
@@ -98,7 +100,9 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	 * @return void
 	 */
 	public function store_field_value( &$field, $post_id, $value ) {
-		$this->store_field_selected_value( $field, $post_id, $value );
+		if ( $field->get_association() === 'meta' ) {
+			$this->store_field_selected_value( $field, $post_id, $value );
+		}
 
 		parent::store_field_value( $field, $post_id, $value );
 	}

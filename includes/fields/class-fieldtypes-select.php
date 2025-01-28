@@ -251,11 +251,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			$option_data = array(
 				'label'      => $label,
 				'attributes' => array(),
+				'value'      => $option,
 			);
 
 			if (
 				( ! empty( $selected ) && $option === $selected ) ||
-				in_array( $option, $value, true )
+				// phpcs:ignore
+				in_array( $option, $value )
 			) {
 				$option_data['attributes']['selected'] = 'selected';
 			}
@@ -263,7 +265,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			$option_data = apply_filters( 'wpbdp_form_field_select_option', $option_data, $field );
 
 			$html .= sprintf(
-				'<option value="%3$s" class="%1$s" %2$s>%3$s</option>',
+				'<option value="%s" class="%s" %s>%s</option>',
+				// phpcs:ignore
+				$this->is_multiple() && $field->get_association() == 'meta' ? esc_attr( $option_data['label'] ) : esc_attr( $option_data['value'] ),
 				esc_attr( 'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ) ),
 				self::html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
 				esc_html( $option_data['label'] )
@@ -362,11 +366,11 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			if ( $value ) {
 				$value = implode( "\t", is_array( $value ) ? $value : array( $value ) );
 			}
+
+			$this->store_field_selected_value( $field, $post_id, $value );
 		} elseif ( 'meta' == $field->get_association() ) {
 			$value = is_array( $value ) ? ( ! empty( $value ) ? $value[0] : '' ) : $value;
 		}
-
-		$this->store_field_selected_value( $field, $post_id, $value );
 
 		parent::store_field_value( $field, $post_id, $value );
 	}
