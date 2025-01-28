@@ -28,11 +28,9 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	function enqueue_scripts() {
-		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
 		wp_enqueue_script(
 			'wpbdp-admin-import-js',
-			WPBDP_ASSETS_URL . 'js/admin-csv-import' . $min . '.js',
+			WPBDP_ASSETS_URL . 'js/admin-csv-import.min.js',
 			array( 'wpbdp-admin-js', 'jquery-ui-autocomplete' ),
 			WPBDP_VERSION,
 			true
