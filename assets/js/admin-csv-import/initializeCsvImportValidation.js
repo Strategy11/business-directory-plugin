@@ -53,6 +53,10 @@ export default function initializeCsvImportValidation() {
 	inputs.forEach( ( input ) => {
 		const fileInput = document.querySelector( input );
 
+		if ( ! fileInput ) {
+			return;
+		}
+
 		fileInput.addEventListener( 'change', () => {
 			resetFileSizeErrors( fileInput );
 
