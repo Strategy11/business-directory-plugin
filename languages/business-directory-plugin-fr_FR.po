@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-28 14:25:46+00:00\n"
+"POT-Creation-Date: 2025-01-30 16:31:11+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -657,9 +657,8 @@ msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr "Activer votre <a>numéro de licence</a> pour utiliser ce thème."
 
 #: includes/admin/csv-import.php:43
-#, fuzzy
 msgid "The file exceeds the maximum file size of %s"
-msgstr "La taille du fichier (%1$s) excède la taille maximale permise de %2$s"
+msgstr "La taille du fichier excède la taille maximale permise de %s"
 
 #. translators: %s: Sample business name
 #: includes/admin/csv-import.php:150
@@ -3601,7 +3600,7 @@ msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 "Ajouter une passerelle de paiement pour augmenter les taux de conversion"
 
-#. translators: %s: payment gateway name
+#. translators: %s: payment gateway name */
 #: templates/admin/fees-index.tpl.php:75
 msgid "Add %s as a payment option."
 msgstr "Ajouter %s comme une option de paiement."

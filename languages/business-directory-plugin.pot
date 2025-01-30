@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin 6.4.13\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2025-01-28 14:46:10+00:00\n"
+"POT-Creation-Date: 2025-01-30 16:37:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3184,7 +3184,7 @@ msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #: templates/admin/fees-index.tpl.php:75
-#. translators: %s: payment gateway name
+#. translators: %s: payment gateway name */
 msgid "Add %s as a payment option."
 msgstr ""
 
