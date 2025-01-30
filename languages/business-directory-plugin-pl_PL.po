@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-28 14:25:46+00:00\n"
+"POT-Creation-Date: 2025-01-30 16:31:11+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -805,9 +805,8 @@ msgstr ""
 
 # @ WPBDM
 #: includes/admin/csv-import.php:43
-#, fuzzy
 msgid "The file exceeds the maximum file size of %s"
-msgstr "Rozmiar pliku (%s) przekracz maksymalny dozwolony rozmiar %s"
+msgstr "Rozmiar pliku przekracz maksymalny dozwolony rozmiar %s"
 
 # @ WPBDM
 #. translators: %s: Sample business name
@@ -4219,7 +4218,7 @@ msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 # @ WPBDM
-#. translators: %s: payment gateway name
+#. translators: %s: payment gateway name */
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
