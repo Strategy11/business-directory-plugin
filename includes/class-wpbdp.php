@@ -483,7 +483,6 @@ final class WPBDP {
 		return false;
 	}
 
-	// TODO: better validation.
 	public function ajax_listing_submit_image_upload() {
 		$res = new WPBDP_AJAX_Response();
 
@@ -491,6 +490,19 @@ final class WPBDP {
 
 		if ( ! $listing_id ) {
 			return $res->send_error();
+		}
+		
+		if ( ! check_ajax_referer( 'listing-' . $listing_id . '-image-upload', '_wpnonce', false ) ) {
+			return $res->send_error( __( 'Security check failed. Please refresh the page and try again.', 'business-directory-plugin' ) );
+		}
+		
+		$listing = WPBDP_Listing::get( $listing_id );
+		if ( ! $listing ) {
+			return $res->send_error( __( 'Invalid listing', 'business-directory-plugin' ) );
+		}
+		
+		if ( ! wpbdp_user_is_admin() && ! $listing->owned_by_user( get_current_user_id() ) ) {
+			return $res->send_error( __( 'You do not have permission to upload images to this listing', 'business-directory-plugin' ) );
 		}
 
 		$content_range = wpbdp_get_server_value( 'HTTP_CONTENT_RANGE' );
@@ -507,7 +519,6 @@ final class WPBDP {
 		$files  = wpbdp_flatten_files_array( isset( $_FILES['images'] ) ? $_FILES['images'] : array() );
 		$errors = array();
 
-		$listing         = WPBDP_Listing::get( $listing_id );
 		$slots_available = 0;
 		$plan            = $listing->get_fee_plan();
 		if ( ! $plan ) {
