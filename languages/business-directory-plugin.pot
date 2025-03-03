@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 6.4.14\n"
+"Project-Id-Version: Business Directory Plugin 6.4.15\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2025-02-03 16:34:05+00:00\n"
+"POT-Creation-Date: 2025-03-03 19:58:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1601,35 +1601,47 @@ msgstr ""
 msgid "Payments are now available for free users with a 3% application fee."
 msgstr ""
 
-#: includes/class-wpbdp.php:514
+#: includes/class-wpbdp.php:496
+msgid "Security check failed. Please refresh the page and try again."
+msgstr ""
+
+#: includes/class-wpbdp.php:501
+msgid "Invalid listing"
+msgstr ""
+
+#: includes/class-wpbdp.php:505
+msgid "You do not have permission to upload images to this listing"
+msgstr ""
+
+#: includes/class-wpbdp.php:525
 msgid "Please select a plan before uploading images to the listing"
 msgstr ""
 
-#: includes/class-wpbdp.php:519
+#: includes/class-wpbdp.php:530
 msgid "Can not upload any more images for this listing."
 msgstr ""
 
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 msgid "Could not find listing ID"
 msgstr ""
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:668 includes/fields/class-fieldtypes-image.php:405
+#: includes/class-wpbdp.php:679 includes/fields/class-fieldtypes-image.php:405
 msgid "Could not find image ID"
 msgstr ""
 
-#: includes/class-wpbdp.php:700
+#: includes/class-wpbdp.php:711
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
 msgstr ""
 
-#: includes/class-wpbdp.php:707
+#: includes/class-wpbdp.php:718
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -3184,7 +3196,7 @@ msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 #: templates/admin/fees-index.tpl.php:75
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 msgid "Add %s as a payment option."
 msgstr ""
 
@@ -6534,7 +6546,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr ""
 
-#: includes/class-wpbdp.php:523
+#: includes/class-wpbdp.php:534
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "

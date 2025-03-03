@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-30 16:31:11+00:00\n"
+"POT-Creation-Date: 2025-03-03 19:58:06+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,9 +17,8 @@ msgstr ""
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: business-directory-plugin.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -723,8 +722,7 @@ msgstr "Attivare la <a>chiave di licenza</a> per utilizzare questo tema."
 
 #: includes/admin/csv-import.php:43
 msgid "The file exceeds the maximum file size of %s"
-msgstr ""
-"La dimensione del file supera la dimensione massima del file di %s"
+msgstr "La dimensione del file supera la dimensione massima del file di %s"
 
 #. translators: %s: Sample business name
 #: includes/admin/csv-import.php:150
@@ -1924,33 +1922,47 @@ msgstr ""
 msgid "Payments are now available for free users with a 3% application fee."
 msgstr ""
 
-#: includes/class-wpbdp.php:514
+#: includes/class-wpbdp.php:496
+msgid "Security check failed. Please refresh the page and try again."
+msgstr ""
+
+#: includes/class-wpbdp.php:501
+#, fuzzy
+msgid "Invalid listing"
+msgstr "Annuncio"
+
+#: includes/class-wpbdp.php:505
+#, fuzzy
+msgid "You do not have permission to upload images to this listing"
+msgstr "Non è possibile modificare questo annuncio."
+
+#: includes/class-wpbdp.php:525
 #, fuzzy
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Si prega di selezionare il motivo per segnalare questo annuncio:"
 
-#: includes/class-wpbdp.php:519
+#: includes/class-wpbdp.php:530
 #, fuzzy
 msgid "Can not upload any more images for this listing."
 msgstr "Non è possibile caricare altre immagini per questo annuncio."
 
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:668 includes/fields/class-fieldtypes-image.php:405
+#: includes/class-wpbdp.php:679 includes/fields/class-fieldtypes-image.php:405
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Non è stato possibile aggiornare il tema: %s"
 
-#: includes/class-wpbdp.php:700
+#: includes/class-wpbdp.php:711
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1958,7 +1970,7 @@ msgstr ""
 "Le funzioni della directory sono disattivate in questo momento perché è in "
 "attesa di un <a>aggiornamento manuale</a>."
 
-#: includes/class-wpbdp.php:707
+#: includes/class-wpbdp.php:718
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -3880,7 +3892,7 @@ msgstr ""
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
@@ -7783,7 +7795,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Il punteggio di convalida reCAPTCHA non è riuscito."
 
-#: includes/class-wpbdp.php:523
+#: includes/class-wpbdp.php:534
 #, fuzzy
 msgctxt "listing image upload"
 msgid ""

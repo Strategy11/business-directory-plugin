@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-30 16:31:11+00:00\n"
+"POT-Creation-Date: 2025-03-03 19:58:06+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -15,8 +15,8 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Poedit 2.3.1\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -2084,38 +2084,54 @@ msgstr ""
 msgid "Payments are now available for free users with a 3% application fee."
 msgstr ""
 
+#: includes/class-wpbdp.php:496
+msgid "Security check failed. Please refresh the page and try again."
+msgstr ""
+
 # @ WPBDM
-#: includes/class-wpbdp.php:514
+#: includes/class-wpbdp.php:501
+#, fuzzy
+msgid "Invalid listing"
+msgstr "W ofertach"
+
+# @ WPBDM
+#: includes/class-wpbdp.php:505
+#, fuzzy
+msgid "You do not have permission to upload images to this listing"
+msgstr "Kategorie dla tej oferty"
+
+# @ WPBDM
+#: includes/class-wpbdp.php:525
 #, fuzzy
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Wybierz abonament dla tegj kategori \"%s\"."
 
 # @ WPBDM
-#: includes/class-wpbdp.php:519
+#: includes/class-wpbdp.php:530
 #, fuzzy
 msgid "Can not upload any more images for this listing."
 msgstr "Kategorie dla tej oferty"
 
 # @ WPBDM
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Nie można połączyć z serwerem danych licencji"
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
 # @ WPBDM
-#: includes/class-wpbdp.php:668 includes/fields/class-fieldtypes-image.php:405
+#: includes/class-wpbdp.php:679 includes/fields/class-fieldtypes-image.php:405
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Nie możemy deaktywować Licencji: %s."
 
 # @ WPBDM
-#: includes/class-wpbdp.php:700
+#: includes/class-wpbdp.php:711
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -2124,7 +2140,7 @@ msgstr ""
 "Funkcje pluginu KATALOG FIRM są chwilowo wyłączone, ponieważ plugin oczekuje "
 "na ręczną aktualizację, przed kontynuacją."
 
-#: includes/class-wpbdp.php:707
+#: includes/class-wpbdp.php:718
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -4218,7 +4234,7 @@ msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
 # @ WPBDM
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
@@ -8607,7 +8623,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "ReCaptcha nie została poprawnie wprowadzona."
 
-#: includes/class-wpbdp.php:523
+#: includes/class-wpbdp.php:534
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "

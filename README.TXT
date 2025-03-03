@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.9
 Requires PHP: 7.4
-Tested up to: 6.7.1
-Stable tag: 6.4.14
+Tested up to: 6.7.2
+Stable tag: 6.4.15
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,9 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.15 =
+* Fix: Vulnerability when submitting a new listing
+
 = 6.4.14 =
 * Fix: Fatal error with translated websites
 
@@ -198,12 +201,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: Bug with form field order when site language was not English
 * Fix: Compatibility issues with newer PHP version
 * Fix: Bug with AddToAny and Social Share Buttons widget not showing on listing pages
-
-= 6.4.4 =
-* Fix: Security fix for potential CSV injection. Credit to Wordfence for the report.
-* Fix: When logged out, the autocomplete dropdowns didn't always have styling.
-* Code: Changes for code readibility and easier maintance with higher standard requirements.
-* Changed the URL field so if the value doesn't have either http:// or https:// in that case https:// will be included by default.
-* Fix: Bug where the expiration email templates were showing with the expiration emails deactivated
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
