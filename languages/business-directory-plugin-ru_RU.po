@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-30 16:31:11+00:00\n"
+"POT-Creation-Date: 2025-03-03 19:58:06+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: Mick Levin <mikhaillevin@hotmail.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -16,11 +16,8 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
-"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
-"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
-"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
-"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Poedit-KeywordsList: "
+"_:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
 "X-Loco-Target-Locale: ru_RU\n"
 "X-Poedit-SearchPath-0: ../../plugins/business-directory-plugin\n"
 
@@ -1868,33 +1865,47 @@ msgstr ""
 msgid "Payments are now available for free users with a 3% application fee."
 msgstr ""
 
-#: includes/class-wpbdp.php:514
+#: includes/class-wpbdp.php:496
+msgid "Security check failed. Please refresh the page and try again."
+msgstr ""
+
+#: includes/class-wpbdp.php:501
+#, fuzzy
+msgid "Invalid listing"
+msgstr "В полном виде"
+
+#: includes/class-wpbdp.php:505
+#, fuzzy
+msgid "You do not have permission to upload images to this listing"
+msgstr "Рубрики этой записи"
+
+#: includes/class-wpbdp.php:525
 #, fuzzy
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Пожалуйста выберите тариф для рубрики \"%s\"."
 
-#: includes/class-wpbdp.php:519
+#: includes/class-wpbdp.php:530
 #, fuzzy
 msgid "Can not upload any more images for this listing."
 msgstr "Рубрики этой записи"
 
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Не удалось связаться с сервером лицензий"
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:668 includes/fields/class-fieldtypes-image.php:405
+#: includes/class-wpbdp.php:679 includes/fields/class-fieldtypes-image.php:405
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Не удалось обновить тему: %s"
 
-#: includes/class-wpbdp.php:700
+#: includes/class-wpbdp.php:711
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1903,7 +1914,7 @@ msgstr ""
 "Функции Справочника Услуг на настоящий момент отключены, потому что "
 "необходимо произвести ручное обновление плагина."
 
-#: includes/class-wpbdp.php:707
+#: includes/class-wpbdp.php:718
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -3750,7 +3761,7 @@ msgstr ""
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
@@ -7672,7 +7683,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Код reCAPTCHA был введён неправильно."
 
-#: includes/class-wpbdp.php:523
+#: includes/class-wpbdp.php:534
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "

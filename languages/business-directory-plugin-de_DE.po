@@ -5,11 +5,11 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-01-30 16:31:11+00:00\n"
+"POT-Creation-Date: 2025-03-03 19:58:06+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
-"Language-Team: Business Directory Plugin <support@businessdirectoryplugin."
-"com>\n"
+"Language-Team: Business Directory Plugin "
+"<support@businessdirectoryplugin.com>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1865,32 +1865,46 @@ msgstr ""
 msgid "Payments are now available for free users with a 3% application fee."
 msgstr ""
 
-#: includes/class-wpbdp.php:514
+#: includes/class-wpbdp.php:496
+msgid "Security check failed. Please refresh the page and try again."
+msgstr ""
+
+#: includes/class-wpbdp.php:501
+#, fuzzy
+msgid "Invalid listing"
+msgstr "Im Eintrag"
+
+#: includes/class-wpbdp.php:505
+#, fuzzy
+msgid "You do not have permission to upload images to this listing"
+msgstr "Kategorie für diesen Eintrag"
+
+#: includes/class-wpbdp.php:525
 msgid "Please select a plan before uploading images to the listing"
 msgstr ""
 
-#: includes/class-wpbdp.php:519
+#: includes/class-wpbdp.php:530
 #, fuzzy
 msgid "Can not upload any more images for this listing."
 msgstr "Kategorie für diesen Eintrag"
 
-#: includes/class-wpbdp.php:648
+#: includes/class-wpbdp.php:659
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Eine Verbindung zum Lizenzserver konnte nicht hergestellt werden."
 
-#: includes/class-wpbdp.php:655
+#: includes/class-wpbdp.php:666
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:668 includes/fields/class-fieldtypes-image.php:405
+#: includes/class-wpbdp.php:679 includes/fields/class-fieldtypes-image.php:405
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Konnte Lizenz nicht deaktivieren: %s"
 
-#: includes/class-wpbdp.php:700
+#: includes/class-wpbdp.php:711
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1899,7 +1913,7 @@ msgstr ""
 "Branchenverzeichnis Hervorhebungen sind aktuell deaktiviert, weil das Modul "
 "manuell aktualisiert werden muss, bevor weiter hervorgehoben werden kann."
 
-#: includes/class-wpbdp.php:707
+#: includes/class-wpbdp.php:718
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -3760,7 +3774,7 @@ msgstr ""
 msgid "Add a payment gateway to increase conversion rates"
 msgstr ""
 
-#. translators: %s: payment gateway name */
+#. translators: %s: payment gateway name
 #: templates/admin/fees-index.tpl.php:75
 #, fuzzy
 msgid "Add %s as a payment option."
@@ -7660,7 +7674,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Das reCAPTCHA wurde nicht korrekt eingegeben."
 
-#: includes/class-wpbdp.php:523
+#: includes/class-wpbdp.php:534
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "
