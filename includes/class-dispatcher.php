@@ -201,6 +201,10 @@ class WPBDP__Dispatcher {
 	}
 
 	public function load_view( $view_name, $args = null ) {
+		if ( empty( $view_name ) ) {
+			return false;
+		}
+
 		$class_view_name = str_replace( '_', '-', $view_name );
 		// TODO: add some filters so plugins can override default view loading.
 		$filenames = array(
