@@ -237,11 +237,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			return '<option value="">' . esc_html( $empty_option_label ) . '</option>';
 		}
 
-		if ( $show_choose_one ) {
-			return '<option value="">' . esc_html__( '-- Choose One --', 'business-directory-plugin' ) . '</option>';
-		}
-
-		return '';
+		return $show_choose_one ? '<option value="">' . esc_html__( '-- Choose One --', 'business-directory-plugin' ) . '</option>' : '';
 	}
 
 	/**
