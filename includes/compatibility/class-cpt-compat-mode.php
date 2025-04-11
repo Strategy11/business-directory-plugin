@@ -160,6 +160,11 @@ class WPBDP__CPT_Compat_Mode {
 	private function set_title() {
 		add_filter( 'the_title', array( &$this, 'get_title' ), 10, 2 );
 		$object = get_queried_object();
+
+		if ( empty( $object ) ) {
+			return;
+		}
+
 		if ( $this->current_view === 'show_listing' ) {
 			$this->page_title = $object->post_title;
 		} else {
