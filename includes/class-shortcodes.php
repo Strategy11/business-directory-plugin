@@ -366,6 +366,7 @@ class WPBDP__Shortcodes {
 				'buttons'        => 'none',
 				'limit'          => 0,
 				'items_per_page' => -1,
+				'promoted_first' => true,
 			),
 			$atts,
 			'businessdirectory-latest-listings'
@@ -373,10 +374,20 @@ class WPBDP__Shortcodes {
 
 		$this->validate_attributes( $sc_atts, $atts );
 
+		$sc_atts['promoted_first'] = ! in_array( 
+			strtolower( (string) $sc_atts['promoted_first'] ),
+			array( 'false', '0', 'no' ),
+			true
+		);
+
 		// Remove sortbar from latests listings shortcode.
 		add_filter( 'wpbdp_get_option_listings-sortbar-enabled', '__return_false', 9999 );
 
-		return $this->display_listings(
+		if ( ! $sc_atts['promoted_first'] ) {
+			add_filter( 'wpbdp_query_orderby', array( $this, 'remove_order' ) );
+		}
+
+		$listings = $this->display_listings(
 			array(
 				'orderby'         => 'date',
 				'order'           => 'DESC',
@@ -384,6 +395,23 @@ class WPBDP__Shortcodes {
 			),
 			$sc_atts
 		);
+
+		if ( ! $sc_atts['promoted_first'] ) {
+			remove_filter( 'wpbdp_query_orderby', array( $this, 'remove_order' ) );
+		}
+
+		return $listings;
+	}
+
+	/**
+	 * Remove the order by filter.
+	 * 
+	 * @since x.x
+	 * 
+	 * @return string The order by query.
+	 */
+	public function remove_order() {
+		return 'post_date DESC';
 	}
 
 	public function sc_listings_random( $atts ) {
