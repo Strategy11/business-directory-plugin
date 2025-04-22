@@ -412,7 +412,7 @@ if ( ! class_exists( 'WPBDP_FormFields' ) ) {
 				),
 				'phone'    => array(
 					'label'         => __( 'Phone', 'business-directory-plugin' ),
-					'field_type'    => 'textfield',
+					'field_type'    => 'phone_number',
 					'association'   => 'meta',
 					'weight'        => 4,
 					'display_flags' => array( 'excerpt', 'listing', 'search', 'privacy' ),
