@@ -222,19 +222,22 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 	 * @return string
 	 */
 	private function add_empty_option( $field ) {
-		$show_empty_option = $field->data( 'show_empty_option', null );
+		$show_empty_field_option = $field->data( 'show_empty_option', null );
+		$show_choose_one         = false;
 
-		if ( is_null( $show_empty_option ) ) {
-			$show_empty_option = ! $field->has_validator( 'required' );
+		if ( is_null( $show_empty_field_option ) ) {
+			$show_empty_field_option = ! $field->has_validator( 'required' );
+			$show_choose_one         = true;
 		}
 
-		$html = '';
-		if ( $show_empty_option ) {
+		if ( $show_empty_field_option ) {
 			$default_label      = __( '— None —', 'business-directory-plugin' );
 			$empty_option_label = $field->data( 'empty_option_label', $default_label );
-			$html              .= '<option value="">' . esc_html( $empty_option_label ) . '</option>';
+			
+			return '<option value="">' . esc_html( $empty_option_label ) . '</option>';
 		}
-		return $html;
+
+		return $show_choose_one ? '<option value="">' . esc_html__( '-- Choose One --', 'business-directory-plugin' ) . '</option>' : '';
 	}
 
 	/**
