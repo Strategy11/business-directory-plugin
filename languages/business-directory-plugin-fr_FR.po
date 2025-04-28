@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-03-03 19:58:06+00:00\n"
+"POT-Creation-Date: 2025-04-28 10:16:13+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -2154,6 +2154,7 @@ msgid "Select List"
 msgstr "Sélectionnez une annonce"
 
 #: includes/fields/class-fieldtypes-select.php:117
+#: includes/fields/class-fieldtypes-select.php:240
 msgid "-- Choose One --"
 msgstr "-- Choisissez --"
 
@@ -2161,18 +2162,18 @@ msgstr "-- Choisissez --"
 msgid "-- Choose Terms --"
 msgstr "-- Choisissez les conditions --"
 
-#: includes/fields/class-fieldtypes-select.php:233
+#: includes/fields/class-fieldtypes-select.php:234
 #: templates/admin/form-fields-tags.tpl.php:5
 msgid "— None —"
 msgstr "— Aucun —"
 
-#: includes/fields/class-fieldtypes-select.php:304
+#: includes/fields/class-fieldtypes-select.php:307
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr ""
 "Options du champ (pour sélectionner des annonces, des boutons radio et cases "
 "à cocher)."
 
-#: includes/fields/class-fieldtypes-select.php:304
+#: includes/fields/class-fieldtypes-select.php:307
 #: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
 #: templates/admin/fees-form.tpl.php:58
 #: templates/admin/form-fields-addoredit.tpl.php:29
@@ -2181,15 +2182,15 @@ msgstr ""
 msgid "required"
 msgstr "requis"
 
-#: includes/fields/class-fieldtypes-select.php:306
+#: includes/fields/class-fieldtypes-select.php:309
 msgid "One option per line"
 msgstr "Une option par ligne"
 
-#: includes/fields/class-fieldtypes-select.php:316
+#: includes/fields/class-fieldtypes-select.php:319
 msgid "Allow empty selection on search?"
 msgstr "Permettre la sélection vide sur la recherche?"
 
-#: includes/fields/class-fieldtypes-select.php:337
+#: includes/fields/class-fieldtypes-select.php:340
 msgid "Field list of options is required."
 msgstr "La liste des options est requise."
 

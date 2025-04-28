@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.9
 Requires PHP: 7.4
-Tested up to: 6.7.2
-Stable tag: 6.4.15
+Tested up to: 6.8
+Stable tag: 6.4.16
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,13 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.16 =
+* New: Added the 'promoted-first' parameter to the 'businessdirectory-latest-listings' shortcode to allow users to disable the promoted first mechanism.
+* New: Placeholder value to required select fields.
+* Fix: Duplicated form fields in the activation process on PHP 8.1.
+* Fix: Phone field being registered as text field in the installation process.
+* Fix: PHP 8.2 notices
+
 = 6.4.15 =
 * Fix: Vulnerability when submitting a new listing
 
@@ -193,13 +200,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Fix: 2 PHP notices when using PHP 8.4
 * Fix: A PHP warning on the email templates page
 * Fix: The label for the upgrade button now shows "Install Now" if the user already has access to the add-on
-
-= 6.4.6 =
-* Added a redirect mechanism for expired listings. If a guest visits an expired listing they will be redirected to the main directory page and a message will be shown.
-* Added TikTok to the social media form fields
-* Added a new admin notice when a renewal notice is manually being sent but there is no recurring email template for that
-* Fix: Bug with form field order when site language was not English
-* Fix: Compatibility issues with newer PHP version
-* Fix: Bug with AddToAny and Social Share Buttons widget not showing on listing pages
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

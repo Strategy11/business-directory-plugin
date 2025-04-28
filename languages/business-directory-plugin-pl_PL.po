@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-03-03 19:58:06+00:00\n"
+"POT-Creation-Date: 2025-04-28 10:16:13+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -2496,6 +2496,7 @@ msgstr "Lista Wyboru"
 
 # @ WPBDM
 #: includes/fields/class-fieldtypes-select.php:117
+#: includes/fields/class-fieldtypes-select.php:240
 #, fuzzy
 msgid "-- Choose One --"
 msgstr "-- Wybierz Jeden --"
@@ -2506,20 +2507,20 @@ msgstr "-- Wybierz Jeden --"
 msgid "-- Choose Terms --"
 msgstr "-- Wybierz Warunki --"
 
-#: includes/fields/class-fieldtypes-select.php:233
+#: includes/fields/class-fieldtypes-select.php:234
 #: templates/admin/form-fields-tags.tpl.php:5
 msgid "— None —"
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-select.php:304
+#: includes/fields/class-fieldtypes-select.php:307
 #, fuzzy
 msgid "Field Options (for select lists, radio buttons and checkboxes)."
 msgstr "Opcje Pola (aby wybrać listy, przycisk radio i czeklisty)."
 
 # @ default
 # @ WPBDM
-#: includes/fields/class-fieldtypes-select.php:304
+#: includes/fields/class-fieldtypes-select.php:307
 #: templates/admin/fees-form.tpl.php:17 templates/admin/fees-form.tpl.php:38
 #: templates/admin/fees-form.tpl.php:58
 #: templates/admin/form-fields-addoredit.tpl.php:29
@@ -2529,18 +2530,18 @@ msgstr "Opcje Pola (aby wybrać listy, przycisk radio i czeklisty)."
 msgid "required"
 msgstr "Wymagane"
 
-#: includes/fields/class-fieldtypes-select.php:306
+#: includes/fields/class-fieldtypes-select.php:309
 msgid "One option per line"
 msgstr ""
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-select.php:316
+#: includes/fields/class-fieldtypes-select.php:319
 #, fuzzy
 msgid "Allow empty selection on search?"
 msgstr "Zezwolić na wyszukiwanie pustych pól wyborów?"
 
 # @ WPBDM
-#: includes/fields/class-fieldtypes-select.php:337
+#: includes/fields/class-fieldtypes-select.php:340
 #, fuzzy
 msgid "Field list of options is required."
 msgstr "Pole listy opcji wymagane."
