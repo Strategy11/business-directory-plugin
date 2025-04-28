@@ -406,7 +406,7 @@ class WPBDP__Shortcodes {
 	/**
 	 * Remove the order by filter.
 	 * 
-	 * @since x.x
+	 * @since 6.4.16
 	 * 
 	 * @return string The order by query.
 	 */
