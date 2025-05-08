@@ -363,7 +363,7 @@ class WPBDP_Licensing {
 		if ( ! in_array( $item_id, array_keys( $this->items ), true ) ) {
 			return new WP_Error( 'invalid-module', esc_html__( 'Invalid item ID', 'business-directory-plugin' ) );
 		}
-
+		
 		if ( 'deactivate' === $action ) {
 			unset( $this->licenses[ $item_type . '-' . $item_id ] );
 			update_option( 'wpbdp_licenses', $this->licenses );
@@ -372,7 +372,7 @@ class WPBDP_Licensing {
 		if ( ! $key ) {
 			$key = wpbdp_get_option( 'license-key-' . $item_type . '-' . $item_id );
 		}
-
+		
 		if ( ! $key ) {
 			return new WP_Error( 'no-license-provided', esc_html__( 'No license key provided', 'business-directory-plugin' ) );
 		}
@@ -912,14 +912,20 @@ class WPBDP_Licensing {
 			wp_die();
 		}
 
-		$result   = $this->license_action( $item_type, $item_id, 'deactivate' );
-		$response = new WPBDP_AJAX_Response();
+		$result = $this->license_action( $item_type, $item_id, 'deactivate' );
 
 		if ( is_wp_error( $result ) ) {
-			$response->send_error( sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ) );
+			if ( 'deactivation-failed' === $result->get_error_code() ) {
+				return wp_send_json( array( 'error' => 'deactivation-failed' ) );
+			}
+
+			return wp_send_json(
+				array( 
+					'error' => sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ), 
+				),
+			);
 		} else {
-			$response->set_message( _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) );
-			$response->send();
+			return wp_send_json( array( 'message' => _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) ) );
 		}
 	}
 
