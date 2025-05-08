@@ -916,16 +916,16 @@ class WPBDP_Licensing {
 
 		if ( is_wp_error( $result ) ) {
 			if ( 'deactivation-failed' === $result->get_error_code() ) {
-				return wp_send_json( array( 'error' => 'deactivation-failed' ) );
+				wp_send_json( array( 'error' => 'deactivation-failed' ) );
 			}
 
-			return wp_send_json(
+			wp_send_json(
 				array( 
 					'error' => sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ), 
 				),
 			);
 		} else {
-			return wp_send_json( array( 'message' => _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) ) );
+			wp_send_json( array( 'message' => _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) ) );
 		}
 	}
 
