@@ -924,9 +924,9 @@ class WPBDP_Licensing {
 					'error' => sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ), 
 				),
 			);
-		} else {
-			wp_send_json( array( 'message' => _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) ) );
 		}
+
+		wp_send_json( array( 'message' => _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) ) );
 	}
 
 	public function get_version_information( $force_refresh = false ) {
