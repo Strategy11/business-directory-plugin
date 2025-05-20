@@ -912,15 +912,21 @@ class WPBDP_Licensing {
 			wp_die();
 		}
 
-		$result   = $this->license_action( $item_type, $item_id, 'deactivate' );
-		$response = new WPBDP_AJAX_Response();
+		$result = $this->license_action( $item_type, $item_id, 'deactivate' );
 
 		if ( is_wp_error( $result ) ) {
-			$response->send_error( sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ) );
-		} else {
-			$response->set_message( _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) );
-			$response->send();
+			if ( 'deactivation-failed' === $result->get_error_code() ) {
+				wp_send_json( array( 'error' => 'deactivation-failed' ) );
+			}
+
+			wp_send_json(
+				array( 
+					'error' => sprintf( _x( 'Could not deactivate license: %s.', 'licensing', 'business-directory-plugin' ), $result->get_error_message() ), 
+				),
+			);
 		}
+
+		wp_send_json( array( 'message' => _x( 'License deactivated', 'licensing', 'business-directory-plugin' ) ) );
 	}
 
 	public function get_version_information( $force_refresh = false ) {
