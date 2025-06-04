@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-04-28 10:16:13+00:00\n"
+"POT-Creation-Date: 2025-06-04 14:40:12+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -4386,8 +4386,8 @@ msgstr "Nee, terug naar het Register."
 msgid "Search Results"
 msgstr "Zoek resultaten"
 
-#: templates/deprecated/search.tpl.php:29 templates/manage-listings.tpl.php:14
-#: templates/manage_listings.tpl.php:36
+#: templates/deprecated/search.tpl.php:29 templates/manage_listings.tpl.php:36
+#: templates/manage-listings.tpl.php:14
 #: templates/submit-listing-done.tpl.php:38
 #, fuzzy
 msgid "Return to directory"
@@ -4594,14 +4594,18 @@ msgid ""
 "available."
 msgstr ""
 
+#: templates/manage_listings.tpl.php:13
+msgid "Your current listings are shown below."
+msgstr ""
+
+#: templates/manage_listings.tpl.php:31 templates/manage-listings.tpl.php:9
+msgid "You do not currently have any listings in the directory."
+msgstr ""
+
 #: templates/manage-listings.tpl.php:3
 msgid ""
 "Your current listings are shown below. To edit a listing click the edit "
 "button. To delete a listing click the delete button."
-msgstr ""
-
-#: templates/manage-listings.tpl.php:9 templates/manage_listings.tpl.php:31
-msgid "You do not currently have any listings in the directory."
 msgstr ""
 
 #: templates/manage-recurring-cancel.tpl.php:1
@@ -4653,10 +4657,6 @@ msgstr ""
 #, fuzzy
 msgid "Cancel recurring payment"
 msgstr "Verwijder beeld"
-
-#: templates/manage_listings.tpl.php:13
-msgid "Your current listings are shown below."
-msgstr ""
 
 #: templates/parts/pagination.tpl.php:7
 #, fuzzy
@@ -8087,18 +8087,18 @@ msgctxt "licensing"
 msgid "License activated"
 msgstr ""
 
-#: includes/licensing.php:919
+#: includes/licensing.php:924
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr ""
 
-#: includes/licensing.php:921
+#: includes/licensing.php:929
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr ""
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1287
+#: includes/licensing.php:1293
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "
