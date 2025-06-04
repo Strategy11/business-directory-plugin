@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or any later version.
 msgid ""
 msgstr ""
-"Project-Id-Version: Business Directory Plugin 6.4.16\n"
+"Project-Id-Version: Business Directory Plugin 6.4.17\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/business-directory-plugin\n"
-"POT-Creation-Date: 2025-04-28 10:16:13+00:00\n"
+"POT-Creation-Date: 2025-06-04 14:40:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3960,8 +3960,8 @@ msgstr ""
 msgid "Search Results"
 msgstr ""
 
-#: templates/deprecated/search.tpl.php:29 templates/manage-listings.tpl.php:14
-#: templates/manage_listings.tpl.php:36
+#: templates/deprecated/search.tpl.php:29 templates/manage_listings.tpl.php:36
+#: templates/manage-listings.tpl.php:14
 #: templates/submit-listing-done.tpl.php:38
 msgid "Return to directory"
 msgstr ""
@@ -4131,14 +4131,18 @@ msgid ""
 "available."
 msgstr ""
 
+#: templates/manage_listings.tpl.php:13
+msgid "Your current listings are shown below."
+msgstr ""
+
+#: templates/manage_listings.tpl.php:31 templates/manage-listings.tpl.php:9
+msgid "You do not currently have any listings in the directory."
+msgstr ""
+
 #: templates/manage-listings.tpl.php:3
 msgid ""
 "Your current listings are shown below. To edit a listing click the edit "
 "button. To delete a listing click the delete button."
-msgstr ""
-
-#: templates/manage-listings.tpl.php:9 templates/manage_listings.tpl.php:31
-msgid "You do not currently have any listings in the directory."
 msgstr ""
 
 #: templates/manage-recurring-cancel.tpl.php:1
@@ -4183,10 +4187,6 @@ msgstr ""
 
 #: templates/manage-recurring.tpl.php:48
 msgid "Cancel recurring payment"
-msgstr ""
-
-#: templates/manage_listings.tpl.php:13
-msgid "Your current listings are shown below."
 msgstr ""
 
 #: templates/parts/pagination.tpl.php:7
@@ -7363,17 +7363,17 @@ msgctxt "licensing"
 msgid "License activated"
 msgstr ""
 
-#: includes/licensing.php:919
+#: includes/licensing.php:924
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr ""
 
-#: includes/licensing.php:921
+#: includes/licensing.php:929
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr ""
 
-#: includes/licensing.php:1287
+#: includes/licensing.php:1293
 #. translators: "<module-name>" version <version-number> is not...
 msgctxt "deprecation"
 msgid ""

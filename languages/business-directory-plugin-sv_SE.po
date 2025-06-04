@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-04-28 10:16:13+00:00\n"
+"POT-Creation-Date: 2025-06-04 14:40:12+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -4780,8 +4780,8 @@ msgstr "Nej. Ta mig tillbaka till katalogen."
 msgid "Search Results"
 msgstr "Sökresultat"
 
-#: templates/deprecated/search.tpl.php:29 templates/manage-listings.tpl.php:14
-#: templates/manage_listings.tpl.php:36
+#: templates/deprecated/search.tpl.php:29 templates/manage_listings.tpl.php:36
+#: templates/manage-listings.tpl.php:14
 #: templates/submit-listing-done.tpl.php:38
 #, fuzzy
 msgid "Return to directory"
@@ -4995,6 +4995,16 @@ msgid ""
 "available."
 msgstr ""
 
+#: templates/manage_listings.tpl.php:13
+#, fuzzy
+msgid "Your current listings are shown below."
+msgstr "Det finns inga annonser för närvarande i registret."
+
+#: templates/manage_listings.tpl.php:31 templates/manage-listings.tpl.php:9
+#, fuzzy
+msgid "You do not currently have any listings in the directory."
+msgstr "Du har för närvarande inte har några listor i katalogen."
+
 #: templates/manage-listings.tpl.php:3
 #, fuzzy
 msgid ""
@@ -5003,11 +5013,6 @@ msgid ""
 msgstr ""
 "Dina aktuella annonser visas nedan. Om du vill redigera en annons klicka på "
 "knappen Redigera. För att ta bort en notering klicka på knappen Ta bort."
-
-#: templates/manage-listings.tpl.php:9 templates/manage_listings.tpl.php:31
-#, fuzzy
-msgid "You do not currently have any listings in the directory."
-msgstr "Du har för närvarande inte har några listor i katalogen."
 
 #: templates/manage-recurring-cancel.tpl.php:1
 #, fuzzy
@@ -5062,11 +5067,6 @@ msgstr "%s varje %s dagar. Nästa förnyelse är %s."
 #, fuzzy
 msgid "Cancel recurring payment"
 msgstr "Avbryt återkommande betalning"
-
-#: templates/manage_listings.tpl.php:13
-#, fuzzy
-msgid "Your current listings are shown below."
-msgstr "Det finns inga annonser för närvarande i registret."
 
 #: templates/parts/pagination.tpl.php:7
 #, fuzzy
@@ -8560,18 +8560,18 @@ msgctxt "licensing"
 msgid "License activated"
 msgstr "Licens aktiverad"
 
-#: includes/licensing.php:919
+#: includes/licensing.php:924
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Det gick inte att inaktivera licens:%s."
 
-#: includes/licensing.php:921
+#: includes/licensing.php:929
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "﻿Licensnyckel avaktiverad"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1287
+#: includes/licensing.php:1293
 #, fuzzy
 msgctxt "deprecation"
 msgid ""

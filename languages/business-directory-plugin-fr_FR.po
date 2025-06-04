@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-04-28 10:16:13+00:00\n"
+"POT-Creation-Date: 2025-06-04 14:40:12+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Laurent Provin <lprovin@yahoo.fr>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -4504,8 +4504,8 @@ msgstr "Non, retourner vers l'annuaire."
 msgid "Search Results"
 msgstr "Résultats de la recherche"
 
-#: templates/deprecated/search.tpl.php:29 templates/manage-listings.tpl.php:14
-#: templates/manage_listings.tpl.php:36
+#: templates/deprecated/search.tpl.php:29 templates/manage_listings.tpl.php:36
+#: templates/manage-listings.tpl.php:14
 #: templates/submit-listing-done.tpl.php:38
 msgid "Return to directory"
 msgstr "Retourner vers l'annuaire"
@@ -4704,6 +4704,14 @@ msgid ""
 "available."
 msgstr ""
 
+#: templates/manage_listings.tpl.php:13
+msgid "Your current listings are shown below."
+msgstr "Vous annonces actuelles sont affichées ci-dessus."
+
+#: templates/manage_listings.tpl.php:31 templates/manage-listings.tpl.php:9
+msgid "You do not currently have any listings in the directory."
+msgstr "Vous n'avez actuellement aucune annonce dans l'annuaire."
+
 #: templates/manage-listings.tpl.php:3
 msgid ""
 "Your current listings are shown below. To edit a listing click the edit "
@@ -4712,10 +4720,6 @@ msgstr ""
 "Vos annonces actuelles sont présentés ci-dessous. Pour modifier une annonce, "
 "cliquez sur le bouton Éditer. Pour supprimer une annonce, cliquez sur le "
 "bouton Supprimer."
-
-#: templates/manage-listings.tpl.php:9 templates/manage_listings.tpl.php:31
-msgid "You do not currently have any listings in the directory."
-msgstr "Vous n'avez actuellement aucune annonce dans l'annuaire."
 
 #: templates/manage-recurring-cancel.tpl.php:1
 #, fuzzy
@@ -4769,10 +4773,6 @@ msgstr "%1$s tous les %2$s jours. Le prochain renouvellement est le %3$s."
 #, fuzzy
 msgid "Cancel recurring payment"
 msgstr "Annuler le paiement récurrent"
-
-#: templates/manage_listings.tpl.php:13
-msgid "Your current listings are shown below."
-msgstr "Vous annonces actuelles sont affichées ci-dessus."
 
 #: templates/parts/pagination.tpl.php:7
 msgid "&larr; Previous "
@@ -8226,18 +8226,18 @@ msgctxt "licensing"
 msgid "License activated"
 msgstr "Licence activée"
 
-#: includes/licensing.php:919
+#: includes/licensing.php:924
 msgctxt "licensing"
 msgid "Could not deactivate license: %s."
 msgstr "Impossible de désactiver la licence: %s."
 
-#: includes/licensing.php:921
+#: includes/licensing.php:929
 msgctxt "licensing"
 msgid "License deactivated"
 msgstr "Licence désactivée"
 
 #. translators: "<module-name>" version <version-number> is not...
-#: includes/licensing.php:1287
+#: includes/licensing.php:1293
 msgctxt "deprecation"
 msgid ""
 "\"%1$s\" version %2$s is not compatible with Business Directory Plugin 5.0. "

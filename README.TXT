@@ -3,8 +3,8 @@ Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
 Requires at least: 5.9
 Requires PHP: 7.4
-Tested up to: 6.8
-Stable tag: 6.4.16
+Tested up to: 6.8.1
+Stable tag: 6.4.17
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,9 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.17 =
+* Fix: Fix: Issue with the license validating process
+
 = 6.4.16 =
 * New: Added the 'promoted-first' parameter to the 'businessdirectory-latest-listings' shortcode to allow users to disable the promoted first mechanism.
 * New: Placeholder value to required select fields.
