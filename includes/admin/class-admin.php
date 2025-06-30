@@ -941,7 +941,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$this->check_server_requirements();
 			$this->check_setup();
 			$this->check_deprecation_warnings();
-
+			$this->check_inbox_notices();
 			$this->maybe_request_review();
 
 			do_action( 'wpbdp_admin_notices' );
@@ -1524,6 +1524,37 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				foreach ( $wpbdp_deprecation_warnings as $warning ) {
 					$this->messages[] = $warning;
 				}
+			}
+		}
+
+		/**
+		 * Check for messages from the Inbox API.
+		 *
+		 * @return void
+		 */
+		private function check_inbox_notices() {
+			include_once __DIR__ . '/traits/class-who-trait.php';
+			include_once __DIR__ . '/helpers/class-modules-api.php';
+			include_once __DIR__ . '/helpers/class-inbox-api.php';
+
+			$api      = new WPBDP_Inbox_API();
+			$messages = array_filter(
+				$api->get_api_info(),
+				function( $message ) use ( $api ) {
+					return $api->should_include_message( $message );
+				}
+			);
+
+			if ( ! $messages ) {
+				return;
+			}
+
+			foreach ( $messages as $message ) {
+				$this->messages[] = array(
+					'<strong>' . esc_html( $message['subject'] ) . '</strong><br>' . esc_html( $message['message'] ) . '<br><br>' . wp_kses_post( $message['cta'] ),
+					'notice-error is-dismissible',
+					array( 'dismissible-id' => 'inbox-' . $message['key'] ),
+				);
 			}
 		}
 
