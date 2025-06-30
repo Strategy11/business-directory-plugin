@@ -35,8 +35,6 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 			return false;
 		}
 
-		// TODO Set up the activation timestamp.
-
 		return empty( $message['who'] ) || $this->matches_who( $message['who'] );
 	}
 
