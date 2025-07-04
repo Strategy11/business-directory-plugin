@@ -1060,14 +1060,35 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			<?php
 		}
 
+		/**
+		 * Make sure that the required files for the Sales API have been included.
+		 *
+		 * @since x.x
+		 *
+		 * @return void
+		 */
 		public static function setup_sales_api() {
 			self::setup_module_api_with_who_trait( 'sales' );
 		}
 
+		/**
+		 * Make sure that the required files for the Inbox API have been included.
+		 *
+		 * @since x.x
+		 *
+		 * @return void
+		 */
 		private static function setup_inbox_api() {
 			self::setup_module_api_with_who_trait( 'inbox' );
 		}
 
+		/**
+		 * Make sure that the required files for a child API of the module API with the Who trait have been included.
+		 *
+		 * @since x.x
+		 *
+		 * @return void
+		 */
 		private static function setup_module_api_with_who_trait( $type ) {
 			include_once WPBDP_PATH . 'includes/admin/traits/class-who-trait.php';
 			include_once WPBDP_PATH . 'includes/admin/helpers/class-modules-api.php';
@@ -1555,6 +1576,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		/**
 		 * Check for messages from the Inbox API.
+		 *
+		 * @since x.x
 		 *
 		 * @return void
 		 */

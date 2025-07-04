@@ -3,6 +3,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
 
+/**
+ * Handles the Sales API.
+ *
+ * @since x.x
+ */
 class WPBDP_Sales_API extends WPBDP_Modules_API {
 
 	use WPBDP_Who;
@@ -31,8 +36,11 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	}
 
 	/**
-	 * @param array $sale;
+	 * Check if a sale should be included.
 	 *
+	 * @since x.x
+	 *
+	 * @param array $sale The sale to check.
 	 * @return bool
 	 */
 	public function should_include_sale( $sale ) {
@@ -59,10 +67,12 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	}
 
 	/**
+	 * Get the value of the best sale.
+	 *
 	 * @since x.x
 	 *
 	 * @param string $key
-	 * @return string|null
+	 * @return string|null Null if the key is not found or the value is not truthy.
 	 */
 	public static function get_best_sale_value( $key ) {
 		$best_sale = self::get_best_sale();
@@ -72,6 +82,17 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 		return null;
 	}
 
+	/**
+	 * Get the CTA link for the best sale.
+	 * This functions the same as get_best_sale_value but also
+	 * adds missing UTM params if they do not already exist.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $key
+	 * @param string $utm_medium The utm_medium param to add if one does not already exist.
+	 * @return string
+	 */
 	public static function get_best_sale_cta_link( $key, $utm_medium ) {
 		$link = self::get_best_sale_value( $key );
 		$link = self::add_missing_utm_params( $link, $utm_medium );
@@ -104,6 +125,10 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	}
 
 	/**
+	 * Get the best active sale that matches the current site.
+	 *
+	 * @since x.x
+	 *
 	 * @return array|false
 	 */
 	private static function get_best_sale() {

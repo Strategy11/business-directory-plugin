@@ -3,6 +3,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'You are not allowed to call this page directly.' );
 }
 
+/**
+ * Handles the Inbox API.
+ *
+ * @since x.x
+ */
 class WPBDP_Inbox_API extends WPBDP_Modules_API {
 
 	use WPBDP_Who;
@@ -26,7 +31,9 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 	}
 
 	/**
-	 * @param array $message;
+	 * Check if a message should be included.
+	 *
+	 * @param array $message The message to check.
 	 *
 	 * @return bool
 	 */
