@@ -9,10 +9,14 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 
 	/**
 	 * Trait WPBDP_Who
+	 *
+	 * @since x.x
 	 */
 	trait WPBDP_Who {
 		/**
 		 * Check if the message should be shown to the current user.
+		 *
+		 * @since x.x
 		 *
 		 * @param array|string $who The target specified for a given API item (an Inbox message or Sale).
 		 *
@@ -38,6 +42,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 		/**
 		 * Check if the API item is for everyone.
 		 *
+		 * @since x.x
+		 *
 		 * @param array $who The target specified for a given API item (an Inbox message or Sale).
 		 *
 		 * @return bool
@@ -49,6 +55,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 		/**
 		 * Check if there is a license match.
 		 *
+		 * @since x.x
+		 *
 		 * @param array $who The target specified for a given API item (an Inbox message or Sale).
 		 *
 		 * @return bool
@@ -59,6 +67,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 
 		/**
 		 * Get license type.
+		 *
+		 * @since x.x
 		 *
 		 * @return string
 		 */
@@ -78,6 +88,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 		 * Check if user is still using the Lite version only, and within
 		 * the first 30 days of activation.
 		 *
+		 * @since x.x
+		 *
 		 * @return bool
 		 */
 		private static function is_free_first_30() {
@@ -86,6 +98,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 
 		/**
 		 * Check if site is within the first 30 days.
+		 *
+		 * @since x.x
 		 *
 		 * @return bool
 		 */
@@ -103,6 +117,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 		/**
 		 * Check if site is using free version and not within first 30 days.
 		 *
+		 * @since x.x
+		 *
 		 * @return bool
 		 */
 		private static function is_free_not_first_30() {
@@ -112,6 +128,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 		/**
 		 * Check if the Pro plugin is active. If not, consider the user to be on the free version.
 		 *
+		 * @since x.x
+		 *
 		 * @return bool
 		 */
 		private static function is_free() {
@@ -120,6 +138,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 
 		/**
 		 * Check if the site matches one of the free segments.
+		 *
+		 * @since x.x
 		 *
 		 * @param array $who The target specified for a given API item (an Inbox message or Sale).
 		 *
@@ -153,6 +173,8 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 
 		/**
 		 * Check if the site matches a free segment.
+		 *
+		 * @since x.x
 		 *
 		 * @param string $key                  The key of the given segment.
 		 * @param int    $activation_timestamp The activation timestamp of the current user.
