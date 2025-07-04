@@ -150,6 +150,10 @@ class WPBDP_Admin_Education {
 
 		$should_setup_sales_api = empty( $tip['link'] ) || empty( $tip['cta'] );
 		if ( $should_setup_sales_api ) {
+			if ( ! class_exists( 'WPBDP_Admin' ) ) {
+				require_once WPBDP_INC . 'admin/class-admin.php';
+			}
+
 			WPBDP_Admin::setup_sales_api();
 		}
 
