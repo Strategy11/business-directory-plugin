@@ -76,6 +76,12 @@ namespace {
 	class WPBDP_Addons {
 		public static function show_conditional_action_button( $atts ) {
 		}
+		/**
+		 * @param bool $force_type
+		 * @return string
+		 */
+		public static function get_raw_license_type( $force_type = false ) {
+		}
 	}
 
 	/* Integrations */
