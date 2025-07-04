@@ -78,6 +78,7 @@ namespace {
 		}
 		/**
 		 * @param bool $force_type
+		 *
 		 * @return string
 		 */
 		public static function get_raw_license_type( $force_type = false ) {

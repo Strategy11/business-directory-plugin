@@ -45,6 +45,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	 * @since x.x
 	 *
 	 * @param array $sale The sale to check.
+	 *
 	 * @return bool
 	 */
 	public function should_include_sale( $sale ) {
@@ -76,6 +77,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	 * @since x.x
 	 *
 	 * @param string $key
+	 *
 	 * @return string|null Null if the key is not found or the value is not truthy.
 	 */
 	public static function get_best_sale_value( $key ) {
@@ -95,6 +97,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	 *
 	 * @param string $key
 	 * @param string $utm_medium The utm_medium param to add if one does not already exist.
+	 *
 	 * @return string
 	 */
 	public static function get_best_sale_cta_link( $key, $utm_medium ) {
@@ -110,6 +113,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	 *
 	 * @param string $link
 	 * @param string $utm_medium
+	 *
 	 * @return string
 	 */
 	private static function add_missing_utm_params( $link, $utm_medium ) {
