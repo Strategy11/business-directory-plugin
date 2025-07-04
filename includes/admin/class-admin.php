@@ -1587,7 +1587,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$api      = new WPBDP_Inbox_API();
 			$messages = array_filter(
 				$api->get_api_info(),
-				function( $message ) use ( $api ) {
+				function ( $message ) use ( $api ) {
 					return $api->should_include_message( $message );
 				}
 			);
