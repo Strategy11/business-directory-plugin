@@ -1,0 +1,98 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
+class WPBDP_Sales_API extends WPBDP_Modules_API {
+
+	use WPBDP_Who;
+
+	/**
+	 * @var array|false
+	 */
+	private static $best_sale;
+
+	public function __construct( $license = null ) {
+		$this->set_cache_key();
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function set_cache_key() {
+		$this->cache_key = 'wpbdp_sales';
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function api_url() {
+		return 'https://businessdirectoryplugin.com/wp-json/s11-sales/v1/list/';
+	}
+
+	/**
+	 * @param array $sale;
+	 *
+	 * @return bool
+	 */
+	public function should_include_sale( $sale ) {
+		if ( empty( $sale['key'] ) || ! $this->is_in_correct_timeframe( $sale ) ) {
+			return false;
+		}
+
+		return empty( $sale['who'] ) || $this->matches_who( $sale['who'] );
+	}
+
+	/**
+	 * Check if a sale is in the correct timeframe.
+	 *
+	 * @param array $sale The sale to check.
+	 *
+	 * @return bool
+	 */
+	private function is_in_correct_timeframe( $sale ) {
+		if ( ! empty( $sale['expires'] ) && $sale['expires'] + DAY_IN_SECONDS < time() ) {
+			return false;
+		}
+
+		return empty( $sale['starts'] ) || $sale['starts'] < time();
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param string $key
+	 * @return string|null
+	 */
+	public static function get_best_sale_value( $key ) {
+		$best_sale = self::get_best_sale();
+		if ( is_array( $best_sale ) && ! empty( $best_sale[ $key ] ) ) {
+			return $best_sale[ $key ];
+		}
+		return null;
+	}
+
+	/**
+	 * @return array|false
+	 */
+	private static function get_best_sale() {
+		if ( ! is_null( self::$best_sale ) ) {
+			return self::$best_sale;
+		}
+
+		$api = new WPBDP_Sales_API();
+		$api->get_api_info();
+
+		$best_sale = false;
+		foreach ( $api->get_api_info() as $sale ) {
+			if ( $api->should_include_sale( $sale ) ) {
+				if ( false === $best_sale || $sale['discount_percent'] > $best_sale['discount_percent'] ) {
+					$best_sale = $sale;
+				}
+			}
+		}
+
+		self::$best_sale = $best_sale;
+		return $best_sale;
+	}
+}

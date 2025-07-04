@@ -147,11 +147,17 @@ class WPBDP_Admin_Education {
 	private static function get_tip( $id ) {
 		$tips = self::tips();
 		$tip  = isset( $tips[ $id ] ) ? $tips[ $id ] : array();
+
+		$should_setup_sales_api = empty( $tip['link'] ) || empty( $tip['cta'] );
+		if ( $should_setup_sales_api ) {
+			WPBDP_Admin::setup_sales_api();
+		}
+
 		if ( empty( $tip['link'] ) ) {
-			$tip['link'] = wpbdp_admin_upgrade_link( $id );
+			$tip['link'] = WPBDP_Sales_API::get_best_sale_value( 'pro_tip_cta_link' ) ?? wpbdp_admin_upgrade_link( $id );
 		}
 		if ( empty( $tip['cta'] ) ) {
-			$tip['cta'] = 'Upgrade Now.';
+			$tip['cta'] = WPBDP_Sales_API::get_best_sale_value( 'pro_tip_cta_text' ) ?? __( 'Upgrade Now', 'business-directory-plugin' );
 		}
 
 		$has_premium = self::is_installed( 'premium' );

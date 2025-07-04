@@ -569,11 +569,14 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
+			$cta_text = $this->get_best_sale_value( 'submenu_cta_text' ) ?? __( 'Upgrade to Premium', 'business-directory-plugin' );
+			$cta_url  = $this->get_best_sale_value( 'submenu_cta_link' ) ?? wpbdp_admin_upgrade_link( 'admin-menu' );
+
 			global $submenu;
 			$submenu[ $this->menu_id ][] = array(
-				'<span class="wpbdp-upgrade-submenu">' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</span>',
+				'<span class="wpbdp-upgrade-submenu">' . esc_html( $cta_text ) . '</span>',
 				'manage_options',
-				wpbdp_admin_upgrade_link( 'admin-menu' ),
+				$cta_url,
 			);
 			add_action( 'admin_footer', array( &$this, 'highlight_menu' ) );
 		}
@@ -1038,14 +1041,36 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			if ( $module_count > 0 ) {
 				return;
 			}
+
+			$cta_url  = $this->get_best_sale_value( 'lite_banner_cta_link' ) ?? wpbdp_admin_upgrade_link( 'upgrade-bar' );
+			$cta_text = $this->get_best_sale_value( 'lite_banner_cta_text' ) ?? __( 'upgrading to premium', 'business-directory-plugin' );
 			?>
 			<div class="wpbdp-notice wpbdp-upgrade-bar wpbdp-inline-notice">
 				You're using Business Directory Plugin Lite. To unlock more features consider
-				<a href="<?php echo esc_url( wpbdp_admin_upgrade_link( 'upgrade-bar' ) ); ?>">
-					upgrading to premium.
+				<a href="<?php echo esc_url( $cta_url ); ?>">
+					<?php echo esc_html( $cta_text ); ?>
 				</a>
 			</div>
 			<?php
+		}
+
+		private function get_best_sale_value( $key ) {
+			self::setup_sales_api();
+			return WPBDP_Sales_API::get_best_sale_value( $key );
+		}
+
+		public static function setup_sales_api() {
+			self::setup_module_api_with_who_trait( 'sales' );
+		}
+
+		public static function setup_inbox_api() {
+			self::setup_module_api_with_who_trait( 'inbox' );
+		}
+
+		private static function setup_module_api_with_who_trait( $type ) {
+			include_once WPBDP_PATH . 'includes/admin/traits/class-who-trait.php';
+			include_once WPBDP_PATH . 'includes/admin/helpers/class-modules-api.php';
+			include_once WPBDP_PATH . 'includes/admin/helpers/class-' . $type . '-api.php';
 		}
 
 		/**
@@ -1533,9 +1558,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @return void
 		 */
 		private function check_inbox_notices() {
-			include_once __DIR__ . '/traits/class-who-trait.php';
-			include_once __DIR__ . '/helpers/class-modules-api.php';
-			include_once __DIR__ . '/helpers/class-inbox-api.php';
+			self::setup_inbox_api();
 
 			$api      = new WPBDP_Inbox_API();
 			$messages = array_filter(
