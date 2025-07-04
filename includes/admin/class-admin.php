@@ -1043,7 +1043,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			$cta_url  = $this->get_best_sale_value( 'lite_banner_cta_link' ) ?? wpbdp_admin_upgrade_link( 'upgrade-bar' );
-			$cta_text = $this->get_best_sale_value( 'lite_banner_cta_text' ) ?? __( 'upgrading to premium', 'business-directory-plugin' );
+			$cta_text = $this->get_best_sale_value( 'lite_banner_cta_text' ) ?? 'upgrading to premium';
 			?>
 			<div class="wpbdp-notice wpbdp-upgrade-bar wpbdp-inline-notice">
 				You're using Business Directory Plugin Lite. To unlock more features consider
@@ -1063,7 +1063,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			self::setup_module_api_with_who_trait( 'sales' );
 		}
 
-		public static function setup_inbox_api() {
+		private static function setup_inbox_api() {
 			self::setup_module_api_with_who_trait( 'inbox' );
 		}
 
