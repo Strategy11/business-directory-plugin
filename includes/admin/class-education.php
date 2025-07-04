@@ -154,7 +154,7 @@ class WPBDP_Admin_Education {
 		}
 
 		if ( empty( $tip['link'] ) ) {
-			$tip['link'] = WPBDP_Sales_API::get_best_sale_value( 'pro_tip_cta_link' ) ?? wpbdp_admin_upgrade_link( $id );
+			$tip['link'] = WPBDP_Sales_API::get_best_sale_cta_link( 'pro_tip_cta_link', $id ) ?? wpbdp_admin_upgrade_link( $id );
 		}
 		if ( empty( $tip['cta'] ) ) {
 			$tip['cta'] = WPBDP_Sales_API::get_best_sale_value( 'pro_tip_cta_text' ) ?? __( 'Upgrade Now', 'business-directory-plugin' );

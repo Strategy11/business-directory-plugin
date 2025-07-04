@@ -653,8 +653,9 @@ class WPBDP__Settings_Admin {
 	 */
 	private function get_upgrade_message() {
 		WPBDP_Admin::setup_sales_api();
-		$cta_url  = WPBDP_Sales_API::get_best_sale_value( 'plugin_page_cta_link' ) ?? wpbdp_admin_upgrade_link( 'licenses_tab' );
-		$cta_text = WPBDP_Sales_API::get_best_sale_value( 'plugin_page_cta_text' ) ?? __( 'Upgrade Now', 'business-directory-plugin' );
+		$utm_medium = 'licenses_tab';
+		$cta_url    = WPBDP_Sales_API::get_best_sale_cta_link( 'plugin_page_cta_link', $utm_medium ) ?? wpbdp_admin_upgrade_link( $utm_medium );
+		$cta_text   = WPBDP_Sales_API::get_best_sale_value( 'plugin_page_cta_text' ) ?? __( 'Upgrade Now', 'business-directory-plugin' );
 
 		$html  = '<div class="wpbdp_upgrade_to_pro">';
 		$html .= '<h3>' . esc_html__( 'Build more powerful directories', 'business-directory-plugin' ) . '</h3>';

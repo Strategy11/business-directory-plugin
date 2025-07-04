@@ -431,8 +431,9 @@ final class WPBDP {
 	 */
 	private function get_plugin_upgrade_action_link() {
 		WPBDP_Admin::setup_sales_api();
-		$cta_url  = WPBDP_Sales_API::get_best_sale_value( 'plugin_page_cta_link' ) ?? wpbdp_admin_upgrade_link( 'plugin-row' );
-		$cta_text = WPBDP_Sales_API::get_best_sale_value( 'plugin_page_cta_text' ) ?? __( 'Upgrade to Premium', 'business-directory-plugin' );
+		$utm_medium = 'plugin-row';
+		$cta_url    = WPBDP_Sales_API::get_best_sale_cta_link( 'plugin_page_cta_link', $utm_medium ) ?? wpbdp_admin_upgrade_link( $utm_medium );
+		$cta_text   = WPBDP_Sales_API::get_best_sale_value( 'plugin_page_cta_text' ) ?? __( 'Upgrade to Premium', 'business-directory-plugin' );
 
 		return '<a href="' . esc_url( $cta_url ) . '" target="_blank" rel="noopener" style="color:#1da867" class="wpbdp-upgrade-link">' .
 			'<b>' . esc_html( $cta_text ) . '</b>' .

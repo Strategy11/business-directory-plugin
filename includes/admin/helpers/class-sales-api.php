@@ -72,6 +72,37 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 		return null;
 	}
 
+	public static function get_best_sale_cta_link( $key, $utm_medium ) {
+		$link = self::get_best_sale_value( $key );
+		$link = self::add_missing_utm_params( $link, $utm_medium );
+		return $link;
+	}
+
+	/**
+	 * Add missing UTM parameters to a link.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $link
+	 * @param string $utm_medium
+	 * @return string
+	 */
+	private static function add_missing_utm_params( $link, $utm_medium ) {
+		$map        = array(
+			'utm_source'   => 'WordPress',
+			'utm_medium'   => $utm_medium,
+			'utm_campaign' => 'liteplugin',
+		);
+		$utm_params = array();
+		foreach ( $map as $key => $value ) {
+			if ( strpos( $link, $key ) === false ) {
+				$utm_params[ $key ] = $value;
+			}
+		}
+
+		return add_query_arg( $utm_params, $link );
+	}
+
 	/**
 	 * @return array|false
 	 */

@@ -569,8 +569,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			$cta_text = $this->get_best_sale_value( 'submenu_cta_text' ) ?? __( 'Upgrade to Premium', 'business-directory-plugin' );
-			$cta_url  = $this->get_best_sale_value( 'submenu_cta_link' ) ?? wpbdp_admin_upgrade_link( 'admin-menu' );
+			self::setup_sales_api();
+
+			$utm_medium = 'admin-menu';
+			$cta_text   = WPBDP_Sales_API::get_best_sale_value( 'submenu_cta_text' ) ?? __( 'Upgrade to Premium', 'business-directory-plugin' );
+			$cta_url    = WPBDP_Sales_API::get_best_sale_cta_link( 'submenu_cta_link', $utm_medium ) ?? wpbdp_admin_upgrade_link( $utm_medium );
 
 			global $submenu;
 			$submenu[ $this->menu_id ][] = array(
@@ -1042,8 +1045,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			$cta_url  = $this->get_best_sale_value( 'lite_banner_cta_link' ) ?? wpbdp_admin_upgrade_link( 'upgrade-bar' );
-			$cta_text = $this->get_best_sale_value( 'lite_banner_cta_text' ) ?? 'upgrading to premium';
+			self::setup_sales_api();
+
+			$utm_medium = 'upgrade-bar';
+			$cta_url    = WPBDP_Sales_API::get_best_sale_cta_link( 'lite_banner_cta_link', $utm_medium ) ?? wpbdp_admin_upgrade_link( $utm_medium );
+			$cta_text   = WPBDP_Sales_API::get_best_sale_value( 'lite_banner_cta_text' ) ?? 'upgrading to premium';
 			?>
 			<div class="wpbdp-notice wpbdp-upgrade-bar wpbdp-inline-notice">
 				You're using Business Directory Plugin Lite. To unlock more features consider
@@ -1052,11 +1058,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				</a>
 			</div>
 			<?php
-		}
-
-		private function get_best_sale_value( $key ) {
-			self::setup_sales_api();
-			return WPBDP_Sales_API::get_best_sale_value( $key );
 		}
 
 		public static function setup_sales_api() {
