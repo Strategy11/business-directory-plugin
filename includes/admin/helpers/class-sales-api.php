@@ -13,6 +13,10 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	use WPBDP_Who;
 
 	/**
+	 * Store and re-use the best sale to avoid too many calls to the API or cache.
+	 *
+	 * @since x.x
+	 *
 	 * @var array|false
 	 */
 	private static $best_sale;
