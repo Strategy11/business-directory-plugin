@@ -17,6 +17,8 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 	}
 
 	/**
+	 * @since x.x
+	 *
 	 * @return void
 	 */
 	protected function set_cache_key() {
@@ -24,6 +26,8 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 	}
 
 	/**
+	 * @since x.x
+	 *
 	 * @return string
 	 */
 	protected function api_url() {
@@ -32,6 +36,8 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 
 	/**
 	 * Check if a message should be included.
+	 *
+	 * @since x.x
 	 *
 	 * @param array $message The message to check.
 	 *
@@ -47,6 +53,8 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 
 	/**
 	 * Check if a message is in the correct timeframe.
+	 *
+	 * @since x.x
 	 *
 	 * @param array $message The message to check.
 	 *

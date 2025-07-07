@@ -78,6 +78,7 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 				if ( 'creator' === $raw_license_type ) {
 					$raw_license_type = 'basic';
 				}
+
 				return $raw_license_type;
 			}
 

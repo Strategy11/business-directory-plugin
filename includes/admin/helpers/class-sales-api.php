@@ -26,6 +26,8 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	}
 
 	/**
+	 * @since x.x
+	 *
 	 * @return void
 	 */
 	protected function set_cache_key() {
@@ -33,6 +35,8 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	}
 
 	/**
+	 * @since x.x
+	 *
 	 * @return string
 	 */
 	protected function api_url() {
@@ -59,6 +63,8 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	/**
 	 * Check if a sale is in the correct timeframe.
 	 *
+	 * @since x.x
+	 *
 	 * @param array $sale The sale to check.
 	 *
 	 * @return bool
@@ -82,10 +88,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	 */
 	public static function get_best_sale_value( $key ) {
 		$best_sale = self::get_best_sale();
-		if ( is_array( $best_sale ) && ! empty( $best_sale[ $key ] ) ) {
-			return $best_sale[ $key ];
-		}
-		return null;
+		return is_array( $best_sale ) && ! empty( $best_sale[ $key ] ) ? $best_sale[ $key ] : null;
 	}
 
 	/**

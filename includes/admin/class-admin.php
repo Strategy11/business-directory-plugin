@@ -1087,6 +1087,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 *
 		 * @since x.x
 		 *
+		 * @param string $type Either 'inbox' or 'sales'.
+		 *
 		 * @return void
 		 */
 		private static function setup_module_api_with_who_trait( $type ) {
