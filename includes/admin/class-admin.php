@@ -1582,6 +1582,10 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @return void
 		 */
 		private function check_inbox_notices() {
+			if ( ! WPBDP_App_Helper::is_bd_page() ) {
+				return;
+			}
+
 			self::setup_inbox_api();
 
 			$api      = new WPBDP_Inbox_API();
