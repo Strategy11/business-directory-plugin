@@ -111,6 +111,7 @@ if ( ! trait_exists( 'WPBDP_Who' ) ) {
 				// because the user was active before this option was introduced.
 				return false;
 			}
+
 			$cutoff = strtotime( '-30 days' );
 			return $activation_timestamp > $cutoff;
 		}
