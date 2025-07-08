@@ -59,6 +59,12 @@ class WPBDP_Installer {
 				)
 			);
 			$fee->save();
+
+			// Record first activation timestamp.
+			// This is used to determine if a user is within their first 30 days.
+			if ( false === get_option( 'wpbdp_first_activation' ) ) {
+				update_option( 'wpbdp_first_activation', time(), false );
+			}
 		} else {
 			throw new Exception( esc_html( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" ) );
 		}

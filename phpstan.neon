@@ -29,3 +29,4 @@ parameters:
 		- '#Use more strict comparison#'
 		- '#Access to an undefined property (AuthorizeNet_Subscription|object|WP_Query|WPBDP_Payment|WPBDP_Field_Display_List|_WPBDP_Lightweight_Field_Display_Item)#'
 		- '#Call to an undefined method WPBDP_Form_Field_Type::get_association\(\)#'
+		- '#Constructor of class (WPBDP_Inbox_API|WPBDP_Sales_API) has an unused parameter#'
