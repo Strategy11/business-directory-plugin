@@ -83,7 +83,7 @@ jQuery(function($) {
                     exportInProgress = false;
                     
                     $('.step-2').fadeOut(function() {
-                        const downloadUrl = ( res.download_url || res.fileurl ).trim().replace(/\s/g, '');
+                        const downloadUrl = ( res.download_url || res.fileurl ).replace(/\s/g, '');
 
                         $('.step-3 .download-link a').attr('href', downloadUrl);
                         $('.step-3 .download-link a .filename').text(res.filename);
