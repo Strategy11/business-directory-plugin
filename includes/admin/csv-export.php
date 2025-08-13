@@ -133,6 +133,7 @@ class WPBDP_Admin_CSVExport {
 				ob_end_clean();
 			}
 
+			// We ignore the PHPCS warning because we expect to have large export files and they need to be read in chunks.
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
 			readfile( $file_path );
 			exit;
