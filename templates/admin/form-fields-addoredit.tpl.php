@@ -29,8 +29,8 @@ wpbdp_admin_notices();
 					<label> <?php esc_html_e( 'Field Association', 'business-directory-plugin' ); ?> <span class="description">(<?php esc_html_e( 'required', 'business-directory-plugin' ); ?>)</span></label>
 				</th>
 				<td>
-					<?php $field_association_info = $field_associations[ $field->get_association() ]; ?>
-					<?php if ( in_array( 'private', $field_association_info->flags, true ) ) : ?>
+					<?php $field_association_info = isset( $field_associations[ $field->get_association() ] ) ? $field_associations[ $field->get_association() ] : null; ?>
+					<?php if ( $field_association_info && in_array( 'private', $field_association_info->flags, true ) ) : ?>
 					<select name="field[association]" id="field-association">
 						<option value="<?php echo esc_attr( $field_association_info->id ); ?>">
 							<?php echo esc_html( $field_association_info->label ); ?>
