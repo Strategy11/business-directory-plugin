@@ -111,19 +111,12 @@ class WPBDP_Admin_CSVExport {
 			$file_path = $export->get_file_path();
 			$file_url  = $export->get_file_url();
 			
-			global $wp_filesystem;
-
-			if ( ! $wp_filesystem ) {
-				require_once ABSPATH . 'wp-admin/includes/file.php';
-				WP_Filesystem();
-			}
-			
-			if ( ! $wp_filesystem->exists( $file_path ) ) {
+			if ( ! file_exists( $file_path ) ) {
 				wp_die( esc_html__( 'Export file not found.', 'business-directory-plugin' ) );
 			}
 
 			$filename = basename( $file_url );
-			$filesize = $wp_filesystem->size( $file_path );
+			$filesize = filesize( $file_path );
 
 			// We set the content type to application/octet-stream to overwrite the text/csv headers added by some hosting providers.
 			header( 'Content-Type: application/octet-stream' );
@@ -137,13 +130,28 @@ class WPBDP_Admin_CSVExport {
 				ob_end_clean();
 			}
 
-			$file_content = $wp_filesystem->get_contents( $file_path );
-
-			if ( ! $file_content ) {
-				wp_die( esc_html__( 'Could not read export file.', 'business-directory-plugin' ) );
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+			$handle = fopen( $file_path, 'rb' );
+			if ( false === $handle ) {
+				wp_die( esc_html__( 'Could not open export file for reading.', 'business-directory-plugin' ) );
 			}
-			
-			echo $file_content;
+
+			while ( ! feof( $handle ) ) {
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fread
+				$chunk = fread( $handle, 8192 ); // 8KB chunks
+				if ( false === $chunk ) {
+					break;
+				}
+				echo $chunk;
+				
+				if ( ob_get_level() ) {
+					ob_flush();
+				}
+				flush();
+			}
+
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
+			fclose( $handle );
 			exit;
 
 		} catch ( Exception $e ) {
