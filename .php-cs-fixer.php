@@ -2,7 +2,8 @@
 
 $finder = ( new PhpCsFixer\Finder() )
 	->in( __DIR__ )
-	->exclude( 'vendors' );
+	->exclude( 'vendors' )
+	->exclude( 'node_modules' );
 $rules  = array(
 	'phpdoc_order'                      => array(
 		'order' => array(
