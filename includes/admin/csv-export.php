@@ -112,7 +112,7 @@ class WPBDP_Admin_CSVExport {
 			$file_url  = $export->get_file_url();
 			
 			if ( ! file_exists( $file_path ) ) {
-				wp_die( esc_html__( 'Export file not found.', 'business-directory-plugin' ) );
+				throw new Exception( esc_html__( 'Export file not found.', 'business-directory-plugin' ) );
 			}
 
 			$filename = basename( $file_url );
