@@ -875,6 +875,10 @@ function wpbdp_get_term_name( $id_or_slug, $taxonomy = WPBDP_CATEGORY_TAX, $fiel
 }
 
 function wpbdp_has_shortcode( $content, $shortcode ) {
+	if ( empty( $content ) ) {
+		return false;
+	}
+
 	$check = has_shortcode( $content, $shortcode );
 
 	if ( ! $check ) {
