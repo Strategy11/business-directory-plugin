@@ -118,10 +118,13 @@ class WPBDP_Admin_CSVExport {
 			$filename = basename( $file_url );
 			$filesize = filesize( $file_path );
 
+			if ( false !== $filesize ) {
+				header( 'Content-Length: ' . $filesize );
+			}
+
 			// We set the content type to application/octet-stream to overwrite the text/csv headers added by some hosting providers.
 			header( 'Content-Type: application/octet-stream' );
 			header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-			header( 'Content-Length: ' . $filesize );
 			header( 'Cache-Control: no-cache, must-revalidate' );
 			header( 'Pragma: no-cache' );
 			header( 'Expires: 0' );
@@ -130,28 +133,8 @@ class WPBDP_Admin_CSVExport {
 				ob_end_clean();
 			}
 
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
-			$handle = fopen( $file_path, 'rb' );
-			if ( false === $handle ) {
-				wp_die( esc_html__( 'Could not open export file for reading.', 'business-directory-plugin' ) );
-			}
-
-			while ( ! feof( $handle ) ) {
-				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fread
-				$chunk = fread( $handle, 8192 ); // 8KB chunks
-				if ( false === $chunk ) {
-					break;
-				}
-				echo $chunk;
-				
-				if ( ob_get_level() ) {
-					ob_flush();
-				}
-				flush();
-			}
-
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
-			fclose( $handle );
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
+			readfile( $file_path );
 			exit;
 
 		} catch ( Exception $e ) {
