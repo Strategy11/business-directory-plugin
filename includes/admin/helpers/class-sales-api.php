@@ -105,7 +105,9 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	 */
 	public static function get_best_sale_cta_link( $key, $utm_medium ) {
 		$link = self::get_best_sale_value( $key );
-		$link = self::add_missing_utm_params( $link, $utm_medium );
+		if ( is_string( $link ) ) {
+			$link = self::add_missing_utm_params( $link, $utm_medium );
+		}
 		return $link;
 	}
 
