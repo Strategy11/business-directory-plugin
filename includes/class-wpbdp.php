@@ -55,7 +55,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.4.17' );
+		define( 'WPBDP_VERSION', '6.4.18' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -425,7 +425,7 @@ final class WPBDP {
 	/**
 	 * Get the link for the upgrade CTA on the plugins page.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @return string
 	 */

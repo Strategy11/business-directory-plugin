@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Handles the Sales API.
  *
- * @since x.x
+ * @since 6.4.18
  */
 class WPBDP_Sales_API extends WPBDP_Modules_API {
 
@@ -15,7 +15,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	/**
 	 * Store and re-use the best sale to avoid too many calls to the API or cache.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @var array|false
 	 */
@@ -26,7 +26,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @return void
 	 */
@@ -35,7 +35,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @return string
 	 */
@@ -46,7 +46,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	/**
 	 * Check if a sale should be included.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @param array $sale The sale to check.
 	 *
@@ -63,7 +63,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	/**
 	 * Check if a sale is in the correct timeframe.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @param array $sale The sale to check.
 	 *
@@ -80,7 +80,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	/**
 	 * Get the value of the best sale.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @param string $key
 	 *
@@ -96,7 +96,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	 * This functions the same as get_best_sale_value but also
 	 * adds missing UTM params if they do not already exist.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @param string $key
 	 * @param string $utm_medium The utm_medium param to add if one does not already exist.
@@ -114,7 +114,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	/**
 	 * Add missing UTM parameters to a link.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @param string $link
 	 * @param string $utm_medium
@@ -140,7 +140,7 @@ class WPBDP_Sales_API extends WPBDP_Modules_API {
 	/**
 	 * Get the best active sale that matches the current site.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @return array|false
 	 */
