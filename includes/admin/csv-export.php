@@ -86,7 +86,7 @@ class WPBDP_Admin_CSVExport {
 	/**
 	 * Handle CSV file download with proper headers to force download.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 * 
 	 * @return void
 	 */
@@ -146,7 +146,7 @@ class WPBDP_Admin_CSVExport {
 	/**
 	 * Get the download URL for the export file.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 * 
 	 * @param array $state The export state.
 	 * 

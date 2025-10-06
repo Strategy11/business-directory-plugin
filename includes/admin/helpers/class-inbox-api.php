@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Handles the Inbox API.
  *
- * @since x.x
+ * @since 6.4.18
  */
 class WPBDP_Inbox_API extends WPBDP_Modules_API {
 
@@ -17,7 +17,7 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @return void
 	 */
@@ -26,7 +26,7 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @return string
 	 */
@@ -37,7 +37,7 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 	/**
 	 * Check if a message should be included.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @param array $message The message to check.
 	 *
@@ -54,7 +54,7 @@ class WPBDP_Inbox_API extends WPBDP_Modules_API {
 	/**
 	 * Check if a message is in the correct timeframe.
 	 *
-	 * @since x.x
+	 * @since 6.4.18
 	 *
 	 * @param array $message The message to check.
 	 *

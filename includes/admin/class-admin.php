@@ -1063,7 +1063,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Make sure that the required files for the Sales API have been included.
 		 *
-		 * @since x.x
+		 * @since 6.4.18
 		 *
 		 * @return void
 		 */
@@ -1074,7 +1074,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Make sure that the required files for the Inbox API have been included.
 		 *
-		 * @since x.x
+		 * @since 6.4.18
 		 *
 		 * @return void
 		 */
@@ -1085,7 +1085,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Make sure that the required files for a child API of the module API with the Who trait have been included.
 		 *
-		 * @since x.x
+		 * @since 6.4.18
 		 *
 		 * @param string $type Either 'inbox' or 'sales'.
 		 *
@@ -1579,7 +1579,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Check for messages from the Inbox API.
 		 *
-		 * @since x.x
+		 * @since 6.4.18
 		 *
 		 * @return void
 		 */

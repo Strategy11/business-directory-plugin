@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-06-04 14:40:12+00:00\n"
+"POT-Creation-Date: 2025-10-06 14:36:17+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -66,7 +66,7 @@ msgstr "وسوم الدليل"
 msgid "Search results for: %s"
 msgstr "نتائج البحث"
 
-#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:631
+#: includes/admin/admin-pages.php:491 includes/admin/class-admin.php:637
 #, fuzzy
 msgid "Directory Content"
 msgstr "تصنيف الدليل"
@@ -161,32 +161,32 @@ msgstr ""
 msgid "Cyber Monday!"
 msgstr ""
 
-#: includes/admin/class-admin.php:574 includes/class-wpbdp.php:418
+#: includes/admin/class-admin.php:575 includes/class-wpbdp.php:436
 #, fuzzy
 msgid "Upgrade to Premium"
 msgstr "ترقية إلى %s"
 
-#: includes/admin/class-admin.php:630 includes/class-cpt-integration.php:25
+#: includes/admin/class-admin.php:636 includes/class-cpt-integration.php:25
 #, fuzzy
 msgid "Directory Listings"
 msgstr "رابط لطيف لإعلانات الدليل"
 
-#: includes/admin/class-admin.php:991
+#: includes/admin/class-admin.php:997
 #, fuzzy
 msgid "Dismiss this notice."
 msgstr "إخفاء هذا التنبيه."
 
-#: includes/admin/class-admin.php:1159
+#: includes/admin/class-admin.php:1208
 #, fuzzy
 msgid "No renewal emails found."
 msgstr "لم يتم العثور على أي إعلانات."
 
-#: includes/admin/class-admin.php:1163
+#: includes/admin/class-admin.php:1212
 #, fuzzy
 msgid "Could not send renewal email."
 msgstr "إرسال رسالة بريد إلكتروني بخصوص التجديد للعضو"
 
-#: includes/admin/class-admin.php:1318
+#: includes/admin/class-admin.php:1367
 #: includes/admin/helpers/tables/class-form-fields-table.php:129
 #: includes/admin/helpers/tables/class-payments-table.php:69
 #: templates/email/listing-added.tpl.php:7
@@ -196,13 +196,13 @@ msgstr "إرسال رسالة بريد إلكتروني بخصوص التجدي�
 msgid "ID"
 msgstr "المعرف"
 
-#: includes/admin/class-admin.php:1320 includes/admin/class-admin.php:1328
+#: includes/admin/class-admin.php:1369 includes/admin/class-admin.php:1377
 #: includes/admin/settings/class-settings-bootstrap.php:778
 #, fuzzy
 msgid "Listing Count"
 msgstr "عدد الإعلانات"
 
-#: includes/admin/class-admin.php:1507
+#: includes/admin/class-admin.php:1556
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -212,6 +212,13 @@ msgstr ""
 "لاحظنا أنك تريد من أعضاء دليل الأعمال التسجيل قبل نشر الإعلانات، ولكنك حاليا "
 "تعطل التسجيل في موقعك. إذهب [هنا] واختر \"السماح بالتسجيل\" لجعل دليل "
 "الأعمال يعمل بشكل صحيح."
+
+#: includes/admin/class-education.php:164
+#: includes/admin/controllers/class-settings-admin.php:658
+#: includes/admin/helpers/class-modules-list.php:237
+#, fuzzy
+msgid "Upgrade Now"
+msgstr "ترقية إلى %s"
 
 #: includes/admin/class-listing-owner.php:64
 #: includes/admin/class-listing-owner.php:91
@@ -606,36 +613,30 @@ msgstr ""
 msgid "You're using Business Directory Plugin Lite. Enjoy!"
 msgstr "لماذا قمت بحذف إضافة دليل الأعمال؟"
 
-#: includes/admin/controllers/class-settings-admin.php:656
+#: includes/admin/controllers/class-settings-admin.php:661
 msgid "Build more powerful directories"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:657
+#: includes/admin/controllers/class-settings-admin.php:662
 msgid ""
 "Add category images, maps, filter by location, payment gateways, and more."
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:658
-#: includes/admin/helpers/class-modules-list.php:237
-#, fuzzy
-msgid "Upgrade Now"
-msgstr "ترقية إلى %s"
-
-#: includes/admin/controllers/class-settings-admin.php:659
+#: includes/admin/controllers/class-settings-admin.php:664
 #, fuzzy
 msgid "Already purchased?"
 msgstr "مُركب مسبقا"
 
-#: includes/admin/controllers/class-settings-admin.php:685
+#: includes/admin/controllers/class-settings-admin.php:690
 #, fuzzy
 msgid "Add notice"
 msgstr "إضافة حقل"
 
-#: includes/admin/controllers/class-settings-admin.php:704
+#: includes/admin/controllers/class-settings-admin.php:709
 msgid "No notices configured."
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:718
+#: includes/admin/controllers/class-settings-admin.php:723
 #: includes/admin/helpers/tables/class-fees-table.php:182
 #: includes/admin/helpers/tables/class-form-fields-table.php:105
 #: templates/admin/metaboxes-listing-flagging-row.tpl.php:31
@@ -646,56 +647,56 @@ msgstr ""
 msgid "Delete"
 msgstr "حذف"
 
-#: includes/admin/controllers/class-settings-admin.php:722
+#: includes/admin/controllers/class-settings-admin.php:727
 #, fuzzy
 msgid "Listing owner's name"
 msgstr "إسم مستخدم كاتب الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:754
+#: includes/admin/controllers/class-settings-admin.php:759
 #, fuzzy
 msgid "Sent when a listing (%s) is renewed."
 msgstr "ترسل بعد أن يضاف الإعلان."
 
-#: includes/admin/controllers/class-settings-admin.php:759
+#: includes/admin/controllers/class-settings-admin.php:764
 #, fuzzy
 msgid "Sent when a listing (%s) expires."
 msgstr "الإعلان منتهي التاريخ"
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/controllers/class-settings-admin.php:779
+#: includes/admin/controllers/class-settings-admin.php:784
 #, fuzzy
 msgid "Sent %1$s before a listing (%2$s) expires."
 msgstr "ترسل بعد أن يضاف الإعلان."
 
 #. translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g.
 #. non-recuring only)
-#: includes/admin/controllers/class-settings-admin.php:782
+#: includes/admin/controllers/class-settings-admin.php:787
 #, fuzzy
 msgid "Sent %1$s after a listing (%2$s) expires."
 msgstr "ترسل بعد أن يضاف الإعلان."
 
-#: includes/admin/controllers/class-settings-admin.php:861
+#: includes/admin/controllers/class-settings-admin.php:866
 #, fuzzy
 msgid "Applies to"
 msgstr "Appliqué à"
 
-#: includes/admin/controllers/class-settings-admin.php:867
+#: includes/admin/controllers/class-settings-admin.php:872
 #, fuzzy
 msgid "Non-recurring listings"
 msgstr "الرجوع إلى الإعلان."
 
-#: includes/admin/controllers/class-settings-admin.php:870
+#: includes/admin/controllers/class-settings-admin.php:875
 #, fuzzy
 msgid "Recurring listings"
 msgstr "الرجوع إلى الإعلان."
 
-#: includes/admin/controllers/class-settings-admin.php:873
+#: includes/admin/controllers/class-settings-admin.php:878
 #, fuzzy
 msgid "Recurring and non-recurring listings"
 msgstr "الرجوع إلى الإعلان."
 
-#: includes/admin/controllers/class-settings-admin.php:879
+#: includes/admin/controllers/class-settings-admin.php:884
 msgid "When to send?"
 msgstr ""
 
@@ -709,6 +710,21 @@ msgstr "القوالب"
 #, fuzzy
 msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr "فعِّل <a>مفتاح الترخيص</a> الخاص بك لاستخدام هذا القالب."
+
+#: includes/admin/csv-export.php:100
+#, fuzzy
+msgid "Invalid download request."
+msgstr "عنوان البريد الإلكتروني غير صالح!"
+
+#: includes/admin/csv-export.php:106
+#, fuzzy
+msgid "Invalid export state."
+msgstr "نوع حقل استمارة غير صحيح"
+
+#: includes/admin/csv-export.php:115
+#, fuzzy
+msgid "Export file not found."
+msgstr "الرسوم حدثت."
 
 #: includes/admin/csv-import.php:43
 #, fuzzy
@@ -1575,7 +1591,7 @@ msgstr ""
 msgid "View Docs"
 msgstr "Vue"
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:422
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:420
 #, fuzzy
 msgid "Settings"
 msgstr "إعدادات"
@@ -1888,47 +1904,47 @@ msgstr ""
 msgid "Payments are now available for free users with a 3% application fee."
 msgstr ""
 
-#: includes/class-wpbdp.php:496
+#: includes/class-wpbdp.php:512
 msgid "Security check failed. Please refresh the page and try again."
 msgstr ""
 
-#: includes/class-wpbdp.php:501
+#: includes/class-wpbdp.php:517
 #, fuzzy
 msgid "Invalid listing"
 msgstr "في الإعلان"
 
-#: includes/class-wpbdp.php:505
+#: includes/class-wpbdp.php:521
 #, fuzzy
 msgid "You do not have permission to upload images to this listing"
 msgstr "التصنيفات لهذا الإعلان"
 
-#: includes/class-wpbdp.php:525
+#: includes/class-wpbdp.php:541
 #, fuzzy
 msgid "Please select a plan before uploading images to the listing"
 msgstr "المرجو تحديد خيار رسوم التصنيف \"%s\"."
 
-#: includes/class-wpbdp.php:530
+#: includes/class-wpbdp.php:546
 #, fuzzy
 msgid "Can not upload any more images for this listing."
 msgstr "التصنيفات لهذا الإعلان"
 
-#: includes/class-wpbdp.php:659
+#: includes/class-wpbdp.php:675
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "لا يمكن الاتصال بخادم الترخيص"
 
-#: includes/class-wpbdp.php:666
+#: includes/class-wpbdp.php:682
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:679 includes/fields/class-fieldtypes-image.php:405
+#: includes/class-wpbdp.php:695 includes/fields/class-fieldtypes-image.php:405
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "تعذر تحديث القالب : %s"
 
-#: includes/class-wpbdp.php:711
+#: includes/class-wpbdp.php:727
 #, fuzzy
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
@@ -1937,7 +1953,7 @@ msgstr ""
 "تم تعطيل ميزات دليل الأعمال حاليا بسبب أن الإضافة تحتاج إلى إجراء ترقية "
 "يدوية قبل المتابعة."
 
-#: includes/class-wpbdp.php:718
+#: includes/class-wpbdp.php:734
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -5167,12 +5183,12 @@ msgctxt "admin"
 msgid "Business Directory"
 msgstr "دليل الأعمال"
 
-#: includes/admin/class-admin.php:648
+#: includes/admin/class-admin.php:654
 msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:1096 includes/admin/class-admin.php:1106
+#: includes/admin/class-admin.php:1145 includes/admin/class-admin.php:1155
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -5184,13 +5200,13 @@ msgstr[3] "تمت ترقية الإعلانات."
 msgstr[4] "تمت ترقية الإعلانات."
 msgstr[5] "تمت ترقية الإعلانات."
 
-#: includes/admin/class-admin.php:1132
+#: includes/admin/class-admin.php:1181
 #, fuzzy
 msgctxt "admin"
 msgid "The plan was successfully assigned."
 msgstr "تم تعيين الرسوم بنجاح."
 
-#: includes/admin/class-admin.php:1142
+#: includes/admin/class-admin.php:1191
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -5201,12 +5217,12 @@ msgstr[3] "تم تجديد الإعلانات."
 msgstr[4] "تم تجديد الإعلانات."
 msgstr[5] "تم تجديد الإعلانات."
 
-#: includes/admin/class-admin.php:1154
+#: includes/admin/class-admin.php:1203
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "تم إرسال بريد التجديد."
 
-#: includes/admin/class-admin.php:1172
+#: includes/admin/class-admin.php:1221
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -5218,18 +5234,18 @@ msgstr[3] "إنتهاء صلاحية الإعلان"
 msgstr[4] "إنتهاء صلاحية الإعلان"
 msgstr[5] "إنتهاء صلاحية الإعلان"
 
-#: includes/admin/class-admin.php:1242
+#: includes/admin/class-admin.php:1291
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "مفتاح الوصول"
 
-#: includes/admin/class-admin.php:1244
+#: includes/admin/class-admin.php:1293
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1416
+#: includes/admin/class-admin.php:1465
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -5238,7 +5254,7 @@ msgstr ""
 "<b>إضافة دليل الأعمال</b> تتطلب صفحة فيها الكود القصير "
 "<tt>[businessdirectory]</tt>  لكي تعمل بشكل صحيح."
 
-#: includes/admin/class-admin.php:1418
+#: includes/admin/class-admin.php:1467
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -5247,12 +5263,12 @@ msgstr ""
 "يمكنك إنشاء هذه الصفحة بنفسك أو ترك دليل الأعمال القيام بذلك نيابة عنك "
 "تلقائياً."
 
-#: includes/admin/class-admin.php:1423
+#: includes/admin/class-admin.php:1472
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "إنشاء الصفحات المطلوب نيابة عني"
 
-#: includes/admin/class-admin.php:1480
+#: includes/admin/class-admin.php:1529
 msgctxt "admin"
 msgid ""
 "Business Directory Plugin requires PHP 5.6 or later, but your server is "
@@ -6186,52 +6202,52 @@ msgctxt "admin settings"
 msgid "User registration date"
 msgstr "تاريخ تسجيل العضو"
 
-#: includes/admin/controllers/class-settings-admin.php:721
+#: includes/admin/controllers/class-settings-admin.php:726
 #, fuzzy
 msgctxt "settings"
 msgid "Site title (with link)"
 msgstr "إسم الموقع (مع الرابط)"
 
-#: includes/admin/controllers/class-settings-admin.php:723
+#: includes/admin/controllers/class-settings-admin.php:728
 msgctxt "settings"
 msgid "Listing's name (with link)"
 msgstr "إسم الإعلان (مع رابط)"
 
-#: includes/admin/controllers/class-settings-admin.php:724
+#: includes/admin/controllers/class-settings-admin.php:729
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's expiration date"
 msgstr "إنتهاء صلاحية الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:725
+#: includes/admin/controllers/class-settings-admin.php:730
 msgctxt "settings"
 msgid "Listing's renewal link, formatted with an anchor tag"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:726
+#: includes/admin/controllers/class-settings-admin.php:731
 msgctxt "settings"
 msgid "Listing's renewal URL, unformatted by any tags"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:727
+#: includes/admin/controllers/class-settings-admin.php:732
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's categories"
 msgstr "عنوان الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:728
+#: includes/admin/controllers/class-settings-admin.php:733
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's last payment date"
 msgstr "إنتهاء صلاحية الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:729
+#: includes/admin/controllers/class-settings-admin.php:734
 #, fuzzy
 msgctxt "settings"
 msgid "Listing's access key"
 msgstr "مفاتيح وصول الإعلان"
 
-#: includes/admin/controllers/class-settings-admin.php:913
+#: includes/admin/controllers/class-settings-admin.php:918
 #, fuzzy
 msgctxt "settings"
 msgid "Settings reset to default."
@@ -7025,24 +7041,24 @@ msgctxt "settings"
 msgid "Deauthorize"
 msgstr "تفعيل Authorize.net؟"
 
-#: includes/admin/controllers/class-settings-admin.php:746
+#: includes/admin/controllers/class-settings-admin.php:751
 msgctxt "expiration notices"
 msgid "recurring and non-recurring"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:748
+#: includes/admin/controllers/class-settings-admin.php:753
 #, fuzzy
 msgctxt "expiration notices"
 msgid "recurring only"
 msgstr "(متكرر)"
 
-#: includes/admin/controllers/class-settings-admin.php:750
+#: includes/admin/controllers/class-settings-admin.php:755
 #, fuzzy
 msgctxt "expiration notices"
 msgid "non-recurring only"
 msgstr "(متكرر)"
 
-#: includes/admin/controllers/class-settings-admin.php:767
+#: includes/admin/controllers/class-settings-admin.php:772
 #, fuzzy
 msgctxt "expiration notices"
 msgid "%d day"
@@ -7054,7 +7070,7 @@ msgstr[3] "%d  أيام"
 msgstr[4] "%d يوم"
 msgstr[5] "%d يوم"
 
-#: includes/admin/controllers/class-settings-admin.php:770
+#: includes/admin/controllers/class-settings-admin.php:775
 msgctxt "expiration notices"
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -7065,7 +7081,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:773
+#: includes/admin/controllers/class-settings-admin.php:778
 msgctxt "expiration notices"
 msgid "%d month"
 msgid_plural "%d months"
@@ -7076,18 +7092,18 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:799
+#: includes/admin/controllers/class-settings-admin.php:804
 msgctxt "expiration notices"
 msgid "At the time of expiration"
 msgstr ""
 
-#: includes/admin/controllers/class-settings-admin.php:800
+#: includes/admin/controllers/class-settings-admin.php:805
 #, fuzzy
 msgctxt "expiration notices"
 msgid "Right after a successful renewal"
 msgstr "تم تعيين الرسوم بنجاح."
 
-#: includes/admin/controllers/class-settings-admin.php:813
+#: includes/admin/controllers/class-settings-admin.php:818
 msgctxt "expiration notices"
 msgid "%d day before expiration"
 msgid_plural "%d days before expiration"
@@ -7098,7 +7114,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:814
+#: includes/admin/controllers/class-settings-admin.php:819
 msgctxt "expiration notices"
 msgid "%d day after expiration"
 msgid_plural "%d days after expiration"
@@ -7109,7 +7125,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:821
+#: includes/admin/controllers/class-settings-admin.php:826
 msgctxt "expiration notices"
 msgid "%d week before expiration"
 msgid_plural "%d weeks before expiration"
@@ -7120,7 +7136,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:822
+#: includes/admin/controllers/class-settings-admin.php:827
 msgctxt "expiration notices"
 msgid "%d week after expiration"
 msgid_plural "%d weeks after expiration"
@@ -7131,7 +7147,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:829
+#: includes/admin/controllers/class-settings-admin.php:834
 msgctxt "expiration notices"
 msgid "%d month before expiration"
 msgid_plural "%d months before expiration"
@@ -7142,7 +7158,7 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: includes/admin/controllers/class-settings-admin.php:830
+#: includes/admin/controllers/class-settings-admin.php:835
 msgctxt "expiration notices"
 msgid "%d month after expiration"
 msgid_plural "%d months after expiration"
@@ -7256,7 +7272,7 @@ msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "تعذر نقل القالب الجديد الى مجلد القالب."
 
-#: includes/admin/csv-export.php:52
+#: includes/admin/csv-export.php:53
 msgctxt "admin csv-export"
 msgid "Could not decode export state information."
 msgstr ""
@@ -7706,7 +7722,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "لم يتم إدخال reCAPTCHA بشكل صحيح."
 
-#: includes/class-wpbdp.php:534
+#: includes/class-wpbdp.php:550
 msgctxt "listing image upload"
 msgid ""
 "You're trying to upload %1$d images, but only have %2$d slot available. "
@@ -9011,10 +9027,6 @@ msgstr "رابط لإدارة الاشتراكات"
 #, fuzzy
 #~ msgid "Cannot load %s."
 #~ msgstr "الرسوم حدثت."
-
-#, fuzzy
-#~ msgid "Invalid post type."
-#~ msgstr "نوع حقل استمارة غير صحيح"
 
 #, fuzzy
 #~ msgid "Authorize Application"
@@ -11857,10 +11869,6 @@ msgstr "رابط لإدارة الاشتراكات"
 #, fuzzy
 #~ msgid "Your latest changes were saved as a revision."
 #~ msgstr "تم حفظ تغييرات إعلانك."
-
-#, fuzzy
-#~ msgid "Invalid personal data request."
-#~ msgstr "عنوان البريد الإلكتروني غير صالح!"
 
 #, fuzzy
 #~ msgid "Confirmation request initiated successfully."
@@ -15906,10 +15914,6 @@ msgstr "رابط لإدارة الاشتراكات"
 #, fuzzy
 #~ msgid "Method '%s' must be overridden."
 #~ msgstr "%s يجب أن يكون تاريخاً صالحاً."
-
-#, fuzzy
-#~ msgid "Font collection not found."
-#~ msgstr "الرسوم حدثت."
 
 #, fuzzy
 #~ msgid "File %1$s must be used in %2$s."
