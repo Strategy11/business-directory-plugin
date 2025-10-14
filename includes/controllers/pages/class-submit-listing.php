@@ -1723,6 +1723,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			}
 		}
 
+		if ( ! wpbdp_user_can( 'edit', $this->listing->get_id() ) ) {
+			return new WP_Error( 'unauthorized', __( 'You do not have permission to edit this listing.', 'business-directory-plugin' ) );
+		}
+
 		$listing_status = get_post_status( $this->listing->get_id() );
 		$this->listing->set_post_status( $this->editing ? ( 'publish' !== $listing_status ? $listing_status : wpbdp_get_option( 'edit-post-status' ) ) : wpbdp_get_option( 'new-post-status' ) );
 		$this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
