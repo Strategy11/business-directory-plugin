@@ -129,7 +129,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		if ( $this->editing && ! wpbdp_user_can( 'edit', $this->listing->get_id() ) ) {
 			return wpbdp_render_msg(
-				_x( "You don't have permission to edit this listing.", 'submit listing', 'business-directory-plugin' ),
+				__( "You don't have permission to edit this listing.", 'business-directory-plugin' ),
 				'error'
 			);
 		}
