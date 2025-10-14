@@ -95,7 +95,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		return $this->editing;
 	}
 
-	public function dispatch( $ajax_load = false ) { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
+	public function dispatch( $ajax_load = false ) { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength, SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
 		$this->is_ajax = ! empty( $ajax_load );
 
 		$msg = '';
