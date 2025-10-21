@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-10-06 14:36:17+00:00\n"
+"POT-Creation-Date: 2025-10-21 10:07:24+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin "
@@ -91,7 +91,7 @@ msgstr ""
 
 #: includes/admin/class-admin.php:213
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1564
+#: includes/controllers/pages/class-submit-listing.php:1571
 #: includes/form-fields.php:422 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
@@ -381,7 +381,7 @@ msgid "Cannot disable plan. At least one plan should be enabled"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:190
-#: includes/controllers/pages/class-submit-listing.php:745
+#: includes/controllers/pages/class-submit-listing.php:752
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Eintrag Informationen"
@@ -484,7 +484,7 @@ msgstr ""
 "verwalten\" oder vom Branchenverzeichnis automatisch erstellen lassen."
 
 #: includes/admin/controllers/class-form-fields-admin.php:42
-#: includes/controllers/pages/class-submit-listing.php:1179
+#: includes/controllers/pages/class-submit-listing.php:1186
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "zu \"Formularfelder verwalten\""
@@ -1054,7 +1054,7 @@ msgstr "%s ist ein Pflichtfeld."
 
 #: includes/admin/settings/class-settings-bootstrap.php:326
 #: includes/admin/settings/class-settings-bootstrap.php:340
-#: includes/controllers/pages/class-submit-listing.php:758
+#: includes/controllers/pages/class-submit-listing.php:765
 #, fuzzy
 msgid "Terms and Conditions"
 msgstr "Bedingungen und Konditionen"
@@ -2161,39 +2161,44 @@ msgstr "Dies ist nur eine Vorschau. Der Eintrag wurde bisher nicht publiziert."
 msgid "Add Listing"
 msgstr "Preispaket hinzufügen"
 
-#: includes/controllers/pages/class-submit-listing.php:791
+#: includes/controllers/pages/class-submit-listing.php:132
+#, fuzzy
+msgid "You don't have permission to edit this listing."
+msgstr "Kategorie für diesen Eintrag"
+
+#: includes/controllers/pages/class-submit-listing.php:798
 #, fuzzy
 msgid "Listing Images"
 msgstr "Eintrag Bilder"
 
-#: includes/controllers/pages/class-submit-listing.php:859
+#: includes/controllers/pages/class-submit-listing.php:866
 msgid "Account Creation"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1086
+#: includes/controllers/pages/class-submit-listing.php:1093
 #, fuzzy
 msgid "Please choose a plan."
 msgstr "Bitte wähle eine Preisoption"
 
-#: includes/controllers/pages/class-submit-listing.php:1155
+#: includes/controllers/pages/class-submit-listing.php:1162
 #, fuzzy
 msgid "Go to \"Plans\""
 msgstr "zu \"Formularfelder verwalten\""
 
-#: includes/controllers/pages/class-submit-listing.php:1369
+#: includes/controllers/pages/class-submit-listing.php:1376
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1548
+#: includes/controllers/pages/class-submit-listing.php:1555
 msgid "Create a user account on this site"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1555
+#: includes/controllers/pages/class-submit-listing.php:1562
 #, fuzzy
 msgid "Username"
 msgstr "Benutzer"
 
-#: includes/controllers/pages/class-submit-listing.php:1577
+#: includes/controllers/pages/class-submit-listing.php:1584
 #, fuzzy
 msgid "Clear Form"
 msgstr "Zurücksetzen"
@@ -7853,7 +7858,7 @@ msgstr ""
 "angezeigt. Wenn du das nicht möchtest, klicke <a>hier</a> um die "
 "Einstellungen zu ändern."
 
-#: includes/controllers/pages/class-submit-listing.php:547
+#: includes/controllers/pages/class-submit-listing.php:554
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -7862,27 +7867,27 @@ msgstr ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
 "Submission?\" setting checked?"
 
-#: includes/controllers/pages/class-submit-listing.php:549
+#: includes/controllers/pages/class-submit-listing.php:556
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1148
+#: includes/controllers/pages/class-submit-listing.php:1155
 msgctxt "templates"
 msgid ""
 "<b>There are no Plans available</b>, without a plan site users can't submit "
 "a listing. %s to create a plan"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1166
+#: includes/controllers/pages/class-submit-listing.php:1173
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
 "for details."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1168
+#: includes/controllers/pages/class-submit-listing.php:1175
 msgctxt "templates"
 msgid ""
 "View not available, there is no \"Category\" association field. %s and "
@@ -7890,12 +7895,12 @@ msgid ""
 "existing field"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1598
+#: includes/controllers/pages/class-submit-listing.php:1605
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen."
 
-#: includes/controllers/pages/class-submit-listing.php:1612
+#: includes/controllers/pages/class-submit-listing.php:1619
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Ich akzeptiere die <a>AGB</a>s"
@@ -8176,21 +8181,21 @@ msgctxt "submit listing"
 msgid "You can't edit this listing."
 msgstr "Kategorie für diesen Eintrag"
 
-#: includes/controllers/pages/class-submit-listing.php:173
+#: includes/controllers/pages/class-submit-listing.php:180
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time because it has no plan associated. "
 "Please <a>edit the listing</a> on the backend and associate it to a plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:184
+#: includes/controllers/pages/class-submit-listing.php:191
 msgctxt "submit listing"
 msgid ""
 "This listing can't be edited at this time. Please try again later or contact "
 "the admin if the problem persists."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:276
+#: includes/controllers/pages/class-submit-listing.php:283
 #, fuzzy
 msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
@@ -8198,42 +8203,42 @@ msgstr ""
 "Du bist als Administrator eingeloggt. Alle Bezahlungsschritte werden "
 "übersprungen."
 
-#: includes/controllers/pages/class-submit-listing.php:739
+#: includes/controllers/pages/class-submit-listing.php:746
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Kategorien auswählen"
 
-#: includes/controllers/pages/class-submit-listing.php:740
+#: includes/controllers/pages/class-submit-listing.php:747
 #, fuzzy
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Kategorien auswählen"
 
-#: includes/controllers/pages/class-submit-listing.php:1068
-#: includes/controllers/pages/class-submit-listing.php:1280
+#: includes/controllers/pages/class-submit-listing.php:1075
+#: includes/controllers/pages/class-submit-listing.php:1287
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Bitte wähle eine Kategorie"
 
-#: includes/controllers/pages/class-submit-listing.php:1093
+#: includes/controllers/pages/class-submit-listing.php:1100
 msgctxt "submit listing"
 msgid "Current active plan is disabled. Please select another plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1095
+#: includes/controllers/pages/class-submit-listing.php:1102
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1098
+#: includes/controllers/pages/class-submit-listing.php:1105
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
 msgstr "Bitte wähle eine Preisoption für die Kategorie"
 
-#: includes/controllers/pages/class-submit-listing.php:1145
+#: includes/controllers/pages/class-submit-listing.php:1152
 #, fuzzy
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
@@ -8241,24 +8246,24 @@ msgstr ""
 "Ihre Zahlung kann momentan nicht ausgeführt werden. Bitte versuchen Sie es "
 "später noch einmal."
 
-#: includes/controllers/pages/class-submit-listing.php:1515
+#: includes/controllers/pages/class-submit-listing.php:1522
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/controllers/pages/class-submit-listing.php:1520
+#: includes/controllers/pages/class-submit-listing.php:1527
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Bitte geben Sie einen Namen ein."
 
-#: includes/controllers/pages/class-submit-listing.php:1525
+#: includes/controllers/pages/class-submit-listing.php:1532
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1530
+#: includes/controllers/pages/class-submit-listing.php:1537
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr ""
@@ -8269,7 +8274,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Eintrag zusenden (Initialbezahlung)"
 
-#: includes/controllers/pages/class-submit-listing.php:1462
+#: includes/controllers/pages/class-submit-listing.php:1469
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
