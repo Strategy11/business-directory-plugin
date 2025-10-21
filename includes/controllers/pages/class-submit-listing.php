@@ -95,7 +95,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		return $this->editing;
 	}
 
-	public function dispatch( $ajax_load = false ) { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
+	public function dispatch( $ajax_load = false ) { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength, SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
 		$this->is_ajax = ! empty( $ajax_load );
 
 		$msg = '';
@@ -126,6 +126,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		$this->find_or_create_listing();
+
+		if ( $this->editing && ! wpbdp_user_can( 'edit', $this->listing->get_id() ) ) {
+			return wpbdp_render_msg(
+				__( "You don't have permission to edit this listing.", 'business-directory-plugin' ),
+				'error'
+			);
+		}
 
 		$this->maybe_reset_form();
 
