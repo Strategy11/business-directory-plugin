@@ -13,6 +13,8 @@ jQuery( function ( $ ) {
 		if ( msg ) $( '.wpbdp-page-csv-export div.error p' ).text( msg );
 
 		if ( res && res.state ) {
+			const state = res.state ? res.state : lastState;
+
 			$.ajax( ajaxurl, {
 				data: {
 					action: 'wpbdp-csv-export',
