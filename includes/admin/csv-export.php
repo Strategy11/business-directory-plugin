@@ -57,6 +57,11 @@ class WPBDP_Admin_CSVExport {
 
 				if ( 1 === intval( wpbdp_get_var( array( 'param' => 'cleanup' ), 'request' ) ) ) {
 					$export->cleanup();
+
+					$existing_token = wpbdp_get_var( array( 'param' => 'existing_token' ), 'request' );
+					if ( $existing_token ) {
+						delete_transient( 'wpbdp_export_' . $existing_token );
+					}
 				} else {
 					$export->advance();
 				}
@@ -66,6 +71,10 @@ class WPBDP_Admin_CSVExport {
 		}
 
 		$state = ! $error ? $export->get_state() : null;
+
+		if ( $state && ! isset( $state['token'] ) ) {
+			$state['token'] = wp_generate_password( 32, false );
+		}
 
 		$response                 = array();
 		$response['error']        = $error;
@@ -77,6 +86,7 @@ class WPBDP_Admin_CSVExport {
 		$response['fileurl']      = $state ? ( $state['done'] ? $export->get_file_url() : '' ) : '';
 		$response['filename']     = $state ? ( $state['done'] ? basename( $export->get_file_url() ) : '' ) : '';
 		$response['download_url'] = $state ? ( $state['done'] ? $this->get_download_url( $state ) : '' ) : '';
+		$response['token']        = $state ? ( $state['done'] ? $state['token'] : '' ) : '';
 
 		echo json_encode( $response );
 
@@ -94,16 +104,17 @@ class WPBDP_Admin_CSVExport {
 		WPBDP_App_Helper::permission_check( 'manage_options' );
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
+		$token       = wpbdp_get_var( array( 'param' => 'token' ), 'request' );
 		$state_param = wpbdp_get_var( array( 'param' => 'state' ), 'request' );
-		
-		if ( ! $state_param ) {
+
+		if ( ! $token && ! $state_param ) {
 			wp_die( esc_html__( 'Invalid download request.', 'business-directory-plugin' ) );
 		}
-
-		$state = json_decode( base64_decode( $state_param ), true );
+		
+		$state = $token ? get_transient( 'wpbdp_export_' . $token ) : json_decode( base64_decode( $state_param ), true );
 		
 		if ( ! $state || ! is_array( $state ) || empty( $state['workingdir'] ) ) {
-			wp_die( esc_html__( 'Invalid export state.', 'business-directory-plugin' ) );
+			wp_die( esc_html__( 'Invalid export state or token expired.', 'business-directory-plugin' ) );
 		}
 
 		try {
@@ -153,10 +164,14 @@ class WPBDP_Admin_CSVExport {
 	 * @return string The download URL.
 	 */
 	private function get_download_url( $state ) {
+		$token = $state['token'];
+
+		set_transient( 'wpbdp_export_' . $token, $state, HOUR_IN_SECONDS );
+		
 		return add_query_arg(
 			array(
 				'action' => 'wpbdp-csv-download',
-				'state'  => base64_encode( json_encode( $state ) ),
+				'token'  => $token,
 				'nonce'  => wp_create_nonce( 'wpbdp_ajax' ),
 			),
 			admin_url( 'admin-ajax.php' )
