@@ -110,7 +110,7 @@ class WPBDP_Admin_CSVExport {
 		if ( ! $token && ! $state_param ) {
 			wp_die( esc_html__( 'Invalid download request.', 'business-directory-plugin' ) );
 		}
-		
+
 		$state = $token ? get_transient( 'wpbdp_export_' . $token ) : json_decode( base64_decode( $state_param ), true );
 		
 		if ( ! $state || ! is_array( $state ) || empty( $state['workingdir'] ) ) {
