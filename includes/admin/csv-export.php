@@ -76,21 +76,52 @@ class WPBDP_Admin_CSVExport {
 			$state['token'] = wp_generate_password( 32, false );
 		}
 
-		$response                 = array();
-		$response['error']        = $error;
-		$response['state']        = $state ? base64_encode( json_encode( $state ) ) : null;
-		$response['count']        = $state ? count( $state['listings'] ) : 0;
-		$response['exported']     = $state ? $state['exported'] : 0;
-		$response['filesize']     = $state ? size_format( $state['filesize'] ) : 0;
-		$response['isDone']       = $state ? $state['done'] : false;
-		$response['fileurl']      = $state ? ( $state['done'] ? $export->get_file_url() : '' ) : '';
-		$response['filename']     = $state ? ( $state['done'] ? basename( $export->get_file_url() ) : '' ) : '';
-		$response['download_url'] = $state ? ( $state['done'] ? $this->get_download_url( $state ) : '' ) : '';
-		$response['token']        = $state ? ( $state['done'] ? $state['token'] : '' ) : '';
+		$this->send_export_response( $export, $error, $state );
+	}
 
-		echo json_encode( $response );
+	/**
+	 * Send the response to the browser.
+	 *
+	 * @since x.x
+	 * 
+	 * @param WPBDP_CSVExporter $export The export object.
+	 * @param string $error The error message.
+	 * @param array $state The export state.
+	 */
+	private function send_export_response( $export, $error, $state ) {
+		$response = array(
+			'error'        => $error,
+			'state'        => null,
+			'count'        => 0,
+			'exported'     => 0,
+			'filesize'     => 0,
+			'isDone'       => false,
+			'fileurl'      => '',
+			'filename'     => '',
+			'download_url' => '',
+			'token'        => '',
+		);
 
-		die();
+		if ( ! $state ) {
+			wp_send_json( $response );
+		}
+
+		$response['state']    = base64_encode( wp_json_encode( $state ) );
+		$response['count']    = count( $state['listings'] );
+		$response['exported'] = $state['exported'];
+		$response['filesize'] = size_format( $state['filesize'] );
+		$response['isDone']   = $state['done'];
+
+		if ( ! $state['done'] ) {
+			wp_send_json( $response );
+		}
+
+		$response['fileurl']      = $export->get_file_url();
+		$response['filename']     = basename( $export->get_file_url() );
+		$response['download_url'] = $this->get_download_url( $state );
+		$response['token']        = $state['token'];
+
+		wp_send_json( $response );
 	}
 
 	/**
