@@ -161,7 +161,6 @@ jQuery( function ( $ ) {
 
 	$( '.step-3 .cleanup-link a' ).on( 'click', function ( e ) {
 		e.preventDefault();
-		console.log( existingToken );
 		$.ajax( ajaxurl, {
 			data: {
 				action: 'wpbdp-csv-export',
