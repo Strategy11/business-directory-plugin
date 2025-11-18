@@ -1117,9 +1117,30 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				return;
 			}
 
-			$action = wpbdp_get_var( array( 'param' => 'wpbdmaction' ), 'request' );
-			$posts  = wpbdp_get_var( array( 'param' => 'post' ), 'request' );
-			$posts  = is_array( $posts ) ? $posts : array( $posts );
+			$action            = wpbdp_get_var( array( 'param' => 'wpbdmaction' ), 'request' );
+			$protected_actions = apply_filters(
+				'wpbdp_admin_protected_actions',
+				array(
+					'change-to-publish',
+					'change-to-pending',
+					'change-to-draft',
+					'change-to-expired',
+					'change-to-complete',
+					'approve-payments',
+					'assignfee',
+					'renewlisting',
+					'send-renewal-email',
+					'delete-flagging',
+					'send-access-keys',
+				)
+			);
+
+			if ( in_array( $action, $protected_actions, true ) ) {
+				check_admin_referer( 'wpbdp_handle_action_' . $action );
+			}
+
+			$posts = wpbdp_get_var( array( 'param' => 'post' ), 'request' );
+			$posts = is_array( $posts ) ? $posts : array( $posts );
 
 			$listings_api = wpbdp_listings_api();
 
