@@ -760,6 +760,10 @@ class WPBDP_Admin_Listings {
 			wp_send_json_error();
 		}
 
+		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			wp_send_json_error( array( 'error' => __( 'You are not allowed to delete the payment history of this listing.', 'business-directory-plugin' ) ) );
+		}
+
 		$listing = wpbdp_get_listing( $listing_id );
 		$res     = $listing->delete_payment_history();
 
