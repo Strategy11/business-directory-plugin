@@ -18,12 +18,16 @@ endif;
 				<a href="
 				<?php
 				echo esc_url(
-					add_query_arg(
-						array(
-							'wpbdmaction' => 'delete-flagging',
-							'listing_id'  => $listing->get_id(),
-							'meta_pos'    => $key,
-						)
+					wp_nonce_url(
+						add_query_arg(
+							array(
+								'wpbdmaction' => 'delete-flagging',
+								'listing_id'  => $listing->get_id(),
+								'meta_pos'    => $key,
+							),
+							get_edit_post_link( $listing->get_id() )
+						),
+						'wpbdp_handle_action_delete-flagging'
 					)
 				);
 				?>
