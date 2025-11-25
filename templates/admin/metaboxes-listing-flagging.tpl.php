@@ -29,12 +29,16 @@ $is_reported = WPBDP__Listing_Flagging::is_flagged( $listing->get_id() );
 	<a class="button button-small" href="
 	<?php
 	echo esc_url(
-		add_query_arg(
-			array(
-				'wpbdmaction' => 'delete-flagging',
-				'listing_id'  => $listing->get_id(),
-				'meta_pos'    => 'all',
-			)
+		wp_nonce_url(
+			add_query_arg(
+				array(
+					'wpbdmaction' => 'delete-flagging',
+					'listing_id'  => $listing->get_id(),
+					'meta_pos'    => 'all',
+				),
+				get_edit_post_link( $listing->get_id() )
+			),
+			'wpbdp_handle_action_delete-flagging'
 		)
 	);
 	?>
