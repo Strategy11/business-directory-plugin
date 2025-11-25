@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-10-21 10:07:24+00:00\n"
+"POT-Creation-Date: 2025-11-25 09:08:38+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -187,17 +187,17 @@ msgstr "Elenco Slug Annuncio"
 msgid "Dismiss this notice."
 msgstr "Rimuovi questo avviso."
 
-#: includes/admin/class-admin.php:1208
+#: includes/admin/class-admin.php:1244
 #, fuzzy
 msgid "No renewal emails found."
 msgstr "Nessun annuncio trovato."
 
-#: includes/admin/class-admin.php:1212
+#: includes/admin/class-admin.php:1248
 #, fuzzy
 msgid "Could not send renewal email."
 msgstr "Inviare l'e-mail di rinnovo"
 
-#: includes/admin/class-admin.php:1367
+#: includes/admin/class-admin.php:1403
 #: includes/admin/helpers/tables/class-form-fields-table.php:129
 #: includes/admin/helpers/tables/class-payments-table.php:69
 #: templates/email/listing-added.tpl.php:7
@@ -207,13 +207,13 @@ msgstr "Inviare l'e-mail di rinnovo"
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-admin.php:1369 includes/admin/class-admin.php:1377
+#: includes/admin/class-admin.php:1405 includes/admin/class-admin.php:1413
 #: includes/admin/settings/class-settings-bootstrap.php:778
 #, fuzzy
 msgid "Listing Count"
 msgstr "Elenco luoghi"
 
-#: includes/admin/class-admin.php:1556
+#: includes/admin/class-admin.php:1592
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -413,7 +413,7 @@ msgid "Attributes"
 msgstr "Attributi"
 
 #: includes/admin/controllers/class-admin-listings.php:332
-#: includes/admin/controllers/class-admin-listings.php:801
+#: includes/admin/controllers/class-admin-listings.php:811
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 #, fuzzy
 msgid "Never"
@@ -444,13 +444,18 @@ msgstr "Modifica Annuncio"
 msgid "Delete Listing"
 msgstr "Elimina Annuncio"
 
-#: includes/admin/controllers/class-admin-listings.php:754
+#: includes/admin/controllers/class-admin-listings.php:760
 #, fuzzy
 msgid "Invalid nonce."
 msgstr "Invalid nonce ricevuto."
 
-#: includes/admin/controllers/class-admin-listings.php:812
-#: includes/admin/controllers/class-admin-listings.php:813
+#: includes/admin/controllers/class-admin-listings.php:770
+#, fuzzy
+msgid "You are not allowed to delete the payment history of this listing."
+msgstr "Sei sicuro di voler cancellare il campo \"%s\"?"
+
+#: includes/admin/controllers/class-admin-listings.php:822
+#: includes/admin/controllers/class-admin-listings.php:823
 #: includes/fields/class-fieldtypes-textarea.php:208
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:121
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:128
@@ -458,8 +463,8 @@ msgstr "Invalid nonce ricevuto."
 msgid "Yes"
 msgstr "Si"
 
-#: includes/admin/controllers/class-admin-listings.php:812
-#: includes/admin/controllers/class-admin-listings.php:813
+#: includes/admin/controllers/class-admin-listings.php:822
+#: includes/admin/controllers/class-admin-listings.php:823
 #: includes/admin/settings/class-settings-bootstrap.php:311
 #: includes/fields/class-fieldtypes-textarea.php:207
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:121
@@ -648,7 +653,7 @@ msgstr "Nessun avviso configurato."
 #: includes/admin/controllers/class-settings-admin.php:723
 #: includes/admin/helpers/tables/class-fees-table.php:182
 #: includes/admin/helpers/tables/class-form-fields-table.php:105
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:31
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:35
 #: templates/admin/payments-note.tpl.php:14
 #: templates/admin/themes-item.tpl.php:51
 #: templates/parts/listing-buttons.tpl.php:31
@@ -721,17 +726,17 @@ msgstr "Temi"
 msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr "Attivare la <a>chiave di licenza</a> per utilizzare questo tema."
 
-#: includes/admin/csv-export.php:100
+#: includes/admin/csv-export.php:142
 #, fuzzy
 msgid "Invalid download request."
 msgstr "Indirizzo e-mail non valido."
 
-#: includes/admin/csv-export.php:106
+#: includes/admin/csv-export.php:148
 #, fuzzy
-msgid "Invalid export state."
+msgid "Invalid export state or token expired."
 msgstr "Tipo di campo modulo non valido"
 
-#: includes/admin/csv-export.php:115
+#: includes/admin/csv-export.php:157
 #, fuzzy
 msgid "Export file not found."
 msgstr "Piano tariffario aggiornato."
@@ -4152,12 +4157,12 @@ msgstr "Gestione delle Donazioni ricevute"
 msgid "Visitor"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:42
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:46
 #, fuzzy
 msgid "Selected Option: "
 msgstr "Opzione selezionata: "
 
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:48
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:52
 #, fuzzy
 msgid "Additional Info: "
 msgstr "Ulteriori informazioni:"
@@ -4167,7 +4172,7 @@ msgstr "Ulteriori informazioni:"
 msgid "This listing has not been reported."
 msgstr "Questo annuncio non è stato segnalato"
 
-#: templates/admin/metaboxes-listing-flagging.tpl.php:42
+#: templates/admin/metaboxes-listing-flagging.tpl.php:46
 #, fuzzy
 msgid "Clear listing reports."
 msgstr "Cancella le segnalazioni annuncio"
@@ -4236,12 +4241,12 @@ msgstr "Url di rinnovo (copia e incolla)"
 msgid "Get renewal URL"
 msgstr "Ottenere l'URL di rinnovo"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:149
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:152
 #, fuzzy
 msgid "Send renewal email"
 msgstr "Inviare l'e-mail di rinnovo"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:155
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:158
 #, fuzzy
 msgid "Renew listing"
 msgstr "Rinnova l'elenco"
@@ -5399,49 +5404,49 @@ msgctxt "admin"
 msgid "Untitled Menu"
 msgstr "Menu senza titolo"
 
-#: includes/admin/class-admin.php:1145 includes/admin/class-admin.php:1155
+#: includes/admin/class-admin.php:1181 includes/admin/class-admin.php:1191
 msgctxt "admin"
 msgid "The listing has been updated."
 msgid_plural "The listings have been updated."
 msgstr[0] "L'Annuncio è stato aggiornato."
 msgstr[1] "Gli annunci  sono stati aggiornati."
 
-#: includes/admin/class-admin.php:1181
+#: includes/admin/class-admin.php:1217
 #, fuzzy
 msgctxt "admin"
 msgid "The plan was successfully assigned."
 msgstr "Il canone è stata assegnato con successo."
 
-#: includes/admin/class-admin.php:1191
+#: includes/admin/class-admin.php:1227
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
 msgstr[0] "L'Annuncio è stato rinnovato."
 msgstr[1] "Gli annunci sono stati rinnovati."
 
-#: includes/admin/class-admin.php:1203
+#: includes/admin/class-admin.php:1239
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "E-mail di rinnovo inviata."
 
-#: includes/admin/class-admin.php:1221
+#: includes/admin/class-admin.php:1257
 msgctxt "admin"
 msgid "Listing report deleted."
 msgid_plural "Listing reports deleted."
 msgstr[0] "La segnalazione per l'Annuncio è stata cancellata."
 msgstr[1] "Le segnalazioni per gli Annunci sono state cancellate."
 
-#: includes/admin/class-admin.php:1291
+#: includes/admin/class-admin.php:1327
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "Dati  di accesso inviati."
 
-#: includes/admin/class-admin.php:1293
+#: includes/admin/class-admin.php:1329
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr "Non è stato possibile inviare i dati di accesso."
 
-#: includes/admin/class-admin.php:1465
+#: includes/admin/class-admin.php:1501
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -5450,7 +5455,7 @@ msgstr ""
 "<b>Business Directory Plugin</b> richiede una pagina con il codice di scelta "
 "rapida <tt>[businessdirectory]</tt> per funzionare correttamente."
 
-#: includes/admin/class-admin.php:1467
+#: includes/admin/class-admin.php:1503
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -5459,12 +5464,12 @@ msgstr ""
 "È possibile creare la pagina da soli o lasciare che Business Directory "
 "faccia questo per voi automaticamente."
 
-#: includes/admin/class-admin.php:1472
+#: includes/admin/class-admin.php:1508
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "Crea le pagine richieste per me"
 
-#: includes/admin/class-admin.php:1529
+#: includes/admin/class-admin.php:1565
 #, fuzzy
 msgctxt "admin"
 msgid ""
@@ -5695,7 +5700,7 @@ msgctxt "admin listings"
 msgid "Reported"
 msgstr "Segnalato"
 
-#: includes/admin/controllers/class-admin-listings.php:770
+#: includes/admin/controllers/class-admin-listings.php:780
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -12456,10 +12461,6 @@ msgstr "No, torna ai miei abbonamenti"
 #, fuzzy
 #~ msgid "Permalinks"
 #~ msgstr "Impostazioni Permalink"
-
-#, fuzzy
-#~ msgid "Sorry, you are not allowed to delete this site."
-#~ msgstr "Sei sicuro di voler cancellare il campo \"%s\"?"
 
 #, fuzzy
 #~ msgid "Sorry, the link you clicked is stale. Please select another option."
