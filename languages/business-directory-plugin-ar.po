@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2025-10-21 10:07:24+00:00\n"
+"POT-Creation-Date: 2025-11-25 09:08:38+00:00\n"
 "PO-Revision-Date: 2017-01-16 17:47-0500\n"
 "Last-Translator: BD Team <support@businessdirectoryplugin.com>\n"
 "Language-Team: BD Team <support@businessdirectoryplugin.com>\n"
@@ -176,17 +176,17 @@ msgstr "رابط لطيف لإعلانات الدليل"
 msgid "Dismiss this notice."
 msgstr "إخفاء هذا التنبيه."
 
-#: includes/admin/class-admin.php:1208
+#: includes/admin/class-admin.php:1244
 #, fuzzy
 msgid "No renewal emails found."
 msgstr "لم يتم العثور على أي إعلانات."
 
-#: includes/admin/class-admin.php:1212
+#: includes/admin/class-admin.php:1248
 #, fuzzy
 msgid "Could not send renewal email."
 msgstr "إرسال رسالة بريد إلكتروني بخصوص التجديد للعضو"
 
-#: includes/admin/class-admin.php:1367
+#: includes/admin/class-admin.php:1403
 #: includes/admin/helpers/tables/class-form-fields-table.php:129
 #: includes/admin/helpers/tables/class-payments-table.php:69
 #: templates/email/listing-added.tpl.php:7
@@ -196,13 +196,13 @@ msgstr "إرسال رسالة بريد إلكتروني بخصوص التجدي�
 msgid "ID"
 msgstr "المعرف"
 
-#: includes/admin/class-admin.php:1369 includes/admin/class-admin.php:1377
+#: includes/admin/class-admin.php:1405 includes/admin/class-admin.php:1413
 #: includes/admin/settings/class-settings-bootstrap.php:778
 #, fuzzy
 msgid "Listing Count"
 msgstr "عدد الإعلانات"
 
-#: includes/admin/class-admin.php:1556
+#: includes/admin/class-admin.php:1592
 #, fuzzy
 msgid ""
 "We noticed you want your Business Directory users to register before posting "
@@ -410,7 +410,7 @@ msgid "Attributes"
 msgstr "سمات الحقل"
 
 #: includes/admin/controllers/class-admin-listings.php:332
-#: includes/admin/controllers/class-admin-listings.php:801
+#: includes/admin/controllers/class-admin-listings.php:811
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:96
 #, fuzzy
 msgid "Never"
@@ -441,13 +441,18 @@ msgstr "تحرير الإعلان"
 msgid "Delete Listing"
 msgstr "حذف الإعلان"
 
-#: includes/admin/controllers/class-admin-listings.php:754
+#: includes/admin/controllers/class-admin-listings.php:760
 #, fuzzy
 msgid "Invalid nonce."
 msgstr "جواب غير صالح من الخادم"
 
-#: includes/admin/controllers/class-admin-listings.php:812
-#: includes/admin/controllers/class-admin-listings.php:813
+#: includes/admin/controllers/class-admin-listings.php:770
+#, fuzzy
+msgid "You are not allowed to delete the payment history of this listing."
+msgstr "هل أنت متأكد من أنك تريد حذف الحقل \"%s\"؟"
+
+#: includes/admin/controllers/class-admin-listings.php:822
+#: includes/admin/controllers/class-admin-listings.php:823
 #: includes/fields/class-fieldtypes-textarea.php:208
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:121
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:128
@@ -455,8 +460,8 @@ msgstr "جواب غير صالح من الخادم"
 msgid "Yes"
 msgstr "نعم"
 
-#: includes/admin/controllers/class-admin-listings.php:812
-#: includes/admin/controllers/class-admin-listings.php:813
+#: includes/admin/controllers/class-admin-listings.php:822
+#: includes/admin/controllers/class-admin-listings.php:823
 #: includes/admin/settings/class-settings-bootstrap.php:311
 #: includes/fields/class-fieldtypes-textarea.php:207
 #: templates/admin/metaboxes-listing-information-plan.tpl.php:121
@@ -639,7 +644,7 @@ msgstr ""
 #: includes/admin/controllers/class-settings-admin.php:723
 #: includes/admin/helpers/tables/class-fees-table.php:182
 #: includes/admin/helpers/tables/class-form-fields-table.php:105
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:31
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:35
 #: templates/admin/payments-note.tpl.php:14
 #: templates/admin/themes-item.tpl.php:51
 #: templates/parts/listing-buttons.tpl.php:31
@@ -711,17 +716,17 @@ msgstr "القوالب"
 msgid "Activate your %1$slicense key%2$s to use this theme."
 msgstr "فعِّل <a>مفتاح الترخيص</a> الخاص بك لاستخدام هذا القالب."
 
-#: includes/admin/csv-export.php:100
+#: includes/admin/csv-export.php:142
 #, fuzzy
 msgid "Invalid download request."
 msgstr "عنوان البريد الإلكتروني غير صالح!"
 
-#: includes/admin/csv-export.php:106
+#: includes/admin/csv-export.php:148
 #, fuzzy
-msgid "Invalid export state."
+msgid "Invalid export state or token expired."
 msgstr "نوع حقل استمارة غير صحيح"
 
-#: includes/admin/csv-export.php:115
+#: includes/admin/csv-export.php:157
 #, fuzzy
 msgid "Export file not found."
 msgstr "الرسوم حدثت."
@@ -4029,12 +4034,12 @@ msgstr "إدارة الإعلانات المدفوعة"
 msgid "Visitor"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:42
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:46
 #, fuzzy
 msgid "Selected Option: "
 msgstr "إختيار تصنيف"
 
-#: templates/admin/metaboxes-listing-flagging-row.tpl.php:48
+#: templates/admin/metaboxes-listing-flagging-row.tpl.php:52
 #, fuzzy
 msgid "Additional Info: "
 msgstr "معلومات اضافية"
@@ -4044,7 +4049,7 @@ msgstr "معلومات اضافية"
 msgid "This listing has not been reported."
 msgstr "تمت ترقية الإعلان."
 
-#: templates/admin/metaboxes-listing-flagging.tpl.php:42
+#: templates/admin/metaboxes-listing-flagging.tpl.php:46
 #, fuzzy
 msgid "Clear listing reports."
 msgstr "الإعلان منتهي التاريخ"
@@ -4110,12 +4115,12 @@ msgstr "تجديد عنوان URL (نسخة & لصق)"
 msgid "Get renewal URL"
 msgstr ""
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:149
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:152
 #, fuzzy
 msgid "Send renewal email"
 msgstr "إرسال رسالة بريد إلكتروني بخصوص التجديد للعضو"
 
-#: templates/admin/metaboxes-listing-information-plan.tpl.php:155
+#: templates/admin/metaboxes-listing-information-plan.tpl.php:158
 #, fuzzy
 msgid "Renew listing"
 msgstr "تجديد الإعلان"
@@ -5193,7 +5198,7 @@ msgctxt "admin"
 msgid "Untitled Menu"
 msgstr ""
 
-#: includes/admin/class-admin.php:1145 includes/admin/class-admin.php:1155
+#: includes/admin/class-admin.php:1181 includes/admin/class-admin.php:1191
 #, fuzzy
 msgctxt "admin"
 msgid "The listing has been updated."
@@ -5205,13 +5210,13 @@ msgstr[3] "تمت ترقية الإعلانات."
 msgstr[4] "تمت ترقية الإعلانات."
 msgstr[5] "تمت ترقية الإعلانات."
 
-#: includes/admin/class-admin.php:1181
+#: includes/admin/class-admin.php:1217
 #, fuzzy
 msgctxt "admin"
 msgid "The plan was successfully assigned."
 msgstr "تم تعيين الرسوم بنجاح."
 
-#: includes/admin/class-admin.php:1191
+#: includes/admin/class-admin.php:1227
 msgctxt "admin"
 msgid "Listing was renewed."
 msgid_plural "Listings were renewed."
@@ -5222,12 +5227,12 @@ msgstr[3] "تم تجديد الإعلانات."
 msgstr[4] "تم تجديد الإعلانات."
 msgstr[5] "تم تجديد الإعلانات."
 
-#: includes/admin/class-admin.php:1203
+#: includes/admin/class-admin.php:1239
 msgctxt "admin"
 msgid "Renewal email sent."
 msgstr "تم إرسال بريد التجديد."
 
-#: includes/admin/class-admin.php:1221
+#: includes/admin/class-admin.php:1257
 #, fuzzy
 msgctxt "admin"
 msgid "Listing report deleted."
@@ -5239,18 +5244,18 @@ msgstr[3] "إنتهاء صلاحية الإعلان"
 msgstr[4] "إنتهاء صلاحية الإعلان"
 msgstr[5] "إنتهاء صلاحية الإعلان"
 
-#: includes/admin/class-admin.php:1291
+#: includes/admin/class-admin.php:1327
 #, fuzzy
 msgctxt "admin"
 msgid "Access keys sent."
 msgstr "مفتاح الوصول"
 
-#: includes/admin/class-admin.php:1293
+#: includes/admin/class-admin.php:1329
 msgctxt "admin"
 msgid "The access keys couldn't be sent."
 msgstr ""
 
-#: includes/admin/class-admin.php:1465
+#: includes/admin/class-admin.php:1501
 msgctxt "admin"
 msgid ""
 "<b>Business Directory Plugin</b> requires a page with the "
@@ -5259,7 +5264,7 @@ msgstr ""
 "<b>إضافة دليل الأعمال</b> تتطلب صفحة فيها الكود القصير "
 "<tt>[businessdirectory]</tt>  لكي تعمل بشكل صحيح."
 
-#: includes/admin/class-admin.php:1467
+#: includes/admin/class-admin.php:1503
 msgctxt "admin"
 msgid ""
 "You can create this page by yourself or let Business Directory do this for "
@@ -5268,12 +5273,12 @@ msgstr ""
 "يمكنك إنشاء هذه الصفحة بنفسك أو ترك دليل الأعمال القيام بذلك نيابة عنك "
 "تلقائياً."
 
-#: includes/admin/class-admin.php:1472
+#: includes/admin/class-admin.php:1508
 msgctxt "admin"
 msgid "Create required pages for me"
 msgstr "إنشاء الصفحات المطلوب نيابة عني"
 
-#: includes/admin/class-admin.php:1529
+#: includes/admin/class-admin.php:1565
 msgctxt "admin"
 msgid ""
 "Business Directory Plugin requires PHP 5.6 or later, but your server is "
@@ -5516,7 +5521,7 @@ msgctxt "admin listings"
 msgid "Reported"
 msgstr ""
 
-#: includes/admin/controllers/class-admin-listings.php:770
+#: includes/admin/controllers/class-admin-listings.php:780
 msgctxt "admin listings"
 msgid "Listing's payment history successfully deleted"
 msgstr ""
@@ -12276,10 +12281,6 @@ msgstr "رابط لإدارة الاشتراكات"
 #, fuzzy
 #~ msgid "Permalinks"
 #~ msgstr "إعدادات الرابط الثابت"
-
-#, fuzzy
-#~ msgid "Sorry, you are not allowed to delete this site."
-#~ msgstr "هل أنت متأكد من أنك تريد حذف الحقل \"%s\"؟"
 
 #, fuzzy
 #~ msgid "Sorry, the link you clicked is stale. Please select another option."

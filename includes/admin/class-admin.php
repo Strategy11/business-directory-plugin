@@ -1115,7 +1115,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Validate the action request.
 		 *
-		 * @since x.x
+		 * @since 6.4.20
 		 *
 		 * @param string $action The action to validate.
 		 *

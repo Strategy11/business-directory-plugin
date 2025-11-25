@@ -82,7 +82,7 @@ class WPBDP_Admin_CSVExport {
 	/**
 	 * Send the response to the browser.
 	 *
-	 * @since x.x
+	 * @since 6.4.20
 	 * 
 	 * @param WPBDP_CSVExporter $export The export object.
 	 * @param string $error The error message.
