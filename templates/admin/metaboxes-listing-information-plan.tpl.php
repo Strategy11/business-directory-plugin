@@ -136,12 +136,15 @@ wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', false, 
 			<a class="button button-small" href="
 			<?php
 			echo esc_url(
-				add_query_arg(
-					array(
-						'wpbdmaction' => 'send-renewal-email',
-						'listing_id'  => $listing->get_id(),
+				wp_nonce_url(
+					add_query_arg(
+						array(
+							'wpbdmaction' => 'send-renewal-email',
+							'listing_id'  => $listing->get_id(),
+						),
+						get_edit_post_link( $listing->get_id() )
 					),
-					get_edit_post_link( $listing->get_id() )
+					'wpbdp_handle_action_send-renewal-email'
 				)
 			);
 			?>
@@ -151,7 +154,7 @@ wp_nonce_field( 'update listing plan', 'wpbdp-admin-listing-plan-nonce', false, 
 		</li>
 		<?php if ( 'pending_renewal' == $listing->get_status() || ( $current_plan && $current_plan->expired ) ) : ?>
 		<li>
-			<a href="<?php echo esc_url( add_query_arg( 'wpbdmaction', 'renewlisting', get_edit_post_link( $listing->get_id() ) ) ); ?>" class="button-primary button button-small">
+			<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'wpbdmaction', 'renewlisting', get_edit_post_link( $listing->get_id() ) ), 'wpbdp_handle_action_renewlisting' ) ); ?>" class="button-primary button button-small">
 				<?php esc_html_e( 'Renew listing', 'business-directory-plugin' ); ?>
 			</a>
 		</li>

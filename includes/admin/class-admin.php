@@ -1112,16 +1112,52 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			return count( array_keys( $module_list ) );
 		}
 
-		function handle_actions() {
+		/**
+		 * Validate the action request.
+		 *
+		 * @since x.x
+		 *
+		 * @param string $action The action to validate.
+		 *
+		 * @return bool
+		 */
+		private function validate_action_request( $action ) {
+			$protected_actions = apply_filters(
+				'wpbdp_admin_protected_actions',
+				array(
+					'change-to-publish',
+					'change-to-pending',
+					'change-to-draft',
+					'change-to-expired',
+					'change-to-complete',
+					'approve-payments',
+					'assignfee',
+					'renewlisting',
+					'send-renewal-email',
+					'delete-flagging',
+					'send-access-keys',
+				)
+			);
+
+			if ( in_array( $action, $protected_actions, true ) ) {
+				check_admin_referer( 'wpbdp_handle_action_' . $action );
+			}
+
+			return true;
+		}
+
+		public function handle_actions() {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( ! isset( $_REQUEST['wpbdmaction'] ) || ! isset( $_REQUEST['post'] ) ) {
 				return;
 			}
 
 			$action = wpbdp_get_var( array( 'param' => 'wpbdmaction' ), 'request' );
-			$posts  = wpbdp_get_var( array( 'param' => 'post' ), 'request' );
-			$posts  = is_array( $posts ) ? $posts : array( $posts );
 
-			$listings_api = wpbdp_listings_api();
+			$this->validate_action_request( $action );
+
+			$posts = wpbdp_get_var( array( 'param' => 'post' ), 'request' );
+			$posts = is_array( $posts ) ? $posts : array( $posts );
 
 			if ( ! wpbdp_user_is_admin() ) {
 				exit;

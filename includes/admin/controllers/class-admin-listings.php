@@ -712,18 +712,24 @@ class WPBDP_Admin_Listings {
 					echo '<script>';
 
 					foreach ( $bulk_actions as $action => $text ) {
+						$action_url = add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) );
+
+						if ( 0 !== strpos( $action, 'sep' ) ) {
+							$action_url = wp_nonce_url( $action_url, 'wpbdp_handle_action_' . $action );
+						}
+
 						printf(
 							'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
 							'action',
 							'listing-' . esc_attr( $action ),
-							esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
+							esc_url( $action_url ),
 							esc_html( $text )
 						);
 						printf(
 							'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
 							'action2',
 							'listing-' . esc_attr( $action ),
-							esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
+							esc_url( $action_url ),
 							esc_html( $text )
 						);
 					}
