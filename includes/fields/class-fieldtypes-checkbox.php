@@ -243,7 +243,12 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 	 * @since 3.4.1
 	 */
 	public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
-		if ( 'meta' != $field->get_association() ) {
+		if ( 'tags' === $field->get_association() ) {
+			$input = str_replace( ';', ',', $input );
+			return array_map( 'trim', explode( ',', $input ) );
+		}
+
+		if ( 'meta' !== $field->get_association() ) {
 			return $this->convert_input( $field, $input );
 		}
 
