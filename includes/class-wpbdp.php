@@ -650,6 +650,10 @@ final class WPBDP {
 			$res->send_error();
 		}
 
+		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			$res->send_error();
+		}
+
 		// Remove from images list.
 		$listing->remove_image( $image_id );
 
