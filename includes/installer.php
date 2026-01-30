@@ -24,7 +24,7 @@ class WPBDP_Installer {
 	public function install() {
 		global $wpdb;
 
-		if ( version_compare( self::DB_VERSION, $this->installed_version, '=' ) ) {
+		if ( version_compare( self::DB_VERSION, $this->installed_version ?? '', '=' ) ) {
 			return;
 		}
 
