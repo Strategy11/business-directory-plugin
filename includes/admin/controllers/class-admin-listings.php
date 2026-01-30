@@ -571,14 +571,42 @@ class WPBDP_Admin_Listings {
 			return;
 		}
 
-		$fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
+		$validation_errors = array();
+		$fields            = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
 		foreach ( $fields as $field ) {
 			if ( isset( $_POST['listingfields'][ $field->get_id() ] ) ) {
-				$value = $field->value_from_POST();
+				$value        = $field->value_from_POST();
+				$field_errors = array();
+
+				if ( ! $field->validate( $value, $field_errors ) ) {
+					$validation_errors[ $field->get_id() ] = array(
+						'label'  => $field->get_label(),
+						'errors' => $field_errors,
+					);
+					continue;
+				}
+
 				$field->store_value( $post_id, $value );
 			} else {
 				$field->store_value( $post_id, $field->convert_input( null ) );
 			}
+		}
+
+		if ( $validation_errors ) {
+			$error_lines = array();
+
+			foreach ( $validation_errors as $details ) {
+				$error_lines[] = esc_html( $details['label'] ) . ': ' . wp_kses_post( implode( ', ', $details['errors'] ) );
+			}
+
+			wpbdp_admin_message(
+				sprintf(
+					/* translators: %s: list of field validation errors */
+					__( 'The following fields could not be saved: %s', 'business-directory-plugin' ),
+					'<br>' . implode( '<br>', $error_lines )
+				),
+				'error'
+			);
 		}
 
 		$listing = wpbdp_get_listing( $post_id );
