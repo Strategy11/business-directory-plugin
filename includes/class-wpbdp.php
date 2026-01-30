@@ -687,6 +687,11 @@ final class WPBDP {
 			wp_send_json_error( $json_data );
 		}
 
+		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			$json_data['errors'] = esc_html__( 'You do not have permission to update this listing.', 'business-directory-plugin' );
+			wp_send_json_error( $json_data );
+		}
+
 		$image_ids = wpbdp_get_var(
 			array(
 				'param'   => 'image_ids',
