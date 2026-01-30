@@ -832,7 +832,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		public function ajax_formfields_reorder() {
 			$response = new WPBDP_AJAX_Response();
 
-			if ( ! wpbdp_user_is_admin() ) {
+			if ( ! wpbdp_user_is_admin() || ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
 				$response->send_error();
 			}
 
@@ -871,7 +871,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$response = new WPBDP_AJAX_Response();
 
-			if ( ! wpbdp_user_is_admin() ) {
+			if ( ! wpbdp_user_is_admin() || ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
 				$response->send_error();
 			}
 
