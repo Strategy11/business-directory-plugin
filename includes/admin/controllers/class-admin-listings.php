@@ -13,6 +13,7 @@ class WPBDP_Admin_Listings {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'add_metaboxes' ) );
 		add_action( 'wpbdp_admin_notices', array( $this, 'no_plan_edit_notice' ) );
+		add_action( 'wpbdp_admin_notices', array( $this, 'show_field_validation_errors' ) );
 
 		add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_columns', array( &$this, 'modify_columns' ) );
 		add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_custom_column', array( &$this, 'listing_column' ), 10, 2 );
@@ -178,6 +179,50 @@ class WPBDP_Admin_Listings {
 				_x( 'This listing doesn\'t have a plan assigned. This is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'business-directory-plugin' ),
 				'error'
 			);
+		}
+	}
+
+	/**
+	 * Display field validation errors stored in transient.
+	 *
+	 * @since x.x
+	 */
+	public function show_field_validation_errors() {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+
+		if ( ! $screen || WPBDP_POST_TYPE !== $screen->id ) {
+			return;
+		}
+
+		global $post;
+
+		if ( ! $post ) {
+			return;
+		}
+
+		$transient_key     = 'wpbdp_field_validation_errors_' . $post->ID . '_' . get_current_user_id();
+		$validation_errors = get_transient( $transient_key );
+
+		if ( ! $validation_errors ) {
+			return;
+		}
+
+		delete_transient( $transient_key );
+
+		$error_messages = array();
+
+		foreach ( $validation_errors as $details ) {
+			foreach ( $details['errors'] as $error ) {
+				$error_messages[] = $error;
+			}
+		}
+
+		foreach ( $error_messages as $error ) {
+			wpbdp_admin_message( $error, 'error' );
 		}
 	}
 
@@ -571,14 +616,29 @@ class WPBDP_Admin_Listings {
 			return;
 		}
 
-		$fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
+		$validation_errors = array();
+		$fields            = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
 		foreach ( $fields as $field ) {
 			if ( isset( $_POST['listingfields'][ $field->get_id() ] ) ) {
-				$value = $field->value_from_POST();
+				$value        = $field->value_from_POST();
+				$field_errors = array();
+
+				if ( ! $field->validate( $value, $field_errors ) ) {
+					$validation_errors[ $field->get_id() ] = array(
+						'label'  => $field->get_label(),
+						'errors' => $field_errors,
+					);
+					continue;
+				}
+
 				$field->store_value( $post_id, $value );
 			} else {
 				$field->store_value( $post_id, $field->convert_input( null ) );
 			}
+		}
+
+		if ( $validation_errors ) {
+			set_transient( 'wpbdp_field_validation_errors_' . $post_id . '_' . get_current_user_id(), $validation_errors, 60 );
 		}
 
 		$listing = wpbdp_get_listing( $post_id );
