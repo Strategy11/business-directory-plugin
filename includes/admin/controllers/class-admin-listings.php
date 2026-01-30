@@ -204,7 +204,7 @@ class WPBDP_Admin_Listings {
 			return;
 		}
 
-		$transient_key     = 'wpbdp_field_validation_errors_' . $post->ID;
+		$transient_key     = 'wpbdp_field_validation_errors_' . $post->ID . '_' . get_current_user_id();
 		$validation_errors = get_transient( $transient_key );
 
 		if ( ! $validation_errors ) {
@@ -638,7 +638,7 @@ class WPBDP_Admin_Listings {
 		}
 
 		if ( $validation_errors ) {
-			set_transient( 'wpbdp_field_validation_errors_' . $post_id, $validation_errors, 60 );
+			set_transient( 'wpbdp_field_validation_errors_' . $post_id . '_' . get_current_user_id(), $validation_errors, 60 );
 		}
 
 		$listing = wpbdp_get_listing( $post_id );
