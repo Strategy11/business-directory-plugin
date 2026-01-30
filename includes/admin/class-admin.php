@@ -1575,6 +1575,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		public function ajax_dismiss_notification_server_requirements() {
+		WPBDP_App_Helper::permission_check();
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
+
 			set_transient( 'wpbdp_server_requirements_warning_dismissed', true, WEEK_IN_SECONDS );
 		}
 
