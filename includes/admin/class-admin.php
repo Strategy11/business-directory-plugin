@@ -986,8 +986,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 				$this->maybe_update_notice_classes( $class );
 
-				echo '<div class="wpbdp-notice notice ' . esc_attr( $class ) . '">';
-				echo '<p>' . $text . '</p>';
+			echo '<div class="wpbdp-notice notice ' . esc_attr( $class ) . '">';
+			echo '<p>' . wp_kses_post( $text ) . '</p>';
 
 				if ( ! empty( $extra['dismissible-id'] ) ) {
 					printf(
