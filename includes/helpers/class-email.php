@@ -142,7 +142,7 @@ class WPBDP_Email {
 				$this->template,
 				array(
 					'subject' => $this->subject,
-					'body'    => $this->html,
+					'body'    => $this->body,
 				)
 			) ) {
 				$this->html = $html_;
