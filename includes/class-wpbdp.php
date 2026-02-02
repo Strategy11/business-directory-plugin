@@ -650,6 +650,10 @@ final class WPBDP {
 			$res->send_error();
 		}
 
+		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			$res->send_error();
+		}
+
 		// Remove from images list.
 		$listing->remove_image( $image_id );
 
@@ -680,6 +684,11 @@ final class WPBDP {
 
 		if ( ! wp_verify_nonce( $nonce, 'listing-' . $listing_id . '-image-from-media' ) ) {
 			$json_data['errors'] = esc_html__( 'Could not verify the image upload request. If problem persists contact site admin.', 'business-directory-plugin' );
+			wp_send_json_error( $json_data );
+		}
+
+		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			$json_data['errors'] = esc_html__( 'You do not have permission to update this listing.', 'business-directory-plugin' );
 			wp_send_json_error( $json_data );
 		}
 

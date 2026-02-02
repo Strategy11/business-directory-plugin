@@ -57,6 +57,11 @@ class WPBDP_FA_Compat {
 	 * @since 5.15.3
 	 */
 	public function ajax_dismiss_notification_fontawesome() {
+		$nonce = wpbdp_get_var( array( 'param' => 'nonce' ), 'request' );
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'dismiss notice fontawesome' ) ) {
+			return;
+		}
+
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			return;
 		}

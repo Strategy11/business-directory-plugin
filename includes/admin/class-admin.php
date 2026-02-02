@@ -832,7 +832,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		public function ajax_formfields_reorder() {
 			$response = new WPBDP_AJAX_Response();
 
-			if ( ! wpbdp_user_is_admin() ) {
+			if ( ! wpbdp_user_is_admin() || ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
 				$response->send_error();
 			}
 
@@ -871,7 +871,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			$response = new WPBDP_AJAX_Response();
 
-			if ( ! wpbdp_user_is_admin() ) {
+			if ( ! wpbdp_user_is_admin() || ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
 				$response->send_error();
 			}
 
@@ -1575,6 +1575,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		}
 
 		public function ajax_dismiss_notification_server_requirements() {
+		WPBDP_App_Helper::permission_check();
+		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
+
 			set_transient( 'wpbdp_server_requirements_warning_dismissed', true, WEEK_IN_SECONDS );
 		}
 

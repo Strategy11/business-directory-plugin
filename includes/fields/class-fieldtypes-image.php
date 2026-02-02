@@ -306,6 +306,16 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			die;
 		}
 
+		$post_status = get_post_status( $listing_id );
+		if ( ! $post_status ) {
+			die;
+		}
+
+		// If its an auto-draft there is no point in running the check.
+		if ( 'auto-draft' !== $post_status && ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			die;
+		}
+
 		$element = wpbdp_get_var(
 			array(
 				'param'   => 'element',

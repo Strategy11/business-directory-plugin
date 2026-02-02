@@ -16,7 +16,6 @@ class WPBDP__Settings_Admin {
 		add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
 
 		add_action( 'wp_ajax_wpbdp-file-upload', array( $this, '_ajax_file_upload' ) );
-		add_action( 'wp_ajax_nopriv_wpbdp-file-upload', array( $this, '_ajax_file_upload' ) );
 
 		add_filter( 'wpbdp_setting_type_pro_license', array( &$this, 'no_license' ), 20, 2 );
 	}
@@ -962,6 +961,8 @@ class WPBDP__Settings_Admin {
 	}
 
 	public function _ajax_file_upload() {
+		WPBDP_App_Helper::permission_check();
+
 		$setting_id = wpbdp_get_var( array( 'param' => 'setting_id' ), 'request' );
 		$nonce      = wpbdp_get_var( array( 'param' => 'nonce' ), 'request' );
 

@@ -110,6 +110,10 @@ class WPBDP_CSVImportAdmin {
 	public function ajax_autocomplete_user() {
 		WPBDP_App_Helper::permission_check();
 
+		if ( ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
+			wp_die();
+		}
+
 		$term  = wpbdp_get_var( array( 'param' => 'term' ), 'request' );
 		$users = get_users( array( 'search' => "*{$term}*" ) );
 
