@@ -185,7 +185,7 @@ class WPBDP_Admin_Listings {
 	/**
 	 * Display field validation errors stored in transient.
 	 *
-	 * @since x.x
+	 * @since 6.4.21
 	 */
 	public function show_field_validation_errors() {
 		if ( ! function_exists( 'get_current_screen' ) ) {
