@@ -504,7 +504,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Verify nonce and check ownership for existing listings in AJAX requests.
 	 *
-	 * @since x.x
+	 * @since 6.4.21
 	 *
 	 * @return bool True if the request is valid, false otherwise.
 	 */
