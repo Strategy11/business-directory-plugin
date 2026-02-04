@@ -221,12 +221,14 @@ class WPBDPStrpEventsController {
 	 * @return void
 	 */
 	private function process_invoice_payment_failed( $subscription, $parent_payment ) {
-		if ( ! $subscription || ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
+		if ( ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
 			return;
 		}
 
-		// Cancel the subscription in Stripe.
-		WPBDPStrpConnectHelper::cancel_subscription( $subscription->get_subscription_id() );
+		if ( $subscription ) {
+			// Cancel the subscription in Stripe.
+			WPBDPStrpConnectHelper::cancel_subscription( $subscription->get_subscription_id() );
+		}
 
 		// Soft cancel: Mark listing as expired but preserve subscription data for potential recovery.
 		$listing = wpbdp_get_listing( $parent_payment->listing_id );
