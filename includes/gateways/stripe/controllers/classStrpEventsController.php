@@ -349,8 +349,6 @@ class WPBDPStrpEventsController {
 	/**
 	 * Check recent events for a payment intent match.
 	 *
-	 * @since x.x Updated time window from 24 hours to 7 days for retry support.
-	 *
 	 * @return array|false The payment if found otherwise false.
 	 */
 	private function verify_transaction() {
@@ -360,8 +358,8 @@ class WPBDPStrpEventsController {
 			array(
 				'type'    => 'checkout.session.completed',
 				'created' => array(
-					// Extended to 7 days to handle payment retries after failures.
-					'gte' => time() - 7 * DAY_IN_SECONDS,
+					// Check for events created in the last 24 hours.
+					'gte' => time() - DAY_IN_SECONDS,
 				),
 			)
 		);
