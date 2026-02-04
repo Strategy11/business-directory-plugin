@@ -422,6 +422,13 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 					'quantity'    => 1,
 				),
 			);
+
+			// Include payment ID in payment intent metadata for retry handling.
+			$parameters['payment_intent_data'] = array(
+				'metadata' => array(
+					'wpbdp_payment_id' => $payment->id,
+				),
+			);
 		}
 
 		return $parameters;

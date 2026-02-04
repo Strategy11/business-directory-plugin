@@ -190,13 +190,7 @@ class WPBDPStrpEventsController {
 
 		switch ( $this->event->type ) {
 			case 'invoice.payment_failed':
-				if ( $parent_payment && 'stripe' === $parent_payment->gateway ) {
-					$cancel = WPBDPStrpConnectHelper::cancel_subscription( $subscription->get_subscription_id() );
-					if ( $cancel ) {
-						// Mark as canceled in BD.
-						$subscription->cancel();
-					}
-				}
+				$this->process_invoice_payment_failed( $subscription, $parent_payment );
 				break;
 			case 'invoice.payment_succeeded':
 				if ( ! $subscription ) {
@@ -213,6 +207,44 @@ class WPBDPStrpEventsController {
 			case 'payment_intent.succeeded':
 				$this->process_payment_intent();
 				break;
+		}
+	}
+
+	/**
+	 * Handle invoice.payment_failed events.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP__Listing_Subscription|null $subscription   The subscription object.
+	 * @param object|null                      $parent_payment The parent payment object.
+	 *
+	 * @return void
+	 */
+	private function process_invoice_payment_failed( $subscription, $parent_payment ) {
+		if ( ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
+			return;
+		}
+
+		$invoice = $this->invoice;
+
+		// Check if this is a final failure that should trigger cancellation.
+		// Stripe marks invoices as 'uncollectible' after all retry attempts fail.
+		$is_final_failure = isset( $invoice->status ) && 'uncollectible' === $invoice->status;
+
+		if ( ! $is_final_failure && ! empty( $invoice->subscription ) ) {
+			$sub_status       = isset( $invoice->subscription_details->status ) ? $invoice->subscription_details->status : '';
+			$is_final_failure = in_array( $sub_status, array( 'canceled', 'unpaid' ), true );
+		}
+
+		if ( ! $is_final_failure ) {
+			// Not a final failure - customer may retry. Don't cancel yet.
+			return;
+		}
+
+		$cancel = WPBDPStrpConnectHelper::cancel_subscription( $subscription->get_subscription_id() );
+		if ( $cancel ) {
+			// Mark as canceled.
+			$subscription->cancel();
 		}
 	}
 
@@ -267,20 +299,11 @@ class WPBDPStrpEventsController {
 	 * @return void
 	 */
 	private function process_payment_intent() {
-		$event = $this->event->data;
-
 		if ( empty( $this->invoice->id ) || 'manual' === $this->invoice->confirmation_method ) {
 			return;
 		}
 
-		$checkout = $this->verify_transaction();
-		if ( ! $checkout ) {
-			return;
-		}
-
-		$checkout = array_shift( $checkout );
-		$payment  = wpbdp_get_payment( $checkout->data->object->client_reference_id );
-
+		$payment = $this->find_payment_for_intent();
 		if ( ! $payment || 'completed' === $payment->status ) {
 			return;
 		}
@@ -302,19 +325,43 @@ class WPBDPStrpEventsController {
 	}
 
 	/**
+	 * Find the WPBDP payment associated with a payment intent.
+	 *
+	 * @since x.x
+	 *
+	 * @return WPBDP_Payment|null The payment object if found, null otherwise.
+	 */
+	private function find_payment_for_intent() {
+		$checkout = $this->verify_transaction();
+		if ( $checkout ) {
+			$checkout = array_shift( $checkout );
+			return wpbdp_get_payment( $checkout->data->object->client_reference_id );
+		}
+
+		// Fallback: Check if payment intent has metadata with payment ID.
+		if ( ! empty( $this->invoice->metadata->wpbdp_payment_id ) ) {
+			return wpbdp_get_payment( $this->invoice->metadata->wpbdp_payment_id );
+		}
+
+		return null;
+	}
+
+	/**
 	 * Check recent events for a payment intent match.
+	 *
+	 * @since x.x Updated time window from 24 hours to 7 days for retry support.
 	 *
 	 * @return array|false The payment if found otherwise false.
 	 */
 	private function verify_transaction() {
-		$payment = $this->invoice;
+		$payment_intent = $this->invoice;
 
 		$events = WPBDPStrpConnectHelper::get_events(
 			array(
 				'type'    => 'checkout.session.completed',
 				'created' => array(
-					// Check for events created in the last 24 hours.
-					'gte' => time() - 24 * 60 * 60,
+					// Extended to 7 days to handle payment retries after failures.
+					'gte' => time() - 7 * DAY_IN_SECONDS,
 				),
 			)
 		);
@@ -325,8 +372,8 @@ class WPBDPStrpEventsController {
 
 		$completed = array_filter(
 			$events,
-			function ( $event ) use ( $payment ) {
-				return isset( $event->data->object->payment_intent ) && $event->data->object->payment_intent === $payment->id;
+			function ( $event ) use ( $payment_intent ) {
+				return isset( $event->data->object->payment_intent ) && $event->data->object->payment_intent === $payment_intent->id;
 			}
 		);
 
