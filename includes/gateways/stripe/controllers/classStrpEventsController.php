@@ -221,7 +221,7 @@ class WPBDPStrpEventsController {
 	 * @return void
 	 */
 	private function process_invoice_payment_failed( $subscription, $parent_payment ) {
-		if ( ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
+		if ( ! $subscription || ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
 			return;
 		}
 
