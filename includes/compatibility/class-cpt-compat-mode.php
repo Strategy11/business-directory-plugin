@@ -84,7 +84,7 @@ class WPBDP__CPT_Compat_Mode {
 			return;
 		}
 
-		$node->href = $edit_link;
+		$node->href  = $edit_link;
 		$node->title = esc_html__( 'Edit Listing', 'business-directory-plugin' );
 		$wp_admin_bar->add_node( $node );
 	}
