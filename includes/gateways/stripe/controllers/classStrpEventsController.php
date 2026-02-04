@@ -225,26 +225,17 @@ class WPBDPStrpEventsController {
 			return;
 		}
 
-		$invoice = $this->invoice;
+		// Cancel the subscription in Stripe.
+		WPBDPStrpConnectHelper::cancel_subscription( $subscription->get_subscription_id() );
 
-		// Check if this is a final failure that should trigger cancellation.
-		// Stripe marks invoices as 'uncollectible' after all retry attempts fail.
-		$is_final_failure = isset( $invoice->status ) && 'uncollectible' === $invoice->status;
+		// Soft cancel: Mark listing as expired but preserve subscription data for potential recovery.
+		$listing = wpbdp_get_listing( $parent_payment->listing_id );
+		if ( $listing ) {
+			$listing->set_status( 'expired' );
+			$listing->set_post_status( 'draft' );
 
-		if ( ! $is_final_failure && ! empty( $invoice->subscription ) ) {
-			$sub_status       = isset( $invoice->subscription_details->status ) ? $invoice->subscription_details->status : '';
-			$is_final_failure = in_array( $sub_status, array( 'canceled', 'unpaid' ), true );
-		}
-
-		if ( ! $is_final_failure ) {
-			// Not a final failure - customer may retry. Don't cancel yet.
-			return;
-		}
-
-		$cancel = WPBDPStrpConnectHelper::cancel_subscription( $subscription->get_subscription_id() );
-		if ( $cancel ) {
-			// Mark as canceled.
-			$subscription->cancel();
+			// Store metadata to track this was a payment failure (for recovery on successful retry).
+			update_post_meta( $parent_payment->listing_id, '_wpbdp_stripe_payment_failed', time() );
 		}
 	}
 
@@ -322,6 +313,7 @@ class WPBDPStrpEventsController {
 		}
 
 		$payment->save();
+		$this->maybe_reactivate_listing( $payment->listing_id );
 	}
 
 	/**
@@ -352,13 +344,14 @@ class WPBDPStrpEventsController {
 	 * @return array|false The payment if found otherwise false.
 	 */
 	private function verify_transaction() {
-		$payment_intent = $this->invoice;
+		$payment = $this->invoice;
 
 		$events = WPBDPStrpConnectHelper::get_events(
 			array(
 				'type'    => 'checkout.session.completed',
 				'created' => array(
-					'gte' => time() - DAY_IN_SECONDS,
+					// Check for events created in the last 24 hours.
+					'gte' => time() - 24 * 60 * 60,
 				),
 			)
 		);
@@ -369,8 +362,8 @@ class WPBDPStrpEventsController {
 
 		$completed = array_filter(
 			$events,
-			function ( $event ) use ( $payment_intent ) {
-				return isset( $event->data->object->payment_intent ) && $event->data->object->payment_intent === $payment_intent->id;
+			function ( $event ) use ( $payment ) {
+				return isset( $event->data->object->payment_intent ) && $event->data->object->payment_intent === $payment->id;
 			}
 		);
 
@@ -424,6 +417,8 @@ class WPBDPStrpEventsController {
 			$parent_payment->gateway_tx_id = $invoice->charge;
 			$parent_payment->gateway       = 'stripe';
 			$parent_payment->save();
+
+			$this->maybe_reactivate_listing( $parent_payment->listing_id );
 			return;
 		}
 
@@ -446,5 +441,32 @@ class WPBDPStrpEventsController {
 			)
 		);
 		$subscription->renew();
+		$this->maybe_reactivate_listing( $parent_payment->listing_id );
+	}
+
+	/**
+	 * Reactivate a listing if it was previously marked as failed.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $listing_id The listing ID to check and potentially reactivate.
+	 *
+	 * @return void
+	 */
+	private function maybe_reactivate_listing( $listing_id ) {
+		$failed_timestamp = get_post_meta( $listing_id, '_wpbdp_stripe_payment_failed', true );
+		if ( ! $failed_timestamp ) {
+			return;
+		}
+
+		$listing = wpbdp_get_listing( $listing_id );
+		if ( ! $listing ) {
+			return;
+		}
+
+		$listing->set_status( 'complete' );
+		$listing->set_post_status( 'publish' );
+
+		delete_post_meta( $listing_id, '_wpbdp_stripe_payment_failed' );
 	}
 }
