@@ -227,13 +227,16 @@ class WPBDPStrpEventsController {
 
 		// Soft cancel: Mark listing as expired but preserve subscription data for potential recovery.
 		$listing = wpbdp_get_listing( $parent_payment->listing_id );
-		if ( $listing ) {
-			$listing->set_status( 'expired' );
-			$listing->set_post_status( 'draft' );
 
-			// Store metadata to track this was a payment failure (for recovery on successful retry).
-			update_post_meta( $parent_payment->listing_id, '_wpbdp_stripe_payment_failed', time() );
+		if ( ! $listing ) {
+			return;
 		}
+
+		$listing->set_status( 'expired' );
+		$listing->set_post_status( 'draft' );
+
+		// Store metadata to track this was a payment failure (for recovery on successful retry).
+		update_post_meta( $parent_payment->listing_id, '_wpbdp_stripe_payment_failed', time() );
 	}
 
 	/**
