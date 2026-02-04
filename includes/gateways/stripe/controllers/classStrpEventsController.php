@@ -358,7 +358,6 @@ class WPBDPStrpEventsController {
 			array(
 				'type'    => 'checkout.session.completed',
 				'created' => array(
-					// Check for events created in the last 24 hours.
 					'gte' => time() - DAY_IN_SECONDS,
 				),
 			)
