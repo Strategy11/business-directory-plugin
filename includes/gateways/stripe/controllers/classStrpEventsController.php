@@ -190,13 +190,7 @@ class WPBDPStrpEventsController {
 
 		switch ( $this->event->type ) {
 			case 'invoice.payment_failed':
-				if ( $parent_payment && 'stripe' === $parent_payment->gateway ) {
-					$cancel = WPBDPStrpConnectHelper::cancel_subscription( $subscription->get_subscription_id() );
-					if ( $cancel ) {
-						// Mark as canceled in BD.
-						$subscription->cancel();
-					}
-				}
+				$this->process_invoice_payment_failed( $subscription, $parent_payment );
 				break;
 			case 'invoice.payment_succeeded':
 				if ( ! $subscription ) {
@@ -214,6 +208,35 @@ class WPBDPStrpEventsController {
 				$this->process_payment_intent();
 				break;
 		}
+	}
+
+	/**
+	 * Handle invoice.payment_failed events.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP__Listing_Subscription|null $subscription   The subscription object.
+	 * @param object|null                      $parent_payment The parent payment object.
+	 *
+	 * @return void
+	 */
+	private function process_invoice_payment_failed( $subscription, $parent_payment ) {
+		if ( ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
+			return;
+		}
+
+		// Soft cancel: Mark listing as expired but preserve subscription data for potential recovery.
+		$listing = wpbdp_get_listing( $parent_payment->listing_id );
+
+		if ( ! $listing ) {
+			return;
+		}
+
+		$listing->set_status( 'expired' );
+		$listing->set_post_status( 'draft' );
+
+		// Store metadata to track this was a payment failure (for recovery on successful retry).
+		update_post_meta( $parent_payment->listing_id, '_wpbdp_stripe_payment_failed', time() );
 	}
 
 	/**
@@ -267,20 +290,11 @@ class WPBDPStrpEventsController {
 	 * @return void
 	 */
 	private function process_payment_intent() {
-		$event = $this->event->data;
-
 		if ( empty( $this->invoice->id ) || 'manual' === $this->invoice->confirmation_method ) {
 			return;
 		}
 
-		$checkout = $this->verify_transaction();
-		if ( ! $checkout ) {
-			return;
-		}
-
-		$checkout = array_shift( $checkout );
-		$payment  = wpbdp_get_payment( $checkout->data->object->client_reference_id );
-
+		$payment = $this->find_payment_for_intent();
 		if ( ! $payment || 'completed' === $payment->status ) {
 			return;
 		}
@@ -299,6 +313,29 @@ class WPBDPStrpEventsController {
 		}
 
 		$payment->save();
+		$this->maybe_reactivate_listing( $payment->listing_id );
+	}
+
+	/**
+	 * Find the WPBDP payment associated with a payment intent.
+	 *
+	 * @since x.x
+	 *
+	 * @return WPBDP_Payment|null The payment object if found, null otherwise.
+	 */
+	private function find_payment_for_intent() {
+		$checkout = $this->verify_transaction();
+		if ( $checkout ) {
+			$checkout = array_shift( $checkout );
+			return wpbdp_get_payment( $checkout->data->object->client_reference_id );
+		}
+
+		// Fallback: Check if payment intent has metadata with payment ID.
+		if ( ! empty( $this->invoice->metadata->wpbdp_payment_id ) ) {
+			return wpbdp_get_payment( $this->invoice->metadata->wpbdp_payment_id );
+		}
+
+		return null;
 	}
 
 	/**
@@ -380,6 +417,8 @@ class WPBDPStrpEventsController {
 			$parent_payment->gateway_tx_id = $invoice->charge;
 			$parent_payment->gateway       = 'stripe';
 			$parent_payment->save();
+
+			$this->maybe_reactivate_listing( $parent_payment->listing_id );
 			return;
 		}
 
@@ -402,5 +441,32 @@ class WPBDPStrpEventsController {
 			)
 		);
 		$subscription->renew();
+		$this->maybe_reactivate_listing( $parent_payment->listing_id );
+	}
+
+	/**
+	 * Reactivate a listing if it was previously marked as failed.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $listing_id The listing ID to check and potentially reactivate.
+	 *
+	 * @return void
+	 */
+	private function maybe_reactivate_listing( $listing_id ) {
+		$failed_timestamp = get_post_meta( $listing_id, '_wpbdp_stripe_payment_failed', true );
+		if ( ! $failed_timestamp ) {
+			return;
+		}
+
+		$listing = wpbdp_get_listing( $listing_id );
+		if ( ! $listing ) {
+			return;
+		}
+
+		$listing->set_status( 'complete' );
+		$listing->set_post_status( 'publish' );
+
+		delete_post_meta( $listing_id, '_wpbdp_stripe_payment_failed' );
 	}
 }
