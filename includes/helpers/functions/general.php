@@ -979,6 +979,10 @@ function wpbdp_get_taxonomy_link( $taxonomy, $link = '' ) {
 	return wpbdp_url( sprintf( '/%s/%s/', wpbdp_get_option( 'permalinks-' . $taxonomy_type . '-slug' ), $taxonomy->slug ) );
 }
 
+/**
+ * Use this when the template should not be overridden, or it has already
+ * gone through the override check.
+ */
 function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
 	if ( empty( $template ) ) {
 		return '';
@@ -1003,48 +1007,21 @@ function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
 	return $html;
 }
 
-function wpbdp_locate_template( $template, $allow_override = true, $try_defaults = true ) {
+/**
+ * Also used to get taxonomy template when WPBDP is not using CPT.
+ *
+ * @uses WPBDP_Themes::locate_template()
+ *
+ * @used-by wpbdp_render()
+ */
+function wpbdp_locate_template( $template, $allow_override = true ) {
 	$template_file = '';
 
 	if ( ! is_array( $template ) ) {
 		$template = array( $template );
 	}
 
-	if ( $allow_override ) {
-		global $wpbdp;
-
-		$search_for    = array();
-		$template_file = '';
-
-		foreach ( $template as $t ) {
-			$template_file = $wpbdp->themes->locate_template( $t );
-			if ( $template_file ) {
-				break;
-			}
-
-			// These file checks could be a little risky and get unintended results.
-			if ( wpbdp_get_option( 'disable-cpt' ) ) {
-				$search_for[] = $t . '.tpl.php';
-				$search_for[] = $t . '.php';
-				$search_for[] = 'single/' . $t . '.tpl.php';
-				$search_for[] = 'single/' . $t . '.php';
-			}
-		}
-
-		// Check for the template in the WP theme.
-		if ( empty( $template_file ) ) {
-			$template_file = locate_template( $search_for );
-		}
-	}
-
-	if ( $template_file && ! $try_defaults ) {
-		_deprecated_argument( __FUNCTION__, '5.13.2', 'Defaults are always checked here. Use $wpbdp->themes->template_has_override' );
-
-		// Temporary reverse compatibility: The BD folder was checked when it shouldn't be. Remove it.
-		if ( strpos( $template_file, WPBDP_TEMPLATES_PATH ) !== false ) {
-			$template_file = '';
-		}
-	} elseif ( ! $allow_override ) {
+	if ( ! $allow_override ) {
 		// Only get the core file if it hasn't already been checked.
 		foreach ( $template as $t ) {
 			$template_path = WPBDP_TEMPLATES_PATH . '/' . $t . '.tpl.php';
@@ -1054,11 +1031,49 @@ function wpbdp_locate_template( $template, $allow_override = true, $try_defaults
 				break;
 			}
 		}
+		return $template_file;
+	}
+
+	global $wpbdp;
+
+	$search_for    = array();
+	$template_file = '';
+
+	foreach ( $template as $t ) {
+		$template_file = $wpbdp->themes->locate_template( $t );
+		if ( $template_file ) {
+			break;
+		}
+
+		// These file checks could be a little risky and get unintended results.
+		if ( wpbdp_get_option( 'disable-cpt' ) ) {
+			$search_for[] = $t . '.tpl.php';
+			$search_for[] = $t . '.php';
+			$search_for[] = 'single/' . $t . '.tpl.php';
+			$search_for[] = 'single/' . $t . '.php';
+		}
+	}
+
+	// Check for the template in the WP theme when CPT is disabled.
+	if ( empty( $template_file ) ) {
+		$template_file = locate_template( $search_for );
+		if ( $template_file ) {
+			$expected = 'business-directory/' . str_replace( ' ', '-', $template[0] ) . '.tpl.php';
+			_deprecated_argument(
+				__FUNCTION__,
+				'6.4',
+				'This template will not be used in a future release: ' . $template_file .
+				'. Please use the template file ' . $expected . ' instead.'
+			);
+		}
 	}
 
 	return $template_file;
 }
 
+/**
+ * @uses wpbdp_render_page()
+ */
 function wpbdp_render( $template, $vars = array(), $allow_override = true ) {
 	$vars          = wp_parse_args(
 		$vars,
