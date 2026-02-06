@@ -2,10 +2,10 @@
 /**
  * Template listing excerpt view.
  *
+ * Template Blocks: before, after
+ *
  * @package BDP/Templates/Excerpt
  */
-
-$__template__ = array( 'blocks' => array( 'before', 'after' ) );
 ?>
 <div id="<?php echo esc_attr( $listing_css_id ); ?>" class="<?php echo esc_attr( $listing_css_class ); ?>" data-breakpoints='{"medium": [560,780], "large": [780,999999]}' data-breakpoints-class-prefix="wpbdp-listing-excerpt">
 	<?php

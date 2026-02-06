@@ -607,10 +607,6 @@ class WPBDP_Themes {
 
 		$html = wpbdp_render_page( $path, $vars );
 
-		if ( isset( $__template__['blocks'] ) && is_array( $__template__['blocks'] ) ) {
-			$template_meta['blocks'] = array_merge( $__template__['blocks'], $template_meta['blocks'] );
-		}
-
 		$is_part = isset( $vars['_part'] ) && $vars['_part'];
 
 		// Add before/after to the HTML directly.
