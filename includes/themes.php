@@ -66,6 +66,10 @@ class WPBDP_Themes {
 
 	/**
 	 * Get the paths from locate_template() in WordPress core.
+	 *
+	 * @since x.x
+	 *
+	 * @return void
 	 */
 	private function add_wp_theme_dir() {
 		$stylesheet_path = get_stylesheet_directory();
