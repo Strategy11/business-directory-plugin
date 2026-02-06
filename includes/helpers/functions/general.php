@@ -1060,7 +1060,7 @@ function wpbdp_locate_template( $template, $allow_override = true ) {
 		if ( $template_file ) {
 			$expected = 'business-directory/' . str_replace( ' ', '-', $template[0] ) . '.tpl.php';
 			_deprecated_argument(
-				'template',
+				__FUNCTION__,
 				'6.4',
 				'This template will not be used in a future release: ' . $template_file .
 				'. Please use the template file ' . $expected . ' instead.'
