@@ -1011,6 +1011,7 @@ function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
  * Also used to get taxonomy template when WPBDP is not using CPT.
  *
  * @uses WPBDP_Themes::locate_template()
+ *
  * @used-by wpbdp_render()
  */
 function wpbdp_locate_template( $template, $allow_override = true ) {

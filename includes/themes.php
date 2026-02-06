@@ -842,14 +842,13 @@ class WPBDP_Themes {
 	/**
 	 * Find the template file in the theme, core, or custom location.
 	 *
-	 *
 	 * @used-by wpbdp_render()
 	 * @used-by wpbdp_x_render()
 	 * @used-by wpbdp_x_part()
 	 *
 	 * @param string $id Template name.
 	 *
-	 * @return string|bool Path to template file or false if not found.
+	 * @return bool|string Path to template file or false if not found.
 	 */
 	public function locate_template( $id ) {
 		$id = str_replace( '.tpl.php', '', $id );
